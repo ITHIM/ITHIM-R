@@ -26,3 +26,21 @@ individual_mmet$total_mmet <- ifelse(is.na(individual_mmet$total_mmet), 0, indiv
 
 individual_mmet  %>% group_by(female, agecat) %>% summarise(mean = mean(total_mmet))
 
+# # A tibble: 12 x 3
+# # Groups:   female [?]
+# female agecat    mean
+# <fct>  <fct>    <dbl>
+#   1 No     16 to 24 28.5 
+# 2 No     25 to 34 27.0 
+# 3 No     35 to 49 14.3 
+# 4 No     50 to 64  8.88
+# 5 No     65 to 74  7.05
+# 6 No     75 plus   4.68
+# 7 Yes    16 to 24 13.9 
+# 8 Yes    25 to 34 11.6 
+# 9 Yes    35 to 49  9.81
+# 10 Yes    50 to 64  7.19
+# 11 Yes    65 to 74  5.35
+# 12 Yes    75 plus   3.60
+
+
