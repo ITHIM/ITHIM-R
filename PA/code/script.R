@@ -10,9 +10,15 @@ baseline <- readstata13::read.dta13("PA/data/SPtrip_CensusNTSAPS_E06000001.dta")
 baseline$female <- as.character(baseline$female)
 baseline$agecat <- as.character(baseline$agecat)
 
+baseline$trip_cycletime_min <- ifelse(is.na(baseline$trip_cycletime_min), 0, baseline$trip_cycletime_min)
+
+baseline$trip_walktime_min <- ifelse(is.na(baseline$trip_walktime_min), 0, baseline$trip_walktime_min)
+
 baseline$trip_cycletime_hr <- baseline$trip_cycletime_min / 60
 
 baseline$trip_walktime_hr <- baseline$trip_walktime_min / 60
+
+
 
 # Initialize  energy expenditure constants - taken from ICT
 METCycling <- 5.63
