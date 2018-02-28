@@ -4,7 +4,12 @@ library(sqldf)
 # Read combined individual travel survey and Physical Activity data
 # baseline <- read.csv("PA/data/180219_Metahit10000_v2_nolabel.csv", header = T, stringsAsFactors = F)
 
-baseline <- readstata13::read.dta13("PA/data/SPtrip_CensusNTSAPS_E06000001.dta", convert.factors = T, generate.factors = F)
+baseline <- readstata13::read.dta13("PA/data/SPtrip_CensusNTSAPS_E06000001.dta")
+
+
+## Convert factors to non-factors
+baseline$female <- as.integer(baseline$female)
+baseline$agecat <- as.character(baseline$agecat)
 
 baseline$trip_cycletime_hr <- baseline$trip_cycletime_min / 60
 
@@ -16,7 +21,8 @@ METWalking <- 3.53
 METEbikes <- 4.50
 
 individual_mmet <- sqldf('select census_id, female, agecat, sum(trip_cycletime_hr) as cycleNTS_wkhr,
-                         sum(trip_walktime_hr) as walkNTS_wkhr, sport_wkmmets
+                         sum(trip_walktime_hr) as walkNTS_wkhr, 
+                         sport_wkmmets
                          from baseline group by census_id')
 
 individual_mmet$total_mmet <- ((METCycling - 1) * individual_mmet$cycleNTS_wkhr) + 
@@ -42,5 +48,3 @@ individual_mmet  %>% group_by(female, agecat) %>% summarise(mean = mean(total_mm
 # 10 Yes    50 to 64  7.19
 # 11 Yes    65 to 74  5.35
 # 12 Yes    75 plus   3.60
-
-
