@@ -6,9 +6,8 @@ library(sqldf)
 
 baseline <- readstata13::read.dta13("PA/data/SPtrip_CensusNTSAPS_E06000001.dta")
 
-
 ## Convert factors to non-factors
-baseline$female <- as.integer(baseline$female)
+baseline$female <- as.character(baseline$female)
 baseline$agecat <- as.character(baseline$agecat)
 
 baseline$trip_cycletime_hr <- baseline$trip_cycletime_min / 60
