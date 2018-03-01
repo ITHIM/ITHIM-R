@@ -10,19 +10,13 @@ METCycling <- 5.63
 METWalking <- 3.53
 METEbikes <- 4.50
 
-
 # Read combined individual travel survey and Physical Activity data
 # baseline <- read.csv("PA/data/180219_Metahit10000_v2_nolabel.csv", header = T, stringsAsFactors = F)
-baseline <- readstata13::read.dta13("PA/data/SPtrip_CensusNTSAPS_E06000001.dta")
+raw_data <- readstata13::read.dta13("PA/data/SPtrip_CensusNTSAPS_E06000001.dta")
 
 # Sample 10k unique IDs
-ids <- sample_n(as.data.frame(baseline$census_id), 1000, replace = F)
-
-## Randomly trips for the 10k people
-baseline <- filter(baseline, census_id %in% ids$`baseline$census_id`)
-
-
-sb <- baseline %>% group_by(census_id) %>% sample_n(size = 100,  replace = FALSE)
+# Randomly trips for the 10k people
+baseline <- raw_data %>% filter(census_id %in% sample(unique(census_id), 1000)) 
 
 ## Convert factors to non-factors
 baseline$female <- as.character(baseline$female)
