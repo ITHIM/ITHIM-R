@@ -1,4 +1,4 @@
-setwd('/home/rob/overflow_dropbox/ITHIM-R/')
+setwd('/home/rob/overflow_dropbox/ITHIM-R/injuries/')
 library(shiny)
 library(shinyjs)
 library(shinydashboard)
