@@ -1,0 +1,58 @@
+ui <- fluidPage(
+  tags$head(
+    tags$style(HTML("hr {border-top: 1px solid #000000;}"))
+  ),
+  sidebarLayout(position='left',
+    # Sidebar panel for inputs
+    sidebarPanel('Inputs',
+      # Injury file input
+      fileInput(inputId='injuryfile', label='Upload injury data',
+        accept = c(
+          "text/csv",
+          "text/comma-separated-values,text/plain",
+          ".xlsx",
+          ".csv")
+      ),
+      # Distance file input
+      ##TODO this will go when we have a true synthetic population from which to obtain distance data
+      uiOutput('ui.distance'),
+      # Toggle switch to choose between poisson and NB models
+      uiOutput('ui.modeltoggle'),
+      # Button to compute model
+      uiOutput('ui.compute'),
+      # Button to save model
+      uiOutput('ui.save'),
+      hr(),
+      # Button to import saved model
+      fileInput(inputId='file2', label='Import saved model',
+        accept = c(
+          ".Rdata",
+          ".RData")
+      ),
+      # Rob's shortcut to get Mexico model
+      ##TODO remove
+      actionButton('mexico','Use saved Mexico model'),
+      hr(),
+      # Choose which covariate to plot
+      uiOutput('ui.group'),
+      # Choose which realisation of covariate to plot
+      uiOutput('ui.subgroup'),
+      # Choose which other covariate to plot over
+      uiOutput('ui.over'),
+      # Radio button: plot SE or not
+      uiOutput('ui.se'),
+      # Choose quantiles
+      conditionalPanel(
+        condition = "input.SE == true",
+        numericInput("lq", "Lower quantile", 0.25),
+        numericInput("uq", "Upper quantile", 0.75)
+      ),
+      # Button to plot/renew plot
+      uiOutput('ui.plot')
+    ),
+    # Main panel shows the results
+    mainPanel(
+      plotOutput(outputId = "plot", width = "500px", height = "800px")
+    )
+  )
+)
