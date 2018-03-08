@@ -21,11 +21,6 @@ METEbikes <- 4.50
 # baseline <- read.csv("PA/data/180219_Metahit10000_v2_nolabel.csv", header = T, stringsAsFactors = F)
 raw_data <- haven::read_dta("PA/data/SPtrip_CensusNTSAPS_E06000001.dta")
 
-# raw_data$female <- as.character(raw_data$female)
-# raw_data$agecat <- as.character(raw_data$agecat)
-# raw_data$trip_mainmode <- as.character(raw_data$trip_mainmode)
-
-
 raw_data$id <- 1:nrow(raw_data)
 
 # Sample 10k unique IDs
@@ -35,12 +30,6 @@ baseline <- raw_data %>% filter(census_id %in% sample(unique(census_id), 1000))
 # Remove labels
 baseline <- clear.labels(baseline)
 
-
-## Convert factors to non-factors
-# baseline$female <- as.character(baseline$female)
-# baseline$agecat <- as.character(baseline$agecat)
-# baseline$trip_mainmode <- as.character(baseline$trip_mainmode)
-
 baseline$trip_cycletime_min <- ifelse(is.na(baseline$trip_cycletime_min), 0, baseline$trip_cycletime_min)
 
 baseline$trip_walktime_min <- ifelse(is.na(baseline$trip_walktime_min), 0, baseline$trip_walktime_min)
@@ -48,11 +37,6 @@ baseline$trip_walktime_min <- ifelse(is.na(baseline$trip_walktime_min), 0, basel
 baseline$trip_cycletime_hr <- baseline$trip_cycletime_min / 60
 
 baseline$trip_walktime_hr <- baseline$trip_walktime_min / 60
-
-# individual_mmet  <- baseline %>% 
-#   group_by(census_id) %>% summarise(cycleNTS_wkhr = sum(trip_cycletime_hr), walkNTS_wkhr = sum(trip_walktime_hr))
-# 
-# individual_mmet <- left_join(select(baseline, census_id, female), individual_mmet, , by = "census_id")
 
 individual_mmet <- sqldf('select census_id, female, agecat, sum(trip_cycletime_hr) as cycleNTS_wkhr,
                          sum(trip_walktime_hr) as walkNTS_wkhr,
@@ -66,16 +50,16 @@ individual_mmet$total_mmet <- ifelse(is.na(individual_mmet$total_mmet), 0, indiv
 
 b_mmet <- individual_mmet  %>% group_by(female, agecat) %>% summarise(mean = mean(total_mmet))
 
-#Convert trip_mode to character
-# baseline$trip_mainmode <- as.character(baseline$trip_mainmode)
-
 # Define a scenario
 # Switch modes
 # Create cycling specifics distances
 
+## Make a lookup table for modes
+trip_mode <- data.frame(mode = unique(as_factor(raw_data$trip_mainmode, labels = "values")), val = 1:length(unique(as_factor(raw_data$trip_mainmode, labels = "values"))) )
+
 # Sample 10k unique IDs
 # Select trips for the 10k people
-sc <- baseline %>% filter(trip_mainmode != 'Bicycle' & census_id %in% sample(unique(census_id), 100))
+sc <- baseline %>% filter(trip_mainmode != (filter(trip_mode, mode == 'Bicycle') %>% distinct(val) %>% as.integer()) & census_id %in% sample(unique(census_id), 100))
 sc[sc$nts_tripid %in% sc$nts_tripid, ]$trip_cycletime_hr <- sc[sc$nts_tripid %in% sc$nts_tripid, ]$trip_durationraw_min / 60
 
 nbaseline <- baseline
@@ -93,6 +77,3 @@ individual_mmet_sc$total_mmet <- ((METCycling - 1) * individual_mmet_sc$cycleNTS
 individual_mmet_sc$total_mmet <- ifelse(is.na(individual_mmet_sc$total_mmet), 0, individual_mmet_sc$total_mmet)
 
 sc_mmet <- individual_mmet_sc  %>% group_by(female, agecat) %>% summarise(mean = mean(total_mmet))
-
-
-
