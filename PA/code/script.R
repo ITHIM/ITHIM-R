@@ -2,10 +2,14 @@
 rm (list = ls())
 # Load packages
 library(tidyverse)
+library(haven)
 library(sqldf)
 
 #Set seed
 set.seed(1)
+
+# Load all functions
+source("PA/code/functions.R")
 
 # Constants
 # Initialize  energy expenditure constants - taken from ICT
@@ -15,7 +19,12 @@ METEbikes <- 4.50
 
 # Read combined individual travel survey and Physical Activity data
 # baseline <- read.csv("PA/data/180219_Metahit10000_v2_nolabel.csv", header = T, stringsAsFactors = F)
-raw_data <- readstata13::read.dta13("PA/data/SPtrip_CensusNTSAPS_E06000001.dta")
+raw_data <- haven::read_dta("PA/data/SPtrip_CensusNTSAPS_E06000001.dta")
+
+# raw_data$female <- as.character(raw_data$female)
+# raw_data$agecat <- as.character(raw_data$agecat)
+# raw_data$trip_mainmode <- as.character(raw_data$trip_mainmode)
+
 
 raw_data$id <- 1:nrow(raw_data)
 
@@ -23,9 +32,14 @@ raw_data$id <- 1:nrow(raw_data)
 # Select trips for the 10k people
 baseline <- raw_data %>% filter(census_id %in% sample(unique(census_id), 1000)) 
 
+# Remove labels
+baseline <- clear.labels(baseline)
+
+
 ## Convert factors to non-factors
-baseline$female <- as.character(baseline$female)
-baseline$agecat <- as.character(baseline$agecat)
+# baseline$female <- as.character(baseline$female)
+# baseline$agecat <- as.character(baseline$agecat)
+# baseline$trip_mainmode <- as.character(baseline$trip_mainmode)
 
 baseline$trip_cycletime_min <- ifelse(is.na(baseline$trip_cycletime_min), 0, baseline$trip_cycletime_min)
 
@@ -53,7 +67,7 @@ individual_mmet$total_mmet <- ifelse(is.na(individual_mmet$total_mmet), 0, indiv
 b_mmet <- individual_mmet  %>% group_by(female, agecat) %>% summarise(mean = mean(total_mmet))
 
 #Convert trip_mode to character
-baseline$trip_mainmode <- as.character(baseline$trip_mainmode)
+# baseline$trip_mainmode <- as.character(baseline$trip_mainmode)
 
 # Define a scenario
 # Switch modes
@@ -79,8 +93,6 @@ individual_mmet_sc$total_mmet <- ((METCycling - 1) * individual_mmet_sc$cycleNTS
 individual_mmet_sc$total_mmet <- ifelse(is.na(individual_mmet_sc$total_mmet), 0, individual_mmet_sc$total_mmet)
 
 sc_mmet <- individual_mmet_sc  %>% group_by(female, agecat) %>% summarise(mean = mean(total_mmet))
-W
-
 
 
 
