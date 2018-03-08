@@ -58,7 +58,7 @@ b_mmet <- individual_mmet  %>% group_by(female, agecat) %>% summarise(mean = mea
 
 # Sample 10k unique IDs
 # Select trips for the 10k people
-sc <- baseline %>% filter(trip_mainmode != (filter(trip_mode, mode == 'Bicycle') %>% distinct(val) %>% as.integer()) & census_id %in% sample(unique(census_id), 100))
+sc <- baseline %>% filter(trip_mainmode != (filter(lt, names == 'trip_mainmode' & val == 'Bicycle') %>% distinct(id) %>% as.integer()) & census_id %in% sample(unique(census_id), 100))
 sc[sc$nts_tripid %in% sc$nts_tripid, ]$trip_cycletime_hr <- sc[sc$nts_tripid %in% sc$nts_tripid, ]$trip_durationraw_min / 60
 
 nbaseline <- baseline
