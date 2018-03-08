@@ -11,3 +11,15 @@ clear.labels <- function(x) {
   }
   return(x)
 }
+
+
+create.lookups <- function(df, cols){
+  lt <- data.frame(name = NULL, id = NULL, val = NULL)
+  for (i in 1:length(cols)){
+    val <- as.character(unique(as_factor(df[[cols[i]]], labels = "values")))
+    id <- unique(df[[cols[i]]])
+    m <- matrix(c(rep(cols[i], length(id)), id, val), nrow = length(id), ncol = 3)
+    lt <- rbind(lt, as.data.frame(m))
+  }
+  lt
+}
