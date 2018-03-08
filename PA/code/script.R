@@ -23,6 +23,8 @@ raw_data <- haven::read_dta("PA/data/SPtrip_CensusNTSAPS_E06000001.dta")
 
 raw_data$id <- 1:nrow(raw_data)
 
+lt <- create.lookups(raw_data, c("female", "agecat", "agecat_det", "trip_mainmode"))
+
 # Sample 10k unique IDs
 # Select trips for the 10k people
 baseline <- raw_data %>% filter(census_id %in% sample(unique(census_id), 1000)) 
@@ -53,9 +55,6 @@ b_mmet <- individual_mmet  %>% group_by(female, agecat) %>% summarise(mean = mea
 # Define a scenario
 # Switch modes
 # Create cycling specifics distances
-
-## Make a lookup table for modes
-trip_mode <- data.frame(mode = unique(as_factor(raw_data$trip_mainmode, labels = "values")), val = 1:length(unique(as_factor(raw_data$trip_mainmode, labels = "values"))) )
 
 # Sample 10k unique IDs
 # Select trips for the 10k people
