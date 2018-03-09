@@ -126,50 +126,6 @@ server <- function(input, output){
   # makes the plots
   output$plot <- renderPlot({
     plotObjects()
-    fit <- list()
-    tab <- list()
-    fit[[1]] <- object_store$fit_whw
-    tab[[1]] <- object_store$tab_whw
-    fit[[2]] <- object_store$fit_nov
-    tab[[2]] <- object_store$tab_nov
-    covariate <- paste(strsplit(input$group,' ')[[1]],collapse='_')
-    subgroup <- input$subgroup
-    over <- paste(strsplit(input$over,' ')[[1]],collapse='_')
-    # how to handle the two data sets. Either: 1 prediction, summed over; 2 predictions, concatenated; or 2 predictions, appended.
-    ##TODO generalise to arbitrary covariates.
-    rounds <- c(1,2)
-    if(covariate=='Strike_mode') rounds <- as.numeric(subgroup%in%unique(tab[[2]][[covariate]]))+1
-    medians <- lower <- upper <- list()
-    for(i in rounds){
-      overs <- unique(tab[[i]][[over]])
-      tab2 <- tab1 <- tab[[i]][tab[[i]][[covariate]]==subgroup,]
-      ##TODO tab2 is the scenario. The data will be obtained from somewhere TBC.
-      tab2$cas_distance <- tab1$cas_distance*1.1
-      pred <- pred_generation(fit[[i]],tab1,tab2,input,over,overs)
-      medians[[i]] <- pred[[1]]
-      lower[[i]] <- pred[[2]]
-      upper[[i]] <- pred[[3]]
-    }
-    ##TODO check whether these make sense when we have addition covariates e.g. strike age
-    ##TODO there will be additional constraints, e.g. if covariate=strike age and we want to plot over strike mode, we do not need to concatenate or sum, as we won't use tab_nov
-    # if covariate=strike mode, we are looking at one option from strike mode, which determines which data set we need
-    if(covariate=='Strike_mode'){
-      medians <- medians[[rounds]]
-      lower <- lower[[rounds]]
-      upper <- upper[[rounds]]
-      names <- unique(tab[[rounds]][[over]])
-    }else if(over=='Strike_mode'){ # if we are plotting over strike mode, we need to calculate two models and concatenate results
-      medians <- cbind(medians[[1]],medians[[2]])
-      lower <- cbind(lower[[1]],lower[[2]])
-      upper <- cbind(upper[[1]],upper[[2]])
-      names <- c(unique(as.character(tab[[1]][[over]])),unique(as.character(tab[[2]][[over]])))
-    }else{ # otherwise, we are adding up over strike modes
-      medians <- medians[[1]]+medians[[2]]
-      lower <- lower[[1]]+lower[[2]]
-      upper <- upper[[1]]+upper[[2]]
-      names <- unique(tab[[1]][[over]])
-    }
-    par(mar=c(7,5,3,1),mfrow=c(2,1)); 
-    plotBars(medians=medians,main=input$subgroup,upper=upper,lower=lower,names=names,SE=input$SE)
+    prepPlots(object_store,input)
   })
 }

@@ -10,6 +10,8 @@ library(MASS)
 library(splines)
 library(gtools)
 
+if(exists('useShiny')) rm(useShiny)
+
 ## function to fit model
 fitModel <- function(object_store){
   injuries <- object_store$injuries
@@ -33,6 +35,7 @@ fitModel <- function(object_store){
   ##TODO add in option to put distance for buses and hgvs, distributed systematically across population
   whw_codes <- c()
   nov_codes <- c()
+  ##TODO what to do if there are data for e.g. bus but not hgv
   for(i in 1:length(covlabels[[2]])){
     modes <- strsplit(covlabels[[2]][i],'/')[[1]]
     if(sum(modes%in%names(distance))){whw_codes <- c(whw_codes,i-1)}
@@ -59,14 +62,22 @@ fitModel <- function(object_store){
   names(tab) <- covariates
   tab$count <- 0
   ##TODO rewrite to be less specific to Mexico example
-  withProgress(message = 'Merging distance and injury data', value = 0, {
+  if(exists('useShiny')){
     for(i in 1:length(tab$count)){
       tab$count[i] <- sum(as.numeric(fatal[covlabels[[1]][as.numeric(substr(rownames(fatal),2,2))+1]==as.character(tab[[covariates[1]]][i])&
           covlabels[[2]][as.numeric(substr(rownames(fatal),3,3))+1]==as.character(tab[[covariates[2]]][i]),
         injuries[minV-2,]==as.character(tab[[covariates[3]]][i])&injuries[minV-1,]==as.character(tab[[covariates[4]]][i])]))
-      incProgress(1/length(tab$count))
     }
-  })
+  }else{
+    withProgress(message = 'Merging distance and injury data', value = 0, {
+      for(i in 1:length(tab$count)){
+        tab$count[i] <- sum(as.numeric(fatal[covlabels[[1]][as.numeric(substr(rownames(fatal),2,2))+1]==as.character(tab[[covariates[1]]][i])&
+            covlabels[[2]][as.numeric(substr(rownames(fatal),3,3))+1]==as.character(tab[[covariates[2]]][i]),
+          injuries[minV-2,]==as.character(tab[[covariates[3]]][i])&injuries[minV-1,]==as.character(tab[[covariates[4]]][i])]))
+        incProgress(1/length(tab$count))
+      }
+    })
+  }
   
   ##TODO can we assess here how well various models might work?
   # merge in distance data
@@ -119,7 +130,7 @@ fitModel <- function(object_store){
   # select a different formula for each model
   results_whw <- list()
   results_nov <- list()
-  withProgress(message = 'Testing models', value = 0, {
+  if(exists('useShiny')){
     for(j in 1:length(groups)){
       formula <- 'count~offset(log(cas_distance))+offset(log(strike_distance))'
       for(i in 1:length(covariates)) formula <- paste(c(formula,covariates[i]),collapse='+')
@@ -136,9 +147,29 @@ fitModel <- function(object_store){
       }
       results_whw[[length(results_whw)+1]] <- list(form1,formula)
       results_nov[[length(results_nov)+1]] <- list(form2,formula)
-      incProgress(1/length(groups), detail = paste("Trying model ", j))
     }
-  })
+  }else{
+    withProgress(message = 'Testing models', value = 0, {
+      for(j in 1:length(groups)){
+        formula <- 'count~offset(log(cas_distance))+offset(log(strike_distance))'
+        for(i in 1:length(covariates)) formula <- paste(c(formula,covariates[i]),collapse='+')
+        for(i in groups[[j]]){
+          term <- paste(covariates[interaction_indices[[i]]],collapse='*')
+          formula <- paste(c(formula,term),collapse='+')
+        }
+        if(object_store$model=='poisson'){
+          form1 <- test_poisson_model(formula,tab_whw)
+          form2 <- test_poisson_model(formula,tab_nov)
+        }else if(object_store$model=='NB'){
+          form1 <- test_model(formula,tab_whw)
+          form2 <- test_model(formula,tab_nov)
+        }
+        results_whw[[length(results_whw)+1]] <- list(form1,formula)
+        results_nov[[length(results_nov)+1]] <- list(form2,formula)
+        incProgress(1/length(groups), detail = paste("Trying model ", j))
+      }
+    })
+  }
   # select best model for each data set
   if(sum(sapply(results_whw, function(x)is.null(x[[1]])))>0) results_whw <- results_whw[-which(sapply(results_whw, function(x)is.null(x[[1]])))]
   aics <- sapply(results_whw,function(x)x[[1]])
@@ -287,6 +318,53 @@ pred_NB <- function(size,tab1,tab2,over,overs,mu1,mu2,lq,uq){
   upper <- rbind(sapply(overs,function(x)qnbinom(uq,size=size,mu=sum(mu1[tab1[[over]]==x]))),
     sapply(overs,function(x)qnbinom(uq,size=size,mu=sum(mu2[tab2[[over]]==x]))))
   list(medians,lower,upper)
+}
+
+prepPlots <- function(object_store,input){
+  fit <- list()
+  tab <- list()
+  fit[[1]] <- object_store$fit_whw
+  tab[[1]] <- object_store$tab_whw
+  fit[[2]] <- object_store$fit_nov
+  tab[[2]] <- object_store$tab_nov
+  covariate <- paste(strsplit(input$group,' ')[[1]],collapse='_')
+  subgroup <- input$subgroup
+  over <- paste(strsplit(input$over,' ')[[1]],collapse='_')
+  # how to handle the two data sets. Either: 1 prediction, summed over; 2 predictions, concatenated; or 2 predictions, appended.
+  ##TODO generalise to arbitrary covariates.
+  rounds <- c(1,2)
+  if(covariate=='Strike_mode') rounds <- as.numeric(subgroup%in%unique(tab[[2]][[covariate]]))+1
+  medians <- lower <- upper <- list()
+  for(i in rounds){
+    overs <- unique(tab[[i]][[over]])
+    tab2 <- tab1 <- tab[[i]][tab[[i]][[covariate]]==subgroup,]
+    ##TODO tab2 is the scenario. The data will be obtained from somewhere TBC.
+    tab2$cas_distance <- tab1$cas_distance*1.1
+    pred <- pred_generation(fit[[i]],tab1,tab2,input,over,overs)
+    medians[[i]] <- pred[[1]]
+    lower[[i]] <- pred[[2]]
+    upper[[i]] <- pred[[3]]
+  }
+  ##TODO check whether these make sense when we have addition covariates e.g. strike age
+  ##TODO there will be additional constraints, e.g. if covariate=strike age and we want to plot over strike mode, we do not need to concatenate or sum, as we won't use tab_nov
+  if(covariate=='Strike_mode'){ # if covariate=strike mode, we are looking at one option from strike mode, which determines which data set we need
+    medians <- medians[[rounds]]
+    lower <- lower[[rounds]]
+    upper <- upper[[rounds]]
+    names <- unique(tab[[rounds]][[over]])
+  }else if(over=='Strike_mode'){ # if we are plotting over strike mode, we need to calculate two models and concatenate results
+    medians <- cbind(medians[[1]],medians[[2]])
+    lower <- cbind(lower[[1]],lower[[2]])
+    upper <- cbind(upper[[1]],upper[[2]])
+    names <- c(unique(as.character(tab[[1]][[over]])),unique(as.character(tab[[2]][[over]])))
+  }else{ # otherwise, we are adding up over strike modes
+    medians <- medians[[1]]+medians[[2]]
+    lower <- lower[[1]]+lower[[2]]
+    upper <- upper[[1]]+upper[[2]]
+    names <- unique(tab[[1]][[over]])
+  }
+  par(mar=c(7,5,3,1)); 
+  plotBars(medians=medians,main=input$subgroup,upper=upper,lower=lower,names=names,SE=input$SE)
 }
 
 ## function to plot bars
