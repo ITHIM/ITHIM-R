@@ -3,7 +3,6 @@ rm (list = ls())
 # Load packages
 library(tidyverse)
 library(haven)
-library(sqldf)
 
 #Set seed
 set.seed(1)
@@ -42,10 +41,12 @@ baseline$trip_cycletime_hr <- baseline$trip_cycletime_min / 60
 baseline$trip_walktime_hr <- baseline$trip_walktime_min / 60
 
 # Get total individual level walking and cycling and sport mmets 
-individual_mmet <- sqldf('select census_id, female, agecat, sum(trip_cycletime_hr) as cycleNTS_wkhr,
-                         sum(trip_walktime_hr) as walkNTS_wkhr,
-                         sport_wkmmets
-                         from baseline group by census_id')
+individual_mmet <- baseline %>% group_by(census_id) %>% summarise (female = first(female), 
+                                                                   agecat = first(agecat), 
+                                                                   cycleNTS_wkhr = sum(trip_cycletime_hr),
+                                                                   walkNTS_wkhr = sum(trip_walktime_hr),
+                                                                   sport_wkmmets = first(sport_wkmmets))
+
 
 # Sum all mmets for individuals
 individual_mmet$total_mmet <- ((METCycling - 1) * individual_mmet$cycleNTS_wkhr) + 
@@ -74,10 +75,11 @@ nbaseline <- baseline
 nbaseline[nbaseline$id %in% sc$id, ] <- sc
 
 # Sum all mmets for individuals
-individual_mmet_sc <- sqldf('select census_id, female, agecat, sum(trip_cycletime_hr) as cycleNTS_wkhr,
-                         sum(trip_walktime_hr) as walkNTS_wkhr,
-                         sport_wkmmets
-                         from nbaseline group by census_id')
+individual_mmet_sc <- nbaseline %>% group_by(census_id) %>% summarise (female = first(female), 
+                                                                   agecat = first(agecat), 
+                                                                   cycleNTS_wkhr = sum(trip_cycletime_hr),
+                                                                   walkNTS_wkhr = sum(trip_walktime_hr),
+                                                                   sport_wkmmets = first(sport_wkmmets))
 
 # Calculate individual sum of mmets for the scenario
 individual_mmet_sc$total_mmet <- ((METCycling - 1) * individual_mmet_sc$cycleNTS_wkhr) + 
