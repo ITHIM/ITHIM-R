@@ -46,13 +46,14 @@ mmet2RRVal <-function(val) {
 }
 
 
-PAF <- function(pop){
+PAF <- function(pop, attr, cn){
+  # pop = rr
+  # attr = c('female', 'agecat')
+  # cn = c('total_mmet', 'total_mmet_sc')
   
-  unique_age_group <- unique(as.character(pop$age_group))
-  unique_gender <- unique(pop$Sex_B01ID)
+  unique_gender <- unique(pop[[attr[1]]])
+  unique_age_group <- unique(pop[[attr[2]]])
   combinations <- length(unique_age_group)*length(unique_gender)
-  
-  cn <- append("baseline_mmet", grep('MS',names(pop), value = TRUE))
   
   m = matrix(nrow=combinations,ncol=(2 + length(cn)))
   
@@ -63,14 +64,15 @@ PAF <- function(pop){
     
     for (j in 1:length(unique_gender)){
       
-      reduced_pop <- subset(pop, Sex_B01ID == unique_gender[j] & age_group == unique_age_group[i])
+      reduced_pop <- filter(pop, UQ(as.name(attr[1])) == unique_gender[j] & UQ(as.name(attr[2])) == unique_age_group[i])
+      # cat(attr[1], " - ", unique_gender[j], " - ", attr[2], " - ", unique_age_group[i], " - ", nrow(reduced_pop), "\n")
       
       total_pop <- nrow (reduced_pop)
       active_percent <- nrow (reduced_pop) / total_pop * 100
       non_active_percent <- 100 - active_percent
       size <- nrow (reduced_pop)
       sumPRR <- 0
-      sumPRR <- (active_percent * sum (reduced_pop$baseline) / nrow(reduced_pop))
+      sumPRR <- (active_percent * sum (reduced_pop[[cn[1]]]) / nrow(reduced_pop))
       m[mi, 1] = unique_age_group[i]
       m[mi, 2] = unique_gender [j]
       for (k in 1:length(cn)){
