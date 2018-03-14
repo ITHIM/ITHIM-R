@@ -95,3 +95,8 @@ mmet2RR_mat <- read.csv("PA/data/MA-all-cause-mortality-RRs.csv", header = T, as
 
 # Convert mmet into rr for all mmets columns
 rr <- mmet2RR(individual_mmet, c('total_mmet', 'total_mmet_sc'))
+
+# Calculate pif calculations (pif between baseline and scenario's RR)
+pif <- PAF(pop = rr, attr = c('female', 'agecat'), cn = c('total_mmet', 'total_mmet_sc'))
+pif <- data.frame(pif)
+pif <- arrange(pif, age.band, gender)
