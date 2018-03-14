@@ -92,3 +92,6 @@ sc_mmet <- individual_mmet_sc  %>% group_by(female, agecat) %>% summarise(mean =
 
 # Read DR data
 mmet2RR_mat <- read.csv("PA/data/MA-all-cause-mortality-RRs.csv", header = T, as.is = T)
+
+# Convert mmet into rr for all mmets columns
+rr <- mmet2RR(individual_mmet, c('total_mmet', 'total_mmet_sc'))
