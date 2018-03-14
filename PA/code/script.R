@@ -89,3 +89,6 @@ individual_mmet_sc$total_mmet <- ((METCycling - 1) * individual_mmet_sc$cycleNTS
 individual_mmet_sc$total_mmet <- ifelse(is.na(individual_mmet_sc$total_mmet), 0, individual_mmet_sc$total_mmet)
 # Create a summary of mmets by gender and age
 sc_mmet <- individual_mmet_sc  %>% group_by(female, agecat) %>% summarise(mean = mean(total_mmet))
+
+# Read DR data
+mmet2RR_mat <- read.csv("PA/data/MA-all-cause-mortality-RRs.csv", header = T, as.is = T)
