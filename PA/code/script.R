@@ -25,6 +25,10 @@ raw_data$id <- 1:nrow(raw_data)
 # Create a lookup table for selected columns - labelled columns from stata
 lt <- create.lookups(raw_data, c("female", "agecat", "agecat_det", "trip_mainmode"))
 
+# Sort it
+lt <- arrange(lt, names, id)
+
+
 # Sample 10k unique IDs
 # Select trips for the 10k people
 baseline <- raw_data %>% filter(census_id %in% sample(unique(census_id), 1000)) 
@@ -103,3 +107,18 @@ rr <- mmet2RR(individual_mmet, c('total_mmet', 'total_mmet_sc'))
 pif <- PAF(pop = rr, attr = c('female', 'agecat_det'), cn = c('total_mmet', 'total_mmet_sc'))
 pif <- data.frame(pif)
 pif <- arrange(pif, age.band, gender)
+
+# Create a agecat_det lookup table
+lt_age <- filter(lt, names == "agecat_det")
+
+# Convert factors of age and sex into full form
+pif$age.band <- lt_age$val[match(pif$age.band, lt_age$id)]
+
+# Create string gender column
+pif$gender <- ifelse(pif$gender == 1, "Female", "Male")
+
+# Read gbd data
+gbd_data <- read_csv("PA/data/IHME_GBD_2016_DATA.csv")
+
+# No need to arrange
+# gbd_data <- arrange(gbd_data, measure, age, sex)
