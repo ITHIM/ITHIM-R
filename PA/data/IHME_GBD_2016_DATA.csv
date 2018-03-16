@@ -1,0 +1,481 @@
+measure,location,sex,age,cause,metric,year,val,upper,lower
+Deaths,England,Male,1 to 4,All causes,Number,2016,244.2227512,248.959033,239.7849834
+Deaths,England,Female,1 to 4,All causes,Number,2016,204.412865,208.0402527,201.0511725
+Deaths,England,Male,1 to 4,All causes,Percent,2016,1,1,1
+Deaths,England,Female,1 to 4,All causes,Percent,2016,1,1,1
+Deaths,England,Male,1 to 4,All causes,Rate,2016,17.90355718,18.250766,17.57823193
+Deaths,England,Female,1 to 4,All causes,Rate,2016,15.74310346,16.0224711,15.48419866
+Deaths,England,Male,5 to 9,All causes,Number,2016,143.1706112,144.89569,141.3614232
+Deaths,England,Female,5 to 9,All causes,Number,2016,116.2372206,117.3731297,114.9564732
+Deaths,England,Male,5 to 9,All causes,Percent,2016,1,1,1
+Deaths,England,Female,5 to 9,All causes,Percent,2016,1,1,1
+Deaths,England,Male,5 to 9,All causes,Rate,2016,8.654043996,8.758317544,8.544686408
+Deaths,England,Female,5 to 9,All causes,Rate,2016,7.366901099,7.438892928,7.285729688
+Deaths,England,Male,10 to 14,All causes,Number,2016,151.4470858,152.878557,149.9738883
+Deaths,England,Female,10 to 14,All causes,Number,2016,117.1641697,118.4471774,115.9119618
+Deaths,England,Male,10 to 14,All causes,Percent,2016,1,1,1
+Deaths,England,Female,10 to 14,All causes,Percent,2016,1,1,1
+Deaths,England,Male,10 to 14,All causes,Rate,2016,10.1353381,10.23113686,10.03674687
+Deaths,England,Female,10 to 14,All causes,Rate,2016,8.223433149,8.313483959,8.135544099
+Deaths,England,Male,15 to 19,All causes,Number,2016,543.0642136,551.8187072,534.1171983
+Deaths,England,Female,15 to 19,All causes,Number,2016,254.8084361,259.0665057,250.7743336
+Deaths,England,Male,15 to 19,All causes,Percent,2016,1,1,1
+Deaths,England,Female,15 to 19,All causes,Percent,2016,1,1,1
+Deaths,England,Male,15 to 19,All causes,Rate,2016,32.17410758,32.69277187,31.64403724
+Deaths,England,Female,15 to 19,All causes,Rate,2016,15.99344552,16.26070985,15.74023884
+Deaths,England,Male,20 to 24,All causes,Number,2016,970.3015066,986.0513074,955.0432287
+Deaths,England,Female,20 to 24,All causes,Number,2016,377.2028251,383.9563542,370.6692071
+Deaths,England,Male,20 to 24,All causes,Percent,2016,1,1,1
+Deaths,England,Female,20 to 24,All causes,Percent,2016,1,1,1
+Deaths,England,Male,20 to 24,All causes,Rate,2016,50.59225653,51.41346309,49.79667835
+Deaths,England,Female,20 to 24,All causes,Rate,2016,20.47180221,20.83833422,20.11720535
+Deaths,England,Male,25 to 29,All causes,Number,2016,1125.001351,1142.04087,1108.225619
+Deaths,England,Female,25 to 29,All causes,Number,2016,513.2498996,523.2326522,504.032352
+Deaths,England,Male,25 to 29,All causes,Percent,2016,1,1,1
+Deaths,England,Female,25 to 29,All causes,Percent,2016,1,1,1
+Deaths,England,Male,25 to 29,All causes,Rate,2016,59.45222348,60.35269998,58.56568716
+Deaths,England,Female,25 to 29,All causes,Rate,2016,27.1115888,27.63891142,26.62468688
+Deaths,England,Male,30 to 34,All causes,Number,2016,1437.480344,1459.385857,1416.209805
+Deaths,England,Female,30 to 34,All causes,Number,2016,747.3316824,761.3981315,733.8666262
+Deaths,England,Male,30 to 34,All causes,Percent,2016,1,1,1
+Deaths,England,Female,30 to 34,All causes,Percent,2016,1,1,1
+Deaths,England,Male,30 to 34,All causes,Rate,2016,78.36503795,79.55922913,77.20546275
+Deaths,England,Female,30 to 34,All causes,Rate,2016,40.34075859,41.10006164,39.61391855
+Deaths,England,Male,35 to 39,All causes,Number,2016,1814.403861,1845.893015,1785.079031
+Deaths,England,Female,35 to 39,All causes,Number,2016,1014.815863,1037.057043,994.2615548
+Deaths,England,Male,35 to 39,All causes,Percent,2016,1,1,1
+Deaths,England,Female,35 to 39,All causes,Percent,2016,1,1,1
+Deaths,England,Male,35 to 39,All causes,Rate,2016,111.7059236,113.6445907,109.9005056
+Deaths,England,Female,35 to 39,All causes,Rate,2016,62.36798941,63.73487554,61.10477419
+Deaths,England,Male,40 to 44,All causes,Number,2016,3087.45232,3140.723154,3035.621387
+Deaths,England,Female,40 to 44,All causes,Number,2016,1910.063908,1949.132171,1874.320165
+Deaths,England,Male,40 to 44,All causes,Percent,2016,1,1,1
+Deaths,England,Female,40 to 44,All causes,Percent,2016,1,1,1
+Deaths,England,Male,40 to 44,All causes,Rate,2016,163.4816094,166.3023175,160.7371445
+Deaths,England,Female,40 to 44,All causes,Rate,2016,99.12676743,101.1542968,97.27177103
+Deaths,England,Male,45 to 49,All causes,Number,2016,4846.519162,4929.628064,4763.338443
+Deaths,England,Female,45 to 49,All causes,Number,2016,3233.733268,3296.988939,3175.32682
+Deaths,England,Male,45 to 49,All causes,Percent,2016,1,1,1
+Deaths,England,Female,45 to 49,All causes,Percent,2016,1,1,1
+Deaths,England,Male,45 to 49,All causes,Rate,2016,238.1415749,242.2252655,234.0543554
+Deaths,England,Female,45 to 49,All causes,Rate,2016,154.7529453,157.7800971,151.9578571
+Deaths,England,Male,50 to 54,All causes,Number,2016,6855.211649,6970.864054,6736.338305
+Deaths,England,Female,50 to 54,All causes,Number,2016,4705.719974,4792.458927,4624.729072
+Deaths,England,Male,50 to 54,All causes,Percent,2016,1,1,1
+Deaths,England,Female,50 to 54,All causes,Percent,2016,1,1,1
+Deaths,England,Male,50 to 54,All causes,Rate,2016,366.9576094,373.1484511,360.5943517
+Deaths,England,Female,50 to 54,All causes,Rate,2016,247.2186483,251.7755465,242.9637285
+Deaths,England,Male,55 to 59,All causes,Number,2016,9192.156498,9340.350699,9041.31989
+Deaths,England,Female,55 to 59,All causes,Number,2016,6199.07663,6311.262455,6093.744766
+Deaths,England,Male,55 to 59,All causes,Percent,2016,1,1,1
+Deaths,England,Female,55 to 59,All causes,Percent,2016,1,1,1
+Deaths,England,Male,55 to 59,All causes,Rate,2016,586.9127815,596.3748779,577.2819693
+Deaths,England,Female,55 to 59,All causes,Rate,2016,386.990391,393.993827,380.414828
+Deaths,England,Male,60 to 64,All causes,Number,2016,14093.35735,14305.22035,13878.53466
+Deaths,England,Female,60 to 64,All causes,Number,2016,9389.398147,9554.845545,9231.866617
+Deaths,England,Male,60 to 64,All causes,Percent,2016,1,1,1
+Deaths,England,Female,60 to 64,All causes,Percent,2016,1,1,1
+Deaths,England,Male,60 to 64,All causes,Rate,2016,941.0321493,955.1785224,926.6881536
+Deaths,England,Female,60 to 64,All causes,Rate,2016,601.0757338,611.6670853,590.9911279
+Deaths,England,Male,65 to 69,All causes,Number,2016,22971.08333,23320.04106,22617.0174
+Deaths,England,Female,65 to 69,All causes,Number,2016,15417.14673,15705.17272,15145.28679
+Deaths,England,Male,65 to 69,All causes,Percent,2016,1,1,1
+Deaths,England,Female,65 to 69,All causes,Percent,2016,1,1,1
+Deaths,England,Male,65 to 69,All causes,Rate,2016,1484.988622,1507.547343,1462.099677
+Deaths,England,Female,65 to 69,All causes,Rate,2016,950.5535194,968.3119365,933.7918301
+Deaths,England,Male,70 to 74,All causes,Number,2016,25564.27684,25957.95729,25154.94587
+Deaths,England,Female,70 to 74,All causes,Number,2016,17978.5942,18329.40139,17650.41369
+Deaths,England,Male,70 to 74,All causes,Percent,2016,1,1,1
+Deaths,England,Female,70 to 74,All causes,Percent,2016,1,1,1
+Deaths,England,Male,70 to 74,All causes,Rate,2016,2461.984672,2499.898329,2422.56378
+Deaths,England,Female,70 to 74,All causes,Rate,2016,1590.75092,1621.790436,1561.713419
+Deaths,England,Male,75 to 79,All causes,Number,2016,34547.53309,35059.45106,34016.65979
+Deaths,England,Female,75 to 79,All causes,Number,2016,26580.81454,27077.05482,26102.54595
+Deaths,England,Male,75 to 79,All causes,Percent,2016,1,1,1
+Deaths,England,Female,75 to 79,All causes,Percent,2016,1,1,1
+Deaths,England,Male,75 to 79,All causes,Rate,2016,4147.476287,4208.932705,4083.744256
+Deaths,England,Female,75 to 79,All causes,Rate,2016,2802.911862,2855.239746,2752.479069
+Deaths,England,Male,80 to 84,All causes,Number,2016,43614.72509,44172.98564,43035.58013
+Deaths,England,Female,80 to 84,All causes,Number,2016,40100.63557,40762.1327,39447.18164
+Deaths,England,Male,80 to 84,All causes,Percent,2016,1,1,1
+Deaths,England,Female,80 to 84,All causes,Percent,2016,1,1,1
+Deaths,England,Male,80 to 84,All causes,Rate,2016,7382.320405,7476.812763,7284.293107
+Deaths,England,Female,80 to 84,All causes,Rate,2016,5270.134347,5357.070095,5184.255658
+Deaths,England,Male,85 to 89,All causes,Number,2016,42624.0772,43096.2903,42137.2517
+Deaths,England,Female,85 to 89,All causes,Number,2016,50453.43711,51139.20227,49753.98801
+Deaths,England,Male,85 to 89,All causes,Percent,2016,1,1,1
+Deaths,England,Female,85 to 89,All causes,Percent,2016,1,1,1
+Deaths,England,Male,85 to 89,All causes,Rate,2016,12955.14062,13098.66483,12807.17512
+Deaths,England,Female,85 to 89,All causes,Rate,2016,9800.370053,9933.577079,9664.504977
+Deaths,England,Male,90 to 94,All causes,Number,2016,28418.28754,28672.75498,28162.2316
+Deaths,England,Female,90 to 94,All causes,Number,2016,48768.37372,49293.83977,48249.15106
+Deaths,England,Male,90 to 94,All causes,Percent,2016,1,1,1
+Deaths,England,Female,90 to 94,All causes,Percent,2016,1,1,1
+Deaths,England,Male,90 to 94,All causes,Rate,2016,21683.70542,21877.86901,21488.32975
+Deaths,England,Female,90 to 94,All causes,Rate,2016,17461.62709,17649.7714,17275.71824
+Deaths,England,Male,95 plus,All causes,Number,2016,8071.401112,8141.858664,8001.90417
+Deaths,England,Female,95 plus,All causes,Number,2016,24373.42418,24610.68598,24140.1022
+Deaths,England,Male,95 plus,All causes,Percent,2016,1,1,1
+Deaths,England,Female,95 plus,All causes,Percent,2016,1,1,1
+Deaths,England,Male,95 plus,All causes,Rate,2016,35982.91399,36297.01906,35673.09139
+Deaths,England,Female,95 plus,All causes,Rate,2016,31626.83442,31934.70415,31324.07697
+YLLs (Years of Life Lost),England,Male,1 to 4,All causes,Number,2016,20552.35843,20951.01046,20178.8995
+YLLs (Years of Life Lost),England,Female,1 to 4,All causes,Number,2016,17226.34105,17532.04338,16943.03713
+YLLs (Years of Life Lost),England,Male,1 to 4,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,1 to 4,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,1 to 4,All causes,Rate,2016,1506.658666,1535.883172,1479.281022
+YLLs (Years of Life Lost),England,Female,1 to 4,All causes,Rate,2016,1326.707443,1350.251477,1304.88845
+YLLs (Years of Life Lost),England,Male,5 to 9,All causes,Number,2016,11357.24693,11494.1075,11213.74484
+YLLs (Years of Life Lost),England,Female,5 to 9,All causes,Number,2016,9220.716965,9310.814775,9119.113678
+YLLs (Years of Life Lost),England,Male,5 to 9,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,5 to 9,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,5 to 9,All causes,Rate,2016,686.4964376,694.7690671,677.8223573
+YLLs (Years of Life Lost),England,Female,5 to 9,All causes,Rate,2016,584.3920701,590.1023035,577.9526408
+YLLs (Years of Life Lost),England,Male,10 to 14,All causes,Number,2016,11204.05478,11309.88157,11095.25727
+YLLs (Years of Life Lost),England,Female,10 to 14,All causes,Number,2016,8688.975862,8784.002976,8596.022467
+YLLs (Years of Life Lost),England,Male,10 to 14,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,10 to 14,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,10 to 14,All causes,Rate,2016,749.8122704,756.8945482,742.5311828
+YLLs (Years of Life Lost),England,Female,10 to 14,All causes,Rate,2016,609.8554902,616.5251838,603.3313452
+YLLs (Years of Life Lost),England,Male,15 to 19,All causes,Number,2016,37545.07931,38150.60386,36926.58647
+YLLs (Years of Life Lost),England,Female,15 to 19,All causes,Number,2016,17645.66353,17940.72685,17366.31895
+YLLs (Years of Life Lost),England,Male,15 to 19,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,15 to 19,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,15 to 19,All causes,Rate,2016,2224.376769,2260.25137,2187.733855
+YLLs (Years of Life Lost),England,Female,15 to 19,All causes,Rate,2016,1107.557358,1126.077464,1090.023864
+YLLs (Years of Life Lost),England,Male,20 to 24,All causes,Number,2016,62424.70838,63437.70553,61443.18116
+YLLs (Years of Life Lost),England,Female,20 to 24,All causes,Number,2016,24274.62128,24709.19259,23854.26851
+YLLs (Years of Life Lost),England,Male,20 to 24,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,20 to 24,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,20 to 24,All causes,Rate,2016,3254.871644,3307.690084,3203.694071
+YLLs (Years of Life Lost),England,Female,20 to 24,All causes,Rate,2016,1317.448366,1341.033709,1294.634701
+YLLs (Years of Life Lost),England,Male,25 to 29,All causes,Number,2016,66842.53585,67854.89315,65846.07249
+YLLs (Years of Life Lost),England,Female,25 to 29,All causes,Number,2016,30467.88958,31060.29509,29920.57966
+YLLs (Years of Life Lost),England,Male,25 to 29,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,25 to 29,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,25 to 29,All causes,Rate,2016,3532.384538,3585.883934,3479.725079
+YLLs (Years of Life Lost),England,Female,25 to 29,All causes,Rate,2016,1609.416572,1640.709427,1580.505818
+YLLs (Years of Life Lost),England,Male,30 to 34,All causes,Number,2016,78258.48206,79451.49427,77099.92448
+YLLs (Years of Life Lost),England,Female,30 to 34,All causes,Number,2016,40645.98897,41411.14407,39913.6855
+YLLs (Years of Life Lost),England,Male,30 to 34,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,30 to 34,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,30 to 34,All causes,Rate,2016,4266.30454,4331.342262,4203.145131
+YLLs (Years of Life Lost),England,Female,30 to 34,All causes,Rate,2016,2194.059301,2235.362163,2154.529761
+YLLs (Years of Life Lost),England,Male,35 to 39,All causes,Number,2016,89832.06017,91391.08829,88379.65369
+YLLs (Years of Life Lost),England,Female,35 to 39,All causes,Number,2016,50205.43303,51305.59832,49187.42679
+YLLs (Years of Life Lost),England,Male,35 to 39,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,35 to 39,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,35 to 39,All causes,Rate,2016,5530.617225,5626.600639,5441.198099
+YLLs (Years of Life Lost),England,Female,35 to 39,All causes,Rate,2016,3085.497607,3153.110954,3022.933546
+YLLs (Years of Life Lost),England,Male,40 to 44,All causes,Number,2016,137782.5399,140160.7437,135468.529
+YLLs (Years of Life Lost),England,Female,40 to 44,All causes,Number,2016,85188.90806,86931.20668,83594.17073
+YLLs (Years of Life Lost),England,Male,40 to 44,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,40 to 44,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,40 to 44,All causes,Rate,2016,7295.630517,7421.557187,7173.102885
+YLLs (Years of Life Lost),England,Female,40 to 44,All causes,Rate,2016,4421.056826,4511.477062,4338.294592
+YLLs (Years of Life Lost),England,Male,45 to 49,All causes,Number,2016,192944.7083,196252.8337,189632.5822
+YLLs (Years of Life Lost),England,Female,45 to 49,All causes,Number,2016,128678.0331,131195.3124,126353.6512
+YLLs (Years of Life Lost),England,Male,45 to 49,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,45 to 49,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,45 to 49,All causes,Rate,2016,9480.650994,9643.201094,9317.904307
+YLLs (Years of Life Lost),England,Female,45 to 49,All causes,Rate,2016,6157.992318,6278.458774,6046.757124
+YLLs (Years of Life Lost),England,Male,50 to 54,All causes,Number,2016,240400.0191,244456.3816,236231.0938
+YLLs (Years of Life Lost),England,Female,50 to 54,All causes,Number,2016,165033.0132,168074.8053,162192.7984
+YLLs (Years of Life Lost),England,Male,50 to 54,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,50 to 54,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,50 to 54,All causes,Rate,2016,12868.54744,13085.68342,12645.38601
+YLLs (Years of Life Lost),England,Female,50 to 54,All causes,Rate,2016,8670.137338,8829.940246,8520.924453
+YLLs (Years of Life Lost),England,Male,55 to 59,All causes,Number,2016,279615.6436,284123.4024,275028.1461
+YLLs (Years of Life Lost),England,Female,55 to 59,All causes,Number,2016,188604.6706,192017.6169,185399.3661
+YLLs (Years of Life Lost),England,Male,55 to 59,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,55 to 59,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,55 to 59,All causes,Rate,2016,17853.26383,18141.08109,17560.35532
+YLLs (Years of Life Lost),England,Female,55 to 59,All causes,Rate,2016,11774.04307,11987.10342,11573.94519
+YLLs (Years of Life Lost),England,Male,60 to 64,All causes,Number,2016,364823.9837,370309.3921,359262.0963
+YLLs (Years of Life Lost),England,Female,60 to 64,All causes,Number,2016,243022.302,247304.7199,238943.2841
+YLLs (Years of Life Lost),England,Male,60 to 64,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,60 to 64,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,60 to 64,All causes,Rate,2016,24359.78092,24726.04891,23988.40633
+YLLs (Years of Life Lost),England,Female,60 to 64,All causes,Rate,2016,15557.41978,15831.56488,15296.29563
+YLLs (Years of Life Lost),England,Male,65 to 69,All causes,Number,2016,492886.7696,500370.3315,485292.2246
+YLLs (Years of Life Lost),England,Female,65 to 69,All causes,Number,2016,330569.798,336742.4748,324740.6608
+YLLs (Years of Life Lost),England,Male,65 to 69,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,65 to 69,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,65 to 69,All causes,Rate,2016,31863.15745,32346.93979,31372.20051
+YLLs (Years of Life Lost),England,Female,65 to 69,All causes,Rate,2016,20381.48111,20762.06124,20022.08213
+YLLs (Years of Life Lost),England,Male,70 to 74,All causes,Number,2016,440061.0035,446836.7346,433018.9468
+YLLs (Years of Life Lost),England,Female,70 to 74,All causes,Number,2016,308960.7128,314986.7223,303324.7782
+YLLs (Years of Life Lost),England,Male,70 to 74,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,70 to 74,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,70 to 74,All causes,Rate,2016,42380.36742,43032.90871,41702.17746
+YLLs (Years of Life Lost),England,Female,70 to 74,All causes,Rate,2016,27336.92816,27870.11112,26838.25913
+YLLs (Years of Life Lost),England,Male,75 to 79,All causes,Number,2016,458362.9672,465152.0316,451329.2471
+YLLs (Years of Life Lost),England,Female,75 to 79,All causes,Number,2016,351510.155,358073.7232,345192.7284
+YLLs (Years of Life Lost),England,Male,75 to 79,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,75 to 79,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,75 to 79,All causes,Rate,2016,55027.07045,55842.10647,54182.6632
+YLLs (Years of Life Lost),England,Female,75 to 79,All causes,Rate,2016,37066.28259,37758.4022,36400.11827
+YLLs (Years of Life Lost),England,Male,80 to 84,All causes,Number,2016,425606.4645,431049.9524,419952.6634
+YLLs (Years of Life Lost),England,Female,80 to 84,All causes,Number,2016,389308.4549,395726.7763,382968.6515
+YLLs (Years of Life Lost),England,Male,80 to 84,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,80 to 84,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,80 to 84,All causes,Rate,2016,72039.0483,72960.42454,71082.07398
+YLLs (Years of Life Lost),England,Female,80 to 84,All causes,Rate,2016,51163.97361,52007.48682,50330.77944
+YLLs (Years of Life Lost),England,Male,85 to 89,All causes,Number,2016,293625.9244,296875.9839,290270.5273
+YLLs (Years of Life Lost),England,Female,85 to 89,All causes,Number,2016,344878.6431,349569.9931,340099.4943
+YLLs (Years of Life Lost),England,Male,85 to 89,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,85 to 89,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,85 to 89,All causes,Rate,2016,89244.51602,90232.33746,88224.6783
+YLLs (Years of Life Lost),England,Female,85 to 89,All causes,Rate,2016,66991.24022,67902.51543,66062.91047
+YLLs (Years of Life Lost),England,Male,90 to 94,All causes,Number,2016,133661.3969,134856.3224,132458.3768
+YLLs (Years of Life Lost),England,Female,90 to 94,All causes,Number,2016,227292.7146,229742.8724,224874.7385
+YLLs (Years of Life Lost),England,Male,90 to 94,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,90 to 94,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,90 to 94,All causes,Rate,2016,101986.2422,102897.9936,101068.3145
+YLLs (Years of Life Lost),England,Female,90 to 94,All causes,Rate,2016,81382.67323,82259.95779,80516.91139
+YLLs (Years of Life Lost),England,Male,95 plus,All causes,Number,2016,24902.18513,25117.87883,24687.82805
+YLLs (Years of Life Lost),England,Female,95 plus,All causes,Number,2016,73191.93301,73901.36195,72496.78846
+YLLs (Years of Life Lost),England,Male,95 plus,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Female,95 plus,All causes,Percent,2016,1,1,1
+YLLs (Years of Life Lost),England,Male,95 plus,All causes,Rate,2016,111015.8166,111977.3954,110060.1966
+YLLs (Years of Life Lost),England,Female,95 plus,All causes,Rate,2016,94973.48953,95894.041,94071.4734
+DALYs (Disability-Adjusted Life Years),England,Male,1 to 4,All causes,Number,2016,61651.40288,77816.11211,49079.35069
+DALYs (Disability-Adjusted Life Years),England,Female,1 to 4,All causes,Number,2016,56068.53717,71007.45131,44114.5448
+DALYs (Disability-Adjusted Life Years),England,Male,1 to 4,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,1 to 4,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,1 to 4,All causes,Rate,2016,4519.560162,5704.567679,3597.924261
+DALYs (Disability-Adjusted Life Years),England,Female,1 to 4,All causes,Rate,2016,4318.186048,5468.724547,3397.534901
+DALYs (Disability-Adjusted Life Years),England,Male,5 to 9,All causes,Number,2016,73901.84847,96261.65575,55500.59524
+DALYs (Disability-Adjusted Life Years),England,Female,5 to 9,All causes,Number,2016,66780.74772,87520.41211,49576.31408
+DALYs (Disability-Adjusted Life Years),England,Male,5 to 9,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,5 to 9,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,5 to 9,All causes,Rate,2016,4467.046991,5818.600597,3354.770849
+DALYs (Disability-Adjusted Life Years),England,Female,5 to 9,All causes,Rate,2016,4232.440878,5546.882634,3142.055539
+DALYs (Disability-Adjusted Life Years),England,Male,10 to 14,All causes,Number,2016,98209.14875,127262.8507,73481.35618
+DALYs (Disability-Adjusted Life Years),England,Female,10 to 14,All causes,Number,2016,96935.6901,126422.8087,72208.28939
+DALYs (Disability-Adjusted Life Years),England,Male,10 to 14,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,10 to 14,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,10 to 14,All causes,Rate,2016,6572.479897,8516.849384,4917.614524
+DALYs (Disability-Adjusted Life Years),England,Female,10 to 14,All causes,Rate,2016,6803.651402,8873.271739,5068.102665
+DALYs (Disability-Adjusted Life Years),England,Male,15 to 19,All causes,Number,2016,170880.0062,211774.071,134298.1694
+DALYs (Disability-Adjusted Life Years),England,Female,15 to 19,All causes,Number,2016,163829.8457,207634.9645,125787.9868
+DALYs (Disability-Adjusted Life Years),England,Male,15 to 19,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,15 to 19,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,15 to 19,All causes,Rate,2016,10123.87037,12546.65944,7956.561379
+DALYs (Disability-Adjusted Life Years),England,Female,15 to 19,All causes,Rate,2016,10283.03361,13032.52963,7895.27751
+DALYs (Disability-Adjusted Life Years),England,Male,20 to 24,All causes,Number,2016,222824.306,272624.7193,180207.162
+DALYs (Disability-Adjusted Life Years),England,Female,20 to 24,All causes,Number,2016,220016.808,277762.2235,167254.2548
+DALYs (Disability-Adjusted Life Years),England,Male,20 to 24,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,20 to 24,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,20 to 24,All causes,Rate,2016,11618.22833,14214.85965,9396.138112
+DALYs (Disability-Adjusted Life Years),England,Female,20 to 24,All causes,Rate,2016,11940.8983,15074.89584,9077.33398
+DALYs (Disability-Adjusted Life Years),England,Male,25 to 29,All causes,Number,2016,242547.1029,295260.1848,197186.166
+DALYs (Disability-Adjusted Life Years),England,Female,25 to 29,All causes,Number,2016,253341.0866,319804.6706,194470.0456
+DALYs (Disability-Adjusted Life Years),England,Male,25 to 29,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,25 to 29,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,25 to 29,All causes,Rate,2016,12817.73088,15603.42525,10420.5706
+DALYs (Disability-Adjusted Life Years),England,Female,25 to 29,All causes,Rate,2016,13382.32968,16893.1601,10272.56296
+DALYs (Disability-Adjusted Life Years),England,Male,30 to 34,All causes,Number,2016,265164.2358,321411.0741,215067.0298
+DALYs (Disability-Adjusted Life Years),England,Female,30 to 34,All causes,Number,2016,276178.9125,347021.4228,213970.3048
+DALYs (Disability-Adjusted Life Years),England,Male,30 to 34,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,30 to 34,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,30 to 34,All causes,Rate,2016,14455.57533,17521.90291,11724.49837
+DALYs (Disability-Adjusted Life Years),England,Female,30 to 34,All causes,Rate,2016,14908.0617,18732.12092,11550.05818
+DALYs (Disability-Adjusted Life Years),England,Male,35 to 39,All causes,Number,2016,265603.5239,318913.3247,218172.3273
+DALYs (Disability-Adjusted Life Years),England,Female,35 to 39,All causes,Number,2016,268357.0698,332886.2272,210008.0688
+DALYs (Disability-Adjusted Life Years),England,Male,35 to 39,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,35 to 39,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,35 to 39,All causes,Rate,2016,16352.19566,19634.27671,13432.03784
+DALYs (Disability-Adjusted Life Years),England,Female,35 to 39,All causes,Rate,2016,16492.53969,20458.33679,12906.5592
+DALYs (Disability-Adjusted Life Years),England,Male,40 to 44,All causes,Number,2016,355803.16,421830.3187,297028.9186
+DALYs (Disability-Adjusted Life Years),England,Female,40 to 44,All causes,Number,2016,360775.191,441206.4678,285538.6778
+DALYs (Disability-Adjusted Life Years),England,Male,40 to 44,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,40 to 44,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,40 to 44,All causes,Rate,2016,18839.8936,22336.05324,15727.77831
+DALYs (Disability-Adjusted Life Years),England,Female,40 to 44,All causes,Rate,2016,18723.18424,22897.33382,14818.62779
+DALYs (Disability-Adjusted Life Years),England,Male,45 to 49,All causes,Number,2016,443726.5214,516021.6537,377204.7035
+DALYs (Disability-Adjusted Life Years),England,Female,45 to 49,All causes,Number,2016,440047.9319,528787.0453,358073.49
+DALYs (Disability-Adjusted Life Years),England,Male,45 to 49,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,45 to 49,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,45 to 49,All causes,Rate,2016,21803.22188,25355.56039,18534.56453
+DALYs (Disability-Adjusted Life Years),England,Female,45 to 49,All causes,Rate,2016,21058.853,25305.53571,17135.89917
+DALYs (Disability-Adjusted Life Years),England,Male,50 to 54,All causes,Number,2016,490931.8432,565113.9057,423488.1649
+DALYs (Disability-Adjusted Life Years),England,Female,50 to 54,All causes,Number,2016,458810.6224,542602.5154,380995.9768
+DALYs (Disability-Adjusted Life Years),England,Male,50 to 54,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,50 to 54,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,50 to 54,All causes,Rate,2016,26279.44764,30250.3932,22669.20594
+DALYs (Disability-Adjusted Life Years),England,Female,50 to 54,All causes,Rate,2016,24103.97187,28506.04395,20015.91912
+DALYs (Disability-Adjusted Life Years),England,Male,55 to 59,All causes,Number,2016,510714.6656,580722.3322,450373.3132
+DALYs (Disability-Adjusted Life Years),England,Female,55 to 59,All causes,Number,2016,447417.9592,523458.9197,378420.6222
+DALYs (Disability-Adjusted Life Years),England,Male,55 to 59,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,55 to 59,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,55 to 59,All causes,Rate,2016,32608.77521,37078.7159,28756.02194
+DALYs (Disability-Adjusted Life Years),England,Female,55 to 59,All causes,Rate,2016,27931.00671,32678.02353,23623.7029
+DALYs (Disability-Adjusted Life Years),England,Male,60 to 64,All causes,Number,2016,609375.0722,680957.6534,545093.807
+DALYs (Disability-Adjusted Life Years),England,Female,60 to 64,All causes,Number,2016,514205.0497,592003.4953,442385.2071
+DALYs (Disability-Adjusted Life Years),England,Male,60 to 64,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,60 to 64,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,60 to 64,All causes,Rate,2016,40688.78122,45468.44504,36396.63595
+DALYs (Disability-Adjusted Life Years),England,Female,60 to 64,All causes,Rate,2016,32917.57073,37897.94934,28319.92092
+DALYs (Disability-Adjusted Life Years),England,Male,65 to 69,All causes,Number,2016,778644.7549,862140.9944,705380.4663
+DALYs (Disability-Adjusted Life Years),England,Female,65 to 69,All causes,Number,2016,644400.9863,734939.7567,563242.2044
+DALYs (Disability-Adjusted Life Years),England,Male,65 to 69,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,65 to 69,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,65 to 69,All causes,Rate,2016,50336.26779,55733.96558,45600.02469
+DALYs (Disability-Adjusted Life Years),England,Female,65 to 69,All causes,Rate,2016,39730.9331,45313.15583,34727.03925
+DALYs (Disability-Adjusted Life Years),England,Male,70 to 74,All causes,Number,2016,660079.2355,726308.4438,605132.5476
+DALYs (Disability-Adjusted Life Years),England,Female,70 to 74,All causes,Number,2016,554404.498,624917.092,492395.4449
+DALYs (Disability-Adjusted Life Years),England,Male,70 to 74,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,70 to 74,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,70 to 74,All causes,Rate,2016,63569.36948,69947.6174,58277.69218
+DALYs (Disability-Adjusted Life Years),England,Female,70 to 74,All causes,Rate,2016,49053.86124,55292.8348,43567.28331
+DALYs (Disability-Adjusted Life Years),England,Male,75 to 79,All causes,Number,2016,658204.6464,712793.509,607544.5645
+DALYs (Disability-Adjusted Life Years),England,Female,75 to 79,All causes,Number,2016,581339.5227,645122.8321,522538.9852
+DALYs (Disability-Adjusted Life Years),England,Male,75 to 79,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,75 to 79,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,75 to 79,All causes,Rate,2016,79018.32399,85571.78796,72936.51526
+DALYs (Disability-Adjusted Life Years),England,Female,75 to 79,All causes,Rate,2016,61301.48651,68027.35243,55101.04733
+DALYs (Disability-Adjusted Life Years),England,Male,80 to 84,All causes,Number,2016,585206.789,629539.8115,545306.9275
+DALYs (Disability-Adjusted Life Years),England,Female,80 to 84,All causes,Number,2016,596729.5498,655306.2801,544153.2419
+DALYs (Disability-Adjusted Life Years),England,Male,80 to 84,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,80 to 84,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,80 to 84,All causes,Rate,2016,99053.33601,106557.237,92299.80125
+DALYs (Disability-Adjusted Life Years),England,Female,80 to 84,All causes,Rate,2016,78423.81678,86122.12962,71514.09571
+DALYs (Disability-Adjusted Life Years),England,Male,85 to 89,All causes,Number,2016,394139.6886,421861.9462,369572.4976
+DALYs (Disability-Adjusted Life Years),England,Female,85 to 89,All causes,Number,2016,503320.4299,547474.6021,463571.7067
+DALYs (Disability-Adjusted Life Years),England,Male,85 to 89,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,85 to 89,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,85 to 89,All causes,Rate,2016,119794.619,128220.5081,112327.6793
+DALYs (Disability-Adjusted Life Years),England,Female,85 to 89,All causes,Rate,2016,97767.8975,106344.6616,90046.87355
+DALYs (Disability-Adjusted Life Years),England,Male,90 to 94,All causes,Number,2016,177656.5338,188993.237,167138.7684
+DALYs (Disability-Adjusted Life Years),England,Female,90 to 94,All causes,Number,2016,322768.5872,347995.34,298344.2763
+DALYs (Disability-Adjusted Life Years),England,Male,90 to 94,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,90 to 94,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,90 to 94,All causes,Rate,2016,135555.3862,144205.511,127530.1269
+DALYs (Disability-Adjusted Life Years),England,Female,90 to 94,All causes,Rate,2016,115568.0265,124600.5227,106822.8464
+DALYs (Disability-Adjusted Life Years),England,Male,95 plus,All causes,Number,2016,32717.81338,34770.24758,30834.61303
+DALYs (Disability-Adjusted Life Years),England,Female,95 plus,All causes,Number,2016,101123.3795,108568.0902,94371.78087
+DALYs (Disability-Adjusted Life Years),England,Male,95 plus,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Female,95 plus,All causes,Percent,2016,1,1,1
+DALYs (Disability-Adjusted Life Years),England,Male,95 plus,All causes,Rate,2016,145858.4759,155008.3822,137463.0269
+DALYs (Disability-Adjusted Life Years),England,Female,95 plus,All causes,Rate,2016,131217.1961,140877.4157,122456.3551
+YLDs (Years Lived with Disability),England,Male,1 to 4,All causes,Number,2016,41099.04445,57105.35824,28694.33669
+YLDs (Years Lived with Disability),England,Female,1 to 4,All causes,Number,2016,38842.19611,54100.55095,26921.72264
+YLDs (Years Lived with Disability),England,Male,1 to 4,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,1 to 4,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,1 to 4,All causes,Rate,2016,3012.901497,4186.297312,2103.533333
+YLDs (Years Lived with Disability),England,Female,1 to 4,All causes,Rate,2016,2991.478604,4166.619214,2073.408955
+YLDs (Years Lived with Disability),England,Male,5 to 9,All causes,Number,2016,62544.60154,84936.99591,44206.99115
+YLDs (Years Lived with Disability),England,Female,5 to 9,All causes,Number,2016,57560.03075,78310.84087,40357.12275
+YLDs (Years Lived with Disability),England,Male,5 to 9,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,5 to 9,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,5 to 9,All causes,Rate,2016,3780.550553,5134.073908,2672.121346
+YLDs (Years Lived with Disability),England,Female,5 to 9,All causes,Rate,2016,3648.048808,4963.19696,2557.760161
+YLDs (Years Lived with Disability),England,Male,10 to 14,All causes,Number,2016,87005.09397,116092.0742,62375.60908
+YLDs (Years Lived with Disability),England,Female,10 to 14,All causes,Number,2016,88246.71424,117773.4367,63599.68728
+YLDs (Years Lived with Disability),England,Male,10 to 14,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,10 to 14,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,10 to 14,All causes,Rate,2016,5822.667626,7769.264204,4174.381328
+YLDs (Years Lived with Disability),England,Female,10 to 14,All causes,Rate,2016,6193.795911,8266.195938,4463.888389
+YLDs (Years Lived with Disability),England,Male,15 to 19,All causes,Number,2016,133334.9269,174196.9826,96934.55473
+YLDs (Years Lived with Disability),England,Female,15 to 19,All causes,Number,2016,146184.1822,190104.012,108283.0492
+YLDs (Years Lived with Disability),England,Male,15 to 19,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,15 to 19,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,15 to 19,All causes,Rate,2016,7899.493603,10320.38628,5742.935575
+YLDs (Years Lived with Disability),England,Female,15 to 19,All causes,Rate,2016,9175.47625,11932.17229,6796.553032
+YLDs (Years Lived with Disability),England,Male,20 to 24,All causes,Number,2016,160399.5976,210859.786,117300.0156
+YLDs (Years Lived with Disability),England,Female,20 to 24,All causes,Number,2016,195742.1867,253378.4577,142865.6033
+YLDs (Years Lived with Disability),England,Male,20 to 24,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,20 to 24,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,20 to 24,All causes,Rate,2016,8363.356685,10994.38918,6116.111785
+YLDs (Years Lived with Disability),England,Female,20 to 24,All causes,Rate,2016,10623.44994,13751.52391,7753.696894
+YLDs (Years Lived with Disability),England,Male,25 to 29,All causes,Number,2016,175704.567,228671.0509,130520.6745
+YLDs (Years Lived with Disability),England,Female,25 to 29,All causes,Number,2016,222873.1971,289429.9131,164402.9987
+YLDs (Years Lived with Disability),England,Male,25 to 29,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,25 to 29,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,25 to 29,All causes,Rate,2016,9285.346345,12084.43208,6897.542212
+YLDs (Years Lived with Disability),England,Female,25 to 29,All causes,Rate,2016,11772.91311,15288.66308,8684.32025
+YLDs (Years Lived with Disability),England,Male,30 to 34,All causes,Number,2016,186905.7537,243088.9449,137027.9056
+YLDs (Years Lived with Disability),England,Female,30 to 34,All causes,Number,2016,235532.9235,306342.8978,173065.1187
+YLDs (Years Lived with Disability),England,Male,30 to 34,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,30 to 34,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,30 to 34,All causes,Rate,2016,10189.27079,13252.12861,7470.152247
+YLDs (Years Lived with Disability),England,Female,30 to 34,All causes,Rate,2016,12714.0024,16536.30533,9342.007489
+YLDs (Years Lived with Disability),England,Male,35 to 39,All causes,Number,2016,175771.4638,229844.5827,128463.1857
+YLDs (Years Lived with Disability),England,Female,35 to 39,All causes,Number,2016,218151.6368,282765.4976,159767.339
+YLDs (Years Lived with Disability),England,Male,35 to 39,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,35 to 39,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,35 to 39,All causes,Rate,2016,10821.57844,14150.65407,7908.988243
+YLDs (Years Lived with Disability),England,Female,35 to 39,All causes,Rate,2016,13407.04208,17378.04484,9818.892348
+YLDs (Years Lived with Disability),England,Male,40 to 44,All causes,Number,2016,218020.6201,284092.6509,159482.9994
+YLDs (Years Lived with Disability),England,Female,40 to 44,All causes,Number,2016,275586.283,356686.0053,200724.7016
+YLDs (Years Lived with Disability),England,Male,40 to 44,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,40 to 44,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,40 to 44,All causes,Rate,2016,11544.26309,15042.79871,8444.67694
+YLDs (Years Lived with Disability),England,Female,40 to 44,All causes,Rate,2016,14302.12741,18510.96738,10417.02884
+YLDs (Years Lived with Disability),England,Male,45 to 49,All causes,Number,2016,250781.8131,324095.2909,184107.1714
+YLDs (Years Lived with Disability),England,Female,45 to 49,All causes,Number,2016,311369.8988,400185.0436,229018.9365
+YLDs (Years Lived with Disability),England,Male,45 to 49,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,45 to 49,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,45 to 49,All causes,Rate,2016,12322.57088,15924.94745,9046.404291
+YLDs (Years Lived with Disability),England,Female,45 to 49,All causes,Rate,2016,14900.86069,19151.18194,10959.88816
+YLDs (Years Lived with Disability),England,Male,50 to 54,All causes,Number,2016,250531.8242,325802.4307,182906.7637
+YLDs (Years Lived with Disability),England,Female,50 to 54,All causes,Number,2016,293777.6092,377938.4016,216388.8804
+YLDs (Years Lived with Disability),England,Male,50 to 54,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,50 to 54,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,50 to 54,All causes,Rate,2016,13410.9002,17440.11524,9790.949164
+YLDs (Years Lived with Disability),England,Female,50 to 54,All causes,Rate,2016,15433.83454,19855.28703,11368.15765
+YLDs (Years Lived with Disability),England,Male,55 to 59,All causes,Number,2016,231099.0221,301589.6688,170370.3357
+YLDs (Years Lived with Disability),England,Female,55 to 59,All causes,Number,2016,258813.2886,335223.0117,190075.9736
+YLDs (Years Lived with Disability),England,Male,55 to 59,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,55 to 59,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,55 to 59,All causes,Rate,2016,14755.51139,19256.29002,10878.02711
+YLDs (Years Lived with Disability),England,Female,55 to 59,All causes,Rate,2016,16156.96364,20927.00125,11865.89225
+YLDs (Years Lived with Disability),England,Male,60 to 64,All causes,Number,2016,244551.0885,316695.6821,180216.4764
+YLDs (Years Lived with Disability),England,Female,60 to 64,All causes,Number,2016,271182.7478,348402.5019,200789.5877
+YLDs (Years Lived with Disability),England,Male,60 to 64,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,60 to 64,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,60 to 64,All causes,Rate,2016,16329.0003,21146.19044,12033.29298
+YLDs (Years Lived with Disability),England,Female,60 to 64,All causes,Rate,2016,17360.15094,22303.4838,12853.83226
+YLDs (Years Lived with Disability),England,Male,65 to 69,All causes,Number,2016,285757.9853,368420.1598,212461.8166
+YLDs (Years Lived with Disability),England,Female,65 to 69,All causes,Number,2016,313831.1883,402900.6521,234169.1921
+YLDs (Years Lived with Disability),England,Male,65 to 69,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,65 to 69,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,65 to 69,All causes,Rate,2016,18473.11034,23816.88916,13734.80632
+YLDs (Years Lived with Disability),England,Female,65 to 69,All causes,Rate,2016,19349.45199,24841.08373,14437.84337
+YLDs (Years Lived with Disability),England,Male,70 to 74,All causes,Number,2016,220018.232,286029.7191,164564.4634
+YLDs (Years Lived with Disability),England,Female,70 to 74,All causes,Number,2016,245443.7852,317472.0782,184348.1024
+YLDs (Years Lived with Disability),England,Male,70 to 74,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,70 to 74,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,70 to 74,All causes,Rate,2016,21189.00206,27546.2822,15848.49002
+YLDs (Years Lived with Disability),England,Female,70 to 74,All causes,Rate,2016,21716.93308,28090.01609,16311.17039
+YLDs (Years Lived with Disability),England,Male,75 to 79,All causes,Number,2016,199841.6792,252945.6019,150185.1543
+YLDs (Years Lived with Disability),England,Female,75 to 79,All causes,Number,2016,229829.3676,292169.876,172368.4863
+YLDs (Years Lived with Disability),England,Male,75 to 79,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,75 to 79,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,75 to 79,All causes,Rate,2016,23991.25354,30366.44854,18029.92313
+YLDs (Years Lived with Disability),England,Female,75 to 79,All causes,Rate,2016,24235.20392,30808.92836,18176.02972
+YLDs (Years Lived with Disability),England,Male,80 to 84,All causes,Number,2016,159600.3245,202523.877,120748.8376
+YLDs (Years Lived with Disability),England,Female,80 to 84,All causes,Number,2016,207421.0949,265494.3699,156195.2992
+YLDs (Years Lived with Disability),England,Male,80 to 84,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,80 to 84,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,80 to 84,All causes,Rate,2016,27014.28771,34279.61878,20438.20306
+YLDs (Years Lived with Disability),England,Female,80 to 84,All causes,Rate,2016,27259.84317,34891.99056,20527.61008
+YLDs (Years Lived with Disability),England,Male,85 to 89,All causes,Number,2016,100513.7642,127792.423,76042.01736
+YLDs (Years Lived with Disability),England,Female,85 to 89,All causes,Number,2016,158441.7868,202716.9413,120246.9278
+YLDs (Years Lived with Disability),England,Male,85 to 89,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,85 to 89,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,85 to 89,All causes,Rate,2016,30550.10302,38841.16487,23112.17257
+YLDs (Years Lived with Disability),England,Female,85 to 89,All causes,Rate,2016,30776.65728,39376.92166,23357.46496
+YLDs (Years Lived with Disability),England,Male,90 to 94,All causes,Number,2016,43995.13689,55289.34506,33390.82937
+YLDs (Years Lived with Disability),England,Female,90 to 94,All causes,Number,2016,95475.8726,120359.8172,72252.02752
+YLDs (Years Lived with Disability),England,Male,90 to 94,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,90 to 94,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,90 to 94,All causes,Rate,2016,33569.14405,42186.84427,25477.85142
+YLDs (Years Lived with Disability),England,Female,90 to 94,All causes,Rate,2016,34185.35326,43095.10619,25870.00272
+YLDs (Years Lived with Disability),England,Male,95 plus,All causes,Number,2016,7815.628244,9862.327725,5937.260045
+YLDs (Years Lived with Disability),England,Female,95 plus,All causes,Number,2016,27931.44651,35281.05211,21002.62514
+YLDs (Years Lived with Disability),England,Male,95 plus,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Female,95 plus,All causes,Percent,2016,1,1,1
+YLDs (Years Lived with Disability),England,Male,95 plus,All causes,Rate,2016,34842.65928,43966.9997,26468.7524
+YLDs (Years Lived with Disability),England,Female,95 plus,All causes,Rate,2016,36243.70657,45780.51836,27252.90228
