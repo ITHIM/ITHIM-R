@@ -117,8 +117,13 @@ pif$age.band <- lt_age$val[match(pif$age.band, lt_age$id)]
 # Create string gender column
 pif$gender <- ifelse(pif$gender == 1, "Female", "Male")
 
+#pif$age.band[pif$age.band == "10 to 15"] <- "15 to 19"
+pif$age.band[pif$age.band == "16 to 19"] <- "15 to 19"
+
 # Read gbd data
 gbd_data <- read_csv("PA/data/IHME_GBD_2016_DATA.csv")
 
 # No need to arrange
 # gbd_data <- arrange(gbd_data, measure, age, sex)
+
+yll_dfs <- combine_health_and_pif(pif, gbd_data, "YLLs (Years of Life Lost)")
