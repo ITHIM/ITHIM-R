@@ -3,7 +3,6 @@ rm (list = ls())
 # Load packages
 library(tidyverse)
 library(haven)
-library(sqldf)
 
 #Set seed
 set.seed(1)
@@ -26,6 +25,10 @@ raw_data$id <- 1:nrow(raw_data)
 # Create a lookup table for selected columns - labelled columns from stata
 lt <- create.lookups(raw_data, c("female", "agecat", "agecat_det", "trip_mainmode"))
 
+# Sort it
+lt <- arrange(lt, names, id)
+
+
 # Sample 10k unique IDs
 # Select trips for the 10k people
 baseline <- raw_data %>% filter(census_id %in% sample(unique(census_id), 1000)) 
@@ -42,10 +45,12 @@ baseline$trip_cycletime_hr <- baseline$trip_cycletime_min / 60
 baseline$trip_walktime_hr <- baseline$trip_walktime_min / 60
 
 # Get total individual level walking and cycling and sport mmets 
-individual_mmet <- sqldf('select census_id, female, agecat, sum(trip_cycletime_hr) as cycleNTS_wkhr,
-                         sum(trip_walktime_hr) as walkNTS_wkhr,
-                         sport_wkmmets
-                         from baseline group by census_id')
+individual_mmet <- baseline %>% group_by(census_id) %>% summarise (female = first(female), 
+                                                                   agecat_det = first(agecat_det), 
+                                                                   cycleNTS_wkhr = sum(trip_cycletime_hr),
+                                                                   walkNTS_wkhr = sum(trip_walktime_hr),
+                                                                   sport_wkmmets = first(sport_wkmmets))
+
 
 # Sum all mmets for individuals
 individual_mmet$total_mmet <- ((METCycling - 1) * individual_mmet$cycleNTS_wkhr) + 
@@ -55,7 +60,7 @@ individual_mmet$total_mmet <- ((METCycling - 1) * individual_mmet$cycleNTS_wkhr)
 individual_mmet$total_mmet <- ifelse(is.na(individual_mmet$total_mmet), 0, individual_mmet$total_mmet)
 
 # Create a summary of mmets by gender and age
-b_mmet <- individual_mmet  %>% group_by(female, agecat) %>% summarise(mean = mean(total_mmet))
+b_mmet <- individual_mmet  %>% group_by(female, agecat_det) %>% summarise(mean = mean(total_mmet))
 
 # Define a scenario
 # Switch modes
@@ -74,10 +79,11 @@ nbaseline <- baseline
 nbaseline[nbaseline$id %in% sc$id, ] <- sc
 
 # Sum all mmets for individuals
-individual_mmet_sc <- sqldf('select census_id, female, agecat, sum(trip_cycletime_hr) as cycleNTS_wkhr,
-                         sum(trip_walktime_hr) as walkNTS_wkhr,
-                         sport_wkmmets
-                         from nbaseline group by census_id')
+individual_mmet_sc <- nbaseline %>% group_by(census_id) %>% summarise (female = first(female), 
+                                                                   agecat_det = first(agecat_det), 
+                                                                   cycleNTS_wkhr = sum(trip_cycletime_hr),
+                                                                   walkNTS_wkhr = sum(trip_walktime_hr),
+                                                                   sport_wkmmets = first(sport_wkmmets))
 
 # Calculate individual sum of mmets for the scenario
 individual_mmet_sc$total_mmet <- ((METCycling - 1) * individual_mmet_sc$cycleNTS_wkhr) + 
@@ -86,4 +92,38 @@ individual_mmet_sc$total_mmet <- ((METCycling - 1) * individual_mmet_sc$cycleNTS
 # Replace NAs with 0
 individual_mmet_sc$total_mmet <- ifelse(is.na(individual_mmet_sc$total_mmet), 0, individual_mmet_sc$total_mmet)
 # Create a summary of mmets by gender and age
-sc_mmet <- individual_mmet_sc  %>% group_by(female, agecat) %>% summarise(mean = mean(total_mmet))
+sc_mmet <- individual_mmet_sc  %>% group_by(female, agecat_det) %>% summarise(mean = mean(total_mmet))
+
+# Read DR data
+mmet2RR_mat <- read.csv("PA/data/MA-all-cause-mortality-RRs.csv", header = T, as.is = T)
+
+# Append scenario's mmet to baseline's mmet
+individual_mmet <- dplyr::left_join(individual_mmet, by = "census_id", individual_mmet_sc %>% mutate (total_mmet_sc = total_mmet) %>% select(census_id, total_mmet_sc))
+
+# Convert mmet into rr for all mmets columns
+rr <- mmet2RR(individual_mmet, c('total_mmet', 'total_mmet_sc'))
+
+# Calculate pif calculations (pif between baseline and scenario's RR)
+pif <- PAF(pop = rr, attr = c('female', 'agecat_det'), cn = c('total_mmet', 'total_mmet_sc'))
+pif <- data.frame(pif)
+pif <- arrange(pif, age.band, gender)
+
+# Create a agecat_det lookup table
+lt_age <- filter(lt, names == "agecat_det")
+
+# Convert factors of age and sex into full form
+pif$age.band <- lt_age$val[match(pif$age.band, lt_age$id)]
+
+# Create string gender column
+pif$gender <- ifelse(pif$gender == 1, "Female", "Male")
+
+#pif$age.band[pif$age.band == "10 to 15"] <- "15 to 19"
+pif$age.band[pif$age.band == "16 to 19"] <- "15 to 19"
+
+# Read gbd data
+gbd_data <- read_csv("PA/data/IHME_GBD_2016_DATA.csv")
+
+# No need to arrange
+# gbd_data <- arrange(gbd_data, measure, age, sex)
+
+yll_dfs <- combine_health_and_pif(pif, gbd_data, "YLLs (Years of Life Lost)")
