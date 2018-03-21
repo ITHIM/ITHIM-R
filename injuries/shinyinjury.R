@@ -12,8 +12,28 @@ library(gtools)
 
 if(exists('useShiny')) rm(useShiny)
 
-## function to fit model
-fitModel <- function(object_store){
+## choose whether to compute or recompute
+getModelFits <- function(object_store,input){
+  object_store$lq <- input$lq
+  object_store$uq <- input$uq
+  if(is.null(object_store$scenario_tabs)){
+    object_store <- processData(object_store)
+  }
+  if(is.null(object_store$fit_whw)&&is.null(object_store$fit_nov)){
+    object_store <- fitModel(object_store)
+  }else{
+    if((as.numeric(object_store$model=='poisson')==as.numeric(object_store$fit_whw$family$family=='poisson'))){
+      object_store$scenario_tabs <- compute_quantiles(object_store)
+    }else{
+      object_store <- fitModel(object_store)
+    }
+  }
+  object_store$summary_table <- assemble_output(object_store$scenario_tabs)
+  object_store
+}
+
+## function to get injury and distance dataset
+processData <- function(object_store){
   injuries <- object_store$injuries
   rownames(injuries) <- injuries[,1]
   injuries <- injuries[,-1]
@@ -23,7 +43,6 @@ fitModel <- function(object_store){
   distance <- object_store$distance
   names(distance) <- distance[1,]
   distance <- distance[-1,]
-  names(tab) <- lapply(names(tab),function(x)paste(strsplit(x,' ')[[1]],collapse='_'))
   ##TODO choose columns to change based on column names
   distance[,c(2,4:dim(distance)[2])]<-sapply(distance[,c(2,4:dim(distance)[2])],as.numeric)
   
@@ -60,6 +79,7 @@ fitModel <- function(object_store){
   fatal <- injuries[minV:nrow(injuries),]
   tab <- expand.grid(covlabels)
   names(tab) <- covariates
+  #names(tab) <- lapply(names(tab),function(x)paste(strsplit(x,' ')[[1]],collapse='_'))
   tab$count <- 0
   ##TODO rewrite to be less specific to Mexico example
   if(exists('useShiny')){
@@ -102,7 +122,22 @@ fitModel <- function(object_store){
   tab_whw <- tab_whw[tab_whw$cas_distance>0&tab_whw$strike_distance>0,]
   tab_nov <- tab_nov[tab_nov$cas_distance>0,]
   
-  
+  ##TODO [[2]] is the scenario. The data will be obtained from somewhere TBC.
+  scenario_tabs <- list()
+  scenario_tabs[[1]] <- list()
+  scenario_tabs[[1]][[1]] <- tab_whw
+  scenario_tabs[[1]][[2]] <- tab_nov
+  object_store$scenario_tabs <- scenario_tabs
+  object_store$covariates <- covariates
+  object_store
+}
+
+## function to fit model
+fitModel <- function(object_store){
+  scenario_tabs <- object_store$scenario_tabs
+  covariates <- object_store$covariates
+  tab_whw <- scenario_tabs[[1]][[1]]
+  tab_nov <- scenario_tabs[[1]][[2]]
   ##TODO need clever way to build formula based on covariates
   ## for the small mexico example, we can try all possible models. Not recommended for higher dimensional data sets.
   ##TODO might also want a clever way to choose spline knot number for age
@@ -187,14 +222,43 @@ fitModel <- function(object_store){
     suppressWarnings(fit_whw <- glm.nb(as.formula(formula),data=tab_whw,init.theta=50,control=glm.control(maxit=25)))
     suppressWarnings(fit_nov <- glm.nb(as.formula(formula),data=tab_nov,init.theta=50,control=glm.control(maxit=25)))
   }
+  
   # store everything and return
   object_store$fit_whw <- fit_whw
-  object_store$tab_whw <- tab_whw
   object_store$fit_nov <- fit_nov
-  object_store$tab_nov <- tab_nov
   object_store$plotButton <- 1
-  object_store$covariates <- covariates
+  object_store$scenario_tabs <- compute_quantiles(object_store)
+  
   object_store
+}
+
+## function to compute quantiles and means
+compute_quantiles <- function(object_store){
+  scenario_tabs <- object_store$scenario_tabs
+  for(j in 1:object_store$nScenarios) {
+    scenario_tabs[[1+j]] <- list()
+    for(i in 1:2){
+      scenario_tabs[[1+j]][[i]] <- scenario_tabs[[1]][[i]]
+      scenario_tabs[[1+j]][[i]]$cas_distance <- scenario_tabs[[1]][[i]]$cas_distance*1.1
+    }
+  }
+  for(j in 1:length(scenario_tabs)){
+    for(i in 1:length(scenario_tabs[[j]])){
+      ##TODO get SE for NB. Error: singular matrix.
+      if(i==1){fit <- object_store$fit_whw}else{fit <- object_store$fit_nov}
+      lambda <- predict(fit,newdata=scenario_tabs[[j]][[i]],type='link')
+      scenario_tabs[[j]][[i]]$expected_fatalities <- exp(lambda)
+      if(fit$family$family=='poisson'){
+        scenario_tabs[[j]][[i]]$lower_fatalities <- qpois(object_store$lq,lambda=scenario_tabs[[j]][[i]]$expected_fatalities)
+        scenario_tabs[[j]][[i]]$upper_fatalities <- qpois(object_store$uq,lambda=scenario_tabs[[j]][[i]]$expected_fatalities)
+      }else{
+        size <- fit$theta
+        scenario_tabs[[j]][[i]]$lower_fatalities <- qnbinom(object_store$lq,size=size,mu=scenario_tabs[[j]][[i]]$expected_fatalities)
+        scenario_tabs[[j]][[i]]$upper_fatalities <- qnbinom(object_store$uq,size=size,mu=scenario_tabs[[j]][[i]]$expected_fatalities)
+      }
+    }
+  }
+  scenario_tabs
 }
 
 ## function to fit negative binomial model
@@ -267,83 +331,64 @@ group_by_cas_age <- function(ages_per_group=1,tab,distance){
 }
 
 ## generate predictions
-pred_generation <- function(fit,tab1,tab2,input,over,overs){
+pred_generation <- function(tab1,over,overs){
   ##TODO what SEs do we want to plot?
-  lq <- 0.25; uq <- 0.75;
-  if(input$SE==T)
-    if(input$lq>0&&input$uq<1&&lq<uq){
-      lq <- input$lq
-      uq <- input$uq
+  medians <- sapply(overs,function(x)sum(tab1$expected_fatalities[tab1[[over]]==x]))
+  lower <- sapply(overs,function(x)sum(tab1$lower_fatalities[tab1[[over]]==x]))
+  upper <- sapply(overs,function(x)sum(tab1$upper_fatalities[tab1[[over]]==x]))
+  list(medians,lower,upper)
+}
+
+## function to collate output
+##TODO generalise to case where we have striker covariates
+##TODO add injuries to fatalities
+assemble_output <- function(scenario_tabs){
+  columnnames <- c('Cas_mode','Casualty_age','Casualty_gender','expected_fatalities','lower_fatalities','upper_fatalities')
+  columns <- list()
+  columns[[1]] <- which(names(scenario_tabs[[1]][[1]])%in%columnnames)
+  columns[[2]] <- which(names(scenario_tabs[[1]][[2]])%in%columnnames)
+  full_table <- rbind(scenario_tabs[[1]][[1]][,columns[[1]]],scenario_tabs[[1]][[2]][,columns[[2]]])
+  for(j in 2:length(scenario_tabs)){
+    for(k in 4:6){
+      full_table[[paste0('scenario',j-1,columnnames[k])]] <- c(scenario_tabs[[j]][[1]][[columnnames[k]]],scenario_tabs[[j]][[2]][[columnnames[k]]])
     }
-  if(fit$family$family=='poisson'){
-    lambda1 <- predict(fit,newdata=tab1,type='link',se.fit=T)
-    lambda2 <- predict(fit,newdata=tab2,type='link',se.fit=T)
-    mu1 <- exp(lambda1$fit)
-    mu2 <- exp(lambda2$fit)
-    out <- pred_poisson(tab1,tab2,over,overs,mu1,mu2,lq,uq)
   }
-  else{
-    ##TODO get SE for NB. Error: singular matrix.
-    lambda1 <- predict(fit,newdata=tab1,type='link')
-    lambda2 <- predict(fit,newdata=tab2,type='link')
-    mu1 <- exp(lambda1)
-    mu2 <- exp(lambda2)
-    size <- fit$theta
-    out <- pred_NB(size,tab1,tab2,over,overs,mu1,mu2,lq,uq)
-    }
-  out
-}
-
-## poisson prediction
-pred_poisson <- function(tab1,tab2,over,overs,mu1,mu2,lq,uq){
-  #medians <- rbind(sapply(overs,function(x)qpois(0.5,lambda=sum(mu1[tab1[[over]]==x]))),
-  #  sapply(overs,function(x)qpois(0.5,lambda=sum(mu2[tab2[[over]]==x]))))
-  medians <- rbind(sapply(overs,function(x)sum((mu1[tab1[[over]]==x]))),
-    sapply(overs,function(x)sum((mu2[tab2[[over]]==x]))))
-  lower <- rbind(sapply(overs,function(x)qpois(lq,lambda=sum(mu1[tab1[[over]]==x]))),
-    sapply(overs,function(x)qpois(lq,lambda=sum(mu2[tab2[[over]]==x]))))
-  upper <- rbind(sapply(overs,function(x)qpois(uq,lambda=sum(mu1[tab1[[over]]==x]))),
-    sapply(overs,function(x)qpois(uq,lambda=sum(mu2[tab2[[over]]==x]))))
-  list(medians,lower,upper)
-}
-
-## NB prediction
-pred_NB <- function(size,tab1,tab2,over,overs,mu1,mu2,lq,uq){
-  #medians <- rbind(sapply(overs,function(x)qnbinom(0.5,size=size,mu=sum(mu1[tab1[[over]]==x]))),
-  #  sapply(overs,function(x)qnbinom(0.5,size=size,mu=sum(mu2[tab2[[over]]==x]))))
-  medians <- rbind(sapply(overs,function(x)sum((mu1[tab1[[over]]==x]))),
-    sapply(overs,function(x)sum((mu2[tab2[[over]]==x]))))
-  lower <- rbind(sapply(overs,function(x)qnbinom(lq,size=size,mu=sum(mu1[tab1[[over]]==x]))),
-    sapply(overs,function(x)qnbinom(lq,size=size,mu=sum(mu2[tab2[[over]]==x]))))
-  upper <- rbind(sapply(overs,function(x)qnbinom(uq,size=size,mu=sum(mu1[tab1[[over]]==x]))),
-    sapply(overs,function(x)qnbinom(uq,size=size,mu=sum(mu2[tab2[[over]]==x]))))
-  list(medians,lower,upper)
+  covNames <- list()
+  for(k in 1:3) covNames[[k]] <- unique(full_table[[columnnames[k]]])
+  names(covNames) <- columnnames[1:3]
+  out <- data.frame(expand.grid(covNames))
+  for(k in 4:dim(full_table)[2]){
+    colname <- names(full_table)[k]
+    out[[colname]] <- apply(out,1,function(x)sum(subset(full_table,Cas_mode==x[1]&Casualty_age==x[2]&Casualty_gender==x[3])[[k]]))
+  }
+  return(out)
 }
 
 prepPlots <- function(object_store,input){
-  fit <- list()
-  tab <- list()
-  fit[[1]] <- object_store$fit_whw
-  tab[[1]] <- object_store$tab_whw
-  fit[[2]] <- object_store$fit_nov
-  tab[[2]] <- object_store$tab_nov
+  scenario_tabs <- object_store$scenario_tabs
   covariate <- paste(strsplit(input$group,' ')[[1]],collapse='_')
   subgroup <- input$subgroup
   over <- paste(strsplit(input$over,' ')[[1]],collapse='_')
   # how to handle the two data sets. Either: 1 prediction, summed over; 2 predictions, concatenated; or 2 predictions, appended.
   ##TODO generalise to arbitrary covariates.
   rounds <- c(1,2)
-  if(covariate=='Strike_mode') rounds <- as.numeric(subgroup%in%unique(tab[[2]][[covariate]]))+1
+  if(covariate=='Strike_mode') rounds <- as.numeric(subgroup%in%unique(scenario_tabs[[1]][[2]][[covariate]]))+1
   medians <- lower <- upper <- list()
+  ##TODO count number of scenarios
   for(i in rounds){
-    overs <- unique(tab[[i]][[over]])
-    tab2 <- tab1 <- tab[[i]][tab[[i]][[covariate]]==subgroup,]
-    ##TODO tab2 is the scenario. The data will be obtained from somewhere TBC.
-    tab2$cas_distance <- tab1$cas_distance*1.1
-    pred <- pred_generation(fit[[i]],tab1,tab2,input,over,overs)
+    overs <- unique(scenario_tabs[[1]][[i]][[over]])
+    tab <- scenario_tabs[[1]][[i]][scenario_tabs[[1]][[i]][[covariate]]==subgroup,]
+    pred <- pred_generation(tab,over,overs)
     medians[[i]] <- pred[[1]]
     lower[[i]] <- pred[[2]]
     upper[[i]] <- pred[[3]]
+    for(j in 1:object_store$nScenarios) {
+      tab <- scenario_tabs[[j+1]][[i]][scenario_tabs[[j+1]][[i]][[covariate]]==subgroup,]
+      pred <- pred_generation(tab,over,overs)
+      medians[[i]] <- rbind(medians[[i]],pred[[1]])
+      lower[[i]] <- rbind(lower[[i]],pred[[2]])
+      upper[[i]] <- rbind(upper[[i]],pred[[3]])
+    }
   }
   ##TODO check whether these make sense when we have addition covariates e.g. strike age
   ##TODO there will be additional constraints, e.g. if covariate=strike age and we want to plot over strike mode, we do not need to concatenate or sum, as we won't use tab_nov
@@ -351,17 +396,17 @@ prepPlots <- function(object_store,input){
     medians <- medians[[rounds]]
     lower <- lower[[rounds]]
     upper <- upper[[rounds]]
-    names <- unique(tab[[rounds]][[over]])
+    names <- unique(scenario_tabs[[1]][[rounds]][[over]])
   }else if(over=='Strike_mode'){ # if we are plotting over strike mode, we need to calculate two models and concatenate results
     medians <- cbind(medians[[1]],medians[[2]])
     lower <- cbind(lower[[1]],lower[[2]])
     upper <- cbind(upper[[1]],upper[[2]])
-    names <- c(unique(as.character(tab[[1]][[over]])),unique(as.character(tab[[2]][[over]])))
+    names <- c(unique(as.character(scenario_tabs[[1]][[1]][[over]])),unique(as.character(scenario_tabs[[1]][[2]][[over]])))
   }else{ # otherwise, we are adding up over strike modes
     medians <- medians[[1]]+medians[[2]]
     lower <- lower[[1]]+lower[[2]]
     upper <- upper[[1]]+upper[[2]]
-    names <- unique(tab[[1]][[over]])
+    names <- unique(scenario_tabs[[1]][[1]][[over]])
   }
   par(mar=c(7,5,3,1)); 
   plotBars(medians=medians,main=input$subgroup,upper=upper,lower=lower,names=names,SE=input$SE)

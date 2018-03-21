@@ -1,7 +1,8 @@
 server <- function(input, output){
+  source('shinyinjury.R')
   # object storing all values
-  object_store <- reactiveValues(fit=NULL,tab=NULL,injuries=NULL,plotButton=NULL,covariates=NULL,
-    mexicoButton=NULL,distance=NULL,model='poisson')
+  object_store <- reactiveValues(fit_whw=NULL,fit_nov=NULL,scenario_tabs=NULL,injuries=NULL,plotButton=NULL,covariates=NULL,
+    mexicoButton=NULL,distance=NULL,model='poisson',nScenarios=1,lq=0.25,uq=0.75)
   # response to uploading injury. Saves injury; reveals distance file button
   ##TODO remove distance data file response when we have true synthetic population
   output$ui.distance <- renderUI({
@@ -25,29 +26,45 @@ server <- function(input, output){
         ".csv")
     )
   })
+  # reads distance file
+  observeEvent(input$distancefile, {
+    inFile <- input$distancefile
+    distance <- read.ods(inFile$datapath)[[1]]
+    object_store$distance <- distance
+  })
+  # reveals compute button when distance file has been uploaded
+  ##TODO change to when injury file has been uploaded
+  output$ui.compute <- renderUI({
+    inFile <- input$distancefile
+    if (is.null(inFile)&&is.null(input$file2)&&is.null(object_store$mexicoButton)) return(NULL)
+    actionButton("compute", "Compute predictions")
+  })
   # if distance file has been uploaded
   ##TODO change to if injury file has been uploaded
   # reveals toggle for whether the model is poisson (default) or NB (if chosen by user)
   output$ui.modeltoggle <- renderUI({
     inFile <- input$distancefile
-    if (is.null(inFile)) return(NULL)
+    if (is.null(inFile)&&is.null(input$file2)&&is.null(object_store$mexicoButton)) return(NULL)
     value <- object_store$model=='NB'
     materialSwitch("modeltoggle", label = "Negative binomial model (default: Poisson)", status = "primary", right = TRUE,value=value)
+  })
+  ##TODO get min and max to work
+  # reveals lower quantile input
+  output$ui.lq <- renderUI({
+    inFile <- input$distancefile
+    if (is.null(inFile)&&is.null(input$file2)&&is.null(object_store$mexicoButton)) return(NULL)
+    numericInput("lq", "Lower quantile", object_store$lq,min=1e-5,max=0.5)
+  })
+  # reveals upper quantile input
+  output$ui.uq <- renderUI({
+    inFile <- input$distancefile
+    if (is.null(inFile)&&is.null(input$file2)&&is.null(object_store$mexicoButton)) return(NULL)
+    numericInput("uq", "Upper quantile", object_store$uq,min=0.5,max=1-1e-5)
   })
   # toggle for whether the model is poisson (default) or NB (if chosen by user)
   observeEvent(input$modeltoggle, {
     models <- c('poisson','NB')
     object_store$model <- models[as.numeric(input$modeltoggle)+1]
-  })
-  # reads distance file
-  # reveals compute button when distance file has been uploaded
-  ##TODO change to when injury file has been uploaded
-  output$ui.compute <- renderUI({
-    inFile <- input$distancefile
-    if (is.null(inFile)) return(NULL)
-    distance <- read.ods(inFile$datapath)[[1]]
-    object_store$distance <- distance
-    actionButton("compute", "Compute predictions")
   })
   # read saved model
   observeEvent(input$file2, {
@@ -103,11 +120,12 @@ server <- function(input, output){
   output$ui.subgroup <- renderUI({
     if (is.null(object_store$plotButton)||is.null(input$group)) return(NULL)
     # there are two models, each with different strike modes. If choosing from another covariate, we can list options from either data set as they should be the same.
-    items <- unique(object_store$tab_whw[[paste(strsplit(input$group,' ')[[1]],collapse='_')]])
+    items <- unique(object_store$scenario_tabs[[1]][[1]][[paste(strsplit(input$group,' ')[[1]],collapse='_')]])
     # if choosing from strike mode, need to combine options from both data sets
     if(input$group=='Strike_mode')
-    items <- unique(c(levels(object_store$tab_whw[[paste(strsplit(input$group,' ')[[1]],collapse='_')]]),levels(object_store$tab_nov[[paste(strsplit(input$group,' ')[[1]],collapse='_')]])))
+    items <- unique(c(levels(object_store$scenario_tabs[[1]][[1]][[paste(strsplit(input$group,' ')[[1]],collapse='_')]]),levels(object_store$scenario_tabs[[1]][[2]][[paste(strsplit(input$group,' ')[[1]],collapse='_')]])))
     ##TODO check how this generalises to e.g. strike age, should we have it. Should be fine...?
+    ##TODO add in 'sum' option, to sum over subgroups
     selectInput("subgroup","Select subgroup to view",items,multiple=FALSE)
   })
   # choose which other covariate to plot over
@@ -118,7 +136,7 @@ server <- function(input, output){
   })
   # instruction to compute model. saves into object_store
   observeEvent(input$compute,{
-    object_store <- fitModel(object_store)
+    object_store <- getModelFits(object_store,input)
   })
   ##TODO superfluous object? Tells us to plot 
   plotObjects <- eventReactive(input$plot, {

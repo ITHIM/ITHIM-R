@@ -18,6 +18,9 @@ ui <- fluidPage(
       uiOutput('ui.distance'),
       # Toggle switch to choose between poisson and NB models
       uiOutput('ui.modeltoggle'),
+      # Choose quantiles
+      uiOutput('ui.lq'),
+      uiOutput('ui.uq'),
       # Button to compute model
       uiOutput('ui.compute'),
       # Button to save model
@@ -41,12 +44,6 @@ ui <- fluidPage(
       uiOutput('ui.over'),
       # Radio button: plot SE or not
       uiOutput('ui.se'),
-      # Choose quantiles
-      conditionalPanel(
-        condition = "input.SE == true",
-        numericInput("lq", "Lower quantile", 0.25),
-        numericInput("uq", "Upper quantile", 0.75)
-      ),
       # Button to plot/renew plot
       uiOutput('ui.plot')
     ),
