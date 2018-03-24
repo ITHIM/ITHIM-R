@@ -223,6 +223,10 @@ fitModel <- function(object_store){
     suppressWarnings(fit_nov <- glm.nb(as.formula(formula),data=tab_nov,init.theta=50,control=glm.control(maxit=25)))
   }
   
+  # trim glm objects
+  fit_whw <- trim_glm_object(fit_whw)
+  fit_nov <- trim_glm_object(fit_nov)
+  
   # store everything and return
   object_store$fit_whw <- fit_whw
   object_store$fit_nov <- fit_nov
@@ -230,6 +234,29 @@ fitModel <- function(object_store){
   object_store$scenario_tabs <- compute_quantiles(object_store)
   
   object_store
+}
+
+## function to trim object to save
+trim_glm_object <- function(obj){
+  obj$y <- c()
+  obj$model <- c()
+  obj$R <- c()
+  obj$residuals <- c()
+  obj$fitted.values <- c()
+  obj$effects <- c()
+  obj$qr$qr <- c()
+  obj$linear.predictors <- c()
+  obj$weights <- c()
+  obj$prior.weights <- c()
+  obj$data <- c()
+  obj$family$variance = c()
+  obj$family$dev.resids = c()
+  obj$family$aic = c()
+  obj$family$validmu = c()
+  obj$family$simulate = c()
+  #attr(obj$terms,".Environment") = c()
+  attr(obj$formula,".Environment") = c()
+  obj
 }
 
 ## function to compute quantiles and means

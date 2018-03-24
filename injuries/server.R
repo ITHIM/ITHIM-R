@@ -80,7 +80,7 @@ server <- function(input, output){
   ##TODO make better
   # if using Mexico model, load saved model
   observeEvent(object_store$mexicoButton, {
-    inFile <- 'save_mexico.Rdata'
+    inFile <- 'saved_mexico_model.Rdata'
     if (is.null(inFile)) return(NULL)
     object_store_temp <- readRDS(inFile)
     for(x in names(object_store_temp)) object_store[[x]] <- object_store_temp[[x]]

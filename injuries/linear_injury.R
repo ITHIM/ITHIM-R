@@ -4,8 +4,8 @@ source('shinyinjury.R')
 input <- list()
 input$injuryfile <- 'input_injuries.xlsx'
 input$distancefile <- 'synthetic_population.ods'
-input$file2 <- 'save_mexico.Rdata'
-input$file3 <- 'save_mexico_NB.Rdata'
+input$file2 <- 'saved_mexico_model.Rdata'
+input$file3 <- 'saved_mexico_model_NB.Rdata'
 input$group <- 'Strike mode'
 input$over <- 'Casualty age'
 input$subgroup <- 'cyclist'
@@ -20,7 +20,7 @@ model <- 'poisson'
 if (model=='NB') object_store$model <- 'NB'
 
 useShiny <- F
-useMexicoModel <- 2
+useMexicoModel <- 0
 
 if(useMexicoModel==0){
   ## GET INJURY INPUT

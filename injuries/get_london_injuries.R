@@ -1,4 +1,4 @@
-setwd('~/overflow_dropbox/injuries')
+setwd('~/overflow_dropbox/ITHIM-R/injuries')
 library(matrixStats)
 library(latex2exp)
 library(readstata13)
