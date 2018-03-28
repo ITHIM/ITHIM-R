@@ -10,17 +10,17 @@ options(scipen=999)
 
 ##### Load all functions/packages
 
-source("code/functions.R")
+source("MSLT/code/functions.R")
 
 
 ##### Read data. idata: life table and disease life tables (including trends). edata: exposure data (e.g. physical activity).
 #### irr.data: relative risks data and ee: energy expenditure
 #### For exposure (edata) and input (idata) data I am using already generated categories, but a function should be developed to work from raw data. 
 
-idata <- read.csv("data/idata.csv", stringsAsFactors = F)
-edata <- read.csv("data/edata.csv", stringsAsFactors = F)
-irr <- read.csv("data/irr.csv", stringsAsFactors = F)
-ee <- read.csv("data/ee.csv", stringsAsFactors = F)
+idata <- read.csv("MSLT/data/idata.csv", stringsAsFactors = F)
+edata <- read.csv("MSLT/data/edata.csv", stringsAsFactors = F)
+irr <- read.csv("MSLT/data/irr.csv", stringsAsFactors = F)
+ee <- read.csv("MSLT/data/ee.csv", stringsAsFactors = F)
 
 #####To do
 
