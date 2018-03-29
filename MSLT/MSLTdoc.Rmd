@@ -11,7 +11,7 @@ output:
     fig_caption: yes
   fontsize: 12 pt
   geometry: margin=1in
-  bibliography: MSLT\Bibliography.txt
+
 ---
 
 ```{r setup, include=FALSE}
@@ -111,20 +111,14 @@ Disability weights (DW) can be derived from disease specific years lived with di
 
 Where YLDd is the YLD mean number per age and sex for a given disease, Pd is the prevalence (as reported in GBD )  for a given disease by age and sex and YLDt is total YLD rate per age and sex. 
 
-```{r}
-inputs <- matrix(c("Life table", "Synthetic population", "", "Life table", "Synthetic population", "", "Life table", "GBD Results tool (http://ghdx.healthdata.org/gbd-results-tool)","", "Disease life table", "GBD Results tool (http://ghdx.healthdata.org/gbd-results-tool) and Dismod II", "", "Disease life table", "GBD Results tool (http://ghdx.healthdata.org/gbd-results-tool) and Dismod II", "", "", "Disease life table", "GBD Results tool (http://ghdx.healthdata.org/gbd-results-tool)"),ncol= 3,byrow=TRUE)
-colnames(inputs) <- c("Life table/Disease life table","","")
-rownames(inputs) <- c("Population","All-cause mortality", "Total YLD rates", "Incidence", "Case fatality", "Disability weighs")
+```{r, echo=FALSE}
+inputs <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18)
+colnames(inputs) <- c("Life table","Source","Comments")
+rownames(inputs) <- c("Population", "All-cause mortality", "Total YLD rate", "Incidence", "Case fatality", "Disability weight")
 inputs <- as.table(inputs)
 inputs
 ```
 
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
 
 ## Including Plots
 
