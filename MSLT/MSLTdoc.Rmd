@@ -112,11 +112,10 @@ Disability weights (DW) can be derived from disease specific years lived with di
 Where YLDd is the YLD mean number per age and sex for a given disease, Pd is the prevalence (as reported in GBD )  for a given disease by age and sex and YLDt is total YLD rate per age and sex. 
 
 ```{r, echo=FALSE}
-inputs <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18)
-colnames(inputs) <- c("Life table","Source","Comments")
-rownames(inputs) <- c("Population", "All-cause mortality", "Total YLD rate", "Incidence", "Case fatality", "Disability weight")
-inputs <- as.table(inputs)
-inputs
+pmslt_inputs <- matrix(c(1:15), ncol = 3, byrow = TRUE)
+colnames(pmslt_inputs) <- c("Input", "Source", "Comments")
+rownames (pmslt_inputs) <- c("Population numbers", "Death rates", "Years lived with disability rates", "Disease epidemilogy", "Disability weights")
+print(pmslt_inputs)
 ```
 
 
