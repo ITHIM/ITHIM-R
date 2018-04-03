@@ -4,6 +4,7 @@ author: "Belen Zapata-Diomedi and Ali Abbas"
 date: "26 March 2018"
 header-includes:
     - \usepackage{setspace}\onehalfspacing
+    
 output:
   pdf_document: 
     toc: true
@@ -11,11 +12,20 @@ output:
     fig_caption: yes
   fontsize: 12 pt
   geometry: margin=1in
-
+  
 ---
 
 ```{r setup, include=FALSE}
+
+#Global options
 knitr::opts_chunk$set(echo = TRUE)
+
+#Packages to run code
+require(dplyr)
+require(tidyverse)
+require(knitr)
+require(kableExtra)
+options(knitr.table.format = 'latex')
 ```
 # Introduction 
 
@@ -59,7 +69,7 @@ The model is set up as a long script to perform the required mathematical calcul
 
 In what follows, first, we specify input parameters. Second, we present the code with explaining notes. Third, we present examples of outcomes and lastly we comment on topics related to implementation. Here we only included the physical activity health pathway. In the comments section, implementation of exposure to air pollution and road trauma is discussed. Note that in the presentation of input parameters, those needed to calculate PIFs are excluded, as these are common to the ITHIM, expect if trends are included (refer to comments section)
 
-## Inputs (ADD A SUMMARY TABLE with inputs and potential sources of data)
+## Inputs 
 
 We specify data requirements for the life table and disease life tables (Figure 2) and potential sources. 
 
@@ -79,7 +89,7 @@ These data will be provided by the synthetic population. Other sources are the s
 
 Note that we need data for population numbers and all cause mortality rates for: (1) PMSLT and (2) Dismod II collection (more in Dismod II section). 
 
-####	Total prevalent years lived with disability rates per single year and sex.
+####	Total years lived with disability rates per single year and sex.
 
 These data is available from the GBD (http://ghdx.healthdata.org/gbd-results-tool) per 5-year age groups. We can use interpolation to derive between ages rates. 
 
@@ -111,11 +121,22 @@ Disability weights (DW) can be derived from disease specific years lived with di
 
 Where YLDd is the YLD mean number per age and sex for a given disease, Pd is the prevalence (as reported in GBD )  for a given disease by age and sex and YLDt is total YLD rate per age and sex. 
 
+
 ```{r, echo=FALSE}
-pmslt_inputs <- matrix(c(1:15), ncol = 3, byrow = TRUE)
-colnames(pmslt_inputs) <- c("Input", "Source", "Comments")
-rownames (pmslt_inputs) <- c("Population numbers", "Death rates", "Years lived with disability rates", "Disease epidemilogy", "Disability weights")
-print(pmslt_inputs)
+pmslt_inputs <- tribble(
+~Input, ~Source, ~Comments, 
+"Life table", "Synthetic population per sex and age group", "Age grouping in life table to match synthetic population", 
+"Life table", "Synthetic population per sex and one-year age group", "If one year age group is not avabilable it can be derive using interpolation from age groups data", 
+"Life table", "Global Burden of Disease (GBD) study per one-year age group and sex", "GBD data is in five-year age groups, interpolation to derive one-year age groups", 
+"Disease life table", "GBD data for prevalence, incidence and mortality and DISMOD II", "Two step process. First obtain disease and population data from GBD. Second, use Dismod II to derive internally consistent estimates for incidence and case fatality (PMSLT disease life table iputs", 
+"Disease life table", "Derive from disease prevalence and years lived with disability from GBD", "Adjustments for comorbidities in later years of life to be applied"
+)
+
+kable(pmslt_inputs,"latex", booktabs = T, caption = "PMSLT inputs") %>%
+ kable_styling(latex_options = c("striped", "hold_position"),
+               full_width = F)%>%
+  column_spec(2, width = "20em") %>%
+  column_spec(3, width = "20em")
 ```
 
 

@@ -2,6 +2,8 @@
 
 require(dplyr)
 require(tidyverse)
+require(knitr)
+require(kableExtra)
 
 #############################Explanation method###################################
 
