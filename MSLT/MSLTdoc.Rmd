@@ -19,7 +19,7 @@ bibliography: Bibliography.bib
 #Global options
 knitr::opts_chunk$set(echo = TRUE)
 
-#Packages to run code
+#The work in this document requires the following packages (code, rmarkdown and citing packages):
 require(dplyr)
 require(tidyverse)
 require(knitr)
@@ -138,6 +138,9 @@ kable(pmslt_inputs,"latex", booktabs = T, caption = "PMSLT inputs") %>%
   column_spec(2, width = "20em") %>%
   column_spec(3, width = "20em")
 ```
+
+##Code
+
 
 
 ## Including Plots
