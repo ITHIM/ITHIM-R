@@ -12,7 +12,9 @@ output:
     fig_caption: yes
   fontsize: 12 pt
   geometry: margin=1in
-  
+  citation_package: natib
+  bibliography: Bibliography.bib
+ 
 ---
 
 ```{r setup, include=FALSE}
@@ -31,7 +33,7 @@ options(knitr.table.format = 'latex')
 
 The proportional multi-state multiple-cohort life table model (PMSLT) is a population level model (macro) approach to simulate health (and economic) implications of changes in exposure to health risk factors (e.g. physical inactivity, air pollution and diet). The PMSLT has been widely used to simulate outcomes for population level interventions for the reduction of chronic diseases. 
 
-The model was developed by Jan Barendregt and colleagues (REF ACE prevention and core papers) and has been widely used in Australia and New Zealand (Ref ACE-report and BODE website of key publications). 
+The model was developed by Jan Barendregt and colleagues  and has been widely used in Australia and New Zealand (). 
 
 The basic infrastructure of the model consist of three components: (1) Effect size for the intervention of interest (e.g. intervention to urban design that modifies population levels of physical activity); (2) Calculation of the potential impact fraction (PIF) to derive the change in occurrence of disease (incidence rate/mortality rate) attributable to a change in the distribution of the risk factor (e.g. physical activity); and (3) Use of the PMSLT to simulate health (and economic) outcomes attributable to a change in the distribution of health risk factor/s in the population of interest. Figure 1 summaries the basic infrastructure of the model. ITHIM is included in Figure 1 to show that both approaches share in common steps one and two and differ in the mechanisms of calculation of change in health burden. 
 
@@ -149,3 +151,5 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+#References
