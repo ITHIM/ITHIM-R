@@ -167,18 +167,25 @@ options(scipen=999)
 source("code/functions.R")
 ```
 
-The data used here is for an example for Australia, however, this will be updated to link with the ITHIM-R modules (synthetic population, PIF calculations). 
+###Inputs
+
+Table 1 describes data needs for the PMSLT, the data used here is for an example for Australia, however, this will be updated to link with the ITHIM-R modules and additional work required to generate data inputs. Here, we expand on Table 1 with the aim of providing clear guidance for the PMSLT data needs. 
+
+
+
 
 ```{r, echo=TRUE}
 ##### Read data. idata: life table and disease life tables (including trends). edata: exposure data (e.g. physical activity).
 #### irr.data: relative risks data and ee: energy expenditure
 #### For exposure (edata) and input (idata) data I am using already generated categories, but a function should be developed to work from raw data. 
 
+
 idata <- read.csv("data/idata.csv", stringsAsFactors = F)
 edata <- read.csv("data/edata.csv", stringsAsFactors = F)
 irr <- read.csv("data/irr.csv", stringsAsFactors = F)
 ee <- read.csv("data/ee.csv", stringsAsFactors = F)
 ```
+
 
 
 ## Including Plots
