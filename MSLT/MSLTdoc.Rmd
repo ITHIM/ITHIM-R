@@ -158,11 +158,11 @@ We start by *cleaning the global environment* to keep track of our works and ens
 ```{r, echo=TRUE}
 rm (list = ls())
 
-##### Prevent scientific notation in data frame
+# Prevent scientific notation in data frame
 
 options(scipen=999)
 
-##### Load all functions/packages
+#Load all functions/packages
 
 source("MSLT/code/functions.R")
 ```
