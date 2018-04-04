@@ -4,11 +4,13 @@ author: "Belen Zapata-Diomedi and Ali Abbas"
 date: "26 March 2018"
 header-includes:
     - \usepackage{setspace}\onehalfspacing
+    - \usepackage{float}
 output:
    pdf_document: 
      toc: true
      number_sections: true
      fig_caption: yes
+     
    fontsize: 12 pt
    geometry: margin=1in
 bibliography: Bibliography.bib
@@ -25,7 +27,9 @@ require(tidyverse)
 require(knitr)
 require(kableExtra)
 require(citr)
+require(png)
 options(knitr.table.format = 'latex')
+
 ```
 # Introduction 
 
@@ -133,14 +137,48 @@ pmslt_inputs <- tribble(
 )
 
 kable(pmslt_inputs,"latex", booktabs = T, caption = "PMSLT inputs") %>%
- kable_styling(latex_options = c("striped", "hold_position"),
+ kable_styling(latex_options = c("striped", "hold position"),
                full_width = F)%>%
-  column_spec(2, width = "20em") %>%
-  column_spec(3, width = "20em")
+  column_spec(2, width = "15em") %>%
+  column_spec(3, width = "15em") %>%
+  row_spec(0, bold = T)
 ```
+\pagebreak
 
 ##Code
 
+Following the structure of Figure 2, we developed functions to perform sex and age cohorts calculations for the life table, disease life tables and potential impact fractions: run_life_table, run_disease and and run_pif. We also generated two functions for outputs: plot_outputs and gen_aggregate. The function plot_outputs creates age-group and sex linear plots for specified outcomes (e.g. health-adjusted life years, incidence of diabetes) and gen_aggregate adds up each cohort results. Functions were then used in a code script. In what follows, we explain each step in the development of the script. Here we also include code chunks, however, we also kept them separately in the MSLT folder, in the code file. 
+
+In what follows, we start with the **model** script file, and explain the **functions** script file as these are used to perform calculations. The **functions** will be explained in detailed to provide clarity for required inputs. 
+
+###Set up 
+
+We start by *cleaning the global environment* to keep track of our works and ensure that the code is generating our outcomes. Then, we set up an option to avoind the use of scientific notation and lastly we load the functions. The code chunks are shown in the rmarkdown ouput.  
+
+```{r, echo=TRUE}
+rm (list = ls())
+
+##### Prevent scientific notation in data frame
+
+options(scipen=999)
+
+##### Load all functions/packages
+
+source("MSLT/code/functions.R")
+```
+
+The data used here is for an example for Australia, however, this will be updated to link with the ITHIM-R modules (synthetic population, PIF calculations). 
+
+```{r, echo=TRUE}
+##### Read data. idata: life table and disease life tables (including trends). edata: exposure data (e.g. physical activity).
+#### irr.data: relative risks data and ee: energy expenditure
+#### For exposure (edata) and input (idata) data I am using already generated categories, but a function should be developed to work from raw data. 
+
+idata <- read.csv("MSLT/data/idata.csv", stringsAsFactors = F)
+edata <- read.csv("MSLT/data/edata.csv", stringsAsFactors = F)
+irr <- read.csv("MSLT/data/irr.csv", stringsAsFactors = F)
+ee <- read.csv("MSLT/data/ee.csv", stringsAsFactors = F)
+```
 
 
 ## Including Plots
