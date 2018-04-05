@@ -173,7 +173,7 @@ Table 1 describes data needs for the PMSLT, here we expand on the data needs and
 
 ![Proportional multi-state life-table model. *Three sections are presented in Figure 3: **Data input sources**, **Inputs PMSLT** and **PMSLT mechanisms**.* ](structure\Figure3.png)
 
-####Data for example
+####Data for example (CHANGE TO ENGLISH DATA, MAY NOT BE AN EXAMPLE, BUT HAVE THE DATA FOR THE CASE STUDIES (NEED TO PREPARE: LONDON, SAO PABLO, DELHI, ACCRA, LOS ANGELES, EDINBURGH)). DATA AVAILABILITY FROM GBD AT WHAT LEVEL?
 
 The code below is to load the data used in the example provided in this code for Australia (#4). *idata* includes data by one-year age groups and sex for: population numbers, mortality rates, total years lived with disability rates, incidence, case fatality, disability weights and costs for included diseases (ischemic heart disease, ischemic stroke, diabates, breast cancer (women) and colon cancer), cost for all other diseases (excludes those for physical inactivity) and trend for incidence and case fatality. Here we do not use cost and trends data. *edata* is for physical activity prevalence per categories (health risk factor), *irr* are relative risks and **ee** is energy expenditure per physical activity categories. 
 
@@ -198,6 +198,59 @@ p_disease <- c("ihd", "istroke", "diabetes", "colon_cancer", "breast_cancer")
 p_intervention_effect <- 100
 ```
 
+####Data preparation
+
+The following code applies to the data used as an exmaple here. #6 transforms upper cases to lower cases in the sex variable. #7 and #8 is used to rename mortality_rate to mx (used in life table language). #9 is used to replace male and female in the exposure data to males and females to facilitate combination of data sets. 
+
+```{r, echo=TRUE}
+#6
+idata$sex <- tolower(idata$sex)
+#7
+idata$mx <- idata$mortality_rate
+#8
+idata$mortality_rate <- NULL
+#9
+edata$sex[edata$sex=="male"] <- "males"
+edata$sex[edata$sex=="female"] <- "females"
+```
+
+```{r, echo=TRUE}
+##### Create new variable for 5_year population (age cohorts). Depends on the age-cohorts of interest (5-yrs here)
+
+idata$five_year_population <- NA
+start_index <- 3
+index <- 1
+end_index <- 4
+for (i in 1:20){
+  if (i == 1)
+    index <- 1
+  else 
+    index <- ((i - 1)  * 5) + 1
+  if (index == 96){
+    end_index <- 5
+  }
+  cat("population sum ", start_index, "start index ", index, " and end index ", index + end_index, "\n")
+  idata$five_year_population[start_index] <- sum(idata$population[index:(index + end_index)])
+  start_index <- start_index + 5
+}
+
+end_index <- 4
+start_index <- 104
+
+for (i in 1:20){
+  if (i == 1)
+    index <- 102
+  else
+    index <- (((i - 1)  * 5) + 1) + 101
+  if (index == 197){
+    end_index <- 5
+  }
+  cat("population sum ", start_index, "start index ", index, " and end index ", index + end_index, "\n")
+  idata$five_year_population[start_index] <- sum(idata$population[index:(index + end_index)])
+  start_index <- start_index + 5
+}
+
+```
 
 ## Including Plots
 
