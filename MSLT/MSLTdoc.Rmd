@@ -215,8 +215,8 @@ pmslt_inputs <- tribble(
 kable(pmslt_inputs,"latex", booktabs = T, caption = "Global burden of disease data") %>%
  kable_styling(latex_options = c("striped", "hold position"),
                full_width = F)%>%
-  column_spec(2, width = "15em") %>%
-  column_spec(3, width = "15em") %>%
+  column_spec(2, width = "30em") %>%
+  column_spec(3, width = "30em") %>%
   row_spec(0, bold = T)
 ```
 
