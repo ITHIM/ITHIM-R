@@ -5,14 +5,15 @@ date: "26 March 2018"
 header-includes:
     - \usepackage{setspace}\onehalfspacing
     - \usepackage{float}
+    - \usepackage{pdflscape}
+    - \newcommand{\blandscape}{\begin{landscape}}
+    - \newcommand{\elandscape}{\end{landscape}}
 output:
    pdf_document: 
      toc: true
      toc_depth: 3
      number_sections: true
-     fig_caption: yes
-     fig_width: 7
-     fig_height: 6
+     
      df_print: kable
    fontsize: 12 pt
    geometry: margin=1in
@@ -23,6 +24,8 @@ bibliography: Bibliography.bib
 
 #Global options
 knitr::opts_chunk$set(echo = TRUE)
+options(knitr.table.format = 'latex')
+knitr::opts_chunk$set(fig.cap = TRUE, fig.align = "center", fig.pos = "H", fig.scap = TRUE) 
 
 #The work in this document requires the following packages (code, rmarkdown and citing packages):
 require(dplyr)
@@ -31,7 +34,7 @@ require(knitr)
 require(kableExtra)
 require(citr)
 require(png)
-options(knitr.table.format = 'latex')
+
 
 ```
 # Introduction 
@@ -42,7 +45,9 @@ The model was developed by Jan Barendregt and colleagues and has been widely use
 
 The basic infrastructure of the model consist of three components: (1) Effect size for the intervention of interest (e.g. intervention to urban design that modifies population levels of physical activity); (2) Calculation of the potential impact fraction (PIF) to derive the change in occurrence of disease (incidence rate/mortality rate) attributable to a change in the distribution of the risk factor (e.g. physical activity); and (3) Use of the PMSLT to simulate health (and economic) outcomes attributable to a change in the distribution of health risk factor/s in the population of interest. Figure 1 summaries the basic infrastructure of the model. ITHIM is included in Figure 1 to show that both approaches share in common steps one and two and differ in the mechanisms of calculation of change in health burden. 
 
-![Basic ITHIMR infrastructure](structure\Figure1.png)
+
+![Basic ITHIMR infrastructure](structure\Figure1.png){width=70%, fig.pos="H"}
+
 
 **HALYs, QALYs and DALYs**
 
@@ -72,7 +77,12 @@ The PMSLT similar to ITHIM is a comparative risk assessment approach [@RN8957] t
 
 The model is set up as a long script to perform the required mathematical calculations. Where possible, we wrote functions and loops to avoid repetition. We set up the model  with Australian data, for Melbourne. Figure 2 is depicts the PMSLT model framework, which was followed in the code development. 
 
-![Proportional multi-state life-table simplified framework. *The simplied PMST shows the interaction between the life table, disease life table and potential impact fraction (PIF). The PIF calculations by age and sex group are the same as those generated for ITHIM. The PIF (or 1-PIF) modifies incidence of disease, which changes prevalence and mortality (disease specific life table). Changes in prevalence and mortality rates from the disease specific life tables feed into the life table by changing all-cause mortality, which in turn changes life years. Change in prevalence of diseases changes total years lived with disability, which in turn modifies health-adjusted life years*](structure\Figure2.png)
+\newpage
+\blandscape
+
+![Proportional multi-state life-table simplified framework. *The simplied PMST shows the interaction between the life table, disease life table and potential impact fraction (PIF). The PIF calculations by age and sex group are the same as those generated for ITHIM. The PIF (or 1-PIF) modifies incidence of disease, which changes prevalence and mortality (disease specific life table). Changes in prevalence and mortality rates from the disease specific life tables feed into the life table by changing all-cause mortality, which in turn changes life years. Change in prevalence of diseases changes total years lived with disability, which in turn modifies health-adjusted life years*](structure\Figure2.png){width=100%, fig.pos="H"}
+
+\elandscape
 
 In what follows, first, we specify input parameters. Second, we present the code with explaining notes. Third, we present examples of outcomes and lastly we comment on topics related to implementation. Here we only included the physical activity health pathway. In the comments section, implementation of exposure to air pollution and road trauma is discussed. Note that in the presentation of input parameters, those needed to calculate PIFs are excluded, as these are common to the ITHIM, expect if trends are included (refer to comments section).
 
@@ -174,10 +184,13 @@ Table 1 describes data needs for the PMSLT, here we expand on the data needs and
 (NEED TO PREPARE: LONDON, SAO PABLO, DELHI, BAY AREA). DATA AVAILABILITY FROM ARE IN 5 YEARS UP TO 95+. gbd DATA IS NOT AVAILABLE AT THE CITY LEVEL, HOWEVER, SOME LEVEL OF DISSAGREAGATION IS AVAILABLE. ENGLAND: EAST MIDLANDS, EAST OF ENGLAND, GRETER LONDON, ETC. wE COULD USE GREATER LONDON. FOR EDINBURGH WE HAVE DATA FOR SCOTLAND.  FOR SAO PABLO, DATA IS FOR BRAZIL. MEXICO IS NOT LISTED, BUT GBD HAS DATA FOR DISTRITO FEDERAL. FOR DELHI THE DATA IS FOR INDIA. FOR ACCRA THE DATA IS FOR GHANA. FOR LOS ANGELES DATA IS FOR UNITED STATES, BUT WE CAN HAVE THIS FROM NEIL?
 
 
+\newpage
+\blandscape
 
-![Proportional multi-state life-table model. *Three sections are presented in Figure 3: **Data input sources**, **Inputs PMSLT** and **PMSLT mechanisms**. The color coding from Data inputs sources to Inputs PMSLT link sources with inputs for the PMSLT. Solid arrows represent final inputs and dashed-arrows represent intermediate inputs that need further processing. Purple coding means a process and green coding represent change in mortality and disability prevalence rates to modify the life table parameters. Black color coding with white color font represent final model outcomes. For both, the life table and disease life table, two sets of each are simulated, one for the baseline and the other for the scenario. **Data inputs** are from four sources: Sythetic population, GBD data (from the Institute of Health Metrics and Evaluations (IHME)), ITHIM calculations and Injuries model. The synthetic population provides population numbers by age-groups and sex which are used in the life table (**PMSLT Mechanisms**) with each age cohort simulated until they die or reach 100 years of age. Population numbers are also used to derive road death rates and road injuries rates from numbers for the baseline and scenario generated by the Injuries model. The difference in road deaths rates modifies all cause-mortatliy in the scenario life table and the change in injuries rates modifies total YLDs rates (hence, healthy life years). Data from GBD IHME includes: total YLD rates per one, disease specific YLDs (numbers) and prevalence to derive disability weights for the included diseases, all cause mortatliy rates per one, population numbers and diseases parameters (incidence, mortality and prevalence). Dismod II is used to derive internally consitent estimates incidence and case fatality rates from GBD IHME data, which are inputs of the disease specific life tables. Case fatality derive from Dismod II is the same for the baseline and scenario (however, could be changed) and incidence is different. For the baseline life tables incidence is as derived from Dismod II and for the scanrio is modified by the PIF (1-PIF). A change in incidence modifies prevalence and mortality in later years. The difference between prevalence and mortality rates between the baseline and scanrio then feed into the scenario life table.* ](structure\Figure3.png)
+![Proportional multi-state life-table model. *Three sections are presented in Figure 3: **Data input sources**, **Inputs PMSLT** and **PMSLT mechanisms**. The color coding from Data inputs sources to Inputs PMSLT link sources with inputs for the PMSLT. Solid arrows represent final inputs and dashed-arrows represent intermediate inputs that need further processing. Purple coding means a process and green coding represent change in mortality and disability prevalence rates to modify the life table parameters. Black color coding with white color font represent final model outcomes. For both, the life table and disease life table, two sets of each are simulated, one for the baseline and the other for the scenario. **Data inputs** are from four sources: Sythetic population, GBD data (from the Institute of Health Metrics and Evaluations (IHME)), ITHIM calculations and Injuries model. The synthetic population provides population numbers by age-groups and sex which are used in the life table (**PMSLT Mechanisms**) with each age cohort simulated until they die or reach 100 years of age. Population numbers are also used to derive road death rates and road injuries rates from numbers for the baseline and scenario generated by the Injuries model. The difference in road deaths rates modifies all cause-mortatliy in the scenario life table and the change in injuries rates modifies total YLDs rates (hence, healthy life years). Data from GBD IHME includes: total YLD rates per one, disease specific YLDs (numbers) and prevalence to derive disability weights for the included diseases, all cause mortatliy rates per one, population numbers and diseases parameters (incidence, mortality and prevalence). Dismod II is used to derive internally consitent estimates incidence and case fatality rates from GBD IHME data, which are inputs of the disease specific life tables. Case fatality derive from Dismod II is the same for the baseline and scenario (however, could be changed) and incidence is different. For the baseline life tables incidence is as derived from Dismod II and for the scanrio is modified by the PIF (1-PIF). A change in incidence modifies prevalence and mortality in later years. The difference between prevalence and mortality rates between the baseline and scanrio then feed into the scenario life table.* ](structure\Figure3.png){width=70%, hight=50%, fig.pos="H"}
 
 
+\elandscape
 
 
 (NEED TO PREPARE: LONDON, SAO PABLO, DELHI, ACCRA, LOS ANGELES, EDINBURGH)). DATA AVAILABILITY FROM ARE IN 5 YEARS UP TO 95+. gbd DATA IS NOT AVAILABLE AT THE CITY LEVEL, HOWEVER, SOME LEVEL OF DISSAGREAGATION IS AVAILABLE. ENGLAND: EAST MIDLANDS, EAST OF ENGLAND, GRETER LONDON, ETC. wE COULD USE GREATER LONDON. FOR EDINBURGH WE HAVE DATA FOR SCOTLAND.  FOR SAO PABLO, DATA IS FOR BRAZIL. MEXICO IS NOT LISTED, BUT GBD HAS DATA FOR DISTRITO FEDERAL. FOR DELHI THE DATA IS FOR INDIA. FOR ACCRA THE DATA IS FOR GHANA. FOR LOS ANGELES DATA IS FOR UNITED STATES, BUT WE CAN HAVE THIS FROM NEIL?
