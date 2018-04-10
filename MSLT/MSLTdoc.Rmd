@@ -229,7 +229,7 @@ GBDdata <- read.csv("data/IHME-GBD_2016_DATA-8fca12f6-1.csv", stringsAsFactors =
 
 The following code is to compare mortality rates per one, by age groups of 5 and sex for England and England. 
 
-ALSO PART OF THE BELOW CODE WILL BE NEEDED FOR THE MSLT AND DISMOD COLLECTION. GENERATE DATA INPUTS FOR DISMOD II FROM HERE. 
+ALSO PART OF THE BELOW CODE WILL BE NEEDED FOR THE MSLT AND DISMOD COLLECTION. GENERATE DATA INPUTS FOR DISMOD II FROM HERE. These data should be used to generate the general life table and disease life tables
 
 ```{r, echo=TRUE}
 #Data preparation (generate age groups, change capitals to lower case)
@@ -237,7 +237,7 @@ ALSO PART OF THE BELOW CODE WILL BE NEEDED FOR THE MSLT AND DISMOD COLLECTION. G
 
 GBDdata <- mutate_all(GBDdata, funs(tolower))
 
-##Create age categories index in GBDdata (rounding mid age)
+##Create age categories index in GBDdata (rounding mid age), total of 20 age groups
 
 GBDdata$age_cat [GBDdata$age =="under 5"] <- 2
 GBDdata$age_cat [GBDdata$age =="5 to 9"] <- 7
@@ -260,11 +260,35 @@ GBDdata$age_cat [GBDdata$age =="85 to 89"] <- 87
 GBDdata$age_cat [GBDdata$age =="90 to 94"] <- 92
 GBDdata$age_cat [GBDdata$age =="95 plus"] <- 97
 
-##Convert variable val to numberic
+##Create age and sex categories to be able to derive population numbers
+
+GBDdata$sex_age_cat <- paste(GBDdata$age_cat,GBDdata$sex, sep = "_"  )
+
+##Convert variable val to numeric
 
 GBDdata$val <- as.numeric(as.character(GBDdata$val))
 
-##Filter data for England and Greater London adn generate per person rates (per 100,000 in original data)
+##Generate a data frame with population numbers for England and Greater London (for life table and Dismod II collection). 
+##These are derived from total number of cases and rates per 100,000. To derive values we need to select one cause (E.g. all cause)-does not matter what is chosen. 
+
+
+GBD_England_population_male <- filter(GBDdata, location == "england", measure == "deaths", cause == "all causes", sex == "male", metric == "rate" | metric == "number" ) %>% select(metric, age_cat, val, sex_age_cat)
+
+###Generate population numbers frame males England
+ for (i in 1:nrow(GBD_England_population_male)) {
+    if (GBD_England_population_male$metric[i] == "number") {
+      GBD_England_population_male$val_pop[i] <- GBD_England_population_male$val[i] * 10000/ GBD_England_population_male$val[i + 1]}
+   else {GBD_England_population_male$val_pop[i] <- NA}
+ }
+##Remove rows with zero
+GBD_England_population_male <- GBD_England_population_male[!is.na(GBD_England_population_male$val_pop),]
+
+##Last only keep relevant variables
+
+GBD_England_population_male <- filter(GBD_England_population_male) %>% select(age_cat, val_pop)
+
+
+##Filter data for England and Greater London and generate per person rates (per 100,000 in original data)
 #England
 GBDEngland <- filter(GBDdata, location == "england" & metric == "rate") %>% select(measure, location, sex, age, metric, val, age_cat)
 
@@ -273,8 +297,6 @@ GBDEngland$one_rate <- GBDEngland$val/100000
 #Greater London (GL)
 GBDGL <- filter(GBDdata, location == "greater london" & metric == "rate") %>% select(measure, location, sex, age, metric, val, age_cat)
 GBDGL$one_rate <- GBDGL$val/100000
-
-
 ```
 
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
