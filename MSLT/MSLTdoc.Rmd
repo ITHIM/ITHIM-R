@@ -227,7 +227,55 @@ options(scipen=999)
 GBDdata <- read.csv("data/IHME-GBD_2016_DATA-8fca12f6-1.csv", stringsAsFactors = F)
 ```
 
+The following code is to compare mortality rates per one, by age groups of 5 and sex for England and England. 
 
+ALSO PART OF THE BELOW CODE WILL BE NEEDED FOR THE MSLT AND DISMOD COLLECTION. GENERATE DATA INPUTS FOR DISMOD II FROM HERE. 
+
+```{r, echo=TRUE}
+#Data preparation (generate age groups, change capitals to lower case)
+##All upper cases to lower cases
+
+GBDdata <- mutate_all(GBDdata, funs(tolower))
+
+##Create age categories index in GBDdata (rounding mid age)
+
+GBDdata$age_cat [GBDdata$age =="under 5"] <- 2
+GBDdata$age_cat [GBDdata$age =="5 to 9"] <- 7
+GBDdata$age_cat [GBDdata$age =="10 to 14"] <- 12
+GBDdata$age_cat [GBDdata$age =="15 to 19"] <- 17
+GBDdata$age_cat [GBDdata$age =="20 to 24"] <- 22
+GBDdata$age_cat [GBDdata$age =="25 to 29"] <- 27
+GBDdata$age_cat [GBDdata$age =="30 to 34"] <- 32
+GBDdata$age_cat [GBDdata$age =="35 to 39"] <- 37
+GBDdata$age_cat [GBDdata$age =="40 to 44"] <- 42
+GBDdata$age_cat [GBDdata$age =="45 to 49"] <- 47
+GBDdata$age_cat [GBDdata$age =="50 to 54"] <- 52
+GBDdata$age_cat [GBDdata$age =="55 to 59"] <- 57
+GBDdata$age_cat [GBDdata$age =="60 to 64"] <- 62
+GBDdata$age_cat [GBDdata$age =="65 to 69"] <- 67
+GBDdata$age_cat [GBDdata$age =="70 to 74"] <- 72
+GBDdata$age_cat [GBDdata$age =="75 to 79"] <- 77
+GBDdata$age_cat [GBDdata$age =="80 to 84"] <- 82
+GBDdata$age_cat [GBDdata$age =="85 to 89"] <- 87
+GBDdata$age_cat [GBDdata$age =="90 to 94"] <- 92
+GBDdata$age_cat [GBDdata$age =="95 plus"] <- 97
+
+##Convert variable val to numberic
+
+GBDdata$val <- as.numeric(as.character(GBDdata$val))
+
+##Filter data for England and Greater London adn generate per person rates (per 100,000 in original data)
+#England
+GBDEngland <- filter(GBDdata, location == "england" & metric == "rate") %>% select(measure, location, sex, age, metric, val, age_cat)
+
+GBDEngland$one_rate <- GBDEngland$val/100000
+
+#Greater London (GL)
+GBDGL <- filter(GBDdata, location == "greater london" & metric == "rate") %>% select(measure, location, sex, age, metric, val, age_cat)
+GBDGL$one_rate <- GBDGL$val/100000
+
+
+```
 
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
 

@@ -78,7 +78,8 @@ run_life_table <- function(in_idata, in_sex, in_mid_age)
     lf_df$ex[i] <- sum(lf_df$Lx[i:nrow(lf_df)]) / lf_df$lx[i]
   }
   
-  # create health adjusted life years variable
+  # create health adjusted life years variable 
+  
   lf_df$Lwx <- lf_df$Lx * (1 - lf_df$pyld_rate)
   
   # create health adjusted life expectancy variable
