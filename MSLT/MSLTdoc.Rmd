@@ -314,14 +314,22 @@ These graphs are to compare GBD data for England and Greater London.
 
 ```{r, echo=FALSE}
 
-mx_plot_compare <- ggplot(data = filter(GBDEngland, sex == "male", cause == "all causes" & measure == "deaths") %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat), aes(x = age_cat)) +
-    geom_line(mapping = aes(y = one_rate, colour = "one_rate")) +
-  theme_classic() 
-  
+##Select data from data frames for all cause mortality males
+
+ggplot_data_England <- filter(GBDEngland, sex == "male", cause == "all causes" & measure == "deaths") %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat)
+
+ggplot_data_GL <- filter(GBDGL, sex == "male", cause == "all causes" & measure == "deaths") %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat)
+
+##Plot all cause mortality rates males 
+mx_plot_compare_male <- ggplot() + 
+geom_line(data=ggplot_data_England, aes(x= age_cat, y= one_rate), color='green') +
+geom_line(data=ggplot_data_GL, aes(x= age_cat, y= one_rate), color='red') +
+xlab ("Age") + ylab ("Rate per one") + labs (title = "Mortality rates comparison") +
+theme_classic() +
+scale_alpha_manual("Location", values = c("England", "Greater London")) +
 
 #Print to view
-print(mx_plot_compare)
-
+print(mx_plot_compare_male)
 
 ```
 
