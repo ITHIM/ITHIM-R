@@ -269,23 +269,34 @@ GBDdata$sex_age_cat <- paste(GBDdata$age_cat,GBDdata$sex, sep = "_"  )
 GBDdata$val <- as.numeric(as.character(GBDdata$val))
 
 ##Generate a data frame with population numbers for England and Greater London (for life table and Dismod II collection). 
-##These are derived from total number of cases and rates per 100,000. To derive values we need to select one cause (E.g. all cause)-does not matter what is chosen. 
+##These are derived from total number of cases and rates per 100,000. To derive values we need to select one cause (E.g. all cause)-does not matter what we choose. 
 
+###First generate population numbers for England and Greater London and then separate in dataframes
+GBD_population <- filter(GBDdata, measure == "deaths", cause == "all causes", metric == "rate" | metric == "number" ) %>% select(metric, age_cat, val, sex_age_cat, location)
 
-GBD_England_population_male <- filter(GBDdata, location == "england", measure == "deaths", cause == "all causes", sex == "male", metric == "rate" | metric == "number" ) %>% select(metric, age_cat, val, sex_age_cat)
-
-###Generate population numbers frame males England
- for (i in 1:nrow(GBD_England_population_male)) {
-    if (GBD_England_population_male$metric[i] == "number") {
-      GBD_England_population_male$val_pop[i] <- GBD_England_population_male$val[i] * 10000/ GBD_England_population_male$val[i + 1]}
-   else {GBD_England_population_male$val_pop[i] <- NA}
+###Generate population numbers from GBD data
+ for (i in 1:nrow(GBD_population)) {
+    if (GBD_population$metric[i] == "number") {
+      GBD_population$val_pop[i] <- GBD_population$val[i] * 100000/ GBD_population$val[i + 2]}
+   else {GBD_population$val_pop[i] <- NA}
  }
 ##Remove rows with zero
-GBD_England_population_male <- GBD_England_population_male[!is.na(GBD_England_population_male$val_pop),]
+GBD_population <- GBD_population[!is.na(GBD_population$val_pop),]
 
-##Last only keep relevant variables
+##Keep relevant variables
 
-GBD_England_population_male <- filter(GBD_England_population_male) %>% select(age_cat, val_pop)
+GBD_population <- filter(GBD_population) %>% select(sex_age_cat, val_pop, location)
+
+##Create data frames for Greater London and England population
+
+GBD_population_GL <-  filter(GBD_population, location == "greater london") %>% select(sex_age_cat, val_pop, location)
+
+GBD_population_England <-  filter(GBD_population, location == "england") %>% select(sex_age_cat, val_pop, location)
+
+##Check population total numbers
+
+GreaterLondon <- sum(GBD_population_GL$val_pop)
+England <- sum(GBD_population_England$val_pop)
 
 
 ##Filter data for England and Greater London and generate per person rates (per 100,000 in original data)
