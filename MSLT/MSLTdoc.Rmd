@@ -301,13 +301,28 @@ England <- sum(GBD_population_England$val_pop)
 ##Generate data frames for England and Grater London with per person rates (per 100,000 in original data). 
 
 #England
-GBDEngland <- filter(GBDdata, location == "england" & metric == "rate") %>% select(measure, location, sex, age, metric, val, age_cat)
+GBDEngland <- filter(GBDdata, location == "england" & metric == "rate") %>% select(measure, location, sex, age, metric, cause, val, age_cat)
 
 GBDEngland$one_rate <- GBDEngland$val/100000
 
 #Greater London (GL)
-GBDGL <- filter(GBDdata, location == "greater london" & metric == "rate") %>% select(measure, location, sex, age, metric, val, age_cat)
+GBDGL <- filter(GBDdata, location == "greater london" & metric == "rate") %>% select(measure, location, sex, age, metric, cause, val, age_cat)
 GBDGL$one_rate <- GBDGL$val/100000
+```
+
+These graphs are to compare GBD data for England and Greater London. 
+
+```{r, echo=FALSE}
+
+mx_plot_compare <- ggplot(data = filter(GBDEngland, sex == "male", cause == "all causes" & measure == "deaths") %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat), aes(x = age_cat)) +
+    geom_line(mapping = aes(y = one_rate, colour = "one_rate")) +
+  theme_classic() 
+  
+
+#Print to view
+print(mx_plot_compare)
+
+
 ```
 
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
