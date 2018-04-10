@@ -321,17 +321,19 @@ ggplot_data_England <- filter(GBDEngland, sex == "male", cause == "all causes" &
 ggplot_data_GL <- filter(GBDGL, sex == "male", cause == "all causes" & measure == "deaths") %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat)
 
 ##Plot all cause mortality rates males 
-mx_plot_compare_male <- ggplot() + 
-geom_line(data=ggplot_data_England, aes(x= age_cat, y= one_rate), color='green') +
-geom_line(data=ggplot_data_GL, aes(x= age_cat, y= one_rate), color='red') +
-xlab ("Age") + ylab ("Rate per one") + labs (title = "Mortality rates comparison") +
-theme_classic() +
-scale_alpha_manual("Location", values = c("England", "Greater London")) +
+mx_plot_compare_male <- ggplot(ggplot_data_England, aes(age_cat,one_rate))+
+    geom_line(aes(color = "England"))+
+    geom_line(data=ggplot_data_GL,aes(color="Greater London"))+
+    labs(colour="Locations",x="Age",y="Mortality rate")+
+    theme(legend.position = c(0, 1),legend.justification = c(0, 1))+
+    scale_color_manual(values = c("blue","red"))+
+    theme_classic()
 
-#Print to view
 print(mx_plot_compare_male)
 
 ```
+
+
 
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
 
