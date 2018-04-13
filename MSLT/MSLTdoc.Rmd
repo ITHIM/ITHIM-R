@@ -315,7 +315,15 @@ These graphs are to compare GBD data for England and Greater London.
 ```{r, echo=FALSE}
 ###TO DO: loops for sex, cause and measure and interpolation of rates, care with interpolating rates, need to convert to log for interpolation using cubic spline. 
 #FOR NOW THE CODE FOR GRAPH IS repetitive
-####################MORTALITY RATES ALL CAUSE PER ONE
+
+
+#in_data1: GBDEngland
+#in_data2: GBDGL
+#in_sex: male, female
+#in_cause: all causes, ischemic heart disease, ischemic stroke, diabetes mellitus, colon and rectum cancers, breast cancer, tracheal, bronchus, and lung cancer
+#in_measure: deaths, incidence, prevalence, ylds (years lived with disability)
+
+plot_GBD_compare_death_all_cause_males <- function(in_data1 = GBDEngland, in_data2 = GBDGL, in_sex = "male", in_cause = "all causes", in_measure = "deaths") 
 
 ###############################Mortality rates###################################################################
 
