@@ -13,7 +13,6 @@ output:
      toc: true
      toc_depth: 3
      number_sections: true
-     
      df_print: kable
    fontsize: 12 pt
    geometry: margin=1in
@@ -66,16 +65,16 @@ The PMSLT similar to ITHIM is a comparative risk assessment approach [@RN8957] t
 ### Difference between ITHIM and PMSLT
 
 * **Time component**
-    The *PMSLT* follows a population of interest over time. For example, as set up here, we simulate sex and      age (5 years starting at 18) cohorts over time until they die or reach 100 years of age. This implies that     we can include trends for diseases, time lags between change in exposure to risk factors and change in        health and demographic changes (e.g. population growth). In addition, we can estimate yearly changes in       the burden of diseases over the life course or for a specified number of years. The *ITHIM* approach is a     snapshot of change in burden for one year.
+The *PMSLT* follows a population of interest over time. For example, as set up here, we simulate sex and age (5 years starting at 18) cohorts over time until they die or reach 100 years of age. This implies that we can include trends for diseases, time lags between change in exposure to risk factors and change in health and demographic changes (e.g. population growth). In addition, we can estimate yearly changes in the burden of diseases over the life course or for a specified number of years. The *ITHIM* approach is a snapshot of change in burden for one year.
     
 ***Interaction between multiple diseases**
-The *PMSLT* accounts for the interaction between multiple diseases, with proportions of the population    being able to be in more than one health state [@RN8957]. This avoids  overestimation of outcomes as a    result of summing health outcomes attributable to each disease individually as done in *ITHIM*. It is     important to note that the *PMSLT* assumes that diseases are independent of each other. That is to        say, developing a disease is unrelated to a concurrent diagnoses of another disease).  
+The *PMSLT* accounts for the interaction between multiple diseases, with proportions of the population being able to be in more than one health state [@RN8957]. This avoids  overestimation of outcomes as a result of summing health outcomes attributable to each disease individually as done in *ITHIM*. It is important to note that the *PMSLT* assumes that diseases are independent of each other. That is to say, developing a disease is unrelated to a concurrent diagnoses of another disease).  
     
 ***Mortality rate** 
 The *PMSLT* calculations for changes in life years (and health-adjusted life years) and mortality outcomes is based on observed mortality rates for the population of interest. In the *ITHIM* model, if burden of  disease estimates from the Global Burden of Disease (GBD) study are used, then, the mortality component is based on the highest attained life expectancy observed in the world.
     
 ***Impact of disability in increased life expectancy**
-In GBD studies, YLLs are not adjusted for disability; hence, their use in estimating intervention effects results in over-estimation, which the *PMSLT* approach avoids. Another way of seeing this is that         estimated changes in morbidity using the *ITHIM* do not allow for how implicit increases in life          expectancy impact on morbidity. While the changes in deaths and prevalence using the *PMSLT* are in some  ways more accurate than those from the *ITHIM* approach it should be noted that that the average age of   death and incident disease will change and thus the disease burden will be on average be shifted later in life (which is a realistic approach).
+In GBD studies, YLLs are not adjusted for disability; hence, their use in estimating intervention effects results in over-estimation, which the *PMSLT* approach avoids. Another way of seeing this is that estimated changes in morbidity using the *ITHIM* do not allow for how implicit increases in life expectancy impact on morbidity. While the changes in deaths and prevalence using the *PMSLT* are in some  ways more accurate than those from the *ITHIM* approach it should be noted that that the average age of death and incident disease will change and thus the disease burden will be on average be shifted later in life (which is a realistic approach).
     
         
 # R development
