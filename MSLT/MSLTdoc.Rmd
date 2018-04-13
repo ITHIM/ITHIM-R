@@ -320,17 +320,19 @@ These graphs are to compare GBD data for England and Greater London.
 #in_data2: GBDGL
 
 
-sex <- c("male", "female")
-cause <- c("all causes", "ischemic heart disease", "ischemic stroke", "diabetes mellitus", "colon and rectum cancers", "breast cancer", "tracheal, bronchus, and lung cancer")
-measure <- c("all causes", "ylds (years lived with disability)", "prevalence", "incidence")
+p_sex <- c("male", "female")
+p_cause <- c("all causes", "ischemic heart disease", "ischemic stroke", "diabetes mellitus", "colon and rectum cancers", "breast cancer", "tracheal, bronchus, and lung cancer")
+p_measure <- c("all causes", "ylds (years lived with disability)", "prevalence", "incidence")
 
 
-for (i in sex){
-  for (j in cause) {
-    for (k in measure) {
-      p <- paste("Plot", "compare", sex, cause, measure, sep = "_")
-      assign(p, plot_GBD(in_data1 = GBDEngland, in_data2 = GBDGL, in_sex = sex, in_cause = cause, in_measure = measure))
-      print(p)
+
+for (sex in p_sex){
+  for (cause in p_cause) {
+    for (measure in p_measure) {
+      p1 <- plot_GBD(in_data1 = GBDEngland, in_data2 = GBDGL, in_sex = sex, in_cause = cause, in_measure = measure)
+      dev.new()
+      print(p1)
+       
     }
   }
 }  

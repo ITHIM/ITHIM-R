@@ -419,11 +419,11 @@ gen_aggregate <- function(in_data, in_cohorts, in_population, in_outcomes){
 
 plot_GBD <- function(in_data1, in_data2, in_sex, in_cause, in_measure) {
   
- in_data1 <- GBDEngland
- in_data2 <- GBDGL
- in_sex <- "male"
- in_cause <- "all causes"
- in_measure <- "deaths"
+ # in_data1 <- GBDEngland
+ # in_data2 <- GBDGL
+ # in_sex <- "male"
+ # in_cause <- "all causes"
+ # in_measure <- "deaths"
 
 
 data1 <- filter(in_data1, sex == in_sex, cause == in_cause & measure == in_measure) %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat)     
