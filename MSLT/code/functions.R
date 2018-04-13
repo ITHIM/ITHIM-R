@@ -443,4 +443,4 @@ data2 <- filter(in_data2, sex == in_sex, cause == in_cause & measure == in_measu
                      print(p)
 }
 
-plot_GBD_compare_death_all_cause_males <- plot_GBD(in_data1 = GBDEngland, in_data2 = GBDGL, in_sex = "male", in_cause = "all causes", in_measure = "deaths") 
+ 
