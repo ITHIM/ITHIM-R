@@ -9,6 +9,8 @@ library(readODS)
 library(MASS)
 library(splines)
 library(gtools)
+library(tools)
+library(tcltk2)
 
 if(exists('useShiny')) rm(useShiny)
 
@@ -41,15 +43,21 @@ processData <- function(object_store){
   # get distance data
   ##TODO these lines will all change when we compute distance from the synthetic population. This should be constructed to use the labels in covlabels (below). NB 'bus', 'bus passenger'
   distance <- object_store$distance
-  names(distance) <- distance[1,]
-  distance <- distance[-1,]
-  ##TODO choose columns to change based on column names
-  distance[,c(2,4:dim(distance)[2])]<-sapply(distance[,c(2,4:dim(distance)[2])],as.numeric)
+  ##TODO neaten up corrections to column names
+  if(any(c('Age','age')%in%names(distance))){
+    ageind <- which(names(distance)%in%c('Age','age'))
+    names(distance)[ageind] <- 'age'
+  }
+  if(any(c('Sex','sex','Gender','gender','Gen','gen')%in%names(distance))){
+    genind <- which(names(distance)%in%c('Sex','sex','Gender','gender','Gen','gen'))
+    names(distance)[genind] <- 'gender'
+  }
   
   ## coding, assuming only two levels are provided in ICD10
   covlabels <- list()
-  covlabels[[1]] <- c('pedestrian','cyclist','motorcycle','three-wheel','car','van','hgv','bus')
-  covlabels[[2]] <- c('pedestrian','cyclist','motorcycle','car/van','hgv/bus','rail','nonmotor','object','noncollision','other')
+  v_codes <- c('pedestrian','cyclist','motorcycle','three-wheel','car','van','hgv','bus')
+  covlabels[['casualty mode']] <- intersect(v_codes,sapply(names(distance),function(y)strsplit(y,'[. ]+')[[1]][1]))
+  covlabels[['strike mode']] <- c('pedestrian','cyclist','motorcycle','car/van','hgv/bus','rail','nonmotor','object','noncollision','other')
   # allocate to whw and nov
   ##TODO add in option to put distance for buses and hgvs, distributed systematically across population
   whw_codes <- c()
@@ -66,17 +74,33 @@ processData <- function(object_store){
   nov <- injuries[c(1:(minV-1),which(sapply(rownames(injuries),function(x)substr(x,3,3))%in%nov_codes)),]
   
   # get coded covariates
-  covariates <- c('Cas mode','Strike mode')
+  covariates <- names(covlabels)
   dimsize <- c()
+  # start ages to use as distance ages
+  useAges <- unique(distance$age)
   for(i in 1:(minV-1))
     if(length(unique(unlist(injuries[i,])))>1){
-      covariates <- c(covariates,rownames(injuries)[i])
-      covlabels[[length(covlabels)+1]] <- unique(unlist(injuries[i,]))
+      ##TODO harmonise ages
+      if(grepl('age',tolower(rownames(injuries)[i]))){
+        newAges <- unique(unlist(injuries[i,]))
+        if(!identical(newAges,useAges)){
+          ##TODO popup? what to do if they don't intersect. What to do if there's striker age.
+          cat('Keeping ages \n')
+          useAges <- intersect(newAges,useAges)
+          cat(useAges)
+          injuries[i,] <- sapply(injuries[i,],function(x)useAges[last(which(useAges<=as.numeric(x)))])
+        }
+      }
+      covariates <- c(covariates,tolower(rownames(injuries)[i]))
+      covlabels[[length(covlabels)+1]] <- tolower(unique(unlist(injuries[i,])))
       dimsize <- c(dimsize,length(unique(unlist(injuries[i,]))))
     }
   covariates <- sapply(covariates,function(x)paste(strsplit(x,' ')[[1]],collapse='_'))
+  names(covlabels) <- covariates
+  
   # tabulate
   fatal <- injuries[minV:nrow(injuries),]
+  fatal <- fatal[v_codes[as.numeric(substr(rownames(fatal),2,2))+1]%in%covlabels[[1]],]
   tab <- expand.grid(covlabels)
   names(tab) <- covariates
   #names(tab) <- lapply(names(tab),function(x)paste(strsplit(x,' ')[[1]],collapse='_'))
@@ -84,31 +108,32 @@ processData <- function(object_store){
   ##TODO rewrite to be less specific to Mexico example
   if(exists('useShiny')){
     for(i in 1:length(tab$count)){
-      tab$count[i] <- sum(as.numeric(fatal[covlabels[[1]][as.numeric(substr(rownames(fatal),2,2))+1]==as.character(tab[[covariates[1]]][i])&
+      tab$count[i] <- sum(as.numeric(fatal[v_codes[as.numeric(substr(rownames(fatal),2,2))+1]==as.character(tab[[covariates[1]]][i])&
           covlabels[[2]][as.numeric(substr(rownames(fatal),3,3))+1]==as.character(tab[[covariates[2]]][i]),
-        injuries[minV-2,]==as.character(tab[[covariates[3]]][i])&injuries[minV-1,]==as.character(tab[[covariates[4]]][i])]))
+        injuries[minV-2,]==tolower(as.character(tab[[covariates[3]]][i]))&tolower(injuries[minV-1,])==as.character(tab[[covariates[4]]][i])]))
     }
   }else{
     withProgress(message = 'Merging distance and injury data', value = 0, {
       for(i in 1:length(tab$count)){
-        tab$count[i] <- sum(as.numeric(fatal[covlabels[[1]][as.numeric(substr(rownames(fatal),2,2))+1]==as.character(tab[[covariates[1]]][i])&
+        tab$count[i] <- sum(as.numeric(fatal[v_codes[as.numeric(substr(rownames(fatal),2,2))+1]==as.character(tab[[covariates[1]]][i])&
             covlabels[[2]][as.numeric(substr(rownames(fatal),3,3))+1]==as.character(tab[[covariates[2]]][i]),
-          injuries[minV-2,]==as.character(tab[[covariates[3]]][i])&injuries[minV-1,]==as.character(tab[[covariates[4]]][i])]))
+          injuries[minV-2,]==tolower(as.character(tab[[covariates[3]]][i]))&tolower(injuries[minV-1,])==as.character(tab[[covariates[4]]][i])]))
         incProgress(1/length(tab$count))
       }
     })
   }
-  
+  tab$count[is.na(tab$count)] <- 0
   ##TODO can we assess here how well various models might work?
+  ##TODO what if we don't have casualty_age?
   # merge in distance data
-  tab$Casualty_age <- as.numeric(levels(tab$Casualty_age))[tab$Casualty_age] 
+  #tab$casualty_age <- as.numeric(levels(tab$casualty_age))[tab$casualty_age] 
   ##TODO store tab before changing it
   tab0 <- tab
   ## choose age groupings. Start with 1. 
   ##TODO Offer option to change to 2, 3 etc if: (a) very bit data set, or (b) no good fit. Will use tab0.
   tab <- group_by_cas_age(3,tab,distance)
   # separate into WHW and NOV
-  ind <- tab$Strike_mode%in%covlabels[[2]][whw_codes+1]
+  ind <- tab$strike_mode%in%covlabels[[2]][whw_codes+1]
   tab_whw <- tab[ind,]
   tab_nov <- tab[!ind,]
   # set strike distances
@@ -213,14 +238,14 @@ fitModel <- function(object_store){
   if(sum(sapply(results_nov, function(x)is.null(x[[1]])))>0) results_nov <- results_nov[-which(sapply(results_nov, function(x)is.null(x[[1]])))]
   aics <- sapply(results_nov,function(x)x[[1]])
   ind1 <- which(rank(aics)==1)
-  formula_whw <- results_nov[[ind1]][[2]]
+  formula_nov <- results_nov[[ind1]][[2]]
   # get fit for two best models
   if(object_store$model=='poisson'){
-    suppressWarnings(fit_whw <- glm(as.formula(formula),data=tab_whw,family=poisson()))
-    suppressWarnings(fit_nov <- glm(as.formula(formula),data=tab_nov,family=poisson()))
+    suppressWarnings(fit_whw <- glm(as.formula(formula_whw),data=tab_whw,family=poisson()))
+    suppressWarnings(fit_nov <- glm(as.formula(formula_nov),data=tab_nov,family=poisson()))
   }else if(object_store$model=='NB'){
-    suppressWarnings(fit_whw <- glm.nb(as.formula(formula),data=tab_whw,init.theta=50,control=glm.control(maxit=25)))
-    suppressWarnings(fit_nov <- glm.nb(as.formula(formula),data=tab_nov,init.theta=50,control=glm.control(maxit=25)))
+    suppressWarnings(fit_whw <- glm.nb(as.formula(formula_whw),data=tab_whw,init.theta=50,control=glm.control(maxit=25)))
+    suppressWarnings(fit_nov <- glm.nb(as.formula(formula_nov),data=tab_nov,init.theta=50,control=glm.control(maxit=25)))
   }
   
   # trim glm objects
@@ -292,7 +317,7 @@ compute_quantiles <- function(object_store){
 test_model <- function(formula,data,indices){
   out <- tryCatch(
     {
-      glm.nb(as.formula(formula),data=data,init.theta=50,control=glm.control(maxit=25))$aic
+      suppressWarnings(glm.nb(as.formula(formula),data=data,init.theta=50,control=glm.control(maxit=25))$aic)
     },
     error=function(cond) {
       return(NULL)
@@ -309,7 +334,7 @@ test_model <- function(formula,data,indices){
 test_poisson_model <- function(formula,data,indices){
   out <- tryCatch(
     {
-      glm(as.formula(formula),data=data,family=poisson())$aic
+      suppressWarnings(glm(as.formula(formula),data=data,family=poisson())$aic)
     },
     error=function(cond) {
       return(NULL)
@@ -332,27 +357,27 @@ contained <- function(mylist) {
 
 ## function to group datasets into fewer age groups
 group_by_cas_age <- function(ages_per_group=1,tab,distance){
-  ages <- unique(tab$Casualty_age)
+  ages <- as.numeric(levels(tab$casualty_age))
   # if length of ages is not a multiple of number of ages per group, pre-group final ages
   last_age_to_remove <- length(ages)%%ages_per_group
   if(last_age_to_remove>0){
     ages_to_remove <- ages[(length(ages)-last_age_to_remove+1):length(ages)]
     last_age <- ages[length(ages)-last_age_to_remove]
-    tab$Casualty_age[tab$Casualty_age%in%ages_to_remove] <- last_age
-    distance$Age[distance$Age%in%ages_to_remove] <- last_age
+    tab$casualty_age[tab$casualty_age%in%ages_to_remove] <- last_age
+    distance$age[distance$age%in%ages_to_remove] <- last_age
   }
   
   age_indices <- seq(0,ages_per_group-1)
-  ages_to_keep <- tab$Casualty_age%in%seq(min(ages),max(ages),by=ages_per_group)
+  ages_to_keep <- tab$casualty_age%in%seq(min(ages),max(ages),by=ages_per_group)
   # add up casualty distances
   tab$cas_distance[ages_to_keep] <- 
     apply(tab[ages_to_keep,1:4],1,
-      function(x)sum(distance[distance$Age%in%ages[age_indices+which(ages==as.numeric(x[3]))]&distance$Gender==x[4],sapply(names(distance),function(x)strsplit(x,' ')[[1]][1])==x[1]]))
+      function(x)sum(distance[distance$age%in%ages[age_indices+which(ages==as.numeric(x[3]))]&tolower(distance$gender)==tolower(x[4]),sapply(names(distance),function(y)strsplit(y,'[. ]+')[[1]][1])==x[1]]))
   ##TODO add up striker distances, for cases where striker age is a covariate
   # add up counts
   tab$count[ages_to_keep] <- 
     apply(tab[ages_to_keep,1:4],1,
-      function(x)sum(tab$count[tab$Casualty_age%in%ages[age_indices+which(ages==as.numeric(x[3]))]&tab$Casualty_gender==x[4]&tab$Cas_mode==x[1]&tab$Strike_mode==x[2]]))
+      function(x)sum(tab$count[tab$casualty_age%in%ages[age_indices+which(ages==as.numeric(x[3]))]&tab$casualty_gender==x[4]&tab$casualty_mode==x[1]&tab$strike_mode==x[2]]))
   tab <- tab[ages_to_keep,]
   return(tab)
 }
@@ -370,7 +395,7 @@ pred_generation <- function(tab1,over,overs){
 ##TODO generalise to case where we have striker covariates
 ##TODO add injuries to fatalities
 assemble_output <- function(scenario_tabs){
-  columnnames <- c('Cas_mode','Casualty_age','Casualty_gender','expected_fatalities','lower_fatalities','upper_fatalities')
+  columnnames <- c('casualty_mode','casualty_age','casualty_gender','expected_fatalities','lower_fatalities','upper_fatalities')
   columns <- list()
   columns[[1]] <- which(names(scenario_tabs[[1]][[1]])%in%columnnames)
   columns[[2]] <- which(names(scenario_tabs[[1]][[2]])%in%columnnames)
@@ -386,7 +411,7 @@ assemble_output <- function(scenario_tabs){
   out <- data.frame(expand.grid(covNames))
   for(k in 4:dim(full_table)[2]){
     colname <- names(full_table)[k]
-    out[[colname]] <- apply(out,1,function(x)sum(subset(full_table,Cas_mode==x[1]&Casualty_age==x[2]&Casualty_gender==x[3])[[k]]))
+    out[[colname]] <- apply(out,1,function(x)sum(subset(full_table,casualty_mode==x[1]&casualty_age==x[2]&casualty_gender==x[3])[[k]]))
   }
   return(out)
 }
@@ -399,7 +424,7 @@ prepPlots <- function(object_store,input){
   # how to handle the two data sets. Either: 1 prediction, summed over; 2 predictions, concatenated; or 2 predictions, appended.
   ##TODO generalise to arbitrary covariates.
   rounds <- c(1,2)
-  if(covariate=='Strike_mode') rounds <- as.numeric(subgroup%in%unique(scenario_tabs[[1]][[2]][[covariate]]))+1
+  if(covariate=='strike_mode') rounds <- as.numeric(subgroup%in%unique(scenario_tabs[[1]][[2]][[covariate]]))+1
   medians <- lower <- upper <- list()
   ##TODO count number of scenarios
   for(i in rounds){
@@ -419,12 +444,12 @@ prepPlots <- function(object_store,input){
   }
   ##TODO check whether these make sense when we have addition covariates e.g. strike age
   ##TODO there will be additional constraints, e.g. if covariate=strike age and we want to plot over strike mode, we do not need to concatenate or sum, as we won't use tab_nov
-  if(covariate=='Strike_mode'){ # if covariate=strike mode, we are looking at one option from strike mode, which determines which data set we need
+  if(covariate=='strike_mode'){ # if covariate=strike mode, we are looking at one option from strike mode, which determines which data set we need
     medians <- medians[[rounds]]
     lower <- lower[[rounds]]
     upper <- upper[[rounds]]
     names <- unique(scenario_tabs[[1]][[rounds]][[over]])
-  }else if(over=='Strike_mode'){ # if we are plotting over strike mode, we need to calculate two models and concatenate results
+  }else if(over=='strike_mode'){ # if we are plotting over strike mode, we need to calculate two models and concatenate results
     medians <- cbind(medians[[1]],medians[[2]])
     lower <- cbind(lower[[1]],lower[[2]])
     upper <- cbind(upper[[1]],upper[[2]])

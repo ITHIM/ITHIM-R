@@ -29,7 +29,15 @@ server <- function(input, output){
   # reads distance file
   observeEvent(input$distancefile, {
     inFile <- input$distancefile
-    distance <- read.ods(inFile$datapath)[[1]]
+    if(file_ext(inFile$datapath)=='ods'){
+      distance <- read.ods(inFile$datapath)[[1]]
+      names(distance) <- distance[1,]
+      distance <- distance[-1,]
+      ##TODO choose columns to change based on column names
+      distance[,c(2,4:dim(distance)[2])]<-sapply(distance[,c(2,4:dim(distance)[2])],as.numeric)
+    }else if(file_ext(inFile$datapath)=='csv'){
+      distance <- read.csv(inFile$datapath)
+    }
     object_store$distance <- distance
   })
   # reveals compute button when distance file has been uploaded
