@@ -233,6 +233,8 @@ These data should be used to generate the general life table and disease life ta
 ```{r, echo=TRUE}
 #Data preparation (generate age groups, change capitals to lower case)
 
+#USE demography package to interpolate moratlity rates. 
+
 ##All upper cases to lower cases
 
 GBDdata <- mutate_all(GBDdata, funs(tolower))
@@ -321,7 +323,7 @@ These graphs are to compare GBD data for England and Greater London.
 
 
 p_sex <- c("male", "female")
-p_cause <- c("all causes", "ischemic heart disease", "ischemic stroke", "diabetes mellitus", "colon and rectum cancers", "breast cancer", "tracheal, bronchus, and lung cancer")
+p_cause <- c("all causes", "ischemic heart disease", "ischemic stroke", "diabetes mellitus", "colon and rectum cancer", "breast cancer", "tracheal, bronchus, and lung cancer")
 p_measure <- c("deaths", "ylds (years lived with disability)", "prevalence", "incidence")
 
 
@@ -337,7 +339,9 @@ for (sex in p_sex){
   }
 }  
 
+##This works, check what is the issue with the loop. Seems that the problem was with colon and rectum cancer mispelling. 
 
+p_test <- plot_GBD(in_data1 = GBDEngland, in_data2 = GBDGL, in_sex = "male", in_cause = "colon and rectum cancer", in_measure = "deaths")
 ```
 
 ```{r, echo=FALSE}
