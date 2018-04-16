@@ -421,8 +421,8 @@ plot_GBD <- function(in_data1, in_data2, in_sex, in_cause, in_measure) {
    
 # in_data1 <- GBDEngland
 # in_data2 <- GBDGL
-# in_sex <- "female"
-# in_cause <- "ischemic stroke"
+# in_sex <- "male"
+# in_cause <- "all causes"
 # in_measure <- "deaths"
 
 
@@ -436,10 +436,13 @@ data2 <- filter(in_data2, sex == in_sex, cause == in_cause & measure == in_measu
                       geom_line(data = data2, aes(age_cat,one_rate))+
                       geom_line(aes(color = "Greater London"))+
                       labs(colour="Locations",x="Age",y= paste(in_cause, in_measure, sep = " "))+
-                      scale_color_manual(values = c("blue","red")) +
-                      labs (title = paste(in_cause, in_measure, in_sex, "compare", sep = " "), size=14) +
+                      scale_color_manual(values=c("red", "blue"))+labs (title = paste(in_cause, in_measure, in_sex, "compare", sep = " "), size=14) +
                       theme_classic()
 
                      print(p)
 }
 
+# data1 <- filter(GBDEngland, sex == "male", cause == "all causes" & measure == "deaths") %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat)     
+# 
+# data2 <- filter(GBDGL, sex == "male", cause == "all causes" & measure == "deaths") %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat)     
+# 
