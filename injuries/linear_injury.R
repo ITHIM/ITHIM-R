@@ -3,11 +3,11 @@ source('shinyinjury.R')
 
 input <- list()
 input$injuryfile <- 'input_injuries.xlsx'
-input$distancefile <- 'synthetic_population.ods'
+input$distancefile <- 'synthetic_population.ods' #'mexico_city_travel_data.csv' #
 input$file2 <- 'saved_mexico_model.Rdata'
 input$file3 <- 'saved_mexico_model_NB.Rdata'
-input$group <- 'Strike mode'
-input$over <- 'Casualty age'
+input$group <- 'strike mode'
+input$over <- 'casualty age'
 input$subgroup <- 'cyclist'
 input$SE <- F
 input$lq <- 0.25
@@ -16,7 +16,7 @@ inFile <- list()
 object_store <- list(fit_whw=NULL,fit_nov=NULL,scenario_tabs=NULL,injuries=NULL,plotButton=NULL,covariates=NULL,
   mexicoButton=NULL,distance=NULL,model='poisson',nScenarios=1,lq=0.25,uq=0.75)
 
-model <- 'poisson'
+model <- 'NB'
 if (model=='NB') object_store$model <- 'NB'
 
 useShiny <- F
@@ -38,7 +38,15 @@ if(useMexicoModel==0){
   
   inFile$datapath <- input$distancefile
   if (is.null(inFile)) return(NULL)
-  distance <- read.ods(inFile$datapath)[[1]]
+  if(file_ext(inFile$datapath)=='ods'){
+    distance <- read.ods(inFile$datapath)[[1]]
+    names(distance) <- distance[1,]
+    distance <- distance[-1,]
+    ##TODO choose columns to change based on column names
+    distance[,c(2,4:dim(distance)[2])]<-sapply(distance[,c(2,4:dim(distance)[2])],as.numeric)
+  }else if(file_ext(inFile$datapath)=='csv'){
+    distance <- read.csv(inFile$datapath)
+  }
   object_store$distance <- distance
   
   object_store <- getModelFits(object_store,input)
