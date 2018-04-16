@@ -436,12 +436,10 @@ data2 <- filter(in_data2, sex == in_sex, cause == in_cause & measure == in_measu
                       geom_line(data = data2, aes(age_cat,one_rate))+
                       geom_line(aes(color = "Greater London"))+
                       labs(colour="Locations",x="Age",y= paste(in_cause, in_measure, sep = " "))+
-                      theme(legend.position = c(0, 1),legend.justification = c(0, 1))+
                       scale_color_manual(values = c("blue","red")) +
-                      labs (title = paste(in_cause, in_measure, in_sex, "compare", sep = " ")) +
+                      labs (title = paste(in_cause, in_measure, in_sex, "compare", sep = " "), size=14) +
                       theme_classic()
 
                      print(p)
 }
 
-# plot_test <- plot_GBD(in_data1 = GBDEngland, in_data2 = GBDGL, in_sex = "male", in_cause = "all causes", in_measure = "deaths")

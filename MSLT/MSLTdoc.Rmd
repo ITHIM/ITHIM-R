@@ -344,10 +344,9 @@ for (sex in p_sex){
 
 ```
 
-```{r, echo=FALSE}
-#Call plots here, add titles to figures
+FIX GRAPHS TITLES. 
 
-```
+
 
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
 
