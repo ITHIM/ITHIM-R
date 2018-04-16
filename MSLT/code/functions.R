@@ -418,11 +418,11 @@ gen_aggregate <- function(in_data, in_cohorts, in_population, in_outcomes){
 
 
 plot_GBD <- function(in_data1, in_data2, in_sex, in_cause, in_measure) {
-  
+   
  # in_data1 <- GBDEngland
  # in_data2 <- GBDGL
- # in_sex <- "male"
- # in_cause <- "all causes"
+ # in_sex <- "female"
+ # in_cause <- "ischemic stroke"
  # in_measure <- "deaths"
 
 
@@ -431,16 +431,17 @@ data1 <- filter(in_data1, sex == in_sex, cause == in_cause & measure == in_measu
 data2 <- filter(in_data2, sex == in_sex, cause == in_cause & measure == in_measure) %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat)     
 
   
-                      p <- ggplot(data1, aes(age_cat,one_rate))+
-                       geom_line(aes(color = "England"))+
-                       geom_line(data=data2,aes(color="Greater London"))+
-                       labs(colour="Locations",x="Age",y= paste(in_cause, in_measure, sep = " "))+
-                       theme(legend.position = c(0, 1),legend.justification = c(0, 1))+
-                       scale_color_manual(values = c("blue","red")) +
-                       labs (title = paste(in_cause, in_measure, in_sex, "compare", sep = " ")) +
-                       theme_classic()
+                    p <- ggplot(data = in_data1, aes(age_cat,one_rate))+
+                      geom_line(aes(color = "England"))+
+                      geom_line(data = in_data2, aes(age_cat,one_rate))+
+                      geom_line(aes(color = "Greater London"))+
+                      labs(colour="Locations",x="Age",y= paste(in_cause, in_measure, sep = " "))+
+                      theme(legend.position = c(0, 1),legend.justification = c(0, 1))+
+                      scale_color_manual(values = c("blue","red")) +
+                      labs (title = paste(in_cause, in_measure, in_sex, "compare", sep = " ")) +
+                      theme_classic()
 
                      print(p)
 }
 
- 
+plot_test <- plot_GBD(in_data1 = GBDEngland, in_data2 = GBDGL, in_sex = "male", in_cause = "all causes", in_measure = "deaths")

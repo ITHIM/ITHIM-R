@@ -228,7 +228,7 @@ GBDdata <- read.csv("data/IHME-GBD_2016_DATA-8fca12f6-1.csv", stringsAsFactors =
 
 The following code serves to sort out the GBD data to the inputs required for the life table, disease life table and Dismod II
 
-ALSO PART OF THE BELOW CODE WILL BE NEEDED FOR THE MSLT AND DISMOD COLLECTION. GENERATE DATA INPUTS FOR DISMOD II FROM HERE. These data should be used to generate the general life table and disease life tables (Figure 3). 
+These data should be used to generate the general life table and disease life tables (Figure 3). 
 
 ```{r, echo=TRUE}
 #Data preparation (generate age groups, change capitals to lower case)
@@ -322,7 +322,7 @@ These graphs are to compare GBD data for England and Greater London.
 
 p_sex <- c("male", "female")
 p_cause <- c("all causes", "ischemic heart disease", "ischemic stroke", "diabetes mellitus", "colon and rectum cancers", "breast cancer", "tracheal, bronchus, and lung cancer")
-p_measure <- c("all causes", "ylds (years lived with disability)", "prevalence", "incidence")
+p_measure <- c("deaths", "ylds (years lived with disability)", "prevalence", "incidence")
 
 
 
