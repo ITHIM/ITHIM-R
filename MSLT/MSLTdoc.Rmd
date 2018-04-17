@@ -226,7 +226,7 @@ Once the selections described in Table 2 are made, the option *Download CVS** in
 
 4) Read GBD data
 ```{r, echo=TRUE}
-GBDdata <- read.csv("data/IHME-GBD_2016_DATA-8fca12f6-1.csv", stringsAsFactors = F)
+GBDdata <- read.csv("MSLT/data/UK/englandandgreaterlondon.csv", stringsAsFactors = F)
 ```
 
 The following codes serves to sort out the GBD data to the inputs required for the life table, disease life table and Dismod II
