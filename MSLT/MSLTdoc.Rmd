@@ -32,6 +32,7 @@ require(tidyverse)
 require(knitr)
 require(kableExtra)
 require(citr)
+require(demography)
 ```
 
 \newpage
@@ -310,9 +311,23 @@ GBDGL <- filter(GBDdata, location == "greater london" & metric == "rate") %>% se
 GBDGL$one_rate <- GBDGL$val/100000
 ```
 
+14) For the life table, we need to mortatlity and total yld rates in one year age intervals. The original data is in five years. Thus, the following code is used to interpolate a single-year age distribution form a five-yearly distribution. 
+
+```{r, echo=TRUE}
+##Example for Greater London. First, extract rates of interest and add to GBD_population frame (change the name of the data frame).
+##COULD USE A FUNCTION AND ALOOP AS WITH THE GRAPHS TO GENERATE DATA FOR EACH OF THE DISEASE FOR DISMOD.
+##Create dataframe with mortality data males for Greater London (test spline, then need to better organise the row data from GBD)
 
 
+Mortality_males <- filter(GBDGL, measure == "deaths", sex == "male", cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate)
 
+x=Mortality_males$age_cat
+y=log(Mortality_males$one_rate)
+plot(x,y)
+Mortality_males_interpolated <- as.data.frame(spline(x, y, n = 5 *length (x), xmin = min(x-2), xmax = max(x+3)))
+Mortality_males_interpolated$y <- exp(Mortality_males_interpolated$y)
+
+```
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
 
 
