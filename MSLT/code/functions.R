@@ -435,7 +435,7 @@ data2 <- filter(in_data2, sex == in_sex, cause == in_cause & measure == in_measu
             geom_line(aes(color = "England"))+
             geom_line(data = data2, aes(color = "Greater London"))+
             labs(colour="Locations",x="Age",y= paste(in_cause, in_measure, sep = " "))+
-            labs (title = paste(in_cause, in_measure, in_sex, "compare", sep = " "), size=14) + 
+            labs (title = paste("Compare", in_cause, in_measure, in_sex, sep = " "), size=14) + 
             theme_classic()
           print(p)
 }

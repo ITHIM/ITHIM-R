@@ -2,10 +2,12 @@
 title: "GBDCompare"
 author: "Belen Zapata Diomedi"
 date: "17 April 2018"
-output: html_document
+output: pdf_document
 ---
 
-The following graphs compare rates per one by age (5-year groups) and sex for England and Greater London. 
+The following graphs compare rates per one by age (5-year groups) and sex for England and Greater London for all cause mortality, all cause years lived with disability and diseases specific mortality, ylds, incidence and prevalence. 
+
+Rates are in five year age groups, as per the GBD age grouping. 
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 ###TO DO: cubic splines for input rates
