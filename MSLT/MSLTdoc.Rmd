@@ -226,7 +226,7 @@ Once the selections described in Table 2 are made, the option *Download CVS** in
 
 4) Read GBD data
 ```{r, echo=TRUE}
-GBDdata <- read.csv("MSLT/data/UK/englandandgreaterlondon.csv", stringsAsFactors = F)
+GBDdata <- read.csv("data/UK/englandandgreaterlondon.csv", stringsAsFactors = F)
 ```
 
 The following codes serves to sort out the GBD data to the inputs required for the life table, disease life table and Dismod II
@@ -311,6 +311,7 @@ GBDGL$one_rate <- GBDGL$val/100000
 ```
 
 14) Generate graphs to compare GBD data for England and Greater London. 
+
 
 ```{r, echo=FALSE}
 ###TO DO: cubic splines for input rates
