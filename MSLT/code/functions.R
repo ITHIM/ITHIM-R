@@ -431,12 +431,12 @@ data1 <- filter(in_data1, sex == in_sex, cause == in_cause & measure == in_measu
 data2 <- filter(in_data2, sex == in_sex, cause == in_cause & measure == in_measure) %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat)     
 
   
-                    p <- ggplot(data = data1, aes(age_cat,one_rate))+
+                    p <- ggplot(data = data1, aes(age_cat,one_rate), color = "blue")+
                       geom_line(aes(color = "England"))+
-                      geom_line(data = data2, aes(age_cat,one_rate))+
+                      geom_line(data = data2, aes(age_cat,one_rate), color = "red")+
                       geom_line(aes(color = "Greater London"))+
                       labs(colour="Locations",x="Age",y= paste(in_cause, in_measure, sep = " "))+
-                      scale_color_manual(values=c("black", "blue")) +labs (title = paste(in_cause, in_measure, in_sex, "compare", sep = " "), size=14) + 
+                      labs (title = paste(in_cause, in_measure, in_sex, "compare", sep = " "), size=14) + 
                       theme_classic()
                     print(p)
 }

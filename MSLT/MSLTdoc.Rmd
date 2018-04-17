@@ -310,42 +310,6 @@ GBDGL <- filter(GBDdata, location == "greater london" & metric == "rate") %>% se
 GBDGL$one_rate <- GBDGL$val/100000
 ```
 
-14) Generate graphs to compare GBD data for England and Greater London. 
-
-
-```{r, echo=FALSE}
-###TO DO: cubic splines for input rates
-
-
-#in_data1: GBDEngland
-#in_data2: GBDGL
-
-
-p_sex <- c("male", "female")
-p_cause <- c("all causes", "ischemic heart disease", "ischemic stroke", "diabetes mellitus", "colon and rectum cancer", "breast cancer", "tracheal, bronchus, and lung cancer")
-p_measure <- c("deaths", "ylds (years lived with disability)", "prevalence", "incidence")
-
-for (sex in p_sex){
-  for (cause in p_cause) {
-    for (measure in p_measure){
-      
-# Exclude breast_cancer for Males
-      if (sex == "male" && cause == "breast cancer" || cause == "all causes" && measure == "prevalence" || cause == "all causes" && measure == "incidence"){
-        p1 <- NULL
-    
-      }
-      else {
-      p1 <- plot_GBD(in_data1 = GBDEngland, in_data2 = GBDGL, in_sex = sex, in_cause = cause, in_measure = measure)
-   
-        
-      }
-    }
-  }
-}  
-
-```
-
-FIX GRAPHS TITLES. 
 
 
 
