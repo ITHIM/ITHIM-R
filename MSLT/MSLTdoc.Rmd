@@ -32,7 +32,6 @@ require(tidyverse)
 require(knitr)
 require(kableExtra)
 require(citr)
-require(demography)
 ```
 
 \newpage
@@ -317,6 +316,7 @@ GBDGL$one_rate <- GBDGL$val/100000
 ##Example for Greater London. First, extract rates of interest and add to GBD_population frame (change the name of the data frame).
 ##COULD USE A FUNCTION AND ALOOP AS WITH THE GRAPHS TO GENERATE DATA FOR EACH OF THE DISEASE FOR DISMOD.
 ##Create dataframe with mortality data males for Greater London (test spline, then need to better organise the row data from GBD)
+##I used spline function as the rates are not always monotonic. 
 
 
 Mortality_males <- filter(GBDGL, measure == "deaths", sex == "male", cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate)
@@ -324,9 +324,9 @@ Mortality_males <- filter(GBDGL, measure == "deaths", sex == "male", cause == "a
 x=Mortality_males$age_cat
 y=log(Mortality_males$one_rate)
 plot(x,y)
-Mortality_males_interpolated <- as.data.frame(spline(x, y, n = 5 *length (x), xmin = min(x-2), xmax = max(x+3)))
+Mortality_males_interpolated <- as.data.frame(spline(x, y, n = 5 *length (x), xmin = min(x-2), xmax = max(x + 2)))
 Mortality_males_interpolated$y <- exp(Mortality_males_interpolated$y)
-
+plot(Mortality_males_interpolated$x,Mortality_males_interpolated$y)
 ```
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
 
