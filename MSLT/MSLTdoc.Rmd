@@ -326,19 +326,22 @@ plot(x,y)
 ##Test here to generate all 4 data frames simultaneously.
 
 i_sex <- c("male", "female")
-i_measure <- c("deaths", "ylds (years lived with disability)")
+i_measure <- c("deaths", "ylds") #" (years lived with disability)")
 
 for(sex in i_sex) {
   for (measure in i_measure) {
     
-    data <- filter(GBDGL, measure == i_measure, sex == i_sex, cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate) 
-    assign(paste(i_sex, i_measure, "interpolated_data", sep = " "), data)
+    #print(paste(sex, measure, "interpolated_data", sep = "_"))
+    #print(paste(sex, measure, "interpolated", sep = "_"))
+    
+    data <- filter(GBDGL, measure == i_measure, sex == sex, cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate) 
+    assign(paste(sex, measure, "interpolated_data", sep = "_"), data)
 x=data$age_cat
 y=log(data$one_rate)
 
 interpolated <- as.data.frame(spline(x, y, n = 5 *length (x), xmin = min(x-2), xmax = max(x + 2)))
 interpolated$y <- exp(y)
-assign(paste(i_sex, i_measure, "interpolated", sep = " "), interpolated)
+assign(paste(sex, measure, "interpolated", sep = "_"), interpolated)
 plot(x,y)
 
   }
