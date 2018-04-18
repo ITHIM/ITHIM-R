@@ -333,7 +333,10 @@ colnames(interpolated)[1] <- "rate"
 
 assign(paste(sex, measure, "interpolated", sep = "_"), interpolated)
 plot(interpolated$age,interpolated$rate)
-
+ p <- ggplot(data = interpolated, aes(age,rate)) +
+            geom_line(aes(color = "Interpolated")) 
+            theme_classic()
+            print(p)
   }
 }  
 
