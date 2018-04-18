@@ -238,7 +238,7 @@ These data should be used to generate the general life table and disease life ta
 GBDdata <- mutate_all(GBDdata, funs(tolower))
 ```
 
-6) Create age categories index in GBDdata (rounding mid age), total of 20 age groups. These are the age cohorts to simulate. 
+6) Create age categories index in GBDdata (upper limit age group to match injury data), total of 20 age groups. These are the age cohorts to simulate. 
 ```{r, echo=TRUE}
 GBDdata$age_cat [GBDdata$age =="under 5"] <- 2
 GBDdata$age_cat [GBDdata$age =="5 to 9"] <- 7
@@ -308,10 +308,7 @@ GBDGL$one_rate <- GBDGL$val/100000
 14) For the life table, we need to mortality and total yld rates in one year age intervals. The original data is in five years. Thus, the following code is used to interpolate a single-year age distribution form a five-yearly distribution. 
 
 ```{r, echo=TRUE}
-##I used spline function as the rates are not always monotonic. 
 
-
-    
 data <- filter(GBDGL, measure == "ylds (years lived with disability)", sex == "female", cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate)
 
 x=data$age_cat
@@ -323,7 +320,9 @@ plot(x,y)
 
 
 
-##Test here to generate all 4 data frames simultaneously.
+
+
+##Loop to generate interpolated rates for all cause mortality and ylds for males and females
 
 i_sex <- c("male", "female")
 i_measure <- c("deaths", "ylds") #" (years lived with disability)")
@@ -346,6 +345,10 @@ plot(x,y)
 
   }
 }  
+
+plot(male_deaths_interpolated_data$age_cat, male_deaths_interpolated_data$one_rate)
+
+plot(female_deaths_interpolated$x, female_deaths_interpolated$y)
 
 ```
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
