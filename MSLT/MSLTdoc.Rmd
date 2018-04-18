@@ -333,14 +333,19 @@ colnames(interpolated)[1] <- "rate"
 
 assign(paste(sex, measure, "interpolated", sep = "_"), interpolated)
 plot(interpolated$age,interpolated$rate)
- p <- ggplot(data = interpolated, aes(age,rate)) +
-            geom_line(aes(color = "Interpolated")) 
-            theme_classic()
-            print(p)
+
+###Do graph with another layer for original rates in age groups for comparison purposes. 
+ # p <- ggplot(data = interpolated, aes(age,rate)) +
+ #            geom_line(aes(color = "Interpolated")) 
+ #            theme_classic()
+ #            print(p)
   }
 }  
 
 ```
+
+15) The following code brings together all the required data to create the inputs life table (Figure 3)
+
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
 
 
