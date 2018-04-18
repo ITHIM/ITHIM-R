@@ -17,10 +17,10 @@ source("MSLT/code/functions.R")
 #### irr.data: relative risks data and ee: energy expenditure
 #### For exposure (edata) and input (idata) data I am using already generated categories, but a function should be developed to work from raw data. 
 
-idata <- read.csv("MSLT/data/idata.csv", stringsAsFactors = F)
-edata <- read.csv("MSLT/data/edata.csv", stringsAsFactors = F)
-irr <- read.csv("MSLT/data/irr.csv", stringsAsFactors = F)
-ee <- read.csv("MSLT/data/ee.csv", stringsAsFactors = F)
+idata <- read.csv("MSLT/data/Australia/idata.csv", stringsAsFactors = F)
+edata <- read.csv("MSLT/data/Australia/edata.csv", stringsAsFactors = F)
+irr <- read.csv("MSLT/data/Australia/irr.csv", stringsAsFactors = F)
+ee <- read.csv("MSLT/data/Australia/ee.csv", stringsAsFactors = F)
 
 #####To do
 

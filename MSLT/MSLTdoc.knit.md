@@ -161,7 +161,7 @@ In what follows, we start with the **model** script file, and explain the **func
 
 We start by cleaning the global environment (1) to keep track of our works and ensure that the code is generating our outcomes. Then, we set up an option to avoid the use of scientific notation (2) and lastly we load the functions (3). The code chunks are shown in the rmarkdown output.  
 
-1) Clearn Global Environment
+1) Clean Global Environment
 
 ```r
 rm (list = ls())
