@@ -42,12 +42,12 @@ The proportional multi-state multiple-cohort life table model (PMSLT) is a popul
 
 The model was developed by Jan Barendregt and colleagues and has been widely used in Australia and New Zealand [@RN38; @RN8299]. 
 
-The basic infrastructure of the model consist of three components: (1) Effect size for the intervention of interest (e.g. intervention to urban design that modifies population levels of physical activity); (2) Calculation of the potential impact fraction (PIF) to derive the change in occurrence of disease (incidence rate/mortality rate) attributable to a change in the distribution of the risk factor (e.g. physical activity); and (3) Use of the PMSLT to simulate health (and economic) outcomes attributable to a change in the distribution of health risk factor/s in the population of interest. Figure 1 summaries the basic infrastructure of the model. ITHIM is included in Figure 1 to show that both approaches share in common steps one and two and differ in the mechanisms of calculation of change in health burden. 
+The basic infrastructure of the model consist of three components: (1) Effect size for the intervention of interest (e.g. intervention to urban design that modifies population levels of physical activity); (2) Calculation of the potential impact fraction (PIF) to derive the change in occurrence of disease (incidence rate/case fatality rate) attributable to a change in the distribution of the risk factor (e.g. physical activity); and (3) Use of the PMSLT to simulate health (and economic) outcomes attributable to a change in the distribution of health risk factor/s in the population of interest. Figure 1 summaries the basic infrastructure of the model. ITHIM is included in Figure 1 to show that both approaches share in common steps one and two and differ in the mechanisms of calculation of change in health burden. 
 
 
 **HALYs, QALYs and DALYs**
 
-In this model we use the term *health-adjusted life year* (HALY). As *summary measure of population health* it measures both quantity and quality of life, where one HALY represent the equivalent of one year in full health (which could be two years with a quality of life of 0.5, for example). Specific types of HALY are the quality-adjusted life year (QALY) and the disability-adjusted life year (DALY). The QALY derives from economics and was first used in the 1960s as a measure of health gain [@RN8158]. The disability-adjusted life-year (DALY) was developed for use in burden of disease studies as a measure of health loss due to disease [@RN8158]. Our calculated HALYs are neither QALYs not DALYs, but something in between. They are similar to QALYs in that they represent health gains. However, the main difference is in the calculation of the health-related quality of life component. QALYs use measures of utility weights that traditionally represent individual experiences of health, whereas our estimated HALYs use disability weights linked to specific diseases, which were developed for the Global Burden of Disease study [@RN8158]. As discussed in past research [@RN21; @RN8262] the main advantage of using disability weights over utility weights is that disability weights refer to specific diseases rather than health states. We opted to use the more general terms HALYs given that the use of the DALYs terminology may lead to think that our calculations are similar to those in burden of diseases studies [@RN8153]. In our study, our model does not explicitly separate years of life lost (YLL) and years lived with disability (YLD) components, but instead calculates the total number of life years lived, adjusted for the average health-related quality of life in those years (by age and sex). In burden of disease studies, DALYs are defined as the sum Years of Life Lost (YLL) and Years Lived with Disability (YLD). 
+In this model we use the term *health-adjusted life year* (HALY). As *summary measure of population health* it measures both quantity and quality of life, where one HALY represent the equivalent of one year in full health (which could be two years with a quality of life of 0.5, for example). Specific types of HALY are the quality-adjusted life year (QALY) and the disability-adjusted life year (DALY). The QALY derives from economics and was first used in the 1960s as a measure of health gain [@RN8158]. The disability-adjusted life-year (DALY) was developed for use in burden of disease studies as a measure of health loss due to disease [@RN8158]. Our calculated HALYs are neither QALYs not DALYs, but something in between. They are similar to QALYs in that they represent health gains. However, the main difference is in the calculation of the health-related quality of life component. QALYs use measures of utility weights that traditionally represent individual experiences of health, whereas our estimated HALYs use disability weights linked to specific diseases, which were developed for the Global Burden of Disease study [@RN8158]. As discussed in past research [@RN21; @RN8262] the main advantage of using disability weights over utility weights is that disability weights refer to specific diseases rather than health states (which are difficult to link to risk factors-e.g. physical inactivity). We opted to use the more general terms HALYs given that the use of the DALYs terminology may lead to think that our calculations are similar to those in burden of diseases studies [@RN8153]. In our study, our model does not explicitly separate years of life lost (YLL) and years lived with disability (YLD) components, but instead calculates the total number of life years lived, adjusted for the average health-related quality of life in those years (by age and sex). In burden of disease studies, DALYs are defined as the sum Years of Life Lost (YLL) and Years Lived with Disability (YLD). 
 
 \newpage
 
@@ -59,13 +59,13 @@ In this model we use the term *health-adjusted life year* (HALY). As *summary me
 
 ## Contribution to ITHIMR
 
-The PMSLT similar to ITHIM is a comparative risk assessment approach [@RN8957] that consist of calculating the change in the health burden for a population of interest from a change in exposure to health risks factors (e.g. physical inactivity, air pollution and road trauma).As depicted in Figure 1, both methods need estimates of the potential impact fraction (PIF), which indicates the proportion of the disease burden attributable to a risk factor of interest (e.g. physical inactivity) [@RN42]. A step further back, is the development of scenarios that bring about change in the distribution of the risk factor of interest. For now, we only focus on calculations from the PIF onward, and provide a hypothetical example of change in population levels of physical activity. Incorporation of additional  health risk factor (air pollution, road trauma, NO2 and noise) will be discussed in the relevant code sections. 
+The PMSLT similar to ITHIM is a comparative risk assessment approach [@RN8957] that consist of calculating the change in the health burden for a population of interest from a change in exposure to health risks factors (e.g. physical inactivity, air pollution and road trauma).As depicted in Figure 1, both methods need estimates of the potential impact fraction (PIF), which indicates the proportion of the disease burden attributable to a risk factor of interest (e.g. physical inactivity) [@RN42]. A step further back, is the development of scenarios that bring about change in the distribution of the risk factor of interest. For now, we only focus on calculations from the PIF onward, and provide a hypothetical example of change in the population distribution of physical activity. Incorporation of additional  health risk factor (air pollution, road trauma, NO2 and noise) will be discussed in the relevant code sections. 
 
 
 ### Difference between ITHIM and PMSLT
 
 * **Time component**
-The *PMSLT* follows a population of interest over time. For example, as set up here, we simulate sex and age (5 years starting at 18) cohorts over time until they die or reach 100 years of age. This implies that we can include trends for diseases, time lags between change in exposure to risk factors and change in health and demographic changes (e.g. population growth). In addition, we can estimate yearly changes in the burden of diseases over the life course or for a specified number of years. The *ITHIM* approach is a snapshot of change in burden for one year.
+The *PMSLT* follows a population of interest over time. For example, as set up here, we simulate sex and age (5 years starting at 18) cohorts over time until they die or reach 100 years of age. This implies that we can include trends for diseases, time lags for change in exposure to risk factors and change in health and demographic changes (e.g. population growth). In addition, we can estimate yearly changes in the burden of diseases over the life course or for a specified number of years. The *ITHIM* approach is a snapshot of change in burden for one year.
     
 ***Interaction between multiple diseases**
 The *PMSLT* accounts for the interaction between multiple diseases, with proportions of the population being able to be in more than one health state [@RN8957]. This avoids  overestimation of outcomes as a result of summing health outcomes attributable to each disease individually as done in *ITHIM*. It is important to note that the *PMSLT* assumes that diseases are independent of each other. That is to say, developing a disease is unrelated to a concurrent diagnoses of another disease).  
@@ -79,7 +79,7 @@ In GBD studies, YLLs are not adjusted for disability; hence, their use in estima
         
 # R development
 
-The model is set up as a long script to perform the required mathematical calculations. Where possible, we wrote functions and loops to avoid repetition. We set up the model  with Australian data, for Melbourne. Figure 2 is depicts the PMSLT model framework, which was followed in the code development. 
+The model is set up as a long script to perform the required mathematical calculations. Where possible, we wrote functions and loops to avoid repetition. We set up the model  with data for Great London. Figure 2 is depicts the PMSLT model framework, which was followed in the code development. 
 
 \newpage
 \blandscape
@@ -88,7 +88,7 @@ The model is set up as a long script to perform the required mathematical calcul
 
 \elandscape
 
-In what follows, first, we specify input parameters. Second, we present the code with explaining notes. Third, we present examples of outcomes and lastly we comment on topics related to implementation. Here we only included the physical activity health pathway. In the comments section, implementation of exposure to air pollution and road trauma is discussed. Note that in the presentation of input parameters, those needed to calculate PIFs are excluded, as these are common to the ITHIM, expect if trends are included (refer to comments section).
+In what follows, first, we specify input parameters. Second, we present the code with explaining notes. Third, we present examples of outcomes and lastly we comment on topics related to implementation. Here we only included the physical activity health pathway. In the comments section, we discuss the implementation of exposure to air pollution and road trauma. Note that in the presentation of input parameters, those needed to calculate PIFs are excluded, as these are common to the ITHIM, expect if trends are included (refer to comments section).
 
 ## Inputs 
 
@@ -96,27 +96,27 @@ We specify data requirements for the life table and disease life tables (Figure 
 
 ### Life table
 
-Inputs of the life table are: population numbers by sex (per 1-year or age grouping of interest), mortality rates or probability of all cause mortality by single age group and sex and total prevalent years lived with disability rate per one year by sex. Disease specific disability weights are presented as inputs here as these adjust the total years lived with disability, hence, the health-adjusted life years. 
+Inputs of the life table are: population numbers by sex (per 1-year or age grouping of interest), mortality rates or probability of all cause mortality by single age group and sex and total prevalent years lived with disability rate per single year by sex. Disease specific disability weights are presented as inputs here as these adjust the total years lived with disability, hence, the health-adjusted life years. 
 
 ####	Population numbers
 
-These data will be provided by the synthetic population. In the code presented here, we created 5-year age and sex cohorts from one-year age groups data. I left potential data sources below as a reference.
+These data will be provided by the synthetic population or derived from other data. In the code presented here, we simulate 5-year age and sex cohorts. Data for population may be in five-year age groups or one-year. For the example for Greater London, we derive 5-year age groups from GBD IHME data, however, we also provide a script if five-year age groups are to be derived from one-year age groups data. I left potential data sources below as a reference.
 
 Data source: (1) National census; (2) Worldwide population and mortality data:  http://www.mortality.org/ (mostly high income countries; and (3) Calculate from the Global Burden of Disease by the Institute of Health Metrics and Evaluation (GBD IHME) data (rates and numbers available from (http://ghdx.healthdata.org/gbd-results-tool). 
 
 #### Mortality rates
 
-Mortality rates are needed per single year and sex. These data are available from GBD IHME, however, in age groups (1-4, 5-9, etc). Interpolation can be used to derive in between ages rates (cubic spline).  
+Mortality rates are needed per single year and sex. These data are available from GBD IHME, however, in age groups (1-4, 5-9, etc). We provide an interpolation script to derive in between ages rates (cubic spline).  
 
-Note that we need data for population numbers and all cause mortality rates for: (1) PMSLT and (2) Dismod II collection (more in Dismod II section). Population data from the synthetic population is used for the PMSLT. For Dismod II, population and mortality data should be from the same source (GBD IHME)
+Note that we need data for population numbers and all cause mortality rates for: (1) PMSLT and (2) Dismod II collection (more in Dismod II section). Population data from the synthetic population is used for the PMSLT (if available). For Dismod II, population and mortality data should be from the same source (GBD IHME).
 
 ####	Total years lived with disability rates per single year and sex.
 
-These data is available from the GBD (http://ghdx.healthdata.org/gbd-results-tool) per 5-year age groups. We can use interpolation to derive between ages rates. 
+These data is available from the GBD (http://ghdx.healthdata.org/gbd-results-tool) per 5-year age groups. We can use interpolation to derive between ages rates (script provided). 
 
 #### Disability weights (quality of life weights) 
 
-Disability weights (DW) can be derived from disease specific years lived with disability (YLD) and disease specific prevalence by age group (5 years) and sex. Data for YLDs prevalence can be obtained from the online GBD IHME data tool (http://ghdx.healthdata.org/gbd-results-tool). Our calculations of DW in the example here based on the GBD methods for estimating YLDs as the sum of sequelae prevalence multiplied by sequelae disability weights (REF GBD). The GBD has publicly available data at the cause level (e.g. ischemic heart disease) instead of squelae level (e.g. myocardial infarction, angina and heart failure). However, the GBD disability weights are for health states associated with sequelae, hence, we need to calculate DWs. An age and sex specific-correction was introduced to counteract the effects of accumulating comorbid illnesses in the older age groups (Equation 1).  
+Disability weights (DW) are derived from disease specific years lived with disability (YLD) and disease specific prevalence by age group (5 years) and sex. Data for YLDs prevalence is obtained from the online GBD IHME data tool (http://ghdx.healthdata.org/gbd-results-tool). Our calculations of DW in the example here based on the GBD methods for estimating YLDs as the sum of sequelae prevalence multiplied by sequelae disability weights (REF GBD). The GBD has publicly available data at the cause level (e.g. ischemic heart disease) instead of squelae level (e.g. myocardial infarction, angina and heart failure). However, the GBD disability weights are for health states associated with sequelae, hence, we need to calculate DWs. An age and sex specific-correction was introduced to counteract the effects of accumulating comorbid illnesses in the older age groups (Equation 1).  
 
 \begin{equation}
 \label{DW adjusted for total YLDs-YLDdPd1YLDt}
@@ -131,7 +131,7 @@ Where YLDd is the YLD mean number per age and sex for a given disease, Pd is the
 
 #### Incidence and case fatality 
 
-For each of the modeled diseases the PMSLT needs incidence and case fatality rates per sex and one-year intervals. Data from the GBD IHME studies with Dismod II (free at https://www.epigear.com/index_files/dismod_ii.html) can be used to derive internally consistent data and generate missing data. For example, the GBD studies provide data for incidence, prevalence and disease mortality, however, not case fatality. Other national level sources may also be explored/used, and compare with estimates produce from GBD data and Dismod II. 
+For each of the modeled diseases the PMSLT needs incidence and case fatality rates per sex and one-year intervals. Data from the GBD IHME studies with Dismod II (free at https://www.epigear.com/index_files/dismod_ii.html) is used to derive internally consistent data and generate missing data. For example, the GBD studies provide data for incidence, prevalence and disease mortality, however, not case fatality. Other national level sources may also be explored/used, and compare with estimates produce from GBD data and Dismod II. 
 
 **Dismod II** inputs are: (1) population numbers and mortality rates and (2) disease specific inputs. 
 
@@ -165,11 +165,11 @@ kable(pmslt_inputs,"latex", booktabs = T, caption = "PMSLT inputs") %>%
 
 Following the structure of Figure 2, we developed functions to perform sex and age cohorts calculations for the life table, disease life tables and potential impact fractions: run_life_table, run_disease and and run_pif. We also generated two functions for outputs: plot_outputs and gen_aggregate. The function plot_outputs creates age-group and sex linear plots for specified outcomes (e.g. health-adjusted life years, incidence of diabetes) and gen_aggregate adds up each cohort results. Functions were then used in a code script. In what follows, we explain each step in the development of the script. Here we also include code chunks, however, we also kept them separately in the MSLT folder, in the code file. 
 
-In what follows, we start with the **model** script file, and explain the **functions** script file as these are used to perform calculations. The **functions** will be explained in detailed to provide clarity for required inputs. 
+In what follows, we start explain the script step by step. 
 
 ###Set up 
 
-We start by cleaning the global environment (1) to keep track of our works and ensure that the code is generating our outcomes. Then, we set up an option to avoid the use of scientific notation (2) and lastly we load the functions (3). The code chunks are shown in the rmarkdown output.  
+We start by cleaning the global environment (1) to keep track of our works and ensure that the code is generating our desired outcomes. Then, we set up an option to avoid the use of scientific notation (2) and lastly we load the functions (3). The code chunks are shown in the rmarkdown output.  
 
 1) Clean Global Environment
 ```{r, echo=TRUE}
@@ -262,7 +262,7 @@ GBDdata$age_cat [GBDdata$age =="90 to 94"] <- 92
 GBDdata$age_cat [GBDdata$age =="95 plus"] <- 97
 ```
 
-7) Create age and sex categories to obtain population numbers. Population numbers from GBD are used in Dismod II. For the Life table (Figure 3), the numbers may be from the synthetic population. 
+7) Create age and sex categories to obtain population numbers. Population numbers from GBD are used in Dismod II. For the Life table (Figure 3), the numbers may be from the synthetic population. For now, the Life table is set up with population numbers derived from the GBD data. 
 ```{r, echo=TRUE}
 GBDdata$sex_age_cat <- paste(GBDdata$age_cat,GBDdata$sex, sep = "_"  )
 ```
@@ -270,7 +270,7 @@ GBDdata$sex_age_cat <- paste(GBDdata$age_cat,GBDdata$sex, sep = "_"  )
 ```{r, echo=TRUE}
 GBDdata$val <- as.numeric(as.character(GBDdata$val))
 ```
-9) Generate population numbers for England and Greater London in a new data frame ("GBD_population") and then separate in dataframes for England and Greater London (this avoids repeating the same code). Population numbers are derived from rates per 100,000 and total numbers of cases. 
+9) Generate population numbers for Greater London in a new data frame ("GBD_population"). Note that there is data for England as well, which is used in a separate rmarkdown dowcument (GBDCompare). Population numbers are derived from rates per 100,000 and total numbers of cases. 
 ```{r, echo=TRUE}
 GBD_population <- filter(GBDdata, measure == "deaths", cause == "all causes", metric == "rate" | metric == "number" ) %>% select(metric, age_cat, val, sex_age_cat, location)
 ```
@@ -290,27 +290,22 @@ GBD_population <- GBD_population[!is.na(GBD_population$val_pop),]
 ```{r, echo=TRUE}
 GBD_population <- filter(GBD_population) %>% select(sex_age_cat, val_pop, location)
 ```
-13) Create data frames for Greater London and England population to be later used as inputs for PMSLT calculations
+13) Create data frames for Greater London to be later used for: a) interpolation of rates and b) PMLT cohorts. 
 ```{r, echo=TRUE}
 GBD_population_GL <-  filter(GBD_population, location == "greater london") %>% select(sex_age_cat, val_pop, location)
-
-GBD_population_England <-  filter(GBD_population, location == "england") %>% select(sex_age_cat, val_pop, location)
 ```
 12) Check population total numbers
 ```{r, echo=TRUE}
 GreaterLondon <- sum(GBD_population_GL$val_pop)
-England <- sum(GBD_population_England$val_pop)
 ```
 
-13) Generate data frames for England and Grater London with per person rates (per 100,000 in original data).  
+13) Generate data frames for Greater London with per person rates (per 100,000 in original data).  
 ```{r, echo=TRUE}
-GBDEngland <- filter(GBDdata, location == "england" & metric == "rate") %>% select(measure, location, sex, age, metric, cause, val, age_cat)
-GBDEngland$one_rate <- GBDEngland$val/100000
 GBDGL <- filter(GBDdata, location == "greater london" & metric == "rate") %>% select(measure, location, sex, age, metric, cause, val, age_cat)
 GBDGL$one_rate <- GBDGL$val/100000
 ```
 
-14) For the life table, we need to mortatlity and total yld rates in one year age intervals. The original data is in five years. Thus, the following code is used to interpolate a single-year age distribution form a five-yearly distribution. 
+14) For the life table, we need to mortality and total yld rates in one year age intervals. The original data is in five years. Thus, the following code is used to interpolate a single-year age distribution form a five-yearly distribution. 
 
 ```{r, echo=TRUE}
 ##Example for Greater London. First, extract rates of interest and add to GBD_population frame (change the name of the data frame).
@@ -318,6 +313,7 @@ GBDGL$one_rate <- GBDGL$val/100000
 ##Create dataframe with mortality data males for Greater London (test spline, then need to better organise the row data from GBD)
 ##I used spline function as the rates are not always monotonic. 
 
+##Mortality rates
 
 Mortality_males <- filter(GBDGL, measure == "deaths", sex == "male", cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate)
 
