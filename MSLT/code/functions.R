@@ -413,9 +413,6 @@ gen_aggregate <- function(in_data, in_cohorts, in_population, in_outcomes){
   aggr
 }
 
-#######################################Funtion to interpolate rates##############################
-
-
 
 #######################################Function to generate GBD graphs to compare data national to local (USED in GBD COMPARE############################
 

@@ -308,21 +308,50 @@ GBDGL$one_rate <- GBDGL$val/100000
 14) For the life table, we need to mortality and total yld rates in one year age intervals. The original data is in five years. Thus, the following code is used to interpolate a single-year age distribution form a five-yearly distribution. 
 
 ```{r, echo=TRUE}
-##Example for Greater London. First, extract rates of interest and add to GBD_population frame (change the name of the data frame).
-##COULD USE A FUNCTION AND ALOOP AS WITH THE GRAPHS TO GENERATE DATA FOR EACH OF THE DISEASE FOR DISMOD.
-##Create dataframe with mortality data males for Greater London (test spline, then need to better organise the row data from GBD)
 ##I used spline function as the rates are not always monotonic. 
 
-##Mortality rates
+##Loop to generate interpolated values for all cause mortality and all-cause years lived with disability.
 
-Mortality_males <- filter(GBDGL, measure == "deaths", sex == "male", cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate)
+i_sex <- c("male", "female")
+i_measure <- c("deaths", "ylds (years lived with disability)")
 
-x=Mortality_males$age_cat
-y=log(Mortality_males$one_rate)
+for(sex in i_sex) {
+  for (measure in i_measure) {
+    
+data <- filter(GBDGL, measure == "ylds (years lived with disability)", sex == "female", cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate)
+
+x=data$age_cat
+y=log(data$one_rate)
+
+interpolated<- as.data.frame(spline(x, y, n = 5 *length (x), xmin = min(x-2), xmax = max(x + 2)))
+interpolated$y <- exp(y)
 plot(x,y)
-Mortality_males_interpolated <- as.data.frame(spline(x, y, n = 5 *length (x), xmin = min(x-2), xmax = max(x + 2)))
-Mortality_males_interpolated$y <- exp(Mortality_males_interpolated$y)
-plot(Mortality_males_interpolated$x,Mortality_males_interpolated$y)
+
+  }
+}  
+
+##Test here to generate all 4 data frames simultaneously.
+
+i_sex <- c("male", "female")
+i_measure <- c("deaths", "ylds (years lived with disability)")
+
+for(sex in i_sex) {
+  for (measure in i_measure) {
+    
+    data <- filter(GBDGL, measure == "ylds (years lived with disability)", sex == "female", cause == "all       causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate)
+    assign(paste(i_sex, i_measure, "interpolated_data", sep = " "), data)
+x=data$age_cat
+y=log(data$one_rate)
+
+
+interpolated <- as.data.frame(spline(x, y, n = 5 *length (x), xmin = min(x-2), xmax = max(x + 2)))
+interpolated$y <- exp(y)
+assign(paste(i_sex, i_measure, "interpolated", sep = " "), interpolated)
+plot(x,y)
+
+  }
+}  
+
 ```
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
 
