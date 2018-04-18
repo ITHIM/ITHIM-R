@@ -310,13 +310,7 @@ GBDGL$one_rate <- GBDGL$val/100000
 ```{r, echo=TRUE}
 ##I used spline function as the rates are not always monotonic. 
 
-##Loop to generate interpolated values for all cause mortality and all-cause years lived with disability.
 
-i_sex <- c("male", "female")
-i_measure <- c("deaths", "ylds (years lived with disability)")
-
-for(sex in i_sex) {
-  for (measure in i_measure) {
     
 data <- filter(GBDGL, measure == "ylds (years lived with disability)", sex == "female", cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate)
 
@@ -327,8 +321,7 @@ interpolated<- as.data.frame(spline(x, y, n = 5 *length (x), xmin = min(x-2), xm
 interpolated$y <- exp(y)
 plot(x,y)
 
-  }
-}  
+
 
 ##Test here to generate all 4 data frames simultaneously.
 
@@ -338,11 +331,10 @@ i_measure <- c("deaths", "ylds (years lived with disability)")
 for(sex in i_sex) {
   for (measure in i_measure) {
     
-    data <- filter(GBDGL, measure == "ylds (years lived with disability)", sex == "female", cause == "all       causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate)
+    data <- filter(GBDGL, measure == i_measure, sex == i_sex, cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate) 
     assign(paste(i_sex, i_measure, "interpolated_data", sep = " "), data)
 x=data$age_cat
 y=log(data$one_rate)
-
 
 interpolated <- as.data.frame(spline(x, y, n = 5 *length (x), xmin = min(x-2), xmax = max(x + 2)))
 interpolated$y <- exp(y)
