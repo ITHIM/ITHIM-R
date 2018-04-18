@@ -19,20 +19,7 @@ output:
 bibliography: Bibliography.bib
 ---
 
-```{r setup, include=FALSE}
 
-#Global options
-knitr::opts_chunk$set(echo = TRUE)
-options(knitr.table.format = 'latex')
-knitr::opts_chunk$set(fig.cap = TRUE, fig.align = "center", fig.pos = "H", fig.scap = TRUE) 
-
-#The work in this document requires the following packages (code, rmarkdown and citing packages):
-require(dplyr)
-require(tidyverse)
-require(knitr)
-require(kableExtra)
-require(citr)
-```
 
 \newpage
 
@@ -143,23 +130,26 @@ Within Dismod II, each setting (e.g. country) has a collection that consists of 
 
 Each setting collection has a given number of diseases. Dismod II works with at least three of: case fatality, prevalence, incidence, mortality (disease), case fatality, remission, duration and the relative risk for mortality. So far, we have been assuming that remission is zero for chronic diseases, that is to say, when people become diseased, they do not recover. Special care should be taken with this assumption, as the GBD data assumes remission for some diseases, for example cancers, where after 10 years cases recover, except for long term sequelae. Since GBD now provides prevalence, incidence and mortality, it may be best to use all three as Dismod II input parameters to compare the effect of the remission assumption by the GBD for some diseases.
 
-```{r, echo=FALSE}
-pmslt_inputs <- tribble(
-~Input, ~Source, ~Comments, 
-"Life table", "Synthetic population per sex and age group", "Age grouping in life table to match synthetic population", 
-"Life table", "Synthetic population per sex and one-year age group", "If one year age group is not avabilable it can be derive using interpolation from age groups data", 
-"Life table", "Global Burden of Disease (GBD) study per one-year age group and sex", "GBD data is in five-year age groups, interpolation to derive one-year age groups", 
-"Disease life table", "GBD data for prevalence, incidence and mortality and DISMOD II", "Two step process. First obtain disease and population data from GBD. Second, use Dismod II to derive internally consistent estimates for incidence and case fatality (PMSLT disease life table iputs", 
-"Disease life table", "Derive from disease prevalence and years lived with disability from GBD", "Adjustments for comorbidities in later years of life to be applied"
-)
+\rowcolors{2}{gray!6}{white}
+\begin{table}
 
-kable(pmslt_inputs,"latex", booktabs = T, caption = "PMSLT inputs") %>%
- kable_styling(latex_options = c("striped", "hold position"),
-               full_width = F)%>%
-  column_spec(2, width = "15em") %>%
-  column_spec(3, width = "15em") %>%
-  row_spec(0, bold = T)
-```
+\caption{\label{tab:unnamed-chunk-1}PMSLT inputs}
+\centering
+\begin{tabular}[t]{l>{\raggedright\arraybackslash}p{15em}>{\raggedright\arraybackslash}p{15em}}
+\hiderowcolors
+\toprule
+\textbf{Input} & \textbf{Source} & \textbf{Comments}\\
+\midrule
+\showrowcolors
+Life table & Synthetic population per sex and age group & Age grouping in life table to match synthetic population\\
+Life table & Synthetic population per sex and one-year age group & If one year age group is not avabilable it can be derive using interpolation from age groups data\\
+Life table & Global Burden of Disease (GBD) study per one-year age group and sex & GBD data is in five-year age groups, interpolation to derive one-year age groups\\
+Disease life table & GBD data for prevalence, incidence and mortality and DISMOD II & Two step process. First obtain disease and population data from GBD. Second, use Dismod II to derive internally consistent estimates for incidence and case fatality (PMSLT disease life table iputs\\
+Disease life table & Derive from disease prevalence and years lived with disability from GBD & Adjustments for comorbidities in later years of life to be applied\\
+\bottomrule
+\end{tabular}
+\end{table}
+\rowcolors{2}{white}{white}
 
 ##Code
 
@@ -171,16 +161,19 @@ In what follows, we start with the **model** script file, and explain the **func
 
 We start by cleaning the global environment (1) to keep track of our works and ensure that the code is generating our outcomes. Then, we set up an option to avoid the use of scientific notation (2) and lastly we load the functions (3). The code chunks are shown in the rmarkdown output.  
 
-1) Clean Global Environment
-```{r, echo=TRUE}
+1) Clearn Global Environment
+
+```r
 rm (list = ls())
 ```
 2) Avoid scientific notation
-```{r, echo=TRUE}
+
+```r
 options(scipen=999)
 ```
 3) Load functions 
-```{r, echo=TRUE}
+
+```r
 source("code/functions.R")
 ```
 
@@ -209,23 +202,37 @@ First, we explain how to obtain the data, second additional processing to derive
 Table 2 specifies the selections to do for each of the tabs in Figure 2. 
 
 
-```{r, echo=FALSE}
-pmslt_inputs <- tribble(
-~Tab, ~Selection,
-"Base", "Single", "Location", "Case study city", "Year", "Latest available", "Context", "Cause", "Age", "Under 5, 5 to 9, 10 to 14, 15 to 19, 20 to 24, 25 to 29, 30 to 34, 35 to 39, 40 to 49, 50 to 54, 55 to 59, 60 to 64, 65 to 69, 70 to 74, 75 to 79, 80 to 84, 89 to 89, 90 to 95, 95 plus", "Metric", "Number, Rate", "Measure", "Deaths, YLDs, Prevalence, Incidence", "Sex", "Male, Female", "Cause", "Total All causes, ischemic heart disease, etc")
+\rowcolors{2}{gray!6}{white}
+\begin{table}
 
-kable(pmslt_inputs,"latex", booktabs = T, caption = "Global burden of disease data") %>%
- kable_styling(latex_options = c("striped", "hold position"),
-               full_width = F)%>%
-  column_spec(2, width = "30em") %>%
-  column_spec(3, width = "30em") %>%
-  row_spec(0, bold = T)
-```
+\caption{\label{tab:unnamed-chunk-5}Global burden of disease data}
+\centering
+\begin{tabular}[t]{l>{\raggedright\arraybackslash}p{30em}>{}p{30em}}
+\hiderowcolors
+\toprule
+\textbf{Tab} & \textbf{Selection}\\
+\midrule
+\showrowcolors
+Base & Single\\
+Location & Case study city\\
+Year & Latest available\\
+Context & Cause\\
+Age & Under 5, 5 to 9, 10 to 14, 15 to 19, 20 to 24, 25 to 29, 30 to 34, 35 to 39, 40 to 49, 50 to 54, 55 to 59, 60 to 64, 65 to 69, 70 to 74, 75 to 79, 80 to 84, 89 to 89, 90 to 95, 95 plus\\
+\addlinespace
+Metric & Number, Rate\\
+Measure & Deaths, YLDs, Prevalence, Incidence\\
+Sex & Male, Female\\
+Cause & Total All causes, ischemic heart disease, etc\\
+\bottomrule
+\end{tabular}
+\end{table}
+\rowcolors{2}{white}{white}
 
 Once the selections described in Table 2 are made, the option *Download CVS** in the GHDx website is selected. A prompt comes up asking for an email address. The data is sent to the designated email address (within minutes) in ZIP format, unzip and use the code below to read the data (4). Here, we selected data for Greater London and England. The aim is to compare and derive scaling factors as for most cities the data is not available from the GBD and country level data may be used and scaled to the city level. Note that the data input requirement for the PMSLT, except population numbers, is in rates. Therefore the scaling is to better reflect the burden of an area, this is a different issue than working with numbers (e.g. total mortality numbers, total YLDs numbers) as in the ITHIM approach.  
 
 4) Read GBD data
-```{r, echo=TRUE}
+
+```r
 GBDdata <- read.csv("data/UK/englandandgreaterlondon.csv", stringsAsFactors = F)
 ```
 
@@ -234,12 +241,14 @@ The following codes serves to sort out the GBD data to the inputs required for t
 These data should be used to generate the general life table and disease life tables (Figure 3). 
 
 5) Change all uper cases to lower case
-```{r, echo=TRUE}
+
+```r
 GBDdata <- mutate_all(GBDdata, funs(tolower))
 ```
 
 6) Create age categories index in GBDdata (rounding mid age), total of 20 age groups. These are the age cohorts to simulate. 
-```{r, echo=TRUE}
+
+```r
 GBDdata$age_cat [GBDdata$age =="under 5"] <- 2
 GBDdata$age_cat [GBDdata$age =="5 to 9"] <- 7
 GBDdata$age_cat [GBDdata$age =="10 to 14"] <- 12
@@ -263,19 +272,23 @@ GBDdata$age_cat [GBDdata$age =="95 plus"] <- 97
 ```
 
 7) Create age and sex categories to obtain population numbers. Population numbers from GBD are used in Dismod II. For the Life table (Figure 3), the numbers may be from the synthetic population. 
-```{r, echo=TRUE}
+
+```r
 GBDdata$sex_age_cat <- paste(GBDdata$age_cat,GBDdata$sex, sep = "_"  )
 ```
 8) Conver string variables to numberic to do calculations.
-```{r, echo=TRUE}
+
+```r
 GBDdata$val <- as.numeric(as.character(GBDdata$val))
 ```
 9) Generate population numbers for England and Greater London in a new data frame ("GBD_population") and then separate in dataframes for England and Greater London (this avoids repeating the same code). Population numbers are derived from rates per 100,000 and total numbers of cases. 
-```{r, echo=TRUE}
+
+```r
 GBD_population <- filter(GBDdata, measure == "deaths", cause == "all causes", metric == "rate" | metric == "number" ) %>% select(metric, age_cat, val, sex_age_cat, location)
 ```
 10) Generate population numbers from given number of cases and rates per 100,000 people. 
-```{r, echo=TRUE}
+
+```r
  for (i in 1:nrow(GBD_population)) {
     if (GBD_population$metric[i] == "number") {
       GBD_population$val_pop[i] <- GBD_population$val[i] * 100000/ GBD_population$val[i + 2]}
@@ -283,27 +296,32 @@ GBD_population <- filter(GBDdata, measure == "deaths", cause == "all causes", me
  }
 ```
 11) Remove rows with zero
-```{r, echo=TRUE}
+
+```r
 GBD_population <- GBD_population[!is.na(GBD_population$val_pop),]
 ```
 12) Keep relevant variables
-```{r, echo=TRUE}
+
+```r
 GBD_population <- filter(GBD_population) %>% select(sex_age_cat, val_pop, location)
 ```
 13) Create data frames for Greater London and England population to be later used as inputs for PMSLT calculations
-```{r, echo=TRUE}
+
+```r
 GBD_population_GL <-  filter(GBD_population, location == "greater london") %>% select(sex_age_cat, val_pop, location)
 
 GBD_population_England <-  filter(GBD_population, location == "england") %>% select(sex_age_cat, val_pop, location)
 ```
 12) Check population total numbers
-```{r, echo=TRUE}
+
+```r
 GreaterLondon <- sum(GBD_population_GL$val_pop)
 England <- sum(GBD_population_England$val_pop)
 ```
 
 13) Generate data frames for England and Grater London with per person rates (per 100,000 in original data).  
-```{r, echo=TRUE}
+
+```r
 GBDEngland <- filter(GBDdata, location == "england" & metric == "rate") %>% select(measure, location, sex, age, metric, cause, val, age_cat)
 GBDEngland$one_rate <- GBDEngland$val/100000
 GBDGL <- filter(GBDdata, location == "greater london" & metric == "rate") %>% select(measure, location, sex, age, metric, cause, val, age_cat)
@@ -312,7 +330,8 @@ GBDGL$one_rate <- GBDGL$val/100000
 
 14) For the life table, we need to mortatlity and total yld rates in one year age intervals. The original data is in five years. Thus, the following code is used to interpolate a single-year age distribution form a five-yearly distribution. 
 
-```{r, echo=TRUE}
+
+```r
 ##Example for Greater London. First, extract rates of interest and add to GBD_population frame (change the name of the data frame).
 ##COULD USE A FUNCTION AND ALOOP AS WITH THE GRAPHS TO GENERATE DATA FOR EACH OF THE DISEASE FOR DISMOD.
 ##Create dataframe with mortality data males for Greater London (test spline, then need to better organise the row data from GBD)
@@ -324,10 +343,31 @@ Mortality_males <- filter(GBDGL, measure == "deaths", sex == "male", cause == "a
 x=Mortality_males$age_cat
 y=log(Mortality_males$one_rate)
 plot(x,y)
+```
+
+\begin{figure}[H]
+
+{\centering \includegraphics{MSLTdoc_files/figure-latex/unnamed-chunk-18-1} 
+
+}
+
+\caption[TRUE]{TRUE}\label{fig:unnamed-chunk-181}
+\end{figure}
+
+```r
 Mortality_males_interpolated <- as.data.frame(spline(x, y, n = 5 *length (x), xmin = min(x-2), xmax = max(x + 2)))
 Mortality_males_interpolated$y <- exp(Mortality_males_interpolated$y)
 plot(Mortality_males_interpolated$x,Mortality_males_interpolated$y)
 ```
+
+\begin{figure}[H]
+
+{\centering \includegraphics{MSLTdoc_files/figure-latex/unnamed-chunk-18-2} 
+
+}
+
+\caption[TRUE]{TRUE}\label{fig:unnamed-chunk-182}
+\end{figure}
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
 
 
