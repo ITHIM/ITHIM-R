@@ -240,26 +240,26 @@ GBDdata <- mutate_all(GBDdata, funs(tolower))
 
 6) Create age categories index in GBDdata (upper limit age group to match injury data), total of 20 age groups. These are the age cohorts to simulate. 
 ```{r, echo=TRUE}
-GBDdata$age_cat [GBDdata$age =="under 5"] <- 2
-GBDdata$age_cat [GBDdata$age =="5 to 9"] <- 7
-GBDdata$age_cat [GBDdata$age =="10 to 14"] <- 12
-GBDdata$age_cat [GBDdata$age =="15 to 19"] <- 17
-GBDdata$age_cat [GBDdata$age =="20 to 24"] <- 22
-GBDdata$age_cat [GBDdata$age =="25 to 29"] <- 27
-GBDdata$age_cat [GBDdata$age =="30 to 34"] <- 32
-GBDdata$age_cat [GBDdata$age =="35 to 39"] <- 37
-GBDdata$age_cat [GBDdata$age =="40 to 44"] <- 42
-GBDdata$age_cat [GBDdata$age =="45 to 49"] <- 47
-GBDdata$age_cat [GBDdata$age =="50 to 54"] <- 52
-GBDdata$age_cat [GBDdata$age =="55 to 59"] <- 57
-GBDdata$age_cat [GBDdata$age =="60 to 64"] <- 62
-GBDdata$age_cat [GBDdata$age =="65 to 69"] <- 67
-GBDdata$age_cat [GBDdata$age =="70 to 74"] <- 72
-GBDdata$age_cat [GBDdata$age =="75 to 79"] <- 77
-GBDdata$age_cat [GBDdata$age =="80 to 84"] <- 82
-GBDdata$age_cat [GBDdata$age =="85 to 89"] <- 87
-GBDdata$age_cat [GBDdata$age =="90 to 94"] <- 92
-GBDdata$age_cat [GBDdata$age =="95 plus"] <- 97
+GBDdata$age_cat [GBDdata$age =="under 5"] <- 5
+GBDdata$age_cat [GBDdata$age =="5 to 9"] <- 10
+GBDdata$age_cat [GBDdata$age =="10 to 14"] <- 15
+GBDdata$age_cat [GBDdata$age =="15 to 19"] <- 20
+GBDdata$age_cat [GBDdata$age =="20 to 24"] <- 25
+GBDdata$age_cat [GBDdata$age =="25 to 29"] <- 30
+GBDdata$age_cat [GBDdata$age =="30 to 34"] <- 35
+GBDdata$age_cat [GBDdata$age =="35 to 39"] <- 40
+GBDdata$age_cat [GBDdata$age =="40 to 44"] <- 45
+GBDdata$age_cat [GBDdata$age =="45 to 49"] <- 50
+GBDdata$age_cat [GBDdata$age =="50 to 54"] <- 55
+GBDdata$age_cat [GBDdata$age =="55 to 59"] <- 60
+GBDdata$age_cat [GBDdata$age =="60 to 64"] <- 65
+GBDdata$age_cat [GBDdata$age =="65 to 69"] <- 70
+GBDdata$age_cat [GBDdata$age =="70 to 74"] <- 75
+GBDdata$age_cat [GBDdata$age =="75 to 79"] <- 80
+GBDdata$age_cat [GBDdata$age =="80 to 84"] <- 85
+GBDdata$age_cat [GBDdata$age =="85 to 89"] <- 90
+GBDdata$age_cat [GBDdata$age =="90 to 94"] <- 95
+GBDdata$age_cat [GBDdata$age =="95 plus"] <- 100
 ```
 
 7) Create age and sex categories to obtain population numbers. Population numbers from GBD are used in Dismod II. For the Life table (Figure 3), the numbers may be from the synthetic population. For now, the Life table is set up with population numbers derived from the GBD data. 
@@ -309,19 +309,6 @@ GBDGL$one_rate <- GBDGL$val/100000
 
 ```{r, echo=TRUE}
 
-data <- filter(GBDGL, measure == "ylds (years lived with disability)", sex == "female", cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate)
-
-x=data$age_cat
-y=log(data$one_rate)
-
-interpolated<- as.data.frame(spline(x, y, n = 5 *length (x), xmin = min(x-2), xmax = max(x + 2)))
-interpolated$y <- exp(y)
-plot(x,y)
-
-
-
-
-
 ##Loop to generate interpolated rates for all cause mortality and ylds for males and females
 
 i_sex <- c("male", "female")
@@ -329,26 +316,26 @@ i_measure <- c("deaths", "ylds") #" (years lived with disability)")
 
 for(sex in i_sex) {
   for (measure in i_measure) {
+
     
-    #print(paste(sex, measure, "interpolated_data", sep = "_"))
-    #print(paste(sex, measure, "interpolated", sep = "_"))
-    
-    data <- filter(GBDGL, measure == i_measure, sex == sex, cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate) 
-    assign(paste(sex, measure, "interpolated_data", sep = "_"), data)
+data <- filter(GBDGL, measure == i_measure, sex == sex, cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate) 
+assign(paste(sex, measure, "interpolated_data", sep = "_"), data)
 x=data$age_cat
 y=log(data$one_rate)
 
-interpolated <- as.data.frame(spline(x, y, n = 5 *length (x), xmin = min(x-2), xmax = max(x + 2)))
-interpolated$y <- exp(y)
+interpolation_func <- splinefun(x, y, method = "natural", ties = mean)
+
+interpolated <- as.data.frame(interpolation_func(seq(0, 99, 1)))
+ages <- seq(0,99,by=1)
+interpolated <- cbind(interpolated, ages)
+interpolated[,1] <- exp(interpolated[,1])
+colnames(interpolated)[1] <- "rate"
+
 assign(paste(sex, measure, "interpolated", sep = "_"), interpolated)
-plot(x,y)
+plot(interpolated$age,interpolated$rate)
 
   }
 }  
-
-plot(male_deaths_interpolated_data$age_cat, male_deaths_interpolated_data$one_rate)
-
-plot(female_deaths_interpolated$x, female_deaths_interpolated$y)
 
 ```
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
