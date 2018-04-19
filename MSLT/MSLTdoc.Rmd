@@ -233,9 +233,10 @@ The following codes serves to sort out the GBD data to the inputs required for t
 
 These data should be used to generate the general life table and disease life tables (Figure 3). 
 
-5) Change all uper cases to lower case
+5) Change all uper cases to lower case and delete () from variables. 
 ```{r, echo=TRUE}
 GBDdata <- mutate_all(GBDdata, funs(tolower))
+GBDdata$measure[GBDdata$measure=="ylds (years lived with disability)"] <- "ylds"
 ```
 
 6) Create age categories index in GBDdata (upper limit age group to match injury data), total of 20 age groups. These are the age cohorts to simulate. 
