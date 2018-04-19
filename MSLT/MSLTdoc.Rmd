@@ -333,13 +333,20 @@ interpolated[,1] <- exp(interpolated[,1])
 colnames(interpolated)[1] <- "rate"
 
 assign(paste(sex_index, measure_index, "interpolated", sep = "_"), interpolated)
-plot(interpolated$age,interpolated$rate)
+# plot(interpolated$age,interpolated$rate)
 
-###Do graph with another layer for original rates in age groups for comparison purposes. 
- # p <- ggplot(data = interpolated, aes(age,rate)) +
- #            geom_line(aes(color = "Interpolated")) 
- #            theme_classic()
- #            print(p)
+##Do graph with another layer for original rates in age groups for comparison purposes.
+p <- ggplot() +
+            geom_line (
+              data = interpolated,
+              mapping = aes(ages,rate) 
+              ) +
+              geom_point(
+                data = data, 
+                mapping = aes(age_cat, one_rate)
+                ) +
+           theme_classic()
+           print(p)
   }
 }  
 
