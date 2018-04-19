@@ -336,19 +336,18 @@ assign(paste(sex_index, measure_index, "interpolated", sep = "_"), interpolated)
 # plot(interpolated$age,interpolated$rate)
 
 ##Do graph with another layer for original rates in age groups for comparison purposes.
-p <- ggplot() +
-            geom_line (
-              data = interpolated,
-              mapping = aes(ages,rate) 
-              ) +
+p <- ggplot(data = interpolated,mapping = aes(ages,rate)) +
+              geom_line(aes(color = "Interpolated")) +
               geom_point(
                 data = data, 
-                mapping = aes(age_cat, one_rate)
-                ) +
-           theme_classic()
+                mapping = aes(age_cat, one_rate, color = "Original")) +
+              labs(colour="",x="Age",y= paste(i_sex, i_measure, "rates", sep = " "))+
+            labs (title = paste("Rates", i_sex, i_measure, sep = " "), size=14) +
+            theme_classic() +
+            theme(plot.title = element_text(hjust = 0.5))
            print(p)
   }
-}  
+}
 
 ```
 

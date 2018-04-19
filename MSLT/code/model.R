@@ -582,7 +582,8 @@ total_plot <- ggplot(total_aggr[1:20,], aes(x = sim_year)) +
   geom_line(mapping = aes(y = total_inc_num_diff_ihd, colour = "total_mx_num_diff_ihd")) +
   xlab ("Simulation years") + ylab ("Cases") + labs (title = paste(disease_outcome)) +
   theme(plot.title = element_text(hjust = 0.5, size = 12)) +
-  scale_color_discrete(name = paste(""), labels = c("Baseline", "Scenario", "Difference"))
+  scale_color_discrete(name = paste(""), labels = c("Baseline", "Scenario", "Difference")) +
+  theme(plot.title = element_text(hjust = 0.5))
   
 
 #Print to view
