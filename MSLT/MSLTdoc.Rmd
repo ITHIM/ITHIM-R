@@ -315,12 +315,12 @@ GBDGL$one_rate <- GBDGL$val/100000
 i_sex <- c("male", "female")
 i_measure <- c("deaths", "ylds") #" (years lived with disability)")
 
-for(sex in i_sex) {
-  for (measure in i_measure) {
+for(sex_index in i_sex) {
+  for (measure_index in i_measure) {
 
     
-data <- filter(GBDGL, measure == i_measure, sex == sex, cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate) 
-assign(paste(sex, measure, "interpolated_data", sep = "_"), data)
+data <- filter(GBDGL, measure == measure_index, sex == sex_index, cause == "all causes") %>% select(measure, location, sex, age, metric, cause, val, age_cat, one_rate) 
+assign(paste(sex_index, measure_index, "interpolated_data", sep = "_"), data)
 x=data$age_cat
 y=log(data$one_rate)
 
@@ -332,7 +332,7 @@ interpolated <- cbind(interpolated, ages)
 interpolated[,1] <- exp(interpolated[,1])
 colnames(interpolated)[1] <- "rate"
 
-assign(paste(sex, measure, "interpolated", sep = "_"), interpolated)
+assign(paste(sex_index, measure_index, "interpolated", sep = "_"), interpolated)
 plot(interpolated$age,interpolated$rate)
 
 ###Do graph with another layer for original rates in age groups for comparison purposes. 
