@@ -265,7 +265,7 @@ GBDdata$age_cat [GBDdata$age =="95 plus"] <- 100
 
 7) Create age and sex categories to obtain population numbers. Population numbers from GBD are used in Dismod II. For the Life table (Figure 3), the numbers may be from the synthetic population. For now, the Life table is set up with population numbers derived from the GBD data. 
 ```{r, echo=TRUE}
-GBDdata$sex_age_cat <- paste(GBDdata$age_cat,GBDdata$sex, sep = "_"  )
+GBDdata$sex_age_cat <- paste(GBDdata$sex,GBDdata$age_cat, sep = "_"  )
 ```
 8) Conver string variables to numberic to do calculations.
 ```{r, echo=TRUE}
@@ -273,31 +273,31 @@ GBDdata$val <- as.numeric(as.character(GBDdata$val))
 ```
 9) Generate population numbers for Greater London in a new data frame ("GBD_population"). Note that there is data for England as well, which is used in a separate rmarkdown dowcument (GBDCompare). Population numbers are derived from rates per 100,000 and total numbers of cases. 
 ```{r, echo=TRUE}
-GBD_population <- filter(GBDdata, measure == "deaths", cause == "all causes", metric == "rate" | metric == "number" ) %>% select(metric, age_cat, val, sex_age_cat, location)
+GBD_population <- filter(GBDdata, measure == "deaths", cause == "all causes", metric == "rate" | metric == "number" ) %>% select(metric, age_cat, sex, val, sex_age_cat, location)
 ```
 10) Generate population numbers from given number of cases and rates per 100,000 people. 
 ```{r, echo=TRUE}
  for (i in 1:nrow(GBD_population)) {
     if (GBD_population$metric[i] == "number") {
-      GBD_population$val_pop[i] <- GBD_population$val[i] * 100000/ GBD_population$val[i + 2]}
-   else {GBD_population$val_pop[i] <- NA}
+      GBD_population$pop_five_year[i] <- GBD_population$val[i] * 100000/ GBD_population$val[i + 2]}
+   else {GBD_population$pop_five_year[i] <- NA}
  }
 ```
 11) Remove rows with zero
 ```{r, echo=TRUE}
-GBD_population <- GBD_population[!is.na(GBD_population$val_pop),]
+GBD_population <- GBD_population[!is.na(GBD_population$pop_five_year),]
 ```
 12) Keep relevant variables
 ```{r, echo=TRUE}
-GBD_population <- filter(GBD_population) %>% select(sex_age_cat, val_pop, location)
+GBD_population <- filter(GBD_population) %>% select(sex_age_cat, sex, age_cat, pop_five_year, location)
 ```
 13) Create data frames for Greater London to be later used for: a) interpolation of rates and b) PMLT cohorts. 
 ```{r, echo=TRUE}
-GBD_population_GL <-  filter(GBD_population, location == "greater london") %>% select(sex_age_cat, val_pop, location)
+GBD_population_GL <-  filter(GBD_population, location == "greater london") %>% select(sex_age_cat, age_cat, sex, pop_five_year, location)
 ```
 12) Check population total numbers
 ```{r, echo=TRUE}
-GreaterLondon <- sum(GBD_population_GL$val_pop)
+GreaterLondon <- sum(GBD_population_GL$pop_five_year)
 ```
 
 13) Generate data frames for Greater London with per person rates (per 100,000 in original data).  
@@ -339,13 +339,13 @@ assign(paste(sex_index, measure_index, "interpolated", sep = "_"), interpolated)
 p <- ggplot(data = interpolated,mapping = aes(ages,rate)) +
               geom_line(aes(color = "Interpolated")) +
               geom_point(
-                data = data, 
-                mapping = aes(age_cat, one_rate, color = "Original")) +
+              data = data, 
+              mapping = aes(age_cat, one_rate, color = "Original")) +
               labs(colour="",x="Age",y= paste(i_sex, i_measure, "rates", sep = " "))+
             labs (title = paste("Rates", i_sex, i_measure, sep = " "), size=14) +
             theme_classic() +
             theme(plot.title = element_text(hjust = 0.5))
-           print(p)
+            print(p)
   }
 }
 
@@ -353,6 +353,29 @@ p <- ggplot(data = interpolated,mapping = aes(ages,rate)) +
 
 15) The following code brings together all the required data to create the inputs life table (Figure 3)
 
+
+```{r, echo=TRUE}
+##Create life table input data frame (population numbers, all-cause moratlity rates ##(per one) and all cause yld rates)
+
+##Create empty data frame
+input_life_table <- as.data.frame(matrix(0, ncol=5, nrow = 202))
+##Give variables names (mx=total mortality rate, yldsx = total years lived with disability rates )
+names(input_life_table) <- c("age", "sex", "pop_five_year", "mx", "yldsx")
+##Populate life table: Age, 0 to 100
+input_life_table[1:101, 1] <- c(0:100)
+input_life_table[102:202, 1] <- c(0:100)
+##Populate life table: sex, male, female
+input_life_table[1:101, 2] <- "male"
+input_life_table[102:202, 2] <- "female"
+##Create variable age_sex to match with population data. 
+input_life_table$sex_age_cat <- paste(input_life_table$sex,input_life_table$age, sep = "_"  )
+
+
+##Populate life table: five_year_pop. SEE LIFE TABLE LOOPS THAT USES 5 YEAR POP. 
+input_life_table$pop_five_year <- if(
+  input_life_table$sex_age_cat == GBD_population_GL$pop_five_year, GBD_population_GL$pop_five_year, NA)
+
+```
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
 
 

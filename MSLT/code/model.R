@@ -37,7 +37,7 @@ p_sex <- c("males", "females")
 
 p_disease <- c("ihd", "istroke", "diabetes", "colon_cancer", "breast_cancer")
 
-###As an expample, an increase in 1000 MET-mins per week
+###As an expample, an increase in 100 MET-mins per week
 
 p_intervention_effect <- 100
 
