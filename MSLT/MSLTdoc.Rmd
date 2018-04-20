@@ -358,9 +358,9 @@ p <- ggplot(data = interpolated,mapping = aes(ages,rate)) +
 ##Create life table input data frame (population numbers, all-cause moratlity rates ##(per one) and all cause yld rates)
 
 ##Create empty data frame
-input_life_table <- as.data.frame(matrix(0, ncol=5, nrow = 202))
+input_life_table <- as.data.frame(matrix(0, ncol=4, nrow = 202))
 ##Give variables names (mx=total mortality rate, yldsx = total years lived with disability rates )
-names(input_life_table) <- c("age", "sex", "pop_five_year", "mx", "yldsx")
+names(input_life_table) <- c("age", "sex", "mx", "yldsx")
 ##Populate life table: Age, 0 to 100
 input_life_table[1:101, 1] <- c(0:100)
 input_life_table[102:202, 1] <- c(0:100)
@@ -372,8 +372,13 @@ input_life_table$sex_age_cat <- paste(input_life_table$sex,input_life_table$age,
 
 
 ##Populate life table: five_year_pop. SEE LIFE TABLE LOOPS THAT USES 5 YEAR POP. 
-input_life_table$pop_five_year <- if(
-  input_life_table$sex_age_cat == GBD_population_GL$pop_five_year, GBD_population_GL$pop_five_year, NA)
+
+input_life_table <- merge(input_life_table, select(GBD_population_GL
+                                                     ,c(sex_age_cat, pop_five_year))
+                                                     , by = 'sex_age_cat', all.x = TRUE) 
+
+#input_life_table$pop_five_year <- ifelse(
+#  input_life_table$sex_age_cat == GBD_population_GL$pop_five_year, #GBD_population_GL$pop_five_year, NA)
 
 ```
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
