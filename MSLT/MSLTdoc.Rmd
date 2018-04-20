@@ -377,8 +377,10 @@ input_life_table <- merge(input_life_table, select(GBD_population_GL
                                                      ,c(sex_age_cat, pop_five_year))
                                                      , by = 'sex_age_cat', all.x = TRUE) 
 
-#input_life_table$pop_five_year <- ifelse(
-#  input_life_table$sex_age_cat == GBD_population_GL$pop_five_year, #GBD_population_GL$pop_five_year, NA)
+##Cross check population numbers
+sum(input_life_table$pop_five_year, na.rm = TRUE)
+#Sort data by sex and age to use in life table function. 
+input_life_table<-input_life_table[order(input_life_table$sex, input_life_table$age),] 
 
 ```
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
