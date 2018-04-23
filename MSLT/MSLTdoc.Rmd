@@ -299,7 +299,7 @@ select(sex_age_cat, sex, age_cat, five_year_population, location)
 13) Create data frames for Greater London to be later used for: a) interpolation of rates and b) PMLT cohorts. 
 ```{r, echo=TRUE}
 GBD_population_GL <-  filter(GBD_population, location == "greater london") %>% 
-select(sex_age_cat, age_cat, sex, five_year_population, location)
+select(sex_age_cat, age_cat, sex, five_year_population, location, sex_age_cat)
 ```
 12) Check population total numbers
 ```{r, echo=TRUE}
@@ -309,7 +309,7 @@ GreaterLondon <- sum(GBD_population_GL$five_year_population)
 13) Generate data frames for Greater London with per person rates (per 100,000 in original data).  
 ```{r, echo=TRUE}
 GBDGL <- filter(GBDdata, location == "greater london" & metric == "rate") %>% 
-select(measure, location, sex, age, metric, cause, val, age_cat)
+select(measure, location, sex, age, metric, cause, val, age_cat, sex_age_cat)
 GBDGL$one_rate <- GBDGL$val/100000
 ```
 
@@ -500,27 +500,39 @@ for(sex_index in i_sex) {
    
 data <- filter(GBDGL, measure == measure_index, sex == sex_index, 
 cause == disease_index) %>% select(measure, location, sex, age, metric, 
-cause, val, age_cat, one_rate) 
+cause, val, age_cat, one_rate, sex_age_cat) 
+colnames(data)[9] <- paste(measure_index, disease_index, sep =  "_")
 assign(paste(sex_index, measure_index, disease_index, sep = "_"), data)
 ## Give one rate a name to match merge in data_dismodii input
+    }
+  }
+}
+
+## Generate empy variables in data_dismodii for death, incidence and prevalence rates per disease (MAY NOT NEED TO USE, WITH MERGING VARIABLES)
+
+ for (measure_index in i_measure) {
+    for (disease_index in i_disease) {
+
+  # data_dismodii[,paste(measure_index, disease_index, sep =  "_")] <- 0
+data_dismodii  <- merge(data_dismodii, select(female_deaths_interpolated
+                                                     ,c(sex_age_cat, mx))
+                                                     , by = 'sex_age_cat', all.x = TRUE)
+  }
+ }
+
+for (measure_index in i_measure) {
+    for (disease_index in i_disease) {
+      for (sex_index in i_sex){
+        
+data_dismodii  <- merge(data_dismodii, select(paste(sex_index, measure_index, disease_index, sep = "_"),c(sex_age_cat, paste(measure_index, disease_index, sep = "_")), by = 'sex_age_cat', all.x = TRUE))
 
     }
   }
 }
 
-## Generate empy variables in data_dismodii for death, incidence and prevalence rates per disease
-
- for (measure_index in i_measure) {
-    for (disease_index in i_disease) {
-
-  data_dismodii[,paste(measure_index, disease_index, sep =  "_")] <- 0
-
-  }
- }
-
-
-
-
+# data_dismodii  <- merge(data_dismodii, select(male_deaths_interpolated
+#                                                      ,c(sex_age_cat, mx))
+#                                                      , by = 'sex_age_cat', all.x = TRUE)
 
 ```
 
