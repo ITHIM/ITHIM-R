@@ -280,25 +280,25 @@ GBD_population <- filter(GBDdata, measure == "deaths", cause == "all causes", me
 ```{r, echo=TRUE}
  for (i in 1:nrow(GBD_population)) {
     if (GBD_population$metric[i] == "number") {
-      GBD_population$pop_five_year[i] <- GBD_population$val[i] * 100000/ GBD_population$val[i + 2]}
-   else {GBD_population$pop_five_year[i] <- NA}
+      GBD_population$five_year_population[i] <- GBD_population$val[i] * 100000/ GBD_population$val[i + 2]}
+   else {GBD_population$five_year_population[i] <- NA}
  }
 ```
 11) Remove rows with zero
 ```{r, echo=TRUE}
-GBD_population <- GBD_population[!is.na(GBD_population$pop_five_year),]
+GBD_population <- GBD_population[!is.na(GBD_population$five_year_population),]
 ```
 12) Keep relevant variables
 ```{r, echo=TRUE}
-GBD_population <- filter(GBD_population) %>% select(sex_age_cat, sex, age_cat, pop_five_year, location)
+GBD_population <- filter(GBD_population) %>% select(sex_age_cat, sex, age_cat, five_year_population, location)
 ```
 13) Create data frames for Greater London to be later used for: a) interpolation of rates and b) PMLT cohorts. 
 ```{r, echo=TRUE}
-GBD_population_GL <-  filter(GBD_population, location == "greater london") %>% select(sex_age_cat, age_cat, sex, pop_five_year, location)
+GBD_population_GL <-  filter(GBD_population, location == "greater london") %>% select(sex_age_cat, age_cat, sex, five_year_population, location)
 ```
 12) Check population total numbers
 ```{r, echo=TRUE}
-GreaterLondon <- sum(GBD_population_GL$pop_five_year)
+GreaterLondon <- sum(GBD_population_GL$five_year_population)
 ```
 
 13) Generate data frames for Greater London with per person rates (per 100,000 in original data).  
@@ -325,19 +325,30 @@ assign(paste(sex_index, measure_index, "interpolated_data", sep = "_"), data)
 x=data$age_cat
 y=log(data$one_rate)
 
+
 interpolation_func <- splinefun(x, y, method = "natural", ties = mean)
 
-interpolated <- as.data.frame(interpolation_func(seq(0, 99, 1)))
-ages <- seq(0,99,by=1)
-interpolated <- cbind(interpolated, ages)
+interpolated <- as.data.frame(interpolation_func(seq(0, 100, 1)))
+age <- seq(0,100,by=1)
+interpolated <- cbind(interpolated, age)
 interpolated[,1] <- exp(interpolated[,1])
-colnames(interpolated)[1] <- "rate"
+colnames(interpolated)[1] <- paste(measure_index)
+# Add column with sex to create age_sex category to then merge with input_life table
+interpolated$sex <- paste(sex_index)
+interpolated$sex_age_cat <- paste(interpolated$sex, interpolated$age, sep = "_")
+# Change name of column death to mx and ylds to pyld_rate to then merge with input_life table
 
+if (colnames(interpolated)[1] == "deaths")
+    colnames(interpolated)[1] <- paste("mx")
+  else
+    colnames(interpolated)[1] <- paste("pyld_rate")
+
+# Name data frame
 assign(paste(sex_index, measure_index, "interpolated", sep = "_"), interpolated)
 # plot(interpolated$age,interpolated$rate)
 
 ##Do graph with another layer for original rates in age groups for comparison purposes.
-p <- ggplot(data = interpolated,mapping = aes(ages,rate)) +
+p <- ggplot(data = interpolated,mapping = aes(age, interpolated[,1])) +
               geom_line(aes(color = "Interpolated")) +
               geom_point(
               data = data, 
@@ -345,7 +356,7 @@ p <- ggplot(data = interpolated,mapping = aes(ages,rate)) +
               labs(colour="",x="Age",y= paste(i_sex, i_measure, "rates", sep = " "))+
             labs (title = paste("Rates", i_sex, i_measure, sep = " "), size=14) +
             theme_classic() +
-            theme(plot.title = element_text(hjust = 0.5))
+            theme (plot.title = element_text(hjust = 0.5))
             print(p)
   }
 }
@@ -356,12 +367,13 @@ p <- ggplot(data = interpolated,mapping = aes(ages,rate)) +
 
 
 ```{r, echo=TRUE}
-##Create life table input data frame (population numbers, all-cause moratlity rates ##(per one) and all cause yld rates)
+##Create life table input data frame (population numbers, all-cause moratlity rates ##(per one), all cause yld rates) and 5-year age groups 
+## to run the cohorts (from population life table). 
 
 ##Create empty data frame
-input_life_table <- as.data.frame(matrix(0, ncol=4, nrow = 202))
+input_life_table <- as.data.frame(matrix(0, ncol=2, nrow = 202))
 ##Give variables names (mx=total mortality rate, yldsx = total years lived with disability rates )
-names(input_life_table) <- c("age", "sex", "mx", "yldsx")
+names(input_life_table) <- c("age", "sex")
 ##Populate life table: Age, 0 to 100
 input_life_table[1:101, 1] <- c(0:100)
 input_life_table[102:202, 1] <- c(0:100)
@@ -372,18 +384,73 @@ input_life_table[102:202, 2] <- "female"
 input_life_table$sex_age_cat <- paste(input_life_table$sex,input_life_table$age, sep = "_"  )
 
 
-##Populate life table: five_year_pop. SEE LIFE TABLE LOOPS THAT USES 5 YEAR POP. 
+##Populate life table: five_year_pop. 
 
 input_life_table <- merge(input_life_table, select(GBD_population_GL
-                                                     ,c(sex_age_cat, pop_five_year))
+                                                     ,c(sex_age_cat, five_year_population))
+                                                     , by = 'sex_age_cat', all = TRUE) 
+##Populate life table: mortality rates (from interpolated rates)
+## Males mortality rates. NEED MATCHING NAMES
+input_life_table <- merge(input_life_table, select(male_deaths_interpolated
+                                                     ,c(sex_age_cat, mx))
+                                                     , by = 'sex_age_cat', all.x = TRUE)
+input_life_table <- merge(input_life_table, select(female_deaths_interpolated
+                                                     ,c(sex_age_cat, mx))
+                                                     , by = 'sex_age_cat', all.x = TRUE)
+input_life_table <- merge(input_life_table, select(male_ylds_interpolated
+                                                     ,c(sex_age_cat, pyld_rate))
                                                      , by = 'sex_age_cat', all.x = TRUE) 
+input_life_table <- merge(input_life_table, select(female_ylds_interpolated
+                                                     ,c(sex_age_cat, pyld_rate))
+                                                     , by = 'sex_age_cat', all.x = TRUE)
+
+## I created mx.x and mx.y and pyld.x and pyld.y and I only need mx and pyld_rate in one colument. I wil do a quick fix here. 
+## DISCUSS WITH ALI TO IMPROVE
+
+input_life_table$mx <-  ifelse(input_life_table$sex == "male", input_life_table$mx.x, input_life_table$mx.y)
+input_life_table$pyld_rate <-  ifelse(input_life_table$sex == "male", input_life_table$pyld_rate.x, input_life_table$pyld_rate.y)
 
 ##Cross check population numbers
-sum(input_life_table$pop_five_year, na.rm = TRUE)
+sum(input_life_table$five_year_population, na.rm = TRUE)
 #Sort data by sex and age to use in life table function. 
 input_life_table<-input_life_table[order(input_life_table$sex, input_life_table$age),] 
 
 ```
+16) Generate baseline life tables from input_data_frame. Life tables are generated for each age (5-years) and sex cohort. 
+It is assumed that current observed rates of mortality and disability are going to be observed in the future. 
+
+``` {r, echo=TRUE}
+
+##Generate list of life tables. 
+## The function run_life_table was created to run the basline and scenario life tables (see functions.R script). 
+## The input_life_table data frame was generated to work with the function. 
+
+## Generate looping variables (sex and age_group. Sex already generated in code for interpolation (i_sex))
+
+i_age_cohort <- c(22, 27, 32, 37, 42, 47, 52, 57, 62, 67, 72, 77, 82, 87, 92, 97)
+
+general_life_table_list_bl <- list()
+
+index <- 1
+
+for (age in i_age_cohort){
+  for (sex in i_sex){
+    cat("age ", age, " and sex ", sex, "\n")
+    general_life_table_list_bl[[index]] <- run_life_table(in_idata = input_life_table, in_sex = sex, in_mid_age = age)
+    index <- index + 1
+  }
+}
+
+##### Uncommnet to check life table list
+View(general_life_table_list_bl[[2]])
+
+```
+
+17) Generate disease life tables. 
+Generate two sets for Greater London: 1) GBD data and 2) English survey data. 
+
+
+
 Health outcomes included in leisure time meta-analysis: all-cause mortality, cardiovascular disease, stroke, coronary heart disease, total cancer, colon, lung, endometrial, and breast cancer.
 
 
