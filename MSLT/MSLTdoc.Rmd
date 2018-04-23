@@ -372,7 +372,7 @@ p <- ggplot(data = interpolated,mapping = aes(age, interpolated[,1])) +
 
 ```
 
-15) The following code brings together all the required data to create the inputs life table (Figure 3)
+15) The following code brings together all the required data to create the inputs life table (Figure 3). ADD DIDMOD GENERATED DATA ONCE THESE ARE READY TO FOLLOW THE FORMAT OF THE IDATA USED IN THE FUNCTIONS. 
 
 
 ```{r, echo=TRUE}
@@ -418,6 +418,9 @@ input_life_table$mx <-  ifelse(input_life_table$sex == "male",
 input_life_table$mx.x, input_life_table$mx.y)
 input_life_table$pyld_rate <-  ifelse(input_life_table$sex == "male",
 input_life_table$pyld_rate.x, input_life_table$pyld_rate.y)
+## Drop redundant variables
+input_life_table <- subset(input_life_table, select = -c(mx.y, mx.x, pyld_rate.x, pyld_rate.y))
+
 ## Cross check population numbers
 sum(input_life_table$five_year_population, na.rm = TRUE)
 ## Sort data by sex and age to use in life table function. 
@@ -457,8 +460,8 @@ for (age in i_age_cohort){
 
 ```
 
-17) Generate **baseline disease life tables**. Inputs of the disease life tables are: incidence,   case fatality (Figure 3, purple shaded area) and disability weights. Internally consistent estimates of incidence and case fatality were derived from GBD data (by five-year age groups and sex) and Dismod II. Disability weights were derived from GBD disease specific YLDs and prevalence (by five-year age groups and sex) adjusted for all-cause YLDs (see section 2.1.1.4).  
-Note that Dismod II is an external software. The code below is used to generate the inputs for Dismod II using GBD data (see Figure 3, purple shaded area). Dismod II requires data for the *collection* (population numbers and all cause mortality rates) and *data set* (disease specific paramenters). 
+17) Generate **baseline disease life tables**. Inputs of the disease life tables are: incidence,   case fatality (Figure 3, purple shaded area) and disability weights. Internally consistent estimates of incidence and case fatality are derived from GBD data (by five-year age groups and sex) and Dismod II. Disability weights are derived from GBD disease specific YLDs and prevalence (by five-year age groups and sex) adjusted for all-cause YLDs (see section 2.1.1.4).  
+Note that Dismod II is an external software. The code below is used to generate the inputs for Dismod II using GBD data (see Figure 3, purple shaded area). Dismod II requires data for the *collection* (population numbers and all cause mortality rates) and *data set* (disease specific paramenters). We generate a data set with all inputs for dismod by 5 year-age (represente at mid age) groups and sex. 
 
 ```{r, echo=TRUE}
 ## Collection input for Greater London: population numbers (sex and 5-year age groups). 
@@ -466,22 +469,58 @@ Note that Dismod II is an external software. The code below is used to generate 
 
 ## Get population numbers
 
-collection_dismodii <- GBD_population_GL[order(GBD_population_GL$sex, GBD_population_GL$age_cat),] 
+data_dismodii <- GBD_population_GL[order(GBD_population_GL$sex, GBD_population_GL$age_cat),] 
 
 ## Add mortality rates (these were generated for the life table, so we use the same code)
 
-collection_dismodii  <- merge(collection_dismodii, select(male_deaths_interpolated
+data_dismodii  <- merge(data_dismodii, select(male_deaths_interpolated
                                                      ,c(sex_age_cat, mx))
                                                      , by = 'sex_age_cat', all.x = TRUE)
-collection_dismodii  <- merge(collection_dismodii, select(female_deaths_interpolated
+data_dismodii  <- merge(data_dismodii, select(female_deaths_interpolated
                                                      ,c(sex_age_cat, mx))
                                                      , by = 'sex_age_cat', all.x = TRUE)
 
-collection_dismodii$mx <-  ifelse(collection_dismodii$sex == "male",
-collection_dismodii$mx.x, collection_dismodii$mx.y)
+data_dismodii$mx <-  ifelse(data_dismodii$sex == "male",
+data_dismodii$mx.x, data_dismodii$mx.y)
+## Drop redundant variables 
+data_dismodii <- subset(data_dismodii, select = -c(mx.y, mx.x))
+##Sort data
+data_dismodii<-data_dismodii[order(data_dismodii$sex, data_dismodii$age_cat),] 
+## Add disease rates per one(incidence, prevalence and mortality)
+
+## Generate variable to do a loop that creates dataframes for each of the disease inputs.
+
+i_disease <- c("ischemic heart disease", "ischemic stroke", "diabetes mellitus", "tracheal, bronchus, and lung cancer", "breast cancer", "colon and rectum cancer")
+i_sex <- c("male", "female")
+i_measure <- c("deaths", "ylds", "incidence", "prevalence")
+
+for(sex_index in i_sex) {
+  for (measure_index in i_measure) {
+    for (disease_index in i_disease) {
+   
+data <- filter(GBDGL, measure == measure_index, sex == sex_index, 
+cause == disease_index) %>% select(measure, location, sex, age, metric, 
+cause, val, age_cat, one_rate) 
+assign(paste(sex_index, measure_index, disease_index, sep = "_"), data)
+## Give one rate a name to match merge in data_dismodii input
+
+    }
+  }
+}
+
+## Generate empy variables in data_dismodii for death, incidence and prevalence rates per disease
+
+ for (measure_index in i_measure) {
+    for (disease_index in i_disease) {
+
+  data_dismodii[,paste(measure_index, disease_index, sep =  "_")] <- 0
+
+  }
+ }
 
 
-## Save as CVS (Dismod II format)
+
+
 
 ```
 
