@@ -877,7 +877,20 @@ incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl
 23) Plot outcomes for each age and sex cohort using created function. ADD A LOOP TO GENERATE ALL OUTCOMES FOR IN_AGE, IN_POPULATION, IN_OUTCOMES AND IN_LEGEND. FIX THE COLORS IN THE FUNCTION. 
 
 ```{r, echo=TRUE}
-plot_eg <- plot_output(in_data = output_df, in_age = 22, in_population = "male", in_outcomes = c("age", "mx_num_bl_ihd", "mx_num_sc_ihd", "mx_num_diff_ihd"), in_legend = "Ischemic Heart Disease Deaths")
+## Do a loop, the first in_outcomes is age. 
+
+i_outcome <- c("mx", "inc")
+
+for (age in i_age_cohort){
+  for (sex in i_sex) {
+    for (disease in i_disease){
+      for (outcome in i_outcome) {
+
+plot_eg <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_legend = paste(outcome, disease, age, sex, sep = "_"))
+      }
+    }
+  }
+}
 ```
 
 24) Add up all outcomes per year of simulation with generated function. 
