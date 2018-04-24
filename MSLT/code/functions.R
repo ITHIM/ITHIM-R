@@ -351,7 +351,7 @@ plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend){
     
   }
   
-  p <- p + scale_color_discrete(name = paste(in_legend), labels = c("Baseline", "Scenario", "Difference"))
+  p <- p + scale_color_discrete(name = paste(in_legend), labels = c("Baseline", "Difference", "Scenario"))
   
   p <- p + xlab ('Age') + ylab ('Cases') + labs (title = paste('Cohort', in_age, "years old", in_population, sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5, size = 12)) + 

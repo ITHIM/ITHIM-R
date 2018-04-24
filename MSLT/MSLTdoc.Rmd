@@ -902,15 +902,8 @@ output_df <- plyr::ldply(output_burden, rbind)
 
 #Remove variables that are not used in the generation of outputs. CHANGE THIS NAMES, TOO LONG
 
-output_df <- subset(output_df, select = -c(incidence_disease_ihd_bl, incidence_disease_ihd_sc, 
-                                           incidence_disease_istroke_bl, incidence_disease_istroke_sc, 
-                                           incidence_disease_diabetes_bl, incidence_disease_diabetes_sc, 
-                                           incidence_disease_breast_cancer_bl, incidence_disease_breast_cancer_sc, 
-                                           incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc, 
-                                           mx_ihd_bl, mx_ihd_sc, mx_istroke_bl, mx_istroke_sc, mx_diabetes_bl, mx_diabetes_sc, 
-                                           mx_breast_cancer_bl, mx_breast_cancer_sc, mx_colon_cancer_bl, mx_colon_cancer_sc, 
-                                           px_ihd_bl, px_ihd_sc, px_istroke_bl, px_istroke_sc, px_diabetes_bl, px_diabetes_sc, 
-                                           px_breast_cancer_bl, px_breast_cancer_sc, px_colon_cancer_bl, px_colon_cancer_sc))
+output_df <- subset(output_df, select = -c(incidence_disease_ihd_bl, incidence_disease_ihd_sc, incidence_disease_istroke_bl, incidence_disease_istroke_sc, incidence_disease_diabetes_bl, incidence_disease_diabetes_sc, incidence_disease_breast_cancer_bl, incidence_disease_breast_cancer_sc, 
+incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl, mx_ihd_sc, mx_istroke_bl, mx_istroke_sc, mx_diabetes_bl, mx_diabetes_sc, mx_breast_cancer_bl, mx_breast_cancer_sc, mx_colon_cancer_bl, mx_colon_cancer_sc, px_ihd_bl, px_ihd_sc, px_istroke_bl, px_istroke_sc, px_diabetes_bl, px_diabetes_sc, px_breast_cancer_bl, px_breast_cancer_sc, px_colon_cancer_bl, px_colon_cancer_sc))
 
 ```
 
@@ -966,7 +959,7 @@ total_plot <- ggplot(total_aggr[1:20,], aes(x = sim_year)) +
   geom_line(mapping = aes(y = total_inc_num_diff_ihd, colour = "total_mx_num_diff_ihd")) +
   xlab ("Simulation years") + ylab ("Cases") + labs (title = paste(disease_outcome)) +
   theme(plot.title = element_text(hjust = 0.5, size = 12)) +
-  scale_color_discrete(name = paste(""), labels = c("Baseline", "Scenario", "Difference")) +
+  scale_color_discrete(name = paste(""), labels = c("Baseline", "Difference", "Scenario")) +
   theme(plot.title = element_text(hjust = 0.5))
   
 
