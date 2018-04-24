@@ -885,8 +885,14 @@ for (age in i_age_cohort){
   for (sex in i_sex) {
     for (disease in i_disease){
       for (outcome in i_outcome) {
+        {
+      if (sex == "male" && disease == "breast_cancer"){
+        # cat("\n")
+      }else{
 
 plot_eg <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_legend = paste(outcome, disease, age, sex, sep = "_"))
+          }
+        }
       }
     }
   }
