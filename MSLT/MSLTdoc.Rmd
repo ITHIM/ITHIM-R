@@ -233,7 +233,7 @@ The following codes serves to sort out the GBD data to the inputs required for t
 
 These data should be used to generate the general life table and disease life tables (Figure 3). 
 
-5) Change all uper cases to lower case and delete () from variables. 
+5) Change all upper cases to lower case and delete () from variables. 
 ```{r, echo=TRUE}
 GBDdata <- mutate_all(GBDdata, funs(tolower))
 GBDdata$measure[GBDdata$measure=="ylds (years lived with disability)"] <- "ylds"
@@ -268,11 +268,11 @@ GBDdata$age_cat [GBDdata$age =="95 plus"] <- 97
 ```{r, echo=TRUE}
 GBDdata$sex_age_cat <- paste(GBDdata$sex,GBDdata$age_cat, sep = "_"  )
 ```
-8) Conver string variables to numberic to do calculations.
+8) Convert string variables to numeric to do calculations.
 ```{r, echo=TRUE}
 GBDdata$val <- as.numeric(as.character(GBDdata$val))
 ```
-9) Generate population numbers for Greater London in a new data frame ("GBD_population"). Note that there is data for England as well, which is used in a separate rmarkdown dowcument (GBDCompare). Population numbers are derived from rates per 100,000 and total numbers of cases. 
+9) Generate population numbers for Greater London in a new data frame ("GBD_population"). Note that there is data for England as well, which is used in a separate rmarkdown document (GBDCompare). Population numbers are derived from rates per 100,000 and total numbers of cases. 
 ```{r, echo=TRUE}
 GBD_population <- filter(GBDdata, measure == "deaths", cause == "all causes", 
 metric == "rate" | metric == "number" ) %>% select(metric, age_cat, sex, val, 
@@ -373,11 +373,9 @@ p <- ggplot(data = interpolated,mapping = aes(age, interpolated[,1])) +
 
 ```
 
-15) The following code brings together all the required data to create the inputs life table (Figure 3). ADD DIDMOD GENERATED DATA ONCE THESE ARE READY TO FOLLOW THE FORMAT OF THE IDATA USED IN THE FUNCTIONS. 
-
+15) The following code brings together all the required data to create the inputs life table (Figure 3).
 
 ```{r, echo=TRUE}
-
 ## Create empty data frame
 input_life_table <- as.data.frame(matrix(0, ncol=2, nrow = 202))
 ## Give variables names (mx=total mortality rate, 
@@ -392,26 +390,15 @@ input_life_table[102:202, 2] <- "female"
 ## Create variable age_sex to match with population data. 
 input_life_table$sex_age_cat <- paste(input_life_table$sex,input_life_table$age,
                                 sep = "_"  )
-
 ##Populate life table: five_year_pop. 
 
-input_life_table <- merge(input_life_table, select(GBD_population_GL
-                                                     ,c(sex_age_cat, five_year_population))
-                                                     , by = 'sex_age_cat', all = TRUE) 
+input_life_table <- merge(input_life_table, select(GBD_population_GL, c(sex_age_cat, five_year_population)), by = 'sex_age_cat', all = TRUE) 
 ##Populate life table: mortality rates (from interpolated rates)
 ## Males mortality rates. NEED MATCHING NAMES
-input_life_table <- merge(input_life_table, select(male_deaths_interpolated
-                                                     ,c(sex_age_cat, mx))
-                                                     , by = 'sex_age_cat', all.x = TRUE)
-input_life_table <- merge(input_life_table, select(female_deaths_interpolated
-                                                     ,c(sex_age_cat, mx))
-                                                     , by = 'sex_age_cat', all.x = TRUE)
-input_life_table <- merge(input_life_table, select(male_ylds_interpolated
-                                                     ,c(sex_age_cat, pyld_rate))
-                                                     , by = 'sex_age_cat', all.x = TRUE) 
-input_life_table <- merge(input_life_table, select(female_ylds_interpolated
-                                                     ,c(sex_age_cat, pyld_rate))
-                                                     , by = 'sex_age_cat', all.x = TRUE)
+input_life_table <- merge(input_life_table, select(male_deaths_interpolated , c(sex_age_cat, mx)), by = 'sex_age_cat', all.x = TRUE)
+input_life_table <- merge(input_life_table, select(female_deaths_interpolated ,c(sex_age_cat, mx)), by = 'sex_age_cat', all.x = TRUE)
+input_life_table <- merge(input_life_table, select(male_ylds_interpolated ,c(sex_age_cat, pyld_rate)) , by = 'sex_age_cat', all.x = TRUE) 
+input_life_table <- merge(input_life_table, select(female_ylds_interpolated ,c(sex_age_cat, pyld_rate)), by = 'sex_age_cat', all.x = TRUE)
 
 ## DISCUSS WITH ALI TO IMPROVE
 
@@ -428,18 +415,10 @@ sum(input_life_table$five_year_population, na.rm = TRUE)
 input_life_table<-input_life_table[order(input_life_table$sex, input_life_table$age),] 
 
 ```
-16) Generate **baseline life tables** from input_data_frame. Life tables are generated for each age (5-years) and sex cohort. 
+16) Generate **baseline life tables** from input_data_frame using run_life_table function. Life tables are generated for each age (5-years) and sex cohort. 
 It is assumed that current observed rates of mortality and disability are going to be observed in the future. 
 
 ```{r, echo=TRUE}
-
-##Generate list of life tables. 
-## The function run_life_table was created to run the basline and scenario life tables 
-## (see functions.R script). 
-## The input_life_table data frame was generated to work with the function. 
-
-## Generate looping variables (sex and age_group. Sex already generated 
-## in code for interpolation (i_sex))
 
 i_age_cohort <- c(22, 27, 32, 37, 42, 47, 52, 57, 62, 67, 72, 77, 82, 87, 92, 97)
 
@@ -449,7 +428,7 @@ index <- 1
 
 for (age in i_age_cohort){
   for (sex in i_sex){
-    cat("age ", age, " and sex ", sex, "\n")
+    # cat("age ", age, " and sex ", sex, "\n") #Uncomment to see index
     general_life_table_list_bl[[index]] <- run_life_table(in_idata = input_life_table,
     in_sex = sex, in_mid_age = age)
     index <- index + 1
@@ -461,10 +440,10 @@ for (age in i_age_cohort){
 
 ```
 
-17) Generate **baseline disease life tables**. Inputs of the disease life tables are: incidence, case fatality (Figure 3, purple shaded area) and disability weights. Internally consistent estimates of incidence and case fatality are derived from GBD data (by five-year age groups and sex) and Dismod II. Disability weights are derived from GBD disease specific YLDs and prevalence (by five-year age groups and sex) adjusted for all-cause YLDs (see section 2.1.1.4).  
-Note that Dismod II is an external software. The code below is used to generate the inputs for Dismod II using GBD data (see Figure 3, purple shaded area). Dismod II requires data for the *collection* (population numbers and all cause mortality rates) and *data set* (disease specific paramenters). We generate a data set with all inputs for dismod by 5 year-age (represente at mid age) groups and sex for five diseases (ischemic heart disease, ischemic stroke, diabetes mellitus, colon and rectum cancer and breast cancer-women). WE WILL NEED ADJUSTMENT FOR TO MATCH RRS TO DISEASES (COLON AND RECTUM CANCER AND DIABETES MELLITUS) 
+17) Generate **baseline disease life tables** using run_disase function. Inputs of the disease life tables are: incidence, case fatality (Figure 3, purple shaded area) and disability weights. Internally consistent estimates of incidence and case fatality are derived from GBD data (by five-year age groups and sex) and Dismod II. Disability weights are derived from GBD disease specific YLDs and prevalence (by five-year age groups and sex) adjusted for all-cause YLDs (see section 2.1.1.4).  
+Note that Dismod II is an external software. The code below is used to generate the inputs for Dismod II using GBD data (see Figure 3, purple shaded area). Dismod II requires data for the *collection* (population numbers and all cause mortality rates) and *data set* (disease specific parameters). We will generate a data set with all inputs for dismod by 5 year-age (represent at mid age) groups and sex for five diseases (ischemic heart disease, ischemic stroke, diabetes mellitus, colon and rectum cancer and breast cancer-women). WE WILL NEED ADJUSTMENT FOR TO MATCH RRS TO DISEASES (COLON AND RECTUM CANCER AND DIABETES MELLITUS). *Code here is work in progress**, for now the disease input data is organised externally with excel. 
 
-```{r, echo=TRUE}
+```{r, echo=FALSE}
 ## Collection input for Greater London: population numbers (sex and 5-year age groups). 
 ## Already processed in past code, here, we sort it out and save in cvs format in a Dismod II folder. 
 
@@ -533,7 +512,7 @@ Note that Dismod II is an external software. The code below is used to generate 
 
 ```
 
-```{r, echo=true}
+```{r, echo=TRUE}
 ## Use externaly generated inputs for for disease life table. The previous code will serve to to some of the data preparation for DISMOD. Also need to devlop code to calculated DWs, for now, all generated in excel. 
 
 idata <- read.csv("data/UK/idata.csv", stringsAsFactors = F)
@@ -551,10 +530,10 @@ for (age in i_age_cohort){
     for (disease in i_disease) {
       # Exclude breast_cancer for Males
       if (sex == "male" && disease == "breast_cancer"){
-        cat("\n")
+       # cat("\n") #Uncomment to see list
       }
       else {
-        cat("age ", age, " sex ", sex, "and disease", disease, "\n")
+        # cat("age ", age, " sex ", sex, "and disease", disease, "\n") #Uncomment to see list
         disease_life_table_list_bl[[index]] <- run_disease(in_idata = idata, in_sex = sex, in_mid_age = age, in_disease = disease)
         index <- index + 1
       }
@@ -566,7 +545,7 @@ for (age in i_age_cohort){
 
 ```
 
-18) Generate mock change in incidence of disease to generate sceanrio life tables. In the final version, this will come from the calculated PIFs by disease. 
+18) Generate mock change in incidence of disease to generate scenario life tables. In the final version, this will come from the calculated PIFs by disease. 
 PIFs are applied here to incidence, however, may also be applied to case fatality, depending on the RRs. Also, we can include time delays from change in exposure to change in health outcomes via the PIF. 
 
 ```{r, echo=TRUE}
@@ -585,7 +564,7 @@ for (age in i_age_cohort){
       
       # Exclude breast_cancer for Males
       if (sex == "male" && disease == "breast_cancer"){
-        cat("\n")
+        # cat("\n") # Uncomment to see list
       }
       else {
         
@@ -602,24 +581,21 @@ for (age in i_age_cohort){
 ```
 
 
-19) Use scenario incidence to calculate scenario life tables. 
+19) Use scenario incidence to calculate scenario disease life tables. 
 
 ```{r, echo=TRUE}
 
 disease_life_table_list_sc <- list()
 index <- 1
-
-
 for (age in i_age_cohort){
   for (sex in i_sex){
     for (disease in i_disease) {
       # Exclude breast_cancer for Males
       if (sex == "male" && disease == "breast_cancer"){
-        cat("\n")
+        # cat("\n")
       }
       else {
-        
-        cat("age ", age, " sex ", sex, "and disease", disease, "\n")
+        # cat("age ", age, " sex ", sex, "and disease", disease, "\n")
         # modify idata's incidence for the said scenario
         td1 <- idata
         td1[td1$age >= age & td1$sex == sex,][[paste("incidence", disease, sep = "_")]] <- incidence_sc[[index]]
@@ -630,8 +606,6 @@ for (age in i_age_cohort){
         disease_life_table_list_sc[[index]]$diff_prev_disease <- disease_life_table_list_sc[[index]]$px - disease_life_table_list_bl[[index]]$px
         disease_life_table_list_sc[[index]]$diff_mort_disease <- disease_life_table_list_sc[[index]]$mx - disease_life_table_list_bl[[index]]$mx
         disease_life_table_list_sc[[index]]$diff_pylds_disease <- (disease_life_table_list_sc[[index]]$px - disease_life_table_list_bl[[index]]$px) * disease_life_table_list_bl[[index]]$dw_disease
-        
-        
         index <- index + 1
       }
     }
@@ -643,7 +617,7 @@ for (age in i_age_cohort){
 ```
 
 
-20) Calculate life tables scearnio. 
+20) Calculate life tables scenario. 
 
 ```{r, echo=TRUE}
 #####Generate total change in mortality rate
@@ -660,7 +634,7 @@ for (age in i_age_cohort){
     
     for (disease in i_disease) {
       if (sex == "male" && disease == "breast_cancer"){
-        cat("\n")
+        # cat("\n")
       }else{
         
         if (create_new){
@@ -672,10 +646,9 @@ for (age in i_age_cohort){
           mortality_sum$total <- mortality_sum$total + (disease_life_table_list_sc[[index]]$diff_mort_disease)
         }
         
-        cat(age, " - ", sex," - ",  disease," - ",  index, " - ", l_index,  "\n")
+        # cat(age, " - ", sex," - ",  disease," - ",  index, " - ", l_index,  "\n")
         index <- index + 1
       }
-      
     }
     mx_sc_total[[l_index]] <- mortality_sum 
     l_index <- l_index + 1
@@ -700,19 +673,19 @@ for (age in i_age_cohort){
     
     for (disease in i_disease) {
       if (sex == "male" && disease == "breast_cancer"){
-        cat("\n")
+        # cat("\n")
       }else{
         
         if (create_new){
           pylds_sum <- select(disease_life_table_list_sc[[index]], c('age', 'sex'))
           pylds_sum$total <- 0
           create_new <- F
-          pylds_sum$total <- pylds_sum$total + (disease_life_table_list_sc[[index]]$diff_pylds_disease)
+          pylds_sum$total <- pylds_sum$total +   (disease_life_table_list_sc[[index]]$diff_pylds_disease)
         }else{
           pylds_sum$total <- pylds_sum$total + (disease_life_table_list_sc[[index]]$diff_pylds_disease)
         }
         
-        cat(age, " - ", sex," - ",  disease," - ",  index, " - ", l_index,  "\n")
+        # cat(age, " - ", sex," - ",  disease," - ",  index, " - ", l_index,  "\n")
         index <- index + 1
       }
       
@@ -736,9 +709,7 @@ index <- 1
 
 for (age in i_age_cohort){
   for (sex in i_sex){
-    
-    
-    cat("age ", age, " and sex ", sex, "\n")
+    # cat("age ", age, " and sex ", sex, "\n")
     # modify idata's mortality and pyld total for the said scenario
     td2 <- input_life_table
     td2[td2$age >= age & td2$sex == sex,][[paste("mx")]] <- general_life_table_list_bl[[index]]$mx + mx_sc_total[[index]]$total
@@ -760,7 +731,6 @@ for (age in i_age_cohort){
 ```{r, echo=TRUE}
 #####In the following list "output_life_table", 32 data frames are nested per age and sex cohort
 
-
 output_burden <- list()
 l_index <- 1
 index <- 1
@@ -773,7 +743,7 @@ for (age in i_age_cohort){
     create_new <- T
     for (disease in i_disease) {
       if (sex == "male" && disease == "breast_cancer"){
-        cat("\n")
+        # cat("\n")
       }else{
         
         if (create_new){
@@ -781,7 +751,6 @@ for (age in i_age_cohort){
           names(output_burden_sc)[names(output_burden_sc) == 'incidence_disease'] <- paste('incidence_disease', disease, "sc", sep = "_")
           names(output_burden_sc)[names(output_burden_sc) == 'mx'] <- paste('mx', disease, "sc", sep = "_")
           names(output_burden_sc)[names(output_burden_sc) == 'px'] <- paste('px', disease, "sc", sep = "_")
-          
           output_burden_bl <- select(disease_life_table_list_bl[[index]], c('incidence_disease', 'mx', 'px'))
           names(output_burden_bl)[names(output_burden_bl) == 'incidence_disease'] <- paste('incidence_disease', disease, "bl", sep = "_")
           names(output_burden_bl)[names(output_burden_bl) == 'mx'] <- paste('mx', disease, "bl", sep = "_")
@@ -791,7 +760,7 @@ for (age in i_age_cohort){
           
           output_burden_change <- list()
           
-          output_burden_change$inc_num_bl <- disease_life_table_list_bl[[index]]$incidence_disease * (1 - disease_life_table_list_bl[[index]]$px) *       general_life_table_list_bl[[l_index]]$Lx
+          output_burden_change$inc_num_bl <- disease_life_table_list_bl[[index]]$incidence_disease * (1 - disease_life_table_list_bl[[index]]$px) * general_life_table_list_bl[[l_index]]$Lx
           output_burden_change$inc_num_sc <- disease_life_table_list_sc[[index]]$incidence_disease * (1 - disease_life_table_list_sc[[index]]$px) * general_life_table_list_sc[[l_index]]$Lx
           output_burden_change$inc_num_diff <- (disease_life_table_list_sc[[index]]$incidence_disease * (1 - disease_life_table_list_sc[[index]]$px) * general_life_table_list_sc[[l_index]]$Lx) - (disease_life_table_list_bl[[index]]$incidence_disease * (1 - disease_life_table_list_bl[[index]]$px) * general_life_table_list_bl[[l_index]]$Lx)
           
@@ -857,7 +826,7 @@ for (age in i_age_cohort){
           
         }
         
-        cat(age, " - ", sex," - ",  disease," - ",  index, " - ", l_index,  "\n")
+        # cat(age, " - ", sex," - ",  disease," - ",  index, " - ", l_index,  "\n")
         index <- index + 1
       }
       
@@ -896,9 +865,7 @@ for (age in i_age_cohort){
 ```{r, echo=TRUE}
 #####Generate a data frame for all results and create function to get outcomes. 
 
-
 output_df <- plyr::ldply(output_burden, rbind)
-
 
 #Remove variables that are not used in the generation of outputs. CHANGE THIS NAMES, TOO LONG
 
@@ -909,13 +876,13 @@ incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl
 
 23) Plot outcomes for each age and sex cohort using created function. ADD A LOOP TO GENERATE ALL OUTCOMES FOR IN_AGE, IN_POPULATION, IN_OUTCOMES AND IN_LEGEND. FIX THE COLORS IN THE FUNCTION. 
 
-```{r, echo=true}
+```{r, echo=TRUE}
 plot_eg <- plot_output(in_data = output_df, in_age = 22, in_population = "male", in_outcomes = c("age", "mx_num_bl_ihd", "mx_num_sc_ihd", "mx_num_diff_ihd"), in_legend = "Ischemic Heart Disease Deaths")
 ```
 
 24) Add up all outcomes per year of simulation with generated function. 
 
-```{r, echo=true}
+```{r, echo=TRUE}
 ####Generate data frame with all outputs to graph total change in burden by simulation year. 
 ###first, need to run function for males and females separetly, in_cohorts indicates the number of age cohorts to 
 ####include. To show all select 16. what is specified in in_outcomes will be graphed or can also be presented as a total. 
@@ -940,8 +907,7 @@ total_aggr$sim_year <- seq.int(nrow(total_aggr))
 
 25) Plots using total aggregated change in burden.
 
-
-```{r, echo=true}
+```{r, echo=TRUE}
 
 ####This plot has to be customised to in_outcomes, here, only totals shown, but specifications are up to the user
 
