@@ -32,9 +32,8 @@ require(tidyverse)
 require(knitr)
 require(kableExtra)
 require(citr)
-# require(gridExtra)
-# require(cowplot)
-# install.packages("ggpubr")
+require(gridExtra)
+require(cowplot)
 require(ggpubr)
 ```
 
