@@ -32,8 +32,10 @@ require(tidyverse)
 require(knitr)
 require(kableExtra)
 require(citr)
-require(gridExtra)
-require(cowplot)
+# require(gridExtra)
+# require(cowplot)
+# install.packages("ggpubr")
+require(ggpubr)
 ```
 
 \newpage
@@ -880,7 +882,7 @@ incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl
 
 23) Plot outcomes for each age and sex cohort using created function. ADD A LOOP TO GENERATE ALL OUTCOMES FOR IN_AGE, IN_POPULATION, IN_OUTCOMES AND IN_LEGEND. FIX THE COLORS IN THE FUNCTION. 
 
-```{r, echo=TRUE}
+```{r echo=TRUE}
 ## Do a loop, the first in_outcomes is age.
 
 i_outcome <- c("mx", "inc")
@@ -895,7 +897,7 @@ for (age in i_age_cohort){
        if (sex == "male" && disease == "breast_cancer"){
          # cat("\n")
        }else{
-# names(p_list) <- unique(age, sex, disease, outcome)
+
  p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_legend = paste(outcome, disease, sep = " "))
 p_list[[index]] <- p_index
 index <- index + 1
@@ -915,8 +917,13 @@ index <- index + 1
 # marrangeGrob(grobs=p_list, nrow=1, ncol=1)
 # # do.call("grid.arrange", p_index)
 
-ml <- do.call(marrangeGrob, list(grobs=p_list, nrow = 2, ncol = 2))
+ml <- do.call(marrangeGrob, list(grobs=p_list, nrow = 3, ncol = 2))
 ml 
+
+#Check ggarrange in ggpubr
+
+
+#http://www.sthda.com/english/wiki/print.php?id=177
 ```
 
 

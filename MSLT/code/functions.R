@@ -353,10 +353,13 @@ plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend){
     
   }
   
-  p <- p + scale_color_discrete(name = paste(in_legend), labels = c("Baseline", "Difference", "Scenario"))
+  p <- p + scale_color_discrete(name = paste(in_legend), labels = c("Baseline", "Difference", "Scenario")) +
+  theme(legend.title = element_text(size = 7))
   
   p <- p + xlab ('Age') + ylab ('Cases') + labs (title = paste('Cohort', in_age, "years old", in_population, sep = " ")) +
-    theme(plot.title = element_text(hjust = 0.5, size = 12)) + 
+    theme(plot.title = element_text(hjust = 0.5, size = 9)) +
+    theme(legend.text = element_text(size = 7)) +
+    theme(axis.title.x = element_text(size = 7)) +
     xlim(in_age, 100) +
     geom_hline(yintercept=0, linetype="dashed", color = "black")
   
