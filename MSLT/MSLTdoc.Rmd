@@ -33,6 +33,7 @@ require(knitr)
 require(kableExtra)
 require(citr)
 require(gridExtra)
+require(cowplot)
 ```
 
 \newpage
@@ -883,7 +884,9 @@ incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl
 ## Do a loop, the first in_outcomes is age.
 
 i_outcome <- c("mx", "inc")
+p_list <- list()
 
+index <- 1
 for (age in i_age_cohort){
   for (sex in i_sex) {
      for (disease in i_disease){
@@ -892,19 +895,31 @@ for (age in i_age_cohort){
        if (sex == "male" && disease == "breast_cancer"){
          # cat("\n")
        }else{
+# names(p_list) <- unique(age, sex, disease, outcome)
+ p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_legend = paste(outcome, disease, sep = " "))
+p_list[[index]] <- p_index
+index <- index + 1
 
- p <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_legend = paste(outcome, disease, sep = " "))
-           }
+            }
          }
        }
      }
    }
- }
+}
 
+# m<-plot_grid(p_index, ncol=2, nrow=2)
+# library(cowplot)
+# save_plot("output.tiff",m ,ncol = 2, nrow = 2) # make room for figure legend)
 
+# png(file="superplot.png")
+# marrangeGrob(grobs=p_list, nrow=1, ncol=1)
+# # do.call("grid.arrange", p_index)
+
+ml <- do.call(marrangeGrob, list(grobs=p_list, nrow = 2, ncol = 2))
+ml 
 ```
 
-paste(age, sex, disease, outcome, sep = "_")
+
 
 24) Add up all outcomes per year of simulation with generated function. 
 

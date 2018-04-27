@@ -328,6 +328,7 @@ plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend){
   # in_population <- "males"
   # in_age <- 22
   # in_outcomes <- c('age', 'inc_num_bl_ihd', 'inc_num_sc_ihd')
+  # in_legend <- "none"
   # in_cols <- c('alpha', 'beta')
   
   data <- in_data
@@ -346,6 +347,7 @@ plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend){
   for (i in 2:length(in_outcomes)) {
     # use aes_string with names of the data.frame
     p <- p + geom_line(aes_string(y = td[[in_outcomes[i]]], color = as.factor(in_outcomes[i])), size = 0.8) +
+      
       theme_classic() 
     
     
@@ -357,6 +359,10 @@ plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend){
     theme(plot.title = element_text(hjust = 0.5, size = 12)) + 
     xlim(in_age, 100) +
     geom_hline(yintercept=0, linetype="dashed", color = "black")
+  
+  grob_all <- arrangeGrob(p)
+  return(grob_all)
+  
   
   
   # print the result
