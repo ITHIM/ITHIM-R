@@ -363,6 +363,7 @@ plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend){
     xlim(in_age, 100) +
     geom_hline(yintercept=0, linetype="dashed", color = "black")
   
+  
   grob_all <- arrangeGrob(p)
   return(grob_all)
   
