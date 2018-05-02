@@ -36,6 +36,8 @@ require(citr)
 require(gridExtra)
 require(cowplot)
 require(ggpubr)
+require(grid)
+require(ggplot2)
 
 ```
 
@@ -1016,10 +1018,11 @@ incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl
 
 ```
 
-23) Plot outcomes for each age and sex cohort using created functions. Two functions are used: plot_output (plots outputs) and grid_arrange_shared_legend (places one label per page).
+23) Plot outcomes for each age and sex cohort using created functions. Founr functions are used: plot_output (plots outputs), grid_arrange_shared_legend and g_legend (places one label per page) and get_qualified_disease_name (replaces full name of disease)
 
 ```{r echo=TRUE}
-## Do a loop, the first in_outcomes is age.
+
+
 
 output_dir = "graphs"
 
@@ -1037,13 +1040,27 @@ for (age in i_age_cohort){
          # cat("\n")
        }else{
 
-            p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_disease = disease)
-            
-            # There are 4 diseases for males, this should be modified according to the modelled 
-            # diseases. 
+            p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_disease = get_qualified_disease_name(disease))
+                                      
+                      #                 paste0(if(disease == "ihd") {
+                      # disease == "Ischemic heart disease"
+                      # } else {
+                      # if (disease == "istroke") {
+                      # disease == "Ischemic stroke"
+                      # } else {
+                      # if (disease == "colon_cancer") {
+                      # disease == "Colon cancer"
+                      # } else {
+                      # if (disease == "diabetes") {
+                      # disease == "Diabetes"
+                      # } else {
+                      # if (disease == "breast_cancer") {
+                      # disease == "Breast Cancer"}}}}}))
+                        
+                        
             
             if (sex == "male"){
-            
+
               p_list_male[[male_index]] <- p_index
               
               if (male_index %% 4 == 0 && male_index > 0){
@@ -1054,7 +1071,8 @@ for (age in i_age_cohort){
                 p4 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 
                 pdf(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".pdf"))
-                grid_arrange_shared_legend (p1, p2, p3, p4, ncol = 2, nrow = 2, mainTitle = paste(age, sex, outcome),mainLeft = 'Cases', mainBottom = 'Age')
+                grid_arrange_shared_legend (p1, p2, p3, p4, ncol = 2, nrow = 2, mainTitle = paste(ifelse(outcome == "mx", "Deaths", "Incidence"), sex, "cohort mid age", age),
+                                          mainLeft = 'Cases', mainBottom = 'Age')
                 dev.off()
 
               }
@@ -1063,9 +1081,6 @@ for (age in i_age_cohort){
               
               
             }
-            
-            # There are 5 diseases for females, this should be modified according to the modelled 
-            # diseases. 
             
             if (sex == "female" && female_index > 0){
               p_list_female[[female_index]] <- p_index
@@ -1078,18 +1093,20 @@ for (age in i_age_cohort){
                 p5 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 
                 pdf(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".pdf"))
-                grid_arrange_shared_legend (p1, p2, p3, p4, p5, ncol = 2, nrow = 3, mainTitle = paste(age, sex, outcome), mainLeft = 'Cases', mainBottom = 'Age')
+                grid_arrange_shared_legend (p1, p2, p3, p4, p5, ncol = 2, nrow = 3, mainTitle = paste(ifelse(outcome == "mx", "Deaths", "Incidence"), sex, "cohort mid age", age), mainLeft = 'Cases', mainBottom = 'Age')
                 dev.off()
                 
               }
               female_index <- female_index + 1
-              }
+            }
 
             }
          }
        }
    }
 }
+
+## Insert the plots in the rmarkdown doc
 
 ```
 

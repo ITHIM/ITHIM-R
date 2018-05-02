@@ -354,24 +354,19 @@ plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend =
   }
   
   p <- p + scale_color_discrete(name = paste(in_legend), labels = c("Baseline", "Difference", "Scenario")) +
-  theme(legend.title = element_text(size = 7))
+  theme(legend.title = element_text(size = 9))
   
-  p <- p + xlab ('Age') + ylab ('Cases') + labs (title = ifelse(length(in_disease) > 0, in_disease, paste('Cohort', in_age, "years old", in_population, sep = " "))) +
+  p <- p + xlab ('Age') + ylab ('Cases') + labs (title = ifelse(length(in_disease) > 0, 
+        in_disease, paste('Cohort', in_age, "years old", in_population, sep = " "))) +
     theme(plot.title = element_text(hjust = 0.5, size = 9)) +
-    theme(legend.text = element_text(size = 7)) +
+    theme(legend.text = element_text(size = 9)) +
     # theme(axis.title.x = element_text(size = 7)) +
     xlim(in_age, 100) +
     geom_hline(yintercept=0, linetype="dashed", color = "black")
   
   
   return(p)
-  #grob_all <- arrangeGrob(p)
-  #return(grob_all)
-  
-  
-  
-  # print the result
-  #print(p)
+
   
 
 }
@@ -426,7 +421,6 @@ gen_aggregate <- function(in_data, in_cohorts, in_population, in_outcomes){
 
 
 #####################################Function to generate combined labels for multiple plots in a page####
-
 grid_arrange_shared_legend <- function(..., ncol = length(list(...)), nrow = 1, position = c("bottom", "right"), mainTitle = "", mainLeft = "", mainBottom = "") {
   
   plots <- list(...)
@@ -456,6 +450,31 @@ grid_arrange_shared_legend <- function(..., ncol = length(list(...)), nrow = 1, 
   invisible(combined)
   
 }
+
+
+g_legend <- function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)
+}
+
+
+########################################Function to get qualified names diseases##########
+
+get_qualified_disease_name <- function (disease){
+  if (disease == 'ihd')
+    return ('Ischaemic Heart Disease')
+  else if (disease == 'breast_cancer')
+    return ('Breast Cancer')
+  else if (disease == 'diabetes')
+    return ('Diabetes')
+  else if (disease == 'colon_cancer')
+    return ('Colon cancer')
+  else if (disease == 'istroke')
+    return ('Ischemic stroke')
+}
+
 
 #######################################Function to generate GBD graphs to compare data national to local (USED in GBD COMPARE############################
 
