@@ -878,8 +878,7 @@ for (age in i_age_cohort){
           output_burden_change$inc_num_sc <- disease_life_table_list_sc[[index]]$incidence_disease * 
           (1 - disease_life_table_list_sc[[index]]$px) * general_life_table_list_sc[[l_index]]$Lx
           output_burden_change$inc_num_diff <- (disease_life_table_list_sc[[index]]$incidence_disease * 
-          (1 - disease_life_table_list_sc[[index]]$px) * general_life_table_list_sc[[l_index]]$Lx) 
-          - (disease_life_table_list_bl[[index]]$incidence_disease * (1 - disease_life_table_list_bl[[index]]$px) 
+          (1 - disease_life_table_list_sc[[index]]$px) * general_life_table_list_sc[[l_index]]$Lx) - (disease_life_table_list_bl[[index]]$incidence_disease * (1 - disease_life_table_list_bl[[index]]$px) 
           * general_life_table_list_bl[[l_index]]$Lx)
           
           output_burden_change$mx_num_bl <- disease_life_table_list_bl[[index]]$mx * general_life_table_list_bl[[l_index]]$Lx
@@ -1022,37 +1021,130 @@ incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl
 ```{r echo=TRUE}
 ## Do a loop, the first in_outcomes is age.
 
-i_outcome <- c("mx", "inc")
-p_list <- list()
 
-index <- 1
+require(ggplot2)
+require(gridExtra)
+require(grid)
+
+
+grid_arrange_shared_legend <- function(..., ncol = length(list(...)), nrow = 1, position = c("bottom", "right"), mainTitle = "", mainLeft = "", mainBottom = "") {
+
+  plots <- list(...)
+  position <- match.arg(position)
+  g <- ggplotGrob(plots[[1]] + theme(legend.position = position))$grobs
+  legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
+  lheight <- sum(legend$height)
+  lwidth <- sum(legend$width)
+  gl <- lapply(plots, function(x) x + theme(legend.position="none"))
+  gl <- c(gl, ncol = ncol, nrow = nrow, top = mainTitle, left = mainLeft, bottom = mainBottom)
+
+  combined <- switch(position,
+                     "bottom" = arrangeGrob(do.call(arrangeGrob, gl),
+                                            legend,
+                                            ncol = 1,
+                                            heights = unit.c(unit(1, "npc") - lheight, lheight)),
+                     "right" = arrangeGrob(do.call(arrangeGrob, gl),
+                                           legend,
+                                           ncol = 2,
+                                           widths = unit.c(unit(1, "npc") - lwidth, lwidth)))
+
+  
+  #grid.newpage()
+  grid.draw(combined)
+
+  # return gtable invisibly
+  invisible(combined)
+
+}
+
+
+g_legend <- function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)
+}
+
+output_dir = "graphs"
+
+i_outcome <- c("mx", "inc")
+p_list_male <- list()
+p_list_female <- list()
+male_index <- 1
+female_index <- 1
 for (age in i_age_cohort){
-  for (sex in i_sex) {
-     for (disease in i_disease){
-       for (outcome in i_outcome) {
-         {
+      for (sex in i_sex) {
+        for (outcome in i_outcome) {
+          for (disease in i_disease){
+    
        if (sex == "male" && disease == "breast_cancer"){
          # cat("\n")
        }else{
 
+            p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_disease = disease)
+            
+            if (sex == "male"){
 
-p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_legend = paste(outcome, disease, sep = " "))
+              p_list_male[[male_index]] <- p_index
+              
+              if (male_index %% 4 == 0 && male_index > 0){
+                
+                p1 <- p_list_male[[male_index - 3]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
+                p2 <- p_list_male[[male_index - 2]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
+                p3 <- p_list_male[[male_index - 1]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
+                p4 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
+                
+                pdf(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".pdf"))
+                grid_arrange_shared_legend (p1, p2, p3, p4, ncol = 2, nrow = 2, mainTitle = paste(age, sex, outcome),
+                                          mainLeft = 'Cases', mainBottom = 'Age')
+                dev.off()
 
-p_list[[index]] <- p_index
-index <- index + 1
+              }
+              
+              male_index <- male_index + 1
+              
+              
+            }
+            
+            if (sex == "female" && female_index > 0){
+              p_list_female[[female_index]] <- p_index
+              
+              if (female_index %% 5 == 0){
+                p1 <- p_list_female[[female_index - 4]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
+                p2 <- p_list_female[[female_index - 3]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
+                p3 <- p_list_female[[female_index - 2]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
+                p4 <- p_list_female[[female_index - 1]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
+                p5 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
+                
+                pdf(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".pdf"))
+                grid_arrange_shared_legend (p1, p2, p3, p4, p5, ncol = 2, nrow = 3, mainTitle = paste(age, sex, outcome),
+                                            mainLeft = 'Cases', mainBottom = 'Age')
+                dev.off()
+                
+              }
+              female_index <- female_index + 1
+            }
 
             }
          }
        }
-     }
    }
 }
 
 
 ## Use plot_grid in a loo/grid.arrange
 
-mpage <- do.call(marrangeGrob, list(grobs=p_list, nrow = 3, ncol = 2))
-mpage
+# mpage_male <- do.call(marrangeGrob, list(grobs=p_list_male, nrow = 2, ncol = 2))
+# mpage_male
+# 
+# 
+# lay <- rbind(c(1, 2),
+#              c(3, 4),
+#              c(5, NA))
+# 
+# 
+# mpage_female <- do.call(marrangeGrob, list(grobs=p_list_female, layout_matrix = lay))
+# mpage_female
 
 ## Trying to use ggarrange
 # mpage2 <- ggarrange(plotlist = p_list, ncol = 3, nrow = 3)
