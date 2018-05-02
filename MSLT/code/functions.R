@@ -322,7 +322,7 @@ run_pif <- function(in_idata, i_irr, i_exposure, in_mid_age, in_sex, in_disease,
 ##### function to generate graphs by age and sex, per ooutcome of interest. 
 
 
-plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend){
+plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend = "", in_disease = ""){
   
   # in_data <- output_df
   # in_population <- "males"
@@ -356,7 +356,7 @@ plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend){
   p <- p + scale_color_discrete(name = paste(in_legend), labels = c("Baseline", "Difference", "Scenario")) +
   theme(legend.title = element_text(size = 7))
   
-  p <- p + xlab ('Age') + ylab ('Cases') + labs (title = paste('Cohort', in_age, "years old", in_population, sep = " ")) +
+  p <- p + xlab ('Age') + ylab ('Cases') + labs (title = ifelse(length(in_disease) > 0, in_disease, paste('Cohort', in_age, "years old", in_population, sep = " "))) +
     theme(plot.title = element_text(hjust = 0.5, size = 9)) +
     theme(legend.text = element_text(size = 7)) +
     # theme(axis.title.x = element_text(size = 7)) +
@@ -364,13 +364,14 @@ plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend){
     geom_hline(yintercept=0, linetype="dashed", color = "black")
   
   
-  grob_all <- arrangeGrob(p)
-  return(grob_all)
+  return(p)
+  #grob_all <- arrangeGrob(p)
+  #return(grob_all)
   
   
   
   # print the result
-  print(p)
+  #print(p)
   
 
 }
