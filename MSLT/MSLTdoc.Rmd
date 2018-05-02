@@ -1016,54 +1016,10 @@ incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl
 
 ```
 
-23) Plot outcomes for each age and sex cohort using created function. ADD A LOOP TO GENERATE ALL OUTCOMES FOR IN_AGE, IN_POPULATION, IN_OUTCOMES AND IN_LEGEND. FIX THE COLORS IN THE FUNCTION. 
+23) Plot outcomes for each age and sex cohort using created functions. Two functions are used: plot_output (plots outputs) and grid_arrange_shared_legend (places one label per page).
 
 ```{r echo=TRUE}
 ## Do a loop, the first in_outcomes is age.
-
-
-require(ggplot2)
-require(gridExtra)
-require(grid)
-
-
-grid_arrange_shared_legend <- function(..., ncol = length(list(...)), nrow = 1, position = c("bottom", "right"), mainTitle = "", mainLeft = "", mainBottom = "") {
-
-  plots <- list(...)
-  position <- match.arg(position)
-  g <- ggplotGrob(plots[[1]] + theme(legend.position = position))$grobs
-  legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
-  lheight <- sum(legend$height)
-  lwidth <- sum(legend$width)
-  gl <- lapply(plots, function(x) x + theme(legend.position="none"))
-  gl <- c(gl, ncol = ncol, nrow = nrow, top = mainTitle, left = mainLeft, bottom = mainBottom)
-
-  combined <- switch(position,
-                     "bottom" = arrangeGrob(do.call(arrangeGrob, gl),
-                                            legend,
-                                            ncol = 1,
-                                            heights = unit.c(unit(1, "npc") - lheight, lheight)),
-                     "right" = arrangeGrob(do.call(arrangeGrob, gl),
-                                           legend,
-                                           ncol = 2,
-                                           widths = unit.c(unit(1, "npc") - lwidth, lwidth)))
-
-  
-  #grid.newpage()
-  grid.draw(combined)
-
-  # return gtable invisibly
-  invisible(combined)
-
-}
-
-
-g_legend <- function(a.gplot){
-  tmp <- ggplot_gtable(ggplot_build(a.gplot))
-  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-  legend <- tmp$grobs[[leg]]
-  return(legend)
-}
 
 output_dir = "graphs"
 
@@ -1083,8 +1039,11 @@ for (age in i_age_cohort){
 
             p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_disease = disease)
             
+            # There are 4 diseases for males, this should be modified according to the modelled 
+            # diseases. 
+            
             if (sex == "male"){
-
+            
               p_list_male[[male_index]] <- p_index
               
               if (male_index %% 4 == 0 && male_index > 0){
@@ -1095,8 +1054,7 @@ for (age in i_age_cohort){
                 p4 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 
                 pdf(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".pdf"))
-                grid_arrange_shared_legend (p1, p2, p3, p4, ncol = 2, nrow = 2, mainTitle = paste(age, sex, outcome),
-                                          mainLeft = 'Cases', mainBottom = 'Age')
+                grid_arrange_shared_legend (p1, p2, p3, p4, ncol = 2, nrow = 2, mainTitle = paste(age, sex, outcome),mainLeft = 'Cases', mainBottom = 'Age')
                 dev.off()
 
               }
@@ -1105,6 +1063,9 @@ for (age in i_age_cohort){
               
               
             }
+            
+            # There are 5 diseases for females, this should be modified according to the modelled 
+            # diseases. 
             
             if (sex == "female" && female_index > 0){
               p_list_female[[female_index]] <- p_index
@@ -1117,13 +1078,12 @@ for (age in i_age_cohort){
                 p5 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 
                 pdf(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".pdf"))
-                grid_arrange_shared_legend (p1, p2, p3, p4, p5, ncol = 2, nrow = 3, mainTitle = paste(age, sex, outcome),
-                                            mainLeft = 'Cases', mainBottom = 'Age')
+                grid_arrange_shared_legend (p1, p2, p3, p4, p5, ncol = 2, nrow = 3, mainTitle = paste(age, sex, outcome), mainLeft = 'Cases', mainBottom = 'Age')
                 dev.off()
                 
               }
               female_index <- female_index + 1
-            }
+              }
 
             }
          }
@@ -1131,31 +1091,6 @@ for (age in i_age_cohort){
    }
 }
 
-
-## Use plot_grid in a loo/grid.arrange
-
-# mpage_male <- do.call(marrangeGrob, list(grobs=p_list_male, nrow = 2, ncol = 2))
-# mpage_male
-# 
-# 
-# lay <- rbind(c(1, 2),
-#              c(3, 4),
-#              c(5, NA))
-# 
-# 
-# mpage_female <- do.call(marrangeGrob, list(grobs=p_list_female, layout_matrix = lay))
-# mpage_female
-
-## Trying to use ggarrange
-# mpage2 <- ggarrange(plotlist = p_list, ncol = 3, nrow = 3)
-
-# ggsave("graphs/multipage.jpeg", mpage)
-
-
-#Check ggarrange in ggpubr
-
-
-#http://www.sthda.com/english/wiki/print.php?id=177
 ```
 
 
