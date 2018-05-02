@@ -1022,8 +1022,6 @@ incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl
 
 ```{r echo=TRUE}
 
-
-
 output_dir = "graphs"
 
 i_outcome <- c("mx", "inc")
@@ -1041,23 +1039,6 @@ for (age in i_age_cohort){
        }else{
 
             p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_disease = get_qualified_disease_name(disease))
-                                      
-                      #                 paste0(if(disease == "ihd") {
-                      # disease == "Ischemic heart disease"
-                      # } else {
-                      # if (disease == "istroke") {
-                      # disease == "Ischemic stroke"
-                      # } else {
-                      # if (disease == "colon_cancer") {
-                      # disease == "Colon cancer"
-                      # } else {
-                      # if (disease == "diabetes") {
-                      # disease == "Diabetes"
-                      # } else {
-                      # if (disease == "breast_cancer") {
-                      # disease == "Breast Cancer"}}}}}))
-                        
-                        
             
             if (sex == "male"){
 
@@ -1070,7 +1051,7 @@ for (age in i_age_cohort){
                 p3 <- p_list_male[[male_index - 1]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 p4 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 
-                pdf(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".pdf"))
+                jpeg(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".jpeg"))
                 grid_arrange_shared_legend (p1, p2, p3, p4, ncol = 2, nrow = 2, mainTitle = paste(ifelse(outcome == "mx", "Deaths", "Incidence"), sex, "cohort mid age", age),
                                           mainLeft = 'Cases', mainBottom = 'Age')
                 dev.off()
@@ -1092,7 +1073,7 @@ for (age in i_age_cohort){
                 p4 <- p_list_female[[female_index - 1]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 p5 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 
-                pdf(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".pdf"))
+               jpeg(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".jpeg"))
                 grid_arrange_shared_legend (p1, p2, p3, p4, p5, ncol = 2, nrow = 3, mainTitle = paste(ifelse(outcome == "mx", "Deaths", "Incidence"), sex, "cohort mid age", age), mainLeft = 'Cases', mainBottom = 'Age')
                 dev.off()
                 
@@ -1106,10 +1087,26 @@ for (age in i_age_cohort){
    }
 }
 
-## Insert the plots in the rmarkdown doc
+
 
 ```
 
+```{r echo=FALSE, out.width='100%'}
+## Loop to include graphs in the document
+graphs_doc <- list()
+index <- 1
+for (age in i_age_cohort) {
+      for (sex in i_sex)  {
+        for (outcome in i_outcome) {
+
+graphs_doc [[index]] <- c(paste("graphs/",age,"_",sex,"_", outcome,".jpeg", sep = ""))
+          knitr::include_graphics(graphs_doc [[index]])
+          index <- index + 1
+        }
+    }
+}
+ knitr::include_graphics(graphs_doc[c(1:64)])
+```
 
 
 24) Add up all outcomes per year of simulation with generated function. 
