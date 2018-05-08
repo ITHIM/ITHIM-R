@@ -422,13 +422,13 @@ p_interpolation_index <- ggplot(data = interpolated,mapping = aes(age, interpola
   }
 }
 
-## Save plots to tiff. Makes a separate file for each plot.
+## Save plots to jpeg. Makes a separate file for each plot.
 
 interpolation_index <- 1
 for(sex_index in i_sex) {
   for (measure_index in i_measure) {
-    file_name = paste("graphs/", "Interpolation rates", sex_index, measure_index, ".tiff", sep=" ")
-    tiff(file_name)
+    file_name = paste("graphs1/", "Interpolation rates", sex_index, measure_index, ".jpeg", sep=" ")
+    jpeg(file_name)
     print(p_interpolation_list[[interpolation_index]])
     interpolation_index <- interpolation_index + 1
     dev.off()
@@ -529,7 +529,7 @@ for (age in i_age_cohort){
 
 ```
 
-17) Generate **baseline disease life tables** using run_disase function. Inputs of the disease life tables are: incidence, case fatality (Figure 3, purple shaded area) and disability weights. Internally consistent estimates of incidence and case fatality are derived from GBD data (by five-year age groups and sex) and Dismod II. Disability weights are derived from GBD disease specific YLDs and prevalence (by five-year age groups and sex) adjusted for all-cause YLDs (see section 2.1.1.4).  
+17) Generate **baseline disease life tables** using run_disease function. Inputs of the disease life tables are: incidence, case fatality (Figure 3, purple shaded area) and disability weights. Internally consistent estimates of incidence and case fatality are derived from GBD data (by five-year age groups and sex) and Dismod II. Disability weights are derived from GBD disease specific YLDs and prevalence (by five-year age groups and sex) adjusted for all-cause YLDs (see section 2.1.1.4).  
 Note that Dismod II is an external software. The code below is used to generate the inputs for Dismod II using GBD data (see Figure 3, purple shaded area). Dismod II requires data for the *collection* (population numbers and all cause mortality rates) and *data set* (disease specific parameters). We will generate a data set with all inputs for dismod by 5 year-age (represent at mid age) groups and sex for five diseases (ischemic heart disease, ischemic stroke, diabetes mellitus, colon and rectum cancer and breast cancer-women). WE WILL NEED ADJUSTMENT FOR TO MATCH RRS TO DISEASES (COLON AND RECTUM CANCER AND DIABETES MELLITUS). *Code here is work in progress**, for now the disease input data is organised externally with excel. 
 
 ```{r, echo=FALSE}
@@ -1020,11 +1020,11 @@ incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl
 
 ```
 
-23) Plot outcomes for each age and sex cohort using created functions. Founr functions are used: plot_output (plots outputs), grid_arrange_shared_legend and g_legend (places one label per page) and get_qualified_disease_name (replaces full name of disease)
+23) Plot outcomes for each age and sex cohort using created functions. Four functions are used: plot_output (plots outputs), grid_arrange_shared_legend and g_legend (places one label per page) and get_qualified_disease_name (replaces full name of disease)
 
 ```{r echo=TRUE}
 
-output_dir = "graphs"
+output_dir = "graphs2"
 
 i_outcome <- c("mx", "inc")
 p_list_male <- list()
@@ -1053,7 +1053,7 @@ p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, 
                 p3 <- p_list_male[[male_index - 1]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 p4 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 
-  tiff(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".tiff"))
+  jpeg(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".jpeg"))
   grid_arrange_shared_legend (p1, p2, p3, p4, ncol = 2, nrow = 2, mainTitle = paste(ifelse(outcome == "mx", "Deaths", "Incidence"), sex, "cohort mid age", age),
                                           mainLeft = 'Cases', mainBottom = 'Age')
                 dev.off()
@@ -1074,7 +1074,7 @@ p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, 
                 p4 <- p_list_female[[female_index - 1]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 p5 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 
-               tiff(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".tiff"))
+               jpeg(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".jpeg"))
                 grid_arrange_shared_legend (p1, p2, p3, p4, p5, ncol = 2, nrow = 3, mainTitle = paste(ifelse(outcome == "mx", "Deaths", "Incidence"), sex, "cohort mid age", age), mainLeft = 'Cases', mainBottom = 'Age')
                 dev.off()
                 
@@ -1094,27 +1094,49 @@ p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, 
 
 ```{r echo=FALSE, out.width='100%'}
 ## Loop to include graphs in the document
+
+## MAY NOT NEED THIS ONE
 graphs_doc <- list()
 index <- 1
 for (age in i_age_cohort) {
       for (sex in i_sex)  {
         for (outcome in i_outcome) {
 
-graphs_doc [[index]] <- c(paste("graphs/",age,"_",sex,"_", outcome,".tiff", sep = ""))
-          knitr::include_graphics(graphs_doc [[index]]) 
-          # %>%
-          #   set_names(paste("Change in", ifelse(outcome == "mx", "Deaths", "Incidence"), "over time", sep = ""))
-        
+graphs_doc [[index]] <- c(paste(output_dir, "/",age,"_",sex,"_", outcome,".jpeg", sep = ""))
+knitr::include_graphics(graphs_doc [[index]])
+       
           index <- index + 1
         }
-    }
+  
+      }
 }
-```
 
-```{r, echo=FALSE}
-## fig.cap=paste(names(graphs_doc)), message=FALSE, 
  knitr::include_graphics(graphs_doc[c(1:64)])
 ```
+
+
+```{r, echo=FALSE}
+## THIS IS AN ERROR WHEN TRYING TO KNIT THE DOC, PROBLEM WITH THE FILE PATH. 
+
+# knitr::include_graphics(graphs_doc[[c(1:64)]]) 
+
+# image <- graphs_doc[[1]]
+# knitr::include_graphics(image)
+# cat("\n\n")
+# for (i in 2:64){
+#   cat("![](",graphs_doc[[i]],")")
+# }
+
+# 
+# myimages <- list.files("graphs2/", pattern = ".jpeg", full.names = TRUE)
+# include_graphics(myimages)
+
+#for (i in 1:64){
+#  knitr::include_graphics(graphs_doc[[i]]) 
+#}
+```
+
+
 
 
 24) Add up all outcomes per year of simulation with generated function. 
@@ -1124,57 +1146,82 @@ graphs_doc [[index]] <- c(paste("graphs/",age,"_",sex,"_", outcome,".tiff", sep 
 ## First, need to run function for males and females separetly, in_cohorts indicates the number of age cohorts to include. To show all select 16. what is specified in in_outcomes will be graphed or can also be presented as a total. 
 
 ## DO A LIST TO GENERATE ALL OUTCOMES ALL. CHECK SUMMARION OF COHORTS ORDER. 
+## Generate vectors with names of outcomes of interest: baseline, scenario and difference (from output dataframe)
 
-aggregate_frame_males <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "male", in_outcomes = c('Lx_bl','Lx_sc', "Lx_diff"))
+i_output_bl <- c("inc_num_bl_ihd", "inc_num_bl_istroke", "inc_num_bl_diabetes", "inc_num_bl_colon_cancer", "inc_num_bl_breast_cancer", "mx_num_bl_ihd", "mx_num_bl_istroke", "mx_num_bl_diabetes", "mx_num_bl_colon_cancer", "mx_num_bl_breast_cancer", "Lx_bl", "Lwx_bl")
 
-aggregate_frame_females <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "female", in_outcomes = c('Lx_bl','Lx_sc', "Lx_diff"))
+i_output_sc <- c("inc_num_sc_ihd", "inc_num_sc_istroke", "inc_num_sc_diabetes", "inc_num_sc_colon_cancer", "inc_num_sc_breast_cancer", "mx_num_sc_ihd", "mx_num_sc_istroke", "mx_num_sc_diabetes", "mx_num_sc_colon_cancer", "mx_num_sc_breast_cancer", "Lx_sc", "Lwx_sc")
 
-## The following adds up both males and females
-## Remove non-numeric columns starting with age and sex
-aggregate_frame_males <- aggregate_frame_males %>% select(-starts_with("age"), -starts_with("sex"))
+i_output_diff <- c("inc_num_diff_ihd", "inc_num_diff_istroke", "inc_num_diff_diabetes", "inc_num_diff_colon_cancer", "inc_num_diff_breast_cancer", "mx_num_diff_ihd", "mx_num_diff_istroke", "mx_num_diff_diabetes", "mx_num_diff_colon_cancer", "mx_num_diff_breast_cancer", "Lx_diff", "Lwx_diff")
 
-aggregate_frame_females <- aggregate_frame_females %>% select(-starts_with("age"), -starts_with("sex"))
+## SEPARATE LOOPS FOR MALES AND FEMALES
+aggregate_frame_males <- list()
+aggregate_frame_females <- list()
+index <- 1
 
-## Create a copy of aggregate_frame_females
-total_aggr <- aggregate_frame_females
-## Add aggregate_frame_males values to it
-for (i in 1:ncol(aggregate_frame_females)){
-  total_aggr[i] <- total_aggr[i] + aggregate_frame_males[i]
+for (output_bl in i_output_bl) {
+  for (output_sc in i_output_sc) {
+    for (output_diff in i_output_diff) {
+      
+aggregate_frame_males[[index]]<- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "male", in_outcomes = c(paste(output_bl), paste(output_sc), paste(output_diff)))
+      
+# aggregate_frame_males <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "male", in_outcomes = c(output_bl, output_sc, output_diff))
+
+aggregate_frame_females[[index]] <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "female", in_outcomes = c(paste(output_bl), paste(output_sc), paste(output_diff)))
+
+# aggregate_frame_females <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "female", in_outcomes = c(output_bl, output_sc, output_diff))
+
+index <- index + 1
+    }
+  }
 }
-total_aggr$sim_year <- seq.int(nrow(total_aggr))
 
-## Uncomment to view aggregated data
-sum(total_aggr$total_Lx_diff)
+# ## The following adds up both males and females
+# ## Remove non-numeric columns starting with age and sex
+# aggregate_frame_males <- aggregate_frame_males %>% select(-starts_with("age"), -starts_with("sex"))
+# 
+# aggregate_frame_females <- aggregate_frame_females %>% select(-starts_with("age"), -starts_with("sex"))
+# 
+# ## Create a copy of aggregate_frame_females
+# total_aggr <- aggregate_frame_females
+# ## Add aggregate_frame_males values to it
+# for (i in 1:ncol(aggregate_frame_females)){
+#   total_aggr[i] <- total_aggr[i] + aggregate_frame_males[i]
+# }
+# total_aggr$sim_year <- seq.int(nrow(total_aggr))
+# 
+# ## Uncomment to view aggregated data
+# sum(total_aggr$total_Lx_diff)
 ```
 
 25) Plots using total aggregated change in burden. This graphs are not very good for life years and health adjusted life years as the difference between baseline and scenario is very small relative to the total, hence the graphs show almost no change. 
 
-```{r, echo=TRUE}
-
-####This plot has to be customised to in_outcomes, here, only totals shown, but specifications are up to the user
-
-####[] is used here to indicate the number of simulation years into the future. 
-####Disease outcomes has to be changed to the outcome of interest
-
-disease_outcome <- "Life years"
-
-total_plot <- ggplot(total_aggr[1:79,], aes(x = sim_year)) +
-  
-  geom_line(mapping = aes(y = total_Lx_bl, colour = "total_Lx_bl")) +
-  theme_classic() +
-  geom_hline(yintercept=0, linetype="dashed", color = "black") +
-  geom_line(mapping = aes(y = total_Lx_sc, colour = "total_total_Lx_sc")) +
-  geom_line(mapping = aes(y = total_Lx_diff, colour = "total_Lx_diff")) +
-  xlab ("Simulation years") + ylab ("Cases") + labs (title = paste(disease_outcome)) +
-  theme(plot.title = element_text(hjust = 0.5, size = 12)) +
-  scale_color_discrete(name = paste(""), labels = c("Baseline", "Difference", "Scenario")) +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  scale_y_continuous(breaks=seq(0,7000000,by=1000000))
-  
-  
-
-#Print to view
-print(total_plot)
+# ```{r, echo=TRUE}
+# 
+# ####This plot has to be customised to in_outcomes, here, only totals shown, but specifications are up to the user
+# 
+# ####[] is used here to indicate the number of simulation years into the future. 
+# ####Disease outcomes has to be changed to the outcome of interest
+# 
+# disease_outcome <- "Life years"
+# 
+# total_plot <- ggplot(total_aggr[1:79,], aes(x = sim_year)) +
+#   
+#   geom_line(mapping = aes(y = total_Lx_bl, colour = "total_Lx_bl")) +
+#   theme_classic() +
+#   geom_hline(yintercept=0, linetype="dashed", color = "black") +
+#   geom_line(mapping = aes(y = total_Lx_sc, colour = "total_total_Lx_sc")) +
+#   geom_line(mapping = aes(y = total_Lx_diff, colour = "total_Lx_diff")) +
+#   xlab ("Simulation years") + ylab ("Cases") + labs (title = paste(disease_outcome)) +
+#   theme(plot.title = element_text(hjust = 0.5, size = 12)) +
+#   scale_color_discrete(name = paste(""), labels = c("Baseline", "Difference", "Scenario")) +
+#   theme(plot.title = element_text(hjust = 0.5)) +
+#   scale_y_continuous(breaks=seq(0,7000000,by=1000000))
+#   
+#   
+# 
+# #Print to view
+# print(total_plot)
 ```
 #Comments
 
