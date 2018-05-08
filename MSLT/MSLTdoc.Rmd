@@ -1115,114 +1115,64 @@ knitr::include_graphics(graphs_doc [[index]])
 ```
 
 
-```{r, echo=FALSE}
-## THIS IS AN ERROR WHEN TRYING TO KNIT THE DOC, PROBLEM WITH THE FILE PATH. 
-
-# knitr::include_graphics(graphs_doc[[c(1:64)]]) 
-
-# image <- graphs_doc[[1]]
-# knitr::include_graphics(image)
-# cat("\n\n")
-# for (i in 2:64){
-#   cat("![](",graphs_doc[[i]],")")
-# }
-
-# 
-# myimages <- list.files("graphs2/", pattern = ".jpeg", full.names = TRUE)
-# include_graphics(myimages)
-
-#for (i in 1:64){
-#  knitr::include_graphics(graphs_doc[[i]]) 
-#}
-```
-
-
-
-
-24) Add up all outcomes per year of simulation with generated function. 
+24) Add up all outcomes per year of simulation with generated function. BETTER TO HAVE A LOOP, I TRIED BY LOOPING IN THE FUNCITON ARGUMENT I_OUTCOMES, BUT THIS DID NOT WORK. THEN, IF LOOP HERE ALSO IN NEXT CODE. 
 
 ```{r, echo=TRUE}
 ## Generate data frame with all outputs to graph total change in burden by simulation year. 
 ## First, need to run function for males and females separetly, in_cohorts indicates the number of age cohorts to include. To show all select 16. what is specified in in_outcomes will be graphed or can also be presented as a total. 
 
 ## DO A LIST TO GENERATE ALL OUTCOMES ALL. CHECK SUMMARION OF COHORTS ORDER. 
-## Generate vectors with names of outcomes of interest: baseline, scenario and difference (from output dataframe)
 
-i_output_bl <- c("inc_num_bl_ihd", "inc_num_bl_istroke", "inc_num_bl_diabetes", "inc_num_bl_colon_cancer", "inc_num_bl_breast_cancer", "mx_num_bl_ihd", "mx_num_bl_istroke", "mx_num_bl_diabetes", "mx_num_bl_colon_cancer", "mx_num_bl_breast_cancer", "Lx_bl", "Lwx_bl")
+aggregate_frame_males <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "male", in_outcomes = c('inc_num_bl_ihd','inc_num_sc_ihd', "inc_num_diff_ihd"))
 
-i_output_sc <- c("inc_num_sc_ihd", "inc_num_sc_istroke", "inc_num_sc_diabetes", "inc_num_sc_colon_cancer", "inc_num_sc_breast_cancer", "mx_num_sc_ihd", "mx_num_sc_istroke", "mx_num_sc_diabetes", "mx_num_sc_colon_cancer", "mx_num_sc_breast_cancer", "Lx_sc", "Lwx_sc")
+aggregate_frame_females <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "female", in_outcomes = c('inc_num_bl_ihd','inc_num_sc_ihd', "inc_num_diff_ihd"))
 
-i_output_diff <- c("inc_num_diff_ihd", "inc_num_diff_istroke", "inc_num_diff_diabetes", "inc_num_diff_colon_cancer", "inc_num_diff_breast_cancer", "mx_num_diff_ihd", "mx_num_diff_istroke", "mx_num_diff_diabetes", "mx_num_diff_colon_cancer", "mx_num_diff_breast_cancer", "Lx_diff", "Lwx_diff")
+## The following adds up both males and females
+## Remove non-numeric columns starting with age and sex
+aggregate_frame_males <- aggregate_frame_males %>% select(-starts_with("age"), -starts_with("sex"))
 
-## SEPARATE LOOPS FOR MALES AND FEMALES
-aggregate_frame_males <- list()
-aggregate_frame_females <- list()
-index <- 1
+aggregate_frame_females <- aggregate_frame_females %>% select(-starts_with("age"), -starts_with("sex"))
 
-for (output_bl in i_output_bl) {
-  for (output_sc in i_output_sc) {
-    for (output_diff in i_output_diff) {
-      
-aggregate_frame_males[[index]]<- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "male", in_outcomes = c(paste(output_bl), paste(output_sc), paste(output_diff)))
-      
-# aggregate_frame_males <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "male", in_outcomes = c(output_bl, output_sc, output_diff))
-
-aggregate_frame_females[[index]] <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "female", in_outcomes = c(paste(output_bl), paste(output_sc), paste(output_diff)))
-
-# aggregate_frame_females <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "female", in_outcomes = c(output_bl, output_sc, output_diff))
-
-index <- index + 1
-    }
-  }
+## Create a copy of aggregate_frame_females
+total_aggr <- aggregate_frame_females
+## Add aggregate_frame_males values to it
+for (i in 1:ncol(aggregate_frame_females)){
+  total_aggr[i] <- total_aggr[i] + aggregate_frame_males[i]
 }
-
-# ## The following adds up both males and females
-# ## Remove non-numeric columns starting with age and sex
-# aggregate_frame_males <- aggregate_frame_males %>% select(-starts_with("age"), -starts_with("sex"))
-# 
-# aggregate_frame_females <- aggregate_frame_females %>% select(-starts_with("age"), -starts_with("sex"))
-# 
-# ## Create a copy of aggregate_frame_females
-# total_aggr <- aggregate_frame_females
-# ## Add aggregate_frame_males values to it
-# for (i in 1:ncol(aggregate_frame_females)){
-#   total_aggr[i] <- total_aggr[i] + aggregate_frame_males[i]
-# }
-# total_aggr$sim_year <- seq.int(nrow(total_aggr))
-# 
-# ## Uncomment to view aggregated data
-# sum(total_aggr$total_Lx_diff)
+total_aggr$sim_year <- seq.int(nrow(total_aggr))
 ```
+
 
 25) Plots using total aggregated change in burden. This graphs are not very good for life years and health adjusted life years as the difference between baseline and scenario is very small relative to the total, hence the graphs show almost no change. 
 
-# ```{r, echo=TRUE}
-# 
-# ####This plot has to be customised to in_outcomes, here, only totals shown, but specifications are up to the user
-# 
-# ####[] is used here to indicate the number of simulation years into the future. 
-# ####Disease outcomes has to be changed to the outcome of interest
-# 
-# disease_outcome <- "Life years"
-# 
-# total_plot <- ggplot(total_aggr[1:79,], aes(x = sim_year)) +
-#   
-#   geom_line(mapping = aes(y = total_Lx_bl, colour = "total_Lx_bl")) +
-#   theme_classic() +
-#   geom_hline(yintercept=0, linetype="dashed", color = "black") +
-#   geom_line(mapping = aes(y = total_Lx_sc, colour = "total_total_Lx_sc")) +
-#   geom_line(mapping = aes(y = total_Lx_diff, colour = "total_Lx_diff")) +
-#   xlab ("Simulation years") + ylab ("Cases") + labs (title = paste(disease_outcome)) +
-#   theme(plot.title = element_text(hjust = 0.5, size = 12)) +
-#   scale_color_discrete(name = paste(""), labels = c("Baseline", "Difference", "Scenario")) +
-#   theme(plot.title = element_text(hjust = 0.5)) +
-#   scale_y_continuous(breaks=seq(0,7000000,by=1000000))
-#   
-#   
-# 
-# #Print to view
-# print(total_plot)
+```{r, echo=TRUE}
+ 
+####This plot has to be customised to in_outcomes, here, only totals shown, but specifications are up to the user
+
+####[] is used here to indicate the number of simulation years into the future. 
+####Disease outcomes has to be changed to the outcome of interest
+
+disease_outcome <- "Incidence of Ischemic Heart Disease"
+
+total_plot <- ggplot(total_aggr[1:79,], aes(x = sim_year)) +
+  
+  geom_line(mapping = aes(y = total_inc_num_bl_ihd, colour = "total_inc_num_bl_ihd")) +
+  theme_classic() +
+  geom_hline(yintercept=0, linetype="dashed", color = "black") +
+  geom_line(mapping = aes(y = total_inc_num_sc_ihd, colour = "total_inc_num_sc_ihd")) +
+  geom_line(mapping = aes(y = total_inc_num_diff_ihd, colour = "total_inc_num_diff_ihd")) +
+  xlab ("Simulation years") + ylab ("Cases") + labs (title = paste(disease_outcome)) +
+  theme(plot.title = element_text(hjust = 0.5, size = 12)) +
+  scale_color_discrete(name = paste(""), labels = c("Baseline", "Difference", "Scenario")) +
+  theme(plot.title = element_text(hjust = 0.5))
+  
+
+#Print to view
+print(total_plot)
+
 ```
+
+
 #Comments
 
 ##Road injuries in the PMsLT
