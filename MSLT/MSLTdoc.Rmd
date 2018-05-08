@@ -525,7 +525,7 @@ for (age in i_age_cohort){
 }
 
 ## Uncommnet to check life table list
-# View(general_life_table_list_bl[[2]])
+# View(general_life_table_list_bl[[32]])
 
 ```
 
@@ -609,8 +609,7 @@ idata <- read.csv("data/UK/idata.csv", stringsAsFactors = F)
 ## Use run_disease
 
 i_disease <- c("ihd", "istroke", "diabetes", "colon_cancer", "breast_cancer")
-i_sex <- c("male", "female")
-i_age_cohort <- c(22, 27, 32, 37, 42, 47, 52, 57, 62, 67, 72, 77, 82, 87, 92, 97)
+
 
 disease_life_table_list_bl <- list()
 index <- 1
@@ -624,8 +623,7 @@ for (age in i_age_cohort){
       }
       else {
         # cat("age ", age, " sex ", sex, "and disease", disease, "\n") #Uncomment to see list
-        disease_life_table_list_bl[[index]] <- run_disease(in_idata = idata, in_sex = sex, in_mid_age = age, 
-                                               in_disease = disease)
+        disease_life_table_list_bl[[index]] <- run_disease(in_idata = idata, in_sex = sex, in_mid_age = age, in_disease = disease)
         index <- index + 1
       }
     }
@@ -670,6 +668,7 @@ for (age in i_age_cohort){
 
 ## Uncommnet to check scenario incidence
 # View(incidence_sc[[1]])
+
 ```
 
 
@@ -690,24 +689,19 @@ for (age in i_age_cohort){
         # cat("age ", age, " sex ", sex, "and disease", disease, "\n")
         # modify idata's incidence for the said scenario
         td1 <- idata
-        td1[td1$age >= age & td1$sex == sex,][[paste("incidence", disease, sep = "_")]] <- incidence_sc[[index]]
+        td1[td1$age >= age & td1$sex == sex,][[paste("incidence", disease, sep = "_")]] <- incidence_sc[[index]] 
         
         # Instead of idata, feed td to run scenarios
-        disease_life_table_list_sc[[index]] <- run_disease(in_idata = td1, in_sex = sex, 
-                                               in_mid_age = age, in_disease = disease)
+        disease_life_table_list_sc[[index]] <- run_disease(in_idata = td1, in_sex = sex,
+                                                           in_mid_age = age, in_disease = disease)
         disease_life_table_list_sc[[index]]$diff_inc_disease <- 
-                                              disease_life_table_list_sc[[index]]$incidence_disease 
-                                               -   disease_life_table_list_bl[[index]]$incidence_disease
+                                              disease_life_table_list_sc[[index]]$incidence_disease -   disease_life_table_list_bl[[index]]$incidence_disease
         disease_life_table_list_sc[[index]]$diff_prev_disease <- 
-                                              disease_life_table_list_sc[[index]]$px 
-                                              - disease_life_table_list_bl[[index]]$px
+                                              disease_life_table_list_sc[[index]]$px  - disease_life_table_list_bl[[index]]$px
         disease_life_table_list_sc[[index]]$diff_mort_disease <- 
-                                              disease_life_table_list_sc[[index]]$mx 
-                                              - disease_life_table_list_bl[[index]]$mx
+                                              disease_life_table_list_sc[[index]]$mx - disease_life_table_list_bl[[index]]$mx
         disease_life_table_list_sc[[index]]$diff_pylds_disease <- 
-                                              (disease_life_table_list_sc[[index]]$px  
-                                              - disease_life_table_list_bl[[index]]$px) * 
-                                              disease_life_table_list_bl[[index]]$dw_disease
+                                              (disease_life_table_list_sc[[index]]$px - disease_life_table_list_bl[[index]]$px) * disease_life_table_list_bl[[index]]$dw_disease
         index <- index + 1
       }
     }
@@ -715,6 +709,8 @@ for (age in i_age_cohort){
 }
 ## Uncommnet to check scenario life tables
 # View(disease_life_table_list_sc[[1]])
+
+
 
 ```
 
@@ -724,7 +720,8 @@ for (age in i_age_cohort){
 ```{r, echo=TRUE}
 
 ## Generate total change in mortality rate
-## Sum mortality rate scenarios (mx_sc_total)
+
+## Sum mortality rate change scenarios (mx_sc_total)
 
 mx_sc_total <- list()
 l_index <- 1
@@ -756,12 +753,13 @@ for (age in i_age_cohort){
       }
     }
     mx_sc_total[[l_index]] <- mortality_sum 
+    
     l_index <- l_index + 1
   }
 }  
 
 ## Uncommnet to check sceanrio mortality and changes 
-# View(mx_sc_total[[1]])
+# View(mx_sc_total[[3]])
 
 ## Generate total change in prevalent yld rates
 ## Total ylds rate= sum (change prevalence disease*dw)
@@ -807,28 +805,40 @@ for (age in i_age_cohort){
 ## Original mortality rate is modified by the mx_sc_total (total change in mortality from diseases)
 ## Original pyld rate is modified by the change in each disease pylds
 
+
+
 general_life_table_list_sc <- list()
 index <- 1
 
+
 for (age in i_age_cohort){
   for (sex in i_sex){
-    # cat("age ", age, " and sex ", sex, "\n")
+
+    
+    cat("age ", age, " and sex ", sex, "\n")
     # modify idata's mortality and pyld total for the said scenario
     td2 <- input_life_table
-    td2[td2$age >= age & td2$sex == sex,][[paste("mx")]] <- general_life_table_list_bl[[index]]$mx 
-                                                            + mx_sc_total[[index]]$total
-    td2[td2$age >= age & td2$sex == sex,][[paste("pyld_rate")]] <- general_life_table_list_bl[[index]]$pyld_rate 
-                                                                    + pylds_sc_total[[index]]$total
+    # td2 <- subset(td2, select = -c(mx, pyld_rate))
+    td2[td2$age >= age & td2$sex == sex,][[paste("mx")]] <- general_life_table_list_bl[[index]]$mx + mx_sc_total[[index]]$total
+    td2[td2$age >= age & td2$sex == sex,][[paste("pyld_rate")]] <- general_life_table_list_bl[[index]]$pyld_rate + pylds_sc_total[[index]]$total
+    
     
     # Instead of idata, feed td to run scenarios
     general_life_table_list_sc[[index]] <- run_life_table(in_idata = td2, in_sex = sex, in_mid_age = age)
+    # 
+    
     
     index <- index + 1
   }
 }
 ## Uncommnet to check scenario life tables
-# View(general_life_table_list_sc[[1]])
-# View(general_life_table_list_bl[[2]])
+# View(general_life_table_list_sc[[32]])
+# View(general_life_table_list_bl[[1]])
+
+## Check difference life table baseline and scenario
+general_life_table_list_bl[[1]]$Lx - general_life_table_list_sc[[1]]$Lx
+general_life_table_list_bl[[1]]$Lwx - general_life_table_list_sc[[1]]$Lwx
+
 
 ```
 
@@ -969,25 +979,17 @@ for (age in i_age_cohort){
     }
     
     ## general_life_table_list_sc and general_life_table_list_bl (Lx)
-    output_burden_lf_sc <- select(general_life_table_list_sc[[l_index]], 
-                          c('Lx', 'Lwx'))
-    names(output_burden_lf_sc)[names(output_burden_lf_sc) == 'Lx'] <- 
-                          paste('Lx', "sc", sep = "_")
-    names(output_burden_lf_sc)[names(output_burden_lf_sc) == 'Lwx'] <- 
-                          paste('Lwx', "sc", sep = "_")
+    output_burden_lf_sc <- select(general_life_table_list_sc[[l_index]], c('Lx', 'Lwx'))
+    names(output_burden_lf_sc)[names(output_burden_lf_sc) == 'Lx'] <- paste('Lx', "sc", sep = "_")
+    names(output_burden_lf_sc)[names(output_burden_lf_sc) == 'Lwx'] <- paste('Lwx', "sc", sep = "_")
     
-    output_burden_lf_bl <- select(general_life_table_list_bl[[l_index]], 
-                          c('Lx', 'Lwx'))
-    names(output_burden_lf_bl)[names(output_burden_lf_bl) == 'Lx'] <- 
-                          paste('Lx', "bl", sep = "_")
-    names(output_burden_lf_bl)[names(output_burden_lf_bl) == 'Lwx'] <- 
-                          paste('Lwx', "bl", sep = "_")
+    output_burden_lf_bl <- select(general_life_table_list_bl[[l_index]], c('Lx', 'Lwx'))
+    names(output_burden_lf_bl)[names(output_burden_lf_bl) == 'Lx'] <- paste('Lx', "bl", sep = "_")
+    names(output_burden_lf_bl)[names(output_burden_lf_bl) == 'Lwx'] <- paste('Lwx', "bl", sep = "_")
     
     
-    output_burden_lf_sc$Lx_diff <- general_life_table_list_bl[[l_index]]$Lx 
-                                - general_life_table_list_sc[[l_index]]$Lx
-    output_burden_lf_sc$Lwx_diff <- general_life_table_list_bl[[l_index]]$Lwx 
-                                - general_life_table_list_sc[[l_index]]$Lwx
+    output_burden_lf_sc$Lx_diff <- general_life_table_list_bl[[l_index]]$Lx - general_life_table_list_sc[[l_index]]$Lx
+        output_burden_lf_sc$Lwx_diff <- general_life_table_list_bl[[l_index]]$Lwx - general_life_table_list_sc[[l_index]]$Lwx
     
     output_burden_sc <- cbind(output_burden_sc, output_burden_lf_sc)
     output_burden_sc <- cbind(output_burden_sc, output_burden_lf_bl)
@@ -1000,7 +1002,7 @@ for (age in i_age_cohort){
 }
 
 ## Uncomment to check
-# View(output_burden[[32]])
+# View(output_burden[[1]])
 
 ```
 
@@ -1038,7 +1040,7 @@ for (age in i_age_cohort){
          # cat("\n")
        }else{
 
-            p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_disease = get_qualified_disease_name(disease))
+p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_disease = get_qualified_disease_name(disease))
             
             if (sex == "male"){
 
@@ -1051,16 +1053,15 @@ for (age in i_age_cohort){
                 p3 <- p_list_male[[male_index - 1]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 p4 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 
-                jpeg(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".jpeg"))
-                grid_arrange_shared_legend (p1, p2, p3, p4, ncol = 2, nrow = 2, mainTitle = paste(ifelse(outcome == "mx", "Deaths", "Incidence"), sex, "cohort mid age", age),
+  tiff(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".tiff"))
+  grid_arrange_shared_legend (p1, p2, p3, p4, ncol = 2, nrow = 2, mainTitle = paste(ifelse(outcome == "mx", "Deaths", "Incidence"), sex, "cohort mid age", age),
                                           mainLeft = 'Cases', mainBottom = 'Age')
                 dev.off()
 
               }
               
               male_index <- male_index + 1
-              
-              
+            
             }
             
             if (sex == "female" && female_index > 0){
@@ -1073,13 +1074,13 @@ for (age in i_age_cohort){
                 p4 <- p_list_female[[female_index - 1]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 p5 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
                 
-               jpeg(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".jpeg"))
+               tiff(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".tiff"))
                 grid_arrange_shared_legend (p1, p2, p3, p4, p5, ncol = 2, nrow = 3, mainTitle = paste(ifelse(outcome == "mx", "Deaths", "Incidence"), sex, "cohort mid age", age), mainLeft = 'Cases', mainBottom = 'Age')
                 dev.off()
                 
-              }
+                }
               female_index <- female_index + 1
-            }
+              }
 
             }
          }
@@ -1099,12 +1100,19 @@ for (age in i_age_cohort) {
       for (sex in i_sex)  {
         for (outcome in i_outcome) {
 
-graphs_doc [[index]] <- c(paste("graphs/",age,"_",sex,"_", outcome,".jpeg", sep = ""))
-          knitr::include_graphics(graphs_doc [[index]])
+graphs_doc [[index]] <- c(paste("graphs/",age,"_",sex,"_", outcome,".tiff", sep = ""))
+          knitr::include_graphics(graphs_doc [[index]]) 
+          # %>%
+          #   set_names(paste("Change in", ifelse(outcome == "mx", "Deaths", "Incidence"), "over time", sep = ""))
+        
           index <- index + 1
         }
     }
 }
+```
+
+```{r, echo=FALSE}
+## fig.cap=paste(names(graphs_doc)), message=FALSE, 
  knitr::include_graphics(graphs_doc[c(1:64)])
 ```
 
@@ -1112,29 +1120,34 @@ graphs_doc [[index]] <- c(paste("graphs/",age,"_",sex,"_", outcome,".jpeg", sep 
 24) Add up all outcomes per year of simulation with generated function. 
 
 ```{r, echo=TRUE}
-####Generate data frame with all outputs to graph total change in burden by simulation year. 
-###first, need to run function for males and females separetly, in_cohorts indicates the number of age cohorts to 
-####include. To show all select 16. what is specified in in_outcomes will be graphed or can also be presented as a total. 
+## Generate data frame with all outputs to graph total change in burden by simulation year. 
+## First, need to run function for males and females separetly, in_cohorts indicates the number of age cohorts to include. To show all select 16. what is specified in in_outcomes will be graphed or can also be presented as a total. 
+
+## DO A LIST TO GENERATE ALL OUTCOMES ALL. CHECK SUMMARION OF COHORTS ORDER. 
+
 aggregate_frame_males <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "male", in_outcomes = c('Lx_bl','Lx_sc', "Lx_diff"))
 
 aggregate_frame_females <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "female", in_outcomes = c('Lx_bl','Lx_sc', "Lx_diff"))
 
-#####The following adds up both males and females
-# Remove non-numeric columns starting with age and sex
+## The following adds up both males and females
+## Remove non-numeric columns starting with age and sex
 aggregate_frame_males <- aggregate_frame_males %>% select(-starts_with("age"), -starts_with("sex"))
 
 aggregate_frame_females <- aggregate_frame_females %>% select(-starts_with("age"), -starts_with("sex"))
 
-# Create a copy of aggregate_frame_females
+## Create a copy of aggregate_frame_females
 total_aggr <- aggregate_frame_females
-# Add aggregate_frame_males values to it
+## Add aggregate_frame_males values to it
 for (i in 1:ncol(aggregate_frame_females)){
   total_aggr[i] <- total_aggr[i] + aggregate_frame_males[i]
 }
 total_aggr$sim_year <- seq.int(nrow(total_aggr))
+
+## Uncomment to view aggregated data
+sum(total_aggr$total_Lx_diff)
 ```
 
-25) Plots using total aggregated change in burden.
+25) Plots using total aggregated change in burden. This graphs are not very good for life years and health adjusted life years as the difference between baseline and scenario is very small relative to the total, hence the graphs show almost no change. 
 
 ```{r, echo=TRUE}
 
@@ -1143,7 +1156,7 @@ total_aggr$sim_year <- seq.int(nrow(total_aggr))
 ####[] is used here to indicate the number of simulation years into the future. 
 ####Disease outcomes has to be changed to the outcome of interest
 
-disease_outcome <- "Health adjusted life years"
+disease_outcome <- "Life years"
 
 total_plot <- ggplot(total_aggr[1:79,], aes(x = sim_year)) +
   
@@ -1155,7 +1168,9 @@ total_plot <- ggplot(total_aggr[1:79,], aes(x = sim_year)) +
   xlab ("Simulation years") + ylab ("Cases") + labs (title = paste(disease_outcome)) +
   theme(plot.title = element_text(hjust = 0.5, size = 12)) +
   scale_color_discrete(name = paste(""), labels = c("Baseline", "Difference", "Scenario")) +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_y_continuous(breaks=seq(0,7000000,by=1000000))
+  
   
 
 #Print to view

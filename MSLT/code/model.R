@@ -8,9 +8,8 @@ rm (list = ls())
 
 options(scipen=999)
 
-##### Load all functions/packages
+##### Set WD
 
-source("MSLT/code/functions.R")
 
 
 ##### Read data. idata: life table and disease life tables (including trends). edata: exposure data (e.g. physical activity).
