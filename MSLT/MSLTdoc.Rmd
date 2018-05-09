@@ -1107,9 +1107,8 @@ graphs_doc [[index]] <- c(paste(output_dir, "/",age,"_",sex,"_", outcome,".jpeg"
 knitr::include_graphics(graphs_doc [[index]])
        
           index <- index + 1
-        }
-  
-      }
+    }
+  }
 }
 
  knitr::include_graphics(graphs_doc[c(1:64)])
@@ -1234,8 +1233,40 @@ View(total_aggr)
 ####[] is used here to indicate the number of simulation years into the future. 
 ####Disease outcomes has to be changed to the outcome of interest
 
+#### Test code with loops for aggregated outcomes diseases burden. NOT WORKING. 
 
-## ADD LOOP
+### Compare with loops for age and sex cohort outcomes. 
+
+p_aggr_list <- list()
+index <- 1
+
+for (outcome in i_outcome) {
+  for (disease in i_disease) {
+
+p_aggr_list_index <- ggplot(total_aggr[1:79,], aes(x = sim_year)) +
+  
+  geom_line(mapping = aes(y = paste("total", outcome, "num_bl", disease, sep = "_"), colour = paste("total", outcome, "num_bl", disease, sep = "_"))) +
+  theme_classic() +
+  geom_hline(yintercept=0, linetype="dashed", color = "black") +
+  geom_line(mapping = aes(y = paste("total", outcome, "num_sc", disease, sep = "_"), colour = paste("total", outcome, "num_sc", disease, sep = "_"))) +
+  geom_line(mapping = aes(y = paste("total", outcome, "num_dif", disease, sep = "_"), colour = paste("total", outcome, "num_diff", disease, sep = "_"))) +
+  xlab ("Simulation years") + ylab ("Cases") + labs (title = paste(disease)) +
+  theme(plot.title = element_text(hjust = 0.5, size = 12)) +
+  scale_color_discrete(name = paste(""), labels = c("Baseline", "Difference", "Scenario")) +
+  theme(plot.title = element_text(hjust = 0.5))
+p_aggr_list[[index]] <- p_aggr_list_index  
+index <- index + 1
+
+
+
+  }
+}
+
+
+
+
+#####
+## original code with single outcomes
 disease_outcome <- "Incidence of Ischemic Heart Disease"
 
 total_plot <- ggplot(total_aggr[1:79,], aes(x = sim_year)) +
