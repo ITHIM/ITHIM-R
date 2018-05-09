@@ -1013,6 +1013,8 @@ for (age in i_age_cohort){
 
 output_df <- plyr::ldply(output_burden, rbind)
 
+# View(output_df)
+
 #Remove variables that are not used in the generation of outputs. CHANGE THIS NAMES, TOO LONG
 
 output_df <- subset(output_df, select = -c(incidence_disease_ihd_bl, incidence_disease_ihd_sc, incidence_disease_istroke_bl, incidence_disease_istroke_sc, incidence_disease_diabetes_bl, incidence_disease_diabetes_sc, incidence_disease_breast_cancer_bl, incidence_disease_breast_cancer_sc, 
@@ -1095,7 +1097,6 @@ p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, 
 ```{r echo=FALSE, out.width='100%'}
 ## Loop to include graphs in the document
 
-## MAY NOT NEED THIS ONE
 graphs_doc <- list()
 index <- 1
 for (age in i_age_cohort) {
@@ -1118,28 +1119,109 @@ knitr::include_graphics(graphs_doc [[index]])
 24) Add up all outcomes per year of simulation with generated function. BETTER TO HAVE A LOOP, I TRIED BY LOOPING IN THE FUNCITON ARGUMENT I_OUTCOMES, BUT THIS DID NOT WORK. THEN, IF LOOP HERE ALSO IN NEXT CODE. 
 
 ```{r, echo=TRUE}
-## Generate data frame with all outputs to graph total change in burden by simulation year. 
-## First, need to run function for males and females separetly, in_cohorts indicates the number of age cohorts to include. To show all select 16. what is specified in in_outcomes will be graphed or can also be presented as a total. 
 
-## DO A LIST TO GENERATE ALL OUTCOMES ALL. CHECK SUMMARION OF COHORTS ORDER. 
+## Try binding function
 
-aggregate_frame_males <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "male", in_outcomes = c('inc_num_bl_ihd','inc_num_sc_ihd', "inc_num_diff_ihd"))
+aggregate_frame_males <- list()
+aggregate_frame_females <- list()
 
-aggregate_frame_females <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "female", in_outcomes = c('inc_num_bl_ihd','inc_num_sc_ihd', "inc_num_diff_ihd"))
+index <- 1
 
-## The following adds up both males and females
-## Remove non-numeric columns starting with age and sex
-aggregate_frame_males <- aggregate_frame_males %>% select(-starts_with("age"), -starts_with("sex"))
+for (outcome in i_outcome) {
+  for (disease in i_disease) {
+   
+aggregate_frame_males[[index]] <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "male", in_outcomes = c(paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")))
 
-aggregate_frame_females <- aggregate_frame_females %>% select(-starts_with("age"), -starts_with("sex"))
+aggregate_frame_females[[index]] <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "female", in_outcomes = c(paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")))
 
-## Create a copy of aggregate_frame_females
-total_aggr <- aggregate_frame_females
+# Remove non-numeric columns starting with age and sex
+aggregate_frame_males[[index]] <- aggregate_frame_males[[index]] %>% select(-starts_with("age"), -starts_with("sex"))
+
+aggregate_frame_females[[index]] <- aggregate_frame_females[[index]] %>% select(-starts_with("age"), -starts_with("sex"))
+
+index <- index + 1
+  }
+}
+
+
+## Loop for life years (Lx) and health adjusted life years (Lwx) to then add to total aggregated data. 
+
+## RUN ANOTHER LOOP FOR LX AND LWX
+
+i_outcome2 <- c("Lx", "Lwx")
+
+aggregate_frame_males2 <- list()
+aggregate_frame_females2 <- list()
+
+for (i in i_outcome2){
+  
+aggregate_frame_males2[[i]] <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "male", in_outcomes = c(paste(i, "bl", sep = "_"), paste(i, "sc", sep = "_"), paste(i, "diff",sep = "_")))
+
+aggregate_frame_females2[[i]] <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "female", in_outcomes = c(paste(i, "bl", sep = "_"), paste(i,  "sc", sep = "_"), paste(i, "diff",sep = "_")))
+
+
+aggregate_frame_males2[[i]] <- aggregate_frame_males2[[i]] %>% select(-starts_with("age"), -starts_with("sex"))
+
+aggregate_frame_females2[[i]] <- aggregate_frame_females2[[i]] %>% select(-starts_with("age"), -starts_with("sex"))
+
+}
+
+## Uncomment to check data frames (list correspond to a disease and outcome combination, for example,
+## incidence breast cancer)
+
+# View(aggregate_frame_females[[2]])
+
+## Transform list to data frame (this is not working after the first disease)
+
+aggregate_frame_females <- do.call(cbind, aggregate_frame_females)
+aggregate_frame_males <- do.call(cbind, aggregate_frame_males)
+aggregate_frame_females2 <- do.call(cbind, aggregate_frame_females2)
+aggregate_frame_males2 <- do.call(cbind, aggregate_frame_males2)
+
+View(aggregate_frame_females2)
+
+## Drop ending of variables names _males/_females to add up all outcomes in next step. 
+
+names(aggregate_frame_females) = gsub(pattern = "_female", replacement = "", x = names(aggregate_frame_females))
+
+names(aggregate_frame_males) = gsub(pattern = "_male", replacement = "", x = names(aggregate_frame_males))
+
+names(aggregate_frame_females2) = gsub(pattern = "_female", replacement = "", x = names(aggregate_frame_females2))
+
+names(aggregate_frame_males2) = gsub(pattern = "_male", replacement = "", x = names(aggregate_frame_males2))
+
+
+## Uncomment to check that the code is dropping the male/female ending. 
+# View(aggregate_frame_males)
+
+## Create a copy of aggregate_frame_females.  
+total_aggr1 <- aggregate_frame_females
 ## Add aggregate_frame_males values to it
 for (i in 1:ncol(aggregate_frame_females)){
-  total_aggr[i] <- total_aggr[i] + aggregate_frame_males[i]
+  total_aggr1[i] <- total_aggr1[i] + aggregate_frame_males[i]
 }
+
+## Add data frames 2 with life years (check adds Lx and Lwx at the beginning of the variable name)
+total_aggr2 <- aggregate_frame_females2
+## Add aggregate_frame_males values to it
+for (i in 1:ncol(aggregate_frame_females2)){
+  total_aggr2[i] <- total_aggr2[i] + aggregate_frame_males2[i]
+}
+
+## Combine data frames
+
+total_aggr <- cbind.data.frame(total_aggr1, total_aggr2)
+
 total_aggr$sim_year <- seq.int(nrow(total_aggr))
+
+
+## Uncomment to see total data frame
+View(total_aggr)
+
+## Test that total_aggr is adding males and females dataframes
+# 
+# (aggregate_frame_females2$Lx.Lx_bl_22 + aggregate_frame_males2$Lx.Lx_bl_22) -total_aggr$Lx.Lx_bl_22
+
 ```
 
 
@@ -1147,11 +1229,13 @@ total_aggr$sim_year <- seq.int(nrow(total_aggr))
 
 ```{r, echo=TRUE}
  
-####This plot has to be customised to in_outcomes, here, only totals shown, but specifications are up to the user
+####This plot has to be customised to in_outcomes, here, only totals shown, but specifications are up to the user. ADD LOOP for all outcomes over time and total TABLE. 
 
 ####[] is used here to indicate the number of simulation years into the future. 
 ####Disease outcomes has to be changed to the outcome of interest
 
+
+## ADD LOOP
 disease_outcome <- "Incidence of Ischemic Heart Disease"
 
 total_plot <- ggplot(total_aggr[1:79,], aes(x = sim_year)) +
