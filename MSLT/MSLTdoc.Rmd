@@ -1,7 +1,7 @@
 ---
 title: "Proportional multi-state multiple-cohort life table model"
 author: "Belen Zapata-Diomedi and Ali Abbas"
-date: "26 March 2018"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 header-includes:
     - \usepackage{setspace}\onehalfspacing
     - \usepackage{float}
@@ -22,9 +22,9 @@ bibliography: Bibliography.bib
 ```{r setup, include=FALSE}
 
 ## Global options
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, width = 75)
 options(knitr.table.format = 'latex')
-knitr::opts_chunk$set(fig.cap = TRUE, fig.align = "center", fig.pos = "H", fig.scap = TRUE) 
+knitr::opts_chunk$set(fig.cap = FALSE, fig.align = "center", fig.pos = "H", fig.scap = TRUE) 
 
 ## The work in this document requires the following packages (code, rmarkdown and citing packages):
 
@@ -1242,15 +1242,17 @@ index <- 1
 
 for (outcome in i_outcome) {
   for (disease in i_disease) {
+    # outcome <- i_outcome[1]
+    # disease <- i_disease[1]
 
-p_aggr_list_index <- ggplot(total_aggr[1:79,], aes(x = sim_year)) +
+p_aggr_list_index <- ggplot(total_aggr[1:79,], aes(x = total_aggr[["sim_year"]])) +
   
-  geom_line(mapping = aes(y = paste("total", outcome, "num_bl", disease, sep = "_"), colour = paste("total", outcome, "num_bl", disease, sep = "_"))) +
+  geom_line(mapping = aes(y = total_aggr[[paste("total", outcome, "num_bl", disease, sep = "_")]], colour = paste("total", outcome, "num_bl", disease, sep = "_"))) +
   theme_classic() +
   geom_hline(yintercept=0, linetype="dashed", color = "black") +
-  geom_line(mapping = aes(y = paste("total", outcome, "num_sc", disease, sep = "_"), colour = paste("total", outcome, "num_sc", disease, sep = "_"))) +
-  geom_line(mapping = aes(y = paste("total", outcome, "num_dif", disease, sep = "_"), colour = paste("total", outcome, "num_diff", disease, sep = "_"))) +
-  xlab ("Simulation years") + ylab ("Cases") + labs (title = paste(disease)) +
+  geom_line(mapping = aes(y = total_aggr[[paste("total", outcome, "num_sc", disease, sep = "_")]], colour = paste("total", outcome, "num_sc", disease, sep = "_"))) +
+  geom_line(mapping = aes(y = total_aggr[[paste("total", outcome, "num_diff", disease, sep = "_")]], colour = paste("total", outcome, "num_diff", disease, sep = "_"))) +
+  xlab ("Simulation years") + ylab ("Cases") + labs (title = paste(disease, outcome)) +
   theme(plot.title = element_text(hjust = 0.5, size = 12)) +
   scale_color_discrete(name = paste(""), labels = c("Baseline", "Difference", "Scenario")) +
   theme(plot.title = element_text(hjust = 0.5))
@@ -1258,32 +1260,47 @@ p_aggr_list[[index]] <- p_aggr_list_index
 index <- index + 1
 
 
-
   }
 }
 
+index <- 1
+
+interpolation_index <- 1
+for (outcome in i_outcome) {
+  for (disease in i_disease) {
+    file_name = paste("graphs2/", "Aggregated Outcomes", outcome, disease, ".jpeg", sep=" ")
+    jpeg(file_name)
+    print(p_aggr_list[[index]])
+    index <- index + 1
+    dev.off()
+  }
+}
+
+
+p_aggregated <- do.call(marrangeGrob, list(grobs=p_aggr_list, nrow = 2, ncol = 2))
+p_aggregated
 
 
 
 #####
 ## original code with single outcomes
-disease_outcome <- "Incidence of Ischemic Heart Disease"
-
-total_plot <- ggplot(total_aggr[1:79,], aes(x = sim_year)) +
-  
-  geom_line(mapping = aes(y = total_inc_num_bl_ihd, colour = "total_inc_num_bl_ihd")) +
-  theme_classic() +
-  geom_hline(yintercept=0, linetype="dashed", color = "black") +
-  geom_line(mapping = aes(y = total_inc_num_sc_ihd, colour = "total_inc_num_sc_ihd")) +
-  geom_line(mapping = aes(y = total_inc_num_diff_ihd, colour = "total_inc_num_diff_ihd")) +
-  xlab ("Simulation years") + ylab ("Cases") + labs (title = paste(disease_outcome)) +
-  theme(plot.title = element_text(hjust = 0.5, size = 12)) +
-  scale_color_discrete(name = paste(""), labels = c("Baseline", "Difference", "Scenario")) +
-  theme(plot.title = element_text(hjust = 0.5))
-  
-
-#Print to view
-print(total_plot)
+# disease_outcome <- "Incidence of Ischemic Heart Disease"
+# 
+# total_plot <- ggplot(total_aggr[1:79,], aes(x = sim_year)) +
+#   
+#   geom_line(mapping = aes(y = total_aggr[["total_inc_num_bl_ihd"]], colour = "total_inc_num_bl_ihd")) +
+#   theme_classic() +
+#   geom_hline(yintercept=0, linetype="dashed", color = "black") +
+#   geom_line(mapping = aes(y = total_aggr[["total_inc_num_sc_ihd"]], colour = "total_inc_num_sc_ihd")) +
+#   geom_line(mapping = aes(y = total_aggr[["total_inc_num_diff_ihd"]], colour = "total_inc_num_diff_ihd")) +
+#   xlab ("Simulation years") + ylab ("Cases") + labs (title = paste(disease_outcome)) +
+#   theme(plot.title = element_text(hjust = 0.5, size = 12)) +
+#   scale_color_discrete(name = paste(""), labels = c("Baseline", "Difference", "Scenario")) +
+#   theme(plot.title = element_text(hjust = 0.5))
+#   
+# 
+# #Print to view
+# print(total_plot)
 
 ```
 
