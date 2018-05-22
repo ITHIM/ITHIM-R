@@ -16,7 +16,7 @@ output:
      df_print: kable
    fontsize: 12 pt
    geometry: margin=1in
-bibliography: Bibliography.bib
+bibliography: documentation/Bibliography.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -203,7 +203,7 @@ Initial case studies for the ITHIMR are: London, Sao Pablo, Delhi, Accra, Los An
 \newpage
 \blandscape
 
-![Proportional multi-state life-table model. *Three sections are presented in Figure 3: **Data input sources**, **Inputs PMSLT** and **PMSLT mechanisms**. The color coding from Data inputs sources to Inputs PMSLT link sources with inputs for the PMSLT. Solid arrows represent final inputs and dashed-arrows represent intermediate inputs that need further processing. Purple coding means a process and green coding represent change in mortality and disability prevalence rates to modify the life table parameters. Black color coding with white color font represent final model outcomes. For both, the life table and disease life table, two sets of each are simulated, one for the baseline and the other for the scenario.*](structure\Figure3.png){width=50%,height=30%,fig.pos="H"}
+![Proportional multi-state life-table model. *Three sections are presented in Figure 3: **Data input sources**, **Inputs PMSLT** and **PMSLT mechanisms**. The color coding from Data inputs sources to Inputs PMSLT link sources with inputs for the PMSLT. Solid arrows represent final inputs and dashed-arrows represent intermediate inputs that need further processing. Purple coding means a process and green coding represent change in mortality and disability prevalence rates to modify the life table parameters. Black color coding with white color font represent final model outcomes. For both, the life table and disease life table, two sets of each are simulated, one for the baseline and the other for the scenario.*](documentation\structure\Figure3.png){width=50%,height=30%,fig.pos="H"}
 
 \elandscape
 
@@ -212,7 +212,7 @@ Initial case studies for the ITHIMR are: London, Sao Pablo, Delhi, Accra, Los An
 
 First, we explain how to obtain the data, second additional processing to derive data not reported (population) and one-year age groups (original data is in five-year age groups) and last procedure to use Dismod II. Data from the *Global Burden of Disease data* in Figure 3 can be download from here: http://ghdx.healthdata.org/gbd-results-tool. Figure 4 is a screenshot of the GHDx.
 
-![Global Burden of Disease data results tool.](data/Figure4.png){width=70%,height=50%,fig.pos="H"}
+![Global Burden of Disease data results tool.](documentation\data\Figure4.png){width=70%,height=50%,fig.pos="H"}
 
 Table 2 specifies the selections to do for each of the tabs in Figure 2. 
 
