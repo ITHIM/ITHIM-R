@@ -58,7 +58,7 @@ In this model we use the term *health-adjusted life year* (HALY). As *summary me
 
 \newpage
 
-![Basic ITHIMR infrastructure](documentation\structure\Figure1.png){fig.pos="H"}
+![Basic ITHIMR infrastructure](structure\Figure1.png){fig.pos="H"}
 
 
 
@@ -91,7 +91,7 @@ The model is set up as a long script to perform the required mathematical calcul
 \newpage
 \blandscape
 
-![Proportional multi-state life-table simplified framework. *The simplied PMST shows the interaction between the life table, disease life table and potential impact fraction (PIF). The PIF calculations by age and sex group are the same as those generated for ITHIM. The PIF (or 1-PIF) modifies incidence of disease, which changes prevalence and mortality (disease specific life table). Changes in prevalence and mortality rates from the disease specific life tables feed into the life table by changing all-cause mortality, which in turn changes life years. Change in prevalence of diseases changes total years lived with disability, which in turn modifies health-adjusted life years*](documentation\structure\Figure2.png){width=100%, fig.pos="H"}
+![Proportional multi-state life-table simplified framework. *The simplied PMST shows the interaction between the life table, disease life table and potential impact fraction (PIF). The PIF calculations by age and sex group are the same as those generated for ITHIM. The PIF (or 1-PIF) modifies incidence of disease, which changes prevalence and mortality (disease specific life table). Changes in prevalence and mortality rates from the disease specific life tables feed into the life table by changing all-cause mortality, which in turn changes life years. Change in prevalence of diseases changes total years lived with disability, which in turn modifies health-adjusted life years*](structure\Figure2.png){width=100%, fig.pos="H"}
 
 \elandscape
 
@@ -237,7 +237,7 @@ Once the selections described in Table 2 are made, the option *Download CVS** in
 4) Read GBD data
 ```{r, echo=TRUE}
 
-GBDdata <- read.csv("data/legacy/UK/gbd2016.csv", stringsAsFactors = F)
+GBDdata <- read.csv("data/UK/gbd2016.csv", stringsAsFactors = F)
 
 ```
 
@@ -427,7 +427,7 @@ p_interpolation_index <- ggplot(data = interpolated,mapping = aes(age, interpola
 interpolation_index <- 1
 for(sex_index in i_sex) {
   for (measure_index in i_measure) {
-    file_name = paste("output/graphs1/", "Interpolation rates", sex_index, measure_index, ".jpeg", sep=" ")
+    file_name = paste("graphs1/", "Interpolation rates", sex_index, measure_index, ".jpeg", sep=" ")
     jpeg(file_name)
     print(p_interpolation_list[[interpolation_index]])
     interpolation_index <- interpolation_index + 1
@@ -530,9 +530,73 @@ for (age in i_age_cohort){
 ```
 
 17) Generate **baseline disease life tables** using run_disease function. Inputs of the disease life tables are: incidence, case fatality (Figure 3, purple shaded area) and disability weights. Internally consistent estimates of incidence and case fatality are derived from GBD data (by five-year age groups and sex) and Dismod II. Disability weights are derived from GBD disease specific YLDs and prevalence (by five-year age groups and sex) adjusted for all-cause YLDs (see section 2.1.1.4).  
-Note that Dismod II is an external software. The data generation for Dismod II is now done externally and the end product, for the example of Greater London is idata. For now, we plan to get the data processing for all data for the MSLT and Dismod using code (space blank left below). We now have all the data needs in the main data folder in data. 
+Note that Dismod II is an external software. The code below is used to generate the inputs for Dismod II using GBD data (see Figure 3, purple shaded area). Dismod II requires data for the *collection* (population numbers and all cause mortality rates) and *data set* (disease specific parameters). We will generate a data set with all inputs for dismod by 5 year-age (represent at mid age) groups and sex for five diseases (ischemic heart disease, ischemic stroke, diabetes mellitus, colon and rectum cancer and breast cancer-women). WE WILL NEED ADJUSTMENT FOR TO MATCH RRS TO DISEASES (COLON AND RECTUM CANCER AND DIABETES MELLITUS). *Code here is work in progress**, for now the disease input data is organised externally with excel. 
 
 ```{r, echo=FALSE}
+## Collection input for Greater London: population numbers (sex and 5-year age groups). 
+## Already processed in past code, here, we sort it out and save in cvs format in a Dismod II folder. 
+
+####THIS CODE IS INCOMPLETE, I WILL PREPARE THE DATA FOR DISMOD II IN EXCEL AND AFTER PRESENTATION THURSDAY 26 APRIL I WILL DEVELOP THE SCRIPT. 
+
+# ## Get population numbers
+# 
+# data_dismodii <- GBD_population_GL[order(GBD_population_GL$sex, GBD_population_GL$age_cat),] 
+# 
+# ## Add mortality rates (these were generated for the life table, so we use the same code)
+# 
+# data_dismodii  <- merge(data_dismodii, select(male_deaths_interpolated
+#                                                      ,c(sex_age_cat, mx))
+#                                                      , by = 'sex_age_cat', all.x = TRUE)
+# data_dismodii  <- merge(data_dismodii, select(female_deaths_interpolated
+#                                                      ,c(sex_age_cat, mx))
+#                                                      , by = 'sex_age_cat', all.x = TRUE)
+# 
+# data_dismodii$mx <-  ifelse(data_dismodii$sex == "male",
+# data_dismodii$mx.x, data_dismodii$mx.y)
+# ## Drop redundant variables 
+# data_dismodii <- subset(data_dismodii, select = -c(mx.y, mx.x))
+# ##Sort data
+# data_dismodii<-data_dismodii[order(data_dismodii$sex, data_dismodii$age_cat),] 
+# ## Add disease rates per one(incidence, prevalence and mortality)
+# 
+# ## Generate variable to do a loop that creates dataframes for each of the disease inputs.
+# 
+# i_disease <- c("ischemic heart disease", "ischemic stroke", "diabetes mellitus", "tracheal, bronchus, and lung cancer", "breast cancer", "colon and rectum cancer")
+# i_sex <- c("male", "female")
+# i_measure <- c("deaths", "ylds", "incidence", "prevalence")
+# 
+# ## Loop to generate dataframes
+# for(sex_index in i_sex) {
+#   for (measure_index in i_measure) {
+#     for (disease_index in i_disease) {
+#    
+# data <- filter(GBDGL, measure == measure_index, sex == sex_index, 
+# cause == disease_index) %>% select(measure, location, sex, age, metric, 
+# cause, val, age_cat, one_rate, sex_age_cat) 
+# colnames(data)[9] <- paste(measure_index, disease_index, sep =  "_")
+# assign(paste(sex_index, measure_index, disease_index, sep = "_"), data)
+
+## The code below is not generating the multiple datasets saved as csv. 
+
+# data_name <- file.path(tempdir(), paste0(sex_index, measure_index, disease_index, ".csv"))
+# write.csv(data, file = data_name)
+#     }
+#   }
+# }
+
+## Generate TO DO, ADD disease parameters. 
+
+## Generate empy variables in data_dismodii for death, incidence and prevalence rates per disease (MAY NOT NEED TO USE, WITH MERGING VARIABLES)
+
+#  for (measure_index in i_measure) {
+#     for (disease_index in i_disease) {
+# 
+#   # data_dismodii[,paste(measure_index, disease_index, sep =  "_")] <- 0
+# data_dismodii  <- merge(data_dismodii, select(female_deaths_interpolated
+#                                                      ,c(sex_age_cat, mx))
+#                                                      , by = 'sex_age_cat', all.x = TRUE)
+#   }
+#  }
 
 
 ```
@@ -541,7 +605,7 @@ Note that Dismod II is an external software. The data generation for Dismod II i
 
 ## Use externaly generated inputs for for disease life table. The previous code will serve to to some of the data preparation for DISMOD. Also need to devlop code to calculated DWs, for now, all generated in excel. 
 
-idata <- read.csv("data/legacy/UK/idata.csv", stringsAsFactors = F)
+idata <- read.csv("data/UK/idata.csv", stringsAsFactors = F)
 ## Use run_disease
 
 i_disease <- c("ihd", "istroke", "diabetes", "colon_cancer", "breast_cancer")
@@ -962,7 +1026,7 @@ incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl
 
 ```{r echo=TRUE}
 
-output_dir = "output/graphs2"
+output_dir = "graphs2"
 
 i_outcome <- c("mx", "inc")
 p_list_male <- list()
@@ -1204,7 +1268,7 @@ index <- 1
 interpolation_index <- 1
 for (outcome in i_outcome) {
   for (disease in i_disease) {
-    file_name = paste("output/graphs2/", "Aggregated Outcomes", outcome, disease, ".jpeg", sep=" ")
+    file_name = paste("graphs2/", "Aggregated Outcomes", outcome, disease, ".jpeg", sep=" ")
     jpeg(file_name)
     print(p_aggr_list[[index]])
     index <- index + 1
@@ -1217,6 +1281,26 @@ p_aggregated <- do.call(marrangeGrob, list(grobs=p_aggr_list, nrow = 2, ncol = 2
 p_aggregated
 
 
+
+#####
+## original code with single outcomes
+# disease_outcome <- "Incidence of Ischemic Heart Disease"
+# 
+# total_plot <- ggplot(total_aggr[1:79,], aes(x = sim_year)) +
+#   
+#   geom_line(mapping = aes(y = total_aggr[["total_inc_num_bl_ihd"]], colour = "total_inc_num_bl_ihd")) +
+#   theme_classic() +
+#   geom_hline(yintercept=0, linetype="dashed", color = "black") +
+#   geom_line(mapping = aes(y = total_aggr[["total_inc_num_sc_ihd"]], colour = "total_inc_num_sc_ihd")) +
+#   geom_line(mapping = aes(y = total_aggr[["total_inc_num_diff_ihd"]], colour = "total_inc_num_diff_ihd")) +
+#   xlab ("Simulation years") + ylab ("Cases") + labs (title = paste(disease_outcome)) +
+#   theme(plot.title = element_text(hjust = 0.5, size = 12)) +
+#   scale_color_discrete(name = paste(""), labels = c("Baseline", "Difference", "Scenario")) +
+#   theme(plot.title = element_text(hjust = 0.5))
+#   
+# 
+# #Print to view
+# print(total_plot)
 
 ```
 
