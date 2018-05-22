@@ -8,10 +8,15 @@ names(trips) <- c('trip_id','person_id','passenger','gen','age')
 
 ## read stage dataset
 stages0 <- read.csv('ttransporte.csv')
-stages <- stages0[,c(1,2,3,5,7,8)]
-names(stages) <- c('stage_id','trip_id','weekend','mode','hours','minutes')
+stages0 <- subset(stages0,p5_16_1_1<24)
+stages <- stages0[,c(1,2,3,5,7,8,13)]
+names(stages) <- c('stage_id','trip_id','weekend','mode','hours','minutes','factor')
 stages$time <- stages$minutes + 60*stages$hours
 stages$weekend <- stages$weekend - 1
+
+stages_temp <- (subset(stages0,edad>79&p5_14==14&(p5_16_1_2>0|p5_16_1_1>0)))
+x11(); plot(stages_temp$factor,stages_temp$p5_16_1_1*60+stages_temp$p5_16_1_2)
+points(stages_temp$factor[stages_temp$edad>90],stages_temp$p5_16_1_1[stages_temp$edad>90]*60+stages_temp$p5_16_1_2[stages_temp$edad>90],col='red')
 
 ## list modes
 modes <- c('Car','Minibus','Taxi (Internet app)','Taxi (street)','Subway',
@@ -56,6 +61,7 @@ population <- population[-22,]
 population$age <- as.numeric(sapply(strsplit(as.character(population$age),"[^0-9]+"),function(x)x[1]))
 
 travel_data <- expand.grid(age=population$age,gen=c('m','f'))
+travel_data2 <- expand.grid(age=population$age,gen=c('m','f'))
 for(m in names(mode_list)){
   for(pass in 0:1){
     travel_data[[paste0(m,pass)]] <- 0
@@ -65,6 +71,7 @@ for(m in names(mode_list)){
       mf <- which(c('m','f')==travel_data[i,2])
       sub_stage <- subset(stages,mode%in%mode_list[[m]]&passenger==pass&gen==mf&age>=min_age&age<max_age)
       travel_data[[paste0(m,pass)]][i] <- sum(sub_stage$time*ifelse(sub_stage$weekend==0,5,2))
+      travel_data2[[paste0(m,pass)]][i] <- sum(sub_stage$factor*sub_stage$time*ifelse(sub_stage$weekend==0,5,2))
     }
   }
 }
@@ -72,17 +79,20 @@ for(m in names(mode_list)){
 pop_temp <- population[,c(1,3)]; names(pop_temp)[2] <- 'm'
 population_mult <- rbind(population[,1:2],pop_temp)
 travel_data$population <- population_mult$m
+travel_data2$population <- population_mult$m
 
 ## get participants
 parts0 <- read.csv('tsdem.csv')
-parts <- parts0[,c(1,5,6,11,12)]
+parts <- parts0[,c(1,5,6,11,12,16)]
 names(parts)[2:3] <- c('gen','age')
 travel_data$participants <- 0
+travel_data2$participants <- 0
 for(i in 1:nrow(travel_data)){
   min_age <- travel_data[i,1]
   max_age <- 120; if(i<nrow(travel_data)) max_age <- travel_data[i+1,1]
   mf <- which(c('m','f')==travel_data[i,2])
   travel_data$participants[i] <- nrow(subset(parts,gen==mf&age>=min_age&age<max_age))
+  travel_data2$participants[i] <- sum(subset(parts,gen==mf&age>=min_age&age<max_age)$factor)
 }
 
 
@@ -90,5 +100,12 @@ travel_data[,3:12] <- travel_data[,3:12] / travel_data$participants * travel_dat
 names(travel_data)[3:12] <- c('pedestrian','pedestrian passenger','cyclist','cyclist passenger','motorcycle','motorcycle passenger','car','car passenger','bus','bus passenger')
 travel_data[is.na(travel_data)] <- 0
 travel_data <- travel_data[,-c(which(colSums(travel_data[,3:12])==0)+2)]
-write.csv(travel_data,'mexico_city_travel_data.csv')
+
+travel_data2[,3:12] <- travel_data2[,3:12] / travel_data2$participants * travel_data2$population * 52 / 60 * 1e-9
+names(travel_data2)[3:12] <- c('pedestrian','pedestrian passenger','cyclist','cyclist passenger','motorcycle','motorcycle passenger','car','car passenger','bus','bus passenger')
+travel_data2[is.na(travel_data2)] <- 0
+travel_data2 <- travel_data2[,-c(which(colSums(travel_data2[,3:12])==0)+2)]
+
+x11(); plot(travel_data$pedestrian,travel_data2$pedestrian)
+write.csv(travel_data,'mexico_city_travel_data2.csv')
 

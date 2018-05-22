@@ -16,6 +16,10 @@ ui <- fluidPage(
       # Distance file input
       ##TODO this will go when we have a true synthetic population from which to obtain distance data
       uiOutput('ui.distance'),
+      ## To use SIN values
+      checkboxInput("sin", "Use SIN exponents", FALSE),
+      # Use SIN uncertainty
+      uiOutput('ui.sinuncertainty'),
       # Toggle switch to choose between poisson and NB models
       uiOutput('ui.modeltoggle'),
       # Choose quantiles

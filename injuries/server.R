@@ -2,7 +2,7 @@ server <- function(input, output){
   source('shinyinjury.R')
   # object storing all values
   object_store <- reactiveValues(fit_whw=NULL,fit_nov=NULL,scenario_tabs=NULL,injuries=NULL,plotButton=NULL,covariates=NULL,
-    mexicoButton=NULL,distance=NULL,model='poisson',nScenarios=1,lq=0.25,uq=0.75)
+    mexicoButton=NULL,distance=NULL,model='poisson',nScenarios=1,lq=0.25,uq=0.75,sinfile='default_sin_exponents.Rdata')
   # response to uploading injury. Saves injury; reveals distance file button
   ##TODO remove distance data file response when we have true synthetic population
   output$ui.distance <- renderUI({
@@ -39,6 +39,11 @@ server <- function(input, output){
       distance <- read.csv(inFile$datapath)
     }
     object_store$distance <- distance
+  })
+  # reveal SE radio if plotButton tag = TRUE
+  output$ui.sinuncertainty <- renderUI({
+    if (!isTRUE(input$sin)) return(NULL)
+    checkboxInput("sinuncertainty", "Apply uncertainty to SIN", FALSE)
   })
   # reveals compute button when distance file has been uploaded
   ##TODO change to when injury file has been uploaded
@@ -88,7 +93,7 @@ server <- function(input, output){
   ##TODO make better
   # if using Mexico model, load saved model
   observeEvent(object_store$mexicoButton, {
-    inFile <- 'saved_mexico_model.Rdata'
+    inFile <- 'saved_mexico_city_NB_model.Rdata'
     if (is.null(inFile)) return(NULL)
     object_store_temp <- readRDS(inFile)
     for(x in names(object_store_temp)) object_store[[x]] <- object_store_temp[[x]]
