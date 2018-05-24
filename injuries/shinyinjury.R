@@ -13,11 +13,16 @@ library(tools)
 library(tcltk2)
 library(dplyr)
 library(mvtnorm)
+library(distr)
 
 if(exists('useShiny')) rm(useShiny)
 
 ## choose whether to compute or recompute
 getModelFits <- function(object_store,input){
+  ##TODO replicate all input objects as object_store objects. Check them against each other when computing/plotting.
+  ## recompute if SIN, data, model changed
+  ## could keep same formula?
+  ## resummarise if lq, uq, SIN uncertainty, reporting rate changed
   object_store$lq <- input$lq
   object_store$uq <- input$uq
   if(is.null(object_store$scenario_tabs)){
@@ -345,7 +350,14 @@ get_scenarios <- function(object_store){
     scenario_tabs[[1+j]] <- list()
     for(i in 1:2){
       scenario_tabs[[1+j]][[i]] <- scenario_tabs[[1]][[i]]
-      scenario_tabs[[1+j]][[i]]$cas_distance <- scenario_tabs[[1]][[i]]$cas_distance*1.1
+      scenario_tabs[[1+j]][[i]]$cas_distance[scenario_tabs[[1+j]][[i]]$casualty_mode=='cyclist'] <- 
+        scenario_tabs[[1]][[i]]$cas_distance[scenario_tabs[[1+j]][[i]]$casualty_mode=='cyclist']*2
+      scenario_tabs[[1+j]][[i]]$strike_distance[scenario_tabs[[1+j]][[i]]$strike_mode=='cyclist'] <- 
+        scenario_tabs[[1]][[i]]$strike_distance[scenario_tabs[[1+j]][[i]]$strike_mode=='cyclist']*2
+      scenario_tabs[[1+j]][[i]]$total_cas_distance[scenario_tabs[[1+j]][[i]]$casualty_mode=='cyclist'] <- 
+        scenario_tabs[[1]][[i]]$total_cas_distance[scenario_tabs[[1+j]][[i]]$casualty_mode=='cyclist']*2
+      scenario_tabs[[1+j]][[i]]$total_strike_distance[scenario_tabs[[1+j]][[i]]$strike_mode=='cyclist'] <- 
+        scenario_tabs[[1]][[i]]$total_strike_distance[scenario_tabs[[1+j]][[i]]$strike_mode=='cyclist']*2
     }
   }
   scenario_tabs
@@ -506,19 +518,26 @@ prepPlots <- function(object_store,input){
       }
     }
   }
-  expected <- t(sapply(all_samples[[1]],function(x)apply(x,2,median)))
-  lower <- t(sapply(all_samples[[ifelse(length(quantiles)==1,1,2)]],function(x)apply(x,2,quantile,lq)))
-  upper <- t(sapply(all_samples[[ifelse(length(quantiles)==1,1,3)]],function(x)apply(x,2,quantile,uq)))
+  gamma_mat <- matrix(1,nrow=nrow(all_samples[[1]][[1]]),ncol=ncol(all_samples[[1]][[1]]))
+  if(input$rr){
+    print(object_store$rrdist)
+    gamma_vec <- r(object_store$rrdist)(dim(all_samples[[1]][[1]])[1])
+    gamma_mat <- replicate(dim(all_samples[[1]][[1]])[2],gamma_vec)
+  }
+  expected <- t(sapply(all_samples[[1]],function(x)apply(x/gamma_mat,2,median)))
+  lower <- t(sapply(all_samples[[ifelse(length(quantiles)==1,1,2)]],function(x)apply(x/gamma_mat,2,quantile,lq)))
+  upper <- t(sapply(all_samples[[ifelse(length(quantiles)==1,1,3)]],function(x)apply(x/gamma_mat,2,quantile,uq)))
   par(mar=c(7,5,3,1)); 
   plotBars(expected=expected,main=input$subgroup,upper=upper,lower=lower,names=names,SE=input$SE)
 }
 
 ## function to plot bars
 plotBars <- function(expected,main,upper,lower,names,SE){
+  maxy <- 1.2*max(expected,upper,lower)
   bar <- barplot(expected,beside=T,las=2,cex.lab=1.5,cex.axis=1.5,main=main,
-    ylim=c(0,max(upper)),col=c('navyblue','darkorange2'),cex.names=1.25,names=names); 
+    ylim=c(0,maxy),col=c('navyblue','darkorange2'),cex.names=1.25,names=names); 
   mtext(2,line=3.5,text='Number of injuries',cex=1.5)
-  legend(x=bar[1],y=max(upper),legend=c('Baseline','Scenario 1'),fill=c('navyblue','darkorange2'),bty='n',cex=1.25)
+  legend(x=bar[1],y=maxy,legend=c('Baseline','Scenario 1'),fill=c('navyblue','darkorange2'),bty='n',cex=1.25)
   if(SE==T)
     suppressWarnings(arrows(x0=bar,y0=upper,y1=lower,angle=90,code=3,length=0.1))
 }
@@ -561,8 +580,8 @@ assemble_output <- function(object_store,input){
     }
     full_table[[paste0('scenario_',j-1,'_mean')]] <- apply(samples[[1]],1,mean)
     full_table[[paste0('scenario_',j-1,'_median')]] <- apply(samples[[1]],1,median)
-    full_table[[paste0('scenario_',j-1,'_lq_',lq)]] <- apply(samples[[ifelse(length(quantiles)==1,1,2)]],1,quantile,lq)
-    full_table[[paste0('scenario_',j-1,'_uq_',uq)]] <- apply(samples[[ifelse(length(quantiles)==1,1,3)]],1,quantile,uq)
+    full_table[[paste0('scenario_',j-1,'_lq_',lq)]] <- apply(samples[[ifelse(length(quantiles)==1,1,3)]],1,quantile,lq)
+    full_table[[paste0('scenario_',j-1,'_uq_',uq)]] <- apply(samples[[ifelse(length(quantiles)==1,1,2)]],1,quantile,uq)
   }
   return(full_table)
 }

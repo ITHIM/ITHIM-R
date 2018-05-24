@@ -10,8 +10,8 @@ input$group <- 'casualty mode'
 input$over <- 'strike mode'
 input$subgroup <- 'pedestrian'
 input$SE <- F
-input$lq <- 0.25
-input$uq <- 0.75
+input$lq <- 0.05
+input$uq <- 0.95
 input$sin <- T
 input$sinuncertainty <- T
 inFile <- list()
