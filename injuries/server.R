@@ -2,7 +2,8 @@ server <- function(input, output){
   source('shinyinjury.R')
   # object storing all values
   object_store <- reactiveValues(fit_whw=NULL,fit_nov=NULL,scenario_tabs=NULL,injuries=NULL,plotButton=NULL,covariates=NULL,
-    mexicoButton=NULL,distance=NULL,model='poisson',nScenarios=1,lq=0.25,uq=0.75)
+    mexicoButton=NULL,distance=NULL,model='poisson',nScenarios=1,lq=0.25,uq=0.75,sinfile='default_sin_exponents.Rdata',
+    rrdistribution='Beta',rrp=c(5,1),rrdist=Beta(5,1))
   # response to uploading injury. Saves injury; reveals distance file button
   ##TODO remove distance data file response when we have true synthetic population
   output$ui.distance <- renderUI({
@@ -39,6 +40,62 @@ server <- function(input, output){
       distance <- read.csv(inFile$datapath)
     }
     object_store$distance <- distance
+  })
+  # reveal SE radio if plotButton tag = TRUE
+  output$ui.sinuncertainty <- renderUI({
+    if (!isTRUE(input$sin)) return(NULL)
+    checkboxInput("sinuncertainty", "Apply uncertainty to SIN", FALSE)
+  })
+  # reveal SE radio if plotButton tag = TRUE
+  output$ui.rr.distribution <- renderUI({
+    if (!isTRUE(input$rr)) return(NULL)
+    actionButton("rr.distribution", paste0(object_store$rrdistribution,'(',paste(object_store$rrp,collapse=','),')'))
+  })
+  observeEvent(input$rr.distribution,{
+    showModal(dataModal())
+  })
+  # Return the UI for a modal dialog with data selection input. If 'failed' is
+  # TRUE, then display a message that the previous value was invalid.
+  dataModal <- function(failed = FALSE) {
+    modalDialog(
+      selectInput("distribution.select","Choose distribution",c('Beta','Uniform','Lognormal'),selected=object_store$rrdistribution,multiple=FALSE),
+      textInput("rrp1", "Parameter 1",value=object_store$rrp[1]),
+      textInput("rrp2", "Parameter 2",value=object_store$rrp[2]),
+      if (failed)
+        div(tags$b("Invalid parameters", style = "color: red;")),
+      if(!is.null(input$rrp1)&&!is.null(input$rrp2)&&failed==F)
+        renderPlot({plot(seq(0,1.5,0.01),d(object_store$rrdist)(seq(0,1.5,0.01)),typ='l',
+          xlab='Reporting rate',ylab='Density',cex.axis=1.5,cex.lab=1.5)}),
+      footer = tagList(
+        modalButton("Close"),
+        actionButton("ok", "OK")
+      )
+    )
+  }
+  
+  # When OK button is pressed, check parameters. If successful,
+  # remove the modal. If not show another modal, but this time with a failure
+  # message.
+  observeEvent(input$ok, {
+    # Check that data object exists and is data frame.
+    pars <- as.numeric(c(input$rrp1,input$rrp2))
+    if (sum(is.na(pars))>0||
+        input$distribution.select=='Beta'&&(pars[1]<=0||pars[2]<=0)||
+        input$distribution.select=='Uniform'&&(pars[1]>=pars[2])||
+        input$distribution.select=='Lognormal'&&(pars[2]<=0)
+    ) {
+      showModal(dataModal(failed = TRUE))
+    } else {
+      object_store$rrp[1] <- pars[1]
+      object_store$rrp[2] <- pars[2]
+      object_store$rrdistribution <- input$distribution.select
+      if(object_store$rrdistribution=='Beta') object_store$rrdist <- Beta(pars[1],pars[2])
+      if(object_store$rrdistribution=='Uniform') object_store$rrdist <- Unif(pars[1],pars[2])
+      if(object_store$rrdistribution=='Lognormal') object_store$rrdist <- Lnorm(pars[1],pars[2])
+      showModal(dataModal(failed = FALSE))
+      #vals$data <- get(input$dataset)
+    #  removeModal()
+    }
   })
   # reveals compute button when distance file has been uploaded
   ##TODO change to when injury file has been uploaded
@@ -88,7 +145,7 @@ server <- function(input, output){
   ##TODO make better
   # if using Mexico model, load saved model
   observeEvent(object_store$mexicoButton, {
-    inFile <- 'saved_mexico_model.Rdata'
+    inFile <- 'saved_mexico_city_NB_model.Rdata'
     if (is.null(inFile)) return(NULL)
     object_store_temp <- readRDS(inFile)
     for(x in names(object_store_temp)) object_store[[x]] <- object_store_temp[[x]]

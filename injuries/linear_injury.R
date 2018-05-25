@@ -3,20 +3,22 @@ source('shinyinjury.R')
 
 input <- list()
 input$injuryfile <- 'input_injuries.xlsx'
-input$distancefile <- 'synthetic_population.ods' #'mexico_city_travel_data.csv' #
+input$distancefile <- 'mexico_city_travel_data.csv' #'synthetic_population.ods' #
 input$file2 <- 'saved_mexico_model.Rdata'
 input$file3 <- 'saved_mexico_model_NB.Rdata'
-input$group <- 'strike mode'
-input$over <- 'casualty age'
-input$subgroup <- 'cyclist'
+input$group <- 'casualty mode'
+input$over <- 'strike mode'
+input$subgroup <- 'pedestrian'
 input$SE <- F
-input$lq <- 0.25
-input$uq <- 0.75
+input$lq <- 0.05
+input$uq <- 0.95
+input$sin <- T
+input$sinuncertainty <- T
 inFile <- list()
 object_store <- list(fit_whw=NULL,fit_nov=NULL,scenario_tabs=NULL,injuries=NULL,plotButton=NULL,covariates=NULL,
-  mexicoButton=NULL,distance=NULL,model='poisson',nScenarios=1,lq=0.25,uq=0.75)
+  mexicoButton=NULL,distance=NULL,model='poisson',nScenarios=1,lq=0.25,uq=0.75,sinfile='default_sin_exponents.Rdata')
 
-model <- 'NB'
+model <- 'poisson'
 if (model=='NB') object_store$model <- 'NB'
 
 useShiny <- F
@@ -60,9 +62,20 @@ if(useMexicoModel==0){
 }
 
 
-
-
-prepPlots(object_store,input)
+input$SE <- T
+groups <- c('casualty mode','casualty age','casualty gender','strike mode')
+for(i in 1:length(groups)){
+  input$group <- paste(strsplit(groups[i],' ')[[1]],collapse='_')
+  instances <- unique(c(levels(object_store$scenario_tabs[[1]][[1]][[input$group]]),levels(object_store$scenario_tabs[[1]][[2]][[input$group]])))
+  for(j in c(1:length(groups))[-i]){
+    input$over <- paste(strsplit(groups[j],' ')[[1]],collapse='_')
+    for(k in instances){
+      input$subgroup <- k
+      print(c(i,j,input$group,input$over,k))
+      prepPlots(object_store,input)
+    }
+  }
+}
 
 
 
