@@ -1,4 +1,3 @@
-setwd("MSLT/")
 
 # ---- chunk-intro ----
 require(dplyr)
@@ -193,7 +192,7 @@ for(sex_index in i_sex) {
 interpolation_index <- 1
 for(sex_index in i_sex) {
   for (measure_index in i_measure) {
-    file_name = paste("output/graphs1/", "Interpolation rates", sex_index, measure_index, ".jpeg", sep=" ")
+    file_name = paste0("output/graphs1/", paste("interpolation_rates", sex_index, measure_index, sep="_"), ".jpeg" )
     jpeg(file_name)
     print(p_interpolation_list[[interpolation_index]])
     interpolation_index <- interpolation_index + 1
@@ -498,7 +497,7 @@ for (age in i_age_cohort){
   for (sex in i_sex){
 
 
-    cat("age ", age, " and sex ", sex, "\n")
+    # cat("age ", age, " and sex ", sex, "\n")
     # modify idata's mortality and pyld total for the said scenario
     td2 <- input_life_table
     # td2 <- subset(td2, select = -c(mx, pyld_rate))
@@ -706,6 +705,13 @@ output_df <- subset(output_df, select = -c(incidence_disease_ihd_bl, incidence_d
 
 output_dir = "output/graphs2"
 
+i_age_cohort <- c(22, 27, 32, 37, 42, 47, 52, 57, 62, 67, 72, 77, 82, 87, 92, 97)
+i_sex <- c("male", "female")
+i_measure <- c("deaths", "ylds") #" (years lived with disability)")
+i_outcome <- c("mx", "inc")
+output_dir <- "output/graphs2"
+i_disease <- c("ihd", "istroke", "diabetes", "colon_cancer", "breast_cancer")
+
 i_outcome <- c("mx", "inc")
 p_list_male <- list()
 p_list_female <- list()
@@ -774,19 +780,19 @@ for (age in i_age_cohort){
 
 ## Loop to include graphs in the document
 
-graphs_doc <- list()
-index <- 1
-for (age in i_age_cohort) {
-  for (sex in i_sex)  {
-    for (outcome in i_outcome) {
-
-      graphs_doc [[index]] <- c(paste(output_dir, "/",age,"_",sex,"_", outcome,".jpeg", sep = ""))
-      knitr::include_graphics(graphs_doc [[index]])
-
-      index <- index + 1
-    }
-  }
-}
+# graphs_doc <- list()
+# index <- 1
+# for (age in i_age_cohort) {
+#   for (sex in i_sex)  {
+#     for (outcome in i_outcome) {
+# 
+#       graphs_doc [[index]] <- c(paste(output_dir, "/",age,"_",sex,"_", outcome,".jpeg", sep = ""))
+#       knitr::include_graphics(graphs_doc [[index]])
+# 
+#       index <- index + 1
+#     }
+#   }
+# }
 
 
 
