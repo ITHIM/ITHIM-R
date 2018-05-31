@@ -17,7 +17,7 @@ METWalking <- 3.53
 METEbikes <- 4.50
 
 # Read combined individual travel survey and Physical Activity data
-raw_data <- haven::read_dta("PA/data/SPtrip_CensusNTSAPS_E06000001.dta")
+raw_data <- haven::read_dta("data/PA/england/synthetic_population/SPtrip_CensusNTSAPS_E06000001.dta")
 
 # Create id columns for all trips (and people without any trips)
 raw_data$id <- 1:nrow(raw_data)
@@ -95,7 +95,7 @@ individual_mmet_sc$total_mmet <- ifelse(is.na(individual_mmet_sc$total_mmet), 0,
 sc_mmet <- individual_mmet_sc  %>% group_by(female, agecat_det) %>% summarise(mean = mean(total_mmet))
 
 # Read DR data
-mmet2RR_mat <- read.csv("PA/data/MA-all-cause-mortality-RRs.csv", header = T, as.is = T)
+mmet2RR_mat <- read.csv("data/dose_response/MA-all-cause-mortality-RRs.csv", header = T, as.is = T)
 
 # Append scenario's mmet to baseline's mmet
 individual_mmet <- dplyr::left_join(individual_mmet, by = "census_id", individual_mmet_sc %>% mutate (total_mmet_sc = total_mmet) %>% select(census_id, total_mmet_sc))
@@ -121,7 +121,7 @@ pif$gender <- ifelse(pif$gender == 1, "Female", "Male")
 pif$age.band[pif$age.band == "16 to 19"] <- "15 to 19"
 
 # Read gbd data
-gbd_data <- read_csv("PA/data/IHME_GBD_2016_DATA.csv")
+gbd_data <- read_csv("data/gbd/england/IHME_GBD_2016_DATA.csv")
 
 # No need to arrange
 # gbd_data <- arrange(gbd_data, measure, age, sex)
