@@ -130,3 +130,7 @@ yll_dfs <- combine_health_and_pif(pif, gbd_data, "YLLs (Years of Life Lost)", c(
 yll <- as.data.frame(yll_dfs[1])
 yll_red <- as.data.frame(yll_dfs[2])
 
+death_dfs <- combine_health_and_pif(pop = pif, gbd_data, "Deaths", c("total_mmet", "total_mmet_sc"))
+
+death <- as.data.frame(death_dfs[1])
+death_red <- as.data.frame(death_dfs[2])
