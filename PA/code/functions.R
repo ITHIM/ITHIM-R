@@ -118,7 +118,7 @@ combine_health_and_pif <- function(pop, hc, hm, cn){
           
           baseline_val <- filter(m, gender == m$gender[new_row] & age.band ==  m$age.band[new_row]) %>% select(cn[1]) %>% as.double()
           
-          cat(m$gender[new_row], " - ", m$age.band[new_row], " - pif - ", val, " - gbd - ", as.numeric(sub$val), " - mmet - ", baseline_val, "\n")
+          # cat(m$gender[new_row], " - ", m$age.band[new_row], " - pif - ", val, " - gbd - ", as.numeric(sub$val), " - mmet - ", baseline_val, "\n")
           # browser()
           
           n[n$gender == n$gender[new_row] & n$age.band ==  n$age.band[new_row], ][[cn[i]]] <- 
