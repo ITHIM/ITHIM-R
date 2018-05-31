@@ -126,11 +126,16 @@ gbd_data <- read_csv("data/gbd/england/IHME_GBD_2016_DATA.csv")
 # No need to arrange
 # gbd_data <- arrange(gbd_data, measure, age, sex)
 
+# Get both ylls and yll_red together
 yll_dfs <- combine_health_and_pif(pif, gbd_data, "YLLs (Years of Life Lost)", c("total_mmet", "total_mmet_sc"))
+# Subset to get yll
 yll <- as.data.frame(yll_dfs[1])
+# Subset to get yll_reductions
 yll_red <- as.data.frame(yll_dfs[2])
 
+# Get both deaths and in reduction in deaths
 death_dfs <- combine_health_and_pif(pop = pif, gbd_data, "Deaths", c("total_mmet", "total_mmet_sc"))
-
+# Subset to get deaths
 death <- as.data.frame(death_dfs[1])
+# Subset to get reduciton in deaths
 death_red <- as.data.frame(death_dfs[2])
