@@ -126,4 +126,7 @@ gbd_data <- read_csv("PA/data/IHME_GBD_2016_DATA.csv")
 # No need to arrange
 # gbd_data <- arrange(gbd_data, measure, age, sex)
 
-yll_dfs <- combine_health_and_pif(pif, gbd_data, "YLLs (Years of Life Lost)")
+yll_dfs <- combine_health_and_pif(pif, gbd_data, "YLLs (Years of Life Lost)", c("total_mmet", "total_mmet_sc"))
+yll <- as.data.frame(yll_dfs[1])
+yll_red <- as.data.frame(yll_dfs[2])
+
