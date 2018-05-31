@@ -3,6 +3,8 @@ rm (list = ls())
 # Load packages
 library(tidyverse)
 library(haven)
+library(plotly)
+
 
 #Set seed
 set.seed(1)
@@ -127,15 +129,25 @@ gbd_data <- read_csv("data/gbd/england/IHME_GBD_2016_DATA.csv")
 # gbd_data <- arrange(gbd_data, measure, age, sex)
 
 # Get both ylls and yll_red together
-yll_dfs <- combine_health_and_pif(pif, gbd_data, "YLLs (Years of Life Lost)", c("total_mmet", "total_mmet_sc"))
+yll_dfs <- combine_health_and_pif(pop = pif, hc = gbd_data, hm = "YLLs (Years of Life Lost)", cn = c("total_mmet", "total_mmet_sc"))
 # Subset to get yll
 yll <- as.data.frame(yll_dfs[1])
 # Subset to get yll_reductions
 yll_red <- as.data.frame(yll_dfs[2])
 
+# Plot yll_red
+ggplotly(ggplot(yll_red, aes(x = age.band, y = total_mmet_sc, fill = gender)) + 
+           geom_col(position = "dodge") + 
+           xlab("\nAge Groups\n") +
+           ylab("\nYLL Reduction (%) \n") +
+           labs(title = "YLL Reductions for scenario")
+         )
+
+
 # Get both deaths and in reduction in deaths
-death_dfs <- combine_health_and_pif(pop = pif, gbd_data, "Deaths", c("total_mmet", "total_mmet_sc"))
+death_dfs <- combine_health_and_pif(pop = pif, hc = gbd_data, hm = "Deaths", cn = c("total_mmet", "total_mmet_sc"))
 # Subset to get deaths
 death <- as.data.frame(death_dfs[1])
 # Subset to get reduciton in deaths
 death_red <- as.data.frame(death_dfs[2])
+
