@@ -97,14 +97,8 @@ combine_health_and_pif <- function(pop, hc, hm, cn){
   # hc <- gbd_data
   # hm <- "YLLs (Years of Life Lost)"
   
-  
-  # pop <- pif
-  # hc <- gbd_data
-  # hm <- "YLLs (Years of Life Lost)"
-  
   m <- pop
   n <- pop
-  #cn <- c("total_mmet", "total_mmet_sc")
   
   for (i in 1:length(cn)){
     for (j in 1:nrow(m)){
