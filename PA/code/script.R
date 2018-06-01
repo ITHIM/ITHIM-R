@@ -12,6 +12,9 @@ set.seed(1)
 # Load all functions
 source("PA/code/functions.R")
 
+# Sample size for scenario
+sample_size <- 110
+
 # Constants
 # Initialize  energy expenditure constants - taken from ICT
 METCycling <- 5.63
@@ -70,7 +73,7 @@ b_mmet <- individual_mmet  %>% group_by(female, agecat_det) %>% summarise(mean =
 
 # Sample 100 unique individual IDs
 # Select non-cycling trips for the 10k people
-sc <- baseline %>% filter(trip_mainmode != (filter(lt, names == 'trip_mainmode' & val == 'Bicycle') %>% distinct(id) %>% as.integer()) & census_id %in% sample(unique(census_id), 100))
+sc <- baseline %>% filter(trip_mainmode != (filter(lt, names == 'trip_mainmode' & val == 'Bicycle') %>% distinct(id) %>% as.integer()) & census_id %in% sample(unique(census_id), sample_size))
 # Convert those trips to cycling
 sc$trip_mainmode <- filter(lt, names == 'trip_mainmode' & val == 'Bicycle') %>% distinct(id) %>% as.integer()
 # Create trip_cycletime_hr by dividing trip_cycletime_min by 60
@@ -136,12 +139,19 @@ yll <- as.data.frame(yll_dfs[1])
 yll_red <- as.data.frame(yll_dfs[2])
 
 # Plot yll_red
-ggplotly(ggplot(yll_red, aes(x = age.band, y = total_mmet_sc, fill = gender)) + 
+ggsave(filename = paste0("sc", sample_size, ".png"), 
+       
+       
+       ggplot(yll_red, aes(x = age.band, y = total_mmet_sc, fill = gender)) + 
            geom_col(position = "dodge") + 
            xlab("\nAge Groups\n") +
            ylab("\nYLL Reduction (%) \n") +
-           labs(title = "YLL Reductions for scenario")
-         )
+           labs(title = paste("YLL Reductions for scenario - ", sample_size)) +
+           scale_y_continuous(limits = c(0, 0.03)),
+       width = 10, height = 4, dpi = 300, units = "in", device='png'
+)
+         
+
 
 
 # Get both deaths and in reduction in deaths
