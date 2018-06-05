@@ -71,15 +71,13 @@ GBD_population <- filter(GBDdata, measure == "deaths", cause == "all causes",
                                                                             sex_age_cat, location)
 
 
-
-
 # ---- chunk-10 ----
 
 for (i in 1:nrow(GBD_population)) {
-  if (GBD_population$metric[i] == "number") {
-    GBD_population$five_year_population[i] <- GBD_population$val[i] * 100000/
-      GBD_population$val[i + 2]}
-  else {GBD_population$five_year_population[i] <- NA}
+  if (GBD_population$metric[i] == "number") 
+    GBD_population$five_year_population[i] <- GBD_population$val[i] * 100000/ GBD_population$val[i + 2]
+  else
+    GBD_population$five_year_population[i] <- NA
 }
 
 
