@@ -28,7 +28,8 @@ GBDdata <- read.csv("data/legacy/UK/gbd2016.csv", stringsAsFactors = F)
 
 # ---- chunk-5 ----
 GBDdata <- mutate_all(GBDdata, funs(tolower))
-GBDdata$measure[GBDdata$measure=="ylds (years lived with disability)"] <- "ylds"
+
+GBDdata <- GBDdata %>% mutate(measure = ifelse(measure == "ylds (years lived with disability)", "ylds", measure))
 
 # ---- chunk-6 ----
 # 22, 27, 32, 37, 42, 47, 52, 57, 62, 67, 72, 77, 82, 87, 92, 97
