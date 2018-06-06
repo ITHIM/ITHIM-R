@@ -116,7 +116,7 @@ run_disease <- function(in_idata, in_mid_age, in_sex, in_disease)
   
   # filter in_idata by age and select columns for lifetable calculations
   dlt_df <- filter(in_idata, age >= in_mid_age & sex == in_sex) %>% 
-  select(sex, age, dw_disease, incidence_disease, case_fatality_disease)
+    select(sex, age, dw_disease, incidence_disease, case_fatality_disease)
   
   dlt_df$disease <- in_disease
   
@@ -299,7 +299,7 @@ run_pif <- function(in_idata, i_irr, i_exposure, in_mid_age, in_sex, in_disease,
   
   pif_df <-  inner_join(pif_df, i_exposure, by = c("sex_age_cat" = "sex_age_cat") , copy = FALSE)
   
- 
+  
   # we need to adapt to ITHIMR developments. REPLACE DATA FRAME FROM WHICH PREVALENCE OF PA IS TAKEN
   
   pif_df$pif <- 1-(pif_df$sc_rr_inactive *pif_df$inactive +
@@ -354,10 +354,10 @@ plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend =
   }
   
   p <- p + scale_color_discrete(name = paste(in_legend), labels = c("Baseline", "Difference", "Scenario")) +
-  theme(legend.title = element_text(size = 9))
+    theme(legend.title = element_text(size = 9))
   
   p <- p + xlab ('Age') + ylab ('Cases') + labs (title = ifelse(length(in_disease) > 0, 
-        in_disease, paste('Cohort', in_age, "years old", in_population, sep = " "))) +
+                                                                in_disease, paste('Cohort', in_age, "years old", in_population, sep = " "))) +
     theme(plot.title = element_text(hjust = 0.5, size = 9)) +
     theme(legend.text = element_text(size = 9)) +
     # theme(axis.title.x = element_text(size = 7)) +
@@ -366,9 +366,9 @@ plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend =
   
   
   return(p)
-
   
-
+  
+  
 }
 
 
@@ -480,25 +480,25 @@ get_qualified_disease_name <- function (disease){
 
 
 plot_GBD <- function(in_data1, in_data2, in_sex, in_cause, in_measure) {
-   
-# in_data1 <- GBDEngland
-# in_data2 <- GBDGL
-# in_sex <- "male"
-# in_cause <- "all causes"
-# in_measure <- "deaths"
-
-
-data1 <- filter(in_data1, sex == in_sex, cause == in_cause & measure == in_measure) %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat)     
-                     
-data2 <- filter(in_data2, sex == in_sex, cause == in_cause & measure == in_measure) %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat)     
-
   
-          p <- ggplot(data = data1, aes(age_cat,one_rate)) +
-            geom_line(aes(color = "England"))+
-            geom_line(data = data2, aes(color = "Greater London"))+
-            labs(colour="Locations",x="Age",y= paste(in_cause, in_measure, sep = " "))+
-            labs (title = paste("Compare", in_cause, in_measure, in_sex, sep = " "), size=14) + 
-            theme_classic()
-          print(p)
+  # in_data1 <- GBDEngland
+  # in_data2 <- GBDGL
+  # in_sex <- "male"
+  # in_cause <- "all causes"
+  # in_measure <- "deaths"
+  
+  
+  data1 <- filter(in_data1, sex == in_sex, cause == in_cause & measure == in_measure) %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat)     
+  
+  data2 <- filter(in_data2, sex == in_sex, cause == in_cause & measure == in_measure) %>% select(measure, location, sex, age, metric, cause, one_rate, age_cat)     
+  
+  
+  p <- ggplot(data = data1, aes(age_cat,one_rate)) +
+    geom_line(aes(color = "England"))+
+    geom_line(data = data2, aes(color = "Greater London"))+
+    labs(colour="Locations",x="Age",y= paste(in_cause, in_measure, sep = " "))+
+    labs (title = paste("Compare", in_cause, in_measure, in_sex, sep = " "), size=14) + 
+    theme_classic()
+  print(p)
 }
 
