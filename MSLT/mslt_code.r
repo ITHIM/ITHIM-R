@@ -80,8 +80,6 @@ for (i in 1:nrow(GBD_population)) {
     GBD_population$five_year_population[i] <- NA
 }
 
-
-
 # ---- chunk-11 ----
 
 GBD_population <- GBD_population[!is.na(GBD_population$five_year_population),]
@@ -91,7 +89,6 @@ GBD_population <- GBD_population[!is.na(GBD_population$five_year_population),]
 
 GBD_population <- filter(GBD_population) %>%
   select(sex_age_cat, sex, age_cat, five_year_population, location)
-
 
 
 # ---- chunk-13 ----
@@ -125,19 +122,19 @@ index <- 1
 
 for(sex_index in i_sex) {
   for (measure_index in i_measure) {
-
+    
     data <- filter(GBDGL, measure == measure_index, sex == sex_index,
                    cause == "all causes") %>% select(measure, location, sex, age, metric,
                                                      cause, val, age_cat, one_rate)
     assign(paste(sex_index, measure_index, "interpolated_data", sep = "_"), data)
-    x=data$age_cat
-    y=log(data$one_rate)
-
-
-    interpolation_func <- splinefun(x, y, method = "natural", ties = mean)
-
+    x <- data$age_cat
+    y <- log(data$one_rate)
+    
+    
+    interpolation_func <- stats::splinefun(x, y, method = "natural", ties = mean)
+    
     interpolated <- as.data.frame(interpolation_func(seq(0, 100, 1)))
-    age <- seq(0,100,by=1)
+    age <- seq(0, 100, by = 1)
     interpolated <- cbind(interpolated, age)
     interpolated[,1] <- exp(interpolated[,1])
     colnames(interpolated)[1] <- paste(measure_index)
@@ -146,15 +143,15 @@ for(sex_index in i_sex) {
     interpolated$sex_age_cat <- paste(interpolated$sex, interpolated$age, sep = "_")
     ## Change name of column death to mx and ylds to pyld_rate to then merge
     ## with input_life table
-
+    
     if (colnames(interpolated)[1] == "deaths")
       colnames(interpolated)[1] <- paste("mx")
     else
       colnames(interpolated)[1] <- paste("pyld_rate")
-
+    
     # Name data frame
     assign(paste(sex_index, measure_index, "interpolated", sep = "_"), interpolated)
-
+    
   }
 }
 
@@ -167,8 +164,8 @@ interpolation_index <- 1
 
 for(sex_index in i_sex) {
   for (measure_index in i_measure) {
-
-
+    
+    
     p_interpolation_index <- ggplot(data = interpolated,mapping = aes(age, interpolated[,1])) +
       geom_line(aes(color = "Interpolated")) +
       geom_point(
@@ -179,10 +176,10 @@ for(sex_index in i_sex) {
                           measure_index, sep = " "), size=14) +
       theme_classic() +
       theme (plot.title = element_text(hjust = 0.5))
-
+    
     p_interpolation_list[[interpolation_index]] <- p_interpolation_index
     interpolation_index <- interpolation_index + 1
-
+    
   }
 }
 
@@ -335,17 +332,17 @@ index <- 1
 for (age in i_age_cohort){
   for (sex in i_sex){
     for (disease in i_disease) {
-
+      
       # Exclude breast_cancer for Males
       if (sex == "male" && disease == "breast_cancer"){
         # cat("\n") # Uncomment to see list
       }
       else {
-
+        
         incidence_sc[[index]] <- disease_life_table_list_bl[[index]]$incidence_disease *
           incidence_change
         index <- index + 1
-
+        
       }
     }
   }
@@ -373,7 +370,7 @@ for (age in i_age_cohort){
         # modify idata's incidence for the said scenario
         td1 <- idata
         td1[td1$age >= age & td1$sex == sex,][[paste("incidence", disease, sep = "_")]] <- incidence_sc[[index]]
-
+        
         # Instead of idata, feed td to run scenarios
         disease_life_table_list_sc[[index]] <- run_disease(in_idata = td1, in_sex = sex,
                                                            in_mid_age = age, in_disease = disease)
@@ -411,12 +408,12 @@ for (age in i_age_cohort){
   for (sex in i_sex){
     mortality_sum <- NULL
     create_new <- T
-
+    
     for (disease in i_disease) {
       if (sex == "male" && disease == "breast_cancer"){
         # cat("\n")
       }else{
-
+        
         if (create_new){
           mortality_sum <- select(disease_life_table_list_sc[[index]],
                                   c('age', 'sex'))
@@ -428,13 +425,13 @@ for (age in i_age_cohort){
           mortality_sum$total <- mortality_sum$total +
             (disease_life_table_list_sc[[index]]$diff_mort_disease)
         }
-
+        
         # cat(age, " - ", sex," - ",  disease," - ",  index, " - ", l_index,  "\n")
         index <- index + 1
       }
     }
     mx_sc_total[[l_index]] <- mortality_sum
-
+    
     l_index <- l_index + 1
   }
 }
@@ -452,12 +449,12 @@ for (age in i_age_cohort){
   for (sex in i_sex){
     pylds_sum <- NULL
     create_new <- T
-
+    
     for (disease in i_disease) {
       if (sex == "male" && disease == "breast_cancer"){
         # cat("\n")
       }else{
-
+        
         if (create_new){
           pylds_sum <- select(disease_life_table_list_sc[[index]], c('age', 'sex'))
           pylds_sum$total <- 0
@@ -468,11 +465,11 @@ for (age in i_age_cohort){
           pylds_sum$total <- pylds_sum$total +
             (disease_life_table_list_sc[[index]]$diff_pylds_disease)
         }
-
+        
         # cat(age, " - ", sex," - ",  disease," - ",  index, " - ", l_index,  "\n")
         index <- index + 1
       }
-
+      
     }
     pylds_sc_total[[l_index]] <- pylds_sum
     l_index <- l_index + 1
@@ -494,21 +491,21 @@ index <- 1
 
 for (age in i_age_cohort){
   for (sex in i_sex){
-
-
+    
+    
     # cat("age ", age, " and sex ", sex, "\n")
     # modify idata's mortality and pyld total for the said scenario
     td2 <- input_life_table
     # td2 <- subset(td2, select = -c(mx, pyld_rate))
     td2[td2$age >= age & td2$sex == sex,][[paste("mx")]] <- general_life_table_list_bl[[index]]$mx + mx_sc_total[[index]]$total
     td2[td2$age >= age & td2$sex == sex,][[paste("pyld_rate")]] <- general_life_table_list_bl[[index]]$pyld_rate + pylds_sc_total[[index]]$total
-
-
+    
+    
     # Instead of idata, feed td to run scenarios
     general_life_table_list_sc[[index]] <- run_life_table(in_idata = td2, in_sex = sex, in_mid_age = age)
     #
-
-
+    
+    
     index <- index + 1
   }
 }
@@ -532,16 +529,16 @@ l_index <- 1
 index <- 1
 for (age in i_age_cohort){
   for (sex in i_sex){
-
+    
     # Males do not have breast cancer, that is why we need the if/else.
     # We create a TRUE/FALSE variable for the loop to move into the next disease
-
+    
     create_new <- T
     for (disease in i_disease) {
       if (sex == "male" && disease == "breast_cancer"){
         # cat("\n")
       }else{
-
+        
         if (create_new){
           output_burden_sc <- select(disease_life_table_list_sc[[index]],
                                      c('age', 'sex', 'incidence_disease', 'mx', 'px'))
@@ -559,11 +556,11 @@ for (age in i_age_cohort){
             paste('mx', disease, "bl", sep = "_")
           names(output_burden_bl)[names(output_burden_bl) == 'px'] <-
             paste('px', disease, "bl", sep = "_")
-
+          
           ## New list to add calculations for changes in burden of disease (incidence and mortality numbers)
-
+          
           output_burden_change <- list()
-
+          
           output_burden_change$inc_num_bl <- disease_life_table_list_bl[[index]]$incidence_disease *
             (1 - disease_life_table_list_bl[[index]]$px) * general_life_table_list_bl[[l_index]]$Lx
           output_burden_change$inc_num_sc <- disease_life_table_list_sc[[index]]$incidence_disease *
@@ -571,11 +568,11 @@ for (age in i_age_cohort){
           output_burden_change$inc_num_diff <- (disease_life_table_list_sc[[index]]$incidence_disease *
                                                   (1 - disease_life_table_list_sc[[index]]$px) * general_life_table_list_sc[[l_index]]$Lx) - (disease_life_table_list_bl[[index]]$incidence_disease * (1 - disease_life_table_list_bl[[index]]$px)
                                                                                                                                               * general_life_table_list_bl[[l_index]]$Lx)
-
+          
           output_burden_change$mx_num_bl <- disease_life_table_list_bl[[index]]$mx * general_life_table_list_bl[[l_index]]$Lx
           output_burden_change$mx_num_sc <- disease_life_table_list_sc[[index]]$mx * general_life_table_list_sc[[l_index]]$Lx
           output_burden_change$mx_num_diff <- (disease_life_table_list_sc[[index]]$mx * general_life_table_list_sc[[l_index]]$Lx) - (disease_life_table_list_bl[[index]]$mx * general_life_table_list_bl[[l_index]]$Lx)
-
+          
           names(output_burden_change)[names(output_burden_change) == 'inc_num_bl'] <-
             paste('inc_num_bl', disease, sep = "_")
           names(output_burden_change)[names(output_burden_change) == 'inc_num_sc'] <-
@@ -588,18 +585,18 @@ for (age in i_age_cohort){
             paste('mx_num_sc', disease, sep = "_")
           names(output_burden_change)[names(output_burden_change) == 'mx_num_diff'] <-
             paste('mx_num_diff', disease, sep = "_")
-
+          
           ## Bind all lists
-
+          
           output_burden_sc <- cbind(output_burden_sc, output_burden_bl)
           output_burden_sc <- cbind(output_burden_sc, output_burden_change)
-
+          
           create_new <- F
-
+          
           ## Here the calculations above are repeated, here is where the F is telling to move into the next disease
-
+          
         }else{
-
+          
           td3 <- select(disease_life_table_list_sc[[index]],
                         c('incidence_disease', 'mx', 'px'))
           names(td3)[names(td3) == 'incidence_disease'] <-
@@ -608,7 +605,7 @@ for (age in i_age_cohort){
             paste('mx', disease, "sc", sep = "_")
           names(td3)[names(td3) == 'px'] <-
             paste('px', disease, "sc", sep = "_")
-
+          
           td4 <- select(disease_life_table_list_bl[[index]],
                         c('incidence_disease', 'mx', 'px'))
           names(td4)[names(td4) == 'incidence_disease'] <-
@@ -617,17 +614,17 @@ for (age in i_age_cohort){
             paste('mx', disease, "bl", sep = "_")
           names(td4)[names(td4) == 'px'] <-
             paste('px', disease, "bl", sep = "_")
-
+          
           output_burden_change2 <- list()
-
+          
           output_burden_change2$inc_num_bl <- disease_life_table_list_bl[[index]]$incidence_disease * (1 - disease_life_table_list_bl[[index]]$px) * general_life_table_list_bl[[l_index]]$Lx
           output_burden_change2$inc_num_sc <- disease_life_table_list_sc[[index]]$incidence_disease * (1 - disease_life_table_list_sc[[index]]$px) * general_life_table_list_sc[[l_index]]$Lx
           output_burden_change2$inc_num_diff <- (disease_life_table_list_sc[[index]]$incidence_disease * (1 - disease_life_table_list_sc[[index]]$px) * general_life_table_list_sc[[l_index]]$Lx) - (disease_life_table_list_bl[[index]]$incidence_disease * (1 - disease_life_table_list_bl[[index]]$px) * general_life_table_list_bl[[l_index]]$Lx)
-
+          
           output_burden_change2$mx_num_bl <- disease_life_table_list_bl[[index]]$mx * general_life_table_list_bl[[l_index]]$Lx
           output_burden_change2$mx_num_sc <- disease_life_table_list_sc[[index]]$mx * general_life_table_list_sc[[l_index]]$Lx
           output_burden_change2$mx_num_diff <- (disease_life_table_list_sc[[index]]$mx * general_life_table_list_sc[[l_index]]$Lx) - (disease_life_table_list_bl[[index]]$mx * general_life_table_list_bl[[l_index]]$Lx)
-
+          
           names(output_burden_change2)[names(output_burden_change2) == 'inc_num_bl'] <-
             paste('inc_num_bl', disease, sep = "_")
           names(output_burden_change2)[names(output_burden_change2) == 'inc_num_sc'] <-
@@ -640,43 +637,43 @@ for (age in i_age_cohort){
             paste('mx_num_sc', disease, sep = "_")
           names(output_burden_change2)[names(output_burden_change2) == 'mx_num_diff'] <-
             paste('mx_num_diff', disease, sep = "_")
-
-
+          
+          
           ## Bind all lists
-
+          
           output_burden_sc <- cbind(output_burden_sc, td3)
           output_burden_sc <- cbind(output_burden_sc, td4)
           output_burden_sc$age_cohort <- age
           output_burden_sc <- cbind(output_burden_sc, output_burden_change2)
-
+          
         }
-
+        
         # cat(age, " - ", sex," - ",  disease," - ",  index, " - ", l_index,  "\n")
         index <- index + 1
       }
-
+      
     }
-
+    
     ## general_life_table_list_sc and general_life_table_list_bl (Lx)
     output_burden_lf_sc <- select(general_life_table_list_sc[[l_index]], c('Lx', 'Lwx'))
     names(output_burden_lf_sc)[names(output_burden_lf_sc) == 'Lx'] <- paste('Lx', "sc", sep = "_")
     names(output_burden_lf_sc)[names(output_burden_lf_sc) == 'Lwx'] <- paste('Lwx', "sc", sep = "_")
-
+    
     output_burden_lf_bl <- select(general_life_table_list_bl[[l_index]], c('Lx', 'Lwx'))
     names(output_burden_lf_bl)[names(output_burden_lf_bl) == 'Lx'] <- paste('Lx', "bl", sep = "_")
     names(output_burden_lf_bl)[names(output_burden_lf_bl) == 'Lwx'] <- paste('Lwx', "bl", sep = "_")
-
-
+    
+    
     output_burden_lf_sc$Lx_diff <- general_life_table_list_bl[[l_index]]$Lx - general_life_table_list_sc[[l_index]]$Lx
     output_burden_lf_sc$Lwx_diff <- general_life_table_list_bl[[l_index]]$Lwx - general_life_table_list_sc[[l_index]]$Lwx
-
+    
     output_burden_sc <- cbind(output_burden_sc, output_burden_lf_sc)
     output_burden_sc <- cbind(output_burden_sc, output_burden_lf_bl)
-
-
+    
+    
     output_burden[[l_index]] <- output_burden_sc
     l_index <- l_index + 1
-
+    
   }
 }
 
@@ -720,53 +717,53 @@ for (age in i_age_cohort){
   for (sex in i_sex) {
     for (outcome in i_outcome) {
       for (disease in i_disease){
-
+        
         if (sex == "male" && disease == "breast_cancer"){
           # cat("\n")
         }else{
-
+          
           p_index  <- plot_output(in_data = output_df, in_age = age, in_population = sex, in_outcomes = c("age", paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")), in_disease = get_qualified_disease_name(disease))
-
+          
           if (sex == "male"){
-
+            
             p_list_male[[male_index]] <- p_index
-
+            
             if (male_index %% 4 == 0 && male_index > 0){
-
+              
               p1 <- p_list_male[[male_index - 3]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
               p2 <- p_list_male[[male_index - 2]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
               p3 <- p_list_male[[male_index - 1]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
               p4 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
-
+              
               jpeg(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".jpeg"))
               grid_arrange_shared_legend (p1, p2, p3, p4, ncol = 2, nrow = 2, mainTitle = paste(ifelse(outcome == "mx", "Deaths", "Incidence"), sex, "cohort mid age", age),
                                           mainLeft = 'Cases', mainBottom = 'Age')
               dev.off()
-
+              
             }
-
+            
             male_index <- male_index + 1
-
+            
           }
-
+          
           if (sex == "female" && female_index > 0){
             p_list_female[[female_index]] <- p_index
-
+            
             if (female_index %% 5 == 0){
               p1 <- p_list_female[[female_index - 4]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
               p2 <- p_list_female[[female_index - 3]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
               p3 <- p_list_female[[female_index - 2]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
               p4 <- p_list_female[[female_index - 1]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
               p5 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
-
+              
               jpeg(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".jpeg"))
               grid_arrange_shared_legend (p1, p2, p3, p4, p5, ncol = 2, nrow = 3, mainTitle = paste(ifelse(outcome == "mx", "Deaths", "Incidence"), sex, "cohort mid age", age), mainLeft = 'Cases', mainBottom = 'Age')
               dev.off()
-
+              
             }
             female_index <- female_index + 1
           }
-
+          
         }
       }
     }
@@ -810,16 +807,16 @@ index <- 1
 
 for (outcome in i_outcome) {
   for (disease in i_disease) {
-
+    
     aggregate_frame_males[[index]] <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "male", in_outcomes = c(paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")))
-
+    
     aggregate_frame_females[[index]] <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "female", in_outcomes = c(paste(outcome, "num", "bl", disease, sep = "_"), paste(outcome, "num", "sc", disease, sep = "_"), paste(outcome, "num", "diff", disease, sep = "_")))
-
+    
     # Remove non-numeric columns starting with age and sex
     aggregate_frame_males[[index]] <- aggregate_frame_males[[index]] %>% select(-starts_with("age"), -starts_with("sex"))
-
+    
     aggregate_frame_females[[index]] <- aggregate_frame_females[[index]] %>% select(-starts_with("age"), -starts_with("sex"))
-
+    
     index <- index + 1
   }
 }
@@ -835,16 +832,16 @@ aggregate_frame_males2 <- list()
 aggregate_frame_females2 <- list()
 
 for (i in i_outcome2){
-
+  
   aggregate_frame_males2[[i]] <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "male", in_outcomes = c(paste(i, "bl", sep = "_"), paste(i, "sc", sep = "_"), paste(i, "diff",sep = "_")))
-
+  
   aggregate_frame_females2[[i]] <- gen_aggregate(in_data = output_df, in_cohorts = 16, in_population = "female", in_outcomes = c(paste(i, "bl", sep = "_"), paste(i,  "sc", sep = "_"), paste(i, "diff",sep = "_")))
-
-
+  
+  
   aggregate_frame_males2[[i]] <- aggregate_frame_males2[[i]] %>% select(-starts_with("age"), -starts_with("sex"))
-
+  
   aggregate_frame_females2[[i]] <- aggregate_frame_females2[[i]] %>% select(-starts_with("age"), -starts_with("sex"))
-
+  
 }
 
 ## Uncomment to check data frames (list correspond to a disease and outcome combination, for example,
@@ -925,9 +922,9 @@ for (outcome in i_outcome) {
   for (disease in i_disease) {
     # outcome <- i_outcome[1]
     # disease <- i_disease[1]
-
+    
     p_aggr_list_index <- ggplot(total_aggr[1:79,], aes(x = total_aggr[["sim_year"]])) +
-
+      
       geom_line(mapping = aes(y = total_aggr[[paste("total", outcome, "num_bl", disease, sep = "_")]], colour = paste("total", outcome, "num_bl", disease, sep = "_"))) +
       theme_classic() +
       geom_hline(yintercept=0, linetype="dashed", color = "black") +
@@ -939,8 +936,8 @@ for (outcome in i_outcome) {
       theme(plot.title = element_text(hjust = 0.5))
     p_aggr_list[[index]] <- p_aggr_list_index
     index <- index + 1
-
-
+    
+    
   }
 }
 
