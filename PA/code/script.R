@@ -38,6 +38,11 @@ lt <- arrange(lt, names, id)
 # Select trips for the 10k people
 baseline <- raw_data %>% filter(census_id %in% sample(unique(census_id), 1000)) 
 
+lbls <- as.character(unique(as_factor(baseline$trip_mainmode, labels = "values")))
+
+ggplot(baseline, aes (x = as_factor(trip_mainmode, labels = "values"))) + geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
 # Remove labels
 baseline <- clear.labels(baseline)
 # Replace NAs with 0
@@ -89,6 +94,11 @@ individual_mmet_sc <- nbaseline %>% group_by(census_id) %>% summarise (female = 
                                                                    cycleNTS_wkhr = sum(trip_cycletime_hr),
                                                                    walkNTS_wkhr = sum(trip_walktime_hr),
                                                                    sport_wkmmets = first(sport_wkmmets))
+
+
+ggplot(nbaseline, aes (x = trip_mainmode)) + geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
 
 # Calculate individual sum of mmets for the scenario
 individual_mmet_sc$total_mmet <- ((METCycling - 1) * individual_mmet_sc$cycleNTS_wkhr) + 
@@ -150,8 +160,6 @@ ggsave(filename = paste0("sc", sample_size, ".png"),
            scale_y_continuous(limits = c(0, 0.03)),
        width = 10, height = 4, dpi = 300, units = "in", device='png'
 )
-         
-
 
 
 # Get both deaths and in reduction in deaths
@@ -160,4 +168,3 @@ death_dfs <- combine_health_and_pif(pop = pif, hc = gbd_data, hm = "Deaths", cn 
 death <- as.data.frame(death_dfs[1])
 # Subset to get reduciton in deaths
 death_red <- as.data.frame(death_dfs[2])
-
