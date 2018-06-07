@@ -22,7 +22,7 @@ METWalking <- 3.53
 METEbikes <- 4.50
 
 # Read combined individual travel survey and Physical Activity data
-raw_data <- haven::read_dta("data/PA/england/synthetic_population/SPtrip_CensusNTSAPS_E06000001.dta")
+raw_data <- haven::read_dta("data/synth_pop_data/england/SPtrip_CensusNTSAPS_E06000001.dta")
 
 # Create id columns for all trips (and people without any trips)
 raw_data$id <- 1:nrow(raw_data)

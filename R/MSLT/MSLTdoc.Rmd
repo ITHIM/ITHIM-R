@@ -8,6 +8,7 @@ header-includes:
     - \usepackage{pdflscape}
     - \newcommand{\blandscape}{\begin{landscape}}
     - \newcommand{\elandscape}{\end{landscape}}
+
 output:
    pdf_document: 
      toc: true
@@ -267,6 +268,7 @@ These data should be used to generate the general life table and disease life ta
 11) Remove rows with zero
 ```{r chunk-11}
 ```
+
 12) Keep relevant variables
 ```{r chunk-12}
 ```
@@ -359,5 +361,6 @@ knitr::include_graphics(graphs_doc[c(1:64)])
 The disease model used in each of the disease life table is not directly applicable to road injuries, however, similar concept can be follow. Firstly, changes in road fatalities impact on the overall mortality rate, hence, by knowing the road fatality rates for baseline and scenarios, we will be able to incorporate changes to mortality attributable to road fatalities. For road injuries, methods developed by Kavi Bhalla and Marko Tanio (REFS) that derive the average YLD attributable to life long and short term injuries can be applied to derive the change in total YLDs (CHECK THAT THESE WERE DEVELOPED AS INCIDENCE YLDs).MT's methods assumes that injuries do not reduce the life expectancy of the injured person. 
 
 #References
+
 
 
