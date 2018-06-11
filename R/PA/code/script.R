@@ -10,7 +10,7 @@ library(plotly)
 set.seed(1)
 
 # Load all functions
-source("PA/code/functions.R")
+source("R/PA/code/functions.R")
 
 # Sample size for scenario
 sample_size <- 110
@@ -110,7 +110,7 @@ individual_mmet_sc$total_mmet <- ifelse(is.na(individual_mmet_sc$total_mmet), 0,
 sc_mmet <- individual_mmet_sc  %>% group_by(female, agecat_det) %>% summarise(mean = mean(total_mmet))
 
 # Read DR data
-mmet2RR_mat <- read.csv("data/dose_response/MA-all-cause-mortality-RRs.csv", header = T, as.is = T)
+mmet2RR_mat <- read.csv("data/dose_response/PA/all_cause/MA-all-cause-mortality-RRs.csv", header = T, as.is = T)
 
 # Append scenario's mmet to baseline's mmet
 individual_mmet <- dplyr::left_join(individual_mmet, by = "census_id", individual_mmet_sc %>% mutate (total_mmet_sc = total_mmet) %>% select(census_id, total_mmet_sc))
