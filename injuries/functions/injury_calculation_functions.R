@@ -23,20 +23,28 @@ getModelFits <- function(object_store,input){
   ## recompute if SIN, data, model changed
   ## could keep same formula?
   ## resummarise if lq, uq, SIN uncertainty, reporting rate changed
-  object_store$lq <- input$lq
-  object_store$uq <- input$uq
+  
+  
+  ## process data if they haven't been processed yet
   if(is.null(object_store$scenario_tabs)){
     object_store <- processData(object_store)
   }
+  
+  ## fit models if they haven't been fit yet
   if(is.null(object_store$fit_whw)&&is.null(object_store$fit_nov)){
     object_store <- fitModel(object_store,input)
-  }else{
-    if((as.numeric(object_store$model=='poisson')==as.numeric(object_store$fit_whw[[1]]$family$family=='poisson'))){
-      object_store$scenario_tabs <- get_scenarios(object_store)
-    }else{
+  }else{ ## re-fit models if model type or sin have changed
+    if((as.numeric(object_store$model=='poisson')!=as.numeric(object_store$fit_whw[[1]]$family$family=='poisson'))||
+        input$sin!=object_store$sin ){
       object_store <- fitModel(object_store,input)
-    }
+    #}else{
+    #  object_store$scenario_tabs <- get_scenarios(object_store)
+    }##TODO}else{ if 
+      #(quantiles in the model different from quantile inputs and sin T/F in the model different from sin T/F in the inputs)
+      #calculateModels
+    
   }
+  
   object_store$summary_table <- assemble_output(object_store,input)
   object_store
 }
@@ -181,11 +189,10 @@ processData <- function(object_store){
   object_store
 }
 
-## function to fit model
-fitModel <- function(object_store,input){
+setSINvalues <- function(object_store){
   for(i in 1:2){
     ##TODO get better SIN numbers
-    if(input$sin==F){
+    if(object_store$sin==F){
       object_store$scenario_tabs[[1]][[i]]$casualty_sin <- 1
       object_store$scenario_tabs[[1]][[i]]$strike_sin <- 1
     }else{
@@ -198,6 +205,18 @@ fitModel <- function(object_store,input){
     object_store$scenario_tabs[[1]][[i]]$casualty_sin_uncertainty <- 0.2
     object_store$scenario_tabs[[1]][[i]]$strike_sin_uncertainty <- 0.2
   }
+  object_store
+}
+
+## function to test models
+fitModel <- function(object_store,input){
+  
+  models <- c('poisson','NB')
+  object_store$model <- models[as.numeric(input$modeltoggle)+1]
+  object_store$sin <- input$sin
+  
+  object_store <- setSINvalues(object_store)
+  
   ##TODO find all numeric quantities
   scenario_tabs <- object_store$scenario_tabs
   for(i in 1:2)
@@ -308,29 +327,50 @@ fitModel <- function(object_store,input){
 }
 
 ## function to get model fits given formula
-calculateModels <- function(forms,object_store)
-{
+calculateModels <- function(forms,object_store){
   # select best model for each data set
   fits <- list()
   tabs <- object_store$scenario_tabs[[1]]
-  for(i in 1:2){
-    fits[[i]] <- list()
-    # apply to each quantile
-    quantiles <- c(0.5,object_store$lq,object_store$uq)
-    if(!is.null(input$sinuncertainty)&&input$sinuncertainty==F) quantiles <- 0.5
-    tab1 <- tabs[[i]]
-    for(k in 1:length(quantiles)){
-      tab1$casualty_sin <- qnorm(quantiles[k],tabs[[i]]$casualty_sin,tabs[[i]]$casualty_sin_uncertainty)
-      tab1$strike_sin <- qnorm(quantiles[k],tabs[[i]]$strike_sin,tabs[[i]]$casualty_sin_uncertainty)
-      if(object_store$model=='poisson'){
-        suppressWarnings(fit_temp <- glm(as.formula(forms[[i]]),data=tab1,family=poisson()))
-      }else if(object_store$model=='NB'){
-        suppressWarnings(fit_temp <- glm.nb(as.formula(forms[[i]]),data=tab1,init.theta=50,control=glm.control(maxit=25)))
+  quantiles <- c(0.5,object_store$lq,object_store$uq)
+  #if(object_store$sinuncertainty==F) quantiles <- 0.5
+  if(exists('useShiny')){
+    for(i in 1:2){
+      fits[[i]] <- list()
+      # apply to each quantile
+      if(object_store$sinuncertainty==F) quantiles <- 0.5
+      tab1 <- tabs[[i]]
+      for(k in 1:length(quantiles)){
+        tab1$casualty_sin <- qnorm(quantiles[k],tabs[[i]]$casualty_sin,tabs[[i]]$casualty_sin_uncertainty)
+        tab1$strike_sin <- qnorm(quantiles[k],tabs[[i]]$strike_sin,tabs[[i]]$casualty_sin_uncertainty)
+        if(object_store$model=='poisson'){
+          suppressWarnings(fit_temp <- glm(as.formula(forms[[i]]),data=tab1,family=poisson()))
+        }else if(object_store$model=='NB'){
+          suppressWarnings(fit_temp <- glm.nb(as.formula(forms[[i]]),data=tab1,init.theta=50,control=glm.control(maxit=25)))
+        }
+        # trim glm objects
+        fits[[i]][[k]] <- trim_glm_object(fit_temp)
       }
-      # trim glm objects
-      fits[[i]][[k]] <- trim_glm_object(fit_temp)
-      fits[[i]][[k]] <- trim_glm_object(fit_temp)
     }
+  }else{
+    withProgress(message = 'Fitting models', value = 0, {
+      for(i in 1:2){
+        fits[[i]] <- list()
+        # apply to each quantile
+        tab1 <- tabs[[i]]
+        for(k in 1:length(quantiles)){
+          tab1$casualty_sin <- qnorm(quantiles[k],tabs[[i]]$casualty_sin,tabs[[i]]$casualty_sin_uncertainty)
+          tab1$strike_sin <- qnorm(quantiles[k],tabs[[i]]$strike_sin,tabs[[i]]$casualty_sin_uncertainty)
+          if(object_store$model=='poisson'){
+            suppressWarnings(fit_temp <- glm(as.formula(forms[[i]]),data=tab1,family=poisson()))
+          }else if(object_store$model=='NB'){
+            suppressWarnings(fit_temp <- glm.nb(as.formula(forms[[i]]),data=tab1,init.theta=50,control=glm.control(maxit=25)))
+          }
+          # trim glm objects
+          fits[[i]][[k]] <- trim_glm_object(fit_temp)
+          incProgress(1/length(quantiles)/2, detail = paste(length(quantiles)*(i-1)+k,' of ',length(quantiles)*2))
+        }
+      }
+    })
   }
   
   # store everything and return
@@ -340,6 +380,106 @@ calculateModels <- function(forms,object_store)
   object_store$scenario_tabs <- get_scenarios(object_store)
   
   object_store
+}
+
+## function to collate output
+##TODO generalise to case where we have striker covariates
+assemble_output <- function(object_store,input){
+  
+  if(!is.null(input$sinuncertainty))object_store$sinuncertainty <- input$sinuncertainty
+  object_store$rr <- input$rr
+  object_store$rrdistribution <- object_store$temp_rrdistribution
+  object_store$rrdist <- object_store$temp_rrdist
+  object_store$rrp <- object_store$temp_rrp
+  
+  scenario_tabs <- object_store$scenario_tabs
+  lq <- object_store$lq <- input$lq
+  uq <- object_store$uq <- input$uq
+  
+  object_store <- setSINvalues(object_store)
+  
+  fits <- list(object_store$fit_whw,object_store$fit_nov)
+  full_table <- expand.grid(casualty_mode=unique(scenario_tabs[[1]][[1]]$casualty_mode),casualty_age=unique(scenario_tabs[[1]][[1]]$casualty_age),casualty_gender=unique(scenario_tabs[[1]][[1]]$casualty_gender))
+  n <- 1000
+  quantiles <- c(0.5,lq,uq)
+  if(object_store$sinuncertainty==F) quantiles <- 0.5
+  print(c(length(fits),length(scenario_tabs)))
+  print(lapply(fits,length))
+  print(lapply(scenario_tabs,length))
+  if(exists('useShiny')){
+    for(j in 1:(1+object_store$nScenarios)){
+      ##TODO count number of scenarios
+      samples <- list()
+      for(q in 1:length(quantiles)){
+        samples[[q]] <- matrix(0,nrow=dim(full_table)[1],ncol=n)
+        for(k in 1:dim(full_table)[1]){
+          meanvec <- covmat <- offsets <- list()
+          for(i in 1:2){
+            fit <-  fits[[i]][[q]]; tab <- scenario_tabs[[j]][[i]]
+            tab$casualty_sin <- qnorm(quantiles[q],tab$casualty_sin,tab$casualty_sin_uncertainty)
+            tab$strike_sin <- qnorm(quantiles[q],tab$strike_sin,tab$casualty_sin_uncertainty)
+            indices <- tab$casualty_mode==full_table$casualty_mode[k]&tab$casualty_age==full_table$casualty_age[k]&tab$casualty_gender==full_table$casualty_gender[k]
+            not.na <- !is.na(coef(fit))
+            Xp <- model.matrix(formula(fit$terms),data=tab)[,not.na]
+            Xp_temp <- Xp[indices,]
+            tab_temp <- tab[indices,]
+            offsets[[i]] <-  log(tab_temp$cas_distance) + log(tab_temp$strike_distance) + (tab_temp$casualty_sin-1)*log(tab_temp$total_cas_distance) + (tab_temp$strike_sin-1)*log(tab_temp$total_strike_distance)
+            meanvec[[i]] <- drop(Xp_temp %*% coef(fit)[not.na])
+            covmat[[i]] <- Xp_temp %*% vcov(fit) %*% t(Xp_temp) # diag(sqrt((model.matrix(fit)) %*% vcov(fit) %*% t(model.matrix(fit))))
+          }
+          if(sum(sapply(meanvec,length))>0)
+            samples[[q]][k,] <- rowSums(exp(cbind(rmvnorm(n,meanvec[[1]],covmat[[1]]) + t(replicate(n,offsets[[1]])),rmvnorm(n,meanvec[[2]],covmat[[2]]) + t(replicate(n,offsets[[2]])))))
+        }
+      }
+    }
+  }else{
+    withProgress(message = 'Assembling output', value = 0, {
+      for(j in 1:(1+object_store$nScenarios)){
+        ##TODO count number of scenarios
+        samples <- list()
+        for(q in 1:length(quantiles)){
+          samples[[q]] <- matrix(0,nrow=dim(full_table)[1],ncol=n)
+          for(k in 1:dim(full_table)[1]){
+            meanvec <- covmat <- offsets <- list()
+            for(i in 1:2){
+              fit <-  fits[[i]][[q]]; tab <- scenario_tabs[[j]][[i]]
+              tab$casualty_sin <- qnorm(quantiles[q],tab$casualty_sin,tab$casualty_sin_uncertainty)
+              tab$strike_sin <- qnorm(quantiles[q],tab$strike_sin,tab$casualty_sin_uncertainty)
+              indices <- tab$casualty_mode==full_table$casualty_mode[k]&tab$casualty_age==full_table$casualty_age[k]&tab$casualty_gender==full_table$casualty_gender[k]
+              not.na <- !is.na(coef(fit))
+              Xp <- model.matrix(formula(fit$terms),data=tab)[,not.na]
+              Xp_temp <- Xp[indices,]
+              tab_temp <- tab[indices,]
+              offsets[[i]] <-  log(tab_temp$cas_distance) + log(tab_temp$strike_distance) + (tab_temp$casualty_sin-1)*log(tab_temp$total_cas_distance) + (tab_temp$strike_sin-1)*log(tab_temp$total_strike_distance)
+              meanvec[[i]] <- drop(Xp_temp %*% coef(fit)[not.na])
+              covmat[[i]] <- Xp_temp %*% vcov(fit) %*% t(Xp_temp) # diag(sqrt((model.matrix(fit)) %*% vcov(fit) %*% t(model.matrix(fit))))
+            }
+            
+            incProgress(1/((1+object_store$nScenarios)*length(quantiles)*dim(full_table)[1]), detail = paste((j-1)*length(quantiles)*dim(full_table)[1]+(q-1)*dim(full_table)[1]+k,'/',(1+object_store$nScenarios)*length(quantiles)*dim(full_table)[1]))
+            if(sum(sapply(meanvec,length))>0)
+              samples[[q]][k,] <- rowSums(exp(cbind(rmvnorm(n,meanvec[[1]],covmat[[1]]) + t(replicate(n,offsets[[1]])),rmvnorm(n,meanvec[[2]],covmat[[2]]) + t(replicate(n,offsets[[2]])))))
+          }
+        }
+      }
+    })
+    gamma_mat <- matrix(1,nrow=nrow(samples[[1]]),ncol=ncol(samples[[1]]))
+    if(object_store$rr){
+      gamma_vec <- r(object_store$rrdist)(dim(samples[[1]])[1])
+      gamma_mat <- replicate(dim(samples[[1]])[2],gamma_vec)
+    }
+    full_table[[paste0('scenario_',j-1,'_mean')]] <- apply(samples[[1]]/gamma_mat,1,mean)
+    full_table[[paste0('scenario_',j-1,'_median')]] <- apply(samples[[1]]/gamma_mat,1,median)
+    full_table[[paste0('scenario_',j-1,'_lq_',lq)]] <- apply(samples[[1]]/gamma_mat,1,quantile,lq)
+    full_table[[paste0('scenario_',j-1,'_uq_',uq)]] <- apply(samples[[1]]/gamma_mat,1,quantile,uq)
+    #lower <- t(sapply(all_samples[[1]],function(x)apply(x/gamma_mat,2,quantile,lq)))
+    #upper <- t(sapply(all_samples[[1]],function(x)apply(x/gamma_mat,2,quantile,uq)))
+    if(length(quantiles)>1){
+      full_set <- cbind(samples[[2]]/gamma_mat,samples[[3]]/gamma_mat)
+      full_table[[paste0('scenario_',j-1,'_lq_',lq)]] <- apply(full_set,1,quantile,lq/2)
+      full_table[[paste0('scenario_',j-1,'_uq_',uq)]] <- apply(full_set,1,quantile,1-(1-uq)/2)
+    }
+  }
+  return(full_table)
 }
 
 ## function to trim object to save
@@ -507,7 +647,7 @@ prepPlots <- function(object_store,input){
   samples <- list()
   fits <- list(object_store$fit_whw,object_store$fit_nov)
   quantiles <- c(0.5,lq,uq)
-  if(!is.null(input$sinuncertainty)&&input$sinuncertainty==F) quantiles <- 0.5
+  if(object_store$sinuncertainty==F) quantiles <- 0.5
   ##TODO count number of scenarios
   all_samples <- list()
   for(k in 1:length(quantiles)){
@@ -518,14 +658,6 @@ prepPlots <- function(object_store,input){
         fit <- fits[[i]][[k]]; tab1 <- scenario_tabs[[j]][[i]]
         tab1$casualty_sin <- qnorm(quantiles[k],tab1$casualty_sin,tab1$casualty_sin_uncertainty)
         tab1$strike_sin <- qnorm(quantiles[k],tab1$strike_sin,tab1$casualty_sin_uncertainty)
-        ## re-fit 
-        #if(k>1){
-        #  if(object_store$model=='poisson'){
-        #    suppressWarnings(fit <- glm(as.formula(terms(fits[[i]])),data=tab1,family=poisson()))
-        #  }else if(object_store$model=='NB'){
-        #    suppressWarnings(fit <- glm.nb(as.formula(terms(fits[[i]])),data=tab1,init.theta=50,control=glm.control(maxit=25)))
-        #  } 
-        #}
         sam <- pred_generation(fit,tab1,covariate,subgroup,over,overs)
         samples[[i]][[j]] <- sam[[1]]
       }
@@ -554,7 +686,6 @@ prepPlots <- function(object_store,input){
   expected <- t(sapply(all_samples[[1]],function(x)apply(x/gamma_mat,2,median)))
   lower <- t(sapply(all_samples[[1]],function(x)apply(x/gamma_mat,2,quantile,lq)))
   upper <- t(sapply(all_samples[[1]],function(x)apply(x/gamma_mat,2,quantile,uq)))
-  print(dim(upper))
   if(length(quantiles)>1){
     for(j in 1:(object_store$nScenarios+1)){
       full_set <- rbind(all_samples[[2]][[j]]/gamma_mat,all_samples[[3]][[j]]/gamma_mat)
@@ -575,57 +706,6 @@ plotBars <- function(expected,main,upper,lower,names,SE){
   legend(x=bar[1],y=maxy,legend=c('Baseline','Scenario 1'),fill=c('navyblue','darkorange2'),bty='n',cex=1.25)
   if(SE==T)
     suppressWarnings(arrows(x0=bar,y0=upper,y1=lower,angle=90,code=3,length=0.1))
-}
-
-## function to collate output
-##TODO generalise to case where we have striker covariates
-assemble_output <- function(object_store,input){
-  scenario_tabs <- object_store$scenario_tabs
-  lq <- object_store$lq
-  uq <- object_store$uq
-  fits <- list(object_store$fit_whw,object_store$fit_nov)
-  full_table <- expand.grid(casualty_mode=unique(scenario_tabs[[1]][[1]]$casualty_mode),casualty_age=unique(scenario_tabs[[1]][[1]]$casualty_age),casualty_gender=unique(scenario_tabs[[1]][[1]]$casualty_gender))
-  n <- 1000
-  quantiles <- c(0.5,lq,uq)
-  if(!is.null(input$sinuncertainty)&&input$sinuncertainty==F) quantiles <- 0.5
-  for(j in 1:(1+object_store$nScenarios)){
-    ##TODO count number of scenarios
-    samples <- list()
-    for(q in 1:length(quantiles)){
-      samples[[q]] <- matrix(0,nrow=dim(full_table)[1],ncol=n)
-      for(k in 1:dim(full_table)[1]){
-        meanvec <- covmat <- offsets <- list()
-        for(i in 1:2){
-          fit <-  fits[[i]][[q]]; tab <- scenario_tabs[[j]][[i]]
-          tab$casualty_sin <- qnorm(quantiles[q],tab$casualty_sin,tab$casualty_sin_uncertainty)
-          tab$strike_sin <- qnorm(quantiles[q],tab$strike_sin,tab$casualty_sin_uncertainty)
-          indices <- tab$casualty_mode==full_table$casualty_mode[k]&tab$casualty_age==full_table$casualty_age[k]&tab$casualty_gender==full_table$casualty_gender[k]
-          ## re-fit 
-          #if(q>1){
-          #  if(object_store$model=='poisson'){
-          #    suppressWarnings(fit <- glm(as.formula(terms(fits[[i]])),data=tab,family=poisson()))
-          #  }else if(object_store$model=='NB'){
-          #    suppressWarnings(fit <- glm.nb(as.formula(terms(fits[[i]])),data=tab,init.theta=50,control=glm.control(maxit=25)))
-          #  } 
-          #}
-          not.na <- !is.na(coef(fit))
-          Xp <- model.matrix(formula(fit$terms),data=tab)[,not.na]
-          Xp_temp <- Xp[indices,]
-          tab_temp <- tab[indices,]
-          offsets[[i]] <-  log(tab_temp$cas_distance) + log(tab_temp$strike_distance) + (tab_temp$casualty_sin-1)*log(tab_temp$total_cas_distance) + (tab_temp$strike_sin-1)*log(tab_temp$total_strike_distance)
-          meanvec[[i]] <- drop(Xp_temp %*% coef(fit)[not.na])
-          covmat[[i]] <- Xp_temp %*% vcov(fit) %*% t(Xp_temp) # diag(sqrt((model.matrix(fit)) %*% vcov(fit) %*% t(model.matrix(fit))))
-        }
-        if(sum(sapply(meanvec,length))>0)
-          samples[[q]][k,] <- rowSums(exp(cbind(rmvnorm(n,meanvec[[1]],covmat[[1]]) + t(replicate(n,offsets[[1]])),rmvnorm(n,meanvec[[2]],covmat[[2]]) + t(replicate(n,offsets[[2]])))))
-      }
-    }
-    full_table[[paste0('scenario_',j-1,'_mean')]] <- apply(samples[[1]],1,mean)
-    full_table[[paste0('scenario_',j-1,'_median')]] <- apply(samples[[1]],1,median)
-    full_table[[paste0('scenario_',j-1,'_lq_',lq)]] <- apply(samples[[ifelse(length(quantiles)==1,1,3)]],1,quantile,lq)
-    full_table[[paste0('scenario_',j-1,'_uq_',uq)]] <- apply(samples[[ifelse(length(quantiles)==1,1,2)]],1,quantile,uq)
-  }
-  return(full_table)
 }
 
 ## rewrite predict.lm to take tol parameter to pass to qr.solve

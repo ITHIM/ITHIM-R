@@ -90,73 +90,8 @@ ss19$region <- unlist(sapply(ss19$district,function(x)la_map[[code_to_la[[as.cha
 #ss19$population <- unlist(sapply(ss19$district,function(x)la_pop_map[[as.character(x)]]))
 ss19 <- ss19[ss19$region=='London',]
 
-ss19nov <- ss19nov %>% droplevels() %>%
-  filter(cas_mode!='other or unknown') %>%
-  filter(district%in%names(code_to_la))
-ss19nov$region <- unlist(sapply(ss19nov$district,function(x)la_map[[code_to_la[[as.character(x)]]]]))
-ss19nov <- ss19nov[ss19nov$region=='London',]
 
-
-#########################################################################################################################
-## group ages
-ss19.1 <- ss19
-ss19nov.1 <- ss19nov
-ages <- sort(unique(ss19.1$cas_age))
-knots.c <- attr(ns(ss19$cas_age,df=6),'knots')
-breaks.c <- c(min(ages),knots.c,max(ages)+1)
-ss19.1$cas_age <- cut(ss19$cas_age,breaks=breaks.c,right=F,labels=F)
-ss19nov.1$cas_age <- cut(ss19nov$cas_age,breaks=breaks.c,right=F,labels=F)
-ages <- sort(unique(ss19.1$strike_age))
-knots.s <- attr(ns(ss19$strike_age,df=6),'knots')
-breaks.s <- c(min(ages),knots.s,max(ages)+1)
-ss19.1$strike_age <- cut(ss19$strike_age,breaks=breaks.s,right=F,labels=F)
-
-ssg_la_road <-
-  group_by(ss19.1,cas_severity,cas_mode,strike_mode,cas_age,strike_age,cas_male,strike_male,roadtype,year,district) %>% 
-  summarise(count=n()) %>% 
-  droplevels() %>% 
-  as.data.frame() %>%    # remove "grouped" class, which breaks filling with zeroes
-  complete(cas_severity,cas_mode,strike_mode,cas_age,strike_age,cas_male,strike_male,roadtype,year,district,fill=list(count=0))
-ssg_la_road$la_name <- unlist(sapply(ssg_la_road$district,function(x)code_to_la[[as.character(x)]]))
-
-ssg_la_road_nov <-
-  group_by(ss19nov.1,cas_severity,cas_mode,cas_age,cas_male,roadtype,year,district) %>% 
-  summarise(count=n()) %>% 
-  droplevels() %>% 
-  as.data.frame() %>%    # remove "grouped" class, which breaks filling with zeroes
-  complete(cas_severity,cas_mode,cas_age,cas_male,roadtype,year,district,fill=list(count=0))
-ssg_la_road_nov$la_name <- unlist(sapply(ssg_la_road_nov$district,function(x)code_to_la[[as.character(x)]]))
-
-ssg_reg_road <-
-  group_by(ss19.1,cas_severity,cas_mode,strike_mode,cas_age,strike_age,cas_male,strike_male,roadtype,year,region) %>% 
-  summarise(count=n()) %>% 
-  droplevels() %>% 
-  as.data.frame() %>%    # remove "grouped" class, which breaks filling with zeroes
-  complete(cas_severity,cas_mode,strike_mode,cas_age,strike_age,cas_male,strike_male,roadtype,year,region,fill=list(count=0))
-
-ssg_reg_road_nov <-
-  group_by(ss19nov.1,cas_severity,cas_mode,cas_age,cas_male,roadtype,year,region) %>% 
-  summarise(count=n()) %>% 
-  droplevels() %>% 
-  as.data.frame() %>%    # remove "grouped" class, which breaks filling with zeroes
-  complete(cas_severity,cas_mode,cas_age,cas_male,roadtype,year,region,fill=list(count=0))
-
-la_names <- names(la_to_code)
-
-uniqueage.c <- unique(ssg_reg_road$cas_age)
-for(j in 1:length(uniqueage.c)) uniqueage.c[j] <- median(ss19$cas_age[ss19.1$cas_age==uniqueage.c[j]])
-ssg_reg_road$cas_age <- uniqueage.c[ssg_reg_road$cas_age]
-ssg_la_road$cas_age <- uniqueage.c[ssg_la_road$cas_age]
-ssg_reg_road_nov$cas_age <- uniqueage.c[ssg_reg_road_nov$cas_age]
-ssg_la_road_nov$cas_age <- uniqueage.c[ssg_la_road_nov$cas_age]
-trip_ages.c <- c(0,round(knots.c))
-uniqueage.s <- unique(ssg_reg_road$strike_age)
-for(j in 1:length(uniqueage.s)) uniqueage.s[j] <- median(ss19$strike_age[ss19.1$strike_age==uniqueage.s[j]])
-ssg_reg_road$strike_age <- uniqueage.s[ssg_reg_road$strike_age]
-ssg_la_road$strike_age <- uniqueage.s[ssg_la_road$strike_age]
-trip_ages.s <- c(0,round(knots.s))
-trip_ages <- sort(unique(c(trip_ages.c,trip_ages.s)))
 
 ######################################################################################
-saveRDS(list(ssg_reg_road=ssg_reg_road,ssg_la_road=ssg_la_road,ssg_reg_road_nov=ssg_reg_road_nov,ssg_la_road_nov=ssg_la_road_nov),'london_casualty_data.Rdata') 
+#saveRDS(list(ssg_reg_road=ssg_reg_road,ssg_la_road=ssg_la_road,ssg_reg_road_nov=ssg_reg_road_nov,ssg_la_road_nov=ssg_la_road_nov),'london_casualty_data.Rdata') 
 

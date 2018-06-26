@@ -1,9 +1,34 @@
 server <- function(input, output){
-  source('shinyinjury.R')
+  source('functions/injury_calculation_functions.R')
   # object storing all values
-  object_store <- reactiveValues(fit_whw=NULL,fit_nov=NULL,scenario_tabs=NULL,injuries=NULL,plotButton=NULL,covariates=NULL,
-    mexicoButton=NULL,distance=NULL,model='poisson',nScenarios=1,lq=0.25,uq=0.75,sinfile='default_sin_exponents.Rdata',
-    rrdistribution='Beta',rrp=c(5,1),rrdist=Beta(5,1))
+  object_store <- reactiveValues( ## models
+    fit_whw=NULL,
+    fit_nov=NULL,
+    ## data
+    nScenarios=1,
+    scenario_tabs=NULL,
+    injuries=NULL,
+    distance=NULL,
+    covariates=NULL,
+    ## switches
+    plotButton=NULL,
+    mexicoButton=NULL,
+    model='poisson',
+    ## quantiles
+    lq=0.25,
+    uq=0.75,
+    ## SIN
+    sin=F,
+    sinuncertainty=F,
+    sinfile='data/default_sin_exponents.Rdata',
+    ## reporting rate
+    rr=F,
+    temp_rrdistribution='Beta',
+    temp_rrp=c(5,1),
+    temp_rrdist=Beta(5,1),
+    rrdistribution='Beta',
+    rrp=c(5,1),
+    rrdist=Beta(5,1))
   # response to uploading injury. Saves injury; reveals distance file button
   ##TODO remove distance data file response when we have true synthetic population
   output$ui.distance <- renderUI({
@@ -41,15 +66,23 @@ server <- function(input, output){
     }
     object_store$distance <- distance
   })
-  # reveal SE radio if plotButton tag = TRUE
+  # sin box
+  output$ui.sin <- renderUI({
+    checkboxInput("sin", "Apply SIN exponents", object_store$sin)
+  })
+  # reveal sin uncertainty box
   output$ui.sinuncertainty <- renderUI({
     if (!isTRUE(input$sin)) return(NULL)
-    checkboxInput("sinuncertainty", "Apply uncertainty to SIN", FALSE)
+    checkboxInput("sinuncertainty", "Apply uncertainty to SIN", object_store$sinuncertainty)
+  })
+  # reporting rate box
+  output$ui.rrbox <- renderUI({
+    checkboxInput("rr", "Apply reporting rate", object_store$rr)
   })
   # reveal SE radio if plotButton tag = TRUE
   output$ui.rr.distribution <- renderUI({
     if (!isTRUE(input$rr)) return(NULL)
-    actionButton("rr.distribution", paste0(object_store$rrdistribution,'(',paste(object_store$rrp,collapse=','),')'))
+    actionButton("rr.distribution", paste0(object_store$temp_rrdistribution,'(',paste(object_store$temp_rrp,collapse=','),')'))
   })
   observeEvent(input$rr.distribution,{
     showModal(dataModal())
@@ -58,13 +91,13 @@ server <- function(input, output){
   # TRUE, then display a message that the previous value was invalid.
   dataModal <- function(failed = FALSE) {
     modalDialog(
-      selectInput("distribution.select","Choose distribution",c('Beta','Uniform','Lognormal'),selected=object_store$rrdistribution,multiple=FALSE),
-      textInput("rrp1", "Parameter 1",value=object_store$rrp[1]),
-      textInput("rrp2", "Parameter 2",value=object_store$rrp[2]),
+      selectInput("distribution.select","Choose distribution",c('Beta','Uniform','Lognormal'),selected=object_store$temp_rrdistribution,multiple=FALSE),
+      textInput("rrp1", "Parameter 1",value=object_store$temp_rrp[1]),
+      textInput("rrp2", "Parameter 2",value=object_store$temp_rrp[2]),
       if (failed)
         div(tags$b("Invalid parameters", style = "color: red;")),
       if(!is.null(input$rrp1)&&!is.null(input$rrp2)&&failed==F)
-        renderPlot({plot(seq(0,1.5,0.01),d(object_store$rrdist)(seq(0,1.5,0.01)),typ='l',
+        renderPlot({plot(seq(0,1.25,0.01),d(object_store$temp_rrdist)(seq(0,1.25,0.01)),typ='l',
           xlab='Reporting rate',ylab='Density',cex.axis=1.5,cex.lab=1.5)}),
       footer = tagList(
         modalButton("Close"),
@@ -86,12 +119,12 @@ server <- function(input, output){
     ) {
       showModal(dataModal(failed = TRUE))
     } else {
-      object_store$rrp[1] <- pars[1]
-      object_store$rrp[2] <- pars[2]
-      object_store$rrdistribution <- input$distribution.select
-      if(object_store$rrdistribution=='Beta') object_store$rrdist <- Beta(pars[1],pars[2])
-      if(object_store$rrdistribution=='Uniform') object_store$rrdist <- Unif(pars[1],pars[2])
-      if(object_store$rrdistribution=='Lognormal') object_store$rrdist <- Lnorm(pars[1],pars[2])
+      object_store$temp_rrp[1] <- pars[1]
+      object_store$temp_rrp[2] <- pars[2]
+      object_store$temp_rrdistribution <- input$distribution.select
+      if(object_store$temp_rrdistribution=='Beta') object_store$temp_rrdist <- Beta(pars[1],pars[2])
+      if(object_store$temp_rrdistribution=='Uniform') object_store$temp_rrdist <- Unif(pars[1],pars[2])
+      if(object_store$temp_rrdistribution=='Lognormal') object_store$temp_rrdist <- Lnorm(pars[1],pars[2])
       showModal(dataModal(failed = FALSE))
       #vals$data <- get(input$dataset)
     #  removeModal()
@@ -102,7 +135,41 @@ server <- function(input, output){
   output$ui.compute <- renderUI({
     inFile <- input$distancefile
     if (is.null(inFile)&&is.null(input$file2)&&is.null(object_store$mexicoButton)) return(NULL)
-    actionButton("compute", "Compute predictions")
+    if(is.null(object_store$fit_whw)){
+      actionButton("compute", "Compute predictions")
+    }else{
+      print(c('poisson','NB')[as.numeric(input$modeltoggle)+1]!=object_store$model)
+      print(c(c('poisson','NB')[as.numeric(input$modeltoggle)+1],object_store$model))
+      print(input$sin!=object_store$sin)
+      print(c(input$sin,object_store$sin))
+      print(!is.null(input$sinuncertainty)&&input$sinuncertainty==T&&(object_store$lq!=input$lq||object_store$uq!=input$uq))
+      print(c(!is.null(input$sinuncertainty),input$sinuncertainty==T,c(object_store$lq,input$lq,object_store$uq,input$uq)))
+      print(object_store$lq!=input$lq||object_store$uq!=input$uq)
+      print(c(object_store$lq,input$lq,object_store$uq,input$uq))
+      print(object_store$sinuncertainty==T&&(is.null(input$sinuncertainty)||input$sinuncertainty==F))
+      print(c(object_store$sinuncertainty==T,c(is.null(input$sinuncertainty),input$sinuncertainty==F)))
+      print(object_store$sinuncertainty==F&&!is.null(input$sinuncertainty)&&input$sinuncertainty==T)
+      print(c(object_store$sinuncertainty==F,!is.null(input$sinuncertainty),input$sinuncertainty==T))
+      print(object_store$rr!=input$rr)
+      print(c(object_store$rr,input$rr))
+      print(input$rr==T&&
+          (object_store$temp_rrdistribution!=object_store$rrdistribution||object_store$temp_rrp[1]!=object_store$rrp[1]||object_store$temp_rrp[2]!=object_store$rrp[2]))
+      print(c(input$rr==T,c
+          (object_store$temp_rrdistribution,object_store$rrdistribution,object_store$temp_rrp[1],object_store$rrp[1],object_store$temp_rrp[2],object_store$rrp[2])))
+      ##TODO what if SIN uncertainty and quantiles were changed at different times?
+      if(c('poisson','NB')[as.numeric(input$modeltoggle)+1]!=object_store$model || input$sin!=object_store$sin ||
+          !is.null(input$sinuncertainty)&&input$sinuncertainty==T&&(object_store$lq!=input$lq||object_store$uq!=input$uq)){
+        actionButton("compute", "Recompute models",style = "color: red")
+      }else{
+        if(object_store$lq!=input$lq||object_store$uq!=input$uq||
+            object_store$sinuncertainty==T&&(is.null(input$sinuncertainty)||input$sinuncertainty==F)||
+            object_store$sinuncertainty==F&&!is.null(input$sinuncertainty)&&input$sinuncertainty==T||
+            object_store$rr!=input$rr||input$rr==T&&
+            (object_store$temp_rrdistribution!=object_store$rrdistribution||object_store$temp_rrp[1]!=object_store$rrp[1]||object_store$temp_rrp[2]!=object_store$rrp[2])){
+          actionButton("compute", "Recompute predictions",style = "color: red")
+        }
+      }
+    }
   })
   # if distance file has been uploaded
   ##TODO change to if injury file has been uploaded
@@ -113,6 +180,8 @@ server <- function(input, output){
     value <- object_store$model=='NB'
     materialSwitch("modeltoggle", label = "Negative binomial model (default: Poisson)", status = "primary", right = TRUE,value=value)
   })
+  # toggle for whether the model is poisson (default) or NB (if chosen by user)
+  observeEvent(input$modeltoggle, {})
   ##TODO get min and max to work
   # reveals lower quantile input
   output$ui.lq <- renderUI({
@@ -125,11 +194,6 @@ server <- function(input, output){
     inFile <- input$distancefile
     if (is.null(inFile)&&is.null(input$file2)&&is.null(object_store$mexicoButton)) return(NULL)
     numericInput("uq", "Upper quantile", object_store$uq,min=0.5,max=1-1e-5)
-  })
-  # toggle for whether the model is poisson (default) or NB (if chosen by user)
-  observeEvent(input$modeltoggle, {
-    models <- c('poisson','NB')
-    object_store$model <- models[as.numeric(input$modeltoggle)+1]
   })
   # read saved model
   observeEvent(input$file2, {
@@ -145,7 +209,7 @@ server <- function(input, output){
   ##TODO make better
   # if using Mexico model, load saved model
   observeEvent(object_store$mexicoButton, {
-    inFile <- 'saved_mexico_city_NB_model.Rdata'
+    inFile <- 'saved_models/saved_mexico_city_NB_model.Rdata'
     if (is.null(inFile)) return(NULL)
     object_store_temp <- readRDS(inFile)
     for(x in names(object_store_temp)) object_store[[x]] <- object_store_temp[[x]]
@@ -205,10 +269,13 @@ server <- function(input, output){
   })
   ##TODO superfluous object? Tells us to plot 
   plotObjects <- eventReactive(input$plot, {
+    print(1)
   })
   # makes the plots
   output$plot <- renderPlot({
+    print(2)
     plotObjects()
+    print(c(input$lq,object_store$lq))
     prepPlots(object_store,input)
   })
 }
