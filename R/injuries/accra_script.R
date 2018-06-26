@@ -46,17 +46,18 @@ if(file.exists('accra_processed_trips.Rds')){
   walk_rate <- 0.15
   x11(); plot(c(1:60),pexp(c(1:60),rate=walk_rate),typ='l')
   points(max_walk_time,sapply(1:length(max_walk_time),function(x)sum(walk_time_proportion[1:x])/100))
+  min_bus_duration <- 5
   
   ## subtract wait and walk times. add new walk journeys
   bus_trips <- subset(trips0,trip_mode=='Bus')
   other_trips <- subset(trips0,trip_mode!='Bus')
-  bus_trips$trip_duration <- sapply(bus_trips$trip_duration,function(x)x-rtexp(1,rate=wait_rate,endpoint=x))
+  bus_trips$trip_duration <- sapply(bus_trips$trip_duration,function(x)x-rtexp(1,rate=wait_rate,endpoint=x-min_bus_duration))
   walk_trips <- bus_trips
   walk_trips$trip_mode <- 'Walking'
-  walk_trips$trip_duration <- sapply(walk_trips$trip_duration,function(x)rtexp(1,rate=wait_rate,endpoint=x))
+  walk_trips$trip_duration <- sapply(walk_trips$trip_duration,function(x)rtexp(1,rate=wait_rate,endpoint=x-min_bus_duration))
   bus_trips$trip_duration <- bus_trips$trip_duration - walk_trips$trip_duration
   trips0 <- rbind(other_trips,bus_trips,walk_trips)
-  #trips0$trip_distance <- apply(cbind(trips0$trip_mode,trips0$trip_duration),1,function(x)speeds[[which(unlist(modes)==levels(trips0$trip_mode)[x[1]])]]*x[2]/60)
+  trips0$trip_distance <- apply(cbind(trips0$trip_mode,trips0$trip_duration),1,function(x)speeds[[which(unlist(modes)==levels(trips0$trip_mode)[x[1]])]]*x[2]/60)
   saveRDS(trips0,'accra_processed_trips.Rds')
 }
 
@@ -102,7 +103,7 @@ new_data <- expand.grid(cas_mode=c('pedestrian','cyclist','car/taxi','bus','moto
 new_data$cas_distance <- 0
 new_data$strike_distance <- 0
 casualty_mode <- list(pedestrian='pedestrian',cyclist='cyclist','car/taxi'=c('car.passenger','car'),bus='bus.passenger',motorcycle='motorcycle')
-str_mode <- list(pedestrian='pedestrian',cyclist='cyclist','car/taxi'=c('car.passenger','car'),bus='bus',motorcycle='motorcycle')
+str_mode <- list(pedestrian='pedestrian',cyclist='cyclist','car/taxi'=c('car'),bus='bus',motorcycle='motorcycle')
 distance_dataset$bus <- 0
 for(i in 1:length(casualty_mode)){
   indices4C <- new_data$cas_mode%in%names(casualty_mode)[i]
