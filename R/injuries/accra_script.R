@@ -62,48 +62,46 @@ if(file.exists('accra_processed_trips.Rds')){
 }
 
 ## accra distance with population ages
-distance_dataset <- expand.grid(age=lower_ages,gen=c('Female','Male'))
-distance_dataset$upper_age <- upper_ages[match(distance_dataset$age,lower_ages)]
+distance_dataset <- expand.grid(gen=c('Female','Male'))
 for(i in names(modes))
-  distance_dataset[[i]] <- apply(distance_dataset,1,function(x)sum(subset(trips0,age>=as.numeric(x[1])&age<=as.numeric(x[3])&sex==x[2]&trip_mode%in%modes[[i]])$trip_duration))/60*speeds[[i]]*365
+  distance_dataset[[i]] <- sapply(distance_dataset$gen,function(x)sum(subset(trips0,sex==x&trip_mode%in%modes[[i]])$trip_duration))/60*speeds[[i]]*365
 for(i in 1:2)
-  for(j in 1:length(lower_ages))
-    if(pop_numbers[j,i]>0)
-      distance_dataset[distance_dataset$age==lower_ages[j]&distance_dataset$gen==c('Female','Male')[i],4:(length(modes)+3)] <- 
-  distance_dataset[distance_dataset$age==lower_ages[j]&distance_dataset$gen==c('Female','Male')[i],4:(length(modes)+3)]*as.numeric(true_pop[j,4-i])/pop_numbers[j,i]
+  if(sum(pop_numbers[,i])>0)
+      distance_dataset[distance_dataset$gen==c('Female','Male')[i],4:(length(modes)+1)] <- 
+  distance_dataset[distance_dataset$gen==c('Female','Male')[i],4:(length(modes)+1)]*sum(as.numeric(true_pop[[c('Women','Men')[i]]]))/sum(pop_numbers[,i])
 
-source('~/soft/colour.R')
-cols <- spiral(length(modes)+1)[1:length(modes)+1]
-x11(width=12,height=6); par(mar=c(5,5,1,1),mfrow=c(1,2))
-for(g in c('Female','Male'))
-  for(i in 1:length(names(modes)))
-    if(i==1){
-      plot(as.numeric(lower_ages),1e-6*as.numeric(distance_dataset[[names(modes)[i]]][distance_dataset$gen==g]),typ='b',col=cols[i],
-        ylim=c(0,1e-6*max(distance_dataset[,4:8])),frame=F,xlab='Age',ylab='Million km',lwd=2,main=g,cex.lab=1.5,cex.axis=1.5)
-    }else{
-      lines(as.numeric(lower_ages),1e-6*as.numeric(distance_dataset[[names(modes)[i]]][distance_dataset$gen==g]),typ='b',col=cols[i],lwd=2)
-    }
-legend(x=60,y=1e-6*max(distance_dataset[,4:8]),lwd=2,col=cols,legend=names(modes),bty='n')
+# source('~/soft/colour.R')
+# cols <- spiral(length(modes)+1)[1:length(modes)+1]
+# x11(width=12,height=6); par(mar=c(5,5,1,1),mfrow=c(1,2))
+# for(g in c('Female','Male'))
+#   for(i in 1:length(names(modes)))
+#     if(i==1){
+#       plot(as.numeric(lower_ages),1e-6*as.numeric(distance_dataset[[names(modes)[i]]][distance_dataset$gen==g]),typ='b',col=cols[i],
+#         ylim=c(0,1e-6*max(distance_dataset[,4:8])),frame=F,xlab='Age',ylab='Million km',lwd=2,main=g,cex.lab=1.5,cex.axis=1.5)
+#     }else{
+#       lines(as.numeric(lower_ages),1e-6*as.numeric(distance_dataset[[names(modes)[i]]][distance_dataset$gen==g]),typ='b',col=cols[i],lwd=2)
+#     }
+# legend(x=60,y=1e-6*max(distance_dataset[,4:8]),lwd=2,col=cols,legend=names(modes),bty='n')
 
-x11(width=12,height=6); par(mar=c(5,5,1,1),mfrow=c(1,2))
-for(g in c('Female','Male'))
-  for(i in 1:length(names(modes)))
-    if(i==1){
-      plot(as.numeric(lower_ages),as.numeric(distance_dataset[[names(modes)[i]]][distance_dataset$gen==g])/true_pop[[4-which(c('Female','Male')==g)]],typ='b',col=cols[i],
-        ylim=c(0,max(distance_dataset[,4:8]/true_pop[[4-which(c('Female','Male')==g)]])),frame=F,xlab='Age',ylab='km',lwd=2,main=g,cex.lab=1.5,cex.axis=1.5)
-    }else{
-      lines(as.numeric(lower_ages),as.numeric(distance_dataset[[names(modes)[i]]][distance_dataset$gen==g])/true_pop[[4-which(c('Female','Male')==g)]],typ='b',col=cols[i],lwd=2)
-    }
-legend(x=60,y=max(distance_dataset[,4:8]/true_pop[[4-which(c('Female','Male')==g)]]),lwd=2,col=cols,legend=names(modes),bty='n')
+# x11(width=12,height=6); par(mar=c(5,5,1,1),mfrow=c(1,2))
+# for(g in c('Female','Male'))
+#   for(i in 1:length(names(modes)))
+#     if(i==1){
+#       plot(as.numeric(lower_ages),as.numeric(distance_dataset[[names(modes)[i]]][distance_dataset$gen==g])/true_pop[[4-which(c('Female','Male')==g)]],typ='b',col=cols[i],
+#         ylim=c(0,max(distance_dataset[,4:8]/true_pop[[4-which(c('Female','Male')==g)]])),frame=F,xlab='Age',ylab='km',lwd=2,main=g,cex.lab=1.5,cex.axis=1.5)
+#     }else{
+#       lines(as.numeric(lower_ages),as.numeric(distance_dataset[[names(modes)[i]]][distance_dataset$gen==g])/true_pop[[4-which(c('Female','Male')==g)]],typ='b',col=cols[i],lwd=2)
+#     }
+# legend(x=60,y=max(distance_dataset[,4:8]/true_pop[[4-which(c('Female','Male')==g)]]),lwd=2,col=cols,legend=names(modes),bty='n')
 
 
 ## prepare new dataset
-new_data <- expand.grid(cas_mode=c('pedestrian','cyclist','car/taxi','bus','motorcycle'),strike_mode=c('pedestrian','cyclist','car/taxi','motorcycle','bus'),cas_age=lower_ages,strike_age=lower_ages,
+new_data <- expand.grid(cas_mode=c('pedestrian','cyclist','car/taxi','bus','motorcycle'),strike_mode=c('pedestrian','cyclist','car/taxi','motorcycle','bus'),
                         cas_male=c(0,1),strike_male=c(0,1),cas_severity=c('Serious','Fatal'))
 new_data$cas_distance <- 0
 new_data$strike_distance <- 0
 casualty_mode <- list(pedestrian='pedestrian',cyclist='cyclist','car/taxi'=c('car.passenger','car'),bus='bus.passenger',motorcycle='motorcycle')
-str_mode <- list(pedestrian='pedestrian',cyclist='cyclist','car/taxi'=c('car'),bus='bus',motorcycle='motorcycle')
+str_mode <- list(pedestrian='pedestrian',cyclist='cyclist','car/taxi'=c('car.passenger','car'),bus='bus',motorcycle='motorcycle')
 distance_dataset$bus <- 0
 for(i in 1:length(casualty_mode)){
   indices4C <- new_data$cas_mode%in%names(casualty_mode)[i]
@@ -111,41 +109,66 @@ for(i in 1:length(casualty_mode)){
   for(k in 1:length(c(0,1))){
     indices5C <- indices4C&new_data$cas_male==c(0,1)[k]
     indices5S <- indices4S&new_data$strike_male==c(0,1)[k]
-    for(j in 1:length(lower_ages)){
-      indicesC <- indices5C&new_data$cas_age==lower_ages[j]
-      new_data$cas_distance[indicesC] <- sum(distance_dataset[distance_dataset$age==lower_ages[j]&distance_dataset$gen==c('Female','Male')[k],
+    new_data$cas_distance[indices5C] <- sum(distance_dataset[distance_dataset$gen==c('Female','Male')[k],
                                                               which(names(distance_dataset)%in%casualty_mode[[i]])])
-      indicesS <- indices5S&new_data$strike_age==lower_ages[j]
-      new_data$strike_distance[indicesS] <- sum(distance_dataset[distance_dataset$age==lower_ages[j]&distance_dataset$gen==c('Female','Male')[k],
-                                                                 which(names(distance_dataset)%in%str_mode[[i]])])
-    }
+    new_data$strike_distance[indices5S] <- sum(distance_dataset[distance_dataset$gen==c('Female','Male')[k],
+                                                                which(names(distance_dataset)%in%str_mode[[i]])])
   }
 }
 new_data$cas_distance <- new_data$cas_distance*1e-9
 new_data$strike_distance <- new_data$strike_distance*1e-9
+new_data$total_cas_distance <- apply(new_data,1,function(x)sum(subset(new_data,cas_severity=='Fatal'&strike_mode=='car/taxi'&
+                                                                          cas_mode==x[1]&strike_male==1)$cas_distance))
+new_data$total_strike_distance <- apply(new_data,1,function(x)sum(subset(new_data,cas_severity=='Fatal'&cas_mode=='car/taxi'&
+                                                                             strike_mode==x[2]&cas_male==1)$strike_distance))
+new_data$cas_sin <- 0.5
+new_data$strike_sin <- 0.75
+new_data$area <- 16
 new_data_dist <- subset(new_data,cas_distance>0&strike_distance>0&strike_mode%in%c('pedestrian','cyclist','car/taxi','motorcycle'))
 new_data_const <- rbind(subset(new_data,strike_mode=='bus'),mutate(subset(new_data,strike_mode=='bus'),strike_mode='heavy goods'),mutate(subset(new_data,strike_mode=='bus'),strike_mode='light goods'))
 new_data_const$strike_distance <- 0.2
+new_data_const$total_strike_distance <- apply(new_data_const,1,function(x)sum(subset(new_data_const,cas_severity=='Fatal'&cas_mode=='car/taxi'&
+                                                                           strike_mode==x[2]&cas_male==1)$strike_distance))
 
   
 ## london model
-test_data <- readRDS('~/overflow_dropbox/ITHIM/InjuryModel/ssgYearSegmented_ldn.Rdata')
-test_data <- subset(test_data,cas_distance>0)
+if(file.exists('~/overflow_dropbox/ITHIM/InjuryModel/ssgYearSegmented_ldn_no_age.Rdata')){
+  test_data <- readRDS('~/overflow_dropbox/ITHIM/InjuryModel/ssgYearSegmented_ldn_no_age.Rdata')
+}else{
+  test_data_0 <- readRDS('~/overflow_dropbox/ITHIM/InjuryModel/ssgYearSegmented_ldn.Rdata')
+  test_data <- expand.grid(cas_mode=levels(test_data_0$cas_mode),strike_mode=levels(test_data_0$strike_mode),
+                          cas_male=c(0,1),strike_male=c(0,1),cas_severity=c('Serious','Fatal'),year=2005:2015)
+  test_data$count <- apply(test_data,1,function(x)sum(subset(test_data_0,cas_severity==x[5]&cas_age>14&strike_age>14&strike_mode==x[2]&
+                                                                      cas_mode==x[1]&cas_male==x[3]&strike_male==x[4]&year==x[6])$count))
+  test_data$cas_distance <- apply(test_data,1,function(x)sum(subset(test_data_0,cas_severity=='Fatal'&cas_age>14&strike_age>14&strike_mode=='car/taxi'&
+                                                                      cas_mode==x[1]&cas_male==x[3]&strike_male==1&year==x[6])$cas_distance))
+  test_data$strike_distance <- apply(test_data,1,function(x)sum(subset(test_data_0,cas_severity=='Fatal'&cas_age>14&strike_age>14&cas_mode=='car/taxi'&
+                                                                         strike_mode==x[2]&strike_male==x[4]&cas_male==1&year==x[6])$strike_distance))
+  test_data$total_cas_distance <- apply(test_data,1,function(x)sum(subset(test_data,cas_severity=='Fatal'&strike_mode=='car/taxi'&
+                                                                      cas_mode==x[1]&strike_male==1&year==x[6])$cas_distance))
+  test_data$total_strike_distance <- apply(test_data,1,function(x)sum(subset(test_data,cas_severity=='Fatal'&cas_mode=='car/taxi'&
+                                                                         strike_mode==x[2]&cas_male==1&year==x[6])$strike_distance))
+  test_data$cas_sin <- 0.5
+  test_data$strike_sin <- 0.75
+  test_data$area <- 80
+  test_data <- subset(test_data,cas_distance>0)
+  saveRDS(test_data,'~/overflow_dropbox/ITHIM/InjuryModel/ssgYearSegmented_ldn_no_age.Rdata')
+}
 test_data_dist <- droplevels(subset(test_data,strike_mode%in%c('pedestrian','cyclist','car/taxi','motorcycle')))
 test_data_dist <- subset(test_data_dist,strike_distance>0)
 test_data_const <- subset(test_data,strike_mode%in%c('heavy goods','light goods','bus'))
 test_data_const$strike_distance <- 1
 rm(test_data)
 
-factors <- c('cas_mode','strike_mode','cas_severity','strike_male','cas_male','ns(cas_age,df=5)','ns(strike_age,df=5)')
-form_dist <- 'count~offset(log(cas_distance))+offset(log(strike_distance))'
+factors <- c('cas_mode','strike_mode','cas_severity','strike_male','cas_male')
+form_dist <- 'count~offset(I(log(cas_distance/area)))+offset(I(log(strike_distance/area)))'#+offset(I(cas_sin*log(total_cas_distance/area/area)))+offset(I(strike_sin*log(total_strike_distance/area/area)))+offset(I(2*log(area)))-log(total_cas_distance/area)-log(total_strike_distance/area)'
+form_const <- form_dist
 for(i in 1:length(factors)) form_dist <- paste(c(form_dist,factors[i]),collapse='+')
-for(i in c(1:length(factors))[-c(1,6,7)]) form_dist <- paste(c(form_dist,paste(c(factors[i],factors[1]),collapse=':')),collapse='+')
-for(i in c(1:length(factors))[-c(1,2,6,7)]) form_dist <- paste(c(form_dist,paste(c(factors[i],factors[2]),collapse=':')),collapse='+')
+for(i in c(1:length(factors))[-c(1)]) form_dist <- paste(c(form_dist,paste(c(factors[i],factors[1]),collapse=':')),collapse='+')
+for(i in c(1:length(factors))[-c(1,2)]) form_dist <- paste(c(form_dist,paste(c(factors[i],factors[2]),collapse=':')),collapse='+')
 for(i in c(4,5)) form_dist <- paste(c(form_dist,paste(c(factors[i],factors[3]),collapse=':')),collapse='+')
 fit_dist <- glm(as.formula(form_dist),data=test_data_dist,family=poisson(),control=glm.control(maxit=200))
-form_const <- 'count~offset(log(cas_distance))+offset(log(strike_distance))'
-for(i in c(1,2,3,5,6)) form_const <- paste(c(form_const,factors[i]),collapse='+')
+for(i in c(1,2,3,5)) form_const <- paste(c(form_const,factors[i]),collapse='+')
 for(i in c(2,3,5)) form_const <- paste(c(form_const,paste(c(factors[i],factors[1]),collapse=':')),collapse='+')
 for(i in c(3,5)) form_const <- paste(c(form_const,paste(c(factors[i],factors[2]),collapse=':')),collapse='+')
 for(i in c(5)) form_const <- paste(c(form_const,paste(c(factors[i],factors[3]),collapse=':')),collapse='+')
@@ -158,11 +181,11 @@ x11(); plot(test_data_const$count,test_data_const$pred)
 
 ## apply to new dataset
 new_data_dist$pred <- predict(fit_dist,newdata = new_data_dist,type='response')
-c(sum(new_data_dist$pred[new_data_dist$cas_severity=='Fatal'])/1.6,sum(subset(test_data_dist,cas_severity=='Fatal'&year==2015)$pred)/8)
+c(sum(new_data_dist$pred[new_data_dist$cas_severity=='Fatal'])/1.6,sum(subset(test_data_dist,cas_severity=='Fatal'&year==2015)$pred)/8,sum(subset(test_data_dist,cas_severity=='Fatal'&year==2015)$count)/8)
 new_data_const$pred <- predict(fit_const,newdata = new_data_const,type='response')
-c(sum(new_data_const$pred[new_data_const$cas_severity=='Fatal'])/1.6,sum(subset(test_data_const,cas_severity=='Fatal'&year==2015)$pred)/8)
+c(sum(new_data_const$pred[new_data_const$cas_severity=='Fatal'])/1.6,sum(subset(test_data_const,cas_severity=='Fatal'&year==2015)$pred)/8,sum(subset(test_data_const,cas_severity=='Fatal'&year==2015)$count)/8)
 
-c(sum(subset(test_data_const,cas_mode=='pedestrian'&strike_mode=='bus'&cas_severity=='Fatal'&cas_age>14&strike_age>14&cas_age<85&strike_age<85)$pred)/8,
+c(sum(subset(test_data_const,cas_mode=='pedestrian'&strike_mode=='bus'&cas_severity=='Fatal')$pred)/8,
   sum(subset(new_data_const,cas_mode=='pedestrian'&strike_mode=='bus'&cas_severity=='Fatal')$pred)/1.6)
 
 
@@ -172,6 +195,7 @@ for(sev in c('Fatal','Serious'))
 print(sapply(c(0,1),function(x)(sum(subset(new_data_dist,cas_male==x&cas_severity=='Fatal')$pred)+sum(subset(new_data_const,cas_male==x&cas_severity=='Fatal')$pred)))/
         (sum(subset(new_data_const,cas_severity=='Fatal')$pred)+sum(subset(new_data_dist,cas_severity=='Fatal')$pred))*100)
 for(x in c('Fatal','Serious'))
-  print(c(sum(subset(new_data_dist,cas_severity==x)$pred),sum(subset(new_data_const,cas_severity==x&strike_mode=='light goods')$pred)))
+  print(c(sum(subset(new_data_dist,cas_severity==x)$pred),sum(subset(new_data_const,cas_severity==x)$pred)))
 
+sapply(c('pedestrian','cyclist','car/taxi','motorcycle','heavy goods','light goods','bus'),function(x)sum(subset(new_data_dist,cas_mode=='pedestrian'&strike_mode==x)$pred)+sum(subset(new_data_const,cas_mode=='pedestrian'&strike_mode==x)$pred))
 
