@@ -169,8 +169,14 @@ b1 <- raw_data
 # Rename intermediate mode CB to Bus
 raw_data [raw_data$scen3_mode == 'CB',]$scen3_mode <- "Bus"
 
+# Remove all short walking trips
+#raw_data <- filter(raw_data, )
+
 # Redefine row_id
 raw_data$row_id <- 1:nrow(raw_data)
+
+
+
 
 #write_csv(raw_data, "baseline_and_three_scenarios.csv")
 
@@ -185,22 +191,32 @@ td2 <- reshape2::melt(td1,id.vars="trip_mode")
 
 td2 <- rename(td2, percentage = value)
 
+# Plot mode distribution for baseline and three scenarios
+ggplot(data = td2, aes(x = trip_mode, y = percentage, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal()+ xlab('Mode') + ylab('Percentage (%)') + labs(title = 'Mode distribution in baseline and three scenarios')
+
+
 # Calculate trip distance for baseline and three scenarios
 
-x <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_distance))
-x1 <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(trip_distance))
-x2 <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(sum = sum(trip_distance))
-x3 <- raw_data %>% group_by(scen3_mode) %>% summarise(sum = sum(trip_distance))
-x$sum_scen1 <- x1$sum
-x$sum_scen2 <- x2$sum
-x$sum_scen3 <- x3$sum
-View(x)
-x <- rename(x, sum_baseline = sum)
+dist <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_distance))
+dist1 <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(trip_distance))
+dist2 <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(sum = sum(trip_distance))
+dist3 <- raw_data %>% group_by(scen3_mode) %>% summarise(sum = sum(trip_distance))
+dist$sum_scen1 <- dist1$sum
+dist$sum_scen2 <- dist2$sum
+dist$sum_scen3 <- dist3$sum
+View(dist)
+dist <- rename(dist, sum_baseline = sum)
+
+distm <- reshape2::melt(dist, by = trip_mode)
+
+# Remove short walking
+distm <- filter(distm, trip_mode != 'Short Walking')
+
+# Plot
+ggplot(data = distm, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance (km)")
+
 
 #ggplot(data=raw_data, aes(x=trip_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Baseline') + ylab ('Percentage') + labs(title = "Mode Distribution")
 #ggplot(data=raw_data, aes(x=scen1_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 1 - 50% of all walking trips to Private Car') + ylab ('Percentage') + labs(title = "Mode Distribution")
 #ggplot(data=raw_data, aes(x=scen2_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 2 - 50% of all trips less than 7km to cycle') + ylab ('Percentage') + labs(title = "Mode Distribution")
 #ggplot(data=raw_data, aes(x=scen3_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 3 - 50% of all car trips longer than 10km to Bus') + ylab ('Percentage') + labs(title = "Mode Distribution")
-
-# Plot mode distribution for baseline and three scenarios
-ggplot(data = td2, aes(x = trip_mode, y = percentage, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal()+ xlab('Mode') + ylab('Percentage (%)') + labs(title = 'Mode distribution in baseline and three scenarios')
