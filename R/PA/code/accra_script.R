@@ -21,3 +21,9 @@ raw_data$trip_distance_cat[raw_data$trip_distance > 3 & raw_data$trip_distance <
 raw_data$trip_distance_cat[raw_data$trip_distance > 5 & raw_data$trip_distance <= 7] <- dist_cat[5]
 raw_data$trip_distance_cat[raw_data$trip_distance > 7 & raw_data$trip_distance <= 10] <- dist_cat[6]
 raw_data$trip_distance_cat[raw_data$trip_distance > 10] <- dist_cat[7]
+
+
+raw_data[,c("trip_mode", "trip_distance_cat")] <- lapply(raw_data[,c("trip_mode", "trip_distance_cat")], as.character)
+
+# Create row_id columns for all trips
+raw_data$row_id <- 1:nrow(raw_data)
