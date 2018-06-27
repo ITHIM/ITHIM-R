@@ -104,3 +104,53 @@ for (i in 7){
   raw_data[raw_data$row_id %in% trips_sample$row_id,]$scen3_duration <- trips_sample$scen1_duration
   
 }
+
+
+# for scenario 3, add short walking trips for the newly created bus trips
+# code originally written by rob
+
+
+bd <- raw_data
+
+raw_data <- bd
+
+library(ReIns)
+
+
+modes <- list(bus.passenger='CB',car.passenger='Taxi',pedestrian='Walking',car='Private Car',cyclist='Bicycle',motorcycle='Motorcycle')
+## speeds
+speeds <- list(bus.passenger=15,car.passenger=21,pedestrian=4.8,car=21,cyclist=14.5,motorcycle=25,tuktuk=22)
+
+## bus wait and walk times
+min_wait_time <- c(0,5,10,15,20,30)#exclusive
+max_wait_time <- c(5,10,15,20,30,60)#inclusive
+wait_time_proportion <- c(51.3,20.3,7.6,6.3,8.3,6.2)
+wait_rate <- 0.11
+min_walk_time <- c(0,10,20,30,40,60)#exclusive
+max_walk_time <- c(10,20,30,40,60,max(subset(raw_data, scen3_mode == 'Bus')$trip_duration)+1)#inclusive
+walk_time_proportion <- c(80.6,13.5,4.3,1.3,0.1,0)
+walk_rate <- 0.15
+min_bus_duration <- 5
+
+
+## subtract wait and walk times. add new walk journeys
+bus_trips <- subset(raw_data, scen3_mode == 'CB')
+other_trips <- subset(raw_data, scen3_mode != 'CB')
+bus_trips$scen3_duration <- sapply(bus_trips$scen3_duration, function(x) x- rtexp(1, rate = wait_rate, endpoint = x-min_bus_duration))
+walk_trips <- bus_trips
+walk_trips$scen3_mode <- 'Short Walking'
+walk_trips$scen3_duration <- sapply(walk_trips$scen3_duration,function(x)rtexp(1,rate=wait_rate,endpoint=x-min_bus_duration))
+bus_trips$scen3_duration <- bus_trips$scen3_duration - walk_trips$scen3_duration
+
+#raw_data[raw_data$row_id %in% bus_trips$row_id,]$scen3_duration <- bus_trips$scen3_duration
+
+
+# "scen1_mode"       
+# [11] "scen1_duration"    "scen2_mode"       
+# [13] "scen2_duration"    "scen3_mode"       
+# [15] "scen3_duration"   
+
+walk_trips[, c("scen1_mode", "scen1_duration", "scen2_mode", "scen2_duration")] <- NA
+walk_trips$row_id <- 0
+
+raw_data <- rbind(raw_data, walk_trips)
