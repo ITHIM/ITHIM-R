@@ -80,3 +80,27 @@ for (i in 1:5){
 }
 
 
+# Scenario 3: All car to Bus
+# 50% of all trips longer than 10km to Bus 
+# In this scenario, you will need to add walking trip of 10 minutes 
+
+
+raw_data$scen3_mode <- raw_data$trip_mode
+raw_data$scen3_duration <- raw_data$trip_duration
+
+# speeds <- list(bus.passenger=15,car.passenger=21,pedestrian=4.8,car=21,cyclist=14.5,motorcycle=25,tuktuk=22)
+
+for (i in 7){
+  print(dist_cat[i])
+  # i <- 2
+  trips <- filter(car_trips, trip_distance_cat == dist_cat[i]) 
+  trips_sample <- trips %>% sample_frac(.5) %>% mutate(trip_mode = "CB")
+  trips_sample$trip_duration <- (trips_sample$trip_distance / 21 ) * 15
+  trips_sample$scen1_mode <- trips_sample$trip_mode
+  trips_sample$scen1_duration <- trips_sample$trip_duration
+  trips_sample <- select(trips_sample, row_id, scen1_mode, scen1_duration)
+  print(nrow(trips_sample))
+  raw_data[raw_data$row_id %in% trips_sample$row_id,]$scen3_mode <- trips_sample$scen1_mode
+  raw_data[raw_data$row_id %in% trips_sample$row_id,]$scen3_duration <- trips_sample$scen1_duration
+  
+}
