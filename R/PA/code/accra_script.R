@@ -220,3 +220,22 @@ ggplot(data = distm, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(
 #ggplot(data=raw_data, aes(x=scen1_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 1 - 50% of all walking trips to Private Car') + ylab ('Percentage') + labs(title = "Mode Distribution")
 #ggplot(data=raw_data, aes(x=scen2_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 2 - 50% of all trips less than 7km to cycle') + ylab ('Percentage') + labs(title = "Mode Distribution")
 #ggplot(data=raw_data, aes(x=scen3_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 3 - 50% of all car trips longer than 10km to Bus') + ylab ('Percentage') + labs(title = "Mode Distribution")
+
+
+dur <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_duration))
+dur1 <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(scen1_duration))
+dur2 <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(sum = sum(scen2_duration))
+dur3 <- raw_data %>% group_by(scen3_mode) %>% summarise(sum = sum(scen3_duration))
+dur$scen1 <- dur1$sum
+dur$scen2 <- dur2$sum
+dur$scen3 <- dur3$sum
+View(dur)
+dur <- rename(dur, baseline = sum)
+
+durm <- reshape2::melt(dur, by = trip_mode)
+
+# Remove short walking
+durm <- filter(durm, trip_mode != 'Short Walking')
+
+# Plot
+ggplot(data = durm, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Duration (mins)') + labs(title = "Mode distance (km)")
