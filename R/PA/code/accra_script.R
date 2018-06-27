@@ -5,6 +5,9 @@ library(tidyverse)
 library(haven)
 library(plotly)
 
+# set seed
+set.seed(1)
+
 # Read travel survey data
 raw_data <- readRDS("data/synth_pop_data/accra/travel_survey/accra_processed_trips.Rds")
 
