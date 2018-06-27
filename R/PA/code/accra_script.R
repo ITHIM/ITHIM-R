@@ -55,4 +55,28 @@ for (i in 1:length(dist_cat)){
   
 }
 
+# Scenario 2: All car to Cycle
+# 50% of all trips less than 7km to cycle
+car_trips <- subset(raw_data, trip_mode == "Private Car" | trip_mode == "Taxi" & !is.na(trip_duration))
+
+raw_data$scen2_mode <- raw_data$trip_mode
+raw_data$scen2_duration <- raw_data$trip_duration
+
+# speeds <- list(bus.passenger=15,car.passenger=21,pedestrian=4.8,car=21,cyclist=14.5,motorcycle=25,tuktuk=22)
+
+for (i in 1:5){
+  print(dist_cat[i])
+  # i <- 2
+  trips <- filter(car_trips, trip_distance_cat == dist_cat[i]) 
+  trips_sample <- trips %>% sample_frac(.5) %>% mutate(trip_mode = "Bicycle")
+  trips_sample$trip_duration <- (trips_sample$trip_distance / 21 ) * 14.5
+  trips_sample$scen1_mode <- trips_sample$trip_mode
+  trips_sample$scen1_duration <- trips_sample$trip_duration
+  trips_sample <- select(trips_sample, row_id, scen1_mode, scen1_duration)
+  print(nrow(trips_sample))
+  raw_data[raw_data$row_id %in% trips_sample$row_id,]$scen2_mode <- trips_sample$scen1_mode
+  raw_data[raw_data$row_id %in% trips_sample$row_id,]$scen2_duration <- trips_sample$scen1_duration
+  
+}
+
 
