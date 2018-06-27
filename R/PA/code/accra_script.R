@@ -29,3 +29,30 @@ raw_data[,c("trip_mode", "trip_distance_cat")] <- lapply(raw_data[,c("trip_mode"
 raw_data$row_id <- 1:nrow(raw_data)
 
 raw_data[duplicated(raw_data$trip_id),]$trip_mode <- 'Short Walking'
+
+
+
+# Create scenario 1: 50% of all trips walking trips (in each dist bracket) to Private Car
+walking_trips <- subset(raw_data, trip_mode == "Walking")
+
+raw_data$scen1_mode <- raw_data$trip_mode
+raw_data$scen1_duration <- raw_data$trip_duration
+
+# speeds <- list(bus.passenger=15,car.passenger=21,pedestrian=4.8,car=21,cyclist=14.5,motorcycle=25,tuktuk=22)
+
+for (i in 1:length(dist_cat)){
+  print(dist_cat[i])
+  # i <- 2
+  trips <- filter(walking_trips, trip_distance_cat == dist_cat[i]) 
+  trips_sample <- trips %>% sample_frac(.5) %>% mutate(trip_mode = "Private Car")
+  trips_sample$trip_duration <- (trips_sample$trip_distance / 4.8 ) * 21
+  trips_sample$scen1_mode <- trips_sample$trip_mode
+  trips_sample$scen1_duration <- trips_sample$trip_duration
+  trips_sample <- select(trips_sample, row_id, scen1_mode, scen1_duration)
+  print(nrow(trips_sample))
+  raw_data[raw_data$row_id %in% trips_sample$row_id,]$scen1_mode <- trips_sample$scen1_mode
+  raw_data[raw_data$row_id %in% trips_sample$row_id,]$scen1_duration <- trips_sample$scen1_duration
+  
+}
+
+
