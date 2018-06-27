@@ -27,3 +27,5 @@ raw_data[,c("trip_mode", "trip_distance_cat")] <- lapply(raw_data[,c("trip_mode"
 
 # Create row_id columns for all trips
 raw_data$row_id <- 1:nrow(raw_data)
+
+raw_data[duplicated(raw_data$trip_id),]$trip_mode <- 'Short Walking'
