@@ -154,3 +154,22 @@ walk_trips[, c("scen1_mode", "scen1_duration", "scen2_mode", "scen2_duration")] 
 walk_trips$row_id <- 0
 
 raw_data <- rbind(raw_data, walk_trips)
+
+
+b1 <- raw_data
+
+raw_data [raw_data$scen3_mode == 'CB',]$scen3_mode <- "Bus"
+
+#write_csv(raw_data, "baseline_and_three_scenarios.csv")
+
+td <- select(raw_data, trip_mode, scen1_mode, scen2_mode, scen3_mode) 
+td1 <- td %>% filter(!is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(n = n()) %>% mutate(baseline_freq = round(n / sum(n) * 100, 2)) %>% select(trip_mode, baseline_freq)
+td1 <- cbind(td1, td %>% filter(!is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(n = n()) %>% mutate(scen1_freq = round(n / sum(n) * 100, 2)) %>% select(scen1_freq))
+td1 <- cbind(td1, td %>% filter(!is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(n = n()) %>% mutate(scen2_freq = round(n / sum(n) * 100, 2)) %>% select(scen2_freq))
+td1 <- cbind(td1, td %>% group_by(scen3_mode) %>% summarise(n = n()) %>% mutate(scen3_freq = round(n / sum(n) * 100, 2)) %>% select(scen3_freq))
+td2 <- reshape2::melt(td1,id.vars="trip_mode")
+
+td2 <- rename(td2, percentage = value)
+
+
+ggplot(data = td2, aes(x = trip_mode, y = percentage, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal()
