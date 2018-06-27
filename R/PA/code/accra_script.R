@@ -184,9 +184,9 @@ td2 <- rename(td2, percentage = value)
 
 # Calculate trip distance for baseline and three scenarios
 
-x <- filter(raw_data, scen1_mode != -1) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_distance))
-x1 <- filter(raw_data, scen1_mode != -1) %>% group_by(scen1_mode) %>% summarise(sum = sum(trip_distance))
-x2 <- filter(raw_data, scen1_mode != -1) %>% group_by(scen2_mode) %>% summarise(sum = sum(trip_distance))
+x <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_distance))
+x1 <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(trip_distance))
+x2 <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(sum = sum(trip_distance))
 x3 <- raw_data %>% group_by(scen3_mode) %>% summarise(sum = sum(trip_distance))
 x$sum_scen1 <- x1$sum
 x$sum_scen2 <- x2$sum
