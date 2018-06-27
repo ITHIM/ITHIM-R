@@ -166,6 +166,9 @@ b1 <- raw_data
 # Rename intermediate mode CB to Bus
 raw_data [raw_data$scen3_mode == 'CB',]$scen3_mode <- "Bus"
 
+# Redefine row_id
+raw_data$row_id <- 1:nrow(raw_data)
+
 #write_csv(raw_data, "baseline_and_three_scenarios.csv")
 
 
