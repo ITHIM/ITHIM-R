@@ -191,6 +191,8 @@ td2 <- reshape2::melt(td1,id.vars="trip_mode")
 
 td2 <- rename(td2, percentage = value)
 
+td2 <- filter(td2, trip_mode != 'Short Walking')
+
 # Plot mode distribution for baseline and three scenarios
 ggplot(data = td2, aes(x = trip_mode, y = percentage, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal()+ xlab('Mode') + ylab('Percentage (%)') + labs(title = 'Mode distribution in baseline and three scenarios')
 
@@ -237,5 +239,8 @@ durm <- reshape2::melt(dur, by = trip_mode)
 # Remove short walking
 durm <- filter(durm, trip_mode != 'Short Walking')
 
+durh <- durm
+durh$value <- round(durh$value / 60, 2)
+
 # Plot
-ggplot(data = durm, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Duration (mins)') + labs(title = "Mode distance (km)")
+ggplot(data = durh, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Duration (hours)') + labs(title = "Mode Duration (hours)")
