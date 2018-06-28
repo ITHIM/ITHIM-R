@@ -30,6 +30,13 @@ raw_data$trip_distance_cat[raw_data$trip_distance > 10] <- dist_cat[7]
 # Make mode and cat as character
 raw_data[,c("trip_mode", "trip_distance_cat")] <- lapply(raw_data[,c("trip_mode", "trip_distance_cat")], as.character)
 
+
+# Make age category
+age_category <- c("15-49", "50-70", ">70")
+raw_data$age_cat[raw_data$age >= 15 & raw_data$age < 50] <- age_category[1]
+raw_data$age_cat[raw_data$age >= 50 & raw_data$age <= 70] <- age_category[2]
+raw_data$age_cat[raw_data$age > 70] <- age_category[3]
+
 # Create row_id columns for all trips
 raw_data$row_id <- 1:nrow(raw_data)
 
