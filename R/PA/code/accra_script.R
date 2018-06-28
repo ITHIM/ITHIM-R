@@ -31,6 +31,31 @@ raw_data$trip_distance_cat[raw_data$trip_distance > 10] <- dist_cat[7]
 raw_data[,c("trip_mode", "trip_distance_cat")] <- lapply(raw_data[,c("trip_mode", "trip_distance_cat")], as.character)
 
 
+## FOR LEANDRO
+
+# # Create summary frequency for baseline and three scenarios
+# td <- select(raw_data, trip_mode) 
+# td1 <- td %>% group_by(trip_mode) %>% summarise(n = n()) %>% mutate(baseline_freq = round(n / sum(n) * 100, 2)) %>% select(trip_mode, baseline_freq)
+# td2 <- reshape2::melt(td1,id.vars="trip_mode")
+# 
+# td2 <- rename(td2, percentage = value)
+# 
+# td2 <- filter(td2, trip_mode != 'Short Walking')
+# 
+# bp <- ggplot(td2, aes(x="", y=percentage, fill=trip_mode))+
+#   geom_bar(width = 1, stat = "identity")
+# bp
+# 
+# pie <- bp + coord_polar("y", start = 0) +  scale_fill_brewer(palette="Dark2") + xlab("") + ylab("") + labs(title = "Trip Distribution by Mode (baseline)")
+# 
+# library(scales)
+# 
+# pie + scale_fill_brewer("Blues") + blank_theme +
+#   theme(axis.text.x=element_blank())+
+#   geom_text(aes(y = percentage/3 + c(0, cumsum(percentage)[-length(percentage)]), 
+#                 label = percent(percentage/100)), size=5)
+
+
 # Make age category
 age_category <- c("15-49", "50-70", ">70")
 raw_data$age_cat[raw_data$age >= 15 & raw_data$age < 50] <- age_category[1]
@@ -171,7 +196,7 @@ walk_trips$scen3_duration <- sapply(walk_trips$scen3_duration,function(x)rtexp(1
 bus_trips$scen3_duration <- bus_trips$scen3_duration - walk_trips$scen3_duration
 
 # For the newly added short walk trips for scen3, make NAs for the baseline and two scenarios
-walk_trips[, c("trip_mode", "scen1_mode", "scen1_duration", "scen2_mode", "scen2_duration")] <- NA
+walk_trips[, c("trip_mode", "trip_duration", "scen1_mode", "scen1_duration", "scen2_mode", "scen2_duration")] <- NA
 walk_trips$row_id <- 0
 
 raw_data <- rbind(raw_data, walk_trips)
@@ -188,10 +213,7 @@ raw_data [raw_data$scen3_mode == 'CB',]$scen3_mode <- "Bus"
 # Redefine row_id
 raw_data$row_id <- 1:nrow(raw_data)
 
-
-
-
-#write_csv(raw_data, "baseline_and_three_scenarios.csv")
+write_csv(raw_data, "baseline_and_three_scenarios.csv")
 
 
 # Create summary frequency for baseline and three scenarios
@@ -228,6 +250,8 @@ dist$sum_scen3 <- dist3$sum
 View(dist)
 dist <- rename(dist, sum_baseline = sum)
 
+write_csv(dist, "dist_by_mode_all_scenarios_all_ages.csv")
+
 distm <- reshape2::melt(dist, by = trip_mode)
 
 # Remove short walking
@@ -263,3 +287,47 @@ durh$value <- round(durh$value / 60, 2)
 
 # Plot
 ggplot(data = durh, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Duration (hours)') + labs(title = "Mode Duration (hours)")
+
+
+
+# 
+# 
+# ## Calculate individual mmets
+# 
+# 
+# # Constants
+# # Initialize  energy expenditure constants - taken from ICT
+# METCycling <- 5.63
+# METWalking <- 3.53
+# METEbikes <- 4.50
+# 
+# 
+# # Get total individual level walking and cycling and sport mmets 
+# individual_travel_mmet <- filter(raw_data, !is.na(scen1_mode)) %>% 
+#                                     group_by(participant_id) %>% summarise (sex = first(sex), 
+#                                                                age_cat = first(age_cat),
+#                                                                baseline_cycle_hrs = sum(trip_duration[trip_mode == 'Bicycle']),
+#                                                                baseline_walk_hrs = sum(trip_duration[trip_mode == 'Walking'] + 
+#                                                                                          trip_duration[trip_mode == 'Short Walking']),
+#                                                                scen1_cycle_hrs = sum(trip_duration[scen1_mode == 'Bicycle']),
+#                                                                scen1_walk_hrs = sum(trip_duration[scen1_mode == 'Walking'] + 
+#                                                                                       trip_duration[scen1_mode == 'Short Walking']),
+#                                                                scen2_cycle_hrs = sum(trip_duration[scen2_mode == 'Bicycle']),
+#                                                                scen2_walk_hrs = sum(trip_duration[scen2_mode == 'Walking'] + 
+#                                                                                                     trip_duration[scen2_mode == 'Short Walking']),
+#                                                                scen3_cycle_hrs = sum(trip_duration[scen3_mode == 'Bicycle']),
+#                                                                scen3_walk_hrs = sum(trip_duration[scen3_mode == 'Walking'] + 
+#                                                                                                     trip_duration[scen3_mode == 'Short Walking']),
+#                                                                btmmet = (METCycling - 1) * baseline_cycle_hrs + 
+#                                                                  (METWalking - 1) * baseline_walk_hrs,
+#                                                                sc1tmmet = (METCycling - 1) * scen1_cycle_hrs + 
+#                                                                  (METWalking - 1) * scen1_walk_hrs,
+#                                                                sc2tmmet = (METCycling - 1) * scen2_cycle_hrs + 
+#                                                                  (METWalking - 1) * scen2_walk_hrs,
+#                                                                sc3tmmet = (METCycling - 1) * scen3_cycle_hrs + 
+#                                                                  (METWalking - 1) * scen3_walk_hrs
+#                                                                )
+# 
+# 
+# individual_travel_mmet <- individual_travel_mmet %>% select(participant_id, sex, age_cat, btmmet, sc1tmmet, sc2tmmet, sc3tmmet)
+
