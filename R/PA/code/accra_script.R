@@ -331,3 +331,18 @@ ggplot(data = durh, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(s
 # 
 # individual_travel_mmet <- individual_travel_mmet %>% select(participant_id, sex, age_cat, btmmet, sc1tmmet, sc2tmmet, sc3tmmet)
 
+
+# Load all functions
+source("R/PA/code/functions.R")
+
+# Read processed data for ap and pa
+ind <- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_mmet_weekly.csv")
+
+# Redefine categories
+ind$age_cat[ind$age >= 15 & ind$age < 50] <- age_category[1]
+ind$age_cat[ind$age >= 50 & ind$age <= 70] <- age_category[2]
+ind$age_cat[ind$age > 70] <- age_category[3]
+
+pif <- data.frame(PAF(pop = ind, attr = c('sex', 'age_cat'), cn = c('RR_pm_base', 'RR_pm_scen1', 'RR_pm_scen2', 'RR_pm_scen3')))
+pif <- arrange(pif, age.band, gender)
+
