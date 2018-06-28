@@ -37,6 +37,10 @@ raw_data$age_cat[raw_data$age >= 15 & raw_data$age < 50] <- age_category[1]
 raw_data$age_cat[raw_data$age >= 50 & raw_data$age <= 70] <- age_category[2]
 raw_data$age_cat[raw_data$age > 70] <- age_category[3]
 
+
+# Remove all participants greater than 70 years of age
+raw_data <- filter(raw_data, age_cat != age_category[3])
+
 # Create row_id columns for all trips
 raw_data$row_id <- 1:nrow(raw_data)
 
