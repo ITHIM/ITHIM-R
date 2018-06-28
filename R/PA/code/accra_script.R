@@ -37,6 +37,8 @@ raw_data$age_cat[raw_data$age >= 15 & raw_data$age < 50] <- age_category[1]
 raw_data$age_cat[raw_data$age >= 50 & raw_data$age <= 70] <- age_category[2]
 raw_data$age_cat[raw_data$age > 70] <- age_category[3]
 
+# Save all participants greater than 70 in a df
+raw_data_70g <- filter(raw_data, age_cat == age_category[3])
 
 # Remove all participants greater than 70 years of age
 raw_data <- filter(raw_data, age_cat != age_category[3])
@@ -210,10 +212,16 @@ ggplot(data = td2, aes(x = trip_mode, y = percentage, fill = variable)) + geom_b
 
 # Calculate trip distance for baseline and three scenarios
 
-dist <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_distance))
-dist1 <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(trip_distance))
-dist2 <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(sum = sum(trip_distance))
-dist3 <- raw_data %>% group_by(scen3_mode) %>% summarise(sum = sum(trip_distance))
+# Add 70g distance trips to all scenarios
+raw_data_70g$scen1_mode <- raw_data_70g$scen2_mode <- raw_data_70g$scen3_mode <- raw_data_70g$trip_mode
+
+## ADD 70g distance trips
+raw_data_dist <- plyr::rbind.fill(raw_data, raw_data_70g)
+
+dist <- filter(raw_data_dist, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_distance))
+dist1 <- filter(raw_data_dist, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(trip_distance))
+dist2 <- filter(raw_data_dist, !is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(sum = sum(trip_distance))
+dist3 <- raw_data_dist %>% group_by(scen3_mode) %>% summarise(sum = sum(trip_distance))
 dist$sum_scen1 <- dist1$sum
 dist$sum_scen2 <- dist2$sum
 dist$sum_scen3 <- dist3$sum
