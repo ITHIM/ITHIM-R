@@ -1,4 +1,3 @@
-# Remove everything
 rm (list = ls())
 # Load packages
 library(tidyverse)
@@ -236,9 +235,16 @@ ggplot(data = td2, aes(x = trip_mode, y = percentage, fill = variable)) + geom_b
 
 # Add 70g distance trips to all scenarios
 raw_data_70g$scen1_mode <- raw_data_70g$scen2_mode <- raw_data_70g$scen3_mode <- raw_data_70g$trip_mode
+raw_data_70g$scen1_duration <- raw_data_70g$scen2_duration <- raw_data_70g$scen3_duration <- raw_data_70g$trip_duration
+raw_data_70g$scen1_distance <- raw_data_70g$scen2_distance <- raw_data_70g$scen3_distance <- raw_data_70g$trip_distance
+
 
 ## ADD 70g distance trips
 raw_data_dist <- plyr::rbind.fill(raw_data, raw_data_70g)
+
+# write_csv(raw_data_dist, "raw_data_dist.csv")
+
+
 
 dist <- filter(raw_data_dist, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_distance))
 dist1 <- filter(raw_data_dist, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(trip_distance))
@@ -331,18 +337,4 @@ ggplot(data = durh, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(s
 # 
 # individual_travel_mmet <- individual_travel_mmet %>% select(participant_id, sex, age_cat, btmmet, sc1tmmet, sc2tmmet, sc3tmmet)
 
-
-# Load all functions
-source("R/PA/code/functions.R")
-
-# Read processed data for ap and pa
-ind <- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_mmet_weekly.csv")
-
-# Redefine categories
-ind$age_cat[ind$age >= 15 & ind$age < 50] <- age_category[1]
-ind$age_cat[ind$age >= 50 & ind$age <= 70] <- age_category[2]
-ind$age_cat[ind$age > 70] <- age_category[3]
-
-pif <- data.frame(PAF(pop = ind, attr = c('sex', 'age_cat'), cn = c('RR_pm_base', 'RR_pm_scen1', 'RR_pm_scen2', 'RR_pm_scen3')))
-pif <- arrange(pif, age.band, gender)
 
