@@ -17,8 +17,12 @@ ind$age_cat[ind$age >= 70] <- age_category[3]
 # pif$RR_pm_base <- NULL
 
 for (i in 1:nrow(ind)){
-  ind$base_pa_all_cause_rr[i] <- dose_response(cause = 'all-cause-mortality', outcome_type = 'mortality', dose = ind$base_MET[i])$rr %>% as.numeric()
-  ind$scen1_pa_all_cause_rr[i] <- dose_response(cause = 'all-cause-mortality', outcome_type = 'mortality', dose = ind$scen1_MET[i])$rr %>% as.numeric()
+  ind$base_pa_all_cause_rr[i] <- dose_response(cause = 'all-cause-mortality', outcome_type = 'mortality', 
+                                               dose = ifelse(ind$base_MET[i] <= 35, ind$base_MET[i], 35), 
+                                               use_75_pert = F)$rr %>% as.numeric()
+  ind$scen1_pa_all_cause_rr[i] <- dose_response(cause = 'all-cause-mortality', outcome_type = 'mortality', 
+                                                dose = ifelse(ind$scen1_MET[i] <= 35, ind$scen1_MET, 35), 
+                                                use_75_pert = F)$rr %>% as.numeric()
   
 }
 
