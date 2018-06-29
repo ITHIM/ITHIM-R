@@ -90,7 +90,7 @@ PAF <- function(pop, attr, cn){
   m
 }
 
-combine_health_and_pif <- function(pop, hc, hm, cn){
+combine_health_and_pif <- function(pop, hc, hm, hm_cause, hm_cn, cn){
     
   # combine_health_and_pif(pif, gbd_data, "YLLs (Years of Life Lost)")
   # pop <- pif
@@ -102,12 +102,13 @@ combine_health_and_pif <- function(pop, hc, hm, cn){
   
   for (i in 1:length(cn)){
     for (j in 1:nrow(m)){
-      # i <- 2
+      # i <- 1
+      # j <- 1
       new_row <- j
-      sub <- filter(hc, sex == m$gender[new_row] & age ==  m$age.band[new_row] & measure == hm & metric == "Number")
+      sub <- filter(hc, sex == m$gender[new_row] & age ==  m$age.band[new_row] & measure == hm & metric == "Number" & cause == hm_cause)
       #cat(m$gender[new_row], m$age.band[new_row], hm)
       if (length(sub) > 0){
-        if (length(sub$val) > 0){
+        if (length(sub[[hm_cn]]) > 0){
           val <- filter(m, gender == m$gender[new_row] & age.band ==  m$age.band[new_row]) %>% select(cn[i]) %>% as.double()
           
           baseline_val <- filter(m, gender == m$gender[new_row] & age.band ==  m$age.band[new_row]) %>% select(cn[1]) %>% as.double()
@@ -116,10 +117,13 @@ combine_health_and_pif <- function(pop, hc, hm, cn){
           # browser()
           
           n[n$gender == n$gender[new_row] & n$age.band ==  n$age.band[new_row], ][[cn[i]]] <- 
-            round((val * as.numeric(sub$val)) / baseline_val, 5)
+            round((val * as.numeric(sub[[hm_cn]])) / baseline_val, 5)
           
           m[m$gender == m$gender[new_row] & m$age.band == m$age.band[new_row], ][[cn[i]]] <- 
-            val * as.numeric(sub$val)
+            val * as.numeric(sub[[hm_cn]])
+          
+          print (m)
+          print (n)
         }else{
           n[n$gender == n$gender[new_row] & n$age.band ==  n$age.band[new_row], ][[cn[i]]] <- 0
           
