@@ -3,7 +3,7 @@ library(drpa)
 source("R/PA/code/functions.R")
 
 # Read processed data for ap and pa
-ind <- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_mmet_weekly.csv")
+ind <- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_total_mmet_weekly.csv")
 # Redefine age categories to match with GBD's
 age_category <- c("15-49", "50-69", "70+")
 ind$age_cat[ind$age >= 15 & ind$age < 50] <- age_category[1]
