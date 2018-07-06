@@ -8,7 +8,7 @@ library(plotly)
 set.seed(1)
 
 # Read travel survey data
-raw_data <- readRDS("data/synth_pop_data/accra/travel_survey/accra_processed_trips.Rds")
+raw_data <- read_csv("data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv")
 
 # Redefine non-factor based column classes
 raw_data[,c("trip_id", "participant_id", "age")] <- lapply(raw_data[,c("trip_id", "participant_id", "age")], as.numeric)
