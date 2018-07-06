@@ -10,10 +10,6 @@ set.seed(1)
 # Read travel survey data
 raw_data <- read_csv("data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv")
 
-# Redefine non-factor based column classes
-raw_data[,c("trip_id", "participant_id", "age")] <- lapply(raw_data[,c("trip_id", "participant_id", "age")], as.numeric)
-raw_data[,c("trip_duration", "trip_distance")] <- lapply(raw_data[,c("trip_duration", "trip_distance")], as.double)
-
 # Define distance categories
 dist_cat <- c("0-1 km", "1-2 km", "2-3 km", "3-5 km", "5-7 km", "7-10 km", ">10 km" )
 
