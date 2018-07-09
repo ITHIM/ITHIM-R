@@ -25,7 +25,7 @@ Leandro has already removed >70 population from it
 
 ### Create scenarios
 
-* Scenario 1: Shift modes - 50% of all walking walking trips to Private Car
+* Scenario 1: Shift modes - 50% of all walking trips to Private Car
 
 * Scenario 1: Shift modes - 50% of all car trips less than 7km to cycle
 
