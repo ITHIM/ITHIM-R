@@ -98,7 +98,8 @@ rd <- filter(rd, age_cat != age_category[3])
 rd$row_id <- 1:nrow(rd)
 
 # Redefine short walk as their own category (part of bus trips)
-rd[duplicated(rd$trip_id),]$trip_mode <- 'Short Walking'
+# Don't apply to people without trips
+rd[duplicated(rd$trip_id) & rd$trip_id != 0 & rd$trip_mode != "99",]$trip_mode <- 'Short Walking'
 
 # Create scenario 1: 50% of all trips walking trips (in each dist bracket) to Private Car
 walking_trips <- subset(rd, trip_mode == "Walking")
@@ -226,7 +227,7 @@ rd [rd$scen3_mode == 'CB',]$scen3_mode <- "Bus"
 # Redefine row_id
 rd$rid <- 1:nrow(rd)
 
-write_csv(rd, "baseline_and_three_scenarios.csv")
+write.csv(rd, "data/scenarios/accra/baseline_and_three_scenarios.csv", row.names = F)
 
 # Create summary frequency for baseline and three scenarios
 td <- select(rd, trip_mode, scen1_mode, scen2_mode, scen3_mode) 
