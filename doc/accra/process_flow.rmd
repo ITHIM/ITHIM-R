@@ -41,7 +41,10 @@ Calculate total PA per individual
 2.	Sum them for each individual to get total PA
 
 ## Air Pollution – RG
-Fill in the info
+* Ideally, air pollution calculations will account for four activity domains totalling to 24 hours: these include transport, work, leisure, and sleep. Each domain will have specific air inhalation rate which will be based on intensity of the activity.
+* In case work and leisure are not available, these columns will be left as NA and air pollution calculation will assume work and leisure time concentration same as background concentration-- sleep can still be calculated assuming X number of average sleeping hours
+* The background concentration for scenario is a function of the changing transport emission inventory. For this, the input sheet will include emission inventory classified by pre-specified vehicle categories. The emission estimates for scenarios will be revised based on scenario distances, and scenario background concentration will be calculated.
+* Emission calculation will be a part of the input sheet outside the modelling framework
 
 ## Health – RG
 
