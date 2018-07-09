@@ -15,7 +15,8 @@ Read leandro’s created processed raw data (which already has domain specific d
 rd <- read.csv("data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv")
 
 Leandro has already removed >70 population from it
-This has people without trips (trip_mode 99 and trip_id 0) as well
+
+(this has people without trips (trip_mode 99 and trip_id 0) as well)
 
 
 ### Walk trips to Baseline
