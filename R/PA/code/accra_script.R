@@ -3,78 +3,110 @@ rm (list = ls())
 library(tidyverse)
 library(haven)
 library(plotly)
+library(ReIns)
 
 # set seed
 set.seed(1)
 
 # Read travel survey data
-raw_data <- read_csv("data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv")
+rd <- read_csv("data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv")
+
+# Create a row id
+rd$rid <- 1:nrow(rd)
+
+
+# Define motorcycle mode
+rd <- rd %>% mutate(trip_mode = ifelse( (trip_mode == 'Other' & trip_duration < 60), 'Motorcycle', trip_mode))
+
+
+# Divide bus trips into bus and walk trips
+
+bus_trips <- filter(rd, trip_mode == "Bus")
+
+# Copy pasted rob's code with minor adjustments
+modes <- list(bus.passenger='Bus',car.passenger='Taxi',pedestrian='Walking',car='Private Car',cyclist='Bicycle',motorcycle='Motorcycle')
+## speeds
+speeds <- list(bus.passenger=15,car.passenger=21,pedestrian=4.8,car=21,cyclist=14.5,motorcycle=25,tuktuk=22)
+
+## bus wait and walk times
+min_wait_time <- c(0,5,10,15,20,30)#exclusive
+max_wait_time <- c(5,10,15,20,30,60)#inclusive
+wait_time_proportion <- c(51.3,20.3,7.6,6.3,8.3,6.2)
+wait_rate <- 0.11
+min_walk_time <- c(0,10,20,30,40,60)#exclusive
+max_walk_time <- c(10,20,30,40,60, max(subset(bus_trips, trip_mode == 'Bus')$trip_duration) + 1)#inclusive
+walk_time_proportion <- c(80.6,13.5,4.3,1.3,0.1,0)
+walk_rate <- 0.15
+min_bus_duration <- 5
+
+## subtract wait and walk times, and add new walk journeys
+bus_trips <- subset(bus_trips, trip_mode == 'Bus')
+bus_trips$trip_duration <- sapply(bus_trips$trip_duration, function(x) x- rtexp(1, rate = wait_rate, endpoint = x-min_bus_duration))
+
+walk_trips <- bus_trips
+walk_trips$trip_mode <- 'Short Walking'
+walk_trips$trip_duration <- sapply(walk_trips$trip_duration,function(x)rtexp(1,rate=wait_rate,endpoint=x-min_bus_duration))
+
+bus_trips$trip_duration <- bus_trips$trip_duration - walk_trips$trip_duration
+
+rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_trips$rid,]$trip_duration <- bus_trips$trip_duration
+
+rd <- rbind(rd, walk_trips)
+
+# Define trip_distances (in km)
+# Based on travel mode and trip duration, calculate distances
+
+trip_mode <- c("Bus", "Private Car", "Taxi", "Walking",
+               "Short Walking", "Bicycle", "Motorcycle")
+speeds <- c(15, 21, 21, 4.8, 4.8, 14.5, 25)
+
+modes_speeds_lt <- data.frame(trip_mode, speeds)
+modes_speeds_lt$trip_mode <- as.character(modes_speeds_lt$trip_mode)
+
+rd <- left_join(rd, modes_speeds_lt, by = "trip_mode")
+
+rd$speeds[is.na(rd$speeds)] <- 0
+
+rd$trip_distance <- (rd$trip_duration / 60) * rd$speeds
+
+rd$speeds <- NULL
 
 # Define distance categories
 dist_cat <- c("0-1 km", "1-2 km", "2-3 km", "3-5 km", "5-7 km", "7-10 km", ">10 km" )
 
 # Initialize them
-raw_data$trip_distance_cat[raw_data$trip_distance > 0 & raw_data$trip_distance <= 1] <- dist_cat[1]
-raw_data$trip_distance_cat[raw_data$trip_distance > 1 & raw_data$trip_distance <= 2] <- dist_cat[2]
-raw_data$trip_distance_cat[raw_data$trip_distance > 2 & raw_data$trip_distance <= 3] <- dist_cat[3]
-raw_data$trip_distance_cat[raw_data$trip_distance > 3 & raw_data$trip_distance <= 5] <- dist_cat[4]
-raw_data$trip_distance_cat[raw_data$trip_distance > 5 & raw_data$trip_distance <= 7] <- dist_cat[5]
-raw_data$trip_distance_cat[raw_data$trip_distance > 7 & raw_data$trip_distance <= 10] <- dist_cat[6]
-raw_data$trip_distance_cat[raw_data$trip_distance > 10] <- dist_cat[7]
-
-# Make mode and cat as character
-raw_data[,c("trip_mode", "trip_distance_cat")] <- lapply(raw_data[,c("trip_mode", "trip_distance_cat")], as.character)
-
-
-## FOR LEANDRO
-
-# # Create summary frequency for baseline and three scenarios
-# td <- select(raw_data, trip_mode) 
-# td1 <- td %>% group_by(trip_mode) %>% summarise(n = n()) %>% mutate(baseline_freq = round(n / sum(n) * 100, 2)) %>% select(trip_mode, baseline_freq)
-# td2 <- reshape2::melt(td1,id.vars="trip_mode")
-# 
-# td2 <- rename(td2, percentage = value)
-# 
-# td2 <- filter(td2, trip_mode != 'Short Walking')
-# 
-# bp <- ggplot(td2, aes(x="", y=percentage, fill=trip_mode))+
-#   geom_bar(width = 1, stat = "identity")
-# bp
-# 
-# pie <- bp + coord_polar("y", start = 0) +  scale_fill_brewer(palette="Dark2") + xlab("") + ylab("") + labs(title = "Trip Distribution by Mode (baseline)")
-# 
-# library(scales)
-# 
-# pie + scale_fill_brewer("Blues") + blank_theme +
-#   theme(axis.text.x=element_blank())+
-#   geom_text(aes(y = percentage/3 + c(0, cumsum(percentage)[-length(percentage)]), 
-#                 label = percent(percentage/100)), size=5)
-
+rd$trip_distance_cat[rd$trip_distance > 0 & rd$trip_distance <= 1] <- dist_cat[1]
+rd$trip_distance_cat[rd$trip_distance > 1 & rd$trip_distance <= 2] <- dist_cat[2]
+rd$trip_distance_cat[rd$trip_distance > 2 & rd$trip_distance <= 3] <- dist_cat[3]
+rd$trip_distance_cat[rd$trip_distance > 3 & rd$trip_distance <= 5] <- dist_cat[4]
+rd$trip_distance_cat[rd$trip_distance > 5 & rd$trip_distance <= 7] <- dist_cat[5]
+rd$trip_distance_cat[rd$trip_distance > 7 & rd$trip_distance <= 10] <- dist_cat[6]
+rd$trip_distance_cat[rd$trip_distance > 10] <- dist_cat[7]
 
 # Make age category
 age_category <- c("15-49", "50-70", ">70")
-raw_data$age_cat[raw_data$age >= 15 & raw_data$age < 50] <- age_category[1]
-raw_data$age_cat[raw_data$age >= 50 & raw_data$age <= 70] <- age_category[2]
-raw_data$age_cat[raw_data$age > 70] <- age_category[3]
+rd$age_cat[rd$age >= 15 & rd$age < 50] <- age_category[1]
+rd$age_cat[rd$age >= 50 & rd$age <= 70] <- age_category[2]
+rd$age_cat[rd$age > 70] <- age_category[3]
 
 # Save all participants greater than 70 in a df
-raw_data_70g <- filter(raw_data, age_cat == age_category[3])
+raw_data_70g <- filter(rd, age_cat == age_category[3])
 
 # Remove all participants greater than 70 years of age
-raw_data <- filter(raw_data, age_cat != age_category[3])
+rd <- filter(rd, age_cat != age_category[3])
 
 # Create row_id columns for all trips
-raw_data$row_id <- 1:nrow(raw_data)
+rd$row_id <- 1:nrow(rd)
 
 # Redefine short walk as their own category (part of bus trips)
-raw_data[duplicated(raw_data$trip_id),]$trip_mode <- 'Short Walking'
+rd[duplicated(rd$trip_id),]$trip_mode <- 'Short Walking'
 
 # Create scenario 1: 50% of all trips walking trips (in each dist bracket) to Private Car
-walking_trips <- subset(raw_data, trip_mode == "Walking")
+walking_trips <- subset(rd, trip_mode == "Walking")
 
 # Copy mode and duration from baseline
-raw_data$scen1_mode <- raw_data$trip_mode
-raw_data$scen1_duration <- raw_data$trip_duration
+rd$scen1_mode <- rd$trip_mode
+rd$scen1_duration <- rd$trip_duration
 
 # Take 50% of trips in each distance category and then convert them into walking 
 for (i in 1:length(dist_cat)){
@@ -90,18 +122,18 @@ for (i in 1:length(dist_cat)){
   print(nrow(trips_sample))
   
   # Update selected rows for mode and duration
-  raw_data[raw_data$row_id %in% trips_sample$row_id,]$scen1_mode <- trips_sample$scen1_mode
-  raw_data[raw_data$row_id %in% trips_sample$row_id,]$scen1_duration <- trips_sample$scen1_duration
+  rd[rd$row_id %in% trips_sample$row_id,]$scen1_mode <- trips_sample$scen1_mode
+  rd[rd$row_id %in% trips_sample$row_id,]$scen1_duration <- trips_sample$scen1_duration
   
 }
 
 # Scenario 2: All car to Cycle
 # 50% of all trips less than 7km to cycle
-car_trips <- subset(raw_data, trip_mode == "Private Car" | trip_mode == "Taxi" & !is.na(trip_duration))
+car_trips <- subset(rd, trip_mode == "Private Car" | trip_mode == "Taxi" & !is.na(trip_duration))
 
 # Copy baseline's mode and duration
-raw_data$scen2_mode <- raw_data$trip_mode
-raw_data$scen2_duration <- raw_data$trip_duration
+rd$scen2_mode <- rd$trip_mode
+rd$scen2_duration <- rd$trip_duration
 
 # speeds <- list(bus.passenger=15,car.passenger=21,pedestrian=4.8,car=21,cyclist=14.5,motorcycle=25,tuktuk=22)
 # Loop through all trips less than 7 km
@@ -119,8 +151,8 @@ for (i in 1:5){
   print(nrow(trips_sample))
   
   # Update relevant rows
-  raw_data[raw_data$row_id %in% trips_sample$row_id,]$scen2_mode <- trips_sample$scen1_mode
-  raw_data[raw_data$row_id %in% trips_sample$row_id,]$scen2_duration <- trips_sample$scen1_duration
+  rd[rd$row_id %in% trips_sample$row_id,]$scen2_mode <- trips_sample$scen1_mode
+  rd[rd$row_id %in% trips_sample$row_id,]$scen2_duration <- trips_sample$scen1_duration
   
 }
 
@@ -130,8 +162,8 @@ for (i in 1:5){
 # In this scenario, you will need to add walking trip of 10 minutes 
 
 # Copy mode and duration from baseline
-raw_data$scen3_mode <- raw_data$trip_mode
-raw_data$scen3_duration <- raw_data$trip_duration
+rd$scen3_mode <- rd$trip_mode
+rd$scen3_duration <- rd$trip_duration
 
 
 # Only consider trips greater than 10 km
@@ -148,8 +180,8 @@ for (i in 7){
   trips_sample <- select(trips_sample, row_id, scen1_mode, scen1_duration)
   print(nrow(trips_sample))
   # Update relevant rows
-  raw_data[raw_data$row_id %in% trips_sample$row_id,]$scen3_mode <- trips_sample$scen1_mode
-  raw_data[raw_data$row_id %in% trips_sample$row_id,]$scen3_duration <- trips_sample$scen1_duration
+  rd[rd$row_id %in% trips_sample$row_id,]$scen3_mode <- trips_sample$scen1_mode
+  rd[rd$row_id %in% trips_sample$row_id,]$scen3_duration <- trips_sample$scen1_duration
   
 }
 
@@ -158,9 +190,9 @@ for (i in 7){
 # code originally written by rob
 
 # Backup variable
-bd <- raw_data
+bd <- rd
 
-# raw_data <- bd
+# rd <- bd
 
 # Copy pasted rob's code with minor adjustments
 library(ReIns)
@@ -175,15 +207,15 @@ max_wait_time <- c(5,10,15,20,30,60)#inclusive
 wait_time_proportion <- c(51.3,20.3,7.6,6.3,8.3,6.2)
 wait_rate <- 0.11
 min_walk_time <- c(0,10,20,30,40,60)#exclusive
-max_walk_time <- c(10,20,30,40,60, max(subset(raw_data, scen3_mode == 'Bus')$trip_duration) + 1)#inclusive
+max_walk_time <- c(10,20,30,40,60, max(subset(rd, scen3_mode == 'Bus')$trip_duration) + 1)#inclusive
 walk_time_proportion <- c(80.6,13.5,4.3,1.3,0.1,0)
 walk_rate <- 0.15
 min_bus_duration <- 5
 
 # Use the specialized CB category to identify new short walk trips
 ## subtract wait and walk times. add new walk journeys
-bus_trips <- subset(raw_data, scen3_mode == 'CB')
-other_trips <- subset(raw_data, scen3_mode != 'CB')
+bus_trips <- subset(rd, scen3_mode == 'CB')
+other_trips <- subset(rd, scen3_mode != 'CB')
 bus_trips$scen3_duration <- sapply(bus_trips$scen3_duration, function(x) x- rtexp(1, rate = wait_rate, endpoint = x-min_bus_duration))
 walk_trips <- bus_trips
 walk_trips$scen3_mode <- 'Short Walking'
@@ -194,25 +226,25 @@ bus_trips$scen3_duration <- bus_trips$scen3_duration - walk_trips$scen3_duration
 walk_trips[, c("trip_mode", "trip_duration", "scen1_mode", "scen1_duration", "scen2_mode", "scen2_duration")] <- NA
 walk_trips$row_id <- 0
 
-raw_data <- rbind(raw_data, walk_trips)
+rd <- rbind(rd, walk_trips)
 
 # Create another backup
-b1 <- raw_data
+b1 <- rd
 
 # Rename intermediate mode CB to Bus
-raw_data [raw_data$scen3_mode == 'CB',]$scen3_mode <- "Bus"
+rd [rd$scen3_mode == 'CB',]$scen3_mode <- "Bus"
 
 # Remove all short walking trips
-#raw_data <- filter(raw_data, )
+#rd <- filter(rd, )
 
 # Redefine row_id
-raw_data$row_id <- 1:nrow(raw_data)
+rd$rid <- 1:nrow(rd)
 
-write_csv(raw_data, "baseline_and_three_scenarios.csv")
+write_csv(rd, "baseline_and_three_scenarios.csv")
 
 
 # Create summary frequency for baseline and three scenarios
-td <- select(raw_data, trip_mode, scen1_mode, scen2_mode, scen3_mode) 
+td <- select(rd, trip_mode, scen1_mode, scen2_mode, scen3_mode) 
 td1 <- td %>% filter(!is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(n = n()) %>% mutate(baseline_freq = round(n / sum(n) * 100, 2)) %>% select(trip_mode, baseline_freq)
 td1 <- cbind(td1, td %>% filter(!is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(n = n()) %>% mutate(scen1_freq = round(n / sum(n) * 100, 2)) %>% select(scen1_freq))
 td1 <- cbind(td1, td %>% filter(!is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(n = n()) %>% mutate(scen2_freq = round(n / sum(n) * 100, 2)) %>% select(scen2_freq))
@@ -236,7 +268,7 @@ raw_data_70g$scen1_distance <- raw_data_70g$scen2_distance <- raw_data_70g$scen3
 
 
 ## ADD 70g distance trips
-raw_data_dist <- plyr::rbind.fill(raw_data, raw_data_70g)
+raw_data_dist <- plyr::rbind.fill(rd, raw_data_70g)
 
 # write_csv(raw_data_dist, "raw_data_dist.csv")
 
@@ -263,16 +295,16 @@ distm <- filter(distm, trip_mode != 'Short Walking')
 ggplot(data = distm, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance (km)")
 
 
-#ggplot(data=raw_data, aes(x=trip_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Baseline') + ylab ('Percentage') + labs(title = "Mode Distribution")
-#ggplot(data=raw_data, aes(x=scen1_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 1 - 50% of all walking trips to Private Car') + ylab ('Percentage') + labs(title = "Mode Distribution")
-#ggplot(data=raw_data, aes(x=scen2_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 2 - 50% of all trips less than 7km to cycle') + ylab ('Percentage') + labs(title = "Mode Distribution")
-#ggplot(data=raw_data, aes(x=scen3_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 3 - 50% of all car trips longer than 10km to Bus') + ylab ('Percentage') + labs(title = "Mode Distribution")
+#ggplot(data=rd, aes(x=trip_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Baseline') + ylab ('Percentage') + labs(title = "Mode Distribution")
+#ggplot(data=rd, aes(x=scen1_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 1 - 50% of all walking trips to Private Car') + ylab ('Percentage') + labs(title = "Mode Distribution")
+#ggplot(data=rd, aes(x=scen2_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 2 - 50% of all trips less than 7km to cycle') + ylab ('Percentage') + labs(title = "Mode Distribution")
+#ggplot(data=rd, aes(x=scen3_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 3 - 50% of all car trips longer than 10km to Bus') + ylab ('Percentage') + labs(title = "Mode Distribution")
 
 
-dur <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_duration))
-dur1 <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(scen1_duration))
-dur2 <- filter(raw_data, !is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(sum = sum(scen2_duration))
-dur3 <- raw_data %>% group_by(scen3_mode) %>% summarise(sum = sum(scen3_duration))
+dur <- filter(rd, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_duration))
+dur1 <- filter(rd, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(scen1_duration))
+dur2 <- filter(rd, !is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(sum = sum(scen2_duration))
+dur3 <- rd %>% group_by(scen3_mode) %>% summarise(sum = sum(scen3_duration))
 dur$scen1 <- dur1$sum
 dur$scen2 <- dur2$sum
 dur$scen3 <- dur3$sum
@@ -305,7 +337,7 @@ ggplot(data = durh, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(s
 # 
 # 
 # # Get total individual level walking and cycling and sport mmets 
-# individual_travel_mmet <- filter(raw_data, !is.na(scen1_mode)) %>% 
+# individual_travel_mmet <- filter(rd, !is.na(scen1_mode)) %>% 
 #                                     group_by(participant_id) %>% summarise (sex = first(sex), 
 #                                                                age_cat = first(age_cat),
 #                                                                baseline_cycle_hrs = sum(trip_duration[trip_mode == 'Bicycle']),
