@@ -20,7 +20,6 @@ rd <- rd %>% mutate(trip_mode = ifelse( (trip_mode == 'Other' & trip_duration < 
 
 
 # Divide bus trips into bus and walk trips
-
 bus_trips <- filter(rd, trip_mode == "Bus")
 
 # Copy pasted rob's code with minor adjustments
@@ -135,7 +134,6 @@ car_trips <- subset(rd, trip_mode == "Private Car" | trip_mode == "Taxi" & !is.n
 rd$scen2_mode <- rd$trip_mode
 rd$scen2_duration <- rd$trip_duration
 
-# speeds <- list(bus.passenger=15,car.passenger=21,pedestrian=4.8,car=21,cyclist=14.5,motorcycle=25,tuktuk=22)
 # Loop through all trips less than 7 km
 for (i in 1:5){
   print(dist_cat[i])
@@ -189,13 +187,7 @@ for (i in 7){
 # for scenario 3, add short walking trips for the newly created bus trips
 # code originally written by rob
 
-# Backup variable
-bd <- rd
-
-# rd <- bd
-
 # Copy pasted rob's code with minor adjustments
-library(ReIns)
 
 modes <- list(bus.passenger='CB',car.passenger='Taxi',pedestrian='Walking',car='Private Car',cyclist='Bicycle',motorcycle='Motorcycle')
 ## speeds
@@ -228,20 +220,13 @@ walk_trips$row_id <- 0
 
 rd <- rbind(rd, walk_trips)
 
-# Create another backup
-b1 <- rd
-
 # Rename intermediate mode CB to Bus
 rd [rd$scen3_mode == 'CB',]$scen3_mode <- "Bus"
-
-# Remove all short walking trips
-#rd <- filter(rd, )
 
 # Redefine row_id
 rd$rid <- 1:nrow(rd)
 
 write_csv(rd, "baseline_and_three_scenarios.csv")
-
 
 # Create summary frequency for baseline and three scenarios
 td <- select(rd, trip_mode, scen1_mode, scen2_mode, scen3_mode) 
@@ -258,7 +243,6 @@ td2 <- filter(td2, trip_mode != 'Short Walking')
 # Plot mode distribution for baseline and three scenarios
 ggplot(data = td2, aes(x = trip_mode, y = percentage, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal()+ xlab('Mode') + ylab('Percentage (%)') + labs(title = 'Mode distribution in baseline and three scenarios')
 
-
 # Calculate trip distance for baseline and three scenarios
 
 # Add 70g distance trips to all scenarios
@@ -271,8 +255,6 @@ raw_data_70g$scen1_distance <- raw_data_70g$scen2_distance <- raw_data_70g$scen3
 raw_data_dist <- plyr::rbind.fill(rd, raw_data_70g)
 
 # write_csv(raw_data_dist, "raw_data_dist.csv")
-
-
 
 dist <- filter(raw_data_dist, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_distance))
 dist1 <- filter(raw_data_dist, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(trip_distance))
@@ -295,12 +277,6 @@ distm <- filter(distm, trip_mode != 'Short Walking')
 ggplot(data = distm, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance (km)")
 
 
-#ggplot(data=rd, aes(x=trip_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Baseline') + ylab ('Percentage') + labs(title = "Mode Distribution")
-#ggplot(data=rd, aes(x=scen1_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 1 - 50% of all walking trips to Private Car') + ylab ('Percentage') + labs(title = "Mode Distribution")
-#ggplot(data=rd, aes(x=scen2_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 2 - 50% of all trips less than 7km to cycle') + ylab ('Percentage') + labs(title = "Mode Distribution")
-#ggplot(data=rd, aes(x=scen3_mode)) + geom_bar(aes(y = (..count..)/sum(..count..))) + theme_minimal() + xlab('Scenario 3 - 50% of all car trips longer than 10km to Bus') + ylab ('Percentage') + labs(title = "Mode Distribution")
-
-
 dur <- filter(rd, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_duration))
 dur1 <- filter(rd, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(scen1_duration))
 dur2 <- filter(rd, !is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(sum = sum(scen2_duration))
@@ -321,48 +297,3 @@ durh$value <- round(durh$value / 60, 2)
 
 # Plot
 ggplot(data = durh, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Duration (hours)') + labs(title = "Mode Duration (hours)")
-
-
-
-# 
-# 
-# ## Calculate individual mmets
-# 
-# 
-# # Constants
-# # Initialize  energy expenditure constants - taken from ICT
-# METCycling <- 5.63
-# METWalking <- 3.53
-# METEbikes <- 4.50
-# 
-# 
-# # Get total individual level walking and cycling and sport mmets 
-# individual_travel_mmet <- filter(rd, !is.na(scen1_mode)) %>% 
-#                                     group_by(participant_id) %>% summarise (sex = first(sex), 
-#                                                                age_cat = first(age_cat),
-#                                                                baseline_cycle_hrs = sum(trip_duration[trip_mode == 'Bicycle']),
-#                                                                baseline_walk_hrs = sum(trip_duration[trip_mode == 'Walking'] + 
-#                                                                                          trip_duration[trip_mode == 'Short Walking']),
-#                                                                scen1_cycle_hrs = sum(trip_duration[scen1_mode == 'Bicycle']),
-#                                                                scen1_walk_hrs = sum(trip_duration[scen1_mode == 'Walking'] + 
-#                                                                                       trip_duration[scen1_mode == 'Short Walking']),
-#                                                                scen2_cycle_hrs = sum(trip_duration[scen2_mode == 'Bicycle']),
-#                                                                scen2_walk_hrs = sum(trip_duration[scen2_mode == 'Walking'] + 
-#                                                                                                     trip_duration[scen2_mode == 'Short Walking']),
-#                                                                scen3_cycle_hrs = sum(trip_duration[scen3_mode == 'Bicycle']),
-#                                                                scen3_walk_hrs = sum(trip_duration[scen3_mode == 'Walking'] + 
-#                                                                                                     trip_duration[scen3_mode == 'Short Walking']),
-#                                                                btmmet = (METCycling - 1) * baseline_cycle_hrs + 
-#                                                                  (METWalking - 1) * baseline_walk_hrs,
-#                                                                sc1tmmet = (METCycling - 1) * scen1_cycle_hrs + 
-#                                                                  (METWalking - 1) * scen1_walk_hrs,
-#                                                                sc2tmmet = (METCycling - 1) * scen2_cycle_hrs + 
-#                                                                  (METWalking - 1) * scen2_walk_hrs,
-#                                                                sc3tmmet = (METCycling - 1) * scen3_cycle_hrs + 
-#                                                                  (METWalking - 1) * scen3_walk_hrs
-#                                                                )
-# 
-# 
-# individual_travel_mmet <- individual_travel_mmet %>% select(participant_id, sex, age_cat, btmmet, sc1tmmet, sc2tmmet, sc3tmmet)
-
-
