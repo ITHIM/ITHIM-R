@@ -1,3 +1,11 @@
+# Clear workspace
+rm (list = ls())
+library(tidyverse)
+
+
+# Read raw_data
+rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
+
 # Multiply df by 6 times
 
 # Filter people with trips
