@@ -1,5 +1,7 @@
-# Read raw_data
+library(tidyverse)
 
+# Read raw_data
+rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
 
 # Create summary frequency for baseline and three scenarios
 td <- select(rd, trip_mode, scen1_mode, scen2_mode, scen3_mode) 
@@ -18,28 +20,21 @@ ggplot(data = td2, aes(x = trip_mode, y = percentage, fill = variable)) + geom_b
 
 # Calculate trip distance for baseline and three scenarios
 
-# Add 70g distance trips to all scenarios
-raw_data_70g$scen1_mode <- raw_data_70g$scen2_mode <- raw_data_70g$scen3_mode <- raw_data_70g$trip_mode
-raw_data_70g$scen1_duration <- raw_data_70g$scen2_duration <- raw_data_70g$scen3_duration <- raw_data_70g$trip_duration
-raw_data_70g$scen1_distance <- raw_data_70g$scen2_distance <- raw_data_70g$scen3_distance <- raw_data_70g$trip_distance
+rd <- rd
 
+# write_csv(rd, "rd.csv")
 
-## ADD 70g distance trips
-raw_data_dist <- plyr::rbind.fill(rd, raw_data_70g)
-
-# write_csv(raw_data_dist, "raw_data_dist.csv")
-
-dist <- filter(raw_data_dist, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_distance))
-dist1 <- filter(raw_data_dist, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(trip_distance))
-dist2 <- filter(raw_data_dist, !is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(sum = sum(trip_distance))
-dist3 <- raw_data_dist %>% group_by(scen3_mode) %>% summarise(sum = sum(trip_distance))
+dist <- filter(rd, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_distance))
+dist1 <- filter(rd, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(trip_distance))
+dist2 <- filter(rd, !is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(sum = sum(trip_distance))
+dist3 <- rd %>% group_by(scen3_mode) %>% summarise(sum = sum(trip_distance))
 dist$sum_scen1 <- dist1$sum
 dist$sum_scen2 <- dist2$sum
 dist$sum_scen3 <- dist3$sum
 View(dist)
 dist <- rename(dist, sum_baseline = sum)
 
-write_csv(dist, "dist_by_mode_all_scenarios_all_ages.csv")
+write_csv(dist, "data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv")
 
 distm <- reshape2::melt(dist, by = trip_mode)
 
