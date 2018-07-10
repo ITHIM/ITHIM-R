@@ -1,4 +1,7 @@
+# Clear workspace
+rm (list = ls())
 library(tidyverse)
+
 
 # Read raw_data
 rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
@@ -49,30 +52,47 @@ dist <- rename(dist, "Baseline" = baseline_dist,
                "Scenario 3" = scen3_dist
 )
 
-# Remove short walking
-dist <- filter(dist, trip_mode != 'Short Walking')
-
+# Remove short walking, 99, Train, Other and Unspecified modes
+dist <- filter(dist, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
 
 write_csv(dist, "data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv")
 
 distm <- reshape2::melt(dist, by = trip_mode)
 
 # Remove short walking
-distm <- filter(distm, trip_mode != 'Short Walking')
+distm <- filter(dist, trip_mode != 'Short Walking')
 
 # Plot
-ggplot(data = distm, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance (km)")
+ggplot(data = dist, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance (km)")
 
 
-dur <- filter(rd, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_duration))
-dur1 <- filter(rd, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(scen1_duration))
-dur2 <- filter(rd, !is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(sum = sum(scen2_duration))
-dur3 <- rd %>% group_by(scen3_mode) %>% summarise(sum = sum(scen3_duration))
-dur$scen1 <- dur1$sum
-dur$scen2 <- dur2$sum
-dur$scen3 <- dur3$sum
-View(dur)
-dur <- rename(dur, baseline = sum)
+dur <- dataset %>% group_by(trip_mode) %>% summarise(baseline_dur = sum(trip_duration))
+dur1 <- dataset %>% group_by(scen1_mode) %>% summarise(scen1_dur = sum(scen1_duration)) %>% rename(trip_mode = scen1_mode)
+dur2 <- dataset %>% group_by(scen2_mode) %>% summarise(scen2_dur = sum(scen2_duration)) %>% rename(trip_mode = scen2_mode)
+dur3 <- dataset %>% group_by(scen3_mode) %>% summarise(scen3_dur = sum(scen3_duration)) %>% rename(trip_mode = scen3_mode)
+
+dur <- filter(dur, !is.na(trip_mode))
+dur1 <- filter(dur1, !is.na(trip_mode))
+dur2 <- filter(dur2, !is.na(trip_mode))
+dur3 <- filter(dur3, !is.na(trip_mode))
+
+dur$baseline_dur[dur$trip_mode == "Walking"] <- dur$baseline_dur[dur$trip_mode == "Walking"] + dur$baseline_dur[dur$trip_mode == "Short Walking"]
+
+dur1$scen1_dur[dur1$trip_mode == "Walking"] <- dur1$scen1_dur[dur1$trip_mode == "Walking"] + dur1$scen1_dur[dur1$trip_mode == "Short Walking"]
+
+dur2$scen2_dur[dur2$trip_mode == "Walking"] <- dur2$scen2_dur[dur2$trip_mode == "Walking"] + dur2$scen2_dur[dur2$trip_mode == "Short Walking"]
+
+dur3$scen3_dur[dur3$trip_mode == "Walking"] <- dur3$scen3_dur[dur3$trip_mode == "Walking"] + dur3$scen3_dur[dur3$trip_mode == "Short Walking"]
+
+dur <- left_join(dur, dur1, by = "trip_mode")
+dur <- left_join(dur, dur2, by = "trip_mode")
+dur <- left_join(dur, dur3, by = "trip_mode")
+
+dur <- rename(dur, "Baseline" = baseline_dur,
+              "Scenario 1" = scen1_dur,
+              "Scenario 2" = scen2_dur,
+              "Scenario 3" = scen3_dur
+)
 
 durm <- reshape2::melt(dur, by = trip_mode)
 
