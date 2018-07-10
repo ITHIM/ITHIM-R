@@ -21,7 +21,6 @@ ind$age_cat[ind$age >= 70] <- age_category[3]
 str()
 ### List of diseases
 ##1) Cardiovascular disease: common to PA and AP
-##2) Breast cancer: Only PA
 ##3) Colon cancer: Only PA
 ##4) Lung cancer: common to PA and AP
 ##5) Chronic obstructive pulmonary disease (COPD): 

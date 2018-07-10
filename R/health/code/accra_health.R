@@ -1,9 +1,12 @@
 library(drpa)
+library(tidyverse)
 # Load all functions
 source("R/PA/code/functions.R")
 
 # Read processed data for ap and pa
-ind <- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_total_mmet_weekly.csv")
+ind <- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_mmet_weekly.csv")
+ind2 <- read_csv("data/synth_pop_data/accra/processed_data/scenarios/baseline_and_three_scenarios.csv")
+
 # Redefine age categories to match with GBD's
 age_category <- c("15-49", "50-69", "70+")
 ind$age_cat[ind$age >= 15 & ind$age < 50] <- age_category[1]
@@ -18,7 +21,6 @@ ind$age_cat[ind$age >= 70] <- age_category[3]
 str()
 ### List of diseases
 ##1) Cardiovascular disease: common to PA and AP
-##2) Breast cancer: Only PA
 ##3) Colon cancer: Only PA
 ##4) Lung cancer: common to PA and AP
 ##5) Chronic obstructive pulmonary disease (COPD): 
