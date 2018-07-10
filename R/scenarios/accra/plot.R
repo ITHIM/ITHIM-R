@@ -57,19 +57,15 @@ dist <- filter(dist, ! trip_mode %in% c('Short Walking', "99", "Train", "Other",
 
 write_csv(dist, "data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv")
 
-distm <- reshape2::melt(dist, by = trip_mode)
-
-# Remove short walking
-distm <- filter(dist, trip_mode != 'Short Walking')
-
+dist <- reshape2::melt(dist, by = trip_mode)
 # Plot
 ggplot(data = dist, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance (km)")
 
 
-dur <- dataset %>% group_by(trip_mode) %>% summarise(baseline_dur = sum(trip_duration))
-dur1 <- dataset %>% group_by(scen1_mode) %>% summarise(scen1_dur = sum(scen1_duration)) %>% rename(trip_mode = scen1_mode)
-dur2 <- dataset %>% group_by(scen2_mode) %>% summarise(scen2_dur = sum(scen2_duration)) %>% rename(trip_mode = scen2_mode)
-dur3 <- dataset %>% group_by(scen3_mode) %>% summarise(scen3_dur = sum(scen3_duration)) %>% rename(trip_mode = scen3_mode)
+dur <- rd %>% group_by(trip_mode) %>% summarise(baseline_dur = sum(trip_duration))
+dur1 <- rd %>% group_by(scen1_mode) %>% summarise(scen1_dur = sum(scen1_duration)) %>% rename(trip_mode = scen1_mode)
+dur2 <- rd %>% group_by(scen2_mode) %>% summarise(scen2_dur = sum(scen2_duration)) %>% rename(trip_mode = scen2_mode)
+dur3 <- rd %>% group_by(scen3_mode) %>% summarise(scen3_dur = sum(scen3_duration)) %>% rename(trip_mode = scen3_mode)
 
 dur <- filter(dur, !is.na(trip_mode))
 dur1 <- filter(dur1, !is.na(trip_mode))
@@ -94,13 +90,14 @@ dur <- rename(dur, "Baseline" = baseline_dur,
               "Scenario 3" = scen3_dur
 )
 
-durm <- reshape2::melt(dur, by = trip_mode)
+# Remove short walking, 99, Train, Other and Unspecified modes
+dur <- filter(dur, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
 
-# Remove short walking
-durm <- filter(durm, trip_mode != 'Short Walking')
+write_csv(dur, "data/scenarios/accra/dur_by_mode_all_scenarios_all_ages.csv")
 
-durh <- durm
-durh$value <- round(durh$value / 60, 2)
+dur <- reshape2::melt(dur, by = trip_mode)
+
+dur$value <- round(dur$value / 60, 2)
 
 # Plot
-ggplot(data = durh, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Duration (hours)') + labs(title = "Mode Duration (hours)")
+ggplot(data = dur, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Duration (hours)') + labs(title = "Mode Duration (hours)")
