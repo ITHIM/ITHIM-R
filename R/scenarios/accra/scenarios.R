@@ -19,6 +19,25 @@ rd$rid <- 1:nrow(rd)
 rd <- rd %>% mutate(trip_mode = ifelse( (trip_mode == 'Other' & trip_duration < 60), 'Motorcycle', trip_mode))
 
 
+# Define trip_distances (in km)
+# Based on travel mode and trip duration, calculate distances
+
+trip_mode <- c("Bus", "Private Car", "Taxi", "Walking",
+               "Short Walking", "Bicycle", "Motorcycle")
+speeds <- c(15, 21, 21, 4.8, 4.8, 14.5, 25)
+
+modes_speeds_lt <- data.frame(trip_mode, speeds)
+modes_speeds_lt$trip_mode <- as.character(modes_speeds_lt$trip_mode)
+
+rd <- left_join(rd, modes_speeds_lt, by = "trip_mode")
+
+rd$speeds[is.na(rd$speeds)] <- 0
+
+rd$trip_distance <- (rd$trip_duration / 60) * rd$speeds
+
+rd$speeds <- NULL
+
+
 # Divide bus trips into bus and walk trips
 bus_trips <- filter(rd, trip_mode == "Bus")
 
@@ -51,24 +70,6 @@ bus_trips$trip_duration <- bus_trips$trip_duration - walk_trips$trip_duration
 rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_trips$rid,]$trip_duration <- bus_trips$trip_duration
 
 rd <- rbind(rd, walk_trips)
-
-# Define trip_distances (in km)
-# Based on travel mode and trip duration, calculate distances
-
-trip_mode <- c("Bus", "Private Car", "Taxi", "Walking",
-               "Short Walking", "Bicycle", "Motorcycle")
-speeds <- c(15, 21, 21, 4.8, 4.8, 14.5, 25)
-
-modes_speeds_lt <- data.frame(trip_mode, speeds)
-modes_speeds_lt$trip_mode <- as.character(modes_speeds_lt$trip_mode)
-
-rd <- left_join(rd, modes_speeds_lt, by = "trip_mode")
-
-rd$speeds[is.na(rd$speeds)] <- 0
-
-rd$trip_distance <- (rd$trip_duration / 60) * rd$speeds
-
-rd$speeds <- NULL
 
 # Define distance categories
 dist_cat <- c("0-1 km", "1-2 km", "2-3 km", "3-5 km", "5-7 km", "7-10 km", ">10 km" )
