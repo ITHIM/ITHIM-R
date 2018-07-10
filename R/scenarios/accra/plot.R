@@ -20,19 +20,38 @@ ggplot(data = td2, aes(x = trip_mode, y = percentage, fill = variable)) + geom_b
 
 # Calculate trip distance for baseline and three scenarios
 
-rd <- rd
+dist <- rd %>% group_by(trip_mode) %>% summarise(baseline_dist = sum(trip_distance))
+dist1 <- rd %>% group_by(scen1_mode) %>% summarise(scen1_dist = sum(trip_distance)) %>% rename(trip_mode = scen1_mode)
+dist2 <- rd %>% group_by(scen2_mode) %>% summarise(scen2_dist = sum(trip_distance)) %>% rename(trip_mode = scen2_mode)
+dist3 <- rd %>% group_by(scen3_mode) %>% summarise(scen3_dist = sum(trip_distance)) %>% rename(trip_mode = scen3_mode)
 
-# write_csv(rd, "rd.csv")
+dist <- filter(dist, !is.na(trip_mode))
+dist1 <- filter(dist1, !is.na(trip_mode))
+dist2 <- filter(dist2, !is.na(trip_mode))
+dist3 <- filter(dist3, !is.na(trip_mode))
 
-dist <- filter(rd, !is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(sum = sum(trip_distance))
-dist1 <- filter(rd, !is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(sum = sum(trip_distance))
-dist2 <- filter(rd, !is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(sum = sum(trip_distance))
-dist3 <- rd %>% group_by(scen3_mode) %>% summarise(sum = sum(trip_distance))
-dist$sum_scen1 <- dist1$sum
-dist$sum_scen2 <- dist2$sum
-dist$sum_scen3 <- dist3$sum
-View(dist)
-dist <- rename(dist, sum_baseline = sum)
+dist$baseline_dist[dist$trip_mode == "Walking"] <- dist$baseline_dist[dist$trip_mode == "Walking"] + dist$baseline_dist[dist$trip_mode == "Short Walking"]
+
+dist1$scen1_dist[dist1$trip_mode == "Walking"] <- dist1$scen1_dist[dist1$trip_mode == "Walking"] + dist1$scen1_dist[dist1$trip_mode == "Short Walking"]
+
+dist2$scen2_dist[dist2$trip_mode == "Walking"] <- dist2$scen2_dist[dist2$trip_mode == "Walking"] + dist2$scen2_dist[dist2$trip_mode == "Short Walking"]
+
+dist3$scen3_dist[dist3$trip_mode == "Walking"] <- dist3$scen3_dist[dist3$trip_mode == "Walking"] + dist3$scen3_dist[dist3$trip_mode == "Short Walking"]
+
+dist <- left_join(dist, dist1, by = "trip_mode")
+dist <- left_join(dist, dist2, by = "trip_mode")
+dist <- left_join(dist, dist3, by = "trip_mode")
+
+
+dist <- rename(dist, "Baseline" = baseline_dist,
+               "Scenario 1" = scen1_dist,
+               "Scenario 2" = scen2_dist,
+               "Scenario 3" = scen3_dist
+)
+
+# Remove short walking
+dist <- filter(dist, trip_mode != 'Short Walking')
+
 
 write_csv(dist, "data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv")
 
