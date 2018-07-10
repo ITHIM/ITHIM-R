@@ -1,0 +1,31 @@
+library(dplyr)
+### this code is to calculate daily PM concentrations for the baseline and the scenarios
+ind <- read_csv("data/synth_pop_data/accra/processed_data/scenarios/baseline_and_three_scenarios.csv")
+ind<-as.data.frame(ind)
+head(ind)
+ind  %>% group_by(trip_mode) %>% 
+## calculating in-vehicle exposure ratio based on baseline concentration (using Goel et al., 2015)
+## all modes categorised as open except car which is assumed to be half as closed (air-conditioned closed windows) and other half as open windows
+
+pm_conc_base<- (30+70)/2   ## average of the range of annual PM2.5 concentration reported for residential areas in Dionisio et al. (2010) for year 2006-2010
+pm_trans_share<-22.5/100 ## Share of transport in total PM2.5 concentration http://www.who.int/quantifying_ehimpacts/global/source_apport/en/
+
+##Thiago sent file for updated PM2.5 concentrations from years 2015-2017, however, our model is based on 2009, therefore, the new values have not
+##been used
+ratios<- read.csv("data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.csv")
+for (i in 3: 7)  ## all open modes-- walking, motorcycle, bicycle, bus and short walking
+{
+    ratios$ratio[i]<- 3.216-0.379 *log(pm_conc_base)
+    
+}
+for (i in 1:2 ) ## car and taxi
+  
+{
+  ratios$ratio[i]<- (0.5+ratios$ratio[3])/2  ## Average of 0.5 (air-conditioned closed door; Goel et al.2015) and ratio for open modes
+  
+}
+write.csv(ratios,'data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.csv')
+
+##Calculation of background PM2.5 concentration based on emissions in the scenarios
+scenario_distance_total<-as.data.frame(read_csv( "dist_by_mode_all_scenarios_all_ages.csv")) 
+scenario_distance_total

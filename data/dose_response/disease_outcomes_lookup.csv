@@ -1,0 +1,7 @@
+disease,acronym,air_pollution,physical_activity
+all cause,ac,,
+cardiovascular disease,cvd,1,1
+lung cancer,lc,1,1
+breast cancer,bc,0,1
+colon cancer,cc,0,1
+COPD,copd,1,0

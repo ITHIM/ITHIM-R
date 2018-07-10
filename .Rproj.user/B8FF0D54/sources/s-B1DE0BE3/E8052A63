@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1531147085715.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E8052A63",
+    "lastKnownWriteTime" : 1531153514,
+    "last_content_update" : 1531206851908,
+    "path" : "~/GitHub/ITHIM-R/R/health/code/accra_health.R",
+    "project_path" : "R/health/code/accra_health.R",
+    "properties" : {
+        "cursorPosition" : "8,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
