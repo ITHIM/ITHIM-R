@@ -5,6 +5,9 @@ rm (list = ls())
 require(tidyverse)
 require(drpa)
 
+# source
+source("R/PA/code/functions.R")
+
 
 # Read scenario data
 rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
@@ -39,4 +42,43 @@ for (i in 1:nrow(disease_lt)){
   }
 }
 
+pif <- data.frame(PAF(pop = ind, attr = c('sex', 'age_cat'), cn = c('base_rr_ap_pa_cvd', 'scen1_rr_ap_pa_cvd')))
+pif <- arrange(pif, age.band, gender)
 
+
+# Redefine non-factor based column classes
+pif[,c("age.band", "gender")] <- lapply(pif[,c("age.band", "gender")], as.character)
+pif[,c("base_rr_ap_pa_cvd", "scen1_rr_ap_pa_cvd")] <- lapply(pif[,c("base_rr_ap_pa_cvd", "scen1_rr_ap_pa_cvd")], as.double)
+
+
+# Read gbd data
+gbd_data <- read_csv("data/demographics/gbd/accra/GBD Accra.csv")
+
+yll_dfs <- combine_health_and_pif(
+  pop = pif,
+  hc = gbd_data,
+  hm = "YLLs (Years of Life Lost)",
+  cn = c("base_rr_ap_pa_cvd", "scen1_rr_ap_pa_cvd"),
+  hm_cause <- "All causes",
+  hm_cn <- 'val_accra')
+
+
+# Subset to get yll
+yll <- as.data.frame(yll_dfs[1])
+# Subset to get yll_reductions
+yll_red <- as.data.frame(yll_dfs[2])
+
+
+death_dfs <- combine_health_and_pif(
+  pop = pif,
+  hc = gbd_data,
+  hm = "Deaths",
+  cn = c("base_rr_ap_pa_cvd", "scen1_rr_ap_pa_cvd"),
+  hm_cause <- "All causes",
+  hm_cn <- 'val_accra')
+
+
+# Subset to get yll
+deaths <- as.data.frame(death_dfs[1])
+# Subset to get yll_reductions
+deaths_red <- as.data.frame(death_dfs[2])
