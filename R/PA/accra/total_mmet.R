@@ -57,4 +57,4 @@ ind <- rd %>% group_by(participant_id) %>% summarise ( sex = first(sex),
 
 ind <- select(ind, participant_id, sex, age, age_cat, base_mmet, scen1_mmet, scen2_mmet, scen3_mmet)
 
-write.csv(ind,'data/synth_pop_data/accra/pa/pa_total_mmet_weekly.csv')
+write_csv(ind,'data/synth_pop_data/accra/pa/pa_total_mmet_weekly.csv')
