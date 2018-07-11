@@ -110,4 +110,4 @@ for ( j in 1: nrow(disease_outcomes_lookup))  ### iterating over all all disease
 }
 
 # Replace write.csv with write_csv
-write_csv(ind, 'data/synth_pop_data/accra/combined_ap_pa_rr/RR_AP_calculations.csv')
+write_csv(ind, 'data/synth_pop_data/accra/RR/RR_AP_calculations.csv')
