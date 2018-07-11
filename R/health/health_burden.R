@@ -6,19 +6,28 @@ require(tidyverse)
 require(drpa)
 library(readr)
 library(dplyr)
+library(readr)
+ap_rr_pa_total_mmet_weekly <- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_total_mmet_weekly.csv")
+
+# Read scenario data
+rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
+
+# Create dummy ind pop
+ind <- rd %>% group_by(participant_id) %>% summarise(sex = first(sex),
+                                                     age=first(age),
+                                                     age_cat = first(age_cat))
+str(ind)
 ## disease outcome lookup table for PA and AP
 disease_outcomes_lookup <- read_csv("~/GitHub/ITHIM-R/data/dose_response/disease_outcomes_lookup.csv")
 str(disease_outcomes_lookup)
 
 ## cvd_ihd and cvd_stroke are age dependent, therefore we need to map the age of individuals with the age in the dose-response file of AP 
-dr_ap<-read.csv("~/GitHub/ITHIM-R/data/dose_response/AP/dose_response_AP.csv")
+dr_ap<-read.csv("data/dose_response/AP/dose_response_AP.csv")
 
 ### combining PM2.5 concentration data (scenario_pm_calculations.R) and PA data (total_mmet.R) at the individual level (n=732)
-ind<- read_csv("~/GitHub/ITHIM-R/data/synth_pop_data/accra/processed_data/indiv_mmet/pa_total_mmet_weekly.csv") ### PA 
-ind_pm<- read_csv("~/GitHub/ITHIM-R/data/synth_pop_data/accra/pollution/individual_level_pm_conc_scenarios.csv")  ### PM2.5
-ind_pm<- ind_pm[,-1]
+#ind<- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/pa_total_mmet_weekly.csv") ### PA 
+ind_pm<- read_csv("data/synth_pop_data/accra/pollution/individual_level_pm_conc_scenarios.csv")  ### PM2.5
 ind<- ind %>% left_join (ind_pm, by="participant_id")
-ind$age<- runif(nrow(ind), min = 15, max = 100)
 ## assigning air pollution age band to the individual_level data
 ind$ap_age<- NA
 for ( i in 1: nrow(ind))
@@ -100,15 +109,6 @@ source("R/PA/code/functions.R")
 
 
 
-library(readr)
-ap_rr_pa_total_mmet_weekly <- read_csv("~/GitHub/ITHIM-R/data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_total_mmet_weekly.csv")
-
-# Read scenario data
-rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
-
-# Create dummy ind pop
-ind <- rd %>% group_by(participant_id) %>% summarise(sex = first(sex),
-                                                     age_cat = first(age_cat))
 
 # Read disease lt
 disease_lt <- read_csv("data/dose_response/disease_outcomes_lookup.csv")
