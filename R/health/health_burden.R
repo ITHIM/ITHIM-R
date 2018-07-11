@@ -6,8 +6,11 @@ require(tidyverse)
 require(drpa)
 library(readr)
 library(dplyr)
-library(readr)
-ap_rr_pa_total_mmet_weekly <- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_total_mmet_weekly.csv")
+
+# source
+source("R/PA/code/functions.R")
+
+# ap_rr_pa_total_mmet_weekly <- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_total_mmet_weekly.csv")
 
 # Read scenario data
 rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
@@ -18,11 +21,11 @@ ind <- rd %>% group_by(participant_id) %>% summarise(sex = first(sex),
                                                      age_cat = first(age_cat))
 str(ind)
 ## disease outcome lookup table for PA and AP
-disease_outcomes_lookup <- read_csv("~/GitHub/ITHIM-R/data/dose_response/disease_outcomes_lookup.csv")
+disease_outcomes_lookup <- read_csv("data/dose_response/disease_outcomes_lookup.csv")
 str(disease_outcomes_lookup)
 
 ## cvd_ihd and cvd_stroke are age dependent, therefore we need to map the age of individuals with the age in the dose-response file of AP 
-dr_ap<-read.csv("data/dose_response/AP/dose_response_AP.csv")
+dr_ap<-read_csv("data/dose_response/AP/dose_response_AP.csv")
 
 ### combining PM2.5 concentration data (scenario_pm_calculations.R) and PA data (total_mmet.R) at the individual level (n=732)
 #ind<- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/pa_total_mmet_weekly.csv") ### PA 
@@ -103,12 +106,6 @@ names(ind)[col]<- paste("RR_ap_scen3_", disease_outcomes_lookup$acronym[j], sep=
 }
 
 }
-# source
-source("R/PA/code/functions.R")
-
-
-
-
 
 # Read disease lt
 disease_lt <- read_csv("data/dose_response/disease_outcomes_lookup.csv")
