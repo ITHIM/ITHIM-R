@@ -109,7 +109,10 @@ for ( j in 1: nrow(disease_outcomes_lookup))  ### iterating over all all disease
   
 }
 
-write.csv(ind, 'R/health/accra/RR_AP_calculations.csv')
+# Replace write.csv with write_csv
+write_csv(ind, 'data/synth_pop_data/accra/combined_ap_pa_rr/RR_AP_calculations.csv')
+
+
 # Read disease lt
 disease_lt <- read.csv("data/dose_response/disease_outcomes_lookup.csv")
 
