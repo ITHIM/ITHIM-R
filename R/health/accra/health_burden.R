@@ -10,10 +10,10 @@ library(dplyr)
 # source
 source("R/PA/code/functions.R")
 
-# ap_rr_pa_total_mmet_weekly <- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_total_mmet_weekly.csv")
+# ap_rr_pa_total_mmet_weekly <- read.csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_total_mmet_weekly.csv")
 
 # Read scenario data
-rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
+rd <- read.csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
 
 # Create dummy ind pop
 ind <- rd %>% group_by(participant_id) %>% summarise(sex = first(sex),
@@ -21,18 +21,18 @@ ind <- rd %>% group_by(participant_id) %>% summarise(sex = first(sex),
                                                      age_cat = first(age_cat))
 str(ind)
 ## disease outcome lookup table for PA and AP
-disease_outcomes_lookup <- read_csv("data/dose_response/disease_outcomes_lookup.csv")
+disease_outcomes_lookup <- read.csv("data/dose_response/disease_outcomes_lookup.csv")
 str(disease_outcomes_lookup)
 
 ## cvd_ihd and cvd_stroke are age dependent, therefore we need to map the age of individuals with the age in the dose-response file of AP 
-dr_ap<-read_csv("data/dose_response/AP/dose_response_AP.csv")
+dr_ap <- read.csv("data/dose_response/AP/dose_response_AP.csv")
 
 ### combining PM2.5 concentration data (scenario_pm_calculations.R) and PA data (total_mmet.R) at the individual level (n=732)
-#ind<- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/pa_total_mmet_weekly.csv") ### PA 
-ind_pm <- read_csv("data/synth_pop_data/accra/pollution/individual_level_pm_conc_scenarios.csv")  ### PM2.5
+#ind<- read.csv("data/synth_pop_data/accra/processed_data/indiv_mmet/pa_total_mmet_weekly.csv") ### PA 
+ind_pm <- read.csv("data/synth_pop_data/accra/pollution/individual_level_pm_conc_scenarios.csv")  ### PM2.5
 ind <- ind %>% left_join(ind_pm, by = "participant_id")
 ## assigning air pollution age band to the individual_level data
-ind$ap_age<- NA
+ind$ap_age <- NA
 for ( i in 1: nrow(ind))
 {
   ind$ap_age[which(ind$age > 24 & ind$age < 30 )]<- 25
@@ -52,25 +52,27 @@ for ( i in 1: nrow(ind))
   ind$ap_age[which(ind$age > 94 )]<- 95
   
 }
+
+ind$ap_age[is.na(ind$ap_age)] <- 0
 ## for every individual average of all parameter draws within the age and disease-outcome
 
 
 for ( j in 1: nrow(disease_outcomes_lookup))  ### iterating over all all disease outcomes
 {
-  if (disease_outcomes_lookup$air_pollution[j]==1)  ## checking whether to calculate this health outcome for air pollution
+  if (disease_outcomes_lookup$air_pollution[j] == 1)  ## checking whether to calculate this health outcome for air pollution
   { 
     
     for ( i in 1: nrow(ind) )  ## iterating over all individuals
     {
       
       ## for cvd_ihd and cvd_stroke- dose-response is age sensitive
-      if (disease_outcomes_lookup$ap_acronym[j] == "cvd_ihd" |disease_outcomes_lookup$ap_acronym[j] == "cvd_stroke"  )
+      if (disease_outcomes_lookup$ap_acronym[j] == "cvd_ihd" | disease_outcomes_lookup$ap_acronym[j] == "cvd_stroke"  )
       {
-        dr_ap_sub<- dr_ap[which(dr_ap$age== ind$ap_age[i] & dr_ap$cause_code==disease_outcomes_lookup$ap_acronym),]
+        dr_ap_sub<- dr_ap[which(dr_ap$age_code == ind$ap_age[i] & dr_ap$cause_code==disease_outcomes_lookup$ap_acronym[j]),]
       }
       else
       {
-        dr_ap_sub<- dr_ap[which(dr_ap$age== 99 & dr_ap$cause_code==disease_outcomes_lookup$ap_acronym),] 
+        dr_ap_sub<- dr_ap[which(dr_ap$age_code== 99 & dr_ap$cause_code==disease_outcomes_lookup$ap_acronym[j]),] 
         
       }
       
@@ -80,8 +82,9 @@ for ( j in 1: nrow(disease_outcomes_lookup))  ### iterating over all all disease
       x_scen3<- NA  
       for (k in 1: nrow(dr_ap_sub)) ## iterating over all the rows of the parameter draws of dose-response paramters
       {
-        
-        x<- sum(x, 1 + (dr_ap_sub[k,2] * (1-exp(-dr_ap_sub[k,3]*((ind$pm_conc_base[i]-dr_ap_sub[k,5])^dr_ap_sub[k,4])))),na.rm=T) 
+        # browser()
+        print(dr_ap_sub[k,2], dr_ap_sub[k,3], ind$pm_conc_base[i], dr_ap_sub[k,5], dr_ap_sub[k,4])
+        x<- sum(x, 1 + (dr_ap_sub[k,2] * (1-exp(-dr_ap_sub[k,3]*((ind$pm_conc_base[i] - dr_ap_sub[k,5])^dr_ap_sub[k,4])))),na.rm=T) 
         x_scen1<- sum(x_scen1, 1 + (dr_ap_sub[k,2] * (1-exp(-dr_ap_sub[k,3]*((ind$pm_conc_scen1[i]-dr_ap_sub[k,5])^dr_ap_sub[k,4])))),na.rm=T)
         x_scen2<- sum(x_scen2, 1 + (dr_ap_sub[k,2] * (1-exp(-dr_ap_sub[k,3]*((ind$pm_conc_scen2[i]-dr_ap_sub[k,5])^dr_ap_sub[k,4])))),na.rm=T)
         x_scen3<- sum(x_scen3, 1 + (dr_ap_sub[k,2] * (1-exp(-dr_ap_sub[k,3]*((ind$pm_conc_scen3[i]-dr_ap_sub[k,5])^dr_ap_sub[k,4])))),na.rm=T)
@@ -108,7 +111,7 @@ for ( j in 1: nrow(disease_outcomes_lookup))  ### iterating over all all disease
 }
 
 # Read disease lt
-disease_lt <- read_csv("data/dose_response/disease_outcomes_lookup.csv")
+disease_lt <- read.csv("data/dose_response/disease_outcomes_lookup.csv")
 
 disease_lt[is.na(disease_lt)] <- 0
 
@@ -143,7 +146,7 @@ pif[,c("base_rr_ap_pa_cvd", "scen1_rr_ap_pa_cvd")] <- lapply(pif[,c("base_rr_ap_
 
 
 # Read gbd data
-gbd_data <- read_csv("data/demographics/gbd/accra/GBD Accra.csv")
+gbd_data <- read.csv("data/demographics/gbd/accra/GBD Accra.csv")
 
 yll_dfs <- combine_health_and_pif(
   pop = pif,
