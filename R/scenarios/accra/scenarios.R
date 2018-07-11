@@ -67,7 +67,7 @@ walk_trips$trip_duration <- sapply(walk_trips$trip_duration,function(x)rtexp(1,r
 
 
 # Corrrect walk trips distance
-# walk_trips$trip_distance <- 0
+walk_trips$trip_distance <- (walk_trips$trip_duration / 60) * 4.8
 
 bus_trips$trip_duration <- bus_trips$trip_duration - walk_trips$trip_duration
 
@@ -171,15 +171,12 @@ rd <- rbind(rd, rd2)
 
 rm (rd2)
 
-
 # Scenario 3: All car to Bus
 # 50% of all trips longer than 10km to Bus 
 # In this scenario, you will need to add walking trip of 10 minutes 
 
-# Copy mode and duration from baseline
-rd$scen3_mode <- rd$trip_mode
-rd$scen3_duration <- rd$trip_duration
-
+rd3 <- filter(rd, scenario == "Baseline")
+rd3$scenario <- "Scenario 3"
 
 # Only consider trips greater than 10 km
 for (i in 7){
@@ -190,13 +187,11 @@ for (i in 7){
   trips_sample <- trips %>% sample_frac(.5) %>% mutate(trip_mode = "CB")
   # Recalculate trip duration
   trips_sample$trip_duration <- (trips_sample$trip_distance / 21 ) * 15
-  trips_sample$scen1_mode <- trips_sample$trip_mode
-  trips_sample$scen1_duration <- trips_sample$trip_duration
-  trips_sample <- select(trips_sample, row_id, scen1_mode, scen1_duration)
+  trips_sample <- select(trips_sample, row_id, trip_mode, trip_duration)
   print(nrow(trips_sample))
   # Update relevant rows
-  rd[rd$row_id %in% trips_sample$row_id,]$scen3_mode <- trips_sample$scen1_mode
-  rd[rd$row_id %in% trips_sample$row_id,]$scen3_duration <- trips_sample$scen1_duration
+  rd3[rd3$row_id %in% trips_sample$row_id,]$trip_mode <- trips_sample$trip_mode
+  rd3[rd3$row_id %in% trips_sample$row_id,]$trip_duration <- trips_sample$trip_duration
   
 }
 
@@ -216,27 +211,35 @@ max_wait_time <- c(5,10,15,20,30,60)#inclusive
 wait_time_proportion <- c(51.3,20.3,7.6,6.3,8.3,6.2)
 wait_rate <- 0.11
 min_walk_time <- c(0,10,20,30,40,60)#exclusive
-max_walk_time <- c(10,20,30,40,60, max(subset(rd, scen3_mode == 'CB')$scen3_duration) + 1)#inclusive
+max_walk_time <- c(10,20,30,40,60, max(subset(rd3, trip_mode == 'CB')$trip_duration) + 1)#inclusive
 walk_time_proportion <- c(80.6,13.5,4.3,1.3,0.1,0)
 walk_rate <- 0.15
 min_bus_duration <- 5
 
 ## subtract wait and walk times, and add new walk journeys
-bus_trips <- subset(rd, scen3_mode == 'CB')
-bus_trips$scen3_duration <- sapply(bus_trips$scen3_duration, function(x) x- rtexp(1, rate = wait_rate, endpoint = x-min_bus_duration))
+bus_trips <- subset(rd3, trip_mode == 'CB')
+bus_trips$trip_duration <- sapply(bus_trips$trip_duration, function(x) x- rtexp(1, rate = wait_rate, endpoint = x-min_bus_duration))
 
 walk_trips <- bus_trips
-walk_trips$scen3_mode <- 'Short Walking'
-walk_trips$scen3_duration <- sapply(walk_trips$scen3_duration,function(x)rtexp(1,rate=wait_rate,endpoint=x-min_bus_duration))
+walk_trips$trip_mode <- 'Short Walking'
+walk_trips$trip_duration <- sapply(walk_trips$trip_duration,function(x)rtexp(1,rate=wait_rate,endpoint=x-min_bus_duration))
 
-bus_trips$scen3_duration <- bus_trips$scen3_duration - walk_trips$scen3_duration
+# Corrrect walk trips distance
+walk_trips$trip_distance <- (walk_trips$trip_duration / 60) * 4.8
 
-rd[rd$scen3_mode == 'CB' & rd$rid %in% bus_trips$rid,]$scen3_duration <- bus_trips$scen3_duration
+bus_trips$trip_duration <- bus_trips$trip_duration - walk_trips$trip_duration
 
-rd <- rbind(rd, walk_trips)
+rd3[rd3$trip_mode == 'CB' & rd3$rid %in% bus_trips$rid,]$trip_duration <- bus_trips$trip_duration
+
+rd3 <- rbind(rd3, walk_trips)
 
 # Rename intermediate mode CB to Bus
-rd [rd$scen3_mode == 'CB',]$scen3_mode <- "Bus"
+rd3 [rd3$trip_mode == 'CB',]$trip_mode <- "Bus"
+
+
+# Rbind scenario 3
+rd <- rbind(rd, rd3)
+
 
 # Redefine row_id
 rd$rid <- 1:nrow(rd)
