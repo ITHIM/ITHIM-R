@@ -110,7 +110,7 @@ rd[duplicated(rd$trip_id) & rd$trip_id != 0 & rd$trip_mode != "99",]$trip_mode <
 
 
 
-rd1 <- rd
+rd1 <- filter(rd, scenario == "Baseline")
 rd1$scenario <- "Scenario 1"
 
 # Create scenario 1: 50% of all trips walking trips (in each dist bracket) to Private Car
@@ -138,8 +138,11 @@ for (i in 1:length(dist_cat)){
 
 rd <- rbind(rd, rd1)
 
+rm (rd1)
+
 
 rd2 <- filter(rd, scenario == "Baseline")
+rd2$scenario <- "Scenario 2"
 
 # Scenario 2: All car to Cycle
 # 50% of all trips less than 7km to cycle
@@ -165,6 +168,8 @@ for (i in 1:5){
 
 
 rd <- rbind(rd, rd2)
+
+rm (rd2)
 
 
 # Scenario 3: All car to Bus
