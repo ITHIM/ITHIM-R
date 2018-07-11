@@ -68,11 +68,11 @@ for ( j in 1: nrow(disease_outcomes_lookup))  ### iterating over all all disease
       ## for cvd_ihd and cvd_stroke- dose-response is age sensitive
       if (disease_outcomes_lookup$ap_acronym[j] == "cvd_ihd" | disease_outcomes_lookup$ap_acronym[j] == "cvd_stroke"  )
       {
-        dr_ap_sub<- dr_ap[which(dr_ap$age_code == ind$ap_age[i] & dr_ap$cause_code==disease_outcomes_lookup$ap_acronym[j]),]
+        dr_ap_sub<- dr_ap[which(dr_ap$age_code == ind$ap_age[i] & dr_ap$cause_code==as.character(disease_outcomes_lookup$ap_acronym[j])),]
       }
       else
       {
-        dr_ap_sub<- dr_ap[which(dr_ap$age_code== 99 & dr_ap$cause_code==disease_outcomes_lookup$ap_acronym[j]),] 
+        dr_ap_sub<- dr_ap[which(dr_ap$age_code== 99 & dr_ap$cause_code==as.character(disease_outcomes_lookup$ap_acronym[j])),] 
         
       }
       
@@ -83,7 +83,6 @@ for ( j in 1: nrow(disease_outcomes_lookup))  ### iterating over all all disease
       for (k in 1: nrow(dr_ap_sub)) ## iterating over all the rows of the parameter draws of dose-response paramters
       {
         # browser()
-        print(dr_ap_sub[k,2], dr_ap_sub[k,3], ind$pm_conc_base[i], dr_ap_sub[k,5], dr_ap_sub[k,4])
         x<- sum(x, 1 + (dr_ap_sub[k,2] * (1-exp(-dr_ap_sub[k,3]*((ind$pm_conc_base[i] - dr_ap_sub[k,5])^dr_ap_sub[k,4])))),na.rm=T) 
         x_scen1<- sum(x_scen1, 1 + (dr_ap_sub[k,2] * (1-exp(-dr_ap_sub[k,3]*((ind$pm_conc_scen1[i]-dr_ap_sub[k,5])^dr_ap_sub[k,4])))),na.rm=T)
         x_scen2<- sum(x_scen2, 1 + (dr_ap_sub[k,2] * (1-exp(-dr_ap_sub[k,3]*((ind$pm_conc_scen2[i]-dr_ap_sub[k,5])^dr_ap_sub[k,4])))),na.rm=T)
@@ -110,6 +109,7 @@ for ( j in 1: nrow(disease_outcomes_lookup))  ### iterating over all all disease
   
 }
 
+write.csv(ind, 'R/health/accra/RR_AP_calculations.csv')
 # Read disease lt
 disease_lt <- read.csv("data/dose_response/disease_outcomes_lookup.csv")
 

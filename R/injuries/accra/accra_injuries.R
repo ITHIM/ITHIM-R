@@ -14,24 +14,25 @@ scen_dist[nrow(scen_dist),2:5]<-1
 whw_mat<-read.csv('R/injuries/accra/who_hit_who_accra.csv')
 whw_mat
 
-for (i in 1: 4)
-{
-  row<- which(scen_dist[,1]== "Bicycle")
-
-}
-scen_dist
+## calculating the ratio of distances for each mode in each scenario
 scen_dist[,3]<-scen_dist[,3]/scen_dist[,2]
 scen_dist[,4]<-scen_dist[,4]/scen_dist[,2]
 scen_dist[,5]<-scen_dist[,5]/scen_dist[,2]
 
 whw_mat2<- whw_mat
+for (k in 3:5) ## iterating over the three scenarios as indexed in scen_dist matrix
+{
 for (i in 1: nrow(whw_mat))
 {
   for (j in 2: ncol(whw_mat))
   {
-    nrow<- which(whw_mat[,1]==whw_mat[i,1] )
-    
-    whw_mat2[i, j]<- whw_mat
+    nrow_vic_dist<- which(scen_dist[,1]== whw_mat[i,1])
+    victim_dist<-scen_dist[nrow_vic_dist,k] ### 3== scenario1, 4== scenario 2, in the scen_dist matrix
+    nrow_strk_dist<- which(scen_dist[,1]== names(whw_mat)[j])
+    strk_dist<- scen_dist[nrow_strk_dist,k]
+    whw_mat2[i, j]<- whw_mat[i, j]*(victim_dist^0.5)*(strk_dist^0.7)   
   }
+  
+}
   
 }
