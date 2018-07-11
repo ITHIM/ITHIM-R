@@ -1,3 +1,14 @@
+source("R/scenarios/accra/setup.R")
+
+# Read the ind file with rr for pa and ap
+ind <- read_csv("data/synth_pop_data/accra/RR/RR_AP_calculations.csv")
+
+# Replace NaNs with 1
+is.nan.data.frame <- function(x)
+  do.call(cbind, lapply(x, is.nan))
+
+ind[is.nan(ind)] <- 1
+
 # Read disease lt
 disease_lt <- read.csv("data/dose_response/disease_outcomes_lookup.csv")
 
