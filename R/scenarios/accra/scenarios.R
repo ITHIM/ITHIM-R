@@ -95,9 +95,6 @@ rd$age_cat[rd$age >= 15 & rd$age < 50] <- age_category[1]
 rd$age_cat[rd$age >= 50 & rd$age <= 70] <- age_category[2]
 rd$age_cat[rd$age > 70] <- age_category[3]
 
-# Save all participants greater than 70 in a df
-raw_data_70g <- filter(rd, age_cat == age_category[3])
-
 # Remove all participants greater than 70 years of age
 rd <- filter(rd, age_cat != age_category[3])
 
@@ -109,23 +106,23 @@ rd$row_id <- 1:nrow(rd)
 rd[duplicated(rd$trip_id) & rd$trip_id != 0 & rd$trip_mode != "99",]$trip_mode <- 'Short Walking'
 
 
-
+# Create scenario 1: 50% of all trips walking trips (in each dist bracket) to Private Car
+# Copy baseline trips to scenario 1's df
 rd1 <- filter(rd, scenario == "Baseline")
+
+# Rename scenario name
 rd1$scenario <- "Scenario 1"
 
-# Create scenario 1: 50% of all trips walking trips (in each dist bracket) to Private Car
+# Subset walking trips
 walking_trips <- subset(rd1, trip_mode == "Walking")
 
 # Take 50% of trips in each distance category and then convert them into walking 
 for (i in 1:length(dist_cat)){
   print(dist_cat[i])
-  # i <- 2
   trips <- filter(walking_trips, trip_distance_cat == dist_cat[i]) 
   trips_sample <- trips %>% sample_frac(.5) %>% mutate(trip_mode = "Private Car")
   # Recalculate trip duration for Private car trips
   trips_sample$trip_duration <- (trips_sample$trip_distance / 4.8 ) * 21
-  #trips_sample$scen1_mode <- trips_sample$trip_mode
-  #trips_sample$scen1_duration <- trips_sample$trip_duration
   trips_sample <- select(trips_sample, row_id, trip_mode, trip_duration)
   print(nrow(trips_sample))
   
@@ -135,17 +132,24 @@ for (i in 1:length(dist_cat)){
   
 }
 
-
+# Append scenario 1's trips to baseline
 rd <- rbind(rd, rd1)
 
+# Remove intermediate object
 rm (rd1)
 
 
-rd2 <- filter(rd, scenario == "Baseline")
-rd2$scenario <- "Scenario 2"
 
 # Scenario 2: All car to Cycle
 # 50% of all trips less than 7km to cycle
+
+# Filter only baselien trips
+rd2 <- filter(rd, scenario == "Baseline")
+
+# Change their scenario to scenario 2
+rd2$scenario <- "Scenario 2"
+
+# Subset car and taxi trips
 car_trips <- subset(rd2, trip_mode == "Private Car" | trip_mode == "Taxi" & !is.na(trip_duration))
 
 # Loop through all trips less than 7 km
@@ -166,16 +170,20 @@ for (i in 1:5){
   
 }
 
-
+# Append scenario 2's trips to baseline + scenario 1 trips
 rd <- rbind(rd, rd2)
 
+# Remove intermediate file
 rm (rd2)
 
 # Scenario 3: All car to Bus
 # 50% of all trips longer than 10km to Bus 
 # In this scenario, you will need to add walking trip of 10 minutes 
 
+# Subset to baseline trips
 rd3 <- filter(rd, scenario == "Baseline")
+
+# Change scenario to scenario 3
 rd3$scenario <- "Scenario 3"
 
 # Only consider trips greater than 10 km
@@ -224,22 +232,21 @@ walk_trips <- bus_trips
 walk_trips$trip_mode <- 'Short Walking'
 walk_trips$trip_duration <- sapply(walk_trips$trip_duration,function(x)rtexp(1,rate=wait_rate,endpoint=x-min_bus_duration))
 
-# Corrrect walk trips distance
+# Correct walk trips distance
 walk_trips$trip_distance <- (walk_trips$trip_duration / 60) * 4.8
 
 bus_trips$trip_duration <- bus_trips$trip_duration - walk_trips$trip_duration
 
 rd3[rd3$trip_mode == 'CB' & rd3$rid %in% bus_trips$rid,]$trip_duration <- bus_trips$trip_duration
 
+# Add additional walk trips to scen 3
 rd3 <- rbind(rd3, walk_trips)
 
 # Rename intermediate mode CB to Bus
 rd3 [rd3$trip_mode == 'CB',]$trip_mode <- "Bus"
 
-
 # Rbind scenario 3
 rd <- rbind(rd, rd3)
-
 
 # Redefine row_id
 rd$rid <- 1:nrow(rd)
