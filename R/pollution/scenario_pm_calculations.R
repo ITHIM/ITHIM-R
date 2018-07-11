@@ -39,11 +39,11 @@ n=2 ## the column where baseline distances are in the scenario distance file
 p= ncol(trans_emissions)
 for ( i in 1:nscen)
 {
-trans_emissions[1,p+i]<- trans_emissions$base_emissions[1]*scen_dist[6,n+i]/scen_dist[6,n] ## scenario emissions of 2W
-trans_emissions[2,p+i]<- trans_emissions$base_emissions[2]*scen_dist[6,n+i]/scen_dist[6,n] ## scenario emissions of 2W
-trans_emissions[3,p+i]<- trans_emissions$base_emissions[3]*scen_dist[4,n+i]/scen_dist[4,n] ## scenario emissions of 2W
+trans_emissions[1,p+i]<- trans_emissions$base_emissions[1]*scen_dist[4,n+i]/scen_dist[4,n] ## scenario emissions of 4W1
+trans_emissions[2,p+i]<- trans_emissions$base_emissions[2]*scen_dist[4,n+i]/scen_dist[4,n] ## scenario emissions of 4W2
+trans_emissions[3,p+i]<- trans_emissions$base_emissions[3]*scen_dist[3,n+i]/scen_dist[3,n] ## scenario emissions of 2W
 trans_emissions[4,p+i]<- trans_emissions$base_emissions[4]*scen_dist[5,n+i]/scen_dist[5,n] ## scenario emissions of Taxi
-trans_emissions[5,p+i]<- trans_emissions$base_emissions[5]*scen_dist[3,n+i]/scen_dist[3,n] ## scenario emissions of bus
+trans_emissions[5,p+i]<- trans_emissions$base_emissions[5]*scen_dist[2,n+i]/scen_dist[2,n] ## scenario emissions of bus
 trans_emissions[6,p+i]<- trans_emissions$base_emissions[6]*1 ## scenario emissions of trucks
 trans_emissions[7,p+i]<- trans_emissions$base_emissions[7]*1 ## scenario emissions of trucks
 trans_emissions[8,p+i]<- trans_emissions$base_emissions[8]*1 ## scenario emissions of trucks
@@ -65,7 +65,7 @@ trans_emissions[nrow(trans_emissions), ncol(trans_emissions)-3]<- pm_trans_share
 trans_emissions[nrow(trans_emissions), ncol(trans_emissions)-2]<- pm_trans_share*pm_conc_base*trans_emissions[total_row, ncol(trans_emissions)-2]/trans_emissions[total_row, ncol(trans_emissions)-3]
 trans_emissions[nrow(trans_emissions), ncol(trans_emissions)-1]<- pm_trans_share*pm_conc_base*trans_emissions[total_row, ncol(trans_emissions)-1]/trans_emissions[total_row, ncol(trans_emissions)-3]
 trans_emissions[nrow(trans_emissions), ncol(trans_emissions)]<-pm_trans_share*pm_conc_base*trans_emissions[total_row, ncol(trans_emissions)]/trans_emissions[total_row, ncol(trans_emissions)-3]
-non_transport_pm_conc<- pm_conc_base -  (pm_trans_share*pm_conc_base)
+non_transport_pm_conc<- pm_conc_base -  (pm_trans_share*pm_conc_base)  ### this is the concentration contributed by non-transport share (remains constant across the scenarios)
 trans_emissions[nrow(trans_emissions)-1,ncol(trans_emissions)-2]<-  non_transport_pm_conc + trans_emissions[nrow(trans_emissions),ncol(trans_emissions)-2]
 trans_emissions[nrow(trans_emissions)-1,ncol(trans_emissions)-1]<-  non_transport_pm_conc + trans_emissions[nrow(trans_emissions),ncol(trans_emissions)-1]
 trans_emissions[nrow(trans_emissions)-1,ncol(trans_emissions)]<-  non_transport_pm_conc + trans_emissions[nrow(trans_emissions),ncol(trans_emissions)]
@@ -96,22 +96,22 @@ for (i in 1: 4)
  rd<-as.data.frame(rd)
  rd$participant_id<-as.factor(rd$participant_id)
  
- if (i ==1)
+ if (i ==1) ### baseline
  {
    individual_data<- rd %>% group_by(participant_id) %>% summarise(on_road_dur=sum(base_duration,na.rm=TRUE), on_road_pm= sum(pm_dose,na.rm=TRUE), on_road_pm= sum(pm_dose,na.rm=TRUE), air_inhaled=sum(on_road_air,na.rm=TRUE))
    
  }
- if (i ==2)
+ if (i ==2) ## scenario 1
  {
    individual_data<- rd %>% group_by(participant_id) %>% summarise(on_road_dur=sum(scen1_duration,na.rm=TRUE), on_road_pm= sum(pm_dose,na.rm=TRUE), on_road_pm= sum(pm_dose,na.rm=TRUE), air_inhaled=sum(on_road_air,na.rm=TRUE))
    
  }
- if (i ==3)
+ if (i ==3) ## scenario 1
  {
    individual_data<- rd %>% group_by(participant_id) %>% summarise(on_road_dur=sum(scen2_duration,na.rm=TRUE), on_road_pm= sum(pm_dose,na.rm=TRUE), on_road_pm= sum(pm_dose,na.rm=TRUE), air_inhaled=sum(on_road_air,na.rm=TRUE))
    
  }
- if (i ==4)
+ if (i ==4) ## scenario 1
  {
    individual_data<- rd %>% group_by(participant_id) %>% summarise(on_road_dur=sum(scen3_duration,na.rm=TRUE), on_road_pm= sum(pm_dose,na.rm=TRUE), on_road_pm= sum(pm_dose,na.rm=TRUE), air_inhaled=sum(on_road_air,na.rm=TRUE))
    
@@ -135,5 +135,9 @@ for (i in 1: 4)
  }
 
 }
-  
+final_data<- final_data[]
 write.csv(as.data.frame(final_data), 'data/synth_pop_data/accra/pollution/individual_level_pm_conc_scenarios.csv')
+
+length(unique(final_data$participant_id))
+str(final_data)
+

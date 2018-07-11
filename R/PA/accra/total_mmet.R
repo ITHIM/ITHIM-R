@@ -53,3 +53,7 @@ ind <- rd %>% group_by(participant_id) %>% summarise ( sex = first(sex),
                                                        scen3_mmet = first(work_ltpa_marg_met) +  cycling_mmet_scen3 + walking_mmet_scen3
                                                        
 )
+
+write.csv(ind,'~/GitHub/ITHIM-R/data/synth_pop_data/accra/processed_data/indiv_mmet/pa_total_mmet_weekly.csv')
+
+str(ind)

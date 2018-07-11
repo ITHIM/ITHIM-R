@@ -1,7 +1,8 @@
-disease,acronym,air_pollution,physical_activity
-all cause,ac,,
-cardiovascular disease,cvd,1,1
-lung cancer,lc,1,1
-breast cancer,bc,0,1
-colon cancer,cc,0,1
-COPD,copd,1,0
+GBD_name,acronym,air_pollution,physical_activity,ap_acronym,pa_acronym
+All causes,ac,0,1,,
+Cardiovascular diseases,cvd,1,1,cvd_ihd,
+"Tracheal, bronchus, and lung cancer",lc,0,1,neo_lung,
+Breast cancer,bc,0,1,,
+Colon and rectum cancer,cc,0,1,,
+Chronic respiratory diseases,copd,0,0,resp_copd,
+Stroke,stk,0,1,cvd_stroke,
