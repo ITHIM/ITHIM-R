@@ -44,6 +44,12 @@ victim_deaths ### number of road deaths in the baseline and scenarios by victim 
 
 
 rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
+
+# Redefine age_cat to match with GBD's
+# Make age category
+age_category <- c("15-49", "50-69", ">70")
+rd$age_cat[rd$age >= 15 & rd$age < 50] <- age_category[1]
+rd$age_cat[rd$age >= 50 & rd$age < 70] <- age_category[2]
 #View(rd)
 
 x<-rd %>% filter(!is.na(trip_id), trip_mode!=99, !is.na(trip_mode), trip_mode!= "Train", trip_mode!= "Unspecified",trip_mode!= "Other"  ) %>% group_by (age_cat,sex,trip_mode, scenario) %>% summarise(tot_dist=sum(trip_distance))
@@ -94,8 +100,7 @@ gbd_data<- read_csv('data/demographics/gbd/accra/GBD Accra.csv')
 gbd_injuries<- gbd_data[which(gbd_data$cause=="Road injuries"),]
 
 a<-unique(gbd_injuries$age)
-gbd_injuries$age[which(gbd_injuries$age==a[2])]<- as.character("50-70")
-gbd_injuries$sex_age<- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
+gbd_injuries$sex_age <- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
 for ( i in 7: 12) ## calculating the ratio of YLL to deaths for each age and sex group
 {
   gbd_injuries[i,ncol(gbd_injuries)-1] <-gbd_injuries[i,ncol(gbd_injuries)-1]/ gbd_injuries[i-6,ncol(gbd_injuries)-1]
@@ -129,3 +134,6 @@ deaths_yll_injuries<-deaths_yll_injuries[,-c(7,8)]
 deaths_yll_injuries<- as.data.frame(deaths_yll_injuries)
 names(deaths_yll_injuries)<- c("age_cat", "sex", "base_deaths_inj", "scen1_deaths_inj", "scen2_deaths_inj", "scen3_deaths_inj", 
                                "base_yll_inj", "scen1_yll_inj", "scen2_yll_inj", "scen3_yll_inj")
+
+deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] <- -1 * deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] 
+  
