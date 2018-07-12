@@ -79,8 +79,7 @@ for (i in 1: 4)
              {
                x[j,k+3] <- x[j,k+3]* victim_deaths[row,i+1]
              }
-             
-           }
+             }
         }
     
   }
@@ -128,4 +127,5 @@ x_yll[,6]<-x_yll[,6] - x_yll[,3]
 deaths_yll_injuries<- cbind(x_deaths, x_yll)
 deaths_yll_injuries<-deaths_yll_injuries[,-c(7,8)]
 deaths_yll_injuries<- as.data.frame(deaths_yll_injuries)
-names(deaths_yll_injuries)<- c("age_cat", "sex", "base_deaths", "scen1_deaths", "scen2_deaths", "scen3_deaths", "base_yll", "scen1_yll", "scen2_yll", "scen3_yll")
+names(deaths_yll_injuries)<- c("age_cat", "sex", "base_deaths_inj", "scen1_deaths_inj", "scen2_deaths_inj", "scen3_deaths_inj", 
+                               "base_yll_inj", "scen1_yll_inj", "scen2_yll_inj", "scen3_yll_inj")
