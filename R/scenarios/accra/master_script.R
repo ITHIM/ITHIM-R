@@ -8,7 +8,7 @@ source("R/scenarios/accra/plot.R")
 source("R/PA/accra/total_mmet.R")
 
 # Calculate PM calculations
-source("R/pollution/scenario_pm_calculations.R")
+source("R/pollution/accra/scenario_pm_calculations.R")
 
 # Calculate RR 2.5
 source("R/health/accra/gen_ap_rr.R")
