@@ -1,9 +1,9 @@
 library(dplyr)
 library(tidyverse)
 ### this code is to calculate daily PM concentrations for the baseline and the scenarios
-ind <- read_csv("data/synth_pop_data/accra/processed_data/scenarios/baseline_and_three_scenarios.csv")
-ind <- as.data.frame(ind)
-head(ind)
+# ind <- read_csv("data/synth_pop_data/accra/processed_data/scenarios/baseline_and_three_scenarios.csv")
+# ind <- as.data.frame(ind)
+# head(ind)
 #ind  %>% group_by(trip_mode) %>% 
 ## calculating in-vehicle exposure ratio based on baseline concentration (using Goel et al., 2015)
 ## all modes categorised as open except car which is assumed to be half as closed (air-conditioned closed windows) and other half as open windows
