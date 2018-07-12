@@ -329,3 +329,17 @@ for ( j in 1:nrow(disease_lt)){
   }
 }
 
+
+# read injuries dataset for both ylls and deaths
+inj <- read_csv("R/injuries/accra/deaths_yll_injuries.csv")
+
+# rename columns
+inj <- rename(inj, age.band = age_cat, gender = sex)
+
+inj_deaths <- select(inj, c(age.band, gender, contains("deaths")))
+
+inj_ylls <- select(inj, c(age.band, gender, contains("yll")))
+
+
+
+
