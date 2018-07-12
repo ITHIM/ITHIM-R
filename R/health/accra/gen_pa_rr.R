@@ -72,3 +72,5 @@ for ( j in 1:nrow(disease_lt)){
   
 }
 
+write_csv(ind, "data/synth_pop_data/accra/RR/RR_PA_calculations.csv")
+
