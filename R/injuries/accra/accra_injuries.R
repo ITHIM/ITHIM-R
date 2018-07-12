@@ -93,6 +93,7 @@ x$sex_age<-  paste0(x$sex,"_",x$age_cat)
 
 gbd_data<- read_csv('data/demographics/gbd/accra/GBD Accra.csv')
 gbd_injuries<- gbd_data[which(gbd_data$cause=="Road injuries"),]
+
 a<-unique(gbd_injuries$age)
 gbd_injuries$age[which(gbd_injuries$age==a[2])]<- as.character("50-70")
 gbd_injuries$sex_age<- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
@@ -112,5 +113,19 @@ View(x)  ###
 
 x<- x[,c(1,2,3,9,12)]
 x  ### Death burden from injuries
+x_deaths<- x[,-5]
+x_deaths<-spread(x_deaths,scenario, Deaths)
+x_deaths[,4]<-x_deaths[,4] - x_deaths[,3] 
+x_deaths[,5]<-x_deaths[,5] - x_deaths[,3] 
+x_deaths[,6]<-x_deaths[,6] - x_deaths[,3] 
 
+x_yll<- x[,-4]
+x_yll<-spread(x_yll,scenario, YLL)
+x_yll[,4]<-x_yll[,4] - x_yll[,3] 
+x_yll[,5]<-x_yll[,5] - x_yll[,3] 
+x_yll[,6]<-x_yll[,6] - x_yll[,3] 
 
+deaths_yll_injuries<- cbind(x_deaths, x_yll)
+deaths_yll_injuries<-deaths_yll_injuries[,-c(7,8)]
+deaths_yll_injuries<- as.data.frame(deaths_yll_injuries)
+names(deaths_yll_injuries)<- c("age_cat", "sex", "base_deaths", "scen1_deaths", "scen2_deaths", "scen3_deaths", "base_yll", "scen1_yll", "scen2_yll", "scen3_yll")
