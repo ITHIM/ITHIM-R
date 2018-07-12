@@ -136,4 +136,6 @@ names(deaths_yll_injuries)<- c("age_cat", "sex", "base_deaths_inj", "scen1_death
                                "base_yll_inj", "scen1_yll_inj", "scen2_yll_inj", "scen3_yll_inj")
 
 deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] <- -1 * deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] 
+
+write_csv(deaths_yll_injuries, "R/injuries/accra/deaths_yll_injuries.csv")
   
