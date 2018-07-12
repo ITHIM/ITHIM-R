@@ -21,7 +21,7 @@ scen_dist[,5]<-scen_dist[,5]/scen_dist[,2]
 
 victim_deaths<- as.data.frame(whw_mat[,1])  ## names of victims
 victim_deaths<- cbind(victim_deaths, scen=as.data.frame(rowSums(whw_mat[,3:8])))  ## number of deaths in baseline by victim type
-
+whw_mat2<-whw_mat
 for (k in 3:5) ## iterating over the three scenarios as indexed in scen_dist matrix
 {
 for (i in 1: nrow(whw_mat))
@@ -44,7 +44,7 @@ victim_deaths ### number of road deaths in the baseline and scenarios by victim 
 
 
 rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
-View(rd)
+#View(rd)
 
 x<-rd %>% filter(!is.na(trip_id), trip_mode!=99, !is.na(trip_mode), trip_mode!= "Train", trip_mode!= "Unspecified",trip_mode!= "Other"  ) %>% group_by (age_cat,sex,trip_mode, scenario) %>% summarise(tot_dist=sum(trip_distance))
 x<-spread(x,trip_mode, tot_dist) 
