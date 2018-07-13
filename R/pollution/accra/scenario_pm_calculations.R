@@ -135,8 +135,9 @@ length(unique(final_data$participant_id))
 str(final_data)
 means<-final_data %>% summarise (mean_base=mean(pm_conc_base),mean_scen1=mean(pm_conc_scen1),mean_scen2=mean(pm_conc_scen2),mean_scen3=mean(pm_conc_scen3))
 means<-as.data.frame(means)  ### mean of PM2.5 concentrations for all individuals in baseline and scenarios
-final_data[,2]<- final_data[,2]* as.numeric(conc_pm[1])/as.numeric(means[1])  ## multiplying by the ratio of baseline background concentration and background concentration of scenarios population
-final_data[,3]<- final_data[,3]* as.numeric(conc_pm[1])/as.numeric(means[2])
-final_data[,4]<- final_data[,4]* as.numeric(conc_pm[1])/as.numeric(means[3])
-final_data[,5]<- final_data[,5]* as.numeric(conc_pm[1])/as.numeric(means[4])
+###Lines which are normalising the concentrations
+#final_data[,2]<- final_data[,2]* as.numeric(conc_pm[1])/as.numeric(means[1])  ## multiplying by the ratio of baseline background concentration and background concentration of scenarios population
+#final_data[,3]<- final_data[,3]* as.numeric(conc_pm[1])/as.numeric(means[2])
+#final_data[,4]<- final_data[,4]* as.numeric(conc_pm[1])/as.numeric(means[3])
+#final_data[,5]<- final_data[,5]* as.numeric(conc_pm[1])/as.numeric(means[4])
 write_csv(as.data.frame(final_data), 'data/synth_pop_data/accra/pollution/individual_level_pm_conc_scenarios.csv')
