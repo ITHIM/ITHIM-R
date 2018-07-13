@@ -22,5 +22,5 @@ source("R/health/accra/combined_rr_pa_pa.R")
 # Calculate disease burden for injuries
 source("R/injuries/accra/accra_injuries.R")
 
-# Calculate disease burden for PA and AP
+# Calculate disease burden for AP, PA and Injuries
 source("R/health/accra/health_burden.R")
