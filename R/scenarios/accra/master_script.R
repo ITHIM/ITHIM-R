@@ -2,7 +2,7 @@
 source("R/scenarios/accra/scenarios.R")
 
 # Generate distance and duration matrices
-source("R/scenarios/accra/plot.R")
+source("R/scenarios/accra/dist_dur_tbls.R")
 
 # Calculate total PA MMET
 source("R/PA/accra/total_mmet.R")
