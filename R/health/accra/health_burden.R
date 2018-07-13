@@ -155,21 +155,18 @@ inj <- read_csv("R/injuries/accra/deaths_yll_injuries.csv")
 # rename columns
 inj <- rename(inj, age.band = age_cat, gender = sex)
 
+# Select deaths columns
 inj_deaths <- select(inj, c(age.band, gender, contains("deaths")))
 
+# Select yll columns
 inj_ylls <- select(inj, c(age.band, gender, contains("yll")))
 
+# Join injuries data to global datasets
 gdeaths <- left_join(gdeaths, inj_deaths)
 gylls <- left_join(gylls, inj_ylls)
 
+# Write ylls and deaths datasets
 write_csv(gdeaths, "data/scenarios/accra/health_burden/total_deaths.csv")
 write_csv(gdeaths_red, "data/scenarios/accra/health_burden/total_deaths_red.csv")
 write_csv(gylls, "data/scenarios/accra/health_burden/total_ylls.csv")
 write_csv(gylls_red, "data/scenarios/accra/health_burden/total_ylls_red.csv")
-
-
-
-
-
-
-
