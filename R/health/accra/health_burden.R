@@ -1,5 +1,7 @@
+# Clear workspace and load libraries
 source("R/scenarios/accra/setup.R")
 
+# Load all health related functions
 source("R/PA/code/functions.R")
 
 ind <- read_csv("data/synth_pop_data/accra/RR/RR_PA_AP_calculations.csv")
