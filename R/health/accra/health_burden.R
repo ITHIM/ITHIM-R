@@ -28,7 +28,6 @@ gylls_red <- NULL
 index <- 1
 ### iterating over all all disease outcomes
 for ( j in 1:nrow(disease_lt)){
-  print(index)
   ## checking whether to calculate this health outcome for PA
   #if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] == 1)
   {
