@@ -129,8 +129,8 @@ combine_health_and_pif <- function(pop, hc, hm, hm_cause, hm_cn, cn){
           m[m$gender == m$gender[new_row] & m$age.band == m$age.band[new_row], ][[cn[i]]] <- 
             val * as.numeric(sub[[hm_cn]])
           
-          print (m)
-          print (n)
+          # print (m)
+          # print (n)
         }else{
           n[n$gender == n$gender[new_row] & n$age.band ==  n$age.band[new_row], ][[cn[i]]] <- 0
           
