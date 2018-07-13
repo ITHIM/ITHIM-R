@@ -125,14 +125,14 @@ for ( j in 1:nrow(disease_lt)){
       
       
       if (index == 1){
-
+        # If global vars are not initiliazed, copy vars
         gdeaths <- deaths
         gdeaths_red <- deaths_red
         gylls <- yll
         gylls_red <- yll_red
 
       }else{
-        
+        # global vars are already initialized. Join new datasets with old ones.
         gdeaths <- left_join(gdeaths, deaths)
         gdeaths_red <- left_join(gdeaths_red, deaths_red)
         gylls <- left_join(gylls, yll)
@@ -140,7 +140,7 @@ for ( j in 1:nrow(disease_lt)){
 
       }
       
-      
+      # Increase index by 1
       index <- index + 1
       
     }
