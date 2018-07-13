@@ -6,21 +6,45 @@ library(tidyverse)
 # Read raw_data
 rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
 
-# # Create summary frequency for baseline and three scenarios
-# td <- select(rd, trip_mode, scen1_mode, scen2_mode, scen3_mode) 
-# td1 <- td %>% filter(!is.na(scen1_mode)) %>% group_by(trip_mode) %>% summarise(n = n()) %>% mutate(baseline_freq = round(n / sum(n) * 100, 2)) %>% select(trip_mode, baseline_freq)
-# td1 <- cbind(td1, td %>% filter(!is.na(scen1_mode)) %>% group_by(scen1_mode) %>% summarise(n = n()) %>% mutate(scen1_freq = round(n / sum(n) * 100, 2)) %>% select(scen1_freq))
-# td1 <- cbind(td1, td %>% filter(!is.na(scen1_mode)) %>% group_by(scen2_mode) %>% summarise(n = n()) %>% mutate(scen2_freq = round(n / sum(n) * 100, 2)) %>% select(scen2_freq))
-# td1 <- cbind(td1, td %>% group_by(scen3_mode) %>% summarise(n = n()) %>% mutate(scen3_freq = round(n / sum(n) * 100, 2)) %>% select(scen3_freq))
-# td2 <- reshape2::melt(td1,id.vars="trip_mode")
-# 
-# td2 <- rename(td2, percentage = value)
-# 
-# td2 <- filter(td2, trip_mode != 'Short Walking')
-# 
-# # Plot mode distribution for baseline and three scenarios
-# ggplot(data = td2, aes(x = trip_mode, y = percentage, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal()+ xlab('Mode') + ylab('Percentage (%)') + labs(title = 'Mode distribution in baseline and three scenarios')
 
+# Trip mode plot
+
+# Remove short walking, 99, Train, Other and Unspecified modes
+dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
+bd <- filter(dataset, scenario == 'Baseline')
+bdnr <- nrow(bd)
+
+scen1 <- filter(dataset, scenario == 'Scenario 1')
+scen1nr <- nrow(scen1)
+scen2 <- filter(dataset, scenario == 'Scenario 2')
+scen2nr <- nrow(scen2)
+scen3 <- filter(dataset, scenario == 'Scenario 3')
+scen3nr <- nrow(scen3)
+
+bd <- bd %>% group_by(trip_mode) %>%  summarise(baseline_n = round(n()/bdnr * 100, 1))
+
+scen1 <- scen1 %>% group_by(trip_mode) %>%  summarise(scen1_n = round(n()/scen1nr * 100, 1))
+scen2 <- scen2 %>% group_by(trip_mode) %>%  summarise(scen2_n = round(n()/scen2nr * 100, 1))
+scen3 <- scen3 %>% group_by(trip_mode) %>%  summarise(scen3_n = round(n()/scen3nr * 100, 1))
+
+
+bd <- left_join(bd, scen1, by = "trip_mode")
+bd <- left_join(bd, scen2, by = "trip_mode")
+bd <- left_join(bd, scen3, by = "trip_mode")
+
+bd <- rename(bd, "Baseline" = baseline_n,
+             "Scenario 1" = scen1_n,
+             "Scenario 2" = scen2_n,
+             "Scenario 3" = scen3_n
+)
+
+
+
+bd <- reshape2::melt(bd)
+
+ggplot(data = bd, aes(x = trip_mode, y = value, fill = variable)) + 
+           geom_bar(stat = 'identity', position = "dodge", color = "black") + 
+           theme_minimal() + xlab('Mode') + ylab('Proportion (%)') + labs(title = "Mode distribution")
 # Calculate trip distance for baseline and three scenarios
 
 dist <- rd %>% filter(scenario == "Baseline") %>% group_by(trip_mode) %>% summarise(baseline_dist = sum(trip_distance))
