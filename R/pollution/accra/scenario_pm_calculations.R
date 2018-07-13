@@ -42,7 +42,7 @@ p= ncol(trans_emissions)
 for ( i in 1:nscen)
 {
 trans_emissions[1,p+i]<- trans_emissions$base_emissions[1]*scen_dist[4,n+i]/scen_dist[4,n] ## scenario emissions of 4W1
-trans_emissions[2,p+i]<- trans_emissions$base_emissions[2]*scen_dist[4,n+i]/scen_dist[4,n] ## scenario emissions of 4W2
+trans_emissions[2,p+i]<- trans_emissions$base_emissions[2]*scen_dist[4,n+i]/scen_dist[4,n] ## scenario emissions of 4W2 (>2000cc engine size)
 trans_emissions[3,p+i]<- trans_emissions$base_emissions[3]*scen_dist[3,n+i]/scen_dist[3,n] ## scenario emissions of 2W
 trans_emissions[4,p+i]<- trans_emissions$base_emissions[4]*scen_dist[5,n+i]/scen_dist[5,n] ## scenario emissions of Taxi
 trans_emissions[5,p+i]<- trans_emissions$base_emissions[5]*scen_dist[2,n+i]/scen_dist[2,n] ## scenario emissions of bus
@@ -72,7 +72,7 @@ trans_emissions[nrow(trans_emissions)-1,ncol(trans_emissions)-2]<-  non_transpor
 trans_emissions[nrow(trans_emissions)-1,ncol(trans_emissions)-1]<-  non_transport_pm_conc + trans_emissions[nrow(trans_emissions),ncol(trans_emissions)-1]
 trans_emissions[nrow(trans_emissions)-1,ncol(trans_emissions)]<-  non_transport_pm_conc + trans_emissions[nrow(trans_emissions),ncol(trans_emissions)]
 
-conc_pm <- trans_emissions[nrow(trans_emissions)-1, 6:9]
+conc_pm <- trans_emissions[nrow(trans_emissions)-1, 6:9] ## background concentrations for baseline and three scenarios
 
 
 rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
@@ -130,8 +130,13 @@ for (scen_index in scen){
 }
 
 final_data<- final_data[]
-write_csv(as.data.frame(final_data), 'data/synth_pop_data/accra/pollution/individual_level_pm_conc_scenarios.csv')
 
 length(unique(final_data$participant_id))
 str(final_data)
-
+means<-final_data %>% summarise (mean_base=mean(pm_conc_base),mean_scen1=mean(pm_conc_scen1),mean_scen2=mean(pm_conc_scen2),mean_scen3=mean(pm_conc_scen3))
+means<-as.data.frame(means)  ### mean of PM2.5 concentrations for all individuals in baseline and scenarios
+final_data[,2]<- final_data[,2]* as.numeric(conc_pm[1])/as.numeric(means[1])  ## multiplying by the ratio of baseline background concentration and background concentration of scenarios population
+final_data[,3]<- final_data[,3]* as.numeric(conc_pm[1])/as.numeric(means[2])
+final_data[,4]<- final_data[,4]* as.numeric(conc_pm[1])/as.numeric(means[3])
+final_data[,5]<- final_data[,5]* as.numeric(conc_pm[1])/as.numeric(means[4])
+write_csv(as.data.frame(final_data), 'data/synth_pop_data/accra/pollution/individual_level_pm_conc_scenarios.csv')
