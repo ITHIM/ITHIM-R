@@ -13,44 +13,60 @@ ind$age_cat[ind$age >= 50 & ind$age < 70] <- age_category[2]
 # Read disease lt
 disease_lt <- read_csv("data/dose_response/disease_outcomes_lookup.csv")
 
+# Replace NAs with 0
 disease_lt[is.na(disease_lt)] <- 0
 
+# Initialize global variables
 gdeaths <- NULL
 gdeaths_red <- NULL
 gylls <- NULL
 gylls_red <- NULL
 
+# Index for global datasets
 index <- 1
 ### iterating over all all disease outcomes
 for ( j in 1:nrow(disease_lt)){
   print(index)
   ## checking whether to calculate this health outcome for PA
-  if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] == 1){
+  #if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] == 1)
+  {
+    # Disease acronym
     ac <- disease_lt$acronym[j] %>% as.character()
+    # GBD's disease name
     gbd_dn <- disease_lt$GBD_name[j] %>% as.character()
+    # Loop through all three scenarios
     for (scen in c('scen1', 'scen2', 'scen3')){
       
-      base_var <- paste0('RR_pa_ap_base_', ac)
-      scen_var <- paste0('RR_pa_ap_', scen, '_', ac)
+      if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] == 1){
+        # Initialize base and scenario var name
+        base_var <- paste0('RR_pa_ap_base_', ac)
+        scen_var <- paste0('RR_pa_ap_', scen, '_', ac)
+        
+      }else if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] != 1){
+        # Initialize base and scenario var name
+        base_var <- paste0('RR_pa_base_', ac)
+        scen_var <- paste0('RR_pa_', scen, '_', ac)
+        
+      }else if (disease_lt$physical_activity[j] != 1 & disease_lt$air_pollution[j] == 1){
+        # Initialize base and scenario var name
+        base_var <- paste0('RR_ap_base_', ac)
+        scen_var <- paste0('RR_ap_', scen, '_', ac)
+        
+      }
       
-      print(base_var, (base_var %in% names(ind)))
-      print(scen_var, (scen_var %in% names(ind)))
-      
-      
+      # Calculate PIFs for baseline and selected scenario
       pif <- data.frame(PAF(pop = ind, attr = c('sex', 'age_cat'), cn = c(base_var, scen_var)))
       pif <- arrange(pif, age.band, gender)
       
-      
       # Redefine non-factor based column classes
       pif[,c("age.band", "gender")] <- lapply(pif[,c("age.band", "gender")], as.character)
-      
       cols = c(3, 4)    
       pif[,cols] = apply(pif[,cols], 2, function(x) as.numeric(as.character(x)))
-      
       
       # Read gbd data
       gbd_data <- read.csv("data/demographics/gbd/accra/GBD Accra.csv")
       
+      # Calculate ylls (total and red)
       yll_dfs <- combine_health_and_pif(
         pop = pif,
         hc = gbd_data,
@@ -65,7 +81,7 @@ for ( j in 1:nrow(disease_lt)){
       # Subset to get yll_reductions
       yll_red <- as.data.frame(yll_dfs[2])
       
-      
+      # Calculate deaths (total and red)
       death_dfs <- combine_health_and_pif(
         pop = pif,
         hc = gbd_data,
@@ -74,24 +90,39 @@ for ( j in 1:nrow(disease_lt)){
         hm_cause <- gbd_dn,
         hm_cn <- 'val_accra')
       
-      
       # Subset to get yll
       deaths <- as.data.frame(death_dfs[1])
       # Subset to get yll_reductions
       deaths_red <- as.data.frame(death_dfs[2])
-      
+      # Remove baseline vars
       deaths <- select(deaths, -one_of(base_var))
       deaths_red <- select(deaths_red, -one_of(base_var))
-      
       yll <- select(yll, -one_of(base_var))
       yll_red <- select(yll_red, -one_of(base_var))
       
-      # browser()
-      deaths <- rename(deaths, !! paste0(scen, '_deaths_pa_ap_',ac) := scen_var)
-      deaths_red <- rename(deaths_red, !! paste0(scen, '_deaths_red_pa_ap_',ac) := scen_var)
+      if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] == 1){
+        # Rename var names
+        deaths <- rename(deaths, !! paste0(scen, '_deaths_pa_ap_',ac) := scen_var)
+        deaths_red <- rename(deaths_red, !! paste0(scen, '_deaths_red_pa_ap_',ac) := scen_var)
+        yll <- rename(yll, !! paste0(scen, '_ylls_pa_ap_',ac) := scen_var)
+        yll_red <- rename(yll_red, !! paste0(scen, '_ylls_red_pa_ap_',ac) := scen_var)
+        
+      }else if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] != 1){
+        # Rename var names
+        deaths <- rename(deaths, !! paste0(scen, '_deaths_pa_',ac) := scen_var)
+        deaths_red <- rename(deaths_red, !! paste0(scen, '_deaths_red_pa_',ac) := scen_var)
+        yll <- rename(yll, !! paste0(scen, '_ylls_pa_',ac) := scen_var)
+        yll_red <- rename(yll_red, !! paste0(scen, '_ylls_red_pa_',ac) := scen_var)
+        
+      }else if (disease_lt$physical_activity[j] != 1 & disease_lt$air_pollution[j] == 1){
+        # Rename var names
+        deaths <- rename(deaths, !! paste0(scen, '_deaths_ap_',ac) := scen_var)
+        deaths_red <- rename(deaths_red, !! paste0(scen, '_deaths_red_ap_',ac) := scen_var)
+        yll <- rename(yll, !! paste0(scen, '_ylls_ap_',ac) := scen_var)
+        yll_red <- rename(yll_red, !! paste0(scen, '_ylls_red_ap_',ac) := scen_var)
+        
+      }
       
-      yll <- rename(yll, !! paste0(scen, '_ylls_pa_ap_',ac) := scen_var)
-      yll_red <- rename(yll_red, !! paste0(scen, '_ylls_red_pa_ap_',ac) := scen_var)
       
       if (index == 1){
 
@@ -114,173 +145,7 @@ for ( j in 1:nrow(disease_lt)){
       
     }
   }
-  else if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] != 1){
-    ac <- disease_lt$acronym[j] %>% as.character()
-    gbd_dn <- disease_lt$GBD_name[j] %>% as.character()
-    for (scen in c('scen1', 'scen2', 'scen3')){
 
-      base_var <- paste0('RR_pa_base_', ac)
-      scen_var <- paste0('RR_pa_', scen, '_', ac)
-
-      pif <- data.frame(PAF(pop = ind, attr = c('sex', 'age_cat'), cn = c(base_var, scen_var)))
-      pif <- arrange(pif, age.band, gender)
-
-
-      # Redefine non-factor based column classes
-      pif[,c("age.band", "gender")] <- lapply(pif[,c("age.band", "gender")], as.character)
-      cols = c(3, 4)
-      pif[,cols] = apply(pif[,cols], 2, function(x) as.numeric(as.character(x)))
-
-      # Read gbd data
-      gbd_data <- read.csv("data/demographics/gbd/accra/GBD Accra.csv")
-
-      yll_dfs <- combine_health_and_pif(
-        pop = pif,
-        hc = gbd_data,
-        hm = "YLLs (Years of Life Lost)",
-        cn = c(base_var, scen_var),
-        hm_cause <- gbd_dn,
-        hm_cn <- 'val_accra')
-
-
-      # Subset to get yll
-      yll <- as.data.frame(yll_dfs[1])
-      # Subset to get yll_reductions
-      yll_red <- as.data.frame(yll_dfs[2])
-
-
-      death_dfs <- combine_health_and_pif(
-        pop = pif,
-        hc = gbd_data,
-        hm = "Deaths",
-        cn = c(base_var, scen_var),
-        hm_cause <- gbd_dn,
-        hm_cn <- 'val_accra')
-
-
-      # Subset to get yll
-      deaths <- as.data.frame(death_dfs[1])
-      # Subset to get yll_reductions
-      deaths_red <- as.data.frame(death_dfs[2])
-
-      deaths <- select(deaths, -one_of(base_var))
-      deaths_red <- select(deaths_red, -one_of(base_var))
-
-      yll <- select(yll, -one_of(base_var))
-      yll_red <- select(yll_red, -one_of(base_var))
-
-      # browser()
-      deaths <- rename(deaths, !! paste0(scen, '_deaths_pa_',ac) := scen_var)
-      deaths_red <- rename(deaths_red, !! paste0(scen, '_deaths_red_pa_',ac) := scen_var)
-
-      yll <- rename(yll, !! paste0(scen, '_ylls_pa_',ac) := scen_var)
-      yll_red <- rename(yll_red, !! paste0(scen, '_ylls_red_pa_',ac) := scen_var)
-
-      if (index == 1){
-
-        gdeaths <- deaths
-        gdeaths_red <- deaths_red
-        gylls <- yll
-        gylls_red <- yll_red
-
-      }else{
-
-        gdeaths <- left_join(gdeaths, deaths)
-        gdeaths_red <- left_join(gdeaths_red, deaths_red)
-        gylls <- left_join(gylls, yll)
-        gylls_red <- left_join(gylls_red, yll_red)
-
-      }
-
-
-      index <- index + 1
-
-    }
-  }
-  else if (disease_lt$physical_activity[j] != 1 & disease_lt$air_pollution[j] == 1){
-    ac <- disease_lt$acronym[j] %>% as.character()
-    gbd_dn <- disease_lt$GBD_name[j] %>% as.character()
-    for (scen in c('scen1', 'scen2', 'scen3')){
-
-      base_var <- paste0('RR_ap_base_', ac)
-      scen_var <- paste0('RR_ap_', scen, '_', ac)
-
-      pif <- data.frame(PAF(pop = ind, attr = c('sex', 'age_cat'), cn = c(base_var, scen_var)))
-      pif <- arrange(pif, age.band, gender)
-
-
-      # Redefine non-factor based column classes
-      pif[,c("age.band", "gender")] <- lapply(pif[,c("age.band", "gender")], as.character)
-      cols = c(3, 4)
-      pif[,cols] = apply(pif[,cols], 2, function(x) as.numeric(as.character(x)))
-
-
-      # Read gbd data
-      gbd_data <- read.csv("data/demographics/gbd/accra/GBD Accra.csv")
-
-      yll_dfs <- combine_health_and_pif(
-        pop = pif,
-        hc = gbd_data,
-        hm = "YLLs (Years of Life Lost)",
-        cn = c(base_var, scen_var),
-        hm_cause <- gbd_dn,
-        hm_cn <- 'val_accra')
-
-
-      # Subset to get yll
-      yll <- as.data.frame(yll_dfs[1])
-      # Subset to get yll_reductions
-      yll_red <- as.data.frame(yll_dfs[2])
-
-
-      death_dfs <- combine_health_and_pif(
-        pop = pif,
-        hc = gbd_data,
-        hm = "Deaths",
-        cn = c(base_var, scen_var),
-        hm_cause <- gbd_dn,
-        hm_cn <- 'val_accra')
-
-
-      # Subset to get yll
-      deaths <- as.data.frame(death_dfs[1])
-      # Subset to get yll_reductions
-      deaths_red <- as.data.frame(death_dfs[2])
-
-      deaths <- select(deaths, -one_of(base_var))
-      deaths_red <- select(deaths_red, -one_of(base_var))
-
-      yll <- select(yll, -one_of(base_var))
-      yll_red <- select(yll_red, -one_of(base_var))
-
-      # browser()
-      deaths <- rename(deaths, !! paste0(scen, '_deaths_ap_',ac) := scen_var)
-      deaths_red <- rename(deaths_red, !! paste0(scen, '_deaths_red_ap_',ac) := scen_var)
-
-      yll <- rename(yll, !! paste0(scen, '_ylls_ap_',ac) := scen_var)
-      yll_red <- rename(yll_red, !! paste0(scen, '_ylls_red_ap_',ac) := scen_var)
-
-      if (index == 1){
-
-        gdeaths <- deaths
-        gdeaths_red <- deaths_red
-        gylls <- yll
-        gylls_red <- yll_red
-
-      }else{
-
-        gdeaths <- left_join(gdeaths, deaths)
-        gdeaths_red <- left_join(gdeaths_red, deaths_red)
-        gylls <- left_join(gylls, yll)
-        gylls_red <- left_join(gylls_red, yll_red)
-
-      }
-
-
-      index <- index + 1
-
-    }
-  }
 }
 
 
