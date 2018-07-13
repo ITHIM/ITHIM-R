@@ -1,0 +1,5 @@
+age.band,gender,scen1_deaths_red_pa_ac,scen2_deaths_red_pa_ac,scen3_deaths_red_pa_ac,scen1_deaths_red_pa_ap_cvd,scen2_deaths_red_pa_ap_cvd,scen3_deaths_red_pa_ap_cvd,scen1_deaths_red_pa_ap_lc,scen2_deaths_red_pa_ap_lc,scen3_deaths_red_pa_ap_lc,scen1_deaths_red_pa_bc,scen2_deaths_red_pa_bc,scen3_deaths_red_pa_bc,scen1_deaths_red_pa_cc,scen2_deaths_red_pa_cc,scen3_deaths_red_pa_cc,scen1_deaths_red_ap_copd,scen2_deaths_red_ap_copd,scen3_deaths_red_ap_copd,scen1_deaths_red_pa_ap_stk,scen2_deaths_red_pa_ap_stk,scen3_deaths_red_pa_ap_stk
+15-49,Female,-9e-5,0,0,-9e-5,1e-5,1e-5,-2e-5,0,0,-4e-5,0,0,-6e-5,0,0,-0,0,-0,-2e-5,0,-0
+15-49,Male,-1.2e-4,0,0,-1.9e-4,2e-5,1e-5,-5e-5,1e-5,0,-7e-5,0,0,-1.1e-4,1e-5,0,-0,0,-0,-3e-5,0,-0
+50-69,Female,-1.7e-4,1e-5,0,-3.6e-4,6e-5,0,-1e-4,3e-5,-1e-5,-1.5e-4,1e-5,0,-2.3e-4,2e-5,1e-5,-1e-5,0,-1e-5,-5e-5,0,-0
+50-69,Male,-4.2e-4,2e-5,2e-5,-0.0012,5e-5,8e-5,-3.6e-4,1e-5,2e-5,-3.6e-4,2e-5,1e-5,-6.3e-4,3e-5,3e-5,-2e-5,0,-1e-5,-1.1e-4,1e-5,-0
