@@ -16,7 +16,7 @@ source("R/health/accra/gen_ap_rr.R")
 # Calculate RR PA
 source("R/health/accra/gen_pa_rr.R")
 
-# Combine RR for PA and AP for common disease
+# Combine RR for PA and AP for common diseases
 source("R/health/accra/combined_rr_pa_pa.R")
 
 # Calculate disease burden for injuries
