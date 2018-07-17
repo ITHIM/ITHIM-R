@@ -96,6 +96,8 @@ x[,9] <- rowSums(x[,4:8],na.rm=T)
 names(x)[9]<-"Deaths"
 x$sex_age<-  paste0(x$sex,"_",x$age_cat)
 
+write_csv(x, "data/synth_pop_data/accra/injuries/deaths_by_mode.csv")
+
 gbd_data<- read_csv('data/demographics/gbd/accra/GBD Accra.csv')
 gbd_injuries<- gbd_data[which(gbd_data$cause=="Road injuries"),]
 
