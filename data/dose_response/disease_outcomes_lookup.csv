@@ -6,3 +6,4 @@ Breast cancer,bc,0,1,,breast-cancer
 Colon and rectum cancer,cc,0,1,,colon-cancer
 Chronic respiratory diseases,copd,1,0,resp_copd,
 Stroke,stk,1,1,cvd_stroke,stroke
+Diabetes mellitus,db,0,1,,diabetes
