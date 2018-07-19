@@ -28,38 +28,41 @@ for ( j in 1:nrow(disease_lt)){
         
         if (pa_dn == 'all-cause-mortality'){
           
-          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality', 
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality',
                                                               dose = ind[[paste0(scen, '_mmet')]][i], use_75_pert = T)$rr %>% as.numeric()
-          
-          # CVD: 35 mmeth per week use mortality 
+
+          # CVD: 35 mmeth per week use mortality
           # Lung cancer: 10 mmeth per week use incidence
           # Breast cancer: 35 mmeth per week use incidence
           # Colon cancer : 35 mmeth per week use incidence
           # stroke 75 pert
-          
-          
+
+
         }else if(pa_dn == 'cardiovascular-disease'){
-          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality', 
-                                                                 dose = ifelse(ind[[paste0(scen, '_mmet')]][i] <= 35, ind[[paste0(scen, '_mmet')]][i], 35), 
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality',
+                                                                 dose = ifelse(ind[[paste0(scen, '_mmet')]][i] <= 35, ind[[paste0(scen, '_mmet')]][i], 35),
                                                                  use_75_pert = F)$rr %>% as.numeric()
         }else if(pa_dn == 'lung-cancer'){
-          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'incidence', 
-                                                                 dose = ifelse(ind[[paste0(scen, '_mmet')]][i] <= 10, ind[[paste0(scen, '_mmet')]][i], 10), 
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'incidence',
+                                                                 dose = ifelse(ind[[paste0(scen, '_mmet')]][i] <= 10, ind[[paste0(scen, '_mmet')]][i], 10),
                                                                  use_75_pert = F)$rr %>% as.numeric()
-          
+
         }else if(pa_dn == 'breast-cancer'){
-          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'incidence', 
-                                                                 dose = ifelse(ind[[paste0(scen, '_mmet')]][i] <= 35, ind[[paste0(scen, '_mmet')]][i], 35), 
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'incidence',
+                                                                 dose = ifelse(ind[[paste0(scen, '_mmet')]][i] <= 35, ind[[paste0(scen, '_mmet')]][i], 35),
                                                                  use_75_pert = F)$rr %>% as.numeric()
-          
+
         }else if(pa_dn == 'colon-cancer'){
-          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'incidence', 
-                                                                 dose = ifelse(ind[[paste0(scen, '_mmet')]][i] <= 35, ind[[paste0(scen, '_mmet')]][i], 35), 
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'incidence',
+                                                                 dose = ifelse(ind[[paste0(scen, '_mmet')]][i] <= 35, ind[[paste0(scen, '_mmet')]][i], 35),
                                                                  use_75_pert = F)$rr %>% as.numeric()
-          
+
         }else if(pa_dn == 'stroke'){
-          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'incidence', 
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'incidence',
                                                                  dose = ind[[paste0(scen, '_mmet')]][i], use_75_pert = T)$rr %>% as.numeric()
+        }else if(pa_dn == 'diabetes'){
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality', 
+                                                                           dose = ind[[paste0(scen, '_mmet')]][i], use_75_pert = F)$rr %>% as.numeric()
           
         }
         
@@ -73,4 +76,3 @@ for ( j in 1:nrow(disease_lt)){
 }
 
 write_csv(ind, "data/synth_pop_data/accra/RR/RR_PA_calculations.csv")
-
