@@ -74,7 +74,7 @@ for ( j in 1:nrow(disease_lt)){
         hm = "YLLs (Years of Life Lost)",
         cn = c(base_var, scen_var),
         hm_cause <- gbd_dn,
-        hm_cn <- 'val_accra')
+        hm_cn <- 'value_gama')
       
       
       # Subset to get yll
@@ -89,7 +89,7 @@ for ( j in 1:nrow(disease_lt)){
         hm = "Deaths",
         cn = c(base_var, scen_var),
         hm_cause <- gbd_dn,
-        hm_cn <- 'val_accra')
+        hm_cn <- 'value_gama')
       
       # Subset to get yll
       deaths <- as.data.frame(death_dfs[1])
