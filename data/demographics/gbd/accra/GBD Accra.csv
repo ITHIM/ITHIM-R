@@ -1,121 +1,133 @@
-measure,location,sex,age,cause,metric,year,val_ghana,pop_ghana,pop_accra,ratio,val_accra
-Deaths,Ghana,Female,15-49,Road injuries,Number,2010,410.3362569,"6,360,535","514,523",0.080893038,33.19334646
-Deaths,Ghana,Female,50-69,Road injuries,Number,2010,271.1715061,"1,110,037","81,482",0.07340476,19.90527943
-Deaths,Ghana,Female,70+,Road injuries,Number,2010,225.0151231,"511,952","25,545",0.049897256,11.2276372
-Deaths,Ghana,Female,15-49,Cardiovascular diseases,Number,2010,2539.31918,"6,360,535","514,523",0.080893038,205.4132431
-Deaths,Ghana,Female,50-69,Cardiovascular diseases,Number,2010,7593.623275,"1,110,037","81,482",0.07340476,557.4080969
-Deaths,Ghana,Female,70+,Cardiovascular diseases,Number,2010,12973.07851,"511,952","25,545",0.049897256,647.3210195
-Deaths,Ghana,Female,15-49,Ischemic heart disease,Number,2010,771.9498565,"6,360,535","514,523",0.080893038,62.44536914
-Deaths,Ghana,Female,50-69,Ischemic heart disease,Number,2010,2962.841258,"1,110,037","81,482",0.07340476,217.4866526
-Deaths,Ghana,Female,70+,Ischemic heart disease,Number,2010,5464.614054,"511,952","25,545",0.049897256,272.6692464
-Deaths,Ghana,Female,15-49,Stroke,Number,2010,1020.504389,"6,360,535","514,523",0.080893038,82.55170044
-Deaths,Ghana,Female,50-69,Stroke,Number,2010,3376.69441,"1,110,037","81,482",0.07340476,247.8654441
-Deaths,Ghana,Female,70+,Stroke,Number,2010,5753.098078,"511,952","25,545",0.049897256,287.0638076
-Deaths,Ghana,Female,15-49,Chronic respiratory diseases,Number,2010,270.4420753,"6,360,535","514,523",0.080893038,21.87688109
-Deaths,Ghana,Female,50-69,Chronic respiratory diseases,Number,2010,642.2148221,"1,110,037","81,482",0.07340476,47.14162513
-Deaths,Ghana,Female,70+,Chronic respiratory diseases,Number,2010,1023.586319,"511,952","25,545",0.049897256,51.07414856
-Deaths,Ghana,Female,15-49,Neoplasms,Number,2010,1814.760157,"6,360,535","514,523",0.080893038,146.8014625
-Deaths,Ghana,Female,50-69,Neoplasms,Number,2010,2986.370732,"1,110,037","81,482",0.07340476,219.213828
-Deaths,Ghana,Female,70+,Neoplasms,Number,2010,2008.339493,"511,952","25,545",0.049897256,100.2106298
-Deaths,Ghana,Female,15-49,"Tracheal, bronchus, and lung cancer",Number,2010,33.72502749,"6,360,535","514,523",0.080893038,2.728119933
-Deaths,Ghana,Female,50-69,"Tracheal, bronchus, and lung cancer",Number,2010,82.92825784,"1,110,037","81,482",0.07340476,6.087328896
-Deaths,Ghana,Female,70+,"Tracheal, bronchus, and lung cancer",Number,2010,86.32005477,"511,952","25,545",0.049897256,4.30713387
-Deaths,Ghana,Female,15-49,Breast cancer,Number,2010,327.5694206,"6,360,535","514,523",0.080893038,26.49808561
-Deaths,Ghana,Female,50-69,Breast cancer,Number,2010,424.5987691,"1,110,037","81,482",0.07340476,31.16757091
-Deaths,Ghana,Female,70+,Breast cancer,Number,2010,165.9567982,"511,952","25,545",0.049897256,8.280788846
-Deaths,Ghana,Female,15-49,Colon and rectum cancer,Number,2010,53.65346137,"6,360,535","514,523",0.080893038,4.340191494
-Deaths,Ghana,Female,50-69,Colon and rectum cancer,Number,2010,129.5896309,"1,110,037","81,482",0.07340476,9.512495806
-Deaths,Ghana,Female,70+,Colon and rectum cancer,Number,2010,164.1131002,"511,952","25,545",0.049897256,8.188793373
-Deaths,Ghana,Female,15-49,All causes,Number,2010,24343.73164,"6,360,535","514,523",0.080893038,1969.238411
-Deaths,Ghana,Female,50-69,All causes,Number,2010,20313.74774,"1,110,037","81,482",0.07340476,1491.125785
-Deaths,Ghana,Female,70+,All causes,Number,2010,27687.25241,"511,952","25,545",0.049897256,1381.517921
-Deaths,Ghana,Male,15-49,Road injuries,Number,2010,1247.73883,"6,360,535","514,523",0.080893038,100.9333847
-Deaths,Ghana,Male,50-69,Road injuries,Number,2010,471.302737,"1,110,037","81,482",0.07340476,34.59586447
-Deaths,Ghana,Male,70+,Road injuries,Number,2010,256.027024,"511,952","25,545",0.049897256,12.77504596
-Deaths,Ghana,Male,15-49,Cardiovascular diseases,Number,2010,1988.456034,"6,360,535","514,523",0.080893038,160.8522497
-Deaths,Ghana,Male,50-69,Cardiovascular diseases,Number,2010,4106.82936,"1,110,037","81,482",0.07340476,301.4608251
-Deaths,Ghana,Male,70+,Cardiovascular diseases,Number,2010,4331.915887,"511,952","25,545",0.049897256,216.1507159
-Deaths,Ghana,Male,15-49,Ischemic heart disease,Number,2010,777.48402,"6,360,535","514,523",0.080893038,62.89304444
-Deaths,Ghana,Male,50-69,Ischemic heart disease,Number,2010,2054.148571,"1,110,037","81,482",0.07340476,150.7842836
-Deaths,Ghana,Male,70+,Ischemic heart disease,Number,2010,2464.485517,"511,952","25,545",0.049897256,122.9710647
-Deaths,Ghana,Male,15-49,Stroke,Number,2010,755.5130541,"6,360,535","514,523",0.080893038,61.11574626
-Deaths,Ghana,Male,50-69,Stroke,Number,2010,1583.317636,"1,110,037","81,482",0.07340476,116.2230517
-Deaths,Ghana,Male,70+,Stroke,Number,2010,1389.292833,"511,952","25,545",0.049897256,69.32190015
-Deaths,Ghana,Male,15-49,Chronic respiratory diseases,Number,2010,422.6983636,"6,360,535","514,523",0.080893038,34.19335482
-Deaths,Ghana,Male,50-69,Chronic respiratory diseases,Number,2010,630.619454,"1,110,037","81,482",0.07340476,46.29046992
-Deaths,Ghana,Male,70+,Chronic respiratory diseases,Number,2010,839.6945762,"511,952","25,545",0.049897256,41.89845523
-Deaths,Ghana,Male,15-49,Neoplasms,Number,2010,1392.639853,"6,360,535","514,523",0.080893038,112.6548686
-Deaths,Ghana,Male,50-69,Neoplasms,Number,2010,2300.938789,"1,110,037","81,482",0.07340476,168.8998605
-Deaths,Ghana,Male,70+,Neoplasms,Number,2010,2084.143419,"511,952","25,545",0.049897256,103.9930377
-Deaths,Ghana,Male,15-49,"Tracheal, bronchus, and lung cancer",Number,2010,47.26735974,"6,360,535","514,523",0.080893038,3.823600332
-Deaths,Ghana,Male,50-69,"Tracheal, bronchus, and lung cancer",Number,2010,258.6730484,"1,110,037","81,482",0.07340476,18.98783314
-Deaths,Ghana,Male,70+,"Tracheal, bronchus, and lung cancer",Number,2010,167.0528773,"511,952","25,545",0.049897256,8.335480185
-Deaths,Ghana,Male,15-49,Breast cancer,Number,2010,1.882513489,"6,360,535","514,523",0.080893038,0.152282235
-Deaths,Ghana,Male,50-69,Breast cancer,Number,2010,4.873413536,"1,110,037","81,482",0.07340476,0.357731753
-Deaths,Ghana,Male,70+,Breast cancer,Number,2010,2.045828801,"511,952","25,545",0.049897256,0.102081243
-Deaths,Ghana,Male,15-49,Colon and rectum cancer,Number,2010,71.40764608,"6,360,535","514,523",0.080893038,5.776381434
-Deaths,Ghana,Male,50-69,Colon and rectum cancer,Number,2010,143.9969658,"1,110,037","81,482",0.07340476,10.57006277
-Deaths,Ghana,Male,70+,Colon and rectum cancer,Number,2010,138.6381478,"511,952","25,545",0.049897256,6.917663149
-Deaths,Ghana,Male,15-49,All causes,Number,2010,26807.52659,"6,360,535","514,523",0.080893038,2168.542269
-Deaths,Ghana,Male,50-69,All causes,Number,2010,21430.62934,"1,110,037","81,482",0.07340476,1573.110211
-Deaths,Ghana,Male,70+,All causes,Number,2010,18549.28698,"511,952","25,545",0.049897256,925.558521
-YLLs (Years of Life Lost),Ghana,Female,15-49,Neoplasms,Number,2010,86388.53119,"5,847,716","474,436",0.081131847,7008.861097
-YLLs (Years of Life Lost),Ghana,Female,50-69,Neoplasms,Number,2010,83646.15563,"1,016,476","71,977",0.070810329,5923.011801
-YLLs (Years of Life Lost),Ghana,Female,70+,Neoplasms,Number,2010,27114.80135,"361,709","19,546",0.054037914,1465.227316
-YLLs (Years of Life Lost),Ghana,Female,15-49,"Tracheal, bronchus, and lung cancer",Number,2010,1618.219229,"5,847,716","474,436",0.081131847,131.2891149
-YLLs (Years of Life Lost),Ghana,Female,50-69,"Tracheal, bronchus, and lung cancer",Number,2010,2279.366686,"1,016,476","71,977",0.070810329,161.402705
-YLLs (Years of Life Lost),Ghana,Female,70+,"Tracheal, bronchus, and lung cancer",Number,2010,1168.445948,"361,709","19,546",0.054037914,63.14038217
-YLLs (Years of Life Lost),Ghana,Female,15-49,Breast cancer,Number,2010,15021.67216,"5,847,716","474,436",0.081131847,1218.736008
-YLLs (Years of Life Lost),Ghana,Female,50-69,Breast cancer,Number,2010,12220.38651,"1,016,476","71,977",0.070810329,865.3295896
-YLLs (Years of Life Lost),Ghana,Female,70+,Breast cancer,Number,2010,2252.772953,"361,709","19,546",0.054037914,121.7351521
-YLLs (Years of Life Lost),Ghana,Female,15-49,Colon and rectum cancer,Number,2010,2454.957295,"5,847,716","474,436",0.081131847,199.1752197
-YLLs (Years of Life Lost),Ghana,Female,50-69,Colon and rectum cancer,Number,2010,3626.634274,"1,016,476","71,977",0.070810329,256.8031662
-YLLs (Years of Life Lost),Ghana,Female,70+,Colon and rectum cancer,Number,2010,2075.378012,"361,709","19,546",0.054037914,112.1490995
-YLLs (Years of Life Lost),Ghana,Female,15-49,All causes,Number,2010,1261269.755,"5,847,716","474,436",0.081131847,102329.1448
-YLLs (Years of Life Lost),Ghana,Female,50-69,All causes,Number,2010,562997.7339,"1,016,476","71,977",0.070810329,39866.05477
-YLLs (Years of Life Lost),Ghana,Female,70+,All causes,Number,2010,342025.442,"361,709","19,546",0.054037914,18482.34158
-YLLs (Years of Life Lost),Ghana,Female,15-49,Cardiovascular diseases,Number,2010,119883.5432,"5,847,716","474,436",0.081131847,9726.373292
-YLLs (Years of Life Lost),Ghana,Female,50-69,Cardiovascular diseases,Number,2010,205647.6352,"1,016,476","71,977",0.070810329,14561.97671
-YLLs (Years of Life Lost),Ghana,Female,70+,Cardiovascular diseases,Number,2010,158570.301,"361,709","19,546",0.054037914,8568.808363
-YLLs (Years of Life Lost),Ghana,Female,15-49,Ischemic heart disease,Number,2010,34986.45097,"5,847,716","474,436",0.081131847,2838.515388
-YLLs (Years of Life Lost),Ghana,Female,50-69,Ischemic heart disease,Number,2010,79852.76646,"1,016,476","71,977",0.070810329,5654.400666
-YLLs (Years of Life Lost),Ghana,Female,70+,Ischemic heart disease,Number,2010,66697.17444,"361,709","19,546",0.054037914,3604.176207
-YLLs (Years of Life Lost),Ghana,Female,15-49,Stroke,Number,2010,46998.07728,"5,847,716","474,436",0.081131847,3813.040817
-YLLs (Years of Life Lost),Ghana,Female,50-69,Stroke,Number,2010,91636.42418,"1,016,476","71,977",0.070810329,6488.805346
-YLLs (Years of Life Lost),Ghana,Female,70+,Stroke,Number,2010,70769.36354,"361,709","19,546",0.054037914,3824.228813
-YLLs (Years of Life Lost),Ghana,Female,15-49,Chronic respiratory diseases,Number,2010,13512.81441,"5,847,716","474,436",0.081131847,1096.319592
-YLLs (Years of Life Lost),Ghana,Female,50-69,Chronic respiratory diseases,Number,2010,17188.21183,"1,016,476","71,977",0.070810329,1217.102935
-YLLs (Years of Life Lost),Ghana,Female,70+,Chronic respiratory diseases,Number,2010,12840.02456,"361,709","19,546",0.054037914,693.8481485
-YLLs (Years of Life Lost),Ghana,Female,15-49,Road injuries,Number,2010,22905.50273,"5,847,716","474,436",0.081131847,1858.365744
-YLLs (Years of Life Lost),Ghana,Female,50-69,Road injuries,Number,2010,7607.698182,"1,016,476","71,977",0.070810329,538.7036114
-YLLs (Years of Life Lost),Ghana,Female,70+,Road injuries,Number,2010,3081.623064,"361,709","19,546",0.054037914,166.5244835
-YLLs (Years of Life Lost),Ghana,Male,15-49,Neoplasms,Number,2010,72182.94456,"5,847,716","474,436",0.081131847,5856.335616
-YLLs (Years of Life Lost),Ghana,Male,50-69,Neoplasms,Number,2010,62292.21052,"1,016,476","71,977",0.070810329,4410.931922
-YLLs (Years of Life Lost),Ghana,Male,70+,Neoplasms,Number,2010,27862.46336,"361,709","19,546",0.054037914,1505.629412
-YLLs (Years of Life Lost),Ghana,Male,15-49,"Tracheal, bronchus, and lung cancer",Number,2010,2169.835312,"5,847,716","474,436",0.081131847,176.0427466
-YLLs (Years of Life Lost),Ghana,Male,50-69,"Tracheal, bronchus, and lung cancer",Number,2010,6931.135443,"1,016,476","71,977",0.070810329,490.7959812
-YLLs (Years of Life Lost),Ghana,Male,70+,"Tracheal, bronchus, and lung cancer",Number,2010,2384.232327,"361,709","19,546",0.054037914,128.8389425
-YLLs (Years of Life Lost),Ghana,Male,15-49,Breast cancer,Number,2010,92.91421507,"5,847,716","474,436",0.081131847,7.538301884
-YLLs (Years of Life Lost),Ghana,Male,50-69,Breast cancer,Number,2010,129.9428645,"1,016,476","71,977",0.070810329,9.201296989
-YLLs (Years of Life Lost),Ghana,Male,70+,Breast cancer,Number,2010,24.52902604,"361,709","19,546",0.054037914,1.325497411
-YLLs (Years of Life Lost),Ghana,Male,15-49,Colon and rectum cancer,Number,2010,3553.729048,"5,847,716","474,436",0.081131847,288.3206015
-YLLs (Years of Life Lost),Ghana,Male,50-69,Colon and rectum cancer,Number,2010,3908.659997,"1,016,476","71,977",0.070810329,276.7735004
-YLLs (Years of Life Lost),Ghana,Male,70+,Colon and rectum cancer,Number,2010,1772.143214,"361,709","19,546",0.054037914,95.76292338
-YLLs (Years of Life Lost),Ghana,Male,15-49,All causes,Number,2010,1399332.532,"5,847,716","474,436",0.081131847,113530.433
-YLLs (Years of Life Lost),Ghana,Male,50-69,All causes,Number,2010,596665.3205,"1,016,476","71,977",0.070810329,42250.06766
-YLLs (Years of Life Lost),Ghana,Male,70+,All causes,Number,2010,236114.4869,"361,709","19,546",0.054037914,12759.13444
-YLLs (Years of Life Lost),Ghana,Male,15-49,Cardiovascular diseases,Number,2010,96711.38686,"5,847,716","474,436",0.081131847,7846.373445
-YLLs (Years of Life Lost),Ghana,Male,50-69,Cardiovascular diseases,Number,2010,112417.7411,"1,016,476","71,977",0.070810329,7960.337237
-YLLs (Years of Life Lost),Ghana,Male,70+,Cardiovascular diseases,Number,2010,53721.90397,"361,709","19,546",0.054037914,2903.019651
-YLLs (Years of Life Lost),Ghana,Male,15-49,Ischemic heart disease,Number,2010,35955.05942,"5,847,716","474,436",0.081131847,2917.100381
-YLLs (Years of Life Lost),Ghana,Male,50-69,Ischemic heart disease,Number,2010,55888.57813,"1,016,476","71,977",0.070810329,3957.488606
-YLLs (Years of Life Lost),Ghana,Male,70+,Ischemic heart disease,Number,2010,30493.85435,"361,709","19,546",0.054037914,1647.824293
-YLLs (Years of Life Lost),Ghana,Male,15-49,Stroke,Number,2010,36472.65235,"5,847,716","474,436",0.081131847,2959.093651
-YLLs (Years of Life Lost),Ghana,Male,50-69,Stroke,Number,2010,43715.95605,"1,016,476","71,977",0.070810329,3095.541232
-YLLs (Years of Life Lost),Ghana,Male,70+,Stroke,Number,2010,17367.11569,"361,709","19,546",0.054037914,938.4827123
-YLLs (Years of Life Lost),Ghana,Male,15-49,Chronic respiratory diseases,Number,2010,21782.99812,"5,847,716","474,436",0.081131847,1767.294871
-YLLs (Years of Life Lost),Ghana,Male,50-69,Chronic respiratory diseases,Number,2010,17036.16221,"1,016,476","71,977",0.070810329,1206.336251
-YLLs (Years of Life Lost),Ghana,Male,70+,Chronic respiratory diseases,Number,2010,10380.96092,"361,709","19,546",0.054037914,560.9654781
-YLLs (Years of Life Lost),Ghana,Male,15-49,Road injuries,Number,2010,70406.70945,"5,847,716","474,436",0.081131847,5712.226381
-YLLs (Years of Life Lost),Ghana,Male,50-69,Road injuries,Number,2010,13473.4182,"1,016,476","71,977",0.070810329,954.057176
-YLLs (Years of Life Lost),Ghana,Male,70+,Road injuries,Number,2010,3500.74044,"361,709","19,546",0.054037914,189.1727124
+measure,location,sex,age,cause,metric,year,value_ghana,pop_ghana,pop_gama,ratio,value_gama
+Deaths,Ghana,Female,15-49,All causes,Number,2010,24343.73164,"6,360,535","1,160,760",0.182494159,4442.588826
+Deaths,Ghana,Female,15-49,Breast cancer,Number,2010,327.5694206,"6,360,535","1,160,760",0.182494159,59.77950584
+Deaths,Ghana,Female,15-49,Cardiovascular diseases,Number,2010,2539.31918,"6,360,535","1,160,760",0.182494159,463.4109175
+Deaths,Ghana,Female,15-49,Chronic respiratory diseases,Number,2010,270.4420753,"6,360,535","1,160,760",0.182494159,49.35409902
+Deaths,Ghana,Female,15-49,Colon and rectum cancer,Number,2010,53.65346137,"6,360,535","1,160,760",0.182494159,9.791443296
+Deaths,Ghana,Female,15-49,Diabetes mellitus,Number,2010,225.5656002,"6,360,535","1,160,760",0.182494159,41.16440446
+Deaths,Ghana,Female,15-49,Ischemic heart disease,Number,2010,771.9498565,"6,360,535","1,160,760",0.182494159,140.8763397
+Deaths,Ghana,Female,15-49,Neoplasms,Number,2010,1814.760157,"6,360,535","1,160,760",0.182494159,331.1831282
+Deaths,Ghana,Female,15-49,Road injuries,Number,2010,410.3362569,"6,360,535","1,160,760",0.182494159,74.88397
+Deaths,Ghana,Female,15-49,Stroke,Number,2010,1020.504389,"6,360,535","1,160,760",0.182494159,186.23609
+Deaths,Ghana,Female,15-49,"Tracheal, bronchus, and lung cancer",Number,2010,33.72502749,"6,360,535","1,160,760",0.182494159,6.15462052
+YLLs (Years of Life Lost),Ghana,Female,15-49,All causes,Number,2010,1261269.755,"6,360,535","1,160,760",0.182494159,230174.3629
+YLLs (Years of Life Lost),Ghana,Female,15-49,Breast cancer,Number,2010,15021.67216,"6,360,535","1,160,760",0.182494159,2741.367424
+YLLs (Years of Life Lost),Ghana,Female,15-49,Cardiovascular diseases,Number,2010,119883.5432,"6,360,535","1,160,760",0.182494159,21878.04636
+YLLs (Years of Life Lost),Ghana,Female,15-49,Chronic respiratory diseases,Number,2010,13512.81441,"6,360,535","1,160,760",0.182494159,2466.009698
+YLLs (Years of Life Lost),Ghana,Female,15-49,Colon and rectum cancer,Number,2010,2454.957295,"6,360,535","1,160,760",0.182494159,448.0153663
+YLLs (Years of Life Lost),Ghana,Female,15-49,Diabetes mellitus,Number,2010,10655.20587,"6,360,535","1,160,760",0.182494159,1944.512832
+YLLs (Years of Life Lost),Ghana,Female,15-49,Ischemic heart disease,Number,2010,34986.45097,"6,360,535","1,160,760",0.182494159,6384.822937
+YLLs (Years of Life Lost),Ghana,Female,15-49,Neoplasms,Number,2010,86388.53119,"6,360,535","1,160,760",0.182494159,15765.40232
+YLLs (Years of Life Lost),Ghana,Female,15-49,Road injuries,Number,2010,22905.50273,"6,360,535","1,160,760",0.182494159,4180.120451
+YLLs (Years of Life Lost),Ghana,Female,15-49,Stroke,Number,2010,46998.07728,"6,360,535","1,160,760",0.182494159,8576.874576
+YLLs (Years of Life Lost),Ghana,Female,15-49,"Tracheal, bronchus, and lung cancer",Number,2010,1618.219229,"6,360,535","1,160,760",0.182494159,295.3155569
+Deaths,Ghana,Female,50-69,All causes,Number,2010,20313.74774,"1,110,037","183,823",0.165600654,3363.969907
+Deaths,Ghana,Female,50-69,Breast cancer,Number,2010,424.5987691,"1,110,037","183,823",0.165600654,70.31383376
+Deaths,Ghana,Female,50-69,Cardiovascular diseases,Number,2010,7593.623275,"1,110,037","183,823",0.165600654,1257.508979
+Deaths,Ghana,Female,50-69,Chronic respiratory diseases,Number,2010,642.2148221,"1,110,037","183,823",0.165600654,106.3511944
+Deaths,Ghana,Female,50-69,Colon and rectum cancer,Number,2010,129.5896309,"1,110,037","183,823",0.165600654,21.4601276
+Deaths,Ghana,Female,50-69,Diabetes mellitus,Number,2010,739.5966652,"1,110,037","183,823",0.165600654,122.4776913
+Deaths,Ghana,Female,50-69,Ischemic heart disease,Number,2010,2962.841258,"1,110,037","183,823",0.165600654,490.6484494
+Deaths,Ghana,Female,50-69,Neoplasms,Number,2010,2986.370732,"1,110,037","183,823",0.165600654,494.5449457
+Deaths,Ghana,Female,50-69,Road injuries,Number,2010,271.1715061,"1,110,037","183,823",0.165600654,44.9061787
+Deaths,Ghana,Female,50-69,Stroke,Number,2010,3376.69441,"1,110,037","183,823",0.165600654,559.1828019
+Deaths,Ghana,Female,50-69,"Tracheal, bronchus, and lung cancer",Number,2010,82.92825784,"1,110,037","183,823",0.165600654,13.73297372
+YLLs (Years of Life Lost),Ghana,Female,50-69,All causes,Number,2010,562997.7339,"1,110,037","183,823",0.165600654,93232.79281
+YLLs (Years of Life Lost),Ghana,Female,50-69,Breast cancer,Number,2010,12220.38651,"1,110,037","183,823",0.165600654,2023.703996
+YLLs (Years of Life Lost),Ghana,Female,50-69,Cardiovascular diseases,Number,2010,205647.6352,"1,110,037","183,823",0.165600654,34055.38284
+YLLs (Years of Life Lost),Ghana,Female,50-69,Chronic respiratory diseases,Number,2010,17188.21183,"1,110,037","183,823",0.165600654,2846.379116
+YLLs (Years of Life Lost),Ghana,Female,50-69,Colon and rectum cancer,Number,2010,3626.634274,"1,110,037","183,823",0.165600654,600.5730068
+YLLs (Years of Life Lost),Ghana,Female,50-69,Diabetes mellitus,Number,2010,19724.86563,"1,110,037","183,823",0.165600654,3266.450644
+YLLs (Years of Life Lost),Ghana,Female,50-69,Ischemic heart disease,Number,2010,79852.76646,"1,110,037","183,823",0.165600654,13223.67033
+YLLs (Years of Life Lost),Ghana,Female,50-69,Neoplasms,Number,2010,83646.15563,"1,110,037","183,823",0.165600654,13851.85806
+YLLs (Years of Life Lost),Ghana,Female,50-69,Road injuries,Number,2010,7607.698182,"1,110,037","183,823",0.165600654,1259.839793
+YLLs (Years of Life Lost),Ghana,Female,50-69,Stroke,Number,2010,91636.42418,"1,110,037","183,823",0.165600654,15175.05175
+YLLs (Years of Life Lost),Ghana,Female,50-69,"Tracheal, bronchus, and lung cancer",Number,2010,2279.366686,"1,110,037","183,823",0.165600654,377.4646134
+Deaths,Ghana,Female,70+,All causes,Number,2010,27687.25241,"511,952","57,629",0.112567879,3116.69529
+Deaths,Ghana,Female,70+,Breast cancer,Number,2010,165.9567982,"511,952","57,629",0.112567879,18.68140485
+Deaths,Ghana,Female,70+,Cardiovascular diseases,Number,2010,12973.07851,"511,952","57,629",0.112567879,1460.351937
+Deaths,Ghana,Female,70+,Chronic respiratory diseases,Number,2010,1023.586319,"511,952","57,629",0.112567879,115.2229413
+Deaths,Ghana,Female,70+,Colon and rectum cancer,Number,2010,164.1131002,"511,952","57,629",0.112567879,18.47386367
+Deaths,Ghana,Female,70+,Diabetes mellitus,Number,2010,1170.296915,"511,952","57,629",0.112567879,131.737842
+Deaths,Ghana,Female,70+,Ischemic heart disease,Number,2010,5464.614054,"511,952","57,629",0.112567879,615.1400158
+Deaths,Ghana,Female,70+,Neoplasms,Number,2010,2008.339493,"511,952","57,629",0.112567879,226.0745179
+Deaths,Ghana,Female,70+,Road injuries,Number,2010,225.0151231,"511,952","57,629",0.112567879,25.32947524
+Deaths,Ghana,Female,70+,Stroke,Number,2010,5753.098078,"511,952","57,629",0.112567879,647.6140507
+Deaths,Ghana,Female,70+,"Tracheal, bronchus, and lung cancer",Number,2010,86.32005477,"511,952","57,629",0.112567879,9.716865516
+YLLs (Years of Life Lost),Ghana,Female,70+,All causes,Number,2010,342025.442,"511,952","57,629",0.112567879,38501.07871
+YLLs (Years of Life Lost),Ghana,Female,70+,Breast cancer,Number,2010,2252.772953,"511,952","57,629",0.112567879,253.5898741
+YLLs (Years of Life Lost),Ghana,Female,70+,Cardiovascular diseases,Number,2010,158570.301,"511,952","57,629",0.112567879,17849.92252
+YLLs (Years of Life Lost),Ghana,Female,70+,Chronic respiratory diseases,Number,2010,12840.02456,"511,952","57,629",0.112567879,1445.374336
+YLLs (Years of Life Lost),Ghana,Female,70+,Colon and rectum cancer,Number,2010,2075.378012,"511,952","57,629",0.112567879,233.6209018
+YLLs (Years of Life Lost),Ghana,Female,70+,Diabetes mellitus,Number,2010,14914.02676,"511,952","57,629",0.112567879,1678.840366
+YLLs (Years of Life Lost),Ghana,Female,70+,Ischemic heart disease,Number,2010,66697.17444,"511,952","57,629",0.112567879,7507.959489
+YLLs (Years of Life Lost),Ghana,Female,70+,Neoplasms,Number,2010,27114.80135,"511,952","57,629",0.112567879,3052.255688
+YLLs (Years of Life Lost),Ghana,Female,70+,Road injuries,Number,2010,3081.623064,"511,952","57,629",0.112567879,346.8917734
+YLLs (Years of Life Lost),Ghana,Female,70+,Stroke,Number,2010,70769.36354,"511,952","57,629",0.112567879,7966.357181
+YLLs (Years of Life Lost),Ghana,Female,70+,"Tracheal, bronchus, and lung cancer",Number,2010,1168.445948,"511,952","57,629",0.112567879,131.5294826
+Deaths,Ghana,Male,15-49,All causes,Number,2010,26807.52659,"5,847,716","1,070,324",0.18303291,4906.659606
+Deaths,Ghana,Male,15-49,Breast cancer,Number,2010,1.882513489,"5,847,716","1,070,324",0.18303291,0.344561922
+Deaths,Ghana,Male,15-49,Cardiovascular diseases,Number,2010,1988.456034,"5,847,716","1,070,324",0.18303291,363.9528946
+Deaths,Ghana,Male,15-49,Chronic respiratory diseases,Number,2010,422.6983636,"5,847,716","1,070,324",0.18303291,77.3677116
+Deaths,Ghana,Male,15-49,Colon and rectum cancer,Number,2010,71.40764608,"5,847,716","1,070,324",0.18303291,13.06994927
+Deaths,Ghana,Male,15-49,Diabetes mellitus,Number,2010,302.8505648,"5,847,716","1,070,324",0.18303291,55.43162022
+Deaths,Ghana,Male,15-49,Ischemic heart disease,Number,2010,777.48402,"5,847,716","1,070,324",0.18303291,142.3051628
+Deaths,Ghana,Male,15-49,Neoplasms,Number,2010,1392.639853,"5,847,716","1,070,324",0.18303291,254.8989251
+Deaths,Ghana,Male,15-49,Road injuries,Number,2010,1247.73883,"5,847,716","1,070,324",0.18303291,228.3772692
+Deaths,Ghana,Male,15-49,Stroke,Number,2010,755.5130541,"5,847,716","1,070,324",0.18303291,138.2837529
+Deaths,Ghana,Male,15-49,"Tracheal, bronchus, and lung cancer",Number,2010,47.26735974,"5,847,716","1,070,324",0.18303291,8.651482408
+YLLs (Years of Life Lost),Ghana,Male,15-49,All causes,Number,2010,1399332.532,"5,847,716","1,070,324",0.18303291,256123.9056
+YLLs (Years of Life Lost),Ghana,Male,15-49,Breast cancer,Number,2010,92.91421507,"5,847,716","1,070,324",0.18303291,17.00635918
+YLLs (Years of Life Lost),Ghana,Male,15-49,Cardiovascular diseases,Number,2010,96711.38686,"5,847,716","1,070,324",0.18303291,17701.36658
+YLLs (Years of Life Lost),Ghana,Male,15-49,Chronic respiratory diseases,Number,2010,21782.99812,"5,847,716","1,070,324",0.18303291,3987.005538
+YLLs (Years of Life Lost),Ghana,Male,15-49,Colon and rectum cancer,Number,2010,3553.729048,"5,847,716","1,070,324",0.18303291,650.4493695
+YLLs (Years of Life Lost),Ghana,Male,15-49,Diabetes mellitus,Number,2010,14271.5305,"5,847,716","1,070,324",0.18303291,2612.15976
+YLLs (Years of Life Lost),Ghana,Male,15-49,Ischemic heart disease,Number,2010,35955.05942,"5,847,716","1,070,324",0.18303291,6580.95916
+YLLs (Years of Life Lost),Ghana,Male,15-49,Neoplasms,Number,2010,72182.94456,"5,847,716","1,070,324",0.18303291,13211.85441
+YLLs (Years of Life Lost),Ghana,Male,15-49,Road injuries,Number,2010,70406.70945,"5,847,716","1,070,324",0.18303291,12886.74492
+YLLs (Years of Life Lost),Ghana,Male,15-49,Stroke,Number,2010,36472.65235,"5,847,716","1,070,324",0.18303291,6675.6957
+YLLs (Years of Life Lost),Ghana,Male,15-49,"Tracheal, bronchus, and lung cancer",Number,2010,2169.835312,"5,847,716","1,070,324",0.18303291,397.1512717
+Deaths,Ghana,Male,50-69,All causes,Number,2010,21430.62934,"1,016,476","162,380",0.159747634,3423.492328
+Deaths,Ghana,Male,50-69,Breast cancer,Number,2010,4.873413536,"1,016,476","162,380",0.159747634,0.778516281
+Deaths,Ghana,Male,50-69,Cardiovascular diseases,Number,2010,4106.82936,"1,016,476","162,380",0.159747634,656.0562727
+Deaths,Ghana,Male,50-69,Chronic respiratory diseases,Number,2010,630.619454,"1,016,476","162,380",0.159747634,100.7399656
+Deaths,Ghana,Male,50-69,Colon and rectum cancer,Number,2010,143.9969658,"1,016,476","162,380",0.159747634,23.00317456
+Deaths,Ghana,Male,50-69,Diabetes mellitus,Number,2010,1091.413684,"1,016,476","162,380",0.159747634,174.3507535
+Deaths,Ghana,Male,50-69,Ischemic heart disease,Number,2010,2054.148571,"1,016,476","162,380",0.159747634,328.1453737
+Deaths,Ghana,Male,50-69,Neoplasms,Number,2010,2300.938789,"1,016,476","162,380",0.159747634,367.569527
+Deaths,Ghana,Male,50-69,Road injuries,Number,2010,471.302737,"1,016,476","162,380",0.159747634,75.28949704
+Deaths,Ghana,Male,50-69,Stroke,Number,2010,1583.317636,"1,016,476","162,380",0.159747634,252.9312459
+Deaths,Ghana,Male,50-69,"Tracheal, bronchus, and lung cancer",Number,2010,258.6730484,"1,016,476","162,380",0.159747634,41.32240741
+YLLs (Years of Life Lost),Ghana,Male,50-69,All causes,Number,2010,596665.3205,"1,016,476","162,380",0.159747634,95315.87312
+YLLs (Years of Life Lost),Ghana,Male,50-69,Breast cancer,Number,2010,129.9428645,"1,016,476","162,380",0.159747634,20.75806513
+YLLs (Years of Life Lost),Ghana,Male,50-69,Cardiovascular diseases,Number,2010,112417.7411,"1,016,476","162,380",0.159747634,17958.46814
+YLLs (Years of Life Lost),Ghana,Male,50-69,Chronic respiratory diseases,Number,2010,17036.16221,"1,016,476","162,380",0.159747634,2721.486602
+YLLs (Years of Life Lost),Ghana,Male,50-69,Colon and rectum cancer,Number,2010,3908.659997,"1,016,476","162,380",0.159747634,624.3991858
+YLLs (Years of Life Lost),Ghana,Male,50-69,Diabetes mellitus,Number,2010,29322.2447,"1,016,476","162,380",0.159747634,4684.159209
+YLLs (Years of Life Lost),Ghana,Male,50-69,Ischemic heart disease,Number,2010,55888.57813,"1,016,476","162,380",0.159747634,8928.068112
+YLLs (Years of Life Lost),Ghana,Male,50-69,Neoplasms,Number,2010,62292.21052,"1,016,476","162,380",0.159747634,9951.033234
+YLLs (Years of Life Lost),Ghana,Male,50-69,Road injuries,Number,2010,13473.4182,"1,016,476","162,380",0.159747634,2152.346677
+YLLs (Years of Life Lost),Ghana,Male,50-69,Stroke,Number,2010,43715.95605,"1,016,476","162,380",0.159747634,6983.520538
+YLLs (Years of Life Lost),Ghana,Male,50-69,"Tracheal, bronchus, and lung cancer",Number,2010,6931.135443,"1,016,476","162,380",0.159747634,1107.232487
+Deaths,Ghana,Male,70+,All causes,Number,2010,18549.28698,"361,709","44,096",0.121909178,2261.328319
+Deaths,Ghana,Male,70+,Breast cancer,Number,2010,2.045828801,"361,709","44,096",0.121909178,0.249405306
+Deaths,Ghana,Male,70+,Cardiovascular diseases,Number,2010,4331.915887,"361,709","44,096",0.121909178,528.1003028
+Deaths,Ghana,Male,70+,Chronic respiratory diseases,Number,2010,839.6945762,"361,709","44,096",0.121909178,102.3664751
+Deaths,Ghana,Male,70+,Colon and rectum cancer,Number,2010,138.6381478,"361,709","44,096",0.121909178,16.90126257
+Deaths,Ghana,Male,70+,Diabetes mellitus,Number,2010,876.3404603,"361,709","44,096",0.121909178,106.8339447
+Deaths,Ghana,Male,70+,Ischemic heart disease,Number,2010,2464.485517,"361,709","44,096",0.121909178,300.4434024
+Deaths,Ghana,Male,70+,Neoplasms,Number,2010,2084.143419,"361,709","44,096",0.121909178,254.07621
+Deaths,Ghana,Male,70+,Road injuries,Number,2010,256.027024,"361,709","44,096",0.121909178,31.21204391
+Deaths,Ghana,Male,70+,Stroke,Number,2010,1389.292833,"361,709","44,096",0.121909178,169.3675466
+Deaths,Ghana,Male,70+,"Tracheal, bronchus, and lung cancer",Number,2010,167.0528773,"361,709","44,096",0.121909178,20.36527887
+YLLs (Years of Life Lost),Ghana,Male,70+,All causes,Number,2010,236114.4869,"361,709","44,096",0.121909178,28784.52289
+YLLs (Years of Life Lost),Ghana,Male,70+,Breast cancer,Number,2010,24.52902604,"361,709","44,096",0.121909178,2.99031339
+YLLs (Years of Life Lost),Ghana,Male,70+,Cardiovascular diseases,Number,2010,53721.90397,"361,709","44,096",0.121909178,6549.193127
+YLLs (Years of Life Lost),Ghana,Male,70+,Chronic respiratory diseases,Number,2010,10380.96092,"361,709","44,096",0.121909178,1265.534407
+YLLs (Years of Life Lost),Ghana,Male,70+,Colon and rectum cancer,Number,2010,1772.143214,"361,709","44,096",0.121909178,216.0405216
+YLLs (Years of Life Lost),Ghana,Male,70+,Diabetes mellitus,Number,2010,11454.95016,"361,709","44,096",0.121909178,1396.463552
+YLLs (Years of Life Lost),Ghana,Male,70+,Ischemic heart disease,Number,2010,30493.85435,"361,709","44,096",0.121909178,3717.480703
+YLLs (Years of Life Lost),Ghana,Male,70+,Neoplasms,Number,2010,27862.46336,"361,709","44,096",0.121909178,3396.689991
+YLLs (Years of Life Lost),Ghana,Male,70+,Road injuries,Number,2010,3500.74044,"361,709","44,096",0.121909178,426.7723877
+YLLs (Years of Life Lost),Ghana,Male,70+,Stroke,Number,2010,17367.11569,"361,709","44,096",0.121909178,2117.210789
+YLLs (Years of Life Lost),Ghana,Male,70+,"Tracheal, bronchus, and lung cancer",Number,2010,2384.232327,"361,709","44,096",0.121909178,290.659802
