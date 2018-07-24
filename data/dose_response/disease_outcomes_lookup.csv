@@ -1,6 +1,6 @@
 GBD_name,acronym,air_pollution,physical_activity,ap_acronym,pa_acronym
 All causes,ac,0,1,,all-cause-mortality
-Cardiovascular diseases,cvd,1,1,cvd_ihd,cardiovascular-disease
+Ischemic heart disease,ihd,1,1,cvd_ihd,coronary-heart-disease
 "Tracheal, bronchus, and lung cancer",lc,1,1,neo_lung,lung-cancer
 Breast cancer,bc,0,1,,breast-cancer
 Colon and rectum cancer,cc,0,1,,colon-cancer
