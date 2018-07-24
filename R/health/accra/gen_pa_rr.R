@@ -38,7 +38,7 @@ for ( j in 1:nrow(disease_lt)){
           # stroke 75 pert
 
 
-        }else if(pa_dn == 'cardiovascular-disease'){
+        }else if(pa_dn == 'coronary-heart-disease'){
           ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality',
                                                                  dose = ifelse(ind[[paste0(scen, '_mmet')]][i] <= 35, ind[[paste0(scen, '_mmet')]][i], 35),
                                                                  use_75_pert = F)$rr %>% as.numeric()
