@@ -15,8 +15,8 @@
 library(tidyverse)
 
 #Read datasets.
-ind <- read_csv("./trips_Accra.csv")
-pa <- read_csv("./pa_Accra.csv")
+ind <- read_csv("data/synth_pop_data/accra/raw_data/trips/trips_Accra.csv")
+pa <- read_csv("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
 
 #Set seed.
 set.seed(1)
@@ -70,6 +70,6 @@ temp <- as.data.frame (temp)
 ind <- left_join(ind, temp, "participant_id")
 
 #Save csv.
-write_csv(ind, "./synthetic population with trips.csv")
+write_csv(ind, "data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv")
 
 ##END OF CODE##
