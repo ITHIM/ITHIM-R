@@ -16,6 +16,7 @@ library(tidyverse)
 
 #Read datasets.
 ind <- read_csv("data/synth_pop_data/accra/raw_data/trips/trips_Accra.csv")
+bind <- ind
 pa <- read_csv("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
 
 # Convert character to int
@@ -25,10 +26,10 @@ ind$participant_id <- as.integer(as.factor(ind$participant_id))
 ind1 <- ind
 ind1$participant_id <- ind1$participant_id + max(ind$participant_id)
 
-ind2 <- ind1
+ind2 <- ind
 ind2$participant_id <- ind2$participant_id + max(ind1$participant_id)
 
-ind3 <- ind2
+ind3 <- ind
 ind3$participant_id <- ind3$participant_id + max(ind2$participant_id)
 
 ind <- rbind(ind, ind1)
