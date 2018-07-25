@@ -64,6 +64,10 @@ for ( j in 1:nrow(disease_lt)){
           ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality', 
                                                                            dose = ind[[paste0(scen, '_mmet')]][i], use_75_pert = F)$rr %>% as.numeric()
           
+        }else if(pa_dn == 'total-cancer'){
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality', 
+                                                                           dose = ind[[paste0(scen, '_mmet')]][i], use_75_pert = F)$rr %>% as.numeric()
+          
         }
         
         
