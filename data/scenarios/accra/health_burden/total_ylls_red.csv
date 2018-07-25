@@ -1,5 +1,5 @@
-age.band,gender,scen1_ylls_red_pa_ac,scen2_ylls_red_pa_ac,scen3_ylls_red_pa_ac,scen1_ylls_red_pa_ap_ihd,scen2_ylls_red_pa_ap_ihd,scen3_ylls_red_pa_ap_ihd,scen1_ylls_red_pa_ap_lc,scen2_ylls_red_pa_ap_lc,scen3_ylls_red_pa_ap_lc,scen1_ylls_red_pa_bc,scen2_ylls_red_pa_bc,scen3_ylls_red_pa_bc,scen1_ylls_red_pa_cc,scen2_ylls_red_pa_cc,scen3_ylls_red_pa_cc,scen1_ylls_red_ap_copd,scen2_ylls_red_ap_copd,scen3_ylls_red_ap_copd,scen1_ylls_red_pa_ap_stk,scen2_ylls_red_pa_ap_stk,scen3_ylls_red_pa_ap_stk,scen1_ylls_red_pa_db,scen2_ylls_red_pa_db,scen3_ylls_red_pa_db
-15-49,Female,-9e-5,0,0,-9e-5,1e-5,1e-5,-2e-5,0,0,-4e-5,0,0,-6e-5,0,0,-0,0,-0,-2e-5,0,-0,-2.6e-4,1e-5,1e-5
-15-49,Male,-1.2e-4,0,0,-1.7e-4,2e-5,1e-5,-5e-5,1e-5,0,-7e-5,0,0,-1.1e-4,1e-5,0,-0,0,-0,-3e-5,0,-0,-4.9e-4,2e-5,2e-5
-50-69,Female,-1.7e-4,1e-5,0,-3.6e-4,5e-5,0,-1e-4,3e-5,-1e-5,-1.5e-4,1e-5,0,-2.3e-4,2e-5,1e-5,-1e-5,0,-1e-5,-5e-5,0,-0,-7.5e-4,8e-5,1e-5
-50-69,Male,-4.2e-4,2e-5,2e-5,-0.00112,6e-5,8e-5,-3.6e-4,1e-5,2e-5,-3.6e-4,2e-5,1e-5,-6.3e-4,3e-5,3e-5,-2e-5,0,-1e-5,-1.1e-4,1e-5,-0,-0.00225,8e-5,1.3e-4
+age.band,gender,scen1_ylls_red_pa_ac,scen2_ylls_red_pa_ac,scen3_ylls_red_pa_ac,scen1_ylls_red_pa_ap_ihd,scen2_ylls_red_pa_ap_ihd,scen3_ylls_red_pa_ap_ihd,scen1_ylls_red_pa_neo,scen2_ylls_red_pa_neo,scen3_ylls_red_pa_neo,scen1_ylls_red_pa_ap_lc,scen2_ylls_red_pa_ap_lc,scen3_ylls_red_pa_ap_lc,scen1_ylls_red_ap_copd,scen2_ylls_red_ap_copd,scen3_ylls_red_ap_copd,scen1_ylls_red_pa_ap_stk,scen2_ylls_red_pa_ap_stk,scen3_ylls_red_pa_ap_stk,scen1_ylls_red_pa_db,scen2_ylls_red_pa_db,scen3_ylls_red_pa_db
+15-49,Female,-1e-5,0,0,-1e-5,0,-0,-0,0,0,-0,0,-0,-0,0,-0,-0,0,-0,-2e-5,0,0
+15-49,Male,-1e-5,0,0,-1e-5,0,0,-1e-5,0,0,-0,0,-0,-0,0,-0,-0,0,-0,-4e-5,0,0
+50-69,Female,-2e-5,0,0,-5e-5,0,0,-3e-5,0,0,-2e-5,0,-0,-0,0,-0,-1e-5,0,-0,-1.1e-4,1e-5,0
+50-69,Male,-3e-5,0,0,-4e-5,0,1e-5,-2e-5,0,0,-1e-5,0,0,-0,0,-0,-1e-5,0,-0,-1.2e-4,1e-5,2e-5
