@@ -251,4 +251,4 @@ rd <- rbind(rd, rd3)
 # Redefine row_id
 rd$rid <- 1:nrow(rd)
 
-write.csv(rd, "data/scenarios/accra/baseline_and_three_scenarios.csv", row.names = F)
+write_csv(rd, "data/scenarios/accra/baseline_and_three_scenarios.csv")

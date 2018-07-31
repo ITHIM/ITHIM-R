@@ -36,7 +36,7 @@ for (i in 1: nrow(whw_mat))
   }
   
 }
-write.csv(whw_mat2,paste0('R/injuries/accra/whw_mat_scen',k-2,'.csv'))  
+write_csv(whw_mat2,paste0('R/injuries/accra/whw_mat_scen',k-2,'.csv'))  
 victim_deaths<- cbind(victim_deaths, as.data.frame(rowSums(whw_mat2[,3:8])))
 }
 names(victim_deaths)<- c("victim_type","base", "scen1", "scen2", "scen3")
