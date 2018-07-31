@@ -20,7 +20,7 @@ bind <- ind
 pa <- read_csv("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
 
 # Convert character to int
-ind$participant_id <- as.integer(as.factor(ind$participant_id))
+ind$participant_id <- as.numeric(as.factor(ind$participant_id))
 
 # Multiply ind by 4 to have a bigger number of trips (and ind)
 ind1 <- ind
@@ -45,9 +45,6 @@ ind <- filter(ind, age < 70)
 age_category <- c("15-49", "50-69")
 ind$age_cat[ind$age >= 15 & ind$age < 50] <- age_category[1]
 ind$age_cat[ind$age >= 50 & ind$age < 70] <- age_category[2]
-
-#Make participant ID numeric.
-ind$participant_id <- as.numeric(ind$participant_id)
 
 #Make age category for pa dataset.
 pa <- filter(pa, age < 70)
@@ -88,7 +85,10 @@ temp <- as.data.frame (temp)
 
 ind <- left_join(ind, temp, "participant_id")
 
+# Convert all int columns to numeric
+ind[, c(1, 3, 5)] <- lapply(ind[, c(1, 3, 5)], as.numeric)
+
 #Save csv.
-write_csv(ind, "data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv")
+write.csv(ind, "data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv", row.names = F)
 
 ##END OF CODE##
