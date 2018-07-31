@@ -1,6 +1,10 @@
 #Add physical activity variables to trip dataset.
-#Leandro Garcia.
+#Leandro Garcia & Ali Abbas.
 #5 July 2018.
+
+# Last Updated by Ali Abbas
+# Added 32 new motorcyle trips 
+# Multiplied baseline dataset by 4
 
 #Notes:
 ##trip_mode = '99': persons who did not travel.
@@ -16,11 +20,26 @@ library(tidyverse)
 
 #Read datasets.
 ind <- read_csv("data/synth_pop_data/accra/raw_data/trips/trips_Accra.csv")
-bind <- ind
-pa <- read_csv("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
 
 # Convert character to int
 ind$participant_id <- as.numeric(as.factor(ind$participant_id))
+
+# Create new motorbike trips
+# Add 8 new people with 4 trips each
+# Age: 15-59 and gender: male
+
+new_trips <- data.frame(trip_id = c( (max(ind$trip_id)+1):(max(ind$trip_id)+8)), trip_mode = 'Motorcycle', 
+                        trip_duration = round(runif(32, 15, 100)), 
+                        participant_id = rep((max(ind$trip_id)+1):(max(ind$trip_id)+8), 4),
+                        age = rep(round(runif(8, 15, 49)), 4),
+                        sex = 'Male')
+
+
+# Add new motorbikes trips to baseline
+ind <- rbind(ind, new_trips)
+
+pa <- read_csv("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
+
 
 # Multiply ind by 4 to have a bigger number of trips (and ind)
 ind1 <- ind
