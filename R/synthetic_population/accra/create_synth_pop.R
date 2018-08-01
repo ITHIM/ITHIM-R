@@ -25,19 +25,30 @@ ind <- read_csv("data/synth_pop_data/accra/raw_data/trips/trips_Accra.csv")
 ind$participant_id <- as.numeric(as.factor(ind$participant_id))
 
 # Create new motorbike trips
-# Add 8 new people with 4 trips each
+# Add 5 new people with 4 trips each
 # Age: 15-59 and gender: male
 
-new_trips <- data.frame(trip_id = c( (max(ind$trip_id)+1):(max(ind$trip_id)+8)), trip_mode = 'Motorcycle', 
-                        trip_duration = round(runif(32, 15, 100)), 
-                        participant_id = rep((max(ind$trip_id)+1):(max(ind$trip_id)+8), 4),
-                        age = rep(round(runif(8, 15, 49)), 4),
-                        sex = 'Male')
+n <- 4
+nt <- 3
 
+new_trips <- data.frame(trip_id = c( (max(ind$trip_id) + 1):(max(ind$trip_id) + (n * nt) )), 
+                        trip_mode = 'Motorcycle', 
+                        trip_duration = round(runif( (n * nt), 15, 100)), 
+                        participant_id = rep((max(ind$trip_id)+1):(max(ind$trip_id) + n), nt),
+                        age = rep(round(runif(n, 15, 49)), nt),
+                        sex = 'Male')
 
 # Add new motorbikes trips to baseline
 ind <- rbind(ind, new_trips)
 
+
+# Redefine motorcycle mode for a select 14 rows
+td <- ind %>% filter(trip_mode == 'Other' & trip_duration < 60) %>% 
+  sample_n(14) %>% mutate(trip_mode = 'Motorcycle') %>% 
+  select(trip_id, trip_mode)
+
+ind <- ind %>% mutate(trip_mode = ifelse(trip_id %in% td$trip_id, td$trip_mode, trip_mode))
+                      
 pa <- read_csv("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
 
 
