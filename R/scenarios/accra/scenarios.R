@@ -32,6 +32,13 @@ rd$trip_distance <- (rd$trip_duration / 60) * rd$speeds
 
 rd$speeds <- NULL
 
+# Define distance categories
+dist_cat <- c("0-6 km", "7-9 km", "10+ km")
+
+# Initialize them
+rd$trip_distance_cat[rd$trip_distance > 0 & rd$trip_distance < 7] <- dist_cat[1]
+rd$trip_distance_cat[rd$trip_distance >= 7 & rd$trip_distance < 10] <- dist_cat[2]
+rd$trip_distance_cat[rd$trip_distance >= 10] <- dist_cat[3]
 
 # Divide bus trips into bus and walk trips
 bus_trips <- filter(rd, trip_mode == "Bus")
@@ -72,26 +79,10 @@ rd <- rbind(rd, walk_trips)
 
 rd$scenario <- "Baseline"
 
-# Define distance categories
-dist_cat <- c("0-1 km", "1-2 km", "2-3 km", "3-5 km", "5-7 km", "7-10 km", ">10 km" )
-
-# Initialize them
-rd$trip_distance_cat[rd$trip_distance > 0 & rd$trip_distance <= 1] <- dist_cat[1]
-rd$trip_distance_cat[rd$trip_distance > 1 & rd$trip_distance <= 2] <- dist_cat[2]
-rd$trip_distance_cat[rd$trip_distance > 2 & rd$trip_distance <= 3] <- dist_cat[3]
-rd$trip_distance_cat[rd$trip_distance > 3 & rd$trip_distance <= 5] <- dist_cat[4]
-rd$trip_distance_cat[rd$trip_distance > 5 & rd$trip_distance <= 7] <- dist_cat[5]
-rd$trip_distance_cat[rd$trip_distance > 7 & rd$trip_distance <= 10] <- dist_cat[6]
-rd$trip_distance_cat[rd$trip_distance > 10] <- dist_cat[7]
-
-# # Define distance categories
-# dist_cat <- c("0-6 km", "7-9 km", "10+ km")
-# 
-# # Initialize them
-# rd$trip_distance_cat[rd$trip_distance > 0 & rd$trip_distance < 7] <- dist_cat[1]
-# rd$trip_distance_cat[rd$trip_distance >= 7 & rd$trip_distance < 10] <- dist_cat[2]
-# rd$trip_distance_cat[rd$trip_distance >= 10] <- dist_cat[3]
-
+# 2030 BAU bus 16%, walk 49%, car + taxi 34%, cycle 0.5%, motorcycle 0.5%
+# 2030 scenario 1: bus 35%, walk 49%, car + taxi 15.5%, cycle 0.5%
+# 2030 Scenario 2: bus 16%, walk 49%, car + taxi 31.5%, cycle 3.5%
+# 2030 Scenario 3: bus 14%, walk 54%, car + taxi 31%, cycle 0.5%, motorcycle 0.5%
 
 # Make age category
 age_category <- c("15-49", "50-70", ">70")
@@ -108,6 +99,42 @@ rd$row_id <- 1:nrow(rd)
 # Redefine short walk as their own category (part of bus trips)
 # Don't apply to people without trips
 rd[duplicated(rd$trip_id) & rd$trip_id != 0 & rd$trip_mode != "99",]$trip_mode <- 'Short Walking'
+
+# > unique(rd$trip_mode)
+# [1] "99"          "Bus"         "Taxi"        "Walking"     "Train"      
+# [6] "Private Car" "Motorcycle"  "Other"       "Unspecified" "Bicycle"    
+
+pwt <- filter(rd, trip_mode == '99')
+
+rd_without_short_trips <- filter(rd, ! trip_mode %in% c('Short Walking', '99'))
+
+#rd_without_short_trips <- arrange(rd_without_short_trips, trip_duration)
+
+source_modes <- c('Bus', 'Walking')
+target_modes <- c('Private Car')
+
+target_bus_trips <- round()
+
+# 16 % Bus	1622
+# 49% walk	4969
+
+
+
+# ## Create reference
+# 
+# pwt <- filter(rd, trip_mode == '99')
+# 
+# rd <- filter(rd, trip_mode != '99')
+# 
+# td <- rd %>% group_by(trip_mode) %>% summarise(count = n(), c = n() / nrow(rd) * 100)
+# 
+# bwtrips <- filter(rd, trip_mode %in% c('Bus', 'Walking'))
+
+# 2030 BAU bus 16%, walk 49%, car + taxi 34%, cycle 0.5%, motorcycle 0.5%
+# 2030 scenario 1: bus 35%, walk 49%, car + taxi 15.5%, cycle 0.5%
+# 2030 Scenario 2: bus 16%, walk 49%, car + taxi 31.5%, cycle 3.5%
+# 2030 Scenario 3: bus 14%, walk 54%, car + taxi 31%, cycle 0.5%, motorcycle 0.5%
+
 
 
 # Create scenario 1: 50% of all trips walking trips (in each dist bracket) to Private Car
@@ -157,7 +184,7 @@ rd2$scenario <- "Scenario 2"
 car_trips <- subset(rd2, trip_mode == "Private Car" | trip_mode == "Taxi" & !is.na(trip_duration))
 
 # Loop through all trips less than 7 km
-for (i in 1:5){
+for (i in 1){
   print(dist_cat[i])
   # i <- 2
   trips <- filter(car_trips, trip_distance_cat == dist_cat[i]) 
@@ -191,7 +218,7 @@ rd3 <- filter(rd, scenario == "Baseline")
 rd3$scenario <- "Scenario 3"
 
 # Only consider trips greater than 10 km
-for (i in 7){
+for (i in 3){
   print(dist_cat[i])
   # i <- 2
   trips <- filter(car_trips, trip_distance_cat == dist_cat[i]) 
