@@ -55,12 +55,15 @@ pa <- read_csv("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
 # Multiply ind by 4 to have a bigger number of trips (and ind)
 ind1 <- ind
 ind1$participant_id <- ind1$participant_id + max(ind$participant_id)
+ind1$trip_id <- (max(ind$trip_id) + 1): (max(ind$trip_id) + nrow(ind1))
 
 ind2 <- ind
 ind2$participant_id <- ind2$participant_id + max(ind1$participant_id)
+ind2$trip_id <- (max(ind1$trip_id) + 1): (max(ind1$trip_id) + nrow(ind2))
 
 ind3 <- ind
 ind3$participant_id <- ind3$participant_id + max(ind2$participant_id)
+ind3$trip_id <- (max(ind2$trip_id) + 1): (max(ind2$trip_id)  + nrow(ind3))
 
 ind <- rbind(ind, ind1)
 ind <- rbind(ind, ind2)
