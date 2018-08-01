@@ -84,6 +84,15 @@ rd$trip_distance_cat[rd$trip_distance > 5 & rd$trip_distance <= 7] <- dist_cat[5
 rd$trip_distance_cat[rd$trip_distance > 7 & rd$trip_distance <= 10] <- dist_cat[6]
 rd$trip_distance_cat[rd$trip_distance > 10] <- dist_cat[7]
 
+# # Define distance categories
+# dist_cat <- c("0-6 km", "7-9 km", "10+ km")
+# 
+# # Initialize them
+# rd$trip_distance_cat[rd$trip_distance > 0 & rd$trip_distance < 7] <- dist_cat[1]
+# rd$trip_distance_cat[rd$trip_distance >= 7 & rd$trip_distance < 10] <- dist_cat[2]
+# rd$trip_distance_cat[rd$trip_distance >= 10] <- dist_cat[3]
+
+
 # Make age category
 age_category <- c("15-49", "50-70", ">70")
 rd$age_cat[rd$age >= 15 & rd$age < 50] <- age_category[1]
