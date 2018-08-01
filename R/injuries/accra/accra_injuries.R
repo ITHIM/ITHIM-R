@@ -94,44 +94,48 @@ for (i in 1: 4)
 
 x[,9] <- rowSums(x[,4:8],na.rm=T)
 names(x)[9]<-"Deaths"
+
 x$sex_age<-  paste0(x$sex,"_",x$age_cat)
 
-write_csv(x, "data/synth_pop_data/accra/injuries/deaths_by_mode.csv")
+#write_csv(x, "data/synth_pop_data/accra/injuries/deaths_by_mode.csv")
 
 gbd_data<- read_csv('data/demographics/gbd/accra/GBD Accra.csv')
 gbd_injuries<- gbd_data[which(gbd_data$cause=="Road injuries"),]
 
 a<-unique(gbd_injuries$age)
 gbd_injuries$sex_age <- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
-for ( i in 7: 12) ## calculating the ratio of YLL to deaths for each age and sex group
-{
-  gbd_injuries[i,ncol(gbd_injuries)-1] <-gbd_injuries[i,ncol(gbd_injuries)-1]/ gbd_injuries[i-6,ncol(gbd_injuries)-1]
-  
-}
-##Removing deaths data from GBD
-gbd_injuries<- gbd_injuries[which(gbd_injuries$measure=="YLLs (Years of Life Lost)"),]
-gbd_injuries<- gbd_injuries[,-c(1: (ncol(gbd_injuries)-2))]
-names(gbd_injuries)[1]<- as.character("YLL_death_ratio")
+## calculating the ratio of YLL to deaths for each age and sex group
+gbd_injuries<- arrange(gbd_injuries, measure)
+gbd_inj_yll<- gbd_injuries[which(gbd_injuries$measure=="YLLs (Years of Life Lost)"),]
+gbd_inj_dth<- gbd_injuries[which(gbd_injuries$measure=="Deaths"),]
+gbd_inj_yll$yll_dth_ratio<- gbd_inj_yll$value_gama/gbd_inj_dth$value_gama 
+str(x)
+x<- x[,-c(which(names(x)=='sex'))]
 
-x<- x%>% left_join(gbd_injuries, by="sex_age")
-x$YLL<- x$Deaths*x$YLL_death_ratio
-View(x)  ### 
+x<- x%>% left_join(gbd_inj_yll, by="sex_age")
 
-x<- x[,c(1,2,3,9,12)]
+x$YLL<- x$Deaths*x$yll_dth_ratio
+x<-select(x, c('age_cat','sex','scenario','Deaths','YLL'))
+#sort(names(x))
+
 x  ### Death burden from injuries
-x_deaths<- x[,-5]
+x_deaths<- select(x, -YLL)
 x_deaths<-spread(x_deaths,scenario, Deaths)
 x_deaths[,4]<-x_deaths[,4] - x_deaths[,3] 
 x_deaths[,5]<-x_deaths[,5] - x_deaths[,3] 
 x_deaths[,6]<-x_deaths[,6] - x_deaths[,3] 
 
-x_yll<- x[,-4]
+x_yll<- select(x, -Deaths)
 x_yll<-spread(x_yll,scenario, YLL)
 x_yll[,4]<-x_yll[,4] - x_yll[,3] 
 x_yll[,5]<-x_yll[,5] - x_yll[,3] 
 x_yll[,6]<-x_yll[,6] - x_yll[,3] 
 
+View(x_deaths)
+
+View(deaths_yll_injuries)
 deaths_yll_injuries<- cbind(x_deaths, x_yll)
+names(deaths_yll_injuries)
 deaths_yll_injuries<-deaths_yll_injuries[,-c(7,8)]
 deaths_yll_injuries<- as.data.frame(deaths_yll_injuries)
 names(deaths_yll_injuries)<- c("age_cat", "sex", "base_deaths_inj", "scen1_deaths_inj", "scen2_deaths_inj", "scen3_deaths_inj", 
