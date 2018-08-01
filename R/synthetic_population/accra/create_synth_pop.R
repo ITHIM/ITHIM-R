@@ -121,6 +121,8 @@ ind <- left_join(ind, temp, "participant_id")
 # Convert all int columns to numeric
 ind[, c(1, 3, 5)] <- lapply(ind[, c(1, 3, 5)], as.numeric)
 
+ind[ind$trip_mode == '99',]$trip_id <- 0
+
 #Save csv.
 write.csv(ind, "data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv", row.names = F)
 
