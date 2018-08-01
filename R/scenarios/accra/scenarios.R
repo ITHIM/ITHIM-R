@@ -14,11 +14,6 @@ rd <- read_csv("data/synth_pop_data/accra/travel_survey/synthetic_population_wit
 # Create a row id
 rd$rid <- 1:nrow(rd)
 
-
-# Define motorcycle mode
-rd <- rd %>% mutate(trip_mode = ifelse( (trip_mode == 'Other' & trip_duration < 60), 'Motorcycle', trip_mode))
-
-
 # Define trip_distances (in km)
 # Based on travel mode and trip duration, calculate distances
 
