@@ -100,6 +100,10 @@ rd$row_id <- 1:nrow(rd)
 # Don't apply to people without trips
 rd[duplicated(rd$trip_id) & rd$trip_id != 0 & rd$trip_mode != "99",]$trip_mode <- 'Short Walking'
 
+
+###############################################################
+# Scenario 1
+
 t_not_used <- filter(rd, trip_mode %in% c('Short Walking', '99'))
 
 rdr <- filter(rd, ! trip_mode %in% c('Short Walking', '99'))
@@ -139,7 +143,7 @@ walk_trips_sample <- filter(rdr, trip_mode == source_modes[2]) %>% sample_n(sour
 rdr[rdr$row_id %in% walk_trips_sample$row_id,]$trip_mode <- walk_trips_sample$trip_mode
 rdr[rdr$row_id %in% walk_trips_sample$row_id,]$trip_duration <- walk_trips_sample$trip_duration
 
-rdr %>% group_by(trip_mode) %>% summarise(c = n(), p = n() / nrow(rdr) * 100)
+rdr %>% group_by(trip_mode) %>% summarise(c = n(), p = n() / nrow(.) * 100)
 
 rdr <- rbind(rdr, t_not_used)
 
@@ -147,9 +151,10 @@ rdr$scenario <- "Scenario 1"
 
 rdfinal <- rbind(rd, rdr)
 
-## Scenario 1 (named as Scenario 2)
+###############################################################
+# Scenario 2
 
-rdr <- filter(rd, ! trip_mode %in% c('Short Walking', '99'))
+rdr <- filter(rdfinal, scenario == 'Scenario 1' & ! trip_mode %in% c('Short Walking', '99'))
 
 # 35 % Bus
 
@@ -218,23 +223,21 @@ rdr[rdr$row_id %in% bus_trips$row_id,]$trip_mode <- bus_trips$trip_mode
 rdr[rdr$row_id %in% bus_trips$row_id,]$trip_duration <- bus_trips$trip_duration
 rdr[rdr$row_id %in% bus_trips$row_id,]$trip_distance <- bus_trips$trip_distance
 
-rdr <- rbind(rdr, walk_trips)
-
 rdr %>% group_by(trip_mode) %>% summarise(c = n(), p = n() / nrow(rdr) * 100)
 
+rdr <- rbind(rdr, walk_trips)
+
 rdr <- rbind(rdr, t_not_used)
-
-
-## 
 
 rdr$scenario <- "Scenario 2"
 
 rdfinal <- rbind(rdfinal, rdr)
 
 
-## Scenario 1 (named as Scenario 2)
+###############################################################
+# Scenario 3
 
-rdr <- filter(rd, ! trip_mode %in% c('Short Walking', '99'))
+rdr <- filter(rdfinal, scenario == 'Baseline' & ! trip_mode %in% c('Short Walking', '99'))
 
 # 10 % Bus
 
@@ -284,5 +287,85 @@ rdr <- rbind(rdr, t_not_used)
 rdr$scenario <- "Scenario 3"
 
 rdfinal <- rbind(rdfinal, rdr)
+
+
+
+###############################################################
+# Scenario 4
+
+rdr <- filter(rdfinal, scenario == 'Scenario 1' & ! trip_mode %in% c('Short Walking', '99'))
+
+# 3.5 % Cycle
+
+tt <- nrow(rdr)
+
+source_modes <- c('Private Car', 'Taxi', 'Motorcycle')
+target_modes <- c('Bicycle')
+
+target_new_trips <- c(round(0.035 * tt) - nrow(filter(rdr, trip_mode == 'Bicycle')))
+
+# trip_mode <- c("Bus", "Private Car", "Taxi", "Walking",
+#                "Short Walking", "Bicycle", "Motorcycle")
+# speeds <- c(15, 21, 21, 4.8, 4.8, 14.5, 25)
+
+motorised_trips <- filter(rdr, trip_mode %in% c(source_modes[1], source_modes[2], source_modes[3] )) %>% 
+  sample_n(target_new_trips[1]) %>% 
+  mutate(trip_mode = target_modes[1],
+         # Recalculate trip duration for Cycle trips
+         trip_duration = (trip_distance * 60 ) / 14.5)
+
+
+# Update selected rows for mode and duration
+rdr[rdr$row_id %in% motorised_trips$row_id,]$trip_mode <- motorised_trips$trip_mode
+rdr[rdr$row_id %in% motorised_trips$row_id,]$trip_duration <- motorised_trips$trip_duration
+
+rdr %>% group_by(trip_mode) %>% summarise(c = n(), p = n() / nrow(rdr) * 100)
+
+rdr <- rbind(rdr, t_not_used)
+
+rdr$scenario <- "Scenario 4"
+
+rdfinal <- rbind(rdfinal, rdr)
+
+
+###############################################################
+# Scenario 5
+
+rdr <- filter(rdfinal, scenario == 'Scenario 4' & ! trip_mode %in% c('Short Walking', '99'))
+
+# 3.5 % Cycle
+
+tt <- nrow(rdr)
+
+source_modes <- c('Private Car', 'Taxi')
+target_modes <- c('Walking')
+
+target_new_trips <- c(round(0.25 * tt) - nrow(filter(rdr, trip_mode == 'Private Car')))
+
+# trip_mode <- c("Bus", "Private Car", "Taxi", "Walking",
+#                "Short Walking", "Bicycle", "Motorcycle")
+# speeds <- c(15, 21, 21, 4.8, 4.8, 14.5, 25)
+
+motorised_trips <- filter(rdr, trip_mode %in% c(source_modes[1], source_modes[2], source_modes[3] )) %>% 
+  sample_n(target_new_trips[1]) %>% 
+  mutate(trip_mode = target_modes[1],
+         # Recalculate trip duration for Cycle trips
+         trip_duration = (trip_distance * 60 ) / 14.5)
+
+
+# Update selected rows for mode and duration
+rdr[rdr$row_id %in% motorised_trips$row_id,]$trip_mode <- motorised_trips$trip_mode
+rdr[rdr$row_id %in% motorised_trips$row_id,]$trip_duration <- motorised_trips$trip_duration
+
+rdr %>% group_by(trip_mode) %>% summarise(c = n(), p = n() / nrow(rdr) * 100)
+
+rdr <- rbind(rdr, t_not_used)
+
+rdr$scenario <- "Scenario 5"
+
+rdfinal <- rbind(rdfinal, rdr)
+
+
+####
 
 write_csv(rdfinal, "data/scenarios/accra/baseline_and_three_scenarios.csv")
