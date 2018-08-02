@@ -106,14 +106,28 @@ rd[duplicated(rd$trip_id) & rd$trip_id != 0 & rd$trip_mode != "99",]$trip_mode <
 
 pwt <- filter(rd, trip_mode == '99')
 
-rd_without_short_trips <- filter(rd, ! trip_mode %in% c('Short Walking', '99'))
+rdr <- filter(rd, ! trip_mode %in% c('Short Walking', '99'))
 
 #rd_without_short_trips <- arrange(rd_without_short_trips, trip_duration)
+
+# 16% Bus
+# 49% walk
+
+tt <- nrow(rdr)
 
 source_modes <- c('Bus', 'Walking')
 target_modes <- c('Private Car')
 
-target_bus_trips <- round()
+target_new_trips <- c(round(0.16 * tt), round(0.49 * tt ))
+
+for (i in source_modes){
+  for (j in target_modes){
+    
+  }
+}
+
+
+
 
 # 16 % Bus	1622
 # 49% walk	4969
