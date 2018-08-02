@@ -11,34 +11,29 @@ rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
 
 # Remove short walking, 99, Train, Other and Unspecified modes
 dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
-bd <- filter(dataset, scenario == 'Baseline')
-bdnr <- nrow(bd)
 
-scen1 <- filter(dataset, scenario == 'Scenario 1')
-scen1nr <- nrow(scen1)
-scen2 <- filter(dataset, scenario == 'Scenario 2')
-scen2nr <- nrow(scen2)
-scen3 <- filter(dataset, scenario == 'Scenario 3')
-scen3nr <- nrow(scen3)
+l <- list()
+for (i in 1:length(unique(dataset$scenario))){
+  
+  bd <- filter(dataset, scenario == unique(dataset$scenario)[i])
+  bdnr <- nrow(bd)
+  
+  bd <- bd %>% group_by(trip_mode) %>%  summarise(pert = round(n()/bdnr * 100, 1))
+  
+  bd <- bd %>%  select(trip_mode, pert) %>% 
+    setNames(c("trip_mode",unique(dataset$scenario)[i])) 
+  
+  l[[i]] <- bd
+  
+}
 
-bd <- bd %>% group_by(trip_mode) %>%  summarise(baseline_n = round(n()/bdnr * 100, 1))
-
-scen1 <- scen1 %>% group_by(trip_mode) %>%  summarise(scen1_n = round(n()/scen1nr * 100, 1))
-scen2 <- scen2 %>% group_by(trip_mode) %>%  summarise(scen2_n = round(n()/scen2nr * 100, 1))
-scen3 <- scen3 %>% group_by(trip_mode) %>%  summarise(scen3_n = round(n()/scen3nr * 100, 1))
-
-
-bd <- left_join(bd, scen1, by = "trip_mode")
-bd <- left_join(bd, scen2, by = "trip_mode")
-bd <- left_join(bd, scen3, by = "trip_mode")
-
-bd <- rename(bd, "Baseline" = baseline_n,
-             "Scenario 1" = scen1_n,
-             "Scenario 2" = scen2_n,
-             "Scenario 3" = scen3_n
-)
-
-
+bd <- NULL
+for (i in 1:length(l)){
+  if (i == 1)
+    bd <- l[[i]]
+  else
+    bd <- left_join(bd, l[[i]], by = "trip_mode")
+}
 
 bd <- reshape2::melt(bd)
 
@@ -47,34 +42,34 @@ plotly::ggplotly(ggplot(data = bd, aes(x = trip_mode, y = value, fill = variable
            theme_minimal() + xlab('Mode') + ylab('Proportion (%)') + labs(title = "Mode distribution"))
 # Calculate trip distance for baseline and three scenarios
 
-dist <- rd %>% filter(scenario == "Baseline") %>% group_by(trip_mode) %>% summarise(baseline_dist = sum(trip_distance))
-dist1 <- rd %>% filter(scenario == "Scenario 1") %>% group_by(trip_mode) %>% summarise(scen1_dist = sum(trip_distance))
-dist2 <- rd %>% filter(scenario == "Scenario 2") %>% group_by(trip_mode) %>% summarise(scen2_dist = sum(trip_distance))
-dist3 <- rd %>% filter(scenario == "Scenario 3") %>% group_by(trip_mode) %>% summarise(scen3_dist = sum(trip_distance))
 
-dist <- filter(dist, !is.na(trip_mode))
-dist1 <- filter(dist1, !is.na(trip_mode))
-dist2 <- filter(dist2, !is.na(trip_mode))
-dist3 <- filter(dist3, !is.na(trip_mode))
+l <- list()
+for (i in 1:length(unique(dataset$scenario))){
+  # i <- 1
+  dist <- rd %>% filter(scenario == unique(dataset$scenario)[i]) %>% 
+    group_by(trip_mode) %>% 
+    summarise(sum_dist = sum(trip_distance))
+  
+  dist <- filter(dist, !is.na(trip_mode))
+  
+  dist$sum_dist[dist$trip_mode == "Walking"] <- 
+    dist$sum_dist[dist$trip_mode == "Walking"] + 
+    dist$sum_dist[dist$trip_mode == "Short Walking"]
+  
+  dist <- dist %>%  select(trip_mode, sum_dist) %>% 
+    setNames(c("trip_mode",unique(dataset$scenario)[i])) 
+  
+  l[[i]] <- dist
+  
+}
 
-dist$baseline_dist[dist$trip_mode == "Walking"] <- dist$baseline_dist[dist$trip_mode == "Walking"] + dist$baseline_dist[dist$trip_mode == "Short Walking"]
-
-dist1$scen1_dist[dist1$trip_mode == "Walking"] <- dist1$scen1_dist[dist1$trip_mode == "Walking"] + dist1$scen1_dist[dist1$trip_mode == "Short Walking"]
-
-dist2$scen2_dist[dist2$trip_mode == "Walking"] <- dist2$scen2_dist[dist2$trip_mode == "Walking"] + dist2$scen2_dist[dist2$trip_mode == "Short Walking"]
-
-dist3$scen3_dist[dist3$trip_mode == "Walking"] <- dist3$scen3_dist[dist3$trip_mode == "Walking"] + dist3$scen3_dist[dist3$trip_mode == "Short Walking"]
-
-dist <- left_join(dist, dist1, by = "trip_mode")
-dist <- left_join(dist, dist2, by = "trip_mode")
-dist <- left_join(dist, dist3, by = "trip_mode")
-
-
-dist <- rename(dist, "Baseline" = baseline_dist,
-               "Scenario 1" = scen1_dist,
-               "Scenario 2" = scen2_dist,
-               "Scenario 3" = scen3_dist
-)
+dist <- NULL
+for (i in 1:length(l)){
+  if (i == 1)
+    dist <- l[[i]]
+  else
+    dist <- left_join(dist, l[[i]], by = "trip_mode")
+}
 
 # Remove short walking, 99, Train, Other and Unspecified modes
 dist <- filter(dist, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
@@ -83,36 +78,40 @@ write_csv(dist, "data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv")
 
 dist <- reshape2::melt(dist, by = trip_mode)
 # Plot
-plotly::ggplotly(ggplot(data = dist, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance (km)")
+plotly::ggplotly(ggplot(data = dist, aes(x = trip_mode, y = value, fill = variable)) + 
+                   geom_bar(stat = 'identity', position = 'dodge', color = "black") + 
+                   theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance (km)")
 )
 
-dur <- rd %>% filter(scenario == "Baseline") %>% group_by(trip_mode) %>% summarise(baseline_dur = sum(trip_duration))
-dur1 <- rd %>% filter(scenario == "Scenario 1") %>% group_by(trip_mode) %>% summarise(scen1_dur = sum(trip_duration))
-dur2 <- rd %>% filter(scenario == "Scenario 2") %>% group_by(trip_mode) %>% summarise(scen2_dur = sum(trip_duration))
-dur3 <- rd %>% filter(scenario == "Scenario 3") %>% group_by(trip_mode) %>% summarise(scen3_dur = sum(trip_duration))
 
-dur <- filter(dur, !is.na(trip_mode))
-dur1 <- filter(dur1, !is.na(trip_mode))
-dur2 <- filter(dur2, !is.na(trip_mode))
-dur3 <- filter(dur3, !is.na(trip_mode))
 
-dur$baseline_dur[dur$trip_mode == "Walking"] <- dur$baseline_dur[dur$trip_mode == "Walking"] + dur$baseline_dur[dur$trip_mode == "Short Walking"]
+l <- list()
+for (i in 1:length(unique(dataset$scenario))){
+  # i <- 1
+  dur <- rd %>% filter(scenario == unique(dataset$scenario)[i]) %>% 
+    group_by(trip_mode) %>% 
+    summarise(sum_dur = sum(trip_duration))
+  
+  dur <- filter(dur, !is.na(trip_mode))
+  
+  dur$sum_dur[dur$trip_mode == "Walking"] <- 
+    dur$sum_dur[dur$trip_mode == "Walking"] + 
+    dur$sum_dur[dur$trip_mode == "Short Walking"]
+  
+  dur <- dur %>%  select(trip_mode, sum_dur) %>% 
+    setNames(c("trip_mode",unique(dataset$scenario)[i])) 
+  
+  l[[i]] <- dur
+  
+}
 
-dur1$scen1_dur[dur1$trip_mode == "Walking"] <- dur1$scen1_dur[dur1$trip_mode == "Walking"] + dur1$scen1_dur[dur1$trip_mode == "Short Walking"]
-
-dur2$scen2_dur[dur2$trip_mode == "Walking"] <- dur2$scen2_dur[dur2$trip_mode == "Walking"] + dur2$scen2_dur[dur2$trip_mode == "Short Walking"]
-
-dur3$scen3_dur[dur3$trip_mode == "Walking"] <- dur3$scen3_dur[dur3$trip_mode == "Walking"] + dur3$scen3_dur[dur3$trip_mode == "Short Walking"]
-
-dur <- left_join(dur, dur1, by = "trip_mode")
-dur <- left_join(dur, dur2, by = "trip_mode")
-dur <- left_join(dur, dur3, by = "trip_mode")
-
-dur <- rename(dur, "Baseline" = baseline_dur,
-              "Scenario 1" = scen1_dur,
-              "Scenario 2" = scen2_dur,
-              "Scenario 3" = scen3_dur
-)
+dur <- NULL
+for (i in 1:length(l)){
+  if (i == 1)
+    dur <- l[[i]]
+  else
+    dur <- left_join(dur, l[[i]], by = "trip_mode")
+}
 
 # Remove short walking, 99, Train, Other and Unspecified modes
 dur <- filter(dur, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
@@ -124,5 +123,7 @@ dur <- reshape2::melt(dur, by = trip_mode)
 dur$value <- round(dur$value / 60, 2)
 
 # Plot
-plotly::ggplotly(ggplot(data = dur, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Duration (hours)') + labs(title = "Mode Duration (hours)")
+plotly::ggplotly(ggplot(data = dur, aes(x = trip_mode, y = value, fill = variable)) + 
+                   geom_bar(stat = 'identity', position = 'dodge', color = 'black') + 
+                   theme_minimal() + xlab('Mode') + ylab('Duration (hours)') + labs(title = "Mode Duration (hours)")
 )
