@@ -42,9 +42,9 @@ bd <- rename(bd, "Baseline" = baseline_n,
 
 bd <- reshape2::melt(bd)
 
-ggplot(data = bd, aes(x = trip_mode, y = value, fill = variable)) + 
+plotly::ggplotly(ggplot(data = bd, aes(x = trip_mode, y = value, fill = variable)) + 
            geom_bar(stat = 'identity', position = "dodge", color = "black") + 
-           theme_minimal() + xlab('Mode') + ylab('Proportion (%)') + labs(title = "Mode distribution")
+           theme_minimal() + xlab('Mode') + ylab('Proportion (%)') + labs(title = "Mode distribution"))
 # Calculate trip distance for baseline and three scenarios
 
 dist <- rd %>% filter(scenario == "Baseline") %>% group_by(trip_mode) %>% summarise(baseline_dist = sum(trip_distance))
@@ -83,8 +83,8 @@ write_csv(dist, "data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv")
 
 dist <- reshape2::melt(dist, by = trip_mode)
 # Plot
-ggplot(data = dist, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance (km)")
-
+plotly::ggplotly(ggplot(data = dist, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance (km)")
+)
 
 dur <- rd %>% filter(scenario == "Baseline") %>% group_by(trip_mode) %>% summarise(baseline_dur = sum(trip_duration))
 dur1 <- rd %>% filter(scenario == "Scenario 1") %>% group_by(trip_mode) %>% summarise(scen1_dur = sum(trip_duration))
@@ -124,4 +124,5 @@ dur <- reshape2::melt(dur, by = trip_mode)
 dur$value <- round(dur$value / 60, 2)
 
 # Plot
-ggplot(data = dur, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Duration (hours)') + labs(title = "Mode Duration (hours)")
+plotly::ggplotly(ggplot(data = dur, aes(x = trip_mode, y = value, fill = variable)) + geom_bar(stat = 'identity', position = 'dodge') + theme_minimal() + xlab('Mode') + ylab('Duration (hours)') + labs(title = "Mode Duration (hours)")
+)
