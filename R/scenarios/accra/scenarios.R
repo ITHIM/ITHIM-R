@@ -237,9 +237,11 @@ rdfinal <- rbind(rdfinal, rdr)
 ###############################################################
 # Scenario 3
 
-rdr <- filter(rdfinal, scenario == 'Baseline' & ! trip_mode %in% c('Short Walking', '99'))
+rdr <- filter(rdfinal, scenario == 'Scenario 1' & ! trip_mode %in% c('Short Walking', '99'))
 
-# 10 % Bus
+# 16 % Bus remain as is
+# 10 % Mcycle increase 
+# x decrease private car
 
 tt <- nrow(rdr)
 
@@ -248,8 +250,8 @@ tt <- nrow(rdr)
 #                "Short Walking", "Bicycle", "Motorcycle")
 # speeds <- c(15, 21, 21, 4.8, 4.8, 14.5, 25)
 
-source_modes <- c('Bus')
-target_modes <- c('Motorcycle', 'Private Car')
+source_modes <- c('Private Car')
+target_modes <- c('Motorcycle')
 
 target_new_trips <- c(round(0.1 * tt) - 
                         nrow(filter(rdr, trip_mode == 'Motorcycle')))
@@ -261,25 +263,15 @@ target_new_trips <- c(round(0.1 * tt) -
 # 16 % Bus	1622
 # 49% walk	4969
 
-
-bus_trips_sample <- filter(rdr, trip_mode == source_modes[1]) %>% sample_n(target_new_trips[1] / 2) %>% 
+mcycle_trips_sample <- filter(rdr, trip_mode == source_modes[1]) %>% sample_n(target_new_trips[1]) %>% 
   mutate(trip_mode = target_modes[1],
          # Recalculate trip duration for Motorcycle
          trip_duration = (trip_distance * 60 / 25))
 
 # Update selected rows for mode and duration
-rdr[rdr$row_id %in% bus_trips_sample$row_id,]$trip_mode <- bus_trips_sample$trip_mode
-rdr[rdr$row_id %in% bus_trips_sample$row_id,]$trip_duration <- bus_trips_sample$trip_duration
+rdr[rdr$row_id %in% mcycle_trips_sample$row_id,]$trip_mode <- mcycle_trips_sample$trip_mode
+rdr[rdr$row_id %in% mcycle_trips_sample$row_id,]$trip_duration <- mcycle_trips_sample$trip_duration
 
-
-walk_trips_sample <- filter(rdr, trip_mode == source_modes[2]) %>% sample_n(target_new_trips[1] / 2) %>% 
-  mutate(trip_mode = target_modes[1],
-         # Recalculate trip duration for Motorcycle
-         trip_duration = (trip_distance * 60 / 4.8))
-
-# Update selected rows for mode and duration
-rdr[rdr$row_id %in% walk_trips_sample$row_id,]$trip_mode <- walk_trips_sample$trip_mode
-rdr[rdr$row_id %in% walk_trips_sample$row_id,]$trip_duration <- walk_trips_sample$trip_duration
 
 rdr %>% group_by(trip_mode) %>% summarise(c = n(), p = n() / nrow(rdr) * 100)
 
