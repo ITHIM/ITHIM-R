@@ -248,10 +248,11 @@ tt <- nrow(rdr)
 #                "Short Walking", "Bicycle", "Motorcycle")
 # speeds <- c(15, 21, 21, 4.8, 4.8, 14.5, 25)
 
-source_modes <- c('Bus', 'Walking')
-target_modes <- c('Motorcycle')
+source_modes <- c('Bus')
+target_modes <- c('Motorcycle', 'Private Car')
 
-target_new_trips <- c(round(0.1 * tt) - nrow(filter(rdr, trip_mode == 'Motorcycle')))
+target_new_trips <- c(round(0.1 * tt) - 
+                        nrow(filter(rdr, trip_mode == 'Motorcycle')))
 
 # trip_mode <- c("Bus", "Private Car", "Taxi", "Walking",
 #                "Short Walking", "Bicycle", "Motorcycle")
