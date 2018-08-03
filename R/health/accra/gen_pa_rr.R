@@ -8,10 +8,8 @@ disease_lt <- read.csv("data/dose_response/disease_outcomes_lookup.csv")
 
 disease_lt[is.na(disease_lt)] <- 0
 
-
 # Names
 # RR_ap_base_cvd	RR_ap_scen1_cvd	RR_ap_scen2_cvd	RR_ap_scen3_cvd
-
 
 
 ### iterating over all all disease outcomes
@@ -21,7 +19,7 @@ for ( j in 1:nrow(disease_lt)){
     pa_dn <- disease_lt$pa_acronym[j] %>% as.character()
     pa_n <- disease_lt$acronym[j] %>% as.character()
     
-    for (scen in c('base', 'scen1', 'scen2', 'scen3')){
+    for (scen in c('base', 'scen1', 'scen2', 'scen3', 'scen4', 'scen5')){
       ind[[paste('RR_pa', scen, pa_n, sep = '_')]] <- NULL
       ## iterating over all individuals
       for (i in 1:nrow(ind)){

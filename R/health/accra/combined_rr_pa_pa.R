@@ -31,7 +31,7 @@ disease_lt[is.na(disease_lt)] <- 0
 for ( j in 1:nrow(disease_lt)){
   ## checking whether to calculate this health outcome for PA
   if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] == 1){
-    for (scen in c('base', 'scen1', 'scen2', 'scen3')){
+    for (scen in c('base', 'scen1', 'scen2', 'scen3', 'scen4', 'scen5')){
       ac <- disease_lt$acronym[j] %>% as.character()
       ind[[paste('RR_pa_ap', scen, ac, sep = '_')]] <- ind[[paste('RR_pa', scen, ac, sep = '_')]] * ind[[paste('RR_ap', scen, ac, sep = '_')]]
       
