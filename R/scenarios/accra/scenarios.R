@@ -173,7 +173,8 @@ target_new_trips <- c(round(0.35 * tt) - nrow(filter(rdr, trip_mode == 'Bus')))
 # 49% walk	4969
 
 
-car_trips_sample <- filter(rdr, trip_mode %in% c(source_modes[1], source_modes[2] )) %>% 
+car_trips_sample <- filter(rdr, (trip_mode %in% c(source_modes[1], source_modes[2]) & 
+                                   (trip_distance_cat != dist_cat[1]))) %>% 
   sample_n(target_new_trips[1]) %>% 
   mutate(trip_mode = target_modes[1],
          # Recalculate trip duration for Private car trips
@@ -301,7 +302,8 @@ target_new_trips <- c(round(0.035 * tt) - nrow(filter(rdr, trip_mode == 'Bicycle
 #                "Short Walking", "Bicycle", "Motorcycle")
 # speeds <- c(15, 21, 21, 4.8, 4.8, 14.5, 25)
 
-motorised_trips <- filter(rdr, trip_mode %in% c(source_modes[1], source_modes[2], source_modes[3] )) %>% 
+motorised_trips <- filter(rdr, trip_mode %in% c(source_modes[1], source_modes[2], source_modes[3] ) & 
+                            (trip_distance_cat == dist_cat[1])) %>% 
   sample_n(target_new_trips[1]) %>% 
   mutate(trip_mode = target_modes[1],
          # Recalculate trip duration for Cycle trips
