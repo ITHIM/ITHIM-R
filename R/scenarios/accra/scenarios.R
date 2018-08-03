@@ -293,26 +293,35 @@ rdr <- filter(rdfinal, scenario == 'Scenario 1' & ! trip_mode %in% c('Short Walk
 
 tt <- nrow(rdr)
 
-source_modes <- c('Private Car', 'Taxi', 'Motorcycle')
+source_modes <- c('Motorcycle', 'Private Car', 'Taxi')
 target_modes <- c('Bicycle')
 
-target_new_trips <- c(round(0.035 * tt) - nrow(filter(rdr, trip_mode == 'Bicycle')))
+target_new_trips <- c(52,
+  round(0.035 * tt) - nrow(filter(rdr, trip_mode == 'Bicycle')) - 52)
 
 # trip_mode <- c("Bus", "Private Car", "Taxi", "Walking",
 #                "Short Walking", "Bicycle", "Motorcycle")
 # speeds <- c(15, 21, 21, 4.8, 4.8, 14.5, 25)
 
-motorised_trips <- filter(rdr, trip_mode %in% c(source_modes[1], source_modes[2], source_modes[3] ) & 
-                            (trip_distance_cat == dist_cat[1])) %>% 
+mbike_trips <- filter(rdr, trip_mode %in% c(source_modes[1])) %>% 
   sample_n(target_new_trips[1]) %>% 
   mutate(trip_mode = target_modes[1],
          # Recalculate trip duration for Cycle trips
          trip_duration = (trip_distance * 60 ) / 14.5)
 
+car_trips <- filter(rdr, trip_mode %in% c(source_modes[2], source_modes[3] ) & 
+                            (trip_distance_cat == dist_cat[1])) %>% 
+  sample_n(target_new_trips[2]) %>% 
+  mutate(trip_mode = target_modes[1],
+         # Recalculate trip duration for Cycle trips
+         trip_duration = (trip_distance * 60 ) / 14.5)
+
+car_mbike_trips <- rbind(mbike_trips, car_trips)
+
 
 # Update selected rows for mode and duration
-rdr[rdr$row_id %in% motorised_trips$row_id,]$trip_mode <- motorised_trips$trip_mode
-rdr[rdr$row_id %in% motorised_trips$row_id,]$trip_duration <- motorised_trips$trip_duration
+rdr[rdr$row_id %in% car_mbike_trips$row_id,]$trip_mode <- car_mbike_trips$trip_mode
+rdr[rdr$row_id %in% car_mbike_trips$row_id,]$trip_duration <- car_mbike_trips$trip_duration
 
 rdr %>% group_by(trip_mode) %>% summarise(c = n(), p = n() / nrow(rdr) * 100)
 
