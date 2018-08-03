@@ -12,6 +12,8 @@ rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
 # Remove short walking, 99, Train, Other and Unspecified modes
 dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
 
+total_ind <- length(unique(dataset$participant_id))
+
 l <- list()
 for (i in 1:length(unique(dataset$scenario))){
   
@@ -78,9 +80,9 @@ write_csv(dist, "data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv")
 
 dist <- reshape2::melt(dist, by = trip_mode)
 # Plot
-plotly::ggplotly(ggplot(data = dist, aes(x = trip_mode, y = value, fill = variable)) + 
+plotly::ggplotly(ggplot(data = dist, aes(x = trip_mode, y = value / total_ind, fill = variable)) + 
                    geom_bar(stat = 'identity', position = 'dodge', color = "black") + 
-                   theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance (km)")
+                   theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance  per person per week(km)")
 )
 
 
@@ -120,10 +122,11 @@ write_csv(dur, "data/scenarios/accra/dur_by_mode_all_scenarios_all_ages.csv")
 
 dur <- reshape2::melt(dur, by = trip_mode)
 
-dur$value <- round(dur$value / 60, 2)
+dur$value <- round(dur$value / (60 * total_ind), 2)
 
 # Plot
 plotly::ggplotly(ggplot(data = dur, aes(x = trip_mode, y = value, fill = variable)) + 
                    geom_bar(stat = 'identity', position = 'dodge', color = 'black') + 
-                   theme_minimal() + xlab('Mode') + ylab('Duration (hours)') + labs(title = "Mode Duration (hours)")
+                   theme_minimal() + xlab('Mode') + ylab('Duration (hours)') + labs(title = 
+                                                                                      "Mode Duration per person per week (hours)")
 )
