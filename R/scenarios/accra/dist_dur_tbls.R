@@ -7,12 +7,39 @@ library(tidyverse)
 rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
 
 
-# Trip mode plot
-
 # Remove short walking, 99, Train, Other and Unspecified modes
 dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
 
+# Trip mode plot
+
 total_ind <- length(unique(dataset$participant_id))
+
+l <- list()
+for (i in 1:length(unique(dataset$scenario))){
+  
+  bd <- filter(dataset, scenario == unique(dataset$scenario)[i])
+  bdnr <- nrow(bd)
+  
+  bd <- bd %>% group_by(trip_mode) %>%  summarise(pert = n())
+  
+  bd <- bd %>%  select(trip_mode, pert) %>% 
+    setNames(c("trip_mode",unique(dataset$scenario)[i])) 
+  
+  l[[i]] <- bd
+  
+}
+
+bd <- NULL
+for (i in 1:length(l)){
+  if (i == 1)
+    bd <- l[[i]]
+  else
+    bd <- left_join(bd, l[[i]], by = "trip_mode")
+}
+
+write_csv(bd, 'data/scenarios/accra/trip_modes.csv')
+
+bd <- NULL
 
 l <- list()
 for (i in 1:length(unique(dataset$scenario))){
