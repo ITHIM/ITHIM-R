@@ -324,7 +324,7 @@ rdfinal <- rbind(rdfinal, rdr)
 ###############################################################
 # Scenario 5
 
-rdr <- filter(rdfinal, scenario == 'Scenario 4' & ! trip_mode %in% c('Short Walking', '99'))
+rdr <- filter(rdfinal, scenario == 'Scenario 1' & ! trip_mode %in% c('Short Walking', '99'))
 
 # 3.5 % Cycle
 
@@ -333,16 +333,16 @@ tt <- nrow(rdr)
 source_modes <- c('Private Car', 'Taxi')
 target_modes <- c('Walking')
 
-target_new_trips <- c(round(0.25 * tt) - nrow(filter(rdr, trip_mode == 'Private Car')))
+target_new_trips <- c(round(0.54 * tt) - nrow(filter(rdr, trip_mode == 'Walking')))
 
 # trip_mode <- c("Bus", "Private Car", "Taxi", "Walking",
 #                "Short Walking", "Bicycle", "Motorcycle")
 # speeds <- c(15, 21, 21, 4.8, 4.8, 14.5, 25)
 
-motorised_trips <- filter(rdr, trip_mode %in% c(source_modes[1], source_modes[2], source_modes[3] )) %>% 
+motorised_trips <- filter(rdr, trip_mode %in% c(source_modes[1], source_modes[2] )) %>% 
   sample_n(target_new_trips[1]) %>% 
   mutate(trip_mode = target_modes[1],
-         # Recalculate trip duration for Cycle trips
+         # Recalculate trip duration for Walking trips
          trip_duration = (trip_distance * 60 ) / 14.5)
 
 
@@ -361,4 +361,4 @@ rdfinal <- rbind(rdfinal, rdr)
 
 ####
 
-write_csv(rdfinal, "data/scenarios/accra/baseline_and_three_scenarios.csv")
+write_csv(rdfinal, "data/scenarios/accra/baseline_and_scenarios.csv")
