@@ -107,7 +107,7 @@ scen_shortened_name<-c("base")
 for ( i in 2: nscen+1)
 {
   
-  scen_shortened_name[i-1]<- paste0("scen", i-1) 
+  scen_shortened_name[i]<- paste0("scen", i-1) 
 }
 
 i <- 1 ## used in the loop late
@@ -155,8 +155,8 @@ final_data<- final_data[]
 
 length(unique(final_data$participant_id))
 str(final_data)
-means<-final_data %>% summarise (mean_base=mean(pm_conc_base),mean_scen1=mean(pm_conc_scen1),mean_scen2=mean(pm_conc_scen2),mean_scen3=mean(pm_conc_scen3))
-means<-as.data.frame(means)  ### mean of PM2.5 concentrations for all individuals in baseline and scenarios
+#means<-final_data %>% summarise (mean_base=mean(pm_conc_base),mean_scen1=mean(pm_conc_scen1),mean_scen2=mean(pm_conc_scen2),mean_scen3=mean(pm_conc_scen3))
+#means<-as.data.frame(means)  ### mean of PM2.5 concentrations for all individuals in baseline and scenarios
 ###Lines which are normalising the concentrations
 #final_data[,2]<- final_data[,2]* as.numeric(conc_pm[1])/as.numeric(means[1])  ## multiplying by the ratio of baseline background concentration and background concentration of scenarios population
 #final_data[,3]<- final_data[,3]* as.numeric(conc_pm[1])/as.numeric(means[2])

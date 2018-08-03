@@ -13,7 +13,7 @@ source("R/PA/code/functions.R")
 # ap_rr_pa_total_mmet_weekly <- read.csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_total_mmet_weekly.csv")
 
 # Read scenario data
-rd <- read.csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
+rd <- read.csv("data/scenarios/accra/baseline_and_scenarios.csv")
 
 # Create dummy ind pop
 ind <- rd %>% group_by(participant_id) %>% summarise(sex = first(sex),
