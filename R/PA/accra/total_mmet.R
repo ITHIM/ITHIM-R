@@ -4,7 +4,7 @@ library(tidyverse)
 
 
 # Read raw_data
-rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
+rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
 
 # Multiply df by 6 times
 
@@ -46,15 +46,24 @@ ind <- rd %>% group_by(participant_id) %>% summarise ( sex = first(sex),
                                                        cycling_mmet_scen3 = (sum(trip_duration_hrs[trip_mode == 'Bicycle'   & scenario == 'Scenario 3']) * MMETCycling),
                                                        walking_mmet_scen3 = ((sum(trip_duration_hrs[trip_mode == 'Walking'   & scenario == 'Scenario 3']) + 
                                                                                 sum(trip_duration_hrs[trip_mode == 'Short Walking'  & scenario == 'Scenario 3'])) * MMETCycling),
+                                                       cycling_mmet_scen4 = (sum(trip_duration_hrs[trip_mode == 'Bicycle'   & scenario == 'Scenario 4']) * MMETCycling),
+                                                       walking_mmet_scen4 = ((sum(trip_duration_hrs[trip_mode == 'Walking'   & scenario == 'Scenario 4']) + 
+                                                                                sum(trip_duration_hrs[trip_mode == 'Short Walking'  & scenario == 'Scenario 4'])) * MMETCycling),
+                                                       cycling_mmet_scen5 = (sum(trip_duration_hrs[trip_mode == 'Bicycle'   & scenario == 'Scenario 5']) * MMETCycling),
+                                                       walking_mmet_scen5 = ((sum(trip_duration_hrs[trip_mode == 'Walking'   & scenario == 'Scenario 5']) + 
+                                                                                sum(trip_duration_hrs[trip_mode == 'Short Walking'  & scenario == 'Scenario 5'])) * MMETCycling),
+                                                       
                                                        work_ltpa_mmet = first(work_ltpa_marg_met),
                                                        base_mmet = first(work_ltpa_marg_met) +  cycling_mmet_base + walking_mmet_base,
                                                        scen1_mmet = first(work_ltpa_marg_met) +  cycling_mmet_scen1 + walking_mmet_scen1,
                                                        scen2_mmet = first(work_ltpa_marg_met) +  cycling_mmet_scen2 + walking_mmet_scen2,
-                                                       scen3_mmet = first(work_ltpa_marg_met) +  cycling_mmet_scen3 + walking_mmet_scen3
+                                                       scen3_mmet = first(work_ltpa_marg_met) +  cycling_mmet_scen3 + walking_mmet_scen3,
+                                                       scen4_mmet = first(work_ltpa_marg_met) +  cycling_mmet_scen4 + walking_mmet_scen4,
+                                                       scen5_mmet = first(work_ltpa_marg_met) +  cycling_mmet_scen5 + walking_mmet_scen5
                                                        
 )
 
 
-ind <- select(ind, participant_id, sex, age, age_cat, base_mmet, scen1_mmet, scen2_mmet, scen3_mmet)
+ind <- select(ind, participant_id, sex, age, age_cat, base_mmet, scen1_mmet, scen2_mmet, scen3_mmet, scen4_mmet, scen5_mmet)
 
 write_csv(ind,'data/synth_pop_data/accra/pa/pa_total_mmet_weekly.csv')
