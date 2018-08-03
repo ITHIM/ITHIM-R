@@ -36,7 +36,7 @@ for ( j in 1:nrow(disease_lt)){
     # GBD's disease name
     gbd_dn <- disease_lt$GBD_name[j] %>% as.character()
     # Loop through all three scenarios
-    for (scen in c('scen1', 'scen2', 'scen3')){
+    for (scen in c('scen1', 'scen2', 'scen3', 'scen4', 'scen5')){
       
       if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] == 1){
         # Initialize base and scenario var name
