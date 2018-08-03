@@ -39,7 +39,7 @@ bd <- reshape2::melt(bd)
 
 plotly::ggplotly(ggplot(data = bd, aes(x = trip_mode, y = value, fill = variable)) + 
            geom_bar(stat = 'identity', position = "dodge", color = "black") + 
-           theme_minimal() + xlab('Mode') + ylab('Proportion (%)') + labs(title = "Mode distribution"))
+           theme_minimal() + xlab('Mode') + ylab('Percentage (%)') + labs(title = "Mode distribution"))
 # Calculate trip distance for baseline and three scenarios
 
 
