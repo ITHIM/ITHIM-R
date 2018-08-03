@@ -32,14 +32,17 @@ write_csv(ratios,'data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.
 ##Calculation of background PM2.5 concentration based on emissions in the scenarios
 
 scen_dist <- as.data.frame(read_csv( "data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv")) ## total distance travelled by all population by different modes and for different scenarios
-### Number of scenarios
-nscen <- 3 
+### Calculating number of scenarios besides the baseline
+rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
+dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
+nscen<- length(unique(dataset$scenario)) -1
+
 ###emission inventory file
 trans_emissions <- read_csv("data/emission calculations accra/transport_emission_inventory_accra.csv")
 names(trans_emissions)<- c("vehicle_type", "delhi_fleet_2011", "delhi_fleet_perHH", "accra_fleet_2010", "PM2_5_emiss_fact", "base_emissions")
-n=2 ## the column where baseline distances are in the scenario distance file
+n= which(names(scen_dist)=="Baseline") ## the column where baseline distances are in the scenario distance file
 p= ncol(trans_emissions)
-for ( i in 1:nscen)
+for (i in 1:nscen)
 {
 trans_emissions[1,p+i]<- trans_emissions$base_emissions[1]*scen_dist[4,n+i]/scen_dist[4,n] ## scenario emissions of 4W1
 trans_emissions[2,p+i]<- trans_emissions$base_emissions[2]*scen_dist[4,n+i]/scen_dist[4,n] ## scenario emissions of 4W2 (>2000cc engine size)
@@ -56,26 +59,41 @@ names(trans_emissions)[p+i]<-(paste("scen",i,"_emissions", sep=""))
 trans_emissions[nrow(trans_emissions)+1,2:ncol(trans_emissions)]<- colSums(trans_emissions[,2:ncol(trans_emissions)],na.rm=T)
 trans_emissions
 
-trans_emissions[,1]<-as.character(trans_emissions[,1])
+#trans_emissions[,1]<-as.character(trans_emissions[,1])
 trans_emissions[nrow(trans_emissions),1]<-"Total"  
 total_row<- nrow(trans_emissions)
 
 trans_emissions[nrow(trans_emissions)+1,1]<-"pm_conc_total"
-trans_emissions[nrow(trans_emissions),ncol(trans_emissions)-3]<- pm_conc_base
+trans_emissions
+trans_emissions[nrow(trans_emissions),ncol(trans_emissions)-nscen]<- pm_conc_base
 trans_emissions[nrow(trans_emissions)+1,1]<-"pm_conc_transport"
-trans_emissions[nrow(trans_emissions), ncol(trans_emissions)-3]<- pm_trans_share*pm_conc_base
-trans_emissions[nrow(trans_emissions), ncol(trans_emissions)-2]<- pm_trans_share*pm_conc_base*trans_emissions[total_row, ncol(trans_emissions)-2]/trans_emissions[total_row, ncol(trans_emissions)-3]
-trans_emissions[nrow(trans_emissions), ncol(trans_emissions)-1]<- pm_trans_share*pm_conc_base*trans_emissions[total_row, ncol(trans_emissions)-1]/trans_emissions[total_row, ncol(trans_emissions)-3]
-trans_emissions[nrow(trans_emissions), ncol(trans_emissions)]<-pm_trans_share*pm_conc_base*trans_emissions[total_row, ncol(trans_emissions)]/trans_emissions[total_row, ncol(trans_emissions)-3]
+trans_emissions[nrow(trans_emissions), ncol(trans_emissions)-nscen]<- pm_trans_share*pm_conc_base
+
+repeat{
+  trans_emissions[nrow(trans_emissions), ncol(trans_emissions)-(nscen-1)]<- pm_trans_share*pm_conc_base*trans_emissions[total_row, ncol(trans_emissions)-(nscen-1)]/trans_emissions[total_row, ncol(trans_emissions)-nscen]
+  nscen<- nscen -1
+  if(nscen==0){
+    break
+  }
+}
+nscen<-length(unique(dataset$scenario)) -1  
+
 non_transport_pm_conc<- pm_conc_base -  (pm_trans_share*pm_conc_base)  ### this is the concentration contributed by non-transport share (remains constant across the scenarios)
-trans_emissions[nrow(trans_emissions)-1,ncol(trans_emissions)-2]<-  non_transport_pm_conc + trans_emissions[nrow(trans_emissions),ncol(trans_emissions)-2]
-trans_emissions[nrow(trans_emissions)-1,ncol(trans_emissions)-1]<-  non_transport_pm_conc + trans_emissions[nrow(trans_emissions),ncol(trans_emissions)-1]
-trans_emissions[nrow(trans_emissions)-1,ncol(trans_emissions)]<-  non_transport_pm_conc + trans_emissions[nrow(trans_emissions),ncol(trans_emissions)]
 
-conc_pm <- trans_emissions[nrow(trans_emissions)-1, 6:9] ## background concentrations for baseline and three scenarios
+repeat{
+  trans_emissions[nrow(trans_emissions)-1,ncol(trans_emissions)-(nscen-1)]<-  non_transport_pm_conc + trans_emissions[nrow(trans_emissions),ncol(trans_emissions)-(nscen-1)]
+  nscen<- nscen -1
+  if(nscen==0){
+    break
+  }
+}
+nscen<-length(unique(dataset$scenario)) -1
 
 
-rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
+
+conc_pm <- trans_emissions[nrow(trans_emissions)-1, 6:(6+nscen)] ## background concentrations for baseline and all scenarios
+
+rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
 
 
 lookup_ratio_pm <-  read_csv('data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.csv')
@@ -85,14 +103,18 @@ lookup_ratio_pm <- rename(lookup_ratio_pm, trip_mode = Mode)
 # "Baseline"   "Scenario 1" "Scenario 2" "Scenario 3"
 scen <- unique(rd$scenario)
 
-scen_shortened_name <- c("base", "scen1", "scen2", "scen3")
+scen_shortened_name<-c("base")
+for ( i in 2: nscen+1)
+{
+  
+  scen_shortened_name[i-1]<- paste0("scen", i-1) 
+}
 
-i <- 1
-
+i <- 1 ## used in the loop late
 ### following code generates final_data
 for (scen_index in scen){
   
-  scen_index <- "Baseline"
+  #scen_index <- "Baseline"
   
   rd_scen <- filter(rd, scenario == scen_index)
   
