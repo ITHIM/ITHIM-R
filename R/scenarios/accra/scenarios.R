@@ -341,7 +341,8 @@ target_new_trips <- c(round(0.54 * tt) - nrow(filter(rdr, trip_mode == 'Walking'
 #                "Short Walking", "Bicycle", "Motorcycle")
 # speeds <- c(15, 21, 21, 4.8, 4.8, 14.5, 25)
 
-motorised_trips <- filter(rdr, trip_mode %in% c(source_modes[1], source_modes[2] )) %>% 
+motorised_trips <- filter(rdr, trip_mode %in% c(source_modes[1], source_modes[2] )& 
+                            (trip_distance_cat == dist_cat[1])) %>% 
   sample_n(target_new_trips[1]) %>% 
   mutate(trip_mode = target_modes[1],
          # Recalculate trip duration for Walking trips
