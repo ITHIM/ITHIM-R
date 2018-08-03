@@ -68,7 +68,7 @@ bd <- reshape2::melt(bd)
 
 plotly::ggplotly(ggplot(data = bd, aes(x = trip_mode, y = value, fill = variable)) + 
            geom_bar(stat = 'identity', position = "dodge", color = "black") + 
-           theme_minimal() + xlab('Mode') + ylab('Percentage (%)') + labs(title = "Mode distribution"))
+           theme_minimal() + xlab('Mode') + ylab('Percentage (%)') + labs(title = "Mode distribution per week"))
 # Calculate trip distance for baseline and three scenarios
 
 
@@ -109,7 +109,7 @@ dist <- reshape2::melt(dist, by = trip_mode)
 # Plot
 plotly::ggplotly(ggplot(data = dist, aes(x = trip_mode, y = value / total_ind, fill = variable)) + 
                    geom_bar(stat = 'identity', position = 'dodge', color = "black") + 
-                   theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance  per person per week(km)")
+                   theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance  per person per week (km)")
 )
 
 
