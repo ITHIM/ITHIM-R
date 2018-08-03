@@ -4,7 +4,7 @@ library(tidyverse)
 
 
 # Read raw_data
-rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
+rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
 
 
 # Trip mode plot
