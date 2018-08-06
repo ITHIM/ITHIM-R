@@ -6,20 +6,6 @@ library(tidyverse)
 # Read raw_data
 rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
 
-# Multiply df by 6 times
-
-# Filter people with trips
-rd_pwt <- filter(rd, trip_id != 0)
-
-# Filter people without trips
-rd_pwot <- filter(rd, trip_id == 0)
-
-# Replicate people with trips by 6 times for weekly trips
-rd_pwt <- bind_rows(replicate(6, rd_pwt, simplify = FALSE))
-
-# Combined people without trips with 6 time of people with trips
-rd <- rbind(rd_pwt, rd_pwot)
-
 # Constants
 # Initialize  energy expenditure constants - taken from ICT
 MMETCycling <- 5.63 - 1

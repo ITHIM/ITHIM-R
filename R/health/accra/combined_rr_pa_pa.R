@@ -2,11 +2,10 @@ source("R/scenarios/accra/setup.R")
 
 # Read the ind file with rr for pa
 ind_pa <- read_csv("data/synth_pop_data/accra/RR/RR_PA_calculations.csv")
-
+str(ind_pa)
 # Read the ind file with rr for ap
 ind_ap <- read_csv("data/synth_pop_data/accra/RR/RR_AP_calculations.csv")
-
-# Data frame's function which replaces NaNs
+str(ind_ap)
 is.nan.data.frame <- function(x)
   do.call(cbind, lapply(x, is.nan))
 

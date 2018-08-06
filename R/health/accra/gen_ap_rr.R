@@ -19,7 +19,6 @@ rd <- read.csv("data/scenarios/accra/baseline_and_scenarios.csv")
 ind <- rd %>% group_by(participant_id) %>% summarise(sex = first(sex),
                                                      age = first(age),
                                                      age_cat = first(age_cat))
-
 ## number of scenarios
 rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
 dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
