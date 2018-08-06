@@ -16,7 +16,7 @@ scen_dist<-as.data.frame(read_csv("data/scenarios/accra/dist_by_mode_all_scenari
 names(scen_dist)[1]<- c("mode")
 names(scen_dist)[2:(length(scen_shortened_name)+1)]<-scen_shortened_name
 scen_dist[nrow(scen_dist)+1, 1]<- "Car"
-scen_dist[nrow(scen_dist),2:5]<- colSums(scen_dist[4:5,2:(length(unique(dataset$scenario)+1))]) ## summing Private Car and Taxi as Car
+scen_dist[nrow(scen_dist),2:(length(unique(dataset$scenario))+1)]<- colSums(scen_dist[4:5,2:(length(unique(dataset$scenario))+1)]) ## summing Private Car and Taxi as Car
 scen_dist<- scen_dist[-c(4,5),]  ## removing Private Car and Taxi rows
 scen_dist[,1]<-c("Bicycle", "Bus", "Motorcycle", "Pedestrian", "Car")
 ## adding truck as one of the vehicle types
@@ -24,9 +24,9 @@ scen_dist[nrow(scen_dist)+1, 1]<-"Truck"
 ## adding tuktuk as one of the vehicle types
 scen_dist[nrow(scen_dist)+1, 1]<-"Tuktuk"
 ## allocating dummy distance of 1 for trucks as these will not be changed across the scenarios
-scen_dist[nrow(scen_dist)-1,2:5]<-1   
+scen_dist[nrow(scen_dist)-1,2:(length(unique(dataset$scenario))+1)]<-1   
 ## allocating dummy distance of 1 for tuk-tuks as these will not be changed 
-scen_dist[nrow(scen_dist),2:5]<-1  
+scen_dist[nrow(scen_dist),2:(length(unique(dataset$scenario))+1)]<-1  
 
 whw_mat<-read.csv('R/injuries/accra/who_hit_who_accra.csv')
 ## columns as striking and rows as victim
@@ -43,8 +43,9 @@ for (i in 1:nscen )
 victim_deaths<- as.data.frame(whw_mat[,1])  
 ## number of deaths in baseline by victim type
 victim_deaths<- cbind(victim_deaths, scen=as.data.frame(rowSums(whw_mat[,3:8])))  
+
 whw_mat2<-whw_mat
-for (k in 3:(2+length(scen_shortened_name))) ## iterating over the scenarios as indexed in scen_dist matrix
+for (k in 3:(1+length(scen_shortened_name))) ## iterating over the scenarios as indexed in scen_dist matrix
 {
 for (i in 1: nrow(whw_mat))
 {
@@ -62,11 +63,9 @@ write_csv(whw_mat2,paste0('R/injuries/accra/whw_mat_scen',k-2,'.csv'))
 victim_deaths<- cbind(victim_deaths, as.data.frame(rowSums(whw_mat2[,3:8])))
 }
 names(victim_deaths)[1]<- c("victim_type")
-names(victim_deaths)[2:length(scen_shortened_name)]<-scen_shortened_name
+names(victim_deaths)[2:(length(scen_shortened_name)+1)]<-scen_shortened_name
 victim_deaths ### number of road deaths in the baseline and scenarios by victim type
 
-
-rd <- read_csv("data/scenarios/accra/baseline_and_three_scenarios.csv")
 
 # Redefine age_cat to match with GBD's
 # Make age category
@@ -169,10 +168,25 @@ View(x_deaths)
 
 deaths_yll_injuries<- cbind(x_deaths, x_yll)
 names(deaths_yll_injuries)
-deaths_yll_injuries<-deaths_yll_injuries[,-c(7,8)]
+deaths_yll_injuries<-deaths_yll_injuries[,-c((2+length(unique(dataset$scenario))+1),(2+length(unique(dataset$scenario))+2))]
 deaths_yll_injuries<- as.data.frame(deaths_yll_injuries)
-names(deaths_yll_injuries)<- c("age_cat", "sex", "base_deaths_inj", "scen1_deaths_inj", "scen2_deaths_inj", "scen3_deaths_inj", 
-                               "base_yll_inj", "scen1_yll_inj", "scen2_yll_inj", "scen3_yll_inj")
+names(deaths_yll_injuries)[1:2]<- c("age_cat", "sex")
+
+
+metric<-c("deaths", "yll")
+k=1
+for  (i in 1: 2)
+{
+  
+  for (j in 1: length(unique(dataset$scenario)))
+  {
+    names(deaths_yll_injuries)[2+k] <- paste0(scen_shortened_name[j],"_",metric[i],"_inj")
+    k<-k+1
+    
+  }
+}
+
+
 
 View(deaths_yll_injuries)
 
