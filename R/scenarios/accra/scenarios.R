@@ -149,6 +149,9 @@ rdr <- rbind(rdr, t_not_used)
 
 rdr$scenario <- "Scenario 1"
 
+# Remove bus associated short walking trips that have been changed to Private Car trips
+rdr <- rdr[!(rdr$trip_mode == 'Short Walking' & rdr$trip_id %in% bus_trips_sample$trip_id),]
+
 rdfinal <- rbind(rd, rdr)
 
 ###############################################################
@@ -278,6 +281,9 @@ rdr %>% group_by(trip_mode) %>% summarise(c = n(), p = n() / nrow(rdr) * 100)
 
 rdr <- rbind(rdr, t_not_used)
 
+# Remove bus associated short walking trips that have been changed to Private Car trips
+rdr <- rdr[!(rdr$trip_mode == 'Short Walking' & rdr$trip_id %in% bus_trips_sample$trip_id),]
+
 rdr$scenario <- "Scenario 3"
 
 rdfinal <- rbind(rdfinal, rdr)
@@ -327,6 +333,9 @@ rdr %>% group_by(trip_mode) %>% summarise(c = n(), p = n() / nrow(rdr) * 100)
 
 rdr <- rbind(rdr, t_not_used)
 
+# Remove bus associated short walking trips that have been changed to Private Car trips
+rdr <- rdr[!(rdr$trip_mode == 'Short Walking' & rdr$trip_id %in% bus_trips_sample$trip_id),]
+
 rdr$scenario <- "Scenario 4"
 
 rdfinal <- rbind(rdfinal, rdr)
@@ -365,6 +374,10 @@ rdr[rdr$row_id %in% motorised_trips$row_id,]$trip_duration <- motorised_trips$tr
 rdr %>% group_by(trip_mode) %>% summarise(c = n(), p = n() / nrow(rdr) * 100)
 
 rdr <- rbind(rdr, t_not_used)
+
+# Remove bus associated short walking trips that have been changed to Private Car trips
+rdr <- rdr[!(rdr$trip_mode == 'Short Walking' & rdr$trip_id %in% bus_trips_sample$trip_id),]
+
 
 rdr$scenario <- "Scenario 5"
 
