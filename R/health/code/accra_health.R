@@ -1,4 +1,4 @@
-library(drpa)
+source("R/drpa/dose_response.R")
 library(tidyverse)
 # Load all functions
 source("R/PA/code/functions.R")
