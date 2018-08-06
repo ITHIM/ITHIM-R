@@ -19,10 +19,25 @@ rd <- read.csv("data/scenarios/accra/baseline_and_scenarios.csv")
 ind <- rd %>% group_by(participant_id) %>% summarise(sex = first(sex),
                                                      age = first(age),
                                                      age_cat = first(age_cat))
+
+## number of scenarios
+rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
+dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
+nscen<- length(unique(dataset$scenario)) -1
+
+scen <- unique(rd$scenario)
+
+scen_shortened_name<-c("base")
+for (i in 2: (nscen+1))
+{
+  scen_shortened_name[i]<- paste0("scen", i-1) 
+}
+
 str(ind)
 ## disease outcome lookup table for PA and AP
 disease_outcomes_lookup <- read.csv("data/dose_response/disease_outcomes_lookup.csv")
 str(disease_outcomes_lookup)
+
 
 ## cvd_ihd and cvd_stroke are age dependent, therefore we need to map the age of individuals with the age in the dose-response file of AP 
 dr_ap <- read.csv("data/dose_response/AP/dose_response_AP.csv")
@@ -56,16 +71,17 @@ for ( i in 1: nrow(ind))
 ind$ap_age[is.na(ind$ap_age)] <- 0
 ## for every individual average of all parameter draws within the age and disease-outcome
 
-
-for ( j in 1: nrow(disease_outcomes_lookup))  ### iterating over all all disease outcomes
+### iterating over all all disease outcomes
+for ( j in 1: nrow(disease_outcomes_lookup))  
 {
-  if (disease_outcomes_lookup$air_pollution[j] == 1)  ## checking whether to calculate this health outcome for air pollution
+  ## checking whether to calculate this health outcome for air pollution
+  if (disease_outcomes_lookup$air_pollution[j] == 1)  
   { 
-    
-    for ( i in 1: nrow(ind) )  ## iterating over all individuals
+    ## iterating over all individuals
+    for ( i in 1: nrow(ind) )  
     {
       
-      ## for cvd_ihd and cvd_stroke- dose-response is age sensitive
+      ## for cvd_ihd and cvd_stroke- dose-response is age sensitive, for others not
       if (disease_outcomes_lookup$ap_acronym[j] == "cvd_ihd" | disease_outcomes_lookup$ap_acronym[j] == "cvd_stroke"  )
       {
         dr_ap_sub<- dr_ap[which(dr_ap$age_code == ind$ap_age[i] & dr_ap$cause_code==as.character(disease_outcomes_lookup$ap_acronym[j])),]
@@ -75,35 +91,41 @@ for ( j in 1: nrow(disease_outcomes_lookup))  ### iterating over all all disease
         dr_ap_sub<- dr_ap[which(dr_ap$age_code== 99 & dr_ap$cause_code==as.character(disease_outcomes_lookup$ap_acronym[j])),] 
         
       }
-      
-      x<-NA
-      x_scen1<- NA
-      x_scen2<- NA
-      x_scen3<- NA  
-      for (k in 1: nrow(dr_ap_sub)) ## iterating over all the rows of the parameter draws of dose-response paramters
+
+      x<- c(rep(0,length(scen_shortened_name)))
+ 
+      #for (k in 1: nrow(dr_ap_sub))
+      for (k in 1: 5) ## iterating over all the rows of the parameter draws of dose-response paramters
       {
         # browser()
-        x<- sum(x, 1 + (dr_ap_sub[k,2] * (1-exp(-dr_ap_sub[k,3]*((ind$pm_conc_base[i] - dr_ap_sub[k,5])^dr_ap_sub[k,4])))),na.rm=T) 
-        x_scen1<- sum(x_scen1, 1 + (dr_ap_sub[k,2] * (1-exp(-dr_ap_sub[k,3]*((ind$pm_conc_scen1[i]-dr_ap_sub[k,5])^dr_ap_sub[k,4])))),na.rm=T)
-        x_scen2<- sum(x_scen2, 1 + (dr_ap_sub[k,2] * (1-exp(-dr_ap_sub[k,3]*((ind$pm_conc_scen2[i]-dr_ap_sub[k,5])^dr_ap_sub[k,4])))),na.rm=T)
-        x_scen3<- sum(x_scen3, 1 + (dr_ap_sub[k,2] * (1-exp(-dr_ap_sub[k,3]*((ind$pm_conc_scen3[i]-dr_ap_sub[k,5])^dr_ap_sub[k,4])))),na.rm=T)
+        
+        for (n in 1: length(scen_shortened_name))
+          {
+          x[n]<- sum(x[n], 1 + (dr_ap_sub[k,2] * (1-exp(-dr_ap_sub[k,3]*((ind[[paste0("pm_conc_",scen_shortened_name[n])]][i] - dr_ap_sub[k,5])^dr_ap_sub[k,4])))),na.rm=T) 
+          
+          }
+
       }
-      ind$RR_ap_base [i] <- x/nrow(dr_ap_sub)  
-      ind$RR_ap_scen1[i]<- x_scen1/nrow(dr_ap_sub)
-      ind$RR_ap_scen2[i]<- x_scen2/nrow(dr_ap_sub)
-      ind$RR_ap_scen3[i]<- x_scen3/nrow(dr_ap_sub)
+      
+      for (n in 1:length(scen_shortened_name))
+      {
+        
+        #ind[[paste0("RR_ap_",scen_shortened_name[n])]][i] <- x[n]/nrow(dr_ap_sub)  
+        ind[[paste0("RR_ap_",scen_shortened_name[n])]][i] <- x[n]/5 
+        
+      }
+
     }
     
     
     ## change the names of the columns as per the disease
-    col<- which(names(ind)== "RR_ap_base")
-    names(ind)[col]<- paste("RR_ap_base_", disease_outcomes_lookup$acronym[j], sep="")
-    col<- which(names(ind)== "RR_ap_scen1")
-    names(ind)[col]<- paste("RR_ap_scen1_", disease_outcomes_lookup$acronym[j], sep="")
-    col<- which(names(ind)== "RR_ap_scen2")
-    names(ind)[col]<- paste("RR_ap_scen2_", disease_outcomes_lookup$acronym[j], sep="")
-    col<- which(names(ind)== "RR_ap_scen3")
-    names(ind)[col]<- paste("RR_ap_scen3_", disease_outcomes_lookup$acronym[j], sep="")
+    for (n in 1: length(scen_shortened_name))
+    {
+      col<- which(names(ind)== paste0("RR_ap_",scen_shortened_name[n]))
+      names(ind)[col]<- paste0("RR_ap_",scen_shortened_name[n],"_",disease_outcomes_lookup$acronym[j])
+      
+    }
+
     
   }
   

@@ -104,9 +104,8 @@ lookup_ratio_pm <- rename(lookup_ratio_pm, trip_mode = Mode)
 scen <- unique(rd$scenario)
 
 scen_shortened_name<-c("base")
-for ( i in 2: nscen+1)
+for (i in 2: (nscen+1))
 {
-  
   scen_shortened_name[i]<- paste0("scen", i-1) 
 }
 

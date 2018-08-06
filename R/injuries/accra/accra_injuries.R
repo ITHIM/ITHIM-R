@@ -1,28 +1,50 @@
 ### This is the script for distance-based injury model for Accra using safety-in-numbers
+## number of scenarios
+rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
+dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
+nscen<- length(unique(dataset$scenario)) -1
+
+## short names of the scenarios
+scen <- unique(rd$scenario)
+scen_shortened_name<-c("base")
+for (i in 2: (nscen+1))
+{
+  scen_shortened_name[i]<- paste0("scen", i-1) 
+}
 
 scen_dist<-as.data.frame(read_csv("data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv")) ## total distance travelled by all population by different modes and for different scenarios
-names(scen_dist)<- c("mode", "base", "scen1", "scen2", "scen3")
+names(scen_dist)[1]<- c("mode")
+names(scen_dist)[2:(length(scen_shortened_name)+1)]<-scen_shortened_name
 scen_dist[nrow(scen_dist)+1, 1]<- "Car"
-scen_dist[nrow(scen_dist),2:5]<- colSums(scen_dist[4:5,2:5]) ## summing Private Car and Taxi as Car
+scen_dist[nrow(scen_dist),2:5]<- colSums(scen_dist[4:5,2:(length(unique(dataset$scenario)+1))]) ## summing Private Car and Taxi as Car
 scen_dist<- scen_dist[-c(4,5),]  ## removing Private Car and Taxi rows
 scen_dist[,1]<-c("Bicycle", "Bus", "Motorcycle", "Pedestrian", "Car")
-scen_dist[nrow(scen_dist)+1, 1]<-"Truck"  ## adding truck as one of the vehicel types
-scen_dist[nrow(scen_dist)+1, 1]<-"Tuktuk" ## adding tuktuk as one of the vehicel types
-scen_dist[nrow(scen_dist)-1,2:5]<-1 ## allocating dummy distance of 1 as this will not be changed across the scenarios
-scen_dist[nrow(scen_dist),2:5]<-1 ## allocating dummy distance of 1 as this will not be changed 
+## adding truck as one of the vehicle types
+scen_dist[nrow(scen_dist)+1, 1]<-"Truck"  
+## adding tuktuk as one of the vehicle types
+scen_dist[nrow(scen_dist)+1, 1]<-"Tuktuk"
+## allocating dummy distance of 1 for trucks as these will not be changed across the scenarios
+scen_dist[nrow(scen_dist)-1,2:5]<-1   
+## allocating dummy distance of 1 for tuk-tuks as these will not be changed 
+scen_dist[nrow(scen_dist),2:5]<-1  
 
 whw_mat<-read.csv('R/injuries/accra/who_hit_who_accra.csv')
-whw_mat ## columns as striking and rows as victim
+## columns as striking and rows as victim
+whw_mat 
 
 ## calculating the ratio of distances for each mode in each scenario
-scen_dist[,3]<-scen_dist[,3]/scen_dist[,2]
-scen_dist[,4]<-scen_dist[,4]/scen_dist[,2]
-scen_dist[,5]<-scen_dist[,5]/scen_dist[,2]
 
-victim_deaths<- as.data.frame(whw_mat[,1])  ## names of victims
-victim_deaths<- cbind(victim_deaths, scen=as.data.frame(rowSums(whw_mat[,3:8])))  ## number of deaths in baseline by victim type
+for (i in 1:nscen )
+{
+  scen_dist[,(2+i)]<-scen_dist[,(2+i)]/scen_dist[,2]
+}
+
+## names of victim types
+victim_deaths<- as.data.frame(whw_mat[,1])  
+## number of deaths in baseline by victim type
+victim_deaths<- cbind(victim_deaths, scen=as.data.frame(rowSums(whw_mat[,3:8])))  
 whw_mat2<-whw_mat
-for (k in 3:5) ## iterating over the three scenarios as indexed in scen_dist matrix
+for (k in 3:(2+length(scen_shortened_name))) ## iterating over the scenarios as indexed in scen_dist matrix
 {
 for (i in 1: nrow(whw_mat))
 {
@@ -39,7 +61,8 @@ for (i in 1: nrow(whw_mat))
 write_csv(whw_mat2,paste0('R/injuries/accra/whw_mat_scen',k-2,'.csv'))  
 victim_deaths<- cbind(victim_deaths, as.data.frame(rowSums(whw_mat2[,3:8])))
 }
-names(victim_deaths)<- c("victim_type","base", "scen1", "scen2", "scen3")
+names(victim_deaths)[1]<- c("victim_type")
+names(victim_deaths)[2:length(scen_shortened_name)]<-scen_shortened_name
 victim_deaths ### number of road deaths in the baseline and scenarios by victim type
 
 
@@ -62,23 +85,26 @@ x$Car<- x$Taxi+x$`Private Car`
 x<- x[,-which(names(x)== "Private Car")]
 x<- x[,-which(names(x)== "Taxi")]
 list<-names(x)[4:8]
+
+
 for (i in 1: length(list))
 {
-  x[[list[i]]][which(x$scenario=="Baseline")]<- x[[list[i]]][which(x$scenario=="Baseline")]/ sum(x[[list[i]]][which(x$scenario=="Baseline")],na.rm=T)
-  x[[list[i]]][which(x$scenario=="Scenario 1")]<- x[[list[i]]][which(x$scenario=="Scenario 1")]/ sum(x[[list[i]]][which(x$scenario=="Scenario 1")],na.rm=T)
-  x[[list[i]]][which(x$scenario=="Scenario 2")]<- x[[list[i]]][which(x$scenario=="Scenario 2")]/ sum(x[[list[i]]][which(x$scenario=="Scenario 2")],na.rm=T)
-  x[[list[i]]][which(x$scenario=="Scenario 3")]<- x[[list[i]]][which(x$scenario=="Scenario 3")]/ sum(x[[list[i]]][which(x$scenario=="Scenario 3")],na.rm=T)
+  for (n in 1: length(unique(dataset$scenario)))
+  {
+    x[[list[i]]][which(x$scenario==unique(dataset$scenario)[n])]<- x[[list[i]]][which(x$scenario==unique(dataset$scenario)[n])]/ sum(x[[list[i]]][which(x$scenario==unique(dataset$scenario)[n])],na.rm=T)
+
+  }
 }
 
 
-names<- c("Baseline", "Scenario 1", "Scenario 2", "Scenario 3")
-for (i in 1: 4)
+#names<- c("Baseline", "Scenario 1", "Scenario 2", "Scenario 3")
+for (i in 1: length(scen_shortened_name))
 {
   for (j in 1: nrow(x))
   {
-    if (x[j,3]==names[i]) ## checking baseline or the 3 scenarios
+    if (x[j,3]==unique(dataset$scenario)[i]) ## checking baseline or the 3 scenarios
         {
-           for ( k in 1: 5) ## iterating ovet the 5 victim type names in X
+           for (k in 1: 5) ## iterating ovet the 5 victim type names in X
            {
              row<-which (victim_deaths$victim_type==names(x)[k+3])
              if( !is.na(x[j,k+3]))
@@ -121,15 +147,23 @@ x<-select(x, c('age_cat','sex','scenario','Deaths','YLL'))
 x  ### Death burden from injuries
 x_deaths<- select(x, -YLL)
 x_deaths<-spread(x_deaths,scenario, Deaths)
-x_deaths[,4]<-x_deaths[,4] - x_deaths[,3] 
-x_deaths[,5]<-x_deaths[,5] - x_deaths[,3] 
-x_deaths[,6]<-x_deaths[,6] - x_deaths[,3] 
+
+for (n in 1: nscen)
+{
+  
+  x_deaths[,n+3]<-x_deaths[,n+3] - x_deaths[,3] 
+  
+}
 
 x_yll<- select(x, -Deaths)
 x_yll<-spread(x_yll,scenario, YLL)
-x_yll[,4]<-x_yll[,4] - x_yll[,3] 
-x_yll[,5]<-x_yll[,5] - x_yll[,3] 
-x_yll[,6]<-x_yll[,6] - x_yll[,3] 
+for (n in 1: nscen)
+{
+  
+  x_yll[,n+3]<-x_yll[,n+3] - x_yll[,3] 
+  
+}
+
 
 View(x_deaths)
 
