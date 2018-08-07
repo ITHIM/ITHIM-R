@@ -130,7 +130,7 @@ names(x)[9]<-"Deaths"
 
 x$sex_age<-  paste0(x$sex,"_",x$age_cat)
 
-#write_csv(x, "data/synth_pop_data/accra/injuries/deaths_by_mode.csv")
+write_csv(x, "data/synth_pop_data/accra/injuries/deaths_by_mode.csv")
 
 gbd_data<- read_csv('data/demographics/gbd/accra/GBD Accra.csv')
 gbd_injuries<- gbd_data[which(gbd_data$cause=="Road injuries"),]
@@ -201,4 +201,13 @@ View(deaths_yll_injuries)
 deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] <- -1 * deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] 
 
 write_csv(deaths_yll_injuries, "R/injuries/accra/deaths_yll_injuries.csv")
+
+# Save it in a long format with extra columns removed
+
+inj <- read_csv("data/synth_pop_data/accra/injuries/deaths_by_mode.csv")
+inj <- select(inj, -c(sex_age))
+inj <- rename(inj, total = Deaths)
+inj <- reshape2::melt(inj)
+inj[is.na(inj)] <- 0
+write_csv(inj, "data/synth_pop_data/accra/injuries/deaths_by_mode_long.csv")
 
