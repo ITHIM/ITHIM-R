@@ -85,9 +85,16 @@ for (i in 1:length(unique(dataset$scenario))){
   
   dist <- filter(dist, !is.na(trip_mode))
   
+  print(paste('W : ', dist$sum_dist[dist$trip_mode == "Walking"]))
+  
+  print(paste('SW : ', dist$sum_dist[dist$trip_mode == "Short Walking"]))
+  
   dist$sum_dist[dist$trip_mode == "Walking"] <- 
     dist$sum_dist[dist$trip_mode == "Walking"] + 
     dist$sum_dist[dist$trip_mode == "Short Walking"]
+  
+  
+  
   
   dist <- dist %>%  select(trip_mode, sum_dist) %>% 
     setNames(c("trip_mode",unique(dataset$scenario)[i])) 
@@ -126,6 +133,11 @@ for (i in 1:length(unique(dataset$scenario))){
     summarise(sum_dur = sum(trip_duration))
   
   dur <- filter(dur, !is.na(trip_mode))
+  
+  print(paste('W : ', dur$sum_dur[dur$trip_mode == "Walking"]))
+  
+  print(paste('SW : ', dur$sum_dur[dur$trip_mode == "Short Walking"]))
+  
   
   dur$sum_dur[dur$trip_mode == "Walking"] <- 
     dur$sum_dur[dur$trip_mode == "Walking"] + 
