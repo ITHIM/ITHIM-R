@@ -23,18 +23,23 @@ ind <- rd %>% group_by(participant_id) %>% summarise ( sex = first(sex),
                                                        cycling_mmet_base = (sum(trip_duration_hrs[trip_mode == 'Bicycle' & scenario == 'Baseline']) * MMETCycling),
                                                        walking_mmet_base = ((sum(trip_duration_hrs[trip_mode == 'Walking'  & scenario == 'Baseline']) + 
                                                                                sum(trip_duration_hrs[trip_mode == 'Short Walking'  & scenario == 'Baseline'])) * MMETCycling),
+                                                       
                                                        cycling_mmet_scen1 = (sum(trip_duration_hrs[trip_mode == 'Bicycle'  & scenario == 'Scenario 1']) * MMETCycling),
                                                        walking_mmet_scen1 = ((sum(trip_duration_hrs[trip_mode == 'Walking'  & scenario == 'Scenario 1']) + 
                                                                                 sum(trip_duration_hrs[trip_mode == 'Short Walking'   & scenario == 'Scenario 1'])) * MMETCycling),
+                                                       
                                                        cycling_mmet_scen2 = (sum(trip_duration_hrs[trip_mode == 'Bicycle'   & scenario == 'Scenario 2']) * MMETCycling),
                                                        walking_mmet_scen2 = ((sum(trip_duration_hrs[trip_mode == 'Walking'   & scenario == 'Scenario 2']) + 
                                                                                 sum(trip_duration_hrs[trip_mode == 'Short Walking'   & scenario == 'Scenario 2'])) * MMETCycling),
+                                                       
                                                        cycling_mmet_scen3 = (sum(trip_duration_hrs[trip_mode == 'Bicycle'   & scenario == 'Scenario 3']) * MMETCycling),
                                                        walking_mmet_scen3 = ((sum(trip_duration_hrs[trip_mode == 'Walking'   & scenario == 'Scenario 3']) + 
                                                                                 sum(trip_duration_hrs[trip_mode == 'Short Walking'  & scenario == 'Scenario 3'])) * MMETCycling),
+                                                       
                                                        cycling_mmet_scen4 = (sum(trip_duration_hrs[trip_mode == 'Bicycle'   & scenario == 'Scenario 4']) * MMETCycling),
                                                        walking_mmet_scen4 = ((sum(trip_duration_hrs[trip_mode == 'Walking'   & scenario == 'Scenario 4']) + 
                                                                                 sum(trip_duration_hrs[trip_mode == 'Short Walking'  & scenario == 'Scenario 4'])) * MMETCycling),
+                                                       
                                                        cycling_mmet_scen5 = (sum(trip_duration_hrs[trip_mode == 'Bicycle'   & scenario == 'Scenario 5']) * MMETCycling),
                                                        walking_mmet_scen5 = ((sum(trip_duration_hrs[trip_mode == 'Walking'   & scenario == 'Scenario 5']) + 
                                                                                 sum(trip_duration_hrs[trip_mode == 'Short Walking'  & scenario == 'Scenario 5'])) * MMETCycling),
