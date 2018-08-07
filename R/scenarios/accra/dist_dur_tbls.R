@@ -64,12 +64,16 @@ for (i in 1:length(l)){
     bd <- left_join(bd, l[[i]], by = "trip_mode")
 }
 
+write_csv(bd, 'data/scenarios/accra/trip_modes_pert.csv')
+
 bd <- reshape2::melt(bd)
 
 plotly::ggplotly(ggplot(data = bd, aes(x = trip_mode, y = value, fill = variable)) + 
            geom_bar(stat = 'identity', position = "dodge", color = "black") + 
            theme_minimal() + xlab('Mode') + ylab('Percentage (%)') + labs(title = "Mode distribution per week"))
 # Calculate trip distance for baseline and three scenarios
+
+
 
 
 l <- list()
