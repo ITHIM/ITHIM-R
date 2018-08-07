@@ -1,3 +1,5 @@
+
+### injury code
 ### This is the script for distance-based injury model for Accra using safety-in-numbers
 ## number of scenarios
 rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
@@ -12,6 +14,7 @@ for (i in 2: (nscen+1))
   scen_shortened_name[i]<- paste0("scen", i-1) 
 }
 
+sin<- read.csv('R/injuries/data/sin_coefficients_pairs.csv')
 scen_dist<-as.data.frame(read_csv("data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv")) ## total distance travelled by all population by different modes and for different scenarios
 names(scen_dist)[1]<- c("mode")
 names(scen_dist)[2:(length(scen_shortened_name)+1)]<-scen_shortened_name
@@ -47,20 +50,25 @@ victim_deaths<- cbind(victim_deaths, scen=as.data.frame(rowSums(whw_mat[,3:8])))
 whw_mat2<-whw_mat
 for (k in 3:(1+length(scen_shortened_name))) ## iterating over the scenarios as indexed in scen_dist matrix
 {
-for (i in 1: nrow(whw_mat))
-{
-  for (j in 2: ncol(whw_mat))
+  for (i in 1: nrow(whw_mat))
   {
-    nrow_vic_dist<- which(scen_dist[,1]== whw_mat[i,1])
-    victim_dist<-scen_dist[nrow_vic_dist,k] ### 3== scenario1, 4== scenario 2, in the scen_dist matrix
-    nrow_strk_dist<- which(scen_dist[,1]== names(whw_mat)[j])
-    strk_dist<- scen_dist[nrow_strk_dist,k]
-    whw_mat2[i, j]<- whw_mat[i, j]*(victim_dist^0.5)*(strk_dist^0.7)   ### safety in numbers coefficients: 0.5 for victim and 0.7 for striking
+    for (j in 2: ncol(whw_mat))
+    {
+      nrow_vic_dist<- which(scen_dist[,1]== whw_mat[i,1])
+      victim_dist<-scen_dist[nrow_vic_dist,k] ### 3== scenario1, 4== scenario 2, in the scen_dist matrix
+      nrow_strk_dist<- which(scen_dist[,1]== names(whw_mat)[j])
+      strk_dist<- scen_dist[nrow_strk_dist,k]
+      nrow_sin<-  which(sin[,1]==whw_mat[i,1]) 
+      ncol_sin<- which(names(sin)==names(whw_mat)[j])
+      
+      whw_mat2[i, j]<- whw_mat[i, j]*(victim_dist^sin[nrow_sin[1],ncol_sin])*(strk_dist^sin[nrow_sin[1]+6,ncol_sin])   ### safety in numbers coefficients: 0.5 for victim and 0.7 for striking
+      print(nrow_strk_dist)
+      
+    }
+    
   }
-  
-}
-write_csv(whw_mat2,paste0('R/injuries/accra/whw_mat_scen',k-2,'.csv'))  
-victim_deaths<- cbind(victim_deaths, as.data.frame(rowSums(whw_mat2[,3:8])))
+  write_csv(whw_mat2,paste0('R/injuries/accra/whw_mat_scen',k-2,'.csv'))  
+  victim_deaths<- cbind(victim_deaths, as.data.frame(rowSums(whw_mat2[,3:8])))
 }
 names(victim_deaths)[1]<- c("victim_type")
 names(victim_deaths)[2:(length(scen_shortened_name)+1)]<-scen_shortened_name
@@ -91,7 +99,7 @@ for (i in 1: length(list))
   for (n in 1: length(unique(dataset$scenario)))
   {
     x[[list[i]]][which(x$scenario==unique(dataset$scenario)[n])]<- x[[list[i]]][which(x$scenario==unique(dataset$scenario)[n])]/ sum(x[[list[i]]][which(x$scenario==unique(dataset$scenario)[n])],na.rm=T)
-
+    
   }
 }
 
@@ -102,16 +110,16 @@ for (i in 1: length(scen_shortened_name))
   for (j in 1: nrow(x))
   {
     if (x[j,3]==unique(dataset$scenario)[i]) ## checking baseline or the 3 scenarios
+    {
+      for (k in 1: 5) ## iterating ovet the 5 victim type names in X
+      {
+        row<-which (victim_deaths$victim_type==names(x)[k+3])
+        if( !is.na(x[j,k+3]))
         {
-           for (k in 1: 5) ## iterating ovet the 5 victim type names in X
-           {
-             row<-which (victim_deaths$victim_type==names(x)[k+3])
-             if( !is.na(x[j,k+3]))
-             {
-               x[j,k+3] <- x[j,k+3]* victim_deaths[row,i+1]
-             }
-             }
+          x[j,k+3] <- x[j,k+3]* victim_deaths[row,i+1]
         }
+      }
+    }
     
   }
   
@@ -193,4 +201,4 @@ View(deaths_yll_injuries)
 deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] <- -1 * deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] 
 
 write_csv(deaths_yll_injuries, "R/injuries/accra/deaths_yll_injuries.csv")
-  
+

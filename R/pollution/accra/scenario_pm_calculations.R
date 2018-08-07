@@ -154,11 +154,30 @@ final_data<- final_data[]
 
 length(unique(final_data$participant_id))
 str(final_data)
-#means<-final_data %>% summarise (mean_base=mean(pm_conc_base),mean_scen1=mean(pm_conc_scen1),mean_scen2=mean(pm_conc_scen2),mean_scen3=mean(pm_conc_scen3))
-#means<-as.data.frame(means)  ### mean of PM2.5 concentrations for all individuals in baseline and scenarios
+
+#####PM normalise
+
+mean_conc<- rep(0,length(scen_shortened_name))
+
+## calculating means of individual-level concentrations
+for ( i in 1: length(scen_shortened_name))
+{
+  mean_conc[i]<- mean(final_data[[paste0("pm_conc_", scen_shortened_name[i])]])
+  
+}
+
+normalise<- as.numeric(conc_pm[1])/as.numeric(mean_conc[1])
 ###Lines which are normalising the concentrations
+
+for (i in 1: length(scen_shortened_name))
+{
+  final_data[[paste0("pm_conc_", scen_shortened_name[i])]]    <- normalise* final_data[[paste0("pm_conc_", scen_shortened_name[i])]]
+  
+}
+
 #final_data[,2]<- final_data[,2]* as.numeric(conc_pm[1])/as.numeric(means[1])  ## multiplying by the ratio of baseline background concentration and background concentration of scenarios population
 #final_data[,3]<- final_data[,3]* as.numeric(conc_pm[1])/as.numeric(means[2])
 #final_data[,4]<- final_data[,4]* as.numeric(conc_pm[1])/as.numeric(means[3])
 #final_data[,5]<- final_data[,5]* as.numeric(conc_pm[1])/as.numeric(means[4])
 write_csv(as.data.frame(final_data), 'data/synth_pop_data/accra/pollution/individual_level_pm_conc_scenarios.csv')
+
