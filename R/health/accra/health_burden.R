@@ -38,22 +38,37 @@ for ( j in 1:nrow(disease_lt)){
     # Loop through all three scenarios
     for (scen in c('scen1', 'scen2', 'scen3', 'scen4', 'scen5')){
       
+      print(ac)
+      print(index)
+      
       if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] == 1){
         # Initialize base and scenario var name
-        base_var <- paste0('RR_pa_ap_base_', ac)
+        #base_var <- paste0('RR_pa_ap_base_', ac)
+        base_var <- paste0('RR_pa_ap_scen1_', ac)
         scen_var <- paste0('RR_pa_ap_', scen, '_', ac)
         
       }else if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] != 1){
         # Initialize base and scenario var name
-        base_var <- paste0('RR_pa_base_', ac)
+        # base_var <- paste0('RR_pa_base_', ac)
+        base_var <- paste0('RR_pa_scen1_', ac)
         scen_var <- paste0('RR_pa_', scen, '_', ac)
         
       }else if (disease_lt$physical_activity[j] != 1 & disease_lt$air_pollution[j] == 1){
         # Initialize base and scenario var name
-        base_var <- paste0('RR_ap_base_', ac)
+        # base_var <- paste0('RR_ap_base_', ac)
+        base_var <- paste0('RR_ap_scen1_', ac)
         scen_var <- paste0('RR_ap_', scen, '_', ac)
         
       }
+      
+      print(base_var)
+      print(scen_var)
+      
+      print(' Columsn exists? ')
+      print(base_var %in% names(ind))
+      print(scen_var %in% names(ind))
+      
+      # browser()
       
       # Calculate PIFs for baseline and selected scenario
       pif <- data.frame(PAF(pop = ind, attr = c('sex', 'age_cat'), cn = c(base_var, scen_var)))
@@ -96,10 +111,10 @@ for ( j in 1:nrow(disease_lt)){
       # Subset to get yll_reductions
       deaths_red <- as.data.frame(death_dfs[2])
       # Remove baseline vars
-      deaths <- select(deaths, -one_of(base_var))
-      deaths_red <- select(deaths_red, -one_of(base_var))
-      yll <- select(yll, -one_of(base_var))
-      yll_red <- select(yll_red, -one_of(base_var))
+      #deaths <- select(deaths, -one_of(base_var))
+      #deaths_red <- select(deaths_red, -one_of(base_var))
+      #yll <- select(yll, -one_of(base_var))
+      #yll_red <- select(yll_red, -one_of(base_var))
       
       if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] == 1){
         # Rename var names
@@ -124,8 +139,15 @@ for ( j in 1:nrow(disease_lt)){
         
       }
       
+      deaths <- select(deaths, -contains("RR_"))
+      deaths_red <- select(deaths_red, -contains("RR_"))
+      yll <- select(yll, -contains("RR_"))
+      yll_red <- select(yll_red, -contains("RR_"))
+      
+      #deaths[[base_var]] <- deaths_red[[base_var]] <- yll[[base_var]] <- yll_red[[base_var]] <- 0
       
       if (index == 1){
+        
         # If global vars are not initiliazed, copy vars
         gdeaths <- deaths
         gdeaths_red <- deaths_red
@@ -134,6 +156,7 @@ for ( j in 1:nrow(disease_lt)){
 
       }else{
         # global vars are already initialized. Join new datasets with old ones.
+        
         gdeaths <- left_join(gdeaths, deaths)
         gdeaths_red <- left_join(gdeaths_red, deaths_red)
         gylls <- left_join(gylls, yll)
@@ -148,6 +171,9 @@ for ( j in 1:nrow(disease_lt)){
   }
 
 }
+
+gdeaths[,names(select(gdeaths, contains("scen1_")))] <- 0
+
 
 
 # read injuries dataset for both ylls and deaths
