@@ -36,10 +36,7 @@ for ( j in 1:nrow(disease_lt)){
     # GBD's disease name
     gbd_dn <- disease_lt$GBD_name[j] %>% as.character()
     # Loop through all three scenarios
-    for (scen in c('scen1', 'scen2', 'scen3', 'scen4', 'scen5')){
-      
-      print(ac)
-      print(index)
+    for (scen in c('base','scen1', 'scen2', 'scen3', 'scen4', 'scen5')){
       
       if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] == 1){
         # Initialize base and scenario var name
@@ -60,15 +57,6 @@ for ( j in 1:nrow(disease_lt)){
         scen_var <- paste0('RR_ap_', scen, '_', ac)
         
       }
-      
-      print(base_var)
-      print(scen_var)
-      
-      print(' Columsn exists? ')
-      print(base_var %in% names(ind))
-      print(scen_var %in% names(ind))
-      
-      # browser()
       
       # Calculate PIFs for baseline and selected scenario
       pif <- data.frame(PAF(pop = ind, attr = c('sex', 'age_cat'), cn = c(base_var, scen_var)))
