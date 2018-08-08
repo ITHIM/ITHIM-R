@@ -10,9 +10,8 @@ rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
 # Remove short walking, 99, Train, Other and Unspecified modes
 dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
 
-# Trip mode plot
-
-total_ind <- length(unique(dataset$participant_id))
+# Unique number of ind
+total_ind <- length(unique(rd$participant_id))
 
 l <- list()
 for (i in 1:length(unique(dataset$scenario))){
@@ -93,8 +92,7 @@ for (i in 1:length(unique(dataset$scenario))){
     dist$sum_dist[dist$trip_mode == "Walking"] + 
     dist$sum_dist[dist$trip_mode == "Short Walking"]
   
-  
-  
+  #dist$sum_dist <- dist$sum_dist/total_ind
   
   dist <- dist %>%  select(trip_mode, sum_dist) %>% 
     setNames(c("trip_mode",unique(dataset$scenario)[i])) 
