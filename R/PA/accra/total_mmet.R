@@ -45,12 +45,12 @@ ind <- rd %>% group_by(participant_id) %>% summarise ( sex = first(sex),
                                                                                 sum(trip_duration_hrs[trip_mode == 'Short Walking'  & scenario == 'Scenario 5'])) * MMETCycling),
                                                        
                                                        work_ltpa_mmet = first(work_ltpa_marg_met),
-                                                       base_mmet = first(work_ltpa_marg_met) +  cycling_mmet_base + walking_mmet_base,
-                                                       scen1_mmet = first(work_ltpa_marg_met) +  cycling_mmet_scen1 + walking_mmet_scen1,
-                                                       scen2_mmet = first(work_ltpa_marg_met) +  cycling_mmet_scen2 + walking_mmet_scen2,
-                                                       scen3_mmet = first(work_ltpa_marg_met) +  cycling_mmet_scen3 + walking_mmet_scen3,
-                                                       scen4_mmet = first(work_ltpa_marg_met) +  cycling_mmet_scen4 + walking_mmet_scen4,
-                                                       scen5_mmet = first(work_ltpa_marg_met) +  cycling_mmet_scen5 + walking_mmet_scen5
+                                                       base_mmet = first(work_ltpa_marg_met / 2) +  cycling_mmet_base + walking_mmet_base,
+                                                       scen1_mmet = first(work_ltpa_marg_met / 2) +  cycling_mmet_scen1 + walking_mmet_scen1,
+                                                       scen2_mmet = first(work_ltpa_marg_met / 2) +  cycling_mmet_scen2 + walking_mmet_scen2,
+                                                       scen3_mmet = first(work_ltpa_marg_met / 2) +  cycling_mmet_scen3 + walking_mmet_scen3,
+                                                       scen4_mmet = first(work_ltpa_marg_met / 2) +  cycling_mmet_scen4 + walking_mmet_scen4,
+                                                       scen5_mmet = first(work_ltpa_marg_met / 2) +  cycling_mmet_scen5 + walking_mmet_scen5
                                                        
 )
 
