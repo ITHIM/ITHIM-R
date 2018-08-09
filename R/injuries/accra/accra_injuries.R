@@ -155,20 +155,22 @@ x  ### Death burden from injuries
 x_deaths<- select(x, -YLL)
 x_deaths<-spread(x_deaths,scenario, Deaths)
 
-for (n in 1: nscen)
+for (n in 1: length(scen_shortened_name))
 {
-  
-  x_deaths[,n+3]<-x_deaths[,n+3] - x_deaths[,3] 
-  
+  if (n !=2)
+  {
+  x_deaths[,n+2]<-x_deaths[,n+2] - x_deaths[,4] 
+  }
 }
 
 x_yll<- select(x, -Deaths)
 x_yll<-spread(x_yll,scenario, YLL)
-for (n in 1: nscen)
+for (n in 1: length(scen_shortened_name))
 {
-  
-  x_yll[,n+3]<-x_yll[,n+3] - x_yll[,3] 
-  
+  if (n !=2)
+  {
+  x_yll[,n+2]<-x_yll[,n+2] - x_yll[,4] 
+  }
 }
 
 
