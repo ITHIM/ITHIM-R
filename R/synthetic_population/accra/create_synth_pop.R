@@ -25,7 +25,7 @@ ind <- read_csv("data/synth_pop_data/accra/raw_data/trips/trips_Accra.csv")
 ind$participant_id <- as.numeric(as.factor(ind$participant_id))
 
 # Create new motorbike trips
-# Add 5 new people with 4 trips each
+# Add 4 new people with 3 trips each
 # Age: 15-59 and gender: male
 
 n <- 4
