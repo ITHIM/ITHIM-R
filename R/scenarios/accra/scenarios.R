@@ -55,7 +55,7 @@ bus_trips <- filter(rd, trip_mode == "Bus")
 # Copy pasted rob's code with minor adjustments
 modes <- list(bus.passenger='Bus',car.passenger='Taxi',pedestrian='Walking',car='Private Car',cyclist='Bicycle',motorcycle='Motorcycle')
 ## speeds
-speeds <- list(bus.passenger=15,car.passenger=21,pedestrian=4.8,car=21,cyclist=14.5,motorcycle=25,tuktuk=22)
+speeds <- list(bus.passenger = 15, car.passenger = 21, pedestrian = 4.8, car = 21, cyclist = 14.5, motorcycle = 25, tuktuk = 22)
 
 ## bus wait and walk times
 min_wait_time <- c(0,5,10,15,20,30)#exclusive
@@ -204,7 +204,7 @@ min_walk_time <- c(0,10,20,30,40,60)#exclusive
 max_walk_time <- c(10,20,30,40,60, max(subset(bus_trips, trip_mode == 'Bus')$trip_duration) + 1)#inclusive
 walk_time_proportion <- c(80.6,13.5,4.3,1.3,0.1,0)
 walk_rate <- 0.15
-min_bus_duration <- min(bus_trips$trip_duration) - 0.1
+min_bus_duration <- 5#min(bus_trips$trip_duration) - 0.1
 
 ## subtract wait and walk times, and add new walk journeys
 #bus_trips <- subset(bus_trips, trip_mode == 'Bus')
