@@ -51,11 +51,7 @@ rd <- filter(rd, age_cat != age_category[3])
 
 rd$scenario <- "Baseline"
 
-add_walk_trips <- function(rd, scen){
-  
-  rd <- filter(rd, scenario == scen)
-  # Divide bus trips into bus and walk trips
-  bus_trips <- filter(rd, trip_mode == "Bus")
+add_walk_trips <- function(bus_trips){
   
   # Copy pasted rob's code with minor adjustments
   modes <- list(bus.passenger='Bus',car.passenger='Taxi',pedestrian='Walking',car='Private Car',cyclist='Bicycle',motorcycle='Motorcycle')
@@ -89,35 +85,22 @@ add_walk_trips <- function(rd, scen){
   
   bus_trips$trip_distance <- (bus_trips$trip_duration / 60 ) * 15
   
-  
-  rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_trips$rid,]$trip_duration <- bus_trips$trip_duration
-  
-  rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_trips$rid,]$trip_distance <- bus_trips$trip_distance
-  
-  rd <- rbind(rd, walk_trips)
-  
-  rd
+  return(list(bus_trips, walk_trips))
   
 }
 
-rd <- add_walk_trips(rd, scen = "Baseline")
+bus_walk_trips <- add_walk_trips(filter(rd, trip_mode == "Bus"))
 
+rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_walk_trips[[1]]$rid,]$trip_duration <- bus_walk_trips[[1]]$trip_duration
+rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_walk_trips[[1]]$rid,]$trip_distance <- bus_walk_trips[[1]]$trip_distance
 
+rd <- rbind(rd, bus_walk_trips[[2]])
 
 # Create row_id columns for all trips
 rd$row_id <- 1:nrow(rd)
 
-# Redefine short walk as their own category (part of bus trips)
-# Don't apply to people without trips
-rd[duplicated(rd$trip_id) & rd$trip_id != 0 & rd$trip_mode != "99",]$trip_mode <- 'Short Walking'
-
-
 ###############################################################
 # Scenario 1
-
-#t_not_used <- filter(rd, trip_mode %in% c('99'))
-
-#rdr <- filter(rd, ! trip_mode %in% c('99'))
 
 rdr <- rd
 
@@ -215,7 +198,7 @@ min_walk_time <- c(0,10,20,30,40,60)#exclusive
 max_walk_time <- c(10,20,30,40,60, max(subset(bus_trips, trip_mode == 'Bus')$trip_duration) + 1)#inclusive
 walk_time_proportion <- c(80.6,13.5,4.3,1.3,0.1,0)
 walk_rate <- 0.15
-min_bus_duration <- min(bus_trips$trip_duration) - 0.1
+min_bus_duration <- 5
 
 ## subtract wait and walk times, and add new walk journeys
 #bus_trips <- subset(bus_trips, trip_mode == 'Bus')
