@@ -161,7 +161,7 @@ test_data_const$strike_distance <- 1
 rm(test_data)
 
 factors <- c('cas_mode','strike_mode','cas_severity','strike_male','cas_male')
-form_dist <- 'count~offset(I(log(cas_distance/area)))+offset(I(log(strike_distance/area)))'#+offset(I(cas_sin*log(total_cas_distance/area/area)))+offset(I(strike_sin*log(total_strike_distance/area/area)))+offset(I(2*log(area)))-log(total_cas_distance/area)-log(total_strike_distance/area)'
+form_dist <- 'count~offset(I(log(cas_distance)))+offset(I(log(strike_distance)))-offset(log(area))'#+offset(I(cas_sin*log(total_cas_distance/area/area)))+offset(I(strike_sin*log(total_strike_distance/area/area)))+offset(I(2*log(area)))-log(total_cas_distance/area)-log(total_strike_distance/area)'
 form_const <- form_dist
 for(i in 1:length(factors)) form_dist <- paste(c(form_dist,factors[i]),collapse='+')
 for(i in c(1:length(factors))[-c(1)]) form_dist <- paste(c(form_dist,paste(c(factors[i],factors[1]),collapse=':')),collapse='+')
