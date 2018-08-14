@@ -1,0 +1,71 @@
+---
+title: "Accra - process flow"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Scenario Creation - AA
+
+Read leandro’s created processed raw data (which already has domain specific duration and days) as:
+
+
+rd <- read.csv("data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv")
+
+Leandro has already removed >70 population from it
+
+(this has people without trips (trip_mode 99 and trip_id 0) as well)
+
+
+### Walk trips to Baseline
+
+* Add walk trips out of bus trips to baseline
+
+### Create scenarios
+
+* Scenario 1: Shift modes - 50% of all walking trips to Private Car
+
+* Scenario 1: Shift modes - 50% of all car trips less than 7km to cycle
+
+* Scenario 3: Shift and create new trips - 50% of all trips longer than 10km to Bus (as each bus trip might create a new short walking trip)
+
+* Save scenarios as: data/scenarios/accra/baseline_and_three_scenarios.csv
+(contains mode and duration of each trips for baseline and all three scenarios)
+
+## Physical Activity – AA
+
+Calculate total PA per individual
+1.	Multiply trips with AT by 6 (5 * 1.2) to get weekly trips. 
+2.	Sum them for each individual to get total PA
+
+## Air Pollution – RG
+* Ideally, air pollution calculations will account for four activity domains totalling to 24 hours: these include transport, work, leisure, and sleep. Each domain will have specific air inhalation rate which will be based on intensity of the activity.
+* In case work and leisure are not available, these columns will be left as NA and air pollution calculation will assume work and leisure time concentration same as background concentration-- sleep can still be calculated assuming X number of average sleeping hours
+* The background concentration for scenario is a function of the changing transport emission inventory. For this, the input sheet will include emission inventory classified by pre-specified vehicle categories. The emission estimates for scenarios will be revised based on scenario distances, and scenario background concentration will be calculated.
+* Emission calculation will be a part of the input sheet outside the modelling framework
+
+## Health – RG
+
+Identify PA and AP related diseases and then calculate their RR.
+
+Multiply PA’s and AP’s RR to get combined effect
+
+Normalize them – see a message from James below:
+
+*When adjusting AP for PA I think we should renormalize the values if we are using non-linear RRs. The epid studies didn’t allow for PA levels so they will be coming up with lower equivalent levels than we are. Thus I would suggest that for an average individual (how to define that is a challenge) we estimate the ratio of our modelled inhaled exposure to background and apply this to everyone. Does that make sense?*
+*The same would apply for diurnal patterns etc.*
+
+### Calculate disease specific burden 
+* Calculate PIFs – CRA for baseline and Scenario
+* Calculate disease burden (using GBD’s data) for deaths and YLLs
+
+
+
+
+
+
+
+
+
