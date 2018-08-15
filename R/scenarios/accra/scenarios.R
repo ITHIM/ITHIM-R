@@ -125,22 +125,29 @@ source_percentages <- c(0.16, 0.49)
 
 tt <- nrow(filter(rdr, ! trip_mode %in% c('99', 'Short Walking')))
 
-create_scenario <- function(rdr, scen_name, source_modes, target_modes, source_distance_cats, 
+create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, target_modes, source_distance_cats, 
                             source_trips, target_trips){
   
   local_source_trips <- list()
   
-  for (i in 1:length(source_modes)){
-    #if (nrow(filter(rdr, trip_mode == source_modes[i])) - round(source_percentages[i] * tt) > 0)
-    local_source_trips[i] <- nrow(filter(rdr, trip_mode == source_modes[i])) - source_trips[i]
+  # browser()
+  
+  if (!combined_modes){
     
-    print(local_source_trips[i])
-    #else
-    #  source_trips[i] <- round(source_percentages[i] * tt) - nrow(filter(rdr, trip_mode == source_modes[i]))
+    for (i in 1:length(source_modes)){
+      #if (nrow(filter(rdr, trip_mode == source_modes[i])) - round(source_percentages[i] * tt) > 0)
+      local_source_trips[i] <- nrow(filter(rdr, trip_mode == source_modes[i])) - source_trips[i]
+      
+      print(local_source_trips[i])
+      #else
+      #  source_trips[i] <- round(source_percentages[i] * tt) - nrow(filter(rdr, trip_mode == source_modes[i]))
+    }
+    local_source_trips <- purrr::flatten_dbl(local_source_trips)
   }
   
   
-  local_source_trips <- purrr::flatten_dbl(local_source_trips)
+  
+  
   
   mode_speeds <- data.frame(modes = c("Bus", "Private Car", "Taxi", "Walking", "Short Walking", "Bicycle", "Motorcycle"),
                             speed = c(15, 21, 21, 4.8, 4.8, 14.5, 25))
@@ -149,42 +156,47 @@ create_scenario <- function(rdr, scen_name, source_modes, target_modes, source_d
   
   all_samples <- NULL
   
-  for (i in 1:length(source_modes)){
+  if (!combined_modes){
     
-    sample <- filter(rdr, trip_mode == source_modes[i] & 
-                       trip_distance_cat %in% source_distance_cats) %>% sample_n(local_source_trips[i]) %>% 
-      mutate(trip_mode = target_modes[i],
-             trip_duration = (trip_distance * 60 ) / mode_speeds[mode_speeds$modes == source_modes[i],]$speed)
-    
-    
-    # Update selected rows for mode and duration
-    rdr[rdr$row_id %in% sample$row_id,]$trip_mode <- sample$trip_mode
-    rdr[rdr$row_id %in% sample$row_id,]$trip_duration <- sample$trip_duration
-    
-    
-    if (source_modes[i] == 'Bus'){
-      # Remove bus associated short walking trips that have been changed to Private Car trips
-      rdr <- rdr[!(rdr$trip_mode == 'Short Walking' & rdr$trip_id %in% sample$trip_id),]
-    }
-    
-    
-    # 
-    # if (is.null(all_samples))
-    #   all_samples <- sample
-    # else
-    #   all_samples <- rbind(all_samples, sample)
-    
-    
-  }  
+    for (i in 1:length(source_modes)){
+      
+      sample <- filter(rdr, trip_mode == source_modes[i] & 
+                         trip_distance_cat %in% source_distance_cats) %>% sample_n(local_source_trips[i]) %>% 
+        mutate(trip_mode = target_modes[i],
+               trip_duration = (trip_distance * 60 ) / mode_speeds[mode_speeds$modes == target_modes[i],]$speed)
+      
+      
+      # Update selected rows for mode and duration
+      rdr[rdr$row_id %in% sample$row_id,]$trip_mode <- sample$trip_mode
+      rdr[rdr$row_id %in% sample$row_id,]$trip_duration <- sample$trip_duration
+      
+      
+      if (source_modes[i] == 'Bus'){
+        # Remove bus associated short walking trips that have been changed to Private Car trips
+        rdr <- rdr[!(rdr$trip_mode == 'Short Walking' & rdr$trip_id %in% sample$trip_id),]
+      }
+      
+      
+    } 
+  }
   
-  
-  # all_samples$scenario <- scen_name
-  # 
-  # all_samples
-  
+  else {
+    
+    
+    sample <- filter(rdr, trip_mode %in% source_modes & 
+                       trip_distance_cat %in% source_distance_cats) %>% sample_n(source_trips[1]) %>% 
+      mutate(trip_mode = target_modes[1],
+             trip_duration = (trip_distance * 60 ) / mode_speeds[mode_speeds$modes == target_modes[1],]$speed)
+    
+    sample$scenario <- scen_name
+    
+    return(sample)
+  }
+   
+
   rdr$scenario <- scen_name
   
-  rdr
+  return(rdr)
   
 }
 
@@ -208,13 +220,6 @@ target_modes <- c('Bus')
 
 target_new_trips <- c(round(0.35 * tt) - nrow(filter(rdr, trip_mode == 'Bus')))
 
-# trip_mode <- c("Bus", "Private Car", "Taxi", "Walking",
-#                "Short Walking", "Bicycle", "Motorcycle")
-# speeds <- c(15, 21, 21, 4.8, 4.8, 14.5, 25)
-
-# 16 % Bus	1622
-# 49% walk	4969
-
 total_car_trips <- filter(rdr, (trip_mode %in% c(source_modes[1], source_modes[2])))
 
 
@@ -222,18 +227,13 @@ t_dc <- total_car_trips %>% group_by(trip_distance_cat) %>% summarise(count = n(
 
 long_trips <- sum(t_dc[t_dc$trip_distance_cat != dist_cat[1],]$count)
 
-long_car_trips_sample <- total_car_trips %>%  filter(trip_distance_cat %in% c(dist_cat[2], dist_cat[3]) ) %>% 
-  sample_n(long_trips) %>% 
-  mutate(trip_mode = target_modes[1],
-         # Recalculate trip duration for Private car trips
-         trip_duration = (trip_distance * 60 ) / 15)
+long_car_trips_sample <- create_scenario(total_car_trips, scen_name = 'Scenario 2', source_modes = source_modes, combined_modes = T, 
+                                     target_modes = target_modes, source_distance_cats = c(dist_cat[2], dist_cat[3]), 
+                                     source_trips = c(long_trips))
 
-
-short_car_trips_sample <- total_car_trips %>%  filter(trip_distance_cat %in% c(dist_cat[1]) ) %>% 
-  sample_n(target_new_trips[1] - long_trips) %>% 
-  mutate(trip_mode = target_modes[1],
-         # Recalculate trip duration for Private car trips
-         trip_duration = (trip_distance * 60 ) / 15)
+short_car_trips_sample <- create_scenario(total_car_trips, scen_name = 'Scenario 2', source_modes = source_modes, combined_modes = T, 
+                                                  target_modes = target_modes, source_distance_cats = dist_cat[1], 
+                                                  source_trips = c(target_new_trips[1] - long_trips))
 
 car_trips_sample <- rbind(long_car_trips_sample, short_car_trips_sample)
 
@@ -257,7 +257,6 @@ rdr <- rbind(rdr, bus_walk_trips[[2]])
 rdr$scenario <- "Scenario 2"
 
 rdfinal <- rbind(rdfinal, rdr)
-
 
 ###############################################################
 # Scenario 3
