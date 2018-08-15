@@ -1,145 +1,145 @@
 age_cat,sex,scenario,variable,value
 15-49,Female,Baseline,Bicycle,0.21739130434782608
-15-49,Female,Scenario 1,Bicycle,0.23817080648836386
-15-49,Female,Scenario 2,Bicycle,0.18361809509608662
-15-49,Female,Scenario 3,Bicycle,0.24572492733724197
-15-49,Female,Scenario 4,Bicycle,5.485398589294809
-15-49,Female,Scenario 5,Bicycle,0.23564339842166981
+15-49,Female,Scenario 1,Bicycle,0.24303504370369236
+15-49,Female,Scenario 2,Bicycle,0.17177417962052605
+15-49,Female,Scenario 3,Bicycle,0.25051069609652726
+15-49,Female,Scenario 4,Bicycle,6.523772758406443
+15-49,Female,Scenario 5,Bicycle,0.23872218455364524
 15-49,Male,Baseline,Bicycle,9.782608695652172
-15-49,Male,Scenario 1,Bicycle,10.717686291976374
-15-49,Male,Scenario 2,Bicycle,8.262814279323898
-15-49,Male,Scenario 3,Bicycle,11.057621730175889
-15-49,Male,Scenario 4,Bicycle,16.061125415071302
-15-49,Male,Scenario 5,Bicycle,10.603952928975142
+15-49,Male,Scenario 1,Bicycle,10.936576966666156
+15-49,Male,Scenario 2,Bicycle,7.7298380829236715
+15-49,Male,Scenario 3,Bicycle,11.272981324343727
+15-49,Male,Scenario 4,Bicycle,17.26161398555013
+15-49,Male,Scenario 5,Bicycle,10.742498304914035
 50-69,Female,Baseline,Bicycle,0
 50-69,Female,Scenario 1,Bicycle,0
 50-69,Female,Scenario 2,Bicycle,0
 50-69,Female,Scenario 3,Bicycle,0
-50-69,Female,Scenario 4,Bicycle,1.1862646599314344
+50-69,Female,Scenario 4,Bicycle,2.3512855860508077
 50-69,Female,Scenario 5,Bicycle,0
 50-69,Male,Baseline,Bicycle,0
 50-69,Male,Scenario 1,Bicycle,0
 50-69,Male,Scenario 2,Bicycle,0
 50-69,Male,Scenario 3,Bicycle,0
-50-69,Male,Scenario 4,Bicycle,1.5247215278290076
+50-69,Male,Scenario 4,Bicycle,1.8258156684201037
 50-69,Male,Scenario 5,Bicycle,0
-15-49,Female,Baseline,Bus,3.5453073306820015
-15-49,Female,Scenario 1,Bus,3.0263988305780223
-15-49,Female,Scenario 2,Bus,3.029974984440184
-15-49,Female,Scenario 3,Bus,3.2101698983783757
-15-49,Female,Scenario 4,Bus,2.914737102463218
-15-49,Female,Scenario 5,Bus,2.9803690348966745
-15-49,Male,Baseline,Bus,3.745044375274862
-15-49,Male,Scenario 1,Bus,3.0469969714658482
-15-49,Male,Scenario 2,Bus,3.585449899587645
-15-49,Male,Scenario 3,Bus,3.232018813720451
-15-49,Male,Scenario 4,Bus,2.934575256271929
-15-49,Male,Scenario 5,Bus,3.0006538898398643
-50-69,Female,Baseline,Bus,0.8178049442002359
-50-69,Female,Scenario 1,Bus,0.6729215866429684
-50-69,Female,Scenario 2,Bus,0.7139091699948819
-50-69,Female,Scenario 3,Bus,0.7137831932738655
-50-69,Female,Scenario 4,Bus,0.6480935347381378
-50-69,Female,Scenario 5,Bus,0.6626868340948951
-50-69,Male,Baseline,Bus,0.7918433498429008
-50-69,Male,Scenario 1,Bus,0.5840532788813086
-50-69,Male,Scenario 2,Bus,0.8005989793928341
-50-69,Male,Scenario 3,Bus,0.6195185631088392
-50-69,Male,Scenario 4,Bus,0.5625041037454761
-50-69,Male,Scenario 5,Bus,0.5751701624783085
+15-49,Female,Baseline,Bus,3.6256787102345758
+15-49,Female,Scenario 1,Bus,3.2387226226942176
+15-49,Female,Scenario 2,Bus,2.7888792919207286
+15-49,Female,Scenario 3,Bus,3.445458613650829
+15-49,Female,Scenario 4,Bus,3.09032196850451
+15-49,Female,Scenario 5,Bus,3.156325670761098
+15-49,Male,Baseline,Bus,3.7553352199480003
+15-49,Male,Scenario 1,Bus,3.1574250663437797
+15-49,Male,Scenario 2,Bus,3.2871802960883234
+15-49,Male,Scenario 3,Bus,3.358971625282753
+15-49,Male,Scenario 4,Bus,3.0127495260189923
+15-49,Male,Scenario 5,Bus,3.0770964208460274
+50-69,Female,Baseline,Bus,0.7491890312241368
+50-69,Female,Scenario 1,Bus,0.612243098046113
+50-69,Female,Scenario 2,Bus,0.66328079257922
+50-69,Female,Scenario 3,Bus,0.6513241489190699
+50-69,Female,Scenario 4,Bus,0.5841896686982195
+50-69,Female,Scenario 5,Bus,0.5966669061340301
+50-69,Male,Baseline,Bus,0.769797038593287
+50-69,Male,Scenario 1,Bus,0.6106318857386615
+50-69,Male,Scenario 2,Bus,0.7680366007574271
+50-69,Male,Scenario 3,Bus,0.6496100887880077
+50-69,Male,Scenario 4,Bus,0.5826522833245068
+50-69,Male,Scenario 5,Bus,0.5950966849822029
 15-49,Female,Baseline,Motorcycle,2.5318275154004106
-15-49,Female,Scenario 1,Motorcycle,2.8882674296025
-15-49,Female,Scenario 2,Motorcycle,2.028169485768401
-15-49,Female,Scenario 3,Motorcycle,33.684585909471174
-15-49,Female,Scenario 4,Motorcycle,1.9137590734255858
-15-49,Female,Scenario 5,Motorcycle,2.8446018906918886
+15-49,Female,Scenario 1,Motorcycle,2.972473953182251
+15-49,Female,Scenario 2,Motorcycle,1.8665086965914721
+15-49,Female,Scenario 3,Motorcycle,40.469194283380176
+15-49,Female,Scenario 4,Motorcycle,1.565539185297804
+15-49,Female,Scenario 5,Motorcycle,2.8972877578295795
 15-49,Male,Baseline,Motorcycle,34.77043121149897
-15-49,Male,Scenario 1,Motorcycle,39.665539366541
-15-49,Male,Scenario 2,Motorcycle,27.85352760455271
-15-49,Male,Scenario 3,Motorcycle,65.73763187246381
-15-49,Male,Scenario 4,Motorcycle,29.23266984657582
-15-49,Male,Scenario 5,Motorcycle,39.06586596550194
+15-49,Male,Scenario 1,Motorcycle,40.82197562370291
+15-49,Male,Scenario 2,Motorcycle,25.633386099856217
+15-49,Male,Scenario 3,Motorcycle,74.44596493104137
+15-49,Male,Scenario 4,Motorcycle,27.74483333944442
+15-49,Male,Scenario 5,Motorcycle,39.78941854085956
 50-69,Female,Baseline,Motorcycle,1.2659137577002053
-50-69,Female,Scenario 1,Motorcycle,1.44413371480125
-50-69,Female,Scenario 2,Motorcycle,1.0140847428842006
-50-69,Female,Scenario 3,Motorcycle,8.685980912248354
-50-69,Female,Scenario 4,Motorcycle,0.9568795367127929
-50-69,Female,Scenario 5,Motorcycle,1.4223009453459443
+50-69,Female,Scenario 1,Motorcycle,1.4862369765911254
+50-69,Female,Scenario 2,Motorcycle,0.9332543482957361
+50-69,Female,Scenario 3,Motorcycle,9.393076958593296
+50-69,Female,Scenario 4,Motorcycle,0
+50-69,Female,Scenario 5,Motorcycle,1.4486438789147897
 50-69,Male,Baseline,Motorcycle,2.5318275154004106
-50-69,Male,Scenario 1,Motorcycle,2.8882674296025
-50-69,Male,Scenario 2,Motorcycle,2.028169485768401
-50-69,Male,Scenario 3,Motorcycle,15.019608471502174
-50-69,Male,Scenario 4,Motorcycle,1.1163594594982582
-50-69,Male,Scenario 5,Motorcycle,2.8446018906918886
-15-49,Female,Baseline,Pedestrian,72.05535595907905
-15-49,Female,Scenario 1,Pedestrian,76.41210842939785
-15-49,Female,Scenario 2,Pedestrian,58.995115603948044
-15-49,Female,Scenario 3,Pedestrian,78.85982529622343
-15-49,Female,Scenario 4,Pedestrian,74.77449032990263
-15-49,Female,Scenario 5,Pedestrian,78.44740642726089
-15-49,Male,Baseline,Pedestrian,69.67101592373648
-15-49,Male,Scenario 1,Pedestrian,73.87837112227818
-15-49,Male,Scenario 2,Pedestrian,59.047125848334446
-15-49,Male,Scenario 3,Pedestrian,76.24492452338848
-15-49,Male,Scenario 4,Pedestrian,72.29505454853316
-15-49,Male,Scenario 5,Pedestrian,74.9355549131832
-50-69,Female,Baseline,Pedestrian,8.696157204855036
-50-69,Female,Scenario 1,Pedestrian,8.47370381028866
-50-69,Female,Scenario 2,Pedestrian,7.291876129890688
-50-69,Female,Scenario 3,Pedestrian,8.74514282914641
-50-69,Female,Scenario 4,Pedestrian,8.292100514492786
-50-69,Female,Scenario 5,Pedestrian,8.910678303964827
-50-69,Male,Baseline,Pedestrian,9.577470912329423
-50-69,Male,Scenario 1,Pedestrian,9.498747592333116
-50-69,Male,Scenario 2,Pedestrian,8.438197467491507
-50-69,Male,Scenario 3,Pedestrian,9.803021943262133
-50-69,Male,Scenario 4,Pedestrian,9.295176178070756
-50-69,Male,Scenario 5,Pedestrian,10.18317937392606
+50-69,Male,Scenario 1,Motorcycle,2.972473953182251
+50-69,Male,Scenario 2,Motorcycle,1.8665086965914721
+50-69,Male,Scenario 3,Motorcycle,17.214824460832862
+50-69,Male,Scenario 4,Motorcycle,2.4352831771299175
+50-69,Male,Scenario 5,Motorcycle,2.8972877578295795
+15-49,Female,Baseline,Pedestrian,72.62240248926135
+15-49,Female,Scenario 1,Pedestrian,78.65036582633411
+15-49,Female,Scenario 2,Pedestrian,55.59173860018532
+15-49,Female,Scenario 3,Pedestrian,81.09629884502007
+15-49,Female,Scenario 4,Pedestrian,76.52816294257406
+15-49,Female,Scenario 5,Pedestrian,80.13121939010301
+15-49,Male,Baseline,Pedestrian,69.91300167339409
+15-49,Male,Scenario 1,Pedestrian,76.07754398811595
+15-49,Male,Scenario 2,Pedestrian,55.12526136995721
+15-49,Male,Scenario 3,Pedestrian,78.44346530159014
+15-49,Male,Scenario 4,Pedestrian,74.02476290382373
+15-49,Male,Scenario 5,Pedestrian,79.0080857704036
+50-69,Female,Baseline,Pedestrian,7.847236172503522
+50-69,Female,Scenario 1,Pedestrian,8.16357657252582
+50-69,Female,Scenario 2,Pedestrian,6.318248266423753
+50-69,Female,Scenario 3,Pedestrian,8.417454113711095
+50-69,Female,Scenario 4,Pedestrian,7.943300855280401
+50-69,Female,Scenario 5,Pedestrian,9.613225530486117
+50-69,Male,Baseline,Pedestrian,9.617359664841041
+50-69,Male,Scenario 1,Pedestrian,9.731311788707917
+50-69,Male,Scenario 2,Pedestrian,7.616200950786886
+50-69,Male,Scenario 3,Pedestrian,10.033944034204213
+50-69,Male,Scenario 4,Pedestrian,9.468734269534455
+50-69,Male,Scenario 5,Pedestrian,11.582263064090691
 15-49,Female,Baseline,Car,6.9870713884204605
-15-49,Female,Scenario 1,Car,11.612769367703317
-15-49,Female,Scenario 2,Car,3.8784439898295653
-15-49,Female,Scenario 3,Car,10.87992872830796
-15-49,Female,Scenario 4,Car,11.031431540956266
-15-49,Female,Scenario 5,Car,11.01660842219876
+15-49,Female,Scenario 1,Car,12.545786473565833
+15-49,Female,Scenario 2,Car,3.3236853546736818
+15-49,Female,Scenario 3,Car,11.439452269098693
+15-49,Female,Scenario 4,Car,11.78497393198736
+15-49,Female,Scenario 5,Car,11.639149459941562
 15-49,Male,Baseline,Car,10.481490403918736
-15-49,Male,Scenario 1,Car,15.15197134759772
-15-49,Male,Scenario 2,Car,4.964458799114675
-15-49,Male,Scenario 3,Car,13.489560601813233
-15-49,Male,Scenario 4,Car,14.543616344785939
-15-49,Male,Scenario 5,Car,14.664360522158526
+15-49,Male,Scenario 1,Car,16.251658544539225
+15-49,Male,Scenario 2,Car,3.463209264396662
+15-49,Male,Scenario 3,Car,13.871437322712493
+15-49,Male,Scenario 4,Car,15.388771579223333
+15-49,Male,Scenario 5,Car,15.32358334512638
 50-69,Female,Baseline,Car,1.9168071950534007
-50-69,Female,Scenario 1,Car,2.934108998500302
-50-69,Female,Scenario 2,Car,0.888264648885705
-50-69,Female,Scenario 3,Car,2.7631063523943085
-50-69,Female,Scenario 4,Car,2.813668325478734
-50-69,Female,Scenario 5,Car,2.866210450876458
+50-69,Female,Scenario 1,Car,3.1395420315973452
+50-69,Female,Scenario 2,Car,0.7032810898196356
+50-69,Female,Scenario 3,Car,2.98613060701195
+50-69,Female,Scenario 4,Car,2.9221867348695167
+50-69,Female,Scenario 5,Car,2.9804857464192946
 50-69,Male,Baseline,Car,2.6146310126074037
-50-69,Male,Scenario 1,Car,3.6650509397493543
-50-69,Male,Scenario 2,Car,1.0855753021305838
-50-69,Male,Scenario 3,Car,3.0467358791833186
-50-69,Male,Scenario 4,Car,3.553492947967294
-50-69,Male,Scenario 5,Car,3.578902548401106
-15-49,Female,Baseline,total,85.33695349792976
-15-49,Female,Scenario 1,total,94.17771486377005
-15-49,Female,Scenario 2,total,68.11532215908228
-15-49,Female,Scenario 3,total,126.88023475971819
-15-49,Female,Scenario 4,total,96.11981663604251
-15-49,Female,Scenario 5,total,95.52462917346988
-15-49,Male,Baseline,total,128.4505906100812
-15-49,Male,Scenario 1,total,142.4605650998591
-15-49,Male,Scenario 2,total,103.71337643091337
-15-49,Male,Scenario 3,total,169.76175754156185
-15-49,Male,Scenario 4,total,135.06704141123814
-15-49,Male,Scenario 5,total,142.27038821965868
-50-69,Female,Baseline,total,12.696683101808878
-50-69,Female,Scenario 1,total,13.52486811023318
-50-69,Female,Scenario 2,total,9.908134691655475
-50-69,Female,Scenario 3,total,20.90801328706294
-50-69,Female,Scenario 4,total,13.897006571353884
-50-69,Female,Scenario 5,total,13.861876534282125
-50-69,Male,Baseline,total,15.515772790180138
-50-69,Male,Scenario 1,total,16.63611924056628
-50-69,Male,Scenario 2,total,12.352541234783327
-50-69,Male,Scenario 3,total,28.488884857056465
-50-69,Male,Scenario 4,total,16.052254217110793
-50-69,Male,Scenario 5,total,17.181853975497365
+50-69,Male,Scenario 1,Car,3.8204630424948314
+50-69,Male,Scenario 2,Car,0.661591774844954
+50-69,Male,Scenario 3,Car,2.987423701022202
+50-69,Male,Scenario 4,Car,3.6247502464568235
+50-69,Male,Scenario 5,Car,3.6235423704763337
+15-49,Female,Baseline,total,85.98437140766463
+15-49,Female,Scenario 1,total,97.6503839194801
+15-49,Female,Scenario 2,total,63.74258612299173
+15-49,Female,Scenario 3,total,136.70091470724628
+15-49,Female,Scenario 4,total,99.49277078677017
+15-49,Female,Scenario 5,total,98.0627044631889
+15-49,Male,Baseline,total,128.70286720441197
+15-49,Male,Scenario 1,total,147.24518018936803
+15-49,Male,Scenario 2,total,95.23887511322208
+15-49,Male,Scenario 3,total,181.39282050497047
+15-49,Male,Scenario 4,total,137.4327313340606
+15-49,Male,Scenario 5,total,147.9406823821496
+50-69,Female,Baseline,total,11.779146156481264
+50-69,Female,Scenario 1,total,13.401598678760402
+50-69,Female,Scenario 2,total,8.618064497118345
+50-69,Female,Scenario 3,total,21.44798582823541
+50-69,Female,Scenario 4,total,13.800962844898946
+50-69,Female,Scenario 5,total,14.63902206195423
+50-69,Male,Baseline,total,15.533615231442143
+50-69,Male,Scenario 1,total,17.13488067012366
+50-69,Male,Scenario 2,total,10.91233802298074
+50-69,Male,Scenario 3,total,30.885802284847284
+50-69,Male,Scenario 4,total,17.937235644865805
+50-69,Male,Scenario 5,total,18.69818987737881
