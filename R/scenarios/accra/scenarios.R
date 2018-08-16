@@ -152,7 +152,7 @@ create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, ta
       
       sample <- filter(rdr, trip_mode == source_modes[i] & 
                          trip_distance_cat %in% source_distance_cats) %>% sample_n(local_source_trips[i]) %>% 
-        mutate(trip_mode = target_modes[i],
+        mutate(trip_mode = target_modes[1],
                trip_duration = (trip_distance * 60 ) / mode_speeds[mode_speeds$modes == target_modes[i],]$speed)
       
       
@@ -202,11 +202,17 @@ source_percentages <- c(0.16, 0.49)
 
 tt <- nrow(filter(rdr, ! trip_mode %in% c('99', 'Short Walking')))
 
-rdfinal <- rbind(rd, create_scenario(rdr, scen_name = 'Scenario 1', source_modes = source_modes, 
-                                     target_modes = target_modes, source_distance_cats = dist_cat, 
-                                     source_trips = c(round(source_percentages[1] * tt), 
-                                                      round(source_percentages[2] * tt)))
-)
+rdr <- create_scenario(rdr, scen_name = 'Scenario 1', source_modes = source_modes, 
+                      target_modes = target_modes, source_distance_cats = dist_cat, 
+                      source_trips = c(round(source_percentages[1] * tt), 
+                                       round(source_percentages[2] * tt)))
+
+rdfinal <- rbind(rd, rdr)
+
+
+rdr %>% filter(rdfinal, scenario == 'Scenario 1' & ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified")) %>% 
+  group_by(trip_mode) %>%  summarise(count = n(), pert = n() / nrow(.) * 100)
+
 
 ###############################################################
 # Scenario 2
