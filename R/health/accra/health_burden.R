@@ -1,10 +1,10 @@
 # Clear workspace and load libraries
-source("R/scenarios/accra/setup.R")
+#source("R/scenarios/accra/setup.R")
 
 # Load all health related functions
 source("R/PA/code/functions.R")
 
-ind <- read_csv("data/synth_pop_data/accra/RR/RR_PA_AP_calculations.csv")
+ind <- RR_PA_AP_calculations[[INDEX]]
 
 # Redefine age_cat to match with GBD's
 # Make age category
@@ -81,9 +81,9 @@ for ( j in 1:nrow(disease_lt)){
       
       
       # Subset to get yll
-      yll <- as.data.frame(yll_dfs[1])
+      local_ylls <- as.data.frame(yll_dfs[1])
       # Subset to get yll_reductions
-      yll_red <- as.data.frame(yll_dfs[2])
+      local_ylls_red <- as.data.frame(yll_dfs[2])
       
       # Calculate deaths (total and red)
       death_dfs <- combine_health_and_pif(
@@ -95,60 +95,60 @@ for ( j in 1:nrow(disease_lt)){
         hm_cn <- 'value_gama')
       
       # Subset to get yll
-      deaths <- as.data.frame(death_dfs[1])
+      local_deaths <- as.data.frame(death_dfs[1])
       # Subset to get yll_reductions
-      deaths_red <- as.data.frame(death_dfs[2])
+      local_deaths_red <- as.data.frame(death_dfs[2])
       # Remove baseline vars
-      #deaths <- select(deaths, -one_of(base_var))
-      #deaths_red <- select(deaths_red, -one_of(base_var))
-      #yll <- select(yll, -one_of(base_var))
-      #yll_red <- select(yll_red, -one_of(base_var))
+      #local_deaths <- select(local_deaths, -one_of(base_var))
+      #local_deaths_red <- select(local_deaths_red, -one_of(base_var))
+      #local_ylls <- select(local_ylls, -one_of(base_var))
+      #local_ylls_red <- select(local_ylls_red, -one_of(base_var))
       
       if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] == 1){
         # Rename var names
-        deaths <- rename(deaths, !! paste0(scen, '_deaths_pa_ap_',ac) := scen_var)
-        deaths_red <- rename(deaths_red, !! paste0(scen, '_deaths_red_pa_ap_',ac) := scen_var)
-        yll <- rename(yll, !! paste0(scen, '_ylls_pa_ap_',ac) := scen_var)
-        yll_red <- rename(yll_red, !! paste0(scen, '_ylls_red_pa_ap_',ac) := scen_var)
+        local_deaths <- rename(local_deaths, !! paste0(scen, '_deaths_pa_ap_',ac) := scen_var)
+        local_deaths_red <- rename(local_deaths_red, !! paste0(scen, '_deaths_red_pa_ap_',ac) := scen_var)
+        local_ylls <- rename(local_ylls, !! paste0(scen, '_ylls_pa_ap_',ac) := scen_var)
+        local_ylls_red <- rename(local_ylls_red, !! paste0(scen, '_ylls_red_pa_ap_',ac) := scen_var)
         
       }else if (disease_lt$physical_activity[j] == 1 & disease_lt$air_pollution[j] != 1){
         # Rename var names
-        deaths <- rename(deaths, !! paste0(scen, '_deaths_pa_',ac) := scen_var)
-        deaths_red <- rename(deaths_red, !! paste0(scen, '_deaths_red_pa_',ac) := scen_var)
-        yll <- rename(yll, !! paste0(scen, '_ylls_pa_',ac) := scen_var)
-        yll_red <- rename(yll_red, !! paste0(scen, '_ylls_red_pa_',ac) := scen_var)
+        local_deaths <- rename(local_deaths, !! paste0(scen, '_deaths_pa_',ac) := scen_var)
+        local_deaths_red <- rename(local_deaths_red, !! paste0(scen, '_deaths_red_pa_',ac) := scen_var)
+        local_ylls <- rename(local_ylls, !! paste0(scen, '_ylls_pa_',ac) := scen_var)
+        local_ylls_red <- rename(local_ylls_red, !! paste0(scen, '_ylls_red_pa_',ac) := scen_var)
         
       }else if (disease_lt$physical_activity[j] != 1 & disease_lt$air_pollution[j] == 1){
         # Rename var names
-        deaths <- rename(deaths, !! paste0(scen, '_deaths_ap_',ac) := scen_var)
-        deaths_red <- rename(deaths_red, !! paste0(scen, '_deaths_red_ap_',ac) := scen_var)
-        yll <- rename(yll, !! paste0(scen, '_ylls_ap_',ac) := scen_var)
-        yll_red <- rename(yll_red, !! paste0(scen, '_ylls_red_ap_',ac) := scen_var)
+        local_deaths <- rename(local_deaths, !! paste0(scen, '_deaths_ap_',ac) := scen_var)
+        local_deaths_red <- rename(local_deaths_red, !! paste0(scen, '_deaths_red_ap_',ac) := scen_var)
+        local_ylls <- rename(local_ylls, !! paste0(scen, '_ylls_ap_',ac) := scen_var)
+        local_ylls_red <- rename(local_ylls_red, !! paste0(scen, '_ylls_red_ap_',ac) := scen_var)
         
       }
       
-      deaths <- select(deaths, -contains("RR_"))
-      deaths_red <- select(deaths_red, -contains("RR_"))
-      yll <- select(yll, -contains("RR_"))
-      yll_red <- select(yll_red, -contains("RR_"))
+      local_deaths <- select(local_deaths, -contains("RR_"))
+      local_deaths_red <- select(local_deaths_red, -contains("RR_"))
+      local_ylls <- select(local_ylls, -contains("RR_"))
+      local_ylls_red <- select(local_ylls_red, -contains("RR_"))
       
-      #deaths[[base_var]] <- deaths_red[[base_var]] <- yll[[base_var]] <- yll_red[[base_var]] <- 0
+      #deaths[[base_var]] <- local_deaths_red[[base_var]] <- local_ylls[[base_var]] <- local_ylls_red[[base_var]] <- 0
       
       if (index == 1){
         
         # If global vars are not initiliazed, copy vars
-        gdeaths <- deaths
-        gdeaths_red <- deaths_red
-        gylls <- yll
-        gylls_red <- yll_red
+        gdeaths <- local_deaths
+        gdeaths_red <- local_deaths_red
+        gylls <- local_ylls
+        gylls_red <- local_ylls_red
 
       }else{
         # global vars are already initialized. Join new datasets with old ones.
         
-        gdeaths <- left_join(gdeaths, deaths)
-        gdeaths_red <- left_join(gdeaths_red, deaths_red)
-        gylls <- left_join(gylls, yll)
-        gylls_red <- left_join(gylls_red, yll_red)
+        gdeaths <- left_join(gdeaths, local_deaths)
+        gdeaths_red <- left_join(gdeaths_red, local_deaths_red)
+        gylls <- left_join(gylls, local_ylls)
+        gylls_red <- left_join(gylls_red, local_ylls_red)
 
       }
       
@@ -163,9 +163,8 @@ for ( j in 1:nrow(disease_lt)){
 gdeaths[,names(select(gdeaths, contains("scen1_")))] <- 0
 
 
-
 # read injuries dataset for both ylls and deaths
-inj <- read_csv("R/injuries/accra/deaths_yll_injuries.csv")
+inj <- deaths_yll_injuries[[INDEX]] # read_csv("R/injuries/accra/deaths_yll_injuries.csv")
 
 # rename columns
 inj <- rename(inj, age.band = age_cat, gender = sex)
@@ -180,8 +179,17 @@ inj_ylls <- select(inj, c(age.band, gender, contains("yll")))
 gdeaths <- left_join(gdeaths, inj_deaths)
 gylls <- left_join(gylls, inj_ylls)
 
+
+deaths[[INDEX]] <- gdeaths
+
+deaths_red[[INDEX]] <- gdeaths_red
+
+ylls[[INDEX]] <- gylls
+
+ylls_red[[INDEX]] <- gylls_red
+
 # Write ylls and deaths datasets
-write_csv(gdeaths, "data/scenarios/accra/health_burden/total_deaths.csv")
-write_csv(gdeaths_red, "data/scenarios/accra/health_burden/total_deaths_red.csv")
-write_csv(gylls, "data/scenarios/accra/health_burden/total_ylls.csv")
-write_csv(gylls_red, "data/scenarios/accra/health_burden/total_ylls_red.csv")
+#write_csv(gdeaths, "data/scenarios/accra/health_burden/total_deaths.csv")
+#write_csv(gdeaths_red, "data/scenarios/accra/health_burden/total_deaths_red.csv")
+#write_csv(gylls, "data/scenarios/accra/health_burden/total_ylls.csv")
+#write_csv(gylls_red, "data/scenarios/accra/health_burden/total_ylls_red.csv")

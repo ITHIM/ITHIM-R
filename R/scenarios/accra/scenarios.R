@@ -1,10 +1,3 @@
-rm (list = ls())
-# Load packages
-library(tidyverse)
-library(haven)
-library(plotly)
-library(ReIns)
-
 # set seed
 set.seed(1)
 
@@ -71,9 +64,9 @@ add_walk_trips <- function(bus_trips, ln_mean, ln_sd){
   
   bus_trips$trip_duration <- bus_trips$trip_duration - walk_trips$trip_duration
   
-  print(summary(bus_trips$trip_duration))
+  # print(summary(bus_trips$trip_duration))
   
-  print(summary(walk_trips$trip_duration))
+  # print(summary(walk_trips$trip_duration))
   
   # Corrrect walk trips distance
   walk_trips$trip_distance <- (walk_trips$trip_duration / 60) * 4.8
@@ -98,7 +91,7 @@ add_walk_trips <- function(bus_trips, ln_mean, ln_sd){
   
 }
 
-bus_walk_trips <- add_walk_trips(filter(rd, trip_mode == "Bus"), ln_mean = 5, ln_sd = 1.2)
+bus_walk_trips <- add_walk_trips(filter(rd, trip_mode == "Bus"), ln_mean = MEAN_BUS_WALK_TIME, ln_sd = 1.2)
 
 rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_walk_trips[[1]]$rid,]$trip_duration <- bus_walk_trips[[1]]$trip_duration
 rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_walk_trips[[1]]$rid,]$trip_distance <- bus_walk_trips[[1]]$trip_distance
@@ -128,7 +121,7 @@ create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, ta
       #if (nrow(filter(rdr, trip_mode == source_modes[i])) - round(source_percentages[i] * tt) > 0)
       local_source_trips[i] <- nrow(filter(rdr, trip_mode == source_modes[i])) - source_trips[i]
       
-      print(local_source_trips[i])
+      # print(local_source_trips[i])
       #else
       #  source_trips[i] <- round(source_percentages[i] * tt) - nrow(filter(rdr, trip_mode == source_modes[i]))
     }
@@ -209,9 +202,8 @@ rdr <- create_scenario(rdr, scen_name = 'Scenario 1', source_modes = source_mode
 
 rdfinal <- rbind(rd, rdr)
 
-
-rdr %>% filter(rdfinal, scenario == 'Scenario 1' & ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified")) %>% 
-  group_by(trip_mode) %>%  summarise(count = n(), pert = n() / nrow(.) * 100)
+#rdr %>% filter(rdfinal, scenario == 'Scenario 1' & ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified")) %>% 
+#  group_by(trip_mode) %>%  summarise(count = n(), pert = n() / nrow(.) * 100)
 
 
 ###############################################################
@@ -250,7 +242,7 @@ car_trips_sample <- rbind(long_car_trips_sample, short_car_trips_sample)
 # Divide bus trips into bus and walk trips
 bus_trips <- car_trips_sample
 
-bus_walk_trips <- add_walk_trips(bus_trips, ln_mean = 5, ln_sd = 1.2)
+bus_walk_trips <- add_walk_trips(bus_trips, ln_mean = MEAN_BUS_WALK_TIME, ln_sd = 1.2)
 
 # Update selected rows for mode and duration
 rdr[rdr$row_id %in% bus_walk_trips[[1]]$row_id,]$trip_mode <- bus_walk_trips[[1]]$trip_mode
@@ -363,6 +355,12 @@ rdr %>% group_by(trip_mode) %>% summarise(c = n(), p = n() / nrow(rdr) * 100)
 rdr$scenario <- "Scenario 5"
 
 rdfinal <- rbind(rdfinal, rdr)
+
+
+
+bs[[INDEX]] <- rdfinal
+
+# cat(" INDEX IS ", )
 ##########################################################
 
-write_csv(rdfinal, "data/scenarios/accra/baseline_and_scenarios.csv")
+#write_csv(rdfinal, "data/scenarios/accra/baseline_and_scenarios.csv")

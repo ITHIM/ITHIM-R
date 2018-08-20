@@ -1,7 +1,9 @@
-source("R/scenarios/accra/setup.R")
+# source("R/scenarios/accra/setup.R")
+
+source("R/drpa/dose_response.R")
 
 # Read the ind file with pa mmet
-ind <- read_csv("data/synth_pop_data/accra/pa/pa_total_mmet_weekly.csv")
+ind <- mmets[[INDEX]]#read_csv("data/synth_pop_data/accra/pa/pa_total_mmet_weekly.csv")
 
 # Read disease lt
 disease_lt <- read.csv("data/dose_response/disease_outcomes_lookup.csv")
@@ -69,4 +71,4 @@ for ( j in 1:nrow(disease_lt)){
   
 }
 
-write_csv(ind, "data/synth_pop_data/accra/RR/RR_PA_calculations.csv")
+RR_PA_calculations[[INDEX]] <- ind

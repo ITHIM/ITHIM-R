@@ -1,10 +1,10 @@
 # Clear workspace
-rm (list = ls())
+#rm (list = ls())
 
 # load libraries
-require(tidyverse)
-library(readr)
-library(dplyr)
+#require(tidyverse)
+#library(readr)
+#library(dplyr)
 
 # source
 source("R/PA/code/functions.R")
@@ -12,14 +12,14 @@ source("R/PA/code/functions.R")
 # ap_rr_pa_total_mmet_weekly <- read.csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_total_mmet_weekly.csv")
 
 # Read scenario data
-rd <- read.csv("data/scenarios/accra/baseline_and_scenarios.csv")
+rd <- bs[[INDEX]] #read.csv("data/scenarios/accra/baseline_and_scenarios.csv")
 
 # Create dummy ind pop
 ind <- rd %>% group_by(participant_id) %>% summarise(sex = first(sex),
                                                      age = first(age),
                                                      age_cat = first(age_cat))
 ## number of scenarios
-rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
+#rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
 dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
 nscen<- length(unique(dataset$scenario)) -1
 
@@ -31,10 +31,8 @@ for (i in 2: (nscen+1))
   scen_shortened_name[i]<- paste0("scen", i-1) 
 }
 
-str(ind)
 ## disease outcome lookup table for PA and AP
 disease_outcomes_lookup <- read.csv("data/dose_response/disease_outcomes_lookup.csv")
-str(disease_outcomes_lookup)
 
 
 ## cvd_ihd and cvd_stroke are age dependent, therefore we need to map the age of individuals with the age in the dose-response file of AP 
@@ -42,7 +40,9 @@ dr_ap <- read.csv("data/dose_response/AP/dose_response_AP.csv")
 
 ### combining PM2.5 concentration data (scenario_pm_calculations.R) and PA data (total_mmet.R) at the individual level (n=732)
 #ind<- read.csv("data/synth_pop_data/accra/processed_data/indiv_mmet/pa_total_mmet_weekly.csv") ### PA 
-ind_pm <- read.csv("data/synth_pop_data/accra/pollution/individual_level_pm_conc_scenarios.csv")  ### PM2.5
+ind_pm <- pm_conc[[INDEX]] #read.csv("data/synth_pop_data/accra/pollution/individual_level_pm_conc_scenarios.csv")  ### PM2.5
+ind_pm$participant_id <- as.integer(ind_pm$participant_id)
+
 ind <- ind %>% left_join(ind_pm, by = "participant_id")
 ## assigning air pollution age band to the individual_level data
 ind$ap_age <- NA
@@ -129,5 +129,5 @@ for ( j in 1: nrow(disease_outcomes_lookup))
   
 }
 
-# Replace write.csv with write_csv
-write_csv(ind, 'data/synth_pop_data/accra/RR/RR_AP_calculations.csv')
+
+RR_AP_calculations[[INDEX]] <- ind

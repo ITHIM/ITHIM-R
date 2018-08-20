@@ -31,11 +31,11 @@ write_csv(ratios,'data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.
 
 ##Calculation of background PM2.5 concentration based on emissions in the scenarios
 
-scen_dist <- as.data.frame(read_csv( "data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv")) ## total distance travelled by all population by different modes and for different scenarios
+scen_dist <- dist[[INDEX]] #as.data.frame(read_csv( "data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv")) ## total distance travelled by all population by different modes and for different scenarios
 ### Calculating number of scenarios besides the baseline
-rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
+rd <- bs[[INDEX]] #read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
 dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
-nscen<- length(unique(dataset$scenario)) -1
+nscen <- length(unique(dataset$scenario)) -1
 
 ###emission inventory file
 trans_emissions <- read_csv("data/emission calculations accra/transport_emission_inventory_accra.csv")
@@ -93,8 +93,7 @@ nscen<-length(unique(dataset$scenario)) -1
 
 conc_pm <- trans_emissions[nrow(trans_emissions)-1, 6:(6+nscen)] ## background concentrations for baseline and all scenarios
 
-rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
-
+#rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
 
 lookup_ratio_pm <-  read_csv('data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.csv')
 
@@ -175,9 +174,4 @@ for (i in 1: length(scen_shortened_name))
   
 }
 
-#final_data[,2]<- final_data[,2]* as.numeric(conc_pm[1])/as.numeric(means[1])  ## multiplying by the ratio of baseline background concentration and background concentration of scenarios population
-#final_data[,3]<- final_data[,3]* as.numeric(conc_pm[1])/as.numeric(means[2])
-#final_data[,4]<- final_data[,4]* as.numeric(conc_pm[1])/as.numeric(means[3])
-#final_data[,5]<- final_data[,5]* as.numeric(conc_pm[1])/as.numeric(means[4])
-write_csv(as.data.frame(final_data), 'data/synth_pop_data/accra/pollution/individual_level_pm_conc_scenarios.csv')
-
+pm_conc[[INDEX]] <- as.data.frame(final_data)

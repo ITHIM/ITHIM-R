@@ -2,9 +2,9 @@
 ### injury code
 ### This is the script for distance-based injury model for Accra using safety-in-numbers
 ## number of scenarios
-rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
+rd <- bs[[INDEX]]
 dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
-nscen<- length(unique(dataset$scenario)) -1
+nscen <- length(unique(dataset$scenario)) -1
 
 ## short names of the scenarios
 scen <- unique(rd$scenario)
@@ -14,8 +14,8 @@ for (i in 2: (nscen+1))
   scen_shortened_name[i]<- paste0("scen", i-1) 
 }
 
-sin<- read.csv('R/injuries/data/sin_coefficients_pairs.csv')
-scen_dist<-as.data.frame(read_csv("data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv")) ## total distance travelled by all population by different modes and for different scenarios
+sin <- read_csv('R/injuries/data/sin_coefficients_pairs.csv')
+scen_dist <- dist[[INDEX]]#read_csv("data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv") ## total distance travelled by all population by different modes and for different scenarios
 names(scen_dist)[1]<- c("mode")
 names(scen_dist)[2:(length(scen_shortened_name)+1)]<-scen_shortened_name
 scen_dist[nrow(scen_dist)+1, 1]<- "Car"
@@ -31,9 +31,8 @@ scen_dist[nrow(scen_dist)-1,2:(length(unique(dataset$scenario))+1)]<-1
 ## allocating dummy distance of 1 for tuk-tuks as these will not be changed 
 scen_dist[nrow(scen_dist),2:(length(unique(dataset$scenario))+1)]<-1  
 
-whw_mat<-read.csv('R/injuries/accra/who_hit_who_accra.csv')
+whw_mat <- read_csv('R/injuries/accra/who_hit_who_accra.csv')
 ## columns as striking and rows as victim
-whw_mat 
 
 ## calculating the ratio of distances for each mode in each scenario
 
@@ -47,27 +46,41 @@ victim_deaths<- as.data.frame(whw_mat[,1])
 ## number of deaths in baseline by victim type
 victim_deaths<- cbind(victim_deaths, scen=as.data.frame(rowSums(whw_mat[,3:8])))  
 
-whw_mat2<-whw_mat
+whw_mat2 <- whw_mat
+
+sin <- rownames_to_column(sin, var = "rowname")
+
+
 for (k in 3:(1+length(scen_shortened_name))) ## iterating over the scenarios as indexed in scen_dist matrix
 {
   for (i in 1: nrow(whw_mat))
   {
     for (j in 2: ncol(whw_mat))
     {
-      nrow_vic_dist<- which(scen_dist[,1]== whw_mat[i,1])
-      victim_dist<-scen_dist[nrow_vic_dist,k] ### 3== scenario1, 4== scenario 2, in the scen_dist matrix
-      nrow_strk_dist<- which(scen_dist[,1]== names(whw_mat)[j])
-      strk_dist<- scen_dist[nrow_strk_dist,k]
-      nrow_sin<-  which(sin[,1]==whw_mat[i,1]) 
-      ncol_sin<- which(names(sin)==names(whw_mat)[j])
       
-      whw_mat2[i, j]<- whw_mat[i, j]*(victim_dist^sin[nrow_sin[1],ncol_sin])*(strk_dist^sin[nrow_sin[1]+6,ncol_sin])   ### safety in numbers coefficients: 0.5 for victim and 0.7 for striking
-      print(nrow_strk_dist)
+      # nrow_vic_dist <- which(scen_dist[,1]== whw_mat[i,1])
+      victim_dist <-  filter(scen_dist, mode == (whw_mat[i,1] %>% as.character()))[k] %>% as.double() #scen_dist[nrow_vic_dist,k] ### 3== scenario1, 4== scenario 2, in the scen_dist matrix
+      #nrow_strk_dist <- which(scen_dist[,1]== names(whw_mat)[j])
+      strk_dist <- filter(scen_dist, mode == (whw_mat[i,1] %>% as.character()))[j - 1] %>% as.double()#scen_dist[nrow_strk_dist,k]
       
+      nrow_sin <-  unlist(filter(sin, X1 == (whw_mat[i, 1] %>% as.character()) ) %>% select(rowname)) %>% as.integer()#which(sin[,1] == whw_mat[i,1]) 
+      ncol_sin <- which(names(sin) == names(whw_mat)[j])
+      
+      nrow_sin <- unlist(nrow_sin) %>% as.integer()
+      
+      # print(nrow_sin)
+      # print(ncol_sin)
+      # cat(i, " - ", j , "\n")
+      # 
+      val1 <- (victim_dist^sin[nrow_sin[1],ncol_sin])
+      
+      val2 <- (strk_dist^sin[nrow_sin[1]+6,ncol_sin])
+      
+      whw_mat2[i, j] <- whw_mat[i, j] * val1  * val2   ### safety in numbers coefficients: 0.5 for victim and 0.7 for striking
     }
     
   }
-  write_csv(whw_mat2,paste0('R/injuries/accra/whw_mat_scen',k-2,'.csv'))  
+  #write_csv(whw_mat2,paste0('R/injuries/accra/whw_mat_scen',k-2,'.csv'))  
   victim_deaths<- cbind(victim_deaths, as.data.frame(rowSums(whw_mat2[,3:8])))
 }
 names(victim_deaths)[1]<- c("victim_type")
@@ -130,7 +143,9 @@ names(x)[9]<-"Deaths"
 
 x$sex_age<-  paste0(x$sex,"_",x$age_cat)
 
-write_csv(x, "data/synth_pop_data/accra/injuries/deaths_by_mode.csv")
+#write_csv(x, "data/synth_pop_data/accra/injuries/deaths_by_mode.csv")
+
+deaths_by_mode[[INDEX]] <- x
 
 gbd_data<- read_csv('data/demographics/gbd/accra/GBD Accra.csv')
 gbd_injuries<- gbd_data[which(gbd_data$cause=="Road injuries"),]
@@ -159,7 +174,7 @@ for (n in 1: length(scen_shortened_name))
 {
   if (n !=2)
   {
-  x_deaths[,n+2]<-x_deaths[,n+2] - x_deaths[,4] 
+    x_deaths[,n+2]<-x_deaths[,n+2] - x_deaths[,4] 
   }
 }
 
@@ -169,18 +184,15 @@ for (n in 1: length(scen_shortened_name))
 {
   if (n !=2)
   {
-  x_yll[,n+2]<-x_yll[,n+2] - x_yll[,4] 
+    x_yll[,n+2]<-x_yll[,n+2] - x_yll[,4] 
   }
 }
 
 
-View(x_deaths)
-
-deaths_yll_injuries<- cbind(x_deaths, x_yll)
-names(deaths_yll_injuries)
-deaths_yll_injuries<-deaths_yll_injuries[,-c((2+length(unique(dataset$scenario))+1),(2+length(unique(dataset$scenario))+2))]
-deaths_yll_injuries<- as.data.frame(deaths_yll_injuries)
-names(deaths_yll_injuries)[1:2]<- c("age_cat", "sex")
+deaths_yll_injuries[[INDEX]] <- cbind(x_deaths, x_yll)
+deaths_yll_injuries[[INDEX]]<-deaths_yll_injuries[[INDEX]][,-c((2+length(unique(dataset$scenario))+1),(2+length(unique(dataset$scenario))+2))]
+deaths_yll_injuries[[INDEX]]<- as.data.frame(deaths_yll_injuries[[INDEX]])
+names(deaths_yll_injuries[[INDEX]])[1:2]<- c("age_cat", "sex")
 
 
 metric<-c("deaths", "yll")
@@ -190,26 +202,23 @@ for  (i in 1: 2)
   
   for (j in 1: length(unique(dataset$scenario)))
   {
-    names(deaths_yll_injuries)[2+k] <- paste0(scen_shortened_name[j],"_",metric[i],"_inj")
+    names(deaths_yll_injuries[[INDEX]])[2+k] <- paste0(scen_shortened_name[j],"_",metric[i],"_inj")
     k<-k+1
     
   }
 }
 
 
+deaths_yll_injuries[[INDEX]][,3:ncol(deaths_yll_injuries[[INDEX]])] <- -1 * deaths_yll_injuries[[INDEX]][,3:ncol(deaths_yll_injuries[[INDEX]])] 
 
-View(deaths_yll_injuries)
-
-deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] <- -1 * deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] 
-
-write_csv(deaths_yll_injuries, "R/injuries/accra/deaths_yll_injuries.csv")
+#write_csv(deaths_yll_injuries, "R/injuries/accra/deaths_yll_injuries.csv")
 
 # Save it in a long format with extra columns removed
 
-inj <- read_csv("data/synth_pop_data/accra/injuries/deaths_by_mode.csv")
+inj <- deaths_by_mode[[INDEX]] #read_csv("data/synth_pop_data/accra/injuries/deaths_by_mode.csv")
 inj <- select(inj, -c(sex_age))
 inj <- rename(inj, total = Deaths)
 inj <- reshape2::melt(inj)
 inj[is.na(inj)] <- 0
-write_csv(inj, "data/synth_pop_data/accra/injuries/deaths_by_mode_long.csv")
 
+deaths_by_mode[[INDEX]] <- inj

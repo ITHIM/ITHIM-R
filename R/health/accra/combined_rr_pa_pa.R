@@ -1,11 +1,12 @@
-source("R/scenarios/accra/setup.R")
+source("R/drpa/dose_response.R")
+# source("R/scenarios/accra/setup.R")
 
 # Read the ind file with rr for pa
-ind_pa <- read_csv("data/synth_pop_data/accra/RR/RR_PA_calculations.csv")
-str(ind_pa)
+ind_pa <- RR_PA_calculations[[INDEX]]
+
 # Read the ind file with rr for ap
-ind_ap <- read_csv("data/synth_pop_data/accra/RR/RR_AP_calculations.csv")
-str(ind_ap)
+ind_ap <- RR_AP_calculations[[INDEX]]
+
 is.nan.data.frame <- function(x)
   do.call(cbind, lapply(x, is.nan))
 
@@ -40,4 +41,4 @@ for ( j in 1:nrow(disease_lt)){
   }
 }
 
-write_csv(ind, 'data/synth_pop_data/accra/RR/RR_PA_AP_calculations.csv')
+RR_PA_AP_calculations[[INDEX]] <- ind

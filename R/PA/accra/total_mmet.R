@@ -1,10 +1,12 @@
 # Clear workspace
-rm (list = ls())
-library(tidyverse)
+#rm (list = ls())
+#library(tidyverse)
 
 
 # Read raw_data
-rd <- read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
+rd <- bs[[INDEX]]
+
+#read_csv("data/scenarios/accra/baseline_and_scenarios.csv")
 
 # Constants
 # Initialize  energy expenditure constants - taken from ICT
@@ -57,4 +59,10 @@ ind <- rd %>% group_by(participant_id) %>% summarise ( sex = first(sex),
 
 ind <- select(ind, participant_id, sex, age, age_cat, base_mmet, scen1_mmet, scen2_mmet, scen3_mmet, scen4_mmet, scen5_mmet)
 
-write_csv(ind,'data/synth_pop_data/accra/pa/pa_total_mmet_weekly.csv')
+mmets[[INDEX]] <- ind
+
+mmets[[INDEX]]$id <- INDEX
+
+# rm(list = setdiff(ls(), c("INDEX", "bs", "MEAN_BUS_WALK_TIME", "dist", "dur", "mmets")))
+
+#write_csv(ind,'data/synth_pop_data/accra/pa/pa_total_mmet_weekly.csv')
