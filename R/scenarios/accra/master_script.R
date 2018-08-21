@@ -25,6 +25,14 @@ deaths_yll_injuries <- list()
 
 deaths_by_mode <- list()
 
+deaths <- list()
+
+deaths_red <- list()
+
+ylls <- list()
+
+ylls_red <- list()
+
 MEAN_BUS_WALK_TIME <- 5
 
 for (INDEX in 1:5){
@@ -64,7 +72,7 @@ for (INDEX in 1:5){
   source("R/injuries/accra/accra_injuries.R")
   # 
   # # Calculate disease burden for AP, PA and Injuries
-  # source("R/health/accra/health_burden.R")
+  source("R/health/accra/health_burden.R")
   
   
 }
