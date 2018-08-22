@@ -17,6 +17,8 @@ pm_conc <- list()
 
 RR_AP_calculations <- list()
 
+pa_certainty <- F
+
 RR_PA_calculations <- list()
 
 RR_PA_AP_calculations <- list()
@@ -80,8 +82,51 @@ for (INDEX in 1:5){
 rm(list = setdiff(ls(), c("INDEX", "bs", "dist", "dur", "mmets", "pm_conc", 
                           "RR_AP_calculations", "RR_PA_calculations",
                           "RR_PA_AP_calculations", "deaths_by_mode",
-                          "deaths_yll_injuries", "MEAN_BUS_WALK_TIME"))) 
+                          "deaths_yll_injuries", "MEAN_BUS_WALK_TIME",
+                          "deaths", "deaths_red", "ylls", "ylls_red",
+                          "pa_certainty"))) 
 
+# COPY THE SAME OBJECTS FROM 1:5, TO 6:10
+
+for (INDEX in 6:10){
+  bs[[INDEX]] <- bs[[INDEX - 5]]
+  dist[[INDEX]] <- dist[[INDEX - 5]]
+  dur[[INDEX]] <- dur[[INDEX - 5]]
+  mmets[[INDEX]] <- mmets[[INDEX - 5]]
+  pm_conc[[INDEX]] <- pm_conc[[INDEX - 5]]
+  RR_AP_calculations[[INDEX]] <- RR_AP_calculations[[INDEX - 5]]
+  RR_PA_calculations[[INDEX]] <- RR_PA_calculations[[INDEX - 5]]
+  RR_PA_AP_calculations[[INDEX]] <- RR_PA_AP_calculations[[INDEX - 5]]
+  
+}
+
+for (INDEX in 6:10){
+  
+  # INDEX <- 6
+  # Calculate RR PA
+  source("R/health/accra/gen_pa_rr.R")
+  
+  # Combine RR for PA and AP for common diseases
+  source("R/health/accra/combined_rr_pa_pa.R")
+  
+  # # Calculate disease burden for injuries
+  source("R/injuries/accra/accra_injuries.R")
+  # 
+  # # Calculate disease burden for AP, PA and Injuries
+  source("R/health/accra/health_burden.R")
+  
+}
+
+
+rm(list = setdiff(ls(), c("INDEX", "bs", "dist", "dur", "mmets", "pm_conc", 
+                          "RR_AP_calculations", "RR_PA_calculations",
+                          "RR_PA_AP_calculations", "deaths_by_mode",
+                          "deaths_yll_injuries", "MEAN_BUS_WALK_TIME",
+                          "deaths", "deaths_red", "ylls", "ylls_red",
+                          "pa_certainty"))) 
+
+
+  
 # 
 # trip_distance <- list()
 # 
