@@ -157,7 +157,6 @@ gbd_injuries<- arrange(gbd_injuries, measure)
 gbd_inj_yll<- gbd_injuries[which(gbd_injuries$measure=="YLLs (Years of Life Lost)"),]
 gbd_inj_dth<- gbd_injuries[which(gbd_injuries$measure=="Deaths"),]
 gbd_inj_yll$yll_dth_ratio<- gbd_inj_yll$value_gama/gbd_inj_dth$value_gama 
-str(x)
 x<- x[,-c(which(names(x)=='sex'))]
 
 x<- x%>% left_join(gbd_inj_yll, by="sex_age")
