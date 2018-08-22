@@ -48,39 +48,26 @@ victim_deaths<- cbind(victim_deaths, scen=as.data.frame(rowSums(whw_mat[,3:8])))
 
 whw_mat2 <- whw_mat
 
-sin <- rownames_to_column(sin, var = "rowname")
-
-
 for (k in 3:(1+length(scen_shortened_name))) ## iterating over the scenarios as indexed in scen_dist matrix
 {
   for (i in 1: nrow(whw_mat))
   {
     for (j in 2: ncol(whw_mat))
     {
+      nrow_vic_dist<- which(scen_dist[,1]== as.character(whw_mat[i,1]))
+      victim_dist<-scen_dist[nrow_vic_dist,k] ### 3== scenario1, 4== scenario 2, in the scen_dist matrix
+      nrow_strk_dist<- which(scen_dist[,1]== names(whw_mat)[j])
+      strk_dist<- scen_dist[nrow_strk_dist,k]
+      nrow_sin<-  which(sin[,1]==as.character(whw_mat[i,1])) 
+      ncol_sin<- which(names(sin)==names(whw_mat)[j])
       
-      # nrow_vic_dist <- which(scen_dist[,1]== whw_mat[i,1])
-      victim_dist <-  filter(scen_dist, mode == (whw_mat[i,1] %>% as.character()))[k] %>% as.double() #scen_dist[nrow_vic_dist,k] ### 3== scenario1, 4== scenario 2, in the scen_dist matrix
-      #nrow_strk_dist <- which(scen_dist[,1]== names(whw_mat)[j])
-      strk_dist <- filter(scen_dist, mode == (whw_mat[i,1] %>% as.character()))[j - 1] %>% as.double()#scen_dist[nrow_strk_dist,k]
+      whw_mat2[i, j]<- whw_mat[i, j]*(victim_dist^sin[nrow_sin[1],ncol_sin])*(strk_dist^sin[nrow_sin[1]+6,ncol_sin])   ### safety in numbers coefficients: 0.5 for victim and 0.7 for striking
+      print(nrow_strk_dist)
       
-      nrow_sin <-  unlist(filter(sin, X1 == (whw_mat[i, 1] %>% as.character()) ) %>% select(rowname)) %>% as.integer()#which(sin[,1] == whw_mat[i,1]) 
-      ncol_sin <- which(names(sin) == names(whw_mat)[j])
-      
-      nrow_sin <- unlist(nrow_sin) %>% as.integer()
-      
-      # print(nrow_sin)
-      # print(ncol_sin)
-      # cat(i, " - ", j , "\n")
-      # 
-      val1 <- (victim_dist^sin[nrow_sin[1],ncol_sin])
-      
-      val2 <- (strk_dist^sin[nrow_sin[1]+6,ncol_sin])
-      
-      whw_mat2[i, j] <- whw_mat[i, j] * val1  * val2   ### safety in numbers coefficients: 0.5 for victim and 0.7 for striking
     }
     
   }
-  #write_csv(whw_mat2,paste0('R/injuries/accra/whw_mat_scen',k-2,'.csv'))  
+  write_csv(whw_mat2,paste0('R/injuries/accra/whw_mat_scen',k-2,'.csv'))  
   victim_deaths<- cbind(victim_deaths, as.data.frame(rowSums(whw_mat2[,3:8])))
 }
 names(victim_deaths)[1]<- c("victim_type")

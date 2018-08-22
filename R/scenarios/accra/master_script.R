@@ -37,9 +37,9 @@ ylls_red <- list()
 
 MEAN_BUS_WALK_TIME <- 5
 
-for (INDEX in 1:5){
+#for (INDEX in 1:5){
   
-  # INDEX <- 1
+   INDEX <- 1
   
   # Generate all scenarios
   source("R/scenarios/accra/scenarios.R")
@@ -77,7 +77,7 @@ for (INDEX in 1:5){
   source("R/health/accra/health_burden.R")
   
   
-}
+#}
 
 rm(list = setdiff(ls(), c("INDEX", "bs", "dist", "dur", "mmets", "pm_conc", 
                           "RR_AP_calculations", "RR_PA_calculations",
