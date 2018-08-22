@@ -28,7 +28,7 @@ for ( j in 1:nrow(disease_lt)){
         
         if (pa_dn == 'all-cause-mortality'){
           
-          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality',
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality', certainty = pa_certainty, 
                                                               dose = ind[[paste0(scen, '_mmet')]][i], use_75_pert = T)$rr %>% as.numeric()
 
           # CHD: 35 mmeth per week use mortality
@@ -39,24 +39,24 @@ for ( j in 1:nrow(disease_lt)){
 
           
         }else if(pa_dn == 'coronary-heart-disease'){
-          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality',
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality', certainty = pa_certainty, 
                                                                            dose = ifelse(ind[[paste0(scen, '_mmet')]][i] <= 35, ind[[paste0(scen, '_mmet')]][i], 35),
                                                                            use_75_pert = F)$rr %>% as.numeric()
         }else if(pa_dn == 'lung-cancer'){
-          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'incidence',
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'incidence', certainty = pa_certainty, 
                                                                            dose = ifelse(ind[[paste0(scen, '_mmet')]][i] <= 10, ind[[paste0(scen, '_mmet')]][i], 10),
                                                                            use_75_pert = F)$rr %>% as.numeric()
           
         }else if(pa_dn == 'stroke'){
-          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'incidence',
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'incidence',certainty = pa_certainty, 
                                                                            dose = ifelse(ind[[paste0(scen, '_mmet')]][i] <= 13.37, ind[[paste0(scen, '_mmet')]][i], 13.37),
                                                                            use_75_pert = F)$rr %>% as.numeric()
         }else if(pa_dn == 'diabetes'){
-          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality', 
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality', certainty = pa_certainty, 
                                                                            dose = ind[[paste0(scen, '_mmet')]][i], use_75_pert = F)$rr %>% as.numeric()
           
         }else if(pa_dn == 'total-cancer'){
-          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality', 
+          ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality', certainty = pa_certainty, 
                                                                            dose = ifelse(ind[[paste0(scen, '_mmet')]][i] <= 35, ind[[paste0(scen, '_mmet')]][i], 35),
                                                                            use_75_pert = F)$rr %>% as.numeric()
           
