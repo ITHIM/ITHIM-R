@@ -67,7 +67,7 @@ for (k in 3:(1+length(scen_shortened_name))) ## iterating over the scenarios as 
     }
     
   }
-  write_csv(whw_mat2,paste0('R/injuries/accra/whw_mat_scen',k-2,'.csv'))  
+  # write_csv(whw_mat2,paste0('R/injuries/accra/whw_mat_scen',k-2,'.csv'))  
   victim_deaths<- cbind(victim_deaths, as.data.frame(rowSums(whw_mat2[,3:8])))
 }
 names(victim_deaths)[1]<- c("victim_type")
