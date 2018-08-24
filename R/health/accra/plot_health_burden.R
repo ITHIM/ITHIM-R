@@ -144,17 +144,24 @@ get_health_plot <- function(ds, outcome, lt, index, ac, sc, show_injury = T, com
   
   p <- p + labs(title = paste0(title, sub_pop, sep = "\n")) + xlab("") + ylab('<- Harms     Benefits ->') 
   
-  p
+  return(list(p, d3))
   
   
 }
 
 l <- htmltools::tagList()
 
-for (i in 1:10){
-  l[[i]] <- plotly::as_widget(ggplotly((
-    get_health_plot(ds = deaths[[i]], outcome = "Deaths", lt = lt, index = i, ac = "All", sc = "All", show_injury = T, combined_NCDs = T)
-  )))
+cd <- list()
+
+for (i in 1:INDEX){
+  
+  # i <- 1
+  
+  dat <- get_health_plot(ds = deaths[[i]], outcome = "Deaths", lt = lt, index = i, ac = "All", sc = "All", show_injury = T, combined_NCDs = T)
+  l[[i]] <- plotly::as_widget(ggplotly(dat[[1]]))
+  
+  cd[[i]] <- dat[[2]]
+  cd[[i]]$INDEX <- i
   
   print(l[[i]])
 }
