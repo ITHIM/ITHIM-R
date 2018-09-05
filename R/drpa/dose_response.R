@@ -67,7 +67,7 @@ dose_response <- function (cause, outcome_type, dose, confidence_intervals = F, 
       
       lb <- lookup_table[cond, "lb"] %>% as.numeric()
       ub <- lookup_table[cond, "ub"] %>% as.numeric()
-      rr <- stats::runif(1, min=lb, max=ub)
+      rr <- truncnorm::rtruncnorm(n = 1, a = lb, b = ub, mean = lookup_table[cond, "RR"] %>% as.numeric())
       
       return (data.frame (rr = rr, lb = lb, ub = ub))
       
@@ -83,29 +83,28 @@ dose_response <- function (cause, outcome_type, dose, confidence_intervals = F, 
       
     }else{
       
-      
       lb <- lookup_table[cond, "lb"] %>% as.numeric()
       ub <- lookup_table[cond, "ub"] %>% as.numeric()
       
-      rr <- stats::runif(1, min=lb, max=ub)
+      rr <- truncnorm::rtruncnorm(n = 1, a = lb, b = ub, mean = lookup_table[cond, "RR"] %>% as.numeric())
       return(data.frame(rr = rr))
       
     }
     
   }
   
-  if (certainty){
-    
-    
-    lb <- lookup_table[cond, "lb"] %>% as.numeric()
-    ub <- lookup_table[cond, "ub"] %>% as.numeric()
-    
-    return(stats::runif(1, min=lb, max=ub))
-  }
-  else{
-    
-    return(lookup_table[cond, "RR"] %>% as.numeric())
-  }
+  # if (certainty){
+  #   
+  #   
+  #   lb <- lookup_table[cond, "lb"] %>% as.numeric()
+  #   ub <- lookup_table[cond, "ub"] %>% as.numeric()
+  #   
+  #   return(stats::runif(1, min=lb, max=ub))
+  # }
+  # else{
+  #   
+  #   return(lookup_table[cond, "RR"] %>% as.numeric())
+  # }
   
   
   
