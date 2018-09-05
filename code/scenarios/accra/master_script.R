@@ -42,39 +42,39 @@ for (INDEX in 1:5){
    # INDEX <- 1
   
   # Generate all scenarios
-  source("R/scenarios/accra/scenarios.R")
+  source("code/scenarios/accra/scenarios.R")
   
   # rm(list = setdiff(ls(), c("INDEX", "bs", "dist", "dur", "mmets", "MEAN_BUS_WALK_TIME")))
   
   MEAN_BUS_WALK_TIME <- MEAN_BUS_WALK_TIME + 2
   
   # Generate distance and duration matrices
-  source("R/scenarios/accra/dist_dur_tbls.R")
+  source("code/scenarios/accra/dist_dur_tbls.R")
   
   # rm(list = setdiff(ls(), c("INDEX", "bs", "dist", "dur", "mmets", "MEAN_BUS_WALK_TIME")))
   
   # Calculate total PA MMET
-  source("R/PA/accra/total_mmet.R")
+  source("code/PA/accra/total_mmet.R")
   
   # rm(list = setdiff(ls(), c("INDEX", "bs", "dist", "dur", "mmets", "MEAN_BUS_WALK_TIME")))
   
   # Calculate PM calculations
-  source("R/pollution/accra/scenario_pm_calculations.R")
+  source("code/pollution/accra/scenario_pm_calculations.R")
   
   # # Calculate RR 2.5
-  source("R/health/accra/gen_ap_rr.R")
+  source("code/health/accra/gen_ap_rr.R")
   
   # Calculate RR PA
-  source("R/health/accra/gen_pa_rr.R")
+  source("code/health/accra/gen_pa_rr.R")
 
   # Combine RR for PA and AP for common diseases
-  source("R/health/accra/combined_rr_pa_pa.R")
+  source("code/health/accra/combined_rr_pa_pa.R")
   
   # # Calculate disease burden for injuries
-  source("R/injuries/accra/accra_injuries.R")
+  source("code/injuries/accra/accra_injuries.R")
   # 
   # # Calculate disease burden for AP, PA and Injuries
-  source("R/health/accra/health_burden.R")
+  source("code/health/accra/health_burden.R")
   
   
 }
@@ -104,16 +104,16 @@ for (INDEX in 6:10){
   
   # INDEX <- 6
   # Calculate RR PA
-  source("R/health/accra/gen_pa_rr.R")
+  source("code/health/accra/gen_pa_rr.R")
   
   # Combine RR for PA and AP for common diseases
-  source("R/health/accra/combined_rr_pa_pa.R")
+  source("code/health/accra/combined_rr_pa_pa.R")
   
   # # Calculate disease burden for injuries
-  source("R/injuries/accra/accra_injuries.R")
+  source("code/injuries/accra/accra_injuries.R")
   # 
   # # Calculate disease burden for AP, PA and Injuries
-  source("R/health/accra/health_burden.R")
+  source("code/health/accra/health_burden.R")
   
 }
 
