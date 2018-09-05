@@ -1,4 +1,4 @@
-source("R/drpa/dose_response.R")
+source("code/drpa/dose_response.R")
 # source("R/scenarios/accra/setup.R")
 
 # Read the ind file with rr for pa

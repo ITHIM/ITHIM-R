@@ -1,7 +1,7 @@
-source("R/drpa/dose_response.R")
+source("code/drpa/dose_response.R")
 library(tidyverse)
 # Load all functions
-source("R/PA/code/functions.R")
+source("code/PA/code/functions.R")
 
 # Read processed data for ap and pa
 ind <- read_csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_mmet_weekly.csv")

@@ -14,7 +14,7 @@ for (i in 2: (nscen+1))
   scen_shortened_name[i]<- paste0("scen", i-1) 
 }
 
-sin <- read_csv('R/injuries/data/sin_coefficients_pairs.csv')
+sin <- read_csv('code/injuries/data/sin_coefficients_pairs.csv')
 scen_dist <- dist[[INDEX]]#read_csv("data/scenarios/accra/dist_by_mode_all_scenarios_all_ages.csv") ## total distance travelled by all population by different modes and for different scenarios
 names(scen_dist)[1]<- c("mode")
 names(scen_dist)[2:(length(scen_shortened_name)+1)]<-scen_shortened_name
@@ -31,7 +31,7 @@ scen_dist[nrow(scen_dist)-1,2:(length(unique(dataset$scenario))+1)]<-1
 ## allocating dummy distance of 1 for tuk-tuks as these will not be changed 
 scen_dist[nrow(scen_dist),2:(length(unique(dataset$scenario))+1)]<-1  
 
-whw_mat <- read_csv('R/injuries/accra/who_hit_who_accra.csv')
+whw_mat <- read_csv('code/injuries/accra/who_hit_who_accra.csv')
 ## columns as striking and rows as victim
 
 ## calculating the ratio of distances for each mode in each scenario
@@ -67,7 +67,7 @@ for (k in 3:(1+length(scen_shortened_name))) ## iterating over the scenarios as 
     }
     
   }
-  # write_csv(whw_mat2,paste0('R/injuries/accra/whw_mat_scen',k-2,'.csv'))  
+  # write_csv(whw_mat2,paste0('code/injuries/accra/whw_mat_scen',k-2,'.csv'))  
   victim_deaths<- cbind(victim_deaths, as.data.frame(rowSums(whw_mat2[,3:8])))
 }
 names(victim_deaths)[1]<- c("victim_type")
@@ -197,7 +197,7 @@ for  (i in 1: 2)
 
 deaths_yll_injuries[[INDEX]][,3:ncol(deaths_yll_injuries[[INDEX]])] <- -1 * deaths_yll_injuries[[INDEX]][,3:ncol(deaths_yll_injuries[[INDEX]])] 
 
-#write_csv(deaths_yll_injuries, "R/injuries/accra/deaths_yll_injuries.csv")
+#write_csv(deaths_yll_injuries, "code/injuries/accra/deaths_yll_injuries.csv")
 
 # Save it in a long format with extra columns removed
 

@@ -1,6 +1,6 @@
 # source("R/scenarios/accra/setup.R")
 
-source("R/drpa/dose_response.R")
+source("code/drpa/dose_response.R")
 
 # Read the ind file with pa mmet
 ind <- mmets[[INDEX]]#read_csv("data/synth_pop_data/accra/pa/pa_total_mmet_weekly.csv")

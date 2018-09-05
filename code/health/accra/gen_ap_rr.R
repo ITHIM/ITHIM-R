@@ -7,7 +7,7 @@
 #library(dplyr)
 
 # source
-source("R/PA/code/functions.R")
+source("code/PA/code/functions.R")
 
 # ap_rr_pa_total_mmet_weekly <- read.csv("data/synth_pop_data/accra/processed_data/indiv_mmet/ap_rr_pa_total_mmet_weekly.csv")
 

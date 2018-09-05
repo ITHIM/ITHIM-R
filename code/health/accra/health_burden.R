@@ -2,7 +2,7 @@
 #source("R/scenarios/accra/setup.R")
 
 # Load all health related functions
-source("R/PA/code/functions.R")
+source("code/PA/code/functions.R")
 
 ind <- RR_PA_AP_calculations[[INDEX]]
 

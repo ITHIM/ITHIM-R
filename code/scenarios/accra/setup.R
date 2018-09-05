@@ -1,6 +1,6 @@
 # Clear workspace
 rm (list = ls())
-source("R/drpa/dose_response.R")
+source("code/drpa/dose_response.R")
 # Load base required libraries
 pkgs <- c("tidyverse")
 
