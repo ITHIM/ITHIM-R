@@ -10,7 +10,7 @@ library(plotly)
 set.seed(1)
 
 # Load all functions
-source("R/PA/code/functions.R")
+source("code/PA/code/functions.R")
 
 # Sample size for scenario
 sample_size <- 110
