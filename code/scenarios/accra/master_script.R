@@ -35,11 +35,13 @@ ylls <- list()
 
 ylls_red <- list()
 
+RSEED <- c(1:100)
+
 MEAN_BUS_WALK_TIME <- 5
 
 for (INDEX in 1:5){
   
-   # INDEX <- 1
+  INDEX <- 1
   
   # Generate all scenarios
   source("code/scenarios/accra/scenarios.R")
@@ -79,7 +81,7 @@ for (INDEX in 1:5){
   
 }
 
-rm(list = setdiff(ls(), c("INDEX", "bs", "dist", "dur", "mmets", "pm_conc", 
+rm(list = setdiff(ls(), c("INDEX", "RSEED",  "bs", "dist", "dur", "mmets", "pm_conc", 
                           "RR_AP_calculations", "RR_PA_calculations",
                           "RR_PA_AP_calculations", "deaths_by_mode",
                           "deaths_yll_injuries", "MEAN_BUS_WALK_TIME",
@@ -88,19 +90,19 @@ rm(list = setdiff(ls(), c("INDEX", "bs", "dist", "dur", "mmets", "pm_conc",
 
 # COPY THE SAME OBJECTS FROM 1:5, TO 6:10
 
-for (INDEX in 6:10){
-  bs[[INDEX]] <- bs[[INDEX - 5]]
-  dist[[INDEX]] <- dist[[INDEX - 5]]
-  dur[[INDEX]] <- dur[[INDEX - 5]]
-  mmets[[INDEX]] <- mmets[[INDEX - 5]]
-  pm_conc[[INDEX]] <- pm_conc[[INDEX - 5]]
-  RR_AP_calculations[[INDEX]] <- RR_AP_calculations[[INDEX - 5]]
-  RR_PA_calculations[[INDEX]] <- RR_PA_calculations[[INDEX - 5]]
-  RR_PA_AP_calculations[[INDEX]] <- RR_PA_AP_calculations[[INDEX - 5]]
+for (INDEX in 2:6){
+  bs[[INDEX]] <- bs[[INDEX - 1]]
+  dist[[INDEX]] <- dist[[INDEX - 1]]
+  dur[[INDEX]] <- dur[[INDEX - 1]]
+  mmets[[INDEX]] <- mmets[[INDEX - 1]]
+  pm_conc[[INDEX]] <- pm_conc[[INDEX - 1]]
+  RR_AP_calculations[[INDEX]] <- RR_AP_calculations[[INDEX - 1]]
+  RR_PA_calculations[[INDEX]] <- RR_PA_calculations[[INDEX - 1]]
+  RR_PA_AP_calculations[[INDEX]] <- RR_PA_AP_calculations[[INDEX - 1]]
   
 }
 
-for (INDEX in 6:10){
+for (INDEX in 2:6){
   
   # INDEX <- 6
   # Calculate RR PA
@@ -118,7 +120,7 @@ for (INDEX in 6:10){
 }
 
 
-rm(list = setdiff(ls(), c("INDEX", "bs", "dist", "dur", "mmets", "pm_conc", 
+rm(list = setdiff(ls(), c("INDEX", "RSEED",  "bs", "dist", "dur", "mmets", "pm_conc", 
                           "RR_AP_calculations", "RR_PA_calculations",
                           "RR_PA_AP_calculations", "deaths_by_mode",
                           "deaths_yll_injuries", "MEAN_BUS_WALK_TIME",
