@@ -28,6 +28,8 @@ for ( j in 1:nrow(disease_lt)){
         
         if (pa_dn == 'all-cause-mortality'){
           
+          set.seed(RSEED[INDEX])
+          
           ind[[paste('RR_pa', scen, pa_n, sep = '_')]][i] <- dose_response(cause = pa_dn, outcome_type = 'mortality', certainty = pa_certainty, 
                                                               dose = ind[[paste0(scen, '_mmet')]][i], use_75_pert = T)$rr %>% as.numeric()
 
