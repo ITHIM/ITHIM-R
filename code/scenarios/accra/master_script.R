@@ -39,7 +39,7 @@ RSEED <- c(1:100)
 
 MEAN_BUS_WALK_TIME <- 5
 
-for (INDEX in 1:5){
+# for (INDEX in 1:5){
   
   INDEX <- 1
   
@@ -79,7 +79,7 @@ for (INDEX in 1:5){
   source("code/health/accra/health_burden.R")
   
   
-}
+# }
 
 rm(list = setdiff(ls(), c("INDEX", "RSEED",  "bs", "dist", "dur", "mmets", "pm_conc", 
                           "RR_AP_calculations", "RR_PA_calculations",
@@ -126,22 +126,3 @@ rm(list = setdiff(ls(), c("INDEX", "RSEED",  "bs", "dist", "dur", "mmets", "pm_c
                           "deaths_yll_injuries", "MEAN_BUS_WALK_TIME",
                           "deaths", "deaths_red", "ylls", "ylls_red",
                           "pa_certainty"))) 
-
-
-  
-# 
-# trip_distance <- list()
-# 
-# for (i in 1:5){
-#   
-#   df <- bs[[i]]
-#   
-#   df <- filter(df, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
-# 
-#   trip_distance[[i]] <- df %>% group_by(scenario, trip_mode) %>% summarise(p = sum(trip_distance))
-#   
-#   
-# }
-
-
-
