@@ -1,0 +1,12 @@
+"","No other/fixed or stationary object","Pedestrian","Pedal cycle","2/3 Wheeled","Car/pick-up/van","Bus","Railway train/railway vehicle","non-motor vehicle","unspecified","Non-collision","Unknown","Trucks"
+"Pedestrian",0,0,0,329,801,243,0,0,5,0,1703,380
+"Pedal Cycle",0,0,0,31,138,58,0,0,0,0,120,100
+"Motorcycle",229,0,0,98,563,241,0,0,2,0,1034,557
+"3Wheeled",24,0,0,8,51,10,0,0,0,0,41,32
+"Car",127,0,0,8,85,16,0,0,2,0,62,85
+"Pick-up truck/van",35,0,0,1,24,9,0,0,0,0,15,15
+"Heavy transport",60,0,0,4,43,3,0,0,1,0,20,56
+"Bus",12,0,0,3,6,8,0,0,0,0,1,4
+"Other",0,0,0,0,0,0,0,0,123,0,41,0
+"Unknown",0,0,0,0,0,0,0,0,83,0,0,0
+"Railway",0,0,0,0,0,0,0,0,0,0,0,0
