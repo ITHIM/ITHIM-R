@@ -2,12 +2,12 @@ library(RCurl)
 library(XML)
 library(tm)
 
-setwd('~/overflow_dropbox/ITHIM-R/R/injuries/')
+setwd('~/overflow_dropbox/ITHIM-R/code/injuries/')
 
 
 
 # First create an 'object' (called 'fomc' - all of these object names are arbitrary) that includes the list of filenames from your folder that end in .htm or .html 
-root_path <- '~/overflow_dropbox/ITHIM-R/R/injuries/data/accra_injuries/'
+root_path <- '~/overflow_dropbox/ITHIM-R/code/injuries/data/accra_injuries/'
 
 if(file.exists('data/accra_injury_records.Rds')){
   injury_records_2 <- readRDS('data/accra_injury_records.Rds')
@@ -84,8 +84,8 @@ if(file.exists('data/accra_injury_records.Rds')){
     name_repeats <- apply(injury_records_2[[names(injury_records)[f_index]]],2,function(y)(any(y%in%rownames(injury_records_2[[names(injury_records)[f_index]]]))))
     injury_records_2[[names(injury_records)[f_index]]] <- injury_records_2[[names(injury_records)[f_index]]][,!name_repeats]
   }
+  saveRDS(injury_records_2,'data/accra_injury_records.Rds')
 }
-saveRDS('data/accra_injury_records.Rds')
 
 
 sapply(injury_records_2,function(x)'Year'%in%rownames(x))
