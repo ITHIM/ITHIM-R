@@ -153,28 +153,52 @@ l <- htmltools::tagList()
 
 cd <- list()
 
+loutcome <- "YLLs"
+
 for (i in 1:INDEX){
   
   # i <- 1
   
-  dat <- get_health_plot(ds = deaths[[i]], outcome = "Deaths", lt = lt, index = i, ac = "All", sc = "All", show_injury = T, combined_NCDs = T)
+  ldat <- ylls[[i]]
+  
+  if (loutcome == "Deaths")
+    ldat <- deaths[[i]]
+  
+  dat <- get_health_plot(ds = ldat, 
+                         outcome = loutcome, lt = lt, index = i, ac = "All", 
+                         sc = "All", show_injury = T, combined_NCDs = T)
   l[[i]] <- plotly::as_widget(ggplotly(dat[[1]]))
   
   cd[[i]] <- dat[[2]]
   cd[[i]]$INDEX <- i
   
-  print(l[[i]])
+  #print(l[[i]])
 }
+
+
+ctitle <- ifelse(loutcome == "Deaths", "Averted number of Deaths - compared with Ref Scenario 1",
+                 "Reduction in Years of Life Lost (YLL) - compared with Ref Scenario 1")
+
 
 
 
 d <- bind_rows(cd)
 d <- arrange(d, variable, INDEX, cause)
+d$value <- round(d$value, 2)
 d$int <- interaction(d$variable, d$INDEX)
 d$int <- factor(d$int, unique(d$int))
 
 d$lab <- ifelse(d$INDEX == 1, "Baseline", "Halved background PA")
-ggplotly(ggplot(data = d, aes(x = cause, y = value, fill = variable, 
-                              group = int, text= paste0('~', lab))) + 
-           geom_bar(stat = 'identity', position = "dodge", color = "black"), 
-         tooltip = c("x", "y", "fill", "text"))
+
+p <- ggplot(data = d, aes(x = cause, y = value, fill = variable, 
+                          group = int, text= paste0('~', lab))) + 
+  geom_bar(stat = 'identity', position = "dodge", color = "black") +
+  theme_minimal()
+
+p <- p + labs(title = ctitle) + xlab("") + ylab('<- Harms     Benefits ->') 
+
+
+print(plotly::as_widget(ggplotly(p, tooltip = c("x", "y", "fill", "text"))))
+
+  
+  
