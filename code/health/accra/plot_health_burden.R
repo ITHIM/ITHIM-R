@@ -165,3 +165,16 @@ for (i in 1:INDEX){
   
   print(l[[i]])
 }
+
+
+
+d <- bind_rows(cd)
+d <- arrange(d, variable, INDEX, cause)
+d$int <- interaction(d$variable, d$INDEX)
+d$int <- factor(d$int, unique(d$int))
+
+d$lab <- ifelse(d$INDEX == 1, "Baseline", "Halved background PA")
+ggplotly(ggplot(data = d, aes(x = cause, y = value, fill = variable, 
+                              group = int, text= paste0('~', lab))) + 
+           geom_bar(stat = 'identity', position = "dodge", color = "black"), 
+         tooltip = c("x", "y", "fill", "text"))
