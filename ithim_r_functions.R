@@ -1,6 +1,16 @@
+##RJ question for LG/AA/RG
+## There is already an 'age_cat' in "data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv"
+## Should we remove all the places where we re-define "age_cat", as it's already there?
+
+##RJ question for LG/AA/RG
+## in lots of places we write
+# Remove short walking, 99, Train, Other and Unspecified modes
+## do we want to remove any of these from the raw dataset that gets passed around?
+
+##RJ question for/discussion with AA
 ## global variables (i.e. those needed by all functions) are assigned to all environments, using 
-## <<- and assign(...,pos=1). A better method might be to make an object (list) that contains 
-## all inputs, variables, and intermediate objects
+## <<- and assign(...,pos=1), and denoted by capitals to make it clear what they are. 
+## A better method might be to make an object (list) that contains all inputs, variables, and intermediate objects.
 ithim_setup_global_values <- function(plotFlag = F,
                                       SAMPLEMODE = F,
                                       NSAMPLES = 1,
@@ -32,6 +42,11 @@ ithim_setup_global_values <- function(plotFlag = F,
   AGE_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(AGE_CATEGORY,"[^0-9]+"),function(x)x[1]))
 }
 
+##RJ question for AA/RG/LG
+## what are all the parameters we might like to change?
+## which functions do they affect?
+## do we want to pre-specify the distribution, as below?
+## if yes, which parameters and what distributions?
 ithim_setup_parameters <- function(MMETCycling = 4.63,
                                    MMETWalking = 2.53,
                                    MMETEbikes = 3.50,
@@ -702,7 +717,8 @@ gen_ap_rr <- function(rd,ind_pm){
         gamma <- repmat(dr_ap_sub[iters,4],length(i),1)
         tmrel <- repmat(dr_ap_sub[iters,5],length(i),1)
         pm <- repmat(dr_ap_sub[iters,2],length(i),1)
-        for(x in 1: length(SCEN_SHORT_NAME)) ind[[paste0("RR_ap_",SCEN_SHORT_NAME[x])]][i] <- rowMeans(1 + (alpha * (1-exp(-beta*((repmat(as.matrix(ind[i,pm_indices[x]]),1,length(iters)) - tmrel)^gamma)))))
+        for(x in 1: length(SCEN_SHORT_NAME)) 
+          ind[[paste0("RR_ap_",SCEN_SHORT_NAME[x])]][i] <- rowMeans(1 + (alpha * (1-exp(-beta*((repmat(as.matrix(ind[i,pm_indices[x]]),1,length(iters)) - tmrel)^gamma)))))
       }
       ## change the names of the columns as per the disease
       for (n in 1: length(SCEN_SHORT_NAME)){
@@ -748,6 +764,8 @@ dose_response <- function (cause, outcome_type, dose, confidence_intervals = F, 
   lookup_table <- get(paste0(fname))
   lookup_df <- as.data.frame(lookup_table)
   #pert_75 <- stringr::str_sub(basename(list_of_files[[1]]), end = -5)
+  ##RJ previously:
+  ## cond <- ifelse(use_75_pert, abs(lookup_table$dose - dose), which.min(abs(lookup_table$dose - dose)))
   rr <- approx(x=lookup_df$dose,y=lookup_df$RR,xout=dose,yleft=1,yright=min(lookup_df$RR))$y
   if (confidence_intervals|| !certainty){
     lb <- approx(x=lookup_df$dose,y=lookup_df$lb,xout=dose,yleft=1,yright=min(lookup_df$lb))$y
@@ -774,7 +792,8 @@ gen_pa_rr <- function(ind,INDEX){
       pa_n <- as.character(DISEASE_OUTCOMES$acronym[j])
       outcome_type <- ifelse(pa_dn%in%c('lung-cancer','stroke'), 'incidence' , 'mortality')
       use_75_pert <- F#ifelse(pa_dn == 'all-cause-mortality',T,F)
-      ##RJ what is use_75_pert?
+      ##RJ question for RG/AA/LG
+      ## what is use_75_pert?
       # CHD: 35 mmeth per week use mortality
       # Lung cancer: 10 mmeth per week use incidence
       # stroke 75 pert: 13.37
@@ -827,6 +846,9 @@ combined_rr_pa_pa <- function(ind_pa,ind_ap){
 accra_injuries <- function(rd,scen_dist){
   ### injury code
   ### This is the script for distance-based injury model for Accra using safety-in-numbers
+  
+  ##RJ question for RG: why are there two distance objects, one from scen_dist, one from rd?
+  
   ## PREPROCESSING
   if(exists('SCEN_DIST_FOR_INJURY')){
     scen_dist <- SCEN_DIST_FOR_INJURY
@@ -950,6 +972,7 @@ accra_injuries <- function(rd,scen_dist){
 
 health_burden <- function(ind,inj){
   
+  ##RJ question for AA/LG/RG: can anyone explain what it happening here?!
   
   cols = c(3, 4) 
   ### iterating over all all disease outcomes
@@ -1107,7 +1130,6 @@ run_ithim <- function(seed=1){
     parameter_samples <- sapply(names(parameters),function(x)get(x))
     return_list$parameter_samples <- parameter_samples
   }
-  #cat(paste0(nsample,' out of ',NSAMPLES,'\n'))
   # Generate distance and duration matrices
   dist_and_dur <- dist_dur_tbls(bs)
   dist <- dist_and_dur[[1]]
@@ -1124,6 +1146,7 @@ run_ithim <- function(seed=1){
   ylls <- hb$ylls
   #  ylls_red[[nsample]] <- hb$ylls_red
   return_list$outcome <- colSums(ylls[,c(10,11,13:16)]) ## return ihd
+  ##RJ note: add items to return_list to return them.
   return(return_list)
 }
 
