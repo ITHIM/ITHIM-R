@@ -104,7 +104,7 @@ ithim_load_data <- function(){
   names(trans_emissions_file) <- c("vehicle_type", "delhi_fleet_2011", "delhi_fleet_perHH", "accra_fleet_2010", "PM2_5_emiss_fact", "base_emissions")
   TRANS_EMISSIONS_ORIGINAL <<- trans_emissions_file
   lookup_ratio_pm_file <-  read_csv('data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.csv')
-  lookup_ratio_pm_file <- rename(lookup_ratio_pm_file, trip_mode = Mode)
+  lookup_ratio_pm_file <- dplyr::rename(lookup_ratio_pm_file, trip_mode = Mode)
   LOOKUP_RATIO_PM <<- lookup_ratio_pm_file
   WHW_MAT <<- read_csv('code/injuries/accra/who_hit_who_accra.csv')
   GBD_DATA <<- read_csv('data/demographics/gbd/accra/GBD Accra.csv')
@@ -800,9 +800,13 @@ gen_pa_rr <- function(ind,INDEX){
       # Diabetes no limits
       # total cancer: 35 mmeths per week use mortality
       doses <- doses_clean
-      if(pa_dn %in% c('total-cancer','coronary-heart-disease')) doses[doses>=35] <- 35
-      else if(pa_dn == 'lung-cancer') doses[doses>=10] <- 10
-      else if(pa_dn == 'stroke') doses[doses>=13.37] <- 13.37
+      if(pa_dn %in% c('total-cancer','coronary-heart-disease')) doses[doses>35] <- 35
+      else if(pa_dn == 'lung-cancer') doses[doses>10] <- 10
+      else if(pa_dn == 'stroke') doses[doses>13.37] <- 13.37
+      else if(pa_dn == 'all-cause-mortality')  {
+        max_all_cause <- sapply(doses,function(x)quantile(x,0.75))
+        doses <- sapply(1:ncol(doses),function(x){y <- doses[[x]]; y[y>max_all_cause[x]] <- max_all_cause[x]; return(y)})
+      }
       return_vector <- dose_response(cause = pa_dn, outcome_type = outcome_type, certainty = pa_certainty, 
                                    dose = unlist(data.frame(doses)), use_75_pert = use_75_pert)
       for (i in 1:length(SCEN_SHORT_NAME)){

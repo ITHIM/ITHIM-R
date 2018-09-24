@@ -179,5 +179,7 @@ inj$whw
 head(inj$injury_dataset)
 
 
-
-
+dup <- unlist(sapply(injury_records_2,function(x)x[,1]))[duplicated(unlist(sapply(injury_records_2,function(x)x[,1])))]
+dup_entries <- sapply(injury_records_2,function(x)x[x[,1]%in%dup,])
+dup_entries <- sapply(dup_entries,function(x)x[order(x[,1]),])
+for(x in 1:length(dup_entries)) View(dup_entries[[x]])

@@ -1,3 +1,4 @@
+setwd('~/overflow_dropbox/ITHIM-R/')
 rm (list = ls())
 source('ithim_r_functions.R')
 # Load packages
@@ -12,6 +13,7 @@ library(distr)
 library(pracma)
 library(data.table)
 library(mgcv)
+library(parallel)
 
 #################################################
 ## Use case 1: not sampling:
