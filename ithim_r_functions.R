@@ -767,6 +767,8 @@ dose_response <- function (cause, outcome_type, dose, confidence_intervals = F, 
   ##RJ previously:
   ## cond <- ifelse(use_75_pert, abs(lookup_table$dose - dose), which.min(abs(lookup_table$dose - dose)))
   rr <- approx(x=lookup_df$dose,y=lookup_df$RR,xout=dose,yleft=1,yright=min(lookup_df$RR))$y
+  ## RJ/AA/MT: what are we doing with dose--response uncertainty?
+  ## one possibility: (1) generate nSample uniform random variables; (2) transform all doses to responses by mapping uniform to trunc normal
   if (confidence_intervals|| !certainty){
     lb <- approx(x=lookup_df$dose,y=lookup_df$lb,xout=dose,yleft=1,yright=min(lookup_df$lb))$y
     ub <- approx(x=lookup_df$dose,y=lookup_df$ub,xout=dose,yleft=1,yright=min(lookup_df$ub))$y
@@ -803,10 +805,7 @@ gen_pa_rr <- function(ind,INDEX){
       if(pa_dn %in% c('total-cancer','coronary-heart-disease')) doses[doses>35] <- 35
       else if(pa_dn == 'lung-cancer') doses[doses>10] <- 10
       else if(pa_dn == 'stroke') doses[doses>13.37] <- 13.37
-      else if(pa_dn == 'all-cause-mortality')  {
-        max_all_cause <- sapply(doses,function(x)quantile(x,0.75))
-        doses <- sapply(1:ncol(doses),function(x){y <- doses[[x]]; y[y>max_all_cause[x]] <- max_all_cause[x]; return(y)})
-      }
+      else if(pa_dn == 'all-cause-mortality') doses[doses>16.08] <- 16.08 #{
       return_vector <- dose_response(cause = pa_dn, outcome_type = outcome_type, certainty = pa_certainty, 
                                    dose = unlist(data.frame(doses)), use_75_pert = use_75_pert)
       for (i in 1:length(SCEN_SHORT_NAME)){
@@ -977,152 +976,89 @@ accra_injuries <- function(rd,scen_dist){
 health_burden <- function(ind,inj){
   
   ##RJ question for AA/LG/RG: can anyone explain what it happening here?!
-  
+  gbd_deaths <- subset(GBD_DATA,measure=='Deaths' & metric == "Number")
+  gbd_ylls <- subset(GBD_DATA,measure=='YLLs (Years of Life Lost)' & metric == "Number")
   cols = c(3, 4) 
+  unique_category1 <- unique(ind[[2]])
+  unique_category2 <- unique(ind[[4]])
+  pif <- expand.grid(unique_category1, unique_category2,stringsAsFactors = F)
+  colnames(pif) <- colnames(ind)[c(2,4)]
+  yll_dfs <- pif
+  death_dfs <- pif
   ### iterating over all all disease outcomes
   for ( j in 1:nrow(DISEASE_OUTCOMES)){
     ## checking whether to calculate this health outcome for PA
     # Disease acronym
-    ac <- DISEASE_OUTCOMES$acronym[j] %>% as.character()
+    ac <- as.character( DISEASE_OUTCOMES$acronym[j] )
     # GBD's disease name
-    gbd_dn <- DISEASE_OUTCOMES$GBD_name[j] %>% as.character()
+    gbd_dn <- as.character(DISEASE_OUTCOMES$GBD_name[j] )
     middle_bit <- paste0(ifelse(DISEASE_OUTCOMES$physical_activity[j]==1,'pa_',''),ifelse(DISEASE_OUTCOMES$air_pollution[j]==1,'ap_',''))
-    base_var <- paste0('RR_',middle_bit,'scen1_', ac)
-    scen_vars <- paste0('RR_',middle_bit, SCEN_SHORT_NAME, '_', ac)
-    base_scen_vars <- lapply(scen_vars,function(x)c(base_var,x))
+    reference_scenario <- 'scen1'
+    base_var <- paste0('RR_',middle_bit,reference_scenario,'_', ac)
+    scen_names <- SCEN_SHORT_NAME[SCEN_SHORT_NAME!=reference_scenario]
+    scen_vars <- paste0('RR_',middle_bit, scen_names, '_', ac)
     # Loop through all three scenarios
-    for (index in 1:length(SCEN_SHORT_NAME)){
-      scen <- SCEN_SHORT_NAME[index]
+    # set up reference (scen1)
+    system.time(pif[[base_var]] <- PAF(pop = ind[,colnames(ind)%in%c(base_var,'sex', 'age_cat')], cn = base_var, mat=pif[,colnames(pif)%in%c('sex', 'age_cat')]))
+    yll_base <- combine_health_and_pif(pop = pif,cn = base_var, hc = gbd_ylls_disease)
+    yll_base_mat <- t(repmat(yll_base,length(scen_vars),1))
+    death_base <- combine_health_and_pif(pop = pif,cn = base_var, hc = gbd_ylls_disease)
+    death_base_mat <- t(repmat(death_base,length(scen_vars),1))
+    gbd_deaths_disease <- subset(gbd_deaths,cause==gbd_dn)
+    gbd_ylls_disease <- subset(gbd_ylls,cause==gbd_dn)
+    for (index in 1:length(scen_vars)){
+      scen <- scen_names[index]
       scen_var <- scen_vars[index]
+      yll_name <- paste0(scen, '_ylls_',middle_bit,ac)
+      yll_red_name <- paste0(scen, '_ylls_red_',middle_bit,ac)
+      deaths_name <- paste0(scen, '_deaths_',middle_bit,ac)
+      deaths_red_name <- paste0(scen, '_deaths_red_',middle_bit,ac)
       # Calculate PIFs for baseline and selected scenario
-      pif <- data.frame(PAF(pop = ind, attr = c('sex', 'age_cat'), cn = c(base_var, scen_var)))
-      pif <- arrange(pif, age.band, gender)
+      pif[[scen_var]] <- PAF(pop = ind[,colnames(ind)%in%c(scen_var,'sex', 'age_cat')], cn = scen_var, mat=pif[,colnames(pif)%in%c('sex', 'age_cat')])
+      pif[[scen_var]] <- (pif[[base_var]] - pif[[scen_var]]) / pif[[base_var]]
       # Redefine non-factor based column classes
-      pif[,c("age.band", "gender")] <- lapply(pif[,c("age.band", "gender")], as.character)   
-      pif[,cols] = apply(pif[,cols], 2, function(x) as.numeric(as.character(x)))
       # Calculate ylls (total and red)
-      yll_dfs <- combine_health_and_pif(
-        pop = pif,
-        hc = GBD_DATA,
-        hm = "YLLs (Years of Life Lost)",
-        cn = base_scen_vars[[index]],
-        hm_cause = gbd_dn,
-        hm_cn = 'value_gama')
-      # Subset to get yll
-      local_ylls <- as.data.frame(yll_dfs[[1]])
-      # Subset to get yll_reductions
-      local_ylls_red <- as.data.frame(yll_dfs[[2]])
+      local_ylls_red <- yll_dfs
+      yll_dfs[[yll_name]] <- combine_health_and_pif(pop = pif,cn = scen_var, hc = gbd_ylls_disease)
+      local_ylls <- yll_dfs
+      local_ylls_red[[yll_red_name]] <- round(local_ylls[[yll_name]] / yll_base, 5)
       # Calculate deaths (total and red)
-      death_dfs <- combine_health_and_pif(
-        pop = pif,
-        hc = GBD_DATA,
-        hm = "Deaths",
-        cn = base_scen_vars[[index]],
-        hm_cause = gbd_dn,
-        hm_cn = 'value_gama')
-      # Subset to get yll
-      local_deaths <- as.data.frame(death_dfs[[1]])
-      # Subset to get yll_reductions
-      local_deaths_red <- as.data.frame(death_dfs[[2]])
-      # Remove baseline vars
-      # Rename var names
-      local_deaths <- rename(local_deaths, !! paste0(scen, '_deaths_',middle_bit,ac) := scen_var)
-      local_deaths_red <- rename(local_deaths_red, !! paste0(scen, '_deaths_red_',middle_bit,ac) := scen_var)
-      local_ylls <- rename(local_ylls, !! paste0(scen, '_ylls_',middle_bit,ac) := scen_var)
-      local_ylls_red <- rename(local_ylls_red, !! paste0(scen, '_ylls_red_',middle_bit,ac) := scen_var)
-      local_deaths <- select(local_deaths, -contains("RR_"))
-      local_deaths_red <- select(local_deaths_red, -contains("RR_"))
-      local_ylls <- select(local_ylls, -contains("RR_"))
-      local_ylls_red <- select(local_ylls_red, -contains("RR_"))
-      if (index == 1 && j==1){
-        # If global vars are not initiliazed, copy vars
-        gdeaths <- local_deaths
-        gdeaths_red <- local_deaths_red
-        gylls <- local_ylls
-        gylls_red <- local_ylls_red
-      }else{
-        # global vars are already initialized. Join new datasets with old ones.
-        gdeaths <- left_join(gdeaths, local_deaths, by = c("age.band", "gender"))
-        gdeaths_red <- left_join(gdeaths_red, local_deaths_red, by = c("age.band", "gender"))
-        gylls <- left_join(gylls, local_ylls, by = c("age.band", "gender"))
-        gylls_red <- left_join(gylls_red, local_ylls_red, by = c("age.band", "gender"))
-      }
+      local_deaths_red <- death_dfs
+      death_dfs[[deaths_name]] <- combine_health_and_pif(pop = pif,cn = scen_var, hc = gbd_deaths_disease)
+      local_deaths <- death_dfs
+      local_deaths_red[[deaths_red_name]] <- round(local_deaths[[deaths_name]] / death_base, 5)
     }
   }
   gdeaths[,names(select(gdeaths, contains("scen1_")))] <- 0
-  # rename columns
-  inj <- rename(inj, age.band = age_cat, gender = sex)
   # Select deaths columns
-  inj_deaths <- select(inj, c(age.band, gender, contains("deaths")))
+  inj_deaths <- select(inj, c(age_cat, sex, contains("deaths")))
   # Select yll columns
-  inj_ylls <- select(inj, c(age.band, gender, contains("yll")))
+  inj_ylls <- select(inj, c(age_cat, sex, contains("yll")))
   # Join injuries data to global datasets
-  gdeaths <- left_join(gdeaths, inj_deaths, by = c("age.band", "gender"))
-  gylls <- left_join(gylls, inj_ylls, by = c("age.band", "gender"))
+  gdeaths <- left_join(gdeaths, inj_deaths, by = c("age_cat", "sex"))
+  gylls <- left_join(gylls, inj_ylls, by = c("age_cat", "sex"))
   list(deaths=gdeaths,deaths_red=gdeaths_red,ylls=gylls,ylls_red=gylls_red)
 }
 
-PAF <- function(pop, attr, cn){
-  unique_gender <- unique(pop[[attr[1]]])
-  unique_age_group <- unique(pop[[attr[2]]])
-  combinations <- length(unique_age_group)*length(unique_gender)
-  m <- expand.grid("age band"=unique_age_group, "gender"=unique_gender)
-  
-  for(i in cn) m[[i]] <- 0
-  mi <- 1
-  for (j in 1:length(unique_gender)){
-    reduced_pop_gen <- filter(pop, UQ(as.name(attr[1])) == unique_gender[j])
-    for (i in 1:length(unique_age_group)){
-      reduced_pop <- filter(reduced_pop_gen, UQ(as.name(attr[2])) == unique_age_group[i])
-      sumPRR <- sum (reduced_pop[[cn[1]]])
-      m[mi, 3] <- sumPRR
-      for (k in 2:length(cn)){
-        sumPRRi <- sum (reduced_pop[[cn[k]]])
-        PRA <- (sumPRR - sumPRRi) / sumPRR
-        m[mi, 2 + k] = round(PRA, digits = 6)
-      }
-      mi <- mi + 1
-    }
-  }
-  m
+PAF <- function(pop, cn, mat){
+  paf <- apply(mat,1,function(x)sum(pop[[cn]][pop[[1]]==x[1]&pop[[2]]==x[2]]))
+  paf
 }
 
-combine_health_and_pif <- function(pop, hc, hm, hm_cause, hm_cn, cn){
-  
-  # combine_health_and_pif(pif, GBD_DATA, "YLLs (Years of Life Lost)")
-  # pop <- pif
-  # hc <- GBD_DATA
-  # hm <- "YLLs (Years of Life Lost)"
-  write_indices <- unique(match(cn,colnames(pop))) ##RJ odd hack for when cn=c(scen1,scen1)
-  m <- pop
-  n <- pop
-  for (new_row in 1:nrow(m)){
-    gen <- m$gender[new_row]
-    ageband <- m$age.band[new_row]
-    sub <- filter(hc, sex == gen & age ==  ageband & measure == hm & metric == "Number" & cause == hm_cause)
+combine_health_and_pif <- function(pop, cn, hc=GBD_DATA, hm_cn = 'value_gama'){
+  return_values <- c()
+  write_indices <- match(cn,colnames(pop))
+  for (new_row in 1:nrow(pop)){
+    gen <- pop$sex[new_row]
+    ageband <- pop$age_cat[new_row]
+    sub <- filter(hc, sex == gen & age ==  ageband )
     hm_cn_val <- as.numeric(sub[[hm_cn]])
-    m_sub <- filter(m, gender == gen & age.band ==  ageband)
-    baseline_val <- as.double(m_sub[write_indices[1]])# %>% select(cn[1]) %>% as.double()
-    if (length(hm_cn_val) > 0){
-      vals <- as.double(m_sub[write_indices]) * hm_cn_val #sapply(cn,function(x)m_sub %>% select(x) %>% as.double() * hm_cn_val)
-    }else{ vals <- c(0,0) }
-    
-    n[n$gender == gen & n$age.band ==  ageband, write_indices] <- round(vals / baseline_val, 5)
-    m[m$gender == gen & m$age.band == ageband, write_indices] <- vals
-    
-    #  for (i in 1:length(cn)){
-    #      val <- m_sub %>% select(cn[i]) %>% as.double() * hm_cn_val
-    #      print(val)
-    #      n[[cn[i]]][n$gender == gen & n$age.band ==  ageband] <- round(val / baseline_val, 5)
-    #      m[[cn[i]]][m$gender == gen & m$age.band == ageband] <- val
-    #  }
-    #}else{
-    #  for (i in 1:length(cn))
-    #    n[[cn[i]]][n$gender == gen & n$age.band ==  ageband] <- 
-    #      m[[cn[i]]][m$gender == gen & m$age.band == ageband] <- 0
-    #}
+    m_sub <- filter(pop, sex == gen & age_cat ==  ageband)
+    #baseline_val <- as.double(m_sub[write_indices[1]])# %>% select(cn[1]) %>% as.double()
+    vals <- as.double(m_sub[write_indices]) * hm_cn_val #sapply(cn,function(x)m_sub %>% select(x) %>% as.double() * hm_cn_val)
+    return_values[new_row] <- vals
   }
-  list(m, n)
+  return_values
 }
 
 run_ithim <- function(seed=1){ 
@@ -1144,12 +1080,12 @@ run_ithim <- function(seed=1){
   RR_PA_calculations <- gen_pa_rr(mmets,INDEX)
   RR_PA_AP_calculations <- combined_rr_pa_pa(RR_PA_calculations,RR_AP_calculations)
   deaths_yll_injuries <- accra_injuries(bs,dist)
-  hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries)
+  system.time(hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries))
   #  deaths[[nsample]] <- hb$deaths
   #  deaths_red[[nsample]] <- hb$deaths_red
   ylls <- hb$ylls
   #  ylls_red[[nsample]] <- hb$ylls_red
-  return_list$outcome <- colSums(ylls[,c(10,11,13:16)]) ## return ihd
+  return_list$outcome <- colSums(ylls[,c(8:12)]) ## return ihd
   ##RJ note: add items to return_list to return them.
   return(return_list)
 }
