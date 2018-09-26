@@ -49,7 +49,6 @@ ithim_setup_global_values <- function(plotFlag = F,
 ## if yes, which parameters and what distributions?
 ithim_setup_parameters <- function(MMETCycling = 4.63,
                                    MMETWalking = 2.53,
-                                   MMETEbikes = 3.50,
                                    PM_CONC_BASE = 50,  
                                    PM_TRANS_SHARE = 0.225 ){
   ## PARAMETERS
@@ -64,11 +63,6 @@ ithim_setup_parameters <- function(MMETCycling = 4.63,
     MMETWalking <<- MMETWalking
   }else{
     parameters$MMETWalking <- Lnorm(MMETWalking[1],MMETWalking[2])
-  }
-  if(length(MMETEbikes)==1 || SAMPLEMODE == F) {
-    MMETEbikes <<- MMETEbikes
-  }else{
-    parameters$MMETEbikes <- Lnorm(MMETEbikes[1],MMETEbikes[2])
   }
   if(length(PM_CONC_BASE)==1 || SAMPLEMODE == F) {
     PM_CONC_BASE <<- PM_CONC_BASE
@@ -491,6 +485,7 @@ dist_dur_tbls <- function(bs){
     
   }
   
+  ##RJ question for AA: do we need 'dur'?
   ## calculate all distances and durations
   l_dist <- list()
   l_dur <- list()
@@ -1025,6 +1020,8 @@ combine_health_and_pif <- function(pop, pif_values, hc=GBD_DATA, hm_cn = 'value_
 }
 
 run_ithim <- function(seed=1){ 
+  ############################
+  ## (0) SET UP
   INDEX <- 1
   set.seed(seed)#Sys.getpid()+seed+as.numeric(Sys.time())
   return_list <- list()
@@ -1035,28 +1032,37 @@ run_ithim <- function(seed=1){
     # Store samples
     return_list$parameter_samples <- sapply(names(parameters),function(x)get(x))
   }
+  ############################
+  ## (1) PA PATHWAY
   # Generate distance and duration matrices
   (dist_and_dur <- dist_dur_tbls(bs))
   dist <- dist_and_dur[[1]]
-  dur <- dist_and_dur[[2]]
-  # Calculate total mMETs
-  (mmets <- total_mmet(bs,INDEX))
+  #dur <- dist_and_dur[[2]]
   # Calculated PM2.5 concentrations
   (pm_conc <- scenario_pm_calculations(dist,bs))
   # Air pollution calculation
   (RR_AP_calculations <- gen_ap_rr(bs,pm_conc))
+  ############################
+  ## (2) AP PATHWAY
+  # Calculate total mMETs
+  (mmets <- total_mmet(bs,INDEX))
   # Physical activity calculation
   (RR_PA_calculations <- gen_pa_rr(mmets,INDEX))
+  ############################
+  ## (3) COMBINE (1) AND (2)
   # Physical activity and air pollution combined
   (RR_PA_AP_calculations <- combined_rr_pa_pa(RR_PA_calculations,RR_AP_calculations))
+  ############################
+  ## (4) INJURIES
   # Injuries calculation
   (deaths_yll_injuries <- accra_injuries(bs))
+  ############################
+  ## (5) COMBINE (3) AND (4)
   # Combine health burden from disease and injury
   (hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries))
-  #  deaths[[nsample]] <- hb$deaths
-  #  deaths_red[[nsample]] <- hb$deaths_red
+  ############################
   ylls <- hb$ylls
-  #  ylls_red[[nsample]] <- hb$ylls_red
+  ## (6) RETURN
   return_list$outcome <- colSums(ylls[,c(8:12)]) ## return ihd
   ##RJ note: add items to return_list to return them.
   return(return_list)
