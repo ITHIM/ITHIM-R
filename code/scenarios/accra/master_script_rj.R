@@ -52,7 +52,7 @@ numcores <- detectCores()
 results <- mclapply(1:NSAMPLES,FUN=run_ithim,mc.cores = numcores)
 parameter_samples <- t(sapply(results,function(x)x$parameter_samples))
 outcome <- t(sapply(results,function(x)x$outcome))
-evppi <- matrix(0,ncol=NSCEN+1,nrow=length(parameters))
+evppi <- matrix(0,ncol=NSCEN,nrow=length(parameters))
 for(j in 1:(NSCEN)){
   y <- outcome[,j]
   vary <- var(y)

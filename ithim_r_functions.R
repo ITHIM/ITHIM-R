@@ -53,6 +53,7 @@ ithim_setup_parameters <- function(MMETCycling = 4.63,
                                    PM_CONC_BASE = 50,  
                                    PM_TRANS_SHARE = 0.225 ){
   ## PARAMETERS
+  ##RJ parameters are assigned to the environment and so are set for every function. They can be over-written in sample_parameters.
   parameters <- list()
   if(length(MMETCycling)==1 || SAMPLEMODE == F) {
     MMETCycling <<- MMETCycling
@@ -83,6 +84,7 @@ ithim_setup_parameters <- function(MMETCycling = 4.63,
 }
 
 sample_parameters <- function(parameters){
+  ##RJ pos=1 means when we sample we overwrite the value set for the parameter in the whole environment.
   for(i in 1:length(parameters))
     assign(names(parameters)[i],r(parameters[[i]])(1),pos=1)
 }
@@ -439,10 +441,13 @@ create_all_scenarios <- function(rd){
 }
 
 dist_dur_tbls <- function(bs){
-  # Remove short walking, 99, Train, Other and Unspecified modes
-  dataset <- filter(bs, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
   
+  bs <- filter(bs, !trip_mode %in% c("99", "Train", "Other", "Unspecified")&!is.na(trip_mode))
+  
+  ##RJ only calculate if plotFlag==T
   if(plotFlag){
+    # Remove short walking, 99, Train, Other and Unspecified modes
+    dataset <- filter(bs, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
     # Unique number of ind
     total_ind <- length(unique(bs$participant_id))
     
@@ -486,31 +491,28 @@ dist_dur_tbls <- function(bs){
     
   }
   
+  ## calculate all distances and durations
   l_dist <- list()
   l_dur <- list()
-  for (i in 1:length(unique(dataset$scenario))){
-    local <- bs %>% filter(scenario == unique(dataset$scenario)[i]) %>% 
-      group_by(trip_mode)
+  for (i in 1:length(SCEN)){
+    local <- group_by(filter(bs,scenario == SCEN[i]), trip_mode)
     
-    local_dur <- local %>% summarise(sum_dur = sum(trip_duration))
-    local_dur <- filter(local_dur, !is.na(trip_mode))
+    local_dur <- summarise(local, sum_dur = sum(trip_duration))
     local_dur$sum_dur[local_dur$trip_mode == "Walking"] <- 
       local_dur$sum_dur[local_dur$trip_mode == "Walking"] + 
       local_dur$sum_dur[local_dur$trip_mode == "Short Walking"]
-    local_dur <- local_dur %>%  select(trip_mode, sum_dur) %>% 
-      setNames(c("trip_mode",unique(dataset$scenario)[i])) 
+    colnames(local_dur)[2] <- SCEN[i]
     l_dur[[i]] <- local_dur
     
-    local_dist <- local %>% summarise(sum_dist = sum(trip_distance))
-    local_dist <- filter(local_dist, !is.na(trip_mode))
+    local_dist <- summarise(local, sum_dist = sum(trip_distance))
     local_dist$sum_dist[local_dist$trip_mode == "Walking"] <- 
       local_dist$sum_dist[local_dist$trip_mode == "Walking"] + 
       local_dist$sum_dist[local_dist$trip_mode == "Short Walking"]
-    local_dist <- local_dist %>%  select(trip_mode, sum_dist) %>% 
-      setNames(c("trip_mode",unique(dataset$scenario)[i])) 
+    colnames(local_dist)[2] <- SCEN[i]
     l_dist[[i]] <- local_dist
   }
   
+  ## join distances and durations
   for (i in 1:length(l_dist)){
     if (i == 1){
       local_dist <- l_dist[[i]]
@@ -520,14 +522,10 @@ dist_dur_tbls <- function(bs){
       local_dur <- left_join(local_dur, l_dur[[i]], by = "trip_mode")
     }
   }
-  
  
-  # Remove short walking, 99, Train, Other and Unspecified modes
-  local_dist <- filter(local_dist, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
-  local_dur <- filter(local_dur, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
-  
-  dist <- local_dist
-  dur <- local_dur
+  # Remove short walking
+  dist <- filter(local_dist, trip_mode != 'Short Walking')
+  dur <- filter(local_dur, trip_mode != 'Short Walking')
   
   if(plotFlag){
     
@@ -559,7 +557,6 @@ total_mmet <- function(rd,INDEX){
   # Convert baseline's trip duration from mins to hours
   rd_pa$trip_duration_hrs <- rd_pa$trip_duration / 60
   # Get total individual level walking and cycling and sport mmets 
-  
   pa_ind <- setDT(rd_pa)[,.(sex = first(sex), age = first(age),  age_cat = first(age_cat), 
                               cycling_mmet_base = (sum(trip_duration_hrs[trip_mode == 'Bicycle' & scenario == 'Baseline']) ),
                               walking_mmet_base = (sum(trip_duration_hrs[trip_mode %in%c('Walking','Short Walking')  & scenario == 'Baseline']) ),
@@ -575,6 +572,7 @@ total_mmet <- function(rd,INDEX){
                               walking_mmet_scen5 = (sum(trip_duration_hrs[trip_mode  %in%c('Walking','Short Walking')   & scenario == 'Scenario 5']) ),
                               work_ltpa_mmet = first(work_ltpa_marg_met)),by='participant_id']
   
+  # Calculate MMETs
   pa_ind$base_mmet <- pa_ind$work_ltpa_mmet / PA_MULT[INDEX] +  pa_ind$cycling_mmet_base* MMETCycling + pa_ind$walking_mmet_base * MMETWalking
   pa_ind$scen1_mmet <- pa_ind$work_ltpa_mmet / PA_MULT[INDEX] +  pa_ind$cycling_mmet_scen1* MMETCycling + pa_ind$walking_mmet_scen1 * MMETWalking
   pa_ind$scen2_mmet <- pa_ind$work_ltpa_mmet / PA_MULT[INDEX] +  pa_ind$cycling_mmet_scen2* MMETCycling + pa_ind$walking_mmet_scen2 * MMETWalking
@@ -593,7 +591,6 @@ scenario_pm_calculations <- function(dist,rd){
   scen_dist <- dist 
 
   ### Calculating number of scenarios besides the baseline
-  dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
   trans_emissions <- TRANS_EMISSIONS_ORIGINAL
   n <- which(names(scen_dist)=="Baseline") ## the column where baseline distances are in the scenario distance file
   p <- ncol(trans_emissions)
@@ -608,7 +605,6 @@ scenario_pm_calculations <- function(dist,rd){
     trans_emissions[8,p+i] <- trans_emissions$base_emissions[8]*1 ## scenario emissions of trucks
     names(trans_emissions)[p+i] <-(paste("scen",i,"_emissions", sep=""))
   }
-  
   
   trans_emissions[nrow(trans_emissions)+1,2:ncol(trans_emissions)] <- colSums(trans_emissions[,2:ncol(trans_emissions)],na.rm=T)
   
@@ -681,8 +677,6 @@ gen_ap_rr <- function(rd,ind_pm){
   ind <-  summarise(group_by(rd,participant_id),sex = first(sex),
                     age = first(age),
                     age_cat = first(age_cat))
-  ## number of scenarios
-  dataset <- filter(rd, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
   
   ### combining PM2.5 concentration data (scenario_pm_calculations.R) and PA data (total_mmet.R) at the individual level (n=732)
   #ind<- read.csv("data/synth_pop_data/accra/processed_data/indiv_mmet/pa_total_mmet_weekly.csv") ### PA 
@@ -701,9 +695,10 @@ gen_ap_rr <- function(rd,ind_pm){
   for ( j in 1:nrow(DISEASE_OUTCOMES)){
     ## checking whether to calculate this health outcome for air pollution
     if (DISEASE_OUTCOMES$air_pollution[j] == 1){ 
+      # initialise lists
       for(x in 1:length(SCEN_SHORT_NAME)) ind[[paste0("RR_ap_",SCEN_SHORT_NAME[x])]] <- 0
       dr_ap_disease <- subset(DR_AP,cause_code==as.character(DISEASE_OUTCOMES$ap_acronym[j]))
-      ## iterating over all individuals
+      # apply by age groups
       ages <- unique(dr_ap_disease$age_code)
       for(age in ages){
         dr_ap_sub <- subset(dr_ap_disease,age_code == age )
@@ -712,11 +707,13 @@ gen_ap_rr <- function(rd,ind_pm){
         }else{
           i <- which(ind$ap_age==age)
         }
+        # get parameters
         alpha <- repmat(dr_ap_sub[iters,2],length(i),1)
         beta <- repmat(dr_ap_sub[iters,3],length(i),1)
         gamma <- repmat(dr_ap_sub[iters,4],length(i),1)
         tmrel <- repmat(dr_ap_sub[iters,5],length(i),1)
         pm <- repmat(dr_ap_sub[iters,2],length(i),1)
+        # calculate AP and apply to all in age group
         for(x in 1: length(SCEN_SHORT_NAME)) 
           ind[[paste0("RR_ap_",SCEN_SHORT_NAME[x])]][i] <- rowMeans(1 + (alpha * (1-exp(-beta*((repmat(as.matrix(ind[i,pm_indices[x]]),1,length(iters)) - tmrel)^gamma)))))
       }
@@ -805,9 +802,11 @@ gen_pa_rr <- function(ind,INDEX){
       if(pa_dn %in% c('total-cancer','coronary-heart-disease')) doses[doses>35] <- 35
       else if(pa_dn == 'lung-cancer') doses[doses>10] <- 10
       else if(pa_dn == 'stroke') doses[doses>13.37] <- 13.37
-      else if(pa_dn == 'all-cause-mortality') doses[doses>16.08] <- 16.08 #{
+      else if(pa_dn == 'all-cause-mortality') doses[doses>16.08] <- 16.08
+      ##RJ apply function to all doses as one long vector
       return_vector <- dose_response(cause = pa_dn, outcome_type = outcome_type, certainty = pa_certainty, 
                                    dose = unlist(data.frame(doses)), use_75_pert = use_75_pert)
+      ##RJ take segments of returned vector corresponding to scenario
       for (i in 1:length(SCEN_SHORT_NAME)){
         scen <- SCEN_SHORT_NAME[i]
         ind[[paste('RR_pa', scen, pa_n, sep = '_')]] <- return_vector$rr[(1+(i-1)*nrow(doses)):(i*nrow(doses))]
@@ -846,74 +845,30 @@ combined_rr_pa_pa <- function(ind_pa,ind_ap){
   ind
 }
 
-accra_injuries <- function(rd,scen_dist){
+accra_injuries <- function(rd){
   ### injury code
   ### This is the script for distance-based injury model for Accra using safety-in-numbers
   
-  ##RJ question for RG: why are there two distance objects, one from scen_dist, one from rd?
-  
   ## PREPROCESSING
-  if(exists('SCEN_DIST_FOR_INJURY')){
+  if(exists('RELATIVE_DIST_FOR_INJURY') && exists('SCEN_DIST_FOR_INJURY')){
+    relative_distances <- RELATIVE_DIST_FOR_INJURY
     scen_dist <- SCEN_DIST_FOR_INJURY
   }else{
-    names(scen_dist)[1] <- c("mode")
-    names(scen_dist)[2:(length(SCEN_SHORT_NAME)+1)] <- SCEN_SHORT_NAME
-    scen_dist[nrow(scen_dist)+1, 1] <- "Car"
-    scen_dist[nrow(scen_dist),1:(NSCEN+1)+1] <- colSums(scen_dist[4:5,1:(NSCEN+1)+1]) ## summing Private Car and Taxi as Car
-    scen_dist <- scen_dist[-c(4,5),]  ## removing Private Car and Taxi rows
-    scen_dist[,1] <- c("Bicycle", "Bus", "Motorcycle", "Pedestrian", "Car")
-    ## adding truck as one of the vehicle types
-    scen_dist[nrow(scen_dist)+1, 1] <-"Truck"  
-    ## adding tuktuk as one of the vehicle types
-    scen_dist[nrow(scen_dist)+1, 1] <-"Tuktuk"
-    ## allocating dummy distance of 1 for trucks as these will not be changed across the scenarios
-    scen_dist[nrow(scen_dist)-1,1:(NSCEN+1)+1] <- 1   
-    ## allocating dummy distance of 1 for tuk-tuks as these will not be changed 
-    scen_dist[nrow(scen_dist),1:(NSCEN+1)+1] <- 1  
-    ## columns as striking and rows as victim
-    ## calculating the ratio of distances for each mode in each scenario
-    for (i in 1:NSCEN ) scen_dist[,(2+i)] <- scen_dist[,(2+i)]/scen_dist[,2]
-    SCEN_DIST_FOR_INJURY <<- scen_dist
-  }
-  
-  
-  
-  whw_mat2 <- list()
-  for (k in 3:(1+length(SCEN_SHORT_NAME))) whw_mat2[[k-2]] <- WHW_MAT
-  for (j in 2: ncol(WHW_MAT)){
-    ncol_sin <- which(names(S.I.N)==names(WHW_MAT)[j])
-    nrow_strk_dist <- which(scen_dist[,1]== names(WHW_MAT)[j])
-    for (i in 1: nrow(WHW_MAT)) {
-      nrow_vic_dist <- which(scen_dist[,1]== as.character(WHW_MAT[i,1]))
-      nrow_sin <-  which(S.I.N[,1]==as.character(WHW_MAT[i,1])) 
-      vic_exp <- S.I.N[nrow_sin[1],ncol_sin]
-      str_exp <- S.I.N[nrow_sin[1]+6,ncol_sin]
-      for (k in 3:(1+length(SCEN_SHORT_NAME))){ 
-        victim_dist <- scen_dist[nrow_vic_dist,k] 
-        strk_dist <- scen_dist[nrow_strk_dist,k]
-        whw_mat2[[k-2]][i, j] <- WHW_MAT[i, j]*(victim_dist^vic_exp)*(strk_dist^str_exp)  
-      }
-    }
-  }
-  ## names of victim types
-  victim_deaths <- as.data.frame(WHW_MAT[,1])  
-  ## number of deaths in baseline by victim type
-  victim_deaths <- cbind(victim_deaths, scen=as.data.frame(rowSums(WHW_MAT[,3:8])))  
-  for (k in 3:(1+length(SCEN_SHORT_NAME))) victim_deaths <- cbind(victim_deaths, as.data.frame(rowSums(whw_mat2[[k-2]][,3:8],na.rm=T))) 
-  names(victim_deaths)[1] <- c("victim_type")
-  names(victim_deaths)[2:(length(SCEN_SHORT_NAME)+1)] <- SCEN_SHORT_NAME
-  
-  if(exists('RELATIVE_DIST_FOR_INJURY')){
-    relative_distances <- RELATIVE_DIST_FOR_INJURY
-  }else{
-    journeys <- filter(rd,!is.na(trip_id), !trip_mode%in%c(99,"Train","Unspecified","Other")) %>% group_by (age_cat,sex,trip_mode, scenario) %>% summarise(tot_dist=sum(trip_distance))
-    distances <- spread(journeys,trip_mode, tot_dist) 
+    journeys <- filter(rd,!is.na(trip_id), !trip_mode%in%c(99,"Train","Unspecified","Other")) %>% 
+      group_by (age_cat,sex,trip_mode, scenario) %>% 
+      summarise(tot_dist=sum(trip_distance))
+    distances <- spread(journeys,trip_mode, tot_dist,fill=0) 
     distances$Pedestrian <- distances$Walking+distances$`Short Walking`
     distances <- distances[,-which(names(distances)== "Walking")]
     distances <- distances[,-which(names(distances)== "Short Walking")]
     distances$Car<- distances$Taxi+distances$`Private Car`
     distances <- distances[,-which(names(distances)== "Private Car")]
     distances <- distances[,-which(names(distances)== "Taxi")]
+    scen_dist <- sapply(1:(NSCEN+1),function(x)c(colSums(subset(distances,scenario==SCEN[x])[,4:8])))
+    colnames(scen_dist) <- SCEN_SHORT_NAME
+    for(i in 2:6) scen_dist[,i] <- scen_dist[,i]/scen_dist[,1] 
+    scen_dist <- rbind(scen_dist,Truck=1,Tuktuk=1)
+    SCEN_DIST_FOR_INJURY <<- scen_dist
     
     mode_names <- names(distances)[4:8]
     for (i in 1: length(mode_names))
@@ -925,6 +880,32 @@ accra_injuries <- function(rd,scen_dist){
     RELATIVE_DIST_FOR_INJURY <<- relative_distances
   }
   
+  ##RJ match exponents and distances to multiply matrices
+  whw_mat2 <- list()
+  whw_mat <- data.frame(WHW_MAT)
+  vic_order <- whw_mat[,1]
+  strike_order <- colnames(whw_mat)[2:ncol(whw_mat)]
+  sin_vic <- S.I.N[1:6,]
+  sin_vic_ordered <- sin_vic[match(vic_order,data.frame(sin_vic)[,1]),match(strike_order,colnames(sin_vic))]
+  sin_str <- S.I.N[7:12,]
+  sin_str_ordered <- sin_str[match(vic_order,data.frame(sin_str)[,1]),match(strike_order,colnames(sin_str))]
+  for (k in 1:(length(SCEN_SHORT_NAME))) {
+    victim_dist <- scen_dist[match(vic_order,rownames(scen_dist)),k]
+    strk_dist <- scen_dist[match(strike_order,rownames(scen_dist)),k]
+    victim_dist_mat <- t(repmat(victim_dist,length(strk_dist),1))
+    strk_dist_mat <- repmat(strk_dist,length(victim_dist),1)
+    whw_mat2[[k]] <- whw_mat[,2:8]*(victim_dist_mat^sin_vic_ordered)*(strk_dist_mat^sin_str_ordered) 
+  }
+  
+  ## names of victim types
+  victim_deaths <- as.data.frame(WHW_MAT[,1])  
+  ## number of deaths in baseline by victim type
+  victim_deaths <- cbind(victim_deaths, rowSums(WHW_MAT[,2:8]))
+  for (k in 2:(length(SCEN_SHORT_NAME))) victim_deaths <- cbind(victim_deaths, as.data.frame(rowSums(whw_mat2[[k]][,2:7],na.rm=T))) 
+  names(victim_deaths)[1] <- c("victim_type")
+  names(victim_deaths)[2:(length(SCEN_SHORT_NAME)+1)] <- SCEN_SHORT_NAME
+  
+  ##RJ match distances and injuries to multiply matrices
   dist_scen_indices <- match(relative_distances$scenario,SCEN)
   vic_scen_indices <- match(SCEN_SHORT_NAME[dist_scen_indices],colnames(victim_deaths))
   vic_mode_indices <- match(names(relative_distances)[3:7],victim_deaths[,1])
@@ -964,123 +945,114 @@ accra_injuries <- function(rd,scen_dist){
   
   deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] <- -1 * deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] 
   
-  #inj <- deaths_by_mode #read_csv("data/synth_pop_data/accra/injuries/deaths_by_mode.csv")
-  #inj <- select(inj, -c(sex_age))
-  #inj <- rename(inj, total = Deaths)
-  #inj <- reshape2::melt(inj)
-  #inj[is.na(inj)] <- 0
-  
   deaths_yll_injuries
 }
 
 health_burden <- function(ind,inj){
-  
-  ##RJ question for AA/LG/RG: can anyone explain what it happening here?!
+  # subset gbd data for outcome types
   gbd_deaths <- subset(GBD_DATA,measure=='Deaths' & metric == "Number")
   gbd_ylls <- subset(GBD_DATA,measure=='YLLs (Years of Life Lost)' & metric == "Number")
-  cols = c(3, 4) 
+  ##!! Hard-coded column names to initialise tables.
   unique_category1 <- unique(ind[[2]])
   unique_category2 <- unique(ind[[4]])
-  pif <- expand.grid(unique_category1, unique_category2,stringsAsFactors = F)
-  colnames(pif) <- colnames(ind)[c(2,4)]
-  yll_dfs <- pif
-  death_dfs <- pif
+  pop_details <- expand.grid(unique_category1, unique_category2,stringsAsFactors = F)
+  colnames(pop_details) <- colnames(ind)[c(2,4)]
+  deaths <- deaths_red <- ylls <- ylls_red <- pop_details
+  # set up reference (scen1)
+  reference_scenario <- 'scen1'
+  scen_names <- SCEN_SHORT_NAME[SCEN_SHORT_NAME!=reference_scenario]
   ### iterating over all all disease outcomes
   for ( j in 1:nrow(DISEASE_OUTCOMES)){
-    ## checking whether to calculate this health outcome for PA
-    # Disease acronym
+    # Disease acronym and full name
     ac <- as.character( DISEASE_OUTCOMES$acronym[j] )
-    # GBD's disease name
     gbd_dn <- as.character(DISEASE_OUTCOMES$GBD_name[j] )
+    # set up column names
     middle_bit <- paste0(ifelse(DISEASE_OUTCOMES$physical_activity[j]==1,'pa_',''),ifelse(DISEASE_OUTCOMES$air_pollution[j]==1,'ap_',''))
-    reference_scenario <- 'scen1'
     base_var <- paste0('RR_',middle_bit,reference_scenario,'_', ac)
-    scen_names <- SCEN_SHORT_NAME[SCEN_SHORT_NAME!=reference_scenario]
     scen_vars <- paste0('RR_',middle_bit, scen_names, '_', ac)
-    # Loop through all three scenarios
-    # set up reference (scen1)
-    system.time(pif[[base_var]] <- PAF(pop = ind[,colnames(ind)%in%c(base_var,'sex', 'age_cat')], cn = base_var, mat=pif[,colnames(pif)%in%c('sex', 'age_cat')]))
-    yll_base <- combine_health_and_pif(pop = pif,cn = base_var, hc = gbd_ylls_disease)
-    yll_base_mat <- t(repmat(yll_base,length(scen_vars),1))
-    death_base <- combine_health_and_pif(pop = pif,cn = base_var, hc = gbd_ylls_disease)
-    death_base_mat <- t(repmat(death_base,length(scen_vars),1))
+    # subset gbd data
     gbd_deaths_disease <- subset(gbd_deaths,cause==gbd_dn)
     gbd_ylls_disease <- subset(gbd_ylls,cause==gbd_dn)
+    # set up pif tables
+    pif_ref <- PAF(pop = ind[,colnames(ind)%in%c(base_var,'sex', 'age_cat')], cn = base_var, mat=pop_details)
+    yll_ref <- combine_health_and_pif(pop=pop_details,pif_values=pif_ref,hc = gbd_ylls_disease)
+    death_ref <- combine_health_and_pif(pop=pop_details,pif_values=pif_ref, hc = gbd_ylls_disease)
     for (index in 1:length(scen_vars)){
+      # set up naming conventions
       scen <- scen_names[index]
       scen_var <- scen_vars[index]
       yll_name <- paste0(scen, '_ylls_',middle_bit,ac)
       yll_red_name <- paste0(scen, '_ylls_red_',middle_bit,ac)
       deaths_name <- paste0(scen, '_deaths_',middle_bit,ac)
       deaths_red_name <- paste0(scen, '_deaths_red_',middle_bit,ac)
-      # Calculate PIFs for baseline and selected scenario
-      pif[[scen_var]] <- PAF(pop = ind[,colnames(ind)%in%c(scen_var,'sex', 'age_cat')], cn = scen_var, mat=pif[,colnames(pif)%in%c('sex', 'age_cat')])
-      pif[[scen_var]] <- (pif[[base_var]] - pif[[scen_var]]) / pif[[base_var]]
-      # Redefine non-factor based column classes
+      # Calculate PIFs for selected scenario
+      pif_temp <- PAF(pop = ind[,colnames(ind)%in%c(scen_var,'sex', 'age_cat')], cn = scen_var, mat=pop_details)
+      pif_scen <- (pif_ref - pif_temp) / pif_ref
       # Calculate ylls (total and red)
-      local_ylls_red <- yll_dfs
-      yll_dfs[[yll_name]] <- combine_health_and_pif(pop = pif,cn = scen_var, hc = gbd_ylls_disease)
-      local_ylls <- yll_dfs
-      local_ylls_red[[yll_red_name]] <- round(local_ylls[[yll_name]] / yll_base, 5)
+      yll_dfs <- combine_health_and_pif(pop=pop_details,pif_values=pif_scen, hc = gbd_ylls_disease)
+      ylls[[yll_name]] <- yll_dfs
+      ylls_red[[yll_red_name]] <- yll_dfs / yll_ref
       # Calculate deaths (total and red)
-      local_deaths_red <- death_dfs
-      death_dfs[[deaths_name]] <- combine_health_and_pif(pop = pif,cn = scen_var, hc = gbd_deaths_disease)
-      local_deaths <- death_dfs
-      local_deaths_red[[deaths_red_name]] <- round(local_deaths[[deaths_name]] / death_base, 5)
+      death_dfs <- combine_health_and_pif(pop=pop_details,pif_values=pif_scen,hc=gbd_deaths_disease)
+      deaths[[deaths_name]] <- death_dfs
+      deaths_red[[deaths_red_name]] <- death_dfs / death_ref
     }
   }
-  gdeaths[,names(select(gdeaths, contains("scen1_")))] <- 0
   # Select deaths columns
   inj_deaths <- select(inj, c(age_cat, sex, contains("deaths")))
   # Select yll columns
   inj_ylls <- select(inj, c(age_cat, sex, contains("yll")))
   # Join injuries data to global datasets
-  gdeaths <- left_join(gdeaths, inj_deaths, by = c("age_cat", "sex"))
-  gylls <- left_join(gylls, inj_ylls, by = c("age_cat", "sex"))
-  list(deaths=gdeaths,deaths_red=gdeaths_red,ylls=gylls,ylls_red=gylls_red)
+  deaths <- left_join(deaths, inj_deaths, by = c("age_cat", "sex"))
+  ylls <- left_join(ylls, inj_ylls, by = c("age_cat", "sex"))
+  list(deaths=deaths,deaths_red=deaths_red,ylls=ylls,ylls_red=ylls_red)
 }
 
 PAF <- function(pop, cn, mat){
+  ##!! hard coding of indices: 1=sex, 2=age or age_cat
   paf <- apply(mat,1,function(x)sum(pop[[cn]][pop[[1]]==x[1]&pop[[2]]==x[2]]))
   paf
 }
 
-combine_health_and_pif <- function(pop, cn, hc=GBD_DATA, hm_cn = 'value_gama'){
+combine_health_and_pif <- function(pop, pif_values, hc=GBD_DATA, hm_cn = 'value_gama'){
+  # pif_values are already ordered as in pop; reorder hc values to match.
+  hm_cn_values <- hc[[hm_cn]]
   return_values <- c()
-  write_indices <- match(cn,colnames(pop))
-  for (new_row in 1:nrow(pop)){
-    gen <- pop$sex[new_row]
-    ageband <- pop$age_cat[new_row]
-    sub <- filter(hc, sex == gen & age ==  ageband )
-    hm_cn_val <- as.numeric(sub[[hm_cn]])
-    m_sub <- filter(pop, sex == gen & age_cat ==  ageband)
-    #baseline_val <- as.double(m_sub[write_indices[1]])# %>% select(cn[1]) %>% as.double()
-    vals <- as.double(m_sub[write_indices]) * hm_cn_val #sapply(cn,function(x)m_sub %>% select(x) %>% as.double() * hm_cn_val)
-    return_values[new_row] <- vals
-  }
-  return_values
+  for (new_row in 1:nrow(pop))
+    return_values[new_row] <- hm_cn_values[hc$sex == pop$sex[new_row] & hc$age ==  pop$age_cat[new_row] ]
+  return_values <- return_values * pif_values
+  round(return_values,5)
 }
 
 run_ithim <- function(seed=1){ 
   INDEX <- 1
   set.seed(seed)#Sys.getpid()+seed+as.numeric(Sys.time())
   return_list <- list()
+  ##RJ for now we sample one parameter at a time
   if(SAMPLEMODE==T) {
+    # Samples parameters
     sample_parameters(parameters)
-    parameter_samples <- sapply(names(parameters),function(x)get(x))
-    return_list$parameter_samples <- parameter_samples
+    # Store samples
+    return_list$parameter_samples <- sapply(names(parameters),function(x)get(x))
   }
   # Generate distance and duration matrices
-  dist_and_dur <- dist_dur_tbls(bs)
+  (dist_and_dur <- dist_dur_tbls(bs))
   dist <- dist_and_dur[[1]]
   dur <- dist_and_dur[[2]]
-  mmets <- total_mmet(bs,INDEX)
-  pm_conc <- scenario_pm_calculations(dist,bs)
-  RR_AP_calculations <- gen_ap_rr(bs,pm_conc)
-  RR_PA_calculations <- gen_pa_rr(mmets,INDEX)
-  RR_PA_AP_calculations <- combined_rr_pa_pa(RR_PA_calculations,RR_AP_calculations)
-  deaths_yll_injuries <- accra_injuries(bs,dist)
-  system.time(hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries))
+  # Calculate total mMETs
+  (mmets <- total_mmet(bs,INDEX))
+  # Calculated PM2.5 concentrations
+  (pm_conc <- scenario_pm_calculations(dist,bs))
+  # Air pollution calculation
+  (RR_AP_calculations <- gen_ap_rr(bs,pm_conc))
+  # Physical activity calculation
+  (RR_PA_calculations <- gen_pa_rr(mmets,INDEX))
+  # Physical activity and air pollution combined
+  (RR_PA_AP_calculations <- combined_rr_pa_pa(RR_PA_calculations,RR_AP_calculations))
+  # Injuries calculation
+  (deaths_yll_injuries <- accra_injuries(bs))
+  # Combine health burden from disease and injury
+  (hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries))
   #  deaths[[nsample]] <- hb$deaths
   #  deaths_red[[nsample]] <- hb$deaths_red
   ylls <- hb$ylls
