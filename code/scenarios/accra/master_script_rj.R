@@ -18,48 +18,78 @@ library(parallel)
 #################################################
 ## Use case 1: not sampling:
 
+ithim_object <- list()
+## These what-if scenarios are hard coded. It isn't very generalisable.
+ithim_object$what_if$now              <- list(cleaner_fleet=1.0,safety=1.0,chronic_disease=1.0,background_ap=1.0,background_pa=1.0)
+ithim_object$what_if$cleaner_fleet    <- list(cleaner_fleet=0.5,safety=1.0,chronic_disease=1.0,background_ap=1.0,background_pa=1.0)
+ithim_object$what_if$safety           <- list(cleaner_fleet=1.0,safety=0.5,chronic_disease=1.0,background_ap=1.0,background_pa=1.0)
+ithim_object$what_if$chronic_disease  <- list(cleaner_fleet=1.0,safety=1.0,chronic_disease=2.0,background_ap=1.0,background_pa=1.0)
+ithim_object$what_if$background_ap    <- list(cleaner_fleet=1.0,safety=1.0,chronic_disease=1.0,background_ap=0.5,background_pa=1.0)
+ithim_object$what_if$background_pa    <- list(cleaner_fleet=1.0,safety=1.0,chronic_disease=1.0,background_ap=1.0,background_pa=0.5)
+
 ##
 ithim_setup_global_values()
-parameters <- ithim_setup_parameters()
+ithim_object$parameters <- ithim_setup_parameters()
 ##
 
 ithim_load_data()
 rd <- ithim_setup_baseline_scenario()
-INDEX <- 1
-bs <- create_all_scenarios(rd)
-set_scenario_specific_variables(bs)
+ithim_object$bs <- create_all_scenarios(rd)
+set_scenario_specific_variables(ithim_object$bs)
+# distances for injuries calculation
+ithim_object$inj_distances <- distances_for_injury_function(ithim_object$bs)
 
 ## 
-run_ithim(seed=1)
+ithim_object$outcome <- run_ithim(ithim_object,seed=1)
+result_mat <- do.call(rbind,ithim_object$outcome)
 ##
+
+columns <- ncol(result_mat)
+nDiseases <- (columns-1)/NSCEN
+for(i in 1:nDiseases){
+  x11(width=8,height=5); par(mfrow=c(2,3))
+  ylim <- range(result_mat[,1:NSCEN+(i-1)*NSCEN])
+  for(j in 1:nrow(result_mat)){
+    if(j<4) {
+      par(mar=c(1,4,4,1))
+      barplot(result_mat[j,1:NSCEN+(i-1)*NSCEN],names.arg='',ylim=ylim,las=2,
+              main=paste0(rownames(result_mat)[j],', ',last(strsplit(colnames(result_mat)[i*NSCEN],'_')[[1]])))
+    }else{
+      par(mar=c(5,4,4,1))
+      barplot(result_mat[j,1:NSCEN+(i-1)*NSCEN],names.arg=SCEN_SHORT_NAME[c(1,3:6)],ylim=ylim,las=2,
+              main=paste0(rownames(result_mat)[j],', ',last(strsplit(colnames(result_mat)[i*NSCEN],'_')[[1]])))
+    }
+  }
+}
 
 #################################################
 ## Use case 2: sampling:
 
 ##
 ithim_setup_global_values(SAMPLEMODE = T, NSAMPLES = 16)
-parameters <- ithim_setup_parameters(PM_CONC_BASE = c(log(50),1), PM_TRANS_SHARE = c(5,5)) 
+ithim_object$parameters <- ithim_setup_parameters(PM_CONC_BASE = c(log(50),1), PM_TRANS_SHARE = c(5,5)) 
 ##
 
 ithim_load_data()
 rd <- ithim_setup_baseline_scenario()
-INDEX <- 1
-bs <- create_all_scenarios(rd)
-set_scenario_specific_variables(bs)
+ithim_object$bs <- create_all_scenarios(rd)
+set_scenario_specific_variables(ithim_object$bs)
+# distances for injuries calculation
+ithim_object$inj_distances <- distances_for_injury_function(ithim_object$bs)
 
 ## to get EVPPI
 numcores <- detectCores()
-results <- mclapply(1:NSAMPLES,FUN=run_ithim,mc.cores = numcores)
+results <- mclapply(1:NSAMPLES,FUN=run_ithim,ithim_object=ithim_object,mc.cores = numcores)
 parameter_samples <- t(sapply(results,function(x)x$parameter_samples))
-outcome <- t(sapply(results,function(x)x$outcome))
-evppi <- matrix(0,ncol=NSCEN,nrow=length(parameters))
-for(j in 1:(NSCEN)){
+outcome <- t(sapply(results,function(x)x$now))
+evppi <- matrix(0,ncol=NSCEN,nrow=length(ithim_object$parameters))
+for(j in 1:(NSCEN)+5){
   y <- outcome[,j]
   vary <- var(y)
-  for(i in 1:length(parameters)){
+  for(i in 1:length(ithim_object$parameters)){
     x <- parameter_samples[,i];
     model <- gam(y~s(x)); 
-    evppi[i,j] <- (vary-mean((y-model$fitted)^2))/vary*100;
+    evppi[i,j-5] <- (vary-mean((y-model$fitted)^2))/vary*100;
   }
 }
 print(evppi)
