@@ -1,4 +1,4 @@
-setwd('~/overflow_dropbox/ITHIM-R/')
+# setwd('~/overflow_dropbox/ITHIM-R/')
 rm (list = ls())
 source('ithim_r_functions.R')
 # Load packages
