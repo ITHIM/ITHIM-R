@@ -79,7 +79,7 @@ ithim_object$inj_distances <- distances_for_injury_function(ithim_object$bs)
 
 ## to get EVPPI
 numcores <- detectCores()
-results <- mclapply(1:NSAMPLES,FUN=run_ithim,ithim_object=ithim_object,mc.cores = numcores)
+results <- mclapply(1:NSAMPLES,FUN=run_ithim,ithim_object=ithim_object,mc.cores = ifelse(Sys.info()[['sysname']] == "Windows", 1, numcores))
 parameter_samples <- t(sapply(results,function(x)x$parameter_samples))
 outcome <- t(sapply(results,function(x)x$now))
 evppi <- matrix(0,ncol=NSCEN,nrow=length(ithim_object$parameters))
