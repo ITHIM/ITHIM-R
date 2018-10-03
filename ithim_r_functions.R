@@ -29,11 +29,11 @@ ithim_setup_global_values <- function(plotFlag = F,
   
   ## MODEL VARIABLES
   MEAN_BUS_WALK_TIME <<- MEAN_BUS_WALK_TIME
-  MODE_SPEEDS <<- data.frame(trip_mode=modes, speed=speeds,stringsAsFactors=F)
+  MODE_SPEEDS <<- data.frame(trip_mode = modes, speed = speeds, stringsAsFactors = F)
   DIST_CAT <<- DIST_CAT
-  DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT,"[^0-9]+"),function(x)x[1]))
+  DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
   AGE_CATEGORY <<- AGE_CATEGORY
-  AGE_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(AGE_CATEGORY,"[^0-9]+"),function(x)x[1]))
+  AGE_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(AGE_CATEGORY, "[^0-9]+"), function(x) x[1]))
 }
 
 ##RJ question for AA/RG/LG
@@ -48,22 +48,22 @@ ithim_setup_parameters <- function(MMETCycling = 4.63,
   ## PARAMETERS
   ##RJ parameters are assigned to the environment and so are set for every function. They can be over-written in sample_parameters.
   parameters <- list()
-  if(length(MMETCycling)==1 || SAMPLEMODE == F) {
+  if(length(MMETCycling) == 1 || SAMPLEMODE == F) {
     MMETCycling <<- MMETCycling
   }else{
-    parameters$MMETCycling <- Lnorm(MMETCycling[1],MMETCycling[2])
+    parameters$MMETCycling <- Lnorm(MMETCycling[1], MMETCycling[2])
   }
-  if(length(MMETWalking)==1 || SAMPLEMODE == F) {
+  if(length(MMETWalking) == 1 || SAMPLEMODE == F) {
     MMETWalking <<- MMETWalking
   }else{
-    parameters$MMETWalking <- Lnorm(MMETWalking[1],MMETWalking[2])
+    parameters$MMETWalking <- Lnorm(MMETWalking[1], MMETWalking[2])
   }
-  if(length(PM_CONC_BASE)==1 || SAMPLEMODE == F) {
+  if(length(PM_CONC_BASE) == 1 || SAMPLEMODE == F) {
     PM_CONC_BASE <<- PM_CONC_BASE
   }else{
     parameters$PM_CONC_BASE <- Lnorm(PM_CONC_BASE[1],PM_CONC_BASE[2])
   }
-  if(length(PM_TRANS_SHARE)==1 || SAMPLEMODE == F) {
+  if(length(PM_TRANS_SHARE) == 1 || SAMPLEMODE == F) {
     PM_TRANS_SHARE <<- PM_TRANS_SHARE
   }else{
     parameters$PM_TRANS_SHARE <- Beta(PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
@@ -85,7 +85,9 @@ ithim_load_data <- function(){
   S.I.N <<- read_csv('code/injuries/data/sin_coefficients_pairs.csv')
   list_of_files <- list.files(path = "data/drpa/extdata/", recursive = TRUE, pattern = "\\.csv$", full.names = TRUE)
   for (i in 1:length(list_of_files)){
-    assign(stringr::str_sub(basename(list_of_files[[i]]), end = -5), read_csv(list_of_files[[i]]),pos=1)
+    assign(stringr::str_sub(basename(list_of_files[[i]]), end = -5),
+           read_csv(list_of_files[[i]]),
+           pos = 1)
   }
   
   ## DATA FILES FOR ACCRA
@@ -98,12 +100,12 @@ ithim_load_data <- function(){
   LOOKUP_RATIO_PM <<- lookup_ratio_pm_file
   WHW_MAT <<- read_csv('code/injuries/accra/who_hit_who_accra.csv')
   GBD_DATA <<- read_csv('data/demographics/gbd/accra/GBD Accra.csv')
-  gbd_injuries <- GBD_DATA[which(GBD_DATA$cause=="Road injuries"),]
+  gbd_injuries <- GBD_DATA[which(GBD_DATA$cause == "Road injuries"),]
   gbd_injuries$sex_age <- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
   ## calculating the ratio of YLL to deaths for each age and sex group
   gbd_injuries <- arrange(gbd_injuries, measure)
-  gbd_inj_yll <- gbd_injuries[which(gbd_injuries$measure=="YLLs (Years of Life Lost)"),]
-  gbd_inj_dth <- gbd_injuries[which(gbd_injuries$measure=="Deaths"),]
+  gbd_inj_yll <- gbd_injuries[which(gbd_injuries$measure == "YLLs (Years of Life Lost)"),]
+  gbd_inj_dth <- gbd_injuries[which(gbd_injuries$measure == "Deaths"),]
   gbd_inj_yll$yll_dth_ratio <- gbd_inj_yll$value_gama/gbd_inj_dth$value_gama 
   GBD_INJ_YLL <<- gbd_inj_yll
 }
@@ -215,10 +217,13 @@ create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, ta
     
     for (i in 1:length(source_modes)){
       
-      sample <- filter(rdr, trip_mode == source_modes[i] & 
-                         trip_distance_cat %in% source_distance_cats) %>% sample_n(local_source_trips[i]) %>% 
-        mutate(trip_mode = target_modes[1],
-               trip_duration = (trip_distance * 60 ) / MODE_SPEEDS[MODE_SPEEDS$trip_mode == target_modes[i],]$speed)
+      sample <- filter(rdr,
+                       trip_mode == source_modes[i] &
+                         trip_distance_cat %in% source_distance_cats) %>% sample_n(local_source_trips[i]) %>%
+        mutate(
+          trip_mode = target_modes[1],
+          trip_duration = (trip_distance * 60) / MODE_SPEEDS[MODE_SPEEDS$trip_mode == target_modes[i], ]$speed
+        )
       
       
       # Update selected rows for mode and duration
@@ -238,10 +243,13 @@ create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, ta
   else {
     
     
-    sample <- filter(rdr, trip_mode %in% source_modes & 
-                       trip_distance_cat %in% source_distance_cats) %>% sample_n(source_trips[1]) %>% 
-      mutate(trip_mode = target_modes[1],
-             trip_duration = (trip_distance * 60 ) / MODE_SPEEDS[MODE_SPEEDS$trip_mode == target_modes[1],]$speed)
+    sample <- filter(rdr,
+                     trip_mode %in% source_modes &
+                       trip_distance_cat %in% source_distance_cats) %>% sample_n(source_trips[1]) %>%
+      mutate(
+        trip_mode = target_modes[1],
+        trip_duration = (trip_distance * 60) / MODE_SPEEDS[MODE_SPEEDS$trip_mode == target_modes[1], ]$speed
+      )
     
     sample$scenario <- scen_name
     
@@ -432,15 +440,15 @@ distances_for_injury_function <- function(rd){
   
   journeys <- filter(rd,!is.na(trip_id), !trip_mode%in%c(99,"Train","Unspecified","Other")) %>% 
     group_by (age_cat,sex,trip_mode, scenario) %>% 
-    summarise(tot_dist=sum(trip_distance))
+    summarise(tot_dist = sum(trip_distance))
   distances <- spread(journeys,trip_mode, tot_dist,fill=0) 
-  distances$Pedestrian <- distances$Walking+distances$`Short Walking`
-  distances <- distances[,-which(names(distances)== "Walking")]
-  distances <- distances[,-which(names(distances)== "Short Walking")]
-  distances$Car<- distances$Taxi+distances$`Private Car`
-  distances <- distances[,-which(names(distances)== "Private Car")]
-  distances <- distances[,-which(names(distances)== "Taxi")]
-  scen_dist <- sapply(1:(NSCEN+1),function(x)c(colSums(subset(distances,scenario==SCEN[x])[,4:8])))
+  distances$Pedestrian <- distances$Walking + distances$`Short Walking`
+  distances <- distances[, -which(names(distances) ==  "Walking")]
+  distances <- distances[, -which(names(distances) ==  "Short Walking")]
+  distances$Car <- distances$Taxi + distances$`Private Car`
+  distances <- distances[, -which(names(distances) ==  "Private Car")]
+  distances <- distances[, -which(names(distances) ==  "Taxi")]
+  scen_dist <- sapply(1:(NSCEN+1),function(x)c(colSums(subset(distances,scenario == SCEN[x])[,4:8])))
   colnames(scen_dist) <- SCEN_SHORT_NAME
   for(i in 2:6) scen_dist[,i] <- scen_dist[,i]/scen_dist[,1] 
   scen_dist <- rbind(scen_dist,Truck=1,Tuktuk=1)
@@ -448,11 +456,11 @@ distances_for_injury_function <- function(rd){
   mode_names <- names(distances)[4:8]
   for (i in 1: length(mode_names))
     for (n in 1:(NSCEN+1))
-      distances[[mode_names[i]]][which(distances$scenario==unique(rd$scenario)[n])] <- 
-    distances[[mode_names[i]]][which(distances$scenario==unique(rd$scenario)[n])]/ sum(distances[[mode_names[i]]][which(distances$scenario==unique(rd$scenario)[n])],na.rm=T)
+      distances[[mode_names[i]]][which(distances$scenario == unique(rd$scenario)[n])] <- 
+    distances[[mode_names[i]]][which(distances$scenario == unique(rd$scenario)[n])]/ sum(distances[[mode_names[i]]][which(distances$scenario == unique(rd$scenario)[n])],na.rm=T)
   relative_distances <- distances
   relative_distances$sex_age <-  paste0(relative_distances$sex,"_",relative_distances$age_cat)
-  relative_distances <- relative_distances[,-c(which(names(relative_distances)=='sex'))]
+  relative_distances <- relative_distances[,-c(which(names(relative_distances) == 'sex'))]
   
   list(relative_distances,scen_dist)
 }
@@ -689,8 +697,13 @@ gen_ap_rr <- function(rd,ind_pm){
   ind <-  left_join(ind,ind_pm, by = "participant_id")
   ## assigning air pollution age band to the individual_level data
   min_ages <- c(seq(24,94,by=5),200)
-  ind$ap_age <- sapply(ind$age,function(x)if(x>min_ages[1])min_ages[which(min_ages>x)[1]-1]+1 else 0)
-
+  ind$ap_age <-
+    sapply(ind$age, function(x)
+      if(x > min_ages[1])
+        min_ages[which(min_ages > x)[1] - 1] + 1
+      else
+        0)
+  
   ## for every individual average of all parameter draws within the age and disease-outcome
   
   iters <- 1:5
@@ -700,8 +713,11 @@ gen_ap_rr <- function(rd,ind_pm){
     ## checking whether to calculate this health outcome for air pollution
     if (DISEASE_OUTCOMES$air_pollution[j] == 1){ 
       # initialise lists
-      for(x in 1:length(SCEN_SHORT_NAME)) ind[[paste0("RR_ap_",SCEN_SHORT_NAME[x])]] <- 0
-      dr_ap_disease <- subset(DR_AP,cause_code==as.character(DISEASE_OUTCOMES$ap_acronym[j]))
+      for (x in 1:length(SCEN_SHORT_NAME))
+        ind[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]] <- 0
+      dr_ap_disease <-
+        subset(DR_AP,
+               cause_code == as.character(DISEASE_OUTCOMES$ap_acronym[j]))
       # apply by age groups
       ages <- unique(dr_ap_disease$age_code)
       for(age in ages){
@@ -719,7 +735,10 @@ gen_ap_rr <- function(rd,ind_pm){
         pm <- repmat(dr_ap_sub[iters,2],length(i),1)
         # calculate AP and apply to all in age group
         for(x in 1: length(SCEN_SHORT_NAME)) 
-          ind[[paste0("RR_ap_",SCEN_SHORT_NAME[x])]][i] <- rowMeans(1 + (alpha * (1-exp(-beta*((repmat(as.matrix(ind[i,pm_indices[x]]),1,length(iters)) - tmrel)^gamma)))))
+          ind[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]][i] <-
+          rowMeans(1 + (alpha * (1 - exp(-beta * ((repmat(as.matrix(ind[i, pm_indices[x]]), 1, length(iters)) - tmrel) ^
+                                                    gamma
+          )))))
       }
       ## change the names of the columns as per the disease
       for (n in 1: length(SCEN_SHORT_NAME)){
@@ -770,9 +789,23 @@ dose_response <- function (cause, outcome_type, dose, confidence_intervals = F, 
   rr <- approx(x=lookup_df$dose,y=lookup_df$RR,xout=dose,yleft=1,yright=min(lookup_df$RR))$y
   ## RJ/AA/MT: what are we doing with dose--response uncertainty?
   ## one possibility: (1) generate nSample uniform random variables; (2) transform all doses to responses by mapping uniform to trunc normal
-  if (confidence_intervals|| !certainty){
-    lb <- approx(x=lookup_df$dose,y=lookup_df$lb,xout=dose,yleft=1,yright=min(lookup_df$lb))$y
-    ub <- approx(x=lookup_df$dose,y=lookup_df$ub,xout=dose,yleft=1,yright=min(lookup_df$ub))$y
+  if (confidence_intervals || !certainty) {
+    lb <-
+      approx(
+        x = lookup_df$dose,
+        y = lookup_df$lb,
+        xout = dose,
+        yleft = 1,
+        yright = min(lookup_df$lb)
+      )$y
+    ub <-
+      approx(
+        x = lookup_df$dose,
+        y = lookup_df$ub,
+        xout = dose,
+        yleft = 1,
+        yright = min(lookup_df$ub)
+      )$y
   }
   if (!certainty){
     rr <- truncnorm::rtruncnorm(n = length(rr), a = lb, b = ub, mean = rr)
@@ -939,19 +972,31 @@ health_burden <- function(ind,inj,chronic_disease_scalar=1){
   ### iterating over all all disease outcomes
   for ( j in 1:nrow(DISEASE_OUTCOMES)){
     # Disease acronym and full name
-    ac <- as.character( DISEASE_OUTCOMES$acronym[j] )
-    gbd_dn <- as.character(DISEASE_OUTCOMES$GBD_name[j] )
+    ac <- as.character(DISEASE_OUTCOMES$acronym[j])
+    gbd_dn <- as.character(DISEASE_OUTCOMES$GBD_name[j])
     # set up column names
-    middle_bit <- paste0(ifelse(DISEASE_OUTCOMES$physical_activity[j]==1,'pa_',''),ifelse(DISEASE_OUTCOMES$air_pollution[j]==1,'ap_',''))
-    base_var <- paste0('RR_',middle_bit,reference_scenario,'_', ac)
-    scen_vars <- paste0('RR_',middle_bit, scen_names, '_', ac)
+    middle_bit <-
+      paste0(
+        ifelse(DISEASE_OUTCOMES$physical_activity[j] == 1, 'pa_', ''),
+        ifelse(DISEASE_OUTCOMES$air_pollution[j] == 1, 'ap_', '')
+      )
+    base_var <- paste0('RR_', middle_bit, reference_scenario, '_', ac)
+    scen_vars <- paste0('RR_', middle_bit, scen_names, '_', ac)
     # subset gbd data
     gbd_deaths_disease <- subset(gbd_deaths,cause==gbd_dn)
     gbd_ylls_disease <- subset(gbd_ylls,cause==gbd_dn)
     # set up pif tables
-    pif_ref <- PAF(pop = ind[,colnames(ind)%in%c(base_var,'sex', 'age_cat')], cn = base_var, mat=pop_details)
-    yll_ref <- combine_health_and_pif(pop=pop_details,pif_values=pif_ref,hc = gbd_ylls_disease)
-    death_ref <- combine_health_and_pif(pop=pop_details,pif_values=pif_ref, hc = gbd_ylls_disease)
+    pif_ref <-
+      PAF(pop = ind[, colnames(ind) %in% c(base_var, 'sex', 'age_cat')], cn = base_var, mat =
+            pop_details)
+    yll_ref <-
+      combine_health_and_pif(pop = pop_details,
+                             pif_values = pif_ref,
+                             hc = gbd_ylls_disease)
+    death_ref <-
+      combine_health_and_pif(pop = pop_details,
+                             pif_values = pif_ref,
+                             hc = gbd_ylls_disease)
     for (index in 1:length(scen_vars)){
       # set up naming conventions
       scen <- scen_names[index]
