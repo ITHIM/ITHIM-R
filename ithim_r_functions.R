@@ -7,12 +7,73 @@
 # Remove short walking, 99, Train, Other and Unspecified modes
 ## do we want to remove any of these from the raw dataset that gets passed around?
 
-##RJ question for/discussion with AA
-## global variables (i.e. those needed by all functions) are assigned to all environments, using 
+##RJ question for/discussion with AA. 
+## Functions ithim_setup_global_values, ithim_setup_parameters, sample_parameters, ithim_load_data, set_scenario_specific_variables
+## Global variables (i.e. those needed by all functions) are assigned to all environments, using 
 ## <<- and assign(...,pos=1), and denoted by capitals to make it clear what they are. 
 ## A better method might be to make an object (list) that contains all inputs, variables, and intermediate objects.
+
+run_ithim_setup <- function(plotFlag = F,
+                            NSAMPLES = 1,
+                            pa_certainty = T,
+                            MEAN_BUS_WALK_TIME= 5,
+                            modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle"),
+                            speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25),
+                            DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
+                            AGE_CATEGORY = c("15-49", "50-69", "70+"),
+                            MMETCycling = 4.63,
+                            MMETWalking = 2.53,
+                            PM_CONC_BASE = 50,  
+                            PM_TRANS_SHARE = 0.225 ){
+  # Load packages
+  library(tidyverse)
+  library(haven)
+  library(plotly)
+  library(ReIns)
+  library(dplyr)
+  library(tidyverse)
+  library(truncnorm)
+  library(distr)
+  library(pracma)
+  library(data.table)
+  library(mgcv)
+  library(parallel)
+  
+  #################################################
+  
+  ithim_object <- list()
+  
+  ##
+  ithim_setup_global_values(plotFlag,
+                            NSAMPLES,
+                            pa_certainty,
+                            MEAN_BUS_WALK_TIME,
+                            modes,
+                            speeds,
+                            DIST_CAT,
+                            AGE_CATEGORY)
+  ithim_object$parameters <- ithim_setup_parameters(MMETCycling,
+                                                    MMETWalking,
+                                                    PM_CONC_BASE,  
+                                                    PM_TRANS_SHARE )
+  ##
+  
+  ithim_load_data()
+  rd <- ithim_setup_baseline_scenario()
+  ithim_object$bs <- create_all_scenarios(rd)
+  set_scenario_specific_variables(ithim_object$bs)
+  ######################
+  ##RJ these distance calculations are currently not parameter dependent, which means we can make the calculation outside the function.
+  ## We could either integrate them into another external function, or move them to the internal function, so that they can become variable.
+  # Generate distance and duration matrices
+  ithim_object$dist <- dist_dur_tbls(ithim_object$bs)
+  # distances for injuries calculation
+  ithim_object$inj_distances <- distances_for_injury_function(ithim_object$bs)
+  ######################
+  return(ithim_object)
+}
+
 ithim_setup_global_values <- function(plotFlag = F,
-                                      SAMPLEMODE = F,
                                       NSAMPLES = 1,
                                       pa_certainty = T,
                                       MEAN_BUS_WALK_TIME= 5,
@@ -23,7 +84,6 @@ ithim_setup_global_values <- function(plotFlag = F,
   
   ## PROGRAMMING VARIABLES
   plotFlag <<- plotFlag
-  SAMPLEMODE <<- SAMPLEMODE
   NSAMPLES <<- NSAMPLES
   pa_certainty <<- pa_certainty
   
@@ -48,22 +108,22 @@ ithim_setup_parameters <- function(MMETCycling = 4.63,
   ## PARAMETERS
   ##RJ parameters are assigned to the environment and so are set for every function. They can be over-written in sample_parameters.
   parameters <- list()
-  if(length(MMETCycling) == 1 || SAMPLEMODE == F) {
+  if(length(MMETCycling) == 1 ) {
     MMETCycling <<- MMETCycling
   }else{
     parameters$MMETCycling <- Lnorm(MMETCycling[1], MMETCycling[2])
   }
-  if(length(MMETWalking) == 1 || SAMPLEMODE == F) {
+  if(length(MMETWalking) == 1 ) {
     MMETWalking <<- MMETWalking
   }else{
     parameters$MMETWalking <- Lnorm(MMETWalking[1], MMETWalking[2])
   }
-  if(length(PM_CONC_BASE) == 1 || SAMPLEMODE == F) {
+  if(length(PM_CONC_BASE) == 1 ) {
     PM_CONC_BASE <<- PM_CONC_BASE
   }else{
     parameters$PM_CONC_BASE <- Lnorm(PM_CONC_BASE[1],PM_CONC_BASE[2])
   }
-  if(length(PM_TRANS_SHARE) == 1 || SAMPLEMODE == F) {
+  if(length(PM_TRANS_SHARE) == 1 ) {
     PM_TRANS_SHARE <<- PM_TRANS_SHARE
   }else{
     parameters$PM_TRANS_SHARE <- Beta(PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
@@ -516,19 +576,10 @@ dist_dur_tbls <- function(bs){
     
   }
   
-  ##RJ question for AA: do we need 'dur'?
-  ## calculate all distances and durations
+  ## calculate all distances 
   l_dist <- list()
-  l_dur <- list()
   for (i in 1:length(SCEN)){
     local <- group_by(filter(bs,scenario == SCEN[i]), trip_mode)
-    
-    local_dur <- summarise(local, sum_dur = sum(trip_duration))
-    local_dur$sum_dur[local_dur$trip_mode == "Walking"] <- 
-      local_dur$sum_dur[local_dur$trip_mode == "Walking"] + 
-      local_dur$sum_dur[local_dur$trip_mode == "Short Walking"]
-    colnames(local_dur)[2] <- SCEN[i]
-    l_dur[[i]] <- local_dur
     
     local_dist <- summarise(local, sum_dist = sum(trip_distance))
     local_dist$sum_dist[local_dist$trip_mode == "Walking"] <- 
@@ -538,23 +589,44 @@ dist_dur_tbls <- function(bs){
     l_dist[[i]] <- local_dist
   }
   
-  ## join distances and durations
+  ## join distances 
   for (i in 1:length(l_dist)){
     if (i == 1){
       local_dist <- l_dist[[i]]
-      local_dur <- l_dur[[i]]
     }else{
       local_dist <- left_join(local_dist, l_dist[[i]], by = "trip_mode")
-      local_dur <- left_join(local_dur, l_dur[[i]], by = "trip_mode")
     }
   }
  
   # Remove short walking
   dist <- filter(local_dist, trip_mode != 'Short Walking')
-  dur <- filter(local_dur, trip_mode != 'Short Walking')
   
   if(plotFlag){
     
+    ## calculate all durations
+    l_dur <- list()
+    for (i in 1:length(SCEN)){
+      local <- group_by(filter(bs,scenario == SCEN[i]), trip_mode)
+      
+      local_dur <- summarise(local, sum_dur = sum(trip_duration))
+      local_dur$sum_dur[local_dur$trip_mode == "Walking"] <- 
+        local_dur$sum_dur[local_dur$trip_mode == "Walking"] + 
+        local_dur$sum_dur[local_dur$trip_mode == "Short Walking"]
+      colnames(local_dur)[2] <- SCEN[i]
+      l_dur[[i]] <- local_dur
+      
+    }
+    
+    ## join durations
+    for (i in 1:length(l_dur)){
+      if (i == 1){
+        local_dur <- l_dur[[i]]
+      }else{
+        local_dur <- left_join(local_dur, l_dur[[i]], by = "trip_mode")
+      }
+    }
+    
+    dur <- filter(local_dur, trip_mode != 'Short Walking')  
     dist_melted <- reshape2::melt(dist, by = trip_mode)
     # Plot
     plotly::ggplotly(ggplot(data = dist_melted, aes(x = trip_mode, y = value / total_ind, fill = variable)) + 
@@ -574,8 +646,8 @@ dist_dur_tbls <- function(bs){
     )
   }
   
-  list(dist,dur)
-  
+  #list(dist,dur)
+  dist
 }
 
 total_mmet <- function(rd,background_pa){
@@ -1046,75 +1118,79 @@ combine_health_and_pif <- function(pop, pif_values, hc=GBD_DATA, hm_cn = 'value_
   round(return_values,5)
 }
 
-run_ithim <- function(ithim_object,seed=1){ 
+ithim_uncertainty <- function(ithim_object,seed=1){ 
   ############################
   ## (0) SET UP
-  for(i in 1:length(ithim_object))
-    assign(names(ithim_object)[i],ithim_object[[i]])
   set.seed(seed)#Sys.getpid()+seed+as.numeric(Sys.time())
   return_list <- list()
   ##RJ for now we sample one parameter at a time
-  if(SAMPLEMODE==T) {
-    # Samples parameters
-    sample_parameters(parameters)
-    # Store samples
-    return_list$parameter_samples <- sapply(names(parameters),function(x)get(x))
-  }
+  # Samples parameters
+  sample_parameters(ithim_object$parameters)
+  # Store samples
+  return_list$parameter_samples <- sapply(names(ithim_object$parameters),function(x)get(x))
   ############################
-  # Generate distance and duration matrices
-  (dist_and_dur <- dist_dur_tbls(bs))
-  dist <- dist_and_dur[[1]]
-  #dur <- dist_and_dur[[2]]
-  temp_store <- list()
-  ############################
-  for(i in names(what_if)){
-    ############################
-    ## (1) AP PATHWAY
-    if(i=='now'||i=='background_ap'){
-      # Calculated PM2.5 concentrations
-      (pm_conc <- scenario_pm_calculations(dist,bs,what_if[[i]]$background_ap))
-      # Air pollution calculation
-      (temp_store[[i]]$RR_AP_calculations <- gen_ap_rr(bs,pm_conc))
-    }else{
-      temp_store[[i]]$RR_AP_calculations <- temp_store[[1]]$RR_AP_calculations
-    }
-    ############################
-    ## (2) PA PATHWAY
-    if(i=='now'||i=='background_pa'){
-      # Calculate total mMETs
-      (mmets <- total_mmet(bs,what_if[[i]]$background_pa))
-      # Physical activity calculation
-      (temp_store[[i]]$RR_PA_calculations <- gen_pa_rr(mmets))
-    }else{
-      temp_store[[i]]$RR_PA_calculations <- temp_store[[1]]$RR_PA_calculations
-    }
-    ############################
-    ## (3) COMBINE (1) AND (2)
-    if(i=='now'||i=='background_pa'||i=='background_ap'){
-      # Physical activity and air pollution combined
-      (temp_store[[i]]$RR_PA_AP_calculations <- combined_rr_pa_pa(temp_store[[i]]$RR_PA_calculations,temp_store[[i]]$RR_AP_calculations))
-    }else{
-      temp_store[[i]]$RR_PA_AP_calculations <- temp_store[[1]]$RR_PA_AP_calculations
-    }
-    ############################
-    ## (4) INJURIES
-    if(i=='now'||i=='safety'){
-      # Injuries calculation
-      (temp_store[[i]]$deaths_yll_injuries <- injuries_function(inj_distances[[1]],inj_distances[[2]],what_if[[i]]$safety))
-    }else{
-      temp_store[[i]]$deaths_yll_injuries <- temp_store[[1]]$deaths_yll_injuries
-    }
-    ############################
-    ## (5) COMBINE (3) AND (4)
-    # Combine health burden from disease and injury
-    (hb <- health_burden(temp_store[[i]]$RR_PA_AP_calculations,temp_store[[i]]$deaths_yll_injuries,what_if[[i]]$chronic_disease))
-    ############################
-    ylls <- hb$ylls
-    ## (6) RETURN
-    return_list[[i]] <- colSums(ylls[,3:ncol(ylls)]) ## return ihd
-  }
-  ##RJ note: add items to return_list to return them.
+  # Run ITHIM cascade of functions
+  return_list$outcome <- run_ithim(ithim_object,seed)
   return(return_list)
+}
+
+
+
+ithim_what_if <- function(ithim_object,seed=1){ 
+  ############################
+  return_list <- list()
+  ############################
+  for(i in names(ithim_object$what_if)){
+    ############################
+    # Run ITHIM cascade of functions
+    return_list[[i]] <- run_ithim(ithim_object,
+                                  seed=seed,
+                                  background_ap=ithim_object$what_if[[i]]$background_ap,
+                                  background_pa=ithim_object$what_if[[i]]$background_pa,
+                                  safety=ithim_object$what_if[[i]]$safety,
+                                  chronic_disease=ithim_object$what_if[[i]]$chronic_disease)
+  }
+  return(return_list)
+}
+
+
+
+run_ithim <- function(ithim_object,
+                      seed=1,
+                      background_ap=1,
+                      background_pa=1,
+                      safety=1,
+                      chronic_disease=1){ 
+  ############################
+  ## (0) SET UP
+  set.seed(seed)
+  for(i in 1:length(ithim_object))
+    assign(names(ithim_object)[i],ithim_object[[i]])
+  ############################
+  ## (1) AP PATHWAY
+  # Calculated PM2.5 concentrations
+  (pm_conc <- scenario_pm_calculations(dist,bs,background_ap))
+  # Air pollution calculation
+  (RR_AP_calculations <- gen_ap_rr(bs,pm_conc))
+  ############################
+  ## (2) PA PATHWAY
+  # Calculate total mMETs
+  (mmets <- total_mmet(bs,background_pa))
+  # Physical activity calculation
+  (RR_PA_calculations <- gen_pa_rr(mmets))
+  ############################
+  ## (3) COMBINE (1) AND (2)
+  # Physical activity and air pollution combined
+  (RR_PA_AP_calculations <- combined_rr_pa_pa(RR_PA_calculations,RR_AP_calculations))
+  ############################
+  ## (4) INJURIES
+  # Injuries calculation
+  (deaths_yll_injuries <- injuries_function(inj_distances[[1]],inj_distances[[2]],safety))
+  ############################
+  ## (5) COMBINE (3) AND (4)
+  # Combine health burden from disease and injury
+  (hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries,chronic_disease))
+  return(hb)
 }
 
 
