@@ -15,16 +15,16 @@
 
 run_ithim_setup <- function(plotFlag = F,
                             NSAMPLES = 1,
-                            pa_certainty = T,
-                            MEAN_BUS_WALK_TIME= 5,
                             modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle"),
                             speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25),
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             AGE_CATEGORY = c("15-49", "50-69", "70+"),
-                            MMETCycling = 4.63,
-                            MMETWalking = 2.53,
+                            MEAN_BUS_WALK_TIME= 5,
+                            MMET_CYCLING = 4.63,
+                            MMET_WALKING = 2.53,
                             PM_CONC_BASE = 50,  
-                            PM_TRANS_SHARE = 0.225 ){
+                            PM_TRANS_SHARE = 0.225,
+                            DOSE_RESPONSE_QUANTILE = -1){
   # Load packages
   library(tidyverse)
   library(haven)
@@ -46,16 +46,16 @@ run_ithim_setup <- function(plotFlag = F,
   ##
   ithim_setup_global_values(plotFlag,
                             NSAMPLES,
-                            pa_certainty,
-                            MEAN_BUS_WALK_TIME,
                             modes,
                             speeds,
                             DIST_CAT,
                             AGE_CATEGORY)
-  ithim_object$parameters <- ithim_setup_parameters(MMETCycling,
-                                                    MMETWalking,
+  ithim_object$parameters <- ithim_setup_parameters(MEAN_BUS_WALK_TIME,
+                                                    MMET_CYCLING,
+                                                    MMET_WALKING,
                                                     PM_CONC_BASE,  
-                                                    PM_TRANS_SHARE )
+                                                    PM_TRANS_SHARE,
+                                                    DOSE_RESPONSE_QUANTILE)
   ##
   
   ithim_load_data()
@@ -75,8 +75,6 @@ run_ithim_setup <- function(plotFlag = F,
 
 ithim_setup_global_values <- function(plotFlag = F,
                                       NSAMPLES = 1,
-                                      pa_certainty = T,
-                                      MEAN_BUS_WALK_TIME= 5,
                                       modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle"),
                                       speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25),
                                       DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
@@ -85,10 +83,8 @@ ithim_setup_global_values <- function(plotFlag = F,
   ## PROGRAMMING VARIABLES
   plotFlag <<- plotFlag
   NSAMPLES <<- NSAMPLES
-  pa_certainty <<- pa_certainty
   
   ## MODEL VARIABLES
-  MEAN_BUS_WALK_TIME <<- MEAN_BUS_WALK_TIME
   MODE_SPEEDS <<- data.frame(trip_mode = modes, speed = speeds, stringsAsFactors = F)
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
@@ -101,22 +97,32 @@ ithim_setup_global_values <- function(plotFlag = F,
 ## which functions do they affect?
 ## do we want to pre-specify the distribution, as below?
 ## if yes, which parameters and what distributions?
-ithim_setup_parameters <- function(MMETCycling = 4.63,
-                                   MMETWalking = 2.53,
+ithim_setup_parameters <- function(MEAN_BUS_WALK_TIME= 5,
+                                   MMET_CYCLING = 4.63,
+                                   MMET_WALKING = 2.53,
                                    PM_CONC_BASE = 50,  
-                                   PM_TRANS_SHARE = 0.225 ){
+                                   PM_TRANS_SHARE = 0.225,
+                                   DOSE_RESPONSE_QUANTILE = -1,
+                                   BACKGROUND_PA_SCALAR = 1,
+                                   SAFETY_SCALAR = 1,
+                                   CHRONIC_DISEASE_SCALAR = 1 ){
   ## PARAMETERS
-  ##RJ parameters are assigned to the environment and so are set for every function. They can be over-written in sample_parameters.
+  ##RJ parameters are assigned to the environment and so are set for every function. They are over-written when sample_parameters is called.
   parameters <- list()
-  if(length(MMETCycling) == 1 ) {
-    MMETCycling <<- MMETCycling
+  if(length(MEAN_BUS_WALK_TIME) == 1 ) {
+    MEAN_BUS_WALK_TIME <<- MEAN_BUS_WALK_TIME
   }else{
-    parameters$MMETCycling <- Lnorm(MMETCycling[1], MMETCycling[2])
+    parameters$MEAN_BUS_WALK_TIME <- Lnorm(MEAN_BUS_WALK_TIME[1], MEAN_BUS_WALK_TIME[2])
   }
-  if(length(MMETWalking) == 1 ) {
-    MMETWalking <<- MMETWalking
+  if(length(MMET_CYCLING) == 1 ) {
+    MMET_CYCLING <<- MMET_CYCLING
   }else{
-    parameters$MMETWalking <- Lnorm(MMETWalking[1], MMETWalking[2])
+    parameters$MMET_CYCLING <- Lnorm(MMET_CYCLING[1], MMET_CYCLING[2])
+  }
+  if(length(MMET_WALKING) == 1 ) {
+    MMET_WALKING <<- MMET_WALKING
+  }else{
+    parameters$MMET_WALKING <- Lnorm(MMET_WALKING[1], MMET_WALKING[2])
   }
   if(length(PM_CONC_BASE) == 1 ) {
     PM_CONC_BASE <<- PM_CONC_BASE
@@ -127,6 +133,31 @@ ithim_setup_parameters <- function(MMETCycling = 4.63,
     PM_TRANS_SHARE <<- PM_TRANS_SHARE
   }else{
     parameters$PM_TRANS_SHARE <- Beta(PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
+  }
+  if(length(PM_TRANS_SHARE) == 1 ) {
+    PM_TRANS_SHARE <<- PM_TRANS_SHARE
+  }else{
+    parameters$PM_TRANS_SHARE <- Beta(PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
+  }
+  if(length(DOSE_RESPONSE_QUANTILE) == 1 ) {
+    DOSE_RESPONSE_QUANTILE <<- DOSE_RESPONSE_QUANTILE
+  }else{
+    parameters$DOSE_RESPONSE_QUANTILE <- Unif(0,1)
+  }
+  if(length(BACKGROUND_PA_SCALAR) == 1 ) {
+    BACKGROUND_PA_SCALAR <<- BACKGROUND_PA_SCALAR
+  }else{
+    parameters$BACKGROUND_PA_SCALAR <- Lnorm(BACKGROUND_PA_SCALAR[1],BACKGROUND_PA_SCALAR[2])
+  }
+  if(length(SAFETY_SCALAR) == 1 ) {
+    SAFETY_SCALAR <<- SAFETY_SCALAR
+  }else{
+    parameters$SAFETY_SCALAR <- Lnorm(SAFETY_SCALAR[1],SAFETY_SCALAR[2])
+  }
+  if(length(CHRONIC_DISEASE_SCALAR) == 1 ) {
+    CHRONIC_DISEASE_SCALAR <<- CHRONIC_DISEASE_SCALAR
+  }else{
+    parameters$CHRONIC_DISEASE_SCALAR <- Lnorm(CHRONIC_DISEASE_SCALAR[1],CHRONIC_DISEASE_SCALAR[2])
   }
   parameters
 }
@@ -153,7 +184,7 @@ ithim_load_data <- function(){
   ## DATA FILES FOR ACCRA
   RD <<- read_csv("data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv")
   trans_emissions_file <- read_csv("data/emission calculations accra/transport_emission_inventory_accra.csv")
-  names(trans_emissions_file) <- c("vehicle_type", "delhi_fleet_2011", "delhi_fleet_perHH", "accra_fleet_2010", "PM2_5_emiss_fact", "base_emissions")
+  names(trans_emissions_file) <- c("vehicle_type", "delhi_fleet_2011", "delhi_fleet_perHH", "accra_fleet_2010", "PM2_5_emiss_fact", "base")
   TRANS_EMISSIONS_ORIGINAL <<- trans_emissions_file
   lookup_ratio_pm_file <-  read_csv('data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.csv')
   lookup_ratio_pm_file <- dplyr::rename(lookup_ratio_pm_file, trip_mode = Mode)
@@ -225,12 +256,10 @@ add_walk_trips <- function(bus_trips, ln_mean, ln_sd){
   # ln_sd = 1.2
   
   bus_trips <- arrange(bus_trips, trip_duration)
-  
   walk_trips <- bus_trips
-  
   walk_trips$trip_mode <- 'Short Walking'
-  
-  walk_trips$trip_duration <- sort(rlnorm(n = nrow(bus_trips), meanlog = log(ln_mean), sdlog = log(ln_sd)))
+  ##RJ all trips have the same MEAN_BUS_WALK_TIME
+  walk_trips$trip_duration <- MEAN_BUS_WALK_TIME#sort(rlnorm(n = nrow(bus_trips), meanlog = log(MEAN_BUS_WALK_TIME), sdlog = log(ln_sd)))
   
   # Replace walk trips with duration greater than that of bus needs to be set to 0
   if (nrow(walk_trips[(walk_trips$trip_duration - bus_trips$trip_duration)  > 0,]) > 0)
@@ -238,16 +267,11 @@ add_walk_trips <- function(bus_trips, ln_mean, ln_sd){
   
   bus_trips$trip_duration <- bus_trips$trip_duration - walk_trips$trip_duration
   
-  # print(summary(bus_trips$trip_duration))
-  
-  # print(summary(walk_trips$trip_duration))
-  
   # Corrrect walk trips distance
-  walk_trips$trip_distance <- (walk_trips$trip_duration / 60) * 4.8
+  walk_trips$trip_distance <- (walk_trips$trip_duration / 60) * MODE_SPEEDS$speed[MODE_SPEEDS$trip_mode=='Walking']
+  bus_trips$trip_distance <- (bus_trips$trip_duration / 60 ) * MODE_SPEEDS$speed[MODE_SPEEDS$trip_mode=='Bus']
   
-  bus_trips$trip_distance <- (bus_trips$trip_duration / 60 ) * 15
-  
-  # Recategories trip_distance_cat for both bus and walk trips
+  # Recategorise trip_distance_cat for both bus and walk trips
   bus_trips$trip_distance_cat[bus_trips$trip_distance > 0 & bus_trips$trip_distance < DIST_LOWER_BOUNDS[2]] <- DIST_CAT[1]
   bus_trips$trip_distance_cat[bus_trips$trip_distance >= DIST_LOWER_BOUNDS[2] & bus_trips$trip_distance < DIST_LOWER_BOUNDS[3]] <- DIST_CAT[2]
   bus_trips$trip_distance_cat[bus_trips$trip_distance >= DIST_LOWER_BOUNDS[3]] <- DIST_CAT[3]
@@ -650,7 +674,7 @@ dist_dur_tbls <- function(bs){
   dist
 }
 
-total_mmet <- function(rd,background_pa){
+total_mmet <- function(rd){
   rd_pa <- subset(rd,trip_mode%in%c('Bicycle','Walking','Short Walking'))
   # Convert baseline's trip duration from mins to hours
   rd_pa$trip_duration_hrs <- rd_pa$trip_duration / 60
@@ -671,26 +695,25 @@ total_mmet <- function(rd,background_pa){
                               work_ltpa_mmet = first(work_ltpa_marg_met)),by='participant_id']
   
   # Calculate MMETs
-  pa_ind$base_mmet <- pa_ind$work_ltpa_mmet * background_pa +  pa_ind$cycling_mmet_base* MMETCycling + pa_ind$walking_mmet_base * MMETWalking
-  pa_ind$scen1_mmet <- pa_ind$work_ltpa_mmet * background_pa +  pa_ind$cycling_mmet_scen1* MMETCycling + pa_ind$walking_mmet_scen1 * MMETWalking
-  pa_ind$scen2_mmet <- pa_ind$work_ltpa_mmet * background_pa +  pa_ind$cycling_mmet_scen2* MMETCycling + pa_ind$walking_mmet_scen2 * MMETWalking
-  pa_ind$scen3_mmet <- pa_ind$work_ltpa_mmet * background_pa +  pa_ind$cycling_mmet_scen3* MMETCycling + pa_ind$walking_mmet_scen3 * MMETWalking
-  pa_ind$scen4_mmet <- pa_ind$work_ltpa_mmet * background_pa +  pa_ind$cycling_mmet_scen4* MMETCycling + pa_ind$walking_mmet_scen4 * MMETWalking
-  pa_ind$scen5_mmet <- pa_ind$work_ltpa_mmet * background_pa +  pa_ind$cycling_mmet_scen5* MMETCycling + pa_ind$walking_mmet_scen5 * MMETWalking
+  pa_ind$base_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_base* MMET_CYCLING + pa_ind$walking_mmet_base * MMET_WALKING
+  pa_ind$scen1_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_scen1* MMET_CYCLING + pa_ind$walking_mmet_scen1 * MMET_WALKING
+  pa_ind$scen2_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_scen2* MMET_CYCLING + pa_ind$walking_mmet_scen2 * MMET_WALKING
+  pa_ind$scen3_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_scen3* MMET_CYCLING + pa_ind$walking_mmet_scen3 * MMET_WALKING
+  pa_ind$scen4_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_scen4* MMET_CYCLING + pa_ind$walking_mmet_scen4 * MMET_WALKING
+  pa_ind$scen5_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_scen5* MMET_CYCLING + pa_ind$walking_mmet_scen5 * MMET_WALKING
   name_indices <- which(colnames(pa_ind)%in%c('participant_id', 'sex', 'age', 'age_cat', 'base_mmet', 'scen1_mmet', 'scen2_mmet', 'scen3_mmet', 'scen4_mmet', 'scen5_mmet'))
   mmets <- tbl_df(pa_ind)[,name_indices]
   mmets
   
 }
 
-scenario_pm_calculations <- function(scen_dist,rd,background_ap=1){
+scenario_pm_calculations <- function(scen_dist,rd){
   
   # concentration contributed by non-transport share (remains constant across the scenarios)
-  non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)*background_ap  
+  non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
   
   ### Calculating number of scenarios besides the baseline
   trans_emissions <- TRANS_EMISSIONS_ORIGINAL
-  names(trans_emissions)[which(names(trans_emissions)=='base_emissions')] <- 'base'
   ##RJ question for RG: looks like this is using bus travel distance to estimate emissions. Is this right?
   for (i in 2:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- trans_emissions$base*c(scen_dist[[SCEN[i]]][c(4,4,3,5,2)]/scen_dist[[SCEN[1]]][c(4,4,3,5,2)],1,1,1)
   #for (i in 1:NSCEN){
@@ -729,7 +752,7 @@ scenario_pm_calculations <- function(scen_dist,rd,background_ap=1){
     individual_data$pm_conc <- ((temp_vec * as.numeric(conc_pm[i])) + individual_data$on_road_pm)/(temp_vec+individual_data$air_inhaled)
     individual_data <- subset(individual_data, select=c("participant_id", "pm_conc"))
     names(individual_data)[2] <- paste0('pm_conc_',SCEN_SHORT_NAME[i])
-    
+     
     if (i == 1 )
     {
       final_data <- individual_data 
@@ -822,7 +845,7 @@ gen_ap_rr <- function(rd,ind_pm){
   ind
 }
 
-dose_response <- function (cause, outcome_type, dose, confidence_intervals = F, certainty = T, use_75_pert = T){
+dose_response <- function (cause, outcome_type, dose, confidence_intervals = F){
   
   if (sum(is.na(dose))>0 || class(dose)!= "numeric"){
     stop ('Please provide dose in numeric')
@@ -861,7 +884,7 @@ dose_response <- function (cause, outcome_type, dose, confidence_intervals = F, 
   rr <- approx(x=lookup_df$dose,y=lookup_df$RR,xout=dose,yleft=1,yright=min(lookup_df$RR))$y
   ## RJ/AA/MT: what are we doing with dose--response uncertainty?
   ## one possibility: (1) generate nSample uniform random variables; (2) transform all doses to responses by mapping uniform to trunc normal
-  if (confidence_intervals || !certainty) {
+  if (confidence_intervals || DOSE_RESPONSE_QUANTILE!=-1) {
     lb <-
       approx(
         x = lookup_df$dose,
@@ -879,8 +902,8 @@ dose_response <- function (cause, outcome_type, dose, confidence_intervals = F, 
         yright = min(lookup_df$ub)
       )$y
   }
-  if (!certainty){
-    rr <- truncnorm::rtruncnorm(n = length(rr), a = lb, b = ub, mean = rr)
+  if (DOSE_RESPONSE_QUANTILE!=-1){
+    rr <- truncnorm::qtruncnorm(DOSE_RESPONSE_QUANTILE, rr, a=lb, b=ub)
   }
   if (confidence_intervals) {
     return(data.frame (rr = rr, lb = lb, ub = ub))
@@ -899,7 +922,6 @@ gen_pa_rr <- function(ind){
       pa_dn <- as.character(DISEASE_OUTCOMES$pa_acronym[j])
       pa_n <- as.character(DISEASE_OUTCOMES$acronym[j])
       outcome_type <- ifelse(pa_dn%in%c('lung-cancer','stroke'), 'incidence' , 'mortality')
-      use_75_pert <- F#ifelse(pa_dn == 'all-cause-mortality',T,F)
       # CHD: 35 mmeth per week use mortality
       # Lung cancer: 10 mmeth per week use incidence
       # stroke 75 pert: 13.37
@@ -911,8 +933,8 @@ gen_pa_rr <- function(ind){
       else if(pa_dn == 'stroke') doses[doses>13.37] <- 13.37
       else if(pa_dn == 'all-cause-mortality') doses[doses>16.08] <- 16.08
       ##RJ apply function to all doses as one long vector
-      return_vector <- dose_response(cause = pa_dn, outcome_type = outcome_type, certainty = pa_certainty, 
-                                   dose = unlist(data.frame(doses)), use_75_pert = use_75_pert)
+      return_vector <- dose_response(cause = pa_dn, outcome_type = outcome_type, 
+                                   dose = unlist(data.frame(doses)))
       ##RJ take segments of returned vector corresponding to scenario
       for (i in 1:length(SCEN_SHORT_NAME)){
         scen <- SCEN_SHORT_NAME[i]
@@ -952,7 +974,7 @@ combined_rr_pa_pa <- function(ind_pa,ind_ap){
   ind
 }
 
-injuries_function <- function(relative_distances,scen_dist,safety=1){
+injuries_function <- function(relative_distances,scen_dist){
   ### injury code
   ### This is the script for distance-based injury model for Accra using safety-in-numbers
   
@@ -965,7 +987,7 @@ injuries_function <- function(relative_distances,scen_dist,safety=1){
   sin_vic_ordered <- sin_vic[match(vic_order,data.frame(sin_vic)[,1]),match(strike_order,colnames(sin_vic))]
   sin_str <- S.I.N[7:12,]
   sin_str_ordered <- sin_str[match(vic_order,data.frame(sin_str)[,1]),match(strike_order,colnames(sin_str))]
-  whw_mat_adjusted <- whw_mat[,2:8]*safety
+  whw_mat_adjusted <- whw_mat[,2:8]*SAFETY_SCALAR
   for (k in 1:(length(SCEN_SHORT_NAME))) {
     victim_dist <- scen_dist[match(vic_order,rownames(scen_dist)),k]
     strk_dist <- scen_dist[match(strike_order,rownames(scen_dist)),k]
@@ -1025,11 +1047,11 @@ injuries_function <- function(relative_distances,scen_dist,safety=1){
   deaths_yll_injuries
 }
 
-health_burden <- function(ind,inj,chronic_disease_scalar=1){
+health_burden <- function(ind,inj){
   # subset gbd data for outcome types
   gbd_data_scaled <- GBD_DATA
   gbd_data_scaled$value_gama[gbd_data_scaled$cause%in%c("Neoplasms","Ischemic heart disease","Tracheal, bronchus, and lung cancer")] <- 
-    gbd_data_scaled$value_gama[gbd_data_scaled$cause%in%c("Neoplasms","Ischemic heart disease","Tracheal, bronchus, and lung cancer")]*chronic_disease_scalar
+    gbd_data_scaled$value_gama[gbd_data_scaled$cause%in%c("Neoplasms","Ischemic heart disease","Tracheal, bronchus, and lung cancer")]*CHRONIC_DISEASE_SCALAR
   gbd_deaths <- subset(gbd_data_scaled,measure=='Deaths' & metric == "Number")
   gbd_ylls <- subset(gbd_data_scaled,measure=='YLLs (Years of Life Lost)' & metric == "Number")
   ##!! Hard-coded column names to initialise tables.
@@ -1128,39 +1150,24 @@ ithim_uncertainty <- function(ithim_object,seed=1){
   sample_parameters(ithim_object$parameters)
   # Store samples
   return_list$parameter_samples <- sapply(names(ithim_object$parameters),function(x)get(x))
+  ## Re-do set up if MEAN
+  if('MEAN_BUS_WALK_TIME'%in%names(ithim_object$parameters)){
+    print(c(seed,MEAN_BUS_WALK_TIME))
+    rd <- ithim_setup_baseline_scenario()
+    ithim_object$bs <- create_all_scenarios(rd)
+    ######################
+    # Generate distance and duration matrices
+    ithim_object$dist <- dist_dur_tbls(ithim_object$bs)
+    # distances for injuries calculation
+    ithim_object$inj_distances <- distances_for_injury_function(ithim_object$bs)
+  }
   ############################
   # Run ITHIM cascade of functions
   return_list$outcome <- run_ithim(ithim_object,seed)
   return(return_list)
 }
 
-
-
-ithim_what_if <- function(ithim_object,seed=1){ 
-  ############################
-  return_list <- list()
-  ############################
-  for(i in names(ithim_object$what_if)){
-    ############################
-    # Run ITHIM cascade of functions
-    return_list[[i]] <- run_ithim(ithim_object,
-                                  seed=seed,
-                                  background_ap=ithim_object$what_if[[i]]$background_ap,
-                                  background_pa=ithim_object$what_if[[i]]$background_pa,
-                                  safety=ithim_object$what_if[[i]]$safety,
-                                  chronic_disease=ithim_object$what_if[[i]]$chronic_disease)
-  }
-  return(return_list)
-}
-
-
-
-run_ithim <- function(ithim_object,
-                      seed=1,
-                      background_ap=1,
-                      background_pa=1,
-                      safety=1,
-                      chronic_disease=1){ 
+run_ithim <- function(ithim_object,seed=1){ 
   ############################
   ## (0) SET UP
   set.seed(seed)
@@ -1169,13 +1176,13 @@ run_ithim <- function(ithim_object,
   ############################
   ## (1) AP PATHWAY
   # Calculated PM2.5 concentrations
-  (pm_conc <- scenario_pm_calculations(dist,bs,background_ap))
+  (pm_conc <- scenario_pm_calculations(dist,bs))
   # Air pollution calculation
   (RR_AP_calculations <- gen_ap_rr(bs,pm_conc))
   ############################
   ## (2) PA PATHWAY
   # Calculate total mMETs
-  (mmets <- total_mmet(bs,background_pa))
+  (mmets <- total_mmet(bs))
   # Physical activity calculation
   (RR_PA_calculations <- gen_pa_rr(mmets))
   ############################
@@ -1185,11 +1192,11 @@ run_ithim <- function(ithim_object,
   ############################
   ## (4) INJURIES
   # Injuries calculation
-  (deaths_yll_injuries <- injuries_function(inj_distances[[1]],inj_distances[[2]],safety))
+  (deaths_yll_injuries <- injuries_function(inj_distances[[1]],inj_distances[[2]]))
   ############################
   ## (5) COMBINE (3) AND (4)
   # Combine health burden from disease and injury
-  (hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries,chronic_disease))
+  (hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries))
   return(hb)
 }
 
