@@ -11,15 +11,14 @@ options(scipen=999)
 ##### Set WD
 
 
-
 ##### Read data. idata: life table and disease life tables (including trends). edata: exposure data (e.g. physical activity).
 #### irr.data: relative risks data and ee: energy expenditure
 #### For exposure (edata) and input (idata) data I am using already generated categories, but a function should be developed to work from raw data. 
 
-idata <- read.csv("MSLT/data/Australia/idata.csv", stringsAsFactors = F)
-edata <- read.csv("MSLT/data/Australia/edata.csv", stringsAsFactors = F)
-irr <- read.csv("MSLT/data/Australia/irr.csv", stringsAsFactors = F)
-ee <- read.csv("MSLT/data/Australia/ee.csv", stringsAsFactors = F)
+idata <- read.csv("code/MSLT/data/legacy/Australia/idata.csv", stringsAsFactors = F)
+edata <- read.csv("code/MSLT/data/legacy/Australia/edata.csv", stringsAsFactors = F)
+irr <- read.csv("code/MSLT/data/legacy/Australia/irr.csv", stringsAsFactors = F)
+ee <- read.csv("code/MSLT/data/legacy/Australia/ee.csv", stringsAsFactors = F)
 
 #####To do
 
@@ -155,7 +154,7 @@ for (age in p_age_cohort){
 }
 
 ##### Uncommnet to check disease life table list
-# View(disease_life_table_list_bl[[1]])
+View(disease_life_table_list_bl[[1]])
 
 #######################Generate pifs#########################################################
 
@@ -184,7 +183,7 @@ for (age in p_age_cohort){
 }
 
 ##### Uncommnet to check pifs
-# View(pifs[[1]])
+#View(pifs[[1]])
 
 ########################Scenario calculations####################################################
 
@@ -216,7 +215,7 @@ for (age in p_age_cohort){
 }
 
 ##### Uncommnet to check scenario incidence
-# View(incidence_sc[[1]])
+#View(incidence_sc[[1]])
 
 
 ##### Calculate disease life tables with new incidence (this in turn, modifies prevalence and mortality)
@@ -253,7 +252,7 @@ for (age in p_age_cohort){
   }
 }
 ##### Uncommnet to check scenario life tables
-# View(disease_life_table_list_sc[[1]])
+#View(disease_life_table_list_sc[[1]])
 
 
 ##########################################Calculate scenario general life table parameters###########################################
@@ -370,8 +369,8 @@ for (age in p_age_cohort){
   }
 }
 ##### Uncommnet to check scenario life tables
-View(general_life_table_list_sc[[32]])
-View(general_life_table_list_bl[[32]])
+View(general_life_table_list_sc[[1]])
+View(general_life_table_list_bl[[2]])
 
 
 ############################################################Outputs########################################################################################
