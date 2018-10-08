@@ -13,7 +13,7 @@ require(cowplot)
 require(ggpubr)
 require(grid)
 require(ggplot2)
-#source("code/functions.R")
+
 
 
 # ---- chunk-1 ----
@@ -26,8 +26,10 @@ options(scipen=999)
 source("code/functions.R")
 
 # ---- chunk-4 ----
-GBDdata <- read.csv("data/legacy/UK/gbd2016.csv", stringsAsFactors = F)
-
+GBDdata <- read.csv("data/legacy/UK/idata.csv", stringsAsFactors = F)
+population
+mortality
+tylds <- read.csv("data/legacy/UK/totalYLDs.csv", stringsAsFactors = F)
 
 # ---- chunk-5 ----
 GBDdata <- mutate_all(GBDdata, funs(tolower))
