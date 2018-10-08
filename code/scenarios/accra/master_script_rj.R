@@ -1,25 +1,40 @@
 # setwd('~/overflow_dropbox/ITHIM-R/')
 rm (list = ls())
 source('ithim_r_functions.R')
-# Load packages
-library(tidyverse)
-library(haven)
-library(plotly)
-library(ReIns)
-library(dplyr)
-library(tidyverse)
-library(truncnorm)
-library(distr)
-library(pracma)
-library(data.table)
-library(mgcv)
-library(parallel)
 
 #################################################
-## Use case 1: not sampling:
+## Use case 1: basic ITHIM:
 
-ithim_object <- list()
-## These what-if scenarios are hard coded. It isn't very generalisable.
+## 
+ithim_object <- run_ithim_setup()
+ithim_object$outcome <- run_ithim(ithim_object, seed = 1)
+##
+
+## plot results
+result_mat <- colSums(ithim_object$outcome$ylls[,3:ncol(ithim_object$outcome$ylls)])
+columns <- length(result_mat)
+nDiseases <- (columns-1)/NSCEN
+ylim <- range(result_mat)
+x11(width = 8, height = 5); par(mfrow = c(2, 4))
+for(i in 1:nDiseases){
+  if(i<5) {
+    par(mar = c(1, 4, 4, 1))
+    barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = '', ylim = ylim, las = 2, 
+            main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
+  }else{
+    par(mar = c(5, 4, 4, 1))
+    barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = SCEN_SHORT_NAME[c(1, 3:6)], ylim = ylim, las = 2, 
+            main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
+  }
+}
+
+#################################################
+## Use case 2: what-if scenarios:
+
+## assume already run:
+# ithim_object <- run_ithim_setup()
+
+## These are the hard-coded what-if scenarios.
 ithim_object$what_if$now              <- list(cleaner_fleet = 1.0, safety = 1.0, chronic_disease = 1.0, background_ap = 1.0, background_pa = 1.0)
 ithim_object$what_if$cleaner_fleet    <- list(cleaner_fleet = 0.5, safety = 1.0, chronic_disease = 1.0, background_ap = 1.0, background_pa = 1.0)
 ithim_object$what_if$safety           <- list(cleaner_fleet = 1.0, safety = 0.5, chronic_disease = 1.0, background_ap = 1.0, background_pa = 1.0)
@@ -27,23 +42,13 @@ ithim_object$what_if$chronic_disease  <- list(cleaner_fleet = 1.0, safety = 1.0,
 ithim_object$what_if$background_ap    <- list(cleaner_fleet = 1.0, safety = 1.0, chronic_disease = 1.0, background_ap = 0.5, background_pa = 1.0)
 ithim_object$what_if$background_pa    <- list(cleaner_fleet = 1.0, safety = 1.0, chronic_disease = 1.0, background_ap = 1.0, background_pa = 0.5)
 
-##
-ithim_setup_global_values()
-ithim_object$parameters <- ithim_setup_parameters()
-##
-
-ithim_load_data()
-rd <- ithim_setup_baseline_scenario()
-ithim_object$bs <- create_all_scenarios(rd)
-set_scenario_specific_variables(ithim_object$bs)
-# distances for injuries calculation
-ithim_object$inj_distances <- distances_for_injury_function(ithim_object$bs)
-
 ## 
-ithim_object$outcome <- run_ithim(ithim_object, seed = 1)
-result_mat <- do.call(rbind, ithim_object$outcome)
+ithim_object$outcome <- ithim_what_if(ithim_object, seed = 1)
 ##
 
+## plot results
+result_list <- lapply(ithim_object$outcome,function(x)colSums(x$ylls[,3:ncol(x$ylls)]))
+result_mat <- do.call(rbind, result_list)
 columns <- ncol(result_mat)
 nDiseases <- (columns-1)/NSCEN
 for(i in 1:nDiseases){
@@ -63,27 +68,20 @@ for(i in 1:nDiseases){
 }
 
 #################################################
-## Use case 2: sampling:
+## Use case 3: sampling:
 
-##
-ithim_setup_global_values(SAMPLEMODE = T,  NSAMPLES = 16)
-ithim_object$parameters <- ithim_setup_parameters(PM_CONC_BASE = c(log(50), 1),  PM_TRANS_SHARE = c(5, 5)) 
-##
+ithim_object <- run_ithim_setup(NSAMPLES = 16,
+                                PM_CONC_BASE = c(log(50), 1),  
+                                PM_TRANS_SHARE = c(5, 5))
 
-ithim_load_data()
-rd <- ithim_setup_baseline_scenario()
-ithim_object$bs <- create_all_scenarios(rd)
-set_scenario_specific_variables(ithim_object$bs)
-# distances for injuries calculation
-ithim_object$inj_distances <- distances_for_injury_function(ithim_object$bs)
-
-## to get EVPPI
 numcores <- detectCores()
-results <- mclapply(1:NSAMPLES, FUN = run_ithim, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+results <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+
+## get EVPPI
 parameter_samples <- t(sapply(results, function(x) x$parameter_samples))
-outcome <- t(sapply(results, function(x) x$now))
+outcome <- t(sapply(results, function(x) colSums(x$outcome$ylls[,3:ncol(x$outcome$ylls)])))
 evppi <- matrix(0, ncol = NSCEN, nrow = length(ithim_object$parameters))
-for(j in 1:(NSCEN)+5){
+for(j in 1:(NSCEN)+5){ ## +5 means we choose ihd outcome for each scenario
   y <- outcome[, j]
   vary <- var(y)
   for(i in 1:length(ithim_object$parameters)){
@@ -93,6 +91,8 @@ for(j in 1:(NSCEN)+5){
     
   }
 }
+colnames(evppi) <- SCEN_SHORT_NAME[c(1,3:6)]
+rownames(evppi) <- names(ithim_object$parameters)
 print(evppi)
 ##
 
