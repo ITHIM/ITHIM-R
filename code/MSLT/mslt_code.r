@@ -126,6 +126,13 @@ gbd_df[["ac_ylds_adj_rate_1"]] <- (gbd_df$`ylds (years lived with disability)_nu
                                      gbd_df$population_number
 
 
+
+# ---------------------- Creating MSLT df ---------------------------#
+
+mslt_df <- data.frame(age = rep(c(0:100), 2), sex = append(rep("male", 101), 
+                                                           rep("female", 101)))
+
+
 for (i in 2:nrow(disease_short_names)){
   gbd_df[[paste0("dw_adj_", disease_short_names$sname[i])]] <- 
     (gbd_df[[paste0("ylds (years lived with disability)_number_", disease_short_names$sname[i])]] /
