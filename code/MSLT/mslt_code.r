@@ -1,5 +1,5 @@
 
-# setwd("C:/Users/s2985479/Dropbox/James Woodcock/OctVisit/ITHIM-R/code/MSLT")
+setwd("C:/Users/s2985479/Dropbox/James Woodcock/OctVisit/ITHIM-R/code/MSLT")
 # Change to own wd
 
 # ---- chunk-intro ----
@@ -14,8 +14,6 @@ require(ggpubr)
 require(grid)
 require(ggplot2)
 
-
-
 # ---- chunk-1 ----
 rm (list = ls())
 
@@ -26,13 +24,20 @@ options(scipen=999)
 source("code/functions.R")
 
 # ---- chunk-4 ----
-GBDdata <- read.csv("data/legacy/UK/idata.csv", stringsAsFactors = F)
-population
-mortality
+
+data.input <- read.csv("data/legacy/UK/idata.csv", stringsAsFactors = F)
+
+### Population for England: Look up in Table 2 with data for Local Goverment areas.
+
+#population <-  read.xls("data/legacy/UK/Population & Mortality/table2(5-year, +90).xls", stringsAsFactors = F)
+
+#mortality, here some look up table, change location of data to make it easier
+
 tylds <- read.csv("data/legacy/UK/totalYLDs.csv", stringsAsFactors = F)
 
 # ---- chunk-5 ----
-GBDdata <- mutate_all(GBDdata, funs(tolower))
+
+data.input <- mutate_all(disease, funs(tolower))
 
 GBDdata <- GBDdata %>% mutate(measure = ifelse(measure == "ylds (years lived with disability)", "ylds", measure))
 
@@ -74,8 +79,6 @@ GBDdata$val <- as.numeric(as.character(GBDdata$val))
 GBD_population <- filter(GBDdata, measure == "deaths", cause == "all causes",
                          metric == "rate" | metric == "number" ) %>% select(metric, age_cat, sex, val,
                                                                             sex_age_cat, location)
-
-
 # ---- chunk-10 ----
 
 for (i in 1:nrow(GBD_population)) {
