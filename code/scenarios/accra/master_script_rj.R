@@ -90,7 +90,8 @@ ithim_object <- run_ithim_setup(NSAMPLES = 16,
                                 MEAN_BUS_WALK_TIME = c(log(5), log(1.2)),
                                 PM_CONC_BASE = c(log(50), 1),  
                                 PM_TRANS_SHARE = c(5, 5),  
-                                DOSE_RESPONSE_QUANTILE = c(0,1))
+                                PA_DOSE_RESPONSE_QUANTILE = c(0,1),  
+                                AP_DOSE_RESPONSE_QUANTILE = c(0,1))
 
 numcores <- detectCores()
 results <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
@@ -98,11 +99,11 @@ results <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_ob
 ## get EVPPI
 parameter_samples <- t(sapply(results, function(x) x$parameter_samples))
 outcome <- t(sapply(results, function(x) colSums(x$outcome$ylls[,3:ncol(x$outcome$ylls)])))
-evppi <- matrix(0, ncol = NSCEN, nrow = length(ithim_object$parameters))
+evppi <- matrix(0, ncol = NSCEN, nrow = ncol(parameter_samples))
 for(j in 1:(NSCEN)){
   y <- outcome[, j+5] ## +5 means we choose ihd outcome for each scenario
   vary <- var(y)
-  for(i in 1:length(ithim_object$parameters)){
+  for(i in 1:ncol(parameter_samples)){
     x <- parameter_samples[, i];
     model <- gam(y ~ s(x))
     evppi[i, j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
@@ -110,7 +111,21 @@ for(j in 1:(NSCEN)){
   }
 }
 colnames(evppi) <- SCEN_SHORT_NAME[c(1,3:6)]
-rownames(evppi) <- names(ithim_object$parameters)
+rownames(evppi) <- colnames(parameter_samples)
+if("DR_AP_LIST"%in%names(ithim_object$parameters)&&NSAMPLES>=1024){
+  AP_DOSE_RESPONSE_QUANTILE <- c()
+  for(j in 1:(NSCEN)){
+    y <- outcome[, j+5] ## +5 means we choose ihd outcome for each scenario
+    vary <- var(y)
+    x1 <- parameter_samples[,which(colnames(parameter_samples)=='AP_DOSE_RESPONSE_QUANTILE_ALPHA')];
+    x2 <- parameter_samples[,which(colnames(parameter_samples)=='AP_DOSE_RESPONSE_QUANTILE_BETA')];
+    x3 <- parameter_samples[,which(colnames(parameter_samples)=='AP_DOSE_RESPONSE_QUANTILE_GAMMA')];
+    x4 <- parameter_samples[,which(colnames(parameter_samples)=='AP_DOSE_RESPONSE_QUANTILE_TMREL')];
+    model <- gam(y ~ te(x1,x2,x3,x4))
+    AP_DOSE_RESPONSE_QUANTILE[j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+  }
+  evppi <- rbind(evppi,AP_DOSE_RESPONSE_QUANTILE)
+}
 print(evppi)
 ##
 

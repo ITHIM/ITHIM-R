@@ -8,7 +8,7 @@
 ## do we want to remove any of these from the raw dataset that gets passed around?
 
 ##RJ question for/discussion with AA. 
-## Functions ithim_setup_global_values, ithim_setup_parameters, sample_parameters, ithim_load_data, set_scenario_specific_variables
+## Functions ithim_setup_global_values, ithim_setup_parameters, ithim_load_data, set_scenario_specific_variables
 ## Global variables (i.e. those needed by all functions) are assigned to all environments, using 
 ## <<- and assign(...,pos=1), and denoted by capitals to make it clear what they are. 
 ## A better method might be to make an object (list) that contains all inputs, variables, and intermediate objects.
@@ -24,7 +24,11 @@ run_ithim_setup <- function(plotFlag = F,
                             MMET_WALKING = 2.53,
                             PM_CONC_BASE = 50,  
                             PM_TRANS_SHARE = 0.225,
-                            DOSE_RESPONSE_QUANTILE = -1){
+                            PA_DOSE_RESPONSE_QUANTILE = -1,
+                            AP_DOSE_RESPONSE_QUANTILE = -1,
+                            BACKGROUND_PA_SCALAR = 1,
+                            SAFETY_SCALAR = 1,
+                            CHRONIC_DISEASE_SCALAR = 1 ){
   # Load packages
   library(tidyverse)
   library(haven)
@@ -50,15 +54,22 @@ run_ithim_setup <- function(plotFlag = F,
                             speeds,
                             DIST_CAT,
                             AGE_CATEGORY)
-  ithim_object$parameters <- ithim_setup_parameters(MEAN_BUS_WALK_TIME,
+  
+  ithim_load_data()
+  
+  ithim_object$parameters <- ithim_setup_parameters(NSAMPLES,
+                                                    MEAN_BUS_WALK_TIME,
                                                     MMET_CYCLING,
                                                     MMET_WALKING,
                                                     PM_CONC_BASE,  
                                                     PM_TRANS_SHARE,
-                                                    DOSE_RESPONSE_QUANTILE)
+                                                    PA_DOSE_RESPONSE_QUANTILE,
+                                                    AP_DOSE_RESPONSE_QUANTILE,
+                                                    BACKGROUND_PA_SCALAR,
+                                                    SAFETY_SCALAR,
+                                                    CHRONIC_DISEASE_SCALAR )
   ##
   
-  ithim_load_data()
   rd <- ithim_setup_baseline_scenario()
   ithim_object$bs <- create_all_scenarios(rd)
   set_scenario_specific_variables(ithim_object$bs)
@@ -97,12 +108,14 @@ ithim_setup_global_values <- function(plotFlag = F,
 ## which functions do they affect?
 ## do we want to pre-specify the distribution, as below?
 ## if yes, which parameters and what distributions?
-ithim_setup_parameters <- function(MEAN_BUS_WALK_TIME= 5,
+ithim_setup_parameters <- function(NSAMPLES = 1,
+                                   MEAN_BUS_WALK_TIME= 5,
                                    MMET_CYCLING = 4.63,
                                    MMET_WALKING = 2.53,
                                    PM_CONC_BASE = 50,  
                                    PM_TRANS_SHARE = 0.225,
-                                   DOSE_RESPONSE_QUANTILE = -1,
+                                   PA_DOSE_RESPONSE_QUANTILE = -1,
+                                   AP_DOSE_RESPONSE_QUANTILE = -1,
                                    BACKGROUND_PA_SCALAR = 1,
                                    SAFETY_SCALAR = 1,
                                    CHRONIC_DISEASE_SCALAR = 1 ){
@@ -112,60 +125,94 @@ ithim_setup_parameters <- function(MEAN_BUS_WALK_TIME= 5,
   if(length(MEAN_BUS_WALK_TIME) == 1 ) {
     MEAN_BUS_WALK_TIME <<- MEAN_BUS_WALK_TIME
   }else{
-    parameters$MEAN_BUS_WALK_TIME <- Lnorm(MEAN_BUS_WALK_TIME[1], MEAN_BUS_WALK_TIME[2])
+    parameters$MEAN_BUS_WALK_TIME <- rlnorm(NSAMPLES,MEAN_BUS_WALK_TIME[1], MEAN_BUS_WALK_TIME[2])
   }
   if(length(MMET_CYCLING) == 1 ) {
     MMET_CYCLING <<- MMET_CYCLING
   }else{
-    parameters$MMET_CYCLING <- Lnorm(MMET_CYCLING[1], MMET_CYCLING[2])
+    parameters$MMET_CYCLING <- rlnorm(NSAMPLES,MMET_CYCLING[1], MMET_CYCLING[2])
   }
   if(length(MMET_WALKING) == 1 ) {
     MMET_WALKING <<- MMET_WALKING
   }else{
-    parameters$MMET_WALKING <- Lnorm(MMET_WALKING[1], MMET_WALKING[2])
+    parameters$MMET_WALKING <- rlnorm(NSAMPLES,MMET_WALKING[1], MMET_WALKING[2])
   }
   if(length(PM_CONC_BASE) == 1 ) {
     PM_CONC_BASE <<- PM_CONC_BASE
   }else{
-    parameters$PM_CONC_BASE <- Lnorm(PM_CONC_BASE[1],PM_CONC_BASE[2])
+    parameters$PM_CONC_BASE <- rlnorm(NSAMPLES,PM_CONC_BASE[1],PM_CONC_BASE[2])
   }
   if(length(PM_TRANS_SHARE) == 1 ) {
     PM_TRANS_SHARE <<- PM_TRANS_SHARE
   }else{
-    parameters$PM_TRANS_SHARE <- Beta(PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
-  }
-  if(length(PM_TRANS_SHARE) == 1 ) {
-    PM_TRANS_SHARE <<- PM_TRANS_SHARE
-  }else{
-    parameters$PM_TRANS_SHARE <- Beta(PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
-  }
-  if(length(DOSE_RESPONSE_QUANTILE) == 1 ) {
-    DOSE_RESPONSE_QUANTILE <<- DOSE_RESPONSE_QUANTILE
-  }else{
-    parameters$DOSE_RESPONSE_QUANTILE <- Unif(0,1)
+    parameters$PM_TRANS_SHARE <- rbeta(NSAMPLES,PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
   }
   if(length(BACKGROUND_PA_SCALAR) == 1 ) {
     BACKGROUND_PA_SCALAR <<- BACKGROUND_PA_SCALAR
   }else{
-    parameters$BACKGROUND_PA_SCALAR <- Lnorm(BACKGROUND_PA_SCALAR[1],BACKGROUND_PA_SCALAR[2])
+    parameters$BACKGROUND_PA_SCALAR <- rlnorm(NSAMPLES,BACKGROUND_PA_SCALAR[1],BACKGROUND_PA_SCALAR[2])
   }
   if(length(SAFETY_SCALAR) == 1 ) {
     SAFETY_SCALAR <<- SAFETY_SCALAR
   }else{
-    parameters$SAFETY_SCALAR <- Lnorm(SAFETY_SCALAR[1],SAFETY_SCALAR[2])
+    parameters$SAFETY_SCALAR <- rlnorm(NSAMPLES,SAFETY_SCALAR[1],SAFETY_SCALAR[2])
   }
   if(length(CHRONIC_DISEASE_SCALAR) == 1 ) {
     CHRONIC_DISEASE_SCALAR <<- CHRONIC_DISEASE_SCALAR
   }else{
-    parameters$CHRONIC_DISEASE_SCALAR <- Lnorm(CHRONIC_DISEASE_SCALAR[1],CHRONIC_DISEASE_SCALAR[2])
+    parameters$CHRONIC_DISEASE_SCALAR <- rlnorm(NSAMPLES,CHRONIC_DISEASE_SCALAR[1],CHRONIC_DISEASE_SCALAR[2])
+  }
+  if(length(PA_DOSE_RESPONSE_QUANTILE) == 1 ) {
+    PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
+  }else{
+    parameters$PA_DOSE_RESPONSE_QUANTILE <- runif(NSAMPLES,0,1)
+  }
+  if(length(AP_DOSE_RESPONSE_QUANTILE) == 1 ) {
+    AP_DOSE_RESPONSE_QUANTILE <<- AP_DOSE_RESPONSE_QUANTILE
+    dr_ap_list <- list()
+    for ( j in 1:nrow(DISEASE_OUTCOMES)) if (DISEASE_OUTCOMES$air_pollution[j] == 1){ 
+      cause <- as.character(DISEASE_OUTCOMES$ap_acronym[j])
+      dr_ap <- subset(DR_AP,cause_code==cause)
+      dr_ap_list[[cause]] <- list()
+      for(age in unique(dr_ap$age_code)){
+        dr_ap_age <- subset(dr_ap,age_code==age)
+        dr_ap_list[[cause]][[as.character(age)]] <- data.frame(alpha=mean(dr_ap_age$alpha),beta=mean(dr_ap_age$beta),gamma=mean(dr_ap_age$gamma),tmrel=mean(dr_ap_age$tmrel))
+      }
+    }
+    DR_AP_LIST <<- dr_ap_list
+  }else{
+    parameters$AP_DOSE_RESPONSE_QUANTILE_ALPHA <- runif(NSAMPLES,0,1)
+    parameters$AP_DOSE_RESPONSE_QUANTILE_BETA <- runif(NSAMPLES,0,1)
+    parameters$AP_DOSE_RESPONSE_QUANTILE_GAMMA <- runif(NSAMPLES,0,1)
+    parameters$AP_DOSE_RESPONSE_QUANTILE_TMREL <- runif(NSAMPLES,0,1)
+    dr_ap_list <- list()
+    for ( j in 1:nrow(DISEASE_OUTCOMES)) if (DISEASE_OUTCOMES$air_pollution[j] == 1){ 
+      cause <- as.character(DISEASE_OUTCOMES$ap_acronym[j])
+      dr_ap <- subset(DR_AP,cause_code==cause)
+      dr_ap_list[[cause]] <- list()
+      for(age in unique(dr_ap$age_code)){
+        dr_ap_age <- subset(dr_ap,age_code==age)
+        # generate a value for alpha
+        alpha_val <- quantile(log(dr_ap_age$alpha),parameters$AP_DOSE_RESPONSE_QUANTILE_ALPHA)
+        # generate a value for beta given alpha
+        mod <- gam(log(beta)~ns(log(alpha),df=3),data=dr_ap_age)
+        pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val)),se.fit=T)
+        beta_val <- qnorm(parameters$AP_DOSE_RESPONSE_QUANTILE_BETA,pred_val$fit,sqrt(mod$sig2))#rnorm(NSAMPLES,pred_val$fit,sqrt(mod$sig2))
+        # generate a value for gamma given beta and alpha
+        mod <- gam(log(gamma)~ns(log(beta),df=3)+ns(log(alpha),df=3),data=dr_ap_age)
+        pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val)),se.fit=T)
+        gamma_val <- qnorm(parameters$AP_DOSE_RESPONSE_QUANTILE_GAMMA,pred_val$fit,sqrt(mod$sig2))
+        # generate a value for tmrel given alpha, beta and gamma
+        mod <- gam(log(tmrel)~ns(log(gamma),df=3)+ns(log(beta),df=3)+ns(log(alpha),df=3),data=dr_ap_age)
+        pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
+        tmrel_val <- qnorm(parameters$AP_DOSE_RESPONSE_QUANTILE_TMREL,pred_val$fit,sqrt(mod$sig2))
+        dr_ap_list[[cause]][[as.character(age)]] <- data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val),tmrel=exp(tmrel_val))
+      }
+    }
+    # turn list inside out, so it's indexed first by sample
+    parameters$DR_AP_LIST <- lapply(1:NSAMPLES,function(x)lapply(dr_ap_list,function(y) lapply(y,function(z)z[x,])))
   }
   parameters
-}
-
-sample_parameters <- function(parameters){
-  ##RJ pos=1 means when we sample we overwrite the value set for the parameter in the whole environment.
-  for(i in 1:length(parameters))
-    assign(names(parameters)[i],r(parameters[[i]])(1),pos=1)
 }
 
 ## this function requires path specification, so that it may differ for different case studies
@@ -565,7 +612,7 @@ dist_dur_tbls <- function(bs){
       bd <- filter(dataset, scenario == unique(dataset$scenario)[i])
       bdnr <- nrow(bd)
       bd <- bd %>% group_by(trip_mode) %>%  summarise(pert = dplyr::n())
-      bd <- bd %>%  select(trip_mode, pert) %>% 
+      bd <- bd %>%  dplyr::select(trip_mode, pert) %>% 
         setNames(c("trip_mode",unique(dataset$scenario)[i])) 
       l[[i]] <- bd
       
@@ -581,7 +628,7 @@ dist_dur_tbls <- function(bs){
       bd <- filter(dataset, scenario == unique(dataset$scenario)[i])
       bdnr <- nrow(bd)
       bd <- bd %>% group_by(trip_mode) %>%  summarise(pert = round(dplyr::n()/bdnr * 100, 1))
-      bd <- bd %>%  select(trip_mode, pert) %>% 
+      bd <- bd %>%  dplyr::select(trip_mode, pert) %>% 
         setNames(c("trip_mode",unique(dataset$scenario)[i])) 
       l[[i]] <- bd
     }
@@ -801,7 +848,6 @@ gen_ap_rr <- function(rd,ind_pm){
   
   ## for every individual average of all parameter draws within the age and disease-outcome
   
-  iters <- 1:5
   pm_indices <- sapply(SCEN_SHORT_NAME,function(x)which(colnames(ind)==paste0("pm_conc_",x)))
   ### iterating over all all disease outcomes
   for ( j in 1:nrow(DISEASE_OUTCOMES)){
@@ -810,9 +856,8 @@ gen_ap_rr <- function(rd,ind_pm){
       # initialise lists
       for (x in 1:length(SCEN_SHORT_NAME))
         ind[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]] <- 0
-      dr_ap_disease <-
-        subset(DR_AP,
-               cause_code == as.character(DISEASE_OUTCOMES$ap_acronym[j]))
+      cause <- as.character(DISEASE_OUTCOMES$ap_acronym[j])
+      dr_ap_disease <- subset(DR_AP, cause_code == cause)
       # apply by age groups
       ages <- unique(dr_ap_disease$age_code)
       for(age in ages){
@@ -823,17 +868,14 @@ gen_ap_rr <- function(rd,ind_pm){
           i <- which(ind$ap_age==age)
         }
         # get parameters
-        alpha <- repmat(dr_ap_sub[iters,2],length(i),1)
-        beta <- repmat(dr_ap_sub[iters,3],length(i),1)
-        gamma <- repmat(dr_ap_sub[iters,4],length(i),1)
-        tmrel <- repmat(dr_ap_sub[iters,5],length(i),1)
-        pm <- repmat(dr_ap_sub[iters,2],length(i),1)
+        alpha <- DR_AP_LIST[[cause]][[as.character(age)]]$alpha
+        beta <- DR_AP_LIST[[cause]][[as.character(age)]]$beta
+        gamma <- DR_AP_LIST[[cause]][[as.character(age)]]$gamma
+        tmrel <- DR_AP_LIST[[cause]][[as.character(age)]]$tmrel
         # calculate AP and apply to all in age group
         for(x in 1: length(SCEN_SHORT_NAME)) 
           ind[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]][i] <-
-          rowMeans(1 + (alpha * (1 - exp(-beta * ((repmat(as.matrix(ind[i, pm_indices[x]]), 1, length(iters)) - tmrel) ^
-                                                    gamma
-          )))))
+          as.numeric(1 + alpha * (1 - exp(-beta * (ind[[pm_indices[x]]][i] - tmrel) ^ gamma )))
       }
       ## change the names of the columns as per the disease
       for (n in 1: length(SCEN_SHORT_NAME)){
@@ -845,7 +887,7 @@ gen_ap_rr <- function(rd,ind_pm){
   ind
 }
 
-dose_response <- function (cause, outcome_type, dose, confidence_intervals = F){
+PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = F){
   
   if (sum(is.na(dose))>0 || class(dose)!= "numeric"){
     stop ('Please provide dose in numeric')
@@ -884,7 +926,7 @@ dose_response <- function (cause, outcome_type, dose, confidence_intervals = F){
   rr <- approx(x=lookup_df$dose,y=lookup_df$RR,xout=dose,yleft=1,yright=min(lookup_df$RR))$y
   ## RJ/AA/MT: what are we doing with dose--response uncertainty?
   ## one possibility: (1) generate nSample uniform random variables; (2) transform all doses to responses by mapping uniform to trunc normal
-  if (confidence_intervals || DOSE_RESPONSE_QUANTILE!=-1) {
+  if (confidence_intervals || PA_DOSE_RESPONSE_QUANTILE!=-1) {
     lb <-
       approx(
         x = lookup_df$dose,
@@ -902,8 +944,8 @@ dose_response <- function (cause, outcome_type, dose, confidence_intervals = F){
         yright = min(lookup_df$ub)
       )$y
   }
-  if (DOSE_RESPONSE_QUANTILE!=-1){
-    rr <- truncnorm::qtruncnorm(DOSE_RESPONSE_QUANTILE, rr, a=lb, b=ub)
+  if (PA_DOSE_RESPONSE_QUANTILE!=-1){
+    rr <- truncnorm::qtruncnorm(PA_DOSE_RESPONSE_QUANTILE, rr, a=lb, b=ub)
   }
   if (confidence_intervals) {
     return(data.frame (rr = rr, lb = lb, ub = ub))
@@ -933,7 +975,7 @@ gen_pa_rr <- function(ind){
       else if(pa_dn == 'stroke') doses[doses>13.37] <- 13.37
       else if(pa_dn == 'all-cause-mortality') doses[doses>16.08] <- 16.08
       ##RJ apply function to all doses as one long vector
-      return_vector <- dose_response(cause = pa_dn, outcome_type = outcome_type, 
+      return_vector <- PA_dose_response(cause = pa_dn, outcome_type = outcome_type, 
                                    dose = unlist(data.frame(doses)))
       ##RJ take segments of returned vector corresponding to scenario
       for (i in 1:length(SCEN_SHORT_NAME)){
@@ -954,7 +996,7 @@ combined_rr_pa_pa <- function(ind_pa,ind_ap){
   ind_pa[is.na(ind_pa)] <- 1
   
   # remove common columns from ap
-  ind_ap <- select(ind_ap, -c(sex, age, age_cat))
+  ind_ap <- dplyr::select(ind_ap, -c(sex, age, age_cat))
   
   # join pa and ap ind datasets
   ind <- left_join(ind_pa, ind_ap, by = "participant_id")
@@ -1017,11 +1059,11 @@ injuries_function <- function(relative_distances,scen_dist){
   joined_injury <- left_join(injuries, GBD_INJ_YLL, by="sex_age")
   
   joined_injury$YLL <- joined_injury$Deaths*joined_injury$yll_dth_ratio
-  death_and_yll <- select(joined_injury, c('age_cat','sex','scenario','Deaths','YLL'))
+  death_and_yll <- dplyr::select(joined_injury, c('age_cat','sex','scenario','Deaths','YLL'))
   
-  x_deaths <- select(death_and_yll, -YLL)
+  x_deaths <- dplyr::select(death_and_yll, -YLL)
   x_deaths <- spread(x_deaths,scenario, Deaths)
-  x_yll <- select(death_and_yll, -Deaths)
+  x_yll <- dplyr::select(death_and_yll, -Deaths)
   x_yll <- spread(x_yll,scenario, YLL)
   
   for (n in c(1:length(SCEN_SHORT_NAME))[-2]){
@@ -1113,9 +1155,9 @@ health_burden <- function(ind,inj){
     }
   }
   # Select deaths columns
-  inj_deaths <- select(inj, c(age_cat, sex, contains("deaths")))
+  inj_deaths <- dplyr::select(inj, c(age_cat, sex, contains("deaths")))
   # Select yll columns
-  inj_ylls <- select(inj, c(age_cat, sex, contains("yll")))
+  inj_ylls <- dplyr::select(inj, c(age_cat, sex, contains("yll")))
   # Join injuries data to global datasets
   ##RJ question for AA/RG: all the diseases have a column for each scenario in base, scen2, scen3, scen4, scen5. 
   ## Injury has also a column for scen1. Does this need to be modified so that it's like the others?
@@ -1147,12 +1189,14 @@ ithim_uncertainty <- function(ithim_object,seed=1){
   return_list <- list()
   ##RJ for now we sample one parameter at a time
   # Samples parameters
-  sample_parameters(ithim_object$parameters)
+  #sample_parameters(ithim_object$parameters)
+  for(i in 1:length(ithim_object$parameters))
+    assign(names(ithim_object$parameters)[i],ithim_object$parameters[[i]][[seed]],pos=1)
   # Store samples
-  return_list$parameter_samples <- sapply(names(ithim_object$parameters),function(x)get(x))
+  store_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
+  return_list$parameter_samples <- sapply(store_names,function(x)get(x))
   ## Re-do set up if MEAN
   if('MEAN_BUS_WALK_TIME'%in%names(ithim_object$parameters)){
-    print(c(seed,MEAN_BUS_WALK_TIME))
     rd <- ithim_setup_baseline_scenario()
     ithim_object$bs <- create_all_scenarios(rd)
     ######################
