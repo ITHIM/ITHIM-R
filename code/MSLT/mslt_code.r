@@ -126,6 +126,13 @@ gbd_df[["ac_ylds_adj_rate_1"]] <- (gbd_df$`ylds (years lived with disability)_nu
                                      gbd_df$population_number
 
 
+for (i in 2:nrow(disease_short_names)){
+  gbd_df[[paste0("dw_adj_", disease_short_names$sname[i])]] <- 
+    (gbd_df[[paste0("ylds (years lived with disability)_number_", disease_short_names$sname[i])]] /
+       gbd_df[[paste0("prevalence_number_", disease_short_names$sname[i])]]) /
+    ( 1 - gbd_df[["ac_ylds_adj_rate_1"]])
+}
+
 # ---- chunk-4 ----
 
 data.input <- read.csv("data/legacy/UK/idata.csv", stringsAsFactors = F)
