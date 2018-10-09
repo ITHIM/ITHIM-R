@@ -33,18 +33,34 @@ for(i in 1:nDiseases){
 
 ## assume already run:
 # ithim_object <- run_ithim_setup()
+ithim_object$outcome <- list()
 
-## These are the hard-coded what-if scenarios.
-ithim_object$what_if$now              <- list(cleaner_fleet = 1.0, safety = 1.0, chronic_disease = 1.0, background_ap = 1.0, background_pa = 1.0)
-ithim_object$what_if$cleaner_fleet    <- list(cleaner_fleet = 0.5, safety = 1.0, chronic_disease = 1.0, background_ap = 1.0, background_pa = 1.0)
-ithim_object$what_if$safety           <- list(cleaner_fleet = 1.0, safety = 0.5, chronic_disease = 1.0, background_ap = 1.0, background_pa = 1.0)
-ithim_object$what_if$chronic_disease  <- list(cleaner_fleet = 1.0, safety = 1.0, chronic_disease = 2.0, background_ap = 1.0, background_pa = 1.0)
-ithim_object$what_if$background_ap    <- list(cleaner_fleet = 1.0, safety = 1.0, chronic_disease = 1.0, background_ap = 0.5, background_pa = 1.0)
-ithim_object$what_if$background_pa    <- list(cleaner_fleet = 1.0, safety = 1.0, chronic_disease = 1.0, background_ap = 1.0, background_pa = 0.5)
+## what if: cleaner fleet
+ithim_object$parameters <- ithim_setup_parameters()
 
-## 
-ithim_object$outcome <- ithim_what_if(ithim_object, seed = 1)
-##
+ithim_object$outcome$cleaner_fleet <- run_ithim(ithim_object, seed = 1)
+
+## what if: the roads are safer
+ithim_object$parameters <- ithim_setup_parameters()
+SAFETY_SCALAR <<- 0.5
+ithim_object$outcome$safety <- run_ithim(ithim_object, seed = 1)
+
+## what if: the rate of chronic disease doubles
+ithim_object$parameters <- ithim_setup_parameters()
+CHRONIC_DISEASE_SCALAR <<- 2
+ithim_object$outcome$chronic_disease <- run_ithim(ithim_object, seed = 1)
+
+## what if: non-transport air pollution is half
+ithim_object$parameters <- ithim_setup_parameters()
+non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)/2
+PM_CONC_BASE <<- non_transport_pm_conc + PM_CONC_BASE*PM_TRANS_SHARE
+PM_TRANS_SHARE <<- (PM_CONC_BASE - non_transport_pm_conc)/PM_CONC_BASE
+ithim_object$outcome$background_ap <- run_ithim(ithim_object, seed = 1)
+
+## what if: non-transport physical activity is half
+ithim_object$parameters <- ithim_setup_parameters()
+BACKGROUND_PA_SCALAR <<- 0.5
+ithim_object$outcome$background_pa <- run_ithim(ithim_object, seed = 1)
 
 ## plot results
 result_list <- lapply(ithim_object$outcome,function(x)colSums(x$ylls[,3:ncol(x$ylls)]))
@@ -69,10 +85,12 @@ for(i in 1:nDiseases){
 
 #################################################
 ## Use case 3: sampling:
-
+## dose--response for AP, sample size, travel patterns, emissions
 ithim_object <- run_ithim_setup(NSAMPLES = 16,
+                                MEAN_BUS_WALK_TIME = c(log(5), log(1.2)),
                                 PM_CONC_BASE = c(log(50), 1),  
-                                PM_TRANS_SHARE = c(5, 5))
+                                PM_TRANS_SHARE = c(5, 5),  
+                                DOSE_RESPONSE_QUANTILE = c(0,1))
 
 numcores <- detectCores()
 results <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
@@ -81,13 +99,13 @@ results <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_ob
 parameter_samples <- t(sapply(results, function(x) x$parameter_samples))
 outcome <- t(sapply(results, function(x) colSums(x$outcome$ylls[,3:ncol(x$outcome$ylls)])))
 evppi <- matrix(0, ncol = NSCEN, nrow = length(ithim_object$parameters))
-for(j in 1:(NSCEN)+5){ ## +5 means we choose ihd outcome for each scenario
-  y <- outcome[, j]
+for(j in 1:(NSCEN)){
+  y <- outcome[, j+5] ## +5 means we choose ihd outcome for each scenario
   vary <- var(y)
   for(i in 1:length(ithim_object$parameters)){
     x <- parameter_samples[, i];
     model <- gam(y ~ s(x))
-    evppi[i, j - 5] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+    evppi[i, j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
     
   }
 }
