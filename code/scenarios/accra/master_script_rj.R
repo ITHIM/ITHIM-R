@@ -88,6 +88,7 @@ for(i in 1:nDiseases){
 ## dose--response for AP, sample size, travel patterns, emissions
 ithim_object <- run_ithim_setup(NSAMPLES = 16,
                                 MEAN_BUS_WALK_TIME = c(log(5), log(1.2)),
+                                MMET_CYCLING = c(log(5), 1), 
                                 PM_CONC_BASE = c(log(50), 1),  
                                 PM_TRANS_SHARE = c(5, 5),  
                                 PA_DOSE_RESPONSE_QUANTILE = c(0,1),  
@@ -112,6 +113,8 @@ for(j in 1:(NSCEN)){
 }
 colnames(evppi) <- SCEN_SHORT_NAME[c(1,3:6)]
 rownames(evppi) <- colnames(parameter_samples)
+
+## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
 if("DR_AP_LIST"%in%names(ithim_object$parameters)&&NSAMPLES>=1024){
   AP_DOSE_RESPONSE_QUANTILE <- c()
   for(j in 1:(NSCEN)){
@@ -127,52 +130,4 @@ if("DR_AP_LIST"%in%names(ithim_object$parameters)&&NSAMPLES>=1024){
   evppi <- rbind(evppi,AP_DOSE_RESPONSE_QUANTILE)
 }
 print(evppi)
-##
 
-###################################################
-
-#rm(list = setdiff(ls(), c("INDEX", "RSEED", "PA_MULT", "bs", "dist", "dur", "mmets", "pm_conc", 
-#                          "RR_AP_calculations", "RR_PA_calculations",
-#                          "RR_PA_AP_calculations", "deaths_by_mode",
-#                          "deaths_yll_injuries", "MEAN_BUS_WALK_TIME",
-#                          "deaths", "deaths_red", "ylls", "ylls_red",
-#                          "pa_certainty"))) 
-
-# # COPY THE SAME OBJECTS FROM 1:5, TO 6:10
-# 
-# for (INDEX in 2:6){
-#   bs[[INDEX]] <- bs[[INDEX - 1]]
-#   dist[[INDEX]] <- dist[[INDEX - 1]]
-#   dur[[INDEX]] <- dur[[INDEX - 1]]
-#   mmets[[INDEX]] <- mmets[[INDEX - 1]]
-#   pm_conc[[INDEX]] <- pm_conc[[INDEX - 1]]
-#   RR_AP_calculations[[INDEX]] <- RR_AP_calculations[[INDEX - 1]]
-#   RR_PA_calculations[[INDEX]] <- RR_PA_calculations[[INDEX - 1]]
-#   RR_PA_AP_calculations[[INDEX]] <- RR_PA_AP_calculations[[INDEX - 1]]
-#   
-# }
-# 
-# for (INDEX in 2:6){
-#   
-#   # INDEX <- 6
-#   # Calculate RR PA
-#   source("code/health/accra/gen_pa_rr.R")
-#   
-#   # Combine RR for PA and AP for common diseases
-#   source("code/health/accra/combined_rr_pa_pa.R")
-#   
-#   # # Calculate disease burden for injuries
-#   source("code/injuries/accra/accra_injuries.R")
-#   # 
-#   # # Calculate disease burden for AP, PA and Injuries
-#   source("code/health/accra/health_burden.R")
-#   
-# }
-# 
-# 
-# rm(list = setdiff(ls(), c("INDEX", "RSEED",  "bs", "dist", "dur", "mmets", "pm_conc", 
-#                           "RR_AP_calculations", "RR_PA_calculations",
-#                           "RR_PA_AP_calculations", "deaths_by_mode",
-#                           "deaths_yll_injuries", "MEAN_BUS_WALK_TIME",
-#                           "deaths", "deaths_red", "ylls", "ylls_red",
-#                           "pa_certainty"))) 
