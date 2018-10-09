@@ -24,7 +24,7 @@ source("code/functions.R")
 
 
 
-# -------------------
+# ------------------- Population Numbers ---------------------------#
 
 
 gbd <- readxl::read_excel("data/england/gbd2016.xlsx")
@@ -116,7 +116,14 @@ for (ag in 1:length(unique(gbd$age))){
 }
 
 
+write_csv(gbd_df, "data/england/dismod/input_data.csv")
 
+gbd_df[["ac_ylds_rate_1"]] <- gbd_df$`ylds (years lived with disability)_number_ac` / gbd_df$population_number
+
+all_ylds_df <- dplyr::select(gbd_df, starts_with("ylds (years lived with disability)_number"))
+
+gbd_df[["ac_ylds_adj_rate_1"]] <- (gbd_df$`ylds (years lived with disability)_number_ac`  - rowSums(select(all_ylds_df, -`ylds (years lived with disability)_number_ac`))) / 
+                                     gbd_df$population_number
 
 
 # ---- chunk-4 ----
