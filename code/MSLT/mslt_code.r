@@ -230,7 +230,7 @@ mslt_df[["mx"]] <- mslt_df[["pyld_rate"]] <- NA
 i_sex <- c("male", "female")
 
 for(sex_index in i_sex) {
-  sex_index <- "female"
+  # sex_index <- "female"
   # measure_index <- "ac_death_rate_1"
   
   data <- filter(gbd_df, sex == sex_index) %>% select(age, sex, age_cat, ac_death_rate_1)
@@ -251,8 +251,8 @@ for(sex_index in i_sex) {
   
   colnames(interpolated)[1] <- paste("mx")
   
-  mslt_df[mslt_df$sex_age_cat == data$sex_age_cat & data$sex_age_cat == interpolated$sex_age_cat, ]$mx <- 
-    interpolated[interpolated$sex_age_cat == data$sex_age_cat, ]$mx
+  mslt_df[mslt_df$sex_age_cat == interpolated$sex_age_cat 
+          & mslt_df$sex == sex_index, ]$mx <- interpolated$mx
   
   data <- filter(gbd_df, sex == sex_index) %>% select(age, sex, age_cat, ac_ylds_rate_1)
   x <- data$age_cat
@@ -272,7 +272,8 @@ for(sex_index in i_sex) {
   
   colnames(interpolated)[1] <- paste("pyld_rate")
   
-  mslt_df[data$sex_age_cat == interpolated$sex_age_cat, ]$pyld_rate <- interpolated[interpolated$sex_age_cat == data$sex_age_cat, ]$pyld_rate
+  mslt_df[mslt_df$sex_age_cat == interpolated$sex_age_cat 
+          & mslt_df$sex == sex_index, ]$pyld_rate <- interpolated$pyld_rate
 
 }
 
@@ -282,47 +283,6 @@ for(sex_index in i_sex) {
 
 ## Loop to generate interpolated rates for all cause mortality and ylds for males and females
 ## UPDATE WITH YLDS RATES ALL CAUSES ADJUSTED FOR ALL OTHER MODELLED DISEASES.
-
-i_sex <- c("male", "female")
-i_measure <- c("deaths", "ylds") #" (years lived with disability)")
-
-index <- 1
-
-for(sex_index in i_sex) {
-  for (measure_index in i_measure) {
-    
-    data <- filter(gbd_df, measure == measure_index, sex == sex_index,
-                   cause == "all causes") %>% select(measure, location, sex, age, metric,
-                                                     cause, val, age_cat, one_rate)
-    assign(paste(sex_index, measure_index, "interpolated_data", sep = "_"), data)
-    x <- data$age_cat
-    y <- log(data$one_rate)
-    
-    
-    interpolation_func <- stats::splinefun(x, y, method = "natural", ties = mean)
-    
-    interpolated <- as.data.frame(interpolation_func(seq(0, 100, 1)))
-    age <- seq(0, 100, by = 1)
-    interpolated <- cbind(interpolated, age)
-    interpolated[,1] <- exp(interpolated[,1])
-    colnames(interpolated)[1] <- paste(measure_index)
-    ## Add column with sex to create age_sex category to then merge with input_life table
-    interpolated$sex <- paste(sex_index)
-    interpolated$sex_age_cat <- paste(interpolated$sex, interpolated$age, sep = "_")
-    ## Change name of column death to mx and ylds to pyld_rate to then merge
-    ## with input_life table
-    
-    if (colnames(interpolated)[1] == "deaths")
-      colnames(interpolated)[1] <- paste("mx")
-    else
-      colnames(interpolated)[1] <- paste("pyld_rate")
-    
-    # Name data frame
-    assign(paste(sex_index, measure_index, "interpolated", sep = "_"), interpolated)
-    
-  }
-}
-
 
 ## Do graph with another layer for original rates in age groups for comparison purposes.
 
