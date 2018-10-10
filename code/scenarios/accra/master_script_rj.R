@@ -80,7 +80,7 @@ for(i in 1:nDiseases){
 #################################################
 ## Use case 3: sampling:
 ## sample size, travel patterns, emissions (cleaner fleet)
-ithim_object <- run_ithim_setup(NSAMPLES = 16,
+ithim_object <- run_ithim_setup(NSAMPLES = 1024,
                                 MEAN_BUS_WALK_TIME = c(log(5), log(1.2)),
                                 MMET_CYCLING = c(log(5), 1), 
                                 PM_CONC_BASE = c(log(50), 1),  
@@ -91,7 +91,7 @@ ithim_object <- run_ithim_setup(NSAMPLES = 16,
 numcores <- detectCores()
 results <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
 
-## get EVPPI
+## calculate EVPPI
 parameter_samples <- t(sapply(results, function(x) x$parameter_samples))
 outcome <- t(sapply(results, function(x) colSums(x$outcome$ylls[,3:ncol(x$outcome$ylls)])))
 evppi <- matrix(0, ncol = NSCEN, nrow = ncol(parameter_samples))
@@ -110,18 +110,23 @@ rownames(evppi) <- colnames(parameter_samples)
 
 ## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
 if("DR_AP_LIST"%in%names(ithim_object$parameters)&&NSAMPLES>=1024){
-  AP_DOSE_RESPONSE_QUANTILE <- c()
-  for(j in 1:(NSCEN)){
-    y <- outcome[, j+5] ## +5 means we choose ihd outcome for each scenario
-    vary <- var(y)
-    x1 <- parameter_samples[,which(colnames(parameter_samples)=='AP_DOSE_RESPONSE_QUANTILE_ALPHA')];
-    x2 <- parameter_samples[,which(colnames(parameter_samples)=='AP_DOSE_RESPONSE_QUANTILE_BETA')];
-    x3 <- parameter_samples[,which(colnames(parameter_samples)=='AP_DOSE_RESPONSE_QUANTILE_GAMMA')];
-    x4 <- parameter_samples[,which(colnames(parameter_samples)=='AP_DOSE_RESPONSE_QUANTILE_TMREL')];
-    model <- gam(y ~ te(x1,x2,x3,x4))
-    AP_DOSE_RESPONSE_QUANTILE[j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+  AP_names <- sapply(names(ithim_object$parameters),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
+  diseases <- sapply(names(ithim_object$parameters)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
+  for(disease in diseases){
+    AP_DOSE_RESPONSE_QUANTILE <- c()
+    x1 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease))];
+    x2 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease))];
+    x3 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease))];
+    x4 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease))];
+    for(j in 1:(NSCEN)){
+      y <- outcome[, j+5] ## +5 means we choose ihd outcome for each scenario
+      vary <- var(y)
+      model <- gam(y ~ te(x1,x2,x3,x4))
+      AP_DOSE_RESPONSE_QUANTILE[j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100 
+    }
+    evppi <- rbind(evppi,AP_DOSE_RESPONSE_QUANTILE)
+    rownames(evppi)[nrow(evppi)] <- paste0('AP_DOSE_RESPONSE_QUANTILE_',disease)
   }
-  evppi <- rbind(evppi,AP_DOSE_RESPONSE_QUANTILE)
 }
 print(evppi)
 
