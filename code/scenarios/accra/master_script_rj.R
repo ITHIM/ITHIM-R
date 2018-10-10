@@ -85,8 +85,8 @@ ithim_object <- run_ithim_setup(NSAMPLES = 16,
                                 MMET_CYCLING = c(log(5), 1), 
                                 PM_CONC_BASE = c(log(50), 1),  
                                 PM_TRANS_SHARE = c(5, 5),  
-                                PA_DOSE_RESPONSE_QUANTILE = c(0,1),  
-                                AP_DOSE_RESPONSE_QUANTILE = c(0,1))
+                                PA_DOSE_RESPONSE_QUANTILE = T,  
+                                AP_DOSE_RESPONSE_QUANTILE = T)
 
 numcores <- detectCores()
 results <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
