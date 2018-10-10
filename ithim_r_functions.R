@@ -24,8 +24,8 @@ run_ithim_setup <- function(plotFlag = F,
                             MMET_WALKING = 2.53,
                             PM_CONC_BASE = 50,  
                             PM_TRANS_SHARE = 0.225,
-                            PA_DOSE_RESPONSE_QUANTILE = -1,
-                            AP_DOSE_RESPONSE_QUANTILE = -1,
+                            PA_DOSE_RESPONSE_QUANTILE = F,
+                            AP_DOSE_RESPONSE_QUANTILE = F,
                             BACKGROUND_PA_SCALAR = 1,
                             SAFETY_SCALAR = 1,
                             CHRONIC_DISEASE_SCALAR = 1 ){
@@ -100,8 +100,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    MMET_WALKING = 2.53,
                                    PM_CONC_BASE = 50,  
                                    PM_TRANS_SHARE = 0.225,
-                                   PA_DOSE_RESPONSE_QUANTILE = -1,
-                                   AP_DOSE_RESPONSE_QUANTILE = -1,
+                                   PA_DOSE_RESPONSE_QUANTILE = F,
+                                   AP_DOSE_RESPONSE_QUANTILE = F,
                                    BACKGROUND_PA_SCALAR = 1,
                                    SAFETY_SCALAR = 1,
                                    CHRONIC_DISEASE_SCALAR = 1 ){
@@ -148,7 +148,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   }else{
     parameters$CHRONIC_DISEASE_SCALAR <- rlnorm(NSAMPLES,CHRONIC_DISEASE_SCALAR[1],CHRONIC_DISEASE_SCALAR[2])
   }
-  if(length(PA_DOSE_RESPONSE_QUANTILE) == 1 ) {
+  if(PA_DOSE_RESPONSE_QUANTILE == F ) {
     PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
   }else{
     pa_diseases <- subset(DISEASE_OUTCOMES,physical_activity==1)
@@ -156,7 +156,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     for(disease in pa_diseases$pa_acronym)
       parameters[[paste0('PA_DOSE_RESPONSE_QUANTILE_',disease)]] <- runif(NSAMPLES,0,1)
   }
-  if(length(AP_DOSE_RESPONSE_QUANTILE) == 1 ) {
+  if(AP_DOSE_RESPONSE_QUANTILE == F ) {
     AP_DOSE_RESPONSE_QUANTILE <<- AP_DOSE_RESPONSE_QUANTILE
     dr_ap_list <- list()
     for ( j in 1:nrow(DISEASE_OUTCOMES)) if (DISEASE_OUTCOMES$air_pollution[j] == 1){ 
@@ -174,10 +174,6 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     for(disease in ap_diseases$ap_acronym)
       for(letter in c('ALPHA_','BETA_','GAMMA_','TMREL_'))
         parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_',letter,disease)]] <- runif(NSAMPLES,0,1)
-    #parameters$AP_DOSE_RESPONSE_QUANTILE_ALPHA <- runif(NSAMPLES,0,1)
-    #parameters$AP_DOSE_RESPONSE_QUANTILE_BETA <- runif(NSAMPLES,0,1)
-    #parameters$AP_DOSE_RESPONSE_QUANTILE_GAMMA <- runif(NSAMPLES,0,1)
-    #parameters$AP_DOSE_RESPONSE_QUANTILE_TMREL <- runif(NSAMPLES,0,1)
     dr_ap_list <- list()
     for ( j in 1:nrow(DISEASE_OUTCOMES)) if (DISEASE_OUTCOMES$air_pollution[j] == 1){ 
       cause <- as.character(DISEASE_OUTCOMES$ap_acronym[j])
@@ -920,9 +916,7 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
   ##RJ previously:
   ## cond <- ifelse(use_75_pert, abs(lookup_table$dose - dose), which.min(abs(lookup_table$dose - dose)))
   rr <- approx(x=lookup_df$dose,y=lookup_df$RR,xout=dose,yleft=1,yright=min(lookup_df$RR))$y
-  ## RJ/AA/MT: what are we doing with dose--response uncertainty?
-  ## one possibility: (1) generate nSample uniform random variables; (2) transform all doses to responses by mapping uniform to trunc normal
-  if (confidence_intervals || PA_DOSE_RESPONSE_QUANTILE!=-1) {
+  if (confidence_intervals || PA_DOSE_RESPONSE_QUANTILE==T) {
     lb <-
       approx(
         x = lookup_df$dose,
@@ -940,8 +934,8 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
         yright = min(lookup_df$ub)
       )$y
   }
-  if (PA_DOSE_RESPONSE_QUANTILE!=-1){
-    rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',disease)), rr, a=lb, b=ub)
+  if (PA_DOSE_RESPONSE_QUANTILE==T){
+    rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, a=lb, b=ub)
   }
   if (confidence_intervals) {
     return(data.frame (rr = rr, lb = lb, ub = ub))
