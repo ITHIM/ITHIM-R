@@ -219,11 +219,64 @@ mslt_df$age_cat [mslt_df$age == 87] <- 87
 mslt_df$age_cat [mslt_df$age == 92] <- 92
 mslt_df$age_cat [mslt_df$age == 97] <- 97
 
-mslt_df$sex_age_cat <- paste(mslt_df$sex,mslt_df$age_cat, sep = "_"  )
+mslt_df$sex_age_cat <- paste(mslt_df$sex,mslt_df$age, sep = "_"  )
 
 gbd_popn_df <- select(gbd_df, population_number, sex_age_cat)
 
 mslt_df <- left_join(mslt_df, gbd_popn_df, by = "sex_age_cat")
+
+mslt_df[["mx"]] <- mslt_df[["pyld_rate"]] <- NA
+
+i_sex <- c("male", "female")
+
+for(sex_index in i_sex) {
+  sex_index <- "female"
+  # measure_index <- "ac_death_rate_1"
+  
+  data <- filter(gbd_df, sex == sex_index) %>% select(age, sex, age_cat, ac_death_rate_1)
+  x <- data$age_cat
+  y <- log(data$ac_death_rate_1)
+  
+  interpolation_func <- stats::splinefun(x, y, method = "natural", ties = mean)
+  
+  interpolated <- as.data.frame(interpolation_func(seq(0, 100, 1)))
+  age <- seq(0, 100, by = 1)
+  interpolated <- cbind(interpolated, age)
+  interpolated[,1] <- exp(interpolated[,1])
+  ## Add column with sex to create age_sex category to then merge with input_life table
+  interpolated$sex <- paste(sex_index)
+  interpolated$sex_age_cat <- paste(interpolated$sex, interpolated$age, sep = "_")
+  ## Change name of column death to mx and ylds to pyld_rate to then merge
+  ## with input_life table
+  
+  colnames(interpolated)[1] <- paste("mx")
+  
+  mslt_df[mslt_df$sex_age_cat == data$sex_age_cat & data$sex_age_cat == interpolated$sex_age_cat, ]$mx <- 
+    interpolated[interpolated$sex_age_cat == data$sex_age_cat, ]$mx
+  
+  data <- filter(gbd_df, sex == sex_index) %>% select(age, sex, age_cat, ac_ylds_rate_1)
+  x <- data$age_cat
+  y <- log(data$ac_ylds_rate_1)
+  
+  interpolation_func <- stats::splinefun(x, y, method = "natural", ties = mean)
+  
+  interpolated <- as.data.frame(interpolation_func(seq(0, 100, 1)))
+  age <- seq(0, 100, by = 1)
+  interpolated <- cbind(interpolated, age)
+  interpolated[,1] <- exp(interpolated[,1])
+  ## Add column with sex to create age_sex category to then merge with input_life table
+  interpolated$sex <- paste(sex_index)
+  interpolated$sex_age_cat <- paste(interpolated$sex, interpolated$age, sep = "_")
+  ## Change name of column death to mx and ylds to pyld_rate to then merge
+  ## with input_life table
+  
+  colnames(interpolated)[1] <- paste("pyld_rate")
+  
+  mslt_df[data$sex_age_cat == interpolated$sex_age_cat, ]$pyld_rate <- interpolated[interpolated$sex_age_cat == data$sex_age_cat, ]$pyld_rate
+
+}
+
+
 
 # ------------------- Add all-cause mortality and ylds rate per one ---------------------- #
 
