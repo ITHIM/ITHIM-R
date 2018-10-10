@@ -47,13 +47,18 @@ run_ithim_setup <- function(plotFlag = F,
   
   ithim_object <- list()
   
-  ##
-  ithim_setup_global_values(plotFlag,
-                            NSAMPLES,
-                            modes,
-                            speeds,
-                            DIST_CAT,
-                            AGE_CATEGORY)
+  #ithim_setup_global_values(plotFlag,NSAMPLES,modes,speeds,DIST_CAT,AGE_CATEGORY)
+  ## SET GLOBAL VALUES
+  ## PROGRAMMING VARIABLES
+  plotFlag <<- plotFlag
+  NSAMPLES <<- NSAMPLES
+  
+  ## MODEL VARIABLES
+  MODE_SPEEDS <<- data.frame(trip_mode = modes, speed = speeds, stringsAsFactors = F)
+  DIST_CAT <<- DIST_CAT
+  DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
+  AGE_CATEGORY <<- AGE_CATEGORY
+  AGE_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(AGE_CATEGORY, "[^0-9]+"), function(x) x[1]))
   
   ithim_load_data()
   
@@ -82,25 +87,6 @@ run_ithim_setup <- function(plotFlag = F,
   ithim_object$inj_distances <- distances_for_injury_function(ithim_object$bs)
   ######################
   return(ithim_object)
-}
-
-ithim_setup_global_values <- function(plotFlag = F,
-                                      NSAMPLES = 1,
-                                      modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle"),
-                                      speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25),
-                                      DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
-                                      AGE_CATEGORY = c("15-49", "50-69", "70+")){
-  
-  ## PROGRAMMING VARIABLES
-  plotFlag <<- plotFlag
-  NSAMPLES <<- NSAMPLES
-  
-  ## MODEL VARIABLES
-  MODE_SPEEDS <<- data.frame(trip_mode = modes, speed = speeds, stringsAsFactors = F)
-  DIST_CAT <<- DIST_CAT
-  DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
-  AGE_CATEGORY <<- AGE_CATEGORY
-  AGE_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(AGE_CATEGORY, "[^0-9]+"), function(x) x[1]))
 }
 
 ##RJ question for AA/RG/LG
@@ -748,7 +734,7 @@ total_mmet <- function(rd){
   pa_ind$scen3_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_scen3* MMET_CYCLING + pa_ind$walking_mmet_scen3 * MMET_WALKING
   pa_ind$scen4_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_scen4* MMET_CYCLING + pa_ind$walking_mmet_scen4 * MMET_WALKING
   pa_ind$scen5_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_scen5* MMET_CYCLING + pa_ind$walking_mmet_scen5 * MMET_WALKING
-  name_indices <- which(colnames(pa_ind)%in%c('participant_id', 'sex', 'age', 'age_cat', 'base_mmet', 'scen1_mmet', 'scen2_mmet', 'scen3_mmet', 'scen4_mmet', 'scen5_mmet'))
+  name_indices <- which(colnames(pa_ind)%in%c('participant_id', 'sex', 'age', 'age_cat', paste0(SCEN_SHORT_NAME,'_mmet')))
   mmets <- tbl_df(pa_ind)[,name_indices]
   mmets
   
@@ -780,7 +766,7 @@ scenario_pm_calculations <- function(scen_dist,rd){
   for(i in 1:length(SCEN_SHORT_NAME))
     conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN_SHORT_NAME[i]]])/baseline_sum
   
-  ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, following de Sa's SP model.
+  ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
   vent_rates <- LOOKUP_RATIO_PM
   vent_rates$vent_rate[vent_rates$trip_mode=='Bicycle'] <- 10 + 5.0*MMET_CYCLING
   vent_rates$vent_rate[vent_rates$trip_mode%in%c('Walking','Short Walking')] <- 10 + 5.0*MMET_WALKING
@@ -798,13 +784,13 @@ scenario_pm_calculations <- function(scen_dist,rd){
     individual_data <- summarise(group_by(rd_scen,participant_id),on_road_dur = sum(trip_duration,na.rm=TRUE), 
                                  on_road_pm = sum(pm_dose,na.rm=TRUE), 
                                  air_inhaled = sum(on_road_air,na.rm=TRUE))
+    ##RJ question for RG: can you write, in words or equations, what this calculation is doing?
     non_transport_pm_inhaled <- (24-individual_data$on_road_dur/60)*10
     individual_data$pm_conc <- ((non_transport_pm_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)/(non_transport_pm_inhaled+individual_data$air_inhaled)
     individual_data <- subset(individual_data, select=c("participant_id", "pm_conc"))
     names(individual_data)[2] <- paste0('pm_conc_',SCEN_SHORT_NAME[i])
      
-    if (i == 1 )
-    {
+    if (i == 1 ){
       final_data <- individual_data 
     }else{
       final_data <- left_join(final_data,individual_data,by="participant_id")

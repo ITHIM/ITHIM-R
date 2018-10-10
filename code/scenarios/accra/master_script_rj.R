@@ -41,25 +41,19 @@ ithim_object$parameters <- ithim_setup_parameters()
 ithim_object$outcome$cleaner_fleet <- run_ithim(ithim_object, seed = 1)
 
 ## what if: the roads are safer
-ithim_object$parameters <- ithim_setup_parameters()
-SAFETY_SCALAR <<- 0.5
+ithim_object$parameters <- ithim_setup_parameters(SAFETY_SCALAR = 0.5)
 ithim_object$outcome$safety <- run_ithim(ithim_object, seed = 1)
 
 ## what if: the rate of chronic disease doubles
-ithim_object$parameters <- ithim_setup_parameters()
-CHRONIC_DISEASE_SCALAR <<- 2
+ithim_object$parameters <- ithim_setup_parameters(CHRONIC_DISEASE_SCALAR = 2)
 ithim_object$outcome$chronic_disease <- run_ithim(ithim_object, seed = 1)
 
 ## what if: non-transport air pollution is half
-ithim_object$parameters <- ithim_setup_parameters()
-non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)/2
-PM_CONC_BASE <<- non_transport_pm_conc + PM_CONC_BASE*PM_TRANS_SHARE
-PM_TRANS_SHARE <<- (PM_CONC_BASE - non_transport_pm_conc)/PM_CONC_BASE
+ithim_object$parameters <- ithim_setup_parameters(PM_CONC_BASE = 30.625, PM_TRANS_SHARE = 0.3673469)
 ithim_object$outcome$background_ap <- run_ithim(ithim_object, seed = 1)
 
 ## what if: non-transport physical activity is half
-ithim_object$parameters <- ithim_setup_parameters()
-BACKGROUND_PA_SCALAR <<- 0.5
+ithim_object$parameters <- ithim_setup_parameters(BACKGROUND_PA_SCALAR = 0.5)
 ithim_object$outcome$background_pa <- run_ithim(ithim_object, seed = 1)
 
 ## plot results
@@ -85,7 +79,7 @@ for(i in 1:nDiseases){
 
 #################################################
 ## Use case 3: sampling:
-## dose--response for AP, sample size, travel patterns, emissions
+## sample size, travel patterns, emissions (cleaner fleet)
 ithim_object <- run_ithim_setup(NSAMPLES = 16,
                                 MEAN_BUS_WALK_TIME = c(log(5), log(1.2)),
                                 MMET_CYCLING = c(log(5), 1), 
