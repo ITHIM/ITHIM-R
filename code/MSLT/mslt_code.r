@@ -221,9 +221,6 @@ mslt_df$age_cat [mslt_df$age == 97] <- 97
 
 mslt_df$sex_age_cat <- paste(mslt_df$sex,mslt_df$age_cat, sep = "_"  )
 
-ifelse (mslt_df$sex_age_cat == gbd_df$sex_age_cat, mslt_df$population == gbd_df$population_number, 0)
-
-
 gbd_popn_df <- select(gbd_df, population_number, sex_age_cat)
 
 mslt_df <- left_join(mslt_df, gbd_popn_df, by = "sex_age_cat")
