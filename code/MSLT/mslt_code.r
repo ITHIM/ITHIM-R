@@ -22,9 +22,9 @@ options(scipen=999)
 # ---- chunk-3 ----
 source("code/functions.R")
 
+# ---- chunk-4 ----
 
-
-# ------------------- Population Numbers ---------------------------#
+# ------------------- Dismod input data set ---------------------------#
 
 
 gbd <- readxl::read_excel("data/england/gbd2016.xlsx")
@@ -115,22 +115,67 @@ for (ag in 1:length(unique(gbd$age))){
   
 }
 
+# ------------------- Add age-groups --------------------# 
+
+# 22, 27, 32, 37, 42, 47, 52, 57, 62, 67, 72, 77, 82, 87, 92, 97
+gbd_df$age_cat [gbd_df$age =="Under 5"] <- 2
+gbd_df$age_cat [gbd_df$age =="5 to 9"] <- 7
+gbd_df$age_cat [gbd_df$age =="10 to 14"] <- 12
+gbd_df$age_cat [gbd_df$age =="15 to 19"] <- 17
+gbd_df$age_cat [gbd_df$age =="20 to 24"] <- 22
+gbd_df$age_cat [gbd_df$age =="25 to 29"] <- 27
+gbd_df$age_cat [gbd_df$age =="30 to 34"] <- 32
+gbd_df$age_cat [gbd_df$age =="35 to 39"] <- 37
+gbd_df$age_cat [gbd_df$age =="40 to 44"] <- 42
+gbd_df$age_cat [gbd_df$age =="45 to 49"] <- 47
+gbd_df$age_cat [gbd_df$age =="50 to 54"] <- 52
+gbd_df$age_cat [gbd_df$age =="55 to 59"] <- 57
+gbd_df$age_cat [gbd_df$age =="60 to 64"] <- 62
+gbd_df$age_cat [gbd_df$age =="65 to 69"] <- 67
+gbd_df$age_cat [gbd_df$age =="70 to 74"] <- 72
+gbd_df$age_cat [gbd_df$age =="75 to 79"] <- 77
+gbd_df$age_cat [gbd_df$age =="80 to 84"] <- 82
+gbd_df$age_cat [gbd_df$age =="85 to 89"] <- 87
+gbd_df$age_cat [gbd_df$age =="90 to 94"] <- 92
+gbd_df$age_cat [gbd_df$age =="95 plus"] <- 97
+
+### change sex to lower case
+
+gbd_df$sex <- tolower(gbd_df$sex)
+
+gbd_df$sex_age_cat <- paste(gbd_df$sex,gbd_df$age_cat, sep = "_"  )
+
+# ------------------- Sort frame --------------------# 
+
+sep<-split(gbd_df,gbd_df$sex)
+sep$male<-sep$male[order(sep$male[,2]),]
+sep$male
+
+sep$female<-sep$female[order(sep$female[,2]),]
+sep$female
+
+gbd_df <-as.data.frame(rbind(sep$male,sep$female))
+
+
+# ------ Write csv file to process in Dismod-------- #
 
 write_csv(gbd_df, "data/england/dismod/input_data.csv")
+
+# ---- chunk-5 ----
+
+# ---------------------- Creating MSLT df ---------------------------#
+
+# ------------------- YLDs ---------------------------#
 
 gbd_df[["ac_ylds_rate_1"]] <- gbd_df$`ylds (years lived with disability)_number_ac` / gbd_df$population_number
 
 all_ylds_df <- dplyr::select(gbd_df, starts_with("ylds (years lived with disability)_number"))
 
 gbd_df[["ac_ylds_adj_rate_1"]] <- (gbd_df$`ylds (years lived with disability)_number_ac`  - rowSums(select(all_ylds_df, -`ylds (years lived with disability)_number_ac`))) / 
-                                     gbd_df$population_number
+  gbd_df$population_number
 
 
-
-# ---------------------- Creating MSLT df ---------------------------#
-
-mslt_df <- data.frame(age = rep(c(0:100), 2), sex = append(rep("male", 101), 
-                                                           rep("female", 101)))
+# ------------------- DWs ---------------------------#
 
 
 for (i in 2:nrow(disease_short_names)){
@@ -140,102 +185,50 @@ for (i in 2:nrow(disease_short_names)){
     ( 1 - gbd_df[["ac_ylds_adj_rate_1"]])
 }
 
-# ---- chunk-4 ----
+# ------------------- All-cause death rate ---------------------------#
 
-data.input <- read.csv("data/legacy/UK/idata.csv", stringsAsFactors = F)
+gbd_df[["ac_death_rate_1"]] <- gbd_df$deaths_number_ac/gbd_df$population_number
 
-### Population for England: Look up in Table 2 with data for Local Goverment areas.
+# ------------------- MSLT frame --------------------------- #
 
-#population <-  read.xls("data/legacy/UK/Population & Mortality/table2(5-year, +90).xls", stringsAsFactors = F)
+mslt_df <- data.frame(age = rep(c(0:100), 2), sex = append(rep("male", 101), 
+                                                           rep("female", 101)))
 
-#mortality, here some look up table, change location of data to make it easier
+# ------------------- Add population numbers --------------------------- #
 
-tylds <- read.csv("data/legacy/UK/totalYLDs.csv", stringsAsFactors = F)
+## Model in five-year age cohorts, simulated from mid-age in cohort
 
-# ---- chunk-5 ----
+mslt_df$age_cat [mslt_df$age == 2] <- 2
+mslt_df$age_cat [mslt_df$age == 7] <- 7
+mslt_df$age_cat [mslt_df$age == 12] <- 12
+mslt_df$age_cat [mslt_df$age == 17] <- 17
+mslt_df$age_cat [mslt_df$age == 22] <- 22
+mslt_df$age_cat [mslt_df$age == 27] <- 27
+mslt_df$age_cat [mslt_df$age == 32] <- 32
+mslt_df$age_cat [mslt_df$age == 37] <- 37
+mslt_df$age_cat [mslt_df$age == 42] <- 42
+mslt_df$age_cat [mslt_df$age == 47] <- 47
+mslt_df$age_cat [mslt_df$age == 52] <- 52
+mslt_df$age_cat [mslt_df$age == 57] <- 57
+mslt_df$age_cat [mslt_df$age == 62] <- 62
+mslt_df$age_cat [mslt_df$age == 67] <- 67
+mslt_df$age_cat [mslt_df$age == 72] <- 72
+mslt_df$age_cat [mslt_df$age == 77] <- 77
+mslt_df$age_cat [mslt_df$age == 82] <- 82
+mslt_df$age_cat [mslt_df$age == 87] <- 87
+mslt_df$age_cat [mslt_df$age == 92] <- 92
+mslt_df$age_cat [mslt_df$age == 97] <- 97
 
-data.input <- mutate_all(disease, funs(tolower))
+mslt_df$sex_age_cat <- paste(mslt_df$sex,mslt_df$age_cat, sep = "_"  )
 
-GBDdata <- GBDdata %>% mutate(measure = ifelse(measure == "ylds (years lived with disability)", "ylds", measure))
-
-# ---- chunk-6 ----
-# 22, 27, 32, 37, 42, 47, 52, 57, 62, 67, 72, 77, 82, 87, 92, 97
-GBDdata$age_cat [GBDdata$age =="under 5"] <- 2
-GBDdata$age_cat [GBDdata$age =="5 to 9"] <- 7
-GBDdata$age_cat [GBDdata$age =="10 to 14"] <- 12
-GBDdata$age_cat [GBDdata$age =="15 to 19"] <- 17
-GBDdata$age_cat [GBDdata$age =="20 to 24"] <- 22
-GBDdata$age_cat [GBDdata$age =="25 to 29"] <- 27
-GBDdata$age_cat [GBDdata$age =="30 to 34"] <- 32
-GBDdata$age_cat [GBDdata$age =="35 to 39"] <- 37
-GBDdata$age_cat [GBDdata$age =="40 to 44"] <- 42
-GBDdata$age_cat [GBDdata$age =="45 to 49"] <- 47
-GBDdata$age_cat [GBDdata$age =="50 to 54"] <- 52
-GBDdata$age_cat [GBDdata$age =="55 to 59"] <- 57
-GBDdata$age_cat [GBDdata$age =="60 to 64"] <- 62
-GBDdata$age_cat [GBDdata$age =="65 to 69"] <- 67
-GBDdata$age_cat [GBDdata$age =="70 to 74"] <- 72
-GBDdata$age_cat [GBDdata$age =="75 to 79"] <- 77
-GBDdata$age_cat [GBDdata$age =="80 to 84"] <- 82
-GBDdata$age_cat [GBDdata$age =="85 to 89"] <- 87
-GBDdata$age_cat [GBDdata$age =="90 to 94"] <- 92
-GBDdata$age_cat [GBDdata$age =="95 plus"] <- 97
+ifelse (mslt_df$sex_age_cat == gbd_df$sex_age_cat, mslt_df$population == gbd_df$population_number, 0)
 
 
-# ---- chunk-7 ----
-GBDdata$sex_age_cat <- paste(GBDdata$sex,GBDdata$age_cat, sep = "_"  )
+gbd_popn_df <- select(gbd_df, population_number, sex_age_cat)
 
+mslt_df <- left_join(mslt_df, gbd_popn_df, by = "sex_age_cat")
 
-
-# ---- chunk-8 ----
-
-GBDdata$val <- as.numeric(as.character(GBDdata$val))
-
-
-# ---- chunk-9 ----
-GBD_population <- filter(GBDdata, measure == "deaths", cause == "all causes",
-                         metric == "rate" | metric == "number" ) %>% select(metric, age_cat, sex, val,
-                                                                            sex_age_cat, location)
-# ---- chunk-10 ----
-
-for (i in 1:nrow(GBD_population)) {
-  if (GBD_population$metric[i] == "number") 
-    GBD_population$five_year_population[i] <- GBD_population$val[i] * 100000/ GBD_population$val[i + 2]
-  else
-    GBD_population$five_year_population[i] <- NA
-}
-
-# ---- chunk-11 ----
-
-GBD_population <- GBD_population[!is.na(GBD_population$five_year_population),]
-
-
-# ---- chunk-12 ----
-
-GBD_population <- filter(GBD_population) %>%
-  select(sex_age_cat, sex, age_cat, five_year_population, location)
-
-
-# ---- chunk-13 ----
-
-GBD_population_GL <-  filter(GBD_population, location == "greater london") %>%
-  select(sex_age_cat, age_cat, sex, five_year_population, location, sex_age_cat)
-
-# ---- chunk-14 ----
-
-GreaterLondon <- sum(GBD_population_GL$five_year_population)
-
-
-
-# ---- chunk-15 ----
-
-GBDGL <- filter(GBDdata, location == "greater london" & metric == "rate") %>%
-  select(measure, location, sex, age, metric, cause, val, age_cat, sex_age_cat)
-GBDGL$one_rate <- GBDGL$val/100000
-
-
-
-# ---- chunk-16 ----
+# ------------------- Add all-cause mortality and ylds rate per one ---------------------- #
 
 ## Loop to generate interpolated rates for all cause mortality and ylds for males and females
 ## UPDATE WITH YLDS RATES ALL CAUSES ADJUSTED FOR ALL OTHER MODELLED DISEASES.
@@ -248,7 +241,7 @@ index <- 1
 for(sex_index in i_sex) {
   for (measure_index in i_measure) {
     
-    data <- filter(GBDGL, measure == measure_index, sex == sex_index,
+    data <- filter(gbd_df, measure == measure_index, sex == sex_index,
                    cause == "all causes") %>% select(measure, location, sex, age, metric,
                                                      cause, val, age_cat, one_rate)
     assign(paste(sex_index, measure_index, "interpolated_data", sep = "_"), data)
