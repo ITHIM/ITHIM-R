@@ -170,10 +170,14 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     }
     DR_AP_LIST <<- dr_ap_list
   }else{
-    parameters$AP_DOSE_RESPONSE_QUANTILE_ALPHA <- runif(NSAMPLES,0,1)
-    parameters$AP_DOSE_RESPONSE_QUANTILE_BETA <- runif(NSAMPLES,0,1)
-    parameters$AP_DOSE_RESPONSE_QUANTILE_GAMMA <- runif(NSAMPLES,0,1)
-    parameters$AP_DOSE_RESPONSE_QUANTILE_TMREL <- runif(NSAMPLES,0,1)
+    ap_diseases <- subset(DISEASE_OUTCOMES,air_pollution==1)
+    for(disease in ap_diseases$ap_acronym)
+      for(letter in c('ALPHA_','BETA_','GAMMA_','TMREL_'))
+        parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_',letter,disease)]] <- runif(NSAMPLES,0,1)
+    #parameters$AP_DOSE_RESPONSE_QUANTILE_ALPHA <- runif(NSAMPLES,0,1)
+    #parameters$AP_DOSE_RESPONSE_QUANTILE_BETA <- runif(NSAMPLES,0,1)
+    #parameters$AP_DOSE_RESPONSE_QUANTILE_GAMMA <- runif(NSAMPLES,0,1)
+    #parameters$AP_DOSE_RESPONSE_QUANTILE_TMREL <- runif(NSAMPLES,0,1)
     dr_ap_list <- list()
     for ( j in 1:nrow(DISEASE_OUTCOMES)) if (DISEASE_OUTCOMES$air_pollution[j] == 1){ 
       cause <- as.character(DISEASE_OUTCOMES$ap_acronym[j])
@@ -182,19 +186,19 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
       for(age in unique(dr_ap$age_code)){
         dr_ap_age <- subset(dr_ap,age_code==age)
         # generate a value for alpha
-        alpha_val <- quantile(log(dr_ap_age$alpha),parameters$AP_DOSE_RESPONSE_QUANTILE_ALPHA)
+        alpha_val <- quantile(log(dr_ap_age$alpha),parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease)]])
         # generate a value for beta given alpha
         mod <- gam(log(beta)~ns(log(alpha),df=3),data=dr_ap_age)
         pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val)),se.fit=T)
-        beta_val <- qnorm(parameters$AP_DOSE_RESPONSE_QUANTILE_BETA,pred_val$fit,sqrt(mod$sig2))#rnorm(NSAMPLES,pred_val$fit,sqrt(mod$sig2))
+        beta_val <- qnorm(parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease)]],pred_val$fit,sqrt(mod$sig2))
         # generate a value for gamma given beta and alpha
         mod <- gam(log(gamma)~ns(log(beta),df=3)+ns(log(alpha),df=3),data=dr_ap_age)
         pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val)),se.fit=T)
-        gamma_val <- qnorm(parameters$AP_DOSE_RESPONSE_QUANTILE_GAMMA,pred_val$fit,sqrt(mod$sig2))
+        gamma_val <- qnorm(parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease)]],pred_val$fit,sqrt(mod$sig2))
         # generate a value for tmrel given alpha, beta and gamma
         mod <- gam(log(tmrel)~ns(log(gamma),df=3)+ns(log(beta),df=3)+ns(log(alpha),df=3),data=dr_ap_age)
         pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
-        tmrel_val <- qnorm(parameters$AP_DOSE_RESPONSE_QUANTILE_TMREL,pred_val$fit,sqrt(mod$sig2))
+        tmrel_val <- qnorm(parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease)]],pred_val$fit,sqrt(mod$sig2))
         dr_ap_list[[cause]][[as.character(age)]] <- data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val),tmrel=exp(tmrel_val))
       }
     }
