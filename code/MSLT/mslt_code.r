@@ -389,8 +389,7 @@ for (age in i_age_cohort){
 View(disease_life_table_list_bl[[8]])
 
 
-
-# ---- chunk-20 ----
+# ---- chunk-9 ----
 
 ## Create value to use as factor changing incidence rates.
 
@@ -424,9 +423,7 @@ for (age in i_age_cohort){
 # View(incidence_sc[[1]])
 
 
-
-
-# ---- chunk-21 ----
+# ---- chunk-10 ----
 
 disease_life_table_list_sc <- list()
 index <- 1
@@ -439,8 +436,8 @@ for (age in i_age_cohort){
       }
       else {
         # cat("age ", age, " sex ", sex, "and disease", disease, "\n")
-        # modify idata's incidence for the said scenario
-        td1 <- idata
+        # modify mslt_df's incidence for the said scenario
+        td1 <- mslt_df
         td1[td1$age >= age & td1$sex == sex,][[paste("incidence", disease, sep = "_")]] <- incidence_sc[[index]]
         
         # Instead of idata, feed td to run scenarios
@@ -462,12 +459,7 @@ for (age in i_age_cohort){
 ## Uncommnet to check scenario life tables
 # View(disease_life_table_list_sc[[1]])
 
-
-
-
-
-
-# ---- chunk-22 ----
+# ---- chunk-11 ----
 
 ## Generate total change in mortality rate
 
@@ -567,7 +559,7 @@ for (age in i_age_cohort){
     
     # cat("age ", age, " and sex ", sex, "\n")
     # modify idata's mortality and pyld total for the said scenario
-    td2 <- input_life_table
+    td2 <- mslt_df
     # td2 <- subset(td2, select = -c(mx, pyld_rate))
     td2[td2$age >= age & td2$sex == sex,][[paste("mx")]] <- general_life_table_list_bl[[index]]$mx + mx_sc_total[[index]]$total
     td2[td2$age >= age & td2$sex == sex,][[paste("pyld_rate")]] <- general_life_table_list_bl[[index]]$pyld_rate + pylds_sc_total[[index]]$total
@@ -592,7 +584,7 @@ general_life_table_list_bl[[1]]$Lwx - general_life_table_list_sc[[1]]$Lwx
 
 
 
-# ---- chunk-23 ----
+# ---- chunk-12 ----
 
 ## In the following list "output_life_table", 32 data frames are nested per age and sex cohort
 
@@ -754,7 +746,7 @@ for (age in i_age_cohort){
 
 
 
-# ---- chunk-24 ----
+# ---- chunk-13 ----
 
 #####Generate a data frame for all results and create function to get outcomes.
 
@@ -766,7 +758,6 @@ output_df <- plyr::ldply(output_burden, rbind)
 
 output_df <- subset(output_df, select = -c(incidence_disease_ihd_bl, incidence_disease_ihd_sc, incidence_disease_istroke_bl, incidence_disease_istroke_sc, incidence_disease_diabetes_bl, incidence_disease_diabetes_sc, incidence_disease_bc_bl, incidence_disease_bc_sc,
                                            incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl, mx_ihd_sc, mx_istroke_bl, mx_istroke_sc, mx_diabetes_bl, mx_diabetes_sc, mx_bc_bl, mx_bc_sc, mx_colon_cancer_bl, mx_colon_cancer_sc, px_ihd_bl, px_ihd_sc, px_istroke_bl, px_istroke_sc, px_diabetes_bl, px_diabetes_sc, px_bc_bl, px_bc_sc, px_colon_cancer_bl, px_colon_cancer_sc))
-
 
 
 # ---- chunk-25 ----
