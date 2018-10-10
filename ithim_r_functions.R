@@ -151,7 +151,10 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   if(length(PA_DOSE_RESPONSE_QUANTILE) == 1 ) {
     PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
   }else{
-    parameters$PA_DOSE_RESPONSE_QUANTILE <- runif(NSAMPLES,0,1)
+    pa_diseases <- subset(DISEASE_OUTCOMES,physical_activity==1)
+    dr_pa_list <- list()
+    for(disease in pa_diseases$pa_acronym)
+      parameters[[paste0('PA_DOSE_RESPONSE_QUANTILE_',disease)]] <- runif(NSAMPLES,0,1)
   }
   if(length(AP_DOSE_RESPONSE_QUANTILE) == 1 ) {
     AP_DOSE_RESPONSE_QUANTILE <<- AP_DOSE_RESPONSE_QUANTILE
@@ -934,7 +937,7 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
       )$y
   }
   if (PA_DOSE_RESPONSE_QUANTILE!=-1){
-    rr <- truncnorm::qtruncnorm(PA_DOSE_RESPONSE_QUANTILE, rr, a=lb, b=ub)
+    rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',disease)), rr, a=lb, b=ub)
   }
   if (confidence_intervals) {
     return(data.frame (rr = rr, lb = lb, ub = ub))
