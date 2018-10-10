@@ -323,120 +323,10 @@ for (i in 2:nrow(disease_short_names)){
 
 
 
-# ------------------- Add all-cause mortality and ylds rate per one ---------------------- #
 
-## Loop to generate interpolated rates for all cause mortality and ylds for males and females
-## UPDATE WITH YLDS RATES ALL CAUSES ADJUSTED FOR ALL OTHER MODELLED DISEASES.
+# ---- chunk-7 ----
 
-## Do graph with another layer for original rates in age groups for comparison purposes.
-
-p_interpolation_list <- list()
-
-interpolation_index <- 1
-
-for(sex_index in i_sex) {
-  for (measure_index in i_measure) {
-    
-    
-    p_interpolation_index <- ggplot(data = interpolated,mapping = aes(age, interpolated[,1])) +
-      geom_line(aes(color = "Interpolated")) +
-      geom_point(
-        data = data,
-        mapping = aes(age_cat, one_rate, color = "Original")) +
-      labs(colour="",x="Age",y="Rates", sep = " ") +
-      labs (title = paste("Rates", sex_index, "all cause",
-                          measure_index, sep = " "), size=14) +
-      theme_classic() +
-      theme (plot.title = element_text(hjust = 0.5))
-    
-    p_interpolation_list[[interpolation_index]] <- p_interpolation_index
-    interpolation_index <- interpolation_index + 1
-    
-  }
-}
-
-## Save plots to jpeg. Makes a separate file for each plot.
-
-interpolation_index <- 1
-for(sex_index in i_sex) {
-  for (measure_index in i_measure) {
-    file_name = paste0("output/graphs1/", paste("interpolation_rates", sex_index, measure_index, sep="_"), ".jpeg" )
-    jpeg(file_name)
-    print(p_interpolation_list[[interpolation_index]])
-    interpolation_index <- interpolation_index + 1
-    dev.off()
-  }
-}
-
-
-p_interpolated <- do.call(marrangeGrob, list(grobs=p_interpolation_list, nrow = 2, ncol = 2))
-p_interpolated
-
-
-
-# ---- chunk-17 ----
-
-## Create empty data frame
-
-input_life_table <- as.data.frame(matrix(0, ncol=2, nrow = 202))
-
-## Give variables names (mx=total mortality rate,
-## yldsx = total years lived with disability rates )
-
-names(input_life_table) <- c("age", "sex")
-
-## Populate life table: Age, 0 to 100
-
-input_life_table[1:101, 1] <- c(0:100)
-input_life_table[102:202, 1] <- c(0:100)
-
-## Populate life table: sex, male, female
-
-input_life_table[1:101, 2] <- "male"
-input_life_table[102:202, 2] <- "female"
-
-## Create variable age_sex to match with population data
-
-input_life_table$sex_age_cat <- paste(input_life_table$sex,input_life_table$age,
-                                      sep = "_"  )
-## Populate life table: five_year_pop.
-
-input_life_table <- merge(input_life_table, select(GBD_population_GL,
-                                                   c(sex_age_cat, five_year_population)), by = 'sex_age_cat', all = TRUE)
-
-## Populate life table: mortality rates (from interpolated rates)
-## Males mortality rates. NEED MATCHING NAMES
-
-input_life_table <- merge(input_life_table, select(male_deaths_interpolated,
-                                                   c(sex_age_cat, mx)), by = 'sex_age_cat', all.x = TRUE)
-input_life_table <- merge(input_life_table, select(female_deaths_interpolated,
-                                                   c(sex_age_cat, mx)), by = 'sex_age_cat', all.x = TRUE)
-input_life_table <- merge(input_life_table, select(male_ylds_interpolated,
-                                                   c(sex_age_cat, pyld_rate)) , by = 'sex_age_cat', all.x = TRUE)
-input_life_table <- merge(input_life_table, select(female_ylds_interpolated,
-                                                   c(sex_age_cat, pyld_rate)), by = 'sex_age_cat', all.x = TRUE)
-
-## DISCUSS WITH ALI TO IMPROVE
-
-input_life_table$mx <-  ifelse(input_life_table$sex == "male",
-                               input_life_table$mx.x, input_life_table$mx.y)
-
-input_life_table$pyld_rate <-  ifelse(input_life_table$sex == "male",
-                                      input_life_table$pyld_rate.x, input_life_table$pyld_rate.y)
-## Drop redundant variables
-input_life_table <- subset(input_life_table, select = -c(mx.y, mx.x, pyld_rate.x, pyld_rate.y))
-
-## Cross check population numbers
-
-sum(input_life_table$five_year_population, na.rm = TRUE)
-
-## Sort data by sex and age to use in life table function
-
-input_life_table<-input_life_table[order(input_life_table$sex, input_life_table$age),]
-
-
-
-# ---- chunk-18 ----
+# Create baseline life tables
 
 i_age_cohort <- c(22, 27, 32, 37, 42, 47, 52, 57, 62, 67, 72, 77, 82, 87, 92, 97)
 
@@ -447,24 +337,34 @@ index <- 1
 for (age in i_age_cohort){
   for (sex in i_sex){
     # cat("age ", age, " and sex ", sex, "\n") #Uncomment to see index
-    general_life_table_list_bl[[index]] <- run_life_table(in_idata = input_life_table,
+    general_life_table_list_bl[[index]] <- run_life_table(in_idata = mslt_df,
                                                           in_sex = sex, in_mid_age = age)
     index <- index + 1
   }
 }
 
 ## Uncommnet to check life table list
-# View(general_life_table_list_bl[[32]])
+## View(general_life_table_list_bl[[2]])
 
 
 
-# ---- chunk-19 ----
-## Use externaly generated inputs for for disease life table. The previous code will serve to to some of the data preparation for DISMOD. Also need to devlop code to calculated DWs, for now, all generated in excel.
+# ---- chunk-8 ----
+
+## Use dismod output and add to mslt_df
 
 idata <- read.csv("data/legacy/UK/idata.csv", stringsAsFactors = F)
+
+# Add age_sex category to match with mslt_df
+
+idata$sex_age_cat <- paste(idata$sex,idata$age, sep = "_"  )
+
+idata <- select(idata, -c(age, sex))
+
+mslt_df <- left_join(mslt_df, idata, by = "sex_age_cat")
+
 ## Use run_disease
 
-i_disease <- c("ihd", "istroke", "diabetes", "colon_cancer", "breast_cancer")
+i_disease <- c("ihd", "is", "dm", "cc", "bc")
 
 
 disease_life_table_list_bl <- list()
@@ -473,20 +373,20 @@ index <- 1
 for (age in i_age_cohort){
   for (sex in i_sex){
     for (disease in i_disease) {
-      # Exclude breast_cancer for Males
-      if (sex == "male" && disease == "breast_cancer"){
+      # Exclude bc for Males
+      if (sex == "male" && disease == "bc"){
         # cat("\n") #Uncomment to see list
       }
       else {
         # cat("age ", age, " sex ", sex, "and disease", disease, "\n") #Uncomment to see list
-        disease_life_table_list_bl[[index]] <- run_disease(in_idata = idata, in_sex = sex, in_mid_age = age, in_disease = disease)
+        disease_life_table_list_bl[[index]] <- run_disease(in_idata = mslt_df, in_sex = sex, in_mid_age = age, in_disease = disease)
         index <- index + 1
       }
     }
   }
 }
 ## Uncommnet to check disease life table list
-# View(disease_life_table_list_bl[[8]])
+View(disease_life_table_list_bl[[8]])
 
 
 
@@ -505,8 +405,8 @@ for (age in i_age_cohort){
   for (sex in i_sex){
     for (disease in i_disease) {
       
-      # Exclude breast_cancer for Males
-      if (sex == "male" && disease == "breast_cancer"){
+      # Exclude bc for Males
+      if (sex == "male" && disease == "bc"){
         # cat("\n") # Uncomment to see list
       }
       else {
@@ -533,8 +433,8 @@ index <- 1
 for (age in i_age_cohort){
   for (sex in i_sex){
     for (disease in i_disease) {
-      # Exclude breast_cancer for Males
-      if (sex == "male" && disease == "breast_cancer"){
+      # Exclude bc for Males
+      if (sex == "male" && disease == "bc"){
         # cat("\n")
       }
       else {
@@ -582,7 +482,7 @@ for (age in i_age_cohort){
     create_new <- T
     
     for (disease in i_disease) {
-      if (sex == "male" && disease == "breast_cancer"){
+      if (sex == "male" && disease == "bc"){
         # cat("\n")
       }else{
         
@@ -623,7 +523,7 @@ for (age in i_age_cohort){
     create_new <- T
     
     for (disease in i_disease) {
-      if (sex == "male" && disease == "breast_cancer"){
+      if (sex == "male" && disease == "bc"){
         # cat("\n")
       }else{
         
@@ -707,7 +607,7 @@ for (age in i_age_cohort){
     
     create_new <- T
     for (disease in i_disease) {
-      if (sex == "male" && disease == "breast_cancer"){
+      if (sex == "male" && disease == "bc"){
         # cat("\n")
       }else{
         
@@ -864,8 +764,8 @@ output_df <- plyr::ldply(output_burden, rbind)
 
 #Remove variables that are not used in the generation of outputs. CHANGE THIS NAMES, TOO LONG
 
-output_df <- subset(output_df, select = -c(incidence_disease_ihd_bl, incidence_disease_ihd_sc, incidence_disease_istroke_bl, incidence_disease_istroke_sc, incidence_disease_diabetes_bl, incidence_disease_diabetes_sc, incidence_disease_breast_cancer_bl, incidence_disease_breast_cancer_sc,
-                                           incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl, mx_ihd_sc, mx_istroke_bl, mx_istroke_sc, mx_diabetes_bl, mx_diabetes_sc, mx_breast_cancer_bl, mx_breast_cancer_sc, mx_colon_cancer_bl, mx_colon_cancer_sc, px_ihd_bl, px_ihd_sc, px_istroke_bl, px_istroke_sc, px_diabetes_bl, px_diabetes_sc, px_breast_cancer_bl, px_breast_cancer_sc, px_colon_cancer_bl, px_colon_cancer_sc))
+output_df <- subset(output_df, select = -c(incidence_disease_ihd_bl, incidence_disease_ihd_sc, incidence_disease_istroke_bl, incidence_disease_istroke_sc, incidence_disease_diabetes_bl, incidence_disease_diabetes_sc, incidence_disease_bc_bl, incidence_disease_bc_sc,
+                                           incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl, mx_ihd_sc, mx_istroke_bl, mx_istroke_sc, mx_diabetes_bl, mx_diabetes_sc, mx_bc_bl, mx_bc_sc, mx_colon_cancer_bl, mx_colon_cancer_sc, px_ihd_bl, px_ihd_sc, px_istroke_bl, px_istroke_sc, px_diabetes_bl, px_diabetes_sc, px_bc_bl, px_bc_sc, px_colon_cancer_bl, px_colon_cancer_sc))
 
 
 
@@ -878,7 +778,7 @@ i_sex <- c("male", "female")
 i_measure <- c("deaths", "ylds") #" (years lived with disability)")
 i_outcome <- c("mx", "inc")
 output_dir <- "output/graphs2"
-i_disease <- c("ihd", "istroke", "diabetes", "colon_cancer", "breast_cancer")
+i_disease <- c("ihd", "istroke", "diabetes", "colon_cancer", "bc")
 
 i_outcome <- c("mx", "inc")
 p_list_male <- list()
@@ -890,7 +790,7 @@ for (age in i_age_cohort){
     for (outcome in i_outcome) {
       for (disease in i_disease){
         
-        if (sex == "male" && disease == "breast_cancer"){
+        if (sex == "male" && disease == "bc"){
           # cat("\n")
         }else{
           

@@ -48,7 +48,7 @@ run_life_table <- function(in_idata, in_sex, in_mid_age)
   # number of survivors
   lf_df$lx <- 0
   # Create it for males population
-  lf_df$lx[1] <- filter(in_idata, age == in_mid_age & sex == in_sex) %>% select(five_year_population)
+  lf_df$lx[1] <- filter(in_idata, age == in_mid_age & sex == in_sex) %>% select(population_number)
   lf_df$lx <- as.numeric(lf_df$lx)
   
   # number died
@@ -105,7 +105,7 @@ run_disease <- function(in_idata, in_mid_age, in_sex, in_disease)
   # in_disease = "ihd"
   
   # create disease variable for the disease life table function 
-  dw_disease <- paste("dw", in_disease, sep = "_")
+  dw_disease <- paste("dw_adj", in_disease, sep = "_")
   incidence_disease <- paste("incidence", in_disease, sep = "_")
   case_fatality_disease <- paste("case_fatality", in_disease, sep = "_")
   
