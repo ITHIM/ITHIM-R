@@ -1,6 +1,8 @@
 setwd("code/MSLT")
 # Change to own wd
 
+
+
 # ---- chunk-intro ----
 require(dplyr)
 require(tidyverse)
@@ -12,6 +14,7 @@ require(cowplot)
 require(ggpubr)
 require(grid)
 require(ggplot2)
+require(gridExtra)
 
 # ---- chunk-1 ----
 rm (list = ls())
@@ -795,7 +798,7 @@ for (age in i_age_cohort){
               p3 <- p_list_male[[male_index - 1]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
               p4 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
               
-              jpeg(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".jpeg"))
+              jpeg(paste0(output_dir, paste(age, sex, outcome, sep="_"), ".jpeg"))
               grid_arrange_shared_legend (p1, p2, p3, p4, ncol = 2, nrow = 2, mainTitle = paste(ifelse(outcome == "mx", "Deaths", "Incidence"), sex, "cohort mid age", age),
                                           mainLeft = 'Cases', mainBottom = 'Age')
               dev.off()
@@ -816,7 +819,7 @@ for (age in i_age_cohort){
               p4 <- p_list_female[[female_index - 1]] + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
               p5 <- p_index + theme(legend.position="none", axis.title.x = element_blank(),  axis.title.y = element_blank())
               
-              jpeg(paste0(output_dir, "/", paste(age, sex, outcome, sep="_"), ".jpeg"))
+              jpeg(paste0(output_dir, paste(age, sex, outcome, sep="_"), ".jpeg"))
               grid_arrange_shared_legend (p1, p2, p3, p4, p5, ncol = 2, nrow = 3, mainTitle = paste(ifelse(outcome == "mx", "Deaths", "Incidence"), sex, "cohort mid age", age), mainLeft = 'Cases', mainBottom = 'Age')
               dev.off()
               

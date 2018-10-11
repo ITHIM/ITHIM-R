@@ -325,7 +325,7 @@ run_pif <- function(in_idata, i_irr, i_exposure, in_mid_age, in_sex, in_disease,
 plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend = "", in_disease = ""){
   
   # in_data <- output_df
-  # in_population <- "males"
+  # in_population <- "male"
   # in_age <- 22
   # in_outcomes <- c('age', 'inc_num_bl_ihd', 'inc_num_sc_ihd')
   # in_legend <- "none"
@@ -367,6 +367,7 @@ plot_output <- function(in_data, in_age, in_population, in_outcomes, in_legend =
   
   return(p)
   
+  last_plot()
   
   
 }
