@@ -745,14 +745,13 @@ for (age in i_age_cohort){
 # View(output_burden[[1]])
 
 
-
 # ---- chunk-13 ----
 
 #####Generate a data frame for all results and create function to get outcomes.
 
 output_df <- plyr::ldply(output_burden, rbind)
 
-# View(output_df)
+View(output_df)
 
 #Remove variables that are not used in the generation of outputs. CHANGE THIS NAMES, TOO LONG
 
