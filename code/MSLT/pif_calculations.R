@@ -8,6 +8,12 @@ require(tidyverse)
 
 mmets <- read_csv("code/MSLT/data/england/mmets_london.csv")
 
+## Remove all scenario but one for simplicity
+
+MS_cols <- names(mmets %>% dplyr::select(starts_with("MS")))
+
+mmets <- select(mmets, -c(MS_cols[-1]))
+
 disease_short_names <- data.frame(disease = c("all-cause-mortality", 
                                               "diabetes",
                                               "lung-cancer",
@@ -31,15 +37,13 @@ for ( j in 1:nrow(disease_short_names)){
   pa_dn <- disease_short_names$sname[j] %>% as.character()
   local_cause <- disease_short_names$disease[j] %>% as.character()
   
-  mmets[[paste('RR_pa', scen, pa_dn, sep = '_')]] <- -1
-  
-  for (scen in c('baseline')){#, names(mmets %>% dplyr::select(starts_with("MS"))))){
+  for (scen in append('baseline', names(mmets %>% dplyr::select(starts_with("MS"))))){
     
-    for (i in 10:20){#nrow(mmets)){
+    mmets[[paste('RR_pa', scen, pa_dn, sep = '_')]] <- -1
+    
+    
+    for (i in 1:nrow(mmets)){
       
-      # print(paste('RR_pa', scen, pa_dn, sep = '_'))
-      
-      # browser()
       
       if (local_cause == 'all-cause-mortality'){
         
