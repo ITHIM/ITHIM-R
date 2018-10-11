@@ -752,15 +752,10 @@ output_df <- plyr::ldply(output_burden, rbind)
 
 View(output_df)
 
-#Remove variables that are not used in the generation of outputs. CHANGE THIS NAMES, TOO LONG
 
-### DO WE NEED THIS, MANUAL NAMING?
+# ---- chunk- 14 ----
 
-# output_df <- subset(output_df, select = -c(incidence_disease_ihd_bl, incidence_disease_ihd_sc, incidence_disease_istroke_bl, incidence_disease_istroke_sc, incidence_disease_diabetes_bl, incidence_disease_diabetes_sc, incidence_disease_bc_bl, incidence_disease_bc_sc,
-#                                            incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl, mx_ihd_sc, mx_istroke_bl, mx_istroke_sc, mx_diabetes_bl, mx_diabetes_sc, mx_bc_bl, mx_bc_sc, mx_colon_cancer_bl, mx_colon_cancer_sc, px_ihd_bl, px_ihd_sc, px_istroke_bl, px_istroke_sc, px_diabetes_bl, px_diabetes_sc, px_bc_bl, px_bc_sc, px_colon_cancer_bl, px_colon_cancer_sc))
-
-
-# ---- chunk-25 ----
+# Generate graphs change in mortality and incidence numbers by age/sex.
 
 output_dir = "output/graphs"
 
@@ -837,7 +832,7 @@ for (age in i_age_cohort){
 
 
 
-## Loop to include graphs in the document
+## Loop to include graphs in the document(CHECK WHAT IS THE USE OF THIS CODE)
 
 # graphs_doc <- list()
 # index <- 1
@@ -1009,7 +1004,7 @@ index <- 1
 interpolation_index <- 1
 for (outcome in i_outcome) {
   for (disease in i_disease) {
-    file_name = paste("output/graphs/", "Aggregated Outcomes", outcome, disease, ".jpeg", sep=" ")
+    file_name = paste("output/graphs", "Aggregated Outcomes", outcome, disease, ".jpeg", sep=" ")
     jpeg(file_name)
     print(p_aggr_list[[index]])
     index <- index + 1
