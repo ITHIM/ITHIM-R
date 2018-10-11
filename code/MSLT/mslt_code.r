@@ -757,20 +757,20 @@ View(output_df)
 
 ### DO WE NEED THIS, MANUAL NAMING?
 
-output_df <- subset(output_df, select = -c(incidence_disease_ihd_bl, incidence_disease_ihd_sc, incidence_disease_istroke_bl, incidence_disease_istroke_sc, incidence_disease_diabetes_bl, incidence_disease_diabetes_sc, incidence_disease_bc_bl, incidence_disease_bc_sc,
-                                           incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl, mx_ihd_sc, mx_istroke_bl, mx_istroke_sc, mx_diabetes_bl, mx_diabetes_sc, mx_bc_bl, mx_bc_sc, mx_colon_cancer_bl, mx_colon_cancer_sc, px_ihd_bl, px_ihd_sc, px_istroke_bl, px_istroke_sc, px_diabetes_bl, px_diabetes_sc, px_bc_bl, px_bc_sc, px_colon_cancer_bl, px_colon_cancer_sc))
+# output_df <- subset(output_df, select = -c(incidence_disease_ihd_bl, incidence_disease_ihd_sc, incidence_disease_istroke_bl, incidence_disease_istroke_sc, incidence_disease_diabetes_bl, incidence_disease_diabetes_sc, incidence_disease_bc_bl, incidence_disease_bc_sc,
+#                                            incidence_disease_colon_cancer_bl, incidence_disease_colon_cancer_sc,  mx_ihd_bl, mx_ihd_sc, mx_istroke_bl, mx_istroke_sc, mx_diabetes_bl, mx_diabetes_sc, mx_bc_bl, mx_bc_sc, mx_colon_cancer_bl, mx_colon_cancer_sc, px_ihd_bl, px_ihd_sc, px_istroke_bl, px_istroke_sc, px_diabetes_bl, px_diabetes_sc, px_bc_bl, px_bc_sc, px_colon_cancer_bl, px_colon_cancer_sc))
 
 
 # ---- chunk-25 ----
 
-output_dir = "output/graphs2"
+output_dir = "output/graphs"
 
 i_age_cohort <- c(22, 27, 32, 37, 42, 47, 52, 57, 62, 67, 72, 77, 82, 87, 92, 97)
 i_sex <- c("male", "female")
 i_measure <- c("deaths", "ylds") #" (years lived with disability)")
 i_outcome <- c("mx", "inc")
-output_dir <- "output/graphs2"
-i_disease <- c("ihd", "is", "dMs", "cc", "bc")
+output_dir <- "output/graphs"
+i_disease <- c("ihd", "is", "dm", "cc", "bc")
 
 i_outcome <- c("mx", "inc")
 p_list_male <- list()
@@ -1010,7 +1010,7 @@ index <- 1
 interpolation_index <- 1
 for (outcome in i_outcome) {
   for (disease in i_disease) {
-    file_name = paste("output/graphs2/", "Aggregated Outcomes", outcome, disease, ".jpeg", sep=" ")
+    file_name = paste("output/graphs/", "Aggregated Outcomes", outcome, disease, ".jpeg", sep=" ")
     jpeg(file_name)
     print(p_aggr_list[[index]])
     index <- index + 1
