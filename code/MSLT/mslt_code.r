@@ -321,9 +321,6 @@ for (i in 2:nrow(disease_short_names)){
 }
   
 
-
-
-
 # ---- chunk-7 ----
 
 # Create baseline life tables
@@ -345,8 +342,6 @@ for (age in i_age_cohort){
 
 ## Uncommnet to check life table list
 ## View(general_life_table_list_bl[[2]])
-
-
 
 # ---- chunk-8 ----
 
