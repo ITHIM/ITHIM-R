@@ -465,13 +465,13 @@ g_legend <- function(a.gplot){
 get_qualified_disease_name <- function (disease){
   if (disease == 'ihd')
     return ('Ischaemic Heart Disease')
-  else if (disease == 'breast_cancer')
+  else if (disease == 'bc')
     return ('Breast Cancer')
-  else if (disease == 'diabetes')
+  else if (disease == 'dm')
     return ('Diabetes')
-  else if (disease == 'colon_cancer')
+  else if (disease == 'cc')
     return ('Colon cancer')
-  else if (disease == 'istroke')
+  else if (disease == 'is')
     return ('Ischemic stroke')
 }
 

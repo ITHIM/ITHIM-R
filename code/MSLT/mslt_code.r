@@ -737,7 +737,8 @@ for (age in i_age_cohort){
 }
 
 ## Uncomment to check
-# View(output_burden[[1]])
+
+View(output_burden[[1]])
 
 
 # ---- chunk-13 ----
