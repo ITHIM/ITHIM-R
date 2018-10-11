@@ -281,7 +281,7 @@ These data should be used to generate the general life table and disease life ta
 ```{r chunk-14}
 ```
 
-15) Generate aggregated (all cohorts) outcomes by sex. 
+15) Generate aggregated (all cohorts) outcomes by sex for disease and life years and health-adjusted life years. 
 
 ```{r chunk-15}
 ```
