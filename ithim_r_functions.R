@@ -175,10 +175,9 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
       for(letter in c('ALPHA_','BETA_','GAMMA_','TMREL_'))
         parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_',letter,disease)]] <- runif(NSAMPLES,0,1)
     dr_ap_list <- list()
-    for ( j in 1:nrow(DISEASE_OUTCOMES)) if (DISEASE_OUTCOMES$air_pollution[j] == 1){ 
-      cause <- as.character(DISEASE_OUTCOMES$ap_acronym[j])
-      dr_ap <- subset(DR_AP,cause_code==cause)
-      dr_ap_list[[cause]] <- list()
+    for(disease in ap_diseases$ap_acronym){ 
+      dr_ap <- subset(DR_AP,cause_code==disease)
+      dr_ap_list[[disease]] <- list()
       for(age in unique(dr_ap$age_code)){
         dr_ap_age <- subset(dr_ap,age_code==age)
         # generate a value for alpha
@@ -195,7 +194,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
         mod <- gam(log(tmrel)~ns(log(gamma),df=3)+ns(log(beta),df=3)+ns(log(alpha),df=3),data=dr_ap_age)
         pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
         tmrel_val <- qnorm(parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease)]],pred_val$fit,sqrt(mod$sig2))
-        dr_ap_list[[cause]][[as.character(age)]] <- data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val),tmrel=exp(tmrel_val))
+        dr_ap_list[[disease]][[as.character(age)]] <- data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val),tmrel=exp(tmrel_val))
       }
     }
     # turn list inside out, so it's indexed first by sample
@@ -1234,5 +1233,19 @@ run_ithim <- function(ithim_object,seed=1){
   return(hb)
 }
 
+parallel_evppi_for_AP <- function(disease,parameter_samples,outcome){
+  AP_DOSE_RESPONSE_QUANTILE <- c()
+  x1 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease))];
+  x2 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease))];
+  x3 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease))];
+  x4 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease))];
+  for(j in 1:(NSCEN)){
+    y <- outcome[, j+5] ## +5 means we choose ihd outcome for each scenario
+    vary <- var(y)
+    model <- gam(y ~ te(x1,x2,x3,x4))
+    AP_DOSE_RESPONSE_QUANTILE[j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100 
+  }
+  AP_DOSE_RESPONSE_QUANTILE
+}
 
 
