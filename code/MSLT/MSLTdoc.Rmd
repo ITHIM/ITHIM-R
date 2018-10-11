@@ -42,6 +42,7 @@ require(ggplot2)
 
 ```
 
+
 \newpage
 
 # Introduction 
@@ -232,10 +233,10 @@ kable(pmslt_inputs,"latex", booktabs = T, caption = "Global burden of disease da
 
 ```
 
-Once the selections described in Table 2 are made, the option *Download CVS** in the GHDx website is selected. A prompt comes up asking for an email address. The data is sent to the designated email address (within minutes) in ZIP format, unzip and use the code below to read the data (4). Here, we selected data for Greater London and England. The aim is to compare and derive scaling factors as for most cities the data is not available from the GBD and country level data may be used and scaled to the city level. Note that the data input requirement for the PMSLT, except population numbers, is in rates. Therefore the scaling is to better reflect the burden of an area, this is a different issue than working with numbers (e.g. total mortality numbers, total YLDs numbers) as in the ITHIM approach.  
+Once the selections described in Table 2 are made, the option *Download CVS** in the GHDx website is selected. A prompt comes up asking for an email address. The data is sent to the designated email address (within minutes) in ZIP format, unzip and use the code below to read the data (4). Here, we selected data for Greater London. The aim is to compare and derive scaling factors as for most cities the data is not available from the GBD and country level data may be used and scaled to the city level. Note that the data input requirement for the PMSLT, except population numbers, is in rates. Therefore the scaling is to better reflect the burden of an area, this is a different issue than working with numbers (e.g. total mortality numbers, total YLDs numbers) as in the ITHIM approach.  
 
 
-4) Read GBD data
+4) Generate Dismod input dataset
 ```{r chunk-4}
 ```
 
@@ -243,44 +244,45 @@ The following codes serves to sort out the GBD data to the inputs required for t
 
 These data should be used to generate the general life table and disease life tables (Figure 3).
 
-5) Change all upper cases to lower case and delete () from variables.
+5) Generate data for the proportional-multi state life table by single age-year (mslt_df).
 ```{r chunk-5}
 ```
 
-6) Create age categories index in GBDdata (mid age, to match cohort running), total of 20 age groups. These are the age cohorts to simulate.
+6) Add Dismod output to mslt_df.
 ```{r chunk-6}
 ```
 
-7) Create age and sex categories to obtain population numbers. Population numbers from GBD are used in Dismod II. For the Life table (Figure 3), the numbers may be from the synthetic population. For now, the Life table is set up with population numbers derived from the GBD data.
+7) Generate baseline general life tables.
 ```{r chunk-7}
 ```
 
-8) Convert string variables to numeric to do calculations.
+8) Generate baseline disease life table.
 ```{r chunk-8}
 ```
 
-9) Generate population numbers for Greater London in a new data frame ("GBD_population"). Note that there is data for England as well, which is used in a separate rmarkdown document (GBDCompare). Population numbers are derived from rates per 100,000 and total numbers of cases. 
+9) Factor to multiply by incidence, will be replaced by (1-PIF) and generate scenario incidence.
 ```{r chunk-9}
 ```
-10) Generate population numbers from given number of cases and rates per 100,000 people. 
+10) Generate scenario disease life tables. 
 ```{r chunk-10}
 ```
-11) Remove rows with zero
+11) Generate all-cause mortality and all-cause years with disability rate for scenario and use in scenario general life table. 
 ```{r chunk-11}
 ```
 
-12) Keep relevant variables
+12) Generate a list of disease outputs by age and sex.  
 ```{r chunk-12}
 ```
-13) Create data frames for Greater London to be later used for: a) interpolation of rates and b) PMLT cohorts. 
+13)  Generate a general dataframe for all age-sex cohort disease specific outcomes.
 ```{r chunk-13}
 ```
 
-14) Check population total numbers
+14) Generate graphs for changes in burden of disease by age and sex (incidence and mortality)
 ```{r chunk-14}
 ```
 
-15) Generate data frames for Greater London with per person rates (per 100,000 in original data).  
+15) Generate aggregated (all cohorts) outcomes by sex. 
+
 ```{r chunk-15}
 ```
 

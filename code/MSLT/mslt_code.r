@@ -323,6 +323,21 @@ for (i in 2:nrow(disease_short_names)){
   }
 }
   
+# ---- chunk-6 ----
+
+## Use dismod output and add to mslt_df
+
+idata <- read.csv("data/legacy/UK/idata.csv", stringsAsFactors = F)
+
+# Add age_sex category to match with mslt_df
+
+idata$sex_age_cat <- paste(idata$sex,idata$age, sep = "_"  )
+
+idata <- select(idata, -c(age, sex))
+
+mslt_df <- left_join(mslt_df, idata, by = "sex_age_cat")
+
+
 
 # ---- chunk-7 ----
 
@@ -347,18 +362,6 @@ for (age in i_age_cohort){
 ## View(general_life_table_list_bl[[2]])
 
 # ---- chunk-8 ----
-
-## Use dismod output and add to mslt_df
-
-idata <- read.csv("data/legacy/UK/idata.csv", stringsAsFactors = F)
-
-# Add age_sex category to match with mslt_df
-
-idata$sex_age_cat <- paste(idata$sex,idata$age, sep = "_"  )
-
-idata <- select(idata, -c(age, sex))
-
-mslt_df <- left_join(mslt_df, idata, by = "sex_age_cat")
 
 ## Use run_disease
 
@@ -575,9 +578,9 @@ for (age in i_age_cohort){
 # View(general_life_table_list_sc[[32]])
 # View(general_life_table_list_bl[[1]])
 
-## Check difference life table baseline and scenario
-general_life_table_list_bl[[1]]$Lx - general_life_table_list_sc[[1]]$Lx
-general_life_table_list_bl[[1]]$Lwx - general_life_table_list_sc[[1]]$Lwx
+## Check difference life table baseline and scenario (uncomment to check)
+# general_life_table_list_bl[[1]]$Lx - general_life_table_list_sc[[1]]$Lx
+# general_life_table_list_bl[[1]]$Lwx - general_life_table_list_sc[[1]]$Lwx
 
 
 
@@ -853,10 +856,7 @@ for (age in i_age_cohort){
 
 
 
-# ---- chunk-26 ----
-
-
-## Try binding function
+# ---- chunk-15 ----
 
 aggregate_frame_males <- list()
 aggregate_frame_females <- list()
