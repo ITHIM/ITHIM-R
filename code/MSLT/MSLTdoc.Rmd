@@ -286,74 +286,11 @@ These data should be used to generate the general life table and disease life ta
 ```{r chunk-15}
 ```
 
-16) For the life table, we need to mortality and total yld rates in one year age intervals. The original data is in five years. Thus, the following code is used to interpolate a single-year age distribution form a five-yearly distribution. 
+16) UPDATED TO HERE. 
 
 ```{r chunk-16}
 ```
 
-17) The following code brings together all the required data to create the inputs life table (Figure 3).
-
-```{r chunk-17}
-```
-
-18) Generate **baseline life tables** from input_data_frame using run_life_table function. Life tables are generated for each age (5-years) and sex cohort. 
-It is assumed that current observed rates of mortality and disability are going to be observed in the future. 
-
-```{r chunk-18}
-```
-
-19) Generate **baseline disease life tables** using run_disease function. Inputs of the disease life tables are: incidence, case fatality (Figure 3, purple shaded area) and disability weights. Internally consistent estimates of incidence and case fatality are derived from GBD data (by five-year age groups and sex) and Dismod II. Disability weights are derived from GBD disease specific YLDs and prevalence (by five-year age groups and sex) adjusted for all-cause YLDs (see section 2.1.1.4).  
-Note that Dismod II is an external software. The data generation for Dismod II is now done externally and the end product, for the example of Greater London is idata. For now, we plan to get the data processing for all data for the MSLT and Dismod using code (space blank left below). We now have all the data needs in the main data folder in data. 
-
-```{r chunk-19}
-```
-
-20) Generate mock change in incidence of disease to generate scenario life tables. In the final version, this will come from the calculated PIFs by disease. 
-PIFs are applied here to incidence, however, may also be applied to case fatality, depending on the RRs. Also, we can include time delays from change in exposure to change in health outcomes via the PIF. 
-
-```{r chunk-20}
-```
-
-
-21) Use scenario incidence to calculate scenario disease life tables. 
-
-```{r chunk-21}
-```
-
-
-22) Calculate life tables scenario. 
-
-```{r chunk-22}
-```
-
-23) Generate list of outputs by age and sex.
-
-```{r chunk-23}
-```
-
-24) Combine all lists of outputs in a data frame to facilitate extraction of outcomes of interest and plotting. 
-
-```{r chunk-24}
-```
-
-25) Plot outcomes for each age and sex cohort using created functions. Four functions are used: plot_output (plots outputs), grid_arrange_shared_legend and g_legend (places one label per page) and get_qualified_disease_name (replaces full name of disease)
-
-```{r chunk-25}
-
-knitr::include_graphics(graphs_doc[c(1:64)])
-
-```
-
-26) Add up all outcomes per year of simulation with generated function. BETTER TO HAVE A LOOP, I TRIED BY LOOPING IN THE FUNCITON ARGUMENT I_OUTCOMES, BUT THIS DID NOT WORK. THEN, IF LOOP HERE ALSO IN NEXT CODE. 
-
-```{r chunk-26}
-```
-
-
-27) Plots using total aggregated change in burden. This graphs are not very good for life years and health adjusted life years as the difference between baseline and scenario is very small relative to the total, hence the graphs show almost no change. 
-
-```{r chunk-27}
-```
 
 
 #Comments
