@@ -3,6 +3,9 @@ rm (list = ls())
 # load dr for pa objects
 source("code/drpa/dose_response.R")
 
+# Load all health related functions
+source("code/PA/code/functions.R")
+
 require(dplyr)
 require(tidyverse)
 
@@ -89,3 +92,11 @@ for ( j in 1:nrow(disease_short_names)){
   }
   
 }
+
+mmets[is.na(mmets$RR_pa_baseline_ac),]$RR_pa_baseline_ac <- 0
+mmets[is.na(mmets$RR_pa_MS0.05_ebik0_eq0_ac),]$RR_pa_MS0.05_ebik0_eq0_ac <- 0
+
+# Calculate PIFs for baseline and selected scenario
+pif <- data.frame(PAF(pop = mmets, attr = c('Sex_B01ID', 'age_group'), cn = c("RR_pa_baseline_ac" , "RR_pa_MS0.05_ebik0_eq0_ac")))
+pif <- arrange(pif, age.band, gender)
+
