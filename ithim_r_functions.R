@@ -1171,7 +1171,6 @@ ithim_uncertainty <- function(ithim_object,seed=1){
   ############################
   ## (0) SET UP
   print(seed)
-  set.seed(seed+1)#Sys.getpid()+seed+as.numeric(Sys.time())
   # Get parameters
   for(i in 1:length(ithim_object$parameters))
     assign(names(ithim_object$parameters)[i],ithim_object$parameters[[i]][[seed]],pos=1)
