@@ -8,12 +8,13 @@ source('ithim_r_functions.R')
 ## 
 ithim_object <- run_ithim_setup()
 ithim_object$outcome <- run_ithim(ithim_object, seed = 1)
+print(names(ithim_object$outcome))
 ##
 
 ## plot results
-result_mat <- colSums(ithim_object$outcome$ylls[,3:ncol(ithim_object$outcome$ylls)])
+result_mat <- colSums(ithim_object$outcome$hb$ylls[,3:ncol(ithim_object$outcome$hb$ylls)])
 columns <- length(result_mat)
-nDiseases <- (columns-1)/NSCEN
+nDiseases <- columns/NSCEN
 ylim <- range(result_mat)
 x11(width = 8, height = 5); par(mfrow = c(2, 4))
 for(i in 1:nDiseases){
@@ -57,7 +58,7 @@ ithim_object$parameters <- ithim_setup_parameters(BACKGROUND_PA_SCALAR = 0.5)
 ithim_object$outcome$background_pa <- run_ithim(ithim_object, seed = 1)
 
 ## plot results
-result_list <- lapply(ithim_object$outcome,function(x)colSums(x$ylls[,3:ncol(x$ylls)]))
+result_list <- lapply(ithim_object$outcome,function(x)colSums(x$hb$ylls[,3:ncol(x$hb$ylls)]))
 result_mat <- do.call(rbind, result_list)
 columns <- ncol(result_mat)
 nDiseases <- (columns-1)/NSCEN
@@ -80,7 +81,7 @@ for(i in 1:nDiseases){
 #################################################
 ## Use case 3: sampling:
 ## sample size, travel patterns, emissions (cleaner fleet)
-ithim_object <- run_ithim_setup(NSAMPLES = 1024,
+ithim_object <- run_ithim_setup(NSAMPLES = 16,
                                 MEAN_BUS_WALK_TIME = c(log(5), log(1.2)),
                                 MMET_CYCLING = c(log(5), 1), 
                                 PM_CONC_BASE = c(log(50), 1),  
@@ -89,11 +90,12 @@ ithim_object <- run_ithim_setup(NSAMPLES = 1024,
                                 AP_DOSE_RESPONSE_QUANTILE = T)
 
 numcores <- detectCores()
-results <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
 
 ## calculate EVPPI
-parameter_samples <- t(sapply(results, function(x) x$parameter_samples))
-outcome <- t(sapply(results, function(x) colSums(x$outcome$ylls[,3:ncol(x$outcome$ylls)])))
+parameter_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
+parameter_samples <- sapply(parameter_names,function(x)ithim_object$parameters[[x]])
+outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$ylls[,3:ncol(x$hb$ylls)])))
 evppi <- matrix(0, ncol = NSCEN, nrow = ncol(parameter_samples))
 for(j in 1:(NSCEN)){
   y <- outcome[, j+5] ## +5 means we choose ihd outcome for each scenario
@@ -117,4 +119,71 @@ if("DR_AP_LIST"%in%names(ithim_object$parameters)&&NSAMPLES>=1024){
   evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
 }
 print(evppi)
+
+#################################################
+## Use case 4: Application: six behavioural scenarios and five environmental scenarios.
+## sample size, travel patterns, emissions (cleaner fleet)
+
+numcores <- detectCores()
+environmental_scenarios <- c('now','safer','more_chronic_disease','less_background_AP','less_background_PA')
+safey_scalar          <- list(now=c(0,log(1.2)),      safer=0.5,                more_chronic_disease=c(0,log(1.2)),less_background_AP=c(0,log(1.2)),less_background_PA=c(0,log(1.2)))
+disease_scalar        <- list(now=c(0,log(1.2)),      safer=c(0,log(1.2)),      more_chronic_disease=2.0,          less_background_AP=c(0,log(1.2)),less_background_PA=c(0,log(1.2)))
+background_pm         <- list(now=c(log(50),log(1.2)),safer=c(log(50),log(1.2)),more_chronic_disease=c(log(50),log(1.2)), less_background_AP=30.625,       less_background_PA=c(log(50),log(1.2)))
+transport_pm          <- list(now=c(5,5),             safer=c(5,5),             more_chronic_disease=c(5,5),       less_background_AP=0.3673469,    less_background_PA=c(5,5))
+background_pa_scalar  <- list(now=c(0,log(1.2)),      safer=c(0,log(1.2)),      more_chronic_disease=c(0,log(1.2)),less_background_AP=c(0,log(1.2)),less_background_PA=0.5)
+
+ithim_object_list <- list()
+for(scenario in environmental_scenarios[5]){
+
+  rm(ithim_object)
+  ithim_object <- run_ithim_setup(NSAMPLES = 16,
+                                MEAN_BUS_WALK_TIME = c(log(5), log(1.2)),
+                                MMET_CYCLING = c(log(5), 1), 
+                                MMET_WALKING = c(log(2.5), 1), 
+                                SAFETY_SCALAR = safey_scalar[[scenario]],  
+                                CHRONIC_DISEASE_SCALAR = disease_scalar[[scenario]],  
+                                PM_CONC_BASE = background_pm[[scenario]],  
+                                PM_TRANS_SHARE = transport_pm[[scenario]],  
+                                BACKGROUND_PA_SCALAR = background_pa_scalar[[scenario]],  
+                                PA_DOSE_RESPONSE_QUANTILE = T,  
+                                AP_DOSE_RESPONSE_QUANTILE = T)
+
+  ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+  #ithim_object$outcomes <- lapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object)
+  
+  #for(i in 1:NSAMPLES) ithim_object$outcomes[[i]] <- ithim_uncertainty(ithim_object,i)
+  print(scenario)
+  for(i in 1:NSAMPLES) print(colSums(ithim_object$outcomes[[i]]$hb$deaths[,3:ncol(ithim_object$outcomes[[i]]$hb$deaths)]))
+  ## calculate EVPPI
+  parameter_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
+  parameter_samples <- sapply(parameter_names,function(x)ithim_object$parameters[[x]])
+  outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
+  evppi <- matrix(0, ncol = NSCEN, nrow = ncol(parameter_samples))
+  for(j in 1:(NSCEN)){
+    y <- rowSums(outcome[,seq(j,ncol(outcome),by=NSCEN)])
+    vary <- var(y)
+    for(i in 1:ncol(parameter_samples)){
+      x <- parameter_samples[, i];
+      model <- gam(y ~ s(x))
+      evppi[i, j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+      
+    }
+  }
+  colnames(evppi) <- SCEN_SHORT_NAME[c(1,3:6)]
+  rownames(evppi) <- colnames(parameter_samples)
+  
+  ## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
+  if("DR_AP_LIST"%in%names(ithim_object$parameters)&&NSAMPLES>=1024){
+    AP_names <- sapply(names(ithim_object$parameters),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
+    diseases <- sapply(names(ithim_object$parameters)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
+    evppi_for_AP <- mclapply(diseases, FUN = parallel_evppi_for_AP,parameter_samples,outcome, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+    names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
+    evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
+  }
+  print(evppi)
+  
+  ithim_object$evppi <- evppi
+  ithim_object_list[[scenario]] <- ithim_object
+}
+
 
