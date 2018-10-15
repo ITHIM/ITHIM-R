@@ -42,6 +42,7 @@ run_ithim_setup <- function(plotFlag = F,
   library(data.table)
   library(mgcv)
   library(parallel)
+  library(splines)
   
   #################################################
   
@@ -81,10 +82,14 @@ run_ithim_setup <- function(plotFlag = F,
   ######################
   ##RJ these distance calculations are currently not parameter dependent, which means we can make the calculation outside the function.
   ## We could either integrate them into another external function, or move them to the internal function, so that they can become variable.
-  # Generate distance and duration matrices
-  ithim_object$dist <- dist_dur_tbls(ithim_object$bs)
-  # distances for injuries calculation
-  ithim_object$inj_distances <- distances_for_injury_function(ithim_object$bs)
+  if(!'MEAN_BUS_WALK_TIME'%in%names(ithim_object$parameters)){
+    # Generate distance and duration matrices
+    dist_and_dir <- dist_dur_tbls(ithim_object$bs)
+    ithim_object$dist <- dist_and_dir$dist
+    ithim_object$dur <- dist_and_dir$dur
+    # distances for injuries calculation
+    ithim_object$inj_distances <- distances_for_injury_function(ithim_object$bs)
+  }
   ######################
   return(ithim_object)
 }
@@ -208,7 +213,10 @@ ithim_load_data <- function(){
   ## DATA FILES FOR MODEL  
   DR_AP <<- read.csv("data/dose_response/AP/dose_response_AP.csv")
   DISEASE_OUTCOMES <<- read.csv("data/dose_response/disease_outcomes_lookup.csv")
-  S.I.N <<- read_csv('code/injuries/data/sin_coefficients_pairs.csv')
+  ##!! RJ question for AA/RG: this line creates a warning:
+  ## Missing column names filled in: 'X1' [1] 
+  ## Can it be fixed?
+  S.I.N <<- suppressWarnings(read_csv('code/injuries/data/sin_coefficients_pairs.csv'))
   list_of_files <- list.files(path = "data/drpa/extdata/", recursive = TRUE, pattern = "\\.csv$", full.names = TRUE)
   for (i in 1:length(list_of_files)){
     assign(stringr::str_sub(basename(list_of_files[[i]]), end = -5),
@@ -224,7 +232,10 @@ ithim_load_data <- function(){
   lookup_ratio_pm_file <-  read_csv('data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.csv')
   lookup_ratio_pm_file <- dplyr::rename(lookup_ratio_pm_file, trip_mode = Mode)
   LOOKUP_RATIO_PM <<- lookup_ratio_pm_file
-  WHW_MAT <<- read_csv('code/injuries/accra/who_hit_who_accra.csv')
+  ##!! RJ question for AA/RG: this line creates a warning:
+  ## Missing column names filled in: 'X1' [1] 
+  ## Can it be fixed?
+  WHW_MAT <<- suppressWarnings(read_csv('code/injuries/accra/who_hit_who_accra.csv'))
   GBD_DATA <<- read_csv('data/demographics/gbd/accra/GBD Accra.csv')
   gbd_injuries <- GBD_DATA[which(GBD_DATA$cause == "Road injuries"),]
   gbd_injuries$sex_age <- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
@@ -581,7 +592,7 @@ distances_for_injury_function <- function(rd){
   relative_distances$sex_age <-  paste0(relative_distances$sex,"_",relative_distances$age_cat)
   relative_distances <- relative_distances[,-c(which(names(relative_distances) == 'sex'))]
   
-  list(relative_distances,scen_dist)
+  list(relative_distances=relative_distances,scen_dist=scen_dist)
 }
 
 dist_dur_tbls <- function(bs){
@@ -635,8 +646,8 @@ dist_dur_tbls <- function(bs){
     
   }
   
-  ## calculate all distances 
-  l_dist <- list()
+  ## calculate all distances & durations
+  l_dist <-  l_dur <- list()
   for (i in 1:length(SCEN)){
     local <- group_by(filter(bs,scenario == SCEN[i]), trip_mode)
     
@@ -646,46 +657,32 @@ dist_dur_tbls <- function(bs){
       local_dist$sum_dist[local_dist$trip_mode == "Short Walking"]
     colnames(local_dist)[2] <- SCEN[i]
     l_dist[[i]] <- local_dist
+    
+    local_dur <- summarise(local, sum_dur = sum(trip_duration))
+    local_dur$sum_dur[local_dur$trip_mode == "Walking"] <- 
+      local_dur$sum_dur[local_dur$trip_mode == "Walking"] + 
+      local_dur$sum_dur[local_dur$trip_mode == "Short Walking"]
+    colnames(local_dur)[2] <- SCEN[i]
+    l_dur[[i]] <- local_dur
   }
   
-  ## join distances 
+  ## join distances & durations
   for (i in 1:length(l_dist)){
     if (i == 1){
       local_dist <- l_dist[[i]]
+      local_dur <- l_dur[[i]]
     }else{
       local_dist <- left_join(local_dist, l_dist[[i]], by = "trip_mode")
+      local_dur <- left_join(local_dur, l_dur[[i]], by = "trip_mode")
     }
   }
  
   # Remove short walking
   dist <- filter(local_dist, trip_mode != 'Short Walking')
+  dur <- filter(local_dur, trip_mode != 'Short Walking')
   
   if(plotFlag){
     
-    ## calculate all durations
-    l_dur <- list()
-    for (i in 1:length(SCEN)){
-      local <- group_by(filter(bs,scenario == SCEN[i]), trip_mode)
-      
-      local_dur <- summarise(local, sum_dur = sum(trip_duration))
-      local_dur$sum_dur[local_dur$trip_mode == "Walking"] <- 
-        local_dur$sum_dur[local_dur$trip_mode == "Walking"] + 
-        local_dur$sum_dur[local_dur$trip_mode == "Short Walking"]
-      colnames(local_dur)[2] <- SCEN[i]
-      l_dur[[i]] <- local_dur
-      
-    }
-    
-    ## join durations
-    for (i in 1:length(l_dur)){
-      if (i == 1){
-        local_dur <- l_dur[[i]]
-      }else{
-        local_dur <- left_join(local_dur, l_dur[[i]], by = "trip_mode")
-      }
-    }
-    
-    dur <- filter(local_dur, trip_mode != 'Short Walking')  
     dist_melted <- reshape2::melt(dist, by = trip_mode)
     # Plot
     plotly::ggplotly(ggplot(data = dist_melted, aes(x = trip_mode, y = value / total_ind, fill = variable)) + 
@@ -706,7 +703,7 @@ dist_dur_tbls <- function(bs){
   }
   
   #list(dist,dur)
-  dist
+  list(dist=dist,dur=dur)
 }
 
 total_mmet <- function(rd){
@@ -813,7 +810,7 @@ scenario_pm_calculations <- function(scen_dist,rd){
   for (i in 1: length(SCEN_SHORT_NAME))
     final_data[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]] <- normalise*final_data[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]]
   
-  as.data.frame(final_data)
+  list(scenario_pm=conc_pm, pm_conc_pp=as.data.frame(final_data))
   
 }
 
@@ -934,6 +931,7 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
       )$y
   }
   if (PA_DOSE_RESPONSE_QUANTILE==T){
+    ##RJ question for AA: this function has standard deviation = 1. Is that right?
     rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, a=lb, b=ub)
   }
   if (confidence_intervals) {
@@ -1027,14 +1025,16 @@ injuries_function <- function(relative_distances,scen_dist){
     whw_mat2[[k]] <- whw_mat_adjusted*(victim_dist_mat^sin_vic_ordered)*(strk_dist_mat^sin_str_ordered) 
   }
   
-  ## names of victim types
+  ## get total injuries
+  # names of victim types
   victim_deaths <- as.data.frame(WHW_MAT[,1])  
-  ## number of deaths in baseline by victim type
+  # number of deaths in baseline by victim type
   victim_deaths <- cbind(victim_deaths, rowSums(whw_mat_adjusted))
   for (k in 2:(length(SCEN_SHORT_NAME))) victim_deaths <- cbind(victim_deaths, as.data.frame(rowSums(whw_mat2[[k]][,2:7],na.rm=T))) 
   names(victim_deaths)[1] <- c("victim_type")
   names(victim_deaths)[2:(length(SCEN_SHORT_NAME)+1)] <- SCEN_SHORT_NAME
   
+  ## distribute injuries to ages
   ##RJ match distances and injuries to multiply matrices
   dist_scen_indices <- match(relative_distances$scenario,SCEN)
   vic_scen_indices <- match(SCEN_SHORT_NAME[dist_scen_indices],colnames(victim_deaths))
@@ -1045,7 +1045,7 @@ injuries_function <- function(relative_distances,scen_dist){
   injuries[,9] <- rowSums(injuries[,3:7],na.rm=T)
   names(injuries)[9] <-"Deaths"
   
-  joined_injury <- left_join(injuries, GBD_INJ_YLL, by="sex_age")
+  joined_injury <- left_join(injuries, GBD_INJ_YLL[,c('sex_age','sex','yll_dth_ratio')], by="sex_age")
   
   joined_injury$YLL <- joined_injury$Deaths*joined_injury$yll_dth_ratio
   death_and_yll <- dplyr::select(joined_injury, c('age_cat','sex','scenario','Deaths','YLL'))
@@ -1055,27 +1055,24 @@ injuries_function <- function(relative_distances,scen_dist){
   x_yll <- dplyr::select(death_and_yll, -Deaths)
   x_yll <- spread(x_yll,scenario, YLL)
   
-  for (n in c(1:length(SCEN_SHORT_NAME))[-2]){
-      x_deaths[,n+2]<-x_deaths[,n+2] - x_deaths[,4] 
-      x_yll[,n+2] <- x_yll[,n+2] - x_yll[,4] 
-  }
+  scen1_injuries <- list(deaths=x_deaths[,4],ylls=x_yll[,4])
+  deaths <- x_deaths[,-4]
+  deaths[,3:7] <- - deaths[,3:7] + t(repmat(unlist(scen1_injuries$deaths),NSCEN,1))
+  ylls <- x_yll[,-4]
+  ylls[,3:7] <- - ylls[,3:7] + t(repmat(unlist(scen1_injuries$ylls),NSCEN,1))
   
-  deaths_yll_injuries <- cbind(x_deaths, x_yll)
-  deaths_yll_injuries <- deaths_yll_injuries[,-c((2+NSCEN+2),(2+NSCEN+3))]
-  deaths_yll_injuries <- as.data.frame(deaths_yll_injuries)
+  deaths_yll_injuries <- as.data.frame(cbind(deaths, ylls[,-c(1:2)]))
   names(deaths_yll_injuries)[1:2]<- c("age_cat", "sex")
   
   metric <- c("deaths", "yll")
   k <- 1
   for  (i in 1: 2)
-    for (j in 1:(NSCEN+1)){
+    for (j in c(1:(NSCEN+1))[-2]){
       names(deaths_yll_injuries)[2+k] <- paste0(SCEN_SHORT_NAME[j],"_",metric[i],"_inj")
       k<-k+1
     }
   
-  deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] <- -1 * deaths_yll_injuries[,3:ncol(deaths_yll_injuries)] 
-  
-  deaths_yll_injuries
+  list(injuries=injuries,deaths_yll_injuries=deaths_yll_injuries,scen1_injuries=scen1_injuries)
 }
 
 health_burden <- function(ind,inj){
@@ -1127,20 +1124,20 @@ health_burden <- function(ind,inj){
       scen <- scen_names[index]
       scen_var <- scen_vars[index]
       yll_name <- paste0(scen, '_ylls_',middle_bit,ac)
-      yll_red_name <- paste0(scen, '_ylls_red_',middle_bit,ac)
+      #yll_red_name <- paste0(scen, '_ylls_red_',middle_bit,ac)
       deaths_name <- paste0(scen, '_deaths_',middle_bit,ac)
-      deaths_red_name <- paste0(scen, '_deaths_red_',middle_bit,ac)
+      #deaths_red_name <- paste0(scen, '_deaths_red_',middle_bit,ac)
       # Calculate PIFs for selected scenario
       pif_temp <- PAF(pop = ind[,colnames(ind)%in%c(scen_var,'sex', 'age_cat')], cn = scen_var, mat=pop_details)
       pif_scen <- (pif_ref - pif_temp) / pif_ref
       # Calculate ylls (total and red)
       yll_dfs <- combine_health_and_pif(pop=pop_details,pif_values=pif_scen, hc = gbd_ylls_disease)
       ylls[[yll_name]] <- yll_dfs
-      ylls_red[[yll_red_name]] <- yll_dfs / yll_ref
+      #ylls_red[[yll_red_name]] <- yll_dfs / yll_ref
       # Calculate deaths (total and red)
       death_dfs <- combine_health_and_pif(pop=pop_details,pif_values=pif_scen,hc=gbd_deaths_disease)
       deaths[[deaths_name]] <- death_dfs
-      deaths_red[[deaths_red_name]] <- death_dfs / death_ref
+      #deaths_red[[deaths_red_name]] <- death_dfs / death_ref
     }
   }
   # Select deaths columns
@@ -1148,11 +1145,10 @@ health_burden <- function(ind,inj){
   # Select yll columns
   inj_ylls <- dplyr::select(inj, c(age_cat, sex, contains("yll")))
   # Join injuries data to global datasets
-  ##RJ question for AA/RG: all the diseases have a column for each scenario in base, scen2, scen3, scen4, scen5. 
-  ## Injury has also a column for scen1. Does this need to be modified so that it's like the others?
   deaths <- left_join(deaths, inj_deaths, by = c("age_cat", "sex"))
   ylls <- left_join(ylls, inj_ylls, by = c("age_cat", "sex"))
-  list(deaths=deaths,deaths_red=deaths_red,ylls=ylls,ylls_red=ylls_red)
+  #list(deaths=deaths,deaths_red=deaths_red,ylls=ylls,ylls_red=ylls_red)
+  list(deaths=deaths,ylls=ylls)
 }
 
 PAF <- function(pop, cn, mat){
@@ -1174,30 +1170,35 @@ combine_health_and_pif <- function(pop, pif_values, hc=GBD_DATA, hm_cn = 'value_
 ithim_uncertainty <- function(ithim_object,seed=1){ 
   ############################
   ## (0) SET UP
-  set.seed(seed)#Sys.getpid()+seed+as.numeric(Sys.time())
-  return_list <- list()
-  ##RJ for now we sample one parameter at a time
-  # Samples parameters
-  #sample_parameters(ithim_object$parameters)
+  print(seed)
+  set.seed(seed+1)#Sys.getpid()+seed+as.numeric(Sys.time())
+  # Get parameters
   for(i in 1:length(ithim_object$parameters))
     assign(names(ithim_object$parameters)[i],ithim_object$parameters[[i]][[seed]],pos=1)
-  # Store samples
-  store_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
-  return_list$parameter_samples <- sapply(store_names,function(x)get(x))
-  ## Re-do set up if MEAN
+  ## Re-do set up if MEAN_BUS_WALK_TIME has changed
   if('MEAN_BUS_WALK_TIME'%in%names(ithim_object$parameters)){
     rd <- ithim_setup_baseline_scenario()
     ithim_object$bs <- create_all_scenarios(rd)
     ######################
     # Generate distance and duration matrices
-    ithim_object$dist <- dist_dur_tbls(ithim_object$bs)
+    dist_and_dur <- dist_dur_tbls(ithim_object$bs)
+    ithim_object$dist <- dist_and_dur$dist
+    ithim_object$dur <- dist_and_dur$dur
     # distances for injuries calculation
     ithim_object$inj_distances <- distances_for_injury_function(ithim_object$bs)
   }
   ############################
   # Run ITHIM cascade of functions
-  return_list$outcome <- run_ithim(ithim_object,seed)
-  return(return_list)
+  run_results <- run_ithim(ithim_object,seed)
+  run_results$dist <- ithim_object$dist
+  run_results$dur <- ithim_object$dur
+  #ithim_object$scenario_pm <- run_results$scenario_pm
+  #ithim_object$pm_conc_pp <- run_results$pm_conc_pp
+  #ithim_object$mmets_pp <- run_results$mmets
+  #ithim_object$injuries <- run_results$injuries
+  #ithim_object$scen1_injuries <- run_results$scen1_injuries
+  #ithim_object$hb <- run_results$hb
+  return(run_results)
 }
 
 run_ithim <- function(ithim_object,seed=1){ 
@@ -1210,8 +1211,10 @@ run_ithim <- function(ithim_object,seed=1){
   ## (1) AP PATHWAY
   # Calculated PM2.5 concentrations
   (pm_conc <- scenario_pm_calculations(dist,bs))
+  scenario_pm <- pm_conc$scenario_pm
+  pm_conc_pp <- pm_conc$pm_conc_pp
   # Air pollution calculation
-  (RR_AP_calculations <- gen_ap_rr(bs,pm_conc))
+  (RR_AP_calculations <- gen_ap_rr(bs,pm_conc_pp))
   ############################
   ## (2) PA PATHWAY
   # Calculate total mMETs
@@ -1226,11 +1229,13 @@ run_ithim <- function(ithim_object,seed=1){
   ## (4) INJURIES
   # Injuries calculation
   (deaths_yll_injuries <- injuries_function(inj_distances[[1]],inj_distances[[2]]))
+  injuries <- deaths_yll_injuries$injuries
+  scen1_injuries <- deaths_yll_injuries$scen1_injuries
   ############################
   ## (5) COMBINE (3) AND (4)
   # Combine health burden from disease and injury
-  (hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries))
-  return(hb)
+  (hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries$deaths_yll_injuries))
+  return(list(mmets=mmets,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp,injuries=injuries,scen1_injuries=scen1_injuries,hb=hb))
 }
 
 parallel_evppi_for_AP <- function(disease,parameter_samples,outcome){
