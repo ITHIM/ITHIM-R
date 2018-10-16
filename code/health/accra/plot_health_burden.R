@@ -2,6 +2,9 @@
 
 # Assumes master-script has already run
 
+require(tidyverse)
+require(plotly)
+
 # Read lookup table
 lt <- read_csv("data/dose_response/disease_outcomes_lookup.csv")
 
@@ -13,6 +16,16 @@ get_health_plot <- function(ds, outcome, lt, index, ac, sc, show_injury = T, com
                   "Scenario 3" = "#984ea3",
                   "Scenario 4" = "#80b1d3", 
                   "Scenario 5" = "#cc4c02")
+  
+  
+  # ds = ldat 
+  # outcome = loutcome
+  # lt = lt
+  # index = i
+  # ac = "All"  
+  # sc = "All"
+  # show_injury = T
+  # combined_NCDs = T
   
   
   # outcome <- "Deaths"
@@ -43,12 +56,11 @@ get_health_plot <- function(ds, outcome, lt, index, ac, sc, show_injury = T, com
     sub_pop <- paste(sub_pop, 'sex group:', tolower(sc), sep = " ")
   }
   
-  
   nd <- NULL
   # browser()
   for (i in 2:nrow(lt)){
     dn1 <- select(d, age.band, gender, ends_with(lt$acronym[i])) 
-    names(dn1)[3:ncol(dn1)] <- append('Baseline', paste('Scenario', 1:(ncol(dn1) - 3), sep = ' '))
+    names(dn1)[3:ncol(dn1)] <- append('Baseline', paste('Scenario', 2:(ncol(dn1) - 2), sep = ' '))
     dn1$cause <- lt$GBD_name[i]
     
     if (is.null(nd))
@@ -65,7 +77,7 @@ get_health_plot <- function(ds, outcome, lt, index, ac, sc, show_injury = T, com
     
     dn1 <- select(d, age.band, gender, ends_with('inj'))
     #dn1$base_deaths_inj <- dn1$base_yll_inj <- NULL
-    names(dn1)[3:ncol(dn1)] <- append('Baseline', paste('Scenario', 1:(ncol(dn1) - 3), sep = ' '))
+    names(dn1)[3:ncol(dn1)] <- append('Baseline', paste('Scenario', 2:(ncol(dn1) - 2), sep = ' '))
     dn1$cause <- 'Road Injuries'
     
     # Remove scenario 1
@@ -149,56 +161,96 @@ get_health_plot <- function(ds, outcome, lt, index, ac, sc, show_injury = T, com
   
 }
 
-l <- htmltools::tagList()
+fdata <- list()
 
-cd <- list()
 
-loutcome <- "YLLs"
+d <- readr::read_rds("six_by_five_scenarios_1024.Rds")
 
-for (i in 1:INDEX){
+accra_cols <- c("Baseline" = "#e41a1c", 
+                "Scenario 1" = "#377eb8", 
+                "Scenario 2" = "#4daf4a", 
+                "Scenario 3" = "#984ea3",
+                "Scenario 4" = "#80b1d3", 
+                "Scenario 5" = "#cc4c02")
+
+for (wi in 1:(length(d$uncertain))){
   
-  # i <- 1
+  scen <- names(d$not_uncertain)[wi]
   
-  ldat <- ylls[[i]]
   
-  if (loutcome == "Deaths")
-    ldat <- deaths[[i]]
+  l <- htmltools::tagList()
   
-  dat <- get_health_plot(ds = ldat, 
-                         outcome = loutcome, lt = lt, index = i, ac = "All", 
-                         sc = "All", show_injury = T, combined_NCDs = T)
-  l[[i]] <- plotly::as_widget(ggplotly(dat[[1]]))
+  cd <- list()
   
-  cd[[i]] <- dat[[2]]
-  cd[[i]]$INDEX <- i
+  loutcome <- "YLLs"
   
-  #print(l[[i]])
+  
+  
+  for (i in 1:length(d$uncertain[[scen]]$outcomes)){
+    
+    # i <- 1
+    
+    ldat <- d$uncertain[[scen]]$outcomes[[i]]$hb$ylls
+    
+    if (loutcome == "Deaths")
+      ldat <- d$uncertain[[scen]]$outcomes[[i]]$hb$deaths
+    
+    
+    ldat <- rename(ldat, "age.band" = "age_cat")
+    ldat <- rename(ldat, "gender" = "sex")
+    
+    dat <- get_health_plot(ds = ldat, 
+                           outcome = loutcome, lt = lt, index = i, ac = "All", 
+                           sc = "All", show_injury = T, combined_NCDs = T)
+    l[[i]] <- plotly::as_widget(ggplotly(dat[[1]]))
+    
+    cd[[i]] <- dat[[2]]
+    cd[[i]]$INDEX <- i
+    
+    # print(l[[i]])
+  }
+  
+  
+  base_title <- scen
+  
+  ctitle <- paste(base_title, ifelse(loutcome == "Deaths", "Averted number of Deaths - compared with Ref Scenario 1",
+                   "Reduction in Years of Life Lost (YLL) - compared with Ref Scenario 1"))
+  
+  
+  
+  
+  pdata <- bind_rows(cd)
+  pdata <- arrange(pdata, variable, INDEX, cause)
+  pdata$value <- round(pdata$value, 2)
+  pdata$int <- interaction(pdata$variable, pdata$INDEX)
+  pdata$int <- factor(pdata$int, unique(pdata$int))
+  
+  pdata$lab <- c(1:16) #ifelse(d$INDEX == 1, "Baseline", "Halved background PA")
+  
+  pdata$name <- scen
+  
+  fdata[[wi]] <- pdata
+  
+  #print(plotly::ggplotly(p))
+  
 }
 
+combined_data <- bind_rows(fdata)
 
 ctitle <- ifelse(loutcome == "Deaths", "Averted number of Deaths - compared with Ref Scenario 1",
-                 "Reduction in Years of Life Lost (YLL) - compared with Ref Scenario 1")
+                                   "Reduction in Years of Life Lost (YLL) - compared with Ref Scenario 1")
 
 
-
-
-d <- bind_rows(cd)
-d <- arrange(d, variable, INDEX, cause)
-d$value <- round(d$value, 2)
-d$int <- interaction(d$variable, d$INDEX)
-d$int <- factor(d$int, unique(d$int))
-
-d$lab <- ifelse(d$INDEX == 1, "Baseline", "Halved background PA")
-
-p <- ggplot(data = d, aes(x = cause, y = value, fill = variable, 
-                          group = int, text= paste0('~', lab))) + 
-  geom_bar(stat = 'identity', position = "dodge", color = "black") +
+p <- ggplot(combined_data, aes(x = variable, y = value, fill = variable, color = name)) + 
+  geom_boxplot()  +
+  #scale_fill_manual(values = accra_cols)  +
   theme_minimal()
 
 p <- p + labs(title = ctitle) + xlab("") + ylab('<- Harms     Benefits ->') 
 
+print(p)
 
-print(plotly::as_widget(ggplotly(p, tooltip = c("x", "y", "fill", "text"))))
+#print(plotly::as_widget(ggplotly(p, tooltip = c("x", "y", "fill", "text"))))
 
   
   
