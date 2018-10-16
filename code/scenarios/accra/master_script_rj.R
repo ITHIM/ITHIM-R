@@ -131,19 +131,19 @@ ithim_object_list$not_uncertain <- ithim_object
 
 numcores <- detectCores()
 environmental_scenarios <- c('now','safer','more_chronic_disease','less_background_AP','less_background_PA')
-certainty_parameters <- list(certain=list(
+certainty_parameters <- list(uncertain=list(
   safey_scalar          = list(now=c(0,log(1.2)),      safer=0.5,                more_chronic_disease=c(0,log(1.2)),      less_background_AP=c(0,log(1.2)),less_background_PA=c(0,log(1.2))),
   disease_scalar        = list(now=c(0,log(1.2)),      safer=c(0,log(1.2)),      more_chronic_disease=2.0,                less_background_AP=c(0,log(1.2)),less_background_PA=c(0,log(1.2))),
   background_pm         = list(now=c(log(50),log(1.2)),safer=c(log(50),log(1.2)),more_chronic_disease=c(log(50),log(1.2)),less_background_AP=30.625,       less_background_PA=c(log(50),log(1.2))),
   transport_pm          = list(now=c(5,5),             safer=c(5,5),             more_chronic_disease=c(5,5),             less_background_AP=0.3673469,    less_background_PA=c(5,5)),
   background_pa_scalar  = list(now=c(0,log(1.2)),      safer=c(0,log(1.2)),      more_chronic_disease=c(0,log(1.2)),      less_background_AP=c(0,log(1.2)),less_background_PA=0.5),
-  NSAMPLES = 1024,
+  NSAMPLES = 16,
   MEAN_BUS_WALK_TIME = c(log(5), log(1.2)),
   MMET_CYCLING = c(log(5), log(1.2)), 
   MMET_WALKING = c(log(2.5), log(1.2)), 
   PA_DOSE_RESPONSE_QUANTILE = T,  
   AP_DOSE_RESPONSE_QUANTILE = T
-), not_certain=list(
+), not_uncertain=list(
   safey_scalar          = list(now=1,    safer=0.5,  more_chronic_disease=1,    less_background_AP=1,        less_background_PA=1),
   disease_scalar        = list(now=1,    safer=1,    more_chronic_disease=2.0,  less_background_AP=1,        less_background_PA=1),
   background_pm         = list(now=50,   safer=50,   more_chronic_disease=50,   less_background_AP=30.625,   less_background_PA=50),
@@ -157,25 +157,26 @@ certainty_parameters <- list(certain=list(
   AP_DOSE_RESPONSE_QUANTILE = F
 ))
 
-for(certainty in c('not_uncertain','certain')){
+for(certainty in c('not_uncertain','uncertain')){
   ithim_object_list[[certainty]] <- list()
   for(environmental_scenario in environmental_scenarios){
     
-    ithim_object <- run_ithim_setup(NSAMPLES = certainty_parameters[[certainty]][[NSAMPLES]],
-                                    MEAN_BUS_WALK_TIME = certainty_parameters[[certainty]][[MEAN_BUS_WALK_TIME]],
-                                    MMET_CYCLING = certainty_parameters[[certainty]][[MMET_CYCLING]], 
-                                    MMET_WALKING = certainty_parameters[[certainty]][[MMET_WALKING]], 
-                                    SAFETY_SCALAR = certainty_parameters[[certainty]][[safey_scalar]][[environmental_scenario]],  
-                                    CHRONIC_DISEASE_SCALAR = certainty_parameters[[certainty]][[disease_scalar]][[environmental_scenario]],  
-                                    PM_CONC_BASE = certainty_parameters[[certainty]][[background_pm]][[environmental_scenario]],  
-                                    PM_TRANS_SHARE = certainty_parameters[[certainty]][[transport_pm]][[environmental_scenario]],  
-                                    BACKGROUND_PA_SCALAR = certainty_parameters[[certainty]][[background_pa_scalar]][[environmental_scenario]],  
-                                    PA_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]][[PA_DOSE_RESPONSE_QUANTILE]],  
-                                    AP_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]][[AP_DOSE_RESPONSE_QUANTILE]])
+    ithim_object <- run_ithim_setup(NSAMPLES = certainty_parameters[[certainty]]$NSAMPLES,
+                                    MEAN_BUS_WALK_TIME = certainty_parameters[[certainty]]$MEAN_BUS_WALK_TIME,
+                                    MMET_CYCLING = certainty_parameters[[certainty]]$MMET_CYCLING, 
+                                    MMET_WALKING = certainty_parameters[[certainty]]$MMET_WALKING, 
+                                    SAFETY_SCALAR = certainty_parameters[[certainty]]$safey_scalar[[environmental_scenario]],  
+                                    CHRONIC_DISEASE_SCALAR = certainty_parameters[[certainty]]$disease_scalar[[environmental_scenario]],  
+                                    PM_CONC_BASE = certainty_parameters[[certainty]]$background_pm[[environmental_scenario]],  
+                                    PM_TRANS_SHARE = certainty_parameters[[certainty]]$transport_pm[[environmental_scenario]],  
+                                    BACKGROUND_PA_SCALAR = certainty_parameters[[certainty]]$background_pa_scalar[[environmental_scenario]],  
+                                    PA_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$PA_DOSE_RESPONSE_QUANTILE,  
+                                    AP_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$AP_DOSE_RESPONSE_QUANTILE)
     
-    ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_obj = ithim_object,mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
-    
-    if(certainty=='uncertain'){
+    if(certainty=='not_uncertain'){
+      ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
+    }else if(certainty=='uncertain'){
+      ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_obj = ithim_object,mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
       ## calculate EVPPI
       parameter_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
       parameter_samples <- sapply(parameter_names,function(x)ithim_object$parameters[[x]])
@@ -215,10 +216,8 @@ for(certainty in c('not_uncertain','certain')){
 saveRDS(ithim_object_list,paste0('six_by_five_scenarios_',NSAMPLES,'.Rds'))
 
 x11(width=8,height=5); par(mfrow=c(2,4),mar=c(5,1,1,1)); 
-for(i in 1:8){
-  plot(density(ithim_object_list$now$parameters[[i]]),xlab=names(ithim_object_list$now$parameter_samples)[i],ylab='',frame=F,main='',lwd=2)
-}
+for(i in 1:8)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),xlab=names(ithim_object_list$uncertain$now$parameters)[i],ylab='',frame=F,main='',lwd=2)
 
 x11(); boxplot(sapply(1:5,function(x)rowSums(outcome[,seq(x,ncol(outcome),by=NSCEN)])))
-points(1:5,sapply(1:5,function(x)sum(ithim_object_list$not_uncertain$outcomes$hb$deaths[,seq(2+x,ncol(ithim_object_list$not_uncertain$outcomes$hb$deaths),by=5)])),col='blue')
+points(1:5,sapply(1:5,function(x)sum(ithim_object_list$not_uncertain$now$outcomes$hb$deaths[,seq(2+x,ncol(ithim_object_list$not_uncertain$now$outcomes$hb$deaths),by=5)])),col='blue')
 

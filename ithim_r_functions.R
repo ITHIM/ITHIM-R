@@ -242,6 +242,23 @@ ithim_load_data <- function(){
   gbd_inj_dth <- gbd_injuries[which(gbd_injuries$measure == "Deaths"),]
   gbd_inj_yll$yll_dth_ratio <- gbd_inj_yll$value_gama/gbd_inj_dth$value_gama 
   GBD_INJ_YLL <<- gbd_inj_yll
+  
+  ##RJ suggestion to AA
+  ## that our folder structure consists of two respositories for data: ITHIM-R/data/global and ITHIM-R/data/local
+  ## in 'global', we have
+  ##   Dose--response data (data/drpa/extdata/ and dose_response_AP.csv)
+  ##   "disease dependencies" (disease_outcomes_lookup.csv)
+  ##   Injury distance exponents (code/injuries/data/sin_coefficients_pairs.csv)
+  ##   ventilation ratios (data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.csv)
+  ##   GBD (data/demographics/gbd/accra/GBD Accra.csv)
+  ## these data are loaded automatically with library(ITHIMR), so we don't need to code them up here at all.
+  ## in 'local', we have
+  ##   accra, which contains
+  ##       RD (data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv)
+  ##       emissions (data/emission calculations accra/transport_emission_inventory_accra.csv)
+  ##       WHW matrix (code/injuries/accra/who_hit_who_accra.csv)
+  ## these files are loaded when ITHIM-R is run. 
+  ## The user specifies either 'accra', if we have the folder 'accra', or the path to a repository containing named files, or a path per file...
 }
 
 ithim_setup_baseline_scenario <- function(){
