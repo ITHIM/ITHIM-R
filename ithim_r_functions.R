@@ -74,15 +74,12 @@ run_ithim_setup <- function(plotFlag = F,
                                                     BACKGROUND_PA_SCALAR,
                                                     SAFETY_SCALAR,
                                                     CHRONIC_DISEASE_SCALAR )
-  ##
-  
-  rd <- ithim_setup_baseline_scenario()
-  ithim_object$bs <- create_all_scenarios(rd)
-  set_scenario_specific_variables(ithim_object$bs)
-  ######################
   ##RJ these distance calculations are currently not parameter dependent, which means we can make the calculation outside the function.
   ## We could either integrate them into another external function, or move them to the internal function, so that they can become variable.
   if(!'MEAN_BUS_WALK_TIME'%in%names(ithim_object$parameters)){
+    rd <- ithim_setup_baseline_scenario()
+    ithim_object$bs <- create_all_scenarios(rd)
+    set_scenario_specific_variables(ithim_object$bs)
     # Generate distance and duration matrices
     dist_and_dir <- dist_dur_tbls(ithim_object$bs)
     ithim_object$dist <- dist_and_dir$dist
@@ -305,7 +302,7 @@ add_walk_trips <- function(bus_trips, ln_mean, ln_sd){
   walk_trips <- bus_trips
   walk_trips$trip_mode <- 'Short Walking'
   ##RJ all trips have the same MEAN_BUS_WALK_TIME
-  walk_trips$trip_duration <- MEAN_BUS_WALK_TIME#sort(rlnorm(n = nrow(bus_trips), meanlog = log(MEAN_BUS_WALK_TIME), sdlog = log(ln_sd)))
+  walk_trips$trip_duration <- 5#MEAN_BUS_WALK_TIME#sort(rlnorm(n = nrow(bus_trips), meanlog = log(MEAN_BUS_WALK_TIME), sdlog = log(ln_sd)))
   
   # Replace walk trips with duration greater than that of bus needs to be set to 0
   if (nrow(walk_trips[(walk_trips$trip_duration - bus_trips$trip_duration)  > 0,]) > 0)
@@ -1167,37 +1164,34 @@ combine_health_and_pif <- function(pop, pif_values, hc=GBD_DATA, hm_cn = 'value_
   round(return_values,5)
 }
 
-ithim_uncertainty <- function(ithim_object,seed=1){ 
+ithim_uncertainty <- function(ithim_obj,seed=1){ 
   ############################
   ## (0) SET UP
-  print(seed)
+  for(i in 1:length(ithim_obj))
+    assign(names(ithim_obj)[i],ithim_obj[[i]])
   # Get parameters
-  for(i in 1:length(ithim_object$parameters))
-    assign(names(ithim_object$parameters)[i],ithim_object$parameters[[i]][[seed]],pos=1)
+  for(i in 1:length(parameters))
+    assign(names(parameters)[i],parameters[[i]][[seed]],pos=1)
   ## Re-do set up if MEAN_BUS_WALK_TIME has changed
-  if('MEAN_BUS_WALK_TIME'%in%names(ithim_object$parameters)){
+  if('MEAN_BUS_WALK_TIME'%in%names(parameters)){
     rd <- ithim_setup_baseline_scenario()
-    ithim_object$bs <- create_all_scenarios(rd)
+    ithim_obj$bs <- create_all_scenarios(rd)
     ######################
     # Generate distance and duration matrices
-    dist_and_dur <- dist_dur_tbls(ithim_object$bs)
-    ithim_object$dist <- dist_and_dur$dist
-    ithim_object$dur <- dist_and_dur$dur
+    dist_and_dur <- dist_dur_tbls(ithim_obj$bs)
+    ithim_obj$dist <- dist_and_dur$dist
+    ithim_obj$dur <- dist_and_dur$dur
     # distances for injuries calculation
-    ithim_object$inj_distances <- distances_for_injury_function(ithim_object$bs)
+    ithim_obj$inj_distances <- distances_for_injury_function(ithim_obj$bs)
   }
   ############################
   # Run ITHIM cascade of functions
-  run_results <- run_ithim(ithim_object,seed)
-  run_results$dist <- ithim_object$dist
-  run_results$dur <- ithim_object$dur
-  #ithim_object$scenario_pm <- run_results$scenario_pm
-  #ithim_object$pm_conc_pp <- run_results$pm_conc_pp
-  #ithim_object$mmets_pp <- run_results$mmets
-  #ithim_object$injuries <- run_results$injuries
-  #ithim_object$scen1_injuries <- run_results$scen1_injuries
-  #ithim_object$hb <- run_results$hb
-  return(run_results)
+  run_results <- run_ithim(ithim_obj,seed)
+  run_results$dist <- ithim_obj$dist
+  run_results$dur <- ithim_obj$dur
+  #return(run_results)
+  ##!! RJ for now return only hb from uncertain simulations
+  return(list(hb=run_results$hb))
 }
 
 run_ithim <- function(ithim_object,seed=1){ 
