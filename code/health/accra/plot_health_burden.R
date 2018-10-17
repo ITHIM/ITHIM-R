@@ -166,7 +166,7 @@ fdata <- list()
 
 d <- readr::read_rds("six_by_five_scenarios_1024.Rds")
 
-loutcome <- "YLLs"
+loutcome <- "Deaths"
 
 accra_cols <- c("Baseline" = "#e41a1c", 
                 "Scenario 1" = "#377eb8", 
@@ -254,5 +254,18 @@ p <- p + labs(title = ctitle) + xlab("") + ylab('<- Harms     Benefits ->')
 print(p)
 #print(plotly::as_widget(ggplotly(p, tooltip = c("x", "y", "fill", "text"))))
 
-  
-  
+td <- combined_data
+td$int <- interaction(td$name, td$cause, td$variable)
+#td$int <- factor(td$int, unique(td$int))
+
+ggplot(td, aes(x = cause, y = value, fill = variable, group = int, shape = as.factor(name))) + 
+geom_boxplot(outlier.shape = NA) + 
+scale_fill_manual(values = accra_cols) + 
+theme_minimal() + xlab("") + 
+ylab('<- Harms     Benefits ->')
+
+
+ggplotly(ggplot(td, aes (x = interaction(name, cause, variable), y = value, fill = variable,
+                         text = paste0('~', name))) + geom_boxplot() + xlab (""), tooltip = c("x", "y", "fill", "text"))
+
+
