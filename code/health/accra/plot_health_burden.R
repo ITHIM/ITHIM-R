@@ -166,6 +166,8 @@ fdata <- list()
 
 d <- readr::read_rds("six_by_five_scenarios_1024.Rds")
 
+loutcome <- "YLLs"
+
 accra_cols <- c("Baseline" = "#e41a1c", 
                 "Scenario 1" = "#377eb8", 
                 "Scenario 2" = "#4daf4a", 
@@ -181,9 +183,6 @@ for (wi in 1:(length(d$uncertain))){
   l <- htmltools::tagList()
   
   cd <- list()
-  
-  loutcome <- "YLLs"
-  
   
   
   for (i in 1:length(d$uncertain[[scen]]$outcomes)){
@@ -241,15 +240,18 @@ ctitle <- ifelse(loutcome == "Deaths", "Averted number of Deaths - compared with
                                    "Reduction in Years of Life Lost (YLL) - compared with Ref Scenario 1")
 
 
-p <- ggplot(combined_data, aes(x = variable, y = value, fill = variable, color = name)) + 
-  geom_boxplot()  +
-  #scale_fill_manual(values = accra_cols)  +
-  theme_minimal()
+p <- ggplot(combined_data, aes(x = cause, y = value, fill = variable, color = name)) + 
+  geom_boxplot(outlier.shape = NA, position=position_dodge(width = 2)) + 
+  scale_fill_manual(values = accra_cols) + 
+  scale_colour_brewer(palette = "Set1") + 
+  facet_grid(. ~ name, scales = "free") + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  xlab("") + 
+  ylab('<- Harms     Benefits ->')
 
 p <- p + labs(title = ctitle) + xlab("") + ylab('<- Harms     Benefits ->') 
 
 print(p)
-
 #print(plotly::as_widget(ggplotly(p, tooltip = c("x", "y", "fill", "text"))))
 
   
