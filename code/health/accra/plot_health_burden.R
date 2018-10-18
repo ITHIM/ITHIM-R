@@ -258,13 +258,56 @@ td <- combined_data
 td$int <- interaction(td$name, td$cause, td$variable)
 #td$int <- factor(td$int, unique(td$int))
 
-ggplot(td, aes(x = cause, y = value, fill = variable, group = int, shape = as.factor(name))) + 
-geom_boxplot(outlier.shape = NA) + 
-scale_fill_manual(values = accra_cols) + 
-theme_minimal() + xlab("") + 
-ylab('<- Harms     Benefits ->')
+ggplotly(ggplot(td, aes(x = cause, y = value, fill = variable, group = interaction(name, cause, variable))) + 
+           geom_boxplot() +
+           scale_fill_manual(values = accra_cols) + 
+           theme_minimal() + xlab("") + 
+           ylab('<- Harms     Benefits ->'))
+
+tds <- td %>% # the names of the new data frame and the data frame to be summarised
+  group_by(name, cause, variable) %>%   # the grouping variable
+  summarise(mv = mean(value),  # calculates the mean of each group
+            sdv = sd(value), # calculates the standard deviation of each group
+            nv = n(),  # calculates the sample size per group
+            SEv = sd(value)/sqrt(n()),
+            ymin = mv - SEv,
+            ymax = mv + SEv) # calculates the standard error of each group
+
+# tds$wi_scen  <- factor(tds$name , levels = c("now",
+#   "less_background_AP",
+#   "less_background_PA",
+#   "more_chronic_disease",
+#   "safer"))
+# 
+# tds <-  tds[order(tds$wi_scen), ]
+
+# tds$cause <- as.factor(tds$cause)
+# 
+# tds$name <- as.factor(tds$name)
+# 
+tds$name <- as.factor(tds$name)
+
+tds$int <- interaction(tds$name, tds$cause, tds$name)
+
+tds <- arrange(tds, name, cause, variable)
+
+#tds$lcol <- factor(tds$name, levels = unique(tds$name), labels = c("blue", "green", "yellow", "orange", "red"))
+#tds$lt <- factor(tds$name, levels = unique(tds$name), labels = c("solid", "dashed", "dotted", "dotdash", "longdash"))
+
+fp <- ggplot(tds, aes(x = cause, y = mv, fill = variable, group = int, ymin = ymin,
+                ymax = ymax,
+                name = name)) +
+                # colt = lcol)) + 
+  geom_bar(stat = 'identity', position = "dodge2", color = 'black') +
+  labs(y="Value ± s.d.", x = "Scenario") + 
+  geom_errorbar(aes(ymin = mv - sdv, ymax = mv + sdv), position = position_dodge(), colour="black") +
+  # scale_linetype_manual(values = rep("solid", 5)) +
+  theme_classic() 
+
+plotly::ggplotly(fp, tooltip = c("x", "y", "fill", "name", "colt"))
 
 
+## Code to use interaction in ggplotly
 ggplotly(ggplot(td, aes (x = interaction(name, cause, variable), y = value, fill = variable,
                          text = paste0('~', name))) + geom_boxplot() + xlab (""), tooltip = c("x", "y", "fill", "text"))
 
