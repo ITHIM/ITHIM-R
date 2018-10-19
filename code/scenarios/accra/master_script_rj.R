@@ -123,7 +123,6 @@ print(evppi)
 ## Use case 4: Application: six behavioural scenarios and five environmental scenarios.
 ## sample size, travel patterns, emissions (cleaner fleet)
 
-numcores <- detectCores()
 environmental_scenarios <- c('now','safer','more_chronic_disease','less_background_AP','less_background_PA')
 certainty_parameters <- list(uncertain=list(
   safey_scalar          = list(now=c(0,log(1.2)),      safer=0.5,                more_chronic_disease=c(0,log(1.2)),      less_background_AP=c(0,log(1.2)),less_background_PA=c(0,log(1.2))),
@@ -131,7 +130,7 @@ certainty_parameters <- list(uncertain=list(
   background_pm         = list(now=c(log(50),log(1.2)),safer=c(log(50),log(1.2)),more_chronic_disease=c(log(50),log(1.2)),less_background_AP=30.625,       less_background_PA=c(log(50),log(1.2))),
   transport_pm          = list(now=c(5,5),             safer=c(5,5),             more_chronic_disease=c(5,5),             less_background_AP=0.3673469,    less_background_PA=c(5,5)),
   background_pa_scalar  = list(now=c(0,log(1.2)),      safer=c(0,log(1.2)),      more_chronic_disease=c(0,log(1.2)),      less_background_AP=c(0,log(1.2)),less_background_PA=0.5),
-  NSAMPLES = 16,
+  NSAMPLES = 1024,
   MEAN_BUS_WALK_TIME = c(log(5), log(1.2)),
   MMET_CYCLING = c(log(5), log(1.2)), 
   MMET_WALKING = c(log(2.5), log(1.2)), 
@@ -155,6 +154,7 @@ file_name <- paste0('six_by_five_scenarios_',certainty_parameters$uncertain$NSAM
 if(file.exists(file_name)){
   ithim_object_list <- readRDS(file_name)
 }else{
+  numcores <- detectCores()
   ithim_object_list <- list()
   for(certainty in c('not_uncertain','uncertain')){
     ithim_object_list[[certainty]] <- list()
