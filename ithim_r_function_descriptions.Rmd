@@ -1,0 +1,321 @@
+---
+title: "ITHIM Functions"
+author: "Daniel Fuller"
+date: '2018-10-22'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## ITHIM R Functions
+
+CAPITAL LETTERS: Background constant that is fixed
+snake_case: all variable names and functions
+
+### Common Abbreviations
+- PA: Physical Activity
+- AP: Air Pollution
+- PM: Particulate Matter? 
+- GDB: Global Burden of Disease
+- HC: ??
+
+### add_walk_time
+
+Description  
+* A function to add walking time to bus trips assuming XYZ
+
+Generic: TRUE or FALSE
+
+Input  
+* 
+
+Output  
+* 
+
+### combine_health_and_pif
+* A function to reorder HC? values and combine those values
+
+Generic: TRUE or FALSE
+
+Input
+*
+
+Output
+* 
+
+### combined_rr_pa_ap
+* A function to join and calculate disease burden for pa and ap? 
+
+Generic: TRUE or FALSE
+
+Input
+* 
+
+Output
+* 
+
+### create_all_scenarios
+* A function to create scenarios for ITHIM model. This functions requires manual input from the user with assumptions. 
+
+Generic: TRUE or FALSE
+
+Input
+* Mode shift assumptions (expressed as %) for at least one mode. 
+
+Output: 
+* Scenario data appended to an updated dataframe with Scenario column identifying each scenario.
+
+### create_scenario
+* A function to create a scenario for ITHIM model. This functions requires manual input from the user with assumptions. 
+
+Generic: TRUE or FALSE
+
+Input
+* Mode shift assumptions (expressed as %) for at least one mode. 
+
+Output: 
+* Scenario data appended to an updated dataframe with Scenario column identifying each scenario.
+
+### dist_dur_tbls
+* A function to create trip distance for the baseline and scenarios
+
+Generic: TRUE or FALSE
+
+Input
+* Data frame from household travel survey data with baseline data and scenarios
+
+Output
+* 
+
+### distances_for_injury_function
+* A function to calculate distances travelled by mode for each scenario using the baseline data
+
+Generic: TRUE or FALSE
+
+Input
+* Data frame from household travel survey data with baseline data and scenarios
+
+Output
+* 1 new column with distances travelled by mode for each scenario
+
+### gen_ap_rr
+* A function to generate health risk ratios for air pollution combining the PA data from the function (total_mmet.R) and the PM2.5 concentration data (scenario_pm_calculations.R) at the individual level
+
+Generic: TRUE or FALSE
+
+Input
+* 
+
+Output
+* 
+
+### gen_pa_rr
+* A function to generate health risk ratios for physical activity
+
+Generic: TRUE or FALSE
+
+Input
+* 
+
+Output
+* 
+
+### health_burden
+* A function to create a reference scenario and to calculate the overall heath burden of the scenarios compared to the reference (!! I think)
+
+Generic: TRUE or FALSE
+
+Input
+* 
+
+Output
+* 
+
+### injuries_function
+* _This is the script for distance-based injury model for Accra using safety-in-numbers_
+
+Generic: FALSE
+
+Input: 
+* 
+
+Output:
+* 
+
+### ithim_load_data
+* A function to load in the necessary data for running an ITHIM model 
+
+* There is also a simple function to calculate the ratio of YLL to deaths for each age and sex group. This should probably be pulled out. 
+
+* There is also a long comment about data structure in there that I think should be adopted.
+
+Generic: TRUE or FALSE
+
+Input
+* 
+
+Output
+* 
+
+### ithim_setup_baseline_scenario
+* A function to create a baseline scenario? or setup the baseline data frame as it should be. Not sure. Baseline dataframe should come from user... ?
+
+Generic: TRUE or FALSE
+
+Input
+* 
+
+Output
+* 
+
+### ithim_setup_parameters
+* A function to setup baseline parameters for the model. Parameters are assigned to the environment and so are set for every function. They are over-written when `sample_parameters` is called. 
+
+Defaults are  
+* MEAN_BUS_WALK_TIME= 5  
+* MMET_CYCLING = 4.63  
+* MMET_WALKING = 2.53  
+* PM_CONC_BASE = 50  
+* PM_TRANS_SHARE = 0.225  
+* PA_DOSE_RESPONSE_QUANTILE = F  
+* AP_DOSE_RESPONSE_QUANTILE = F  
+* BACKGROUND_PA_SCALAR = 1  
+* SAFETY_SCALAR = 1  
+* CHRONIC_DISEASE_SCALAR = 1  
+
+Generic: TRUE or FALSE
+
+Input
+* 
+
+Output
+* 
+
+### ithim_uncertainty
+* A function to with uncertainty, but sure what precisely it does.
+
+Generic: TRUE or FALSE
+
+Input
+* 
+
+Output
+* 
+
+### PA_dose_response
+* A function to define the dose reponse for physical activity and all of the diseases of interest
+
+* all-cause-mortality  
+* breast-cancer  
+* cardiovascular-disease  
+* colon-cancer  
+* coronary-heart-disease   
+* endometrial-cancer  
+* heart-failure  
+* lung-cancer  
+* stroke  
+* total-cancer  
+
+Generic: TRUE or FALSE
+
+Input
+* 
+
+Output
+* 
+
+### PAF
+* A function to hard code the indices to something??
+
+Generic: TRUE or FALSE
+
+Input
+* 
+
+Output
+* 
+
+### parrellel_evppi_for_AP
+* A function that ???
+
+Generic: TRUE or FALSE
+
+Input
+*
+
+Output
+* 
+
+### run_ithim
+* A function that runs the ITHIM model. This function requires all of the data to be in the correct format and for the scenario functions to have been input by the user. 
+
+Generic: TRUE or FALSE
+
+Input
+*
+
+Output
+*
+
+### run_ithim_setup
+* A function that setups up the assumptions for ITHIM and creates the necessary objects. The fixed paramters the user can specify are as follows:
+
+* NSAMPLES = 1
+* modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle")
+* speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25)
+* DIST_CAT = c("0-6 km", "7-9 km", "10+ km")
+* AGE_CATEGORY = c("15-49", "50-69", "70+")
+* MEAN_BUS_WALK_TIME= 5
+* MMET_CYCLING = 4.63
+* MMET_WALKING = 2.53
+* PM_CONC_BASE = 50
+* PM_TRANS_SHARE = 0.225
+* PA_DOSE_RESPONSE_QUANTILE = F
+* AP_DOSE_RESPONSE_QUANTILE = F
+* BACKGROUND_PA_SCALAR = 1
+* SAFETY_SCALAR = 1
+* CHRONIC_DISEASE_SCALAR = 1
+
+Generic: TRUE or FALSE
+
+Input
+*
+
+Output
+*
+
+### scenario_pm_calculations
+* A function that calculates the particular matter concentrations for trips and for each scenario
+
+Generic: TRUE or FALSE
+
+Input
+*
+
+Output
+*
+
+### set_scenario_specific_variable
+* A function that??? 
+
+Generic: TRUE or FALSE
+
+Input
+* 
+
+Output
+* 
+
+### total_mmet
+* A function that calculates the marginal MET values for transport related physical activity for the baseline and the scenarios
+
+Generic: TRUE or FALSE
+
+Input
+* 
+
+Output
+* 
+
