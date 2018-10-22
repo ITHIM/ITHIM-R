@@ -27,14 +27,14 @@ In general ITHIM-R requires `X number of` user defined inputs from various data 
   * Air Pollution 
       * Background concentrations of PM2.5
       * Source apportionment of PM2.5 for vehicles
-      * Vehicle Emission Factors
+      * Country or City specific Vehicle Emissions Factors
       
 #### Synthetic Population
 
-**Description:** The first input you will need to provide is the synthetic population data. This data typically comes from a household travel survey or travel time use survey, and a self-report leisure time physical activity survey. These data will be uses throughout the process. 
+**Description** 
+The first input you will need to provide is the synthetic population data. This data typically comes from a household travel survey or travel time use survey, and a self-report leisure time physical activity survey. These data will be uses throughout the process. 
 
-#### Synthetic Population Dataset format
-
+**Synthetic Population Dataset Format**
 You should have a table with the following variables
 
 * trip_id
@@ -47,15 +47,22 @@ You should have a table with the following variables
 * ltpa_marg_met
 * work_marg_met
 
-Montreal data example
+**Montreal Synthetic Population Dataset Example**
 ```{r}
 
 
 ```
 
+#### Who Hit Who Matrix
 
+**Description**
+TEXT HERE
 
+**Who Hit Who Matrix Dataset Format**
+A matrix 
 
+**Montreal Who Hit Who Matrix Dataset Example**
+TEXT HERE
 
 
 ###
