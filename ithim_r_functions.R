@@ -346,7 +346,7 @@ add_walk_trips <- function(bus_trips, ln_mean, ln_sd){
   walk_trips <- bus_trips
   walk_trips$trip_mode <- 'Short Walking'
   ##RJ all trips have the same MEAN_BUS_WALK_TIME
-  walk_trips$trip_duration <- 5#MEAN_BUS_WALK_TIME#sort(rlnorm(n = nrow(bus_trips), meanlog = log(MEAN_BUS_WALK_TIME), sdlog = log(ln_sd)))
+  walk_trips$trip_duration <- MEAN_BUS_WALK_TIME#sort(rlnorm(n = nrow(bus_trips), meanlog = log(MEAN_BUS_WALK_TIME), sdlog = log(ln_sd)))
   
   # Replace walk trips with duration greater than that of bus needs to be set to 0
   if (nrow(walk_trips[(walk_trips$trip_duration - bus_trips$trip_duration)  > 0,]) > 0)
@@ -787,8 +787,10 @@ scenario_pm_calculations <- function(scen_dist,rd){
   
   ### Calculating number of scenarios besides the baseline
   trans_emissions <- TRANS_EMISSIONS_ORIGINAL
+  ## get distance, multiply by accra emission factor
   ##RJ question for RG: looks like this is using bus travel distance to estimate emissions. Is this right?
-  for (i in 2:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- trans_emissions$base*c(scen_dist[[SCEN[i]]][c(4,4,3,5,2)]/scen_dist[[SCEN[1]]][c(4,4,3,5,2)],1,1,1)
+  #for (i in 2:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- trans_emissions$base*c(scen_dist[[SCEN[i]]][c(4,4,3,5,2)]/scen_dist[[SCEN[1]]][c(4,4,3,5,2)],1,1,1)
+  for (i in 2:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- trans_emissions$base*c(scen_dist[[SCEN[i]]][c(4,4,3,5)]/scen_dist[[SCEN[1]]][c(4,4,3,5)],1,1,1,1)
   #for (i in 1:NSCEN){
   #  trans_emissions[1,p+i] <- trans_emissions$base_emissions[1]*scen_dist[4,n+i]/scen_dist[4,n] ## scenario emissions of 4W1
   #  trans_emissions[2,p+i] <- trans_emissions$base_emissions[2]*scen_dist[4,n+i]/scen_dist[4,n] ## scenario emissions of 4W2 (>2000cc engine size)
@@ -807,7 +809,9 @@ scenario_pm_calculations <- function(scen_dist,rd){
     conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN_SHORT_NAME[i]]])/baseline_sum
   
   ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
-  vent_rates <- LOOKUP_RATIO_PM
+  ##RJ question for RG: what can you describe/explain the look-up ratio?
+  vent_rates <- LOOKUP_RATIO_PM # L / min
+  ## RG will send RJ equation for ratio
   vent_rates$vent_rate[vent_rates$trip_mode=='Bicycle'] <- 10 + 5.0*MMET_CYCLING
   vent_rates$vent_rate[vent_rates$trip_mode%in%c('Walking','Short Walking')] <- 10 + 5.0*MMET_WALKING
   ### following code generates final_data
@@ -815,8 +819,8 @@ scenario_pm_calculations <- function(scen_dist,rd){
     scen_index <- SCEN[i]
     rd_scen <- filter(rd, scenario == scen_index)
     rd_scen <- left_join(rd_scen,vent_rates, "trip_mode")  ## attaching the file with in-vehicle ratio and ventilation rate
-    rd_scen$on_road_air <- rd_scen$trip_duration*rd_scen$vent_rate / 60
-    rd_scen$pm_dose <- rd_scen$on_road_air * rd_scen$ratio * as.numeric(conc_pm[i])
+    rd_scen$on_road_air <- rd_scen$trip_duration*rd_scen$vent_rate / 60 # L
+    rd_scen$pm_dose <- rd_scen$on_road_air * rd_scen$ratio * as.numeric(conc_pm[i]) # mg
     
     ##RJ need to retain ids
     #rd_scen$participant_id <- as.factor(rd_scen$participant_id)
@@ -825,8 +829,8 @@ scenario_pm_calculations <- function(scen_dist,rd){
                                  on_road_pm = sum(pm_dose,na.rm=TRUE), 
                                  air_inhaled = sum(on_road_air,na.rm=TRUE))
     ##RJ question for RG: can you write, in words or equations, what this calculation is doing?
-    non_transport_pm_inhaled <- (24-individual_data$on_road_dur/60)*10
-    individual_data$pm_conc <- ((non_transport_pm_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)/(non_transport_pm_inhaled+individual_data$air_inhaled)
+    non_transport_air_inhaled <- (24-individual_data$on_road_dur/60)*10
+    individual_data$pm_conc <- ((non_transport_air_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)/(non_transport_air_inhaled+individual_data$air_inhaled)
     individual_data <- subset(individual_data, select=c("participant_id", "pm_conc"))
     names(individual_data)[2] <- paste0('pm_conc_',SCEN_SHORT_NAME[i])
      
@@ -1081,6 +1085,7 @@ injuries_function <- function(relative_distances,scen_dist){
   vic_scen_indices <- match(SCEN_SHORT_NAME[dist_scen_indices],colnames(victim_deaths))
   vic_mode_indices <- match(names(relative_distances)[3:7],victim_deaths[,1])
   injuries <- relative_distances
+  ##!! hard-coding of indices
   injuries[,3:7] <- injuries[,3:7]*t(victim_deaths[vic_mode_indices,vic_scen_indices])
   
   injuries[,9] <- rowSums(injuries[,3:7],na.rm=T)
@@ -1210,7 +1215,6 @@ combine_health_and_pif <- function(pop, pif_values, hc=GBD_DATA, hm_cn = 'value_
 
 ithim_uncertainty <- function(ithim_obj,seed=1){ 
   ############################
-  ## (0) SET UP
   for(i in 1:length(ithim_obj))
     assign(names(ithim_obj)[i],ithim_obj[[i]])
   # Get parameters
