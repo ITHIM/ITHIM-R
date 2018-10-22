@@ -1,6 +1,6 @@
 ##RJ question for LG/AA/RG
-## There is already an 'age_cat' in "data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv"
-## Should we remove all the places where we re-define "age_cat", as it's already there?
+## How many 'age_cat's should there be? How should they be defined for the different parts of the model? 
+## E.g., PA has different categories to everything else.
 
 ##RJ question for LG/AA/RG
 ## in lots of places we write
@@ -15,6 +15,7 @@
 
 run_ithim_setup <- function(plotFlag = F,
                             NSAMPLES = 1,
+                            CITY = 'Accra',
                             modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle"),
                             speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25),
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
@@ -55,6 +56,7 @@ run_ithim_setup <- function(plotFlag = F,
   NSAMPLES <<- NSAMPLES
   
   ## MODEL VARIABLES
+  CITY <<- CITY
   MODE_SPEEDS <<- data.frame(trip_mode = modes, speed = speeds, stringsAsFactors = F)
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
@@ -74,6 +76,10 @@ run_ithim_setup <- function(plotFlag = F,
                                                     BACKGROUND_PA_SCALAR,
                                                     SAFETY_SCALAR,
                                                     CHRONIC_DISEASE_SCALAR )
+  
+  if(CITY=='Accra') edit_accra_trips()
+  RD <<- create_synth_pop()
+  
   ##RJ these distance calculations are currently not parameter dependent, which means we can make the calculation outside the function.
   ## We could either integrate them into another external function, or move them to the internal function, so that they can become variable.
   if(!'MEAN_BUS_WALK_TIME'%in%names(ithim_object$parameters)){
@@ -242,10 +248,13 @@ ithim_load_data <- function(){
   }
   
   ## DATA FILES FOR ACCRA
-  ## code/synthetic_population/accra/create_synth_pop.R & files therein for creation of synthetic population
-  RD <<- read_csv("data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv")
+  ind <- read_csv("data/synth_pop_data/accra/raw_data/trips/trips_Accra.csv")
+  ind$participant_id <- as.numeric(as.factor(ind$participant_id))
+  TRIP_SET <<- ind
+  PA_SET <<- read_csv("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
   trans_emissions_file <- read_csv("data/emission calculations accra/transport_emission_inventory_accra.csv")
   names(trans_emissions_file) <- c("vehicle_type", "delhi_fleet_2011", "delhi_fleet_perHH", "accra_fleet_2010", "PM2_5_emiss_fact", "base")
+  ##!! RJ these emissions are scaled from Delhi. They multiply distance and emission factors. We ought to (a) load emission factors, and (b) calculate total distance by mode to replace this.
   TRANS_EMISSIONS_ORIGINAL <<- trans_emissions_file
   lookup_ratio_pm_file <-  read_csv('data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.csv')
   lookup_ratio_pm_file <- dplyr::rename(lookup_ratio_pm_file, trip_mode = Mode)
@@ -282,6 +291,118 @@ ithim_load_data <- function(){
   ## The user specifies either 'accra', if we have the folder 'accra', or the path to a repository containing named files, or a path per file...
 }
 
+edit_accra_trips <- function(){
+  
+  ind <- TRIP_SET
+  nPeople <- 4
+  nTrips <- 3
+  new_mode <- 'Motorcycle'
+  new_gender <- 'Male'
+  distance_range <- c(15,100)
+  
+  new_trips <- data.frame(trip_id = c( (max(ind$trip_id) + 1):(max(ind$trip_id) + (nPeople * nTrips) )), 
+                          trip_mode = new_mode, 
+                          trip_duration = round(runif( (nPeople * nTrips), distance_range[1], distance_range[2])), 
+                          participant_id = rep((max(ind$trip_id)+1):(max(ind$trip_id) + nPeople), nTrips),
+                          age = rep(floor(runif(nPeople, AGE_LOWER_BOUNDS[1], AGE_LOWER_BOUNDS[2])), nTrips),
+                          sex = new_gender)
+  
+  # Add new motorbikes trips to baseline
+  ind <- rbind(ind, new_trips)
+  
+  # Redefine motorcycle mode for a select 14 rows
+  ind$trip_mode[ind$trip_mode=='Other'&ind$trip_duration<60] <- 'Motorcycle'
+  
+  # Multiply ind by 4 to have a bigger number of trips (and ind)
+  ind1 <- ind
+  ind1$participant_id <- ind1$participant_id + max(ind$participant_id)
+  ind1$trip_id <- (max(ind$trip_id) + 1): (max(ind$trip_id) + nrow(ind1))
+  ind <- rbind(ind, ind1)
+  
+  ind1 <- ind
+  ind1$participant_id <- ind1$participant_id + max(ind$participant_id)
+  ind1$trip_id <- (max(ind$trip_id) + 1): (max(ind$trip_id) + nrow(ind1))
+  ind <- rbind(ind, ind1)
+  
+  TRIP_SET <<- ind
+  
+}
+
+create_synth_pop <- function(){
+  #Add physical activity variables to trip dataset.
+  #Leandro Garcia & Ali Abbas.
+  #5 July 2018.
+  
+  # Last Updated by Ali Abbas
+  # Added 32 new motorcyle trips 
+  # Multiplied baseline dataset by 4
+  
+  #Notes:
+  ##trip_mode = '99': persons who did not travel.
+  ##work: job-related physical activity.
+  ##ltpa: leisure-time physical activity.
+  ##mpa: moderate physical activity (3 MET; 2 marginal MET).
+  ##vpa: vigorous physical activity (6 MET; 5 marginal MET).
+  ##duration: units are minutes per day.
+  ##work_ltpa_marg_met: units are marginal MET-h/week.
+  
+  # Create new motorbike trips
+  # Add 4 new people with 3 trips each
+  # Age: 15-59 and gender: male
+  
+  ind <- TRIP_SET
+  
+  #Make age category for ind dataset.
+  # Make age category
+  ##!! assuming more than one age category
+  ind$age_cat <- 0
+  for(i in 2:length(AGE_LOWER_BOUNDS)-1){
+    ind$age_cat[ind$age >= AGE_LOWER_BOUNDS[i] & ind$age < AGE_LOWER_BOUNDS[i+1]] <- AGE_CATEGORY[i]
+  }
+  ind$age_cat[ind$age >= AGE_LOWER_BOUNDS[length(AGE_LOWER_BOUNDS)]] <- AGE_CATEGORY[length(AGE_LOWER_BOUNDS)]
+  ind <- filter(ind, age_cat != AGE_CATEGORY[length(AGE_LOWER_BOUNDS)])
+  
+  ##!! RJ question for AA/LG: why the different age categories?
+  #Make age category for pa dataset.
+  pa <- PA_SET
+  pa <- filter(pa, age < 70)
+  age_category <- c("15-55", "56-69")
+  pa$age_cat <- 0
+  pa$age_cat[pa$age >= 15 & pa$age <= 55] <- age_category[1]
+  pa$age_cat[pa$age > 55 & pa$age < 70] <- age_category[2]
+  
+  #Match persons in the trip (ind) e physical activity datasets.
+  column_to_keep <- which(colnames(pa)%in%c('work_ltpa_marg_met'))
+  unique_ages <- unique(ind$age_cat)
+  unique_genders <- unique(ind$sex)
+  
+  temp <- c()
+  for(age_group in unique_ages){
+    for(gender in unique_genders){
+      i <- unique(subset(ind,age_cat==age_group&sex==gender)$participant_id)
+      pa_age_category <- age_category[which(AGE_CATEGORY==age_group)]
+      matching_people <- filter(pa, age_cat == pa_age_category & sex == gender)[,column_to_keep]
+      v <- (matching_people[sample(nrow(matching_people),length(i),replace=T),])
+      temp <- rbind( temp, cbind(v,i) )
+    }
+  }
+  
+  namevector <- c(colnames(pa)[column_to_keep], "participant_id")
+  colnames(temp) <- namevector
+  temp <- as.data.frame (temp)
+  
+  ind <- left_join(ind, temp, "participant_id")
+  
+  # Convert all int columns to numeric
+  ind[, sapply(ind,class)=='integer'] <- lapply(ind[, sapply(ind,class)=='integer'], as.numeric)
+  
+  ind$trip_id[ind$trip_mode == '99'] <- 0
+  
+  rd <- ind
+  rd
+  
+}
+
 ithim_setup_baseline_scenario <- function(){
   ## SET UP TRAVEL DATA
   rd <- RD
@@ -304,19 +425,20 @@ ithim_setup_baseline_scenario <- function(){
   }
   rd$trip_distance_cat[rd$trip_distance >= DIST_LOWER_BOUNDS[length(DIST_LOWER_BOUNDS)]] <- DIST_CAT[length(DIST_LOWER_BOUNDS)]
   
+  ##RJ should not need to do ages as age_cat already exists in the synthetic population. 70+ people already filtered out also.
   # Make age category
   ##!! assuming more than one age category
-  for(i in 2:length(AGE_LOWER_BOUNDS)-1){
-    rd$age_cat[rd$age >= AGE_LOWER_BOUNDS[i] & rd$age < AGE_LOWER_BOUNDS[i+1]] <- AGE_CATEGORY[i]
-  }
-  rd$age_cat[rd$age > AGE_LOWER_BOUNDS[length(AGE_LOWER_BOUNDS)]] <- AGE_CATEGORY[length(AGE_LOWER_BOUNDS)]
-  
+  #for(i in 2:length(AGE_LOWER_BOUNDS)-1){
+  #  rd$age_cat[rd$age >= AGE_LOWER_BOUNDS[i] & rd$age < AGE_LOWER_BOUNDS[i+1]] <- AGE_CATEGORY[i]
+  #}
+  #rd$age_cat[rd$age >= AGE_LOWER_BOUNDS[length(AGE_LOWER_BOUNDS)]] <- AGE_CATEGORY[length(AGE_LOWER_BOUNDS)]
   # Remove all participants greater than 70 years of age
   ##!! 
-  rd <- filter(rd, age_cat != AGE_CATEGORY[length(AGE_LOWER_BOUNDS)])
+  #rd <- filter(rd, age_cat != AGE_CATEGORY[length(AGE_LOWER_BOUNDS)])
   
   rd$scenario <- "Baseline"
   
+  ##RJ question for AA: do we want to add walking to train?
   bus_walk_trips <- add_walk_trips(filter(rd, trip_mode == "Bus"), ln_mean = MEAN_BUS_WALK_TIME, ln_sd = 1.2)
   
   rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_walk_trips[[1]]$rid,]$trip_duration <- bus_walk_trips[[1]]$trip_duration
@@ -809,9 +931,8 @@ scenario_pm_calculations <- function(scen_dist,rd){
     conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN_SHORT_NAME[i]]])/baseline_sum
   
   ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
-  ##RJ question for RG: what can you describe/explain the look-up ratio?
   vent_rates <- LOOKUP_RATIO_PM # L / min
-  ## RG will send RJ equation for ratio
+  ## RG will send RJ equation for ratio, which is the ratio of pm inhalation on road relative to off road (1). This value depends on the total background pm.
   vent_rates$vent_rate[vent_rates$trip_mode=='Bicycle'] <- 10 + 5.0*MMET_CYCLING
   vent_rates$vent_rate[vent_rates$trip_mode%in%c('Walking','Short Walking')] <- 10 + 5.0*MMET_WALKING
   ### following code generates final_data
