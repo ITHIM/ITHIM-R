@@ -222,6 +222,7 @@ ithim_load_data <- function(){
   }
   
   ## DATA FILES FOR ACCRA
+  ## code/synthetic_population/accra/create_synth_pop.R & files therein for creation of synthetic population
   RD <<- read_csv("data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv")
   trans_emissions_file <- read_csv("data/emission calculations accra/transport_emission_inventory_accra.csv")
   names(trans_emissions_file) <- c("vehicle_type", "delhi_fleet_2011", "delhi_fleet_perHH", "accra_fleet_2010", "PM2_5_emiss_fact", "base")
@@ -275,18 +276,24 @@ ithim_setup_baseline_scenario <- function(){
   rd$trip_distance <- (rd$trip_duration / 60) * rd$speed
   
   # Initialize them
+  ## Distance categories are used in scenario generation. They correspond to e.g. ``long trips'' and ``short trips''
   rd$trip_distance_cat <- 0
-  rd$trip_distance_cat[rd$trip_distance > 0 & rd$trip_distance < DIST_LOWER_BOUNDS[2]] <- DIST_CAT[1]
-  rd$trip_distance_cat[rd$trip_distance >= DIST_LOWER_BOUNDS[2] & rd$trip_distance < DIST_LOWER_BOUNDS[3]] <- DIST_CAT[2]
-  rd$trip_distance_cat[rd$trip_distance >= DIST_LOWER_BOUNDS[3]] <- DIST_CAT[3]
+  ##!! assuming more than one distance category
+  for(i in 2:length(DIST_LOWER_BOUNDS)-1){
+    rd$trip_distance_cat[rd$trip_distance >= DIST_LOWER_BOUNDS[i] & rd$trip_distance < DIST_LOWER_BOUNDS[i+1]] <- DIST_CAT[i]
+  }
+  rd$trip_distance_cat[rd$trip_distance >= DIST_LOWER_BOUNDS[length(DIST_LOWER_BOUNDS)]] <- DIST_CAT[length(DIST_LOWER_BOUNDS)]
   
   # Make age category
-  rd$age_cat[rd$age >= AGE_LOWER_BOUNDS[1] & rd$age < AGE_LOWER_BOUNDS[2]] <- AGE_CATEGORY[1]
-  rd$age_cat[rd$age >= AGE_LOWER_BOUNDS[2] & rd$age <= AGE_LOWER_BOUNDS[3]] <- AGE_CATEGORY[2]
-  rd$age_cat[rd$age > AGE_LOWER_BOUNDS[3]] <- AGE_CATEGORY[3]
+  ##!! assuming more than one age category
+  for(i in 2:length(AGE_LOWER_BOUNDS)-1){
+    rd$age_cat[rd$age >= AGE_LOWER_BOUNDS[i] & rd$age < AGE_LOWER_BOUNDS[i+1]] <- AGE_CATEGORY[i]
+  }
+  rd$age_cat[rd$age > AGE_LOWER_BOUNDS[length(AGE_LOWER_BOUNDS)]] <- AGE_CATEGORY[length(AGE_LOWER_BOUNDS)]
   
   # Remove all participants greater than 70 years of age
-  rd <- filter(rd, age_cat != AGE_CATEGORY[3])
+  ##!! 
+  rd <- filter(rd, age_cat != AGE_CATEGORY[length(AGE_LOWER_BOUNDS)])
   
   rd$scenario <- "Baseline"
   
