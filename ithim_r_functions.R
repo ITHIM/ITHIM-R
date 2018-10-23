@@ -913,15 +913,21 @@ scenario_pm_calculations <- function(scen_dist,rd){
   # concentration contributed by non-transport share (remains constant across the scenarios)
   non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
   
-  ### Calculating number of scenarios besides the baseline
-  trans_emissions <- list() #TRANS_EMISSIONS_ORIGINAL
   ##!! DISTANCE_FOR_EMISSIONS should be replaced by a sum over travel in the synthetic population
-  ## Further, the car distance needs to be separated into 4w1, 4W2 and taxi, should those have different emission factors.
-  trans_emissions$base <- EMISSION_FACTORS$PM2_5_emiss_fact * DISTANCE_FOR_EMISSIONS$accra_distances
-  ## get distance, multiply by accra emission factor
-  ##RJ question for RG: looks like this is using bus travel distance to estimate emissions. Is this right?
-  #for (i in 2:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- trans_emissions$base*c(scen_dist[[SCEN[i]]][c(4,4,3,5,2)]/scen_dist[[SCEN[1]]][c(4,4,3,5,2)],1,1,1)
-  for (i in 2:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- trans_emissions$base*c(scen_dist[[SCEN[i]]][c(4,4,3,5)]/scen_dist[[SCEN[1]]][c(4,4,3,5)],1,1,1,1)
+  ##!! hack for accra
+  temp_distance <- list()
+  # get scenario distance relative to baseline
+  for (i in 1:6) temp_distance[[SCEN_SHORT_NAME[i]]] <- scen_dist[[SCEN[i]]]/scen_dist[[SCEN[1]]]
+  # re-order modes to match emission factors: 4W1, 4W2, 2W, Taxi
+  for (i in 1:6) temp_distance[[SCEN_SHORT_NAME[i]]] <- temp_distance[[SCEN_SHORT_NAME[i]]][c(4,4,3,5)]
+  # append four units for bus, HDT, LDT and other, which do not change
+  for (i in 1:6) temp_distance[[SCEN_SHORT_NAME[i]]] <- c(temp_distance[[SCEN_SHORT_NAME[i]]],rep(1,4))
+  # multiply by distances for emissions (Accra)
+  for (i in 1:6) temp_distance[[SCEN_SHORT_NAME[i]]] <- temp_distance[[SCEN_SHORT_NAME[i]]]*DISTANCE_FOR_EMISSIONS$accra_distances
+  
+  trans_emissions <- list() #TRANS_EMISSIONS_ORIGINAL
+  ## multiply distance by emission factor
+  for (i in 1:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- EMISSION_FACTORS$PM2_5_emiss_fact * temp_distance[[SCEN_SHORT_NAME[i]]]
   
   baseline_sum <- sum(trans_emissions[[SCEN_SHORT_NAME[1]]])
   conc_pm <- c()
@@ -929,20 +935,22 @@ scenario_pm_calculations <- function(scen_dist,rd){
     conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN_SHORT_NAME[i]]])/baseline_sum
   
   ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
-  vent_rates <- data.frame(trip_mode=c('Taxi','Private Car','Walking','Motorcycle','Bicycle','Bus','Short Walking'),stringsAsFactors = F) 
+  vent_rates <- data.frame(trip_mode=MODE_SPEEDS$trip_mode,stringsAsFactors = F) 
   vent_rates$vent_rate <- BASE_LEVEL_INHALATION_RATE # L / min
   vent_rates$vent_rate[vent_rates$trip_mode=='Bicycle'] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_CYCLING
   vent_rates$vent_rate[vent_rates$trip_mode%in%c('Walking','Short Walking')] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_WALKING
   
   ##RJ rewriting exposure ratio as function of ambient PM2.5, as in Goel et al 2015
   ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE (10), CLOSED_WINDOW_PM_RATIO (0.5), CLOSED_WINDOW_RATIO (0.5), ROAD_RATIO_MAX (3.216), ROAD_RATIO_SLOPE (0.379)
+  ##RJ question for RG: should this function account for PM_TRANS_SHARE?
   on_road_off_road_ratio <- ROAD_RATIO_MAX - ROAD_RATIO_SLOPE*log(conc_pm)
+  ##RJ question for RG: why is 'in car' twice better than 'away from road'?
   in_vehicle_ratio <- (1-CLOSED_WINDOW_RATIO)*on_road_off_road_ratio + CLOSED_WINDOW_RATIO*CLOSED_WINDOW_PM_RATIO # averaging over windows open and windows closed
   ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio)
   
   vent_rates$vehicle_ratio_index <- sapply(vent_rates$trip_mode,function(x) ifelse(x%in%c('Walking','Short Walking','Bicycle'),1,2))
   
-  rd <- subset(rd,trip_mode%in%vent_rates$trip_mode)
+  rd <- subset(rd,trip_mode%in%c(vent_rates$trip_mode,99))
   rd <- left_join(rd,vent_rates, "trip_mode")  
   
   ### following code generates final_data
@@ -972,7 +980,7 @@ scenario_pm_calculations <- function(scen_dist,rd){
   }
   
   #####PM normalise
-  
+  ##RJ question for RG: why normalise?
   mean_conc <- rep(0,length(SCEN_SHORT_NAME))
   
   ## calculating means of individual-level concentrations
@@ -1183,6 +1191,7 @@ injuries_function <- function(relative_distances,scen_dist){
   ### This is the script for distance-based injury model for Accra using safety-in-numbers
   
   ##RJ match exponents and distances to multiply matrices
+  ## TO DO: regression model with reporting rate 1/3 -- 1. Therefore, fix safety scalar to be either 0.5 or 1.
   whw_mat2 <- list()
   whw_mat <- data.frame(WHW_MAT)
   vic_order <- whw_mat[,1]
