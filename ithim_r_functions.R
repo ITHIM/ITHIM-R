@@ -62,6 +62,11 @@ run_ithim_setup <- function(plotFlag = F,
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
   AGE_CATEGORY <<- AGE_CATEGORY
   AGE_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(AGE_CATEGORY, "[^0-9]+"), function(x) x[1]))
+  BASE_LEVEL_INHALATION_RATE <<- 10
+  CLOSED_WINDOW_PM_RATIO <<- 0.5
+  CLOSED_WINDOW_RATIO <<- 0.5
+  ROAD_RATIO_MAX <<- 3.216
+  ROAD_RATIO_SLOPE <<- 0.379
   
   ithim_load_data()
   
@@ -246,7 +251,7 @@ ithim_load_data <- function(){
            read_csv(list_of_files[[i]]),
            pos = 1)
   }
-  ##!! Emission factors should depend on the regulatory standards of the setting at the time. This applies to Accra, Delhi.
+  ##!! Emission factors should depend on the regulatory standards of the setting at the time. This file applies to Accra, Delhi. Would not apply to current HI settings.
   EMISSION_FACTORS <<- readRDS('~/overflow_dropbox/ITHIM-R/data/emission calculations accra/emission_factors.Rds')
   
   ## DATA FILES FOR ACCRA
@@ -260,9 +265,6 @@ ithim_load_data <- function(){
   #TRANS_EMISSIONS_ORIGINAL <<- trans_emissions_file
   ##!! This item should be replaced by the sum from travel in the synthetic population
   DISTANCE_FOR_EMISSIONS <<- readRDS('~/overflow_dropbox/ITHIM-R/data/emission calculations accra/accra_distances_for_emissions.Rds')
-  lookup_ratio_pm_file <-  read_csv('data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.csv')
-  lookup_ratio_pm_file <- dplyr::rename(lookup_ratio_pm_file, trip_mode = Mode)
-  LOOKUP_RATIO_PM <<- lookup_ratio_pm_file
   ##!! RJ question for AA/RG: this line creates a warning:
   ## Missing column names filled in: 'X1' [1] 
   ## Can it be fixed?
@@ -283,13 +285,13 @@ ithim_load_data <- function(){
   ##   Dose--response data (data/drpa/extdata/ and dose_response_AP.csv)
   ##   "disease dependencies" (disease_outcomes_lookup.csv)
   ##   Injury distance exponents (code/injuries/data/sin_coefficients_pairs.csv)
-  ##   ventilation ratios (data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.csv)
   ##   GBD (data/demographics/gbd/accra/GBD Accra.csv)
+  ##   Emission factors ('~/overflow_dropbox/ITHIM-R/data/emission calculations accra/emission_factors.Rds')
   ## these data are loaded automatically with library(ITHIMR), so we don't need to code them up here at all.
   ## in 'local', we have
-  ##   accra, which contains
-  ##       RD (data/synth_pop_data/accra/travel_survey/synthetic_population_with_trips.csv)
-  ##       emissions (data/emission calculations accra/transport_emission_inventory_accra.csv)
+  ##   Accra, which contains
+  ##       Trip-level survey ("data/synth_pop_data/accra/raw_data/trips/trips_Accra.csv")
+  ##       Physical activity data ("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
   ##       WHW matrix (code/injuries/accra/who_hit_who_accra.csv)
   ## these files are loaded when ITHIM-R is run. 
   ## The user specifies either 'accra', if we have the folder 'accra', or the path to a repository containing named files, or a path per file...
@@ -914,22 +916,12 @@ scenario_pm_calculations <- function(scen_dist,rd){
   ### Calculating number of scenarios besides the baseline
   trans_emissions <- list() #TRANS_EMISSIONS_ORIGINAL
   ##!! DISTANCE_FOR_EMISSIONS should be replaced by a sum over travel in the synthetic population
-  trans_emissions$base <- EMISSION_FACTORS$PM2_5_emiss_fact*DISTANCE_FOR_EMISSIONS$accra_distances
+  ## Further, the car distance needs to be separated into 4w1, 4W2 and taxi, should those have different emission factors.
+  trans_emissions$base <- EMISSION_FACTORS$PM2_5_emiss_fact * DISTANCE_FOR_EMISSIONS$accra_distances
   ## get distance, multiply by accra emission factor
   ##RJ question for RG: looks like this is using bus travel distance to estimate emissions. Is this right?
   #for (i in 2:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- trans_emissions$base*c(scen_dist[[SCEN[i]]][c(4,4,3,5,2)]/scen_dist[[SCEN[1]]][c(4,4,3,5,2)],1,1,1)
   for (i in 2:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- trans_emissions$base*c(scen_dist[[SCEN[i]]][c(4,4,3,5)]/scen_dist[[SCEN[1]]][c(4,4,3,5)],1,1,1,1)
-  #for (i in 1:NSCEN){
-  #  trans_emissions[1,p+i] <- trans_emissions$base_emissions[1]*scen_dist[4,n+i]/scen_dist[4,n] ## scenario emissions of 4W1
-  #  trans_emissions[2,p+i] <- trans_emissions$base_emissions[2]*scen_dist[4,n+i]/scen_dist[4,n] ## scenario emissions of 4W2 (>2000cc engine size)
-  #  trans_emissions[3,p+i] <- trans_emissions$base_emissions[3]*scen_dist[3,n+i]/scen_dist[3,n] ## scenario emissions of 2W
-  #  trans_emissions[4,p+i] <- trans_emissions$base_emissions[4]*scen_dist[5,n+i]/scen_dist[5,n] ## scenario emissions of Taxi
-  #  trans_emissions[5,p+i] <- trans_emissions$base_emissions[5]*scen_dist[2,n+i]/scen_dist[2,n] ## scenario emissions of bus
-  #  trans_emissions[6,p+i] <- trans_emissions$base_emissions[6]*1 ## scenario emissions of trucks
-  #  trans_emissions[7,p+i] <- trans_emissions$base_emissions[7]*1 ## scenario emissions of trucks
-  #  trans_emissions[8,p+i] <- trans_emissions$base_emissions[8]*1 ## scenario emissions of trucks
-  #  names(trans_emissions)[p+i] <-(paste("scen",i,"_emissions", sep=""))
-  #}
   
   baseline_sum <- sum(trans_emissions[[SCEN_SHORT_NAME[1]]])
   conc_pm <- c()
@@ -937,17 +929,28 @@ scenario_pm_calculations <- function(scen_dist,rd){
     conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN_SHORT_NAME[i]]])/baseline_sum
   
   ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
-  vent_rates <- LOOKUP_RATIO_PM # L / min
-  ## RG will send RJ equation for ratio, which is the ratio of pm inhalation on road relative to off road (1). This value depends on the total background pm.
-  vent_rates$vent_rate[vent_rates$trip_mode=='Bicycle'] <- 10 + 5.0*MMET_CYCLING
-  vent_rates$vent_rate[vent_rates$trip_mode%in%c('Walking','Short Walking')] <- 10 + 5.0*MMET_WALKING
+  vent_rates <- data.frame(trip_mode=c('Taxi','Private Car','Walking','Motorcycle','Bicycle','Bus','Short Walking'),stringsAsFactors = F) 
+  vent_rates$vent_rate <- BASE_LEVEL_INHALATION_RATE # L / min
+  vent_rates$vent_rate[vent_rates$trip_mode=='Bicycle'] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_CYCLING
+  vent_rates$vent_rate[vent_rates$trip_mode%in%c('Walking','Short Walking')] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_WALKING
+  
+  ##RJ rewriting exposure ratio as function of ambient PM2.5, as in Goel et al 2015
+  ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE, CLOSED_WINDOW_PM_RATIO, CLOSED_WINDOW_RATIO, ROAD_RATIO_MAX, ROAD_RATIO_SLOPE
+  on_road_off_road_ratio <- ROAD_RATIO_MAX-ROAD_RATIO_SLOPE*log(conc_pm)
+  in_vehicle_ratio <- (1-CLOSED_WINDOW_RATIO)*on_road_off_road_ratio + CLOSED_WINDOW_RATIO*CLOSED_WINDOW_PM_RATIO # averaging over windows open and windows closed
+  ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio)
+  
+  vent_rates$vehicle_ratio_index <- sapply(vent_rates$trip_mode,function(x) ifelse(x%in%c('Walking','Short Walking','Bicycle'),1,2))
+  
+  rd <- subset(rd,trip_mode%in%vent_rates$trip_mode)
+  rd <- left_join(rd,vent_rates, "trip_mode")  
+  
   ### following code generates final_data
   for (i in 1:length(SCEN)){
     scen_index <- SCEN[i]
     rd_scen <- filter(rd, scenario == scen_index)
-    rd_scen <- left_join(rd_scen,vent_rates, "trip_mode")  ## attaching the file with in-vehicle ratio and ventilation rate
     rd_scen$on_road_air <- rd_scen$trip_duration*rd_scen$vent_rate / 60 # L
-    rd_scen$pm_dose <- rd_scen$on_road_air * rd_scen$ratio * as.numeric(conc_pm[i]) # mg
+    rd_scen$pm_dose <- rd_scen$on_road_air * ratio_by_mode[rd_scen$vehicle_ratio_index,i] * as.numeric(conc_pm[i]) # mg
     
     ##RJ need to retain ids
     #rd_scen$participant_id <- as.factor(rd_scen$participant_id)
@@ -955,8 +958,8 @@ scenario_pm_calculations <- function(scen_dist,rd){
     individual_data <- summarise(group_by(rd_scen,participant_id),on_road_dur = sum(trip_duration,na.rm=TRUE), 
                                  on_road_pm = sum(pm_dose,na.rm=TRUE), 
                                  air_inhaled = sum(on_road_air,na.rm=TRUE))
-    ##RJ question for RG: can you write, in words or equations, what this calculation is doing?
-    non_transport_air_inhaled <- (24-individual_data$on_road_dur/60)*10
+    ## PM2.5 inhalation = total mg inhaled / total volume inhaled
+    non_transport_air_inhaled <- (24-individual_data$on_road_dur/60)*BASE_LEVEL_INHALATION_RATE
     individual_data$pm_conc <- ((non_transport_air_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)/(non_transport_air_inhaled+individual_data$air_inhaled)
     individual_data <- subset(individual_data, select=c("participant_id", "pm_conc"))
     names(individual_data)[2] <- paste0('pm_conc_',SCEN_SHORT_NAME[i])
