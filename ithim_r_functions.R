@@ -935,8 +935,8 @@ scenario_pm_calculations <- function(scen_dist,rd){
   vent_rates$vent_rate[vent_rates$trip_mode%in%c('Walking','Short Walking')] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_WALKING
   
   ##RJ rewriting exposure ratio as function of ambient PM2.5, as in Goel et al 2015
-  ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE, CLOSED_WINDOW_PM_RATIO, CLOSED_WINDOW_RATIO, ROAD_RATIO_MAX, ROAD_RATIO_SLOPE
-  on_road_off_road_ratio <- ROAD_RATIO_MAX-ROAD_RATIO_SLOPE*log(conc_pm)
+  ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE (10), CLOSED_WINDOW_PM_RATIO (0.5), CLOSED_WINDOW_RATIO (0.5), ROAD_RATIO_MAX (3.216), ROAD_RATIO_SLOPE (0.379)
+  on_road_off_road_ratio <- ROAD_RATIO_MAX - ROAD_RATIO_SLOPE*log(conc_pm)
   in_vehicle_ratio <- (1-CLOSED_WINDOW_RATIO)*on_road_off_road_ratio + CLOSED_WINDOW_RATIO*CLOSED_WINDOW_PM_RATIO # averaging over windows open and windows closed
   ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio)
   
@@ -1285,7 +1285,7 @@ health_burden <- function(ind,inj){
     gbd_ylls_disease <- subset(gbd_ylls,cause==gbd_dn)
     # set up pif tables
     pif_ref <-
-      PAF(pop = ind[, colnames(ind) %in% c(base_var, 'sex', 'age_cat')], cn = base_var, mat =
+      population_attributable_fraction(pop = ind[, colnames(ind) %in% c(base_var, 'sex', 'age_cat')], cn = base_var, mat =
             pop_details)
     yll_ref <-
       combine_health_and_pif(pop = pop_details,
@@ -1304,7 +1304,7 @@ health_burden <- function(ind,inj){
       deaths_name <- paste0(scen, '_deaths_',middle_bit,ac)
       #deaths_red_name <- paste0(scen, '_deaths_red_',middle_bit,ac)
       # Calculate PIFs for selected scenario
-      pif_temp <- PAF(pop = ind[,colnames(ind)%in%c(scen_var,'sex', 'age_cat')], cn = scen_var, mat=pop_details)
+      pif_temp <- population_attributable_fraction(pop = ind[,colnames(ind)%in%c(scen_var,'sex', 'age_cat')], cn = scen_var, mat=pop_details)
       pif_scen <- (pif_ref - pif_temp) / pif_ref
       # Calculate ylls (total and red)
       yll_dfs <- combine_health_and_pif(pop=pop_details,pif_values=pif_scen, hc = gbd_ylls_disease)
@@ -1327,7 +1327,7 @@ health_burden <- function(ind,inj){
   list(deaths=deaths,ylls=ylls)
 }
 
-PAF <- function(pop, cn, mat){
+population_attributable_fraction <- function(pop, cn, mat){
   ##!! hard coding of indices: 1=sex, 2=age or age_cat
   paf <- apply(mat,1,function(x)sum(pop[[cn]][pop[[1]]==x[1]&pop[[2]]==x[2]]))
   paf
