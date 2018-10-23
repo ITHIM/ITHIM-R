@@ -246,16 +246,20 @@ ithim_load_data <- function(){
            read_csv(list_of_files[[i]]),
            pos = 1)
   }
+  ##!! Emission factors should depend on the regulatory standards of the setting at the time. This applies to Accra, Delhi.
+  EMISSION_FACTORS <<- readRDS('~/overflow_dropbox/ITHIM-R/data/emission calculations accra/emission_factors.Rds')
   
   ## DATA FILES FOR ACCRA
   ind <- read_csv("data/synth_pop_data/accra/raw_data/trips/trips_Accra.csv")
   ind$participant_id <- as.numeric(as.factor(ind$participant_id))
   TRIP_SET <<- ind
   PA_SET <<- read_csv("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
-  trans_emissions_file <- read_csv("data/emission calculations accra/transport_emission_inventory_accra.csv")
-  names(trans_emissions_file) <- c("vehicle_type", "delhi_fleet_2011", "delhi_fleet_perHH", "accra_fleet_2010", "PM2_5_emiss_fact", "base")
+  #trans_emissions_file <- read_csv("data/emission calculations accra/transport_emission_inventory_accra.csv")
+  #names(trans_emissions_file) <- c("vehicle_type", "delhi_fleet_2011", "delhi_fleet_perHH", "accra_fleet_2010", "PM2_5_emiss_fact", "base")
   ##!! RJ these emissions are scaled from Delhi. They multiply distance and emission factors. We ought to (a) load emission factors, and (b) calculate total distance by mode to replace this.
-  TRANS_EMISSIONS_ORIGINAL <<- trans_emissions_file
+  #TRANS_EMISSIONS_ORIGINAL <<- trans_emissions_file
+  ##!! This item should be replaced by the sum from travel in the synthetic population
+  DISTANCE_FOR_EMISSIONS <<- readRDS('~/overflow_dropbox/ITHIM-R/data/emission calculations accra/accra_distances_for_emissions.Rds')
   lookup_ratio_pm_file <-  read_csv('data/synth_pop_data/accra/pollution/pm_exposure_ratio_look_up.csv')
   lookup_ratio_pm_file <- dplyr::rename(lookup_ratio_pm_file, trip_mode = Mode)
   LOOKUP_RATIO_PM <<- lookup_ratio_pm_file
@@ -908,7 +912,9 @@ scenario_pm_calculations <- function(scen_dist,rd){
   non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
   
   ### Calculating number of scenarios besides the baseline
-  trans_emissions <- TRANS_EMISSIONS_ORIGINAL
+  trans_emissions <- list() #TRANS_EMISSIONS_ORIGINAL
+  ##!! DISTANCE_FOR_EMISSIONS should be replaced by a sum over travel in the synthetic population
+  trans_emissions$base <- EMISSION_FACTORS$PM2_5_emiss_fact*DISTANCE_FOR_EMISSIONS$accra_distances
   ## get distance, multiply by accra emission factor
   ##RJ question for RG: looks like this is using bus travel distance to estimate emissions. Is this right?
   #for (i in 2:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- trans_emissions$base*c(scen_dist[[SCEN[i]]][c(4,4,3,5,2)]/scen_dist[[SCEN[1]]][c(4,4,3,5,2)],1,1,1)
