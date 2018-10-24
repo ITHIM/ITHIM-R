@@ -26,4 +26,7 @@ mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we
 color.legend(5.5,0,5.5+0.3,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
 
 evppi.m <- reshape2::melt(evppi)
-evppi.m %>% ggplot(aes(Var1, Var2, fill = value)) + geom_tile() + coord_flip()
+p <- evppi.m %>% ggplot(aes(Var1, Var2, fill = value)) + geom_tile() + coord_flip() +
+ scale_fill_gradient2(low = "orange", high = "red", limits = c(0, 100), breaks = c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100))
+p
+ggplotly(p)
