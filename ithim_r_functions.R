@@ -270,7 +270,7 @@ ithim_load_data <- function(){
   ## Missing column names filled in: 'X1' [1] 
   ## Can it be fixed?
   WHW_MAT <<- suppressWarnings(read_csv('code/injuries/accra/who_hit_who_accra.csv'))
-  INJURIES <<- readRDS('code/injuries/accra_injuries_long.Rds')
+  INJURIES <<- readRDS('code/injuries/data/accra_injuries_long.Rds')
   ## DESCRIPTION OF INJURIES
   # has one row per event (fatality)
   # has colnames event_id, year, cas_mode, strike_mode, cas_age, cas_gender
