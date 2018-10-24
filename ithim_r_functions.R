@@ -57,6 +57,7 @@ run_ithim_setup <- function(plotFlag = F,
   
   ## MODEL VARIABLES
   CITY <<- CITY
+  TRAVEL_MODES <<- modes
   MODE_SPEEDS <<- data.frame(trip_mode = modes, speed = speeds, stringsAsFactors = F)
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
@@ -252,7 +253,7 @@ ithim_load_data <- function(){
            pos = 1)
   }
   ##!! Emission factors should depend on the regulatory standards of the setting at the time. This file applies to Accra, Delhi. Would not apply to current HI settings.
-  EMISSION_FACTORS <<- readRDS('~/overflow_dropbox/ITHIM-R/data/emission calculations accra/emission_factors.Rds')
+  EMISSION_FACTORS <<- readRDS('data/emission calculations accra/emission_factors.Rds')
   
   ## DATA FILES FOR ACCRA
   ind <- read_csv("data/synth_pop_data/accra/raw_data/trips/trips_Accra.csv")
@@ -264,11 +265,23 @@ ithim_load_data <- function(){
   ##!! RJ these emissions are scaled from Delhi. They multiply distance and emission factors. We ought to (a) load emission factors, and (b) calculate total distance by mode to replace this.
   #TRANS_EMISSIONS_ORIGINAL <<- trans_emissions_file
   ##!! This item should be replaced by the sum from travel in the synthetic population
-  DISTANCE_FOR_EMISSIONS <<- readRDS('~/overflow_dropbox/ITHIM-R/data/emission calculations accra/accra_distances_for_emissions.Rds')
+  DISTANCE_FOR_EMISSIONS <<- readRDS('data/emission calculations accra/accra_distances_for_emissions.Rds')
   ##!! RJ question for AA/RG: this line creates a warning:
   ## Missing column names filled in: 'X1' [1] 
   ## Can it be fixed?
   WHW_MAT <<- suppressWarnings(read_csv('code/injuries/accra/who_hit_who_accra.csv'))
+  INJURIES <<- readRDS('code/injuries/data/accra_injuries_long.Rds')
+  ## DESCRIPTION OF INJURIES
+  # has one row per event (fatality)
+  # has colnames event_id, year, cas_mode, strike_mode, cas_age, cas_gender
+  # classes are character for 'factors' and numeric for age and year
+  # levels for cas_mode must match those modes used throughout, defined in TRAVEL_MODES. E.g. for Accra we re-label 'mini' as 'Bus'
+  # levels for strike_mode that match TRAVEL_MODES will be used in a distance-based regression
+  # levels for strike_mode that aren't in TRAVEL_MODES will be used in a distance-independent regression
+  # levels in cas_gender must match the sex/gender levels provided elsewhere e.g. in TRIP_SET
+  # colnames year, cas_mode, strike_mode, cas_age, cas_gender are used to form a contingency table
+  # cas_mode, strike_mode, cas_age, cas_gender are used in the regression model
+  # in future, we can add other covariates
   GBD_DATA <<- read_csv('data/demographics/gbd/accra/GBD Accra.csv')
   gbd_injuries <- GBD_DATA[which(GBD_DATA$cause == "Road injuries"),]
   gbd_injuries$sex_age <- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
@@ -286,7 +299,7 @@ ithim_load_data <- function(){
   ##   "disease dependencies" (disease_outcomes_lookup.csv)
   ##   Injury distance exponents (code/injuries/data/sin_coefficients_pairs.csv)
   ##   GBD (data/demographics/gbd/accra/GBD Accra.csv)
-  ##   Emission factors ('~/overflow_dropbox/ITHIM-R/data/emission calculations accra/emission_factors.Rds')
+  ##   Emission factors ('data/emission calculations accra/emission_factors.Rds')
   ## these data are loaded automatically with library(ITHIMR), so we don't need to code them up here at all.
   ## in 'local', we have
   ##   Accra, which contains
@@ -747,6 +760,7 @@ distances_for_injury_function <- function(rd){
   distances$Car <- distances$Taxi + distances$`Private Car`
   distances <- distances[, -which(names(distances) ==  "Private Car")]
   distances <- distances[, -which(names(distances) ==  "Taxi")]
+  true_distances <- distances
   scen_dist <- sapply(1:(NSCEN+1),function(x)c(colSums(subset(distances,scenario == SCEN[x])[,4:8])))
   colnames(scen_dist) <- SCEN_SHORT_NAME
   for(i in 2:6) scen_dist[,i] <- scen_dist[,i]/scen_dist[,1] 
@@ -761,7 +775,7 @@ distances_for_injury_function <- function(rd){
   relative_distances$sex_age <-  paste0(relative_distances$sex,"_",relative_distances$age_cat)
   relative_distances <- relative_distances[,-c(which(names(relative_distances) == 'sex'))]
   
-  list(relative_distances=relative_distances,scen_dist=scen_dist)
+  list(relative_distances=relative_distances,scen_dist=scen_dist,true_distances=true_distances)
 }
 
 dist_dur_tbls <- function(bs){
@@ -913,15 +927,21 @@ scenario_pm_calculations <- function(scen_dist,rd){
   # concentration contributed by non-transport share (remains constant across the scenarios)
   non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
   
-  ### Calculating number of scenarios besides the baseline
+  ##!! temp_distance should be replaced by a sum over travel in the synthetic population. DISTANCE_FOR_EMISSIONS should be removed.
+  ##!! hack for accra
+  temp_distance <- list()
+  # get scenario distance relative to baseline
+  for (i in 1:6) temp_distance[[SCEN_SHORT_NAME[i]]] <- scen_dist[[SCEN[i]]]/scen_dist[[SCEN[1]]]
+  # re-order modes to match emission factors: 4W1, 4W2, 2W, Taxi
+  for (i in 1:6) temp_distance[[SCEN_SHORT_NAME[i]]] <- temp_distance[[SCEN_SHORT_NAME[i]]][c(4,4,3,5)]
+  # append four units for bus, HDT, LDT and other, which do not change
+  for (i in 1:6) temp_distance[[SCEN_SHORT_NAME[i]]] <- c(temp_distance[[SCEN_SHORT_NAME[i]]],rep(1,4))
+  # multiply by distances for emissions (Accra)
+  for (i in 1:6) temp_distance[[SCEN_SHORT_NAME[i]]] <- temp_distance[[SCEN_SHORT_NAME[i]]]*DISTANCE_FOR_EMISSIONS$accra_distances
+  
   trans_emissions <- list() #TRANS_EMISSIONS_ORIGINAL
-  ##!! DISTANCE_FOR_EMISSIONS should be replaced by a sum over travel in the synthetic population
-  ## Further, the car distance needs to be separated into 4w1, 4W2 and taxi, should those have different emission factors.
-  trans_emissions$base <- EMISSION_FACTORS$PM2_5_emiss_fact * DISTANCE_FOR_EMISSIONS$accra_distances
-  ## get distance, multiply by accra emission factor
-  ##RJ question for RG: looks like this is using bus travel distance to estimate emissions. Is this right?
-  #for (i in 2:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- trans_emissions$base*c(scen_dist[[SCEN[i]]][c(4,4,3,5,2)]/scen_dist[[SCEN[1]]][c(4,4,3,5,2)],1,1,1)
-  for (i in 2:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- trans_emissions$base*c(scen_dist[[SCEN[i]]][c(4,4,3,5)]/scen_dist[[SCEN[1]]][c(4,4,3,5)],1,1,1,1)
+  ## multiply distance by emission factor
+  for (i in 1:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- EMISSION_FACTORS$PM2_5_emiss_fact * temp_distance[[SCEN_SHORT_NAME[i]]]
   
   baseline_sum <- sum(trans_emissions[[SCEN_SHORT_NAME[1]]])
   conc_pm <- c()
@@ -929,20 +949,23 @@ scenario_pm_calculations <- function(scen_dist,rd){
     conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN_SHORT_NAME[i]]])/baseline_sum
   
   ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
-  vent_rates <- data.frame(trip_mode=c('Taxi','Private Car','Walking','Motorcycle','Bicycle','Bus','Short Walking'),stringsAsFactors = F) 
+  vent_rates <- data.frame(trip_mode=MODE_SPEEDS$trip_mode,stringsAsFactors = F) 
   vent_rates$vent_rate <- BASE_LEVEL_INHALATION_RATE # L / min
   vent_rates$vent_rate[vent_rates$trip_mode=='Bicycle'] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_CYCLING
   vent_rates$vent_rate[vent_rates$trip_mode%in%c('Walking','Short Walking')] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_WALKING
   
   ##RJ rewriting exposure ratio as function of ambient PM2.5, as in Goel et al 2015
   ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE (10), CLOSED_WINDOW_PM_RATIO (0.5), CLOSED_WINDOW_RATIO (0.5), ROAD_RATIO_MAX (3.216), ROAD_RATIO_SLOPE (0.379)
+  ##RJ question for RG: should this function account for PM_TRANS_SHARE?
   on_road_off_road_ratio <- ROAD_RATIO_MAX - ROAD_RATIO_SLOPE*log(conc_pm)
+  ##RJ question for RG: why is 'in car' twice better than 'away from road'?
   in_vehicle_ratio <- (1-CLOSED_WINDOW_RATIO)*on_road_off_road_ratio + CLOSED_WINDOW_RATIO*CLOSED_WINDOW_PM_RATIO # averaging over windows open and windows closed
   ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio)
   
   vent_rates$vehicle_ratio_index <- sapply(vent_rates$trip_mode,function(x) ifelse(x%in%c('Walking','Short Walking','Bicycle'),1,2))
   
-  rd <- subset(rd,trip_mode%in%vent_rates$trip_mode)
+  rd <- subset(rd,trip_mode%in%c(vent_rates$trip_mode,99))
+  ##!! for Accra, there are no participants who do not have one of the above modes. Need to generalise for other settings.
   rd <- left_join(rd,vent_rates, "trip_mode")  
   
   ### following code generates final_data
@@ -972,7 +995,7 @@ scenario_pm_calculations <- function(scen_dist,rd){
   }
   
   #####PM normalise
-  
+  ##RJ question for RG: why normalise?
   mean_conc <- rep(0,length(SCEN_SHORT_NAME))
   
   ## calculating means of individual-level concentrations
@@ -1178,11 +1201,73 @@ combined_rr_pa_pa <- function(ind_pa,ind_ap){
   ind
 }
 
+injuries_function_2 <- function(true_distances){
+  ##RJ
+  injury_list <- list()
+  # divide injuries into those for which we can write a WHW matrix, i.e. we know distances of both striker and casualty, 
+  ## and those for which we don't know striker distance: no or other vehicle (noov)
+  ## we can only model casualties for which we know distance travelled (i.e. no HGV casualties for Accra)
+  injury_list$whw <- subset(INJURIES,cas_mode%in%colnames(true_distances)&strike_mode%in%colnames(true_distances))
+  injury_list$noov <- subset(INJURIES,cas_mode%in%colnames(true_distances)&!strike_mode%in%colnames(true_distances))
+  injury_table <- list()
+  for(type in c('whw','noov'))
+    ##TODO make contingency table without prior knowledge of column names
+    injury_table[[type]] <- expand.grid(year=unique(injury_list[[type]]$year),cas_mode=unique(injury_list[[type]]$cas_mode),
+                                            strike_mode=unique(injury_list[[type]]$strike_mode),cas_age=AGE_CATEGORY,cas_gender=unique(injury_list[[type]]$cas_gender),stringsAsFactors = F)
+  
+  ## Calculated distances
+  ## true distances should be the total for the whole population for a whole year. 
+  ##TODO precalculate and save distances (for uncertainty use case)
+  injuries_list <- list()
+  for(scen in SCEN){
+    injuries_list[[scen]] <- list()
+    for(type in c('whw','noov')){
+      injuries_list[[scen]][[type]] <- injury_table[[type]]
+      ##TODO get distances without prior knowledge of column names
+      ##TODO differentiate between driver and passenger for casualty and striker distances
+      injuries_list[[scen]][[type]]$count <- apply(injuries_list[[scen]][[type]],1,function(x)nrow(subset(injury_list[[type]],year==as.numeric(x[1])&cas_mode==as.character(x[2])&
+                                                                                                      strike_mode==as.character(x[3])&cas_gender==as.character(x[5])&
+                                                                                                      cas_age>=AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])]&
+                                                                                                      cas_age<AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])+1]))) 
+      
+      injuries_list[[scen]][[type]]$cas_distance <- apply(injuries_list[[scen]][[type]],1,function(x) sum(subset(true_distances,scenario==scen&sex==as.character(x[5])&
+                                                                                                         age_cat==x[4])[[as.character(x[2])]] )) 
+      injuries_list[[scen]][[type]]$cas_distance_sum <- apply(injuries_list[[scen]][[type]],1,function(x) sum(subset(true_distances,scenario==scen)[[as.character(x[2])]] )) 
+      injuries_list[[scen]][[type]]$strike_distance <- 1
+      injuries_list[[scen]][[type]]$strike_distance_sum <- 1
+      if(type=='whw'){
+        injuries_list[[scen]][[type]]$strike_distance <- apply(injuries_list[[scen]][[type]],1,function(x) sum(subset(true_distances,scenario==scen)[[as.character(x[3])]] )) 
+        injuries_list[[scen]][[type]]$strike_distance_sum <- injuries_list[[scen]][[type]]$strike_distance
+      }
+      injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],strike_distance>0&cas_distance>0)
+    }
+  }
+  reg_model <- list()
+  ##TODO write formulae without prior knowledge of column names
+  ##TODO different formulae for whw and noov
+  for(type in c('whw','noov'))
+    reg_model[[type]] <- glm(count~cas_mode+strike_mode+cas_age+cas_gender,data=injuries_list[[1]][[type]],family='poisson',
+                   offset=log(cas_distance)+log(strike_distance)-0.5*log(strike_distance_sum)-0.5*log(cas_distance_sum))
+  for(scen in SCEN[-1])
+    for(type in c('whw','noov')){
+      injuries_list[[scen]][[type]]$pred <- predict(reg_model[[type]],newdata = injuries_list[[scen]][[type]],type='response')
+      #print(nrow(subset(injuries_list[[scen]],cas_gender=='Female'&cas_mode=='Bicycle'&cas_age==AGE_CATEGORY[2])))
+      x11(); plot(injuries_list[[scen]][[type]]$count,injuries_list[[scen]][[type]]$pred)
+    }
+  injuries <- true_distances
+  for(scen in SCEN){
+    injuries[injuries$scenario==scen,]
+  }
+  injuries
+  ##TODO add in upcaptured fatalities as constant
+}
+
 injuries_function <- function(relative_distances,scen_dist){
   ### injury code
   ### This is the script for distance-based injury model for Accra using safety-in-numbers
   
   ##RJ match exponents and distances to multiply matrices
+  ## TO DO: regression model with reporting rate 1/3 -- 1. Therefore, fix safety scalar to be either 0.5 or 1.
   whw_mat2 <- list()
   whw_mat <- data.frame(WHW_MAT)
   vic_order <- whw_mat[,1]
@@ -1221,6 +1306,11 @@ injuries_function <- function(relative_distances,scen_dist){
   injuries[,9] <- rowSums(injuries[,3:7],na.rm=T)
   names(injuries)[9] <-"Deaths"
   
+  injuries
+}
+
+injury_death_to_yll <- function(injuries){
+  
   joined_injury <- left_join(injuries, GBD_INJ_YLL[,c('sex_age','sex','yll_dth_ratio')], by="sex_age")
   
   joined_injury$YLL <- joined_injury$Deaths*joined_injury$yll_dth_ratio
@@ -1248,7 +1338,7 @@ injuries_function <- function(relative_distances,scen_dist){
       k<-k+1
     }
   
-  list(injuries=injuries,deaths_yll_injuries=deaths_yll_injuries,scen1_injuries=scen1_injuries)
+  list(deaths_yll_injuries=deaths_yll_injuries,scen1_injuries=scen1_injuries)
 }
 
 health_burden <- function(ind,inj){
@@ -1399,8 +1489,8 @@ run_ithim <- function(ithim_object,seed=1){
   ############################
   ## (4) INJURIES
   # Injuries calculation
-  (deaths_yll_injuries <- injuries_function(inj_distances[[1]],inj_distances[[2]]))
-  injuries <- deaths_yll_injuries$injuries
+  injuries <- injuries_function(inj_distances[[1]],inj_distances[[2]])
+  (deaths_yll_injuries <- injury_death_to_yll(injuries))
   scen1_injuries <- deaths_yll_injuries$scen1_injuries
   ############################
   ## (5) COMBINE (3) AND (4)
