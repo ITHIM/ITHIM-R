@@ -458,7 +458,7 @@ ithim_setup_baseline_scenario <- function(){
   rd$scenario <- "Baseline"
   
   ##RJ question for AA: do we want to add walking to train?
-  bus_walk_trips <- add_walk_trips(filter(rd, trip_mode == "Bus"), ln_mean = MEAN_BUS_WALK_TIME, ln_sd = 1.2)
+  bus_walk_trips <- add_walk_trips(filter(rd, trip_mode == "Bus"))
   
   rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_walk_trips[[1]]$rid,]$trip_duration <- bus_walk_trips[[1]]$trip_duration
   rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_walk_trips[[1]]$rid,]$trip_distance <- bus_walk_trips[[1]]$trip_distance
@@ -477,7 +477,7 @@ set_scenario_specific_variables <- function(rd){
   SCEN_SHORT_NAME <<- c("base",paste0("scen", 1:NSCEN) )
 }
 
-add_walk_trips <- function(bus_trips, ln_mean, ln_sd){
+add_walk_trips <- function(bus_trips){
   
   # bus_trips
   # ln_mean = 5
@@ -487,7 +487,7 @@ add_walk_trips <- function(bus_trips, ln_mean, ln_sd){
   walk_trips <- bus_trips
   walk_trips$trip_mode <- 'Short Walking'
   ##RJ all trips have the same MEAN_BUS_WALK_TIME
-  walk_trips$trip_duration <- MEAN_BUS_WALK_TIME#sort(rlnorm(n = nrow(bus_trips), meanlog = log(MEAN_BUS_WALK_TIME), sdlog = log(ln_sd)))
+  walk_trips$trip_duration <- MEAN_BUS_WALK_TIME
   
   # Replace walk trips with duration greater than that of bus needs to be set to 0
   if (nrow(walk_trips[(walk_trips$trip_duration - bus_trips$trip_duration)  > 0,]) > 0)
@@ -633,7 +633,7 @@ create_all_scenarios <- function(rd){
   # Divide bus trips into bus and walk trips
   bus_trips <- car_trips_sample
   
-  bus_walk_trips <- add_walk_trips(bus_trips, ln_mean = MEAN_BUS_WALK_TIME, ln_sd = 1.2)
+  bus_walk_trips <- add_walk_trips(bus_trips)
   
   # Update selected rows for mode and duration
   rdr[rdr$row_id %in% bus_walk_trips[[1]]$row_id,]$trip_mode <- bus_walk_trips[[1]]$trip_mode
@@ -890,7 +890,7 @@ dist_dur_tbls <- function(bs){
 }
 
 total_mmet <- function(rd){
-  rd_pa <- subset(rd,trip_mode%in%c('Bicycle','Walking','Short Walking'))
+  rd_pa <- rd  ## select only "real" individuals / or have some trip_ids with participant_id not in synthetic population
   # Convert baseline's trip duration from mins to hours
   rd_pa$trip_duration_hrs <- rd_pa$trip_duration / 60
   # Get total individual level walking and cycling and sport mmets 
@@ -1248,16 +1248,26 @@ injuries_function_2 <- function(true_distances){
   for(type in c('whw','noov'))
     reg_model[[type]] <- glm(count~cas_mode+strike_mode+cas_age+cas_gender,data=injuries_list[[1]][[type]],family='poisson',
                    offset=log(cas_distance)+log(strike_distance)-0.5*log(strike_distance_sum)-0.5*log(cas_distance_sum))
-  for(scen in SCEN[-1])
+  for(scen in SCEN)
     for(type in c('whw','noov')){
+      injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==2016)
       injuries_list[[scen]][[type]]$pred <- predict(reg_model[[type]],newdata = injuries_list[[scen]][[type]],type='response')
       #print(nrow(subset(injuries_list[[scen]],cas_gender=='Female'&cas_mode=='Bicycle'&cas_age==AGE_CATEGORY[2])))
-      x11(); plot(injuries_list[[scen]][[type]]$count,injuries_list[[scen]][[type]]$pred)
+      #x11(); plot(injuries_list[[scen]][[type]]$count,injuries_list[[scen]][[type]]$pred,main=scen)
     }
   injuries <- true_distances
   for(scen in SCEN){
-    injuries[injuries$scenario==scen,]
+    injuries[injuries$scenario==scen,match(unique(injury_list$whw$cas_mode),colnames(injuries))] <- 
+      t(apply(injuries[injuries$scenario==scen,] , 1, function(y)
+        sapply(unique(injury_list$whw$cas_mode),function(x) 
+          sum(subset(injuries_list[[scen]]$whw,cas_mode==x&cas_age==as.character(y[1])&cas_gender==as.character(y[2]))$pred) + 
+            sum(subset(injuries_list[[scen]]$noov,cas_mode==x&cas_age==as.character(y[1])&cas_gender==as.character(y[2]))$pred)
+          )
+      )
+      )
   }
+  injuries$Deaths <- rowSums(injuries[,match(unique(injury_list$whw$cas_mode),colnames(injuries))])
+  injuries$sex_age <- apply(injuries,1,function(x)paste(x[c(2,1)],collapse='_'))
   injuries
   ##TODO add in upcaptured fatalities as constant
 }
@@ -1390,20 +1400,16 @@ health_burden <- function(ind,inj){
       scen <- scen_names[index]
       scen_var <- scen_vars[index]
       yll_name <- paste0(scen, '_ylls_',middle_bit,ac)
-      #yll_red_name <- paste0(scen, '_ylls_red_',middle_bit,ac)
       deaths_name <- paste0(scen, '_deaths_',middle_bit,ac)
-      #deaths_red_name <- paste0(scen, '_deaths_red_',middle_bit,ac)
       # Calculate PIFs for selected scenario
       pif_temp <- population_attributable_fraction(pop = ind[,colnames(ind)%in%c(scen_var,'sex', 'age_cat')], cn = scen_var, mat=pop_details)
       pif_scen <- (pif_ref - pif_temp) / pif_ref
-      # Calculate ylls (total and red)
+      # Calculate ylls 
       yll_dfs <- combine_health_and_pif(pop=pop_details,pif_values=pif_scen, hc = gbd_ylls_disease)
       ylls[[yll_name]] <- yll_dfs
-      #ylls_red[[yll_red_name]] <- yll_dfs / yll_ref
-      # Calculate deaths (total and red)
+      # Calculate deaths 
       death_dfs <- combine_health_and_pif(pop=pop_details,pif_values=pif_scen,hc=gbd_deaths_disease)
       deaths[[deaths_name]] <- death_dfs
-      #deaths_red[[deaths_red_name]] <- death_dfs / death_ref
     }
   }
   # Select deaths columns
@@ -1413,7 +1419,6 @@ health_burden <- function(ind,inj){
   # Join injuries data to global datasets
   deaths <- left_join(deaths, inj_deaths, by = c("age_cat", "sex"))
   ylls <- left_join(ylls, inj_ylls, by = c("age_cat", "sex"))
-  #list(deaths=deaths,deaths_red=deaths_red,ylls=ylls,ylls_red=ylls_red)
   list(deaths=deaths,ylls=ylls)
 }
 
