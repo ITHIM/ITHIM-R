@@ -1250,11 +1250,15 @@ injuries_function_2 <- function(true_distances){
                    offset=log(cas_distance)+log(strike_distance)-0.5*log(strike_distance_sum)-0.5*log(cas_distance_sum))
   for(scen in SCEN[-1])
     for(type in c('whw','noov')){
-      pred <- predict(reg_model[[type]],newdata = injuries_list[[scen]][[type]],type='response')
+      injuries_list[[scen]][[type]]$pred <- predict(reg_model[[type]],newdata = injuries_list[[scen]][[type]],type='response')
       #print(nrow(subset(injuries_list[[scen]],cas_gender=='Female'&cas_mode=='Bicycle'&cas_age==AGE_CATEGORY[2])))
-      x11(); plot(injuries_list[[scen]][[type]]$count,pred)
+      x11(); plot(injuries_list[[scen]][[type]]$count,injuries_list[[scen]][[type]]$pred)
     }
-  
+  injuries <- true_distances
+  for(scen in SCEN){
+    injuries[injuries$scenario==scen,]
+  }
+  injuries
   ##TODO add in upcaptured fatalities as constant
 }
 
