@@ -85,6 +85,7 @@ run_ithim_setup <- function(plotFlag = F,
   
   if(CITY=='Accra') edit_accra_trips()
   TRIP_AND_PA <<- create_synth_pop()
+  SYNTHETIC_POPULATION <<- subset(TRIP_AND_PA,!duplicated(participant_id))[,4:8]
   
   ##RJ these distance calculations are currently not parameter dependent, which means we can make the calculation outside the function.
   ## We could either integrate them into another external function, or move them to the internal function, so that they can become variable.
@@ -242,10 +243,7 @@ ithim_load_data <- function(){
   ## DATA FILES FOR MODEL  
   DR_AP <<- read.csv("data/dose_response/AP/dose_response_AP.csv")
   DISEASE_OUTCOMES <<- read.csv("data/dose_response/disease_outcomes_lookup.csv")
-  ##!! RJ question for AA/RG: this line creates a warning:
-  ## Missing column names filled in: 'X1' [1] 
-  ## Can it be fixed?
-  S.I.N <<- suppressWarnings(read_csv('code/injuries/data/sin_coefficients_pairs.csv'))
+  S.I.N <<- read_csv('code/injuries/data/sin_coefficients_pairs.csv')
   list_of_files <- list.files(path = "data/drpa/extdata/", recursive = TRUE, pattern = "\\.csv$", full.names = TRUE)
   for (i in 1:length(list_of_files)){
     assign(stringr::str_sub(basename(list_of_files[[i]]), end = -5),
@@ -260,16 +258,9 @@ ithim_load_data <- function(){
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
   TRIP_SET <<- trip_set
   PA_SET <<- read_csv("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
-  #trans_emissions_file <- read_csv("data/emission calculations accra/transport_emission_inventory_accra.csv")
-  #names(trans_emissions_file) <- c("vehicle_type", "delhi_fleet_2011", "delhi_fleet_perHH", "accra_fleet_2010", "PM2_5_emiss_fact", "base")
-  ##!! RJ these emissions are scaled from Delhi. They multiply distance and emission factors. We ought to (a) load emission factors, and (b) calculate total distance by mode to replace this.
-  #TRANS_EMISSIONS_ORIGINAL <<- trans_emissions_file
   ##!! This item should be replaced by the sum from travel in the synthetic population
   DISTANCE_FOR_EMISSIONS <<- readRDS('data/emission calculations accra/accra_distances_for_emissions.Rds')
-  ##!! RJ question for AA/RG: this line creates a warning:
-  ## Missing column names filled in: 'X1' [1] 
-  ## Can it be fixed?
-  WHW_MAT <<- suppressWarnings(read_csv('code/injuries/accra/who_hit_who_accra.csv'))
+  WHW_MAT <<- read_csv('code/injuries/accra/who_hit_who_accra.csv')
   INJURIES <<- readRDS('code/injuries/data/accra_injuries_long.Rds')
   ## DESCRIPTION OF INJURIES
   # has one row per event (fatality)
@@ -1145,10 +1136,10 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
   }
 }
 
-gen_pa_rr <- function(mmets){
+gen_pa_rr <- function(mmets_pp){
   ### iterating over all all disease outcomes
-  dose_columns <- match(paste0(SCEN_SHORT_NAME, '_mmet'),colnames(mmets))
-  doses_clean <- mmets[,dose_columns]
+  dose_columns <- match(paste0(SCEN_SHORT_NAME, '_mmet'),colnames(mmets_pp))
+  doses_clean <- mmets_pp[,dose_columns]
   for ( j in 1:nrow(DISEASE_OUTCOMES)){
     ## checking whether to calculate this health outcome for PA
     if (DISEASE_OUTCOMES$physical_activity[j] == 1){
@@ -1171,11 +1162,11 @@ gen_pa_rr <- function(mmets){
       ##RJ take segments of returned vector corresponding to scenario
       for (i in 1:length(SCEN_SHORT_NAME)){
         scen <- SCEN_SHORT_NAME[i]
-        mmets[[paste('RR_pa', scen, pa_n, sep = '_')]] <- return_vector$rr[(1+(i-1)*nrow(doses)):(i*nrow(doses))]
+        mmets_pp[[paste('RR_pa', scen, pa_n, sep = '_')]] <- return_vector$rr[(1+(i-1)*nrow(doses)):(i*nrow(doses))]
       }
     }
   }
-  mmets 
+  mmets_pp 
 }
 
 combined_rr_pa_pa <- function(ind_pa,ind_ap){
