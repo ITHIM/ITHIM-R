@@ -162,10 +162,24 @@ for(i in 1:length(injury_records_2)){
 # generate who hit whom
 sapply(unique(injury_dataset$strike_mode),
        function(x) sapply(unique(injury_dataset$cas_mode),
-                          function(y)sum(injury_dataset$strike_mode==x&injury_dataset$cas_mode==y)))
+                          function(y)sum(injury_dataset$strike_mode==x&injury_dataset$cas_mode==y&injury_dataset$year==2015)))
 
 # count over years
 sapply(unique(injury_dataset$year),function(x)nrow(subset(injury_dataset,year==x)))
+
+injury_dataset$cas_mode[injury_dataset$cas_mode=='pedestrian'] <- 'Pedestrian'
+injury_dataset$cas_mode[injury_dataset$cas_mode=='bus'] <- 'Bus'
+injury_dataset$cas_mode[injury_dataset$cas_mode=='car'] <- 'Car'
+injury_dataset$cas_mode[injury_dataset$cas_mode=='m/cyc'] <- 'Motorcycle'
+injury_dataset$cas_mode[injury_dataset$cas_mode=='cycle'] <- 'Bicycle'
+injury_dataset$strike_mode[injury_dataset$strike_mode=='pedestrian'] <- 'Pedestrian'
+injury_dataset$strike_mode[injury_dataset$strike_mode=='bus'] <- 'Bus'
+injury_dataset$strike_mode[injury_dataset$strike_mode=='car'] <- 'Car'
+injury_dataset$strike_mode[injury_dataset$strike_mode=='m/cyc'] <- 'Motorcycle'
+injury_dataset$strike_mode[injury_dataset$strike_mode=='cycle'] <- 'Bicycle'
+injury_dataset$cas_gender[injury_dataset$cas_gender=='male'] <- 'Male'
+injury_dataset$cas_gender[injury_dataset$cas_gender=='femal'] <- 'Female'
+saveRDS(injury_dataset,'data/accra_injuries_long.Rds')
 
 ##################################
 

@@ -87,22 +87,21 @@ run_ithim_setup <- function(plotFlag = F,
   
   if(CITY=='Accra') edit_accra_trips()
   synth_pop <- create_synth_pop()
-  TRIP_AND_PA <<- synth_pop$trip_and_pa_set
   SYNTHETIC_POPULATION <<- synth_pop$synthetic_population
   SYNTHETIC_TRIPS <<- synth_pop$trip_set
   
   ##RJ these distance calculations are currently not parameter dependent, which means we can make the calculation outside the function.
   ## We could either integrate them into another external function, or move them to the internal function, so that they can become variable.
   if(!'MEAN_BUS_WALK_TIME'%in%names(ithim_object$parameters)){
-    trip_and_pa_set <- ithim_setup_baseline_scenario()
-    ithim_object$trip_and_pa_scen_sets <- create_all_scenarios(trip_and_pa_set)
-    set_scenario_specific_variables(ithim_object$trip_and_pa_scen_sets)
+    trip_set <- ithim_setup_baseline_scenario()
+    ithim_object$trip_scen_sets <- create_all_scenarios(trip_set)
+    set_scenario_specific_variables(ithim_object$trip_scen_sets)
     # Generate distance and duration matrices
-    dist_and_dir <- dist_dur_tbls(ithim_object$trip_and_pa_scen_sets)
+    dist_and_dir <- dist_dur_tbls(ithim_object$trip_scen_sets)
     ithim_object$dist <- dist_and_dir$dist
     ithim_object$dur <- dist_and_dir$dur
     # distances for injuries calculation
-    ithim_object$inj_distances <- distances_for_injury_function(ithim_object$trip_and_pa_scen_sets)
+    ithim_object$inj_distances <- distances_for_injury_function(ithim_object$trip_scen_sets)
   }
   ######################
   return(ithim_object)
@@ -404,7 +403,7 @@ create_synth_pop <- function(){
   # Add 4 new people with 3 trips each
   # Age: 15-59 and gender: male
   
-  trip_set <- TRIP_SET
+  trip_set <- subset(TRIP_SET,!trip_mode%in%c("Train", "Other", "Unspecified"))
   # Make age category for trip_set dataset.
   trip_set <- assign_age_groups(trip_set,age_category=AGE_CATEGORY,age_lower_bounds=AGE_LOWER_BOUNDS,max_age=MAX_AGE)
   ##!! assuming more than one age category
@@ -431,7 +430,6 @@ create_synth_pop <- function(){
       matching_people <- as.data.frame(filter(pa, age_cat == pa_age_category & sex == gender)[,column_to_keep])
       v <- (matching_people[sample(nrow(matching_people),length(i),replace=T),])
       temp <- rbind( temp, cbind(v,i) )
-      i1 <- i
       i <- which(synthetic_population$age_cat==age_group&synthetic_population$sex==gender)
       synthetic_population$work_ltpa_marg_met[i] <- c(v)
     }
@@ -456,54 +454,54 @@ create_synth_pop <- function(){
 
 ithim_setup_baseline_scenario <- function(){
   ## SET UP TRAVEL DATA
-  trip_and_pa_set <- TRIP_AND_PA
+  trip_set <- SYNTHETIC_TRIPS
   # Create a row id
-  trip_and_pa_set$rid <- 1:nrow(trip_and_pa_set)
+  trip_set$rid <- 1:nrow(trip_set)
   
   # Define trip_distances (in km)
   # Based on travel mode and trip duration, calculate distances
   
-  trip_and_pa_set <- left_join(trip_and_pa_set, MODE_SPEEDS, by = "trip_mode")
-  trip_and_pa_set$speed[is.na(trip_and_pa_set$speed)] <- 0
-  trip_and_pa_set$trip_distance <- (trip_and_pa_set$trip_duration / 60) * trip_and_pa_set$speed
+  trip_set <- left_join(trip_set, MODE_SPEEDS, by = "trip_mode")
+  trip_set$speed[is.na(trip_set$speed)] <- 0
+  trip_set$trip_distance <- (trip_set$trip_duration / 60) * trip_set$speed
   
   # Initialize them
   ## Distance categories are used in scenario generation. They correspond to e.g. ``long trips'' and ``short trips''
-  trip_and_pa_set$trip_distance_cat <- 0
+  trip_set$trip_distance_cat <- 0
   ##!! assuming more than one distance category
   for(i in 2:length(DIST_LOWER_BOUNDS)-1){
-    trip_and_pa_set$trip_distance_cat[trip_and_pa_set$trip_distance >= DIST_LOWER_BOUNDS[i] & trip_and_pa_set$trip_distance < DIST_LOWER_BOUNDS[i+1]] <- DIST_CAT[i]
+    trip_set$trip_distance_cat[trip_set$trip_distance >= DIST_LOWER_BOUNDS[i] & trip_set$trip_distance < DIST_LOWER_BOUNDS[i+1]] <- DIST_CAT[i]
   }
-  trip_and_pa_set$trip_distance_cat[trip_and_pa_set$trip_distance >= DIST_LOWER_BOUNDS[length(DIST_LOWER_BOUNDS)]] <- DIST_CAT[length(DIST_LOWER_BOUNDS)]
+  trip_set$trip_distance_cat[trip_set$trip_distance >= DIST_LOWER_BOUNDS[length(DIST_LOWER_BOUNDS)]] <- DIST_CAT[length(DIST_LOWER_BOUNDS)]
   
   ##RJ should not need to do ages as age_cat already exists in the synthetic population. 70+ people already filtered out also.
   # Make age category
   #for(i in 2:length(AGE_LOWER_BOUNDS)-1){
-  #  trip_and_pa_set$age_cat[trip_and_pa_set$age >= AGE_LOWER_BOUNDS[i] & trip_and_pa_set$age < AGE_LOWER_BOUNDS[i+1]] <- AGE_CATEGORY[i]
+  #  trip_set$age_cat[trip_set$age >= AGE_LOWER_BOUNDS[i] & trip_set$age < AGE_LOWER_BOUNDS[i+1]] <- AGE_CATEGORY[i]
   #}
-  #trip_and_pa_set$age_cat[trip_and_pa_set$age >= AGE_LOWER_BOUNDS[length(AGE_LOWER_BOUNDS)]] <- AGE_CATEGORY[length(AGE_LOWER_BOUNDS)]
+  #trip_set$age_cat[trip_set$age >= AGE_LOWER_BOUNDS[length(AGE_LOWER_BOUNDS)]] <- AGE_CATEGORY[length(AGE_LOWER_BOUNDS)]
   # Remove all participants greater than 70 years of age
-  #trip_and_pa_set <- filter(trip_and_pa_set, age_cat != AGE_CATEGORY[length(AGE_LOWER_BOUNDS)])
+  #trip_set <- filter(trip_set, age_cat != AGE_CATEGORY[length(AGE_LOWER_BOUNDS)])
   
-  trip_and_pa_set$scenario <- "Baseline"
+  trip_set$scenario <- "Baseline"
   
   ##RJ question for AA: do we want to add walking to train?
-  bus_walk_trips <- add_walk_trips(filter(trip_and_pa_set, trip_mode == "Bus"))
+  bus_walk_trips <- add_walk_trips(filter(trip_set, trip_mode == "Bus"))
   
-  trip_and_pa_set[trip_and_pa_set$trip_mode == 'Bus' & trip_and_pa_set$rid %in% bus_walk_trips[[1]]$rid,]$trip_duration <- bus_walk_trips[[1]]$trip_duration
-  trip_and_pa_set[trip_and_pa_set$trip_mode == 'Bus' & trip_and_pa_set$rid %in% bus_walk_trips[[1]]$rid,]$trip_distance <- bus_walk_trips[[1]]$trip_distance
-  trip_and_pa_set[trip_and_pa_set$trip_mode == 'Bus' & trip_and_pa_set$rid %in% bus_walk_trips[[1]]$rid,]$trip_distance_cat <- bus_walk_trips[[1]]$trip_distance_cat
+  trip_set[trip_set$trip_mode == 'Bus' & trip_set$rid %in% bus_walk_trips[[1]]$rid,]$trip_duration <- bus_walk_trips[[1]]$trip_duration
+  trip_set[trip_set$trip_mode == 'Bus' & trip_set$rid %in% bus_walk_trips[[1]]$rid,]$trip_distance <- bus_walk_trips[[1]]$trip_distance
+  trip_set[trip_set$trip_mode == 'Bus' & trip_set$rid %in% bus_walk_trips[[1]]$rid,]$trip_distance_cat <- bus_walk_trips[[1]]$trip_distance_cat
   
-  trip_and_pa_set <- rbind(trip_and_pa_set, bus_walk_trips[[2]])
+  trip_set <- rbind(trip_set, bus_walk_trips[[2]])
   
-  trip_and_pa_set$row_id <- 1:nrow(trip_and_pa_set)
+  trip_set$row_id <- 1:nrow(trip_set)
 
-  trip_and_pa_set
+  trip_set
 }
 
-set_scenario_specific_variables <- function(trip_and_pa_set){
-  NSCEN <<- length(unique(trip_and_pa_set$scenario)) - 1
-  SCEN <<- unique(trip_and_pa_set$scenario)
+set_scenario_specific_variables <- function(trip_set){
+  NSCEN <<- length(unique(trip_set$scenario)) - 1
+  SCEN <<- unique(trip_set$scenario)
   SCEN_SHORT_NAME <<- c("base",paste0("scen", 1:NSCEN) )
 }
 
@@ -597,12 +595,12 @@ create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, ta
   
 }
 
-create_all_scenarios <- function(trip_and_pa_set){
+create_all_scenarios <- function(trip_set){
   rd_list <- list()
-  rd_list[[1]] <- trip_and_pa_set
+  rd_list[[1]] <- trip_set
   # Scenario 1
   
-  rdr <- trip_and_pa_set
+  rdr <- trip_set
   
   source_modes <- c('Bus', 'Walking')
   target_modes <- c('Private Car')
@@ -769,10 +767,10 @@ create_all_scenarios <- function(trip_and_pa_set){
   do.call('rbind',rd_list)
 }
 
-distances_for_injury_function <- function(trip_and_pa_scen_sets){
+distances_for_injury_function <- function(trip_scen_sets){
   ##synth need supplementary journeys to have age_cat,sex,trip_mode, scenario
   
-  journeys <- filter(trip_and_pa_scen_sets,!is.na(trip_id), !trip_mode%in%c(99,"Train","Unspecified","Other")) %>% 
+  journeys <- trip_scen_sets %>% 
     group_by (age_cat,sex,trip_mode, scenario) %>% 
     summarise(tot_dist = sum(trip_distance))
   distances <- spread(journeys,trip_mode, tot_dist,fill=0) 
@@ -783,6 +781,9 @@ distances_for_injury_function <- function(trip_and_pa_scen_sets){
   distances <- distances[, -which(names(distances) ==  "Private Car")]
   distances <- distances[, -which(names(distances) ==  "Taxi")]
   true_distances <- distances
+  true_distances$sex_age <-  paste0(true_distances$sex,"_",true_distances$age_cat)
+  true_distances <- true_distances[,-c(which(names(true_distances) == 'sex'))]
+  
   scen_dist <- sapply(1:(NSCEN+1),function(x)c(colSums(subset(distances,scenario == SCEN[x])[,3+1:(length(unique(journeys$trip_mode))-2)])))
   colnames(scen_dist) <- SCEN_SHORT_NAME
   for(i in 2:(length(unique(journeys$trip_mode))-2)) scen_dist[,i] <- scen_dist[,i]/scen_dist[,1] 
@@ -791,8 +792,8 @@ distances_for_injury_function <- function(trip_and_pa_scen_sets){
   mode_names <- names(distances)[3+1:(length(unique(journeys$trip_mode))-2)]
   for (i in 1: length(mode_names))
     for (n in 1:(NSCEN+1))
-      distances[[mode_names[i]]][which(distances$scenario == unique(trip_and_pa_scen_sets$scenario)[n])] <- 
-    distances[[mode_names[i]]][which(distances$scenario == unique(trip_and_pa_scen_sets$scenario)[n])]/ sum(distances[[mode_names[i]]][which(distances$scenario == unique(trip_and_pa_scen_sets$scenario)[n])],na.rm=T)
+      distances[[mode_names[i]]][which(distances$scenario == SCEN[n])] <- 
+    distances[[mode_names[i]]][which(distances$scenario == SCEN[n])]/ sum(distances[[mode_names[i]]][which(distances$scenario == SCEN[n])],na.rm=T)
   relative_distances <- distances
   relative_distances$sex_age <-  paste0(relative_distances$sex,"_",relative_distances$age_cat)
   relative_distances <- relative_distances[,-c(which(names(relative_distances) == 'sex'))]
@@ -800,9 +801,9 @@ distances_for_injury_function <- function(trip_and_pa_scen_sets){
   list(relative_distances=relative_distances,scen_dist=scen_dist,true_distances=true_distances)
 }
 
-dist_dur_tbls <- function(trip_and_pa_scen_sets){
+dist_dur_tbls <- function(trip_scen_sets){
   
-  bs <- filter(trip_and_pa_scen_sets, !trip_mode %in% c("99", "Train", "Other", "Unspecified")&!is.na(trip_mode))
+  bs <- trip_scen_sets
   
   ##RJ only calculate if plotFlag==T
   if(plotFlag){
@@ -911,40 +912,32 @@ dist_dur_tbls <- function(trip_and_pa_scen_sets){
   list(dist=dist,dur=dur)
 }
 
-total_mmet <- function(trip_and_pa_scen_sets){
-  rd_pa <- subset(trip_and_pa_scen_sets,participant_id>0)  ##synth select only "real" individuals / or have some trip_ids with participant_id not in synthetic population
+total_mmet <- function(trip_scen_sets){
+  
+  synth_pop <- SYNTHETIC_POPULATION
+  rd_pa <- subset(trip_scen_sets,trip_mode%in%c('Walking','Short Walking','Bicycle')&participant_id%in%synth_pop$participant_id) 
   # Convert baseline's trip duration from mins to hours
   rd_pa$trip_duration_hrs <- rd_pa$trip_duration / 60
   # Get total individual level walking and cycling and sport mmets 
-  pa_ind <- setDT(rd_pa)[,.(sex = first(sex), age = first(age),  age_cat = first(age_cat), 
-                              cycling_mmet_base = (sum(trip_duration_hrs[trip_mode == 'Bicycle' & scenario == 'Baseline']) ),
-                              walking_mmet_base = (sum(trip_duration_hrs[trip_mode %in%c('Walking','Short Walking')  & scenario == 'Baseline']) ),
-                              cycling_mmet_scen1 = (sum(trip_duration_hrs[trip_mode == 'Bicycle'  & scenario == 'Scenario 1']) ),
-                              walking_mmet_scen1 = (sum(trip_duration_hrs[trip_mode %in%c('Walking','Short Walking')  & scenario == 'Scenario 1']) ),
-                              cycling_mmet_scen2 = (sum(trip_duration_hrs[trip_mode == 'Bicycle'   & scenario == 'Scenario 2']) ),
-                              walking_mmet_scen2 = (sum(trip_duration_hrs[trip_mode  %in%c('Walking','Short Walking')   & scenario == 'Scenario 2']) ), 
-                              cycling_mmet_scen3 = (sum(trip_duration_hrs[trip_mode == 'Bicycle'   & scenario == 'Scenario 3']) ),
-                              walking_mmet_scen3 = (sum(trip_duration_hrs[trip_mode  %in%c('Walking','Short Walking')  & scenario == 'Scenario 3']) ),
-                              cycling_mmet_scen4 = (sum(trip_duration_hrs[trip_mode == 'Bicycle'   & scenario == 'Scenario 4']) ),
-                              walking_mmet_scen4 = (sum(trip_duration_hrs[trip_mode  %in%c('Walking','Short Walking')   & scenario == 'Scenario 4']) ), 
-                              cycling_mmet_scen5 = (sum(trip_duration_hrs[trip_mode == 'Bicycle'   & scenario == 'Scenario 5']) ),
-                              walking_mmet_scen5 = (sum(trip_duration_hrs[trip_mode  %in%c('Walking','Short Walking')   & scenario == 'Scenario 5']) ),
-                              work_ltpa_mmet = first(work_ltpa_marg_met)),by='participant_id']
+  for (i in 1:length(SCEN)){
+    synth_pop[[paste0(SCEN_SHORT_NAME[i],'_mmet')]] <- synth_pop$work_ltpa_marg_met * BACKGROUND_PA_SCALAR
+    scen_trips <- subset(rd_pa,scenario == SCEN[i]&participant_id%in%synth_pop$participant_id)
+    
+    individual_data <- setDT(scen_trips)[,.(cycling_mmet_base = sum(trip_duration_hrs[trip_mode == 'Bicycle']) * MMET_CYCLING,
+                                 walking_mmet_base = sum(trip_duration_hrs[trip_mode %in%c('Walking','Short Walking')]) * MMET_WALKING ),by='participant_id']
+    
+    
+    synth_pop[[paste0(SCEN_SHORT_NAME[i],'_mmet')]][match(individual_data$participant_id,synth_pop$participant_id)] <- 
+      synth_pop[[paste0(SCEN_SHORT_NAME[i],'_mmet')]][match(individual_data$participant_id,synth_pop$participant_id)] + individual_data$cycling_mmet_base + individual_data$walking_mmet_base
+  }
   
-  # Calculate MMETs
-  pa_ind$base_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_base* MMET_CYCLING + pa_ind$walking_mmet_base * MMET_WALKING
-  pa_ind$scen1_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_scen1* MMET_CYCLING + pa_ind$walking_mmet_scen1 * MMET_WALKING
-  pa_ind$scen2_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_scen2* MMET_CYCLING + pa_ind$walking_mmet_scen2 * MMET_WALKING
-  pa_ind$scen3_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_scen3* MMET_CYCLING + pa_ind$walking_mmet_scen3 * MMET_WALKING
-  pa_ind$scen4_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_scen4* MMET_CYCLING + pa_ind$walking_mmet_scen4 * MMET_WALKING
-  pa_ind$scen5_mmet <- pa_ind$work_ltpa_mmet * BACKGROUND_PA_SCALAR +  pa_ind$cycling_mmet_scen5* MMET_CYCLING + pa_ind$walking_mmet_scen5 * MMET_WALKING
-  name_indices <- which(colnames(pa_ind)%in%c('participant_id', 'sex', 'age', 'age_cat', paste0(SCEN_SHORT_NAME,'_mmet')))
-  mmets <- tbl_df(pa_ind)[,name_indices]
+  name_indices <- which(colnames(synth_pop)%in%c('participant_id', 'sex', 'age', 'age_cat', paste0(SCEN_SHORT_NAME,'_mmet')))
+  mmets <- tbl_df(synth_pop)[,name_indices]
   mmets
   
 }
 
-scenario_pm_calculations <- function(dist,trip_and_pa_scen_sets){
+scenario_pm_calculations <- function(dist,trip_scen_sets){
   
   # concentration contributed by non-transport share (remains constant across the scenarios)
   non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
@@ -986,35 +979,29 @@ scenario_pm_calculations <- function(dist,trip_and_pa_scen_sets){
   
   vent_rates$vehicle_ratio_index <- sapply(vent_rates$trip_mode,function(x) ifelse(x%in%c('Walking','Short Walking','Bicycle'),1,2))
   
-  ##synth select only "real" individuals / or have some trip_ids with participant_id not in synthetic population
-  rd <- subset(trip_and_pa_scen_sets,trip_mode%in%c(vent_rates$trip_mode,99)&participant_id>0)
-  ##!! for Accra, there are no participants who do not have one of the above modes. Need to generalise for other settings.
-  rd <- left_join(rd,vent_rates, "trip_mode")  
+  trip_set <- left_join(trip_scen_sets,vent_rates,'trip_mode')
+  trip_set$on_road_air <- trip_set$trip_duration*trip_set$vent_rate / 60 # L
+  scen_index <- match(trip_set$scenario,SCEN)
+  scen_pm <- as.numeric(conc_pm[scen_index])
+  scen_ratio <- ratio_by_mode[cbind(trip_set$vehicle_ratio_index,scen_index)]
+  trip_set$pm_dose <- trip_set$on_road_air * scen_ratio * scen_pm # mg
+  
+  synth_pop <- SYNTHETIC_POPULATION
   
   ### following code generates final_data
   for (i in 1:length(SCEN)){
-    scen_index <- SCEN[i]
-    rd_scen <- filter(rd, scenario == scen_index)
-    rd_scen$on_road_air <- rd_scen$trip_duration*rd_scen$vent_rate / 60 # L
-    rd_scen$pm_dose <- rd_scen$on_road_air * ratio_by_mode[rd_scen$vehicle_ratio_index,i] * as.numeric(conc_pm[i]) # mg
+    synth_pop[[paste0('pm_conc_',SCEN_SHORT_NAME[i])]] <- conc_pm[i]
+    scen_trips <- subset(trip_set,scenario == SCEN[i]&participant_id%in%synth_pop$participant_id)
     
-    ##RJ need to retain ids
-    #rd_scen$participant_id <- as.factor(rd_scen$participant_id)
+    individual_data <- setDT(scen_trips)[,.(on_road_dur = sum(trip_duration,na.rm=TRUE), 
+                                            on_road_pm = sum(pm_dose,na.rm=TRUE), 
+                                            air_inhaled = sum(on_road_air,na.rm=TRUE)),by='participant_id']
     
-    individual_data <- summarise(group_by(rd_scen,participant_id),on_road_dur = sum(trip_duration,na.rm=TRUE), 
-                                 on_road_pm = sum(pm_dose,na.rm=TRUE), 
-                                 air_inhaled = sum(on_road_air,na.rm=TRUE))
     ## PM2.5 inhalation = total mg inhaled / total volume inhaled
     non_transport_air_inhaled <- (24-individual_data$on_road_dur/60)*BASE_LEVEL_INHALATION_RATE
-    individual_data$pm_conc <- ((non_transport_air_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)/(non_transport_air_inhaled+individual_data$air_inhaled)
-    individual_data <- subset(individual_data, select=c("participant_id", "pm_conc"))
-    names(individual_data)[2] <- paste0('pm_conc_',SCEN_SHORT_NAME[i])
-     
-    if (i == 1 ){
-      final_data <- individual_data 
-    }else{
-      final_data <- left_join(final_data,individual_data,by="participant_id")
-    }
+    pm_conc <- ((non_transport_air_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)/(non_transport_air_inhaled+individual_data$air_inhaled)
+    
+    synth_pop[[paste0('pm_conc_',SCEN_SHORT_NAME[i])]][match(individual_data$participant_id,synth_pop$participant_id)] <- pm_conc
   }
   
   #####PM normalise
@@ -1023,23 +1010,17 @@ scenario_pm_calculations <- function(dist,trip_and_pa_scen_sets){
   
   ## calculating means of individual-level concentrations
   for ( i in 1: length(SCEN_SHORT_NAME))
-    mean_conc[i] <- mean(final_data[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]])
+    mean_conc[i] <- mean(synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]])
   
   normalise <- as.numeric(conc_pm[1])/as.numeric(mean_conc[1])
   ###Lines which are normalising the concentrations
   
   for (i in 1: length(SCEN_SHORT_NAME))
-    final_data[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]] <- normalise*final_data[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]]
+    synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]] <- normalise*synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]]
   
-  final_data$participant_id <- as.integer(final_data$participant_id)
+  synth_pop$participant_id <- as.integer(synth_pop$participant_id)
 
-  #pm_conc_pp <-  summarise(group_by(trip_and_pa_scen_sets,participant_id),sex = first(sex),
-  #                  age = first(age),
-  #                  age_cat = first(age_cat))
-  #pm_conc_pp <- left_join(pm_conc_pp,final_data, by = "participant_id")
-  pm_conc_pp <- left_join(SYNTHETIC_POPULATION,final_data, by = "participant_id")
-  
-  list(scenario_pm=conc_pm, pm_conc_pp=pm_conc_pp)
+  list(scenario_pm=conc_pm, pm_conc_pp=synth_pop)
   
 }
 
@@ -1214,8 +1195,8 @@ combined_rr_pa_pa <- function(ind_pa,ind_ap){
   for ( j in 1:nrow(DISEASE_OUTCOMES)){
     ## checking whether to calculate this health outcome for PA
     if (DISEASE_OUTCOMES$physical_activity[j] == 1 & DISEASE_OUTCOMES$air_pollution[j] == 1){
+      ac <- as.character(DISEASE_OUTCOMES$acronym[j])
       for (scen in SCEN_SHORT_NAME){
-        ac <- as.character(DISEASE_OUTCOMES$acronym[j])
         ind_ap_pa[[paste('RR_pa_ap', scen, ac, sep = '_')]] <- ind_ap_pa[[paste('RR_pa', scen, ac, sep = '_')]] * ind_ap_pa[[paste('RR_ap', scen, ac, sep = '_')]]
         
       }
@@ -1227,17 +1208,29 @@ combined_rr_pa_pa <- function(ind_pa,ind_ap){
 
 injuries_function_2 <- function(true_distances){
   ##RJ
-  injury_list <- list()
+  mode_names <- names(true_distances)[!names(true_distances)%in%c('age_cat','scenario','sex_age')]
   # divide injuries into those for which we can write a WHW matrix, i.e. we know distances of both striker and casualty, 
   ## and those for which we don't know striker distance: no or other vehicle (noov)
   ## we can only model casualties for which we know distance travelled (i.e. no Truck casualties for Accra)
+  injury_list <- list()
   injury_list$whw <- subset(INJURIES,cas_mode%in%colnames(true_distances)&strike_mode%in%colnames(true_distances))
   injury_list$noov <- subset(INJURIES,cas_mode%in%colnames(true_distances)&!strike_mode%in%colnames(true_distances))
   injury_table <- list()
-  for(type in c('whw','noov'))
+  cas_mode_indices <- list()
+  injury_gen_age <- list()
+  for(type in c('whw','noov')){
     ##TODO make contingency table without prior knowledge of column names
     injury_table[[type]] <- expand.grid(year=unique(injury_list[[type]]$year),cas_mode=unique(injury_list[[type]]$cas_mode),
                                             strike_mode=unique(injury_list[[type]]$strike_mode),cas_age=AGE_CATEGORY,cas_gender=unique(injury_list[[type]]$cas_gender),stringsAsFactors = F)
+    injury_table[[type]]$count <- apply(injury_table[[type]],1,function(x)nrow(subset(injury_list[[type]],year==as.numeric(x[1])&cas_mode==as.character(x[2])&
+                                                                                                          strike_mode==as.character(x[3])&cas_gender==as.character(x[5])&
+                                                                                                          cas_age>=AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])]&
+                                                                                                          cas_age<AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])+1]))) 
+    cas_mode_indices[[type]] <- match(injury_table[[type]]$cas_mode,mode_names)
+    injury_gen_age[[type]] <- apply(cbind(injury_table[[type]]$cas_age,injury_table[[type]]$cas_gender),1,function(x)paste(x[c(2,1)],collapse='_'))
+    injury_table[[type]]$injury_gen_age <- injury_gen_age[[type]]
+  }
+  strike_mode_indices <- match(injury_table$whw$strike_mode,mode_names)
   
   ## Calculated distances
   ## true distances should be the total for the whole population for a whole year. 
@@ -1245,25 +1238,25 @@ injuries_function_2 <- function(true_distances){
   injuries_list <- list()
   for(scen in SCEN){
     injuries_list[[scen]] <- list()
+    scen_dist <- subset(true_distances,scenario==scen)
     for(type in c('whw','noov')){
       injuries_list[[scen]][[type]] <- injury_table[[type]]
       ##TODO get distances without prior knowledge of column names
       ##TODO differentiate between driver and passenger for casualty and striker distances
-      injuries_list[[scen]][[type]]$count <- apply(injuries_list[[scen]][[type]],1,function(x)nrow(subset(injury_list[[type]],year==as.numeric(x[1])&cas_mode==as.character(x[2])&
-                                                                                                      strike_mode==as.character(x[3])&cas_gender==as.character(x[5])&
-                                                                                                      cas_age>=AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])]&
-                                                                                                      cas_age<AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])+1]))) 
-      
-      injuries_list[[scen]][[type]]$cas_distance <- apply(injuries_list[[scen]][[type]],1,function(x) sum(subset(true_distances,scenario==scen&sex==as.character(x[5])&
-                                                                                                         age_cat==x[4])[[as.character(x[2])]] )) 
-      injuries_list[[scen]][[type]]$cas_distance_sum <- apply(injuries_list[[scen]][[type]],1,function(x) sum(subset(true_distances,scenario==scen)[[as.character(x[2])]] )) 
       injuries_list[[scen]][[type]]$strike_distance <- 1
       injuries_list[[scen]][[type]]$strike_distance_sum <- 1
+      distance_sums <- sapply(mode_names,function(x)sum(scen_dist[[x]]))
+      injuries_list[[scen]][[type]]$cas_distance_sum <- distance_sums[cas_mode_indices[[type]]]
+      
+      cas_demo_indices <- match(injury_gen_age[[type]],scen_dist$sex_age)
+      injuries_list[[scen]][[type]]$cas_distance <- as.numeric(as.data.frame(scen_dist)[cbind(cas_demo_indices,cas_mode_indices[[type]]+2)])
+      
       if(type=='whw'){
-        injuries_list[[scen]][[type]]$strike_distance <- apply(injuries_list[[scen]][[type]],1,function(x) sum(subset(true_distances,scenario==scen)[[as.character(x[3])]] )) 
+        injuries_list[[scen]][[type]]$strike_distance <- distance_sums[strike_mode_indices]
         injuries_list[[scen]][[type]]$strike_distance_sum <- injuries_list[[scen]][[type]]$strike_distance
       }
       injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],strike_distance>0&cas_distance>0)
+      
     }
   }
   reg_model <- list()
@@ -1282,12 +1275,11 @@ injuries_function_2 <- function(true_distances){
     for(injured_mode in unique(injury_list$whw$cas_mode)){
       injuries[injuries$scenario==scen,match(injured_mode,colnames(injuries))] <- 
         apply(injuries[injuries$scenario==scen,] , 1, function(y)
-            sum(subset(injuries_list[[scen]]$whw,cas_mode==injured_mode&cas_age==as.character(y[1])&cas_gender==as.character(y[2]))$pred) + 
-              sum(subset(injuries_list[[scen]]$noov,cas_mode==injured_mode&cas_age==as.character(y[1])&cas_gender==as.character(y[2]))$pred)
+            sum(subset(injuries_list[[scen]]$whw,cas_mode==injured_mode&injury_gen_age==as.character(y[9]))$pred) + 
+              sum(subset(injuries_list[[scen]]$noov,cas_mode==injured_mode&injury_gen_age==as.character(y[9]))$pred)
             )
     }
   injuries$Deaths <- rowSums(injuries[,match(unique(injury_list$whw$cas_mode),colnames(injuries))])
-  injuries$sex_age <- apply(injuries,1,function(x)paste(x[c(2,1)],collapse='_'))
   injuries
   ##TODO add in upcaptured fatalities as constant
 }
@@ -1379,10 +1371,12 @@ health_burden <- function(ind_ap_pa,inj){
   gbd_deaths <- subset(gbd_data_scaled,measure=='Deaths' & metric == "Number")
   gbd_ylls <- subset(gbd_data_scaled,measure=='YLLs (Years of Life Lost)' & metric == "Number")
   ##!! Hard-coded column names to initialise tables.
-  unique_category1 <- unique(ind_ap_pa[[2]])
-  unique_category2 <- unique(ind_ap_pa[[4]])
+  sex_index <- which(colnames(ind_ap_pa)=='sex')
+  age_index <- which(colnames(ind_ap_pa)=='age_cat')
+  unique_category1 <- unique(ind_ap_pa[[sex_index]])
+  unique_category2 <- unique(ind_ap_pa[[age_index]])
   pop_details <- expand.grid(unique_category1, unique_category2,stringsAsFactors = F)
-  colnames(pop_details) <- colnames(ind_ap_pa)[c(2,4)]
+  colnames(pop_details) <- colnames(ind_ap_pa)[c(sex_index,age_index)]
   deaths <- deaths_red <- ylls <- ylls_red <- pop_details
   # set up reference (scen1)
   reference_scenario <- 'scen1'
@@ -1467,15 +1461,15 @@ ithim_uncertainty <- function(ithim_obj,seed=1){
     assign(names(parameters)[i],parameters[[i]][[seed]],pos=1)
   ## Re-do set up if MEAN_BUS_WALK_TIME has changed
   if('MEAN_BUS_WALK_TIME'%in%names(parameters)){
-    trip_and_pa_set <- ithim_setup_baseline_scenario()
-    ithim_obj$trip_and_pa_scen_sets <- create_all_scenarios(trip_and_pa_set)
+    trip_set <- ithim_setup_baseline_scenario()
+    ithim_obj$trip_scen_sets <- create_all_scenarios(trip_set)
     ######################
     # Generate distance and duration matrices
-    dist_and_dur <- dist_dur_tbls(ithim_obj$trip_and_pa_scen_sets)
+    dist_and_dur <- dist_dur_tbls(ithim_obj$trip_scen_sets)
     ithim_obj$dist <- dist_and_dur$dist
     ithim_obj$dur <- dist_and_dur$dur
     # distances for injuries calculation
-    ithim_obj$inj_distances <- distances_for_injury_function(ithim_obj$trip_and_pa_scen_sets)
+    ithim_obj$inj_distances <- distances_for_injury_function(ithim_obj$trip_scen_sets)
   }
   ############################
   # Run ITHIM cascade of functions
@@ -1496,7 +1490,7 @@ run_ithim <- function(ithim_object,seed=1){
   ############################
   ## (1) AP PATHWAY
   # Calculated PM2.5 concentrations
-  (pm_conc <- scenario_pm_calculations(dist,trip_and_pa_scen_sets))
+  (pm_conc <- scenario_pm_calculations(dist,trip_scen_sets))
   scenario_pm <- pm_conc$scenario_pm
   pm_conc_pp <- pm_conc$pm_conc_pp
   # Air pollution calculation
@@ -1504,7 +1498,7 @@ run_ithim <- function(ithim_object,seed=1){
   ############################
   ## (2) PA PATHWAY
   # Calculate total mMETs
-  (mmets_pp <- total_mmet(trip_and_pa_scen_sets))
+  (mmets_pp <- total_mmet(trip_scen_sets))
   # Physical activity calculation
   (RR_PA_calculations <- gen_pa_rr(mmets_pp))
   ############################
@@ -1516,7 +1510,8 @@ run_ithim <- function(ithim_object,seed=1){
   # Injuries calculation
   for(i in 1:length(inj_distances))
     assign(names(inj_distances)[i],inj_distances[[i]])
-  injuries <- injuries_function(relative_distances,scen_dist)
+  #injuries <- injuries_function(relative_distances,scen_dist)
+  injuries <- injuries_function_2(true_distances)
   (deaths_yll_injuries <- injury_death_to_yll(injuries))
   scen1_injuries <- deaths_yll_injuries$scen1_injuries
   ############################

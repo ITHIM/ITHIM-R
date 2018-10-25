@@ -214,6 +214,31 @@ if(file.exists(file_name)){
   saveRDS(ithim_object_list,file_name)
 }
 
+library(RColorBrewer)
+library(plotrix)
+
+file_name <- paste0('six_by_five_scenarios_1024.Rds')
+ithim_object_list <- readRDS(file_name)
+evppi <- ithim_object_list$uncertain$now$evppi
+
+
+x11(); par(mar=c(6,20,3.5,5))
+labs <- rownames(evppi)
+get.pal=colorRampPalette(brewer.pal(9,"Reds"))
+redCol=rev(get.pal(12))
+bkT <- seq(max(evppi)+1e-10, 0,length=13)
+cex.lab <- 1.5
+maxval <- round(bkT[1],digits=1)
+col.labels<- c(0,maxval/2,maxval)
+cellcolors <- vector()
+for(ii in 1:length(unlist(evppi)))
+  cellcolors[ii] <- redCol[tail(which(unlist(evppi[ii])<bkT),n=1)]
+color2D.matplot(evppi,cellcolors=cellcolors,main="",xlab="",ylab="",cex.lab=2,axes=F)
+fullaxis(side=1,las=2,at=0:4+0.5,labels=SCEN_SHORT_NAME[-2],line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=1)
+fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.8)
+mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
+color.legend(5.5,0,5.5+0.3,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
+
 x11(width=8,height=5); par(mfrow=c(2,4),mar=c(5,1,1,1)); 
 for(i in 1:8)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),xlab=names(ithim_object_list$uncertain$now$parameters)[i],ylab='',frame=F,main='',lwd=2)
 
