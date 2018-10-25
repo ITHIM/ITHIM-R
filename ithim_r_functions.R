@@ -20,6 +20,7 @@ run_ithim_setup <- function(plotFlag = F,
                             speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25),
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             AGE_CATEGORY = c("15-49", "50-69", "70+"),
+                            MAX_AGE=70,
                             MEAN_BUS_WALK_TIME= 5,
                             MMET_CYCLING = 4.63,
                             MMET_WALKING = 2.53,
@@ -63,6 +64,7 @@ run_ithim_setup <- function(plotFlag = F,
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
   AGE_CATEGORY <<- AGE_CATEGORY
   AGE_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(AGE_CATEGORY, "[^0-9]+"), function(x) x[1]))
+  MAX_AGE <<- MAX_AGE
   BASE_LEVEL_INHALATION_RATE <<- 10
   CLOSED_WINDOW_PM_RATIO <<- 0.5
   CLOSED_WINDOW_RATIO <<- 0.5
@@ -84,8 +86,10 @@ run_ithim_setup <- function(plotFlag = F,
                                                     CHRONIC_DISEASE_SCALAR )
   
   if(CITY=='Accra') edit_accra_trips()
-  TRIP_AND_PA <<- create_synth_pop()
-  SYNTHETIC_POPULATION <<- subset(TRIP_AND_PA,!duplicated(participant_id))[,4:8]
+  synth_pop <- create_synth_pop()
+  TRIP_AND_PA <<- synth_pop$trip_and_pa_set
+  SYNTHETIC_POPULATION <<- synth_pop$synthetic_population
+  SYNTHETIC_TRIPS <<- synth_pop$trip_set
   
   ##RJ these distance calculations are currently not parameter dependent, which means we can make the calculation outside the function.
   ## We could either integrate them into another external function, or move them to the internal function, so that they can become variable.
@@ -301,25 +305,54 @@ ithim_load_data <- function(){
   ## The user specifies either 'accra', if we have the folder 'accra', or the path to a repository containing named files, or a path per file...
 }
 
+add_trips <- function(trip_ids=0,new_mode='Walking',duration=10,participant_id=0,age=20,sex='Male',nTrips=3){
+  data.frame(trip_id   = trip_ids, 
+             trip_mode = new_mode, 
+             trip_duration = sample(duration,nTrips,replace=T), 
+             participant_id = participant_id,
+             age = sample(age,1,replace=T),
+             sex = sample(sex,1,replace=T))
+}
+
 edit_accra_trips <- function(){
   ##synth need supplementary journeys to have age_cat,sex,trip_mode, scenario
   
   trip_set <- TRIP_SET
+  
   nPeople <- 4
   nTrips <- 3
   new_mode <- 'Motorcycle'
   new_gender <- 'Male'
-  distance_range <- c(15,100)
+  duration_range <- 15:100
+  age_range <- AGE_LOWER_BOUNDS[1]:AGE_LOWER_BOUNDS[2]
+  for(i in 1:nPeople){
+    new_trips <- add_trips(trip_ids   = max(trip_set$trip_id) + 1: nTrips, 
+                           new_mode = new_mode, 
+                           duration = duration_range, 
+                           participant_id = max(trip_set$participant_id) + 1,
+                           age = age_range,
+                           sex = new_gender,
+                           nTrips=nTrips)
+    # Add new motorbikes trips to baseline
+    trip_set <- rbind(trip_set, new_trips)
+  }
   
-  new_trips <- data.frame(trip_id = c( (max(trip_set$trip_id) + 1):(max(trip_set$trip_id) + (nPeople * nTrips) )), 
-                          trip_mode = new_mode, 
-                          trip_duration = round(runif( (nPeople * nTrips), distance_range[1], distance_range[2])), 
-                          participant_id = rep((max(trip_set$trip_id)+1):(max(trip_set$trip_id) + nPeople), nTrips),
-                          age = rep(floor(runif(nPeople, AGE_LOWER_BOUNDS[1], AGE_LOWER_BOUNDS[2])), nTrips),
-                          sex = new_gender)
-  
-  # Add new motorbikes trips to baseline
-  trip_set <- rbind(trip_set, new_trips)
+  nPeople <- 10
+  nTrips <- 10
+  new_mode <- 'HGV'
+  new_gender <- 'Male'
+  duration_range <- 15:100
+  age_range <- AGE_LOWER_BOUNDS[1]:AGE_LOWER_BOUNDS[3]
+  #for(i in 1:nPeople){
+  #  new_trips <- add_trips(trip_ids   = max(trip_set$trip_id) + 1: nTrips, 
+  #                         new_mode = new_mode, 
+  #                         duration = duration_range, 
+  #                         participant_id = 0,
+  #                         age = age_range,
+  #                         sex = new_gender,
+  #                         nTrips=nTrips)
+  #  trip_set <- rbind(trip_set, new_trips)
+  #}
   
   # Redefine motorcycle mode for a select 14 rows
   trip_set$trip_mode[trip_set$trip_mode=='Other'&trip_set$trip_duration<60] <- 'Motorcycle'
@@ -337,6 +370,17 @@ edit_accra_trips <- function(){
   
   TRIP_SET <<- trip_set
   
+}
+
+assign_age_groups <- function(dataset,age_category=AGE_CATEGORY,age_lower_bounds=AGE_LOWER_BOUNDS,max_age=MAX_AGE){
+  dataset <- filter(dataset,age<max_age)
+  dataset$age_cat <- 0
+  ##!! assuming more than one age category
+  for(i in 2:length(age_lower_bounds)-1){
+    dataset$age_cat[dataset$age >= age_lower_bounds[i] & dataset$age < age_lower_bounds[i+1]] <- age_category[i]
+  }
+  dataset$age_cat[dataset$age >= age_lower_bounds[length(age_lower_bounds)]] <- age_category[length(age_lower_bounds)]
+  dataset
 }
 
 create_synth_pop <- function(){
@@ -362,40 +406,34 @@ create_synth_pop <- function(){
   # Age: 15-59 and gender: male
   
   trip_set <- TRIP_SET
-  
-  #Make age category for trip_set dataset.
-  # Make age category
+  # Make age category for trip_set dataset.
+  trip_set <- assign_age_groups(trip_set,age_category=AGE_CATEGORY,age_lower_bounds=AGE_LOWER_BOUNDS,max_age=MAX_AGE)
   ##!! assuming more than one age category
-  trip_set$age_cat <- 0
-  for(i in 2:length(AGE_LOWER_BOUNDS)-1){
-    trip_set$age_cat[trip_set$age >= AGE_LOWER_BOUNDS[i] & trip_set$age < AGE_LOWER_BOUNDS[i+1]] <- AGE_CATEGORY[i]
-  }
-  trip_set$age_cat[trip_set$age >= AGE_LOWER_BOUNDS[length(AGE_LOWER_BOUNDS)]] <- AGE_CATEGORY[length(AGE_LOWER_BOUNDS)]
-  trip_set <- filter(trip_set, age_cat != AGE_CATEGORY[length(AGE_LOWER_BOUNDS)])
   
+  pa <- PA_SET
   ##!! RJ question for AA/LG: why the different age categories?
   #Make age category for pa dataset.
-  pa <- PA_SET
-  pa <- filter(pa, age < 70)
-  age_category <- c("15-55", "56-69")
-  pa$age_cat <- 0
-  pa$age_cat[pa$age >= 15 & pa$age <= 55] <- age_category[1]
-  pa$age_cat[pa$age > 55 & pa$age < 70] <- age_category[2]
+  age_category <- c("15-55", "56-69","70+")
+  pa <- assign_age_groups(pa,age_category=age_category,age_lower_bounds=c(15,55,70))
   
   #Match persons in the trip (trip_set) e physical activity datasets.
   column_to_keep <- which(colnames(pa)%in%c('work_ltpa_marg_met'))
   unique_ages <- unique(trip_set$age_cat)
   unique_genders <- unique(trip_set$sex)
   
+  synthetic_population <- subset(trip_set,!duplicated(participant_id)&participant_id>0)[,names(trip_set)%in%c("participant_id","age","sex","age_cat")]
+  synthetic_population$work_ltpa_marg_met <- 0
   ##synth match only for "real" people 
   temp <- c()
   for(age_group in unique_ages){
     for(gender in unique_genders){
       i <- unique(subset(trip_set,age_cat==age_group&sex==gender)$participant_id)
       pa_age_category <- age_category[which(AGE_CATEGORY==age_group)]
-      matching_people <- filter(pa, age_cat == pa_age_category & sex == gender)[,column_to_keep]
+      matching_people <- as.data.frame(filter(pa, age_cat == pa_age_category & sex == gender)[,column_to_keep])
       v <- (matching_people[sample(nrow(matching_people),length(i),replace=T),])
       temp <- rbind( temp, cbind(v,i) )
+      i <- which(synthetic_population$age_cat==age_group&synthetic_population$sex==gender)
+      #synthetic_population$work_ltpa_marg_met[i] <- c(v)
     }
   }
   
@@ -407,12 +445,12 @@ create_synth_pop <- function(){
   
   # Convert all int columns to numeric
   trip_and_pa_set[, sapply(trip_and_pa_set,class)=='integer'] <- lapply(trip_and_pa_set[, sapply(trip_and_pa_set,class)=='integer'], as.numeric)
-  
-  ##synth set trip_id to ...?
+  synthetic_population[, sapply(synthetic_population,class)=='integer'] <- lapply(synthetic_population[, sapply(synthetic_population,class)=='integer'], as.numeric)
+  trip_set <- subset(trip_set,trip_mode!=99)
   
   trip_and_pa_set$trip_id[trip_and_pa_set$trip_mode == '99'] <- 0
   
-  trip_and_pa_set
+  list(trip_and_pa_set=trip_and_pa_set,trip_set=trip_set,synthetic_population=synthetic_population)
   
 }
 
@@ -440,13 +478,11 @@ ithim_setup_baseline_scenario <- function(){
   
   ##RJ should not need to do ages as age_cat already exists in the synthetic population. 70+ people already filtered out also.
   # Make age category
-  ##!! assuming more than one age category
   #for(i in 2:length(AGE_LOWER_BOUNDS)-1){
   #  trip_and_pa_set$age_cat[trip_and_pa_set$age >= AGE_LOWER_BOUNDS[i] & trip_and_pa_set$age < AGE_LOWER_BOUNDS[i+1]] <- AGE_CATEGORY[i]
   #}
   #trip_and_pa_set$age_cat[trip_and_pa_set$age >= AGE_LOWER_BOUNDS[length(AGE_LOWER_BOUNDS)]] <- AGE_CATEGORY[length(AGE_LOWER_BOUNDS)]
   # Remove all participants greater than 70 years of age
-  ##!! 
   #trip_and_pa_set <- filter(trip_and_pa_set, age_cat != AGE_CATEGORY[length(AGE_LOWER_BOUNDS)])
   
   trip_and_pa_set$scenario <- "Baseline"
