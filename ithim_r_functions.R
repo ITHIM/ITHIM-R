@@ -21,7 +21,7 @@ run_ithim_setup <- function(plotFlag = F,
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             AGE_CATEGORY = c("15-49", "50-69", "70+"),
                             MAX_AGE=70,
-                            MEAN_BUS_WALK_TIME= 5,
+                            BUS_WALK_TIME= 5,
                             MMET_CYCLING = 4.63,
                             MMET_WALKING = 2.53,
                             PM_CONC_BASE = 50,  
@@ -74,7 +74,7 @@ run_ithim_setup <- function(plotFlag = F,
   ithim_load_data()
   
   ithim_object$parameters <- ithim_setup_parameters(NSAMPLES,
-                                                    MEAN_BUS_WALK_TIME,
+                                                    BUS_WALK_TIME,
                                                     MMET_CYCLING,
                                                     MMET_WALKING,
                                                     PM_CONC_BASE,  
@@ -92,7 +92,7 @@ run_ithim_setup <- function(plotFlag = F,
   
   ##RJ these distance calculations are currently not parameter dependent, which means we can make the calculation outside the function.
   ## We could either integrate them into another external function, or move them to the internal function, so that they can become variable.
-  if(!'MEAN_BUS_WALK_TIME'%in%names(ithim_object$parameters)){
+  if(!'BUS_WALK_TIME'%in%names(ithim_object$parameters)){
     trip_set <- ithim_setup_baseline_scenario()
     ithim_object$trip_scen_sets <- create_all_scenarios(trip_set)
     set_scenario_specific_variables(ithim_object$trip_scen_sets)
@@ -113,7 +113,7 @@ run_ithim_setup <- function(plotFlag = F,
 ## do we want to pre-specify the distribution, as below?
 ## if yes, which parameters and what distributions?
 ithim_setup_parameters <- function(NSAMPLES = 1,
-                                   MEAN_BUS_WALK_TIME= 5,
+                                   BUS_WALK_TIME= 5,
                                    MMET_CYCLING = 4.63,
                                    MMET_WALKING = 2.53,
                                    PM_CONC_BASE = 50,  
@@ -126,10 +126,10 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   ## PARAMETERS
   ##RJ parameters are assigned to the environment and so are set for every function. They are over-written when sample_parameters is called.
   parameters <- list()
-  if(length(MEAN_BUS_WALK_TIME) == 1 ) {
-    MEAN_BUS_WALK_TIME <<- MEAN_BUS_WALK_TIME
+  if(length(BUS_WALK_TIME) == 1 ) {
+    BUS_WALK_TIME <<- BUS_WALK_TIME
   }else{
-    parameters$MEAN_BUS_WALK_TIME <- rlnorm(NSAMPLES,MEAN_BUS_WALK_TIME[1], MEAN_BUS_WALK_TIME[2])
+    parameters$BUS_WALK_TIME <- rlnorm(NSAMPLES,BUS_WALK_TIME[1], BUS_WALK_TIME[2])
   }
   if(length(MMET_CYCLING) == 1 ) {
     MMET_CYCLING <<- MMET_CYCLING
@@ -514,8 +514,8 @@ add_walk_trips <- function(bus_trips){
   bus_trips <- arrange(bus_trips, trip_duration)
   walk_trips <- bus_trips
   walk_trips$trip_mode <- 'Short Walking'
-  ##RJ all trips have the same MEAN_BUS_WALK_TIME
-  walk_trips$trip_duration <- MEAN_BUS_WALK_TIME
+  ##RJ all trips have the same BUS_WALK_TIME
+  walk_trips$trip_duration <- BUS_WALK_TIME
   
   # Replace walk trips with duration greater than that of bus needs to be set to 0
   if (nrow(walk_trips[(walk_trips$trip_duration - bus_trips$trip_duration)  > 0,]) > 0)
@@ -1459,8 +1459,8 @@ ithim_uncertainty <- function(ithim_obj,seed=1){
   # Get parameters
   for(i in 1:length(parameters))
     assign(names(parameters)[i],parameters[[i]][[seed]],pos=1)
-  ## Re-do set up if MEAN_BUS_WALK_TIME has changed
-  if('MEAN_BUS_WALK_TIME'%in%names(parameters)){
+  ## Re-do set up if BUS_WALK_TIME has changed
+  if('BUS_WALK_TIME'%in%names(parameters)){
     trip_set <- ithim_setup_baseline_scenario()
     ithim_obj$trip_scen_sets <- create_all_scenarios(trip_set)
     ######################
@@ -1510,8 +1510,8 @@ run_ithim <- function(ithim_object,seed=1){
   # Injuries calculation
   for(i in 1:length(inj_distances))
     assign(names(inj_distances)[i],inj_distances[[i]])
-  #injuries <- injuries_function(relative_distances,scen_dist)
-  injuries <- injuries_function_2(true_distances)
+  injuries <- injuries_function(relative_distances,scen_dist)
+  #injuries <- injuries_function_2(true_distances)
   (deaths_yll_injuries <- injury_death_to_yll(injuries))
   scen1_injuries <- deaths_yll_injuries$scen1_injuries
   ############################

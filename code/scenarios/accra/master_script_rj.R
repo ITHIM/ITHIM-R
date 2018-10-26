@@ -81,7 +81,7 @@ for(i in 1:nDiseases){
 ## Use case 3: sampling:
 ## sample size, travel patterns, emissions (cleaner fleet)
 ithim_object <- run_ithim_setup(NSAMPLES = 16,
-                                MEAN_BUS_WALK_TIME = c(log(5), log(1.2)),
+                                BUS_WALK_TIME = c(log(5), log(1.2)),
                                 MMET_CYCLING = c(log(5), log(1.2)), 
                                 PM_CONC_BASE = c(log(50), log(1.2)),  
                                 PM_TRANS_SHARE = c(5, 5),  
@@ -131,7 +131,7 @@ certainty_parameters <- list(uncertain=list(
   transport_pm          = list(now=c(5,5),             safer=c(5,5),             more_chronic_disease=c(5,5),             less_background_AP=0.3673469,    less_background_PA=c(5,5)),
   background_pa_scalar  = list(now=c(0,log(1.2)),      safer=c(0,log(1.2)),      more_chronic_disease=c(0,log(1.2)),      less_background_AP=c(0,log(1.2)),less_background_PA=0.5),
   NSAMPLES = 1024,
-  MEAN_BUS_WALK_TIME = c(log(5), log(1.2)),
+  BUS_WALK_TIME = c(log(5), log(1.2)),
   MMET_CYCLING = c(log(5), log(1.2)), 
   MMET_WALKING = c(log(2.5), log(1.2)), 
   PA_DOSE_RESPONSE_QUANTILE = T,  
@@ -143,7 +143,7 @@ certainty_parameters <- list(uncertain=list(
   transport_pm          = list(now=0.225,safer=0.225,more_chronic_disease=0.225,less_background_AP=0.3673469,less_background_PA=0.225),
   background_pa_scalar  = list(now=1,    safer=1,    more_chronic_disease=1,    less_background_AP=1,        less_background_PA=0.5),
   NSAMPLES = 1,
-  MEAN_BUS_WALK_TIME = 5,
+  BUS_WALK_TIME = 5,
   MMET_CYCLING = 4.63, 
   MMET_WALKING = 2.53, 
   PA_DOSE_RESPONSE_QUANTILE = F,  
@@ -161,7 +161,7 @@ if(file.exists(file_name)){
     for(environmental_scenario in environmental_scenarios){
       
       ithim_object <- run_ithim_setup(NSAMPLES = certainty_parameters[[certainty]]$NSAMPLES,
-                                      MEAN_BUS_WALK_TIME = certainty_parameters[[certainty]]$MEAN_BUS_WALK_TIME,
+                                      BUS_WALK_TIME = certainty_parameters[[certainty]]$BUS_WALK_TIME,
                                       MMET_CYCLING = certainty_parameters[[certainty]]$MMET_CYCLING, 
                                       MMET_WALKING = certainty_parameters[[certainty]]$MMET_WALKING, 
                                       SAFETY_SCALAR = certainty_parameters[[certainty]]$safey_scalar[[environmental_scenario]],  
@@ -247,6 +247,11 @@ x11(width=8,height=5); par(mfrow=c(2,4),mar=c(5,1,1,1));
 for(i in 1:8)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),xlab=names(ithim_object_list$uncertain$now$parameters)[i],ylab='',frame=F,main='',lwd=2)
 
 
+outcome <- t(sapply(ithim_object_list$uncertain$now$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
+y <- rowSums(outcome[,seq(3,ncol(outcome),by=NSCEN)])
+x <- parameter_samples[, 7];
+plot(x,y,xlab='Street safety',ylab='Outcome')
+    
 x11(); boxplot(sapply(1:5,function(x)rowSums(outcome[,seq(x,ncol(outcome),by=NSCEN)])))
 points(1:5,sapply(1:5,function(x)sum(ithim_object_list$not_uncertain$now$outcomes$hb$deaths[,seq(2+x,ncol(ithim_object_list$not_uncertain$now$outcomes$hb$deaths),by=5)])),col='blue')
 
