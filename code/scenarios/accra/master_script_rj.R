@@ -128,9 +128,9 @@ certainty_parameters <- list(uncertain=list(
   safey_scalar          = list(now=c(0,log(1.2)),      safer=0.5,                more_chronic_disease=c(0,log(1.2)),      less_background_AP=c(0,log(1.2)),less_background_PA=c(0,log(1.2))),
   disease_scalar        = list(now=c(0,log(1.2)),      safer=c(0,log(1.2)),      more_chronic_disease=2.0,                less_background_AP=c(0,log(1.2)),less_background_PA=c(0,log(1.2))),
   background_pm         = list(now=c(log(50),log(1.2)),safer=c(log(50),log(1.2)),more_chronic_disease=c(log(50),log(1.2)),less_background_AP=30.625,       less_background_PA=c(log(50),log(1.2))),
-  transport_pm          = list(now=c(5,5),             safer=c(5,5),             more_chronic_disease=c(5,5),             less_background_AP=0.3673469,    less_background_PA=c(5,5)),
+  transport_pm          = list(now=c(5,20),             safer=c(5,20),             more_chronic_disease=c(5,20),             less_background_AP=0.3673469,    less_background_PA=c(5,20)),
   background_pa_scalar  = list(now=c(0,log(1.2)),      safer=c(0,log(1.2)),      more_chronic_disease=c(0,log(1.2)),      less_background_AP=c(0,log(1.2)),less_background_PA=0.5),
-  NSAMPLES = 1024,
+  NSAMPLES = 2048,
   BUS_WALK_TIME = c(log(5), log(1.2)),
   MMET_CYCLING = c(log(5), log(1.2)), 
   MMET_WALKING = c(log(2.5), log(1.2)), 
@@ -150,7 +150,7 @@ certainty_parameters <- list(uncertain=list(
   AP_DOSE_RESPONSE_QUANTILE = F
 ))
 
-file_name <- paste0('six_by_five_scenarios_',certainty_parameters$uncertain$NSAMPLES,'.Rds')
+file_name <- paste0('six_by_one_scenarios_',certainty_parameters$uncertain$NSAMPLES,'.Rds')
 if(file.exists(file_name)){
   ithim_object_list <- readRDS(file_name)
 }else{
@@ -174,15 +174,17 @@ if(file.exists(file_name)){
       
       if(certainty=='not_uncertain'){
         ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
-      }else if(certainty=='uncertain'){
+      }else if(certainty=='uncertain'&&environmental_scenario=='now'){
+        print(1)
         ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_obj = ithim_object,mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
         ## calculate EVPPI
         parameter_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
         parameter_samples <- sapply(parameter_names,function(x)ithim_object$parameters[[x]])
+        ## omit all-cause mortality
         outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
         evppi <- matrix(0, ncol = NSCEN, nrow = ncol(parameter_samples))
         for(j in 1:(NSCEN)){
-          y <- rowSums(outcome[,seq(j,ncol(outcome),by=NSCEN)])
+          y <- rowSums(outcome[,seq(NSCEN+j,ncol(outcome),by=NSCEN)])
           vary <- var(y)
           for(i in 1:ncol(parameter_samples)){
             x <- parameter_samples[, i];
