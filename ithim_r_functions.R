@@ -2,25 +2,21 @@
 ## How many 'age_cat's should there be? How should they be defined for the different parts of the model? 
 ## E.g., PA has different categories to everything else.
 
-##RJ question for LG/AA/RG
-## in lots of places we write
-# Remove short walking, 99, Train, Other and Unspecified modes
-## do we want to remove any of these from the raw dataset that gets passed around?
-
 ##RJ question for/discussion with AA. 
 ## Functions ithim_setup_global_values, ithim_setup_parameters, ithim_load_data, set_scenario_specific_variables
 ## Global variables (i.e. those needed by all functions) are assigned to all environments, using 
 ## <<- and assign(...,pos=1), and denoted by capitals to make it clear what they are. 
 ## A better method might be to make an object (list) that contains all inputs, variables, and intermediate objects.
 
-run_ithim_setup <- function(plotFlag = F,
-                            NSAMPLES = 1,
+run_ithim_setup <- function(NSAMPLES = 1,
                             CITY = 'Accra',
-                            modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle","Truck"),
-                            speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25, 21),
+                            modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle","Truck","Bus_driver"),
+                            speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25, 21, 15),
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             AGE_CATEGORY = c("15-49", "50-69", "70+"),
                             MAX_AGE=70,
+                            #population=1600000,
+                            #survey_coverage=1/365,
                             BUS_WALK_TIME= 5,
                             MMET_CYCLING = 4.63,
                             MMET_WALKING = 2.53,
@@ -30,7 +26,14 @@ run_ithim_setup <- function(plotFlag = F,
                             AP_DOSE_RESPONSE_QUANTILE = F,
                             BACKGROUND_PA_SCALAR = 1,
                             SAFETY_SCALAR = 1,
-                            CHRONIC_DISEASE_SCALAR = 1 ){
+                            CHRONIC_DISEASE_SCALAR = 1,
+                            ratio_4W1_to_4W2 = 10/12,
+                            taxi_to_car_ratio = 0.04,
+                            bus_to_car_ratio = 0.12,
+                            truck_to_car_ratio = 0.09,
+                            motorcycle_to_car_ratio = 0.56,
+                            LDT_to_car_ratio = 0.21,
+                            other_to_car_ratio = 0.01 ){
   # Load packages
   library(tidyverse)
   library(haven)
@@ -50,29 +53,30 @@ run_ithim_setup <- function(plotFlag = F,
   
   ithim_object <- list()
   
-  #ithim_setup_global_values(plotFlag,NSAMPLES,modes,speeds,DIST_CAT,AGE_CATEGORY)
   ## SET GLOBAL VALUES
   ## PROGRAMMING VARIABLES
-  plotFlag <<- plotFlag
   NSAMPLES <<- NSAMPLES
   
   ## MODEL VARIABLES
   CITY <<- CITY
   TRAVEL_MODES <<- modes
-  MODE_SPEEDS <<- data.frame(trip_mode = modes, speed = speeds, stringsAsFactors = F)
+  mode_speeds <- data.frame(trip_mode = modes, speed = speeds, stringsAsFactors = F)
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
   AGE_CATEGORY <<- AGE_CATEGORY
   AGE_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(AGE_CATEGORY, "[^0-9]+"), function(x) x[1]))
   MAX_AGE <<- MAX_AGE
+  
   BASE_LEVEL_INHALATION_RATE <<- 10
   CLOSED_WINDOW_PM_RATIO <<- 0.5
   CLOSED_WINDOW_RATIO <<- 0.5
   ROAD_RATIO_MAX <<- 3.216
   ROAD_RATIO_SLOPE <<- 0.379
   
-  ithim_load_data()
+  ## LOAD DATA
+  ithim_load_data()  
   
+  ## SET PARAMETERS
   ithim_object$parameters <- ithim_setup_parameters(NSAMPLES,
                                                     BUS_WALK_TIME,
                                                     MMET_CYCLING,
@@ -85,13 +89,42 @@ run_ithim_setup <- function(plotFlag = F,
                                                     SAFETY_SCALAR,
                                                     CHRONIC_DISEASE_SCALAR )
   
+  ## the vehicle inventory lists the modes, their speeds, their emission factors, and the distance covered relative to cars.
+  ## we use 'distance covered relative to cars' to impute distances for modes not included in the travel survey.
+  ## these distances are either added to the synthetic trip set, which means they feature in the emission and injury calculations,
+  ## or they are just added ad hoc to the emission calculation.
+  ## For Accra, Bus_driver and Truck trips are added to Synthetic trips. LDT and Other are not, so are included in Emission calculation only.
+  ## ratios are heuristic values taken from Delhi study. 
+  ## They can become set variables, or random variables, but as present are constant as below. To make variable, move VEHICLE_INVENTORY definition to 'dist' calculation.
+  ## N.B.: the mode list is the union of trip_modes and EMISSION_FACTORS. To omit an undesired mode, we'd need to set the distance ratio to 0.
+  vehicle_inventory <- mode_speeds
+  vehicle_inventory$emission_factor <- 0
+  vehicle_inventory$distance_ratio_to_car <- 1
+  vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('Taxi')] <- EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='TAXI']
+  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('Taxi')] <- taxi_to_car_ratio
+  vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('Private Car')] <- 
+    ratio_4W1_to_4W2*EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='4W1']+(1-ratio_4W1_to_4W2)*EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='4W1']
+  vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('Bus_driver')] <- EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='BUS']
+  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('Bus_driver')] <- bus_to_car_ratio
+  vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('Truck')] <- EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='HDT']
+  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('Truck')] <- truck_to_car_ratio
+  vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('Motorcycle')] <- EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='2W']
+  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('Motorcycle')] <- motorcycle_to_car_ratio
+  vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode=EMISSION_FACTORS$vehicle_type[7],speed=21,emission_factor=EMISSION_FACTORS$PM2_5_emiss_fact[7],distance_ratio_to_car=LDT_to_car_ratio))
+  vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode=EMISSION_FACTORS$vehicle_type[8],speed=21,emission_factor=EMISSION_FACTORS$PM2_5_emiss_fact[8],distance_ratio_to_car=other_to_car_ratio))
+  VEHICLE_INVENTORY <<- vehicle_inventory
+  
+  ## add motorcycle trip to accra, and replicate set four times
   if(CITY=='Accra') edit_accra_trips()
+  #SURVEY_SCALAR <<- population/length(unique(TRIP_SET$participant_id))/survey_coverage
+  ## add bus and truck trips to accra
+  if(CITY=='Accra') add_ghost_trips()
+  
   synth_pop <- create_synth_pop()
   SYNTHETIC_POPULATION <<- synth_pop$synthetic_population
   SYNTHETIC_TRIPS <<- synth_pop$trip_set
   
-  ##RJ these distance calculations are currently not parameter dependent, which means we can make the calculation outside the function.
-  ## We could either integrate them into another external function, or move them to the internal function, so that they can become variable.
+  ## calculate distances, if distances are not variable dependent
   if(!'BUS_WALK_TIME'%in%names(ithim_object$parameters)){
     trip_set <- ithim_setup_baseline_scenario()
     ithim_object$trip_scen_sets <- create_all_scenarios(trip_set)
@@ -317,11 +350,24 @@ edit_accra_trips <- function(){
   
   trip_set <- TRIP_SET
   
-  nPeople <- 4
-  nTrips <- 3
+  total_car_duration <- sum(subset(trip_set,trip_mode=='Private Car')$trip_duration)
+  total_car_distance <- total_car_duration/60*VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode=='Private Car']
+  
+  # Redefine motorcycle mode for a select 14 rows
+  trip_set$trip_mode[trip_set$trip_mode=='Other'&trip_set$trip_duration<60] <- 'Motorcycle'
+  
+  # Create new motorbike trips
+  # Add 4 new people with 3 trips each
+  # Age: 15-59 and gender: male
   new_mode <- 'Motorcycle'
-  new_gender <- 'Male'
+  total_mc_distance <- total_car_distance*VEHICLE_INVENTORY$distance_ratio_to_car[VEHICLE_INVENTORY$trip_mode==new_mode]
+  mc_duration <- total_mc_distance/VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode==new_mode]*60
+  residual_mc_duration <- mc_duration - sum(subset(trip_set,trip_mode==new_mode)$trip_duration)
   duration_range <- 15:100
+  nTrips <- 4
+  nPeople <- round(residual_mc_duration/nTrips/mean(duration_range))
+  nPeople <- 4
+  new_gender <- 'Male'
   age_range <- AGE_LOWER_BOUNDS[1]:AGE_LOWER_BOUNDS[2]
   for(i in 1:nPeople){
     new_trips <- add_trips(trip_ids   = max(trip_set$trip_id) + 1: nTrips, 
@@ -335,9 +381,6 @@ edit_accra_trips <- function(){
     trip_set <- rbind(trip_set, new_trips)
   }
   
-  # Redefine motorcycle mode for a select 14 rows
-  trip_set$trip_mode[trip_set$trip_mode=='Other'&trip_set$trip_duration<60] <- 'Motorcycle'
-  
   # Multiply trip_set by 4 to have a bigger number of trips (and trip_set)
   ind1 <- trip_set
   ind1$participant_id <- ind1$participant_id + max(trip_set$participant_id)
@@ -349,12 +392,43 @@ edit_accra_trips <- function(){
   ind1$trip_id <- (max(trip_set$trip_id) + 1): (max(trip_set$trip_id) + nrow(ind1))
   trip_set <- rbind(trip_set, ind1)
   
-  nPeople <- 10
-  nTrips <- 10
-  new_mode <- 'Truck'
-  new_gender <- 'Male'
-  duration_range <- 15:100
+  TRIP_SET <<- trip_set
+  
+}
+
+add_ghost_trips <- function(){
+  
+  trip_set <- TRIP_SET
+  
+  ## values for new ghost journeys
   age_range <- AGE_LOWER_BOUNDS[1]:AGE_LOWER_BOUNDS[3]
+  nPeople <- 2
+  nTrips <- 1
+  new_gender <- 'Male'
+  total_car_duration <- sum(subset(trip_set,trip_mode=='Private Car')$trip_duration)
+  total_car_distance <- total_car_duration/60*VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode=='Private Car']
+  
+  ## add Truck travel
+  new_mode <- 'Truck'
+  total_truck_distance <- total_car_distance*VEHICLE_INVENTORY$distance_ratio_to_car[VEHICLE_INVENTORY$trip_mode==new_mode]
+  truck_duration <- total_truck_distance/VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode==new_mode]*60
+  duration_range <- c(floor(truck_duration/nPeople),ceiling(truck_duration/nPeople))
+  for(i in 1:nPeople){
+    new_trips <- add_trips(trip_ids   = max(trip_set$trip_id) + 1: nTrips, 
+                           new_mode = new_mode, 
+                           duration = duration_range, 
+                           participant_id = 0,
+                           age = age_range,
+                           sex = new_gender,
+                           nTrips=nTrips)
+    trip_set <- rbind(trip_set, new_trips)
+  }
+  
+  ## add Bus_driver travel
+  new_mode <- 'Bus_driver'
+  total_bus_distance <- total_car_distance*VEHICLE_INVENTORY$distance_ratio_to_car[VEHICLE_INVENTORY$trip_mode==new_mode]
+  bus_duration <- total_bus_distance/VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode==new_mode]*60
+  duration_range <- c(floor(bus_duration/nPeople),ceiling(bus_duration/nPeople))
   for(i in 1:nPeople){
     new_trips <- add_trips(trip_ids   = max(trip_set$trip_id) + 1: nTrips, 
                            new_mode = new_mode, 
@@ -398,10 +472,6 @@ create_synth_pop <- function(){
   ##vpa: vigorous physical activity (6 MET; 5 marginal MET).
   ##duration: units are minutes per day.
   ##work_ltpa_marg_met: units are marginal MET-h/week.
-  
-  # Create new motorbike trips
-  # Add 4 new people with 3 trips each
-  # Age: 15-59 and gender: male
   
   trip_set <- subset(TRIP_SET,!trip_mode%in%c("Train", "Other", "Unspecified"))
   # Make age category for trip_set dataset.
@@ -461,9 +531,10 @@ ithim_setup_baseline_scenario <- function(){
   # Define trip_distances (in km)
   # Based on travel mode and trip duration, calculate distances
   
-  trip_set <- left_join(trip_set, MODE_SPEEDS, by = "trip_mode")
-  trip_set$speed[is.na(trip_set$speed)] <- 0
-  trip_set$trip_distance <- (trip_set$trip_duration / 60) * trip_set$speed
+  mode_indices <- match(trip_set$trip_mode,VEHICLE_INVENTORY$trip_mode)
+  trip_speeds <- VEHICLE_INVENTORY$speed[mode_indices]
+  trip_speeds[is.na(trip_speeds)] <- 0
+  trip_set$trip_distance <- (trip_set$trip_duration / 60) * trip_speeds
   
   # Initialize them
   ## Distance categories are used in scenario generation. They correspond to e.g. ``long trips'' and ``short trips''
@@ -488,9 +559,9 @@ ithim_setup_baseline_scenario <- function(){
   ##RJ question for AA: do we want to add walking to train?
   bus_walk_trips <- add_walk_trips(filter(trip_set, trip_mode == "Bus"))
   
-  trip_set[trip_set$trip_mode == 'Bus' & trip_set$rid %in% bus_walk_trips[[1]]$rid,]$trip_duration <- bus_walk_trips[[1]]$trip_duration
-  trip_set[trip_set$trip_mode == 'Bus' & trip_set$rid %in% bus_walk_trips[[1]]$rid,]$trip_distance <- bus_walk_trips[[1]]$trip_distance
-  trip_set[trip_set$trip_mode == 'Bus' & trip_set$rid %in% bus_walk_trips[[1]]$rid,]$trip_distance_cat <- bus_walk_trips[[1]]$trip_distance_cat
+  trip_set$trip_duration[trip_set$trip_mode == 'Bus' & trip_set$rid %in% bus_walk_trips[[1]]$rid] <- bus_walk_trips[[1]]$trip_duration
+  trip_set$trip_distance[trip_set$trip_mode == 'Bus' & trip_set$rid %in% bus_walk_trips[[1]]$rid] <- bus_walk_trips[[1]]$trip_distance
+  trip_set$trip_distance_cat[trip_set$trip_mode == 'Bus' & trip_set$rid %in% bus_walk_trips[[1]]$rid] <- bus_walk_trips[[1]]$trip_distance_cat
   
   trip_set <- rbind(trip_set, bus_walk_trips[[2]])
   
@@ -503,42 +574,6 @@ set_scenario_specific_variables <- function(trip_set){
   NSCEN <<- length(unique(trip_set$scenario)) - 1
   SCEN <<- unique(trip_set$scenario)
   SCEN_SHORT_NAME <<- c("base",paste0("scen", 1:NSCEN) )
-}
-
-add_walk_trips <- function(bus_trips){
-  
-  # bus_trips
-  # ln_mean = 5
-  # ln_sd = 1.2
-  
-  bus_trips <- arrange(bus_trips, trip_duration)
-  walk_trips <- bus_trips
-  walk_trips$trip_mode <- 'Short Walking'
-  ##RJ all trips have the same BUS_WALK_TIME
-  walk_trips$trip_duration <- BUS_WALK_TIME
-  
-  # Replace walk trips with duration greater than that of bus needs to be set to 0
-  if (nrow(walk_trips[(walk_trips$trip_duration - bus_trips$trip_duration)  > 0,]) > 0)
-    walk_trips[(walk_trips$trip_duration - bus_trips$trip_duration)  > 0,]$trip_duration <- 0
-  
-  bus_trips$trip_duration <- bus_trips$trip_duration - walk_trips$trip_duration
-  
-  # Corrrect walk trips distance
-  walk_trips$trip_distance <- (walk_trips$trip_duration / 60) * MODE_SPEEDS$speed[MODE_SPEEDS$trip_mode=='Walking']
-  bus_trips$trip_distance <- (bus_trips$trip_duration / 60 ) * MODE_SPEEDS$speed[MODE_SPEEDS$trip_mode=='Bus']
-  
-  # Recategorise trip_distance_cat for both bus and walk trips
-  bus_trips$trip_distance_cat[bus_trips$trip_distance > 0 & bus_trips$trip_distance < DIST_LOWER_BOUNDS[2]] <- DIST_CAT[1]
-  bus_trips$trip_distance_cat[bus_trips$trip_distance >= DIST_LOWER_BOUNDS[2] & bus_trips$trip_distance < DIST_LOWER_BOUNDS[3]] <- DIST_CAT[2]
-  bus_trips$trip_distance_cat[bus_trips$trip_distance >= DIST_LOWER_BOUNDS[3]] <- DIST_CAT[3]
-  
-  
-  walk_trips$trip_distance_cat[walk_trips$trip_distance > 0 & walk_trips$trip_distance < DIST_LOWER_BOUNDS[2]] <- DIST_CAT[1]
-  walk_trips$trip_distance_cat[walk_trips$trip_distance >= DIST_LOWER_BOUNDS[2] & walk_trips$trip_distance < DIST_LOWER_BOUNDS[3]] <- DIST_CAT[2]
-  walk_trips$trip_distance_cat[walk_trips$trip_distance >= DIST_LOWER_BOUNDS[3]] <- DIST_CAT[3]
-  
-  return(list(bus_trips, walk_trips))
-  
 }
 
 create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, target_modes, source_distance_cats, 
@@ -563,7 +598,7 @@ create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, ta
                          trip_distance_cat %in% source_distance_cats) %>% sample_n(local_source_trips[i]) %>%
         mutate(
           trip_mode = target_modes[1],
-          trip_duration = (trip_distance * 60) / MODE_SPEEDS[MODE_SPEEDS$trip_mode == target_modes[1], ]$speed
+          trip_duration = (trip_distance * 60) / VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode == target_modes[1]]
         )
       # Update selected rows for mode and duration
       rdr[rdr$row_id %in% sample$row_id,]$trip_mode <- sample$trip_mode
@@ -580,7 +615,7 @@ create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, ta
                        trip_distance_cat %in% source_distance_cats) %>% sample_n(source_trips[1]) %>%
       mutate(
         trip_mode = target_modes[1],
-        trip_duration = (trip_distance * 60) / MODE_SPEEDS[MODE_SPEEDS$trip_mode == target_modes[1], ]$speed
+        trip_duration = (trip_distance * 60) / VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode == target_modes[1]]
       )
     
     sample$scenario <- scen_name
@@ -655,10 +690,10 @@ create_all_scenarios <- function(trip_set){
   bus_walk_trips <- add_walk_trips(bus_trips)
   
   # Update selected rows for mode and duration
-  rdr[rdr$row_id %in% bus_walk_trips[[1]]$row_id,]$trip_mode <- bus_walk_trips[[1]]$trip_mode
-  rdr[rdr$trip_mode == 'Bus' & rdr$rid %in% bus_walk_trips[[1]]$rid,]$trip_duration <- bus_walk_trips[[1]]$trip_duration
-  rdr[rdr$trip_mode == 'Bus' & rdr$rid %in% bus_walk_trips[[1]]$rid,]$trip_distance <- bus_walk_trips[[1]]$trip_distance
-  rdr[rdr$trip_mode == 'Bus' & rdr$rid %in% bus_walk_trips[[1]]$rid,]$trip_distance_cat <- bus_walk_trips[[1]]$trip_distance_cat
+  rdr$trip_mode[rdr$row_id %in% bus_walk_trips[[1]]$row_id] <- bus_walk_trips[[1]]$trip_mode
+  rdr$trip_duration[rdr$trip_mode == 'Bus' & rdr$rid %in% bus_walk_trips[[1]]$rid] <- bus_walk_trips[[1]]$trip_duration
+  rdr$trip_distance[rdr$trip_mode == 'Bus' & rdr$rid %in% bus_walk_trips[[1]]$rid] <- bus_walk_trips[[1]]$trip_distance
+  rdr$trip_distance_cat[rdr$trip_mode == 'Bus' & rdr$rid %in% bus_walk_trips[[1]]$rid] <- bus_walk_trips[[1]]$trip_distance_cat
   
   rdr %>% group_by(trip_mode) %>% summarise(c = dplyr::n(), p = dplyr::n() / nrow(rdr) * 100)
   
@@ -767,6 +802,42 @@ create_all_scenarios <- function(trip_set){
   do.call('rbind',rd_list)
 }
 
+add_walk_trips <- function(bus_trips){
+  
+  # bus_trips
+  # ln_mean = 5
+  # ln_sd = 1.2
+  
+  bus_trips <- arrange(bus_trips, trip_duration)
+  walk_trips <- bus_trips
+  walk_trips$trip_mode <- 'Short Walking'
+  ##RJ all trips have the same BUS_WALK_TIME
+  walk_trips$trip_duration <- BUS_WALK_TIME
+  
+  # Replace walk trips with duration greater than that of bus needs to be set to 0
+  if (nrow(walk_trips[(walk_trips$trip_duration - bus_trips$trip_duration)  > 0,]) > 0)
+    walk_trips[(walk_trips$trip_duration - bus_trips$trip_duration)  > 0,]$trip_duration <- 0
+  
+  bus_trips$trip_duration <- bus_trips$trip_duration - walk_trips$trip_duration
+  
+  # Corrrect walk trips distance
+  walk_trips$trip_distance <- (walk_trips$trip_duration / 60) * VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode=='Walking']
+  bus_trips$trip_distance <- (bus_trips$trip_duration / 60 ) * VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode=='Bus']
+  
+  # Recategorise trip_distance_cat for both bus and walk trips
+  bus_trips$trip_distance_cat[bus_trips$trip_distance > 0 & bus_trips$trip_distance < DIST_LOWER_BOUNDS[2]] <- DIST_CAT[1]
+  bus_trips$trip_distance_cat[bus_trips$trip_distance >= DIST_LOWER_BOUNDS[2] & bus_trips$trip_distance < DIST_LOWER_BOUNDS[3]] <- DIST_CAT[2]
+  bus_trips$trip_distance_cat[bus_trips$trip_distance >= DIST_LOWER_BOUNDS[3]] <- DIST_CAT[3]
+  
+  
+  walk_trips$trip_distance_cat[walk_trips$trip_distance > 0 & walk_trips$trip_distance < DIST_LOWER_BOUNDS[2]] <- DIST_CAT[1]
+  walk_trips$trip_distance_cat[walk_trips$trip_distance >= DIST_LOWER_BOUNDS[2] & walk_trips$trip_distance < DIST_LOWER_BOUNDS[3]] <- DIST_CAT[2]
+  walk_trips$trip_distance_cat[walk_trips$trip_distance >= DIST_LOWER_BOUNDS[3]] <- DIST_CAT[3]
+  
+  return(list(bus_trips, walk_trips))
+  
+}
+
 distances_for_injury_function <- function(trip_scen_sets){
   ##synth need supplementary journeys to have age_cat,sex,trip_mode, scenario
   
@@ -782,11 +853,12 @@ distances_for_injury_function <- function(trip_scen_sets){
   distances <- distances[, -which(names(distances) ==  "Taxi")]
   true_distances <- distances
   true_distances$sex_age <-  paste0(true_distances$sex,"_",true_distances$age_cat)
+  true_distances$Bus <- true_distances$Bus + true_distances$Bus_driver
   true_distances <- true_distances[,-c(which(names(true_distances) == 'sex'))]
   
   scen_dist <- sapply(1:(NSCEN+1),function(x)c(colSums(subset(distances,scenario == SCEN[x])[,3+1:(length(unique(journeys$trip_mode))-2)])))
   colnames(scen_dist) <- SCEN_SHORT_NAME
-  for(i in 2:(length(unique(journeys$trip_mode))-2)) scen_dist[,i] <- scen_dist[,i]/scen_dist[,1] 
+  for(i in 2:ncol(scen_dist)) scen_dist[,i] <- scen_dist[,i]/scen_dist[,1] 
   scen_dist <- rbind(scen_dist,Tuktuk=1)
   
   mode_names <- names(distances)[3+1:(length(unique(journeys$trip_mode))-2)]
@@ -804,53 +876,6 @@ distances_for_injury_function <- function(trip_scen_sets){
 dist_dur_tbls <- function(trip_scen_sets){
   
   bs <- trip_scen_sets
-  
-  ##RJ only calculate if plotFlag==T
-  if(plotFlag){
-    # Remove short walking, 99, Train, Other and Unspecified modes
-    dataset <- filter(bs, ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified"))
-    # Unique number of individuals
-    total_ind <- length(unique(bs$participant_id))
-    
-    l <- list()
-    for (i in 1:length(unique(dataset$scenario))){
-      bd <- filter(dataset, scenario == unique(dataset$scenario)[i])
-      bdnr <- nrow(bd)
-      bd <- bd %>% group_by(trip_mode) %>%  summarise(pert = dplyr::n())
-      bd <- bd %>%  dplyr::select(trip_mode, pert) %>% 
-        setNames(c("trip_mode",unique(dataset$scenario)[i])) 
-      l[[i]] <- bd
-      
-    }
-    
-    bd <- l[[1]]
-    if(length(l)>1)
-      for (i in 2:length(l))
-        bd <- left_join(bd, l[[i]], by = "trip_mode")
-    
-    l <- list()
-    for (i in 1:length(unique(dataset$scenario))){
-      bd <- filter(dataset, scenario == unique(dataset$scenario)[i])
-      bdnr <- nrow(bd)
-      bd <- bd %>% group_by(trip_mode) %>%  summarise(pert = round(dplyr::n()/bdnr * 100, 1))
-      bd <- bd %>%  dplyr::select(trip_mode, pert) %>% 
-        setNames(c("trip_mode",unique(dataset$scenario)[i])) 
-      l[[i]] <- bd
-    }
-    
-    bd <- l[[1]]
-    if(length(l)>1)
-      for (i in 2:length(l))
-        bd <- left_join(bd, l[[i]], by = "trip_mode")
-    
-    bd <- reshape2::melt(bd)
-    
-    plotly::ggplotly(ggplot(data = bd, aes(x = trip_mode, y = value, fill = variable)) + 
-                       geom_bar(stat = 'identity', position = "dodge", color = "black") + 
-                       theme_minimal() + xlab('Mode') + ylab('Percentage (%)') + labs(title = "Mode distribution per week"))
-    # Calculate trip distance for baseline and three scenarios
-    
-  }
   
   ## calculate all distances & durations
   l_dist <-  l_dur <- list()
@@ -887,28 +912,6 @@ dist_dur_tbls <- function(trip_scen_sets){
   dist <- filter(local_dist, trip_mode != 'Short Walking')
   dur <- filter(local_dur, trip_mode != 'Short Walking')
   
-  if(plotFlag){
-    
-    dist_melted <- reshape2::melt(dist, by = trip_mode)
-    # Plot
-    plotly::ggplotly(ggplot(data = dist_melted, aes(x = trip_mode, y = value / total_ind, fill = variable)) + 
-                       geom_bar(stat = 'identity', position = 'dodge', color = "black") + 
-                       theme_minimal() + xlab('Mode') + ylab('Distance (km)') + labs(title = "Mode distance  per person per week (km)")
-    )
-    
-    dur_melted <- reshape2::melt(dur, by = trip_mode)
-    
-    dur_melted$value <- round(dur_melted$value / (60 * total_ind), 2)
-    
-    # Plot
-    plotly::ggplotly(ggplot(data = dur_melted, aes(x = trip_mode, y = value, fill = variable)) + 
-                       geom_bar(stat = 'identity', position = 'dodge', color = 'black') + 
-                       theme_minimal() + xlab('Mode') + ylab('Duration (hours)') + labs(title = 
-                                                                                          "Mode Duration per person per week (hours)")
-    )
-  }
-  
-  #list(dist,dur)
   list(dist=dist,dur=dur)
 }
 
@@ -942,29 +945,25 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   # concentration contributed by non-transport share (remains constant across the scenarios)
   non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
   
-  ##!! temp_distance should be replaced by a sum over travel in the synthetic population. DISTANCE_FOR_EMISSIONS should be removed.
-  ##!! hack for accra
-  temp_distance <- list()
-  # get scenario distance relative to baseline
-  for (i in 1:6) temp_distance[[SCEN_SHORT_NAME[i]]] <- dist[[SCEN[i]]]/dist[[SCEN[1]]]
-  # re-order modes to match emission factors: 4W1, 4W2, 2W, Taxi
-  for (i in 1:6) temp_distance[[SCEN_SHORT_NAME[i]]] <- temp_distance[[SCEN_SHORT_NAME[i]]][c(4,4,3,5)]
-  # append four units for bus, HDT, LDT and other, which do not change
-  for (i in 1:6) temp_distance[[SCEN_SHORT_NAME[i]]] <- c(temp_distance[[SCEN_SHORT_NAME[i]]],rep(1,4))
-  # multiply by distances for emissions (Accra)
-  for (i in 1:6) temp_distance[[SCEN_SHORT_NAME[i]]] <- temp_distance[[SCEN_SHORT_NAME[i]]]*DISTANCE_FOR_EMISSIONS$accra_distances
+  ## adding in travel not covered in the synthetic trip set, based on distances travelled relative to car, set in VEHICLE_INVENTORY
+  emission_dist <- dist
+  for(mode_type in which(!VEHICLE_INVENTORY$trip_mode%in%emission_dist$trip_mode)){
+    emission_dist <- rbind(emission_dist,emission_dist[which(emission_dist$trip_mode=='Private Car'),])
+    emission_dist[nrow(emission_dist),1] <- VEHICLE_INVENTORY$trip_mode[mode_type]
+    emission_dist[nrow(emission_dist),0:NSCEN+2] <- emission_dist[nrow(emission_dist),2]*VEHICLE_INVENTORY$distance_ratio_to_car[mode_type]
+  }
   
-  trans_emissions <- list() #TRANS_EMISSIONS_ORIGINAL
-  ## multiply distance by emission factor
-  for (i in 1:6)  trans_emissions[[SCEN_SHORT_NAME[i]]] <- EMISSION_FACTORS$PM2_5_emiss_fact * temp_distance[[SCEN_SHORT_NAME[i]]]
+  ## multiply distance by emission factor. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
+  ordered_efs <- VEHICLE_INVENTORY$emission_factor[match(emission_dist$trip_mode,VEHICLE_INVENTORY$trip_mode)]
+  trans_emissions <- emission_dist[,0:NSCEN+2]*t(repmat(ordered_efs,NSCEN+1,1))#*SURVEY_SCALAR
   
-  baseline_sum <- sum(trans_emissions[[SCEN_SHORT_NAME[1]]])
+  baseline_sum <- sum(trans_emissions[[SCEN[1]]])
   conc_pm <- c()
   for(i in 1:length(SCEN_SHORT_NAME))
-    conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN_SHORT_NAME[i]]])/baseline_sum
+    conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN[i]]])/baseline_sum
   
   ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
-  vent_rates <- data.frame(trip_mode=MODE_SPEEDS$trip_mode,stringsAsFactors = F) 
+  vent_rates <- data.frame(trip_mode=VEHICLE_INVENTORY$trip_mode,stringsAsFactors = F) 
   vent_rates$vent_rate <- BASE_LEVEL_INHALATION_RATE # L / min
   vent_rates$vent_rate[vent_rates$trip_mode=='Bicycle'] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_CYCLING
   vent_rates$vent_rate[vent_rates$trip_mode%in%c('Walking','Short Walking')] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_WALKING
@@ -1213,8 +1212,8 @@ injuries_function_2 <- function(true_distances){
   ## and those for which we don't know striker distance: no or other vehicle (noov)
   ## we can only model casualties for which we know distance travelled (i.e. no Truck casualties for Accra)
   injury_list <- list()
-  injury_list$whw <- subset(INJURIES,cas_mode%in%colnames(true_distances)&strike_mode%in%colnames(true_distances))
-  injury_list$noov <- subset(INJURIES,cas_mode%in%colnames(true_distances)&!strike_mode%in%colnames(true_distances))
+  injury_list$whw <- subset(INJURIES,cas_mode%in%mode_names&strike_mode%in%mode_names)
+  injury_list$noov <- subset(INJURIES,cas_mode%in%mode_names&!strike_mode%in%mode_names)
   injury_table <- list()
   cas_mode_indices <- list()
   injury_gen_age <- list()
@@ -1271,12 +1270,13 @@ injuries_function_2 <- function(true_distances){
       injuries_list[[scen]][[type]]$pred <- predict(reg_model[[type]],newdata = injuries_list[[scen]][[type]],type='response')
     }
   injuries <- true_distances
+  injuries$Bus_driver <- 0
   for(scen in SCEN)
     for(injured_mode in unique(injury_list$whw$cas_mode)){
       injuries[injuries$scenario==scen,match(injured_mode,colnames(injuries))] <- 
         apply(injuries[injuries$scenario==scen,] , 1, function(y)
-            sum(subset(injuries_list[[scen]]$whw,cas_mode==injured_mode&injury_gen_age==as.character(y[9]))$pred) + 
-              sum(subset(injuries_list[[scen]]$noov,cas_mode==injured_mode&injury_gen_age==as.character(y[9]))$pred)
+            sum(subset(injuries_list[[scen]]$whw,cas_mode==injured_mode&injury_gen_age==as.character(y[10]))$pred) + 
+              sum(subset(injuries_list[[scen]]$noov,cas_mode==injured_mode&injury_gen_age==as.character(y[10]))$pred)
             )
     }
   injuries$Deaths <- rowSums(injuries[,match(unique(injury_list$whw$cas_mode),colnames(injuries))])

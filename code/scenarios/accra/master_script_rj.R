@@ -246,7 +246,9 @@ color.legend(5.5,0,5.5+0.3,length(labs),col.labels,rev(redCol),gradient="y",cex=
 x11(width=8,height=5); par(mfrow=c(2,4),mar=c(5,1,1,1)); 
 for(i in 1:8)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),xlab=names(ithim_object_list$uncertain$now$parameters)[i],ylab='',frame=F,main='',lwd=2)
 
-
+ithim_object <- ithim_object_list$uncertain$now
+parameter_samples <- sapply(labs,function(x)ithim_object$parameters[[x]])
+outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
 outcome <- t(sapply(ithim_object_list$uncertain$now$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
 y <- rowSums(outcome[,seq(3,ncol(outcome),by=NSCEN)])
 x <- parameter_samples[, 7];
