@@ -114,13 +114,14 @@ run_ithim_setup <- function(NSAMPLES = 1,
   vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode=EMISSION_FACTORS$vehicle_type[8],speed=21,emission_factor=EMISSION_FACTORS$PM2_5_emiss_fact[8],distance_ratio_to_car=other_to_car_ratio))
   VEHICLE_INVENTORY <<- vehicle_inventory
   
+  raw_trip_set <- TRIP_SET
   ## add motorcycle trip to accra, and replicate set four times
-  if(CITY=='Accra') edit_accra_trips()
+  if(CITY=='Accra') raw_trip_set <- edit_accra_trips(raw_trip_set)
   #SURVEY_SCALAR <<- population/length(unique(TRIP_SET$participant_id))/survey_coverage
   ## add bus and truck trips to accra
-  if(CITY=='Accra') add_ghost_trips()
+  if(CITY=='Accra') raw_trip_set <- add_ghost_trips(raw_trip_set)
   
-  synth_pop <- create_synth_pop()
+  synth_pop <- create_synth_pop(raw_trip_set)
   SYNTHETIC_POPULATION <<- synth_pop$synthetic_population
   SYNTHETIC_TRIPS <<- synth_pop$trip_set
   
@@ -229,6 +230,10 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     for(disease in ap_diseases$ap_acronym){ 
       dr_ap <- subset(DR_AP,cause_code==disease)
       dr_ap_list[[disease]] <- list()
+      quant1 <- parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease)]]
+      quant2 <- parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease)]]
+      quant3 <- parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease)]]
+      quant4 <- parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease)]]
       for(age in unique(dr_ap$age_code)){
         dr_ap_age <- subset(dr_ap,age_code==age)
         #######################################
@@ -238,17 +243,13 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
         #lgamma <- log(dr_ap_age$gamma)
         #gamma_val <- quantile(density(lgamma),quant1)
         #beta_val <- c()
-        #for(i in 1:n){
+        #for(i in 1:NSAMPLES){
         #  den <- kde2d(lgamma,lbeta,n=c(1,100),h=0.2,lims=c(gamma_val[i],gamma_val[i],min(lbeta)-1,max(lbeta)+1))
         #  beta_val[i] <- approx(x=cumsum(den$z)/sum(den$z),y=den$y,xout=quant2[i])$y
         #}
         #mod <- gam(log(alpha)~te(log(gamma),log(beta)),data=dr_ap_age)
         #pred_val <- predict(mod, newdata=data.frame(beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
         #alpha_val <- qnorm(quant3,pred_val$fit,sqrt(mod$sig2))
-        #mod <- gam(log(tmrel)~ns(log(gamma),df=8)+ns(log(beta),df=8)+ns(log(alpha),df=8),data=dr_ap_age)
-        #pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
-        #tmrel_val <- qnorm(quant4,pred_val$fit,sqrt(mod$sig2))
-        #dr_ap_list[[cause]][[age]] <- data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val),tmrel=exp(tmrel_val))
         #######################################
         
         # generate a value for alpha
@@ -261,6 +262,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
         mod <- gam(log(gamma)~ns(log(beta),df=8)+ns(log(alpha),df=8),data=dr_ap_age)
         pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val)),se.fit=T)
         gamma_val <- qnorm(parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease)]],pred_val$fit,sqrt(mod$sig2))
+        
         # generate a value for tmrel given alpha, beta and gamma
         mod <- gam(log(tmrel)~ns(log(gamma),df=8)+ns(log(beta),df=8)+ns(log(alpha),df=8),data=dr_ap_age)
         pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
@@ -346,15 +348,13 @@ add_trips <- function(trip_ids=0,new_mode='Walking',duration=10,participant_id=0
              sex = sample(sex,1,replace=T))
 }
 
-edit_accra_trips <- function(){
+edit_accra_trips <- function(raw_trip_set){
   
-  trip_set <- TRIP_SET
-  
-  total_car_duration <- sum(subset(trip_set,trip_mode=='Private Car')$trip_duration)
+  total_car_duration <- sum(subset(raw_trip_set,trip_mode=='Private Car')$trip_duration)
   total_car_distance <- total_car_duration/60*VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode=='Private Car']
   
   # Redefine motorcycle mode for a select 14 rows
-  trip_set$trip_mode[trip_set$trip_mode=='Other'&trip_set$trip_duration<60] <- 'Motorcycle'
+  raw_trip_set$trip_mode[raw_trip_set$trip_mode=='Other'&raw_trip_set$trip_duration<60] <- 'Motorcycle'
   
   # Create new motorbike trips
   # Add 4 new people with 3 trips each
@@ -362,7 +362,7 @@ edit_accra_trips <- function(){
   new_mode <- 'Motorcycle'
   total_mc_distance <- total_car_distance*VEHICLE_INVENTORY$distance_ratio_to_car[VEHICLE_INVENTORY$trip_mode==new_mode]
   mc_duration <- total_mc_distance/VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode==new_mode]*60
-  residual_mc_duration <- mc_duration - sum(subset(trip_set,trip_mode==new_mode)$trip_duration)
+  residual_mc_duration <- mc_duration - sum(subset(raw_trip_set,trip_mode==new_mode)$trip_duration)
   duration_range <- 15:100
   nTrips <- 4
   nPeople <- round(residual_mc_duration/nTrips/mean(duration_range))
@@ -370,42 +370,40 @@ edit_accra_trips <- function(){
   new_gender <- 'Male'
   age_range <- AGE_LOWER_BOUNDS[1]:AGE_LOWER_BOUNDS[2]
   for(i in 1:nPeople){
-    new_trips <- add_trips(trip_ids   = max(trip_set$trip_id) + 1: nTrips, 
+    new_trips <- add_trips(trip_ids   = max(raw_trip_set$trip_id) + 1: nTrips, 
                            new_mode = new_mode, 
                            duration = duration_range, 
-                           participant_id = max(trip_set$participant_id) + 1,
+                           participant_id = max(raw_trip_set$participant_id) + 1,
                            age = age_range,
                            sex = new_gender,
                            nTrips=nTrips)
     # Add new motorbikes trips to baseline
-    trip_set <- rbind(trip_set, new_trips)
+    raw_trip_set <- rbind(raw_trip_set, new_trips)
   }
   
-  # Multiply trip_set by 4 to have a bigger number of trips (and trip_set)
-  ind1 <- trip_set
-  ind1$participant_id <- ind1$participant_id + max(trip_set$participant_id)
-  ind1$trip_id <- (max(trip_set$trip_id) + 1): (max(trip_set$trip_id) + nrow(ind1))
-  trip_set <- rbind(trip_set, ind1)
+  # Multiply raw_trip_set by 4 to have a bigger number of trips (and raw_trip_set)
+  ind1 <- raw_trip_set
+  ind1$participant_id <- ind1$participant_id + max(raw_trip_set$participant_id)
+  ind1$trip_id <- (max(raw_trip_set$trip_id) + 1): (max(raw_trip_set$trip_id) + nrow(ind1))
+  raw_trip_set <- rbind(raw_trip_set, ind1)
   
-  ind1 <- trip_set
-  ind1$participant_id <- ind1$participant_id + max(trip_set$participant_id)
-  ind1$trip_id <- (max(trip_set$trip_id) + 1): (max(trip_set$trip_id) + nrow(ind1))
-  trip_set <- rbind(trip_set, ind1)
+  ind1 <- raw_trip_set
+  ind1$participant_id <- ind1$participant_id + max(raw_trip_set$participant_id)
+  ind1$trip_id <- (max(raw_trip_set$trip_id) + 1): (max(raw_trip_set$trip_id) + nrow(ind1))
+  raw_trip_set <- rbind(raw_trip_set, ind1)
   
-  TRIP_SET <<- trip_set
+  raw_trip_set
   
 }
 
-add_ghost_trips <- function(){
-  
-  trip_set <- TRIP_SET
+add_ghost_trips <- function(raw_trip_set){
   
   ## values for new ghost journeys
   age_range <- AGE_LOWER_BOUNDS[1]:AGE_LOWER_BOUNDS[3]
   nPeople <- 2
   nTrips <- 1
   new_gender <- 'Male'
-  total_car_duration <- sum(subset(trip_set,trip_mode=='Private Car')$trip_duration)
+  total_car_duration <- sum(subset(raw_trip_set,trip_mode=='Private Car')$trip_duration)
   total_car_distance <- total_car_duration/60*VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode=='Private Car']
   
   ## add Truck travel
@@ -414,14 +412,14 @@ add_ghost_trips <- function(){
   truck_duration <- total_truck_distance/VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode==new_mode]*60
   duration_range <- c(floor(truck_duration/nPeople),ceiling(truck_duration/nPeople))
   for(i in 1:nPeople){
-    new_trips <- add_trips(trip_ids   = max(trip_set$trip_id) + 1: nTrips, 
+    new_trips <- add_trips(trip_ids   = max(raw_trip_set$trip_id) + 1: nTrips, 
                            new_mode = new_mode, 
                            duration = duration_range, 
                            participant_id = 0,
                            age = age_range,
                            sex = new_gender,
                            nTrips=nTrips)
-    trip_set <- rbind(trip_set, new_trips)
+    raw_trip_set <- rbind(raw_trip_set, new_trips)
   }
   
   ## add Bus_driver travel
@@ -430,17 +428,17 @@ add_ghost_trips <- function(){
   bus_duration <- total_bus_distance/VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode==new_mode]*60
   duration_range <- c(floor(bus_duration/nPeople),ceiling(bus_duration/nPeople))
   for(i in 1:nPeople){
-    new_trips <- add_trips(trip_ids   = max(trip_set$trip_id) + 1: nTrips, 
+    new_trips <- add_trips(trip_ids   = max(raw_trip_set$trip_id) + 1: nTrips, 
                            new_mode = new_mode, 
                            duration = duration_range, 
                            participant_id = 0,
                            age = age_range,
                            sex = new_gender,
                            nTrips=nTrips)
-    trip_set <- rbind(trip_set, new_trips)
+    raw_trip_set <- rbind(raw_trip_set, new_trips)
   }
   
-  TRIP_SET <<- trip_set
+  raw_trip_set
   
 }
 
@@ -455,7 +453,7 @@ assign_age_groups <- function(dataset,age_category=AGE_CATEGORY,age_lower_bounds
   dataset
 }
 
-create_synth_pop <- function(){
+create_synth_pop <- function(raw_trip_set){
   #Add physical activity variables to trip dataset.
   #Leandro Garcia & Ali Abbas.
   #5 July 2018.
@@ -473,7 +471,7 @@ create_synth_pop <- function(){
   ##duration: units are minutes per day.
   ##work_ltpa_marg_met: units are marginal MET-h/week.
   
-  trip_set <- subset(TRIP_SET,!trip_mode%in%c("Train", "Other", "Unspecified"))
+  trip_set <- subset(raw_trip_set,!trip_mode%in%c("Train", "Other", "Unspecified"))
   # Make age category for trip_set dataset.
   trip_set <- assign_age_groups(trip_set,age_category=AGE_CATEGORY,age_lower_bounds=AGE_LOWER_BOUNDS,max_age=MAX_AGE)
   ##!! assuming more than one age category
@@ -1134,7 +1132,7 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
   }
   if (PA_DOSE_RESPONSE_QUANTILE==T){
     ##RJ question for AA: this function has standard deviation = 1. Is that right?
-    rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, a=lb, b=ub)
+    rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, sd=rr-lb,a=0, b=1)
   }
   if (confidence_intervals) {
     return(data.frame (rr = rr, lb = lb, ub = ub))
