@@ -171,7 +171,7 @@ if(file.exists(file_name)){
                                       BACKGROUND_PA_SCALAR = certainty_parameters[[certainty]]$background_pa_scalar[[environmental_scenario]],  
                                       PA_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$PA_DOSE_RESPONSE_QUANTILE,  
                                       AP_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$AP_DOSE_RESPONSE_QUANTILE)
-      
+      print(c(certainty,environmental_scenario))
       if(certainty=='not_uncertain'){
         ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
       }else if(certainty=='uncertain'&&environmental_scenario=='now'){
