@@ -80,16 +80,19 @@ for(i in 1:nDiseases){
 #################################################
 ## Use case 3: sampling:
 ## sample size, travel patterns, emissions (cleaner fleet)
-ithim_object <- run_ithim_setup(NSAMPLES = 16,
+ithim_object <- run_ithim_setup(NSAMPLES = 32,
                                 BUS_WALK_TIME = c(log(5), log(1.2)),
                                 MMET_CYCLING = c(log(5), log(1.2)), 
                                 PM_CONC_BASE = c(log(50), log(1.2)),  
-                                PM_TRANS_SHARE = c(5, 5),  
+                                PM_TRANS_SHARE = c(5, 5), 
+                                MC_TO_CAR_RATIO = c(-1.4,0.4),
                                 PA_DOSE_RESPONSE_QUANTILE = T,  
                                 AP_DOSE_RESPONSE_QUANTILE = T)
 
 numcores <- detectCores()
-ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_obj = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+
+plot(ithim_object$parameters$MC_TO_CAR_RATIO,sapply(ithim_object$outcomes,function(x)sum(x$hb$deaths[,40])))
 
 ## calculate EVPPI
 parameter_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
@@ -134,6 +137,7 @@ certainty_parameters <- list(uncertain=list(
   BUS_WALK_TIME = c(log(5), log(1.2)),
   MMET_CYCLING = c(log(5), log(1.2)), 
   MMET_WALKING = c(log(2.5), log(1.2)), 
+  MC_TO_CAR_RATIO = c(-1.4,0.4),
   PA_DOSE_RESPONSE_QUANTILE = T,  
   AP_DOSE_RESPONSE_QUANTILE = T
 ), not_uncertain=list(
@@ -146,6 +150,7 @@ certainty_parameters <- list(uncertain=list(
   BUS_WALK_TIME = 5,
   MMET_CYCLING = 4.63, 
   MMET_WALKING = 2.53, 
+  MC_TO_CAR_RATIO = 0.2,
   PA_DOSE_RESPONSE_QUANTILE = F,  
   AP_DOSE_RESPONSE_QUANTILE = F
 ))
@@ -154,13 +159,12 @@ file_name <- paste0('six_by_one_scenarios_',certainty_parameters$uncertain$NSAMP
 if(file.exists(file_name)){
   ithim_object_list <- readRDS(file_name)
 }else{
-  numcores <- detectCores()
   ithim_object_list <- list()
   for(certainty in c('not_uncertain','uncertain')){
     ithim_object_list[[certainty]] <- list()
-    for(environmental_scenario in environmental_scenarios){
-      
-      ithim_object <- run_ithim_setup(NSAMPLES = certainty_parameters[[certainty]]$NSAMPLES,
+    for(environmental_scenario in environmental_scenarios)
+      if(certainty=='uncertain'&&environmental_scenario=='now'||certainty=='not_uncertain'){
+        ithim_object <- run_ithim_setup(NSAMPLES = certainty_parameters[[certainty]]$NSAMPLES,
                                       BUS_WALK_TIME = certainty_parameters[[certainty]]$BUS_WALK_TIME,
                                       MMET_CYCLING = certainty_parameters[[certainty]]$MMET_CYCLING, 
                                       MMET_WALKING = certainty_parameters[[certainty]]$MMET_WALKING, 
@@ -169,49 +173,51 @@ if(file.exists(file_name)){
                                       PM_CONC_BASE = certainty_parameters[[certainty]]$background_pm[[environmental_scenario]],  
                                       PM_TRANS_SHARE = certainty_parameters[[certainty]]$transport_pm[[environmental_scenario]],  
                                       BACKGROUND_PA_SCALAR = certainty_parameters[[certainty]]$background_pa_scalar[[environmental_scenario]],  
+                                      MC_TO_CAR_RATIO = certainty_parameters[[certainty]]$MC_TO_CAR_RATIO,  
                                       PA_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$PA_DOSE_RESPONSE_QUANTILE,  
                                       AP_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$AP_DOSE_RESPONSE_QUANTILE)
-      
-      if(certainty=='not_uncertain'){
-        ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
-      }else if(certainty=='uncertain'&&environmental_scenario=='now'){
-        print(1)
-        ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_obj = ithim_object,mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
-        ## calculate EVPPI
-        parameter_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
-        parameter_samples <- sapply(parameter_names,function(x)ithim_object$parameters[[x]])
-        ## omit all-cause mortality
-        outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
-        evppi <- matrix(0, ncol = NSCEN, nrow = ncol(parameter_samples))
-        for(j in 1:(NSCEN)){
-          y <- rowSums(outcome[,seq(NSCEN+j,ncol(outcome),by=NSCEN)])
-          vary <- var(y)
-          for(i in 1:ncol(parameter_samples)){
-            x <- parameter_samples[, i];
-            model <- gam(y ~ s(x))
-            evppi[i, j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-            
+        print(c(certainty,environmental_scenario))
+        if(certainty=='not_uncertain'){
+          ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
+        }else if(certainty=='uncertain'&&environmental_scenario=='now'){
+          numcores <- detectCores()
+          print(1)
+          ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object,mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+          ## calculate EVPPI
+          parameter_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
+          parameter_samples <- sapply(parameter_names,function(x)ithim_object$parameters[[x]])
+          ## omit all-cause mortality
+          outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
+          evppi <- matrix(0, ncol = NSCEN, nrow = ncol(parameter_samples))
+          for(j in 1:(NSCEN)){
+            y <- rowSums(outcome[,seq(NSCEN+j,ncol(outcome),by=NSCEN)])
+            vary <- var(y)
+            for(i in 1:ncol(parameter_samples)){
+              x <- parameter_samples[, i];
+              model <- gam(y ~ s(x))
+              evppi[i, j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+              
+            }
           }
+          colnames(evppi) <- SCEN_SHORT_NAME[c(1,3:6)]
+          rownames(evppi) <- colnames(parameter_samples)
+          ## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
+          if("DR_AP_LIST"%in%names(ithim_object$parameters)&&NSAMPLES>=1024){
+            AP_names <- sapply(names(ithim_object$parameters),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
+            diseases <- sapply(names(ithim_object$parameters)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
+            evppi_for_AP <- mclapply(diseases, FUN = parallel_evppi_for_AP,parameter_samples,outcome, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+            names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
+            evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
+            ## get rows to remove
+            keep_names <- sapply(rownames(evppi),function(x)!any(c('ALPHA','BETA','GAMMA','TMREL')%in%strsplit(x,'_')[[1]]))
+            evppi <- evppi[keep_names,]
+          }
+          print(evppi)
+          ithim_object$evppi <- evppi
         }
-        colnames(evppi) <- SCEN_SHORT_NAME[c(1,3:6)]
-        rownames(evppi) <- colnames(parameter_samples)
-        ## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
-        if("DR_AP_LIST"%in%names(ithim_object$parameters)&&NSAMPLES>=1024){
-          AP_names <- sapply(names(ithim_object$parameters),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
-          diseases <- sapply(names(ithim_object$parameters)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-          evppi_for_AP <- mclapply(diseases, FUN = parallel_evppi_for_AP,parameter_samples,outcome, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
-          names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
-          evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
-          ## get rows to remove
-          keep_names <- sapply(rownames(evppi),function(x)!any(c('ALPHA','BETA','GAMMA','TMREL')%in%strsplit(x,'_')[[1]]))
-          evppi <- evppi[keep_names,]
-        }
-        print(evppi)
-        ithim_object$evppi <- evppi
+        
+        ithim_object_list[[certainty]][[environmental_scenario]] <- ithim_object
       }
-      
-      ithim_object_list[[certainty]][[environmental_scenario]] <- ithim_object
-    }
   }
   saveRDS(ithim_object_list,file_name)
 }
@@ -225,7 +231,7 @@ evppi <- ithim_object_list$uncertain$now$evppi
 
 
 x11(width=5); par(mar=c(6,11.5,3.5,5))
-parameter_names <- c('walk-to-bus time','cycling mMETs','walking mMETs','background PM2.5','traffic PM2.5 share',
+parameter_names <- c('walk-to-bus time','cycling mMETs','walking mMETs','background PM2.5','traffic PM2.5 share','motorcycle distance',
                      'non-travel PA','street safety','non-communicable disease burden','all-cause mortality (PA)','IHD (PA)',
                      'cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
                      'COPD (AP)','stroke (AP)')
