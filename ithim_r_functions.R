@@ -48,6 +48,8 @@ run_ithim_setup <- function(NSAMPLES = 1,
   library(mgcv)
   library(parallel)
   library(splines)
+  library(BMS)
+  library(MASS)
   
   #################################################
   
@@ -159,51 +161,25 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    CHRONIC_DISEASE_SCALAR = 1 ){
   ## PARAMETERS
   ##RJ parameters are assigned to the environment and so are set for every function. They are over-written when sample_parameters is called.
+  BUS_WALK_TIME <<- BUS_WALK_TIME
+  MMET_CYCLING <<- MMET_CYCLING
+  MMET_WALKING <<- MMET_WALKING
+  PM_CONC_BASE <<- PM_CONC_BASE
+  BACKGROUND_PA_SCALAR <<- BACKGROUND_PA_SCALAR
+  PM_TRANS_SHARE <<- PM_TRANS_SHARE
+  SAFETY_SCALAR <<- SAFETY_SCALAR
+  CHRONIC_DISEASE_SCALAR <<- CHRONIC_DISEASE_SCALAR
+  PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
   parameters <- list()
-  if(length(BUS_WALK_TIME) == 1 ) {
-    BUS_WALK_TIME <<- BUS_WALK_TIME
-  }else{
-    parameters$BUS_WALK_TIME <- rlnorm(NSAMPLES,BUS_WALK_TIME[1], BUS_WALK_TIME[2])
-  }
-  if(length(MMET_CYCLING) == 1 ) {
-    MMET_CYCLING <<- MMET_CYCLING
-  }else{
-    parameters$MMET_CYCLING <- rlnorm(NSAMPLES,MMET_CYCLING[1], MMET_CYCLING[2])
-  }
-  if(length(MMET_WALKING) == 1 ) {
-    MMET_WALKING <<- MMET_WALKING
-  }else{
-    parameters$MMET_WALKING <- rlnorm(NSAMPLES,MMET_WALKING[1], MMET_WALKING[2])
-  }
-  if(length(PM_CONC_BASE) == 1 ) {
-    PM_CONC_BASE <<- PM_CONC_BASE
-  }else{
-    parameters$PM_CONC_BASE <- rlnorm(NSAMPLES,PM_CONC_BASE[1],PM_CONC_BASE[2])
-  }
-  if(length(PM_TRANS_SHARE) == 1 ) {
-    PM_TRANS_SHARE <<- PM_TRANS_SHARE
-  }else{
-    parameters$PM_TRANS_SHARE <- rbeta(NSAMPLES,PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
-  }
-  if(length(BACKGROUND_PA_SCALAR) == 1 ) {
-    BACKGROUND_PA_SCALAR <<- BACKGROUND_PA_SCALAR
-  }else{
-    parameters$BACKGROUND_PA_SCALAR <- rlnorm(NSAMPLES,BACKGROUND_PA_SCALAR[1],BACKGROUND_PA_SCALAR[2])
-  }
-  if(length(SAFETY_SCALAR) == 1 ) {
-    SAFETY_SCALAR <<- SAFETY_SCALAR
-  }else{
-    parameters$SAFETY_SCALAR <- rlnorm(NSAMPLES,SAFETY_SCALAR[1],SAFETY_SCALAR[2])
-  }
-  if(length(CHRONIC_DISEASE_SCALAR) == 1 ) {
-    CHRONIC_DISEASE_SCALAR <<- CHRONIC_DISEASE_SCALAR
-  }else{
-    parameters$CHRONIC_DISEASE_SCALAR <- rlnorm(NSAMPLES,CHRONIC_DISEASE_SCALAR[1],CHRONIC_DISEASE_SCALAR[2])
-  }
-  if(PA_DOSE_RESPONSE_QUANTILE == F ) {
-    PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
-  }else{
-    PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
+  if(length(BUS_WALK_TIME) > 1 )    parameters$BUS_WALK_TIME <- rlnorm(NSAMPLES,BUS_WALK_TIME[1], BUS_WALK_TIME[2])
+  if(length(MMET_CYCLING) > 1 )     parameters$MMET_CYCLING <- rlnorm(NSAMPLES,MMET_CYCLING[1], MMET_CYCLING[2])
+  if(length(MMET_WALKING) > 1 )     parameters$MMET_WALKING <- rlnorm(NSAMPLES,MMET_WALKING[1], MMET_WALKING[2])
+  if(length(PM_CONC_BASE) > 1 )     parameters$PM_CONC_BASE <- rlnorm(NSAMPLES,PM_CONC_BASE[1],PM_CONC_BASE[2])
+  if(length(PM_TRANS_SHARE) > 1 )   parameters$PM_TRANS_SHARE <- rbeta(NSAMPLES,PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
+  if(length(BACKGROUND_PA_SCALAR) > 1 )     parameters$BACKGROUND_PA_SCALAR <- rlnorm(NSAMPLES,BACKGROUND_PA_SCALAR[1],BACKGROUND_PA_SCALAR[2])
+  if(length(SAFETY_SCALAR) > 1 )    parameters$SAFETY_SCALAR <- rlnorm(NSAMPLES,SAFETY_SCALAR[1],SAFETY_SCALAR[2])
+  if(length(CHRONIC_DISEASE_SCALAR) > 1 )   parameters$CHRONIC_DISEASE_SCALAR <- rlnorm(NSAMPLES,CHRONIC_DISEASE_SCALAR[1],CHRONIC_DISEASE_SCALAR[2])
+  if(PA_DOSE_RESPONSE_QUANTILE == T ) {
     pa_diseases <- subset(DISEASE_OUTCOMES,physical_activity==1)
     dr_pa_list <- list()
     for(disease in pa_diseases$pa_acronym)
@@ -240,29 +216,29 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
         #######################################
         ##RJ I recommend the following as a better approximation to the distribution but it is currently  v e r y  slow
         ## so I leave it here commented out until we want to develop it and/or use it
-        #lbeta <- log(dr_ap_age$beta)
-        #lgamma <- log(dr_ap_age$gamma)
-        #gamma_val <- quantile(density(lgamma),quant1)
-        #beta_val <- c()
-        #for(i in 1:NSAMPLES){
-        #  den <- kde2d(lgamma,lbeta,n=c(1,100),h=0.2,lims=c(gamma_val[i],gamma_val[i],min(lbeta)-1,max(lbeta)+1))
-        #  beta_val[i] <- approx(x=cumsum(den$z)/sum(den$z),y=den$y,xout=quant2[i])$y
-        #}
-        #mod <- gam(log(alpha)~te(log(gamma),log(beta)),data=dr_ap_age)
-        #pred_val <- predict(mod, newdata=data.frame(beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
-        #alpha_val <- qnorm(quant3,pred_val$fit,sqrt(mod$sig2))
+        lbeta <- log(dr_ap_age$beta)
+        lgamma <- log(dr_ap_age$gamma)
+        gamma_val <- quantile(density(lgamma),quant1)
+        beta_val <- c()
+        for(i in 1:NSAMPLES){
+          den <- kde2d(lgamma,lbeta,n=c(1,100),h=0.2,lims=c(gamma_val[i],gamma_val[i],min(lbeta)-1,max(lbeta)+1))
+          beta_val[i] <- approx(x=cumsum(den$z)/sum(den$z),y=den$y,xout=quant2[i])$y
+        }
+        mod <- gam(log(alpha)~te(log(gamma),log(beta)),data=dr_ap_age)
+        pred_val <- predict(mod, newdata=data.frame(beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
+        alpha_val <- qnorm(quant3,pred_val$fit,sqrt(mod$sig2))
         #######################################
         
         # generate a value for alpha
-        alpha_val <- quantile(log(dr_ap_age$alpha),parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease)]])
+        #alpha_val <- quantile(log(dr_ap_age$alpha),parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease)]])
         # generate a value for beta given alpha
-        mod <- gam(log(beta)~ns(log(alpha),df=8),data=dr_ap_age)
-        pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val)),se.fit=T)
-        beta_val <- qnorm(parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease)]],pred_val$fit,sqrt(mod$sig2))
+        #mod <- gam(log(beta)~ns(log(alpha),df=8),data=dr_ap_age)
+        #pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val)),se.fit=T)
+        #beta_val <- qnorm(parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease)]],pred_val$fit,sqrt(mod$sig2))
         # generate a value for gamma given beta and alpha
-        mod <- gam(log(gamma)~ns(log(beta),df=8)+ns(log(alpha),df=8),data=dr_ap_age)
-        pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val)),se.fit=T)
-        gamma_val <- qnorm(parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease)]],pred_val$fit,sqrt(mod$sig2))
+        #mod <- gam(log(gamma)~ns(log(beta),df=8)+ns(log(alpha),df=8),data=dr_ap_age)
+        #pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val)),se.fit=T)
+        #gamma_val <- qnorm(parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease)]],pred_val$fit,sqrt(mod$sig2))
         
         # generate a value for tmrel given alpha, beta and gamma
         mod <- gam(log(tmrel)~ns(log(gamma),df=8)+ns(log(beta),df=8)+ns(log(alpha),df=8),data=dr_ap_age)
@@ -678,17 +654,18 @@ create_all_scenarios <- function(trip_set){
                                            source_trips = long_trips)
   
   short_trips <- as.integer(target_new_trips - long_trips)
-  
-  short_car_trips_sample <- create_scenario(total_car_trips, scen_name = 'Scenario 2', source_modes = source_modes, combined_modes = T, 
-                                            target_modes = target_modes, source_distance_cats = DIST_CAT[1], 
-                                            source_trips = short_trips) ##!! RJ for some reason short_trips is not working here.
-  
-  car_trips_sample <- rbind(long_car_trips_sample, short_car_trips_sample)
+  if(short_trips>0){
+    short_car_trips_sample <- create_scenario(total_car_trips, scen_name = 'Scenario 2', source_modes = source_modes, combined_modes = T, 
+                                              target_modes = target_modes, source_distance_cats = DIST_CAT[1], 
+                                              source_trips = short_trips) ##!! RJ for some reason short_trips is not working here.
+    
+    long_car_trips_sample <- rbind(long_car_trips_sample, short_car_trips_sample)
+  }
   
   ##  ADDING SHORT WALK TRIPS FOR NEW BUS TRIPS
   
   # Divide bus trips into bus and walk trips
-  bus_trips <- car_trips_sample
+  bus_trips <- long_car_trips_sample
   
   bus_walk_trips <- add_walk_trips(bus_trips)
   
@@ -1082,31 +1059,31 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
   if (sum(is.na(dose))>0 || class(dose)!= "numeric"){
     stop ('Please provide dose in numeric')
   }
-  if (!cause %in% c('all-cause-mortality', 'breast-cancer', 'cardiovascular-disease',
-                    'colon-cancer', 'coronary-heart-disease', 'diabetes', 'endometrial-cancer',
-                    'heart-failure', 'lung-cancer', 'stroke', 'total-cancer')){
+  if (!cause %in% c('all_cause_mortality', 'breast-cancer', 'cardiovascular-disease',
+                    'colon-cancer', 'coronary_heart_disease', 'diabetes', 'endometrial-cancer',
+                    'heart-failure', 'lung_cancer', 'stroke', 'total_cancer')){
     stop('Unsupported cause/disease. Please select from \n
-         all-cause-mortality \n
+         all_cause_mortality \n
          breast-cancer\n
          cardiovascular-disease \n
          colon-cancer \n
-         coronary-heart-disease \n
+         coronary_heart_disease \n
          endometrial-cancer \n
          heart-failure \n
-         lung-cancer \n
+         lung_cancer \n
          stroke \n
-         total-cancer')
+         total_cancer')
   }
   if (!outcome_type %in% c('mortality', 'incidence')){
     stop('Unsupported outcome_type. Please select from \n
          mortality \n
          incidence')
   }
-  if (cause == 'all-cause-mortality' && outcome_type == 'incidence'){
-    stop('Incidence does not exist for all-cause-mortality')
+  if (cause == 'all_cause_mortality' && outcome_type == 'incidence'){
+    stop('Incidence does not exist for all_cause_mortality')
   }
-  fname <- paste(cause, outcome_type, sep = "-")
-  if (cause == 'all-cause-mortality')
+  fname <- paste(cause, outcome_type, sep = "_")
+  if (cause == 'all_cause_mortality')
     fname <- cause
   lookup_table <- get(paste0(fname))
   lookup_df <- as.data.frame(lookup_table)
@@ -1152,17 +1129,17 @@ gen_pa_rr <- function(mmets_pp){
     if (DISEASE_OUTCOMES$physical_activity[j] == 1){
       pa_dn <- as.character(DISEASE_OUTCOMES$pa_acronym[j])
       pa_n <- as.character(DISEASE_OUTCOMES$acronym[j])
-      outcome_type <- ifelse(pa_dn%in%c('lung-cancer','stroke'), 'incidence' , 'mortality')
+      outcome_type <- ifelse(pa_dn%in%c('lung_cancer','stroke'), 'incidence' , 'mortality')
       # CHD: 35 mmeth per week use mortality
       # Lung cancer: 10 mmeth per week use incidence
       # stroke 75 pert: 13.37
       # Diabetes no limits
       # total cancer: 35 mmeths per week use mortality
       doses <- doses_clean
-      if(pa_dn %in% c('total-cancer','coronary-heart-disease')) doses[doses>35] <- 35
-      else if(pa_dn == 'lung-cancer') doses[doses>10] <- 10
+      if(pa_dn %in% c('total_cancer','coronary_heart_disease')) doses[doses>35] <- 35
+      else if(pa_dn == 'lung_cancer') doses[doses>10] <- 10
       else if(pa_dn == 'stroke') doses[doses>13.37] <- 13.37
-      else if(pa_dn == 'all-cause-mortality') doses[doses>16.08] <- 16.08
+      else if(pa_dn == 'all_cause_mortality') doses[doses>16.08] <- 16.08
       ##RJ apply function to all doses as one long vector
       return_vector <- PA_dose_response(cause = pa_dn, outcome_type = outcome_type, 
                                    dose = unlist(data.frame(doses)))
