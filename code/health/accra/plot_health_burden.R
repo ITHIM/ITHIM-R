@@ -5,7 +5,7 @@
 require(tidyverse)
 require(plotly)
 
-get_health_plot <- function(d, outcome, lt, index, ac, sc, show_injury = T, combined_NCDs = T){
+get_health_plot <- function(ds, outcome, lt, index, ac, sc, show_injury = T, combined_NCDs = T){
   
   title <- "Reduction in Years of Life Lost (YLL) - compared with Ref Scenario 1"
   
@@ -23,21 +23,21 @@ get_health_plot <- function(d, outcome, lt, index, ac, sc, show_injury = T, comb
   
   # print(input$inAccraEnvSc)
   
-  for (wi in 1:1){#(length(d$uncertain))){
+  for (wi in 1:(length(ds$uncertain))){
     # wi <- 1
     
-    scen <- names(d$not_uncertain)[wi]
+    scen <- names(ds$not_uncertain)[wi]
     
     # scen <- input$inAccraEnvSc[wi]
     
     obj <- list()
     
-    for (i in 1:length(d$uncertain[[scen]]$outcomes)){
+    for (i in 1:length(ds$uncertain[[scen]]$outcomes)){
       
-      ldat <- d$uncertain[[scen]]$outcomes[[i]]$hb$ylls
+      ldat <- ds$uncertain[[scen]]$outcomes[[i]]$hb$ylls
       
       if (outcome == "Deaths")
-        ldat <- d$uncertain[[scen]]$outcomes[[i]]$hb$deaths
+        ldat <- ds$uncertain[[scen]]$outcomes[[i]]$hb$deaths
       
       ldat$index <- i
       
@@ -48,18 +48,18 @@ get_health_plot <- function(d, outcome, lt, index, ac, sc, show_injury = T, comb
     }
     
     
-    d <-  bind_rows(obj)
+    dat <-  bind_rows(obj)
     
-    d <- rename(d, "age.band" = "age_cat")
-    d <- rename(d, "gender" = "sex")
+    dat <- rename(dat, "age.band" = "age_cat")
+    dat <- rename(dat, "gender" = "sex")
     
     if (ac != "All"){
-      d <- filter(d, age.band == ac)
+      dat <- filter(dat, age.band == ac)
       sub_pop <- paste(sub_pop, 'age group:', ac, sep = " ")
     }
     
     if (sc != "All"){
-      d <- filter(d, gender == sc)
+      dat <- filter(dat, gender == sc)
       sub_pop <- paste(sub_pop, 'sex group:', tolower(sc), sep = " ")
     }
     
@@ -67,7 +67,7 @@ get_health_plot <- function(d, outcome, lt, index, ac, sc, show_injury = T, comb
     # browser()
     for (i in 2:nrow(lt)){
       # i <- 2
-      dn1 <- select(d, age.band, gender, index, ends_with(lt$acronym[i])) 
+      dn1 <- select(dat, age.band, gender, index, ends_with(lt$acronym[i])) 
       names(dn1)[4:ncol(dn1)] <- append('Baseline', paste('Scenario', 2:(ncol(dn1) - 3), sep = ' '))
       dn1$cause <- lt$GBD_name[i]
       
@@ -83,7 +83,7 @@ get_health_plot <- function(d, outcome, lt, index, ac, sc, show_injury = T, comb
     
     if (show_injury){
       
-      dn1 <- select(d, age.band, gender, index, ends_with('inj'))
+      dn1 <- select(dat, age.band, gender, index, ends_with('inj'))
       #dn1$base_deaths_inj <- dn1$base_yll_inj <- NULL
       names(dn1)[4:ncol(dn1)] <- append('Baseline', paste('Scenario', 2:(ncol(dn1) - 3), sep = ' '))
       dn1$cause <- 'Road Injuries'
@@ -157,25 +157,11 @@ get_health_plot <- function(d, outcome, lt, index, ac, sc, show_injury = T, comb
               middle = median(value),
               upper = quantile(value, .75),
               ymax = max(value),
-              mean = mean(value)
-      
-      
+              mean = mean(value),
+              sd = sd(value),
+              SE = sd(value)/sqrt(n())
     )
       
-      
-      
-      
-      
-      # mean = round(mean(value),1), # calculates the mean of each group
-      #         min = min(value), # min
-      #         max = max(value), # max
-      #         sd = round(sd(value),1), # calculates the standard deviation of each group
-      #         nv = n(),  # calculates the sample size per group
-      #         SEv = sd(value)/sqrt(n()),
-      #         ymin = mean - SEv,
-      #         ymax = mean + SEv)
-  
-  
   tds$name <- as.factor(tds$name)
   
   # tds$name  <- factor(tds$name , levels = c("now",
@@ -207,24 +193,26 @@ accra_cols <- c("Baseline" = "#e41a1c",
                 "Scenario 4" = "#80b1d3", 
                 "Scenario 5" = "#cc4c02")
 
-tds <- get_health_plot(d, outcome = loutcome, lt = lt, ac = "All", sc = "All", show_injury = T, combined_NCDs = T)
+tds <- get_health_plot(ds = d, outcome = loutcome, lt = lt, ac = "All", sc = "All", show_injury = T, combined_NCDs = T)
 
-
-fp <- ggplot(tds, aes(x = cause, y = mean, fill = variable, group = int, 
+fp <- ggplot(tds, aes(x = cause, y = round(mean,2), fill = variable, group = int, 
                       ymin = ymin,
                       lower = lower,
                       middle = middle,
                       upper = upper,
                       ymax = ymax,
                       mean = mean,
-                      #SE = SEv,
+                      sd = sd,
+                      SE = round(SE, 2),
                       #ymin = SEv - sd,
                       #ymax = SEv + sd,
                       env_name = name)) +
-  geom_boxplot(aes(lower = lower, upper = upper, middle = middle, ymax = ymax, ymin = ymin), width = 0.5, alpha = 0.5, stat = "identity") +
+  geom_bar(stat = 'identity', position = "dodge2", color = 'black') +
   scale_fill_manual(values = accra_cols)  +
   labs(y = paste(loutcome, "(value ± s.d.)"), x = "") + 
-  geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd), position = position_dodge2(), colour="black") +
+  geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), position = position_dodge2(), colour="black") +
   theme_minimal() 
 
-plotly::ggplotly(fp, tooltip = c("x", "y", "fill", "env_name"))
+ggplotly(fp) %>% layout(boxmode = "group")
+
+plotly::ggplotly(fp, tooltip = c("x", "y", "SE", "fill", "env_name"))
