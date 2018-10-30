@@ -176,6 +176,7 @@ if(file.exists(file_name)){
                                       MC_TO_CAR_RATIO = certainty_parameters[[certainty]]$MC_TO_CAR_RATIO,  
                                       PA_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$PA_DOSE_RESPONSE_QUANTILE,  
                                       AP_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$AP_DOSE_RESPONSE_QUANTILE)
+<<<<<<< HEAD
         print(c(certainty,environmental_scenario))
         if(certainty=='not_uncertain'){
           ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
@@ -198,6 +199,28 @@ if(file.exists(file_name)){
               evppi[i, j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
               
             }
+=======
+      print(c(certainty,environmental_scenario))
+      if(certainty=='not_uncertain'){
+        ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
+      }else if(certainty=='uncertain'&&environmental_scenario=='now'){
+        print(1)
+        ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_obj = ithim_object,mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+        ## calculate EVPPI
+        parameter_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
+        parameter_samples <- sapply(parameter_names,function(x)ithim_object$parameters[[x]])
+        ## omit all-cause mortality
+        outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
+        evppi <- matrix(0, ncol = NSCEN, nrow = ncol(parameter_samples))
+        for(j in 1:(NSCEN)){
+          y <- rowSums(outcome[,seq(NSCEN+j,ncol(outcome),by=NSCEN)])
+          vary <- var(y)
+          for(i in 1:ncol(parameter_samples)){
+            x <- parameter_samples[, i];
+            model <- gam(y ~ s(x))
+            evppi[i, j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+            
+>>>>>>> b1cd89fa5c853e7080decdbdf7e07e6969a8394a
           }
           colnames(evppi) <- SCEN_SHORT_NAME[c(1,3:6)]
           rownames(evppi) <- colnames(parameter_samples)
