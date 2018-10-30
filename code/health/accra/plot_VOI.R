@@ -32,5 +32,7 @@ color.legend(5.5,0,5.5+0.3,length(labs),col.labels,rev(redCol),gradient="y",cex=
 evppi.m <- reshape2::melt(evppi)
 p <- ggplot(evppi.m, aes(Var1, Var2, fill = value)) + # + geom_tile() + coord_flip() +
   geom_tile(colour = "white") + 
-  scale_fill_gradient(low = "white", high = "steelblue") + coord_flip()
-ggplotly(p)
+  scale_fill_gradient(low = "white", high = "steelblue")
+ggplotly(ggplot(evppi.m, aes(Var2, Var1, fill = value)) + # + geom_tile() + coord_flip() +
+           geom_tile(colour = "white") + 
+           scale_fill_gradient(low = "white", high = "darkred"))
