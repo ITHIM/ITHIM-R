@@ -133,11 +133,11 @@ certainty_parameters <- list(uncertain=list(
   background_pm         = list(now=c(log(50),log(1.2)),safer=c(log(50),log(1.2)),more_chronic_disease=c(log(50),log(1.2)),less_background_AP=30.625,       less_background_PA=c(log(50),log(1.2))),
   transport_pm          = list(now=c(5,20),             safer=c(5,20),             more_chronic_disease=c(5,20),             less_background_AP=0.3673469,    less_background_PA=c(5,20)),
   background_pa_scalar  = list(now=c(0,log(1.2)),      safer=c(0,log(1.2)),      more_chronic_disease=c(0,log(1.2)),      less_background_AP=c(0,log(1.2)),less_background_PA=0.5),
-  NSAMPLES = 2048,
+  NSAMPLES = 8192,
   BUS_WALK_TIME = c(log(5), log(1.2)),
   MMET_CYCLING = c(log(5), log(1.2)), 
   MMET_WALKING = c(log(2.5), log(1.2)), 
-  MC_TO_CAR_RATIO = c(-1.4,0.4),
+  MC_TO_CAR_RATIO = 0.2,#c(-1.4,0.4),
   PA_DOSE_RESPONSE_QUANTILE = T,  
   AP_DOSE_RESPONSE_QUANTILE = T
 ), not_uncertain=list(
@@ -177,10 +177,10 @@ if(file.exists(file_name)){
                                       PA_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$PA_DOSE_RESPONSE_QUANTILE,  
                                       AP_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$AP_DOSE_RESPONSE_QUANTILE)
         print(c(certainty,environmental_scenario))
+        numcores <- detectCores()
         if(certainty=='not_uncertain'){
           ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
         }else if(certainty=='uncertain'&&environmental_scenario=='now'){
-          numcores <- detectCores()
           print(1)
           ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object,mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
           ## calculate EVPPI
@@ -225,13 +225,13 @@ if(file.exists(file_name)){
 library(RColorBrewer)
 library(plotrix)
 
-file_name <- paste0('six_by_five_scenarios_1024.Rds')
-ithim_object_list <- readRDS(file_name)
+#file_name <- paste0('six_by_one_scenarios_4096.Rds')
+#ithim_object_list <- readRDS(file_name)
 evppi <- ithim_object_list$uncertain$now$evppi
 
 
 x11(width=5); par(mar=c(6,11.5,3.5,5))
-parameter_names <- c('walk-to-bus time','cycling mMETs','walking mMETs','background PM2.5','traffic PM2.5 share','motorcycle distance',
+parameter_names <- c('walk-to-bus time','cycling mMETs','walking mMETs','background PM2.5','traffic PM2.5 share',#'motorcycle distance',
                      'non-travel PA','street safety','non-communicable disease burden','all-cause mortality (PA)','IHD (PA)',
                      'cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
                      'COPD (AP)','stroke (AP)')
@@ -254,14 +254,20 @@ color.legend(5.5,0,5.5+0.3,length(labs),col.labels,rev(redCol),gradient="y",cex=
 x11(width=8,height=5); par(mfrow=c(2,4),mar=c(5,1,1,1)); 
 for(i in 1:8)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),xlab=names(ithim_object_list$uncertain$now$parameters)[i],ylab='',frame=F,main='',lwd=2)
 
+outcome <- t(sapply(ithim_object_list$uncertain$now$outcomes, function(x) colSums(x$hb$deaths[,(NSCEN+3):ncol(x$hb$deaths)])))
+
+
 ithim_object <- ithim_object_list$uncertain$now
 parameter_samples <- sapply(labs,function(x)ithim_object$parameters[[x]])
 outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
-outcome <- t(sapply(ithim_object_list$uncertain$now$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
 y <- rowSums(outcome[,seq(3,ncol(outcome),by=NSCEN)])
 x <- parameter_samples[, 7];
 plot(x,y,xlab='Street safety',ylab='Outcome')
     
 x11(); boxplot(sapply(1:5,function(x)rowSums(outcome[,seq(x,ncol(outcome),by=NSCEN)])))
-points(1:5,sapply(1:5,function(x)sum(ithim_object_list$not_uncertain$now$outcomes$hb$deaths[,seq(2+x,ncol(ithim_object_list$not_uncertain$now$outcomes$hb$deaths),by=5)])),col='blue')
+#points(1:5,sapply(1:5,function(x)sum(ithim_object_list$not_uncertain$now$outcomes$hb$deaths[,seq(2+x,ncol(ithim_object_list$not_uncertain$now$outcomes$hb$deaths),by=5)])),col='blue')
+
+
+
+
 
