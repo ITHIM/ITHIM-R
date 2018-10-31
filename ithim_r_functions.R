@@ -331,7 +331,7 @@ get_synthetic_from_trips <- function(){
   trip_set <- synth_pop$trip_set
   trip_set <- ithim_setup_baseline_scenario(trip_set)
   SYNTHETIC_TRIPS <<- create_all_scenarios(trip_set)
-  set_scenario_specific_variables(ithim_object$trip_scen_sets)
+  set_scenario_specific_variables()
 }
 
 add_trips <- function(trip_ids=0,new_mode='Walking',duration=10,participant_id=0,age=20,sex='Male',nTrips=3){
