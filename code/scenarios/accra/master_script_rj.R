@@ -256,7 +256,6 @@ for(i in 1:8)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),xla
 
 outcome <- t(sapply(ithim_object_list$uncertain$now$outcomes, function(x) colSums(x$hb$deaths[,(NSCEN+3):ncol(x$hb$deaths)])))
 
-
 ithim_object <- ithim_object_list$uncertain$now
 parameter_samples <- sapply(labs,function(x)ithim_object$parameters[[x]])
 outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
@@ -267,7 +266,13 @@ plot(x,y,xlab='Street safety',ylab='Outcome')
 x11(); boxplot(sapply(1:5,function(x)rowSums(outcome[,seq(x,ncol(outcome),by=NSCEN)])))
 #points(1:5,sapply(1:5,function(x)sum(ithim_object_list$not_uncertain$now$outcomes$hb$deaths[,seq(2+x,ncol(ithim_object_list$not_uncertain$now$outcomes$hb$deaths),by=5)])),col='blue')
 
+ithim_object <- ithim_object_list$uncertain$now
+diff_outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,ncol(ithim_object$outcomes[[1]]$hb$deaths)-4:0])))
+x11(width=10); par(mfrow=c(1,2)); boxplot(diff_outcome,frame=F,names=SCEN_SHORT_NAME[c(1,3:6)],main='Injury death difference')
 
+outcome <- t(sapply(ithim_object_list$uncertain$now$outcomes, function(x) sum(x$inj$deaths)))
+total_outcome <- t(repmat(outcome,5,1)) - diff_outcome
+boxplot(total_outcome,frame=F,names=SCEN_SHORT_NAME[c(1,3:6)],main='Injury death total')
 
 
 
