@@ -248,7 +248,9 @@ ithim_load_data <- function(){
   ##!! This item should be replaced by the sum from travel in the synthetic population
   DISTANCE_FOR_EMISSIONS <<- readRDS('data/emission calculations accra/accra_distances_for_emissions.Rds')
   WHW_MAT <<- read_csv('code/injuries/accra/who_hit_who_accra.csv')
-  INJURIES <<- readRDS('code/injuries/data/accra_injuries_long.Rds')
+  injuries <- readRDS('code/injuries/data/accra_injuries_long.Rds')
+  injuries <- assign_age_groups(injuries,age_label='cas_age')
+  set_up_injury_contingency(injuries)
   ## DESCRIPTION OF INJURIES
   # has one row per event (fatality)
   # has colnames event_id, year, cas_mode, strike_mode, cas_age, cas_gender
@@ -286,6 +288,29 @@ ithim_load_data <- function(){
   ##       WHW matrix (code/injuries/accra/who_hit_who_accra.csv)
   ## these files are loaded when ITHIM-R is run. 
   ## The user specifies either 'accra', if we have the folder 'accra', or the path to a repository containing named files, or a path per file...
+}
+
+set_up_injury_contingency <- function(injuries){
+  ##!! need to work out of logic of how we know which modes there are!
+  mode_names <- c("Bicycle","Bus","Bus_driver","Motorcycle","Truck","Pedestrian","Car")
+  # divide injuries into those for which we can write a WHW matrix, i.e. we know distances of both striker and casualty, 
+  ## and those for which we don't know striker distance: no or other vehicle (noov)
+  ## we can only model casualties for which we know distance travelled (i.e. no Truck casualties for Accra)
+  injury_list <- list()
+  injury_list$whw <- subset(injuries,cas_mode%in%mode_names&strike_mode%in%mode_names)
+  injury_list$noov <- subset(injuries,cas_mode%in%mode_names&!strike_mode%in%mode_names)
+  injury_table <- list()
+  for(type in c('whw','noov')){
+    ##TODO make contingency table without prior knowledge of column names
+    injury_table[[type]] <- expand.grid(year=unique(injury_list[[type]]$year),cas_mode=unique(injury_list[[type]]$cas_mode),
+                                        strike_mode=unique(injury_list[[type]]$strike_mode),cas_age=unique(injuries$age_cat),cas_gender=unique(injury_list[[type]]$cas_gender),stringsAsFactors = F)
+    
+    injury_table[[type]]$count <- apply(injury_table[[type]],1,function(x)nrow(subset(injury_list[[type]],year==as.numeric(x[1])&cas_mode==as.character(x[2])&
+                                                                                        strike_mode==as.character(x[3])&cas_gender==as.character(x[5])&
+                                                                                        cas_age>=AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])]&
+                                                                                        cas_age<AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])+1]))) 
+  }
+  INJURY_TABLE <<- injury_table
 }
 
 set_vehicle_inventory <- function(){
@@ -491,27 +516,27 @@ create_synth_pop <- function(raw_trip_set){
   colnames(temp) <- namevector
   temp <- as.data.frame (temp)
   
-  trip_and_pa_set <- left_join(trip_set, temp, "participant_id")
+  #trip_and_pa_set <- left_join(trip_set, temp, "participant_id")
   
   # Convert all int columns to numeric
-  trip_and_pa_set[, sapply(trip_and_pa_set,class)=='integer'] <- lapply(trip_and_pa_set[, sapply(trip_and_pa_set,class)=='integer'], as.numeric)
+  #trip_and_pa_set[, sapply(trip_and_pa_set,class)=='integer'] <- lapply(trip_and_pa_set[, sapply(trip_and_pa_set,class)=='integer'], as.numeric)
   synthetic_population[, sapply(synthetic_population,class)=='integer'] <- lapply(synthetic_population[, sapply(synthetic_population,class)=='integer'], as.numeric)
   trip_set <- subset(trip_set,trip_mode!=99)
   
-  trip_and_pa_set$trip_id[trip_and_pa_set$trip_mode == '99'] <- 0
+  #trip_and_pa_set$trip_id[trip_and_pa_set$trip_mode == '99'] <- 0
   
-  list(trip_and_pa_set=trip_and_pa_set,trip_set=trip_set,synthetic_population=synthetic_population)
+  list(trip_set=trip_set,synthetic_population=synthetic_population)
   
 }
 
-assign_age_groups <- function(dataset,age_category=AGE_CATEGORY,age_lower_bounds=AGE_LOWER_BOUNDS,max_age=MAX_AGE){
-  dataset <- filter(dataset,age<max_age)
+assign_age_groups <- function(dataset,age_category=AGE_CATEGORY,age_lower_bounds=AGE_LOWER_BOUNDS,max_age=MAX_AGE,min_age=AGE_LOWER_BOUNDS[1],age_label='age'){
+  dataset <- dataset[dataset[[age_label]]<max_age&!is.na(dataset[[age_label]])&dataset[[age_label]]>=min_age,]
   dataset$age_cat <- 0
   ##!! assuming more than one age category
   for(i in 2:length(age_lower_bounds)-1){
-    dataset$age_cat[dataset$age >= age_lower_bounds[i] & dataset$age < age_lower_bounds[i+1]] <- age_category[i]
+    dataset$age_cat[dataset[[age_label]] >= age_lower_bounds[i] & dataset[[age_label]] < age_lower_bounds[i+1]] <- age_category[i]
   }
-  dataset$age_cat[dataset$age >= age_lower_bounds[length(age_lower_bounds)]] <- age_category[length(age_lower_bounds)]
+  dataset$age_cat[dataset[[age_label]] >= age_lower_bounds[length(age_lower_bounds)]] <- age_category[length(age_lower_bounds)]
   dataset
 }
 
@@ -548,14 +573,14 @@ ithim_setup_baseline_scenario <- function(trip_set){
 
 create_all_scenarios <- function(trip_set){
   ###############################################################
-  rd_list <- list()
-  rd_list[[1]] <- trip_set
-  # Scenario 1
   rdr <- trip_set
+  tt <- nrow(rdr)
+  rd_list <- list()
+  rd_list[[1]] <- rdr
+  # Scenario 1
   source_modes <- c('Bus', 'Walking')
   target_modes <- c('Private Car')
   source_percentages <- c(0.16, 0.49)
-  tt <- nrow(rdr)
   rdr <- create_scenario(rdr, scen_name = 'Scenario 1', source_modes = source_modes, 
                          target_modes = target_modes, source_distance_cats = DIST_CAT, 
                          source_trips = c(round(source_percentages[1] * tt), 
@@ -569,46 +594,36 @@ create_all_scenarios <- function(trip_set){
   # All car and taxi trips > 6 km go to Bus. Then 35 car and taxi trips 0--6 km go to bus.
   source_modes <- c('Private Car', 'Taxi')
   target_modes <- c('Bus')
-  tt <- nrow(rdr)
   target_new_trips <- round(0.35 * tt - sum(rdr$trip_mode=='Bus'))
   total_car_trips <- filter(rdr, trip_mode %in% source_modes)
-  t_dc <- total_car_trips %>% group_by(trip_distance_cat) %>% summarise(count = dplyr::n())
-  long_trips <- sum(t_dc$count[t_dc$trip_distance_cat != DIST_CAT[1]])
+  long_trips <- sum(total_car_trips$trip_distance_cat!=DIST_CAT[1])
   long_car_trips_sample <- create_scenario(total_car_trips, scen_name = 'Scenario 2', source_modes = source_modes, combined_modes = T, 
                                            target_modes = target_modes, source_distance_cats = DIST_CAT[2:3],source_trips = long_trips)
-  short_trips <- as.integer(target_new_trips - long_trips)
+  short_trips <- target_new_trips - long_trips
   if(short_trips>0){
     short_car_trips_sample <- create_scenario(total_car_trips, scen_name = 'Scenario 2', source_modes = source_modes, combined_modes = T, 
                                               target_modes = target_modes, source_distance_cats = DIST_CAT[1],source_trips = short_trips) 
     long_car_trips_sample <- rbind(long_car_trips_sample, short_car_trips_sample)
   }
-  ##  ADDING SHORT WALK TRIPS FOR NEW BUS TRIPS
-  # Divide bus trips into bus and walk trips
   bus_trips <- long_car_trips_sample
   
-  #bus_walk_trips <- add_walk_trips(bus_trips)
   # Update selected rows for mode and duration
   rdr$trip_mode[match(bus_trips$rid,rdr$rid)] <- bus_trips$trip_mode
   rdr$trip_duration[match(bus_trips$rid,rdr$rid)] <- bus_trips$trip_duration
   rdr$trip_distance[match(bus_trips$rid,rdr$rid)] <- bus_trips$trip_distance
   rdr$trip_distance_cat[match(bus_trips$rid,rdr$rid)] <- bus_trips$trip_distance_cat
-  #rdr %>% group_by(trip_mode) %>% summarise(c = dplyr::n(), p = dplyr::n() / nrow(rdr) * 100)
-  #rdr <- rbind(rdr, bus_walk_trips[[2]])
   
   rdr$scenario <- "Scenario 2"
-  #rdfinal <- rbind(rdfinal, rdr)
   rd_list[[3]] <- rdr
   ###############################################################
   # Scenario 3
-  rdr <- rd_list[[2]]#filter(rdfinal, scenario == 'Scenario 1')
+  rdr <- rd_list[[2]]
   # 16 % Bus remain as is
   # 10 % Mcycle increase 
   # x decrease private car
-  tt <- nrow(rdr)
   source_modes <- c('Private Car')
   target_modes <- c('Motorcycle')
-  target_new_trips <- c(round(0.1 * tt) - 
-                          nrow(filter(rdr, trip_mode == 'Motorcycle')))
+  target_new_trips <- round(0.1 * tt) - sum(rdr$trip_mode=='Motorcycle')
   mcycle_trips_sample <- create_scenario(rdr, scen_name = 'Scenario 3', source_modes = source_modes, 
                                          combined_modes = T, target_modes = target_modes, 
                                          source_distance_cats = DIST_CAT, source_trips = c(round(0.1 * tt) - 
@@ -620,12 +635,11 @@ create_all_scenarios <- function(trip_set){
   rd_list[[4]] <- rdr
   ###############################################################
   # Scenario 4
-  rdr <- rd_list[[2]]#filter(rdfinal, scenario == 'Scenario 1')
+  rdr <- rd_list[[2]]
   # 3.5 % Cycle
-  tt <- nrow(rdr)
   source_modes <- c('Motorcycle', 'Private Car', 'Taxi')
   target_modes <- c('Bicycle')
-  target_new_trips <- c(52, round(0.035 * tt) - nrow(filter(rdr, trip_mode == 'Bicycle')) - 52)
+  target_new_trips <- c(52, round(0.035 * tt) - sum(rdr$trip_mode == 'Bicycle') - 52)
   mbike_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes[1],combined_modes = T, 
                                  target_modes = target_modes,source_distance_cats = DIST_CAT,source_trips = target_new_trips[1])
   car_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = c(source_modes[2], source_modes[3]),combined_modes = T, 
@@ -641,16 +655,14 @@ create_all_scenarios <- function(trip_set){
   # Scenario 5
   rdr <- rd_list[[2]]
   # 3.5 % Cycle
-  tt <- nrow(rdr)
   source_modes <- c('Private Car', 'Taxi')
   target_modes <- c('Walking')
-  target_new_trips <- c(round(0.54 * tt) - nrow(filter(rdr, trip_mode == 'Walking')))
+  target_new_trips <- round(0.54 * tt) - sum(rdr$trip_mode == 'Walking')
   motorised_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = c(source_modes[1], source_modes[2]),combined_modes = T, 
                                      target_modes = target_modes,source_distance_cats = DIST_CAT[1],source_trips = target_new_trips[1])
   # Update selected rows for mode and duration
   rdr$trip_mode[match(motorised_trips$row_id,rdr$row_id)] <- motorised_trips$trip_mode
   rdr$trip_duration[match(motorised_trips$row_id,rdr$row_id)] <- motorised_trips$trip_duration
-  #rdr %>% group_by(trip_mode) %>% summarise(c = dplyr::n(), p = dplyr::n() / nrow(rdr) * 100)
   rdr$scenario <- "Scenario 5"
   rd_list[[6]] <- rdr
   
@@ -663,47 +675,33 @@ create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, ta
   local_source_trips <- list()
   if (!combined_modes){
     for (i in 1:length(source_modes))
-      local_source_trips[i] <- nrow(filter(rdr, trip_mode == source_modes[i])) - source_trips[i]
+      local_source_trips[i] <- sum(rdr$trip_mode == source_modes[i]) - source_trips[i]
     local_source_trips <- purrr::flatten_dbl(local_source_trips)
   }
-  all_samples <- NULL
   if (!combined_modes){
     for (i in 1:length(source_modes)){
-      sample_trips <- filter(rdr,
-                       trip_mode == source_modes[i] &
-                         trip_distance_cat %in% source_distance_cats) %>% sample_n(local_source_trips[i]) %>%
-        mutate(
-          trip_mode = target_modes[1],
-          trip_duration = (trip_distance * 60) / VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode == target_modes[1]]
-        )
+      candidate_trips <- filter(rdr,trip_mode == source_modes[i] &
+                         trip_distance_cat %in% source_distance_cats)
+      sample_trips <- candidate_trips[sample(1:nrow(candidate_trips),local_source_trips[i]),]
+      sample_trips$trip_mode <- target_modes;
+      sample_trips$trip_duration <- (sample_trips$trip_distance * 60) / VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode == target_modes]
       # Update selected rows for mode and duration
       rdr$trip_mode[match(sample_trips$row_id,rdr$row_id)] <- sample_trips$trip_mode
       rdr$trip_duration[match(sample_trips$row_id,rdr$row_id)] <- sample_trips$trip_duration
-      #if (source_modes[i] == 'Bus'){
-        # Remove bus associated short walking trips that have been changed to Private Car trips
-      #  rdr <- rdr[!(rdr$trip_mode == 'Short Walking' & rdr$trip_id %in% sample$trip_id),]
-      #}
     } 
-  }  else {
+    rdr$scenario <- scen_name
+    return(rdr)
+  } else {
     
-    sample_trips <- filter(rdr,
-                     trip_mode %in% source_modes &
-                       trip_distance_cat %in% source_distance_cats) %>% sample_n(source_trips) %>%
-      mutate(
-        trip_mode = target_modes[1],
-        trip_duration = (trip_distance * 60) / VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode == target_modes[1]]
-      )
-    
+    candidate_trips <- filter(rdr,trip_mode %in% source_modes &
+                       trip_distance_cat %in% source_distance_cats)
+    sample_trips <- candidate_trips[sample(1:nrow(candidate_trips),source_trips),]
+    sample_trips$trip_mode <- target_modes;
+    sample_trips$trip_duration <- (sample_trips$trip_distance * 60) / VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode == target_modes]
     sample_trips$scenario <- scen_name
     
     return(sample_trips)
   }
-  
-  
-  rdr$scenario <- scen_name
-  
-  return(rdr)
-  
 }
 
 set_scenario_specific_variables <- function(){
@@ -847,7 +845,57 @@ distances_for_injury_function <- function(trip_scen_sets){
   relative_distances$sex_age <-  paste0(relative_distances$sex,"_",relative_distances$age_cat)
   relative_distances <- relative_distances[,-c(which(names(relative_distances) == 'sex'))]
   
-  list(relative_distances=relative_distances,scen_dist=scen_dist,true_distances=true_distances)
+  ##RJ set up injury regression 
+  mode_names <- names(true_distances)[!names(true_distances)%in%c('age_cat','scenario','sex_age')]
+  # divide injuries into those for which we can write a WHW matrix, i.e. we know distances of both striker and casualty, 
+  ## and those for which we don't know striker distance: no or other vehicle (noov)
+  ## we can only model casualties for which we know distance travelled (i.e. no Truck casualties for Accra)
+  injury_table <- INJURY_TABLE
+  u_gen <- unique(injury_table[[1]]$cas_gender)
+  u_age <- unique(injury_table[[1]]$cas_age)
+  age_gen_labels <- apply(expand.grid(u_gen,u_age),1,function(x)paste(x,collapse='_'))
+  cas_mode_indices <- list()
+  injury_gen_age <- list()
+  for(type in c('whw','noov')){
+    ##TODO make contingency table without prior knowledge of column names
+    gen_index <- match(injury_table[[type]]$cas_gen,u_gen)
+    age_index <- match(injury_table[[type]]$cas_age,u_age)
+    injury_gen_age[[type]] <- age_gen_labels[length(u_gen)*(age_index-1)+gen_index]
+    injury_table[[type]]$injury_gen_age <- injury_gen_age[[type]]
+    cas_mode_indices[[type]] <- match(injury_table[[type]]$cas_mode,mode_names)
+  }
+  strike_mode_indices <- match(injury_table$whw$strike_mode,mode_names)
+  
+  ## Calculated distances
+  ## true distances should be the total for the whole population for a whole year. 
+  ##TODO precalculate and save distances (for uncertainty use case)
+  injuries_list <- list()
+  for(scen in SCEN){
+    injuries_list[[scen]] <- list()
+    true_scen_dist <- subset(true_distances,scenario==scen)
+    for(type in c('whw','noov')){
+      injuries_list[[scen]][[type]] <- injury_table[[type]]
+      ##TODO get distances without prior knowledge of column names
+      ##TODO differentiate between driver and passenger for casualty and striker distances
+      injuries_list[[scen]][[type]]$strike_distance <- 1
+      injuries_list[[scen]][[type]]$strike_distance_sum <- 1
+      distance_sums <- sapply(mode_names,function(x)sum(true_scen_dist[[x]]))
+      injuries_list[[scen]][[type]]$cas_distance_sum <- distance_sums[cas_mode_indices[[type]]]
+      
+      cas_demo_indices <- match(injury_gen_age[[type]],true_scen_dist$sex_age)
+      injuries_list[[scen]][[type]]$cas_distance <- as.numeric(as.data.frame(true_scen_dist)[cbind(cas_demo_indices,cas_mode_indices[[type]]+2)])
+      
+      if(type=='whw'){
+        injuries_list[[scen]][[type]]$strike_distance <- distance_sums[strike_mode_indices]
+        injuries_list[[scen]][[type]]$strike_distance_sum <- injuries_list[[scen]][[type]]$strike_distance
+      }
+      injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],strike_distance>0&cas_distance>0)
+      
+    }
+  }
+  
+  
+  list(relative_distances=relative_distances,scen_dist=scen_dist,true_distances=true_distances,injuries_list=injuries_list)
 }
 
 ######################################################################
@@ -992,7 +1040,7 @@ gen_ap_rr <- function(pm_conc_pp){
 total_mmet <- function(trip_scen_sets){
   
   synth_pop <- SYNTHETIC_POPULATION
-  rd_pa <- subset(trip_scen_sets,trip_mode%in%c('Walking','Short Walking','Bicycle')&participant_id%in%synth_pop$participant_id) 
+  rd_pa <- subset(trip_scen_sets,trip_mode%in%c('Walking','Short Walking','Bicycle')&participant_id>0) 
   # Convert baseline's trip duration from mins to hours
   rd_pa$trip_duration_hrs <- rd_pa$trip_duration / 60
   # Get total individual level walking and cycling and sport mmets 
@@ -1003,9 +1051,9 @@ total_mmet <- function(trip_scen_sets){
     individual_data <- setDT(scen_trips)[,.(cycling_mmet_base = sum(trip_duration_hrs[trip_mode == 'Bicycle']) * MMET_CYCLING,
                                  walking_mmet_base = sum(trip_duration_hrs[trip_mode %in%c('Walking','Short Walking')]) * MMET_WALKING ),by='participant_id']
     
-    
-    synth_pop[[paste0(SCEN_SHORT_NAME[i],'_mmet')]][match(individual_data$participant_id,synth_pop$participant_id)] <- 
-      synth_pop[[paste0(SCEN_SHORT_NAME[i],'_mmet')]][match(individual_data$participant_id,synth_pop$participant_id)] + individual_data$cycling_mmet_base + individual_data$walking_mmet_base
+    part_id <- match(individual_data$participant_id,synth_pop$participant_id)
+    synth_pop[[paste0(SCEN_SHORT_NAME[i],'_mmet')]][part_id] <- 
+      synth_pop[[paste0(SCEN_SHORT_NAME[i],'_mmet')]][part_id] + individual_data$cycling_mmet_base + individual_data$walking_mmet_base
   }
   
   name_indices <- which(colnames(synth_pop)%in%c('participant_id', 'sex', 'age', 'age_cat', paste0(SCEN_SHORT_NAME,'_mmet')))
@@ -1018,30 +1066,27 @@ gen_pa_rr <- function(mmets_pp){
   ### iterating over all all disease outcomes
   dose_columns <- match(paste0(SCEN_SHORT_NAME, '_mmet'),colnames(mmets_pp))
   doses_clean <- mmets_pp[,dose_columns]
-  for ( j in 1:nrow(DISEASE_OUTCOMES)){
-    ## checking whether to calculate this health outcome for PA
-    if (DISEASE_OUTCOMES$physical_activity[j] == 1){
-      pa_dn <- as.character(DISEASE_OUTCOMES$pa_acronym[j])
-      pa_n <- as.character(DISEASE_OUTCOMES$acronym[j])
-      outcome_type <- ifelse(pa_dn%in%c('lung_cancer','stroke'), 'incidence' , 'mortality')
-      # CHD: 35 mmeth per week use mortality
-      # Lung cancer: 10 mmeth per week use incidence
-      # stroke 75 pert: 13.37
-      # Diabetes no limits
-      # total cancer: 35 mmeths per week use mortality
-      doses <- doses_clean
-      if(pa_dn %in% c('total_cancer','coronary_heart_disease')) doses[doses>35] <- 35
-      else if(pa_dn == 'lung_cancer') doses[doses>10] <- 10
-      else if(pa_dn == 'stroke') doses[doses>13.37] <- 13.37
-      else if(pa_dn == 'all_cause_mortality') doses[doses>16.08] <- 16.08
-      ##RJ apply function to all doses as one long vector
-      return_vector <- PA_dose_response(cause = pa_dn, outcome_type = outcome_type, 
-                                   dose = unlist(data.frame(doses)))
-      ##RJ take segments of returned vector corresponding to scenario
-      for (i in 1:length(SCEN_SHORT_NAME)){
-        scen <- SCEN_SHORT_NAME[i]
-        mmets_pp[[paste('RR_pa', scen, pa_n, sep = '_')]] <- return_vector$rr[(1+(i-1)*nrow(doses)):(i*nrow(doses))]
-      }
+  for ( j in c(1:nrow(DISEASE_OUTCOMES))[DISEASE_OUTCOMES$physical_activity == 1]){
+    pa_dn <- as.character(DISEASE_OUTCOMES$pa_acronym[j])
+    pa_n <- as.character(DISEASE_OUTCOMES$acronym[j])
+    outcome_type <- ifelse(pa_dn%in%c('lung_cancer','stroke'), 'incidence' , 'mortality')
+    # CHD: 35 mmeth per week use mortality
+    # Lung cancer: 10 mmeth per week use incidence
+    # stroke 75 pert: 13.37
+    # Diabetes no limits
+    # total cancer: 35 mmeths per week use mortality
+    doses <- doses_clean
+    if(pa_dn %in% c('total_cancer','coronary_heart_disease')) doses[doses>35] <- 35
+    else if(pa_dn == 'lung_cancer') doses[doses>10] <- 10
+    else if(pa_dn == 'stroke') doses[doses>13.37] <- 13.37
+    else if(pa_dn == 'all_cause_mortality') doses[doses>16.08] <- 16.08
+    ##RJ apply function to all doses as one long vector
+    return_vector <- PA_dose_response(cause = pa_dn, outcome_type = outcome_type, 
+                                      dose = unlist(data.frame(doses)))
+    ##RJ take segments of returned vector corresponding to scenario
+    for (i in 1:length(SCEN_SHORT_NAME)){
+      scen <- SCEN_SHORT_NAME[i]
+      mmets_pp[[paste('RR_pa', scen, pa_n, sep = '_')]] <- return_vector$rr[(1+(i-1)*nrow(doses)):(i*nrow(doses))]
     }
   }
   mmets_pp 
@@ -1079,7 +1124,7 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
   if (cause == 'all_cause_mortality')
     fname <- cause
   lookup_table <- get(paste0(fname))
-  lookup_df <- as.data.frame(lookup_table)
+  lookup_df <- setDT(lookup_table)
   #pert_75 <- stringr::str_sub(basename(list_of_files[[1]]), end = -5)
   ##RJ previously:
   ## cond <- ifelse(use_75_pert, abs(lookup_table$dose - dose), which.min(abs(lookup_table$dose - dose)))
@@ -1103,8 +1148,9 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
       )$y
   }
   if (PA_DOSE_RESPONSE_QUANTILE==T){
-    ##RJ question for AA: this function has standard deviation = 1. Is that right?
-    rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, sd=rr-lb,a=0, b=1)
+    #rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, sd=rr-lb,a=0, b=1)
+    rr <- qnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, sd=rr-lb)
+    rr[rr<0] <- 0
   }
   if (confidence_intervals) {
     return(data.frame (rr = rr, lb = lb, ub = ub))
@@ -1142,81 +1188,32 @@ combined_rr_pa_pa <- function(ind_pa,ind_ap){
   ind_ap_pa
 }
 
-injuries_function_2 <- function(true_distances){
-  ##RJ
-  mode_names <- names(true_distances)[!names(true_distances)%in%c('age_cat','scenario','sex_age')]
-  # divide injuries into those for which we can write a WHW matrix, i.e. we know distances of both striker and casualty, 
-  ## and those for which we don't know striker distance: no or other vehicle (noov)
-  ## we can only model casualties for which we know distance travelled (i.e. no Truck casualties for Accra)
-  injury_list <- list()
-  injury_list$whw <- subset(INJURIES,cas_mode%in%mode_names&strike_mode%in%mode_names)
-  injury_list$noov <- subset(INJURIES,cas_mode%in%mode_names&!strike_mode%in%mode_names)
-  injury_table <- list()
-  cas_mode_indices <- list()
-  injury_gen_age <- list()
-  for(type in c('whw','noov')){
-    ##TODO make contingency table without prior knowledge of column names
-    injury_table[[type]] <- expand.grid(year=unique(injury_list[[type]]$year),cas_mode=unique(injury_list[[type]]$cas_mode),
-                                            strike_mode=unique(injury_list[[type]]$strike_mode),cas_age=AGE_CATEGORY,cas_gender=unique(injury_list[[type]]$cas_gender),stringsAsFactors = F)
-    injury_table[[type]]$count <- apply(injury_table[[type]],1,function(x)nrow(subset(injury_list[[type]],year==as.numeric(x[1])&cas_mode==as.character(x[2])&
-                                                                                                          strike_mode==as.character(x[3])&cas_gender==as.character(x[5])&
-                                                                                                          cas_age>=AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])]&
-                                                                                                          cas_age<AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])+1]))) 
-    cas_mode_indices[[type]] <- match(injury_table[[type]]$cas_mode,mode_names)
-    injury_gen_age[[type]] <- apply(cbind(injury_table[[type]]$cas_age,injury_table[[type]]$cas_gender),1,function(x)paste(x[c(2,1)],collapse='_'))
-    injury_table[[type]]$injury_gen_age <- injury_gen_age[[type]]
-  }
-  strike_mode_indices <- match(injury_table$whw$strike_mode,mode_names)
-  
-  ## Calculated distances
-  ## true distances should be the total for the whole population for a whole year. 
-  ##TODO precalculate and save distances (for uncertainty use case)
-  injuries_list <- list()
-  for(scen in SCEN){
-    injuries_list[[scen]] <- list()
-    scen_dist <- subset(true_distances,scenario==scen)
-    for(type in c('whw','noov')){
-      injuries_list[[scen]][[type]] <- injury_table[[type]]
-      ##TODO get distances without prior knowledge of column names
-      ##TODO differentiate between driver and passenger for casualty and striker distances
-      injuries_list[[scen]][[type]]$strike_distance <- 1
-      injuries_list[[scen]][[type]]$strike_distance_sum <- 1
-      distance_sums <- sapply(mode_names,function(x)sum(scen_dist[[x]]))
-      injuries_list[[scen]][[type]]$cas_distance_sum <- distance_sums[cas_mode_indices[[type]]]
-      
-      cas_demo_indices <- match(injury_gen_age[[type]],scen_dist$sex_age)
-      injuries_list[[scen]][[type]]$cas_distance <- as.numeric(as.data.frame(scen_dist)[cbind(cas_demo_indices,cas_mode_indices[[type]]+2)])
-      
-      if(type=='whw'){
-        injuries_list[[scen]][[type]]$strike_distance <- distance_sums[strike_mode_indices]
-        injuries_list[[scen]][[type]]$strike_distance_sum <- injuries_list[[scen]][[type]]$strike_distance
-      }
-      injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],strike_distance>0&cas_distance>0)
-      
-    }
-  }
+injuries_function_2 <- function(true_distances,injuries_list){
+  ##!! move to distance calculation. store predictions and scale by distance.
   reg_model <- list()
   ##TODO write formulae without prior knowledge of column names
+  ##TODO use all ages. ns.
   ##TODO different formulae for whw and noov
   for(type in c('whw','noov'))
     reg_model[[type]] <- glm(count~cas_mode+strike_mode+cas_age+cas_gender,data=injuries_list[[1]][[type]],family='poisson',
-                   offset=log(cas_distance)+log(strike_distance)-0.5*log(strike_distance_sum)-0.5*log(cas_distance_sum))
-  for(scen in SCEN)
+                   offset=0.5*log(cas_distance)+0.5*log(strike_distance))
+  ##
+  ## For predictive uncertainty, we could sample a number from the predicted distribution
+  injuries <- true_distances
+  injuries$Bus_driver <- 0
+  for(scen in SCEN){
     for(type in c('whw','noov')){
       injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==2016)
       injuries_list[[scen]][[type]]$pred <- predict(reg_model[[type]],newdata = injuries_list[[scen]][[type]],type='response')
     }
-  injuries <- true_distances
-  injuries$Bus_driver <- 0
-  for(scen in SCEN)
-    for(injured_mode in unique(injury_list$whw$cas_mode)){
-      injuries[injuries$scenario==scen,match(injured_mode,colnames(injuries))] <- 
-        apply(injuries[injuries$scenario==scen,] , 1, function(y)
-            sum(subset(injuries_list[[scen]]$whw,cas_mode==injured_mode&injury_gen_age==as.character(y[10]))$pred) + 
-              sum(subset(injuries_list[[scen]]$noov,cas_mode==injured_mode&injury_gen_age==as.character(y[10]))$pred)
-            )
-    }
-  injuries$Deaths <- rowSums(injuries[,match(unique(injury_list$whw$cas_mode),colnames(injuries))])
+    for(injured_mode in unique(injuries_list[[1]]$whw$cas_mode))
+      for(age_gen in unique(injuries$sex_age))
+        injuries[injuries$scenario==scen&injuries$sex_age==age_gen,match(injured_mode,colnames(injuries))] <- 
+          sum(subset(injuries_list[[scen]]$whw,cas_mode==injured_mode&injury_gen_age==age_gen)$pred) + 
+              sum(subset(injuries_list[[scen]]$noov,cas_mode==injured_mode&injury_gen_age==age_gen)$pred)
+  }
+
+  injuries$Deaths <- rowSums(injuries[,match(unique(injuries_list[[1]]$whw$cas_mode),colnames(injuries))])
   injuries
   ##TODO add in upcaptured fatalities as constant
 }
@@ -1399,18 +1396,18 @@ ithim_uncertainty <- function(ithim_object,seed=1){
   for(i in 1:length(parameters))
     assign(names(parameters)[i],parameters[[i]][[seed]],pos=1)
   ## Re-do set up if BUS_WALK_TIME or MC_TO_CAR_RATIO has changed
-  if(RECALCULATE_TRIPS){
+  system.time(if(RECALCULATE_TRIPS){
     set_vehicle_inventory()
     get_synthetic_from_trips()
-  }
+  })
   
   ## calculate distances, if distances are not variable dependent
-  if(RECALCULATE_DISTANCES){
+  system.time(if(RECALCULATE_DISTANCES){
     ithim_object <- get_all_distances(ithim_object)
-  }
+  })
   ############################
   # Run ITHIM cascade of functions
-  run_results <- run_ithim(ithim_object,seed)
+  system.time(run_results <- run_ithim(ithim_object,seed))
   run_results$dist <- ithim_object$dist
   run_results$dur <- ithim_object$dur
   #return(run_results)
@@ -1427,34 +1424,34 @@ run_ithim <- function(ithim_object,seed=1){
   ############################
   ## (1) AP PATHWAY
   # Calculated PM2.5 concentrations
-  (pm_conc <- scenario_pm_calculations(dist,trip_scen_sets))
+  system.time(pm_conc <- scenario_pm_calculations(dist,trip_scen_sets))
   scenario_pm <- pm_conc$scenario_pm
   pm_conc_pp <- pm_conc$pm_conc_pp
   # Air pollution calculation
-  (RR_AP_calculations <- gen_ap_rr(pm_conc_pp))
+  system.time(RR_AP_calculations <- gen_ap_rr(pm_conc_pp))
   ############################
   ## (2) PA PATHWAY
   # Calculate total mMETs
-  (mmets_pp <- total_mmet(trip_scen_sets))
+  system.time(mmets_pp <- total_mmet(trip_scen_sets))
   # Physical activity calculation
-  (RR_PA_calculations <- gen_pa_rr(mmets_pp))
+  system.time(RR_PA_calculations <- gen_pa_rr(mmets_pp))
   ############################
   ## (3) COMBINE (1) AND (2)
   # Physical activity and air pollution combined
-  (RR_PA_AP_calculations <- combined_rr_pa_pa(RR_PA_calculations,RR_AP_calculations))
+  system.time(RR_PA_AP_calculations <- combined_rr_pa_pa(RR_PA_calculations,RR_AP_calculations))
   ############################
   ## (4) INJURIES
   # Injuries calculation
   for(i in 1:length(inj_distances))
     assign(names(inj_distances)[i],inj_distances[[i]])
-  injuries <- injuries_function(relative_distances,scen_dist)
-  #injuries <- injuries_function_2(true_distances)
-  (deaths_yll_injuries <- injury_death_to_yll(injuries))
+  system.time(injuries <- injuries_function(relative_distances,scen_dist))
+  system.time(injuries <- injuries_function_2(true_distances,injuries_list))
+  system.time(deaths_yll_injuries <- injury_death_to_yll(injuries))
   scen1_injuries <- deaths_yll_injuries$scen1_injuries
   ############################
   ## (5) COMBINE (3) AND (4)
   # Combine health burden from disease and injury
-  (hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries$deaths_yll_injuries))
+  system.time(hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries$deaths_yll_injuries))
   return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp,injuries=injuries,scen1_injuries=scen1_injuries,hb=hb))
 }
 
