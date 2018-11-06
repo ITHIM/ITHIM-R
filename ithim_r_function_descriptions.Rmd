@@ -1,5 +1,5 @@
 ---
-title: "ITHIM Functions"
+title: "ITHIM Functions (BETA)"
 author: "Daniel Fuller"
 date: '2018-10-22'
 output: html_document
