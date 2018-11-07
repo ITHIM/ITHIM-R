@@ -230,7 +230,7 @@ library(plotrix)
 evppi <- ithim_object_list$uncertain$now$evppi
 
 
-x11(width=5); par(mar=c(6,11.5,3.5,5))
+x11(width=5); par(mar=c(6,12,3.5,5.5))
 parameter_names <- c('walk-to-bus time','cycling mMETs','walking mMETs','background PM2.5','traffic PM2.5 share',#'motorcycle distance',
                      'non-travel PA','street safety','non-communicable disease burden','all-cause mortality (PA)','IHD (PA)',
                      'cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
@@ -251,8 +251,8 @@ fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=parameter_names,line=NA,p
 mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
 color.legend(5.5,0,5.5+0.3,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
 
-x11(width=8,height=5); par(mfrow=c(2,4),mar=c(5,1,1,1)); 
-for(i in 1:8)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),xlab=names(ithim_object_list$uncertain$now$parameters)[i],ylab='',frame=F,main='',lwd=2)
+x11(width=8,height=4); par(mfrow=c(2,4),mar=c(5,2,1,1)); 
+for(i in 1:8)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),col='navyblue',xlab=names(ithim_object_list$uncertain$now$parameters)[i],ylab='',frame=F,main='',lwd=2)
 
 outcome <- t(sapply(ithim_object_list$uncertain$now$outcomes, function(x) colSums(x$hb$deaths[,(NSCEN+3):ncol(x$hb$deaths)])))
 
@@ -263,7 +263,7 @@ y <- rowSums(outcome[,seq(3,ncol(outcome),by=NSCEN)])
 x <- parameter_samples[, 7];
 plot(x,y,xlab='Street safety',ylab='Outcome')
     
-x11(); boxplot(sapply(1:5,function(x)rowSums(outcome[,seq(x,ncol(outcome),by=NSCEN)])))
+x11(); boxplot(sapply(1:5,function(x)rowSums(outcome[,seq(x,ncol(outcome),by=NSCEN)])),frame=F,names=SCEN_SHORT_NAME[c(1,3:6)],ylab='Deaths: difference from Scenario 2',col='navyblue')
 #points(1:5,sapply(1:5,function(x)sum(ithim_object_list$not_uncertain$now$outcomes$hb$deaths[,seq(2+x,ncol(ithim_object_list$not_uncertain$now$outcomes$hb$deaths),by=5)])),col='blue')
 
 ithim_object <- ithim_object_list$uncertain$now

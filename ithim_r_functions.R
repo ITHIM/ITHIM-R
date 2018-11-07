@@ -814,7 +814,7 @@ dist_dur_tbls <- function(trip_scen_sets){
 }
 
 distances_for_injury_function <- function(trip_scen_sets){
-  ##synth need supplementary journeys to have age_cat,sex,trip_mode, scenario
+  ##!! RJ need to scale distances up for representativeness of survey population of total population
   
   journeys <- trip_scen_sets %>% 
     group_by (age_cat,sex,trip_mode, scenario) %>% 
