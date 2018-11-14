@@ -133,7 +133,7 @@ certainty_parameters <- list(uncertain=list(
   background_pm         = list(now=c(log(50),log(1.2)),safer=c(log(50),log(1.2)),more_chronic_disease=c(log(50),log(1.2)),less_background_AP=30.625,       less_background_PA=c(log(50),log(1.2))),
   transport_pm          = list(now=c(5,20),             safer=c(5,20),             more_chronic_disease=c(5,20),             less_background_AP=0.3673469,    less_background_PA=c(5,20)),
   background_pa_scalar  = list(now=c(0,log(1.2)),      safer=c(0,log(1.2)),      more_chronic_disease=c(0,log(1.2)),      less_background_AP=c(0,log(1.2)),less_background_PA=0.5),
-  NSAMPLES = 8192,
+  NSAMPLES = 4096,
   BUS_WALK_TIME = c(log(5), log(1.2)),
   MMET_CYCLING = c(log(5), log(1.2)), 
   MMET_WALKING = c(log(2.5), log(1.2)), 
@@ -271,8 +271,16 @@ diff_outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[
 x11(width=10); par(mfrow=c(1,2)); boxplot(diff_outcome,frame=F,names=SCEN_SHORT_NAME[c(1,3:6)],main='Injury death difference')
 
 outcome <- t(sapply(ithim_object_list$uncertain$now$outcomes, function(x) sum(x$inj$deaths)))
-total_outcome <- t(repmat(outcome,5,1)) - diff_outcome
+total_outcome <- diff_outcome#t(repmat(outcome,5,1)) - diff_outcome
 boxplot(total_outcome,frame=F,names=SCEN_SHORT_NAME[c(1,3:6)],main='Injury death total')
 
-
-
+outcome <- t(sapply(ithim_object_list$uncertain$now$outcomes, function(x) colSums(x$hb$deaths[,(NSCEN+3):ncol(x$hb$deaths)])))
+scen_out <- sapply(1:NSCEN,function(x)rowSums(outcome[,seq(x,ncol(outcome),by=NSCEN)]))
+ninefive <- apply(scen_out,2,quantile,c(0.025,0.975))
+{x11(height=3,width=6); par(mar=c(5,5,1,1))
+plot(apply(scen_out,2,mean),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Number of deaths averted relative to scenario 1',col='navyblue',yaxt='n',xlim=range(ninefive))
+axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[c(1,3:6)])
+for(i in 1:NSCEN) lines(ninefive[,i],c(i,i),lwd=2,col='navyblue')
+abline(v=0,col='grey',lty=2,lwd=2)
+text(y=3,x=ninefive[1,3],'95%',col='navyblue',adj=c(-0,-0.7))
+}

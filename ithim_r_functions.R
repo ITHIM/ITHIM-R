@@ -1335,14 +1335,14 @@ health_burden <- function(ind_ap_pa,inj){
     pif_ref <-
       population_attributable_fraction(pop = ind_ap_pa[, colnames(ind_ap_pa) %in% c(base_var, 'sex', 'age_cat')], cn = base_var, mat =
             pop_details)
-    yll_ref <-
-      combine_health_and_pif(pop = pop_details,
-                             pif_values = pif_ref,
-                             hc = gbd_ylls_disease)
-    death_ref <-
-      combine_health_and_pif(pop = pop_details,
-                             pif_values = pif_ref,
-                             hc = gbd_ylls_disease)
+    #yll_ref <-
+    #  combine_health_and_pif(pop = pop_details,
+    #                         pif_values = pif_ref,
+    #                         hc = gbd_ylls_disease)
+    #death_ref <-
+    #  combine_health_and_pif(pop = pop_details,
+    #                         pif_values = pif_ref,
+    #                         hc = gbd_deaths_disease)
     for (index in 1:length(scen_vars)){
       # set up naming conventions
       scen <- scen_names[index]
@@ -1396,18 +1396,18 @@ ithim_uncertainty <- function(ithim_object,seed=1){
   for(i in 1:length(parameters))
     assign(names(parameters)[i],parameters[[i]][[seed]],pos=1)
   ## Re-do set up if BUS_WALK_TIME or MC_TO_CAR_RATIO has changed
-  system.time(if(RECALCULATE_TRIPS){
+  (if(RECALCULATE_TRIPS){
     set_vehicle_inventory()
     get_synthetic_from_trips()
   })
   
   ## calculate distances, if distances are not variable dependent
-  system.time(if(RECALCULATE_DISTANCES){
+  (if(RECALCULATE_DISTANCES){
     ithim_object <- get_all_distances(ithim_object)
   })
   ############################
   # Run ITHIM cascade of functions
-  system.time(run_results <- run_ithim(ithim_object,seed))
+  (run_results <- run_ithim(ithim_object,seed))
   run_results$dist <- ithim_object$dist
   run_results$dur <- ithim_object$dur
   #return(run_results)
@@ -1424,34 +1424,34 @@ run_ithim <- function(ithim_object,seed=1){
   ############################
   ## (1) AP PATHWAY
   # Calculated PM2.5 concentrations
-  system.time(pm_conc <- scenario_pm_calculations(dist,trip_scen_sets))
+  (pm_conc <- scenario_pm_calculations(dist,trip_scen_sets))
   scenario_pm <- pm_conc$scenario_pm
   pm_conc_pp <- pm_conc$pm_conc_pp
   # Air pollution calculation
-  system.time(RR_AP_calculations <- gen_ap_rr(pm_conc_pp))
+  (RR_AP_calculations <- gen_ap_rr(pm_conc_pp))
   ############################
   ## (2) PA PATHWAY
   # Calculate total mMETs
-  system.time(mmets_pp <- total_mmet(trip_scen_sets))
+  (mmets_pp <- total_mmet(trip_scen_sets))
   # Physical activity calculation
-  system.time(RR_PA_calculations <- gen_pa_rr(mmets_pp))
+  (RR_PA_calculations <- gen_pa_rr(mmets_pp))
   ############################
   ## (3) COMBINE (1) AND (2)
   # Physical activity and air pollution combined
-  system.time(RR_PA_AP_calculations <- combined_rr_pa_pa(RR_PA_calculations,RR_AP_calculations))
+  (RR_PA_AP_calculations <- combined_rr_pa_pa(RR_PA_calculations,RR_AP_calculations))
   ############################
   ## (4) INJURIES
   # Injuries calculation
   for(i in 1:length(inj_distances))
     assign(names(inj_distances)[i],inj_distances[[i]])
-  system.time(injuries <- injuries_function(relative_distances,scen_dist))
-  system.time(injuries <- injuries_function_2(true_distances,injuries_list))
-  system.time(deaths_yll_injuries <- injury_death_to_yll(injuries))
+  (injuries <- injuries_function(relative_distances,scen_dist))
+  #system.time(injuries <- injuries_function_2(true_distances,injuries_list))
+  (deaths_yll_injuries <- injury_death_to_yll(injuries))
   scen1_injuries <- deaths_yll_injuries$scen1_injuries
   ############################
   ## (5) COMBINE (3) AND (4)
   # Combine health burden from disease and injury
-  system.time(hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries$deaths_yll_injuries))
+  (hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries$deaths_yll_injuries))
   return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp,injuries=injuries,scen1_injuries=scen1_injuries,hb=hb))
 }
 
