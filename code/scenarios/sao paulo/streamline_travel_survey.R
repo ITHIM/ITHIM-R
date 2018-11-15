@@ -4,6 +4,31 @@ library(tidyverse)
 # Read sao paulo's travel survey
 rd <- read_csv("data/scenarios/sao paulo/SP 2012 travel data.csv")
 
+# Data Dictionary
+
+# ID_PESS = participant ID
+# IDADE = age
+# SEXO = sex
+# N_VIAG = trip ID
+# TOT_VIAG = total number of trips per person
+# ANDA_O = walking time at origin
+# ANDA_D = walking time at destination
+# DURACAO = trip duration in minutes
+# MODOPRIN = main mode of transport
+# 01 to 05 = bus
+# 06 = car, driver
+# 07 = car, passenger
+# 08 = taxi
+# 09 to 11 = van / minibus
+# 12 = subway
+# 13 = train
+# 14 = motorbicycle
+# 15 = bycicle
+# 16 = walking
+# 17 = others
+# DISTANCIA = trip distance in meters
+# ID_ORDEM = row ID
+
 # Rename columns
 rd <- rename(rd, participant_id = ID_PESS , 
              age  =  IDADE,
