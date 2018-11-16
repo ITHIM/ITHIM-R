@@ -43,3 +43,26 @@ rd <- rename(rd, participant_id = ID_PESS ,
              row_id = ID_ORDEM
              
 )
+
+# Recode modes as strings
+mode_df <- data.frame(
+  mode_int = append(c(1:17), NA),
+  mode_string = c(rep('bus', 5), 'car_driver', 
+                       'car_passenger', 'taxi',
+                       rep('van', 3), 'subway',
+                       'train', 'motorbike',
+                       'bicycle', 'walk', 'others', 'NAs')
+                       
+   
+  
+)
+
+rd$mode_string <- as.character(mode_df$mode_string[match(rd$mode, mode_df$mode_int)])
+
+ggplot(rd %>% 
+         group_by(mode_string) %>% 
+         summarise(count = n()) %>% 
+         mutate(perc = round(count/sum(count) * 100, 1)), 
+       aes(x = mode_string, y = perc)) + 
+  geom_bar(stat="identity") + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = rel(0.8)))
