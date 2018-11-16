@@ -60,9 +60,11 @@ mode_df <- data.frame(
 rd$mode_string <- as.character(mode_df$mode_string[match(rd$mode, mode_df$mode_int)])
 
 ggplot(rd %>% 
+         filter(!is.na(mode)) %>% 
          group_by(mode_string) %>% 
          summarise(count = n()) %>% 
          mutate(perc = round(count/sum(count) * 100, 1)), 
        aes(x = mode_string, y = perc)) + 
   geom_bar(stat="identity") + 
-  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = rel(0.8)))
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(x = "", y = "percentage(%)", title = "Main Mode distribution")
