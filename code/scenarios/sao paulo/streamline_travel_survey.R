@@ -1,5 +1,6 @@
 # Load libraries
 library(tidyverse)
+library(plotly)
 
 # Read sao paulo's travel survey
 rd <- read_csv("data/scenarios/sao paulo/SP 2012 travel data.csv")
@@ -59,12 +60,13 @@ mode_df <- data.frame(
 
 rd$mode_string <- as.character(mode_df$mode_string[match(rd$mode, mode_df$mode_int)])
 
-ggplot(rd %>% 
+plotly::ggplotly(ggplot(rd %>% 
          filter(!is.na(mode)) %>% 
          group_by(mode_string) %>% 
          summarise(count = n()) %>% 
          mutate(perc = round(count/sum(count) * 100, 1)), 
        aes(x = mode_string, y = perc)) + 
   geom_bar(stat="identity") + 
+  theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  labs(x = "", y = "percentage(%)", title = "Main Mode distribution")
+  labs(x = "", y = "percentage(%)", title = "Main Mode distribution"))
