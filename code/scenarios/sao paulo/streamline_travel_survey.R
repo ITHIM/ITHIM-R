@@ -48,12 +48,12 @@ rd <- rename(rd, participant_id = ID_PESS ,
 mode_df <- data.frame(
   mode_int = append(c(1:17), NA),
   mode_string = c(rep('bus', 5), 'car_driver', 
-                       'car_passenger', 'taxi',
-                       rep('van', 3), 'subway',
-                       'train', 'motorbike',
-                       'bicycle', 'walk', 'others', 'NAs')
-                       
-   
+                  'car_passenger', 'taxi',
+                  rep('van', 3), 'subway',
+                  'train', 'motorbike',
+                  'bicycle', 'walk', 'others', 'NAs')
+  
+  
   
 )
 
