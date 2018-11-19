@@ -13,8 +13,6 @@ run_ithim_setup <- function(NSAMPLES = 1,
                             modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle","Truck","Bus_driver"),
                             speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25, 21, 15),
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
-                            AGE_CATEGORY = c("15-49", "50-69", "70+"),
-                            MAX_AGE=70,
                             #population=1600000,
                             #survey_coverage=1/365,
                             BUS_WALK_TIME= 5,
@@ -65,9 +63,6 @@ run_ithim_setup <- function(NSAMPLES = 1,
   MODE_SPEEDS <<- data.frame(trip_mode = modes, speed = speeds, stringsAsFactors = F)
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
-  AGE_CATEGORY <<- AGE_CATEGORY
-  AGE_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(AGE_CATEGORY, "[^0-9]+"), function(x) x[1]))
-  MAX_AGE <<- MAX_AGE
   
   BASE_LEVEL_INHALATION_RATE <<- 10
   CLOSED_WINDOW_PM_RATIO <<- 0.5
@@ -230,7 +225,7 @@ ithim_load_data <- function(){
   ## DATA FILES FOR MODEL  
   DR_AP <<- read.csv("data/dose_response/AP/dose_response_AP.csv")
   DISEASE_OUTCOMES <<- read.csv("data/dose_response/disease_outcomes_lookup.csv")
-  S.I.N <<- read_csv('code/injuries/data/sin_coefficients_pairs.csv')
+  INJ_DIST_EXP <<- read_csv('code/injuries/data/sin_coefficients_pairs.csv') ## injury distance exponent
   list_of_files <- list.files(path = "data/drpa/extdata/", recursive = TRUE, pattern = "\\.csv$", full.names = TRUE)
   for (i in 1:length(list_of_files)){
     assign(stringr::str_sub(basename(list_of_files[[i]]), end = -5),
@@ -241,16 +236,28 @@ ithim_load_data <- function(){
   EMISSION_FACTORS <<- readRDS('data/emission calculations accra/emission_factors.Rds')
   
   ## DATA FILES FOR ACCRA
+  GBD_DATA <<- read_csv('data/demographics/gbd/accra/GBD_Accra.csv')
+  gbd_injuries <- GBD_DATA[which(GBD_DATA$cause == "Road injuries"),]
+  gbd_injuries$sex_age <- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
+  ## calculating the ratio of YLL to deaths for each age and sex group
+  gbd_injuries <- arrange(gbd_injuries, measure)
+  gbd_inj_yll <- gbd_injuries[which(gbd_injuries$measure == "YLLs (Years of Life Lost)"),]
+  gbd_inj_dth <- gbd_injuries[which(gbd_injuries$measure == "Deaths"),]
+  gbd_inj_yll$yll_dth_ratio <- gbd_inj_yll$burden/gbd_inj_dth$burden 
+  GBD_INJ_YLL <<- gbd_inj_yll
+  
+  AGE_CATEGORY <<- unique(GBD_DATA$age)
+  AGE_LOWER_BOUNDS <<- sort(unique(GBD_DATA$min_age))
+  MAX_AGE <<- max(GBD_DATA$max_age)
+  
   trip_set <- read_csv("data/synth_pop_data/accra/raw_data/trips/trips_Accra.csv")
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
   TRIP_SET <<- trip_set
   PA_SET <<- read_csv("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
-  ##!! This item should be replaced by the sum from travel in the synthetic population
-  DISTANCE_FOR_EMISSIONS <<- readRDS('data/emission calculations accra/accra_distances_for_emissions.Rds')
   WHW_MAT <<- read_csv('code/injuries/accra/who_hit_who_accra.csv')
   injuries <- readRDS('code/injuries/data/accra_injuries_long.Rds')
   injuries <- assign_age_groups(injuries,age_label='cas_age')
-  set_up_injury_contingency(injuries)
+  set_injury_contingency(injuries)
   ## DESCRIPTION OF INJURIES
   # has one row per event (fatality)
   # has colnames event_id, year, cas_mode, strike_mode, cas_age, cas_gender
@@ -262,15 +269,6 @@ ithim_load_data <- function(){
   # colnames year, cas_mode, strike_mode, cas_age, cas_gender are used to form a contingency table
   # cas_mode, strike_mode, cas_age, cas_gender are used in the regression model
   # in future, we can add other covariates
-  GBD_DATA <<- read_csv('data/demographics/gbd/accra/GBD Accra.csv')
-  gbd_injuries <- GBD_DATA[which(GBD_DATA$cause == "Road injuries"),]
-  gbd_injuries$sex_age <- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
-  ## calculating the ratio of YLL to deaths for each age and sex group
-  gbd_injuries <- arrange(gbd_injuries, measure)
-  gbd_inj_yll <- gbd_injuries[which(gbd_injuries$measure == "YLLs (Years of Life Lost)"),]
-  gbd_inj_dth <- gbd_injuries[which(gbd_injuries$measure == "Deaths"),]
-  gbd_inj_yll$yll_dth_ratio <- gbd_inj_yll$value_gama/gbd_inj_dth$value_gama 
-  GBD_INJ_YLL <<- gbd_inj_yll
   
   ##RJ suggestion to AA
   ## that our folder structure consists of two respositories for data: ITHIM-R/data/global and ITHIM-R/data/local
@@ -290,7 +288,7 @@ ithim_load_data <- function(){
   ## The user specifies either 'accra', if we have the folder 'accra', or the path to a repository containing named files, or a path per file...
 }
 
-set_up_injury_contingency <- function(injuries){
+set_injury_contingency <- function(injuries){
   ##!! need to work out of logic of how we know which modes there are!
   mode_names <- c("Bicycle","Bus","Bus_driver","Motorcycle","Truck","Pedestrian","Car")
   # divide injuries into those for which we can write a WHW matrix, i.e. we know distances of both striker and casualty, 
@@ -388,7 +386,7 @@ edit_accra_trips <- function(raw_trip_set){
   nPeople <- 20#round(residual_mc_duration/nTrips/mean(duration_range))
   duration <- residual_mc_duration/nPeople
   new_gender <- c(rep('Male',20),'Female')
-  age_range <- AGE_LOWER_BOUNDS[1]:AGE_LOWER_BOUNDS[3]
+  age_range <- AGE_LOWER_BOUNDS[1]:MAX_AGE
   for(i in 1:nPeople){
     new_trips <- add_trips(trip_ids   = max(raw_trip_set$trip_id) + 1: nTrips, 
                            new_mode = new_mode, 
@@ -419,7 +417,7 @@ edit_accra_trips <- function(raw_trip_set){
 add_ghost_trips <- function(raw_trip_set){
   
   ## values for new ghost journeys
-  age_range <- AGE_LOWER_BOUNDS[1]:(AGE_LOWER_BOUNDS[3]-1)
+  age_range <- AGE_LOWER_BOUNDS[1]:MAX_AGE
   nPeople <- 2
   nTrips <- 1
   new_gender <- 'Male'
@@ -530,7 +528,7 @@ create_synth_pop <- function(raw_trip_set){
 }
 
 assign_age_groups <- function(dataset,age_category=AGE_CATEGORY,age_lower_bounds=AGE_LOWER_BOUNDS,max_age=MAX_AGE,min_age=AGE_LOWER_BOUNDS[1],age_label='age'){
-  dataset <- dataset[dataset[[age_label]]<max_age&!is.na(dataset[[age_label]])&dataset[[age_label]]>=min_age,]
+  dataset <- dataset[dataset[[age_label]]<=max_age&!is.na(dataset[[age_label]])&dataset[[age_label]]>=min_age,]
   dataset$age_cat <- 0
   ##!! assuming more than one age category
   for(i in 2:length(age_lower_bounds)-1){
@@ -1228,9 +1226,9 @@ injuries_function <- function(relative_distances,scen_dist){
   whw_mat <- data.frame(WHW_MAT)
   vic_order <- whw_mat[,1]
   strike_order <- colnames(whw_mat)[2:ncol(whw_mat)]
-  sin_vic <- S.I.N[1:6,]
+  sin_vic <- INJ_DIST_EXP[1:6,]
   sin_vic_ordered <- sin_vic[match(vic_order,data.frame(sin_vic)[,1]),match(strike_order,colnames(sin_vic))]
-  sin_str <- S.I.N[7:12,]
+  sin_str <- INJ_DIST_EXP[7:12,]
   sin_str_ordered <- sin_str[match(vic_order,data.frame(sin_str)[,1]),match(strike_order,colnames(sin_str))]
   whw_mat_adjusted <- whw_mat[,2:8]*SAFETY_SCALAR
   for (k in 1:(length(SCEN_SHORT_NAME))) {
@@ -1277,31 +1275,32 @@ injury_death_to_yll <- function(injuries){
   x_yll <- dplyr::select(death_and_yll, -Deaths)
   x_yll <- spread(x_yll,scenario, YLL)
   
-  scen1_injuries <- list(deaths=x_deaths[,4],ylls=x_yll[,4])
-  deaths <- x_deaths[,-4]
-  deaths[,3:7] <- - deaths[,3:7] + t(repmat(unlist(scen1_injuries$deaths),NSCEN,1))
-  ylls <- x_yll[,-4]
-  ylls[,3:7] <- - ylls[,3:7] + t(repmat(unlist(scen1_injuries$ylls),NSCEN,1))
+  ref_scen <- 'Scenario 1'
+  ref_scen_index <- which(SCEN==ref_scen)
+  calc_scen <- SCEN[SCEN!=ref_scen]
+  calc_scen_index <- which(colnames(x_deaths)%in%calc_scen)
   
-  deaths_yll_injuries <- as.data.frame(cbind(deaths, ylls[,-c(1:2)]))
-  names(deaths_yll_injuries)[1:2]<- c("age_cat", "sex")
+  ref_injuries <- list(deaths=x_deaths[[ref_scen]],ylls=x_yll[[ref_scen]])
+  deaths <- t(repmat(unlist(ref_injuries$deaths),NSCEN,1)) - x_deaths[,calc_scen_index]
+  ylls <- t(repmat(unlist(ref_injuries$ylls),NSCEN,1)) - x_yll[,calc_scen_index]
+  deaths_yll_injuries <- as.data.frame(cbind(x_deaths[,1:2],deaths, ylls))
   
   metric <- c("deaths", "yll")
   k <- 1
   for  (i in 1: 2)
-    for (j in c(1:(NSCEN+1))[-2]){
+    for (j in c(1:(NSCEN+1))[-ref_scen_index]){
       names(deaths_yll_injuries)[2+k] <- paste0(SCEN_SHORT_NAME[j],"_",metric[i],"_inj")
       k<-k+1
     }
   
-  list(deaths_yll_injuries=deaths_yll_injuries,scen1_injuries=scen1_injuries)
+  list(deaths_yll_injuries=deaths_yll_injuries,ref_injuries=ref_injuries)
 }
 
 health_burden <- function(ind_ap_pa,inj){
   # subset gbd data for outcome types
   gbd_data_scaled <- GBD_DATA
-  gbd_data_scaled$value_gama[gbd_data_scaled$cause%in%c("Neoplasms","Ischemic heart disease","Tracheal, bronchus, and lung cancer")] <- 
-    gbd_data_scaled$value_gama[gbd_data_scaled$cause%in%c("Neoplasms","Ischemic heart disease","Tracheal, bronchus, and lung cancer")]*CHRONIC_DISEASE_SCALAR
+  gbd_data_scaled$burden[gbd_data_scaled$cause%in%c("Neoplasms","Ischemic heart disease","Tracheal, bronchus, and lung cancer")] <- 
+    gbd_data_scaled$burden[gbd_data_scaled$cause%in%c("Neoplasms","Ischemic heart disease","Tracheal, bronchus, and lung cancer")]*CHRONIC_DISEASE_SCALAR
   gbd_deaths <- subset(gbd_data_scaled,measure=='Deaths' & metric == "Number")
   gbd_ylls <- subset(gbd_data_scaled,measure=='YLLs (Years of Life Lost)' & metric == "Number")
   ##!! Hard-coded column names to initialise tables.
@@ -1376,7 +1375,7 @@ population_attributable_fraction <- function(pop, cn, mat){
   paf
 }
 
-combine_health_and_pif <- function(pop, pif_values, hc=GBD_DATA, hm_cn = 'value_gama'){
+combine_health_and_pif <- function(pop, pif_values, hc=GBD_DATA, hm_cn = 'burden'){
   # pif_values are already ordered as in pop; reorder hc values to match.
   hm_cn_values <- hc[[hm_cn]]
   return_values <- c()
@@ -1412,7 +1411,7 @@ ithim_uncertainty <- function(ithim_object,seed=1){
   run_results$dur <- ithim_object$dur
   #return(run_results)
   ##!! RJ for now return only hb from uncertain simulations; otherwise the file is too big
-  return(list(hb=run_results$hb,inj=run_results$scen1_injuries))
+  return(list(hb=run_results$hb,inj=run_results$ref_injuries))
 }
 
 run_ithim <- function(ithim_object,seed=1){ 
@@ -1447,12 +1446,12 @@ run_ithim <- function(ithim_object,seed=1){
   (injuries <- injuries_function(relative_distances,scen_dist))
   #system.time(injuries <- injuries_function_2(true_distances,injuries_list))
   (deaths_yll_injuries <- injury_death_to_yll(injuries))
-  scen1_injuries <- deaths_yll_injuries$scen1_injuries
+  ref_injuries <- deaths_yll_injuries$ref_injuries
   ############################
   ## (5) COMBINE (3) AND (4)
   # Combine health burden from disease and injury
   (hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries$deaths_yll_injuries))
-  return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp,injuries=injuries,scen1_injuries=scen1_injuries,hb=hb))
+  return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp,injuries=injuries,ref_injuries=ref_injuries,hb=hb))
 }
 
 parallel_evppi_for_AP <- function(disease,parameter_samples,outcome){
