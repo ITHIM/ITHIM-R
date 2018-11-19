@@ -23,7 +23,7 @@ run_ithim_setup <- function(NSAMPLES = 1,
                             PA_DOSE_RESPONSE_QUANTILE = F,
                             AP_DOSE_RESPONSE_QUANTILE = F,
                             BACKGROUND_PA_SCALAR = 1,
-                            SAFETY_SCALAR = 1,
+                            INJURY_REPORTING_RATE = 1,
                             CHRONIC_DISEASE_SCALAR = 1,
                             RATIO_4W1_TO_4W2 = 10/12,
                             TAXI_TO_CAR_RATIO = 0.04,
@@ -91,7 +91,7 @@ run_ithim_setup <- function(NSAMPLES = 1,
                                                     PA_DOSE_RESPONSE_QUANTILE,
                                                     AP_DOSE_RESPONSE_QUANTILE,
                                                     BACKGROUND_PA_SCALAR,
-                                                    SAFETY_SCALAR,
+                                                    INJURY_REPORTING_RATE,
                                                     CHRONIC_DISEASE_SCALAR )
   
   RECALCULATE_TRIPS <<- 'MC_TO_CAR_RATIO'%in%names(ithim_object$parameters)
@@ -122,7 +122,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    PA_DOSE_RESPONSE_QUANTILE = F,
                                    AP_DOSE_RESPONSE_QUANTILE = F,
                                    BACKGROUND_PA_SCALAR = 1,
-                                   SAFETY_SCALAR = 1,
+                                   INJURY_REPORTING_RATE = 1,
                                    CHRONIC_DISEASE_SCALAR = 1 ){
   ## PARAMETERS
   ##RJ parameters are assigned to the environment and so are set for every function. They are over-written when sample_parameters is called.
@@ -133,7 +133,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   BACKGROUND_PA_SCALAR <<- BACKGROUND_PA_SCALAR
   PM_TRANS_SHARE <<- PM_TRANS_SHARE
   MC_TO_CAR_RATIO <<- MC_TO_CAR_RATIO
-  SAFETY_SCALAR <<- SAFETY_SCALAR
+  INJURY_REPORTING_RATE <<- INJURY_REPORTING_RATE
   CHRONIC_DISEASE_SCALAR <<- CHRONIC_DISEASE_SCALAR
   PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
   parameters <- list()
@@ -144,10 +144,10 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   if(length(PM_TRANS_SHARE) > 1 )   parameters$PM_TRANS_SHARE <- rbeta(NSAMPLES,PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
   if(length(MC_TO_CAR_RATIO) > 1 )  parameters$MC_TO_CAR_RATIO <- rlnorm(NSAMPLES,MC_TO_CAR_RATIO[1],MC_TO_CAR_RATIO[2])
   if(length(BACKGROUND_PA_SCALAR) > 1 )     parameters$BACKGROUND_PA_SCALAR <- rlnorm(NSAMPLES,BACKGROUND_PA_SCALAR[1],BACKGROUND_PA_SCALAR[2])
-  if(length(SAFETY_SCALAR) > 1 )    parameters$SAFETY_SCALAR <- rlnorm(NSAMPLES,SAFETY_SCALAR[1],SAFETY_SCALAR[2])
+  if(length(INJURY_REPORTING_RATE) > 1 )    parameters$INJURY_REPORTING_RATE <- rbeta(NSAMPLES,INJURY_REPORTING_RATE[1],INJURY_REPORTING_RATE[2])
   if(length(CHRONIC_DISEASE_SCALAR) > 1 )   parameters$CHRONIC_DISEASE_SCALAR <- rlnorm(NSAMPLES,CHRONIC_DISEASE_SCALAR[1],CHRONIC_DISEASE_SCALAR[2])
   if(PA_DOSE_RESPONSE_QUANTILE == T ) {
-    pa_diseases <- subset(DISEASE_OUTCOMES,physical_activity==1)
+    pa_diseases <- subset(DISEASE_INVENTORY,physical_activity==1)
     dr_pa_list <- list()
     for(disease in pa_diseases$pa_acronym)
       parameters[[paste0('PA_DOSE_RESPONSE_QUANTILE_',disease)]] <- runif(NSAMPLES,0,1)
@@ -155,8 +155,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   if(AP_DOSE_RESPONSE_QUANTILE == F ) {
     AP_DOSE_RESPONSE_QUANTILE <<- AP_DOSE_RESPONSE_QUANTILE
     dr_ap_list <- list()
-    for ( j in 1:nrow(DISEASE_OUTCOMES)) if (DISEASE_OUTCOMES$air_pollution[j] == 1){ 
-      cause <- as.character(DISEASE_OUTCOMES$ap_acronym[j])
+    for ( j in 1:nrow(DISEASE_INVENTORY)) if (DISEASE_INVENTORY$air_pollution[j] == 1){ 
+      cause <- as.character(DISEASE_INVENTORY$ap_acronym[j])
       dr_ap <- subset(DR_AP,cause_code==cause)
       dr_ap_list[[cause]] <- list()
       for(age in unique(dr_ap$age_code)){
@@ -166,7 +166,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     }
     DR_AP_LIST <<- dr_ap_list
   }else{
-    ap_diseases <- subset(DISEASE_OUTCOMES,air_pollution==1)
+    ap_diseases <- subset(DISEASE_INVENTORY,air_pollution==1)
     for(disease in ap_diseases$ap_acronym)
       for(letter in c('ALPHA_','BETA_','GAMMA_','TMREL_'))
         parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_',letter,disease)]] <- runif(NSAMPLES,0,1)
@@ -223,9 +223,11 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
 ## this function requires path specification, so that it may differ for different case studies
 ithim_load_data <- function(){
   ## DATA FILES FOR MODEL  
+  DISEASE_INVENTORY <<- read.csv("data/dose_response/disease_outcomes_lookup.csv")
+  # DR_AP$cause_code matches DISEASE_INVENTORY$ap_acronym
   DR_AP <<- read.csv("data/dose_response/AP/dose_response_AP.csv")
-  DISEASE_OUTCOMES <<- read.csv("data/dose_response/disease_outcomes_lookup.csv")
   INJ_DIST_EXP <<- read_csv('code/injuries/data/sin_coefficients_pairs.csv') ## injury distance exponent
+  # root of list_of_files matches DISEASE_INVENTORY$pa_acronym
   list_of_files <- list.files(path = "data/drpa/extdata/", recursive = TRUE, pattern = "\\.csv$", full.names = TRUE)
   for (i in 1:length(list_of_files)){
     assign(stringr::str_sub(basename(list_of_files[[i]]), end = -5),
@@ -236,6 +238,15 @@ ithim_load_data <- function(){
   EMISSION_FACTORS <<- readRDS('data/emission calculations accra/emission_factors.Rds')
   
   ## DATA FILES FOR ACCRA
+  # GBD file needs to have the following columns: 
+  # age (=label, e.g. 15-49)
+  # sex (=Male or Female)
+  # measure
+  # cause (GBD_DATA$cause matches DISEASE_INVENTORY$GBD_name)
+  # metric
+  # burden
+  # min_age (=number, e.g. 15)
+  # max_age (=number, e.g. 49)
   GBD_DATA <<- read_csv('data/demographics/gbd/accra/GBD_Accra.csv')
   gbd_injuries <- GBD_DATA[which(GBD_DATA$cause == "Road injuries"),]
   gbd_injuries$sex_age <- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
@@ -246,6 +257,7 @@ ithim_load_data <- function(){
   gbd_inj_yll$yll_dth_ratio <- gbd_inj_yll$burden/gbd_inj_dth$burden 
   GBD_INJ_YLL <<- gbd_inj_yll
   
+  # get age-category details from GBD data
   AGE_CATEGORY <<- unique(GBD_DATA$age)
   AGE_LOWER_BOUNDS <<- sort(unique(GBD_DATA$min_age))
   MAX_AGE <<- max(GBD_DATA$max_age)
@@ -998,38 +1010,35 @@ gen_ap_rr <- function(pm_conc_pp){
   
   pm_indices <- sapply(SCEN_SHORT_NAME,function(x)which(colnames(pm_rr_pp)==paste0("pm_conc_",x)))
   ### iterating over all all disease outcomes
-  for ( j in 1:nrow(DISEASE_OUTCOMES)){
-    ## checking whether to calculate this health outcome for air pollution
-    if (DISEASE_OUTCOMES$air_pollution[j] == 1){ 
-      # initialise lists
-      for (x in 1:length(SCEN_SHORT_NAME))
-        pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]] <- 0
-      cause <- as.character(DISEASE_OUTCOMES$ap_acronym[j])
-      dr_ap_disease <- subset(DR_AP, cause_code == cause)
-      # apply by age groups
-      ages <- unique(dr_ap_disease$age_code)
-      for(age in ages){
-        dr_ap_sub <- subset(dr_ap_disease,age_code == age )
-        if(age==99){
-          i <-1:nrow(pm_rr_pp)
-        }else{
-          i <- which(pm_rr_pp$ap_age==age)
-        }
-        # get parameters
-        alpha <- DR_AP_LIST[[cause]][[as.character(age)]]$alpha
-        beta <- DR_AP_LIST[[cause]][[as.character(age)]]$beta
-        gamma <- DR_AP_LIST[[cause]][[as.character(age)]]$gamma
-        tmrel <- DR_AP_LIST[[cause]][[as.character(age)]]$tmrel
-        # calculate AP and apply to all in age group
-        for(x in 1: length(SCEN_SHORT_NAME)) 
-          pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]][i] <-
-          as.numeric(1 + alpha * (1 - exp(-beta * (pm_rr_pp[[pm_indices[x]]][i] - tmrel) ^ gamma )))
+  for ( j in c(1:nrow(DISEASE_INVENTORY))[DISEASE_INVENTORY$air_pollution == 1]){
+    # initialise lists
+    for (x in 1:length(SCEN_SHORT_NAME))
+      pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]] <- 0
+    cause <- as.character(DISEASE_INVENTORY$ap_acronym[j])
+    dr_ap_disease <- subset(DR_AP, cause_code == cause)
+    # apply by age groups
+    ages <- unique(dr_ap_disease$age_code)
+    for(age in ages){
+      dr_ap_sub <- subset(dr_ap_disease,age_code == age )
+      if(age==99){
+        i <-1:nrow(pm_rr_pp)
+      }else{
+        i <- which(pm_rr_pp$ap_age==age)
       }
-      ## change the names of the columns as per the disease
-      for (n in 1: length(SCEN_SHORT_NAME)){
-        col <- which(names(pm_rr_pp)== paste0("RR_ap_",SCEN_SHORT_NAME[n]))
-        names(pm_rr_pp)[col]<- paste0("RR_ap_",SCEN_SHORT_NAME[n],"_",DISEASE_OUTCOMES$acronym[j])
-      }
+      # get parameters
+      alpha <- DR_AP_LIST[[cause]][[as.character(age)]]$alpha
+      beta <- DR_AP_LIST[[cause]][[as.character(age)]]$beta
+      gamma <- DR_AP_LIST[[cause]][[as.character(age)]]$gamma
+      tmrel <- DR_AP_LIST[[cause]][[as.character(age)]]$tmrel
+      # calculate AP and apply to all in age group
+      for(x in 1: length(SCEN_SHORT_NAME)) 
+        pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]][i] <-
+        as.numeric(1 + alpha * (1 - exp(-beta * (pm_rr_pp[[pm_indices[x]]][i] - tmrel) ^ gamma )))
+    }
+    ## change the names of the columns as per the disease
+    for (n in 1: length(SCEN_SHORT_NAME)){
+      col <- which(names(pm_rr_pp)== paste0("RR_ap_",SCEN_SHORT_NAME[n]))
+      names(pm_rr_pp)[col]<- paste0("RR_ap_",SCEN_SHORT_NAME[n],"_",DISEASE_INVENTORY$acronym[j])
     }
   }
   pm_rr_pp
@@ -1064,9 +1073,9 @@ gen_pa_rr <- function(mmets_pp){
   ### iterating over all all disease outcomes
   dose_columns <- match(paste0(SCEN_SHORT_NAME, '_mmet'),colnames(mmets_pp))
   doses_clean <- mmets_pp[,dose_columns]
-  for ( j in c(1:nrow(DISEASE_OUTCOMES))[DISEASE_OUTCOMES$physical_activity == 1]){
-    pa_dn <- as.character(DISEASE_OUTCOMES$pa_acronym[j])
-    pa_n <- as.character(DISEASE_OUTCOMES$acronym[j])
+  for ( j in c(1:nrow(DISEASE_INVENTORY))[DISEASE_INVENTORY$physical_activity == 1]){
+    pa_dn <- as.character(DISEASE_INVENTORY$pa_acronym[j])
+    pa_n <- as.character(DISEASE_INVENTORY$acronym[j])
     outcome_type <- ifelse(pa_dn%in%c('lung_cancer','stroke'), 'incidence' , 'mortality')
     # CHD: 35 mmeth per week use mortality
     # Lung cancer: 10 mmeth per week use incidence
@@ -1077,7 +1086,7 @@ gen_pa_rr <- function(mmets_pp){
     if(pa_dn %in% c('total_cancer','coronary_heart_disease')) doses[doses>35] <- 35
     else if(pa_dn == 'lung_cancer') doses[doses>10] <- 10
     else if(pa_dn == 'stroke') doses[doses>13.37] <- 13.37
-    else if(pa_dn == 'all_cause_mortality') doses[doses>16.08] <- 16.08
+    else if(pa_dn == 'all_cause') doses[doses>16.08] <- 16.08
     ##RJ apply function to all doses as one long vector
     return_vector <- PA_dose_response(cause = pa_dn, outcome_type = outcome_type, 
                                       dose = unlist(data.frame(doses)))
@@ -1095,11 +1104,11 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
   if (sum(is.na(dose))>0 || class(dose)!= "numeric"){
     stop ('Please provide dose in numeric')
   }
-  if (!cause %in% c('all_cause_mortality', 'breast-cancer', 'cardiovascular-disease',
+  if (!cause %in% c('all_cause', 'breast-cancer', 'cardiovascular-disease',
                     'colon-cancer', 'coronary_heart_disease', 'diabetes', 'endometrial-cancer',
                     'heart-failure', 'lung_cancer', 'stroke', 'total_cancer')){
     stop('Unsupported cause/disease. Please select from \n
-         all_cause_mortality \n
+         all_cause \n
          breast-cancer\n
          cardiovascular-disease \n
          colon-cancer \n
@@ -1115,12 +1124,10 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
          mortality \n
          incidence')
   }
-  if (cause == 'all_cause_mortality' && outcome_type == 'incidence'){
-    stop('Incidence does not exist for all_cause_mortality')
+  if (cause == 'all_cause' && outcome_type == 'incidence'){
+    stop('Incidence does not exist for all_cause')
   }
   fname <- paste(cause, outcome_type, sep = "_")
-  if (cause == 'all_cause_mortality')
-    fname <- cause
   lookup_table <- get(paste0(fname))
   lookup_df <- setDT(lookup_table)
   #pert_75 <- stringr::str_sub(basename(list_of_files[[1]]), end = -5)
@@ -1147,7 +1154,7 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
   }
   if (PA_DOSE_RESPONSE_QUANTILE==T){
     #rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, sd=rr-lb,a=0, b=1)
-    rr <- qnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, sd=rr-lb)
+    rr <- qnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, sd=(ub-lb)/1.96)
     rr[rr<0] <- 0
   }
   if (confidence_intervals) {
@@ -1165,21 +1172,14 @@ combined_rr_pa_pa <- function(ind_pa,ind_ap){
   # Replace Na with 1
   ind_pa[is.na(ind_pa)] <- 1
   
-  # remove common columns from ap
-  ind_ap <- dplyr::select(ind_ap, -c(sex, age, age_cat))
-  
   # join pa and ap datasets
-  ind_ap_pa <- left_join(ind_pa, ind_ap, by = "participant_id")
+  ind_ap_pa <- left_join(ind_pa, ind_ap, by = c('participant_id','age','sex','age_cat'))
 
   ### iterating over all all disease outcomes
-  for ( j in 1:nrow(DISEASE_OUTCOMES)){
-    ## checking whether to calculate this health outcome for PA
-    if (DISEASE_OUTCOMES$physical_activity[j] == 1 & DISEASE_OUTCOMES$air_pollution[j] == 1){
-      ac <- as.character(DISEASE_OUTCOMES$acronym[j])
-      for (scen in SCEN_SHORT_NAME){
-        ind_ap_pa[[paste('RR_pa_ap', scen, ac, sep = '_')]] <- ind_ap_pa[[paste('RR_pa', scen, ac, sep = '_')]] * ind_ap_pa[[paste('RR_ap', scen, ac, sep = '_')]]
-        
-      }
+  for ( j in c(1:nrow(DISEASE_INVENTORY))[DISEASE_INVENTORY$physical_activity == 1 & DISEASE_INVENTORY$air_pollution == 1]){
+    ac <- as.character(DISEASE_INVENTORY$acronym[j])
+    for (scen in SCEN_SHORT_NAME){
+      ind_ap_pa[[paste('RR_pa_ap', scen, ac, sep = '_')]] <- ind_ap_pa[[paste('RR_pa', scen, ac, sep = '_')]] * ind_ap_pa[[paste('RR_ap', scen, ac, sep = '_')]]
     }
   }
   
@@ -1230,7 +1230,7 @@ injuries_function <- function(relative_distances,scen_dist){
   sin_vic_ordered <- sin_vic[match(vic_order,data.frame(sin_vic)[,1]),match(strike_order,colnames(sin_vic))]
   sin_str <- INJ_DIST_EXP[7:12,]
   sin_str_ordered <- sin_str[match(vic_order,data.frame(sin_str)[,1]),match(strike_order,colnames(sin_str))]
-  whw_mat_adjusted <- whw_mat[,2:8]*SAFETY_SCALAR
+  whw_mat_adjusted <- whw_mat[,2:8]/INJURY_REPORTING_RATE
   for (k in 1:(length(SCEN_SHORT_NAME))) {
     victim_dist <- scen_dist[match(vic_order,rownames(scen_dist)),k]
     strk_dist <- scen_dist[match(strike_order,rownames(scen_dist)),k]
@@ -1315,15 +1315,15 @@ health_burden <- function(ind_ap_pa,inj){
   reference_scenario <- 'scen1'
   scen_names <- SCEN_SHORT_NAME[SCEN_SHORT_NAME!=reference_scenario]
   ### iterating over all all disease outcomes
-  for ( j in 1:nrow(DISEASE_OUTCOMES)){
+  for ( j in 1:nrow(DISEASE_INVENTORY)){
     # Disease acronym and full name
-    ac <- as.character(DISEASE_OUTCOMES$acronym[j])
-    gbd_dn <- as.character(DISEASE_OUTCOMES$GBD_name[j])
+    ac <- as.character(DISEASE_INVENTORY$acronym[j])
+    gbd_dn <- as.character(DISEASE_INVENTORY$GBD_name[j])
     # set up column names
     middle_bit <-
       paste0(
-        ifelse(DISEASE_OUTCOMES$physical_activity[j] == 1, 'pa_', ''),
-        ifelse(DISEASE_OUTCOMES$air_pollution[j] == 1, 'ap_', '')
+        ifelse(DISEASE_INVENTORY$physical_activity[j] == 1, 'pa_', ''),
+        ifelse(DISEASE_INVENTORY$air_pollution[j] == 1, 'ap_', '')
       )
     base_var <- paste0('RR_', middle_bit, reference_scenario, '_', ac)
     scen_vars <- paste0('RR_', middle_bit, scen_names, '_', ac)

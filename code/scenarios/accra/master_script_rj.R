@@ -41,7 +41,7 @@ ithim_object$parameters <- ithim_setup_parameters()
 ithim_object$outcome$cleaner_fleet <- run_ithim(ithim_object, seed = 1)
 
 ## what if: the roads are safer
-ithim_object$parameters <- ithim_setup_parameters(SAFETY_SCALAR = 0.5)
+ithim_object$parameters <- ithim_setup_parameters(INJURY_REPORTING_RATE = 2)
 ithim_object$outcome$safety <- run_ithim(ithim_object, seed = 1)
 
 ## what if: the rate of chronic disease doubles
@@ -128,10 +128,10 @@ print(evppi)
 
 environmental_scenarios <- c('now','safer','more_chronic_disease','less_background_AP','less_background_PA')
 certainty_parameters <- list(uncertain=list(
-  safey_scalar          = list(now=c(0,log(1.2)),      safer=0.5,                more_chronic_disease=c(0,log(1.2)),      less_background_AP=c(0,log(1.2)),less_background_PA=c(0,log(1.2))),
+  safey_scalar          = list(now=c(8,3),             safer=2,                  more_chronic_disease=c(8,3),             less_background_AP=c(8,3),       less_background_PA=c(8,3)),
   disease_scalar        = list(now=c(0,log(1.2)),      safer=c(0,log(1.2)),      more_chronic_disease=2.0,                less_background_AP=c(0,log(1.2)),less_background_PA=c(0,log(1.2))),
   background_pm         = list(now=c(log(50),log(1.2)),safer=c(log(50),log(1.2)),more_chronic_disease=c(log(50),log(1.2)),less_background_AP=30.625,       less_background_PA=c(log(50),log(1.2))),
-  transport_pm          = list(now=c(5,20),             safer=c(5,20),             more_chronic_disease=c(5,20),             less_background_AP=0.3673469,    less_background_PA=c(5,20)),
+  transport_pm          = list(now=c(5,20),            safer=c(5,20),            more_chronic_disease=c(5,20),            less_background_AP=0.3673469,    less_background_PA=c(5,20)),
   background_pa_scalar  = list(now=c(0,log(1.2)),      safer=c(0,log(1.2)),      more_chronic_disease=c(0,log(1.2)),      less_background_AP=c(0,log(1.2)),less_background_PA=0.5),
   NSAMPLES = 4096,
   BUS_WALK_TIME = c(log(5), log(1.2)),
@@ -141,7 +141,7 @@ certainty_parameters <- list(uncertain=list(
   PA_DOSE_RESPONSE_QUANTILE = T,  
   AP_DOSE_RESPONSE_QUANTILE = T
 ), not_uncertain=list(
-  safey_scalar          = list(now=1,    safer=0.5,  more_chronic_disease=1,    less_background_AP=1,        less_background_PA=1),
+  safey_scalar          = list(now=1,    safer=2,    more_chronic_disease=1,    less_background_AP=1,        less_background_PA=1),
   disease_scalar        = list(now=1,    safer=1,    more_chronic_disease=2.0,  less_background_AP=1,        less_background_PA=1),
   background_pm         = list(now=50,   safer=50,   more_chronic_disease=50,   less_background_AP=30.625,   less_background_PA=50),
   transport_pm          = list(now=0.225,safer=0.225,more_chronic_disease=0.225,less_background_AP=0.3673469,less_background_PA=0.225),
@@ -168,7 +168,7 @@ if(file.exists(file_name)){
                                       BUS_WALK_TIME = certainty_parameters[[certainty]]$BUS_WALK_TIME,
                                       MMET_CYCLING = certainty_parameters[[certainty]]$MMET_CYCLING, 
                                       MMET_WALKING = certainty_parameters[[certainty]]$MMET_WALKING, 
-                                      SAFETY_SCALAR = certainty_parameters[[certainty]]$safey_scalar[[environmental_scenario]],  
+                                      INJURY_REPORTING_RATE = certainty_parameters[[certainty]]$safey_scalar[[environmental_scenario]],  
                                       CHRONIC_DISEASE_SCALAR = certainty_parameters[[certainty]]$disease_scalar[[environmental_scenario]],  
                                       PM_CONC_BASE = certainty_parameters[[certainty]]$background_pm[[environmental_scenario]],  
                                       PM_TRANS_SHARE = certainty_parameters[[certainty]]$transport_pm[[environmental_scenario]],  
