@@ -60,16 +60,16 @@ mode_df <- data.frame(
 
 rd$mode_string <- as.character(mode_df$mode_string[match(rd$mode, mode_df$mode_int)])
 
-plotly::ggplotly(
-  ggplot(rd %>% 
-                          filter(!is.na(mode)) %>% 
-                          group_by(mode_string) %>% 
-                          summarise(count = n()) %>% 
-                          mutate(perc = round(count/sum(count) * 100, 1)), 
-                        aes(x = mode_string, y = perc)) + 
-                   geom_bar(position = 'dodge', stat='identity') +
-                   geom_text(aes(label = perc), position = position_dodge(width=0.9), vjust=-0.25, color = "blue") +
-                   theme_minimal() +
-                   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-                   labs(x = "", y = "percentage(%)", title = "Main Mode distribution")
-)
+# plotly::ggplotly(
+ggplot(rd %>% 
+         filter(!is.na(mode)) %>% 
+         group_by(mode_string) %>% 
+         summarise(count = n()) %>% 
+         mutate(perc = round(count/sum(count) * 100, 1)), 
+       aes(x = mode_string, y = perc)) + 
+  geom_bar(position = 'dodge', stat='identity') +
+  geom_text(aes(label = perc), position = position_dodge(width=0.9), vjust=-0.25, color = "blue") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(x = "", y = "percentage(%)", title = "Main Mode distribution")
+# )
