@@ -1,4 +1,3 @@
-# Load libraries
 library(tidyverse)
 library(plotly)
 
@@ -39,8 +38,8 @@ rd <- rename(rd, participant_id = ID_PESS ,
              walking_time_origin = ANDA_O,
              walking_time_dest = ANDA_D, 
              trip_duration = DURACAO, 
-             mode = MODOPRIN,
-             distance = DISTANCIA,
+             trip_mode = MODOPRIN,
+             trip_distance = DISTANCIA,
              row_id = ID_ORDEM
              
 )
@@ -52,24 +51,52 @@ mode_df <- data.frame(
                   'car_passenger', 'taxi',
                   rep('van', 3), 'subway',
                   'train', 'motorbike',
-                  'bicycle', 'walk', 'others', 'NAs')
+                  'bicycle', 'walk', 'others', NA)
   
   
   
 )
 
-rd$mode_string <- as.character(mode_df$mode_string[match(rd$mode, mode_df$mode_int)])
+# Convert numeric to string modes
+rd$mode_string <- as.character(mode_df$mode_string[match(rd$trip_mode, mode_df$mode_int)])
+rd$trip_mode <- rd$mode_string
+rd$mode_string <- NULL
+
+# Covert distance in meters to kms
+rd$trip_distance <- rd$trip_distance / 1000
 
 # plotly::ggplotly(
 ggplot(rd %>% 
-         filter(!is.na(mode)) %>% 
-         group_by(mode_string) %>% 
+         filter(!is.na(trip_mode)) %>% 
+         group_by(trip_mode) %>% 
          summarise(count = n()) %>% 
          mutate(perc = round(count/sum(count) * 100, 1)), 
-       aes(x = mode_string, y = perc)) + 
+       aes(x = trip_mode, y = perc)) + 
   geom_bar(position = 'dodge', stat='identity') +
   geom_text(aes(label = perc), position = position_dodge(width=0.9), vjust=-0.25, color = "blue") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(x = "", y = "percentage(%)", title = "Main Mode distribution")
 # )
+
+
+# Define distance categories
+dist_cat <- c("0-6 km", "7-9 km", "10+ km")
+
+# Initialize them
+rd$trip_distance_cat <- NULL
+rd$trip_distance_cat[rd$trip_distance > 0 & rd$trip_distance < 7] <- dist_cat[1]
+rd$trip_distance_cat[rd$trip_distance >= 7 & rd$trip_distance < 10] <- dist_cat[2]
+rd$trip_distance_cat[rd$trip_distance >= 10] <- dist_cat[3]
+
+ggplot(rd %>% 
+         filter(!is.na(trip_distance_cat)) %>% 
+         group_by(trip_distance_cat) %>% 
+         summarise(count = n()) %>% 
+         mutate(perc = round(count/sum(count) * 100, 1)), 
+       aes(x = trip_distance_cat, y = perc)) + 
+  geom_bar(position = 'dodge', stat='identity') +
+  geom_text(aes(label = perc), position = position_dodge(width=0.9), vjust=-0.25, color = "blue") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(x = "", y = "percentage(%)", title = "Main Mode Distance distribution")
