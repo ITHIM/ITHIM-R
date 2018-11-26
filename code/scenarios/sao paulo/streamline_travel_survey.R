@@ -76,8 +76,25 @@ ggplot(rd %>%
   geom_text(aes(label = perc), position = position_dodge(width=0.9), vjust=-0.25, color = "blue") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  labs(x = "", y = "percentage(%)", title = "Main Mode distribution")
+  labs(x = "", y = "percentage(%)", title = "Main Mode distribution - without weights")
 # )
+
+sum_total_trip_weight <- sum(rd$FE_VIA, na.rm = T)
+
+# plotly::ggplotly(
+ggplot(rd %>% 
+         filter(!is.na(trip_mode)) %>% 
+         group_by(trip_mode) %>% 
+         summarise(sum_trip_weights = sum(FE_VIA)) %>% 
+         mutate(perc = round(sum_trip_weights/sum_total_trip_weight * 100, 1)), 
+       aes(x = trip_mode, y = perc)) + 
+  geom_bar(position = 'dodge', stat='identity') +
+  geom_text(aes(label = perc), position = position_dodge(width=0.9), vjust=-0.25, color = "blue") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(x = "", y = "percentage(%)", title = "Main Mode distribution - with weights")
+# )
+
 
 
 # Define distance categories
@@ -100,3 +117,22 @@ ggplot(rd %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(x = "", y = "percentage(%)", title = "Main Mode Distance distribution")
+
+
+# source_modes <- c('Bus', 'Walking')
+# target_modes <- c('Private Car')
+# 
+# source_percentages <- c(0.16, 0.49)
+# 
+# tt <- nrow(filter(rdr, ! trip_mode %in% c('99', 'Short Walking')))
+# 
+# rdr <- create_scenario(rdr, scen_name = 'Scenario 1', source_modes = source_modes, 
+#                        target_modes = target_modes, source_distance_cats = dist_cat, 
+#                        source_trips = c(round(source_percentages[1] * tt), 
+#                                         round(source_percentages[2] * tt)))
+# 
+# rdfinal <- rbind(rd, rdr)
+
+#rdr %>% filter(rdfinal, scenario == 'Scenario 1' & ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified")) %>% 
+#  group_by(trip_mode) %>%  summarise(count = n(), pert = n() / nrow(.) * 100)
+
