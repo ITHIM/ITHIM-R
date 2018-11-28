@@ -80,7 +80,7 @@ for(i in 1:nDiseases){
 #################################################
 ## Use case 3: sampling:
 ## sample size, travel patterns, emissions (cleaner fleet)
-ithim_object <- run_ithim_setup(NSAMPLES = 32,
+ithim_object <- run_ithim_setup(NSAMPLES = 64,
                                 BUS_WALK_TIME = c(log(5), log(1.2)),
                                 MMET_CYCLING = c(log(5), log(1.2)), 
                                 PM_CONC_BASE = c(log(50), log(1.2)),  
