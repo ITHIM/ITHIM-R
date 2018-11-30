@@ -80,19 +80,26 @@ for(i in 1:nDiseases){
 #################################################
 ## Use case 3: sampling:
 ## sample size, travel patterns, emissions (cleaner fleet)
-ithim_object <- run_ithim_setup(NSAMPLES = 32,
+set.seed(1)
+ithim_object <- run_ithim_setup(NSAMPLES = 1024,
                                 BUS_WALK_TIME = c(log(5), log(1.2)),
+                                MMET_WALKING = c(log(2.5), log(1.2)), 
                                 MMET_CYCLING = c(log(5), log(1.2)), 
                                 PM_CONC_BASE = c(log(50), log(1.2)),  
-                                PM_TRANS_SHARE = c(5, 5), 
+                                PM_TRANS_SHARE = c(5,20), 
+                                INJURY_REPORTING_RATE = c(8,3), 
+                                CHRONIC_DISEASE_SCALAR = c(log(1), log(1.2)),  
+                                BACKGROUND_PA_SCALAR = c(log(1), log(1.2)),   
                                 MC_TO_CAR_RATIO = c(-1.4,0.4),
                                 PA_DOSE_RESPONSE_QUANTILE = T,  
                                 AP_DOSE_RESPONSE_QUANTILE = T)
 
 numcores <- detectCores()
 ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+for(i in 1:NSAMPLES) print(length(ithim_object$outcomes[[i]]))
 
 plot(ithim_object$parameters$MC_TO_CAR_RATIO,sapply(ithim_object$outcomes,function(x)sum(x$hb$deaths[,40])))
+plot(ithim_object$parameters$INJURY_REPORTING_RATE,sapply(ithim_object$outcomes,function(x)sum(x$hb$deaths[,40])))
 
 ## calculate EVPPI
 parameter_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
@@ -133,11 +140,11 @@ certainty_parameters <- list(uncertain=list(
   background_pm         = list(now=c(log(50),log(1.2)),safer=c(log(50),log(1.2)),more_chronic_disease=c(log(50),log(1.2)),less_background_AP=30.625,       less_background_PA=c(log(50),log(1.2))),
   transport_pm          = list(now=c(5,20),            safer=c(5,20),            more_chronic_disease=c(5,20),            less_background_AP=0.3673469,    less_background_PA=c(5,20)),
   background_pa_scalar  = list(now=c(0,log(1.2)),      safer=c(0,log(1.2)),      more_chronic_disease=c(0,log(1.2)),      less_background_AP=c(0,log(1.2)),less_background_PA=0.5),
-  NSAMPLES = 4096,
+  NSAMPLES = 1024,
   BUS_WALK_TIME = c(log(5), log(1.2)),
   MMET_CYCLING = c(log(5), log(1.2)), 
   MMET_WALKING = c(log(2.5), log(1.2)), 
-  MC_TO_CAR_RATIO = 0.2,#c(-1.4,0.4),
+  MC_TO_CAR_RATIO = c(-1.4,0.4),
   PA_DOSE_RESPONSE_QUANTILE = T,  
   AP_DOSE_RESPONSE_QUANTILE = T
 ), not_uncertain=list(
@@ -154,6 +161,8 @@ certainty_parameters <- list(uncertain=list(
   PA_DOSE_RESPONSE_QUANTILE = F,  
   AP_DOSE_RESPONSE_QUANTILE = F
 ))
+
+ithim_object_list$uncertain$now <- ithim_object
 
 file_name <- paste0('six_by_one_scenarios_',certainty_parameters$uncertain$NSAMPLES,'.Rds')
 if(file.exists(file_name)){
@@ -220,7 +229,8 @@ if(file.exists(file_name)){
       }
   }
   saveRDS(ithim_object_list,file_name)
-}
+
+  }
 
 library(RColorBrewer)
 library(plotrix)
@@ -232,7 +242,7 @@ evppi <- ithim_object_list$uncertain$now$evppi
 
 x11(width=5); par(mar=c(6,12,3.5,5.5))
 parameter_names <- c('walk-to-bus time','cycling mMETs','walking mMETs','background PM2.5','traffic PM2.5 share',#'motorcycle distance',
-                     'non-travel PA','street safety','non-communicable disease burden','all-cause mortality (PA)','IHD (PA)',
+                     'non-travel PA','injury reporting rate','non-communicable disease burden','all-cause mortality (PA)','IHD (PA)',
                      'cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
                      'COPD (AP)','stroke (AP)')
 labs <- rownames(evppi)
@@ -251,8 +261,12 @@ fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=parameter_names,line=NA,p
 mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
 color.legend(5.5,0,5.5+0.3,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
 
-x11(width=8,height=4); par(mfrow=c(2,4),mar=c(5,2,1,1)); 
-for(i in 1:8)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),col='navyblue',xlab=names(ithim_object_list$uncertain$now$parameters)[i],ylab='',frame=F,main='',lwd=2)
+parameter_names <- c('walk-to-bus time','cycling mMETs','walking mMETs','background PM2.5','traffic PM2.5 share','motorcycle distance',
+                     'non-travel PA','injury reporting rate','NCD burden','all-cause mortality (PA)','IHD (PA)',
+                     'cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
+                     'COPD (AP)','stroke (AP)')
+x11(width=6,height=6); par(mfrow=c(3,3),mar=c(5,3,1,1)); 
+for(i in 1:9)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),cex.lab=1.5,cex.axis=1.5,col='navyblue',xlab=parameter_names[i],ylab='',frame=F,main='',lwd=2)
 
 outcome <- t(sapply(ithim_object_list$uncertain$now$outcomes, function(x) colSums(x$hb$deaths[,(NSCEN+3):ncol(x$hb$deaths)])))
 

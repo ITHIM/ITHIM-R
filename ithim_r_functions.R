@@ -181,8 +181,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
       for(age in unique(dr_ap$age_code)){
         dr_ap_age <- subset(dr_ap,age_code==age)
         #######################################
-        ##RJ I recommend the following as a better approximation to the distribution but it is currently  v e r y  slow
-        ## so I leave it here commented out until we want to develop it and/or use it
+        
+        
         lbeta <- log(dr_ap_age$beta)
         lgamma <- log(dr_ap_age$gamma)
         gamma_val <- quantile(density(lgamma),quant1)
@@ -228,7 +228,7 @@ ithim_load_data <- function(){
   DR_AP <<- read.csv("data/dose_response/AP/dose_response_AP.csv")
   INJ_DIST_EXP <<- read_csv('code/injuries/data/sin_coefficients_pairs.csv') ## injury distance exponent
   # root of list_of_files matches DISEASE_INVENTORY$pa_acronym
-  list_of_files <- list.files(path = "data/drpa/extdata/", recursive = TRUE, pattern = "\\.csv$", full.names = TRUE)
+  list_of_files <- list.files(path = "data/global/drpa/extdata/", recursive = TRUE, pattern = "\\.csv$", full.names = TRUE)
   for (i in 1:length(list_of_files)){
     assign(stringr::str_sub(basename(list_of_files[[i]]), end = -5),
            read_csv(list_of_files[[i]]),
@@ -590,11 +590,10 @@ create_all_scenarios <- function(trip_set){
   # Scenario 1
   source_modes <- c('Bus', 'Walking')
   target_modes <- c('Private Car')
-  source_percentages <- c(0.16, 0.49)
+  source_percentages <- round(c(0.16, 0.49)* tt)
   rdr <- create_scenario(rdr, scen_name = 'Scenario 1', source_modes = source_modes, 
                          target_modes = target_modes, source_distance_cats = DIST_CAT, 
-                         source_trips = c(round(source_percentages[1] * tt), 
-                                          round(source_percentages[2] * tt)))
+                         source_trips = source_percentages)
   rd_list[[2]] <- rdr
   ###############################################################
   # Scenario 2
@@ -609,7 +608,7 @@ create_all_scenarios <- function(trip_set){
   long_trips <- sum(total_car_trips$trip_distance_cat!=DIST_CAT[1])
   long_car_trips_sample <- create_scenario(total_car_trips, scen_name = 'Scenario 2', source_modes = source_modes, combined_modes = T, 
                                            target_modes = target_modes, source_distance_cats = DIST_CAT[2:3],source_trips = long_trips)
-  short_trips <- target_new_trips - long_trips
+  short_trips <- min( target_new_trips - long_trips, sum(total_car_trips$trip_distance_cat==DIST_CAT[1]))
   if(short_trips>0){
     short_car_trips_sample <- create_scenario(total_car_trips, scen_name = 'Scenario 2', source_modes = source_modes, combined_modes = T, 
                                               target_modes = target_modes, source_distance_cats = DIST_CAT[1],source_trips = short_trips) 
@@ -633,23 +632,27 @@ create_all_scenarios <- function(trip_set){
   # x decrease private car
   source_modes <- c('Private Car')
   target_modes <- c('Motorcycle')
-  target_new_trips <- round(0.1 * tt) - sum(rdr$trip_mode=='Motorcycle')
+  target_new_trips <- max(round(0.1 * tt) - sum(rdr$trip_mode=='Motorcycle'),1)
   mcycle_trips_sample <- create_scenario(rdr, scen_name = 'Scenario 3', source_modes = source_modes, 
                                          combined_modes = T, target_modes = target_modes, 
-                                         source_distance_cats = DIST_CAT, source_trips = c(round(0.1 * tt) - 
-                                                                                             nrow(filter(rdr, trip_mode == 'Motorcycle'))))
+                                         source_distance_cats = DIST_CAT, source_trips = target_new_trips)
+  
   # Update selected rows for mode and duration
   rdr$trip_mode[match(mcycle_trips_sample$row_id,rdr$row_id)] <- mcycle_trips_sample$trip_mode
   rdr$trip_duration[match(mcycle_trips_sample$row_id,rdr$row_id)] <- mcycle_trips_sample$trip_duration
   rdr$scenario <- "Scenario 3"
   rd_list[[4]] <- rdr
+  #return(rd_list)
   ###############################################################
   # Scenario 4
   rdr <- rd_list[[2]]
   # 3.5 % Cycle
   source_modes <- c('Motorcycle', 'Private Car', 'Taxi')
   target_modes <- c('Bicycle')
-  target_new_trips <- c(52, round(0.035 * tt) - sum(rdr$trip_mode == 'Bicycle') - 52)
+  mtrips <- max(min(52,sum(rdr$trip_mode == 'Motorcycle')),1)
+  btrips <- sum(rdr$trip_mode == 'Bicycle')
+  ctrips <- max(min(round(0.035 * tt) - btrips - mtrips, sum(rdr$trip_mode %in% c('Private Car', 'Taxi')&rdr$trip_distance_cat==DIST_CAT[1])),1)
+  target_new_trips <- c(mtrips, ctrips)
   mbike_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes[1],combined_modes = T, 
                                  target_modes = target_modes,source_distance_cats = DIST_CAT,source_trips = target_new_trips[1])
   car_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = c(source_modes[2], source_modes[3]),combined_modes = T, 
@@ -658,7 +661,6 @@ create_all_scenarios <- function(trip_set){
   # Update selected rows for mode and duration
   rdr$trip_mode[match(car_mbike_trips$row_id,rdr$row_id)] <- car_mbike_trips$trip_mode
   rdr$trip_duration[match(car_mbike_trips$row_id,rdr$row_id)] <- car_mbike_trips$trip_duration
-  #rdr %>% group_by(trip_mode) %>% summarise(c = dplyr::n(), p = dplyr::n() / nrow(rdr) * 100)
   rdr$scenario <- "Scenario 4"
   rd_list[[5]] <- rdr
   ###############################################################
@@ -667,9 +669,9 @@ create_all_scenarios <- function(trip_set){
   # 3.5 % Cycle
   source_modes <- c('Private Car', 'Taxi')
   target_modes <- c('Walking')
-  target_new_trips <- round(0.54 * tt) - sum(rdr$trip_mode == 'Walking')
-  motorised_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = c(source_modes[1], source_modes[2]),combined_modes = T, 
-                                     target_modes = target_modes,source_distance_cats = DIST_CAT[1],source_trips = target_new_trips[1])
+  target_new_trips <- min(round(0.54 * tt) - sum(rdr$trip_mode == target_modes), sum(rdr$trip_mode%in%source_modes&rdr$trip_distance_cat==DIST_CAT[1]))
+  motorised_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes, combined_modes = T, 
+                                     target_modes = target_modes,source_distance_cats = DIST_CAT[1],source_trips = target_new_trips)
   # Update selected rows for mode and duration
   rdr$trip_mode[match(motorised_trips$row_id,rdr$row_id)] <- motorised_trips$trip_mode
   rdr$trip_duration[match(motorised_trips$row_id,rdr$row_id)] <- motorised_trips$trip_duration
@@ -682,18 +684,13 @@ create_all_scenarios <- function(trip_set){
 create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, target_modes, source_distance_cats, 
                             source_trips, target_trips){
   ##!! RJ target_modes must be length 1
-  local_source_trips <- list()
-  if (!combined_modes){
-    for (i in 1:length(source_modes))
-      local_source_trips[i] <- sum(rdr$trip_mode == source_modes[i]) - source_trips[i]
-    local_source_trips <- purrr::flatten_dbl(local_source_trips)
-  }
   if (!combined_modes){
     for (i in 1:length(source_modes)){
+      local_source_trips <- sum(rdr$trip_mode == source_modes[i]) - source_trips[i]
       candidate_trips <- filter(rdr,trip_mode == source_modes[i] &
                          trip_distance_cat %in% source_distance_cats)
-      sample_trips <- candidate_trips[sample(1:nrow(candidate_trips),local_source_trips[i]),]
-      sample_trips$trip_mode <- target_modes;
+      sample_trips <- candidate_trips[sample(1:nrow(candidate_trips),local_source_trips),]
+      sample_trips$trip_mode <- target_modes
       sample_trips$trip_duration <- (sample_trips$trip_distance * 60) / VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode == target_modes]
       # Update selected rows for mode and duration
       rdr$trip_mode[match(sample_trips$row_id,rdr$row_id)] <- sample_trips$trip_mode
@@ -706,7 +703,7 @@ create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, ta
     candidate_trips <- filter(rdr,trip_mode %in% source_modes &
                        trip_distance_cat %in% source_distance_cats)
     sample_trips <- candidate_trips[sample(1:nrow(candidate_trips),source_trips),]
-    sample_trips$trip_mode <- target_modes;
+    sample_trips$trip_mode <- target_modes
     sample_trips$trip_duration <- (sample_trips$trip_distance * 60) / VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode == target_modes]
     sample_trips$scenario <- scen_name
     
@@ -904,8 +901,46 @@ distances_for_injury_function <- function(trip_scen_sets){
     }
   }
   
+  reg_model <- list()
+  ##TODO write formulae without prior knowledge of column names
+  ##TODO use all ages. ns.
+  ##TODO different formulae for whw and noov
+  ##!! need a catch for when regression fails. E.g., if fail, run simpler model.
+  for(type in c('whw','noov')){
+    injuries_list[[1]][[type]]$injury_reporting_rate <- 1
+    suppressWarnings(reg_model[[type]] <- glm(count~cas_mode+strike_mode+cas_age+cas_gender,data=injuries_list[[1]][[type]],family='poisson',
+                             offset=0.5*log(cas_distance)+0.5*log(strike_distance)-log(injury_reporting_rate),control=glm.control(maxit=100)))
+    reg_model[[type]] <- trim_glm_object(reg_model[[type]])
+  }
+  ##
+  ## For predictive uncertainty, we could sample a number from the predicted distribution
+  for(scen in SCEN)
+    for(type in c('whw','noov'))
+      injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==2016)
   
-  list(relative_distances=relative_distances,scen_dist=scen_dist,true_distances=true_distances,injuries_list=injuries_list)
+  list(relative_distances=relative_distances,scen_dist=scen_dist,true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model)
+}
+
+trim_glm_object <- function(obj){
+  obj$y <- c()
+  obj$model <- c()
+  obj$R <- c()
+  obj$qr$qr <- c()
+  obj$residuals <- c()
+  obj$fitted.values <- c()
+  obj$effects <- c()
+  #obj$linear.predictors <- c()
+  obj$weights <- c()
+  obj$prior.weights <- c()
+  obj$data <- c()
+  obj$family$variance = c()
+  obj$family$dev.resids = c()
+  obj$family$aic = c()
+  obj$family$validmu = c()
+  obj$family$simulate = c()
+  #attr(obj$terms,".Environment") = c()
+  attr(obj$formula,".Environment") = c()
+  obj
 }
 
 ######################################################################
@@ -1128,11 +1163,8 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
     stop('Incidence does not exist for all_cause')
   }
   fname <- paste(cause, outcome_type, sep = "_")
-  lookup_table <- get(paste0(fname))
+  lookup_table <- get(fname)
   lookup_df <- setDT(lookup_table)
-  #pert_75 <- stringr::str_sub(basename(list_of_files[[1]]), end = -5)
-  ##RJ previously:
-  ## cond <- ifelse(use_75_pert, abs(lookup_table$dose - dose), which.min(abs(lookup_table$dose - dose)))
   rr <- approx(x=lookup_df$dose,y=lookup_df$RR,xout=dose,yleft=1,yright=min(lookup_df$RR))$y
   if (confidence_intervals || PA_DOSE_RESPONSE_QUANTILE==T) {
     lb <-
@@ -1154,7 +1186,7 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
   }
   if (PA_DOSE_RESPONSE_QUANTILE==T){
     #rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, sd=rr-lb,a=0, b=1)
-    rr <- qnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, sd=(ub-lb)/1.96)
+    rr <- qnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), mean=rr, sd=(ub-lb)/1.96)
     rr[rr<0] <- 0
   }
   if (confidence_intervals) {
@@ -1186,22 +1218,14 @@ combined_rr_pa_pa <- function(ind_pa,ind_ap){
   ind_ap_pa
 }
 
-injuries_function_2 <- function(true_distances,injuries_list){
-  ##!! move to distance calculation. store predictions and scale by distance.
-  reg_model <- list()
-  ##TODO write formulae without prior knowledge of column names
-  ##TODO use all ages. ns.
-  ##TODO different formulae for whw and noov
-  for(type in c('whw','noov'))
-    reg_model[[type]] <- glm(count~cas_mode+strike_mode+cas_age+cas_gender,data=injuries_list[[1]][[type]],family='poisson',
-                   offset=0.5*log(cas_distance)+0.5*log(strike_distance))
-  ##
+injuries_function_2 <- function(true_distances,injuries_list,reg_model){
+
   ## For predictive uncertainty, we could sample a number from the predicted distribution
   injuries <- true_distances
   injuries$Bus_driver <- 0
   for(scen in SCEN){
     for(type in c('whw','noov')){
-      injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==2016)
+      injuries_list[[scen]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
       injuries_list[[scen]][[type]]$pred <- predict(reg_model[[type]],newdata = injuries_list[[scen]][[type]],type='response')
     }
     for(injured_mode in unique(injuries_list[[1]]$whw$cas_mode))
@@ -1416,6 +1440,12 @@ ithim_uncertainty <- function(ithim_object,seed=1){
 
 run_ithim <- function(ithim_object,seed=1){ 
   ############################
+  #mmets_pp=NULL
+  #scenario_pm=NULL
+  #pm_conc_pp=NULL
+  injuries=NULL
+  ref_injuries=NULL
+  hb=NULL
   ## (0) SET UP
   set.seed(seed)
   for(i in 1:length(ithim_object))
@@ -1443,8 +1473,8 @@ run_ithim <- function(ithim_object,seed=1){
   # Injuries calculation
   for(i in 1:length(inj_distances))
     assign(names(inj_distances)[i],inj_distances[[i]])
-  (injuries <- injuries_function(relative_distances,scen_dist))
-  #system.time(injuries <- injuries_function_2(true_distances,injuries_list))
+  #(injuries <- injuries_function(relative_distances,scen_dist))
+  (injuries <- injuries_function_2(true_distances,injuries_list,reg_model))
   (deaths_yll_injuries <- injury_death_to_yll(injuries))
   ref_injuries <- deaths_yll_injuries$ref_injuries
   ############################
