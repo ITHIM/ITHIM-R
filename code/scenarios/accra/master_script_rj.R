@@ -85,12 +85,14 @@ ithim_object <- run_ithim_setup(NSAMPLES = 64,
                                 MMET_CYCLING = c(log(5), log(1.2)), 
                                 PM_CONC_BASE = c(log(50), log(1.2)),  
                                 PM_TRANS_SHARE = c(5, 5), 
+                                INJURY_REPORTING_RATE = c(5, 5), 
                                 MC_TO_CAR_RATIO = c(-1.4,0.4),
-                                PA_DOSE_RESPONSE_QUANTILE = T,  
-                                AP_DOSE_RESPONSE_QUANTILE = T)
+                                PA_DOSE_RESPONSE_QUANTILE = F,  
+                                AP_DOSE_RESPONSE_QUANTILE = F)
 
 numcores <- detectCores()
 ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+for(i in 1:NSAMPLES) print(length(ithim_object$outcomes[[i]]))
 
 plot(ithim_object$parameters$MC_TO_CAR_RATIO,sapply(ithim_object$outcomes,function(x)sum(x$hb$deaths[,40])))
 

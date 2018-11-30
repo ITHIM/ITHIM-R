@@ -181,8 +181,6 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
       for(age in unique(dr_ap$age_code)){
         dr_ap_age <- subset(dr_ap,age_code==age)
         #######################################
-        ##RJ I recommend the following as a better approximation to the distribution but it is currently  v e r y  slow
-        ## so I leave it here commented out until we want to develop it and/or use it
         lbeta <- log(dr_ap_age$beta)
         lgamma <- log(dr_ap_age$gamma)
         gamma_val <- quantile(density(lgamma),quant1)
@@ -393,7 +391,7 @@ edit_accra_trips <- function(raw_trip_set){
   total_mc_distance <- total_car_distance*VEHICLE_INVENTORY$distance_ratio_to_car[VEHICLE_INVENTORY$trip_mode==new_mode]
   mc_duration <- total_mc_distance/VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode==new_mode]*60
   residual_mc_duration <- mc_duration - sum(subset(raw_trip_set,trip_mode==new_mode)$trip_duration)
-  duration_range <- 15:100
+  #duration_range <- 15:100
   nTrips <- 1
   nPeople <- 20#round(residual_mc_duration/nTrips/mean(duration_range))
   duration <- residual_mc_duration/nPeople
@@ -636,8 +634,7 @@ create_all_scenarios <- function(trip_set){
   target_new_trips <- round(0.1 * tt) - sum(rdr$trip_mode=='Motorcycle')
   mcycle_trips_sample <- create_scenario(rdr, scen_name = 'Scenario 3', source_modes = source_modes, 
                                          combined_modes = T, target_modes = target_modes, 
-                                         source_distance_cats = DIST_CAT, source_trips = c(round(0.1 * tt) - 
-                                                                                             nrow(filter(rdr, trip_mode == 'Motorcycle'))))
+                                         source_distance_cats = DIST_CAT, source_trips = target_new_trips)
   # Update selected rows for mode and duration
   rdr$trip_mode[match(mcycle_trips_sample$row_id,rdr$row_id)] <- mcycle_trips_sample$trip_mode
   rdr$trip_duration[match(mcycle_trips_sample$row_id,rdr$row_id)] <- mcycle_trips_sample$trip_duration
@@ -904,8 +901,19 @@ distances_for_injury_function <- function(trip_scen_sets){
     }
   }
   
-  
-  list(relative_distances=relative_distances,scen_dist=scen_dist,true_distances=true_distances,injuries_list=injuries_list)
+  ##!! move to distance calculation. store predictions and scale by distance.
+  reg_model <- list()
+  ##TODO write formulae without prior knowledge of column names
+  ##TODO use all ages. ns.
+  ##TODO different formulae for whw and noov
+  for(type in c('whw','noov')){
+    injuries_list[[1]][[type]]$injury_reporting_rate <- 1
+    suppressWarnings(reg_model[[type]] <- glm(count~cas_mode*strike_mode+cas_age+cas_gender,data=injuries_list[[1]][[type]],family='poisson',
+                             offset=0.5*log(cas_distance)+0.5*log(strike_distance)-log(injury_reporting_rate)))
+    for(scen in SCEN)
+      injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==2016)
+  }
+  list(relative_distances=relative_distances,scen_dist=scen_dist,true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model)
 }
 
 ######################################################################
@@ -1128,11 +1136,8 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
     stop('Incidence does not exist for all_cause')
   }
   fname <- paste(cause, outcome_type, sep = "_")
-  lookup_table <- get(paste0(fname))
+  lookup_table <- get(fname)
   lookup_df <- setDT(lookup_table)
-  #pert_75 <- stringr::str_sub(basename(list_of_files[[1]]), end = -5)
-  ##RJ previously:
-  ## cond <- ifelse(use_75_pert, abs(lookup_table$dose - dose), which.min(abs(lookup_table$dose - dose)))
   rr <- approx(x=lookup_df$dose,y=lookup_df$RR,xout=dose,yleft=1,yright=min(lookup_df$RR))$y
   if (confidence_intervals || PA_DOSE_RESPONSE_QUANTILE==T) {
     lb <-
@@ -1154,7 +1159,7 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
   }
   if (PA_DOSE_RESPONSE_QUANTILE==T){
     #rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, sd=rr-lb,a=0, b=1)
-    rr <- qnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, sd=(ub-lb)/1.96)
+    rr <- qnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), mean=rr, sd=(ub-lb)/1.96)
     rr[rr<0] <- 0
   }
   if (confidence_intervals) {
@@ -1186,22 +1191,14 @@ combined_rr_pa_pa <- function(ind_pa,ind_ap){
   ind_ap_pa
 }
 
-injuries_function_2 <- function(true_distances,injuries_list){
-  ##!! move to distance calculation. store predictions and scale by distance.
-  reg_model <- list()
-  ##TODO write formulae without prior knowledge of column names
-  ##TODO use all ages. ns.
-  ##TODO different formulae for whw and noov
-  for(type in c('whw','noov'))
-    reg_model[[type]] <- glm(count~cas_mode+strike_mode+cas_age+cas_gender,data=injuries_list[[1]][[type]],family='poisson',
-                   offset=0.5*log(cas_distance)+0.5*log(strike_distance))
+injuries_function_2 <- function(true_distances,injuries_list,reg_model){
   ##
   ## For predictive uncertainty, we could sample a number from the predicted distribution
   injuries <- true_distances
   injuries$Bus_driver <- 0
   for(scen in SCEN){
     for(type in c('whw','noov')){
-      injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==2016)
+      injuries_list[[scen]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
       injuries_list[[scen]][[type]]$pred <- predict(reg_model[[type]],newdata = injuries_list[[scen]][[type]],type='response')
     }
     for(injured_mode in unique(injuries_list[[1]]$whw$cas_mode))
@@ -1444,7 +1441,7 @@ run_ithim <- function(ithim_object,seed=1){
   for(i in 1:length(inj_distances))
     assign(names(inj_distances)[i],inj_distances[[i]])
   (injuries <- injuries_function(relative_distances,scen_dist))
-  #system.time(injuries <- injuries_function_2(true_distances,injuries_list))
+  (injuries <- injuries_function_2(true_distances,injuries_list,reg_model))
   (deaths_yll_injuries <- injury_death_to_yll(injuries))
   ref_injuries <- deaths_yll_injuries$ref_injuries
   ############################
