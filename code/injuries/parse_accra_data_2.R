@@ -164,6 +164,10 @@ sapply(unique(injury_dataset$strike_mode),
        function(x) sapply(unique(injury_dataset$cas_mode),
                           function(y)sum(injury_dataset$strike_mode==x&injury_dataset$cas_mode==y&injury_dataset$year==2015)))
 
+whw <- sapply(unique(injury_dataset$strike_mode),
+       function(x) sapply(unique(injury_dataset$cas_mode),
+                          function(y)sum(injury_dataset$strike_mode==x&injury_dataset$cas_mode==y)))
+
 # count over years
 sapply(unique(injury_dataset$year),function(x)nrow(subset(injury_dataset,year==x)))
 
