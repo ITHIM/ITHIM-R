@@ -91,8 +91,8 @@ ithim_object <- run_ithim_setup(NSAMPLES = 1024,
                                 CHRONIC_DISEASE_SCALAR = c(log(1), log(1.2)),  
                                 BACKGROUND_PA_SCALAR = c(log(1), log(1.2)),   
                                 MC_TO_CAR_RATIO = c(-1.4,0.4),
-                                PA_DOSE_RESPONSE_QUANTILE = T,  
-                                AP_DOSE_RESPONSE_QUANTILE = T)
+                                PA_DOSE_RESPONSE_QUANTILE = F,  
+                                AP_DOSE_RESPONSE_QUANTILE = F)
 
 numcores <- detectCores()
 ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))

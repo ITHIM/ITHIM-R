@@ -181,8 +181,6 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
       for(age in unique(dr_ap$age_code)){
         dr_ap_age <- subset(dr_ap,age_code==age)
         #######################################
-        
-        
         lbeta <- log(dr_ap_age$beta)
         lgamma <- log(dr_ap_age$gamma)
         gamma_val <- quantile(density(lgamma),quant1)
@@ -393,7 +391,7 @@ edit_accra_trips <- function(raw_trip_set){
   total_mc_distance <- total_car_distance*VEHICLE_INVENTORY$distance_ratio_to_car[VEHICLE_INVENTORY$trip_mode==new_mode]
   mc_duration <- total_mc_distance/VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode==new_mode]*60
   residual_mc_duration <- mc_duration - sum(subset(raw_trip_set,trip_mode==new_mode)$trip_duration)
-  duration_range <- 15:100
+  #duration_range <- 15:100
   nTrips <- 1
   nPeople <- 20#round(residual_mc_duration/nTrips/mean(duration_range))
   duration <- residual_mc_duration/nPeople
@@ -636,7 +634,6 @@ create_all_scenarios <- function(trip_set){
   mcycle_trips_sample <- create_scenario(rdr, scen_name = 'Scenario 3', source_modes = source_modes, 
                                          combined_modes = T, target_modes = target_modes, 
                                          source_distance_cats = DIST_CAT, source_trips = target_new_trips)
-  
   # Update selected rows for mode and duration
   rdr$trip_mode[match(mcycle_trips_sample$row_id,rdr$row_id)] <- mcycle_trips_sample$trip_mode
   rdr$trip_duration[match(mcycle_trips_sample$row_id,rdr$row_id)] <- mcycle_trips_sample$trip_duration
@@ -1219,7 +1216,6 @@ combined_rr_pa_pa <- function(ind_pa,ind_ap){
 }
 
 injuries_function_2 <- function(true_distances,injuries_list,reg_model){
-
   ## For predictive uncertainty, we could sample a number from the predicted distribution
   injuries <- true_distances
   injuries$Bus_driver <- 0

@@ -47,13 +47,11 @@ rd <- rename(rd, participant_id = ID_PESS ,
 # Recode modes as strings
 mode_df <- data.frame(
   mode_int = append(c(1:17), NA),
-  mode_string = c(rep('bus', 5), 'car_driver', 
-                  'car_passenger', 'taxi',
-                  rep('van', 3), 'subway',
+  mode_string = c(rep('bus', 5), rep('car', 2), 
+                  'taxi', rep('van', 3), 
+                  'subway',
                   'train', 'motorbike',
                   'bicycle', 'walk', 'others', NA)
-  
-  
   
 )
 
@@ -76,8 +74,25 @@ ggplot(rd %>%
   geom_text(aes(label = perc), position = position_dodge(width=0.9), vjust=-0.25, color = "blue") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  labs(x = "", y = "percentage(%)", title = "Main Mode distribution")
+  labs(x = "", y = "percentage(%)", title = "Main Mode distribution - without weights")
 # )
+
+sum_total_trip_weight <- sum(rd$FE_VIA, na.rm = T)
+
+# plotly::ggplotly(
+ggplot(rd %>% 
+         filter(!is.na(trip_mode)) %>% 
+         group_by(trip_mode) %>% 
+         summarise(sum_trip_weights = sum(FE_VIA)) %>% 
+         mutate(perc = round(sum_trip_weights/sum(sum_trip_weights) * 100, 1)), 
+       aes(x = trip_mode, y = perc)) + 
+  geom_bar(position = 'dodge', stat='identity') +
+  geom_text(aes(label = perc), position = position_dodge(width=0.9), vjust=-0.25, color = "blue") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(x = "", y = "percentage(%)", title = "Main Mode distribution - with weights")
+# )
+
 
 
 # Define distance categories
@@ -100,3 +115,32 @@ ggplot(rd %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(x = "", y = "percentage(%)", title = "Main Mode Distance distribution")
+
+# Calculate mode speed from the dataset, but using mean distance and duration
+# Remove all trips with multiple modes
+# Using only commute mode as a proxy
+mode_speed <- rd %>% filter(is.na(MODO2) & is.na(MODO3) & is.na(MODO4) &  
+              ((MOTIVO_O %in% c(1, 2, 3) & MOTIVO_D %in% 8) | 
+              (MOTIVO_D %in% c(1, 2, 3) & MOTIVO_O %in% 8))
+             ) %>% group_by(trip_mode) %>% 
+  summarise(mean (trip_distance), 
+            speed = (mean(trip_distance)) / (mean(trip_duration) / 60))
+
+
+# source_modes <- c('Bus', 'Walking')
+# target_modes <- c('Private Car')
+# 
+# source_percentages <- c(0.16, 0.49)
+# 
+# tt <- nrow(filter(rdr, ! trip_mode %in% c('99', 'Short Walking')))
+# 
+# rdr <- create_scenario(rdr, scen_name = 'Scenario 1', source_modes = source_modes, 
+#                        target_modes = target_modes, source_distance_cats = dist_cat, 
+#                        source_trips = c(round(source_percentages[1] * tt), 
+#                                         round(source_percentages[2] * tt)))
+# 
+# rdfinal <- rbind(rd, rdr)
+
+#rdr %>% filter(rdfinal, scenario == 'Scenario 1' & ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified")) %>% 
+#  group_by(trip_mode) %>%  summarise(count = n(), pert = n() / nrow(.) * 100)
+
