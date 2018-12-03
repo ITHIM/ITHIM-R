@@ -1,0 +1,8 @@
+GBD_name,acronym,air_pollution,physical_activity,ap_acronym,pa_acronym
+All causes,ac,0,1,,all_cause
+Ischemic heart disease,ihd,1,1,cvd_ihd,coronary_heart_disease
+Neoplasms,neo,0,1,,total_cancer
+"Tracheal, bronchus, and lung cancer",lc,1,1,neo_lung,lung_cancer
+Chronic respiratory diseases,copd,1,0,resp_copd,
+Stroke,stk,1,1,cvd_stroke,stroke
+Diabetes mellitus,db,0,1,,diabetes
