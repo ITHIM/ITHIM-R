@@ -91,8 +91,8 @@ ithim_object <- run_ithim_setup(NSAMPLES = 1024,
                                 CHRONIC_DISEASE_SCALAR = c(log(1), log(1.2)),  
                                 BACKGROUND_PA_SCALAR = c(log(1), log(1.2)),   
                                 MC_TO_CAR_RATIO = c(-1.4,0.4),
-                                PA_DOSE_RESPONSE_QUANTILE = F,  
-                                AP_DOSE_RESPONSE_QUANTILE = F)
+                                PA_DOSE_RESPONSE_QUANTILE = T,  
+                                AP_DOSE_RESPONSE_QUANTILE = T)
 
 numcores <- detectCores()
 ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
@@ -241,7 +241,7 @@ evppi <- ithim_object_list$uncertain$now$evppi
 
 
 x11(width=5); par(mar=c(6,12,3.5,5.5))
-parameter_names <- c('walk-to-bus time','cycling mMETs','walking mMETs','background PM2.5','traffic PM2.5 share',#'motorcycle distance',
+parameter_names <- c('walk-to-bus time','cycling mMETs','walking mMETs','background PM2.5','traffic PM2.5 share','motorcycle distance',
                      'non-travel PA','injury reporting rate','non-communicable disease burden','all-cause mortality (PA)','IHD (PA)',
                      'cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
                      'COPD (AP)','stroke (AP)')

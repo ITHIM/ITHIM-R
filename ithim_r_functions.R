@@ -9,7 +9,7 @@
 ## A better method might be to make an object (list) that contains all inputs, variables, and intermediate objects.
 
 run_ithim_setup <- function(NSAMPLES = 1,
-                            CITY = 'Accra',
+                            CITY = 'accra',
                             modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle","Truck","Bus_driver"),
                             speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25, 21, 15),
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
@@ -220,6 +220,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
 
 ## this function requires path specification, so that it may differ for different case studies
 ithim_load_data <- function(){
+  ## these datasets are all global, saved in global folder.
+  global_path <- 'data/global/'
   ## DATA FILES FOR MODEL  
   DISEASE_INVENTORY <<- read.csv("data/dose_response/disease_outcomes_lookup.csv")
   # DR_AP$cause_code matches DISEASE_INVENTORY$ap_acronym
@@ -235,6 +237,8 @@ ithim_load_data <- function(){
   ##!! Emission factors should depend on the regulatory standards of the setting at the time. This file applies to Accra, Delhi. Would not apply to current HI settings.
   EMISSION_FACTORS <<- readRDS('data/emission calculations accra/emission_factors.Rds')
   
+  ## these datasets are all local, saved in local folder.
+  local_path <- paste0('data/local/',CITY)
   ## DATA FILES FOR ACCRA
   # GBD file needs to have the following columns: 
   # age (=label, e.g. 15-49)
@@ -354,10 +358,10 @@ get_synthetic_from_trips <- function(){
   raw_trip_set <- TRIP_SET
   
   ## add motorcycle trip to accra, and replicate set four times
-  if(CITY=='Accra') raw_trip_set <- edit_accra_trips(raw_trip_set)
+  if(CITY=='accra') raw_trip_set <- edit_accra_trips(raw_trip_set)
   #SURVEY_SCALAR <<- population/length(unique(TRIP_SET$participant_id))/survey_coverage
   ## add bus and truck trips to accra
-  if(CITY=='Accra') raw_trip_set <- add_ghost_trips(raw_trip_set)
+  if(CITY=='accra') raw_trip_set <- add_ghost_trips(raw_trip_set)
   
   synth_pop <- create_synth_pop(raw_trip_set)
   SYNTHETIC_POPULATION <<- synth_pop$synthetic_population
