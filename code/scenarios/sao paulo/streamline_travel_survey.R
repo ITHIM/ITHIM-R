@@ -81,7 +81,9 @@ sum_total_trip_weight <- sum(rd$FE_VIA, na.rm = T)
 
 # plotly::ggplotly(
 ggplot(rd %>% 
-         filter(!is.na(trip_mode)) %>% 
+         filter(!is.na(trip_mode) & 
+                  (is.na(MODO2) & is.na(MODO3) & is.na(MODO4)) &
+                  trip_mode != 'others') %>% 
          group_by(trip_mode) %>% 
          summarise(sum_trip_weights = sum(FE_VIA)) %>% 
          mutate(perc = round(sum_trip_weights/sum(sum_trip_weights) * 100, 1)), 
@@ -116,7 +118,7 @@ ggplot(rd %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(x = "", y = "percentage(%)", title = "Main Mode Distance distribution")
 
-# Calculate mode speed from the dataset, but using mean distance and duration
+# Calculate mode speed from the dataset, by using mean distance and duration
 # Remove all trips with multiple modes
 # Using only commute mode as a proxy
 mode_speed <- rd %>% filter(is.na(MODO2) & is.na(MODO3) & is.na(MODO4) &  
@@ -126,21 +128,14 @@ mode_speed <- rd %>% filter(is.na(MODO2) & is.na(MODO3) & is.na(MODO4) &
   summarise(mean (trip_distance), 
             speed = (mean(trip_distance)) / (mean(trip_duration) / 60))
 
+source_modes <- c('bus')
+target_modes <- c('car')
 
-# source_modes <- c('Bus', 'Walking')
-# target_modes <- c('Private Car')
-# 
-# source_percentages <- c(0.16, 0.49)
-# 
-# tt <- nrow(filter(rdr, ! trip_mode %in% c('99', 'Short Walking')))
-# 
-# rdr <- create_scenario(rdr, scen_name = 'Scenario 1', source_modes = source_modes, 
-#                        target_modes = target_modes, source_distance_cats = dist_cat, 
-#                        source_trips = c(round(source_percentages[1] * tt), 
-#                                         round(source_percentages[2] * tt)))
-# 
-# rdfinal <- rbind(rd, rdr)
+source_percentages <- c(0.4)
 
-#rdr %>% filter(rdfinal, scenario == 'Scenario 1' & ! trip_mode %in% c('Short Walking', "99", "Train", "Other", "Unspecified")) %>% 
-#  group_by(trip_mode) %>%  summarise(count = n(), pert = n() / nrow(.) * 100)
+local_source_trips <- list()
 
+for (i in 1:length(source_modes))
+  local_source_trips[i] <- nrow(filter(rd, trip_mode == source_modes[i])) - source_trips[i]
+
+local_source_trips <- purrr::flatten_dbl(local_source_trips)
