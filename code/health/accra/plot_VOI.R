@@ -29,10 +29,13 @@ fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=parameter_names,line=NA,p
 mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
 color.legend(5.5,0,5.5+0.3,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
 
+
+evppi <- read_csv("voi_2.csv")
+
 evppi.m <- reshape2::melt(evppi)
-p <- ggplot(evppi.m, aes(Var1, Var2, fill = value)) + # + geom_tile() + coord_flip() +
+
+evppi.m$value <- round(evppi.m$value)
+p <- ggplot(evppi.m, aes(variable, X1, fill = value)) + # + geom_tile() + coord_flip() +
   geom_tile(colour = "white") + 
-  scale_fill_gradient(low = "white", high = "steelblue")
-ggplotly(ggplot(evppi.m, aes(Var2, Var1, fill = value)) + # + geom_tile() + coord_flip() +
-           geom_tile(colour = "white") + 
-           scale_fill_gradient(low = "white", high = "darkred"))
+  scale_fill_gradient(low = "white", high = "darkred")
+ggplotly(p)
