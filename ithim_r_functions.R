@@ -223,22 +223,22 @@ ithim_load_data <- function(){
   ## these datasets are all global, saved in global folder.
   global_path <- 'data/global/'
   ## DATA FILES FOR MODEL  
-  DISEASE_INVENTORY <<- read.csv("data/dose_response/disease_outcomes_lookup.csv")
+  DISEASE_INVENTORY <<- read.csv(paste0(global_path,"dose_response/disease_outcomes_lookup.csv"))
   # DR_AP$cause_code matches DISEASE_INVENTORY$ap_acronym
-  DR_AP <<- read.csv("data/dose_response/AP/dose_response_AP.csv")
-  INJ_DIST_EXP <<- read_csv('code/injuries/data/sin_coefficients_pairs.csv') ## injury distance exponent
+  DR_AP <<- read.csv(paste0(global_path,"dose_response/drap/dose_response.csv"))
+  #INJ_DIST_EXP <<- read_csv('code/injuries/data/sin_coefficients_pairs.csv') ## injury distance exponent
   # root of list_of_files matches DISEASE_INVENTORY$pa_acronym
-  list_of_files <- list.files(path = "data/global/drpa/extdata/", recursive = TRUE, pattern = "\\.csv$", full.names = TRUE)
+  list_of_files <- list.files(path = paste0(global_path,"dose_response/drpa/extdata/"), recursive = TRUE, pattern = "\\.csv$", full.names = TRUE)
   for (i in 1:length(list_of_files)){
     assign(stringr::str_sub(basename(list_of_files[[i]]), end = -5),
            read_csv(list_of_files[[i]]),
            pos = 1)
   }
   ##!! Emission factors should depend on the regulatory standards of the setting at the time. This file applies to Accra, Delhi. Would not apply to current HI settings.
-  EMISSION_FACTORS <<- readRDS('data/emission calculations accra/emission_factors.Rds')
+  EMISSION_FACTORS <<- readRDS(paste0(global_path,"emissions/emission_factors.Rds"))
   
   ## these datasets are all local, saved in local folder.
-  local_path <- paste0('data/local/',CITY)
+  local_path <- paste0('data/local/',CITY,'/')
   ## DATA FILES FOR ACCRA
   # GBD file needs to have the following columns: 
   # age (=label, e.g. 15-49)
@@ -249,7 +249,7 @@ ithim_load_data <- function(){
   # burden
   # min_age (=number, e.g. 15)
   # max_age (=number, e.g. 49)
-  GBD_DATA <<- read_csv('data/demographics/gbd/accra/GBD_Accra.csv')
+  GBD_DATA <<- read_csv(paste0(local_path,'gbd_accra.csv'))
   gbd_injuries <- GBD_DATA[which(GBD_DATA$cause == "Road injuries"),]
   gbd_injuries$sex_age <- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
   ## calculating the ratio of YLL to deaths for each age and sex group
@@ -264,12 +264,12 @@ ithim_load_data <- function(){
   AGE_LOWER_BOUNDS <<- sort(unique(GBD_DATA$min_age))
   MAX_AGE <<- max(GBD_DATA$max_age)
   
-  trip_set <- read_csv("data/synth_pop_data/accra/raw_data/trips/trips_Accra.csv")
+  trip_set <- read_csv(paste0(local_path,"trips_accra.csv"))
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
   TRIP_SET <<- trip_set
-  PA_SET <<- read_csv("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
-  WHW_MAT <<- read_csv('code/injuries/accra/who_hit_who_accra.csv')
-  injuries <- readRDS('code/injuries/data/accra_injuries_long.Rds')
+  PA_SET <<- read_csv(paste0(local_path,"pa_accra.csv"))
+  WHW_MAT <<- read_csv(paste0(local_path,"who_hit_who_accra.csv"))
+  injuries <- readRDS(paste0(local_path,"injuries_long_accra.Rds"))
   injuries <- assign_age_groups(injuries,age_label='cas_age')
   set_injury_contingency(injuries)
   ## DESCRIPTION OF INJURIES
