@@ -1,6 +1,7 @@
 # setwd('~/overflow_dropbox/ITHIM-R/')
 rm (list = ls())
-source('ithim_r_functions.R')
+file.sources <- list.files("functions",full.names = T,pattern="\\.R$")
+for(file in file.sources) source(file)
 
 #################################################
 ## Use case 1: basic ITHIM:
