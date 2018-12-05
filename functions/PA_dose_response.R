@@ -3,37 +3,32 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
   if (sum(is.na(dose))>0 || class(dose)!= "numeric"){
     stop ('Please provide dose in numeric')
   }
-  if (!cause %in% c('all-cause-mortality', 'breast-cancer', 'cardiovascular-disease',
-                    'colon-cancer', 'coronary-heart-disease', 'diabetes', 'endometrial-cancer',
-                    'heart-failure', 'lung-cancer', 'stroke', 'total-cancer')){
+  if (!cause %in% c('all_cause', 'breast-cancer', 'cardiovascular-disease',
+                    'colon-cancer', 'coronary_heart_disease', 'diabetes', 'endometrial-cancer',
+                    'heart-failure', 'lung_cancer', 'stroke', 'total_cancer')){
     stop('Unsupported cause/disease. Please select from \n
-         all-cause-mortality \n
+         all_cause \n
          breast-cancer\n
          cardiovascular-disease \n
          colon-cancer \n
-         coronary-heart-disease \n
+         coronary_heart_disease \n
          endometrial-cancer \n
          heart-failure \n
-         lung-cancer \n
+         lung_cancer \n
          stroke \n
-         total-cancer')
+         total_cancer')
   }
   if (!outcome_type %in% c('mortality', 'incidence')){
     stop('Unsupported outcome_type. Please select from \n
          mortality \n
          incidence')
   }
-  if (cause == 'all-cause-mortality' && outcome_type == 'incidence'){
-    stop('Incidence does not exist for all-cause-mortality')
+  if (cause == 'all_cause' && outcome_type == 'incidence'){
+    stop('Incidence does not exist for all_cause')
   }
-  fname <- paste(cause, outcome_type, sep = "-")
-  if (cause == 'all-cause-mortality')
-    fname <- cause
-  lookup_table <- get(paste0(fname))
-  lookup_df <- as.data.frame(lookup_table)
-  #pert_75 <- stringr::str_sub(basename(list_of_files[[1]]), end = -5)
-  ##RJ previously:
-  ## cond <- ifelse(use_75_pert, abs(lookup_table$dose - dose), which.min(abs(lookup_table$dose - dose)))
+  fname <- paste(cause, outcome_type, sep = "_")
+  lookup_table <- get(fname)
+  lookup_df <- setDT(lookup_table)
   rr <- approx(x=lookup_df$dose,y=lookup_df$RR,xout=dose,yleft=1,yright=min(lookup_df$RR))$y
   if (confidence_intervals || PA_DOSE_RESPONSE_QUANTILE==T) {
     lb <-
@@ -54,12 +49,13 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
       )$y
   }
   if (PA_DOSE_RESPONSE_QUANTILE==T){
-    ##RJ question for AA: this function has standard deviation = 1. Is that right?
-    rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, a=lb, b=ub)
+    #rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, sd=rr-lb,a=0, b=1)
+    rr <- qnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), mean=rr, sd=(ub-lb)/1.96)
+    rr[rr<0] <- 0
   }
   if (confidence_intervals) {
     return(data.frame (rr = rr, lb = lb, ub = ub))
   }else{
     return(data.frame(rr = rr))
   }
-  }
+}

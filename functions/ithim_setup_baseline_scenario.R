@@ -1,41 +1,30 @@
-ithim_setup_baseline_scenario <- function(){
+ithim_setup_baseline_scenario <- function(trip_set){
   ## SET UP TRAVEL DATA
-  rd <- RD
   # Create a row id
-  rd$rid <- 1:nrow(rd)
-  
+  trip_set$rid <- 1:nrow(trip_set)
   # Define trip_distances (in km)
   # Based on travel mode and trip duration, calculate distances
-  
-  rd <- left_join(rd, MODE_SPEEDS, by = "trip_mode")
-  rd$speed[is.na(rd$speed)] <- 0
-  rd$trip_distance <- (rd$trip_duration / 60) * rd$speed
-  
+  mode_indices <- match(trip_set$trip_mode,VEHICLE_INVENTORY$trip_mode)
+  trip_speeds <- VEHICLE_INVENTORY$speed[mode_indices]
+  trip_speeds[is.na(trip_speeds)] <- 0
+  trip_set$trip_distance <- (trip_set$trip_duration / 60) * trip_speeds
   # Initialize them
-  rd$trip_distance_cat <- 0
-  rd$trip_distance_cat[rd$trip_distance > 0 & rd$trip_distance < DIST_LOWER_BOUNDS[2]] <- DIST_CAT[1]
-  rd$trip_distance_cat[rd$trip_distance >= DIST_LOWER_BOUNDS[2] & rd$trip_distance < DIST_LOWER_BOUNDS[3]] <- DIST_CAT[2]
-  rd$trip_distance_cat[rd$trip_distance >= DIST_LOWER_BOUNDS[3]] <- DIST_CAT[3]
+  ## Distance categories are used in scenario generation. They correspond to e.g. ``long trips'' and ``short trips''
+  trip_set$trip_distance_cat <- 0
+  ##!! assuming more than one distance category
+  for(i in 2:length(DIST_LOWER_BOUNDS)-1){
+    trip_set$trip_distance_cat[trip_set$trip_distance >= DIST_LOWER_BOUNDS[i] & trip_set$trip_distance < DIST_LOWER_BOUNDS[i+1]] <- DIST_CAT[i]
+  }
+  trip_set$trip_distance_cat[trip_set$trip_distance >= DIST_LOWER_BOUNDS[length(DIST_LOWER_BOUNDS)]] <- DIST_CAT[length(DIST_LOWER_BOUNDS)]
+  trip_set$scenario <- "Baseline"
   
-  # Make age category
-  rd$age_cat[rd$age >= AGE_LOWER_BOUNDS[1] & rd$age < AGE_LOWER_BOUNDS[2]] <- AGE_CATEGORY[1]
-  rd$age_cat[rd$age >= AGE_LOWER_BOUNDS[2] & rd$age <= AGE_LOWER_BOUNDS[3]] <- AGE_CATEGORY[2]
-  rd$age_cat[rd$age > AGE_LOWER_BOUNDS[3]] <- AGE_CATEGORY[3]
+  ##RJ question for AA: do we want to add walking to train?
+  #bus_walk_trips <- add_walk_trips(filter(trip_set, trip_mode == "Bus"))
+  #trip_set$trip_duration[trip_set$trip_mode == 'Bus' & trip_set$rid %in% bus_walk_trips[[1]]$rid] <- bus_walk_trips[[1]]$trip_duration
+  #trip_set$trip_distance[trip_set$trip_mode == 'Bus' & trip_set$rid %in% bus_walk_trips[[1]]$rid] <- bus_walk_trips[[1]]$trip_distance
+  #trip_set$trip_distance_cat[trip_set$trip_mode == 'Bus' & trip_set$rid %in% bus_walk_trips[[1]]$rid] <- bus_walk_trips[[1]]$trip_distance_cat
+  #trip_set <- rbind(trip_set, bus_walk_trips[[2]])
   
-  # Remove all participants greater than 70 years of age
-  rd <- filter(rd, age_cat != AGE_CATEGORY[3])
-  
-  rd$scenario <- "Baseline"
-  
-  bus_walk_trips <- add_walk_trips(filter(rd, trip_mode == "Bus"), ln_mean = MEAN_BUS_WALK_TIME, ln_sd = 1.2)
-  
-  rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_walk_trips[[1]]$rid,]$trip_duration <- bus_walk_trips[[1]]$trip_duration
-  rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_walk_trips[[1]]$rid,]$trip_distance <- bus_walk_trips[[1]]$trip_distance
-  rd[rd$trip_mode == 'Bus' & rd$rid %in% bus_walk_trips[[1]]$rid,]$trip_distance_cat <- bus_walk_trips[[1]]$trip_distance_cat
-  
-  rd <- rbind(rd, bus_walk_trips[[2]])
-  
-  rd$row_id <- 1:nrow(rd)
-  
-  rd
+  trip_set$row_id <- 1:nrow(trip_set)
+  trip_set
 }
