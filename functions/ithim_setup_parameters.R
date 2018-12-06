@@ -10,6 +10,12 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    BACKGROUND_PA_SCALAR = 1,
                                    INJURY_REPORTING_RATE = 1,
                                    CHRONIC_DISEASE_SCALAR = 1 ){
+  
+  source("error_handling.R")
+  if (PM_CONC_BASE == 50 |
+    PM_TRANS_SHARE == 0.225)
+  error_handling(1, "ithim_setup_parameters", "PM_CONC_BASE, PM_TRANS_SHARE")
+  
   ## PARAMETERS
   ##RJ parameters are assigned to the environment and so are set for every function. They are over-written when sample_parameters is called.
   BUS_WALK_TIME <<- BUS_WALK_TIME
@@ -23,15 +29,35 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   CHRONIC_DISEASE_SCALAR <<- CHRONIC_DISEASE_SCALAR
   PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
   parameters <- list()
-  if(length(BUS_WALK_TIME) > 1 )    parameters$BUS_WALK_TIME <- rlnorm(NSAMPLES,BUS_WALK_TIME[1], BUS_WALK_TIME[2])
-  if(length(MMET_CYCLING) > 1 )     parameters$MMET_CYCLING <- rlnorm(NSAMPLES,MMET_CYCLING[1], MMET_CYCLING[2])
-  if(length(MMET_WALKING) > 1 )     parameters$MMET_WALKING <- rlnorm(NSAMPLES,MMET_WALKING[1], MMET_WALKING[2])
-  if(length(PM_CONC_BASE) > 1 )     parameters$PM_CONC_BASE <- rlnorm(NSAMPLES,PM_CONC_BASE[1],PM_CONC_BASE[2])
-  if(length(PM_TRANS_SHARE) > 1 )   parameters$PM_TRANS_SHARE <- rbeta(NSAMPLES,PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
-  if(length(MC_TO_CAR_RATIO) > 1 )  parameters$MC_TO_CAR_RATIO <- rlnorm(NSAMPLES,MC_TO_CAR_RATIO[1],MC_TO_CAR_RATIO[2])
-  if(length(BACKGROUND_PA_SCALAR) > 1 )     parameters$BACKGROUND_PA_SCALAR <- rlnorm(NSAMPLES,BACKGROUND_PA_SCALAR[1],BACKGROUND_PA_SCALAR[2])
-  if(length(INJURY_REPORTING_RATE) > 1 )    parameters$INJURY_REPORTING_RATE <- rbeta(NSAMPLES,INJURY_REPORTING_RATE[1],INJURY_REPORTING_RATE[2])
-  if(length(CHRONIC_DISEASE_SCALAR) > 1 )   parameters$CHRONIC_DISEASE_SCALAR <- rlnorm(NSAMPLES,CHRONIC_DISEASE_SCALAR[1],CHRONIC_DISEASE_SCALAR[2])
+  
+  variables <- c("MEAN_BUS_WALK_TIME",
+                 "MMET_CYCLING",
+                 "MMET_WALKING",
+                 "PM_CONC_BASE",
+                 "PM_TRANS_SHARE",
+                 "BACKGROUND_PA_SCALAR",
+                 "SAFETY_SCALAR",
+                 "CHRONIC_DISEASE_SCALAR")
+  for (i in 1:length(variables)) {
+    name <- variables[i]
+    val <- get(variables[i])
+    if (length(val) == 1) {
+      assign(name, val, envir = .GlobalEnv)
+    } else {
+      parameters[[name]] <-
+        rlnorm(NSAMPLES, val[1], val[2])
+    }
+  }
+  #if(length(BUS_WALK_TIME) > 1 )    parameters$BUS_WALK_TIME <- rlnorm(NSAMPLES,BUS_WALK_TIME[1], BUS_WALK_TIME[2])
+  #if(length(MMET_CYCLING) > 1 )     parameters$MMET_CYCLING <- rlnorm(NSAMPLES,MMET_CYCLING[1], MMET_CYCLING[2])
+  #if(length(MMET_WALKING) > 1 )     parameters$MMET_WALKING <- rlnorm(NSAMPLES,MMET_WALKING[1], MMET_WALKING[2])
+  #if(length(PM_CONC_BASE) > 1 )     parameters$PM_CONC_BASE <- rlnorm(NSAMPLES,PM_CONC_BASE[1],PM_CONC_BASE[2])
+  #if(length(PM_TRANS_SHARE) > 1 )   parameters$PM_TRANS_SHARE <- rbeta(NSAMPLES,PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
+  #if(length(MC_TO_CAR_RATIO) > 1 )  parameters$MC_TO_CAR_RATIO <- rlnorm(NSAMPLES,MC_TO_CAR_RATIO[1],MC_TO_CAR_RATIO[2])
+  #if(length(BACKGROUND_PA_SCALAR) > 1 )     parameters$BACKGROUND_PA_SCALAR <- rlnorm(NSAMPLES,BACKGROUND_PA_SCALAR[1],BACKGROUND_PA_SCALAR[2])
+  #if(length(INJURY_REPORTING_RATE) > 1 )    parameters$INJURY_REPORTING_RATE <- rbeta(NSAMPLES,INJURY_REPORTING_RATE[1],INJURY_REPORTING_RATE[2])
+  #if(length(CHRONIC_DISEASE_SCALAR) > 1 )   parameters$CHRONIC_DISEASE_SCALAR <- rlnorm(NSAMPLES,CHRONIC_DISEASE_SCALAR[1],CHRONIC_DISEASE_SCALAR[2])
+  
   if(PA_DOSE_RESPONSE_QUANTILE == T ) {
     pa_diseases <- subset(DISEASE_INVENTORY,physical_activity==1)
     dr_pa_list <- list()
