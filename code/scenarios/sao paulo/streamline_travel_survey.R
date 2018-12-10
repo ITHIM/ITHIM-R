@@ -1,8 +1,12 @@
+# Clear workspace
+rm (list = ls())
+
+# Load libraries
 library(tidyverse)
 library(plotly)
 
 # Read sao paulo's travel survey
-rd <- read_csv("data/scenarios/sao paulo/SP 2012 travel data.csv")
+rd <- read_csv("data/local/sao paulo/trips_sao_paulo.csv")
 
 # Data Dictionary
 
