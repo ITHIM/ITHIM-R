@@ -145,19 +145,26 @@ for (i in 1:length(source_modes))
 local_source_trips <- purrr::flatten_dbl(local_source_trips)
 
 rd$person_weight <- round(rd$FE_PESS / 100)
-b <- rd
-# b1 <- select(b, participant_id, age, sex, trip_id, total_trips, walking_time_origin, walking_time_dest, trip_duration, trip_mode, trip_distance, row_id, person_weight)
-# b2 <- b1
-# b1 <- b1[rep(rownames(b1), b1$person_weight), ]
-# rd <- b
-#rd <- rd[rep(rownames(rd), rd$person_weight), ]
+
+# Select columns
+rd <- select(rd, participant_id, age, sex, trip_id, total_trips,
+             walking_time_origin,
+             walking_time_dest,
+             trip_duration,
+             trip_mode,
+             trip_distance,
+             row_id,
+             person_weight)
 
 rd$pid <- -1
 id <- 1
 pid_list <- unique(rd$participant_id)
 for(i in 1:length(pid_list)) {
-  # i <- 1
-  pg <- filter(rd, participant_id == pid_list[i]) %>% data.frame()
+  
+  # require(profvis)
+  # profvis({
+  #   #your code here
+  pg <- filter(rd, participant_id == pid_list[i])
   count <- pg$person_weight[1] - 1
   d <- bind_rows(replicate((count), pg, simplify = FALSE))
   d <- arrange(d, trip_id)
@@ -165,13 +172,6 @@ for(i in 1:length(pid_list)) {
   d$pid <- rep((id + 1):(id + count), nrow(pg))
   id <- id + count
   rd <- bind_rows(rd, d)
-  # i <- i + 
-  # 
-  # if(rd$pid[i] == 0) {
-  #   np <- rd[i, "person_weight"] %>% as.integer()
-  #   # browser()
-  #   rd$pid[i:(i + np - 1)] <- c((id) : (np + id - 1))
-  #   i <- i + np
-  #   id <- id + np
-  # } 
+  
+  # })
 }
