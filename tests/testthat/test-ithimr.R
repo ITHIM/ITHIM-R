@@ -20,7 +20,7 @@ test_that("accra basic", {
 
 test_that("accra evppi", {
   ## this takes a long time: only test if you really want to
-  test_evppi <- T
+  test_evppi <- F
   if(test_evppi){
     # load saved result
     #accra_evppi <- readRDS('accra_evppi_test.Rds')
