@@ -1,8 +1,5 @@
-# setwd('~/overflow_dropbox/ITHIM-R/')
 rm (list = ls())
-file.sources <- list.files("functions",full.names = T,pattern="\\.R$")
-for(file in file.sources) source(file)
-
+library(ithimr)
 #################################################
 ## Use case 1: basic ITHIM:
 
@@ -82,7 +79,7 @@ for(i in 1:nDiseases){
 ## Use case 3: sampling:
 ## sample size, travel patterns, emissions (cleaner fleet)
 set.seed(1)
-ithim_object <- run_ithim_setup(NSAMPLES = 1024,
+ithim_object <- run_ithim_setup(NSAMPLES = 64,
                                 BUS_WALK_TIME = c(log(5), log(1.2)),
                                 MMET_WALKING = c(log(2.5), log(1.2)), 
                                 MMET_CYCLING = c(log(5), log(1.2)), 
@@ -101,6 +98,7 @@ for(i in 1:NSAMPLES) print(length(ithim_object$outcomes[[i]]))
 
 plot(ithim_object$parameters$MC_TO_CAR_RATIO,sapply(ithim_object$outcomes,function(x)sum(x$hb$deaths[,40])))
 plot(ithim_object$parameters$INJURY_REPORTING_RATE,sapply(ithim_object$outcomes,function(x)sum(x$hb$deaths[,40])))
+plot(ithim_object$parameters$AP_DOSE_RESPONSE_QUANTILE_GAMMA_cvd_ihd,sapply(ithim_object$outcomes,function(x)sum(x$hb$deaths[,10])))
 
 ## calculate EVPPI
 parameter_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
@@ -162,8 +160,6 @@ certainty_parameters <- list(uncertain=list(
   PA_DOSE_RESPONSE_QUANTILE = F,  
   AP_DOSE_RESPONSE_QUANTILE = F
 ))
-
-ithim_object_list$uncertain$now <- ithim_object
 
 file_name <- paste0('six_by_one_scenarios_',certainty_parameters$uncertain$NSAMPLES,'.Rds')
 if(file.exists(file_name)){
