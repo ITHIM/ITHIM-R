@@ -104,37 +104,21 @@ test_that("accra evppi", {
   if(test_evppi){
     # load saved result
     #accra_evppi <- readRDS('accra_evppi_test.Rds')
-    # generate new accra evppi results
-    environmental_scenario <- c('now')
-    certainty <- 'uncertain'
-    certainty_parameters <- list(uncertain=list(
-      safey_scalar          = list(now=c(8,3)),
-      disease_scalar        = list(now=c(0,log(1.2))),
-      background_pm         = list(now=c(log(50),log(1.2))),
-      transport_pm          = list(now=c(5,20)),
-      background_pa_scalar  = list(now=c(0,log(1.2))),
-      NSAMPLES = 1024,
-      BUS_WALK_TIME = c(log(5), log(1.2)),
-      MMET_CYCLING = c(log(5), log(1.2)), 
-      MMET_WALKING = c(log(2.5), log(1.2)), 
-      MC_TO_CAR_RATIO = c(-1.4,0.4),
-      PA_DOSE_RESPONSE_QUANTILE = T,  
-      AP_DOSE_RESPONSE_QUANTILE = T
-    ))
     
-    ithim_object <- run_ithim_setup(REFERENCE_SCENARIO='Scenario 1',
-                                    NSAMPLES = certainty_parameters[[certainty]]$NSAMPLES,
-                                    BUS_WALK_TIME = certainty_parameters[[certainty]]$BUS_WALK_TIME,
-                                    MMET_CYCLING = certainty_parameters[[certainty]]$MMET_CYCLING, 
-                                    MMET_WALKING = certainty_parameters[[certainty]]$MMET_WALKING, 
-                                    INJURY_REPORTING_RATE = certainty_parameters[[certainty]]$safey_scalar[[environmental_scenario]],  
-                                    CHRONIC_DISEASE_SCALAR = certainty_parameters[[certainty]]$disease_scalar[[environmental_scenario]],  
-                                    PM_CONC_BASE = certainty_parameters[[certainty]]$background_pm[[environmental_scenario]],  
-                                    PM_TRANS_SHARE = certainty_parameters[[certainty]]$transport_pm[[environmental_scenario]],  
-                                    BACKGROUND_PA_SCALAR = certainty_parameters[[certainty]]$background_pa_scalar[[environmental_scenario]],  
-                                    MC_TO_CAR_RATIO = certainty_parameters[[certainty]]$MC_TO_CAR_RATIO,  
-                                    PA_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$PA_DOSE_RESPONSE_QUANTILE,  
-                                    AP_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$AP_DOSE_RESPONSE_QUANTILE)
+    # generate new accra evppi results
+    ithim_object <- run_ithim_setup(REFERENCE_SCENARIO        = 'Scenario 1',
+                                    NSAMPLES                  = 1024,
+                                    BUS_WALK_TIME             = c(log(5), log(1.2)),
+                                    MMET_CYCLING              = c(log(5), log(1.2)), 
+                                    MMET_WALKING              = c(log(2.5), log(1.2)), 
+                                    INJURY_REPORTING_RATE     = c(8,3),  
+                                    CHRONIC_DISEASE_SCALAR    = c(0,log(1.2)),  
+                                    PM_CONC_BASE              = c(log(50),log(1.2)),  
+                                    PM_TRANS_SHARE            = c(5,20),  
+                                    BACKGROUND_PA_SCALAR      = c(0,log(1.2)),  
+                                    MC_TO_CAR_RATIO           = c(-1.4,0.4),  
+                                    PA_DOSE_RESPONSE_QUANTILE = T,  
+                                    AP_DOSE_RESPONSE_QUANTILE = T)
     numcores <- detectCores()
     ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object,mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
     ## calculate EVPPI
@@ -159,8 +143,10 @@ test_that("accra evppi", {
     if("DR_AP_LIST"%in%names(ithim_object$parameters)&&NSAMPLES>=1024){
       AP_names <- sapply(names(ithim_object$parameters),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
       diseases <- sapply(names(ithim_object$parameters)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-      evppi_for_AP <- mclapply(diseases, FUN = parallel_evppi_for_AP,parameter_samples,outcome, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+      evppi_for_AP <- mclapply(diseases, FUN = parallel_evppi_for_AP,parameter_samples,outcome,NSCEN, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
       names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
+      print(dim(evppi))
+      print(dim(do.call(rbind,evppi_for_AP)))
       evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
       ## get rows to remove
       keep_names <- sapply(rownames(evppi),function(x)!any(c('ALPHA','BETA','GAMMA','TMREL')%in%strsplit(x,'_')[[1]]))
