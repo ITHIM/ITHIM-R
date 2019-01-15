@@ -33,7 +33,7 @@ ithim_load_data <- function(){
   # burden
   # min_age (=number, e.g. 15)
   # max_age (=number, e.g. 49)
-  filename <- paste0(local_path,"gbd_",CITY,".csv")
+  filename <- paste0(local_path,"/gbd_",CITY,".csv")
   GBD_DATA <<- read_csv(filename)
   gbd_injuries <- GBD_DATA[which(GBD_DATA$cause == "Road injuries"),]
   gbd_injuries$sex_age <- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
@@ -49,12 +49,12 @@ ithim_load_data <- function(){
   AGE_LOWER_BOUNDS <<- sort(unique(GBD_DATA$min_age))
   MAX_AGE <<- max(GBD_DATA$max_age)
   
-  filename <- paste0(local_path,"trips_",CITY,".csv")
+  filename <- paste0(local_path,"/trips_",CITY,".csv")
   trip_set <- read_csv(filename)
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
   TRIP_SET <<- trip_set
   
-  filename <- paste0(local_path,"pa_",CITY,".csv")
+  filename <- paste0(local_path,"/pa_",CITY,".csv")
   PA_SET <<- read_csv(filename)
   
   ##!! only one injury file is need. 
@@ -62,10 +62,10 @@ ithim_load_data <- function(){
   # set_injury_contingency(injuries) is the input into injuries_function_2.
   # both functions currently have a lot of hard-coded variables, e.g. the modes.
   # we are using injuries_function_2 for Accra.
-  filename <- paste0(local_path,"who_hit_who_",CITY,".csv")
+  filename <- paste0(local_path,"/who_hit_who_",CITY,".csv")
   WHW_MAT <<- read_csv(filename)
   
-  filename <- paste0(local_path,"injuries_long_",CITY,".Rds")
+  filename <- paste0(local_path,"/injuries_long_",CITY,".Rds")
   injuries <- readRDS(filename)
   injuries <- assign_age_groups(injuries,age_label='cas_age')
   set_injury_contingency(injuries)
