@@ -1,8 +1,10 @@
 #' @export
 ithim_load_data <- function(){
   ## this function requires path specification, so that it may differ for different case studies
+  
   ## these datasets are all global, saved in global folder.
-  global_path <- file.path(find.package('ithimr'), 'inst/extdata/global/')#'~/overflow_dropbox/ITHIM-R/data/global/'
+  global_path <- file.path(find.package('ithimr',lib.loc=.libPaths()), 'extdata/global/')
+  
   ## DATA FILES FOR MODEL  
   DISEASE_INVENTORY <<- read.csv(paste0(global_path,"dose_response/disease_outcomes_lookup.csv"))
   # DR_AP$cause_code matches DISEASE_INVENTORY$ap_acronym
@@ -19,8 +21,9 @@ ithim_load_data <- function(){
   EMISSION_FACTORS <<- readRDS(paste0(global_path,"emissions/emission_factors.Rds"))
   
   ## these datasets are all local, saved in local folder.
-  local_path <- file.path(find.package('ithimr'), 'inst/extdata/local/',CITY,'/')
-  ## DATA FILES FOR ACCRA
+  local_path <- PATH_TO_LOCAL_DATA
+  
+  ## DATA FILES FOR CITY
   # GBD file needs to have the following columns: 
   # age (=label, e.g. 15-49)
   # sex (=Male or Female)
@@ -30,7 +33,8 @@ ithim_load_data <- function(){
   # burden
   # min_age (=number, e.g. 15)
   # max_age (=number, e.g. 49)
-  GBD_DATA <<- read_csv(paste0(local_path,'gbd_accra.csv'))
+  filename <- paste0(local_path,"gbd_",CITY,".csv")
+  GBD_DATA <<- read_csv(filename)
   gbd_injuries <- GBD_DATA[which(GBD_DATA$cause == "Road injuries"),]
   gbd_injuries$sex_age <- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
   ## calculating the ratio of YLL to deaths for each age and sex group
@@ -45,15 +49,28 @@ ithim_load_data <- function(){
   AGE_LOWER_BOUNDS <<- sort(unique(GBD_DATA$min_age))
   MAX_AGE <<- max(GBD_DATA$max_age)
   
-  trip_set <- read_csv(paste0(local_path,"trips_accra.csv"))
+  filename <- paste0(local_path,"trips_",CITY,".csv")
+  trip_set <- read_csv(filename)
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
   TRIP_SET <<- trip_set
-  PA_SET <<- read_csv(paste0(local_path,"pa_accra.csv"))
-  WHW_MAT <<- read_csv(paste0(local_path,"who_hit_who_accra.csv"))
-  injuries <- readRDS(paste0(local_path,"injuries_long_accra.Rds"))
+  
+  filename <- paste0(local_path,"pa_",CITY,".csv")
+  PA_SET <<- read_csv(filename)
+  
+  ##!! only one injury file is need. 
+  # WHW_MAT is the input into injuries_function.
+  # set_injury_contingency(injuries) is the input into injuries_function_2.
+  # both functions currently have a lot of hard-coded variables, e.g. the modes.
+  # we are using injuries_function_2 for Accra.
+  filename <- paste0(local_path,"who_hit_who_",CITY,".csv")
+  WHW_MAT <<- read_csv(filename)
+  
+  filename <- paste0(local_path,"injuries_long_",CITY,".Rds")
+  injuries <- readRDS(filename)
   injuries <- assign_age_groups(injuries,age_label='cas_age')
   set_injury_contingency(injuries)
-  ## DESCRIPTION OF INJURIES
+  
+  ## DESCRIPTION OF INJURIES (set_injury_contingency(injuries))
   # has one row per event (fatality)
   # has colnames event_id, year, cas_mode, strike_mode, cas_age, cas_gender
   # classes are character for 'factors' and numeric for age and year
@@ -65,20 +82,4 @@ ithim_load_data <- function(){
   # cas_mode, strike_mode, cas_age, cas_gender are used in the regression model
   # in future, we can add other covariates
   
-  ##RJ suggestion to AA
-  ## that our folder structure consists of two respositories for data: ITHIM-R/data/global and ITHIM-R/data/local
-  ## in 'global', we have
-  ##   Dose--response data (data/drpa/extdata/ and dose_response_AP.csv)
-  ##   "disease dependencies" (disease_outcomes_lookup.csv)
-  ##   Injury distance exponents (code/injuries/data/sin_coefficients_pairs.csv)
-  ##   GBD (data/demographics/gbd/accra/GBD Accra.csv)
-  ##   Emission factors ('data/emission calculations accra/emission_factors.Rds')
-  ## these data are loaded automatically with library(ITHIMR), so we don't need to code them up here at all.
-  ## in 'local', we have
-  ##   Accra, which contains
-  ##       Trip-level survey ("data/synth_pop_data/accra/raw_data/trips/trips_Accra.csv")
-  ##       Physical activity data ("data/synth_pop_data/accra/raw_data/PA/pa_Accra.csv")
-  ##       WHW matrix (code/injuries/accra/who_hit_who_accra.csv)
-  ## these files are loaded when ITHIM-R is run. 
-  ## The user specifies either 'accra', if we have the folder 'accra', or the path to a repository containing named files, or a path per file...
 }

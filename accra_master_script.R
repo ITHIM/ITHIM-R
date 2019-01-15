@@ -1,10 +1,29 @@
 rm (list = ls())
 library(ithimr)
 #################################################
+## Use case 0: basic ITHIM, walk scenario:
+
+## 
+ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F,CITY='accra_test',ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F)
+#ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F)
+ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
+print(names(ithim_object$outcome))
+##
+
+## plot results
+result_mat <- colSums(ithim_object$outcome$hb$ylls[,3:ncol(ithim_object$outcome$hb$ylls)])
+columns <- length(result_mat)
+nDiseases <- columns/NSCEN
+ylim <- range(result_mat)
+#x11(width = 8, height = 5); par(mfrow = c(2, 4))
+barplot(result_mat, names.arg = sapply(names(result_mat) ,function(x)paste0( last(strsplit(x, '_')[[1]]))), ylim = ylim, las = 2)
+
+
+#################################################
 ## Use case 1: basic ITHIM:
 
 ## 
-ithim_object <- run_ithim_setup()
+ithim_object <- run_ithim_setup(REFERENCE_SCENARIO='Scenario 1')
 ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
 print(names(ithim_object$outcome))
 ##
@@ -31,7 +50,7 @@ for(i in 1:nDiseases){
 ## Use case 2: environmental scenarios:
 
 ## assume already run:
-# ithim_object <- run_ithim_setup()
+# ithim_object <- run_ithim_setup(REFERENCE_SCENARIO='Scenario 1')
 ithim_object$outcome <- list()
 
 ## what if: cleaner fleet !! not yet implemented
@@ -80,6 +99,7 @@ for(i in 1:nDiseases){
 ## sample size, travel patterns, emissions (cleaner fleet)
 set.seed(1)
 ithim_object <- run_ithim_setup(NSAMPLES = 64,
+                                REFERENCE_SCENARIO='Scenario 1',
                                 BUS_WALK_TIME = c(log(5), log(1.2)),
                                 MMET_WALKING = c(log(2.5), log(1.2)), 
                                 MMET_CYCLING = c(log(5), log(1.2)), 
@@ -171,6 +191,7 @@ if(file.exists(file_name)){
     for(environmental_scenario in environmental_scenarios)
       if(certainty=='uncertain'&&environmental_scenario=='now'||certainty=='not_uncertain'){
         ithim_object <- run_ithim_setup(NSAMPLES = certainty_parameters[[certainty]]$NSAMPLES,
+                                        REFERENCE_SCENARIO='Scenario 1',
                                       BUS_WALK_TIME = certainty_parameters[[certainty]]$BUS_WALK_TIME,
                                       MMET_CYCLING = certainty_parameters[[certainty]]$MMET_CYCLING, 
                                       MMET_WALKING = certainty_parameters[[certainty]]$MMET_WALKING, 

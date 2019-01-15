@@ -11,14 +11,14 @@ injury_death_to_yll <- function(injuries){
   x_yll <- dplyr::select(death_and_yll, -Deaths)
   x_yll <- spread(x_yll,scenario, YLL)
   
-  ref_scen <- 'Scenario 1'
+  ref_scen <- REFERENCE_SCENARIO
   ref_scen_index <- which(SCEN==ref_scen)
   calc_scen <- SCEN[SCEN!=ref_scen]
   calc_scen_index <- which(colnames(x_deaths)%in%calc_scen)
   
   ref_injuries <- list(deaths=x_deaths[[ref_scen]],ylls=x_yll[[ref_scen]])
-  deaths <- t(repmat(unlist(ref_injuries$deaths),NSCEN,1)) - x_deaths[,calc_scen_index]
-  ylls <- t(repmat(unlist(ref_injuries$ylls),NSCEN,1)) - x_yll[,calc_scen_index]
+  deaths <- t(repmat(unlist(ref_injuries$deaths),NSCEN,1)) - x_deaths[,calc_scen_index,drop=F]
+  ylls <- t(repmat(unlist(ref_injuries$ylls),NSCEN,1)) - x_yll[,calc_scen_index,drop=F]
   deaths_yll_injuries <- as.data.frame(cbind(x_deaths[,1:2],deaths, ylls))
   
   metric <- c("deaths", "yll")

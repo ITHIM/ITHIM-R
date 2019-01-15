@@ -15,7 +15,7 @@ health_burden <- function(ind_ap_pa,inj){
   colnames(pop_details) <- colnames(ind_ap_pa)[c(sex_index,age_index)]
   deaths <- deaths_red <- ylls <- ylls_red <- pop_details
   # set up reference (scen1)
-  reference_scenario <- 'scen1'
+  reference_scenario <- SCEN_SHORT_NAME[which(SCEN==REFERENCE_SCENARIO)]
   scen_names <- SCEN_SHORT_NAME[SCEN_SHORT_NAME!=reference_scenario]
   ### iterating over all all disease outcomes
   for ( j in 1:nrow(DISEASE_INVENTORY)){

@@ -6,21 +6,24 @@ distances_for_injury_function <- function(trip_scen_sets){
     group_by (age_cat,sex,trip_mode, scenario) %>% 
     summarise(tot_dist = sum(trip_distance))
   distances <- spread(journeys,trip_mode, tot_dist,fill=0) 
-  distances$Pedestrian <- distances$Walking + distances$`Short Walking`
+  distances$Pedestrian <- distances$Walking 
   distances <- distances[, -which(names(distances) ==  "Walking")]
-  distances <- distances[, -which(names(distances) ==  "Short Walking")]
+  if(ADD_WALK_TO_BUS_TRIPS){
+    distances$Pedestrian <- distances$Pedestrian + distances$`Short Walking`
+    distances <- distances[, -which(names(distances) ==  "Short Walking")]
+  }
   distances$Car <- distances$Taxi + distances$`Private Car`
   distances <- distances[, -which(names(distances) ==  "Private Car")]
   distances <- distances[, -which(names(distances) ==  "Taxi")]
   true_distances <- distances
   true_distances$sex_age <-  paste0(true_distances$sex,"_",true_distances$age_cat)
-  true_distances$Bus <- true_distances$Bus + true_distances$Bus_driver
+  if(ADD_BUS_DRIVERS) true_distances$Bus <- true_distances$Bus + true_distances$Bus_driver
   true_distances <- true_distances[,-c(which(names(true_distances) == 'sex'))]
   
   scen_dist <- sapply(1:(NSCEN+1),function(x)c(colSums(subset(distances,scenario == SCEN[x])[,3+1:(length(unique(journeys$trip_mode))-2)])))
   colnames(scen_dist) <- SCEN_SHORT_NAME
   for(i in 2:ncol(scen_dist)) scen_dist[,i] <- scen_dist[,i]/scen_dist[,1] 
-  scen_dist <- rbind(scen_dist,Tuktuk=1)
+  if(CITY=='accra') scen_dist <- rbind(scen_dist,Tuktuk=1)
   
   mode_names <- names(distances)[3+1:(length(unique(journeys$trip_mode))-2)]
   for (i in 1: length(mode_names))

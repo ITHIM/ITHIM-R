@@ -1,5 +1,6 @@
 #' @export
 ithim_setup_baseline_scenario <- function(trip_set){
+  ##?? do we need any/all of rid, trip_id, row_id?
   ## SET UP TRAVEL DATA
   # Create a row id
   trip_set$rid <- 1:nrow(trip_set)

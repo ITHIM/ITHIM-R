@@ -7,6 +7,7 @@ add_walk_trips <- function(bus_trips){
   
   #bus_trips <- arrange(bus_trips, trip_duration)
   walk_trips <- bus_trips
+  ##?? do we need 'Short Walking' instead of 'Walking'?
   walk_trips$trip_mode <- 'Short Walking'
   ##RJ all trips have the same BUS_WALK_TIME
   walk_trips$trip_duration <- BUS_WALK_TIME
