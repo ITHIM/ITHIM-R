@@ -1,6 +1,7 @@
 #' @export
 get_all_distances <- function(ithim_object){
   
+  # add walk-to-bus trips, as appropriate, and combines list of scenarios
   ithim_object$trip_scen_sets <- walk_to_bus_and_combine_scen()
   
   # Generate distance and duration matrices
@@ -10,5 +11,6 @@ get_all_distances <- function(ithim_object){
   
   # distances for injuries calculation
   ithim_object$inj_distances <- distances_for_injury_function(ithim_object$trip_scen_sets)
+  
   return(ithim_object)
 }

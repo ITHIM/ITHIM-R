@@ -1,6 +1,5 @@
 #' @export
 run_ithim_setup <- function(seed=1,
-                            NSAMPLES = 1,
                             CITY = 'accra',
                             modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle","Truck","Bus_driver"),
                             speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25, 21, 15),
@@ -13,6 +12,7 @@ run_ithim_setup <- function(seed=1,
                             PATH_TO_LOCAL_DATA = NULL,
                             #population=1600000,
                             #survey_coverage=1/365,
+                            NSAMPLES = 1,
                             BUS_WALK_TIME= 5,
                             MMET_CYCLING = 4.63,
                             MMET_WALKING = 2.53,
@@ -30,6 +30,39 @@ run_ithim_setup <- function(seed=1,
                             MC_TO_CAR_RATIO = 0.2,
                             LDT_TO_CAR_RATIO = 0.21,
                             OTHER_TO_CAR_RATIO = 0.01 ){
+  
+  ## SUMMARY OF INPUTS
+  # seed = double. sets seed to allow some reproducibility.
+  # CITY = string. used to identify input files.
+  # modes = vector of strings. mode types to be used in model.
+  # speeds = vector of doubles. mode speeds with order matching that of `modes'.
+  # DIST_CAT = vector of strings. defines distance categories for scenario generation (5 accra scenarios)
+  # ADD_WALK_TO_BUS_TRIPS = logic. T: adds walk trips to all bus trips whose duration exceeds BUS_WALK_TIME. F: no trips added
+  # ADD_BUS_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
+  # ADD_TRUCK_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
+  # TEST_WALK_SCENARIO = logic. T: run `scenario 0', one simple scenario where everyone takes one (extra) ten-minute walk trip. F: 5 Accra scenarios.
+  # REFERENCE_SCENARIO = string: at present, one of 'Baseline' or 'Scenario N' where N is an integer
+  # PATH_TO_LOCAL_DATA = string: path to input files, if not one of the default case studies 
+  # #population = integer, but this information should be covered in GBD
+  # #survey_coverage = double, for when we have travel surveys covering different durations?
+  # NSAMPLES = integer: number of samples to take for each parameter to be sampled
+  # BUS_WALK_TIME = parameter. double: time taken to walk to bus. vector: samples from distribution.
+  # MMET_CYCLING = parameter. double: sets scalar cycling (M)METs. vector: samples from distribution.
+  # MMET_WALKING = parameter. double: sets scalar walking (M)METs. vector: samples from distribution.
+  # PM_CONC_BASE = parameter. double: sets background PM. vector: samples from distribution.
+  # PM_TRANS_SHARE = parameter. double: sets PM proportion that comes from transport. vector: samples from distribution.
+  # PA_DOSE_RESPONSE_QUANTILE = logic. T: PA dose--response relationship is sampled. F: relationship is fixed.
+  # AP_DOSE_RESPONSE_QUANTILE = logic. T: AP dose--response relationship is sampled. F: relationship is fixed.
+  # BACKGROUND_PA_SCALAR = parameter. double: sets scalar for background PA. vector: samples from distribution.
+  # INJURY_REPORTING_RATE = parameter. double: sets scalar for injury counts (inverse). vector: samples from distribution.
+  # CHRONIC_DISEASE_SCALAR = parameter. double: sets scalar for chronic disease background burden. vector: samples from distribution.
+  # MC_TO_CAR_RATIO = parameter. double: sets motorcycle distance relative to car. vector: samples from distribution.
+  # RATIO_4W1_TO_4W2 = double. Sets ratio of two car types.
+  # TAXI_TO_CAR_RATIO = double. Sets taxi distance relative to car.
+  # BUS_TO_CAR_RATIO = double. Sets bus distance relative to car.
+  # TRUCK_TO_CAR_RATIO = double. Sets truck distance relative to car.
+  # LDT_TO_CAR_RATIO = double. Sets `LDR' contribution to emission relative to car.
+  # OTHER_TO_CAR_RATIO = double. Sets `other' contribution to emission relative to car.
   
   #################################################
   set.seed(seed)
