@@ -25,6 +25,6 @@ add_ghost_trips <- function(raw_trip_set,trip_mode){
     raw_trip_set <- rbind(raw_trip_set, new_trips)
   }
   
-  raw_trip_set
+  return(raw_trip_set)
   
 }

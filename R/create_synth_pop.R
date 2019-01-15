@@ -10,10 +10,6 @@ create_synth_pop <- function(raw_trip_set){
   
   #Notes:
   ##trip_mode = '99': persons who did not travel.
-  ##work: job-related physical activity.
-  ##ltpa: leisure-time physical activity.
-  ##mpa: moderate physical activity (3 MET; 2 marginal MET).
-  ##vpa: vigorous physical activity (6 MET; 5 marginal MET).
   ##duration: units are minutes per day.
   ##work_ltpa_marg_met: units are marginal MET-h/week.
   
@@ -33,35 +29,27 @@ create_synth_pop <- function(raw_trip_set){
   unique_ages <- unique(trip_set$age_cat)
   unique_genders <- unique(trip_set$sex)
   
+  # get population from trip_set: all the unique ids, and their demographic information
+  # match only for "real" people (i.e. not `ghost drivers', whose id is 0)
   synthetic_population <- subset(trip_set,!duplicated(participant_id)&participant_id>0)[,names(trip_set)%in%c("participant_id","age","sex","age_cat")]
+  # assign all participants 0 leisure/work mmets
   synthetic_population$work_ltpa_marg_met <- 0
-  ##synth match only for "real" people 
-  temp <- c()
+  # match population to PA dataset via demographic information
   for(age_group in unique_ages){
+    pa_age_category <- age_category[which(AGE_CATEGORY==age_group)]
     for(gender in unique_genders){
-      i <- unique(subset(trip_set,age_cat==age_group&sex==gender&participant_id>0)$participant_id)
-      pa_age_category <- age_category[which(AGE_CATEGORY==age_group)]
       matching_people <- as.data.frame(filter(pa, age_cat == pa_age_category & sex == gender)[,column_to_keep])
-      v <- (matching_people[sample(nrow(matching_people),length(i),replace=T),])
-      temp <- rbind( temp, cbind(v,i) )
       i <- which(synthetic_population$age_cat==age_group&synthetic_population$sex==gender)
+      v <- (matching_people[sample(nrow(matching_people),length(i),replace=T),])
       synthetic_population$work_ltpa_marg_met[i] <- c(v)
     }
   }
   
-  namevector <- c(colnames(pa)[column_to_keep], "participant_id")
-  colnames(temp) <- namevector
-  temp <- as.data.frame (temp)
-  
-  #trip_and_pa_set <- left_join(trip_set, temp, "participant_id")
-  
   # Convert all int columns to numeric
-  #trip_and_pa_set[, sapply(trip_and_pa_set,class)=='integer'] <- lapply(trip_and_pa_set[, sapply(trip_and_pa_set,class)=='integer'], as.numeric)
   synthetic_population[, sapply(synthetic_population,class)=='integer'] <- lapply(synthetic_population[, sapply(synthetic_population,class)=='integer'], as.numeric)
+  # remove non-travelling participants
   trip_set <- subset(trip_set,trip_mode!=99)
   
-  #trip_and_pa_set$trip_id[trip_and_pa_set$trip_mode == '99'] <- 0
-  
-  list(trip_set=trip_set,synthetic_population=synthetic_population)
+  return(list(trip_set=trip_set,synthetic_population=synthetic_population))
   
 }

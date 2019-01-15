@@ -43,6 +43,6 @@ edit_accra_trips <- function(raw_trip_set){
   ind1$trip_id <- (max(raw_trip_set$trip_id) + 1): (max(raw_trip_set$trip_id) + nrow(ind1))
   raw_trip_set <- rbind(raw_trip_set, ind1)
   
-  raw_trip_set
+  return(raw_trip_set)
   
 }

@@ -95,5 +95,5 @@ create_all_scenarios <- function(trip_set){
   rdr$scenario <- "Scenario 5"
   rd_list[[6]] <- rdr
   
-  rd_list
+  return(rd_list)
 }
