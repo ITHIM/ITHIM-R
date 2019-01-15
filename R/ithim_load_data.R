@@ -62,8 +62,8 @@ ithim_load_data <- function(){
   # set_injury_contingency(injuries) is the input into injuries_function_2.
   # both functions currently have a lot of hard-coded variables, e.g. the modes.
   # we are using injuries_function_2 for Accra.
-  filename <- paste0(local_path,"/who_hit_who_",CITY,".csv")
-  WHW_MAT <<- read_csv(filename)
+  #filename <- paste0(local_path,"/who_hit_who_",CITY,".csv")
+  #WHW_MAT <<- read_csv(filename)
   
   filename <- paste0(local_path,"/injuries_long_",CITY,".Rds")
   injuries <- readRDS(filename)
