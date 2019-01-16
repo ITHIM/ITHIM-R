@@ -5,6 +5,8 @@ ithim_load_data <- function(){
   ## these datasets are all global, saved in global folder.
   global_path <- file.path(find.package('ithimr',lib.loc=.libPaths()), 'extdata/global/')
   
+  global_path <- paste0(global_path, "/")
+  
   ## DATA FILES FOR MODEL  
   DISEASE_INVENTORY <<- read.csv(paste0(global_path,"dose_response/disease_outcomes_lookup.csv"))
   # DR_AP$cause_code matches DISEASE_INVENTORY$ap_acronym
