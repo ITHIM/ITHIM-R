@@ -145,8 +145,6 @@ test_that("accra evppi", {
       diseases <- sapply(names(ithim_object$parameters)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
       evppi_for_AP <- mclapply(diseases, FUN = parallel_evppi_for_AP,parameter_samples,outcome,NSCEN, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
       names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
-      print(dim(evppi))
-      print(dim(do.call(rbind,evppi_for_AP)))
       evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
       ## get rows to remove
       keep_names <- sapply(rownames(evppi),function(x)!any(c('ALPHA','BETA','GAMMA','TMREL')%in%strsplit(x,'_')[[1]]))
