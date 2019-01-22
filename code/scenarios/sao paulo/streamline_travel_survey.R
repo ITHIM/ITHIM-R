@@ -132,17 +132,17 @@ mode_speed <- rd %>% filter(is.na(MODO2) & is.na(MODO3) & is.na(MODO4) &
   summarise(mean (trip_distance), 
             speed = (mean(trip_distance)) / (mean(trip_duration) / 60))
 
-source_modes <- c('bus')
-target_modes <- c('car')
-
-source_percentages <- c(0.4)
-
-local_source_trips <- list()
-
-for (i in 1:length(source_modes))
-  local_source_trips[i] <- nrow(filter(rd, trip_mode == source_modes[i])) - source_trips[i]
-
-local_source_trips <- purrr::flatten_dbl(local_source_trips)
+# source_modes <- c('bus')
+# target_modes <- c('car')
+# 
+# source_percentages <- c(0.4)
+# 
+# local_source_trips <- list()
+# 
+# for (i in 1:length(source_modes))
+#   local_source_trips[i] <- nrow(filter(rd, trip_mode == source_modes[i])) - source_trips[i]
+# 
+# local_source_trips <- purrr::flatten_dbl(local_source_trips)
 
 rd$person_weight <- round(rd$FE_PESS / 100)
 
@@ -153,6 +153,7 @@ rd <- select(rd, participant_id, age, sex, trip_id, total_trips,
              trip_duration,
              trip_mode,
              trip_distance,
+             trip_distance_cat,
              row_id,
              person_weight)
 
@@ -175,3 +176,44 @@ for(i in 1:length(pid_list)) {
   
   # })
 }
+
+
+# Define distance categories
+dist_cat <- c("0-6 km", "7-9 km", "10+ km")
+
+# Initialize them
+rd$trip_distance_cat <- NULL
+rd$trip_distance_cat[rd$trip_distance > 0 & rd$trip_distance < 7] <- dist_cat[1]
+rd$trip_distance_cat[rd$trip_distance >= 7 & rd$trip_distance < 10] <- dist_cat[2]
+rd$trip_distance_cat[rd$trip_distance >= 10] <- dist_cat[3]
+
+## Sample 1k rows for easier calculations
+# set random seed
+set.seed(40)
+sd <- sample_n(rd, 1000)
+sd %>% group_by(trip_mode) %>% summarise(round = (n() / nrow(.) * 100))
+
+# Plot distance distribution
+ggplot(sd %>% 
+         group_by(trip_distance_cat) %>% 
+         summarise(count = n()) %>% 
+         mutate(perc = round(count/sum(count) * 100, 1)), 
+       aes(x = trip_distance_cat, y = perc)) + 
+  geom_bar(position = 'dodge', stat='identity') +
+  geom_text(aes(label = perc), position = position_dodge(width=0.9), vjust=-0.25, color = "blue") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(x = "", y = "percentage(%)", title = "Main Mode Distance distribution")
+
+# Plot mode distribution
+ggplot(sd %>% 
+         filter(!is.na(trip_mode)) %>% 
+         group_by(trip_mode) %>% 
+         summarise(count = n()) %>% 
+         mutate(perc = round(count/sum(count) * 100, 1)), 
+       aes(x = trip_mode, y = perc)) + 
+  geom_bar(position = 'dodge', stat='identity') +
+  geom_text(aes(label = perc), position = position_dodge(width=0.9), vjust=-0.25, color = "blue") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(x = "", y = "percentage(%)", title = "Main Mode distribution - without weights")
