@@ -217,3 +217,55 @@ ggplot(sd %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(x = "", y = "percentage(%)", title = "Main Mode distribution - without weights")
+
+
+#sd's unique modes
+# [1] NA          "bus"       "subway"    "car"       "motorbike" "bicycle"   "train"     "walk"      "van"      
+# [10] "others"    "taxi"
+
+#accra's unique modes
+# [1] "99"          "Bus"         "Taxi"        "Walking"     "Train"       "Private Car" "Other"      
+# [8] "Unspecified" "Bicycle"
+
+sd[sd$trip_mode == "bus",]$trip_mode <- "Bus"
+sd[is.na(sd$trip_mode),]$trip_mode <- "99"
+sd[sd$trip_mode == "car",]$trip_mode <- "Private Car"
+sd[sd$trip_mode == "bicycle",]$trip_mode <- "Bicycle"
+sd[sd$trip_mode == "train",]$trip_mode <- "Train"
+sd[sd$trip_mode == "walk",]$trip_mode <- "Walking"
+sd[sd$trip_mode == "taxi",]$trip_mode <- "Taxi"
+sd[sd$trip_mode == "motorcycle",]$trip_mode <- "Motorcycle"
+
+write_csv(sd, "data/local/sao_paulo/trips_sao_paulo.csv")
+
+td <- run_ithim_setup(seed=1,
+                            CITY = 'sao_paulo',
+                            modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle","Truck","Bus_driver"),
+                            speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25, 21, 15),
+                            DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
+                            ADD_WALK_TO_BUS_TRIPS = F,
+                            ADD_BUS_DRIVERS = F,
+                            ADD_TRUCK_DRIVERS = F,
+                            TEST_WALK_SCENARIO = F,
+                            REFERENCE_SCENARIO = 'Baseline',
+                            PATH_TO_LOCAL_DATA = 'data/local/sao_paulo/',
+                            #population=1600000,
+                            #survey_coverage=1/365,
+                            NSAMPLES = 1,
+                            BUS_WALK_TIME= 5,
+                            MMET_CYCLING = 4.63,
+                            MMET_WALKING = 2.53,
+                            PM_CONC_BASE = 50,  
+                            PM_TRANS_SHARE = 0.225,
+                            PA_DOSE_RESPONSE_QUANTILE = F,
+                            AP_DOSE_RESPONSE_QUANTILE = F,
+                            BACKGROUND_PA_SCALAR = 1,
+                            INJURY_REPORTING_RATE = 1,
+                            CHRONIC_DISEASE_SCALAR = 1,
+                            RATIO_4W1_TO_4W2 = 10/12,
+                            TAXI_TO_CAR_RATIO = 0.04,
+                            BUS_TO_CAR_RATIO = 0.12,
+                            TRUCK_TO_CAR_RATIO = 0.09,
+                            MC_TO_CAR_RATIO = 0.2,
+                            LDT_TO_CAR_RATIO = 0.21,
+                            OTHER_TO_CAR_RATIO = 0.01 )
