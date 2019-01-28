@@ -19,6 +19,12 @@ create_walk_scenario <- function(trip_set){
   # set scenario name, `Walking'
   walk_scen$scenario <- 'Walking'
   rdr$scenario <- 'Walking'
+  
+  print(colnames(rdr))
+  print("--------")
+  print(colnames(walk_scen))
+  
+  
   # join new walks to existing trips
   walk_scen <- walk_scen[,match(colnames(rdr),colnames(walk_scen))]
   rdr <- rbind(rdr,walk_scen)
