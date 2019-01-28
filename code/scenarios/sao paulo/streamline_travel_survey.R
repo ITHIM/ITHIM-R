@@ -238,6 +238,14 @@ sd[sd$trip_mode == "motorcycle",]$trip_mode <- "Motorcycle"
 
 write_csv(sd, "data/local/sao_paulo/trips_sao_paulo.csv")
 
+
+# read sd
+require(ithimr)
+require(tidyverse)
+sd <- read_csv("data/local/sao_paulo/trips_sao_paulo.csv")
+
+sd$scenario <- "Baseline"
+
 td <- run_ithim_setup(seed=1,
                             CITY = 'sao_paulo',
                             modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle","Truck","Bus_driver"),
@@ -246,7 +254,7 @@ td <- run_ithim_setup(seed=1,
                             ADD_WALK_TO_BUS_TRIPS = F,
                             ADD_BUS_DRIVERS = F,
                             ADD_TRUCK_DRIVERS = F,
-                            TEST_WALK_SCENARIO = F,
+                            TEST_WALK_SCENARIO = T,
                             REFERENCE_SCENARIO = 'Baseline',
                             PATH_TO_LOCAL_DATA = 'data/local/sao_paulo/',
                             #population=1600000,
