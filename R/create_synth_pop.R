@@ -41,7 +41,8 @@ create_synth_pop <- function(raw_trip_set){
       matching_people <- as.data.frame(filter(pa, age_cat == pa_age_category & sex == gender)[,column_to_keep])
       i <- which(synthetic_population$age_cat==age_group&synthetic_population$sex==gender)
       v <- (matching_people[sample(nrow(matching_people),length(i),replace=T),])
-      synthetic_population$work_ltpa_marg_met[i] <- c(v)
+      if (length(v) > 0)
+        synthetic_population$work_ltpa_marg_met[i] <- c(v)
     }
   }
   
