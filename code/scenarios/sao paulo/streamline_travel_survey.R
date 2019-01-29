@@ -240,11 +240,12 @@ write_csv(sd, "data/local/sao_paulo/trips_sao_paulo.csv")
 
 
 # read sd
+{
 require(ithimr)
 require(tidyverse)
 sd <- read_csv("data/local/sao_paulo/trips_sao_paulo.csv")
 
-sd <- dplyr::select(sd, trip_id, trip_mode, trip_duration, age, sex)
+sd <- dplyr::select(sd, participant_id, trip_id, trip_mode, trip_duration, age, sex)
 
 sd[sd$sex == 1,]$sex <- "Male"
 sd[sd$sex == 2,]$sex <- "Female"
@@ -282,3 +283,4 @@ td <- run_ithim_setup(seed=1,
                             MC_TO_CAR_RATIO = 0.2,
                             LDT_TO_CAR_RATIO = 0.21,
                             OTHER_TO_CAR_RATIO = 0.01 )
+}
