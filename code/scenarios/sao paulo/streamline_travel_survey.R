@@ -243,14 +243,6 @@ write_csv(sd, "data/local/sao_paulo/trips_sao_paulo.csv")
 {
 require(ithimr)
 require(tidyverse)
-sd <- read_csv("data/local/sao_paulo/trips_sao_paulo.csv")
-
-sd <- dplyr::select(sd, participant_id, trip_id, trip_mode, trip_duration, age, sex)
-
-sd[sd$sex == 1,]$sex <- "Male"
-sd[sd$sex == 2,]$sex <- "Female"
-
-sd$scenario <- "Baseline"
 
 td <- run_ithim_setup(seed=1,
                             CITY = 'sao_paulo',
