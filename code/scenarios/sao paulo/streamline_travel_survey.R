@@ -244,12 +244,17 @@ require(ithimr)
 require(tidyverse)
 sd <- read_csv("data/local/sao_paulo/trips_sao_paulo.csv")
 
+sd <- dplyr::select(sd, trip_id, trip_mode, trip_duration, age, sex)
+
+sd[sd$sex == 1,]$sex <- "Male"
+sd[sd$sex == 2,]$sex <- "Female"
+
 sd$scenario <- "Baseline"
 
 td <- run_ithim_setup(seed=1,
                             CITY = 'sao_paulo',
-                            modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle","Truck","Bus_driver"),
-                            speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25, 21, 15),
+                            modes = c("Bus", "Private Car", "van", "Taxi", "Motorcycle", "Bicycle", "Walking"),
+                            speeds = c(15, 21, 21, 21, 25, 15, 4.8),
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             ADD_WALK_TO_BUS_TRIPS = F,
                             ADD_BUS_DRIVERS = F,
