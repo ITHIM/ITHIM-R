@@ -13,7 +13,8 @@ create_synth_pop <- function(raw_trip_set){
   ##duration: units are minutes per day.
   ##work_ltpa_marg_met: units are marginal MET-h/week.
   
-  trip_set <- subset(raw_trip_set,!trip_mode%in%c("Train", "Other", "Unspecified"))
+  ##!! RJ trip_modes given in command line defines all trips that we count
+  trip_set <- subset(raw_trip_set,trip_mode%in%VEHICLE_INVENTORY$trip_mode)
   # Make age category for trip_set dataset.
   trip_set <- assign_age_groups(trip_set,age_category=AGE_CATEGORY,age_lower_bounds=AGE_LOWER_BOUNDS,max_age=MAX_AGE)
   ##!! assuming more than one age category
