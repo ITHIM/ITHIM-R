@@ -244,35 +244,11 @@ write_csv(sd, "data/local/sao_paulo/trips_sao_paulo.csv")
 require(ithimr)
 require(tidyverse)
 
-td <- run_ithim_setup(seed=1,
-                            CITY = 'sao_paulo',
+td <- run_ithim_setup(CITY = 'sao_paulo',
                             modes = c("Bus", "Private Car", "van", "Taxi", "Motorcycle", "Bicycle", "Walking"),
                             speeds = c(15, 21, 21, 21, 25, 15, 4.8),
-                            DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             ADD_WALK_TO_BUS_TRIPS = F,
                             ADD_BUS_DRIVERS = F,
                             ADD_TRUCK_DRIVERS = F,
-                            TEST_WALK_SCENARIO = T,
-                            REFERENCE_SCENARIO = 'Baseline',
-                            PATH_TO_LOCAL_DATA = 'data/local/sao_paulo/',
-                            #population=1600000,
-                            #survey_coverage=1/365,
-                            NSAMPLES = 1,
-                            BUS_WALK_TIME= 5,
-                            MMET_CYCLING = 4.63,
-                            MMET_WALKING = 2.53,
-                            PM_CONC_BASE = 50,  
-                            PM_TRANS_SHARE = 0.225,
-                            PA_DOSE_RESPONSE_QUANTILE = F,
-                            AP_DOSE_RESPONSE_QUANTILE = F,
-                            BACKGROUND_PA_SCALAR = 1,
-                            INJURY_REPORTING_RATE = 1,
-                            CHRONIC_DISEASE_SCALAR = 1,
-                            RATIO_4W1_TO_4W2 = 10/12,
-                            TAXI_TO_CAR_RATIO = 0.04,
-                            BUS_TO_CAR_RATIO = 0.12,
-                            TRUCK_TO_CAR_RATIO = 0.09,
-                            MC_TO_CAR_RATIO = 0.2,
-                            LDT_TO_CAR_RATIO = 0.21,
-                            OTHER_TO_CAR_RATIO = 0.01 )
+                            TEST_WALK_SCENARIO = T)
 }
