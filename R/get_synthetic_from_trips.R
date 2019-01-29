@@ -9,7 +9,7 @@ get_synthetic_from_trips <- function(){
   ## add bus and truck trips
   if(ADD_BUS_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='Bus_driver')
   if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='Truck')
-  
+
   # create synthetic population
   synth_pop <- create_synth_pop(raw_trip_set)
   SYNTHETIC_POPULATION <<- synth_pop$synthetic_population

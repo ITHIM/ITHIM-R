@@ -105,6 +105,8 @@ distances_for_injury_function <- function(trip_scen_sets){
   ##TODO use all ages with ns(age,...).
   ##TODO different formulae for whw and noov
   ##!! need a catch for when regression fails. E.g., if fail, run simpler model.
+  print(length(injuries_list))
+  print(head(injuries_list[[1]]))
   for(type in c('whw','noov')){
     injuries_list[[1]][[type]]$injury_reporting_rate <- 1
     suppressWarnings(reg_model[[type]] <- glm(count~cas_mode+strike_mode+cas_age+cas_gender,data=injuries_list[[1]][[type]],family='poisson',
