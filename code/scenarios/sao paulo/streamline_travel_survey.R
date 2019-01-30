@@ -261,16 +261,16 @@ write_csv(sd, "data/local/sao_paulo/trips_sao_paulo.csv")
 # read sd
 {
 require(ithimr)
-require(tidyverse)
+#require(tidyverse)
 
 ithim_object <- run_ithim_setup(CITY = 'sao_paulo',
                       modes = c("Bus", "Private Car", "van", "Taxi", "Motorcycle", "Bicycle", "Walking"),
                       speeds = c(15, 21, 21, 21, 25, 15, 4.8),
-                      PATH_TO_LOCAL_DATA = 'data/local/sao_paulo/',
+                      # PATH_TO_LOCAL_DATA = 'data/local/sao_paulo/',
                       ADD_WALK_TO_BUS_TRIPS = F,
                       ADD_BUS_DRIVERS = F,
                       ADD_TRUCK_DRIVERS = F,
-                      TEST_WALK_SCENARIO = T,
+                      TEST_WALK_SCENARIO = F,
                       BUS_WALK_TIME= 5,
                       MMET_CYCLING = 4.63,
                       MMET_WALKING = 2.53,
@@ -288,15 +288,28 @@ ithim_object <- run_ithim_setup(CITY = 'sao_paulo',
                       MC_TO_CAR_RATIO = 0.2,
                       LDT_TO_CAR_RATIO = 0.21,
                       OTHER_TO_CAR_RATIO = 0.01)
+
+ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
+
 }
 
-
 ## plot results
-result_mat <- colSums(ithim_object$outcome$hb$ylls[,3:ncol(ithim_object$outcome$hb$ylls)])
-columns <- length(result_mat)
-nDiseases <- columns/NSCEN
-ylim <- range(result_mat)
-#x11(width = 8, height = 5); par(mfrow = c(2, 4))
-barplot(result_mat, main = "Sao Paulo Health Outcome", names.arg = sapply(names(result_mat) ,function(x)paste0( last(strsplit(x, '_')[[1]]))), ylim = ylim, las = 2)
-
-
+{
+  ## plot results
+  result_mat <- colSums(ithim_object$outcome$hb$ylls[,3:ncol(ithim_object$outcome$hb$ylls)])
+  columns <- length(result_mat)
+  nDiseases <- columns/NSCEN
+  ylim <- range(result_mat)
+  x11(width = 8, height = 5); par(mfrow = c(2, 4))
+  for(i in 1:nDiseases){
+    if(i<5) {
+      par(mar = c(1, 4, 4, 1))
+      barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = '', ylim = ylim, las = 2, 
+              main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
+    }else{
+      par(mar = c(5, 4, 4, 1))
+      barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = SCEN_SHORT_NAME[c(1, 3:6)], ylim = ylim, las = 2, 
+              main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
+    }
+  }
+}
