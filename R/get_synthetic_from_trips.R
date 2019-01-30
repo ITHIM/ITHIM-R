@@ -20,7 +20,7 @@ get_synthetic_from_trips <- function(){
   if(TEST_WALK_SCENARIO){
     SYNTHETIC_TRIPS <<- create_walk_scenario(trip_set)
   }else{
-    SYNTHETIC_TRIPS <<- create_all_scenarios(trip_set)
+    SYNTHETIC_TRIPS <<- create_all_scenarios(CITY, trip_set)
   }
   
   set_scenario_specific_variables()
