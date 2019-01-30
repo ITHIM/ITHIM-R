@@ -263,9 +263,10 @@ write_csv(sd, "data/local/sao_paulo/trips_sao_paulo.csv")
 require(ithimr)
 require(tidyverse)
 
-td <- run_ithim_setup(CITY = 'sao_paulo',
+ithim_object <- run_ithim_setup(CITY = 'sao_paulo',
                       modes = c("Bus", "Private Car", "van", "Taxi", "Motorcycle", "Bicycle", "Walking"),
                       speeds = c(15, 21, 21, 21, 25, 15, 4.8),
+                      PATH_TO_LOCAL_DATA = 'data/local/sao_paulo/',
                       ADD_WALK_TO_BUS_TRIPS = F,
                       ADD_BUS_DRIVERS = F,
                       ADD_TRUCK_DRIVERS = F,
