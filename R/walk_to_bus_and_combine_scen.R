@@ -14,4 +14,5 @@ walk_to_bus_and_combine_scen <- function(){
     }
     
   return(do.call('rbind',rd_list))
+  
 }

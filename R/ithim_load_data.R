@@ -67,8 +67,8 @@ ithim_load_data <- function(){
   #filename <- paste0(local_path,"/who_hit_who_",CITY,".csv")
   #WHW_MAT <<- read_csv(filename)
   
-  filename <- paste0(local_path,"/injuries_long_",CITY,".Rds")
-  injuries <- readRDS(filename)
+  filename <- paste0(local_path,"/injuries_",CITY,".csv")
+  injuries <- read_csv(filename)
   injuries <- assign_age_groups(injuries,age_label='cas_age')
   set_injury_contingency(injuries)
   
