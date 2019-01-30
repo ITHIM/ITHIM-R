@@ -289,3 +289,14 @@ ithim_object <- run_ithim_setup(CITY = 'sao_paulo',
                       LDT_TO_CAR_RATIO = 0.21,
                       OTHER_TO_CAR_RATIO = 0.01)
 }
+
+
+## plot results
+result_mat <- colSums(ithim_object$outcome$hb$ylls[,3:ncol(ithim_object$outcome$hb$ylls)])
+columns <- length(result_mat)
+nDiseases <- columns/NSCEN
+ylim <- range(result_mat)
+#x11(width = 8, height = 5); par(mfrow = c(2, 4))
+barplot(result_mat, main = "Sao Paulo Health Outcome", names.arg = sapply(names(result_mat) ,function(x)paste0( last(strsplit(x, '_')[[1]]))), ylim = ylim, las = 2)
+
+
