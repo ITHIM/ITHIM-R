@@ -238,6 +238,25 @@ sd[sd$trip_mode == "motorcycle",]$trip_mode <- "Motorcycle"
 
 write_csv(sd, "data/local/sao_paulo/trips_sao_paulo.csv")
 
+# Read raw pa for csv and store the filtered pa
+{
+  
+  pa <- read_csv("data/local/sao_paulo/pa_raw_sao_paulo.csv")
+  # Rename columns
+  pa <- rename(pa, age = idade_socio)
+  pa <- rename(pa, sex = sexo)
+  
+  # Convert numeric to string sex
+  pa[pa$sex == 1, ]$sex <- "Male"
+  pa[pa$sex == 2, ]$sex <- "Female"
+  
+  pa <- dplyr::select(pa, id, age, sex, ends_with("met"))
+  
+  pa[ is.na(pa) ] <- 0
+  write_csv(pa, "data/local/sao_paulo/pa_sao_paulo.csv")
+  
+}
+
 
 # read sd
 {
