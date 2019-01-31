@@ -103,12 +103,15 @@ distances_for_injury_function <- function(trip_scen_sets){
   reg_model <- list()
   ##TODO write formulae without prior knowledge of column names
   ##TODO use all ages with ns(age,...).
-  ##TODO different formulae for whw and noov
+  ##RJ linearity in group rates
+  forms <- list(whw='count~cas_mode+strike_mode+cas_age+cas_gender+offset(log(cas_distance))+offset(log(strike_distance))',
+             noov='count~cas_mode+strike_mode+cas_age+cas_gender+offset(log(cas_distance))')
   ##!! need a catch for when regression fails. E.g., if fail, run simpler model.
   for(type in c('whw','noov')){
     injuries_list[[1]][[type]]$injury_reporting_rate <- 1
-    suppressWarnings(reg_model[[type]] <- glm(count~cas_mode+strike_mode+cas_age+cas_gender,data=injuries_list[[1]][[type]],family='poisson',
-                                              offset=0.5*log(cas_distance)+0.5*log(strike_distance)-log(injury_reporting_rate),control=glm.control(maxit=100)))
+    suppressWarnings(reg_model[[type]] <- glm(as.formula(forms[[type]]),data=injuries_list[[1]][[type]],family='poisson',
+                                              offset=-log(injury_reporting_rate),control=glm.control(maxit=100)))
+    #print(AIC(reg_model[[type]]))
     reg_model[[type]] <- trim_glm_object(reg_model[[type]])
   }
   ##
