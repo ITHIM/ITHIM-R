@@ -7,14 +7,8 @@ test_that("accra basic", {
   ithim_object <- run_ithim_setup(REFERENCE_SCENARIO='Scenario 1')
   ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
   result_mat <- colSums(ithim_object$outcome$hb$ylls[,3:ncol(ithim_object$outcome$hb$ylls)])
-  # organise results to compare to 0. retain vector names.
-  test_vals_1 <- abs(accra_results - result_mat)
-  names(test_vals_1) <- names(accra_results)
-  test_vals_1[accra_results>0] <- test_vals_1[accra_results>0]/accra_results[accra_results>0]
-  test_vals_2 <- rep(0,length(result_mat))
-  names(test_vals_2) <- names(result_mat)
   # test
-  expect_equal(test_vals_1,test_vals_2,tolerance=0.05)
+  expect_equal(result_mat,accra_results,tolerance=0.1)
   
 })
 
@@ -29,14 +23,8 @@ test_that("accra_test, walk scenario", {
                                    ADD_BUS_DRIVERS = F)
   ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
   result_mat <- colSums(ithim_object$outcome$hb$ylls[,3:ncol(ithim_object$outcome$hb$ylls)])
-  # organise results to compare to 0. retain vector names.
-  test_vals_1 <- abs(accra_results - result_mat)
-  names(test_vals_1) <- names(accra_results)
-  test_vals_1[accra_results>0] <- test_vals_1[accra_results>0]/accra_results[accra_results>0]
-  test_vals_2 <- rep(0,length(result_mat))
-  names(test_vals_2) <- names(result_mat)
   # test
-  expect_equal(test_vals_1,test_vals_2,tolerance=0.05)
+  expect_equal(accra_results,result_mat,tolerance=0.1)
   
 })
 
