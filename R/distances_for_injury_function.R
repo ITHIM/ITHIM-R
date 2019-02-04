@@ -104,13 +104,21 @@ distances_for_injury_function <- function(trip_scen_sets){
   ##TODO write formulae without prior knowledge of column names
   ##TODO use all ages with ns(age,...).
   ##RJ linearity in group rates
-  forms <- list(whw='count~cas_mode+strike_mode+cas_age+cas_gender+offset(log(cas_distance))+offset(log(strike_distance))',
-             noov='count~cas_mode+strike_mode+cas_age+cas_gender+offset(log(cas_distance))')
+  forms <- list(whw='count~cas_mode*strike_mode+cas_age+cas_gender+offset(log(cas_distance))+offset(log(strike_distance))',
+             noov='count~cas_mode*strike_mode+cas_age+cas_gender+offset(log(cas_distance))')
   ##!! need a catch for when regression fails. E.g., if fail, run simpler model.
   for(type in c('whw','noov')){
     injuries_list[[1]][[type]]$injury_reporting_rate <- 1
-    suppressWarnings(reg_model[[type]] <- glm(as.formula(forms[[type]]),data=injuries_list[[1]][[type]],family='poisson',
+    reg_model[[type]] <- tryCatch({
+      suppressWarnings(glm(as.formula(forms[[type]]),data=injuries_list[[1]][[type]],family='poisson',
                                               offset=-log(injury_reporting_rate),control=glm.control(maxit=100)))
+    }, error <- function(e){
+      temp_form <- gsub('*','+',forms[[type]],fixed=T)
+      suppressWarnings(glm(as.formula(temp_form),data=injuries_list[[1]][[type]],family='poisson',
+                           offset=-log(injury_reporting_rate),control=glm.control(maxit=100)))
+    }
+    )
+    
     #print(AIC(reg_model[[type]]))
     reg_model[[type]] <- trim_glm_object(reg_model[[type]])
   }
