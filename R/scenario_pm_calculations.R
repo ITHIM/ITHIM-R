@@ -14,7 +14,7 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   
   ## multiply distance by emission factor. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
   ordered_efs <- VEHICLE_INVENTORY$emission_factor[match(emission_dist$trip_mode,VEHICLE_INVENTORY$trip_mode)]
-  trans_emissions <- emission_dist[,0:NSCEN+2]*t(repmat(ordered_efs,NSCEN+1,1))#*SURVEY_SCALAR
+  trans_emissions <- emission_dist[,0:NSCEN+2]*t(repmat(ordered_efs,NSCEN+1,1))
   
   baseline_sum <- sum(trans_emissions[[SCEN[1]]])
   conc_pm <- c()
@@ -35,7 +35,7 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   in_vehicle_ratio <- (1-CLOSED_WINDOW_RATIO)*on_road_off_road_ratio + CLOSED_WINDOW_RATIO*CLOSED_WINDOW_PM_RATIO # averaging over windows open and windows closed
   ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio)
   
-  vent_rates$vehicle_ratio_index <- sapply(vent_rates$trip_mode,function(x) ifelse(x%in%c('Walking','Short Walking','Bicycle'),1,2))
+  vent_rates$vehicle_ratio_index <- sapply(vent_rates$trip_mode,function(x) ifelse(x%in%c('Walking','Short Walking','Bicycle','Motorcycle'),1,2))
   
   trip_set <- left_join(trip_scen_sets,vent_rates,'trip_mode')
   trip_set$on_road_air <- trip_set$trip_duration*trip_set$vent_rate / 60 # L
