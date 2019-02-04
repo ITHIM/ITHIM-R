@@ -112,7 +112,7 @@ distances_for_injury_function <- function(trip_scen_sets){
     reg_model[[type]] <- tryCatch({
       suppressWarnings(glm(as.formula(forms[[type]]),data=injuries_list[[1]][[type]],family='poisson',
                                               offset=-log(injury_reporting_rate),control=glm.control(maxit=100)))
-    }, error <- function(e){
+    }, error = function(e){
       temp_form <- gsub('*','+',forms[[type]],fixed=T)
       suppressWarnings(glm(as.formula(temp_form),data=injuries_list[[1]][[type]],family='poisson',
                            offset=-log(injury_reporting_rate),control=glm.control(maxit=100)))
