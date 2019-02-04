@@ -357,3 +357,11 @@ for(i in 1:nDiseases){
     }
   }
 }
+
+
+td <- reshape2::melt(result_mat)
+td <- td %>% dplyr::mutate(scen = stringr::str_extract(Var2, "[^_]+"))
+td <- td %>% dplyr::mutate(var = stringr::str_extract(Var2, "[^_]+$"))
+ggplot(data = td, aes(x = var, y = value, fill = Var1)) +
+geom_bar(stat = "identity", position = "dodge2", colour = "black", alpha = 0.5) + theme_minimal() + facet_wrap(~Var1)
+
