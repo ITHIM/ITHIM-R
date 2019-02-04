@@ -26,7 +26,7 @@ create_walk_scenario <- function(trip_set){
   
   
   # join new walks to existing trips
-  ##!! RJ (temporary) hack: trim extra columns from raw trip set
+  ##!! RJ hack: to run with this scenario, we trim extra columns from the raw trip set so they match the above
   rd_list[[1]] <- rd_list[[1]][,colnames(rd_list[[1]])%in%colnames(walk_scen)]
   rdr <- rdr[,colnames(rdr)%in%colnames(walk_scen)]
   walk_scen <- walk_scen[,match(colnames(rdr),colnames(walk_scen))]
