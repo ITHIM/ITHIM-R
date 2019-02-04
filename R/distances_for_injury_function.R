@@ -101,25 +101,24 @@ distances_for_injury_function <- function(trip_scen_sets){
   
   # run regression model on baseline data
   reg_model <- list()
+  ## Injury regression. This needs a lot of work to make it generalisable to different settings, data qualities, etc.
   ##TODO write formulae without prior knowledge of column names
   ##TODO use all ages with ns(age,...).
   ##RJ linearity in group rates
   forms <- list(whw='count~cas_mode*strike_mode+cas_age+cas_gender+offset(log(cas_distance))+offset(log(strike_distance))',
              noov='count~cas_mode*strike_mode+cas_age+cas_gender+offset(log(cas_distance))')
-  ##!! need a catch for when regression fails. E.g., if fail, run simpler model.
+  ## catch for when regression fails: if fail, run simpler model: no interactions.
   for(type in c('whw','noov')){
     injuries_list[[1]][[type]]$injury_reporting_rate <- 1
     reg_model[[type]] <- tryCatch({
       suppressWarnings(glm(as.formula(forms[[type]]),data=injuries_list[[1]][[type]],family='poisson',
                                               offset=-log(injury_reporting_rate),control=glm.control(maxit=100)))
-    }, error <- function(e){
+    }, error = function(e){
       temp_form <- gsub('*','+',forms[[type]],fixed=T)
       suppressWarnings(glm(as.formula(temp_form),data=injuries_list[[1]][[type]],family='poisson',
                            offset=-log(injury_reporting_rate),control=glm.control(maxit=100)))
     }
     )
-    
-    #print(AIC(reg_model[[type]]))
     reg_model[[type]] <- trim_glm_object(reg_model[[type]])
   }
   ##
