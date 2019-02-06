@@ -111,7 +111,6 @@ distances_for_injury_function <- function(trip_scen_sets){
     injuries_list[[1]][[type]]$injury_reporting_rate <- 1
     suppressWarnings(reg_model[[type]] <- glm(as.formula(forms[[type]]),data=injuries_list[[1]][[type]],family='poisson',
                                               offset=-log(injury_reporting_rate),control=glm.control(maxit=100)))
-    #print(AIC(reg_model[[type]]))
     reg_model[[type]] <- trim_glm_object(reg_model[[type]])
   }
   ##
