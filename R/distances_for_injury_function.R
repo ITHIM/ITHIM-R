@@ -123,10 +123,11 @@ distances_for_injury_function <- function(trip_scen_sets){
   }
   ##
   ## For predictive uncertainty, we could sample a number from the predicted distribution
-  # the injury burden at baseline is the prediction for the year 2016
+  # the injury burden at baseline is the prediction for the most recent year
+  most_recent_year <- max(injuries_list[[1]][[1]]$year)
   for(scen in SCEN)
     for(type in c('whw','noov'))
-      injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==2016)
+      injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==most_recent_year)
   
   return(list(relative_distances=relative_distances,scen_dist=scen_dist,true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model))
 }

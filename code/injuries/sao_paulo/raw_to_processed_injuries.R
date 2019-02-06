@@ -18,6 +18,9 @@ names(rd)[3:5] <- c('cas_mode','cas_gender','cas_age')
 # 3. count NA
 ## casualty modes not modelled: others, pickup, minibus, cart. If we add this processing to ITHIM-R, we can add on missing fatalities as a constant?
 nrow(subset(rd,cas_mode%in%c('others', 'pickup', 'minibus', 'cart')|is.na(cas_mode)|is.na(cas_gender)|is.na(cas_age))) # total missing: 130/5948=2.2%
+nrow(subset(rd,cas_mode%in%c('others', 'pickup', 'minibus', 'cart')|is.na(cas_mode))) # total missing: 54/5948=0.9%
+## might we want to capture minibus travel within bus travel?
+## is pickup van travel?
 
 # 4. rename entries to match input modes
 rd$cas_mode[rd$cas_mode=='pedestrian'] <- 'Pedestrian'
