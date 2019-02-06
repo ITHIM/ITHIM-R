@@ -149,5 +149,26 @@ run_ithim_setup <- function(seed=1,
     ithim_object <- get_all_distances(ithim_object) # uses synthetic trips to calculate distances
   }
   ######################
+  
+  #all_modes <- unique(c(modes,injuries$cas_mode,injuries$strike_mode))
+  #match_modes <- EMISSION_FACTORS$vehicle_type
+  #injury_modes <- unique(injuries$cas_mode)
+  #additional_modes <- c('Car')
+  #if(ADD_WALK_TO_BUS_TRIPS) additional_modes <- c(additional_modes,'Short Walking')
+  #if(ADD_BUS_DRIVERS) additional_modes <- c(additional_modes,'Bus_driver')
+  #if(ADD_TRUCK_DRIVERS) additional_modes <- c(additional_modes,'Truck')
+  #injury_modes <- injury_modes[!injury_modes%in%c(all_modes,additional_modes)]
+  
+  #cat('Mode Summary:\n')
+  #cat('Included modes:\n\t')
+  #cat(all_modes)
+  #cat('\nAdditional modes:\n\t')
+  #cat(additional_modes)
+  #cat('\nLost casualty modes:\n\t')
+  #cat(injury_modes)
+  #cat('\nModes to match:\n\t')
+  #cat(match_modes)
+  #cat('\n\n')
+  
   return(ithim_object)
 }
