@@ -22,25 +22,25 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   MMET_CYCLING <<- MMET_CYCLING
   MMET_WALKING <<- MMET_WALKING
   PM_CONC_BASE <<- PM_CONC_BASE
-  BACKGROUND_PA_SCALAR <<- BACKGROUND_PA_SCALAR
   PM_TRANS_SHARE <<- PM_TRANS_SHARE
   MC_TO_CAR_RATIO <<- MC_TO_CAR_RATIO
+  PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
+  BACKGROUND_PA_SCALAR <<- BACKGROUND_PA_SCALAR
   INJURY_REPORTING_RATE <<- INJURY_REPORTING_RATE
   CHRONIC_DISEASE_SCALAR <<- CHRONIC_DISEASE_SCALAR
-  PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
   parameters <- list()
   
-  variables <- c("MEAN_BUS_WALK_TIME",
+  ##Variables with normal distribution
+  normVariables <- c("BUS_WALK_TIME",
                  "MMET_CYCLING",
                  "MMET_WALKING",
                  "PM_CONC_BASE",
-                 "PM_TRANS_SHARE",
+                 "MC_TO_CAR_RATIO",
                  "BACKGROUND_PA_SCALAR",
-                 "SAFETY_SCALAR",
                  "CHRONIC_DISEASE_SCALAR")
-  for (i in 1:length(variables)) {
-    name <- variables[i]
-    val <- get(variables[i])
+  for (i in 1:length(normVariables)) {
+    name <- normVariables[i]
+    val <- get(normVariables[i])
     if (length(val) == 1) {
       assign(name, val, envir = .GlobalEnv)
     } else {
@@ -48,6 +48,21 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
         rlnorm(NSAMPLES, val[1], val[2])
     }
   }
+  
+  ##Variables with beta distribution
+  betaVariables <- c("PM_TRANS_SHARE",
+                  "INJURY_REPORTING_RATE")
+  for (i in 1:length(betaVariables)) {
+    name <- betaVariables[i]
+    val <- get(betaVariables[i])
+    if (length(val) == 1) {
+      assign(name, val, envir = .GlobalEnv)
+    } else {
+      parameters[[name]] <-
+        rbeta(NSAMPLES, val[1], val[2])
+    }
+  }
+  
   #if(length(BUS_WALK_TIME) > 1 )    parameters$BUS_WALK_TIME <- rlnorm(NSAMPLES,BUS_WALK_TIME[1], BUS_WALK_TIME[2])
   #if(length(MMET_CYCLING) > 1 )     parameters$MMET_CYCLING <- rlnorm(NSAMPLES,MMET_CYCLING[1], MMET_CYCLING[2])
   #if(length(MMET_WALKING) > 1 )     parameters$MMET_WALKING <- rlnorm(NSAMPLES,MMET_WALKING[1], MMET_WALKING[2])
