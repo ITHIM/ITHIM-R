@@ -130,3 +130,8 @@ rd$female <- NULL
 # Remove unused columns
 # (hh_id)
 rd$hh_id <- NULL
+
+
+#####
+# Write streamlined travel survey data as a csv in the inst folder
+write_csv(rd, "inst/extdata/local/delhi/delhi_travel_survey.csv")
