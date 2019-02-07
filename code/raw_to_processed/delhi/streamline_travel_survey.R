@@ -8,6 +8,10 @@ library(plotly)
 # Read delhi travel survey with stages
 rd <- read_csv("data/local/delhi/delhi_travel_survey.csv")
 
+####
+# Modify raw dataset to expand based on household weights
+# Add new ids for trips and persons
+
 # Initialize all pid (new column for person_id) as -1
 rd$pid <- -1
 # Initialize all tid as -1
@@ -16,7 +20,6 @@ rd$tid <- -1
 tid <- 1
 # Starting id from 1
 id <- 1
-# rd <- rd %>% filter(person_id == "S08544")
 # Get unique person_ids
 pid_list <- unique(rd$person_id)
 # Loop through them and expand them using household weights
@@ -60,7 +63,7 @@ for(i in 1:length(pid_list)) {
       # Assing a new trip ID
       for (utid in unique(pg$trip_id)){
         ustages <- rd %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% select(count) %>% as.integer()
-        cat(utid, " - ", ustages, "\n")
+        # cat(utid, " - ", ustages, "\n")
         rd$tid[rd$trip_id == utid] <- rep(tid, ustages)
         # Increment tid by adding utrips to it
         tid <- tid + 1
@@ -104,3 +107,26 @@ for(i in 1:length(pid_list)) {
     
   }
 }
+
+#####
+# Column (vars) manipulations
+
+# Replace trip_id by tid
+rd$trip_id <- rd$tid
+rd$tid <- NULL
+
+# Replace person_id by pid
+rd$person_id <- rd$pid
+rd$pid <- NULL
+
+# Rename person_id to participant_id
+rd <- rename(rd, participant_id = person_id)
+
+# Introduce sex column - and remove female column
+rd$sex <- "Male"
+rd$sex[rd$female == 1] <- "Female"
+rd$female <- NULL
+
+# Remove unused columns
+# (hh_id)
+rd$hh_id <- NULL
