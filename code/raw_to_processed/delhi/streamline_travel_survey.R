@@ -34,7 +34,7 @@ for(i in 1:length(pid_list)) {
     # Get unique trips count
     utrips <- length(unique(pg$trip_id))
     # If there is no weight (after rounding), assign a new id to that person
-    if (count == 0){
+    if (count == 0 || count == 1){
       # Assign id (an auto-increasing id)
       rd[rd$person_id == pid_list[i],]$pid <- id
       # Increment id by 1
@@ -52,8 +52,8 @@ for(i in 1:length(pid_list)) {
         tid <- tid + 1
       }
     }
-    # If household weight is greater than 0
-    if (count > 0){
+    # If household weight is greater than 1
+    if (count > 1){
       # Replicate filtered dataset 'count' many times
       d <- bind_rows(replicate((count), pg, simplify = FALSE))
       # Sort it by trip id
