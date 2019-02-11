@@ -12,8 +12,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    INJURY_REPORTING_RATE = 1,
                                    CHRONIC_DISEASE_SCALAR = 1 ){
   
-  if (PM_CONC_BASE == 50 |
-    PM_TRANS_SHARE == 0.225)
+  if (NSAMPLES==1&&(PM_CONC_BASE == 50 |
+    PM_TRANS_SHARE == 0.225))
   error_handling(1, "ithim_setup_parameters", "PM_CONC_BASE, PM_TRANS_SHARE")
   
   ## PARAMETERS
