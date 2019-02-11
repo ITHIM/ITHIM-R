@@ -108,7 +108,7 @@ ithim_object <- run_ithim_setup(NSAMPLES = 64,
                                 INJURY_REPORTING_RATE = c(8,3), 
                                 CHRONIC_DISEASE_SCALAR = c(log(1), log(1.2)),  
                                 BACKGROUND_PA_SCALAR = c(log(1), log(1.2)),   
-                                MC_TO_CAR_RATIO = c(-1.4,0.4),
+                                MOTORCYCLE_TO_CAR_RATIO = c(-1.4,0.4),
                                 PA_DOSE_RESPONSE_QUANTILE = T,  
                                 AP_DOSE_RESPONSE_QUANTILE = T,
                                 DAY_TO_WEEK_TRAVEL_SCALAR = c(20,3))
@@ -117,7 +117,7 @@ numcores <- detectCores()
 ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
 for(i in 1:NSAMPLES) print(length(ithim_object$outcomes[[i]]))
 
-plot(ithim_object$parameters$MC_TO_CAR_RATIO,sapply(ithim_object$outcomes,function(x)sum(x$hb$deaths[,40])))
+plot(ithim_object$parameters$MOTORCYCLE_TO_CAR_RATIO,sapply(ithim_object$outcomes,function(x)sum(x$hb$deaths[,40])))
 plot(ithim_object$parameters$INJURY_REPORTING_RATE,sapply(ithim_object$outcomes,function(x)sum(x$hb$deaths[,40])))
 plot(ithim_object$parameters$AP_DOSE_RESPONSE_QUANTILE_GAMMA_cvd_ihd,sapply(ithim_object$outcomes,function(x)sum(x$hb$deaths[,10])))
 
@@ -164,7 +164,7 @@ certainty_parameters <- list(uncertain=list(
   BUS_WALK_TIME = c(log(5), log(1.2)),
   MMET_CYCLING = c(log(5), log(1.2)), 
   MMET_WALKING = c(log(2.5), log(1.2)), 
-  MC_TO_CAR_RATIO = c(-1.4,0.4),
+  MOTORCYCLE_TO_CAR_RATIO = c(-1.4,0.4),
   DAY_TO_WEEK_TRAVEL_SCALAR = c(20,3),
   PA_DOSE_RESPONSE_QUANTILE = T,  
   AP_DOSE_RESPONSE_QUANTILE = T
@@ -178,7 +178,8 @@ certainty_parameters <- list(uncertain=list(
   BUS_WALK_TIME = 5,
   MMET_CYCLING = 4.63, 
   MMET_WALKING = 2.53, 
-  MC_TO_CAR_RATIO = 0.2,
+  MOTORCYCLE_TO_CAR_RATIO = 0.2,
+  DAY_TO_WEEK_TRAVEL_SCALAR = 7,
   PA_DOSE_RESPONSE_QUANTILE = F,  
   AP_DOSE_RESPONSE_QUANTILE = F
 ))
@@ -202,7 +203,7 @@ if(file.exists(file_name)){
                                       PM_CONC_BASE = certainty_parameters[[certainty]]$background_pm[[environmental_scenario]],  
                                       PM_TRANS_SHARE = certainty_parameters[[certainty]]$transport_pm[[environmental_scenario]],  
                                       BACKGROUND_PA_SCALAR = certainty_parameters[[certainty]]$background_pa_scalar[[environmental_scenario]],  
-                                      MC_TO_CAR_RATIO = certainty_parameters[[certainty]]$MC_TO_CAR_RATIO,  
+                                      MOTORCYCLE_TO_CAR_RATIO = certainty_parameters[[certainty]]$MOTORCYCLE_TO_CAR_RATIO,  
                                       DAY_TO_WEEK_TRAVEL_SCALAR = certainty_parameters[[certainty]]$DAY_TO_WEEK_TRAVEL_SCALAR,
                                       PA_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$PA_DOSE_RESPONSE_QUANTILE,  
                                       AP_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$AP_DOSE_RESPONSE_QUANTILE)
@@ -235,7 +236,8 @@ if(file.exists(file_name)){
           if("DR_AP_LIST"%in%names(ithim_object$parameters)&&NSAMPLES>=1024){
             AP_names <- sapply(names(ithim_object$parameters),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
             diseases <- sapply(names(ithim_object$parameters)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-            evppi_for_AP <- mclapply(diseases, FUN = parallel_evppi_for_AP,parameter_samples,outcome, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+            NSCEN <- 5
+            evppi_for_AP <- mclapply(diseases, FUN = parallel_evppi_for_AP,parameter_samples,outcome,NSCEN, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
             names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
             evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
             ## get rows to remove

@@ -13,8 +13,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    CHRONIC_DISEASE_SCALAR = 1,
                                    DAY_TO_WEEK_TRAVEL_SCALAR = 7){
   
-  if (NSAMPLES==1&&(PM_CONC_BASE == 50 |
-    PM_TRANS_SHARE == 0.225))
+  if ((length(PM_CONC_BASE==1)&PM_CONC_BASE == 50) |
+      (length(PM_TRANS_SHARE==1)&PM_TRANS_SHARE == 0.225))
   error_handling(1, "ithim_setup_parameters", "PM_CONC_BASE, PM_TRANS_SHARE")
   
   ## PARAMETERS
@@ -63,6 +63,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
         rbeta(NSAMPLES, val[1], val[2])
     }
   }
+  
   if(length(DAY_TO_WEEK_TRAVEL_SCALAR) > 1 ){
     parameters$DAY_TO_WEEK_TRAVEL_SCALAR <- 7*rbeta(NSAMPLES,DAY_TO_WEEK_TRAVEL_SCALAR[1],DAY_TO_WEEK_TRAVEL_SCALAR[2])
   }else{
@@ -94,7 +95,18 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
       dr_ap_list[[cause]] <- list()
       for(age in unique(dr_ap$age_code)){
         dr_ap_age <- subset(dr_ap,age_code==age)
-        dr_ap_list[[cause]][[as.character(age)]] <- data.frame(alpha=mean(dr_ap_age$alpha),beta=mean(dr_ap_age$beta),gamma=mean(dr_ap_age$gamma),tmrel=mean(dr_ap_age$tmrel))
+        lgamma <- log(dr_ap_age$gamma)
+        gamma_val <- quantile(density(lgamma),0.5)
+        lbeta <- log(dr_ap_age$beta)
+        den <- kde2d(lgamma,lbeta,n=c(1,100),h=0.2,lims=c(gamma_val,gamma_val,min(lbeta)-1,max(lbeta)+1))
+        beta_val <- approx(x=cumsum(den$z)/sum(den$z),y=den$y,xout=0.5)$y
+        mod <- gam(log(alpha)~te(log(gamma),log(beta)),data=dr_ap_age)
+        pred_val <- predict(mod, newdata=data.frame(beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
+        alpha_val <- qnorm(0.5,pred_val$fit,sqrt(mod$sig2))
+        mod <- gam(log(tmrel)~ns(log(gamma),df=8)+ns(log(beta),df=8)+ns(log(alpha),df=8),data=dr_ap_age)
+        pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
+        tmrel_val <- qnorm(0.5,pred_val$fit,sqrt(mod$sig2))
+        dr_ap_list[[disease]][[as.character(age)]] <- data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val),tmrel=exp(tmrel_val))
       }
     }
     DR_AP_LIST <<- dr_ap_list
@@ -141,7 +153,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
           # generate a value for tmrel given alpha, beta and gamma
           mod <- gam(log(tmrel)~ns(log(gamma),df=8)+ns(log(beta),df=8)+ns(log(alpha),df=8),data=dr_ap_age)
           pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
-          tmrel_val <- qnorm(parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease)]],pred_val$fit,sqrt(mod$sig2))
+          tmrel_val <- qnorm(quant4,pred_val$fit,sqrt(mod$sig2))
           dr_ap_list[[disease]][[as.character(age)]] <- data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val),tmrel=exp(tmrel_val))
         }
       }
