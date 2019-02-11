@@ -227,14 +227,14 @@ ggplot(sd %>%
 # [1] "99"          "Bus"         "Taxi"        "Walking"     "Train"       "Private Car" "Other"      
 # [8] "Unspecified" "Bicycle"
 
-sd[sd$trip_mode == "bus",]$trip_mode <- "Bus"
+#sd[sd$trip_mode == "bus",]$trip_mode <- "Bus"
 sd[is.na(sd$trip_mode),]$trip_mode <- "99"
-sd[sd$trip_mode == "car",]$trip_mode <- "Private Car"
-sd[sd$trip_mode == "bicycle",]$trip_mode <- "Bicycle"
-sd[sd$trip_mode == "train",]$trip_mode <- "Train"
-sd[sd$trip_mode == "walk",]$trip_mode <- "Walking"
-sd[sd$trip_mode == "taxi",]$trip_mode <- "Taxi"
-sd[sd$trip_mode == "motorcycle",]$trip_mode <- "Motorcycle"
+#sd[sd$trip_mode == "car",]$trip_mode <- "Private Car"
+#sd[sd$trip_mode == "bicycle",]$trip_mode <- "Bicycle"
+#sd[sd$trip_mode == "train",]$trip_mode <- "Train"
+sd[sd$trip_mode == "walk",]$trip_mode <- "walking"
+#sd[sd$trip_mode == "taxi",]$trip_mode <- "Taxi"
+#sd[sd$trip_mode == "motorcycle",]$trip_mode <- "Motorcycle"
 
 write_csv(sd, "data/local/sao_paulo/trips_sao_paulo.csv")
 
