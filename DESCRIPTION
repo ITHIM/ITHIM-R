@@ -1,0 +1,45 @@
+Package: ithimr
+Title: Integrated Transport and Health Impact Model
+Version: 0.1
+Authors@R: person("First", "Last", email = "first.last@example.com",
+                  role = c("aut", "cre"))
+Description: Modelling the impact of transport choices on population health.
+Depends: R (>= 3.1.0),
+    dplyr,
+    tidyr,
+    readr,
+    haven,
+    plotly,
+    ReIns,
+    truncnorm,
+    distr,
+    pracma,
+    data.table,
+    mgcv,
+    parallel,
+    splines,
+    BMS,
+    distr,
+    MASS
+License: What license is it under?
+LazyData: true
+Imports:
+    dplyr,
+    tidyr,
+    readr,
+    haven,
+    plotly,
+    ReIns,
+    truncnorm,
+    distr,
+    pracma,
+    data.table,
+    mgcv,
+    parallel,
+    splines,
+    BMS,
+    distr,
+    MASS
+Suggests:
+    testthat
+RoxygenNote: 6.1.1

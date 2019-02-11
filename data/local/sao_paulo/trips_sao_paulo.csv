@@ -1,0 +1,1001 @@
+participant_id,trip_id,trip_mode,trip_duration,age,sex,scenario
+21668,NA,99,NA,20,Female,Baseline
+17933,3,Bus,50,18,Female,Baseline
+19891,1,Bus,55,25,Male,Baseline
+15540,2,subway,120,26,Male,Baseline
+376,1,Private Car,20,43,Female,Baseline
+5756,2,Private Car,20,55,Female,Baseline
+4107,1,Motorcycle,40,48,Male,Baseline
+22666,1,Private Car,70,56,Male,Baseline
+6618,2,subway,60,26,Female,Baseline
+26840,1,subway,45,15,Male,Baseline
+23530,1,Motorcycle,3,33,Female,Baseline
+9480,4,Bicycle,5,21,Male,Baseline
+23788,2,Bus,130,52,Female,Baseline
+2113,2,subway,110,44,Female,Baseline
+7461,1,Train,90,18,Female,Baseline
+13802,3,subway,110,32,Male,Baseline
+10976,4,Walking,5,50,Female,Baseline
+7590,1,Bus,45,8,Female,Baseline
+21590,2,Private Car,45,33,Male,Baseline
+26297,2,van,25,61,Female,Baseline
+9997,2,Bus,20,10,Male,Baseline
+2349,2,Walking,10,14,Female,Baseline
+16094,2,Private Car,25,75,Male,Baseline
+16520,NA,99,NA,47,Male,Baseline
+25187,2,Walking,20,29,Male,Baseline
+17719,1,Private Car,60,32,Male,Baseline
+900,4,Private Car,20,34,Male,Baseline
+15275,2,Private Car,15,10,Female,Baseline
+5387,1,Walking,5,12,Male,Baseline
+23403,2,Private Car,10,6,Female,Baseline
+17323,3,Private Car,5,48,Female,Baseline
+4149,2,others,15,44,Male,Baseline
+19256,1,Walking,10,42,Male,Baseline
+13068,NA,99,NA,14,Female,Baseline
+16199,2,Walking,30,15,Female,Baseline
+6203,2,Bus,30,1,Male,Baseline
+22905,1,Private Car,20,72,Female,Baseline
+14113,2,Walking,5,44,Male,Baseline
+12929,3,Walking,15,39,Female,Baseline
+9091,2,Private Car,30,5,Female,Baseline
+12876,NA,99,NA,69,Male,Baseline
+265,NA,99,NA,64,Male,Baseline
+21167,2,Walking,45,19,Female,Baseline
+10755,2,Walking,15,47,Male,Baseline
+7426,2,Bus,20,7,Male,Baseline
+242,2,Private Car,10,5,Male,Baseline
+13678,3,Walking,10,29,Female,Baseline
+6835,1,Walking,30,13,Male,Baseline
+19117,NA,99,NA,94,Female,Baseline
+13707,1,Bus,90,56,Male,Baseline
+23822,1,Bus,30,32,Male,Baseline
+2996,1,Private Car,20,45,Male,Baseline
+25409,3,Taxi,20,23,Male,Baseline
+19137,1,Bus,80,31,Female,Baseline
+6103,1,Walking,25,18,Male,Baseline
+12042,1,Train,20,22,Female,Baseline
+10509,2,Bus,30,57,Female,Baseline
+23789,2,Walking,15,16,Male,Baseline
+3044,3,Walking,15,9,Male,Baseline
+2140,2,Bus,30,15,Female,Baseline
+5353,2,Walking,45,79,Male,Baseline
+9016,NA,99,NA,70,Female,Baseline
+19491,1,Bus,60,40,Female,Baseline
+15072,2,Walking,10,10,Male,Baseline
+13463,5,Private Car,30,45,Female,Baseline
+26213,2,Walking,10,6,Female,Baseline
+7509,3,Walking,5,46,Male,Baseline
+990,2,subway,45,45,Male,Baseline
+16640,1,Walking,60,21,Female,Baseline
+19906,1,Walking,5,7,Male,Baseline
+7088,1,Motorcycle,10,34,Male,Baseline
+10578,1,Walking,20,51,Female,Baseline
+4500,5,Walking,10,41,Female,Baseline
+24229,1,Walking,10,39,Female,Baseline
+8231,4,subway,30,25,Male,Baseline
+7775,2,Private Car,45,38,Male,Baseline
+23615,NA,99,NA,1,Male,Baseline
+24027,NA,99,NA,18,Female,Baseline
+13290,3,Bus,90,42,Male,Baseline
+21564,2,Walking,40,16,Male,Baseline
+23035,2,Walking,20,16,Male,Baseline
+6323,2,Bus,90,31,Female,Baseline
+7492,1,Walking,10,28,Female,Baseline
+22497,1,Bus,40,12,Male,Baseline
+22893,3,Walking,20,31,Female,Baseline
+25166,1,Private Car,30,28,Female,Baseline
+19831,3,Private Car,40,51,Female,Baseline
+8422,3,Walking,2,22,Male,Baseline
+3855,1,Bus,45,10,Male,Baseline
+9649,2,Walking,40,14,Male,Baseline
+11304,NA,99,NA,68,Male,Baseline
+13915,1,Private Car,40,45,Female,Baseline
+18148,2,Walking,25,13,Male,Baseline
+3789,1,Walking,5,89,Male,Baseline
+15768,2,Walking,10,40,Female,Baseline
+15075,1,Bus,120,43,Male,Baseline
+1790,2,Private Car,30,32,Male,Baseline
+212,1,Private Car,5,61,Female,Baseline
+10403,NA,99,NA,75,Female,Baseline
+12838,NA,99,NA,53,Male,Baseline
+8106,1,Bus,15,49,Female,Baseline
+20881,6,Walking,5,31,Female,Baseline
+6862,2,Bus,180,62,Female,Baseline
+23014,2,Walking,30,52,Male,Baseline
+19189,1,Walking,35,70,Male,Baseline
+9061,5,Private Car,15,48,Male,Baseline
+22710,1,Bus,60,14,Female,Baseline
+22615,4,Private Car,15,41,Male,Baseline
+5774,1,Bus,60,11,Male,Baseline
+598,4,Bus,30,36,Male,Baseline
+4255,1,Motorcycle,45,30,Male,Baseline
+22105,2,Walking,10,34,Female,Baseline
+26366,2,subway,100,19,Female,Baseline
+21827,1,Private Car,50,1,Male,Baseline
+9977,3,Private Car,90,25,Male,Baseline
+18123,1,Private Car,10,22,Male,Baseline
+18564,1,Bus,40,19,Female,Baseline
+1023,NA,99,NA,87,Male,Baseline
+10210,1,Private Car,20,32,Male,Baseline
+5548,2,Walking,10,7,Male,Baseline
+26765,1,Walking,30,12,Male,Baseline
+7969,4,Walking,5,24,Female,Baseline
+25164,NA,99,NA,63,Female,Baseline
+16194,1,Motorcycle,50,23,Male,Baseline
+17516,1,Bus,30,3,Male,Baseline
+14610,2,Walking,20,61,Female,Baseline
+8426,1,Walking,20,4,Male,Baseline
+10269,3,Bus,65,15,Female,Baseline
+20009,2,Bus,10,4,Female,Baseline
+4006,NA,99,NA,45,Male,Baseline
+18515,1,Walking,25,59,Female,Baseline
+17397,2,Walking,20,9,Male,Baseline
+1192,2,Walking,10,32,Male,Baseline
+21000,4,subway,30,19,Female,Baseline
+8833,3,Walking,5,51,Male,Baseline
+8616,2,Bus,100,44,Female,Baseline
+18131,1,subway,70,1,Female,Baseline
+3427,2,Bus,30,14,Male,Baseline
+11977,1,Private Car,55,2,Female,Baseline
+26910,2,Private Car,10,15,Male,Baseline
+12547,1,Motorcycle,75,36,Male,Baseline
+11638,2,Bus,20,28,Male,Baseline
+13819,1,Private Car,30,18,Male,Baseline
+13920,3,subway,90,15,Female,Baseline
+6338,3,Bus,40,31,Female,Baseline
+8049,5,Walking,5,61,Female,Baseline
+728,2,Bicycle,25,35,Male,Baseline
+6550,4,Walking,2,50,Male,Baseline
+16738,1,Walking,10,21,Female,Baseline
+26744,2,Private Car,50,25,Male,Baseline
+14577,1,Bus,40,13,Female,Baseline
+16745,1,Private Car,50,31,Male,Baseline
+6288,1,Bus,180,36,Female,Baseline
+24776,3,Private Car,29,30,Male,Baseline
+12418,1,Bus,60,21,Male,Baseline
+5760,5,Private Car,10,33,Female,Baseline
+26214,2,Bus,30,4,Male,Baseline
+16381,1,Walking,20,13,Female,Baseline
+19898,1,Walking,10,23,Male,Baseline
+21333,1,Private Car,40,21,Female,Baseline
+15068,3,Train,90,26,Male,Baseline
+19785,1,Private Car,10,32,Male,Baseline
+18787,4,Walking,2,61,Male,Baseline
+17931,1,Private Car,35,34,Female,Baseline
+12359,1,Motorcycle,30,23,Male,Baseline
+13636,1,Private Car,30,4,Female,Baseline
+17915,1,Walking,20,23,Female,Baseline
+25411,1,Walking,10,56,Male,Baseline
+22640,2,Walking,20,8,Female,Baseline
+7219,1,Walking,10,15,Female,Baseline
+18742,2,Walking,20,13,Male,Baseline
+18146,1,Private Car,30,43,Male,Baseline
+5831,NA,99,NA,61,Female,Baseline
+11534,NA,99,NA,60,Female,Baseline
+9608,NA,99,NA,13,Male,Baseline
+7644,6,Walking,10,18,Male,Baseline
+23103,3,Walking,10,43,Male,Baseline
+9586,4,subway,30,20,Male,Baseline
+2590,1,subway,150,61,Male,Baseline
+13774,2,Walking,10,6,Male,Baseline
+24126,2,subway,120,29,Male,Baseline
+12239,1,Private Car,10,61,Male,Baseline
+20032,4,Walking,10,30,Male,Baseline
+356,3,Walking,20,26,Female,Baseline
+20584,2,Bus,35,14,Male,Baseline
+26805,4,Walking,24,42,Female,Baseline
+22032,2,Bus,40,33,Male,Baseline
+1662,2,Private Car,40,32,Male,Baseline
+21983,2,Bus,120,55,Female,Baseline
+16438,3,Private Car,15,31,Female,Baseline
+26690,1,Walking,30,15,Male,Baseline
+21456,1,Private Car,5,3,Female,Baseline
+7509,4,Walking,5,46,Male,Baseline
+23905,1,Walking,10,58,Male,Baseline
+5461,4,Bus,90,43,Female,Baseline
+21180,1,Bus,50,31,Female,Baseline
+12329,4,Train,110,40,Female,Baseline
+8455,1,Walking,5,44,Female,Baseline
+8512,3,Walking,45,56,Female,Baseline
+23808,1,Private Car,30,15,Female,Baseline
+12344,2,Walking,10,27,Male,Baseline
+15493,2,Bus,20,10,Female,Baseline
+8810,1,Bicycle,10,20,Male,Baseline
+17420,2,Walking,10,59,Female,Baseline
+5102,1,Walking,15,5,Male,Baseline
+1516,6,Bus,20,28,Female,Baseline
+25749,NA,99,NA,33,Male,Baseline
+8864,NA,99,NA,2,Female,Baseline
+26940,3,Walking,10,34,Female,Baseline
+12057,2,Train,90,43,Male,Baseline
+20499,4,Bus,90,37,Female,Baseline
+22518,1,Bus,75,45,Male,Baseline
+12517,3,subway,90,31,Female,Baseline
+9957,3,Walking,5,30,Male,Baseline
+13635,2,Private Car,30,36,Female,Baseline
+7790,2,Walking,20,36,Male,Baseline
+2537,2,Private Car,10,23,Male,Baseline
+15932,2,Bus,80,13,Male,Baseline
+2547,1,Private Car,10,48,Male,Baseline
+7538,2,Bus,70,61,Female,Baseline
+14794,1,subway,150,32,Female,Baseline
+1731,3,Walking,5,45,Male,Baseline
+15714,1,Bicycle,90,47,Male,Baseline
+26162,4,Walking,40,54,Female,Baseline
+16175,3,Walking,10,17,Male,Baseline
+9739,2,Bus,35,14,Female,Baseline
+19843,1,Walking,10,21,Male,Baseline
+9378,2,Walking,20,14,Male,Baseline
+3231,1,Walking,10,9,Male,Baseline
+26319,1,Bus,45,15,Male,Baseline
+1847,4,Private Car,75,43,Male,Baseline
+10488,4,Private Car,205,63,Female,Baseline
+17183,2,Motorcycle,10,42,Male,Baseline
+7599,2,Walking,5,10,Male,Baseline
+18112,2,Private Car,35,39,Male,Baseline
+11130,6,Walking,3,41,Female,Baseline
+10058,3,Private Car,30,40,Male,Baseline
+26538,2,Bus,30,8,Male,Baseline
+18228,1,van,50,19,Male,Baseline
+20978,2,Walking,20,15,Male,Baseline
+7330,2,subway,40,58,Female,Baseline
+3085,NA,99,NA,64,Male,Baseline
+9089,12,Walking,5,34,Male,Baseline
+4159,2,Bus,80,24,Male,Baseline
+6263,NA,99,NA,21,Male,Baseline
+13391,2,Private Car,160,58,Male,Baseline
+21056,1,Private Car,40,3,Female,Baseline
+11442,1,Bus,150,80,Female,Baseline
+8887,2,Bus,10,8,Female,Baseline
+13891,4,Train,90,35,Male,Baseline
+23222,3,Walking,5,22,Female,Baseline
+22947,2,Walking,20,15,Male,Baseline
+10963,2,subway,42,20,Female,Baseline
+16153,1,subway,120,30,Male,Baseline
+11915,2,Walking,20,49,Female,Baseline
+21375,NA,99,NA,48,Female,Baseline
+22278,1,Bus,40,22,Female,Baseline
+20490,2,subway,50,41,Male,Baseline
+15222,2,Walking,5,45,Male,Baseline
+19321,2,subway,70,26,Female,Baseline
+9973,1,Bus,60,34,Male,Baseline
+5617,NA,99,NA,68,Male,Baseline
+23015,NA,99,NA,56,Female,Baseline
+13290,1,Walking,5,42,Male,Baseline
+13747,1,subway,90,65,Female,Baseline
+12950,NA,99,NA,79,Male,Baseline
+20213,4,Walking,10,16,Male,Baseline
+13151,1,van,55,31,Male,Baseline
+4122,2,subway,90,65,Female,Baseline
+7236,NA,99,NA,43,Female,Baseline
+14284,2,Private Car,30,20,Female,Baseline
+19506,4,Private Car,70,30,Female,Baseline
+19308,1,Bus,20,6,Male,Baseline
+8712,2,Bus,30,17,Female,Baseline
+25107,2,Bus,60,39,Male,Baseline
+15999,2,Private Car,20,33,Female,Baseline
+23742,2,Bus,100,25,Male,Baseline
+14087,1,Bus,45,19,Male,Baseline
+21362,NA,99,NA,56,Female,Baseline
+13354,NA,99,NA,87,Male,Baseline
+9495,1,Private Car,5,36,Male,Baseline
+10286,2,Walking,40,3,Male,Baseline
+3316,2,Walking,10,58,Female,Baseline
+16710,1,subway,60,37,Male,Baseline
+8119,NA,99,NA,10,Female,Baseline
+9717,4,Taxi,10,55,Female,Baseline
+7488,2,Bus,60,11,Male,Baseline
+10238,1,Walking,15,15,Male,Baseline
+10572,3,Private Car,104,36,Female,Baseline
+16197,1,Walking,30,18,Female,Baseline
+13294,3,Walking,20,41,Male,Baseline
+6516,1,Walking,30,18,Female,Baseline
+12260,2,Walking,5,9,Male,Baseline
+2408,2,Private Car,45,32,Male,Baseline
+18549,2,Private Car,30,30,Male,Baseline
+20068,1,Walking,10,44,Female,Baseline
+9602,1,Walking,5,1,Male,Baseline
+14587,2,Walking,5,10,Female,Baseline
+8371,2,Walking,30,24,Female,Baseline
+8360,2,Bus,10,68,Male,Baseline
+17431,5,Private Car,25,41,Male,Baseline
+1988,1,Private Car,22,16,Female,Baseline
+24383,NA,99,NA,10,Female,Baseline
+9454,NA,99,NA,9,Male,Baseline
+11807,NA,99,NA,64,Female,Baseline
+3829,1,Private Car,30,21,Female,Baseline
+10396,2,Private Car,70,62,Male,Baseline
+7815,8,Private Car,15,23,Male,Baseline
+13811,3,Private Car,5,35,Female,Baseline
+11754,3,Walking,20,38,Male,Baseline
+6014,1,Train,75,16,Female,Baseline
+10058,5,Private Car,40,40,Male,Baseline
+3787,1,Bus,130,21,Female,Baseline
+14507,NA,99,NA,22,Female,Baseline
+12723,1,subway,60,37,Male,Baseline
+21667,1,Private Car,40,37,Male,Baseline
+15820,2,Walking,20,31,Male,Baseline
+765,1,Walking,15,69,Female,Baseline
+6342,1,Walking,20,15,Male,Baseline
+14110,1,Bus,75,36,Male,Baseline
+20723,2,Private Car,30,52,Male,Baseline
+5513,2,Walking,2,30,Female,Baseline
+23175,1,Bus,30,17,Male,Baseline
+10061,1,Private Car,20,41,Male,Baseline
+15435,2,Bus,75,31,Female,Baseline
+2795,1,Bus,30,10,Female,Baseline
+10643,2,Walking,5,32,Female,Baseline
+19026,2,Bus,20,10,Female,Baseline
+9283,2,Bus,40,15,Female,Baseline
+22018,4,Walking,1,58,Male,Baseline
+8108,1,Walking,15,15,Male,Baseline
+21517,2,Bus,30,17,Male,Baseline
+19830,1,Bus,30,55,Male,Baseline
+17321,NA,99,NA,20,Male,Baseline
+19681,2,Bicycle,20,25,Male,Baseline
+4490,2,Walking,10,8,Male,Baseline
+11928,4,Walking,10,45,Male,Baseline
+16303,1,Walking,10,16,Female,Baseline
+19581,2,Private Car,60,49,Male,Baseline
+16770,1,Bus,110,17,Male,Baseline
+22306,NA,99,NA,1,Male,Baseline
+22837,NA,99,NA,69,Male,Baseline
+22590,NA,99,NA,1,Male,Baseline
+16334,3,Walking,7,8,Female,Baseline
+6287,2,Walking,5,58,Female,Baseline
+5546,5,Walking,10,15,Female,Baseline
+15329,2,subway,60,54,Female,Baseline
+10592,1,Walking,10,23,Female,Baseline
+7207,3,Bus,20,14,Female,Baseline
+12118,2,Walking,15,12,Male,Baseline
+7573,2,Private Car,65,54,Male,Baseline
+24724,2,Private Car,20,18,Female,Baseline
+7642,3,Walking,10,32,Male,Baseline
+22886,2,Private Car,9,71,Male,Baseline
+7032,1,Walking,60,26,Male,Baseline
+119,2,Private Car,25,69,Male,Baseline
+16163,2,Private Car,55,26,Male,Baseline
+20878,2,Walking,20,22,Male,Baseline
+4234,3,Walking,5,42,Male,Baseline
+8523,1,Private Car,30,42,Female,Baseline
+7848,1,Private Car,30,34,Female,Baseline
+5606,NA,99,NA,56,Female,Baseline
+7558,1,Walking,10,14,Male,Baseline
+26154,2,Bus,60,19,Male,Baseline
+26833,3,subway,35,29,Male,Baseline
+18528,2,Private Car,10,47,Female,Baseline
+25298,2,Train,105,20,Male,Baseline
+1463,3,Walking,20,34,Female,Baseline
+22427,1,Bus,65,30,Male,Baseline
+25869,1,Bus,90,23,Male,Baseline
+10666,2,Private Car,20,32,Female,Baseline
+15052,NA,99,NA,1,Male,Baseline
+15129,4,Walking,15,17,Male,Baseline
+20756,NA,99,NA,43,Female,Baseline
+23170,1,subway,40,23,Male,Baseline
+15285,2,Private Car,20,29,Male,Baseline
+17821,1,Walking,5,32,Female,Baseline
+15402,1,Walking,20,59,Male,Baseline
+24318,1,Bus,140,38,Female,Baseline
+16437,1,Private Car,20,29,Male,Baseline
+10183,2,Walking,5,23,Male,Baseline
+10492,1,Walking,15,44,Female,Baseline
+2250,2,Private Car,8,62,Male,Baseline
+5688,1,subway,110,55,Male,Baseline
+9960,1,Bus,50,53,Male,Baseline
+23893,1,Private Car,30,26,Male,Baseline
+12500,2,Private Car,100,46,Male,Baseline
+4184,1,Private Car,35,55,Female,Baseline
+22490,2,Walking,20,50,Female,Baseline
+19657,5,Bus,70,17,Female,Baseline
+17580,NA,99,NA,77,Male,Baseline
+1165,2,Private Car,60,54,Male,Baseline
+21943,1,Walking,35,78,Female,Baseline
+19398,2,Walking,3,48,Male,Baseline
+24676,2,Bus,95,66,Female,Baseline
+5898,5,Private Car,4,42,Female,Baseline
+26649,2,Walking,10,39,Male,Baseline
+22372,NA,99,NA,21,Female,Baseline
+26495,4,Motorcycle,15,29,Female,Baseline
+6234,3,Private Car,30,52,Male,Baseline
+5663,2,Bus,60,53,Female,Baseline
+4381,3,Walking,10,42,Female,Baseline
+10094,2,subway,150,40,Male,Baseline
+16818,1,Bus,30,43,Male,Baseline
+10221,5,Walking,20,13,Female,Baseline
+15427,NA,99,NA,25,Male,Baseline
+6117,3,Private Car,10,26,Female,Baseline
+2057,1,Bus,20,59,Female,Baseline
+17923,4,subway,120,68,Male,Baseline
+22075,1,Bus,120,59,Female,Baseline
+15726,NA,99,NA,68,Male,Baseline
+20183,2,Bus,15,11,Male,Baseline
+5163,1,Walking,5,31,Female,Baseline
+14433,3,Walking,10,1,Male,Baseline
+320,2,Walking,5,58,Male,Baseline
+2689,2,Train,45,20,Female,Baseline
+25550,1,Motorcycle,30,37,Male,Baseline
+3328,1,Walking,30,17,Male,Baseline
+24414,3,Private Car,30,64,Male,Baseline
+16972,3,Private Car,30,47,Male,Baseline
+2380,1,Bus,30,66,Male,Baseline
+12434,2,Walking,10,10,Female,Baseline
+13805,2,Walking,10,42,Female,Baseline
+12620,2,Private Car,15,7,Male,Baseline
+20690,1,Private Car,15,58,Male,Baseline
+4084,2,Private Car,60,32,Male,Baseline
+20776,4,Private Car,5,8,Male,Baseline
+18928,2,subway,45,30,Male,Baseline
+19546,1,Walking,15,14,Male,Baseline
+23083,4,Walking,60,49,Male,Baseline
+17687,1,subway,120,36,Male,Baseline
+5333,NA,99,NA,47,Female,Baseline
+2302,NA,99,NA,13,Female,Baseline
+12499,NA,99,NA,82,Male,Baseline
+22409,1,Walking,15,19,Female,Baseline
+1482,1,Bus,30,34,Male,Baseline
+9175,1,Private Car,30,33,Male,Baseline
+15469,2,subway,70,30,Male,Baseline
+22976,1,Bus,30,66,Female,Baseline
+12416,1,Private Car,60,26,Male,Baseline
+10957,2,Walking,20,15,Female,Baseline
+20952,2,Walking,28,32,Female,Baseline
+7260,NA,99,NA,57,Female,Baseline
+9242,4,Walking,15,43,Male,Baseline
+21759,1,Bus,150,26,Female,Baseline
+14835,NA,99,NA,46,Male,Baseline
+24359,5,Walking,5,40,Female,Baseline
+7551,2,Private Car,5,31,Female,Baseline
+20466,2,Walking,5,33,Female,Baseline
+21241,6,Walking,10,45,Female,Baseline
+4373,1,Bus,30,5,Male,Baseline
+17149,2,Bus,35,8,Male,Baseline
+8601,1,Bicycle,35,21,Male,Baseline
+16975,2,Walking,30,15,Female,Baseline
+19780,1,van,55,45,Female,Baseline
+996,NA,99,NA,27,Female,Baseline
+17761,2,Walking,5,46,Female,Baseline
+18632,5,Walking,10,59,Female,Baseline
+14116,NA,99,NA,27,Female,Baseline
+24362,1,Walking,5,12,Female,Baseline
+16673,1,subway,50,27,Female,Baseline
+10207,7,Private Car,40,25,Male,Baseline
+13150,1,Bus,60,31,Male,Baseline
+14661,1,Private Car,40,50,Female,Baseline
+18516,3,Private Car,80,55,Male,Baseline
+22651,2,Private Car,20,27,Male,Baseline
+22514,1,Bus,20,8,Male,Baseline
+24836,NA,99,NA,61,Male,Baseline
+22854,2,Bus,20,31,Female,Baseline
+20743,2,Private Car,15,65,Male,Baseline
+21466,2,subway,80,19,Male,Baseline
+6934,1,Bicycle,10,51,Male,Baseline
+5413,4,Private Car,6,29,Male,Baseline
+11712,8,Walking,5,56,Female,Baseline
+5491,3,Private Car,25,54,Female,Baseline
+20793,2,van,30,9,Male,Baseline
+22585,1,Bus,65,18,Male,Baseline
+19312,2,Bus,130,25,Male,Baseline
+2583,2,subway,60,46,Female,Baseline
+5456,2,Bicycle,30,27,Male,Baseline
+14037,2,Walking,10,30,Female,Baseline
+9549,NA,99,NA,10,Female,Baseline
+177,2,subway,80,73,Male,Baseline
+11432,1,Private Car,15,5,Female,Baseline
+13332,NA,99,NA,32,Male,Baseline
+1678,2,Bus,135,26,Male,Baseline
+24022,NA,99,NA,77,Male,Baseline
+8133,1,Walking,15,35,Male,Baseline
+25252,1,Bus,60,27,Female,Baseline
+24620,1,Private Car,20,5,Female,Baseline
+10854,NA,99,NA,28,Male,Baseline
+1298,5,Walking,10,52,Female,Baseline
+22907,4,Private Car,25,45,Female,Baseline
+15185,NA,99,NA,46,Male,Baseline
+14360,1,Bus,75,25,Male,Baseline
+8655,2,Walking,2,22,Male,Baseline
+25477,2,Walking,5,53,Male,Baseline
+7445,1,subway,90,21,Female,Baseline
+14779,NA,99,NA,58,Female,Baseline
+15587,1,Walking,5,11,Male,Baseline
+5384,2,subway,120,42,Male,Baseline
+10096,2,Walking,30,16,Female,Baseline
+4233,2,Bus,30,8,Male,Baseline
+15189,1,subway,120,18,Male,Baseline
+10263,7,Walking,10,24,Female,Baseline
+17175,4,Private Car,30,6,Female,Baseline
+22278,2,Bus,39,22,Female,Baseline
+16582,3,Private Car,20,70,Female,Baseline
+15981,1,Bus,90,54,Male,Baseline
+10576,3,Walking,7,33,Male,Baseline
+26315,2,Walking,1,27,Female,Baseline
+16527,1,Walking,5,63,Male,Baseline
+26248,2,Private Car,60,50,Female,Baseline
+26509,2,Bus,130,24,Male,Baseline
+10475,NA,99,NA,48,Female,Baseline
+2426,2,van,45,15,Male,Baseline
+1436,2,Private Car,10,41,Female,Baseline
+7127,2,Bus,45,24,Female,Baseline
+22224,4,Walking,25,33,Female,Baseline
+8599,NA,99,NA,67,Male,Baseline
+8467,2,Walking,1,39,Female,Baseline
+10315,3,Private Car,20,61,Female,Baseline
+10210,1,Private Car,20,32,Male,Baseline
+14781,1,Private Car,15,31,Female,Baseline
+8025,2,Motorcycle,5,25,Male,Baseline
+21420,2,Walking,30,25,Female,Baseline
+23861,1,Walking,5,19,Male,Baseline
+19853,2,subway,20,20,Male,Baseline
+18857,3,Walking,10,40,Male,Baseline
+9303,1,Bus,20,7,Female,Baseline
+25616,3,Bus,30,77,Male,Baseline
+22838,2,Bus,50,65,Female,Baseline
+1608,2,Bus,30,25,Male,Baseline
+19136,2,subway,60,33,Male,Baseline
+26488,2,Walking,1,67,Male,Baseline
+2197,5,Private Car,30,30,Male,Baseline
+2065,NA,99,NA,28,Male,Baseline
+24359,8,Walking,5,40,Female,Baseline
+5480,2,Bus,30,25,Female,Baseline
+1156,4,Private Car,5,28,Female,Baseline
+9405,2,Private Car,15,4,Female,Baseline
+24733,2,Bus,90,41,Male,Baseline
+26017,3,subway,120,40,Female,Baseline
+23216,NA,99,NA,59,Male,Baseline
+15845,1,Bus,60,58,Female,Baseline
+8634,4,Private Car,30,65,Male,Baseline
+12387,1,Train,60,17,Female,Baseline
+11297,2,Private Car,13,64,Female,Baseline
+16187,2,Walking,40,30,Female,Baseline
+20423,NA,99,NA,1,Male,Baseline
+19247,2,Walking,10,9,Female,Baseline
+23949,1,Walking,5,36,Female,Baseline
+14000,1,Private Car,20,26,Female,Baseline
+10501,2,Walking,15,71,Male,Baseline
+8166,2,Walking,15,21,Male,Baseline
+1027,NA,99,NA,48,Female,Baseline
+10417,2,Walking,10,23,Female,Baseline
+25232,3,Private Car,20,56,Male,Baseline
+19465,1,Bus,20,16,Female,Baseline
+18327,NA,99,NA,45,Female,Baseline
+15117,2,Walking,10,5,Female,Baseline
+8590,NA,99,NA,26,Male,Baseline
+10134,1,Bus,40,52,Female,Baseline
+16356,2,Motorcycle,70,36,Female,Baseline
+20436,2,Private Car,120,35,Male,Baseline
+17237,2,Walking,15,11,Female,Baseline
+4405,NA,99,NA,64,Male,Baseline
+10871,2,Private Car,30,62,Male,Baseline
+25188,1,Private Car,10,52,Male,Baseline
+25088,2,Bus,30,31,Female,Baseline
+5899,1,Private Car,6,6,Male,Baseline
+21484,3,Private Car,15,62,Male,Baseline
+19189,3,van,5,70,Male,Baseline
+19026,2,Bus,20,10,Female,Baseline
+5346,1,Bus,80,26,Female,Baseline
+7933,1,Walking,15,47,Female,Baseline
+17980,1,Train,50,56,Male,Baseline
+16998,2,Private Car,30,26,Male,Baseline
+3513,2,Bus,20,62,Female,Baseline
+14105,5,Private Car,10,35,Male,Baseline
+2693,1,Motorcycle,15,24,Male,Baseline
+19314,2,Walking,10,46,Female,Baseline
+22957,NA,99,NA,67,Female,Baseline
+7100,1,Bus,120,50,Male,Baseline
+26817,NA,99,NA,41,Male,Baseline
+20474,3,Walking,5,44,Female,Baseline
+7022,NA,99,NA,67,Female,Baseline
+6914,1,Bus,50,74,Female,Baseline
+12043,4,Train,30,21,Male,Baseline
+12787,1,Private Car,60,16,Male,Baseline
+21382,2,Private Car,30,27,Male,Baseline
+22905,2,Private Car,20,72,Female,Baseline
+22056,2,Walking,5,31,Male,Baseline
+8806,3,Walking,5,37,Female,Baseline
+13188,2,Train,75,34,Male,Baseline
+16369,2,Walking,25,5,Male,Baseline
+17965,5,Walking,15,39,Female,Baseline
+10632,4,Private Car,80,57,Male,Baseline
+19051,2,Private Car,30,50,Male,Baseline
+1359,2,Private Car,10,32,Female,Baseline
+23114,NA,99,NA,53,Female,Baseline
+6469,6,Walking,5,43,Male,Baseline
+7462,2,Walking,15,14,Male,Baseline
+15636,5,Motorcycle,20,29,Male,Baseline
+21051,2,Walking,20,12,Female,Baseline
+248,1,Private Car,5,42,Female,Baseline
+3749,1,Bus,80,87,Male,Baseline
+4100,4,subway,230,37,Male,Baseline
+14050,2,subway,135,25,Male,Baseline
+19092,1,Bus,40,11,Female,Baseline
+20785,2,subway,70,40,Female,Baseline
+20252,2,Private Car,30,26,Male,Baseline
+20086,NA,99,NA,48,Female,Baseline
+25948,1,Private Car,20,32,Male,Baseline
+26770,1,Walking,20,42,Male,Baseline
+3359,1,Walking,36,15,Male,Baseline
+13060,2,Walking,15,22,Female,Baseline
+11840,2,subway,100,21,Female,Baseline
+10279,1,Walking,2,30,Female,Baseline
+11274,3,Walking,2,23,Female,Baseline
+12120,3,Private Car,15,60,Male,Baseline
+20816,4,Walking,15,7,Female,Baseline
+13607,4,Private Car,40,41,Male,Baseline
+16056,2,Train,55,20,Male,Baseline
+15871,2,Walking,10,27,Female,Baseline
+13971,2,Taxi,54,33,Male,Baseline
+14109,1,Bus,70,62,Female,Baseline
+18413,4,Private Car,7,34,Male,Baseline
+4039,1,Walking,10,9,Male,Baseline
+4427,2,Train,70,25,Female,Baseline
+17366,1,Bus,45,43,Female,Baseline
+24111,6,Private Car,35,18,Male,Baseline
+15418,NA,99,NA,25,Female,Baseline
+21157,NA,99,NA,21,Female,Baseline
+1922,1,Bus,90,47,Male,Baseline
+19252,2,Motorcycle,60,24,Male,Baseline
+5315,1,Walking,20,17,Female,Baseline
+7980,1,Walking,30,44,Female,Baseline
+9587,6,Walking,6,30,Female,Baseline
+13671,1,Walking,20,15,Female,Baseline
+23422,NA,99,NA,72,Male,Baseline
+15630,2,Walking,10,40,Female,Baseline
+26385,2,Walking,5,12,Female,Baseline
+19254,2,Bus,145,28,Female,Baseline
+17595,NA,99,NA,80,Female,Baseline
+22706,1,Walking,10,7,Female,Baseline
+890,2,Motorcycle,30,32,Male,Baseline
+23869,1,subway,150,37,Male,Baseline
+19408,1,Private Car,10,51,Female,Baseline
+22371,3,Private Car,40,25,Male,Baseline
+22918,1,Train,70,42,Male,Baseline
+10679,2,Bus,10,5,Male,Baseline
+26753,1,Private Car,10,28,Male,Baseline
+22887,2,Private Car,10,65,Female,Baseline
+14315,1,Bus,60,20,Male,Baseline
+24088,2,Walking,15,27,Male,Baseline
+26543,1,Private Car,20,10,Male,Baseline
+14242,1,Walking,20,10,Female,Baseline
+12071,2,Bus,50,35,Male,Baseline
+20723,2,Private Car,30,52,Male,Baseline
+4055,2,Bus,20,17,Male,Baseline
+8807,1,Walking,10,9,Male,Baseline
+23822,2,Bus,60,32,Male,Baseline
+25520,1,Bus,60,25,Male,Baseline
+12003,5,Private Car,119,61,Male,Baseline
+9194,2,Walking,30,3,Male,Baseline
+23750,1,Bus,60,42,Male,Baseline
+22273,1,Walking,20,47,Female,Baseline
+22078,1,Walking,15,22,Male,Baseline
+12134,4,Walking,10,18,Male,Baseline
+8107,NA,99,NA,18,Female,Baseline
+14399,NA,99,NA,45,Male,Baseline
+6886,1,Walking,15,5,Female,Baseline
+523,NA,99,NA,58,Female,Baseline
+2723,1,subway,80,31,Female,Baseline
+20280,1,subway,60,49,Male,Baseline
+6112,1,Walking,25,45,Female,Baseline
+13186,2,Walking,20,13,Male,Baseline
+7592,1,Walking,55,4,Female,Baseline
+11364,4,subway,110,27,Male,Baseline
+1541,2,Walking,20,11,Male,Baseline
+3313,1,subway,90,42,Female,Baseline
+16872,3,Walking,10,47,Female,Baseline
+20786,4,Bus,50,17,Male,Baseline
+11306,1,Private Car,55,43,Male,Baseline
+13088,4,Bus,60,26,Male,Baseline
+24369,2,Walking,15,26,Female,Baseline
+3263,3,subway,60,32,Female,Baseline
+9326,2,van,30,19,Female,Baseline
+7423,2,Bus,75,47,Female,Baseline
+6451,14,Private Car,15,47,Male,Baseline
+5112,2,subway,30,16,Female,Baseline
+3508,1,Walking,25,4,Male,Baseline
+7690,1,Walking,10,48,Female,Baseline
+24835,2,Walking,15,6,Female,Baseline
+22289,4,Bus,60,22,Female,Baseline
+12846,2,Bus,15,5,Female,Baseline
+399,2,Walking,1,59,Female,Baseline
+5290,2,Private Car,35,41,Female,Baseline
+14059,2,Walking,8,13,Male,Baseline
+15489,1,Private Car,60,9,Male,Baseline
+596,1,Motorcycle,20,28,Male,Baseline
+5502,1,Private Car,10,27,Male,Baseline
+11805,2,Walking,25,51,Female,Baseline
+23955,5,Walking,15,11,Female,Baseline
+10759,1,Private Car,20,12,Female,Baseline
+20046,3,Walking,5,35,Female,Baseline
+21742,NA,99,NA,39,Female,Baseline
+17953,1,Private Car,15,8,Female,Baseline
+6280,1,Train,130,42,Male,Baseline
+16794,4,Walking,10,32,Female,Baseline
+22699,2,Bus,70,54,Female,Baseline
+10948,1,Walking,15,81,Male,Baseline
+26434,2,Taxi,30,41,Male,Baseline
+19505,2,Private Car,30,57,Female,Baseline
+24135,2,Walking,10,38,Male,Baseline
+22286,1,Walking,15,3,Male,Baseline
+21216,NA,99,NA,48,Female,Baseline
+13891,3,subway,30,35,Male,Baseline
+7650,1,Bus,15,14,Female,Baseline
+12421,1,Private Car,10,70,Male,Baseline
+7861,1,Private Car,10,75,Male,Baseline
+2130,2,Private Car,150,57,Male,Baseline
+15604,1,Walking,10,39,Female,Baseline
+24335,1,Walking,10,15,Female,Baseline
+20556,4,Walking,15,24,Female,Baseline
+2087,1,subway,80,54,Male,Baseline
+8730,2,Walking,20,35,Female,Baseline
+8041,1,Private Car,20,81,Male,Baseline
+5609,1,Bus,30,24,Female,Baseline
+6123,1,Bus,50,16,Male,Baseline
+24359,1,Walking,5,40,Female,Baseline
+643,4,Bus,30,31,Male,Baseline
+19204,2,Walking,5,19,Female,Baseline
+26643,1,Private Car,30,49,Male,Baseline
+3088,1,Private Car,15,45,Male,Baseline
+16388,1,Walking,10,66,Male,Baseline
+8714,1,Bus,30,32,Female,Baseline
+9340,2,Private Car,35,30,Male,Baseline
+26894,1,subway,80,59,Male,Baseline
+19983,6,Private Car,17,23,Male,Baseline
+12707,1,Bus,120,25,Female,Baseline
+23203,3,Private Car,5,58,Female,Baseline
+11988,2,Bus,40,20,Male,Baseline
+13865,NA,99,NA,4,Female,Baseline
+9037,2,Private Car,20,78,Male,Baseline
+21371,1,Walking,3,54,Female,Baseline
+17761,3,Walking,5,46,Female,Baseline
+22761,1,Train,130,47,Female,Baseline
+18331,5,Private Car,30,37,Female,Baseline
+21330,4,Private Car,10,26,Female,Baseline
+11511,2,Bus,30,23,Male,Baseline
+22743,NA,99,NA,43,Female,Baseline
+1691,2,Walking,10,7,Female,Baseline
+6827,2,Bus,20,70,Female,Baseline
+22959,NA,99,NA,34,Female,Baseline
+7610,2,Motorcycle,45,29,Male,Baseline
+24898,2,subway,45,55,Female,Baseline
+13095,1,Private Car,55,65,Female,Baseline
+12497,1,Walking,10,10,Female,Baseline
+369,4,Private Car,60,58,Male,Baseline
+21710,2,Walking,15,51,Female,Baseline
+15789,1,Private Car,40,19,Female,Baseline
+16402,2,Bus,15,9,Male,Baseline
+1568,2,Walking,5,21,Male,Baseline
+6929,1,Bus,30,69,Female,Baseline
+1073,2,Walking,5,6,Male,Baseline
+1892,2,Walking,10,73,Male,Baseline
+8584,2,Walking,15,8,Female,Baseline
+26314,1,Bus,45,27,Female,Baseline
+5461,2,Walking,15,43,Female,Baseline
+10483,NA,99,NA,48,Female,Baseline
+13246,6,Private Car,10,41,Male,Baseline
+7903,3,subway,90,50,Male,Baseline
+19889,1,Bus,140,45,Female,Baseline
+19612,2,Walking,10,5,Male,Baseline
+7180,2,Walking,30,7,Male,Baseline
+23106,2,Walking,10,5,Male,Baseline
+9666,NA,99,NA,30,Male,Baseline
+20999,5,Private Car,15,38,Female,Baseline
+11512,3,Private Car,30,59,Male,Baseline
+20128,NA,99,NA,15,Female,Baseline
+21029,2,Private Car,90,46,Female,Baseline
+10254,1,Private Car,20,1,Female,Baseline
+5867,2,Walking,25,13,Male,Baseline
+9246,2,Walking,15,2,Female,Baseline
+24102,3,Private Car,5,33,Female,Baseline
+18029,1,subway,90,18,Female,Baseline
+14753,2,Private Car,60,19,Male,Baseline
+1321,2,Private Car,15,40,Male,Baseline
+9088,1,Walking,20,56,Male,Baseline
+641,NA,99,NA,34,Male,Baseline
+15827,2,subway,150,25,Female,Baseline
+18465,4,Walking,10,65,Male,Baseline
+3845,1,subway,70,38,Female,Baseline
+7713,2,Bus,60,40,Male,Baseline
+8326,1,Walking,5,7,Female,Baseline
+19267,NA,99,NA,38,Male,Baseline
+3614,3,Walking,25,38,Female,Baseline
+8025,2,Motorcycle,5,25,Male,Baseline
+22701,1,Bus,30,47,Male,Baseline
+22231,1,Bus,45,49,Female,Baseline
+20844,5,Private Car,25,57,Female,Baseline
+7063,1,Walking,10,54,Male,Baseline
+21666,1,Walking,5,7,Male,Baseline
+1145,7,Private Car,5,54,Male,Baseline
+19479,2,Private Car,60,30,Male,Baseline
+6927,2,subway,120,73,Male,Baseline
+25907,2,Private Car,60,38,Male,Baseline
+8655,3,subway,35,22,Male,Baseline
+12052,2,Walking,10,32,Male,Baseline
+4192,1,Walking,20,41,Female,Baseline
+17132,3,Bus,25,19,Female,Baseline
+15321,2,Private Car,10,60,Female,Baseline
+4177,NA,99,NA,10,Female,Baseline
+24197,4,Private Car,10,21,Female,Baseline
+18476,1,Bus,40,49,Female,Baseline
+19507,1,Private Car,60,26,Female,Baseline
+17336,2,Bus,90,42,Female,Baseline
+13227,1,Walking,5,34,Female,Baseline
+23030,3,Private Car,75,30,Male,Baseline
+2840,NA,99,NA,45,Male,Baseline
+24997,1,Walking,10,2,Female,Baseline
+4168,3,Bus,15,66,Male,Baseline
+14826,1,Private Car,10,33,Male,Baseline
+6733,1,Private Car,60,73,Male,Baseline
+15012,8,Private Car,5,23,Male,Baseline
+13905,1,Private Car,5,6,Female,Baseline
+19447,2,Private Car,15,50,Male,Baseline
+15487,1,subway,150,33,Female,Baseline
+12526,3,subway,85,23,Male,Baseline
+17960,1,subway,20,42,Female,Baseline
+6295,NA,99,NA,53,Female,Baseline
+4304,7,Private Car,5,40,Female,Baseline
+19202,6,Private Car,30,54,Male,Baseline
+23026,2,Bus,40,25,Female,Baseline
+25949,4,Walking,1,35,Male,Baseline
+26161,1,Walking,35,7,Male,Baseline
+12200,NA,99,NA,51,Male,Baseline
+16486,2,Bus,30,7,Male,Baseline
+21709,1,Train,100,34,Male,Baseline
+21383,2,subway,50,22,Female,Baseline
+17019,NA,99,NA,1,Male,Baseline
+22925,1,Bus,60,22,Male,Baseline
+2247,NA,99,NA,30,Male,Baseline
+1791,6,Private Car,35,30,Female,Baseline
+4068,NA,99,NA,85,Female,Baseline
+8938,1,Private Car,30,27,Male,Baseline
+12359,4,Motorcycle,20,23,Male,Baseline
+15561,2,Bus,70,20,Male,Baseline
+1827,2,Walking,40,45,Female,Baseline
+21588,3,Walking,10,21,Female,Baseline
+11084,2,Bus,90,32,Female,Baseline
+10207,7,Private Car,40,25,Male,Baseline
+3134,4,Walking,10,13,Female,Baseline
+11240,1,Walking,15,10,Female,Baseline
+13436,2,Walking,20,2,Female,Baseline
+18174,NA,99,NA,50,Female,Baseline
+1146,7,Private Car,10,48,Female,Baseline
+162,1,Bus,120,57,Male,Baseline
+9186,1,subway,120,73,Male,Baseline
+15839,1,Bus,140,42,Female,Baseline
+26901,1,Private Car,15,39,Female,Baseline
+22972,NA,99,NA,2,Female,Baseline
+12890,NA,99,NA,88,Female,Baseline
+20840,1,Bus,40,7,Male,Baseline
+26045,1,Walking,5,58,Male,Baseline
+19241,1,Walking,15,45,Male,Baseline
+17717,2,Bus,40,31,Female,Baseline
+25214,NA,99,NA,36,Male,Baseline
+3496,2,Private Car,60,62,Male,Baseline
+20227,2,Private Car,5,26,Female,Baseline
+19912,NA,99,NA,82,Male,Baseline
+5567,1,Walking,10,11,Male,Baseline
+11327,2,Walking,15,42,Male,Baseline
+18244,2,Walking,20,15,Female,Baseline
+6912,2,Walking,10,7,Male,Baseline
+26512,2,Bus,30,4,Female,Baseline
+5908,NA,99,NA,50,Female,Baseline
+21828,1,Walking,15,71,Female,Baseline
+26334,1,Walking,1,48,Female,Baseline
+22779,2,Walking,10,34,Female,Baseline
+21615,NA,99,NA,34,Male,Baseline
+18962,NA,99,NA,66,Male,Baseline
+11016,1,Train,50,24,Male,Baseline
+21610,2,Motorcycle,10,45,Male,Baseline
+7125,4,Walking,10,48,Male,Baseline
+17322,1,Taxi,15,75,Female,Baseline
+18024,4,Private Car,25,30,Male,Baseline
+23479,2,Bus,20,8,Female,Baseline
+9923,2,Private Car,30,30,Male,Baseline
+17282,2,Bus,30,32,Male,Baseline
+12383,NA,99,NA,3,Male,Baseline
+8438,1,Walking,15,53,Female,Baseline
+12325,2,Walking,15,40,Female,Baseline
+12081,2,Bus,60,19,Female,Baseline
+5244,1,Private Car,10,2,Female,Baseline
+5243,5,Private Car,40,33,Female,Baseline
+21481,2,subway,90,43,Female,Baseline
+26194,2,Bus,40,42,Male,Baseline
+10671,1,Private Car,80,32,Female,Baseline
+20066,1,Private Car,40,9,Male,Baseline
+6618,1,subway,40,26,Female,Baseline
+10486,1,Walking,8,70,Female,Baseline
+19179,4,Private Car,20,35,Male,Baseline
+17977,2,Walking,60,43,Male,Baseline
+12256,2,Walking,2,14,Male,Baseline
+14011,1,subway,60,30,Female,Baseline
+5163,3,van,55,31,Female,Baseline
+19641,1,Bus,40,28,Male,Baseline
+12855,2,Bus,30,63,Female,Baseline
+3103,1,Private Car,40,38,Male,Baseline
+19978,1,Walking,30,12,Female,Baseline
+18275,5,Private Car,15,40,Male,Baseline
+13273,1,Bus,90,44,Male,Baseline
+21775,1,Bus,45,11,Male,Baseline
+14796,1,Train,75,49,Male,Baseline
+23815,1,Walking,30,12,Female,Baseline
+6410,10,Private Car,15,53,Male,Baseline
+18978,1,Bus,30,24,Male,Baseline
+3636,1,Walking,10,30,Male,Baseline
+13211,1,Bus,75,47,Female,Baseline
+21403,1,Private Car,10,3,Female,Baseline
+24130,1,Walking,5,29,Male,Baseline
+16310,NA,99,NA,58,Female,Baseline
+5242,5,Motorcycle,5,31,Male,Baseline
+7828,1,Walking,10,13,Female,Baseline
+16636,1,Bus,40,80,Female,Baseline
+11822,2,Bus,30,45,Female,Baseline
+5063,2,Private Car,30,36,Male,Baseline
+4085,NA,99,NA,31,Female,Baseline
+16364,1,van,25,15,Female,Baseline
+6993,3,Motorcycle,20,25,Male,Baseline
+9753,NA,99,NA,80,Male,Baseline
+4517,4,Private Car,60,66,Female,Baseline
+15344,1,subway,80,43,Male,Baseline
+18185,NA,99,NA,61,Male,Baseline
+21684,NA,99,NA,11,Female,Baseline
+11748,2,subway,75,49,Female,Baseline
+158,NA,99,NA,50,Female,Baseline
+18126,5,Private Car,50,48,Male,Baseline
+25379,2,Bus,120,30,Female,Baseline
+1149,1,Private Car,5,12,Female,Baseline
+6451,10,Private Car,15,47,Male,Baseline
+7078,3,Private Car,20,30,Female,Baseline
+5897,2,Private Car,60,43,Male,Baseline
+7936,1,Bus,25,18,Male,Baseline
+7828,2,Walking,10,13,Female,Baseline
+26046,NA,99,NA,60,Male,Baseline
+26017,2,subway,82,40,Female,Baseline
+17812,2,Walking,25,60,Female,Baseline
+144,1,subway,60,65,Male,Baseline
+13282,1,Walking,10,7,Female,Baseline
+10582,NA,99,NA,78,Male,Baseline
+720,2,Private Car,29,63,Male,Baseline
+10955,1,Walking,10,46,Female,Baseline
+12736,1,Walking,15,12,Female,Baseline
+15223,1,Walking,5,43,Female,Baseline
+1886,2,Walking,10,37,Female,Baseline
+19899,1,Walking,30,20,Male,Baseline
+8926,NA,99,NA,65,Male,Baseline
+13559,1,Private Car,60,40,Female,Baseline
+19756,2,Bus,110,47,Male,Baseline
+1325,2,subway,120,29,Male,Baseline
+6217,1,Walking,5,17,Female,Baseline
+11604,2,Bus,15,10,Female,Baseline
+7117,1,Motorcycle,75,33,Male,Baseline
+23868,NA,99,NA,15,Male,Baseline
+267,2,subway,60,33,Female,Baseline
+8843,3,Walking,10,46,Female,Baseline
+6478,2,Private Car,60,52,Male,Baseline
+10617,1,Train,155,27,Female,Baseline
+12856,2,Private Car,7,31,Male,Baseline
+22563,NA,99,NA,33,Female,Baseline
+7261,1,Bus,50,26,Male,Baseline
+25003,1,Private Car,30,32,Female,Baseline
+1203,3,Bus,50,26,Female,Baseline
+14163,3,Private Car,20,31,Female,Baseline
+12908,1,van,30,28,Female,Baseline
+17904,2,Walking,5,43,Male,Baseline
+21421,2,Walking,30,5,Male,Baseline
+14117,4,Private Car,5,28,Male,Baseline
+16013,2,Walking,10,15,Male,Baseline
+6423,NA,99,NA,39,Female,Baseline
+21018,2,Walking,3,17,Male,Baseline
+16367,1,Walking,25,15,Female,Baseline
+7427,2,Private Car,95,43,Male,Baseline
+22364,1,Walking,5,7,Male,Baseline
+6978,1,Train,60,64,Male,Baseline
+2143,2,Private Car,60,29,Female,Baseline
+10237,2,Walking,15,17,Female,Baseline
+10130,4,Bus,80,25,Male,Baseline
+11409,1,Bus,30,52,Female,Baseline
+18858,2,Bus,20,37,Female,Baseline
+1463,3,Walking,20,34,Female,Baseline
+25968,NA,99,NA,51,Female,Baseline
+5725,1,Walking,20,18,Male,Baseline
+23246,1,subway,90,32,Female,Baseline
+19611,1,Walking,10,26,Female,Baseline
+3368,2,Walking,50,45,Male,Baseline
