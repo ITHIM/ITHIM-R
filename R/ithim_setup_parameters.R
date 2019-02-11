@@ -13,8 +13,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    CHRONIC_DISEASE_SCALAR = 1,
                                    DAY_TO_WEEK_TRAVEL_SCALAR = 7){
   
-  if ((length(PM_CONC_BASE==1)&PM_CONC_BASE == 50) |
-      (length(PM_TRANS_SHARE==1)&PM_TRANS_SHARE == 0.225))
+  if ((length(PM_CONC_BASE==1)&&PM_CONC_BASE == 50) |
+      (length(PM_TRANS_SHARE==1)&&PM_TRANS_SHARE == 0.225))
   error_handling(1, "ithim_setup_parameters", "PM_CONC_BASE, PM_TRANS_SHARE")
   
   ## PARAMETERS
@@ -90,9 +90,9 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     AP_DOSE_RESPONSE_QUANTILE <<- AP_DOSE_RESPONSE_QUANTILE
     dr_ap_list <- list()
     for ( j in 1:nrow(DISEASE_INVENTORY)) if (DISEASE_INVENTORY$air_pollution[j] == 1){ 
-      cause <- as.character(DISEASE_INVENTORY$ap_acronym[j])
-      dr_ap <- subset(DR_AP,cause_code==cause)
-      dr_ap_list[[cause]] <- list()
+      disease <- as.character(DISEASE_INVENTORY$ap_acronym[j])
+      dr_ap <- subset(DR_AP,cause_code==disease)
+      dr_ap_list[[disease]] <- list()
       for(age in unique(dr_ap$age_code)){
         dr_ap_age <- subset(dr_ap,age_code==age)
         lgamma <- log(dr_ap_age$gamma)

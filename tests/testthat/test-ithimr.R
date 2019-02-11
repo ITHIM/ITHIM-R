@@ -32,36 +32,21 @@ test_that("accra uncertain parallel", {
   # load saved result
   #accra_evppi <- readRDS('accra_evppi_test.Rds')
   # generate new accra evppi results
-  environmental_scenario <- c('now')
-  certainty <- 'uncertain'
-  certainty_parameters <- list(uncertain=list(
-    safey_scalar          = list(now=c(8,3)),
-    disease_scalar        = list(now=c(0,log(1.2))),
-    background_pm         = list(now=c(log(50),log(1.2))),
-    transport_pm          = list(now=c(5,20)),
-    background_pa_scalar  = list(now=c(0,log(1.2))),
-    NSAMPLES = 16,
-    BUS_WALK_TIME = c(log(5), log(1.2)),
-    MMET_CYCLING = c(log(5), log(1.2)), 
-    MMET_WALKING = c(log(2.5), log(1.2)), 
-    MOTORCYCLE_TO_CAR_RATIO = c(-1.4,0.4),
-    PA_DOSE_RESPONSE_QUANTILE = F,  
-    AP_DOSE_RESPONSE_QUANTILE = F
-  ))
   
   ithim_object <- run_ithim_setup(REFERENCE_SCENARIO='Scenario 1',
-                                  NSAMPLES = certainty_parameters[[certainty]]$NSAMPLES,
-                                  BUS_WALK_TIME = certainty_parameters[[certainty]]$BUS_WALK_TIME,
-                                  MMET_CYCLING = certainty_parameters[[certainty]]$MMET_CYCLING, 
-                                  MMET_WALKING = certainty_parameters[[certainty]]$MMET_WALKING, 
-                                  INJURY_REPORTING_RATE = certainty_parameters[[certainty]]$safey_scalar[[environmental_scenario]],  
-                                  CHRONIC_DISEASE_SCALAR = certainty_parameters[[certainty]]$disease_scalar[[environmental_scenario]],  
-                                  PM_CONC_BASE = certainty_parameters[[certainty]]$background_pm[[environmental_scenario]],  
-                                  PM_TRANS_SHARE = certainty_parameters[[certainty]]$transport_pm[[environmental_scenario]],  
-                                  BACKGROUND_PA_SCALAR = certainty_parameters[[certainty]]$background_pa_scalar[[environmental_scenario]],  
-                                  MOTORCYCLE_TO_CAR_RATIO = certainty_parameters[[certainty]]$MOTORCYCLE_TO_CAR_RATIO,  
-                                  PA_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$PA_DOSE_RESPONSE_QUANTILE,  
-                                  AP_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$AP_DOSE_RESPONSE_QUANTILE)
+                                  NSAMPLES = 16,
+                                  BUS_WALK_TIME = c(log(5), log(1.2)),
+                                  MMET_CYCLING = c(log(5), log(1.2)), 
+                                  MMET_WALKING = c(log(2.5), log(1.2)), 
+                                  INJURY_REPORTING_RATE = c(8,3),  
+                                  CHRONIC_DISEASE_SCALAR = c(0,log(1.2)),  
+                                  PM_CONC_BASE = c(log(50),log(1.2)),  
+                                  PM_TRANS_SHARE = c(5,20),  
+                                  BACKGROUND_PA_SCALAR = c(0,log(1.2)),  
+                                  MOTORCYCLE_TO_CAR_RATIO = c(-1.4,0.4),  
+                                  DAY_TO_WEEK_TRAVEL_SCALAR = c(20,3),  
+                                  PA_DOSE_RESPONSE_QUANTILE = F,  
+                                  AP_DOSE_RESPONSE_QUANTILE = F)
   numcores <- detectCores()
   ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object,mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
   ## calculate EVPPI
@@ -83,7 +68,7 @@ test_that("accra uncertain parallel", {
   colnames(evppi) <- c("base",paste0("scen", 1:NSCEN) )[c(1,3:6)]
   rownames(evppi) <- colnames(parameter_samples)
   # test
-  expect_equal(sum(evppi>0),45)
+  expect_equal(sum(evppi>0),50)
 })
 
 test_that("accra evppi", {
