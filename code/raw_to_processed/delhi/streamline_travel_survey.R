@@ -131,6 +131,11 @@ rd$female <- NULL
 # (hh_id)
 rd$hh_id <- NULL
 
+# Remove NAs with 0 for distance
+rd$distance <- ifelse(is.na(rd$distance), 0, rd$distance)
+
+# Calculate total distance by summing all stages' distance
+rd$total_distance <- ave(rd$distance, rd$trip_id, FUN=sum)
 
 #####
 # Write streamlined travel survey data as a csv in the inst folder
