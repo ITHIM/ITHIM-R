@@ -1,8 +1,7 @@
 #' @export
 run_ithim_setup <- function(seed=1,
                             CITY = 'accra',
-                            modes = c("bus", "car", "taxi", "walking","walk_to_bus", "bicycle", "motorcycle","truck","bus_driver"),
-                            speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25, 21, 15),
+                            speeds = NULL,
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             ADD_WALK_TO_BUS_TRIPS = T,
                             ADD_BUS_DRIVERS = T,
@@ -96,8 +95,31 @@ run_ithim_setup <- function(seed=1,
     PATH_TO_LOCAL_DATA <<- PATH_TO_LOCAL_DATA
   }
   REFERENCE_SCENARIO <<- REFERENCE_SCENARIO
-  TRAVEL_MODES <<- modes
-  MODE_SPEEDS <<- data.frame(trip_mode = modes, speed = speeds, stringsAsFactors = F)
+  
+  default_speeds <- list(
+    bus=15,
+    car=21,
+    taxi=21,
+    walking=4.8,
+    walk_to_bus=4.8,
+    bicycle=14.5,
+    motorcycle=25,
+    truck=25,
+    bus_driver=15,
+    van=15,
+    subway=28
+  )
+  if(!is.null(speeds)){
+    for(m in names(speeds)[names(speeds)%in%names(default_speeds)])
+      default_speeds[[m]] <- speeds[[m]]
+    for(m in names(speeds)[!names(speeds)%in%names(default_speeds)])
+      default_speeds[[m]] <- speeds[[m]]
+  }
+  
+  TRAVEL_MODES <<- tolower(names(default_speeds))
+  MODE_SPEEDS <<- data.frame(trip_mode = TRAVEL_MODES, speed = unlist(default_speeds), stringsAsFactors = F)
+  cat('\n  Using speeds: \n')
+  print(MODE_SPEEDS)
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
   
@@ -118,6 +140,11 @@ run_ithim_setup <- function(seed=1,
   ## LOAD DATA
   ithim_load_data()  
   
+  if(any(!unique(TRIP_SET$trip_mode)%in%MODE_SPEEDS$trip_mode)){
+    cat("\n  The following modes do not have speeds, and won't be included in the model:\n")
+    cat(unique(TRIP_SET$trip_mode)[!unique(TRIP_SET$trip_mode)%in%MODE_SPEEDS$trip_mode])
+    cat("\n  To include a mode, supply e.g. 'speeds=list(car=15,bus=10)' in the call to 'run_ithim_setup'.\n\n")
+  }
   ## SET PARAMETERS
   ithim_object$parameters <- ithim_setup_parameters(NSAMPLES,
                                                     BUS_WALK_TIME,

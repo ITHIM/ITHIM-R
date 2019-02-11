@@ -1,6 +1,16 @@
 #' @export
 get_synthetic_from_trips <- function(){
-  raw_trip_set <- TRIP_SET
+  ##!! to get the right order of trip columns; needed if trips are added
+  raw_trip_set <- data.frame(trip_id=TRIP_SET$trip_id,
+                             trip_mode=TRIP_SET$trip_mode,
+                             trip_duration=TRIP_SET$trip_duration,
+                             participant_id=TRIP_SET$participant_id,
+                             age=TRIP_SET$age,
+                             sex=TRIP_SET$sex, 
+                             stringsAsFactors = F)
+  
+  ##!! number trips
+  raw_trip_set$trip_id[!is.na(raw_trip_set$trip_id)] <- 1:sum(!is.na(raw_trip_set$trip_id))
   
   ## add motorcycle trip to accra, and replicate set four times
   if(CITY=='accra') raw_trip_set <- edit_accra_trips(raw_trip_set)

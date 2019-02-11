@@ -321,3 +321,16 @@ for(i in 1:NSCEN) lines(ninefive[,i],c(i,i),lwd=2,col='navyblue')
 abline(v=0,col='grey',lty=2,lwd=2)
 text(y=3,x=ninefive[1,3],'95%',col='navyblue',adj=c(-0,-0.7))
 }
+
+
+#########################################################################
+ithim_object <- run_ithim_setup(CITY='sao_paulo',
+                                TEST_WALK_SCENARIO = T,
+                                speeds=list(car=30,hoverboard=50))
+ithim_object$outcome <- run_ithim(ithim_object)
+
+
+
+
+
+
