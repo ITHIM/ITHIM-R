@@ -7,15 +7,15 @@ get_synthetic_from_trips <- function(){
   #SURVEY_SCALAR <<- population/length(unique(TRIP_SET$participant_id))/survey_coverage
   
   ## add bus and truck trips
-  if(ADD_BUS_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='Bus_driver')
-  if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='Truck')
+  if(ADD_BUS_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='bus_driver')
+  if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck')
 
   # create synthetic population
   synth_pop <- create_synth_pop(raw_trip_set)
   SYNTHETIC_POPULATION <<- synth_pop$synthetic_population
   trip_set <- synth_pop$trip_set
   
-  # create scenarios: either the Walking test case, or the 5 hard-coded Accra scenarios
+  # create scenarios: either the walking test case, or the 5 hard-coded Accra scenarios
   trip_set <- ithim_setup_baseline_scenario(trip_set)
   if(TEST_WALK_SCENARIO){
     SYNTHETIC_TRIPS <<- create_walk_scenario(trip_set)

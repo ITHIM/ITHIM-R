@@ -165,6 +165,7 @@ certainty_parameters <- list(uncertain=list(
   MMET_CYCLING = c(log(5), log(1.2)), 
   MMET_WALKING = c(log(2.5), log(1.2)), 
   MC_TO_CAR_RATIO = c(-1.4,0.4),
+  DAY_TO_WEEK_TRAVEL_SCALAR = c(20,3),
   PA_DOSE_RESPONSE_QUANTILE = T,  
   AP_DOSE_RESPONSE_QUANTILE = T
 ), not_uncertain=list(
@@ -202,6 +203,7 @@ if(file.exists(file_name)){
                                       PM_TRANS_SHARE = certainty_parameters[[certainty]]$transport_pm[[environmental_scenario]],  
                                       BACKGROUND_PA_SCALAR = certainty_parameters[[certainty]]$background_pa_scalar[[environmental_scenario]],  
                                       MC_TO_CAR_RATIO = certainty_parameters[[certainty]]$MC_TO_CAR_RATIO,  
+                                      DAY_TO_WEEK_TRAVEL_SCALAR = certainty_parameters[[certainty]]$DAY_TO_WEEK_TRAVEL_SCALAR,
                                       PA_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$PA_DOSE_RESPONSE_QUANTILE,  
                                       AP_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$AP_DOSE_RESPONSE_QUANTILE)
         print(c(certainty,environmental_scenario))
@@ -280,12 +282,12 @@ fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=parameter_names,line=NA,p
 mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
 color.legend(5.5,0,5.5+0.3,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
 
-parameter_names <- c('walk-to-bus time','cycling mMETs','walking mMETs','background PM2.5','traffic PM2.5 share','motorcycle distance',
-                     'non-travel PA','injury reporting rate','NCD burden','all-cause mortality (PA)','IHD (PA)',
+parameter_names <- c('walk-to-bus time','cycling MMETs','walking MMETs','background PM2.5','motorcycle distance','non-travel PA',
+                     'NCD burden','traffic PM2.5 share','injury reporting rate','day-to-week scalar','all-cause mortality (PA)','IHD (PA)',
                      'cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
                      'COPD (AP)','stroke (AP)')
-x11(width=6,height=6); par(mfrow=c(3,3),mar=c(5,3,1,1)); 
-for(i in 1:9)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),cex.lab=1.5,cex.axis=1.5,col='navyblue',xlab=parameter_names[i],ylab='',frame=F,main='',lwd=2)
+x11(width=10,height=3); par(mfrow=c(2,5),mar=c(5,3,1,1)); 
+for(i in 1:10)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),cex.lab=1.5,cex.axis=1.5,col='navyblue',xlab=parameter_names[i],ylab='',frame=F,main='',lwd=2)
 
 outcome <- t(sapply(ithim_object_list$uncertain$now$outcomes, function(x) colSums(x$hb$deaths[,(NSCEN+3):ncol(x$hb$deaths)])))
 

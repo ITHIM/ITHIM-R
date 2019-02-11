@@ -1,16 +1,16 @@
 #' @export
 edit_accra_trips <- function(raw_trip_set){
   
-  total_car_duration <- sum(subset(raw_trip_set,trip_mode=='Private Car')$trip_duration)
-  total_car_distance <- total_car_duration/60*VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode=='Private Car']
+  total_car_duration <- sum(subset(raw_trip_set,trip_mode=='car')$trip_duration)
+  total_car_distance <- total_car_duration/60*VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode=='car']
   
   # Redefine motorcycle mode for a select 14 rows
-  raw_trip_set$trip_mode[raw_trip_set$trip_mode=='Other'&raw_trip_set$trip_duration<60] <- 'Motorcycle'
+  raw_trip_set$trip_mode[raw_trip_set$trip_mode=='other'&raw_trip_set$trip_duration<60] <- 'motorcycle'
   
   # Create new motorbike trips
   # Add 4 new people with 3 trips each
   # Age: 15-59 and gender: male
-  new_mode <- 'Motorcycle'
+  new_mode <- 'motorcycle'
   total_mc_distance <- total_car_distance*VEHICLE_INVENTORY$distance_ratio_to_car[VEHICLE_INVENTORY$trip_mode==new_mode]
   mc_duration <- total_mc_distance/VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode==new_mode]*60
   residual_mc_duration <- mc_duration - sum(subset(raw_trip_set,trip_mode==new_mode)$trip_duration)

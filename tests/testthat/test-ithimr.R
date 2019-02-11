@@ -44,7 +44,7 @@ test_that("accra uncertain parallel", {
     BUS_WALK_TIME = c(log(5), log(1.2)),
     MMET_CYCLING = c(log(5), log(1.2)), 
     MMET_WALKING = c(log(2.5), log(1.2)), 
-    MC_TO_CAR_RATIO = c(-1.4,0.4),
+    MOTORCYCLE_TO_CAR_RATIO = c(-1.4,0.4),
     PA_DOSE_RESPONSE_QUANTILE = F,  
     AP_DOSE_RESPONSE_QUANTILE = F
   ))
@@ -59,7 +59,7 @@ test_that("accra uncertain parallel", {
                                   PM_CONC_BASE = certainty_parameters[[certainty]]$background_pm[[environmental_scenario]],  
                                   PM_TRANS_SHARE = certainty_parameters[[certainty]]$transport_pm[[environmental_scenario]],  
                                   BACKGROUND_PA_SCALAR = certainty_parameters[[certainty]]$background_pa_scalar[[environmental_scenario]],  
-                                  MC_TO_CAR_RATIO = certainty_parameters[[certainty]]$MC_TO_CAR_RATIO,  
+                                  MOTORCYCLE_TO_CAR_RATIO = certainty_parameters[[certainty]]$MOTORCYCLE_TO_CAR_RATIO,  
                                   PA_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$PA_DOSE_RESPONSE_QUANTILE,  
                                   AP_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$AP_DOSE_RESPONSE_QUANTILE)
   numcores <- detectCores()
@@ -104,7 +104,7 @@ test_that("accra evppi", {
                                     PM_CONC_BASE              = c(log(50),log(1.2)),  
                                     PM_TRANS_SHARE            = c(5,20),  
                                     BACKGROUND_PA_SCALAR      = c(0,log(1.2)),  
-                                    MC_TO_CAR_RATIO           = c(-1.4,0.4),  
+                                    MOTORCYCLE_TO_CAR_RATIO           = c(-1.4,0.4),  
                                     PA_DOSE_RESPONSE_QUANTILE = T,  
                                     AP_DOSE_RESPONSE_QUANTILE = T)
     numcores <- detectCores()

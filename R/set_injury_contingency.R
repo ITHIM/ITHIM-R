@@ -1,11 +1,11 @@
 #' @export
 set_injury_contingency <- function(injuries){
   ##!! need to work out of logic of how we know which modes there are distances for!
-  mode_names <- c(MODE_SPEEDS$trip_mode,"Pedestrian","Car")
-  #mode_names <- c("Bicycle","Bus","Bus_driver","Motorcycle","Truck","Pedestrian","Car")
+  mode_names <- c(MODE_SPEEDS$trip_mode,"pedestrian","car")
+  #mode_names <- c("bicycle","bus","bus_driver","motorcycle","truck","pedestrian","car")
   # divide injuries into those for which we can write a WHW matrix, i.e. we know distances of both striker and casualty, 
   ## and those for which we don't know striker distance: no or other vehicle (noov)
-  ## we can only model casualties for which we know distance travelled (i.e. no Truck casualties for Accra)
+  ## we can only model casualties for which we know distance travelled (i.e. no truck casualties for Accra)
   injury_list <- list()
   injury_list$whw <- subset(injuries,cas_mode%in%mode_names&strike_mode%in%mode_names)
   injury_list$noov <- subset(injuries,cas_mode%in%mode_names&!strike_mode%in%mode_names)

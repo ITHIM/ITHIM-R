@@ -5,7 +5,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    MMET_WALKING = 2.53,
                                    PM_CONC_BASE = 50,  
                                    PM_TRANS_SHARE = 0.225,
-                                   MC_TO_CAR_RATIO = 0.2,
+                                   MOTORCYCLE_TO_CAR_RATIO = 0.2,
                                    PA_DOSE_RESPONSE_QUANTILE = F,
                                    AP_DOSE_RESPONSE_QUANTILE = F,
                                    BACKGROUND_PA_SCALAR = 1,
@@ -24,7 +24,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   MMET_WALKING <<- MMET_WALKING
   PM_CONC_BASE <<- PM_CONC_BASE
   PM_TRANS_SHARE <<- PM_TRANS_SHARE
-  MC_TO_CAR_RATIO <<- MC_TO_CAR_RATIO
+  MOTORCYCLE_TO_CAR_RATIO <<- MOTORCYCLE_TO_CAR_RATIO
   PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
   BACKGROUND_PA_SCALAR <<- BACKGROUND_PA_SCALAR
   INJURY_REPORTING_RATE <<- INJURY_REPORTING_RATE
@@ -36,7 +36,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                  "MMET_CYCLING",
                  "MMET_WALKING",
                  "PM_CONC_BASE",
-                 "MC_TO_CAR_RATIO",
+                 "MOTORCYCLE_TO_CAR_RATIO",
                  "BACKGROUND_PA_SCALAR",
                  "CHRONIC_DISEASE_SCALAR")
   for (i in 1:length(normVariables)) {
@@ -74,7 +74,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   #if(length(MMET_WALKING) > 1 )     parameters$MMET_WALKING <- rlnorm(NSAMPLES,MMET_WALKING[1], MMET_WALKING[2])
   #if(length(PM_CONC_BASE) > 1 )     parameters$PM_CONC_BASE <- rlnorm(NSAMPLES,PM_CONC_BASE[1],PM_CONC_BASE[2])
   #if(length(PM_TRANS_SHARE) > 1 )   parameters$PM_TRANS_SHARE <- rbeta(NSAMPLES,PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
-  #if(length(MC_TO_CAR_RATIO) > 1 )  parameters$MC_TO_CAR_RATIO <- rlnorm(NSAMPLES,MC_TO_CAR_RATIO[1],MC_TO_CAR_RATIO[2])
+  #if(length(MOTORCYCLE_TO_CAR_RATIO) > 1 )  parameters$MOTORCYCLE_TO_CAR_RATIO <- rlnorm(NSAMPLES,MOTORCYCLE_TO_CAR_RATIO[1],MOTORCYCLE_TO_CAR_RATIO[2])
   #if(length(BACKGROUND_PA_SCALAR) > 1 )     parameters$BACKGROUND_PA_SCALAR <- rlnorm(NSAMPLES,BACKGROUND_PA_SCALAR[1],BACKGROUND_PA_SCALAR[2])
   #if(length(INJURY_REPORTING_RATE) > 1 )    parameters$INJURY_REPORTING_RATE <- rbeta(NSAMPLES,INJURY_REPORTING_RATE[1],INJURY_REPORTING_RATE[2])
   #if(length(CHRONIC_DISEASE_SCALAR) > 1 )   parameters$CHRONIC_DISEASE_SCALAR <- rlnorm(NSAMPLES,CHRONIC_DISEASE_SCALAR[1],CHRONIC_DISEASE_SCALAR[2])

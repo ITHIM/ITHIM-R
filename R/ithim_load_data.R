@@ -54,6 +54,8 @@ ithim_load_data <- function(){
   filename <- paste0(local_path,"/trips_",CITY,".csv")
   trip_set <- read_csv(filename)
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
+  trip_set$trip_mode <- tolower(trip_set$trip_mode)
+  trip_set$trip_mode[trip_set$trip_mode=='private car'] <- 'car'
   TRIP_SET <<- trip_set
   
   filename <- paste0(local_path,"/pa_",CITY,".csv")
@@ -70,13 +72,15 @@ ithim_load_data <- function(){
   filename <- paste0(local_path,"/injuries_",CITY,".csv")
   injuries <- read_csv(filename)
   injuries <- assign_age_groups(injuries,age_label='cas_age')
+  injuries$cas_mode <- tolower(injuries$cas_mode)
+  injuries$strike_mode <- tolower(injuries$strike_mode)
   set_injury_contingency(injuries)
   
   ## DESCRIPTION OF INJURIES (set_injury_contingency(injuries))
   # has one row per event (fatality)
   # has colnames event_id, year, cas_mode, strike_mode, cas_age, cas_gender
   # classes are character for 'factors' and numeric for age and year
-  # levels for cas_mode must match those modes used throughout, defined in TRAVEL_MODES. E.g. for Accra we re-label 'mini' as 'Bus'
+  # levels for cas_mode must match those modes used throughout, defined in TRAVEL_MODES. E.g. for Accra we re-label 'mini' as 'bus'
   # levels for strike_mode that match TRAVEL_MODES will be used in a distance-based regression
   # levels for strike_mode that aren't in TRAVEL_MODES will be used in a distance-independent regression
   # levels in cas_gender must match the sex/gender levels provided elsewhere e.g. in TRIP_SET

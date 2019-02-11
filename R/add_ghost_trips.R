@@ -6,8 +6,8 @@ add_ghost_trips <- function(raw_trip_set,trip_mode){
   nPeople <- 2
   nTrips <- 1
   new_gender <- 'Male'
-  total_car_duration <- sum(subset(raw_trip_set,trip_mode=='Private Car')$trip_duration)
-  total_car_distance <- total_car_duration/60*VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode=='Private Car']
+  total_car_duration <- sum(subset(raw_trip_set,trip_mode=='car')$trip_duration)
+  total_car_distance <- total_car_duration/60*VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode=='car']
   
   ## add new travel
   new_mode <- trip_mode

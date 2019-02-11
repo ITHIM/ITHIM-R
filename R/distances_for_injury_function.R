@@ -11,28 +11,27 @@ distances_for_injury_function <- function(trip_scen_sets){
     group_by (age_cat,sex,trip_mode, scenario) %>% 
     summarise(tot_dist = sum(trip_distance))
   distances <- spread(journeys,trip_mode, tot_dist,fill=0) 
-  distances$Pedestrian <- distances$Walking 
-  distances <- distances[, -which(names(distances) ==  "Walking")]
+  distances$pedestrian <- distances$walking 
+  distances <- distances[, -which(names(distances) ==  "walking")]
   if(ADD_WALK_TO_BUS_TRIPS){
-    distances$Pedestrian <- distances$Pedestrian + distances$`Short Walking`
-    distances <- distances[, -which(names(distances) ==  "Short Walking")]
+    distances$pedestrian <- distances$pedestrian + distances$walk_to_bus
+    distances <- distances[, -which(names(distances) ==  "walk_to_bus")]
   }
-  distances$Car <- distances$Taxi + distances$`Private Car`
-  distances <- distances[, -which(names(distances) ==  "Private Car")]
-  distances <- distances[, -which(names(distances) ==  "Taxi")]
+  distances$car <- distances$taxi + distances$car
+  distances <- distances[, -which(names(distances) ==  "taxi")]
   true_distances <- distances
   true_distances$sex_age <-  paste0(true_distances$sex,"_",true_distances$age_cat)
-  if(ADD_BUS_DRIVERS) true_distances$Bus <- true_distances$Bus + true_distances$Bus_driver
+  if(ADD_BUS_DRIVERS) true_distances$bus <- true_distances$bus + true_distances$bus_driver
   true_distances <- true_distances[,-c(which(names(true_distances) == 'sex'))]
   
   # get distances relative to baseline scenario
-  scen_dist <- sapply(1:(NSCEN+1),function(x)c(colSums(subset(distances,scenario == SCEN[x])[,3+1:(length(unique(journeys$trip_mode))-2)])))
+  scen_dist <- sapply(1:(NSCEN+1),function(x)c(colSums(subset(distances,scenario == SCEN[x])[,colnames(distances)%in%unique(journeys$trip_mode)])))
   colnames(scen_dist) <- SCEN_SHORT_NAME
   for(i in 2:ncol(scen_dist)) scen_dist[,i] <- scen_dist[,i]/scen_dist[,1] 
   if(CITY=='accra') scen_dist <- rbind(scen_dist,Tuktuk=1)
   
   # get distances as a proportion of travel across demographic groups
-  mode_names <- names(distances)[3+1:(length(unique(journeys$trip_mode))-2)]
+  mode_names <- names(distances)[names(distances)%in%c(unique(journeys$trip_mode),'pedestrian')]
   for (i in 1: length(mode_names))
     for (n in 1:(NSCEN+1))
       distances[[mode_names[i]]][which(distances$scenario == SCEN[n])] <- 
@@ -46,7 +45,7 @@ distances_for_injury_function <- function(trip_scen_sets){
   # divide injuries into those for which we can write a WHW (who hit whom) matrix, i.e. we know distances of both striker and casualty, 
   ## and those for which we don't know striker distance: no or other vehicle (NOOV)
   ## we can only model casualties for which we know distance travelled 
-  ## we include Truck and Bus travel via the flags used in run_ithim_setup, if they are missing from the survey, as in accra
+  ## we include truck and bus travel via the flags used in run_ithim_setup, if they are missing from the survey, as in accra
   injury_table <- INJURY_TABLE
   u_gen <- unique(injury_table[[1]]$cas_gender)
   u_age <- unique(injury_table[[1]]$cas_age)

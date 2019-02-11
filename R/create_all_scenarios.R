@@ -11,8 +11,8 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     rd_list <- list()
     rd_list[[1]] <- rdr
     # Scenario 1
-    source_modes <- c('Bus', 'Walking')
-    target_modes <- c('Private Car')
+    source_modes <- c('bus', 'walking')
+    target_modes <- c('car')
     source_percentages <- round(c(0.16, 0.49)* tt)
     rdr <- create_scenario(rdr, scen_name = 'Scenario 1', source_modes = source_modes, 
                            target_modes = target_modes, source_distance_cats = DIST_CAT, 
@@ -21,12 +21,12 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     ###############################################################
     # Scenario 2
     rdr <- rd_list[[2]]
-    # 35 % of all trips are Bus.
-    # These come from private car and taxi.
-    # All car and taxi trips > 6 km go to Bus. Then 35 car and taxi trips 0--6 km go to bus.
-    source_modes <- c('Private Car', 'Taxi')
-    target_modes <- c('Bus')
-    target_new_trips <- round(0.35 * tt - sum(rdr$trip_mode=='Bus'))
+    # 35 % of all trips are bus.
+    # These come from car and taxi.
+    # All car and taxi trips > 6 km go to bus. Then 35 car and taxi trips 0--6 km go to bus.
+    source_modes <- c('car', 'taxi')
+    target_modes <- c('bus')
+    target_new_trips <- round(0.35 * tt - sum(rdr$trip_mode=='bus'))
     total_car_trips <- filter(rdr, trip_mode %in% source_modes)
     long_trips <- sum(total_car_trips$trip_distance_cat!=DIST_CAT[1])
     long_car_trips_sample <- create_scenario(total_car_trips, scen_name = 'Scenario 2', source_modes = source_modes, combined_modes = T, 
@@ -50,12 +50,12 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     ###############################################################
     # Scenario 3
     rdr <- rd_list[[2]]
-    # 16 % Bus remain as is
+    # 16 % bus remain as is
     # 10 % Mcycle increase 
-    # x decrease private car
-    source_modes <- c('Private Car')
-    target_modes <- c('Motorcycle')
-    target_new_trips <- max(round(0.1 * tt) - sum(rdr$trip_mode=='Motorcycle'),1)
+    # x decrease car
+    source_modes <- c('car')
+    target_modes <- c('motorcycle')
+    target_new_trips <- max(round(0.1 * tt) - sum(rdr$trip_mode=='motorcycle'),1)
     mcycle_trips_sample <- create_scenario(rdr, scen_name = 'Scenario 3', source_modes = source_modes, 
                                            combined_modes = T, target_modes = target_modes, 
                                            source_distance_cats = DIST_CAT, source_trips = target_new_trips)
@@ -69,11 +69,11 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     # Scenario 4
     rdr <- rd_list[[2]]
     # 3.5 % Cycle
-    source_modes <- c('Motorcycle', 'Private Car', 'Taxi')
-    target_modes <- c('Bicycle')
-    mtrips <- max(min(52,sum(rdr$trip_mode == 'Motorcycle')),1)
-    btrips <- sum(rdr$trip_mode == 'Bicycle')
-    ctrips <- max(min(round(0.035 * tt) - btrips - mtrips, sum(rdr$trip_mode %in% c('Private Car', 'Taxi')&rdr$trip_distance_cat==DIST_CAT[1])),1)
+    source_modes <- c('motorcycle', 'car', 'taxi')
+    target_modes <- c('bicycle')
+    mtrips <- max(min(52,sum(rdr$trip_mode == 'motorcycle')),1)
+    btrips <- sum(rdr$trip_mode == 'bicycle')
+    ctrips <- max(min(round(0.035 * tt) - btrips - mtrips, sum(rdr$trip_mode %in% c('car', 'taxi')&rdr$trip_distance_cat==DIST_CAT[1])),1)
     target_new_trips <- c(mtrips, ctrips)
     mbike_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes[1],combined_modes = T, 
                                    target_modes = target_modes,source_distance_cats = DIST_CAT,source_trips = target_new_trips[1])
@@ -89,8 +89,8 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     # Scenario 5
     rdr <- rd_list[[2]]
     # 3.5 % Cycle
-    source_modes <- c('Private Car', 'Taxi')
-    target_modes <- c('Walking')
+    source_modes <- c('car', 'taxi')
+    target_modes <- c('walking')
     target_new_trips <- min(round(0.54 * tt) - sum(rdr$trip_mode == target_modes), sum(rdr$trip_mode%in%source_modes&rdr$trip_distance_cat==DIST_CAT[1]))
     motorised_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes, combined_modes = T, 
                                        target_modes = target_modes,source_distance_cats = DIST_CAT[1],source_trips = target_new_trips)
@@ -112,8 +112,8 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     rd_list <- list()
     rd_list[[1]] <- rdr
     # Scenario 1
-    source_modes <- c('Bus', 'Walking')
-    target_modes <- c('Private Car')
+    source_modes <- c('bus', 'walking')
+    target_modes <- c('car')
     source_percentages <- round(c(0.15, 0.20)* tt)
     rdr <- create_scenario(rdr, scen_name = 'Scenario 1', source_modes = source_modes, 
                            target_modes = target_modes, source_distance_cats = DIST_CAT, 
@@ -122,12 +122,12 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     ###############################################################
     # Scenario 2
     rdr <- rd_list[[2]]
-    # 35 % of all trips are Bus.
-    # These come from private car and taxi.
-    # All car and taxi trips > 6 km go to Bus. Then 35 car and taxi trips 0--6 km go to bus.
-    source_modes <- c('Private Car', 'Taxi')
-    target_modes <- c('Bus')
-    target_new_trips <- round(0.35 * tt - sum(rdr$trip_mode=='Bus'))
+    # 35 % of all trips are bus.
+    # These come from car and taxi.
+    # All car and taxi trips > 6 km go to bus. Then 35 car and taxi trips 0--6 km go to bus.
+    source_modes <- c('car', 'taxi')
+    target_modes <- c('bus')
+    target_new_trips <- round(0.35 * tt - sum(rdr$trip_mode=='bus'))
     total_car_trips <- filter(rdr, trip_mode %in% source_modes)
     long_trips <- sum(total_car_trips$trip_distance_cat!=DIST_CAT[1])
     long_car_trips_sample <- create_scenario(total_car_trips, scen_name = 'Scenario 2', source_modes = source_modes, combined_modes = T, 
@@ -152,12 +152,12 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     ###############################################################
     # Scenario 3
     rdr <- rd_list[[2]]
-    # 16 % Bus remain as is
+    # 16 % bus remain as is
     # 10 % Mcycle increase 
-    # x decrease private car
-    source_modes <- c('Private Car')
-    target_modes <- c('Motorcycle')
-    target_new_trips <- max(round(0.1 * tt) - sum(rdr$trip_mode=='Motorcycle'),1)
+    # x decrease car
+    source_modes <- c('car')
+    target_modes <- c('motorcycle')
+    target_new_trips <- max(round(0.1 * tt) - sum(rdr$trip_mode=='motorcycle'),1)
     mcycle_trips_sample <- create_scenario(rdr, scen_name = 'Scenario 3', source_modes = source_modes, 
                                            combined_modes = T, target_modes = target_modes, 
                                            source_distance_cats = DIST_CAT, source_trips = target_new_trips)
@@ -172,11 +172,11 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     # Scenario 4
     rdr <- rd_list[[2]]
     # 3.5 % Cycle
-    source_modes <- c('Motorcycle', 'Private Car', 'Taxi')
-    target_modes <- c('Bicycle')
-    mtrips <- max(min(52,sum(rdr$trip_mode == 'Motorcycle')),1)
-    btrips <- sum(rdr$trip_mode == 'Bicycle')
-    ctrips <- max(min(round(0.035 * tt) - btrips - mtrips, sum(rdr$trip_mode %in% c('Private Car', 'Taxi')&rdr$trip_distance_cat==DIST_CAT[1])),1)
+    source_modes <- c('motorcycle', 'car', 'taxi')
+    target_modes <- c('bicycle')
+    mtrips <- max(min(52,sum(rdr$trip_mode == 'motorcycle')),1)
+    btrips <- sum(rdr$trip_mode == 'bicycle')
+    ctrips <- max(min(round(0.035 * tt) - btrips - mtrips, sum(rdr$trip_mode %in% c('car', 'taxi')&rdr$trip_distance_cat==DIST_CAT[1])),1)
     target_new_trips <- c(mtrips, ctrips)
     mbike_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes[1],combined_modes = T, 
                                    target_modes = target_modes,source_distance_cats = DIST_CAT,source_trips = target_new_trips[1])
@@ -192,8 +192,8 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     # Scenario 5
     rdr <- rd_list[[2]]
     # 3.5 % Cycle
-    source_modes <- c('Private Car', 'Taxi')
-    target_modes <- c('Walking')
+    source_modes <- c('car', 'taxi')
+    target_modes <- c('walking')
     target_new_trips <- min(round(0.54 * tt) - sum(rdr$trip_mode == target_modes), sum(rdr$trip_mode%in%source_modes&rdr$trip_distance_cat==DIST_CAT[1]))
     motorised_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes, combined_modes = T, 
                                        target_modes = target_modes,source_distance_cats = DIST_CAT[1],source_trips = target_new_trips)

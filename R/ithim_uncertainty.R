@@ -6,7 +6,7 @@ ithim_uncertainty <- function(ithim_object,seed=1){
   # Get parameters
   for(i in 1:length(parameters))
     assign(names(parameters)[i],parameters[[i]][[seed]],pos=1)
-  ## Re-do set up if BUS_WALK_TIME or MC_TO_CAR_RATIO has changed
+  ## Re-do set up if any distance parameter has changed
   (if(RECALCULATE_TRIPS){
     set_vehicle_inventory()
     get_synthetic_from_trips()

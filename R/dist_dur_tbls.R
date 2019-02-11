@@ -13,14 +13,14 @@ dist_dur_tbls <- function(trip_scen_sets){
     local_dist <- summarise(local, sum_dist = sum(trip_distance))
     local_dur <- summarise(local, sum_dur = sum(trip_duration))
     
-    # add Short Walking, if Short Walking has been added
+    # add walk_to_bus, if walk_to_bus has been added
     if(ADD_WALK_TO_BUS_TRIPS){
-      local_dist$sum_dist[local_dist$trip_mode == "Walking"] <- 
-        local_dist$sum_dist[local_dist$trip_mode == "Walking"] + 
-        local_dist$sum_dist[local_dist$trip_mode == "Short Walking"]
-      local_dur$sum_dur[local_dur$trip_mode == "Walking"] <- 
-        local_dur$sum_dur[local_dur$trip_mode == "Walking"] + 
-        local_dur$sum_dur[local_dur$trip_mode == "Short Walking"]
+      local_dist$sum_dist[local_dist$trip_mode == "walking"] <- 
+        local_dist$sum_dist[local_dist$trip_mode == "walking"] + 
+        local_dist$sum_dist[local_dist$trip_mode == "walk_to_bus"]
+      local_dur$sum_dur[local_dur$trip_mode == "walking"] <- 
+        local_dur$sum_dur[local_dur$trip_mode == "walking"] + 
+        local_dur$sum_dur[local_dur$trip_mode == "walk_to_bus"]
     }
     
     # store results
@@ -42,8 +42,8 @@ dist_dur_tbls <- function(trip_scen_sets){
   }
   
   # Remove short walking
-  dist <- filter(local_dist, trip_mode != 'Short Walking')
-  dur <- filter(local_dur, trip_mode != 'Short Walking')
+  dist <- filter(local_dist, trip_mode != 'walk_to_bus')
+  dur <- filter(local_dur, trip_mode != 'walk_to_bus')
   
   return(list(dist=dist,dur=dur))
 }

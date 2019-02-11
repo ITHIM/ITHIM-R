@@ -1,7 +1,7 @@
 #' @export
 run_ithim_setup <- function(seed=1,
                             CITY = 'accra',
-                            modes = c("Bus", "Private Car", "Taxi", "Walking","Short Walking", "Bicycle", "Motorcycle","Truck","Bus_driver"),
+                            modes = c("bus", "car", "taxi", "walking","walk_to_bus", "bicycle", "motorcycle","truck","bus_driver"),
                             speeds = c(15, 21, 21, 4.8, 4.8, 14.5, 25, 21, 15),
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             ADD_WALK_TO_BUS_TRIPS = T,
@@ -24,12 +24,11 @@ run_ithim_setup <- function(seed=1,
                             INJURY_REPORTING_RATE = 1,
                             CHRONIC_DISEASE_SCALAR = 1,
                             DAY_TO_WEEK_TRAVEL_SCALAR = 7,
-                            RATIO_4W1_TO_4W2 = 10/12,
                             TAXI_TO_CAR_RATIO = 0.04,
                             BUS_TO_CAR_RATIO = 0.12,
-                            TRUCK_TO_CAR_RATIO = 0.09,
-                            MC_TO_CAR_RATIO = 0.2,
-                            LDT_TO_CAR_RATIO = 0.21,
+                            BIG_TRUCK_TO_CAR_RATIO = 0.09,
+                            MOTORCYCLE_TO_CAR_RATIO = 0.2,
+                            TRUCK_TO_CAR_RATIO = 0.21,
                             OTHER_TO_CAR_RATIO = 0.01 ){
   
   ## SUMMARY OF INPUTS
@@ -66,13 +65,12 @@ run_ithim_setup <- function(seed=1,
   # INJURY_REPORTING_RATE = parameter. double: sets scalar for injury counts (inverse). vector: samples from distribution.
   # CHRONIC_DISEASE_SCALAR = parameter. double: sets scalar for chronic disease background burden. vector: samples from distribution.
   
-  # MC_TO_CAR_RATIO = parameter. double: sets motorcycle distance relative to car. vector: samples from distribution.
+  # MOTORCYCLE_TO_CAR_RATIO = parameter. double: sets motorcycle distance relative to car. vector: samples from distribution.
   
-  # RATIO_4W1_TO_4W2 = double. Sets ratio of two car types.
   # TAXI_TO_CAR_RATIO = double. Sets taxi distance relative to car.
   # BUS_TO_CAR_RATIO = double. Sets bus distance relative to car.
   # TRUCK_TO_CAR_RATIO = double. Sets truck distance relative to car.
-  # LDT_TO_CAR_RATIO = double. Sets `LDR' contribution to emission relative to car.
+  # BIG_TRUCK_TO_CAR_RATIO = double. Sets `big truck' contribution to emission relative to car.
   # OTHER_TO_CAR_RATIO = double. Sets `other' contribution to emission relative to car.
   
   #################################################
@@ -111,11 +109,10 @@ run_ithim_setup <- function(seed=1,
   ROAD_RATIO_SLOPE <<- 0.379
   
   # transport mode ratios, for imputation where missing
-  RATIO_4W1_TO_4W2 <<-  RATIO_4W1_TO_4W2
   TAXI_TO_CAR_RATIO  <<- TAXI_TO_CAR_RATIO
   BUS_TO_CAR_RATIO  <<- BUS_TO_CAR_RATIO
   TRUCK_TO_CAR_RATIO  <<- TRUCK_TO_CAR_RATIO
-  LDT_TO_CAR_RATIO <<- LDT_TO_CAR_RATIO
+  BIG_TRUCK_TO_CAR_RATIO <<- BIG_TRUCK_TO_CAR_RATIO
   OTHER_TO_CAR_RATIO <<- OTHER_TO_CAR_RATIO
   
   ## LOAD DATA
@@ -128,7 +125,7 @@ run_ithim_setup <- function(seed=1,
                                                     MMET_WALKING,
                                                     PM_CONC_BASE,  
                                                     PM_TRANS_SHARE,
-                                                    MC_TO_CAR_RATIO,
+                                                    MOTORCYCLE_TO_CAR_RATIO,
                                                     PA_DOSE_RESPONSE_QUANTILE,
                                                     AP_DOSE_RESPONSE_QUANTILE,
                                                     BACKGROUND_PA_SCALAR,
@@ -137,7 +134,7 @@ run_ithim_setup <- function(seed=1,
                                                     DAY_TO_WEEK_TRAVEL_SCALAR)
   
   # programming flags: do we need to recompute elements given uncertain variables?
-  RECALCULATE_TRIPS <<- 'MC_TO_CAR_RATIO'%in%names(ithim_object$parameters)
+  RECALCULATE_TRIPS <<- 'MOTORCYCLE_TO_CAR_RATIO'%in%names(ithim_object$parameters)
   RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||'BUS_WALK_TIME'%in%names(ithim_object$parameters)
   
   ## create inventory and edit trips, if they are not variable dependent
@@ -155,10 +152,10 @@ run_ithim_setup <- function(seed=1,
   #all_modes <- unique(c(modes,injuries$cas_mode,injuries$strike_mode))
   #match_modes <- EMISSION_FACTORS$vehicle_type
   #injury_modes <- unique(injuries$cas_mode)
-  #additional_modes <- c('Car')
-  #if(ADD_WALK_TO_BUS_TRIPS) additional_modes <- c(additional_modes,'Short Walking')
-  #if(ADD_BUS_DRIVERS) additional_modes <- c(additional_modes,'Bus_driver')
-  #if(ADD_TRUCK_DRIVERS) additional_modes <- c(additional_modes,'Truck')
+  #additional_modes <- c()
+  #if(ADD_WALK_TO_BUS_TRIPS) additional_modes <- c(additional_modes,'walk_to_bus')
+  #if(ADD_BUS_DRIVERS) additional_modes <- c(additional_modes,'bus_driver')
+  #if(ADD_TRUCK_DRIVERS) additional_modes <- c(additional_modes,'truck')
   #injury_modes <- injury_modes[!injury_modes%in%c(all_modes,additional_modes)]
   
   #cat('Mode Summary:\n')

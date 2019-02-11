@@ -21,7 +21,6 @@
                                   BACKGROUND_PA_SCALAR = 1,
                                   INJURY_REPORTING_RATE = 1,
                                   CHRONIC_DISEASE_SCALAR = 1,
-                                  RATIO_4W1_TO_4W2 = 10/12,
                                   TAXI_TO_CAR_RATIO = 0.04,
                                   BUS_TO_CAR_RATIO = 0.12,
                                   TRUCK_TO_CAR_RATIO = 0.09,
