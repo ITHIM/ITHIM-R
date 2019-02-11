@@ -264,8 +264,8 @@ evppi <- ithim_object_list$uncertain$now$evppi
 
 
 x11(width=5); par(mar=c(6,12,3.5,5.5))
-parameter_names <- c('walk-to-bus time','cycling mMETs','walking mMETs','background PM2.5','traffic PM2.5 share','motorcycle distance',
-                     'non-travel PA','injury reporting rate','non-communicable disease burden','all-cause mortality (PA)','IHD (PA)',
+parameter_names <- c('walk-to-bus time','cycling mMETs','walking mMETs','background PM2.5','motorcycle distance','non-travel PA',
+                     'non-communicable disease burden','traffic PM2.5 share','injury reporting rate','day-to-week scalar','all-cause mortality (PA)','IHD (PA)',
                      'cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
                      'COPD (AP)','stroke (AP)')
 labs <- rownames(evppi)
