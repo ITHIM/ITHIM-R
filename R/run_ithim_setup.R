@@ -23,7 +23,7 @@ run_ithim_setup <- function(seed=1,
                             BACKGROUND_PA_SCALAR = 1,
                             INJURY_REPORTING_RATE = 1,
                             CHRONIC_DISEASE_SCALAR = 1,
-                            DAY_TO_WEEK_TRAVEL_SCALAR = 1,
+                            DAY_TO_WEEK_TRAVEL_SCALAR = 7,
                             RATIO_4W1_TO_4W2 = 10/12,
                             TAXI_TO_CAR_RATIO = 0.04,
                             BUS_TO_CAR_RATIO = 0.12,
@@ -133,7 +133,8 @@ run_ithim_setup <- function(seed=1,
                                                     AP_DOSE_RESPONSE_QUANTILE,
                                                     BACKGROUND_PA_SCALAR,
                                                     INJURY_REPORTING_RATE,
-                                                    CHRONIC_DISEASE_SCALAR )
+                                                    CHRONIC_DISEASE_SCALAR,
+                                                    DAY_TO_WEEK_TRAVEL_SCALAR)
   
   # programming flags: do we need to recompute elements given uncertain variables?
   RECALCULATE_TRIPS <<- 'MC_TO_CAR_RATIO'%in%names(ithim_object$parameters)

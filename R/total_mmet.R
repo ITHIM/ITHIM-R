@@ -4,7 +4,7 @@ total_mmet <- function(trip_scen_sets){
   synth_pop <- SYNTHETIC_POPULATION
   rd_pa <- subset(trip_scen_sets,trip_mode%in%c('Walking','Short Walking','Bicycle')&participant_id>0) 
   # Convert baseline's trip duration from mins to hours
-  rd_pa$trip_duration_hrs <- rd_pa$trip_duration / 60
+  rd_pa$trip_duration_hrs <- rd_pa$trip_duration / 60 * DAY_TO_WEEK_TRAVEL_SCALAR
   # Get total individual level walking and cycling and sport mmets 
   for (i in 1:length(SCEN)){
     synth_pop[[paste0(SCEN_SHORT_NAME[i],'_mmet')]] <- synth_pop$work_ltpa_marg_met * BACKGROUND_PA_SCALAR

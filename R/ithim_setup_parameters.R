@@ -10,7 +10,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    AP_DOSE_RESPONSE_QUANTILE = F,
                                    BACKGROUND_PA_SCALAR = 1,
                                    INJURY_REPORTING_RATE = 1,
-                                   CHRONIC_DISEASE_SCALAR = 1 ){
+                                   CHRONIC_DISEASE_SCALAR = 1,
+                                   DAY_TO_WEEK_TRAVEL_SCALAR = 7){
   
   if (NSAMPLES==1&&(PM_CONC_BASE == 50 |
     PM_TRANS_SHARE == 0.225))
@@ -51,7 +52,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   
   ##Variables with beta distribution
   betaVariables <- c("PM_TRANS_SHARE",
-                  "INJURY_REPORTING_RATE")
+                     "INJURY_REPORTING_RATE")
   for (i in 1:length(betaVariables)) {
     name <- betaVariables[i]
     val <- get(betaVariables[i])
@@ -61,6 +62,11 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
       parameters[[name]] <-
         rbeta(NSAMPLES, val[1], val[2])
     }
+  }
+  if(length(DAY_TO_WEEK_TRAVEL_SCALAR) > 1 ){
+    parameters$DAY_TO_WEEK_TRAVEL_SCALAR <- 7*rbeta(NSAMPLES,DAY_TO_WEEK_TRAVEL_SCALAR[1],DAY_TO_WEEK_TRAVEL_SCALAR[2])
+  }else{
+    DAY_TO_WEEK_TRAVEL_SCALAR <<- DAY_TO_WEEK_TRAVEL_SCALAR
   }
   
   #if(length(BUS_WALK_TIME) > 1 )    parameters$BUS_WALK_TIME <- rlnorm(NSAMPLES,BUS_WALK_TIME[1], BUS_WALK_TIME[2])
