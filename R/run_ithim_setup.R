@@ -176,25 +176,18 @@ run_ithim_setup <- function(seed=1,
   }
   ######################
   
-  #all_modes <- unique(c(modes,injuries$cas_mode,injuries$strike_mode))
-  #match_modes <- EMISSION_FACTORS$vehicle_type
-  #injury_modes <- unique(injuries$cas_mode)
-  #additional_modes <- c()
-  #if(ADD_WALK_TO_BUS_TRIPS) additional_modes <- c(additional_modes,'walk_to_bus')
-  #if(ADD_BUS_DRIVERS) additional_modes <- c(additional_modes,'bus_driver')
-  #if(ADD_TRUCK_DRIVERS) additional_modes <- c(additional_modes,'truck')
-  #injury_modes <- injury_modes[!injury_modes%in%c(all_modes,additional_modes)]
+  casualty_modes <- unique(INJURY_TABLE[[1]]$cas_mode)
+  match_modes <- c(TRIP_SET$trip_mode,'pedestrian')
+  if(ADD_TRUCK_DRIVERS) match_modes <- c(match_modes,'truck')
+  if(!all(casualty_modes%in%match_modes)){
+    cat('\n  The following casualty modes do not have distance data and will not be included in injury module:\n')
+    cat(casualty_modes[!casualty_modes%in%match_modes])
+    cat('\n\n')
+  }
   
-  #cat('Mode Summary:\n')
-  #cat('Included modes:\n\t')
-  #cat(all_modes)
-  #cat('\nAdditional modes:\n\t')
-  #cat(additional_modes)
-  #cat('\nLost casualty modes:\n\t')
-  #cat(injury_modes)
-  #cat('\nModes to match:\n\t')
-  #cat(match_modes)
-  #cat('\n\n')
+  cat('  Emissions will be calculated for the following modes:\n')
+  cat(VEHICLE_INVENTORY$trip_mode[VEHICLE_INVENTORY$emission_factor*VEHICLE_INVENTORY$distance_ratio_to_car>0])
+  cat('\n\n')
   
   return(ithim_object)
 }

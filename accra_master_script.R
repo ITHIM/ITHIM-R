@@ -330,6 +330,12 @@ ithim_object <- run_ithim_setup(CITY='sao_paulo',
 ithim_object$outcome <- run_ithim(ithim_object)
 
 
+ithim_object <- run_ithim_setup(CITY='delhi',
+                                TEST_WALK_SCENARIO = T,
+                                speeds=list(car=30,hoverboard=50))
+ithim_object$outcome <- run_ithim(ithim_object)
+
+
 
 
 
