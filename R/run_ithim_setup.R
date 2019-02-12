@@ -34,8 +34,7 @@ run_ithim_setup <- function(seed=1,
   # seed = double. sets seed to allow some reproducibility.
   # CITY = string. used to identify input files.
   
-  # modes = vector of strings. mode types to be used in model. for Accra, the list came from the travel survey + the modes we added.
-  # speeds = vector of doubles. average mode speeds with order matching that of `modes'.
+  # speeds = named list of doubles. average mode speeds.
   # DIST_CAT = vector of strings. defines distance categories for scenario generation (5 accra scenarios)
   
   # ADD_WALK_TO_BUS_TRIPS = logic. T: adds walk trips to all bus trips whose duration exceeds BUS_WALK_TIME. F: no trips added
@@ -96,8 +95,12 @@ run_ithim_setup <- function(seed=1,
   }
   REFERENCE_SCENARIO <<- REFERENCE_SCENARIO
   
+  ## default speeds that can be edited by input. We could do the same with emissions?
   default_speeds <- list(
     bus=15,
+    bus_driver=15,
+    minibus=15,
+    minibus_driver=15,
     car=21,
     taxi=21,
     walking=4.8,
@@ -105,14 +108,11 @@ run_ithim_setup <- function(seed=1,
     bicycle=14.5,
     motorcycle=25,
     truck=25,
-    bus_driver=15,
     van=15,
     subway=28
   )
   if(!is.null(speeds)){
-    for(m in names(speeds)[names(speeds)%in%names(default_speeds)])
-      default_speeds[[m]] <- speeds[[m]]
-    for(m in names(speeds)[!names(speeds)%in%names(default_speeds)])
+    for(m in names(speeds))
       default_speeds[[m]] <- speeds[[m]]
   }
   
