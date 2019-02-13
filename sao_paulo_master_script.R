@@ -4,29 +4,13 @@
   #require(tidyverse)
   
   ithim_object <- run_ithim_setup(CITY = 'sao_paulo',
-                                  modes = c("Bus", "Private Car", "van", "Taxi", "Motorcycle", "Bicycle", "Walking"),
-                                  speeds = c(15, 21, 21, 21, 25, 15, 4.8),
-                                  # PATH_TO_LOCAL_DATA = 'data/local/sao_paulo/',
                                   ADD_WALK_TO_BUS_TRIPS = F,
                                   ADD_BUS_DRIVERS = F,
                                   ADD_TRUCK_DRIVERS = F,
                                   TEST_WALK_SCENARIO = F,
                                   BUS_WALK_TIME= 5,
-                                  MMET_CYCLING = 4.63,
-                                  MMET_WALKING = 2.53,
-                                  PM_CONC_BASE = 50,  
-                                  PM_TRANS_SHARE = 0.225,
-                                  PA_DOSE_RESPONSE_QUANTILE = F,
-                                  AP_DOSE_RESPONSE_QUANTILE = F,
-                                  BACKGROUND_PA_SCALAR = 1,
-                                  INJURY_REPORTING_RATE = 1,
-                                  CHRONIC_DISEASE_SCALAR = 1,
-                                  TAXI_TO_CAR_RATIO = 0.04,
-                                  BUS_TO_CAR_RATIO = 0.12,
-                                  TRUCK_TO_CAR_RATIO = 0.09,
-                                  MC_TO_CAR_RATIO = 0.2,
-                                  LDT_TO_CAR_RATIO = 0.21,
-                                  OTHER_TO_CAR_RATIO = 0.01)
+                                  PM_TRANS_SHARE = 0.225
+                                  )
   
   ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
   
