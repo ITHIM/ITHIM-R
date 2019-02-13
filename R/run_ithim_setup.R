@@ -23,6 +23,8 @@ run_ithim_setup <- function(seed=1,
                             INJURY_REPORTING_RATE = 1,
                             CHRONIC_DISEASE_SCALAR = 1,
                             DAY_TO_WEEK_TRAVEL_SCALAR = 7,
+                            INJURY_LINEARITY= 1,
+                            CASUALTY_EXPONENT_FRACTION = 0.5,
                             TAXI_TO_CAR_RATIO = 0.04,
                             BUS_TO_CAR_RATIO = 0.12,
                             BIG_TRUCK_TO_CAR_RATIO = 0.09,
@@ -158,11 +160,13 @@ run_ithim_setup <- function(seed=1,
                                                     BACKGROUND_PA_SCALAR,
                                                     INJURY_REPORTING_RATE,
                                                     CHRONIC_DISEASE_SCALAR,
-                                                    DAY_TO_WEEK_TRAVEL_SCALAR)
+                                                    DAY_TO_WEEK_TRAVEL_SCALAR,
+                                                    INJURY_LINEARITY,
+                                                    CASUALTY_EXPONENT_FRACTION)
   
   # programming flags: do we need to recompute elements given uncertain variables?
   RECALCULATE_TRIPS <<- 'MOTORCYCLE_TO_CAR_RATIO'%in%names(ithim_object$parameters)
-  RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||'BUS_WALK_TIME'%in%names(ithim_object$parameters)
+  RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('BUS_WALK_TIME','INJURY_LINEARITY','CASUALTY_EXPONENT_FRACTION')%in%names(ithim_object$parameters))
   
   ## create inventory and edit trips, if they are not variable dependent
   if(!RECALCULATE_TRIPS){

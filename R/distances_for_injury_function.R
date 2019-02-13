@@ -104,7 +104,9 @@ distances_for_injury_function <- function(trip_scen_sets){
   ##TODO write formulae without prior knowledge of column names
   ##TODO use all ages with ns(age,...).
   ##RJ linearity in group rates
-  forms <- list(whw='count~cas_mode*strike_mode+cas_age+cas_gender+offset(log(cas_distance))+offset(log(strike_distance))',
+  CAS_EXPONENT <<- INJURY_LINEARITY * CASUALTY_EXPONENT_FRACTION
+  STR_EXPONENT <<- INJURY_LINEARITY - CAS_EXPONENT
+  forms <- list(whw='count~cas_mode*strike_mode+cas_age+cas_gender+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)+(1-STR_EXPONENT)*log(strike_distance_sum))',
              noov='count~cas_mode*strike_mode+cas_age+cas_gender+offset(log(cas_distance))')
   ## catch for when regression fails: if fail, run simpler model: no interactions.
   for(type in c('whw','noov')){

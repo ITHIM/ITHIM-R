@@ -45,6 +45,8 @@ test_that("accra uncertain parallel", {
                                   BACKGROUND_PA_SCALAR = c(0,log(1.2)),  
                                   MOTORCYCLE_TO_CAR_RATIO = c(-1.4,0.4),  
                                   DAY_TO_WEEK_TRAVEL_SCALAR = c(20,3),  
+                                  INJURY_LINEARITY= c(log(1),log(1.2)),
+                                  CASUALTY_EXPONENT_FRACTION = c(8,8),
                                   PA_DOSE_RESPONSE_QUANTILE = F,  
                                   AP_DOSE_RESPONSE_QUANTILE = F)
   numcores <- detectCores()
@@ -68,7 +70,7 @@ test_that("accra uncertain parallel", {
   colnames(evppi) <- c("base",paste0("scen", 1:NSCEN) )[c(1,3:6)]
   rownames(evppi) <- colnames(parameter_samples)
   # test
-  expect_equal(sum(evppi>0),50)
+  expect_equal(sum(evppi>0),60)
 })
 
 test_that("accra evppi", {

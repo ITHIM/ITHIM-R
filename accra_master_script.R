@@ -109,9 +109,11 @@ ithim_object <- run_ithim_setup(NSAMPLES = 64,
                                 CHRONIC_DISEASE_SCALAR = c(log(1), log(1.2)),  
                                 BACKGROUND_PA_SCALAR = c(log(1), log(1.2)),   
                                 MOTORCYCLE_TO_CAR_RATIO = c(-1.4,0.4),
-                                PA_DOSE_RESPONSE_QUANTILE = T,  
-                                AP_DOSE_RESPONSE_QUANTILE = T,
-                                DAY_TO_WEEK_TRAVEL_SCALAR = c(20,3))
+                                PA_DOSE_RESPONSE_QUANTILE = F,  
+                                AP_DOSE_RESPONSE_QUANTILE = F,
+                                DAY_TO_WEEK_TRAVEL_SCALAR = c(20,3),
+                                INJURY_LINEARITY= c(log(1),log(1.2)),
+                                CASUALTY_EXPONENT_FRACTION = c(8,8))
 
 numcores <- detectCores()
 ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
@@ -166,6 +168,8 @@ certainty_parameters <- list(uncertain=list(
   MMET_WALKING = c(log(2.5), log(1.2)), 
   MOTORCYCLE_TO_CAR_RATIO = c(-1.4,0.4),
   DAY_TO_WEEK_TRAVEL_SCALAR = c(20,3),
+  INJURY_LINEARITY= c(log(1),log(1.2)),
+  CASUALTY_EXPONENT_FRACTION = c(8,8),
   PA_DOSE_RESPONSE_QUANTILE = T,  
   AP_DOSE_RESPONSE_QUANTILE = T
 ), not_uncertain=list(
@@ -180,6 +184,8 @@ certainty_parameters <- list(uncertain=list(
   MMET_WALKING = 2.53, 
   MOTORCYCLE_TO_CAR_RATIO = 0.2,
   DAY_TO_WEEK_TRAVEL_SCALAR = 7,
+  INJURY_LINEARITY= 1,
+  CASUALTY_EXPONENT_FRACTION = 0.5,
   PA_DOSE_RESPONSE_QUANTILE = F,  
   AP_DOSE_RESPONSE_QUANTILE = F
 ))
@@ -205,6 +211,8 @@ if(file.exists(file_name)){
                                       BACKGROUND_PA_SCALAR = certainty_parameters[[certainty]]$background_pa_scalar[[environmental_scenario]],  
                                       MOTORCYCLE_TO_CAR_RATIO = certainty_parameters[[certainty]]$MOTORCYCLE_TO_CAR_RATIO,  
                                       DAY_TO_WEEK_TRAVEL_SCALAR = certainty_parameters[[certainty]]$DAY_TO_WEEK_TRAVEL_SCALAR,
+                                      CASUALTY_EXPONENT_FRACTION = certainty_parameters[[certainty]]$CASUALTY_EXPONENT_FRACTION,  
+                                      INJURY_LINEARITY = certainty_parameters[[certainty]]$INJURY_LINEARITY,
                                       PA_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$PA_DOSE_RESPONSE_QUANTILE,  
                                       AP_DOSE_RESPONSE_QUANTILE = certainty_parameters[[certainty]]$AP_DOSE_RESPONSE_QUANTILE)
         print(c(certainty,environmental_scenario))
@@ -263,11 +271,11 @@ library(plotrix)
 evppi <- ithim_object_list$uncertain$now$evppi
 
 
-x11(width=5); par(mar=c(6,12,3.5,5.5))
-parameter_names <- c('walk-to-bus time','cycling mMETs','walking mMETs','background PM2.5','motorcycle distance','non-travel PA',
-                     'non-communicable disease burden','traffic PM2.5 share','injury reporting rate','day-to-week scalar','all-cause mortality (PA)','IHD (PA)',
-                     'cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
+parameter_names <- c('walk-to-bus time','cycling MMETs','walking MMETs','background PM2.5','motorcycle distance','non-travel PA','non-communicable disease burden',
+                     'injury linearity','traffic PM2.5 share','injury reporting rate','casualty exponent fraction','day-to-week scalar',
+                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
                      'COPD (AP)','stroke (AP)')
+x11(width=5); par(mar=c(6,12,3.5,5.5))
 labs <- rownames(evppi)
 get.pal=colorRampPalette(brewer.pal(9,"Reds"))
 redCol=rev(get.pal(12))
@@ -284,12 +292,12 @@ fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=parameter_names,line=NA,p
 mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
 color.legend(5.5,0,5.5+0.3,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
 
-parameter_names <- c('walk-to-bus time','cycling MMETs','walking MMETs','background PM2.5','motorcycle distance','non-travel PA',
-                     'NCD burden','traffic PM2.5 share','injury reporting rate','day-to-week scalar','all-cause mortality (PA)','IHD (PA)',
-                     'cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
+parameter_names <- c('walk-to-bus time','cycling MMETs','walking MMETs','background PM2.5','motorcycle distance','non-travel PA','NCD burden',
+                     'injury linearity','traffic PM2.5 share','injury reporting rate','casualty exponent fraction','day-to-week scalar',
+                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
                      'COPD (AP)','stroke (AP)')
-x11(width=10,height=3); par(mfrow=c(2,5),mar=c(5,3,1,1)); 
-for(i in 1:10)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),cex.lab=1.5,cex.axis=1.5,col='navyblue',xlab=parameter_names[i],ylab='',frame=F,main='',lwd=2)
+x11(width=9,height=6); par(mfrow=c(3,4),mar=c(5,3,1,1)); 
+for(i in 1:12)  plot(density(ithim_object_list$uncertain$now$parameters[[i]]),cex.lab=1.5,cex.axis=1.5,col='navyblue',xlab=parameter_names[i],ylab='',frame=F,main='',lwd=2)
 
 outcome <- t(sapply(ithim_object_list$uncertain$now$outcomes, function(x) colSums(x$hb$deaths[,(NSCEN+3):ncol(x$hb$deaths)])))
 
