@@ -87,3 +87,22 @@ td <- td %>% dplyr::mutate(scen = stringr::str_extract(Var2, "[^_]+"))
 td <- td %>% dplyr::mutate(var = stringr::str_extract(Var2, "[^_]+$"))
 ggplot(data = td, aes(x = var, y = value, fill = Var1)) +
   geom_bar(stat = "identity", position = "dodge2", colour = "black", alpha = 0.5) + theme_minimal() + facet_wrap(~Var1)
+
+
+cols <- c("cleaner_fleet" = "#e41a1c", 
+                "safety" = "#377eb8", 
+                "chronic_disease" = "#4daf4a", 
+                "background_ap" = "#984ea3",
+                "background_pa" = "#80b1d3")#, 
+#"Scenario 5" = "#cc4c02")
+
+require(ggplot2)
+require(ggthemes)
+plotly::ggplotly(
+  ggplot(data = td) +
+    aes(x = var, fill = Var1, weight = value, group = Var1) +
+    geom_bar(position = "dodge") +
+    scale_fill_manual(values = cols) +
+    theme_solarized_2() +
+    theme(legend.position = 'top')
+)
