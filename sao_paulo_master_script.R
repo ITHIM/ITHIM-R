@@ -103,6 +103,7 @@ plotly::ggplotly(
     aes(x = var, fill = Var1, weight = value) +
     geom_bar(position = "dodge2", color = 'black', alpha = 0.5) +
     scale_fill_manual(values = cols) +
+    labs(title = paste0("Reduction in Years of Life Lost (YLL)"), y = paste('<- Harms     Benefits ->'), x = "") +
     theme_solarized_2() +
     theme(legend.position = 'top')
 )
