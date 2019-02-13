@@ -105,5 +105,6 @@ plotly::ggplotly(
     scale_fill_manual(values = cols) +
     labs(title = paste0("Reduction in Years of Life Lost (YLL)"), y = paste('<- Harms     Benefits ->'), x = "") +
     theme_solarized_2() +
-    theme(legend.position = 'top')
+    theme(legend.position = 'top') +
+    guides(fill = guide_legend(title = "Secular Trends"))
 )
