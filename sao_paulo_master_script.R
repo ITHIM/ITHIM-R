@@ -100,8 +100,8 @@ require(ggplot2)
 require(ggthemes)
 plotly::ggplotly(
   ggplot(data = td) +
-    aes(x = var, fill = Var1, weight = value, group = Var1) +
-    geom_bar(position = "dodge") +
+    aes(x = var, fill = Var1, weight = value) +
+    geom_bar(position = "dodge2", color = 'black', alpha = 0.5) +
     scale_fill_manual(values = cols) +
     theme_solarized_2() +
     theme(legend.position = 'top')
