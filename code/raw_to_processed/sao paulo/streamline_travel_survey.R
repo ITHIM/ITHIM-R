@@ -6,7 +6,7 @@ library(tidyverse)
 library(plotly)
 
 # Read sao paulo's travel survey
-rd <- read_csv("data/local/sao paulo/trips_sao_paulo.csv")
+rd <- read.csv("data/local/sao_paulo/trips_sao_paulo2.csv", stringsAsFactors = F)
 
 # Data Dictionary
 
@@ -37,14 +37,13 @@ rd <- read_csv("data/local/sao paulo/trips_sao_paulo.csv")
 rd <- rename(rd, participant_id = ID_PESS , 
              age  =  IDADE,
              sex = SEXO,
-             trip_id = N_VIAG,
+             trip_id = ID_ORDEM, 
              total_trips = TOT_VIAG,
              walking_time_origin = ANDA_O,
              walking_time_dest = ANDA_D, 
              trip_duration = DURACAO, 
              trip_mode = MODOPRIN,
-             trip_distance = DISTANCIA,
-             row_id = ID_ORDEM
+             trip_distance = DISTANCIA
              
 )
 
@@ -147,36 +146,73 @@ mode_speed <- rd %>% filter(is.na(MODO2) & is.na(MODO3) & is.na(MODO4) &
 rd$person_weight <- round(rd$FE_PESS / 100)
 
 # Select columns
-rd <- select(rd, participant_id, age, sex, trip_id, total_trips,
+rd <- dplyr::select(rd, participant_id, age, sex, trip_id, total_trips,
              walking_time_origin,
              walking_time_dest,
              trip_duration,
              trip_mode,
              trip_distance,
              trip_distance_cat,
-             row_id,
              person_weight)
 
 rd$pid <- -1
 id <- 1
 pid_list <- unique(rd$participant_id)
+tid <- 1
+rd$tid <- -1
+
+# bd <- rd
+# rd <- bd
 for(i in 1:length(pid_list)) {
-  
   # require(profvis)
   # profvis({
   #   #your code here
   pg <- filter(rd, participant_id == pid_list[i])
+  # Assign a new trip id
+  rd[rd$participant_id == pid_list[i],]$tid <- seq(from = tid, to = tid + nrow(pg) - 1)
+  # Advance the trip id index by pg
+  tid <- tid + nrow(pg)
+  
   count <- pg$person_weight[1] - 1
   d <- bind_rows(replicate((count), pg, simplify = FALSE))
   d <- arrange(d, trip_id)
   rd[rd$participant_id == pid_list[i],]$pid <- id
   d$pid <- rep((id + 1):(id + count), nrow(pg))
+  d$tid <- seq(from = tid, to = (tid) + (nrow(pg) * count) - 1 )
+  
+  tid <- max(d$tid) + 1
+  
   id <- id + count
   rd <- bind_rows(rd, d)
   
   # })
 }
 
+rd$trip_id <- rd$tid
+rd$participant_id <- rd$pid
+
+rd$tid <- rd$pid <- NULL
+
+write_csv(rd, "data/local/sao_paulo/trips_sao_paulo_expanded.csv")
+
+# Create a filtered df with selected columns
+rd$participant_id <- rd$pid
+rd$pid <- NULL
+
+for (i in 1:nrow(rd)){
+  nr <- rd[i, ]
+  if (!is.na(nr$walking_time_origin) && nr$walking_time_origin > 0){
+    nro <- nr
+    nro$trip_mode <- "short_walk"
+    rd <- rbind(rd, nro)
+  }
+  
+  if (!is.na(nr$walking_time_dest) && nr$walking_time_dest > 0){
+    nrd <- nr
+    nrd$trip_mode <- "short_walk"
+    rd <- rbind(rd, nrd)
+  }
+}
 
 # Define distance categories
 dist_cat <- c("0-6 km", "7-9 km", "10+ km")
