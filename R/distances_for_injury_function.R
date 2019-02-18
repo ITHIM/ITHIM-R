@@ -19,6 +19,11 @@ distances_for_injury_function <- function(trip_scen_sets){
   }
   distances$car <- distances$taxi + distances$car
   distances <- distances[, -which(names(distances) ==  "taxi")]
+  ## bus distance increases linearly with bus passenger distance
+  if('bus_driver'%in%colnames(distances)){
+    passenger <- sapply(SCEN,function(x)sum(subset(distances,scenario==x)$bus))
+    distances$bus_driver <- distances$bus_driver * passenger[match(distances$scenario,SCEN)] / passenger[[1]]
+  }
   true_distances <- distances
   true_distances$sex_age <-  paste0(true_distances$sex,"_",true_distances$age_cat)
   if(ADD_BUS_DRIVERS) true_distances$bus <- true_distances$bus + true_distances$bus_driver
