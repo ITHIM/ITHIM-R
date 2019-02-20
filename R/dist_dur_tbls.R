@@ -50,8 +50,8 @@ dist_dur_tbls <- function(trip_scen_sets){
     bus_driver_row <- which(dist$trip_mode=='bus_driver')
     bus_passenger_row <- which(dist$trip_mode=='bus')
     base_col <- which(colnames(dist)=='Baseline')
-    dist[bus_driver_row,colnames(dist)%in%SCEN] <- dist[bus_driver_row,base_col] * dist[bus_passenger_row,colnames(dist)%in%SCEN] / dist[bus_passenger_row,base_col]
-    dur[bus_driver_row,colnames(dur)%in%SCEN] <- dur[bus_driver_row,base_col] * dur[bus_passenger_row,colnames(dur)%in%SCEN] / dur[bus_passenger_row,base_col]
+    dist[bus_driver_row,colnames(dist)%in%SCEN] <- as.numeric(dist[bus_driver_row,base_col] / dist[bus_passenger_row,base_col]) * dist[bus_passenger_row,colnames(dist)%in%SCEN] 
+    dur[bus_driver_row,colnames(dur)%in%SCEN] <- as.numeric(dur[bus_driver_row,base_col] / dur[bus_passenger_row,base_col]) * dur[bus_passenger_row,colnames(dur)%in%SCEN] 
   }
   
   return(list(dist=dist,dur=dur))

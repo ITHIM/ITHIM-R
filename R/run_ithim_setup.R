@@ -2,6 +2,9 @@
 run_ithim_setup <- function(seed=1,
                             CITY = 'accra',
                             speeds = NULL,
+                            car_ratios = NULL,
+                            emission_factors = NULL,
+                            setup_call_summary_filename = 'setup_call_summary.txt',
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             ADD_WALK_TO_BUS_TRIPS = T,
                             ADD_BUS_DRIVERS = T,
@@ -25,18 +28,15 @@ run_ithim_setup <- function(seed=1,
                             DAY_TO_WEEK_TRAVEL_SCALAR = 7,
                             INJURY_LINEARITY= 1,
                             CASUALTY_EXPONENT_FRACTION = 0.5,
-                            TAXI_TO_CAR_RATIO = 0.04,
-                            BUS_TO_CAR_RATIO = 0.12,
-                            BIG_TRUCK_TO_CAR_RATIO = 0.09,
-                            MOTORCYCLE_TO_CAR_RATIO = 0.2,
-                            TRUCK_TO_CAR_RATIO = 0.21,
-                            OTHER_TO_CAR_RATIO = 0.01 ){
+                            MOTORCYCLE_TO_CAR_RATIO = 0.2){
   
   ## SUMMARY OF INPUTS
   # seed = double. sets seed to allow some reproducibility.
   # CITY = string. used to identify input files.
   
   # speeds = named list of doubles. average mode speeds.
+  # car_ratios = named list of doubles. distances travelled by modes relative to car, for imputation if they are missing from trip set.
+  # emission_factors = named list of doubles. vehicle emission factors.
   # DIST_CAT = vector of strings. defines distance categories for scenario generation (5 accra scenarios)
   
   # ADD_WALK_TO_BUS_TRIPS = logic. T: adds walk trips to all bus trips whose duration exceeds BUS_WALK_TIME. F: no trips added
@@ -67,12 +67,6 @@ run_ithim_setup <- function(seed=1,
   
   # MOTORCYCLE_TO_CAR_RATIO = parameter. double: sets motorcycle distance relative to car. vector: samples from distribution.
   
-  # TAXI_TO_CAR_RATIO = double. Sets taxi distance relative to car.
-  # BUS_TO_CAR_RATIO = double. Sets bus distance relative to car.
-  # TRUCK_TO_CAR_RATIO = double. Sets truck distance relative to car.
-  # BIG_TRUCK_TO_CAR_RATIO = double. Sets `big truck' contribution to emission relative to car.
-  # OTHER_TO_CAR_RATIO = double. Sets `other' contribution to emission relative to car.
-  
   #################################################
   set.seed(seed)
   
@@ -97,7 +91,7 @@ run_ithim_setup <- function(seed=1,
   }
   REFERENCE_SCENARIO <<- REFERENCE_SCENARIO
   
-  ## default speeds that can be edited by input. We could do the same with emissions?
+  ## default speeds that can be edited by input. 
   default_speeds <- list(
     bus=15,
     bus_driver=15,
@@ -120,8 +114,40 @@ run_ithim_setup <- function(seed=1,
   
   TRAVEL_MODES <<- tolower(names(default_speeds))
   MODE_SPEEDS <<- data.frame(trip_mode = TRAVEL_MODES, speed = unlist(default_speeds), stringsAsFactors = F)
-  cat('\n  Using speeds: \n')
-  print(MODE_SPEEDS)
+  cat('\n  SPEEDS \n\n',file=setup_call_summary_filename,append=F)
+  #print(MODE_SPEEDS)
+  for(i in 1:nrow(MODE_SPEEDS)) {
+    cat(paste0(MODE_SPEEDS[i,]),file=setup_call_summary_filename,append=T); 
+    cat('\n',file=setup_call_summary_filename,append=T)
+  }
+  
+  ## default distances relative to car that can be edited by input. 
+  default_car_ratio <- list(
+    bus=1,
+    bus_driver=0.12,
+    car=1,
+    taxi=0.04,
+    walking=1,
+    bicycle=1,
+    motorcycle=0.2,
+    truck=0.21,
+    big_truck=0.09,
+    other=0.01
+  )
+  if(!is.null(car_ratios)){
+    for(m in names(car_ratios))
+      default_car_ratio[[m]] <- car_ratios[[m]]
+  }
+  
+  names(default_car_ratio) <- tolower(names(default_car_ratio))
+  DISTANCE_RATIOS <<- default_car_ratio
+  cat('\n  DISTANCE RATIOS \n\n',file=setup_call_summary_filename,append=T)
+  for(i in 1:length(default_car_ratio)) {
+    cat(paste(names(DISTANCE_RATIOS)[i],DISTANCE_RATIOS[[i]]),file=setup_call_summary_filename,append=T); 
+    cat('\n',file=setup_call_summary_filename,append=T)
+  }
+  
+  
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
   
@@ -132,20 +158,13 @@ run_ithim_setup <- function(seed=1,
   ROAD_RATIO_MAX <<- 3.216
   ROAD_RATIO_SLOPE <<- 0.379
   
-  # transport mode ratios, for imputation where missing
-  TAXI_TO_CAR_RATIO  <<- TAXI_TO_CAR_RATIO
-  BUS_TO_CAR_RATIO  <<- BUS_TO_CAR_RATIO
-  TRUCK_TO_CAR_RATIO  <<- TRUCK_TO_CAR_RATIO
-  BIG_TRUCK_TO_CAR_RATIO <<- BIG_TRUCK_TO_CAR_RATIO
-  OTHER_TO_CAR_RATIO <<- OTHER_TO_CAR_RATIO
-  
   ## LOAD DATA
   ithim_load_data()  
   
   if(any(!unique(TRIP_SET$trip_mode)%in%MODE_SPEEDS$trip_mode)){
-    cat("\n  The following modes do not have speeds, and won't be included in the model:\n")
-    cat(unique(TRIP_SET$trip_mode)[!unique(TRIP_SET$trip_mode)%in%MODE_SPEEDS$trip_mode])
-    cat("\n  To include a mode, supply e.g. 'speeds=list(car=15,bus=10)' in the call to 'run_ithim_setup'.\n\n")
+    cat("\n  The following modes do not have speeds, and won't be included in the model:\n",file=setup_call_summary_filename,append=T)
+    cat(unique(TRIP_SET$trip_mode)[!unique(TRIP_SET$trip_mode)%in%MODE_SPEEDS$trip_mode],file=setup_call_summary_filename,append=T)
+    cat("\n\n  To include a mode, or change a speed, supply e.g. 'speeds=list(car=15,hoverboard=30)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
   }
   ## SET PARAMETERS
   ithim_object$parameters <- ithim_setup_parameters(NSAMPLES,
@@ -184,14 +203,17 @@ run_ithim_setup <- function(seed=1,
   match_modes <- c(TRIP_SET$trip_mode,'pedestrian')
   if(ADD_TRUCK_DRIVERS) match_modes <- c(match_modes,'truck')
   if(!all(casualty_modes%in%match_modes)){
-    cat('\n  The following casualty modes do not have distance data and will not be included in injury module:\n')
-    cat(casualty_modes[!casualty_modes%in%match_modes])
-    cat('\n\n')
+    cat('\n  The following casualty modes do not have distance data and will not be included in injury module:\n',file=setup_call_summary_filename,append=T)
+    cat(casualty_modes[!casualty_modes%in%match_modes],file=setup_call_summary_filename,append=T)
+    cat('\n\n',file=setup_call_summary_filename,append=T)
   }
   
-  cat('  Emissions will be calculated for the following modes:\n')
-  cat(VEHICLE_INVENTORY$trip_mode[VEHICLE_INVENTORY$emission_factor*VEHICLE_INVENTORY$distance_ratio_to_car>0])
-  cat('\n\n')
+  cat('\n  Emissions will be calculated for the following modes:\n',file=setup_call_summary_filename,append=T)
+  cat(VEHICLE_INVENTORY$trip_mode[VEHICLE_INVENTORY$emission_factor*VEHICLE_INVENTORY$distance_ratio_to_car>0],file=setup_call_summary_filename,append=T)
+  cat("\n\n  Where missing from trip data, distances will be imputed for the emission calculation using the 'car_ratios'. This will assign the mode a distance relative to the car distance in the trip set.\n\n",file=setup_call_summary_filename,append=T)
+  cat("\n  To edit a vehicle distance or emission factor, supply e.g. 'car_ratios=list(truck=0.5)' or 'emission_factors=list(car=4)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
+  cat("  To exclude a mode from the emission inventory, supply e.g. 'emission_factors=list(other=0)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
+  cat('\n\n',file=setup_call_summary_filename,append=T)
   
   return(ithim_object)
 }

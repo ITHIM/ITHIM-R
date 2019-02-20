@@ -20,22 +20,28 @@ set_vehicle_inventory <- function(){
   vehicle_inventory$distance_ratio_to_car <- 1
   
   vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('taxi')] <- EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='taxi']
-  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('taxi')] <- TAXI_TO_CAR_RATIO
+  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('taxi')] <- DISTANCE_RATIOS$taxi
   
   vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('car')] <- 
     EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='car']
   
   vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('bus_driver')] <- EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='bus']
-  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('bus_driver')] <- BUS_TO_CAR_RATIO
+  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('bus_driver')] <- DISTANCE_RATIOS$bus_driver
   
   vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('truck')] <- EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='truck']
-  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('truck')] <- TRUCK_TO_CAR_RATIO
+  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('truck')] <- DISTANCE_RATIOS$truck
   
   vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('motorcycle')] <- EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='motorcycle']
-  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('motorcycle')] <- MOTORCYCLE_TO_CAR_RATIO
+  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('motorcycle')] <- MOTORCYCLE_TO_CAR_RATIO#DISTANCE_RATIOS$motorcycle
   
-  vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode=EMISSION_FACTORS$vehicle_type[6],speed=21,emission_factor=EMISSION_FACTORS$PM2_5_emiss_fact[6],distance_ratio_to_car=BIG_TRUCK_TO_CAR_RATIO))
-  vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode=EMISSION_FACTORS$vehicle_type[8],speed=21,emission_factor=EMISSION_FACTORS$PM2_5_emiss_fact[8],distance_ratio_to_car=OTHER_TO_CAR_RATIO))
+  vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode='big_truck',
+                                                          speed=21,
+                                                          emission_factor=EMISSION_FACTORS$PM2_5_emiss_fact[which(EMISSION_FACTORS$vehicle_type=='big_truck')],
+                                                          distance_ratio_to_car=DISTANCE_RATIOS$big_truck))
+  vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode='other',
+                                                          speed=21,
+                                                          emission_factor=EMISSION_FACTORS$PM2_5_emiss_fact[which(EMISSION_FACTORS$vehicle_type=='other')],
+                                                          distance_ratio_to_car=DISTANCE_RATIOS$other))
   
   VEHICLE_INVENTORY <<- vehicle_inventory
 }
