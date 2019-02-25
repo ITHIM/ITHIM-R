@@ -3,7 +3,7 @@ run_ithim_setup <- function(seed=1,
                             CITY = 'accra',
                             speeds = NULL,
                             car_ratios = NULL,
-                            emission_factors = NULL,
+                            emission_inventory = NULL,
                             setup_call_summary_filename = 'setup_call_summary.txt',
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             ADD_WALK_TO_BUS_TRIPS = T,
@@ -36,7 +36,7 @@ run_ithim_setup <- function(seed=1,
   
   # speeds = named list of doubles. average mode speeds.
   # car_ratios = named list of doubles. distances travelled by modes relative to car, for imputation if they are missing from trip set.
-  # emission_factors = named list of doubles. vehicle emission factors.
+  # emission_inventory = named list of doubles. vehicle emission factors.
   # DIST_CAT = vector of strings. defines distance categories for scenario generation (5 accra scenarios)
   
   # ADD_WALK_TO_BUS_TRIPS = logic. T: adds walk trips to all bus trips whose duration exceeds BUS_WALK_TIME. F: no trips added
@@ -147,6 +147,36 @@ run_ithim_setup <- function(seed=1,
     cat('\n',file=setup_call_summary_filename,append=T)
   }
   
+  ## default distances relative to car that can be edited by input. 
+  default_emission_inventory <- list(
+    bus=0,
+    bus_driver=0.82,
+    car=0.228,
+    taxi=0.011,
+    walking=0,
+    bicycle=0,
+    motorcycle=0.011,
+    truck=0.859,
+    big_truck=0.711,
+    other=0.082
+  )
+  if(!is.null(emission_inventory)){
+    for(m in names(emission_inventory))
+      if(grepl('bus',m,ignore.case=T)){
+        default_emission_inventory[[paste0(m,'_driver')]] <- emission_inventory[[m]]
+      }else{
+        default_emission_inventory[[m]] <- emission_inventory[[m]]
+      }
+  }
+  names(default_emission_inventory) <- tolower(names(default_emission_inventory))
+    
+  EMISSION_INVENTORY <<- default_emission_inventory
+  cat('\n  EMISSION INVENTORY \n\n',file=setup_call_summary_filename,append=T)
+  for(i in 1:length(default_emission_inventory)) {
+    cat(paste(names(EMISSION_INVENTORY)[i],EMISSION_INVENTORY[[i]]),file=setup_call_summary_filename,append=T); 
+    cat('\n',file=setup_call_summary_filename,append=T)
+  }
+  
   
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
@@ -209,10 +239,10 @@ run_ithim_setup <- function(seed=1,
   }
   
   cat('\n  Emissions will be calculated for the following modes:\n',file=setup_call_summary_filename,append=T)
-  cat(VEHICLE_INVENTORY$trip_mode[VEHICLE_INVENTORY$emission_factor*VEHICLE_INVENTORY$distance_ratio_to_car>0],file=setup_call_summary_filename,append=T)
+  cat(VEHICLE_INVENTORY$trip_mode[VEHICLE_INVENTORY$emission_inventory*VEHICLE_INVENTORY$distance_ratio_to_car>0],file=setup_call_summary_filename,append=T)
   cat("\n\n  Where missing from trip data, distances will be imputed for the emission calculation using the 'car_ratios'. This will assign the mode a distance relative to the car distance in the trip set.\n\n",file=setup_call_summary_filename,append=T)
-  cat("\n  To edit a vehicle distance or emission factor, supply e.g. 'car_ratios=list(truck=0.5)' or 'emission_factors=list(car=4)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
-  cat("  To exclude a mode from the emission inventory, supply e.g. 'emission_factors=list(other=0)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
+  cat("\n  To edit a vehicle distance or emission factor, supply e.g. 'car_ratios=list(truck=0.5)' or 'emission_inventory=list(car=4)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
+  cat("  To exclude a mode from the emission inventory, supply e.g. 'emission_inventory=list(other=0)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
   cat('\n\n',file=setup_call_summary_filename,append=T)
   
   return(ithim_object)

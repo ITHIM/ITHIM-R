@@ -8,7 +8,7 @@ set_vehicle_inventory <- function(){
   ## For Accra, bus_driver and truck trips are added to Synthetic trips. Big truck and other are not, so are included in Emission calculation only.
   ## ratios are heuristic values taken from Delhi study. 
   ## They can become set variables, or random variables, but as present are constant as below. To make variable, move VEHICLE_INVENTORY definition to 'dist' calculation.
-  ## N.B.: the mode list is the union of trip_modes and EMISSION_FACTORS. To omit an undesired mode, we'd need to set the distance ratio to 0.
+  ## N.B.: the mode list is the union of trip_modes and EMISSION_INVENTORY. To omit an undesired mode, we'd need to set the distance ratio to 0.
   
   # mode names and speeds come from the input into run_ithim_setup
   vehicle_inventory <- MODE_SPEEDS
@@ -16,31 +16,24 @@ set_vehicle_inventory <- function(){
   # emission factors come from global data. we will need at to have at least three versions of this, corresponding to different global regulatory standards. For Accra, we use `Euro III'
   # distance ratios can be provided as inputs to run_ithim_setup
   # we don't enter ratio values for cycling and walking as it's assumed they will be covered by the survey.
-  vehicle_inventory$emission_factor <- 0
+  vehicle_inventory$emission_inventory <- 0
   vehicle_inventory$distance_ratio_to_car <- 1
   
-  vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('taxi')] <- EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='taxi']
-  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('taxi')] <- DISTANCE_RATIOS$taxi
+  for(m in names(EMISSION_INVENTORY))
+      vehicle_inventory$emission_inventory[vehicle_inventory$trip_mode%in%m] <- EMISSION_INVENTORY[[m]]
+  for(m in names(DISTANCE_RATIOS))
+      vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%m] <- DISTANCE_RATIOS[[m]]
   
-  vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('car')] <- 
-    EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='car']
-  
-  vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('bus_driver')] <- EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='bus']
-  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('bus_driver')] <- DISTANCE_RATIOS$bus_driver
-  
-  vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('truck')] <- EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='truck']
-  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('truck')] <- DISTANCE_RATIOS$truck
-  
-  vehicle_inventory$emission_factor[vehicle_inventory$trip_mode%in%c('motorcycle')] <- EMISSION_FACTORS$PM2_5_emiss_fact[EMISSION_FACTORS$vehicle_type=='motorcycle']
+  ##!! this is the only part that currently changes with uncertainty
   vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('motorcycle')] <- MOTORCYCLE_TO_CAR_RATIO#DISTANCE_RATIOS$motorcycle
   
   vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode='big_truck',
                                                           speed=21,
-                                                          emission_factor=EMISSION_FACTORS$PM2_5_emiss_fact[which(EMISSION_FACTORS$vehicle_type=='big_truck')],
+                                                          emission_inventory=EMISSION_INVENTORY[['big_truck']],
                                                           distance_ratio_to_car=DISTANCE_RATIOS$big_truck))
   vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode='other',
                                                           speed=21,
-                                                          emission_factor=EMISSION_FACTORS$PM2_5_emiss_fact[which(EMISSION_FACTORS$vehicle_type=='other')],
+                                                          emission_inventory=EMISSION_INVENTORY[['other']],
                                                           distance_ratio_to_car=DISTANCE_RATIOS$other))
   
   VEHICLE_INVENTORY <<- vehicle_inventory

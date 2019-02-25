@@ -19,8 +19,6 @@ ithim_load_data <- function(){
            readr::read_csv(list_of_files[[i]],col_types = cols()),
            pos = 1)
   }
-  ##!! Emission factors should depend on the regulatory standards of the setting at the time. This file applies to Accra, Delhi. Would not apply to current HI settings.
-  EMISSION_FACTORS <<- readRDS(paste0(global_path,"emissions/emission_factors.Rds"))
   
   ## these datasets are all local, saved in local folder.
   local_path <- PATH_TO_LOCAL_DATA
