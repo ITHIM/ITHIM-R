@@ -1,7 +1,7 @@
 #' @export
 health_burden <- function(ind_ap_pa,inj){
   # subset gbd data for outcome types
-  gbd_data_scaled <- GBD_DATA
+  gbd_data_scaled <- DISEASE_BURDEN
   gbd_data_scaled$burden[gbd_data_scaled$cause%in%c("Neoplasms","Ischemic heart disease","Tracheal, bronchus, and lung cancer")] <- 
     gbd_data_scaled$burden[gbd_data_scaled$cause%in%c("Neoplasms","Ischemic heart disease","Tracheal, bronchus, and lung cancer")]*CHRONIC_DISEASE_SCALAR
   gbd_deaths <- subset(gbd_data_scaled,measure=='Deaths' & metric == "Number")

@@ -1,5 +1,5 @@
 #' @export
-combine_health_and_pif <- function(pop, pif_values, hc=GBD_DATA, hm_cn = 'burden'){
+combine_health_and_pif <- function(pop, pif_values, hc=DISEASE_BURDEN, hm_cn = 'burden'){
   # pif_values are already ordered as in pop; reorder hc values to match.
   hm_cn_values <- hc[[hm_cn]]
   return_values <- c()

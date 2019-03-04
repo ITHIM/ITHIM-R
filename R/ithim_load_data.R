@@ -34,8 +34,15 @@ ithim_load_data <- function(){
   # min_age (=number, e.g. 15)
   # max_age (=number, e.g. 49)
   filename <- paste0(local_path,"/gbd_",CITY,".csv")
-  GBD_DATA <<- read_csv(filename,col_types = cols())
-  gbd_injuries <- GBD_DATA[which(GBD_DATA$cause == "Road injuries"),]
+  GBD_DATA <- read_csv(filename,col_types = cols())
+  filename <- paste0(local_path,"/population_",CITY,".csv")
+  DEMOGRAPHIC <<- read_csv(filename,col_types = cols())
+  ## scale disease burden from country to city using populations
+  burden_of_disease <- left_join(GBD_DATA[,!colnames(GBD_DATA)=='population'],DEMOGRAPHIC,by=c('age','sex'))
+  burden_of_disease$burden <- GBD_DATA$burden*burden_of_disease$population/GBD_DATA$population
+  DISEASE_BURDEN <<- burden_of_disease
+  
+  gbd_injuries <- DISEASE_BURDEN[which(DISEASE_BURDEN$cause == "Road injuries"),]
   gbd_injuries$sex_age <- paste0(gbd_injuries$sex,"_",gbd_injuries$age)
   ## calculating the ratio of YLL to deaths for each age and sex group
   gbd_injuries <- arrange(gbd_injuries, measure)
@@ -45,9 +52,9 @@ ithim_load_data <- function(){
   GBD_INJ_YLL <<- gbd_inj_yll
   
   # get age-category details from GBD data
-  AGE_CATEGORY <<- unique(GBD_DATA$age)
-  AGE_LOWER_BOUNDS <<- sort(unique(GBD_DATA$min_age))
-  MAX_AGE <<- max(GBD_DATA$max_age)
+  AGE_CATEGORY <<- unique(DEMOGRAPHIC$age)
+  AGE_LOWER_BOUNDS <<- as.numeric(sapply(AGE_CATEGORY,function(x)strsplit(x,'-')[[1]][1]))
+  MAX_AGE <<- max(as.numeric(sapply(AGE_CATEGORY,function(x)strsplit(x,'-')[[1]][2])))
   
   filename <- paste0(local_path,"/trips_",CITY,".csv")
   trip_set <- read_csv(filename,col_types = cols())
