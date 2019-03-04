@@ -28,7 +28,9 @@ run_ithim_setup <- function(seed=1,
                             DAY_TO_WEEK_TRAVEL_SCALAR = 7,
                             INJURY_LINEARITY= 1,
                             CASUALTY_EXPONENT_FRACTION = 0.5,
-                            MOTORCYCLE_TO_CAR_RATIO = 0.2){
+                            MOTORCYCLE_TO_CAR_RATIO = 0.2,
+                            BUS_TO_CAR_RATIO = 0.12,
+                            TRUCK_TO_CAR_RATIO = 0.21){
   
   ## SUMMARY OF INPUTS
   # seed = double. sets seed to allow some reproducibility.
@@ -103,7 +105,7 @@ run_ithim_setup <- function(seed=1,
     walk_to_bus=4.8,
     bicycle=14.5,
     motorcycle=25,
-    truck=25,
+    truck=21,
     van=15,
     subway=28
   )
@@ -122,32 +124,32 @@ run_ithim_setup <- function(seed=1,
   }
   
   ## default distances relative to car that can be edited by input. 
-  default_car_ratio <- list(
-    bus=1,
-    bus_driver=0.12,
-    car=1,
-    taxi=0.04,
-    walking=1,
-    bicycle=1,
-    motorcycle=0.2,
-    truck=0.21,
-    big_truck=0.09,
-    other=0.01
-  )
-  if(!is.null(car_ratios)){
-    for(m in names(car_ratios))
-      default_car_ratio[[m]] <- car_ratios[[m]]
-  }
+  #default_car_ratio <- list(
+  #  bus=1,
+  #  bus_driver=0.12,
+  #  car=1,
+  #  taxi=0.04,
+  #  walking=1,
+  #  bicycle=1,
+  #  motorcycle=0.2,
+  #  truck=0.21,
+  #  big_truck=0.09,
+  #  other=0.01
+  #)
+  #if(!is.null(car_ratios)){
+  #  for(m in names(car_ratios))
+  #    default_car_ratio[[m]] <- car_ratios[[m]]
+  #}
   
-  names(default_car_ratio) <- tolower(names(default_car_ratio))
-  DISTANCE_RATIOS <<- default_car_ratio
-  cat('\n  DISTANCE RATIOS \n\n',file=setup_call_summary_filename,append=T)
-  for(i in 1:length(default_car_ratio)) {
-    cat(paste(names(DISTANCE_RATIOS)[i],DISTANCE_RATIOS[[i]]),file=setup_call_summary_filename,append=T); 
-    cat('\n',file=setup_call_summary_filename,append=T)
-  }
+  #names(default_car_ratio) <- tolower(names(default_car_ratio))
+  #DISTANCE_RATIOS <<- default_car_ratio
+  #cat('\n  DISTANCE RATIOS \n\n',file=setup_call_summary_filename,append=T)
+  #for(i in 1:length(default_car_ratio)) {
+  #  cat(paste(names(DISTANCE_RATIOS)[i],DISTANCE_RATIOS[[i]]),file=setup_call_summary_filename,append=T); 
+  #  cat('\n',file=setup_call_summary_filename,append=T)
+  #}
   
-  ## default distances relative to car that can be edited by input. 
+  ## default emission contributions that can be edited by input. 
   default_emission_inventory <- list(
     bus=0,
     bus_driver=0.82,
@@ -177,7 +179,8 @@ run_ithim_setup <- function(seed=1,
     cat('\n',file=setup_call_summary_filename,append=T)
   }
   
-  
+  BUS_TO_CAR_RATIO <<- BUS_TO_CAR_RATIO
+  TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
   
@@ -240,7 +243,7 @@ run_ithim_setup <- function(seed=1,
   
   cat('\n  Emissions will be calculated for the following modes:\n',file=setup_call_summary_filename,append=T)
   cat(VEHICLE_INVENTORY$trip_mode[VEHICLE_INVENTORY$emission_inventory*VEHICLE_INVENTORY$distance_ratio_to_car>0],file=setup_call_summary_filename,append=T)
-  cat("\n  To edit a vehicle distance or emission contribution, supply e.g. 'car_ratios=list(truck=0.5)' or 'emission_inventory=list(car=4)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
+  cat("\n  To edit an emission contribution, supply e.g. 'emission_inventory=list(car=4)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
   cat("  To exclude a mode from the emission inventory, supply e.g. 'emission_inventory=list(other=0)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
   cat('\n\n',file=setup_call_summary_filename,append=T)
   

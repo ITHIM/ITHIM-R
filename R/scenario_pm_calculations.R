@@ -6,15 +6,14 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   
   ## adding in travel not covered in the synthetic trip set, based on distances travelled relative to car, set in VEHICLE_INVENTORY
   emission_dist <- dist
-  for(mode_type in which(!VEHICLE_INVENTORY$trip_mode%in%emission_dist$trip_mode)){
-    emission_dist <- rbind(emission_dist,emission_dist[which(emission_dist$trip_mode=='car'),])
-    emission_dist[nrow(emission_dist),1] <- VEHICLE_INVENTORY$trip_mode[mode_type]
-    emission_dist[nrow(emission_dist),0:NSCEN+2] <- emission_dist[nrow(emission_dist),2]*VEHICLE_INVENTORY$distance_ratio_to_car[mode_type]
-  }
   
   ## multiply distance by emission factor. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
   ordered_efs <- VEHICLE_INVENTORY$emission_inventory[match(emission_dist$trip_mode,VEHICLE_INVENTORY$trip_mode)]/emission_dist$Baseline
   trans_emissions <- emission_dist[,0:NSCEN+2]*t(repmat(ordered_efs,NSCEN+1,1))
+  
+  for(mode_type in which(!VEHICLE_INVENTORY$trip_mode%in%emission_dist$trip_mode)){
+    trans_emissions[nrow(trans_emissions)+1,] <- VEHICLE_INVENTORY$emission_inventory[mode_type]
+  }
   
   baseline_sum <- sum(trans_emissions[[SCEN[1]]])
   conc_pm <- c()

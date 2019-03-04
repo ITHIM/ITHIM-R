@@ -11,7 +11,8 @@ add_ghost_trips <- function(raw_trip_set,trip_mode){
   
   ## add new travel
   new_mode <- trip_mode
-  total_new_distance <- total_car_distance*VEHICLE_INVENTORY$distance_ratio_to_car[VEHICLE_INVENTORY$trip_mode==new_mode]
+  distance_ratio <- ifelse(trip_mode=='truck',TRUCK_TO_CAR_RATIO,BUS_TO_CAR_RATIO)
+  total_new_distance <- total_car_distance*distance_ratio#VEHICLE_INVENTORY$distance_ratio_to_car[VEHICLE_INVENTORY$trip_mode==new_mode]
   new_duration <- total_new_distance/VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode==new_mode]*60
   duration_range <- c(floor(new_duration/nPeople),ceiling(new_duration/nPeople))
   for(i in 1:nPeople){

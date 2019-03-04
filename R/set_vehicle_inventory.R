@@ -17,24 +17,24 @@ set_vehicle_inventory <- function(){
   # distance ratios can be provided as inputs to run_ithim_setup
   # we don't enter ratio values for cycling and walking as it's assumed they will be covered by the survey.
   vehicle_inventory$emission_inventory <- 0
-  vehicle_inventory$distance_ratio_to_car <- 1
+  #vehicle_inventory$distance_ratio_to_car <- 1
   
   for(m in names(EMISSION_INVENTORY))
       vehicle_inventory$emission_inventory[vehicle_inventory$trip_mode%in%m] <- EMISSION_INVENTORY[[m]]
-  for(m in names(DISTANCE_RATIOS))
-      vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%m] <- DISTANCE_RATIOS[[m]]
+  #for(m in names(DISTANCE_RATIOS))
+  #    vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%m] <- DISTANCE_RATIOS[[m]]
   
   ##!! this is the only part that currently changes with uncertainty
-  vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('motorcycle')] <- MOTORCYCLE_TO_CAR_RATIO#DISTANCE_RATIOS$motorcycle
+  #vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('motorcycle')] <- MOTORCYCLE_TO_CAR_RATIO#DISTANCE_RATIOS$motorcycle
   
   vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode='big_truck',
                                                           speed=21,
-                                                          emission_inventory=EMISSION_INVENTORY[['big_truck']],
-                                                          distance_ratio_to_car=DISTANCE_RATIOS$big_truck))
+                                                          emission_inventory=EMISSION_INVENTORY[['big_truck']]))#,
+  #                                                        distance_ratio_to_car=DISTANCE_RATIOS$big_truck))
   vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode='other',
                                                           speed=21,
-                                                          emission_inventory=EMISSION_INVENTORY[['other']],
-                                                          distance_ratio_to_car=DISTANCE_RATIOS$other))
+                                                          emission_inventory=EMISSION_INVENTORY[['other']]))#,
+  #                                                        distance_ratio_to_car=DISTANCE_RATIOS$other))
   
   VEHICLE_INVENTORY <<- vehicle_inventory
 }
