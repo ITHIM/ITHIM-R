@@ -7,16 +7,18 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   ## adding in travel not covered in the synthetic trip set, based on distances travelled relative to car, set in VEHICLE_INVENTORY
   emission_dist <- dist
   
-  ## multiply distance by emission factor. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
+  ## get emission factor by dividing inventory by baseline distance. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
   ordered_efs <- VEHICLE_INVENTORY$emission_inventory[match(emission_dist$trip_mode,VEHICLE_INVENTORY$trip_mode)]/emission_dist$Baseline
+  ## get new emission by multiplying emission factor by scenario distance.
   trans_emissions <- emission_dist[,0:NSCEN+2]*t(repmat(ordered_efs,NSCEN+1,1))
-  
-  for(mode_type in which(!VEHICLE_INVENTORY$trip_mode%in%emission_dist$trip_mode)){
+  ## augment with travel emission contributions that aren't included in distance calculation
+  for(mode_type in which(!VEHICLE_INVENTORY$trip_mode%in%emission_dist$trip_mode))
     trans_emissions[nrow(trans_emissions)+1,] <- VEHICLE_INVENTORY$emission_inventory[mode_type]
-  }
   
+  ## scenario travel pm2.5 calculated as relative to the baseline
   baseline_sum <- sum(trans_emissions[[SCEN[1]]])
   conc_pm <- c()
+  ## in this sum, the non-transport pm is constant; the transport emissions scale the transport contribution (PM_TRANS_SHARE) to the base level (PM_CONC_BASE)
   for(i in 1:length(SCEN_SHORT_NAME))
     conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN[i]]])/baseline_sum
   
@@ -31,38 +33,47 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   ##RJ question for RG: should this function account for PM_TRANS_SHARE?
   on_road_off_road_ratio <- ROAD_RATIO_MAX - ROAD_RATIO_SLOPE*log(conc_pm)
   ##RJ question for RG: why is 'in car' twice better than 'away from road'?
-  in_vehicle_ratio <- (1-CLOSED_WINDOW_RATIO)*on_road_off_road_ratio + CLOSED_WINDOW_RATIO*CLOSED_WINDOW_PM_RATIO # averaging over windows open and windows closed
+  # averaging over windows open and windows closed
+  in_vehicle_ratio <- (1-CLOSED_WINDOW_RATIO)*on_road_off_road_ratio + CLOSED_WINDOW_RATIO*CLOSED_WINDOW_PM_RATIO 
+  # open vehicles experience the ``on_road_off_road_ratio'', and closed vehicles experience the ``in_vehicle_ratio''
   ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio)
-  
   vent_rates$vehicle_ratio_index <- sapply(vent_rates$trip_mode,function(x) ifelse(x%in%c('walking','walk_to_bus','bicycle','motorcycle'),1,2))
   
   trip_set <- left_join(trip_scen_sets,vent_rates,'trip_mode')
+  # litres of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode
   trip_set$on_road_air <- trip_set$trip_duration*trip_set$vent_rate / 60 # L
+  # get indices for quick matching of values
   scen_index <- match(trip_set$scenario,SCEN)
+  # ordered pm values
   scen_pm <- as.numeric(conc_pm[scen_index])
+  # ordered ratios based on scenario and open/closed mode
   scen_ratio <- ratio_by_mode[cbind(trip_set$vehicle_ratio_index,scen_index)]
-  trip_set$pm_dose <- trip_set$on_road_air * scen_ratio * scen_pm # mg
+  # pm dose in mg as the product of the air inhaled, the background pm, and the exposure ratio
+  trip_set$pm_dose <- trip_set$on_road_air * scen_pm * scen_ratio # mg
   
+  # prepare individual-level dataset
   synth_pop <- SYNTHETIC_POPULATION
-  
-  ### following code generates final_data
+  # compute individual-level pm scenario by scenario
   for (i in 1:length(SCEN)){
+    # initialise to background. This means persons who undertake zero travel get this value.
     synth_pop[[paste0('pm_conc_',SCEN_SHORT_NAME[i])]] <- conc_pm[i]
+    # take trips from this scenario, and exclude trips by individuals not in the synthetic population (which might be truck trips)
     scen_trips <- subset(trip_set,scenario == SCEN[i]&participant_id%in%synth_pop$participant_id)
-    
+    # summarise individual-level time on road, pm inhaled, and air inhaled
     individual_data <- setDT(scen_trips)[,.(on_road_dur = sum(trip_duration,na.rm=TRUE), 
                                             on_road_pm = sum(pm_dose,na.rm=TRUE), 
                                             air_inhaled = sum(on_road_air,na.rm=TRUE)),by='participant_id']
     
-    ## PM2.5 inhalation = total mg inhaled / total volume inhaled
+    # calculate non-travel air inhalation
     non_transport_air_inhaled <- (24-individual_data$on_road_dur/60)*BASE_LEVEL_INHALATION_RATE
+    # concentration of pm inhaled = total pm inhaled / total air inhaled
     pm_conc <- ((non_transport_air_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)/(non_transport_air_inhaled+individual_data$air_inhaled)
-    
+    # match individual ids to set per person pm exposure
     synth_pop[[paste0('pm_conc_',SCEN_SHORT_NAME[i])]][match(individual_data$participant_id,synth_pop$participant_id)] <- pm_conc
   }
   
   #####PM normalise
-  ##RJ question for RG: why normalise?
+  ##RJ question for JW: why normalise?
   mean_conc <- rep(0,length(SCEN_SHORT_NAME))
   
   ## calculating means of individual-level concentrations
