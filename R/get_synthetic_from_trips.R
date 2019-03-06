@@ -17,8 +17,8 @@ get_synthetic_from_trips <- function(){
   #SURVEY_SCALAR <<- population/length(unique(TRIP_SET$participant_id))/survey_coverage
   
   ## add bus and truck trips
-  if(ADD_BUS_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='bus_driver')
-  if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck')
+  if(ADD_BUS_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set)
+  if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',distance_ratio=TRUCK_TO_CAR_RATIO,reference_mode='car')
 
   # create synthetic population
   synth_pop <- create_synth_pop(raw_trip_set)

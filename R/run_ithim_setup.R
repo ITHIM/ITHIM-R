@@ -29,7 +29,7 @@ run_ithim_setup <- function(seed=1,
                             INJURY_LINEARITY= 1,
                             CASUALTY_EXPONENT_FRACTION = 0.5,
                             MOTORCYCLE_TO_CAR_RATIO = 0.2,
-                            BUS_TO_CAR_RATIO = 0.12,
+                            BUS_TO_PASSENGER_RATIO = 0.022,
                             TRUCK_TO_CAR_RATIO = 0.21){
   
   ## SUMMARY OF INPUTS
@@ -179,7 +179,7 @@ run_ithim_setup <- function(seed=1,
     cat('\n',file=setup_call_summary_filename,append=T)
   }
   
-  BUS_TO_CAR_RATIO <<- BUS_TO_CAR_RATIO
+  BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
   TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
