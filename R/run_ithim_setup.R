@@ -105,7 +105,11 @@ run_ithim_setup <- function(seed=1,
     motorcycle=25,
     truck=21,
     van=15,
-    subway=28
+    subway=28,
+    rail=35,
+    auto_rickshaw=22,
+    shared_auto=22,
+    cycle_rickshaw=10
   )
   if(!is.null(speeds)){
     for(m in names(speeds))
