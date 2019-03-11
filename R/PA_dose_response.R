@@ -4,17 +4,17 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
   if (sum(is.na(dose))>0 || class(dose)!= "numeric"){
     stop ('Please provide dose in numeric')
   }
-  if (!cause %in% c('all_cause', 'breast-cancer', 'cardiovascular-disease',
-                    'colon-cancer', 'coronary_heart_disease', 'diabetes', 'endometrial-cancer',
-                    'heart-failure', 'lung_cancer', 'stroke', 'total_cancer')){
+  if (!cause %in% c('all_cause', 'breast_cancer', 'cardiovascular_disease',
+                    'colon_cancer', 'coronary_heart_disease', 'diabetes', 'endometrial_cancer',
+                    'heart_failure', 'lung_cancer', 'stroke', 'total_cancer')){
     stop('Unsupported cause/disease. Please select from \n
          all_cause \n
-         breast-cancer\n
-         cardiovascular-disease \n
-         colon-cancer \n
+         breast_cancer\n
+         cardiovascular_disease \n
+         colon_cancer \n
          coronary_heart_disease \n
-         endometrial-cancer \n
-         heart-failure \n
+         endometrial_cancer \n
+         heart_failure \n
          lung_cancer \n
          stroke \n
          total_cancer')
