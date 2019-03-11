@@ -19,10 +19,11 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
          stroke \n
          total_cancer')
   }
-  if (!outcome_type %in% c('mortality', 'incidence')){
+  if (!outcome_type %in% c('mortality', 'incidence','all')){
     stop('Unsupported outcome_type. Please select from \n
          mortality \n
-         incidence')
+         incidence \n
+         all')
   }
   if (cause == 'all_cause' && outcome_type == 'incidence'){
     stop('Incidence does not exist for all_cause')

@@ -344,7 +344,61 @@ ithim_object <- run_ithim_setup(CITY='delhi',
 ithim_object$outcome <- run_ithim(ithim_object)
 
 
+#########################################################################
+## 5: Accra for WHO report
+ithim_object <- run_ithim_setup(CITY='accra',
+                                seed=1,
+                                REFERENCE_SCENARIO='Scenario 1',
+                                INJURY_REPORTING_RATE = c(8,3),  
+                                CHRONIC_DISEASE_SCALAR = c(0,log(1.2)),  
+                                PM_CONC_BASE = c(log(50),log(1.2)),  
+                                PM_TRANS_SHARE = c(5,20),  
+                                BACKGROUND_PA_SCALAR = c(0,log(1.2)),  
+                                NSAMPLES = 1024,
+                                BUS_WALK_TIME = c(log(5), log(1.2)),
+                                MMET_CYCLING = c(log(5), log(1.2)), 
+                                MMET_WALKING = c(log(2.5), log(1.2)), 
+                                MOTORCYCLE_TO_CAR_RATIO = c(-1.4,0.4),
+                                DAY_TO_WEEK_TRAVEL_SCALAR = c(20,3),
+                                INJURY_LINEARITY= c(log(1),log(1.2)),
+                                CASUALTY_EXPONENT_FRACTION = c(8,8),
+                                PA_DOSE_RESPONSE_QUANTILE = T,  
+                                AP_DOSE_RESPONSE_QUANTILE = T)
 
+numcores <- detectCores()
+ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object,mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+
+parameter_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
+parameter_samples <- sapply(parameter_names,function(x)ithim_object$parameters[[x]])
+## omit all-cause mortality
+outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
+evppi <- matrix(0, ncol = NSCEN, nrow = ncol(parameter_samples))
+for(j in 1:(NSCEN)){
+  y <- rowSums(outcome[,seq(NSCEN+j,ncol(outcome),by=NSCEN)])
+  vary <- var(y)
+  for(i in 1:ncol(parameter_samples)){
+    x <- parameter_samples[, i];
+    model <- gam(y ~ s(x))
+    evppi[i, j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+    
+  }
+}
+colnames(evppi) <- SCEN_SHORT_NAME[c(1,3:6)]
+rownames(evppi) <- colnames(parameter_samples)
+## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
+if("DR_AP_LIST"%in%names(ithim_object$parameters)&&NSAMPLES>=1024){
+  AP_names <- sapply(names(ithim_object$parameters),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
+  diseases <- sapply(names(ithim_object$parameters)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
+  NSCEN <- 5
+  evppi_for_AP <- mclapply(diseases, FUN = parallel_evppi_for_AP,parameter_samples,outcome,NSCEN, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+  names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
+  evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
+  ## get rows to remove
+  keep_names <- sapply(rownames(evppi),function(x)!any(c('ALPHA','BETA','GAMMA','TMREL')%in%strsplit(x,'_')[[1]]))
+  evppi <- evppi[keep_names,]
+}
+print(evppi)
+ithim_object$evppi <- evppi
 
 
 
