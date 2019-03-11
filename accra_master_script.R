@@ -33,7 +33,7 @@ result_mat <- colSums(ithim_object$outcome$hb$ylls[,3:ncol(ithim_object$outcome$
 columns <- length(result_mat)
 nDiseases <- columns/NSCEN
 ylim <- range(result_mat)
-x11(width = 8, height = 5); par(mfrow = c(2, 4))
+{x11(width = 8, height = 8); par(mfrow = c(3, 4))
 for(i in 1:nDiseases){
   if(i<5) {
     par(mar = c(1, 4, 4, 1))
@@ -44,7 +44,7 @@ for(i in 1:nDiseases){
     barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = SCEN_SHORT_NAME[c(1, 3:6)], ylim = ylim, las = 2, 
             main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
   }
-}
+}}
 
 #################################################
 ## Use case 2: environmental scenarios:
@@ -226,10 +226,11 @@ if(file.exists(file_name)){
           parameter_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
           parameter_samples <- sapply(parameter_names,function(x)ithim_object$parameters[[x]])
           ## omit all-cause mortality
-          outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
+          keep_indices <- which(sapply(colnames(ithim_object$outcomes[[1]]$hb$deaths),function(x)!grepl('neo',x)&!grepl('ac',x)))
+          outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,keep_indices[-c(1:2)]])))
           evppi <- matrix(0, ncol = NSCEN, nrow = ncol(parameter_samples))
           for(j in 1:(NSCEN)){
-            y <- rowSums(outcome[,seq(NSCEN+j,ncol(outcome),by=NSCEN)])
+            y <- rowSums(outcome[,seq(j,ncol(outcome),by=NSCEN)])
             vary <- var(y)
             for(i in 1:ncol(parameter_samples)){
               x <- parameter_samples[, i];
@@ -273,8 +274,8 @@ evppi <- ithim_object_list$uncertain$now$evppi
 
 parameter_names <- c('walk-to-bus time','cycling MMETs','walking MMETs','background PM2.5','motorcycle distance','non-travel PA','non-communicable disease burden',
                      'injury linearity','traffic PM2.5 share','injury reporting rate','casualty exponent fraction','day-to-week scalar',
-                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
-                     'COPD (AP)','stroke (AP)')
+                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','breast cancer (PA)','colon cancer (PA)',
+                     'endometrial cancer (PA)','IHD (AP)','lung cancer (AP)','COPD (AP)','stroke (AP)','LRI (AP)')
 x11(width=5); par(mar=c(6,12,3.5,5.5))
 labs <- rownames(evppi)
 get.pal=colorRampPalette(brewer.pal(9,"Reds"))
@@ -329,19 +330,6 @@ for(i in 1:NSCEN) lines(ninefive[,i],c(i,i),lwd=2,col='navyblue')
 abline(v=0,col='grey',lty=2,lwd=2)
 text(y=3,x=ninefive[1,3],'95%',col='navyblue',adj=c(-0,-0.7))
 }
-
-
-#########################################################################
-ithim_object <- run_ithim_setup(CITY='sao_paulo',
-                                TEST_WALK_SCENARIO = T,
-                                speeds=list(car=30,hoverboard=50))
-ithim_object$outcome <- run_ithim(ithim_object)
-
-
-ithim_object <- run_ithim_setup(CITY='delhi',
-                                TEST_WALK_SCENARIO = T,
-                                speeds=list(car=30,hoverboard=50))
-ithim_object$outcome <- run_ithim(ithim_object)
 
 
 #########################################################################

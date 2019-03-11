@@ -4,8 +4,8 @@ health_burden <- function(ind_ap_pa,inj){
   gbd_data_scaled <- DISEASE_BURDEN
   gbd_data_scaled$burden[gbd_data_scaled$cause%in%c("Neoplasms","Ischemic heart disease","Tracheal, bronchus, and lung cancer")] <- 
     gbd_data_scaled$burden[gbd_data_scaled$cause%in%c("Neoplasms","Ischemic heart disease","Tracheal, bronchus, and lung cancer")]*CHRONIC_DISEASE_SCALAR
-  gbd_deaths <- subset(gbd_data_scaled,measure=='Deaths' & metric == "Number")
-  gbd_ylls <- subset(gbd_data_scaled,measure=='YLLs (Years of Life Lost)' & metric == "Number")
+  gbd_deaths <- subset(gbd_data_scaled,measure=='Deaths')
+  gbd_ylls <- subset(gbd_data_scaled,measure=='YLLs (Years of Life Lost)')
   ##!! Hard-coded column names to initialise tables.
   sex_index <- which(colnames(ind_ap_pa)=='sex')
   age_index <- which(colnames(ind_ap_pa)=='age_cat')
