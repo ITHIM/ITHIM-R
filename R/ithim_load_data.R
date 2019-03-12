@@ -59,7 +59,8 @@ ithim_load_data <- function(){
   ## when we sum ages, we assume that all age boundaries used coincide with the GBD age boundaries.
   burden_of_disease$rate <- apply(burden_of_disease,1,
                                   function(x){
-                                    subtab <- subset(GBD_DATA,measure==x[1]&sex==x[2]&cause==x[4]&min_age>=x[6]&max_age<=x[7]); 
+                                    subtab <- subset(GBD_DATA,measure==as.character(x[1])&sex==as.character(x[2])&cause==as.character(x[4])&
+                                                       min_age>=as.numeric(x[6])&max_age<=as.numeric(x[7])); 
                                     sum(subtab$val)/sum(subtab$population)
                                     }
                                   )
