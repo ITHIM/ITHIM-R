@@ -8,7 +8,17 @@ library(plotly)
 # Read delhi travel survey with stages
 rd <- read_csv("data/local/delhi/delhi_travel_survey.csv")
 
-####
+#####
+## Recalculate distances from speed when they're NA
+# Read speed table for Delhi
+speed_tbl <- read_csv("inst/extdata/local/delhi/speed_modes_india.csv")
+
+# Update distance by duration (hours) * speed (kmh)
+rd[is.na(rd$distance) & !is.na(rd$duration), ]$distance <- 
+  (rd[is.na(rd$distance) & !is.na(rd$duration), ]$duration) * 
+  speed_tbl$Speed[match(rd[is.na(rd$distance) & !is.na(rd$duration), ]$mode_name, speed_tbl$Mode)]
+
+#####
 # Modify raw dataset to expand based on household weights
 # Add new ids for trips and persons
 
@@ -130,9 +140,6 @@ rd$female <- NULL
 # Remove unused columns
 # (hh_id)
 rd$hh_id <- NULL
-
-# Remove NAs with 0 for distance
-rd$distance <- ifelse(is.na(rd$distance), 0, rd$distance)
 
 # Calculate total distance by summing all stages' distance
 rd$total_distance <- ave(rd$distance, rd$trip_id, FUN=sum)
