@@ -144,6 +144,9 @@ rd$hh_id <- NULL
 # Calculate total distance by summing all stages' distance
 rd$total_distance <- ave(rd$distance, rd$trip_id, FUN=sum)
 
+# save this in a local temp var
+b <- rd
+
 #####
 ## Rename columns
 
