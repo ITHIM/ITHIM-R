@@ -18,10 +18,15 @@ create_synth_pop <- function(raw_trip_set){
   ##!! assuming more than one age category
   
   pa <- PA_SET
-  ##!! RJ question for AA/LG: why the different age categories?
   #Make age category for pa dataset.
-  age_category <- c("15-55", "56-69","70+")
-  pa <- assign_age_groups(pa,age_category=age_category,age_lower_bounds=c(15,56,70))
+  if(CITY=='accra'){
+    age_category <- c("15-55", "56-69","70+")
+    age_lower_bounds <- c(15,56,70)
+  }else{
+    age_category <- AGE_CATEGORY
+    age_lower_bounds <- AGE_LOWER_BOUNDS
+  }
+  pa <- assign_age_groups(pa,age_category=age_category,age_lower_bounds)
   
   #Match persons in the trip (trip_set) e physical activity datasets.
   column_to_keep <- which(colnames(pa)%in%c('work_ltpa_marg_met'))

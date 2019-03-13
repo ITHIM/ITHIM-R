@@ -38,7 +38,7 @@ ithim_load_data <- function(){
   filename <- paste0(local_path,"/population_",CITY,".csv")
   DEMOGRAPHIC <<- read_csv(filename,col_types = cols())
   
-  # get age-category details from GBD data
+  # get age-category details from population data
   AGE_CATEGORY <<- unique(DEMOGRAPHIC$age)
   AGE_LOWER_BOUNDS <<- as.numeric(sapply(AGE_CATEGORY,function(x)strsplit(x,'-')[[1]][1]))
   MAX_AGE <<- max(as.numeric(sapply(AGE_CATEGORY,function(x)strsplit(x,'-')[[1]][2])))
