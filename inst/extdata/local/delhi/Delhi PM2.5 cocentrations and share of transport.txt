@@ -1,0 +1,7 @@
+PM2.5 concentrations: 
+Mean: 150  and SD 7.5
+
+Share of Transport:
+Triangular distribution of
+(20,25,30)
+
