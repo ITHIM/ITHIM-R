@@ -6,7 +6,7 @@ library(tidyverse)
 library(plotly)
 
 # Read delhi travel survey with stages
-raw_data <- read_csv("data/local/delhi/delhi_travel_survey.csv")
+raw_data <- read.csv("data/local/delhi/delhi_travel_survey.csv", stringsAsFactors = F)
 
 #####
 ## Recalculate distances from speed when they're NA
