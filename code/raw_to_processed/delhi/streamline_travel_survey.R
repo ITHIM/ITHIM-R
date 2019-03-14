@@ -67,17 +67,22 @@ tid <- 1
 id <- 1
 # Get unique person_ids
 pid_list <- unique(rd$person_id)
-# pid_list <- c("M00031")
+pid_list <- c("M00031")
+
+saved_obj <- rd
+
+rd <- rd %>% filter(person_id == "M00031")
 
 # Loop through them and expand them using household weights
 for(i in 1:length(pid_list)) {
-  #i <- 1
+  print(i)
+  # i <- 1
   # Filter by person_id to get all trips for a person
   pg <- filter(rd, person_id == pid_list[i])
   
   # Local var for p id
   local_pid <- pid_list[i]
-  
+
   # If there are more than 1 trip and house hold weight for that person/trip is not NA
   if (!is.na(pg) && !is.na(pg$hh_weights)){
     # Get household weight (and round it)
@@ -142,24 +147,34 @@ for(i in 1:length(pid_list)) {
       
       # Generate new IDs for all newly generated persons (along with their trips)
       d$pid <- rep((id + 1):(id + count), nrow(pg))
+      s <- 1
+      e <- nrow(d)
+      d$urep <- -1
+      for (i in 1:count){
+        d$urep[s:nrow(pg)]  
+      }
       
-      # Assing a new trip ID
-      for (utid in unique(d$trip_id)){
-        ustages <- d %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% select(count) %>% as.integer()
-        # cat(utid, " - ", ustages, "\n")
-        if (ustages > 0){
-          a <- nrow(rd[rd$trip_id == utid,])
-          b <- ustages
-          if (a != b){
-            cat(local_pid, " L128: rows ", a, " repeated by ", b, "\n")
+      
+      for (ustageid in unique(d$stage)){
+        ustageid <- 1
+        # Assing a new trip ID
+        for (utid in unique(d$trip_id)){
+          ustages <- d %>% filter(trip_id == utid & stage == ustageid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% select(count) %>% as.integer()
+          # cat(utid, " - ", ustages, "\n")
+          if (ustages > 0){
+            a <- nrow(d[d$trip_id == utid & d$stage == ustageid,]) / count
+            b <- ustages
+            if (a != b){
+              cat(local_pid, " L128: rows ", a, " repeated by ", b, "\n")
+            }
+            # Update same trip id stages time
+            d$tid[d$trip_id == utid] <- rep(tid, ustages)
+          }else{
+            d$tid[d$trip_id == utid] <- tid
           }
-          # Update same trip id stages time
-          rd$tid[rd$trip_id == utid] <- rep(tid, ustages)
-        }else{
-          rd$tid[rd$trip_id == utid] <- tid
+          # Increment tid by 1
+          tid <- tid + 1
         }
-        # Increment tid by 1
-        tid <- tid + 1
       }
       # Increment id by adding count to it
       id <- id + count
