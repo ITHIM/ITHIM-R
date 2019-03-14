@@ -1,0 +1,9 @@
+PM2.5 concentrations: 
+Mean: 47.4  and SD 7.5
+
+Share of Transport:
+Mean:28.1 and SD 8.9
+
+From Guttikunda et al 2019
+
+Transport Emissions total from Guttikunda et al 2019 and share of different modes from EDGAR calculations: Marko and Nelson
