@@ -34,6 +34,16 @@ rd_pwot <- rd_pwot[!duplicated(rd_pwot$person_id), ]
 
 rd <- rbind(rd_pwt, rd_pwot)
 
+
+#####
+## Assign a new trip id to people without trips
+# Get unique number of trips
+last_trip_id <- rd %>% filter(!is.na(trip_id)) %>% distinct(trip_id) %>% nrow()
+# Identify new number of trip_id - based on unique person_id
+ntrips <- rd[is.na(rd$trip_id), ] %>% nrow()
+# Auto-increasing trip_id
+rd[is.na(rd$trip_id), ]$trip_id <- seq(last_trip_id, last_trip_id + ntrips - 1, by = 1)
+
 #####
 ## Recalculate distances from speed when they're NA
 # Read speed table for Delhi
