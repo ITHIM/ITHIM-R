@@ -34,7 +34,6 @@ rd_pwot <- rd_pwot[!duplicated(rd_pwot$person_id), ]
 
 rd <- rbind(rd_pwt, rd_pwot)
 
-
 #####
 ## Assign a new trip id to people without trips
 # Get unique number of trips
@@ -68,15 +67,17 @@ tid <- 1
 id <- 1
 # Get unique person_ids
 pid_list <- unique(rd$person_id)
+# pid_list <- c("M00031")
 
 # Loop through them and expand them using household weights
 for(i in 1:length(pid_list)) {
-  # i <- 1
+  #i <- 1
   # Filter by person_id to get all trips for a person
   pg <- filter(rd, person_id == pid_list[i])
   
   # Local var for p id
   local_pid <- pid_list[i]
+  
   # If there are more than 1 trip and house hold weight for that person/trip is not NA
   if (!is.na(pg) && !is.na(pg$hh_weights)){
     # Get household weight (and round it)
@@ -89,8 +90,8 @@ for(i in 1:length(pid_list)) {
       rd[rd$person_id == pid_list[i],]$pid <- id
       # Increment id by 1
       id <- id + 1
-      # Increment by 1
-      tid <- tid + 1
+      ## Increment by 1
+      #tid <- tid + 1
       # Assing a new trip ID
       for (utid in unique(rd[rd$person_id == pid_list[i],]$trip_id)){
         # Identify total stages
@@ -171,8 +172,8 @@ for(i in 1:length(pid_list)) {
     rd[rd$person_id == pid_list[i],]$pid <- id
     # Increment by 1
     id <- id + 1
-    # Increment by 1
-    tid <- tid + 1
+    ## Increment by 1
+    #tid <- tid + 1
     # Assing a new trip ID
     for (utid in unique(rd[rd$person_id == pid_list[i],]$trip_id)){
       # filter rd for a person
