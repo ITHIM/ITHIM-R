@@ -9,6 +9,22 @@ library(plotly)
 raw_data <- read.csv("data/local/delhi/delhi_travel_survey.csv", stringsAsFactors = F)
 
 #####
+## Remove duplicate rows
+raw_data <- raw_data[!duplicated(raw_data), ]
+
+## Create temporary var for checking repeating trip ids and stage ids
+raw_data$nid <- paste0(raw_data$trip_id, "_", raw_data$stage)
+
+## Remove duplicated rows
+raw_data <- raw_data[(!duplicated(raw_data$nid )) | (raw_data$nid == "NA_NA"),]
+
+## Remove temporary var
+raw_data$nid <- NULL
+
+# Save read data in a separate var
+rd <- raw_data
+
+#####
 ## Recalculate distances from speed when they're NA
 # Read speed table for Delhi
 speed_tbl <- read_csv("inst/extdata/local/delhi/speed_modes_india.csv")
