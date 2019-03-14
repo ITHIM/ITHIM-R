@@ -1,7 +1,11 @@
 #' @export
 set_injury_contingency <- function(injuries){
   ##!! need to work out of logic of how we know which modes there are distances for!
-  mode_names <- c(MODE_SPEEDS$trip_mode,"pedestrian","car")
+  mode_names <- c(intersect(unique(TRIP_SET$trip_mode),VEHICLE_INVENTORY$trip_mode),"pedestrian")
+  mode_names <- mode_names[mode_names!='other']
+  if(ADD_BUS_DRIVERS) mode_names <- c(mode_names,'bus_driver')
+  if(ADD_TRUCK_DRIVERS) mode_names <- c(mode_names,'truck')
+  if(CITY=='accra') mode_names <- c(mode_names,'motorcycle')
   #mode_names <- c("bicycle","bus","bus_driver","motorcycle","truck","pedestrian","car")
   # divide injuries into those for which we can write a WHW matrix, i.e. we know distances of both striker and casualty, 
   ## and those for which we don't know striker distance: no or other vehicle (noov)
@@ -11,14 +15,17 @@ set_injury_contingency <- function(injuries){
   injury_list$noov <- subset(injuries,cas_mode%in%mode_names&!strike_mode%in%mode_names)
   injury_table <- list()
   for(type in c('whw','noov')){
+    keep_names <- names(injury_list[[type]])%in%c('year','cas_mode','strike_mode','age_cat','cas_gender')
     ##TODO make contingency table without prior knowledge of column names
-    injury_table[[type]] <- expand.grid(year=unique(injury_list[[type]]$year),cas_mode=unique(injury_list[[type]]$cas_mode),
-                                        strike_mode=unique(injury_list[[type]]$strike_mode),cas_age=unique(injuries$age_cat),cas_gender=unique(injury_list[[type]]$cas_gender),stringsAsFactors = F)
-    
-    injury_table[[type]]$count <- apply(injury_table[[type]],1,function(x)nrow(subset(injury_list[[type]],year==as.numeric(x[1])&cas_mode==as.character(x[2])&
-                                                                                        strike_mode==as.character(x[3])&cas_gender==as.character(x[5])&
-                                                                                        cas_age>=AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])]&
-                                                                                        cas_age<AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])+1]))) 
+    injury_table[[type]] <- expand.grid(lapply(injury_list[[type]][,keep_names],unique))
+    #expand.grid(year=unique(injury_list[[type]]$year),cas_mode=unique(injury_list[[type]]$cas_mode),
+     #                                   strike_mode=unique(injury_list[[type]]$strike_mode),cas_age=unique(injuries$age_cat),cas_gender=unique(injury_list[[type]]$cas_gender),stringsAsFactors = F)
+    injury_list[[type]]$index <- apply(injury_list[[type]][,keep_names],1,function(x)which(apply(injury_table[[type]], 1, function(y) all(x==y))))
+    injury_table[[type]]$count <- sapply(1:nrow(injury_table[[type]]),function(x)sum(injury_list[[type]]$index==x))
+    #injury_table[[type]]$count <- apply(injury_table[[type]],1,function(x)nrow(subset(injury_list[[type]],year==as.numeric(x[1])&cas_mode==as.character(x[2])&
+    #                                                                                    strike_mode==as.character(x[3])&cas_gender==as.character(x[5])&
+    #                                                                                    cas_age>=AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])]&
+    #                                                                                    cas_age<AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])+1]))) 
   }
   INJURY_TABLE <<- injury_table
 }

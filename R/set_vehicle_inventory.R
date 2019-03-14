@@ -32,7 +32,7 @@ set_vehicle_inventory <- function(){
                                                           emission_inventory=EMISSION_INVENTORY[['big_truck']]))#,
   #                                                        distance_ratio_to_car=DISTANCE_RATIOS$big_truck))
   vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode='other',
-                                                          speed=21,
+                                                          speed=0,
                                                           emission_inventory=EMISSION_INVENTORY[['other']]))#,
   #                                                        distance_ratio_to_car=DISTANCE_RATIOS$other))
   
