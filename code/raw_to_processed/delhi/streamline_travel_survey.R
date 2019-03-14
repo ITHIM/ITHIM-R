@@ -25,6 +25,16 @@ raw_data$nid <- NULL
 rd <- raw_data
 
 #####
+## Remove duplicate rows for people without trips
+rd_pwt <- rd %>% filter(!is.na(trip_id))
+
+rd_pwot <- rd %>% filter(is.na(trip_id))
+
+rd_pwot <- rd_pwot[!duplicated(rd_pwot$person_id), ]
+
+rd <- rbind(rd_pwt, rd_pwot)
+
+#####
 ## Recalculate distances from speed when they're NA
 # Read speed table for Delhi
 speed_tbl <- read_csv("inst/extdata/local/delhi/speed_modes_india.csv")
