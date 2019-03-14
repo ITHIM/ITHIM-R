@@ -6,6 +6,7 @@ edit_accra_trips <- function(raw_trip_set){
   
   # Redefine motorcycle mode for a select 14 rows
   raw_trip_set$trip_mode[raw_trip_set$trip_mode=='other'&raw_trip_set$trip_duration<60] <- 'motorcycle'
+  raw_trip_set <- subset(raw_trip_set,trip_mode!='other')
   
   # Create new motorbike trips
   # Add 4 new people with 3 trips each

@@ -52,56 +52,17 @@ distances_for_injury_function <- function(trip_scen_sets){
   ## we can only model casualties for which we know distance travelled 
   ## we include truck and bus travel via the flags used in run_ithim_setup, if they are missing from the survey, as in accra
   injury_table <- INJURY_TABLE
-  u_gen <- unique(injury_table[[1]]$cas_gender)
-  u_age <- unique(injury_table[[1]]$cas_age)
-  age_gen_labels <- apply(expand.grid(u_gen,u_age),1,function(x)paste(x,collapse='_'))
-  cas_mode_indices <- list()
-  injury_gen_age <- list()
-  # initiate tables and store indices
-  for(type in c('whw','noov')){
-    ##TODO make contingency table without prior knowledge of column names
-    gen_index <- match(injury_table[[type]]$cas_gen,u_gen)
-    age_index <- match(injury_table[[type]]$cas_age,u_age)
-    injury_gen_age[[type]] <- age_gen_labels[length(u_gen)*(age_index-1)+gen_index]
-    injury_table[[type]]$injury_gen_age <- injury_gen_age[[type]]
-    cas_mode_indices[[type]] <- match(injury_table[[type]]$cas_mode,mode_names)
-  }
-  strike_mode_indices <- match(injury_table$whw$strike_mode,mode_names)
   
-  ## Calculated distances
-  ## true distances should be the total for the whole population for a whole year. 
-  ##TODO precalculate and save distances (for uncertainty use case)
-  injuries_list <- list()
-  for(scen in SCEN){
-    injuries_list[[scen]] <- list()
-    true_scen_dist <- subset(true_distances,scenario==scen)
-    for(type in c('whw','noov')){
-      injuries_list[[scen]][[type]] <- injury_table[[type]]
-      ##TODO get distances without prior knowledge of column names
-      ##TODO differentiate between driver and passenger for casualty and striker distances
-      
-      # initialise all strike distances as 1
-      injuries_list[[scen]][[type]]$strike_distance <- 1
-      injuries_list[[scen]][[type]]$strike_distance_sum <- 1
-      
-      # apply casualty distance sums
-      distance_sums <- sapply(mode_names,function(x)sum(true_scen_dist[[x]]))
-      injuries_list[[scen]][[type]]$cas_distance_sum <- distance_sums[cas_mode_indices[[type]]]
-      
-      # apply group-level casualty distances
-      cas_demo_indices <- match(injury_gen_age[[type]],true_scen_dist$sex_age)
-      injuries_list[[scen]][[type]]$cas_distance <- as.numeric(as.data.frame(true_scen_dist)[cbind(cas_demo_indices,cas_mode_indices[[type]]+2)])
-      
-      # apply striker distances for whw
-      if(type=='whw'){
-        injuries_list[[scen]][[type]]$strike_distance <- distance_sums[strike_mode_indices]
-        injuries_list[[scen]][[type]]$strike_distance_sum <- injuries_list[[scen]][[type]]$strike_distance
-      }
-      
-      # omit any rows with zero travel
-      injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],strike_distance>0&cas_distance>0)
-    }
-  }
+  ## add distance columns
+  injuries_for_model <- add_distance_columns(injury_table,mode_names,true_distances,scenarios=SCEN[1])
+  
+  scenario_injury_table <- list()
+  for(type in c('whw','noov')) 
+    scenario_injury_table[[type]] <- expand.grid(age_cat=unique(DEMOGRAPHIC$age),
+                                                 cas_gender=unique(DEMOGRAPHIC$sex),
+                                       cas_mode=unique(injuries_for_model[[1]][[type]]$cas_mode),
+                                       strike_mode=unique(injuries_for_model[[1]][[type]]$strike_mode))
+  injuries_list <- add_distance_columns(scenario_injury_table,mode_names,true_distances)
   
   # run regression model on baseline data
   reg_model <- list()
@@ -111,17 +72,22 @@ distances_for_injury_function <- function(trip_scen_sets){
   ##RJ linearity in group rates
   CAS_EXPONENT <<- INJURY_LINEARITY * CASUALTY_EXPONENT_FRACTION
   STR_EXPONENT <<- INJURY_LINEARITY - CAS_EXPONENT
-  forms <- list(whw='count~cas_mode*strike_mode+cas_age+cas_gender+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)+(1-STR_EXPONENT)*log(strike_distance_sum))',
-             noov='count~cas_mode*strike_mode+cas_age+cas_gender+offset(log(cas_distance))')
+  if(sum(c('age_cat','cas_gender')%in%names(injury_table[[1]]))==2){
+    forms <- list(whw='count~cas_mode*strike_mode+age_cat+cas_gender+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)+(1-STR_EXPONENT)*log(strike_distance_sum))',
+                  noov='count~cas_mode*strike_mode+age_cat+cas_gender+offset(log(cas_distance))')
+  }else{
+    forms <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)+(1-STR_EXPONENT)*log(strike_distance_sum))',
+                  noov='count~cas_mode+strike_mode+offset(log(cas_distance))')
+  }
   ## catch for when regression fails: if fail, run simpler model: no interactions.
   for(type in c('whw','noov')){
-    injuries_list[[1]][[type]]$injury_reporting_rate <- 1
+    injuries_for_model[[1]][[type]]$injury_reporting_rate <- 1
     reg_model[[type]] <- tryCatch({
-      suppressWarnings(glm(as.formula(forms[[type]]),data=injuries_list[[1]][[type]],family='poisson',
+      suppressWarnings(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson',
                                               offset=-log(injury_reporting_rate),control=glm.control(maxit=100)))
     }, error = function(e){
       temp_form <- gsub('*','+',forms[[type]],fixed=T)
-      suppressWarnings(glm(as.formula(temp_form),data=injuries_list[[1]][[type]],family='poisson',
+      suppressWarnings(glm(as.formula(temp_form),data=injuries_for_model[[1]][[type]],family='poisson',
                            offset=-log(injury_reporting_rate),control=glm.control(maxit=100)))
     }
     )
@@ -129,11 +95,13 @@ distances_for_injury_function <- function(trip_scen_sets){
   }
   ##
   ## For predictive uncertainty, we could sample a number from the predicted distribution
-  # the injury burden at baseline is the prediction for the most recent year
-  most_recent_year <- max(injuries_list[[1]][[1]]$year)
-  for(scen in SCEN)
-    for(type in c('whw','noov'))
-      injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==most_recent_year)
+  if('year'%in%colnames(injuries_list[[1]][[1]])){
+    # the injury burden at baseline is the prediction for the most recent year
+    most_recent_year <- max(injuries_list[[1]][[1]]$year)
+    for(scen in SCEN)
+      for(type in c('whw','noov'))
+        injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==most_recent_year)
+  }
   
   return(list(relative_distances=relative_distances,scen_dist=scen_dist,true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model))
 }

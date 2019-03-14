@@ -20,7 +20,8 @@ Depends: R (>= 3.1.0),
     splines,
     BMS,
     distr,
-    MASS
+    MASS,
+    stringr
 License: What license is it under?
 LazyData: true
 Imports:
@@ -39,7 +40,8 @@ Imports:
     splines,
     BMS,
     distr,
-    MASS
+    MASS,
+    stringr
 Suggests:
     testthat
 RoxygenNote: 6.1.1

@@ -87,6 +87,15 @@ ithim_load_data <- function(){
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
   trip_set$trip_mode <- tolower(trip_set$trip_mode)
   trip_set$trip_mode[trip_set$trip_mode=='private car'] <- 'car'
+  walk_words <- c('walk','walked','pedestrian')
+  trip_set$trip_mode[trip_set$trip_mode%in%walk_words] <- 'walking'
+  bike_words <- c('bike','cycle','cycling')
+  trip_set$trip_mode[trip_set$trip_mode%in%bike_words] <- 'bicycle'
+  mc_words <- c('motorbike','mcycle','mc','mtw')
+  trip_set$trip_mode[trip_set$trip_mode%in%mc_words] <- 'motorcycle'
+  subway_words <- c('metro','underground')
+  trip_set$trip_mode[trip_set$trip_mode%in%subway_words] <- 'subway'
+  trip_set <- drop_na(trip_set)
   TRIP_SET <<- trip_set
   
   filename <- paste0(local_path,"/pa_",CITY,".csv")
@@ -102,7 +111,7 @@ ithim_load_data <- function(){
   
   filename <- paste0(local_path,"/injuries_",CITY,".csv")
   injuries <- read_csv(filename,col_types = cols())
-  injuries <- assign_age_groups(injuries,age_label='cas_age')
+  if('cas_age'%in%colnames(injuries)) injuries <- assign_age_groups(injuries,age_label='cas_age')
   injuries$cas_mode <- tolower(injuries$cas_mode)
   injuries$strike_mode <- tolower(injuries$strike_mode)
   injuries$strike_mode[is.na(injuries$strike_mode)] <- 'listed_na'
