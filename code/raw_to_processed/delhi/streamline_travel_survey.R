@@ -75,7 +75,7 @@ saved_obj <- rd
 
 # Loop through them and expand them using household weights
 for(i in 1:length(pid_list)) {
-  print(i)
+  # print(i)
   # i <- 1
   # Filter by person_id to get all trips for a person
   pg <- filter(rd, person_id == pid_list[i])
