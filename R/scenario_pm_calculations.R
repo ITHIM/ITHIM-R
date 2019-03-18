@@ -41,7 +41,7 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   
   trip_set <- left_join(trip_scen_sets,vent_rates,'stage_mode')
   # litres of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode
-  trip_set$on_road_air <- trip_set$trip_duration*trip_set$vent_rate / 60 # L
+  trip_set$on_road_air <- trip_set$stage_duration*trip_set$vent_rate / 60 # L
   # get indices for quick matching of values
   scen_index <- match(trip_set$scenario,SCEN)
   # ordered pm values
@@ -60,7 +60,7 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
     # take trips from this scenario, and exclude trips by individuals not in the synthetic population (which might be truck trips)
     scen_trips <- subset(trip_set,scenario == SCEN[i]&participant_id%in%synth_pop$participant_id)
     # summarise individual-level time on road, pm inhaled, and air inhaled
-    individual_data <- setDT(scen_trips)[,.(on_road_dur = sum(trip_duration,na.rm=TRUE), 
+    individual_data <- setDT(scen_trips)[,.(on_road_dur = sum(stage_duration,na.rm=TRUE), 
                                             on_road_pm = sum(pm_dose,na.rm=TRUE), 
                                             air_inhaled = sum(on_road_air,na.rm=TRUE)),by='participant_id']
     
