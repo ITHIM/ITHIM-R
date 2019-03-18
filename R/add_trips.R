@@ -1,9 +1,13 @@
 #' @export
-add_trips <- function(trip_ids=0,new_mode='walking',duration=10,participant_id=0,age=20,sex='Male',nTrips=3){
-  data.frame(trip_id   = trip_ids, 
+add_trips <- function(trip_ids=0,new_mode='walking',distance=1,participant_id=0,age=20,sex='Male',nTrips=3,speed=4.8){
+  dist <- sample(distance,nTrips,replace=T)
+  return(data.frame(trip_id   = trip_ids, 
              trip_mode = new_mode, 
-             trip_duration = sample(duration,nTrips,replace=T), 
+             trip_distance = dist, 
+             stage_mode = new_mode, 
+             stage_distance = dist, 
+             stage_duration = 60 * dist / speed, 
              participant_id = participant_id,
              age = sample(age,1,replace=T),
-             sex = sample(sex,1,replace=T))
+             sex = sample(sex,1,replace=T)))
 }

@@ -40,10 +40,12 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     bus_trips <- long_car_trips_sample
     
     # Update selected rows for mode and duration
-    rdr$trip_mode[match(bus_trips$rid,rdr$rid)] <- bus_trips$trip_mode
-    rdr$trip_duration[match(bus_trips$rid,rdr$rid)] <- bus_trips$trip_duration
-    rdr$trip_distance[match(bus_trips$rid,rdr$rid)] <- bus_trips$trip_distance
-    rdr$trip_distance_cat[match(bus_trips$rid,rdr$rid)] <- bus_trips$trip_distance_cat
+    rdr$trip_mode[match(bus_trips$trip_id,rdr$trip_id)] <- bus_trips$trip_mode
+    rdr$trip_distance[match(bus_trips$trip_id,rdr$trip_id)] <- bus_trips$trip_distance
+    rdr$stage_mode[match(bus_trips$trip_id,rdr$trip_id)] <- bus_trips$stage_mode
+    rdr$stage_distance[match(bus_trips$trip_id,rdr$trip_id)] <- bus_trips$stage_distance
+    rdr$stage_duration[match(bus_trips$trip_id,rdr$trip_id)] <- bus_trips$stage_duration
+    rdr$trip_distance_cat[match(bus_trips$trip_id,rdr$trip_id)] <- bus_trips$trip_distance_cat
     
     rdr$scenario <- "Scenario 2"
     rd_list[[3]] <- rdr
@@ -60,8 +62,11 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
                                            combined_modes = T, target_modes = target_modes, 
                                            source_distance_cats = DIST_CAT, source_trips = target_new_trips)
     # Update selected rows for mode and duration
-    rdr$trip_mode[match(mcycle_trips_sample$row_id,rdr$row_id)] <- mcycle_trips_sample$trip_mode
-    rdr$trip_duration[match(mcycle_trips_sample$row_id,rdr$row_id)] <- mcycle_trips_sample$trip_duration
+    rdr$trip_mode[match(mcycle_trips_sample$trip_id,rdr$trip_id)] <- mcycle_trips_sample$trip_mode
+    rdr$trip_distance[match(mcycle_trips_sample$trip_id,rdr$trip_id)] <- mcycle_trips_sample$trip_distance
+    rdr$stage_mode[match(mcycle_trips_sample$trip_id,rdr$trip_id)] <- mcycle_trips_sample$stage_mode
+    rdr$stage_distance[match(mcycle_trips_sample$trip_id,rdr$trip_id)] <- mcycle_trips_sample$stage_distance
+    rdr$stage_duration[match(mcycle_trips_sample$trip_id,rdr$trip_id)] <- mcycle_trips_sample$stage_duration
     rdr$scenario <- "Scenario 3"
     rd_list[[4]] <- rdr
     #return(rd_list)
@@ -81,8 +86,11 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
                                  target_modes = target_modes,source_distance_cats = DIST_CAT[1],source_trips = target_new_trips[2])
     car_mbike_trips <- rbind(mbike_trips, car_trips)
     # Update selected rows for mode and duration
-    rdr$trip_mode[match(car_mbike_trips$row_id,rdr$row_id)] <- car_mbike_trips$trip_mode
-    rdr$trip_duration[match(car_mbike_trips$row_id,rdr$row_id)] <- car_mbike_trips$trip_duration
+    rdr$trip_mode[match(car_mbike_trips$trip_id,rdr$trip_id)] <- car_mbike_trips$trip_mode
+    rdr$trip_distance[match(car_mbike_trips$trip_id,rdr$trip_id)] <- car_mbike_trips$trip_distance
+    rdr$stage_mode[match(car_mbike_trips$trip_id,rdr$trip_id)] <- car_mbike_trips$stage_mode
+    rdr$stage_distance[match(car_mbike_trips$trip_id,rdr$trip_id)] <- car_mbike_trips$stage_distance
+    rdr$stage_duration[match(car_mbike_trips$trip_id,rdr$trip_id)] <- car_mbike_trips$stage_duration
     rdr$scenario <- "Scenario 4"
     rd_list[[5]] <- rdr
     ###############################################################
@@ -95,8 +103,11 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     motorised_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes, combined_modes = T, 
                                        target_modes = target_modes,source_distance_cats = DIST_CAT[1],source_trips = target_new_trips)
     # Update selected rows for mode and duration
-    rdr$trip_mode[match(motorised_trips$row_id,rdr$row_id)] <- motorised_trips$trip_mode
-    rdr$trip_duration[match(motorised_trips$row_id,rdr$row_id)] <- motorised_trips$trip_duration
+    rdr$trip_mode[match(motorised_trips$trip_id,rdr$trip_id)] <- motorised_trips$trip_mode
+    rdr$trip_distance[match(motorised_trips$trip_id,rdr$trip_id)] <- motorised_trips$trip_distance
+    rdr$stage_mode[match(motorised_trips$trip_id,rdr$trip_id)] <- motorised_trips$stage_mode
+    rdr$stage_distance[match(motorised_trips$trip_id,rdr$trip_id)] <- motorised_trips$stage_distance
+    rdr$stage_duration[match(motorised_trips$trip_id,rdr$trip_id)] <- motorised_trips$stage_duration
     rdr$scenario <- "Scenario 5"
     rd_list[[6]] <- rdr
     
@@ -141,10 +152,12 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     bus_trips <- long_car_trips_sample
     
     # Update selected rows for mode and duration
-    rdr$trip_mode[match(bus_trips$rid,rdr$rid)] <- bus_trips$trip_mode
-    rdr$trip_duration[match(bus_trips$rid,rdr$rid)] <- bus_trips$trip_duration
-    rdr$trip_distance[match(bus_trips$rid,rdr$rid)] <- bus_trips$trip_distance
-    rdr$trip_distance_cat[match(bus_trips$rid,rdr$rid)] <- bus_trips$trip_distance_cat
+    rdr$trip_mode[match(bus_trips$trip_id,rdr$trip_id)] <- bus_trips$trip_mode
+    rdr$trip_distance[match(bus_trips$trip_id,rdr$trip_id)] <- bus_trips$trip_distance
+    rdr$stage_mode[match(bus_trips$trip_id,rdr$trip_id)] <- bus_trips$stage_mode
+    rdr$stage_distance[match(bus_trips$trip_id,rdr$trip_id)] <- bus_trips$stage_distance
+    rdr$stage_duration[match(bus_trips$trip_id,rdr$trip_id)] <- bus_trips$stage_duration
+    rdr$trip_distance_cat[match(bus_trips$trip_id,rdr$trip_id)] <- bus_trips$trip_distance_cat
     
     rdr$scenario <- "Scenario 2"
     rd_list[[3]] <- rdr
@@ -162,8 +175,11 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
                                            combined_modes = T, target_modes = target_modes, 
                                            source_distance_cats = DIST_CAT, source_trips = target_new_trips)
     # Update selected rows for mode and duration
-    rdr$trip_mode[match(mcycle_trips_sample$row_id,rdr$row_id)] <- mcycle_trips_sample$trip_mode
-    rdr$trip_duration[match(mcycle_trips_sample$row_id,rdr$row_id)] <- mcycle_trips_sample$trip_duration
+    rdr$trip_mode[match(mcycle_trips_sample$trip_id,rdr$trip_id)] <- mcycle_trips_sample$trip_mode
+    rdr$trip_distance[match(mcycle_trips_sample$trip_id,rdr$trip_id)] <- mcycle_trips_sample$trip_distance
+    rdr$stage_mode[match(mcycle_trips_sample$trip_id,rdr$trip_id)] <- mcycle_trips_sample$stage_mode
+    rdr$stage_distance[match(mcycle_trips_sample$trip_id,rdr$trip_id)] <- mcycle_trips_sample$stage_distance
+    rdr$stage_duration[match(mcycle_trips_sample$trip_id,rdr$trip_id)] <- mcycle_trips_sample$stage_duration
     rdr$scenario <- "Scenario 3"
     rd_list[[4]] <- rdr
     
@@ -184,8 +200,11 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
                                  target_modes = target_modes,source_distance_cats = DIST_CAT[1],source_trips = target_new_trips[2])
     car_mbike_trips <- rbind(mbike_trips, car_trips)
     # Update selected rows for mode and duration
-    rdr$trip_mode[match(car_mbike_trips$row_id,rdr$row_id)] <- car_mbike_trips$trip_mode
-    rdr$trip_duration[match(car_mbike_trips$row_id,rdr$row_id)] <- car_mbike_trips$trip_duration
+    rdr$trip_mode[match(car_mbike_trips$trip_id,rdr$trip_id)] <- car_mbike_trips$trip_mode
+    rdr$trip_distance[match(car_mbike_trips$trip_id,rdr$trip_id)] <- car_mbike_trips$trip_distance
+    rdr$stage_mode[match(car_mbike_trips$trip_id,rdr$trip_id)] <- car_mbike_trips$stage_mode
+    rdr$stage_distance[match(car_mbike_trips$trip_id,rdr$trip_id)] <- car_mbike_trips$stage_distance
+    rdr$stage_duration[match(car_mbike_trips$trip_id,rdr$trip_id)] <- car_mbike_trips$stage_duration
     rdr$scenario <- "Scenario 4"
     rd_list[[5]] <- rdr
     ###############################################################
@@ -198,8 +217,11 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     motorised_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes, combined_modes = T, 
                                        target_modes = target_modes,source_distance_cats = DIST_CAT[1],source_trips = target_new_trips)
     # Update selected rows for mode and duration
-    rdr$trip_mode[match(motorised_trips$row_id,rdr$row_id)] <- motorised_trips$trip_mode
-    rdr$trip_duration[match(motorised_trips$row_id,rdr$row_id)] <- motorised_trips$trip_duration
+    rdr$trip_mode[match(motorised_trips$trip_id,rdr$trip_id)] <- motorised_trips$trip_mode
+    rdr$trip_distance[match(motorised_trips$trip_id,rdr$trip_id)] <- motorised_trips$trip_distance
+    rdr$stage_mode[match(motorised_trips$trip_id,rdr$trip_id)] <- motorised_trips$stage_mode
+    rdr$stage_distance[match(motorised_trips$trip_id,rdr$trip_id)] <- motorised_trips$stage_distance
+    rdr$stage_duration[match(motorised_trips$trip_id,rdr$trip_id)] <- motorised_trips$stage_duration
     rdr$scenario <- "Scenario 5"
     rd_list[[6]] <- rdr
     

@@ -9,10 +9,15 @@ create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, ta
                                   trip_distance_cat %in% source_distance_cats)
       sample_trips <- candidate_trips[sample(1:nrow(candidate_trips),local_source_trips),]
       sample_trips$trip_mode <- target_modes
-      sample_trips$trip_duration <- (sample_trips$trip_distance * 60) / VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode == target_modes]
+      sample_trips$stage_mode <- target_modes
+      sample_trips$stage_distance <- sample_trips$trip_distance
+      sample_trips$stage_duration <- sample_trips$stage_distance / MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==target_modes] * 60
       # Update selected rows for mode and duration
-      rdr$trip_mode[match(sample_trips$row_id,rdr$row_id)] <- sample_trips$trip_mode
-      rdr$trip_duration[match(sample_trips$row_id,rdr$row_id)] <- sample_trips$trip_duration
+      rdr$trip_mode[match(sample_trips$trip_id,rdr$trip_id)] <- sample_trips$trip_mode
+      rdr$trip_distance[match(sample_trips$trip_id,rdr$trip_id)] <- sample_trips$trip_distance
+      rdr$stage_mode[match(sample_trips$trip_id,rdr$trip_id)] <- sample_trips$stage_mode
+      rdr$stage_distance[match(sample_trips$trip_id,rdr$trip_id)] <- sample_trips$stage_distance
+      rdr$stage_duration[match(sample_trips$trip_id,rdr$trip_id)] <- sample_trips$stage_duration
     } 
     rdr$scenario <- scen_name
     return(rdr)
@@ -22,7 +27,9 @@ create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, ta
                                 trip_distance_cat %in% source_distance_cats)
     sample_trips <- candidate_trips[sample(1:nrow(candidate_trips),source_trips),]
     sample_trips$trip_mode <- target_modes
-    sample_trips$trip_duration <- (sample_trips$trip_distance * 60) / VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode == target_modes]
+    sample_trips$stage_mode <- target_modes
+    sample_trips$stage_distance <- sample_trips$trip_distance
+    sample_trips$stage_duration <- sample_trips$stage_distance / MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==target_modes] * 60
     sample_trips$scenario <- scen_name
     
     return(sample_trips)

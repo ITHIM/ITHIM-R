@@ -112,7 +112,9 @@ ithim_load_data <- function(){
   for(i in 1:length(mode_cols)){
     ## lower case mode names
     trip_set[[mode_cols[i]]] <- tolower(trip_set[[mode_cols[i]]])
-    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]=='private car'] <- 'car'
+    ## replaces spaces with _
+    trip_set[[mode_cols[i]]] <- sapply(trip_set[[mode_cols[i]]],function(x)gsub(' ','_',as.character(x)))
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]=='private_car'] <- 'car'
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%walk_words] <- 'walking'
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%bike_words] <- 'bicycle'
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%mc_words] <- 'motorcycle'

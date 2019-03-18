@@ -6,22 +6,22 @@ add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',distance_ratio=B
   nPeople <- 2
   nTrips <- 1
   new_gender <- 'Male'
-  total_ref_duration <- sum(subset(raw_trip_set,trip_mode==reference_mode)$trip_duration)
-  total_ref_distance <- total_ref_duration/60*VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode==reference_mode]
+  total_ref_distance <- sum(subset(raw_trip_set,stage_mode==reference_mode)$trip_distance)
   
   ## add new travel
   new_mode <- trip_mode
   total_new_distance <- total_ref_distance*distance_ratio#VEHICLE_INVENTORY$distance_ratio_to_car[VEHICLE_INVENTORY$trip_mode==new_mode]
-  new_duration <- total_new_distance/VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$trip_mode==new_mode]*60
-  duration_range <- c(floor(new_duration/nPeople),ceiling(new_duration/nPeople))
+  distance_range <- c(floor(total_new_distance/nPeople),ceiling(total_new_distance/nPeople))
+  speed <- MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==new_mode]
   for(i in 1:nPeople){
     new_trips <- add_trips(trip_ids   = max(raw_trip_set$trip_id) + 1: nTrips, 
                            new_mode = new_mode, 
-                           duration = duration_range, 
+                           distance = distance_range, 
                            participant_id = 0,
                            age = age_range,
                            sex = new_gender,
-                           nTrips=nTrips)
+                           nTrips=nTrips,
+                           speed=speed)
     raw_trip_set <- rbind(raw_trip_set, new_trips)
   }
   

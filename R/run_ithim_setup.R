@@ -117,7 +117,7 @@ run_ithim_setup <- function(seed=1,
   }
   
   TRAVEL_MODES <<- tolower(names(default_speeds))
-  MODE_SPEEDS <<- data.frame(trip_mode = TRAVEL_MODES, speed = unlist(default_speeds), stringsAsFactors = F)
+  MODE_SPEEDS <<- data.frame(stage_mode = TRAVEL_MODES, speed = unlist(default_speeds), stringsAsFactors = F)
   cat('\n  SPEEDS \n\n',file=setup_call_summary_filename,append=F)
   #print(MODE_SPEEDS)
   for(i in 1:nrow(MODE_SPEEDS)) {
@@ -196,9 +196,9 @@ run_ithim_setup <- function(seed=1,
   ## LOAD DATA
   ithim_load_data()  
   
-  if(any(!unique(TRIP_SET$trip_mode)%in%MODE_SPEEDS$trip_mode)){
+  if(any(!unique(TRIP_SET$stage_mode)%in%MODE_SPEEDS$stage_mode)){
     cat("\n  The following modes do not have speeds, and won't be included in the model:\n",file=setup_call_summary_filename,append=T)
-    cat(unique(TRIP_SET$trip_mode)[!unique(TRIP_SET$trip_mode)%in%MODE_SPEEDS$trip_mode],file=setup_call_summary_filename,append=T)
+    cat(unique(TRIP_SET$stage_mode)[!unique(TRIP_SET$stage_mode)%in%MODE_SPEEDS$stage_mode],file=setup_call_summary_filename,append=T)
     cat("\n\n  To include a mode, or change a speed, supply e.g. 'speeds=list(car=15,hoverboard=30)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
   }
   ## SET PARAMETERS
@@ -221,6 +221,9 @@ run_ithim_setup <- function(seed=1,
   # programming flags: do we need to recompute elements given uncertain variables?
   RECALCULATE_TRIPS <<- 'MOTORCYCLE_TO_CAR_RATIO'%in%names(ithim_object$parameters)
   RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('BUS_WALK_TIME','INJURY_LINEARITY','CASUALTY_EXPONENT_FRACTION')%in%names(ithim_object$parameters))
+  
+  ## complete TRIP_SET to contain distances and durations for trips and stages
+  complete_trip_distance_duration() 
   
   ## create inventory and edit trips, if they are not variable dependent
   if(!RECALCULATE_TRIPS){
