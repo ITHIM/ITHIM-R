@@ -7,20 +7,20 @@ dist_dur_tbls <- function(trip_scen_sets){
   l_dist <-  l_dur <- list()
   for (i in 1:length(SCEN)){
     # get scenario trips
-    local <- group_by(filter(bs,scenario == SCEN[i]), trip_mode)
+    local <- group_by(filter(bs,scenario == SCEN[i]), stage_mode)
     
     # summarise total distances & durations
-    local_dist <- summarise(local, sum_dist = sum(trip_distance))
-    local_dur <- summarise(local, sum_dur = sum(trip_duration))
+    local_dist <- summarise(local, sum_dist = sum(stage_distance))
+    local_dur <- summarise(local, sum_dur = sum(stage_duration))
     
     # add walk_to_bus, if walk_to_bus has been added
     if(ADD_WALK_TO_BUS_TRIPS){
-      local_dist$sum_dist[local_dist$trip_mode == "walking"] <- 
-        local_dist$sum_dist[local_dist$trip_mode == "walking"] + 
-        local_dist$sum_dist[local_dist$trip_mode == "walk_to_bus"]
-      local_dur$sum_dur[local_dur$trip_mode == "walking"] <- 
-        local_dur$sum_dur[local_dur$trip_mode == "walking"] + 
-        local_dur$sum_dur[local_dur$trip_mode == "walk_to_bus"]
+      local_dist$sum_dist[local_dist$stage_mode == "walking"] <- 
+        local_dist$sum_dist[local_dist$stage_mode == "walking"] + 
+        local_dist$sum_dist[local_dist$stage_mode == "walk_to_bus"]
+      local_dur$sum_dur[local_dur$stage_mode == "walking"] <- 
+        local_dur$sum_dur[local_dur$stage_mode == "walking"] + 
+        local_dur$sum_dur[local_dur$stage_mode == "walk_to_bus"]
     }
     
     # store results
@@ -36,19 +36,19 @@ dist_dur_tbls <- function(trip_scen_sets){
       local_dist <- l_dist[[i]]
       local_dur <- l_dur[[i]]
     }else{
-      local_dist <- left_join(local_dist, l_dist[[i]], by = "trip_mode")
-      local_dur <- left_join(local_dur, l_dur[[i]], by = "trip_mode")
+      local_dist <- left_join(local_dist, l_dist[[i]], by = "stage_mode")
+      local_dur <- left_join(local_dur, l_dur[[i]], by = "stage_mode")
     }
   }
   
   # Remove short walking
-  dist <- filter(local_dist, trip_mode != 'walk_to_bus')
-  dur <- filter(local_dur, trip_mode != 'walk_to_bus')
+  dist <- filter(local_dist, stage_mode != 'walk_to_bus')
+  dur <- filter(local_dur, stage_mode != 'walk_to_bus')
   
   ## bus travel is linear in bus passenger travel
-  if('bus_driver'%in%dist$trip_mode){
-    bus_driver_row <- which(dist$trip_mode=='bus_driver')
-    bus_passenger_row <- which(dist$trip_mode=='bus')
+  if('bus_driver'%in%dist$stage_mode){
+    bus_driver_row <- which(dist$stage_mode=='bus_driver')
+    bus_passenger_row <- which(dist$stage_mode=='bus')
     base_col <- which(colnames(dist)=='Baseline')
     dist[bus_driver_row,colnames(dist)%in%SCEN] <- as.numeric(dist[bus_driver_row,base_col] / dist[bus_passenger_row,base_col]) * dist[bus_passenger_row,colnames(dist)%in%SCEN] 
     dur[bus_driver_row,colnames(dur)%in%SCEN] <- as.numeric(dur[bus_driver_row,base_col] / dur[bus_passenger_row,base_col]) * dur[bus_passenger_row,colnames(dur)%in%SCEN] 
