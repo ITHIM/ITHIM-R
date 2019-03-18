@@ -8,9 +8,9 @@ distances_for_injury_function <- function(trip_scen_sets){
   ## for injury_function
   # get total distances
   journeys <- trip_scen_sets %>% 
-    group_by (age_cat,sex,trip_mode, scenario) %>% 
-    summarise(tot_dist = sum(trip_distance))
-  distances <- spread(journeys,trip_mode, tot_dist,fill=0) 
+    group_by (age_cat,sex,stage_mode, scenario) %>% 
+    summarise(tot_dist = sum(stage_distance))
+  distances <- spread(journeys,stage_mode, tot_dist,fill=0) 
   distances$pedestrian <- distances$walking 
   distances <- distances[, -which(names(distances) ==  "walking")]
   if(ADD_WALK_TO_BUS_TRIPS){
@@ -30,13 +30,13 @@ distances_for_injury_function <- function(trip_scen_sets){
   true_distances <- true_distances[,-c(which(names(true_distances) == 'sex'))]
   
   # get distances relative to baseline scenario
-  scen_dist <- sapply(1:(NSCEN+1),function(x)c(colSums(subset(distances,scenario == SCEN[x])[,colnames(distances)%in%unique(journeys$trip_mode)])))
+  scen_dist <- sapply(1:(NSCEN+1),function(x)c(colSums(subset(distances,scenario == SCEN[x])[,colnames(distances)%in%unique(journeys$stage_mode)])))
   colnames(scen_dist) <- SCEN_SHORT_NAME
   for(i in 2:ncol(scen_dist)) scen_dist[,i] <- scen_dist[,i]/scen_dist[,1] 
   if(CITY=='accra') scen_dist <- rbind(scen_dist,Tuktuk=1)
   
   # get distances as a proportion of travel across demographic groups
-  mode_names <- names(distances)[names(distances)%in%c(unique(journeys$trip_mode),'pedestrian')]
+  mode_names <- names(distances)[names(distances)%in%c(unique(journeys$stage_mode),'pedestrian')]
   for (i in 1: length(mode_names))
     for (n in 1:(NSCEN+1))
       distances[[mode_names[i]]][which(distances$scenario == SCEN[n])] <- 
