@@ -82,19 +82,42 @@ ithim_load_data <- function(){
   gbd_inj_yll$yll_dth_ratio <- gbd_inj_yll$burden/gbd_inj_dth$burden 
   GBD_INJ_YLL <<- gbd_inj_yll
   
+  ## edit trip set.
+  ## we need columns: trip_id, trip_mode, stage_mode, stage_duration, trip_distance, stage_distance
+  ## trips can be composed of multiple stages
+  ## all trip columns are used for scenario generation alone
+  ## stage columns are used for downstream calculation
+  ## if either trip or stage labels are missing, we copy over from the other.
   filename <- paste0(local_path,"/trips_",CITY,".csv")
   trip_set <- read_csv(filename,col_types = cols())
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
-  trip_set$trip_mode <- tolower(trip_set$trip_mode)
-  trip_set$trip_mode[trip_set$trip_mode=='private car'] <- 'car'
+  ## copy over as required
+  mode_cols <- c('trip_mode','stage_mode')
+  if(sum(mode_cols%in%colnames(trip_set))==0) stop(paste0('Please include a column labelled "trip_mode" or "stage_mode" in ', filename))
+  if('trip_mode'%in%colnames(trip_set)&&!'stage_mode'%in%colnames(trip_set)) 
+    trip_set$stage_mode <- trip_set$trip_mode
+  if('stage_mode'%in%colnames(trip_set)&&!'trip_mode'%in%colnames(trip_set)) 
+    trip_set$trip_mode <- trip_set$stage_mode
+  if('trip_duration'%in%colnames(trip_set)&&!'stage_duration'%in%colnames(trip_set)) 
+    trip_set$stage_duration <- trip_set$trip_duration
+  if('trip_distance'%in%colnames(trip_set)&&!'stage_distance'%in%colnames(trip_set)) 
+    trip_set$stage_distance <- trip_set$trip_distance
+  if('stage_distance'%in%colnames(trip_set)&&!'trip_distance'%in%colnames(trip_set)) 
+    trip_set$trip_distance <- trip_set$stage_distance
+  ## use specified words for key modes
   walk_words <- c('walk','walked','pedestrian')
-  trip_set$trip_mode[trip_set$trip_mode%in%walk_words] <- 'walking'
   bike_words <- c('bike','cycle','cycling')
-  trip_set$trip_mode[trip_set$trip_mode%in%bike_words] <- 'bicycle'
   mc_words <- c('motorbike','mcycle','mc','mtw')
-  trip_set$trip_mode[trip_set$trip_mode%in%mc_words] <- 'motorcycle'
   subway_words <- c('metro','underground')
-  trip_set$trip_mode[trip_set$trip_mode%in%subway_words] <- 'subway'
+  for(i in 1:length(mode_cols)){
+    ## lower case mode names
+    trip_set[[mode_cols[i]]] <- tolower(trip_set[[mode_cols[i]]])
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]=='private car'] <- 'car'
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%walk_words] <- 'walking'
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%bike_words] <- 'bicycle'
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%mc_words] <- 'motorcycle'
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%subway_words] <- 'subway'
+  }
   trip_set <- drop_na(trip_set)
   TRIP_SET <<- trip_set
   
