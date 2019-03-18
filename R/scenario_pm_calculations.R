@@ -8,11 +8,11 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   emission_dist <- dist
   
   ## get emission factor by dividing inventory by baseline distance. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
-  ordered_efs <- VEHICLE_INVENTORY$emission_inventory[match(emission_dist$trip_mode,VEHICLE_INVENTORY$trip_mode)]/emission_dist$Baseline
+  ordered_efs <- VEHICLE_INVENTORY$emission_inventory[match(emission_dist$stage_mode,VEHICLE_INVENTORY$stage_mode)]/emission_dist$Baseline
   ## get new emission by multiplying emission factor by scenario distance.
   trans_emissions <- emission_dist[,0:NSCEN+2]*t(repmat(ordered_efs,NSCEN+1,1))
   ## augment with travel emission contributions that aren't included in distance calculation
-  for(mode_type in which(!VEHICLE_INVENTORY$trip_mode%in%emission_dist$trip_mode))
+  for(mode_type in which(!VEHICLE_INVENTORY$stage_mode%in%emission_dist$stage_mode))
     trans_emissions[nrow(trans_emissions)+1,] <- VEHICLE_INVENTORY$emission_inventory[mode_type]
   
   ## scenario travel pm2.5 calculated as relative to the baseline
@@ -23,10 +23,10 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
     conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN[i]]])/baseline_sum
   
   ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
-  vent_rates <- data.frame(trip_mode=VEHICLE_INVENTORY$trip_mode,stringsAsFactors = F) 
+  vent_rates <- data.frame(stage_mode=VEHICLE_INVENTORY$stage_mode,stringsAsFactors = F) 
   vent_rates$vent_rate <- BASE_LEVEL_INHALATION_RATE # L / min
-  vent_rates$vent_rate[vent_rates$trip_mode=='bicycle'] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_CYCLING
-  vent_rates$vent_rate[vent_rates$trip_mode%in%c('walking','walk_to_bus')] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_WALKING
+  vent_rates$vent_rate[vent_rates$stage_mode=='bicycle'] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_CYCLING
+  vent_rates$vent_rate[vent_rates$stage_mode%in%c('walking','walk_to_bus')] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_WALKING
   
   ##RJ rewriting exposure ratio as function of ambient PM2.5, as in Goel et al 2015
   ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE (10), CLOSED_WINDOW_PM_RATIO (0.5), CLOSED_WINDOW_RATIO (0.5), ROAD_RATIO_MAX (3.216), ROAD_RATIO_SLOPE (0.379)
@@ -37,9 +37,9 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   in_vehicle_ratio <- (1-CLOSED_WINDOW_RATIO)*on_road_off_road_ratio + CLOSED_WINDOW_RATIO*CLOSED_WINDOW_PM_RATIO 
   # open vehicles experience the ``on_road_off_road_ratio'', and closed vehicles experience the ``in_vehicle_ratio''
   ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio)
-  vent_rates$vehicle_ratio_index <- sapply(vent_rates$trip_mode,function(x) ifelse(x%in%c('walking','walk_to_bus','bicycle','motorcycle'),1,2))
+  vent_rates$vehicle_ratio_index <- sapply(vent_rates$stage_mode,function(x) ifelse(x%in%c('walking','walk_to_bus','bicycle','motorcycle'),1,2))
   
-  trip_set <- left_join(trip_scen_sets,vent_rates,'trip_mode')
+  trip_set <- left_join(trip_scen_sets,vent_rates,'stage_mode')
   # litres of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode
   trip_set$on_road_air <- trip_set$trip_duration*trip_set$vent_rate / 60 # L
   # get indices for quick matching of values
