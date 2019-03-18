@@ -20,18 +20,18 @@ set_vehicle_inventory <- function(){
   #vehicle_inventory$distance_ratio_to_car <- 1
   
   for(m in names(EMISSION_INVENTORY))
-      vehicle_inventory$emission_inventory[vehicle_inventory$trip_mode%in%m] <- EMISSION_INVENTORY[[m]]
+      vehicle_inventory$emission_inventory[vehicle_inventory$stage_mode%in%m] <- EMISSION_INVENTORY[[m]]
   #for(m in names(DISTANCE_RATIOS))
-  #    vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%m] <- DISTANCE_RATIOS[[m]]
+  #    vehicle_inventory$distance_ratio_to_car[vehicle_inventory$stage_mode%in%m] <- DISTANCE_RATIOS[[m]]
   
   ##!! this is the only part that currently changes with uncertainty
-  #vehicle_inventory$distance_ratio_to_car[vehicle_inventory$trip_mode%in%c('motorcycle')] <- MOTORCYCLE_TO_CAR_RATIO#DISTANCE_RATIOS$motorcycle
+  #vehicle_inventory$distance_ratio_to_car[vehicle_inventory$stage_mode%in%c('motorcycle')] <- MOTORCYCLE_TO_CAR_RATIO#DISTANCE_RATIOS$motorcycle
   
-  vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode='big_truck',
+  vehicle_inventory <- rbind(vehicle_inventory,data.frame(stage_mode='big_truck',
                                                           speed=21,
                                                           emission_inventory=EMISSION_INVENTORY[['big_truck']]))#,
   #                                                        distance_ratio_to_car=DISTANCE_RATIOS$big_truck))
-  vehicle_inventory <- rbind(vehicle_inventory,data.frame(trip_mode='other',
+  vehicle_inventory <- rbind(vehicle_inventory,data.frame(stage_mode='other',
                                                           speed=0,
                                                           emission_inventory=EMISSION_INVENTORY[['other']]))#,
   #                                                        distance_ratio_to_car=DISTANCE_RATIOS$other))
