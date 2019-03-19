@@ -1,1001 +1,1001 @@
-participant_id,trip_id,trip_mode,trip_duration,age,sex,scenario
-21668,NA,99,NA,20,Female,Baseline
-17933,3,Bus,50,18,Female,Baseline
-19891,1,Bus,55,25,Male,Baseline
-15540,2,subway,120,26,Male,Baseline
-376,1,Private Car,20,43,Female,Baseline
-5756,2,Private Car,20,55,Female,Baseline
-4107,1,Motorcycle,40,48,Male,Baseline
-22666,1,Private Car,70,56,Male,Baseline
-6618,2,subway,60,26,Female,Baseline
-26840,1,subway,45,15,Male,Baseline
-23530,1,Motorcycle,3,33,Female,Baseline
-9480,4,Bicycle,5,21,Male,Baseline
-23788,2,Bus,130,52,Female,Baseline
-2113,2,subway,110,44,Female,Baseline
-7461,1,Train,90,18,Female,Baseline
-13802,3,subway,110,32,Male,Baseline
-10976,4,Walking,5,50,Female,Baseline
-7590,1,Bus,45,8,Female,Baseline
-21590,2,Private Car,45,33,Male,Baseline
-26297,2,van,25,61,Female,Baseline
-9997,2,Bus,20,10,Male,Baseline
-2349,2,Walking,10,14,Female,Baseline
-16094,2,Private Car,25,75,Male,Baseline
-16520,NA,99,NA,47,Male,Baseline
-25187,2,Walking,20,29,Male,Baseline
-17719,1,Private Car,60,32,Male,Baseline
-900,4,Private Car,20,34,Male,Baseline
-15275,2,Private Car,15,10,Female,Baseline
-5387,1,Walking,5,12,Male,Baseline
-23403,2,Private Car,10,6,Female,Baseline
-17323,3,Private Car,5,48,Female,Baseline
-4149,2,others,15,44,Male,Baseline
-19256,1,Walking,10,42,Male,Baseline
-13068,NA,99,NA,14,Female,Baseline
-16199,2,Walking,30,15,Female,Baseline
-6203,2,Bus,30,1,Male,Baseline
-22905,1,Private Car,20,72,Female,Baseline
-14113,2,Walking,5,44,Male,Baseline
-12929,3,Walking,15,39,Female,Baseline
-9091,2,Private Car,30,5,Female,Baseline
-12876,NA,99,NA,69,Male,Baseline
-265,NA,99,NA,64,Male,Baseline
-21167,2,Walking,45,19,Female,Baseline
-10755,2,Walking,15,47,Male,Baseline
-7426,2,Bus,20,7,Male,Baseline
-242,2,Private Car,10,5,Male,Baseline
-13678,3,Walking,10,29,Female,Baseline
-6835,1,Walking,30,13,Male,Baseline
-19117,NA,99,NA,94,Female,Baseline
-13707,1,Bus,90,56,Male,Baseline
-23822,1,Bus,30,32,Male,Baseline
-2996,1,Private Car,20,45,Male,Baseline
-25409,3,Taxi,20,23,Male,Baseline
-19137,1,Bus,80,31,Female,Baseline
-6103,1,Walking,25,18,Male,Baseline
-12042,1,Train,20,22,Female,Baseline
-10509,2,Bus,30,57,Female,Baseline
-23789,2,Walking,15,16,Male,Baseline
-3044,3,Walking,15,9,Male,Baseline
-2140,2,Bus,30,15,Female,Baseline
-5353,2,Walking,45,79,Male,Baseline
-9016,NA,99,NA,70,Female,Baseline
-19491,1,Bus,60,40,Female,Baseline
-15072,2,Walking,10,10,Male,Baseline
-13463,5,Private Car,30,45,Female,Baseline
-26213,2,Walking,10,6,Female,Baseline
-7509,3,Walking,5,46,Male,Baseline
-990,2,subway,45,45,Male,Baseline
-16640,1,Walking,60,21,Female,Baseline
-19906,1,Walking,5,7,Male,Baseline
-7088,1,Motorcycle,10,34,Male,Baseline
-10578,1,Walking,20,51,Female,Baseline
-4500,5,Walking,10,41,Female,Baseline
-24229,1,Walking,10,39,Female,Baseline
-8231,4,subway,30,25,Male,Baseline
-7775,2,Private Car,45,38,Male,Baseline
-23615,NA,99,NA,1,Male,Baseline
-24027,NA,99,NA,18,Female,Baseline
-13290,3,Bus,90,42,Male,Baseline
-21564,2,Walking,40,16,Male,Baseline
-23035,2,Walking,20,16,Male,Baseline
-6323,2,Bus,90,31,Female,Baseline
-7492,1,Walking,10,28,Female,Baseline
-22497,1,Bus,40,12,Male,Baseline
-22893,3,Walking,20,31,Female,Baseline
-25166,1,Private Car,30,28,Female,Baseline
-19831,3,Private Car,40,51,Female,Baseline
-8422,3,Walking,2,22,Male,Baseline
-3855,1,Bus,45,10,Male,Baseline
-9649,2,Walking,40,14,Male,Baseline
-11304,NA,99,NA,68,Male,Baseline
-13915,1,Private Car,40,45,Female,Baseline
-18148,2,Walking,25,13,Male,Baseline
-3789,1,Walking,5,89,Male,Baseline
-15768,2,Walking,10,40,Female,Baseline
-15075,1,Bus,120,43,Male,Baseline
-1790,2,Private Car,30,32,Male,Baseline
-212,1,Private Car,5,61,Female,Baseline
-10403,NA,99,NA,75,Female,Baseline
-12838,NA,99,NA,53,Male,Baseline
-8106,1,Bus,15,49,Female,Baseline
-20881,6,Walking,5,31,Female,Baseline
-6862,2,Bus,180,62,Female,Baseline
-23014,2,Walking,30,52,Male,Baseline
-19189,1,Walking,35,70,Male,Baseline
-9061,5,Private Car,15,48,Male,Baseline
-22710,1,Bus,60,14,Female,Baseline
-22615,4,Private Car,15,41,Male,Baseline
-5774,1,Bus,60,11,Male,Baseline
-598,4,Bus,30,36,Male,Baseline
-4255,1,Motorcycle,45,30,Male,Baseline
-22105,2,Walking,10,34,Female,Baseline
-26366,2,subway,100,19,Female,Baseline
-21827,1,Private Car,50,1,Male,Baseline
-9977,3,Private Car,90,25,Male,Baseline
-18123,1,Private Car,10,22,Male,Baseline
-18564,1,Bus,40,19,Female,Baseline
-1023,NA,99,NA,87,Male,Baseline
-10210,1,Private Car,20,32,Male,Baseline
-5548,2,Walking,10,7,Male,Baseline
-26765,1,Walking,30,12,Male,Baseline
-7969,4,Walking,5,24,Female,Baseline
-25164,NA,99,NA,63,Female,Baseline
-16194,1,Motorcycle,50,23,Male,Baseline
-17516,1,Bus,30,3,Male,Baseline
-14610,2,Walking,20,61,Female,Baseline
-8426,1,Walking,20,4,Male,Baseline
-10269,3,Bus,65,15,Female,Baseline
-20009,2,Bus,10,4,Female,Baseline
-4006,NA,99,NA,45,Male,Baseline
-18515,1,Walking,25,59,Female,Baseline
-17397,2,Walking,20,9,Male,Baseline
-1192,2,Walking,10,32,Male,Baseline
-21000,4,subway,30,19,Female,Baseline
-8833,3,Walking,5,51,Male,Baseline
-8616,2,Bus,100,44,Female,Baseline
-18131,1,subway,70,1,Female,Baseline
-3427,2,Bus,30,14,Male,Baseline
-11977,1,Private Car,55,2,Female,Baseline
-26910,2,Private Car,10,15,Male,Baseline
-12547,1,Motorcycle,75,36,Male,Baseline
-11638,2,Bus,20,28,Male,Baseline
-13819,1,Private Car,30,18,Male,Baseline
-13920,3,subway,90,15,Female,Baseline
-6338,3,Bus,40,31,Female,Baseline
-8049,5,Walking,5,61,Female,Baseline
-728,2,Bicycle,25,35,Male,Baseline
-6550,4,Walking,2,50,Male,Baseline
-16738,1,Walking,10,21,Female,Baseline
-26744,2,Private Car,50,25,Male,Baseline
-14577,1,Bus,40,13,Female,Baseline
-16745,1,Private Car,50,31,Male,Baseline
-6288,1,Bus,180,36,Female,Baseline
-24776,3,Private Car,29,30,Male,Baseline
-12418,1,Bus,60,21,Male,Baseline
-5760,5,Private Car,10,33,Female,Baseline
-26214,2,Bus,30,4,Male,Baseline
-16381,1,Walking,20,13,Female,Baseline
-19898,1,Walking,10,23,Male,Baseline
-21333,1,Private Car,40,21,Female,Baseline
-15068,3,Train,90,26,Male,Baseline
-19785,1,Private Car,10,32,Male,Baseline
-18787,4,Walking,2,61,Male,Baseline
-17931,1,Private Car,35,34,Female,Baseline
-12359,1,Motorcycle,30,23,Male,Baseline
-13636,1,Private Car,30,4,Female,Baseline
-17915,1,Walking,20,23,Female,Baseline
-25411,1,Walking,10,56,Male,Baseline
-22640,2,Walking,20,8,Female,Baseline
-7219,1,Walking,10,15,Female,Baseline
-18742,2,Walking,20,13,Male,Baseline
-18146,1,Private Car,30,43,Male,Baseline
-5831,NA,99,NA,61,Female,Baseline
-11534,NA,99,NA,60,Female,Baseline
-9608,NA,99,NA,13,Male,Baseline
-7644,6,Walking,10,18,Male,Baseline
-23103,3,Walking,10,43,Male,Baseline
-9586,4,subway,30,20,Male,Baseline
-2590,1,subway,150,61,Male,Baseline
-13774,2,Walking,10,6,Male,Baseline
-24126,2,subway,120,29,Male,Baseline
-12239,1,Private Car,10,61,Male,Baseline
-20032,4,Walking,10,30,Male,Baseline
-356,3,Walking,20,26,Female,Baseline
-20584,2,Bus,35,14,Male,Baseline
-26805,4,Walking,24,42,Female,Baseline
-22032,2,Bus,40,33,Male,Baseline
-1662,2,Private Car,40,32,Male,Baseline
-21983,2,Bus,120,55,Female,Baseline
-16438,3,Private Car,15,31,Female,Baseline
-26690,1,Walking,30,15,Male,Baseline
-21456,1,Private Car,5,3,Female,Baseline
-7509,4,Walking,5,46,Male,Baseline
-23905,1,Walking,10,58,Male,Baseline
-5461,4,Bus,90,43,Female,Baseline
-21180,1,Bus,50,31,Female,Baseline
-12329,4,Train,110,40,Female,Baseline
-8455,1,Walking,5,44,Female,Baseline
-8512,3,Walking,45,56,Female,Baseline
-23808,1,Private Car,30,15,Female,Baseline
-12344,2,Walking,10,27,Male,Baseline
-15493,2,Bus,20,10,Female,Baseline
-8810,1,Bicycle,10,20,Male,Baseline
-17420,2,Walking,10,59,Female,Baseline
-5102,1,Walking,15,5,Male,Baseline
-1516,6,Bus,20,28,Female,Baseline
-25749,NA,99,NA,33,Male,Baseline
-8864,NA,99,NA,2,Female,Baseline
-26940,3,Walking,10,34,Female,Baseline
-12057,2,Train,90,43,Male,Baseline
-20499,4,Bus,90,37,Female,Baseline
-22518,1,Bus,75,45,Male,Baseline
-12517,3,subway,90,31,Female,Baseline
-9957,3,Walking,5,30,Male,Baseline
-13635,2,Private Car,30,36,Female,Baseline
-7790,2,Walking,20,36,Male,Baseline
-2537,2,Private Car,10,23,Male,Baseline
-15932,2,Bus,80,13,Male,Baseline
-2547,1,Private Car,10,48,Male,Baseline
-7538,2,Bus,70,61,Female,Baseline
-14794,1,subway,150,32,Female,Baseline
-1731,3,Walking,5,45,Male,Baseline
-15714,1,Bicycle,90,47,Male,Baseline
-26162,4,Walking,40,54,Female,Baseline
-16175,3,Walking,10,17,Male,Baseline
-9739,2,Bus,35,14,Female,Baseline
-19843,1,Walking,10,21,Male,Baseline
-9378,2,Walking,20,14,Male,Baseline
-3231,1,Walking,10,9,Male,Baseline
-26319,1,Bus,45,15,Male,Baseline
-1847,4,Private Car,75,43,Male,Baseline
-10488,4,Private Car,205,63,Female,Baseline
-17183,2,Motorcycle,10,42,Male,Baseline
-7599,2,Walking,5,10,Male,Baseline
-18112,2,Private Car,35,39,Male,Baseline
-11130,6,Walking,3,41,Female,Baseline
-10058,3,Private Car,30,40,Male,Baseline
-26538,2,Bus,30,8,Male,Baseline
-18228,1,van,50,19,Male,Baseline
-20978,2,Walking,20,15,Male,Baseline
-7330,2,subway,40,58,Female,Baseline
-3085,NA,99,NA,64,Male,Baseline
-9089,12,Walking,5,34,Male,Baseline
-4159,2,Bus,80,24,Male,Baseline
-6263,NA,99,NA,21,Male,Baseline
-13391,2,Private Car,160,58,Male,Baseline
-21056,1,Private Car,40,3,Female,Baseline
-11442,1,Bus,150,80,Female,Baseline
-8887,2,Bus,10,8,Female,Baseline
-13891,4,Train,90,35,Male,Baseline
-23222,3,Walking,5,22,Female,Baseline
-22947,2,Walking,20,15,Male,Baseline
-10963,2,subway,42,20,Female,Baseline
-16153,1,subway,120,30,Male,Baseline
-11915,2,Walking,20,49,Female,Baseline
-21375,NA,99,NA,48,Female,Baseline
-22278,1,Bus,40,22,Female,Baseline
-20490,2,subway,50,41,Male,Baseline
-15222,2,Walking,5,45,Male,Baseline
-19321,2,subway,70,26,Female,Baseline
-9973,1,Bus,60,34,Male,Baseline
-5617,NA,99,NA,68,Male,Baseline
-23015,NA,99,NA,56,Female,Baseline
-13290,1,Walking,5,42,Male,Baseline
-13747,1,subway,90,65,Female,Baseline
-12950,NA,99,NA,79,Male,Baseline
-20213,4,Walking,10,16,Male,Baseline
-13151,1,van,55,31,Male,Baseline
-4122,2,subway,90,65,Female,Baseline
-7236,NA,99,NA,43,Female,Baseline
-14284,2,Private Car,30,20,Female,Baseline
-19506,4,Private Car,70,30,Female,Baseline
-19308,1,Bus,20,6,Male,Baseline
-8712,2,Bus,30,17,Female,Baseline
-25107,2,Bus,60,39,Male,Baseline
-15999,2,Private Car,20,33,Female,Baseline
-23742,2,Bus,100,25,Male,Baseline
-14087,1,Bus,45,19,Male,Baseline
-21362,NA,99,NA,56,Female,Baseline
-13354,NA,99,NA,87,Male,Baseline
-9495,1,Private Car,5,36,Male,Baseline
-10286,2,Walking,40,3,Male,Baseline
-3316,2,Walking,10,58,Female,Baseline
-16710,1,subway,60,37,Male,Baseline
-8119,NA,99,NA,10,Female,Baseline
-9717,4,Taxi,10,55,Female,Baseline
-7488,2,Bus,60,11,Male,Baseline
-10238,1,Walking,15,15,Male,Baseline
-10572,3,Private Car,104,36,Female,Baseline
-16197,1,Walking,30,18,Female,Baseline
-13294,3,Walking,20,41,Male,Baseline
-6516,1,Walking,30,18,Female,Baseline
-12260,2,Walking,5,9,Male,Baseline
-2408,2,Private Car,45,32,Male,Baseline
-18549,2,Private Car,30,30,Male,Baseline
-20068,1,Walking,10,44,Female,Baseline
-9602,1,Walking,5,1,Male,Baseline
-14587,2,Walking,5,10,Female,Baseline
-8371,2,Walking,30,24,Female,Baseline
-8360,2,Bus,10,68,Male,Baseline
-17431,5,Private Car,25,41,Male,Baseline
-1988,1,Private Car,22,16,Female,Baseline
-24383,NA,99,NA,10,Female,Baseline
-9454,NA,99,NA,9,Male,Baseline
-11807,NA,99,NA,64,Female,Baseline
-3829,1,Private Car,30,21,Female,Baseline
-10396,2,Private Car,70,62,Male,Baseline
-7815,8,Private Car,15,23,Male,Baseline
-13811,3,Private Car,5,35,Female,Baseline
-11754,3,Walking,20,38,Male,Baseline
-6014,1,Train,75,16,Female,Baseline
-10058,5,Private Car,40,40,Male,Baseline
-3787,1,Bus,130,21,Female,Baseline
-14507,NA,99,NA,22,Female,Baseline
-12723,1,subway,60,37,Male,Baseline
-21667,1,Private Car,40,37,Male,Baseline
-15820,2,Walking,20,31,Male,Baseline
-765,1,Walking,15,69,Female,Baseline
-6342,1,Walking,20,15,Male,Baseline
-14110,1,Bus,75,36,Male,Baseline
-20723,2,Private Car,30,52,Male,Baseline
-5513,2,Walking,2,30,Female,Baseline
-23175,1,Bus,30,17,Male,Baseline
-10061,1,Private Car,20,41,Male,Baseline
-15435,2,Bus,75,31,Female,Baseline
-2795,1,Bus,30,10,Female,Baseline
-10643,2,Walking,5,32,Female,Baseline
-19026,2,Bus,20,10,Female,Baseline
-9283,2,Bus,40,15,Female,Baseline
-22018,4,Walking,1,58,Male,Baseline
-8108,1,Walking,15,15,Male,Baseline
-21517,2,Bus,30,17,Male,Baseline
-19830,1,Bus,30,55,Male,Baseline
-17321,NA,99,NA,20,Male,Baseline
-19681,2,Bicycle,20,25,Male,Baseline
-4490,2,Walking,10,8,Male,Baseline
-11928,4,Walking,10,45,Male,Baseline
-16303,1,Walking,10,16,Female,Baseline
-19581,2,Private Car,60,49,Male,Baseline
-16770,1,Bus,110,17,Male,Baseline
-22306,NA,99,NA,1,Male,Baseline
-22837,NA,99,NA,69,Male,Baseline
-22590,NA,99,NA,1,Male,Baseline
-16334,3,Walking,7,8,Female,Baseline
-6287,2,Walking,5,58,Female,Baseline
-5546,5,Walking,10,15,Female,Baseline
-15329,2,subway,60,54,Female,Baseline
-10592,1,Walking,10,23,Female,Baseline
-7207,3,Bus,20,14,Female,Baseline
-12118,2,Walking,15,12,Male,Baseline
-7573,2,Private Car,65,54,Male,Baseline
-24724,2,Private Car,20,18,Female,Baseline
-7642,3,Walking,10,32,Male,Baseline
-22886,2,Private Car,9,71,Male,Baseline
-7032,1,Walking,60,26,Male,Baseline
-119,2,Private Car,25,69,Male,Baseline
-16163,2,Private Car,55,26,Male,Baseline
-20878,2,Walking,20,22,Male,Baseline
-4234,3,Walking,5,42,Male,Baseline
-8523,1,Private Car,30,42,Female,Baseline
-7848,1,Private Car,30,34,Female,Baseline
-5606,NA,99,NA,56,Female,Baseline
-7558,1,Walking,10,14,Male,Baseline
-26154,2,Bus,60,19,Male,Baseline
-26833,3,subway,35,29,Male,Baseline
-18528,2,Private Car,10,47,Female,Baseline
-25298,2,Train,105,20,Male,Baseline
-1463,3,Walking,20,34,Female,Baseline
-22427,1,Bus,65,30,Male,Baseline
-25869,1,Bus,90,23,Male,Baseline
-10666,2,Private Car,20,32,Female,Baseline
-15052,NA,99,NA,1,Male,Baseline
-15129,4,Walking,15,17,Male,Baseline
-20756,NA,99,NA,43,Female,Baseline
-23170,1,subway,40,23,Male,Baseline
-15285,2,Private Car,20,29,Male,Baseline
-17821,1,Walking,5,32,Female,Baseline
-15402,1,Walking,20,59,Male,Baseline
-24318,1,Bus,140,38,Female,Baseline
-16437,1,Private Car,20,29,Male,Baseline
-10183,2,Walking,5,23,Male,Baseline
-10492,1,Walking,15,44,Female,Baseline
-2250,2,Private Car,8,62,Male,Baseline
-5688,1,subway,110,55,Male,Baseline
-9960,1,Bus,50,53,Male,Baseline
-23893,1,Private Car,30,26,Male,Baseline
-12500,2,Private Car,100,46,Male,Baseline
-4184,1,Private Car,35,55,Female,Baseline
-22490,2,Walking,20,50,Female,Baseline
-19657,5,Bus,70,17,Female,Baseline
-17580,NA,99,NA,77,Male,Baseline
-1165,2,Private Car,60,54,Male,Baseline
-21943,1,Walking,35,78,Female,Baseline
-19398,2,Walking,3,48,Male,Baseline
-24676,2,Bus,95,66,Female,Baseline
-5898,5,Private Car,4,42,Female,Baseline
-26649,2,Walking,10,39,Male,Baseline
-22372,NA,99,NA,21,Female,Baseline
-26495,4,Motorcycle,15,29,Female,Baseline
-6234,3,Private Car,30,52,Male,Baseline
-5663,2,Bus,60,53,Female,Baseline
-4381,3,Walking,10,42,Female,Baseline
-10094,2,subway,150,40,Male,Baseline
-16818,1,Bus,30,43,Male,Baseline
-10221,5,Walking,20,13,Female,Baseline
-15427,NA,99,NA,25,Male,Baseline
-6117,3,Private Car,10,26,Female,Baseline
-2057,1,Bus,20,59,Female,Baseline
-17923,4,subway,120,68,Male,Baseline
-22075,1,Bus,120,59,Female,Baseline
-15726,NA,99,NA,68,Male,Baseline
-20183,2,Bus,15,11,Male,Baseline
-5163,1,Walking,5,31,Female,Baseline
-14433,3,Walking,10,1,Male,Baseline
-320,2,Walking,5,58,Male,Baseline
-2689,2,Train,45,20,Female,Baseline
-25550,1,Motorcycle,30,37,Male,Baseline
-3328,1,Walking,30,17,Male,Baseline
-24414,3,Private Car,30,64,Male,Baseline
-16972,3,Private Car,30,47,Male,Baseline
-2380,1,Bus,30,66,Male,Baseline
-12434,2,Walking,10,10,Female,Baseline
-13805,2,Walking,10,42,Female,Baseline
-12620,2,Private Car,15,7,Male,Baseline
-20690,1,Private Car,15,58,Male,Baseline
-4084,2,Private Car,60,32,Male,Baseline
-20776,4,Private Car,5,8,Male,Baseline
-18928,2,subway,45,30,Male,Baseline
-19546,1,Walking,15,14,Male,Baseline
-23083,4,Walking,60,49,Male,Baseline
-17687,1,subway,120,36,Male,Baseline
-5333,NA,99,NA,47,Female,Baseline
-2302,NA,99,NA,13,Female,Baseline
-12499,NA,99,NA,82,Male,Baseline
-22409,1,Walking,15,19,Female,Baseline
-1482,1,Bus,30,34,Male,Baseline
-9175,1,Private Car,30,33,Male,Baseline
-15469,2,subway,70,30,Male,Baseline
-22976,1,Bus,30,66,Female,Baseline
-12416,1,Private Car,60,26,Male,Baseline
-10957,2,Walking,20,15,Female,Baseline
-20952,2,Walking,28,32,Female,Baseline
-7260,NA,99,NA,57,Female,Baseline
-9242,4,Walking,15,43,Male,Baseline
-21759,1,Bus,150,26,Female,Baseline
-14835,NA,99,NA,46,Male,Baseline
-24359,5,Walking,5,40,Female,Baseline
-7551,2,Private Car,5,31,Female,Baseline
-20466,2,Walking,5,33,Female,Baseline
-21241,6,Walking,10,45,Female,Baseline
-4373,1,Bus,30,5,Male,Baseline
-17149,2,Bus,35,8,Male,Baseline
-8601,1,Bicycle,35,21,Male,Baseline
-16975,2,Walking,30,15,Female,Baseline
-19780,1,van,55,45,Female,Baseline
-996,NA,99,NA,27,Female,Baseline
-17761,2,Walking,5,46,Female,Baseline
-18632,5,Walking,10,59,Female,Baseline
-14116,NA,99,NA,27,Female,Baseline
-24362,1,Walking,5,12,Female,Baseline
-16673,1,subway,50,27,Female,Baseline
-10207,7,Private Car,40,25,Male,Baseline
-13150,1,Bus,60,31,Male,Baseline
-14661,1,Private Car,40,50,Female,Baseline
-18516,3,Private Car,80,55,Male,Baseline
-22651,2,Private Car,20,27,Male,Baseline
-22514,1,Bus,20,8,Male,Baseline
-24836,NA,99,NA,61,Male,Baseline
-22854,2,Bus,20,31,Female,Baseline
-20743,2,Private Car,15,65,Male,Baseline
-21466,2,subway,80,19,Male,Baseline
-6934,1,Bicycle,10,51,Male,Baseline
-5413,4,Private Car,6,29,Male,Baseline
-11712,8,Walking,5,56,Female,Baseline
-5491,3,Private Car,25,54,Female,Baseline
-20793,2,van,30,9,Male,Baseline
-22585,1,Bus,65,18,Male,Baseline
-19312,2,Bus,130,25,Male,Baseline
-2583,2,subway,60,46,Female,Baseline
-5456,2,Bicycle,30,27,Male,Baseline
-14037,2,Walking,10,30,Female,Baseline
-9549,NA,99,NA,10,Female,Baseline
-177,2,subway,80,73,Male,Baseline
-11432,1,Private Car,15,5,Female,Baseline
-13332,NA,99,NA,32,Male,Baseline
-1678,2,Bus,135,26,Male,Baseline
-24022,NA,99,NA,77,Male,Baseline
-8133,1,Walking,15,35,Male,Baseline
-25252,1,Bus,60,27,Female,Baseline
-24620,1,Private Car,20,5,Female,Baseline
-10854,NA,99,NA,28,Male,Baseline
-1298,5,Walking,10,52,Female,Baseline
-22907,4,Private Car,25,45,Female,Baseline
-15185,NA,99,NA,46,Male,Baseline
-14360,1,Bus,75,25,Male,Baseline
-8655,2,Walking,2,22,Male,Baseline
-25477,2,Walking,5,53,Male,Baseline
-7445,1,subway,90,21,Female,Baseline
-14779,NA,99,NA,58,Female,Baseline
-15587,1,Walking,5,11,Male,Baseline
-5384,2,subway,120,42,Male,Baseline
-10096,2,Walking,30,16,Female,Baseline
-4233,2,Bus,30,8,Male,Baseline
-15189,1,subway,120,18,Male,Baseline
-10263,7,Walking,10,24,Female,Baseline
-17175,4,Private Car,30,6,Female,Baseline
-22278,2,Bus,39,22,Female,Baseline
-16582,3,Private Car,20,70,Female,Baseline
-15981,1,Bus,90,54,Male,Baseline
-10576,3,Walking,7,33,Male,Baseline
-26315,2,Walking,1,27,Female,Baseline
-16527,1,Walking,5,63,Male,Baseline
-26248,2,Private Car,60,50,Female,Baseline
-26509,2,Bus,130,24,Male,Baseline
-10475,NA,99,NA,48,Female,Baseline
-2426,2,van,45,15,Male,Baseline
-1436,2,Private Car,10,41,Female,Baseline
-7127,2,Bus,45,24,Female,Baseline
-22224,4,Walking,25,33,Female,Baseline
-8599,NA,99,NA,67,Male,Baseline
-8467,2,Walking,1,39,Female,Baseline
-10315,3,Private Car,20,61,Female,Baseline
-10210,1,Private Car,20,32,Male,Baseline
-14781,1,Private Car,15,31,Female,Baseline
-8025,2,Motorcycle,5,25,Male,Baseline
-21420,2,Walking,30,25,Female,Baseline
-23861,1,Walking,5,19,Male,Baseline
-19853,2,subway,20,20,Male,Baseline
-18857,3,Walking,10,40,Male,Baseline
-9303,1,Bus,20,7,Female,Baseline
-25616,3,Bus,30,77,Male,Baseline
-22838,2,Bus,50,65,Female,Baseline
-1608,2,Bus,30,25,Male,Baseline
-19136,2,subway,60,33,Male,Baseline
-26488,2,Walking,1,67,Male,Baseline
-2197,5,Private Car,30,30,Male,Baseline
-2065,NA,99,NA,28,Male,Baseline
-24359,8,Walking,5,40,Female,Baseline
-5480,2,Bus,30,25,Female,Baseline
-1156,4,Private Car,5,28,Female,Baseline
-9405,2,Private Car,15,4,Female,Baseline
-24733,2,Bus,90,41,Male,Baseline
-26017,3,subway,120,40,Female,Baseline
-23216,NA,99,NA,59,Male,Baseline
-15845,1,Bus,60,58,Female,Baseline
-8634,4,Private Car,30,65,Male,Baseline
-12387,1,Train,60,17,Female,Baseline
-11297,2,Private Car,13,64,Female,Baseline
-16187,2,Walking,40,30,Female,Baseline
-20423,NA,99,NA,1,Male,Baseline
-19247,2,Walking,10,9,Female,Baseline
-23949,1,Walking,5,36,Female,Baseline
-14000,1,Private Car,20,26,Female,Baseline
-10501,2,Walking,15,71,Male,Baseline
-8166,2,Walking,15,21,Male,Baseline
-1027,NA,99,NA,48,Female,Baseline
-10417,2,Walking,10,23,Female,Baseline
-25232,3,Private Car,20,56,Male,Baseline
-19465,1,Bus,20,16,Female,Baseline
-18327,NA,99,NA,45,Female,Baseline
-15117,2,Walking,10,5,Female,Baseline
-8590,NA,99,NA,26,Male,Baseline
-10134,1,Bus,40,52,Female,Baseline
-16356,2,Motorcycle,70,36,Female,Baseline
-20436,2,Private Car,120,35,Male,Baseline
-17237,2,Walking,15,11,Female,Baseline
-4405,NA,99,NA,64,Male,Baseline
-10871,2,Private Car,30,62,Male,Baseline
-25188,1,Private Car,10,52,Male,Baseline
-25088,2,Bus,30,31,Female,Baseline
-5899,1,Private Car,6,6,Male,Baseline
-21484,3,Private Car,15,62,Male,Baseline
-19189,3,van,5,70,Male,Baseline
-19026,2,Bus,20,10,Female,Baseline
-5346,1,Bus,80,26,Female,Baseline
-7933,1,Walking,15,47,Female,Baseline
-17980,1,Train,50,56,Male,Baseline
-16998,2,Private Car,30,26,Male,Baseline
-3513,2,Bus,20,62,Female,Baseline
-14105,5,Private Car,10,35,Male,Baseline
-2693,1,Motorcycle,15,24,Male,Baseline
-19314,2,Walking,10,46,Female,Baseline
-22957,NA,99,NA,67,Female,Baseline
-7100,1,Bus,120,50,Male,Baseline
-26817,NA,99,NA,41,Male,Baseline
-20474,3,Walking,5,44,Female,Baseline
-7022,NA,99,NA,67,Female,Baseline
-6914,1,Bus,50,74,Female,Baseline
-12043,4,Train,30,21,Male,Baseline
-12787,1,Private Car,60,16,Male,Baseline
-21382,2,Private Car,30,27,Male,Baseline
-22905,2,Private Car,20,72,Female,Baseline
-22056,2,Walking,5,31,Male,Baseline
-8806,3,Walking,5,37,Female,Baseline
-13188,2,Train,75,34,Male,Baseline
-16369,2,Walking,25,5,Male,Baseline
-17965,5,Walking,15,39,Female,Baseline
-10632,4,Private Car,80,57,Male,Baseline
-19051,2,Private Car,30,50,Male,Baseline
-1359,2,Private Car,10,32,Female,Baseline
-23114,NA,99,NA,53,Female,Baseline
-6469,6,Walking,5,43,Male,Baseline
-7462,2,Walking,15,14,Male,Baseline
-15636,5,Motorcycle,20,29,Male,Baseline
-21051,2,Walking,20,12,Female,Baseline
-248,1,Private Car,5,42,Female,Baseline
-3749,1,Bus,80,87,Male,Baseline
-4100,4,subway,230,37,Male,Baseline
-14050,2,subway,135,25,Male,Baseline
-19092,1,Bus,40,11,Female,Baseline
-20785,2,subway,70,40,Female,Baseline
-20252,2,Private Car,30,26,Male,Baseline
-20086,NA,99,NA,48,Female,Baseline
-25948,1,Private Car,20,32,Male,Baseline
-26770,1,Walking,20,42,Male,Baseline
-3359,1,Walking,36,15,Male,Baseline
-13060,2,Walking,15,22,Female,Baseline
-11840,2,subway,100,21,Female,Baseline
-10279,1,Walking,2,30,Female,Baseline
-11274,3,Walking,2,23,Female,Baseline
-12120,3,Private Car,15,60,Male,Baseline
-20816,4,Walking,15,7,Female,Baseline
-13607,4,Private Car,40,41,Male,Baseline
-16056,2,Train,55,20,Male,Baseline
-15871,2,Walking,10,27,Female,Baseline
-13971,2,Taxi,54,33,Male,Baseline
-14109,1,Bus,70,62,Female,Baseline
-18413,4,Private Car,7,34,Male,Baseline
-4039,1,Walking,10,9,Male,Baseline
-4427,2,Train,70,25,Female,Baseline
-17366,1,Bus,45,43,Female,Baseline
-24111,6,Private Car,35,18,Male,Baseline
-15418,NA,99,NA,25,Female,Baseline
-21157,NA,99,NA,21,Female,Baseline
-1922,1,Bus,90,47,Male,Baseline
-19252,2,Motorcycle,60,24,Male,Baseline
-5315,1,Walking,20,17,Female,Baseline
-7980,1,Walking,30,44,Female,Baseline
-9587,6,Walking,6,30,Female,Baseline
-13671,1,Walking,20,15,Female,Baseline
-23422,NA,99,NA,72,Male,Baseline
-15630,2,Walking,10,40,Female,Baseline
-26385,2,Walking,5,12,Female,Baseline
-19254,2,Bus,145,28,Female,Baseline
-17595,NA,99,NA,80,Female,Baseline
-22706,1,Walking,10,7,Female,Baseline
-890,2,Motorcycle,30,32,Male,Baseline
-23869,1,subway,150,37,Male,Baseline
-19408,1,Private Car,10,51,Female,Baseline
-22371,3,Private Car,40,25,Male,Baseline
-22918,1,Train,70,42,Male,Baseline
-10679,2,Bus,10,5,Male,Baseline
-26753,1,Private Car,10,28,Male,Baseline
-22887,2,Private Car,10,65,Female,Baseline
-14315,1,Bus,60,20,Male,Baseline
-24088,2,Walking,15,27,Male,Baseline
-26543,1,Private Car,20,10,Male,Baseline
-14242,1,Walking,20,10,Female,Baseline
-12071,2,Bus,50,35,Male,Baseline
-20723,2,Private Car,30,52,Male,Baseline
-4055,2,Bus,20,17,Male,Baseline
-8807,1,Walking,10,9,Male,Baseline
-23822,2,Bus,60,32,Male,Baseline
-25520,1,Bus,60,25,Male,Baseline
-12003,5,Private Car,119,61,Male,Baseline
-9194,2,Walking,30,3,Male,Baseline
-23750,1,Bus,60,42,Male,Baseline
-22273,1,Walking,20,47,Female,Baseline
-22078,1,Walking,15,22,Male,Baseline
-12134,4,Walking,10,18,Male,Baseline
-8107,NA,99,NA,18,Female,Baseline
-14399,NA,99,NA,45,Male,Baseline
-6886,1,Walking,15,5,Female,Baseline
-523,NA,99,NA,58,Female,Baseline
-2723,1,subway,80,31,Female,Baseline
-20280,1,subway,60,49,Male,Baseline
-6112,1,Walking,25,45,Female,Baseline
-13186,2,Walking,20,13,Male,Baseline
-7592,1,Walking,55,4,Female,Baseline
-11364,4,subway,110,27,Male,Baseline
-1541,2,Walking,20,11,Male,Baseline
-3313,1,subway,90,42,Female,Baseline
-16872,3,Walking,10,47,Female,Baseline
-20786,4,Bus,50,17,Male,Baseline
-11306,1,Private Car,55,43,Male,Baseline
-13088,4,Bus,60,26,Male,Baseline
-24369,2,Walking,15,26,Female,Baseline
-3263,3,subway,60,32,Female,Baseline
-9326,2,van,30,19,Female,Baseline
-7423,2,Bus,75,47,Female,Baseline
-6451,14,Private Car,15,47,Male,Baseline
-5112,2,subway,30,16,Female,Baseline
-3508,1,Walking,25,4,Male,Baseline
-7690,1,Walking,10,48,Female,Baseline
-24835,2,Walking,15,6,Female,Baseline
-22289,4,Bus,60,22,Female,Baseline
-12846,2,Bus,15,5,Female,Baseline
-399,2,Walking,1,59,Female,Baseline
-5290,2,Private Car,35,41,Female,Baseline
-14059,2,Walking,8,13,Male,Baseline
-15489,1,Private Car,60,9,Male,Baseline
-596,1,Motorcycle,20,28,Male,Baseline
-5502,1,Private Car,10,27,Male,Baseline
-11805,2,Walking,25,51,Female,Baseline
-23955,5,Walking,15,11,Female,Baseline
-10759,1,Private Car,20,12,Female,Baseline
-20046,3,Walking,5,35,Female,Baseline
-21742,NA,99,NA,39,Female,Baseline
-17953,1,Private Car,15,8,Female,Baseline
-6280,1,Train,130,42,Male,Baseline
-16794,4,Walking,10,32,Female,Baseline
-22699,2,Bus,70,54,Female,Baseline
-10948,1,Walking,15,81,Male,Baseline
-26434,2,Taxi,30,41,Male,Baseline
-19505,2,Private Car,30,57,Female,Baseline
-24135,2,Walking,10,38,Male,Baseline
-22286,1,Walking,15,3,Male,Baseline
-21216,NA,99,NA,48,Female,Baseline
-13891,3,subway,30,35,Male,Baseline
-7650,1,Bus,15,14,Female,Baseline
-12421,1,Private Car,10,70,Male,Baseline
-7861,1,Private Car,10,75,Male,Baseline
-2130,2,Private Car,150,57,Male,Baseline
-15604,1,Walking,10,39,Female,Baseline
-24335,1,Walking,10,15,Female,Baseline
-20556,4,Walking,15,24,Female,Baseline
-2087,1,subway,80,54,Male,Baseline
-8730,2,Walking,20,35,Female,Baseline
-8041,1,Private Car,20,81,Male,Baseline
-5609,1,Bus,30,24,Female,Baseline
-6123,1,Bus,50,16,Male,Baseline
-24359,1,Walking,5,40,Female,Baseline
-643,4,Bus,30,31,Male,Baseline
-19204,2,Walking,5,19,Female,Baseline
-26643,1,Private Car,30,49,Male,Baseline
-3088,1,Private Car,15,45,Male,Baseline
-16388,1,Walking,10,66,Male,Baseline
-8714,1,Bus,30,32,Female,Baseline
-9340,2,Private Car,35,30,Male,Baseline
-26894,1,subway,80,59,Male,Baseline
-19983,6,Private Car,17,23,Male,Baseline
-12707,1,Bus,120,25,Female,Baseline
-23203,3,Private Car,5,58,Female,Baseline
-11988,2,Bus,40,20,Male,Baseline
-13865,NA,99,NA,4,Female,Baseline
-9037,2,Private Car,20,78,Male,Baseline
-21371,1,Walking,3,54,Female,Baseline
-17761,3,Walking,5,46,Female,Baseline
-22761,1,Train,130,47,Female,Baseline
-18331,5,Private Car,30,37,Female,Baseline
-21330,4,Private Car,10,26,Female,Baseline
-11511,2,Bus,30,23,Male,Baseline
-22743,NA,99,NA,43,Female,Baseline
-1691,2,Walking,10,7,Female,Baseline
-6827,2,Bus,20,70,Female,Baseline
-22959,NA,99,NA,34,Female,Baseline
-7610,2,Motorcycle,45,29,Male,Baseline
-24898,2,subway,45,55,Female,Baseline
-13095,1,Private Car,55,65,Female,Baseline
-12497,1,Walking,10,10,Female,Baseline
-369,4,Private Car,60,58,Male,Baseline
-21710,2,Walking,15,51,Female,Baseline
-15789,1,Private Car,40,19,Female,Baseline
-16402,2,Bus,15,9,Male,Baseline
-1568,2,Walking,5,21,Male,Baseline
-6929,1,Bus,30,69,Female,Baseline
-1073,2,Walking,5,6,Male,Baseline
-1892,2,Walking,10,73,Male,Baseline
-8584,2,Walking,15,8,Female,Baseline
-26314,1,Bus,45,27,Female,Baseline
-5461,2,Walking,15,43,Female,Baseline
-10483,NA,99,NA,48,Female,Baseline
-13246,6,Private Car,10,41,Male,Baseline
-7903,3,subway,90,50,Male,Baseline
-19889,1,Bus,140,45,Female,Baseline
-19612,2,Walking,10,5,Male,Baseline
-7180,2,Walking,30,7,Male,Baseline
-23106,2,Walking,10,5,Male,Baseline
-9666,NA,99,NA,30,Male,Baseline
-20999,5,Private Car,15,38,Female,Baseline
-11512,3,Private Car,30,59,Male,Baseline
-20128,NA,99,NA,15,Female,Baseline
-21029,2,Private Car,90,46,Female,Baseline
-10254,1,Private Car,20,1,Female,Baseline
-5867,2,Walking,25,13,Male,Baseline
-9246,2,Walking,15,2,Female,Baseline
-24102,3,Private Car,5,33,Female,Baseline
-18029,1,subway,90,18,Female,Baseline
-14753,2,Private Car,60,19,Male,Baseline
-1321,2,Private Car,15,40,Male,Baseline
-9088,1,Walking,20,56,Male,Baseline
-641,NA,99,NA,34,Male,Baseline
-15827,2,subway,150,25,Female,Baseline
-18465,4,Walking,10,65,Male,Baseline
-3845,1,subway,70,38,Female,Baseline
-7713,2,Bus,60,40,Male,Baseline
-8326,1,Walking,5,7,Female,Baseline
-19267,NA,99,NA,38,Male,Baseline
-3614,3,Walking,25,38,Female,Baseline
-8025,2,Motorcycle,5,25,Male,Baseline
-22701,1,Bus,30,47,Male,Baseline
-22231,1,Bus,45,49,Female,Baseline
-20844,5,Private Car,25,57,Female,Baseline
-7063,1,Walking,10,54,Male,Baseline
-21666,1,Walking,5,7,Male,Baseline
-1145,7,Private Car,5,54,Male,Baseline
-19479,2,Private Car,60,30,Male,Baseline
-6927,2,subway,120,73,Male,Baseline
-25907,2,Private Car,60,38,Male,Baseline
-8655,3,subway,35,22,Male,Baseline
-12052,2,Walking,10,32,Male,Baseline
-4192,1,Walking,20,41,Female,Baseline
-17132,3,Bus,25,19,Female,Baseline
-15321,2,Private Car,10,60,Female,Baseline
-4177,NA,99,NA,10,Female,Baseline
-24197,4,Private Car,10,21,Female,Baseline
-18476,1,Bus,40,49,Female,Baseline
-19507,1,Private Car,60,26,Female,Baseline
-17336,2,Bus,90,42,Female,Baseline
-13227,1,Walking,5,34,Female,Baseline
-23030,3,Private Car,75,30,Male,Baseline
-2840,NA,99,NA,45,Male,Baseline
-24997,1,Walking,10,2,Female,Baseline
-4168,3,Bus,15,66,Male,Baseline
-14826,1,Private Car,10,33,Male,Baseline
-6733,1,Private Car,60,73,Male,Baseline
-15012,8,Private Car,5,23,Male,Baseline
-13905,1,Private Car,5,6,Female,Baseline
-19447,2,Private Car,15,50,Male,Baseline
-15487,1,subway,150,33,Female,Baseline
-12526,3,subway,85,23,Male,Baseline
-17960,1,subway,20,42,Female,Baseline
-6295,NA,99,NA,53,Female,Baseline
-4304,7,Private Car,5,40,Female,Baseline
-19202,6,Private Car,30,54,Male,Baseline
-23026,2,Bus,40,25,Female,Baseline
-25949,4,Walking,1,35,Male,Baseline
-26161,1,Walking,35,7,Male,Baseline
-12200,NA,99,NA,51,Male,Baseline
-16486,2,Bus,30,7,Male,Baseline
-21709,1,Train,100,34,Male,Baseline
-21383,2,subway,50,22,Female,Baseline
-17019,NA,99,NA,1,Male,Baseline
-22925,1,Bus,60,22,Male,Baseline
-2247,NA,99,NA,30,Male,Baseline
-1791,6,Private Car,35,30,Female,Baseline
-4068,NA,99,NA,85,Female,Baseline
-8938,1,Private Car,30,27,Male,Baseline
-12359,4,Motorcycle,20,23,Male,Baseline
-15561,2,Bus,70,20,Male,Baseline
-1827,2,Walking,40,45,Female,Baseline
-21588,3,Walking,10,21,Female,Baseline
-11084,2,Bus,90,32,Female,Baseline
-10207,7,Private Car,40,25,Male,Baseline
-3134,4,Walking,10,13,Female,Baseline
-11240,1,Walking,15,10,Female,Baseline
-13436,2,Walking,20,2,Female,Baseline
-18174,NA,99,NA,50,Female,Baseline
-1146,7,Private Car,10,48,Female,Baseline
-162,1,Bus,120,57,Male,Baseline
-9186,1,subway,120,73,Male,Baseline
-15839,1,Bus,140,42,Female,Baseline
-26901,1,Private Car,15,39,Female,Baseline
-22972,NA,99,NA,2,Female,Baseline
-12890,NA,99,NA,88,Female,Baseline
-20840,1,Bus,40,7,Male,Baseline
-26045,1,Walking,5,58,Male,Baseline
-19241,1,Walking,15,45,Male,Baseline
-17717,2,Bus,40,31,Female,Baseline
-25214,NA,99,NA,36,Male,Baseline
-3496,2,Private Car,60,62,Male,Baseline
-20227,2,Private Car,5,26,Female,Baseline
-19912,NA,99,NA,82,Male,Baseline
-5567,1,Walking,10,11,Male,Baseline
-11327,2,Walking,15,42,Male,Baseline
-18244,2,Walking,20,15,Female,Baseline
-6912,2,Walking,10,7,Male,Baseline
-26512,2,Bus,30,4,Female,Baseline
-5908,NA,99,NA,50,Female,Baseline
-21828,1,Walking,15,71,Female,Baseline
-26334,1,Walking,1,48,Female,Baseline
-22779,2,Walking,10,34,Female,Baseline
-21615,NA,99,NA,34,Male,Baseline
-18962,NA,99,NA,66,Male,Baseline
-11016,1,Train,50,24,Male,Baseline
-21610,2,Motorcycle,10,45,Male,Baseline
-7125,4,Walking,10,48,Male,Baseline
-17322,1,Taxi,15,75,Female,Baseline
-18024,4,Private Car,25,30,Male,Baseline
-23479,2,Bus,20,8,Female,Baseline
-9923,2,Private Car,30,30,Male,Baseline
-17282,2,Bus,30,32,Male,Baseline
-12383,NA,99,NA,3,Male,Baseline
-8438,1,Walking,15,53,Female,Baseline
-12325,2,Walking,15,40,Female,Baseline
-12081,2,Bus,60,19,Female,Baseline
-5244,1,Private Car,10,2,Female,Baseline
-5243,5,Private Car,40,33,Female,Baseline
-21481,2,subway,90,43,Female,Baseline
-26194,2,Bus,40,42,Male,Baseline
-10671,1,Private Car,80,32,Female,Baseline
-20066,1,Private Car,40,9,Male,Baseline
-6618,1,subway,40,26,Female,Baseline
-10486,1,Walking,8,70,Female,Baseline
-19179,4,Private Car,20,35,Male,Baseline
-17977,2,Walking,60,43,Male,Baseline
-12256,2,Walking,2,14,Male,Baseline
-14011,1,subway,60,30,Female,Baseline
-5163,3,van,55,31,Female,Baseline
-19641,1,Bus,40,28,Male,Baseline
-12855,2,Bus,30,63,Female,Baseline
-3103,1,Private Car,40,38,Male,Baseline
-19978,1,Walking,30,12,Female,Baseline
-18275,5,Private Car,15,40,Male,Baseline
-13273,1,Bus,90,44,Male,Baseline
-21775,1,Bus,45,11,Male,Baseline
-14796,1,Train,75,49,Male,Baseline
-23815,1,Walking,30,12,Female,Baseline
-6410,10,Private Car,15,53,Male,Baseline
-18978,1,Bus,30,24,Male,Baseline
-3636,1,Walking,10,30,Male,Baseline
-13211,1,Bus,75,47,Female,Baseline
-21403,1,Private Car,10,3,Female,Baseline
-24130,1,Walking,5,29,Male,Baseline
-16310,NA,99,NA,58,Female,Baseline
-5242,5,Motorcycle,5,31,Male,Baseline
-7828,1,Walking,10,13,Female,Baseline
-16636,1,Bus,40,80,Female,Baseline
-11822,2,Bus,30,45,Female,Baseline
-5063,2,Private Car,30,36,Male,Baseline
-4085,NA,99,NA,31,Female,Baseline
-16364,1,van,25,15,Female,Baseline
-6993,3,Motorcycle,20,25,Male,Baseline
-9753,NA,99,NA,80,Male,Baseline
-4517,4,Private Car,60,66,Female,Baseline
-15344,1,subway,80,43,Male,Baseline
-18185,NA,99,NA,61,Male,Baseline
-21684,NA,99,NA,11,Female,Baseline
-11748,2,subway,75,49,Female,Baseline
-158,NA,99,NA,50,Female,Baseline
-18126,5,Private Car,50,48,Male,Baseline
-25379,2,Bus,120,30,Female,Baseline
-1149,1,Private Car,5,12,Female,Baseline
-6451,10,Private Car,15,47,Male,Baseline
-7078,3,Private Car,20,30,Female,Baseline
-5897,2,Private Car,60,43,Male,Baseline
-7936,1,Bus,25,18,Male,Baseline
-7828,2,Walking,10,13,Female,Baseline
-26046,NA,99,NA,60,Male,Baseline
-26017,2,subway,82,40,Female,Baseline
-17812,2,Walking,25,60,Female,Baseline
-144,1,subway,60,65,Male,Baseline
-13282,1,Walking,10,7,Female,Baseline
-10582,NA,99,NA,78,Male,Baseline
-720,2,Private Car,29,63,Male,Baseline
-10955,1,Walking,10,46,Female,Baseline
-12736,1,Walking,15,12,Female,Baseline
-15223,1,Walking,5,43,Female,Baseline
-1886,2,Walking,10,37,Female,Baseline
-19899,1,Walking,30,20,Male,Baseline
-8926,NA,99,NA,65,Male,Baseline
-13559,1,Private Car,60,40,Female,Baseline
-19756,2,Bus,110,47,Male,Baseline
-1325,2,subway,120,29,Male,Baseline
-6217,1,Walking,5,17,Female,Baseline
-11604,2,Bus,15,10,Female,Baseline
-7117,1,Motorcycle,75,33,Male,Baseline
-23868,NA,99,NA,15,Male,Baseline
-267,2,subway,60,33,Female,Baseline
-8843,3,Walking,10,46,Female,Baseline
-6478,2,Private Car,60,52,Male,Baseline
-10617,1,Train,155,27,Female,Baseline
-12856,2,Private Car,7,31,Male,Baseline
-22563,NA,99,NA,33,Female,Baseline
-7261,1,Bus,50,26,Male,Baseline
-25003,1,Private Car,30,32,Female,Baseline
-1203,3,Bus,50,26,Female,Baseline
-14163,3,Private Car,20,31,Female,Baseline
-12908,1,van,30,28,Female,Baseline
-17904,2,Walking,5,43,Male,Baseline
-21421,2,Walking,30,5,Male,Baseline
-14117,4,Private Car,5,28,Male,Baseline
-16013,2,Walking,10,15,Male,Baseline
-6423,NA,99,NA,39,Female,Baseline
-21018,2,Walking,3,17,Male,Baseline
-16367,1,Walking,25,15,Female,Baseline
-7427,2,Private Car,95,43,Male,Baseline
-22364,1,Walking,5,7,Male,Baseline
-6978,1,Train,60,64,Male,Baseline
-2143,2,Private Car,60,29,Female,Baseline
-10237,2,Walking,15,17,Female,Baseline
-10130,4,Bus,80,25,Male,Baseline
-11409,1,Bus,30,52,Female,Baseline
-18858,2,Bus,20,37,Female,Baseline
-1463,3,Walking,20,34,Female,Baseline
-25968,NA,99,NA,51,Female,Baseline
-5725,1,Walking,20,18,Male,Baseline
-23246,1,subway,90,32,Female,Baseline
-19611,1,Walking,10,26,Female,Baseline
-3368,2,Walking,50,45,Male,Baseline
+"","X1","participant_id","trip_id","trip_mode","trip_duration","age","sex","scenario"
+"1",1,21668,0,"99",NA,20,"Female","Baseline"
+"2",2,17933,1,"Bus",50,18,"Female","Baseline"
+"3",3,19891,2,"Bus",55,25,"Male","Baseline"
+"4",4,15540,3,"subway",120,26,"Male","Baseline"
+"5",5,376,4,"Private Car",20,43,"Female","Baseline"
+"6",6,5756,5,"Private Car",20,55,"Female","Baseline"
+"7",7,4107,6,"Motorcycle",40,48,"Male","Baseline"
+"8",8,22666,7,"Private Car",70,56,"Male","Baseline"
+"9",9,6618,8,"subway",60,26,"Female","Baseline"
+"10",10,26840,9,"subway",45,15,"Male","Baseline"
+"11",11,23530,10,"Motorcycle",3,33,"Female","Baseline"
+"12",12,9480,11,"Bicycle",5,21,"Male","Baseline"
+"13",13,23788,12,"Bus",130,52,"Female","Baseline"
+"14",14,2113,13,"subway",110,44,"Female","Baseline"
+"15",15,7461,14,"Train",90,18,"Female","Baseline"
+"16",16,13802,15,"subway",110,32,"Male","Baseline"
+"17",17,10976,16,"Walking",5,50,"Female","Baseline"
+"18",18,7590,17,"Bus",45,8,"Female","Baseline"
+"19",19,21590,18,"Private Car",45,33,"Male","Baseline"
+"20",20,26297,19,"van",25,61,"Female","Baseline"
+"21",21,9997,20,"Bus",20,10,"Male","Baseline"
+"22",22,2349,21,"Walking",10,14,"Female","Baseline"
+"23",23,16094,22,"Private Car",25,75,"Male","Baseline"
+"24",24,16520,0,"99",NA,47,"Male","Baseline"
+"25",25,25187,23,"Walking",20,29,"Male","Baseline"
+"26",26,17719,24,"Private Car",60,32,"Male","Baseline"
+"27",27,900,25,"Private Car",20,34,"Male","Baseline"
+"28",28,15275,26,"Private Car",15,10,"Female","Baseline"
+"29",29,5387,27,"Walking",5,12,"Male","Baseline"
+"30",30,23403,28,"Private Car",10,6,"Female","Baseline"
+"31",31,17323,29,"Private Car",5,48,"Female","Baseline"
+"32",32,4149,30,"others",15,44,"Male","Baseline"
+"33",33,19256,31,"Walking",10,42,"Male","Baseline"
+"34",34,13068,0,"99",NA,14,"Female","Baseline"
+"35",35,16199,32,"Walking",30,15,"Female","Baseline"
+"36",36,6203,33,"Bus",30,1,"Male","Baseline"
+"37",37,22905,34,"Private Car",20,72,"Female","Baseline"
+"38",38,14113,35,"Walking",5,44,"Male","Baseline"
+"39",39,12929,36,"Walking",15,39,"Female","Baseline"
+"40",40,9091,37,"Private Car",30,5,"Female","Baseline"
+"41",41,12876,0,"99",NA,69,"Male","Baseline"
+"42",42,265,0,"99",NA,64,"Male","Baseline"
+"43",43,21167,38,"Walking",45,19,"Female","Baseline"
+"44",44,10755,39,"Walking",15,47,"Male","Baseline"
+"45",45,7426,40,"Bus",20,7,"Male","Baseline"
+"46",46,242,41,"Private Car",10,5,"Male","Baseline"
+"47",47,13678,42,"Walking",10,29,"Female","Baseline"
+"48",48,6835,43,"Walking",30,13,"Male","Baseline"
+"49",49,19117,0,"99",NA,94,"Female","Baseline"
+"50",50,13707,44,"Bus",90,56,"Male","Baseline"
+"51",51,23822,45,"Bus",30,32,"Male","Baseline"
+"52",52,2996,46,"Private Car",20,45,"Male","Baseline"
+"53",53,25409,47,"Taxi",20,23,"Male","Baseline"
+"54",54,19137,48,"Bus",80,31,"Female","Baseline"
+"55",55,6103,49,"Walking",25,18,"Male","Baseline"
+"56",56,12042,50,"Train",20,22,"Female","Baseline"
+"57",57,10509,51,"Bus",30,57,"Female","Baseline"
+"58",58,23789,52,"Walking",15,16,"Male","Baseline"
+"59",59,3044,53,"Walking",15,9,"Male","Baseline"
+"60",60,2140,54,"Bus",30,15,"Female","Baseline"
+"61",61,5353,55,"Walking",45,79,"Male","Baseline"
+"62",62,9016,0,"99",NA,70,"Female","Baseline"
+"63",63,19491,56,"Bus",60,40,"Female","Baseline"
+"64",64,15072,57,"Walking",10,10,"Male","Baseline"
+"65",65,13463,58,"Private Car",30,45,"Female","Baseline"
+"66",66,26213,59,"Walking",10,6,"Female","Baseline"
+"67",67,7509,60,"Walking",5,46,"Male","Baseline"
+"68",68,990,61,"subway",45,45,"Male","Baseline"
+"69",69,16640,62,"Walking",60,21,"Female","Baseline"
+"70",70,19906,63,"Walking",5,7,"Male","Baseline"
+"71",71,7088,64,"Motorcycle",10,34,"Male","Baseline"
+"72",72,10578,65,"Walking",20,51,"Female","Baseline"
+"73",73,4500,66,"Walking",10,41,"Female","Baseline"
+"74",74,24229,67,"Walking",10,39,"Female","Baseline"
+"75",75,8231,68,"subway",30,25,"Male","Baseline"
+"76",76,7775,69,"Private Car",45,38,"Male","Baseline"
+"77",77,23615,0,"99",NA,1,"Male","Baseline"
+"78",78,24027,0,"99",NA,18,"Female","Baseline"
+"79",79,13290,70,"Bus",90,42,"Male","Baseline"
+"80",80,21564,71,"Walking",40,16,"Male","Baseline"
+"81",81,23035,72,"Walking",20,16,"Male","Baseline"
+"82",82,6323,73,"Bus",90,31,"Female","Baseline"
+"83",83,7492,74,"Walking",10,28,"Female","Baseline"
+"84",84,22497,75,"Bus",40,12,"Male","Baseline"
+"85",85,22893,76,"Walking",20,31,"Female","Baseline"
+"86",86,25166,77,"Private Car",30,28,"Female","Baseline"
+"87",87,19831,78,"Private Car",40,51,"Female","Baseline"
+"88",88,8422,79,"Walking",2,22,"Male","Baseline"
+"89",89,3855,80,"Bus",45,10,"Male","Baseline"
+"90",90,9649,81,"Walking",40,14,"Male","Baseline"
+"91",91,11304,0,"99",NA,68,"Male","Baseline"
+"92",92,13915,82,"Private Car",40,45,"Female","Baseline"
+"93",93,18148,83,"Walking",25,13,"Male","Baseline"
+"94",94,3789,84,"Walking",5,89,"Male","Baseline"
+"95",95,15768,85,"Walking",10,40,"Female","Baseline"
+"96",96,15075,86,"Bus",120,43,"Male","Baseline"
+"97",97,1790,87,"Private Car",30,32,"Male","Baseline"
+"98",98,212,88,"Private Car",5,61,"Female","Baseline"
+"99",99,10403,0,"99",NA,75,"Female","Baseline"
+"100",100,12838,0,"99",NA,53,"Male","Baseline"
+"101",101,8106,89,"Bus",15,49,"Female","Baseline"
+"102",102,20881,90,"Walking",5,31,"Female","Baseline"
+"103",103,6862,91,"Bus",180,62,"Female","Baseline"
+"104",104,23014,92,"Walking",30,52,"Male","Baseline"
+"105",105,19189,93,"Walking",35,70,"Male","Baseline"
+"106",106,9061,94,"Private Car",15,48,"Male","Baseline"
+"107",107,22710,95,"Bus",60,14,"Female","Baseline"
+"108",108,22615,96,"Private Car",15,41,"Male","Baseline"
+"109",109,5774,97,"Bus",60,11,"Male","Baseline"
+"110",110,598,98,"Bus",30,36,"Male","Baseline"
+"111",111,4255,99,"Motorcycle",45,30,"Male","Baseline"
+"112",112,22105,100,"Walking",10,34,"Female","Baseline"
+"113",113,26366,101,"subway",100,19,"Female","Baseline"
+"114",114,21827,102,"Private Car",50,1,"Male","Baseline"
+"115",115,9977,103,"Private Car",90,25,"Male","Baseline"
+"116",116,18123,104,"Private Car",10,22,"Male","Baseline"
+"117",117,18564,105,"Bus",40,19,"Female","Baseline"
+"118",118,1023,0,"99",NA,87,"Male","Baseline"
+"119",119,10210,106,"Private Car",20,32,"Male","Baseline"
+"120",120,5548,107,"Walking",10,7,"Male","Baseline"
+"121",121,26765,108,"Walking",30,12,"Male","Baseline"
+"122",122,7969,109,"Walking",5,24,"Female","Baseline"
+"123",123,25164,0,"99",NA,63,"Female","Baseline"
+"124",124,16194,110,"Motorcycle",50,23,"Male","Baseline"
+"125",125,17516,111,"Bus",30,3,"Male","Baseline"
+"126",126,14610,112,"Walking",20,61,"Female","Baseline"
+"127",127,8426,113,"Walking",20,4,"Male","Baseline"
+"128",128,10269,114,"Bus",65,15,"Female","Baseline"
+"129",129,20009,115,"Bus",10,4,"Female","Baseline"
+"130",130,4006,0,"99",NA,45,"Male","Baseline"
+"131",131,18515,116,"Walking",25,59,"Female","Baseline"
+"132",132,17397,117,"Walking",20,9,"Male","Baseline"
+"133",133,1192,118,"Walking",10,32,"Male","Baseline"
+"134",134,21000,119,"subway",30,19,"Female","Baseline"
+"135",135,8833,120,"Walking",5,51,"Male","Baseline"
+"136",136,8616,121,"Bus",100,44,"Female","Baseline"
+"137",137,18131,122,"subway",70,1,"Female","Baseline"
+"138",138,3427,123,"Bus",30,14,"Male","Baseline"
+"139",139,11977,124,"Private Car",55,2,"Female","Baseline"
+"140",140,26910,125,"Private Car",10,15,"Male","Baseline"
+"141",141,12547,126,"Motorcycle",75,36,"Male","Baseline"
+"142",142,11638,127,"Bus",20,28,"Male","Baseline"
+"143",143,13819,128,"Private Car",30,18,"Male","Baseline"
+"144",144,13920,129,"subway",90,15,"Female","Baseline"
+"145",145,6338,130,"Bus",40,31,"Female","Baseline"
+"146",146,8049,131,"Walking",5,61,"Female","Baseline"
+"147",147,728,132,"Bicycle",25,35,"Male","Baseline"
+"148",148,6550,133,"Walking",2,50,"Male","Baseline"
+"149",149,16738,134,"Walking",10,21,"Female","Baseline"
+"150",150,26744,135,"Private Car",50,25,"Male","Baseline"
+"151",151,14577,136,"Bus",40,13,"Female","Baseline"
+"152",152,16745,137,"Private Car",50,31,"Male","Baseline"
+"153",153,6288,138,"Bus",180,36,"Female","Baseline"
+"154",154,24776,139,"Private Car",29,30,"Male","Baseline"
+"155",155,12418,140,"Bus",60,21,"Male","Baseline"
+"156",156,5760,141,"Private Car",10,33,"Female","Baseline"
+"157",157,26214,142,"Bus",30,4,"Male","Baseline"
+"158",158,16381,143,"Walking",20,13,"Female","Baseline"
+"159",159,19898,144,"Walking",10,23,"Male","Baseline"
+"160",160,21333,145,"Private Car",40,21,"Female","Baseline"
+"161",161,15068,146,"Train",90,26,"Male","Baseline"
+"162",162,19785,147,"Private Car",10,32,"Male","Baseline"
+"163",163,18787,148,"Walking",2,61,"Male","Baseline"
+"164",164,17931,149,"Private Car",35,34,"Female","Baseline"
+"165",165,12359,150,"Motorcycle",30,23,"Male","Baseline"
+"166",166,13636,151,"Private Car",30,4,"Female","Baseline"
+"167",167,17915,152,"Walking",20,23,"Female","Baseline"
+"168",168,25411,153,"Walking",10,56,"Male","Baseline"
+"169",169,22640,154,"Walking",20,8,"Female","Baseline"
+"170",170,7219,155,"Walking",10,15,"Female","Baseline"
+"171",171,18742,156,"Walking",20,13,"Male","Baseline"
+"172",172,18146,157,"Private Car",30,43,"Male","Baseline"
+"173",173,5831,0,"99",NA,61,"Female","Baseline"
+"174",174,11534,0,"99",NA,60,"Female","Baseline"
+"175",175,9608,0,"99",NA,13,"Male","Baseline"
+"176",176,7644,158,"Walking",10,18,"Male","Baseline"
+"177",177,23103,159,"Walking",10,43,"Male","Baseline"
+"178",178,9586,160,"subway",30,20,"Male","Baseline"
+"179",179,2590,161,"subway",150,61,"Male","Baseline"
+"180",180,13774,162,"Walking",10,6,"Male","Baseline"
+"181",181,24126,163,"subway",120,29,"Male","Baseline"
+"182",182,12239,164,"Private Car",10,61,"Male","Baseline"
+"183",183,20032,165,"Walking",10,30,"Male","Baseline"
+"184",184,356,166,"Walking",20,26,"Female","Baseline"
+"185",185,20584,167,"Bus",35,14,"Male","Baseline"
+"186",186,26805,168,"Walking",24,42,"Female","Baseline"
+"187",187,22032,169,"Bus",40,33,"Male","Baseline"
+"188",188,1662,170,"Private Car",40,32,"Male","Baseline"
+"189",189,21983,171,"Bus",120,55,"Female","Baseline"
+"190",190,16438,172,"Private Car",15,31,"Female","Baseline"
+"191",191,26690,173,"Walking",30,15,"Male","Baseline"
+"192",192,21456,174,"Private Car",5,3,"Female","Baseline"
+"193",193,7509,175,"Walking",5,46,"Male","Baseline"
+"194",194,23905,176,"Walking",10,58,"Male","Baseline"
+"195",195,5461,177,"Bus",90,43,"Female","Baseline"
+"196",196,21180,178,"Bus",50,31,"Female","Baseline"
+"197",197,12329,179,"Train",110,40,"Female","Baseline"
+"198",198,8455,180,"Walking",5,44,"Female","Baseline"
+"199",199,8512,181,"Walking",45,56,"Female","Baseline"
+"200",200,23808,182,"Private Car",30,15,"Female","Baseline"
+"201",201,12344,183,"Walking",10,27,"Male","Baseline"
+"202",202,15493,184,"Bus",20,10,"Female","Baseline"
+"203",203,8810,185,"Bicycle",10,20,"Male","Baseline"
+"204",204,17420,186,"Walking",10,59,"Female","Baseline"
+"205",205,5102,187,"Walking",15,5,"Male","Baseline"
+"206",206,1516,188,"Bus",20,28,"Female","Baseline"
+"207",207,25749,0,"99",NA,33,"Male","Baseline"
+"208",208,8864,0,"99",NA,2,"Female","Baseline"
+"209",209,26940,189,"Walking",10,34,"Female","Baseline"
+"210",210,12057,190,"Train",90,43,"Male","Baseline"
+"211",211,20499,191,"Bus",90,37,"Female","Baseline"
+"212",212,22518,192,"Bus",75,45,"Male","Baseline"
+"213",213,12517,193,"subway",90,31,"Female","Baseline"
+"214",214,9957,194,"Walking",5,30,"Male","Baseline"
+"215",215,13635,195,"Private Car",30,36,"Female","Baseline"
+"216",216,7790,196,"Walking",20,36,"Male","Baseline"
+"217",217,2537,197,"Private Car",10,23,"Male","Baseline"
+"218",218,15932,198,"Bus",80,13,"Male","Baseline"
+"219",219,2547,199,"Private Car",10,48,"Male","Baseline"
+"220",220,7538,200,"Bus",70,61,"Female","Baseline"
+"221",221,14794,201,"subway",150,32,"Female","Baseline"
+"222",222,1731,202,"Walking",5,45,"Male","Baseline"
+"223",223,15714,203,"Bicycle",90,47,"Male","Baseline"
+"224",224,26162,204,"Walking",40,54,"Female","Baseline"
+"225",225,16175,205,"Walking",10,17,"Male","Baseline"
+"226",226,9739,206,"Bus",35,14,"Female","Baseline"
+"227",227,19843,207,"Walking",10,21,"Male","Baseline"
+"228",228,9378,208,"Walking",20,14,"Male","Baseline"
+"229",229,3231,209,"Walking",10,9,"Male","Baseline"
+"230",230,26319,210,"Bus",45,15,"Male","Baseline"
+"231",231,1847,211,"Private Car",75,43,"Male","Baseline"
+"232",232,10488,212,"Private Car",205,63,"Female","Baseline"
+"233",233,17183,213,"Motorcycle",10,42,"Male","Baseline"
+"234",234,7599,214,"Walking",5,10,"Male","Baseline"
+"235",235,18112,215,"Private Car",35,39,"Male","Baseline"
+"236",236,11130,216,"Walking",3,41,"Female","Baseline"
+"237",237,10058,217,"Private Car",30,40,"Male","Baseline"
+"238",238,26538,218,"Bus",30,8,"Male","Baseline"
+"239",239,18228,219,"van",50,19,"Male","Baseline"
+"240",240,20978,220,"Walking",20,15,"Male","Baseline"
+"241",241,7330,221,"subway",40,58,"Female","Baseline"
+"242",242,3085,0,"99",NA,64,"Male","Baseline"
+"243",243,9089,222,"Walking",5,34,"Male","Baseline"
+"244",244,4159,223,"Bus",80,24,"Male","Baseline"
+"245",245,6263,0,"99",NA,21,"Male","Baseline"
+"246",246,13391,224,"Private Car",160,58,"Male","Baseline"
+"247",247,21056,225,"Private Car",40,3,"Female","Baseline"
+"248",248,11442,226,"Bus",150,80,"Female","Baseline"
+"249",249,8887,227,"Bus",10,8,"Female","Baseline"
+"250",250,13891,228,"Train",90,35,"Male","Baseline"
+"251",251,23222,229,"Walking",5,22,"Female","Baseline"
+"252",252,22947,230,"Walking",20,15,"Male","Baseline"
+"253",253,10963,231,"subway",42,20,"Female","Baseline"
+"254",254,16153,232,"subway",120,30,"Male","Baseline"
+"255",255,11915,233,"Walking",20,49,"Female","Baseline"
+"256",256,21375,0,"99",NA,48,"Female","Baseline"
+"257",257,22278,234,"Bus",40,22,"Female","Baseline"
+"258",258,20490,235,"subway",50,41,"Male","Baseline"
+"259",259,15222,236,"Walking",5,45,"Male","Baseline"
+"260",260,19321,237,"subway",70,26,"Female","Baseline"
+"261",261,9973,238,"Bus",60,34,"Male","Baseline"
+"262",262,5617,0,"99",NA,68,"Male","Baseline"
+"263",263,23015,0,"99",NA,56,"Female","Baseline"
+"264",264,13290,239,"Walking",5,42,"Male","Baseline"
+"265",265,13747,240,"subway",90,65,"Female","Baseline"
+"266",266,12950,0,"99",NA,79,"Male","Baseline"
+"267",267,20213,241,"Walking",10,16,"Male","Baseline"
+"268",268,13151,242,"van",55,31,"Male","Baseline"
+"269",269,4122,243,"subway",90,65,"Female","Baseline"
+"270",270,7236,0,"99",NA,43,"Female","Baseline"
+"271",271,14284,244,"Private Car",30,20,"Female","Baseline"
+"272",272,19506,245,"Private Car",70,30,"Female","Baseline"
+"273",273,19308,246,"Bus",20,6,"Male","Baseline"
+"274",274,8712,247,"Bus",30,17,"Female","Baseline"
+"275",275,25107,248,"Bus",60,39,"Male","Baseline"
+"276",276,15999,249,"Private Car",20,33,"Female","Baseline"
+"277",277,23742,250,"Bus",100,25,"Male","Baseline"
+"278",278,14087,251,"Bus",45,19,"Male","Baseline"
+"279",279,21362,0,"99",NA,56,"Female","Baseline"
+"280",280,13354,0,"99",NA,87,"Male","Baseline"
+"281",281,9495,252,"Private Car",5,36,"Male","Baseline"
+"282",282,10286,253,"Walking",40,3,"Male","Baseline"
+"283",283,3316,254,"Walking",10,58,"Female","Baseline"
+"284",284,16710,255,"subway",60,37,"Male","Baseline"
+"285",285,8119,0,"99",NA,10,"Female","Baseline"
+"286",286,9717,256,"Taxi",10,55,"Female","Baseline"
+"287",287,7488,257,"Bus",60,11,"Male","Baseline"
+"288",288,10238,258,"Walking",15,15,"Male","Baseline"
+"289",289,10572,259,"Private Car",104,36,"Female","Baseline"
+"290",290,16197,260,"Walking",30,18,"Female","Baseline"
+"291",291,13294,261,"Walking",20,41,"Male","Baseline"
+"292",292,6516,262,"Walking",30,18,"Female","Baseline"
+"293",293,12260,263,"Walking",5,9,"Male","Baseline"
+"294",294,2408,264,"Private Car",45,32,"Male","Baseline"
+"295",295,18549,265,"Private Car",30,30,"Male","Baseline"
+"296",296,20068,266,"Walking",10,44,"Female","Baseline"
+"297",297,9602,267,"Walking",5,1,"Male","Baseline"
+"298",298,14587,268,"Walking",5,10,"Female","Baseline"
+"299",299,8371,269,"Walking",30,24,"Female","Baseline"
+"300",300,8360,270,"Bus",10,68,"Male","Baseline"
+"301",301,17431,271,"Private Car",25,41,"Male","Baseline"
+"302",302,1988,272,"Private Car",22,16,"Female","Baseline"
+"303",303,24383,0,"99",NA,10,"Female","Baseline"
+"304",304,9454,0,"99",NA,9,"Male","Baseline"
+"305",305,11807,0,"99",NA,64,"Female","Baseline"
+"306",306,3829,273,"Private Car",30,21,"Female","Baseline"
+"307",307,10396,274,"Private Car",70,62,"Male","Baseline"
+"308",308,7815,275,"Private Car",15,23,"Male","Baseline"
+"309",309,13811,276,"Private Car",5,35,"Female","Baseline"
+"310",310,11754,277,"Walking",20,38,"Male","Baseline"
+"311",311,6014,278,"Train",75,16,"Female","Baseline"
+"312",312,10058,279,"Private Car",40,40,"Male","Baseline"
+"313",313,3787,280,"Bus",130,21,"Female","Baseline"
+"314",314,14507,0,"99",NA,22,"Female","Baseline"
+"315",315,12723,281,"subway",60,37,"Male","Baseline"
+"316",316,21667,282,"Private Car",40,37,"Male","Baseline"
+"317",317,15820,283,"Walking",20,31,"Male","Baseline"
+"318",318,765,284,"Walking",15,69,"Female","Baseline"
+"319",319,6342,285,"Walking",20,15,"Male","Baseline"
+"320",320,14110,286,"Bus",75,36,"Male","Baseline"
+"321",321,20723,287,"Private Car",30,52,"Male","Baseline"
+"322",322,5513,288,"Walking",2,30,"Female","Baseline"
+"323",323,23175,289,"Bus",30,17,"Male","Baseline"
+"324",324,10061,290,"Private Car",20,41,"Male","Baseline"
+"325",325,15435,291,"Bus",75,31,"Female","Baseline"
+"326",326,2795,292,"Bus",30,10,"Female","Baseline"
+"327",327,10643,293,"Walking",5,32,"Female","Baseline"
+"328",328,19026,294,"Bus",20,10,"Female","Baseline"
+"329",329,9283,295,"Bus",40,15,"Female","Baseline"
+"330",330,22018,296,"Walking",1,58,"Male","Baseline"
+"331",331,8108,297,"Walking",15,15,"Male","Baseline"
+"332",332,21517,298,"Bus",30,17,"Male","Baseline"
+"333",333,19830,299,"Bus",30,55,"Male","Baseline"
+"334",334,17321,0,"99",NA,20,"Male","Baseline"
+"335",335,19681,300,"Bicycle",20,25,"Male","Baseline"
+"336",336,4490,301,"Walking",10,8,"Male","Baseline"
+"337",337,11928,302,"Walking",10,45,"Male","Baseline"
+"338",338,16303,303,"Walking",10,16,"Female","Baseline"
+"339",339,19581,304,"Private Car",60,49,"Male","Baseline"
+"340",340,16770,305,"Bus",110,17,"Male","Baseline"
+"341",341,22306,0,"99",NA,1,"Male","Baseline"
+"342",342,22837,0,"99",NA,69,"Male","Baseline"
+"343",343,22590,0,"99",NA,1,"Male","Baseline"
+"344",344,16334,306,"Walking",7,8,"Female","Baseline"
+"345",345,6287,307,"Walking",5,58,"Female","Baseline"
+"346",346,5546,308,"Walking",10,15,"Female","Baseline"
+"347",347,15329,309,"subway",60,54,"Female","Baseline"
+"348",348,10592,310,"Walking",10,23,"Female","Baseline"
+"349",349,7207,311,"Bus",20,14,"Female","Baseline"
+"350",350,12118,312,"Walking",15,12,"Male","Baseline"
+"351",351,7573,313,"Private Car",65,54,"Male","Baseline"
+"352",352,24724,314,"Private Car",20,18,"Female","Baseline"
+"353",353,7642,315,"Walking",10,32,"Male","Baseline"
+"354",354,22886,316,"Private Car",9,71,"Male","Baseline"
+"355",355,7032,317,"Walking",60,26,"Male","Baseline"
+"356",356,119,318,"Private Car",25,69,"Male","Baseline"
+"357",357,16163,319,"Private Car",55,26,"Male","Baseline"
+"358",358,20878,320,"Walking",20,22,"Male","Baseline"
+"359",359,4234,321,"Walking",5,42,"Male","Baseline"
+"360",360,8523,322,"Private Car",30,42,"Female","Baseline"
+"361",361,7848,323,"Private Car",30,34,"Female","Baseline"
+"362",362,5606,0,"99",NA,56,"Female","Baseline"
+"363",363,7558,324,"Walking",10,14,"Male","Baseline"
+"364",364,26154,325,"Bus",60,19,"Male","Baseline"
+"365",365,26833,326,"subway",35,29,"Male","Baseline"
+"366",366,18528,327,"Private Car",10,47,"Female","Baseline"
+"367",367,25298,328,"Train",105,20,"Male","Baseline"
+"368",368,1463,329,"Walking",20,34,"Female","Baseline"
+"369",369,22427,330,"Bus",65,30,"Male","Baseline"
+"370",370,25869,331,"Bus",90,23,"Male","Baseline"
+"371",371,10666,332,"Private Car",20,32,"Female","Baseline"
+"372",372,15052,0,"99",NA,1,"Male","Baseline"
+"373",373,15129,333,"Walking",15,17,"Male","Baseline"
+"374",374,20756,0,"99",NA,43,"Female","Baseline"
+"375",375,23170,334,"subway",40,23,"Male","Baseline"
+"376",376,15285,335,"Private Car",20,29,"Male","Baseline"
+"377",377,17821,336,"Walking",5,32,"Female","Baseline"
+"378",378,15402,337,"Walking",20,59,"Male","Baseline"
+"379",379,24318,338,"Bus",140,38,"Female","Baseline"
+"380",380,16437,339,"Private Car",20,29,"Male","Baseline"
+"381",381,10183,340,"Walking",5,23,"Male","Baseline"
+"382",382,10492,341,"Walking",15,44,"Female","Baseline"
+"383",383,2250,342,"Private Car",8,62,"Male","Baseline"
+"384",384,5688,343,"subway",110,55,"Male","Baseline"
+"385",385,9960,344,"Bus",50,53,"Male","Baseline"
+"386",386,23893,345,"Private Car",30,26,"Male","Baseline"
+"387",387,12500,346,"Private Car",100,46,"Male","Baseline"
+"388",388,4184,347,"Private Car",35,55,"Female","Baseline"
+"389",389,22490,348,"Walking",20,50,"Female","Baseline"
+"390",390,19657,349,"Bus",70,17,"Female","Baseline"
+"391",391,17580,0,"99",NA,77,"Male","Baseline"
+"392",392,1165,350,"Private Car",60,54,"Male","Baseline"
+"393",393,21943,351,"Walking",35,78,"Female","Baseline"
+"394",394,19398,352,"Walking",3,48,"Male","Baseline"
+"395",395,24676,353,"Bus",95,66,"Female","Baseline"
+"396",396,5898,354,"Private Car",4,42,"Female","Baseline"
+"397",397,26649,355,"Walking",10,39,"Male","Baseline"
+"398",398,22372,0,"99",NA,21,"Female","Baseline"
+"399",399,26495,356,"Motorcycle",15,29,"Female","Baseline"
+"400",400,6234,357,"Private Car",30,52,"Male","Baseline"
+"401",401,5663,358,"Bus",60,53,"Female","Baseline"
+"402",402,4381,359,"Walking",10,42,"Female","Baseline"
+"403",403,10094,360,"subway",150,40,"Male","Baseline"
+"404",404,16818,361,"Bus",30,43,"Male","Baseline"
+"405",405,10221,362,"Walking",20,13,"Female","Baseline"
+"406",406,15427,0,"99",NA,25,"Male","Baseline"
+"407",407,6117,363,"Private Car",10,26,"Female","Baseline"
+"408",408,2057,364,"Bus",20,59,"Female","Baseline"
+"409",409,17923,365,"subway",120,68,"Male","Baseline"
+"410",410,22075,366,"Bus",120,59,"Female","Baseline"
+"411",411,15726,0,"99",NA,68,"Male","Baseline"
+"412",412,20183,367,"Bus",15,11,"Male","Baseline"
+"413",413,5163,368,"Walking",5,31,"Female","Baseline"
+"414",414,14433,369,"Walking",10,1,"Male","Baseline"
+"415",415,320,370,"Walking",5,58,"Male","Baseline"
+"416",416,2689,371,"Train",45,20,"Female","Baseline"
+"417",417,25550,372,"Motorcycle",30,37,"Male","Baseline"
+"418",418,3328,373,"Walking",30,17,"Male","Baseline"
+"419",419,24414,374,"Private Car",30,64,"Male","Baseline"
+"420",420,16972,375,"Private Car",30,47,"Male","Baseline"
+"421",421,2380,376,"Bus",30,66,"Male","Baseline"
+"422",422,12434,377,"Walking",10,10,"Female","Baseline"
+"423",423,13805,378,"Walking",10,42,"Female","Baseline"
+"424",424,12620,379,"Private Car",15,7,"Male","Baseline"
+"425",425,20690,380,"Private Car",15,58,"Male","Baseline"
+"426",426,4084,381,"Private Car",60,32,"Male","Baseline"
+"427",427,20776,382,"Private Car",5,8,"Male","Baseline"
+"428",428,18928,383,"subway",45,30,"Male","Baseline"
+"429",429,19546,384,"Walking",15,14,"Male","Baseline"
+"430",430,23083,385,"Walking",60,49,"Male","Baseline"
+"431",431,17687,386,"subway",120,36,"Male","Baseline"
+"432",432,5333,0,"99",NA,47,"Female","Baseline"
+"433",433,2302,0,"99",NA,13,"Female","Baseline"
+"434",434,12499,0,"99",NA,82,"Male","Baseline"
+"435",435,22409,387,"Walking",15,19,"Female","Baseline"
+"436",436,1482,388,"Bus",30,34,"Male","Baseline"
+"437",437,9175,389,"Private Car",30,33,"Male","Baseline"
+"438",438,15469,390,"subway",70,30,"Male","Baseline"
+"439",439,22976,391,"Bus",30,66,"Female","Baseline"
+"440",440,12416,392,"Private Car",60,26,"Male","Baseline"
+"441",441,10957,393,"Walking",20,15,"Female","Baseline"
+"442",442,20952,394,"Walking",28,32,"Female","Baseline"
+"443",443,7260,0,"99",NA,57,"Female","Baseline"
+"444",444,9242,395,"Walking",15,43,"Male","Baseline"
+"445",445,21759,396,"Bus",150,26,"Female","Baseline"
+"446",446,14835,0,"99",NA,46,"Male","Baseline"
+"447",447,24359,397,"Walking",5,40,"Female","Baseline"
+"448",448,7551,398,"Private Car",5,31,"Female","Baseline"
+"449",449,20466,399,"Walking",5,33,"Female","Baseline"
+"450",450,21241,400,"Walking",10,45,"Female","Baseline"
+"451",451,4373,401,"Bus",30,5,"Male","Baseline"
+"452",452,17149,402,"Bus",35,8,"Male","Baseline"
+"453",453,8601,403,"Bicycle",35,21,"Male","Baseline"
+"454",454,16975,404,"Walking",30,15,"Female","Baseline"
+"455",455,19780,405,"van",55,45,"Female","Baseline"
+"456",456,996,0,"99",NA,27,"Female","Baseline"
+"457",457,17761,406,"Walking",5,46,"Female","Baseline"
+"458",458,18632,407,"Walking",10,59,"Female","Baseline"
+"459",459,14116,0,"99",NA,27,"Female","Baseline"
+"460",460,24362,408,"Walking",5,12,"Female","Baseline"
+"461",461,16673,409,"subway",50,27,"Female","Baseline"
+"462",462,10207,410,"Private Car",40,25,"Male","Baseline"
+"463",463,13150,411,"Bus",60,31,"Male","Baseline"
+"464",464,14661,412,"Private Car",40,50,"Female","Baseline"
+"465",465,18516,413,"Private Car",80,55,"Male","Baseline"
+"466",466,22651,414,"Private Car",20,27,"Male","Baseline"
+"467",467,22514,415,"Bus",20,8,"Male","Baseline"
+"468",468,24836,0,"99",NA,61,"Male","Baseline"
+"469",469,22854,416,"Bus",20,31,"Female","Baseline"
+"470",470,20743,417,"Private Car",15,65,"Male","Baseline"
+"471",471,21466,418,"subway",80,19,"Male","Baseline"
+"472",472,6934,419,"Bicycle",10,51,"Male","Baseline"
+"473",473,5413,420,"Private Car",6,29,"Male","Baseline"
+"474",474,11712,421,"Walking",5,56,"Female","Baseline"
+"475",475,5491,422,"Private Car",25,54,"Female","Baseline"
+"476",476,20793,423,"van",30,9,"Male","Baseline"
+"477",477,22585,424,"Bus",65,18,"Male","Baseline"
+"478",478,19312,425,"Bus",130,25,"Male","Baseline"
+"479",479,2583,426,"subway",60,46,"Female","Baseline"
+"480",480,5456,427,"Bicycle",30,27,"Male","Baseline"
+"481",481,14037,428,"Walking",10,30,"Female","Baseline"
+"482",482,9549,0,"99",NA,10,"Female","Baseline"
+"483",483,177,429,"subway",80,73,"Male","Baseline"
+"484",484,11432,430,"Private Car",15,5,"Female","Baseline"
+"485",485,13332,0,"99",NA,32,"Male","Baseline"
+"486",486,1678,431,"Bus",135,26,"Male","Baseline"
+"487",487,24022,0,"99",NA,77,"Male","Baseline"
+"488",488,8133,432,"Walking",15,35,"Male","Baseline"
+"489",489,25252,433,"Bus",60,27,"Female","Baseline"
+"490",490,24620,434,"Private Car",20,5,"Female","Baseline"
+"491",491,10854,0,"99",NA,28,"Male","Baseline"
+"492",492,1298,435,"Walking",10,52,"Female","Baseline"
+"493",493,22907,436,"Private Car",25,45,"Female","Baseline"
+"494",494,15185,0,"99",NA,46,"Male","Baseline"
+"495",495,14360,437,"Bus",75,25,"Male","Baseline"
+"496",496,8655,438,"Walking",2,22,"Male","Baseline"
+"497",497,25477,439,"Walking",5,53,"Male","Baseline"
+"498",498,7445,440,"subway",90,21,"Female","Baseline"
+"499",499,14779,0,"99",NA,58,"Female","Baseline"
+"500",500,15587,441,"Walking",5,11,"Male","Baseline"
+"501",501,5384,442,"subway",120,42,"Male","Baseline"
+"502",502,10096,443,"Walking",30,16,"Female","Baseline"
+"503",503,4233,444,"Bus",30,8,"Male","Baseline"
+"504",504,15189,445,"subway",120,18,"Male","Baseline"
+"505",505,10263,446,"Walking",10,24,"Female","Baseline"
+"506",506,17175,447,"Private Car",30,6,"Female","Baseline"
+"507",507,22278,448,"Bus",39,22,"Female","Baseline"
+"508",508,16582,449,"Private Car",20,70,"Female","Baseline"
+"509",509,15981,450,"Bus",90,54,"Male","Baseline"
+"510",510,10576,451,"Walking",7,33,"Male","Baseline"
+"511",511,26315,452,"Walking",1,27,"Female","Baseline"
+"512",512,16527,453,"Walking",5,63,"Male","Baseline"
+"513",513,26248,454,"Private Car",60,50,"Female","Baseline"
+"514",514,26509,455,"Bus",130,24,"Male","Baseline"
+"515",515,10475,0,"99",NA,48,"Female","Baseline"
+"516",516,2426,456,"van",45,15,"Male","Baseline"
+"517",517,1436,457,"Private Car",10,41,"Female","Baseline"
+"518",518,7127,458,"Bus",45,24,"Female","Baseline"
+"519",519,22224,459,"Walking",25,33,"Female","Baseline"
+"520",520,8599,0,"99",NA,67,"Male","Baseline"
+"521",521,8467,460,"Walking",1,39,"Female","Baseline"
+"522",522,10315,461,"Private Car",20,61,"Female","Baseline"
+"523",523,10210,462,"Private Car",20,32,"Male","Baseline"
+"524",524,14781,463,"Private Car",15,31,"Female","Baseline"
+"525",525,8025,464,"Motorcycle",5,25,"Male","Baseline"
+"526",526,21420,465,"Walking",30,25,"Female","Baseline"
+"527",527,23861,466,"Walking",5,19,"Male","Baseline"
+"528",528,19853,467,"subway",20,20,"Male","Baseline"
+"529",529,18857,468,"Walking",10,40,"Male","Baseline"
+"530",530,9303,469,"Bus",20,7,"Female","Baseline"
+"531",531,25616,470,"Bus",30,77,"Male","Baseline"
+"532",532,22838,471,"Bus",50,65,"Female","Baseline"
+"533",533,1608,472,"Bus",30,25,"Male","Baseline"
+"534",534,19136,473,"subway",60,33,"Male","Baseline"
+"535",535,26488,474,"Walking",1,67,"Male","Baseline"
+"536",536,2197,475,"Private Car",30,30,"Male","Baseline"
+"537",537,2065,0,"99",NA,28,"Male","Baseline"
+"538",538,24359,476,"Walking",5,40,"Female","Baseline"
+"539",539,5480,477,"Bus",30,25,"Female","Baseline"
+"540",540,1156,478,"Private Car",5,28,"Female","Baseline"
+"541",541,9405,479,"Private Car",15,4,"Female","Baseline"
+"542",542,24733,480,"Bus",90,41,"Male","Baseline"
+"543",543,26017,481,"subway",120,40,"Female","Baseline"
+"544",544,23216,0,"99",NA,59,"Male","Baseline"
+"545",545,15845,482,"Bus",60,58,"Female","Baseline"
+"546",546,8634,483,"Private Car",30,65,"Male","Baseline"
+"547",547,12387,484,"Train",60,17,"Female","Baseline"
+"548",548,11297,485,"Private Car",13,64,"Female","Baseline"
+"549",549,16187,486,"Walking",40,30,"Female","Baseline"
+"550",550,20423,0,"99",NA,1,"Male","Baseline"
+"551",551,19247,487,"Walking",10,9,"Female","Baseline"
+"552",552,23949,488,"Walking",5,36,"Female","Baseline"
+"553",553,14000,489,"Private Car",20,26,"Female","Baseline"
+"554",554,10501,490,"Walking",15,71,"Male","Baseline"
+"555",555,8166,491,"Walking",15,21,"Male","Baseline"
+"556",556,1027,0,"99",NA,48,"Female","Baseline"
+"557",557,10417,492,"Walking",10,23,"Female","Baseline"
+"558",558,25232,493,"Private Car",20,56,"Male","Baseline"
+"559",559,19465,494,"Bus",20,16,"Female","Baseline"
+"560",560,18327,0,"99",NA,45,"Female","Baseline"
+"561",561,15117,495,"Walking",10,5,"Female","Baseline"
+"562",562,8590,0,"99",NA,26,"Male","Baseline"
+"563",563,10134,496,"Bus",40,52,"Female","Baseline"
+"564",564,16356,497,"Motorcycle",70,36,"Female","Baseline"
+"565",565,20436,498,"Private Car",120,35,"Male","Baseline"
+"566",566,17237,499,"Walking",15,11,"Female","Baseline"
+"567",567,4405,0,"99",NA,64,"Male","Baseline"
+"568",568,10871,500,"Private Car",30,62,"Male","Baseline"
+"569",569,25188,501,"Private Car",10,52,"Male","Baseline"
+"570",570,25088,502,"Bus",30,31,"Female","Baseline"
+"571",571,5899,503,"Private Car",6,6,"Male","Baseline"
+"572",572,21484,504,"Private Car",15,62,"Male","Baseline"
+"573",573,19189,505,"van",5,70,"Male","Baseline"
+"574",574,19026,506,"Bus",20,10,"Female","Baseline"
+"575",575,5346,507,"Bus",80,26,"Female","Baseline"
+"576",576,7933,508,"Walking",15,47,"Female","Baseline"
+"577",577,17980,509,"Train",50,56,"Male","Baseline"
+"578",578,16998,510,"Private Car",30,26,"Male","Baseline"
+"579",579,3513,511,"Bus",20,62,"Female","Baseline"
+"580",580,14105,512,"Private Car",10,35,"Male","Baseline"
+"581",581,2693,513,"Motorcycle",15,24,"Male","Baseline"
+"582",582,19314,514,"Walking",10,46,"Female","Baseline"
+"583",583,22957,0,"99",NA,67,"Female","Baseline"
+"584",584,7100,515,"Bus",120,50,"Male","Baseline"
+"585",585,26817,0,"99",NA,41,"Male","Baseline"
+"586",586,20474,516,"Walking",5,44,"Female","Baseline"
+"587",587,7022,0,"99",NA,67,"Female","Baseline"
+"588",588,6914,517,"Bus",50,74,"Female","Baseline"
+"589",589,12043,518,"Train",30,21,"Male","Baseline"
+"590",590,12787,519,"Private Car",60,16,"Male","Baseline"
+"591",591,21382,520,"Private Car",30,27,"Male","Baseline"
+"592",592,22905,521,"Private Car",20,72,"Female","Baseline"
+"593",593,22056,522,"Walking",5,31,"Male","Baseline"
+"594",594,8806,523,"Walking",5,37,"Female","Baseline"
+"595",595,13188,524,"Train",75,34,"Male","Baseline"
+"596",596,16369,525,"Walking",25,5,"Male","Baseline"
+"597",597,17965,526,"Walking",15,39,"Female","Baseline"
+"598",598,10632,527,"Private Car",80,57,"Male","Baseline"
+"599",599,19051,528,"Private Car",30,50,"Male","Baseline"
+"600",600,1359,529,"Private Car",10,32,"Female","Baseline"
+"601",601,23114,0,"99",NA,53,"Female","Baseline"
+"602",602,6469,530,"Walking",5,43,"Male","Baseline"
+"603",603,7462,531,"Walking",15,14,"Male","Baseline"
+"604",604,15636,532,"Motorcycle",20,29,"Male","Baseline"
+"605",605,21051,533,"Walking",20,12,"Female","Baseline"
+"606",606,248,534,"Private Car",5,42,"Female","Baseline"
+"607",607,3749,535,"Bus",80,87,"Male","Baseline"
+"608",608,4100,536,"subway",230,37,"Male","Baseline"
+"609",609,14050,537,"subway",135,25,"Male","Baseline"
+"610",610,19092,538,"Bus",40,11,"Female","Baseline"
+"611",611,20785,539,"subway",70,40,"Female","Baseline"
+"612",612,20252,540,"Private Car",30,26,"Male","Baseline"
+"613",613,20086,0,"99",NA,48,"Female","Baseline"
+"614",614,25948,541,"Private Car",20,32,"Male","Baseline"
+"615",615,26770,542,"Walking",20,42,"Male","Baseline"
+"616",616,3359,543,"Walking",36,15,"Male","Baseline"
+"617",617,13060,544,"Walking",15,22,"Female","Baseline"
+"618",618,11840,545,"subway",100,21,"Female","Baseline"
+"619",619,10279,546,"Walking",2,30,"Female","Baseline"
+"620",620,11274,547,"Walking",2,23,"Female","Baseline"
+"621",621,12120,548,"Private Car",15,60,"Male","Baseline"
+"622",622,20816,549,"Walking",15,7,"Female","Baseline"
+"623",623,13607,550,"Private Car",40,41,"Male","Baseline"
+"624",624,16056,551,"Train",55,20,"Male","Baseline"
+"625",625,15871,552,"Walking",10,27,"Female","Baseline"
+"626",626,13971,553,"Taxi",54,33,"Male","Baseline"
+"627",627,14109,554,"Bus",70,62,"Female","Baseline"
+"628",628,18413,555,"Private Car",7,34,"Male","Baseline"
+"629",629,4039,556,"Walking",10,9,"Male","Baseline"
+"630",630,4427,557,"Train",70,25,"Female","Baseline"
+"631",631,17366,558,"Bus",45,43,"Female","Baseline"
+"632",632,24111,559,"Private Car",35,18,"Male","Baseline"
+"633",633,15418,0,"99",NA,25,"Female","Baseline"
+"634",634,21157,0,"99",NA,21,"Female","Baseline"
+"635",635,1922,560,"Bus",90,47,"Male","Baseline"
+"636",636,19252,561,"Motorcycle",60,24,"Male","Baseline"
+"637",637,5315,562,"Walking",20,17,"Female","Baseline"
+"638",638,7980,563,"Walking",30,44,"Female","Baseline"
+"639",639,9587,564,"Walking",6,30,"Female","Baseline"
+"640",640,13671,565,"Walking",20,15,"Female","Baseline"
+"641",641,23422,0,"99",NA,72,"Male","Baseline"
+"642",642,15630,566,"Walking",10,40,"Female","Baseline"
+"643",643,26385,567,"Walking",5,12,"Female","Baseline"
+"644",644,19254,568,"Bus",145,28,"Female","Baseline"
+"645",645,17595,0,"99",NA,80,"Female","Baseline"
+"646",646,22706,569,"Walking",10,7,"Female","Baseline"
+"647",647,890,570,"Motorcycle",30,32,"Male","Baseline"
+"648",648,23869,571,"subway",150,37,"Male","Baseline"
+"649",649,19408,572,"Private Car",10,51,"Female","Baseline"
+"650",650,22371,573,"Private Car",40,25,"Male","Baseline"
+"651",651,22918,574,"Train",70,42,"Male","Baseline"
+"652",652,10679,575,"Bus",10,5,"Male","Baseline"
+"653",653,26753,576,"Private Car",10,28,"Male","Baseline"
+"654",654,22887,577,"Private Car",10,65,"Female","Baseline"
+"655",655,14315,578,"Bus",60,20,"Male","Baseline"
+"656",656,24088,579,"Walking",15,27,"Male","Baseline"
+"657",657,26543,580,"Private Car",20,10,"Male","Baseline"
+"658",658,14242,581,"Walking",20,10,"Female","Baseline"
+"659",659,12071,582,"Bus",50,35,"Male","Baseline"
+"660",660,20723,583,"Private Car",30,52,"Male","Baseline"
+"661",661,4055,584,"Bus",20,17,"Male","Baseline"
+"662",662,8807,585,"Walking",10,9,"Male","Baseline"
+"663",663,23822,586,"Bus",60,32,"Male","Baseline"
+"664",664,25520,587,"Bus",60,25,"Male","Baseline"
+"665",665,12003,588,"Private Car",119,61,"Male","Baseline"
+"666",666,9194,589,"Walking",30,3,"Male","Baseline"
+"667",667,23750,590,"Bus",60,42,"Male","Baseline"
+"668",668,22273,591,"Walking",20,47,"Female","Baseline"
+"669",669,22078,592,"Walking",15,22,"Male","Baseline"
+"670",670,12134,593,"Walking",10,18,"Male","Baseline"
+"671",671,8107,0,"99",NA,18,"Female","Baseline"
+"672",672,14399,0,"99",NA,45,"Male","Baseline"
+"673",673,6886,594,"Walking",15,5,"Female","Baseline"
+"674",674,523,0,"99",NA,58,"Female","Baseline"
+"675",675,2723,595,"subway",80,31,"Female","Baseline"
+"676",676,20280,596,"subway",60,49,"Male","Baseline"
+"677",677,6112,597,"Walking",25,45,"Female","Baseline"
+"678",678,13186,598,"Walking",20,13,"Male","Baseline"
+"679",679,7592,599,"Walking",55,4,"Female","Baseline"
+"680",680,11364,600,"subway",110,27,"Male","Baseline"
+"681",681,1541,601,"Walking",20,11,"Male","Baseline"
+"682",682,3313,602,"subway",90,42,"Female","Baseline"
+"683",683,16872,603,"Walking",10,47,"Female","Baseline"
+"684",684,20786,604,"Bus",50,17,"Male","Baseline"
+"685",685,11306,605,"Private Car",55,43,"Male","Baseline"
+"686",686,13088,606,"Bus",60,26,"Male","Baseline"
+"687",687,24369,607,"Walking",15,26,"Female","Baseline"
+"688",688,3263,608,"subway",60,32,"Female","Baseline"
+"689",689,9326,609,"van",30,19,"Female","Baseline"
+"690",690,7423,610,"Bus",75,47,"Female","Baseline"
+"691",691,6451,611,"Private Car",15,47,"Male","Baseline"
+"692",692,5112,612,"subway",30,16,"Female","Baseline"
+"693",693,3508,613,"Walking",25,4,"Male","Baseline"
+"694",694,7690,614,"Walking",10,48,"Female","Baseline"
+"695",695,24835,615,"Walking",15,6,"Female","Baseline"
+"696",696,22289,616,"Bus",60,22,"Female","Baseline"
+"697",697,12846,617,"Bus",15,5,"Female","Baseline"
+"698",698,399,618,"Walking",1,59,"Female","Baseline"
+"699",699,5290,619,"Private Car",35,41,"Female","Baseline"
+"700",700,14059,620,"Walking",8,13,"Male","Baseline"
+"701",701,15489,621,"Private Car",60,9,"Male","Baseline"
+"702",702,596,622,"Motorcycle",20,28,"Male","Baseline"
+"703",703,5502,623,"Private Car",10,27,"Male","Baseline"
+"704",704,11805,624,"Walking",25,51,"Female","Baseline"
+"705",705,23955,625,"Walking",15,11,"Female","Baseline"
+"706",706,10759,626,"Private Car",20,12,"Female","Baseline"
+"707",707,20046,627,"Walking",5,35,"Female","Baseline"
+"708",708,21742,0,"99",NA,39,"Female","Baseline"
+"709",709,17953,628,"Private Car",15,8,"Female","Baseline"
+"710",710,6280,629,"Train",130,42,"Male","Baseline"
+"711",711,16794,630,"Walking",10,32,"Female","Baseline"
+"712",712,22699,631,"Bus",70,54,"Female","Baseline"
+"713",713,10948,632,"Walking",15,81,"Male","Baseline"
+"714",714,26434,633,"Taxi",30,41,"Male","Baseline"
+"715",715,19505,634,"Private Car",30,57,"Female","Baseline"
+"716",716,24135,635,"Walking",10,38,"Male","Baseline"
+"717",717,22286,636,"Walking",15,3,"Male","Baseline"
+"718",718,21216,0,"99",NA,48,"Female","Baseline"
+"719",719,13891,637,"subway",30,35,"Male","Baseline"
+"720",720,7650,638,"Bus",15,14,"Female","Baseline"
+"721",721,12421,639,"Private Car",10,70,"Male","Baseline"
+"722",722,7861,640,"Private Car",10,75,"Male","Baseline"
+"723",723,2130,641,"Private Car",150,57,"Male","Baseline"
+"724",724,15604,642,"Walking",10,39,"Female","Baseline"
+"725",725,24335,643,"Walking",10,15,"Female","Baseline"
+"726",726,20556,644,"Walking",15,24,"Female","Baseline"
+"727",727,2087,645,"subway",80,54,"Male","Baseline"
+"728",728,8730,646,"Walking",20,35,"Female","Baseline"
+"729",729,8041,647,"Private Car",20,81,"Male","Baseline"
+"730",730,5609,648,"Bus",30,24,"Female","Baseline"
+"731",731,6123,649,"Bus",50,16,"Male","Baseline"
+"732",732,24359,650,"Walking",5,40,"Female","Baseline"
+"733",733,643,651,"Bus",30,31,"Male","Baseline"
+"734",734,19204,652,"Walking",5,19,"Female","Baseline"
+"735",735,26643,653,"Private Car",30,49,"Male","Baseline"
+"736",736,3088,654,"Private Car",15,45,"Male","Baseline"
+"737",737,16388,655,"Walking",10,66,"Male","Baseline"
+"738",738,8714,656,"Bus",30,32,"Female","Baseline"
+"739",739,9340,657,"Private Car",35,30,"Male","Baseline"
+"740",740,26894,658,"subway",80,59,"Male","Baseline"
+"741",741,19983,659,"Private Car",17,23,"Male","Baseline"
+"742",742,12707,660,"Bus",120,25,"Female","Baseline"
+"743",743,23203,661,"Private Car",5,58,"Female","Baseline"
+"744",744,11988,662,"Bus",40,20,"Male","Baseline"
+"745",745,13865,0,"99",NA,4,"Female","Baseline"
+"746",746,9037,663,"Private Car",20,78,"Male","Baseline"
+"747",747,21371,664,"Walking",3,54,"Female","Baseline"
+"748",748,17761,665,"Walking",5,46,"Female","Baseline"
+"749",749,22761,666,"Train",130,47,"Female","Baseline"
+"750",750,18331,667,"Private Car",30,37,"Female","Baseline"
+"751",751,21330,668,"Private Car",10,26,"Female","Baseline"
+"752",752,11511,669,"Bus",30,23,"Male","Baseline"
+"753",753,22743,0,"99",NA,43,"Female","Baseline"
+"754",754,1691,670,"Walking",10,7,"Female","Baseline"
+"755",755,6827,671,"Bus",20,70,"Female","Baseline"
+"756",756,22959,0,"99",NA,34,"Female","Baseline"
+"757",757,7610,672,"Motorcycle",45,29,"Male","Baseline"
+"758",758,24898,673,"subway",45,55,"Female","Baseline"
+"759",759,13095,674,"Private Car",55,65,"Female","Baseline"
+"760",760,12497,675,"Walking",10,10,"Female","Baseline"
+"761",761,369,676,"Private Car",60,58,"Male","Baseline"
+"762",762,21710,677,"Walking",15,51,"Female","Baseline"
+"763",763,15789,678,"Private Car",40,19,"Female","Baseline"
+"764",764,16402,679,"Bus",15,9,"Male","Baseline"
+"765",765,1568,680,"Walking",5,21,"Male","Baseline"
+"766",766,6929,681,"Bus",30,69,"Female","Baseline"
+"767",767,1073,682,"Walking",5,6,"Male","Baseline"
+"768",768,1892,683,"Walking",10,73,"Male","Baseline"
+"769",769,8584,684,"Walking",15,8,"Female","Baseline"
+"770",770,26314,685,"Bus",45,27,"Female","Baseline"
+"771",771,5461,686,"Walking",15,43,"Female","Baseline"
+"772",772,10483,0,"99",NA,48,"Female","Baseline"
+"773",773,13246,687,"Private Car",10,41,"Male","Baseline"
+"774",774,7903,688,"subway",90,50,"Male","Baseline"
+"775",775,19889,689,"Bus",140,45,"Female","Baseline"
+"776",776,19612,690,"Walking",10,5,"Male","Baseline"
+"777",777,7180,691,"Walking",30,7,"Male","Baseline"
+"778",778,23106,692,"Walking",10,5,"Male","Baseline"
+"779",779,9666,0,"99",NA,30,"Male","Baseline"
+"780",780,20999,693,"Private Car",15,38,"Female","Baseline"
+"781",781,11512,694,"Private Car",30,59,"Male","Baseline"
+"782",782,20128,0,"99",NA,15,"Female","Baseline"
+"783",783,21029,695,"Private Car",90,46,"Female","Baseline"
+"784",784,10254,696,"Private Car",20,1,"Female","Baseline"
+"785",785,5867,697,"Walking",25,13,"Male","Baseline"
+"786",786,9246,698,"Walking",15,2,"Female","Baseline"
+"787",787,24102,699,"Private Car",5,33,"Female","Baseline"
+"788",788,18029,700,"subway",90,18,"Female","Baseline"
+"789",789,14753,701,"Private Car",60,19,"Male","Baseline"
+"790",790,1321,702,"Private Car",15,40,"Male","Baseline"
+"791",791,9088,703,"Walking",20,56,"Male","Baseline"
+"792",792,641,0,"99",NA,34,"Male","Baseline"
+"793",793,15827,704,"subway",150,25,"Female","Baseline"
+"794",794,18465,705,"Walking",10,65,"Male","Baseline"
+"795",795,3845,706,"subway",70,38,"Female","Baseline"
+"796",796,7713,707,"Bus",60,40,"Male","Baseline"
+"797",797,8326,708,"Walking",5,7,"Female","Baseline"
+"798",798,19267,0,"99",NA,38,"Male","Baseline"
+"799",799,3614,709,"Walking",25,38,"Female","Baseline"
+"800",800,8025,710,"Motorcycle",5,25,"Male","Baseline"
+"801",801,22701,711,"Bus",30,47,"Male","Baseline"
+"802",802,22231,712,"Bus",45,49,"Female","Baseline"
+"803",803,20844,713,"Private Car",25,57,"Female","Baseline"
+"804",804,7063,714,"Walking",10,54,"Male","Baseline"
+"805",805,21666,715,"Walking",5,7,"Male","Baseline"
+"806",806,1145,716,"Private Car",5,54,"Male","Baseline"
+"807",807,19479,717,"Private Car",60,30,"Male","Baseline"
+"808",808,6927,718,"subway",120,73,"Male","Baseline"
+"809",809,25907,719,"Private Car",60,38,"Male","Baseline"
+"810",810,8655,720,"subway",35,22,"Male","Baseline"
+"811",811,12052,721,"Walking",10,32,"Male","Baseline"
+"812",812,4192,722,"Walking",20,41,"Female","Baseline"
+"813",813,17132,723,"Bus",25,19,"Female","Baseline"
+"814",814,15321,724,"Private Car",10,60,"Female","Baseline"
+"815",815,4177,0,"99",NA,10,"Female","Baseline"
+"816",816,24197,725,"Private Car",10,21,"Female","Baseline"
+"817",817,18476,726,"Bus",40,49,"Female","Baseline"
+"818",818,19507,727,"Private Car",60,26,"Female","Baseline"
+"819",819,17336,728,"Bus",90,42,"Female","Baseline"
+"820",820,13227,729,"Walking",5,34,"Female","Baseline"
+"821",821,23030,730,"Private Car",75,30,"Male","Baseline"
+"822",822,2840,0,"99",NA,45,"Male","Baseline"
+"823",823,24997,731,"Walking",10,2,"Female","Baseline"
+"824",824,4168,732,"Bus",15,66,"Male","Baseline"
+"825",825,14826,733,"Private Car",10,33,"Male","Baseline"
+"826",826,6733,734,"Private Car",60,73,"Male","Baseline"
+"827",827,15012,735,"Private Car",5,23,"Male","Baseline"
+"828",828,13905,736,"Private Car",5,6,"Female","Baseline"
+"829",829,19447,737,"Private Car",15,50,"Male","Baseline"
+"830",830,15487,738,"subway",150,33,"Female","Baseline"
+"831",831,12526,739,"subway",85,23,"Male","Baseline"
+"832",832,17960,740,"subway",20,42,"Female","Baseline"
+"833",833,6295,0,"99",NA,53,"Female","Baseline"
+"834",834,4304,741,"Private Car",5,40,"Female","Baseline"
+"835",835,19202,742,"Private Car",30,54,"Male","Baseline"
+"836",836,23026,743,"Bus",40,25,"Female","Baseline"
+"837",837,25949,744,"Walking",1,35,"Male","Baseline"
+"838",838,26161,745,"Walking",35,7,"Male","Baseline"
+"839",839,12200,0,"99",NA,51,"Male","Baseline"
+"840",840,16486,746,"Bus",30,7,"Male","Baseline"
+"841",841,21709,747,"Train",100,34,"Male","Baseline"
+"842",842,21383,748,"subway",50,22,"Female","Baseline"
+"843",843,17019,0,"99",NA,1,"Male","Baseline"
+"844",844,22925,749,"Bus",60,22,"Male","Baseline"
+"845",845,2247,0,"99",NA,30,"Male","Baseline"
+"846",846,1791,750,"Private Car",35,30,"Female","Baseline"
+"847",847,4068,0,"99",NA,85,"Female","Baseline"
+"848",848,8938,751,"Private Car",30,27,"Male","Baseline"
+"849",849,12359,752,"Motorcycle",20,23,"Male","Baseline"
+"850",850,15561,753,"Bus",70,20,"Male","Baseline"
+"851",851,1827,754,"Walking",40,45,"Female","Baseline"
+"852",852,21588,755,"Walking",10,21,"Female","Baseline"
+"853",853,11084,756,"Bus",90,32,"Female","Baseline"
+"854",854,10207,757,"Private Car",40,25,"Male","Baseline"
+"855",855,3134,758,"Walking",10,13,"Female","Baseline"
+"856",856,11240,759,"Walking",15,10,"Female","Baseline"
+"857",857,13436,760,"Walking",20,2,"Female","Baseline"
+"858",858,18174,0,"99",NA,50,"Female","Baseline"
+"859",859,1146,761,"Private Car",10,48,"Female","Baseline"
+"860",860,162,762,"Bus",120,57,"Male","Baseline"
+"861",861,9186,763,"subway",120,73,"Male","Baseline"
+"862",862,15839,764,"Bus",140,42,"Female","Baseline"
+"863",863,26901,765,"Private Car",15,39,"Female","Baseline"
+"864",864,22972,0,"99",NA,2,"Female","Baseline"
+"865",865,12890,0,"99",NA,88,"Female","Baseline"
+"866",866,20840,766,"Bus",40,7,"Male","Baseline"
+"867",867,26045,767,"Walking",5,58,"Male","Baseline"
+"868",868,19241,768,"Walking",15,45,"Male","Baseline"
+"869",869,17717,769,"Bus",40,31,"Female","Baseline"
+"870",870,25214,0,"99",NA,36,"Male","Baseline"
+"871",871,3496,770,"Private Car",60,62,"Male","Baseline"
+"872",872,20227,771,"Private Car",5,26,"Female","Baseline"
+"873",873,19912,0,"99",NA,82,"Male","Baseline"
+"874",874,5567,772,"Walking",10,11,"Male","Baseline"
+"875",875,11327,773,"Walking",15,42,"Male","Baseline"
+"876",876,18244,774,"Walking",20,15,"Female","Baseline"
+"877",877,6912,775,"Walking",10,7,"Male","Baseline"
+"878",878,26512,776,"Bus",30,4,"Female","Baseline"
+"879",879,5908,0,"99",NA,50,"Female","Baseline"
+"880",880,21828,777,"Walking",15,71,"Female","Baseline"
+"881",881,26334,778,"Walking",1,48,"Female","Baseline"
+"882",882,22779,779,"Walking",10,34,"Female","Baseline"
+"883",883,21615,0,"99",NA,34,"Male","Baseline"
+"884",884,18962,0,"99",NA,66,"Male","Baseline"
+"885",885,11016,780,"Train",50,24,"Male","Baseline"
+"886",886,21610,781,"Motorcycle",10,45,"Male","Baseline"
+"887",887,7125,782,"Walking",10,48,"Male","Baseline"
+"888",888,17322,783,"Taxi",15,75,"Female","Baseline"
+"889",889,18024,784,"Private Car",25,30,"Male","Baseline"
+"890",890,23479,785,"Bus",20,8,"Female","Baseline"
+"891",891,9923,786,"Private Car",30,30,"Male","Baseline"
+"892",892,17282,787,"Bus",30,32,"Male","Baseline"
+"893",893,12383,0,"99",NA,3,"Male","Baseline"
+"894",894,8438,788,"Walking",15,53,"Female","Baseline"
+"895",895,12325,789,"Walking",15,40,"Female","Baseline"
+"896",896,12081,790,"Bus",60,19,"Female","Baseline"
+"897",897,5244,791,"Private Car",10,2,"Female","Baseline"
+"898",898,5243,792,"Private Car",40,33,"Female","Baseline"
+"899",899,21481,793,"subway",90,43,"Female","Baseline"
+"900",900,26194,794,"Bus",40,42,"Male","Baseline"
+"901",901,10671,795,"Private Car",80,32,"Female","Baseline"
+"902",902,20066,796,"Private Car",40,9,"Male","Baseline"
+"903",903,6618,797,"subway",40,26,"Female","Baseline"
+"904",904,10486,798,"Walking",8,70,"Female","Baseline"
+"905",905,19179,799,"Private Car",20,35,"Male","Baseline"
+"906",906,17977,800,"Walking",60,43,"Male","Baseline"
+"907",907,12256,801,"Walking",2,14,"Male","Baseline"
+"908",908,14011,802,"subway",60,30,"Female","Baseline"
+"909",909,5163,803,"van",55,31,"Female","Baseline"
+"910",910,19641,804,"Bus",40,28,"Male","Baseline"
+"911",911,12855,805,"Bus",30,63,"Female","Baseline"
+"912",912,3103,806,"Private Car",40,38,"Male","Baseline"
+"913",913,19978,807,"Walking",30,12,"Female","Baseline"
+"914",914,18275,808,"Private Car",15,40,"Male","Baseline"
+"915",915,13273,809,"Bus",90,44,"Male","Baseline"
+"916",916,21775,810,"Bus",45,11,"Male","Baseline"
+"917",917,14796,811,"Train",75,49,"Male","Baseline"
+"918",918,23815,812,"Walking",30,12,"Female","Baseline"
+"919",919,6410,813,"Private Car",15,53,"Male","Baseline"
+"920",920,18978,814,"Bus",30,24,"Male","Baseline"
+"921",921,3636,815,"Walking",10,30,"Male","Baseline"
+"922",922,13211,816,"Bus",75,47,"Female","Baseline"
+"923",923,21403,817,"Private Car",10,3,"Female","Baseline"
+"924",924,24130,818,"Walking",5,29,"Male","Baseline"
+"925",925,16310,0,"99",NA,58,"Female","Baseline"
+"926",926,5242,819,"Motorcycle",5,31,"Male","Baseline"
+"927",927,7828,820,"Walking",10,13,"Female","Baseline"
+"928",928,16636,821,"Bus",40,80,"Female","Baseline"
+"929",929,11822,822,"Bus",30,45,"Female","Baseline"
+"930",930,5063,823,"Private Car",30,36,"Male","Baseline"
+"931",931,4085,0,"99",NA,31,"Female","Baseline"
+"932",932,16364,824,"van",25,15,"Female","Baseline"
+"933",933,6993,825,"Motorcycle",20,25,"Male","Baseline"
+"934",934,9753,0,"99",NA,80,"Male","Baseline"
+"935",935,4517,826,"Private Car",60,66,"Female","Baseline"
+"936",936,15344,827,"subway",80,43,"Male","Baseline"
+"937",937,18185,0,"99",NA,61,"Male","Baseline"
+"938",938,21684,0,"99",NA,11,"Female","Baseline"
+"939",939,11748,828,"subway",75,49,"Female","Baseline"
+"940",940,158,0,"99",NA,50,"Female","Baseline"
+"941",941,18126,829,"Private Car",50,48,"Male","Baseline"
+"942",942,25379,830,"Bus",120,30,"Female","Baseline"
+"943",943,1149,831,"Private Car",5,12,"Female","Baseline"
+"944",944,6451,832,"Private Car",15,47,"Male","Baseline"
+"945",945,7078,833,"Private Car",20,30,"Female","Baseline"
+"946",946,5897,834,"Private Car",60,43,"Male","Baseline"
+"947",947,7936,835,"Bus",25,18,"Male","Baseline"
+"948",948,7828,836,"Walking",10,13,"Female","Baseline"
+"949",949,26046,0,"99",NA,60,"Male","Baseline"
+"950",950,26017,837,"subway",82,40,"Female","Baseline"
+"951",951,17812,838,"Walking",25,60,"Female","Baseline"
+"952",952,144,839,"subway",60,65,"Male","Baseline"
+"953",953,13282,840,"Walking",10,7,"Female","Baseline"
+"954",954,10582,0,"99",NA,78,"Male","Baseline"
+"955",955,720,841,"Private Car",29,63,"Male","Baseline"
+"956",956,10955,842,"Walking",10,46,"Female","Baseline"
+"957",957,12736,843,"Walking",15,12,"Female","Baseline"
+"958",958,15223,844,"Walking",5,43,"Female","Baseline"
+"959",959,1886,845,"Walking",10,37,"Female","Baseline"
+"960",960,19899,846,"Walking",30,20,"Male","Baseline"
+"961",961,8926,0,"99",NA,65,"Male","Baseline"
+"962",962,13559,847,"Private Car",60,40,"Female","Baseline"
+"963",963,19756,848,"Bus",110,47,"Male","Baseline"
+"964",964,1325,849,"subway",120,29,"Male","Baseline"
+"965",965,6217,850,"Walking",5,17,"Female","Baseline"
+"966",966,11604,851,"Bus",15,10,"Female","Baseline"
+"967",967,7117,852,"Motorcycle",75,33,"Male","Baseline"
+"968",968,23868,0,"99",NA,15,"Male","Baseline"
+"969",969,267,853,"subway",60,33,"Female","Baseline"
+"970",970,8843,854,"Walking",10,46,"Female","Baseline"
+"971",971,6478,855,"Private Car",60,52,"Male","Baseline"
+"972",972,10617,856,"Train",155,27,"Female","Baseline"
+"973",973,12856,857,"Private Car",7,31,"Male","Baseline"
+"974",974,22563,0,"99",NA,33,"Female","Baseline"
+"975",975,7261,858,"Bus",50,26,"Male","Baseline"
+"976",976,25003,859,"Private Car",30,32,"Female","Baseline"
+"977",977,1203,860,"Bus",50,26,"Female","Baseline"
+"978",978,14163,861,"Private Car",20,31,"Female","Baseline"
+"979",979,12908,862,"van",30,28,"Female","Baseline"
+"980",980,17904,863,"Walking",5,43,"Male","Baseline"
+"981",981,21421,864,"Walking",30,5,"Male","Baseline"
+"982",982,14117,865,"Private Car",5,28,"Male","Baseline"
+"983",983,16013,866,"Walking",10,15,"Male","Baseline"
+"984",984,6423,0,"99",NA,39,"Female","Baseline"
+"985",985,21018,867,"Walking",3,17,"Male","Baseline"
+"986",986,16367,868,"Walking",25,15,"Female","Baseline"
+"987",987,7427,869,"Private Car",95,43,"Male","Baseline"
+"988",988,22364,870,"Walking",5,7,"Male","Baseline"
+"989",989,6978,871,"Train",60,64,"Male","Baseline"
+"990",990,2143,872,"Private Car",60,29,"Female","Baseline"
+"991",991,10237,873,"Walking",15,17,"Female","Baseline"
+"992",992,10130,874,"Bus",80,25,"Male","Baseline"
+"993",993,11409,875,"Bus",30,52,"Female","Baseline"
+"994",994,18858,876,"Bus",20,37,"Female","Baseline"
+"995",995,1463,877,"Walking",20,34,"Female","Baseline"
+"996",996,25968,0,"99",NA,51,"Female","Baseline"
+"997",997,5725,878,"Walking",20,18,"Male","Baseline"
+"998",998,23246,879,"subway",90,32,"Female","Baseline"
+"999",999,19611,880,"Walking",10,26,"Female","Baseline"
+"1000",1000,3368,881,"Walking",50,45,"Male","Baseline"
