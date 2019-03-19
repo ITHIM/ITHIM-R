@@ -214,7 +214,7 @@ run_ithim_setup <- function(seed=1,
   ######################
   
   casualty_modes <- unique(INJURY_TABLE[[1]]$cas_mode)
-  match_modes <- c(TRIP_SET$trip_mode,'pedestrian')
+  match_modes <- c(TRIP_SET$stage_mode,'pedestrian')
   if(ADD_TRUCK_DRIVERS) match_modes <- c(match_modes,'truck')
   if(!all(casualty_modes%in%match_modes)){
     cat('\n  The following casualty modes do not have distance data and will not be included in injury module:\n',file=setup_call_summary_filename,append=T)
@@ -223,7 +223,7 @@ run_ithim_setup <- function(seed=1,
   }
   
   cat('\n  Emissions will be calculated for the following modes:\n',file=setup_call_summary_filename,append=T)
-  cat(VEHICLE_INVENTORY$trip_mode[VEHICLE_INVENTORY$emission_inventory*VEHICLE_INVENTORY$distance_ratio_to_car>0],file=setup_call_summary_filename,append=T)
+  cat(VEHICLE_INVENTORY$stage_mode[VEHICLE_INVENTORY$emission_inventory*VEHICLE_INVENTORY$distance_ratio_to_car>0],file=setup_call_summary_filename,append=T)
   cat("\n  To edit an emission contribution, supply e.g. 'emission_inventory=list(car=4)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
   cat("  To exclude a mode from the emission inventory, supply e.g. 'emission_inventory=list(other=0)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
   cat('\n\n',file=setup_call_summary_filename,append=T)
