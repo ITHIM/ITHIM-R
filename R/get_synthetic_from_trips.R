@@ -33,6 +33,8 @@ get_synthetic_from_trips <- function(){
   trip_set <- ithim_setup_baseline_scenario(trip_set)
   if(TEST_WALK_SCENARIO){
     SYNTHETIC_TRIPS <<- create_walk_scenario(trip_set)
+  }else if(TEST_CYCLE_SCENARIO){
+    SYNTHETIC_TRIPS <<- create_cycle_scenarios(trip_set)
   }else{
     SYNTHETIC_TRIPS <<- create_all_scenarios(CITY, trip_set)
   }

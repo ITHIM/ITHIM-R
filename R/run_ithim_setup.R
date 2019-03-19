@@ -10,6 +10,7 @@ run_ithim_setup <- function(seed=1,
                             ADD_BUS_DRIVERS = T,
                             ADD_TRUCK_DRIVERS = T,
                             TEST_WALK_SCENARIO = F,
+                            TEST_CYCLE_SCENARIO = F,
                             REFERENCE_SCENARIO = 'Baseline',
                             PATH_TO_LOCAL_DATA = NULL,
                             NSAMPLES = 1,
@@ -81,6 +82,7 @@ run_ithim_setup <- function(seed=1,
   ADD_BUS_DRIVERS <<- ADD_BUS_DRIVERS
   ADD_TRUCK_DRIVERS <<- ADD_TRUCK_DRIVERS
   TEST_WALK_SCENARIO <<- TEST_WALK_SCENARIO
+  TEST_CYCLE_SCENARIO <<- TEST_CYCLE_SCENARIO
   
   ## MODEL VARIABLES
   CITY <<- CITY
@@ -124,32 +126,6 @@ run_ithim_setup <- function(seed=1,
     cat(paste0(MODE_SPEEDS[i,]),file=setup_call_summary_filename,append=T); 
     cat('\n',file=setup_call_summary_filename,append=T)
   }
-  
-  ## default distances relative to car that can be edited by input. 
-  #default_car_ratio <- list(
-  #  bus=1,
-  #  bus_driver=0.12,
-  #  car=1,
-  #  taxi=0.04,
-  #  walking=1,
-  #  bicycle=1,
-  #  motorcycle=0.2,
-  #  truck=0.21,
-  #  big_truck=0.09,
-  #  other=0.01
-  #)
-  #if(!is.null(car_ratios)){
-  #  for(m in names(car_ratios))
-  #    default_car_ratio[[m]] <- car_ratios[[m]]
-  #}
-  
-  #names(default_car_ratio) <- tolower(names(default_car_ratio))
-  #DISTANCE_RATIOS <<- default_car_ratio
-  #cat('\n  DISTANCE RATIOS \n\n',file=setup_call_summary_filename,append=T)
-  #for(i in 1:length(default_car_ratio)) {
-  #  cat(paste(names(DISTANCE_RATIOS)[i],DISTANCE_RATIOS[[i]]),file=setup_call_summary_filename,append=T); 
-  #  cat('\n',file=setup_call_summary_filename,append=T)
-  #}
   
   ## default emission contributions that can be edited by input. 
   default_emission_inventory <- list(
@@ -224,10 +200,10 @@ run_ithim_setup <- function(seed=1,
   
   ## complete TRIP_SET to contain distances and durations for trips and stages
   complete_trip_distance_duration() 
+  set_vehicle_inventory() # sets vehicle inventory
   
   ## create inventory and edit trips, if they are not variable dependent
   if(!RECALCULATE_TRIPS){
-    set_vehicle_inventory() # sets vehicle inventory
     get_synthetic_from_trips() # sets synthetic trips and synthetic population
   }
   

@@ -19,6 +19,31 @@ ylim <- range(result_mat)
 barplot(result_mat, names.arg = sapply(names(result_mat) ,function(x)paste0( last(strsplit(x, '_')[[1]]))), ylim = ylim, las = 2)
 
 
+## 
+ithim_object <- run_ithim_setup(TEST_CYCLE_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F,CITY='accra_test',ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F)
+#ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F)
+ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
+##
+
+## plot results
+result_mat <- colSums(ithim_object$outcome$hb$ylls[,3:ncol(ithim_object$outcome$hb$ylls)])
+columns <- length(result_mat)
+nDiseases <- columns/NSCEN
+ylim <- range(result_mat)
+{x11(width = 8, height = 8); par(mfrow = c(3, 4))
+  for(i in 1:nDiseases){
+    if(i<5) {
+      par(mar = c(1, 4, 4, 1))
+      barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = '', ylim = ylim, las = 2, 
+              main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
+    }else{
+      par(mar = c(5, 4, 4, 1))
+      barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = SCEN_SHORT_NAME[c(1, 3:6)], ylim = ylim, las = 2, 
+              main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
+    }
+  }}
+
+
 #################################################
 ## Use case 1: basic ITHIM:
 

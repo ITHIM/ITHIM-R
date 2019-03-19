@@ -56,6 +56,7 @@ create_synth_pop <- function(raw_trip_set){
   # remove non-travelling participants
   ##!! RJ trip_modes given in command line defines all trips that we count
   trip_set <- subset(trip_set,trip_mode%in%VEHICLE_INVENTORY$stage_mode)
+  trip_set <- subset(trip_set,trip_mode!='other')
   
   return(list(trip_set=trip_set,synthetic_population=synthetic_population))
   
