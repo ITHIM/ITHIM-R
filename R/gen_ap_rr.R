@@ -19,7 +19,7 @@ gen_ap_rr <- function(pm_conc_pp){
   for ( j in c(1:nrow(DISEASE_INVENTORY))[DISEASE_INVENTORY$air_pollution == 1]){
     # initialise lists
     for (x in 1:length(SCEN_SHORT_NAME))
-      pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]] <- 0
+      pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]] <- 1
     cause <- as.character(DISEASE_INVENTORY$ap_acronym[j])
     dr_ap_disease <- subset(DR_AP, cause_code == cause)
     # apply by age groups
