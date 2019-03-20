@@ -26,20 +26,12 @@ io$outcomes <- run_ithim(io, seed = 1)
 
 
 ## plot results for YLLs
-result_mat <- colSums(io$outcome$hb$ylls[,3:ncol(io$outcome$hb$ylls)])
-columns <- length(result_mat)
-nDiseases <- columns/NSCEN
-ylim <- range(result_mat)
-{x11(width = 8, height = 8); par(mfrow = c(3, 4))
-  for(i in 1:nDiseases){
-    if(i<5) {
-      par(mar = c(1, 4, 4, 1))
-      barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = '', ylim = ylim, las = 2, 
-              main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
-    }else{
-      par(mar = c(5, 4, 4, 1))
-      barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = SCEN_SHORT_NAME[c(1, 3:6)], ylim = ylim, las = 2, 
-              main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
-    }
-  }}
+result_df <- data.frame(variable = names(io$outcome$hb$ylls[,3:ncol(io$outcome$hb$ylls)]),
+                              value = colSums(io$outcome$hb$ylls[,3:ncol(io$outcome$hb$ylls)]))
 
+result_df$variable <- sapply(strsplit(as.character(result_df$variable), "_"), tail, 1)
+
+ggplot(data = result_df) +
+  aes(x = variable, y = value) +
+  geom_boxplot(fill = "#0c4c8a") +
+  theme_minimal()
