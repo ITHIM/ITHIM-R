@@ -53,7 +53,7 @@ health_burden <- function(ind_ap_pa,inj){
       deaths_name <- paste0(scen, '_deaths_',middle_bit,ac)
       # Calculate PIFs for selected scenario
       pif_temp <- population_attributable_fraction(pop = ind_ap_pa[,colnames(ind_ap_pa)%in%c(scen_var,'sex', 'age_cat')], cn = scen_var, mat=pop_details)
-      pif_scen <- (pif_ref - pif_temp) / pif_ref
+      pif_scen <- ifelse(pif_ref == 0, 0, (pif_ref - pif_temp) / pif_ref)
       # Calculate ylls 
       yll_dfs <- combine_health_and_pif(pop=pop_details,pif_values=pif_scen, hc = gbd_ylls_disease)
       ylls[[yll_name]] <- yll_dfs
@@ -61,6 +61,7 @@ health_burden <- function(ind_ap_pa,inj){
       death_dfs <- combine_health_and_pif(pop=pop_details,pif_values=pif_scen,hc=gbd_deaths_disease)
       deaths[[deaths_name]] <- death_dfs
     }
+    
   }
   # Select deaths columns
   inj_deaths <- dplyr::select(inj, c(age_cat, sex, contains("deaths")))
