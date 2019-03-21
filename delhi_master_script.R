@@ -35,3 +35,12 @@ ggplot(data = result_df) +
   aes(x = variable, y = value) +
   geom_boxplot(fill = "#0c4c8a") +
   theme_minimal()
+
+
+plotly::ggplotly(ggplot(data = reshape2::melt(io$outcomes$mmets %>% dplyr::select(base_mmet, scen1_mmet) %>% rename(baseline = base_mmet, scenario = scen1_mmet) )) +
+  aes(x = variable, y = value) +
+  geom_boxplot(fill = "#0c4c8a") +
+  theme_minimal()
+)
+
+
