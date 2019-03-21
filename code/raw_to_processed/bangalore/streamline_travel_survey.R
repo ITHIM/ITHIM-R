@@ -79,3 +79,7 @@ rd <- rd %>% rename(stage_mode_int = mode, stage_id = stage_nr, stage_mode = mod
 ## Reorder columns
 rd1 <- rd %>% dplyr::select(participant_id, age, sex, stage_id, stage_mode_int, stage_mode, stage_duration, stage_distance,
                             trip_id, trip_mode_int, trip_mode, trip_distance)
+
+#####
+# Write streamlined travel survey data as a csv in the inst folder
+write_csv(rd, "inst/extdata/local/bangalore/bangalore_travel_survey.csv")
