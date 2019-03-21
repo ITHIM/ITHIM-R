@@ -53,3 +53,14 @@ speed_tbl <- read_csv("inst/extdata/local/bangalore/speed_modes_india.csv")
 rd[is.na(rd$distance) & !is.na(rd$duration), ]$distance <- 
   (rd[is.na(rd$distance) & !is.na(rd$duration), ]$duration) * 
   speed_tbl$Speed[match(rd[is.na(rd$distance) & !is.na(rd$duration), ]$mode_name, speed_tbl$Mode)]
+
+# Remove row number column
+rd$X <- NULL
+
+# Rename person_id to participant_id
+rd <- rename(rd, participant_id = person_id)
+
+# Introduce sex column - and remove female column
+rd$sex <- "Female"
+rd$sex[rd$male == 1] <- "Male"
+rd$male <- NULL
