@@ -43,3 +43,13 @@ last_trip_id <- rd %>% filter(!is.na(trip_id)) %>% distinct(trip_id) %>% nrow()
 ntrips <- rd[is.na(rd$trip_id), ] %>% nrow()
 # Auto-increasing trip_id
 rd[is.na(rd$trip_id), ]$trip_id <- seq(last_trip_id, last_trip_id + ntrips - 1, by = 1)
+
+#####
+## Recalculate distances from speed when they're NA
+# Read speed table for Bangalore
+speed_tbl <- read_csv("inst/extdata/local/bangalore/speed_modes_india.csv")
+
+# Update distance by duration (hours) * speed (kmh)
+rd[is.na(rd$distance) & !is.na(rd$duration), ]$distance <- 
+  (rd[is.na(rd$distance) & !is.na(rd$duration), ]$duration) * 
+  speed_tbl$Speed[match(rd[is.na(rd$distance) & !is.na(rd$duration), ]$mode_name, speed_tbl$Mode)]
