@@ -64,3 +64,18 @@ rd <- rename(rd, participant_id = person_id)
 rd$sex <- "Female"
 rd$sex[rd$male == 1] <- "Male"
 rd$male <- NULL
+
+# Calculate total distance by summing all stages' distance
+rd$total_distance <- ave(rd$distance, rd$trip_id, FUN=sum)
+
+#####
+## Rename columns
+
+rd <- rd %>% rename(stage_mode_int = mode, stage_id = stage_nr, stage_mode = mode_name, stage_distance = distance, 
+                    stage_duration = duration, trip_mode_int = main_mode,
+                    trip_mode = main_mode_name, trip_distance = total_distance)
+
+#####
+## Reorder columns
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, stage_id, stage_mode_int, stage_mode, stage_duration, stage_distance,
+                            trip_id, trip_mode_int, trip_mode, trip_distance)
