@@ -1,5 +1,55 @@
 rm(list=ls())
+cities <- c('accra','sao_paulo','delhi')
+speeds <- list(accra=NULL,
+               sao_paulo=NULL,
+               delhi=list(subway=32,
+                          bicycle=15))
+emission_inventories = list(accra=NULL,
+                            sao_paulo=NULL,
+                            delhi=list(motorcycle=1409,
+                                       auto_rickshaw=133,
+                                       car=2214,
+                                       bus_driver=644,
+                                       big_truck=4624,
+                                       truck=3337,
+                                       van=0,
+                                       other=0,
+                                       taxi=0))
+
+
 #################################################
+## without uncertainty
+for(city in cities){
+  ithim_object <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),
+                                  ADD_WALK_TO_BUS_TRIPS=F,
+                                  CITY=city,ADD_TRUCK_DRIVERS = F,
+                                  ADD_BUS_DRIVERS = F,
+                                  emission_inventory = emission_inventories[[city]],
+                                  speeds = speeds[[city]])
+  #ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F)
+  ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
+  ##
+  
+  ## plot results
+  result_mat <- colSums(ithim_object$outcome$hb$ylls[,3:ncol(ithim_object$outcome$hb$ylls)])
+  columns <- length(result_mat)
+  nDiseases <- columns/NSCEN
+  ylim <- range(result_mat)
+  x11(width = 8, height = 8); par(mfrow = c(3, 4))
+  for(i in 1:nDiseases){
+    if(i<5) {
+      par(mar = c(1, 4, 4, 1))
+      barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = '', ylim = ylim, las = 2, 
+              main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
+    }else{
+      par(mar = c(5, 4, 4, 1))
+      barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = SCEN_SHORT_NAME[2:6], ylim = ylim, las = 2, 
+              main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
+    }
+  }
+}
+#################################################
+## with uncertainty
 ## comparison across cities
 numcores <- detectCores()
 nsamples <- 16
@@ -7,7 +57,6 @@ setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO"
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE")
 
 
-cities <- c('accra','sao_paulo','delhi')
 # beta parameters for INJURY_REPORTING_RATE
 injury_report_rate <- list(accra=c(8,3),
                            sao_paulo=c(8,3),
@@ -53,28 +102,12 @@ ap_dr_quantile <- c(T,F,F)
 # logical for walk scenario
 test_walk_scenario <- c(F,F,F)
 # logical for cycle scenario
-test_cycle_scenario <- c(T,T,T)
+test_cycle_scenario <- c(F,F,F)
 # if walk scenario, choose Baseline as reference scenario
 ref_scenarios <- list(accra='Baseline',
                       sao_paulo='Baseline',
                       delhi='Baseline')
 
-
-speeds <- list(accra=NULL,
-               sao_paulo=NULL,
-               delhi=list(subway=32,
-                          bicycle=15))
-emission_inventories = list(accra=NULL,
-                            sao_paulo=NULL,
-                            delhi=list(motorcycle=1409,
-                                       auto_rickshaw=133,
-                                       car=2214,
-                                       bus_driver=644,
-                                       big_truck=4624,
-                                       truck=3337,
-                                       van=0,
-                                       other=0,
-                                       taxi=0))
 
 multi_city_ithim <- outcome <- outcome_pp <- list()
 for(ci in 1:length(cities)){
@@ -84,6 +117,7 @@ for(ci in 1:length(cities)){
                                             NSAMPLES = nsamples,
                                             seed=ci,
                                             
+                                            DIST_CAT = c('0-1 km','2-5 km','6+ km'),
                                             TEST_WALK_SCENARIO = test_walk_scenario[ci],
                                             TEST_CYCLE_SCENARIO = test_cycle_scenario[ci],
                                             REFERENCE_SCENARIO=ref_scenarios[[city]],
@@ -213,7 +247,7 @@ library(plotrix)
 #                     'injury linearity','traffic PM2.5 share','injury reporting rate','casualty exponent fraction','day-to-week scalar',
 #                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
 #                     'COPD (AP)','stroke (AP)')
-x11(width=5); par(mar=c(6,12,3.5,5.5))
+{x11(width=5); par(mar=c(6,12,3.5,5.5))
 labs <- rownames(evppi)
 get.pal=colorRampPalette(brewer.pal(9,"Reds"))
 redCol=rev(get.pal(12))
@@ -228,7 +262,7 @@ color2D.matplot(evppi,cellcolors=cellcolors,main="",xlab="",ylab="",cex.lab=2,ax
 fullaxis(side=1,las=2,at=1:length(outcome)-0.5,labels=names(outcome),line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=1)
 fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.8)
 mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
-color.legend(5.5,0,5.5+0.3,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
+color.legend(5.5,0,5.5+0.3,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")}
 
 
 scen_out <- sapply(outcome,function(x)rowSums(x))

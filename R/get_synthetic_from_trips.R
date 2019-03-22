@@ -35,6 +35,8 @@ get_synthetic_from_trips <- function(){
     SYNTHETIC_TRIPS <<- create_walk_scenario(trip_set)
   }else if(TEST_CYCLE_SCENARIO){
     SYNTHETIC_TRIPS <<- create_cycle_scenarios(trip_set)
+  }else if(MAX_MODE_SHARE_SCENARIO){
+    SYNTHETIC_TRIPS <<- create_max_mode_share_scenarios(trip_set)
   }else{
     SYNTHETIC_TRIPS <<- create_all_scenarios(CITY, trip_set)
   }

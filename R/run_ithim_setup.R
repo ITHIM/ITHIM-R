@@ -11,6 +11,7 @@ run_ithim_setup <- function(seed=1,
                             ADD_TRUCK_DRIVERS = T,
                             TEST_WALK_SCENARIO = F,
                             TEST_CYCLE_SCENARIO = F,
+                            MAX_MODE_SHARE_SCENARIO = T,
                             REFERENCE_SCENARIO = 'Baseline',
                             PATH_TO_LOCAL_DATA = NULL,
                             NSAMPLES = 1,
@@ -83,6 +84,7 @@ run_ithim_setup <- function(seed=1,
   ADD_TRUCK_DRIVERS <<- ADD_TRUCK_DRIVERS
   TEST_WALK_SCENARIO <<- TEST_WALK_SCENARIO
   TEST_CYCLE_SCENARIO <<- TEST_CYCLE_SCENARIO
+  MAX_MODE_SHARE_SCENARIO <<- MAX_MODE_SHARE_SCENARIO
   
   ## MODEL VARIABLES
   CITY <<- CITY
@@ -170,7 +172,7 @@ run_ithim_setup <- function(seed=1,
   ROAD_RATIO_SLOPE <<- 0.379
   
   ## LOAD DATA
-  ithim_load_data()  
+  ithim_load_data(speeds=default_speeds)  
   
   if(any(!unique(TRIP_SET$stage_mode)%in%MODE_SPEEDS$stage_mode)){
     cat("\n  The following modes do not have speeds, and won't be included in the model:\n",file=setup_call_summary_filename,append=T)

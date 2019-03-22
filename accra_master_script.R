@@ -20,7 +20,7 @@ barplot(result_mat, names.arg = sapply(names(result_mat) ,function(x)paste0( las
 
 
 ## 
-ithim_object <- run_ithim_setup(TEST_CYCLE_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F,CITY='accra_test',ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F)
+ithim_object <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),ADD_WALK_TO_BUS_TRIPS=F,CITY='accra_test',ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F)
 #ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F)
 ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
 ##
@@ -38,7 +38,7 @@ ylim <- range(result_mat)
               main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
     }else{
       par(mar = c(5, 4, 4, 1))
-      barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = SCEN_SHORT_NAME[c(1, 3:6)], ylim = ylim, las = 2, 
+      barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = SCEN_SHORT_NAME[2:6], ylim = ylim, las = 2, 
               main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
     }
   }}

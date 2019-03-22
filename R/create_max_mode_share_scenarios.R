@@ -1,0 +1,39 @@
+#' @export
+create_max_mode_share_scenarios <- function(trip_set){
+  rdr <- trip_set
+  rd_list <- list()
+  target_distances <- colnames(SCENARIO_PROPORTIONS)
+  modes <- rownames(SCENARIO_PROPORTIONS)
+  # Baseline scenario
+  rd_list[[1]] <- rdr
+  ###############################################################
+  for(i in 1:nrow(SCENARIO_PROPORTIONS)){
+    mode_name <- modes[i]
+    rdr_copy <- rdr
+    for(j in 1:ncol(SCENARIO_PROPORTIONS)){
+      target_distance <- target_distances[j]
+      rdr_subset <- subset(rdr_copy,trip_distance_cat==target_distance)
+      potential_trip_ids <- unique(subset(rdr_subset,trip_mode!=mode_name)$trip_id)
+      current_mode_trips <- sum(rdr_subset$trip_mode==mode_name)
+      target_percent <- SCENARIO_PROPORTIONS[i,j]
+      if(length(potential_trip_ids)>0){
+        if(length(potential_trip_ids)==1){
+          change_trip_ids <- potential_trip_ids
+        }else{
+          change_trip_ids <- base::sample(potential_trip_ids,size=max(1,round(length(unique(rdr_subset$trip_id))/100*target_percent)-current_mode_trips))
+        }
+        change_trips <- subset(rdr_subset,trip_id%in%change_trip_ids)
+        change_trips$trip_mode <- mode_name
+        change_trips$stage_mode <- mode_name
+        change_trips$stage_duration <- change_trips$stage_distance * 60 / MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==mode_name]
+        
+        rdr_copy <- rbind(subset(rdr_copy,!trip_id%in%change_trip_ids),change_trips)
+      }
+    }
+    rdr_copy$scenario <- paste0('Scenario ',i)
+    rd_list[[i+1]] <- rdr_copy
+  }
+  ###############################################################
+  
+  return(rd_list)
+}

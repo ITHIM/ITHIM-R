@@ -1,5 +1,23 @@
 #' @export
-ithim_load_data <- function(){
+ithim_load_data <- function(speeds=list(
+  bus=15,
+  bus_driver=15,
+  minibus=15,
+  minibus_driver=15,
+  car=21,
+  taxi=21,
+  walking=4.8,
+  walk_to_bus=4.8,
+  bicycle=14.5,
+  motorcycle=25,
+  truck=21,
+  van=15,
+  subway=28,
+  rail=35,
+  auto_rickshaw=22,
+  shared_auto=22,
+  cycle_rickshaw=10
+)){
   ## this function requires path specification, so that it may differ for different case studies
   
   ## these datasets are all global, saved in global folder.
@@ -122,6 +140,11 @@ ithim_load_data <- function(){
   }
   trip_set <- drop_na(trip_set)
   TRIP_SET <<- trip_set
+  
+  if(MAX_MODE_SHARE_SCENARIO&&!exists('SCENARIO_PROPORTIONS')||exists('SCENARIO_PROPORTIONS')&&!isTRUE(all_equal(DIST_CAT,colnames(SCENARIO_PROPORTIONS)))){
+    SCENARIO_PROPORTIONS <<- get_scenario_settings(distances=DIST_CAT,speeds=speeds)
+  }
+    
   
   filename <- paste0(local_path,"/pa_",CITY,".csv")
   PA_SET <<- read_csv(filename,col_types = cols())
