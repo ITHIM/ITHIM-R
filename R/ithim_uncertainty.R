@@ -8,7 +8,7 @@ ithim_uncertainty <- function(ithim_object,seed=1){
     assign(names(parameters)[i],parameters[[i]][[seed]],pos=1)
   ## Re-do set up if any distance parameter has changed
   (if(RECALCULATE_TRIPS){
-    set_vehicle_inventory()
+    #set_vehicle_inventory()
     get_synthetic_from_trips()
   })
   

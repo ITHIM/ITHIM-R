@@ -92,79 +92,54 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     for(disease in pa_diseases$pa_acronym)
       parameters[[paste0('PA_DOSE_RESPONSE_QUANTILE_',disease)]] <- runif(NSAMPLES,0,1)
   }
-  if(AP_DOSE_RESPONSE_QUANTILE == F ) {
-    AP_DOSE_RESPONSE_QUANTILE <<- AP_DOSE_RESPONSE_QUANTILE
-    dr_ap_list <- list()
-    for ( j in 1:nrow(DISEASE_INVENTORY)) if (DISEASE_INVENTORY$air_pollution[j] == 1){ 
-      disease <- as.character(DISEASE_INVENTORY$ap_acronym[j])
-      dr_ap <- subset(DR_AP,cause_code==disease)
-      dr_ap_list[[disease]] <- list()
-      for(age in unique(dr_ap$age_code)){
-        dr_ap_age <- subset(dr_ap,age_code==age)
-        lgamma <- log(dr_ap_age$gamma)
-        gamma_val <- quantile(density(lgamma),0.5)
-        lbeta <- log(dr_ap_age$beta)
-        den <- kde2d(lgamma,lbeta,n=c(1,100),h=0.2,lims=c(gamma_val,gamma_val,min(lbeta)-1,max(lbeta)+1))
-        beta_val <- approx(x=cumsum(den$z)/sum(den$z),y=den$y,xout=0.5)$y
-        mod <- gam(log(alpha)~te(log(gamma),log(beta)),data=dr_ap_age)
-        pred_val <- predict(mod, newdata=data.frame(beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
-        alpha_val <- qnorm(0.5,pred_val$fit,sqrt(mod$sig2))
-        mod <- gam(log(tmrel)~ns(log(gamma),df=8)+ns(log(beta),df=8)+ns(log(alpha),df=8),data=dr_ap_age)
-        pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
-        tmrel_val <- qnorm(0.5,pred_val$fit,sqrt(mod$sig2))
-        dr_ap_list[[disease]][[as.character(age)]] <- data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val),tmrel=exp(tmrel_val))
+  
+  #### AP
+  dr_ap_list <- list()
+  ap_diseases <- subset(DISEASE_INVENTORY,air_pollution==1)
+  AP_DOSE_RESPONSE_QUANTILE <<- AP_DOSE_RESPONSE_QUANTILE
+  ap_parameters <- list()
+  for(disease in ap_diseases$ap_acronym){ 
+    for(letter in c('ALPHA_','BETA_','GAMMA_','TMREL_')){
+      if(AP_DOSE_RESPONSE_QUANTILE){
+        ap_parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_',letter,disease)]] <- runif(NSAMPLES,0,1)
+        parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_',letter,disease)]] <- ap_parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_',letter,disease)]]
+      } else {
+        ap_parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_',letter,disease)]] <- 0.5
       }
     }
-    DR_AP_LIST <<- dr_ap_list
-  }else{
-    ap_diseases <- subset(DISEASE_INVENTORY,air_pollution==1)
-    for(disease in ap_diseases$ap_acronym)
-      for(letter in c('ALPHA_','BETA_','GAMMA_','TMREL_'))
-        parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_',letter,disease)]] <- runif(NSAMPLES,0,1)
-      dr_ap_list <- list()
-      for(disease in ap_diseases$ap_acronym){ 
-        dr_ap <- subset(DR_AP,cause_code==disease)
-        dr_ap_list[[disease]] <- list()
-        quant1 <- parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease)]]
-        quant2 <- parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease)]]
-        quant3 <- parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease)]]
-        quant4 <- parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease)]]
-        for(age in unique(dr_ap$age_code)){
-          dr_ap_age <- subset(dr_ap,age_code==age)
-          #######################################
-          lbeta <- log(dr_ap_age$beta)
-          lgamma <- log(dr_ap_age$gamma)
-          gamma_val <- quantile(density(lgamma),quant1)
-          beta_val <- c()
-          for(i in 1:NSAMPLES){
-            den <- kde2d(lgamma,lbeta,n=c(1,100),h=0.2,lims=c(gamma_val[i],gamma_val[i],min(lbeta)-1,max(lbeta)+1))
-            beta_val[i] <- approx(x=cumsum(den$z)/sum(den$z),y=den$y,xout=quant2[i])$y
-          }
-          mod <- gam(log(alpha)~te(log(gamma),log(beta)),data=dr_ap_age)
-          pred_val <- predict(mod, newdata=data.frame(beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
-          alpha_val <- qnorm(quant3,pred_val$fit,sqrt(mod$sig2))
-          #######################################
-          
-          # generate a value for alpha
-          #alpha_val <- quantile(log(dr_ap_age$alpha),parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease)]])
-          # generate a value for beta given alpha
-          #mod <- gam(log(beta)~ns(log(alpha),df=8),data=dr_ap_age)
-          #pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val)),se.fit=T)
-          #beta_val <- qnorm(parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease)]],pred_val$fit,sqrt(mod$sig2))
-          # generate a value for gamma given beta and alpha
-          #mod <- gam(log(gamma)~ns(log(beta),df=8)+ns(log(alpha),df=8),data=dr_ap_age)
-          #pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val)),se.fit=T)
-          #gamma_val <- qnorm(parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease)]],pred_val$fit,sqrt(mod$sig2))
-          
-          # generate a value for tmrel given alpha, beta and gamma
-          mod <- gam(log(tmrel)~ns(log(gamma),df=8)+ns(log(beta),df=8)+ns(log(alpha),df=8),data=dr_ap_age)
-          pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
-          tmrel_val <- qnorm(quant4,pred_val$fit,sqrt(mod$sig2))
-          dr_ap_list[[disease]][[as.character(age)]] <- data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val),tmrel=exp(tmrel_val))
-        }
+    dr_ap <- subset(DR_AP,cause_code==disease)
+    dr_ap_list[[disease]] <- list()
+    quant1 <- ap_parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease)]]
+    quant2 <- ap_parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease)]]
+    quant3 <- ap_parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease)]]
+    quant4 <- ap_parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease)]]
+    for(age in unique(dr_ap$age_code)){
+      dr_ap_age <- subset(dr_ap,age_code==age)
+      #######################################
+      lbeta <- log(dr_ap_age$beta)
+      lgamma <- log(dr_ap_age$gamma)
+      gamma_val <- quantile(density(lgamma),quant1)
+      beta_val <- c()
+      for(i in 1:NSAMPLES){
+        den <- kde2d(lgamma,lbeta,n=c(1,100),h=0.2,lims=c(gamma_val[i],gamma_val[i],min(lbeta)-1,max(lbeta)+1))
+        beta_val[i] <- approx(x=cumsum(den$z)/sum(den$z),y=den$y,xout=quant2[i])$y
       }
+      mod <- gam(log(alpha)~te(log(gamma),log(beta)),data=dr_ap_age)
+      pred_val <- predict(mod, newdata=data.frame(beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
+      alpha_val <- qnorm(quant3,pred_val$fit,sqrt(mod$sig2))
+      # generate a value for tmrel given alpha, beta and gamma
+      mod <- gam(log(tmrel)~ns(log(gamma),df=8)+ns(log(beta),df=8)+ns(log(alpha),df=8),data=dr_ap_age)
+      pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
+      tmrel_val <- qnorm(quant4,pred_val$fit,sqrt(mod$sig2))
+      dr_ap_list[[disease]][[as.character(age)]] <- data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val),tmrel=exp(tmrel_val))
+    }
+    if(AP_DOSE_RESPONSE_QUANTILE){ 
       # turn list inside out, so it's indexed first by sample
       parameters$DR_AP_LIST <- lapply(1:NSAMPLES,function(x)lapply(dr_ap_list,function(y) lapply(y,function(z)z[x,])))
+    }else{
+      DR_AP_LIST <<- dr_ap_list
+    }
+    
   }
   parameters
 }

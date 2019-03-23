@@ -141,7 +141,10 @@ ithim_load_data <- function(speeds=list(
   trip_set <- drop_na(trip_set)
   TRIP_SET <<- trip_set
   
-  if(MAX_MODE_SHARE_SCENARIO&&!exists('SCENARIO_PROPORTIONS')||exists('SCENARIO_PROPORTIONS')&&!isTRUE(all_equal(DIST_CAT,colnames(SCENARIO_PROPORTIONS)))){
+  if(MAX_MODE_SHARE_SCENARIO&&
+     (!exists('SCENARIO_PROPORTIONS')||
+      exists('SCENARIO_PROPORTIONS')&&!isTRUE(all_equal(DIST_CAT,colnames(SCENARIO_PROPORTIONS)))
+      )){
     SCENARIO_PROPORTIONS <<- get_scenario_settings(distances=DIST_CAT,speeds=speeds)
   }
     

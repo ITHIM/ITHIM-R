@@ -1,5 +1,5 @@
 #' @export
-PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = F){
+PA_dose_response <- function (cause, dose, confidence_intervals = F){
   
   if (sum(is.na(dose))>0 || class(dose)!= "numeric"){
     stop ('Please provide dose in numeric')
@@ -19,15 +19,15 @@ PA_dose_response <- function (cause, outcome_type, dose, confidence_intervals = 
          stroke \n
          total_cancer')
   }
-  if (!outcome_type %in% c('mortality', 'incidence','all')){
-    stop('Unsupported outcome_type. Please select from \n
-         mortality \n
-         incidence \n
-         all')
-  }
-  if (cause == 'all_cause' && outcome_type == 'incidence'){
-    stop('Incidence does not exist for all_cause')
-  }
+  # decide whether to use "all" or "mortality"
+  outcome_type <- ifelse(cause%in%c('lung_cancer','breast_cancer','endometrial_cancer','colon_cancer'), 'all' , 'mortality')
+  
+  # apply disease-specific thresholds
+  if(cause %in% c('total_cancer','coronary_heart_disease','breast_cancer','endometrial_cancer','colon_cancer')) dose[dose>35] <- 35
+  else if(cause == 'lung_cancer') dose[dose>10] <- 10
+  else if(cause == 'stroke') dose[dose>32] <- 32
+  else if(cause == 'all_cause') dose[dose>16.08] <- 16.08
+  
   fname <- paste(cause, outcome_type, sep = "_")
   lookup_table <- get(fname)
   lookup_df <- setDT(lookup_table)

@@ -38,8 +38,7 @@ gen_ap_rr <- function(pm_conc_pp){
       tmrel <- DR_AP_LIST[[cause]][[as.character(age)]]$tmrel
       # calculate AP and apply to all in age group
       for(x in 1: length(SCEN_SHORT_NAME)) 
-        pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]][i] <-
-        as.numeric(1 + alpha * (1 - exp(-beta * (pm_rr_pp[[pm_indices[x]]][i] - tmrel) ^ gamma )))
+        pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]][i] <- ap_dose_response_curve(pm_rr_pp[[pm_indices[x]]][i],alpha,beta,gamma,tmrel)
     }
     ## change the names of the columns as per the disease
     for (n in 1: length(SCEN_SHORT_NAME)){
@@ -48,4 +47,9 @@ gen_ap_rr <- function(pm_conc_pp){
     }
   }
   pm_rr_pp
+}
+
+#' @export
+ap_dose_response_curve <- function(pm,alpha,beta,gamma,tmrel){
+  as.numeric(1 + alpha * (1 - exp(-beta * (pm - tmrel) ^ gamma )))
 }
