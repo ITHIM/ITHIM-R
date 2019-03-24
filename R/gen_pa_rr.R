@@ -13,7 +13,7 @@ gen_pa_rr <- function(mmets_pp){
     ##RJ take segments of returned vector corresponding to scenario
     for (i in 1:length(SCEN_SHORT_NAME)){
       scen <- SCEN_SHORT_NAME[i]
-      mmets_pp[[paste('RR_pa', scen, pa_n, sep = '_')]] <- return_vector$rr[(1+(i-1)*nrow(doses)):(i*nrow(doses))]
+      mmets_pp[[paste('RR_pa', scen, pa_n, sep = '_')]] <- return_vector$rr[(1+(i-1)*nrow(mmets_pp)):(i*nrow(mmets_pp))]
     }
   }
   mmets_pp 
