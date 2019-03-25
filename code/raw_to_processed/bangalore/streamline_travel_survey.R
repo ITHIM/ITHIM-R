@@ -82,4 +82,4 @@ rd1 <- rd %>% dplyr::select(participant_id, age, sex, stage_id, stage_mode_int, 
 
 #####
 # Write streamlined travel survey data as a csv in the inst folder
-write_csv(rd, "inst/extdata/local/bangalore/bangalore_travel_survey.csv")
+write_csv(rd, "inst/extdata/local/bangalore/trips_bangalore.csv")

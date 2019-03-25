@@ -258,4 +258,4 @@ rd <- rd %>% select(participant_id, age, sex, hh_weights, stage_id, stage_mode_i
   
 #####
 # Write streamlined travel survey data as a csv in the inst folder
-write_csv(rd, "inst/extdata/local/delhi/delhi_travel_survey.csv")
+write_csv(rd, "inst/extdata/local/delhi/trips.csv")
