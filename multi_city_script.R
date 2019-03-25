@@ -19,7 +19,7 @@ emission_inventories = list(accra=NULL,
 
 #################################################
 ## without uncertainty
-toplot <- matrix(0,nrow=5,ncol=3) #5 scenarios, 3 cities
+toplot <- matrix(0,nrow=5,ncol=length(cities)) #5 scenarios, 3 cities
 for(city in cities){
   ithim_object <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),
                                   ADD_WALK_TO_BUS_TRIPS=F,
@@ -31,7 +31,7 @@ for(city in cities){
   #ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F)
   ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
   ##
-  
+  print(c(nrow(SYNTHETIC_POPULATION),length(unique(ithim_object$trip_scen_sets$participant_id))))
   ## plot results
   result_mat <- colSums(ithim_object$outcome$hb$ylls[,3:ncol(ithim_object$outcome$hb$ylls)])
   columns <- length(result_mat)
@@ -48,17 +48,18 @@ for(city in cities){
   layout.matrix <- matrix(1:10, nrow =2, ncol =5,byrow=T)
   graphics::layout(mat = layout.matrix,heights = c(2,3),widths = c(2.8,2,2,2,2))
   ylim <- c(-3,3)*1e-4
+  cols <- c('navyblue','hotpink','grey','darkorange')
 for(i in 3:nDiseases-1){
   par(mar = c(ifelse(i<7,1,7), ifelse(i%in%c(2,7),6,1), 4, 1))
   if(i<7) {
-    barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=c('navyblue','hotpink','grey'), #names.arg = '', 
+    barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, #names.arg = '', 
             main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
   }else{
     barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=c('navyblue','hotpink','grey'), names.arg = rownames(SCENARIO_PROPORTIONS), 
             main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
   }
   if(i%in%c(2,7)) {axis(2,cex.axis=1.5); mtext(side=2,'YLL per person',line=3)}
-  if(i==nDiseases-1) legend(legend=cities,fill=c('navyblue','hotpink','grey'),bty='n',y=-1e-5,x=5)
+  if(i==nDiseases-1) legend(legend=cities,fill=cols,bty='n',y=-1e-5,x=5)
 }}
 
 #################################################

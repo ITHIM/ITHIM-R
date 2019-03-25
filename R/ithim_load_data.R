@@ -138,7 +138,8 @@ ithim_load_data <- function(speeds=list(
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%mc_words] <- 'motorcycle'
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%subway_words] <- 'subway'
   }
-  trip_set <- drop_na(trip_set)
+  trip_set <- subset(trip_set,!is.na(age))
+  trip_set <- subset(trip_set,!is.na(sex))
   TRIP_SET <<- trip_set
   
   if(MAX_MODE_SHARE_SCENARIO&&
