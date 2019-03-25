@@ -1,5 +1,5 @@
 rm(list=ls())
-cities <- c('accra','sao_paulo','delhi')
+cities <- c('accra','sao_paulo','delhi','bangalore')
 speeds <- list(accra=NULL,
                sao_paulo=NULL,
                delhi=list(subway=32,
@@ -19,10 +19,12 @@ emission_inventories = list(accra=NULL,
 
 #################################################
 ## without uncertainty
+toplot <- matrix(0,nrow=5,ncol=3) #5 scenarios, 3 cities
 for(city in cities){
   ithim_object <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),
                                   ADD_WALK_TO_BUS_TRIPS=F,
                                   CITY=city,ADD_TRUCK_DRIVERS = F,
+                                  MAX_MODE_SHARE_SCENARIO = T,
                                   ADD_BUS_DRIVERS = F,
                                   emission_inventory = emission_inventories[[city]],
                                   speeds = speeds[[city]])
@@ -35,19 +37,30 @@ for(city in cities){
   columns <- length(result_mat)
   nDiseases <- columns/NSCEN
   ylim <- range(result_mat)
-  x11(width = 8, height = 8); par(mfrow = c(3, 4))
-  for(i in 1:nDiseases){
-    if(i<5) {
-      par(mar = c(1, 4, 4, 1))
-      barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = '', ylim = ylim, las = 2, 
-              main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
-    }else{
-      par(mar = c(5, 4, 4, 1))
-      barplot(result_mat[1:NSCEN + (i - 1) * NSCEN], names.arg = SCEN_SHORT_NAME[2:6], ylim = ylim, las = 2, 
-              main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])))
-    }
+  if(city==cities[1]){
+    disease_list <- list()
+    for(i in 1:nDiseases) disease_list[[i]] <- toplot
   }
+  for(i in 1:nDiseases)
+    disease_list[[i]][,which(cities==city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(DEMOGRAPHIC$population)
 }
+{x11(width = 8, height = 5); #par(mfrow = c(2, 5))
+  layout.matrix <- matrix(1:10, nrow =2, ncol =5,byrow=T)
+  graphics::layout(mat = layout.matrix,heights = c(2,3),widths = c(2.8,2,2,2,2))
+  ylim <- c(-3,3)*1e-4
+for(i in 3:nDiseases-1){
+  par(mar = c(ifelse(i<7,1,7), ifelse(i%in%c(2,7),6,1), 4, 1))
+  if(i<7) {
+    barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=c('navyblue','hotpink','grey'), #names.arg = '', 
+            main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
+  }else{
+    barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=c('navyblue','hotpink','grey'), names.arg = rownames(SCENARIO_PROPORTIONS), 
+            main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
+  }
+  if(i%in%c(2,7)) {axis(2,cex.axis=1.5); mtext(side=2,'YLL per person',line=3)}
+  if(i==nDiseases-1) legend(legend=cities,fill=c('navyblue','hotpink','grey'),bty='n',y=-1e-5,x=5)
+}}
+
 #################################################
 ## with uncertainty
 ## comparison across cities

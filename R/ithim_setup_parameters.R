@@ -120,7 +120,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
       lgamma <- log(dr_ap_age$gamma)
       gamma_val <- quantile(density(lgamma),quant1)
       beta_val <- c()
-      for(i in 1:NSAMPLES){
+      for(i in 1:ifelse(AP_DOSE_RESPONSE_QUANTILE,NSAMPLES,1)){
         den <- kde2d(lgamma,lbeta,n=c(1,100),h=0.2,lims=c(gamma_val[i],gamma_val[i],min(lbeta)-1,max(lbeta)+1))
         beta_val[i] <- approx(x=cumsum(den$z)/sum(den$z),y=den$y,xout=quant2[i])$y
       }

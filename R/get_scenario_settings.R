@@ -63,7 +63,7 @@ get_scenario_settings <- function(cities=c('accra','sao_paulo','delhi'),
     }
     
     ## assign distance categories
-    trip_set <- subset(trip_set,!duplicated(trip_id))
+    trip_set <- subset(trip_set,!duplicated(trip_id)&trip_mode!='other')
     trip_set$trip_distance_cat <- sapply(trip_set$trip_distance,function(x)last(distances[which(min_distances<=x)]))
     ## get distance profiles
     mode_proportions_by_distance[[city]] <- sapply(distances,function(y) sapply(modes,function(x)sum(trip_set$trip_mode==x&trip_set$trip_distance_cat==y)/sum(trip_set$trip_distance_cat==y)))
@@ -73,6 +73,8 @@ get_scenario_settings <- function(cities=c('accra','sao_paulo','delhi'),
   ## write as %
   mode_proportions_tab <- sapply(mode_proportions,function(x)x*100)
   mode_proportions_list <- lapply(mode_proportions_by_distance,function(x)x*100)
+  mode_proportions_tab <- t(sapply(1:length(modes),function(x)apply(sapply(mode_proportions_list,function(y)y[x,]),1,max)))
+  rownames(mode_proportions_tab) <- modes
   #{cat(  paste0('||',(paste0(colnames(mode_proportions_tab),collapse='|')),'|\n|---|---|---|---|\n'))
   #for(i in 1:nrow(mode_proportions_tab)) cat('|',rownames(mode_proportions_tab)[i],'|',paste0(sapply(mode_proportions_tab[i,],function(x)sprintf('%.1f',x)),collapse='|'),'|\n')
   #}
@@ -82,13 +84,13 @@ get_scenario_settings <- function(cities=c('accra','sao_paulo','delhi'),
   #  }
   #}
   ## find max mode share city for each mode
-  mode_cities <- max.col(mode_proportions_tab)
+  #mode_cities <- max.col(mode_proportions_tab)
   ## copy the right city's mode row into matrix to return
-  scenario_proportions <- mode_proportions_list[[1]]
-  for(i in 1:length(mode_cities)) {
-    scenario_proportions[i,] <- mode_proportions_list[[mode_cities[i]]][i,]
-    scenario_proportions[i,][is.na(scenario_proportions[i,])] <- 0
-  }
-  
+  #scenario_proportions <- mode_proportions_list[[1]]
+  #for(i in 1:length(mode_cities)) {
+  #  scenario_proportions[i,] <- mode_proportions_list[[mode_cities[i]]][i,]
+  #  scenario_proportions[i,][is.na(scenario_proportions[i,])] <- 0
+  #}
+  scenario_proportions <- mode_proportions_tab
   return(scenario_proportions)
 }
