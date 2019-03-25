@@ -28,6 +28,8 @@ PA_dose_response <- function (cause, dose, confidence_intervals = F){
   else if(cause == 'stroke') dose[dose>32] <- 32
   else if(cause == 'all_cause') dose[dose>16.08] <- 16.08
   
+  ## this function assumes the existence of a file with a name such as 'stroke_mortality.csv'
+  ## and column names 'dose', 'RR', 'lb' and 'ub'.
   fname <- paste(cause, outcome_type, sep = "_")
   lookup_table <- get(fname)
   lookup_df <- setDT(lookup_table)
@@ -50,8 +52,8 @@ PA_dose_response <- function (cause, dose, confidence_intervals = F){
         yright = min(lookup_df$ub)
       )$y
   }
+  ## we assume that the columns describe a normal distribution with standard deviation defined by the upper and lower bounds.
   if (PA_DOSE_RESPONSE_QUANTILE==T){
-    #rr <- truncnorm::qtruncnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), rr, sd=rr-lb,a=0, b=1)
     rr <- qnorm(get(paste0('PA_DOSE_RESPONSE_QUANTILE_',cause)), mean=rr, sd=(ub-lb)/1.96)
     rr[rr<0] <- 0
   }
