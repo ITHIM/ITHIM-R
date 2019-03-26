@@ -3,6 +3,8 @@ cities <- c('accra','sao_paulo','delhi','bangalore')
 speeds <- list(accra=NULL,
                sao_paulo=NULL,
                delhi=list(subway=32,
+                          bicycle=15),
+               bangalore=list(subway=32,
                           bicycle=15))
 emission_inventories = list(accra=NULL,
                             sao_paulo=NULL,
@@ -12,6 +14,15 @@ emission_inventories = list(accra=NULL,
                                        bus_driver=644,
                                        big_truck=4624,
                                        truck=3337,
+                                       van=0,
+                                       other=0,
+                                       taxi=0),
+                            bangalore=list(motorcycle=1757,
+                                       auto_rickshaw=220,
+                                       car=4173,
+                                       bus_driver=1255,
+                                       big_truck=4455,
+                                       truck=703,
                                        van=0,
                                        other=0,
                                        taxi=0))
@@ -74,27 +85,33 @@ setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO"
 # beta parameters for INJURY_REPORTING_RATE
 injury_report_rate <- list(accra=c(8,3),
                            sao_paulo=c(8,3),
-                           delhi=c(8,3))
+                           delhi=c(8,3),
+                           bangalore=c(8,3))
 # lnorm parameters for CHRONIC_DISEASE_SCALAR
 chronic_disease_scalar <- list(accra=c(0,log(1.2)),
                                sao_paulo=c(0,log(1.2)),
-                               delhi=c(0,log(1.2)))
+                               delhi=c(0,log(1.2)),
+                               bangalore=c(0,log(1.2)))
 # lnorm parameters for PM_CONC_BASE
 pm_concentration <- list(accra=c(50,log(1.2)),
                                sao_paulo=c(50,log(1.2)),
-                               delhi=c(50,log(1.2)))
+                         delhi=c(50,log(1.2)),
+                         bangalore=c(50,log(1.2)))
 # beta parameters for PM_TRANS_SHARE
 pm_trans_share <- list(accra=c(8,3),
                            sao_paulo=c(8,3),
-                           delhi=c(8,3))
+                       delhi=c(8,3),
+                       bangalore=c(8,3))
 # lnorm parameters for BACKGROUND_PA_SCALAR
 background_pa_scalar <- list(accra=c(0,log(1.2)),
                                sao_paulo=c(0,log(1.2)),
-                               delhi=c(0,log(1.2)))
+                             delhi=c(0,log(1.2)),
+                             bangalore=c(0,log(1.2)))
 # lnorm parameters for BUS_WALK_TIME
 bus_walk_time <- list(accra=c(5,log(1.2)),
                       sao_paulo=c(5,log(1.2)),
-                      delhi=c(5,log(1.2)))
+                      delhi=c(5,log(1.2)),
+                      bangalore=c(5,log(1.2)))
 # lnorm parameters for MMET_CYCLING
 mmet_cycling <- c(5,log(1.2))
 # lnorm parameters for MMET_WALKING
@@ -102,7 +119,8 @@ mmet_walking <- c(2,log(1.2))
 # lnorm parameters for MOTORCYCLE_TO_CAR_RATIO
 mc_car_ratio <- list(accra=c(-1.4,0.4),
                        sao_paulo=c(-1.4,0.4),
-                       delhi=c(-1.4,0.4))
+                     delhi=c(-1.4,0.4),
+                     bangalore=c(-1.4,0.4))
 # beta parameters for DAY_TO_WEEK_TRAVEL_SCALAR
 day_to_week_scalar <- c(20,3)
 # lnorm parameters for INJURY_LINEARITY
@@ -110,17 +128,18 @@ injury_linearity <- c(log(1),log(1.2))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
 cas_exponent <- c(8,8)
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
-pa_dr_quantile <- c(T,F,F)
+pa_dr_quantile <- c(T,F,F,F)
 # logical for AP dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
-ap_dr_quantile <- c(T,F,F)
+ap_dr_quantile <- c(T,F,F,F)
 # logical for walk scenario
-test_walk_scenario <- c(F,F,F)
+test_walk_scenario <- F
 # logical for cycle scenario
-test_cycle_scenario <- c(F,F,F)
+test_cycle_scenario <- F
 # if walk scenario, choose Baseline as reference scenario
 ref_scenarios <- list(accra='Baseline',
                       sao_paulo='Baseline',
-                      delhi='Baseline')
+                      delhi='Baseline',
+                      bangalore='Baseline')
 
 
 multi_city_ithim <- outcome <- outcome_pp <- list()
@@ -132,9 +151,10 @@ for(ci in 1:length(cities)){
                                             seed=ci,
                                             
                                             DIST_CAT = c('0-1 km','2-5 km','6+ km'),
-                                            TEST_WALK_SCENARIO = test_walk_scenario[ci],
-                                            TEST_CYCLE_SCENARIO = test_cycle_scenario[ci],
+                                            TEST_WALK_SCENARIO = test_walk_scenario,
+                                            TEST_CYCLE_SCENARIO = test_cycle_scenario,
                                             REFERENCE_SCENARIO=ref_scenarios[[city]],
+                                            MAX_MODE_SHARE_SCENARIO=T,
                                             
                                             speeds = speeds[[city]],
                                             emission_inventory = emission_inventories[[city]],
@@ -167,9 +187,9 @@ for(ci in 1:length(cities)){
   
   if(Sys.info()[['sysname']] == "Windows"){
     multi_city_ithim[[ci]]$outcomes <- list()
-    for(i in 1:nsamples) multi_city_ithim[[ci]]$outcomes[[i]] <- ithim_uncertainty(ithim_object = multi_city_ithim[[ci]])
+    for(i in 1:nsamples) multi_city_ithim[[ci]]$outcomes[[i]] <- run_ithim(ithim_object = multi_city_ithim[[ci]])
   }else{
-    multi_city_ithim[[ci]]$outcomes <- mclapply(1:nsamples, FUN = ithim_uncertainty, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
+    multi_city_ithim[[ci]]$outcomes <- mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
   }
   
   ## rename city-specific parameters according to city

@@ -113,6 +113,7 @@ run_ithim_setup <- function(seed=1,
     rail=35,
     auto_rickshaw=22,
     shared_auto=22,
+    shared_taxi=21,
     cycle_rickshaw=10
   )
   if(!is.null(speeds)){
