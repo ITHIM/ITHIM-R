@@ -9,4 +9,4 @@ Diabetes mellitus type 2,t2d,0,1,,diabetes
 Lower respiratory infections,lri,1,0,lri, 
 Breast cancer,breast,0,1,,breast_cancer
 Colon and rectum cancer,colon,0,1,,colon_cancer
-Endometrial cancer,endo,0,1,,endometrial_cancer
+Uterine cancer,endo,0,1,,endometrial_cancer

@@ -887,6 +887,24 @@
 "YLLs (Years of Life Lost)","India","Male","95 to 99","Breast cancer",5.21716445418681,40262.7355699163
 "YLLs (Years of Life Lost)","India","Female","95 to 99","Breast cancer",218.699975390813,62274.2433938193
 "YLLs (Years of Life Lost)","India","Female","95 to 99","Breast cancer",218.699975390813,62274.2433938193
+"YLLs (Years of Life Lost)","India","Female","15 to 19","Uterine cancer",343.416664943196,64841285.7742489
+"YLLs (Years of Life Lost)","India","Female","20 to 24","Uterine cancer",842.680472939132,61099269.8902506
+"YLLs (Years of Life Lost)","India","Female","25 to 29","Uterine cancer",1911.97791125928,56997480.9547759
+"YLLs (Years of Life Lost)","India","Female","30 to 34","Uterine cancer",3746.7263937124,53585006.887282
+"YLLs (Years of Life Lost)","India","Female","35 to 39","Uterine cancer",5294.014785548,47473016.2042255
+"YLLs (Years of Life Lost)","India","Female","40 to 44","Uterine cancer",9544.35695190287,41406546.0890357
+"YLLs (Years of Life Lost)","India","Female","45 to 49","Uterine cancer",13524.1013888862,35858013.4553549
+"YLLs (Years of Life Lost)","India","Female","50 to 54","Uterine cancer",25829.0999814166,29747272.9987421
+"YLLs (Years of Life Lost)","India","Female","55 to 59","Uterine cancer",30992.4116556092,25155505.3676665
+"YLLs (Years of Life Lost)","India","Female","60 to 64","Uterine cancer",36402.3365941544,21851538.0174424
+"YLLs (Years of Life Lost)","India","Female","65 to 69","Uterine cancer",32113.5874781378,17462919.38213
+"YLLs (Years of Life Lost)","India","Female","70 to 74","Uterine cancer",23007.183791664,12062083.1337276
+"YLLs (Years of Life Lost)","India","Female","75 to 79","Uterine cancer",11205.2748844985,8442498.29394724
+"YLLs (Years of Life Lost)","India","Female","80 to 84","Uterine cancer",7031.26333007224,4810490.93156382
+"YLLs (Years of Life Lost)","India","Female","85 to 89","Uterine cancer",1582.19923133784,1749599.88816778
+"YLLs (Years of Life Lost)","India","Female","90 to 94","Uterine cancer",194.412365068443,422375.886512471
+"YLLs (Years of Life Lost)","India","Female","95 to 99","Uterine cancer",12.8088708872431,62274.2433938193
+"YLLs (Years of Life Lost)","India","Female","95 to 99","Uterine cancer",12.8088708872431,62274.2433938193
 "YLLs (Years of Life Lost)","India","Male","15 to 19","Colon and rectum cancer",3894.64854096477,70865800.8754776
 "YLLs (Years of Life Lost)","India","Female","15 to 19","Colon and rectum cancer",2358.29059856306,64841285.7742489
 "YLLs (Years of Life Lost)","India","Male","20 to 24","Colon and rectum cancer",5691.66363870064,65287648.7169778
@@ -1115,6 +1133,24 @@
 "Deaths","India","Male","95 to 99","Breast cancer",1.66823322627376,40262.7355699163
 "Deaths","India","Female","95 to 99","Breast cancer",70.3306656875603,62274.2433938193
 "Deaths","India","Female","95 to 99","Breast cancer",70.3306656875603,62274.2433938193
+"Deaths","India","Female","15 to 19","Uterine cancer",4.87632699677737,64841285.7742489
+"Deaths","India","Female","20 to 24","Uterine cancer",12.8531530734796,61099269.8902506
+"Deaths","India","Female","25 to 29","Uterine cancer",31.5377868967097,56997480.9547759
+"Deaths","India","Female","30 to 34","Uterine cancer",67.2848878372316,53585006.887282
+"Deaths","India","Female","35 to 39","Uterine cancer",104.561442246651,47473016.2042255
+"Deaths","India","Female","40 to 44","Uterine cancer",208.151236578439,41406546.0890357
+"Deaths","India","Female","45 to 49","Uterine cancer",331.093508183862,35858013.4553549
+"Deaths","India","Female","50 to 54","Uterine cancer",713.746211866584,29747272.9987421
+"Deaths","India","Female","55 to 59","Uterine cancer",982.606772064057,25155505.3676665
+"Deaths","India","Female","60 to 64","Uterine cancer",1352.39579736479,21851538.0174424
+"Deaths","India","Female","65 to 69","Uterine cancer",1435.09491654526,17462919.38213
+"Deaths","India","Female","70 to 74","Uterine cancer",1267.38862850073,12062083.1337276
+"Deaths","India","Female","75 to 79","Uterine cancer",796.152537125982,8442498.29394724
+"Deaths","India","Female","80 to 84","Uterine cancer",671.651362020913,4810490.93156382
+"Deaths","India","Female","85 to 89","Uterine cancer",210.049327647921,1749599.88816778
+"Deaths","India","Female","90 to 94","Uterine cancer",37.7556096460899,422375.886512471
+"Deaths","India","Female","95 to 99","Uterine cancer",4.12484616517756,62274.2433938193
+"Deaths","India","Female","95 to 99","Uterine cancer",4.12484616517756,62274.2433938193
 "Deaths","India","Male","15 to 19","Colon and rectum cancer",55.393317103488,70865800.8754776
 "Deaths","India","Female","15 to 19","Colon and rectum cancer",33.4959178621712,64841285.7742489
 "Deaths","India","Male","20 to 24","Colon and rectum cancer",86.8697283798672,65287648.7169778

@@ -189,6 +189,24 @@
 "Deaths","São Paulo","Male","95 to 99","Breast cancer",0.325175952476896,5891.3002745109
 "Deaths","São Paulo","Female","95 to 99","Breast cancer",43.0310475456586,15731.0706701602
 "Deaths","São Paulo","Female","95 to 99","Breast cancer",43.0310475456586,15731.0706701602
+"Deaths","São Paulo","Female","15 to 19","Uterine cancer",0.256863285449651,1634759.60802005
+"Deaths","São Paulo","Female","20 to 24","Uterine cancer",0.582215758301832,1729892.62176701
+"Deaths","São Paulo","Female","25 to 29","Uterine cancer",1.97251353605023,1804228.22552473
+"Deaths","São Paulo","Female","30 to 34","Uterine cancer",2.16002453269149,1929566.67221472
+"Deaths","São Paulo","Female","35 to 39","Uterine cancer",5.03373796110329,1929743.70542923
+"Deaths","São Paulo","Female","40 to 44","Uterine cancer",9.74656809107083,1724668.45765529
+"Deaths","São Paulo","Female","45 to 49","Uterine cancer",21.9496274697526,1559807.59965781
+"Deaths","São Paulo","Female","50 to 54","Uterine cancer",38.789355327144,1489216.4387145
+"Deaths","São Paulo","Female","55 to 59","Uterine cancer",65.1607166320286,1324935.37038828
+"Deaths","São Paulo","Female","60 to 64","Uterine cancer",98.7190087070726,1116622.23828263
+"Deaths","São Paulo","Female","65 to 69","Uterine cancer",108.654548106095,866131.523850021
+"Deaths","São Paulo","Female","70 to 74","Uterine cancer",101.399096053705,629656.691690606
+"Deaths","São Paulo","Female","75 to 79","Uterine cancer",88.0313547845766,449135.433611111
+"Deaths","São Paulo","Female","80 to 84","Uterine cancer",68.264532202335,299232.017721493
+"Deaths","São Paulo","Female","85 to 89","Uterine cancer",47.1439255751124,169068.325772878
+"Deaths","São Paulo","Female","90 to 94","Uterine cancer",20.0954586134912,65455.9132386818
+"Deaths","São Paulo","Female","95 to 99","Uterine cancer",5.08024892995399,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Uterine cancer",5.08024892995399,15731.0706701602
 "Deaths","São Paulo","Male","15 to 19","Colon and rectum cancer",2.54195205258964,1679422.51172377
 "Deaths","São Paulo","Female","15 to 19","Colon and rectum cancer",1.84085820210439,1634759.60802005
 "Deaths","São Paulo","Male","20 to 24","Colon and rectum cancer",5.84567821496286,1775806.86064904
@@ -807,6 +825,24 @@
 "YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Breast cancer",0.950489959441871,5891.3002745109
 "YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Breast cancer",122.906805602098,15731.0706701602
 "YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Breast cancer",122.906805602098,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Uterine cancer",18.0962324270447,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Uterine cancer",38.1668693319708,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Uterine cancer",119.540494252012,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Uterine cancer",120.078316921318,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Uterine cancer",254.9745833297,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Uterine cancer",446.258783766656,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Uterine cancer",898.757809184557,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Uterine cancer",1403.48002306741,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Uterine cancer",2053.14022366184,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Uterine cancer",2654.32324037182,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Uterine cancer",2434.31540166033,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Uterine cancer",1833.38722003473,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Uterine cancer",1234.91370442978,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Uterine cancer",710.789423359727,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Uterine cancer",350.087821253472,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Uterine cancer",101.544466416217,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Uterine cancer",14.5103873425716,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Uterine cancer",14.5103873425716,15731.0706701602
 "YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Colon and rectum cancer",178.880948365388,1679422.51172377
 "YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Colon and rectum cancer",129.689993773137,1634759.60802005
 "YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Colon and rectum cancer",383.500089904517,1775806.86064904
