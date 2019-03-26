@@ -1,5 +1,16 @@
 #' @export
 run_ithim <- function(ithim_object,seed=1){ 
+  if(length(ithim_object$parameters)>0){
+    ithim_object <- ithim_uncertainty(ithim_object,seed)
+  }else{
+    ithim_object <- ithim_calculation_sequence(ithim_object,seed)
+  }
+  return(ithim_object)
+  
+}
+
+#' @export
+ithim_calculation_sequence <- function(ithim_object,seed=1){ 
   ############################
   ## (0) SET UP
   set.seed(seed)

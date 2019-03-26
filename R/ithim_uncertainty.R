@@ -18,7 +18,7 @@ ithim_uncertainty <- function(ithim_object,seed=1){
   })
   ############################
   # Run ITHIM cascade of functions
-  (run_results <- run_ithim(ithim_object,seed))
+  (run_results <- ithim_calculation_sequence(ithim_object,seed))
   run_results$dist <- ithim_object$dist
   run_results$dur <- ithim_object$dur
   #return(run_results)
