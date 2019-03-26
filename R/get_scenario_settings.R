@@ -78,11 +78,11 @@ get_scenario_settings <- function(cities=c('accra','sao_paulo','delhi','bangalor
   #{cat(  paste0('||',(paste0(colnames(mode_proportions_tab),collapse='|')),'|\n|---|---|---|---|\n'))
   #for(i in 1:nrow(mode_proportions_tab)) cat('|',rownames(mode_proportions_tab)[i],'|',paste0(sapply(mode_proportions_tab[i,],function(x)sprintf('%.1f',x)),collapse='|'),'|\n')
   #}
-  #for(j in 1:length(mode_proportions_list)){
-  #  {cat(  paste0('|',names(mode_proportions_list)[j],'|',(paste0(colnames(mode_proportions_list[[j]]),collapse='|')),'|\n|---|---|---|---|\n'))
-  #    for(i in 1:nrow(mode_proportions_list[[j]])) cat('|',rownames(mode_proportions_list[[j]])[i],'|',paste0(sapply(mode_proportions_list[[j]][i,],function(x)sprintf('%.1f',x)),collapse='|'),'|\n')
-  #  }
-  #}
+  for(j in 1:length(mode_proportions_list)){
+    {cat(  paste0('|',names(mode_proportions_list)[j],'|',(paste0(colnames(mode_proportions_list[[j]]),collapse='|')),'|\n|---|---|---|---|\n'))
+      for(i in 1:nrow(mode_proportions_list[[j]])) cat('|',rownames(mode_proportions_list[[j]])[i],'|',paste0(sapply(mode_proportions_list[[j]][i,],function(x)sprintf('%.1f',x)),collapse='|'),'|\n')
+    }
+  }
   ## find max mode share city for each mode
   #mode_cities <- max.col(mode_proportions_tab)
   ## copy the right city's mode row into matrix to return
