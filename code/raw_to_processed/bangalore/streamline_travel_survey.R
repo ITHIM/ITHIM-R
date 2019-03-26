@@ -8,9 +8,15 @@ library(plotly)
 # Read bangalore travel survey with stages
 raw_data <- read.csv("data/local/bangalore/bangalore_travel_survey_2011_March_14.csv", stringsAsFactors = F)
 
+# Convert person_id to numeric
+raw_data$person_id <- as.numeric(as.factor(raw_data$person_id))
+
 #####
 ## Remove duplicate rows
 raw_data <- raw_data[!duplicated(raw_data), ]
+
+# Create uniqueid
+raw_data$uniqueid <- paste0(raw_data$trip_id, "_", raw_data$stage)
 
 ## Remove duplicated rows
 raw_data <- raw_data[(!duplicated(raw_data$uniqueid )) | (raw_data$uniqueid == "NA_NA"),]
@@ -34,6 +40,8 @@ rd <- rbind(rd_pwt, rd_pwot)
 #####
 #Convert trip id to numeric
 rd$trip_id <- as.numeric(as.factor(rd$trip_id))
+
+
 
 #####
 ## Assign a new trip id to people without trips
@@ -61,9 +69,9 @@ rd$X <- NULL
 rd <- rename(rd, participant_id = person_id)
 
 # Introduce sex column - and remove female column
-rd$sex <- "Female"
-rd$sex[rd$male == 1] <- "Male"
-rd$male <- NULL
+rd$sex <- "Male"
+rd$sex[rd$female == 1] <- "Female"
+rd$female <- NULL
 
 # Calculate total distance by summing all stages' distance
 rd$total_distance <- ave(rd$distance, rd$trip_id, FUN=sum)
@@ -71,7 +79,7 @@ rd$total_distance <- ave(rd$distance, rd$trip_id, FUN=sum)
 #####
 ## Rename columns
 
-rd <- rd %>% rename(stage_mode_int = mode, stage_id = stage_nr, stage_mode = mode_name, stage_distance = distance, 
+rd <- rd %>% rename(stage_mode_int = mode, stage_id = stage, stage_mode = mode_name, stage_distance = distance, 
                     stage_duration = duration, trip_mode_int = main_mode,
                     trip_mode = main_mode_name, trip_distance = total_distance)
 
