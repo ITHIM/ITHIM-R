@@ -419,6 +419,24 @@
 "YLLs (Years of Life Lost)","Ghana","Male","95 to 99","Breast cancer",0.085310079284115,515.949870064526
 "YLLs (Years of Life Lost)","Ghana","Female","95 to 99","Breast cancer",5.62789789536242,1062.88339436528
 "YLLs (Years of Life Lost)","Ghana","Female","95 to 99","Breast cancer",5.62789789536242,1062.88339436528
+"YLLs (Years of Life Lost)","Ghana","Female","15 to 19","Uterine cancer",27.6202301634448,1588873.58851158
+"YLLs (Years of Life Lost)","Ghana","Female","20 to 24","Uterine cancer",49.3766219266397,1537048.77031737
+"YLLs (Years of Life Lost)","Ghana","Female","25 to 29","Uterine cancer",171.527668804938,1412001.51123438
+"YLLs (Years of Life Lost)","Ghana","Female","30 to 34","Uterine cancer",229.073357438419,1213636.54629809
+"YLLs (Years of Life Lost)","Ghana","Female","35 to 39","Uterine cancer",243.361072838366,1005605.88105195
+"YLLs (Years of Life Lost)","Ghana","Female","40 to 44","Uterine cancer",629.682376616342,811524.080376765
+"YLLs (Years of Life Lost)","Ghana","Female","45 to 49","Uterine cancer",552.887754431094,650390.660606801
+"YLLs (Years of Life Lost)","Ghana","Female","50 to 54","Uterine cancer",1016.67288312544,514639.873333415
+"YLLs (Years of Life Lost)","Ghana","Female","55 to 59","Uterine cancer",1399.93301962864,408856.737171883
+"YLLs (Years of Life Lost)","Ghana","Female","60 to 64","Uterine cancer",1850.72261972195,326027.759772289
+"YLLs (Years of Life Lost)","Ghana","Female","65 to 69","Uterine cancer",1507.17012762853,235195.553833841
+"YLLs (Years of Life Lost)","Ghana","Female","70 to 74","Uterine cancer",608.821460866202,163987.633900454
+"YLLs (Years of Life Lost)","Ghana","Female","75 to 79","Uterine cancer",568.567939731587,109163.733305714
+"YLLs (Years of Life Lost)","Ghana","Female","80 to 84","Uterine cancer",133.699122253022,60578.67125533
+"YLLs (Years of Life Lost)","Ghana","Female","85 to 89","Uterine cancer",35.1170317827635,24232.1034941685
+"YLLs (Years of Life Lost)","Ghana","Female","90 to 94","Uterine cancer",7.67618729339208,6263.72410358765
+"YLLs (Years of Life Lost)","Ghana","Female","95 to 99","Uterine cancer",1.09287958926331,1062.88339436528
+"YLLs (Years of Life Lost)","Ghana","Female","95 to 99","Uterine cancer",1.09287958926331,1062.88339436528
 "YLLs (Years of Life Lost)","Ghana","Male","15 to 19","Colon and rectum cancer",156.719034852486,1592627.71518875
 "YLLs (Years of Life Lost)","Ghana","Female","15 to 19","Colon and rectum cancer",55.2266346143694,1588873.58851158
 "YLLs (Years of Life Lost)","Ghana","Male","20 to 24","Colon and rectum cancer",557.150084754549,1412338.7340382
@@ -619,6 +637,24 @@
 "Deaths","Ghana","Male","95 to 99","Breast cancer",0.0274019735647214,515.949870064526
 "Deaths","Ghana","Female","95 to 99","Breast cancer",1.85137946074418,1062.88339436528
 "Deaths","Ghana","Female","95 to 99","Breast cancer",1.85137946074418,1062.88339436528
+"Deaths","Ghana","Female","15 to 19","Uterine cancer",0.391994541350406,1588873.58851158
+"Deaths","Ghana","Female","20 to 24","Uterine cancer",0.753784199483807,1537048.77031737
+"Deaths","Ghana","Female","25 to 29","Uterine cancer",2.83404715521588,1412001.51123438
+"Deaths","Ghana","Female","30 to 34","Uterine cancer",4.12067794202358,1213636.54629809
+"Deaths","Ghana","Female","35 to 39","Uterine cancer",4.79888902025236,1005605.88105195
+"Deaths","Ghana","Female","40 to 44","Uterine cancer",13.7351143765769,811524.080376765
+"Deaths","Ghana","Female","45 to 49","Uterine cancer",13.4869379182204,650390.660606801
+"Deaths","Ghana","Female","50 to 54","Uterine cancer",28.040248831658,514639.873333415
+"Deaths","Ghana","Female","55 to 59","Uterine cancer",44.3903658540023,408856.737171883
+"Deaths","Ghana","Female","60 to 64","Uterine cancer",68.7847908536765,326027.759772289
+"Deaths","Ghana","Female","65 to 69","Uterine cancer",67.2188842973152,235195.553833841
+"Deaths","Ghana","Female","70 to 74","Uterine cancer",33.5778744204299,163987.633900454
+"Deaths","Ghana","Female","75 to 79","Uterine cancer",40.3281088534188,109163.733305714
+"Deaths","Ghana","Female","80 to 84","Uterine cancer",12.7406429514786,60578.67125533
+"Deaths","Ghana","Female","85 to 89","Uterine cancer",4.67760047621298,24232.1034941685
+"Deaths","Ghana","Female","90 to 94","Uterine cancer",1.49604319159815,6263.72410358765
+"Deaths","Ghana","Female","95 to 99","Uterine cancer",0.359518751449973,1062.88339436528
+"Deaths","Ghana","Female","95 to 99","Uterine cancer",0.359518751449973,1062.88339436528
 "Deaths","Ghana","Male","15 to 19","Colon and rectum cancer",2.22639706391774,1592627.71518875
 "Deaths","Ghana","Female","15 to 19","Colon and rectum cancer",0.783792864066642,1588873.58851158
 "Deaths","Ghana","Male","20 to 24","Colon and rectum cancer",8.49903502071045,1412338.7340382

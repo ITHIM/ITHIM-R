@@ -55,7 +55,7 @@ for(i in 3:nDiseases-1){
     barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, #names.arg = '', 
             main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
   }else{
-    barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=c('navyblue','hotpink','grey'), names.arg = rownames(SCENARIO_PROPORTIONS), 
+    barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, names.arg = rownames(SCENARIO_PROPORTIONS), 
             main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
   }
   if(i%in%c(2,7)) {axis(2,cex.axis=1.5); mtext(side=2,'YLL per person',line=3)}
