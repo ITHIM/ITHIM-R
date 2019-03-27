@@ -1,8 +1,7 @@
 #' @export
-run_ithim_setup <- function(seed=1,
+run_ithim_setup <- function(seed = 1,
                             CITY = 'accra',
                             speeds = NULL,
-                            #car_ratios = NULL,
                             emission_inventory = NULL,
                             setup_call_summary_filename = 'setup_call_summary.txt',
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
@@ -37,20 +36,20 @@ run_ithim_setup <- function(seed=1,
   # CITY = string. used to identify input files.
   
   # speeds = named list of doubles. average mode speeds.
-  # car_ratios = named list of doubles. distances travelled by modes relative to car, for imputation if they are missing from trip set.
   # emission_inventory = named list of doubles. vehicle emission factors.
+  # setup_call_summary_filename = string. Where to write input call summary.
   # DIST_CAT = vector of strings. defines distance categories for scenario generation (5 accra scenarios)
   
   # ADD_WALK_TO_BUS_TRIPS = logic. T: adds walk trips to all bus trips whose duration exceeds BUS_WALK_TIME. F: no trips added
   # ADD_BUS_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
   # ADD_TRUCK_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
+  
   # TEST_WALK_SCENARIO = logic. T: run `scenario 0', one simple scenario where everyone takes one (extra) ten-minute walk trip. F: 5 Accra scenarios.
+  # TEST_CYCLE_SCENARIO = logic. F: 5 Accra scenarios.
+  # MAX_MODE_SHARE_SCENARIO = logic. T: run scenarios where we take the maximum mode share across cities and distance categories. F: 5 Accra scenarios.
   
   # REFERENCE_SCENARIO = string: at present, one of 'Baseline' or 'Scenario N' where N is an integer
   # PATH_TO_LOCAL_DATA = string: path to input files, if not one of the default case studies 
-  
-  # #population = integer, but this information should be covered in GBD
-  # #survey_coverage = double, for when we have travel surveys covering different durations?
   
   # NSAMPLES = integer: number of samples to take for each parameter to be sampled
   
@@ -68,6 +67,8 @@ run_ithim_setup <- function(seed=1,
   # CHRONIC_DISEASE_SCALAR = parameter. double: sets scalar for chronic disease background burden. vector: samples from distribution.
   
   # MOTORCYCLE_TO_CAR_RATIO = parameter. double: sets motorcycle distance relative to car. vector: samples from distribution.
+  # BUS_TO_PASSENGER_RATIO = constant.
+  # TRUCK_TO_CAR_RATIO = constant.
   
   #################################################
   set.seed(seed)
@@ -145,7 +146,7 @@ run_ithim_setup <- function(seed=1,
   )
   if(!is.null(emission_inventory)){
     for(m in names(emission_inventory))
-      if(grepl('bus',m,ignore.case=T)){
+      if(grepl('bus$',m,ignore.case=T)&&!paste0(m,'_driver')%in%names(emission_inventory)){
         default_emission_inventory[[paste0(m,'_driver')]] <- emission_inventory[[m]]
       }else{
         default_emission_inventory[[m]] <- emission_inventory[[m]]

@@ -7,7 +7,14 @@ speeds <- list(accra=NULL,
                bangalore=list(subway=32,
                           bicycle=15))
 emission_inventories = list(accra=NULL,
-                            sao_paulo=NULL,
+                            sao_paulo=list(motorcycle=4,
+                                           car=4,
+                                           bus_driver=32,
+                                           big_truck=56,
+                                           truck=4,
+                                           van=0,
+                                           other=0,
+                                           taxi=0),
                             delhi=list(motorcycle=1409,
                                        auto_rickshaw=133,
                                        car=2214,
@@ -27,6 +34,51 @@ emission_inventories = list(accra=NULL,
                                        other=0,
                                        taxi=0))
 
+# beta parameters for INJURY_REPORTING_RATE
+injury_report_rate <- list(accra=1,
+                           sao_paulo=1,
+                           delhi=1,
+                           bangalore=1)
+# lnorm parameters for CHRONIC_DISEASE_SCALAR
+chronic_disease_scalar <- list(accra=1,
+                               sao_paulo=1,
+                               delhi=1,
+                               bangalore=1)
+# lnorm parameters for PM_CONC_BASE
+pm_concentration <- list(accra=50,
+                         sao_paulo=18,
+                         delhi=122,
+                         bangalore=63)
+# beta parameters for PM_TRANS_SHARE
+pm_trans_share <- list(accra=0.225,
+                       sao_paulo=0.4,
+                       delhi=0.225,
+                       bangalore=0.225)
+# lnorm parameters for BACKGROUND_PA_SCALAR
+background_pa_scalar <- list(accra=1,
+                             sao_paulo=1,
+                             delhi=1,
+                             bangalore=1)
+# lnorm parameters for BUS_WALK_TIME
+bus_walk_time <- list(accra=5,
+                      sao_paulo=5,
+                      delhi=5,
+                      bangalore=5)
+# lnorm parameters for MMET_CYCLING
+mmet_cycling <- 4.63
+# lnorm parameters for MMET_WALKING
+mmet_walking <- 2.53
+# lnorm parameters for MOTORCYCLE_TO_CAR_RATIO
+mc_car_ratio <- list(accra=0.2,
+                     sao_paulo=0,
+                     delhi=0,
+                     bangalore=0)
+# beta parameters for DAY_TO_WEEK_TRAVEL_SCALAR
+day_to_week_scalar <- 7
+# lnorm parameters for INJURY_LINEARITY
+injury_linearity <- 1
+# beta parameters for CASUALTY_EXPONENT_FRACTION
+cas_exponent <- 0.5
 
 #################################################
 ## without uncertainty
@@ -38,7 +90,24 @@ for(city in cities){
                                   MAX_MODE_SHARE_SCENARIO = T,
                                   ADD_BUS_DRIVERS = F,
                                   emission_inventory = emission_inventories[[city]],
-                                  speeds = speeds[[city]])
+                                  speeds = speeds[[city]],
+                                  
+                                  MMET_CYCLING = mmet_cycling, 
+                                  MMET_WALKING = mmet_walking, 
+                                  DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
+                                  INJURY_LINEARITY= injury_linearity,
+                                  CASUALTY_EXPONENT_FRACTION = cas_exponent,
+                                  
+                                  PA_DOSE_RESPONSE_QUANTILE = F,  
+                                  AP_DOSE_RESPONSE_QUANTILE = F,
+                                  
+                                  INJURY_REPORTING_RATE = injury_report_rate[[city]],  
+                                  CHRONIC_DISEASE_SCALAR = chronic_disease_scalar[[city]],  
+                                  PM_CONC_BASE = pm_concentration[[city]],  
+                                  PM_TRANS_SHARE = pm_trans_share[[city]],  
+                                  BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
+                                  BUS_WALK_TIME = bus_walk_time[[city]],
+                                  MOTORCYCLE_TO_CAR_RATIO = mc_car_ratio[[city]])
   #ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F)
   ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
   ##
@@ -58,11 +127,11 @@ for(city in cities){
 }
 {x11(width = 10, height = 5); #par(mfrow = c(2, 5))
   layout.matrix <- matrix(c(2:6,1,7:12), nrow =2, ncol =6,byrow=T)
-  graphics::layout(mat = layout.matrix,heights = c(2,3),widths = c(2.8,2,2,2,2,2.8))
+  graphics::layout(mat = layout.matrix,heights = c(2,3),widths = c(2.8,2,2,2,2,2.5))
   cols <- c('navyblue','hotpink','grey','darkorange')
 for(i in 1:nDiseases){
   ylim <- if(i==12) c(-0.5,0.05)*1 else if(i==1) c(-1.5,2)*1e-3 else c(-1.3,0.3)*1e-3
-  par(mar = c(ifelse(i<7,1,7), ifelse(i%in%c(2,1,7,12),6,1), 4, 1))
+  par(mar = c(ifelse(i<7,1,7), ifelse(i%in%c(2,7),6,ifelse(i%in%c(1,12),3,1)), 4, 1))
   if(i<7) {
     barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, #names.arg = '', 
             main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
@@ -70,7 +139,7 @@ for(i in 1:nDiseases){
     barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, names.arg = rownames(SCENARIO_PROPORTIONS), 
             main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
   }
-  if(i%in%c(2,1,7,12)) {axis(2,cex.axis=1.5); mtext(side=2,'YLL per person',line=3)}
+  if(i%in%c(2,1,7,12)) {axis(2,cex.axis=1.5); if(i%in%c(2,7)) mtext(side=2,'YLL per person',line=3)}
   if(i==nDiseases-1) legend(legend=cities,fill=cols,bty='n',y=-1e-5,x=5)
 }}
 
@@ -95,12 +164,12 @@ chronic_disease_scalar <- list(accra=c(0,log(1.2)),
                                bangalore=c(0,log(1.2)))
 # lnorm parameters for PM_CONC_BASE
 pm_concentration <- list(accra=c(log(50),log(1.3)),
-                               sao_paulo=c(log(18),log(1.2)),
+                               sao_paulo=c(3,0.3),
                          delhi=c(log(122),log(1.3)),
                          bangalore=c(log(63),log(1.3)))
 # beta parameters for PM_TRANS_SHARE
 pm_trans_share <- list(accra=c(8,3),
-                           sao_paulo=c(8,8),
+                           sao_paulo=c(2,3),
                        delhi=c(8,8),
                        bangalore=c(8,8))
 # lnorm parameters for BACKGROUND_PA_SCALAR
@@ -114,9 +183,9 @@ bus_walk_time <- list(accra=c(5,log(1.2)),
                       delhi=c(5,log(1.2)),
                       bangalore=c(5,log(1.2)))
 # lnorm parameters for MMET_CYCLING
-mmet_cycling <- c(5,log(1.2))
+mmet_cycling <- c(4.63,log(1.2))
 # lnorm parameters for MMET_WALKING
-mmet_walking <- c(2,log(1.2))
+mmet_walking <- c(2.53,log(1.2))
 # lnorm parameters for MOTORCYCLE_TO_CAR_RATIO
 mc_car_ratio <- list(accra=c(-1.4,0.4),
                        sao_paulo=c(-1.4,0.4),
