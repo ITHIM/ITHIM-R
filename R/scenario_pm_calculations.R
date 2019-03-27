@@ -35,9 +35,11 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   ##RJ question for RG: why is 'in car' twice better than 'away from road'?
   # averaging over windows open and windows closed
   in_vehicle_ratio <- (1-CLOSED_WINDOW_RATIO)*on_road_off_road_ratio + CLOSED_WINDOW_RATIO*CLOSED_WINDOW_PM_RATIO 
+  # subway ratio is a constant
+  subway_ratio <- rep(SUBWAY_PM_RATIO,length(conc_pm))
   # open vehicles experience the ``on_road_off_road_ratio'', and closed vehicles experience the ``in_vehicle_ratio''
-  ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio)
-  vent_rates$vehicle_ratio_index <- sapply(vent_rates$stage_mode,function(x) ifelse(x%in%c('walking','walk_to_bus','bicycle','motorcycle'),1,2))
+  ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio,subway_ratio)
+  vent_rates$vehicle_ratio_index <- sapply(vent_rates$stage_mode,function(x) ifelse(x%in%c('subway'),3,ifelse(x%in%c('walking','walk_to_bus','bicycle','motorcycle'),1,2)))
   
   trip_set <- left_join(trip_scen_sets,vent_rates,'stage_mode')
   # litres of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode

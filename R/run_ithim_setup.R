@@ -172,6 +172,7 @@ run_ithim_setup <- function(seed = 1,
   CLOSED_WINDOW_RATIO <<- 0.5
   ROAD_RATIO_MAX <<- 3.216
   ROAD_RATIO_SLOPE <<- 0.379
+  SUBWAY_PM_RATIO <<- 0.8
   
   ## LOAD DATA
   ithim_load_data(speeds=default_speeds)  
