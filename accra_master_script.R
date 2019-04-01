@@ -138,7 +138,8 @@ ithim_object <- run_ithim_setup(NSAMPLES = 64,
                                 AP_DOSE_RESPONSE_QUANTILE = F,
                                 DAY_TO_WEEK_TRAVEL_SCALAR = c(20,3),
                                 INJURY_LINEARITY= c(log(1),log(1.2)),
-                                CASUALTY_EXPONENT_FRACTION = c(8,8))
+                                CASUALTY_EXPONENT_FRACTION = c(8,8),
+                                EMISSION_INVENTORY_CONFIDENCE = 0.5)
 
 numcores <- detectCores()
 ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))

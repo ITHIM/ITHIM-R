@@ -29,7 +29,8 @@ run_ithim_setup <- function(seed = 1,
                             CASUALTY_EXPONENT_FRACTION = 0.5,
                             MOTORCYCLE_TO_CAR_RATIO = 0.2,
                             BUS_TO_PASSENGER_RATIO = 0.022,
-                            TRUCK_TO_CAR_RATIO = 0.21){
+                            TRUCK_TO_CAR_RATIO = 0.21,
+                            EMISSION_INVENTORY_CONFIDENCE = 1){
   
   ## SUMMARY OF INPUTS
   # seed = double. sets seed to allow some reproducibility.
@@ -199,15 +200,17 @@ run_ithim_setup <- function(seed = 1,
                                                     INJURY_LINEARITY,
                                                     CASUALTY_EXPONENT_FRACTION,
                                                     BUS_TO_PASSENGER_RATIO,
-                                                    TRUCK_TO_CAR_RATIO)
+                                                    TRUCK_TO_CAR_RATIO,
+                                                    EMISSION_INVENTORY_CONFIDENCE)
   
   # programming flags: do we need to recompute elements given uncertain variables?
   RECALCULATE_TRIPS <<- any(c('BUS_TO_PASSENGER_RATIO','MOTORCYCLE_TO_CAR_RATIO')%in%names(ithim_object$parameters))
   RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('BUS_WALK_TIME','INJURY_LINEARITY','CASUALTY_EXPONENT_FRACTION')%in%names(ithim_object$parameters))
+  RECALCULATE_EMISSION_INVENTORY <<- any(c('EMISSION_INVENTORY')%in%names(ithim_object$parameters))
   
   ## complete TRIP_SET to contain distances and durations for trips and stages
   complete_trip_distance_duration() 
-  set_vehicle_inventory() # sets vehicle inventory
+  if(!RECALCULATE_EMISSION_INVENTORY) set_vehicle_inventory() # sets vehicle inventory
   
   ## create inventory and edit trips, if they are not variable dependent
   if(!RECALCULATE_TRIPS){

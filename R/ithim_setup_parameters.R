@@ -15,7 +15,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    INJURY_LINEARITY= 1,
                                    CASUALTY_EXPONENT_FRACTION = 0.5,
                                    BUS_TO_PASSENGER_RATIO = 0.022,
-                                   TRUCK_TO_CAR_RATIO = 0.21){
+                                   TRUCK_TO_CAR_RATIO = 0.21,
+                                   EMISSION_INVENTORY_CONFIDENCE = 1){
   
   if ((length(PM_CONC_BASE==1)&&PM_CONC_BASE == 50) |
       (length(PM_TRANS_SHARE==1)&&PM_TRANS_SHARE == 0.225))
@@ -80,6 +81,16 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     parameters$DAY_TO_WEEK_TRAVEL_SCALAR <- 7*rbeta(NSAMPLES,DAY_TO_WEEK_TRAVEL_SCALAR[1],DAY_TO_WEEK_TRAVEL_SCALAR[2])
   }else{
     DAY_TO_WEEK_TRAVEL_SCALAR <<- DAY_TO_WEEK_TRAVEL_SCALAR
+  }
+  
+  if(EMISSION_INVENTORY_CONFIDENCE<1){
+    total <- sum(unlist(EMISSION_INVENTORY))
+    parameters$EMISSION_INVENTORY <- list()
+    for(n in 1:NSAMPLES){
+      samples <- lapply(EMISSION_INVENTORY,function(x) rgamma(1,shape=x/total*100*(3^EMISSION_INVENTORY_CONFIDENCE),scale=1))
+      new_total <- sum(unlist(samples))
+      parameters$EMISSION_INVENTORY[[n]] <- lapply(samples,function(x)x/new_total)
+    }
   }
   
   #if(length(BUS_WALK_TIME) > 1 )    parameters$BUS_WALK_TIME <- rlnorm(NSAMPLES,BUS_WALK_TIME[1], BUS_WALK_TIME[2])

@@ -90,3 +90,53 @@ xmaxes <- c(3,200,3,10,1,1)
     legend(legend=names(lnorm_parameters[[1]]),x=0.5*xmaxes[i],y=ymax,col=cols,lwd=2,bty='n')
   }
 }
+
+
+emission_parameters <- list(accra=list(
+  bus_driver=0.82,
+  car=0.228,
+  taxi=0.011,
+  motorcycle=0.011,
+  truck=0.859,
+  big_truck=0.711,
+  other=0.082
+),
+sao_paulo=list(motorcycle=4,
+               car=4,
+               bus_driver=32,
+               big_truck=56,
+               truck=4),
+delhi=list(motorcycle=1409,
+           auto_rickshaw=133,
+           car=2214,
+           bus_driver=644,
+           big_truck=4624,
+           truck=3337),
+bangalore=list(motorcycle=1757,
+               auto_rickshaw=220,
+               car=4173,
+               bus_driver=1255,
+               big_truck=4455,
+               truck=703))
+
+library(distr)
+confidences <- c(0.9,0.5,0.2)
+confidences <- (confidences - 0.6)*5 + confidences
+n <- 1000
+for(i in 1:length(emission_parameters)){
+  total <- sum(unlist(emission_parameters[[i]]))
+  d1 <- list()
+  for(k in 1:length(confidences)){
+    confidence <- confidences[k]
+    distributions <- lapply(emission_parameters[[i]],function(x) Gammad(shape=x/total*100*(3^confidence),scale=1))
+    samples <- sapply(distributions,function(x) r(x)(n))
+    d1[[k]] <- apply(samples,2,function(x)density(x/rowSums(samples),from=0,to=1))
+  }
+  x11(height=4,width=8); par(mfrow=c(2,4),mar=c(5,5,2,2))
+  for(j in 1:length(d1[[1]]))
+    for(k in 1:length(d1))
+      if(k==1)
+        plot(d1[[k]][[j]],frame=F,xlab=names(emission_parameters[[i]])[j],main='',ylab='Density',lwd=2,col=cols[k],ylim=c(0,max(d1[[k]][[j]]$y)/2))
+      else lines(d1[[k]][[j]],col=cols[k],lwd=2)
+}
+  
