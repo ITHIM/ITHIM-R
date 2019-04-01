@@ -13,7 +13,9 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    CHRONIC_DISEASE_SCALAR = 1,
                                    DAY_TO_WEEK_TRAVEL_SCALAR = 7,
                                    INJURY_LINEARITY= 1,
-                                   CASUALTY_EXPONENT_FRACTION = 0.5){
+                                   CASUALTY_EXPONENT_FRACTION = 0.5,
+                                   BUS_TO_PASSENGER_RATIO = 0.022,
+                                   TRUCK_TO_CAR_RATIO = 0.21){
   
   if ((length(PM_CONC_BASE==1)&&PM_CONC_BASE == 50) |
       (length(PM_TRANS_SHARE==1)&&PM_TRANS_SHARE == 0.225))
@@ -33,6 +35,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   CHRONIC_DISEASE_SCALAR <<- CHRONIC_DISEASE_SCALAR
   INJURY_LINEARITY <<- INJURY_LINEARITY
   CASUALTY_EXPONENT_FRACTION <<- CASUALTY_EXPONENT_FRACTION
+  BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
+  TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
   parameters <- list()
   
   ##Variables with normal distribution
@@ -58,7 +62,9 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   ##Variables with beta distribution
   betaVariables <- c("PM_TRANS_SHARE",
                      "INJURY_REPORTING_RATE",
-                     "CASUALTY_EXPONENT_FRACTION")
+                     "CASUALTY_EXPONENT_FRACTION",
+                     "BUS_TO_PASSENGER_RATIO",
+                     "TRUCK_TO_CAR_RATIO")
   for (i in 1:length(betaVariables)) {
     name <- betaVariables[i]
     val <- get(betaVariables[i])

@@ -3,8 +3,8 @@ add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',distance_ratio=B
   
   ## values for new ghost journeys
   age_range <- AGE_LOWER_BOUNDS[1]:MAX_AGE
-  nPeople <- 2
-  nTrips <- 1
+  nPeople <- 20
+  nTrips <- 5
   new_gender <- 'Male'
   total_ref_distance <- sum(subset(raw_trip_set,stage_mode==reference_mode)$stage_distance,na.rm=T)
   

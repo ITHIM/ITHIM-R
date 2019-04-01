@@ -12,8 +12,8 @@ create_max_mode_share_scenarios <- function(trip_set){
     rdr_copy <- rdr
     for(j in 1:ncol(SCENARIO_PROPORTIONS)){
       target_distance <- target_distances[j]
-      rdr_subset <- subset(rdr_copy,trip_distance_cat==target_distance)
-      potential_trip_ids <- unique(subset(rdr_subset,!trip_mode%in%c(mode_name,'bus_driver','truck'))$trip_id)
+      rdr_subset <- subset(rdr_copy,trip_distance_cat==target_distance&!trip_mode%in%c('bus_driver','truck'))
+      potential_trip_ids <- unique(subset(rdr_subset,!trip_mode%in%c(mode_name))$trip_id)
       current_mode_trips <- sum(rdr_subset$trip_mode==mode_name)
       target_percent <- SCENARIO_PROPORTIONS[i,j]
       if(length(potential_trip_ids)>0&&round(length(unique(rdr_subset$trip_id))/100*target_percent)-current_mode_trips>0){

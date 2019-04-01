@@ -149,9 +149,9 @@ for(i in 1:nDiseases){
 ## with uncertainty
 ## comparison across cities
 numcores <- detectCores()
-nsamples <- 128
+nsamples <- 64
 setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR",                          
-                        "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE")
+                        "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO")
 
 
 # beta parameters for INJURY_REPORTING_RATE
@@ -180,7 +180,7 @@ background_pa_scalar <- list(accra=c(0,log(1.2)),
                              delhi=c(0,log(1.2)),
                              bangalore=c(0,log(1.2)))
 # lnorm parameters for BUS_WALK_TIME
-bus_walk_time = list(accra=c(log(5),log(1.2)),
+bus_walk_time <- list(accra=c(log(5),log(1.2)),
                      sao_paulo=c(log(5),log(1.2)),
                      delhi=c(log(5),log(1.2)),
                      bangalore=c(log(5),log(1.2)))
@@ -212,6 +212,16 @@ ref_scenarios <- list(accra='Baseline',
                       bangalore='Baseline')
 # whether or not to add walk trips to bus trips
 add_walk_to_bus_trips <- c(T,F,F,T)
+# bus occupancy beta distribution
+bus_to_passenger_ratio  <- list(accra=c(20,600),
+                                sao_paulo=c(20,600),
+                                delhi=c(20,600),
+                                bangalore=c(20,600))
+# truck beta distribution
+truck_to_car_ratio  <- list(accra=c(3,10),
+                                sao_paulo=c(3,10),
+                                delhi=c(3,10),
+                                bangalore=c(3,10))
 
 
 multi_city_ithim <- outcome <- outcome_pp <- list()
@@ -247,7 +257,9 @@ for(ci in 1:length(cities)){
                                             PM_TRANS_SHARE = pm_trans_share[[city]],  
                                             BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
                                             BUS_WALK_TIME = bus_walk_time[[city]],
-                                            MOTORCYCLE_TO_CAR_RATIO = mc_car_ratio[[city]])
+                                            MOTORCYCLE_TO_CAR_RATIO = mc_car_ratio[[city]],
+                                            BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
+                                            TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]])
   
   # for first city, store model parameters. For subsequent cities, copy parameters over.
   if(ci==1){

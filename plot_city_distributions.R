@@ -42,12 +42,22 @@ beta_parameters <- list(
   pm_trans_share = list(accra=c(5,20),
                         sao_paulo=c(8,8),
                         delhi=c(8,8),
-                        bangalore=c(8,8))
+                        bangalore=c(8,8)),
+  # bus occupancy beta distribution
+  bus_to_passenger_ratio = list(accra=c(20,600),
+                                  sao_paulo=c(20,600),
+                                  delhi=c(20,600),
+                                  bangalore=c(20,600)),
+  # truck beta distribution
+  truck_to_car_ratio  <- list(accra=c(3,10),
+                              sao_paulo=c(3,10),
+                              delhi=c(3,10),
+                              bangalore=c(3,10))
 )
 
 
 cols <- c('navyblue','hotpink','grey','darkorange')
-{x11(height=4,width=8); par(mfrow=c(1,2),mar=c(5,5,2,2))
+{x11(height=6,width=6); par(mfrow=c(2,2),mar=c(5,5,2,2))
   x <- seq(0,1,length=100)
   for(i in 1:length(beta_parameters)) {
     toplot <- list()

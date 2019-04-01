@@ -161,8 +161,8 @@ run_ithim_setup <- function(seed = 1,
     cat('\n',file=setup_call_summary_filename,append=T)
   }
   
-  BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
-  TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
+  #BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
+  #TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
   
@@ -197,10 +197,12 @@ run_ithim_setup <- function(seed = 1,
                                                     CHRONIC_DISEASE_SCALAR,
                                                     DAY_TO_WEEK_TRAVEL_SCALAR,
                                                     INJURY_LINEARITY,
-                                                    CASUALTY_EXPONENT_FRACTION)
+                                                    CASUALTY_EXPONENT_FRACTION,
+                                                    BUS_TO_PASSENGER_RATIO,
+                                                    TRUCK_TO_CAR_RATIO)
   
   # programming flags: do we need to recompute elements given uncertain variables?
-  RECALCULATE_TRIPS <<- 'MOTORCYCLE_TO_CAR_RATIO'%in%names(ithim_object$parameters)
+  RECALCULATE_TRIPS <<- any(c('BUS_TO_PASSENGER_RATIO','MOTORCYCLE_TO_CAR_RATIO')%in%names(ithim_object$parameters))
   RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('BUS_WALK_TIME','INJURY_LINEARITY','CASUALTY_EXPONENT_FRACTION')%in%names(ithim_object$parameters))
   
   ## complete TRIP_SET to contain distances and durations for trips and stages
