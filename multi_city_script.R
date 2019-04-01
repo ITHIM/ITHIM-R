@@ -79,6 +79,8 @@ day_to_week_scalar <- 7
 injury_linearity <- 1
 # beta parameters for CASUALTY_EXPONENT_FRACTION
 cas_exponent <- 0.5
+# beta parameters for DAY_TO_WEEK_TRAVEL_SCALAR
+day_to_week_scalar <- 7#c(20,3)
 
 #################################################
 ## without uncertainty
@@ -154,9 +156,9 @@ setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO"
 
 # beta parameters for INJURY_REPORTING_RATE
 injury_report_rate <- list(accra=c(8,3),
-                           sao_paulo=c(8,3),
-                           delhi=c(8,3),
-                           bangalore=c(8,3))
+                           sao_paulo=c(50,3),
+                           delhi=c(50,3),
+                           bangalore=c(50,3))
 # lnorm parameters for CHRONIC_DISEASE_SCALAR
 chronic_disease_scalar <- list(accra=c(0,log(1.2)),
                                sao_paulo=c(0,log(1.2)),
@@ -164,12 +166,12 @@ chronic_disease_scalar <- list(accra=c(0,log(1.2)),
                                bangalore=c(0,log(1.2)))
 # lnorm parameters for PM_CONC_BASE
 pm_concentration <- list(accra=c(log(50),log(1.3)),
-                               sao_paulo=c(3,0.3),
+                               sao_paulo=c(log(20),log(1.3)),
                          delhi=c(log(122),log(1.3)),
                          bangalore=c(log(63),log(1.3)))
 # beta parameters for PM_TRANS_SHARE
-pm_trans_share <- list(accra=c(8,3),
-                           sao_paulo=c(2,3),
+pm_trans_share <- list(accra=c(5,20),
+                           sao_paulo=c(8,8),
                        delhi=c(8,8),
                        bangalore=c(8,8))
 # lnorm parameters for BACKGROUND_PA_SCALAR
@@ -178,10 +180,10 @@ background_pa_scalar <- list(accra=c(0,log(1.2)),
                              delhi=c(0,log(1.2)),
                              bangalore=c(0,log(1.2)))
 # lnorm parameters for BUS_WALK_TIME
-bus_walk_time <- list(accra=c(5,log(1.2)),
-                      sao_paulo=c(5,log(1.2)),
-                      delhi=c(5,log(1.2)),
-                      bangalore=c(5,log(1.2)))
+bus_walk_time = list(accra=c(log(5),log(1.2)),
+                     sao_paulo=c(log(5),log(1.2)),
+                     delhi=c(log(5),log(1.2)),
+                     bangalore=c(log(5),log(1.2)))
 # lnorm parameters for MMET_CYCLING
 mmet_cycling <- c(4.63,log(1.2))
 # lnorm parameters for MMET_WALKING
@@ -191,8 +193,6 @@ mc_car_ratio <- list(accra=c(-1.4,0.4),
                        sao_paulo=c(-1.4,0.4),
                      delhi=c(-1.4,0.4),
                      bangalore=c(-1.4,0.4))
-# beta parameters for DAY_TO_WEEK_TRAVEL_SCALAR
-day_to_week_scalar <- c(20,3)
 # lnorm parameters for INJURY_LINEARITY
 injury_linearity <- c(log(1),log(1.2))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
@@ -210,6 +210,8 @@ ref_scenarios <- list(accra='Baseline',
                       sao_paulo='Baseline',
                       delhi='Baseline',
                       bangalore='Baseline')
+# whether or not to add walk trips to bus trips
+add_walk_to_bus_trips <- c(T,F,F,T)
 
 
 multi_city_ithim <- outcome <- outcome_pp <- list()
@@ -225,6 +227,7 @@ for(ci in 1:length(cities)){
                                             TEST_CYCLE_SCENARIO = test_cycle_scenario,
                                             REFERENCE_SCENARIO=ref_scenarios[[city]],
                                             MAX_MODE_SHARE_SCENARIO=T,
+                                            ADD_WALK_TO_BUS_TRIPS = add_walk_to_bus_trips[ci],
                                             
                                             speeds = speeds[[city]],
                                             emission_inventory = emission_inventories[[city]],
