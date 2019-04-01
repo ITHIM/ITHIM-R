@@ -185,9 +185,9 @@ bus_walk_time = list(accra=c(log(5),log(1.2)),
                      delhi=c(log(5),log(1.2)),
                      bangalore=c(log(5),log(1.2)))
 # lnorm parameters for MMET_CYCLING
-mmet_cycling <- c(4.63,log(1.2))
+mmet_cycling <- c(log(4.63),log(1.2))
 # lnorm parameters for MMET_WALKING
-mmet_walking <- c(2.53,log(1.2))
+mmet_walking <- c(log(2.53),log(1.2))
 # lnorm parameters for MOTORCYCLE_TO_CAR_RATIO
 mc_car_ratio <- list(accra=c(-1.4,0.4),
                        sao_paulo=c(-1.4,0.4),
