@@ -1,3 +1,4 @@
+library(ithimr)
 rm(list=ls())
 cities <- c('accra','sao_paulo','delhi','bangalore')
 speeds <- list(accra=NULL,
@@ -113,7 +114,7 @@ for(city in cities){
   #ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F)
   ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
   ##
-  print(c(sum(ithim_object$outcomes$ref_injuries$deaths),sum(INJURY_TABLE$whw$count)+sum(INJURY_TABLE$noov$count)))
+  print(city)
   print(sapply(SCEN,function(x)sum(subset(ithim_object$outcomes$injuries,scenario==x)$Deaths)))
   ## plot results
   result_mat <- colSums(ithim_object$outcome$hb$ylls[,3:ncol(ithim_object$outcome$hb$ylls)])
@@ -128,6 +129,7 @@ for(city in cities){
     disease_list[[i]][,which(cities==city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(DEMOGRAPHIC$population)
   
   ## check injuries
+  print(c((sum(INJURY_TABLE$whw$count)+sum(INJURY_TABLE$noov$count))/max(1,length(unique(INJURY_TABLE$noov$year)),na.rm=T),sum(ithim_object$outcomes$ref_injuries$deaths)))
 }
 {x11(width = 10, height = 5); #par(mfrow = c(2, 5))
   layout.matrix <- matrix(c(2:6,1,7:12), nrow =2, ncol =6,byrow=T)
@@ -174,8 +176,8 @@ pm_concentration <- list(accra=c(log(50),log(1.3)),
 # beta parameters for PM_TRANS_SHARE
 pm_trans_share <- list(accra=c(5,20),
                            sao_paulo=c(8,8),
-                       delhi=c(5,5),
-                       bangalore=c(5,5))
+                       delhi=c(4,4),
+                       bangalore=c(4,4))
 # lnorm parameters for BACKGROUND_PA_SCALAR
 background_pa_scalar <- list(accra=c(0,log(1.2)),
                                sao_paulo=c(0,log(1.2)),
