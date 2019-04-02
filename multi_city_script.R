@@ -126,6 +126,8 @@ for(city in cities){
   }
   for(i in 1:nDiseases)
     disease_list[[i]][,which(cities==city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(DEMOGRAPHIC$population)
+  
+  ## check injuries
 }
 {x11(width = 10, height = 5); #par(mfrow = c(2, 5))
   layout.matrix <- matrix(c(2:6,1,7:12), nrow =2, ncol =6,byrow=T)
@@ -149,8 +151,8 @@ for(i in 1:nDiseases){
 ## with uncertainty
 ## comparison across cities
 numcores <- detectCores()
-nsamples <- 64
-setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR",                          
+nsamples <- 1024
+setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR",  "EMISSION_INVENTORY",                        
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO")
 
 
@@ -172,8 +174,8 @@ pm_concentration <- list(accra=c(log(50),log(1.3)),
 # beta parameters for PM_TRANS_SHARE
 pm_trans_share <- list(accra=c(5,20),
                            sao_paulo=c(8,8),
-                       delhi=c(8,8),
-                       bangalore=c(8,8))
+                       delhi=c(5,5),
+                       bangalore=c(5,5))
 # lnorm parameters for BACKGROUND_PA_SCALAR
 background_pa_scalar <- list(accra=c(0,log(1.2)),
                                sao_paulo=c(0,log(1.2)),
@@ -194,9 +196,9 @@ mc_car_ratio <- list(accra=c(-1.4,0.4),
                      delhi=c(-1.4,0.4),
                      bangalore=c(-1.4,0.4))
 # lnorm parameters for INJURY_LINEARITY
-injury_linearity <- c(log(1),log(1.2))
+injury_linearity <- c(log(1),log(1.05))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
-cas_exponent <- c(8,8)
+cas_exponent <- c(15,15)
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
 pa_dr_quantile <- c(T,F,F,F)
 # logical for AP dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
@@ -219,9 +221,14 @@ bus_to_passenger_ratio  <- list(accra=c(20,600),
                                 bangalore=c(20,600))
 # truck beta distribution
 truck_to_car_ratio  <- list(accra=c(3,10),
-                                sao_paulo=c(3,10),
-                                delhi=c(3,10),
-                                bangalore=c(3,10))
+                            sao_paulo=c(3,10),
+                            delhi=c(3,10),
+                            bangalore=c(3,10))
+# truck beta distribution
+emission_confidence  <- list(accra=0.5,
+                            sao_paulo=0.7,
+                            delhi=0.9,
+                            bangalore=0.9)
 
 
 multi_city_ithim <- outcome <- outcome_pp <- list()
@@ -259,7 +266,8 @@ for(ci in 1:length(cities)){
                                             BUS_WALK_TIME = bus_walk_time[[city]],
                                             MOTORCYCLE_TO_CAR_RATIO = mc_car_ratio[[city]],
                                             BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
-                                            TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]])
+                                            TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
+                                            EMISSION_INVENTORY_CONFIDENCE = emission_confidence[[city]])
   
   # for first city, store model parameters. For subsequent cities, copy parameters over.
   if(ci==1){
@@ -278,8 +286,14 @@ for(ci in 1:length(cities)){
   }
   
   ## rename city-specific parameters according to city
+  for(i in 1:length(multi_city_ithim[[ci]]$parameters$EMISSION_INVENTORY[[1]])){
+    extract_vals <- sapply(multi_city_ithim[[ci]]$parameters$EMISSION_INVENTORY,function(x)x[[i]])
+    if(sum(extract_vals)!=0)
+      multi_city_ithim[[ci]]$parameters[[paste0('EMISSION_INVENTORY_',names(multi_city_ithim[[ci]]$parameters$EMISSION_INVENTORY[[1]])[i],'_',city)]] <- extract_vals
+  }
   for(param in setting_parameters) names(multi_city_ithim[[ci]]$parameters)[which(names(multi_city_ithim[[ci]]$parameters)==param)] <- paste0(param,'_',city)
-  parameter_names_city <- paste0(setting_parameters,'_',city)
+  multi_city_ithim[[ci]]$parameters <- multi_city_ithim[[ci]]$parameters[-which(names(multi_city_ithim[[ci]]$parameters)==paste0('EMISSION_INVENTORY_',city))]
+  parameter_names_city <- names(multi_city_ithim[[ci]]$parameters)[sapply(names(multi_city_ithim[[ci]]$parameters),function(x)grepl(x,pattern=city))]
   ## add to parameter names
   parameter_names <- c(parameter_names,parameter_names_city)
   ## get parameter samples and add to array of parameter samples
@@ -307,37 +321,42 @@ for(ci in 1:length(cities)){
 outcomes_pp <- do.call(cbind,outcome_pp)
 outcome$combined <- outcomes_pp
 ##!! find way to set!!
-NSCEN <- 1
-evppi <- matrix(0, ncol = length(cities)+1, nrow = ncol(parameter_samples))
+NSCEN <- ncol(outcome[[1]])/sum(sapply(colnames(outcome[[1]]),function(x)grepl('scen1',x)))
+evppi <- matrix(0, ncol = NSCEN*(length(cities)+1), nrow = ncol(parameter_samples))
 for(j in 1:length(outcome)){
   case <- outcome[[j]]
-  y <- rowSums(case)
-  vary <- var(y)
-  for(i in 1:ncol(parameter_samples)){
-    x <- parameter_samples[, i];
-    model <- gam(y ~ s(x))
-    evppi[i, j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-    
+  for(k in 1:NSCEN){
+    scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
+    y <- rowSums(scen_case)
+    vary <- var(y)
+    for(i in 1:ncol(parameter_samples)){
+      x <- parameter_samples[, i];
+      model <- gam(y ~ s(x))
+      evppi[i, (j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+    }
   }
 }
-colnames(evppi) <- names(outcome)
+colnames(evppi) <- apply(expand.grid(SCEN_SHORT_NAME[2:6],names(outcome)),1,function(x)paste0(x,collapse='_'))
 rownames(evppi) <- colnames(parameter_samples)
 ## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
 
 multi_city_parallel_evppi_for_AP <- function(disease,parameter_samples,outcome){
-  AP_DOSE_RESPONSE_QUANTILE <- c()
+  voi <- c()
   x1 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease))];
   x2 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease))];
   x3 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease))];
   x4 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease))];
   for(j in 1:length(outcome)){
     case <- outcome[[j]]
-    y <- rowSums(case)
-    vary <- var(y)
-    model <- gam(y ~ te(x1,x2,x3,x4))
-    AP_DOSE_RESPONSE_QUANTILE[j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100 
+    for(k in 1:NSCEN){
+      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
+      y <- rowSums(scen_case)
+      vary <- var(y)
+      model <- gam(y ~ te(x1,x2,x3,x4))
+      voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+    }
   }
-  AP_DOSE_RESPONSE_QUANTILE
+  voi
 }
 
 if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
@@ -354,6 +373,46 @@ if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
   keep_names <- sapply(rownames(evppi),function(x)!any(c('ALPHA','BETA','GAMMA','TMREL')%in%strsplit(x,'_')[[1]]))
   evppi <- evppi[keep_names,]
 }
+
+multi_city_parallel_evppi_for_emissions <- function(sources,outcome){
+  voi <- c()
+  averages <- colMeans(sources)
+  x1 <- sources[,order(averages,decreasing=T)[1]];
+  x2 <- sources[,order(averages,decreasing=T)[2]];
+  x3 <- sources[,order(averages,decreasing=T)[3]];
+  x4 <- sources[,order(averages,decreasing=T)[4]];
+  for(j in 1:length(outcome)){
+    case <- outcome[[j]]
+    for(k in 1:NSCEN){
+      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
+      y <- rowSums(scen_case)
+      vary <- var(y)
+      model <- gam(y ~ te(x1,x2,x3,x4))
+      voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+    }
+  }
+  voi
+}
+
+if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
+  sources <- list()
+  for(ci in 1:length(cities)){
+    city <- cities[ci]
+    emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
+    sources[[ci]] <- parameter_samples[,emission_names]
+  }
+  evppi_for_emissions <- mclapply(sources, 
+                                  FUN = multi_city_parallel_evppi_for_emissions,
+                                  outcome, 
+                                  mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+  
+  names(evppi_for_emissions) <- paste0('EMISSION_INVENTORY_',cities)
+  ## get rows to remove
+  keep_names <- sapply(rownames(evppi),function(x)!grepl('EMISSION_INVENTORY_',x))
+  evppi <- evppi[keep_names,]
+  
+  evppi <- rbind(evppi,do.call(rbind,evppi_for_emissions))
+}
 print(evppi)
 
 
@@ -366,7 +425,8 @@ library(plotrix)
 #                     'injury linearity','traffic PM2.5 share','injury reporting rate','casualty exponent fraction','day-to-week scalar',
 #                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
 #                     'COPD (AP)','stroke (AP)')
-{x11(width=5); par(mar=c(6,12,3.5,5.5))
+evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
+{x11(width=8); par(mar=c(6,15,3.5,5.5))
 labs <- rownames(evppi)
 get.pal=colorRampPalette(brewer.pal(9,"Reds"))
 redCol=rev(get.pal(12))
@@ -378,10 +438,10 @@ cellcolors <- vector()
 for(ii in 1:length(unlist(evppi)))
   cellcolors[ii] <- redCol[tail(which(unlist(evppi[ii])<bkT),n=1)]
 color2D.matplot(evppi,cellcolors=cellcolors,main="",xlab="",ylab="",cex.lab=2,axes=F)
-fullaxis(side=1,las=2,at=1:length(outcome)-0.5,labels=names(outcome),line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=1)
+fullaxis(side=1,las=2,at=NSCEN*0:(length(outcome)-1)+NSCEN/2,labels=names(outcome),line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=1)
 fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.8)
 mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
-color.legend(5.5,0,5.5+0.3,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")}
+color.legend(NSCEN*length(outcome)+0.5,0,NSCEN*length(outcome)+0.8,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")}
 
 
 scen_out <- sapply(outcome,function(x)rowSums(x))

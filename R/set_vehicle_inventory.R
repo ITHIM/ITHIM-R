@@ -18,7 +18,7 @@ set_vehicle_inventory <- function(){
   # we don't enter ratio values for cycling and walking as it's assumed they will be covered by the survey.
   vehicle_inventory$emission_inventory <- 0
   #vehicle_inventory$distance_ratio_to_car <- 1
-  print(EMISSION_INVENTORY)
+
   for(m in names(EMISSION_INVENTORY))
       vehicle_inventory$emission_inventory[vehicle_inventory$stage_mode%in%m] <- EMISSION_INVENTORY[[m]]
   #for(m in names(DISTANCE_RATIOS))
