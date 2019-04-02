@@ -40,7 +40,9 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   # open vehicles experience the ``on_road_off_road_ratio'', and closed vehicles experience the ``in_vehicle_ratio''
   ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio,subway_ratio)
   # assign rates according to the order of the ratio_by_mode array: 1 is open vehicle, 2 is closed vehicle, 3 is subway
-  vent_rates$vehicle_ratio_index <- sapply(vent_rates$stage_mode,function(x) ifelse(x%in%c('subway'),3,ifelse(x%in%c('walking','walk_to_bus','bicycle','motorcycle'),1,2)))
+  open_vehicles <- c('walking','walk_to_bus','bicycle','motorcycle','auto_rickshaw','shared_auto','cycle_rickshaw')
+  rail_vehicles <- c('subway','rail')
+  vent_rates$vehicle_ratio_index <- sapply(vent_rates$stage_mode,function(x) ifelse(x%in%rail_vehicles,3,ifelse(x%in%open_vehicles,1,2)))
   
   trip_set <- left_join(trip_scen_sets,vent_rates,'stage_mode')
   # litres of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode
