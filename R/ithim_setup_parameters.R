@@ -9,6 +9,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    PA_DOSE_RESPONSE_QUANTILE = F,
                                    AP_DOSE_RESPONSE_QUANTILE = F,
                                    BACKGROUND_PA_SCALAR = 1,
+                                   BACKGROUND_PA_CONFIDENCE = 1,
                                    INJURY_REPORTING_RATE = 1,
                                    CHRONIC_DISEASE_SCALAR = 1,
                                    DAY_TO_WEEK_TRAVEL_SCALAR = 7,
@@ -32,6 +33,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   MOTORCYCLE_TO_CAR_RATIO <<- MOTORCYCLE_TO_CAR_RATIO
   PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
   BACKGROUND_PA_SCALAR <<- BACKGROUND_PA_SCALAR
+  BACKGROUND_PA_CONFIDENCE <<- BACKGROUND_PA_CONFIDENCE
   INJURY_REPORTING_RATE <<- INJURY_REPORTING_RATE
   CHRONIC_DISEASE_SCALAR <<- CHRONIC_DISEASE_SCALAR
   INJURY_LINEARITY <<- INJURY_LINEARITY
@@ -81,6 +83,10 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     parameters$DAY_TO_WEEK_TRAVEL_SCALAR <- 7*rbeta(NSAMPLES,DAY_TO_WEEK_TRAVEL_SCALAR[1],DAY_TO_WEEK_TRAVEL_SCALAR[2])
   }else{
     DAY_TO_WEEK_TRAVEL_SCALAR <<- DAY_TO_WEEK_TRAVEL_SCALAR
+  }
+  
+  if(BACKGROUND_PA_CONFIDENCE<1){
+    parameters$BACKGROUND_PA_ZEROS <- runif(NSAMPLES,0,1)
   }
   
   if(EMISSION_INVENTORY_CONFIDENCE<1){

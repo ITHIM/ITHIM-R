@@ -22,6 +22,7 @@ run_ithim_setup <- function(seed = 1,
                             PA_DOSE_RESPONSE_QUANTILE = F,
                             AP_DOSE_RESPONSE_QUANTILE = F,
                             BACKGROUND_PA_SCALAR = 1,
+                            BACKGROUND_PA_CONFIDENCE = 1,
                             INJURY_REPORTING_RATE = 1,
                             CHRONIC_DISEASE_SCALAR = 1,
                             DAY_TO_WEEK_TRAVEL_SCALAR = 7,
@@ -194,6 +195,7 @@ run_ithim_setup <- function(seed = 1,
                                                     PA_DOSE_RESPONSE_QUANTILE,
                                                     AP_DOSE_RESPONSE_QUANTILE,
                                                     BACKGROUND_PA_SCALAR,
+                                                    BACKGROUND_PA_CONFIDENCE,
                                                     INJURY_REPORTING_RATE,
                                                     CHRONIC_DISEASE_SCALAR,
                                                     DAY_TO_WEEK_TRAVEL_SCALAR,
@@ -204,7 +206,7 @@ run_ithim_setup <- function(seed = 1,
                                                     EMISSION_INVENTORY_CONFIDENCE)
   
   # programming flags: do we need to recompute elements given uncertain variables?
-  RECALCULATE_TRIPS <<- any(c('BUS_TO_PASSENGER_RATIO','MOTORCYCLE_TO_CAR_RATIO')%in%names(ithim_object$parameters))
+  RECALCULATE_TRIPS <<- any(c('BUS_TO_PASSENGER_RATIO','MOTORCYCLE_TO_CAR_RATIO','TRUCK_TO_CAR_RATIO','BACKGROUND_PA_ZEROS')%in%names(ithim_object$parameters))
   RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('BUS_WALK_TIME','INJURY_LINEARITY','CASUALTY_EXPONENT_FRACTION')%in%names(ithim_object$parameters))
   RECALCULATE_EMISSION_INVENTORY <<- any(c('EMISSION_INVENTORY')%in%names(ithim_object$parameters))
   

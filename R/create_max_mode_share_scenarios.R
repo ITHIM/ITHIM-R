@@ -21,7 +21,7 @@ create_max_mode_share_scenarios <- function(trip_set){
           change_trip_ids <- potential_trip_ids
         }else{
           change_trip_ids <- base::sample(potential_trip_ids,size=round(length(unique(rdr_subset$trip_id))/100*target_percent)-current_mode_trips)
-          print(c(CITY,mode_name,length(change_trip_ids)))
+          #print(c(CITY,mode_name,length(change_trip_ids)))
         }
         change_trips <- subset(rdr_subset,trip_id%in%change_trip_ids)
         change_trips$trip_mode <- mode_name

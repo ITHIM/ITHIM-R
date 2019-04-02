@@ -1,11 +1,5 @@
 rm(list=ls())
 cities <- c('accra','sao_paulo','delhi','bangalore')
-speeds <- list(accra=NULL,
-               sao_paulo=NULL,
-               delhi=list(subway=32,
-                          bicycle=15),
-               bangalore=list(subway=32,
-                          bicycle=15))
 emission_inventories = list(accra=NULL,
                             sao_paulo=list(motorcycle=4,
                                            car=4,
@@ -25,14 +19,29 @@ emission_inventories = list(accra=NULL,
                                        other=0,
                                        taxi=0),
                             bangalore=list(motorcycle=1757,
-                                       auto_rickshaw=220,
-                                       car=4173,
-                                       bus_driver=1255,
-                                       big_truck=4455,
-                                       truck=703,
-                                       van=0,
-                                       other=0,
-                                       taxi=0))
+                                           auto_rickshaw=220,
+                                           car=4173,
+                                           bus_driver=1255,
+                                           big_truck=4455,
+                                           truck=703,
+                                           van=0,
+                                           other=0,
+                                           taxi=0))
+#################################################################
+## run diagnostics
+for(city in cities){
+  ithim_object <- run_ithim_setup(CITY=city,MAX_MODE_SHARE_SCENARIO=T,DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),emission_inventory = emission_inventories[[city]])
+  summarise_ithim_inputs(ithim_object)
+}
+
+
+##################################################################
+speeds <- list(accra=NULL,
+               sao_paulo=NULL,
+               delhi=list(subway=32,
+                          bicycle=15),
+               bangalore=list(subway=32,
+                          bicycle=15))
 
 # beta parameters for INJURY_REPORTING_RATE
 injury_report_rate <- list(accra=1,
