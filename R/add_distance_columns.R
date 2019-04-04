@@ -1,21 +1,30 @@
 #' @export
-add_distance_columns <- function(injury_table,mode_names,true_distances,scenarios=SCEN){
+add_distance_columns <- function(injury_table,mode_names,true_distances_0,scenarios=SCEN){
+  
+  injury_temp <- injury_table
   
   by_age <- 'age_cat'%in%names(injury_table[[1]])
   by_gender <- 'cas_gender'%in%names(injury_table[[1]])
-  age_gender <- by_age&&by_gender
-  u_gen <- unique(injury_table[[1]]$cas_gender)
-  u_age <- unique(injury_table[[1]]$age_cat)
-  age_gen_labels <- apply(expand.grid(u_gen,u_age),1,function(x)paste(x,collapse='_'))
+  for(type in c('whw','noov')){
+    if(!by_age) injury_temp[[type]]$age_cat <- 1
+    if(!by_gender) injury_temp[[type]]$cas_gender <- 1
+  }
+  u_gen <- unique(injury_temp[[1]]$cas_gender)
+  u_age <- unique(injury_temp[[1]]$age_cat)
+  dem_index_table <- expand.grid(cas_gender=u_gen,age_cat=u_age)
+  
+  if(!by_age) true_distances_0$age_cat <- 1
+  if(!by_gender) true_distances_0$sex <- 1
+  true_distances_0$dem_index <- length(u_gen)*(match(true_distances_0$age_cat,u_age)-1) + match(true_distances_0$sex,u_gen)
+  
   cas_mode_indices <- list()
-  injury_gen_age <- list()
+  dem_index <- list()
   # initialise tables and store indices
   for(type in c('whw','noov')){
     ##TODO make contingency table without prior knowledge of column names
-    gen_index <- match(injury_table[[type]]$cas_gen,u_gen)
-    age_index <- match(injury_table[[type]]$age_cat,u_age)
-    injury_gen_age[[type]] <- age_gen_labels[length(u_gen)*(age_index-1)+gen_index]
-    if(age_gender) injury_table[[type]]$injury_gen_age <- injury_gen_age[[type]]
+    gen_index <- match(injury_temp[[type]]$cas_gen,u_gen)
+    age_index <- match(injury_temp[[type]]$age_cat,u_age)
+    dem_index[[type]] <- length(u_gen)*(age_index-1)+gen_index
     cas_mode_indices[[type]] <- match(injury_table[[type]]$cas_mode,mode_names)
   }
   strike_mode_indices <- match(injury_table$whw$strike_mode,mode_names)
@@ -26,7 +35,9 @@ add_distance_columns <- function(injury_table,mode_names,true_distances,scenario
   injuries_list <- list()
   for(scen in scenarios){
     injuries_list[[scen]] <- list()
-    true_scen_dist <- subset(true_distances,scenario==scen)
+    true_scen_dist <- subset(true_distances_0,scenario==scen)
+    dist_summary <- as.data.frame(t(sapply(unique(true_scen_dist$dem_index),function(x)
+      colSums(subset(true_scen_dist,dem_index==x)[,!colnames(true_scen_dist)%in%c('age_cat','sex','scenario','sex_age','dem_index')]))))
     for(type in c('whw','noov')){
       injuries_list[[scen]][[type]] <- injury_table[[type]]
       ##TODO get distances without prior knowledge of column names
@@ -37,16 +48,11 @@ add_distance_columns <- function(injury_table,mode_names,true_distances,scenario
       injuries_list[[scen]][[type]]$strike_distance_sum <- 1
       
       # apply casualty distance sums
-      distance_sums <- sapply(mode_names,function(x)sum(true_scen_dist[[x]]))
+      distance_sums <- sapply(mode_names,function(x)sum(dist_summary[[x]]))
       injuries_list[[scen]][[type]]$cas_distance_sum <- distance_sums[cas_mode_indices[[type]]]
       
       # apply group-level casualty distances
-      if(age_gender){
-        cas_demo_indices <- match(injury_gen_age[[type]],true_scen_dist$sex_age)
-        injuries_list[[scen]][[type]]$cas_distance <- as.numeric(as.data.frame(true_scen_dist)[cbind(cas_demo_indices,cas_mode_indices[[type]]+2)])
-      }else{
-        injuries_list[[scen]][[type]]$cas_distance <- injuries_list[[scen]][[type]]$cas_distance_sum 
-      }
+      injuries_list[[scen]][[type]]$cas_distance <- as.numeric(as.data.frame(dist_summary)[cbind(dem_index[[type]],cas_mode_indices[[type]])])
       
       # apply striker distances for whw
       if(type=='whw'){
