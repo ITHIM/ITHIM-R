@@ -16,16 +16,16 @@ set_injury_contingency <- function(injuries){
   injury_table <- list()
   for(type in c('whw','noov')){
     keep_names <- names(injury_list[[type]])%in%c('year','cas_mode','strike_mode','age_cat','cas_gender')
-    ##TODO make contingency table without prior knowledge of column names
+    # summarise list of injuries by group
+    injury_summary <- plyr::count(injury_list[[type]][,keep_names],names(injury_list[[type]])[keep_names])
+    # make contingency table without prior knowledge of column names
     injury_table[[type]] <- expand.grid(lapply(injury_list[[type]][,keep_names],unique))
-    #expand.grid(year=unique(injury_list[[type]]$year),cas_mode=unique(injury_list[[type]]$cas_mode),
-     #                                   strike_mode=unique(injury_list[[type]]$strike_mode),cas_age=unique(injuries$age_cat),cas_gender=unique(injury_list[[type]]$cas_gender),stringsAsFactors = F)
-    injury_list[[type]]$index <- apply(injury_list[[type]][,keep_names],1,function(x)which(apply(injury_table[[type]], 1, function(y) all(x==y))))
-    injury_table[[type]]$count <- sapply(1:nrow(injury_table[[type]]),function(x)sum(injury_list[[type]]$index==x))
-    #injury_table[[type]]$count <- apply(injury_table[[type]],1,function(x)nrow(subset(injury_list[[type]],year==as.numeric(x[1])&cas_mode==as.character(x[2])&
-    #                                                                                    strike_mode==as.character(x[3])&cas_gender==as.character(x[5])&
-    #                                                                                    cas_age>=AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])]&
-    #                                                                                    cas_age<AGE_LOWER_BOUNDS[which(AGE_CATEGORY==x[4])+1]))) 
+    # match summary numbers to table indices
+    injury_summary_index <- apply(injury_summary[,-ncol(injury_summary)],1,function(x)which(apply(injury_table[[type]], 1, function(y) all(x==y))))
+    # initialise all at 0
+    injury_table[[type]]$count <- 0
+    # slot in non-zero counts
+    injury_table[[type]]$count[injury_summary_index] <- injury_summary[,ncol(injury_summary)]
   }
   INJURY_TABLE <<- injury_table
 }
