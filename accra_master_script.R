@@ -377,3 +377,29 @@ for(m in 1:length(modes)){
   plot(density(extract_dist,from=0,to=1),lwd=2,col='navyblue',xlim=c(0,1),main='',ylab='Density',xlab=modes[m],frame=F)
 }
 }
+
+
+## plot confidences
+confidences <- c(0.2,0.4,0.6,0.8)
+parameters <- c(10,100,1000,10000)
+dists <- list()
+emis <- list(car=4,motorbike=4,bus=20,hgv=60)
+total <- sum(unlist(emis))
+for(i in 1:length(confidences)){
+  confidence <- confidences[i]
+  samples <- sapply(emis,function(x) rgamma(1000,shape=x/total*10^(5*confidence),scale=1))
+  new_total <- rowSums(samples)
+  dists[[i]] <- apply(samples,2,function(x)x/new_total)
+}
+{x11(); par(mar=c(5,5,1,1),mfrow=c(2,2))
+for(j in 1:ncol(dists[[1]])){
+  for(i in 1:length(confidences)){
+    if(i==1) {
+      plot(density(dists[[i]][,j],from=0,to=1),lwd=2,typ='l',col=cols[i],frame=F,main='',xlab=names(emis)[j],ylim=c(0,20),cex.axis=1.5,cex.lab=1.5)
+      if(j==1) legend(title='Confidence',legend=confidences,col=cols,bty='n',x=0.6,y=21,lty=1,lwd=2,cex=1.25)
+    }
+    else lines(density(dists[[i]][,j],from=0,to=1),lwd=2,typ='l',col=cols[i])
+  }
+}
+}   
+    

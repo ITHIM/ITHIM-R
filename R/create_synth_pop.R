@@ -33,18 +33,42 @@ create_synth_pop <- function(raw_trip_set){
   unique_ages <- unique(trip_set$age_cat)
   unique_genders <- unique(trip_set$sex)
   
+  if(BACKGROUND_PA_CONFIDENCE < 1){
+    pointiness <- 500^(BACKGROUND_PA_CONFIDENCE+0.2)
+  }
+  
   # get population from trip_set: all the unique ids, and their demographic information
   # match only for "real" people (i.e. not `ghost drivers', whose id is 0)
   synthetic_population <- subset(trip_set,!duplicated(participant_id)&participant_id>0)[,names(trip_set)%in%c("participant_id","age","sex","age_cat")]
+  ## get zeros and densities
+  zeros <- densities <- list()
+  for(age_group in unique_ages){
+    zeros[[age_group]] <- densities[[age_group]] <- list()
+    pa_age_category <- age_category[which(AGE_CATEGORY==age_group)]
+    for(gender in unique_genders){
+      matching_people <- as.data.frame(filter(pa, age_cat == pa_age_category & sex == gender)[,column_to_keep])
+      raw_zero <- 1
+      if(nrow(matching_people)>0) raw_zero <- sum(matching_people$work_ltpa_marg_met==0)/length(matching_people$work_ltpa_marg_met)
+      if(BACKGROUND_PA_CONFIDENCE < 1){
+        beta <- (1/raw_zero - 1)*pointiness*raw_zero
+        alpha <- pointiness - beta
+        raw_zero <- qbeta(BACKGROUND_PA_ZEROS,alpha,beta)
+      }
+      zeros[[age_group]][[gender]] <- raw_zero
+      densities[[age_group]][[gender]] <- matching_people$work_ltpa_marg_met[matching_people$work_ltpa_marg_met>0]
+    }
+  }
+  
   # assign all participants 0 leisure/work mmets
   synthetic_population$work_ltpa_marg_met <- 0
   # match population to PA dataset via demographic information
   for(age_group in unique_ages){
     pa_age_category <- age_category[which(AGE_CATEGORY==age_group)]
     for(gender in unique_genders){
-      matching_people <- as.data.frame(filter(pa, age_cat == pa_age_category & sex == gender)[,column_to_keep])
       i <- which(synthetic_population$age_cat==age_group&synthetic_population$sex==gender)
-      v <- (matching_people[sample(nrow(matching_people),length(i),replace=T),])
+      raw_density <- densities[[age_group]][[gender]]
+      prob_zero <- zeros[[age_group]][[gender]]
+      v <- sample(c(0,raw_density),length(i),replace=T,prob=c(prob_zero,(rep(1,length(raw_density))-prob_zero)/length(raw_density)))
       if (length(v) > 0)
         synthetic_population$work_ltpa_marg_met[i] <- c(v)
     }
@@ -62,3 +86,6 @@ create_synth_pop <- function(raw_trip_set){
   return(list(trip_set=trip_set,synthetic_population=synthetic_population))
   
 }
+
+
+  
