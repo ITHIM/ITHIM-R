@@ -47,5 +47,7 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   ## (5) COMBINE (3) AND (4)
   # Combine health burden from disease and injury
   (hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries$deaths_yll_injuries))
-  return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp,injuries=injuries,ref_injuries=ref_injuries,hb=hb))
+  pathway_hb <- NULL
+  if(length(names(parameters))==0) pathway_hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries$deaths_yll_injuries,combined_AP_PA=F)
+  return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp,injuries=injuries,ref_injuries=ref_injuries,hb=hb,pathway_hb=pathway_hb))
 }
