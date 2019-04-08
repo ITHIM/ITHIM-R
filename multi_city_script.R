@@ -96,6 +96,8 @@ day_to_week_scalar <- 7
 ## without uncertainty
 toplot <- matrix(0,nrow=5,ncol=length(cities)) #5 scenarios, 4 cities
 ithim_objects <- list()
+min_age <- 15
+max_age <- 69
 for(city in cities){
   ithim_objects[[city]] <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),
                                   ADD_WALK_TO_BUS_TRIPS=F,
@@ -110,10 +112,8 @@ for(city in cities){
                                   DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
                                   INJURY_LINEARITY= injury_linearity,
                                   CASUALTY_EXPONENT_FRACTION = cas_exponent,
-                                  
                                   PA_DOSE_RESPONSE_QUANTILE = F,  
                                   AP_DOSE_RESPONSE_QUANTILE = F,
-                                  
                                   INJURY_REPORTING_RATE = injury_report_rate[[city]],  
                                   CHRONIC_DISEASE_SCALAR = chronic_disease_scalar[[city]],  
                                   PM_CONC_BASE = pm_concentration[[city]],  
@@ -127,11 +127,12 @@ for(city in cities){
   ithim_objects[[city]]$disease_burden <- DISEASE_BURDEN
   ithim_objects[[city]]$emission_inventory <- EMISSION_INVENTORY
   ithim_objects[[city]]$injury_table <- INJURY_TABLE
-  ##
-  #print(city)
-  #print(sapply(SCEN,function(x)sum(subset(ithim_objects[[city]]$outcomes$injuries,scenario==x)$Deaths)))
+  
   ## store results to plot
-  result_mat <- colSums(ithim_objects[[city]]$outcome$hb$ylls[,3:ncol(ithim_objects[[city]]$outcome$hb$ylls)])
+  min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+  max_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+  sub_outcome <- subset(ithim_objects[[city]]$outcome$hb$ylls,min_ages>=min_age&max_ages<=max_age)
+  result_mat <- colSums(sub_outcome[,3:ncol(sub_outcome)])
   columns <- length(result_mat)
   nDiseases <- columns/NSCEN
   ylim <- range(result_mat)
@@ -139,18 +140,18 @@ for(city in cities){
     disease_list <- list()
     for(i in 1:nDiseases) disease_list[[i]] <- toplot
   }
+  min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+  max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
   for(i in 1:nDiseases)
-    disease_list[[i]][,which(cities==city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(DEMOGRAPHIC$population)
-  
-  ## check injuries
-  #print(c((sum(INJURY_TABLE$whw$count)+sum(INJURY_TABLE$noov$count))/max(1,length(unique(INJURY_TABLE$noov$year)),na.rm=T),sum(ithim_object$outcomes$ref_injuries$deaths)))
+    disease_list[[i]][,which(cities==city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
 }
+
 {x11(width = 10, height = 5); #par(mfrow = c(2, 5))
   layout.matrix <- matrix(c(2:6,1,7:12), nrow =2, ncol =6,byrow=T)
   graphics::layout(mat = layout.matrix,heights = c(2,3),widths = c(2.8,2,2,2,2,2.5))
   cols <- c('navyblue','hotpink','grey','darkorange')
   for(i in 1:nDiseases){
-    ylim <- if(i==12) c(-0.5,0.05)*1 else if(i==1) c(-1.5,2)*1e-3 else c(-1.3,0.3)*1e-3
+    ylim <- if(i==12) c(-0.25,0.02)*1 else if(i==1) c(-1.7,2)*1e-3 else c(-9,4)*1e-4
     par(mar = c(ifelse(i<7,1,7), ifelse(i%in%c(2,7),6,ifelse(i%in%c(1,12),3,1)), 4, 1))
     if(i<7) {
       barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, #names.arg = '', 
@@ -159,7 +160,7 @@ for(city in cities){
       barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, names.arg = rownames(SCENARIO_PROPORTIONS), 
               main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
     }
-    if(i%in%c(2,1,7,12)) {axis(2,cex.axis=1.5); if(i%in%c(2,7)) mtext(side=2,'YLL per person',line=3)}
+    if(i%in%c(2,1,7,12)) {axis(2,cex.axis=1.5); if(i%in%c(2,7)) mtext(side=2,'YLL gain per person',line=3)}
     if(i==nDiseases-1) legend(legend=cities,fill=cols,bty='n',y=-1e-5,x=5)
   }
 }
@@ -317,13 +318,19 @@ for(ci in 1:length(cities)){
   parameter_samples <- cbind(parameter_samples,sapply(parameter_names_city,function(x)multi_city_ithim[[ci]]$parameters[[x]]))
   
   ## get outcomes
+  min_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+  max_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+  keep_rows <- which(min_ages>=min_age&max_ages<=max_age)
   keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('ac|neo|age|sex',as.character(x))))
-  outcome_pp[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[,keep_cols],na.rm=T)))
-  outcome_pp[[city]] <- outcome_pp[[city]]/sum(DEMOGRAPHIC$population)
+  
+  outcome_pp[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
+  min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+  max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+  outcome_pp[[city]] <- outcome_pp[[city]]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
   colnames(outcome_pp[[city]]) <- paste0(colnames(outcome_pp[[city]]),'_',city)
   
   ## omit ac (all cause) and neoplasms (neo) and age and gender columns
-  outcome[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[,keep_cols],na.rm=T)))
+  outcome[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
   colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
 }
 
