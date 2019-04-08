@@ -17,8 +17,9 @@ distances_for_injury_function <- function(trip_scen_sets){
     distances$pedestrian <- distances$pedestrian + distances$walk_to_bus
     distances <- distances[, -which(names(distances) ==  "walk_to_bus")]
   }
-  distances$car <- distances$taxi + distances$car
-  distances <- distances[, -which(names(distances) ==  "taxi")]
+  ## car is car, taxi, shared auto, shared taxi
+  distances$car <- rowSums(distances[,colnames(distances)%in%c('car','taxi','shared_auto','shared_taxi')])
+  distances <- distances[, -which(names(distances) %in% c('taxi','shared_auto','shared_taxi'))]
   ## bus distance increases linearly with bus passenger distance
   if('bus_driver'%in%colnames(distances)){
     passenger <- sapply(SCEN,function(x)sum(subset(distances,scenario==x)$bus))

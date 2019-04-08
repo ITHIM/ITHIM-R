@@ -27,6 +27,9 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,scenar
     dem_index[[type]] <- length(u_gen)*(age_index-1)+gen_index
     cas_mode_indices[[type]] <- match(injury_table[[type]]$cas_mode,mode_names)
   }
+  ## group 2W and 3W striking vehicles
+  strike_distances <- true_distances_0
+  strike_distances$motorcycle <- rowSums(strike_distances[,colnames(strike_distances)%in%c('motorcycle','auto_rickshaw')])
   strike_mode_indices <- match(injury_table$whw$strike_mode,mode_names)
   
   ## Calculated distances
@@ -38,6 +41,9 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,scenar
     true_scen_dist <- subset(true_distances_0,scenario==scen)
     dist_summary <- as.data.frame(t(sapply(unique(true_scen_dist$dem_index),function(x)
       colSums(subset(true_scen_dist,dem_index==x)[,!colnames(true_scen_dist)%in%c('age_cat','sex','scenario','sex_age','dem_index')]))))
+    strike_true_scen_dist <- subset(strike_distances,scenario==scen)
+    strike_dist_summary <- as.data.frame(t(sapply(unique(strike_true_scen_dist$dem_index),function(x)
+      colSums(subset(strike_true_scen_dist,dem_index==x)[,!colnames(strike_true_scen_dist)%in%c('age_cat','sex','scenario','sex_age','dem_index')]))))
     for(type in c('whw','noov')){
       injuries_list[[scen]][[type]] <- injury_table[[type]]
       ##TODO get distances without prior knowledge of column names
@@ -49,6 +55,7 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,scenar
       
       # apply casualty distance sums
       distance_sums <- sapply(mode_names,function(x)sum(dist_summary[[x]]))
+      strike_distance_sums <- sapply(mode_names,function(x)sum(strike_dist_summary[[x]]))
       injuries_list[[scen]][[type]]$cas_distance_sum <- distance_sums[cas_mode_indices[[type]]]
       
       # apply group-level casualty distances
@@ -56,7 +63,7 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,scenar
       
       # apply striker distances for whw
       if(type=='whw'){
-        injuries_list[[scen]][[type]]$strike_distance <- distance_sums[strike_mode_indices]
+        injuries_list[[scen]][[type]]$strike_distance <- strike_distance_sums[strike_mode_indices]
         injuries_list[[scen]][[type]]$strike_distance_sum <- injuries_list[[scen]][[type]]$strike_distance
       }
       

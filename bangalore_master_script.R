@@ -6,21 +6,23 @@ require(ithimr)
 #require(tidyverse)
 
 io <- run_ithim_setup(CITY = 'bangalore',
-                                TEST_WALK_SCENARIO = T,
-                                ADD_WALK_TO_BUS_TRIPS = F,
-                                ADD_TRUCK_DRIVERS = F,
-                                ADD_BUS_DRIVERS = F,
-                                speeds = list(subway = 32,
-                                              bicycle = 15),
-                                emission_inventory = list(motorcycle = 1409,
-                                                          auto_rickshaw = 133,
-                                                          car = 2214,
-                                                          bus_driver = 644,
-                                                          big_truck = 4624,
-                                                          truck = 3337,
-                                                          van = 0,
-                                                          other = 0,
-                                                          taxi = 0))
+                      TEST_WALK_SCENARIO = T,
+                      ADD_WALK_TO_BUS_TRIPS = F,
+                      ADD_TRUCK_DRIVERS = F,
+                      ADD_BUS_DRIVERS = F,
+                      PM_TRANS_SHARE = 0.281,
+                      PM_CONC_BASE = 47.4,
+                      speeds = list(subway = 32,
+                                    bicycle = 15),
+                      emission_inventory = list(motorcycle = 1409,
+                                                auto_rickshaw = 133,
+                                                car = 2214,
+                                                bus_driver = 644,
+                                                big_truck = 4624,
+                                                truck = 3337,
+                                                van = 0,
+                                                other = 0,
+                                                taxi = 0))
 
 io$outcomes <- run_ithim(io, seed = 1)
 
