@@ -165,6 +165,11 @@ for(city in cities){
   }
 }
 
+## Save the ithim_object in the results folder
+##########
+
+saveRDS(ithim_objects, "C:/RStudio Projects/ITHIM-R/results/multi_city/io.rds")
+
 #################################################
 ## with uncertainty
 ## comparison across cities
