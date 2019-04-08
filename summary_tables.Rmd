@@ -1,0 +1,52 @@
+---
+title: "Summary Tables"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r loadLibraries, echo = F}
+library(summarytools)
+library(knitr)
+library(summarytools)
+library(tidyverse)
+```
+
+```{r load_objects = "asis"}
+io <- readRDS("results/multi_city/io.rds")
+# Assumes that multi_city_script.R has been run till 
+cities <- c('accra','sao_paulo','delhi','bangalore')
+
+```
+
+```{r trip_tables = "asis"}
+
+for(city in cities){
+    td <- io[[city]]$dist
+    print(kable(td, caption = paste("Distance table for ", city)))
+    cat("\n")
+}
+
+
+for(city in cities){
+    td <- io[[city]]$dur
+    print(kable(td, caption = paste("Duration table for ", city)))
+    cat("\n")
+}
+```
+
+
+```{r pa="asis"}
+
+for (city in cities){
+  td <- io[[city]]$outcomes$mmets %>% dplyr::select(-c(participant_id))
+  print(summarytools::dfSummary(td))
+  cat("\n")
+  
+}
+
+```
+
