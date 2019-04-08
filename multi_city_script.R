@@ -150,16 +150,13 @@ for(city in cities){
   layout.matrix <- matrix(c(2:6,1,7:12), nrow =2, ncol =6,byrow=T)
   graphics::layout(mat = layout.matrix,heights = c(2,3),widths = c(2.8,2,2,2,2,2.5))
   cols <- c('navyblue','hotpink','grey','darkorange')
+  mar1 <- rep(7,nDiseases); mar1[1:6] <- 1
+  mar2 <- rep(1,nDiseases); mar2[c(2,7)] <- 6; mar2[c(1,12)] <- 3
   for(i in 1:nDiseases){
-    ylim <- if(i==12) c(-0.25,0.02)*1 else if(i==1) c(-1.7,2)*1e-3 else c(-9,4)*1e-4
-    par(mar = c(ifelse(i<7,1,7), ifelse(i%in%c(2,7),6,ifelse(i%in%c(1,12),3,1)), 4, 1))
-    if(i<7) {
-      barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, #names.arg = '', 
+    ylim <- if(i==12) c(-0.25,0.02)*1 else if(i==1) c(-1.7,2)*1e-3 else c(-11,4)*1e-4
+    par(mar = c(mar1[i], mar2[i], 4, 1))
+      barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, names.arg=if(i<7) NULL else  rownames(SCENARIO_PROPORTIONS), 
               main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
-    }else{
-      barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, names.arg = rownames(SCENARIO_PROPORTIONS), 
-              main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
-    }
     if(i%in%c(2,1,7,12)) {axis(2,cex.axis=1.5); if(i%in%c(2,7)) mtext(side=2,'YLL gain per person',line=3)}
     if(i==nDiseases-1) legend(legend=cities,fill=cols,bty='n',y=-1e-5,x=5)
   }
