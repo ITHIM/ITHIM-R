@@ -90,13 +90,14 @@ injury_linearity <- 1
 # beta parameters for CASUALTY_EXPONENT_FRACTION
 cas_exponent <- 0.5
 # beta parameters for DAY_TO_WEEK_TRAVEL_SCALAR
-day_to_week_scalar <- 7#c(20,3)
+day_to_week_scalar <- 7
 
 #################################################
 ## without uncertainty
-toplot <- matrix(0,nrow=5,ncol=length(cities)) #5 scenarios, 3 cities
+toplot <- matrix(0,nrow=5,ncol=length(cities)) #5 scenarios, 4 cities
+ithim_objects <- list()
 for(city in cities){
-  ithim_object <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),
+  ithim_objects[[city]] <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),
                                   ADD_WALK_TO_BUS_TRIPS=F,
                                   CITY=city,ADD_TRUCK_DRIVERS = F,
                                   MAX_MODE_SHARE_SCENARIO = T,
@@ -120,13 +121,17 @@ for(city in cities){
                                   BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
                                   BUS_WALK_TIME = bus_walk_time[[city]],
                                   MOTORCYCLE_TO_CAR_RATIO = mc_car_ratio[[city]])
-  #ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F)
-  ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
+  ithim_objects[[city]]$outcomes <- run_ithim(ithim_objects[[city]], seed = 1)
+  ithim_objects[[city]]$synth_pop <- SYNTHETIC_POPULATION
+  ithim_objects[[city]]$demographic <- DEMOGRAPHIC
+  ithim_objects[[city]]$disease_burden <- DISEASE_BURDEN
+  ithim_objects[[city]]$emission_inventory <- EMISSION_INVENTORY
+  ithim_objects[[city]]$injury_table <- INJURY_TABLE
   ##
-  print(city)
-  print(sapply(SCEN,function(x)sum(subset(ithim_object$outcomes$injuries,scenario==x)$Deaths)))
-  ## plot results
-  result_mat <- colSums(ithim_object$outcome$hb$ylls[,3:ncol(ithim_object$outcome$hb$ylls)])
+  #print(city)
+  #print(sapply(SCEN,function(x)sum(subset(ithim_objects[[city]]$outcomes$injuries,scenario==x)$Deaths)))
+  ## store results to plot
+  result_mat <- colSums(ithim_objects[[city]]$outcome$hb$ylls[,3:ncol(ithim_objects[[city]]$outcome$hb$ylls)])
   columns <- length(result_mat)
   nDiseases <- columns/NSCEN
   ylim <- range(result_mat)
@@ -138,25 +143,26 @@ for(city in cities){
     disease_list[[i]][,which(cities==city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(DEMOGRAPHIC$population)
   
   ## check injuries
-  print(c((sum(INJURY_TABLE$whw$count)+sum(INJURY_TABLE$noov$count))/max(1,length(unique(INJURY_TABLE$noov$year)),na.rm=T),sum(ithim_object$outcomes$ref_injuries$deaths)))
+  #print(c((sum(INJURY_TABLE$whw$count)+sum(INJURY_TABLE$noov$count))/max(1,length(unique(INJURY_TABLE$noov$year)),na.rm=T),sum(ithim_object$outcomes$ref_injuries$deaths)))
 }
 {x11(width = 10, height = 5); #par(mfrow = c(2, 5))
   layout.matrix <- matrix(c(2:6,1,7:12), nrow =2, ncol =6,byrow=T)
   graphics::layout(mat = layout.matrix,heights = c(2,3),widths = c(2.8,2,2,2,2,2.5))
   cols <- c('navyblue','hotpink','grey','darkorange')
-for(i in 1:nDiseases){
-  ylim <- if(i==12) c(-0.5,0.05)*1 else if(i==1) c(-1.5,2)*1e-3 else c(-1.3,0.3)*1e-3
-  par(mar = c(ifelse(i<7,1,7), ifelse(i%in%c(2,7),6,ifelse(i%in%c(1,12),3,1)), 4, 1))
-  if(i<7) {
-    barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, #names.arg = '', 
-            main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
-  }else{
-    barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, names.arg = rownames(SCENARIO_PROPORTIONS), 
-            main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
+  for(i in 1:nDiseases){
+    ylim <- if(i==12) c(-0.5,0.05)*1 else if(i==1) c(-1.5,2)*1e-3 else c(-1.3,0.3)*1e-3
+    par(mar = c(ifelse(i<7,1,7), ifelse(i%in%c(2,7),6,ifelse(i%in%c(1,12),3,1)), 4, 1))
+    if(i<7) {
+      barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, #names.arg = '', 
+              main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
+    }else{
+      barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, names.arg = rownames(SCENARIO_PROPORTIONS), 
+              main = paste0( last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
+    }
+    if(i%in%c(2,1,7,12)) {axis(2,cex.axis=1.5); if(i%in%c(2,7)) mtext(side=2,'YLL per person',line=3)}
+    if(i==nDiseases-1) legend(legend=cities,fill=cols,bty='n',y=-1e-5,x=5)
   }
-  if(i%in%c(2,1,7,12)) {axis(2,cex.axis=1.5); if(i%in%c(2,7)) mtext(side=2,'YLL per person',line=3)}
-  if(i==nDiseases-1) legend(legend=cities,fill=cols,bty='n',y=-1e-5,x=5)
-}}
+}
 
 #################################################
 ## with uncertainty
@@ -325,7 +331,7 @@ for(ci in 1:length(cities)){
 
 
 
-####################
+#################################################
 
 
 ## calculate EVPPI
