@@ -58,12 +58,12 @@ chronic_disease_scalar <- list(accra=1,
 pm_concentration <- list(accra=50,
                          sao_paulo=18,
                          delhi=122,
-                         bangalore=63)
+                         bangalore=47.4)
 # beta parameters for PM_TRANS_SHARE
 pm_trans_share <- list(accra=0.225,
                        sao_paulo=0.4,
                        delhi=0.225,
-                       bangalore=0.225)
+                       bangalore=0.281)
 # lnorm parameters for BACKGROUND_PA_SCALAR
 background_pa_scalar <- list(accra=1,
                              sao_paulo=1,
@@ -146,7 +146,7 @@ for(city in cities){
     disease_list[[i]][,which(cities==city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
 }
 
-{x11(width = 10, height = 5); #par(mfrow = c(2, 5))
+{x11(width = 10, height = 5);
   layout.matrix <- matrix(c(2:6,1,7:12), nrow =2, ncol =6,byrow=T)
   graphics::layout(mat = layout.matrix,heights = c(2,3),widths = c(2.8,2,2,2,2,2.5))
   cols <- c('navyblue','hotpink','grey','darkorange')
@@ -169,7 +169,7 @@ for(city in cities){
 ## with uncertainty
 ## comparison across cities
 numcores <- detectCores()
-nsamples <- 1024
+nsamples <- 16
 setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR",  "EMISSION_INVENTORY",                        
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO")
 
@@ -188,12 +188,12 @@ chronic_disease_scalar <- list(accra=c(0,log(1.2)),
 pm_concentration <- list(accra=c(log(50),log(1.3)),
                                sao_paulo=c(log(20),log(1.3)),
                          delhi=c(log(122),log(1.3)),
-                         bangalore=c(log(63),log(1.3)))
+                         bangalore=c(log(47.4),log(1.3))) ##!! sd=7.5
 # beta parameters for PM_TRANS_SHARE
 pm_trans_share <- list(accra=c(5,20),
                            sao_paulo=c(8,8),
                        delhi=c(4,4),
-                       bangalore=c(4,4))
+                       bangalore=c(4,4)) ##!! mean 28.1, sd 8.9
 # lnorm parameters for BACKGROUND_PA_SCALAR
 background_pa_scalar <- list(accra=c(0,log(1.2)),
                                sao_paulo=c(0,log(1.2)),
