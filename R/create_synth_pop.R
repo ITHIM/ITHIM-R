@@ -50,7 +50,7 @@ create_synth_pop <- function(raw_trip_set){
       raw_zero <- 1
       if(nrow(matching_people)>0) raw_zero <- sum(matching_people$work_ltpa_marg_met==0)/length(matching_people$work_ltpa_marg_met)
       if(BACKGROUND_PA_CONFIDENCE < 1){
-        beta <- (1/raw_zero - 1)*pointiness*raw_zero
+        beta <- ifelse(raw_zero==0,0,(1/raw_zero - 1)*pointiness*raw_zero)
         alpha <- pointiness - beta
         raw_zero <- qbeta(BACKGROUND_PA_ZEROS,alpha,beta)
       }
