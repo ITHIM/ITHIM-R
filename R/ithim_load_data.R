@@ -127,6 +127,7 @@ ithim_load_data <- function(speeds=list(
   bike_words <- c('bike','cycle','cycling')
   mc_words <- c('motorbike','mcycle','mc','mtw')
   subway_words <- c('metro','underground')
+  rail_words <- c('train')
   for(i in 1:length(mode_cols)){
     ## lower case mode names
     trip_set[[mode_cols[i]]] <- tolower(trip_set[[mode_cols[i]]])
@@ -137,6 +138,7 @@ ithim_load_data <- function(speeds=list(
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%bike_words] <- 'bicycle'
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%mc_words] <- 'motorcycle'
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%subway_words] <- 'subway'
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%rail_words] <- 'rail'
   }
   trip_set <- subset(trip_set,!is.na(age))
   trip_set <- subset(trip_set,!is.na(sex))

@@ -235,7 +235,7 @@ run_ithim_setup <- function(seed = 1,
   }
   
   cat('\n  Emissions will be calculated for the following modes:\n',file=setup_call_summary_filename,append=T)
-  cat(VEHICLE_INVENTORY$stage_mode[VEHICLE_INVENTORY$emission_inventory*VEHICLE_INVENTORY$distance_ratio_to_car>0],file=setup_call_summary_filename,append=T)
+  cat(names(EMISSION_INVENTORY)[unlist(EMISSION_INVENTORY)>0],file=setup_call_summary_filename,append=T)
   cat("\n  To edit an emission contribution, supply e.g. 'emission_inventory=list(car=4)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
   cat("  To exclude a mode from the emission inventory, supply e.g. 'emission_inventory=list(other=0)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
   cat('\n\n',file=setup_call_summary_filename,append=T)
