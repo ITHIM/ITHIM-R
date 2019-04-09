@@ -1,7 +1,7 @@
 #' @export
 edit_accra_trips <- function(raw_trip_set){
   
-  total_car_distance <- sum(subset(raw_trip_set,stage_mode=='car')$trip_distance)
+  total_car_distance <- sum(subset(raw_trip_set,stage_mode=='car')$trip_distance)*DISTANCE_SCALAR_CAR_TAXI
   
   # Redefine motorcycle mode for a select 14 rows
   raw_trip_set$trip_mode[raw_trip_set$trip_mode=='other'&raw_trip_set$trip_distance<30] <- 'motorcycle'
@@ -13,7 +13,7 @@ edit_accra_trips <- function(raw_trip_set){
   # Add 4 new people with 3 trips each
   # Age: 15-59 and gender: male
   new_mode <- 'motorcycle'
-  total_mc_distance <- total_car_distance*MOTORCYCLE_TO_CAR_RATIO#VEHICLE_INVENTORY$distance_ratio_to_car[VEHICLE_INVENTORY$trip_mode==new_mode]
+  total_mc_distance <- total_car_distance*MOTORCYCLE_TO_CAR_RATIO
   residual_mc_distance <- total_mc_distance - sum(subset(raw_trip_set,stage_mode==new_mode)$trip_distance)
   #duration_range <- 15:100
   nTrips <- 1

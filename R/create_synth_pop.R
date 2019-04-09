@@ -34,7 +34,7 @@ create_synth_pop <- function(raw_trip_set){
   unique_genders <- unique(trip_set$sex)
   
   if(BACKGROUND_PA_CONFIDENCE < 1){
-    pointiness <- 500^(BACKGROUND_PA_CONFIDENCE+0.2)
+    pointiness <- beta_pointiness(BACKGROUND_PA_CONFIDENCE)
   }
   
   # get population from trip_set: all the unique ids, and their demographic information
@@ -83,9 +83,41 @@ create_synth_pop <- function(raw_trip_set){
   trip_set <- subset(trip_set,trip_mode!='other')
   trip_set <- drop_na(trip_set)
   
+  ## update all distances and durations
+  trip_set <- scale_trip_distances(trip_set)
+  
   return(list(trip_set=trip_set,synthetic_population=synthetic_population))
   
 }
 
 
-  
+
+#' @export
+scale_trip_distances <- function(trips){
+  car_taxi_modes <- c('car','taxi','auto_rickshaw','shared_auto')
+  pt_modes <- c('bus','minibus','subway','rail')
+  ## omit trip distance as it has already been used to create scenarios and has no other use
+  column_names <- c('stage_distance','stage_duration')
+  match_modes <- rep(1,nrow(trips))
+  stage_modes <- trips$stage_mode
+  match_modes[stage_modes%in%car_taxi_modes] <- DISTANCE_SCALAR_CAR_TAXI
+  match_modes[stage_modes%in%c('walking')] <- DISTANCE_SCALAR_WALKING
+  match_modes[stage_modes%in%pt_modes] <- DISTANCE_SCALAR_PT
+  match_modes[stage_modes%in%c('cycling')] <- DISTANCE_SCALAR_CYCLING
+  match_modes[stage_modes%in%c('motorcycle')] <- DISTANCE_SCALAR_MOTORCYCLE
+  trips$stage_distance <- trips$stage_distance*match_modes
+  trips$stage_duration <- trips$stage_duration*match_modes
+  trips$trip_distance <- trips$stage_distance
+  trip_ids <- trips$trip_id
+  n_stages <- sapply(trip_ids,function(x)sum(trip_ids==x))
+  if(any(n_stages>1)){
+    stage_dist <- trips$stage_distance
+    trips$trip_distance[n_stages>1] <- sapply(trip_ids[n_stages>1],function(x)sum(stage_dist[trip_ids==x]))
+  }
+  trips
+}
+
+#' @export
+beta_pointiness <- function(confidence){
+  500^(confidence+0.2)
+}
