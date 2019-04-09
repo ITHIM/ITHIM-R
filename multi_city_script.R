@@ -121,6 +121,7 @@ for(city in cities){
                                   BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
                                   BUS_WALK_TIME = bus_walk_time[[city]],
                                   MOTORCYCLE_TO_CAR_RATIO = mc_car_ratio[[city]])
+  ithim_objects$scen_prop <- SCENARIO_PROPORTIONS
   ithim_objects[[city]]$outcomes <- run_ithim(ithim_objects[[city]], seed = 1)
   ithim_objects[[city]]$synth_pop <- SYNTHETIC_POPULATION
   ithim_objects[[city]]$demographic <- DEMOGRAPHIC

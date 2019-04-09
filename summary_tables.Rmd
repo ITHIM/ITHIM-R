@@ -4,15 +4,28 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis')
+
 ```
 
 
-```{r loadLibraries, echo = F}
+```{r loadLibraries, echo = F, message = F}
+suppressWarnings({
+
 library(summarytools)
 library(knitr)
 library(summarytools)
-library(tidyverse)
+library(dplyr)
+})
+
+st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
+           plain.ascii       = FALSE,       # One of the essential settings
+           style             = "rmarkdown", # Idem.
+           dfSummary.silent  = TRUE,        # Suppresses messages about temporary files
+           footnote          = NA,          # Keeping the results minimalistic
+           subtitle.emphasis = FALSE)       # For the vignette theme, this gives
+                                            # much better results. Your mileage may vary
+
 ```
 
 ```{r load_objects = "asis"}
@@ -20,33 +33,94 @@ io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
 cities <- c('accra','sao_paulo','delhi','bangalore')
 
+# Set plot_mmets to F
+plot_mmets <- F
+
 ```
 
-```{r trip_tables = "asis"}
+## Scenario definition
+Table displays highest propensity for each distance category, for a given mode.
+
+
+```{r scen_prop = "asis"}
+
+scen_prop <- round(io$scen_prop, 2)
+
+rownames(scen_prop) <- paste(rownames(io$scen_prop), "scen", sep = "_")
+
+kable(scen_prop, headings = "Scenario Proportions")
+
+```
+
+## Trip proportion
+Case study specific trip proportions by mode, for baseline and five scenarios
+
+```{r trip_mode_dist = "asis", echo = F}
+suppressWarnings({
+  require(tidyverse)  
+})
 
 for(city in cities){
-    td <- io[[city]]$dist
+    td <- io[[city]]$trip_scen_sets %>% group_by(trip_mode, scenario) %>% summarise(p = round(n() / nrow(.) * 100, 2)) %>% spread(key = trip_mode, value = p)
+    td[2:6, 1] <- rownames(scen_prop)
+    print(kable(td, caption = paste("Trip proportion (%) by mode for ", city)))
+    cat("\n")
+}
+
+suppressWarnings({
+  detach("package:tidyverse", character.only = T)
+})
+
+```
+
+
+## Distance tables
+Case study specific distance tables for baseline and five scenarios
+
+
+```{r trip_dist = "asis"}
+
+for(city in cities){
+    td <- io[[city]]$dist %>% mutate_if(is.numeric, round, digits = 2)
+    colnames(td)[3:7] <- rownames(scen_prop)
     print(kable(td, caption = paste("Distance table for ", city)))
     cat("\n")
 }
 
+```
+
+## Distance tables
+Case study specific duration tables for baseline and five scenarios
+
+
+```{r trip_dur = "asis"}
+
 
 for(city in cities){
-    td <- io[[city]]$dur
+    td <- io[[city]]$dur %>% mutate_if(is.numeric, round, digits = 2)
+    colnames(td)[3:7] <- rownames(scen_prop)
     print(kable(td, caption = paste("Duration table for ", city)))
     cat("\n")
 }
+
 ```
 
 
-```{r pa="asis"}
 
-for (city in cities){
-  td <- io[[city]]$outcomes$mmets %>% dplyr::select(-c(participant_id))
-  print(summarytools::dfSummary(td))
-  cat("\n")
+```{r pa, echo = F, message = F}
+
+if (plot_mmets){
+
+  dfSummary(accra_mmets <- io[["accra"]]$outcomes$mmets, style = 'grid', graph.magnif = 0.75, tmp.img.dir = "/tmp")
   
+  dfSummary(sao_paulo_mmets <- io[["sao_paulo"]]$outcomes$mmets, style = 'grid', graph.magnif = 0.75, tmp.img.dir = "/tmp")
+  
+  dfSummary(delhi_mmets <- io[["delhi"]]$outcomes$mmets, style = 'grid', graph.magnif = 0.75, tmp.img.dir = "/tmp")
+  
+  dfSummary(bangalore_mmets <- io[["bangalore"]]$outcomes$mmets, style = 'grid', graph.magnif = 0.75, tmp.img.dir = "/tmp")
 }
 
 ```
+
+
 
