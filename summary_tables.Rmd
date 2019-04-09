@@ -33,6 +33,9 @@ io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
 cities <- c('accra','sao_paulo','delhi','bangalore')
 
+# round to
+round_to <- 1
+
 # Set plot_mmets to F
 plot_mmets <- F
 
@@ -44,7 +47,7 @@ Table displays highest propensity for each distance category, for a given mode.
 
 ```{r scen_prop = "asis"}
 
-scen_prop <- round(io$scen_prop, 2)
+scen_prop <- round(io$scen_prop, round_to)
 
 rownames(scen_prop) <- paste(rownames(io$scen_prop), "scen", sep = "_")
 
@@ -69,7 +72,7 @@ for(city in cities){
   df <- io[[city]]$trip_scen_sets
   df1 <- df %>% filter(scenario == "Baseline") %>% group_by(trip_id, trip_mode, scenario)
   u_trips <- nrow(df1)
-  td <- df %>% group_by(trip_id, trip_mode, scenario) %>% group_by(trip_mode, scenario) %>% summarise(p = round(dplyr::n() /  u_trips * 100, 2)) %>% spread(key = trip_mode, value = p) %>% mutate(row_sums = rowSums(.[sapply(., is.numeric)], na.rm = TRUE))
+  td <- df %>% group_by(trip_id, trip_mode, scenario) %>% group_by(trip_mode, scenario) %>% summarise(p = round(dplyr::n() /  u_trips * 100, round_to)) %>% spread(key = trip_mode, value = p) %>% mutate(row_sums = rowSums(.[sapply(., is.numeric)], na.rm = TRUE))
   td[2:6, 1] <- rownames(scen_prop)
   print(kable(td, caption = paste("Trip proportion (%) by mode for ", city)))
   cat("\n")
@@ -91,7 +94,7 @@ Case study specific distance tables for baseline and five scenarios
 ```{r trip_dist = "asis"}
 
 for(city in cities){
-    td <- io[[city]]$dist %>% mutate_if(is.numeric, round, digits = 2)
+    td <- io[[city]]$dist %>% mutate_if(is.numeric, round, digits = round_to)
     colnames(td)[3:7] <- rownames(scen_prop)
     print(kable(td, caption = paste("Distance table for ", city)))
     cat("\n")
@@ -107,7 +110,7 @@ Case study specific duration tables for baseline and five scenarios
 
 
 for(city in cities){
-    td <- io[[city]]$dur %>% mutate_if(is.numeric, round, digits = 2)
+    td <- io[[city]]$dur %>% mutate_if(is.numeric, round, digits = round_to)
     colnames(td)[3:7] <- rownames(scen_prop)
     print(kable(td, caption = paste("Duration table for ", city)))
     cat("\n")
