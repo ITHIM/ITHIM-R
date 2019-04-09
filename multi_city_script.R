@@ -183,7 +183,7 @@ setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO"
 
 
 # beta parameters for INJURY_REPORTING_RATE
-injury_report_rate <- list(accra=c(8,3),
+injury_reporting_rate <- list(accra=c(8,3),
                            sao_paulo=c(50,3),
                            delhi=c(50,3),
                            bangalore=c(50,3))
@@ -193,7 +193,7 @@ chronic_disease_scalar <- list(accra=c(0,log(1.2)),
                                delhi=c(0,log(1.2)),
                                bangalore=c(0,log(1.2)))
 # lnorm parameters for PM_CONC_BASE
-pm_concentration <- list(accra=c(log(50),log(1.3)),
+pm_conc_base <- list(accra=c(log(50),log(1.3)),
                                sao_paulo=c(log(20),log(1.3)),
                          delhi=c(log(122),log(1.3)),
                          bangalore=c(log(47),log(1.17))) ## mean=47.4, sd=7.5
@@ -222,14 +222,14 @@ mmet_cycling <- c(log(4.63),log(1.2))
 # lnorm parameters for MMET_WALKING
 mmet_walking <- c(log(2.53),log(1.2))
 # lnorm parameters for MOTORCYCLE_TO_CAR_RATIO
-mc_car_ratio <- list(accra=c(-1.4,0.4),
+motorcycle_to_car_ratio <- list(accra=c(-1.4,0.4),
                        sao_paulo=c(-1.4,0.4),
                      delhi=c(-1.4,0.4),
                      bangalore=c(-1.4,0.4))
 # lnorm parameters for INJURY_LINEARITY
 injury_linearity <- c(log(1),log(1.05))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
-cas_exponent <- c(15,15)
+casualty_exponent_fraction <- c(15,15)
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
 pa_dr_quantile <- c(T,F,F,F)
 # logical for AP dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
@@ -287,6 +287,7 @@ distance_scalar_cycling <- list(accra=c(0,log(1.2)),
                                  bangalore=c(0,log(1.2)))
 
 
+parameters_only <- T
 multi_city_ithim <- outcome <- outcome_pp <- list()
 for(ci in 1:length(cities)){
   city <- cities[ci]
@@ -309,19 +310,19 @@ for(ci in 1:length(cities)){
                                             MMET_WALKING = mmet_walking, 
                                             DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
                                             INJURY_LINEARITY= injury_linearity,
-                                            CASUALTY_EXPONENT_FRACTION = cas_exponent,
+                                            CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
                                             
                                             PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile[ci],  
                                             AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile[ci],
                                             
-                                            INJURY_REPORTING_RATE = injury_report_rate[[city]],  
+                                            INJURY_REPORTING_RATE = injury_reporting_rate[[city]],  
                                             CHRONIC_DISEASE_SCALAR = chronic_disease_scalar[[city]],  
-                                            PM_CONC_BASE = pm_concentration[[city]],  
+                                            PM_CONC_BASE = pm_conc_base[[city]],  
                                             PM_TRANS_SHARE = pm_trans_share[[city]],  
                                             BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
                                             BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
                                             BUS_WALK_TIME = bus_walk_time[[city]],
-                                            MOTORCYCLE_TO_CAR_RATIO = mc_car_ratio[[city]],
+                                            MOTORCYCLE_TO_CAR_RATIO = motorcycle_to_car_ratio[[city]],
                                             BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                             TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
                                             EMISSION_INVENTORY_CONFIDENCE = emission_confidence[[city]],
@@ -340,11 +341,29 @@ for(ci in 1:length(cities)){
     for(param in model_parameters) multi_city_ithim[[ci]]$parameters[[param]] <- multi_city_ithim[[1]]$parameters[[param]]
   }
   
-  if(Sys.info()[['sysname']] == "Windows"){
-    multi_city_ithim[[ci]]$outcomes <- list()
-    for(i in 1:nsamples) multi_city_ithim[[ci]]$outcomes[[i]] <- run_ithim(ithim_object = multi_city_ithim[[ci]])
-  }else{
-    multi_city_ithim[[ci]]$outcomes <- mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
+  if(!parameters_only){
+    if(Sys.info()[['sysname']] == "Windows"){
+      multi_city_ithim[[ci]]$outcomes <- list()
+      for(i in 1:nsamples) multi_city_ithim[[ci]]$outcomes[[i]] <- run_ithim(ithim_object = multi_city_ithim[[ci]])
+    }else{
+      multi_city_ithim[[ci]]$outcomes <- mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
+    }
+    
+    ## get outcomes
+    min_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+    max_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+    keep_rows <- which(min_ages>=min_age&max_ages<=max_age)
+    keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('ac|neo|age|sex',as.character(x))))
+    
+    outcome_pp[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
+    min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+    max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+    outcome_pp[[city]] <- outcome_pp[[city]]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
+    colnames(outcome_pp[[city]]) <- paste0(colnames(outcome_pp[[city]]),'_',city)
+    
+    ## omit ac (all cause) and neoplasms (neo) and age and gender columns
+    outcome[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
+    colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
   }
   
   ## rename city-specific parameters according to city
@@ -361,26 +380,46 @@ for(ci in 1:length(cities)){
   ## get parameter samples and add to array of parameter samples
   parameter_samples <- cbind(parameter_samples,sapply(parameter_names_city,function(x)multi_city_ithim[[ci]]$parameters[[x]]))
   
-  ## get outcomes
-  min_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-  max_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  keep_rows <- which(min_ages>=min_age&max_ages<=max_age)
-  keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('ac|neo|age|sex',as.character(x))))
-  
-  outcome_pp[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
-  min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-  max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  outcome_pp[[city]] <- outcome_pp[[city]]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
-  colnames(outcome_pp[[city]]) <- paste0(colnames(outcome_pp[[city]]),'_',city)
-  
-  ## omit ac (all cause) and neoplasms (neo) and age and gender columns
-  outcome[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
-  colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
 }
 
+betaVariables <- c("PM_TRANS_SHARE",
+                   "INJURY_REPORTING_RATE",
+                   "CASUALTY_EXPONENT_FRACTION",
+                   "BUS_TO_PASSENGER_RATIO",
+                   "TRUCK_TO_CAR_RATIO")
+normVariables <- c("BUS_WALK_TIME",
+                   "MMET_CYCLING",
+                   "MMET_WALKING",
+                   "PM_CONC_BASE",
+                   "MOTORCYCLE_TO_CAR_RATIO",
+                   "BACKGROUND_PA_SCALAR",
+                   "CHRONIC_DISEASE_SCALAR",
+                   "INJURY_LINEARITY",
+                   "DISTANCE_SCALAR_CAR_TAXI",
+                   "DISTANCE_SCALAR_WALKING",
+                   "DISTANCE_SCALAR_PT",
+                   "DISTANCE_SCALAR_CYCLING",
+                   "DISTANCE_SCALAR_MOTORCYCLE")
+
 source('dfSummaryrj.R')
-x <- dfSummaryrj(parameter_samples,style='grid',na.col=F,valid.col=F)
-view(x)
+distributions <- sapply(colnames(parameter_samples),
+       function(x){
+         if(grepl('EMISSION_INVENTORY',x)) 'Dirichlet' 
+         else if(grepl('DOSE_RESPONSE',x)) 'Uniform(0,1)' 
+         else if(x%in%normVariables) paste0('Lnorm(',sprintf('%.1f',get(tolower(x))[1]),',',
+                                            sprintf('%.2f',get(tolower(x))[2]),')') 
+         else if(x%in%betaVariables) paste0('Beta(',sprintf('%.1f',get(tolower(x))[1]),',',
+                                            sprintf('%.1f',get(tolower(x))[2]),')') 
+         else {city <- cities[sapply(cities,function(y)grepl(y,x))]; 
+         param <- strsplit(x,paste0('_',city))[[1]][1]; 
+         if(param=='BACKGROUND_PA_ZEROS') 'Uniform(0,1)' 
+         else {dists <- get(tolower(param))[[city]]
+         if(param%in%normVariables) paste0('Lnorm(',sprintf('%.1f',dists[1]),',',
+                                       sprintf('%.2f',dists[2]),')') 
+         else if(param%in%betaVariables) paste0('Beta(',sprintf('%.1f',dists[1]),',',
+                                            sprintf('%.1f',dists[2]),')')}}})
+x <- dfSummaryrj(parameter_samples,style='grid',na.col=F,valid.col=F,distributions=distributions)
+summarytools::view(x)
 
 #################################################
 
