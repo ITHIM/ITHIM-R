@@ -4,7 +4,8 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=TRUE, results='asis')
+
 ```
 
 
@@ -12,7 +13,16 @@ knitr::opts_chunk$set(echo = TRUE)
 library(summarytools)
 library(knitr)
 library(summarytools)
-library(tidyverse)
+#library(tidyverse)
+
+st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
+           plain.ascii       = FALSE,       # One of the essential settings
+           style             = "rmarkdown", # Idem.
+           dfSummary.silent  = TRUE,        # Suppresses messages about temporary files
+           footnote          = NA,          # Keeping the results minimalistic
+           subtitle.emphasis = FALSE)       # For the vignette theme, this gives
+                                            # much better results. Your mileage may vary
+
 ```
 
 ```{r load_objects = "asis"}
@@ -36,17 +46,21 @@ for(city in cities){
     print(kable(td, caption = paste("Duration table for ", city)))
     cat("\n")
 }
+
 ```
 
 
-```{r pa="asis"}
+
+```{r pa = "asis"}
 
 for (city in cities){
-  td <- io[[city]]$outcomes$mmets %>% dplyr::select(-c(participant_id))
-  print(summarytools::dfSummary(td))
+  td <- io[[city]]$outcomes$mmets
+  print(dfSummary(td))
   cat("\n")
-  
+
 }
 
 ```
+
+
 
