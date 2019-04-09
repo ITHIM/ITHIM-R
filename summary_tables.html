@@ -237,16 +237,6 @@ $(document).ready(function () {
 <div id="trip-proportion" class="section level2">
 <h2>Trip proportion</h2>
 <p>Case study specific trip proportions by mode, for baseline and five scenarios</p>
-<pre><code>Loading required package: tidyverse</code></pre>
-<pre><code>-- Attaching packages ------------------------------------------------ tidyverse 1.2.1 --</code></pre>
-<pre><code>v ggplot2 3.1.0     v readr   1.3.1
-v tibble  2.0.1     v purrr   0.3.0
-v tidyr   0.8.2     v stringr 1.3.1
-v ggplot2 3.1.0     v forcats 0.3.0</code></pre>
-<pre><code>-- Conflicts --------------------------------------------------- tidyverse_conflicts() --
-x dplyr::filter() masks stats::filter()
-x dplyr::lag()    masks stats::lag()
-x tibble::view()  masks summarytools::view()</code></pre>
 <table>
 <caption>Trip proportion (%) by mode for accra</caption>
 <thead>
@@ -258,62 +248,69 @@ x tibble::view()  masks summarytools::view()</code></pre>
 <th align="right">motorcycle</th>
 <th align="right">taxi</th>
 <th align="right">walking</th>
+<th align="right">row_sums</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Baseline</td>
-<td align="right">0.08</td>
-<td align="right">5.09</td>
-<td align="right">1.59</td>
-<td align="right">0.34</td>
-<td align="right">0.68</td>
-<td align="right">8.89</td>
+<td align="right">0.47</td>
+<td align="right">30.51</td>
+<td align="right">9.57</td>
+<td align="right">2.06</td>
+<td align="right">4.07</td>
+<td align="right">53.32</td>
+<td align="right">100.00</td>
 </tr>
 <tr class="even">
 <td align="left">walking_scen</td>
-<td align="right">0.07</td>
-<td align="right">5.09</td>
-<td align="right">1.57</td>
-<td align="right">0.27</td>
-<td align="right">0.67</td>
-<td align="right">9.01</td>
+<td align="right">0.41</td>
+<td align="right">30.51</td>
+<td align="right">9.42</td>
+<td align="right">1.60</td>
+<td align="right">4.03</td>
+<td align="right">54.03</td>
+<td align="right">100.00</td>
 </tr>
 <tr class="odd">
 <td align="left">bicycle_scen</td>
-<td align="right">0.87</td>
-<td align="right">4.80</td>
-<td align="right">1.52</td>
-<td align="right">0.33</td>
-<td align="right">0.65</td>
-<td align="right">8.50</td>
+<td align="right">5.22</td>
+<td align="right">28.79</td>
+<td align="right">9.12</td>
+<td align="right">2.01</td>
+<td align="right">3.88</td>
+<td align="right">50.98</td>
+<td align="right">100.00</td>
 </tr>
 <tr class="even">
 <td align="left">car_scen</td>
-<td align="right">0.06</td>
-<td align="right">3.89</td>
-<td align="right">4.19</td>
-<td align="right">0.30</td>
-<td align="right">0.53</td>
-<td align="right">7.70</td>
+<td align="right">0.39</td>
+<td align="right">23.33</td>
+<td align="right">25.12</td>
+<td align="right">1.83</td>
+<td align="right">3.15</td>
+<td align="right">46.19</td>
+<td align="right">100.01</td>
 </tr>
 <tr class="odd">
 <td align="left">motorcycle_scen</td>
-<td align="right">0.06</td>
-<td align="right">2.43</td>
-<td align="right">0.83</td>
-<td align="right">5.26</td>
-<td align="right">0.36</td>
-<td align="right">7.73</td>
+<td align="right">0.38</td>
+<td align="right">14.57</td>
+<td align="right">4.99</td>
+<td align="right">31.57</td>
+<td align="right">2.14</td>
+<td align="right">46.35</td>
+<td align="right">100.00</td>
 </tr>
 <tr class="even">
 <td align="left">bus_scen</td>
-<td align="right">0.08</td>
-<td align="right">5.60</td>
-<td align="right">1.52</td>
-<td align="right">0.33</td>
-<td align="right">0.64</td>
-<td align="right">8.50</td>
+<td align="right">0.47</td>
+<td align="right">33.59</td>
+<td align="right">9.12</td>
+<td align="right">1.99</td>
+<td align="right">3.81</td>
+<td align="right">51.02</td>
+<td align="right">100.00</td>
 </tr>
 </tbody>
 </table>
@@ -330,74 +327,81 @@ x tibble::view()  masks summarytools::view()</code></pre>
 <th align="right">taxi</th>
 <th align="right">van</th>
 <th align="right">walking</th>
+<th align="right">row_sums</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Baseline</td>
-<td align="right">0.20</td>
-<td align="right">3.47</td>
-<td align="right">4.80</td>
+<td align="right">1.19</td>
+<td align="right">20.80</td>
+<td align="right">28.83</td>
+<td align="right">3.57</td>
+<td align="right">11.29</td>
 <td align="right">0.59</td>
-<td align="right">1.88</td>
-<td align="right">0.10</td>
-<td align="right">0.22</td>
-<td align="right">5.40</td>
+<td align="right">1.34</td>
+<td align="right">32.39</td>
+<td align="right">100</td>
 </tr>
 <tr class="even">
 <td align="left">walking_scen</td>
-<td align="right">0.17</td>
-<td align="right">3.29</td>
-<td align="right">3.91</td>
-<td align="right">0.52</td>
-<td align="right">1.78</td>
-<td align="right">0.10</td>
-<td align="right">0.22</td>
-<td align="right">6.66</td>
+<td align="right">1.04</td>
+<td align="right">19.76</td>
+<td align="right">23.48</td>
+<td align="right">3.12</td>
+<td align="right">10.70</td>
+<td align="right">0.59</td>
+<td align="right">1.34</td>
+<td align="right">39.97</td>
+<td align="right">100</td>
 </tr>
 <tr class="odd">
 <td align="left">bicycle_scen</td>
-<td align="right">0.84</td>
-<td align="right">3.47</td>
-<td align="right">4.43</td>
+<td align="right">5.05</td>
+<td align="right">20.80</td>
+<td align="right">26.60</td>
+<td align="right">3.57</td>
+<td align="right">10.85</td>
 <td align="right">0.59</td>
-<td align="right">1.81</td>
-<td align="right">0.10</td>
-<td align="right">0.15</td>
-<td align="right">5.27</td>
+<td align="right">0.89</td>
+<td align="right">31.65</td>
+<td align="right">100</td>
 </tr>
 <tr class="even">
 <td align="left">car_scen</td>
-<td align="right">0.20</td>
-<td align="right">3.47</td>
-<td align="right">4.80</td>
+<td align="right">1.19</td>
+<td align="right">20.80</td>
+<td align="right">28.83</td>
+<td align="right">3.57</td>
+<td align="right">11.29</td>
 <td align="right">0.59</td>
-<td align="right">1.88</td>
-<td align="right">0.10</td>
-<td align="right">0.22</td>
-<td align="right">5.40</td>
+<td align="right">1.34</td>
+<td align="right">32.39</td>
+<td align="right">100</td>
 </tr>
 <tr class="odd">
 <td align="left">motorcycle_scen</td>
-<td align="right">0.07</td>
-<td align="right">1.44</td>
-<td align="right">2.85</td>
-<td align="right">6.32</td>
-<td align="right">0.97</td>
-<td align="right">0.02</td>
-<td align="right">0.12</td>
-<td align="right">4.88</td>
+<td align="right">0.45</td>
+<td align="right">8.62</td>
+<td align="right">17.09</td>
+<td align="right">37.89</td>
+<td align="right">5.79</td>
+<td align="right">0.15</td>
+<td align="right">0.74</td>
+<td align="right">29.27</td>
+<td align="right">100</td>
 </tr>
 <tr class="even">
 <td align="left">bus_scen</td>
-<td align="right">0.12</td>
-<td align="right">7.28</td>
-<td align="right">2.87</td>
-<td align="right">0.22</td>
-<td align="right">0.99</td>
-<td align="right">0.05</td>
-<td align="right">0.02</td>
-<td align="right">5.10</td>
+<td align="right">0.74</td>
+<td align="right">43.68</td>
+<td align="right">17.24</td>
+<td align="right">1.34</td>
+<td align="right">5.94</td>
+<td align="right">0.30</td>
+<td align="right">0.15</td>
+<td align="right">30.61</td>
+<td align="right">100</td>
 </tr>
 </tbody>
 </table>
@@ -417,92 +421,99 @@ x tibble::view()  masks summarytools::view()</code></pre>
 <th align="right">subway</th>
 <th align="right">taxi</th>
 <th align="right">walking</th>
+<th align="right">row_sums</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Baseline</td>
-<td align="right">0.29</td>
-<td align="right">0.64</td>
-<td align="right">3.95</td>
-<td align="right">1.20</td>
-<td align="right">0.39</td>
-<td align="right">1.87</td>
-<td align="right">0.01</td>
-<td align="right">0.33</td>
-<td align="right">0.67</td>
-<td align="right">0.38</td>
-<td align="right">6.93</td>
+<td align="right">1.75</td>
+<td align="right">3.85</td>
+<td align="right">23.72</td>
+<td align="right">7.23</td>
+<td align="right">2.34</td>
+<td align="right">11.23</td>
+<td align="right">0.08</td>
+<td align="right">1.97</td>
+<td align="right">4.00</td>
+<td align="right">2.27</td>
+<td align="right">41.56</td>
+<td align="right">100.00</td>
 </tr>
 <tr class="even">
 <td align="left">walking_scen</td>
-<td align="right">0.29</td>
-<td align="right">0.64</td>
-<td align="right">3.92</td>
-<td align="right">1.20</td>
-<td align="right">0.39</td>
-<td align="right">1.86</td>
-<td align="right">0.01</td>
-<td align="right">0.32</td>
-<td align="right">0.66</td>
-<td align="right">0.38</td>
-<td align="right">7.01</td>
+<td align="right">1.71</td>
+<td align="right">3.83</td>
+<td align="right">23.52</td>
+<td align="right">7.17</td>
+<td align="right">2.31</td>
+<td align="right">11.15</td>
+<td align="right">0.08</td>
+<td align="right">1.95</td>
+<td align="right">3.97</td>
+<td align="right">2.26</td>
+<td align="right">42.04</td>
+<td align="right">99.99</td>
 </tr>
 <tr class="odd">
 <td align="left">bicycle_scen</td>
-<td align="right">0.29</td>
-<td align="right">0.78</td>
-<td align="right">3.93</td>
-<td align="right">1.20</td>
-<td align="right">0.39</td>
-<td align="right">1.85</td>
-<td align="right">0.01</td>
-<td align="right">0.33</td>
-<td align="right">0.66</td>
-<td align="right">0.37</td>
-<td align="right">6.86</td>
+<td align="right">1.73</td>
+<td align="right">4.68</td>
+<td align="right">23.56</td>
+<td align="right">7.19</td>
+<td align="right">2.33</td>
+<td align="right">11.11</td>
+<td align="right">0.08</td>
+<td align="right">1.95</td>
+<td align="right">3.97</td>
+<td align="right">2.23</td>
+<td align="right">41.16</td>
+<td align="right">99.99</td>
 </tr>
 <tr class="even">
 <td align="left">car_scen</td>
-<td align="right">0.23</td>
-<td align="right">0.50</td>
-<td align="right">3.08</td>
-<td align="right">3.80</td>
-<td align="right">0.35</td>
-<td align="right">1.52</td>
-<td align="right">0.01</td>
-<td align="right">0.25</td>
-<td align="right">0.54</td>
-<td align="right">0.30</td>
-<td align="right">6.09</td>
+<td align="right">1.38</td>
+<td align="right">3.02</td>
+<td align="right">18.47</td>
+<td align="right">22.77</td>
+<td align="right">2.10</td>
+<td align="right">9.10</td>
+<td align="right">0.08</td>
+<td align="right">1.48</td>
+<td align="right">3.24</td>
+<td align="right">1.81</td>
+<td align="right">36.55</td>
+<td align="right">100.00</td>
 </tr>
 <tr class="odd">
 <td align="left">motorcycle_scen</td>
-<td align="right">0.20</td>
-<td align="right">0.46</td>
-<td align="right">2.66</td>
-<td align="right">0.83</td>
-<td align="right">0.36</td>
-<td align="right">4.64</td>
-<td align="right">0.01</td>
-<td align="right">0.26</td>
-<td align="right">0.39</td>
-<td align="right">0.30</td>
-<td align="right">6.57</td>
+<td align="right">1.23</td>
+<td align="right">2.75</td>
+<td align="right">15.94</td>
+<td align="right">4.98</td>
+<td align="right">2.13</td>
+<td align="right">27.85</td>
+<td align="right">0.05</td>
+<td align="right">1.53</td>
+<td align="right">2.36</td>
+<td align="right">1.78</td>
+<td align="right">39.39</td>
+<td align="right">99.99</td>
 </tr>
 <tr class="even">
 <td align="left">bus_scen</td>
-<td align="right">0.29</td>
-<td align="right">0.64</td>
-<td align="right">4.06</td>
-<td align="right">1.20</td>
-<td align="right">0.39</td>
-<td align="right">1.86</td>
-<td align="right">0.01</td>
-<td align="right">0.33</td>
-<td align="right">0.66</td>
-<td align="right">0.38</td>
-<td align="right">6.83</td>
+<td align="right">1.75</td>
+<td align="right">3.85</td>
+<td align="right">24.39</td>
+<td align="right">7.23</td>
+<td align="right">2.33</td>
+<td align="right">11.17</td>
+<td align="right">0.08</td>
+<td align="right">1.97</td>
+<td align="right">3.99</td>
+<td align="right">2.26</td>
+<td align="right">40.98</td>
+<td align="right">100.00</td>
 </tr>
 </tbody>
 </table>
@@ -519,74 +530,81 @@ x tibble::view()  masks summarytools::view()</code></pre>
 <th align="right">shared_taxi</th>
 <th align="right">taxi</th>
 <th align="right">walking</th>
+<th align="right">row_sums</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Baseline</td>
-<td align="right">0.31</td>
-<td align="right">0.63</td>
-<td align="right">4.46</td>
-<td align="right">0.52</td>
-<td align="right">4.78</td>
-<td align="right">0.11</td>
-<td align="right">0.02</td>
-<td align="right">5.85</td>
+<td align="right">1.84</td>
+<td align="right">3.78</td>
+<td align="right">26.73</td>
+<td align="right">3.10</td>
+<td align="right">28.69</td>
+<td align="right">0.64</td>
+<td align="right">0.10</td>
+<td align="right">35.12</td>
+<td align="right">100.00</td>
 </tr>
 <tr class="even">
 <td align="left">walking_scen</td>
-<td align="right">0.18</td>
-<td align="right">0.33</td>
-<td align="right">3.62</td>
-<td align="right">0.39</td>
-<td align="right">3.78</td>
-<td align="right">0.08</td>
-<td align="right">0.01</td>
-<td align="right">8.28</td>
+<td align="right">1.09</td>
+<td align="right">1.95</td>
+<td align="right">21.72</td>
+<td align="right">2.32</td>
+<td align="right">22.70</td>
+<td align="right">0.48</td>
+<td align="right">0.06</td>
+<td align="right">49.68</td>
+<td align="right">100.00</td>
 </tr>
 <tr class="odd">
 <td align="left">bicycle_scen</td>
-<td align="right">0.30</td>
-<td align="right">0.88</td>
-<td align="right">4.34</td>
-<td align="right">0.50</td>
-<td align="right">4.67</td>
-<td align="right">0.10</td>
-<td align="right">0.02</td>
-<td align="right">5.85</td>
+<td align="right">1.82</td>
+<td align="right">5.31</td>
+<td align="right">26.02</td>
+<td align="right">3.02</td>
+<td align="right">28.00</td>
+<td align="right">0.62</td>
+<td align="right">0.09</td>
+<td align="right">35.11</td>
+<td align="right">99.99</td>
 </tr>
 <tr class="even">
 <td align="left">car_scen</td>
-<td align="right">0.22</td>
-<td align="right">0.45</td>
-<td align="right">3.05</td>
-<td align="right">4.49</td>
-<td align="right">3.25</td>
-<td align="right">0.07</td>
-<td align="right">0.01</td>
-<td align="right">5.13</td>
+<td align="right">1.31</td>
+<td align="right">2.71</td>
+<td align="right">18.29</td>
+<td align="right">26.95</td>
+<td align="right">19.52</td>
+<td align="right">0.40</td>
+<td align="right">0.06</td>
+<td align="right">30.77</td>
+<td align="right">100.01</td>
 </tr>
 <tr class="odd">
 <td align="left">motorcycle_scen</td>
-<td align="right">0.31</td>
-<td align="right">0.63</td>
-<td align="right">4.46</td>
-<td align="right">0.52</td>
-<td align="right">4.79</td>
-<td align="right">0.11</td>
-<td align="right">0.02</td>
-<td align="right">5.85</td>
+<td align="right">1.84</td>
+<td align="right">3.78</td>
+<td align="right">26.73</td>
+<td align="right">3.10</td>
+<td align="right">28.74</td>
+<td align="right">0.64</td>
+<td align="right">0.10</td>
+<td align="right">35.07</td>
+<td align="right">100.00</td>
 </tr>
 <tr class="even">
 <td align="left">bus_scen</td>
-<td align="right">0.29</td>
-<td align="right">0.63</td>
-<td align="right">5.05</td>
-<td align="right">0.47</td>
-<td align="right">4.29</td>
-<td align="right">0.10</td>
-<td align="right">0.02</td>
-<td align="right">5.84</td>
+<td align="right">1.73</td>
+<td align="right">3.75</td>
+<td align="right">30.27</td>
+<td align="right">2.81</td>
+<td align="right">25.72</td>
+<td align="right">0.58</td>
+<td align="right">0.09</td>
+<td align="right">35.05</td>
+<td align="right">100.00</td>
 </tr>
 </tbody>
 </table>
@@ -956,8 +974,8 @@ x tibble::view()  masks summarytools::view()</code></pre>
 </tbody>
 </table>
 </div>
-<div id="distance-tables-1" class="section level2">
-<h2>Distance tables</h2>
+<div id="duration-tables" class="section level2">
+<h2>Duration tables</h2>
 <p>Case study specific duration tables for baseline and five scenarios</p>
 <table>
 <caption>Duration table for accra</caption>
