@@ -171,8 +171,8 @@ saveRDS(ithim_objects, "C:/RStudio Projects/ITHIM-R/results/multi_city/io.rds")
 ## with uncertainty
 ## comparison across cities
 numcores <- detectCores()
-nsamples <- 16
-setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR",  "EMISSION_INVENTORY",                        
+nsamples <- 1024
+setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","EMISSION_INVENTORY",                        
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO")
 
 
@@ -190,17 +190,22 @@ chronic_disease_scalar <- list(accra=c(0,log(1.2)),
 pm_concentration <- list(accra=c(log(50),log(1.3)),
                                sao_paulo=c(log(20),log(1.3)),
                          delhi=c(log(122),log(1.3)),
-                         bangalore=c(log(47.4),log(1.3))) ##!! sd=7.5
+                         bangalore=c(log(47),log(1.17))) ## mean=47.4, sd=7.5
 # beta parameters for PM_TRANS_SHARE
 pm_trans_share <- list(accra=c(5,20),
                            sao_paulo=c(8,8),
                        delhi=c(4,4),
-                       bangalore=c(4,4)) ##!! mean 28.1, sd 8.9
+                       bangalore=c(6.5,17)) ## mean 0.281, sd 0.089
 # lnorm parameters for BACKGROUND_PA_SCALAR
 background_pa_scalar <- list(accra=c(0,log(1.2)),
                                sao_paulo=c(0,log(1.2)),
                              delhi=c(0,log(1.2)),
                              bangalore=c(0,log(1.2)))
+# values between 0 and 1 for BACKGROUND_PA_CONFIDENCE
+background_pa_confidence <- list(accra=0.5,
+                                 sao_paulo=0.5,
+                                 delhi=0.5,
+                                 bangalore=0.5)
 # lnorm parameters for BUS_WALK_TIME
 bus_walk_time <- list(accra=c(log(5),log(1.2)),
                      sao_paulo=c(log(5),log(1.2)),
@@ -283,6 +288,7 @@ for(ci in 1:length(cities)){
                                             PM_CONC_BASE = pm_concentration[[city]],  
                                             PM_TRANS_SHARE = pm_trans_share[[city]],  
                                             BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
+                                            BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
                                             BUS_WALK_TIME = bus_walk_time[[city]],
                                             MOTORCYCLE_TO_CAR_RATIO = mc_car_ratio[[city]],
                                             BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
@@ -336,9 +342,9 @@ for(ci in 1:length(cities)){
   colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
 }
 
-
-
-
+source('dfSummaryrj.R')
+x <- dfSummaryrj(parameter_samples,style='grid',na.col=F,valid.col=F)
+view(x)
 
 #################################################
 
