@@ -188,82 +188,122 @@ $(document).ready(function () {
 </div>
 
 
-<pre><code>Warning: package 'summarytools' was built under R version 3.5.3</code></pre>
-<pre class="r"><code>io &lt;- readRDS(&quot;results/multi_city/io.rds&quot;)
-# Assumes that multi_city_script.R has been run till 
-cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
-<pre class="r"><code>for(city in cities){
-    td &lt;- io[[city]]$dist
-    print(kable(td, caption = paste(&quot;Distance table for &quot;, city)))
-    cat(&quot;\n&quot;)
-}</code></pre>
+<div id="scenario-definition" class="section level2">
+<h2>Scenario definition</h2>
+<p>Table displays highest propensity for each distance category, for a given mode.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">0-1 km</th>
+<th align="right">2-5 km</th>
+<th align="right">6+ km</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>walking_scen</td>
+<td align="right">96.41</td>
+<td align="right">66.39</td>
+<td align="right">2.02</td>
+</tr>
+<tr class="even">
+<td>bicycle_scen</td>
+<td align="right">2.67</td>
+<td align="right">9.66</td>
+<td align="right">5.04</td>
+</tr>
+<tr class="odd">
+<td>car_scen</td>
+<td align="right">6.21</td>
+<td align="right">39.47</td>
+<td align="right">35.70</td>
+</tr>
+<tr class="even">
+<td>motorcycle_scen</td>
+<td align="right">5.56</td>
+<td align="right">34.71</td>
+<td align="right">56.61</td>
+</tr>
+<tr class="odd">
+<td>bus_scen</td>
+<td align="right">4.02</td>
+<td align="right">22.75</td>
+<td align="right">71.17</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="distance-tables" class="section level2">
+<h2>Distance tables</h2>
+<p>Case study specific distance tables for baseline and five scenarios</p>
 <table>
 <caption>Distance table for accra</caption>
 <thead>
 <tr class="header">
 <th align="left">stage_mode</th>
 <th align="right">Baseline</th>
-<th align="right">Scenario 1</th>
-<th align="right">Scenario 2</th>
-<th align="right">Scenario 3</th>
-<th align="right">Scenario 4</th>
-<th align="right">Scenario 5</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">bicycle</td>
-<td align="right">222.3333</td>
-<td align="right">213.875</td>
-<td align="right">3572.823</td>
-<td align="right">153.4583</td>
-<td align="right">141.375</td>
-<td align="right">222.3333</td>
+<td align="right">222.33</td>
+<td align="right">213.88</td>
+<td align="right">3572.82</td>
+<td align="right">153.46</td>
+<td align="right">141.38</td>
+<td align="right">222.33</td>
 </tr>
 <tr class="even">
 <td align="left">bus</td>
-<td align="right">38097.0000</td>
-<td align="right">38097.000</td>
-<td align="right">36138.250</td>
-<td align="right">29467.5000</td>
-<td align="right">17512.500</td>
-<td align="right">39580.3100</td>
+<td align="right">38097.00</td>
+<td align="right">38097.00</td>
+<td align="right">36138.25</td>
+<td align="right">29467.50</td>
+<td align="right">17512.50</td>
+<td align="right">39580.31</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
-<td align="right">12665.8000</td>
-<td align="right">12624.850</td>
-<td align="right">12149.550</td>
-<td align="right">24560.4850</td>
-<td align="right">6061.300</td>
-<td align="right">11978.0500</td>
+<td align="right">12665.80</td>
+<td align="right">12624.85</td>
+<td align="right">12149.55</td>
+<td align="right">24560.49</td>
+<td align="right">6061.30</td>
+<td align="right">11978.05</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">1344.0000</td>
-<td align="right">1344.000</td>
-<td align="right">1282.000</td>
-<td align="right">985.0000</td>
-<td align="right">33318.058</td>
-<td align="right">1255.0000</td>
+<td align="right">1344.00</td>
+<td align="right">1344.00</td>
+<td align="right">1282.00</td>
+<td align="right">985.00</td>
+<td align="right">33318.06</td>
+<td align="right">1255.00</td>
 </tr>
 <tr class="odd">
 <td align="left">taxi</td>
-<td align="right">4768.4000</td>
-<td align="right">4761.400</td>
-<td align="right">4525.150</td>
-<td align="right">3776.8500</td>
-<td align="right">2296.700</td>
-<td align="right">4454.8000</td>
+<td align="right">4768.40</td>
+<td align="right">4761.40</td>
+<td align="right">4525.15</td>
+<td align="right">3776.85</td>
+<td align="right">2296.70</td>
+<td align="right">4454.80</td>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">8818.5600</td>
-<td align="right">8874.968</td>
-<td align="right">8248.320</td>
-<td align="right">6972.8000</td>
-<td align="right">6586.160</td>
-<td align="right">8425.6000</td>
+<td align="right">8818.56</td>
+<td align="right">8874.97</td>
+<td align="right">8248.32</td>
+<td align="right">6972.80</td>
+<td align="right">6586.16</td>
+<td align="right">8425.60</td>
 </tr>
 </tbody>
 </table>
@@ -273,85 +313,85 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 <tr class="header">
 <th align="left">stage_mode</th>
 <th align="right">Baseline</th>
-<th align="right">Scenario 1</th>
-<th align="right">Scenario 2</th>
-<th align="right">Scenario 3</th>
-<th align="right">Scenario 4</th>
-<th align="right">Scenario 5</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">bicycle</td>
-<td align="right">54.375</td>
-<td align="right">53.16667</td>
-<td align="right">350.805</td>
-<td align="right">54.375</td>
-<td align="right">25.375</td>
-<td align="right">32.625</td>
+<td align="right">54.38</td>
+<td align="right">53.17</td>
+<td align="right">350.81</td>
+<td align="right">54.38</td>
+<td align="right">25.38</td>
+<td align="right">32.62</td>
 </tr>
 <tr class="even">
 <td align="left">bus</td>
-<td align="right">2221.000</td>
-<td align="right">2148.50000</td>
-<td align="right">2221.000</td>
-<td align="right">2221.000</td>
-<td align="right">805.000</td>
-<td align="right">5142.780</td>
+<td align="right">2221.00</td>
+<td align="right">2148.50</td>
+<td align="right">2221.00</td>
+<td align="right">2221.00</td>
+<td align="right">805.00</td>
+<td align="right">5142.78</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
-<td align="right">2301.250</td>
-<td align="right">2165.10000</td>
-<td align="right">2126.950</td>
-<td align="right">2301.250</td>
-<td align="right">1163.750</td>
-<td align="right">1126.650</td>
+<td align="right">2301.25</td>
+<td align="right">2165.10</td>
+<td align="right">2126.95</td>
+<td align="right">2301.25</td>
+<td align="right">1163.75</td>
+<td align="right">1126.65</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">295.000</td>
-<td align="right">284.58333</td>
-<td align="right">295.000</td>
-<td align="right">295.000</td>
-<td align="right">4297.900</td>
-<td align="right">62.500</td>
+<td align="right">295.00</td>
+<td align="right">284.58</td>
+<td align="right">295.00</td>
+<td align="right">295.00</td>
+<td align="right">4297.90</td>
+<td align="right">62.50</td>
 </tr>
 <tr class="odd">
 <td align="left">subway</td>
-<td align="right">2902.200</td>
-<td align="right">2752.86667</td>
-<td align="right">2811.200</td>
-<td align="right">2902.200</td>
-<td align="right">1601.600</td>
-<td align="right">1526.000</td>
+<td align="right">2902.20</td>
+<td align="right">2752.87</td>
+<td align="right">2811.20</td>
+<td align="right">2902.20</td>
+<td align="right">1601.60</td>
+<td align="right">1526.00</td>
 </tr>
 <tr class="even">
 <td align="left">taxi</td>
-<td align="right">39.900</td>
-<td align="right">39.90000</td>
-<td align="right">39.900</td>
-<td align="right">39.900</td>
-<td align="right">3.500</td>
-<td align="right">22.400</td>
+<td align="right">39.90</td>
+<td align="right">39.90</td>
+<td align="right">39.90</td>
+<td align="right">39.90</td>
+<td align="right">3.50</td>
+<td align="right">22.40</td>
 </tr>
 <tr class="odd">
 <td align="left">van</td>
-<td align="right">92.500</td>
-<td align="right">92.50000</td>
-<td align="right">66.250</td>
-<td align="right">92.500</td>
-<td align="right">47.500</td>
-<td align="right">13.750</td>
+<td align="right">92.50</td>
+<td align="right">92.50</td>
+<td align="right">66.25</td>
+<td align="right">92.50</td>
+<td align="right">47.50</td>
+<td align="right">13.75</td>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">245.920</td>
-<td align="right">615.52833</td>
-<td align="right">241.040</td>
-<td align="right">245.920</td>
-<td align="right">207.520</td>
-<td align="right">225.440</td>
+<td align="right">245.92</td>
+<td align="right">615.53</td>
+<td align="right">241.04</td>
+<td align="right">245.92</td>
+<td align="right">207.52</td>
+<td align="right">225.44</td>
 </tr>
 </tbody>
 </table>
@@ -361,112 +401,112 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 <tr class="header">
 <th align="left">stage_mode</th>
 <th align="right">Baseline</th>
-<th align="right">Scenario 1</th>
-<th align="right">Scenario 2</th>
-<th align="right">Scenario 3</th>
-<th align="right">Scenario 4</th>
-<th align="right">Scenario 5</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">auto_rickshaw</td>
-<td align="right">1421.533</td>
-<td align="right">1407.533</td>
-<td align="right">1412.533</td>
-<td align="right">1199.667</td>
-<td align="right">918.3333</td>
-<td align="right">1420.033</td>
+<td align="right">1421.53</td>
+<td align="right">1407.53</td>
+<td align="right">1412.53</td>
+<td align="right">1199.67</td>
+<td align="right">918.33</td>
+<td align="right">1420.03</td>
 </tr>
 <tr class="even">
 <td align="left">bicycle</td>
-<td align="right">2951.470</td>
-<td align="right">2940.470</td>
-<td align="right">3154.883</td>
-<td align="right">2232.970</td>
-<td align="right">1698.4700</td>
-<td align="right">2951.470</td>
+<td align="right">2951.47</td>
+<td align="right">2940.47</td>
+<td align="right">3154.88</td>
+<td align="right">2232.97</td>
+<td align="right">1698.47</td>
+<td align="right">2951.47</td>
 </tr>
 <tr class="odd">
 <td align="left">bus</td>
-<td align="right">21277.650</td>
-<td align="right">21228.650</td>
-<td align="right">21232.150</td>
-<td align="right">17098.200</td>
-<td align="right">12956.0000</td>
-<td align="right">21336.633</td>
+<td align="right">21277.65</td>
+<td align="right">21228.65</td>
+<td align="right">21232.15</td>
+<td align="right">17098.20</td>
+<td align="right">12956.00</td>
+<td align="right">21336.63</td>
 </tr>
 <tr class="even">
 <td align="left">car</td>
-<td align="right">17532.920</td>
-<td align="right">17504.420</td>
-<td align="right">17517.920</td>
-<td align="right">28317.341</td>
-<td align="right">10647.9200</td>
-<td align="right">17532.920</td>
+<td align="right">17532.92</td>
+<td align="right">17504.42</td>
+<td align="right">17517.92</td>
+<td align="right">28317.34</td>
+<td align="right">10647.92</td>
+<td align="right">17532.92</td>
 </tr>
 <tr class="odd">
 <td align="left">cycle_rickshaw</td>
-<td align="right">521.400</td>
-<td align="right">510.400</td>
-<td align="right">516.400</td>
-<td align="right">464.800</td>
-<td align="right">408.4000</td>
-<td align="right">520.300</td>
+<td align="right">521.40</td>
+<td align="right">510.40</td>
+<td align="right">516.40</td>
+<td align="right">464.80</td>
+<td align="right">408.40</td>
+<td align="right">520.30</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">14092.473</td>
-<td align="right">14048.473</td>
-<td align="right">14047.073</td>
-<td align="right">11383.240</td>
-<td align="right">36227.8337</td>
-<td align="right">14084.323</td>
+<td align="right">14092.47</td>
+<td align="right">14048.47</td>
+<td align="right">14047.07</td>
+<td align="right">11383.24</td>
+<td align="right">36227.83</td>
+<td align="right">14084.32</td>
 </tr>
 <tr class="odd">
 <td align="left">rail</td>
-<td align="right">299.000</td>
-<td align="right">299.000</td>
-<td align="right">299.000</td>
-<td align="right">299.000</td>
-<td align="right">209.0000</td>
-<td align="right">299.000</td>
+<td align="right">299.00</td>
+<td align="right">299.00</td>
+<td align="right">299.00</td>
+<td align="right">299.00</td>
+<td align="right">209.00</td>
+<td align="right">299.00</td>
 </tr>
 <tr class="even">
 <td align="left">shared_auto</td>
-<td align="right">1683.267</td>
-<td align="right">1672.267</td>
-<td align="right">1671.267</td>
-<td align="right">1311.933</td>
-<td align="right">1051.9333</td>
-<td align="right">1683.267</td>
+<td align="right">1683.27</td>
+<td align="right">1672.27</td>
+<td align="right">1671.27</td>
+<td align="right">1311.93</td>
+<td align="right">1051.93</td>
+<td align="right">1683.27</td>
 </tr>
 <tr class="odd">
 <td align="left">subway</td>
-<td align="right">5831.300</td>
-<td align="right">5831.300</td>
-<td align="right">5831.300</td>
-<td align="right">4799.200</td>
-<td align="right">3342.3000</td>
-<td align="right">5831.300</td>
+<td align="right">5831.30</td>
+<td align="right">5831.30</td>
+<td align="right">5831.30</td>
+<td align="right">4799.20</td>
+<td align="right">3342.30</td>
+<td align="right">5831.30</td>
 </tr>
 <tr class="even">
 <td align="left">taxi</td>
-<td align="right">2614.250</td>
-<td align="right">2612.250</td>
-<td align="right">2602.750</td>
-<td align="right">2196.750</td>
-<td align="right">1790.7500</td>
-<td align="right">2613.250</td>
+<td align="right">2614.25</td>
+<td align="right">2612.25</td>
+<td align="right">2602.75</td>
+<td align="right">2196.75</td>
+<td align="right">1790.75</td>
+<td align="right">2613.25</td>
 </tr>
 <tr class="odd">
 <td align="left">walking</td>
-<td align="right">6038.183</td>
-<td align="right">6208.683</td>
-<td align="right">5978.170</td>
-<td align="right">4960.345</td>
-<td align="right">5012.5060</td>
-<td align="right">5990.950</td>
+<td align="right">6038.18</td>
+<td align="right">6208.68</td>
+<td align="right">5978.17</td>
+<td align="right">4960.34</td>
+<td align="right">5012.51</td>
+<td align="right">5990.95</td>
 </tr>
 </tbody>
 </table>
@@ -476,11 +516,11 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 <tr class="header">
 <th align="left">stage_mode</th>
 <th align="right">Baseline</th>
-<th align="right">Scenario 1</th>
-<th align="right">Scenario 2</th>
-<th align="right">Scenario 3</th>
-<th align="right">Scenario 4</th>
-<th align="right">Scenario 5</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
 </tr>
 </thead>
 <tbody>
@@ -558,22 +598,21 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>for(city in cities){
-    td &lt;- io[[city]]$dur
-    print(kable(td, caption = paste(&quot;Duration table for &quot;, city)))
-    cat(&quot;\n&quot;)
-}</code></pre>
+</div>
+<div id="distance-tables-1" class="section level2">
+<h2>Distance tables</h2>
+<p>Case study specific duration tables for baseline and five scenarios</p>
 <table>
 <caption>Duration table for accra</caption>
 <thead>
 <tr class="header">
 <th align="left">stage_mode</th>
 <th align="right">Baseline</th>
-<th align="right">Scenario 1</th>
-<th align="right">Scenario 2</th>
-<th align="right">Scenario 3</th>
-<th align="right">Scenario 4</th>
-<th align="right">Scenario 5</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
 </tr>
 </thead>
 <tbody>
@@ -639,19 +678,19 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 <tr class="header">
 <th align="left">stage_mode</th>
 <th align="right">Baseline</th>
-<th align="right">Scenario 1</th>
-<th align="right">Scenario 2</th>
-<th align="right">Scenario 3</th>
-<th align="right">Scenario 4</th>
-<th align="right">Scenario 5</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">bicycle</td>
 <td align="right">225</td>
-<td align="right">220.000</td>
-<td align="right">1451.607</td>
+<td align="right">220.0</td>
+<td align="right">1451.61</td>
 <td align="right">225</td>
 <td align="right">105.00</td>
 <td align="right">135.00</td>
@@ -659,8 +698,8 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 <tr class="even">
 <td align="left">bus</td>
 <td align="right">8884</td>
-<td align="right">8594.000</td>
-<td align="right">8884.000</td>
+<td align="right">8594.0</td>
+<td align="right">8884.00</td>
 <td align="right">8884</td>
 <td align="right">3220.00</td>
 <td align="right">20571.12</td>
@@ -668,8 +707,8 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 <tr class="odd">
 <td align="left">car</td>
 <td align="right">6575</td>
-<td align="right">6186.000</td>
-<td align="right">6077.000</td>
+<td align="right">6186.0</td>
+<td align="right">6077.00</td>
 <td align="right">6575</td>
 <td align="right">3325.00</td>
 <td align="right">3219.00</td>
@@ -677,8 +716,8 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 <tr class="even">
 <td align="left">motorcycle</td>
 <td align="right">708</td>
-<td align="right">683.000</td>
-<td align="right">708.000</td>
+<td align="right">683.0</td>
+<td align="right">708.00</td>
 <td align="right">708</td>
 <td align="right">10314.96</td>
 <td align="right">150.00</td>
@@ -686,8 +725,8 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 <tr class="odd">
 <td align="left">subway</td>
 <td align="right">6219</td>
-<td align="right">5899.000</td>
-<td align="right">6024.000</td>
+<td align="right">5899.0</td>
+<td align="right">6024.00</td>
 <td align="right">6219</td>
 <td align="right">3432.00</td>
 <td align="right">3270.00</td>
@@ -695,8 +734,8 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 <tr class="even">
 <td align="left">taxi</td>
 <td align="right">114</td>
-<td align="right">114.000</td>
-<td align="right">114.000</td>
+<td align="right">114.0</td>
+<td align="right">114.00</td>
 <td align="right">114</td>
 <td align="right">10.00</td>
 <td align="right">64.00</td>
@@ -704,8 +743,8 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 <tr class="odd">
 <td align="left">van</td>
 <td align="right">370</td>
-<td align="right">370.000</td>
-<td align="right">265.000</td>
+<td align="right">370.0</td>
+<td align="right">265.00</td>
 <td align="right">370</td>
 <td align="right">190.00</td>
 <td align="right">55.00</td>
@@ -713,8 +752,8 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 <tr class="even">
 <td align="left">walking</td>
 <td align="right">3074</td>
-<td align="right">7694.104</td>
-<td align="right">3013.000</td>
+<td align="right">7694.1</td>
+<td align="right">3013.00</td>
 <td align="right">3074</td>
 <td align="right">2594.00</td>
 <td align="right">2818.00</td>
@@ -727,112 +766,112 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 <tr class="header">
 <th align="left">stage_mode</th>
 <th align="right">Baseline</th>
-<th align="right">Scenario 1</th>
-<th align="right">Scenario 2</th>
-<th align="right">Scenario 3</th>
-<th align="right">Scenario 4</th>
-<th align="right">Scenario 5</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">auto_rickshaw</td>
-<td align="right">108.00000</td>
-<td align="right">106.38333</td>
-<td align="right">107.08333</td>
-<td align="right">84.06667</td>
-<td align="right">74.350000</td>
-<td align="right">107.83333</td>
+<td align="right">108.00</td>
+<td align="right">106.38</td>
+<td align="right">107.08</td>
+<td align="right">84.07</td>
+<td align="right">74.35</td>
+<td align="right">107.83</td>
 </tr>
 <tr class="even">
 <td align="left">bicycle</td>
-<td align="right">410.88333</td>
-<td align="right">408.38333</td>
-<td align="right">1224.53533</td>
-<td align="right">310.76667</td>
-<td align="right">267.633333</td>
-<td align="right">410.88333</td>
+<td align="right">410.88</td>
+<td align="right">408.38</td>
+<td align="right">1224.54</td>
+<td align="right">310.77</td>
+<td align="right">267.63</td>
+<td align="right">410.88</td>
 </tr>
 <tr class="odd">
 <td align="left">bus</td>
-<td align="right">1607.80000</td>
-<td align="right">1599.38333</td>
-<td align="right">1601.58333</td>
-<td align="right">1272.40000</td>
-<td align="right">1014.833333</td>
-<td align="right">1843.73200</td>
+<td align="right">1607.80</td>
+<td align="right">1599.38</td>
+<td align="right">1601.58</td>
+<td align="right">1272.40</td>
+<td align="right">1014.83</td>
+<td align="right">1843.73</td>
 </tr>
 <tr class="even">
 <td align="left">car</td>
-<td align="right">890.75000</td>
-<td align="right">888.58334</td>
-<td align="right">889.25000</td>
-<td align="right">31703.38238</td>
-<td align="right">569.833336</td>
-<td align="right">890.75000</td>
+<td align="right">890.75</td>
+<td align="right">888.58</td>
+<td align="right">889.25</td>
+<td align="right">31703.38</td>
+<td align="right">569.83</td>
+<td align="right">890.75</td>
 </tr>
 <tr class="odd">
 <td align="left">cycle_rickshaw</td>
-<td align="right">147.51667</td>
-<td align="right">145.60000</td>
-<td align="right">146.11667</td>
-<td align="right">119.16667</td>
-<td align="right">127.183333</td>
-<td align="right">146.93333</td>
+<td align="right">147.52</td>
+<td align="right">145.60</td>
+<td align="right">146.12</td>
+<td align="right">119.17</td>
+<td align="right">127.18</td>
+<td align="right">146.93</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">1027.61666</td>
-<td align="right">1024.03333</td>
-<td align="right">1022.45000</td>
-<td align="right">834.61666</td>
-<td align="right">54196.981465</td>
-<td align="right">1025.53333</td>
+<td align="right">1027.62</td>
+<td align="right">1024.03</td>
+<td align="right">1022.45</td>
+<td align="right">834.62</td>
+<td align="right">54196.98</td>
+<td align="right">1025.53</td>
 </tr>
 <tr class="odd">
 <td align="left">rail</td>
-<td align="right">14.16667</td>
-<td align="right">14.16667</td>
-<td align="right">14.16667</td>
-<td align="right">14.16667</td>
-<td align="right">4.666667</td>
-<td align="right">14.16667</td>
+<td align="right">14.17</td>
+<td align="right">14.17</td>
+<td align="right">14.17</td>
+<td align="right">14.17</td>
+<td align="right">4.67</td>
+<td align="right">14.17</td>
 </tr>
 <tr class="even">
 <td align="left">shared_auto</td>
-<td align="right">112.83334</td>
-<td align="right">111.75000</td>
-<td align="right">112.00000</td>
-<td align="right">85.33334</td>
-<td align="right">79.250001</td>
-<td align="right">112.83334</td>
+<td align="right">112.83</td>
+<td align="right">111.75</td>
+<td align="right">112.00</td>
+<td align="right">85.33</td>
+<td align="right">79.25</td>
+<td align="right">112.83</td>
 </tr>
 <tr class="odd">
 <td align="left">subway</td>
-<td align="right">272.96667</td>
-<td align="right">272.96667</td>
-<td align="right">272.96667</td>
-<td align="right">222.05000</td>
-<td align="right">153.466668</td>
-<td align="right">272.96667</td>
+<td align="right">272.97</td>
+<td align="right">272.97</td>
+<td align="right">272.97</td>
+<td align="right">222.05</td>
+<td align="right">153.47</td>
+<td align="right">272.97</td>
 </tr>
 <tr class="even">
 <td align="left">taxi</td>
-<td align="right">174.00000</td>
-<td align="right">173.50000</td>
-<td align="right">172.83333</td>
-<td align="right">146.66667</td>
-<td align="right">126.833333</td>
-<td align="right">173.66667</td>
+<td align="right">174.00</td>
+<td align="right">173.50</td>
+<td align="right">172.83</td>
+<td align="right">146.67</td>
+<td align="right">126.83</td>
+<td align="right">173.67</td>
 </tr>
 <tr class="odd">
 <td align="left">walking</td>
-<td align="right">2481.65867</td>
-<td align="right">4672.22811</td>
-<td align="right">2455.20311</td>
-<td align="right">2086.76400</td>
-<td align="right">2241.782221</td>
-<td align="right">2449.35867</td>
+<td align="right">2481.66</td>
+<td align="right">4672.23</td>
+<td align="right">2455.20</td>
+<td align="right">2086.76</td>
+<td align="right">2241.78</td>
+<td align="right">2449.36</td>
 </tr>
 </tbody>
 </table>
@@ -842,1024 +881,85 @@ cities &lt;- c('accra','sao_paulo','delhi','bangalore')</code></pre>
 <tr class="header">
 <th align="left">stage_mode</th>
 <th align="right">Baseline</th>
-<th align="right">Scenario 1</th>
-<th align="right">Scenario 2</th>
-<th align="right">Scenario 3</th>
-<th align="right">Scenario 4</th>
-<th align="right">Scenario 5</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">auto_rickshaw</td>
-<td align="right">12854.509</td>
-<td align="right">9811.4727</td>
-<td align="right">12464.509</td>
-<td align="right">8617.4182</td>
-<td align="right">12854.509</td>
-<td align="right">11289.055</td>
+<td align="right">12854.51</td>
+<td align="right">9811.47</td>
+<td align="right">12464.51</td>
+<td align="right">8617.42</td>
+<td align="right">12854.51</td>
+<td align="right">11289.05</td>
 </tr>
 <tr class="even">
 <td align="left">bicycle</td>
-<td align="right">29366.000</td>
-<td align="right">17370.0800</td>
-<td align="right">67104.480</td>
-<td align="right">19693.6400</td>
-<td align="right">29356.800</td>
-<td align="right">28741.200</td>
+<td align="right">29366.00</td>
+<td align="right">17370.08</td>
+<td align="right">67104.48</td>
+<td align="right">19693.64</td>
+<td align="right">29356.80</td>
+<td align="right">28741.20</td>
 </tr>
 <tr class="odd">
 <td align="left">bus</td>
-<td align="right">387819.440</td>
-<td align="right">354478.2000</td>
-<td align="right">374684.640</td>
-<td align="right">263378.2000</td>
-<td align="right">387819.440</td>
-<td align="right">493066.480</td>
+<td align="right">387819.44</td>
+<td align="right">354478.20</td>
+<td align="right">374684.64</td>
+<td align="right">263378.20</td>
+<td align="right">387819.44</td>
+<td align="right">493066.48</td>
 </tr>
 <tr class="even">
 <td align="left">car</td>
-<td align="right">47352.400</td>
-<td align="right">43145.1429</td>
-<td align="right">45543.829</td>
-<td align="right">314707.5802</td>
-<td align="right">47352.400</td>
-<td align="right">40619.543</td>
+<td align="right">47352.40</td>
+<td align="right">43145.14</td>
+<td align="right">45543.83</td>
+<td align="right">314707.58</td>
+<td align="right">47352.40</td>
+<td align="right">40619.54</td>
 </tr>
 <tr class="odd">
 <td align="left">motorcycle</td>
-<td align="right">370966.704</td>
-<td align="right">337553.4960</td>
-<td align="right">358906.704</td>
-<td align="right">250251.0240</td>
-<td align="right">371027.904</td>
-<td align="right">317356.704</td>
+<td align="right">370966.70</td>
+<td align="right">337553.50</td>
+<td align="right">358906.70</td>
+<td align="right">250251.02</td>
+<td align="right">371027.90</td>
+<td align="right">317356.70</td>
 </tr>
 <tr class="even">
 <td align="left">shared_taxi</td>
-<td align="right">9905.200</td>
-<td align="right">8982.0857</td>
-<td align="right">9548.057</td>
-<td align="right">6268.0571</td>
-<td align="right">9905.200</td>
-<td align="right">8285.200</td>
+<td align="right">9905.20</td>
+<td align="right">8982.09</td>
+<td align="right">9548.06</td>
+<td align="right">6268.06</td>
+<td align="right">9905.20</td>
+<td align="right">8285.20</td>
 </tr>
 <tr class="odd">
 <td align="left">taxi</td>
-<td align="right">1208.571</td>
-<td align="right">962.8571</td>
-<td align="right">1165.714</td>
-<td align="right">728.5714</td>
-<td align="right">1208.571</td>
-<td align="right">1162.857</td>
+<td align="right">1208.57</td>
+<td align="right">962.86</td>
+<td align="right">1165.71</td>
+<td align="right">728.57</td>
+<td align="right">1208.57</td>
+<td align="right">1162.86</td>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">395776.212</td>
-<td align="right">748949.5868</td>
-<td align="right">393152.212</td>
-<td align="right">311362.2983</td>
-<td align="right">395486.212</td>
-<td align="right">391969.212</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code>for (city in cities){
-  td &lt;- io[[city]]$outcomes$mmets
-  print(dfSummary(td))
-  cat(&quot;\n&quot;)
-
-}</code></pre>
-<div id="data-frame-summary" class="section level3">
-<h3>Data Frame Summary</h3>
-<p><strong>td</strong><br />
-<strong>Dimensions:</strong> 3008 x 10<br />
-<strong>Duplicates:</strong> 0</p>
-<table>
-<colgroup>
-<col width="4%"></col>
-<col width="15%"></col>
-<col width="25%"></col>
-<col width="19%"></col>
-<col width="19%"></col>
-<col width="7%"></col>
-<col width="7%"></col>
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">No</th>
-<th align="left">Variable</th>
-<th align="left">Stats / Values</th>
-<th align="left">Freqs (% of Valid)</th>
-<th align="left">Graph</th>
-<th align="left">Valid</th>
-<th align="left">Missing</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">1</td>
-<td align="left">participant_id<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 1558.7 (898.9)<br />
-min &lt; med &lt; max:<br />
-1 &lt; 1556.5 &lt; 3112<br />
-IQR (CV) : 1555.5 (0.6)</td>
-<td align="left">3008 distinct values</td>
-<td align="left"><br />
-: : : : : : : : : :<br />
-: : : : : : : : : :<br />
-: : : : : : : : : :<br />
-: : : : : : : : : :<br />
-: : : : : : : : : :</td>
-<td align="left">3008<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">2</td>
-<td align="left">age<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 34.6 (14.2)<br />
-min &lt; med &lt; max:<br />
-15 &lt; 32 &lt; 69<br />
-IQR (CV) : 21 (0.4)</td>
-<td align="left">55 distinct values</td>
-<td align="left"><br />
-:   .<br />
-: : : .<br />
-: : : : :<br />
-: : : : : : . . .<br />
-: : : : : : : : : :</td>
-<td align="left">3008<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">3</td>
-<td align="left">sex<br />
-[character]</td>
-<td align="left">1. Female<br />
-2. Male</td>
-<td align="left">1592 (52.9%)<br />
-1416 (47.1%)</td>
-<td align="left">IIIIIIIIII<br />
-IIIIIIIII</td>
-<td align="left">3008<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">4</td>
-<td align="left">age_cat<br />
-[character]</td>
-<td align="left">1. 15-49<br />
-2. 50-69</td>
-<td align="left">2472 (82.2%)<br />
-536 (17.8%)</td>
-<td align="left">IIIIIIIIIIIIIIII<br />
-III</td>
-<td align="left">3008<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">5</td>
-<td align="left">base_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 54.8 (82)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 20.7 &lt; 466.8<br />
-IQR (CV) : 57 (1.5)</td>
-<td align="left">926 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: : . .</td>
-<td align="left">3008<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">6</td>
-<td align="left">scen1_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 54.8 (82)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 20.7 &lt; 466.8<br />
-IQR (CV) : 57 (1.5)</td>
-<td align="left">935 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: : . .</td>
-<td align="left">3008<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">7</td>
-<td align="left">scen2_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 56.6 (82.7)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 24 &lt; 476.5<br />
-IQR (CV) : 58.8 (1.5)</td>
-<td align="left">1152 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: : . .</td>
-<td align="left">3008<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">8</td>
-<td align="left">scen3_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 52.5 (81.1)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 18.8 &lt; 466.8<br />
-IQR (CV) : 55.9 (1.5)</td>
-<td align="left">885 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: : . .</td>
-<td align="left">3008<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">9</td>
-<td align="left">scen4_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 52 (80.5)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 18.5 &lt; 449.2<br />
-IQR (CV) : 53.5 (1.5)</td>
-<td align="left">871 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: . . .</td>
-<td align="left">3008<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">10</td>
-<td align="left">scen5_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 54.3 (81.8)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 20.7 &lt; 466.8<br />
-IQR (CV) : 56.1 (1.5)</td>
-<td align="left">931 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: : . .</td>
-<td align="left">3008<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="data-frame-summary-1" class="section level3">
-<h3>Data Frame Summary</h3>
-<p><strong>td</strong><br />
-<strong>Dimensions:</strong> 760 x 10<br />
-<strong>Duplicates:</strong> 0</p>
-<table>
-<colgroup>
-<col width="4%"></col>
-<col width="15%"></col>
-<col width="24%"></col>
-<col width="18%"></col>
-<col width="21%"></col>
-<col width="7%"></col>
-<col width="7%"></col>
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">No</th>
-<th align="left">Variable</th>
-<th align="left">Stats / Values</th>
-<th align="left">Freqs (% of Valid)</th>
-<th align="left">Graph</th>
-<th align="left">Valid</th>
-<th align="left">Missing</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">1</td>
-<td align="left">participant_id<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 489.7 (285.3)<br />
-min &lt; med &lt; max:<br />
-1 &lt; 496.5 &lt; 975<br />
-IQR (CV) : 496 (0.6)</td>
-<td align="left">760 distinct values</td>
-<td align="left"><br />
-: . .   . . . . . :<br />
-: : : : : : : : : :<br />
-: : : : : : : : : :<br />
-: : : : : : : : : :<br />
-: : : : : : : : : :</td>
-<td align="left">760<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">2</td>
-<td align="left">age<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 37.4 (14.5)<br />
-min &lt; med &lt; max:<br />
-15 &lt; 35 &lt; 69<br />
-IQR (CV) : 22 (0.4)</td>
-<td align="left">55 distinct values</td>
-<td align="left"><br />
-.   :<br />
-: . : . . .<br />
-: : : : : : . .<br />
-: : : : : : : : . .<br />
-: : : : : : : : : :</td>
-<td align="left">760<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">3</td>
-<td align="left">sex<br />
-[character]</td>
-<td align="left">1. Female<br />
-2. Male</td>
-<td align="left">362 (47.6%)<br />
-398 (52.4%)</td>
-<td align="left">IIIIIIIII<br />
-IIIIIIIIII</td>
-<td align="left">760<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">4</td>
-<td align="left">age_cat<br />
-[character]</td>
-<td align="left">1. 15-49<br />
-2. 50-69</td>
-<td align="left">590 (77.6%)<br />
-170 (22.4%)</td>
-<td align="left">IIIIIIIIIIIIIII<br />
-IIII</td>
-<td align="left">760<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">5</td>
-<td align="left">base_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 58.4 (90.6)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 15 &lt; 430<br />
-IQR (CV) : 65.4 (1.6)</td>
-<td align="left">218 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: : . . .</td>
-<td align="left">760<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">6</td>
-<td align="left">scen1_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 60.2 (92.1)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 16 &lt; 499.3<br />
-IQR (CV) : 68.2 (1.5)</td>
-<td align="left">254 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: : . . .</td>
-<td align="left">760<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">7</td>
-<td align="left">scen2_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 59.2 (91.1)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 15.7 &lt; 430<br />
-IQR (CV) : 68.9 (1.5)</td>
-<td align="left">238 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: : . . .</td>
-<td align="left">760<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">8</td>
-<td align="left">scen3_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 58.4 (90.6)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 15 &lt; 430<br />
-IQR (CV) : 65.4 (1.6)</td>
-<td align="left">218 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: : . . .</td>
-<td align="left">760<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">9</td>
-<td align="left">scen4_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 58.1 (90.6)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 14.5 &lt; 430<br />
-IQR (CV) : 65.5 (1.6)</td>
-<td align="left">203 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: : . . .</td>
-<td align="left">760<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">10</td>
-<td align="left">scen5_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 58.2 (90.5)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 15 &lt; 430<br />
-IQR (CV) : 65.3 (1.6)</td>
-<td align="left">212 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: : . . .</td>
-<td align="left">760<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="data-frame-summary-2" class="section level3">
-<h3>Data Frame Summary</h3>
-<p><strong>td</strong><br />
-<strong>Dimensions:</strong> 9162 x 10<br />
-<strong>Duplicates:</strong> 0</p>
-<table>
-<colgroup>
-<col width="4%"></col>
-<col width="15%"></col>
-<col width="26%"></col>
-<col width="19%"></col>
-<col width="19%"></col>
-<col width="7%"></col>
-<col width="7%"></col>
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">No</th>
-<th align="left">Variable</th>
-<th align="left">Stats / Values</th>
-<th align="left">Freqs (% of Valid)</th>
-<th align="left">Graph</th>
-<th align="left">Valid</th>
-<th align="left">Missing</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">1</td>
-<td align="left">participant_id<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 4601.5 (2656.1)<br />
-min &lt; med &lt; max:<br />
-1 &lt; 4598.5 &lt; 9203<br />
-IQR (CV) : 4596.5 (0.6)</td>
-<td align="left">9162 distinct values</td>
-<td align="left"><br />
-: : : : : : : : : :<br />
-: : : : : : : : : :<br />
-: : : : : : : : : :<br />
-: : : : : : : : : :<br />
-: : : : : : : : : :</td>
-<td align="left">9162<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">2</td>
-<td align="left">age<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 28.7 (17.5)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 26 &lt; 92<br />
-IQR (CV) : 25 (0.6)</td>
-<td align="left">106 distinct values</td>
-<td align="left"><br />
-  : .<br />
-. : : : :<br />
-: : : : :<br />
-: : : : : :<br />
-: : : : : : : .</td>
-<td align="left">9162<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">3</td>
-<td align="left">sex<br />
-[character]</td>
-<td align="left">1. Female<br />
-2. Male</td>
-<td align="left">4153 (45.3%)<br />
-5009 (54.7%)</td>
-<td align="left">IIIIIIIII<br />
-IIIIIIIIII</td>
-<td align="left">9162<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">4</td>
-<td align="left">age_cat<br />
-[character]</td>
-<td align="left">1. 15-19<br />
-2. 10-14<br />
-3. 20-24<br />
-4. 25-29<br />
-5. 40-44<br />
-6. 5-9<br />
-7. 30-34<br />
-8. 45-49<br />
-9. 35-39<br />
-10. 0-4<br />
-[ 7 others ]</td>
-<td align="left">1111 (12.1%)<br />
-936 (10.2%)<br />
-922 (10.1%)<br />
-839 ( 9.2%)<br />
-760 ( 8.3%)<br />
-752 ( 8.2%)<br />
-750 ( 8.2%)<br />
-683 ( 7.5%)<br />
-662 ( 7.2%)<br />
-512 ( 5.6%)<br />
-1235 (13.5%)</td>
-<td align="left">II<br />
-II<br />
-II<br />
-I<br />
-I<br />
-I<br />
-I<br />
-I<br />
-I<br />
-I<br />
-II</td>
-<td align="left">9162<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">5</td>
-<td align="left">base_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 34.3 (73.8)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 0.2 &lt; 430.6<br />
-IQR (CV) : 20.1 (2.2)</td>
-<td align="left">1204 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: .     .</td>
-<td align="left">9162<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">6</td>
-<td align="left">scen1_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 34.3 (73.8)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 0.2 &lt; 430.6<br />
-IQR (CV) : 20.2 (2.2)</td>
-<td align="left">1242 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: .     .</td>
-<td align="left">9162<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">7</td>
-<td align="left">scen2_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 34.3 (73.8)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 0.2 &lt; 430.6<br />
-IQR (CV) : 20.1 (2.2)</td>
-<td align="left">1259 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: .     .</td>
-<td align="left">9162<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">8</td>
-<td align="left">scen3_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 34.3 (73.8)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 0.1 &lt; 430.3<br />
-IQR (CV) : 20.1 (2.2)</td>
-<td align="left">1215 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: .     .</td>
-<td align="left">9162<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">9</td>
-<td align="left">scen4_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 34.3 (73.8)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 0.2 &lt; 430.6<br />
-IQR (CV) : 20.1 (2.2)</td>
-<td align="left">1179 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: .     .</td>
-<td align="left">9162<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">10</td>
-<td align="left">scen5_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 34.3 (73.8)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 0.2 &lt; 430.6<br />
-IQR (CV) : 20.1 (2.2)</td>
-<td align="left">1206 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: .     .</td>
-<td align="left">9162<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="data-frame-summary-3" class="section level3">
-<h3>Data Frame Summary</h3>
-<p><strong>td</strong><br />
-<strong>Dimensions:</strong> 61847 x 10<br />
-<strong>Duplicates:</strong> 0</p>
-<table style="width:100%;">
-<colgroup>
-<col width="4%"></col>
-<col width="15%"></col>
-<col width="26%"></col>
-<col width="20%"></col>
-<col width="19%"></col>
-<col width="7%"></col>
-<col width="7%"></col>
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">No</th>
-<th align="left">Variable</th>
-<th align="left">Stats / Values</th>
-<th align="left">Freqs (% of Valid)</th>
-<th align="left">Graph</th>
-<th align="left">Valid</th>
-<th align="left">Missing</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">1</td>
-<td align="left">participant_id<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 30924 (17853.8)<br />
-min &lt; med &lt; max:<br />
-1 &lt; 30924 &lt; 61847<br />
-IQR (CV) : 30923 (0.6)</td>
-<td align="left">61847 distinct values</td>
-<td align="left"><br />
-: : : : : : : : : :<br />
-: : : : : : : : : :<br />
-: : : : : : : : : :<br />
-: : : : : : : : : :<br />
-: : : : : : : : : :</td>
-<td align="left">61847<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">2</td>
-<td align="left">age<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 29.1 (15.5)<br />
-min &lt; med &lt; max:<br />
-1 &lt; 28 &lt; 102<br />
-IQR (CV) : 19 (0.5)</td>
-<td align="left">106 distinct values</td>
-<td align="left"><br />
-    :<br />
-    : .<br />
-  . : :<br />
-: : : : .<br />
-: : : : : : .</td>
-<td align="left">61847<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">3</td>
-<td align="left">sex<br />
-[character]</td>
-<td align="left">1. Female<br />
-2. Male</td>
-<td align="left">27984 (45.2%)<br />
-33863 (54.8%)</td>
-<td align="left">IIIIIIIII<br />
-IIIIIIIIII</td>
-<td align="left">61847<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">4</td>
-<td align="left">age_cat<br />
-[character]</td>
-<td align="left">1. 25-29<br />
-2. 30-34<br />
-3. 20-24<br />
-4. 35-39<br />
-5. 15-19<br />
-6. 10-14<br />
-7. 40-44<br />
-8. 5-9<br />
-9. 45-49<br />
-10. 0-4<br />
-[ 7 others ]</td>
-<td align="left">10083 (16.3%)<br />
-8099 (13.1%)<br />
-6867 (11.1%)<br />
-6442 (10.4%)<br />
-4753 ( 7.7%)<br />
-4528 ( 7.3%)<br />
-4366 ( 7.1%)<br />
-3678 ( 5.9%)<br />
-3300 ( 5.3%)<br />
-3097 ( 5.0%)<br />
-6634 (10.7%)</td>
-<td align="left">III<br />
-II<br />
-II<br />
-II<br />
-I<br />
-I<br />
-I<br />
-I<br />
-I<br />
-I<br />
-II</td>
-<td align="left">61847<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">5</td>
-<td align="left">base_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 45.3 (84.2)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 7 &lt; 438.6<br />
-IQR (CV) : 48 (1.9)</td>
-<td align="left">1637 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: .   .   .</td>
-<td align="left">61847<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">6</td>
-<td align="left">scen1_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 46.9 (84.8)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 7.4 &lt; 513.8<br />
-IQR (CV) : 48 (1.8)</td>
-<td align="left">2095 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: .   . .</td>
-<td align="left">61847<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">7</td>
-<td align="left">scen2_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 45.6 (84.4)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 7 &lt; 460.8<br />
-IQR (CV) : 48 (1.9)</td>
-<td align="left">1919 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: .   .</td>
-<td align="left">61847<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">8</td>
-<td align="left">scen3_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 44.8 (84.1)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 5 &lt; 434.3<br />
-IQR (CV) : 48 (1.9)</td>
-<td align="left">1556 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: .   .   .</td>
-<td align="left">61847<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="odd">
-<td align="left">9</td>
-<td align="left">scen4_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 45.3 (84.2)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 7 &lt; 438.6<br />
-IQR (CV) : 48 (1.9)</td>
-<td align="left">1640 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: .   .   .</td>
-<td align="left">61847<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
-</tr>
-<tr class="even">
-<td align="left">10</td>
-<td align="left">scen5_mmet<br />
-[numeric]</td>
-<td align="left">Mean (sd) : 45.3 (84.2)<br />
-min &lt; med &lt; max:<br />
-0 &lt; 7 &lt; 438.6<br />
-IQR (CV) : 48 (1.9)</td>
-<td align="left">1622 distinct values</td>
-<td align="left"><br />
-:<br />
-:<br />
-:<br />
-:<br />
-: .   .   .</td>
-<td align="left">61847<br />
-(100%)</td>
-<td align="left">0<br />
-(0%)</td>
+<td align="right">395776.21</td>
+<td align="right">748949.59</td>
+<td align="right">393152.21</td>
+<td align="right">311362.30</td>
+<td align="right">395486.21</td>
+<td align="right">391969.21</td>
 </tr>
 </tbody>
 </table>
