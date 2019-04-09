@@ -17,7 +17,12 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    CASUALTY_EXPONENT_FRACTION = 0.5,
                                    BUS_TO_PASSENGER_RATIO = 0.022,
                                    TRUCK_TO_CAR_RATIO = 0.21,
-                                   EMISSION_INVENTORY_CONFIDENCE = 1){
+                                   EMISSION_INVENTORY_CONFIDENCE = 1,
+                                   DISTANCE_SCALAR_CAR_TAXI = 1,
+                                   DISTANCE_SCALAR_WALKING = 1,
+                                   DISTANCE_SCALAR_PT = 1,
+                                   DISTANCE_SCALAR_CYCLING = 1,
+                                   DISTANCE_SCALAR_MOTORCYCLE = 1){
   
   if ((length(PM_CONC_BASE==1)&&PM_CONC_BASE == 50) |
       (length(PM_TRANS_SHARE==1)&&PM_TRANS_SHARE == 0.225))
@@ -40,6 +45,11 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   CASUALTY_EXPONENT_FRACTION <<- CASUALTY_EXPONENT_FRACTION
   BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
   TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
+  DISTANCE_SCALAR_CAR_TAXI <<- DISTANCE_SCALAR_CAR_TAXI
+  DISTANCE_SCALAR_WALKING <<- DISTANCE_SCALAR_WALKING
+  DISTANCE_SCALAR_PT <<- DISTANCE_SCALAR_PT
+  DISTANCE_SCALAR_CYCLING <<-  DISTANCE_SCALAR_CYCLING
+  DISTANCE_SCALAR_MOTORCYCLE <<- DISTANCE_SCALAR_MOTORCYCLE
   parameters <- list()
   
   ##Variables with normal distribution
@@ -50,7 +60,12 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                  "MOTORCYCLE_TO_CAR_RATIO",
                  "BACKGROUND_PA_SCALAR",
                  "CHRONIC_DISEASE_SCALAR",
-                 "INJURY_LINEARITY")
+                 "INJURY_LINEARITY",
+                 "DISTANCE_SCALAR_CAR_TAXI",
+                 "DISTANCE_SCALAR_WALKING",
+                 "DISTANCE_SCALAR_PT",
+                 "DISTANCE_SCALAR_CYCLING",
+                 "DISTANCE_SCALAR_MOTORCYCLE")
   for (i in 1:length(normVariables)) {
     name <- normVariables[i]
     val <- get(normVariables[i])
@@ -93,22 +108,13 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     total <- sum(unlist(EMISSION_INVENTORY))
     parameters$EMISSION_INVENTORY <- list()
     for(n in 1:NSAMPLES){
-      samples <- lapply(EMISSION_INVENTORY,function(x) rgamma(1,shape=x/total*100*(3^EMISSION_INVENTORY_CONFIDENCE),scale=1))
+      samples <- lapply(EMISSION_INVENTORY,function(x) rgamma(1,shape=x/total*100*dirichlet_pointiness(EMISSION_INVENTORY_CONFIDENCE),scale=1))
       new_total <- sum(unlist(samples))
       parameters$EMISSION_INVENTORY[[n]] <- lapply(samples,function(x)x/new_total)
     }
   }
   
-  #if(length(BUS_WALK_TIME) > 1 )    parameters$BUS_WALK_TIME <- rlnorm(NSAMPLES,BUS_WALK_TIME[1], BUS_WALK_TIME[2])
-  #if(length(MMET_CYCLING) > 1 )     parameters$MMET_CYCLING <- rlnorm(NSAMPLES,MMET_CYCLING[1], MMET_CYCLING[2])
-  #if(length(MMET_WALKING) > 1 )     parameters$MMET_WALKING <- rlnorm(NSAMPLES,MMET_WALKING[1], MMET_WALKING[2])
-  #if(length(PM_CONC_BASE) > 1 )     parameters$PM_CONC_BASE <- rlnorm(NSAMPLES,PM_CONC_BASE[1],PM_CONC_BASE[2])
-  #if(length(PM_TRANS_SHARE) > 1 )   parameters$PM_TRANS_SHARE <- rbeta(NSAMPLES,PM_TRANS_SHARE[1],PM_TRANS_SHARE[2])
-  #if(length(MOTORCYCLE_TO_CAR_RATIO) > 1 )  parameters$MOTORCYCLE_TO_CAR_RATIO <- rlnorm(NSAMPLES,MOTORCYCLE_TO_CAR_RATIO[1],MOTORCYCLE_TO_CAR_RATIO[2])
-  #if(length(BACKGROUND_PA_SCALAR) > 1 )     parameters$BACKGROUND_PA_SCALAR <- rlnorm(NSAMPLES,BACKGROUND_PA_SCALAR[1],BACKGROUND_PA_SCALAR[2])
-  #if(length(INJURY_REPORTING_RATE) > 1 )    parameters$INJURY_REPORTING_RATE <- rbeta(NSAMPLES,INJURY_REPORTING_RATE[1],INJURY_REPORTING_RATE[2])
-  #if(length(CHRONIC_DISEASE_SCALAR) > 1 )   parameters$CHRONIC_DISEASE_SCALAR <- rlnorm(NSAMPLES,CHRONIC_DISEASE_SCALAR[1],CHRONIC_DISEASE_SCALAR[2])
-  
+  ## PA DOSE RESPONSE
   if(PA_DOSE_RESPONSE_QUANTILE == T ) {
     pa_diseases <- subset(DISEASE_INVENTORY,physical_activity==1)
     dr_pa_list <- list()
@@ -116,7 +122,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
       parameters[[paste0('PA_DOSE_RESPONSE_QUANTILE_',disease)]] <- runif(NSAMPLES,0,1)
   }
   
-  #### AP
+  #### AP DOSE RESPONSE
   AP_DOSE_RESPONSE_QUANTILE <<- AP_DOSE_RESPONSE_QUANTILE
   ## shortcut: use saved median values
   if(!AP_DOSE_RESPONSE_QUANTILE){
@@ -172,4 +178,10 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     
   }
   parameters
+}
+
+## FUNCTION FOR DIRICHLET PARAMETERS
+#' @export
+dirichlet_pointiness <- function(confidence){
+  3^confidence
 }
