@@ -172,9 +172,14 @@ saveRDS(ithim_objects, "C:/RStudio Projects/ITHIM-R/results/multi_city/io.rds")
 ## with uncertainty
 ## comparison across cities
 numcores <- detectCores()
-nsamples <- 1024
+nsamples <- 16
 setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","EMISSION_INVENTORY",                        
-                        "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO")
+                        "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO",
+                        "DISTANCE_SCALAR_CAR_TAXI",
+                        "DISTANCE_SCALAR_WALKING",
+                        "DISTANCE_SCALAR_PT",
+                        "DISTANCE_SCALAR_CYCLING",
+                        "DISTANCE_SCALAR_MOTORCYCLE")
 
 
 # beta parameters for INJURY_REPORTING_RATE
@@ -250,11 +255,36 @@ truck_to_car_ratio  <- list(accra=c(3,10),
                             sao_paulo=c(3,10),
                             delhi=c(3,10),
                             bangalore=c(3,10))
-# truck beta distribution
+# emission confidences
 emission_confidence  <- list(accra=0.5,
                             sao_paulo=0.7,
                             delhi=0.9,
                             bangalore=0.9)
+# lnorm parameters for DISTANCE_SCALAR_CAR_TAXI
+distance_scalar_car_taxi <- list(accra=c(0,log(1.2)),
+                                 sao_paulo=c(0,log(1.2)),
+                                 delhi=c(0,log(1.2)),
+                                 bangalore=c(0,log(1.2)))
+# lnorm parameters for DISTANCE_SCALAR_MOTORCYCLE
+distance_scalar_motorcycle <- list(accra=c(0,log(1.2)),
+                                 sao_paulo=c(0,log(1.2)),
+                                 delhi=c(0,log(1.2)),
+                                 bangalore=c(0,log(1.2)))
+# lnorm parameters for DISTANCE_SCALAR_PT
+distance_scalar_pt <- list(accra=c(0,log(1.2)),
+                                 sao_paulo=c(0,log(1.2)),
+                                 delhi=c(0,log(1.2)),
+                                 bangalore=c(0,log(1.2)))
+# lnorm parameters for DISTANCE_SCALAR_WALKING
+distance_scalar_walking <- list(accra=c(0,log(1.2)),
+                                 sao_paulo=c(0,log(1.2)),
+                                 delhi=c(0,log(1.2)),
+                                 bangalore=c(0,log(1.2)))
+# lnorm parameters for DISTANCE_SCALAR_CYCLING
+distance_scalar_cycling <- list(accra=c(0,log(1.2)),
+                                 sao_paulo=c(0,log(1.2)),
+                                 delhi=c(0,log(1.2)),
+                                 bangalore=c(0,log(1.2)))
 
 
 multi_city_ithim <- outcome <- outcome_pp <- list()
@@ -294,7 +324,12 @@ for(ci in 1:length(cities)){
                                             MOTORCYCLE_TO_CAR_RATIO = mc_car_ratio[[city]],
                                             BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                             TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
-                                            EMISSION_INVENTORY_CONFIDENCE = emission_confidence[[city]])
+                                            EMISSION_INVENTORY_CONFIDENCE = emission_confidence[[city]],
+                                            DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
+                                            DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
+                                            DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
+                                            DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
+                                            DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]])
   
   # for first city, store model parameters. For subsequent cities, copy parameters over.
   if(ci==1){
