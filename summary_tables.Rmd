@@ -55,24 +55,34 @@ kable(scen_prop, headings = "Scenario Proportions")
 ## Trip proportion
 Case study specific trip proportions by mode, for baseline and five scenarios
 
-```{r trip_mode_dist = "asis", echo = F}
+
+```{r load_tidyverse, echo = F, message = F}
 suppressWarnings({
   require(tidyverse)  
 })
+```
+
+
+```{r trip_mode_dist = "asis", echo = F}
 
 for(city in cities){
-    td <- io[[city]]$trip_scen_sets %>% group_by(trip_mode, scenario) %>% summarise(p = round(dplyr::n() / nrow(.) * 100, 2)) %>% spread(key = trip_mode, value = p)
-    td[2:6, 1] <- rownames(scen_prop)
-    print(kable(td, caption = paste("Trip proportion (%) by mode for ", city)))
-    cat("\n")
+  df <- io[[city]]$trip_scen_sets
+  df1 <- df %>% filter(scenario == "Baseline") %>% group_by(trip_id, trip_mode, scenario)
+  u_trips <- nrow(df1)
+  td <- df %>% group_by(trip_id, trip_mode, scenario) %>% group_by(trip_mode, scenario) %>% summarise(p = round(n() /  u_trips * 100, 2)) %>% spread(key = trip_mode, value = p) %>% mutate(row_sums = rowSums(.[sapply(., is.numeric)], na.rm = TRUE))
+  td[2:6, 1] <- rownames(scen_prop)
+  print(kable(td, caption = paste("Trip proportion (%) by mode for ", city)))
+  cat("\n")
 }
 
+```
+
+```{r unload_tidyverse, echo = F, message = F}
 suppressWarnings({
   detach("package:tidyverse", character.only = T)
 })
 
 ```
-
 
 ## Distance tables
 Case study specific distance tables for baseline and five scenarios
@@ -89,7 +99,7 @@ for(city in cities){
 
 ```
 
-## Distance tables
+## Duration tables
 Case study specific duration tables for baseline and five scenarios
 
 
