@@ -52,6 +52,28 @@ kable(scen_prop, headings = "Scenario Proportions")
 
 ```
 
+## Trip proportion
+Case study specific trip proportions by mode, for baseline and five scenarios
+
+```{r trip_mode_dist = "asis", echo = F}
+suppressWarnings({
+  require(tidyverse)  
+})
+
+for(city in cities){
+    td <- io[[city]]$trip_scen_sets %>% group_by(trip_mode, scenario) %>% summarise(p = round(n() / nrow(.) * 100, 2)) %>% spread(key = trip_mode, value = p)
+    td[2:6, 1] <- rownames(scen_prop)
+    print(kable(td, caption = paste("Trip proportion (%) by mode for ", city)))
+    cat("\n")
+}
+
+suppressWarnings({
+  detach("package:tidyverse", character.only = T)
+})
+
+```
+
+
 ## Distance tables
 Case study specific distance tables for baseline and five scenarios
 
