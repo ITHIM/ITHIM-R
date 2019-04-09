@@ -61,7 +61,7 @@ suppressWarnings({
 })
 
 for(city in cities){
-    td <- io[[city]]$trip_scen_sets %>% group_by(trip_mode, scenario) %>% summarise(p = round(n() / nrow(.) * 100, 2)) %>% spread(key = trip_mode, value = p)
+    td <- io[[city]]$trip_scen_sets %>% group_by(trip_mode, scenario) %>% summarise(p = round(dplyr::n() / nrow(.) * 100, 2)) %>% spread(key = trip_mode, value = p)
     td[2:6, 1] <- rownames(scen_prop)
     print(kable(td, caption = paste("Trip proportion (%) by mode for ", city)))
     cat("\n")
