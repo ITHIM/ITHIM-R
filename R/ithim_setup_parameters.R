@@ -108,7 +108,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     total <- sum(unlist(EMISSION_INVENTORY))
     parameters$EMISSION_INVENTORY <- list()
     for(n in 1:NSAMPLES){
-      samples <- lapply(EMISSION_INVENTORY,function(x) rgamma(1,shape=x/total*100*dirichlet_pointiness(EMISSION_INVENTORY_CONFIDENCE),scale=1))
+      samples <- lapply(EMISSION_INVENTORY,function(x) rgamma(1,shape=x/total*dirichlet_pointiness(EMISSION_INVENTORY_CONFIDENCE),scale=1))
       new_total <- sum(unlist(samples))
       parameters$EMISSION_INVENTORY[[n]] <- lapply(samples,function(x)x/new_total)
     }
@@ -183,5 +183,5 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
 ## FUNCTION FOR DIRICHLET PARAMETERS
 #' @export
 dirichlet_pointiness <- function(confidence){
-  3^confidence
+  exp((2.25*confidence+1)^2)
 }
