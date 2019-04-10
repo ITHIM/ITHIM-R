@@ -380,14 +380,14 @@ for(m in 1:length(modes)){
 
 
 ## plot confidences
-confidences <- c(0.2,0.4,0.6,0.8)
-parameters <- c(10,100,1000,10000)
+confidences <- c(0.5,0.7,0.9)
+parameters <- c(100,600,10000)
 dists <- list()
 emis <- list(car=4,motorbike=4,bus=20,hgv=60)
 total <- sum(unlist(emis))
 for(i in 1:length(confidences)){
   confidence <- confidences[i]
-  samples <- sapply(emis,function(x) rgamma(1000,shape=x/total*10^(5*confidence),scale=1))
+  samples <- sapply(emis,function(x) rgamma(1000,shape=x/total*exp((2.25*confidences+1)^2)[i],scale=1))
   new_total <- rowSums(samples)
   dists[[i]] <- apply(samples,2,function(x)x/new_total)
 }
@@ -403,3 +403,5 @@ for(j in 1:ncol(dists[[1]])){
 }
 }   
     
+2=(sqrt(log(parameters))-1)/confidences
+exp((2*confidences+1)^2)=sqrt(log(parameters))
