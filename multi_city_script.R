@@ -209,9 +209,9 @@ background_pa_scalar <- list(accra=c(0,log(1.2)),
                              bangalore=c(0,log(1.2)))
 # values between 0 and 1 for BACKGROUND_PA_CONFIDENCE
 background_pa_confidence <- list(accra=0.5,
-                                 sao_paulo=0.5,
-                                 delhi=0.5,
-                                 bangalore=0.5)
+                                 sao_paulo=0.7,
+                                 delhi=0.3,
+                                 bangalore=0.3)
 # lnorm parameters for BUS_WALK_TIME
 bus_walk_time <- list(accra=c(log(5),log(1.2)),
                      sao_paulo=c(log(5),log(1.2)),
@@ -286,6 +286,30 @@ distance_scalar_cycling <- list(accra=c(0,log(1.2)),
                                  delhi=c(0,log(1.2)),
                                  bangalore=c(0,log(1.2)))
 
+betaVariables <- c("PM_TRANS_SHARE",
+                   "INJURY_REPORTING_RATE",
+                   "CASUALTY_EXPONENT_FRACTION",
+                   "BUS_TO_PASSENGER_RATIO",
+                   "TRUCK_TO_CAR_RATIO")
+normVariables <- c("BUS_WALK_TIME",
+                   "MMET_CYCLING",
+                   "MMET_WALKING",
+                   "PM_CONC_BASE",
+                   "MOTORCYCLE_TO_CAR_RATIO",
+                   "BACKGROUND_PA_SCALAR",
+                   "CHRONIC_DISEASE_SCALAR",
+                   "INJURY_LINEARITY",
+                   "DISTANCE_SCALAR_CAR_TAXI",
+                   "DISTANCE_SCALAR_WALKING",
+                   "DISTANCE_SCALAR_PT",
+                   "DISTANCE_SCALAR_CYCLING",
+                   "DISTANCE_SCALAR_MOTORCYCLE")
+
+save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
+          background_pa_scalar,background_pa_confidence,bus_walk_time,mmet_cycling,mmet_walking,emission_inventories,
+          motorcycle_to_car_ratio,injury_linearity,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
+          bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
+          distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,betaVariables,normVariables,file='parameter_settings.Rdata')
 
 parameters_only <- T
 multi_city_ithim <- outcome <- outcome_pp <- list()
@@ -384,24 +408,7 @@ for(ci in 1:length(cities)){
 
 
 saveRDS(parameter_samples,'parameter_samples.Rds')
-betaVariables <- c("PM_TRANS_SHARE",
-                   "INJURY_REPORTING_RATE",
-                   "CASUALTY_EXPONENT_FRACTION",
-                   "BUS_TO_PASSENGER_RATIO",
-                   "TRUCK_TO_CAR_RATIO")
-normVariables <- c("BUS_WALK_TIME",
-                   "MMET_CYCLING",
-                   "MMET_WALKING",
-                   "PM_CONC_BASE",
-                   "MOTORCYCLE_TO_CAR_RATIO",
-                   "BACKGROUND_PA_SCALAR",
-                   "CHRONIC_DISEASE_SCALAR",
-                   "INJURY_LINEARITY",
-                   "DISTANCE_SCALAR_CAR_TAXI",
-                   "DISTANCE_SCALAR_WALKING",
-                   "DISTANCE_SCALAR_PT",
-                   "DISTANCE_SCALAR_CYCLING",
-                   "DISTANCE_SCALAR_MOTORCYCLE")
+
 # values between 0 and 1 for BACKGROUND_PA_CONFIDENCE
 parameter_samples_to_plot <- parameter_samples
 background_pa_zeros <- list()
