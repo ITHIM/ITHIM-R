@@ -7,6 +7,8 @@ set_injury_contingency <- function(injuries){
   if(ADD_TRUCK_DRIVERS) mode_names <- c(mode_names,'truck')
   if(CITY=='accra') mode_names <- c(mode_names,'motorcycle')
   #mode_names <- c("bicycle","bus","bus_driver","motorcycle","truck","pedestrian","car")
+  # strike mode bus -> bus_driver
+  if('bus'%in%injuries$strike_mode) injuries$strike_mode[injuries$strike_mode=='bus'] <- 'bus_driver'
   # divide injuries into those for which we can write a WHW matrix, i.e. we know distances of both striker and casualty, 
   ## and those for which we don't know striker distance: no or other vehicle (noov)
   ## we can only model casualties for which we know distance travelled (i.e. no truck casualties for Accra)
