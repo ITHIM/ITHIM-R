@@ -172,7 +172,7 @@ saveRDS(ithim_objects, "C:/RStudio Projects/ITHIM-R/results/multi_city/io.rds")
 ## with uncertainty
 ## comparison across cities
 numcores <- detectCores()
-nsamples <- 16
+nsamples <- 1024
 setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","EMISSION_INVENTORY",                        
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO",
                         "DISTANCE_SCALAR_CAR_TAXI",
@@ -382,6 +382,8 @@ for(ci in 1:length(cities)){
   
 }
 
+
+saveRDS(parameter_samples,'parameter_samples.Rds')
 betaVariables <- c("PM_TRANS_SHARE",
                    "INJURY_REPORTING_RATE",
                    "CASUALTY_EXPONENT_FRACTION",
@@ -400,26 +402,68 @@ normVariables <- c("BUS_WALK_TIME",
                    "DISTANCE_SCALAR_PT",
                    "DISTANCE_SCALAR_CYCLING",
                    "DISTANCE_SCALAR_MOTORCYCLE")
-
+# values between 0 and 1 for BACKGROUND_PA_CONFIDENCE
+parameter_samples_to_plot <- parameter_samples
+background_pa_zeros <- list()
+raw_zero <- 0.5; 
+for(city in cities){
+  pointiness <- beta_pointiness(background_pa_confidence[[city]]);
+  beta <- (1/raw_zero - 1)*pointiness*raw_zero; 
+  alpha <- pointiness - beta;
+  background_pa_zeros[[city]] <- c(alpha,beta)
+  parameter_samples_to_plot[,which(colnames(parameter_samples_to_plot)==paste0('BACKGROUND_PA_ZEROS_',city))] <- 
+    qbeta(parameter_samples[,which(colnames(parameter_samples)==paste0('BACKGROUND_PA_ZEROS_',city))],alpha,beta)
+}
+emission_inventory1 = list(accra=list(bus_driver=0.82,
+                                       car=0.228,
+                                       taxi=0.011,
+                                       motorcycle=0.011,
+                                       truck=0.859,
+                                       big_truck=0.711,
+                                       other=0.082),
+                            sao_paulo=list(motorcycle=4,
+                                           car=4,
+                                           bus_driver=32,
+                                           big_truck=56,
+                                           truck=4),
+                            delhi=list(motorcycle=1409,
+                                       auto_rickshaw=133,
+                                       car=2214,
+                                       bus_driver=644,
+                                       big_truck=4624,
+                                       truck=3337),
+                            bangalore=list(motorcycle=1757,
+                                           auto_rickshaw=220,
+                                           car=4173,
+                                           bus_driver=1255,
+                                           big_truck=4455,
+                                           truck=703))
+emission_inventory2 <- lapply(emission_inventory1,function(x)sapply(x,function(y)y/sum(unlist(x))))
+emission_inventory <- lapply(cities,function(x)formatC(signif(emission_inventory2[[x]]*dirichlet_pointiness(emission_confidence[[x]]),digits=2), digits=2,format="fg"))
+names(emission_inventory) <- cities
 source('dfSummaryrj.R')
-distributions <- sapply(colnames(parameter_samples),
+distributions <- sapply(colnames(parameter_samples_to_plot),
        function(x){
-         if(grepl('EMISSION_INVENTORY',x)) 'Dirichlet' 
+         if(grepl('EMISSION_INVENTORY',x)){ city <- cities[sapply(cities,function(y)grepl(y,x))]; 
+         paste0('Dirichlet(',paste(emission_inventory[[city]],collapse=', '),');\\\nConfidence=',emission_confidence[[city]])}
          else if(grepl('DOSE_RESPONSE',x)) 'Uniform(0,1)' 
-         else if(x%in%normVariables) paste0('Lnorm(',sprintf('%.1f',get(tolower(x))[1]),',',
+         else if(x%in%normVariables) paste0('Lnorm(',sprintf('%.1f',get(tolower(x))[1]),', ',
                                             sprintf('%.2f',get(tolower(x))[2]),')') 
-         else if(x%in%betaVariables) paste0('Beta(',sprintf('%.1f',get(tolower(x))[1]),',',
+         else if(x%in%betaVariables) paste0('Beta(',sprintf('%.1f',get(tolower(x))[1]),', ',
                                             sprintf('%.1f',get(tolower(x))[2]),')') 
          else {city <- cities[sapply(cities,function(y)grepl(y,x))]; 
          param <- strsplit(x,paste0('_',city))[[1]][1]; 
-         if(param=='BACKGROUND_PA_ZEROS') 'Uniform(0,1)' 
-         else {dists <- get(tolower(param))[[city]]
-         if(param%in%normVariables) paste0('Lnorm(',sprintf('%.1f',dists[1]),',',
+         dists <- get(tolower(param))[[city]]
+         if(param=='BACKGROUND_PA_ZEROS') paste0('Confidence=',background_pa_confidence[[city]],
+                                                 ';\\\ne.g. Beta(',sprintf('%.1f',dists[1]),', ',
+                                                 sprintf('%.1f',dists[2]),')\\\nfor zeros=50%') 
+         else if(param%in%normVariables) paste0('Lnorm(',sprintf('%.1f',dists[1]),', ',
                                        sprintf('%.2f',dists[2]),')') 
-         else if(param%in%betaVariables) paste0('Beta(',sprintf('%.1f',dists[1]),',',
-                                            sprintf('%.1f',dists[2]),')')}}})
-x <- dfSummaryrj(parameter_samples,style='grid',na.col=F,valid.col=F,distributions=distributions)
+         else if(param%in%betaVariables) paste0('Beta(',sprintf('%.1f',dists[1]),', ',
+                                            sprintf('%.1f',dists[2]),')')}})
+x <- dfSummaryrj(parameter_samples_to_plot,style='grid',na.col=F,valid.col=F,distributions=distributions)
 summarytools::view(x)
+
 
 #################################################
 
