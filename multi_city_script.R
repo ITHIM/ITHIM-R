@@ -214,8 +214,8 @@ background_pa_confidence <- list(accra=0.5,
                                  bangalore=0.3)
 # lnorm parameters for BUS_WALK_TIME
 bus_walk_time <- list(accra=c(log(5),log(1.2)),
-                     sao_paulo=c(log(5),log(1.2)),
-                     delhi=c(log(5),log(1.2)),
+                     sao_paulo=0,
+                     delhi=0,
                      bangalore=c(log(5),log(1.2)))
 # lnorm parameters for MMET_CYCLING
 mmet_cycling <- c(log(4.63),log(1.2))
@@ -223,9 +223,9 @@ mmet_cycling <- c(log(4.63),log(1.2))
 mmet_walking <- c(log(2.53),log(1.2))
 # lnorm parameters for MOTORCYCLE_TO_CAR_RATIO
 motorcycle_to_car_ratio <- list(accra=c(-1.4,0.4),
-                       sao_paulo=c(-1.4,0.4),
-                     delhi=c(-1.4,0.4),
-                     bangalore=c(-1.4,0.4))
+                       sao_paulo=0,
+                     delhi=0,
+                     bangalore=0)
 # lnorm parameters for INJURY_LINEARITY
 injury_linearity <- c(log(1),log(1.05))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
@@ -309,7 +309,7 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
           background_pa_scalar,background_pa_confidence,bus_walk_time,mmet_cycling,mmet_walking,emission_inventories,
           motorcycle_to_car_ratio,injury_linearity,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
           bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
-          distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,betaVariables,normVariables,file='parameter_settings.Rdata')
+          distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
 parameters_only <- T
 multi_city_ithim <- outcome <- outcome_pp <- list()
@@ -407,70 +407,7 @@ for(ci in 1:length(cities)){
 }
 
 
-saveRDS(parameter_samples,'parameter_samples.Rds')
-
-# values between 0 and 1 for BACKGROUND_PA_CONFIDENCE
-parameter_samples_to_plot <- parameter_samples
-background_pa_zeros <- list()
-raw_zero <- 0.5; 
-for(city in cities){
-  pointiness <- beta_pointiness(background_pa_confidence[[city]]);
-  beta <- (1/raw_zero - 1)*pointiness*raw_zero; 
-  alpha <- pointiness - beta;
-  background_pa_zeros[[city]] <- c(alpha,beta)
-  parameter_samples_to_plot[,which(colnames(parameter_samples_to_plot)==paste0('BACKGROUND_PA_ZEROS_',city))] <- 
-    qbeta(parameter_samples[,which(colnames(parameter_samples)==paste0('BACKGROUND_PA_ZEROS_',city))],alpha,beta)
-}
-emission_inventory1 = list(accra=list(bus_driver=0.82,
-                                       car=0.228,
-                                       taxi=0.011,
-                                       motorcycle=0.011,
-                                       truck=0.859,
-                                       big_truck=0.711,
-                                       other=0.082),
-                            sao_paulo=list(motorcycle=4,
-                                           car=4,
-                                           bus_driver=32,
-                                           big_truck=56,
-                                           truck=4),
-                            delhi=list(motorcycle=1409,
-                                       auto_rickshaw=133,
-                                       car=2214,
-                                       bus_driver=644,
-                                       big_truck=4624,
-                                       truck=3337),
-                            bangalore=list(motorcycle=1757,
-                                           auto_rickshaw=220,
-                                           car=4173,
-                                           bus_driver=1255,
-                                           big_truck=4455,
-                                           truck=703))
-emission_inventory2 <- lapply(emission_inventory1,function(x)sapply(x,function(y)y/sum(unlist(x))))
-emission_inventory <- lapply(cities,function(x)formatC(signif(emission_inventory2[[x]]*dirichlet_pointiness(emission_confidence[[x]]),digits=2), digits=2,format="fg"))
-names(emission_inventory) <- cities
-source('dfSummaryrj.R')
-distributions <- sapply(colnames(parameter_samples_to_plot),
-       function(x){
-         if(grepl('EMISSION_INVENTORY',x)){ city <- cities[sapply(cities,function(y)grepl(y,x))]; 
-         paste0('Dirichlet(',paste(emission_inventory[[city]],collapse=', '),');\\\nConfidence=',emission_confidence[[city]])}
-         else if(grepl('DOSE_RESPONSE',x)) 'Uniform(0,1)' 
-         else if(x%in%normVariables) paste0('Lnorm(',sprintf('%.1f',get(tolower(x))[1]),', ',
-                                            sprintf('%.2f',get(tolower(x))[2]),')') 
-         else if(x%in%betaVariables) paste0('Beta(',sprintf('%.1f',get(tolower(x))[1]),', ',
-                                            sprintf('%.1f',get(tolower(x))[2]),')') 
-         else {city <- cities[sapply(cities,function(y)grepl(y,x))]; 
-         param <- strsplit(x,paste0('_',city))[[1]][1]; 
-         dists <- get(tolower(param))[[city]]
-         if(param=='BACKGROUND_PA_ZEROS') paste0('Confidence=',background_pa_confidence[[city]],
-                                                 ';\\\ne.g. Beta(',sprintf('%.1f',dists[1]),', ',
-                                                 sprintf('%.1f',dists[2]),')\\\nfor zeros=50%') 
-         else if(param%in%normVariables) paste0('Lnorm(',sprintf('%.1f',dists[1]),', ',
-                                       sprintf('%.2f',dists[2]),')') 
-         else if(param%in%betaVariables) paste0('Beta(',sprintf('%.1f',dists[1]),', ',
-                                            sprintf('%.1f',dists[2]),')')}})
-x <- dfSummaryrj(parameter_samples_to_plot,style='grid',na.col=F,valid.col=F,distributions=distributions)
-summarytools::view(x)
-
+saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds')
 
 #################################################
 
