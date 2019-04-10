@@ -1,5 +1,6 @@
-path <- file.path(find.package('ithimr',lib.loc=.libPaths()), 'extdata/local/delhi/delhi_road_deaths_2010_2013_average.csv')
-whw <- read.csv(path)
+whw_file <- 'delhi_road_deaths_2010_2013_average.csv'
+path <- file.path(find.package('ithimr',lib.loc=.libPaths()),'extdata/local/delhi/')
+whw <- read.csv(paste0(path,whw_file))
 injuries <- data.frame(cas_mode=character(),strike_mode=character(),stringsAsFactors = F)
 for(i in 1:nrow(whw))
   for(j in 2:ncol(whw)){
@@ -12,8 +13,16 @@ for(i in 1:nrow(whw))
 injuries$strike_mode[injuries$strike_mode=='X2.3.Wheeled'] <- 'motorcycle'
 injuries$strike_mode[injuries$strike_mode=='Car.pick.up.van'] <- 'car'
 injuries$strike_mode[injuries$strike_mode=='Trucks'] <- 'truck'
+injuries$strike_mode[injuries$strike_mode=='Pedal.cycle'] <- 'bicycle'
+injuries$cas_mode[injuries$cas_mode=='Pedal Cycle'] <- 'bicycle'
+injuries$cas_mode[injuries$cas_mode=='3Wheeled'] <- 'auto_rickshaw'
+injuries$cas_mode[injuries$cas_mode=='Heavy transport'] <- 'truck'
 injuries
 head(injuries)
-write.csv(injuries,path)
+unique(injuries$cas_mode)
+unique(injuries$strike_mode)
+injury_file <- 'injuries_delhi.csv'
+write.csv(injuries,paste0('inst/extdata/local/delhi/',injury_file))
+
 
 
