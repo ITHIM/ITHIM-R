@@ -54,7 +54,9 @@ ithim_load_data <- function(speeds=list(
   filename <- paste0(local_path,"/gbd_",CITY,".csv")
   GBD_DATA <- read_csv(filename,col_types = cols())
   filename <- paste0(local_path,"/population_",CITY,".csv")
-  DEMOGRAPHIC <<- read_csv(filename,col_types = cols())
+  demographic <- as.data.frame(read_csv(filename,col_types = cols()))
+  demographic$dem_index <- 1:nrow(demographic)
+  DEMOGRAPHIC <<- demographic
   
   # get age-category details from population data
   AGE_CATEGORY <<- unique(DEMOGRAPHIC$age)

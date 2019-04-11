@@ -36,7 +36,8 @@ run_ithim_setup <- function(seed = 1,
                             DISTANCE_SCALAR_WALKING = 1,
                             DISTANCE_SCALAR_PT = 1,
                             DISTANCE_SCALAR_CYCLING = 1,
-                            DISTANCE_SCALAR_MOTORCYCLE = 1){
+                            DISTANCE_SCALAR_MOTORCYCLE = 1,
+                            PROPENSITY_TO_TRAVEL = F){
   
   ## SUMMARY OF INPUTS
   # seed = double. sets seed to allow some reproducibility.
@@ -213,21 +214,36 @@ run_ithim_setup <- function(seed = 1,
                                                     DISTANCE_SCALAR_WALKING,
                                                     DISTANCE_SCALAR_PT,
                                                     DISTANCE_SCALAR_CYCLING,
-                                                    DISTANCE_SCALAR_MOTORCYCLE)
+                                                    DISTANCE_SCALAR_MOTORCYCLE,
+                                                    PROPENSITY_TO_TRAVEL)
+  
+  ## set up synthetic population
+  ##!! this needs to have all the modes
+  participants <- 7540
+  pp_travel_propensities <- data.frame(participant_id=1:participants,
+                                       dem_index=sample(x=DEMOGRAPHIC$dem_index,size=participants,replace=T,prob=DEMOGRAPHIC$population))
+  for(i in 1:length(UNCERTAIN_TRAVEL_MODE_NAMES)) {
+    uni <- runif(nrow(pp_travel_propensities))
+    for(m in UNCERTAIN_TRAVEL_MODE_NAMES[[i]])
+      pp_travel_propensities[[paste0(m,'_p_rn')]] <- uni
+  }
+  PP_TRAVEL_PROPENSITIES <<- pp_travel_propensities
+  
+  
   
   # programming flags: do we need to recompute elements given uncertain variables?
   RECALCULATE_EMISSION_INVENTORY <<- any(c('EMISSION_INVENTORY')%in%names(ithim_object$parameters))
   RECALCULATE_TRIPS <<- any(c("DISTANCE_SCALAR_PT",
                               "DISTANCE_SCALAR_CAR_TAXI",
-                              "DISTANCE_SCALAR_MOTORCYCLE",
-                              "DISTANCE_SCALAR_WALKING",
-                              "DISTANCE_SCALAR_CYCLING",
                               'BUS_TO_PASSENGER_RATIO',
                               'MOTORCYCLE_TO_CAR_RATIO',
                               'TRUCK_TO_CAR_RATIO',
                               'BACKGROUND_PA_ZEROS')%in%names(ithim_object$parameters))
-  RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('BUS_WALK_TIME','INJURY_LINEARITY',
-                                                     'CASUALTY_EXPONENT_FRACTION')%in%names(ithim_object$parameters))
+  RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||PROPENSITY_TO_TRAVEL||any(c('BUS_WALK_TIME','INJURY_LINEARITY',
+                                                     'CASUALTY_EXPONENT_FRACTION',
+                                                     "DISTANCE_SCALAR_MOTORCYCLE",
+                                                     "DISTANCE_SCALAR_WALKING",
+                                                     "DISTANCE_SCALAR_CYCLING")%in%names(ithim_object$parameters))
   
   ## complete TRIP_SET to contain distances and durations for trips and stages
   complete_trip_distance_duration() 

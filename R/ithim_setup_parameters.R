@@ -22,7 +22,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    DISTANCE_SCALAR_WALKING = 1,
                                    DISTANCE_SCALAR_PT = 1,
                                    DISTANCE_SCALAR_CYCLING = 1,
-                                   DISTANCE_SCALAR_MOTORCYCLE = 1){
+                                   DISTANCE_SCALAR_MOTORCYCLE = 1,
+                                   PROPENSITY_TO_TRAVEL = F){
   
   if ((length(PM_CONC_BASE==1)&&PM_CONC_BASE == 50) |
       (length(PM_TRANS_SHARE==1)&&PM_TRANS_SHARE == 0.225))
@@ -94,16 +95,19 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     }
   }
   
+  ## day-to-week travel scalar
   if(length(DAY_TO_WEEK_TRAVEL_SCALAR) > 1 ){
     parameters$DAY_TO_WEEK_TRAVEL_SCALAR <- 7*rbeta(NSAMPLES,DAY_TO_WEEK_TRAVEL_SCALAR[1],DAY_TO_WEEK_TRAVEL_SCALAR[2])
   }else{
     DAY_TO_WEEK_TRAVEL_SCALAR <<- DAY_TO_WEEK_TRAVEL_SCALAR
   }
   
+  ## background PA quantiles
   if(BACKGROUND_PA_CONFIDENCE<1){
     parameters$BACKGROUND_PA_ZEROS <- runif(NSAMPLES,0,1)
   }
   
+  ## emission inventory
   if(EMISSION_INVENTORY_CONFIDENCE<1){
     total <- sum(unlist(EMISSION_INVENTORY))
     parameters$EMISSION_INVENTORY <- list()
@@ -112,6 +116,22 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
       new_total <- sum(unlist(samples))
       parameters$EMISSION_INVENTORY[[n]] <- lapply(samples,function(x)x/new_total)
     }
+  }
+  
+  ## propensity to travel
+  UNCERTAIN_TRAVEL_MODE_NAMES <<- list(car=c('car','taxi','auto_rickshaw','shared_auto','shared_taxi'),
+                                       pt=c('bus','minibus','subway','rail','walk_to_bus'),
+                                       motorcycle='motorcycle',
+                                       walking='walking',
+                                       bicycle='bicycle')
+  if(PROPENSITY_TO_TRAVEL) {
+    parameters$PROPENSITY_TO_TRAVEL <- list();
+    for(n in 1:NSAMPLES){
+      parameters$PROPENSITY_TO_TRAVEL[[n]] <- list();
+      for(m in names(UNCERTAIN_TRAVEL_MODE_NAMES)) parameters$PROPENSITY_TO_TRAVEL[[n]][[m]] <- runif(1,0,1)
+    }
+  }else{
+    PROPENSITY_TO_TRAVEL <<- F
   }
   
   ## PA DOSE RESPONSE
