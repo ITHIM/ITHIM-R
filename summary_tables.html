@@ -246,6 +246,7 @@ $(document).ready(function () {
 <th align="right">bus</th>
 <th align="right">car</th>
 <th align="right">motorcycle</th>
+<th align="right">rail</th>
 <th align="right">taxi</th>
 <th align="right">walking</th>
 <th align="right">row_sums</th>
@@ -258,9 +259,10 @@ $(document).ready(function () {
 <td align="right">30.5</td>
 <td align="right">9.6</td>
 <td align="right">2.1</td>
+<td align="right">0.1</td>
 <td align="right">4.1</td>
 <td align="right">53.3</td>
-<td align="right">100.1</td>
+<td align="right">100.2</td>
 </tr>
 <tr class="even">
 <td align="left">walking_scen</td>
@@ -268,9 +270,10 @@ $(document).ready(function () {
 <td align="right">30.5</td>
 <td align="right">9.4</td>
 <td align="right">1.6</td>
+<td align="right">0.1</td>
 <td align="right">4.0</td>
 <td align="right">54.0</td>
-<td align="right">99.9</td>
+<td align="right">100.0</td>
 </tr>
 <tr class="odd">
 <td align="left">bicycle_scen</td>
@@ -278,36 +281,40 @@ $(document).ready(function () {
 <td align="right">28.8</td>
 <td align="right">9.1</td>
 <td align="right">2.0</td>
-<td align="right">3.9</td>
-<td align="right">51.0</td>
-<td align="right">100.0</td>
+<td align="right">0.1</td>
+<td align="right">3.8</td>
+<td align="right">50.9</td>
+<td align="right">99.9</td>
 </tr>
 <tr class="even">
 <td align="left">car_scen</td>
 <td align="right">0.4</td>
-<td align="right">23.3</td>
+<td align="right">23.4</td>
 <td align="right">25.1</td>
 <td align="right">1.8</td>
-<td align="right">3.2</td>
-<td align="right">46.2</td>
+<td align="right">0.1</td>
+<td align="right">3.1</td>
+<td align="right">46.1</td>
 <td align="right">100.0</td>
 </tr>
 <tr class="odd">
 <td align="left">motorcycle_scen</td>
 <td align="right">0.4</td>
-<td align="right">14.6</td>
-<td align="right">5.0</td>
+<td align="right">14.3</td>
+<td align="right">5.1</td>
 <td align="right">31.6</td>
+<td align="right">0.0</td>
 <td align="right">2.1</td>
-<td align="right">46.4</td>
-<td align="right">100.1</td>
+<td align="right">46.5</td>
+<td align="right">100.0</td>
 </tr>
 <tr class="even">
 <td align="left">bus_scen</td>
 <td align="right">0.5</td>
 <td align="right">33.6</td>
 <td align="right">9.1</td>
-<td align="right">2.0</td>
+<td align="right">1.9</td>
+<td align="right">0.1</td>
 <td align="right">3.8</td>
 <td align="right">51.0</td>
 <td align="right">100.0</td>
@@ -323,6 +330,7 @@ $(document).ready(function () {
 <th align="right">bus</th>
 <th align="right">car</th>
 <th align="right">motorcycle</th>
+<th align="right">rail</th>
 <th align="right">subway</th>
 <th align="right">taxi</th>
 <th align="right">van</th>
@@ -333,75 +341,81 @@ $(document).ready(function () {
 <tbody>
 <tr class="odd">
 <td align="left">Baseline</td>
-<td align="right">1.2</td>
-<td align="right">20.8</td>
-<td align="right">28.8</td>
-<td align="right">3.6</td>
-<td align="right">11.3</td>
+<td align="right">1.1</td>
+<td align="right">20.1</td>
+<td align="right">27.9</td>
+<td align="right">3.4</td>
+<td align="right">3.3</td>
+<td align="right">10.9</td>
 <td align="right">0.6</td>
 <td align="right">1.3</td>
-<td align="right">32.4</td>
-<td align="right">100.0</td>
+<td align="right">31.3</td>
+<td align="right">99.9</td>
 </tr>
 <tr class="even">
 <td align="left">walking_scen</td>
 <td align="right">1.0</td>
-<td align="right">19.8</td>
-<td align="right">23.5</td>
-<td align="right">3.1</td>
-<td align="right">10.7</td>
+<td align="right">19.3</td>
+<td align="right">22.3</td>
+<td align="right">3.0</td>
+<td align="right">3.3</td>
+<td align="right">10.5</td>
 <td align="right">0.6</td>
 <td align="right">1.3</td>
-<td align="right">40.0</td>
-<td align="right">100.0</td>
+<td align="right">38.8</td>
+<td align="right">100.1</td>
 </tr>
 <tr class="odd">
 <td align="left">bicycle_scen</td>
-<td align="right">5.1</td>
-<td align="right">20.8</td>
-<td align="right">26.6</td>
-<td align="right">3.6</td>
-<td align="right">10.8</td>
+<td align="right">5.0</td>
+<td align="right">20.0</td>
+<td align="right">25.9</td>
+<td align="right">3.3</td>
+<td align="right">3.3</td>
+<td align="right">10.3</td>
 <td align="right">0.6</td>
-<td align="right">0.9</td>
-<td align="right">31.6</td>
+<td align="right">1.1</td>
+<td align="right">30.5</td>
 <td align="right">100.0</td>
 </tr>
 <tr class="even">
 <td align="left">car_scen</td>
-<td align="right">1.2</td>
-<td align="right">20.8</td>
-<td align="right">28.8</td>
-<td align="right">3.6</td>
-<td align="right">11.3</td>
+<td align="right">1.1</td>
+<td align="right">19.5</td>
+<td align="right">29.0</td>
+<td align="right">3.4</td>
+<td align="right">3.3</td>
+<td align="right">10.3</td>
 <td align="right">0.6</td>
 <td align="right">1.3</td>
-<td align="right">32.4</td>
-<td align="right">100.0</td>
+<td align="right">31.3</td>
+<td align="right">99.8</td>
 </tr>
 <tr class="odd">
 <td align="left">motorcycle_scen</td>
-<td align="right">0.4</td>
-<td align="right">8.6</td>
-<td align="right">17.1</td>
-<td align="right">37.9</td>
-<td align="right">5.8</td>
-<td align="right">0.1</td>
 <td align="right">0.7</td>
-<td align="right">29.3</td>
+<td align="right">8.9</td>
+<td align="right">15.2</td>
+<td align="right">38.5</td>
+<td align="right">1.7</td>
+<td align="right">5.6</td>
+<td align="right">NA</td>
+<td align="right">0.6</td>
+<td align="right">28.7</td>
 <td align="right">99.9</td>
 </tr>
 <tr class="even">
 <td align="left">bus_scen</td>
-<td align="right">0.7</td>
-<td align="right">43.7</td>
-<td align="right">17.2</td>
-<td align="right">1.3</td>
-<td align="right">5.9</td>
-<td align="right">0.3</td>
+<td align="right">0.4</td>
+<td align="right">44.7</td>
+<td align="right">16.7</td>
+<td align="right">1.9</td>
+<td align="right">2.2</td>
+<td align="right">4.0</td>
 <td align="right">0.1</td>
-<td align="right">30.6</td>
-<td align="right">99.8</td>
+<td align="right">0.4</td>
+<td align="right">29.6</td>
+<td align="right">100.0</td>
 </tr>
 </tbody>
 </table>
@@ -447,13 +461,13 @@ $(document).ready(function () {
 <td align="right">23.5</td>
 <td align="right">7.2</td>
 <td align="right">2.3</td>
-<td align="right">11.1</td>
+<td align="right">11.2</td>
 <td align="right">0.1</td>
-<td align="right">1.9</td>
+<td align="right">2.0</td>
 <td align="right">4.0</td>
 <td align="right">2.3</td>
 <td align="right">42.0</td>
-<td align="right">99.9</td>
+<td align="right">100.1</td>
 </tr>
 <tr class="odd">
 <td align="left">bicycle_scen</td>
@@ -472,39 +486,39 @@ $(document).ready(function () {
 </tr>
 <tr class="even">
 <td align="left">car_scen</td>
-<td align="right">1.4</td>
+<td align="right">1.3</td>
 <td align="right">3.0</td>
-<td align="right">18.5</td>
-<td align="right">22.8</td>
+<td align="right">18.4</td>
+<td align="right">22.7</td>
 <td align="right">2.1</td>
 <td align="right">9.1</td>
 <td align="right">0.1</td>
 <td align="right">1.5</td>
-<td align="right">3.2</td>
-<td align="right">1.8</td>
+<td align="right">3.4</td>
+<td align="right">1.7</td>
 <td align="right">36.6</td>
-<td align="right">100.1</td>
+<td align="right">99.9</td>
 </tr>
 <tr class="odd">
 <td align="left">motorcycle_scen</td>
-<td align="right">1.2</td>
+<td align="right">1.3</td>
 <td align="right">2.8</td>
-<td align="right">15.9</td>
-<td align="right">5.0</td>
-<td align="right">2.1</td>
-<td align="right">27.8</td>
-<td align="right">0.1</td>
-<td align="right">1.5</td>
+<td align="right">16.2</td>
+<td align="right">4.8</td>
+<td align="right">2.0</td>
+<td align="right">27.9</td>
+<td align="right">0.0</td>
+<td align="right">1.4</td>
 <td align="right">2.4</td>
-<td align="right">1.8</td>
-<td align="right">39.4</td>
+<td align="right">1.6</td>
+<td align="right">39.6</td>
 <td align="right">100.0</td>
 </tr>
 <tr class="even">
 <td align="left">bus_scen</td>
-<td align="right">1.7</td>
+<td align="right">1.8</td>
 <td align="right">3.9</td>
-<td align="right">24.4</td>
+<td align="right">24.3</td>
 <td align="right">7.2</td>
 <td align="right">2.3</td>
 <td align="right">11.2</td>
@@ -512,8 +526,8 @@ $(document).ready(function () {
 <td align="right">2.0</td>
 <td align="right">4.0</td>
 <td align="right">2.3</td>
-<td align="right">41.0</td>
-<td align="right">100.1</td>
+<td align="right">41.1</td>
+<td align="right">100.2</td>
 </tr>
 </tbody>
 </table>
@@ -527,6 +541,7 @@ $(document).ready(function () {
 <th align="right">bus</th>
 <th align="right">car</th>
 <th align="right">motorcycle</th>
+<th align="right">rail</th>
 <th align="right">shared_taxi</th>
 <th align="right">taxi</th>
 <th align="right">walking</th>
@@ -541,6 +556,7 @@ $(document).ready(function () {
 <td align="right">26.7</td>
 <td align="right">3.1</td>
 <td align="right">28.7</td>
+<td align="right">0</td>
 <td align="right">0.6</td>
 <td align="right">0.1</td>
 <td align="right">35.1</td>
@@ -549,10 +565,11 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">walking_scen</td>
 <td align="right">1.1</td>
-<td align="right">2.0</td>
+<td align="right">1.9</td>
 <td align="right">21.7</td>
 <td align="right">2.3</td>
-<td align="right">22.7</td>
+<td align="right">22.8</td>
+<td align="right">0</td>
 <td align="right">0.5</td>
 <td align="right">0.1</td>
 <td align="right">49.7</td>
@@ -565,6 +582,7 @@ $(document).ready(function () {
 <td align="right">26.0</td>
 <td align="right">3.0</td>
 <td align="right">28.0</td>
+<td align="right">0</td>
 <td align="right">0.6</td>
 <td align="right">0.1</td>
 <td align="right">35.1</td>
@@ -575,12 +593,13 @@ $(document).ready(function () {
 <td align="right">1.3</td>
 <td align="right">2.7</td>
 <td align="right">18.3</td>
-<td align="right">26.9</td>
+<td align="right">27.0</td>
 <td align="right">19.5</td>
+<td align="right">0</td>
 <td align="right">0.4</td>
 <td align="right">0.1</td>
-<td align="right">30.8</td>
-<td align="right">100.0</td>
+<td align="right">30.6</td>
+<td align="right">99.9</td>
 </tr>
 <tr class="odd">
 <td align="left">motorcycle_scen</td>
@@ -589,6 +608,7 @@ $(document).ready(function () {
 <td align="right">26.7</td>
 <td align="right">3.1</td>
 <td align="right">28.7</td>
+<td align="right">0</td>
 <td align="right">0.6</td>
 <td align="right">0.1</td>
 <td align="right">35.1</td>
@@ -596,14 +616,15 @@ $(document).ready(function () {
 </tr>
 <tr class="even">
 <td align="left">bus_scen</td>
-<td align="right">1.7</td>
-<td align="right">3.8</td>
-<td align="right">30.3</td>
+<td align="right">1.8</td>
+<td align="right">3.7</td>
+<td align="right">30.2</td>
 <td align="right">2.8</td>
 <td align="right">25.7</td>
+<td align="right">0</td>
 <td align="right">0.6</td>
 <td align="right">0.1</td>
-<td align="right">35.0</td>
+<td align="right">35.1</td>
 <td align="right">100.0</td>
 </tr>
 </tbody>
@@ -613,7 +634,7 @@ $(document).ready(function () {
 <h2>Distance tables</h2>
 <p>Case study specific distance tables for baseline and five scenarios</p>
 <table>
-<caption>Distance table for accra</caption>
+<caption>Distance table for accra ( 3008 )</caption>
 <thead>
 <tr class="header">
 <th align="left">stage_mode</th>
@@ -627,63 +648,151 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">bicycle</td>
-<td align="right">222.3</td>
-<td align="right">213.9</td>
-<td align="right">3572.8</td>
-<td align="right">153.5</td>
-<td align="right">141.4</td>
-<td align="right">222.3</td>
+<td align="left">bus</td>
+<td align="right">12.7</td>
+<td align="right">12.7</td>
+<td align="right">12.1</td>
+<td align="right">9.9</td>
+<td align="right">5.7</td>
+<td align="right">13.2</td>
 </tr>
 <tr class="even">
+<td align="left">taxi</td>
+<td align="right">1.6</td>
+<td align="right">1.6</td>
+<td align="right">1.5</td>
+<td align="right">1.2</td>
+<td align="right">0.7</td>
+<td align="right">1.5</td>
+</tr>
+<tr class="odd">
+<td align="left">walking</td>
+<td align="right">2.9</td>
+<td align="right">3.0</td>
+<td align="right">2.7</td>
+<td align="right">2.3</td>
+<td align="right">2.2</td>
+<td align="right">2.8</td>
+</tr>
+<tr class="even">
+<td align="left">rail</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">4.2</td>
+<td align="right">4.2</td>
+<td align="right">4.0</td>
+<td align="right">8.1</td>
+<td align="right">2.1</td>
+<td align="right">4.0</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">0.3</td>
+<td align="right">11.2</td>
+<td align="right">0.4</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">1.2</td>
+<td align="right">0.1</td>
+<td align="right">0.0</td>
+<td align="right">0.1</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Total distance total for accra ( 3008 )</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td align="left">bus</td>
 <td align="right">38097.0</td>
 <td align="right">38097.0</td>
-<td align="right">36138.2</td>
-<td align="right">29467.5</td>
-<td align="right">17512.5</td>
-<td align="right">39580.3</td>
+<td align="right">36274.5</td>
+<td align="right">29806.8</td>
+<td align="right">17129.5</td>
+<td align="right">39582.0</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">4768.4</td>
+<td align="right">4761.4</td>
+<td align="right">4497.1</td>
+<td align="right">3631.6</td>
+<td align="right">2188.2</td>
+<td align="right">4476.1</td>
+</tr>
+<tr class="odd">
+<td align="left">walking</td>
+<td align="right">8818.6</td>
+<td align="right">8899.5</td>
+<td align="right">8266.3</td>
+<td align="right">6939.6</td>
+<td align="right">6703.3</td>
+<td align="right">8400.6</td>
+</tr>
+<tr class="even">
+<td align="left">rail</td>
+<td align="right">366.3</td>
+<td align="right">366.3</td>
+<td align="right">366.3</td>
+<td align="right">266.0</td>
+<td align="right">91.6</td>
+<td align="right">366.3</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
 <td align="right">12665.8</td>
-<td align="right">12624.9</td>
-<td align="right">12149.5</td>
-<td align="right">24560.5</td>
-<td align="right">6061.3</td>
-<td align="right">11978.0</td>
+<td align="right">12600.4</td>
+<td align="right">12105.8</td>
+<td align="right">24450.9</td>
+<td align="right">6309.8</td>
+<td align="right">12058.5</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
 <td align="right">1344.0</td>
 <td align="right">1344.0</td>
 <td align="right">1282.0</td>
-<td align="right">985.0</td>
-<td align="right">33318.1</td>
-<td align="right">1255.0</td>
+<td align="right">1022.0</td>
+<td align="right">33744.1</td>
+<td align="right">1185.0</td>
 </tr>
 <tr class="odd">
-<td align="left">taxi</td>
-<td align="right">4768.4</td>
-<td align="right">4761.4</td>
-<td align="right">4525.1</td>
-<td align="right">3776.8</td>
-<td align="right">2296.7</td>
-<td align="right">4454.8</td>
-</tr>
-<tr class="even">
-<td align="left">walking</td>
-<td align="right">8818.6</td>
-<td align="right">8875.0</td>
-<td align="right">8248.3</td>
-<td align="right">6972.8</td>
-<td align="right">6586.2</td>
-<td align="right">8425.6</td>
+<td align="left">bicycle</td>
+<td align="right">222.3</td>
+<td align="right">213.9</td>
+<td align="right">3490.3</td>
+<td align="right">165.5</td>
+<td align="right">116.0</td>
+<td align="right">213.9</td>
 </tr>
 </tbody>
 </table>
 <table>
-<caption>Distance table for sao_paulo</caption>
+<caption>Distance table for sao_paulo ( 760 )</caption>
 <thead>
 <tr class="header">
 <th align="left">stage_mode</th>
@@ -697,81 +806,187 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">bicycle</td>
-<td align="right">54.4</td>
-<td align="right">53.2</td>
-<td align="right">350.8</td>
-<td align="right">54.4</td>
-<td align="right">25.4</td>
-<td align="right">32.6</td>
+<td align="left">bus</td>
+<td align="right">2.9</td>
+<td align="right">2.9</td>
+<td align="right">2.9</td>
+<td align="right">2.8</td>
+<td align="right">1.2</td>
+<td align="right">7.7</td>
 </tr>
 <tr class="even">
+<td align="left">subway</td>
+<td align="right">3.8</td>
+<td align="right">3.7</td>
+<td align="right">3.6</td>
+<td align="right">3.6</td>
+<td align="right">2.0</td>
+<td align="right">1.5</td>
+</tr>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">3.0</td>
+<td align="right">2.8</td>
+<td align="right">2.8</td>
+<td align="right">3.3</td>
+<td align="right">1.5</td>
+<td align="right">1.5</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">6.3</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.5</td>
+<td align="right">0.1</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">rail</td>
+<td align="right">1.4</td>
+<td align="right">1.4</td>
+<td align="right">1.4</td>
+<td align="right">1.4</td>
+<td align="right">0.7</td>
+<td align="right">0.9</td>
+</tr>
+<tr class="odd">
+<td align="left">walking</td>
+<td align="right">0.3</td>
+<td align="right">0.8</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+</tr>
+<tr class="even">
+<td align="left">van</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td align="left">taxi</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Total distance total for sao_paulo ( 760 )</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td align="left">bus</td>
 <td align="right">2221.0</td>
-<td align="right">2148.5</td>
-<td align="right">2221.0</td>
-<td align="right">2221.0</td>
-<td align="right">805.0</td>
-<td align="right">5142.8</td>
+<td align="right">2178.5</td>
+<td align="right">2202.2</td>
+<td align="right">2161.0</td>
+<td align="right">931.0</td>
+<td align="right">5818.5</td>
+</tr>
+<tr class="even">
+<td align="left">subway</td>
+<td align="right">2902.2</td>
+<td align="right">2780.9</td>
+<td align="right">2762.2</td>
+<td align="right">2733.3</td>
+<td align="right">1497.5</td>
+<td align="right">1171.3</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
 <td align="right">2301.2</td>
-<td align="right">2165.1</td>
-<td align="right">2126.9</td>
-<td align="right">2301.2</td>
-<td align="right">1163.8</td>
-<td align="right">1126.7</td>
+<td align="right">2124.8</td>
+<td align="right">2164.1</td>
+<td align="right">2530.2</td>
+<td align="right">1157.5</td>
+<td align="right">1115.5</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
 <td align="right">295.0</td>
 <td align="right">284.6</td>
+<td align="right">292.9</td>
 <td align="right">295.0</td>
-<td align="right">295.0</td>
-<td align="right">4297.9</td>
-<td align="right">62.5</td>
+<td align="right">4806.0</td>
+<td align="right">151.2</td>
 </tr>
 <tr class="odd">
-<td align="left">subway</td>
-<td align="right">2902.2</td>
-<td align="right">2752.9</td>
-<td align="right">2811.2</td>
-<td align="right">2902.2</td>
-<td align="right">1601.6</td>
-<td align="right">1526.0</td>
+<td align="left">bicycle</td>
+<td align="right">54.4</td>
+<td align="right">53.2</td>
+<td align="right">372.7</td>
+<td align="right">54.4</td>
+<td align="right">36.2</td>
+<td align="right">9.7</td>
 </tr>
 <tr class="even">
+<td align="left">rail</td>
+<td align="right">1064.6</td>
+<td align="right">1064.6</td>
+<td align="right">1064.6</td>
+<td align="right">1064.6</td>
+<td align="right">522.1</td>
+<td align="right">694.2</td>
+</tr>
+<tr class="odd">
+<td align="left">walking</td>
+<td align="right">245.9</td>
+<td align="right">597.8</td>
+<td align="right">238.1</td>
+<td align="right">245.9</td>
+<td align="right">213.9</td>
+<td align="right">227.8</td>
+</tr>
+<tr class="even">
+<td align="left">van</td>
+<td align="right">92.5</td>
+<td align="right">92.5</td>
+<td align="right">80.0</td>
+<td align="right">92.5</td>
+<td align="right">52.5</td>
+<td align="right">25.0</td>
+</tr>
+<tr class="odd">
 <td align="left">taxi</td>
 <td align="right">39.9</td>
 <td align="right">39.9</td>
 <td align="right">39.9</td>
 <td align="right">39.9</td>
+<td align="right">0.0</td>
 <td align="right">3.5</td>
-<td align="right">22.4</td>
-</tr>
-<tr class="odd">
-<td align="left">van</td>
-<td align="right">92.5</td>
-<td align="right">92.5</td>
-<td align="right">66.2</td>
-<td align="right">92.5</td>
-<td align="right">47.5</td>
-<td align="right">13.8</td>
-</tr>
-<tr class="even">
-<td align="left">walking</td>
-<td align="right">245.9</td>
-<td align="right">615.5</td>
-<td align="right">241.0</td>
-<td align="right">245.9</td>
-<td align="right">207.5</td>
-<td align="right">225.4</td>
 </tr>
 </tbody>
 </table>
 <table>
-<caption>Distance table for delhi</caption>
+<caption>Distance table for delhi ( 9162 )</caption>
 <thead>
 <tr class="header">
 <th align="left">stage_mode</th>
@@ -785,108 +1000,223 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">auto_rickshaw</td>
-<td align="right">1421.5</td>
-<td align="right">1407.5</td>
-<td align="right">1412.5</td>
-<td align="right">1199.7</td>
-<td align="right">918.3</td>
-<td align="right">1420.0</td>
+<td align="left">bus</td>
+<td align="right">2.3</td>
+<td align="right">2.3</td>
+<td align="right">2.3</td>
+<td align="right">1.8</td>
+<td align="right">1.4</td>
+<td align="right">2.3</td>
 </tr>
 <tr class="even">
-<td align="left">bicycle</td>
-<td align="right">2951.5</td>
-<td align="right">2940.5</td>
-<td align="right">3154.9</td>
-<td align="right">2233.0</td>
-<td align="right">1698.5</td>
-<td align="right">2951.5</td>
+<td align="left">walking</td>
+<td align="right">0.7</td>
+<td align="right">0.7</td>
+<td align="right">0.7</td>
+<td align="right">0.5</td>
+<td align="right">0.6</td>
+<td align="right">0.7</td>
 </tr>
 <tr class="odd">
-<td align="left">bus</td>
-<td align="right">21277.6</td>
-<td align="right">21228.6</td>
-<td align="right">21232.1</td>
-<td align="right">17098.2</td>
-<td align="right">12956.0</td>
-<td align="right">21336.6</td>
+<td align="left">subway</td>
+<td align="right">0.6</td>
+<td align="right">0.6</td>
+<td align="right">0.6</td>
+<td align="right">0.5</td>
+<td align="right">0.4</td>
+<td align="right">0.6</td>
+</tr>
+<tr class="even">
+<td align="left">rail</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td align="left">motorcycle</td>
+<td align="right">1.5</td>
+<td align="right">1.5</td>
+<td align="right">1.5</td>
+<td align="right">1.3</td>
+<td align="right">4.0</td>
+<td align="right">1.5</td>
 </tr>
 <tr class="even">
 <td align="left">car</td>
-<td align="right">17532.9</td>
-<td align="right">17504.4</td>
-<td align="right">17517.9</td>
-<td align="right">28317.3</td>
-<td align="right">10647.9</td>
-<td align="right">17532.9</td>
+<td align="right">1.9</td>
+<td align="right">1.9</td>
+<td align="right">1.9</td>
+<td align="right">3.1</td>
+<td align="right">1.1</td>
+<td align="right">1.9</td>
 </tr>
 <tr class="odd">
-<td align="left">cycle_rickshaw</td>
-<td align="right">521.4</td>
-<td align="right">510.4</td>
-<td align="right">516.4</td>
-<td align="right">464.8</td>
-<td align="right">408.4</td>
-<td align="right">520.3</td>
+<td align="left">bicycle</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">0.2</td>
+<td align="right">0.3</td>
 </tr>
 <tr class="even">
-<td align="left">motorcycle</td>
-<td align="right">14092.5</td>
-<td align="right">14048.5</td>
-<td align="right">14047.1</td>
-<td align="right">11383.2</td>
-<td align="right">36227.8</td>
-<td align="right">14084.3</td>
+<td align="left">shared_auto</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
 </tr>
 <tr class="odd">
+<td align="left">taxi</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.3</td>
+</tr>
+<tr class="even">
+<td align="left">cycle_rickshaw</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="odd">
+<td align="left">auto_rickshaw</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Total distance total for delhi ( 9162 )</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">21277.6</td>
+<td align="right">21223.6</td>
+<td align="right">21234.1</td>
+<td align="right">16733.4</td>
+<td align="right">12941.0</td>
+<td align="right">21324.7</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">6038.2</td>
+<td align="right">6211.8</td>
+<td align="right">5981.0</td>
+<td align="right">4923.6</td>
+<td align="right">5112.0</td>
+<td align="right">6000.4</td>
+</tr>
+<tr class="odd">
+<td align="left">subway</td>
+<td align="right">5831.3</td>
+<td align="right">5831.3</td>
+<td align="right">5831.3</td>
+<td align="right">4905.3</td>
+<td align="right">3483.3</td>
+<td align="right">5831.3</td>
+</tr>
+<tr class="even">
 <td align="left">rail</td>
 <td align="right">299.0</td>
 <td align="right">299.0</td>
 <td align="right">299.0</td>
-<td align="right">299.0</td>
-<td align="right">209.0</td>
-<td align="right">299.0</td>
+<td align="right">223.0</td>
+<td align="right">121.0</td>
+<td align="right">297.5</td>
+</tr>
+<tr class="odd">
+<td align="left">motorcycle</td>
+<td align="right">14092.5</td>
+<td align="right">14050.3</td>
+<td align="right">14052.6</td>
+<td align="right">11734.0</td>
+<td align="right">36828.2</td>
+<td align="right">14090.5</td>
+</tr>
+<tr class="even">
+<td align="left">car</td>
+<td align="right">17532.9</td>
+<td align="right">17498.9</td>
+<td align="right">17518.9</td>
+<td align="right">28495.4</td>
+<td align="right">10259.9</td>
+<td align="right">17532.2</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">2951.5</td>
+<td align="right">2935.5</td>
+<td align="right">3152.6</td>
+<td align="right">2294.9</td>
+<td align="right">1762.0</td>
+<td align="right">2951.5</td>
 </tr>
 <tr class="even">
 <td align="left">shared_auto</td>
 <td align="right">1683.3</td>
-<td align="right">1672.3</td>
+<td align="right">1674.3</td>
 <td align="right">1671.3</td>
-<td align="right">1311.9</td>
-<td align="right">1051.9</td>
-<td align="right">1683.3</td>
+<td align="right">1271.9</td>
+<td align="right">1005.8</td>
+<td align="right">1681.8</td>
 </tr>
 <tr class="odd">
-<td align="left">subway</td>
-<td align="right">5831.3</td>
-<td align="right">5831.3</td>
-<td align="right">5831.3</td>
-<td align="right">4799.2</td>
-<td align="right">3342.3</td>
-<td align="right">5831.3</td>
-</tr>
-<tr class="even">
 <td align="left">taxi</td>
 <td align="right">2614.2</td>
 <td align="right">2612.2</td>
-<td align="right">2602.8</td>
-<td align="right">2196.8</td>
-<td align="right">1790.8</td>
+<td align="right">2596.8</td>
+<td align="right">2169.8</td>
+<td align="right">1386.8</td>
 <td align="right">2613.2</td>
 </tr>
+<tr class="even">
+<td align="left">cycle_rickshaw</td>
+<td align="right">521.4</td>
+<td align="right">512.9</td>
+<td align="right">513.4</td>
+<td align="right">454.1</td>
+<td align="right">401.4</td>
+<td align="right">518.9</td>
+</tr>
 <tr class="odd">
-<td align="left">walking</td>
-<td align="right">6038.2</td>
-<td align="right">6208.7</td>
-<td align="right">5978.2</td>
-<td align="right">4960.3</td>
-<td align="right">5012.5</td>
-<td align="right">5990.9</td>
+<td align="left">auto_rickshaw</td>
+<td align="right">1421.5</td>
+<td align="right">1413.5</td>
+<td align="right">1412.5</td>
+<td align="right">1058.0</td>
+<td align="right">962.2</td>
+<td align="right">1421.5</td>
 </tr>
 </tbody>
 </table>
 <table>
-<caption>Distance table for bangalore</caption>
+<caption>Distance table for bangalore ( 61847 )</caption>
 <thead>
 <tr class="header">
 <th align="left">stage_mode</th>
@@ -900,76 +1230,164 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">auto_rickshaw</td>
-<td align="right">4713.3</td>
-<td align="right">3597.5</td>
-<td align="right">4570.3</td>
-<td align="right">3159.7</td>
-<td align="right">4713.3</td>
-<td align="right">4139.3</td>
+<td align="left">walking</td>
+<td align="right">0.5</td>
+<td align="right">1.0</td>
+<td align="right">0.5</td>
+<td align="right">0.4</td>
+<td align="right">0.5</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="even">
+<td align="left">bus</td>
+<td align="right">1.6</td>
+<td align="right">1.4</td>
+<td align="right">1.5</td>
+<td align="right">1.1</td>
+<td align="right">1.6</td>
+<td align="right">2.0</td>
+</tr>
+<tr class="odd">
+<td align="left">motorcycle</td>
+<td align="right">2.5</td>
+<td align="right">2.3</td>
+<td align="right">2.4</td>
+<td align="right">1.7</td>
+<td align="right">2.5</td>
+<td align="right">2.1</td>
 </tr>
 <tr class="even">
 <td align="left">bicycle</td>
-<td align="right">7341.5</td>
-<td align="right">4342.5</td>
-<td align="right">16776.1</td>
-<td align="right">4923.4</td>
-<td align="right">7339.2</td>
-<td align="right">7185.3</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.3</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
 </tr>
 <tr class="odd">
-<td align="left">bus</td>
-<td align="right">96954.9</td>
-<td align="right">88619.6</td>
-<td align="right">93671.2</td>
-<td align="right">65844.6</td>
-<td align="right">96954.9</td>
-<td align="right">123266.6</td>
+<td align="left">car</td>
+<td align="right">0.3</td>
+<td align="right">0.2</td>
+<td align="right">0.3</td>
+<td align="right">1.8</td>
+<td align="right">0.3</td>
+<td align="right">0.2</td>
 </tr>
 <tr class="even">
-<td align="left">car</td>
-<td align="right">16573.3</td>
-<td align="right">15100.8</td>
-<td align="right">15940.3</td>
-<td align="right">110147.7</td>
-<td align="right">16573.3</td>
-<td align="right">14216.8</td>
+<td align="left">auto_rickshaw</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="odd">
+<td align="left">shared_taxi</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0</td>
+<td align="right">0.1</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Total distance total for bangalore ( 61847 )</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">walking</td>
+<td align="right">31666.1</td>
+<td align="right">59895.1</td>
+<td align="right">31448.9</td>
+<td align="right">24845.8</td>
+<td align="right">31640.9</td>
+<td align="right">31405.7</td>
+</tr>
+<tr class="even">
+<td align="left">bus</td>
+<td align="right">96959.9</td>
+<td align="right">88513.7</td>
+<td align="right">93514.2</td>
+<td align="right">65576.4</td>
+<td align="right">96958.9</td>
+<td align="right">123111.0</td>
 </tr>
 <tr class="odd">
 <td align="left">motorcycle</td>
 <td align="right">154569.5</td>
-<td align="right">140647.3</td>
-<td align="right">149544.5</td>
-<td align="right">104271.3</td>
-<td align="right">154595.0</td>
-<td align="right">132232.0</td>
+<td align="right">141019.6</td>
+<td align="right">149527.5</td>
+<td align="right">104365.6</td>
+<td align="right">154597.7</td>
+<td align="right">132348.0</td>
 </tr>
 <tr class="even">
-<td align="left">shared_taxi</td>
-<td align="right">3466.8</td>
-<td align="right">3143.7</td>
-<td align="right">3341.8</td>
-<td align="right">2193.8</td>
-<td align="right">3466.8</td>
-<td align="right">2899.8</td>
+<td align="left">bicycle</td>
+<td align="right">7351.5</td>
+<td align="right">4256.6</td>
+<td align="right">16781.9</td>
+<td align="right">4905.6</td>
+<td align="right">7349.5</td>
+<td align="right">7143.3</td>
 </tr>
 <tr class="odd">
-<td align="left">taxi</td>
-<td align="right">423.0</td>
-<td align="right">337.0</td>
-<td align="right">408.0</td>
-<td align="right">255.0</td>
-<td align="right">423.0</td>
-<td align="right">407.0</td>
+<td align="left">car</td>
+<td align="right">16573.3</td>
+<td align="right">14944.8</td>
+<td align="right">16093.8</td>
+<td align="right">110278.4</td>
+<td align="right">16573.3</td>
+<td align="right">14138.3</td>
 </tr>
 <tr class="even">
-<td align="left">walking</td>
-<td align="right">31662.1</td>
-<td align="right">59916.0</td>
-<td align="right">31452.2</td>
-<td align="right">24909.0</td>
-<td align="right">31638.9</td>
-<td align="right">31357.5</td>
+<td align="left">auto_rickshaw</td>
+<td align="right">4726.3</td>
+<td align="right">3631.7</td>
+<td align="right">4596.3</td>
+<td align="right">3156.3</td>
+<td align="right">4726.3</td>
+<td align="right">4262.3</td>
+</tr>
+<tr class="odd">
+<td align="left">shared_taxi</td>
+<td align="right">3466.8</td>
+<td align="right">3122.5</td>
+<td align="right">3350.8</td>
+<td align="right">2305.3</td>
+<td align="right">3466.8</td>
+<td align="right">2976.8</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">423.0</td>
+<td align="right">352.5</td>
+<td align="right">423.0</td>
+<td align="right">303.0</td>
+<td align="right">423.0</td>
+<td align="right">351.0</td>
 </tr>
 </tbody>
 </table>
@@ -978,7 +1396,7 @@ $(document).ready(function () {
 <h2>Duration tables</h2>
 <p>Case study specific duration tables for baseline and five scenarios</p>
 <table>
-<caption>Duration table for accra</caption>
+<caption>Duration table for accra ( 3008 )</caption>
 <thead>
 <tr class="header">
 <th align="left">stage_mode</th>
@@ -992,63 +1410,72 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">bicycle</td>
-<td align="right">920.0</td>
-<td align="right">885.0</td>
-<td align="right">14784.1</td>
-<td align="right">635.0</td>
-<td align="right">585.0</td>
-<td align="right">920.0</td>
+<td align="left">bus</td>
+<td align="right">50.7</td>
+<td align="right">50.7</td>
+<td align="right">48.2</td>
+<td align="right">39.6</td>
+<td align="right">22.8</td>
+<td align="right">52.6</td>
 </tr>
 <tr class="even">
-<td align="left">bus</td>
-<td align="right">152388.0</td>
-<td align="right">152388.0</td>
-<td align="right">144553.0</td>
-<td align="right">117870.0</td>
-<td align="right">70050.0</td>
-<td align="right">158321.2</td>
+<td align="left">taxi</td>
+<td align="right">4.5</td>
+<td align="right">4.5</td>
+<td align="right">4.3</td>
+<td align="right">3.4</td>
+<td align="right">2.1</td>
+<td align="right">4.3</td>
+</tr>
+<tr class="odd">
+<td align="left">walking</td>
+<td align="right">36.6</td>
+<td align="right">37.0</td>
+<td align="right">34.4</td>
+<td align="right">28.8</td>
+<td align="right">27.9</td>
+<td align="right">34.9</td>
+</tr>
+<tr class="even">
+<td align="left">rail</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
-<td align="right">36188.0</td>
-<td align="right">36071.0</td>
-<td align="right">34713.0</td>
-<td align="right">70172.8</td>
-<td align="right">17318.0</td>
-<td align="right">34223.0</td>
+<td align="right">12.0</td>
+<td align="right">12.0</td>
+<td align="right">11.5</td>
+<td align="right">23.2</td>
+<td align="right">6.0</td>
+<td align="right">11.5</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">10205.6</td>
-<td align="right">7845.6</td>
-<td align="right">9976.8</td>
-<td align="right">9154.0</td>
-<td align="right">86943.3</td>
-<td align="right">9932.0</td>
+<td align="right">3.4</td>
+<td align="right">2.6</td>
+<td align="right">3.3</td>
+<td align="right">3.1</td>
+<td align="right">29.2</td>
+<td align="right">3.2</td>
 </tr>
 <tr class="odd">
-<td align="left">taxi</td>
-<td align="right">13624.0</td>
-<td align="right">13604.0</td>
-<td align="right">12929.0</td>
-<td align="right">10791.0</td>
-<td align="right">6562.0</td>
-<td align="right">12728.0</td>
-</tr>
-<tr class="even">
-<td align="left">walking</td>
-<td align="right">110232.0</td>
-<td align="right">110937.1</td>
-<td align="right">103104.0</td>
-<td align="right">87160.0</td>
-<td align="right">82327.0</td>
-<td align="right">105320.0</td>
+<td align="left">bicycle</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">4.8</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.3</td>
 </tr>
 </tbody>
 </table>
 <table>
-<caption>Duration table for sao_paulo</caption>
+<caption>Duration table for sao_paulo ( 760 )</caption>
 <thead>
 <tr class="header">
 <th align="left">stage_mode</th>
@@ -1062,196 +1489,205 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">bicycle</td>
-<td align="right">225</td>
-<td align="right">220.0</td>
-<td align="right">1451.6</td>
-<td align="right">225</td>
-<td align="right">105</td>
-<td align="right">135.0</td>
+<td align="left">bus</td>
+<td align="right">11.7</td>
+<td align="right">11.5</td>
+<td align="right">11.6</td>
+<td align="right">11.4</td>
+<td align="right">4.9</td>
+<td align="right">30.6</td>
 </tr>
 <tr class="even">
-<td align="left">bus</td>
-<td align="right">8884</td>
-<td align="right">8594.0</td>
-<td align="right">8884.0</td>
-<td align="right">8884</td>
-<td align="right">3220</td>
-<td align="right">20571.1</td>
+<td align="left">subway</td>
+<td align="right">8.2</td>
+<td align="right">7.8</td>
+<td align="right">7.8</td>
+<td align="right">7.7</td>
+<td align="right">4.2</td>
+<td align="right">3.3</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
-<td align="right">6575</td>
-<td align="right">6186.0</td>
-<td align="right">6077.0</td>
-<td align="right">6575</td>
-<td align="right">3325</td>
-<td align="right">3219.0</td>
+<td align="right">8.7</td>
+<td align="right">8.0</td>
+<td align="right">8.1</td>
+<td align="right">9.5</td>
+<td align="right">4.4</td>
+<td align="right">4.2</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">708</td>
-<td align="right">683.0</td>
-<td align="right">708.0</td>
-<td align="right">708</td>
-<td align="right">10315</td>
-<td align="right">150.0</td>
+<td align="right">0.9</td>
+<td align="right">0.9</td>
+<td align="right">0.9</td>
+<td align="right">0.9</td>
+<td align="right">15.2</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">2.0</td>
+<td align="right">0.3</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="even">
+<td align="left">rail</td>
+<td align="right">2.4</td>
+<td align="right">2.4</td>
+<td align="right">2.4</td>
+<td align="right">2.4</td>
+<td align="right">1.2</td>
+<td align="right">1.6</td>
+</tr>
+<tr class="odd">
+<td align="left">walking</td>
+<td align="right">4.0</td>
+<td align="right">9.8</td>
+<td align="right">3.9</td>
+<td align="right">4.0</td>
+<td align="right">3.5</td>
+<td align="right">3.7</td>
+</tr>
+<tr class="even">
+<td align="left">van</td>
+<td align="right">0.5</td>
+<td align="right">0.5</td>
+<td align="right">0.4</td>
+<td align="right">0.5</td>
+<td align="right">0.3</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="odd">
+<td align="left">taxi</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Duration table for delhi ( 9162 )</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">0.3</td>
+<td align="right">0.5</td>
+<td align="right">0.3</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.3</td>
 </tr>
 <tr class="odd">
 <td align="left">subway</td>
-<td align="right">6219</td>
-<td align="right">5899.0</td>
-<td align="right">6024.0</td>
-<td align="right">6219</td>
-<td align="right">3432</td>
-<td align="right">3270.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="even">
-<td align="left">taxi</td>
-<td align="right">114</td>
-<td align="right">114.0</td>
-<td align="right">114.0</td>
-<td align="right">114</td>
-<td align="right">10</td>
-<td align="right">64.0</td>
+<td align="left">rail</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="odd">
-<td align="left">van</td>
-<td align="right">370</td>
-<td align="right">370.0</td>
-<td align="right">265.0</td>
-<td align="right">370</td>
-<td align="right">190</td>
-<td align="right">55.0</td>
-</tr>
-<tr class="even">
-<td align="left">walking</td>
-<td align="right">3074</td>
-<td align="right">7694.1</td>
-<td align="right">3013.0</td>
-<td align="right">3074</td>
-<td align="right">2594</td>
-<td align="right">2818.0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>Duration table for delhi</caption>
-<thead>
-<tr class="header">
-<th align="left">stage_mode</th>
-<th align="right">Baseline</th>
-<th align="right">walking_scen</th>
-<th align="right">bicycle_scen</th>
-<th align="right">car_scen</th>
-<th align="right">motorcycle_scen</th>
-<th align="right">bus_scen</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">auto_rickshaw</td>
-<td align="right">108.0</td>
-<td align="right">106.4</td>
-<td align="right">107.1</td>
-<td align="right">84.1</td>
-<td align="right">74.3</td>
-<td align="right">107.8</td>
-</tr>
-<tr class="even">
-<td align="left">bicycle</td>
-<td align="right">410.9</td>
-<td align="right">408.4</td>
-<td align="right">1224.5</td>
-<td align="right">310.8</td>
-<td align="right">267.6</td>
-<td align="right">410.9</td>
-</tr>
-<tr class="odd">
-<td align="left">bus</td>
-<td align="right">1607.8</td>
-<td align="right">1599.4</td>
-<td align="right">1601.6</td>
-<td align="right">1272.4</td>
-<td align="right">1014.8</td>
-<td align="right">1843.7</td>
+<td align="left">motorcycle</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">6.1</td>
+<td align="right">0.1</td>
 </tr>
 <tr class="even">
 <td align="left">car</td>
-<td align="right">890.8</td>
-<td align="right">888.6</td>
-<td align="right">889.3</td>
-<td align="right">31703.4</td>
-<td align="right">569.8</td>
-<td align="right">890.8</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">3.5</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
 </tr>
 <tr class="odd">
-<td align="left">cycle_rickshaw</td>
-<td align="right">147.5</td>
-<td align="right">145.6</td>
-<td align="right">146.1</td>
-<td align="right">119.2</td>
-<td align="right">127.2</td>
-<td align="right">146.9</td>
-</tr>
-<tr class="even">
-<td align="left">motorcycle</td>
-<td align="right">1027.6</td>
-<td align="right">1024.0</td>
-<td align="right">1022.4</td>
-<td align="right">834.6</td>
-<td align="right">54197.0</td>
-<td align="right">1025.5</td>
-</tr>
-<tr class="odd">
-<td align="left">rail</td>
-<td align="right">14.2</td>
-<td align="right">14.2</td>
-<td align="right">14.2</td>
-<td align="right">14.2</td>
-<td align="right">4.7</td>
-<td align="right">14.2</td>
+<td align="left">bicycle</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.1</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="even">
 <td align="left">shared_auto</td>
-<td align="right">112.8</td>
-<td align="right">111.8</td>
-<td align="right">112.0</td>
-<td align="right">85.3</td>
-<td align="right">79.3</td>
-<td align="right">112.8</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="odd">
-<td align="left">subway</td>
-<td align="right">273.0</td>
-<td align="right">273.0</td>
-<td align="right">273.0</td>
-<td align="right">222.1</td>
-<td align="right">153.5</td>
-<td align="right">273.0</td>
+<td align="left">taxi</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="even">
-<td align="left">taxi</td>
-<td align="right">174.0</td>
-<td align="right">173.5</td>
-<td align="right">172.8</td>
-<td align="right">146.7</td>
-<td align="right">126.8</td>
-<td align="right">173.7</td>
+<td align="left">cycle_rickshaw</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="odd">
-<td align="left">walking</td>
-<td align="right">2481.7</td>
-<td align="right">4672.2</td>
-<td align="right">2455.2</td>
-<td align="right">2086.8</td>
-<td align="right">2241.8</td>
-<td align="right">2449.4</td>
+<td align="left">auto_rickshaw</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
 </tr>
 </tbody>
 </table>
 <table>
-<caption>Duration table for bangalore</caption>
+<caption>Duration table for bangalore ( 61847 )</caption>
 <thead>
 <tr class="header">
 <th align="left">stage_mode</th>
@@ -1265,76 +1701,76 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">auto_rickshaw</td>
-<td align="right">12854.5</td>
-<td align="right">9811.5</td>
-<td align="right">12464.5</td>
-<td align="right">8617.4</td>
-<td align="right">12854.5</td>
-<td align="right">11289.1</td>
+<td align="left">walking</td>
+<td align="right">6.4</td>
+<td align="right">12.1</td>
+<td align="right">6.4</td>
+<td align="right">5.0</td>
+<td align="right">6.4</td>
+<td align="right">6.3</td>
 </tr>
 <tr class="even">
-<td align="left">bicycle</td>
-<td align="right">29366.0</td>
-<td align="right">17370.1</td>
-<td align="right">67104.5</td>
-<td align="right">19693.6</td>
-<td align="right">29356.8</td>
-<td align="right">28741.2</td>
-</tr>
-<tr class="odd">
 <td align="left">bus</td>
-<td align="right">387819.4</td>
-<td align="right">354478.2</td>
-<td align="right">374684.6</td>
-<td align="right">263378.2</td>
-<td align="right">387819.4</td>
-<td align="right">493066.5</td>
-</tr>
-<tr class="even">
-<td align="left">car</td>
-<td align="right">47352.4</td>
-<td align="right">43145.1</td>
-<td align="right">45543.8</td>
-<td align="right">314707.6</td>
-<td align="right">47352.4</td>
-<td align="right">40619.5</td>
+<td align="right">6.3</td>
+<td align="right">5.7</td>
+<td align="right">6.0</td>
+<td align="right">4.2</td>
+<td align="right">6.3</td>
+<td align="right">8.0</td>
 </tr>
 <tr class="odd">
 <td align="left">motorcycle</td>
-<td align="right">370966.7</td>
-<td align="right">337553.5</td>
-<td align="right">358906.7</td>
-<td align="right">250251.0</td>
-<td align="right">371027.9</td>
-<td align="right">317356.7</td>
+<td align="right">6.0</td>
+<td align="right">5.5</td>
+<td align="right">5.8</td>
+<td align="right">4.0</td>
+<td align="right">6.0</td>
+<td align="right">5.1</td>
 </tr>
 <tr class="even">
-<td align="left">shared_taxi</td>
-<td align="right">9905.2</td>
-<td align="right">8982.1</td>
-<td align="right">9548.1</td>
-<td align="right">6268.1</td>
-<td align="right">9905.2</td>
-<td align="right">8285.2</td>
+<td align="left">bicycle</td>
+<td align="right">0.5</td>
+<td align="right">0.3</td>
+<td align="right">1.1</td>
+<td align="right">0.3</td>
+<td align="right">0.5</td>
+<td align="right">0.5</td>
 </tr>
 <tr class="odd">
-<td align="left">taxi</td>
-<td align="right">1208.6</td>
-<td align="right">962.9</td>
-<td align="right">1165.7</td>
-<td align="right">728.6</td>
-<td align="right">1208.6</td>
-<td align="right">1162.9</td>
+<td align="left">car</td>
+<td align="right">0.8</td>
+<td align="right">0.7</td>
+<td align="right">0.7</td>
+<td align="right">5.1</td>
+<td align="right">0.8</td>
+<td align="right">0.7</td>
 </tr>
 <tr class="even">
-<td align="left">walking</td>
-<td align="right">395776.2</td>
-<td align="right">748949.6</td>
-<td align="right">393152.2</td>
-<td align="right">311362.3</td>
-<td align="right">395486.2</td>
-<td align="right">391969.2</td>
+<td align="left">auto_rickshaw</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="odd">
+<td align="left">shared_taxi</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
 </tr>
 </tbody>
 </table>

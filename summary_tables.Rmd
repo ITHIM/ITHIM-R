@@ -94,10 +94,12 @@ Case study specific distance tables for baseline and five scenarios
 ```{r trip_dist = "asis"}
 
 for(city in cities){
-    td <- io[[city]]$dist %>% mutate_if(is.numeric, round, digits = round_to)
+  count_people <- nrow(io[[city]]$synth_pop)
+  td <- io[[city]]$dist %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, funs(round((.) / count_people, round_to)))
     colnames(td)[3:7] <- rownames(scen_prop)
-    print(kable(td, caption = paste("Distance table for ", city)))
+    print(kable(td, caption = paste("Distance table for ", city, "( ", count_people, " )")))
     cat("\n")
+    
 }
 
 ```
@@ -110,9 +112,10 @@ Case study specific duration tables for baseline and five scenarios
 
 
 for(city in cities){
-    td <- io[[city]]$dur %>% mutate_if(is.numeric, round, digits = round_to)
+  count_people <- nrow(io[[city]]$synth_pop)
+    td <- io[[city]]$dur %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, funs(round((.) / count_people, round_to)))
     colnames(td)[3:7] <- rownames(scen_prop)
-    print(kable(td, caption = paste("Duration table for ", city)))
+    print(kable(td, caption = paste("Duration table for ", city, "( ", count_people, " )")))
     cat("\n")
 }
 
