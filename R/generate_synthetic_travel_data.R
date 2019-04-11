@@ -70,8 +70,10 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
     ##!! not extrapolating new_trips <- extrapolate_travel_data(travel_summary,modes,densities,repetitiveness=repetitiveness)
     new_trips <- sample_travel_data(travel_summary,modes,densities)
     pp_summary_scen <- PP_TRAVEL_PROPENSITIES[,colnames(PP_TRAVEL_PROPENSITIES)%in%c('participant_id','dem_index')]
-    for(m in modes_to_keep)
-      pp_summary_scen[[m]] <- new_trips[[paste0(m,'_dist')]]
+    for(m in modes_to_keep){
+      pp_summary_scen[[paste0(m,'_dist')]] <- new_trips[[paste0(m,'_dist')]]
+      pp_summary_scen[[paste0(m,'_dur')]] <- new_trips[[paste0(m,'_dur')]]
+    }
     
     pp_summary[[SCEN_SHORT_NAME[scen]]] <- pp_summary_scen
   }
@@ -97,7 +99,7 @@ sample_travel_data <- function(travel_summary,modes,densities){
     for(i in 1:length(modes)){
       m <- modes[i]
       probability <- sub2$probability[sub2$mode==m]
-      if(length(densities[[m]][[d]])>0&&probability > 1e-7) {
+      if(length(dist_densities[[m]][[d]])>0) {
         
         dist_density <- dist_densities[[m]][[d]]
         dur_density <- dur_densities[[m]][[d]]
@@ -111,8 +113,8 @@ sample_travel_data <- function(travel_summary,modes,densities){
         stage_dist <- sort(dist_density,decreasing = T)[ceiling(traveller_propensities*length(dist_density))]
         stage_dur <- sort(dur_density,decreasing = T)[ceiling(traveller_propensities*length(dur_density))]
         
-        trip_data[[paste0(m,'_dist')]][travellers] <- stage_dist
-        trip_data[[paste0(m,'_dur')]][travellers] <- stage_dur
+        trip_data[[paste0(m,'_dist')]][non_zero_travellers] <- stage_dist
+        trip_data[[paste0(m,'_dur')]][non_zero_travellers] <- stage_dur
       }
     }
   }
