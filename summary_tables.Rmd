@@ -97,7 +97,7 @@ for(city in cities){
   count_people <- nrow(io[[city]]$synth_pop)
   td <- io[[city]]$dist %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, funs(round((.) / count_people, round_to)))
     colnames(td)[3:7] <- rownames(scen_prop)
-    print(kable(td, caption = paste("Distance table for ", city, "( ", count_people, " )")))
+    print(kable(td, caption = paste("Distance table (km) for ", city, "( ", count_people, " ) per person")))
     cat("\n")
     
 }
@@ -115,7 +115,7 @@ for(city in cities){
   count_people <- nrow(io[[city]]$synth_pop)
     td <- io[[city]]$dur %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, funs(round((.) / count_people, round_to)))
     colnames(td)[3:7] <- rownames(scen_prop)
-    print(kable(td, caption = paste("Duration table for ", city, "( ", count_people, " )")))
+    print(kable(td, caption = paste("Duration table (mins) for ", city, "( ", count_people, " ) per person")))
     cat("\n")
 }
 
