@@ -268,11 +268,10 @@ ggplot(rd %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(x = "", y = "percentage(%)", title = "Main Mode distribution - without weights")
 
-unique(rd$sex)
 rd$sex <- "Male"
 rd$sex[rd$sex == 2] <- "Female"
 
-write_csv(rd, "inst/extdata/local/sao paulo/trips_sao_paulo.csv")
+write_csv(rd, "inst/extdata/local/sao_paulo/trips_sao_paulo.csv")
 
 # Read raw pa for csv and store the filtered pa
 {
