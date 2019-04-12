@@ -242,7 +242,7 @@ rd$hh_id <- NULL
 rd$total_distance <- ave(rd$distance, rd$trip_id, FUN=sum)
 
 # Change unit of stage_duration from hours to mins
-rd <- rd %>% mutate(duration = duration / 60)
+rd <- rd %>% mutate(duration = duration * 60)
 
 # save this in a local temp var
 b <- rd
