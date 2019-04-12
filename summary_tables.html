@@ -633,6 +633,15 @@ $(document).ready(function () {
 <div id="distance-tables" class="section level2">
 <h2>Distance tables</h2>
 <p>Case study specific distance tables for baseline and five scenarios</p>
+<pre><code>Warning: funs() is soft deprecated as of dplyr 0.8.0
+please use list() instead
+
+# Before:
+funs(name = f(.)
+
+# After: 
+list(name = ~f(.))
+This warning is displayed once per session.</code></pre>
 <table>
 <caption>Distance table (km) for accra ( 3008 ) per person</caption>
 <thead>
@@ -1208,102 +1217,102 @@ $(document).ready(function () {
 <tbody>
 <tr class="odd">
 <td align="left">bus</td>
-<td align="right">0.2</td>
-<td align="right">0.2</td>
-<td align="right">0.2</td>
-<td align="right">0.2</td>
-<td align="right">0.1</td>
-<td align="right">0.3</td>
+<td align="right">10.5</td>
+<td align="right">10.5</td>
+<td align="right">10.5</td>
+<td align="right">9.2</td>
+<td align="right">6.5</td>
+<td align="right">10.7</td>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">0.3</td>
-<td align="right">0.5</td>
-<td align="right">0.3</td>
-<td align="right">0.2</td>
-<td align="right">0.2</td>
-<td align="right">0.3</td>
+<td align="right">16.3</td>
+<td align="right">16.5</td>
+<td align="right">16.1</td>
+<td align="right">12.4</td>
+<td align="right">14.6</td>
+<td align="right">15.5</td>
 </tr>
 <tr class="odd">
 <td align="left">subway</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
+<td align="right">1.8</td>
+<td align="right">1.8</td>
+<td align="right">1.8</td>
+<td align="right">1.7</td>
+<td align="right">1.1</td>
+<td align="right">1.8</td>
 </tr>
 <tr class="even">
 <td align="left">rail</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
 <td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
+<td align="right">0.1</td>
 </tr>
 <tr class="odd">
 <td align="left">motorcycle</td>
-<td align="right">0.1</td>
-<td align="right">0.1</td>
-<td align="right">0.1</td>
-<td align="right">0.1</td>
-<td align="right">5.8</td>
-<td align="right">0.1</td>
+<td align="right">6.7</td>
+<td align="right">6.7</td>
+<td align="right">6.7</td>
+<td align="right">5.6</td>
+<td align="right">12.4</td>
+<td align="right">6.7</td>
 </tr>
 <tr class="even">
 <td align="left">car</td>
-<td align="right">0.1</td>
-<td align="right">0.1</td>
-<td align="right">0.1</td>
-<td align="right">2.3</td>
-<td align="right">0.1</td>
-<td align="right">0.1</td>
+<td align="right">5.8</td>
+<td align="right">5.8</td>
+<td align="right">5.8</td>
+<td align="right">8.0</td>
+<td align="right">3.8</td>
+<td align="right">5.8</td>
 </tr>
 <tr class="odd">
 <td align="left">bicycle</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.1</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
+<td align="right">2.7</td>
+<td align="right">2.7</td>
+<td align="right">2.8</td>
+<td align="right">2.2</td>
+<td align="right">1.8</td>
+<td align="right">2.7</td>
 </tr>
 <tr class="even">
 <td align="left">shared_auto</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
+<td align="right">0.7</td>
+<td align="right">0.7</td>
+<td align="right">0.7</td>
+<td align="right">0.6</td>
+<td align="right">0.5</td>
+<td align="right">0.7</td>
 </tr>
 <tr class="odd">
 <td align="left">taxi</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
+<td align="right">1.1</td>
+<td align="right">1.1</td>
+<td align="right">1.1</td>
+<td align="right">1.0</td>
+<td align="right">0.8</td>
+<td align="right">1.1</td>
 </tr>
 <tr class="even">
 <td align="left">cycle_rickshaw</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
+<td align="right">1.0</td>
+<td align="right">1.0</td>
+<td align="right">1.0</td>
+<td align="right">0.8</td>
+<td align="right">0.8</td>
+<td align="right">0.9</td>
 </tr>
 <tr class="odd">
 <td align="left">auto_rickshaw</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
+<td align="right">0.7</td>
+<td align="right">0.7</td>
+<td align="right">0.7</td>
+<td align="right">0.6</td>
+<td align="right">0.5</td>
+<td align="right">0.7</td>
 </tr>
 </tbody>
 </table>
