@@ -5,7 +5,7 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
   modes_to_keep <- unique(trip_scen_sets[[1]]$stage_mode)
   modes <- modes_to_keep#unlist(UNCERTAIN_TRAVEL_MODE_NAMES)
   
-  missing_trips <- subset(trip_superset,!stage_mode%in%modes_to_keep)
+  missing_trips <- subset(trip_superset,!stage_mode%in%modes_to_keep&!duplicated(participant_id))
   demographic <- DEMOGRAPHIC
   colnames(demographic)[which(colnames(demographic)=='age')] <- 'age_cat'
   
@@ -19,8 +19,8 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
     superset <- left_join(trip_scen_sets[[scen]],demographic,by=c('sex','age_cat'))
     
     travel_summary <- expand.grid(dem_index=unique(demographic$dem_index),mode=modes)
-    travel_summary$non_travellers <- apply(travel_summary,1,function(x)length(unique(subset(missing_trips,dem_index==x[1])$participant_id)))
-    travel_summary$travellers <- apply(travel_summary,1,function(x)length(unique(subset(superset,trip_mode==x[2]&dem_index==x[1])$participant_id)))
+    travel_summary$non_travellers <- sapply(travel_summary$dem_index,function(x)sum(missing_trips$dem_index==x))
+    travel_summary$travellers <- apply(travel_summary,1,function(x)length(unique(subset(superset,stage_mode==x[2]&dem_index==x[1])$participant_id)))
     ##!! remove zero-travel demographic groups
     travel_summary <- travel_summary[travel_summary$non_travellers>0|travel_summary$travellers>0,]
     raw_probability <- travel_summary$travellers/(travel_summary$travellers+travel_summary$non_travellers)
@@ -51,25 +51,28 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
       # 
     }
     
-    ##### mode density
     dem_indices <- unique(travel_summary$dem_index)
     dist_densities <- dur_densities <- list()
+    pp_summary_scen <- PP_TRAVEL_PROPENSITIES[,colnames(PP_TRAVEL_PROPENSITIES)%in%c('participant_id','dem_index')]
+    
+    ##### mode density
+    individual_data <- setDT(superset)[,.(dist = sum(stage_distance) , dur = sum(stage_duration) ),by=c('stage_mode','participant_id')]
+    individual_data <- left_join(individual_data,pp_summary_scen,by='participant_id')
     for(m in modes){
-      subtab <- subset(superset,stage_mode==m)
+      subtab <- subset(individual_data,stage_mode==m)
       dist_densities[[m]] <- dur_densities[[m]] <- list()
       for(d in dem_indices){
         subtab2 <- subset(subtab,dem_index==d)
-        dist_densities[[m]][[d]] <- sapply(unique(subtab2$participant_id),function(x)
-          sum(subtab2$stage_distance[subtab2$participant_id==x]))
-        dur_densities[[m]][[d]] <- sapply(unique(subtab2$participant_id),function(x)
-          sum(subtab2$stage_duration[subtab2$participant_id==x]))
+        dist_densities[[m]][[d]] <- subtab2$dist
+        dur_densities[[m]][[d]] <- subtab2$dur
       }
     }
+    
+    
     densities <- list(dist_densities,dur_densities)
     
     ##!! not extrapolating new_trips <- extrapolate_travel_data(travel_summary,modes,densities,repetitiveness=repetitiveness)
     new_trips <- sample_travel_data(travel_summary,modes,densities)
-    pp_summary_scen <- PP_TRAVEL_PROPENSITIES[,colnames(PP_TRAVEL_PROPENSITIES)%in%c('participant_id','dem_index')]
     for(m in modes_to_keep){
       pp_summary_scen[[paste0(m,'_dist')]] <- new_trips[[paste0(m,'_dist')]]
       pp_summary_scen[[paste0(m,'_dur')]] <- new_trips[[paste0(m,'_dur')]]
@@ -100,7 +103,7 @@ sample_travel_data <- function(travel_summary,modes,densities){
       m <- modes[i]
       probability <- sub2$probability[sub2$mode==m]
       if(length(dist_densities[[m]][[d]])>0) {
-        
+        ##!! include probability of choosing from another group's density?
         dist_density <- dist_densities[[m]][[d]]
         dur_density <- dur_densities[[m]][[d]]
         m_ind <- m_inds[i]

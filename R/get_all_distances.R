@@ -7,6 +7,9 @@ get_all_distances <- function(ithim_object){
   ## update all distances and durations
   for(i in 1:length(trip_scen_sets)) trip_scen_sets[[i]] <- scale_trip_distances(trip_scen_sets[[i]])
   
+  ##!! might not want to save this object
+  ithim_object$trip_scen_sets <- do.call(rbind,trip_scen_sets)
+  
   ##RJ synthetic population
   ithim_object$pp_summary <- generate_synthetic_travel_data(trip_scen_sets)
   

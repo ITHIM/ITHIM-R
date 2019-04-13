@@ -11,7 +11,7 @@ dist_dur_tbls <- function(pp_summary){
     
     # add Short Walking, if Short Walking has been added
     if(ADD_WALK_TO_BUS_TRIPS){
-      total_travel[['walking']] <-  total_travel[['walking']] +  total_travel[['walk_to_bus']]
+      total_travel[['walking_dur']] <-  total_travel[['walking_dur']] +  total_travel[['walk_to_bus_dur']]
     }
     
     durations[[i]] <- total_travel

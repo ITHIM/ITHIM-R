@@ -227,6 +227,12 @@ run_ithim_setup <- function(seed = 1,
     for(m in UNCERTAIN_TRAVEL_MODE_NAMES[[i]])
       pp_travel_propensities[[paste0(m,'_p_rn')]] <- uni
   }
+  other_modes <- unique(MODE_SPEEDS$stage_mode)
+  other_modes <- other_modes[!other_modes%in%unlist(UNCERTAIN_TRAVEL_MODE_NAMES)&other_modes%in%TRIP_SET$stage_mode]
+  if(ADD_BUS_DRIVERS) other_modes <- c(other_modes,'bus_driver')
+  if(ADD_TRUCK_DRIVERS) other_modes <- c(other_modes,'truck')
+  for(m in other_modes)
+    pp_travel_propensities[[paste0(m,'_p_rn')]] <- runif(nrow(pp_travel_propensities))
   PP_TRAVEL_PROPENSITIES <<- pp_travel_propensities
   
   

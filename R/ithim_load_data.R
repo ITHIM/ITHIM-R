@@ -114,6 +114,7 @@ ithim_load_data <- function(speeds=list(
   ## copy over as required
   mode_cols <- c('trip_mode','stage_mode')
   if(sum(mode_cols%in%colnames(trip_set))==0) stop(paste0('Please include a column labelled "trip_mode" or "stage_mode" in ', filename))
+  ##!! sort out ordering. don't want to write in stage from trip if we have stage complement.
   if('trip_mode'%in%colnames(trip_set)&&!'stage_mode'%in%colnames(trip_set)) 
     trip_set$stage_mode <- trip_set$trip_mode
   if('stage_mode'%in%colnames(trip_set)&&!'trip_mode'%in%colnames(trip_set)) 
