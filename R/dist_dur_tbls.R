@@ -27,12 +27,20 @@ dist_dur_tbls <- function(pp_summary){
   dist <- dur * matrix(rep(mode_speeds,NSCEN+1),ncol=NSCEN+1) / 60
   
   ## bus travel is linear in bus passenger travel
-  if('bus_driver'%in%rownames(dur)){
-    bus_driver_row <- which(rownames(dur)=='bus_driver')
+  if(ADD_BUS_DRIVERS){
     bus_passenger_row <- which(rownames(dur)=='bus')
-    base_col <- which(colnames(dist)=='Baseline')
-    dist[bus_driver_row,colnames(dist)%in%SCEN] <- as.numeric(dist[bus_driver_row,base_col] / dist[bus_passenger_row,base_col]) * dist[bus_passenger_row,colnames(dist)%in%SCEN] 
-    dur[bus_driver_row,colnames(dur)%in%SCEN] <- as.numeric(dur[bus_driver_row,base_col] / dur[bus_passenger_row,base_col]) * dur[bus_passenger_row,colnames(dur)%in%SCEN] 
+    dist <- rbind(dist,dist[bus_passenger_row,] * BUS_TO_PASSENGER_RATIO)
+    dur <- rbind(dur,dur[bus_passenger_row,] * BUS_TO_PASSENGER_RATIO) 
+    rownames(dist)[nrow(dist)] <- 'bus_driver'
+    rownames(dur)[nrow(dur)] <- 'bus_driver'
+  }
+  ## truck travel is linear in car travel
+  if(ADD_TRUCK_DRIVERS){
+    car_row <- which(rownames(dur)=='car')
+    dist <- rbind(dist,dist[car_row,] * TRUCK_TO_CAR_RATIO)
+    dur <- rbind(dur,dur[car_row,] * TRUCK_TO_CAR_RATIO) 
+    rownames(dist)[nrow(dist)] <- 'truck'
+    rownames(dur)[nrow(dur)] <- 'truck'
   }
   
   return(list(dist=dist,dur=dur))

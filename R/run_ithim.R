@@ -19,7 +19,7 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   ############################
   ## (1) AP PATHWAY
   # Calculated PM2.5 concentrations
-  (pm_conc <- scenario_pm_calculations(dist,trip_scen_sets))
+  (pm_conc <- scenario_pm_calculations(dist,pp_summary))
   scenario_pm <- pm_conc$scenario_pm
   pm_conc_pp <- pm_conc$pm_conc_pp
   # Air pollution calculation
@@ -27,7 +27,7 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   ############################
   ## (2) PA PATHWAY
   # Calculate total mMETs
-  (mmets_pp <- total_mmet(trip_scen_sets))
+  (mmets_pp <- total_mmet(pp_summary))
   # Physical activity calculation
   (RR_PA_calculations <- gen_pa_rr(mmets_pp))
   ############################

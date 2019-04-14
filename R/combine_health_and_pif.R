@@ -4,7 +4,7 @@ combine_health_and_pif <- function(pop, pif_values, hc=DISEASE_BURDEN, hm_cn = '
   hm_cn_values <- hc[[hm_cn]]
   return_values <- c()
   for (new_row in 1:nrow(pop))
-    return_values[new_row] <- hm_cn_values[hc$sex == pop$sex[new_row] & hc$age ==  pop$age_cat[new_row] ]
+    return_values[new_row] <- hm_cn_values[hc$dem_index ==  pop$dem_index[new_row] ]
   return_values <- return_values * pif_values
   round(return_values,5)
 }

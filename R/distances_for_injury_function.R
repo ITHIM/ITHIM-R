@@ -120,7 +120,7 @@ distances_for_injury_function <- function(pp_summary){
   dem_indices <- unique(pp_summary[[1]]$dem_index)
   
   individual_data <- setDT(pp_summary[[1]])[,.(dist = sum()),by='dem_index']
-  true_dist <- lapply(1:(NSCEN+1),function(x) cbind(rep(SCEN[x],length(dem_indices)),setDT(pp_summary[[x]])[, lapply(.SD, sum), by = c("dem_index")]) )
+  true_dist <- lapply(1:(NSCEN+1),function(x) cbind(rep(SCEN[x],length(dem_indices)),setDT(pp_summary[[x]])[,-'participant_id',with=F][, lapply(.SD, sum), by = c("dem_index")]) )
   true_dist <- data.frame(do.call('rbind',true_dist))
   colnames(true_dist)[1] <- 'scenario'
   true_dist <- true_dist[,which(sapply(colnames(true_dist),function(x) !grepl('_dur',x)))]
@@ -135,10 +135,15 @@ distances_for_injury_function <- function(pp_summary){
   ## car is car, taxi, shared auto, shared taxi
   true_dist$car <- rowSums(true_dist[,colnames(true_dist)%in%c('car','taxi','shared_auto','shared_taxi')])
   true_dist <- true_dist[, -which(names(true_dist) %in% c('taxi','shared_auto','shared_taxi','walk_to_bus','walking'))]
-  ## bus distance increases linearly with bus passenger distance
-  if('bus_driver'%in%colnames(true_dist)){
+  ##!! bus distance increases linearly with bus passenger distance
+  ##!! driving allocation to demographic group is the same as passenger
+  if(ADD_BUS_DRIVERS){
     passenger <- sapply(SCEN,function(x)sum(subset(true_dist,scenario==x)$bus))
-    true_dist$bus_driver <- true_dist$bus_driver * passenger[match(true_dist$scenario,SCEN)] / passenger[[1]]
+    true_dist$bus_driver <- passenger * BUS_TO_PASSENGER_RATIO
+  }
+  if(ADD_TRUCK_DRIVERS){
+    car <- sapply(SCEN,function(x)sum(subset(true_dist,scenario==x)$car))
+    true_dist$truck <- car * TRUCK_TO_CAR_RATIO
   }
   true_distances_0 <- true_dist
   true_distances_0 <- left_join(true_distances_0,DEMOGRAPHIC,by='dem_index')
@@ -150,14 +155,14 @@ distances_for_injury_function <- function(pp_summary){
   # get distances relative to baseline scenario
   mode_indices <- 3:ncol(true_dist)
   mode_names <- names(true_dist)[mode_indices]
-  scen_dist <- sapply(0:NSCEN+1,function(x)c(colSums(subset(true_dist,scenario == SCEN_SHORT_NAME[x])[,mode_indices])))
-  colnames(scen_dist) <- SCEN_SHORT_NAME
-  for(i in 2:ncol(scen_dist)) scen_dist[,i] <- scen_dist[,i]/scen_dist[,1] 
-  if(CITY=='accra') scen_dist <- rbind(scen_dist,Tuktuk=1)
+  #scen_dist <- sapply(0:NSCEN+1,function(x)c(colSums(subset(true_dist,scenario == SCEN_SHORT_NAME[x])[,mode_indices])))
+  #colnames(scen_dist) <- SCEN_SHORT_NAME
+  #for(i in 2:ncol(scen_dist)) scen_dist[,i] <- scen_dist[,i]/scen_dist[,1] 
+  #if(CITY=='accra') scen_dist <- rbind(scen_dist,Tuktuk=1)
   
   
   ## for injury_function_2
-  mode_names <- names(true_distances)[!names(true_distances)%in%c('age_cat','scenario','sex_age')]
+  mode_names <- names(true_distances)[!names(true_distances)%in%c('age_cat','scenario','sex_age','dem_index')]
   # divide injuries into those for which we can write a WHW (who hit whom) matrix, i.e. we know distances of both striker and casualty, 
   ## and those for which we don't know striker distance: no or other vehicle (NOOV)
   ## we can only model casualties for which we know distance travelled 
@@ -169,7 +174,7 @@ distances_for_injury_function <- function(pp_summary){
   
   scenario_injury_table <- list()
   for(type in c('whw','noov')) 
-    scenario_injury_table[[type]] <- expand.grid(age_cat=unique(DEMOGRAPHIC$age),
+    scenario_injury_table[[type]] <- expand.grid(age_cat=unique(DEMOGRAPHIC$age_cat),
                                                  cas_gender=unique(DEMOGRAPHIC$sex),
                                                  cas_mode=unique(injuries_for_model[[1]][[type]]$cas_mode),
                                                  strike_mode=unique(injuries_for_model[[1]][[type]]$strike_mode))
@@ -219,5 +224,5 @@ distances_for_injury_function <- function(pp_summary){
         injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==most_recent_year)
   }
   
-  return(list(scen_dist=scen_dist,true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model))
+  return(list(true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model))
 }

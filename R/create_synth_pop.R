@@ -18,15 +18,19 @@ create_synth_pop <- function(raw_trip_set){
   ##!! assuming more than one age category
   
   pa <- PA_SET
+  demographic <- DEMOGRAPHIC
   #Make age category for pa dataset.
   if(CITY=='accra'){
     age_category <- c("15-55", "56-69","70+")
     age_lower_bounds <- c(15,56,70)
+    demographic$age_cat[demographic$age_cat=='15-49'] <- "15-55"
+    demographic$age_cat[demographic$age_cat=='50-69'] <- "56-69"
   }else{
     age_category <- AGE_CATEGORY
     age_lower_bounds <- AGE_LOWER_BOUNDS
   }
   pa <- assign_age_groups(pa,age_category=age_category,age_lower_bounds)
+  pa <- left_join(pa,demographic,by=c('sex','age_cat'))
   
   #Match persons in the trip (trip_set) e physical activity datasets.
   column_to_keep <- which(colnames(pa)%in%c('work_ltpa_marg_met'))
@@ -39,39 +43,61 @@ create_synth_pop <- function(raw_trip_set){
   
   # get population from trip_set: all the unique ids, and their demographic information
   # match only for "real" people (i.e. not `ghost drivers', whose id is 0)
-  synthetic_population <- subset(trip_set,!duplicated(participant_id)&participant_id>0)[,names(trip_set)%in%c("participant_id","age","sex","age_cat")]
+  #synthetic_population <- subset(trip_set,!duplicated(participant_id)&participant_id>0)[,names(trip_set)%in%c("participant_id","age","sex","age_cat")]
+  synthetic_population <- left_join(PP_TRAVEL_PROPENSITIES[,names(PP_TRAVEL_PROPENSITIES)%in%c('participant_id','dem_index','age')],DEMOGRAPHIC,by='dem_index')
   ## get zeros and densities
   zeros <- densities <- list()
-  for(age_group in unique_ages){
-    zeros[[age_group]] <- densities[[age_group]] <- list()
-    pa_age_category <- age_category[which(AGE_CATEGORY==age_group)]
-    for(gender in unique_genders){
-      matching_people <- as.data.frame(filter(pa, age_cat == pa_age_category & sex == gender)[,column_to_keep])
-      raw_zero <- 1
-      if(nrow(matching_people)>0) raw_zero <- sum(matching_people$work_ltpa_marg_met==0)/length(matching_people$work_ltpa_marg_met)
-      if(BACKGROUND_PA_CONFIDENCE < 1){
-        beta <- ifelse(raw_zero==0,0,(1/raw_zero - 1)*pointiness*raw_zero)
-        alpha <- pointiness - beta
-        raw_zero <- qbeta(BACKGROUND_PA_ZEROS,alpha,beta)
-      }
-      zeros[[age_group]][[gender]] <- raw_zero
-      densities[[age_group]][[gender]] <- matching_people$work_ltpa_marg_met[matching_people$work_ltpa_marg_met>0]
+  for(dem in demographic$dem_index){
+    zeros[[dem]] <- densities[[dem]] <- list()
+    matching_people <- as.data.frame(filter(pa, dem_index == dem)[,column_to_keep])
+    raw_zero <- 1
+    if(nrow(matching_people)>0) raw_zero <- sum(matching_people$work_ltpa_marg_met==0)/length(matching_people$work_ltpa_marg_met)
+    if(BACKGROUND_PA_CONFIDENCE < 1){
+      beta <- ifelse(raw_zero==0,0,(1/raw_zero - 1)*pointiness*raw_zero)
+      alpha <- pointiness - beta
+      raw_zero <- qbeta(BACKGROUND_PA_ZEROS,alpha,beta)
     }
+    zeros[[dem]] <- raw_zero
+    densities[[dem]] <- matching_people$work_ltpa_marg_met[matching_people$work_ltpa_marg_met>0]
   }
+  # for(age_group in unique_ages){
+  #   zeros[[age_group]] <- densities[[age_group]] <- list()
+  #   pa_age_category <- age_category[which(AGE_CATEGORY==age_group)]
+  #   for(gender in unique_genders){
+  #     matching_people <- as.data.frame(filter(pa, age_cat == pa_age_category & sex == gender)[,column_to_keep])
+  #     raw_zero <- 1
+  #     if(nrow(matching_people)>0) raw_zero <- sum(matching_people$work_ltpa_marg_met==0)/length(matching_people$work_ltpa_marg_met)
+  #     if(BACKGROUND_PA_CONFIDENCE < 1){
+  #       beta <- ifelse(raw_zero==0,0,(1/raw_zero - 1)*pointiness*raw_zero)
+  #       alpha <- pointiness - beta
+  #       raw_zero <- qbeta(BACKGROUND_PA_ZEROS,alpha,beta)
+  #     }
+  #     zeros[[age_group]][[gender]] <- raw_zero
+  #     densities[[age_group]][[gender]] <- matching_people$work_ltpa_marg_met[matching_people$work_ltpa_marg_met>0]
+  #   }
+  # }
   
   # assign all participants 0 leisure/work mmets
   synthetic_population$work_ltpa_marg_met <- 0
   # match population to PA dataset via demographic information
-  for(age_group in unique_ages){
-    pa_age_category <- age_category[which(AGE_CATEGORY==age_group)]
-    for(gender in unique_genders){
-      i <- which(synthetic_population$age_cat==age_group&synthetic_population$sex==gender)
-      raw_density <- densities[[age_group]][[gender]]
-      prob_zero <- zeros[[age_group]][[gender]]
-      v <- sample(c(0,raw_density),length(i),replace=T,prob=c(prob_zero,(rep(1,length(raw_density))-prob_zero)/length(raw_density)))
-      if (length(v) > 0)
-        synthetic_population$work_ltpa_marg_met[i] <- c(v)
-    }
+  # for(age_group in unique_ages){
+  #   pa_age_category <- age_category[which(AGE_CATEGORY==age_group)]
+  #   for(gender in unique_genders){
+  #     i <- which(synthetic_population$age_cat==age_group&synthetic_population$sex==gender)
+  #     raw_density <- densities[[age_group]][[gender]]
+  #     prob_zero <- zeros[[age_group]][[gender]]
+  #     v <- sample(c(0,raw_density),length(i),replace=T,prob=c(prob_zero,(rep(1,length(raw_density))-prob_zero)/length(raw_density)))
+  #     if (length(v) > 0)
+  #       synthetic_population$work_ltpa_marg_met[i] <- c(v)
+  #   }
+  # }
+  for(dem in demographic$dem_index){
+    i <- which(synthetic_population$dem_index==dem)
+    raw_density <- densities[[dem]]
+    prob_zero <- zeros[[dem]]
+    v <- sample(c(0,raw_density),length(i),replace=T,prob=c(prob_zero,(rep(1,length(raw_density))-prob_zero)/length(raw_density)))
+    if (length(v) > 0)
+      synthetic_population$work_ltpa_marg_met[i] <- c(v)
   }
   
   # Convert all int columns to numeric

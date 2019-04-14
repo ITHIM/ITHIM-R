@@ -125,6 +125,7 @@ for(city in cities){
   ithim_objects[[city]]$outcomes <- run_ithim(ithim_objects[[city]], seed = 1)
   ithim_objects[[city]]$synth_pop <- SYNTHETIC_POPULATION
   ithim_objects[[city]]$demographic <- DEMOGRAPHIC
+  ithim_objects[[city]]$demographic <- POPULATION
   ithim_objects[[city]]$disease_burden <- DISEASE_BURDEN
   ithim_objects[[city]]$emission_inventory <- EMISSION_INVENTORY
   ithim_objects[[city]]$injury_table <- INJURY_TABLE
@@ -133,7 +134,7 @@ for(city in cities){
   min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
   max_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
   sub_outcome <- subset(ithim_objects[[city]]$outcome$hb$ylls,min_ages>=min_age&max_ages<=max_age)
-  result_mat <- colSums(sub_outcome[,3:ncol(sub_outcome)])
+  result_mat <- colSums(sub_outcome[,4:ncol(sub_outcome)])
   columns <- length(result_mat)
   nDiseases <- columns/NSCEN
   ylim <- range(result_mat)
@@ -141,10 +142,10 @@ for(city in cities){
     disease_list <- list()
     for(i in 1:nDiseases) disease_list[[i]] <- toplot
   }
-  min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-  max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+  min_pop_ages <- sapply(POPULATION$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+  max_pop_ages <- sapply(POPULATION$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
   for(i in 1:nDiseases)
-    disease_list[[i]][,which(cities==city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
+    disease_list[[i]][,which(cities==city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(subset(POPULATION,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
 }
 
 {x11(width = 10, height = 5);
@@ -154,7 +155,7 @@ for(city in cities){
   mar1 <- rep(7,nDiseases); mar1[1:6] <- 1
   mar2 <- rep(1,nDiseases); mar2[c(2,7)] <- 6; mar2[c(1,12)] <- 3
   for(i in 1:nDiseases){
-    ylim <- if(i==12) c(-0.25,0.02)*1 else if(i==1) c(-1.7,2)*1e-3 else c(-11,4)*1e-4
+    ylim <- if(i==12) c(-0.065,0.02)*1 else if(i==1) c(-1.7,4)*1e-3 else c(-11,7)*1e-4
     par(mar = c(mar1[i], mar2[i], 4, 1))
       barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, names.arg=if(i<7) NULL else  rownames(SCENARIO_PROPORTIONS), 
               main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')

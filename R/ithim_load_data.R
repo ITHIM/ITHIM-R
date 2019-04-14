@@ -56,10 +56,13 @@ ithim_load_data <- function(speeds=list(
   filename <- paste0(local_path,"/population_",CITY,".csv")
   demographic <- as.data.frame(read_csv(filename,col_types = cols()))
   demographic$dem_index <- 1:nrow(demographic)
+  POPULATION <<- demographic
+  demographic <- demographic[,names(demographic)!='population']
+  names(demographic)[which(names(demographic)=='age')] <- 'age_cat'
   DEMOGRAPHIC <<- demographic
   
   # get age-category details from population data
-  AGE_CATEGORY <<- unique(DEMOGRAPHIC$age)
+  AGE_CATEGORY <<- unique(POPULATION$age)
   AGE_LOWER_BOUNDS <<- as.numeric(sapply(AGE_CATEGORY,function(x)strsplit(x,'-')[[1]][1]))
   MAX_AGE <<- max(as.numeric(sapply(AGE_CATEGORY,function(x)strsplit(x,'-')[[1]][2])))
   
@@ -71,19 +74,20 @@ ithim_load_data <- function(speeds=list(
   GBD_DATA <- subset(GBD_DATA,max_age<=MAX_AGE)
   names(GBD_DATA)[c(1,3,4,5)] <- c('measure','sex','age','cause')
   
-  burden_of_disease <- expand.grid(measure=unique(GBD_DATA$measure),sex=unique(DEMOGRAPHIC$sex),age=unique(DEMOGRAPHIC$age),
+  burden_of_disease <- expand.grid(measure=unique(GBD_DATA$measure),sex=unique(POPULATION$sex),age=unique(POPULATION$age),
                                    cause=disease_names,stringsAsFactors = F)
-  burden_of_disease <- left_join(burden_of_disease,DEMOGRAPHIC,by=c('age','sex'))
+  burden_of_disease <- left_join(burden_of_disease,POPULATION,by=c('age','sex'))
   burden_of_disease$min_age <- as.numeric(sapply(burden_of_disease$age,function(x)str_split(x,'-')[[1]][1]))
   burden_of_disease$max_age <- as.numeric(sapply(burden_of_disease$age,function(x)str_split(x,'-')[[1]][2]))
   ## when we sum ages, we assume that all age boundaries used coincide with the GBD age boundaries.
   burden_of_disease$rate <- apply(burden_of_disease,1,
                                   function(x){
                                     subtab <- subset(GBD_DATA,measure==as.character(x[1])&sex==as.character(x[2])&cause==as.character(x[4])&
-                                                       min_age>=as.numeric(x[6])&max_age<=as.numeric(x[7])); 
+                                                       min_age>=as.numeric(x[7])&max_age<=as.numeric(x[8])); 
                                     sum(subtab$val)/sum(subtab$population)
                                     }
                                   )
+  
   
   burden_of_disease$burden <- burden_of_disease$population*burden_of_disease$rate
   burden_of_disease$burden[is.na(burden_of_disease$burden)] <- 0
@@ -100,6 +104,10 @@ ithim_load_data <- function(speeds=list(
   gbd_inj_yll <- gbd_injuries[which(gbd_injuries$measure == "YLLs (Years of Life Lost)"),]
   gbd_inj_dth <- gbd_injuries[which(gbd_injuries$measure == "Deaths"),]
   gbd_inj_yll$yll_dth_ratio <- gbd_inj_yll$burden/gbd_inj_dth$burden 
+  if(any(is.na(gbd_inj_yll$yll_dth_ratio))){
+    yll_model <- glm(yll_dth_ratio~max_age,data=subset(gbd_inj_yll,!is.na(yll_dth_ratio)))
+    gbd_inj_yll$yll_dth_ratio[is.na(gbd_inj_yll$yll_dth_ratio)] <- predict(yll_model,subset(gbd_inj_yll,is.na(yll_dth_ratio)),type='response')
+  }
   GBD_INJ_YLL <<- gbd_inj_yll
   
   ## edit trip set.

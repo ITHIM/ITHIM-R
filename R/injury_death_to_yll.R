@@ -1,10 +1,10 @@
 #' @export
 injury_death_to_yll <- function(injuries){
   
-  joined_injury <- left_join(injuries, GBD_INJ_YLL[,c('sex_age','sex','yll_dth_ratio')], by="sex_age")
+  joined_injury <- left_join(injuries, GBD_INJ_YLL[,c('dem_index','yll_dth_ratio')], by="dem_index")
   
   joined_injury$YLL <- joined_injury$Deaths*joined_injury$yll_dth_ratio
-  death_and_yll <- dplyr::select(joined_injury, c('age_cat','sex','scenario','Deaths','YLL'))
+  death_and_yll <- dplyr::select(joined_injury, c('dem_index','scenario','Deaths','YLL'))
   
   x_deaths <- dplyr::select(death_and_yll, -YLL)
   x_deaths <- spread(x_deaths,scenario, Deaths)

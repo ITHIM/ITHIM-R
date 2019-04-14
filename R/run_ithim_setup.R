@@ -221,7 +221,19 @@ run_ithim_setup <- function(seed = 1,
   ##!! this needs to have all the modes
   participants <- 7540
   pp_travel_propensities <- data.frame(participant_id=1:participants,
-                                       dem_index=sample(x=DEMOGRAPHIC$dem_index,size=participants,replace=T,prob=DEMOGRAPHIC$population))
+                                       dem_index=sample(x=POPULATION$dem_index,size=participants,replace=T,prob=POPULATION$population))
+  ## add age
+  pp_travel_propensities <- left_join(pp_travel_propensities,DEMOGRAPHIC,by='dem_index')
+  pp_travel_propensities$age <- 0
+  for(age_group in unique(DEMOGRAPHIC$age_cat)){
+    age_range <- strsplit(age_group,'-')[[1]]
+    min_age <- as.numeric(age_range[1])
+    max_age <- as.numeric(age_range[2])
+    to_replace <- pp_travel_propensities$age_cat==age_group
+    ages_to_sample <- TRIP_SET$age[TRIP_SET$age>=min_age&TRIP_SET$age<=max_age]
+    pp_travel_propensities$age[to_replace] <- base::sample(ages_to_sample,sum(to_replace),replace=T)
+  }
+  ## add travel propensities
   for(i in 1:length(UNCERTAIN_TRAVEL_MODE_NAMES)) {
     uni <- runif(nrow(pp_travel_propensities))
     for(m in UNCERTAIN_TRAVEL_MODE_NAMES[[i]])
@@ -229,8 +241,8 @@ run_ithim_setup <- function(seed = 1,
   }
   other_modes <- unique(MODE_SPEEDS$stage_mode)
   other_modes <- other_modes[!other_modes%in%unlist(UNCERTAIN_TRAVEL_MODE_NAMES)&other_modes%in%TRIP_SET$stage_mode]
-  if(ADD_BUS_DRIVERS) other_modes <- c(other_modes,'bus_driver')
-  if(ADD_TRUCK_DRIVERS) other_modes <- c(other_modes,'truck')
+  #if(ADD_BUS_DRIVERS) other_modes <- c(other_modes,'bus_driver')
+  #if(ADD_TRUCK_DRIVERS) other_modes <- c(other_modes,'truck')
   for(m in other_modes)
     pp_travel_propensities[[paste0(m,'_p_rn')]] <- runif(nrow(pp_travel_propensities))
   PP_TRAVEL_PROPENSITIES <<- pp_travel_propensities

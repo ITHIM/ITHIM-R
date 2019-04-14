@@ -9,12 +9,13 @@ health_burden <- function(ind_ap_pa,inj,combined_AP_PA=T){
   gbd_deaths <- subset(gbd_data_scaled,measure=='Deaths')
   gbd_ylls <- subset(gbd_data_scaled,measure=='YLLs (Years of Life Lost)')
   ##!! Hard-coded column names to initialise tables.
-  sex_index <- which(colnames(ind_ap_pa)=='sex')
-  age_index <- which(colnames(ind_ap_pa)=='age_cat')
-  unique_category1 <- unique(ind_ap_pa[[sex_index]])
-  unique_category2 <- unique(ind_ap_pa[[age_index]])
-  pop_details <- expand.grid(unique_category1, unique_category2,stringsAsFactors = F)
-  colnames(pop_details) <- colnames(ind_ap_pa)[c(sex_index,age_index)]
+  #ind_ap_pa <- left_join(ind_ap_pa,DEMOGRAPHIC,by='dem_index')
+  #sex_index <- which(colnames(ind_ap_pa)=='sex')
+  #age_index <- which(colnames(ind_ap_pa)=='age')
+  #unique_category1 <- unique(ind_ap_pa[[sex_index]])
+  #unique_category2 <- unique(ind_ap_pa[[age_index]])
+  pop_details <- DEMOGRAPHIC#expand.grid(unique_category1, unique_category2,stringsAsFactors = F)
+  #colnames(pop_details) <- colnames(ind_ap_pa)[c(sex_index,age_index)]
   deaths <- ylls <- pop_details
   # set up reference (scen1)
   reference_scenario <- SCEN_SHORT_NAME[which(SCEN==REFERENCE_SCENARIO)]
@@ -45,7 +46,7 @@ health_burden <- function(ind_ap_pa,inj,combined_AP_PA=T){
       gbd_ylls_disease <- subset(gbd_ylls,cause==gbd_dn)
       # set up pif tables
       pif_ref <-
-        population_attributable_fraction(pop = ind_ap_pa[, colnames(ind_ap_pa) %in% c(base_var, 'sex', 'age_cat')], cn = base_var, mat =
+        population_attributable_fraction(pop = ind_ap_pa[, colnames(ind_ap_pa) %in% c(base_var, 'dem_index')], cn = base_var, mat =
                                            pop_details)
       for (index in 1:length(scen_vars)){
         # set up naming conventions
@@ -54,7 +55,7 @@ health_burden <- function(ind_ap_pa,inj,combined_AP_PA=T){
         yll_name <- paste0(scen, '_ylls_',middle_bit,ac)
         deaths_name <- paste0(scen, '_deaths_',middle_bit,ac)
         # Calculate PIFs for selected scenario
-        pif_temp <- population_attributable_fraction(pop = ind_ap_pa[,colnames(ind_ap_pa)%in%c(scen_var,'sex', 'age_cat')], cn = scen_var, mat=pop_details)
+        pif_temp <- population_attributable_fraction(pop = ind_ap_pa[,colnames(ind_ap_pa)%in%c(scen_var,'dem_index')], cn = scen_var, mat=pop_details)
         pif_scen <- ifelse(pif_ref == 0, 0, (pif_ref - pif_temp) / pif_ref)
         # Calculate ylls 
         yll_dfs <- combine_health_and_pif(pop=pop_details,pif_values=pif_scen, hc = gbd_ylls_disease)
@@ -66,11 +67,11 @@ health_burden <- function(ind_ap_pa,inj,combined_AP_PA=T){
     }
   }
   # Select deaths columns
-  inj_deaths <- dplyr::select(inj, c(age_cat, sex, contains("deaths")))
+  inj_deaths <- dplyr::select(inj, c(dem_index, contains("deaths")))
   # Select yll columns
-  inj_ylls <- dplyr::select(inj, c(age_cat, sex, contains("yll")))
+  inj_ylls <- dplyr::select(inj, c(dem_index, contains("yll")))
   # Join injuries data to global datasets
-  deaths <- left_join(deaths, inj_deaths, by = c("age_cat", "sex"))
-  ylls <- left_join(ylls, inj_ylls, by = c("age_cat", "sex"))
+  deaths <- left_join(deaths, inj_deaths, by = c("dem_index"))
+  ylls <- left_join(ylls, inj_ylls, by = c("dem_index"))
   list(deaths=deaths,ylls=ylls)
 }
