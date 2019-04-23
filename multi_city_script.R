@@ -177,11 +177,14 @@ numcores <- detectCores()
 ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,NSAMPLES=1024)
 library(foreach)
 library(doMC)
-registerDoMC(8)
+registerDoMC(numcores)
+outcomes <- NULL
+gc(verbose=T)
 outcomes <- foreach(x = 1:NSAMPLES) %dopar% { just_distances(x,ithim_object) }
-#outcomes <- NULL
+gc(verbose=T)
 #outcomes <- mclapply(1:NSAMPLES,FUN=just_distances,ithim_object,mc.cores = numcores)
 for(i in 1:length(outcomes)) if(length(outcomes[[i]])<1) print(i)
+sum(sapply(outcomes,function(x) sum(sapply(x$pp_summary,ncol)))!=108)
 #outcomes <- list()
 #for(i in 1:NSAMPLES) outcomes[[i]] <- just_distances(seed=i,ithim_object)
 dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(outcomes[[1]]$dist/nrow(outcomes[[1]]$pp_summary[[1]])))

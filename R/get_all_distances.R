@@ -12,7 +12,7 @@ get_all_distances <- function(ithim_object){
   
   ##RJ synthetic population
   ithim_object$pp_summary <- generate_synthetic_travel_data(trip_scen_sets)
-  
+  rm(trip_scen_sets)
   # Generate distance and duration matrices
   #dist_and_dir <- dist_dur_tbls(ithim_object$pp_summary)
   #ithim_object$dist <- dist_and_dir$dist

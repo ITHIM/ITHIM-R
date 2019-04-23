@@ -219,7 +219,7 @@ run_ithim_setup <- function(seed = 1,
   
   ## set up synthetic population
   ##!! this needs to have all the modes
-  participants <- 7540
+  participants <- 754
   pp_travel_propensities <- data.frame(participant_id=1:participants,
                                        dem_index=sample(x=POPULATION$dem_index,size=participants,replace=T,prob=POPULATION$population))
   ## add age
