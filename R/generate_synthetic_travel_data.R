@@ -70,14 +70,61 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
     
     
     densities <- list(dist_densities,dur_densities)
+    ### start
     
-    ##!! not extrapolating new_trips <- extrapolate_travel_data(travel_summary,modes,densities,repetitiveness=repetitiveness)
-    new_trips <- sample_travel_data(travel_summary,modes,densities)
-    for(m in modes_to_keep){
-      pp_summary_scen[[paste0(m,'_dist')]] <- new_trips[[paste0(m,'_dist')]]
-      pp_summary_scen[[paste0(m,'_dur')]] <- new_trips[[paste0(m,'_dur')]]
+    ##!! not extrapolating travel_data <- extrapolate_travel_data(travel_summary,modes,densities,repetitiveness=repetitiveness)
+    #travel_data <- sample_travel_data(travel_summary,modes,densities)
+    
+    dist_densities <- densities[[1]]
+    dur_densities <- densities[[2]]
+    pop_densities <- lapply(densities,unlist)
+    pop_dist_densities <- pop_densities[[1]]
+    pop_dur_densities <- pop_densities[[2]]
+    
+    dem_indices <- unique(travel_summary$dem_index)
+    # initialise durations to 0
+    travel_data <- PP_TRAVEL_PROPENSITIES
+    for(m in modes) travel_data[[paste0(m,'_dist')]] <- 0
+    for(m in modes) travel_data[[paste0(m,'_dur')]] <- 0
+    # get indices for mode random variables
+    m_inds <- sapply(modes,function(m) which(names(travel_data)==paste0(m,'_p_rn')))
+    for(d in dem_indices){
+      sub2 <- subset(travel_summary,dem_index==d)
+      travellers <- which(travel_data$dem_index==d)
+      for(i in 1:length(modes)){
+        m <- modes[i]
+        probability <- sub2$probability[sub2$mode==m]
+        if(length(dist_densities[[m]][[d]])<2|length(dur_densities[[m]][[d]])<2){
+          dist_density <- pop_dist_densities
+          dur_density <- pop_dur_densities
+        }else{
+          dist_density <- dist_densities[[m]][[d]]
+          dur_density <- dur_densities[[m]][[d]]
+        }
+        m_ind <- m_inds[i]
+        propensities <- travel_data[travellers,m_ind]
+        
+        travelled <- 0
+        travel_given_probability <- propensities<probability
+        if(sum(travel_given_probability)>0){
+          non_zero_travellers <- travellers[travel_given_probability]
+          traveller_propensities <- propensities[travel_given_probability]/probability
+          dists <- sort(dist_density,decreasing = T)[ceiling(traveller_propensities*length(dist_density))]
+          durs <- sort(dur_density,decreasing = T)[ceiling(traveller_propensities*length(dur_density))]
+          
+          travel_data[[paste0(m,'_dist')]][non_zero_travellers] <- dists
+          travel_data[[paste0(m,'_dur')]][non_zero_travellers] <- durs
+        }
+      }
     }
     
+    ### stop
+    
+    for(m in modes_to_keep){
+      pp_summary_scen[[paste0(m,'_dist')]] <- travel_data[[paste0(m,'_dist')]]
+      pp_summary_scen[[paste0(m,'_dur')]] <- travel_data[[paste0(m,'_dur')]]
+    }
+    # 
     pp_summary[[SCEN_SHORT_NAME[scen]]] <- pp_summary_scen
   }
   return(pp_summary)
@@ -87,41 +134,47 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
 sample_travel_data <- function(travel_summary,modes,densities){
   dist_densities <- densities[[1]]
   dur_densities <- densities[[2]]
+  pop_densities <- lapply(densities,unlist)
+  pop_dist_densities <- pop_densities[[1]]
+  pop_dur_densities <- pop_densities[[2]]
   
   dem_indices <- unique(travel_summary$dem_index)
   # initialise durations to 0
-  trip_data <- PP_TRAVEL_PROPENSITIES
-  for(m in modes) trip_data[[paste0(m,'_dist')]] <- 0
-  for(m in modes) trip_data[[paste0(m,'_dur')]] <- 0
+  travel_data <- PP_TRAVEL_PROPENSITIES
+  for(m in modes) travel_data[[paste0(m,'_dist')]] <- 0
+  for(m in modes) travel_data[[paste0(m,'_dur')]] <- 0
   # get indices for mode random variables
-  m_inds <- sapply(modes,function(m) which(names(trip_data)==paste0(m,'_p_rn')))
-  pop_densities <- lapply(densities,unlist)
+  m_inds <- sapply(modes,function(m) which(names(travel_data)==paste0(m,'_p_rn')))
   for(d in dem_indices){
     sub2 <- subset(travel_summary,dem_index==d)
-    travellers <- which(trip_data$dem_index==d)
+    travellers <- which(travel_data$dem_index==d)
     for(i in 1:length(modes)){
       m <- modes[i]
       probability <- sub2$probability[sub2$mode==m]
-      if(length(dist_densities[[m]][[d]])>0) {
-        ##!! include probability of choosing from another group's density?
+      if(length(dist_densities[[m]][[d]])<2|length(dur_densities[[m]][[d]])<2){
+        dist_density <- pop_dist_densities
+        dur_density <- pop_dur_densities
+      }else{
         dist_density <- dist_densities[[m]][[d]]
         dur_density <- dur_densities[[m]][[d]]
-        m_ind <- m_inds[i]
-        propensities <- trip_data[travellers,m_ind]
+      }
+      m_ind <- m_inds[i]
+      propensities <- travel_data[travellers,m_ind]
+      
+      travelled <- 0
+      travel_given_probability <- propensities<probability
+      if(sum(travel_given_probability)>0){
+        non_zero_travellers <- travellers[travel_given_probability]
+        traveller_propensities <- propensities[travel_given_probability]/probability
+        dists <- sort(dist_density,decreasing = T)[ceiling(traveller_propensities*length(dist_density))]
+        durs <- sort(dur_density,decreasing = T)[ceiling(traveller_propensities*length(dur_density))]
         
-        travelled <- 0
-        non_zero_travellers <- travellers[propensities<probability]
-        traveller_propensities <- propensities[propensities<probability]/probability
-        #self <- sort(sample_density)[ceiling(trip_data[travellers,m_ind]*length(sample_density))]
-        stage_dist <- sort(dist_density,decreasing = T)[ceiling(traveller_propensities*length(dist_density))]
-        stage_dur <- sort(dur_density,decreasing = T)[ceiling(traveller_propensities*length(dur_density))]
-        
-        trip_data[[paste0(m,'_dist')]][non_zero_travellers] <- stage_dist
-        trip_data[[paste0(m,'_dur')]][non_zero_travellers] <- stage_dur
+        travel_data[[paste0(m,'_dist')]][non_zero_travellers] <- dists
+        travel_data[[paste0(m,'_dur')]][non_zero_travellers] <- durs
       }
     }
   }
-  trip_data
+  travel_data
 }
 
 

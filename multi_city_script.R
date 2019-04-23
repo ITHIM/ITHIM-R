@@ -36,7 +36,7 @@ for(city in cities){
 }
 
 
-##################################################################
+#################################################################
 speeds <- list(accra=NULL,
                sao_paulo=NULL,
                delhi=list(subway=32,
@@ -92,7 +92,7 @@ cas_exponent <- 0.5
 # beta parameters for DAY_TO_WEEK_TRAVEL_SCALAR
 day_to_week_scalar <- 7
 
-#################################################
+#################################################################
 ## without uncertainty
 toplot <- matrix(0,nrow=5,ncol=length(cities)) #5 scenarios, 4 cities
 ithim_objects <- list()
@@ -165,14 +165,34 @@ for(city in cities){
 }
 
 ## Save the ithim_object in the results folder
-##########
+#################################################################
 
 saveRDS(ithim_objects, "C:/RStudio Projects/ITHIM-R/results/multi_city/io.rds")
 
+#################################################################
+
+##check distances 
+
+numcores <- detectCores()
+ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,NSAMPLES=1024)
+library(foreach)
+library(doMC)
+registerDoMC(8)
+outcomes <- foreach(x = 1:NSAMPLES) %dopar% { just_distances(x,ithim_object) }
+#outcomes <- NULL
+#outcomes <- mclapply(1:NSAMPLES,FUN=just_distances,ithim_object,mc.cores = numcores)
+for(i in 1:length(outcomes)) if(length(outcomes[[i]])<1) print(i)
+#outcomes <- list()
+#for(i in 1:NSAMPLES) outcomes[[i]] <- just_distances(seed=i,ithim_object)
+dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(outcomes[[1]]$dist/nrow(outcomes[[1]]$pp_summary[[1]])))
+for(i in 1:NSAMPLES){
+  dist_mat[i,] <- outcomes[[i]]$dist[,1]/nrow(outcomes[[i]]$pp_summary[[1]])
+}
+boxplot(dist_mat,names=rownames(outcomes[[i]]$dist),las=2)
+                                                                                                                                                                  
 #################################################
 ## with uncertainty
 ## comparison across cities
-numcores <- detectCores()
 nsamples <- 1024
 setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","EMISSION_INVENTORY",                        
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO",

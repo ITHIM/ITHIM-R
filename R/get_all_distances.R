@@ -8,18 +8,18 @@ get_all_distances <- function(ithim_object){
   for(i in 1:length(trip_scen_sets)) trip_scen_sets[[i]] <- scale_trip_distances(trip_scen_sets[[i]])
   
   ##!! might not want to save this object
-  ithim_object$trip_scen_sets <- do.call(rbind,trip_scen_sets)
+  #ithim_object$trip_scen_sets <- do.call(rbind,trip_scen_sets)
   
   ##RJ synthetic population
   ithim_object$pp_summary <- generate_synthetic_travel_data(trip_scen_sets)
   
   # Generate distance and duration matrices
-  dist_and_dir <- dist_dur_tbls(ithim_object$pp_summary)
-  ithim_object$dist <- dist_and_dir$dist
-  ithim_object$dur <- dist_and_dir$dur
+  #dist_and_dir <- dist_dur_tbls(ithim_object$pp_summary)
+  #ithim_object$dist <- dist_and_dir$dist
+  #ithim_object$dur <- dist_and_dir$dur
   
   # distances for injuries calculation
-  ithim_object$inj_distances <- distances_for_injury_function(ithim_object$pp_summary)
+  #ithim_object$inj_distances <- distances_for_injury_function(ithim_object$pp_summary)
   
   return(ithim_object)
   
