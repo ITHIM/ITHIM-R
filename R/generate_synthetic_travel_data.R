@@ -13,6 +13,10 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
   
   
   pp_summary <- list()#PP_TRAVEL_PROPENSITIES[,colnames(PP_TRAVEL_PROPENSITIES)%in%c('participant_id','dem_index')]
+  pp_summary_scen <- PP_TRAVEL_PROPENSITIES[,colnames(PP_TRAVEL_PROPENSITIES)%in%c('participant_id','dem_index')]
+  travel_data <- PP_TRAVEL_PROPENSITIES
+  # get indices for mode random variables
+  m_inds <- sapply(modes,function(m) which(names(travel_data)==paste0(m,'_p_rn')))
   
   for(scen in 1:length(trip_scen_sets)){
     
@@ -53,7 +57,6 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
     
     dem_indices <- unique(travel_summary$dem_index)
     dist_densities <- dur_densities <- list()
-    pp_summary_scen <- PP_TRAVEL_PROPENSITIES[,colnames(PP_TRAVEL_PROPENSITIES)%in%c('participant_id','dem_index')]
     
     ##### mode density
     individual_data <- setDT(superset)[,.(dist = sum(stage_distance) , dur = sum(stage_duration) ),by=c('stage_mode','participant_id')]
@@ -83,11 +86,8 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
     
     dem_indices <- unique(travel_summary$dem_index)
     # initialise durations to 0
-    travel_data <- PP_TRAVEL_PROPENSITIES
     for(m in modes) travel_data[[paste0(m,'_dist')]] <- 0
     for(m in modes) travel_data[[paste0(m,'_dur')]] <- 0
-    # get indices for mode random variables
-    m_inds <- sapply(modes,function(m) which(names(travel_data)==paste0(m,'_p_rn')))
     for(d in dem_indices){
       sub2 <- subset(travel_summary,dem_index==d)
       travellers <- which(travel_data$dem_index==d)
@@ -106,15 +106,15 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
         
         travelled <- 0
         travel_given_probability <- propensities<probability
-        if(sum(travel_given_probability)>0){
-          non_zero_travellers <- travellers[travel_given_probability]
-          traveller_propensities <- propensities[travel_given_probability]/probability
-          dists <- sort(dist_density,decreasing = T)[ceiling(traveller_propensities*length(dist_density))]
-          durs <- sort(dur_density,decreasing = T)[ceiling(traveller_propensities*length(dur_density))]
-          
-          travel_data[[paste0(m,'_dist')]][non_zero_travellers] <- dists
-          travel_data[[paste0(m,'_dur')]][non_zero_travellers] <- durs
-        }
+        # if(sum(travel_given_probability)>0){
+        #   non_zero_travellers <- travellers[travel_given_probability]
+        #   traveller_propensities <- propensities[travel_given_probability]/probability
+        #   dists <- sort(dist_density,decreasing = T)[ceiling(traveller_propensities*length(dist_density))]
+        #   durs <- sort(dur_density,decreasing = T)[ceiling(traveller_propensities*length(dur_density))]
+        #   
+        #   travel_data[[paste0(m,'_dist')]][non_zero_travellers] <- dists
+        #   travel_data[[paste0(m,'_dur')]][non_zero_travellers] <- durs
+        # }
       }
     }
     
