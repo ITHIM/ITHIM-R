@@ -44,53 +44,52 @@ speeds <- list(accra=NULL,
                bangalore=list(subway=32,
                           bicycle=15))
 
-# beta parameters for INJURY_REPORTING_RATE
+# constant parameters for DAY_TO_WEEK_TRAVEL_SCALAR
+day_to_week_scalar <- 7
+
+# constant parameters for INJURY_REPORTING_RATE
 injury_report_rate <- list(accra=1,
                            sao_paulo=1,
                            delhi=1,
                            bangalore=1)
-# lnorm parameters for CHRONIC_DISEASE_SCALAR
+# constant parameters for CHRONIC_DISEASE_SCALAR
 chronic_disease_scalar <- list(accra=1,
                                sao_paulo=1,
                                delhi=1,
                                bangalore=1)
-# lnorm parameters for PM_CONC_BASE
+# constant parameters for PM_CONC_BASE
 pm_concentration <- list(accra=50,
                          sao_paulo=18,
                          delhi=122,
                          bangalore=47.4)
-# beta parameters for PM_TRANS_SHARE
+# constant parameters for PM_TRANS_SHARE
 pm_trans_share <- list(accra=0.225,
                        sao_paulo=0.4,
                        delhi=0.225,
                        bangalore=0.281)
-# lnorm parameters for BACKGROUND_PA_SCALAR
+# constant parameters for BACKGROUND_PA_SCALAR
 background_pa_scalar <- list(accra=1,
                              sao_paulo=1,
                              delhi=1,
                              bangalore=1)
-# lnorm parameters for BUS_WALK_TIME
+# constant parameters for BUS_WALK_TIME
 bus_walk_time <- list(accra=5,
                       sao_paulo=5,
                       delhi=5,
                       bangalore=5)
-# lnorm parameters for MMET_CYCLING
+# constant parameters for MMET_CYCLING
 mmet_cycling <- 4.63
-# lnorm parameters for MMET_WALKING
+# constant parameters for MMET_WALKING
 mmet_walking <- 2.53
-# lnorm parameters for MOTORCYCLE_TO_CAR_RATIO
+# constant parameters for MOTORCYCLE_TO_CAR_RATIO
 mc_car_ratio <- list(accra=0.2,
                      sao_paulo=0,
                      delhi=0,
                      bangalore=0)
-# beta parameters for DAY_TO_WEEK_TRAVEL_SCALAR
-day_to_week_scalar <- 7
-# lnorm parameters for INJURY_LINEARITY
+# constant parameters for INJURY_LINEARITY
 injury_linearity <- 1
-# beta parameters for CASUALTY_EXPONENT_FRACTION
+# constant parameters for CASUALTY_EXPONENT_FRACTION
 cas_exponent <- 0.5
-# beta parameters for DAY_TO_WEEK_TRAVEL_SCALAR
-day_to_week_scalar <- 7
 
 #################################################
 ## without uncertainty
