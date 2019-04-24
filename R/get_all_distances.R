@@ -1,7 +1,7 @@
 #' @export
 get_all_distances <- function(ithim_object){
   
-  # add walk-to-bus trips, as appropriate, and combines list of scenarios
+  # add walk-to-PT trips, as appropriate
   trip_scen_sets <- walk_to_pt()
   
   ## update all distances and durations
@@ -14,28 +14,16 @@ get_all_distances <- function(ithim_object){
   ithim_object$pp_summary <- generate_synthetic_travel_data(trip_scen_sets)
   rm(trip_scen_sets)
   # Generate distance and duration matrices
-  #dist_and_dir <- dist_dur_tbls(ithim_object$pp_summary)
-  #ithim_object$dist <- dist_and_dir$dist
-  #ithim_object$dur <- dist_and_dir$dur
+  dist_and_dir <- dist_dur_tbls(ithim_object$pp_summary)
+  ithim_object$dist <- dist_and_dir$dist
+  ithim_object$dur <- dist_and_dir$dur
   
   # distances for injuries calculation
-  #ithim_object$inj_distances <- distances_for_injury_function(ithim_object$pp_summary)
+  ithim_object$inj_distances <- distances_for_injury_function(ithim_object$pp_summary)
   
   return(ithim_object)
   
   
-  # add walk-to-bus trips, as appropriate, and combines list of scenarios
-  #ithim_object$trip_scen_sets <- walk_to_pt_and_combine_scen()
-  
-  # Generate distance and duration matrices
-  #dist_and_dir <- dist_dur_tbls(ithim_object$trip_scen_sets)
-  #ithim_object$dist <- dist_and_dir$dist
-  #ithim_object$dur <- dist_and_dir$dur
-  
-  # distances for injuries calculation
-  #ithim_object$inj_distances <- distances_for_injury_function(ithim_object$trip_scen_sets)
-  
-  #return(ithim_object)
 }
 
 

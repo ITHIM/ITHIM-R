@@ -1,6 +1,7 @@
 #' @export
 run_ithim_setup <- function(seed = 1,
                             CITY = 'accra',
+                            synthetic_population_size = 1000,
                             speeds = NULL,
                             emission_inventory = NULL,
                             setup_call_summary_filename = 'setup_call_summary.txt',
@@ -219,9 +220,18 @@ run_ithim_setup <- function(seed = 1,
   
   ## set up synthetic population
   ##!! this needs to have all the modes
-  participants <- 754
+  participants <- synthetic_population_size
   pp_travel_propensities <- data.frame(participant_id=1:participants,
                                        dem_index=sample(x=POPULATION$dem_index,size=participants,replace=T,prob=POPULATION$population))
+  ## we need to have representation from each demographic group in the synthetic population.
+  ##!! or: remove missing groups from DEMOGRAPHIC and POPULATION?
+  while(length(unique(pp_travel_propensities$dem_index))<length(unique(POPULATION$dem_index))){
+    participants <- round(participants*1.1)
+    cat(paste0('\n Using ',participants,' participants\n'))
+    pp_travel_propensities <- data.frame(participant_id=1:participants,
+                                         dem_index=sample(x=POPULATION$dem_index,size=participants,replace=T,prob=POPULATION$population))
+    if(participants>50000) break('Too many participants')
+  }
   ## add age
   pp_travel_propensities <- left_join(pp_travel_propensities,DEMOGRAPHIC,by='dem_index')
   pp_travel_propensities$age <- 0

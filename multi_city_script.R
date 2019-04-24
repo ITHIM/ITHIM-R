@@ -44,6 +44,11 @@ speeds <- list(accra=NULL,
                bangalore=list(subway=32,
                           bicycle=15))
 
+# beta parameters for DAY_TO_WEEK_TRAVEL_SCALAR
+day_to_week_scalar <- 7
+min_age <- 15
+max_age <- 69
+
 # beta parameters for INJURY_REPORTING_RATE
 injury_report_rate <- list(accra=1,
                            sao_paulo=1,
@@ -83,21 +88,15 @@ mc_car_ratio <- list(accra=0.2,
                      sao_paulo=0,
                      delhi=0,
                      bangalore=0)
-# beta parameters for DAY_TO_WEEK_TRAVEL_SCALAR
-day_to_week_scalar <- 7
 # lnorm parameters for INJURY_LINEARITY
 injury_linearity <- 1
 # beta parameters for CASUALTY_EXPONENT_FRACTION
 cas_exponent <- 0.5
-# beta parameters for DAY_TO_WEEK_TRAVEL_SCALAR
-day_to_week_scalar <- 7
 
 #################################################################
 ## without uncertainty
 toplot <- matrix(0,nrow=5,ncol=length(cities)) #5 scenarios, 4 cities
 ithim_objects <- list()
-min_age <- 15
-max_age <- 69
 for(city in cities){
   ithim_objects[[city]] <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),
                                   ADD_WALK_TO_BUS_TRIPS=F,
@@ -179,24 +178,22 @@ library(foreach)
 library(doMC)
 registerDoMC(numcores)
 outcomes <- NULL
-gc(verbose=T)
 outcomes <- foreach(x = 1:NSAMPLES) %dopar% { just_distances(x,ithim_object) }
-gc(verbose=T)
 #outcomes <- mclapply(1:NSAMPLES,FUN=just_distances,ithim_object,mc.cores = numcores)
 for(i in 1:length(outcomes)) if(length(outcomes[[i]])<1) print(i)
 sum(sapply(outcomes,function(x) sum(sapply(x$pp_summary,ncol)))!=108)
 #outcomes <- list()
 #for(i in 1:NSAMPLES) outcomes[[i]] <- just_distances(seed=i,ithim_object)
 dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(outcomes[[1]]$dist/nrow(outcomes[[1]]$pp_summary[[1]])))
-for(i in 1:NSAMPLES){
-  dist_mat[i,] <- outcomes[[i]]$dist[,1]/nrow(outcomes[[i]]$pp_summary[[1]])
-}
-boxplot(dist_mat,names=rownames(outcomes[[i]]$dist),las=2)
-                                                                                                                                                                  
+{x11(); par(mfrow=c(2,3))
+for(j in 1:6){for(i in 1:NSAMPLES)
+  dist_mat[i,] <- outcomes[[i]]$dist[,j]/nrow(outcomes[[i]]$pp_summary[[1]])
+boxplot(dist_mat,names=rownames(outcomes[[i]]$dist),las=2,ylim=c(0,30))
+}}                                                                                                                                                                 
 #################################################
 ## with uncertainty
 ## comparison across cities
-nsamples <- 1024
+nsamples <- 16
 setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","EMISSION_INVENTORY",                        
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO",
                         "DISTANCE_SCALAR_CAR_TAXI",
@@ -335,7 +332,7 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
           bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
           distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
-parameters_only <- T
+parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- list()
 for(ci in 1:length(cities)){
   city <- cities[ci]

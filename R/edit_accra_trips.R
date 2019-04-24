@@ -4,15 +4,18 @@ edit_accra_trips <- function(raw_trip_set){
   total_car_distance <- sum(subset(raw_trip_set,stage_mode=='car')$trip_distance)*DISTANCE_SCALAR_CAR_TAXI
   
   # Redefine motorcycle mode for a select 14 rows
-  raw_trip_set$trip_mode[raw_trip_set$trip_mode=='other'&raw_trip_set$trip_distance<30] <- 'motorcycle'
-  raw_trip_set <- subset(raw_trip_set,trip_mode!='other')
-  raw_trip_set$stage_mode[raw_trip_set$stage_mode=='other'&raw_trip_set$stage_distance<30] <- 'motorcycle'
-  raw_trip_set <- subset(raw_trip_set,stage_mode!='other')
+  new_mode <- 'motorcycle'
+  speed <- MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==new_mode]
+  trips_to_edit <- raw_trip_set$trip_mode=='other'&raw_trip_set$stage_duration<=60
+  raw_trip_set$trip_distance[trips_to_edit] <- raw_trip_set$stage_duration[trips_to_edit]/60*speed
+  raw_trip_set$stage_distance[trips_to_edit] <- raw_trip_set$trip_distance[trips_to_edit]
+  raw_trip_set$trip_mode[trips_to_edit] <- 'motorcycle'
+  raw_trip_set$stage_mode[trips_to_edit] <- 'motorcycle'
+  raw_trip_set <- subset(raw_trip_set,stage_mode!='other'&trip_mode!='other')
   
   # Create new motorbike trips
   # Add 4 new people with 3 trips each
   # Age: 15-59 and gender: male
-  new_mode <- 'motorcycle'
   total_mc_distance <- total_car_distance*MOTORCYCLE_TO_CAR_RATIO
   residual_mc_distance <- total_mc_distance - sum(subset(raw_trip_set,stage_mode==new_mode)$trip_distance)
   #duration_range <- 15:100
@@ -21,7 +24,6 @@ edit_accra_trips <- function(raw_trip_set){
   distance <- residual_mc_distance/nPeople
   new_gender <- c(rep('Male',20),'Female')
   age_range <- AGE_LOWER_BOUNDS[1]:MAX_AGE
-  speed <- MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==new_mode]
   for(i in 1:nPeople){
     new_trips <- add_trips(trip_ids   = max(raw_trip_set$trip_id) + 1: nTrips, 
                            new_mode = new_mode, 
