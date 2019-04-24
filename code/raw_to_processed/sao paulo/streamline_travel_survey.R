@@ -221,7 +221,7 @@ for (i in 1:nrow(rd)){
   if (!is.na(nr$total_short_walk_time) && nr$total_short_walk_time > 0){
     nr$stage_mode <- "short walk"
     nr$stage_duration <- nr$total_short_walk_time
-    nr$stage_distance <- nr$total_short_walk_time / 60 * 4.8
+    #nr$stage_distance <- nr$total_short_walk_time / 60 * 4.8
     rows_list[[ind]] <- nr
     ind <- ind + 1
   }
@@ -237,11 +237,19 @@ rd$trip_distance_cat <- NULL
 rd$person_weight <- NULL
 rd$total_short_walk_time <- NULL
 
+rd[!is.na(rd$stage_mode) & rd$stage_mode == "short walk",]$stage_distance <-
+  rd[!is.na(rd$stage_mode) & rd$stage_mode == "short walk",]$stage_duration / 60 * 4.8
+
 rd$trip_distance <- ave(rd$stage_distance, rd$trip_id, FUN=sum)
 rd$trip_duration <- ave(rd$stage_duration, rd$trip_id, FUN=sum)
 
+rd$sex[rd$sex == 1] <- "Male"
+rd$sex[rd$sex == 2] <- "Female"
+
 # Save to a local var
 b <- rd
+
+write_csv(rd, "inst/extdata/local/sao_paulo/trips_sao_paulo.csv")
 
 # Plot distance distribution
 ggplot(sd %>% 
@@ -268,10 +276,6 @@ ggplot(rd %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(x = "", y = "percentage(%)", title = "Main Mode distribution - without weights")
 
-rd$sex[rd$sex == 1] <- "Male"
-rd$sex[rd$sex == 2] <- "Female"
-
-write_csv(rd, "inst/extdata/local/sao_paulo/trips_sao_paulo.csv")
 
 # Read raw pa for csv and store the filtered pa
 {
