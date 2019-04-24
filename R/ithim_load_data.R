@@ -108,12 +108,13 @@ ithim_load_data <- function(speeds=list(
   demographic <- read_csv(filename,col_types = cols())
   age_category <- demographic$age
   max_age <- max(as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][2])))
-  MAX_AGE <<- min(max_age,max(trip_set$age))
-  DEMOGRAPHIC <<- demographic[as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][1]))<=MAX_AGE,]
+  max_age <- min(max_age,max(trip_set$age))
+  DEMOGRAPHIC <<- demographic[as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][1]))<=max_age,]
   
   # get age-category details from population data
   AGE_CATEGORY <<- unique(DEMOGRAPHIC$age)
   AGE_LOWER_BOUNDS <<- as.numeric(sapply(AGE_CATEGORY,function(x)strsplit(x,'-')[[1]][1]))
+  MAX_AGE <<- max(as.numeric(sapply(AGE_CATEGORY,function(x)strsplit(x,'-')[[1]][2])))
   
   disease_names <- c(as.character(DISEASE_INVENTORY$GBD_name),'Road injuries')
   GBD_DATA <- subset(GBD_DATA,cause_name%in%disease_names)
