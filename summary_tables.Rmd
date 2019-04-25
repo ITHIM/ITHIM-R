@@ -110,12 +110,11 @@ Case study specific duration tables for baseline and five scenarios
 
 ```{r trip_dur = "asis"}
 
-
 for(city in cities){
   count_people <- nrow(io[[city]]$synth_pop)
     td <- io[[city]]$dur %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, funs(round((.) / count_people, round_to)))
     colnames(td)[3:7] <- rownames(scen_prop)
-    print(kable(td, caption = paste("Duration table (mins) for ", city, "( ", count_people, " ) per person (everyone)")))
+    
     
     count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
     td <- io[[city]]$dur %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, funs(round((.) / count_people, round_to)))
@@ -126,7 +125,64 @@ for(city in cities){
 
 ```
 
+## Physical activity tables
+Case study specific physical activity tables for backgound (non-travel) PA, and baseline and five scenarios (non-travel + travel)
 
+
+```{r mmets = "asis"}
+
+for(city in cities){
+  df1 <- as.data.frame(io[[city]]$synth_pop$work_ltpa_marg_met)
+  colnames(df1) <- "mmet"
+  
+  td1 <- df1 %>% filter(mmet == 0) %>% 
+    summarise(perct_zeros = round(n() / nrow(df1) * 100, 1))
+  
+  td2 <- df1 %>%
+    summarise(min = min(mmet),
+              q_25th = round(quantile(mmet, 0.25), 1),
+              median = round(quantile(mmet, 0.50), 1),
+              mean = round(mean(mmet), 1),
+              q_75th = round(quantile(mmet, 0.75), 1),
+              q_90th = round(quantile(mmet, 0.95), 1),
+              max = round(max(mmet), 1))
+  
+  td3 <- cbind(td1, td2)
+  td3 <- as.data.frame(t(td3))
+  
+  df2 <- select(io[[city]]$outcomes$mmets, base_mmet : scen5_mmet)
+  
+  td4 <- df2 %>% gather(key = "scenario", value = "mmet") %>% 
+    filter(mmet == 0) %>% 
+    group_by(scenario) %>% 
+    summarise(perct_zeros = round(n() / nrow(df2) * 100, 1))
+  
+  td5 <- df2 %>% gather(key = "scenario", value = "mmet") %>% 
+    group_by(scenario) %>% 
+    summarise(min = min(mmet),
+              q_25th = round(quantile(mmet, 0.25), 1),
+              median = round(quantile(mmet, 0.50), 1),
+              mean = round(mean(mmet), 1),
+              q_75th = round(quantile(mmet, 0.75), 1),
+              q_90th = round(quantile(mmet, 0.95), 1),
+              max = round(max(mmet), 1))
+  
+  td6 <- left_join(td4, td5, "scenario")
+  td6 <- as.data.frame(t(td6))
+  td6 <- td6[-1,]
+  td6 <- mutate_all(td6, function(x) as.numeric(as.character(x)))
+
+  td <- cbind(td3, td6)
+  
+  colnames(td)[1] <- "Background (non-travel)"
+  colnames(td)[2] <- "Baseline"
+  colnames(td)[3:7] <- rownames(scen_prop)
+  
+  print(kable(td, caption = paste("Marginal MET-h/wk for ", city)))
+  cat("\n")
+}
+
+```
 
 ```{r pa, echo = F, message = F}
 
@@ -142,6 +198,3 @@ if (plot_mmets){
 }
 
 ```
-
-
-
