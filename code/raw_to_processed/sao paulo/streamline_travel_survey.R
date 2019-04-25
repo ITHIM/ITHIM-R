@@ -219,7 +219,7 @@ ind <- 1
 for (i in 1:nrow(rd)){
   nr <- rd[i, ]
   if (!is.na(nr$total_short_walk_time) && nr$total_short_walk_time > 0){
-    nr$stage_mode <- "short walk"
+    nr$stage_mode <- "walk_to_bus"
     nr$stage_duration <- nr$total_short_walk_time
     #nr$stage_distance <- nr$total_short_walk_time / 60 * 4.8
     rows_list[[ind]] <- nr
@@ -236,8 +236,8 @@ rd$trip_distance_cat <- NULL
 rd$person_weight <- NULL
 rd$total_short_walk_time <- NULL
 
-rd[!is.na(rd$stage_mode) & rd$stage_mode == "short walk",]$stage_distance <-
-  rd[!is.na(rd$stage_mode) & rd$stage_mode == "short walk",]$stage_duration / 60 * 4.8
+rd[!is.na(rd$stage_mode) & rd$stage_mode == "walk_to_bus",]$stage_distance <-
+  rd[!is.na(rd$stage_mode) & rd$stage_mode == "walk_to_bus",]$stage_duration / 60 * 4.8
 
 rd$trip_distance <- ave(rd$stage_distance, rd$trip_id, FUN=sum)
 rd$trip_duration <- ave(rd$stage_duration, rd$trip_id, FUN=sum)
