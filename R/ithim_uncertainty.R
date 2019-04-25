@@ -8,18 +8,18 @@ ithim_uncertainty <- function(ithim_object,seed=1){
     assign(names(parameters)[i],parameters[[i]][[seed]],pos=1)
   ## Re-do set up if any distance parameter has changed
   if(RECALCULATE_EMISSION_INVENTORY) set_vehicle_inventory() # sets vehicle inventory
-  (if(RECALCULATE_TRIPS){
+  if(RECALCULATE_TRIPS){
     #set_vehicle_inventory()
     get_synthetic_from_trips()
-  })
+  }
   
   ## calculate distances, if distances are not variable dependent
-  (if(RECALCULATE_DISTANCES){
+  if(RECALCULATE_DISTANCES){
     ithim_object <- get_all_distances(ithim_object)
-  })
+  }
   ############################
   # Run ITHIM cascade of functions
-  (run_results <- ithim_calculation_sequence(ithim_object,seed))
+  run_results <- ithim_calculation_sequence(ithim_object,seed)
   run_results$dist <- ithim_object$dist
   run_results$dur <- ithim_object$dur
   #return(run_results)

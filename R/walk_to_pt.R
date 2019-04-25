@@ -8,8 +8,8 @@ walk_to_pt <- function(){
   if(ADD_WALK_TO_BUS_TRIPS)
     for(i in 1:length(rd_list)){
       # separate out bus trips
-      pt_trips <- subset(rd_list[[i]],stage_mode%in%pt_modes)
-      not_pt_trips <- subset(rd_list[[i]],!stage_mode%in%pt_modes)
+      pt_trips <- rd_list[[i]][rd_list[[i]]$stage_mode%in%pt_modes,]
+      not_pt_trips <- rd_list[[i]][!rd_list[[i]]$stage_mode%in%pt_modes,]
       # divide bus trips into bus and walking
       pt_walk_trips <- add_walk_trips(pt_trips)
       # recombine all trips

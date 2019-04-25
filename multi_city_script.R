@@ -173,7 +173,7 @@ saveRDS(ithim_objects, "C:/RStudio Projects/ITHIM-R/results/multi_city/io.rds")
 ##check distances 
 
 numcores <- detectCores()
-ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,NSAMPLES=1024)
+ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,NSAMPLES=1024,CITY='bangalore',MAX_MODE_SHARE_SCENARIO = T)
 library(foreach)
 library(doMC)
 registerDoMC(numcores)
@@ -183,7 +183,7 @@ outcomes <- foreach(x = 1:NSAMPLES) %dopar% { just_distances(x,ithim_object) }
 for(i in 1:length(outcomes)) if(length(outcomes[[i]])<1) print(i)
 sum(sapply(outcomes,function(x) sum(sapply(x$pp_summary,ncol)))!=108)
 #outcomes <- list()
-#for(i in 1:NSAMPLES) outcomes[[i]] <- just_distances(seed=i,ithim_object)
+for(i in 1:NSAMPLES) outcomes[[i]] <- just_distances(seed=i,ithim_object)
 dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(outcomes[[1]]$dist/nrow(outcomes[[1]]$pp_summary[[1]])))
 {x11(); par(mfrow=c(2,3))
 for(j in 1:6){for(i in 1:NSAMPLES)
@@ -193,14 +193,15 @@ boxplot(dist_mat,names=rownames(outcomes[[i]]$dist),las=2,ylim=c(0,30))
 #################################################
 ## with uncertainty
 ## comparison across cities
-nsamples <- 16
+nsamples <- 1024
 setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","EMISSION_INVENTORY",                        
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO",
                         "DISTANCE_SCALAR_CAR_TAXI",
                         "DISTANCE_SCALAR_WALKING",
                         "DISTANCE_SCALAR_PT",
                         "DISTANCE_SCALAR_CYCLING",
-                        "DISTANCE_SCALAR_MOTORCYCLE")
+                        "DISTANCE_SCALAR_MOTORCYCLE",
+                        "PROPENSITY_TO_TRAVEL")
 
 
 # beta parameters for INJURY_REPORTING_RATE
@@ -375,7 +376,8 @@ for(ci in 1:length(cities)){
                                             DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
                                             DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
                                             DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
-                                            DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]])
+                                            DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]],
+                                            PROPENSITY_TO_TRAVEL = T)
   
   # for first city, store model parameters. For subsequent cities, copy parameters over.
   if(ci==1){
@@ -398,12 +400,12 @@ for(ci in 1:length(cities)){
     min_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
     max_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
     keep_rows <- which(min_ages>=min_age&max_ages<=max_age)
-    keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('ac|neo|age|sex',as.character(x))))
+    keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('ac|neo|age|sex|dem_index',as.character(x))))
     
     outcome_pp[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
-    min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-    max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-    outcome_pp[[city]] <- outcome_pp[[city]]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
+    min_pop_ages <- sapply(POPULATION$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+    max_pop_ages <- sapply(POPULATION$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+    outcome_pp[[city]] <- outcome_pp[[city]]/sum(subset(POPULATION,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
     colnames(outcome_pp[[city]]) <- paste0(colnames(outcome_pp[[city]]),'_',city)
     
     ## omit ac (all cause) and neoplasms (neo) and age and gender columns
@@ -417,8 +419,14 @@ for(ci in 1:length(cities)){
     if(sum(extract_vals)!=0)
       multi_city_ithim[[ci]]$parameters[[paste0('EMISSION_INVENTORY_',names(multi_city_ithim[[ci]]$parameters$EMISSION_INVENTORY[[1]])[i],'_',city)]] <- extract_vals
   }
+  for(i in 1:length(multi_city_ithim[[ci]]$parameters$PROPENSITY_TO_TRAVEL[[1]])){
+    extract_vals <- sapply(multi_city_ithim[[ci]]$parameters$PROPENSITY_TO_TRAVEL,function(x)x[[i]])
+    if(sum(extract_vals)!=0)
+      multi_city_ithim[[ci]]$parameters[[paste0('PROPENSITY_TO_TRAVEL_',names(multi_city_ithim[[ci]]$parameters$PROPENSITY_TO_TRAVEL[[1]])[i],'_',city)]] <- extract_vals
+  }
   for(param in setting_parameters) names(multi_city_ithim[[ci]]$parameters)[which(names(multi_city_ithim[[ci]]$parameters)==param)] <- paste0(param,'_',city)
   multi_city_ithim[[ci]]$parameters <- multi_city_ithim[[ci]]$parameters[-which(names(multi_city_ithim[[ci]]$parameters)==paste0('EMISSION_INVENTORY_',city))]
+  multi_city_ithim[[ci]]$parameters <- multi_city_ithim[[ci]]$parameters[-which(names(multi_city_ithim[[ci]]$parameters)==paste0('PROPENSITY_TO_TRAVEL_',city))]
   parameter_names_city <- names(multi_city_ithim[[ci]]$parameters)[sapply(names(multi_city_ithim[[ci]]$parameters),function(x)grepl(x,pattern=city))]
   ## add to parameter names
   parameter_names <- c(parameter_names,parameter_names_city)

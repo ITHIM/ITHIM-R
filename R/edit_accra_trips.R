@@ -36,18 +36,19 @@ edit_accra_trips <- function(raw_trip_set){
     # Add new motorbikes trips to baseline
     raw_trip_set <- rbind(raw_trip_set, new_trips)
   }
+  TRIP_SET <<- raw_trip_set
   
   # Multiply raw_trip_set by 4 to have a bigger number of trips (and raw_trip_set)
-  ind1 <- raw_trip_set
-  ind1$participant_id <- ind1$participant_id + max(raw_trip_set$participant_id)
-  ind1$trip_id <- (max(raw_trip_set$trip_id) + 1): (max(raw_trip_set$trip_id) + nrow(ind1))
-  raw_trip_set <- rbind(raw_trip_set, ind1)
-  
-  ind1 <- raw_trip_set
-  ind1$participant_id <- ind1$participant_id + max(raw_trip_set$participant_id)
-  ind1$trip_id <- (max(raw_trip_set$trip_id) + 1): (max(raw_trip_set$trip_id) + nrow(ind1))
-  raw_trip_set <- rbind(raw_trip_set, ind1)
-  
+  # ind1 <- raw_trip_set
+  # ind1$participant_id <- ind1$participant_id + max(raw_trip_set$participant_id)
+  # ind1$trip_id <- (max(raw_trip_set$trip_id) + 1): (max(raw_trip_set$trip_id) + nrow(ind1))
+  # raw_trip_set <- rbind(raw_trip_set, ind1)
+  # 
+  # ind1 <- raw_trip_set
+  # ind1$participant_id <- ind1$participant_id + max(raw_trip_set$participant_id)
+  # ind1$trip_id <- (max(raw_trip_set$trip_id) + 1): (max(raw_trip_set$trip_id) + nrow(ind1))
+  # raw_trip_set <- rbind(raw_trip_set, ind1)
+  # 
   return(raw_trip_set)
   
 }

@@ -5,14 +5,15 @@ distances_for_injury_function <- function(pp_summary){
   
   dem_indices <- unique(pp_summary[[1]]$dem_index)
   
-  individual_data <- setDT(pp_summary[[1]])[,.(dist = sum()),by='dem_index']
-  true_dist <- lapply(1:(NSCEN+1),function(x) cbind(rep(SCEN[x],length(dem_indices)),setDT(pp_summary[[x]])[,-'participant_id',with=F][, lapply(.SD, sum), by = c("dem_index")]) )
-  true_dist <- data.frame(do.call('rbind',true_dist))
-  colnames(true_dist)[1] <- 'scenario'
-  true_dist <- true_dist[,which(sapply(colnames(true_dist),function(x) !grepl('_dur',x)))]
-  mode_cols <- which(sapply(colnames(true_dist),function(x) grepl('_dist',x)))
-  modes <- sapply(colnames(true_dist)[mode_cols],function(x) gsub('_dist','',x))
-  colnames(true_dist)[mode_cols] <- modes
+  true_dur <- lapply(1:(NSCEN+1),function(x) cbind(rep(SCEN[x],length(dem_indices)),setDT(pp_summary[[x]])[,-'participant_id',with=F][, lapply(.SD, sum), by = c("dem_index")]) )
+  true_dur <- data.frame(do.call('rbind',true_dur))
+  colnames(true_dur)[1] <- 'scenario'
+  mode_cols <- which(sapply(colnames(true_dur),function(x) grepl('_dur',x)))
+  modes <- sapply(colnames(true_dur)[mode_cols],function(x) gsub('_dur','',x))
+  colnames(true_dur)[mode_cols] <- modes
+  mode_speeds <- VEHICLE_INVENTORY$speed[match(modes,VEHICLE_INVENTORY$stage_mode)]
+  true_dist <- true_dur
+  for(i in 1:length(mode_cols)) true_dist[,mode_cols[i]] <- true_dur[,mode_cols[i]]*mode_speeds[i]/60
   
   true_dist$pedestrian <- true_dist$walking 
   if(ADD_WALK_TO_BUS_TRIPS){
