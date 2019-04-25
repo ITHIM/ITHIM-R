@@ -1,4 +1,5 @@
 # load samples and settings
+library(ithimr)
 setwd('diagnostic')
 parameter_samples <- readRDS('parameter_samples.Rds')
 load('parameter_settings.Rdata')
@@ -15,6 +16,23 @@ for(city in cities){
   background_pa_zeros[[city]] <- c(alpha,beta)
   parameter_samples_to_plot[,which(colnames(parameter_samples_to_plot)==paste0('BACKGROUND_PA_ZEROS_',city))] <- 
     qbeta(parameter_samples[,which(colnames(parameter_samples)==paste0('BACKGROUND_PA_ZEROS_',city))],alpha,beta)
+}
+
+# values between 0 and 1 for PROPENSITY_TO_TRAVEL
+pointiness <- 200
+modes <- c('walking','pt','car','motorcycle','bicycle')
+propensity_to_travel <- c(0.5,0.4,0.3,0.2,0.1)
+names(propensity_to_travel) <- modes
+# go through modes
+for(i in 1:length(modes)){
+  raw_zero <- propensity_to_travel[i]; 
+  mod <- modes[i]
+  for(city in cities){
+    beta <- (1/raw_zero - 1)*pointiness*raw_zero; 
+    alpha <- pointiness - beta;
+    parameter_samples_to_plot[,which(colnames(parameter_samples_to_plot)==paste0('PROPENSITY_TO_TRAVEL_',mod,'_',city))] <- 
+      qbeta(parameter_samples[,which(colnames(parameter_samples)==paste0('PROPENSITY_TO_TRAVEL_',mod,'_',city))],alpha,beta)
+  }
 }
 
 # remove zeros from emission inventory
@@ -34,6 +52,9 @@ distributions <- sapply(colnames(parameter_samples_to_plot),
                         function(x){
                           if(grepl('EMISSION_INVENTORY',x)){ city <- cities[sapply(cities,function(y)grepl(y,x))]; 
                           paste0('Dir(',paste(emission_inventory[[city]],collapse=', '),');\\\nConfidence=',emission_confidence[[city]])}
+                          else if(grepl('PROPENSITY_TO_TRAVEL',x)){ city <- cities[sapply(cities,function(y)grepl(y,x))]; 
+                          mod <- which(sapply(modes,function(z) grepl(z,x)))
+                          paste0('E.g. p=',propensity_to_travel[mod],';\\\nPointiness=200')}
                           else if(grepl('DOSE_RESPONSE',x)) 'Uniform(0,1)' 
                           else if(x%in%normVariables) paste0('Lnorm(',sprintf('%.1f',get(tolower(x))[1]),', ',
                                                              sprintf('%.2f',get(tolower(x))[2]),')') 

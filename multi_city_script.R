@@ -189,7 +189,11 @@ dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(outcomes[[1]]$dist/nrow(outcomes[[1
 for(j in 1:6){for(i in 1:NSAMPLES)
   dist_mat[i,] <- outcomes[[i]]$dist[,j]/nrow(outcomes[[i]]$pp_summary[[1]])
 boxplot(dist_mat,names=rownames(outcomes[[i]]$dist),las=2,ylim=c(0,30))
-}}                                                                                                                                                                 
+}}       
+
+## plot distances for all cities
+
+
 #################################################
 ## with uncertainty
 ## comparison across cities
