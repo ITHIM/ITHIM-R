@@ -3,9 +3,9 @@ title: "Summary Tables ITHIMR"
 author: "Rahul Goel, MRC Epidemiology Unit, University of Cambridge, UK"
 date: "25 April 2019"
 output:
-  pdf_document: default
   html_document: default
   word_document: default
+  pdf_document: default
 ---
 
 
@@ -62,7 +62,7 @@ for (x in 1: length(cities))
   summary<- as.data.frame(data_long %>% group_by(scenario) %>% summarise('mean'=mean(pm_conc),'5th'=quantile(pm_conc, 0.05),'50th'=quantile(pm_conc, 0.5),'95th'=quantile(pm_conc, 0.9)))
   summary<- cbind(summary$scenario ,round(summary[,2:5], digits=1))
   names(summary)[1]<-"Scenario"
-  print (as.character(cities[[x]]))
+  print (as.character(cities[x]))
   print(summary)
   
 
@@ -97,7 +97,7 @@ for (x in 1: length(cities))
   summary<- as.data.frame(data_long %>% group_by(scenario) %>% summarise('mean'=mean(mmet),'5th'=quantile(mmet, 0.05),'50th'=quantile(mmet, 0.5),'95th'=quantile(mmet, 0.9)))
   summary<- cbind(summary$scenario ,round(summary[,2:5], digits=1))
   names(summary)[1]<-"Scenario"
-  print (as.character(cities[[x]]))
+  print (as.character(cities[x]))
   print(summary)
   
 
@@ -105,6 +105,22 @@ for (x in 1: length(cities))
 }
 ```
 
+# Descriptive tables of injury outcomes
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+for (x in 1: length(cities))
+{
+
+  summary<- as.data.frame(io[[cities[x]]]$outcomes$injuries %>% group_by(scenario) %>% summarise('Ped'=sum(pedestrian,na.rm=T),'Bike'= sum(bicycle), 'Car'=sum(car), "Motorcycle"=sum(motorcycle,na.rm=T), "All modes"=sum(Deaths,na.rm=T)))
+  summary$scenario<- c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
+  summary<- cbind(summary$scenario ,round(summary[,2:6], digits=0))
+  names(summary)[1]<-"Scenario"
+  print (as.character(cities[x]))
+  print(summary)
+
+}
+```
 
 # Distance share by scenarios in percentages (excludes city-specific minority modes-- auto rickshaws, subway, etc.)
 
@@ -125,7 +141,7 @@ dist_scen_prop<- cbind(dist_scen[,1], dist_scen_prop)
 
 names(dist_scen_prop)[1]<-"Scenario"
 dist_scen_prop$Scenario<- c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
-print (as.character(cities[[x]]))
+print (as.character(cities[x]))
 print(dist_scen_prop)
 #library(knitr)
 #library(kableExtra)
