@@ -1,0 +1,134 @@
+---
+title: "Summary Tables ITHIMR"
+author: "Rahul Goel, MRC Epidemiology Unit, University of Cambridge, UK"
+date: "25 April 2019"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+
+# Introduction
+These are the summary tables of the following items
+1) Individual-level PM2.5 concentrations for baseline and scenarios
+2) Individual-level physical activity for baseline and scenarios
+3) Distance mode shares for baseline and scenarios
+
+
+```{r, echo=FALSE}
+#setwd('C:/Users/rg574/Dropbox/spatiotemporal analysis fatalities inida/Rajasthan tourism road deaths') #to create pretty tables
+```
+
+```{r, message=FALSE, warning=FALSE}
+#library(INLA)     #loading the INLA package
+library(ggplot2)  #loading ggplot package for plotting graphs
+library(knitr)     
+library(tidyr)
+library(dplyr)
+
+```
+
+
+# Boxplots of Individual-level PM2.5 Concentrations
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+io <- readRDS("V:/Group/RG_PHM/ITHIM-R/results/multi_city/io.rds")
+
+cities<- names(io)
+cities<- cities[-2]
+
+for (x in 1: length(cities))
+{
+  names(io[[cities[x]]]$outcomes$pm_conc_pp)[6:11]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
+  data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc, baseline:bus_scen, factor_key=TRUE)
+  x<-ggplot(data_long, aes(x=scenario, y=pm_conc, fill=scenario)) + geom_boxplot()+ ggtitle(cities[x])+ labs(y="Daily PM2.5 Concentration", x = "Scenarios")
+  print(x)
+  
+}
+```
+
+
+
+
+# Descriptive tables of Individual-level PM2.5 Concentrations
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+for (x in 1: length(cities))
+{
+  names(io[[cities[x]]]$outcomes$pm_conc_pp)[6:11]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
+  data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc, baseline:bus_scen, factor_key=TRUE)
+  summary<- as.data.frame(data_long %>% group_by(scenario) %>% summarise('mean'=mean(pm_conc),'5th'=quantile(pm_conc, 0.05),'50th'=quantile(pm_conc, 0.5),'95th'=quantile(pm_conc, 0.9)))
+  summary<- cbind(summary$scenario ,round(summary[,2:5], digits=1))
+  names(summary)[1]<-"Scenario"
+  print (as.character(cities[[x]]))
+  print(summary)
+  
+
+  
+}
+```
+
+
+# Boxplots of Individual-level Physical activity (MMETs)
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+
+for (x in 1: length(cities))
+{
+  names(io[[cities[x]]]$outcomes$mmets)[5:10]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
+  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, baseline:bus_scen, factor_key=TRUE)
+  x<-ggplot(data_long, aes(x=scenario, y=mmet, fill=scenario)) + geom_boxplot()+ ggtitle(cities[x])+ labs(y="Weekly MMET", x = "Scenarios")
+  print(x)
+  
+}
+```
+
+# Descriptive tables of Individual-level Physical activity (MMETs)
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+for (x in 1: length(cities))
+{
+  names(io[[cities[x]]]$outcomes$mmets)[5:10]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
+  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, baseline:bus_scen, factor_key=TRUE)
+  summary<- as.data.frame(data_long %>% group_by(scenario) %>% summarise('mean'=mean(mmet),'5th'=quantile(mmet, 0.05),'50th'=quantile(mmet, 0.5),'95th'=quantile(mmet, 0.9)))
+  summary<- cbind(summary$scenario ,round(summary[,2:5], digits=1))
+  names(summary)[1]<-"Scenario"
+  print (as.character(cities[[x]]))
+  print(summary)
+  
+
+  
+}
+```
+
+
+# Distance share by scenarios in percentages (excludes city-specific minority modes-- auto rickshaws, subway, etc.)
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+for (x in 1: length(cities))
+{
+  
+select<- c("car", "motorcycle", "walking", "bicycle", "bus")
+io[[cities[x]]]$trip_scen_sets <-io[[cities[x]]]$trip_scen_sets[io[[cities[x]]]$trip_scen_sets$trip_mode %in% select,]
+
+dist_scen<- io[[cities[x]]]$trip_scen_sets %>% group_by(trip_mode, scenario) %>% summarise(sum(trip_distance))
+dist_scen<- as.data.frame (dist_scen)
+names(dist_scen)[3]<-"distance"
+dist_scen<-spread(dist_scen, trip_mode, distance)
+dist_scen$sum<-rowSums (dist_scen[2:(ncol(dist_scen)-1)], na.rm = FALSE, dims = 1)
+dist_scen_prop<- round(dist_scen[,2:(ncol(dist_scen)-1)]*100/dist_scen$sum, digits=1)
+dist_scen_prop<- cbind(dist_scen[,1], dist_scen_prop)
+
+names(dist_scen_prop)[1]<-"Scenario"
+dist_scen_prop$Scenario<- c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
+print (as.character(cities[[x]]))
+print(dist_scen_prop)
+#library(knitr)
+#library(kableExtra)
+#kable(dist_scen_prop)
+}
+```
