@@ -230,7 +230,6 @@ for (i in 1:nrow(rd)){
 df <- plyr::ldply (rows_list, data.frame)
 rd <- rbind(rd, df)
 
-rd$stage_duration <- rd$trip_duration
 rd$walking_time_origin <- NULL
 rd$walking_time_dest <- NULL
 rd$trip_distance_cat <- NULL
