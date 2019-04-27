@@ -29,167 +29,24 @@ emission_inventories = list(accra=NULL,
                                            other=0,
                                            taxi=0))
 #################################################################
-## run diagnostics
-for(city in cities){
-  ithim_object <- run_ithim_setup(ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F,CITY=city,MAX_MODE_SHARE_SCENARIO=T,DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),emission_inventory = emission_inventories[[city]])
-  summarise_ithim_inputs(ithim_object)
-}
-
-
-#################################################################
 speeds <- list(accra=NULL,
                sao_paulo=NULL,
                delhi=list(subway=32,
                           bicycle=15),
                bangalore=list(subway=32,
-                          bicycle=15))
+                              bicycle=15))
 
 # beta parameters for DAY_TO_WEEK_TRAVEL_SCALAR
 day_to_week_scalar <- 7
 min_age <- 15
 max_age <- 69
 
-# beta parameters for INJURY_REPORTING_RATE
-injury_report_rate <- list(accra=1,
-                           sao_paulo=1,
-                           delhi=1,
-                           bangalore=1)
-# lnorm parameters for CHRONIC_DISEASE_SCALAR
-chronic_disease_scalar <- list(accra=1,
-                               sao_paulo=1,
-                               delhi=1,
-                               bangalore=1)
-# lnorm parameters for PM_CONC_BASE
-pm_concentration <- list(accra=50,
-                         sao_paulo=18,
-                         delhi=122,
-                         bangalore=47.4)
-# beta parameters for PM_TRANS_SHARE
-pm_trans_share <- list(accra=0.225,
-                       sao_paulo=0.4,
-                       delhi=0.225,
-                       bangalore=0.281)
-# lnorm parameters for BACKGROUND_PA_SCALAR
-background_pa_scalar <- list(accra=1,
-                             sao_paulo=1,
-                             delhi=1,
-                             bangalore=1)
-# lnorm parameters for BUS_WALK_TIME
-bus_walk_time <- list(accra=5,
-                      sao_paulo=5,
-                      delhi=5,
-                      bangalore=5)
-# lnorm parameters for MMET_CYCLING
-mmet_cycling <- 4.63
-# lnorm parameters for MMET_WALKING
-mmet_walking <- 2.53
-# lnorm parameters for MOTORCYCLE_TO_CAR_RATIO
-mc_car_ratio <- list(accra=0.2,
-                     sao_paulo=0,
-                     delhi=0,
-                     bangalore=0)
-# lnorm parameters for INJURY_LINEARITY
-injury_linearity <- 1
-# beta parameters for CASUALTY_EXPONENT_FRACTION
-cas_exponent <- 0.5
-
-#################################################################
-## without uncertainty
-toplot <- matrix(0,nrow=5,ncol=length(cities)) #5 scenarios, 4 cities
-ithim_objects <- list()
-for(city in cities){
-  ithim_objects[[city]] <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),
-                                  ADD_WALK_TO_BUS_TRIPS=F,
-                                  CITY=city,ADD_TRUCK_DRIVERS = F,
-                                  MAX_MODE_SHARE_SCENARIO = T,
-                                  ADD_BUS_DRIVERS = F,
-                                  emission_inventory = emission_inventories[[city]],
-                                  speeds = speeds[[city]],
-                                  
-                                  MMET_CYCLING = mmet_cycling, 
-                                  MMET_WALKING = mmet_walking, 
-                                  DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
-                                  INJURY_LINEARITY= injury_linearity,
-                                  CASUALTY_EXPONENT_FRACTION = cas_exponent,
-                                  PA_DOSE_RESPONSE_QUANTILE = F,  
-                                  AP_DOSE_RESPONSE_QUANTILE = F,
-                                  INJURY_REPORTING_RATE = injury_report_rate[[city]],  
-                                  CHRONIC_DISEASE_SCALAR = chronic_disease_scalar[[city]],  
-                                  PM_CONC_BASE = pm_concentration[[city]],  
-                                  PM_TRANS_SHARE = pm_trans_share[[city]],  
-                                  BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
-                                  BUS_WALK_TIME = bus_walk_time[[city]],
-                                  MOTORCYCLE_TO_CAR_RATIO = mc_car_ratio[[city]])
-  ithim_objects$scen_prop <- SCENARIO_PROPORTIONS
-  ithim_objects[[city]]$outcomes <- run_ithim(ithim_objects[[city]], seed = 1)
-  ithim_objects[[city]]$synth_pop <- SYNTHETIC_POPULATION
-  ithim_objects[[city]]$demographic <- DEMOGRAPHIC
-  ithim_objects[[city]]$demographic <- POPULATION
-  ithim_objects[[city]]$disease_burden <- DISEASE_BURDEN
-  ithim_objects[[city]]$emission_inventory <- EMISSION_INVENTORY
-  ithim_objects[[city]]$injury_table <- INJURY_TABLE
-  
-  ## store results to plot
-  min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-  max_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  sub_outcome <- subset(ithim_objects[[city]]$outcome$hb$ylls,min_ages>=min_age&max_ages<=max_age)
-  result_mat <- colSums(sub_outcome[,4:ncol(sub_outcome)])
-  columns <- length(result_mat)
-  nDiseases <- columns/NSCEN
-  ylim <- range(result_mat)
-  if(city==cities[1]){
-    disease_list <- list()
-    for(i in 1:nDiseases) disease_list[[i]] <- toplot
-  }
-  min_pop_ages <- sapply(POPULATION$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-  max_pop_ages <- sapply(POPULATION$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  for(i in 1:nDiseases)
-    disease_list[[i]][,which(cities==city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(subset(POPULATION,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
-}
-
-{x11(width = 10, height = 5);
-  layout.matrix <- matrix(c(2:6,1,7:12), nrow =2, ncol =6,byrow=T)
-  graphics::layout(mat = layout.matrix,heights = c(2,3),widths = c(2.8,2,2,2,2,2.5))
-  cols <- c('navyblue','hotpink','grey','darkorange')
-  mar1 <- rep(7,nDiseases); mar1[1:6] <- 1
-  mar2 <- rep(1,nDiseases); mar2[c(2,7)] <- 6; mar2[c(1,12)] <- 3
-  for(i in 1:nDiseases){
-    ylim <- if(i==12) c(-0.065,0.02)*1 else if(i==1) c(-1.7,4)*1e-3 else c(-11,7)*1e-4
-    par(mar = c(mar1[i], mar2[i], 4, 1))
-      barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, names.arg=if(i<7) NULL else  rownames(SCENARIO_PROPORTIONS), 
-              main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
-    if(i%in%c(2,1,7,12)) {axis(2,cex.axis=1.5); if(i%in%c(2,7)) mtext(side=2,'YLL gain per person',line=3)}
-    if(i==nDiseases-1) legend(legend=cities,fill=cols,bty='n',y=-1e-5,x=5)
-  }
-}
-
-## Save the ithim_object in the results folder
-#################################################################
-
-saveRDS(ithim_objects, "C:/RStudio Projects/ITHIM-R/results/multi_city/io.rds")
 
 #################################################################
 
 ##check distances 
 
 numcores <- detectCores()
-ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,NSAMPLES=1024,CITY='bangalore',MAX_MODE_SHARE_SCENARIO = T)
-library(foreach)
-library(doMC)
-registerDoMC(numcores)
-outcomes <- NULL
-outcomes <- foreach(x = 1:NSAMPLES) %dopar% { just_distances(x,ithim_object) }
-#outcomes <- mclapply(1:NSAMPLES,FUN=just_distances,ithim_object,mc.cores = numcores)
-for(i in 1:length(outcomes)) if(length(outcomes[[i]])<1) print(i)
-sum(sapply(outcomes,function(x) sum(sapply(x$pp_summary,ncol)))!=108)
-#outcomes <- list()
-for(i in 1:NSAMPLES) outcomes[[i]] <- just_distances(seed=i,ithim_object)
-dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(outcomes[[1]]$dist/nrow(outcomes[[1]]$pp_summary[[1]])))
-{x11(); par(mfrow=c(2,3))
-for(j in 1:6){for(i in 1:NSAMPLES)
-  dist_mat[i,] <- outcomes[[i]]$dist[,j]/nrow(outcomes[[i]]$pp_summary[[1]])
-boxplot(dist_mat,names=rownames(outcomes[[i]]$dist),las=2,ylim=c(0,30))
-}}       
 
 ## plot distances for all cities
 ## distance plots don't need so many samples!
@@ -219,12 +76,12 @@ for(city in cities){
 for(city in cities){
   dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(distances[[city]][[1]]$dist/nrow(distances[[city]][[1]]$pp_summary[[1]])))
   pdf(paste0('distance_distribution_10000p_',city,'.pdf')); par(mfrow=c(2,3),mar=c(7,5,2,1))
-    for(j in 1:6){for(i in 1:NSAMPLES)
-      dist_mat[i,] <- distances[[city]][[i]]$dist[,j]/nrow(distances[[city]][[i]]$pp_summary[[1]])
-    boxplot(dist_mat,names=rownames(distances[[city]][[i]]$dist),las=2,frame=F,main=paste0(SCEN[j],', ',city),ylab='km pp')
-    }
+  for(j in 1:6){for(i in 1:NSAMPLES)
+    dist_mat[i,] <- distances[[city]][[i]]$dist[,j]/nrow(distances[[city]][[i]]$pp_summary[[1]])
+  boxplot(dist_mat,names=rownames(distances[[city]][[i]]$dist),las=2,frame=F,main=paste0(SCEN[j],', ',city),ylab='km pp')
+  }
   dev.off()
-  }    
+}    
 
 #################################################################
 ## with uncertainty
@@ -242,9 +99,9 @@ setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO"
 
 # beta parameters for INJURY_REPORTING_RATE
 injury_reporting_rate <- list(accra=c(8,3),
-                           sao_paulo=c(50,3),
-                           delhi=c(50,3),
-                           bangalore=c(50,3))
+                              sao_paulo=c(50,3),
+                              delhi=c(50,3),
+                              bangalore=c(50,3))
 # lnorm parameters for CHRONIC_DISEASE_SCALAR
 chronic_disease_scalar <- list(accra=c(0,log(1.2)),
                                sao_paulo=c(0,log(1.2)),
@@ -252,17 +109,17 @@ chronic_disease_scalar <- list(accra=c(0,log(1.2)),
                                bangalore=c(0,log(1.2)))
 # lnorm parameters for PM_CONC_BASE
 pm_conc_base <- list(accra=c(log(50),log(1.3)),
-                               sao_paulo=c(log(20),log(1.3)),
-                         delhi=c(log(122),log(1.3)),
-                         bangalore=c(log(47),log(1.17))) ## mean=47.4, sd=7.5
+                     sao_paulo=c(log(20),log(1.3)),
+                     delhi=c(log(122),log(1.3)),
+                     bangalore=c(log(47),log(1.17))) ## mean=47.4, sd=7.5
 # beta parameters for PM_TRANS_SHARE
 pm_trans_share <- list(accra=c(5,20),
-                           sao_paulo=c(8,8),
+                       sao_paulo=c(8,8),
                        delhi=c(4,4),
                        bangalore=c(6.5,17)) ## mean 0.281, sd 0.089
 # lnorm parameters for BACKGROUND_PA_SCALAR
 background_pa_scalar <- list(accra=c(0,log(1.2)),
-                               sao_paulo=c(0,log(1.2)),
+                             sao_paulo=c(0,log(1.2)),
                              delhi=c(0,log(1.2)),
                              bangalore=c(0,log(1.2)))
 # values between 0 and 1 for BACKGROUND_PA_CONFIDENCE
@@ -272,18 +129,18 @@ background_pa_confidence <- list(accra=0.5,
                                  bangalore=0.3)
 # lnorm parameters for BUS_WALK_TIME
 bus_walk_time <- list(accra=c(log(5),log(1.2)),
-                     sao_paulo=0,
-                     delhi=0,
-                     bangalore=c(log(5),log(1.2)))
+                      sao_paulo=0,
+                      delhi=0,
+                      bangalore=c(log(5),log(1.2)))
 # lnorm parameters for MMET_CYCLING
 mmet_cycling <- c(log(4.63),log(1.2))
 # lnorm parameters for MMET_WALKING
 mmet_walking <- c(log(2.53),log(1.2))
 # lnorm parameters for MOTORCYCLE_TO_CAR_RATIO
 motorcycle_to_car_ratio <- list(accra=c(-1.4,0.4),
-                       sao_paulo=0,
-                     delhi=0,
-                     bangalore=0)
+                                sao_paulo=0,
+                                delhi=0,
+                                bangalore=0)
 # lnorm parameters for INJURY_LINEARITY
 injury_linearity <- c(log(1),log(1.05))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
@@ -315,9 +172,9 @@ truck_to_car_ratio  <- list(accra=c(3,10),
                             bangalore=c(3,10))
 # emission confidences
 emission_confidence  <- list(accra=0.5,
-                            sao_paulo=0.7,
-                            delhi=0.9,
-                            bangalore=0.9)
+                             sao_paulo=0.7,
+                             delhi=0.9,
+                             bangalore=0.9)
 # lnorm parameters for DISTANCE_SCALAR_CAR_TAXI
 distance_scalar_car_taxi <- list(accra=c(0,log(1.2)),
                                  sao_paulo=c(0,log(1.2)),
@@ -325,24 +182,24 @@ distance_scalar_car_taxi <- list(accra=c(0,log(1.2)),
                                  bangalore=c(0,log(1.2)))
 # lnorm parameters for DISTANCE_SCALAR_MOTORCYCLE
 distance_scalar_motorcycle <- list(accra=c(0,log(1.2)),
-                                 sao_paulo=c(0,log(1.2)),
-                                 delhi=c(0,log(1.2)),
-                                 bangalore=c(0,log(1.2)))
+                                   sao_paulo=c(0,log(1.2)),
+                                   delhi=c(0,log(1.2)),
+                                   bangalore=c(0,log(1.2)))
 # lnorm parameters for DISTANCE_SCALAR_PT
 distance_scalar_pt <- list(accra=c(0,log(1.2)),
-                                 sao_paulo=c(0,log(1.2)),
-                                 delhi=c(0,log(1.2)),
-                                 bangalore=c(0,log(1.2)))
+                           sao_paulo=c(0,log(1.2)),
+                           delhi=c(0,log(1.2)),
+                           bangalore=c(0,log(1.2)))
 # lnorm parameters for DISTANCE_SCALAR_WALKING
 distance_scalar_walking <- list(accra=c(0,log(1.2)),
-                                 sao_paulo=c(0,log(1.2)),
-                                 delhi=c(0,log(1.2)),
-                                 bangalore=c(0,log(1.2)))
+                                sao_paulo=c(0,log(1.2)),
+                                delhi=c(0,log(1.2)),
+                                bangalore=c(0,log(1.2)))
 # lnorm parameters for DISTANCE_SCALAR_CYCLING
 distance_scalar_cycling <- list(accra=c(0,log(1.2)),
-                                 sao_paulo=c(0,log(1.2)),
-                                 delhi=c(0,log(1.2)),
-                                 bangalore=c(0,log(1.2)))
+                                sao_paulo=c(0,log(1.2)),
+                                delhi=c(0,log(1.2)),
+                                bangalore=c(0,log(1.2)))
 
 betaVariables <- c("PM_TRANS_SHARE",
                    "INJURY_REPORTING_RATE",
@@ -364,16 +221,16 @@ normVariables <- c("BUS_WALK_TIME",
                    "DISTANCE_SCALAR_MOTORCYCLE")
 
 save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
-          background_pa_scalar,background_pa_confidence,bus_walk_time,mmet_cycling,mmet_walking,emission_inventories,
-          motorcycle_to_car_ratio,injury_linearity,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
-          bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
-          distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
+     background_pa_scalar,background_pa_confidence,bus_walk_time,mmet_cycling,mmet_walking,emission_inventories,
+     motorcycle_to_car_ratio,injury_linearity,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
+     bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
+     distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
 parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- list()
 for(ci in 1:length(cities)){
   city <- cities[ci]
-
+  
   multi_city_ithim[[ci]] <- run_ithim_setup(CITY=city,  
                                             NSAMPLES = nsamples,
                                             seed=ci,
@@ -486,7 +343,7 @@ ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
 means <- sapply(scen_out,function(x)apply(x,2,mean))
 yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
 cols <- c('navyblue','hotpink','grey','darkorange')
-{x11(height=6,width=6); par(mar=c(5,5,1,1))
+{pdf('city_yll.pdf',height=6,width=6); par(mar=c(5,5,1,1))
   plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
   axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME)
   #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
@@ -494,18 +351,20 @@ cols <- c('navyblue','hotpink','grey','darkorange')
   abline(v=0,col='grey',lty=2,lwd=2)
   text(y=4.2,x=ninefive[[2]][1,4],'90%',col='navyblue',adj=c(-0,-0.7))
   legend(col=rev(cols),lty=1,bty='n',x=ninefive[[2]][1,4],legend=rev(names(outcome)[-5]),y=3)
+  dev.off()
 }
 
 comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[5]][,seq(y,ncol(outcome[[5]]),by=NSCEN)]))
 ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
 means <- apply(comb_out,2,mean)
-{x11(height=3,width=6); par(mar=c(5,5,1,1))
+{pdf('combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
   plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL pp relative to baseline',col='navyblue',yaxt='n',xlim=range(ninefive))
   axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME)
   #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
   for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
   abline(v=0,col='grey',lty=2,lwd=2)
   text(y=4,x=ninefive[1,4],'90%',col='navyblue',adj=c(-0,-0.7))
+  dev.off()
 }
 
 
@@ -514,7 +373,6 @@ means <- apply(comb_out,2,mean)
 
 ## calculate EVPPI
 ##!! find way to set!!
-NSCEN <- ncol(outcome[[1]])/sum(sapply(colnames(outcome[[1]]),function(x)grepl('scen1',x)))
 evppi_temp <- matrix(0, ncol = NSCEN*(length(cities)+1), nrow = ncol(parameter_samples))
 for(j in 1:length(outcome)){
   case <- outcome[[j]]
@@ -620,21 +478,22 @@ library(plotrix)
 #                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
 #                     'COPD (AP)','stroke (AP)')
 evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
-{x11(width=8); par(mar=c(6,20,3.5,5.5))
-labs <- rownames(evppi)
-get.pal=colorRampPalette(brewer.pal(9,"Reds"))
-redCol=rev(get.pal(12))
-bkT <- seq(max(evppi)+1e-10, 0,length=13)
-cex.lab <- 1.5
-maxval <- round(bkT[1],digits=1)
-col.labels<- c(0,maxval/2,maxval)
-cellcolors <- vector()
-for(ii in 1:length(unlist(evppi)))
-  cellcolors[ii] <- redCol[tail(which(unlist(evppi[ii])<bkT),n=1)]
-color2D.matplot(evppi,cellcolors=cellcolors,main="",xlab="",ylab="",cex.lab=2,axes=F,border='white')
-fullaxis(side=1,las=2,at=NSCEN*0:(length(outcome)-1)+NSCEN/2,labels=names(outcome),line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=1)
-fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.8)
-mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
-color.legend(NSCEN*length(outcome)+0.5,0,NSCEN*length(outcome)+0.8,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
-for(i in seq(0,NSCEN*length(outcome),by=NSCEN)) abline(v=i)
-for(i in seq(0,length(labs),by=NSCEN)) abline(h=i)}
+{pdf('evppi.pdf',height=15,width=8); par(mar=c(6,20,3.5,5.5))
+  labs <- rownames(evppi)
+  get.pal=colorRampPalette(brewer.pal(9,"Reds"))
+  redCol=rev(get.pal(12))
+  bkT <- seq(max(evppi)+1e-10, 0,length=13)
+  cex.lab <- 1.5
+  maxval <- round(bkT[1],digits=1)
+  col.labels<- c(0,maxval/2,maxval)
+  cellcolors <- vector()
+  for(ii in 1:length(unlist(evppi)))
+    cellcolors[ii] <- redCol[tail(which(unlist(evppi[ii])<bkT),n=1)]
+  color2D.matplot(evppi,cellcolors=cellcolors,main="",xlab="",ylab="",cex.lab=2,axes=F,border='white')
+  fullaxis(side=1,las=2,at=NSCEN*0:(length(outcome)-1)+NSCEN/2,labels=names(outcome),line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=1)
+  fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.8)
+  mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
+  color.legend(NSCEN*length(outcome)+0.5,0,NSCEN*length(outcome)+0.8,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
+  for(i in seq(0,NSCEN*length(outcome),by=NSCEN)) abline(v=i)
+  for(i in seq(0,length(labs),by=NSCEN)) abline(h=i)
+  dev.off()}
