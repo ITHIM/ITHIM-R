@@ -218,7 +218,7 @@ for(city in cities){
 }
 for(city in cities){
   dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(distances[[city]][[1]]$dist/nrow(distances[[city]][[1]]$pp_summary[[1]])))
-  pdf(paste0('distance_distribution_10000p_',city,'.pdf')); par(mfrow=c(2,3),mar=c(7,5,2,1))
+  pdf(paste0('distance_distribution_1000p_',city,'.pdf')); par(mfrow=c(2,3),mar=c(7,5,2,1))
     for(j in 1:6){for(i in 1:NSAMPLES)
       dist_mat[i,] <- distances[[city]][[i]]$dist[,j]/nrow(distances[[city]][[i]]$pp_summary[[1]])
     boxplot(dist_mat,names=rownames(distances[[city]][[i]]$dist),las=2,frame=F,main=paste0(SCEN[j],', ',city),ylab='km pp')
