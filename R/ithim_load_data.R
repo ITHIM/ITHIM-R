@@ -42,6 +42,58 @@ ithim_load_data <- function(speeds=list(
   local_path <- PATH_TO_LOCAL_DATA
   
   ## DATA FILES FOR CITY
+  ## edit trip set.
+  ## we need columns: trip_id, trip_mode, stage_mode, stage_duration, trip_distance, stage_distance
+  ## trips can be composed of multiple stages
+  ## all trip columns are used for scenario generation alone
+  ## stage columns are used for downstream calculation
+  ## if either trip or stage labels are missing, we copy over from the other.
+  filename <- paste0(local_path,"/trips_",CITY,".csv")
+  trip_set <- read_csv(filename,col_types = cols())
+  trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
+  ## copy over as required
+  mode_cols <- c('trip_mode','stage_mode')
+  if(sum(mode_cols%in%colnames(trip_set))==0) stop(paste0('Please include a column labelled "trip_mode" or "stage_mode" in ', filename))
+  ##!! sort out ordering. don't want to write in stage from trip if we have stage complement.
+  if('trip_mode'%in%colnames(trip_set)&&!'stage_mode'%in%colnames(trip_set)) 
+    trip_set$stage_mode <- trip_set$trip_mode
+  if('stage_mode'%in%colnames(trip_set)&&!'trip_mode'%in%colnames(trip_set)) 
+    trip_set$trip_mode <- trip_set$stage_mode
+  if('trip_duration'%in%colnames(trip_set)&&!'stage_duration'%in%colnames(trip_set)) 
+    trip_set$stage_duration <- trip_set$trip_duration
+  if('trip_distance'%in%colnames(trip_set)&&!'stage_distance'%in%colnames(trip_set)) 
+    trip_set$stage_distance <- trip_set$trip_distance
+  if('stage_distance'%in%colnames(trip_set)&&!'trip_distance'%in%colnames(trip_set)) 
+    trip_set$trip_distance <- trip_set$stage_distance
+  ## use specified words for key modes
+  walk_words <- c('walk','walked','pedestrian')
+  bike_words <- c('bike','cycle','cycling')
+  mc_words <- c('motorbike','mcycle','mc','mtw')
+  subway_words <- c('metro','underground')
+  rail_words <- c('train')
+  for(i in 1:length(mode_cols)){
+    ## lower case mode names
+    trip_set[[mode_cols[i]]] <- tolower(trip_set[[mode_cols[i]]])
+    ## replaces spaces with _
+    trip_set[[mode_cols[i]]] <- sapply(trip_set[[mode_cols[i]]],function(x)gsub(' ','_',as.character(x)))
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]=='private_car'] <- 'car'
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%walk_words] <- 'walking'
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%bike_words] <- 'bicycle'
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%mc_words] <- 'motorcycle'
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%subway_words] <- 'subway'
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%rail_words] <- 'rail'
+  }
+  trip_set <- subset(trip_set,!is.na(age))
+  trip_set <- subset(trip_set,!is.na(sex))
+  TRIP_SET <<- trip_set
+  
+  if(MAX_MODE_SHARE_SCENARIO&&
+     (!exists('SCENARIO_PROPORTIONS')||
+      exists('SCENARIO_PROPORTIONS')&&!isTRUE(all_equal(DIST_CAT,colnames(SCENARIO_PROPORTIONS)))
+     )){
+    SCENARIO_PROPORTIONS <<- get_scenario_settings(distances=DIST_CAT,speeds=speeds)
+  }
+  
   # GBD file needs to have the following columns: 
   # age (=label, e.g. 15-49)
   # sex (=Male or Female)
@@ -56,6 +108,10 @@ ithim_load_data <- function(speeds=list(
   filename <- paste0(local_path,"/population_",CITY,".csv")
   demographic <- as.data.frame(read_csv(filename,col_types = cols()))
   demographic$dem_index <- 1:nrow(demographic)
+  age_category <- demographic$age
+  max_age <- max(as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][2])))
+  max_age <- min(max_age,max(trip_set$age))
+  demographic <- demographic[as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][1]))<=max_age,]
   POPULATION <<- demographic
   demographic <- demographic[,names(demographic)!='population']
   names(demographic)[which(names(demographic)=='age')] <- 'age_cat'
@@ -109,58 +165,6 @@ ithim_load_data <- function(speeds=list(
     gbd_inj_yll$yll_dth_ratio[is.na(gbd_inj_yll$yll_dth_ratio)] <- predict(yll_model,subset(gbd_inj_yll,is.na(yll_dth_ratio)),type='response')
   }
   GBD_INJ_YLL <<- gbd_inj_yll
-  
-  ## edit trip set.
-  ## we need columns: trip_id, trip_mode, stage_mode, stage_duration, trip_distance, stage_distance
-  ## trips can be composed of multiple stages
-  ## all trip columns are used for scenario generation alone
-  ## stage columns are used for downstream calculation
-  ## if either trip or stage labels are missing, we copy over from the other.
-  filename <- paste0(local_path,"/trips_",CITY,".csv")
-  trip_set <- read_csv(filename,col_types = cols())
-  trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
-  ## copy over as required
-  mode_cols <- c('trip_mode','stage_mode')
-  if(sum(mode_cols%in%colnames(trip_set))==0) stop(paste0('Please include a column labelled "trip_mode" or "stage_mode" in ', filename))
-  ##!! sort out ordering. don't want to write in stage from trip if we have stage complement.
-  if('trip_mode'%in%colnames(trip_set)&&!'stage_mode'%in%colnames(trip_set)) 
-    trip_set$stage_mode <- trip_set$trip_mode
-  if('stage_mode'%in%colnames(trip_set)&&!'trip_mode'%in%colnames(trip_set)) 
-    trip_set$trip_mode <- trip_set$stage_mode
-  if('trip_duration'%in%colnames(trip_set)&&!'stage_duration'%in%colnames(trip_set)) 
-    trip_set$stage_duration <- trip_set$trip_duration
-  if('trip_distance'%in%colnames(trip_set)&&!'stage_distance'%in%colnames(trip_set)) 
-    trip_set$stage_distance <- trip_set$trip_distance
-  if('stage_distance'%in%colnames(trip_set)&&!'trip_distance'%in%colnames(trip_set)) 
-    trip_set$trip_distance <- trip_set$stage_distance
-  ## use specified words for key modes
-  walk_words <- c('walk','walked','pedestrian')
-  bike_words <- c('bike','cycle','cycling')
-  mc_words <- c('motorbike','mcycle','mc','mtw')
-  subway_words <- c('metro','underground')
-  rail_words <- c('train')
-  for(i in 1:length(mode_cols)){
-    ## lower case mode names
-    trip_set[[mode_cols[i]]] <- tolower(trip_set[[mode_cols[i]]])
-    ## replaces spaces with _
-    trip_set[[mode_cols[i]]] <- sapply(trip_set[[mode_cols[i]]],function(x)gsub(' ','_',as.character(x)))
-    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]=='private_car'] <- 'car'
-    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%walk_words] <- 'walking'
-    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%bike_words] <- 'bicycle'
-    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%mc_words] <- 'motorcycle'
-    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%subway_words] <- 'subway'
-    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%rail_words] <- 'rail'
-  }
-  trip_set <- subset(trip_set,!is.na(age))
-  trip_set <- subset(trip_set,!is.na(sex))
-  TRIP_SET <<- trip_set
-  
-  if(MAX_MODE_SHARE_SCENARIO&&
-     (!exists('SCENARIO_PROPORTIONS')||
-      exists('SCENARIO_PROPORTIONS')&&!isTRUE(all_equal(DIST_CAT,colnames(SCENARIO_PROPORTIONS)))
-      )){
-    SCENARIO_PROPORTIONS <<- get_scenario_settings(distances=DIST_CAT,speeds=speeds)
-  }
     
   
   filename <- paste0(local_path,"/pa_",CITY,".csv")
