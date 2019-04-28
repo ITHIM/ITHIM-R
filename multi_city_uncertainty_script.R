@@ -1,3 +1,6 @@
+library(devtools)
+install.packages('readr',repos="https://cran.us.r-project.org/")
+install()
 library(ithimr)
 rm(list=ls())
 cities <- c('accra','sao_paulo','delhi','bangalore')
