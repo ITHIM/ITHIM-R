@@ -6,7 +6,7 @@ library(tidyverse)
 library(plotly)
 
 # Read sao paulo's travel survey
-rd <- read.csv("data/local/sao_paulo/trips_sao_paulo2.csv", stringsAsFactors = F)
+rd <- read_csv("data/local/sao_paulo/trips_sao_paulo2.csv", stringsAsFactors = F)
 
 # Data Dictionary
 
@@ -195,39 +195,53 @@ rd$tid <- rd$pid <- NULL
 
 write_csv(rd, "data/local/sao_paulo/trips_sao_paulo_expanded.csv")
 
+require(tidyverse)
+
+rd <- read_csv("data/local/sao_paulo/trips_sao_paulo_expanded.csv")
+
 # Create a filtered df with selected columns
 rd$participant_id <- rd$pid
 rd$pid <- NULL
 
+rd$trip_id <- rd$tid
+rd$tid <- NULL
+
+rd <- mutate(rd, trip_distance = trip_distance / 1000)
+
+rd$stage_mode <- rd$trip_mode
+rd$stage_distance <- rd$trip_distance
+rd$stage_duration <- rd$trip_duration
+
+rd <- mutate(rd, total_short_walk_time = walking_time_origin + walking_time_dest)
+rows_list <- list()
+ind <- 1
+
 for (i in 1:nrow(rd)){
   nr <- rd[i, ]
-  if (!is.na(nr$walking_time_origin) && nr$walking_time_origin > 0){
-    nro <- nr
-    nro$trip_mode <- "short_walk"
-    rd <- rbind(rd, nro)
-  }
-  
-  if (!is.na(nr$walking_time_dest) && nr$walking_time_dest > 0){
-    nrd <- nr
-    nrd$trip_mode <- "short_walk"
-    rd <- rbind(rd, nrd)
+  if (!is.na(nr$total_short_walk_time) && nr$total_short_walk_time > 0){
+    nr$stage_mode <- "short walk"
+    nr$stage_duration <- nr$total_short_walk_time
+    nr$stage_distance <- nr$total_short_walk_time / 60 * 4.8
+    rows_list[[ind]] <- nr
+    ind <- ind + 1
   }
 }
 
-# Define distance categories
-dist_cat <- c("0-6 km", "7-9 km", "10+ km")
+df <- plyr::ldply (rows_list, data.frame)
+rd <- rbind(rd, df)
 
-# Initialize them
+rd$stage_duration <- rd$trip_duration
+rd$walking_time_origin <- NULL
+rd$walking_time_dest <- NULL
 rd$trip_distance_cat <- NULL
-rd$trip_distance_cat[rd$trip_distance > 0 & rd$trip_distance < 7] <- dist_cat[1]
-rd$trip_distance_cat[rd$trip_distance >= 7 & rd$trip_distance < 10] <- dist_cat[2]
-rd$trip_distance_cat[rd$trip_distance >= 10] <- dist_cat[3]
+rd$person_weight <- NULL
+rd$total_short_walk_time <- NULL
 
-## Sample 1k rows for easier calculations
-# set random seed
-set.seed(40)
-sd <- sample_n(rd, 1000)
-sd %>% group_by(trip_mode) %>% summarise(round = (n() / nrow(.) * 100))
+rd$trip_distance <- ave(rd$stage_distance, rd$trip_id, FUN=sum)
+rd$trip_duration <- ave(rd$stage_duration, rd$trip_id, FUN=sum)
+
+# Save to a local var
+b <- rd
 
 # Plot distance distribution
 ggplot(sd %>% 
@@ -242,7 +256,7 @@ ggplot(sd %>%
   labs(x = "", y = "percentage(%)", title = "Main Mode Distance distribution")
 
 # Plot mode distribution
-ggplot(sd %>% 
+ggplot(rd %>% 
          filter(!is.na(trip_mode)) %>% 
          group_by(trip_mode) %>% 
          summarise(count = n()) %>% 
@@ -254,25 +268,10 @@ ggplot(sd %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(x = "", y = "percentage(%)", title = "Main Mode distribution - without weights")
 
+rd$sex[rd$sex == 1] <- "Male"
+rd$sex[rd$sex == 2] <- "Female"
 
-#sd's unique modes
-# [1] NA          "bus"       "subway"    "car"       "motorbike" "bicycle"   "train"     "walk"      "van"      
-# [10] "others"    "taxi"
-
-#accra's unique modes
-# [1] "99"          "Bus"         "Taxi"        "Walking"     "Train"       "Private Car" "Other"      
-# [8] "Unspecified" "Bicycle"
-
-#sd[sd$trip_mode == "bus",]$trip_mode <- "Bus"
-sd[is.na(sd$trip_mode),]$trip_mode <- "99"
-#sd[sd$trip_mode == "car",]$trip_mode <- "Private Car"
-#sd[sd$trip_mode == "bicycle",]$trip_mode <- "Bicycle"
-#sd[sd$trip_mode == "train",]$trip_mode <- "Train"
-sd[sd$trip_mode == "walk",]$trip_mode <- "walking"
-#sd[sd$trip_mode == "taxi",]$trip_mode <- "Taxi"
-#sd[sd$trip_mode == "motorcycle",]$trip_mode <- "Motorcycle"
-
-write_csv(sd, "data/local/sao_paulo/trips_sao_paulo.csv")
+write_csv(rd, "inst/extdata/local/sao_paulo/trips_sao_paulo.csv")
 
 # Read raw pa for csv and store the filtered pa
 {

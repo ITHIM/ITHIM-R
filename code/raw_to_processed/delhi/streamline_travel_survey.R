@@ -241,21 +241,24 @@ rd$hh_id <- NULL
 # Calculate total distance by summing all stages' distance
 rd$total_distance <- ave(rd$distance, rd$trip_id, FUN=sum)
 
+# Change unit of stage_duration from hours to mins
+rd <- rd %>% mutate(duration = duration * 60)
+
 # save this in a local temp var
 b <- rd
 
 #####
 ## Rename columns
 
-rd <- rd %>% rename(stage_mode_int = mode, stage_id = stage, stage_mode = mode_name, stage_distance = distance, stage_duration = duration, trip_mode_int = main_mode,
+rd <- rd %>% dplyr::rename(stage_mode_int = mode, stage_id = stage, stage_mode = mode_name, stage_distance = distance, stage_duration = duration, trip_mode_int = main_mode,
                      trip_mode = main_mode_name, trip_distance = total_distance)
 
 
 #####
 ## Reorder columns
-rd <- rd %>% select(participant_id, age, sex, hh_weights, stage_id, stage_mode_int, stage_mode, stage_duration, stage_distance,
+rd <- rd %>% dplyr::select(participant_id, age, sex, hh_weights, stage_id, stage_mode_int, stage_mode, stage_duration, stage_distance,
                      trip_id, trip_mode_int, trip_mode, trip_distance)
   
 #####
 # Write streamlined travel survey data as a csv in the inst folder
-write_csv(rd, "inst/extdata/local/delhi/trips.csv")
+write_csv(rd, "inst/extdata/local/delhi/trips_delhi.csv")
