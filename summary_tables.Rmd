@@ -114,6 +114,7 @@ for(city in cities){
   count_people <- nrow(io[[city]]$synth_pop)
     td <- io[[city]]$dur %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, funs(round((.) / count_people, round_to)))
     colnames(td)[3:7] <- rownames(scen_prop)
+    print(kable(td, caption = paste("Duration table (mins) for ", city, "( ", count_people, " ) per person (everyone)")))
     
     
     count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
