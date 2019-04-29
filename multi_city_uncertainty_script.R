@@ -74,6 +74,8 @@ for(city in cities){
   distances[[city]] <- NULL
   distances[[city]] <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=numcores)
 }
+SCEN <- rownames(SCENARIO_PROPORTIONS)
+NSCEN <- length(SCEN)
 for(city in cities){
   dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(distances[[city]][[1]]$dist/nrow(distances[[city]][[1]]$pp_summary[[1]])))
   pdf(paste0('distance_distribution_10000p_',city,'.pdf')); par(mfrow=c(2,3),mar=c(7,5,2,1))
