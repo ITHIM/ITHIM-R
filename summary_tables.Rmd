@@ -42,7 +42,17 @@ plot_mmets <- F
 ```
 
 ## Scenario definition
-Table displays highest propensity for each distance category, for a given mode.
+Table displays highest propensity (%) for each distance category, for a given mode.
+
+In scenario generation, trips are sampled without replacement to increase the share of the requested mode up to the total shown.
+
+Distance categories are: 
+
+0-1 km = \{trip distance < 2\}
+
+2-5 km = \{2 <= trip distance < 6\}
+
+6+ km = \{6 <= trip distance\}
 
 
 ```{r scen_prop = "asis"}
@@ -114,6 +124,7 @@ for(city in cities){
   count_people <- nrow(io[[city]]$synth_pop)
     td <- io[[city]]$dur %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, funs(round((.) / count_people, round_to)))
     colnames(td)[3:7] <- rownames(scen_prop)
+    print(kable(td, caption = paste("Duration table (mins) for ", city, "( ", count_people, " ) per person (everyone)")))
     
     
     count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))

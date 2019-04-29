@@ -96,7 +96,7 @@ scenario_pm_calculations <- function(dist,pp_summary){
     # calculate non-travel air inhalation
     non_transport_air_inhaled <- (24-individual_data$on_road_dur/60)*BASE_LEVEL_INHALATION_RATE
     # concentration of pm inhaled = total pm inhaled / total air inhaled
-    pm_conc <- ((non_transport_air_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)/(non_transport_air_inhaled+individual_data$air_inhaled)
+    pm_conc <- ((non_transport_air_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)#/(non_transport_air_inhaled+individual_data$air_inhaled)
     # match individual ids to set per person pm exposure
     synth_pop[[paste0('pm_conc_',SCEN_SHORT_NAME[i])]][match(individual_data[,participant_id],synth_pop$participant_id)] <- pm_conc
   }
@@ -106,10 +106,9 @@ scenario_pm_calculations <- function(dist,pp_summary){
   mean_conc <- rep(0,length(SCEN_SHORT_NAME))
   
   ## calculating means of individual-level concentrations
-  for ( i in 1: length(SCEN_SHORT_NAME))
-    mean_conc[i] <- mean(synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]])
+  mean_conc <- mean(synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[1])]])
   
-  normalise <- as.numeric(conc_pm[1])/as.numeric(mean_conc[1])
+  normalise <- as.numeric(conc_pm[1])/as.numeric(mean_conc)
   ###Lines which are normalising the concentrations
   
   for (i in 1: length(SCEN_SHORT_NAME))

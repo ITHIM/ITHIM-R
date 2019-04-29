@@ -33,7 +33,7 @@ library(dplyr)
 # Boxplots of Individual-level PM2.5 Concentrations
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-io <- readRDS("V:/Group/RG_PHM/ITHIM-R/results/multi_city/io.rds")
+io <- readRDS("results/multi_city/io.rds")
 
 cities<- names(io)
 cities<- cities[-2]

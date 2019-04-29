@@ -16,7 +16,7 @@ distances_for_injury_function <- function(pp_summary){
   for(i in 1:length(mode_cols)) true_dist[,mode_cols[i]] <- true_dur[,mode_cols[i]]*mode_speeds[i]/60
   
   true_dist$pedestrian <- true_dist$walking 
-  if(ADD_WALK_TO_BUS_TRIPS){
+  if('walk_to_bus'%in%colnames(true_dist)){
     true_dist$pedestrian <- true_dist$pedestrian + true_dist$walk_to_bus
   }
   ## car is car, taxi, shared auto, shared taxi
@@ -78,7 +78,7 @@ distances_for_injury_function <- function(pp_summary){
   ##RJ linearity in group rates
   CAS_EXPONENT <<- INJURY_LINEARITY * CASUALTY_EXPONENT_FRACTION
   STR_EXPONENT <<- INJURY_LINEARITY - CAS_EXPONENT
-  forms <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)+(1-STR_EXPONENT)*log(strike_distance_sum))',
+  forms <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)-STR_EXPONENT*log(strike_distance_sum))',
                 noov='count~cas_mode+strike_mode+offset(log(cas_distance))')
   if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
     for(type in c('whw','noov'))
