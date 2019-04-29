@@ -1,5 +1,7 @@
 setwd('~/overflow_dropbox/ITHIM-R')
+library(devtools)
 build()
+install()
 library(ithimr)
 rm(list=ls())
 cities <- c('accra','sao_paulo','delhi','bangalore')
