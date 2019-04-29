@@ -58,12 +58,12 @@ chronic_disease_scalar <- list(accra=1,
                                delhi=1,
                                bangalore=1)
 # constant parameters for PM_CONC_BASE
-pm_concentration <- list(accra=50,
+pm_concentration <- list(accra=46, # dionisio et al 2010; residential average
                          sao_paulo=18,
                          delhi=122,
                          bangalore=47.4)
 # constant parameters for PM_TRANS_SHARE
-pm_trans_share <- list(accra=0.225,
+pm_trans_share <- list(accra=0.225, ##WHO database
                        sao_paulo=0.4,
                        delhi=0.225,
                        bangalore=0.281)
