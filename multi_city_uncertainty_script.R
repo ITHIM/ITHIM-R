@@ -1,6 +1,4 @@
-library(devtools)
-install.packages('readr',repos="https://cran.us.r-project.org/")
-install()
+setwd('~/overflow_dropbox/ITHIM-R')
 library(ithimr)
 rm(list=ls())
 cities <- c('accra','sao_paulo','delhi','bangalore')
@@ -50,7 +48,7 @@ max_age <- 69
 ##check distances 
 
 numcores <- detectCores()
-
+load('diagnostic/parameter_settings.Rdata')
 ## plot distances for all cities
 ## distance plots don't need so many samples!
 numcores <- detectCores()
