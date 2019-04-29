@@ -13,7 +13,7 @@ distances_for_injury_function <- function(trip_scen_sets){
   distances <- spread(journeys,stage_mode, tot_dist,fill=0) 
   distances$pedestrian <- distances$walking 
   distances <- distances[, -which(names(distances) ==  "walking")]
-  if(ADD_WALK_TO_BUS_TRIPS){
+  if('walk_to_bus'%in%colnames(distances)){
     distances$pedestrian <- distances$pedestrian + distances$walk_to_bus
     distances <- distances[, -which(names(distances) ==  "walk_to_bus")]
   }
