@@ -26,6 +26,7 @@ library(ggplot2)  #loading ggplot package for plotting graphs
 library(knitr)     
 library(tidyr)
 library(dplyr)
+library(kableExtra)
 
 ```
 
@@ -33,7 +34,7 @@ library(dplyr)
 # Boxplots of Individual-level PM2.5 Concentrations
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-io <- readRDS("V:/Group/RG_PHM/ITHIM-R/results/multi_city/io.rds")
+io <- readRDS("results/multi_city/io.rds")
 
 cities<- names(io)
 cities<- cities[-2]
@@ -65,7 +66,9 @@ for (x in 1: length(cities))
   print (as.character(cities[x]))
   print(summary)
   
-
+  summary %>%
+  kable() %>%
+  kable_styling()
   
 }
 ```
