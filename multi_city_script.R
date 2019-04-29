@@ -194,6 +194,7 @@ boxplot(dist_mat,names=rownames(outcomes[[i]]$dist),las=2,ylim=c(0,30))
 
 ## plot distances for all cities
 ## distance plots don't need so many samples!
+load('diagnostic/parameter_settings.Rdata')
 numcores <- detectCores()
 distances <- list()
 for(city in cities){
@@ -217,12 +218,14 @@ for(city in cities){
   distances[[city]] <- NULL
   distances[[city]] <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=numcores)
 }
+SCEN_SHORT_NAME <- c('Baseline',rownames(SCENARIO_PROPORTIONS))
+NSCEN <- length(SCEN_SHORT_NAME)
 for(city in cities){
   dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(distances[[city]][[1]]$dist/nrow(distances[[city]][[1]]$pp_summary[[1]])))
   pdf(paste0('distance_distribution_1000p_',city,'.pdf')); par(mfrow=c(2,3),mar=c(7,5,2,1))
     for(j in 1:6){for(i in 1:NSAMPLES)
       dist_mat[i,] <- distances[[city]][[i]]$dist[,j]/nrow(distances[[city]][[i]]$pp_summary[[1]])
-    boxplot(dist_mat,names=rownames(distances[[city]][[i]]$dist),las=2,frame=F,main=paste0(SCEN[j],', ',city),ylab='km pp')
+    boxplot(dist_mat,names=rownames(distances[[city]][[i]]$dist),las=2,frame=F,main=paste0(SCEN_SHORT_NAME[j],', ',city),ylab='km pp')
     }
   dev.off()
   }    
@@ -364,7 +367,7 @@ normVariables <- c("BUS_WALK_TIME",
                    "DISTANCE_SCALAR_CYCLING",
                    "DISTANCE_SCALAR_MOTORCYCLE")
 
-save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
+save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,add_walk_to_bus_trips,
           background_pa_scalar,background_pa_confidence,bus_walk_time,mmet_cycling,mmet_walking,emission_inventories,
           motorcycle_to_car_ratio,injury_linearity,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
           bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
