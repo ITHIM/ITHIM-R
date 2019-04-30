@@ -44,6 +44,17 @@ plot_mmets <- F
 ## Scenario definition
 Table displays highest propensity for each distance category, for a given mode.
 
+Table displays highest propensity (%) for each distance category, for a given mode.
+
+In scenario generation, trips are sampled without replacement to increase the share of the requested mode up to the total shown.
+
+Distance categories are: 
+
+0-1 km = \{trip distance < 2\}
+
+2-5 km = \{2 <= trip distance < 6\}
+
+6+ km = \{6 <= trip distance\}
 
 ```{r scen_prop = "asis"}
 
