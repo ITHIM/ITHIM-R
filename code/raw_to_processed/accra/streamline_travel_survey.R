@@ -118,3 +118,27 @@ for(i in 1:nPeople){
   # Add new motorbikes trips to baseline
   raw_trip_set <- rbind(raw_trip_set, new_trips)
 }
+
+## Apply census weights to accra trip set at person level
+
+raw_trip_set$age_cat <- ""
+
+raw_trip_set[raw_trip_set$age >= 15 & raw_trip_set$age < 50,]$age_cat <- '15-49'
+raw_trip_set[raw_trip_set$age > 49 & raw_trip_set$age < 70,]$age_cat <- '50-69'
+
+pop_weights <- read_csv("data/local/accra/census_weights.csv")
+
+for (i in 1:nrow(pop_weights)){
+  td <- raw_trip_set[raw_trip_set$age_cat == pop_weights$age[i] & raw_trip_set$sex == pop_weights$sex[i],]
+  n <- pop_weights$rweights[i]
+  td1 <- td[rep(seq_len(nrow(td)), n), ]
+  
+  td1$participant_id <- td1$participant_id + max(raw_trip_set$participant_id)
+  td1$trip_id <- (max(raw_trip_set$trip_id) + 1): (max(raw_trip_set$trip_id) + nrow(td1))
+  
+  raw_trip_set <- rbind(raw_trip_set, td1)
+  
+}
+
+raw_trip_set$age_cat <- NULL
+
