@@ -3,7 +3,9 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
   ## For predictive uncertainty, we could sample a number from the predicted distribution
   injuries <- true_distances
   injuries$bus_driver <- 0
+  whw_temp <- list()
   for(scen in SCEN){
+    whw_temp[[scen]] <- list()
     for(type in c('whw','noov')){
       injuries_list[[scen]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
       injuries_list[[scen]][[type]]$pred <- predict(reg_model[[type]],newdata = remove_missing_levels(reg_model[[type]],injuries_list[[scen]][[type]]),type='response')
