@@ -24,6 +24,7 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
   }
   
   injuries$Deaths <- rowSums(injuries[,match(unique(injuries_list[[1]]$whw$cas_mode),colnames(injuries))])
+  injuries$whw <- whw_temp
   injuries
   ##TODO add in uncaptured fatalities as constant
 }
