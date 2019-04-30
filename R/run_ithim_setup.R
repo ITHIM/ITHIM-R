@@ -5,6 +5,7 @@ run_ithim_setup <- function(seed = 1,
                             emission_inventory = NULL,
                             setup_call_summary_filename = 'setup_call_summary.txt',
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
+                            AGE_RANGE = c(0,150),
                             ADD_WALK_TO_BUS_TRIPS = T,
                             ADD_BUS_DRIVERS = T,
                             ADD_TRUCK_DRIVERS = T,
@@ -47,6 +48,9 @@ run_ithim_setup <- function(seed = 1,
   # setup_call_summary_filename = string. Where to write input call summary.
   # DIST_CAT = vector of strings. defines distance categories for scenario generation (5 accra scenarios)
   
+  # AGE_RANGE = vector of length 2, specifying the minimum and maximum ages to be used in the model. Note that the actual 
+  # maximum and minimum will coincide with boundaries in the population and GBD files.
+  
   # ADD_WALK_TO_BUS_TRIPS = logic. T: adds walk trips to all bus trips whose duration exceeds BUS_WALK_TIME. F: no trips added
   # ADD_BUS_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
   # ADD_TRUCK_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
@@ -68,14 +72,24 @@ run_ithim_setup <- function(seed = 1,
   
   # PA_DOSE_RESPONSE_QUANTILE = logic. T: PA dose--response relationship is sampled. F: relationship is fixed.
   # AP_DOSE_RESPONSE_QUANTILE = logic. T: AP dose--response relationship is sampled. F: relationship is fixed.
-  
-  # BACKGROUND_PA_SCALAR = parameter. double: sets scalar for background PA. vector: samples from distribution.
-  # INJURY_REPORTING_RATE = parameter. double: sets scalar for injury counts (inverse). vector: samples from distribution.
   # CHRONIC_DISEASE_SCALAR = parameter. double: sets scalar for chronic disease background burden. vector: samples from distribution.
   
+  # BACKGROUND_PA_SCALAR = parameter. double: sets scalar for background PA. vector: samples from distribution.
+  # BACKGROUND_PA_CONFIDENCE = parameter. double between 0 and 1. 1 = use PA data as they are.
+  # INJURY_REPORTING_RATE = parameter. double: sets scalar for injury counts (inverse). vector: samples from distribution.
+  # INJURY_LINEARITY = parameter. double: sets scalar. vector: samples from distribution.
+  # CASUALTY_EXPONENT_FRACTION = parameter. double: sets scalar. vector: samples from distribution.
+  
+  # DAY_TO_WEEK_TRAVEL_SCALAR = parameter. double: sets scalar for extrapolation from day to week. vector: samples from distribution.
   # MOTORCYCLE_TO_CAR_RATIO = parameter. double: sets motorcycle distance relative to car. vector: samples from distribution.
-  # BUS_TO_PASSENGER_RATIO = constant.
-  # TRUCK_TO_CAR_RATIO = constant.
+  # BUS_TO_PASSENGER_RATIO = parameter. double: sets bus distance relative to bus passenger distance. vector: samples from distribution.
+  # TRUCK_TO_CAR_RATIO = parameter. double: sets truck distance relative to car. vector: samples from distribution.
+  # EMISSION_INVENTORY_CONFIDENCE = parameter. double between 0 and 1. 1 = use emission data as they are.
+  # DISTANCE_SCALAR_CAR_TAXI = double: sets scalar. vector: samples from distribution.
+  # DISTANCE_SCALAR_WALKING = double: sets scalar. vector: samples from distribution.
+  # DISTANCE_SCALAR_PT = double: sets scalar. vector: samples from distribution.
+  # DISTANCE_SCALAR_CYCLING = double: sets scalar. vector: samples from distribution.
+  # DISTANCE_SCALAR_MOTORCYCLE = double: sets scalar. vector: samples from distribution.
   
   #################################################
   set.seed(seed)
@@ -102,6 +116,20 @@ run_ithim_setup <- function(seed = 1,
     PATH_TO_LOCAL_DATA <<- PATH_TO_LOCAL_DATA
   }
   REFERENCE_SCENARIO <<- REFERENCE_SCENARIO
+  AGE_RANGE <<- AGE_RANGE
+  
+  #BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
+  #TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
+  DIST_CAT <<- DIST_CAT
+  DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
+  
+  ## fixed parameters for AP inhalation
+  BASE_LEVEL_INHALATION_RATE <<- 10
+  CLOSED_WINDOW_PM_RATIO <<- 0.5
+  CLOSED_WINDOW_RATIO <<- 0.5
+  ROAD_RATIO_MAX <<- 3.216
+  ROAD_RATIO_SLOPE <<- 0.379
+  SUBWAY_PM_RATIO <<- 0.8
   
   ## default speeds that can be edited by input. 
   default_speeds <- list(
@@ -167,19 +195,6 @@ run_ithim_setup <- function(seed = 1,
     cat(paste(names(EMISSION_INVENTORY)[i],EMISSION_INVENTORY[[i]]),file=setup_call_summary_filename,append=T); 
     cat('\n',file=setup_call_summary_filename,append=T)
   }
-  
-  #BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
-  #TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
-  DIST_CAT <<- DIST_CAT
-  DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
-  
-  ## fixed parameters for AP inhalation
-  BASE_LEVEL_INHALATION_RATE <<- 10
-  CLOSED_WINDOW_PM_RATIO <<- 0.5
-  CLOSED_WINDOW_RATIO <<- 0.5
-  ROAD_RATIO_MAX <<- 3.216
-  ROAD_RATIO_SLOPE <<- 0.379
-  SUBWAY_PM_RATIO <<- 0.8
   
   ## LOAD DATA
   ithim_load_data(speeds=default_speeds)  
