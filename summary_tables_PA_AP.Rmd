@@ -138,6 +138,7 @@ dist_scen<- io[[cities[x]]]$trip_scen_sets %>% group_by(trip_mode, scenario) %>%
 dist_scen<- as.data.frame (dist_scen)
 names(dist_scen)[3]<-"distance"
 dist_scen<-spread(dist_scen, trip_mode, distance)
+
 dist_scen$sum<-rowSums (dist_scen[2:(ncol(dist_scen)-1)], na.rm = FALSE, dims = 1)
 dist_scen_prop<- round(dist_scen[,2:(ncol(dist_scen)-1)]*100/dist_scen$sum, digits=1)
 dist_scen_prop<- cbind(dist_scen[,1], dist_scen_prop)
@@ -146,6 +147,7 @@ names(dist_scen_prop)[1]<-"Scenario"
 dist_scen_prop$Scenario<- c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
 print (as.character(cities[x]))
 print(dist_scen_prop)
+print(dist_scen)
 #library(knitr)
 #library(kableExtra)
 #kable(dist_scen_prop)
