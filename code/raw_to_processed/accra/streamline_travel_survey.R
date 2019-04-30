@@ -142,3 +142,7 @@ for (i in 1:nrow(pop_weights)){
 
 raw_trip_set$age_cat <- NULL
 
+#####
+# Write streamlined travel survey data as a csv in the inst folder
+write_csv(raw_trip_set, "inst/extdata/local/accra/trips_bangalore.csv")
+
