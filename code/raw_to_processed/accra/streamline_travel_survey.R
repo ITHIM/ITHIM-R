@@ -33,3 +33,49 @@ walk_to_bus$stage_duration <- 10.55
 
 # Add walk to bus stage
 raw_trip_set <- rbind(raw_trip_set, walk_to_bus)
+
+## default speeds from ITHIM-R model
+default_speeds <- list(
+  bus=15,
+  bus_driver=15,
+  minibus=15,
+  minibus_driver=15,
+  car=21,
+  taxi=21,
+  walking=4.8,
+  walk_to_bus=4.8,
+  bicycle=14.5,
+  motorcycle=25,
+  truck=21,
+  van=15,
+  subway=28,
+  rail=35,
+  auto_rickshaw=22,
+  shared_auto=22,
+  shared_taxi=21,
+  cycle_rickshaw=10
+)
+
+# Create travel modes with all default speeds
+TRAVEL_MODES <- tolower(names(default_speeds))
+
+# Create df with speed for each travel mode
+MODE_SPEEDS <- data.frame(stage_mode = TRAVEL_MODES, speed = unlist(default_speeds), stringsAsFactors = F)
+
+# Assign stage_speed according to travel mode
+stage_speed <- sapply(raw_trip_set$stage_mode,function(x){speed <- MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==x]; ifelse(length(speed)==0,0,speed)})
+
+## if distance but no duration, add duration
+## duration = distance / speed * 60
+if('stage_distance'%in%colnames(raw_trip_set)&&!'stage_duration'%in%colnames(raw_trip_set))
+  raw_trip_set$stage_duration <- raw_trip_set$stage_distance / stage_speed * 60
+## if duration but no distance, add distance
+## distance = speed * duration / 60
+if('stage_duration'%in%colnames(raw_trip_set)&&!'stage_distance'%in%colnames(raw_trip_set))
+  raw_trip_set$stage_distance <- raw_trip_set$stage_duration * stage_speed / 60
+## depending on the situation there might be other (faster) ways to compute trip_distance,
+## e.g. as a function of trip duration or it might just be the same as stage_distance but
+## to allow for all eventualities we just sum the stages of each trip.
+if(!'trip_distance'%in%colnames(raw_trip_set))
+  raw_trip_set$trip_distance <- sapply(raw_trip_set$trip_id,function(x)sum(subset(raw_trip_set,trip_id==x)$stage_distance))
+
