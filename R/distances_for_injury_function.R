@@ -13,7 +13,7 @@ distances_for_injury_function <- function(trip_scen_sets){
   distances <- spread(journeys,stage_mode, tot_dist,fill=0) 
   distances$pedestrian <- distances$walking 
   distances <- distances[, -which(names(distances) ==  "walking")]
-  if('walk_to_bus'%in%colnames(distances)){
+  if(ADD_WALK_TO_BUS_TRIPS){
     distances$pedestrian <- distances$pedestrian + distances$walk_to_bus
     distances <- distances[, -which(names(distances) ==  "walk_to_bus")]
   }
@@ -76,7 +76,7 @@ distances_for_injury_function <- function(trip_scen_sets){
   ##RJ linearity in group rates
   CAS_EXPONENT <<- INJURY_LINEARITY * CASUALTY_EXPONENT_FRACTION
   STR_EXPONENT <<- INJURY_LINEARITY - CAS_EXPONENT
-  forms <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)-STR_EXPONENT*log(strike_distance_sum))',
+  forms <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)+(1-STR_EXPONENT)*log(strike_distance_sum))',
                 noov='count~cas_mode+strike_mode+offset(log(cas_distance))')
   if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
     for(type in c('whw','noov'))
