@@ -129,14 +129,25 @@ raw_trip_set[raw_trip_set$age > 49 & raw_trip_set$age < 70,]$age_cat <- '50-69'
 pop_weights <- read_csv("data/local/accra/census_weights.csv")
 
 for (i in 1:nrow(pop_weights)){
+  # i <- 1
   td <- raw_trip_set[raw_trip_set$age_cat == pop_weights$age[i] & raw_trip_set$sex == pop_weights$sex[i],]
   n <- pop_weights$rweights[i]
-  td1 <- td[rep(seq_len(nrow(td)), n), ]
+  last_id <- max(td$participant_id)
   
-  td1$participant_id <- td1$participant_id + max(raw_trip_set$participant_id)
-  td1$trip_id <- (max(raw_trip_set$trip_id) + 1): (max(raw_trip_set$trip_id) + nrow(td1))
+  for (j in 1:n){
+    td1 <- td
+    td1$participant_id <- td1$participant_id + max(td$participant_id)
+    td1$trip_id <- (max(td$trip_id) + 1): (max(td$trip_id) + nrow(td1))
+    raw_trip_set <- rbind(raw_trip_set, td1)
+    
+    td <- td1
+  }
   
-  raw_trip_set <- rbind(raw_trip_set, td1)
+  
+  # td1$participant_id <- td1$participant_id + max(raw_trip_set$participant_id)
+  # td1$trip_id <- (max(raw_trip_set$trip_id) + 1): (max(raw_trip_set$trip_id) + nrow(td1))
+  # 
+  # raw_trip_set <- rbind(raw_trip_set, td1)
   
 }
 
