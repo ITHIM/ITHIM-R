@@ -41,16 +41,22 @@ plot_mmets <- F
 ```{r preprocessing}
 scen_prop <- io$scen_prop
 io <- io[-2]
-for(i in 1:length(io)) io[[i]]$outcomes$hb$deaths$age_cat[io[[i]]$outcomes$hb$deaths$age_cat=='5-9'] <- '05-9'
 for(i in 1:length(io)) {
+  io[[i]]$demographic$age[io[[i]]$demographic$age=='5-9'] <- '05-9'
+  io[[i]]$outcomes$hb$deaths$age_cat[io[[i]]$outcomes$hb$deaths$age_cat=='5-9'] <- '05-9'
+  io[[i]]$outcomes$hb$ylls$age_cat[io[[i]]$outcomes$hb$ylls$age_cat=='5-9'] <- '05-9'
+  io[[i]]$outcomes$pathway_hb$deaths$age_cat[io[[i]]$outcomes$pathway_hb$deaths$age_cat=='5-9'] <- '05-9'
+  io[[i]]$outcomes$pathway_hb$ylls$age_cat[io[[i]]$outcomes$pathway_hb$ylls$age_cat=='5-9'] <- '05-9'
   io[[i]]$outcomes$hb$deaths <- io[[i]]$outcomes$hb$deaths[,!sapply(names(io[[i]]$outcomes$hb$deaths),function(x)grepl('ac|neo',as.character(x)))]
   io[[i]]$outcomes$hb$ylls <- io[[i]]$outcomes$hb$ylls[,!sapply(names(io[[i]]$outcomes$hb$ylls),function(x)grepl('ac|neo',as.character(x)))]
+  io[[i]]$outcomes$pathway_hb$deaths <- io[[i]]$outcomes$pathway_hb$deaths[,!sapply(names(io[[i]]$outcomes$pathway_hb$deaths),function(x)grepl('ac|neo',as.character(x)))]
+  io[[i]]$outcomes$pathway_hb$ylls <- io[[i]]$outcomes$pathway_hb$ylls[,!sapply(names(io[[i]]$outcomes$pathway_hb$ylls),function(x)grepl('ac|neo',as.character(x)))]
 }
-for(i in 1:length(io)) io[[i]]$demographic$age[io[[i]]$demographic$age=='5-9'] <- '05-9'
 pop_by_age <- lapply(io,function(x)sapply(unique(x$demographic$age),function(y)sum(subset(x$demographic,age==y)$population)))
 pop_by_gender <- lapply(io,function(x)sapply(unique(x$demographic$sex),function(y)sum(subset(x$demographic,sex==y)$population)))
-for(i in 1:length(io)) io[[i]]$outcomes$hb$ylls$age_cat[io[[i]]$outcomes$hb$ylls$age_cat=='5-9'] <- '05-9'
 injury_col <- which(colnames(io$accra$outcomes$hb$deaths)=='scen1_deaths_inj')
+ap_cols <- which(sapply(colnames(io$accra$outcomes$pathway_hb$deaths),function(x)grepl('ap',as.character(x))))
+pa_cols <- which(sapply(colnames(io$accra$outcomes$pathway_hb$deaths),function(x)grepl('pa',as.character(x))))
 scen_names <- rownames(scen_prop)
 
 ```
@@ -300,6 +306,38 @@ injury_totals_rounded <- lapply(injury_totals, function(x)round(x,round_to))
 
 for(city in cities) {
   print(kable(injury_totals_rounded[[city]], caption = paste("Change in deaths due to injury in ", city)))
+  cat("\n")
+}
+
+pa_totals <- lapply(io,function(x){
+  xx <- x$outcomes$pathway_hb$deaths
+  xxx <- sapply(1:5,function(y){
+    xxx <- rowSums(xx[,pa_cols[seq(y,length(pa_cols),by=5)]])
+    sapply(sort(unique(xx$age_cat)),function(z)sum(xxx[xx$age_cat==z]))
+  })
+  colnames(xxx) <- scen_names
+  xxx
+  })
+pa_totals_rounded <- lapply(pa_totals, function(x)round(x,round_to))
+
+for(city in cities) {
+  print(kable(pa_totals_rounded[[city]], caption = paste("Change in deaths due to PA in ", city)))
+  cat("\n")
+}
+
+ap_totals <- lapply(io,function(x){
+  xx <- x$outcomes$pathway_hb$deaths
+  xxx <- sapply(1:5,function(y){
+    xxx <- rowSums(xx[,ap_cols[seq(y,length(ap_cols),by=5)]])
+    sapply(sort(unique(xx$age_cat)),function(z)sum(xxx[xx$age_cat==z]))
+  })
+  colnames(xxx) <- scen_names
+  xxx
+  })
+ap_totals_rounded <- lapply(ap_totals, function(x)round(x,round_to))
+
+for(city in cities) {
+  print(kable(ap_totals_rounded[[city]], caption = paste("Change in deaths due to AP in ", city)))
   cat("\n")
 }
 ```

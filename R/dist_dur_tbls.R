@@ -20,7 +20,7 @@ dist_dur_tbls <- function(trip_scen_sets){
     local_dur <- data.frame(stage_mode=stage_modes,sum_dur=sapply(stage_modes,function(x)sum(subset(local,stage_mode==x)$stage_duration)))
     
     # add walk_to_bus, if walk_to_bus has been added
-    if(ADD_WALK_TO_BUS_TRIPS){
+    if("walk_to_bus"%in%local_dist$stage_mode){
       local_dist$sum_dist[local_dist$stage_mode == "walking"] <- 
         local_dist$sum_dist[local_dist$stage_mode == "walking"] + 
         local_dist$sum_dist[local_dist$stage_mode == "walk_to_bus"]
@@ -53,13 +53,21 @@ dist_dur_tbls <- function(trip_scen_sets){
   dist <- local_dist[local_dist$stage_mode != 'walk_to_bus',]
   dur <- local_dur[local_dur$stage_mode != 'walk_to_bus',]
   
+  dist$stage_mode <- as.character(dist$stage_mode)
+  dur$stage_mode <- as.character(dur$stage_mode)
+  
   ## bus travel is linear in bus passenger travel
+  bus_passenger_row <- which(dist$stage_mode=='bus')
   if('bus_driver'%in%dist$stage_mode){
     bus_driver_row <- which(dist$stage_mode=='bus_driver')
-    bus_passenger_row <- which(dist$stage_mode=='bus')
     base_col <- which(colnames(dist)=='Baseline')
     dist[bus_driver_row,colnames(dist)%in%SCEN] <- as.numeric(dist[bus_driver_row,base_col] / dist[bus_passenger_row,base_col]) * dist[bus_passenger_row,colnames(dist)%in%SCEN] 
     dur[bus_driver_row,colnames(dur)%in%SCEN] <- as.numeric(dur[bus_driver_row,base_col] / dur[bus_passenger_row,base_col]) * dur[bus_passenger_row,colnames(dur)%in%SCEN] 
+  }else{
+    dist <- rbind(dist,dist[bus_passenger_row,])
+    dist[nrow(dist),1] <- 'bus_driver'
+    dur <- rbind(dur,dur[bus_passenger_row,])
+    dur[nrow(dur),1] <- 'bus_driver'
   }
   
   return(list(dist=dist,dur=dur))
