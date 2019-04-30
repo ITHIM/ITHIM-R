@@ -17,7 +17,7 @@ get_synthetic_from_trips <- function(){
   #raw_trip_set$trip_id[!is.na(raw_trip_set$trip_id)] <- 1:sum(!is.na(raw_trip_set$trip_id))
   
   ## add motorcycle trip to accra, and replicate set four times
-  if(CITY=='accra') raw_trip_set <- edit_accra_trips(raw_trip_set)
+  #if(CITY=='accra') raw_trip_set <- edit_accra_trips(raw_trip_set)
   #SURVEY_SCALAR <<- population/length(unique(TRIP_SET$participant_id))/survey_coverage
   
   ## add bus and truck trips
