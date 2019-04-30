@@ -1,5 +1,5 @@
 #' @export
-injuries_function_2 <- function(true_distances,injuries_list,reg_model){
+injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_mode=F){
   ## For predictive uncertainty, we could sample a number from the predicted distribution
   injuries <- true_distances
   injuries$bus_driver <- 0
@@ -10,10 +10,12 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model){
     for(type in c('whw','noov')){
       injuries_list[[scen]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
       injuries_list[[scen]][[type]]$pred <- predict(reg_model[[type]],newdata = remove_missing_levels(reg_model[[type]],injuries_list[[scen]][[type]]),type='response')
-      whw_temp[[scen]][[type]] <- sapply(unique(injuries_list[[scen]][[type]]$cas_mode),function(x)
-        sapply(unique(injuries_list[[scen]][[type]]$strike_mode),function(y)sum(subset(injuries_list[[scen]][[type]],cas_mode==x&strike_mode==y)$pred,na.rm=T)))
-      colnames(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$cas_mode)
-      rownames(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$strike_mode)
+      if(constant_mode){
+        whw_temp[[scen]][[type]] <- sapply(unique(injuries_list[[scen]][[type]]$cas_mode),function(x)
+          sapply(unique(injuries_list[[scen]][[type]]$strike_mode),function(y)sum(subset(injuries_list[[scen]][[type]],cas_mode==x&strike_mode==y)$pred,na.rm=T)))
+        colnames(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$cas_mode)
+        rownames(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$strike_mode)
+      }
     }
     for(injured_mode in cas_modes)
       for(age_gen in unique(injuries$sex_age))
