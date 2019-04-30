@@ -6,23 +6,22 @@ library(tidyverse)
 library(plotly)
 
 # Read bangalore travel survey with stages
-raw_data <- read.csv("data/local/bangalore/bangalore_travel_survey_2011_March_14.csv", stringsAsFactors = F)
+raw_data <- read.csv("data/local/bangalore/bangalore_travel_survey_April2019_post_cleaning.csv", stringsAsFactors = F)
+
+# Remove ind with incorrect sex or age values
+raw_data <- filter(raw_data, sex %in% c("male","female") & (!is.na(age)))
 
 # Convert person_id to numeric
 raw_data$person_id <- as.numeric(as.factor(raw_data$person_id))
 
 #####
+## Rename columns
+raw_data <- rename(raw_data, stage_distance = Distance, stage_duration = Time, stage_id = Stage, stage_mode = mode)
+
+
+#####
 ## Remove duplicate rows
 raw_data <- raw_data[!duplicated(raw_data), ]
-
-# Create uniqueid
-raw_data$uniqueid <- paste0(raw_data$trip_id, "_", raw_data$stage)
-
-## Remove duplicated rows
-raw_data <- raw_data[(!duplicated(raw_data$uniqueid )) | (raw_data$uniqueid == "NA_NA"),]
-
-## Remove uniqueid
-raw_data$uniqueid <- NULL
 
 # Save read data in a separate var
 rd <- raw_data
@@ -42,7 +41,6 @@ rd <- rbind(rd_pwt, rd_pwot)
 rd$trip_id <- as.numeric(as.factor(rd$trip_id))
 
 
-
 #####
 ## Assign a new trip id to people without trips
 # Get unique number of trips
@@ -52,42 +50,56 @@ ntrips <- rd[is.na(rd$trip_id), ] %>% nrow()
 # Auto-increasing trip_id
 rd[is.na(rd$trip_id), ]$trip_id <- seq(last_trip_id, last_trip_id + ntrips - 1, by = 1)
 
+
+#####
+
+# Copy stage mode to trip mode
+rd$trip_mode <- rd$stage_mode
+# Create unique trip ids
+utripid <- unique(rd$trip_id)
+
+# For each trip, copy main_mode to trip_mode if it is 1
+for (i in 1:length(utripid)){
+  tid <- utripid[i]
+  mmode <- rd$stage_mode[rd$trip_id == tid & rd$main_mode == 1]
+  if (length(mmode) > 0)
+    rd$trip_mode[rd$trip_id == tid] <- mmode
+  
+}
+
+td <- rd
+
 #####
 ## Recalculate distances from speed when they're NA
 # Read speed table for Bangalore
-speed_tbl <- read_csv("inst/extdata/local/bangalore/speed_modes_india.csv")
+speed_tbl <- read_csv("data/local/bangalore/speed_modes_india.csv")
 
-# Update distance by duration (hours) * speed (kmh)
-rd[is.na(rd$distance) & !is.na(rd$duration), ]$distance <- 
-  (rd[is.na(rd$distance) & !is.na(rd$duration), ]$duration) * 
-  speed_tbl$Speed[match(rd[is.na(rd$distance) & !is.na(rd$duration), ]$mode_name, speed_tbl$Mode)]
+if (nrow(rd[is.na(rd$distance) & !is.na(rd$duration), ]) > 0){
+  # Update distance by duration (mins / 60) * speed (kmh)
+  rd[is.na(rd$distance) & !is.na(rd$duration), ]$distance <- 
+    ((rd[is.na(rd$distance) & !is.na(rd$duration), ]$duration) / 60) * 
+    speed_tbl$Speed[match(rd[is.na(rd$distance) & !is.na(rd$duration), ]$stage_mode, speed_tbl$Mode)]
+}
 
 # Remove row number column
 rd$X <- NULL
+rd$main_mode <- NULL
 
 # Rename person_id to participant_id
 rd <- rename(rd, participant_id = person_id)
 
-# Introduce sex column - and remove female column
-rd$sex <- "Male"
-rd$sex[rd$female == 1] <- "Female"
-rd$female <- NULL
+# Set sex case
+rd$sex[rd$sex == "male"] <- "Male"
+rd$sex[rd$sex == "female"] <- "Female"
 
-# Calculate total distance by summing all stages' distance
-rd$total_distance <- ave(rd$distance, rd$trip_id, FUN=sum)
-
-#####
-## Rename columns
-
-rd <- rd %>% rename(stage_mode_int = mode, stage_id = stage, stage_mode = mode_name, stage_distance = distance, 
-                    stage_duration = duration, trip_mode_int = main_mode,
-                    trip_mode = main_mode_name, trip_distance = total_distance)
+# Calculate trip distance by summing all stages' distance
+rd$trip_distance <- ave(rd$stage_distance, rd$trip_id, FUN=sum)
 
 #####
 ## Reorder columns
-rd1 <- rd %>% dplyr::select(participant_id, age, sex, stage_id, stage_mode_int, stage_mode, stage_duration, stage_distance,
-                            trip_id, trip_mode_int, trip_mode, trip_distance)
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, stage_id, stage_mode, stage_duration, stage_distance,
+                            trip_id, trip_mode, trip_distance)
 
 #####
 # Write streamlined travel survey data as a csv in the inst folder
-write_csv(rd, "inst/extdata/local/bangalore/trips_bangalore.csv")
+write_csv(rd1, "inst/extdata/local/bangalore/trips_bangalore.csv")
