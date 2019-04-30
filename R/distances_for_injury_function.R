@@ -1,5 +1,5 @@
 #' @export
-distances_for_injury_function <- function(trip_scen_sets){
+distances_for_injury_function <- function(trip_scen_sets,dist){
   # This function calculates distances used by two different injury functions.
   # At some point this function will be trimmed to calculate only what we need for injury_function_2
   
@@ -27,7 +27,7 @@ distances_for_injury_function <- function(trip_scen_sets){
   }
   true_distances_0 <- distances
   true_distances_0$sex_age <-  paste0(true_distances_0$sex,"_",true_distances_0$age_cat)
-  if(ADD_BUS_DRIVERS) true_distances_0$bus <- true_distances_0$bus + true_distances_0$bus_driver
+  #if(ADD_BUS_DRIVERS) true_distances_0$bus <- true_distances_0$bus + true_distances_0$bus_driver
   true_distances <- true_distances_0[,-c(which(names(true_distances_0) == 'sex'))]
   
   # get distances relative to baseline scenario
@@ -55,7 +55,7 @@ distances_for_injury_function <- function(trip_scen_sets){
   injury_table <- INJURY_TABLE
   
   ## add distance columns
-  injuries_for_model <- add_distance_columns(injury_table,mode_names,true_distances_0,scenarios=SCEN[1])
+  injuries_for_model <- add_distance_columns(injury_table,mode_names,true_distances_0,dist,scenarios=SCEN[1])
   
   scenario_injury_table <- list()
   for(type in c('whw','noov')) 
@@ -63,7 +63,7 @@ distances_for_injury_function <- function(trip_scen_sets){
                                                  cas_gender=unique(DEMOGRAPHIC$sex),
                                        cas_mode=unique(injuries_for_model[[1]][[type]]$cas_mode),
                                        strike_mode=unique(injuries_for_model[[1]][[type]]$strike_mode))
-  injuries_list <- add_distance_columns(scenario_injury_table,mode_names,true_distances_0)
+  injuries_list <- add_distance_columns(scenario_injury_table,mode_names,true_distances_0,dist)
   for (n in 1:(NSCEN+1))
     for(type in c('whw','noov')) 
       injuries_list[[n]][[type]]$injury_gen_age <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_gender),as.character(injuries_list[[n]][[type]]$age_cat)),1,function(x)paste(x,collapse='_'))
@@ -77,7 +77,7 @@ distances_for_injury_function <- function(trip_scen_sets){
   CAS_EXPONENT <<- INJURY_LINEARITY * CASUALTY_EXPONENT_FRACTION
   STR_EXPONENT <<- INJURY_LINEARITY - CAS_EXPONENT
   forms <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)-STR_EXPONENT*log(strike_distance_sum))',
-                noov='count~cas_mode+strike_mode+offset(log(cas_distance))')
+                noov='count~cas_mode+strike_mode+offset(log(cas_distance))+offset(log(strike_distance_sum))')
   if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
     for(type in c('whw','noov'))
       forms[[type]] <- paste0(c(forms[[type]],'age_cat'),collapse='+')

@@ -41,8 +41,9 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
     assign(names(inj_distances)[i],inj_distances[[i]])
   #(injuries <- injuries_function(relative_distances,scen_dist))
   constant_mode <- length(names(parameters))==0
-  (injuries <- injuries_function_2(true_distances,injuries_list,reg_model,constant_mode))
-  whw <- injuries$whw
+  (injuries0 <- injuries_function_2(true_distances,injuries_list,reg_model,constant_mode))
+  injuries <- injuries0[[1]]
+  whw <- injuries[[2]]
   (deaths_yll_injuries <- injury_death_to_yll(injuries))
   ref_injuries <- deaths_yll_injuries$ref_injuries
   ############################
