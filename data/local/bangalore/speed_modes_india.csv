@@ -1,0 +1,24 @@
+Mode,Speed
+Bus,15
+Walk,4.8
+Metro,32
+Rail,35
+MTW,25
+Car,21
+Auto Rickshaw,22
+Cycle,15
+Shared Auto,22
+Taxi,21
+Cycle Rickshaw,10
+Shared Taxi,21
+walk,4.8
+mini_bus,15
+mc,25
+bicycle,15
+bus,15
+car,21
+shared_auto,22
+auto_rickshaw,22
+train,35
+other,15
+taxi,21

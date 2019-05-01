@@ -1,0 +1,388 @@
+---
+title: "Summary Tables"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(pracma)
+library(summarytools)
+library(dplyr)
+knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis')
+
+```
+
+
+```{r loadLibraries, echo = F, message = F}
+
+st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
+           plain.ascii       = FALSE,       # One of the essential settings
+           style             = "rmarkdown", # Idem.
+           dfSummary.silent  = TRUE,        # Suppresses messages about temporary files
+           footnote          = NA,          # Keeping the results minimalistic
+           subtitle.emphasis = FALSE)       # For the vignette theme, this gives
+                                            # much better results. Your mileage may vary
+
+```
+
+```{r load_objects = "asis"}
+io <- readRDS("results/multi_city/io.rds")
+# Assumes that multi_city_script.R has been run till 
+cities <- c('accra','sao_paulo','delhi','bangalore')
+
+# round to
+round_to <- 1
+
+# Set plot_mmets to F
+plot_mmets <- F
+
+```
+
+```{r preprocessing}
+scen_prop <- io$scen_prop
+io <- io[-2]
+for(i in 1:length(io)) {
+  io[[i]]$demographic$age[io[[i]]$demographic$age=='5-9'] <- '05-9'
+  io[[i]]$outcomes$hb$deaths$age_cat[io[[i]]$outcomes$hb$deaths$age_cat=='5-9'] <- '05-9'
+  io[[i]]$outcomes$hb$ylls$age_cat[io[[i]]$outcomes$hb$ylls$age_cat=='5-9'] <- '05-9'
+  io[[i]]$outcomes$pathway_hb$deaths$age_cat[io[[i]]$outcomes$pathway_hb$deaths$age_cat=='5-9'] <- '05-9'
+  io[[i]]$outcomes$pathway_hb$ylls$age_cat[io[[i]]$outcomes$pathway_hb$ylls$age_cat=='5-9'] <- '05-9'
+  io[[i]]$outcomes$hb$deaths <- io[[i]]$outcomes$hb$deaths[,!sapply(names(io[[i]]$outcomes$hb$deaths),function(x)grepl('ac|neo',as.character(x)))]
+  io[[i]]$outcomes$hb$ylls <- io[[i]]$outcomes$hb$ylls[,!sapply(names(io[[i]]$outcomes$hb$ylls),function(x)grepl('ac|neo',as.character(x)))]
+  io[[i]]$outcomes$pathway_hb$deaths <- io[[i]]$outcomes$pathway_hb$deaths[,!sapply(names(io[[i]]$outcomes$pathway_hb$deaths),function(x)grepl('ac|neo',as.character(x)))]
+  io[[i]]$outcomes$pathway_hb$ylls <- io[[i]]$outcomes$pathway_hb$ylls[,!sapply(names(io[[i]]$outcomes$pathway_hb$ylls),function(x)grepl('ac|neo',as.character(x)))]
+}
+pop_by_age <- lapply(io,function(x)sapply(unique(x$demographic$age),function(y)sum(subset(x$demographic,age==y)$population)))
+pop_by_gender <- lapply(io,function(x)sapply(unique(x$demographic$sex),function(y)sum(subset(x$demographic,sex==y)$population)))
+injury_col <- which(colnames(io$accra$outcomes$hb$deaths)=='scen1_deaths_inj')
+ap_cols <- which(sapply(colnames(io$accra$outcomes$pathway_hb$deaths),function(x)grepl('ap',as.character(x))))
+pa_cols <- which(sapply(colnames(io$accra$outcomes$pathway_hb$deaths),function(x)grepl('pa',as.character(x))))
+scen_names <- rownames(scen_prop)
+
+```
+
+
+## TOTAL
+
+Change in deaths total (for the city based on real population size) by age group by scenario
+
+```{r scen_prop = "asis"}
+death_totals <- lapply(io,function(x){
+  temp <- sapply(1:5,function(y){
+    xx <- x$outcomes$hb$deaths
+    xxx <- rowSums(xx[,seq(2+y,ncol(xx),by=5)])
+    sapply(sort(unique(xx$age_cat)),function(z)
+      sum(xxx[xx$age_cat==z]))
+  })
+  #rownames(temp) <- apply(x$outcomes$hb$deaths[,1:2],1,function(z)paste0(z[1],'_',z[2]))
+  colnames(temp) <- scen_names
+  temp
+  })
+
+death_totals_rounded <- lapply(death_totals, function(x)round(x,round_to))
+
+
+for(city in cities) {
+  print(kable(death_totals_rounded[[city]], caption = paste("Change in deaths total in ", city)))
+  cat("\n")
+}
+```
+
+Change in deaths per 100,000 people by age group by scenario
+
+```{r scen_prop = "asis"}
+death_rates <- lapply(cities,function(x) death_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000)
+names(death_rates) <- cities
+death_rates_rounded <- lapply(death_rates, function(x)round(x,round_to))
+
+
+for(city in cities) {
+  print(kable(death_rates_rounded[[city]], caption = paste("Change in deaths per 100,000 in ", city)))
+  cat("\n")
+}
+```
+
+YLLs total (for the city based on real population size) by age group  by scenario
+
+```{r scen_prop = "asis"}
+yll_totals <- lapply(io,function(x){
+  temp <- sapply(1:5,function(y){
+    xx <- x$outcomes$hb$ylls
+    xxx <- rowSums(xx[,seq(2+y,ncol(xx),by=5)])
+    sapply(sort(unique(xx$age_cat)),function(z)
+      sum(xxx[xx$age_cat==z]))
+  })
+  colnames(temp) <- scen_names
+  temp
+  })
+
+yll_totals_rounded <- lapply(yll_totals, function(x)round(x,round_to))
+
+
+for(city in cities) {
+  print(kable(yll_totals_rounded[[city]], caption = paste("Change in YLL total in ", city)))
+  cat("\n")
+}
+```
+
+YLLs per 100,000 people by age group by scenario
+
+```{r scen_prop = "asis"}
+yll_rates <- lapply(cities,function(x) yll_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000)
+names(yll_rates) <- cities
+yll_rates_rounded <- lapply(yll_rates, function(x)round(x,round_to))
+
+
+for(city in cities) {
+  print(kable(yll_rates_rounded[[city]], caption = paste("Change in YLLs per 100,000 in ", city)))
+  cat("\n")
+}
+```
+
+YLLs per 100,000 people by gender by age group scenario
+
+```{r scen_prop = "asis"}
+yll_totals <- lapply(io,function(x){
+  temp <- sapply(1:5,function(y){
+    xx <- x$outcomes$hb$ylls
+    rowSums(xx[,seq(2+y,ncol(xx),by=5)])
+  })
+  rownames(temp) <- apply(x$outcomes$hb$deaths[,1:2],1,function(z)paste0(z[1],'_',z[2]))
+  colnames(temp) <- scen_names
+  temp
+  })
+
+yll_rates <- lapply(cities,function(x) 
+  yll_totals[[x]][match(apply(io[[x]]$demographic[,c('sex','age')],1,function(z)paste0(z[1],'_',z[2])),rownames(yll_totals[[x]])),]/
+    t(repmat(io[[x]]$demographic$population,5,1))*100000)
+names(yll_rates) <- cities
+yll_rates_rounded <- lapply(yll_rates, function(x)round(x,round_to))
+
+
+for(city in cities) {
+  print(kable(yll_rates_rounded[[city]], caption = paste("Change in YLLs per 100,000 in ", city)))
+  cat("\n")
+}
+``` 
+
+ 
+## BY DISEASE
+
+By disease (with non- injury separate & summed)
+
+Change in deaths total (for the city based on real population size) by age group by scenario
+
+```{r scen_prop = "asis"}
+disease_totals <- lapply(io,function(x){
+  temp <- sapply(1:5,function(y){
+    xx <- x$outcomes$hb$deaths
+    xxx <- rowSums(xx[,seq(2+y,injury_col-1,by=5)])
+    sapply(sort(unique(xx$age_cat)),function(z)
+      sum(xxx[xx$age_cat==z]))
+  })
+  #rownames(temp) <- apply(x$outcomes$hb$deaths[,1:2],1,function(z)paste0(z[1],'_',z[2]))
+  colnames(temp) <- scen_names
+  temp
+  })
+
+disease_totals_rounded <- lapply(disease_totals, function(x)round(x,round_to))
+
+
+for(city in cities) {
+  print(kable(disease_totals_rounded[[city]], caption = paste("Change in deaths due to disease in ", city)))
+  cat("\n")
+}
+
+
+```
+
+Change in deaths per 100,000 people by age group by scenario
+
+```{r scen_prop = "asis"}
+disease_rates <- lapply(cities,function(x) disease_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000)
+names(disease_rates) <- cities
+disease_rates_rounded <- lapply(disease_rates, function(x)round(x,round_to))
+
+
+for(city in cities) {
+  print(kable(disease_rates_rounded[[city]], caption = paste("Change in deaths due to disease per 100,000 in ", city)))
+  cat("\n")
+}
+```
+
+YLLs total (for the city based on real population size) by age group by scenario
+
+```{r scen_prop = "asis"}
+disease_totals <- lapply(io,function(x){
+  temp <- sapply(1:5,function(y){
+    xx <- x$outcomes$hb$ylls
+    xxx <- rowSums(xx[,seq(2+y,injury_col-1,by=5)])
+    sapply(sort(unique(xx$age_cat)),function(z)
+      sum(xxx[xx$age_cat==z]))
+  })
+  #rownames(temp) <- apply(x$outcomes$hb$deaths[,1:2],1,function(z)paste0(z[1],'_',z[2]))
+  colnames(temp) <- scen_names
+  temp
+  })
+
+disease_totals_rounded <- lapply(disease_totals, function(x)round(x,round_to))
+
+for(city in cities) {
+  print(kable(disease_totals_rounded[[city]], caption = paste("Change in YLL due to disease in ", city)))
+  cat("\n")
+}
+
+#injury_totals <- lapply(io,function(x){
+#  xx <- x$outcomes$hb$deaths
+#  sapply(1:5,function(y)sapply(sort(unique(xx$age_cat)),function(z)sum(xx[xx$age_cat==z,injury_col-1+y])))
+#  })
+
+#injury_totals_rounded <- lapply(injury_totals, function(x)round(x,round_to))
+
+
+#for(city in cities) {
+#  print(kable(injury_totals_rounded[[city]], caption = paste("Change in deaths due to injury in ", city)))
+#  cat("\n")
+#}
+```
+
+YLLs per 100,000 people by age group by scenario
+
+```{r scen_prop = "asis"}
+disease_rates <- lapply(cities,function(x) disease_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000)
+names(disease_rates) <- cities
+disease_rates_rounded <- lapply(disease_rates, function(x)round(x,round_to))
+
+
+for(city in cities) {
+  print(kable(disease_rates_rounded[[city]], caption = paste("Change in YLL due to disease per 100,000 in ", city)))
+  cat("\n")
+}
+```
+
+YLLs per 100,000 people by gender by scenario
+
+```{r scen_prop = "asis"}
+
+yll_totals <- lapply(io,function(x){
+  temp <- sapply(1:5,function(y){
+    xx <- x$outcomes$hb$ylls
+    xxx <- rowSums(xx[,seq(2+y,ncol(xx),by=5)])
+  sapply(unique(xx$sex), function(z) sum(xxx[xx$sex==z],na.rm=T))
+  })
+  #rownames(temp) <- apply(x$outcomes$hb$ylls[,1:2],1,function(z)paste0(z[1],'_',z[2]))
+  colnames(temp) <- rownames(scen_prop)
+  temp
+  })
+
+yll_rates <- lapply(cities,function(x) 
+  yll_totals[[x]][match(names(pop_by_gender[[x]]),rownames(yll_totals[[x]])),]/
+    t(repmat(pop_by_gender[[x]],5,1))*100000)
+names(yll_rates) <- cities
+yll_rates_rounded <- lapply(yll_rates, function(x)round(x,round_to))
+
+
+for(city in cities) {
+  print(kable(yll_rates_rounded[[city]], caption = paste("Change in YLLs by gender per 100,000 in ", city)))
+  cat("\n")
+}
+``` 
+ 
+
+## BY PATHWAY
+
+By pathway (with non- injury separate & summed)
+
+Change in deaths total (for the city based on real population size) by age group by scenario
+
+```{r}
+injury_totals <- lapply(io,function(x){
+  xx <- x$outcomes$hb$deaths
+  xxx <- sapply(1:5,function(y)sapply(sort(unique(xx$age_cat)),function(z)sum(xx[xx$age_cat==z,injury_col-1+y])))
+  colnames(xxx) <- scen_names
+  xxx
+  })
+injury_totals_rounded <- lapply(injury_totals, function(x)round(x,round_to))
+
+for(city in cities) {
+  print(kable(injury_totals_rounded[[city]], caption = paste("Change in deaths due to injury in ", city)))
+  cat("\n")
+}
+
+pa_totals <- lapply(io,function(x){
+  xx <- x$outcomes$pathway_hb$deaths
+  xxx <- sapply(1:5,function(y){
+    xxx <- rowSums(xx[,pa_cols[seq(y,length(pa_cols),by=5)]])
+    sapply(sort(unique(xx$age_cat)),function(z)sum(xxx[xx$age_cat==z]))
+  })
+  colnames(xxx) <- scen_names
+  xxx
+  })
+pa_totals_rounded <- lapply(pa_totals, function(x)round(x,round_to))
+
+for(city in cities) {
+  print(kable(pa_totals_rounded[[city]], caption = paste("Change in deaths due to PA in ", city)))
+  cat("\n")
+}
+
+ap_totals <- lapply(io,function(x){
+  xx <- x$outcomes$pathway_hb$deaths
+  xxx <- sapply(1:5,function(y){
+    xxx <- rowSums(xx[,ap_cols[seq(y,length(ap_cols),by=5)]])
+    sapply(sort(unique(xx$age_cat)),function(z)sum(xxx[xx$age_cat==z]))
+  })
+  colnames(xxx) <- scen_names
+  xxx
+  })
+ap_totals_rounded <- lapply(ap_totals, function(x)round(x,round_to))
+
+for(city in cities) {
+  print(kable(ap_totals_rounded[[city]], caption = paste("Change in deaths due to AP in ", city)))
+  cat("\n")
+}
+```
+
+Change in deaths per 100,000 people by age group by scenario
+
+```{r scen_prop = "asis"}
+injury_rates <- lapply(cities,function(x) injury_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000)
+names(injury_rates) <- cities
+injury_rates_rounded <- lapply(injury_rates, function(x)round(x,round_to))
+
+
+for(city in cities) {
+  print(kable(injury_rates_rounded[[city]], caption = paste("Change in deaths due to injury per 100,000 in ", city)))
+  cat("\n")
+}
+```
+
+YLLs total (for the city based on real population size) by age group by scenario
+
+```{r}
+injury_totals <- lapply(io,function(x){
+  xx <- x$outcomes$hb$ylls
+  xxx <- sapply(1:5,function(y)sapply(sort(unique(xx$age_cat)),function(z)sum(xx[xx$age_cat==z,injury_col-1+y])))
+  colnames(xxx) <- scen_names
+  xxx
+  })
+injury_totals_rounded <- lapply(injury_totals, function(x)round(x,round_to))
+
+for(city in cities) {
+  print(kable(injury_totals_rounded[[city]], caption = paste("Change in YLLs due to injury in ", city)))
+  cat("\n")
+}
+```
+
+YLLs per 100,000 people by age group by scenario
+
+```{r scen_prop = "asis"}
+injury_rates <- lapply(cities,function(x) injury_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000)
+names(injury_rates) <- cities
+injury_rates_rounded <- lapply(injury_rates, function(x)round(x,round_to))
+
+
+for(city in cities) {
+  print(kable(injury_rates_rounded[[city]], caption = paste("Change in YLLs due to injury per 100,000 in ", city)))
+  cat("\n")
+}
+```

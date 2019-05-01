@@ -10,7 +10,7 @@ dist_dur_tbls <- function(pp_summary){
     total_travel <- colSums(scen_travel)
     
     # add Short Walking, if Short Walking has been added
-    if(ADD_WALK_TO_BUS_TRIPS){
+    if("walk_to_bus"%in%names(total_travel)){
       total_travel[['walking_dur']] <-  total_travel[['walking_dur']] +  total_travel[['walk_to_bus_dur']]
     }
     
@@ -26,14 +26,15 @@ dist_dur_tbls <- function(pp_summary){
   mode_speeds[is.na(mode_speeds)] <- 0
   dist <- dur * matrix(rep(mode_speeds,NSCEN+1),ncol=NSCEN+1) / 60
   
+  dist$stage_mode <- as.character(dist$stage_mode)
+  dur$stage_mode <- as.character(dur$stage_mode)
+  
   ## bus travel is linear in bus passenger travel
-  if(ADD_BUS_DRIVERS){
-    bus_passenger_row <- which(rownames(dur)=='bus')
-    dist <- rbind(dist,dist[bus_passenger_row,] * BUS_TO_PASSENGER_RATIO)
-    dur <- rbind(dur,dur[bus_passenger_row,] * BUS_TO_PASSENGER_RATIO) 
-    rownames(dist)[nrow(dist)] <- 'bus_driver'
-    rownames(dur)[nrow(dur)] <- 'bus_driver'
-  }
+  bus_passenger_row <- which(rownames(dur)=='bus')
+  dist <- rbind(dist,dist[bus_passenger_row,] * BUS_TO_PASSENGER_RATIO)
+  dur <- rbind(dur,dur[bus_passenger_row,] * BUS_TO_PASSENGER_RATIO) 
+  rownames(dist)[nrow(dist)] <- 'bus_driver'
+  rownames(dur)[nrow(dur)] <- 'bus_driver'
   ## truck travel is linear in car travel
   if(ADD_TRUCK_DRIVERS){
     car_row <- which(rownames(dur)=='car')

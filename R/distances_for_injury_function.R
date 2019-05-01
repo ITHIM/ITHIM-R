@@ -1,10 +1,11 @@
 #' @export
-distances_for_injury_function <- function(pp_summary){
+distances_for_injury_function <- function(pp_summary,dist){
   # This function calculates distances used by two different injury functions.
   # At some point this function will be trimmed to calculate only what we need for injury_function_2
   
   dem_indices <- unique(pp_summary[[1]]$dem_index)
   
+<<<<<<< HEAD
   true_dur <- lapply(1:(NSCEN+1),function(x) cbind(rep(SCEN[x],length(dem_indices)),setDT(pp_summary[[x]])[,-'participant_id',with=F][, lapply(.SD, sum), by = c("dem_index")]) )
   true_dur <- data.frame(do.call('rbind',true_dur))
   colnames(true_dur)[1] <- 'scenario'
@@ -18,6 +19,19 @@ distances_for_injury_function <- function(pp_summary){
   true_dist$pedestrian <- true_dist$walking 
   if('walk_to_bus'%in%colnames(true_dist)){
     true_dist$pedestrian <- true_dist$pedestrian + true_dist$walk_to_bus
+=======
+  ## for injury_function
+  # get total distances
+  journeys <- trip_scen_sets %>% 
+    group_by (age_cat,sex,stage_mode, scenario) %>% 
+    summarise(tot_dist = sum(stage_distance))
+  distances <- spread(journeys,stage_mode, tot_dist,fill=0) 
+  distances$pedestrian <- distances$walking 
+  distances <- distances[, -which(names(distances) ==  "walking")]
+  if(ADD_WALK_TO_BUS_TRIPS){
+    distances$pedestrian <- distances$pedestrian + distances$walk_to_bus
+    distances <- distances[, -which(names(distances) ==  "walk_to_bus")]
+>>>>>>> master
   }
   ## car is car, taxi, shared auto, shared taxi
   true_dist$car <- rowSums(true_dist[,colnames(true_dist)%in%c('car','taxi','shared_auto','shared_taxi')])
@@ -36,7 +50,7 @@ distances_for_injury_function <- function(pp_summary){
   true_distances_0 <- left_join(true_distances_0,DEMOGRAPHIC,by='dem_index')
   names(true_distances_0)[which(names(true_distances_0)=='age')] <- 'age_cat'
   true_distances_0$sex_age <-  paste0(true_distances_0$sex,"_",true_distances_0$age_cat)
-  if(ADD_BUS_DRIVERS) true_distances_0$bus <- true_distances_0$bus + true_distances_0$bus_driver
+  #if(ADD_BUS_DRIVERS) true_distances_0$bus <- true_distances_0$bus + true_distances_0$bus_driver
   true_distances <- true_distances_0[,-c(which(names(true_distances_0) == 'sex'))]
   
   # get distances relative to baseline scenario
@@ -57,7 +71,7 @@ distances_for_injury_function <- function(pp_summary){
   injury_table <- INJURY_TABLE
   
   ## add distance columns
-  injuries_for_model <- add_distance_columns(injury_table,mode_names,true_distances_0,scenarios=SCEN[1])
+  injuries_for_model <- add_distance_columns(injury_table,mode_names,true_distances_0,dist,scenarios=SCEN[1])
   
   scenario_injury_table <- list()
   for(type in c('whw','noov')) 
@@ -65,7 +79,7 @@ distances_for_injury_function <- function(pp_summary){
                                                  cas_gender=unique(DEMOGRAPHIC$sex),
                                                  cas_mode=unique(injuries_for_model[[1]][[type]]$cas_mode),
                                                  strike_mode=unique(injuries_for_model[[1]][[type]]$strike_mode))
-  injuries_list <- add_distance_columns(scenario_injury_table,mode_names,true_distances_0)
+  injuries_list <- add_distance_columns(scenario_injury_table,mode_names,true_distances_0,dist)
   for (n in 1:(NSCEN+1))
     for(type in c('whw','noov')) 
       injuries_list[[n]][[type]]$injury_gen_age <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_gender),as.character(injuries_list[[n]][[type]]$age_cat)),1,function(x)paste(x,collapse='_'))
@@ -79,7 +93,7 @@ distances_for_injury_function <- function(pp_summary){
   CAS_EXPONENT <<- INJURY_LINEARITY * CASUALTY_EXPONENT_FRACTION
   STR_EXPONENT <<- INJURY_LINEARITY - CAS_EXPONENT
   forms <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)-STR_EXPONENT*log(strike_distance_sum))',
-                noov='count~cas_mode+strike_mode+offset(log(cas_distance))')
+                noov='count~cas_mode+strike_mode+offset(log(cas_distance))+offset(log(strike_distance_sum))')
   if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
     for(type in c('whw','noov'))
       forms[[type]] <- paste0(c(forms[[type]],'age_cat'),collapse='+')

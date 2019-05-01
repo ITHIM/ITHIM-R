@@ -61,12 +61,12 @@ chronic_disease_scalar <- list(accra=1,
                                delhi=1,
                                bangalore=1)
 # constant parameters for PM_CONC_BASE
-pm_concentration <- list(accra=46, # dionisio et al 2010; residential average
+pm_concentration <- list(accra=50,
                          sao_paulo=18,
                          delhi=122,
                          bangalore=47.4)
 # constant parameters for PM_TRANS_SHARE
-pm_trans_share <- list(accra=0.225, ##WHO database
+pm_trans_share <- list(accra=0.225,
                        sao_paulo=0.4,
                        delhi=0.225,
                        bangalore=0.281)
@@ -155,7 +155,7 @@ for(city in cities){
   mar1 <- rep(7,nDiseases); mar1[1:6] <- 1
   mar2 <- rep(1,nDiseases); mar2[c(2,7)] <- 6; mar2[c(1,12)] <- 3
   for(i in 1:nDiseases){
-    ylim <- if(i==12) c(-0.0125,0.002)*1 else if(i==1) c(-1.7,2)*1e-3 else c(-11,4)*1e-4
+    ylim <- if(i==12) c(-0.0125,0.001)*1 else if(i==1) c(-1.7,2)*1e-3 else c(-11,4)*1e-4
     par(mar = c(mar1[i], mar2[i], 4, 1))
       barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, names.arg=if(i<7) NULL else  rownames(SCENARIO_PROPORTIONS), 
               main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')

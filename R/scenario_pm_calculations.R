@@ -30,9 +30,9 @@ scenario_pm_calculations <- function(dist,pp_summary){
   
   ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
   vent_rates <- data.frame(stage_mode=VEHICLE_INVENTORY$stage_mode,stringsAsFactors = F) 
-  vent_rates$vent_rate <- BASE_LEVEL_INHALATION_RATE # L / min
-  vent_rates$vent_rate[vent_rates$stage_mode=='bicycle'] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_CYCLING
-  vent_rates$vent_rate[vent_rates$stage_mode%in%c('walking','walk_to_bus')] <- BASE_LEVEL_INHALATION_RATE + 5.0*MMET_WALKING
+  vent_rates$vent_rate <- BASE_LEVEL_INHALATION_RATE  # L / min
+  vent_rates$vent_rate[vent_rates$stage_mode=='bicycle'] <- (BASE_LEVEL_INHALATION_RATE + 5.0*MMET_CYCLING)/BASE_LEVEL_INHALATION_RATE
+  vent_rates$vent_rate[vent_rates$stage_mode%in%c('walking','walk_to_bus')] <- (BASE_LEVEL_INHALATION_RATE + 5.0*MMET_WALKING)/BASE_LEVEL_INHALATION_RATE
   
   ##RJ rewriting exposure ratio as function of ambient PM2.5, as in Goel et al 2015
   ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE (10), CLOSED_WINDOW_PM_RATIO (0.5), CLOSED_WINDOW_RATIO (0.5), ROAD_RATIO_MAX (3.216), ROAD_RATIO_SLOPE (0.379)
@@ -102,7 +102,7 @@ scenario_pm_calculations <- function(dist,pp_summary){
   }
   
   #####PM normalise
-  ##RJ question for JW: why normalise?
+  ##currently not normalising
   mean_conc <- rep(0,length(SCEN_SHORT_NAME))
   
   ## calculating means of individual-level concentrations
@@ -112,7 +112,10 @@ scenario_pm_calculations <- function(dist,pp_summary){
   ###Lines which are normalising the concentrations
   
   for (i in 1: length(SCEN_SHORT_NAME))
-    synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]] <- normalise*synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]]
+    ## Rahul made changes here/./-- no normalisation
+    synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]] <- synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]]
+  
+    #synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]] <- normalise*synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]]
   
   synth_pop$participant_id <- as.integer(synth_pop$participant_id)
   

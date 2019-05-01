@@ -40,7 +40,10 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   for(i in 1:length(inj_distances))
     assign(names(inj_distances)[i],inj_distances[[i]])
   #(injuries <- injuries_function(relative_distances,scen_dist))
-  (injuries <- injuries_function_2(true_distances,injuries_list,reg_model))
+  constant_mode <- length(names(parameters))==0
+  (injuries0 <- injuries_function_2(true_distances,injuries_list,reg_model,constant_mode))
+  injuries <- injuries0[[1]]
+  whw <- injuries0[[2]]
   (deaths_yll_injuries <- injury_death_to_yll(injuries))
   ref_injuries <- deaths_yll_injuries$ref_injuries
   ############################
@@ -48,6 +51,6 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   # Combine health burden from disease and injury
   (hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries$deaths_yll_injuries))
   pathway_hb <- NULL
-  if(length(names(parameters))==0) pathway_hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries$deaths_yll_injuries,combined_AP_PA=F)
-  return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp,injuries=injuries,ref_injuries=ref_injuries,hb=hb,pathway_hb=pathway_hb))
+  if(constant_mode) pathway_hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries$deaths_yll_injuries,combined_AP_PA=F)
+  return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp,injuries=injuries,ref_injuries=ref_injuries,hb=hb,pathway_hb=pathway_hb,whw=whw))
 }
