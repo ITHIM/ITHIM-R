@@ -108,8 +108,11 @@ ithim_load_data <- function(speeds=list(
   demographic <- read_csv(filename,col_types = cols())
   age_category <- demographic$age
   max_age <- max(as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][2])))
-  max_age <- min(max_age,max(trip_set$age))
-  DEMOGRAPHIC <<- demographic[as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][1]))<=max_age,]
+  max_age <- min(max_age,max(trip_set$age),AGE_RANGE[2])
+  min_age <- min(as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][1])))
+  min_age <- max(min_age,min(trip_set$age),AGE_RANGE[1])
+  DEMOGRAPHIC <<- demographic[as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][1]))<=max_age&
+                                as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][2]))>=min_age,]
   
   # get age-category details from population data
   AGE_CATEGORY <<- unique(DEMOGRAPHIC$age)

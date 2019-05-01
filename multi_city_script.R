@@ -100,7 +100,9 @@ max_age <- 69
 for(city in cities){
   ithim_objects[[city]] <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),
                                   ADD_WALK_TO_BUS_TRIPS=F,
-                                  CITY=city,ADD_TRUCK_DRIVERS = F,
+                                  CITY=city,
+                                  AGE_RANGE=c(min_age,max_age),
+                                  ADD_TRUCK_DRIVERS = F,
                                   MAX_MODE_SHARE_SCENARIO = T,
                                   ADD_BUS_DRIVERS = F,
                                   emission_inventory = emission_inventories[[city]],
