@@ -27,7 +27,7 @@ raw_trip_set$trip_duration <- NULL
 raw_trip_set$participant_id <- as.integer(as.factor(raw_trip_set$participant_id))
 
 ## Add walk to bus stages to all bus trips
-walk_to_bus <- raw_trip_set[raw_trip_set$stage_mode == "bus",]
+walk_to_bus <- raw_trip_set[raw_trip_set$stage_mode %in% c('bus', 'train'),]
 walk_to_bus$stage_mode <- "walk_to_bus"
 walk_to_bus$stage_duration <- 10.55
 
