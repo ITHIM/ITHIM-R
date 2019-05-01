@@ -1,7 +1,7 @@
 setwd('~/overflow_dropbox/ITHIM-R')
-library(devtools)
-build()
-install()
+#library(devtools)
+#build()
+#install()
 library(ithimr)
 rm(list=ls())
 cities <- c('accra','sao_paulo','delhi','bangalore')
@@ -51,6 +51,7 @@ max_age <- 69
 ##check distances 
 
 numcores <- detectCores()
+print(numcores)
 load('diagnostic/parameter_settings.Rdata')
 ## plot distances for all cities
 ## distance plots don't need so many samples!
@@ -80,11 +81,16 @@ for(city in cities){
 SCEN <- rownames(SCENARIO_PROPORTIONS)
 NSCEN <- length(SCEN)
 for(city in cities){
-  dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(distances[[city]][[1]]$dist/nrow(distances[[city]][[1]]$pp_summary[[1]])))
+  print(city)
+  print(NSAMPLES)
+  print(nrow(distances[[city]][[1]]$dist))
+  print(nrow(distances[[city]][[1]]$pp_summary[[1]]))
+  dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(distances[[city]][[1]]$dist))
   pdf(paste0('distance_distribution_1000p_',city,'.pdf')); par(mfrow=c(2,3),mar=c(7,5,2,1))
-  for(j in 1:6){for(i in 1:NSAMPLES)
-    dist_mat[i,] <- distances[[city]][[i]]$dist[,j]/nrow(distances[[city]][[i]]$pp_summary[[1]])
-  boxplot(dist_mat,names=rownames(distances[[city]][[i]]$dist),las=2,frame=F,main=paste0(SCEN[j],', ',city),ylab='km pp')
+  for(j in 1:6){
+    for(i in 1:NSAMPLES)
+      dist_mat[i,] <- distances[[city]][[i]]$dist[,j]/nrow(distances[[city]][[i]]$pp_summary[[1]])
+    boxplot(dist_mat,names=rownames(distances[[city]][[i]]$dist),las=2,frame=F,main=paste0(SCEN[j],', ',city),ylab='km pp')
   }
   dev.off()
 }    
