@@ -5,7 +5,6 @@ distances_for_injury_function <- function(pp_summary,dist){
   
   dem_indices <- unique(pp_summary[[1]]$dem_index)
   
-<<<<<<< HEAD
   true_dur <- lapply(1:(NSCEN+1),function(x) cbind(rep(SCEN[x],length(dem_indices)),setDT(pp_summary[[x]])[,-'participant_id',with=F][, lapply(.SD, sum), by = c("dem_index")]) )
   true_dur <- data.frame(do.call('rbind',true_dur))
   colnames(true_dur)[1] <- 'scenario'
@@ -19,19 +18,6 @@ distances_for_injury_function <- function(pp_summary,dist){
   true_dist$pedestrian <- true_dist$walking 
   if('walk_to_bus'%in%colnames(true_dist)){
     true_dist$pedestrian <- true_dist$pedestrian + true_dist$walk_to_bus
-=======
-  ## for injury_function
-  # get total distances
-  journeys <- trip_scen_sets %>% 
-    group_by (age_cat,sex,stage_mode, scenario) %>% 
-    summarise(tot_dist = sum(stage_distance))
-  distances <- spread(journeys,stage_mode, tot_dist,fill=0) 
-  distances$pedestrian <- distances$walking 
-  distances <- distances[, -which(names(distances) ==  "walking")]
-  if(ADD_WALK_TO_BUS_TRIPS){
-    distances$pedestrian <- distances$pedestrian + distances$walk_to_bus
-    distances <- distances[, -which(names(distances) ==  "walk_to_bus")]
->>>>>>> master
   }
   ## car is car, taxi, shared auto, shared taxi
   true_dist$car <- rowSums(true_dist[,colnames(true_dist)%in%c('car','taxi','shared_auto','shared_taxi')])
