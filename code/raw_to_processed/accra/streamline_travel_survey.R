@@ -28,7 +28,7 @@ raw_trip_set$participant_id <- as.integer(as.factor(raw_trip_set$participant_id)
 
 ## Add walk to bus stages to all bus trips
 walk_to_bus <- raw_trip_set[raw_trip_set$stage_mode %in% c('bus', 'train'),]
-walk_to_bus$stage_mode <- "walk_to_bus"
+walk_to_bus$stage_mode <- "walk_to_pt"
 walk_to_bus$stage_duration <- 10.55
 
 # Add walk to bus stage
@@ -43,7 +43,7 @@ default_speeds <- list(
   car=21,
   taxi=21,
   walking=4.8,
-  walk_to_bus=4.8,
+  walk_to_pt=4.8,
   bicycle=14.5,
   motorcycle=25,
   truck=21,
