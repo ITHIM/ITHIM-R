@@ -200,7 +200,7 @@ require(tidyverse)
 rd <- read_csv("data/local/sao_paulo/trips_sao_paulo_expanded.csv")
 
 # Rename van mode to mini-bus
-rd$trip_mode[rd$trip_mode == "van"] <- "mini-bus"
+rd$trip_mode[rd$trip_mode == "van"] <- "bus"
 
 # Create a filtered df with selected columns
 rd$participant_id <- rd$pid
