@@ -29,7 +29,7 @@ walk_to_pt_and_combine_scen <- function(){
 #' @export
 scale_trip_distances <- function(trips){
   car_taxi_modes <- c('car','taxi','auto_rickshaw','shared_auto')
-  pt_modes <- c('bus','minibus','subway','rail','walk_to_bus')
+  pt_modes <- c('bus','minibus','subway','rail','walk_to_pt')
   ## omit trip distance as it has already been used to create scenarios and has no other use
   column_names <- c('stage_distance','stage_duration')
   match_modes <- rep(1,nrow(trips))

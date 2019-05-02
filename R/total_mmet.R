@@ -2,7 +2,7 @@
 total_mmet <- function(trip_scen_sets){
   
   synth_pop <- SYNTHETIC_POPULATION
-  rd_pa <- subset(trip_scen_sets,stage_mode%in%c('walking','walk_to_bus','bicycle')&participant_id>0) 
+  rd_pa <- subset(trip_scen_sets,stage_mode%in%c('walking','walk_to_pt','bicycle')&participant_id>0) 
   # Convert baseline's trip duration from mins to hours
   rd_pa$stage_duration_hrs <- rd_pa$stage_duration / 60 * DAY_TO_WEEK_TRAVEL_SCALAR
   # Get total individual level walking and cycling and sport mmets 
@@ -11,7 +11,7 @@ total_mmet <- function(trip_scen_sets){
     scen_trips <- subset(rd_pa,scenario == SCEN[i]&participant_id%in%synth_pop$participant_id)
     
     individual_data <- setDT(scen_trips)[,.(cycling_mmet_base = sum(stage_duration_hrs[stage_mode == 'bicycle']) * MMET_CYCLING,
-                                            walking_mmet_base = sum(stage_duration_hrs[stage_mode %in%c('walking','walk_to_bus')]) * MMET_WALKING ),by='participant_id']
+                                            walking_mmet_base = sum(stage_duration_hrs[stage_mode %in%c('walking','walk_to_pt')]) * MMET_WALKING ),by='participant_id']
     
     part_id <- match(individual_data$participant_id,synth_pop$participant_id)
     synth_pop[[paste0(SCEN_SHORT_NAME[i],'_mmet')]][part_id] <- 

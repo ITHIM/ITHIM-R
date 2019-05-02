@@ -19,14 +19,14 @@ dist_dur_tbls <- function(trip_scen_sets){
     local_dist <- data.frame(stage_mode=stage_modes,sum_dist=sapply(stage_modes,function(x)sum(subset(local,stage_mode==x)$stage_distance)))
     local_dur <- data.frame(stage_mode=stage_modes,sum_dur=sapply(stage_modes,function(x)sum(subset(local,stage_mode==x)$stage_duration)))
     
-    # add walk_to_bus, if walk_to_bus has been added
-    if("walk_to_bus"%in%local_dist$stage_mode){
+    # add walk_to_pt, if walk_to_pt has been added
+    if("walk_to_pt"%in%local_dist$stage_mode){
       local_dist$sum_dist[local_dist$stage_mode == "walking"] <- 
         local_dist$sum_dist[local_dist$stage_mode == "walking"] + 
-        local_dist$sum_dist[local_dist$stage_mode == "walk_to_bus"]
+        local_dist$sum_dist[local_dist$stage_mode == "walk_to_pt"]
       local_dur$sum_dur[local_dur$stage_mode == "walking"] <- 
         local_dur$sum_dur[local_dur$stage_mode == "walking"] + 
-        local_dur$sum_dur[local_dur$stage_mode == "walk_to_bus"]
+        local_dur$sum_dur[local_dur$stage_mode == "walk_to_pt"]
     }
     
     # store results
@@ -48,10 +48,10 @@ dist_dur_tbls <- function(trip_scen_sets){
   }
   
   # Remove short walking
-  #dist <- filter(local_dist, stage_mode != 'walk_to_bus')
-  #dur <- filter(local_dur, stage_mode != 'walk_to_bus')
-  dist <- local_dist[local_dist$stage_mode != 'walk_to_bus',]
-  dur <- local_dur[local_dur$stage_mode != 'walk_to_bus',]
+  #dist <- filter(local_dist, stage_mode != 'walk_to_pt')
+  #dur <- filter(local_dur, stage_mode != 'walk_to_pt')
+  dist <- local_dist[local_dist$stage_mode != 'walk_to_pt',]
+  dur <- local_dur[local_dur$stage_mode != 'walk_to_pt',]
   
   dist$stage_mode <- as.character(dist$stage_mode)
   dur$stage_mode <- as.character(dur$stage_mode)

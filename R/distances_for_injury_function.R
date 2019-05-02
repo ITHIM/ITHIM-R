@@ -14,8 +14,8 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
   distances$pedestrian <- distances$walking 
   distances <- distances[, -which(names(distances) ==  "walking")]
   if(ADD_WALK_TO_BUS_TRIPS){
-    distances$pedestrian <- distances$pedestrian + distances$walk_to_bus
-    distances <- distances[, -which(names(distances) ==  "walk_to_bus")]
+    distances$pedestrian <- distances$pedestrian + distances$walk_to_pt
+    distances <- distances[, -which(names(distances) ==  "walk_to_pt")]
   }
   ## car is car, taxi, shared auto, shared taxi
   distances$car <- rowSums(distances[,colnames(distances)%in%c('car','taxi','shared_auto','shared_taxi')])

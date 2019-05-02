@@ -7,7 +7,7 @@ add_walk_trips <- function(pt_trips){
   
   #pt_trips <- arrange(pt_trips, trip_duration)
   walk_trips <- pt_trips
-  walk_trips$stage_mode <- 'walk_to_bus'
+  walk_trips$stage_mode <- 'walk_to_pt'
   ##RJ all trips have the same BUS_WALK_TIME
   walk_trips$stage_duration <- BUS_WALK_TIME
   
