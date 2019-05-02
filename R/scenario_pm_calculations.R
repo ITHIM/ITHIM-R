@@ -46,7 +46,7 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   
   trip_set <- left_join(trip_scen_sets,vent_rates,'stage_mode')
   # litres of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode
-  trip_set$on_road_air <- trip_set$stage_duration*trip_set$vent_rate / 60 # L
+  trip_set$on_road_air <- trip_set$stage_duration*trip_set$vent_rate / (60*24) # L
   # get indices for quick matching of values
   scen_index <- match(trip_set$scenario,SCEN)
   # ordered pm values
@@ -70,7 +70,7 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
                                             #air_inhaled = sum(on_road_air,na.rm=TRUE)),by='participant_id']
     
     # calculate non-travel air inhalation
-    non_transport_air_inhaled <- (24-individual_data$on_road_dur/60)*BASE_LEVEL_INHALATION_RATE
+    non_transport_air_inhaled <- (24-individual_data$on_road_dur/60)*BASE_LEVEL_INHALATION_RATE/24
     # concentration of pm inhaled = total pm inhaled / total air inhaled
     pm_conc <- ((non_transport_air_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)#/(non_transport_air_inhaled+individual_data$air_inhaled)
     # match individual ids to set per person pm exposure
