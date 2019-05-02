@@ -80,12 +80,14 @@ suppressWarnings({
 ```{r trip_mode_dist = "asis", echo = F}
 
 for(city in cities){
+  
   df <- io[[city]]$trip_scen_sets
   df1 <- df %>% dplyr::filter(scenario == "Baseline") %>% group_by(trip_id, trip_mode, scenario)
   u_trips <- nrow(df1)
   td <- df %>% group_by(trip_id, trip_mode, scenario) %>% group_by(trip_mode, scenario) %>% summarise(p = round(dplyr::n() /  u_trips * 100, round_to)) %>% spread(key = trip_mode, value = p) %>% mutate(row_sums = rowSums(.[sapply(., is.numeric)], na.rm = TRUE))
   td[2:6, 1] <- rownames(scen_prop)
-  print(kable(td, caption = paste("Trip proportion (%) by mode for ", city)))
+  td <- as.data.frame(t(td))
+  print(kable(t(td), caption = paste("Trip proportion (%) by mode for ", city)))
   cat("\n")
 }
 
