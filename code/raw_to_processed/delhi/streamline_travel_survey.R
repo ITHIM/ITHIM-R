@@ -43,10 +43,27 @@ ntrips <- rd[is.na(rd$trip_id), ] %>% nrow()
 # Auto-increasing trip_id
 rd[is.na(rd$trip_id), ]$trip_id <- seq(last_trip_id, last_trip_id + ntrips - 1, by = 1)
 
+# Rename Short Walk to walk_to_pt
+rd$mode_name[rd$main_mode_name != "Walk" & rd$mode_name %in% 'Walk'] <- "walk_to_pt"
+
+rdpt <- rd %>% filter(main_mode_name %in% c('Bus', 'Metro', 'Rail', 'Share Auto'))
+
+rdptww <- rdpt %>% filter(mode_name == "walk_to_pt")
+
+rdpt <- rdpt %>% filter(!trip_id %in% rdptww$trip_id)
+
+rdpt$mode_name <- "walk_to_pt"
+rdpt$duration <- 10.55 / 60
+rdpt$stage <- rdpt$stage + 1
+
+rd <- rbind(rd, rdpt)
+
 #####
 ## Recalculate distances from speed when they're NA
 # Read speed table for Delhi
 speed_tbl <- read_csv("inst/extdata/local/delhi/speed_modes_india.csv")
+
+speed_tbl[nrow(speed_tbl) + 1,] = list("walk_to_pt", 4.8)
 
 # Update distance by duration (hours) * speed (kmh)
 rd[is.na(rd$distance) & !is.na(rd$duration), ]$distance <- 
@@ -100,7 +117,7 @@ for(i in 1:length(pid_list)) {
       # Assing a new trip ID
       for (utid in unique(rd[rd$person_id == pid_list[i],]$trip_id)){
         # Identify total stages
-        ustages <- rd %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% select(count) %>% as.integer()
+        ustages <- rd %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% dplyr::select(count) %>% as.integer()
         if (ustages > 0){
           # print("L82")
           a <- nrow(rd[rd$trip_id == utid,])
@@ -128,7 +145,7 @@ for(i in 1:length(pid_list)) {
       rd[rd$person_id == pid_list[i],]$pid <- id
       # Assing a new trip ID
       for (utid in unique(pg$trip_id)){
-        ustages <- rd %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% select(count) %>% as.integer()
+        ustages <- rd %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% dplyr::select(count) %>% as.integer()
         # cat(utid, " - ", ustages, "\n")
         if (ustages > 0){
           a <- nrow(rd[rd$trip_id == utid,])
@@ -156,7 +173,7 @@ for(i in 1:length(pid_list)) {
       
       # Assing a new trip ID
       for (utid in unique(d$trip_id)){
-        ustages <- d %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% select(count) %>% as.integer()
+        ustages <- d %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% dplyr::select(count) %>% as.integer()
         # cat(utid, " - ", ustages, "\n")
         if (ustages > 0){
           a <- nrow(d[d$trip_id == utid,]) / count
@@ -194,7 +211,7 @@ for(i in 1:length(pid_list)) {
     # Assing a new trip ID
     for (utid in unique(rd[rd$person_id == pid_list[i],]$trip_id)){
       # filter rd for a person
-      ustages <- rd %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% select(count) %>% as.integer()
+      ustages <- rd %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% dplyr::select(count) %>% as.integer()
       # cat(utid, " - ", ustages, "\n")
       
       if (ustages > 0){
@@ -239,7 +256,7 @@ rd$female <- NULL
 rd$hh_id <- NULL
 
 # Calculate total distance by summing all stages' distance
-rd$total_distance <- ave(rd$distance, rd$trip_id, FUN=sum)
+rd$total_distance <- ave(rd$distance, rd$trip_id, FUN = sum)
 
 # Change unit of stage_duration from hours to mins
 rd <- rd %>% mutate(duration = duration * 60)
