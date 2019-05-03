@@ -80,9 +80,11 @@ for (x in 1: length(cities))
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
-city<-cities
+cities<- names(io)
+cities<- cities[-2]
 trans_share<-c(22.5, 40.0, 22.5, 28.1) 
 pm_conc<- c(50, 18, 122, 47 )
+city<-cities
 shares<- as.data.frame(cbind(city,as.numeric(trans_share), pm_conc))
 names(shares)[2]<- "trans_share"
 for (x in 1:length(cities))
@@ -98,7 +100,7 @@ for (x in 1:length(cities))
   names(summary)[2]<- "emissions"
   summary$emissions <- round(summary$emissions*100/sum(summary$emissions), digits=1)
   print (as.character(cities[x]))
-  summary(as.data.frame(summary))
+  summary<-as.data.frame(summary)
   summary[nrow(summary)+1,1]<-"Transport share"
   summary[nrow(summary),2]<-as.character(shares$trans_share[x])
   summary[nrow(summary)+1,1]<-"PM2.5 Conc"
@@ -115,7 +117,8 @@ for (x in 1:length(cities))
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
-
+cities<- names(io)
+cities<- cities[-2]
 for (x in 1: length(cities))
 {
   names(io[[cities[x]]]$outcomes$mmets)[5:10]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
@@ -129,7 +132,8 @@ for (x in 1: length(cities))
 # Descriptive tables of Individual-level Physical activity (MMETs)
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-
+cities<- names(io)
+cities<- cities[-2]
 for (x in 1: length(cities))
 {
   names(io[[cities[x]]]$outcomes$mmets)[5:10]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
@@ -148,7 +152,8 @@ for (x in 1: length(cities))
 # Descriptive tables of injury outcomes
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-
+cities<- names(io)
+cities<- cities[-2]
 for (x in 1: length(cities))
 {
 
@@ -165,7 +170,8 @@ for (x in 1: length(cities))
 # Striking vehicles in scenarios
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-
+cities<- names(io)
+cities<- cities[-2]
 for (x in 1: length(cities))
 {
 
@@ -189,6 +195,7 @@ summary<- cbind(summary, round(rbind(whw, noov), digits=1) )
 }
 
 print (as.character(cities[x]))
+names(summary)<-c("base", "walk", "bike", "car", "MC", "bus")
 print(summary)
 
 }
@@ -200,6 +207,8 @@ print(summary)
 # Distance share by scenarios in percentages (excludes city-specific minority modes-- auto rickshaws, subway, etc.)
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
+cities<- names(io)
+cities<- cities[-2]
 for (x in 1: length(cities))
 {
   
