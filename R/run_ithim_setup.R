@@ -124,7 +124,7 @@ run_ithim_setup <- function(seed = 1,
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
   
   ## fixed parameters for AP inhalation
-  BASE_LEVEL_INHALATION_RATE <<- 10
+  BASE_LEVEL_INHALATION_RATE <<- 1
   CLOSED_WINDOW_PM_RATIO <<- 0.5
   CLOSED_WINDOW_RATIO <<- 0.5
   ROAD_RATIO_MAX <<- 3.216

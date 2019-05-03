@@ -24,9 +24,9 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   
   ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
   vent_rates <- data.frame(stage_mode=VEHICLE_INVENTORY$stage_mode,stringsAsFactors = F) 
-  vent_rates$vent_rate <-1  # L / min
-  vent_rates$vent_rate[vent_rates$stage_mode=='bicycle'] <- (BASE_LEVEL_INHALATION_RATE + 5.0*MMET_CYCLING)/BASE_LEVEL_INHALATION_RATE
-  vent_rates$vent_rate[vent_rates$stage_mode%in%c('walking','walk_to_pt')] <- (BASE_LEVEL_INHALATION_RATE + 5.0*MMET_WALKING)/BASE_LEVEL_INHALATION_RATE
+  vent_rates$vent_rate <- BASE_LEVEL_INHALATION_RATE # L / min
+  vent_rates$vent_rate[vent_rates$stage_mode=='bicycle'] <- BASE_LEVEL_INHALATION_RATE + MMET_CYCLING/2.0
+  vent_rates$vent_rate[vent_rates$stage_mode%in%c('walking','walk_to_pt')] <- BASE_LEVEL_INHALATION_RATE + MMET_WALKING/2.0
   
   ##RJ rewriting exposure ratio as function of ambient PM2.5, as in Goel et al 2015
   ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE (10), CLOSED_WINDOW_PM_RATIO (0.5), CLOSED_WINDOW_RATIO (0.5), ROAD_RATIO_MAX (3.216), ROAD_RATIO_SLOPE (0.379)
@@ -46,7 +46,7 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   
   trip_set <- left_join(trip_scen_sets,vent_rates,'stage_mode')
   # litres of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode
-  trip_set$on_road_air <- trip_set$stage_duration*trip_set$vent_rate / (60*24) # L
+  trip_set$on_road_air <- trip_set$stage_duration*trip_set$vent_rate / (60) # L
   # get indices for quick matching of values
   scen_index <- match(trip_set$scenario,SCEN)
   # ordered pm values
@@ -70,9 +70,9 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
                                             #air_inhaled = sum(on_road_air,na.rm=TRUE)),by='participant_id']
     
     # calculate non-travel air inhalation
-    non_transport_air_inhaled <- (24-individual_data$on_road_dur/60)*1/24
+    non_transport_air_inhaled <- (24-individual_data$on_road_dur/60)*BASE_LEVEL_INHALATION_RATE
     # concentration of pm inhaled = total pm inhaled / total air inhaled
-    pm_conc <- ((non_transport_air_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)#/(non_transport_air_inhaled+individual_data$air_inhaled)
+    pm_conc <- ((non_transport_air_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)/24#/(non_transport_air_inhaled+individual_data$air_inhaled)
     # match individual ids to set per person pm exposure
     synth_pop[[paste0('pm_conc_',SCEN_SHORT_NAME[i])]][match(individual_data$participant_id,synth_pop$participant_id)] <- pm_conc
   }
