@@ -37,7 +37,7 @@ library(kableExtra)
 io <- readRDS("results/multi_city/io.rds")
 
 cities<- names(io)
-cities<- cities[-2]
+cities<- cities[-c(1,2)]
 
 for (x in 1: length(cities))
 {
@@ -161,6 +161,41 @@ for (x in 1: length(cities))
 
 }
 ```
+
+# Striking vehicles in scenarios
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+for (x in 1: length(cities))
+{
+
+scenarios<- c('Baseline', 'Scenario 1', 'Scenario 2', 'Scenario 3', 'Scenario 4', 'Scenario 5')
+for (i in 1: length(scenarios))
+{
+whw<-as.data.frame(rowSums(io[[cities[x]]]$outcomes$whw[[scenarios[i]]]$whw))
+noov<-as.data.frame(rowSums(io[[cities[x]]]$outcomes$whw[[scenarios[i]]]$noov))
+names(whw)[1]<- as.character(scenarios[i])
+names(noov)[1]<-as.character(scenarios[i])
+
+if (i ==1 )
+{
+ summary<-round(rbind(whw,noov), digits = 1)
+} 
+else
+{
+summary<- cbind(summary, round(rbind(whw, noov), digits=1) ) 
+}
+
+}
+
+print (as.character(cities[x]))
+print(summary)
+
+}
+
+```
+
+
 
 # Distance share by scenarios in percentages (excludes city-specific minority modes-- auto rickshaws, subway, etc.)
 
