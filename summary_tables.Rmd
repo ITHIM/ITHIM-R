@@ -83,11 +83,12 @@ for(city in cities){
   df <- io[[city]]$trip_scen_sets
   df1 <- df %>% dplyr::filter(scenario == "Baseline") %>% group_by(trip_id, trip_mode, scenario)
   u_trips <- df1 %>% distinct(trip_id) %>% nrow()
-  td <- df %>% group_by(trip_id, trip_mode, scenario) %>% group_by(trip_mode, scenario) %>% summarise(p = round(dplyr::n() /  u_trips * 100, round_to)) %>% spread(key = trip_mode, value = p) %>% mutate(row_sums = rowSums(.[sapply(., is.numeric)], na.rm = TRUE))
+  td <- df %>% distinct(trip_id, trip_mode, scenario, .keep_all = T) %>% group_by(trip_mode, scenario) %>% summarise(p = round(dplyr::n() /  u_trips * 100, round_to)) %>% spread(key = trip_mode, value = p) %>% mutate(row_sums = rowSums(.[sapply(., is.numeric)], na.rm = TRUE))
   #td[1:6, 1] <- append('baseline', rownames(scen_prop))
   td <- as.data.frame(t(td))
   names(td) <- lapply(append('baseline', rownames(scen_prop)), as.character)
   td <- td[-1, ]
+  # a[-nrow(a),] 
   print(kable(td, caption = paste("Trip proportion (%) by mode for ", city)))
   cat("\n")
 }
