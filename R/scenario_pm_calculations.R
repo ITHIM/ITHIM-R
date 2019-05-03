@@ -79,18 +79,13 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   
   #####PM normalise
   ##currently not normalising
-  mean_conc <- rep(0,length(SCEN_SHORT_NAME))
-  
   ## calculating means of individual-level concentrations
-  mean_conc <- mean(synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[1])]])
+  #mean_conc <- mean(synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[1])]])
   
-  normalise <- as.numeric(conc_pm[1])/as.numeric(mean_conc)
+  ## Rahul made changes here/./-- no normalisation
   ###Lines which are normalising the concentrations
-  
-  for (i in 1: length(SCEN_SHORT_NAME))
-    ## Rahul made changes here/./-- no normalisation
-    synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]] <- synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]]
-  
+  #normalise <- as.numeric(conc_pm[1])/as.numeric(mean_conc)
+  #for (i in 1: length(SCEN_SHORT_NAME))
     #synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]] <- normalise*synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]]
   
   synth_pop$participant_id <- as.integer(synth_pop$participant_id)
