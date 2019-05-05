@@ -123,8 +123,8 @@ ithim_load_data <- function(speeds=list(
   GBD_DATA <- subset(GBD_DATA,cause_name%in%disease_names)
   GBD_DATA$min_age <- as.numeric(sapply(GBD_DATA$age_name,function(x)str_split(x,' to ')[[1]][1]))
   GBD_DATA$max_age <- as.numeric(sapply(GBD_DATA$age_name,function(x)str_split(x,' to ')[[1]][2]))
-  GBD_DATA <- subset(GBD_DATA,min_age>=AGE_LOWER_BOUNDS[1])
-  GBD_DATA <- subset(GBD_DATA,max_age<=MAX_AGE)
+  GBD_DATA <- subset(GBD_DATA,max_age>=AGE_LOWER_BOUNDS[1])
+  GBD_DATA <- subset(GBD_DATA,min_age<=MAX_AGE)
   names(GBD_DATA)[c(1,3,4,5)] <- c('measure','sex','age','cause')
   
   burden_of_disease <- expand.grid(measure=unique(GBD_DATA$measure),sex=unique(DEMOGRAPHIC$sex),age=unique(DEMOGRAPHIC$age),
