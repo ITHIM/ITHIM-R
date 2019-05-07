@@ -171,7 +171,7 @@ for(city in cities){
 ## Save the ithim_object in the results folder
 ##########
 
-saveRDS(ithim_objects, "results/multi_city/io.rds")
+saveRDS(ithim_objects, "results/multi_city/io.rds",version=2)
 
 #################################################
 ## with uncertainty
@@ -412,7 +412,7 @@ for(ci in 1:length(cities)){
 }
 
 
-saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds')
+saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 
 #################################################
 
