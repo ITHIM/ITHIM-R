@@ -9,6 +9,10 @@ library(ithimr)
 # Read accra travel survey 
 raw_trip_set <- read_csv("data/local/accra/trips_accra.csv")
 
+# Remove already added motorcycle trips
+
+# raw_trip_set <- filter()
+
 # Convert all current modes to lower case
 # Change 'Private Car' to 'car'
 raw_trip_set$trip_mode[raw_trip_set$trip_mode == "Private Car"] <- "car"
@@ -34,6 +38,13 @@ walk_to_bus$stage_duration <- 10.55
 # Add walk to bus stage
 raw_trip_set <- rbind(raw_trip_set, walk_to_bus)
 
+# Redefine motorcycle mode for a select 14 rows
+raw_trip_set$trip_mode[raw_trip_set$trip_mode=='other'][1:14] <- 'motorcycle'
+raw_trip_set <- subset(raw_trip_set,trip_mode!='other')
+raw_trip_set$stage_mode[raw_trip_set$stage_mode=='other'][1:14] <- 'motorcycle'
+raw_trip_set <- subset(raw_trip_set,stage_mode!='other')
+
+
 ## default speeds from ITHIM-R model
 default_speeds <- list(
   bus=15,
@@ -49,7 +60,7 @@ default_speeds <- list(
   truck=21,
   van=15,
   subway=28,
-  rail=35,
+  train=35,
   auto_rickshaw=22,
   shared_auto=22,
   shared_taxi=21,
@@ -79,18 +90,11 @@ if('stage_duration'%in%colnames(raw_trip_set)&&!'stage_distance'%in%colnames(raw
 if(!'trip_distance'%in%colnames(raw_trip_set))
   raw_trip_set$trip_distance <- sapply(raw_trip_set$trip_id,function(x)sum(subset(raw_trip_set,trip_id==x)$stage_distance))
 
-
 # Define constants
 DISTANCE_SCALAR_CAR_TAXI <- 1
 MOTORCYCLE_TO_CAR_RATIO <- 0.2
 
 total_car_distance <- sum(subset(raw_trip_set,stage_mode=='car')$trip_distance)*DISTANCE_SCALAR_CAR_TAXI
-
-# Redefine motorcycle mode for a select 14 rows
-raw_trip_set$trip_mode[raw_trip_set$trip_mode=='other'][1:14] <- 'motorcycle'
-raw_trip_set <- subset(raw_trip_set,trip_mode!='other')
-raw_trip_set$stage_mode[raw_trip_set$stage_mode=='other'][1:14] <- 'motorcycle'
-raw_trip_set <- subset(raw_trip_set,stage_mode!='other')
 
 # Create new motorbike trips
 # Add 4 new people with 3 trips each
@@ -106,6 +110,8 @@ new_gender <- c(rep('Male',20),'Female')
 age_range <- 15:69
 speed <- MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==new_mode]
 
+td <- raw_trip_set
+
 for(i in 1:nPeople){
   new_trips <- add_trips(trip_ids   = max(raw_trip_set$trip_id) + 1: nTrips, 
                          new_mode = new_mode, 
@@ -116,6 +122,7 @@ for(i in 1:nPeople){
                          nTrips=nTrips,
                          speed=speed)
   # Add new motorbikes trips to baseline
+  # print(summary(new_trips$trip_distance))
   raw_trip_set <- rbind(raw_trip_set, new_trips)
 }
 
@@ -155,5 +162,5 @@ raw_trip_set$age_cat <- NULL
 
 #####
 # Write streamlined travel survey data as a csv in the inst folder
-write_csv(raw_trip_set, "inst/extdata/local/accra/trips_accra.csv")
+# write_csv(raw_trip_set, "inst/extdata/local/accra/trips_accra.csv")
 
