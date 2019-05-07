@@ -36,11 +36,11 @@ library(kableExtra)
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 io <- readRDS("results/multi_city/io.rds")
 
-cities<- names(io)
-cities<- cities[-c(1,2)]
+cities <- c("accra", "sao_paulo", "delhi", "bangalore")
 
 for (x in 1: length(cities))
 {
+  print(cities[x])
   names(io[[cities[x]]]$outcomes$pm_conc_pp)[6:11]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
   data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc, baseline:bus_scen, factor_key=TRUE)
   x<-ggplot(data_long, aes(x=scenario, y=pm_conc, fill=scenario)) + geom_boxplot()+ ggtitle(cities[x])+ labs(y="Daily PM2.5 Concentration", x = "Scenarios")
@@ -80,8 +80,6 @@ for (x in 1: length(cities))
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
-cities<- names(io)
-cities<- cities[-2]
 trans_share<-c(22.5, 40.0, 22.5, 28.1) 
 pm_conc<- c(50, 18, 122, 47 )
 city<-cities
@@ -117,8 +115,6 @@ for (x in 1:length(cities))
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
-cities<- names(io)
-cities<- cities[-2]
 for (x in 1: length(cities))
 {
   names(io[[cities[x]]]$outcomes$mmets)[5:10]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
@@ -132,8 +128,6 @@ for (x in 1: length(cities))
 # Descriptive tables of Individual-level Physical activity (MMETs)
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-cities<- names(io)
-cities<- cities[-2]
 for (x in 1: length(cities))
 {
   names(io[[cities[x]]]$outcomes$mmets)[5:10]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
@@ -152,8 +146,6 @@ for (x in 1: length(cities))
 # Descriptive tables of injury outcomes
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-cities<- names(io)
-cities<- cities[-2]
 for (x in 1: length(cities))
 {
 
@@ -170,8 +162,6 @@ for (x in 1: length(cities))
 # Striking vehicles in scenarios
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-cities<- names(io)
-cities<- cities[-2]
 for (x in 1: length(cities))
 {
 
@@ -207,8 +197,6 @@ print(summary)
 # Distance share by scenarios in percentages (excludes city-specific minority modes-- auto rickshaws, subway, etc.)
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-cities<- names(io)
-cities<- cities[-2]
 for (x in 1: length(cities))
 {
   
