@@ -16,13 +16,13 @@ distances_for_injury_function <- function(pp_summary,dist){
   for(i in 1:length(mode_cols)) true_dist[,mode_cols[i]] <- true_dur[,mode_cols[i]]*mode_speeds[i]/60
   
   true_dist$pedestrian <- true_dist$walking 
-  if('walk_to_bus'%in%colnames(true_dist)){
-    true_dist$pedestrian <- true_dist$pedestrian + true_dist$walk_to_bus
+  if('walk_to_pt'%in%colnames(true_dist)){
+    true_dist$pedestrian <- true_dist$pedestrian + true_dist$walk_to_pt
 
   }
   ## car is car, taxi, shared auto, shared taxi
   true_dist$car <- rowSums(true_dist[,colnames(true_dist)%in%c('car','taxi','shared_auto','shared_taxi')])
-  true_dist <- true_dist[, -which(names(true_dist) %in% c('taxi','shared_auto','shared_taxi','walk_to_bus','walking'))]
+  true_dist <- true_dist[, -which(names(true_dist) %in% c('taxi','shared_auto','shared_taxi','walk_to_pt','walking'))]
   ##!! bus distance increases linearly with bus passenger distance
   ##!! driving allocation to demographic group is the same as passenger
   if(ADD_BUS_DRIVERS){

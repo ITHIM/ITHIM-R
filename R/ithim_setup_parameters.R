@@ -120,7 +120,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   
   ## propensity to travel
   UNCERTAIN_TRAVEL_MODE_NAMES <<- list(car=c('car','taxi','auto_rickshaw','shared_auto','shared_taxi'),
-                                       pt=c('bus','minibus','subway','rail','walk_to_bus'),
+                                       pt=c('bus','minibus','subway','rail','walk_to_pt'),
                                        motorcycle='motorcycle',
                                        walking='walking',
                                        bicycle='bicycle')
