@@ -31,8 +31,8 @@ scenario_pm_calculations <- function(dist,pp_summary){
   ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
   vent_rates <- data.frame(stage_mode=VEHICLE_INVENTORY$stage_mode,stringsAsFactors = F) 
   vent_rates$vent_rate <- BASE_LEVEL_INHALATION_RATE  # L / min
-  vent_rates$vent_rate[vent_rates$stage_mode=='bicycle'] <- (BASE_LEVEL_INHALATION_RATE + 5.0*MMET_CYCLING)/BASE_LEVEL_INHALATION_RATE
-  vent_rates$vent_rate[vent_rates$stage_mode%in%c('walking','walk_to_bus')] <- (BASE_LEVEL_INHALATION_RATE + 5.0*MMET_WALKING)/BASE_LEVEL_INHALATION_RATE
+  vent_rates$vent_rate[vent_rates$stage_mode=='bicycle'] <- BASE_LEVEL_INHALATION_RATE + MMET_CYCLING
+  vent_rates$vent_rate[vent_rates$stage_mode%in%c('walking','walk_to_bus')] <- BASE_LEVEL_INHALATION_RATE + MMET_WALKING
   
   ##RJ rewriting exposure ratio as function of ambient PM2.5, as in Goel et al 2015
   ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE (10), CLOSED_WINDOW_PM_RATIO (0.5), CLOSED_WINDOW_RATIO (0.5), ROAD_RATIO_MAX (3.216), ROAD_RATIO_SLOPE (0.379)
@@ -46,7 +46,7 @@ scenario_pm_calculations <- function(dist,pp_summary){
   # open vehicles experience the ``on_road_off_road_ratio'', and closed vehicles experience the ``in_vehicle_ratio''
   ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio,subway_ratio)
   # assign rates according to the order of the ratio_by_mode array: 1 is open vehicle, 2 is closed vehicle, 3 is subway
-  open_vehicles <- c('walking','walk_to_bus','bicycle','motorcycle','auto_rickshaw','shared_auto','cycle_rickshaw')
+  open_vehicles <- c('walking','walk_to_pt','bicycle','motorcycle','auto_rickshaw','shared_auto','cycle_rickshaw')
   rail_vehicles <- c('subway','rail')
   vent_rates$vehicle_ratio_index <- sapply(vent_rates$stage_mode,function(x) ifelse(x%in%rail_vehicles,3,ifelse(x%in%open_vehicles,1,2)))
   
@@ -96,25 +96,20 @@ scenario_pm_calculations <- function(dist,pp_summary){
     # calculate non-travel air inhalation
     non_transport_air_inhaled <- (24-individual_data$on_road_dur/60)*BASE_LEVEL_INHALATION_RATE
     # concentration of pm inhaled = total pm inhaled / total air inhaled
-    pm_conc <- ((non_transport_air_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)#/(non_transport_air_inhaled+individual_data$air_inhaled)
+    pm_conc <- ((non_transport_air_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)/24#/(non_transport_air_inhaled+individual_data$air_inhaled)
     # match individual ids to set per person pm exposure
     synth_pop[[paste0('pm_conc_',SCEN_SHORT_NAME[i])]][match(individual_data[,participant_id],synth_pop$participant_id)] <- pm_conc
   }
   
   #####PM normalise
   ##currently not normalising
-  mean_conc <- rep(0,length(SCEN_SHORT_NAME))
-  
   ## calculating means of individual-level concentrations
-  mean_conc <- mean(synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[1])]])
+  #mean_conc <- mean(synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[1])]])
   
-  normalise <- as.numeric(conc_pm[1])/as.numeric(mean_conc)
+  ## Rahul made changes here/./-- no normalisation
   ###Lines which are normalising the concentrations
-  
-  for (i in 1: length(SCEN_SHORT_NAME))
-    ## Rahul made changes here/./-- no normalisation
-    synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]] <- synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]]
-  
+  #normalise <- as.numeric(conc_pm[1])/as.numeric(mean_conc)
+  #for (i in 1: length(SCEN_SHORT_NAME))
     #synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]] <- normalise*synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]]
   
   synth_pop$participant_id <- as.integer(synth_pop$participant_id)

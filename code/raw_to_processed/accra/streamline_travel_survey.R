@@ -9,6 +9,10 @@ library(ithimr)
 # Read accra travel survey 
 raw_trip_set <- read_csv("data/local/accra/trips_accra.csv")
 
+# Remove already added motorcycle trips
+
+# raw_trip_set <- filter()
+
 # Convert all current modes to lower case
 # Change 'Private Car' to 'car'
 raw_trip_set$trip_mode[raw_trip_set$trip_mode == "Private Car"] <- "car"
@@ -27,12 +31,19 @@ raw_trip_set$trip_duration <- NULL
 raw_trip_set$participant_id <- as.integer(as.factor(raw_trip_set$participant_id))
 
 ## Add walk to bus stages to all bus trips
-walk_to_bus <- raw_trip_set[raw_trip_set$stage_mode == "bus",]
-walk_to_bus$stage_mode <- "walk_to_bus"
+walk_to_bus <- raw_trip_set[raw_trip_set$stage_mode %in% c('bus', 'train'),]
+walk_to_bus$stage_mode <- "walk_to_pt"
 walk_to_bus$stage_duration <- 10.55
 
 # Add walk to bus stage
 raw_trip_set <- rbind(raw_trip_set, walk_to_bus)
+
+# Redefine motorcycle mode for a select 14 rows
+raw_trip_set$trip_mode[raw_trip_set$trip_mode=='other'][1:14] <- 'motorcycle'
+raw_trip_set <- subset(raw_trip_set,trip_mode!='other')
+raw_trip_set$stage_mode[raw_trip_set$stage_mode=='other'][1:14] <- 'motorcycle'
+raw_trip_set <- subset(raw_trip_set,stage_mode!='other')
+
 
 ## default speeds from ITHIM-R model
 default_speeds <- list(
@@ -43,13 +54,13 @@ default_speeds <- list(
   car=21,
   taxi=21,
   walking=4.8,
-  walk_to_bus=4.8,
+  walk_to_pt=4.8,
   bicycle=14.5,
   motorcycle=25,
   truck=21,
   van=15,
   subway=28,
-  rail=35,
+  train=35,
   auto_rickshaw=22,
   shared_auto=22,
   shared_taxi=21,
@@ -79,18 +90,11 @@ if('stage_duration'%in%colnames(raw_trip_set)&&!'stage_distance'%in%colnames(raw
 if(!'trip_distance'%in%colnames(raw_trip_set))
   raw_trip_set$trip_distance <- sapply(raw_trip_set$trip_id,function(x)sum(subset(raw_trip_set,trip_id==x)$stage_distance))
 
-
 # Define constants
 DISTANCE_SCALAR_CAR_TAXI <- 1
 MOTORCYCLE_TO_CAR_RATIO <- 0.2
 
 total_car_distance <- sum(subset(raw_trip_set,stage_mode=='car')$trip_distance)*DISTANCE_SCALAR_CAR_TAXI
-
-# Redefine motorcycle mode for a select 14 rows
-raw_trip_set$trip_mode[raw_trip_set$trip_mode=='other'][1:14] <- 'motorcycle'
-raw_trip_set <- subset(raw_trip_set,trip_mode!='other')
-raw_trip_set$stage_mode[raw_trip_set$stage_mode=='other'][1:14] <- 'motorcycle'
-raw_trip_set <- subset(raw_trip_set,stage_mode!='other')
 
 # Create new motorbike trips
 # Add 4 new people with 3 trips each
@@ -106,6 +110,8 @@ new_gender <- c(rep('Male',20),'Female')
 age_range <- 15:69
 speed <- MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==new_mode]
 
+td <- raw_trip_set
+
 for(i in 1:nPeople){
   new_trips <- add_trips(trip_ids   = max(raw_trip_set$trip_id) + 1: nTrips, 
                          new_mode = new_mode, 
@@ -116,6 +122,7 @@ for(i in 1:nPeople){
                          nTrips=nTrips,
                          speed=speed)
   # Add new motorbikes trips to baseline
+  # print(summary(new_trips$trip_distance))
   raw_trip_set <- rbind(raw_trip_set, new_trips)
 }
 
@@ -126,21 +133,29 @@ raw_trip_set$age_cat <- ""
 raw_trip_set[raw_trip_set$age >= 15 & raw_trip_set$age < 50,]$age_cat <- '15-49'
 raw_trip_set[raw_trip_set$age > 49 & raw_trip_set$age < 70,]$age_cat <- '50-69'
 
+raw_trip_set <- arrange(raw_trip_set, trip_id)
+
 pop_weights <- read_csv("data/local/accra/census_weights.csv")
 
+backup <- raw_trip_set
+
 for (i in 1:nrow(pop_weights)){
-  # i <- 1
   td <- raw_trip_set[raw_trip_set$age_cat == pop_weights$age[i] & raw_trip_set$sex == pop_weights$sex[i],]
-  n <- pop_weights$rweights[i]
-  last_id <- max(td$participant_id)
   
+  print(td %>% group_by(trip_mode) %>% summarise(p = round(dplyr::n() / length(unique(td$trip_id)) * 100, 1) ))
+  
+  n <- pop_weights$rweights[i]
   for (j in 1:n){
+    last_id <- max(raw_trip_set$participant_id)
+    last_trip_id <- max(raw_trip_set$trip_id)
+    
+    # print(last_id)
+    # print(last_trip_id)
     td1 <- td
-    td1$participant_id <- td1$participant_id + max(td$participant_id)
-    td1$trip_id <- (max(td$trip_id) + 1): (max(td$trip_id) + nrow(td1))
+    td1$participant_id <- td1$participant_id - 1 + last_id
+    td1$trip_id <- td1$trip_id + last_trip_id
     raw_trip_set <- rbind(raw_trip_set, td1)
     
-    td <- td1
   }
   
   
@@ -156,4 +171,3 @@ raw_trip_set$age_cat <- NULL
 #####
 # Write streamlined travel survey data as a csv in the inst folder
 write_csv(raw_trip_set, "inst/extdata/local/accra/trips_accra.csv")
-

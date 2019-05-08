@@ -23,11 +23,19 @@ create_max_mode_share_scenarios <- function(trip_set){
           change_trip_ids <- base::sample(potential_trip_ids,size=round(length(unique(rdr_subset$trip_id))/100*target_percent)-current_mode_trips)
           #print(c(CITY,mode_name,length(change_trip_ids)))
         }
-        change_trips <- subset(rdr_subset,trip_id%in%change_trip_ids)
+        change_trips <- subset(rdr_subset,trip_id %in% change_trip_ids)
         change_trips$trip_mode <- mode_name
         change_trips$stage_mode <- mode_name
-        change_trips$stage_duration <- change_trips$stage_distance * 60 / MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==mode_name]
-        
+        change_trips$stage_duration <- change_trips$stage_distance * 60 / MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode == mode_name]
+        ## if bus scenario: 
+        if (mode_name == 'bus')
+        {
+          walk_trips <- change_trips;
+          walk_trips$stage_mode <- 'walk_to_pt';
+          walk_trips$stage_duration <- BUS_WALK_TIME;
+          walk_trips$stage_distance <- walk_trips$stage_distance * 60 / MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode == mode_name]
+          change_trips <- rbind(change_trips,walk_trips)
+        }
         rdr_copy <- rbind(subset(rdr_copy,!trip_id%in%change_trip_ids),change_trips)
       }
     }

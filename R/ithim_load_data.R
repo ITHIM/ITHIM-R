@@ -7,7 +7,7 @@ ithim_load_data <- function(speeds=list(
   car=21,
   taxi=21,
   walking=4.8,
-  walk_to_bus=4.8,
+  walk_to_pt=4.8,
   bicycle=14.5,
   motorcycle=25,
   truck=21,
@@ -126,8 +126,8 @@ ithim_load_data <- function(speeds=list(
   GBD_DATA <- subset(GBD_DATA,cause_name%in%disease_names)
   GBD_DATA$min_age <- as.numeric(sapply(GBD_DATA$age_name,function(x)str_split(x,' to ')[[1]][1]))
   GBD_DATA$max_age <- as.numeric(sapply(GBD_DATA$age_name,function(x)str_split(x,' to ')[[1]][2]))
-  GBD_DATA <- subset(GBD_DATA,min_age>=AGE_LOWER_BOUNDS[1])
-  GBD_DATA <- subset(GBD_DATA,max_age<=MAX_AGE)
+  GBD_DATA <- subset(GBD_DATA,max_age>=AGE_LOWER_BOUNDS[1])
+  GBD_DATA <- subset(GBD_DATA,min_age<=MAX_AGE)
   names(GBD_DATA)[c(1,3,4,5)] <- c('measure','sex','age','cause')
   
   burden_of_disease <- expand.grid(measure=unique(GBD_DATA$measure),sex=unique(POPULATION$sex),age=unique(POPULATION$age),

@@ -26,6 +26,11 @@ scale_trip_distances <- function(trips){
   car_taxi_modes <- UNCERTAIN_TRAVEL_MODE_NAMES$car
   pt_modes <- UNCERTAIN_TRAVEL_MODE_NAMES$pt
 
+  #car_taxi_modes <- c('car','taxi','auto_rickshaw','shared_auto')
+  #pt_modes <- c('bus','minibus','subway','rail','walk_to_pt')
+  ## omit trip distance as it has already been used to create scenarios and has no other use
+  #column_names <- c('stage_distance','stage_duration')
+  
   match_modes <- rep(1,nrow(trips))
   stage_modes <- trips$stage_mode
   match_modes[stage_modes%in%car_taxi_modes] <- DISTANCE_SCALAR_CAR_TAXI

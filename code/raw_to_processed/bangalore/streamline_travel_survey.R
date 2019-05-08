@@ -50,9 +50,11 @@ ntrips <- rd[is.na(rd$trip_id), ] %>% nrow()
 # Auto-increasing trip_id
 rd[is.na(rd$trip_id), ]$trip_id <- seq(last_trip_id, last_trip_id + ntrips - 1, by = 1)
 
+#####
+# Rename Short Walk to walk_to_pt
+rd$stage_mode[rd$stage_mode != "Walk" & rd$main_mode != 1] <- "walk_to_pt"
 
 #####
-
 # Copy stage mode to trip mode
 rd$trip_mode <- rd$stage_mode
 # Create unique trip ids
@@ -69,16 +71,31 @@ for (i in 1:length(utripid)){
 
 td <- rd
 
+rdpt <- rd %>% filter(trip_mode %in% c('bus', 'mini_bus', 'shared_auto', 'train'))
+
+rdptww <- rdpt %>% filter(stage_mode == "walk_to_pt")
+
+rdpt <- rdpt %>% filter(!trip_id %in% rdptww$trip_id)
+
+rdpt$stage_mode <- "walk_to_pt"
+rdpt$stage_duration <- 10.55 / 60
+rdpt$stage_id <- rdpt$stage_id + 1
+
+rd <- rbind(rd, rdpt)
+
+
 #####
 ## Recalculate distances from speed when they're NA
 # Read speed table for Bangalore
 speed_tbl <- read_csv("data/local/bangalore/speed_modes_india.csv")
 
-if (nrow(rd[is.na(rd$distance) & !is.na(rd$duration), ]) > 0){
-  # Update distance by duration (mins / 60) * speed (kmh)
-  rd[is.na(rd$distance) & !is.na(rd$duration), ]$distance <- 
-    ((rd[is.na(rd$distance) & !is.na(rd$duration), ]$duration) / 60) * 
-    speed_tbl$Speed[match(rd[is.na(rd$distance) & !is.na(rd$duration), ]$stage_mode, speed_tbl$Mode)]
+speed_tbl[nrow(speed_tbl) + 1,] = list("walk_to_pt", 4.8)
+
+if (nrow(rd[is.na(rd$stage_distance) & !is.na(rd$stage_duration), ]) > 0){
+  # Update stage_distance by stage_duration (mins / 60) * speed (kmh)
+  rd[is.na(rd$stage_distance) & !is.na(rd$stage_duration), ]$stage_distance <- 
+    ((rd[is.na(rd$stage_distance) & !is.na(rd$stage_duration), ]$stage_duration) / 60) * 
+    speed_tbl$Speed[match(rd[is.na(rd$stage_distance) & !is.na(rd$stage_duration), ]$stage_mode, speed_tbl$Mode)]
 }
 
 # Remove row number column
@@ -99,6 +116,11 @@ rd$trip_distance <- ave(rd$stage_distance, rd$trip_id, FUN=sum)
 ## Reorder columns
 rd1 <- rd %>% dplyr::select(participant_id, age, sex, stage_id, stage_mode, stage_duration, stage_distance,
                             trip_id, trip_mode, trip_distance)
+
+####
+# Remove trips with only walk_to_pt as main mode
+# Explicity keep trip_mode with NA - otherwise the command will remove them
+rd1 <- rd1 %>% filter(is.na(trip_mode) | trip_mode != "walk_to_pt")
 
 #####
 # Write streamlined travel survey data as a csv in the inst folder

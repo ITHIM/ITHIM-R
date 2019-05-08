@@ -1,6 +1,10 @@
 library(ithimr)
 rm(list=ls())
 cities <- c('accra','sao_paulo','delhi','bangalore')
+
+###changed the bangalore transport emissions-- MC emissions from 1757 to 817 and car emissions from 4173 to 1107
+##this is done based on ratio of car/MC ownership in bangalore to that of delhi from Census data (0.50 and 0.58 respectively)==
+###1757=0.58*1409 and 1107=  0.50*2214
 emission_inventories = list(accra=NULL,
                             sao_paulo=list(motorcycle=4,
                                            car=4,
@@ -19,9 +23,9 @@ emission_inventories = list(accra=NULL,
                                        van=0,
                                        other=0,
                                        taxi=0),
-                            bangalore=list(motorcycle=1757,
+                            bangalore=list(motorcycle=817,
                                            auto_rickshaw=220,
-                                           car=4173,
+                                           car=1107,
                                            bus_driver=1255,
                                            big_truck=4455,
                                            truck=703,
@@ -101,7 +105,9 @@ ithim_objects <- list()
 for(city in cities){
   ithim_objects[[city]] <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),
                                   ADD_WALK_TO_BUS_TRIPS=F,
-                                  CITY=city,ADD_TRUCK_DRIVERS = F,
+                                  CITY=city,
+                                  AGE_RANGE=c(min_age,max_age),
+                                  ADD_TRUCK_DRIVERS = F,
                                   MAX_MODE_SHARE_SCENARIO = T,
                                   ADD_BUS_DRIVERS = F,
                                   emission_inventory = emission_inventories[[city]],
@@ -167,7 +173,7 @@ for(city in cities){
 ## Save the ithim_object in the results folder
 #################################################################
 
-saveRDS(ithim_objects, "results/multi_city/io.rds")
+saveRDS(ithim_objects, "results/multi_city/io.rds",version=2)
 
 #################################################################
 
@@ -477,7 +483,7 @@ for(ci in 1:length(cities)){
 }
 
 
-saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds')
+saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 
 outcomes_pp <- do.call(cbind,outcome_pp)
 outcome$combined <- outcomes_pp

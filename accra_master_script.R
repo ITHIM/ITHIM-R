@@ -291,7 +291,7 @@ if(file.exists(file_name)){
         ithim_object_list[[certainty]][[environmental_scenario]] <- ithim_object
       }
   }
-  saveRDS(ithim_object_list,file_name)
+  saveRDS(ithim_object_list,file_name,version=2)
 
   }
 

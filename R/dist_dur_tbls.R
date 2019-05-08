@@ -10,8 +10,8 @@ dist_dur_tbls <- function(pp_summary){
     total_travel <- colSums(scen_travel)
     
     # add Short Walking, if Short Walking has been added
-    if("walk_to_bus"%in%names(total_travel)){
-      total_travel[['walking_dur']] <-  total_travel[['walking_dur']] +  total_travel[['walk_to_bus_dur']]
+    if("walk_to_pt"%in%names(total_travel)){
+      total_travel[['walking_dur']] <-  total_travel[['walking_dur']] +  total_travel[['walk_to_pt_dur']]
     }
     
     durations[[i]] <- total_travel
@@ -21,10 +21,32 @@ dist_dur_tbls <- function(pp_summary){
   rownames(dur) <- sapply(rownames(dur),function(x)strsplit(x,'_dur')[[1]][1])
   dur <- dur[rownames(dur)!='walk_to_bus',]
   
+<<<<<<< HEAD
   mode_indices <- match(rownames(dur),VEHICLE_INVENTORY$stage_mode)
   mode_speeds <- VEHICLE_INVENTORY$speed[mode_indices]
   mode_speeds[is.na(mode_speeds)] <- 0
   dist <- dur * matrix(rep(mode_speeds,NSCEN+1),ncol=NSCEN+1) / 60
+=======
+  ## join distances & durations
+  for (i in 1:length(l_dist)){
+    if (i == 1){
+      local_dist <- l_dist[[i]]
+      local_dur <- l_dur[[i]]
+    }else{
+      local_dist <- left_join(local_dist, l_dist[[i]], by = "stage_mode")
+      local_dur <- left_join(local_dur, l_dur[[i]], by = "stage_mode")
+    }
+  }
+  
+  # Remove short walking
+  #dist <- filter(local_dist, stage_mode != 'walk_to_pt')
+  #dur <- filter(local_dur, stage_mode != 'walk_to_pt')
+  dist <- local_dist[local_dist$stage_mode != 'walk_to_pt',]
+  dur <- local_dur[local_dur$stage_mode != 'walk_to_pt',]
+  
+  dist$stage_mode <- as.character(dist$stage_mode)
+  dur$stage_mode <- as.character(dur$stage_mode)
+>>>>>>> master
   
   ## bus travel is linear in bus passenger travel
   bus_passenger_row <- which(rownames(dur)=='bus')

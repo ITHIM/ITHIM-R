@@ -199,6 +199,9 @@ require(tidyverse)
 
 rd <- read_csv("data/local/sao_paulo/trips_sao_paulo_expanded.csv")
 
+# Rename van mode to mini-bus
+rd$trip_mode[rd$trip_mode == "van"] <- "bus"
+
 # Create a filtered df with selected columns
 rd$participant_id <- rd$pid
 rd$pid <- NULL
@@ -213,13 +216,14 @@ rd$stage_distance <- rd$trip_distance
 rd$stage_duration <- rd$trip_duration
 
 rd <- mutate(rd, total_short_walk_time = walking_time_origin + walking_time_dest)
+rd_pt <- filter(rd, trip_mode %in% c('subway', 'bus', 'train', 'van'))
 rows_list <- list()
 ind <- 1
 
-for (i in 1:nrow(rd)){
-  nr <- rd[i, ]
+for (i in 1:nrow(rd_pt)){
+  nr <- rd_pt[i, ]
   if (!is.na(nr$total_short_walk_time) && nr$total_short_walk_time > 0){
-    nr$stage_mode <- "walk_to_bus"
+    nr$stage_mode <- "walk_to_pt"
     nr$stage_duration <- nr$total_short_walk_time
     #nr$stage_distance <- nr$total_short_walk_time / 60 * 4.8
     rows_list[[ind]] <- nr
@@ -236,8 +240,8 @@ rd$trip_distance_cat <- NULL
 rd$person_weight <- NULL
 rd$total_short_walk_time <- NULL
 
-rd[!is.na(rd$stage_mode) & rd$stage_mode == "walk_to_bus",]$stage_distance <-
-  rd[!is.na(rd$stage_mode) & rd$stage_mode == "walk_to_bus",]$stage_duration / 60 * 4.8
+rd[!is.na(rd$stage_mode) & rd$stage_mode == "walk_to_pt",]$stage_distance <-
+  rd[!is.na(rd$stage_mode) & rd$stage_mode == "walk_to_pt",]$stage_duration / 60 * 4.8
 
 rd$trip_distance <- ave(rd$stage_distance, rd$trip_id, FUN=sum)
 rd$trip_duration <- ave(rd$stage_duration, rd$trip_id, FUN=sum)

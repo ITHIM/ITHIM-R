@@ -36,11 +36,11 @@ library(kableExtra)
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 io <- readRDS("results/multi_city/io.rds")
 
-cities<- names(io)
-cities<- cities[-2]
+cities <- c("accra", "sao_paulo", "delhi", "bangalore")
 
 for (x in 1: length(cities))
 {
+  print(cities[x])
   names(io[[cities[x]]]$outcomes$pm_conc_pp)[6:11]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
   data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc, baseline:bus_scen, factor_key=TRUE)
   x<-ggplot(data_long, aes(x=scenario, y=pm_conc, fill=scenario)) + geom_boxplot()+ ggtitle(cities[x])+ labs(y="Daily PM2.5 Concentration", x = "Scenarios")
@@ -74,10 +74,46 @@ for (x in 1: length(cities))
 ```
 
 
-# Boxplots of Individual-level Physical activity (MMETs)
+
+
+# Descriptive tables of emission inventory
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
+trans_share<-c(22.5, 40.0, 22.5, 28.1) 
+pm_conc<- c(50, 18, 122, 47 )
+city<-cities
+shares<- as.data.frame(cbind(city,as.numeric(trans_share), pm_conc))
+names(shares)[2]<- "trans_share"
+for (x in 1:length(cities))
+{
+  modes<-names(unlist(io[[cities[x]]]$emission_inventory))
+  emissions<-as.data.frame(unlist(io[[cities[x]]]$emission_inventory))
+  city_emissions<-cbind(as.data.frame(modes),  as.data.frame(emissions$`unlist(io[[cities[x]]]$emission_inventory)`))
+  names(city_emissions)[2]<- "emissions"
+  select<- c("car", "motorcycle", "bus_driver", "truck", "big_truck")
+  city_emissions$modes<- as.character(city_emissions$modes)
+  city_emissions$modes[!(city_emissions$modes %in% select)]<- "other"
+  summary<-city_emissions %>% group_by(modes) %>% summarise(sum(emissions))
+  names(summary)[2]<- "emissions"
+  summary$emissions <- round(summary$emissions*100/sum(summary$emissions), digits=1)
+  print (as.character(cities[x]))
+  summary<-as.data.frame(summary)
+  summary[nrow(summary)+1,1]<-"Transport share"
+  summary[nrow(summary),2]<-as.character(shares$trans_share[x])
+  summary[nrow(summary)+1,1]<-"PM2.5 Conc"
+  summary[nrow(summary),2]<-as.character(shares$pm_conc[x])
+  print (summary)
+  
+}
+
+```
+
+
+
+# Boxplots of Individual-level Physical activity (MMETs)
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
 for (x in 1: length(cities))
 {
@@ -92,7 +128,6 @@ for (x in 1: length(cities))
 # Descriptive tables of Individual-level Physical activity (MMETs)
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-
 for (x in 1: length(cities))
 {
   names(io[[cities[x]]]$outcomes$mmets)[5:10]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
@@ -111,7 +146,6 @@ for (x in 1: length(cities))
 # Descriptive tables of injury outcomes
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-
 for (x in 1: length(cities))
 {
 
@@ -125,31 +159,67 @@ for (x in 1: length(cities))
 }
 ```
 
+# Striking vehicles in scenarios
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+for (x in 1: length(cities))
+{
+
+scenarios<- c('Baseline', 'Scenario 1', 'Scenario 2', 'Scenario 3', 'Scenario 4', 'Scenario 5')
+for (i in 1: length(scenarios))
+{
+whw<-as.data.frame(rowSums(io[[cities[x]]]$outcomes$whw[[scenarios[i]]]$whw))
+noov<-as.data.frame(rowSums(io[[cities[x]]]$outcomes$whw[[scenarios[i]]]$noov))
+names(whw)[1]<- as.character(scenarios[i])
+names(noov)[1]<-as.character(scenarios[i])
+
+if (i ==1 )
+{
+ summary<-round(rbind(whw,noov), digits = 1)
+} 
+else
+{
+summary<- cbind(summary, round(rbind(whw, noov), digits=1) ) 
+}
+
+}
+
+print (as.character(cities[x]))
+names(summary)<-c("base", "walk", "bike", "car", "MC", "bus")
+print(summary)
+
+}
+
+```
+
+
+
 # Distance share by scenarios in percentages (excludes city-specific minority modes-- auto rickshaws, subway, etc.)
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 for (x in 1: length(cities))
 {
   
-select<- c("car", "motorcycle", "walking", "bicycle", "bus")
-io[[cities[x]]]$trip_scen_sets <-io[[cities[x]]]$trip_scen_sets[io[[cities[x]]]$trip_scen_sets$trip_mode %in% select,]
-
-dist_scen<- io[[cities[x]]]$trip_scen_sets %>% group_by(trip_mode, scenario) %>% summarise(sum(trip_distance))
-dist_scen<- as.data.frame (dist_scen)
-names(dist_scen)[3]<-"distance"
-dist_scen<-spread(dist_scen, trip_mode, distance)
-
-dist_scen$sum<-rowSums (dist_scen[2:(ncol(dist_scen)-1)], na.rm = FALSE, dims = 1)
-dist_scen_prop<- round(dist_scen[,2:(ncol(dist_scen)-1)]*100/dist_scen$sum, digits=1)
-dist_scen_prop<- cbind(dist_scen[,1], dist_scen_prop)
-
-names(dist_scen_prop)[1]<-"Scenario"
-dist_scen_prop$Scenario<- c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
-print (as.character(cities[x]))
-print(dist_scen_prop)
-print(dist_scen)
-#library(knitr)
-#library(kableExtra)
-#kable(dist_scen_prop)
+  select<- c("car", "motorcycle", "walking", "bicycle", "bus")
+  
+  io[[cities[x]]]$trip_scen_sets$trip_mode[!io[[cities[x]]]$trip_scen_sets$trip_mode %in% select]<- "other"
+  
+  dist_scen<- io[[cities[x]]]$trip_scen_sets %>% group_by(trip_mode, scenario) %>% summarise(sum(trip_distance))
+  dist_scen<- as.data.frame (dist_scen)
+  names(dist_scen)[3]<-"distance"
+  dist_scen$distance<- round(dist_scen$distance, digits=0)
+    dist_scen<-spread(dist_scen, trip_mode, distance)
+  dist_scen$sum<-rowSums (dist_scen[2:(ncol(dist_scen))], na.rm = FALSE, dims = 1)
+  dist_scen_prop<- round(dist_scen[,2:(ncol(dist_scen))]*100/dist_scen$sum, digits=1)
+  dist_scen_prop<- cbind(dist_scen[,1], dist_scen_prop)
+  
+  names(dist_scen_prop)[1]<-"Scenario"
+  dist_scen_prop$Scenario<- c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
+  print (as.character(cities[x]))
+  print(dist_scen_prop)
+  print(dist_scen)
+  #library(knitr)
+  #library(kableExtra)
+  #kable(dist_scen_prop)
 }
 ```

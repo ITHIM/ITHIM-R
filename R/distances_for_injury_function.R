@@ -18,6 +18,7 @@ distances_for_injury_function <- function(pp_summary,dist){
   true_dist$pedestrian <- true_dist$walking 
   if('walk_to_bus'%in%colnames(true_dist)){
     true_dist$pedestrian <- true_dist$pedestrian + true_dist$walk_to_bus
+
   }
   ## car is car, taxi, shared auto, shared taxi
   true_dist$car <- rowSums(true_dist[,colnames(true_dist)%in%c('car','taxi','shared_auto','shared_taxi')])
