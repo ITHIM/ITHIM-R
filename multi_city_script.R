@@ -30,10 +30,10 @@ emission_inventories = list(accra=NULL,
                                            taxi=0))
 #################################################################
 ## run diagnostics
-for(city in cities){
-  ithim_object <- run_ithim_setup(ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F,CITY=city,MAX_MODE_SHARE_SCENARIO=T,DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),emission_inventory = emission_inventories[[city]])
-  summarise_ithim_inputs(ithim_object)
-}
+#for(city in cities){
+#  ithim_object <- run_ithim_setup(ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F,CITY=city,MAX_MODE_SHARE_SCENARIO=T,DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),emission_inventory = emission_inventories[[city]])
+#  summarise_ithim_inputs(ithim_object)
+#}
 
 
 #################################################################

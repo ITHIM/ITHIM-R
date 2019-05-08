@@ -57,10 +57,10 @@ load('diagnostic/parameter_settings.Rdata')
 ## distance plots don't need so many samples!
 numcores <- detectCores()
 distances <- list()
-for(city in cities){
+for(city in cities[1:2]){
   ci <- which(cities==city)
   ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
-                                  NSAMPLES=128,
+                                  NSAMPLES=16,
                                   synthetic_population_size = 1000,
                                   CITY=city,
                                   MAX_MODE_SHARE_SCENARIO = T,
@@ -76,7 +76,8 @@ for(city in cities){
                                   DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
                                   DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]])
   distances[[city]] <- NULL
-  distances[[city]] <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=numcores)
+  distances[[city]] <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=6)
+  print(length(distances[[city]]))
 }
 SCEN <- rownames(SCENARIO_PROPORTIONS)
 NSCEN <- length(SCEN)

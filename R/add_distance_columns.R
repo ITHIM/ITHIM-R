@@ -36,7 +36,7 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
   ## true distances should be the total for the whole population for a whole year. 
   ##TODO precalculate and save distances (for uncertainty use case)
   injuries_list <- list()
-  if(!'bus_driver'%in%mode_names) bus_base <- dist[which(dist$stage_mode=='bus_driver'),2]
+  if(!'bus_driver'%in%mode_names) bus_base <- dist[which(rownames(dist)=='bus_driver'),1]
   for(i in 1:length(scenarios)){
     scen <- scenarios[i]
     injuries_list[[scen]] <- list()
@@ -69,8 +69,8 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
         injuries_list[[scen]][[type]]$strike_distance_sum <- injuries_list[[scen]][[type]]$strike_distance
       }else{
         if(!'bus_driver'%in%mode_names){
-          injuries_list[[scen]][[type]]$strike_distance[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(dist$stage_mode=='bus_driver'),i+1]/bus_base
-          injuries_list[[scen]][[type]]$strike_distance_sum[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(dist$stage_mode=='bus_driver'),i+1]/bus_base
+          injuries_list[[scen]][[type]]$strike_distance[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(rownames(dist)=='bus_driver'),i]/bus_base
+          injuries_list[[scen]][[type]]$strike_distance_sum[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(rownames(dist)=='bus_driver'),i]/bus_base
         }
       }
       

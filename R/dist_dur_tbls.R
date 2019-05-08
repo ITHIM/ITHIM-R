@@ -26,9 +26,6 @@ dist_dur_tbls <- function(pp_summary){
   mode_speeds[is.na(mode_speeds)] <- 0
   dist <- dur * matrix(rep(mode_speeds,NSCEN+1),ncol=NSCEN+1) / 60
   
-  dist$stage_mode <- as.character(dist$stage_mode)
-  dur$stage_mode <- as.character(dur$stage_mode)
-  
   ## bus travel is linear in bus passenger travel
   bus_passenger_row <- which(rownames(dur)=='bus')
   dist <- rbind(dist,dist[bus_passenger_row,] * BUS_TO_PASSENGER_RATIO)
