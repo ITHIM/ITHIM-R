@@ -117,6 +117,10 @@ rd$trip_distance <- ave(rd$stage_distance, rd$trip_id, FUN=sum)
 rd1 <- rd %>% dplyr::select(participant_id, age, sex, stage_id, stage_mode, stage_duration, stage_distance,
                             trip_id, trip_mode, trip_distance)
 
+####
+# Remove trips wiht only walk_to_pt as main mode
+rd1 <- rd1 %>% filter(trip_mode != "walk_to_pt")
+
 #####
 # Write streamlined travel survey data as a csv in the inst folder
 write_csv(rd1, "inst/extdata/local/bangalore/trips_bangalore.csv")
