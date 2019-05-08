@@ -118,8 +118,9 @@ rd1 <- rd %>% dplyr::select(participant_id, age, sex, stage_id, stage_mode, stag
                             trip_id, trip_mode, trip_distance)
 
 ####
-# Remove trips wiht only walk_to_pt as main mode
-rd1 <- rd1 %>% filter(trip_mode != "walk_to_pt")
+# Remove trips with only walk_to_pt as main mode
+# Explicity keep trip_mode with NA - otherwise the command will remove them
+rd1 <- rd1 %>% filter(is.na(trip_mode) | trip_mode != "walk_to_pt")
 
 #####
 # Write streamlined travel survey data as a csv in the inst folder
