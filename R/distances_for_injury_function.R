@@ -81,39 +81,50 @@ distances_for_injury_function <- function(pp_summary,dist){
   STR_EXPONENT <<- INJURY_LINEARITY - CAS_EXPONENT
   forms <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)-STR_EXPONENT*log(strike_distance_sum))',
                 noov='count~cas_mode+strike_mode+offset(log(cas_distance))+offset(log(strike_distance_sum))')
-  if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
-    for(type in c('whw','noov'))
-      forms[[type]] <- paste0(c(forms[[type]],'age_cat'),collapse='+')
-  if('cas_gender'%in%names(injuries_for_model[[1]][[1]]))
-    for(type in c('whw','noov'))
-      forms[[type]] <- paste0(c(forms[[type]],'cas_gender'),collapse='+')
   
+  # 
   ## catch for when regression fails: if fail, run simpler model: no interactions.
   for(type in c('whw','noov')){
     injuries_for_model[[1]][[type]]$injury_reporting_rate <- 1
-    reg_model[[type]] <- tryCatch({
-      (glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson',
-                           offset=-log(injury_reporting_rate),control=glm.control(maxit=100)))
-    }, error = function(e){
-      temp_form <- gsub('*','+',forms[[type]],fixed=T)
-      (glm(as.formula(temp_form),data=injuries_for_model[[1]][[type]],family='poisson',
-                           offset=-log(injury_reporting_rate),control=glm.control(maxit=100)))
+    mod <- injuries_for_model[[1]][[type]]
+    try({mod <- glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson',
+               offset=-log(injury_reporting_rate))
+        mod <- trim_glm_object(mod)})
+    if(any(c('age_cat','cas_gender')%in%names(injuries_for_model[[1]][[type]]))){
+      if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
+          forms[[type]] <- paste0(c(forms[[type]],'age_cat'),collapse='+')
+      if('cas_gender'%in%names(injuries_for_model[[1]][[1]]))
+          forms[[type]] <- paste0(c(forms[[type]],'cas_gender'),collapse='+')
+      try({mod <- glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson',
+                       offset=-log(injury_reporting_rate))
+          mod <- trim_glm_object(mod)})
     }
-    )
-    reg_model[[type]] <- trim_glm_object(reg_model[[type]])
+    #
+    reg_model[[type]] <- mod
+    # reg_model[[type]] <- tryCatch({
+    #   mod <- glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson',
+    #                        offset=-log(injury_reporting_rate),control=glm.control(maxit=100))
+    #   mod <- trim_glm_object(mod)
+    #   mod
+    # }, warning = function(w){
+    #   w
+    # }, error = function(e){
+    #   'glm error'
+    # }
+    # )
     #reg_model[[type]] <- list(cas_modes=unique(injuries_for_model[[1]][[type]]$cas_mode),
     #                          strike_modes=unique(injuries_for_model[[1]][[type]]$strike_mode))
   }
-  ##
-  ## For predictive uncertainty, we could sample a number from the predicted distribution
-  if('year'%in%colnames(injuries_list[[1]][[1]])){
-    # the injury burden at baseline is the prediction for the most recent year
-    most_recent_year <- max(injuries_list[[1]][[1]]$year)
-    for(scen in SCEN)
-      for(type in c('whw','noov'))
-        injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==most_recent_year)
-  }
-  
+  # ##
+  # ## For predictive uncertainty, we could sample a number from the predicted distribution
+  # if('year'%in%colnames(injuries_list[[1]][[1]])){
+  #   # the injury burden at baseline is the prediction for the most recent year
+  #   most_recent_year <- max(injuries_list[[1]][[1]]$year)
+  #   for(scen in SCEN)
+  #     for(type in c('whw','noov'))
+  #       injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==most_recent_year)
+  # }
+  # 
   return(list(true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model))
 }
 

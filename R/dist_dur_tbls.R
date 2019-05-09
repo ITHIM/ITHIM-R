@@ -25,39 +25,16 @@ dist_dur_tbls <- function(pp_summary){
   mode_speeds <- VEHICLE_INVENTORY$speed[mode_indices]
   mode_speeds[is.na(mode_speeds)] <- 0
   dist <- dur * matrix(rep(mode_speeds,NSCEN+1),ncol=NSCEN+1) / 60
-  ## join distances & durations
-#  for (i in 1:length(l_dist)){
-#    if (i == 1){
-#      local_dist <- l_dist[[i]]
-#      local_dur <- l_dur[[i]]
-#    }else{
-#      local_dist <- left_join(local_dist, l_dist[[i]], by = "stage_mode")
-#      local_dur <- left_join(local_dur, l_dur[[i]], by = "stage_mode")
-#    }
-#  }
-#  
-#  # Remove short walking
-#  #dist <- filter(local_dist, stage_mode != 'walk_to_pt')
-#  #dur <- filter(local_dur, stage_mode != 'walk_to_pt')
-#  dist <- local_dist[local_dist$stage_mode != 'walk_to_pt',]
-#  dur <- local_dur[local_dur$stage_mode != 'walk_to_pt',]
-#  
-#  dist$stage_mode <- as.character(dist$stage_mode)
-#  dur$stage_mode <- as.character(dur$stage_mode)
   
   ## bus travel is linear in bus passenger travel
   bus_passenger_row <- which(rownames(dur)=='bus')
-  dist <- rbind(dist,dist[bus_passenger_row,] * BUS_TO_PASSENGER_RATIO)
-  dur <- rbind(dur,dur[bus_passenger_row,] * BUS_TO_PASSENGER_RATIO) 
-  rownames(dist)[nrow(dist)] <- 'bus_driver'
-  rownames(dur)[nrow(dur)] <- 'bus_driver'
+  dist <- rbind(dist,bus_driver=dist[bus_passenger_row,] * BUS_TO_PASSENGER_RATIO)
+  dur <- rbind(dur,bus_driver=dur[bus_passenger_row,] * BUS_TO_PASSENGER_RATIO) 
   ## truck travel is linear in car travel
   if(ADD_TRUCK_DRIVERS){
     car_row <- which(rownames(dur)=='car')
-    dist <- rbind(dist,dist[car_row,] * TRUCK_TO_CAR_RATIO)
-    dur <- rbind(dur,dur[car_row,] * TRUCK_TO_CAR_RATIO) 
-    rownames(dist)[nrow(dist)] <- 'truck'
-    rownames(dur)[nrow(dur)] <- 'truck'
+    dist <- rbind(dist,truck=dist[car_row,] * TRUCK_TO_CAR_RATIO)
+    dur <- rbind(dur,truck=dur[car_row,] * TRUCK_TO_CAR_RATIO) 
   }
   
   return(list(dist=dist,dur=dur))

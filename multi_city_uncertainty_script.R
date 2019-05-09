@@ -55,12 +55,37 @@ print(numcores)
 load('diagnostic/parameter_settings.Rdata')
 ## plot distances for all cities
 ## distance plots don't need so many samples!
-numcores <- detectCores()
 distances <- list()
-for(city in cities[1:2]){
+##debug
+city='sao_paulo'
+ci <- which(cities==city)
+ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
+                                NSAMPLES=12,
+                                synthetic_population_size = 1000,
+                                CITY=city,
+                                MAX_MODE_SHARE_SCENARIO = T,
+                                speeds = speeds[[city]],
+                                ADD_WALK_TO_BUS_TRIPS = add_walk_to_bus_trips[ci],
+                                BUS_WALK_TIME = bus_walk_time[[city]],
+                                MOTORCYCLE_TO_CAR_RATIO = motorcycle_to_car_ratio[[city]],
+                                BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
+                                TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
+                                DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
+                                DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
+                                DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
+                                DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
+                                DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]])
+distances <- list()
+#for(i in 1:NSAMPLES) distances[[city]][[i]] <- just_distances(i,ithim_object=ithim_object)
+distances <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=6)
+print(sapply(distances,length))
+sapply(distances,function(x)if(length(x)>1)sapply(x$inj_distances$reg_model,length))
+distances[[5]]$inj_distances$reg_model
+  ##
+for(city in cities){
   ci <- which(cities==city)
   ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
-                                  NSAMPLES=16,
+                                  NSAMPLES=12,
                                   synthetic_population_size = 1000,
                                   CITY=city,
                                   MAX_MODE_SHARE_SCENARIO = T,
@@ -142,8 +167,8 @@ background_pa_confidence <- list(accra=0.5,
                                  bangalore=0.3)
 # lnorm parameters for BUS_WALK_TIME
 bus_walk_time <- list(accra=c(log(5),log(1.2)),
-                      sao_paulo=0,
-                      delhi=0,
+                      sao_paulo=c(log(5),log(1.2)),
+                      delhi=c(log(5),log(1.2)),
                       bangalore=c(log(5),log(1.2)))
 # lnorm parameters for MMET_CYCLING
 mmet_cycling <- c(log(4.63),log(1.2))
@@ -172,7 +197,7 @@ ref_scenarios <- list(accra='Baseline',
                       delhi='Baseline',
                       bangalore='Baseline')
 # whether or not to add walk trips to bus trips
-add_walk_to_bus_trips <- c(T,F,F,T)
+add_walk_to_bus_trips <- c(F,F,F,F)
 # bus occupancy beta distribution
 bus_to_passenger_ratio  <- list(accra=c(20,600),
                                 sao_paulo=c(20,600),
@@ -233,7 +258,7 @@ normVariables <- c("BUS_WALK_TIME",
                    "DISTANCE_SCALAR_CYCLING",
                    "DISTANCE_SCALAR_MOTORCYCLE")
 
-save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
+save(cities,setting_parameters,add_walk_to_bus_trips,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
      background_pa_scalar,background_pa_confidence,bus_walk_time,mmet_cycling,mmet_walking,emission_inventories,
      motorcycle_to_car_ratio,injury_linearity,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
      bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,

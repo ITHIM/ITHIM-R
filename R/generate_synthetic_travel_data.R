@@ -67,7 +67,7 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
     #smooth_probability[smooth_probability==0] <- 0.001
       suppressWarnings(glm(raw_probability~I(dem_index<(max(dem_index)/2))+I(dem_index%%(max(dem_index)/2))+mode,
           family=binomial,offset=log(population),data=travel_summary)$fitted.values)
-    pointiness <- 200
+    pointiness <- 300
     beta_val <- (1/smooth_probability - 1)*pointiness/(1 + (1/smooth_probability - 1))
     #beta_val <- (1/raw_probability - 1)*pointiness/(1 + (1/raw_probability - 1))
     alpha_val <- pointiness - beta_val
