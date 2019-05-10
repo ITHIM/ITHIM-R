@@ -77,10 +77,10 @@ background_pa_scalar <- list(accra=1,
                              delhi=1,
                              bangalore=1)
 # constant parameters for BUS_WALK_TIME
-bus_walk_time <- list(accra=5,
-                      sao_paulo=5,
-                      delhi=5,
-                      bangalore=5)
+bus_walk_time <- list(accra=10.55,
+                      sao_paulo=10.55,
+                      delhi=10.55,
+                      bangalore=10.55)
 # constant parameters for MMET_CYCLING
 mmet_cycling <- 4.63
 # constant parameters for MMET_WALKING
