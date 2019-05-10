@@ -33,8 +33,8 @@ create_max_mode_share_scenarios <- function(trip_set){
           walk_trips <- change_trips;
           walk_trips$stage_mode <- 'walk_to_pt';
           walk_trips$stage_duration <- BUS_WALK_TIME;
-          walk_trips$stage_distance <- walk_trips$stage_distance * 60 / MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode == mode_name]
-          change_trips <- rbind(change_trips,walk_trips)
+          walk_trips$stage_distance <- walk_trips$stage_duration * MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode == 'walking'] / 60
+          change_trips <- rbind(change_trips, walk_trips)
         }
         rdr_copy <- rbind(subset(rdr_copy,!trip_id%in%change_trip_ids),change_trips)
       }
