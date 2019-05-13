@@ -74,3 +74,9 @@ for(i in 1:length(cities)){
 }
 
 setwd('..')
+
+
+
+
+## to append:
+## iconv -s -t utf-8 parameter_table_all.html dr_curves.html | pandoc -s -f html -t html -o parameter_table_all_plus_dr.html

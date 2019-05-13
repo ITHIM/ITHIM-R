@@ -1,0 +1,276 @@
+---
+title: "Dose--response curves"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+library(ithimr)
+```
+
+
+
+```{r pa, include=FALSE}
+
+global_path <- file.path(find.package('ithimr',lib.loc=.libPaths()), 'extdata/global/')
+global_path <- paste0(global_path, "/")
+
+DISEASE_INVENTORY <- read.csv(paste0(global_path,"dose_response/disease_outcomes_lookup.csv"))
+
+list_of_files <- list.files(path = paste0(global_path,"dose_response/drpa/extdata/"), recursive = TRUE, pattern = "\\.csv$", full.names = TRUE)
+for (i in 1:length(list_of_files)){
+  assign(stringr::str_sub(basename(list_of_files[[i]]), end = -5),
+         readr::read_csv(list_of_files[[i]],col_types = cols()),
+         pos = 1)
+}
+
+########## dose response
+
+doses_vector <- as.numeric(0:50)
+cols <- rainbow(sum(DISEASE_INVENTORY$physical_activity == 1))
+cause_indices <- which(DISEASE_INVENTORY$physical_activity == 1)
+
+############# median dose-response curves
+# PA_DOSE_RESPONSE_QUANTILE <<- 0.5
+# #pdf('results/dose_response/PA_dose_response.pdf',width=11,height=11);par(mar=c(5,5,2,1))
+# for ( j in 1:length(cause_indices)){
+#   cause <- as.character(DISEASE_INVENTORY$pa_acronym[cause_indices[j]])
+#   # get name of disease
+#   print(cause)
+#   return_vector <- PA_dose_response(cause = cause,dose = doses_vector)
+#   
+#   if(j==1){
+#     plot(doses_vector,return_vector$rr,type='l',ylim=0:1,main='',ylab='Relative risk',xlab='Dose',
+#          frame=F,col=cols[j],xlim=range(doses_vector),cex.axis=1.5,cex.lab=1.5,cex.main=1.5,lwd=2) 
+#   }else{
+#     lines(doses_vector,return_vector$rr,col=cols[j],lwd=2)
+#   }
+# }
+# legend(legend=DISEASE_INVENTORY$pa_acronym[DISEASE_INVENTORY$physical_activity==1],col=cols,bty='n',x=0,y=0.5,lwd=2)
+# #dev.off()
+# 
+# ############# sample dose-response curves
+# nsamples <- 10
+# parameters <- ithim_setup_parameters(NSAMPLES=nsamples,
+#                                      PA_DOSE_RESPONSE_QUANTILE=T)
+# #pdf('results/dose_response/PA_dose_response_sample.pdf',width=11,height=11);
+# par(mar=c(5,5,2,1),mfrow=c(3,3))
+# for ( j in 1:length(cause_indices)){
+#   cause <- as.character(DISEASE_INVENTORY$pa_acronym[cause_indices[j]])
+#   # get name of disease
+#   print(cause)
+#   for(seed in 1:nsamples){
+#     for(i in 1:length(parameters))
+#       assign(names(parameters)[i],parameters[[i]][[seed]],pos=1)
+#     return_vector <- PA_dose_response(cause = cause,dose = doses_vector)
+#     
+#     if(seed==1){
+#       plot(doses_vector,return_vector$rr,type='l',ylim=0:1,main=cause,ylab='Relative risk',xlab='Dose',
+#            frame=F,col=cols[j],xlim=range(doses_vector),cex.axis=1.5,cex.lab=1.5,cex.main=1.5,lwd=1) 
+#     }else{
+#       lines(doses_vector,return_vector$rr,col=cols[j],lwd=1)
+#     }
+#   }
+# }
+# #dev.off()
+# 
+# ################ explanatory graph
+# library(diagram)
+# j <- 3
+# ylow <- 0.6
+# doses_clean <- doses_vector
+# {x11(); par(mfrow=c(2,2),mar=c(2,5,1,1))
+#   pa_dn <- as.character(DISEASE_INVENTORY$pa_acronym[j])
+#   pa_n <- as.character(DISEASE_INVENTORY$acronym[j])
+#   outcome_type <- ifelse(pa_dn%in%c('lung_cancer','stroke'), 'incidence' , 'mortality')
+#   dose <- doses_clean
+#   if(pa_dn %in% c('total_cancer','coronary_heart_disease')) dose[dose>35] <- 35
+#   cause<-pa_dn
+#   fname <- paste(cause, outcome_type, sep = "_")
+#   lookup_table <- get(paste0(fname))
+#   lookup_df <- as.data.frame(lookup_table)
+#   rr <- approx(x=lookup_df$dose,y=lookup_df$RR,xout=dose,yleft=1,yright=min(lookup_df$RR))$y
+#   lb <- approx(x = lookup_df$dose,y = lookup_df$lb,xout = dose,yleft = 1,yright = min(lookup_df$lb))$y
+#   ub <-approx(x = lookup_df$dose,y = lookup_df$ub,xout = dose,yleft = 1,yright = min(lookup_df$ub))$y
+#   plot(doses_clean,rr,lwd=2,type='l',col=rgb(0.6,0.2,0.2),
+#        xlim=range(doses_clean),ylim=c(ylow,1),ylab='Response',frame=F,cex.lab=1.5,cex.axis=1.5,xlab='')
+#   lines(doses_clean,lb,lwd=2,type='l',lty=2,col=rgb(0.6,0.2,0.2,1))
+#   lines(doses_clean,ub,lwd=2,type='l',lty=2,col=rgb(0.6,0.2,0.2,1))
+#   text('Mean',x=40,y=0.8,col=rgb(0.6,0.2,0.2),cex=1.5)
+#   text('Lower bound',x=35,y=0.66,col=rgb(0.6,0.2,0.2),cex=1.5)
+#   text('Upper bound',x=35,y=0.93,col=rgb(0.6,0.2,0.2),cex=1.5)
+#   par(mar=c(2,2,1,1))
+#   for(i in 1:500){
+#     x<-runif(1)
+#     rr0 <- truncnorm::qtruncnorm(p=x, mean=rr, sd=(rr-lb)/1.96,a=0)#a=lb,b=ub)#
+#     if(i==1){plot(doses_clean,rr0,type='l',col=rgb(0.6,0.2,0.2,0.1),
+#                   xlim=range(doses_clean),ylim=c(ylow,1),ylab='',frame=F,cex.lab=1.5,cex.axis=1.5,xlab='') 
+#       text('Samples',x=35,y=0.97,col=rgb(0.6,0.2,0.2),cex=1.5)
+#     }else lines(doses_clean,rr0,col=rgb(0.6,0.2,0.2,0.1))
+#   }
+#   quant <- 0.5
+#   par(mar=c(5,5,1,1))
+#   rr0 <- truncnorm::qtruncnorm(p=quant, mean=rr, sd=(rr-lb)/1.96,a=0)
+#   plot(doses_clean,rr0,lwd=2,type='l',col='grey',
+#        xlim=range(doses_clean),ylim=c(ylow,1),ylab='Response',frame=F,cex.lab=1.5,cex.axis=1.5,xlab='Dose')
+#   doses <- c(5,25,45)
+#   text('Median',x=10,y=0.97,col='grey',cex=1.5)
+#   abline(h=ylow,lwd=2,lty=2,col='grey')
+#   points(doses,rep(ylow,length(doses)),col=rgb(0.6,0.2,0.2),pch=18,cex=1.5)
+#   points(doses,rr0[which(doses_clean%in%doses)],col=rgb(0.6,0.2,0.2),pch=15,cex=1.5)
+#   for(dose in doses) arrows(x0=dose,y0=ylow,y1=rr0[which(doses_clean==dose)]-0.02,col=rgb(0.6,0.2,0.2),length=0.1,lty=1,lwd=2)
+#   par(mar=c(5,2,1,1))
+#   cols <- c('hotpink','navyblue','darkorange2')
+#   quants <- c(0.1,0.6,0.9)
+#   for(i in 1:length(quants)){
+#     quant <- quants[i]
+#     rr0 <- truncnorm::qtruncnorm(p=quant, mean=rr, sd=(rr-lb)/1.96,a=0)
+#     if(i==1) {plot(doses_clean,rr0,lwd=2,type='l',col=cols[i],
+#                    xlim=range(doses_clean),ylim=c(ylow,1),ylab='',frame=F,cex.lab=1.5,cex.axis=1.5,xlab='Dose')
+#       for(dose in doses) arrows(x0=dose,y0=ylow,y1=rr0[which(doses_clean==dose)]-0.02,col=cols[i],length=0.1,lty=1,lwd=2)
+#     }  else{
+#       lines(doses_clean,rr0,lwd=2,type='l',col=cols[i])
+#       for(dose in doses) 
+#         curvedarrow(from=c(dose,ylow),to=c(dose,rr0[which(doses_clean==dose)]-0.01),lty=1,lwd=2,lcol=cols[i],
+#                     arr.col=cols[i],arr.pos=0.65+0.05*i,curve=-70+30*i,arr.type='curved',arr.adj=0,endhead=T)
+#     }
+#     abline(h=ylow,lwd=2,lty=2,col='grey')
+#     points(doses,rr0[which(doses_clean%in%doses)],col=cols[i],pch=15,cex=1.5)
+#     
+#     points(doses,rep(ylow,length(doses)),col=rgb(0.6,0.2,0.2),pch=18,cex=1.5)
+#   }
+# }
+
+#### plot to html
+
+ylow <- 0.2
+doses_clean <- as.numeric(0:60)
+```
+
+## PA dose--response curves (4 sd)
+
+```{r plot pa, include=T}
+par(mar=c(5,5,2,1),mfrow=c(3,3))
+for ( j in 1:length(cause_indices)){
+  cause <- as.character(DISEASE_INVENTORY$pa_acronym[cause_indices[j]])
+  # get name of disease
+  # decide whether to use "all" or "mortality"
+  outcome_type <- ifelse(cause%in%c('lung_cancer','breast_cancer','endometrial_cancer','colon_cancer'), 'all' , 'mortality')
+  
+  dose <- doses_clean
+  # apply disease-specific thresholds
+  if(cause %in% c('total_cancer','coronary_heart_disease','breast_cancer','endometrial_cancer','colon_cancer')) dose[dose>35] <- 35
+  else if(cause == 'lung_cancer') dose[dose>10] <- 10
+  else if(cause == 'stroke') dose[dose>32] <- 32
+  else if(cause == 'all_cause') dose[dose>16.08] <- 16.08
+  fname <- paste(cause, outcome_type, sep = "_")
+  lookup_table <- get(paste0(fname))
+  lookup_df <- as.data.frame(lookup_table)
+  rr <- approx(x=lookup_df$dose,y=lookup_df$RR,xout=dose,yleft=1,yright=min(lookup_df$RR))$y
+  lb <- approx(x = lookup_df$dose,y = lookup_df$lb,xout = dose,yleft = 1,yright = min(lookup_df$lb))$y
+  ub <-approx(x = lookup_df$dose,y = lookup_df$ub,xout = dose,yleft = 1,yright = min(lookup_df$ub))$y
+  plot(doses_clean,rr,lwd=2,type='l',col='navyblue',main=cause,xlab='MMET per week',
+       xlim=range(doses_clean),ylim=c(ylow,1),ylab='Response',frame=F,cex.lab=1.5,cex.axis=1.5)
+  lines(doses_clean,lb,lwd=2,type='l',lty=1,col='grey')
+  lines(doses_clean,ub,lwd=2,type='l',lty=1,col='grey')
+  #text('Mean',x=40,y=0.8,col=rgb(0.6,0.2,0.2),cex=1.5)
+  #text('Lower bound',x=35,y=0.66,col=rgb(0.6,0.2,0.2),cex=1.5)
+  #text('Upper bound',x=35,y=0.93,col=rgb(0.6,0.2,0.2),cex=1.5)
+  
+}
+
+```
+
+```{r get ap, include=F}
+nsamples <- 100
+DR_AP <- read.csv(paste0(global_path,"dose_response/drap/dose_response.csv"))
+parameters <- ithim_setup_parameters(NSAMPLES=nsamples,
+                                     AP_DOSE_RESPONSE_QUANTILE=T)
+for(i in 1:length(parameters))
+  assign(names(parameters)[i],parameters[[i]],pos=1)
+causes <- unique(DR_AP$cause_code)
+
+############## plot parameter samples
+dr_ap_list <- list()
+for ( j in c(1:nrow(DISEASE_INVENTORY))[DISEASE_INVENTORY$air_pollution == 1]){ 
+  cause <- as.character(DISEASE_INVENTORY$ap_acronym[j])
+  dr_ap <- subset(DR_AP,cause_code==cause)
+  ages <- unique(dr_ap$age_code)
+  dr_ap_list[[cause]] <- list()
+  #print(cause)
+  #print(ages)
+  for(age in ages){
+    dr_ap_list[[cause]][[age]] <- list()
+    dr_ap_age <- subset(dr_ap,age_code==age)
+    alpha <- sapply(DR_AP_LIST,function(x)x[[cause]][[as.character(age)]]$alpha)
+    beta <- sapply(DR_AP_LIST,function(x)x[[cause]][[as.character(age)]]$beta)
+    gamma <- sapply(DR_AP_LIST,function(x)x[[cause]][[as.character(age)]]$gamma)
+    tmrel <- sapply(DR_AP_LIST,function(x)x[[cause]][[as.character(age)]]$tmrel)
+    dr_ap_list[[cause]][[age]]$alpha <- alpha
+    dr_ap_list[[cause]][[age]]$beta <- beta
+    dr_ap_list[[cause]][[age]]$gamma <- gamma
+    dr_ap_list[[cause]][[age]]$tmrel <- tmrel
+    #pdf(paste0('results/dose_response/AP/',cause,age,'.pdf'))
+    #x11(width=8); 
+    #par(mfrow=c(2,3),mar=c(4,4,1,1))
+    #plot(log(dr_ap_age$alpha),log(dr_ap_age$beta),main=paste0(cause,age),col='grey'); points(log(alpha),log(beta),col='hotpink',pch=18)
+    #plot(log(dr_ap_age$alpha),(log(dr_ap_age$gamma)),main=paste0(cause,age),col='grey'); points(log(alpha),log(gamma),col='hotpink',pch=18)
+    #plot(log(dr_ap_age$alpha),log(dr_ap_age$tmrel),main=paste0(cause,age),col='grey'); points(log(alpha),log(tmrel),col='hotpink',pch=18)
+    #plot(log(dr_ap_age$beta),log(dr_ap_age$gamma),main=paste0(cause,age),col='grey'); points(log(beta),log(gamma),col='hotpink',pch=18)
+    #plot(log(dr_ap_age$beta),log(dr_ap_age$tmrel),main=paste0(cause,age),col='grey'); points(log(beta),log(tmrel),col='hotpink',pch=18)
+    #plot(log(dr_ap_age$gamma),log(dr_ap_age$tmrel),main=paste0(cause,age),col='grey'); points(log(gamma),log(tmrel),col='hotpink',pch=18)
+    #dev.off()
+  }
+}
+
+```
+
+## AP dose&ndash;response curves (95% intervals)
+
+```{r plot ap}
+pm <- 1:300
+for ( j in 1:nrow(DISEASE_INVENTORY)) if (DISEASE_INVENTORY$air_pollution[j] == 1){ 
+  cause <- as.character(DISEASE_INVENTORY$ap_acronym[j])
+  dr_ap <- subset(DR_AP,cause_code==cause)
+  ages <- unique(dr_ap$age_code)
+  #print(cause)
+  #print(ages)
+  if(length(ages)>1){ 
+    #pdf(paste0('results/dose_response/AP/',cause,'DR-sim.pdf'),width=6,height=8); 
+    par(mfrow=c(1,1))
+    layout.matrix <- matrix(1:length(ages),nrow=3,ncol=5,byrow=T)
+    graphics::layout(mat=layout.matrix,heights=c(4,3,4),widths=c(3.8,3,3,3,3))
+  }else{
+    #pdf(paste0('results/dose_response/AP/',cause,'DR-sim.pdf'))
+    par(mfrow=c(1,1))
+  }
+  for(age in ages){
+    par(mar=c(ifelse(age>70,5,1),ifelse(age%in%c(99,25,50,75),5,1),ifelse(age%in%c(25:45,99),5,1),1))
+    dr_ap_age <- subset(dr_ap,age_code==age)
+    alpha <- dr_ap_list[[cause]][[age]]$alpha
+    beta <- dr_ap_list[[cause]][[age]]$beta
+    gamma <- dr_ap_list[[cause]][[age]]$gamma
+    tmrel <- dr_ap_list[[cause]][[age]]$tmrel
+    pmcurve <- matrix(0,nrow=nsamples,ncol=length(pm))
+    for(i in 1:nsamples){#length(alpha)){
+      pmcurve[i,] <- ap_dose_response_curve(pm,alpha[i],beta[i],gamma[i],tmrel[i])
+      pmcurve[i,is.na(pmcurve[i,])] <- 1
+    }
+    pmcurvemean <- colMeans(pmcurve)
+    pmcurveupper <- apply(pmcurve,2,quantile,0.975)
+    pmcurvelower <- apply(pmcurve,2,quantile,0.025)
+    plot(pm,pmcurvemean,typ='l',col='navyblue',ylim=c(1,4),main='',cex.lab=1.5,lwd=2,frame=F,xlab=ifelse(age>70,'PM dose',''),ylab=ifelse(age%in%c(99,25,50,75),'RR',''),xaxt='n',yaxt='n',cex.main=1.5)
+    axis(1,labels=ifelse(age>70,T,F),cex.axis=1.5)
+    axis(2,labels=ifelse(age%in%c(99,25,50,75),T,F),cex.axis=1.5)
+    if(length(ages)>1) mtext(side=3,text=paste0('Age ',age),line=0)
+    if(age%in%c(35,99)) mtext(side=3,text=as.character(DISEASE_INVENTORY$GBD_name)[j],line=1)
+    lines(pm,pmcurveupper,col='grey',lwd=2,cex.axis=1.5)
+    lines(pm,pmcurvelower,col='grey',lwd=2,cex.axis=1.5)
+  }
+  #dev.off()
+  
+  
+}
+    
+    
+```
