@@ -5,6 +5,8 @@ io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
 cities <- c('accra','sao_paulo','delhi','bangalore')
 
+round_to <- 1
+
 total_distance <- list()
 total_duration <- list()
 
@@ -21,13 +23,13 @@ for(city in cities){
     if (groupings == 'All'){
     td <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline') %>% 
       group_by(stage_mode, scenario) %>% 
-      summarise(dur = round(sum(stage_distance) / count_people, 1)) %>% 
+      summarise(dur = round(sum(stage_distance) / count_people, round_to)) %>% 
       mutate(pop = count_people) %>%
       spread(key = scenario, value = dur)
     }else{
       td <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline' & sex == groupings) %>% 
         group_by(stage_mode, scenario) %>% 
-        summarise(dur = round(sum(stage_distance) / count_people, 1)) %>% 
+        summarise(dur = round(sum(stage_distance) / count_people, round_to)) %>% 
         mutate(pop = count_people) %>%
         spread(key = scenario, value = dur)
       
@@ -44,7 +46,7 @@ for(city in cities){
     if (groupings == 'All'){
       td <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline') %>% 
         group_by(stage_mode, scenario) %>% 
-        summarise(dur = round(sum(stage_duration) / count_people, 1)) %>% #
+        summarise(dur = round(sum(stage_duration) / count_people, round_to)) %>% #
         mutate(pop = count_people) %>%
         spread(key = scenario, value = dur)  
       
@@ -52,7 +54,7 @@ for(city in cities){
     
     td <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline' & sex == groupings) %>% 
       group_by(stage_mode, scenario) %>% 
-      summarise(dur = round(sum(stage_duration) / count_people, 1)) %>% #/ count_people
+      summarise(dur = round(sum(stage_duration) / count_people, round_to)) %>% #/ count_people
       mutate(pop = count_people) %>%
       spread(key = scenario, value = dur)
     }
@@ -91,13 +93,13 @@ for(city in cities){
     if (groupings == 'All'){
       td <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline') %>% 
         group_by(stage_mode, scenario) %>% 
-        summarise(dur = round(sum(stage_distance) / count_people, 1)) %>% 
+        summarise(dur = round(sum(stage_distance) / count_people, round_to)) %>% 
         mutate(pop = count_people) %>%
         spread(key = scenario, value = dur)
     }else{
       td <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline' & sex == groupings) %>% 
         group_by(stage_mode, scenario) %>% 
-        summarise(dur = round(sum(stage_distance) / count_people , 1)) %>% 
+        summarise(dur = round(sum(stage_distance) / count_people , round_to)) %>% 
         mutate(pop = count_people) %>%
         spread(key = scenario, value = dur)
     }
@@ -114,7 +116,7 @@ for(city in cities){
     
     td <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline') %>% 
       group_by(stage_mode, scenario) %>% 
-      summarise(dur = round(sum(stage_duration) / count_people, 1)) %>% #/ count_people
+      summarise(dur = round(sum(stage_duration) / count_people, round_to)) %>% #/ count_people
       mutate(pop = count_people) %>%
       spread(key = scenario, value = dur)
     
@@ -122,7 +124,7 @@ for(city in cities){
       
       td <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline' & sex == groupings) %>% 
         group_by(stage_mode, scenario) %>% 
-        summarise(dur = round(sum(stage_duration) / count_people, 1)) %>% #/ count_people
+        summarise(dur = round(sum(stage_duration) / count_people, round_to)) %>% #/ count_people
         mutate(pop = count_people) %>%
         spread(key = scenario, value = dur)
       
