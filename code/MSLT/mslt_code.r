@@ -13,6 +13,8 @@ require(ggpubr)
 require(grid)
 require(ggplot2)
 require(gridExtra)
+require(pillar)
+
 
 # ---- chunk-1 ----
 rm (list = ls())
