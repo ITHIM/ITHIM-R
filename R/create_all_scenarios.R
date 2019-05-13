@@ -7,7 +7,7 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     
     ###############################################################
     rdr <- trip_set
-    tt <- nrow(rdr)
+    tt <- length(unique(rdr$trip_id))
     rd_list <- list()
     rd_list[[1]] <- rdr
     # Scenario 1
@@ -119,7 +119,7 @@ create_all_scenarios <- function(CITY = 'accra', trip_set){
     
     ###############################################################
     rdr <- trip_set
-    tt <- nrow(rdr)
+    tt <- length(unique(rdr$trip_id))
     rd_list <- list()
     rd_list[[1]] <- rdr
     # Scenario 1
