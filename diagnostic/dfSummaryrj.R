@@ -313,15 +313,15 @@ encode_graph_rj <- function (data, graph_type, graph.magnif = 1, pandoc = FALSE)
                     Linux = "Xlib", Darwin = "quartz")
   if (graph_type == "histogram") {
     rc <- try(png(png_loc <- tempfile(fileext = ".png"), 
-                  width = 150 * graph.magnif, height = 110 * graph.magnif, 
+                  width = 800 * graph.magnif, height = 150 * graph.magnif, 
                   units = "px", bg = "transparent", type = devtype, 
                   antialias = "none"), silent = TRUE)
     if (!is.null(rc)) {
-      png(png_loc <- tempfile(fileext = ".png"), width = 150 * 
-            graph.magnif, height = 110 * graph.magnif, units = "px", 
+      png(png_loc <- tempfile(fileext = ".png"), width = 800 * 
+            graph.magnif, height = 150 * graph.magnif, units = "px", 
           bg = "transparent", antialias = "none")
     }
-    mar <- par(mar = c(2, 0.02, 0.02, 0.02))
+    mar <- par(mar = c(2, 0.02, 0.02, 8),oma = c(0, 0.0, 0.0, 4))
     on.exit(par(mar), add = TRUE)
     data <- data[!is.na(data)]
     breaks_x <- pretty(range(data), n = min(nclass.Sturges(data), 
@@ -336,13 +336,15 @@ encode_graph_rj <- function (data, graph_type, graph.magnif = 1, pandoc = FALSE)
     abline(v=median(data),col='turquoise',lwd=2)
     abline(v=quantile(data,0.75),col='turquoise',lwd=2,lty=2)
     abline(v=quantile(data,0.25),col='turquoise',lwd=2,lty=2)
+    legend('topright',lwd=2,lty=c(1,1,2,2),col=c('darkorange','turquoise'),legend=c('mean','median','2 sd','50% range'),
+           cex=1.2,bty='n',inset=c(-0.2,0),xpd=NA)
     if (inherits(cl, "try-error")) {
       plot.new()
       text("Graph Not Available", x = 0.5, y = 0.5, cex = 1)
     }
     dev.off()
     ii <- magick:::image_read(png_loc)
-    ii <- magick:::image_border(magick:::image_trim(ii), color = "white", geometry = "6x4")
+    #ii <- magick:::image_border(magick:::image_trim(ii), color = "white", geometry = "6x4")
   }
   else if (graph_type == "barplot") {
     rc <- try(png(png_loc <- tempfile(fileext = ".png"), 
