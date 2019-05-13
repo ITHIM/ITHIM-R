@@ -105,7 +105,38 @@ for(city in cities){
   
 }
 
-names(total_distance)[seq(2, ncol(total_distance), by = 2)] <- "population"
-names(total_duration)[seq(2, ncol(total_duration), by = 2)] <- "population"
-names(total_distance_trips)[seq(2, ncol(total_distance_trips), by = 2)] <- "population"
-names(total_duration_trips)[seq(2, ncol(total_duration_trips), by = 2)] <- "population"
+m <- matrix("", ncol = 25, nrow = 1)
+m[1, 1] <- "TRIP DISTANCE - TOTAL"
+mdf <- data.frame(m)
+names(mdf) <- names(total_distance)
+
+local_distance_df <- plyr::rbind.fill(mdf, total_distance)
+
+m <- matrix("", ncol = 25, nrow = 1)
+m[1, 1] <- "TRIP DURATION - TOTAL"
+mdf <- data.frame(m)
+names(mdf) <- names(total_duration)
+
+local_duration_df <- plyr::rbind.fill(mdf, total_duration)
+
+m <- matrix("", ncol = 25, nrow = 1)
+m[1, 1] <- "TRIP DISTANCE - PEOPLE WITH TRIPS"
+mdf <- data.frame(m)
+names(mdf) <- names(total_distance)
+
+local_distance_trips_df <- plyr::rbind.fill(mdf, total_distance_trips)
+
+m <- matrix("", ncol = 25, nrow = 1)
+m[1, 1] <- "TRIP DURATION - PEOPLE WITH TRIPS"
+mdf <- data.frame(m)
+names(mdf) <- names(total_distance)
+
+local_duration_trips_df <- plyr::rbind.fill(mdf, total_duration_trips)
+
+final_df <- do.call("rbind", list(local_distance_df, local_distance_trips_df, local_duration_df, local_duration_trips_df))
+
+final_df <- final_df %>% mutate_all(na_if,"")
+
+names(final_df)[seq(2, ncol(final_df), by = 2)] <- "population"
+
+write_csv(final_df, "results/multi_city/baseline_trips/trips_distance_duration.csv", na = "")
