@@ -9,8 +9,6 @@ total_distance <- list()
 total_duration <- list()
 
 index <- 1
-
-# total_male_distance <- 
   
 groups <- c('All', "Male", "Female")
 
@@ -24,10 +22,10 @@ for(city in cities){
     td <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline') %>% 
       group_by(stage_mode, scenario) %>% 
       summarise(dur = round(sum(stage_distance) / count_people, 1)) %>% 
-      #mutate(grouping = groupings) %>%
+      mutate(pop = count_people) %>%
       spread(key = scenario, value = dur)
     
-    names(td)[2] <- paste0(city, "_", groupings)
+    names(td)[3] <- paste0(city, "_", groupings)
     
     if (index == 1){
       total_distance <- td
@@ -38,10 +36,10 @@ for(city in cities){
     td <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline') %>% 
       group_by(stage_mode, scenario) %>% 
       summarise(dur = round(sum(stage_duration) / count_people, 1)) %>% #/ count_people
-      #mutate(grouping = groupings) %>%
+      mutate(pop = count_people) %>%
       spread(key = scenario, value = dur)
     
-    names(td)[2] <- paste0(city, "_", groupings)
+    names(td)[3] <- paste0(city, "_", groupings)
     
     if (index == 1){
       total_duration <- td
@@ -76,10 +74,10 @@ for(city in cities){
     td <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline') %>% 
       group_by(stage_mode, scenario) %>% 
       summarise(dur = round(sum(stage_distance) / count_people, 1)) %>% 
-      #mutate(grouping = groupings) %>%
+      mutate(pop = count_people) %>%
       spread(key = scenario, value = dur)
     
-    names(td)[2] <- paste0(city, "_", groupings)
+    names(td)[3] <- paste0(city, "_", groupings)
     
     if (index == 1){
       total_distance_trips <- td
@@ -90,10 +88,10 @@ for(city in cities){
     td <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline') %>% 
       group_by(stage_mode, scenario) %>% 
       summarise(dur = round(sum(stage_duration) / count_people, 1)) %>% #/ count_people
-      #mutate(grouping = groupings) %>%
+      mutate(pop = count_people) %>%
       spread(key = scenario, value = dur)
     
-    names(td)[2] <- paste0(city, "_", groupings)
+    names(td)[3] <- paste0(city, "_", groupings)
     
     if (index == 1){
       total_duration_trips <- td
@@ -106,3 +104,8 @@ for(city in cities){
   }
   
 }
+
+names(total_distance)[seq(2, ncol(total_distance), by = 2)] <- "population"
+names(total_duration)[seq(2, ncol(total_duration), by = 2)] <- "population"
+names(total_distance_trips)[seq(2, ncol(total_distance_trips), by = 2)] <- "population"
+names(total_duration_trips)[seq(2, ncol(total_duration_trips), by = 2)] <- "population"
