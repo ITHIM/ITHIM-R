@@ -189,9 +189,9 @@ setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO"
 
 # beta parameters for INJURY_REPORTING_RATE
 injury_reporting_rate <- list(accra=c(8,3),
-                           sao_paulo=c(50,3),
-                           delhi=c(50,3),
-                           bangalore=c(50,3))
+                           sao_paulo=c(40,3),
+                           delhi=c(40,3),
+                           bangalore=c(40,3))
 # lnorm parameters for CHRONIC_DISEASE_SCALAR
 chronic_disease_scalar <- list(accra=c(0,log(1.2)),
                                sao_paulo=c(0,log(1.2)),
@@ -219,13 +219,13 @@ background_pa_confidence <- list(accra=0.5,
                                  bangalore=0.3)
 # lnorm parameters for BUS_WALK_TIME
 bus_walk_time <- list(accra=c(log(5),log(1.2)),
-                     sao_paulo=0,
-                     delhi=0,
+                     sao_paulo=c(log(5),log(1.2)),
+                     delhi=c(log(5),log(1.2)),
                      bangalore=c(log(5),log(1.2)))
 # lnorm parameters for MMET_CYCLING
 mmet_cycling <- c(log(4.63),log(1.2))
 # lnorm parameters for MMET_WALKING
-mmet_walking <- c(log(2.53),log(1.2))
+mmet_walking <- c(log(2.53),log(1.1))
 # lnorm parameters for MOTORCYCLE_TO_CAR_RATIO
 motorcycle_to_car_ratio <- list(accra=c(-1.4,0.4),
                        sao_paulo=0,
