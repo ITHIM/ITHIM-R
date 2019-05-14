@@ -232,7 +232,7 @@ motorcycle_to_car_ratio <- list(accra=c(-1.4,0.4),
                      delhi=0,
                      bangalore=0)
 # lnorm parameters for INJURY_LINEARITY
-injury_linearity <- c(log(1),log(1.05))
+injury_linearity <- c(log(0.9),log(1.1))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
 casualty_exponent_fraction <- c(15,15)
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
@@ -316,7 +316,7 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
           bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
           distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
-parameters_only <- T
+parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- list()
 for(ci in 1:length(cities)){
   city <- cities[ci]
