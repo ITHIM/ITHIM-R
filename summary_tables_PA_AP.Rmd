@@ -169,17 +169,17 @@ scenarios<- c('Baseline', 'Scenario 1', 'Scenario 2', 'Scenario 3', 'Scenario 4'
 for (i in 1: length(scenarios))
 {
 whw<-as.data.frame(rowSums(io[[cities[x]]]$outcomes$whw[[scenarios[i]]]$whw))
-noov<-as.data.frame(rowSums(io[[cities[x]]]$outcomes$whw[[scenarios[i]]]$noov))
+noov<-as.data.frame(sum(io[[cities[x]]]$outcomes$whw[[scenarios[i]]]$nov))
 names(whw)[1]<- as.character(scenarios[i])
 names(noov)[1]<-as.character(scenarios[i])
 
 if (i ==1 )
 {
- summary<-round(rbind(whw,noov), digits = 1)
+ summary<-round(rbind(whw,nov=noov), digits = 1)
 } 
 else
 {
-summary<- cbind(summary, round(rbind(whw, noov), digits=1) ) 
+summary<- cbind(summary, round(rbind(whw, nov=noov), digits=1) ) 
 }
 
 }
