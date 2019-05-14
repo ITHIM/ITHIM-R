@@ -176,6 +176,8 @@ ithim_load_data <- function(speeds=list(
   injuries$cas_mode <- tolower(injuries$cas_mode)
   injuries$strike_mode <- tolower(injuries$strike_mode)
   injuries$strike_mode[is.na(injuries$strike_mode)] <- 'listed_na'
+  nov_words <- c('no.other.fixed.or.stationary.object','no other vehicle','none')
+  injuries$strike_mode[injuries$strike_mode%in%nov_words] <- 'nov'
   set_injury_contingency(injuries)
   
   ## DESCRIPTION OF INJURIES (set_injury_contingency(injuries))

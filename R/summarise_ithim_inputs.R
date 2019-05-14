@@ -11,10 +11,14 @@ summarise_ithim_inputs <- function(ithim_object){
   trips <- apply(trips,2,function(x)x/sum(x))
   par(mar=c(6,5,2,9)); barplot(trips,col=rainbow(length(modenames)),legend.text=modenames,args.legend = c(x=length(SCEN)+5),ylab=paste0(CITY,' mode share by trip mode'),las=2)
   
-  cas_modes <- unique(c(as.character(INJURY_TABLE$whw$cas_mode),as.character(INJURY_TABLE$noov$cas_mode)))
-  injuries <- sapply(cas_modes,function(x)sum(subset(INJURY_TABLE$whw,cas_mode==x)$count)+sum(subset(INJURY_TABLE$noov,cas_mode==x)$count))
+  cas_modes <- unique(as.character(INJURY_TABLE$whw$cas_mode))
+  injuries <- sapply(cas_modes,function(x)sum(subset(INJURY_TABLE$whw,cas_mode==x)$count))
+  if(length(INJURY_TABLE)==2){
+    cas_modes <- unique(c(cas_modes,as.character(INJURY_TABLE$nov$cas_mode)))
+    injuries <- sapply(cas_modes,function(x)sum(subset(INJURY_TABLE$whw,cas_mode==x)$count)+sum(subset(INJURY_TABLE$nov,cas_mode==x)$count))
+  }
   injury_modes <- c('pedestrian','bicycle','car','motorcycle')
-  injury_rates <- sapply(injury_modes,function(x)sum(subset(INJURY_TABLE$whw,cas_mode==x)$count)+sum(subset(INJURY_TABLE$noov,cas_mode==x)$count))/
+  injury_rates <- sapply(injury_modes,function(x)injuries[match(c('pedestrian','bicycle','car','motorcycle'),names(injuries))])/
     distances[match(c('walking','bicycle','car','motorcycle'),modenames),1]
   
   print(injuries)
