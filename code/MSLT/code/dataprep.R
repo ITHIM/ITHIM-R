@@ -31,3 +31,9 @@ library(rstan)
 options(mc.cores = parallel::detectCores())
 rstan_options(auto_write = TRUE)
 
+
+### Prepare data for Bristol City Region
+
+gbd_bristol <- read.csv(file="code/MSLT/data/city regions/bristol/gbd_data_bristol.csv")
+
+
