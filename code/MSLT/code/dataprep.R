@@ -20,3 +20,14 @@
 
 # London: all London boroughs and the City of London.
 
+### GBD data is in 5-year age groups. Check whether GBD has population data. 
+### Data needs: PMSLT: general life table: population numbers, all-cause mortality rates and total YLDs rates
+###  disease life tables: ylds numbers, prevalence numbers (check calcls elsewhere)
+### dismod or disbayes: population numbers and all-cause mortality rates (Dismod) and incidence and mortality numbers
+
+### Disbayes (Chris Jackson Bayesian Dismod mode, https://chjackson.github.io/disbayes/vignette.html)
+install.packages("rstan")
+library(rstan)
+options(mc.cores = parallel::detectCores())
+rstan_options(auto_write = TRUE)
+
