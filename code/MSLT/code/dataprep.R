@@ -42,7 +42,7 @@ as.integer(gbd_bristol$year)
 ##gbd_bristol_2017 <- gbd_bristol[which(gbd_bristol$year=='2017'),]
 
 localities <- c('Bristol, City of', 'Bath and North East Somerset', 'North Somerset', 'South Gloucestershire')
-year <- c(2007: 2017)
+year <- c(2007:2017)
 
 ### Loop to create a data set for 2017 for each of the localities to calculate population numbers
 
