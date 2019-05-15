@@ -26,10 +26,10 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
   true_distances_0 <- distances
   true_distances_0$sex_age <-  paste0(true_distances_0$sex,"_",true_distances_0$age_cat)
   #if(ADD_BUS_DRIVERS) true_distances_0$bus <- true_distances_0$bus + true_distances_0$bus_driver
-  true_distances <- true_distances_0[,-c(which(names(true_distances_0) == 'sex'))]
+  true_distances <- true_distances_0#[,-c(which(names(true_distances_0) == 'sex'))]
   
   ## for injury_function_2
-  mode_names <- names(true_distances)[!names(true_distances)%in%c('age_cat','scenario','sex_age')]
+  mode_names <- names(true_distances)[!names(true_distances)%in%c('age_cat','scenario','sex_age','sex')]
   # divide injuries into those for which we can write a WHW (who hit whom) matrix, i.e. we know distances of both striker and casualty, 
   ## and those for which we don't know striker distance: no or other vehicle (NOOV)
   ## we can only model casualties for which we know distance travelled 
@@ -70,19 +70,22 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
   ## catch for when regression fails: if fail, run simpler model: no interactions.
   for(type in INJURY_TABLE_TYPES){
     injuries_for_model[[1]][[type]]$injury_reporting_rate <- 1
-    mod <- injuries_for_model[[1]][[type]]
-    try({mod <- glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson')
-          mod <- trim_glm_object(mod)})
+    test <- 'try-error'
+    # try 1: add age cat and gender
     if(any(c('age_cat','cas_gender')%in%names(injuries_for_model[[1]][[type]]))){
+      new_form <- forms[[type]]
       if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
-        forms[[type]] <- paste0(c(forms[[type]],'age_cat'),collapse='+')
+        new_form <- paste0(c(new_form,'age_cat'),collapse='+')
       if('cas_gender'%in%names(injuries_for_model[[1]][[1]]))
-        forms[[type]] <- paste0(c(forms[[type]],'cas_gender'),collapse='+')
-      try({mod <- glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson')
-      mod <- trim_glm_object(mod)})
+        new_form <- paste0(c(new_form,'cas_gender'),collapse='+')
+      test <- try(mod <- glm(as.formula(new_form),data=injuries_for_model[[1]][[type]],family='poisson'))
     }
+    if(length(test)==1&&test == 'try-error')
+      test <- try(mod <- glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson'))
+    if(length(test)==1&&test == 'try-error')
+      test <- try(mod <- glm('offset(2*CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate))',data=injuries_for_model[[1]][[type]],family='poisson'))
     #
-    reg_model[[type]] <- mod
+    reg_model[[type]] <- trim_glm_object(mod)
     
     # reg_model[[type]] <- tryCatch({
     #   suppressWarnings(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson',control=glm.control(maxit=100)))
@@ -95,14 +98,14 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
   }
   ##
   ## For predictive uncertainty, we could sample a number from the predicted distribution
-  if('year'%in%colnames(injuries_list[[1]][[1]])){
-    print('year')
-    # the injury burden at baseline is the prediction for the most recent year
-    most_recent_year <- max(injuries_list[[1]][[1]]$year)
-    for(scen in SCEN)
-      for(type in INJURY_TABLE_TYPES)
-        injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==most_recent_year)
-  }
+  # if('year'%in%colnames(injuries_list[[1]][[1]])){
+  #   print('year')
+  #   # the injury burden at baseline is the prediction for the most recent year
+  #   most_recent_year <- max(injuries_list[[1]][[1]]$year)
+  #   for(scen in SCEN)
+  #     for(type in INJURY_TABLE_TYPES)
+  #       injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==most_recent_year)
+  # }
   
   return(list(true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model))
 }

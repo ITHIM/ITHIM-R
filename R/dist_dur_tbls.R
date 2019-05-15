@@ -12,12 +12,14 @@ dist_dur_tbls <- function(trip_scen_sets){
     local <- group_by(filter(bs,scenario == SCEN[i]), stage_mode)
     
     # summarise total distances & durations
-    local_dist <- summarise(local, sum_dist = sum(stage_distance))
-    local_dur <- summarise(local, sum_dur = sum(stage_duration))
+    #local_dist <- summarise(local, sum_dist = sum(stage_distance))
+    #local_dur <- summarise(local, sum_dur = sum(stage_duration))
     
-    local <- subset(bs,scenario==SCEN[i])
-    local_dist <- data.frame(stage_mode=stage_modes,sum_dist=sapply(stage_modes,function(x)sum(subset(local,stage_mode==x)$stage_distance)))
-    local_dur <- data.frame(stage_mode=stage_modes,sum_dur=sapply(stage_modes,function(x)sum(subset(local,stage_mode==x)$stage_duration)))
+    local <- bs[bs$scenario==SCEN[i],]
+    local_dist <- local[,.(sum_dist=sum(stage_distance)),by='stage_mode']
+    local_dur <- local[,.(sum_dur=sum(stage_duration)),by='stage_mode']
+    #local_dist <- data.frame(stage_mode=stage_modes,sum_dist=sapply(stage_modes,function(x)sum(subset(local,stage_mode==x)$stage_distance)))
+    #local_dur <- data.frame(stage_mode=stage_modes,sum_dur=sapply(stage_modes,function(x)sum(subset(local,stage_mode==x)$stage_duration)))
     
     # add walk_to_pt, if walk_to_pt has been added
     if("walk_to_pt"%in%local_dist$stage_mode){

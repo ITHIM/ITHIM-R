@@ -1,6 +1,7 @@
 #' @export
 walk_to_pt_and_combine_scen <- function(){
-  rd_list <- SYNTHETIC_TRIPS
+  rd_list <- list()
+  for(i in 1:length(SYNTHETIC_TRIPS)) rd_list[[i]] <- setDT(SYNTHETIC_TRIPS[[i]])
   
   ## pt = public transport
   pt_modes <- c('bus','minibus','subway','rail')
@@ -31,14 +32,14 @@ scale_trip_distances <- function(trips){
   car_taxi_modes <- c('car','taxi','auto_rickshaw','shared_auto')
   pt_modes <- c('bus','minibus','subway','rail','walk_to_pt')
   ## omit trip distance as it has already been used to create scenarios and has no other use
-  column_names <- c('stage_distance','stage_duration')
+  #column_names <- c('stage_distance','stage_duration')
   match_modes <- rep(1,nrow(trips))
   stage_modes <- trips$stage_mode
   match_modes[stage_modes%in%car_taxi_modes] <- DISTANCE_SCALAR_CAR_TAXI
-  match_modes[stage_modes%in%c('walking')] <- DISTANCE_SCALAR_WALKING
+  match_modes[stage_modes=='walking'] <- DISTANCE_SCALAR_WALKING
   match_modes[stage_modes%in%pt_modes] <- DISTANCE_SCALAR_PT
-  match_modes[stage_modes%in%c('cycling')] <- DISTANCE_SCALAR_CYCLING
-  match_modes[stage_modes%in%c('motorcycle')] <- DISTANCE_SCALAR_MOTORCYCLE
+  match_modes[stage_modes=='cycling'] <- DISTANCE_SCALAR_CYCLING
+  match_modes[stage_modes=='motorcycle'] <- DISTANCE_SCALAR_MOTORCYCLE
   trips$stage_distance <- trips$stage_distance*match_modes
   trips$stage_duration <- trips$stage_duration*match_modes
   

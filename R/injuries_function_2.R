@@ -4,8 +4,14 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
   cas_modes <- unique(as.character(injuries_list[[1]]$whw$cas_mode))
   if(length(injuries_list[[1]])==2)
     cas_modes <- unique(c(cas_modes,as.character(injuries_list[[1]]$nov$cas_mode)))
+  demographic <- DEMOGRAPHIC
+  demographic$dem_index <- 1:nrow(demographic)
+  demographic <- demographic[,-which(colnames(demographic)=='population')]
+  colnames(demographic)[which(colnames(demographic)=='age')] <- 'age_cat'
   injuries <- true_distances
+  injuries <- left_join(injuries,demographic,by=c('age_cat','sex'))
   injuries$bus_driver <- 0
+  colnames(demographic)[which(colnames(demographic)=='sex')] <- 'cas_gender'
   whw_temp <- list()
   for(scen in SCEN){
     whw_temp[[scen]] <- list()
@@ -22,15 +28,21 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
           names(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$cas_mode)
         }
       }
+      suppressWarnings(
+        injuries_list[[scen]][[type]] <- left_join(injuries_list[[scen]][[type]],demographic,by=c('age_cat','cas_gender'))
+      )
     }
+    
     for(injured_mode in cas_modes)
-      for(age_gen in unique(injuries$sex_age)){
-        injuries[injuries$scenario==scen&injuries$sex_age==age_gen,match(injured_mode,colnames(injuries))] <- 
-          sum(subset(injuries_list[[scen]]$whw,cas_mode==injured_mode&injury_gen_age==age_gen)$pred) 
+      for(index in unique(injuries$dem_index)){
+        injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] <- 
+          sum(injuries_list[[scen]]$whw[injuries_list[[scen]]$whw$cas_mode==injured_mode&
+                                                 injuries_list[[scen]]$whw$dem_index==index,]$pred) 
         if(length(injuries_list[[scen]])==2)
-          injuries[injuries$scenario==scen&injuries$sex_age==age_gen,match(injured_mode,colnames(injuries))] <- 
-            injuries[injuries$scenario==scen&injuries$sex_age==age_gen,match(injured_mode,colnames(injuries))] + 
-            sum(subset(injuries_list[[scen]]$nov,cas_mode==injured_mode&injury_gen_age==age_gen)$pred)
+          injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] <- 
+            injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] + 
+            sum(injuries_list[[scen]]$nov[injuries_list[[scen]]$nov$cas_mode==injured_mode&
+                                            injuries_list[[scen]]$nov$dem_index==index,]$pred)
       }
   }
   
@@ -63,9 +75,7 @@ remove_missing_levels <- function(fit, test_data) {
   # https://stackoverflow.com/a/39495480/4185785
   
   # drop empty factor levels in test data
-  test_data %>%
-    droplevels() %>%
-    as.data.frame() -> test_data
+  test_data <- as.data.frame(droplevels(test_data))
   
   # 'fit' object structure of 'lm' and 'glmmPQL' is different so we need to
   # account for it
@@ -114,8 +124,7 @@ remove_missing_levels <- function(fit, test_data) {
       # set to NA
       test_data[!found, predictors[i]] <- NA
       # drop empty factor levels in test data
-      test_data %>%
-        droplevels() -> test_data
+      test_data <- droplevels(test_data) 
       # issue warning to console
       message(sprintf(paste0("Setting missing levels in '%s', only present",
                              " in test data but missing in train data,",

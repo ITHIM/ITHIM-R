@@ -7,7 +7,7 @@ trim_glm_object <- function(obj){
   obj$residuals <- c()
   obj$fitted.values <- c()
   obj$effects <- c()
-  #obj$linear.predictors <- c()
+  obj$linear.predictors <- c()
   obj$weights <- c()
   obj$prior.weights <- c()
   obj$data <- c()

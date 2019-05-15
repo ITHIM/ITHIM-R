@@ -26,7 +26,8 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   vent_rates <- data.frame(stage_mode=VEHICLE_INVENTORY$stage_mode,stringsAsFactors = F) 
   vent_rates$vent_rate <- BASE_LEVEL_INHALATION_RATE # L / min
   vent_rates$vent_rate[vent_rates$stage_mode=='bicycle'] <- BASE_LEVEL_INHALATION_RATE + MMET_CYCLING/2.0
-  vent_rates$vent_rate[vent_rates$stage_mode%in%c('walking','walk_to_pt')] <- BASE_LEVEL_INHALATION_RATE + MMET_WALKING/2.0
+  vent_rates$stage_mode[vent_rates$stage_mode=='walk_to_pt'] <- 'walking'
+  vent_rates$vent_rate[vent_rates$stage_mode=='walking'] <- BASE_LEVEL_INHALATION_RATE + MMET_WALKING/2.0
   
   ##RJ rewriting exposure ratio as function of ambient PM2.5, as in Goel et al 2015
   ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE (10), CLOSED_WINDOW_PM_RATIO (0.5), CLOSED_WINDOW_RATIO (0.5), ROAD_RATIO_MAX (3.216), ROAD_RATIO_SLOPE (0.379)
@@ -40,11 +41,13 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   # open vehicles experience the ``on_road_off_road_ratio'', and closed vehicles experience the ``in_vehicle_ratio''
   ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio,subway_ratio)
   # assign rates according to the order of the ratio_by_mode array: 1 is open vehicle, 2 is closed vehicle, 3 is subway
-  open_vehicles <- c('walking','walk_to_pt','bicycle','motorcycle','auto_rickshaw','shared_auto','cycle_rickshaw')
+  open_vehicles <- c('walking','bicycle','motorcycle','auto_rickshaw','shared_auto','cycle_rickshaw')
   rail_vehicles <- c('subway','rail')
   vent_rates$vehicle_ratio_index <- sapply(vent_rates$stage_mode,function(x) ifelse(x%in%rail_vehicles,3,ifelse(x%in%open_vehicles,1,2)))
   
-  trip_set <- left_join(trip_scen_sets,vent_rates,'stage_mode')
+  trip_set <- trip_scen_sets
+  trip_set$stage_mode[trip_set$stage_mode=='walk_to_pt'] <- 'walking'
+  trip_set <- left_join(trip_set,vent_rates,'stage_mode')
   # litres of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode
   trip_set$on_road_air <- trip_set$stage_duration*trip_set$vent_rate / (60) # L
   # get indices for quick matching of values
@@ -57,15 +60,17 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   trip_set$pm_dose <- trip_set$on_road_air * scen_pm * scen_ratio # mg
   
   # prepare individual-level dataset
-  synth_pop <- SYNTHETIC_POPULATION
+  synth_pop <- setDT(SYNTHETIC_POPULATION)
+  # take subset
+  trip_set <- setDT(trip_set)[trip_set$participant_id%in%synth_pop$participant_id,]
   # compute individual-level pm scenario by scenario
   for (i in 1:length(SCEN)){
     # initialise to background. This means persons who undertake zero travel get this value.
     synth_pop[[paste0('pm_conc_',SCEN_SHORT_NAME[i])]] <- conc_pm[i]
     # take trips from this scenario, and exclude trips by individuals not in the synthetic population (which might be truck trips)
-    scen_trips <- subset(trip_set,scenario == SCEN[i]&participant_id%in%synth_pop$participant_id)
+    scen_trips <- trip_set[trip_set$scenario == SCEN[i],]
     # summarise individual-level time on road, pm inhaled, and air inhaled
-    individual_data <- setDT(scen_trips)[,.(on_road_dur = sum(stage_duration,na.rm=TRUE), 
+    individual_data <- scen_trips[,.(on_road_dur = sum(stage_duration,na.rm=TRUE), 
                                             on_road_pm = sum(pm_dose,na.rm=TRUE)),by='participant_id']#, 
                                             #air_inhaled = sum(on_road_air,na.rm=TRUE)),by='participant_id']
     
@@ -90,6 +95,6 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   
   synth_pop$participant_id <- as.integer(synth_pop$participant_id)
   
-  list(scenario_pm=conc_pm, pm_conc_pp=synth_pop)
+  list(scenario_pm=conc_pm, pm_conc_pp=tbl_df(synth_pop))
   
 }
