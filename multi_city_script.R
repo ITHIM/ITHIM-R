@@ -171,7 +171,7 @@ for(city in cities){
 ## Save the ithim_object in the results folder
 ##########
 
-saveRDS(ithim_objects, "results/multi_city/io2.rds",version=2)
+saveRDS(ithim_objects, "results/multi_city/io.rds",version=2)
 
 
 
