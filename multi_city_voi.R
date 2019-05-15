@@ -192,7 +192,7 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
      bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
      distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
-parameters_only <- F
+parameters_only <- T
 multi_city_ithim <- outcome <- outcome_pp <- list()
 for(ci in 1:length(cities)){
   city <- cities[ci]

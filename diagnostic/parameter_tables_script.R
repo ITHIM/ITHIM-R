@@ -56,6 +56,10 @@ parameter_samples_to_plot <- parameter_samples_to_plot[,!sapply(colnames(paramet
 x <- dfSummaryrj(parameter_samples_to_plot,style='grid',na.col=F,valid.col=F,distributions=distributions,col.widths=c(5,100,100,20000))
 #x <- dfSummary(parameter_samples_to_plot,plain.ascii = FALSE, style = "grid",graph.magnif = 0.75, valid.col = FALSE)
 summarytools::view(x,file='parameter_table_all.html')
+if(file.exists('dr_curves.html')){
+  file.copy('dr_curves.html', 'dr_curves_plus_all_parameters.html')
+  summarytools::view(x,file='dr_curves_plus_all_parameters.html',append=T)
+}
 
 # city allocations
 city_allocations <- sapply(colnames(parameter_samples_to_plot), function(x) sapply(cities,function(y)grepl(y,x)))
