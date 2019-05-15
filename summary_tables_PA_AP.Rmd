@@ -37,13 +37,15 @@ library(kableExtra)
 io <- readRDS("results/multi_city/io.rds")
 
 cities <- c("accra", "sao_paulo", "delhi", "bangalore")
-
+high<- c(70, 25, 150,60)
+low<- c(40,15,100,40)
 for (x in 1: length(cities))
 {
   print(cities[x])
   names(io[[cities[x]]]$outcomes$pm_conc_pp)[6:11]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
   data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc, baseline:bus_scen, factor_key=TRUE)
-  x<-ggplot(data_long, aes(x=scenario, y=pm_conc, fill=scenario)) + geom_boxplot()+ ggtitle(cities[x])+ labs(y="Daily PM2.5 Concentration", x = "Scenarios")
+  x<-ggplot(data_long, aes(x=scenario, y=pm_conc, fill=scenario)) + geom_boxplot(outlier.shape = NA)+ ggtitle(cities[x])+ labs(y="Daily PM2.5 Concentration", x = "Scenarios")+ylim(low[x],high[x])
+  
   print(x)
   
 }
@@ -114,12 +116,12 @@ for (x in 1:length(cities))
 # Boxplots of Individual-level Physical activity (MMETs)
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-
+limit=100
 for (x in 1: length(cities))
 {
   names(io[[cities[x]]]$outcomes$mmets)[5:10]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
   data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, baseline:bus_scen, factor_key=TRUE)
-  x<-ggplot(data_long, aes(x=scenario, y=mmet, fill=scenario)) + geom_boxplot()+ ggtitle(cities[x])+ labs(y="Weekly MMET", x = "Scenarios")
+  x<-ggplot(data_long, aes(x=scenario, y=mmet, fill=scenario)) + geom_boxplot(outlier.shape = NA)+ ggtitle(cities[x])+ labs(y="Weekly MMET", x = "Scenarios")+  ylim(0, limit)
   print(x)
   
 }
