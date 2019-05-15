@@ -7,6 +7,10 @@ output:
   word_document: default
   pdf_document: default
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis')
+
+```
 
 
 # Introduction
@@ -26,7 +30,6 @@ library(ggplot2)  #loading ggplot package for plotting graphs
 library(knitr)     
 library(tidyr)
 library(dplyr)
-library(kableExtra)
 
 ```
 
@@ -41,12 +44,11 @@ high<- c(70, 25, 150,60)
 low<- c(40,15,100,40)
 for (x in 1: length(cities))
 {
-  print(cities[x])
+  
   names(io[[cities[x]]]$outcomes$pm_conc_pp)[6:11]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
   data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc, baseline:bus_scen, factor_key=TRUE)
-  x<-ggplot(data_long, aes(x=scenario, y=pm_conc, fill=scenario)) + geom_boxplot(outlier.shape = NA)+ ggtitle(cities[x])+ labs(y="Daily PM2.5 Concentration", x = "Scenarios")+ylim(low[x],high[x])
-  
-  print(x)
+  y<-ggplot(data_long, aes(x=scenario, y=pm_conc, fill=scenario)) + geom_boxplot(outlier.shape = NA)+ ggtitle(cities[x])+ labs(y="Daily PM2.5 Concentration", x = "Scenarios")+ylim(low[x],high[x])
+  print(y)
   
 }
 ```
@@ -64,13 +66,9 @@ for (x in 1: length(cities))
   data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc, baseline:bus_scen, factor_key=TRUE)
   summary<- as.data.frame(data_long %>% group_by(scenario) %>% summarise('mean'=mean(pm_conc),'5th'=quantile(pm_conc, 0.05),'50th'=quantile(pm_conc, 0.5),'95th'=quantile(pm_conc, 0.9)))
   summary<- cbind(summary$scenario ,round(summary[,2:5], digits=1))
+  summary$change_PM<- round(io[[cities[x]]]$outcomes$scenario_pm - io[[cities[x]]]$outcomes$scenario_pm[1], digits=2)
   names(summary)[1]<-"Scenario"
-  print (as.character(cities[x]))
-  print(summary)
-  
-  summary %>%
-  kable() %>%
-  kable_styling()
+  print(kable(summary, caption= cities[x]))
   
 }
 ```
@@ -99,13 +97,12 @@ for (x in 1:length(cities))
   summary<-city_emissions %>% group_by(modes) %>% summarise(sum(emissions))
   names(summary)[2]<- "emissions"
   summary$emissions <- round(summary$emissions*100/sum(summary$emissions), digits=1)
-  print (as.character(cities[x]))
   summary<-as.data.frame(summary)
   summary[nrow(summary)+1,1]<-"Transport share"
   summary[nrow(summary),2]<-as.character(shares$trans_share[x])
   summary[nrow(summary)+1,1]<-"PM2.5 Conc"
   summary[nrow(summary),2]<-as.character(shares$pm_conc[x])
-  print (summary)
+  print(kable(summary, caption= cities[x]))
   
 }
 
@@ -121,8 +118,8 @@ for (x in 1: length(cities))
 {
   names(io[[cities[x]]]$outcomes$mmets)[5:10]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
   data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, baseline:bus_scen, factor_key=TRUE)
-  x<-ggplot(data_long, aes(x=scenario, y=mmet, fill=scenario)) + geom_boxplot(outlier.shape = NA)+ ggtitle(cities[x])+ labs(y="Weekly MMET", x = "Scenarios")+  ylim(0, limit)
-  print(x)
+  y<-ggplot(data_long, aes(x=scenario, y=mmet, fill=scenario)) + geom_boxplot(outlier.shape = NA)+ ggtitle(cities[x])+ labs(y="Weekly MMET", x = "Scenarios")+  ylim(0, limit)
+  print(y)
   
 }
 ```
@@ -137,8 +134,7 @@ for (x in 1: length(cities))
   summary<- as.data.frame(data_long %>% group_by(scenario) %>% summarise('mean'=mean(mmet),'5th'=quantile(mmet, 0.05),'50th'=quantile(mmet, 0.5),'95th'=quantile(mmet, 0.9)))
   summary<- cbind(summary$scenario ,round(summary[,2:5], digits=1))
   names(summary)[1]<-"Scenario"
-  print (as.character(cities[x]))
-  print(summary)
+  print(kable(summary, caption= cities[x]))
   
 
   
@@ -155,8 +151,7 @@ for (x in 1: length(cities))
   summary$scenario<- c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
   summary<- cbind(summary$scenario ,round(summary[,2:6], digits=0))
   names(summary)[1]<-"Scenario"
-  print (as.character(cities[x]))
-  print(summary)
+  print(kable(summary, caption= cities[x]))
 
 }
 ```
@@ -186,9 +181,8 @@ summary<- cbind(summary, round(rbind(whw, nov=noov), digits=1) )
 
 }
 
-print (as.character(cities[x]))
 names(summary)<-c("base", "walk", "bike", "car", "MC", "bus")
-print(summary)
+print(kable(summary, caption= cities[x]))
 
 }
 
@@ -217,11 +211,8 @@ for (x in 1: length(cities))
   
   names(dist_scen_prop)[1]<-"Scenario"
   dist_scen_prop$Scenario<- c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
-  print (as.character(cities[x]))
-  print(dist_scen_prop)
-  print(dist_scen)
-  #library(knitr)
-  #library(kableExtra)
-  #kable(dist_scen_prop)
+  print(kable(dist_scen_prop, caption= cities[x]))
+  print(kable(dist_scen, caption= cities[x]))
+
 }
 ```
