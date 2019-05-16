@@ -16,7 +16,7 @@ suppressWarnings({
 library(summarytools)
 library(knitr)
 library(summarytools)
-library(dplyr)
+library(tidyverse)
 })
 
 st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
@@ -34,6 +34,9 @@ io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
 cities <- c('accra','sao_paulo','delhi','bangalore')
 # cities <- c('sao_paulo')
+
+# Read trip_order
+trip_order <- read_csv("data/global/trips/mode_order.csv")
 
 # round to
 round_to <- 1
@@ -125,6 +128,9 @@ for(city in cities){
   td <- as.data.frame(t(td))
   names(td) <- lapply(append('baseline', rownames(scen_prop)), as.character)
   td <- td[-1, ]
+  x <- match(row.names(td), trip_order$mode)
+  x[!is.na(x)]
+  td <- td[order(x),]
   print(kable(td, caption = paste("Trip proportion (%) by mode for ", city)))
   cat("\n")
 }
@@ -145,18 +151,26 @@ Case study specific distance tables for baseline and five scenarios
 ```{r trip_dist = "asis"}
 
 for(city in cities){
+  city <- 'bangalore'
   count_people <- nrow(io[[city]]$synth_pop)
   td <- io[[city]]$dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
-    colnames(td)[3:7] <- rownames(scen_prop)
-    print(kable(td, caption = paste("Distance table (km) for ", city, "( ", count_people, " ) per person")))
-    cat("\n")
-    
-    
-    count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
-    td <- io[[city]]$dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
-    colnames(td)[3:7] <- rownames(scen_prop)
-    print(kable(td, caption = paste("Distance table (mins) for ", city, "( ", count_people, " ) per person (people with trips)")))
-    
+  colnames(td)[3:7] <- rownames(scen_prop)
+  x <- match(td$stage_mode, trip_order$mode)
+  x[!is.na(x)]
+  td <- td[order(x),]
+  print(kable(td, caption = paste("Distance table (km) for ", city, "( ", count_people, " ) per person")))
+  cat("\n")
+  
+  
+  count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
+  td <- io[[city]]$dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  colnames(td)[3:7] <- rownames(scen_prop)
+  x <- match(td$stage_mode, trip_order$mode)
+  x[!is.na(x)]
+  td <- td[order(x),]
+  
+  print(kable(td, caption = paste("Distance table (mins) for ", city, "( ", count_people, " ) per person (people with trips)")))
+  
 }
 
 ```
@@ -169,16 +183,22 @@ Case study specific duration tables for baseline and five scenarios
 
 for(city in cities){
   count_people <- nrow(io[[city]]$synth_pop)
-    td <- io[[city]]$dur %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
-    colnames(td)[3:7] <- rownames(scen_prop)
-    print(kable(td, caption = paste("Duration table (mins) for ", city, "( ", count_people, " ) per person (everyone)")))
-    
-    
-    count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
-    td <- io[[city]]$dur %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
-    colnames(td)[3:7] <- rownames(scen_prop)
-    print(kable(td, caption = paste("Duration table (mins) for ", city, "( ", count_people, " ) per person (people with trips)")))
-    cat("\n")
+  td <- io[[city]]$dur %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  colnames(td)[3:7] <- rownames(scen_prop)
+  x <- match(td$stage_mode, trip_order$mode)
+  x[!is.na(x)]
+  td <- td[order(x),]
+  print(kable(td, caption = paste("Duration table (mins) for ", city, "( ", count_people, " ) per person (everyone)")))
+  
+  
+  count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
+  td <- io[[city]]$dur %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  colnames(td)[3:7] <- rownames(scen_prop)
+  x <- match(td$stage_mode, trip_order$mode)
+  x[!is.na(x)]
+  td <- td[order(x),]
+  print(kable(td, caption = paste("Duration table (mins) for ", city, "( ", count_people, " ) per person (people with trips)")))
+  cat("\n")
 }
 
 ```
