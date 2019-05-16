@@ -151,7 +151,6 @@ Case study specific distance tables for baseline and five scenarios
 ```{r trip_dist = "asis"}
 
 for(city in cities){
-  city <- 'bangalore'
   count_people <- nrow(io[[city]]$synth_pop)
   td <- io[[city]]$dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   colnames(td)[3:7] <- rownames(scen_prop)
