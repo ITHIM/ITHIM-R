@@ -76,6 +76,39 @@ for (x in 1: length(cities))
 
 
 
+<!-- # Descriptive tables of emission inventory -->
+
+<!-- ```{r, message=FALSE, warning=FALSE, echo=FALSE} -->
+
+<!-- trans_share<-c(22.5, 40.0, 22.5, 28.1)  -->
+<!-- pm_conc<- c(50, 18, 122, 47 ) -->
+<!-- city<-cities -->
+<!-- shares<- as.data.frame(cbind(city,as.numeric(trans_share), pm_conc)) -->
+<!-- names(shares)[2]<- "trans_share" -->
+<!-- for (x in 1:length(cities)) -->
+<!-- { -->
+<!--   modes<-names(unlist(io[[cities[x]]]$emission_inventory)) -->
+<!--   emissions<-as.data.frame(unlist(io[[cities[x]]]$emission_inventory)) -->
+<!--   city_emissions<-cbind(as.data.frame(modes),  as.data.frame(emissions$`unlist(io[[cities[x]]]$emission_inventory)`)) -->
+<!--   names(city_emissions)[2]<- "emissions" -->
+<!--   select<- c("car", "motorcycle", "bus_driver", "truck", "big_truck") -->
+<!--   city_emissions$modes<- as.character(city_emissions$modes) -->
+<!--   city_emissions$modes[!(city_emissions$modes %in% select)]<- "other" -->
+<!--   summary<-city_emissions %>% group_by(modes) %>% summarise(sum(emissions)) -->
+<!--   names(summary)[2]<- "emissions" -->
+<!--   summary$emissions <- round(summary$emissions*100/sum(summary$emissions), digits=1) -->
+<!--   summary<-as.data.frame(summary) -->
+<!--   summary[nrow(summary)+1,1]<-"Transport share" -->
+<!--   summary[nrow(summary),2]<-as.character(shares$trans_share[x]) -->
+<!--   summary[nrow(summary)+1,1]<-"PM2.5 Conc" -->
+<!--   summary[nrow(summary),2]<-as.character(shares$pm_conc[x]) -->
+<!--   print(kable(summary, caption= cities[x])) -->
+
+<!-- } -->
+
+<!-- ``` -->
+
+
 # Descriptive tables of emission inventory
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
@@ -95,19 +128,24 @@ for (x in 1:length(cities))
   city_emissions$modes<- as.character(city_emissions$modes)
   city_emissions$modes[!(city_emissions$modes %in% select)]<- "other"
   summary<-city_emissions %>% group_by(modes) %>% summarise(sum(emissions))
-  names(summary)[2]<- "emissions"
-  summary$emissions <- round(summary$emissions*100/sum(summary$emissions), digits=1)
+  names(summary)[2]<- cities[x]
+  summary[[cities[x]]] <- round(summary[[cities[x]]]*100/sum(summary[[cities[x]]]), digits=1)
   summary<-as.data.frame(summary)
   summary[nrow(summary)+1,1]<-"Transport share"
   summary[nrow(summary),2]<-as.character(shares$trans_share[x])
   summary[nrow(summary)+1,1]<-"PM2.5 Conc"
   summary[nrow(summary),2]<-as.character(shares$pm_conc[x])
-  print(kable(summary, caption= cities[x]))
+  io[[cities[x]]]$summary_emission<- summary
   
 }
 
-```
+summary_all<- cbind(io[[cities[1]]]$summary_emission,io[[cities[2]]]$summary_emission,io[[cities[3]]]$summary_emission,io[[cities[4]]]$summary_emission)
+summary_all<- summary_all[-c(3,5,7)]
+summary_all$modes[2]<- "bus"
 
+
+print(kable(summary_all))
+```
 
 
 # Boxplots of Individual-level Physical activity (MMETs)
