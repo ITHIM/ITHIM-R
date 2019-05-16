@@ -131,6 +131,7 @@ for(city in cities){
   x <- match(row.names(td), trip_order$mode)
   x[!is.na(x)]
   td <- td[order(x),]
+  
   print(kable(td, caption = paste("Trip proportion (%) by mode for ", city)))
   cat("\n")
 }
@@ -154,9 +155,12 @@ for(city in cities){
   count_people <- nrow(io[[city]]$synth_pop)
   td <- io[[city]]$dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   colnames(td)[3:7] <- rownames(scen_prop)
+  
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
   td <- td[order(x),]
+  row.names(td) <- NULL
+  
   print(kable(td, caption = paste("Distance table (km) for ", city, "( ", count_people, " ) per person")))
   cat("\n")
   
@@ -167,6 +171,7 @@ for(city in cities){
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
   td <- td[order(x),]
+  row.names(td) <- NULL
   
   print(kable(td, caption = paste("Distance table (mins) for ", city, "( ", count_people, " ) per person (people with trips)")))
   
@@ -184,18 +189,24 @@ for(city in cities){
   count_people <- nrow(io[[city]]$synth_pop)
   td <- io[[city]]$dur %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   colnames(td)[3:7] <- rownames(scen_prop)
+  
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
   td <- td[order(x),]
+  row.names(td) <- NULL
+  
   print(kable(td, caption = paste("Duration table (mins) for ", city, "( ", count_people, " ) per person (everyone)")))
   
   
   count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
   td <- io[[city]]$dur %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   colnames(td)[3:7] <- rownames(scen_prop)
+  
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
   td <- td[order(x),]
+  row.names(td) <- NULL
+  
   print(kable(td, caption = paste("Duration table (mins) for ", city, "( ", count_people, " ) per person (people with trips)")))
   cat("\n")
 }
