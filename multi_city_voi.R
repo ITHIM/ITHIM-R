@@ -53,7 +53,7 @@ day_to_week_scalar <- 7
 ## with uncertainty
 ## comparison across cities
 numcores <- detectCores()
-nsamples <- 1024
+nsamples <- 8
 setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","EMISSION_INVENTORY",                        
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO",
                         "DISTANCE_SCALAR_CAR_TAXI",
@@ -192,8 +192,10 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
      bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
      distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
-parameters_only <- T
+
+parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- list()
+print(system.time(
 for(ci in 1:length(cities)){
   city <- cities[ci]
   
@@ -250,12 +252,12 @@ for(ci in 1:length(cities)){
   }
   
   if(!parameters_only){
-    #if(Sys.info()[['sysname']] == "Windows"){
+    if(Sys.info()[['sysname']] == "Windows"){
       multi_city_ithim[[ci]]$outcomes <- list()
       for(i in 1:nsamples) multi_city_ithim[[ci]]$outcomes[[i]] <- run_ithim(ithim_object = multi_city_ithim[[ci]])
-    #}else{
-    #  multi_city_ithim[[ci]]$outcomes <- mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
-    #}
+    }else{
+      multi_city_ithim[[ci]]$outcomes <- mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
+    }
     
     ## get outcomes
     min_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
@@ -290,7 +292,7 @@ for(ci in 1:length(cities)){
   parameter_samples <- cbind(parameter_samples,sapply(parameter_names_city,function(x)multi_city_ithim[[ci]]$parameters[[x]]))
   
 }
-
+))
 
 saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 
