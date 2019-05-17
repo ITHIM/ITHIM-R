@@ -1,4 +1,7 @@
 rm(list=ls())
+library(ggplot2)
+print(sessionInfo())
+library(plotly,verbose=T,quietly=F)
 library(ithimr)
 setwd('~/overflow_dropbox/ITHIM-R/')
 cities <- c('accra','sao_paulo','delhi','bangalore')
@@ -194,7 +197,8 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
 parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- list()
 numcores <- 3
-nsamples <- 1026
+nsamples <- 32
+for(numcores in c(2,4,8,16)){
 print(system.time(
   for(ci in 1:length(cities)){
     city <- cities[ci]
@@ -264,8 +268,8 @@ print(system.time(
       max_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
       keep_rows <- which(min_ages>=min_age&max_ages<=max_age)
       keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('ac|neo|age|sex',as.character(x))))
-      print(city)
-      for(i in 1:length(multi_city_ithim[[ci]]$outcomes)) print(length(multi_city_ithim[[ci]]$outcomes[[i]]))
+      print(c(numcores,city))
+      #for(i in 1:length(multi_city_ithim[[ci]]$outcomes)) print(length(multi_city_ithim[[ci]]$outcomes[[i]]))
       outcome_pp[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
       min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
       max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
@@ -292,9 +296,9 @@ print(system.time(
     parameter_samples <- cbind(parameter_samples,sapply(parameter_names_city,function(x)multi_city_ithim[[ci]]$parameters[[x]]))
     
   }
-))
+))}
 
-saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
+#saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 
 #################################################
 
@@ -302,7 +306,7 @@ saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 ## calculate EVPPI
 outcomes_pp <- do.call(cbind,outcome_pp)
 outcome$combined <- outcomes_pp
-saveRDS(outcome,'results/multi_city/outcome.Rds',version=2)
+#saveRDS(outcome,'results/multi_city/outcome.Rds',version=2)
 ##!! find way to set!!
 NSCEN <- ncol(outcome[[1]])/sum(sapply(colnames(outcome[[1]]),function(x)grepl('scen1',x)))
 evppi <- matrix(0, ncol = NSCEN*(length(cities)+1), nrow = ncol(parameter_samples))
@@ -400,7 +404,7 @@ if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NS
 }
 print(evppi)
 
-saveRDS(evppi,'results/multi_city/evppi.Rds',version=2)
+#saveRDS(evppi,'results/multi_city/evppi.Rds',version=2)
 
 library(RColorBrewer)
 library(plotrix)
@@ -411,7 +415,7 @@ library(plotrix)
 #                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
 #                     'COPD (AP)','stroke (AP)')
 evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
-{pdf('results/multi_city/evppi.pdf',height=15,width=8); par(mar=c(6,20,3.5,5.5))
+#{pdf('results/multi_city/evppi.pdf',height=15,width=8); par(mar=c(6,20,3.5,5.5))
   labs <- rownames(evppi)
   get.pal=colorRampPalette(brewer.pal(9,"Reds"))
   redCol=rev(get.pal(12))
@@ -429,14 +433,14 @@ evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
   color.legend(NSCEN*length(outcome)+0.5,0,NSCEN*length(outcome)+0.8,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
   for(i in seq(0,NSCEN*length(outcome),by=NSCEN)) abline(v=i)
   for(i in seq(0,length(labs),by=NSCEN)) abline(h=i)
-  dev.off()}
+#  dev.off()}
 
 scen_out <- lapply(outcome[-5],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
 ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
 means <- sapply(scen_out,function(x)apply(x,2,mean))
 yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
 cols <- c('navyblue','hotpink','grey','darkorange')
-{pdf('results/multi_city/city_yll.pdf',height=6,width=6); par(mar=c(5,5,1,1))
+{#pdf('results/multi_city/city_yll.pdf',height=6,width=6); par(mar=c(5,5,1,1))
   plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
   axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME[2:6])
   #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
@@ -444,18 +448,18 @@ cols <- c('navyblue','hotpink','grey','darkorange')
   abline(v=0,col='grey',lty=2,lwd=2)
   text(y=4.2,x=ninefive[[2]][1,4],'90%',col='navyblue',adj=c(-0,-0.7))
   legend(col=rev(cols),lty=1,bty='n',x=ninefive[[2]][1,4],legend=rev(names(outcome)[-5]),y=3)
-  dev.off()
+  #dev.off()
 }
 
 comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[5]][,seq(y,ncol(outcome[[5]]),by=NSCEN)]))
 ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
 means <- apply(comb_out,2,mean)
-{pdf('results/multi_city/combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
+{#pdf('results/multi_city/combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
   plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL pp relative to baseline',col='navyblue',yaxt='n',xlim=range(ninefive))
   axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:6])
   #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
   for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
   abline(v=0,col='grey',lty=2,lwd=2)
   text(y=4,x=ninefive[1,4],'90%',col='navyblue',adj=c(-0,-0.7))
-  dev.off()
+  #dev.off()
 }

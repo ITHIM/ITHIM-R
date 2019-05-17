@@ -193,8 +193,8 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
 
 parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- list()
-numcores <- 6
-nsamples <- 1026
+numcores <- 16
+nsamples <- 1024
 print(system.time(
   for(ci in 1:length(cities)){
     city <- cities[ci]
@@ -254,7 +254,7 @@ print(system.time(
     if(!parameters_only){
       if(Sys.info()[['sysname']] == "Windows"){
         multi_city_ithim[[ci]]$outcomes <- list()
-        for(i in 1:nsamples) multi_city_ithim[[ci]]$outcomes[[i]] <- run_ithim(ithim_object = multi_city_ithim[[ci]])
+        for(i in 1:nsamples) multi_city_ithim[[ci]]$outcomes[[i]] <- run_ithim(ithim_object = multi_city_ithim[[ci]],seed=i)
       }else{
         multi_city_ithim[[ci]]$outcomes <- mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
       }
@@ -265,7 +265,7 @@ print(system.time(
       keep_rows <- which(min_ages>=min_age&max_ages<=max_age)
       keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('ac|neo|age|sex',as.character(x))))
       print(city)
-      for(i in 1:length(multi_city_ithim[[ci]]$outcomes)) print(length(multi_city_ithim[[ci]]$outcomes[[i]]))
+      #for(i in 1:length(multi_city_ithim[[ci]]$outcomes)) print(length(multi_city_ithim[[ci]]$outcomes[[i]]))
       outcome_pp[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
       min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
       max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
@@ -343,6 +343,7 @@ multi_city_parallel_evppi_for_AP <- function(disease,parameter_samples,outcome){
   voi
 }
 
+numcores <- 8
 if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
   AP_names <- sapply(names(multi_city_ithim[[1]]$parameters),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
   diseases <- sapply(names(multi_city_ithim[[1]]$parameters)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
