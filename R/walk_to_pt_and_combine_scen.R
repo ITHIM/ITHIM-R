@@ -1,10 +1,13 @@
 #' @export
-walk_to_pt_and_combine_scen <- function(){
+walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
   rd_list <- list()
   for(i in 1:length(SYNTHETIC_TRIPS)) rd_list[[i]] <- setDT(SYNTHETIC_TRIPS[[i]])
+  SYNTHETIC_TRIPS <- NULL
   
   ## pt = public transport
   pt_modes <- c('bus','minibus','subway','rail')
+  
+  ##!! this function and add_walk_trips need some attention
   
   if(ADD_WALK_TO_BUS_TRIPS)
     for(i in 1:length(rd_list)){
@@ -18,6 +21,7 @@ walk_to_pt_and_combine_scen <- function(){
     }
   
   trip_df <- do.call('rbind',rd_list)
+  rd_list <- NULL
   
   ## update all distances and durations
   trip_df <- scale_trip_distances(trip_df)

@@ -232,7 +232,7 @@ run_ithim_setup <- function(seed = 1,
   
   # programming flags: do we need to recompute elements given uncertain variables?
   RECALCULATE_EMISSION_INVENTORY <<- any(c('EMISSION_INVENTORY')%in%names(ithim_object$parameters))
-  RECALCULATE_TRIPS <<- any(c("DISTANCE_SCALAR_PT",
+  RECALCULATE_TRIPS <<- any(c('BUS_WALK_TIME',"DISTANCE_SCALAR_PT",
                               "DISTANCE_SCALAR_CAR_TAXI",
                               "DISTANCE_SCALAR_MOTORCYCLE",
                               "DISTANCE_SCALAR_WALKING",
@@ -241,7 +241,7 @@ run_ithim_setup <- function(seed = 1,
                               'MOTORCYCLE_TO_CAR_RATIO',
                               'TRUCK_TO_CAR_RATIO',
                               'BACKGROUND_PA_ZEROS')%in%names(ithim_object$parameters))
-  RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('BUS_WALK_TIME','INJURY_LINEARITY',
+  RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('INJURY_LINEARITY',
                                                      'CASUALTY_EXPONENT_FRACTION')%in%names(ithim_object$parameters))
   
   ## complete TRIP_SET to contain distances and durations for trips and stages
@@ -250,7 +250,7 @@ run_ithim_setup <- function(seed = 1,
   
   ## create inventory and edit trips, if they are not variable dependent
   if(!RECALCULATE_TRIPS){
-    get_synthetic_from_trips() # sets synthetic trips and synthetic population
+    ithim_object$trip_scen_sets <- get_synthetic_from_trips() # sets synthetic trips and synthetic population
   }
   
   ## calculate distances, if distances are not variable dependent

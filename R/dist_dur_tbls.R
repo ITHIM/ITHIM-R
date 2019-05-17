@@ -2,6 +2,7 @@
 dist_dur_tbls <- function(trip_scen_sets){
   
   bs <- trip_scen_sets
+  trip_scen_sets <- NULL
   
   stage_modes <- unique(bs$stage_mode)
   
@@ -37,6 +38,7 @@ dist_dur_tbls <- function(trip_scen_sets){
     colnames(local_dur)[2] <- SCEN[i]
     l_dur[[i]] <- local_dur
   }
+  bs <- NULL
   
   ## join distances & durations
   for (i in 1:length(l_dist)){

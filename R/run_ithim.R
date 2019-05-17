@@ -16,49 +16,75 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   set.seed(seed)
   for(i in 1:length(ithim_object))
     assign(names(ithim_object)[i],ithim_object[[i]])
+  constant_mode <- length(parameters)==0
+  ithim_object <- NULL
   
   ############################
   ## (1) AP PATHWAY
   # Calculated PM2.5 concentrations
   pm_conc <- scenario_pm_calculations(dist,trip_scen_sets)#3
-  scenario_pm <- pm_conc$scenario_pm
-  pm_conc_pp <- pm_conc$pm_conc_pp
-  # Air pollution calculation
-  RR_AP_calculations <- gen_ap_rr(pm_conc_pp)
   
   ############################
   ## (2) PA PATHWAY
   # Calculate total mMETs
   mmets_pp <- total_mmet(trip_scen_sets)#3
+  trip_scen_sets <- NULL
+  
+  ############################
+  ## (1) AP PATHWAY
+  scenario_pm <- pm_conc$scenario_pm
+  pm_conc_pp <- pm_conc$pm_conc_pp
+  pm_conc <- NULL
+  
+  # Air pollution calculation
+  RR_AP_calculations <- gen_ap_rr(pm_conc_pp)
+  if(!constant_mode) pm_conc_pp <- NULL
+  
+  ############################
+  ## (2) PA PATHWAY
   # Physical activity calculation
   RR_PA_calculations <- gen_pa_rr(mmets_pp)
+  if(!constant_mode) mmets_pp <- NULL
   
   ############################
   ## (3) COMBINE (1) AND (2)
   # Physical activity and air pollution combined
   RR_PA_AP_calculations <- combined_rr_ap_pa(RR_PA_calculations,RR_AP_calculations)
+  RR_PA_calculations <- NULL
+  RR_AP_calculations <- NULL
+  hb_AP_PA <- health_burden(RR_PA_AP_calculations)
+  if(constant_mode) {
+    pathway_hb_AP_PA <- health_burden(RR_PA_AP_calculations,combined_AP_PA=F)
+  }
+  RR_PA_AP_calculations <- NULL
   
   ############################
   ## (4) INJURIES
   # Injuries calculation
   for(i in 1:length(inj_distances))
     assign(names(inj_distances)[i],inj_distances[[i]])
+  inj_distances <- NULL
   
   #(injuries <- injuries_function(relative_distances,scen_dist))
-  constant_mode <- length(names(parameters))==0
   injuries0 <- injuries_function_2(true_distances,injuries_list,reg_model,constant_mode)
+  injuries_list <- NULL
+  reg_model <- NULL
+  true_distances <- NULL
   
   injuries <- injuries0[[1]]
   whw <- injuries0[[2]]
+  injuries0 <- NULL
   deaths_yll_injuries <- injury_death_to_yll(injuries)
+  injuries <- NULL
   ref_injuries <- deaths_yll_injuries$ref_injuries
+  
+  #print(sort(sapply(ls(),function(x)object.size(get(x)))))
   ############################
   ## (5) COMBINE (3) AND (4)
   # Combine health burden from disease and injury
-  hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries$deaths_yll_injuries)
-  pathway_hb <- NULL
+  hb <- join_hb_and_injury(hb_AP_PA,deaths_yll_injuries$deaths_yll_injuries)
   if(constant_mode) {
-    pathway_hb <- health_burden(RR_PA_AP_calculations,deaths_yll_injuries$deaths_yll_injuries,combined_AP_PA=F)
+    pathway_hb <- join_hb_and_injury(pathway_hb_AP_PA,deaths_yll_injuries$deaths_yll_injuries)
     return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp,injuries=injuries,ref_injuries=ref_injuries,hb=hb,pathway_hb=pathway_hb,whw=whw))
   }else{
     return(list(hb=hb,ref_injuries=ref_injuries))

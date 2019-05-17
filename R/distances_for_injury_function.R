@@ -10,6 +10,8 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
   journeys <- trip_scen_sets %>% 
     group_by (age_cat,sex,stage_mode, scenario) %>% 
     summarise(tot_dist = sum(stage_distance))
+  trip_scen_sets <- NULL
+  
   distances <- spread(journeys,stage_mode, tot_dist,fill=0) 
   distances$pedestrian <- distances$walking 
   if('walk_to_pt'%in%names(distances)){
@@ -78,14 +80,15 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
         new_form <- paste0(c(new_form,'age_cat'),collapse='+')
       if('cas_gender'%in%names(injuries_for_model[[1]][[1]]))
         new_form <- paste0(c(new_form,'cas_gender'),collapse='+')
-      test <- try(mod <- glm(as.formula(new_form),data=injuries_for_model[[1]][[type]],family='poisson'))
+      test <- try(glm(as.formula(new_form),data=injuries_for_model[[1]][[type]],family='poisson'))
     }
     if(length(test)==1&&test == 'try-error')
-      test <- try(mod <- glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson'))
+      test <- try(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson'))
     if(length(test)==1&&test == 'try-error')
-      test <- try(mod <- glm('offset(2*CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate))',data=injuries_for_model[[1]][[type]],family='poisson'))
+      test <- try(glm('offset(2*CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate))',data=injuries_for_model[[1]][[type]],family='poisson'))
     #
-    reg_model[[type]] <- trim_glm_object(mod)
+    reg_model[[type]] <- trim_glm_object(test)
+    test <- NULL
     
     # reg_model[[type]] <- tryCatch({
     #   suppressWarnings(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson',control=glm.control(maxit=100)))

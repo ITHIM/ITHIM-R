@@ -1,5 +1,5 @@
 #' @export
-health_burden <- function(ind_ap_pa,inj,combined_AP_PA=T){
+health_burden <- function(ind_ap_pa,combined_AP_PA=T){
   
   demographic <- DEMOGRAPHIC
   demographic$dem_index <- 1:nrow(demographic)
@@ -83,6 +83,14 @@ health_burden <- function(ind_ap_pa,inj,combined_AP_PA=T){
   }
   deaths <- deaths[,-which(colnames(deaths)=='dem_index')]
   ylls <- ylls[,-which(colnames(ylls)=='dem_index')]
+  list(deaths=deaths,ylls=ylls)
+}
+
+#' @export
+join_hb_and_injury <- function(ind_ap_pa,inj){
+  
+  deaths <- ind_ap_pa$deaths
+  ylls <- ind_ap_pa$ylls
   # Select deaths columns
   inj_deaths <- dplyr::select(inj, c(age_cat, sex, contains("deaths")))
   # Select yll columns

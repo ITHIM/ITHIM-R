@@ -1,6 +1,8 @@
 #' @export
 create_max_mode_share_scenarios <- function(trip_set){
   rdr <- trip_set
+  trip_set <- NULL
+  
   rd_list <- list()
   target_distances <- colnames(SCENARIO_PROPORTIONS)
   modes <- rownames(SCENARIO_PROPORTIONS)
@@ -8,11 +10,15 @@ create_max_mode_share_scenarios <- function(trip_set){
   rd_list[[1]] <- rdr
   rdr_not_changeable <-  rdr[rdr$trip_mode%in%c('bus_driver','truck'),]
   rdr_changeable <-  rdr[!rdr$trip_mode%in%c('bus_driver','truck'),]
+  rdr <- NULL
+  
   rdr_changeable_by_distance <- list()
   for(j in 1:ncol(SCENARIO_PROPORTIONS)){
     target_distance <- target_distances[j]
     rdr_changeable_by_distance[[j]] <- rdr_changeable[rdr_changeable$trip_distance_cat==target_distance,]
   }
+  rdr_changeable <- NULL
+  
   ###############################################################
   for(i in 1:nrow(SCENARIO_PROPORTIONS)){
     mode_name <- modes[i]
