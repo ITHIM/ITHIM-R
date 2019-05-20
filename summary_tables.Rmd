@@ -224,7 +224,7 @@ for(city in cities){
   colnames(df1) <- "mmet"
   
   td1 <- df1 %>% filter(mmet == 0) %>% 
-    summarise(perct_zeros = round(n() / nrow(df1) * 100, 1))
+    summarise(perct_zeros = round(dplyr::n() / nrow(df1) * 100, 1))
   
   td2 <- df1 %>%
     summarise(min = min(mmet),
@@ -243,7 +243,7 @@ for(city in cities){
   td4 <- df2 %>% gather(key = "scenario", value = "mmet") %>% 
     filter(mmet == 0) %>% 
     group_by(scenario) %>% 
-    summarise(perct_zeros = round(n() / nrow(df2) * 100, 1))
+    summarise(perct_zeros = round(dplyr::n() / nrow(df2) * 100, 1))
   
   td5 <- df2 %>% gather(key = "scenario", value = "mmet") %>% 
     group_by(scenario) %>% 

@@ -192,7 +192,7 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
 
 
 parameters_only <- F
-multi_city_ithim <- outcome <- outcome_pp <- list()
+multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 numcores <- 16
 nsamples <- 1024
 print(system.time(
@@ -271,10 +271,22 @@ print(system.time(
       max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
       outcome_pp[[city]] <- outcome_pp[[city]]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
       colnames(outcome_pp[[city]]) <- paste0(colnames(outcome_pp[[city]]),'_',city)
-      
+      ## get yll per 100,000 by age
+      outcome_age_min <- c(15,50)
+      outcome_age_max <- c(49,69)
+      outcome_age_groups <- c('15-49','50-69')
+      yll_per_hundred_thousand[[city]] <- list()
+      for(aa in 1:length(outcome_age_groups)){
+        age <- outcome_age_groups[aa]
+        keep_rows2 <- which(min_ages>=outcome_age_min[aa]&max_ages<=outcome_age_max[aa])
+        tmp <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows2,keep_cols],na.rm=T)))
+        tmp <- tmp/sum(subset(DEMOGRAPHIC,min_pop_ages>=outcome_age_min[aa]&max_pop_ages<=outcome_age_max[aa])$population)*100000
+        yll_per_hundred_thousand[[city]][[age]] <- tmp
+      }
       ## omit ac (all cause) and neoplasms (neo) and age and gender columns
       outcome[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
       colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
+      
     }
     
     ## rename city-specific parameters according to city
