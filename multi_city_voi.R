@@ -92,10 +92,10 @@ background_pa_confidence <- list(accra=0.5,
                                  delhi=0.3,
                                  bangalore=0.3)
 # lnorm parameters for BUS_WALK_TIME
-bus_walk_time <- list(accra=c(log(5),log(1.2)),
-                      sao_paulo=c(log(5),log(1.2)),
-                      delhi=c(log(5),log(1.2)),
-                      bangalore=c(log(5),log(1.2)))
+bus_walk_time <- list(accra=10.55,
+                      sao_paulo=11.63078,
+                      delhi=9.270711,
+                      bangalore=5.170816)
 # lnorm parameters for MMET_CYCLING
 mmet_cycling <- c(log(4.63),log(1.2))
 # lnorm parameters for MMET_WALKING
@@ -123,7 +123,7 @@ ref_scenarios <- list(accra='Baseline',
                       delhi='Baseline',
                       bangalore='Baseline')
 # whether or not to add walk trips to bus trips
-add_walk_to_bus_trips <- c(T,F,F,T)
+add_walk_to_bus_trips <- c(F,F,F,F)
 # bus occupancy beta distribution
 bus_to_passenger_ratio  <- list(accra=c(20,600),
                                 sao_paulo=c(20,600),
@@ -231,7 +231,7 @@ print(system.time(
                                               PM_TRANS_SHARE = pm_trans_share[[city]],  
                                               BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
                                               BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
-                                              BUS_WALK_TIME = bus_walk_time[[city]],
+                                              BUS_WALK_TIME = bus_walk_time[[city]],## not random; use mean
                                               MOTORCYCLE_TO_CAR_RATIO = motorcycle_to_car_ratio[[city]],
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                               TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
@@ -400,6 +400,44 @@ if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NS
   evppi <- rbind(evppi,do.call(rbind,evppi_for_emissions))
 }
 print(evppi)
+
+## PA
+multi_city_parallel_evppi_for_pa <- function(sources,outcome){
+  voi <- c()
+  averages <- colMeans(sources)
+  x1 <- sources[,1];
+  x2 <- sources[,2];
+  for(j in 1:length(outcome)){
+    case <- outcome[[j]]
+    for(k in 1:NSCEN){
+      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
+      y <- rowSums(scen_case)
+      vary <- var(y)
+      model <- gam(y ~ te(x1,x2))
+      voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+    }
+  }
+  voi
+}
+if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%names(multi_city_ithim[[1]]$parameters))==2&&NSAMPLES>=1024){
+  sources <- list()
+  for(ci in 1:length(cities)){
+    city <- cities[ci]
+    pa_names <- sapply(colnames(parameter_samples),function(x)(grepl('BACKGROUND_PA_SCALAR_',x)||grepl('BACKGROUND_PA_ZEROS_',x))&grepl(city,x))
+    sources[[ci]] <- parameter_samples[,pa_names]
+  }
+  evppi_for_pa <- mclapply(sources, 
+                                  FUN = multi_city_parallel_evppi_for_pa,
+                                  outcome, 
+                                  mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+  
+  names(evppi_for_pa) <- paste0('BACKGROUND_PA_',cities)
+  ## get rows to remove
+  keep_names <- sapply(rownames(evppi),function(x)!grepl('BACKGROUND_PA_',x))
+  evppi <- evppi[keep_names,]
+  
+  evppi <- rbind(evppi,do.call(rbind,evppi_for_pa))
+}
 
 saveRDS(evppi,'results/multi_city/evppi.Rds',version=2)
 
