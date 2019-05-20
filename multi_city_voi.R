@@ -309,14 +309,31 @@ print(system.time(
 saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 
 #################################################
-
+NSCEN <- ncol(outcome[[1]])/sum(sapply(colnames(outcome[[1]]),function(x)grepl('scen1',x)))
+SCEN_SHORT_NAME <- c('baseline',rownames(SCENARIO_PROPORTIONS))
+## compute and save yll per hundred thousand by age
+saveRDS(yll_per_hundred_thousand,'results/multi_city/yll_per_hundred_thousand.Rds',version=2)
+yll_per_hundred_thousand_results <- list()
+for(city in cities){
+  case <- yll_per_hundred_thousand[[city]]
+  yll_per_hundred_thousand_results[[city]] <- list()
+  for(age in outcome_age_groups){
+    yll_per_hundred_thousand_results[[city]][[age]] <- matrix(0,nrow=NSCEN,ncol=3)#(median=numeric(),'5%'=numeric(),'95%'=numeric())
+    colnames(yll_per_hundred_thousand_results[[city]][[age]]) <- c('median','5%','95%')
+    rownames(yll_per_hundred_thousand_results[[city]][[age]]) <- SCENARIO_PROPORTIONS
+    case_age <- case[[age]]
+    for(k in 1:NSCEN){
+      scen_case <- case_age[,seq(k,ncol(case_age),by=NSCEN)]
+      y <- rowSums(scen_case)
+      yll_per_hundred_thousand_results[[city]][[age]][k,] <- quantile(y,c(0.5,0.05,0.95))
+    }
+  }
+}
 
 ## calculate EVPPI
 outcomes_pp <- do.call(cbind,outcome_pp)
 outcome$combined <- outcomes_pp
 saveRDS(outcome,'results/multi_city/outcome.Rds',version=2)
-##!! find way to set!!
-NSCEN <- ncol(outcome[[1]])/sum(sapply(colnames(outcome[[1]]),function(x)grepl('scen1',x)))
 evppi <- matrix(0, ncol = NSCEN*(length(cities)+1), nrow = ncol(parameter_samples))
 for(j in 1:length(outcome)){
   case <- outcome[[j]]
@@ -331,7 +348,6 @@ for(j in 1:length(outcome)){
     }
   }
 }
-SCEN_SHORT_NAME <- c('baseline',rownames(SCENARIO_PROPORTIONS))
 colnames(evppi) <- apply(expand.grid(SCEN_SHORT_NAME[2:6],names(outcome)),1,function(x)paste0(x,collapse='_'))
 rownames(evppi) <- colnames(parameter_samples)
 ## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
