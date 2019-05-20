@@ -377,7 +377,8 @@ multi_city_parallel_evppi_for_emissions <- function(sources,outcome){
   }
   voi
 }
-
+# x2 <- evppi(parameter=c(38:40),input=inp$mat,he=m,method="GP")
+#fit <- fit.gp(parameter = parameter, inputs = inputs, x = x, n.sim = n.sim)
 if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
   sources <- list()
   for(ci in 1:length(cities)){
