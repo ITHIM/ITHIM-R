@@ -320,7 +320,7 @@ for(city in cities){
   for(age in outcome_age_groups){
     yll_per_hundred_thousand_results[[city]][[age]] <- matrix(0,nrow=NSCEN,ncol=3)#(median=numeric(),'5%'=numeric(),'95%'=numeric())
     colnames(yll_per_hundred_thousand_results[[city]][[age]]) <- c('median','5%','95%')
-    rownames(yll_per_hundred_thousand_results[[city]][[age]]) <- SCENARIO_PROPORTIONS
+    rownames(yll_per_hundred_thousand_results[[city]][[age]]) <- rownames(SCENARIO_PROPORTIONS)
     case_age <- case[[age]]
     for(k in 1:NSCEN){
       scen_case <- case_age[,seq(k,ncol(case_age),by=NSCEN)]
@@ -329,6 +329,7 @@ for(city in cities){
     }
   }
 }
+saveRDS(yll_per_hundred_thousand_results,'results/multi_city/yll_per_hundred_thousand_quantiles.Rds',version=2)
 
 ## calculate EVPPI
 outcomes_pp <- do.call(cbind,outcome_pp)
