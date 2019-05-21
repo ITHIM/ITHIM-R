@@ -194,7 +194,7 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
 parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 numcores <- 16
-nsamples <- 1024
+nsamples <- 4096
 print(system.time(
   for(ci in 1:length(cities)){
     city <- cities[ci]
@@ -330,6 +330,9 @@ for(city in cities){
   }
 }
 saveRDS(yll_per_hundred_thousand_results,'results/multi_city/yll_per_hundred_thousand_quantiles.Rds',version=2)
+for(i in 1:length(yll_per_hundred_thousand_results))
+  for(j in 1:length(yll_per_hundred_thousand_results[[i]]))
+    write.csv(yll_per_hundred_thousand_results[[i]][[j]],paste0('results/multi_city/yll_per_hundred_thousand/',names(yll_per_hundred_thousand_results)[i],names(yll_per_hundred_thousand_results[[i]])[j],'.csv'))
 
 ## calculate EVPPI
 outcomes_pp <- do.call(cbind,outcome_pp)
