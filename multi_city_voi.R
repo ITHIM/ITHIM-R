@@ -258,6 +258,7 @@ print(system.time(
       }else{
         multi_city_ithim[[ci]]$outcomes <- mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
       }
+      multi_city_ithim[[ci]]$DEMOGRAPHIC <- DEMOGRAPHIC
       
       ## get outcomes
       min_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
@@ -314,10 +315,29 @@ SCEN_SHORT_NAME <- c('baseline',rownames(SCENARIO_PROPORTIONS))
 ## compute and save yll per hundred thousand by age
 saveRDS(yll_per_hundred_thousand,'results/multi_city/yll_per_hundred_thousand.Rds',version=2)
 yll_per_hundred_thousand_results <- list()
-for(city in cities){
+populations <- rep(0,length(outcome_age_groups))
+combined_yll <- combined_yll_quantile <- list()
+for(aa in 1:length(outcome_age_groups)){
+  age <- outcome_age_groups[aa]
+  for(ci in 1:length(cities)){
+    min_pop_ages <- sapply(multi_city_ithim[[ci]]$DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+    max_pop_ages <- sapply(multi_city_ithim[[ci]]$DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+    populations[aa] <- populations[aa] + sum(subset(multi_city_ithim[[ci]]$DEMOGRAPHIC,min_pop_ages>=outcome_age_min[aa]&max_pop_ages<=outcome_age_max[aa])$population)
+  }
+  combined_yll[[age]] <- matrix(0,ncol=NSCEN,nrow=NSAMPLES)
+  combined_yll_quantile[[age]] <- matrix(0,nrow=NSCEN,ncol=3)#(median=numeric(),'5%'=numeric(),'95%'=numeric())
+  colnames(combined_yll_quantile[[age]]) <- c('median','5%','95%')
+  rownames(combined_yll_quantile[[age]]) <- rownames(SCENARIO_PROPORTIONS)
+}
+for(ci in 1:length(cities)){
+  city <- cities[ci]
   case <- yll_per_hundred_thousand[[city]]
   yll_per_hundred_thousand_results[[city]] <- list()
-  for(age in outcome_age_groups){
+  for(aa in 1:length(outcome_age_groups)){
+    age <- outcome_age_groups[aa]
+    min_pop_ages <- sapply(multi_city_ithim[[ci]]$DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+    max_pop_ages <- sapply(multi_city_ithim[[ci]]$DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+    population <- sum(subset(multi_city_ithim[[ci]]$DEMOGRAPHIC,min_pop_ages>=outcome_age_min[aa]&max_pop_ages<=outcome_age_max[aa])$population)
     yll_per_hundred_thousand_results[[city]][[age]] <- matrix(0,nrow=NSCEN,ncol=3)#(median=numeric(),'5%'=numeric(),'95%'=numeric())
     colnames(yll_per_hundred_thousand_results[[city]][[age]]) <- c('median','5%','95%')
     rownames(yll_per_hundred_thousand_results[[city]][[age]]) <- rownames(SCENARIO_PROPORTIONS)
@@ -326,9 +346,18 @@ for(city in cities){
       scen_case <- case_age[,seq(k,ncol(case_age),by=NSCEN)]
       y <- rowSums(scen_case)
       yll_per_hundred_thousand_results[[city]][[age]][k,] <- quantile(y,c(0.5,0.05,0.95))
+      combined_yll[[age]][,k] <- combined_yll[[age]][,k] + y*population/100000
     }
   }
 }
+yll_per_hundred_thousand_results$combined <- list()
+for(aa in 1:length(outcome_age_groups)){
+  age <- outcome_age_groups[aa]
+  yll_per_hundred_thousand_results$combined[[age]] <- t(apply(combined_yll[[age]]/populations[aa]*100000,2,quantile,c(0.5,0.05,0.95)))
+  colnames(yll_per_hundred_thousand_results$combined[[age]]) <- c('median','5%','95%')
+  rownames(yll_per_hundred_thousand_results$combined[[age]]) <- rownames(SCENARIO_PROPORTIONS)
+}
+
 saveRDS(yll_per_hundred_thousand_results,'results/multi_city/yll_per_hundred_thousand_quantiles.Rds',version=2)
 for(i in 1:length(yll_per_hundred_thousand_results))
   for(j in 1:length(yll_per_hundred_thousand_results[[i]]))
