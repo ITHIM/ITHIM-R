@@ -361,9 +361,21 @@ for(aa in 1:length(outcome_age_groups)){
 saveRDS(yll_per_hundred_thousand_results,'results/multi_city/yll_per_hundred_thousand_quantiles.Rds',version=2)
 for(i in 1:length(yll_per_hundred_thousand_results))
   for(j in 1:length(yll_per_hundred_thousand_results[[i]]))
-    write.csv(yll_per_hundred_thousand_results[[i]][[j]],paste0('results/multi_city/yll_per_hundred_thousand/',names(yll_per_hundred_thousand_results)[i],names(yll_per_hundred_thousand_results[[i]])[j],'.csv'))
+    write.csv(yll_per_hundred_thousand_results[[i]][[j]],
+              paste0('results/multi_city/yll_per_hundred_thousand/',names(yll_per_hundred_thousand_results)[i],names(yll_per_hundred_thousand_results[[i]])[j],'.csv'))
 
 ## calculate EVPPI
+for(i in 1:length(outcome_pp)){
+  outcome_pp_quantile <- matrix(0,nrow=NSCEN,ncol=3)#(median=numeric(),'5%'=numeric(),'95%'=numeric())
+  colnames(outcome_pp_quantile) <- c('median','5%','95%')
+  rownames(outcome_pp_quantile) <- rownames(SCENARIO_PROPORTIONS)
+  for(k in 1:NSCEN){
+    scen_case <- outcome_pp[[i]][,seq(k,ncol(outcome_pp[[i]]),by=NSCEN)]
+    y <- rowSums(scen_case)*100000
+    outcome_pp_quantile[k,] <- quantile(y,c(0.5,0.05,0.95))
+  }
+  write.csv(outcome_pp_quantile,paste0('results/multi_city/yll_per_hundred_thousand/',cities[i],'.csv'))
+}
 outcomes_pp <- do.call(cbind,outcome_pp)
 outcome$combined <- outcomes_pp
 saveRDS(outcome,'results/multi_city/outcome.Rds',version=2)
@@ -501,6 +513,7 @@ if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%names(mult
 }
 
 saveRDS(evppi,'results/multi_city/evppi.Rds',version=2)
+write.csv(evppi,'results/multi_city/evppi.csv')
 
 library(RColorBrewer)
 library(plotrix)
