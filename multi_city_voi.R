@@ -434,18 +434,21 @@ if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
 
 multi_city_parallel_evppi_for_emissions <- function(sources,outcome){
   voi <- c()
-  averages <- colMeans(sources)
-  x1 <- sources[,order(averages,decreasing=T)[1]];
-  x2 <- sources[,order(averages,decreasing=T)[2]];
-  x3 <- sources[,order(averages,decreasing=T)[3]];
-  x4 <- sources[,order(averages,decreasing=T)[4]];
+  nSources <- ncol(sources)
+  for(i in 1:nSources)
+    assign(paste0('x',i),sources[,i])
+  form <- 'y ~ '
+  for(m in 3:nSources)
+    for(i in 2:(m-1))
+      for(l in 1:(i-1))
+        form <- paste0(form,ifelse(form=='y ~ ','','+'),paste0('te(',paste0('x',m),',',paste0('x',l),',',paste0('x',i),')'))
   for(j in 1:length(outcome)){
     case <- outcome[[j]]
     for(k in 1:NSCEN){
       scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
       y <- rowSums(scen_case)
       vary <- var(y)
-      model <- gam(y ~ te(x1,x2,x3,x4))
+      model <- gam(as.formula(form))
       voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
     }
   }
