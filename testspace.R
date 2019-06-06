@@ -29,11 +29,21 @@ parallel_evppi_for_emissions <- function(index,outcome,sources){
   source_index <- (index-1)%%length(sources)+1
   
   inputs <- sources[[source_index]]
+  
+  ## old:
+  averages <- colMeans(inputs)
+  x1 <- inputs[,order(averages,decreasing=T)[1]];
+  x2 <- inputs[,order(averages,decreasing=T)[2]];
+  x3 <- inputs[,order(averages,decreasing=T)[3]];
+  x4 <- inputs[,order(averages,decreasing=T)[4]];
+  x5 <- inputs[,order(averages,decreasing=T)[5]];
+  form <- 'y ~ te(x1,x2,x3,x4,x5)'
+  ## new:
   nSources <- ncol(inputs)
-  for(i in 1:nSources)
-    assign(paste0('x',i),inputs[,i])
+  #for(i in 1:nSources)
+  #  assign(paste0('x',i),inputs[,i])
   form <- 'y ~ '
-  for(m in 3:nSources)
+  for(m in 3:5)#nSources)
     for(i in 2:(m-1))
       for(l in 1:(i-1))
         form <- paste0(form,ifelse(form=='y ~ ','','+'),paste0('ti(',paste0('x',m),',',paste0('x',l),',',paste0('x',i),')'))
