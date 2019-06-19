@@ -1,0 +1,3 @@
+concentration: 17
+
+Share of transport: 18%
