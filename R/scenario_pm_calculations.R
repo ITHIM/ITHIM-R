@@ -46,7 +46,7 @@ scenario_pm_calculations <- function(dist,pp_summary){
   # open vehicles experience the ``on_road_off_road_ratio'', and closed vehicles experience the ``in_vehicle_ratio''
   ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio,subway_ratio)
   # assign rates according to the order of the ratio_by_mode array: 1 is open vehicle, 2 is closed vehicle, 3 is subway
-  open_vehicles <- c('walking','walk_to_pt','bicycle','motorcycle','auto_rickshaw','shared_auto','cycle_rickshaw')
+  open_vehicles <- c('walking','bicycle','motorcycle','auto_rickshaw','shared_auto','cycle_rickshaw')
   rail_vehicles <- c('subway','rail')
   vent_rates$vehicle_ratio_index <- sapply(vent_rates$stage_mode,function(x) ifelse(x%in%rail_vehicles,3,ifelse(x%in%open_vehicles,1,2)))
   
@@ -70,7 +70,9 @@ scenario_pm_calculations <- function(dist,pp_summary){
   #trip_set$pm_dose <- trip_set$on_road_air * scen_pm * scen_ratio # mg
   
   # prepare individual-level dataset
-  synth_pop <- SYNTHETIC_POPULATION
+  synth_pop <- setDT(SYNTHETIC_POPULATION)
+  # take subset
+  trip_set <- setDT(trip_set)[trip_set$participant_id%in%synth_pop$participant_id,]
   # compute individual-level pm scenario by scenario
   for (i in 1:length(SCEN)){
     # initialise to background. This means persons who undertake zero travel get this value.
@@ -114,6 +116,6 @@ scenario_pm_calculations <- function(dist,pp_summary){
   
   synth_pop$participant_id <- as.integer(synth_pop$participant_id)
   
-  list(scenario_pm=conc_pm, pm_conc_pp=synth_pop)
+  list(scenario_pm=conc_pm, pm_conc_pp=tbl_df(synth_pop))
   
 }

@@ -1,0 +1,12 @@
+"","X.1","X","No.other.fixed.or.stationary.object","Pedestrian","Pedal.cycle","X2.3.Wheeled","Car.pick.up.van","Bus","Railway.train.railway.vehicle","non.motor.vehicle","unspecified","Non.collision","Unknown","Trucks"
+"1",1,"Pedestrian",0,0,0,82,200,61,0,0,0,0,427,95
+"2",2,"Pedal Cycle",0,0,0,8,35,15,0,0,0,0,30,25
+"3",3,"Motorcycle",57,0,0,25,141,60,0,0,0,0,260,139
+"4",4,"3Wheeled",6,0,0,2,13,3,0,0,0,0,10,8
+"5",5,"Car",32,0,0,2,21,4,0,0,0,0,17,21
+"6",6,"Pick-up truck/van",9,0,0,0,6,2,0,0,0,0,4,4
+"7",7,"Heavy transport",15,0,0,1,11,1,0,0,0,0,5,14
+"8",8,"Bus",3,0,0,1,2,2,0,0,0,0,0,1
+"9",9,"Other",0,0,0,0,0,0,0,0,0,0,41,0
+"10",10,"Unknown",0,0,0,0,0,0,0,0,0,0,21,0
+"11",11,"Railway",0,0,0,0,0,0,0,0,0,0,0,0

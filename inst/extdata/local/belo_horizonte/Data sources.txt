@@ -1,0 +1,17 @@
+Emission inventory:
+EDGAR dataset file prepared by Nelson
+EDGAR selection TIGTHAT_Nov2018-NG-mt.xlsx
+
+Source apportionment:
+WHO source apportionment database
+
+Concentration:
+WHO source apportionment database
+
+Traffic injuries:
+WHO hit WHO database, used the data reported by mortality statistics
+
+apportioned the unknown striking vehicles cases  based on the proportions of the known cases
+
+
+

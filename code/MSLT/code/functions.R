@@ -503,3 +503,9 @@ plot_GBD <- function(in_data1, in_data2, in_sex, in_cause, in_measure) {
   print(p)
 }
 
+################################Function to generate data sets by year and localities (and combine back to regions?)#########
+
+sort_gbd_input <- function(in_data, in_year, in_locality) {
+  data <- in_data[which(in_data$year== in_year & in_data$location == in_locality),]
+}
+

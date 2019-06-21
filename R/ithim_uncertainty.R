@@ -3,9 +3,13 @@ ithim_uncertainty <- function(ithim_object,seed=1){
   ############################
   for(i in 1:length(ithim_object))
     assign(names(ithim_object)[i],ithim_object[[i]])
+  ithim_object$parameters <- 0
+  
   # Get parameters
   for(i in 1:length(parameters))
     assign(names(parameters)[i],parameters[[i]][[seed]],pos=1)
+  parameters <- NULL
+  
   ## Re-do set up if any distance parameter has changed
   if(RECALCULATE_EMISSION_INVENTORY) set_vehicle_inventory() # sets vehicle inventory
   if(RECALCULATE_TRIPS){
@@ -26,3 +30,5 @@ ithim_uncertainty <- function(ithim_object,seed=1){
   ##!! RJ for now return only hb from uncertain simulations; otherwise the file is too big
   return(list(hb=run_results$hb,inj=run_results$ref_injuries))
 }
+
+#ithim_object = multi_city_ithim[[ci]]

@@ -4,28 +4,42 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
   cas_modes <- unique(c(as.character(injuries_list[[1]]$whw$cas_mode),as.character(injuries_list[[1]]$noov$cas_mode)))
   injuries <- true_distances[,colnames(true_distances)%in%c(cas_modes,'sex_age','scenario','dem_index')]
   injuries$bus_driver <- 0
+  colnames(demographic)[which(colnames(demographic)=='sex')] <- 'cas_gender'
   whw_temp <- list()
   for(scen in SCEN){
     whw_temp[[scen]] <- list()
-    for(type in c('whw','noov')){
+    for(type in INJURY_TABLE_TYPES){
       injuries_list[[scen]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
       injuries_list[[scen]][[type]]$pred <- predict(reg_model[[type]],newdata = remove_missing_levels(reg_model[[type]],injuries_list[[scen]][[type]]),type='response')
       if(constant_mode){
         whw_temp[[scen]][[type]] <- sapply(unique(injuries_list[[scen]][[type]]$cas_mode),function(x)
           sapply(unique(injuries_list[[scen]][[type]]$strike_mode),function(y)sum(subset(injuries_list[[scen]][[type]],cas_mode==x&strike_mode==y)$pred,na.rm=T)))
-        colnames(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$cas_mode)
-        rownames(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$strike_mode)
+        if(type=='whw'){
+          colnames(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$cas_mode)
+          rownames(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$strike_mode)
+        }else{
+          names(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$cas_mode)
+        }
       }
+      suppressWarnings(
+        injuries_list[[scen]][[type]] <- left_join(injuries_list[[scen]][[type]],demographic,by=c('age_cat','cas_gender'))
+      )
     }
+    
     for(injured_mode in cas_modes)
-      for(age_gen in unique(injuries$sex_age))
-        injuries[injuries$scenario==scen&injuries$sex_age==age_gen,match(injured_mode,colnames(injuries))] <- 
-          sum(subset(injuries_list[[scen]]$whw,cas_mode==injured_mode&injury_gen_age==age_gen)$pred) + 
-          sum(subset(injuries_list[[scen]]$noov,cas_mode==injured_mode&injury_gen_age==age_gen)$pred)
+      for(index in unique(injuries$dem_index)){
+        injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] <- 
+          sum(injuries_list[[scen]]$whw[injuries_list[[scen]]$whw$cas_mode==injured_mode&
+                                                 injuries_list[[scen]]$whw$dem_index==index,]$pred) 
+        if(length(injuries_list[[scen]])==2)
+          injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] <- 
+            injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] + 
+            sum(injuries_list[[scen]]$nov[injuries_list[[scen]]$nov$cas_mode==injured_mode&
+                                            injuries_list[[scen]]$nov$dem_index==index,]$pred)
+      }
   }
   
   injuries$Deaths <- rowSums(injuries[,match(cas_modes,colnames(injuries))])
-  injuries$whw <- whw_temp
   list(injuries,whw_temp)
   ##TODO add in uncaptured fatalities as constant
 }
@@ -54,9 +68,7 @@ remove_missing_levels <- function(fit, test_data) {
   # https://stackoverflow.com/a/39495480/4185785
   
   # drop empty factor levels in test data
-  test_data %>%
-    droplevels() %>%
-    as.data.frame() -> test_data
+  test_data <- as.data.frame(droplevels(test_data))
   
   # 'fit' object structure of 'lm' and 'glmmPQL' is different so we need to
   # account for it
@@ -105,8 +117,7 @@ remove_missing_levels <- function(fit, test_data) {
       # set to NA
       test_data[!found, predictors[i]] <- NA
       # drop empty factor levels in test data
-      test_data %>%
-        droplevels() -> test_data
+      test_data <- droplevels(test_data) 
       # issue warning to console
       message(sprintf(paste0("Setting missing levels in '%s', only present",
                              " in test data but missing in train data,",
