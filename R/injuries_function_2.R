@@ -1,9 +1,10 @@
 #' @export
 injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_mode=F){
   ## For predictive uncertainty, we could sample a number from the predicted distribution
-  cas_modes <- unique(c(as.character(injuries_list[[1]]$whw$cas_mode),as.character(injuries_list[[1]]$noov$cas_mode)))
+  cas_modes <- unique(c(as.character(injuries_list[[1]]$whw$cas_mode)))#,as.character(injuries_list[[1]]$noov$cas_mode)))
   injuries <- true_distances[,colnames(true_distances)%in%c(cas_modes,'sex_age','scenario','dem_index')]
   injuries$bus_driver <- 0
+  demographic <- DEMOGRAPHIC
   colnames(demographic)[which(colnames(demographic)=='sex')] <- 'cas_gender'
   whw_temp <- list()
   for(scen in SCEN){
@@ -39,7 +40,7 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
       }
   }
   
-  injuries$Deaths <- rowSums(injuries[,match(cas_modes,colnames(injuries))])
+  injuries$Deaths <- rowSums(injuries[,match(unique(injuries_list[[1]]$whw$cas_mode),colnames(injuries))])
   list(injuries,whw_temp)
   ##TODO add in uncaptured fatalities as constant
 }

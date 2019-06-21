@@ -35,13 +35,13 @@ get_synthetic_from_trips <- function(){
   # create scenarios: either the walking test case, or the 5 hard-coded Accra scenarios
   trip_set <- ithim_setup_baseline_scenario(trip_set)
   if(TEST_WALK_SCENARIO){
-    SYNTHETIC_TRIPS <- create_walk_scenario(trip_set)
+    SYNTHETIC_TRIPS <<- create_walk_scenario(trip_set)
   }else if(TEST_CYCLE_SCENARIO){
-    SYNTHETIC_TRIPS <- create_cycle_scenarios(trip_set)
+    SYNTHETIC_TRIPS <<- create_cycle_scenarios(trip_set)
   }else if(MAX_MODE_SHARE_SCENARIO){
-    SYNTHETIC_TRIPS <- create_max_mode_share_scenarios(trip_set)
+    SYNTHETIC_TRIPS <<- create_max_mode_share_scenarios(trip_set)
   }else{
-    SYNTHETIC_TRIPS <- create_all_scenarios(CITY, trip_set)
+    SYNTHETIC_TRIPS <<- create_all_scenarios(CITY, trip_set)
   }
   
   #set_scenario_specific_variables()
@@ -49,9 +49,5 @@ get_synthetic_from_trips <- function(){
   NSCEN <<- length(SYNTHETIC_TRIPS) - 1
   SCEN <<- sapply(SYNTHETIC_TRIPS,function(x)x$scenario[1])
   SCEN_SHORT_NAME <<- c("base",paste0("scen", 1:NSCEN) )
-  
-  # add walk-to-bus trips, as appropriate, and combines list of scenarios
-  trip_scen_sets <- walk_to_pt_and_combine_scen(SYNTHETIC_TRIPS)
-  trip_scen_sets
   
 }

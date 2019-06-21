@@ -29,8 +29,12 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
   }
   ## group 2W and 3W striking vehicles
   strike_distances <- true_distances_0
+#  strike_distances$motorcycle <- rowSums(strike_distances[,colnames(strike_distances)%in%c('motorcycle','auto_rickshaw'),drop=F])
+#  strike_mode_indices <- match(injury_table$whw$strike_mode,mode_names)
   strike_distances$motorcycle <- rowSums(strike_distances[,colnames(strike_distances)%in%c('motorcycle','auto_rickshaw'),drop=F])
-  strike_mode_indices <- match(injury_table$whw$strike_mode,mode_names)
+  strike_modes <- unique(as.character(injury_table$whw$strike_mode))
+  ##!! this order matters to strike_distance_sums later
+  strike_mode_indices <- match(injury_table$whw$strike_mode,unique(c(mode_names,strike_modes)))
   
   ## Calculated distances
   ## true distances should be the total for the whole population for a whole year. 
@@ -77,7 +81,6 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
           injuries_list[[scen]][[type]]$strike_distance_sum[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(rownames(dist)=='bus_driver'),i]/bus_base
         }
       }
-      
       # omit any rows with zero travel
       injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],strike_distance>0&cas_distance>0)
     }

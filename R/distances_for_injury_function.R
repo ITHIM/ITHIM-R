@@ -61,7 +61,7 @@ distances_for_injury_function <- function(pp_summary,dist){
   injuries_for_model <- add_distance_columns(injury_table,mode_names,true_distances_0,dist,scenarios=SCEN[1])
   
   scenario_injury_table <- list()
-  for(type in c('whw','noov')) 
+  for(type in INJURY_TABLE_TYPES) 
     scenario_injury_table[[type]] <- expand.grid(age_cat=unique(DEMOGRAPHIC$age_cat),
                                                  cas_gender=unique(DEMOGRAPHIC$sex),
                                                  cas_mode=unique(injuries_for_model[[1]][[type]]$cas_mode),
@@ -79,12 +79,8 @@ distances_for_injury_function <- function(pp_summary,dist){
   ##RJ linearity in group rates
   CAS_EXPONENT <<- INJURY_LINEARITY * CASUALTY_EXPONENT_FRACTION
   STR_EXPONENT <<- INJURY_LINEARITY - CAS_EXPONENT
-  forms <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)-STR_EXPONENT*log(strike_distance_sum))',
-                noov='count~cas_mode+strike_mode+offset(log(cas_distance))+offset(log(strike_distance_sum))')
-  
-  # 
-  # forms <- list(whw='count~cas_mode*strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)-STR_EXPONENT*log(strike_distance_sum)-log(injury_reporting_rate))',
-  #               nov='count~cas_mode+offset(2*CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate))')
+  forms <- list(whw='count~cas_mode*strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)-STR_EXPONENT*log(strike_distance_sum)-log(injury_reporting_rate))',
+                nov='count~cas_mode+offset(2*CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate))')
   # if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
   #   for(type in INJURY_TABLE_TYPES)
   #     forms[[type]] <- paste0(c(forms[[type]],'age_cat'),collapse='+')
@@ -95,69 +91,29 @@ distances_for_injury_function <- function(pp_summary,dist){
   ## catch for when regression fails: if fail, run simpler model: no interactions.
   for(type in INJURY_TABLE_TYPES){
     injuries_for_model[[1]][[type]]$injury_reporting_rate <- 1
-    mod <- injuries_for_model[[1]][[type]]
-    try({mod <- glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson',
-               offset=-log(injury_reporting_rate))
-        mod <- trim_glm_object(mod)})
+    
+    test <- 'try-error'
+    # try 1: add age cat and gender
     if(any(c('age_cat','cas_gender')%in%names(injuries_for_model[[1]][[type]]))){
+      new_form <- forms[[type]]
       if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
-          forms[[type]] <- paste0(c(forms[[type]],'age_cat'),collapse='+')
+        new_form <- paste0(c(new_form,'age_cat'),collapse='+')
       if('cas_gender'%in%names(injuries_for_model[[1]][[1]]))
-          forms[[type]] <- paste0(c(forms[[type]],'cas_gender'),collapse='+')
-      try({mod <- glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson',
-                       offset=-log(injury_reporting_rate))
-          mod <- trim_glm_object(mod)})
+        new_form <- paste0(c(new_form,'cas_gender'),collapse='+')
+      test <- try(glm(as.formula(new_form),data=injuries_for_model[[1]][[type]],family='poisson'))
     }
+    if(length(test)==1&&test == 'try-error')
+      test <- try(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson'))
+    if(length(test)==1&&test == 'try-error')
+      test <- try(glm('offset(2*CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate))',data=injuries_for_model[[1]][[type]],family='poisson'))
     #
-    reg_model[[type]] <- mod
-    # reg_model[[type]] <- tryCatch({
-    #   mod <- glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson',
-    #                        offset=-log(injury_reporting_rate),control=glm.control(maxit=100))
-    #   mod <- trim_glm_object(mod)
-    #   mod
-    # }, warning = function(w){
-    #   w
-    # }, error = function(e){
-    #   'glm error'
-    # }
-    # )
-    #reg_model[[type]] <- list(cas_modes=unique(injuries_for_model[[1]][[type]]$cas_mode),
-    #                          strike_modes=unique(injuries_for_model[[1]][[type]]$strike_mode))
+    reg_model[[type]] <- trim_glm_object(test)
+    test <- NULL
   }
-  # ##
-  # ## For predictive uncertainty, we could sample a number from the predicted distribution
-  # if('year'%in%colnames(injuries_list[[1]][[1]])){
-  #   # the injury burden at baseline is the prediction for the most recent year
-  #   most_recent_year <- max(injuries_list[[1]][[1]]$year)
-  #   for(scen in SCEN)
-  #     for(type in c('whw','noov'))
-  #       injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==most_recent_year)
-  # }
-  # 
   return(list(true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model))
 }
 
-#     test <- 'try-error'
-#     # try 1: add age cat and gender
-#     if(any(c('age_cat','cas_gender')%in%names(injuries_for_model[[1]][[type]]))){
-#       new_form <- forms[[type]]
-#       if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
-#         new_form <- paste0(c(new_form,'age_cat'),collapse='+')
-#       if('cas_gender'%in%names(injuries_for_model[[1]][[1]]))
-#         new_form <- paste0(c(new_form,'cas_gender'),collapse='+')
-#       test <- try(glm(as.formula(new_form),data=injuries_for_model[[1]][[type]],family='poisson'))
-#     }
-#     if(length(test)==1&&test == 'try-error')
-#       test <- try(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson'))
-#     if(length(test)==1&&test == 'try-error')
-#       test <- try(glm('offset(2*CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate))',data=injuries_for_model[[1]][[type]],family='poisson'))
-#     #
-#     reg_model[[type]] <- trim_glm_object(test)
-#     test <- NULL
-#     
-#     
-#   
-#   return(list(true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model))
+
 # }
 
 

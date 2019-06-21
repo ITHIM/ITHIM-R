@@ -1,29 +1,13 @@
 #' @export
 health_burden <- function(ind_ap_pa,combined_AP_PA=T){
   
-  demographic <- DEMOGRAPHIC
-  demographic$dem_index <- 1:nrow(demographic)
-  demographic <- demographic[,-3]
-  names(demographic)[which(colnames(demographic)=='age')] <- 'age_cat'
-  
   # subset gbd data for outcome types
   gbd_data_scaled <- DISEASE_BURDEN
   ## chronic disease scalar scales all diseases
-  names(gbd_data_scaled)[which(names(gbd_data_scaled)=='age')] <- 'age_cat'
-  gbd_data_scaled <- left_join(gbd_data_scaled,demographic, by=c('sex','age_cat'))
   gbd_data_scaled$burden <- gbd_data_scaled$burden*CHRONIC_DISEASE_SCALAR
   gbd_deaths <- subset(gbd_data_scaled,measure=='Deaths')
   gbd_ylls <- subset(gbd_data_scaled,measure=='YLLs (Years of Life Lost)')
   
-  ind_ap_pa <- left_join(ind_ap_pa, demographic, by=c('sex','age_cat'))
-  pop_details <- deaths <- ylls <- demographic
-  
-  ##!! Hard-coded column names to initialise tables.
-  #ind_ap_pa <- left_join(ind_ap_pa,DEMOGRAPHIC,by='dem_index')
-  #sex_index <- which(colnames(ind_ap_pa)=='sex')
-  #age_index <- which(colnames(ind_ap_pa)=='age')
-  #unique_category1 <- unique(ind_ap_pa[[sex_index]])
-  #unique_category2 <- unique(ind_ap_pa[[age_index]])
   pop_details <- DEMOGRAPHIC#expand.grid(unique_category1, unique_category2,stringsAsFactors = F)
   #colnames(pop_details) <- colnames(ind_ap_pa)[c(sex_index,age_index)]
   deaths <- ylls <- pop_details
@@ -69,15 +53,13 @@ health_burden <- function(ind_ap_pa,combined_AP_PA=T){
         pif_scen <- ifelse(pif_ref == 0, 0, (pif_ref - pif_temp) / pif_ref)
         # Calculate ylls 
         yll_dfs <- combine_health_and_pif(pif_values=pif_scen, hc = gbd_ylls_disease)
-        ylls[[yll_name]] <- yll_dfs[,V1]
+        ylls[[yll_name]] <- yll_dfs
         # Calculate deaths 
         death_dfs <- combine_health_and_pif(pif_values=pif_scen,hc=gbd_deaths_disease)
-        deaths[[deaths_name]] <- death_dfs[,V1]
+        deaths[[deaths_name]] <- death_dfs
       }
     }
   }
-  deaths <- deaths[,-which(colnames(deaths)=='dem_index')]
-  ylls <- ylls[,-which(colnames(ylls)=='dem_index')]
   list(deaths=deaths,ylls=ylls)
 }
 
