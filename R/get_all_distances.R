@@ -3,9 +3,9 @@ get_all_distances <- function(ithim_object){
   
   # add walk-to-PT trips, as appropriate
   trip_scen_sets <- walk_to_pt()
-  
-  ## update all distances and durations
-  for(i in 1:length(trip_scen_sets)) trip_scen_sets[[i]] <- scale_trip_distances(trip_scen_sets[[i]])
+  # 
+  # ## update all distances and durations
+  # for(i in 1:length(trip_scen_sets)) trip_scen_sets[[i]] <- scale_trip_distances(trip_scen_sets[[i]])
   
   ##!! might not want to save this object
   #ithim_object$trip_scen_sets <- do.call(rbind,trip_scen_sets)

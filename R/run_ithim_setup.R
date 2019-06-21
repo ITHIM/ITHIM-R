@@ -276,17 +276,17 @@ run_ithim_setup <- function(seed = 1,
   
   # programming flags: do we need to recompute elements given uncertain variables?
   RECALCULATE_EMISSION_INVENTORY <<- any(c('EMISSION_INVENTORY')%in%names(ithim_object$parameters))
-  RECALCULATE_TRIPS <<- any(c('BUS_WALK_TIME','BACKGROUND_PA_ZEROS')%in%names(ithim_object$parameters))
+  RECALCULATE_TRIPS <<- any(c('BUS_WALK_TIME','BACKGROUND_PA_ZEROS',
+                              "DISTANCE_SCALAR_PT",
+                              "DISTANCE_SCALAR_CAR_TAXI", 
+                              'BUS_TO_PASSENGER_RATIO',
+                              'MOTORCYCLE_TO_CAR_RATIO',
+                              'TRUCK_TO_CAR_RATIO',
+                              "DISTANCE_SCALAR_MOTORCYCLE",
+                              "DISTANCE_SCALAR_WALKING",
+                              "DISTANCE_SCALAR_CYCLING")%in%names(ithim_object$parameters))
   RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||PROPENSITY_TO_TRAVEL||any(c('INJURY_LINEARITY',
-                                                     'CASUALTY_EXPONENT_FRACTION',
-                                                     "DISTANCE_SCALAR_PT",
-                                                     "DISTANCE_SCALAR_CAR_TAXI", ##!! check these
-                                                     'BUS_TO_PASSENGER_RATIO',
-                                                     'MOTORCYCLE_TO_CAR_RATIO',
-                                                     'TRUCK_TO_CAR_RATIO',
-                                                     "DISTANCE_SCALAR_MOTORCYCLE",
-                                                     "DISTANCE_SCALAR_WALKING",
-                                                     "DISTANCE_SCALAR_CYCLING")%in%names(ithim_object$parameters))
+                                                     'CASUALTY_EXPONENT_FRACTION')%in%names(ithim_object$parameters))
   
   ## complete TRIP_SET to contain distances and durations for trips and stages
   complete_trip_distance_duration() 

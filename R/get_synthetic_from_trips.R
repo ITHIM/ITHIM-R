@@ -14,6 +14,8 @@ get_synthetic_from_trips <- function(){
                              stringsAsFactors = F)
   TRIP_SET <- NULL
   
+  # TRAVEL_SUMMARY <- generate_travel_summary(raw_trip_set)
+  
   ##!! number trips
   #raw_trip_set$trip_id[!is.na(raw_trip_set$trip_id)] <- 1:sum(!is.na(raw_trip_set$trip_id))
   
@@ -34,6 +36,9 @@ get_synthetic_from_trips <- function(){
   
   # create scenarios: either the walking test case, or the 5 hard-coded Accra scenarios
   trip_set <- ithim_setup_baseline_scenario(trip_set)
+  ## update all distances and durations
+  trip_set <- scale_trip_distances(trip_set)
+  
   if(TEST_WALK_SCENARIO){
     SYNTHETIC_TRIPS <<- create_walk_scenario(trip_set)
   }else if(TEST_CYCLE_SCENARIO){

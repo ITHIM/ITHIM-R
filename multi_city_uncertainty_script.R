@@ -105,6 +105,7 @@ for(city in cities){
   print(length(distances[[city]]))
 }
 SCEN <- rownames(SCENARIO_PROPORTIONS)
+scen_names <- c('baseline',SCEN)
 NSCEN <- length(SCEN)
 for(city in cities){
   print(city)
@@ -116,7 +117,7 @@ for(city in cities){
   for(j in 1:6){
     for(i in 1:NSAMPLES)
       dist_mat[i,] <- distances[[city]][[i]]$dist[,j]/nrow(distances[[city]][[i]]$pp_summary[[1]])
-    boxplot(dist_mat,names=rownames(distances[[city]][[i]]$dist),las=2,frame=F,main=paste0(SCEN[j],', ',city),ylab='km pp')
+    boxplot(dist_mat,names=rownames(distances[[city]][[i]]$dist),las=2,frame=F,main=paste0(scen_names[j],', ',city),ylab='km pp')
   }
   dev.off()
 }    
@@ -124,7 +125,7 @@ for(city in cities){
 #################################################################
 ## with uncertainty
 ## comparison across cities
-nsamples <- 1024
+nsamples <- 16
 setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","EMISSION_INVENTORY",                        
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO",
                         "DISTANCE_SCALAR_CAR_TAXI",
