@@ -10,6 +10,18 @@ create_max_mode_share_scenarios <- function(trip_set){
   rd_list[[1]] <- rdr
   rdr_not_changeable <-  rdr[rdr$trip_mode%in%c('bus_driver','truck'),]
   rdr_changeable <-  rdr[!rdr$trip_mode%in%c('bus_driver','truck'),]
+  ## add trip weights
+  car_taxi_modes <- UNCERTAIN_TRAVEL_MODE_NAMES$car
+  pt_modes <- UNCERTAIN_TRAVEL_MODE_NAMES$pt
+  ## weight by mode probability scalars
+  match_modes <- rep(1,nrow(travel_summary))
+  travel_modes <- rdr_changeable$trip_mode
+  match_modes[travel_modes%in%car_taxi_modes] <- PROBABILITY_SCALAR_CAR_TAXI
+  match_modes[travel_modes%in%c('walking')] <- PROBABILITY_SCALAR_WALKING
+  match_modes[travel_modes%in%pt_modes] <- PROBABILITY_SCALAR_PT
+  match_modes[travel_modes%in%c('cycling')] <- PROBABILITY_SCALAR_CYCLING
+  match_modes[travel_modes%in%c('motorcycle')] <- PROBABILITY_SCALAR_MOTORCYCLE
+  rdr_changeable$trip_weight <- match_modes
   rdr <- NULL
   
   rdr_changeable_by_distance <- list()
@@ -26,7 +38,9 @@ create_max_mode_share_scenarios <- function(trip_set){
     for(j in 1:ncol(SCENARIO_PROPORTIONS)){
       rdr_copy[[j]] <- rdr_changeable_by_distance[[j]]
       potential_trip_ids <- unique(rdr_copy[[j]][!rdr_copy[[j]]$trip_mode%in%c(mode_name),]$trip_id)
-      current_mode_trips <- sum(rdr_copy[[j]]$trip_mode==mode_name)
+      current_mode_trips <- sum(rdr_copy[[j]]$trip_mode==mode_name)#sum(rdr_copy[[j]]$trip_weight[rdr_copy[[j]]$trip_mode==mode_name])
+      total_weight <- sum(rdr_copy[[j]]$trip_weight[!duplicated(rdr_copy[[j]]$trip_id)])
+      
       target_percent <- SCENARIO_PROPORTIONS[i,j]
       if(length(potential_trip_ids)>0&&round(length(unique(rdr_copy[[j]]$trip_id))/100*target_percent)-current_mode_trips>0){
         if(length(potential_trip_ids)==1){
