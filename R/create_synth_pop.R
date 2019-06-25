@@ -1,5 +1,5 @@
 #' @export
-create_synth_pop <- function(raw_trip_set){
+create_synth_pop <- function(){
   #Add physical activity variables to trip dataset.
   #Leandro Garcia & Ali Abbas.
   #5 July 2018.
@@ -14,7 +14,7 @@ create_synth_pop <- function(raw_trip_set){
   ##work_ltpa_marg_met: units are marginal MET-h/week.
   
   # Make age category for trip_set dataset.
-  trip_set <- assign_age_groups(raw_trip_set,age_category=AGE_CATEGORY,age_lower_bounds=AGE_LOWER_BOUNDS,max_age=MAX_AGE)
+  trip_set <- assign_age_groups(TRIP_SET,age_category=AGE_CATEGORY,age_lower_bounds=AGE_LOWER_BOUNDS,max_age=MAX_AGE)
   ##!! assuming more than one age category
   
   pa <- PA_SET

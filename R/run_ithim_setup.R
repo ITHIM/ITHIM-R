@@ -39,6 +39,11 @@ run_ithim_setup <- function(seed = 1,
                             DISTANCE_SCALAR_PT = 1,
                             DISTANCE_SCALAR_CYCLING = 1,
                             DISTANCE_SCALAR_MOTORCYCLE = 1,
+                            PROBABILITY_SCALAR_CAR_TAXI = 1,
+                            PROBABILITY_SCALAR_WALKING = 1,
+                            PROBABILITY_SCALAR_PT = 1,
+                            PROBABILITY_SCALAR_CYCLING = 1,
+                            PROBABILITY_SCALAR_MOTORCYCLE = 1,
                             PROPENSITY_TO_TRAVEL = F){
   
   ## SUMMARY OF INPUTS
@@ -133,6 +138,13 @@ run_ithim_setup <- function(seed = 1,
   ROAD_RATIO_SLOPE <<- 0.379
   SUBWAY_PM_RATIO <<- 0.8
   
+  ## travel probability parameters
+  PROBABILITY_SCALAR_CAR_TAXI <<- PROBABILITY_SCALAR_CAR_TAXI
+  PROBABILITY_SCALAR_WALKING <<- PROBABILITY_SCALAR_WALKING 
+  PROBABILITY_SCALAR_PT <<- PROBABILITY_SCALAR_PT 
+  PROBABILITY_SCALAR_CYCLING <<- PROBABILITY_SCALAR_CYCLING 
+  PROBABILITY_SCALAR_MOTORCYCLE <<- PROBABILITY_SCALAR_MOTORCYCLE 
+  
   ## default speeds that can be edited by input. 
   default_speeds <- list(
     bus=15,
@@ -200,6 +212,8 @@ run_ithim_setup <- function(seed = 1,
   
   ## LOAD DATA
   ithim_load_data(speeds=default_speeds)  
+  # summarise data for those who completed no travel
+  generate_no_travel_summary()
   
   if(any(!unique(TRIP_SET$stage_mode)%in%MODE_SPEEDS$stage_mode)){
     cat("\n  The following modes do not have speeds, and won't be included in the model:\n",file=setup_call_summary_filename,append=T)

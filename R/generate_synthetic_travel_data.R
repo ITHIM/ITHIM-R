@@ -1,18 +1,11 @@
 #' @export
 generate_synthetic_travel_data <- function(trip_scen_sets){
-  demographic <- DEMOGRAPHIC
   trip_superset <- assign_age_groups(TRIP_SET)
-  trip_superset <- left_join(trip_superset,demographic,by=c('sex','age_cat'))
+  trip_superset <- left_join(trip_superset,DEMOGRAPHIC,by=c('sex','age_cat'))
   raw_trip_demographics <- trip_superset[,colnames(trip_superset)%in%c('participant_id','dem_index')]
   
   modes_to_keep <- unique(trip_scen_sets[[1]]$stage_mode)
   modes <- modes_to_keep#unlist(UNCERTAIN_TRAVEL_MODE_NAMES)
-  
-  missing_trips <- subset(trip_superset,!stage_mode%in%modes&!duplicated(participant_id))
-  rm(trip_superset)
-  
-  no_travel_people <- setDT(missing_trips)[,.(no_travel=.N),by='dem_index']
-  rm(missing_trips)
   
   participant_demographics <- PP_TRAVEL_PROPENSITIES[,colnames(PP_TRAVEL_PROPENSITIES)%in%c('participant_id','dem_index')]
   pp_summary <- list()#PP_TRAVEL_PROPENSITIES[,colnames(PP_TRAVEL_PROPENSITIES)%in%c('participant_id','dem_index')]
@@ -21,19 +14,20 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
   travel_data <- PP_TRAVEL_PROPENSITIES
   # get indices for mode random variables
   m_inds <- sapply(modes,function(modei) which(names(travel_data)==paste0(modei,'_p_rn')))
-  travel_summary_template <- expand.grid(stage_mode=sort(modes),dem_index=sort(unique(demographic$dem_index)))
-  dem_indices <- unique(travel_summary_template$dem_index)
+  dem_indices <- unique(DEMOGRAPHIC$dem_index)
   
-  for(scen in 1:length(trip_scen_sets)) trip_scen_sets[[scen]] <- setDT(left_join(trip_scen_sets[[scen]],demographic,by=c('sex','age_cat')))
-  rm(demographic)
+  for(scen in 1:length(trip_scen_sets)) trip_scen_sets[[scen]] <- setDT(left_join(trip_scen_sets[[scen]],DEMOGRAPHIC,by=c('sex','age_cat')))
   
   for(scen in 1:length(trip_scen_sets)){
     
     ## get trips and clear memory
     superset <- trip_scen_sets[[scen]]
     trip_scen_sets[[scen]] <- 0
+    ## get summary travel information (by mode and demography) and clear memory
+    travel_summary <- generate_travel_summary(superset)
+    travel_summary <- resample_mode_probabilities(travel_summary)
     
-    ## get mode--demography-specific raw densities
+    ## get mode--demography-specific raw duration densities
     individual_data <- superset[,.(dur = sum(stage_duration) ),by=c('stage_mode','participant_id')]
     individual_data <- left_join(individual_data,raw_trip_demographics,by='participant_id')
     
@@ -46,44 +40,6 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
       }
     }
     rm(individual_data,subtab)
-    
-    ## get summary travel information (by mode and demography) and clear memory
-    pp_travel_by_mode <- unique( superset[,.(num_trips=.N,dem_index=dem_index),by=c('stage_mode','participant_id')], by=c('stage_mode','participant_id'))
-    travel_people <- unique(superset,by='participant_id')[,.(some_travel=.N),by='dem_index']
-    rm(superset)
-    travel_by_mode_and_demo <- pp_travel_by_mode[,.(travellers=.N),by=c('stage_mode','dem_index')]
-    travel_by_mode_and_demo <- setorder(travel_by_mode_and_demo,dem_index,stage_mode)
-    travel_summary <- travel_by_mode_and_demo[setDT(travel_summary_template),on=c('stage_mode','dem_index')]
-    travel_summary <- travel_summary[travel_people,on=c('dem_index')]
-    travel_summary <- travel_summary[no_travel_people,on=c('dem_index')]
-    travel_summary <- travel_summary[,population:=some_travel+no_travel]
-    travel_summary$travellers[is.na(travel_summary$travellers)] <- 0
-    setnames(travel_summary,'stage_mode','mode')
-    rm(pp_travel_by_mode,travel_by_mode_and_demo,travel_people)
-    
-    ## estimate smooth probabilities
-    raw_probability <- travel_summary$travellers/travel_summary$population
-    smooth_probability <- #raw_probability
-    #smooth_probability[smooth_probability==0] <- 0.001
-      suppressWarnings(glm(raw_probability~I(dem_index<(max(dem_index)/2))+I(dem_index%%(max(dem_index)/2))+mode,
-          family=binomial,offset=log(population),data=travel_summary)$fitted.values)
-    pointiness <- 300
-    beta_val <- (1/smooth_probability - 1)*pointiness/(1 + (1/smooth_probability - 1))
-    #beta_val <- (1/raw_probability - 1)*pointiness/(1 + (1/raw_probability - 1))
-    alpha_val <- pointiness - beta_val
-    if(is.list(PROPENSITY_TO_TRAVEL)) {
-      uncertain_rows <- travel_summary$mode%in%unlist(UNCERTAIN_TRAVEL_MODE_NAMES)
-      propensities <- rep(0.5,nrow(travel_summary))
-      propensities[uncertain_rows] <- sapply(travel_summary$mode[uncertain_rows],
-                                             function(x)PROPENSITY_TO_TRAVEL[[which(sapply(UNCERTAIN_TRAVEL_MODE_NAMES,
-                                                                     function(y)x%in%y))]])
-      travel_summary$probability <- qbeta(propensities,alpha_val,beta_val)
-      if(any(!uncertain_rows)) travel_summary$probability[!uncertain_rows] <- raw_probability[!uncertain_rows]
-      #travel_summary$probability <- sigmoid(sapply(1:nrow(travel_summary),function(x)dnorm(PROPENSITY_TO_TRAVEL[[travel_summary$mode[x]]],travel_summary$mu[x],travel_summary$sd[x])))
-    }else{
-      travel_summary$probability <- raw_probability#qbeta(PROPENSITY_TO_TRAVEL,travel_summary$alpha_val,travel_summary$beta_val)
-      # 
-    }
     
     ### start
     
