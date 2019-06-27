@@ -438,10 +438,11 @@ multi_city_parallel_evppi_for_emissions <- function(sources,outcome){
   for(i in 1:nSources)
     assign(paste0('x',i),sources[,i])
   form <- 'y ~ '
-  for(m in 3:nSources)
+  m <- nSources + 1
+  #for(m in 3:nSources)
     for(i in 2:(m-1))
       for(l in 1:(i-1))
-        form <- paste0(form,ifelse(form=='y ~ ','','+'),paste0('te(',paste0('x',m),',',paste0('x',l),',',paste0('x',i),')'))
+        form <- paste0(form,ifelse(form=='y ~ ','','+'),paste0('te(',paste0('x',l),',',paste0('x',i),')'))#,paste0('x',m),','
   for(j in 1:length(outcome)){
     case <- outcome[[j]]
     for(k in 1:NSCEN){
@@ -457,23 +458,23 @@ multi_city_parallel_evppi_for_emissions <- function(sources,outcome){
 # x2 <- evppi(parameter=c(38:40),input=inp$mat,he=m,method="GP")
 #fit <- fit.gp(parameter = parameter, inputs = inputs, x = x, n.sim = n.sim)
 if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
-  sources <- list()
-  for(ci in 1:length(cities)){
-    city <- cities[ci]
-    emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
-    sources[[ci]] <- parameter_samples[,emission_names]
-  }
-  evppi_for_emissions <- mclapply(sources, 
-                                  FUN = multi_city_parallel_evppi_for_emissions,
-                                  outcome, 
-                                  mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
-  
-  names(evppi_for_emissions) <- paste0('EMISSION_INVENTORY_',cities)
-  ## get rows to remove
-  keep_names <- sapply(rownames(evppi),function(x)!grepl('EMISSION_INVENTORY_',x))
-  evppi <- evppi[keep_names,]
-  
-  evppi <- rbind(evppi,do.call(rbind,evppi_for_emissions))
+ sources <- list()
+ for(ci in 1:length(cities)){
+   city <- cities[ci]
+   emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
+   sources[[ci]] <- parameter_samples[,emission_names]
+ }
+ evppi_for_emissions <- mclapply(sources,
+                                 FUN = multi_city_parallel_evppi_for_emissions,
+                                 outcome,
+                                 mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+
+ names(evppi_for_emissions) <- paste0('EMISSION_INVENTORY_',cities)
+ ## get rows to remove
+ keep_names <- sapply(rownames(evppi),function(x)!grepl('EMISSION_INVENTORY_',x))
+ evppi <- evppi[keep_names,]
+
+ evppi <- rbind(evppi,do.call(rbind,evppi_for_emissions))
 }
 print(evppi)
 
@@ -575,3 +576,105 @@ means <- apply(comb_out,2,mean)
   text(y=4,x=ninefive[1,4],'90%',col='navyblue',adj=c(-0,-0.7))
   dev.off()
 }
+
+
+
+# numcores <- 20
+# cities <- names(outcome)[1:4]
+# sources <- list()
+# for(ci in 1:length(cities)){
+#   city <- cities[ci]
+#   emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
+#   sources[[ci]] <- parameter_samples[,emission_names]
+# }
+# 
+# evppi_for_emissions <- matrix(0,nrow=length(sources),ncol=ncol(evppi))
+# rownames(evppi_for_emissions) <- paste0('EMISSION_INVENTORY_',cities)
+# colnames(evppi_for_emissions) <- colnames(evppi)
+# calcflag <- sapply(colnames(evppi_for_emissions),function(y)
+#   sapply(rownames(evppi_for_emissions),function(x){city <- strsplit(x,'EMISSION_INVENTORY_')[[1]][2]; grepl(city,y)|grepl('combined',y)})
+# )
+# 
+# 
+# cases_scen <- NSCEN*length(sources)
+# outcome_index <- 4
+# scen_index <- 1
+# source_index <- 4
+# inputs <- sources[[source_index]]
+# 
+# ## older:
+# averages <- colMeans(inputs)
+# x1 <- inputs[,order(averages,decreasing=T)[1]];
+# x2 <- inputs[,order(averages,decreasing=T)[2]];
+# x3 <- inputs[,order(averages,decreasing=T)[3]];
+# x4 <- inputs[,order(averages,decreasing=T)[4]];
+# j <- 4
+# case <- outcome[[j]]
+# k <- 1
+# scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
+# y <- rowSums(scen_case)
+# vary <- var(y)
+# model <- gam(y ~ te(x1,x2,x3,x4))
+# voi <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+# print(voi)
+# 
+# ## old:
+# averages <- colMeans(inputs)
+# x1 <- inputs[,order(averages,decreasing=T)[1]];
+# x2 <- inputs[,order(averages,decreasing=T)[2]];
+# x3 <- inputs[,order(averages,decreasing=T)[3]];
+# x4 <- inputs[,order(averages,decreasing=T)[4]];
+# x5 <- inputs[,order(averages,decreasing=T)[5]];
+# form <- 'y ~ te(x1,x2,x3,x4)'
+# print(form)
+# case <- outcome[[outcome_index]]
+# scen_case <- case[,seq(scen_index,ncol(case),by=NSCEN)]
+# y <- rowSums(scen_case)
+# vary <- var(y)
+# model <- gam(as.formula(form))
+# voi <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+# print(voi)
+# 
+# multi_city_parallel_evppi_for_emissions <- function(sources,outcome){
+#   voi <- c()
+#   averages <- colMeans(sources)
+#   x1 <- sources[,order(averages,decreasing=T)[1]];
+#   x2 <- sources[,order(averages,decreasing=T)[2]];
+#   x3 <- sources[,order(averages,decreasing=T)[3]];
+#   x4 <- sources[,order(averages,decreasing=T)[4]];
+#   for(j in 1:length(outcome)){
+#     case <- outcome[[j]]
+#     for(k in 1:NSCEN){
+#       scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
+#       y <- rowSums(scen_case)
+#       vary <- var(y)
+#       model <- gam(y ~ te(x1,x2,x3,x4))
+#       voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+#     }
+#   }
+#   voi
+# }
+# sources <- list()
+# for(ci in 1:length(cities)){
+#   city <- cities[ci]
+#   emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
+#   sources[[ci]] <- parameter_samples[,emission_names]
+# }
+# evppi_for_emissions <- mclapply(sources, 
+#                                 FUN = multi_city_parallel_evppi_for_emissions,
+#                                 outcome, 
+#                                 mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+# 
+# names(evppi_for_emissions) <- paste0('EMISSION_INVENTORY_',cities)
+# print(evppi_for_emissions)
+# 
+# 
+# form <- 'y ~ te(x1,x2,x3,x4,x5)'
+# print(form)
+# case <- outcome[[outcome_index]]
+# scen_case <- case[,seq(scen_index,ncol(case),by=NSCEN)]
+# y <- rowSums(scen_case)
+# vary <- var(y)
+# model <- gam(as.formula(form))
+# voi <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+# print(voi)
