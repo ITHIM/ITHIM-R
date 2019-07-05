@@ -1,4 +1,5 @@
 setwd('~/overflow_dropbox/ITHIM-R')
+library(profvis)
 #library(devtools)
 #build()
 #install()
@@ -60,7 +61,7 @@ distances <- list()
 city='sao_paulo'
 ci <- which(cities==city)
 ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
-                                NSAMPLES=12,
+                                NSAMPLES=24,
                                 synthetic_population_size = 1000,
                                 CITY=city,
                                 MAX_MODE_SHARE_SCENARIO = T,
@@ -76,8 +77,11 @@ ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
                                 DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
                                 DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]])
 distances <- list()
-#for(i in 1:NSAMPLES) distances[[city]][[i]] <- just_distances(i,ithim_object=ithim_object)
-distances <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=6)
+#for(i in 1:NSAMPLES) 
+seed <- 1
+just_distances(seed,ithim_object=ithim_object)
+profvis(just_distances(seed,ithim_object=ithim_object))
+system.time(distances <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=1))
 print(sapply(distances,length))
 sapply(distances,function(x)if(length(x)>1)sapply(x$inj_distances$reg_model,length))
 distances[[5]]$inj_distances$reg_model
@@ -85,7 +89,7 @@ distances[[5]]$inj_distances$reg_model
 for(city in cities){
   ci <- which(cities==city)
   ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
-                                  NSAMPLES=12,
+                                  NSAMPLES=600,
                                   synthetic_population_size = 1000,
                                   CITY=city,
                                   MAX_MODE_SHARE_SCENARIO = T,
@@ -99,7 +103,8 @@ for(city in cities){
                                   DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
                                   DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
                                   DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
-                                  DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]])
+                                  DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]],
+                                  PROBABILITY_SCALAR_MOTORCYCLE = 1)
   distances[[city]] <- NULL
   distances[[city]] <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=6)
   print(length(distances[[city]]))

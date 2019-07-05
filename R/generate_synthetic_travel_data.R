@@ -1,8 +1,13 @@
 #' @export
 generate_synthetic_travel_data <- function(trip_scen_sets){
-  trip_superset <- assign_age_groups(TRIP_SET)
-  trip_superset <- left_join(trip_superset,DEMOGRAPHIC,by=c('sex','age_cat'))
-  raw_trip_demographics <- trip_superset[,colnames(trip_superset)%in%c('participant_id','dem_index')]
+  trip_superset <- setDT(TRIP_SET)
+  setDT(DEMOGRAPHIC)
+  keycols = c("sex","age_cat")
+  setkeyv(DEMOGRAPHIC,keycols)
+  
+  trip_superset[DEMOGRAPHIC,on=c('sex','age_cat'),dem_index := i.dem_index]
+  raw_trip_demographics <- unique(trip_superset[,.(participant_id=participant_id,dem_index=dem_index)],by=c('participant_id'))
+  setkey(raw_trip_demographics,participant_id)
   
   modes_to_keep <- unique(trip_scen_sets[[1]]$stage_mode)
   modes <- modes_to_keep#unlist(UNCERTAIN_TRAVEL_MODE_NAMES)
@@ -16,7 +21,12 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
   m_inds <- sapply(modes,function(modei) which(names(travel_data)==paste0(modei,'_p_rn')))
   dem_indices <- unique(DEMOGRAPHIC$dem_index)
   
-  for(scen in 1:length(trip_scen_sets)) trip_scen_sets[[scen]] <- setDT(left_join(trip_scen_sets[[scen]],DEMOGRAPHIC,by=c('sex','age_cat')))
+  for(scen in 1:length(trip_scen_sets)) setDT(trip_scen_sets[[scen]])[DEMOGRAPHIC,on=.(sex,age_cat),dem_index := i.dem_index]
+  # for(scen in 1:length(trip_scen_sets)) {
+  #   setDT(trip_scen_sets[[scen]])
+  #   setkeyv(trip_scen_sets[[scen]],keycols)
+  #   trip_scen_sets[[scen]][DEMOGRAPHIC,dem_index := i.dem_index]
+  # }
   
   for(scen in 1:length(trip_scen_sets)){
     
@@ -24,22 +34,31 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
     superset <- trip_scen_sets[[scen]]
     trip_scen_sets[[scen]] <- 0
     ## get summary travel information (by mode and demography) and clear memory
-    travel_summary <- generate_travel_summary(superset)
+    travel_summary <- generate_travel_summary(superset,raw_trip_demographics)
+    travel_summary <- scale_mode_probabilities(travel_summary)
     travel_summary <- resample_mode_probabilities(travel_summary)
     
     ## get mode--demography-specific raw duration densities
-    individual_data <- superset[,.(dur = sum(stage_duration) ),by=c('stage_mode','participant_id')]
-    individual_data <- left_join(individual_data,raw_trip_demographics,by='participant_id')
+    superset[,'weighted_duration' := stage_duration*trip_weight]
+    individual_data <- superset[,.(dur = sum(weighted_duration) ),by=.(stage_mode,participant_id)]
+    superset <- NULL
+    setkey(individual_data,participant_id)
+    individual_data[raw_trip_demographics,dem_index := i.dem_index,on='participant_id']
     
-    dur_densities <- list()
+    dur_densities <- list()#individual_data[,.(dur=list(c(dur))),by=.(stage_mode,dem_index)]
+    pop_dur_densities <- individual_data$dur
+    ind_modes <- individual_data$stage_mode
     for(modei in modes){
-      subtab <- individual_data[individual_data$stage_mode==modei,]
-      dur_densities[[modei]] <- list()
-      for(di in dem_indices){
-        dur_densities[[modei]][[di]] <- subtab$dur[subtab$dem_index==di]
-      }
+    #subtab <- individual_data[ind_modes==modei,]
+     data_indices <- ind_modes==modei
+     dur_densities[[modei]] <- list()
+     durs <- individual_data$dur[data_indices]
+     dems <- individual_data$dem_index[data_indices]
+     for(di in dem_indices){
+       dur_densities[[modei]][[di]] <- durs[dems==di]
+     }
     }
-    rm(individual_data,subtab)
+    individual_data <- subtab <- NULL
     
     ### start
     
@@ -48,8 +67,9 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
     
     ## use population travel data if there are no demographic-mode travel samples
     pop_mode_dur_densities <- lapply(dur_densities,unlist)
+    #pop_mode_dur_densities <- individual_data[,.(dur=list(c(dur))),by=stage_mode]
     ## use population travel data if there are no mode travel samples
-    pop_dur_densities <- unlist(pop_mode_dur_densities)
+    #pop_dur_densities <- unlist(pop_mode_dur_densities)
     
     # initialise durations to 0
     for(modei in modes) travel_data[[paste0(modei,'_dur')]] <- 0
@@ -84,7 +104,7 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
         }
       }
     }
-    rm(travel_summary)
+    travel_summary <- NULL
 
     ### stop
 
@@ -94,7 +114,7 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
 
     pp_summary[[scen]] <- pp_summary_scen#[[SCEN_SHORT_NAME[scen]]] <- pp_summary_scen
   }
-  rm(participant_demographics,pp_summary_scen,travel_data)
+  participant_demographics <- pp_summary_scen <- travel_data <- NULL
   names(pp_summary) <- SCEN_SHORT_NAME
   return(pp_summary)
 }

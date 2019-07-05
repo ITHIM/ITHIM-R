@@ -14,7 +14,7 @@ create_synth_pop <- function(){
   ##work_ltpa_marg_met: units are marginal MET-h/week.
   
   # Make age category for trip_set dataset.
-  trip_set <- assign_age_groups(TRIP_SET,age_category=AGE_CATEGORY,age_lower_bounds=AGE_LOWER_BOUNDS,max_age=MAX_AGE)
+  trip_set <- TRIP_SET#assign_age_groups(TRIP_SET,age_category=AGE_CATEGORY,age_lower_bounds=AGE_LOWER_BOUNDS,max_age=MAX_AGE)
   ##!! assuming more than one age category
   
   pa <- PA_SET

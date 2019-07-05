@@ -1,7 +1,7 @@
 #' @export
 complete_trip_distance_duration <- function(){
   
-  trip_set <- TRIP_SET
+  trip_set <- assign_age_groups(TRIP_SET)
   #trip_speed <- sapply(trip_set$trip_mode,function(x){speed <- MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==x]; ifelse(length(speed)==0,0,speed)})
   stage_speed <- sapply(trip_set$stage_mode,function(x){speed <- MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==x]; ifelse(length(speed)==0,0,speed)})
   

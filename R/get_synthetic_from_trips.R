@@ -1,12 +1,8 @@
 #' @export
 get_synthetic_from_trips <- function(){
   
-  travel_summary <- scale_mode_probabilities(TRAVEL_SUMMARY)
-  travel_summary <- resample_mode_probabilities(travel_summary)
-  
   # create synthetic population
   synth_pop <- create_synth_pop()
-  raw_trip_set <- NULL
   SYNTHETIC_POPULATION <<- synth_pop$synthetic_population
   trip_set <- synth_pop$trip_set
   synth_pop <- NULL
@@ -36,10 +32,9 @@ get_synthetic_from_trips <- function(){
 
 #' @export
 generate_no_travel_summary <- function(){
-  demographic <- DEMOGRAPHIC
   trip_set <- TRIP_SET
   trip_superset <- assign_age_groups(trip_set)
-  trip_superset <- left_join(trip_superset,demographic,by=c('sex','age_cat'))
+  trip_superset <- left_join(trip_superset,DEMOGRAPHIC,by=c('sex','age_cat'))
   
   modes_to_keep <- intersect(MODE_SPEEDS$stage_mode,unique(trip_superset$trip_mode))
   #modes_to_keep <- modes_to_keep[!is.na(modes_to_keep)]
@@ -47,33 +42,40 @@ generate_no_travel_summary <- function(){
   
   missing_trips <- trip_superset[!trip_superset$trip_mode%in%modes_to_keep&!duplicated(trip_superset$participant_id),]
   all_trips <- setDT(trip_superset[trip_superset$trip_mode%in%modes_to_keep,])
-  rm(trip_superset)
+  trip_superset <- NULL
   
   NO_TRAVEL_PEOPLE <<- setDT(missing_trips)[,.(no_travel=.N),by='dem_index']
-  rm(missing_trips)
+  missing_trips <- NULL
   
-  TRAVEL_SUMMARY_TEMPLATE <<- expand.grid(trip_mode=sort(modes_to_keep),dem_index=sort(unique(demographic$dem_index)))
-  rm(demographic)
+  TRAVEL_SUMMARY_TEMPLATE <<- expand.grid(trip_mode=sort(modes_to_keep),dem_index=sort(unique(DEMOGRAPHIC$dem_index)))
   
-  TRAVEL_SUMMARY <<- generate_travel_summary(all_trips)
+  #TRAVEL_SUMMARY <<- generate_travel_summary(all_trips)
 }
 
 #' @export
-generate_travel_summary <- function(all_trips){
+generate_travel_summary <- function(all_trips,raw_trip_demographics){
   dem_indices <- unique(TRAVEL_SUMMARY_TEMPLATE$dem_index)
   ## get summary travel information (by mode and demography) and clear memory
   # this is the total of weighted trips
   # the weight doesn't come into the downstream calculations, so we can use .N
   #pp_travel_by_mode <- unique(all_trips[,.(num_trips=sum(trip_weight),dem_index=dem_index),by=c('trip_mode','participant_id')], by=c('trip_mode','participant_id'))
-  pp_travel_by_mode <- unique(all_trips[,.(num_trips=.N,dem_index=dem_index),by=c('trip_mode','participant_id')], by=c('trip_mode','participant_id'))
+  pp_travel_by_mode <- all_trips[,.(num_trips=.N),by=.(trip_mode,participant_id)]
+  #setkeyv(pp_travel,c('trip_mode','participant_id'))
+  #pp_travel_by_mode <- unique(pp_travel,by=c('trip_mode','participant_id'))
+  #pp_travel <- NULL
+  setkey(pp_travel_by_mode,participant_id)
+  pp_travel_by_mode[raw_trip_demographics,dem_index := i.dem_index,on='participant_id']
+  raw_trip_demographics <- NULL
   # summarise by demographic group those who have done some travel. The rest of the population is in no_travel_people
   travel_people <- unique(all_trips,by='participant_id')[,.(some_travel=.N),by='dem_index']
-  rm(all_trips)
+  all_trips <- NULL
+  
   # number of travellers by demographic group (binomial)
-  travel_by_mode_and_demo <- pp_travel_by_mode[,.(travellers=.N),by=c('trip_mode','dem_index')]
+  travel_by_mode_and_demo <- pp_travel_by_mode[,.(travellers=.N),by=.(trip_mode,dem_index)]
+  pp_travel_by_mode <- NULL
   setorder(travel_by_mode_and_demo,dem_index,trip_mode)
   # fill travel_by_mode_and_demo (adds in missing groupings) 
-  travel_summary <- travel_by_mode_and_demo[setDT(TRAVEL_SUMMARY_TEMPLATE),on=c('trip_mode','dem_index')]
+  travel_summary <- travel_by_mode_and_demo[setDT(TRAVEL_SUMMARY_TEMPLATE),on=.(trip_mode,dem_index)]
   # add total number of people who complete some travel
   travel_summary <- travel_summary[travel_people,on=c('dem_index')]
   # add total number of people who complete no travel
@@ -83,7 +85,7 @@ generate_travel_summary <- function(all_trips){
   # replace any NA with 0
   travel_summary$travellers[is.na(travel_summary$travellers)] <- 0
   setnames(travel_summary,'trip_mode','mode')
-  rm(pp_travel_by_mode,travel_by_mode_and_demo,travel_people)
+  travel_by_mode_and_demo <- travel_people <- NULL
   
   ## estimate smooth probabilities
   travel_summary$raw_probability <- travel_summary$travellers/travel_summary$population
