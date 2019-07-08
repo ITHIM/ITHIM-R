@@ -6,7 +6,7 @@ library(tidyverse)
 library(plotly)
 
 # Read sao paulo's travel survey
-rd <- read_csv("data/local/sao_paulo/trips_sao_paulo2.csv", stringsAsFactors = F)
+rd <- read.csv("data/local/sao_paulo/trips_sao_paulo2.csv", stringsAsFactors = F)
 
 # Data Dictionary
 
@@ -161,9 +161,12 @@ pid_list <- unique(rd$participant_id)
 tid <- 1
 rd$tid <- -1
 
+new_rd <- list()
+
 # bd <- rd
 # rd <- bd
 for(i in 1:length(pid_list)) {
+  # i <- 1
   # require(profvis)
   # profvis({
   #   #your code here
@@ -183,32 +186,43 @@ for(i in 1:length(pid_list)) {
   tid <- max(d$tid) + 1
   
   id <- id + count
-  rd <- bind_rows(rd, d)
+  
+  if (length(new_rd) == 0){
+    new_rd <- d
+  }else{
+    new_rd <- bind_rows(new_rd, d)
+  }
+  
+  # number_unique_id <- rd %>% filter(participant_id == pid_list[i]) %>% 
+  #   summarise(ua = length(unique(age))) %>% 
+  #   as.numeric()
+  # 
+  # if (number_unique_id > 2){
+  #   cat("id: ", pid_list[i], "/n")
+  #   browser()
+  #   
+  # }
   
   # })
 }
+
+rd <- new_rd
 
 rd$trip_id <- rd$tid
 rd$participant_id <- rd$pid
 
 rd$tid <- rd$pid <- NULL
 
-write_csv(rd, "data/local/sao_paulo/trips_sao_paulo_expanded.csv")
+#write_csv(rd, "data/local/sao_paulo/trips_sao_paulo_expanded.csv")
 
-require(tidyverse)
+#require(tidyverse)
 
-rd <- read_csv("data/local/sao_paulo/trips_sao_paulo_expanded.csv")
+#rd <- read_csv("data/local/sao_paulo/trips_sao_paulo_expanded.csv")
 
 # Rename van mode to mini-bus
 rd$trip_mode[rd$trip_mode == "van"] <- "bus"
 
 # Create a filtered df with selected columns
-rd$participant_id <- rd$pid
-rd$pid <- NULL
-
-rd$trip_id <- rd$tid
-rd$tid <- NULL
-
 rd <- mutate(rd, trip_distance = trip_distance / 1000)
 
 rd$stage_mode <- rd$trip_mode
