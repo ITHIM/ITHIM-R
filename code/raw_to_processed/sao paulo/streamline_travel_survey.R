@@ -176,7 +176,7 @@ for(i in 1:length(pid_list)) {
   # Advance the trip id index by pg
   tid <- tid + nrow(pg)
   
-  count <- pg$person_weight[1] - 1
+  count <- pg$person_weight[1]
   d <- bind_rows(replicate((count), pg, simplify = FALSE))
   d <- arrange(d, trip_id)
   rd[rd$participant_id == pid_list[i],]$pid <- id
@@ -221,9 +221,6 @@ rd$tid <- rd$pid <- NULL
 
 # Rename van mode to mini-bus
 rd$trip_mode[rd$trip_mode == "van"] <- "bus"
-
-# Create a filtered df with selected columns
-rd <- mutate(rd, trip_distance = trip_distance / 1000)
 
 rd$stage_mode <- rd$trip_mode
 rd$stage_distance <- rd$trip_distance
