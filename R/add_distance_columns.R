@@ -46,10 +46,10 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
     injuries_list[[scen]] <- list()
     true_scen_dist <- subset(true_distances_0,scenario==scen)
     dist_summary <- as.data.frame(t(sapply(sort(unique(true_scen_dist$dem_index)),function(x)
-      colSums(subset(true_scen_dist,dem_index==x)[,!colnames(true_scen_dist)%in%c('age_cat','sex','scenario','sex_age','dem_index')]))))
+      colSums(true_scen_dist[true_scen_dist$dem_index==x,!colnames(true_scen_dist)%in%c('age_cat','sex','scenario','sex_age','dem_index')]))))
     strike_true_scen_dist <- subset(strike_distances,scenario==scen)
     strike_dist_summary <- as.data.frame(t(sapply(unique(strike_true_scen_dist$dem_index),function(x)
-      colSums(subset(strike_true_scen_dist,dem_index==x)[,!colnames(strike_true_scen_dist)%in%c('age_cat','sex','scenario','sex_age','dem_index')]))))
+      colSums(strike_true_scen_dist[strike_true_scen_dist$dem_index==x,!colnames(strike_true_scen_dist)%in%c('age_cat','sex','scenario','sex_age','dem_index')]))))
     # apply casualty distance sums
     distance_sums <- sapply(mode_names,function(x)sum(dist_summary[[x]]))
     # apply strike distance sums

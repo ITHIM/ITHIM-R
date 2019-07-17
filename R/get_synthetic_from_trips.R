@@ -53,26 +53,16 @@ generate_no_travel_summary <- function(){
 }
 
 #' @export
-generate_travel_summary <- function(all_trips,raw_trip_demographics){
+generate_travel_summary <- function(all_trips){
   dem_indices <- unique(TRAVEL_SUMMARY_TEMPLATE$dem_index)
-  ## get summary travel information (by mode and demography) and clear memory
-  # this is the total of weighted trips
-  # the weight doesn't come into the downstream calculations, so we can use .N
-  #pp_travel_by_mode <- unique(all_trips[,.(num_trips=sum(trip_weight),dem_index=dem_index),by=c('trip_mode','participant_id')], by=c('trip_mode','participant_id'))
-  pp_travel_by_mode <- all_trips[,.(num_trips=.N),by=.(trip_mode,participant_id)]
-  #setkeyv(pp_travel,c('trip_mode','participant_id'))
-  #pp_travel_by_mode <- unique(pp_travel,by=c('trip_mode','participant_id'))
-  #pp_travel <- NULL
-  setkey(pp_travel_by_mode,participant_id)
-  pp_travel_by_mode[raw_trip_demographics,dem_index := i.dem_index,on='participant_id']
-  raw_trip_demographics <- NULL
+  
   # summarise by demographic group those who have done some travel. The rest of the population is in no_travel_people
-  travel_people <- unique(all_trips,by='participant_id')[,.(some_travel=.N),by='dem_index']
-  all_trips <- NULL
+  travel_people <- all_trips[,.(some_travel=length(unique(participant_id))),by='dem_index']
   
   # number of travellers by demographic group (binomial)
-  travel_by_mode_and_demo <- pp_travel_by_mode[,.(travellers=.N),by=.(trip_mode,dem_index)]
-  pp_travel_by_mode <- NULL
+  travel_by_mode_and_demo <- all_trips[,.(travellers=length(unique(participant_id))),by=.(trip_mode,dem_index)]#pp_travel_by_mode[,.(travellers=.N),by=.(trip_mode,dem_index)]
+  all_trips <- NULL
+  
   setorder(travel_by_mode_and_demo,dem_index,trip_mode)
   # fill travel_by_mode_and_demo (adds in missing groupings) 
   travel_summary <- travel_by_mode_and_demo[setDT(TRAVEL_SUMMARY_TEMPLATE),on=.(trip_mode,dem_index)]

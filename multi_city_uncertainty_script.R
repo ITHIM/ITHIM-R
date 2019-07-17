@@ -81,15 +81,18 @@ distances <- list()
 seed <- 1
 just_distances(seed,ithim_object=ithim_object)
 profvis(just_distances(seed,ithim_object=ithim_object))
-system.time(distances <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=1))
+
+system.time(distances <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=4))
+
 print(sapply(distances,length))
 sapply(distances,function(x)if(length(x)>1)sapply(x$inj_distances$reg_model,length))
 distances[[5]]$inj_distances$reg_model
   ##
+distances <- NULL
 for(city in cities){
   ci <- which(cities==city)
   ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
-                                  NSAMPLES=600,
+                                  NSAMPLES=100,
                                   synthetic_population_size = 1000,
                                   CITY=city,
                                   MAX_MODE_SHARE_SCENARIO = T,
@@ -106,7 +109,7 @@ for(city in cities){
                                   DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]],
                                   PROBABILITY_SCALAR_MOTORCYCLE = 1)
   distances[[city]] <- NULL
-  distances[[city]] <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=6)
+  distances[[city]] <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=4)
   print(length(distances[[city]]))
 }
 SCEN <- rownames(SCENARIO_PROPORTIONS)
@@ -118,13 +121,14 @@ for(city in cities){
   print(nrow(distances[[city]][[1]]$dist))
   print(nrow(distances[[city]][[1]]$pp_summary[[1]]))
   dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(distances[[city]][[1]]$dist))
-  pdf(paste0('distance_distribution_1000p_',city,'.pdf')); par(mfrow=c(2,3),mar=c(7,5,2,1))
+  pdf(paste0('distance_distribution_1000p_',city,'.pdf'))
+  #x11(); par(mfrow=c(2,3),mar=c(7,5,2,1))
   for(j in 1:6){
     for(i in 1:NSAMPLES)
       dist_mat[i,] <- distances[[city]][[i]]$dist[,j]/nrow(distances[[city]][[i]]$pp_summary[[1]])
     boxplot(dist_mat,names=rownames(distances[[city]][[i]]$dist),las=2,frame=F,main=paste0(scen_names[j],', ',city),ylab='km pp')
   }
-  dev.off()
+  #dev.off()
 }    
 
 #################################################################

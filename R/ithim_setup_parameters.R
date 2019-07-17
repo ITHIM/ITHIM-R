@@ -5,7 +5,6 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    MMET_WALKING = 2.53,
                                    PM_CONC_BASE = 50,  
                                    PM_TRANS_SHARE = 0.225,
-                                   MOTORCYCLE_TO_CAR_RATIO = 0.2,
                                    PA_DOSE_RESPONSE_QUANTILE = F,
                                    AP_DOSE_RESPONSE_QUANTILE = F,
                                    BACKGROUND_PA_SCALAR = 1,
@@ -36,7 +35,6 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   MMET_WALKING <<- MMET_WALKING
   PM_CONC_BASE <<- PM_CONC_BASE
   PM_TRANS_SHARE <<- PM_TRANS_SHARE
-  MOTORCYCLE_TO_CAR_RATIO <<- MOTORCYCLE_TO_CAR_RATIO
   PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
   BACKGROUND_PA_SCALAR <<- BACKGROUND_PA_SCALAR
   BACKGROUND_PA_CONFIDENCE <<- BACKGROUND_PA_CONFIDENCE
@@ -58,7 +56,6 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                  "MMET_CYCLING",
                  "MMET_WALKING",
                  "PM_CONC_BASE",
-                 "MOTORCYCLE_TO_CAR_RATIO",
                  "BACKGROUND_PA_SCALAR",
                  "CHRONIC_DISEASE_SCALAR",
                  "INJURY_LINEARITY",

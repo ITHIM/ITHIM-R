@@ -21,6 +21,17 @@ complete_trip_distance_duration <- function(){
     trip_set$trip_distance <- sapply(trip_set$trip_id,function(x)sum(subset(trip_set,trip_id==x)$stage_distance))
   }
   
+  trip_set <- left_join(trip_set,DEMOGRAPHIC,by=c('sex','age_cat'))
+  
   TRIP_SET <<- trip_set
+  
+  ## add demographic information to raw trips
+  setDT(DEMOGRAPHIC)
+  trip_superset <- setDT(trip_set)
+  #trip_superset[DEMOGRAPHIC,on=c('sex','age_cat'),dem_index := i.dem_index]
+  ## extract raw trip demographic details
+  raw_trip_demographics <- unique(trip_superset[,.(participant_id=participant_id,dem_index=dem_index)],by=c('participant_id'))
+  setkey(raw_trip_demographics,participant_id)
+  RAW_TRIP_DEMOGRAPHICS <<- raw_trip_demographics
     
 }

@@ -1,49 +1,47 @@
 #' @export
 generate_synthetic_travel_data <- function(trip_scen_sets){
-  trip_superset <- setDT(TRIP_SET)
+  ## get raw trips and demographic information
   setDT(DEMOGRAPHIC)
   keycols = c("sex","age_cat")
   setkeyv(DEMOGRAPHIC,keycols)
   
-  trip_superset[DEMOGRAPHIC,on=c('sex','age_cat'),dem_index := i.dem_index]
-  raw_trip_demographics <- unique(trip_superset[,.(participant_id=participant_id,dem_index=dem_index)],by=c('participant_id'))
-  setkey(raw_trip_demographics,participant_id)
-  
   modes_to_keep <- unique(trip_scen_sets[[1]]$stage_mode)
   modes <- modes_to_keep#unlist(UNCERTAIN_TRAVEL_MODE_NAMES)
   
+  ## get demographic information for synthetic population
   participant_demographics <- PP_TRAVEL_PROPENSITIES[,colnames(PP_TRAVEL_PROPENSITIES)%in%c('participant_id','dem_index')]
   pp_summary <- list()#PP_TRAVEL_PROPENSITIES[,colnames(PP_TRAVEL_PROPENSITIES)%in%c('participant_id','dem_index')]
   pp_summary_scen <- participant_demographics
   
+  ## initialise travel data for synthetic population
   travel_data <- PP_TRAVEL_PROPENSITIES
   # get indices for mode random variables
   m_inds <- sapply(modes,function(modei) which(names(travel_data)==paste0(modei,'_p_rn')))
   dem_indices <- unique(DEMOGRAPHIC$dem_index)
   
-  for(scen in 1:length(trip_scen_sets)) setDT(trip_scen_sets[[scen]])[DEMOGRAPHIC,on=.(sex,age_cat),dem_index := i.dem_index]
-  # for(scen in 1:length(trip_scen_sets)) {
-  #   setDT(trip_scen_sets[[scen]])
-  #   setkeyv(trip_scen_sets[[scen]],keycols)
-  #   trip_scen_sets[[scen]][DEMOGRAPHIC,dem_index := i.dem_index]
-  # }
+  ## set scenario trips to DT and add demographic information
+  for(scen in 1:length(trip_scen_sets)) setDT(trip_scen_sets[[scen]])#[DEMOGRAPHIC,on=.(sex,age_cat),dem_index := i.dem_index]
   
   for(scen in 1:length(trip_scen_sets)){
     
     ## get trips and clear memory
     superset <- trip_scen_sets[[scen]]
     trip_scen_sets[[scen]] <- 0
-    ## get summary travel information (by mode and demography) and clear memory
-    travel_summary <- generate_travel_summary(superset,raw_trip_demographics)
+    
+    ## travel_summary gives the probabilities to travel; densities (from individual data) give the distribution of travel, given travel occurs.
+    
+    ## get summary travel information (by mode and demography) for scenario
+    travel_summary <- generate_travel_summary(superset)
     travel_summary <- scale_mode_probabilities(travel_summary)
     travel_summary <- resample_mode_probabilities(travel_summary)
     
     ## get mode--demography-specific raw duration densities
-    superset[,'weighted_duration' := stage_duration*trip_weight]
+    superset[,weighted_duration := stage_duration*trip_weight]
     individual_data <- superset[,.(dur = sum(weighted_duration) ),by=.(stage_mode,participant_id)]
     superset <- NULL
-    setkey(individual_data,participant_id)
-    individual_data[raw_trip_demographics,dem_index := i.dem_index,on='participant_id']
+    #setkey(individual_data,participant_id)
+    #individual_data[RAW_TRIP_DEMOGRAPHICS,dem_index := i.dem_index,on='participant_id']
+    dem_index_order <- RAW_TRIP_DEMOGRAPHICS$dem_index[match(individual_data$participant_id,RAW_TRIP_DEMOGRAPHICS$participant_id)]
     
     dur_densities <- list()#individual_data[,.(dur=list(c(dur))),by=.(stage_mode,dem_index)]
     pop_dur_densities <- individual_data$dur
@@ -53,14 +51,14 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
      data_indices <- ind_modes==modei
      dur_densities[[modei]] <- list()
      durs <- individual_data$dur[data_indices]
-     dems <- individual_data$dem_index[data_indices]
+     dems <- dem_index_order[data_indices]
      for(di in dem_indices){
        dur_densities[[modei]][[di]] <- durs[dems==di]
      }
     }
-    individual_data <- subtab <- NULL
+    individual_data <- dem_index_order <- subtab <- NULL
     
-    ### start
+    ### start: draw from zero & duration mixture distribution
     
     ##!! not extrapolating travel_data <- extrapolate_travel_data(travel_summary,modes,densities,repetitiveness=repetitiveness)
     #travel_data <- sample_travel_data(travel_summary,modes,densities)
@@ -76,6 +74,7 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
     for(di in dem_indices){
       sub2 <- travel_summary[travel_summary$dem_index==di,]
       travellers <- which(travel_data$dem_index==di)
+      travel_data_travellers <- travel_data[travellers,]
       for(i in 1:length(modes)){
         modei <- modes[i]
         probability <- sub2$probability[sub2$mode==modei]
@@ -91,20 +90,20 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
           dur_density <- dur_densities[[modei]][[di]]
         }
         m_ind <- m_inds[i]
-        propensities <- travel_data[travellers,m_ind]
+        propensities <- travel_data_travellers[,m_ind]
 
         travelled <- 0
         travel_given_probability <- propensities<probability
         if(sum(travel_given_probability)>0){
           non_zero_travellers <- travellers[travel_given_probability]
           traveller_propensities <- propensities[travel_given_probability]/probability
-          durs <- sort(dur_density,decreasing = T)[ceiling(traveller_propensities*length(dur_density))]
+          durs <- sort(dur_density,method='quick',decreasing=T)[ceiling(traveller_propensities*length(dur_density))]
 
           travel_data[[paste0(modei,'_dur')]][non_zero_travellers] <- durs
         }
       }
     }
-    travel_summary <- NULL
+    travel_summary <- dur_densities <- pop_mode_dur_densities <- pop_dur_densities  <- NULL
 
     ### stop
 

@@ -39,8 +39,9 @@ scale_trip_distances <- function(trips){
   match_modes[stage_modes%in%pt_modes] <- DISTANCE_SCALAR_PT
   match_modes[stage_modes%in%c('cycling')] <- DISTANCE_SCALAR_CYCLING
   match_modes[stage_modes%in%c('motorcycle')] <- DISTANCE_SCALAR_MOTORCYCLE
-  trips$stage_distance <- trips$stage_distance*match_modes
-  trips$stage_duration <- trips$stage_duration*match_modes
+  trips[,'stage_distance':=stage_distance*..match_modes]
+  trips[,'stage_duration':=stage_duration*..match_modes]
+  #trips$stage_duration <- trips$stage_duration*match_modes
   
   ##!! do not need trip_distance as scaling after creating scenarios
   #trips$trip_distance <- trips$stage_distance

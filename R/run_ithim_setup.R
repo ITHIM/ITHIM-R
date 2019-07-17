@@ -30,7 +30,6 @@ run_ithim_setup <- function(seed = 1,
                             DAY_TO_WEEK_TRAVEL_SCALAR = 7,
                             INJURY_LINEARITY= 1,
                             CASUALTY_EXPONENT_FRACTION = 0.5,
-                            MOTORCYCLE_TO_CAR_RATIO = 0.2,
                             BUS_TO_PASSENGER_RATIO = 0.022,
                             TRUCK_TO_CAR_RATIO = 0.21,
                             EMISSION_INVENTORY_CONFIDENCE = 1,
@@ -88,7 +87,6 @@ run_ithim_setup <- function(seed = 1,
   # CASUALTY_EXPONENT_FRACTION = parameter. double: sets scalar. vector: samples from distribution.
   
   # DAY_TO_WEEK_TRAVEL_SCALAR = parameter. double: sets scalar for extrapolation from day to week. vector: samples from distribution.
-  # MOTORCYCLE_TO_CAR_RATIO = parameter. double: sets motorcycle distance relative to car. vector: samples from distribution.
   # BUS_TO_PASSENGER_RATIO = parameter. double: sets bus distance relative to bus passenger distance. vector: samples from distribution.
   # TRUCK_TO_CAR_RATIO = parameter. double: sets truck distance relative to car. vector: samples from distribution.
   # EMISSION_INVENTORY_CONFIDENCE = parameter. double between 0 and 1. 1 = use emission data as they are.
@@ -227,7 +225,6 @@ run_ithim_setup <- function(seed = 1,
                                                     MMET_WALKING,
                                                     PM_CONC_BASE,  
                                                     PM_TRANS_SHARE,
-                                                    MOTORCYCLE_TO_CAR_RATIO,
                                                     PA_DOSE_RESPONSE_QUANTILE,
                                                     AP_DOSE_RESPONSE_QUANTILE,
                                                     BACKGROUND_PA_SCALAR,
@@ -293,12 +290,11 @@ run_ithim_setup <- function(seed = 1,
   RECALCULATE_TRIPS <<- any(c('BUS_WALK_TIME','BACKGROUND_PA_ZEROS',
                               "DISTANCE_SCALAR_PT",
                               "DISTANCE_SCALAR_CAR_TAXI", 
-                              'BUS_TO_PASSENGER_RATIO',
-                              'MOTORCYCLE_TO_CAR_RATIO',
-                              'TRUCK_TO_CAR_RATIO',
                               "DISTANCE_SCALAR_MOTORCYCLE",
                               "DISTANCE_SCALAR_WALKING",
-                              "DISTANCE_SCALAR_CYCLING")%in%names(ithim_object$parameters))
+                              "DISTANCE_SCALAR_CYCLING",
+                              'BUS_TO_PASSENGER_RATIO',
+                              'TRUCK_TO_CAR_RATIO')%in%names(ithim_object$parameters))
   RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||PROPENSITY_TO_TRAVEL||any(c('INJURY_LINEARITY',
                                                      'CASUALTY_EXPONENT_FRACTION')%in%names(ithim_object$parameters))
   
