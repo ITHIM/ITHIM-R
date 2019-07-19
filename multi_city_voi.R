@@ -191,10 +191,10 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
      distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
 
-parameters_only <- T
+parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 numcores <- 16
-nsamples <- 8
+nsamples <- 4096
 print(system.time(
   for(ci in 1:length(cities)){
     city <- cities[ci]
