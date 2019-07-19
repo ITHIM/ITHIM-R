@@ -16,9 +16,11 @@ for(i in 1:nrow(whw))
 injuries$strike_mode[injuries$strike_mode=='X2.3.Wheeled'] <- 'motorcycle'
 injuries$strike_mode[injuries$strike_mode=='Car.pick.up.van'] <- 'car'
 injuries$strike_mode[injuries$strike_mode=='Trucks'] <- 'truck'
+injuries$strike_mode[injuries$strike_mode=='Non.collision'] <- 'NOV'
 injuries$strike_mode[injuries$strike_mode=='Pedal.cycle'] <- 'bicycle'
 injuries$cas_mode[injuries$cas_mode=='Pedal Cycle'] <- 'bicycle'
 injuries$cas_mode[injuries$cas_mode=='3Wheeled'] <- 'auto_rickshaw'
+injuries$cas_mode[injuries$cas_mode=='Pick-up truck/van'] <- 'minibus'
 injuries$cas_mode[injuries$cas_mode=='Heavy transport'] <- 'truck'
 injuries
 head(injuries)
