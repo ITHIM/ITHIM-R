@@ -1,0 +1,1189 @@
+"measure_name.x","location_name","sex_name","age_name","cause_name","val","population"
+"YLLs (Years of Life Lost)","Greater London","Male","0 to 4","Neoplasms",781.893484969014,324704.739371668
+"YLLs (Years of Life Lost)","Greater London","Female","0 to 4","Neoplasms",805.468813302693,309091.774415545
+"YLLs (Years of Life Lost)","Greater London","Male","5 to 9","Neoplasms",709.942417859228,305613.111031444
+"YLLs (Years of Life Lost)","Greater London","Female","5 to 9","Neoplasms",454.87414299177,292447.166921089
+"YLLs (Years of Life Lost)","Greater London","Male","10 to 14","Neoplasms",425.309439042122,261847.306140115
+"YLLs (Years of Life Lost)","Greater London","Female","10 to 14","Neoplasms",510.269505159387,251158.512865704
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","Neoplasms",547.07999932578,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Neoplasms",375.048694186339,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","Neoplasms",708.635546815657,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Neoplasms",597.76948834868,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","Neoplasms",1046.74157385683,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Neoplasms",1124.03364315407,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","Neoplasms",1617.25197570874,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Neoplasms",2043.85722628263,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","Neoplasms",2408.84590125284,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Neoplasms",3198.91436216113,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Neoplasms",3836.51649619276,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Neoplasms",5223.46943334801,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Neoplasms",6925.7003660447,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Neoplasms",8545.91671285551,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Neoplasms",11877.2068148815,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Neoplasms",12591.9334078087,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Neoplasms",15430.7471960685,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Neoplasms",14599.5907279015,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Neoplasms",17961.5219994794,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Neoplasms",14156.0817098883,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Neoplasms",20327.491488388,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Neoplasms",16039.827561405,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Neoplasms",18067.781198923,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Neoplasms",15353.3115815326,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Neoplasms",16098.6237225487,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Neoplasms",12668.3067829395,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Neoplasms",11930.4437237879,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Neoplasms",10072.7577831398,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Neoplasms",6974.28401374589,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Neoplasms",6421.57493019615,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Neoplasms",2264.61216924052,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Neoplasms",2799.9988661991,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Neoplasms",324.113527181541,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Neoplasms",324.113527181541,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Neoplasms",638.66759173414,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Neoplasms",638.66759173414,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","Stomach cancer",2.83260959792127,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Stomach cancer",1.78126122370298,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","Stomach cancer",7.82636575027615,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Stomach cancer",6.87140985383856,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","Stomach cancer",22.7179814480992,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Stomach cancer",25.0299222530949,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","Stomach cancer",60.2425442063915,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Stomach cancer",63.5577314823198,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","Stomach cancer",117.518894572128,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Stomach cancer",90.0833561620126,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Stomach cancer",196.23823037573,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Stomach cancer",153.38311245191,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Stomach cancer",359.174227158777,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Stomach cancer",198.076612889996,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Stomach cancer",569.927398822639,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Stomach cancer",279.864463066689,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Stomach cancer",696.227696021761,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Stomach cancer",334.925296770726,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Stomach cancer",812.210073978273,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Stomach cancer",343.610321857428,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Stomach cancer",958.890476280847,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Stomach cancer",411.558189134612,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Stomach cancer",910.5113869141,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Stomach cancer",471.600603104239,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Stomach cancer",901.067127736461,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Stomach cancer",501.221341655184,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Stomach cancer",695.228283640108,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Stomach cancer",469.948789714712,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Stomach cancer",402.388138989593,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Stomach cancer",324.804612094316,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Stomach cancer",140.77802233981,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Stomach cancer",161.300058905861,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Stomach cancer",22.4004522884804,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Stomach cancer",22.4004522884804,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Stomach cancer",40.6684038949091,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Stomach cancer",40.6684038949091,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","5 to 9","Liver cancer",13.291444551656,305613.111031444
+"YLLs (Years of Life Lost)","Greater London","Female","5 to 9","Liver cancer",6.88613277944778,292447.166921089
+"YLLs (Years of Life Lost)","Greater London","Male","10 to 14","Liver cancer",9.62625307433271,261847.306140115
+"YLLs (Years of Life Lost)","Greater London","Female","10 to 14","Liver cancer",9.11737477026469,251158.512865704
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","Liver cancer",14.5526404606311,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Liver cancer",12.1237559859105,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","Liver cancer",23.6802688023828,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Liver cancer",16.6044487787254,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","Liver cancer",40.552931513709,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Liver cancer",28.614170301104,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","Liver cancer",74.9234161683992,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Liver cancer",37.9261418313587,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","Liver cancer",91.2395916820842,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Liver cancer",54.8623848562492,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Liver cancer",165.659678275373,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Liver cancer",85.6553636829184,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Liver cancer",329.073955239322,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Liver cancer",149.156290816894,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Liver cancer",602.102828827843,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Liver cancer",267.475240345386,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Liver cancer",798.585270234123,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Liver cancer",342.145076357832,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Liver cancer",873.042060013559,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Liver cancer",347.66181555544,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Liver cancer",928.23826474436,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Liver cancer",420.230929394039,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Liver cancer",763.207969646081,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Liver cancer",434.723324212086,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Liver cancer",618.092552057215,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Liver cancer",394.041226710412,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Liver cancer",398.455924082775,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Liver cancer",314.564552964679,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Liver cancer",197.774966184277,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Liver cancer",193.037568297334,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Liver cancer",52.0004902291754,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Liver cancer",73.1719885283947,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Liver cancer",6.42677208682746,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Liver cancer",6.42677208682746,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Liver cancer",15.0801651308846,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Liver cancer",15.0801651308846,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","Tracheal, bronchus, and lung cancer",2.30662518704138,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Tracheal, bronchus, and lung cancer",4.21620854738212,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","Tracheal, bronchus, and lung cancer",9.46566747570462,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Tracheal, bronchus, and lung cancer",10.1120113989842,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","Tracheal, bronchus, and lung cancer",22.9484666360955,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Tracheal, bronchus, and lung cancer",25.7546489267434,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","Tracheal, bronchus, and lung cancer",78.1338033347178,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Tracheal, bronchus, and lung cancer",84.1580200282955,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","Tracheal, bronchus, and lung cancer",212.254313695808,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Tracheal, bronchus, and lung cancer",172.265516623684,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Tracheal, bronchus, and lung cancer",537.05584053977,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Tracheal, bronchus, and lung cancer",465.870878365868,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Tracheal, bronchus, and lung cancer",1307.22277111538,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Tracheal, bronchus, and lung cancer",1169.81925159418,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Tracheal, bronchus, and lung cancer",2625.52672501757,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Tracheal, bronchus, and lung cancer",2122.29593266297,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Tracheal, bronchus, and lung cancer",3810.67710343459,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Tracheal, bronchus, and lung cancer",3045.83875924212,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Tracheal, bronchus, and lung cancer",4760.87053449429,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Tracheal, bronchus, and lung cancer",3378.27539427656,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Tracheal, bronchus, and lung cancer",5556.10181671713,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Tracheal, bronchus, and lung cancer",4105.49301747025,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Tracheal, bronchus, and lung cancer",4868.15680507528,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Tracheal, bronchus, and lung cancer",3899.29196660353,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Tracheal, bronchus, and lung cancer",4040.90841416261,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Tracheal, bronchus, and lung cancer",2966.82446955847,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Tracheal, bronchus, and lung cancer",2625.97674253022,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Tracheal, bronchus, and lung cancer",2104.35095591379,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Tracheal, bronchus, and lung cancer",1316.36819685205,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Tracheal, bronchus, and lung cancer",1062.36618229223,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Tracheal, bronchus, and lung cancer",337.583137070504,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Tracheal, bronchus, and lung cancer",390.484430086698,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Tracheal, bronchus, and lung cancer",37.6778383120272,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Tracheal, bronchus, and lung cancer",37.6778383120272,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Tracheal, bronchus, and lung cancer",79.6663226175917,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Tracheal, bronchus, and lung cancer",79.6663226175917,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","Breast cancer",1.36501167789695,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Breast cancer",2.51362858855981,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","Breast cancer",1.50831195827318,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Breast cancer",16.2298942716548,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","Breast cancer",2.02895963094233,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Breast cancer",129.046065385083,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","Breast cancer",3.09186345215795,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Breast cancer",504.305103869311,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","Breast cancer",7.37174211847611,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Breast cancer",1071.53292791822,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Breast cancer",11.6930811961808,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Breast cancer",1854.38632850676,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Breast cancer",19.0978958367892,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Breast cancer",2831.75537587313,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Breast cancer",31.1878431798856,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Breast cancer",3618.42911412291,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Breast cancer",38.0854511105073,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Breast cancer",3301.46010709349,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Breast cancer",47.4745823863801,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Breast cancer",2509.76368825296,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Breast cancer",53.5105219755852,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Breast cancer",2392.42993272697,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Breast cancer",49.4429105180612,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Breast cancer",2023.69685643654,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Breast cancer",41.6082227804978,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Breast cancer",1635.45142845776,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Breast cancer",30.2059503611247,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Breast cancer",1338.2424058484,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Breast cancer",17.8955099159628,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Breast cancer",995.995302302813,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Breast cancer",7.42957045303827,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Breast cancer",470.758251370748,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Breast cancer",1.45748486558223,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Breast cancer",1.45748486558223,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Breast cancer",119.103088835004,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Breast cancer",119.103088835004,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Uterine cancer",1.39636492862308,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Uterine cancer",2.49012199334072,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Uterine cancer",6.54927714829167,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Uterine cancer",12.135184508265,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Uterine cancer",21.8227278144355,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Uterine cancer",49.6487174684953,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Uterine cancer",105.250463575816,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Uterine cancer",214.647484839791,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Uterine cancer",336.805871090305,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Uterine cancer",399.592298696202,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Uterine cancer",493.802848057603,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Uterine cancer",454.565193356751,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Uterine cancer",332.180610329494,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Uterine cancer",234.683864921109,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Uterine cancer",135.349057578237,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Uterine cancer",52.0126785189893,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Uterine cancer",10.5417659555806,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Uterine cancer",10.5417659555806,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","Colon and rectum cancer",5.96379034549825,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Colon and rectum cancer",3.32668270617491,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","Colon and rectum cancer",21.9320247834203,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Colon and rectum cancer",18.6578221303461,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","Colon and rectum cancer",62.1880886793917,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Colon and rectum cancer",53.8828608615016,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","Colon and rectum cancer",152.665642890847,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Colon and rectum cancer",133.813176961328,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","Colon and rectum cancer",250.547812960087,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Colon and rectum cancer",207.801177465387,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Colon and rectum cancer",391.523485797822,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Colon and rectum cancer",354.592249010164,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Colon and rectum cancer",722.904123778904,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Colon and rectum cancer",621.349688429498,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Colon and rectum cancer",1241.75693025747,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Colon and rectum cancer",961.994760325824,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Colon and rectum cancer",1605.29795638907,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Colon and rectum cancer",1173.48604412569,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Colon and rectum cancer",1827.08383128734,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Colon and rectum cancer",1132.23899512419,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Colon and rectum cancer",2036.44410341116,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Colon and rectum cancer",1323.50991685275,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Colon and rectum cancer",1825.80752125243,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Colon and rectum cancer",1343.89503798256,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Colon and rectum cancer",1643.00587967717,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Colon and rectum cancer",1302.61777799583,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Colon and rectum cancer",1289.33757072973,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Colon and rectum cancer",1210.72398191982,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Colon and rectum cancer",780.410044856705,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Colon and rectum cancer",895.600297311413,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Colon and rectum cancer",265.963318723264,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Colon and rectum cancer",435.939494361018,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Colon and rectum cancer",38.1268534004011,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Colon and rectum cancer",38.1268534004011,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Colon and rectum cancer",101.729331908105,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Colon and rectum cancer",101.729331908105,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","0 to 4","Road injuries",151.06730298044,324704.739371668
+"YLLs (Years of Life Lost)","Greater London","Female","0 to 4","Road injuries",150.621642330237,309091.774415545
+"YLLs (Years of Life Lost)","Greater London","Male","5 to 9","Road injuries",145.94230397663,305613.111031444
+"YLLs (Years of Life Lost)","Greater London","Female","5 to 9","Road injuries",95.9311725580384,292447.166921089
+"YLLs (Years of Life Lost)","Greater London","Male","10 to 14","Road injuries",160.389544562529,261847.306140115
+"YLLs (Years of Life Lost)","Greater London","Female","10 to 14","Road injuries",143.755118207599,251158.512865704
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","Road injuries",1020.51663224649,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Road injuries",280.74154812586,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","Road injuries",1556.56220807392,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Road injuries",331.459790495609,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","Road injuries",1380.73076742581,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Road injuries",256.536592639266,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","Road injuries",1098.17796652597,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Road injuries",199.935479196058,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","Road injuries",811.357228882041,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Road injuries",165.025682768718,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Road injuries",622.46947881585,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Road injuries",153.169209585498,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Road injuries",520.604983879237,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Road injuries",147.046331515457,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Road injuries",431.274234888728,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Road injuries",135.713397734453,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Road injuries",298.849776258581,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Road injuries",108.996342846512,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Road injuries",205.324718955744,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Road injuries",76.6927379204926,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Road injuries",156.218367946709,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Road injuries",78.8282492514702,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Road injuries",107.081360266433,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Road injuries",73.1259995661942,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Road injuries",88.2364463456169,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Road injuries",65.8064715494671,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Road injuries",64.0997244493817,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Road injuries",54.9550889037344,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Road injuries",34.9715054010406,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Road injuries",30.5733966498762,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Road injuries",11.5255009622934,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Road injuries",13.7592548436912,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Road injuries",1.95011530063499,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Road injuries",1.95011530063499,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Road injuries",3.6909978522889,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Road injuries",3.6909978522889,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","0 to 4","Cardiovascular diseases",296.359534021971,324704.739371668
+"YLLs (Years of Life Lost)","Greater London","Female","0 to 4","Cardiovascular diseases",273.019560323717,309091.774415545
+"YLLs (Years of Life Lost)","Greater London","Male","5 to 9","Cardiovascular diseases",58.5649794587192,305613.111031444
+"YLLs (Years of Life Lost)","Greater London","Female","5 to 9","Cardiovascular diseases",50.4582568219663,292447.166921089
+"YLLs (Years of Life Lost)","Greater London","Male","10 to 14","Cardiovascular diseases",59.7121465971222,261847.306140115
+"YLLs (Years of Life Lost)","Greater London","Female","10 to 14","Cardiovascular diseases",62.0144205628344,251158.512865704
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","Cardiovascular diseases",188.709341867664,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Cardiovascular diseases",94.2611776544373,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","Cardiovascular diseases",360.230888594569,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Cardiovascular diseases",224.543855392835,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","Cardiovascular diseases",640.642105579339,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Cardiovascular diseases",323.891082165193,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","Cardiovascular diseases",1231.18706447791,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Cardiovascular diseases",561.064864161169,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","Cardiovascular diseases",2156.31639232704,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Cardiovascular diseases",849.90463321059,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Cardiovascular diseases",3881.5775290609,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Cardiovascular diseases",1416.59141124193,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Cardiovascular diseases",6606.65322639951,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Cardiovascular diseases",2222.8355438869,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Cardiovascular diseases",10041.4822669965,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Cardiovascular diseases",3100.27357740536,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Cardiovascular diseases",10865.7889284653,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Cardiovascular diseases",3796.22406635,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Cardiovascular diseases",11792.0889240068,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Cardiovascular diseases",4506.2033185626,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Cardiovascular diseases",13278.9025236622,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Cardiovascular diseases",6253.22843005874,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Cardiovascular diseases",13588.9277655008,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Cardiovascular diseases",8101.75327316589,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Cardiovascular diseases",13665.7426734146,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Cardiovascular diseases",9572.90306332376,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Cardiovascular diseases",12603.9672333751,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Cardiovascular diseases",11579.5065404553,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Cardiovascular diseases",9098.6619522954,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Cardiovascular diseases",11246.6193862257,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Cardiovascular diseases",3928.0847959156,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Cardiovascular diseases",6819.63235804604,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Cardiovascular diseases",764.224856740861,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Cardiovascular diseases",764.224856740861,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Cardiovascular diseases",2152.48928756128,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Cardiovascular diseases",2152.48928756128,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","Ischemic heart disease",12.148645923089,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Ischemic heart disease",5.15921682830068,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","Ischemic heart disease",47.7489757307042,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Ischemic heart disease",18.1009067461165,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","Ischemic heart disease",158.699596102283,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Ischemic heart disease",31.6025042765538,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","Ischemic heart disease",446.94873381743,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Ischemic heart disease",100.218456097934,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","Ischemic heart disease",995.919648903078,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Ischemic heart disease",204.99881544318,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Ischemic heart disease",2064.40765690926,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Ischemic heart disease",402.672296174592,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Ischemic heart disease",3940.62368916736,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Ischemic heart disease",761.871704329818,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Ischemic heart disease",6392.33542258682,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Ischemic heart disease",1161.84982982799,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Ischemic heart disease",6989.22111806755,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Ischemic heart disease",1598.07620388851,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Ischemic heart disease",7566.2446821154,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Ischemic heart disease",2045.83128750012,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Ischemic heart disease",8233.98057660527,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Ischemic heart disease",2956.03230971031,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Ischemic heart disease",8076.47379957352,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Ischemic heart disease",3653.99181244127,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Ischemic heart disease",7618.52563014884,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Ischemic heart disease",4056.98538609499,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Ischemic heart disease",6755.13413943988,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Ischemic heart disease",4843.18637122595,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Ischemic heart disease",4600.3832369486,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Ischemic heart disease",4499.48013721497,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Ischemic heart disease",1966.07103519543,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Ischemic heart disease",2702.74852179365,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Ischemic heart disease",379.456294081512,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Ischemic heart disease",379.456294081512,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Ischemic heart disease",854.822100933248,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Ischemic heart disease",854.822100933248,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","0 to 4","Stroke",25.7166640299727,324704.739371668
+"YLLs (Years of Life Lost)","Greater London","Female","0 to 4","Stroke",21.8630831256417,309091.774415545
+"YLLs (Years of Life Lost)","Greater London","Male","5 to 9","Stroke",11.2310238739143,305613.111031444
+"YLLs (Years of Life Lost)","Greater London","Female","5 to 9","Stroke",7.85856485933663,292447.166921089
+"YLLs (Years of Life Lost)","Greater London","Male","10 to 14","Stroke",10.1829704024168,261847.306140115
+"YLLs (Years of Life Lost)","Greater London","Female","10 to 14","Stroke",13.6076250193888,251158.512865704
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","Stroke",33.1198566216827,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Stroke",18.3354006922637,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","Stroke",68.0774514259793,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Stroke",53.030587570464,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","Stroke",119.006045709193,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Stroke",82.1256235973109,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","Stroke",214.837419600274,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Stroke",155.226523241018,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","Stroke",349.439581982762,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Stroke",241.785720656601,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Stroke",562.32527586985,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Stroke",397.141085016354,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Stroke",884.033021686244,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Stroke",580.960263319929,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Stroke",1246.87110958479,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Stroke",828.967142033639,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Stroke",1314.1166095588,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Stroke",885.054542880104,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Stroke",1444.35908272839,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Stroke",938.849711433577,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Stroke",1870.28253009263,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Stroke",1306.21880828458,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Stroke",2301.4532104812,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Stroke",1854.251577744,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Stroke",2743.50875847769,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Stroke",2480.55355196674,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Stroke",2818.76083927534,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Stroke",3132.08884319465,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Stroke",2201.84562754917,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Stroke",3073.16645852258,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Stroke",968.814877850238,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Stroke",1826.64344348741,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Stroke",201.018175691294,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Stroke",201.018175691294,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Stroke",602.670747925055,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Stroke",602.670747925055,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","0 to 4","Chronic obstructive pulmonary disease",14.6164414096478,324704.739371668
+"YLLs (Years of Life Lost)","Greater London","Female","0 to 4","Chronic obstructive pulmonary disease",23.6233608565758,309091.774415545
+"YLLs (Years of Life Lost)","Greater London","Male","5 to 9","Chronic obstructive pulmonary disease",4.70172113386679,305613.111031444
+"YLLs (Years of Life Lost)","Greater London","Female","5 to 9","Chronic obstructive pulmonary disease",10.3622572584027,292447.166921089
+"YLLs (Years of Life Lost)","Greater London","Male","10 to 14","Chronic obstructive pulmonary disease",3.15191121096486,261847.306140115
+"YLLs (Years of Life Lost)","Greater London","Female","10 to 14","Chronic obstructive pulmonary disease",12.9657145267671,251158.512865704
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","Chronic obstructive pulmonary disease",10.203354761809,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Chronic obstructive pulmonary disease",8.9349691363149,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","Chronic obstructive pulmonary disease",14.8356930901636,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Chronic obstructive pulmonary disease",13.8066082625358,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","Chronic obstructive pulmonary disease",18.2927064245923,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Chronic obstructive pulmonary disease",16.5751889487151,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","Chronic obstructive pulmonary disease",32.5660524796733,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Chronic obstructive pulmonary disease",24.7577460108719,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","Chronic obstructive pulmonary disease",73.7838115586734,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Chronic obstructive pulmonary disease",43.1297005839194,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Chronic obstructive pulmonary disease",189.262916558598,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Chronic obstructive pulmonary disease",119.447358377319,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Chronic obstructive pulmonary disease",399.667226499264,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Chronic obstructive pulmonary disease",269.537937998681,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Chronic obstructive pulmonary disease",844.421033949832,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Chronic obstructive pulmonary disease",663.985039353525,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Chronic obstructive pulmonary disease",1382.59231084114,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Chronic obstructive pulmonary disease",1096.40631586902,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Chronic obstructive pulmonary disease",2206.23545663272,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Chronic obstructive pulmonary disease",1610.21314881507,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Chronic obstructive pulmonary disease",3057.74117832037,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Chronic obstructive pulmonary disease",2278.35466656318,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Chronic obstructive pulmonary disease",3420.85491905254,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Chronic obstructive pulmonary disease",2832.29712703354,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Chronic obstructive pulmonary disease",3625.95993895292,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Chronic obstructive pulmonary disease",2815.12530566828,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Chronic obstructive pulmonary disease",3282.77279038762,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Chronic obstructive pulmonary disease",2815.12494781799,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Chronic obstructive pulmonary disease",2215.93252098971,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Chronic obstructive pulmonary disease",2059.30263798637,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Chronic obstructive pulmonary disease",868.793540137289,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Chronic obstructive pulmonary disease",1062.53053736136,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Chronic obstructive pulmonary disease",161.210987946578,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Chronic obstructive pulmonary disease",161.210987946578,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Chronic obstructive pulmonary disease",325.248176050644,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Chronic obstructive pulmonary disease",325.248176050644,8324.01135409652
+"Deaths","Greater London","Male","0 to 4","All causes",296.106061795561,324704.739371668
+"Deaths","Greater London","Female","0 to 4","All causes",241.583481574375,309091.774415545
+"Deaths","Greater London","Male","5 to 9","All causes",26.3683452958028,305613.111031444
+"Deaths","Greater London","Female","5 to 9","All causes",17.8152269651834,292447.166921089
+"Deaths","Greater London","Male","10 to 14","All causes",20.6764087942883,261847.306140115
+"Deaths","Greater London","Female","10 to 14","All causes",22.5752275868465,251158.512865704
+"Deaths","Greater London","Male","15 to 19","All causes",62.3124936103923,245406.188351018
+"Deaths","Greater London","Female","15 to 19","All causes",27.8585757051779,236079.785967342
+"Deaths","Greater London","Male","20 to 24","All causes",120.514716578632,302292.175188839
+"Deaths","Greater London","Female","20 to 24","All causes",50.5982402214178,303947.382925422
+"Deaths","Greater London","Male","25 to 29","All causes",165.105147676524,412892.558710664
+"Deaths","Greater London","Female","25 to 29","All causes",74.0123558843933,417744.268794877
+"Deaths","Greater London","Male","30 to 34","All causes",230.225553158137,445614.940901526
+"Deaths","Greater London","Female","30 to 34","All causes",115.168182375862,439953.078947835
+"Deaths","Greater London","Male","35 to 39","All causes",306.437310439804,395496.398878372
+"Deaths","Greater London","Female","35 to 39","All causes",164.314296302817,395817.600959685
+"Deaths","Greater London","Male","40 to 44","All causes",422.223213978633,317181.722892981
+"Deaths","Greater London","Female","40 to 44","All causes",257.185357277433,315079.771794941
+"Deaths","Greater London","Male","45 to 49","All causes",639.199491180334,295250.911136889
+"Deaths","Greater London","Female","45 to 49","All causes",415.723476231468,297020.721726264
+"Deaths","Greater London","Male","50 to 54","All causes",972.687658453557,269098.194980257
+"Deaths","Greater London","Female","50 to 54","All causes",638.77386894895,276489.036024098
+"Deaths","Greater London","Male","55 to 59","All causes",1210.76827996002,224179.207239458
+"Deaths","Greater London","Female","55 to 59","All causes",822.82852299556,228149.350170698
+"Deaths","Greater London","Male","60 to 64","All causes",1534.5721909113,174492.484124048
+"Deaths","Greater London","Female","60 to 64","All causes",969.553631979501,182555.63283217
+"Deaths","Greater London","Male","65 to 69","All causes",2053.67936558804,143459.189966701
+"Deaths","Greater London","Female","65 to 69","All causes",1405.76701273343,155782.007947398
+"Deaths","Greater London","Male","70 to 74","All causes",2446.32985883648,114290.361259979
+"Deaths","Greater London","Female","70 to 74","All causes",1926.99477260144,130256.84840268
+"Deaths","Greater London","Male","75 to 79","All causes",3171.2749394001,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","All causes",2552.82537984548,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","All causes",3842.59497876681,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","All causes",3696.07417174394,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","All causes",3927.99415937038,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","All causes",4732.40014652003,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","All causes",2409.42213824385,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","All causes",4154.41089058892,25566.023210283
+"Deaths","Greater London","Male","95 to 99","All causes",791.94555836736,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","All causes",791.94555836736,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","All causes",2283.96174449633,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","All causes",2283.96174449633,8324.01135409652
+"Deaths","Greater London","Male","0 to 4","Lower respiratory infections",12.0682211902686,324704.739371668
+"Deaths","Greater London","Female","0 to 4","Lower respiratory infections",10.0940829121575,309091.774415545
+"Deaths","Greater London","Male","5 to 9","Lower respiratory infections",1.10956792714465,305613.111031444
+"Deaths","Greater London","Female","5 to 9","Lower respiratory infections",0.931083257980332,292447.166921089
+"Deaths","Greater London","Male","10 to 14","Lower respiratory infections",0.605887750526024,261847.306140115
+"Deaths","Greater London","Female","10 to 14","Lower respiratory infections",0.894472074130653,251158.512865704
+"Deaths","Greater London","Male","15 to 19","Lower respiratory infections",0.960657808772176,245406.188351018
+"Deaths","Greater London","Female","15 to 19","Lower respiratory infections",0.675888488767544,236079.785967342
+"Deaths","Greater London","Male","20 to 24","Lower respiratory infections",1.54114952292844,302292.175188839
+"Deaths","Greater London","Female","20 to 24","Lower respiratory infections",1.28473963393609,303947.382925422
+"Deaths","Greater London","Male","25 to 29","Lower respiratory infections",2.67978734419111,412892.558710664
+"Deaths","Greater London","Female","25 to 29","Lower respiratory infections",1.86908419695988,417744.268794877
+"Deaths","Greater London","Male","30 to 34","Lower respiratory infections",4.61459205559158,445614.940901526
+"Deaths","Greater London","Female","30 to 34","Lower respiratory infections",2.80866379697086,439953.078947835
+"Deaths","Greater London","Male","35 to 39","Lower respiratory infections",7.3466906793188,395496.398878372
+"Deaths","Greater London","Female","35 to 39","Lower respiratory infections",4.31629747098844,395817.600959685
+"Deaths","Greater London","Male","40 to 44","Lower respiratory infections",11.1607029018343,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Lower respiratory infections",7.088566523834,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Lower respiratory infections",17.677500347117,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Lower respiratory infections",10.5219602713559,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Lower respiratory infections",27.4061424527766,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Lower respiratory infections",17.0961536812263,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Lower respiratory infections",32.3466198325227,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Lower respiratory infections",21.1753953581338,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Lower respiratory infections",43.1296898801522,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Lower respiratory infections",26.4908391523679,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Lower respiratory infections",61.0563826385881,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Lower respiratory infections",40.5895678558534,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Lower respiratory infections",86.468070773651,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Lower respiratory infections",71.3313144721745,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Lower respiratory infections",147.342179888229,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Lower respiratory infections",122.29505622076,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Lower respiratory infections",247.16254309461,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Lower respiratory infections",240.18082331176,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Lower respiratory infections",366.846058688399,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Lower respiratory infections",445.960818117022,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Lower respiratory infections",245.203041093954,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Lower respiratory infections",406.318768512797,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Lower respiratory infections",98.0546315967845,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Lower respiratory infections",98.0546315967845,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Lower respiratory infections",266.591507685951,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Lower respiratory infections",266.591507685951,8324.01135409652
+"Deaths","Greater London","Male","40 to 44","Alzheimer's disease and other dementias",0.452444291847616,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Alzheimer's disease and other dementias",0.435136171524989,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Alzheimer's disease and other dementias",1.55803011189923,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Alzheimer's disease and other dementias",1.85897601084442,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Alzheimer's disease and other dementias",3.90203668190154,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Alzheimer's disease and other dementias",4.26202094677645,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Alzheimer's disease and other dementias",7.95650444019363,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Alzheimer's disease and other dementias",9.41376573638582,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Alzheimer's disease and other dementias",16.7257202196551,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Alzheimer's disease and other dementias",17.8452900910188,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Alzheimer's disease and other dementias",35.9871532225285,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Alzheimer's disease and other dementias",40.7919504111956,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Alzheimer's disease and other dementias",72.1210556296849,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Alzheimer's disease and other dementias",97.0487127426328,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Alzheimer's disease and other dementias",173.476711401962,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Alzheimer's disease and other dementias",230.580132517675,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Alzheimer's disease and other dementias",336.107960758935,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Alzheimer's disease and other dementias",497.048552006656,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Alzheimer's disease and other dementias",495.405053959885,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Alzheimer's disease and other dementias",889.749188928528,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Alzheimer's disease and other dementias",414.100270852664,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Alzheimer's disease and other dementias",1030.57788281541,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Alzheimer's disease and other dementias",139.062292584208,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Alzheimer's disease and other dementias",139.062292584208,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Alzheimer's disease and other dementias",571.637482555202,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Alzheimer's disease and other dementias",571.637482555202,8324.01135409652
+"Deaths","Greater London","Male","15 to 19","Diabetes mellitus type 2",0.0248270368184994,245406.188351018
+"Deaths","Greater London","Female","15 to 19","Diabetes mellitus type 2",0.0236848572119413,236079.785967342
+"Deaths","Greater London","Male","20 to 24","Diabetes mellitus type 2",0.058142027971188,302292.175188839
+"Deaths","Greater London","Female","20 to 24","Diabetes mellitus type 2",0.040456054005328,303947.382925422
+"Deaths","Greater London","Male","25 to 29","Diabetes mellitus type 2",0.110283506966356,412892.558710664
+"Deaths","Greater London","Female","25 to 29","Diabetes mellitus type 2",0.0805739432264995,417744.268794877
+"Deaths","Greater London","Male","30 to 34","Diabetes mellitus type 2",0.499387379932402,445614.940901526
+"Deaths","Greater London","Female","30 to 34","Diabetes mellitus type 2",0.234043849873701,439953.078947835
+"Deaths","Greater London","Male","35 to 39","Diabetes mellitus type 2",0.756720933167356,395496.398878372
+"Deaths","Greater London","Female","35 to 39","Diabetes mellitus type 2",0.329981662940756,395817.600959685
+"Deaths","Greater London","Male","40 to 44","Diabetes mellitus type 2",1.12262663340686,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Diabetes mellitus type 2",0.503461035035643,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Diabetes mellitus type 2",4.23647710899338,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Diabetes mellitus type 2",1.85161729644993,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Diabetes mellitus type 2",5.93894324039012,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Diabetes mellitus type 2",2.68917767621975,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Diabetes mellitus type 2",7.40672498194531,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Diabetes mellitus type 2",3.59738054826552,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Diabetes mellitus type 2",10.9173280344358,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Diabetes mellitus type 2",5.28597904872413,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Diabetes mellitus type 2",15.4162643980432,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Diabetes mellitus type 2",7.97223513042645,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Diabetes mellitus type 2",19.7640824121043,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Diabetes mellitus type 2",13.5399073396709,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Diabetes mellitus type 2",27.7788089062386,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Diabetes mellitus type 2",19.4898479739447,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Diabetes mellitus type 2",34.9115277855111,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Diabetes mellitus type 2",31.8907936635553,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Diabetes mellitus type 2",34.5126266741762,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Diabetes mellitus type 2",37.6434791581375,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Diabetes mellitus type 2",21.3925524798218,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Diabetes mellitus type 2",31.8884994116968,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Diabetes mellitus type 2",7.45419650804253,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Diabetes mellitus type 2",7.45419650804253,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Diabetes mellitus type 2",17.713914685781,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Diabetes mellitus type 2",17.713914685781,8324.01135409652
+"Deaths","Greater London","Male","0 to 4","Neoplasms",9.11529757336067,324704.739371668
+"Deaths","Greater London","Female","0 to 4","Neoplasms",9.3822189769636,309091.774415545
+"Deaths","Greater London","Male","5 to 9","Neoplasms",8.80393034858886,305613.111031444
+"Deaths","Greater London","Female","5 to 9","Neoplasms",5.63274994804012,292447.166921089
+"Deaths","Greater London","Male","10 to 14","Neoplasms",5.65461317276661,261847.306140115
+"Deaths","Greater London","Female","10 to 14","Neoplasms",6.77084891973435,251158.512865704
+"Deaths","Greater London","Male","15 to 19","Neoplasms",7.78214476110319,245406.188351018
+"Deaths","Greater London","Female","15 to 19","Neoplasms",5.32553865222334,236079.785967342
+"Deaths","Greater London","Male","20 to 24","Neoplasms",10.8072661814766,302292.175188839
+"Deaths","Greater London","Female","20 to 24","Neoplasms",9.11502534141938,303947.382925422
+"Deaths","Greater London","Male","25 to 29","Neoplasms",17.2613282681239,412892.558710664
+"Deaths","Greater London","Female","25 to 29","Neoplasms",18.5526332845397,417744.268794877
+"Deaths","Greater London","Male","30 to 34","Neoplasms",29.0808947093994,445614.940901526
+"Deaths","Greater London","Female","30 to 34","Neoplasms",36.7699805252905,439953.078947835
+"Deaths","Greater London","Male","35 to 39","Neoplasms",47.58939918994,395496.398878372
+"Deaths","Greater London","Female","35 to 39","Neoplasms",63.263363882806,395817.600959685
+"Deaths","Greater London","Male","40 to 44","Neoplasms",83.8640228559046,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Neoplasms",114.292937080009,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Neoplasms",169.346120023012,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Neoplasms",208.913379740849,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Neoplasms",328.197823955836,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Neoplasms",348.191374965613,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Neoplasms",490.027611815763,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Neoplasms",463.335669348279,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Neoplasms",668.616658776252,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Neoplasms",526.673266877432,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Neoplasms",907.7786219524,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Neoplasms",718.037151591649,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Neoplasms",999.990927551442,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Neoplasms",849.77796805136,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Neoplasms",1146.9725515866,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Neoplasms",904.884258949949,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Neoplasms",1146.52812607478,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Neoplasms",972.455825964686,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Neoplasms",938.34819883427,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Neoplasms",868.502840870044,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Neoplasms",446.257374130128,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Neoplasms",556.844447890584,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Neoplasms",112.342574537953,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Neoplasms",112.342574537953,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Neoplasms",227.899329254044,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Neoplasms",227.899329254044,8324.01135409652
+"Deaths","Greater London","Male","15 to 19","Stomach cancer",0.0402924663408082,245406.188351018
+"Deaths","Greater London","Female","15 to 19","Stomach cancer",0.0252928083072718,236079.785967342
+"Deaths","Greater London","Male","20 to 24","Stomach cancer",0.119354511380843,302292.175188839
+"Deaths","Greater London","Female","20 to 24","Stomach cancer",0.104779250941348,303947.382925422
+"Deaths","Greater London","Male","25 to 29","Stomach cancer",0.374624704024771,412892.558710664
+"Deaths","Greater London","Female","25 to 29","Stomach cancer",0.413123928396581,417744.268794877
+"Deaths","Greater London","Male","30 to 34","Stomach cancer",1.08325786877897,445614.940901526
+"Deaths","Greater London","Female","30 to 34","Stomach cancer",1.14343896419382,439953.078947835
+"Deaths","Greater London","Male","35 to 39","Stomach cancer",2.32175967316234,395496.398878372
+"Deaths","Greater London","Female","35 to 39","Stomach cancer",1.78155054446752,395817.600959685
+"Deaths","Greater London","Male","40 to 44","Stomach cancer",4.28975354199519,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Stomach cancer",3.35610671461136,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Stomach cancer",8.78254496674108,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Stomach cancer",4.84209096062941,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Stomach cancer",15.7486072891458,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Stomach cancer",7.73894090150489,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Stomach cancer",22.109875999441,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Stomach cancer",10.6293258184086,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Stomach cancer",30.2349978585321,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Stomach cancer",12.7843491249257,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Stomach cancer",42.8225420987603,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Stomach cancer",18.4240404594357,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Stomach cancer",50.3919026761908,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Stomach cancer",26.1013376522992,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Stomach cancer",64.1934760990728,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Stomach cancer",35.8001087484416,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Stomach cancer",66.8128918104044,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Stomach cancer",45.3713946440588,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Stomach cancer",54.1345399674359,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Stomach cancer",43.9278956932104,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Stomach cancer",27.7301861324157,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Stomach cancer",32.0736992283426,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Stomach cancer",7.74811964220702,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Stomach cancer",7.74811964220702,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Stomach cancer",14.5009369038239,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Stomach cancer",14.5009369038239,8324.01135409652
+"Deaths","Greater London","Male","5 to 9","Liver cancer",0.164823413863693,305613.111031444
+"Deaths","Greater London","Female","5 to 9","Liver cancer",0.0852721635929952,292447.166921089
+"Deaths","Greater London","Male","10 to 14","Liver cancer",0.127978610528009,261847.306140115
+"Deaths","Greater London","Female","10 to 14","Liver cancer",0.120977934755533,251158.512865704
+"Deaths","Greater London","Male","15 to 19","Liver cancer",0.206981904466403,245406.188351018
+"Deaths","Greater London","Female","15 to 19","Liver cancer",0.172138731848156,236079.785967342
+"Deaths","Greater London","Male","20 to 24","Liver cancer",0.36107673207855,302292.175188839
+"Deaths","Greater London","Female","20 to 24","Liver cancer",0.253187580654537,303947.382925422
+"Deaths","Greater London","Male","25 to 29","Liver cancer",0.668686321651216,412892.558710664
+"Deaths","Greater London","Female","25 to 29","Liver cancer",0.472297052276575,417744.268794877
+"Deaths","Greater London","Male","30 to 34","Liver cancer",1.34736860366546,445614.940901526
+"Deaths","Greater London","Female","30 to 34","Liver cancer",0.682330975072178,439953.078947835
+"Deaths","Greater London","Male","35 to 39","Liver cancer",1.80276394239749,395496.398878372
+"Deaths","Greater London","Female","35 to 39","Liver cancer",1.08501108975313,395817.600959685
+"Deaths","Greater London","Male","40 to 44","Liver cancer",3.62133792848302,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Liver cancer",1.87421019614077,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Liver cancer",8.04636284985928,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Liver cancer",3.64623501730405,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Liver cancer",16.6375094562326,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Liver cancer",7.39624989987563,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Liver cancer",25.3612566993814,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Liver cancer",10.8582109198996,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Liver cancer",32.5001541416848,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Liver cancer",12.9353825750676,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Liver cancer",41.4559435311134,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Liver cancer",18.8127770314311,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Liver cancer",42.2342017662749,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Liver cancer",24.05979149174,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Liver cancer",44.0412608694377,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Liver cancer",28.1468874538982,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Liver cancer",38.2930034881335,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Liver cancer",30.3707078149847,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Liver cancer",26.6070559834598,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Liver cancer",26.1091093622175,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Liver cancer",10.2478574072556,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Liver cancer",14.5524530487898,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Liver cancer",2.22959749218435,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Liver cancer",2.22959749218435,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Liver cancer",5.38176307838267,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Liver cancer",5.38176307838267,8324.01135409652
+"Deaths","Greater London","Male","15 to 19","Tracheal, bronchus, and lung cancer",0.0328105601008112,245406.188351018
+"Deaths","Greater London","Female","15 to 19","Tracheal, bronchus, and lung cancer",0.0598662613260263,236079.785967342
+"Deaths","Greater London","Male","20 to 24","Tracheal, bronchus, and lung cancer",0.144349689048763,302292.175188839
+"Deaths","Greater London","Female","20 to 24","Tracheal, bronchus, and lung cancer",0.154183254833718,303947.382925422
+"Deaths","Greater London","Male","25 to 29","Tracheal, bronchus, and lung cancer",0.378422077391146,412892.558710664
+"Deaths","Greater London","Female","25 to 29","Tracheal, bronchus, and lung cancer",0.425094729399082,417744.268794877
+"Deaths","Greater London","Male","30 to 34","Tracheal, bronchus, and lung cancer",1.40499417047518,445614.940901526
+"Deaths","Greater London","Female","30 to 34","Tracheal, bronchus, and lung cancer",1.51411180808262,439953.078947835
+"Deaths","Greater London","Male","35 to 39","Tracheal, bronchus, and lung cancer",4.19347818675927,395496.398878372
+"Deaths","Greater London","Female","35 to 39","Tracheal, bronchus, and lung cancer",3.40680053409932,395817.600959685
+"Deaths","Greater London","Male","40 to 44","Tracheal, bronchus, and lung cancer",11.7399692198351,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Tracheal, bronchus, and lung cancer",10.1937581035023,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Tracheal, bronchus, and lung cancer",31.964805717758,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Tracheal, bronchus, and lung cancer",28.5976763834917,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Tracheal, bronchus, and lung cancer",72.5501688378365,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Tracheal, bronchus, and lung cancer",58.685543034297,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Tracheal, bronchus, and lung cancer",121.015809224059,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Tracheal, bronchus, and lung cancer",96.6641213214707,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Tracheal, bronchus, and lung cancer",177.226507838573,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Tracheal, bronchus, and lung cancer",125.690436647374,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Tracheal, bronchus, and lung cancer",248.128612270904,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Tracheal, bronchus, and lung cancer",183.789094087884,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Tracheal, bronchus, and lung cancer",269.419687047303,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Tracheal, bronchus, and lung cancer",215.807709755393,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Tracheal, bronchus, and lung cancer",287.88963247256,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Tracheal, bronchus, and lung cancer",211.916752749603,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Tracheal, bronchus, and lung cancer",252.357423297041,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Tracheal, bronchus, and lung cancer",203.152331081719,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Tracheal, bronchus, and lung cancer",177.086348837024,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Tracheal, bronchus, and lung cancer",143.676772621691,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Tracheal, bronchus, and lung cancer",66.4958433970748,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Tracheal, bronchus, and lung cancer",77.6521996155153,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Tracheal, bronchus, and lung cancer",13.0334032982121,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Tracheal, bronchus, and lung cancer",13.0334032982121,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Tracheal, bronchus, and lung cancer",28.4158027883602,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Tracheal, bronchus, and lung cancer",28.4158027883602,8324.01135409652
+"Deaths","Greater London","Male","15 to 19","Breast cancer",0.0194169434709948,245406.188351018
+"Deaths","Greater London","Female","15 to 19","Breast cancer",0.0356926529763664,236079.785967342
+"Deaths","Greater London","Male","20 to 24","Breast cancer",0.0230016465777605,302292.175188839
+"Deaths","Greater London","Female","20 to 24","Breast cancer",0.247487353650219,303947.382925422
+"Deaths","Greater London","Male","25 to 29","Breast cancer",0.0334563017528055,412892.558710664
+"Deaths","Greater London","Female","25 to 29","Breast cancer",2.12994392291916,417744.268794877
+"Deaths","Greater London","Male","30 to 34","Breast cancer",0.0555973036452834,445614.940901526
+"Deaths","Greater London","Female","30 to 34","Breast cancer",9.07246552061182,439953.078947835
+"Deaths","Greater London","Male","35 to 39","Breast cancer",0.145638354203895,395496.398878372
+"Deaths","Greater London","Female","35 to 39","Breast cancer",21.1911771836168,395817.600959685
+"Deaths","Greater London","Male","40 to 44","Breast cancer",0.255610053980598,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Breast cancer",40.5750112951433,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Breast cancer",0.466986331597376,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Breast cancer",69.2253182377521,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Breast cancer",0.861793859385858,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Breast cancer",100.055945050389,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Breast cancer",1.20945764826678,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Breast cancer",104.775986969488,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Breast cancer",1.76722530936637,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Breast cancer",93.3733206249932,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Breast cancer",2.38959101531759,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Breast cancer",107.099289618597,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Breast cancer",2.73669002917467,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Breast cancer",112.012444503345,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Breast cancer",2.96453217386865,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Breast cancer",116.818419542038,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Breast cancer",2.90259786738138,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Breast cancer",129.198964690081,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Breast cancer",2.40771122294902,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Breast cancer",134.705528044015,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Breast cancer",1.46412879805436,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Breast cancer",93.620614240354,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Breast cancer",0.505390751995273,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Breast cancer",0.505390751995273,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Breast cancer",42.5056383442783,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Breast cancer",42.5056383442783,8324.01135409652
+"Deaths","Greater London","Female","15 to 19","Uterine cancer",0.0198287267853305,236079.785967342
+"Deaths","Greater London","Female","20 to 24","Uterine cancer",0.0379712602634476,303947.382925422
+"Deaths","Greater London","Female","25 to 29","Uterine cancer",0.108096588038195,417744.268794877
+"Deaths","Greater London","Female","30 to 34","Uterine cancer",0.218305208267122,439953.078947835
+"Deaths","Greater London","Female","35 to 39","Uterine cancer",0.431593809209955,395817.600959685
+"Deaths","Greater London","Female","40 to 44","Uterine cancer",1.0863318910112,315079.771794941
+"Deaths","Greater London","Female","45 to 49","Uterine cancer",2.57291232946539,297020.721726264
+"Deaths","Greater London","Female","50 to 54","Uterine cancer",5.93540937041137,276489.036024098
+"Deaths","Greater London","Female","55 to 59","Uterine cancer",10.6890656786562,228149.350170698
+"Deaths","Greater London","Female","60 to 64","Uterine cancer",14.8669090900663,182555.63283217
+"Deaths","Greater London","Female","65 to 69","Uterine cancer",22.1060643948831,155782.007947398
+"Deaths","Greater London","Female","70 to 74","Uterine cancer",25.1592270976502,130256.84840268
+"Deaths","Greater London","Female","75 to 79","Uterine cancer",23.7262760741475,99797.1414759267
+"Deaths","Greater London","Female","80 to 84","Uterine cancer",22.6578036812773,76722.8857071115
+"Deaths","Greater London","Female","85 to 89","Uterine cancer",18.3053946862983,50626.0319244654
+"Deaths","Greater London","Female","90 to 94","Uterine cancer",10.3428411481271,25566.023210283
+"Deaths","Greater London","Female","95 to 99","Uterine cancer",3.75991004956171,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Uterine cancer",3.75991004956171,8324.01135409652
+"Deaths","Greater London","Male","15 to 19","Colon and rectum cancer",0.0848337156121436,245406.188351018
+"Deaths","Greater London","Female","15 to 19","Colon and rectum cancer",0.047237319063512,236079.785967342
+"Deaths","Greater London","Male","20 to 24","Colon and rectum cancer",0.334484379775304,302292.175188839
+"Deaths","Greater London","Female","20 to 24","Colon and rectum cancer",0.284507117787616,303947.382925422
+"Deaths","Greater London","Male","25 to 29","Colon and rectum cancer",1.02553830538584,412892.558710664
+"Deaths","Greater London","Female","25 to 29","Colon and rectum cancer",0.889363860747122,417744.268794877
+"Deaths","Greater London","Male","30 to 34","Colon and rectum cancer",2.74515704511295,445614.940901526
+"Deaths","Greater London","Female","30 to 34","Colon and rectum cancer",2.40733206985057,439953.078947835
+"Deaths","Greater London","Male","35 to 39","Colon and rectum cancer",4.94969603662299,395496.398878372
+"Deaths","Greater London","Female","35 to 39","Colon and rectum cancer",4.10956740851626,395817.600959685
+"Deaths","Greater London","Male","40 to 44","Colon and rectum cancer",8.55834994547217,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Colon and rectum cancer",7.75873223553249,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Colon and rectum cancer",17.6762226972034,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Colon and rectum cancer",15.1894206233743,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Colon and rectum cancer",34.3129118330348,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Colon and rectum cancer",26.6010130276202,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Colon and rectum cancer",50.9780974601301,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Colon and rectum cancer",37.2421886306958,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Colon and rectum cancer",68.0104724533266,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Colon and rectum cancer",42.1236920516127,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Colon and rectum cancer",90.9409456287019,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Colon and rectum cancer",59.2478174195755,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Colon and rectum cancer",101.058737106161,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Colon and rectum cancer",74.3836064501416,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Colon and rectum cancer",117.060808149469,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Colon and rectum cancer",93.0441384331042,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Colon and rectum cancer",123.906296914602,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Colon and rectum cancer",116.888418568188,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Colon and rectum cancer",105.006123695058,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Colon and rectum cancer",121.128686288158,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Colon and rectum cancer",52.4187411926051,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Colon and rectum cancer",86.6980922225403,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Colon and rectum cancer",13.226023574492,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Colon and rectum cancer",13.226023574492,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Colon and rectum cancer",36.3061096975888,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Colon and rectum cancer",36.3061096975888,8324.01135409652
+"Deaths","Greater London","Male","0 to 4","Road injuries",1.76263884137851,324704.739371668
+"Deaths","Greater London","Female","0 to 4","Road injuries",1.75763440059391,309091.774415545
+"Deaths","Greater London","Male","5 to 9","Road injuries",1.8098265271928,305613.111031444
+"Deaths","Greater London","Female","5 to 9","Road injuries",1.18792707515996,292447.166921089
+"Deaths","Greater London","Male","10 to 14","Road injuries",2.13241883395513,261847.306140115
+"Deaths","Greater London","Female","10 to 14","Road injuries",1.907507265822,251158.512865704
+"Deaths","Greater London","Male","15 to 19","Road injuries",14.5170675522856,245406.188351018
+"Deaths","Greater London","Female","15 to 19","Road injuries",3.98643808733756,236079.785967342
+"Deaths","Greater London","Male","20 to 24","Road injuries",23.7383862463836,302292.175188839
+"Deaths","Greater London","Female","20 to 24","Road injuries",5.05427967251739,303947.382925422
+"Deaths","Greater London","Male","25 to 29","Road injuries",22.7676141492672,412892.558710664
+"Deaths","Greater London","Female","25 to 29","Road injuries",4.23426303090843,417744.268794877
+"Deaths","Greater London","Male","30 to 34","Road injuries",19.7475901725415,445614.940901526
+"Deaths","Greater London","Female","30 to 34","Road injuries",3.59693835442336,439953.078947835
+"Deaths","Greater London","Male","35 to 39","Road injuries",16.0299394006783,395496.398878372
+"Deaths","Greater London","Female","35 to 39","Road injuries",3.26366359565141,395817.600959685
+"Deaths","Greater London","Male","40 to 44","Road injuries",13.6068219780332,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Road injuries",3.35144770819527,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Road injuries",12.7295272007119,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Road injuries",3.59473168593647,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Road injuries",11.9171940519468,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Road injuries",3.75271485246438,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Road injuries",9.49020877848782,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Road injuries",3.45908919450505,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Road injuries",7.64302509499437,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Road injuries",2.85323831091048,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Road injuries",6.97610107796162,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Road injuries",3.52882613595155,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Road injuries",5.92715522852068,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Road injuries",4.04755162037927,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Road injuries",6.28706617195402,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Road injuries",4.70065206175313,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Road injuries",6.16015729486404,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Road injuries",5.30562316169668,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Road injuries",4.70562423132533,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Road injuries",4.13499173955658,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Road injuries",2.27126675819566,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Road injuries",2.73637400034544,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Road injuries",0.675732813075675,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Road injuries",0.675732813075675,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Road injuries",1.31673889946418,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Road injuries",1.31673889946418,8324.01135409652
+"Deaths","Greater London","Male","0 to 4","Chronic obstructive pulmonary disease",0.17122727660308,324704.739371668
+"Deaths","Greater London","Female","0 to 4","Chronic obstructive pulmonary disease",0.276472404969176,309091.774415545
+"Deaths","Greater London","Male","5 to 9","Chronic obstructive pulmonary disease",0.0583053815234683,305613.111031444
+"Deaths","Greater London","Female","5 to 9","Chronic obstructive pulmonary disease",0.128318676936557,292447.166921089
+"Deaths","Greater London","Male","10 to 14","Chronic obstructive pulmonary disease",0.041905745858946,261847.306140115
+"Deaths","Greater London","Female","10 to 14","Chronic obstructive pulmonary disease",0.172043659040669,251158.512865704
+"Deaths","Greater London","Male","15 to 19","Chronic obstructive pulmonary disease",0.145132200955462,245406.188351018
+"Deaths","Greater London","Female","15 to 19","Chronic obstructive pulmonary disease",0.126873620793018,236079.785967342
+"Deaths","Greater London","Male","20 to 24","Chronic obstructive pulmonary disease",0.226223082286457,302292.175188839
+"Deaths","Greater London","Female","20 to 24","Chronic obstructive pulmonary disease",0.210518607061327,303947.382925422
+"Deaths","Greater London","Male","25 to 29","Chronic obstructive pulmonary disease",0.301654724887706,412892.558710664
+"Deaths","Greater London","Female","25 to 29","Chronic obstructive pulmonary disease",0.273591345960843,417744.268794877
+"Deaths","Greater London","Male","30 to 34","Chronic obstructive pulmonary disease",0.585597193952405,445614.940901526
+"Deaths","Greater London","Female","30 to 34","Chronic obstructive pulmonary disease",0.445412472924369,439953.078947835
+"Deaths","Greater London","Male","35 to 39","Chronic obstructive pulmonary disease",1.4577594688655,395496.398878372
+"Deaths","Greater London","Female","35 to 39","Chronic obstructive pulmonary disease",0.852937400556972,395817.600959685
+"Deaths","Greater London","Male","40 to 44","Chronic obstructive pulmonary disease",4.13725911543637,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Chronic obstructive pulmonary disease",2.61363944574036,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Chronic obstructive pulmonary disease",9.77288982496276,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Chronic obstructive pulmonary disease",6.58906191569368,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Chronic obstructive pulmonary disease",23.3338459348589,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Chronic obstructive pulmonary disease",18.3606776114628,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Chronic obstructive pulmonary disease",43.9082506919052,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Chronic obstructive pulmonary disease",34.7965567778968,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Chronic obstructive pulmonary disease",82.1311860881268,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Chronic obstructive pulmonary disease",59.9093357846625,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Chronic obstructive pulmonary disease",136.557723189255,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Chronic obstructive pulmonary disease",101.993706213132,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Chronic obstructive pulmonary disease",189.318338156179,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Chronic obstructive pulmonary disease",156.755887288183,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Chronic obstructive pulmonary disease",258.323081515518,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Chronic obstructive pulmonary disease",201.064316228744,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Chronic obstructive pulmonary disease",315.480692334405,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Chronic obstructive pulmonary disease",271.766336857446,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Chronic obstructive pulmonary disease",298.083608848499,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Chronic obstructive pulmonary disease",278.484735522091,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Chronic obstructive pulmonary disease",171.086144196433,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Chronic obstructive pulmonary disease",211.233521403211,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Chronic obstructive pulmonary disease",55.6980100938182,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Chronic obstructive pulmonary disease",55.6980100938182,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Chronic obstructive pulmonary disease",115.85787557659,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Chronic obstructive pulmonary disease",115.85787557659,8324.01135409652
+"Deaths","Greater London","Male","0 to 4","Cardiovascular diseases",3.41626962165515,324704.739371668
+"Deaths","Greater London","Female","0 to 4","Cardiovascular diseases",3.15513169067413,309091.774415545
+"Deaths","Greater London","Male","5 to 9","Cardiovascular diseases",0.726256097436824,305613.111031444
+"Deaths","Greater London","Female","5 to 9","Cardiovascular diseases",0.624824436196522,292447.166921089
+"Deaths","Greater London","Male","10 to 14","Cardiovascular diseases",0.793863325621751,261847.306140115
+"Deaths","Greater London","Female","10 to 14","Cardiovascular diseases",0.822866650210848,251158.512865704
+"Deaths","Greater London","Male","15 to 19","Cardiovascular diseases",2.68431285514772,245406.188351018
+"Deaths","Greater London","Female","15 to 19","Cardiovascular diseases",1.3384095931665,236079.785967342
+"Deaths","Greater London","Male","20 to 24","Cardiovascular diseases",5.49375859799023,302292.175188839
+"Deaths","Greater London","Female","20 to 24","Cardiovascular diseases",3.42396911494249,303947.382925422
+"Deaths","Greater London","Male","25 to 29","Cardiovascular diseases",10.5642851561903,412892.558710664
+"Deaths","Greater London","Female","25 to 29","Cardiovascular diseases",5.34603893902803,417744.268794877
+"Deaths","Greater London","Male","30 to 34","Cardiovascular diseases",22.1387531090746,445614.940901526
+"Deaths","Greater London","Female","30 to 34","Cardiovascular diseases",10.0935114204036,439953.078947835
+"Deaths","Greater London","Male","35 to 39","Cardiovascular diseases",42.6001401254229,395496.398878372
+"Deaths","Greater London","Female","35 to 39","Cardiovascular diseases",16.8083151040071,395817.600959685
+"Deaths","Greater London","Male","40 to 44","Cardiovascular diseases",84.8491138416659,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Cardiovascular diseases",30.9955546905466,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Cardiovascular diseases",161.543163537778,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Cardiovascular diseases",54.3381007459075,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Cardiovascular diseases",277.471893838451,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Cardiovascular diseases",85.7290792390401,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Cardiovascular diseases",345.056452107265,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Cardiovascular diseases",120.478071120938,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Cardiovascular diseases",438.968566716644,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Cardiovascular diseases",167.656590668087,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Cardiovascular diseases",593.013999120767,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Cardiovascular diseases",279.934710804583,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Cardiovascular diseases",752.090289072289,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Cardiovascular diseases",448.411620123918,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Cardiovascular diseases",973.646387676133,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Cardiovascular diseases",683.781497405262,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Cardiovascular diseases",1211.31396235767,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Cardiovascular diseases",1118.02263896923,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Cardiovascular diseases",1224.23716942188,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Cardiovascular diseases",1521.10677680862,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Cardiovascular diseases",774.088765805836,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Cardiovascular diseases",1356.14034097078,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Cardiovascular diseases",264.908413121461,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Cardiovascular diseases",264.908413121461,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Cardiovascular diseases",767.844721893794,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Cardiovascular diseases",767.844721893794,8324.01135409652
+"Deaths","Greater London","Male","15 to 19","Ischemic heart disease",0.172819023651761,245406.188351018
+"Deaths","Greater London","Female","15 to 19","Ischemic heart disease",0.0732592032440482,236079.785967342
+"Deaths","Greater London","Male","20 to 24","Ischemic heart disease",0.728224708086858,302292.175188839
+"Deaths","Greater London","Female","20 to 24","Ischemic heart disease",0.276012229315671,303947.382925422
+"Deaths","Greater London","Male","25 to 29","Ischemic heart disease",2.61706876667569,412892.558710664
+"Deaths","Greater London","Female","25 to 29","Ischemic heart disease",0.521588111241373,417744.268794877
+"Deaths","Greater London","Male","30 to 34","Ischemic heart disease",8.03665149395708,445614.940901526
+"Deaths","Greater London","Female","30 to 34","Ischemic heart disease",1.80299521135048,439953.078947835
+"Deaths","Greater London","Male","35 to 39","Ischemic heart disease",19.6746597651947,395496.398878372
+"Deaths","Greater London","Female","35 to 39","Ischemic heart disease",4.05392989565232,395817.600959685
+"Deaths","Greater London","Male","40 to 44","Ischemic heart disease",45.1266885018305,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Ischemic heart disease",8.81082549650823,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Ischemic heart disease",96.3552656663914,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Ischemic heart disease",18.6245090174125,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Ischemic heart disease",176.63625576897,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Ischemic heart disease",32.1274860179514,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Ischemic heart disease",221.949190934852,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Ischemic heart disease",50.7168506646302,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Ischemic heart disease",281.657894707383,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Ischemic heart disease",76.1182178627085,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Ischemic heart disease",367.715548257009,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Ischemic heart disease",132.331577762068,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Ischemic heart disease",447.002449039893,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Ischemic heart disease",202.237785155375,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Ischemic heart disease",542.792740650398,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Ischemic heart disease",289.780962170643,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Ischemic heart disease",649.205753526597,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Ischemic heart disease",467.607387989769,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Ischemic heart disease",618.987513841431,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Ischemic heart disease",608.541960567362,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Ischemic heart disease",387.42559360587,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Ischemic heart disease",537.444221773667,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Ischemic heart disease",131.504274521335,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Ischemic heart disease",131.504274521335,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Ischemic heart disease",304.928456275396,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Ischemic heart disease",304.928456275396,8324.01135409652
+"Deaths","Greater London","Male","0 to 4","Stroke",0.296478702462764,324704.739371668
+"Deaths","Greater London","Female","0 to 4","Stroke",0.252579405553626,309091.774415545
+"Deaths","Greater London","Male","5 to 9","Stroke",0.139274377291564,305613.111031444
+"Deaths","Greater London","Female","5 to 9","Stroke",0.0973137409524216,292447.166921089
+"Deaths","Greater London","Male","10 to 14","Stroke",0.135381239776379,261847.306140115
+"Deaths","Greater London","Female","10 to 14","Stroke",0.180556800394512,251158.512865704
+"Deaths","Greater London","Male","15 to 19","Stroke",0.471117591785805,245406.188351018
+"Deaths","Greater London","Female","15 to 19","Stroke",0.260352907523048,236079.785967342
+"Deaths","Greater London","Male","20 to 24","Stroke",1.0382339348414,302292.175188839
+"Deaths","Greater London","Female","20 to 24","Stroke",0.808645638160509,303947.382925422
+"Deaths","Greater London","Male","25 to 29","Stroke",1.96250176130548,412892.558710664
+"Deaths","Greater London","Female","25 to 29","Stroke",1.35548895383012,417744.268794877
+"Deaths","Greater London","Male","30 to 34","Stroke",3.86302486932823,445614.940901526
+"Deaths","Greater London","Female","30 to 34","Stroke",2.79254832500369,439953.078947835
+"Deaths","Greater London","Male","35 to 39","Stroke",6.90348255497587,395496.398878372
+"Deaths","Greater London","Female","35 to 39","Stroke",4.78148136569709,395817.600959685
+"Deaths","Greater London","Male","40 to 44","Stroke",12.292132794159,317181.722892981
+"Deaths","Greater London","Female","40 to 44","Stroke",8.68970348277069,315079.771794941
+"Deaths","Greater London","Male","45 to 49","Stroke",21.6157069040547,295250.911136889
+"Deaths","Greater London","Female","45 to 49","Stroke",14.2018139020393,297020.721726264
+"Deaths","Greater London","Male","50 to 54","Stroke",34.4544451702219,269098.194980257
+"Deaths","Greater London","Female","50 to 54","Stroke",22.9227230861496,276489.036024098
+"Deaths","Greater London","Male","55 to 59","Stroke",41.7318405745684,224179.207239458
+"Deaths","Greater London","Female","55 to 59","Stroke",28.0882708238897,228149.350170698
+"Deaths","Greater London","Male","60 to 64","Stroke",53.7671914964131,174492.484124048
+"Deaths","Greater London","Female","60 to 64","Stroke",34.929815510018,182555.63283217
+"Deaths","Greater London","Male","65 to 69","Stroke",83.5236136447223,143459.189966701
+"Deaths","Greater London","Female","65 to 69","Stroke",58.4745160011138,155782.007947398
+"Deaths","Greater London","Male","70 to 74","Stroke",127.374674990079,114290.361259979
+"Deaths","Greater London","Female","70 to 74","Stroke",102.629509852154,130256.84840268
+"Deaths","Greater London","Male","75 to 79","Stroke",195.467371406499,81687.3838264806
+"Deaths","Greater London","Female","75 to 79","Stroke",177.178085461704,99797.1414759267
+"Deaths","Greater London","Male","80 to 84","Stroke",270.906685395017,58960.9329778489
+"Deaths","Greater London","Female","80 to 84","Stroke",302.41149860137,76722.8857071115
+"Deaths","Greater London","Male","85 to 89","Stroke",296.265226704325,32424.6067661707
+"Deaths","Greater London","Female","85 to 89","Stroke",415.626076973835,50626.0319244654
+"Deaths","Greater London","Male","90 to 94","Stroke",190.908076637713,12549.1238974443
+"Deaths","Greater London","Female","90 to 94","Stroke",363.192818473353,25566.023210283
+"Deaths","Greater London","Male","95 to 99","Stroke",69.6565880973401,2830.61875132751
+"Deaths","Greater London","Male","95 to 99","Stroke",69.6565880973401,2830.61875132751
+"Deaths","Greater London","Female","95 to 99","Stroke",214.818549660342,8324.01135409652
+"Deaths","Greater London","Female","95 to 99","Stroke",214.818549660342,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","0 to 4","All causes",25870.0609959306,324704.739371668
+"YLLs (Years of Life Lost)","Greater London","Female","0 to 4","All causes",21092.3348222431,309091.774415545
+"YLLs (Years of Life Lost)","Greater London","Male","5 to 9","All causes",2126.32840249819,305613.111031444
+"YLLs (Years of Life Lost)","Greater London","Female","5 to 9","All causes",1438.66888945947,292447.166921089
+"YLLs (Years of Life Lost)","Greater London","Male","10 to 14","All causes",1555.19338518008,261847.306140115
+"YLLs (Years of Life Lost)","Greater London","Female","10 to 14","All causes",1701.34132229568,251158.512865704
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","All causes",4380.71362539356,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","All causes",1962.05923439408,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","All causes",7902.86055687853,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","All causes",3318.44245280335,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","All causes",10012.5736177737,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","All causes",4484.09694698199,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","All causes",12802.9649190792,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","All causes",6401.52437086742,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","All causes",15509.9459748392,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","All causes",8308.47420116536,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","All causes",19315.1107050367,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","All causes",11753.9147001146,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","All causes",26141.2932444962,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","All causes",17005.7506843917,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","All causes",35200.7357767629,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","All causes",23100.5230759845,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","All causes",38126.4577909065,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","All causes",25927.056392127,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","All causes",41223.6963404527,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","All causes",26059.5946784463,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","All causes",45986.3539914672,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","All causes",31402.4026615388,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","All causes",44201.1792143984,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","All causes",34816.2094508198,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","All causes",44511.0551054792,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","All causes",35739.6232359476,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","All causes",39983.8155935818,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","All causes",38283.0186145811,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","All causes",29194.7842588717,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","All causes",34991.3354459909,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","All causes",12227.6804849122,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","All causes",20892.0896339872,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","All causes",2285.77657882207,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","All causes",2285.77657882207,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","All causes",6404.68650441988,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","All causes",6404.68650441988,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","0 to 4","Lower respiratory infections",1048.84939090926,324704.739371668
+"YLLs (Years of Life Lost)","Greater London","Female","0 to 4","Lower respiratory infections",875.720801642758,309091.774415545
+"YLLs (Years of Life Lost)","Greater London","Male","5 to 9","Lower respiratory infections",89.475161211839,305613.111031444
+"YLLs (Years of Life Lost)","Greater London","Female","5 to 9","Lower respiratory infections",75.190124835187,292447.166921089
+"YLLs (Years of Life Lost)","Greater London","Male","10 to 14","Lower respiratory infections",45.5734704718114,261847.306140115
+"YLLs (Years of Life Lost)","Greater London","Female","10 to 14","Lower respiratory infections",67.4109508594708,251158.512865704
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","Lower respiratory infections",67.5353600160707,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Lower respiratory infections",47.5997905563034,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","Lower respiratory infections",101.06420328518,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Lower respiratory infections",84.2529522517754,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","Lower respiratory infections",162.524380068464,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Lower respiratory infections",113.241727596892,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","Lower respiratory infections",256.612394849529,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Lower respiratory infections",156.122412840778,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","Lower respiratory infections",371.844701590207,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Lower respiratory infections",218.255782735145,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Lower respiratory infections",510.557653232583,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Lower respiratory infections",323.960315234871,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Lower respiratory infections",722.933892801911,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Lower respiratory infections",430.432433643169,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Lower respiratory infections",991.808979680027,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Lower respiratory infections",618.262520892209,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Lower respiratory infections",1018.57304528644,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Lower respiratory infections",667.221780608596,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Lower respiratory infections",1158.58722681464,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Lower respiratory infections",711.978837256971,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Lower respiratory infections",1367.1234360703,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Lower respiratory infections",906.676079798127,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Lower respiratory infections",1562.43038052164,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Lower respiratory infections",1288.79257385499,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Lower respiratory infections",2068.03905301573,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Lower respiratory infections",1712.2004455623,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Lower respiratory infections",2571.71914909183,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Lower respiratory infections",2487.72862392014,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Lower respiratory infections",2726.58799865022,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Lower respiratory infections",3297.81390509121,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Lower respiratory infections",1244.52694446035,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Lower respiratory infections",2043.98149023549,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Lower respiratory infections",283.237462368659,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Lower respiratory infections",283.237462368659,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Lower respiratory infections",748.554518235369,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Lower respiratory infections",748.554518235369,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Alzheimer's disease and other dementias",20.6977309071329,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Alzheimer's disease and other dementias",19.8866083445798,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Alzheimer's disease and other dementias",63.7194700957415,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Alzheimer's disease and other dementias",76.044096238929,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Alzheimer's disease and other dementias",141.211639345462,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Alzheimer's disease and other dementias",154.131348932143,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Alzheimer's disease and other dementias",250.549109590108,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Alzheimer's disease and other dementias",296.628831315385,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Alzheimer's disease and other dementias",449.314251129491,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Alzheimer's disease and other dementias",479.637519876988,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Alzheimer's disease and other dementias",805.842540154895,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Alzheimer's disease and other dementias",911.215081144353,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Alzheimer's disease and other dementias",1303.04183467935,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Alzheimer's disease and other dementias",1753.41081757119,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Alzheimer's disease and other dementias",2434.81069993953,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Alzheimer's disease and other dementias",3228.06541018562,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Alzheimer's disease and other dementias",3497.37744161831,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Alzheimer's disease and other dementias",5148.35995306368,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Alzheimer's disease and other dementias",3681.85473867131,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Alzheimer's disease and other dementias",6578.71771530725,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Alzheimer's disease and other dementias",2101.08120018379,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Alzheimer's disease and other dementias",5182.20513703629,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Alzheimer's disease and other dementias",400.942417043962,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Alzheimer's disease and other dementias",400.942417043962,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Alzheimer's disease and other dementias",1602.53927645173,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Alzheimer's disease and other dementias",1602.53927645173,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Male","15 to 19","Diabetes mellitus type 2",1.74553509874963,245406.188351018
+"YLLs (Years of Life Lost)","Greater London","Female","15 to 19","Diabetes mellitus type 2",1.66791650449149,236079.785967342
+"YLLs (Years of Life Lost)","Greater London","Male","20 to 24","Diabetes mellitus type 2",3.81286604215003,302292.175188839
+"YLLs (Years of Life Lost)","Greater London","Female","20 to 24","Diabetes mellitus type 2",2.65317454462084,303947.382925422
+"YLLs (Years of Life Lost)","Greater London","Male","25 to 29","Diabetes mellitus type 2",6.68852307406501,412892.558710664
+"YLLs (Years of Life Lost)","Greater London","Female","25 to 29","Diabetes mellitus type 2",4.88170390191793,417744.268794877
+"YLLs (Years of Life Lost)","Greater London","Male","30 to 34","Diabetes mellitus type 2",27.7701104997679,445614.940901526
+"YLLs (Years of Life Lost)","Greater London","Female","30 to 34","Diabetes mellitus type 2",13.0102202009522,439953.078947835
+"YLLs (Years of Life Lost)","Greater London","Male","35 to 39","Diabetes mellitus type 2",38.2987774025571,395496.398878372
+"YLLs (Years of Life Lost)","Greater London","Female","35 to 39","Diabetes mellitus type 2",16.6842431159229,395817.600959685
+"YLLs (Years of Life Lost)","Greater London","Male","40 to 44","Diabetes mellitus type 2",51.3519559927091,317181.722892981
+"YLLs (Years of Life Lost)","Greater London","Female","40 to 44","Diabetes mellitus type 2",23.0096687389178,315079.771794941
+"YLLs (Years of Life Lost)","Greater London","Male","45 to 49","Diabetes mellitus type 2",173.263408555013,295250.911136889
+"YLLs (Years of Life Lost)","Greater London","Female","45 to 49","Diabetes mellitus type 2",75.7459398166375,297020.721726264
+"YLLs (Years of Life Lost)","Greater London","Male","50 to 54","Diabetes mellitus type 2",214.926869491123,269098.194980257
+"YLLs (Years of Life Lost)","Greater London","Female","50 to 54","Diabetes mellitus type 2",97.2482667563831,276489.036024098
+"YLLs (Years of Life Lost)","Greater London","Male","55 to 59","Diabetes mellitus type 2",233.231827574149,224179.207239458
+"YLLs (Years of Life Lost)","Greater London","Female","55 to 59","Diabetes mellitus type 2",113.35130735246,228149.350170698
+"YLLs (Years of Life Lost)","Greater London","Male","60 to 64","Diabetes mellitus type 2",293.263237012902,174492.484124048
+"YLLs (Years of Life Lost)","Greater London","Female","60 to 64","Diabetes mellitus type 2",142.064148951542,182555.63283217
+"YLLs (Years of Life Lost)","Greater London","Male","65 to 69","Diabetes mellitus type 2",345.179619651241,143459.189966701
+"YLLs (Years of Life Lost)","Greater London","Female","65 to 69","Diabetes mellitus type 2",178.077816424733,155782.007947398
+"YLLs (Years of Life Lost)","Greater London","Male","70 to 74","Diabetes mellitus type 2",357.148531105916,114290.361259979
+"YLLs (Years of Life Lost)","Greater London","Female","70 to 74","Diabetes mellitus type 2",244.649389061863,130256.84840268
+"YLLs (Years of Life Lost)","Greater London","Male","75 to 79","Diabetes mellitus type 2",389.893622102895,81687.3838264806
+"YLLs (Years of Life Lost)","Greater London","Female","75 to 79","Diabetes mellitus type 2",272.868352351973,99797.1414759267
+"YLLs (Years of Life Lost)","Greater London","Male","80 to 84","Diabetes mellitus type 2",363.237226201382,58960.9329778489
+"YLLs (Years of Life Lost)","Greater London","Female","80 to 84","Diabetes mellitus type 2",330.291011339762,76722.8857071115
+"YLLs (Years of Life Lost)","Greater London","Male","85 to 89","Diabetes mellitus type 2",256.52865011135,32424.6067661707
+"YLLs (Years of Life Lost)","Greater London","Female","85 to 89","Diabetes mellitus type 2",278.343442803246,50626.0319244654
+"YLLs (Years of Life Lost)","Greater London","Male","90 to 94","Diabetes mellitus type 2",108.595526117605,12549.1238974443
+"YLLs (Years of Life Lost)","Greater London","Female","90 to 94","Diabetes mellitus type 2",160.414864976822,25566.023210283
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Diabetes mellitus type 2",21.535710257448,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Male","95 to 99","Diabetes mellitus type 2",21.535710257448,2830.61875132751
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Diabetes mellitus type 2",49.7499196396088,8324.01135409652
+"YLLs (Years of Life Lost)","Greater London","Female","95 to 99","Diabetes mellitus type 2",49.7499196396088,8324.01135409652

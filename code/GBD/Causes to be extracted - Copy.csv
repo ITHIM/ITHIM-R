@@ -1,0 +1,46 @@
+Cause_name,Cause_id,Available_sub-categories,ICD-10_code
+All causes,294,all,
+Breast cancer,429,None,"C50-C50.9, D05-D05.9, D24-D24.9, D48.6, D49.3"
+Cardiovascular diseases,491,"Rheumatic heart disease
+Ischemic heart disease
+Stroke
+Ischemic stroke
+Intracerebral hemorrhage
+Subarachnoid hemorrhage
+Hypertensive heart disease
+Non-rheumatic valvular heart disease
+Non-rheumatic calcific aortic valve disease
+Non-rheumatic degenerative mitral valve disease
+Other non-rheumatic valve diseases
+Cardiomyopathy and myocarditis
+Myocarditis
+Alcoholic cardiomyopathy
+Other cardiomyopathy
+Atrial fibrillation and flutter
+Aortic aneurysm
+Peripheral artery disease
+Endocarditis
+Other cardiovascular and circulatory diseases","B33.2, G45-G46.8, I01-I01.9, I02.0, I05-I09.9, I11-I11.9, I20-I25.9, I28-I28.8, I30-I31.1, I31.8-I37.8, I38-I41.9, I42.1-I42.8, I43-I43.9, I47-I48.9, I51.0-I51.4, I60-I63.9, I65-I66.9, I67.0-I67.3, I67.5-I67.6, I68.0-I68.2, I69.0-I69.3, I70.2-I70.8, I71-I73.9, I77-I83.9, I86-I89.0, I89.9, I98, K75.1"
+Chronic respiratory diseases,508,"Chronic obstructive pulmonary disease
+Pneumoconiosis
+Silicosis
+Asbestosis
+Coal workers pneumoconiosis
+Other pneumoconiosis
+Asthma
+Interstitial lung disease and pulmonary sarcoidosis
+Other chronic respiratory diseases","D86-D86.2, D86.9, G47.3, J30-J35.9, J37-J39.9, J41-J46.9, J60-J63.8, J65-J68.9, J70, J70.8-J70.9, J82, J84-J84.9, J91-J92.9"
+Colon and rectum cancer,441,None,"C18-C21.9, D01.0-D01.3, D12-D12.9, D37.3-D37.5"
+Diabetes mellitus type 2,976,None,"E11-E11.1, E11.3-E11.9"
+Ischemic heart disease,493,None,I20-I25.9
+Stroke,494,"Ischemic stroke
+Intracerebral hemorrhage
+Subarachnoid hemorrhage","G45-G46.8, I60-I63.9, I65-I66.9, I67.0-I67.3, I67.5-I67.6, I68.1-I68.2, I69.0-I69.3"
+Neoplasms,410,All cancers,"C00-C13.9, C15-C25.9, C30-C34.9, C37-C38.8, C40-C41.9, C43-C45.9, C47-C54.9, C56-C57.8, C58-C58.0, C60-C63.8, C64-C67.9, C68.0-C68.8, C69-C75.8, C81-C86.6, C88-C96.9, D00.1-D00.2, D01.0-D01.3, D02.0-D02.3, D03-D06.9, D07.0-D07.2, D07.4-D07.5, D09.0, D09.2-D09.3, D09.8, D10.0-D10.7, D11-D12.9, D13.0-D13.7, D14.0-D14.3, D15-D16.9, D22-D24.9, D26.0-D27.9, D28.0-D28.1, D28.7, D29.0-D29.8, D30.0-D30.8, D31-D36, D36.1-D36.7, D37.1-D37.5, D38.0-D38.5, D39.1-D39.2, D39.8, D40.0-D40.8, D41.0-D41.8, D42-D43.9, D44.0-D44.8, D45-D47.9, D48.0-D48.6, D49.2-D49.4, D49.6, K62.0-K62.1, K63.5, N60-N60.9, N84.0-N84.1, N87-N87.9"
+Road injuries,689,"Pedestrian road injuries
+Cyclist road injuries
+Motorcyclist road injuries
+Motor vehicle road injuries
+Other road injuries
+Other transport injuries","V01-V04.9, V06-V80.9, V82-V82.9, V87.2-V87.3"
+"Tracheal, bronchus, and lung cancer",426,None,"C33-C34.9, D02.1-D02.3, D14.2-D14.3, D38.1"
