@@ -1,11 +1,11 @@
 #' @export
-generate_synthetic_travel_data <- function(trip_scen_sets){
+generate_synthetic_travel_data <- function(synthetic_trips){
   ## get raw trips and demographic information
   setDT(DEMOGRAPHIC)
   keycols = c("sex","age_cat")
   setkeyv(DEMOGRAPHIC,keycols)
   
-  modes_to_keep <- unique(trip_scen_sets[[1]]$stage_mode)
+  modes_to_keep <- unique(synthetic_trips[[1]]$stage_mode)
   modes <- modes_to_keep#unlist(UNCERTAIN_TRAVEL_MODE_NAMES)
   
   ## get demographic information for synthetic population
@@ -20,24 +20,24 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
   dem_indices <- unique(DEMOGRAPHIC$dem_index)
   
   ## set scenario trips to DT and add demographic information
-  for(scen in 1:length(trip_scen_sets)) setDT(trip_scen_sets[[scen]])#[DEMOGRAPHIC,on=.(sex,age_cat),dem_index := i.dem_index]
+  for(scen in 1:length(synthetic_trips)) setDT(synthetic_trips[[scen]])#[DEMOGRAPHIC,on=.(sex,age_cat),dem_index := i.dem_index]
   
-  for(scen in 1:length(trip_scen_sets)){
+  for(scen in 1:length(synthetic_trips)){
     
     ## get trips and clear memory
-    superset <- trip_scen_sets[[scen]]
-    trip_scen_sets[[scen]] <- 0
+    superset <- synthetic_trips[[scen]]
+    synthetic_trips[[scen]] <- 0
     
     ## travel_summary gives the probabilities to travel; densities (from individual data) give the distribution of travel, given travel occurs.
     
     ## get summary travel information (by mode and demography) for scenario
     travel_summary <- generate_travel_summary(superset)
-    travel_summary <- scale_mode_probabilities(travel_summary)
+    #travel_summary <- scale_mode_probabilities(travel_summary)
     travel_summary <- resample_mode_probabilities(travel_summary)
     
     ## get mode--demography-specific raw duration densities
-    superset[,weighted_duration := stage_duration*trip_weight]
-    individual_data <- superset[,.(dur = sum(weighted_duration) ),by=.(stage_mode,participant_id)]
+    #superset[,weighted_duration := stage_duration*trip_weight]
+    individual_data <- superset[,.(dur = sum(stage_duration) ),by=.(stage_mode,participant_id)]
     superset <- NULL
     #setkey(individual_data,participant_id)
     #individual_data[RAW_TRIP_DEMOGRAPHICS,dem_index := i.dem_index,on='participant_id']
@@ -117,6 +117,111 @@ generate_synthetic_travel_data <- function(trip_scen_sets){
   names(pp_summary) <- SCEN_SHORT_NAME
   return(pp_summary)
 }
+
+
+#' @export
+generate_no_travel_summary <- function(){
+  trip_set <- TRIP_SET
+  trip_superset <- assign_age_groups(trip_set)
+  trip_superset <- left_join(trip_superset,DEMOGRAPHIC,by=c('sex','age_cat'))
+  
+  modes_to_keep <- intersect(MODE_SPEEDS$stage_mode,unique(trip_superset$trip_mode))
+  #modes_to_keep <- modes_to_keep[!is.na(modes_to_keep)]
+  modes <- modes_to_keep#unlist(UNCERTAIN_TRAVEL_MODE_NAMES)
+  
+  missing_trips <- trip_superset[!trip_superset$trip_mode%in%modes_to_keep&!duplicated(trip_superset$participant_id),]
+  all_trips <- setDT(trip_superset[trip_superset$trip_mode%in%modes_to_keep,])
+  trip_superset <- NULL
+  
+  NO_TRAVEL_PEOPLE <<- setDT(missing_trips)[,.(no_travel=.N),by='dem_index']
+  missing_trips <- NULL
+  
+  TRAVEL_SUMMARY_TEMPLATE <<- expand.grid(trip_mode=sort(modes_to_keep),dem_index=sort(unique(DEMOGRAPHIC$dem_index)))
+  
+  #TRAVEL_SUMMARY <<- generate_travel_summary(all_trips)
+}
+
+#' @export
+generate_travel_summary <- function(all_trips){
+  dem_indices <- unique(TRAVEL_SUMMARY_TEMPLATE$dem_index)
+  
+  # summarise by demographic group those who have done some travel. The rest of the population is in no_travel_people
+  travel_people <- all_trips[,.(some_travel=length(unique(participant_id))),by='dem_index']
+  
+  # number of travellers by demographic group (binomial)
+  travel_by_mode_and_demo <- all_trips[,.(travellers=length(unique(participant_id))),by=.(trip_mode,dem_index)]#pp_travel_by_mode[,.(travellers=.N),by=.(trip_mode,dem_index)]
+  mode_weights <- as.data.frame(all_trips[,.(weight=mean(trip_weight)),by=trip_mode])
+  all_trips <- NULL
+  
+  setorder(travel_by_mode_and_demo,dem_index,trip_mode)
+  # fill travel_by_mode_and_demo (adds in missing groupings) 
+  travel_summary <- travel_by_mode_and_demo[setDT(TRAVEL_SUMMARY_TEMPLATE),on=.(trip_mode,dem_index)]
+  # add total number of people who complete some travel
+  travel_summary <- travel_summary[travel_people,on=c('dem_index')]
+  # add total number of people who complete no travel
+  travel_summary <- travel_summary[NO_TRAVEL_PEOPLE,on=c('dem_index')]
+  # add total number of people
+  travel_summary[,population:=some_travel+no_travel]
+  # replace any NA with 0
+  travel_summary[is.na(travellers),travellers:=0]
+  setnames(travel_summary,'trip_mode','mode')
+  travel_by_mode_and_demo <- travel_people <- NULL
+  
+  ## estimate smooth probabilities
+  travel_summary[,raw_probability:=travellers/population]
+  travel_summary$smooth_probability <- #raw_probability
+    #smooth_probability[smooth_probability==0] <- 0.001
+    suppressWarnings(glm(raw_probability~I(dem_index<(max(dem_index)/2))+I(dem_index%%(max(dem_index)/2))+mode,
+                         family=binomial,data=travel_summary)$fitted.values)
+#  return(travel_summary)
+#}
+
+# @export
+#scale_mode_probabilities <- function(travel_summary){
+  car_taxi_modes <- UNCERTAIN_TRAVEL_MODE_NAMES$car
+  pt_modes <- UNCERTAIN_TRAVEL_MODE_NAMES$pt
+  
+  ## multiply mode probability scalars
+  match_modes <- rep(1,nrow(travel_summary))
+  modes <- travel_summary$mode
+  
+  mode_order <- sapply(UNCERTAIN_TRAVEL_MODE_NAMES,function(x)which(mode_weights$trip_mode%in%x[1]) )
+  
+  ##!! not the probabilities, but the sum of the weights over the number of rows. or the sum of the weights relative to the other modes??
+  for(i in 1:length(UNCERTAIN_TRAVEL_MODE_NAMES))
+    match_modes[modes%in%UNCERTAIN_TRAVEL_MODE_NAMES[[i]]] <- mode_weights[mode_order[i],2]
+  #match_modes[modes%in%c('walking')] <- PROBABILITY_SCALAR_WALKING
+  #match_modes[modes%in%pt_modes] <- PROBABILITY_SCALAR_PT
+  #match_modes[modes%in%c('cycling')] <- PROBABILITY_SCALAR_CYCLING
+  #match_modes[modes%in%c('motorcycle')] <- PROBABILITY_SCALAR_MOTORCYCLE
+  travel_summary[,smooth_probability:=smooth_probability*..match_modes]
+  travel_summary[,raw_probability:=raw_probability*..match_modes]
+  return(travel_summary)  
+}
+
+#' @export
+resample_mode_probabilities <- function(travel_summary){
+  if(is.list(PROPENSITY_TO_TRAVEL)) {
+    pointiness <- 300
+    beta_val <- (1/travel_summary$smooth_probability - 1)*pointiness/(1 + (1/travel_summary$smooth_probability - 1))
+    #beta_val <- (1/raw_probability - 1)*pointiness/(1 + (1/raw_probability - 1))
+    alpha_val <- pointiness - beta_val
+    uncertain_rows <- travel_summary$mode%in%unlist(UNCERTAIN_TRAVEL_MODE_NAMES)
+    propensities <- rep(0.5,nrow(travel_summary))
+    propensities[uncertain_rows] <- sapply(travel_summary$mode[uncertain_rows],
+                                           function(x)PROPENSITY_TO_TRAVEL[[which(sapply(UNCERTAIN_TRAVEL_MODE_NAMES,
+                                                                                         function(y)x%in%y))]])
+    travel_summary$probability <- qbeta(propensities,alpha_val,beta_val)
+    if(any(!uncertain_rows)) travel_summary$probability[!uncertain_rows] <- travel_summary$raw_probability[!uncertain_rows]
+    #travel_summary$probability <- sigmoid(sapply(1:nrow(travel_summary),function(x)dnorm(PROPENSITY_TO_TRAVEL[[travel_summary$mode[x]]],travel_summary$mu[x],travel_summary$sd[x])))
+  }else{
+    travel_summary$probability <- travel_summary$raw_probability#qbeta(PROPENSITY_TO_TRAVEL,travel_summary$alpha_val,travel_summary$beta_val)
+    # 
+  }
+  return(travel_summary)
+}
+
+
 
 #' @export
 sample_travel_data <- function(travel_summary,modes,densities){

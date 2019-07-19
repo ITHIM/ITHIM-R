@@ -111,8 +111,11 @@ ithim_load_data <- function(speeds=list(
   demographic$dem_index <- 1:nrow(demographic)
   age_category <- demographic$age
   max_age <- max(as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][2])))
-  max_age <- min(max_age,max(trip_set$age))
-  demographic <- demographic[as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][1]))<=max_age,]
+  max_age <- min(max_age,max(trip_set$age),AGE_RANGE[2])
+  min_age <- min(as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][1])))
+  min_age <- max(min_age,min(trip_set$age),AGE_RANGE[1])
+  demographic <- demographic[as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][1]))<=max_age&
+                               as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][2]))>=min_age,]
   POPULATION <<- demographic
   demographic <- demographic[,names(demographic)!='population']
   names(demographic)[which(names(demographic)=='age')] <- 'age_cat'

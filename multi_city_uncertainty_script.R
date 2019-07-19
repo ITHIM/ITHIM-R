@@ -58,7 +58,7 @@ load('diagnostic/parameter_settings.Rdata')
 ## distance plots don't need so many samples!
 distances <- list()
 ##debug
-city='sao_paulo'
+city='delhi'
 ci <- which(cities==city)
 ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
                                 NSAMPLES=24,
@@ -68,7 +68,6 @@ ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
                                 speeds = speeds[[city]],
                                 ADD_WALK_TO_BUS_TRIPS = add_walk_to_bus_trips[ci],
                                 BUS_WALK_TIME = bus_walk_time[[city]],
-                                MOTORCYCLE_TO_CAR_RATIO = motorcycle_to_car_ratio[[city]],
                                 BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                 TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
                                 DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
@@ -88,48 +87,56 @@ print(sapply(distances,length))
 sapply(distances,function(x)if(length(x)>1)sapply(x$inj_distances$reg_model,length))
 distances[[5]]$inj_distances$reg_model
   ##
-distances <- NULL
-for(city in cities){
-  ci <- which(cities==city)
-  ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
-                                  NSAMPLES=100,
-                                  synthetic_population_size = 1000,
-                                  CITY=city,
-                                  MAX_MODE_SHARE_SCENARIO = T,
-                                  ADD_WALK_TO_BUS_TRIPS = add_walk_to_bus_trips[ci],
-                                  speeds = speeds[[city]],
-                                  BUS_WALK_TIME = bus_walk_time[[city]],
-                                  MOTORCYCLE_TO_CAR_RATIO = motorcycle_to_car_ratio[[city]],
-                                  BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
-                                  TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
-                                  DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
-                                  DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
-                                  DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
-                                  DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
-                                  DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]],
-                                  PROBABILITY_SCALAR_MOTORCYCLE = 1)
-  distances[[city]] <- NULL
-  distances[[city]] <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=4)
-  print(length(distances[[city]]))
+distances <- list()
+min_age <- 15
+max_age <- 69
+mc=2
+for(mc in 1:2){
+  for(city in cities[2]){
+    ci <- which(cities==city)
+    ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
+                                    NSAMPLES=500,
+                                    synthetic_population_size = 1000,
+                                    CITY=city,
+                                    DIST_CAT = c('0-1 km','2-5 km','6+ km'),
+                                    AGE_RANGE = c(min_age,max_age),
+                                    MAX_MODE_SHARE_SCENARIO = T,
+                                    ADD_WALK_TO_BUS_TRIPS = add_walk_to_bus_trips[ci],
+                                    speeds = speeds[[city]],
+                                    BUS_WALK_TIME = bus_walk_time[[city]],
+                                    BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
+                                    TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
+                                    DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
+                                    DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
+                                    DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
+                                    DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
+                                    DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]],
+                                    PROBABILITY_SCALAR_MOTORCYCLE = mc)
+    distances[[city]] <- NULL
+    #for(i in 1:NSAMPLES) distances[[city]][[i]] <- just_distances(i,ithim_object)
+    distances[[city]] <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=4)
+    print(sapply(distances[[city]],length))
+  #}
+  SCEN <- rownames(SCENARIO_PROPORTIONS)
+  scen_names <- c('baseline',SCEN)
+  NSCEN <- length(SCEN)
+  #for(city in cities){
+    print(city)
+    print(NSAMPLES)
+    print(nrow(distances[[city]][[1]]$dist))
+    print(nrow(distances[[city]][[1]]$pp_summary[[1]]))
+    dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(distances[[city]][[1]]$dist))
+    pdf(paste0('distance_distribution_1000p_',city,mc,'.pdf'))
+    #x11(); 
+    par(mfrow=c(2,3),mar=c(7,5,2,1))
+    for(j in 1:6){
+      for(i in 1:NSAMPLES)
+        dist_mat[i,] <- distances[[city]][[i]]$dist[,j]/nrow(distances[[city]][[i]]$pp_summary[[1]])
+      boxplot(dist_mat,names=rownames(distances[[city]][[i]]$dist),las=2,frame=F,main=paste0(scen_names[j],', ',city),ylab='km pp')
+    }
+    dev.off()
+  }    
 }
-SCEN <- rownames(SCENARIO_PROPORTIONS)
-scen_names <- c('baseline',SCEN)
-NSCEN <- length(SCEN)
-for(city in cities){
-  print(city)
-  print(NSAMPLES)
-  print(nrow(distances[[city]][[1]]$dist))
-  print(nrow(distances[[city]][[1]]$pp_summary[[1]]))
-  dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(distances[[city]][[1]]$dist))
-  pdf(paste0('distance_distribution_1000p_',city,'.pdf'))
-  #x11(); par(mfrow=c(2,3),mar=c(7,5,2,1))
-  for(j in 1:6){
-    for(i in 1:NSAMPLES)
-      dist_mat[i,] <- distances[[city]][[i]]$dist[,j]/nrow(distances[[city]][[i]]$pp_summary[[1]])
-    boxplot(dist_mat,names=rownames(distances[[city]][[i]]$dist),las=2,frame=F,main=paste0(scen_names[j],', ',city),ylab='km pp')
-  }
-  #dev.off()
-}    
 
 #################################################################
 ## with uncertainty

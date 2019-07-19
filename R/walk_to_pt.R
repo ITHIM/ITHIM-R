@@ -1,6 +1,5 @@
 #' @export
-walk_to_pt <- function(){
-  rd_list <- SYNTHETIC_TRIPS
+walk_to_pt <- function(rd_list){
   
   ## pt = public transport
   pt_modes <- c('bus','minibus','subway','rail')
