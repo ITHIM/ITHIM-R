@@ -1,0 +1,1189 @@
+"measure_name.x","location_name","sex_name","age_name","cause_name","val","population"
+"Deaths","Colombia","Male","0 to 4","All causes",6576.94597467193,2167909.20216913
+"Deaths","Colombia","Female","0 to 4","All causes",5095.22115449018,2060760.90994679
+"Deaths","Colombia","Male","5 to 9","All causes",671.2218233865,2212580.40980269
+"Deaths","Colombia","Female","5 to 9","All causes",448.250731004337,2101148.51460498
+"Deaths","Colombia","Male","10 to 14","All causes",753.522952816764,2264091.37361452
+"Deaths","Colombia","Female","10 to 14","All causes",510.843953430318,2153049.72523721
+"Deaths","Colombia","Male","15 to 19","All causes",2797.76181698839,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","All causes",862.236106361963,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","All causes",5098.61805782889,2218517.413738
+"Deaths","Colombia","Female","20 to 24","All causes",1037.00081148216,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","All causes",5106.91839560188,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","All causes",1123.41279050112,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","All causes",4331.83648565761,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","All causes",1289.90057536458,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","All causes",3816.67484658998,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","All causes",1574.95524319509,1751108.498861
+"Deaths","Colombia","Male","40 to 44","All causes",3481.90290629142,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","All causes",1915.00715436175,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","All causes",3958.93108728983,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","All causes",2655.36742145492,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","All causes",5312.1661262237,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","All causes",3886.73981066669,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","All causes",6749.22461662604,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","All causes",5192.51046820515,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","All causes",8479.2583840774,903232.259814067
+"Deaths","Colombia","Female","60 to 64","All causes",6585.5536462046,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","All causes",10134.8707159981,700574.531135091
+"Deaths","Colombia","Female","65 to 69","All causes",7867.77781388891,817430.668676931
+"Deaths","Colombia","Male","70 to 74","All causes",11747.9129827787,515701.743379734
+"Deaths","Colombia","Female","70 to 74","All causes",9715.04762324227,617471.839972525
+"Deaths","Colombia","Male","75 to 79","All causes",13151.4678208275,370689.58016288
+"Deaths","Colombia","Female","75 to 79","All causes",12421.8167598382,469747.516024351
+"Deaths","Colombia","Male","80 to 84","All causes",13929.9167433805,247116.870462483
+"Deaths","Colombia","Female","80 to 84","All causes",15124.5150078384,328479.942710043
+"Deaths","Colombia","Male","85 to 89","All causes",11707.839241924,134534.643938926
+"Deaths","Colombia","Female","85 to 89","All causes",14484.236979475,185043.078073453
+"Deaths","Colombia","Male","90 to 94","All causes",6738.44389866893,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","All causes",9640.51594536417,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","All causes",2927.23975965833,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","All causes",2927.23975965833,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","All causes",5312.99646346031,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","All causes",5312.99646346031,26448.8743270646
+"Deaths","Colombia","Male","0 to 4","Lower respiratory infections",603.883148637937,2167909.20216913
+"Deaths","Colombia","Female","0 to 4","Lower respiratory infections",556.532474924847,2060760.90994679
+"Deaths","Colombia","Male","5 to 9","Lower respiratory infections",37.0941937028024,2212580.40980269
+"Deaths","Colombia","Female","5 to 9","Lower respiratory infections",26.2111156922042,2101148.51460498
+"Deaths","Colombia","Male","10 to 14","Lower respiratory infections",30.2015494886961,2264091.37361452
+"Deaths","Colombia","Female","10 to 14","Lower respiratory infections",25.4395924853325,2153049.72523721
+"Deaths","Colombia","Male","15 to 19","Lower respiratory infections",41.8283784355381,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","Lower respiratory infections",23.0764478232986,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","Lower respiratory infections",51.3684724127628,2218517.413738
+"Deaths","Colombia","Female","20 to 24","Lower respiratory infections",26.356527524989,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","Lower respiratory infections",61.1086428050762,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","Lower respiratory infections",29.8429671261332,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","Lower respiratory infections",56.9472757392302,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","Lower respiratory infections",34.3953776956303,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","Lower respiratory infections",70.7838733848985,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","Lower respiratory infections",38.9607213157995,1751108.498861
+"Deaths","Colombia","Male","40 to 44","Lower respiratory infections",78.6290981258827,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Lower respiratory infections",50.1067596360069,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Lower respiratory infections",101.361829498186,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Lower respiratory infections",66.0041358111972,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Lower respiratory infections",151.583094080533,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Lower respiratory infections",104.517941393817,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Lower respiratory infections",206.868054211646,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Lower respiratory infections",146.324785973852,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Lower respiratory infections",247.833923825077,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Lower respiratory infections",177.366750858852,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Lower respiratory infections",291.891667386543,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Lower respiratory infections",214.366873576493,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Lower respiratory infections",355.951166323821,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Lower respiratory infections",286.375733355846,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Lower respiratory infections",412.804422341586,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Lower respiratory infections",378.606921799525,469747.516024351
+"Deaths","Colombia","Male","80 to 84","Lower respiratory infections",470.970999893979,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Lower respiratory infections",506.605567913764,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Lower respiratory infections",457.432154314728,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Lower respiratory infections",499.952945357224,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Lower respiratory infections",254.917381707512,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Lower respiratory infections",324.516468014336,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Lower respiratory infections",126.626658469011,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Lower respiratory infections",126.626658469011,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Lower respiratory infections",224.910528639291,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Lower respiratory infections",224.910528639291,26448.8743270646
+"Deaths","Colombia","Male","40 to 44","Alzheimer's disease and other dementias",0.831441606507591,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Alzheimer's disease and other dementias",0.885872785812626,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Alzheimer's disease and other dementias",4.02575662713947,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Alzheimer's disease and other dementias",4.88695267128824,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Alzheimer's disease and other dementias",16.1468317870966,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Alzheimer's disease and other dementias",19.538970135076,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Alzheimer's disease and other dementias",36.2324344437693,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Alzheimer's disease and other dementias",45.9526135321675,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Alzheimer's disease and other dementias",89.2673495315548,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Alzheimer's disease and other dementias",104.615900304199,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Alzheimer's disease and other dementias",189.344139041715,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Alzheimer's disease and other dementias",216.894660495741,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Alzheimer's disease and other dementias",363.4052804186,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Alzheimer's disease and other dementias",452.640727051438,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Alzheimer's disease and other dementias",698.322445067382,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Alzheimer's disease and other dementias",993.153723729177,469747.516024351
+"Deaths","Colombia","Male","80 to 84","Alzheimer's disease and other dementias",1090.50881840131,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Alzheimer's disease and other dementias",1823.94757165149,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Alzheimer's disease and other dementias",1260.17735206946,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Alzheimer's disease and other dementias",2454.24207859457,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Alzheimer's disease and other dementias",1076.8829408704,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Alzheimer's disease and other dementias",2239.07104299652,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Alzheimer's disease and other dementias",540.816389703925,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Alzheimer's disease and other dementias",540.816389703925,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Alzheimer's disease and other dementias",1328.29582778913,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Alzheimer's disease and other dementias",1328.29582778913,26448.8743270646
+"Deaths","Colombia","Male","15 to 19","Ischemic heart disease",24.7622093670862,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","Ischemic heart disease",12.3973812496999,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","Ischemic heart disease",45.5893839180391,2218517.413738
+"Deaths","Colombia","Female","20 to 24","Ischemic heart disease",18.6470547358961,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","Ischemic heart disease",68.6109517409214,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","Ischemic heart disease",23.5008060890122,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","Ischemic heart disease",111.052288321852,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","Ischemic heart disease",35.7639111184618,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","Ischemic heart disease",168.971320354528,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","Ischemic heart disease",61.8762178818462,1751108.498861
+"Deaths","Colombia","Male","40 to 44","Ischemic heart disease",254.977596953769,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Ischemic heart disease",118.490885368976,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Ischemic heart disease",454.73023683233,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Ischemic heart disease",220.533409671556,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Ischemic heart disease",846.938086709053,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Ischemic heart disease",411.659523001155,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Ischemic heart disease",1295.50594435044,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Ischemic heart disease",658.65614850654,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Ischemic heart disease",1757.91608753457,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Ischemic heart disease",998.972334492743,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Ischemic heart disease",2217.93090803025,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Ischemic heart disease",1356.83683021053,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Ischemic heart disease",2597.04360319705,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Ischemic heart disease",1834.24260610942,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Ischemic heart disease",2912.22721914406,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Ischemic heart disease",2524.23252739103,469747.516024351
+"Deaths","Colombia","Male","80 to 84","Ischemic heart disease",3164.61196616635,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Ischemic heart disease",3254.79597052282,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Ischemic heart disease",2663.96061147672,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Ischemic heart disease",3207.41512111926,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Ischemic heart disease",1532.21958776852,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Ischemic heart disease",2160.31601445254,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Ischemic heart disease",723.896580748632,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Ischemic heart disease",723.896580748632,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Ischemic heart disease",1308.47776946951,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Ischemic heart disease",1308.47776946951,26448.8743270646
+"Deaths","Colombia","Male","0 to 4","Stroke",24.0877402052608,2167909.20216913
+"Deaths","Colombia","Female","0 to 4","Stroke",22.004022324035,2060760.90994679
+"Deaths","Colombia","Male","5 to 9","Stroke",7.17760398015714,2212580.40980269
+"Deaths","Colombia","Female","5 to 9","Stroke",5.78762843837794,2101148.51460498
+"Deaths","Colombia","Male","10 to 14","Stroke",13.224950057192,2264091.37361452
+"Deaths","Colombia","Female","10 to 14","Stroke",9.23097914501585,2153049.72523721
+"Deaths","Colombia","Male","15 to 19","Stroke",21.7566351800461,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","Stroke",16.4732363240086,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","Stroke",31.3098901706835,2218517.413738
+"Deaths","Colombia","Female","20 to 24","Stroke",23.2424323631412,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","Stroke",47.3228053216609,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","Stroke",28.8715660527562,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","Stroke",52.1979509541206,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","Stroke",38.755685795774,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","Stroke",77.4628401005831,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","Stroke",69.6337348871135,1751108.498861
+"Deaths","Colombia","Male","40 to 44","Stroke",113.180040969183,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Stroke",116.28399892845,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Stroke",165.344134340883,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Stroke",187.033803070295,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Stroke",287.280542567347,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Stroke",300.89806482595,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Stroke",403.771662978867,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Stroke",416.199700883876,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Stroke",566.450478543219,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Stroke",516.66670557115,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Stroke",684.958280408605,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Stroke",644.609560430361,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Stroke",854.175048978416,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Stroke",886.514935540623,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Stroke",1019.90126149479,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Stroke",1177.79897026101,469747.516024351
+"Deaths","Colombia","Male","80 to 84","Stroke",1085.91005559354,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Stroke",1439.01111150956,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Stroke",894.440225281058,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Stroke",1316.20491414304,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Stroke",558.432370656172,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Stroke",853.450028181215,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Stroke",241.913982060375,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Stroke",241.913982060375,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Stroke",460.607646576885,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Stroke",460.607646576885,26448.8743270646
+"Deaths","Colombia","Male","0 to 4","Chronic obstructive pulmonary disease",3.27708430519158,2167909.20216913
+"Deaths","Colombia","Female","0 to 4","Chronic obstructive pulmonary disease",3.26519696505844,2060760.90994679
+"Deaths","Colombia","Male","5 to 9","Chronic obstructive pulmonary disease",1.42968511389223,2212580.40980269
+"Deaths","Colombia","Female","5 to 9","Chronic obstructive pulmonary disease",1.14275788366422,2101148.51460498
+"Deaths","Colombia","Male","10 to 14","Chronic obstructive pulmonary disease",0.888164435998173,2264091.37361452
+"Deaths","Colombia","Female","10 to 14","Chronic obstructive pulmonary disease",1.02962407363489,2153049.72523721
+"Deaths","Colombia","Male","15 to 19","Chronic obstructive pulmonary disease",5.8897487350104,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","Chronic obstructive pulmonary disease",3.5920741901802,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","Chronic obstructive pulmonary disease",8.20336919714993,2218517.413738
+"Deaths","Colombia","Female","20 to 24","Chronic obstructive pulmonary disease",4.57510333654116,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","Chronic obstructive pulmonary disease",8.73903139103568,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","Chronic obstructive pulmonary disease",5.10693035529926,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","Chronic obstructive pulmonary disease",13.5940325408772,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","Chronic obstructive pulmonary disease",5.94192444777936,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","Chronic obstructive pulmonary disease",15.2493087892863,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","Chronic obstructive pulmonary disease",8.71567033402618,1751108.498861
+"Deaths","Colombia","Male","40 to 44","Chronic obstructive pulmonary disease",22.2843675653745,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Chronic obstructive pulmonary disease",14.1594176371328,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Chronic obstructive pulmonary disease",44.4790932740776,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Chronic obstructive pulmonary disease",30.0658685566734,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Chronic obstructive pulmonary disease",107.403173334058,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Chronic obstructive pulmonary disease",73.6611189875576,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Chronic obstructive pulmonary disease",201.21247223486,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Chronic obstructive pulmonary disease",134.787198754722,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Chronic obstructive pulmonary disease",372.376241995961,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Chronic obstructive pulmonary disease",245.08252706482,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Chronic obstructive pulmonary disease",578.357173888073,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Chronic obstructive pulmonary disease",399.015798793018,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Chronic obstructive pulmonary disease",849.879007650337,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Chronic obstructive pulmonary disease",621.02408748783,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Chronic obstructive pulmonary disease",1141.81783899592,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Chronic obstructive pulmonary disease",940.324998419749,469747.516024351
+"Deaths","Colombia","Male","80 to 84","Chronic obstructive pulmonary disease",1375.33442875281,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Chronic obstructive pulmonary disease",1309.64215490845,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Chronic obstructive pulmonary disease",1288.3416161871,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Chronic obstructive pulmonary disease",1409.5399493309,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Chronic obstructive pulmonary disease",766.062908150091,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Chronic obstructive pulmonary disease",942.685116170466,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Chronic obstructive pulmonary disease",329.664928300331,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Chronic obstructive pulmonary disease",329.664928300331,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Chronic obstructive pulmonary disease",525.829499173943,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Chronic obstructive pulmonary disease",525.829499173943,26448.8743270646
+"Deaths","Colombia","Male","15 to 19","Diabetes mellitus type 2",0.703842568254876,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","Diabetes mellitus type 2",0.936826572768985,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","Diabetes mellitus type 2",1.56101571666639,2218517.413738
+"Deaths","Colombia","Female","20 to 24","Diabetes mellitus type 2",1.37578954581008,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","Diabetes mellitus type 2",2.69299272348931,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","Diabetes mellitus type 2",1.91984281932336,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","Diabetes mellitus type 2",6.90193206570905,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","Diabetes mellitus type 2",5.31574873353724,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","Diabetes mellitus type 2",10.0501207778866,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","Diabetes mellitus type 2",8.59251787912964,1751108.498861
+"Deaths","Colombia","Male","40 to 44","Diabetes mellitus type 2",15.8997781428702,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Diabetes mellitus type 2",14.7121308964488,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Diabetes mellitus type 2",54.0965235601261,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Diabetes mellitus type 2",46.4981451304187,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Diabetes mellitus type 2",93.8184093349452,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Diabetes mellitus type 2",102.052490910416,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Diabetes mellitus type 2",149.589686702466,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Diabetes mellitus type 2",171.462120829703,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Diabetes mellitus type 2",223.892798386606,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Diabetes mellitus type 2",275.014423866126,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Diabetes mellitus type 2",274.417926644189,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Diabetes mellitus type 2",319.937341659987,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Diabetes mellitus type 2",327.473664345771,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Diabetes mellitus type 2",385.020851088415,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Diabetes mellitus type 2",329.463082647706,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Diabetes mellitus type 2",458.361661656858,469747.516024351
+"Deaths","Colombia","Male","80 to 84","Diabetes mellitus type 2",314.412943556199,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Diabetes mellitus type 2",494.146490619681,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Diabetes mellitus type 2",228.192933778076,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Diabetes mellitus type 2",391.389353456924,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Diabetes mellitus type 2",106.579850659352,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Diabetes mellitus type 2",205.46695557902,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Diabetes mellitus type 2",38.3107738841623,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Diabetes mellitus type 2",38.3107738841623,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Diabetes mellitus type 2",92.7246695121187,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Diabetes mellitus type 2",92.7246695121187,26448.8743270646
+"Deaths","Colombia","Male","0 to 4","Neoplasms",143.27807187007,2167909.20216913
+"Deaths","Colombia","Female","0 to 4","Neoplasms",133.34957249372,2060760.90994679
+"Deaths","Colombia","Male","5 to 9","Neoplasms",155.509592573592,2212580.40980269
+"Deaths","Colombia","Female","5 to 9","Neoplasms",107.436000265756,2101148.51460498
+"Deaths","Colombia","Male","10 to 14","Neoplasms",133.458995084971,2264091.37361452
+"Deaths","Colombia","Female","10 to 14","Neoplasms",113.061078143167,2153049.72523721
+"Deaths","Colombia","Male","15 to 19","Neoplasms",178.162312392042,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","Neoplasms",116.976478170094,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","Neoplasms",215.795025343254,2218517.413738
+"Deaths","Colombia","Female","20 to 24","Neoplasms",133.464136752427,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","Neoplasms",245.392539832352,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","Neoplasms",201.944872915681,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","Neoplasms",279.986924736849,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","Neoplasms",338.697226519419,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","Neoplasms",354.517087817346,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","Neoplasms",546.800128305762,1751108.498861
+"Deaths","Colombia","Male","40 to 44","Neoplasms",470.65060722889,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Neoplasms",785.043590716228,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Neoplasms",727.099255696352,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Neoplasms",1158.24034254603,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Neoplasms",1201.89694523095,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Neoplasms",1723.29007716803,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Neoplasms",1742.40379122162,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Neoplasms",2148.35627026033,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Neoplasms",2363.51694080135,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Neoplasms",2484.40449603361,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Neoplasms",2824.10029427647,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Neoplasms",2638.70426777094,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Neoplasms",3061.87735287324,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Neoplasms",2737.48051590608,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Neoplasms",3070.22733386407,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Neoplasms",2817.69582301236,469747.516024351
+"Deaths","Colombia","Male","0 to 4","Road injuries",72.1340537487214,2167909.20216913
+"Deaths","Colombia","Female","0 to 4","Road injuries",62.501302266608,2060760.90994679
+"Deaths","Colombia","Male","5 to 9","Road injuries",82.3897511712373,2212580.40980269
+"Deaths","Colombia","Female","5 to 9","Road injuries",49.9030899320831,2101148.51460498
+"Deaths","Colombia","Male","10 to 14","Road injuries",97.0111653829428,2264091.37361452
+"Deaths","Colombia","Female","10 to 14","Road injuries",49.699110135045,2153049.72523721
+"Deaths","Colombia","Male","15 to 19","Road injuries",406.803781194884,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","Road injuries",101.217068217074,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","Road injuries",823.376101349133,2218517.413738
+"Deaths","Colombia","Female","20 to 24","Road injuries",123.831377531755,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","Road injuries",796.590530920546,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","Road injuries",112.943599680654,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","Road injuries",603.518610472123,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","Road injuries",92.8102922395474,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","Road injuries",480.295448689378,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","Road injuries",92.5345579021343,1751108.498861
+"Deaths","Colombia","Male","40 to 44","Road injuries",373.886232017588,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Road injuries",86.0383162747741,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Road injuries",346.081071292536,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Road injuries",78.0667303678965,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Road injuries",343.506174473631,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Road injuries",81.0019628019147,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Road injuries",313.370200730323,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Road injuries",88.9762874309126,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Road injuries",252.539776107581,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Road injuries",89.9784789174113,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Road injuries",238.881950318503,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Road injuries",86.5702880982578,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Road injuries",213.230735271509,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Road injuries",93.3342308220498,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Road injuries",186.317981300851,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Road injuries",87.5000012709897,469747.516024351
+"Deaths","Colombia","Male","80 to 84","Road injuries",157.440895822087,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Road injuries",69.2204672557014,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Road injuries",94.0785254514363,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Road injuries",41.4813751346374,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Road injuries",33.4628597789949,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Road injuries",17.1654707944947,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Road injuries",9.75829865122029,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Road injuries",9.75829865122029,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Road injuries",7.96749801410203,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Road injuries",7.96749801410203,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","0 to 4","Cardiovascular diseases",6743.84725500419,2167909.20216913
+"YLLs (Years of Life Lost)","Colombia","Female","0 to 4","Cardiovascular diseases",7026.22721384092,2060760.90994679
+"YLLs (Years of Life Lost)","Colombia","Male","5 to 9","Cardiovascular diseases",1583.85451802856,2212580.40980269
+"YLLs (Years of Life Lost)","Colombia","Female","5 to 9","Cardiovascular diseases",1256.83492017682,2101148.51460498
+"YLLs (Years of Life Lost)","Colombia","Male","10 to 14","Cardiovascular diseases",2276.97473740569,2264091.37361452
+"YLLs (Years of Life Lost)","Colombia","Female","10 to 14","Cardiovascular diseases",1780.84923493359,2153049.72523721
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","Cardiovascular diseases",5301.22703053533,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Cardiovascular diseases",3373.59575516943,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","Cardiovascular diseases",7722.99540810234,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Cardiovascular diseases",4460.08826709126,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","Cardiovascular diseases",9995.67781184735,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Cardiovascular diseases",5010.2093006401,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","Cardiovascular diseases",12250.0250950068,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Cardiovascular diseases",6255.51277406848,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","Cardiovascular diseases",16120.8307206736,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Cardiovascular diseases",9553.93872632908,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Cardiovascular diseases",21263.6577301416,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Cardiovascular diseases",14362.6236029481,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Cardiovascular diseases",30897.8720050274,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Cardiovascular diseases",21041.0537423197,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Cardiovascular diseases",49253.2885008474,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Cardiovascular diseases",32122.8156497016,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Cardiovascular diseases",63357.7517567627,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Cardiovascular diseases",41825.336062791,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Cardiovascular diseases",74136.2956116827,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Cardiovascular diseases",50236.2275829762,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Cardiovascular diseases",77774.7161090907,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Cardiovascular diseases",55237.6653217498,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Cardiovascular diseases",75403.4881381487,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Cardiovascular diseases",60823.4026069141,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Cardiovascular diseases",67489.5522504353,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Cardiovascular diseases",64142.2287244282,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Cardiovascular diseases",54746.651310837,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Cardiovascular diseases",61214.8800022522,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Cardiovascular diseases",32899.9523869582,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Cardiovascular diseases",42893.3276469138,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Cardiovascular diseases",13226.587984106,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Cardiovascular diseases",19315.7650521165,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Cardiovascular diseases",3195.69670696313,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Cardiovascular diseases",3195.69670696313,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Cardiovascular diseases",5834.68588546435,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Cardiovascular diseases",5834.68588546435,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","Ischemic heart disease",1739.36072957802,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Ischemic heart disease",873.77470774164,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","Ischemic heart disease",2986.78338137934,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Ischemic heart disease",1222.95268932749,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","Ischemic heart disease",4164.15173218985,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Ischemic heart disease",1424.2224065172,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","Ischemic heart disease",6193.26185219904,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Ischemic heart disease",1990.27653152942,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","Ischemic heart disease",8588.74935628945,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Ischemic heart disease",3137.86434805168,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Ischemic heart disease",11704.2820189811,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Ischemic heart disease",5427.56221361757,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Ischemic heart disease",18645.7136127795,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Ischemic heart disease",9032.15882837233,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Ischemic heart disease",30667.981292917,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Ischemic heart disease",14898.5892114606,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Ischemic heart disease",40795.7438797961,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Ischemic heart disease",20735.0666098666,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Ischemic heart disease",47250.1493167141,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Ischemic heart disease",26850.8788916355,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Ischemic heart disease",49671.3278715008,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Ischemic heart disease",30374.8494088973,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Ischemic heart disease",47000.8094835065,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Ischemic heart disease",33133.7584367607,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Ischemic heart disease",40921.428694707,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Ischemic heart disease",35370.6946996031,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Ischemic heart disease",33015.4061194682,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Ischemic heart disease",33801.2839895975,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Ischemic heart disease",19796.8788340822,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Ischemic heart disease",23765.7512853611,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Ischemic heart disease",7689.42515491539,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Ischemic heart disease",10794.7839341128,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Ischemic heart disease",1922.62653618044,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Ischemic heart disease",1922.62653618044,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Ischemic heart disease",3462.13600490027,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Ischemic heart disease",3462.13600490027,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","0 to 4","Stroke",2092.04423072873,2167909.20216913
+"YLLs (Years of Life Lost)","Colombia","Female","0 to 4","Stroke",1911.84912307327,2060760.90994679
+"YLLs (Years of Life Lost)","Colombia","Male","5 to 9","Stroke",579.179627415684,2212580.40980269
+"YLLs (Years of Life Lost)","Colombia","Female","5 to 9","Stroke",467.480448284299,2101148.51460498
+"YLLs (Years of Life Lost)","Colombia","Male","10 to 14","Stroke",996.642075672835,2264091.37361452
+"YLLs (Years of Life Lost)","Colombia","Female","10 to 14","Stroke",696.021329197766,2153049.72523721
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","Stroke",1528.24153446615,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Stroke",1161.04336590585,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","Stroke",2051.26394782463,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Stroke",1524.33698337883,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","Stroke",2872.12663215028,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Stroke",1749.70727079877,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","Stroke",2911.02131520419,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Stroke",2156.77003690011,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","Stroke",3937.40734613612,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Stroke",3531.26324787963,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Stroke",5195.32356665569,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Stroke",5326.47415594088,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Stroke",6779.75451544429,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Stroke",7660.15007939769,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Stroke",10402.5482423499,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Stroke",10889.9622427845,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Stroke",12714.8512290804,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Stroke",13102.3274289651,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Stroke",15225.3397539744,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Stroke",13887.2265623609,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Stroke",15339.8770003575,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Stroke",14430.5622383273,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Stroke",15458.7003056772,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Stroke",16014.0057956058,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Stroke",14331.2364068102,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Stroke",16503.8550698288,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Stroke",11328.95972016,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Stroke",14944.2311238046,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Stroke",6646.91688305505,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Stroke",9752.58812746943,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Stroke",2802.48598341984,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Stroke",4264.56527246242,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Stroke",642.509239236015,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Stroke",642.509239236015,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Stroke",1218.73397818041,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Stroke",1218.73397818041,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","Tracheal, bronchus, and lung cancer",251.632862840464,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Tracheal, bronchus, and lung cancer",180.529471513398,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","Tracheal, bronchus, and lung cancer",390.826111345947,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Tracheal, bronchus, and lung cancer",208.780915874113,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","Tracheal, bronchus, and lung cancer",511.022313210969,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Tracheal, bronchus, and lung cancer",338.197804417665,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","Tracheal, bronchus, and lung cancer",711.460955413587,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Tracheal, bronchus, and lung cancer",625.765499962351,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","Tracheal, bronchus, and lung cancer",1010.64607859936,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Tracheal, bronchus, and lung cancer",948.602740791594,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Tracheal, bronchus, and lung cancer",1469.76720169614,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Tracheal, bronchus, and lung cancer",1530.07838136923,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Tracheal, bronchus, and lung cancer",2822.24478055065,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Tracheal, bronchus, and lung cancer",2667.80732265189,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Tracheal, bronchus, and lung cancer",5479.58918684612,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Tracheal, bronchus, and lung cancer",4665.04880888964,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Tracheal, bronchus, and lung cancer",8645.77958074963,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Tracheal, bronchus, and lung cancer",5925.90825845554,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Tracheal, bronchus, and lung cancer",11026.6287372543,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Tracheal, bronchus, and lung cancer",7125.25059295167,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Tracheal, bronchus, and lung cancer",11073.3174627064,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Tracheal, bronchus, and lung cancer",7293.90894774468,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Tracheal, bronchus, and lung cancer",9844.66355115673,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Tracheal, bronchus, and lung cancer",6431.47203941635,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Tracheal, bronchus, and lung cancer",6688.00619666299,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Tracheal, bronchus, and lung cancer",4885.30472253974,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Tracheal, bronchus, and lung cancer",3924.64044744205,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Tracheal, bronchus, and lung cancer",3156.41834208436,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Tracheal, bronchus, and lung cancer",1640.8588508088,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Tracheal, bronchus, and lung cancer",1477.04225189606,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Tracheal, bronchus, and lung cancer",395.445802481037,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Tracheal, bronchus, and lung cancer",417.354877198338,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Tracheal, bronchus, and lung cancer",64.6870099072761,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Tracheal, bronchus, and lung cancer",64.6870099072761,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Tracheal, bronchus, and lung cancer",78.1779713186896,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Tracheal, bronchus, and lung cancer",78.1779713186896,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","Breast cancer",15.8263036547816,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Breast cancer",92.4023773867876,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","Breast cancer",16.2872634845139,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Breast cancer",250.383105960765,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","Breast cancer",14.3887090370438,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Breast cancer",1025.42597850643,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","Breast cancer",11.5033467949867,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Breast cancer",3250.70626365725,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","Breast cancer",10.9800234045616,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Breast cancer",5425.18431530277,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Breast cancer",20.6470880238299,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Breast cancer",8558.55844533815,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Breast cancer",33.2975295303097,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Breast cancer",11501.5935526097,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Breast cancer",55.3040867118768,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Breast cancer",13658.4567325722,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Breast cancer",66.5646882276851,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Breast cancer",13552.8310857143,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Breast cancer",78.8077925961601,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Breast cancer",10667.6235135557,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Breast cancer",77.4298141029689,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Breast cancer",8055.21240981595,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Breast cancer",64.5768717482336,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Breast cancer",5437.15411991028,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Breast cancer",26.5416296503785,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Breast cancer",3832.99496226213,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Breast cancer",18.4178114389316,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Breast cancer",2468.68019164188,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Breast cancer",10.7936477962134,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Breast cancer",1224.70726698322,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Breast cancer",3.85734140810047,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Breast cancer",463.746427697749,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Breast cancer",1.21707189416058,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Breast cancer",1.21707189416058,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Breast cancer",97.6250619893489,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Breast cancer",97.6250619893489,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Uterine cancer",33.9769488507691,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Uterine cancer",48.7572104302671,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Uterine cancer",100.292820994608,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Uterine cancer",159.273245906927,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Uterine cancer",271.397210332982,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Uterine cancer",422.21555775883,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Uterine cancer",795.066172080903,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Uterine cancer",1119.47671203298,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Uterine cancer",1477.0442652523,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Uterine cancer",1950.85220510628,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Uterine cancer",1692.51830468707,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Uterine cancer",1257.59831928888,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Uterine cancer",886.587235228252,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Uterine cancer",607.538946040075,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Uterine cancer",276.626048126702,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Uterine cancer",91.0364687386624,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Uterine cancer",18.0517580537233,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Uterine cancer",18.0517580537233,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","Colon and rectum cancer",345.871128363593,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Colon and rectum cancer",178.885575634519,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","Colon and rectum cancer",692.59189618449,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Colon and rectum cancer",456.647507678442,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","Colon and rectum cancer",1131.03870599229,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Colon and rectum cancer",863.604843283075,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","Colon and rectum cancer",1403.70460124699,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Colon and rectum cancer",1217.18011724349,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","Colon and rectum cancer",1568.39600011869,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Colon and rectum cancer",1914.64313941522,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Colon and rectum cancer",2166.07100381332,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Colon and rectum cancer",2370.63589760722,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Colon and rectum cancer",3002.35356537549,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Colon and rectum cancer",3496.11979161596,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Colon and rectum cancer",4217.194324317,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Colon and rectum cancer",4797.42331166587,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Colon and rectum cancer",5252.83638199166,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Colon and rectum cancer",5755.03296511093,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Colon and rectum cancer",6147.61325545408,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Colon and rectum cancer",6144.23077291876,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Colon and rectum cancer",5954.09702419598,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Colon and rectum cancer",5468.20734961941,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Colon and rectum cancer",4988.87358326871,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Colon and rectum cancer",5211.00149529332,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Colon and rectum cancer",3811.63381860019,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Colon and rectum cancer",4666.31743789416,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Colon and rectum cancer",2523.19960102993,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Colon and rectum cancer",3526.3827355699,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Colon and rectum cancer",1252.24669153776,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Colon and rectum cancer",1788.32484518387,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Colon and rectum cancer",342.470075355809,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Colon and rectum cancer",604.584180255656,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Colon and rectum cancer",62.4230336467807,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Colon and rectum cancer",62.4230336467807,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Colon and rectum cancer",115.187240329558,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Colon and rectum cancer",115.187240329558,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","0 to 4","Neoplasms",12318.6922167008,2167909.20216913
+"YLLs (Years of Life Lost)","Colombia","Female","0 to 4","Neoplasms",11480.2329600842,2060760.90994679
+"YLLs (Years of Life Lost)","Colombia","Male","5 to 9","Neoplasms",12548.4755268382,2212580.40980269
+"YLLs (Years of Life Lost)","Colombia","Female","5 to 9","Neoplasms",8677.86004247773,2101148.51460498
+"YLLs (Years of Life Lost)","Colombia","Male","10 to 14","Neoplasms",10057.5691630958,2264091.37361452
+"YLLs (Years of Life Lost)","Colombia","Female","10 to 14","Neoplasms",8524.8726763974,2153049.72523721
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","Neoplasms",12514.5751363137,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Neoplasms",8244.5708466209,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","Neoplasms",14137.7869163204,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Neoplasms",8753.14237459438,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","Neoplasms",14893.4207131818,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Neoplasms",12238.4913861425,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","Neoplasms",15614.5574872053,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Neoplasms",18848.6415538519,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","Neoplasms",18019.971693399,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Neoplasms",27729.3067814367,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Neoplasms",21604.3585994358,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Neoplasms",35959.4994648396,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Neoplasms",29813.9058977469,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Neoplasms",47436.8520891437,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Neoplasms",43521.1895778388,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Neoplasms",62368.5096963992,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Neoplasms",54868.6473511345,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Neoplasms",67632.1180126815,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Neoplasms",63527.7924568462,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Neoplasms",66777.068731044,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Neoplasms",63246.7004049229,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Neoplasms",59071.3953097226,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Neoplasms",55413.2837612348,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Neoplasms",49449.8480393275,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Neoplasms",43141.5818427056,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Neoplasms",39482.8359236487,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Neoplasms",28276.4261054487,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Neoplasms",26843.5430196714,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Neoplasms",14140.1045704326,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Neoplasms",13249.5119161444,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Neoplasms",4094.14085206967,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Neoplasms",4232.28476050831,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Neoplasms",679.73482973762,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Neoplasms",679.73482973762,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Neoplasms",842.052585147763,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Neoplasms",842.052585147763,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","Stomach cancer",155.724553823038,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Stomach cancer",109.056059790108,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","Stomach cancer",415.331558530497,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Stomach cancer",328.255361261738,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","Stomach cancer",1030.49188609449,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Stomach cancer",858.98797704991,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","Stomach cancer",1774.08240032285,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Stomach cancer",1611.45505561113,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","Stomach cancer",3145.59188402433,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Stomach cancer",2844.12064443528,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Stomach cancer",4149.42209792228,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Stomach cancer",3295.02902315111,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Stomach cancer",6205.68695848157,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Stomach cancer",3917.24816868867,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Stomach cancer",8452.19511747176,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Stomach cancer",5099.49288651262,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Stomach cancer",9673.69363579292,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Stomach cancer",5016.08614012221,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Stomach cancer",10562.973476524,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Stomach cancer",5685.96173123843,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Stomach cancer",9958.52256168582,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Stomach cancer",5160.38155985136,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Stomach cancer",8751.93113837629,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Stomach cancer",5044.33488850147,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Stomach cancer",6503.33348182909,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Stomach cancer",4463.4177352032,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Stomach cancer",3956.67062561114,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Stomach cancer",3337.81917797513,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Stomach cancer",1787.09880823647,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Stomach cancer",1729.46868360315,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Stomach cancer",480.148034014037,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Stomach cancer",583.451919188044,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Stomach cancer",73.6905727296251,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Stomach cancer",73.6905727296251,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Stomach cancer",124.163073891576,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Stomach cancer",124.163073891576,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","5 to 9","Liver cancer",120.379205750447,2212580.40980269
+"YLLs (Years of Life Lost)","Colombia","Female","5 to 9","Liver cancer",84.877376406202,2101148.51460498
+"YLLs (Years of Life Lost)","Colombia","Male","10 to 14","Liver cancer",83.7988461408662,2264091.37361452
+"YLLs (Years of Life Lost)","Colombia","Female","10 to 14","Liver cancer",77.3622271127297,2153049.72523721
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","Liver cancer",139.235489757605,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Liver cancer",117.264127486482,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","Liver cancer",236.14917302114,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Liver cancer",137.050404414261,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","Liver cancer",312.992256024127,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Liver cancer",194.69130488463,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","Liver cancer",430.763897119198,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Liver cancer",296.158917478371,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","Liver cancer",587.13094429666,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Liver cancer",581.381208547378,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Liver cancer",880.309377271124,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Liver cancer",810.918440463272,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Liver cancer",1429.32999294922,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Liver cancer",1322.55493960104,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Liver cancer",2115.77594635253,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Liver cancer",2286.79174273078,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Liver cancer",3063.34345221784,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Liver cancer",2815.26379851557,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Liver cancer",3707.16965677586,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Liver cancer",3163.08889812642,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Liver cancer",3627.61679440746,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Liver cancer",3213.75903154119,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Liver cancer",3009.75547987149,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Liver cancer",3115.10379010064,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Liver cancer",2048.60167366756,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Liver cancer",2547.9010883625,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Liver cancer",1231.75746582509,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Liver cancer",1711.30269114703,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Liver cancer",573.043537735855,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Liver cancer",749.529125154665,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Liver cancer",143.073084963952,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Liver cancer",221.34326964376,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Liver cancer",18.8984676249908,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Liver cancer",18.8984676249908,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Liver cancer",35.8379991537505,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Liver cancer",35.8379991537505,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","0 to 4","Road injuries",6196.188922513,2167909.20216913
+"YLLs (Years of Life Lost)","Colombia","Female","0 to 4","Road injuries",5377.32845427531,2060760.90994679
+"YLLs (Years of Life Lost)","Colombia","Male","5 to 9","Road injuries",6648.2443888167,2212580.40980269
+"YLLs (Years of Life Lost)","Colombia","Female","5 to 9","Road injuries",4030.79069442822,2101148.51460498
+"YLLs (Years of Life Lost)","Colombia","Male","10 to 14","Road injuries",7310.83359956562,2264091.37361452
+"YLLs (Years of Life Lost)","Colombia","Female","10 to 14","Road injuries",3747.34252485203,2153049.72523721
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","Road injuries",28574.9349407707,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Road injuries",7133.83838235842,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","Road injuries",53943.3930617651,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Road injuries",8121.38529759672,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","Road injuries",48346.8565150425,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Road injuries",6844.73565411464,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","Road injuries",33657.5575687053,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Road injuries",5164.93137221238,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","Road injuries",24413.2389869742,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Road injuries",4692.60889148528,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Road injuries",17162.5662600526,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Road injuries",3941.04840116681,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Road injuries",14190.6739852531,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Road injuries",3197.29835467874,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Road injuries",12438.5018197649,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Road injuries",2931.58520981027,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Road injuries",9868.09092177841,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Road injuries",2801.05067076634,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Road injuries",6787.89062464739,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Road injuries",2418.48663556012,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Road injuries",5349.84369165573,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Road injuries",1938.00713963626,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Road injuries",3859.00997279628,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Road injuries",1685.98954556951,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Road injuries",2618.06425550318,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Road injuries",1226.08983030969,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Road injuries",1642.53158711144,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Road injuries",718.859397883168,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Road injuries",699.132397539008,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Road injuries",307.361537935425,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Road injuries",167.932950207711,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Road injuries",85.7733531179011,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Road injuries",25.9174645021908,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Road injuries",25.9174645021908,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Road injuries",21.0814141342099,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Road injuries",21.0814141342099,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","0 to 4","All causes",574605.291054215,2167909.20216913
+"YLLs (Years of Life Lost)","Colombia","Female","0 to 4","All causes",444766.83377372,2060760.90994679
+"YLLs (Years of Life Lost)","Colombia","Male","5 to 9","All causes",54162.6435029031,2212580.40980269
+"YLLs (Years of Life Lost)","Colombia","Female","5 to 9","All causes",36206.2725527006,2101148.51460498
+"YLLs (Years of Life Lost)","Colombia","Male","10 to 14","All causes",56786.0503453482,2264091.37361452
+"YLLs (Years of Life Lost)","Colombia","Female","10 to 14","All causes",38517.9385516422,2153049.72523721
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","All causes",196521.924317898,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","All causes",60770.9069089856,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","All causes",334035.391013436,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","All causes",68010.8976564309,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","All causes",309950.270964018,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","All causes",68082.3313864021,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","All causes",241581.673480098,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","All causes",71783.503617678,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","All causes",194000.162649126,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","All causes",79869.0688696551,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","All causes",159830.408886212,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","All causes",87718.3121508052,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","All causes",162331.618369055,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","All causes",108753.137830616,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","All causes",192355.750603835,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","All causes",140667.072120157,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","All causes",212534.446520926,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","All causes",163464.731445674,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","All causes",227909.754955683,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","All causes",177009.810265064,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","All causes",226973.926215173,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","All causes",176132.13391507,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","All causes",212611.5323026,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","All causes",175492.620266248,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","All causes",184799.060019397,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","All causes",174060.148365479,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","All causes",145326.461319748,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","All causes",157069.147072452,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","All causes",87005.2935027439,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","All causes",107322.800639635,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","All causes",33816.7978226101,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","All causes",48172.2516277084,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","All causes",7774.57580178272,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","All causes",7774.57580178272,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","All causes",14057.7981370759,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","All causes",14057.7981370759,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","0 to 4","Chronic obstructive pulmonary disease",279.988705340224,2167909.20216913
+"YLLs (Years of Life Lost)","Colombia","Female","0 to 4","Chronic obstructive pulmonary disease",279.167604411158,2060760.90994679
+"YLLs (Years of Life Lost)","Colombia","Male","5 to 9","Chronic obstructive pulmonary disease",115.365029036852,2212580.40980269
+"YLLs (Years of Life Lost)","Colombia","Female","5 to 9","Chronic obstructive pulmonary disease",92.3032591714701,2101148.51460498
+"YLLs (Years of Life Lost)","Colombia","Male","10 to 14","Chronic obstructive pulmonary disease",66.9327326911627,2264091.37361452
+"YLLs (Years of Life Lost)","Colombia","Female","10 to 14","Chronic obstructive pulmonary disease",77.6342688080181,2153049.72523721
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","Chronic obstructive pulmonary disease",413.710970006405,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Chronic obstructive pulmonary disease",253.17149747145,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","Chronic obstructive pulmonary disease",537.442814173928,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Chronic obstructive pulmonary disease",300.054620347275,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","Chronic obstructive pulmonary disease",530.391311900989,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Chronic obstructive pulmonary disease",309.495964223148,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","Chronic obstructive pulmonary disease",758.123983082308,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Chronic obstructive pulmonary disease",330.670567359491,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","Chronic obstructive pulmonary disease",775.116693016554,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Chronic obstructive pulmonary disease",441.988734067993,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Chronic obstructive pulmonary disease",1022.92329097081,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Chronic obstructive pulmonary disease",648.582546200251,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Chronic obstructive pulmonary disease",1823.81633718004,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Chronic obstructive pulmonary disease",1231.37669036758,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Chronic obstructive pulmonary disease",3889.11369354952,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Chronic obstructive pulmonary disease",2665.90881865511,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Chronic obstructive pulmonary disease",6336.22139559514,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Chronic obstructive pulmonary disease",4243.21787729998,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Chronic obstructive pulmonary disease",10008.9151928647,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Chronic obstructive pulmonary disease",6587.4509487943,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Chronic obstructive pulmonary disease",12952.5084424484,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Chronic obstructive pulmonary disease",8932.57356393267,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Chronic obstructive pulmonary disease",15380.9513530814,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Chronic obstructive pulmonary disease",11218.1791163802,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Chronic obstructive pulmonary disease",16044.3584118924,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Chronic obstructive pulmonary disease",13176.2617257318,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Chronic obstructive pulmonary disease",14348.4336155019,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Chronic obstructive pulmonary disease",13600.7254536751,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Chronic obstructive pulmonary disease",9574.14413812345,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Chronic obstructive pulmonary disease",10444.1659709108,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Chronic obstructive pulmonary disease",3844.47728197746,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Chronic obstructive pulmonary disease",4710.45998774537,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Chronic obstructive pulmonary disease",875.570566368415,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Chronic obstructive pulmonary disease",875.570566368415,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Chronic obstructive pulmonary disease",1391.30620634606,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Chronic obstructive pulmonary disease",1391.30620634606,26448.8743270646
+"Deaths","Colombia","Male","80 to 84","Neoplasms",2710.36848948394,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Neoplasms",2584.8206145622,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Neoplasms",1902.75860823799,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Neoplasms",1788.1481783186,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Neoplasms",815.811674116423,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Neoplasms",846.98986118252,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Neoplasms",255.929953011236,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Neoplasms",255.929953011236,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Neoplasms",318.244888944482,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Neoplasms",318.244888944482,26448.8743270646
+"Deaths","Colombia","Male","15 to 19","Stomach cancer",2.21695473502939,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","Stomach cancer",1.54732053792498,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","Stomach cancer",6.33949887131759,2218517.413738
+"Deaths","Colombia","Female","20 to 24","Stomach cancer",5.0050960615369,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","Stomach cancer",16.9789752183354,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","Stomach cancer",14.1739870044651,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","Stomach cancer",31.8113322073443,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","Stomach cancer",28.9567477017804,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","Stomach cancer",61.8850069889224,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","Stomach cancer",56.0838229946439,1751108.498861
+"Deaths","Colombia","Male","40 to 44","Stomach cancer",90.3950941680394,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Stomach cancer",71.9348560003732,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Stomach cancer",151.343818688899,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Stomach cancer",95.6453613788201,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Stomach cancer",233.418883783408,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Stomach cancer",140.902925734387,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Stomach cancer",307.196938139454,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Stomach cancer",159.33761100424,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Stomach cancer",392.989678871005,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Stomach cancer",211.543111397412,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Stomach cancer",444.669307915811,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Stomach cancer",230.512937334749,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Stomach cancer",483.5905387229,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Stomach cancer",279.247945554775,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Stomach cancer",462.818268693617,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Stomach cancer",318.532172642352,469747.516024351
+"Deaths","Colombia","Male","80 to 84","Stomach cancer",379.257100841916,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Stomach cancer",321.405554124828,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Stomach cancer",240.480374399365,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Stomach cancer",233.408316896248,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Stomach cancer",95.6758415516366,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Stomach cancer",116.763849316321,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Stomach cancer",27.7455619323551,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Stomach cancer",27.7455619323551,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Stomach cancer",46.9261235682759,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Stomach cancer",46.9261235682759,26448.8743270646
+"Deaths","Colombia","Male","5 to 9","Liver cancer",1.49182434157415,2212580.40980269
+"Deaths","Colombia","Female","5 to 9","Liver cancer",1.05082195258933,2101148.51460498
+"Deaths","Colombia","Male","10 to 14","Liver cancer",1.11196946437878,2264091.37361452
+"Deaths","Colombia","Female","10 to 14","Liver cancer",1.02601612211036,2153049.72523721
+"Deaths","Colombia","Male","15 to 19","Liver cancer",1.98221006722571,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","Liver cancer",1.66377909829953,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","Liver cancer",3.60451158858944,2218517.413738
+"Deaths","Colombia","Female","20 to 24","Liver cancer",2.08968541055727,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","Liver cancer",5.15703988578253,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","Liver cancer",3.21256187402582,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","Liver cancer",7.72409073653812,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","Liver cancer",5.32177364996465,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","Liver cancer",11.5509589072079,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","Liver cancer",11.464380337163,1751108.498861
+"Deaths","Colombia","Male","40 to 44","Liver cancer",19.177525731903,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Liver cancer",17.7034256247574,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Liver cancer",34.8583904967779,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Liver cancer",32.2921192873596,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Liver cancer",58.4300353777346,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Liver cancer",63.1858214663295,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Liver cancer",97.2792569643676,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Liver cancer",89.4277720659843,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Liver cancer",137.923229304188,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Liver cancer",117.681000816468,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Liver cancer",161.980839965067,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Liver cancer",143.557802006403,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Liver cancer",166.304927555141,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Liver cancer",172.448172614074,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Liver cancer",145.791428734023,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Liver cancer",181.831170081367,469747.516024351
+"Deaths","Colombia","Male","80 to 84","Liver cancer",118.067135132597,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Liver cancer",164.784897082738,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Liver cancer",77.1114187233123,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Liver cancer",101.156114144019,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Liver cancer",28.5092030740559,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Liver cancer",44.2965244159841,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Liver cancer",7.11554523859728,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Liver cancer",7.11554523859728,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Liver cancer",13.5445936059639,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Liver cancer",13.5445936059639,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","Diabetes mellitus type 2",49.4396967927716,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Diabetes mellitus type 2",66.0280867659563,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","Diabetes mellitus type 2",102.269769843638,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Diabetes mellitus type 2",90.2300952524243,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","Diabetes mellitus type 2",163.443736455332,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Diabetes mellitus type 2",116.34848395902,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","Diabetes mellitus type 2",384.913028042613,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Diabetes mellitus type 2",295.823628372821,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","Diabetes mellitus type 2",510.843900495046,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Diabetes mellitus type 2",435.743431578225,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Diabetes mellitus type 2",729.850346252681,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Diabetes mellitus type 2",673.899983840177,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Diabetes mellitus type 2",2218.16849650358,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Diabetes mellitus type 2",1904.37645102449,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Diabetes mellitus type 2",3397.20372429506,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Diabetes mellitus type 2",3693.43609251651,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Diabetes mellitus type 2",4710.60945137738,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Diabetes mellitus type 2",5397.77622137782,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Diabetes mellitus type 2",6017.90280532718,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Diabetes mellitus type 2",7391.97546690009,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Diabetes mellitus type 2",6145.6841413813,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Diabetes mellitus type 2",7162.28241806875,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Diabetes mellitus type 2",5926.55713975453,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Diabetes mellitus type 2",6955.01665406112,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Diabetes mellitus type 2",4629.48081642784,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Diabetes mellitus type 2",6422.77215769194,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Diabetes mellitus type 2",3280.17182887049,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Diabetes mellitus type 2",5131.74589533972,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Diabetes mellitus type 2",1695.78628202543,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Diabetes mellitus type 2",2900.04931658165,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Diabetes mellitus type 2",534.869669601797,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Diabetes mellitus type 2",1026.68839939954,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Diabetes mellitus type 2",101.751151269599,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Diabetes mellitus type 2",101.751151269599,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Diabetes mellitus type 2",245.342660265857,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Diabetes mellitus type 2",245.342660265857,26448.8743270646
+"Deaths","Colombia","Male","15 to 19","Tracheal, bronchus, and lung cancer",3.58234236713308,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","Tracheal, bronchus, and lung cancer",2.56140703699584,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","Tracheal, bronchus, and lung cancer",5.96545492600013,2218517.413738
+"Deaths","Colombia","Female","20 to 24","Tracheal, bronchus, and lung cancer",3.18340128779305,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","Tracheal, bronchus, and lung cancer",8.41989666207805,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","Tracheal, bronchus, and lung cancer",5.58053361959465,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","Tracheal, bronchus, and lung cancer",12.7573109349923,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","Tracheal, bronchus, and lung cancer",11.2445790155882,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","Tracheal, bronchus, and lung cancer",19.8830115105183,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","Tracheal, bronchus, and lung cancer",18.7057002349326,1751108.498861
+"Deaths","Colombia","Male","40 to 44","Tracheal, bronchus, and lung cancer",32.0188550277749,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Tracheal, bronchus, and lung cancer",33.4036414428366,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Tracheal, bronchus, and lung cancer",68.8286897519983,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Tracheal, bronchus, and lung cancer",65.1384299579674,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Tracheal, bronchus, and lung cancer",151.32632100995,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Tracheal, bronchus, and lung cancer",128.898900438665,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Tracheal, bronchus, and lung cancer",274.554592591995,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Tracheal, bronchus, and lung cancer",188.238407107896,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Tracheal, bronchus, and lung cancer",410.239720483458,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Tracheal, bronchus, and lung cancer",265.091070106614,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Tracheal, bronchus, and lung cancer",494.44728191088,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Tracheal, bronchus, and lung cancer",325.817065404223,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Tracheal, bronchus, and lung cancer",543.969790778407,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Tracheal, bronchus, and lung cancer",356.038088984519,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Tracheal, bronchus, and lung cancer",475.960744993379,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Tracheal, bronchus, and lung cancer",348.640172085459,469747.516024351
+"Deaths","Colombia","Male","80 to 84","Tracheal, bronchus, and lung cancer",376.186925519961,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Tracheal, bronchus, and lung cancer",303.93809017025,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Tracheal, bronchus, and lung cancer",220.801641722543,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Tracheal, bronchus, and lung cancer",199.340959028785,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Tracheal, bronchus, and lung cancer",78.7978024696637,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Tracheal, bronchus, and lung cancer",83.5235267722421,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Tracheal, bronchus, and lung cancer",24.3555908594487,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Tracheal, bronchus, and lung cancer",24.3555908594487,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Tracheal, bronchus, and lung cancer",29.5465393005776,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Tracheal, bronchus, and lung cancer",29.5465393005776,26448.8743270646
+"Deaths","Colombia","Male","15 to 19","Breast cancer",0.225309355295068,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","Breast cancer",1.31103302795687,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","Breast cancer",0.248604004093144,2218517.413738
+"Deaths","Colombia","Female","20 to 24","Breast cancer",3.81773352521228,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","Breast cancer",0.237076620845324,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","Breast cancer",16.920346828727,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","Breast cancer",0.206268201705297,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","Breast cancer",58.4129732948851,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","Breast cancer",0.216016206228414,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","Breast cancer",106.980369292025,1751108.498861
+"Deaths","Colombia","Male","40 to 44","Breast cancer",0.449796483019756,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Breast cancer",186.844687864816,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Breast cancer",0.812057602283007,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Breast cancer",280.828281589298,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Breast cancer",1.52729770308574,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Breast cancer",377.393705112525,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Breast cancer",2.11382220500475,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Breast cancer",430.510096361524,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Breast cancer",2.93200102923002,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Breast cancer",396.88312653878,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Breast cancer",3.45740662191044,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Breast cancer",359.824298243459,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Breast cancer",3.56821411229267,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Breast cancer",300.993917178381,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Breast cancer",1.88886993376825,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Breast cancer",273.541999761079,469747.516024351
+"Deaths","Colombia","Male","80 to 84","Breast cancer",1.76539480566527,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Breast cancer",237.714352589042,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Breast cancer",1.45244373238082,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Breast cancer",165.285942779609,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Breast cancer",0.768626255296086,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Breast cancer",92.8076782745666,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Breast cancer",0.458245096553382,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Breast cancer",0.458245096553382,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Breast cancer",36.8963620075421,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Breast cancer",36.8963620075421,26448.8743270646
+"Deaths","Colombia","Female","15 to 19","Uterine cancer",0.482075281960536,2150993.53100278
+"Deaths","Colombia","Female","20 to 24","Uterine cancer",0.743428899251007,2190718.7789639
+"Deaths","Colombia","Female","25 to 29","Uterine cancer",1.65491156965999,2019943.06318646
+"Deaths","Colombia","Female","30 to 34","Uterine cancer",2.86203154181141,1846411.96387025
+"Deaths","Colombia","Female","35 to 39","Uterine cancer",5.3517396089846,1751108.498861
+"Deaths","Colombia","Female","40 to 44","Uterine cancer",9.2175258958579,1582034.13504964
+"Deaths","Colombia","Female","45 to 49","Uterine cancer",19.4127071030605,1532364.02787384
+"Deaths","Colombia","Female","50 to 54","Uterine cancer",30.9320058930077,1496516.4509695
+"Deaths","Colombia","Female","55 to 59","Uterine cancer",46.9187924605857,1303933.18791786
+"Deaths","Colombia","Female","60 to 64","Uterine cancer",72.5803944612197,1045368.83764738
+"Deaths","Colombia","Female","65 to 69","Uterine cancer",75.6043640147968,817430.668676931
+"Deaths","Colombia","Female","70 to 74","Uterine cancer",69.6190389331755,617471.839972525
+"Deaths","Colombia","Female","75 to 79","Uterine cancer",63.2713707361239,469747.516024351
+"Deaths","Colombia","Female","80 to 84","Uterine cancer",58.5011893073495,328479.942710043
+"Deaths","Colombia","Female","85 to 89","Uterine cancer",37.3333272322667,185043.078073453
+"Deaths","Colombia","Female","90 to 94","Uterine cancer",18.2187566250258,81977.2246241273
+"Deaths","Colombia","Female","95 to 99","Uterine cancer",6.82247146839616,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Uterine cancer",6.82247146839616,26448.8743270646
+"Deaths","Colombia","Male","15 to 19","Colon and rectum cancer",4.92395461673292,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","Colon and rectum cancer",2.53808294239262,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","Colon and rectum cancer",10.5715191970486,2218517.413738
+"Deaths","Colombia","Female","20 to 24","Colon and rectum cancer",6.96276409136724,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","Colon and rectum cancer",18.6356422783716,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","Colon and rectum cancer",14.2501689810918,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","Colon and rectum cancer",25.1700334680732,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","Colon and rectum cancer",21.8718961102373,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","Colon and rectum cancer",30.8559409507914,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","Colon and rectum cancer",37.7552573724219,1751108.498861
+"Deaths","Colombia","Male","40 to 44","Colon and rectum cancer",47.1878222421402,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Colon and rectum cancer",51.7541274221034,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Colon and rectum cancer",73.2211690145162,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Colon and rectum cancer",85.3628941780048,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Colon and rectum cancer",116.463566943098,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Colon and rectum cancer",132.556510155728,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Colon and rectum cancer",166.808595956027,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Colon and rectum cancer",182.810497725838,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Colon and rectum cancer",228.718605083449,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Colon and rectum cancer",228.592761661774,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Colon and rectum cancer",265.863152552283,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Colon and rectum cancer",244.263437402203,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Colon and rectum cancer",275.661682617049,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Colon and rectum cancer",288.474396329347,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Colon and rectum cancer",271.259926889437,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Colon and rectum cancer",333.012126561274,469747.516024351
+"Deaths","Colombia","Male","80 to 84","Colon and rectum cancer",241.855200010307,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Colon and rectum cancer",339.562731456783,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Colon and rectum cancer",168.508171922813,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Colon and rectum cancer",241.351518032974,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Colon and rectum cancer",68.2416886975353,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Colon and rectum cancer",120.992962403216,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Colon and rectum cancer",23.5031711913396,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Colon and rectum cancer",23.5031711913396,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Colon and rectum cancer",43.5338019894194,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Colon and rectum cancer",43.5338019894194,26448.8743270646
+"Deaths","Colombia","Male","0 to 4","Cardiovascular diseases",77.6858144252953,2167909.20216913
+"Deaths","Colombia","Female","0 to 4","Cardiovascular diseases",80.9081184764641,2060760.90994679
+"Deaths","Colombia","Male","5 to 9","Cardiovascular diseases",19.6282464963715,2212580.40980269
+"Deaths","Colombia","Female","5 to 9","Cardiovascular diseases",15.5602091019175,2101148.51460498
+"Deaths","Colombia","Male","10 to 14","Cardiovascular diseases",30.2143346329714,2264091.37361452
+"Deaths","Colombia","Female","10 to 14","Cardiovascular diseases",23.618503425803,2153049.72523721
+"Deaths","Colombia","Male","15 to 19","Cardiovascular diseases",75.4703100974456,2228444.26273398
+"Deaths","Colombia","Female","15 to 19","Cardiovascular diseases",47.8656024128947,2150993.53100278
+"Deaths","Colombia","Male","20 to 24","Cardiovascular diseases",117.881532638846,2218517.413738
+"Deaths","Colombia","Female","20 to 24","Cardiovascular diseases",68.0055007598969,2190718.7789639
+"Deaths","Colombia","Male","25 to 29","Cardiovascular diseases",164.694519333906,2019288.56150633
+"Deaths","Colombia","Female","25 to 29","Cardiovascular diseases",82.672451086934,2019943.06318646
+"Deaths","Colombia","Male","30 to 34","Cardiovascular diseases",219.657000021334,1791444.70391078
+"Deaths","Colombia","Female","30 to 34","Cardiovascular diseases",112.4072958245,1846411.96387025
+"Deaths","Colombia","Male","35 to 39","Cardiovascular diseases",317.154214086981,1657780.17706573
+"Deaths","Colombia","Female","35 to 39","Cardiovascular diseases",188.39616015498,1751108.498861
+"Deaths","Colombia","Male","40 to 44","Cardiovascular diseases",463.228444229756,1466433.1324749
+"Deaths","Colombia","Female","40 to 44","Cardiovascular diseases",313.555132111579,1582034.13504964
+"Deaths","Colombia","Male","45 to 49","Cardiovascular diseases",753.53493817643,1386162.60089623
+"Deaths","Colombia","Female","45 to 49","Cardiovascular diseases",513.748198304483,1532364.02787384
+"Deaths","Colombia","Male","50 to 54","Cardiovascular diseases",1360.19666663456,1338359.10971733
+"Deaths","Colombia","Female","50 to 54","Cardiovascular diseases",887.578198185238,1496516.4509695
+"Deaths","Colombia","Male","55 to 59","Cardiovascular diseases",2011.98302115569,1144521.12216271
+"Deaths","Colombia","Female","55 to 59","Cardiovascular diseases",1328.59543108489,1303933.18791786
+"Deaths","Colombia","Male","60 to 64","Cardiovascular diseases",2758.20052657262,903232.259814067
+"Deaths","Colombia","Female","60 to 64","Cardiovascular diseases",1869.01150413768,1045368.83764738
+"Deaths","Colombia","Male","65 to 69","Cardiovascular diseases",3472.80723333758,700574.531135091
+"Deaths","Colombia","Female","65 to 69","Cardiovascular diseases",2467.45252015766,817430.668676931
+"Deaths","Colombia","Male","70 to 74","Cardiovascular diseases",4166.44199706056,515701.743379734
+"Deaths","Colombia","Female","70 to 74","Cardiovascular diseases",3367.10599019675,617471.839972525
+"Deaths","Colombia","Male","75 to 79","Cardiovascular diseases",4802.98262648357,370689.58016288
+"Deaths","Colombia","Female","75 to 79","Cardiovascular diseases",4577.51541214071,469747.516024351
+"Deaths","Colombia","Male","80 to 84","Cardiovascular diseases",5247.60795668814,247116.870462483
+"Deaths","Colombia","Female","80 to 84","Cardiovascular diseases",5894.50817397014,328479.942710043
+"Deaths","Colombia","Male","85 to 89","Cardiovascular diseases",4427.17147550696,134534.643938926
+"Deaths","Colombia","Female","85 to 89","Cardiovascular diseases",5788.86423736062,185043.078073453
+"Deaths","Colombia","Male","90 to 94","Cardiovascular diseases",2635.57246221923,58893.2209278656
+"Deaths","Colombia","Female","90 to 94","Cardiovascular diseases",3865.58515929383,81977.2246241273
+"Deaths","Colombia","Male","95 to 99","Cardiovascular diseases",1203.22583494352,18931.3823363751
+"Deaths","Colombia","Male","95 to 99","Cardiovascular diseases",1203.22583494352,18931.3823363751
+"Deaths","Colombia","Female","95 to 99","Cardiovascular diseases",2205.1579609125,26448.8743270646
+"Deaths","Colombia","Female","95 to 99","Cardiovascular diseases",2205.1579609125,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Alzheimer's disease and other dementias",38.1658120601239,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Alzheimer's disease and other dementias",40.5780549565178,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Alzheimer's disease and other dementias",165.07172618932,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Alzheimer's disease and other dementias",200.14986744889,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Alzheimer's disease and other dementias",584.683512239624,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Alzheimer's disease and other dementias",707.145282429619,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Alzheimer's disease and other dementias",1140.96667958606,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Alzheimer's disease and other dementias",1446.62811490857,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Alzheimer's disease and other dementias",2399.37254365125,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Alzheimer's disease and other dementias",2811.91858094231,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Alzheimer's disease and other dementias",4240.42731756718,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Alzheimer's disease and other dementias",4855.51578750247,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Alzheimer's disease and other dementias",6576.84080822839,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Alzheimer's disease and other dementias",8176.50209345718,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Alzheimer's disease and other dementias",9812.54208252928,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Alzheimer's disease and other dementias",13916.5218618375,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Alzheimer's disease and other dementias",11376.9371731207,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Alzheimer's disease and other dementias",18941.8232079307,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Alzheimer's disease and other dementias",9364.84505097257,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Alzheimer's disease and other dementias",18185.0195972115,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Alzheimer's disease and other dementias",5404.3237930979,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Alzheimer's disease and other dementias",11188.3113213884,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Alzheimer's disease and other dementias",1436.37636880499,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Alzheimer's disease and other dementias",1436.37636880499,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Alzheimer's disease and other dementias",3514.5731305867,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Alzheimer's disease and other dementias",3514.5731305867,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Male","0 to 4","Lower respiratory infections",52605.2605125343,2167909.20216913
+"YLLs (Years of Life Lost)","Colombia","Female","0 to 4","Lower respiratory infections",48448.5935023488,2060760.90994679
+"YLLs (Years of Life Lost)","Colombia","Male","5 to 9","Lower respiratory infections",2993.22745410147,2212580.40980269
+"YLLs (Years of Life Lost)","Colombia","Female","5 to 9","Lower respiratory infections",2117.13385617018,2101148.51460498
+"YLLs (Years of Life Lost)","Colombia","Male","10 to 14","Lower respiratory infections",2276.01123942096,2264091.37361452
+"YLLs (Years of Life Lost)","Colombia","Female","10 to 14","Lower respiratory infections",1918.16043539119,2153049.72523721
+"YLLs (Years of Life Lost)","Colombia","Male","15 to 19","Lower respiratory infections",2938.1319636772,2228444.26273398
+"YLLs (Years of Life Lost)","Colombia","Female","15 to 19","Lower respiratory infections",1626.44158846096,2150993.53100278
+"YLLs (Years of Life Lost)","Colombia","Male","20 to 24","Lower respiratory infections",3365.39971685324,2218517.413738
+"YLLs (Years of Life Lost)","Colombia","Female","20 to 24","Lower respiratory infections",1728.57251048715,2190718.7789639
+"YLLs (Years of Life Lost)","Colombia","Male","25 to 29","Lower respiratory infections",3708.81986522217,2019288.56150633
+"YLLs (Years of Life Lost)","Colombia","Female","25 to 29","Lower respiratory infections",1808.57721633078,2019943.06318646
+"YLLs (Years of Life Lost)","Colombia","Male","30 to 34","Lower respiratory infections",3175.88584397532,1791444.70391078
+"YLLs (Years of Life Lost)","Colombia","Female","30 to 34","Lower respiratory infections",1914.11707723895,1846411.96387025
+"YLLs (Years of Life Lost)","Colombia","Male","35 to 39","Lower respiratory infections",3597.91795255349,1657780.17706573
+"YLLs (Years of Life Lost)","Colombia","Female","35 to 39","Lower respiratory infections",1975.77457989869,1751108.498861
+"YLLs (Years of Life Lost)","Colombia","Male","40 to 44","Lower respiratory infections",3609.32548725187,1466433.1324749
+"YLLs (Years of Life Lost)","Colombia","Female","40 to 44","Lower respiratory infections",2295.17700370239,1582034.13504964
+"YLLs (Years of Life Lost)","Colombia","Male","45 to 49","Lower respiratory infections",4156.23042192249,1386162.60089623
+"YLLs (Years of Life Lost)","Colombia","Female","45 to 49","Lower respiratory infections",2703.26314214277,1532364.02787384
+"YLLs (Years of Life Lost)","Colombia","Male","50 to 54","Lower respiratory infections",5488.88704680634,1338359.10971733
+"YLLs (Years of Life Lost)","Colombia","Female","50 to 54","Lower respiratory infections",3782.66452504641,1496516.4509695
+"YLLs (Years of Life Lost)","Colombia","Male","55 to 59","Lower respiratory infections",6514.31681447169,1144521.12216271
+"YLLs (Years of Life Lost)","Colombia","Female","55 to 59","Lower respiratory infections",4606.4311260463,1303933.18791786
+"YLLs (Years of Life Lost)","Colombia","Male","60 to 64","Lower respiratory infections",6661.40436936626,903232.259814067
+"YLLs (Years of Life Lost)","Colombia","Female","60 to 64","Lower respiratory infections",4767.3523903264,1045368.83764738
+"YLLs (Years of Life Lost)","Colombia","Male","65 to 69","Lower respiratory infections",6537.01459374687,700574.531135091
+"YLLs (Years of Life Lost)","Colombia","Female","65 to 69","Lower respiratory infections",4798.92744519015,817430.668676931
+"YLLs (Years of Life Lost)","Colombia","Male","70 to 74","Lower respiratory infections",6441.93764526041,515701.743379734
+"YLLs (Years of Life Lost)","Colombia","Female","70 to 74","Lower respiratory infections",5173.09124733999,617471.839972525
+"YLLs (Years of Life Lost)","Colombia","Male","75 to 79","Lower respiratory infections",5800.55931853966,370689.58016288
+"YLLs (Years of Life Lost)","Colombia","Female","75 to 79","Lower respiratory infections",5305.21245440437,469747.516024351
+"YLLs (Years of Life Lost)","Colombia","Male","80 to 84","Lower respiratory infections",4913.49302797091,247116.870462483
+"YLLs (Years of Life Lost)","Colombia","Female","80 to 84","Lower respiratory infections",5261.13428517419,328479.942710043
+"YLLs (Years of Life Lost)","Colombia","Male","85 to 89","Lower respiratory infections",3399.34790881235,134534.643938926
+"YLLs (Years of Life Lost)","Colombia","Female","85 to 89","Lower respiratory infections",3704.46509262488,185043.078073453
+"YLLs (Years of Life Lost)","Colombia","Male","90 to 94","Lower respiratory infections",1279.29974461535,58893.2209278656
+"YLLs (Years of Life Lost)","Colombia","Female","90 to 94","Lower respiratory infections",1621.56144371495,81977.2246241273
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Lower respiratory infections",336.312921258179,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Male","95 to 99","Lower respiratory infections",336.312921258179,18931.3823363751
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Lower respiratory infections",595.096727855709,26448.8743270646
+"YLLs (Years of Life Lost)","Colombia","Female","95 to 99","Lower respiratory infections",595.096727855709,26448.8743270646

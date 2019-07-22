@@ -249,6 +249,10 @@ print(system.time(
       parameter_samples <- sapply(parameter_names,function(x)multi_city_ithim[[ci]]$parameters[[x]])
     }else{
       for(param in model_parameters) multi_city_ithim[[ci]]$parameters[[param]] <- multi_city_ithim[[1]]$parameters[[param]]
+      background_quantile <- plnorm(multi_city_ithim[[1]]$parameters$PM_CONC_BASE,pm_conc_base[[1]][1],pm_conc_base[[1]][2])
+      multi_city_ithim[[ci]]$parameters$PM_CONC_BASE <- qlnorm(background_quantile,pm_conc_base[[city]][1],pm_conc_base[[city]][2])
+      proportion_quantile <- pbeta(multi_city_ithim[[1]]$parameters$PM_TRANS_SHARE,pm_trans_share[[1]][1],pm_trans_share[[1]][2])
+      multi_city_ithim[[ci]]$parameters$PM_TRANS_SHARE <- qbeta(background_quantile,pm_trans_share[[city]][1],pm_trans_share[[city]][2])
     }
     
     if(!parameters_only){
