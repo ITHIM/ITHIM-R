@@ -88,8 +88,6 @@ sapply(distances,function(x)if(length(x)>1)sapply(x$inj_distances$reg_model,leng
 distances[[5]]$inj_distances$reg_model
   ##
 distances <- list()
-min_age <- 15
-max_age <- 69
 mc=2
 for(mc in 1:2){
   for(city in cities[2]){
@@ -191,11 +189,6 @@ bus_walk_time <- list(accra=c(log(5),log(1.2)),
 mmet_cycling <- c(log(4.63),log(1.2))
 # lnorm parameters for MMET_WALKING
 mmet_walking <- c(log(2.53),log(1.2))
-# lnorm parameters for MOTORCYCLE_TO_CAR_RATIO
-motorcycle_to_car_ratio <- list(accra=c(-1.4,0.4),
-                                sao_paulo=0,
-                                delhi=0,
-                                bangalore=0)
 # lnorm parameters for INJURY_LINEARITY
 injury_linearity <- c(log(1),log(1.05))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
@@ -265,7 +258,6 @@ normVariables <- c("BUS_WALK_TIME",
                    "MMET_CYCLING",
                    "MMET_WALKING",
                    "PM_CONC_BASE",
-                   "MOTORCYCLE_TO_CAR_RATIO",
                    "BACKGROUND_PA_SCALAR",
                    "CHRONIC_DISEASE_SCALAR",
                    "INJURY_LINEARITY",
@@ -277,11 +269,13 @@ normVariables <- c("BUS_WALK_TIME",
 
 save(cities,setting_parameters,add_walk_to_bus_trips,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
      background_pa_scalar,background_pa_confidence,bus_walk_time,mmet_cycling,mmet_walking,emission_inventories,
-     motorcycle_to_car_ratio,injury_linearity,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
+     injury_linearity,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
      bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
      distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
 parameters_only <- F
+numcores <- 4
+synth_pop_size <- 1000
 multi_city_ithim <- outcome <- outcome_pp <- list()
 for(ci in 1:length(cities)){
   city <- cities[ci]
@@ -289,7 +283,7 @@ for(ci in 1:length(cities)){
   multi_city_ithim[[ci]] <- run_ithim_setup(CITY=city,  
                                             NSAMPLES = nsamples,
                                             seed=ci,
-                                            synthetic_population_size = 10000,
+                                            synthetic_population_size = synth_pop_size,
                                             
                                             DIST_CAT = c('0-1 km','2-5 km','6+ km'),
                                             TEST_WALK_SCENARIO = test_walk_scenario,
@@ -317,7 +311,6 @@ for(ci in 1:length(cities)){
                                             BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
                                             BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
                                             BUS_WALK_TIME = bus_walk_time[[city]],
-                                            MOTORCYCLE_TO_CAR_RATIO = motorcycle_to_car_ratio[[city]],
                                             BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                             TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
                                             EMISSION_INVENTORY_CONFIDENCE = emission_confidence[[city]],
@@ -383,7 +376,6 @@ for(ci in 1:length(cities)){
   parameter_samples <- cbind(parameter_samples,sapply(parameter_names_city,function(x)multi_city_ithim[[ci]]$parameters[[x]]))
   
 }
-
 
 saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds')
 

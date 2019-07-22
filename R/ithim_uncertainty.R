@@ -14,12 +14,15 @@ ithim_uncertainty <- function(ithim_object,seed=1){
   if(RECALCULATE_EMISSION_INVENTORY) set_vehicle_inventory() # sets vehicle inventory
   if(RECALCULATE_TRIPS){
     #set_vehicle_inventory()
-    get_synthetic_from_trips()
+    ithim_object$pp_summary <- get_synthetic_from_trips()
   }
   
   ## calculate distances, if distances are not variable dependent
   if(RECALCULATE_DISTANCES){
-    ithim_object <- get_all_distances(ithim_object)
+    dist_list <- get_all_distances(ithim_object$pp_summary) # uses synthetic trips to calculate distances
+    ithim_object$dist <- dist_list$dist
+    ithim_object$dur <- dist_list$dur
+    ithim_object$inj_distances <- dist_list$inj_distances
   }
   ############################
   # Run ITHIM cascade of functions

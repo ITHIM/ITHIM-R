@@ -304,12 +304,15 @@ run_ithim_setup <- function(seed = 1,
   
   ## create inventory and edit trips, if they are not variable dependent
   if(!RECALCULATE_TRIPS){
-    get_synthetic_from_trips() # sets synthetic trips and synthetic population
+    ithim_object$pp_summary <- get_synthetic_from_trips() # sets synthetic trips and synthetic population
   }
   
   ## calculate distances, if distances are not variable dependent
   if(!RECALCULATE_DISTANCES){
-    ithim_object <- get_all_distances(ithim_object) # uses synthetic trips to calculate distances
+    dist_list <- get_all_distances(ithim_object$pp_summary) # uses synthetic trips to calculate distances
+    ithim_object$dist <- dist_list$dist
+    ithim_object$dur <- dist_list$dur
+    ithim_object$inj_distances <- dist_list$inj_distances
   }
   ######################
   
