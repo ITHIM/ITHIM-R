@@ -49,3 +49,6 @@ rd <- plyr::rbind.fill(rd, rd_pt_short_walk)
 rd$trip_duration <- ave(rd$stage_duration, rd$trip_id, FUN=sum)
 
 rd <- arrange(rd, trip_id)
+
+# Write csv
+write_csv(rd, "inst/extdata/local/belo_horizonte/trips_belo_horizonte.csv")
