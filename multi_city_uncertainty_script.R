@@ -60,6 +60,7 @@ distances <- list()
 ##debug
 city='delhi'
 ci <- which(cities==city)
+nsamples <- 1024
 ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
                                 NSAMPLES=24,
                                 synthetic_population_size = 1000,
@@ -78,22 +79,21 @@ ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
 distances <- list()
 #for(i in 1:NSAMPLES) 
 seed <- 1
-just_distances(seed,ithim_object=ithim_object)
-profvis(just_distances(seed,ithim_object=ithim_object))
+#just_distances(seed,ithim_object=ithim_object)
+#profvis(just_distances(seed,ithim_object=ithim_object))
 
 system.time(distances <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=4))
 
 print(sapply(distances,length))
-sapply(distances,function(x)if(length(x)>1)sapply(x$inj_distances$reg_model,length))
+#sapply(distances,function(x)if(length(x)>1)sapply(x$inj_distances$reg_model,length))
 distances[[5]]$inj_distances$reg_model
   ##
 distances <- list()
-mc=2
-for(mc in 1:2){
+for(mc in c(1,4)){
   for(city in cities[2]){
     ci <- which(cities==city)
     ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
-                                    NSAMPLES=500,
+                                    NSAMPLES=nsamples,
                                     synthetic_population_size = 1000,
                                     CITY=city,
                                     DIST_CAT = c('0-1 km','2-5 km','6+ km'),
@@ -114,11 +114,59 @@ for(mc in 1:2){
     #for(i in 1:NSAMPLES) distances[[city]][[i]] <- just_distances(i,ithim_object)
     distances[[city]] <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=4)
     print(sapply(distances[[city]],length))
-  #}
-  SCEN <- rownames(SCENARIO_PROPORTIONS)
-  scen_names <- c('baseline',SCEN)
-  NSCEN <- length(SCEN)
-  #for(city in cities){
+    #}
+    SCEN <- rownames(SCENARIO_PROPORTIONS)
+    scen_names <- c('baseline',SCEN)
+    NSCEN <- length(SCEN)
+    #for(city in cities){
+    print(city)
+    print(NSAMPLES)
+    print(nrow(distances[[city]][[1]]$dist))
+    print(nrow(distances[[city]][[1]]$pp_summary[[1]]))
+    dist_mat <- matrix(0,nrow=NSAMPLES,ncol=nrow(distances[[city]][[1]]$dist))
+    pdf(paste0('distance_distribution_1000p_',city,mc,'.pdf'))
+    #x11(); 
+    par(mfrow=c(2,3),mar=c(7,5,2,1))
+    for(j in 1:6){
+      for(i in 1:NSAMPLES)
+        dist_mat[i,] <- distances[[city]][[i]]$dist[,j]/nrow(distances[[city]][[i]]$pp_summary[[1]])
+      boxplot(dist_mat,names=rownames(distances[[city]][[i]]$dist),las=2,frame=F,main=paste0(scen_names[j],', ',city),ylab='km pp')
+    }
+    dev.off()
+  }    
+}
+
+distances <- list()
+for(mc in c(1,2)){
+  for(city in cities[1]){
+    ci <- which(cities==city)
+    ithim_object <- run_ithim_setup(PROPENSITY_TO_TRAVEL = T,
+                                    NSAMPLES=nsamples,
+                                    synthetic_population_size = 1000,
+                                    CITY=city,
+                                    DIST_CAT = c('0-1 km','2-5 km','6+ km'),
+                                    AGE_RANGE = c(min_age,max_age),
+                                    MAX_MODE_SHARE_SCENARIO = T,
+                                    ADD_WALK_TO_BUS_TRIPS = add_walk_to_bus_trips[ci],
+                                    speeds = speeds[[city]],
+                                    BUS_WALK_TIME = bus_walk_time[[city]],
+                                    BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
+                                    TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
+                                    DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
+                                    DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
+                                    DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
+                                    DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
+                                    DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]],
+                                    PROBABILITY_SCALAR_MOTORCYCLE = mc)
+    distances[[city]] <- NULL
+    #for(i in 1:NSAMPLES) distances[[city]][[i]] <- just_distances(i,ithim_object)
+    distances[[city]] <- mclapply(1:NSAMPLES,just_distances,ithim_object=ithim_object,mc.cores=4)
+    print(sapply(distances[[city]],length))
+    #}
+    SCEN <- rownames(SCENARIO_PROPORTIONS)
+    scen_names <- c('baseline',SCEN)
+    NSCEN <- length(SCEN)
+    #for(city in cities){
     print(city)
     print(NSAMPLES)
     print(nrow(distances[[city]][[1]]$dist))
@@ -139,7 +187,7 @@ for(mc in 1:2){
 #################################################################
 ## with uncertainty
 ## comparison across cities
-nsamples <- 16
+#nsamples <- 16
 setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","EMISSION_INVENTORY",                        
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO",
                         "DISTANCE_SCALAR_CAR_TAXI",
@@ -249,6 +297,11 @@ distance_scalar_cycling <- list(accra=c(0,log(1.2)),
                                 delhi=c(0,log(1.2)),
                                 bangalore=c(0,log(1.2)))
 
+probability_scalar_motorcycle <- list(accra=2,
+                                      sao_paulo=4,
+                                      delhi=1,
+                                      bangalore=1)
+
 betaVariables <- c("PM_TRANS_SHARE",
                    "INJURY_REPORTING_RATE",
                    "CASUALTY_EXPONENT_FRACTION",
@@ -319,7 +372,8 @@ for(ci in 1:length(cities)){
                                             DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
                                             DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
                                             DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]],
-                                            PROPENSITY_TO_TRAVEL = T)
+                                            PROPENSITY_TO_TRAVEL = T,
+                                            PROBABILITY_SCALAR_MOTORCYCLE = probability_scalar_motorcycle[[city]])
   
   # for first city, store model parameters. For subsequent cities, copy parameters over.
   if(ci==1){
@@ -390,7 +444,7 @@ ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
 means <- sapply(scen_out,function(x)apply(x,2,mean))
 yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
 cols <- c('navyblue','hotpink','grey','darkorange')
-{pdf('city_yll.pdf',height=6,width=6); par(mar=c(5,5,1,1))
+{pdf('results/multi_city/city_yll.pdf',height=6,width=6); par(mar=c(5,5,1,1))
   plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
   axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME)
   #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
@@ -404,7 +458,7 @@ cols <- c('navyblue','hotpink','grey','darkorange')
 comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[5]][,seq(y,ncol(outcome[[5]]),by=NSCEN)]))
 ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
 means <- apply(comb_out,2,mean)
-{pdf('combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
+{pdf('results/multi_city/combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
   plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL pp relative to baseline',col='navyblue',yaxt='n',xlim=range(ninefive))
   axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME)
   #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
@@ -525,7 +579,7 @@ library(plotrix)
 #                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
 #                     'COPD (AP)','stroke (AP)')
 evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
-{pdf('evppi.pdf',height=15,width=8); par(mar=c(6,20,3.5,5.5))
+{pdf('results/multi_city/evppi.pdf',height=15,width=8); par(mar=c(6,20,3.5,5.5))
   labs <- rownames(evppi)
   get.pal=colorRampPalette(brewer.pal(9,"Reds"))
   redCol=rev(get.pal(12))
