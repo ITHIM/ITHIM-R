@@ -9,8 +9,7 @@ for (cities in c('accra','sao_paulo','delhi')){
   
   rd <- io[[cities]]$trip_scen_sets %>% filter(scenario == "Baseline")
   
-  rd <- rd %>%
-    filter(!(trip_mode %in% c("taxi", "rail")))
+  rd <- rd %>% filter(trip_mode %in% c("bus", "walking", "car", "motorcycle", "bicycle"))
   
   # ggplot(rd) +
   #   aes(x = trip_distance) +
