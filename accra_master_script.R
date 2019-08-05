@@ -122,28 +122,35 @@ for(i in 1:nDiseases){
 #################################################
 ## Use case 3: sampling:
 ## sample size, travel patterns, emissions (cleaner fleet)
-set.seed(1)
-ithim_object <- run_ithim_setup(NSAMPLES = 64,
-                                REFERENCE_SCENARIO='Scenario 1',
-                                BUS_WALK_TIME = c(log(5), log(1.2)),
-                                MMET_WALKING = c(log(2.5), log(1.2)), 
-                                MMET_CYCLING = c(log(5), log(1.2)), 
-                                PM_CONC_BASE = c(log(50), log(1.2)),  
+
+ithim_object <- run_ithim_setup(NSAMPLES = 1024,
+                                TEST_WALK_SCENARIO=T,
+                                ADD_WALK_TO_BUS_TRIPS = F,# = c(log(5), log(1.2)),
+                                MMET_WALKING = c(log(2.53),log(1.2)), 
+                                MMET_CYCLING = c(log(4.63),log(1.2)), 
+                                PM_CONC_BASE = c(log(50), log(1.3)),  
                                 PM_TRANS_SHARE = c(5,20), 
                                 INJURY_REPORTING_RATE = c(8,3), 
                                 CHRONIC_DISEASE_SCALAR = c(log(1), log(1.2)),  
                                 BACKGROUND_PA_SCALAR = c(log(1), log(1.2)),   
-                                MOTORCYCLE_TO_CAR_RATIO = c(-1.4,0.4),
-                                PA_DOSE_RESPONSE_QUANTILE = F,  
-                                AP_DOSE_RESPONSE_QUANTILE = F,
-                                DAY_TO_WEEK_TRAVEL_SCALAR = c(20,3),
-                                INJURY_LINEARITY= c(log(1),log(1.2)),
-                                CASUALTY_EXPONENT_FRACTION = c(8,8),
-                                EMISSION_INVENTORY_CONFIDENCE = 1,
+                                BUS_TO_PASSENGER_RATIO = c(20,600),
+                                TRUCK_TO_CAR_RATIO = c(3,10),
+                                DISTANCE_SCALAR_CAR_TAXI = c(0,log(1.2)),
+                                DISTANCE_SCALAR_MOTORCYCLE = c(0,log(1.2)),
+                                DISTANCE_SCALAR_WALKING = c(0,log(1.2)),
+                                DISTANCE_SCALAR_CYCLING = c(0,log(1.2)),
+                                DISTANCE_SCALAR_PT = c(0,log(1.2)),
+                                PA_DOSE_RESPONSE_QUANTILE = T,  
+                                AP_DOSE_RESPONSE_QUANTILE = T,
+                                DAY_TO_WEEK_TRAVEL_SCALAR = 7,#c(20,3),
+                                INJURY_LINEARITY= c(log(1),log(1.1)),
+                                CASUALTY_EXPONENT_FRACTION = c(15,15),
+                                EMISSION_INVENTORY_CONFIDENCE = 0.5,
                                 BACKGROUND_PA_CONFIDENCE = 0.5)
 
-numcores <- detectCores()
-ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = ithim_uncertainty, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+numcores <- 4#detectCores()
+run_ithim(ithim_object,1)
+ithim_object$outcomes <- mclapply(1:NSAMPLES, FUN = run_ithim, ithim_object = ithim_object, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
 for(i in 1:NSAMPLES) print(length(ithim_object$outcomes[[i]]))
 
 plot(ithim_object$parameters$MOTORCYCLE_TO_CAR_RATIO,sapply(ithim_object$outcomes,function(x)sum(x$hb$deaths[,40])))
@@ -151,12 +158,25 @@ plot(ithim_object$parameters$INJURY_REPORTING_RATE,sapply(ithim_object$outcomes,
 plot(ithim_object$parameters$AP_DOSE_RESPONSE_QUANTILE_GAMMA_cvd_ihd,sapply(ithim_object$outcomes,function(x)sum(x$hb$deaths[,10])))
 
 ## calculate EVPPI
-parameter_names <- names(ithim_object$parameters)[names(ithim_object$parameters)!="DR_AP_LIST"]
+parameter_names <- names(ithim_object$parameters)[!names(ithim_object$parameters)%in%c('PROPENSITY_TO_TRAVEL','EMISSION_INVENTORY',"DR_AP_LIST")]
 parameter_samples <- sapply(parameter_names,function(x)ithim_object$parameters[[x]])
-outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$ylls[,3:ncol(x$hb$ylls)])))
+outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$ylls[,c(5,7:ncol(x$hb$ylls))])))
+
+upper <- apply(outcome,2,quantile,.95)
+lower <- apply(outcome,2,quantile,.05)
+{
+  pdf('accra_walk_yll.pdf'); par(mar=c(5,5,2,2))
+  plot(c(lower[1],upper[1]),c(1,1),lty=1,typ='l',col='navyblue',lwd=2,xlim=1.1*range(c(lower,upper)),ylim=c(0,length(lower)),yaxt='n',frame=F,ylab='',xlab='YLL gain',cex.axis=1.5,cex.lab=1.5)
+  abline(v=0,col='grey',lwd=2,lty=2)
+  for(i in 2:length(lower)) lines(c(lower[i],upper[i]),c(i,i),lty=1,col='navyblue',lwd=2)
+  axis(2,at=1:length(lower),labels=sapply(names(lower),function(x)last(strsplit(x,'_')[[1]])),las=2)
+  text(x=max(upper),y=which.max(upper),'90%',cex=1.5,pos=3,col='navyblue')
+  dev.off()
+}
+
 evppi <- matrix(0, ncol = NSCEN, nrow = ncol(parameter_samples))
 for(j in 1:(NSCEN)){
-  y <- outcome[, j+5] ## +5 means we choose ihd outcome for each scenario
+  y <- rowSums(outcome)#[, j+5] ## +5 means we choose ihd outcome for each scenario
   vary <- var(y)
   for(i in 1:ncol(parameter_samples)){
     x <- parameter_samples[, i];
@@ -165,18 +185,69 @@ for(j in 1:(NSCEN)){
     
   }
 }
-colnames(evppi) <- SCEN_SHORT_NAME[c(1,3:6)]
+#colnames(evppi) <- SCEN_SHORT_NAME[c(1,3:6)]
 rownames(evppi) <- colnames(parameter_samples)
+parallel_evppi_for_AP <- function(disease,parameter_samples,outcome,NSCEN){
+  AP_DOSE_RESPONSE_QUANTILE <- c()
+  x1 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease))];
+  x2 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease))];
+  x3 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease))];
+  x4 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease))];
+  for(j in 1:(NSCEN)){
+    y <- rowSums(outcome[,seq(j,ncol(outcome),by=NSCEN)])
+    vary <- var(y)
+    model <- gam(y ~ te(x1,x2,x3,x4))
+    AP_DOSE_RESPONSE_QUANTILE[j] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100 
+  }
+  AP_DOSE_RESPONSE_QUANTILE
+}
 
 ## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
 if("DR_AP_LIST"%in%names(ithim_object$parameters)&&NSAMPLES>=1024){
   AP_names <- sapply(names(ithim_object$parameters),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
   diseases <- sapply(names(ithim_object$parameters)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-  evppi_for_AP <- mclapply(diseases, FUN = parallel_evppi_for_AP,parameter_samples,outcome, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+  evppi_for_AP <- mclapply(diseases, FUN = parallel_evppi_for_AP,parameter_samples,outcome,NSCEN, mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
   names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
+  evppi <- evppi[!sapply(rownames(evppi),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_')[[1]])>1),,drop=F]
   evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
 }
 print(evppi)
+
+multi_city_parallel_evppi_for_emissions <- function(sources,outcome){
+  voi <- c()
+  averages <- colMeans(sources)
+  x1 <- sources[,order(averages,decreasing=T)[1]];
+  x2 <- sources[,order(averages,decreasing=T)[2]];
+  x3 <- sources[,order(averages,decreasing=T)[3]];
+  x4 <- sources[,order(averages,decreasing=T)[4]];
+  #for(j in 1:length(outcome)){
+  case <- outcome#[[j]]
+  for(k in 1:NSCEN){
+    scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
+    y <- rowSums(scen_case)
+    vary <- var(y)
+    model <- gam(y ~ te(x1,x2,x3,x4))
+    voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+  }
+  #}
+  voi
+}
+
+if("EMISSION_INVENTORY"%in%names(ithim_object$parameters)&&NSAMPLES>=1024){
+  sources <- as.data.frame(t(sapply(ithim_object$parameters$EMISSION_INVENTORY,function(x) unlist(x))))
+  evppi_for_emissions <- multi_city_parallel_evppi_for_emissions(sources, outcome)
+  
+  names(evppi_for_emissions) <- NULL
+  
+  evppi <- rbind(evppi,EMISSION_INVENTORY=evppi_for_emissions)
+}
+print(evppi)
+{
+  pdf('accra_walk_evppi.pdf',height=10)#x11(height=10); 
+  par(mar=c(5,25,2,2)); 
+  barplot(evppi,horiz = T,xlab='EVPPI, %',cex.axis=1.5,cex.lab=1.5,beside = T,names.arg=rownames(evppi),las=2)
+  dev.off()
+}
 
 #################################################
 ## Use case 4: Application: six behavioural scenarios and five environmental scenarios.
