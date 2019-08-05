@@ -8,19 +8,8 @@ create_max_mode_share_scenarios <- function(trip_set){
   target_distances <- colnames(SCENARIO_PROPORTIONS)			
   modes <- rownames(SCENARIO_PROPORTIONS)		
   
-  ## add trip weights			
-  car_taxi_modes <- UNCERTAIN_TRAVEL_MODE_NAMES$car			
-  pt_modes <- UNCERTAIN_TRAVEL_MODE_NAMES$pt			
-  ## weight by mode probability scalars			
-  match_modes <- rep(1,nrow(rdr))			
-  travel_modes <- rdr$trip_mode			
-  match_modes[travel_modes%in%car_taxi_modes] <- PROBABILITY_SCALAR_CAR_TAXI			
-  match_modes[travel_modes%in%c('walking')] <- PROBABILITY_SCALAR_WALKING			
-  match_modes[travel_modes%in%pt_modes] <- PROBABILITY_SCALAR_PT			
-  match_modes[travel_modes%in%c('cycling')] <- PROBABILITY_SCALAR_CYCLING			
-  match_modes[travel_modes%in%c('motorcycle')] <- PROBABILITY_SCALAR_MOTORCYCLE			
-  rdr$trip_weight <- match_modes			
-  match_modes <- travel_modes <- NULL	
+  rdr <- add_trip_weights(rdr)
+  
   # Baseline scenario			
   rd_list[[1]] <- rdr
   
@@ -130,7 +119,25 @@ create_max_mode_share_scenarios <- function(trip_set){
   fmatch(x, table, nomatch = 0L) > 0L
 }
 
-
+#' @export
+add_trip_weights <- function(rdr){
+  
+  
+  ## add trip weights			
+  car_taxi_modes <- UNCERTAIN_TRAVEL_MODE_NAMES$car			
+  pt_modes <- UNCERTAIN_TRAVEL_MODE_NAMES$pt			
+  ## weight by mode probability scalars			
+  match_modes <- rep(1,nrow(rdr))			
+  travel_modes <- rdr$trip_mode			
+  match_modes[travel_modes%in%car_taxi_modes] <- PROBABILITY_SCALAR_CAR_TAXI			
+  match_modes[travel_modes%in%c('walking')] <- PROBABILITY_SCALAR_WALKING			
+  match_modes[travel_modes%in%pt_modes] <- PROBABILITY_SCALAR_PT			
+  match_modes[travel_modes%in%c('cycling')] <- PROBABILITY_SCALAR_CYCLING			
+  match_modes[travel_modes%in%c('motorcycle')] <- PROBABILITY_SCALAR_MOTORCYCLE			
+  rdr$trip_weight <- match_modes			
+  return(rdr)
+  
+}
 
 # rdr <- setDT(trip_set)
 # setkey(rdr,trip_id)

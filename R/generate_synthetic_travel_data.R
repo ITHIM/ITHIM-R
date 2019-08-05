@@ -124,19 +124,22 @@ generate_no_travel_summary <- function(){
   trip_set <- TRIP_SET
   trip_superset <- assign_age_groups(trip_set)
   trip_superset <- left_join(trip_superset,DEMOGRAPHIC,by=c('sex','age_cat'))
+  population <- setDT(trip_superset)[,.(population=length(unique(participant_id))),by='dem_index']
   
   modes_to_keep <- intersect(MODE_SPEEDS$stage_mode,unique(trip_superset$trip_mode))
   #modes_to_keep <- modes_to_keep[!is.na(modes_to_keep)]
   modes <- modes_to_keep#unlist(UNCERTAIN_TRAVEL_MODE_NAMES)
   
-  missing_trips <- trip_superset[!trip_superset$trip_mode%in%modes_to_keep&!duplicated(trip_superset$participant_id),]
-  all_trips <- setDT(trip_superset[trip_superset$trip_mode%in%modes_to_keep,])
+  #missing_trips <- trip_superset[!trip_superset$trip_mode%in%modes_to_keep&!duplicated(trip_superset$participant_id),]
+  #all_trips <- setDT(trip_superset[trip_superset$trip_mode%in%modes_to_keep,])
   trip_superset <- NULL
   
-  NO_TRAVEL_PEOPLE <<- setDT(missing_trips)[,.(no_travel=.N),by='dem_index']
-  missing_trips <- NULL
+  #NO_TRAVEL_PEOPLE <<- missing_trips[,.(no_travel=.N),by='dem_index']
+  #missing_trips <- NULL
   
-  TRAVEL_SUMMARY_TEMPLATE <<- expand.grid(trip_mode=sort(modes_to_keep),dem_index=sort(unique(DEMOGRAPHIC$dem_index)))
+  travel_summary_template <- expand.grid(trip_mode=sort(modes_to_keep),dem_index=sort(unique(DEMOGRAPHIC$dem_index)))
+  travel_summary_template <- left_join(travel_summary_template,population,by='dem_index')
+  TRAVEL_SUMMARY_TEMPLATE <<- travel_summary_template
   
   #TRAVEL_SUMMARY <<- generate_travel_summary(all_trips)
 }
@@ -159,9 +162,9 @@ generate_travel_summary <- function(all_trips){
   # add total number of people who complete some travel
   travel_summary <- travel_summary[travel_people,on=c('dem_index')]
   # add total number of people who complete no travel
-  travel_summary <- travel_summary[NO_TRAVEL_PEOPLE,on=c('dem_index')]
+  #travel_summary <- travel_summary[NO_TRAVEL_PEOPLE,on=c('dem_index')]
   # add total number of people
-  travel_summary[,population:=some_travel+no_travel]
+  #travel_summary[,population:=some_travel+no_travel]
   # replace any NA with 0
   travel_summary[is.na(travellers),travellers:=0]
   setnames(travel_summary,'trip_mode','mode')
@@ -169,10 +172,12 @@ generate_travel_summary <- function(all_trips){
   
   ## estimate smooth probabilities
   travel_summary[,raw_probability:=travellers/population]
-  travel_summary$smooth_probability <- #raw_probability
-    #smooth_probability[smooth_probability==0] <- 0.001
-    suppressWarnings(glm(raw_probability~I(dem_index<(max(dem_index)/2))+I(dem_index%%(max(dem_index)/2))+mode,
+  smoothed_probabilities <- suppressWarnings(glm(raw_probability~I(dem_index<(max(dem_index)/2))+I(dem_index%%(max(dem_index)/2))+mode,
                          family=binomial,data=travel_summary)$fitted.values)
+  # retain 'finite' raw probabilities
+  smoothed_probabilities[travel_summary$raw_probability>0&travel_summary$raw_probability<1] <- 
+    travel_summary$raw_probability[travel_summary$raw_probability>0&travel_summary$raw_probability<1]
+  travel_summary$smooth_probability <- smoothed_probabilities
 #  return(travel_summary)
 #}
 
