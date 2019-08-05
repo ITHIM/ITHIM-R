@@ -1,0 +1,105 @@
+---
+title: "Distance distribution by modes"
+output: html_document
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis')
+options(warn = -1)
+
+```
+
+```{r loadLibraries, echo = F, message = F}
+suppressWarnings({
+
+  library(tidyverse)
+  library(ggthemes)
+  library(plotly)
+  library(knitr)
+
+})
+
+```
+
+```{r loadData, message = F, echo = F, warning = F}
+  
+  io <- read_rds("../../results/multi_city/io.rds")
+```
+
+  
+```{r genPlots, message = T, echo = F, warning = F}
+
+suppressWarnings({
+  require(knitr)
+  
+  l <- htmltools::tagList()
+  tl <- list()
+  index <- 1
+  
+  for (cities in c('accra','sao_paulo','delhi')){
+  
+  rd <- io[[cities]]$trip_scen_sets %>% filter(scenario == "Baseline")
+  
+  rd <- rd %>% filter(trip_mode %in% c("bus", "walking", "car", "motorcycle", "bicycle"))
+  
+  # ggplot(rd) +
+  #   aes(x = trip_distance) +
+  #   geom_density(adjust = 1L) +
+  #   scale_fill_hue() +
+  #   theme_tufte() +
+  #   facet_wrap(vars(trip_mode), scales = "free") +
+  #   labs(title = "Distribution of trips by distance - Accra")
+  
+  
+  p <- ggplot(rd) +
+  aes(x = trip_mode, y = trip_distance) +
+  geom_boxplot(adjust = 1L, scale = "area", fill = "#39486b") +
+  geom_hline(yintercept = c(2, 6), linetype="dashed", color = "red", size=0.1) +
+  labs(title = paste("Distribution of trips by distance - ", cities), x = "Mode", y = "Distance (km)")
+  
+  if (cities == 'delhi'){
+    p <- p + coord_cartesian(ylim = c(0, 100)) 
+  }
+  
+  tl[[index]] <-  filter(p$data, scenario == 'Baseline') %>% select(trip_mode, trip_distance) %>% rename(var = trip_distance) %>% group_by(trip_mode) %>%  summarise(mean = mean(var), median =median(var), Q1 = quantile (var, probs=0.25), Q2 = quantile (var, probs=0.50), Q3 = quantile(var, probs=0.75)) %>% mutate_if(is.numeric, round, digits = 1)
+  
+  
+  pp <- plotly_build(p)
+  
+  pp$x$data <- lapply(pp$x$data, FUN = function(x){
+    x$marker = list(opacity = 0)
+    return(x)
+  })
+  
+  l[[index]] <- as_widget(ggplotly(p))
+  index <- index + 1
+  
+  }
+  
+})
+  
+```
+
+## Plots
+
+```{r printPlots, echo = F, message = F}
+
+suppressWarnings({
+ l
+})
+```
+
+## Tables
+
+```{r printTables, echo = F, results = 'asis'}
+
+suppressWarnings({
+  require(knitr)
+  local_cities <- c('Accra','Sao Paulo','Delhi')
+   for (i in 1:3){
+      print(kable(tl[[i]], caption = paste("Distribution of trips by distance - ", local_cities[i])))
+      cat('\n')
+   }
+})
+```
