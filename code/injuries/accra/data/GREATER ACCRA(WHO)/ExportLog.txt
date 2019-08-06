@@ -1,0 +1,9 @@
+BRRI
+
+This file keeps a log of activities in the current export session
+
+Export session date .... 04 September, 2018
+Export session time .... 14:51
+
+Number of records exported:  36
+
