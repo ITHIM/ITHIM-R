@@ -1,5 +1,13 @@
+#' Creates specific scenarios for Accra and Sao Paulo
+#' 
+#' Creates five prespecified scenarios from the baseline for Accra and Sao Paulo
+#' 
+#' @param trip_set data frame of baseline trips
+#' 
+#' @return list of scenarios
+#' 
 #' @export
-create_all_scenarios <- function(CITY = 'accra', trip_set){
+create_all_scenarios <- function(trip_set){
   
   # Default city is set to accra
   

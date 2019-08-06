@@ -1,3 +1,11 @@
+#' Reduce size of glm object
+#' 
+#' Delete some attributes of glm object in order to save space
+#' 
+#' @param obj glm object
+#' 
+#' @return glm object
+#' 
 #' @export
 trim_glm_object <- function(obj){
   obj$y <- c()

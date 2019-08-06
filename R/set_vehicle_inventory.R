@@ -1,3 +1,8 @@
+#' Collate all vehicle information
+#' 
+#' Puts all vehicle information in one place. Writes to global environment.
+#' 
+#' 
 #' @export
 set_vehicle_inventory <- function(){
   ##!! needs some work, both in terms of how it is built, and how it is used.

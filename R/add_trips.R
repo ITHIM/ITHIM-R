@@ -1,3 +1,18 @@
+#' Add trips to trip set
+#' 
+#' Creates a data frame of the same description as a trip set to append
+#' 
+#' @param trip_ids ids for new trips
+#' @param new_mode mode for new trips
+#' @param distance distances to sample from
+#' @param participant_id participant id for new trips
+#' @param age age for participant
+#' @param sex sex for participant
+#' @param nTrips number of trips for participant
+#' @param speed speed for new trips
+#' 
+#' @return data frame of trips
+#' 
 #' @export
 add_trips <- function(trip_ids=0,new_mode='walking',distance=1,participant_id=0,age=20,sex='Male',nTrips=3,speed=4.8){
   dist <- sample(distance,nTrips,replace=T)

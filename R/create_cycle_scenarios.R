@@ -1,3 +1,11 @@
+#' Creates cycling scenarios
+#' 
+#' Creates five scenarios with 10-50% cycling
+#' 
+#' @param trip_set data frame of baseline trips
+#' 
+#' @return list of scenarios
+#' 
 #' @export
 create_cycle_scenarios <- function(trip_set){
   rdr <- trip_set

@@ -1,3 +1,11 @@
+#' Create contingency table from itemised list of injuries
+#' 
+#' One of the inputs is a list of injury events. This function aggregates injuries by type into a long contingency table with prespecified column names.
+#' Write tables to global environment.
+#' 
+#' @param injuries data frame of injury events
+#' 
+#' 
 #' @export
 set_injury_contingency <- function(injuries){
   ##RJ previously (up to 14/5/19)

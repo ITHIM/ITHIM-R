@@ -1,3 +1,14 @@
+#' Add trips taken by no one
+#' 
+#' Creates trips based on distance relative to another (reference) mode, without altering the synthetic population
+#' 
+#' @param raw_trip_set data frame of trips
+#' @param trip_mode which mode to add
+#' @param distance_ratio fraction of reference distance to create
+#' @param reference_mode name of reference mode
+#' 
+#' @return data frame of trips
+#' 
 #' @export
 add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',distance_ratio=BUS_TO_PASSENGER_RATIO*DISTANCE_SCALAR_PT,reference_mode='bus'){
   

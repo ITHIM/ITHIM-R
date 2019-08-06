@@ -1,9 +1,15 @@
+#' Get RR for diseases given AP exposure
+#' 
+#' Computes the RR for individuals for each disease given AP exposure
+#' 
+#' @param pm_conc_pp individual AP exposures
+#' 
+#' @return data frame of relative risks per person per disease
+#' 
 #' @export
 gen_ap_rr <- function(pm_conc_pp){
   
-  ### combining PM2.5 concentration data (scenario_pm_calculations.R) and PA data (total_mmet.R) at the individual level (n=732)
-  
-  pm_rr_pp <- pm_conc_pp ## PM2.5 relative risk per person
+  pm_rr_pp <- pm_conc_pp 
   
   ## assigning air pollution age band to the individual_level data
   min_ages <- c(seq(24,94,by=5),200)
@@ -46,6 +52,18 @@ gen_ap_rr <- function(pm_conc_pp){
   pm_rr_pp
 }
 
+#' Computes RR as a DR relationship
+#' 
+#' Computes RR as a DR relationship given four parameters and the PM2.5 exposure
+#' 
+#' @param pm PM2.5 exposure
+#' @param alpha DR parameter
+#' @param beta DR parameter
+#' @param gamma DR parameter
+#' @param tmrel DR parameter
+#' 
+#' @return RR
+#' 
 #' @export
 ap_dose_response_curve <- function(pm,alpha,beta,gamma,tmrel){
   as.numeric(1 + alpha * (1 - exp(-beta * (pm - tmrel) ^ gamma )))

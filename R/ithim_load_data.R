@@ -1,3 +1,11 @@
+#' Load data for model and setting
+#' 
+#' Loads and processes data from file. Local data for the setting and global data for the model.
+#' Writes objects to the global environment.
+#' 
+#' @param speeds named list of mode speeds
+#' 
+#' 
 #' @export
 ithim_load_data <- function(speeds=list(
   bus=15,

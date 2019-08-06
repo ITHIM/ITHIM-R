@@ -1,3 +1,15 @@
+#' Get values for max mode share scenario
+#' 
+#' Computes the maximum mode share for specified mode types and specified distance categories across specified (stored) cities.
+#' Used for max mode share scenario generation.
+#' 
+#' @param cities which cities to use
+#' @param modes which modes to use
+#' @param distances which distance categories to use
+#' @param speeds named list of mode speeds (to be applied to all cities)
+#' 
+#' @return data frame of proportions by mode and distance category
+#' 
 #' @export
 get_scenario_settings <- function(cities=c('accra','sao_paulo','delhi','bangalore'),
                                   modes=c("walking","bicycle","car","motorcycle","bus"),     

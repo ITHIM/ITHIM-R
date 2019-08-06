@@ -1,3 +1,13 @@
+#' Calculate population attributable fraction
+#' 
+#' 
+#' 
+#' @param pop 
+#' @param cn 
+#' @param mat 
+#' 
+#' @return population attributable fractions by demographic group
+#' 
 #' @export
 population_attributable_fraction <- function(pop, cn, mat){
   ##!! hard coding of indices: 1=sex, 2=age or age_cat

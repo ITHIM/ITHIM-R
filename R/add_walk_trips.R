@@ -1,3 +1,11 @@
+#' Add walk trips to trip set
+#' 
+#' Create data frame of walk-to-PT trips from PT trips and walk-to-bus time
+#' 
+#' @param pt_trips data frame of PT trips
+#' 
+#' @return list of data frames of PT trips and walk-to-PT trips
+#' 
 #' @export
 add_walk_trips <- function(pt_trips){
   

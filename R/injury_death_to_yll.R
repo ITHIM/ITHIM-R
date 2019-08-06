@@ -1,3 +1,11 @@
+#' Map injury death burden to YLL burden
+#' 
+#' Calculated the YLL burden from the death burden of injury based on the ratio in the GBD data.
+#' 
+#' @param injuries data frame of injury deaths
+#' 
+#' @return list of injury deaths and YLLs (which are differences from reference scenario) plus the values in the reference scenario.
+#' 
 #' @export
 injury_death_to_yll <- function(injuries){
   

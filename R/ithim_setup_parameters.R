@@ -1,3 +1,37 @@
+#' Routine to sample or set parameters for ITHIM
+#' 
+#' Parameters have two options: to be set to a constant, and to be sampled from a prespecified distribution.
+#' Each parameter is given as an argument of length 1 or 2. 
+#' If length 1, it's constant, and set to the global environment. 
+#' If length 2, a distribution is defined and sampled from NSAMPLE times.
+#' There are some exceptions, listed below.
+#' 
+#' @param NSAMPLES constant integer: number of samples to take
+#' @param BUS_WALK_TIME lognormal parameter: duration of walk to PT
+#' @param MMET_CYCLING lognormal parameter: mMETs when cycling
+#' @param MMET_WALKING lognormal parameter: mMETs when walking
+#' @param PM_CONC_BASE lognormal parameter: background PM2.5 concentration
+#' @param PM_TRANS_SHARE beta parameter: fraction of background PM2.5 attributable to transport
+#' @param PA_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from PA RR DR functions
+#' @param AP_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from AP RR DR functions
+#' @param BACKGROUND_PA_SCALAR lognormal parameter: reporting scalar for PA
+#' @param BACKGROUND_PA_CONFIDENCE beta parameter: confidence in accuracy of PA survey
+#' @param INJURY_REPORTING_RATE lognormal parameter: rate of injury reporting
+#' @param CHRONIC_DISEASE_SCALAR lognormal parameter: scalar for background disease rates
+#' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week
+#' @param INJURY_LINEARITY lognormal parameter: linearity of injuries in space
+#' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to linearity of scalaing of injuries in space
+#' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
+#' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
+#' @param EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
+#' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar for car distance travelled
+#' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar for walking distance travelled
+#' @param DISTANCE_SCALAR_PT lognormal parameter: scalar for PT distance travelled
+#' @param DISTANCE_SCALAR_CYCLING lognormal parameter: scalar for cycling distance travelled
+#' @param DISTANCE_SCALAR_MOTORCYCLE lognormal parameter: scalar for motorcycle distance travelled
+#' 
+#' @return list of samples of uncertain parameters
+#' 
 #' @export
 ithim_setup_parameters <- function(NSAMPLES = 1,
                                    BUS_WALK_TIME= 5,
@@ -5,7 +39,6 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    MMET_WALKING = 2.53,
                                    PM_CONC_BASE = 50,  
                                    PM_TRANS_SHARE = 0.225,
-                                   MOTORCYCLE_TO_CAR_RATIO = 0.2,
                                    PA_DOSE_RESPONSE_QUANTILE = F,
                                    AP_DOSE_RESPONSE_QUANTILE = F,
                                    BACKGROUND_PA_SCALAR = 1,
@@ -35,7 +68,6 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   MMET_WALKING <<- MMET_WALKING
   PM_CONC_BASE <<- PM_CONC_BASE
   PM_TRANS_SHARE <<- PM_TRANS_SHARE
-  MOTORCYCLE_TO_CAR_RATIO <<- MOTORCYCLE_TO_CAR_RATIO
   PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
   BACKGROUND_PA_SCALAR <<- BACKGROUND_PA_SCALAR
   BACKGROUND_PA_CONFIDENCE <<- BACKGROUND_PA_CONFIDENCE
@@ -57,7 +89,6 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                  "MMET_CYCLING",
                  "MMET_WALKING",
                  "PM_CONC_BASE",
-                 "MOTORCYCLE_TO_CAR_RATIO",
                  "BACKGROUND_PA_SCALAR",
                  "CHRONIC_DISEASE_SCALAR",
                  "INJURY_LINEARITY",
@@ -180,7 +211,15 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   parameters
 }
 
-## FUNCTION FOR DIRICHLET PARAMETERS
+
+#' Function for Dirichlet parameters
+#' 
+#' Function to map a confidence value to a parametrisation of a Dirichlet distribution
+#' 
+#' @param confidence value between 0 and 1
+#' 
+#' @return parametrisation
+#' 
 #' @export
 dirichlet_pointiness <- function(confidence){
   exp((2.25*confidence+1)^2)

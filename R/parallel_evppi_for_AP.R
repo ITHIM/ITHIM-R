@@ -1,3 +1,14 @@
+#' Compute AP EVPPI in parallel
+#' 
+#' Compute AP EVPPI in parallel
+#' 
+#' @param disease disease name
+#' @param parameter_samples data frame of parameter samples
+#' @param outcome data frame of outcomes
+#' @param NSCEN number of scenarios
+#' 
+#' @return vector of EVPPI values (one per scenario)
+#' 
 #' @export
 parallel_evppi_for_AP <- function(disease,parameter_samples,outcome,NSCEN){
   AP_DOSE_RESPONSE_QUANTILE <- c()

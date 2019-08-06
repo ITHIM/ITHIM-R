@@ -1,3 +1,14 @@
+#' Predict injuries
+#' 
+#' Predict injuries based on regression model from baseline and scenario travel
+#' 
+#' @param true_distances data frame to set up results
+#' @param injuries_list list of data frames to supply to regression model for prediction
+#' @param reg_model regression glm object
+#' @param constant_mode whether or not we are in constant (vs sampling) mode
+#' 
+#' @return list of injury prediction data frames and whw matrices
+#' 
 #' @export
 injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_mode=F){
   ## For predictive uncertainty, we could sample a number from the predicted distribution

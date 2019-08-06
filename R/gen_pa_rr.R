@@ -1,3 +1,11 @@
+#' Get RR for diseases given mMETs
+#' 
+#' Computes the RR for individuals for each disease given mMETs (PA exposure)
+#' 
+#' @param mmets_pp individual mMETs
+#' 
+#' @return data frame of relative risks per person per disease
+#' 
 #' @export
 gen_pa_rr <- function(mmets_pp){
   ### iterating over all all disease outcomes

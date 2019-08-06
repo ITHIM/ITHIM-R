@@ -1,3 +1,12 @@
+#' Sampling routine for calculating ITHIM with uncertainty
+#' 
+#' Sets sampled parameters to the global environment and runs the ITHIM routine (run_ithim)
+#' 
+#' @param ithim_object list of necessary inputs, including parameters
+#' @param seed which sample to take
+#' 
+#' @return list of ITHIM outcomes
+#' 
 #' @export
 ithim_uncertainty <- function(ithim_object,seed=1){ 
   ############################
