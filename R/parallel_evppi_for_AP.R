@@ -1,6 +1,6 @@
-#' Compute AP EVPPI in parallel
+#' Compute AP EVPPI 
 #' 
-#' Compute AP EVPPI in parallel
+#' For use to compute AP EVPPI in parallel
 #' 
 #' @param disease disease name
 #' @param parameter_samples data frame of parameter samples
