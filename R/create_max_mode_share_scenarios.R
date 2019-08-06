@@ -1,3 +1,12 @@
+#' Create scenarios defined by maximum mode share
+#' 
+#' Creates five scenarios where, in each one, the mode share is elevated to the maximum observed across the cities.
+#' The scenario-modes are walking, cycling, car, motorcycle and bus
+#' 
+#' @param trip_set data frame, baseline scenario
+#' 
+#' @return list of baseline scenario and five mode scenarios
+#' 
 #' @export
 create_max_mode_share_scenarios <- function(trip_set){
   rdr <- trip_set

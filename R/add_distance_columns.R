@@ -1,3 +1,15 @@
+#' Add distance columns to injury tables
+#' 
+#' Add distance columns to injury tables, matching on information in the injury contingency table
+#' 
+#' @param injury_table (list of) data frame(s) to be edited
+#' @param mode_names which modes to take distances for
+#' @param true_distances_0 distances to add to injury table
+#' @param dist table used to access bus distance
+#' @param scenarios which scenarios to process
+#' 
+#' @return edited (list of) data frame(s)
+#' 
 #' @export
 add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,scenarios=SCEN){
   

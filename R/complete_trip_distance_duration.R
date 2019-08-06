@@ -1,3 +1,8 @@
+#' Data harmonisation: add columns to trip set if missing
+#' 
+#' Creates any columns needed and missing from the trip set, then writes the trip set to the global enviroment
+#' 
+#' 
 #' @export
 complete_trip_distance_duration <- function(){
   

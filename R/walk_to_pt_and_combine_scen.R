@@ -1,3 +1,12 @@
+#' Add walk to PT
+#' 
+#' Adds a short walk stage to any PT trip if required.
+#' Combines list of scenarios into one data frame
+#' 
+#' @param trip_set list of data frames, trips from all scenarios
+#' 
+#' @return data frame, all trips from all scenarios
+#' 
 #' @export
 walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
   rd_list <- list()
@@ -31,6 +40,14 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
 }
 
 
+#' Scale trip distances
+#' 
+#' Applies mode-specific distance scalars to all trips
+#' 
+#' @param trips data frame, all trips from all scenarios
+#' 
+#' @return data frame, all trips from all scenarios
+#' 
 #' @export
 scale_trip_distances <- function(trips){
   car_taxi_modes <- c('car','taxi','auto_rickshaw','shared_auto')

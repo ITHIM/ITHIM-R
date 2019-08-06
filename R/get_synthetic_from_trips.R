@@ -1,3 +1,10 @@
+#' Generate synthetic data from trip set
+#' 
+#' Sequence of functions to set up the synthetic population, the synthetic trips, and the scenarios.
+#' Also sets global variables for later use.
+#' 
+#' @return data frame of all trips from all scenarios
+#' 
 #' @export
 get_synthetic_from_trips <- function(){
   

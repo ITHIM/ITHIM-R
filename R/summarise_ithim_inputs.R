@@ -1,3 +1,9 @@
+#' Graphical processing of input data
+#' 
+#' Produce graphs summarising some input data, e.g. travel, injury, AP
+#' 
+#' @param ithim_object processed ithim_object from run_ithim_setup
+#' 
 #' @export
 summarise_ithim_inputs <- function(ithim_object){
   modenames <- unlist(ithim_object$dist[,1])

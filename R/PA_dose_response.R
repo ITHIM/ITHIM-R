@@ -1,3 +1,13 @@
+#' Calculate RR given PA
+#' 
+#' Calculate RR for a disease given PA
+#' 
+#' @param cause name of disease
+#' @param dose vector of doses of PA from individuals
+#' @param confidence_intervals logic: whether or not to return confidence intervals
+#' 
+#' @return data frame of relative risks
+#' 
 #' @export
 PA_dose_response <- function (cause, dose, confidence_intervals = F){
   

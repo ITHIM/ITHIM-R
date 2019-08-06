@@ -1,3 +1,11 @@
+#' Creates synthetic population
+#' 
+#' Creates a synthetic population by matching individuals in the trip set to individuals in the PA set
+#' 
+#' @param raw_trip_set data frame of raw trips taken
+#' 
+#' @return the synthetic population and the trip set which has been pruned
+#' 
 #' @export
 create_synth_pop <- function(raw_trip_set){
   #Add physical activity variables to trip dataset.
@@ -87,6 +95,14 @@ create_synth_pop <- function(raw_trip_set){
   
 }
 
+#' Parametrise confidence in PA data
+#' 
+#' Takes a confidence value between 0 and 1 and returns a parameter for a beta distribution
+#' 
+#' @param confidence value between 0 and 1 representing how confident we are about the PA dataset
+#' 
+#' @return a value to parametrise a beta distribution
+#' 
 #' @export
 beta_pointiness <- function(confidence){
   500^(confidence+0.2)

@@ -1,3 +1,12 @@
+#' Combine relative risks from AP and PA
+#' 
+#' Combine relative risks from AP and PA through multiplication for crossover diseases
+#' 
+#' @param ind_pa data frame of individual RRs for diseases affected by PA
+#' @param ind_ap data frame of individual RRs for diseases affected by AP
+#' 
+#' @return combined RR for diseases after accounted for AP and PA exposures
+#' 
 #' @export
 combined_rr_ap_pa <- function(ind_pa,ind_ap){
   

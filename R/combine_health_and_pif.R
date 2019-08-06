@@ -1,3 +1,12 @@
+#' Combine health and PIF
+#' 
+#' Applies PIF calculated from RRs to the current observed health burden from GBD to generate scenario health burden
+#' 
+#' @param pif_values vector of values of PIFs
+#' @param hc data frame of current burden of disease
+#' 
+#' @return estimated scenario burden of disease
+#' 
 #' @export
 combine_health_and_pif <- function(pif_values, hc=DISEASE_BURDEN){
 #combine_health_and_pif <- function(pop, pif_values, hc=DISEASE_BURDEN, hm_cn = 'burden'){

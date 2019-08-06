@@ -1,3 +1,11 @@
+#' Create basic walk scenario
+#' 
+#' Duplicate baseline scenario; give each person one 1km walk in the scenario
+#' 
+#' @param trip_set data frame, baseline scenario
+#' 
+#' @return list of baseline scenario and walking scenario
+#' 
 #' @export
 create_walk_scenario <- function(trip_set){
   rdr <- trip_set

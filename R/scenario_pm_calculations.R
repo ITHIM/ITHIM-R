@@ -1,3 +1,13 @@
+#' Calculate total AP exposure per person
+#' 
+#' Calculate total AP exposure per person based on population and personal travel
+#' 
+#' @param dist data frame of population travel from all scenarios
+#' @param trip_scen_sets data frame of all trips from all scenarios
+#' 
+#' @return background AP
+#' @return total AP exposure per person
+#' 
 #' @export
 scenario_pm_calculations <- function(dist,trip_scen_sets){
   

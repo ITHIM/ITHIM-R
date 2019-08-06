@@ -1,3 +1,13 @@
+#' Get distances and model for injuries module
+#' 
+#' Computes exposures (distances) to parametrise the injury regression model, 
+#' which is computed as a Poisson with various offsets and used later in prediction
+#' 
+#' @param trip_scen_sets list of synthetic trip sets for scenarios
+#' @param dist table of (total) distances per mode per scenario
+#' 
+#' @return list of distances, injury table, and injury regression model
+#' 
 #' @export
 distances_for_injury_function <- function(trip_scen_sets,dist){
   # This function calculates distances used by two different injury functions.

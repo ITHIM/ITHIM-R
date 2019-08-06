@@ -1,3 +1,11 @@
+#' Sequence to get distance data
+#' 
+#' Sequence of function calls to get distance data for modules from synthetic population
+#' 
+#' @param ithim_object list containing synthetic trip set
+#' 
+#' @return ithim_object again, with additional distance objects
+#' 
 #' @export
 get_all_distances <- function(ithim_object){
   

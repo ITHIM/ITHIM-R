@@ -1,3 +1,9 @@
+#' Run the set up script for ITHIM
+#' 
+#' Sets up the basic ITHIM object for onward calculation. Data loading, processing and harmonisation. Setting global values.
+#' 
+#' @return ithim_object list of objects for onward use.
+#' 
 #' @export
 run_ithim_setup <- function(seed = 1,
                             CITY = 'accra',

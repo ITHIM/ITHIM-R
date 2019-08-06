@@ -1,3 +1,12 @@
+#' Compute health burden
+#' 
+#' Compute health burden for populations in scenarios given relative risks
+#' 
+#' @param ind_ap_pa data.frame of all individuals' relative risks for diseases
+#' @param combined_AP_PA=T logic: whether to combine the two exposure pathways (AP and PA) or to compute independently
+#' 
+#' @return list of data.frames: one for deaths per disease per demographic group, and likewise for YLLs
+#' 
 #' @export
 health_burden <- function(ind_ap_pa,combined_AP_PA=T){
   
@@ -17,15 +26,6 @@ health_burden <- function(ind_ap_pa,combined_AP_PA=T){
   
   ind_ap_pa <- left_join(ind_ap_pa, demographic, by=c('sex','age_cat'))
   pop_details <- deaths <- ylls <- demographic
-  
-  ##!! Hard-coded column names to initialise tables.
-  #sex_index <- which(colnames(ind_ap_pa)=='sex')
-  #age_index <- which(colnames(ind_ap_pa)=='age_cat')
-  #unique_category1 <- unique(ind_ap_pa[[sex_index]])
-  #unique_category2 <- unique(ind_ap_pa[[age_index]])
-  #pop_details <- expand.grid(unique_category1, unique_category2,stringsAsFactors = F)
-  #colnames(pop_details) <- colnames(ind_ap_pa)[c(sex_index,age_index)]
-  #deaths <- ylls <- pop_details
   # set up reference (scen1)
   reference_scenario <- SCEN_SHORT_NAME[which(SCEN==REFERENCE_SCENARIO)]
   scen_names <- SCEN_SHORT_NAME[SCEN_SHORT_NAME!=reference_scenario]
@@ -86,6 +86,15 @@ health_burden <- function(ind_ap_pa,combined_AP_PA=T){
   list(deaths=deaths,ylls=ylls)
 }
 
+#' Join disease health burden and injury
+#' 
+#' Join the two data frames for health burden: that from disease, and that from road-traffic injury
+#' 
+#' @param ind_ap_pa list (deaths, YLLs) of data frames of all demographic groups' burdens for diseases
+#' @param inj list (deaths, YLLs) of data frames of all demographic groups' burdens for road-traffic injury
+#' 
+#' @return list of data.frames: one for deaths per cause per demographic group, and likewise for YLLs
+#' 
 #' @export
 join_hb_and_injury <- function(ind_ap_pa,inj){
   

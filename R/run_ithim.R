@@ -1,3 +1,12 @@
+#' Wrapper for running ITHIM
+#' 
+#' Switch to run the computation directly, or divert to the sampling case
+#' 
+#' @param ithim_object list of items making up the ithim set up
+#' @param seed 
+#' 
+#' @return ithim_object list of items making up the ithim result
+#' 
 #' @export
 run_ithim <- function(ithim_object,seed=1){ 
   if(length(ithim_object$parameters)>0){
@@ -9,6 +18,15 @@ run_ithim <- function(ithim_object,seed=1){
   
 }
 
+#' Cascade of computations that form the ITHIM
+#' 
+#' Ordered set of computations that form the ITHIM, from travel information to health burden.
+#' 
+#' @param ithim_object name of disease
+#' @param seed
+#' 
+#' @return list of items making up the ithim result
+#' 
 #' @export
 ithim_calculation_sequence <- function(ithim_object,seed=1){ 
   ############################

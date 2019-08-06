@@ -1,3 +1,11 @@
+#' Calculate total mMETs per person
+#' 
+#' Calculate total mMETs per person based on PA and active travel
+#' 
+#' @param trip_scen_sets data frame of all trips from all scenarios
+#' 
+#' @return total mMETs per week per person
+#' 
 #' @export
 total_mmet <- function(trip_scen_sets){
   

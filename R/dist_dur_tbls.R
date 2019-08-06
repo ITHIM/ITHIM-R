@@ -1,3 +1,11 @@
+#' Get distances and durations
+#' 
+#' Summaries of total distances and durations spent travelling per mode per scenario
+#' 
+#' @param trip_scen_sets list of synthetic trip sets for scenarios
+#' 
+#' @return list of table of (total) distances and durations per mode per scenario
+#' 
 #' @export
 dist_dur_tbls <- function(trip_scen_sets){
   
