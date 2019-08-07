@@ -31,9 +31,9 @@ suppressWarnings({
 
 ```{r genTotalHistPlots, message = T, echo = F, warning = F}
 
-rd1 <- io$accra$trip_scen_sets %>% mutate(cs = 'Accra') %>% select(cs, trip_distance, trip_distance_cat)
-rd2 <- io$sao_paulo$trip_scen_sets %>% mutate(cs = 'Sao Paulo') %>% select(cs, trip_distance, trip_distance_cat)
-rd3 <- io$delhi$trip_scen_sets %>% mutate(cs = 'Delhi') %>% select(cs, trip_distance, trip_distance_cat)
+rd1 <- io$accra$trip_scen_sets %>% mutate(cs = 'Accra') %>% dplyr::select(cs, trip_distance, trip_distance_cat)
+rd2 <- io$sao_paulo$trip_scen_sets %>% mutate(cs = 'Sao Paulo') %>% dplyr::select(cs, trip_distance, trip_distance_cat)
+rd3 <- io$delhi$trip_scen_sets %>% mutate(cs = 'Delhi') %>% dplyr::select(cs, trip_distance, trip_distance_cat)
 
 rd <- plyr::rbind.fill(rd1, rd2, rd3)
 
@@ -98,7 +98,7 @@ suppressWarnings({
     p <- p + coord_cartesian(ylim = c(0, 100)) 
   }
   
-  tl[[index]] <-  filter(p$data, scenario == 'Baseline') %>% select(trip_mode, trip_distance) %>% rename(var = trip_distance) %>% group_by(trip_mode) %>%  summarise(mean = mean(var), median =median(var), Q1 = quantile (var, probs=0.25), Q2 = quantile (var, probs=0.50), Q3 = quantile(var, probs=0.75)) %>% mutate_if(is.numeric, round, digits = 1)
+  tl[[index]] <-  filter(p$data, scenario == 'Baseline') %>% dplyr::select(trip_mode, trip_distance) %>% rename(var = trip_distance) %>% group_by(trip_mode) %>%  summarise(mean = mean(var), median =median(var), Q1 = quantile (var, probs=0.25), Q2 = quantile (var, probs=0.50), Q3 = quantile(var, probs=0.75)) %>% mutate_if(is.numeric, round, digits = 1)
   
   
   pp <- plotly_build(p)
