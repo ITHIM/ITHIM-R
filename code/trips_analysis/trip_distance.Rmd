@@ -27,7 +27,43 @@ suppressWarnings({
   io <- read_rds("../../results/multi_city/io.rds")
 ```
 
+## Trip distance - histogram
+
+```{r genTotalHistPlots, message = T, echo = F, warning = F}
+
+rd1 <- io$accra$trip_scen_sets %>% mutate(cs = 'Accra') %>% select(cs, trip_distance, trip_distance_cat)
+rd2 <- io$sao_paulo$trip_scen_sets %>% mutate(cs = 'Sao Paulo') %>% select(cs, trip_distance, trip_distance_cat)
+rd3 <- io$delhi$trip_scen_sets %>% mutate(cs = 'Delhi') %>% select(cs, trip_distance, trip_distance_cat)
+
+rd <- plyr::rbind.fill(rd1, rd2, rd3)
+
+op <- ggplot(rd %>% filter(trip_distance < 51)) +
+  aes(x = trip_distance, fill = cs) +
+  geom_histogram(breaks = c(0:10,seq(11, 51, by = 5)), alpha=0.8, position="identity", aes(y = ..density..)) +
+  labs(x = '') + 
+  #geom_density(alpha = 0.4, color = 'lightgrey') +
+  facet_wrap(vars(cs))
   
+ggplotly(op)
+  
+```
+
+
+## Trip distance - density
+
+```{r genTotalDensityPlots, message = T, echo = F, warning = F}
+
+op <- ggplot(rd %>% filter(trip_distance < 50)) +
+  aes(x = trip_distance, fill = cs) +
+  labs(x = '') + 
+  #geom_histogram(breaks = c(0:10,seq(11, 61, by = 5)), alpha=0.8, position="identity", aes(y = ..density..)) +
+  geom_density(alpha = 0.8) +
+  facet_wrap(vars(cs))
+  
+ggplotly(op)
+  
+```
+
 ```{r genPlots, message = T, echo = F, warning = F}
 
 suppressWarnings({
@@ -80,6 +116,8 @@ suppressWarnings({
 })
   
 ```
+  
+
 
 ## Plots
 
