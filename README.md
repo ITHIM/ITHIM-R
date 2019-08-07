@@ -61,7 +61,13 @@ The following values are set in the call to the set-up function (run_ithim_setup
       * REFERENCE_SCENARIO
       * NSAMPLES
 
-The following values can be uncertain - i.e. they can be sampled from pre-specificied distributions, and the model run multiple (NSAMPLES) times, in order to evaluate the output with varying inputs.
+The following values can be uncertain - i.e. they can be sampled from pre-specificied distributions, and the model run multiple (NSAMPLES) times, in order to evaluate the output with varying inputs. 
+
+For distributions (lognormal and beta), a single numeric input becomes the set value for that parameter. A vector of length 2 becomes the parameters for the distribution from which samples are taken.
+
+Confidence values between 0 and 1 are used to parametrise a beta distribution or a Dirichlet distribution. A confidence value of 1 corresponds to a Delta function, i.e. there is no uncertainty.
+
+Logic values determine how the dose--response relationships are used: if F, the mean DR relationship is used. If T, DR curves are sampled.
 
   * Pollution values:
       * PM_CONC_BASE - lognormal - background PM2.5 concentration
