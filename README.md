@@ -162,3 +162,45 @@ See [communication channels on Wiki](https://github.com/ITHIM/ITHIM-R/wiki/Commu
 ## Related Repositories 
 * [ITHIM (R, Physical Activity)](https://github.com/ITHIM/ITHIM)
 * [ITHIM Interface (R, Shiny)](https://github.com/ITHIM/ithim-r-interface)
+
+## How The Code Works
+
+There are three main blocks to the code: setting up, running the model, and assessing uncertainty. The first block, **run_ithim_setup**, sets the variables for computing the ITHIM. This is done in the second block, **run_ithim**. The separation of these blocks aims to isolate computations that are processing steps from those that contribute to the ITHIM calculation. (This distinction should mean that Section **run_ithim_setup** is a data harmonisation step and deals with all location-specific issues, whereas **run_ithim** should be able to be exactly the same for all settings. Another view of grouping the steps is those that, when sampling, we do only once, and those we do in a loop. This breaks down when distance-related parameters become uncertain.) Finally, **ithim_uncertainty** is a wrapper for sampling from the ITHIM output in a loop. **ithim_uncertainty** is used for the **sample** use case. We refer to using **run_ithim** alone as the **constant** use case, as all parameters are set to constant values.
+
+
+### Setting up
+
+**run_ithim_setup** sets the variables for computing the ITHIM. There are functional settings, such as:
+
+  * the number of samples for the **sample** use case;
+  *  the city;
+  *  the travel modes' speeds, distance relative to car (where relevant), and emission inventory; 
+  * the distance categories (for mode-shift scenarios): for Accra these are short (<7km), medium (7--9km), and long (>9km);
+  * a number of constant parameters are set, e.g. the $C_i$ parameters listed in Table \ref{inputs} which are fixed;
+  * the name of a file to which an input summary is written;
+  * whether or not to add bus drivers;
+  * whether or not to add truck drivers;
+  * which scenario acts as the ''reference'';
+  * whether or not to add walk trips to bus trips;
+  * the path to local data files (if not using an ITHIM-R example case).
+
+Raw data are loaded in **ithim_load_data**; the parameters are set or sampled in **ithim_setup_parameters**; then some distance calculations are made. At present, we compute **set_vehicle_inventory**, **get_synthetic_from_trips**, and **get_all_distances** if (a) ITHIM is running in ''constant'' mode, or (b) ITHIM is running in ''sample'' mode and the variable parameters do not impact the distances or synthetic populations. This separation is to increase efficiency. It might not be necessary if we are unlikely to have sampling use cases that do not impact on distances.
+
+####Data
+
+We load two types of data: location-specific data, and global data. These will be structurally separated in code organisation. The global data persist across settings. Location-specific data will be particular to a single case study and will have to be provided in a particular format (TBC).
+
+The global data include the disease inventory, which lists the diseases we model, whether they depend on PA and AP, and their codenames and acronyms for accessing the relevant quantities elsewhere in the model. The AP acronym will match the cause code in the dose--response AP dataset. The PA acronym will match a file name in the PA dataset for that dose--response relationship.  %Distance exponents for injuries will also be global datasets, likewise emission factors, though {these will have to have city-specific versions depending on regulatory standards.}
+
+Location-specific data include the emission inventory, population, and GBD data. It makes sense for the age categories to be used in the model to be defined in this dataset. Column labels include age, sex, cause (matching the disease inventory), measure, metric, population and burden. The ages and genders should match in the population dataset to allow burden imputation for the city. The trip set (survey data) which forms the basis of our synthetic trip set, and PA data, which form the basis of our synthetic population, are also case specific. 
+
+Injuries will also be case specific. They are presented in long form, i.e. there is one row per event, and the columns list the specifics of the incident. Column headers should include ''strike_mode'' and ''cas_mode'', potentially also ''year'', ''cas_gender'' and ''cas_age''. From this dataset we form the injury contingency table for regression **set_injury_contingency**. 
+
+#### Injury contingency table
+**set_injury_contingency** uses injury data alone to create a contingency table of injuries. Distance data are added later. This contingency table is typically sparse. It enumerates all possible combinations of the covariates in the injury dataset and counts the number of injury (fatality) events fitting that row. It requires matching of covariates across the modules.
+
+#### Parameters
+Parameters are set or sampled according to what the user supplies. For most variables, a single value will set the variable to that value, whereas a vector of two values will prompt sampling from a prespecified distribution with the given parameters. These distributions are all log normal or beta distributions. AP and PA dose--response relationships work differently. They are binary logical variables which, if false, fix the relationships to their medians and if true prompt sampling of dose--response curves.
+
+#### Vehicle inventory
+The vehicle inventory should be a comprehensive record of all vehicle attributes, including: name, aliases, speed, and emission inventory.
