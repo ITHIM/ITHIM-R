@@ -186,7 +186,7 @@ There are three main blocks to the code: setting up, running the model, and asse
 
 Raw data are loaded in **ithim_load_data**; the parameters are set or sampled in **ithim_setup_parameters**; then some distance calculations are made. At present, we compute **set_vehicle_inventory**, **get_synthetic_from_trips**, and **get_all_distances** if (a) ITHIM is running in ''constant'' mode, or (b) ITHIM is running in ''sample'' mode and the variable parameters do not impact the distances or synthetic populations. This separation is to increase efficiency. It might not be necessary if we are unlikely to have sampling use cases that do not impact on distances.
 
-####Data
+#### Data
 
 We load two types of data: location-specific data, and global data. These will be structurally separated in code organisation. The global data persist across settings. Location-specific data will be particular to a single case study and will have to be provided in a particular format (TBC).
 
