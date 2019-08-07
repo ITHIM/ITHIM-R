@@ -16,7 +16,7 @@ The set of fixed input data items are denoted by capital letters, and variable p
 
 
 ### Data inputs
-In general ITHIM-R requires 5 user defined input files in csv format, saved in a directory of the city's name. See inst/ext/local/accra for example files. There are also numerous assumptions that you can parameterize in the model. 
+ITHIM-R requires 5 user defined input files in csv format, saved in a directory of the city's name. See inst/ext/local/accra for example files. There are also numerous assumptions that you can parameterize in the model. 
 
 #### File inputs
   * Travel survey (trips_CITY.csv) - a table of all trips taken by a group of people on a given day. Includes people who take no trips.
@@ -40,7 +40,57 @@ In general ITHIM-R requires 5 user defined input files in csv format, saved in a
       
 #### Function-call inputs
 
+The following values are set in the call to the set-up function (run_ithim_setup).
 
+  * Values for navigation:
+      * CITY - the name of the city, which is also the name of the directory contain the 5 files
+      * setup_call_summary_filename
+      * PATH_TO_LOCAL_DATA
+  * City-specific values
+      * speeds
+      * emission_inventory
+  * Model parameters
+      * DIST_CAT
+      * AGE_RANGE
+      * ADD_WALK_TO_BUS_TRIPS
+      * ADD_BUS_DRIVERS
+      * ADD_TRUCK_DRIVERS
+      * TEST_WALK_SCENARIO
+      * TEST_CYCLE_SCENARIO
+      * MAX_MODE_SHARE_SCENARIO
+      * REFERENCE_SCENARIO
+      * NSAMPLES
+
+The following values can be uncertain - i.e. they can be sampled from pre-specificied distributions, and the model run multiple (NSAMPLES) times, in order to evaluate the output with varying inputs.
+
+  * Pollution values:
+      * PM_CONC_BASE - lognormal - background PM2.5 concentration
+      * PM_TRANS_SHARE - beta - proportion of background PM2.5 attributable to transport
+      * EMISSION_INVENTORY_CONFIDENCE - value between 0 and 1 - how confident we are about the emission inventory
+  * PA values:
+      * BACKGROUND_PA_SCALAR - lognormal - scalar for physical activity
+      * BACKGROUND_PA_CONFIDENCE - value between 0 and 1 - how confident we are about the PA survey (in terms of the number of people who report 0 PA)
+      * MMET_CYCLING - lognormal - mMET value associated with cycling
+      * MMET_WALKING - lognormal - mMET value associated with walking
+  * Travel values:
+      * BUS_WALK_TIME - lognormal - time taken to walk to PT
+      * DAY_TO_WEEK_TRAVEL_SCALAR - beta - how daily travel scales to a week
+      * BUS_TO_PASSENGER_RATIO - beta - number of buses per passenger
+      * TRUCK_TO_CAR_RATIO - beta - number of trucks per car
+      * DISTANCE_SCALAR_CAR_TAXI - lognormal - scalar for car/taxi distance
+      * DISTANCE_SCALAR_WALKING - lognormal - scalar for walking distance
+      * DISTANCE_SCALAR_PT - lognormal - scalar for PT distance
+      * DISTANCE_SCALAR_CYCLING - lognormal - scalar for cycling distance
+      * DISTANCE_SCALAR_MOTORCYCLE - lognormal - scalar for motorcycle distance
+  * Health values:
+      * PA_DOSE_RESPONSE_QUANTILE - logic - whether or not to sample from DR curves
+      * AP_DOSE_RESPONSE_QUANTILE - logic - whether or not to sample from DR curves
+      * CHRONIC_DISEASE_SCALAR - lognormal - scalar for GBD data
+  * Injury values:
+      * INJURY_REPORTING_RATE - lognormal - the rate at which injuries are reported
+      * INJURY_LINEARITY - lognormal - how linear injuries are in space
+      * CASUALTY_EXPONENT_FRACTION - beta - fraction of injury linearity attributed to casualty mode
+      
 #### Synthetic Population
 
 **Description** 
