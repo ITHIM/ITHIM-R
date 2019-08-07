@@ -17,9 +17,13 @@ snake_case: all variable names and functions
 ### Common Abbreviations
 - PA: Physical Activity
 - AP: Air Pollution
-- PM: Particulate Matter? 
-- GDB: Global Burden of Disease
-- HC: ??
+- PM: Particulate Matter (PM2.5)
+- GBD: Global Burden of Disease
+- RR: Relative Risk
+- DR: Dose Response
+- PT: Public Transport
+- mMET: marginal Metabolic Equivalent Task
+- YLL: Years of Life Lost
 
 ### add_walk_time
 

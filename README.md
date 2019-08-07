@@ -16,19 +16,31 @@ The set of fixed input data items are denoted by capital letters, and variable p
 
 
 ### Data inputs
-In general ITHIM-R requires `X number of` user defined inputs from various data sources. There are also numerous assumptions that you can parameterize in the model. 
+In general ITHIM-R requires 5 user defined input files in csv format, saved in a directory of the city's name. See inst/ext/local/accra for example files. There are also numerous assumptions that you can parameterize in the model. 
 
-#### Inputs
-  * Synthetic Population
-      * Travel survey
-      * Leisure time and work physical activity
-  * Who Hit Who Matrix
-      * Police report data 
-  * Air Pollution 
-      * Background concentrations of PM2.5
-      * Source apportionment of PM2.5 for vehicles
-      * Country or City specific Vehicle Emissions Factors
+#### File inputs
+  * Travel survey - a table of all trips taken by a group of people on a given day. Includes people who take no trips.
+      * One row per trip (or stage of trip)
+      * Minimal columns: participant_id, age, sex, trip_mode, trip_duration (or trip_distance)
+      * Other columns: stage_mode, stage_duration (or stage_distance)
+  * Recorded injury events - a table of recorded road-traffic injury (fatality) events in a city in one or more years.
+      * One row per event
+      * Minimal columns: cas_mode and strike_mode
+      * Other columns: year, cas_age, cas_gender, weight (e.g. multiple years combined)
+  * Disease burden data (gbd_CITY.csv)
+      * One row per disease/metric/age/gender combination
+      * Minimal rows: Measure (death/YLL); sex_name (Male/Female); age_name ('x to y'); Cause_name (disease names); Val (value of burden); population (number of people Val corresponds to, e.g. population of country)
+  * Population of city - in order to scale the burden in Disease burden data to the city under study
+      * One row per demographic group
+      * Columns: sex, age, population
+      * age column should share boundaries with age_name in Disease burden data, but can be more aggregated
+  * Physical activity survey
+      * One row per person
+      * Columns: sex, age, work_ltpa_marg_met = total leisure and work PA in a week
       
+#### Function-call inputs
+
+
 #### Synthetic Population
 
 **Description** 

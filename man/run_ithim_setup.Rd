@@ -24,9 +24,91 @@ run_ithim_setup(seed = 1, CITY = "accra", speeds = NULL,
   DISTANCE_SCALAR_WALKING = 1, DISTANCE_SCALAR_PT = 1,
   DISTANCE_SCALAR_CYCLING = 1, DISTANCE_SCALAR_MOTORCYCLE = 1)
 }
+\arguments{
+\item{CITY}{name of the city, and name of the directory containing city data files}
+
+\item{speeds}{named list of mode speeds}
+
+\item{emission_inventory}{named list of mode emissions}
+
+\item{setup_call_summary_filename}{name to write setup call summary to}
+
+\item{DIST_CAT}{vector string of distance categories in the form '0-6'. (The unit is assumed to be the same as in the trip set.)}
+
+\item{AGE_RANGE}{vector of minimum and maximum ages to include}
+
+\item{ADD_WALK_TO_BUS_TRIPS}{logic: whether or not to add short walks to all PT trips}
+
+\item{ADD_BUS_DRIVERS}{logic: whether or not to add bus drivers}
+
+\item{ADD_TRUCK_DRIVERS}{logic: whether or not to add truck drivers}
+
+\item{TEST_WALK_SCENARIO}{logic: whether or not to run the walk scenario}
+
+\item{TEST_CYCLE_SCENARIO}{logic: whether or not to run the cycle scenario}
+
+\item{MAX_MODE_SHARE_SCENARIO}{logic: whether or not to run the max mode share scenario}
+
+\item{REFERENCE_SCENARIO}{which scenario forms the reference for the health comparison}
+
+\item{PATH_TO_LOCAL_DATA}{path to CITY directory, if not using package}
+
+\item{NSAMPLES}{constant integer: number of samples to take}
+
+\item{BUS_WALK_TIME}{lognormal parameter: duration of walk to PT}
+
+\item{MMET_CYCLING}{lognormal parameter: mMETs when cycling}
+
+\item{MMET_WALKING}{lognormal parameter: mMETs when walking}
+
+\item{PM_CONC_BASE}{lognormal parameter: background PM2.5 concentration}
+
+\item{PM_TRANS_SHARE}{beta parameter: fraction of background PM2.5 attributable to transport}
+
+\item{PA_DOSE_RESPONSE_QUANTILE}{logic: whether or not to sample from PA RR DR functions}
+
+\item{AP_DOSE_RESPONSE_QUANTILE}{logic: whether or not to sample from AP RR DR functions}
+
+\item{BACKGROUND_PA_SCALAR}{lognormal parameter: reporting scalar for PA}
+
+\item{BACKGROUND_PA_CONFIDENCE}{beta parameter: confidence in accuracy of PA survey}
+
+\item{INJURY_REPORTING_RATE}{lognormal parameter: rate of injury reporting}
+
+\item{CHRONIC_DISEASE_SCALAR}{lognormal parameter: scalar for background disease rates}
+
+\item{DAY_TO_WEEK_TRAVEL_SCALAR}{beta parameter: rate of scaling travel from one day to one week}
+
+\item{INJURY_LINEARITY}{lognormal parameter: linearity of injuries in space}
+
+\item{CASUALTY_EXPONENT_FRACTION}{beta parameter: casualty contribution to linearity of scalaing of injuries in space}
+
+\item{BUS_TO_PASSENGER_RATIO}{beta parameter: number of buses per passenger}
+
+\item{TRUCK_TO_CAR_RATIO}{beta parameter: number of trucks per car}
+
+\item{EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of emission inventory}
+
+\item{DISTANCE_SCALAR_CAR_TAXI}{lognormal parameter: scalar for car distance travelled}
+
+\item{DISTANCE_SCALAR_WALKING}{lognormal parameter: scalar for walking distance travelled}
+
+\item{DISTANCE_SCALAR_PT}{lognormal parameter: scalar for PT distance travelled}
+
+\item{DISTANCE_SCALAR_CYCLING}{lognormal parameter: scalar for cycling distance travelled}
+
+\item{DISTANCE_SCALAR_MOTORCYCLE}{lognormal parameter: scalar for motorcycle distance travelled}
+}
 \value{
 ithim_object list of objects for onward use.
 }
 \description{
 Sets up the basic ITHIM object for onward calculation. Data loading, processing and harmonisation. Setting global values.
+}
+\details{
+Parameters have two options: to be set to a constant, and to be sampled from a prespecified distribution.
+Each parameter is given as an argument of length 1 or 2. 
+If length 1, it's constant, and set to the global environment. 
+If length 2, a distribution is defined and sampled from NSAMPLE times.
+There are some exceptions, listed below.
 }

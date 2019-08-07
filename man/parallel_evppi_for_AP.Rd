@@ -2,7 +2,7 @@
 % Please edit documentation in R/parallel_evppi_for_AP.R
 \name{parallel_evppi_for_AP}
 \alias{parallel_evppi_for_AP}
-\title{Compute AP EVPPI in parallel}
+\title{Compute AP EVPPI}
 \usage{
 parallel_evppi_for_AP(disease, parameter_samples, outcome, NSCEN)
 }
@@ -19,5 +19,5 @@ parallel_evppi_for_AP(disease, parameter_samples, outcome, NSCEN)
 vector of EVPPI values (one per scenario)
 }
 \description{
-Compute AP EVPPI in parallel
+For use to compute AP EVPPI in parallel
 }
