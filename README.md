@@ -7,7 +7,7 @@ output:
 
 Development of the ITHIM-R, also known as ITHIM version 3.0. Started in January 2018.
 
-This document aims to be a comprehensive record of the calculations in the ITHIM pipeline, specifically the ITHIM- R package. Some details here are specific to the Accra version of that model, as Accra has been the setting for construction of the prototype.
+This document aims to be a comprehensive record of the calculations in the ITHIM pipeline, specifically the ITHIM- R package. Some details here (and the default inputs to the functions) are specific to the Accra version of that model, as Accra has been the setting for construction of the prototype.
 
 ### Outline
 In this document, in general, lower-case letters correspond to indices, or dimensions, of objects, and take one of a set of possible values, detailed in Table 1 (Convert from LATEX).
@@ -19,22 +19,22 @@ The set of fixed input data items are denoted by capital letters, and variable p
 In general ITHIM-R requires 5 user defined input files in csv format, saved in a directory of the city's name. See inst/ext/local/accra for example files. There are also numerous assumptions that you can parameterize in the model. 
 
 #### File inputs
-  * Travel survey - a table of all trips taken by a group of people on a given day. Includes people who take no trips.
+  * Travel survey (trips_CITY.csv) - a table of all trips taken by a group of people on a given day. Includes people who take no trips.
       * One row per trip (or stage of trip)
       * Minimal columns: participant_id, age, sex, trip_mode, trip_duration (or trip_distance)
       * Other columns: stage_mode, stage_duration (or stage_distance)
-  * Recorded injury events - a table of recorded road-traffic injury (fatality) events in a city in one or more years.
+  * Recorded injury events (injuries_CITY.csv) - a table of recorded road-traffic injury (fatality) events in a city in one or more years.
       * One row per event
       * Minimal columns: cas_mode and strike_mode
       * Other columns: year, cas_age, cas_gender, weight (e.g. multiple years combined)
   * Disease burden data (gbd_CITY.csv)
       * One row per disease/metric/age/gender combination
       * Minimal rows: Measure (death/YLL); sex_name (Male/Female); age_name ('x to y'); Cause_name (disease names); Val (value of burden); population (number of people Val corresponds to, e.g. population of country)
-  * Population of city - in order to scale the burden in Disease burden data to the city under study
+  * Population of city (population_CITY.csv) - in order to scale the burden in Disease burden data to the city under study
       * One row per demographic group
       * Columns: sex, age, population
       * age column should share boundaries with age_name in Disease burden data, but can be more aggregated
-  * Physical activity survey
+  * Physical activity survey (pa_CITY.csv)
       * One row per person
       * Columns: sex, age, work_ltpa_marg_met = total leisure and work PA in a week
       
