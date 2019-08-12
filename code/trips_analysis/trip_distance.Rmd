@@ -14,6 +14,7 @@ options(warn = -1)
 suppressWarnings({
 
   library(tidyverse)
+  library(janitor)
   library(ggthemes)
   library(plotly)
   library(knitr)
@@ -29,7 +30,7 @@ suppressWarnings({
 
 ## Trip distance - histogram
 
-```{r genTotalHistPlots, message = T, echo = F, warning = F}
+```{r genTotalHistPlots, message = F, echo = F, warning = F}
 
 rd1 <- io$accra$trip_scen_sets %>% mutate(cs = 'Accra') %>% dplyr::select(cs, trip_distance, trip_distance_cat)
 rd2 <- io$sao_paulo$trip_scen_sets %>% mutate(cs = 'Sao Paulo') %>% dplyr::select(cs, trip_distance, trip_distance_cat)
@@ -37,34 +38,51 @@ rd3 <- io$delhi$trip_scen_sets %>% mutate(cs = 'Delhi') %>% dplyr::select(cs, tr
 
 rd <- plyr::rbind.fill(rd1, rd2, rd3)
 
-op <- ggplot(rd %>% filter(trip_distance < 51)) +
-  aes(x = trip_distance, fill = cs) +
-  geom_histogram(breaks = c(0:10,seq(11, 51, by = 5)), alpha=0.8, position="identity", aes(y = ..density..)) +
-  labs(x = '') + 
-  #geom_density(alpha = 0.4, color = 'lightgrey') +
-  facet_wrap(vars(cs))
-  
+
+rd <- rd %>% filter(trip_distance < 51) %>% mutate(category = cut(trip_distance, breaks = c(0:10,seq(11, 51, by = 5))))
+
+# td <- rd %>% filter(!is.na(category)) %>% group_by(category, cs) %>% summarise(percentage = round(n() / nrow(.) * 100, 1))
+
+td <- rd %>% filter(!is.na(category)) %>% tabyl(cs, category) %>% adorn_percentages("row")
+td[, 2:ncol(td)] <- round(100 * td[, 2:ncol(td)], 1)
+td <- reshape2::melt(td, by = cs)
+
+op <- ggplot(td) +
+     aes(x = variable, fill = cs, weight = value) +
+     geom_bar() +
+     scale_fill_hue() +
+     theme_minimal() +
+     facet_wrap(vars(cs)) + 
+     labs(x = '', y = 'percentage (%)') +
+     coord_flip()
+
+# op <- ggplot(rd) +
+#   aes(x = category, fill = cs) +
+#   geom_bar() +
+#   labs(x = '') + 
+#   #geom_density(alpha = 0.4, color = 'lightgrey') +
+#   facet_wrap(vars(cs), scales="free")  
 ggplotly(op)
   
 ```
 
 
-## Trip distance - density
+<!-- ## Trip distance - density -->
 
-```{r genTotalDensityPlots, message = T, echo = F, warning = F}
+<!-- ```{r genTotalDensityPlots, message = T, echo = F, warning = F} -->
 
-op <- ggplot(rd %>% filter(trip_distance < 50)) +
-  aes(x = trip_distance, fill = cs) +
-  labs(x = '') + 
-  #geom_histogram(breaks = c(0:10,seq(11, 61, by = 5)), alpha=0.8, position="identity", aes(y = ..density..)) +
-  geom_density(alpha = 0.8) +
-  facet_wrap(vars(cs))
-  
-ggplotly(op)
-  
-```
+<!-- op <- ggplot(rd %>% filter(trip_distance < 50)) + -->
+<!--   aes(x = trip_distance, fill = cs) + -->
+<!--   labs(x = '') +  -->
+<!--   #geom_histogram(breaks = c(0:10,seq(11, 61, by = 5)), alpha=0.8, position="identity", aes(y = ..density..)) + -->
+<!--   geom_density(alpha = 0.8) + -->
+<!--   facet_wrap(vars(cs)) -->
 
-```{r genPlots, message = T, echo = F, warning = F}
+<!-- ggplotly(op) -->
+
+<!-- ``` -->
+
+```{r genPlots, message = F, echo = F, warning = F}
 
 suppressWarnings({
   require(knitr)
