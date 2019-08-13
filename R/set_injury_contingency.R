@@ -43,15 +43,20 @@ set_injury_contingency <- function(injuries){
   for(type in c(injury_table_types)){
     keep_names <- names(injury_list[[type]])%in%c('year','cas_mode','strike_mode','age_cat','cas_gender')
     # summarise list of injuries by group
-    injury_summary <- plyr::count(injury_list[[type]][,keep_names],names(injury_list[[type]])[keep_names])
+    setDT(injury_list[[type]])
+    injury_summary <- as.data.frame(injury_list[[type]][,.(count=.N,weight=mean(weight)),by=c(names(injury_list[[type]])[keep_names])])
+    #injury_summary <- plyr::count(injury_list[[type]][,keep_names],names(injury_list[[type]])[keep_names])
     # make contingency table without prior knowledge of column names
-    injury_table[[type]] <- expand.grid(lapply(injury_list[[type]][,keep_names],unique))
+    
+    injury_table[[type]] <- expand.grid(lapply(as.data.frame(injury_list[[type]])[,keep_names],unique))
     # match summary numbers to table indices
-    injury_summary_index <- apply(injury_summary[,-ncol(injury_summary)],1,function(x)which(apply(injury_table[[type]], 1, function(y) all(x==y))))
+    injury_summary_index <- apply(injury_summary[,-c(ncol(injury_summary)-0:1)],1,function(x)which(apply(injury_table[[type]], 1, function(y) all(x==y))))
     # initialise all at 0
     injury_table[[type]]$count <- 0
+    injury_table[[type]]$weight <- mean(injury_list[[type]]$weight)
     # slot in non-zero counts
-    injury_table[[type]]$count[injury_summary_index] <- injury_summary[,ncol(injury_summary)]
+    injury_table[[type]]$count[injury_summary_index] <- injury_summary[,ncol(injury_summary)-1]
+    injury_table[[type]]$weight[injury_summary_index] <- injury_summary[,ncol(injury_summary)]
   }
   INJURY_TABLE <<- injury_table
   INJURY_TABLE_TYPES <<- injury_table_types

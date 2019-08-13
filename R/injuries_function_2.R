@@ -28,6 +28,7 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
     whw_temp[[scen]] <- list()
     for(type in INJURY_TABLE_TYPES){
       injuries_list[[scen]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
+      injuries_list[[scen]][[type]]$weight <- 1
       injuries_list[[scen]][[type]]$pred <- predict(reg_model[[type]],newdata = remove_missing_levels(reg_model[[type]],injuries_list[[scen]][[type]]),type='response')
       if(constant_mode){
         whw_temp[[scen]][[type]] <- sapply(unique(injuries_list[[scen]][[type]]$cas_mode),function(x)
