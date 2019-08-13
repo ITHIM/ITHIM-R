@@ -10,8 +10,6 @@
 #' 
 #' @export
 distances_for_injury_function <- function(trip_scen_sets,dist){
-  # This function calculates distances used by two different injury functions.
-  # At some point this function will be trimmed to calculate only what we need for injury_function_2
   
   ##!! RJ need to scale distances up for representativeness of survey population of total population
   
@@ -70,8 +68,8 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
   ##RJ linearity in group rates
   CAS_EXPONENT <<- INJURY_LINEARITY * CASUALTY_EXPONENT_FRACTION
   STR_EXPONENT <<- INJURY_LINEARITY - CAS_EXPONENT
-  forms <- list(whw='count~cas_mode*strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)-STR_EXPONENT*log(strike_distance_sum)-log(injury_reporting_rate))',
-                nov='count~cas_mode+offset(2*CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate))')
+  forms <- list(whw='count~cas_mode*strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)-STR_EXPONENT*log(strike_distance_sum)-log(injury_reporting_rate)+log(weight))',
+                nov='count~cas_mode+offset(2*CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate)+log(weight))')
   if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
     for(type in INJURY_TABLE_TYPES)
       forms[[type]] <- paste0(c(forms[[type]],'age_cat'),collapse='+')
@@ -95,7 +93,7 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
     if(length(test)==1&&test == 'try-error')
       test <- try(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson'))
     if(length(test)==1&&test == 'try-error')
-      test <- try(glm('offset(2*CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate))',data=injuries_for_model[[1]][[type]],family='poisson'))
+      test <- try(glm('offset(2*CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate)+log(weight))',data=injuries_for_model[[1]][[type]],family='poisson'))
     #
     reg_model[[type]] <- trim_glm_object(test)
     test <- NULL
