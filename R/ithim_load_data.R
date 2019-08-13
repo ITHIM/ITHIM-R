@@ -166,18 +166,11 @@ ithim_load_data <- function(speeds=list(
   gbd_inj_yll$yll_dth_ratio <- gbd_inj_yll$burden/gbd_inj_dth$burden 
   GBD_INJ_YLL <<- gbd_inj_yll
     
-  
+  ## pa data
   filename <- paste0(local_path,"/pa_",CITY,".csv")
   PA_SET <<- read_csv(filename,col_types = cols())
   
-  ##!! only one injury file is need. 
-  # WHW_MAT is the input into injuries_function.
-  # set_injury_contingency(injuries) is the input into injuries_function_2.
-  # both functions currently have a lot of hard-coded variables, e.g. the modes.
-  # we are using injuries_function_2 for Accra.
-  #filename <- paste0(local_path,"/who_hit_who_",CITY,".csv")
-  #WHW_MAT <<- read_csv(filename)
-  
+  ## injury data
   filename <- paste0(local_path,"/injuries_",CITY,".csv")
   injuries <- read_csv(filename,col_types = cols())
   if('cas_age'%in%colnames(injuries)) injuries <- assign_age_groups(injuries,age_label='cas_age')
@@ -186,6 +179,8 @@ ithim_load_data <- function(speeds=list(
   injuries$strike_mode[is.na(injuries$strike_mode)] <- 'listed_na'
   nov_words <- c('no.other.fixed.or.stationary.object','no other vehicle','none')
   injuries$strike_mode[injuries$strike_mode%in%nov_words] <- 'nov'
+  ## add weight column if missing
+  if(!'weight'%in%colnames(injuries)) injuries$weight <- 1
   set_injury_contingency(injuries)
   
   ## DESCRIPTION OF INJURIES (set_injury_contingency(injuries))
