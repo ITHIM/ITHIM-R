@@ -18,13 +18,15 @@ run_ithim_setup(seed = 1, CITY = "accra", speeds = NULL,
   BACKGROUND_PA_SCALAR = 1, BACKGROUND_PA_CONFIDENCE = 1,
   INJURY_REPORTING_RATE = 1, CHRONIC_DISEASE_SCALAR = 1,
   DAY_TO_WEEK_TRAVEL_SCALAR = 7, INJURY_LINEARITY = 1,
-  CASUALTY_EXPONENT_FRACTION = 0.5, MOTORCYCLE_TO_CAR_RATIO = 0.2,
-  BUS_TO_PASSENGER_RATIO = 0.022, TRUCK_TO_CAR_RATIO = 0.21,
-  EMISSION_INVENTORY_CONFIDENCE = 1, DISTANCE_SCALAR_CAR_TAXI = 1,
-  DISTANCE_SCALAR_WALKING = 1, DISTANCE_SCALAR_PT = 1,
-  DISTANCE_SCALAR_CYCLING = 1, DISTANCE_SCALAR_MOTORCYCLE = 1)
+  CASUALTY_EXPONENT_FRACTION = 0.5, BUS_TO_PASSENGER_RATIO = 0.022,
+  TRUCK_TO_CAR_RATIO = 0.21, EMISSION_INVENTORY_CONFIDENCE = 1,
+  DISTANCE_SCALAR_CAR_TAXI = 1, DISTANCE_SCALAR_WALKING = 1,
+  DISTANCE_SCALAR_PT = 1, DISTANCE_SCALAR_CYCLING = 1,
+  DISTANCE_SCALAR_MOTORCYCLE = 1)
 }
 \arguments{
+\item{seed}{random seed}
+
 \item{CITY}{name of the city, and name of the directory containing city data files}
 
 \item{speeds}{named list of mode speeds}
@@ -110,5 +112,5 @@ Parameters have two options: to be set to a constant, and to be sampled from a p
 Each parameter is given as an argument of length 1 or 2. 
 If length 1, it's constant, and set to the global environment. 
 If length 2, a distribution is defined and sampled from NSAMPLE times.
-There are some exceptions, listed below.
+There are some exceptions, listed above
 }
