@@ -8,7 +8,7 @@
 #' If length 2, a distribution is defined and sampled from NSAMPLE times.
 #' There are some exceptions, listed above
 #' 
-#' @param seed
+#' @param seed random seed
 #' @param CITY name of the city, and name of the directory containing city data files
 #' @param speeds named list of mode speeds
 #' @param emission_inventory named list of mode emissions
