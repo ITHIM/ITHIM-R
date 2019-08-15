@@ -1097,18 +1097,23 @@ colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female",
 a<-rbind(a, trips)
 rm("person","trips","age")
 
-#####Colombia Bogota (Lambed)####
-###added duration in the raw excel file (Viaje) as the column 'duration'
+#####Colombia Bogota Lambed----
 library(tidyverse)
 library(readxl)
 
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel')
 
+#data
 person_0 <- read_excel("encuesta 2015 - personas.xlsx",sheet = 1, range = cell_cols("A:E"))
 trip_0 <- read_excel("encuesta 2015 - viajes.xlsx",sheet = 1, range = cell_cols("A:K"))
 stage_0 <- read_excel("encuesta 2015 - etapas.xlsx",sheet = 1, range = cell_cols("A:K"))
+
+#lookup tables
 lookup_trip_mode <- read_excel("lookup_trip_mode.xlsx",sheet = 1, range = cell_cols("A:B"))
 lookup_stage_mode <- read_excel("lookup_stage_mode.xlsx",sheet = 1, range = cell_cols("A:B"))
+lookup_trip_purpose <-  read_excel("lookup_trip_purpose.xlsx",sheet = 1, range = cell_cols("A:B"))
+lookup_sex <- data.frame(SEXO = c("Hombre", "Mujer"), sex=c("Male", "Female"))
+
 
 #select relevant varaibles
 person <- person_0 %>% mutate(participant_id = paste(ID_ENCUESTA, NUMERO_PERSONA, sep = "_")) %>% select(participant_id, SEXO, EDAD)
@@ -1130,12 +1135,12 @@ stage <- stage %>% left_join(average_mode_time)
     summarise(sum_average = sum(average_mode_time , na.rm = T)) %>% 
     left_join(stage)
 
-trip <- person %>% left_join(trip) %>% left_join(stage) %>% 
+trip <- person %>% left_join(trip) %>% left_join(stage) %>% left_join(lookup_sex) %>% left_join(lookup_trip_purpose) %>% 
     mutate(stage_duration = round(DURATION*average_mode_time/sum_average))
 
-trip <- trip %>% mutate(sex = SEXO, age= EDAD, trip_duration =DURATION, trip_purpose = MOTIVOVIAJE) %>% 
+trip <- trip %>% mutate(age= EDAD, trip_duration = DURATION) %>% 
     select(participant_id, sex, age, trip_id, trip_purpose, trip_mode, trip_duration, stage_id, stage_duration, stage_mode)
-
+#write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/bogota/trip_bogota.csv")
 
 #####Colombia Bogota (Use this one)####
 ##In the previous version, stages were used, but there is no benefit as the stages for public transport hardly reports walking
