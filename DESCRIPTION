@@ -1,8 +1,15 @@
 Package: ithimr
 Title: Integrated Transport and Health Impact Model
 Version: 0.1
-Authors@R: person("First", "Last", email = "first.last@example.com",
-                  role = c("aut", "cre"))
+Authors@R: c(person(given = "Rob",
+             family = "Johnson",
+             role = c("aut", "cre"),
+             email = "rob.johnson@mrc-bsu.cam.ac.uk"),
+      person(given = "Ali",
+             family = "Abbas",
+             role = "aut",
+             email = "aa797@medschl.cam.ac.uk")
+             )
 Description: Modelling the impact of transport choices on population health.
 Depends: R (>= 3.1.0),
     dplyr,
