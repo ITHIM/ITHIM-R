@@ -1,10 +1,10 @@
-#####Notes -------------------------------------------------------------------
+#####A Notes -------------------------------------------------------------------
 ## These codes were initiated by Raul. Lambed is modifying the codes to generate trip datasets for the selected TIGTHAT cities. Please change work directory from J to V if you are on medschool network. 
 
-#####Required Packages -------------------------------------------------------
+#####A Required Packages -------------------------------------------------------
 library(tidyverse)
 library(nnet)
-#####check data quality--------
+#####A check data quality--------
 #average trip per person
 trip %>% distinct(trip_id) %>% nrow / trip %>% distinct(participant_id) %>% nrow
 #modeshare
@@ -20,187 +20,6 @@ plot(density(trip$trip_duration[which(trip$trip_mode == "walk")], bw = 300))
 #average travel time per mode
 trip %>% group_by(participant_id, age, sex, trip_id, trip_duration, trip_mode) %>% summarise(n_stage= n()) %>% group_by(trip_mode) %>% summarise    (average_mode_duration = mean(trip_duration, na.rm = T)) 
 
-
-#####LONDON#####
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/London/LTDS0514_Combined_V3U_v1.2')
-trips<-read.table('Trip_ltds.txt', header = TRUE, sep=",")
-stages<-read.table('Stage.txt', header=TRUE, sep=",")
-persons<- read.table('Person.txt', header=TRUE, sep=",")
-person_data<-read.table('Person_data.txt', header=TRUE, sep=",")
-trips_subset<- subset(trips, select=c("ttid", "tdbmmode", "tlenn"))
-stages_subset<- subset(stages, select=c("ssid", "stid", "smode", "swalkdur"))
-names(stages_subset)[2]<-"ttid"
-stages_subset <- stages_subset %>% left_join(trips_subset, by="ttid")
-
-
-stages_subset$dist_cat[stages_subset$tlenn <=1 ] <-  "0 - 1 km"
-stages_subset$dist_cat[stages_subset$tlenn >1 & stages_subset$tlenn <=5] <-  "2 - 5 km"
-stages_subset$dist_cat[stages_subset$tlenn >5 & stages_subset$tlenn <=10] <-  "6 - 10 km"
-stages_subset$dist_cat[stages_subset$tlenn >10 & stages_subset$tlenn <=20] <-  "11 - 20 km"
-stages_subset$dist_cat[stages_subset$tlenn >20 & stages_subset$tlenn <=30] <-  "21 - 30 km"
-stages_subset$dist_cat[stages_subset$tlenn >30 ] <-  "30+ km"
-
-
-stages_bus<- stages_subset[which(stages_subset$swalkdur>0  & stages_subset$tdbmmode==13),]
-stages_trains<- stages_subset[which(stages_subset$swalkdur>0  & stages_subset$tdbmmode==17),]
-##trip wise total of walking duration
-
-bus_walk<- stages_bus %>% group_by(ttid) %>% summarise(walk_dur=sum(swalkdur))
-plot(density(bus_walk$walk_dur), xlim=c(0,30))
-
-train_walk<- stages_trains %>% group_by(ttid) %>% summarise(walk_dur=sum(swalkdur))
-plot(density(train_walk$walk_dur), xlim=c(0,30))
-
-stages_2 %>% group_by(tdbmmode, dist_cat) %>% filter(swalkdur>0) %>% summarise(mean(swalkdur, na.rm=T), sd=sd(swalkdur, na.rm=T))
-
-
-#####ENGLAND-- downloaded data (2002-2017)####
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/England/tab/')
-trips<- read.delim('tripeul2017.tab', sep="\t")
-ind<- read.delim('individualeul2017.tab', sep="\t")
-str(trips)
-
-trips_sel<-subset(trips, select=c('TripID', 'SurveyYear', 'IndividualID', 'HouseholdID', 'TripDisIncSW', 'TripTotalTime','MainMode_B04ID'))
-ind_sel<- subset(ind, select=c('Age', 'Sex'))
-
-
-#####ENGLAND###################
-setwd('C:/Users/rg574/Dropbox/global cycling paper/Datasets')
-eng_stg <- read.dta13("England/NTSEng_20022016_tigthat_stages.dta")
-eng <- read.dta13("England/NTSEng_20022016_tigthat.dta")
-
-eng_selected<-subset(eng, select=c("householdid","individualid", "home_gor","urban","tripid", "female", "age_rawcat", "trip_mainmode","trip_purpose","trip_dist_km", "trip_durationraw_min" ,"weight_trip","year"))
-
-eng_selected$age_cat[eng_selected$age_rawcat == "Less than 1 year" | eng_selected$age_rawcat== "1 - 2 years" | eng_selected$age_rawcat== "3 - 4 years"| eng_selected$age_rawcat== "5 - 10 years"| eng_selected$age_rawcat== "11 - 15 years"] <-  "0 - 15 years"
-eng_selected$age_cat[eng_selected$age_rawcat== "16 years" | eng_selected$age_rawcat== "17 years" | eng_selected$age_rawcat== "18 years"| eng_selected$age_rawcat== "19 years"| eng_selected$age_rawcat== "20 years"| eng_selected$age_rawcat== "21 - 25 years"| eng_selected$age_rawcat== "26 - 29 years"] <-  "16 - 29 years"
-eng_selected$age_cat[eng_selected$age_rawcat== "30 - 39 years"] <-  "30 - 39 years"
-eng_selected$age_cat[eng_selected$age_rawcat== "40 - 49 years"] <-  "40 - 49 years"
-eng_selected$age_cat[eng_selected$age_rawcat== "50 - 59 years"] <-  "50 - 59 years"
-eng_selected$age_cat[eng_selected$age_rawcat== "60 - 64 years" |eng_selected$age_rawcat== "65 - 69 years" |eng_selected$age_rawcat== "70 - 74 years"|eng_selected$age_rawcat== "75 - 79 years"|eng_selected$age_rawcat== "80 - 84 years"|eng_selected$age_rawcat== "85 years +"] <-  "60+ years"
-eng_selected$age_cat<-as.factor(eng_selected$age_cat)
-
-eng_selected$trip_main_mode<-0
-eng_selected$trip_main_mode[which(as.character(eng_selected$trip_mainmode)=="Bicycle")]<-1
-#eng_selected$trip_main_mode<-as.factor(eng_selected$trip_main_mode)
-
-eng_selected$trip_purpose2<-0
-eng_selected$trip_purpose2[which(as.character(eng_selected$trip_purpose)=="Commuting")]<-1
-
-eng_selected$country<-"England"
-eng_selected$age<-NA
-
-trip_sel<- subset(eng_selected, select=c("country", "home_gor","urban","householdid","individualid","female", "age", "tripid", "trip_dist_km","trip_durationraw_min", "trip_purpose2", "trip_main_mode", "age_cat", "weight_trip", "year"))
-colnames(trip_sel)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
-
-a<-trip_sel
-
-rm("eng", "eng_stg", "eng_selected")
-#####NETHERLANDS###########
-setwd('C:/Users/rg574/Dropbox/global cycling paper/Datasets')
-neth <- read.dta13("Netherlands/NTSNed_20102016_tigthat.dta",generate.factors=T)
-
-neth$age<-as.numeric(neth$age)
-neth_selected<-subset(neth, select=c("individualid", "region","urban","tripid", "female", "age", "trip_mainmode","trip_duration_min","trip_purpose","trip_dist_km" , "weight_trip", "year"))
-neth_selected<-neth_selected[!duplicated(neth_selected), ]
-neth_selected<-neth_selected[which(!is.na(neth_selected$tripid)),]
-
-neth_selected$age_cat[neth_selected$age <15] <-  "0 - 15 years"
-neth_selected$age_cat[neth_selected$age >=16 & neth_selected$age <=29] <-  "16 - 29 years"
-neth_selected$age_cat[neth_selected$age >=30 & neth_selected$age <=39] <-  "30 - 39 years"
-neth_selected$age_cat[neth_selected$age >=40 & neth_selected$age <=49] <-  "40 - 49 years"
-neth_selected$age_cat[neth_selected$age >=50 & neth_selected$age <=59] <-  "50 - 59 years"
-neth_selected$age_cat[neth_selected$age >60] <-  "60+ years"
-
-
-neth_selected$trip_main_mode<-0
-neth_selected$trip_main_mode[which(as.character(neth_selected$trip_mainmode)=="Fiets (elektrisch of niet-elektrisch)")]<-1
-#neth_selected$trip_main_mode<-as.factor(neth_selected$trip_main_mode)
-
-
-neth_selected$trip_purpose2<-0
-neth_selected$trip_purpose2[which(as.character(neth_selected$trip_purpose)=="Van en naar het werk")]<-1
-
-
-neth_selected$householdid<-NA
-neth_selected$country<-"Netherlands"
-
-trip_sel<- subset(neth_selected, select=c("country", "region","urban","householdid","individualid","female", "age", "tripid", "trip_dist_km","trip_duration_min", "trip_purpose2", "trip_main_mode", "age_cat", "weight_trip","year"))
-colnames(trip_sel)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip","year")
-
-a<-rbind(a, trip_sel)
-rm("neth", "neth_selected")
-
-####Switzerland 2010#### no distinction between electric and non-electric bikes and variables for urban and city not clear
-#setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Switzerland/MZMV2010_ohne_geo/4_DB_CSV/CSV_ohne_geo')
-#stages<-read.csv('etappen.csv',sep=";")
-#str(stages)
-#stages<-stages[,c("HHNR","ETNR","WEGNR","rdist","e_dauer","f51300","f51700","E_Ausland")]
-#stages[1:40,]
-#trips<-read.csv('wege.csv',sep=";")
-#head(trips)
-## 2010 survey has Velo as a category for cycling #2 in f51300 and does not differentiate between e-bike and usual bike
-## 2015 survey ddifferentiates between e-bike and other boke (#2 for normal and #20 for e-bike)
-#stages$trip_id<- paste(stages$HHNR,stages$ZIELPNR,stages$DMOD,sep="")
-#summary<- stages %>% group_by(trip_id) %>% summarise(max_dist=max(rdist))
-#head(summary)
-#stages<- stages %>% left_join(summary, by="trip_id")
-#stages$main_mode<-0
-#stages$main_mode[which(stages$rdist==stages$max_dist)]<-1
-#head(stages)
-#stages<-stages[which(stages$main_mode==1),]
-#person<- read.csv('zielpersonen.csv', sep=";")
-#str(person)
-#person<- subset(person, select=c("HHNR","alter","gesl","WP"))
-#household<-read.csv('haushalte.csv', sep=";")
-#str(household)
-#household<- subset(household, select=c('HHNR','W_Ort', 'DEG'))
-
-#####Switzerland 2015####
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Switzerland/MZMV2015_ohne_geo/4_DB_csv/04_DB_CSV')
-stages<-read.csv('etappen.csv')
-stages<-stages[,c("HHNR","ETNR","WEGNR","rdist","e_dauer","f51300","f51700","E_Ausland",'WP')]
-stages$trip_id<- paste(stages$HHNR,stages$WEGNR,sep="")
-summary<- stages %>% group_by(trip_id) %>% summarise(max_dist=max(rdist))
-stages<- stages %>% left_join(summary, by="trip_id")
-stages$main_mode<-0
-stages$main_mode[which(stages$rdist==stages$max_dist)]<-1
-stages<-stages[which(stages$main_mode==1),]
-
-trips<-read.csv('wege.csv')
-trips$trip_id<- paste(trips$HHNR,trips$WEGNR,sep="")
-trips<- subset(trips, select=c('trip_id','wzweck1'))
-
-person<- read.csv('zielpersonen.csv')
-person<- subset(person, select=c("HHNR","alter","gesl"))
-
-household<-read.csv('haushalte.csv')
-household<- subset(household, select=c('HHNR','W_Ort', 'W_DEGURBA'))
-
-stages<- stages %>% left_join(trips, by="trip_id")
-stages<- stages %>% left_join(person, by="HHNR")
-stages<- stages %>% left_join(household, by="HHNR")
-
-stages$female<-1
-stages$female[which(stages$gesl==1)]<-0
-stages$trip_purpose<-0
-stages$trip_purpose[which(stages$wzweck1==2)]<-1
-
-## 2010 survey has Velo as a category for cycling #2 in f51300 and does not differentiate between e-bike and usual bike
-## 2015 survey differentiates between e-bike and other boke (#2 for normal and #20 for e-bike)
-stages$trip_mode<- 0
-stages$trip_mode[which(stages$f51300==2)]<- 1
-stages$country<- "Switzerland"
-stages$urban<-0
-stages$urban[which(stages$W_DEGURBA<3)]<-1
-stages$year<-2015
-stages$age_cat="NA"
-
-str(stages)
-stages<- subset(stages, select=c("country", "W_Ort","urban","HHNR","HHNR","female", "alter", "WEGNR", "rdist","e_dauer", "trip_purpose", "trip_mode","age_cat","WP","year"))
-colnames(stages)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip","year")
-a<-rbind(a, stages)
-
-rm("stages", "person","stages", "trips")
 
 #####Argentina Buenos Aires############
 library(tidyverse)
@@ -609,74 +428,686 @@ colnames(trip_sel)<-c("country", "city/region","urban", "hh_ID", "ind_ID","femal
 a<-rbind(a, trip_sel)
 rm("tucuman_hh", "tucuman_pp", "tucuman_trip","tucuman_stages","trip_sel", "pp_sel")
 
-#####Mexico city ####
-setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Mexico/Travel surveys/Mexico City 2017/Databases/eod_2017_csv")
+#####Australia South East Queenslandout#####
+## Defining a work trip
+## If DESTPURP1 is 7 (work) it is a work trip
+## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
+person<-read.csv('SEQ_HTS_PERSONS.csv')
+trips<- read.csv('SEQ_HTS_TRIPS.csv')
+HHS<- read.csv('SEQ_HTS_HOUSEHOLDS.csv')
 
-library(nnet)
-library(tidyverse)
+HHS<-subset(HHS, select=c( "HHID", "AREA"))
 
-person <- read_csv('tsdem_eod2017/conjunto_de_datos/tsdem.csv')
-trip <- read_csv('tviaje_eod2017/conjunto_de_datos/tviaje.csv')
-stage <- read_csv('ttransporte_eod2017/conjunto_de_datos/ttransporte.csv')
-lookup_trip_purpose <- read_csv('lookup_trip_purpose.csv')
-lookup_stage_mode <- read_csv('lookup_stage_mode.csv')
+HHS$geog[HHS$AREA==1]<-'Brisbane'
+HHS$geog[HHS$AREA==2]<-'Gold Coast'
+HHS$geog[HHS$AREA==3]<-'Sunshine Coast'
+for (i in 1: nrow(trips))
+{
+    
+    if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
+    {
+        trips$purpose[i]<- 1
+    }
+    else if (trips$DESTPURP1[i]==7)
+    {
+        trips$purpose[i]<-1
+    }
+    else 
+    {
+        trips$purpose[i]<-0
+    }
+}
 
-##selecting relevant variables
-person <- select(person, id_hog, id_soc, sexo, edad)  ## all ind id's sex and age
-trip <- trip %>% select(id_soc,id_via, sexo, edad, p5_13, p5_9_1, p5_9_2, p5_10_1,p5_10_2) %>% # trips with purpose and start and end time
-    mutate(p5_13 = as.numeric(p5_13), # make mode code as numeric for binding
-           trip_duration = (as.numeric(p5_10_1) - as.numeric(p5_9_1))*60 + (as.numeric(p5_10_2) - as.numeric(p5_9_2))) %>% # calculate trip duration
-    {.[,-c(6,7,8,9)]}
-stage <- stage %>% select(id_via, id_tra, sexo, edad, p5_14, p5_16_1_1, p5_16_1_2) %>% # stage plus mode and stage time
-    mutate(p5_14 = as.numeric(p5_14), # make mode code as numeric for binding
-           stage_duration = as.numeric(p5_16_1_1)*60 + as.numeric(p5_16_1_2)) %>% {.[,-c(6,7)]}  #calculate stage time
+person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
+trips<-trips %>% left_join(person, by="PERSID")
+trips<-trips %>% left_join(HHS, by="HHID")
 
-#bind all datesets and retain only useful ones  
-trip <- person %>% left_join(trip) %>% left_join(stage)  %>% left_join(lookup_trip_purpose) %>% left_join(lookup_stage_mode) %>% {.[,-c(1, 6,9,12,13)]}
-names(trip) <-  c("participant_id", "sex", "age", "trip_id", "trip_duration", "stage_id", "stage_duration", "trip_purpose", "stage_mode")
+trips$urban<-1
+trips$country<-"Australia"
+trips$mode<-0
+trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
+trips$gender[trips$SEX==1]<-0
+trips$gender[trips$SEX==2]<-1
+trips$age_cat<-'NA'
+trips$distance<-trips$NETWORK_DIST
+trips$year<-2015
 
-#add trip mode as stage mode with londest time
-trip <- trip %>% group_by(participant_id, sex, age, trip_id) %>% summarise(trip_mode = stage_mode[which.is.max(stage_duration)]) %>% left_join(trip)
+trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
+colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
+a<-rbind(a, trips)
+rm("person","trips", "HHS")
 
-#explore data quality
-#average trip per person
-trip %>% distinct(trip_id) %>% nrow / trip %>% distinct(participant_id) %>% nrow
-#modeshare
-a <- trip %>% group_by(participant_id, age, sex, trip_id, trip_duration, trip_mode) %>% summarise(n_stage= n())
-round(prop.table(table(factor(a$trip_mode)))*100,2)
-#average travel time per mode
-trip %>% group_by(participant_id, age, sex, trip_id, trip_duration, trip_mode) %>% summarise(n_stage= n()) %>% group_by(trip_mode) %>% summarise(average_mode_duration = mean(trip_duration, na.rm = T)) 
-#write.csv(trip, "trip_mexico.csv")
+#####Australia Goldstone#####
+## Defining a work trip
+## If DESTPURP1 is 7 (work) it is a work trip
+## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
+person<-read.csv('GLD_PERSONS.csv')
+trips<- read.csv('GLD_TRIPS.csv')
+for (i in 1: nrow(trips))
+{
+    
+    if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
+    {
+        trips$purpose[i]<- 1
+    }
+    else if (trips$DESTPURP1[i]==7)
+    {
+        trips$purpose[i]<-1
+    }
+    else 
+    {
+        trips$purpose[i]<-0
+    }
+}
+
+person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
+trips<-trips %>% left_join(person, by="PERSID")
+#trips<-trips %>% left_join(HHS, by="HHID")
+
+trips$urban<-1
+trips$country<-"Australia"
+trips$geog<-"Goldstone"
+trips$mode<-0
+trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
+trips$gender[trips$SEX==1]<-0
+trips$gender[trips$SEX==2]<-1
+trips$age_cat<-'NA'
+trips$distance<-trips$NETWORK_DIST
+trips$year<-2010
+
+trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
+colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
+a<-rbind(a, trips)
+rm("person","trips")
+
+#####Australia Wide Bay Burnett#####
+## Defining a work trip
+## If DESTPURP1 is 7 (work) it is a work trip
+## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
+person<-read.csv('WBB_PERSONS.csv')
+trips<- read.csv('WBB_TRIPS.csv')
+HHS<- read.csv('WBB_HHS.csv')
+
+HHS<-subset(HHS, select=c( "HHID", "AREA"))
+
+HHS$geog[HHS$AREA==1]<-'Bundaberg'
+HHS$geog[HHS$AREA==2]<-'Burnett'
+HHS$geog[HHS$AREA==3]<-'Hervey Bay'
+HHS$geog[HHS$AREA==4]<-'Maryborough'
+
+for (i in 1: nrow(trips))
+{
+    
+    if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
+    {
+        trips$purpose[i]<- 1
+    }
+    else if (trips$DESTPURP1[i]==7)
+    {
+        trips$purpose[i]<-1
+    }
+    else 
+    {
+        trips$purpose[i]<-0
+    }
+}
+
+person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
+trips<-trips %>% left_join(person, by="PERSID")
+trips<-trips %>% left_join(HHS, by="HHID")
+
+trips$urban<-1
+trips$country<-"Australia"
+
+trips$mode<-0
+trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
+trips$gender[trips$SEX==1]<-0
+trips$gender[trips$SEX==2]<-1
+trips$age_cat<-'NA'
+trips$distance<-trips$NETWORK_DIST
+trips$year<-2010
+
+trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
+colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
+a<-rbind(a, trips)
+rm("person","trips", "HHS")
+
+
+#####Australia Mackay#####
+## Defining a work trip
+## If DESTPURP1 is 7 (work) it is a work trip
+## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
+person<-read.csv('MKY_PERSONS.csv')
+trips<- read.csv('MKY_TRIPS.csv')
+for (i in 1: nrow(trips))
+{
+    
+    if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
+    {
+        trips$purpose[i]<- 1
+    }
+    else if (trips$DESTPURP1[i]==7)
+    {
+        trips$purpose[i]<-1
+    }
+    else 
+    {
+        trips$purpose[i]<-0
+    }
+}
+
+person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
+trips<-trips %>% left_join(person, by="PERSID")
+#trips<-trips %>% left_join(HHS, by="HHID")
+
+trips$urban<-1
+trips$country<-"Australia"
+trips$geog<-"Mackay"
+trips$mode<-0
+trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
+trips$gender[trips$SEX==1]<-0
+trips$gender[trips$SEX==2]<-1
+trips$age_cat<-'NA'
+trips$distance<-trips$NETWORK_DIST
+trips$year<-2011
+
+trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
+colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
+a<-rbind(a, trips)
+rm("person","trips")
 
 
 
-## Message from Ralph: I just shared a dropbox folder with the US (2017) and German (2008) data as requested. 
-###I followed the codebook you provided. Two items to note: weights are trip weights not not hh weights. 
-##The variable geog includes metropolitan area size and not city names. 
+#####Australia Townsville#####
+## Defining a work trip
+## If DESTPURP1 is 7 (work) it is a work trip
+## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
+person<-read.csv('TVL_PERSONS.csv')
+trips<- read.csv('TVL_TRIPS.csv')
+for (i in 1: nrow(trips))
+{
+    
+    if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
+    {
+        trips$purpose[i]<- 1
+    }
+    else if (trips$DESTPURP1[i]==7)
+    {
+        trips$purpose[i]<-1
+    }
+    else 
+    {
+        trips$purpose[i]<-0
+    }
+}
 
-#####United States from Ralph#####
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/USA 2017 and German 2008')
-US <- read.dta13("NHTS 2017 USA for Rahul.dta")
-US$country<- "USA"
-US$age_cat<-'NA'
-US$year<-2017
-US$geog<- as.factor(US$geog)
-US<-subset(US, select=c("country", "geog", "urban","hh_id", "ind_id", "gender", "age", "trip_id","distance", "time", "purpose", "mode", "age_cat", "weights", "year"))
-colnames(US)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip","year")
-a<-rbind(a, US)
-rm("US")
+person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
+trips<-trips %>% left_join(person, by="PERSID")
+#trips<-trips %>% left_join(HHS, by="HHID")
 
-#####Germany from Ralph####
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/USA 2017 and German 2008/Germany MOP')
-german <- read.dta13("MOP 2014 2015 2016 Pooled for Rahul.dta")
-#german <- read.dta13("MOP 2015 for Rahul.dta")
-german$country<- "Germany"
-german$age_cat<-'NA'
-german$geog<-"NA"
-german<-subset(german, select=c("country", "geog", "urban","hh_id", "ind_id", "gender", "age", "trip_id","distance", "time", "purpose", "mode", "age_cat", "weights", "cohort"))
-colnames(german)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
-a<-rbind(a, german)
-rm("german")
+trips$urban<-1
+trips$country<-"Australia"
+trips$geog<-"Townsville"
+trips$mode<-0
+trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
+trips$gender[trips$SEX==1]<-0
+trips$gender[trips$SEX==2]<-1
+trips$age_cat<-'NA'
+trips$distance<-trips$NETWORK_DIST
+trips$year<-2011
+
+trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
+colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
+a<-rbind(a, trips)
+rm("person","trips")
+
+
+#####Australia Darling Downs and Lockyer#####
+## Defining a work trip
+## If DESTPURP1 is 7 (work) it is a work trip
+## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
+person<-read.csv('DD_PERSONS.csv')
+trips<- read.csv('DD_TRIPS.csv')
+HHS<- read.csv('DD_HOUSEHOLDS.csv')
+areas<- read.csv('DDL_AREA.csv')
+
+HHS<-subset(HHS, select=c( "HHID", "AREA"))
+HHS<-HHS %>% left_join(areas, by="AREA")
+
+for (i in 1: nrow(trips))
+{
+    
+    if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
+    {
+        trips$purpose[i]<- 1
+    }
+    else if (trips$DESTPURP1[i]==7)
+    {
+        trips$purpose[i]<-1
+    }
+    else 
+    {
+        trips$purpose[i]<-0
+    }
+}
+
+person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
+trips<-trips %>% left_join(person, by="PERSID")
+trips<-trips %>% left_join(HHS, by="HHID")
+
+trips$urban<-1
+trips$country<-"Australia"
+
+trips$mode<-0
+trips$mode[trips$MAINMODE ==5]<-1  ###cycling as 1
+trips$gender[trips$SEX==1]<-0
+trips$gender[trips$SEX==2]<-1
+trips$age_cat<-'NA'
+trips$distance<-trips$NETWORK_DIST
+trips$year<-2012
+
+trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
+colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
+a<-rbind(a, trips)
+rm("person","trips", "HHS", "areas")
+
+
+#####Australia Toowoomba Region#####
+## Defining a work trip
+## If DESTPURP1 is 7 (work) it is a work trip
+## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
+person<-read.csv('TWB_PERSONS.csv')
+trips<- read.csv('TWB_TRIPS.csv')
+for (i in 1: nrow(trips))
+{
+    
+    if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
+    {
+        trips$purpose[i]<- 1
+    }
+    else if (trips$DESTPURP1[i]==7)
+    {
+        trips$purpose[i]<-1
+    }
+    else 
+    {
+        trips$purpose[i]<-0
+    }
+}
+
+person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
+trips<-trips %>% left_join(person, by="PERSID")
+#trips<-trips %>% left_join(HHS, by="HHID")
+
+trips$urban<-1
+trips$country<-"Australia"
+trips$geog<-"Toowoomba"
+trips$mode<-0
+trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
+trips$gender[trips$SEX==1]<-0
+trips$gender[trips$SEX==2]<-1
+trips$age_cat<-'NA'
+trips$distance<-trips$NETWORK_DIST
+trips$year<-2012
+
+trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
+colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
+a<-rbind(a, trips)
+rm("person","trips")
+
+#####Australia Cairns Region#####
+## Defining a work trip
+## If DESTPURP1 is 7 (work) it is a work trip
+## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
+person<-read.csv('CNS_PERSONS.csv')
+trips<- read.csv('CNS_TRIPS.csv')
+for (i in 1: nrow(trips))
+{
+    
+    if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
+    {
+        trips$purpose[i]<- 1
+    }
+    else if (trips$DESTPURP1[i]==7)
+    {
+        trips$purpose[i]<-1
+    }
+    else 
+    {
+        trips$purpose[i]<-0
+    }
+}
+
+person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
+trips<-trips %>% left_join(person, by="PERSID")
+#trips<-trips %>% left_join(HHS, by="HHID")
+
+trips$urban<-1
+trips$country<-"Australia"
+trips$geog<-"Cairns"
+trips$mode<-0
+trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
+trips$gender[trips$SEX==1]<-0
+trips$gender[trips$SEX==2]<-1
+trips$age_cat<-'NA'
+trips$distance<-trips$NETWORK_DIST
+trips$year<-2014
+
+trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
+colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
+a<-rbind(a, trips)
+rm("person","trips")
+
+
+#####Australia Rockhampton Region#####
+## Defining a work trip
+## If DESTPURP1 is 7 (work) it is a work trip
+## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
+person<-read.csv('RKH_PERSONS.csv')
+trips<- read.csv('RKH_TRIPS.csv')
+for (i in 1: nrow(trips))
+{
+    
+    if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
+    {
+        trips$purpose[i]<- 1
+    }
+    else if (trips$DESTPURP1[i]==7)
+    {
+        trips$purpose[i]<-1
+    }
+    else 
+    {
+        trips$purpose[i]<-0
+    }
+}
+
+person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
+trips<-trips %>% left_join(person, by="PERSID")
+#trips<-trips %>% left_join(HHS, by="HHID")
+
+trips$urban<-1
+trips$country<-"Australia"
+trips$geog<-"Rockhampton"
+trips$mode<-0
+trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
+trips$gender[trips$SEX==1]<-0
+trips$gender[trips$SEX==2]<-1
+trips$age_cat<-'NA'
+trips$distance<-trips$NETWORK_DIST
+trips$year<-2014
+
+trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
+colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
+a<-rbind(a, trips)
+rm("person","trips")
+
+
+#####Australia Gympie, Gayndah, Kingaroy and Tin Can Bay/Cooloola#####
+## Defining a work trip
+## If DESTPURP1 is 7 (work) it is a work trip
+## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
+person<-read.csv('GC_PERSONS.csv')
+trips<- read.csv('GC_TRIPS.csv')
+for (i in 1: nrow(trips))
+{
+    
+    if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
+    {
+        trips$purpose[i]<- 1
+    }
+    else if (trips$DESTPURP1[i]==7)
+    {
+        trips$purpose[i]<-1
+    }
+    else 
+    {
+        trips$purpose[i]<-0
+    }
+}
+
+person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
+trips<-trips %>% left_join(person, by="PERSID")
+#trips<-trips %>% left_join(HHS, by="HHID")
+
+trips$urban<-1
+trips$country<-"Australia"
+trips$geog<-"Gympie, Gayndah, Kingaroy and Tin Can Bay/Cooloola"
+trips$mode<-0
+trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
+trips$gender[trips$SEX==1]<-0
+trips$gender[trips$SEX==2]<-1
+trips$age_cat<-'NA'
+trips$distance<-trips$NETWORK_DIST
+trips$year<-2010
+
+trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "TRIPWGT14", "year"))
+colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
+a<-rbind(a, trips)
+rm("person","trips")
+
+
+#####Australia Victoria#####
+## Defining a work trip
+## If DESTPURP1 is 7 (work) it is a work trip
+## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Victoria/Original data')
+person<-read.csv('P_VISTA12_16_SA1_V1.csv')
+trips<- read.csv('T_VISTA12_16_SA1_V1.csv')
+for (i in 1: nrow(trips))
+{
+    
+    if (trips$ORIGPURP1[i] == "Workplace"  & trips$DESTPURP1[i]=="At or Go Home")
+    {
+        trips$purpose[i]<- 1
+    }
+    else if (trips$DESTPURP1[i]=="Workplace")
+    {
+        trips$purpose[i]<-1
+    }
+    else 
+    {
+        trips$purpose[i]<-0
+    }
+}
+
+person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
+trips<-trips %>% left_join(person, by="PERSID")
+#trips<-trips %>% left_join(HHS, by="HHID")
+
+trips$urban<-1
+trips$country<-"Australia"
+trips$geog<-"Victoria"
+trips$mode<-0
+trips$mode[as.character(trips$Mode1) =="Bicycle"]<-1  ###cycling as 1
+trips$gender[trips$SEX=="Male"]<-0
+trips$gender[trips$SEX=="Female"]<-1
+trips$age_cat<-'NA'
+trips$distance<-trips$CUMDIST
+trips$year<-2015
+
+trips<-subset(trips, select=c("country", "geog", "urban","HHID.x", "PERSID", "gender", "AGE",  "TRIPNO","distance", "TRAVTIME", "purpose", "mode", "age_cat", "RP_ADTRIPWGT_LGA", "year"))
+colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
+a<-rbind(a, trips)
+rm("person","trips")
+
+#####Brazil Sao Paulo####
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Sao Paulo/Pesquisa Origem Destino 2012')
+trips<-read.csv('Mobilidade_2012_v0.csv')
+str(trips)
+trips<-subset(trips, select=c("ID_PESS", "ID_DOM", "N_VIAG", "DURACAO", "DISTANCIA","MODOPRIN", "SEXO", "IDADE", "FE_VIA" , "MOTIVO_D" , "MOTIVO_O"))
+trips$female<-0
+trips$female[which(trips$SEXO==2)]<-1
+trips$city<- "Sao Paulo"
+trips$urban<-1  
+trips$country<-"Brazil"
+trips$year<-2012
+unique(trips$MODOPRIN)
+
+for (i in 1: nrow(trips))
+{
+    
+    
+    if (!(is.na(trips$MOTIVO_D[i])) & trips$MOTIVO_D[i] == 8  & trips$MOTIVO_O[i]<4 & ! (is.na(trips$MOTIVO_O[i])) )
+    {
+        trips$purpose[i]<- 1
+    }
+    else if (! (is.na(trips$MOTIVO_D[i])) & trips$MOTIVO_D[i]<4)
+    {
+        trips$purpose[i]<-1
+    }
+    else 
+    {
+        trips$purpose[i]<-0
+    }
+}
+
+trips$mode<-'NA'
+trips$mode[which(trips$MODOPRIN==1)]<-"Omnibus" 
+trips$mode[which(trips$MODOPRIN==2)]<-"Omnibus" 
+trips$mode[which(trips$MODOPRIN==3)]<-"Omnibus" 
+trips$mode[which(trips$MODOPRIN==4)]<-"Omnibus" 
+trips$mode[which(trips$MODOPRIN==5)]<-"Bus" 
+trips$mode[which(trips$MODOPRIN==6)]<-"Car" 
+trips$mode[which(trips$MODOPRIN==7)]<-"Car" 
+trips$mode[which(trips$MODOPRIN==8)]<-"Taxi" 
+trips$mode[which(trips$MODOPRIN==9)]<-"Minibus/van" 
+trips$mode[which(trips$MODOPRIN==10)]<-"Minibus/van" 
+trips$mode[which(trips$MODOPRIN==11)]<-"Minibus/van" 
+trips$mode[which(trips$MODOPRIN==12)]<-"Metro" 
+trips$mode[which(trips$MODOPRIN==13)]<-"Tram" 
+trips$mode[which(trips$MODOPRIN==14)]<-"Motorcycle" 
+trips$mode[which(trips$MODOPRIN==15)]<-"Bicycle" 
+trips$mode[which(trips$MODOPRIN==16)]<-"Walk" 
+trips$mode[which(trips$MODOPRIN==17)]<-"Other" 
+trips<- trips[which(!is.na(trips$N_VIAG)),]
+trips<-subset(trips, select=c("ID_DOM", "ID_PESS", "female", "IDADE",  "N_VIAG","DISTANCIA", "DURACAO", "mode", "FE_VIA" , "purpose"))
+colnames(trips)<-c("hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_duration","trip_time", "trip_main_mode", "weight_trip", "trip_purpose")
+
+
+#####Brazil Belo Horizonte######
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Belo Horizonte/Travel survey')
+trips<-read.table('dbo_TB_VIAGENS_INTERNAS_RMBH.txt', header = TRUE, sep=",")
+persons<- read.table('dbo_TB_DOMICILIO_PESSOA_ENTREGA.txt', header = TRUE, sep=",")
+hh_weights<- read.table('dbo_TB_FATOR_EXPANSÂO_DOMICÍLIO.txt', header = TRUE, sep=",")
+
+###there are no stages, therefore, walking to and from public transport is not included
+### we have a process coded in the ITHIM-R which adds this walking in such cases (Ali does it once we provide him the data)
+
+##create unique person id
+persons$id_person<- paste0(persons$ID_DOMICILIO, "_", persons$ID_PESSOA)
+##selecting the variables needed for individuals (personid, sex, age)
+persons<- subset(persons, select=c("id_person","DS_SEXO","IDADE"))
+persons$female<-0
+persons$female[which(persons$Sexo=="Feminino")]<-1
+##removing the sexo variables
+persons<- persons[,-2]
+
+##create trip and person id
+trips$id_trip<- paste0(trips$Domicilio, "_", trips$Pessoa, "_", trips$Identificação)
+trips$id_person<- paste0(trips$Domicilio, "_", trips$Pessoa)
+
+##calculate trip duration
+trips$trip_duration <- NA
+trips$trip_duration <- (as.numeric(substr(trips$TEMPO.DE.DESLOCAMENTO, 12,13)))*60 + as.numeric(substr(trips$TEMPO.DE.DESLOCAMENTO, 15,16))
+
+##allocating mode names in english
+lookup<- as.data.frame((unique(trips$DS_SH_MEIO_TRANSPORTE)))
+lookup<- cbind(lookup, c("bus", "car", "walk", "metro", "bus", "car", "motorcycle", "other", "truck", "bicycle", "taxi"))
+names(lookup)<- c("DS_SH_MEIO_TRANSPORTE", "mode_eng")
+trips <- trips %>% left_join(lookup, by="DS_SH_MEIO_TRANSPORTE")
+
+##renaming the sex
+trips$female<-0
+trips$female[which(trips$Sexo=="Feminino")]<-1
+
+
+trips %>% group_by(mode_eng) %>% summarise(n())
+
+###checking for data quality
+##trip rate
+nrow(trips)/nrow(persons)
+##trip rate for older than 15 (it goes up from 1.39 to 1.42)
+nrow(trips[which(trips$Idade>15),])/nrow(persons[which(persons$IDADE>15),])
+##duration per capita (seems lower value than expected)
+sum(trips$trip_duration)/nrow(persons)
+##average trip duration per mode
+trips %>% group_by(mode_eng) %>% summarise(mean(trip_duration))
+
+##number of unique people who made a trip
+length(unique(trips$id_person))
+##dividing this by the total number of people-- 59% of total sample made a trip, which brings down the average trip rate per capita
+length(unique(trips$id_person))/nrow(persons)
+
+##selecting the variables needed for trips (this one unusually has sex and age (idade) included in the trips file)
+trips<- subset(trips, select=c("id_person", "id_trip","trip_duration","mode_eng", "Idade", "female"))
+
+##it seems that persons file has no weight variable, in which case we may have to get rid of the weight variable in the trip file also (Fator.expansão)
+##selecting persons which did not make any trip, to add to the trip file
+persons<-persons[which(!(persons$id_person %in% unique(trips$id_person))),]
+#renaming age variable same as trip
+names(persons)[2]<-"Idade"
+
+##adding all the other columns
+
+persons$id_trip<- NA
+persons$trip_duration<- NA
+persons$mode_eng<- NA
+persons$Idade<- NA
+
+##settings the sequence same as trips
+persons<- subset(persons, select=c("id_person", "id_trip","trip_duration","mode_eng", "Idade", "female"))
+
+trips<- rbind(trips, persons)
+
+write.csv(trips,'V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Belo Horizonte/ITHIM R data/trips.csv')
+
+
+#####Brazil Salvador######
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Salvador')
+trips<-read.csv('trips.csv')
+persons<- read.csv('individual.csv')
+hh<- read.csv('household.csv')
+lookup<-read.csv('mode_names_lookup.csv')
+
+persons$id_person<- paste0(persons$IDENTIFICADOR, "_", persons$SEQ)
+persons<- subset(persons, select=c("id_person", "SEXO", "IDADE"))
+
+trips$id_person<- paste0(trips$IDENTIFICADOR, "_", trips$SEQ)
+trips$id_trip<- paste0(trips$id_person, "_", trips$VIAGEM)
+
+trips$trip_duration <- ((as.numeric(substr(trips$HORA_D, 1,2)))*60 + as.numeric(substr(trips$HORA_D, 4,5)))-( (as.numeric(substr(trips$HORA_O, 1,2)))*60 + as.numeric(substr(trips$HORA_O, 4,5)))
+#trips$purpose<- 0
+#trips$purpose[which(trips$MOTIVO_D<4)]<-1
+#trips$purpose[which(trips$MOTIVO_O<4 & trips$MOTIVO_D==8) ]<-1
+
+trips <- trips %>% left_join(persons, by="id_person")
+trips$female<-0
+trips$female[which(trips$SEXO==2)]<-1
+trips$country<- "Brazil"
+trips$city<- "Salvador"
+trips$urban<-1
+trips$year<-2012
+trips$age_cat<- 'NA'
+trips$distance<- NA
+##joining the lookup table for mode names
+trips <- trips %>% left_join(lookup, by="MODO_TRANSP")
+
+##checking results
+sum(trips$trip_duration)/nrow(persons) ## has 64 minutes as average time per capita, very high
+##average trip duration per mode
+x<- trips  %>% group_by(mode_eng) %>% summarise(mean (trip_duration, na.rm=T))
+
 
 
 #####Chile Antofagasta#####
@@ -1131,7 +1562,7 @@ average_mode_time <- stage %>% group_by(participant_id, trip_id) %>%
 names(average_mode_time) <- c("stage_mode", "average_mode_time")
 
 stage <- stage %>% left_join(average_mode_time)
-    stage <- stage %>% group_by(participant_id, trip_id) %>% 
+stage <- stage %>% group_by(participant_id, trip_id) %>% 
     summarise(sum_average = sum(average_mode_time , na.rm = T)) %>% 
     left_join(stage)
 
@@ -1141,6 +1572,18 @@ trip <- person %>% left_join(trip) %>% left_join(stage) %>% left_join(lookup_sex
 trip <- trip %>% mutate(age= EDAD, trip_duration = DURATION) %>% 
     select(participant_id, sex, age, trip_id, trip_purpose, trip_mode, trip_duration, stage_id, stage_duration, stage_mode)
 #write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/bogota/trip_bogota.csv")
+
+
+# what fraction of multistage trips have walking
+multistage <- stage %>% group_by(participant_id, trip_id) %>% 
+    summarise(c = n()) %>% filter(c > 1) %>% left_join(stage) 
+
+multistage_diff_modes <- multistage %>% group_by(participant_id, trip_id) %>% 
+    summarise(b =length(levels(as.factor(stage_mode)))) %>% filter(b>1) %>% 
+    left_join(multistage) %>%   group_by(participant_id, trip_id) %>% 
+    summarise(a = ifelse("walk" %in% levels(as.factor(stage_mode)), "no_walk", "walk"))
+#proportion of multitage trips with walking
+round(prop.table(table(multistage_diff_modes$a)),2)
 
 #####Colombia Bogota (Use this one)####
 ##In the previous version, stages were used, but there is no benefit as the stages for public transport hardly reports walking
@@ -1168,7 +1611,7 @@ person<- subset(person, select=c('person_id','SEXO', 'EDAD', 'FE_TOTAL'))
 person$FE_TOTAL<-as.character(person$FE_TOTAL)
 for (i in 1:nrow(person))
 {
-  person$weights[i]<- as.numeric(strsplit(as.character(person$FE_TOTAL[i]), ',')[[1]][1])
+    person$weights[i]<- as.numeric(strsplit(as.character(person$FE_TOTAL[i]), ',')[[1]][1])
 }
 
 trips<- trips %>% left_join(person, by="person_id")
@@ -1202,518 +1645,122 @@ bogota_data$sex[which(bogota_data$SEXO=="Hombre")]<- "Male"
 bogota_data<- bogota_data[,-5]
 write.csv(bogota_data,'C:/ITHIM-R/data/local/bogota/bogota_trips.csv')
 
-#####Australia South East Queenslandout#####
-## Defining a work trip
-## If DESTPURP1 is 7 (work) it is a work trip
-## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
-person<-read.csv('SEQ_HTS_PERSONS.csv')
-trips<- read.csv('SEQ_HTS_TRIPS.csv')
-HHS<- read.csv('SEQ_HTS_HOUSEHOLDS.csv')
+#####England LONDON#####
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/London/LTDS0514_Combined_V3U_v1.2')
+trips<-read.table('Trip_ltds.txt', header = TRUE, sep=",")
+stages<-read.table('Stage.txt', header=TRUE, sep=",")
+persons<- read.table('Person.txt', header=TRUE, sep=",")
+person_data<-read.table('Person_data.txt', header=TRUE, sep=",")
+trips_subset<- subset(trips, select=c("ttid", "tdbmmode", "tlenn"))
+stages_subset<- subset(stages, select=c("ssid", "stid", "smode", "swalkdur"))
+names(stages_subset)[2]<-"ttid"
+stages_subset <- stages_subset %>% left_join(trips_subset, by="ttid")
 
-HHS<-subset(HHS, select=c( "HHID", "AREA"))
 
-HHS$geog[HHS$AREA==1]<-'Brisbane'
-HHS$geog[HHS$AREA==2]<-'Gold Coast'
-HHS$geog[HHS$AREA==3]<-'Sunshine Coast'
-for (i in 1: nrow(trips))
-{
-  
-  if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
-  {
-    trips$purpose[i]<- 1
-  }
-  else if (trips$DESTPURP1[i]==7)
-  {
-    trips$purpose[i]<-1
-  }
-  else 
-  {
-    trips$purpose[i]<-0
-  }
-}
+stages_subset$dist_cat[stages_subset$tlenn <=1 ] <-  "0 - 1 km"
+stages_subset$dist_cat[stages_subset$tlenn >1 & stages_subset$tlenn <=5] <-  "2 - 5 km"
+stages_subset$dist_cat[stages_subset$tlenn >5 & stages_subset$tlenn <=10] <-  "6 - 10 km"
+stages_subset$dist_cat[stages_subset$tlenn >10 & stages_subset$tlenn <=20] <-  "11 - 20 km"
+stages_subset$dist_cat[stages_subset$tlenn >20 & stages_subset$tlenn <=30] <-  "21 - 30 km"
+stages_subset$dist_cat[stages_subset$tlenn >30 ] <-  "30+ km"
 
-person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
-trips<-trips %>% left_join(person, by="PERSID")
-trips<-trips %>% left_join(HHS, by="HHID")
 
-trips$urban<-1
-trips$country<-"Australia"
+stages_bus<- stages_subset[which(stages_subset$swalkdur>0  & stages_subset$tdbmmode==13),]
+stages_trains<- stages_subset[which(stages_subset$swalkdur>0  & stages_subset$tdbmmode==17),]
+##trip wise total of walking duration
+
+bus_walk<- stages_bus %>% group_by(ttid) %>% summarise(walk_dur=sum(swalkdur))
+plot(density(bus_walk$walk_dur), xlim=c(0,30))
+
+train_walk<- stages_trains %>% group_by(ttid) %>% summarise(walk_dur=sum(swalkdur))
+plot(density(train_walk$walk_dur), xlim=c(0,30))
+
+stages_2 %>% group_by(tdbmmode, dist_cat) %>% filter(swalkdur>0) %>% summarise(mean(swalkdur, na.rm=T), sd=sd(swalkdur, na.rm=T))
+
+
+#####ENGLAND-- downloaded data (2002-2017)####
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/England/tab/')
+trips<- read.delim('tripeul2017.tab', sep="\t")
+ind<- read.delim('individualeul2017.tab', sep="\t")
+str(trips)
+
+trips_sel<-subset(trips, select=c('TripID', 'SurveyYear', 'IndividualID', 'HouseholdID', 'TripDisIncSW', 'TripTotalTime','MainMode_B04ID'))
+ind_sel<- subset(ind, select=c('Age', 'Sex'))
+
+
+#####ENGLAND###################
+setwd('C:/Users/rg574/Dropbox/global cycling paper/Datasets')
+eng_stg <- read.dta13("England/NTSEng_20022016_tigthat_stages.dta")
+eng <- read.dta13("England/NTSEng_20022016_tigthat.dta")
+
+eng_selected<-subset(eng, select=c("householdid","individualid", "home_gor","urban","tripid", "female", "age_rawcat", "trip_mainmode","trip_purpose","trip_dist_km", "trip_durationraw_min" ,"weight_trip","year"))
+
+eng_selected$age_cat[eng_selected$age_rawcat == "Less than 1 year" | eng_selected$age_rawcat== "1 - 2 years" | eng_selected$age_rawcat== "3 - 4 years"| eng_selected$age_rawcat== "5 - 10 years"| eng_selected$age_rawcat== "11 - 15 years"] <-  "0 - 15 years"
+eng_selected$age_cat[eng_selected$age_rawcat== "16 years" | eng_selected$age_rawcat== "17 years" | eng_selected$age_rawcat== "18 years"| eng_selected$age_rawcat== "19 years"| eng_selected$age_rawcat== "20 years"| eng_selected$age_rawcat== "21 - 25 years"| eng_selected$age_rawcat== "26 - 29 years"] <-  "16 - 29 years"
+eng_selected$age_cat[eng_selected$age_rawcat== "30 - 39 years"] <-  "30 - 39 years"
+eng_selected$age_cat[eng_selected$age_rawcat== "40 - 49 years"] <-  "40 - 49 years"
+eng_selected$age_cat[eng_selected$age_rawcat== "50 - 59 years"] <-  "50 - 59 years"
+eng_selected$age_cat[eng_selected$age_rawcat== "60 - 64 years" |eng_selected$age_rawcat== "65 - 69 years" |eng_selected$age_rawcat== "70 - 74 years"|eng_selected$age_rawcat== "75 - 79 years"|eng_selected$age_rawcat== "80 - 84 years"|eng_selected$age_rawcat== "85 years +"] <-  "60+ years"
+eng_selected$age_cat<-as.factor(eng_selected$age_cat)
+
+eng_selected$trip_main_mode<-0
+eng_selected$trip_main_mode[which(as.character(eng_selected$trip_mainmode)=="Bicycle")]<-1
+#eng_selected$trip_main_mode<-as.factor(eng_selected$trip_main_mode)
+
+eng_selected$trip_purpose2<-0
+eng_selected$trip_purpose2[which(as.character(eng_selected$trip_purpose)=="Commuting")]<-1
+
+eng_selected$country<-"England"
+eng_selected$age<-NA
+
+trip_sel<- subset(eng_selected, select=c("country", "home_gor","urban","householdid","individualid","female", "age", "tripid", "trip_dist_km","trip_durationraw_min", "trip_purpose2", "trip_main_mode", "age_cat", "weight_trip", "year"))
+colnames(trip_sel)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
+
+a<-trip_sel
+
+rm("eng", "eng_stg", "eng_selected")
+#####Finland####
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Finland/2016')
+trips<-read.csv('M_MATKAT.csv')
+background<- read.csv('T_TAUSTA.csv')
+colnames(trips)[1]<-"T_TAUSTAID"
+
+trips<-trips %>%  left_join(background, by="T_TAUSTAID")
+
+trips$female<-0
+trips$female[which(trips$T_SUKUPUOLI==2)]<-1
+
+trips$urban<-NA  ##will need to obtain from the geography variable which gives the municipality
+trips$country<-"Finland"
 trips$mode<-0
-trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
-trips$gender[trips$SEX==1]<-0
-trips$gender[trips$SEX==2]<-1
+trips$mode[trips$M_PAAKULKUTAPA ==2]<-1  ###cycling as 1
+trips$purpose<-0
+trips$purpose[which(trips$M_MR6==1)]<-1
 trips$age_cat<-'NA'
 trips$distance<-trips$NETWORK_DIST
-trips$year<-2015
+trips$weights<-1  ## no weights in the dataset, however, T_RAPO/T_SEUTURAPO gives a code whether an individual was sampled from national sampling (1) or city-level oversampling (6= Helsinki, and so on)
+trips$hh_id<-NA
+trips$year<-2016
 
-trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
+trips<-subset(trips, select=c("country", "M_LAHTO_KUNTANIMI", "urban","hh_id", "T_TAUSTAID", "female", "T_IKA",  "M_TRIPROUTESID","M_PITUUS", "M_KESTO", "purpose", "mode", "age_cat", "weights", "year"))
 colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
 a<-rbind(a, trips)
-rm("person","trips", "HHS")
-
-#####Australia Goldstone#####
-## Defining a work trip
-## If DESTPURP1 is 7 (work) it is a work trip
-## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
-person<-read.csv('GLD_PERSONS.csv')
-trips<- read.csv('GLD_TRIPS.csv')
-for (i in 1: nrow(trips))
-{
-  
-  if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
-  {
-    trips$purpose[i]<- 1
-  }
-  else if (trips$DESTPURP1[i]==7)
-  {
-    trips$purpose[i]<-1
-  }
-  else 
-  {
-    trips$purpose[i]<-0
-  }
-}
-
-person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
-trips<-trips %>% left_join(person, by="PERSID")
-#trips<-trips %>% left_join(HHS, by="HHID")
-
-trips$urban<-1
-trips$country<-"Australia"
-trips$geog<-"Goldstone"
-trips$mode<-0
-trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
-trips$gender[trips$SEX==1]<-0
-trips$gender[trips$SEX==2]<-1
-trips$age_cat<-'NA'
-trips$distance<-trips$NETWORK_DIST
-trips$year<-2010
-
-trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
-colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
-a<-rbind(a, trips)
-rm("person","trips")
-
-#####Australia Wide Bay Burnett#####
-## Defining a work trip
-## If DESTPURP1 is 7 (work) it is a work trip
-## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
-person<-read.csv('WBB_PERSONS.csv')
-trips<- read.csv('WBB_TRIPS.csv')
-HHS<- read.csv('WBB_HHS.csv')
-
-HHS<-subset(HHS, select=c( "HHID", "AREA"))
-
-HHS$geog[HHS$AREA==1]<-'Bundaberg'
-HHS$geog[HHS$AREA==2]<-'Burnett'
-HHS$geog[HHS$AREA==3]<-'Hervey Bay'
-HHS$geog[HHS$AREA==4]<-'Maryborough'
-
-for (i in 1: nrow(trips))
-{
-  
-  if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
-  {
-    trips$purpose[i]<- 1
-  }
-  else if (trips$DESTPURP1[i]==7)
-  {
-    trips$purpose[i]<-1
-  }
-  else 
-  {
-    trips$purpose[i]<-0
-  }
-}
-
-person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
-trips<-trips %>% left_join(person, by="PERSID")
-trips<-trips %>% left_join(HHS, by="HHID")
-
-trips$urban<-1
-trips$country<-"Australia"
-
-trips$mode<-0
-trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
-trips$gender[trips$SEX==1]<-0
-trips$gender[trips$SEX==2]<-1
-trips$age_cat<-'NA'
-trips$distance<-trips$NETWORK_DIST
-trips$year<-2010
-
-trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
-colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
-a<-rbind(a, trips)
-rm("person","trips", "HHS")
+rm("trips", "background")
 
 
-#####Australia Mackay#####
-## Defining a work trip
-## If DESTPURP1 is 7 (work) it is a work trip
-## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
-person<-read.csv('MKY_PERSONS.csv')
-trips<- read.csv('MKY_TRIPS.csv')
-for (i in 1: nrow(trips))
-{
-  
-  if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
-  {
-    trips$purpose[i]<- 1
-  }
-  else if (trips$DESTPURP1[i]==7)
-  {
-    trips$purpose[i]<-1
-  }
-  else 
-  {
-    trips$purpose[i]<-0
-  }
-}
-
-person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
-trips<-trips %>% left_join(person, by="PERSID")
-#trips<-trips %>% left_join(HHS, by="HHID")
-
-trips$urban<-1
-trips$country<-"Australia"
-trips$geog<-"Mackay"
-trips$mode<-0
-trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
-trips$gender[trips$SEX==1]<-0
-trips$gender[trips$SEX==2]<-1
-trips$age_cat<-'NA'
-trips$distance<-trips$NETWORK_DIST
-trips$year<-2011
-
-trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
-colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
-a<-rbind(a, trips)
-rm("person","trips")
+#####Germany from Ralph####
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/USA 2017 and German 2008/Germany MOP')
+german <- read.dta13("MOP 2014 2015 2016 Pooled for Rahul.dta")
+#german <- read.dta13("MOP 2015 for Rahul.dta")
+german$country<- "Germany"
+german$age_cat<-'NA'
+german$geog<-"NA"
+german<-subset(german, select=c("country", "geog", "urban","hh_id", "ind_id", "gender", "age", "trip_id","distance", "time", "purpose", "mode", "age_cat", "weights", "cohort"))
+colnames(german)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
+a<-rbind(a, german)
+rm("german")
 
 
-
-#####Australia Townsville#####
-## Defining a work trip
-## If DESTPURP1 is 7 (work) it is a work trip
-## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
-person<-read.csv('TVL_PERSONS.csv')
-trips<- read.csv('TVL_TRIPS.csv')
-for (i in 1: nrow(trips))
-{
-  
-  if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
-  {
-    trips$purpose[i]<- 1
-  }
-  else if (trips$DESTPURP1[i]==7)
-  {
-    trips$purpose[i]<-1
-  }
-  else 
-  {
-    trips$purpose[i]<-0
-  }
-}
-
-person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
-trips<-trips %>% left_join(person, by="PERSID")
-#trips<-trips %>% left_join(HHS, by="HHID")
-
-trips$urban<-1
-trips$country<-"Australia"
-trips$geog<-"Townsville"
-trips$mode<-0
-trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
-trips$gender[trips$SEX==1]<-0
-trips$gender[trips$SEX==2]<-1
-trips$age_cat<-'NA'
-trips$distance<-trips$NETWORK_DIST
-trips$year<-2011
-
-trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
-colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
-a<-rbind(a, trips)
-rm("person","trips")
-
-
-#####Australia Darling Downs and Lockyer#####
-## Defining a work trip
-## If DESTPURP1 is 7 (work) it is a work trip
-## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
-person<-read.csv('DD_PERSONS.csv')
-trips<- read.csv('DD_TRIPS.csv')
-HHS<- read.csv('DD_HOUSEHOLDS.csv')
-areas<- read.csv('DDL_AREA.csv')
-
-HHS<-subset(HHS, select=c( "HHID", "AREA"))
-HHS<-HHS %>% left_join(areas, by="AREA")
-
-for (i in 1: nrow(trips))
-{
-  
-  if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
-  {
-    trips$purpose[i]<- 1
-  }
-  else if (trips$DESTPURP1[i]==7)
-  {
-    trips$purpose[i]<-1
-  }
-  else 
-  {
-    trips$purpose[i]<-0
-  }
-}
-
-person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
-trips<-trips %>% left_join(person, by="PERSID")
-trips<-trips %>% left_join(HHS, by="HHID")
-
-trips$urban<-1
-trips$country<-"Australia"
-
-trips$mode<-0
-trips$mode[trips$MAINMODE ==5]<-1  ###cycling as 1
-trips$gender[trips$SEX==1]<-0
-trips$gender[trips$SEX==2]<-1
-trips$age_cat<-'NA'
-trips$distance<-trips$NETWORK_DIST
-trips$year<-2012
-
-trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
-colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
-a<-rbind(a, trips)
-rm("person","trips", "HHS", "areas")
-
-
-#####Australia Toowoomba Region#####
-## Defining a work trip
-## If DESTPURP1 is 7 (work) it is a work trip
-## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
-person<-read.csv('TWB_PERSONS.csv')
-trips<- read.csv('TWB_TRIPS.csv')
-for (i in 1: nrow(trips))
-{
-  
-  if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
-  {
-    trips$purpose[i]<- 1
-  }
-  else if (trips$DESTPURP1[i]==7)
-  {
-    trips$purpose[i]<-1
-  }
-  else 
-  {
-    trips$purpose[i]<-0
-  }
-}
-
-person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
-trips<-trips %>% left_join(person, by="PERSID")
-#trips<-trips %>% left_join(HHS, by="HHID")
-
-trips$urban<-1
-trips$country<-"Australia"
-trips$geog<-"Toowoomba"
-trips$mode<-0
-trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
-trips$gender[trips$SEX==1]<-0
-trips$gender[trips$SEX==2]<-1
-trips$age_cat<-'NA'
-trips$distance<-trips$NETWORK_DIST
-trips$year<-2012
-
-trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
-colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
-a<-rbind(a, trips)
-rm("person","trips")
-
-#####Australia Cairns Region#####
-## Defining a work trip
-## If DESTPURP1 is 7 (work) it is a work trip
-## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
-person<-read.csv('CNS_PERSONS.csv')
-trips<- read.csv('CNS_TRIPS.csv')
-for (i in 1: nrow(trips))
-{
-  
-  if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
-  {
-    trips$purpose[i]<- 1
-  }
-  else if (trips$DESTPURP1[i]==7)
-  {
-    trips$purpose[i]<-1
-  }
-  else 
-  {
-    trips$purpose[i]<-0
-  }
-}
-
-person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
-trips<-trips %>% left_join(person, by="PERSID")
-#trips<-trips %>% left_join(HHS, by="HHID")
-
-trips$urban<-1
-trips$country<-"Australia"
-trips$geog<-"Cairns"
-trips$mode<-0
-trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
-trips$gender[trips$SEX==1]<-0
-trips$gender[trips$SEX==2]<-1
-trips$age_cat<-'NA'
-trips$distance<-trips$NETWORK_DIST
-trips$year<-2014
-
-trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
-colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
-a<-rbind(a, trips)
-rm("person","trips")
-
-
-#####Australia Rockhampton Region#####
-## Defining a work trip
-## If DESTPURP1 is 7 (work) it is a work trip
-## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
-person<-read.csv('RKH_PERSONS.csv')
-trips<- read.csv('RKH_TRIPS.csv')
-for (i in 1: nrow(trips))
-{
-  
-  if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
-  {
-    trips$purpose[i]<- 1
-  }
-  else if (trips$DESTPURP1[i]==7)
-  {
-    trips$purpose[i]<-1
-  }
-  else 
-  {
-    trips$purpose[i]<-0
-  }
-}
-
-person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
-trips<-trips %>% left_join(person, by="PERSID")
-#trips<-trips %>% left_join(HHS, by="HHID")
-
-trips$urban<-1
-trips$country<-"Australia"
-trips$geog<-"Rockhampton"
-trips$mode<-0
-trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
-trips$gender[trips$SEX==1]<-0
-trips$gender[trips$SEX==2]<-1
-trips$age_cat<-'NA'
-trips$distance<-trips$NETWORK_DIST
-trips$year<-2014
-
-trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "NRTWGT", "year"))
-colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
-a<-rbind(a, trips)
-rm("person","trips")
-
-
-#####Australia Gympie, Gayndah, Kingaroy and Tin Can Bay/Cooloola#####
-## Defining a work trip
-## If DESTPURP1 is 7 (work) it is a work trip
-## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Queensland/Original data')
-person<-read.csv('GC_PERSONS.csv')
-trips<- read.csv('GC_TRIPS.csv')
-for (i in 1: nrow(trips))
-{
-  
-  if (trips$ORIGPURP1[i] == 7 & trips$DESTPURP1[i]==8)
-  {
-    trips$purpose[i]<- 1
-  }
-  else if (trips$DESTPURP1[i]==7)
-  {
-    trips$purpose[i]<-1
-  }
-  else 
-  {
-    trips$purpose[i]<-0
-  }
-}
-
-person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
-trips<-trips %>% left_join(person, by="PERSID")
-#trips<-trips %>% left_join(HHS, by="HHID")
-
-trips$urban<-1
-trips$country<-"Australia"
-trips$geog<-"Gympie, Gayndah, Kingaroy and Tin Can Bay/Cooloola"
-trips$mode<-0
-trips$mode[trips$MODE1 ==5]<-1  ###cycling as 1
-trips$gender[trips$SEX==1]<-0
-trips$gender[trips$SEX==2]<-1
-trips$age_cat<-'NA'
-trips$distance<-trips$NETWORK_DIST
-trips$year<-2010
-
-trips<-subset(trips, select=c("country", "geog", "urban","HHID", "PERSID", "gender", "AGE",  "TRIPID","distance", "TOTTRIPTIME", "purpose", "mode", "age_cat", "TRIPWGT14", "year"))
-colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
-a<-rbind(a, trips)
-rm("person","trips")
-
-
-#####Australia Victoria#####
-## Defining a work trip
-## If DESTPURP1 is 7 (work) it is a work trip
-## If DESTPURP1 is 8 (home) and ORIGPURP1 is 7 is is a work trip
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Australia/Australian travel survey/Victoria/Original data')
-person<-read.csv('P_VISTA12_16_SA1_V1.csv')
-trips<- read.csv('T_VISTA12_16_SA1_V1.csv')
-for (i in 1: nrow(trips))
-{
-  
-  if (trips$ORIGPURP1[i] == "Workplace"  & trips$DESTPURP1[i]=="At or Go Home")
-  {
-    trips$purpose[i]<- 1
-  }
-  else if (trips$DESTPURP1[i]=="Workplace")
-  {
-    trips$purpose[i]<-1
-  }
-  else 
-  {
-    trips$purpose[i]<-0
-  }
-}
-
-person<-subset(person, select=c("PERSID", "HHID", "AGE","SEX"))
-trips<-trips %>% left_join(person, by="PERSID")
-#trips<-trips %>% left_join(HHS, by="HHID")
-
-trips$urban<-1
-trips$country<-"Australia"
-trips$geog<-"Victoria"
-trips$mode<-0
-trips$mode[as.character(trips$Mode1) =="Bicycle"]<-1  ###cycling as 1
-trips$gender[trips$SEX=="Male"]<-0
-trips$gender[trips$SEX=="Female"]<-1
-trips$age_cat<-'NA'
-trips$distance<-trips$CUMDIST
-trips$year<-2015
-
-trips<-subset(trips, select=c("country", "geog", "urban","HHID.x", "PERSID", "gender", "AGE",  "TRIPNO","distance", "TRAVTIME", "purpose", "mode", "age_cat", "RP_ADTRIPWGT_LGA", "year"))
-colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
-a<-rbind(a, trips)
-rm("person","trips")
 
 #####India Delhi#####
 setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Delhi')
@@ -1759,30 +1806,30 @@ trip_id_no_pt<- trips$trip_id[which()]
 #assigning average walking distance to those PT trips which do not have reported walking to PT distance
 for (i in 1: nrow(trips))
 {
-  if (!is.na(trips$main_mode))
-  {
-    if (trips$main_mode[i]==8 & is.na(trips$walk_bus_dist[i]))
+    if (!is.na(trips$main_mode))
     {
-      trips$walk_bus_dist[i]==mean(walking_bus$walk_bus_dist)
+        if (trips$main_mode[i]==8 & is.na(trips$walk_bus_dist[i]))
+        {
+            trips$walk_bus_dist[i]==mean(walking_bus$walk_bus_dist)
+        }
+        if ((trips$main_mode[i]==9 |trips$main_mode[i]==10) & is.na(trips$walk_met_trn[i]))
+        {
+            trips$walk_met_trn[i]==mean(walking_metro_train$walk_met_trn)
+        }
     }
-    if ((trips$main_mode[i]==9 |trips$main_mode[i]==10) & is.na(trips$walk_met_trn[i]))
-    {
-      trips$walk_met_trn[i]==mean(walking_metro_train$walk_met_trn)
-    }
-  }
 }
 
 trips$walking_pt<-0
 for (i in 1 : nrow(trips))
 {
-  if(!is.na(trips$walk_bus_dist[i]))
-  {
-    trips$walking_pt[i] <- trips$walk_bus_dist[i]
-  }
-  if(!is.na(trips$walk_met_trn[i]))
-  {
-    trips$walking_pt[i] <- trips$walk_met_trn[i]
-  }
+    if(!is.na(trips$walk_bus_dist[i]))
+    {
+        trips$walking_pt[i] <- trips$walk_bus_dist[i]
+    }
+    if(!is.na(trips$walk_met_trn[i]))
+    {
+        trips$walking_pt[i] <- trips$walk_met_trn[i]
+    }
 }
 
 summary((trips$distance[which((trips$main_mode==8 |trips$main_mode==9 |trips$main_mode==10)&(trips$mode==1)&(trips$distance<3))]))
@@ -1796,22 +1843,22 @@ trips_pt_temp<-trips_pt[0,]
 k<-1
 for (i in 1: nrow(trips_pt))
 {
-  trips_pt_temp[k,]<- trips_pt[i,]
-  k<- k+1
-  trips_pt_temp[k,1]<-trips_pt[i,1]  ## person_id
-  trips_pt_temp[k,2]<-trips_pt[i,2]  ## female
-  trips_pt_temp[k,3]<-trips_pt[i,3]  ## age
-  trips_pt_temp[k,4]<-trips_pt[i,4]  ## trip_id
-  trips_pt_temp[k,5]<-2              ## stage
-  trips_pt_temp[k,6]<-1              ## mode
-  trips_pt_temp[k,7]<-trips_pt[i,13]             ## distance
-  trips_pt_temp[k,8]<-trips_pt[i,13]/4.5  ## duration
-  trips_pt_temp[k,9]<-trips_pt[i,9]  ## main_mode
-  trips_pt_temp[k,10]<-trips_pt[i,10]  ## hh_weights
-  trips_pt_temp[k,11]<-trips_pt[i,11]  ## walk_bus_dist
-  trips_pt_temp[k,12]<-trips_pt[i,12]  ## walk_met_trn
-  trips_pt_temp[k,13]<-trips_pt[i,13]  ## walking_pt
-  k<- k+1
+    trips_pt_temp[k,]<- trips_pt[i,]
+    k<- k+1
+    trips_pt_temp[k,1]<-trips_pt[i,1]  ## person_id
+    trips_pt_temp[k,2]<-trips_pt[i,2]  ## female
+    trips_pt_temp[k,3]<-trips_pt[i,3]  ## age
+    trips_pt_temp[k,4]<-trips_pt[i,4]  ## trip_id
+    trips_pt_temp[k,5]<-2              ## stage
+    trips_pt_temp[k,6]<-1              ## mode
+    trips_pt_temp[k,7]<-trips_pt[i,13]             ## distance
+    trips_pt_temp[k,8]<-trips_pt[i,13]/4.5  ## duration
+    trips_pt_temp[k,9]<-trips_pt[i,9]  ## main_mode
+    trips_pt_temp[k,10]<-trips_pt[i,10]  ## hh_weights
+    trips_pt_temp[k,11]<-trips_pt[i,11]  ## walk_bus_dist
+    trips_pt_temp[k,12]<-trips_pt[i,12]  ## walk_met_trn
+    trips_pt_temp[k,13]<-trips_pt[i,13]  ## walking_pt
+    k<- k+1
 }
 trips_others<- trips[which(trips$walking_pt==0),]
 
@@ -1883,136 +1930,136 @@ library(nnet)
 
 setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Bangalore")
 data <- read_excel("COMPILED DATA final.xlsx",sheet = 1, range = cell_cols("A:AA"), col_types = c("text"))
-  bangalore <- data
-  bangalore <- bangalore[-1,-c(3, 4, 5, 11, 14,21,22,23)]# remove first row and other columns
-  bangalore <- rename_all(bangalore, funs(str_remove_all(.," "))) # modifying names of variables
-  names(bangalore)[c(6,7,8,9,10,15)]<- c("startinglanduse","startingaddress", "finishinglanduse", "finishingaddress","transfertime","distance")
+bangalore <- data
+bangalore <- bangalore[-1,-c(3, 4, 5, 11, 14,21,22,23)]# remove first row and other columns
+bangalore <- rename_all(bangalore, funs(str_remove_all(.," "))) # modifying names of variables
+names(bangalore)[c(6,7,8,9,10,15)]<- c("startinglanduse","startingaddress", "finishinglanduse", "finishingaddress","transfertime","distance")
 
 #insert missing ward, hh, and person numbers
-  
-  #ward number
-  for (i in 1: nrow(bangalore))
-  {
-      print(i)
-      value<- bangalore$WardNo.[i]
-      repeat
-      {
-          i<- i+1
-          if (!is.na(bangalore$WardNo.[i]))
-          {
-              break
-          }
-          bangalore$WardNo.[i] <- value
-      }
-  }
-  
-  #hh number
-  for (i in 1: nrow(bangalore))
-  {
-      print(i)
-      value<- bangalore$Householdserial.No[i]
-      repeat
-      {
-          i<- i+1
-          if (!is.na(bangalore$Householdserial.No[i]))
-          {
-              break
-          }
-          bangalore$Householdserial.No[i] <- value 
-      }
-  }
-  
-  # Peron number
-  for (i in 1: nrow(bangalore))
-  {
-      print(i)
-      value<- bangalore$No.ofPerson[i]
-      repeat
-      {
-          i<- i+1
-          if (bangalore$No.ofPerson[i]!="0")
-          {
-              break
-          }
-          bangalore$No.ofPerson[i] <- value 
-      }
-  }
-  
-  for (i in 1: nrow(bangalore))
-  {
-      print(i)
-      value<- bangalore$No.ofPerson[i]
-      repeat
-      {
-          i<- i+1
-          if (bangalore$No.ofPerson[i]!="-")
-          {
-              break
-          }
-          bangalore$No.ofPerson <- value 
-      }
-  }
-  for (i in 1: nrow(bangalore))
-  {
-      print(i)
-      value<- bangalore$No.ofPerson[i]
-      repeat
-      {
-          i<- i+1
-          if (!is.na(bangalore$No.ofPerson[i]))
-          {
-              break
-          }
-          bangalore$No.ofPerson[i] <- value 
-      }
-  }
-  
-  
-data_1 <- bangalore
-  data_2 <- data_1
-  
-#compose trip_duration from transfertime, and diff btw starting and finishing time
-  bangalore$transfertime <- ifelse(grepl("E-",bangalore$transfertime),
-                                     as.numeric(bangalore$transfertime)*1440, 
-                                     bangalore$transfertime)
-  bangalore$transfertime <- gsub("([A-z]|:00|:|;|\\s|-|\\.$)","", bangalore$transfertime ) # remove non digits
-  #time difference between start and stop time
-  bangalore$time_diff = ifelse(as.numeric(bangalore$Startingtime)<1, 
-                               (as.numeric(bangalore$FinishingTime) - as.numeric(bangalore$Startingtime))*1440, 
-                               (as.numeric(bangalore$FinishingTime) - as.numeric(bangalore$Startingtime)))
-  #some 2's and 3's are minutes while some are hours, differentiate them
-  bangalore$transfertime <- ifelse((bangalore$transfertime == "2" | bangalore$transfertime == "3") & 
-                                       (grepl("m|M", bangalore$transfertime) | (as.numeric(bangalore$time_diff <1) & !is.na(bangalore$time_diff))),
-                                     as.numeric(bangalore$transfertime)/100, bangalore$transfertime)
-  #replace na, o and wired times in transfer time with time diff
-  bangalore$transfertime <- ifelse((bangalore$transfertime == 0 | is.na(bangalore$transfertime)) 
-                                     & (bangalore$time_diff<180 & bangalore$time_diff>0), 
-                                   bangalore$time_diff, bangalore$transfertime )
-  #calculate travel duration
-  bangalore$trip_duration <- ifelse(as.numeric(bangalore$transfertime) < 4,
-                                     gsubfn("([0-3])(\\.*\\d*)", ~as.numeric(x)*60 + ifelse(is.na(as.numeric(y)),0,as.numeric(y)*100), bangalore$transfertime),
-                                     bangalore$transfertime)
-#Examining duplicated rows 
-  # duplicate <- bangalore[duplicated(bangalore),] # make a dataset of duplicated rows
-  # bangalore %>% distinct(WardNo.) %>% nrow # checking number of wards = 125
-  # duplicate %>% distinct(WardNo.) %>% nrow # checking wards with duplicates = 45
-  # write.table(table(factor(duplicate$WardNo.)), sep=",", quote = TRUE)
-  # overlap <- bangalore[duplicated(bangalore[,c('ID', 'Startingtime')]),]
-  # overlap %>% distinct(WardNo.) %>% nrow
-  # overlap_id <- overlap %>% distinct(ID)
-  # overlap_all <- left_join(overlap_id, bangalore, by ="ID") #all trips for individuals with overlapping trips
-  # overlap_all %>% filter(as.numeric(Startingtime)>1) %>% nrow #trips with stating time in 12hr format
-  # overlap_all[!duplicated(overlap_all[,c('ID', 'Startingtime')]),] %>%
-  #   group_by(ID) %>% summarise(c = n()) %>% filter(c == 1) %>% nrow # individuals with no return if duplicates removed
-  # write.table(table(factor(overlap$WardNo.)), sep=",", quote = TRUE)
-  # write.table(table(factor(overlap_all$WardNo.)), sep=",", quote = TRUE)
-  # a <- overlap_all %>% group_by(ID, Startingtime, row_number(),add = TRUE)  %>% summarise(c = n()) #visually explore all trips for persons with overlap
-  #    names(a)[3] <- "index"
-  #    a <- a[-4]
-  #    b <- overlap_all %>% mutate(index = row_number())
-  #    c <- left_join(a,b)
 
-     
+#ward number
+for (i in 1: nrow(bangalore))
+{
+    print(i)
+    value<- bangalore$WardNo.[i]
+    repeat
+    {
+        i<- i+1
+        if (!is.na(bangalore$WardNo.[i]))
+        {
+            break
+        }
+        bangalore$WardNo.[i] <- value
+    }
+}
+
+#hh number
+for (i in 1: nrow(bangalore))
+{
+    print(i)
+    value<- bangalore$Householdserial.No[i]
+    repeat
+    {
+        i<- i+1
+        if (!is.na(bangalore$Householdserial.No[i]))
+        {
+            break
+        }
+        bangalore$Householdserial.No[i] <- value 
+    }
+}
+
+# Peron number
+for (i in 1: nrow(bangalore))
+{
+    print(i)
+    value<- bangalore$No.ofPerson[i]
+    repeat
+    {
+        i<- i+1
+        if (bangalore$No.ofPerson[i]!="0")
+        {
+            break
+        }
+        bangalore$No.ofPerson[i] <- value 
+    }
+}
+
+for (i in 1: nrow(bangalore))
+{
+    print(i)
+    value<- bangalore$No.ofPerson[i]
+    repeat
+    {
+        i<- i+1
+        if (bangalore$No.ofPerson[i]!="-")
+        {
+            break
+        }
+        bangalore$No.ofPerson <- value 
+    }
+}
+for (i in 1: nrow(bangalore))
+{
+    print(i)
+    value<- bangalore$No.ofPerson[i]
+    repeat
+    {
+        i<- i+1
+        if (!is.na(bangalore$No.ofPerson[i]))
+        {
+            break
+        }
+        bangalore$No.ofPerson[i] <- value 
+    }
+}
+
+
+data_1 <- bangalore
+data_2 <- data_1
+
+#compose trip_duration from transfertime, and diff btw starting and finishing time
+bangalore$transfertime <- ifelse(grepl("E-",bangalore$transfertime),
+                                 as.numeric(bangalore$transfertime)*1440, 
+                                 bangalore$transfertime)
+bangalore$transfertime <- gsub("([A-z]|:00|:|;|\\s|-|\\.$)","", bangalore$transfertime ) # remove non digits
+#time difference between start and stop time
+bangalore$time_diff = ifelse(as.numeric(bangalore$Startingtime)<1, 
+                             (as.numeric(bangalore$FinishingTime) - as.numeric(bangalore$Startingtime))*1440, 
+                             (as.numeric(bangalore$FinishingTime) - as.numeric(bangalore$Startingtime)))
+#some 2's and 3's are minutes while some are hours, differentiate them
+bangalore$transfertime <- ifelse((bangalore$transfertime == "2" | bangalore$transfertime == "3") & 
+                                     (grepl("m|M", bangalore$transfertime) | (as.numeric(bangalore$time_diff <1) & !is.na(bangalore$time_diff))),
+                                 as.numeric(bangalore$transfertime)/100, bangalore$transfertime)
+#replace na, o and wired times in transfer time with time diff
+bangalore$transfertime <- ifelse((bangalore$transfertime == 0 | is.na(bangalore$transfertime)) 
+                                 & (bangalore$time_diff<180 & bangalore$time_diff>0), 
+                                 bangalore$time_diff, bangalore$transfertime )
+#calculate travel duration
+bangalore$trip_duration <- ifelse(as.numeric(bangalore$transfertime) < 4,
+                                  gsubfn("([0-3])(\\.*\\d*)", ~as.numeric(x)*60 + ifelse(is.na(as.numeric(y)),0,as.numeric(y)*100), bangalore$transfertime),
+                                  bangalore$transfertime)
+#Examining duplicated rows 
+# duplicate <- bangalore[duplicated(bangalore),] # make a dataset of duplicated rows
+# bangalore %>% distinct(WardNo.) %>% nrow # checking number of wards = 125
+# duplicate %>% distinct(WardNo.) %>% nrow # checking wards with duplicates = 45
+# write.table(table(factor(duplicate$WardNo.)), sep=",", quote = TRUE)
+# overlap <- bangalore[duplicated(bangalore[,c('ID', 'Startingtime')]),]
+# overlap %>% distinct(WardNo.) %>% nrow
+# overlap_id <- overlap %>% distinct(ID)
+# overlap_all <- left_join(overlap_id, bangalore, by ="ID") #all trips for individuals with overlapping trips
+# overlap_all %>% filter(as.numeric(Startingtime)>1) %>% nrow #trips with stating time in 12hr format
+# overlap_all[!duplicated(overlap_all[,c('ID', 'Startingtime')]),] %>%
+#   group_by(ID) %>% summarise(c = n()) %>% filter(c == 1) %>% nrow # individuals with no return if duplicates removed
+# write.table(table(factor(overlap$WardNo.)), sep=",", quote = TRUE)
+# write.table(table(factor(overlap_all$WardNo.)), sep=",", quote = TRUE)
+# a <- overlap_all %>% group_by(ID, Startingtime, row_number(),add = TRUE)  %>% summarise(c = n()) #visually explore all trips for persons with overlap
+#    names(a)[3] <- "index"
+#    a <- a[-4]
+#    b <- overlap_all %>% mutate(index = row_number())
+#    c <- left_join(a,b)
+
+
 #remove complete duplicates and retain only longer trips where overlaping
 no_duplicate <- bangalore[!duplicated(bangalore),] # remove complete duplicates
 no_duplicate <- no_duplicate %>% mutate(index = row_number())
@@ -2050,20 +2097,20 @@ bangalore$distance <-ifelse((bangalore$ModeofTravel == 1 & a >30) | a >90, a/100
 bangalore <- bangalore%>%
     mutate(mode_speed = ifelse(ModeofTravel == "1",5,
                                ifelse(ModeofTravel == "2",15,
-                                ifelse(ModeofTravel == "3",25,
-                                ifelse(ModeofTravel == "4",25,
-                                ifelse(ModeofTravel == "5",25,
-                                ifelse(ModeofTravel == "6",25,
-                                ifelse(ModeofTravel == "7",25,
-                                ifelse(ModeofTravel == "8",15,
-                                ifelse(ModeofTravel == "9",15,
-                                ifelse(ModeofTravel == "10",15,
-                                ifelse(ModeofTravel== "11",15,
-                                ifelse(ModeofTravel == "12",30,
-                                NA)))))))))))))
+                                      ifelse(ModeofTravel == "3",25,
+                                             ifelse(ModeofTravel == "4",25,
+                                                    ifelse(ModeofTravel == "5",25,
+                                                           ifelse(ModeofTravel == "6",25,
+                                                                  ifelse(ModeofTravel == "7",25,
+                                                                         ifelse(ModeofTravel == "8",15,
+                                                                                ifelse(ModeofTravel == "9",15,
+                                                                                       ifelse(ModeofTravel == "10",15,
+                                                                                              ifelse(ModeofTravel== "11",15,
+                                                                                                     ifelse(ModeofTravel == "12",30,
+                                                                                                            NA)))))))))))))
 
 bangalore <- bangalore %>% mutate(trip_duration = ifelse(as.numeric(trip_duration) <= 0 | as.numeric(trip_duration) >= 200 | is.na(trip_duration),
-                                            distance*60/mode_speed, as.numeric(trip_duration)))
+                                                         distance*60/mode_speed, as.numeric(trip_duration)))
 
 #Some more discriptive stats
 bagalore %>% group_by(Householdserial.No) %>% group_by(person)
@@ -2116,68 +2163,68 @@ View(a)
 persons<- read.csv('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Bangalore/Post cleaning/HH information-urban bmr_cleaned_2019_04_24.csv')
 persons$married<- as.numeric(persons$married)
 for (i in 1: nrow(persons))
-  
+    
 {
-  if(is.na(persons$age[i]))
-  {
-    if (!is.na(persons$sex[i]))
+    if(is.na(persons$age[i]))
     {
-      
-      
-      if(persons$sex[i]>2 | persons$sex[i]<1 | (persons$sex[i]>1 & persons$sex[i]<2))
-      {
-        if( !is.na(persons$married[i]) & persons$married[i]<3)
+        if (!is.na(persons$sex[i]))
         {
-          persons$age[i]<- persons$sex[i]
-          persons$sex[i]<- persons$married[i]
+            
+            
+            if(persons$sex[i]>2 | persons$sex[i]<1 | (persons$sex[i]>1 & persons$sex[i]<2))
+            {
+                if( !is.na(persons$married[i]) & persons$married[i]<3)
+                {
+                    persons$age[i]<- persons$sex[i]
+                    persons$sex[i]<- persons$married[i]
+                }
+            }
         }
-      }
     }
-  }
 }
 
 ## shifting those columns where age is not NA, but the same value as person_nr
 
 for (i in 1: nrow(persons))
 {
-  if (!is.na(persons$sex[i]))
-  {
-    
-    
-    if (!is.na(persons$person_nr[i]) & !is.na(persons$age[i]) & persons$sex[i]>2)
+    if (!is.na(persons$sex[i]))
     {
-      
-      if(persons$age[i]==persons$person_nr[i])
-      {
         
-        persons$age[i]<- persons$sex[i]
-        persons$sex[i]<- persons$married[i]
         
-      }
-      
+        if (!is.na(persons$person_nr[i]) & !is.na(persons$age[i]) & persons$sex[i]>2)
+        {
+            
+            if(persons$age[i]==persons$person_nr[i])
+            {
+                
+                persons$age[i]<- persons$sex[i]
+                persons$sex[i]<- persons$married[i]
+                
+            }
+            
+        }
+        
     }
-    
-  }
 }
 
 
 
 for (i in 1: nrow(persons))
 {
-  
-  value<- persons$ward_nr[i]
-  repeat
-  {
-    i<- i+1
-    if (persons$ward_nr[i]!="")
+    
+    value<- persons$ward_nr[i]
+    repeat
     {
-      break
+        i<- i+1
+        if (persons$ward_nr[i]!="")
+        {
+            break
+        }
+        
+        persons$ward_nr[i] <- value
+        
     }
     
-    persons$ward_nr[i] <- value
-    
-  }
-  
 }
 
 persons$person_id<-paste0(persons$ward_nr,  sep="_", persons$hh_nr, sep="_", persons$person_nr)
@@ -2234,15 +2281,15 @@ trips <- trips  %>% left_join(trip_maxtt, by='trip_id')
 trips$main_mode<-0
 for (i in 1: nrow(trips))
 {
-  if(!is.na(trips$maxtt[i]))
-  {
-    
-    if(trips$Time[i] == trips$maxtt[i])
+    if(!is.na(trips$maxtt[i]))
     {
-      
-      trips$main_mode[i]<-1
+        
+        if(trips$Time[i] == trips$maxtt[i])
+        {
+            
+            trips$main_mode[i]<-1
+        }
     }
-  }
 }
 
 trips<- trips[which(trips$Time!='Inf'),]
@@ -2328,200 +2375,170 @@ write.csv(trips_final,'V:/Group/RG_PHM/ITHIM-R/data/local/bangalore/bangalore_tr
 
 
 
-#####Finland####
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Finland/2016')
-trips<-read.csv('M_MATKAT.csv')
-background<- read.csv('T_TAUSTA.csv')
-colnames(trips)[1]<-"T_TAUSTAID"
+#####Mexico city ####
+setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Mexico/Travel surveys/Mexico City 2017/Databases/eod_2017_csv")
 
-trips<-trips %>%  left_join(background, by="T_TAUSTAID")
+library(nnet)
+library(tidyverse)
 
-trips$female<-0
-trips$female[which(trips$T_SUKUPUOLI==2)]<-1
+person <- read_csv('tsdem_eod2017/conjunto_de_datos/tsdem.csv')
+trip <- read_csv('tviaje_eod2017/conjunto_de_datos/tviaje.csv')
+stage <- read_csv('ttransporte_eod2017/conjunto_de_datos/ttransporte.csv')
+lookup_trip_purpose <- read_csv('lookup_trip_purpose.csv')
+lookup_stage_mode <- read_csv('lookup_stage_mode.csv')
 
-trips$urban<-NA  ##will need to obtain from the geography variable which gives the municipality
-trips$country<-"Finland"
-trips$mode<-0
-trips$mode[trips$M_PAAKULKUTAPA ==2]<-1  ###cycling as 1
-trips$purpose<-0
-trips$purpose[which(trips$M_MR6==1)]<-1
-trips$age_cat<-'NA'
-trips$distance<-trips$NETWORK_DIST
-trips$weights<-1  ## no weights in the dataset, however, T_RAPO/T_SEUTURAPO gives a code whether an individual was sampled from national sampling (1) or city-level oversampling (6= Helsinki, and so on)
-trips$hh_id<-NA
-trips$year<-2016
+##selecting relevant variables
+person <- select(person, id_hog, id_soc, sexo, edad)  ## all ind id's sex and age
+trip <- trip %>% select(id_soc,id_via, sexo, edad, p5_13, p5_9_1, p5_9_2, p5_10_1,p5_10_2) %>% # trips with purpose and start and end time
+    mutate(p5_13 = as.numeric(p5_13), # make mode code as numeric for binding
+           trip_duration = (as.numeric(p5_10_1) - as.numeric(p5_9_1))*60 + (as.numeric(p5_10_2) - as.numeric(p5_9_2))) %>% # calculate trip duration
+           {.[,-c(6,7,8,9)]}
+stage <- stage %>% select(id_via, id_tra, sexo, edad, p5_14, p5_16_1_1, p5_16_1_2) %>% # stage plus mode and stage time
+    mutate(p5_14 = as.numeric(p5_14), # make mode code as numeric for binding
+           stage_duration = as.numeric(p5_16_1_1)*60 + as.numeric(p5_16_1_2)) %>% {.[,-c(6,7)]}  #calculate stage time
 
-trips<-subset(trips, select=c("country", "M_LAHTO_KUNTANIMI", "urban","hh_id", "T_TAUSTAID", "female", "T_IKA",  "M_TRIPROUTESID","M_PITUUS", "M_KESTO", "purpose", "mode", "age_cat", "weights", "year"))
-colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip", "year")
-a<-rbind(a, trips)
-rm("trips", "background")
+#bind all datesets and retain only useful ones  
+trip <- person %>% left_join(trip) %>% left_join(stage)  %>% left_join(lookup_trip_purpose) %>% left_join(lookup_stage_mode) %>% {.[,-c(1, 6,9,12,13)]}
+names(trip) <-  c("participant_id", "sex", "age", "trip_id", "trip_duration", "stage_id", "stage_duration", "trip_purpose", "stage_mode")
 
+#add trip mode as stage mode with londest time
+trip <- trip %>% group_by(participant_id, sex, age, trip_id) %>% summarise(trip_mode = stage_mode[which.is.max(stage_duration)]) %>% left_join(trip)
 
-#####Brazil Sao Paulo####
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Sao Paulo/Pesquisa Origem Destino 2012')
-trips<-read.csv('Mobilidade_2012_v0.csv')
-str(trips)
-trips<-subset(trips, select=c("ID_PESS", "ID_DOM", "N_VIAG", "DURACAO", "DISTANCIA","MODOPRIN", "SEXO", "IDADE", "FE_VIA" , "MOTIVO_D" , "MOTIVO_O"))
-trips$female<-0
-trips$female[which(trips$SEXO==2)]<-1
-trips$city<- "Sao Paulo"
-trips$urban<-1  
-trips$country<-"Brazil"
-trips$year<-2012
-unique(trips$MODOPRIN)
-
-for (i in 1: nrow(trips))
-{
-  
-  
-  if (!(is.na(trips$MOTIVO_D[i])) & trips$MOTIVO_D[i] == 8  & trips$MOTIVO_O[i]<4 & ! (is.na(trips$MOTIVO_O[i])) )
-  {
-    trips$purpose[i]<- 1
-  }
-  else if (! (is.na(trips$MOTIVO_D[i])) & trips$MOTIVO_D[i]<4)
-  {
-    trips$purpose[i]<-1
-  }
-  else 
-  {
-    trips$purpose[i]<-0
-  }
-}
-
-trips$mode<-'NA'
-trips$mode[which(trips$MODOPRIN==1)]<-"Omnibus" 
-trips$mode[which(trips$MODOPRIN==2)]<-"Omnibus" 
-trips$mode[which(trips$MODOPRIN==3)]<-"Omnibus" 
-trips$mode[which(trips$MODOPRIN==4)]<-"Omnibus" 
-trips$mode[which(trips$MODOPRIN==5)]<-"Bus" 
-trips$mode[which(trips$MODOPRIN==6)]<-"Car" 
-trips$mode[which(trips$MODOPRIN==7)]<-"Car" 
-trips$mode[which(trips$MODOPRIN==8)]<-"Taxi" 
-trips$mode[which(trips$MODOPRIN==9)]<-"Minibus/van" 
-trips$mode[which(trips$MODOPRIN==10)]<-"Minibus/van" 
-trips$mode[which(trips$MODOPRIN==11)]<-"Minibus/van" 
-trips$mode[which(trips$MODOPRIN==12)]<-"Metro" 
-trips$mode[which(trips$MODOPRIN==13)]<-"Tram" 
-trips$mode[which(trips$MODOPRIN==14)]<-"Motorcycle" 
-trips$mode[which(trips$MODOPRIN==15)]<-"Bicycle" 
-trips$mode[which(trips$MODOPRIN==16)]<-"Walk" 
-trips$mode[which(trips$MODOPRIN==17)]<-"Other" 
-trips<- trips[which(!is.na(trips$N_VIAG)),]
-trips<-subset(trips, select=c("ID_DOM", "ID_PESS", "female", "IDADE",  "N_VIAG","DISTANCIA", "DURACAO", "mode", "FE_VIA" , "purpose"))
-colnames(trips)<-c("hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_duration","trip_time", "trip_main_mode", "weight_trip", "trip_purpose")
+#explore data quality
+#average trip per person
+trip %>% distinct(trip_id) %>% nrow / trip %>% distinct(participant_id) %>% nrow
+#modeshare
+a <- trip %>% group_by(participant_id, age, sex, trip_id, trip_duration, trip_mode) %>% summarise(n_stage= n())
+round(prop.table(table(factor(a$trip_mode)))*100,2)
+#average travel time per mode
+trip %>% group_by(participant_id, age, sex, trip_id, trip_duration, trip_mode) %>% summarise(n_stage= n()) %>% group_by(trip_mode) %>% summarise(average_mode_duration = mean(trip_duration, na.rm = T)) 
+#write.csv(trip, "trip_mexico.csv")
 
 
-#####Brazil Belo Horizonte######
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Belo Horizonte/Travel survey')
-trips<-read.table('dbo_TB_VIAGENS_INTERNAS_RMBH.txt', header = TRUE, sep=",")
-persons<- read.table('dbo_TB_DOMICILIO_PESSOA_ENTREGA.txt', header = TRUE, sep=",")
-hh_weights<- read.table('dbo_TB_FATOR_EXPANSÂO_DOMICÍLIO.txt', header = TRUE, sep=",")
 
-###there are no stages, therefore, walking to and from public transport is not included
-### we have a process coded in the ITHIM-R which adds this walking in such cases (Ali does it once we provide him the data)
+## Message from Ralph: I just shared a dropbox folder with the US (2017) and German (2008) data as requested. 
+###I followed the codebook you provided. Two items to note: weights are trip weights not not hh weights. 
+##The variable geog includes metropolitan area size and not city names. 
 
-##create unique person id
-persons$id_person<- paste0(persons$ID_DOMICILIO, "_", persons$ID_PESSOA)
-##selecting the variables needed for individuals (personid, sex, age)
-persons<- subset(persons, select=c("id_person","DS_SEXO","IDADE"))
-persons$female<-0
-persons$female[which(persons$Sexo=="Feminino")]<-1
-##removing the sexo variables
-persons<- persons[,-2]
+#####NETHERLANDS###########
+setwd('C:/Users/rg574/Dropbox/global cycling paper/Datasets')
+neth <- read.dta13("Netherlands/NTSNed_20102016_tigthat.dta",generate.factors=T)
 
-##create trip and person id
-trips$id_trip<- paste0(trips$Domicilio, "_", trips$Pessoa, "_", trips$Identificação)
-trips$id_person<- paste0(trips$Domicilio, "_", trips$Pessoa)
+neth$age<-as.numeric(neth$age)
+neth_selected<-subset(neth, select=c("individualid", "region","urban","tripid", "female", "age", "trip_mainmode","trip_duration_min","trip_purpose","trip_dist_km" , "weight_trip", "year"))
+neth_selected<-neth_selected[!duplicated(neth_selected), ]
+neth_selected<-neth_selected[which(!is.na(neth_selected$tripid)),]
 
-##calculate trip duration
-trips$trip_duration <- NA
-trips$trip_duration <- (as.numeric(substr(trips$TEMPO.DE.DESLOCAMENTO, 12,13)))*60 + as.numeric(substr(trips$TEMPO.DE.DESLOCAMENTO, 15,16))
-
-##allocating mode names in english
-lookup<- as.data.frame((unique(trips$DS_SH_MEIO_TRANSPORTE)))
-lookup<- cbind(lookup, c("bus", "car", "walk", "metro", "bus", "car", "motorcycle", "other", "truck", "bicycle", "taxi"))
-names(lookup)<- c("DS_SH_MEIO_TRANSPORTE", "mode_eng")
-trips <- trips %>% left_join(lookup, by="DS_SH_MEIO_TRANSPORTE")
-
-##renaming the sex
-trips$female<-0
-trips$female[which(trips$Sexo=="Feminino")]<-1
+neth_selected$age_cat[neth_selected$age <15] <-  "0 - 15 years"
+neth_selected$age_cat[neth_selected$age >=16 & neth_selected$age <=29] <-  "16 - 29 years"
+neth_selected$age_cat[neth_selected$age >=30 & neth_selected$age <=39] <-  "30 - 39 years"
+neth_selected$age_cat[neth_selected$age >=40 & neth_selected$age <=49] <-  "40 - 49 years"
+neth_selected$age_cat[neth_selected$age >=50 & neth_selected$age <=59] <-  "50 - 59 years"
+neth_selected$age_cat[neth_selected$age >60] <-  "60+ years"
 
 
-trips %>% group_by(mode_eng) %>% summarise(n())
-
-###checking for data quality
-##trip rate
-nrow(trips)/nrow(persons)
-##trip rate for older than 15 (it goes up from 1.39 to 1.42)
-nrow(trips[which(trips$Idade>15),])/nrow(persons[which(persons$IDADE>15),])
-##duration per capita (seems lower value than expected)
-sum(trips$trip_duration)/nrow(persons)
-##average trip duration per mode
-trips %>% group_by(mode_eng) %>% summarise(mean(trip_duration))
-
-##number of unique people who made a trip
-length(unique(trips$id_person))
-##dividing this by the total number of people-- 59% of total sample made a trip, which brings down the average trip rate per capita
-length(unique(trips$id_person))/nrow(persons)
-
-##selecting the variables needed for trips (this one unusually has sex and age (idade) included in the trips file)
-trips<- subset(trips, select=c("id_person", "id_trip","trip_duration","mode_eng", "Idade", "female"))
-
-##it seems that persons file has no weight variable, in which case we may have to get rid of the weight variable in the trip file also (Fator.expansão)
-##selecting persons which did not make any trip, to add to the trip file
-persons<-persons[which(!(persons$id_person %in% unique(trips$id_person))),]
-#renaming age variable same as trip
-names(persons)[2]<-"Idade"
-
-##adding all the other columns
-
-persons$id_trip<- NA
-persons$trip_duration<- NA
-persons$mode_eng<- NA
-persons$Idade<- NA
-
-##settings the sequence same as trips
-persons<- subset(persons, select=c("id_person", "id_trip","trip_duration","mode_eng", "Idade", "female"))
-
-trips<- rbind(trips, persons)
-
-write.csv(trips,'V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Belo Horizonte/ITHIM R data/trips.csv')
+neth_selected$trip_main_mode<-0
+neth_selected$trip_main_mode[which(as.character(neth_selected$trip_mainmode)=="Fiets (elektrisch of niet-elektrisch)")]<-1
+#neth_selected$trip_main_mode<-as.factor(neth_selected$trip_main_mode)
 
 
-#####Brazil Salvador######
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Salvador')
-trips<-read.csv('trips.csv')
-persons<- read.csv('individual.csv')
-hh<- read.csv('household.csv')
-lookup<-read.csv('mode_names_lookup.csv')
+neth_selected$trip_purpose2<-0
+neth_selected$trip_purpose2[which(as.character(neth_selected$trip_purpose)=="Van en naar het werk")]<-1
 
-persons$id_person<- paste0(persons$IDENTIFICADOR, "_", persons$SEQ)
-persons<- subset(persons, select=c("id_person", "SEXO", "IDADE"))
 
-trips$id_person<- paste0(trips$IDENTIFICADOR, "_", trips$SEQ)
-trips$id_trip<- paste0(trips$id_person, "_", trips$VIAGEM)
+neth_selected$householdid<-NA
+neth_selected$country<-"Netherlands"
 
-trips$trip_duration <- ((as.numeric(substr(trips$HORA_D, 1,2)))*60 + as.numeric(substr(trips$HORA_D, 4,5)))-( (as.numeric(substr(trips$HORA_O, 1,2)))*60 + as.numeric(substr(trips$HORA_O, 4,5)))
-#trips$purpose<- 0
-#trips$purpose[which(trips$MOTIVO_D<4)]<-1
-#trips$purpose[which(trips$MOTIVO_O<4 & trips$MOTIVO_D==8) ]<-1
+trip_sel<- subset(neth_selected, select=c("country", "region","urban","householdid","individualid","female", "age", "tripid", "trip_dist_km","trip_duration_min", "trip_purpose2", "trip_main_mode", "age_cat", "weight_trip","year"))
+colnames(trip_sel)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip","year")
 
-trips <- trips %>% left_join(persons, by="id_person")
-trips$female<-0
-trips$female[which(trips$SEXO==2)]<-1
-trips$country<- "Brazil"
-trips$city<- "Salvador"
-trips$urban<-1
-trips$year<-2012
-trips$age_cat<- 'NA'
-trips$distance<- NA
-##joining the lookup table for mode names
-trips <- trips %>% left_join(lookup, by="MODO_TRANSP")
+a<-rbind(a, trip_sel)
+rm("neth", "neth_selected")
 
-##checking results
-sum(trips$trip_duration)/nrow(persons) ## has 64 minutes as average time per capita, very high
-##average trip duration per mode
-x<- trips  %>% group_by(mode_eng) %>% summarise(mean (trip_duration, na.rm=T))
+####Switzerland 2010#### no distinction between electric and non-electric bikes and variables for urban and city not clear
+#setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Switzerland/MZMV2010_ohne_geo/4_DB_CSV/CSV_ohne_geo')
+#stages<-read.csv('etappen.csv',sep=";")
+#str(stages)
+#stages<-stages[,c("HHNR","ETNR","WEGNR","rdist","e_dauer","f51300","f51700","E_Ausland")]
+#stages[1:40,]
+#trips<-read.csv('wege.csv',sep=";")
+#head(trips)
+## 2010 survey has Velo as a category for cycling #2 in f51300 and does not differentiate between e-bike and usual bike
+## 2015 survey ddifferentiates between e-bike and other boke (#2 for normal and #20 for e-bike)
+#stages$trip_id<- paste(stages$HHNR,stages$ZIELPNR,stages$DMOD,sep="")
+#summary<- stages %>% group_by(trip_id) %>% summarise(max_dist=max(rdist))
+#head(summary)
+#stages<- stages %>% left_join(summary, by="trip_id")
+#stages$main_mode<-0
+#stages$main_mode[which(stages$rdist==stages$max_dist)]<-1
+#head(stages)
+#stages<-stages[which(stages$main_mode==1),]
+#person<- read.csv('zielpersonen.csv', sep=";")
+#str(person)
+#person<- subset(person, select=c("HHNR","alter","gesl","WP"))
+#household<-read.csv('haushalte.csv', sep=";")
+#str(household)
+#household<- subset(household, select=c('HHNR','W_Ort', 'DEG'))
 
+#####Switzerland 2015####
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Switzerland/MZMV2015_ohne_geo/4_DB_csv/04_DB_CSV')
+stages<-read.csv('etappen.csv')
+stages<-stages[,c("HHNR","ETNR","WEGNR","rdist","e_dauer","f51300","f51700","E_Ausland",'WP')]
+stages$trip_id<- paste(stages$HHNR,stages$WEGNR,sep="")
+summary<- stages %>% group_by(trip_id) %>% summarise(max_dist=max(rdist))
+stages<- stages %>% left_join(summary, by="trip_id")
+stages$main_mode<-0
+stages$main_mode[which(stages$rdist==stages$max_dist)]<-1
+stages<-stages[which(stages$main_mode==1),]
+
+trips<-read.csv('wege.csv')
+trips$trip_id<- paste(trips$HHNR,trips$WEGNR,sep="")
+trips<- subset(trips, select=c('trip_id','wzweck1'))
+
+person<- read.csv('zielpersonen.csv')
+person<- subset(person, select=c("HHNR","alter","gesl"))
+
+household<-read.csv('haushalte.csv')
+household<- subset(household, select=c('HHNR','W_Ort', 'W_DEGURBA'))
+
+stages<- stages %>% left_join(trips, by="trip_id")
+stages<- stages %>% left_join(person, by="HHNR")
+stages<- stages %>% left_join(household, by="HHNR")
+
+stages$female<-1
+stages$female[which(stages$gesl==1)]<-0
+stages$trip_purpose<-0
+stages$trip_purpose[which(stages$wzweck1==2)]<-1
+
+## 2010 survey has Velo as a category for cycling #2 in f51300 and does not differentiate between e-bike and usual bike
+## 2015 survey differentiates between e-bike and other boke (#2 for normal and #20 for e-bike)
+stages$trip_mode<- 0
+stages$trip_mode[which(stages$f51300==2)]<- 1
+stages$country<- "Switzerland"
+stages$urban<-0
+stages$urban[which(stages$W_DEGURBA<3)]<-1
+stages$year<-2015
+stages$age_cat="NA"
+
+str(stages)
+stages<- subset(stages, select=c("country", "W_Ort","urban","HHNR","HHNR","female", "alter", "WEGNR", "rdist","e_dauer", "trip_purpose", "trip_mode","age_cat","WP","year"))
+colnames(stages)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip","year")
+a<-rbind(a, stages)
+
+rm("stages", "person","stages", "trips")
+
+
+
+
+#####United States from Ralph#####
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/USA 2017 and German 2008')
+US <- read.dta13("NHTS 2017 USA for Rahul.dta")
+US$country<- "USA"
+US$age_cat<-'NA'
+US$year<-2017
+US$geog<- as.factor(US$geog)
+US<-subset(US, select=c("country", "geog", "urban","hh_id", "ind_id", "gender", "age", "trip_id","distance", "time", "purpose", "mode", "age_cat", "weights", "year"))
+colnames(US)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_distance","trip_time", "trip_purpose", "trip_main_mode", "age_cat", "weight_trip","year")
+a<-rbind(a, US)
+rm("US")
 
