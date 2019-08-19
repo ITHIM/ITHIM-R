@@ -1555,13 +1555,22 @@ stage <- stage_0 %>%
            stage_id = paste(trip_id, NUMERO_ETAPA, sep ="_")) %>% 
     left_join(lookup_stage_mode) %>% select(participant_id, trip_id, stage_id, stage_mode)
 
-#calcualte stage_duration from average mode time
+#calcualte average mode time for unimodal trips and later use the ratio to calculate stage duration except for walk to public transport
 average_mode_time <- stage %>% group_by(participant_id, trip_id) %>% 
     summarise(c = n()) %>% filter(c == 1) %>% left_join(trip) %>% group_by(trip_mode) %>% 
     summarise(average_mode_duration = mean(DURATION))
 names(average_mode_time) <- c("stage_mode", "average_mode_time")
 
+#add average mode duration to stage
 stage <- stage %>% left_join(average_mode_time)
+
+#For walking to public transport, we usually assume ~ 10 mins, and since bus duration is ~ 60, we take a 1:6 ratio to avoid a constant that may not fit smoothly 
+stage <- stage %>% group_by(participant_id, trip_id) %>% 
+    mutate(average_mode_time = ifelse("walk" %in% levels(as.factor(stage_mode)) & length(levels(as.factor(stage_mode)))> 1 & stage_mode == "walk", 1, 
+                                      ifelse("walk" %in% levels(as.factor(stage_mode)) & length(levels(as.factor(stage_mode)))> 1 & stage_mode != "walk", 6,
+                                             average_mode_time)))
+
+
 stage <- stage %>% group_by(participant_id, trip_id) %>% 
     summarise(sum_average = sum(average_mode_time , na.rm = T)) %>% 
     left_join(stage)
@@ -1573,17 +1582,6 @@ trip <- trip %>% mutate(age= EDAD, trip_duration = DURATION) %>%
     select(participant_id, sex, age, trip_id, trip_purpose, trip_mode, trip_duration, stage_id, stage_duration, stage_mode)
 #write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/bogota/trip_bogota.csv")
 
-
-# what fraction of multistage trips have walking
-multistage <- stage %>% group_by(participant_id, trip_id) %>% 
-    summarise(c = n()) %>% filter(c > 1) %>% left_join(stage) 
-
-multistage_diff_modes <- multistage %>% group_by(participant_id, trip_id) %>% 
-    summarise(b =length(levels(as.factor(stage_mode)))) %>% filter(b>1) %>% 
-    left_join(multistage) %>%   group_by(participant_id, trip_id) %>% 
-    summarise(a = ifelse("walk" %in% levels(as.factor(stage_mode)), "no_walk", "walk"))
-#proportion of multitage trips with walking
-round(prop.table(table(multistage_diff_modes$a)),2)
 
 #####Colombia Bogota (Use this one)####
 ##In the previous version, stages were used, but there is no benefit as the stages for public transport hardly reports walking
