@@ -3,6 +3,8 @@
 
 #####A Required Packages -------------------------------------------------------
 library(tidyverse)
+library(readxl)
+library(haven)
 library(nnet)
 #####A check data quality--------
 #average trip per person
@@ -23,55 +25,54 @@ trip %>% group_by(participant_id, age, sex, trip_id, trip_duration, trip_mode) %
 
 #####Argentina Buenos Aires############
 library(tidyverse)
+library(readxl)
 library(nnet)
+library(haven)
 
-#change J to V if you are on clinical school network
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Argentina/WP1-TS/Buenos Aires/')
 
-#household <- read_csv('bsas-hh.csv')
-person <- read_csv('bsas-pp.csv')
-trip <- read_csv('bsas-trip.csv')
-stage <- read_csv('bsas-stages.csv')
-lookup_trip_purpose <- read_csv("lookup_trip_purpose.csv")
-lookup_stage_mode <- read_csv("lookup_stage_mode.csv")
+person_0 <- read_sav('ENMODO_PERSONAS_pub_20121115.sav')
+trip_0 <- read_sav("ENMODO_VIAJES_pub_20121115.sav")
+stage_0 <- read_sav('ENMODO_ETAPAS_pub_20121115.sav')
+lookup_trip_purpose <- read_excel("lookup_trip_purpose.xlsx",sheet = 1, range = cell_cols("A:B"))
+lookup_stage_mode <- read_excel("lookup_stage_mode.xlsx",sheet = 1, range = cell_cols("A:C"))# also ranks the modes 
 
 #keep relevant variables
-person <- person[,c("IDP", "EDAD", "SEXO")]
-trip <- trip[, c("IDP", "IDV", "ACTIDEST", "HORASALI", "MINSALID", "HORALLEG", "MINLLEGA")] %>% 
-    mutate(trip_duration = ((HORALLEG - HORASALI)%%24)*60 + (MINLLEGA - MINSALID)) %>% 
-    left_join(lookup_trip_purpose) %>% 
-    {.[,-c(3,4,5,6,7)]}
-stage <- stage[,c("IDP","IDV","IDE","MODOTRAN")] %>% # select relevant data
-    left_join(lookup_stage_mode) #add mode names in english and ranks
-    stage <-  stage %>% group_by(IDP,IDV) %>%  
-        mutate(trip_mode = stage_mode[which.is.max(rank)]) %>% # add trip main mode
-        left_join(stage) %>% {.[,-c(4,5)]}# remove rank and spanish names
+person <- person_0[,c("IDP", "EDAD", "SEXO")]
+trip <- trip_0[, c("IDP", "IDV", "ACTIDEST","HORAFIN", "HORAINI", "HORASALI", "MINSALID", "HORALLEG", "MINLLEGA")] %>% 
+    mutate(trip_duration_1 = ((HORALLEG - HORASALI)%%24)*60 + (MINLLEGA - MINSALID), 
+           trip_duration_2 = difftime(HORAFIN,HORAINI,tz="GMT",units="mins"),
+           trip_duration = ifelse(trip_duration_1 > 540, abs(trip_duration_2), trip_duration_1)) %>% 
+    left_join(lookup_trip_purpose) %>%
+    {.[,c(1,2,12,13)]}
+stage <- stage_0[,c("IDP","IDV","IDE","MODOTRAN", "DURAHORA", "DURAMINU")] %>% # select relevant data
+    left_join(lookup_stage_mode) %>%  #add mode names in english and ranks
+    left_join(count(.,IDV)) %>%  # add number of stages for each trip
+    left_join(trip[,c("IDV", "trip_duration")]) %>% 
+    mutate(stage_duration = ifelse(DURAMINU == 99 & n == 1, trip_duration,
+                                   ifelse(DURAMINU == 99 & n > 1, NA, 60*DURAHORA + DURAMINU))) %>% 
+    
+    left_join(group_by(., stage_mode) %>% summarise(average_mode_time = mean(stage_duration, na.rm=T))) %>% 
+    
+    group_by(IDV) %>% 
+    mutate(trip_mode = stage_mode[which.is.max(rank)], # add trip main mode
+           average_mode_time = ifelse(DURAMINU == 99 & n > 1 & "walk" %in% levels(as.factor(stage_mode)) & stage_mode == "walk", 1,
+                                      ifelse(DURAMINU == 99 & n > 1 & "walk" %in% levels(as.factor(stage_mode)) & stage_mode != "walk",6,average_mode_time))) %>% 
+    
+    left_join(group_by(.,IDV) %>% summarise(sum_average = sum(average_mode_time))) %>% 
+    mutate(stage_duration = ifelse(is.na(stage_duration), round(trip_duration*average_mode_time/sum_average), stage_duration)) %>% 
+    
+    {.[,c("IDP", "IDV", "IDE", "stage_mode", "stage_duration", "trip_mode")]}
        
 
 #Join the three datasets and rename variables
 trip <- person %>% left_join(trip) %>% left_join(stage)
-names(trip) <- c("participant_id", "age","sex", "trip_id","trip_duration", "trip_purpose", "stage_id", "stage_mode", "trip_mode")
+names(trip) <- c("participant_id", "age","sex", "trip_id","trip_duration", "trip_purpose", "stage_id", "stage_mode","stage_duration", "trip_mode")
 
 #adjust outlying trip_duration (>720)
 trip <- trip %>% mutate(trip_duration = ifelse(trip_duration > 1080, 1440 - trip_duration,
                                        ifelse(trip_duration > 720 & trip_duration <= 1080, trip_duration - 720, trip_duration )))
 
-
-#check data quality
-    #average trip per person
-    trip %>% distinct(trip_id) %>% nrow / trip %>% distinct(participant_id) %>% nrow
-    #modeshare
-    a <- trip %>% group_by(participant_id, age, sex, trip_id, trip_duration, trip_mode) %>% summarise(n_stage= n())
-    round(prop.table(table(factor(a$trip_mode)))*100,2)
-    #visualise aspects of data
-    par(mfrow=c(2,2))
-    plot(trip$trip_duration)
-    boxplot(trip$trip_duration)
-    boxplot(trip_duration ~ trip_mode, trip)
-    hist(trip$trip_duration[which(trip$trip_mode == "walk")], breaks = 50)
-    plot(density(trip$trip_duration[which(trip$trip_mode == "walk")], bw = 300))
-    #average travel time per mode
-    trip %>% group_by(participant_id, age, sex, trip_id, trip_duration, trip_mode) %>% summarise(n_stage= n()) %>% group_by(trip_mode) %>% summarise    (average_mode_duration = mean(trip_duration, na.rm = T)) 
 #write.csv(trip, "trips_buenas_aires.csv")
 #rm(list = ls())
 
