@@ -1,34 +1,31 @@
 #####A Notes -------------------------------------------------------------------
 ## These codes were initiated by Raul. Lambed is modifying the codes to generate trip datasets for the selected TIGTHAT cities. Please change work directory from J to V if you are on medschool network. 
 
-#####A Required Packages -------------------------------------------------------
+#####A Required Packages and functions -------------------------------------------------------
 library(tidyverse)
 library(readxl)
 library(haven)
 library(nnet)
-#####A check data quality--------
-#average trip per person
-trip %>% distinct(trip_id) %>% nrow / trip %>% distinct(participant_id) %>% nrow
-#modeshare
-a <- trip %>% group_by(participant_id, age, sex, trip_id, trip_duration, trip_mode) %>% summarise(n_stage= n())
-round(prop.table(table(factor(a$trip_mode)))*100,2)
-#visualise aspects of data
-par(mfrow=c(2,2))
-plot(trip$trip_duration)
-boxplot(trip$trip_duration)
-boxplot(trip_duration ~ trip_mode, trip)
-hist(trip$trip_duration[which(trip$trip_mode == "walk")], breaks = 50)
-plot(density(trip$trip_duration[which(trip$trip_mode == "walk")], bw = 300))
-#average travel time per mode
-trip %>% group_by(participant_id, age, sex, trip_id, trip_duration, trip_mode) %>% summarise(n_stage= n()) %>% group_by(trip_mode) %>% summarise    (average_mode_duration = mean(trip_duration, na.rm = T)) 
 
+quality_check <- function(trip){
+    
+    trip_per_capita <- trip %>% distinct(trip_id) %>% nrow / trip %>% distinct(participant_id) %>% nrow
+    mode_share <- trip %>% filter(!is.na(trip_id)) %>% group_by(trip_mode) %>% summarise(mode_share = n()*100/nrow(.))
+    avg_mode_time <- trip %>% filter(!is.na(trip_id)) %>% group_by(trip_mode) %>% summarise(avg_mode_time = mean(trip_duration, na.rm = T))
+    
+    
+    print(trip_per_capita)
+    print(mode_share)
+    print(avg_mode_time)
+    
+    par(mfrow=c(2,2))
+    plot(trip$trip_duration)
+    boxplot(trip_duration ~ trip_mode, trip)
+    hist(trip$trip_duration[which(trip$trip_mode == "walk")], breaks = 50)
+    plot(density(trip$trip_duration[which(trip$trip_mode == "walk")], bw = 100))
+}
 
 #####Argentina Buenos Aires############
-library(tidyverse)
-library(readxl)
-library(nnet)
-library(haven)
-
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Argentina/WP1-TS/Buenos Aires/')
 
 person_0 <- read_sav('ENMODO_PERSONAS_pub_20121115.sav')
@@ -73,9 +70,8 @@ names(trip) <- c("participant_id", "age","sex", "trip_id","trip_duration", "trip
 trip <- trip %>% mutate(trip_duration = ifelse(trip_duration > 1080, 1440 - trip_duration,
                                        ifelse(trip_duration > 720 & trip_duration <= 1080, trip_duration - 720, trip_duration )))
 
+quality_check(trip)
 #write.csv(trip, "trips_buenas_aires.csv")
-#rm(list = ls())
-
 
 #####Argentina Cordoba###########
 setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Argentina/WP1-TS/')
@@ -997,7 +993,8 @@ colnames(trips)<-c("hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_duration",
 
 
 #####Brazil Belo Horizonte######
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Belo Horizonte/Travel survey')
+library(tidyverse)
+setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Belo Horizonte/Travel survey')
 trips<-read.table('dbo_TB_VIAGENS_INTERNAS_RMBH.txt', header = TRUE, sep=",")
 persons<- read.table('dbo_TB_DOMICILIO_PESSOA_ENTREGA.txt', header = TRUE, sep=",")
 hh_weights<- read.table('dbo_TB_FATOR_EXPANSÂO_DOMICÍLIO.txt', header = TRUE, sep=",")
@@ -1069,7 +1066,7 @@ persons$Idade<- NA
 ##settings the sequence same as trips
 persons<- subset(persons, select=c("id_person", "id_trip","trip_duration","mode_eng", "Idade", "female"))
 
-trips<- rbind(trips, persons)
+trip<- rbind(trips, persons)
 
 write.csv(trips,'V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Belo Horizonte/ITHIM R data/trips.csv')
 
@@ -1190,6 +1187,8 @@ trip %>% distinct(trip_id) %>% nrow / trip %>% distinct(participant_id) %>% nrow
 round(prop.table(table(factor(a$trip_mode)))*100,2)
 #average travel time per mode
 trip %>% group_by(participant_id, age, sex, trip_id, trip_duration, trip_mode) %>% summarise(n_stage= n()) %>% group_by(trip_mode) %>% summarise(average_mode_duration = mean(trip_duration, na.rm = T))
+
+quality_check(trip)
 
 #write.csv(trip, "trips_santiago.csv")
 
@@ -2377,9 +2376,6 @@ write.csv(trips_final,'V:/Group/RG_PHM/ITHIM-R/data/local/bangalore/bangalore_tr
 #####Mexico city ####
 setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Mexico/Travel surveys/Mexico City 2017/Databases/eod_2017_csv")
 
-library(nnet)
-library(tidyverse)
-
 person <- read_csv('tsdem_eod2017/conjunto_de_datos/tsdem.csv')
 trip <- read_csv('tviaje_eod2017/conjunto_de_datos/tviaje.csv')
 stage <- read_csv('ttransporte_eod2017/conjunto_de_datos/ttransporte.csv')
@@ -2411,6 +2407,8 @@ a <- trip %>% group_by(participant_id, age, sex, trip_id, trip_duration, trip_mo
 round(prop.table(table(factor(a$trip_mode)))*100,2)
 #average travel time per mode
 trip %>% group_by(participant_id, age, sex, trip_id, trip_duration, trip_mode) %>% summarise(n_stage= n()) %>% group_by(trip_mode) %>% summarise(average_mode_duration = mean(trip_duration, na.rm = T)) 
+
+quality_check(trip)
 #write.csv(trip, "trip_mexico.csv")
 
 
