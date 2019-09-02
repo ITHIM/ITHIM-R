@@ -9,8 +9,16 @@ library(nnet)
 
 quality_check <- function(trip){
     
-    proportion_people_with_trips <- trip %>% filter(!is.na(trip_id)) %>% distinct(participant_id) %>% nrow() / trip %>% distinct(participant_id) %>% nrow()
-    trip_per_capita <- trip %>% distinct(trip_id) %>% nrow / trip %>% distinct(participant_id) %>% nrow
+    proportion_people_with_trips <- trip %>% 
+        filter(!is.na(trip_id)) %>% 
+        distinct(participant_id) %>% 
+        nrow() / 
+        trip %>% distinct(participant_id) %>% 
+        nrow()
+    trip_per_capita <- trip %>% 
+        group_by(participant_id, trip_id) %>% 
+        nrow / 
+        trip %>% distinct(participant_id) %>% nrow
     mode_share <- trip %>% filter(!is.na(trip_id)) %>% group_by(trip_mode) %>% summarise(mode_share = n()*100/nrow(.))
     avg_mode_time <- trip %>% filter(!is.na(trip_id)) %>% group_by(trip_mode) %>% summarise(avg_mode_time = mean(trip_duration, na.rm = T))
     
@@ -936,57 +944,37 @@ a<-rbind(a, trips)
 rm("person","trips")
 
 #####Brazil Sao Paulo####
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Sao Paulo/Pesquisa Origem Destino 2012')
-trips<-read.csv('Mobilidade_2012_v0.csv')
-str(trips)
-trips<-subset(trips, select=c("ID_PESS", "ID_DOM", "N_VIAG", "DURACAO", "DISTANCIA","MODOPRIN", "SEXO", "IDADE", "FE_VIA" , "MOTIVO_D" , "MOTIVO_O"))
-trips$female<-0
-trips$female[which(trips$SEXO==2)]<-1
-trips$city<- "Sao Paulo"
-trips$urban<-1  
-trips$country<-"Brazil"
-trips$year<-2012
-unique(trips$MODOPRIN)
 
-for (i in 1: nrow(trips))
-{
-    
-    
-    if (!(is.na(trips$MOTIVO_D[i])) & trips$MOTIVO_D[i] == 8  & trips$MOTIVO_O[i]<4 & ! (is.na(trips$MOTIVO_O[i])) )
-    {
-        trips$purpose[i]<- 1
-    }
-    else if (! (is.na(trips$MOTIVO_D[i])) & trips$MOTIVO_D[i]<4)
-    {
-        trips$purpose[i]<-1
-    }
-    else 
-    {
-        trips$purpose[i]<-0
-    }
-}
+setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Sao Paulo/Pesquisa Origem Destino 2012')
 
-trips$mode<-'NA'
-trips$mode[which(trips$MODOPRIN==1)]<-"Omnibus" 
-trips$mode[which(trips$MODOPRIN==2)]<-"Omnibus" 
-trips$mode[which(trips$MODOPRIN==3)]<-"Omnibus" 
-trips$mode[which(trips$MODOPRIN==4)]<-"Omnibus" 
-trips$mode[which(trips$MODOPRIN==5)]<-"Bus" 
-trips$mode[which(trips$MODOPRIN==6)]<-"Car" 
-trips$mode[which(trips$MODOPRIN==7)]<-"Car" 
-trips$mode[which(trips$MODOPRIN==8)]<-"Taxi" 
-trips$mode[which(trips$MODOPRIN==9)]<-"Minibus/van" 
-trips$mode[which(trips$MODOPRIN==10)]<-"Minibus/van" 
-trips$mode[which(trips$MODOPRIN==11)]<-"Minibus/van" 
-trips$mode[which(trips$MODOPRIN==12)]<-"Metro" 
-trips$mode[which(trips$MODOPRIN==13)]<-"Tram" 
-trips$mode[which(trips$MODOPRIN==14)]<-"Motorcycle" 
-trips$mode[which(trips$MODOPRIN==15)]<-"Bicycle" 
-trips$mode[which(trips$MODOPRIN==16)]<-"Walk" 
-trips$mode[which(trips$MODOPRIN==17)]<-"Other" 
-trips<- trips[which(!is.na(trips$N_VIAG)),]
-trips<-subset(trips, select=c("ID_DOM", "ID_PESS", "female", "IDADE",  "N_VIAG","DISTANCIA", "DURACAO", "mode", "FE_VIA" , "purpose"))
-colnames(trips)<-c("hh_ID", "ind_ID","female","age" ,"trip_ID", "trip_duration","trip_time", "trip_main_mode", "weight_trip", "trip_purpose")
+trip_0 <- read.csv('Mobilidade_2012_v0.csv')
+
+trip_mode <- read_excel("lookup.xlsx", sheet = 1)
+stage_mode <- read_excel("lookup.xlsx", sheet = 2)
+
+
+#select relevant data
+trip <- trip_0 %>% select(ZONA, ID_DOM, F_DOM, FE_DOM, ID_PESS, F_PESS, FE_PESS, IDADE, SEXO, 
+                          N_VIAG, FE_VIA, MOTIVO_O, MOTIVO_D, MODO1,MODO2,MODO3,MODO4, DURACAO, MODOPRIN, DISTANCIA) 
+    
+no_trip <-  trip %>% filter(is.na(MODO1) & is.na(MODO2) & is.na(MODO3) & is.na(MODO4))
+trip <- setdiff(trip, no_trip) %>% 
+    gather("stage_id","stg_mode", MODO1, MODO2, MODO3, MODO4 ) %>% 
+    filter(!is.na(stg_mode)) %>% 
+    bind_rows(no_trip %>% rename(stage_id = MODO1, stg_mode= MODO2) %>% select(-c(MODO3, MODO4)))
+
+trip <- trip %>%
+    mutate(stage_id = ifelse(stage_id =="MODO1", 1, 
+                             ifelse(stage_id=="MODO2",2,
+                                    ifelse(stage_id == "MODO3", 3, 
+                                           ifelse(stage_id == "MODO4", 4, NA)))),
+           trip_id = N_VIAG, trip_distance = as.numeric(DISTANCIA)/1000) %>% 
+    left_join(trip_mode) %>%
+    left_join(stage_mode) %>% 
+    rename(participant_id = ID_PESS, age = IDADE, sex = SEXO, trip_purpose = MOTIVO_O, trip_duration = DURACAO) %>% 
+    select(participant_id, age, sex, trip_id, trip_purpose, trip_mode, trip_duration, stage_id, stage_mode)
+
+quality_check(trip)
 
 
 #####Brazil Belo Horizonte######
