@@ -9,11 +9,12 @@ library(nnet)
 
 quality_check <- function(trip){
     
+    proportion_people_with_trips <- trip %>% filter(!is.na(trip_id)) %>% distinct(participant_id) %>% nrow() / trip %>% distinct(participant_id) %>% nrow()
     trip_per_capita <- trip %>% distinct(trip_id) %>% nrow / trip %>% distinct(participant_id) %>% nrow
     mode_share <- trip %>% filter(!is.na(trip_id)) %>% group_by(trip_mode) %>% summarise(mode_share = n()*100/nrow(.))
     avg_mode_time <- trip %>% filter(!is.na(trip_id)) %>% group_by(trip_mode) %>% summarise(avg_mode_time = mean(trip_duration, na.rm = T))
     
-    
+    print(proportion_people_with_trips)
     print(trip_per_capita)
     print(mode_share)
     print(avg_mode_time)
@@ -1750,164 +1751,36 @@ rm("german")
 
 
 #####India Delhi#####
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Delhi')
-trips<- read.csv('trips_stages_delhi.csv')
-head(trips)
-trips$person_id<- NA
-trips$person_id<- paste0(trips$Form.ID, trips$Member.No.)
-head(trips)
-person<- read.csv('persons.csv')
-names(person)<- c('person_id', 'hh_id', 'hh_nr', 'person_nr', 'female', 'age', 'hh_weights')
-person<- subset(person, select=c('person_id', 'female', 'age', 'hh_weights'))
-person<- person[which(!duplicated(person$person_id)),]
 
-trips<- trips %>% left_join(person, by='person_id')
-names(trips)<- c("form_id", "form_id_new","colony_id", "person_nr","trip_nr", "trip_purpose", "stage", "mode", "distance" , "days_week", "duration", "trip_duration","trip_total_distance", "trip_id" ,
-                 "priority", "main_mode", "main_mode_priority", "person_id",  "female", "age", "hh_weights")
-trips_main_mode<- subset (trips,select= c('trip_id', 'main_mode'))
-trips_main_mode<- trips_main_mode[which(!duplicated(trips_main_mode$trip_id)),]
+setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Delhi')
 
-trips<- subset(trips, select=c('person_id', 'female','age', 'trip_id', 'stage','mode', 'distance', 'duration', 'main_mode', 'hh_weights'))
-#plot(density(trips$distance[which((trips$main_mode==8 |trips$main_mode==9 |trips$main_mode==10)&(trips$mode==1))], na.rm=TRUE))
-#trips[which(trips$main_mode==8 |trips$main_mode==9 |trips$main_mode==10),]
-#trips[which((trips$main_mode==8 |trips$main_mode==9 |trips$main_mode==10)&(trips$mode==1)&(trips$distance<3)),]
+person_0 <- read.csv('persons.csv', na.strings = c("", "NA"))
+stage_0 <- read.csv('trips_stages_delhi.csv')
 
-## walking distance and duration for walking to/from PT stops
-walking_pt<-trips %>% filter((main_mode==8 | main_mode==9 | main_mode==10)&(mode==1)&(distance<3)) %>% group_by(trip_id) %>% summarise(sum(distance)) 
-mean(walking_pt$`sum(distance)`)
-## for buses only
-walking_bus<-trips %>% filter((main_mode==8)&(mode==1)&(distance<3)) %>% group_by(trip_id) %>% summarise(walk_bus_dist=sum(distance)) 
-walking_bus<- as.data.frame(walking_bus)
-mean(walking_bus$walk_bus_dist)
-##for metro and trains
-walking_metro_train<-trips %>% filter((main_mode==9 | main_mode==10)&(mode==1)&(distance<3)) %>% group_by(trip_id) %>% summarise(walk_met_trn=sum(distance)) 
-mean(walking_metro_train$walk_met_trn)
+stage_mode <- read_excel('lookup.xlsx', range = cell_cols("A:B"))
+trip_mode <- read_excel('lookup.xlsx', range = cell_cols("C:D"))
 
 
-trips<- trips %>% left_join(walking_bus, by='trip_id')
-trips<- trips %>% left_join(walking_metro_train, by='trip_id')
-head(trips)
-
-trip_id_no_pt<- trips$trip_id[which()]
-
-#assigning average walking distance to those PT trips which do not have reported walking to PT distance
-for (i in 1: nrow(trips))
-{
-    if (!is.na(trips$main_mode))
-    {
-        if (trips$main_mode[i]==8 & is.na(trips$walk_bus_dist[i]))
-        {
-            trips$walk_bus_dist[i]==mean(walking_bus$walk_bus_dist)
-        }
-        if ((trips$main_mode[i]==9 |trips$main_mode[i]==10) & is.na(trips$walk_met_trn[i]))
-        {
-            trips$walk_met_trn[i]==mean(walking_metro_train$walk_met_trn)
-        }
-    }
-}
-
-trips$walking_pt<-0
-for (i in 1 : nrow(trips))
-{
-    if(!is.na(trips$walk_bus_dist[i]))
-    {
-        trips$walking_pt[i] <- trips$walk_bus_dist[i]
-    }
-    if(!is.na(trips$walk_met_trn[i]))
-    {
-        trips$walking_pt[i] <- trips$walk_met_trn[i]
-    }
-}
-
-summary((trips$distance[which((trips$main_mode==8 |trips$main_mode==9 |trips$main_mode==10)&(trips$mode==1)&(trips$distance<3))]))
-
-View(trips %>% filter(main_mode==8 | main_mode==9 | main_mode==10) %>% group_by(trip_id) %>% summarise(n()) )
-
-trips_pt<- trips[which(trips$mode==trips$main_mode & trips$walking_pt>0),]
-trips_pt$stage<-1
-trips_pt_temp<-trips_pt[0,]
-
-k<-1
-for (i in 1: nrow(trips_pt))
-{
-    trips_pt_temp[k,]<- trips_pt[i,]
-    k<- k+1
-    trips_pt_temp[k,1]<-trips_pt[i,1]  ## person_id
-    trips_pt_temp[k,2]<-trips_pt[i,2]  ## female
-    trips_pt_temp[k,3]<-trips_pt[i,3]  ## age
-    trips_pt_temp[k,4]<-trips_pt[i,4]  ## trip_id
-    trips_pt_temp[k,5]<-2              ## stage
-    trips_pt_temp[k,6]<-1              ## mode
-    trips_pt_temp[k,7]<-trips_pt[i,13]             ## distance
-    trips_pt_temp[k,8]<-trips_pt[i,13]/4.5  ## duration
-    trips_pt_temp[k,9]<-trips_pt[i,9]  ## main_mode
-    trips_pt_temp[k,10]<-trips_pt[i,10]  ## hh_weights
-    trips_pt_temp[k,11]<-trips_pt[i,11]  ## walk_bus_dist
-    trips_pt_temp[k,12]<-trips_pt[i,12]  ## walk_met_trn
-    trips_pt_temp[k,13]<-trips_pt[i,13]  ## walking_pt
-    k<- k+1
-}
-trips_others<- trips[which(trips$walking_pt==0),]
-
-trips_new<-rbind(trips_pt_temp, trips_others)
-trips_new<- trips_new[, -c(11,12,13)]
-
-mode_name_lookup<-read.csv('mode_name_lookup.csv')
-trips_new<- trips_new %>% left_join(mode_name_lookup, by='mode')
-
-person<- read.csv('persons.csv')
-names(person)<- c('person_id', 'hh_id', 'hh_nr', 'person_nr', 'female', 'age', 'hh_weights')
-person<- subset(person, select=c('person_id','hh_id', 'female', 'age', 'hh_weights'))
-person_subset<-subset(person, select=c('person_id','hh_id'))
-trips_new<- trips_new %>% left_join(person_subset, by='person_id')
-head(trips_new)
-trips_new<- subset(trips_new, select=c('hh_id', 'person_id', 'female', 'age', 'trip_id', 'stage', 'mode', 'mode_name', 'distance', 'duration', 'hh_weights'))
-
-## adding individuals who reported no trips
-## adding the trips to the person file to select which households are in the trips database
-person_trips<- person %>% left_join(trips_new, by ='hh_id')
-
-## remove those where no trips were assigned to that household
-person_trips<- person_trips[which(!is.na(person_trips$trip_id )),]
-
-## removing those which are already included in the trips dataset
-person_trips<- person_trips[which(person_trips$person_id.x !=person_trips$person_id.y),]
-
-##removing the duplicates
-person_trips<- person_trips[which(!duplicated(person_trips$person_id.x)),]
-
-person_trips <- subset(person_trips, select=c('hh_id','person_id.x',  'female.x', 'age.x', 'trip_id', 'stage', 'mode','mode_name', 'distance', 'duration', 'hh_weights.x'))
-names(person_trips)<- c('hh_id', 'person_id', 'female', 'age', 'trip_id', 'stage', 'mode', 'mode_name', 'distance', 'duration', 'hh_weights')
-person_trips[,5:10]<- NA
-
-trips_new<- rbind(trips_new, person_trips)
-
-trips_new<- trips_new %>% left_join(trips_main_mode, by='trip_id')
+#select relevant variables
+names(person_0)<- c('participant_id', 'hh_id', 'hh_nr', 'person_nr', 'female', 'age', 'hh_weights')
+person <- select(person_0, participant_id, female, age, hh_weights)
+person <- person %>% mutate(participant_id = ifelse(is.na(participant_id), paste0("U0", row_number()), paste(participant_id)))
+person <- person[which(!duplicated(person$participant_id)),]
 
 
-saveRDS(person, 'households_delhi.RDS')
-View(person)
+stage <- stage_0 %>% 
+    mutate(participant_id = paste0(stage_0$Form.ID, stage_0$Member.No.), stage_id = row_number(),
+           Trip_Time_Duration = Trip_Time_Duration*60,Travel.Time = Travel.Time*60) %>%
+    left_join(stage_mode) %>% left_join(trip_mode) %>% 
+    rename(trip_id = Trip.ID, trip_duration = Trip_Time_Duration, trip_distance = Trip_total_distance, 
+           stage_duration = Travel.Time, stage_distance = Distance, trip_purpose = Trip.Purpose) %>% 
+    select(participant_id, trip_id, stage_id, trip_mode, trip_purpose, trip_duration, trip_distance, stage_mode, 
+           stage_duration, stage_distance)
 
-saveRDS(trips_new, 'delhi_travel_survey_main_mode.RDS')
-trips_new<-saveRDS(trips_new, 'delhi_travel_survey.RDS')
-trips_new<-readRDS('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Delhi/delhi_travel_survey_main_mode.RDS')
-write.csv(trips_new, 'V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Delhi/delhi_travel_survey_main_mode.csv')
-##main mode lookup
-main_mode_lookup<-read.csv('trips_main_mode_lookup.csv')
-trips_new<- trips_new %>% left_join(main_mode_lookup, by= "trip_id")
+#combine dataframes 
+trip <- person %>% left_join(stage)
 
-###lookup table for mode name
-mode_name_lookup<-read.csv('mode_name_lookup.csv')
-names(mode_name_lookup)<- c("main_mode", "main_mode_name")
-trips_new<- trips_new %>% left_join(mode_name_lookup, by='main_mode')
-
-no_trips<-read.csv('no_trips_person.csv')
-
-trips_new<- rbind(trips_new, no_trips)
-
-delhi<- readRDS('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Delhi/delhi_travel_survey.RDS')
-head(delhi)
-
+quality_check(trip)
 
 #####india- Bangalore (lambed checking after rob identified duplicates####
 library(tidyverse)
@@ -2365,19 +2238,19 @@ write.csv(trips_final,'V:/Group/RG_PHM/ITHIM-R/data/local/bangalore/bangalore_tr
 #####Mexico city ####
 setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Mexico/Travel surveys/Mexico City 2017/Databases/eod_2017_csv")
 
-person <- read_csv('tsdem_eod2017/conjunto_de_datos/tsdem.csv')
-trip <- read_csv('tviaje_eod2017/conjunto_de_datos/tviaje.csv')
-stage <- read_csv('ttransporte_eod2017/conjunto_de_datos/ttransporte.csv')
+person_0 <- read_csv('tsdem_eod2017/conjunto_de_datos/tsdem.csv')
+trip_0 <- read_csv('tviaje_eod2017/conjunto_de_datos/tviaje.csv')
+stage_0 <- read_csv('ttransporte_eod2017/conjunto_de_datos/ttransporte.csv')
 lookup_trip_purpose <- read_csv('lookup_trip_purpose.csv')
 lookup_stage_mode <- read_csv('lookup_stage_mode.csv')
 
 ##selecting relevant variables
-person <- select(person, id_hog, id_soc, sexo, edad)  ## all ind id's sex and age
-trip <- trip %>% select(id_soc,id_via, sexo, edad, p5_13, p5_9_1, p5_9_2, p5_10_1,p5_10_2) %>% # trips with purpose and start and end time
+person <- select(person_0, id_hog, id_soc, sexo, edad)  ## all ind id's sex and age
+trip <- trip_0 %>% select(id_soc,id_via, sexo, edad, p5_13, p5_9_1, p5_9_2, p5_10_1,p5_10_2) %>% # trips with purpose and start and end time
     mutate(p5_13 = as.numeric(p5_13), # make mode code as numeric for binding
            trip_duration = (as.numeric(p5_10_1) - as.numeric(p5_9_1))*60 + (as.numeric(p5_10_2) - as.numeric(p5_9_2))) %>% # calculate trip duration
-           {.[,-c(6,7,8,9)]}
-stage <- stage %>% select(id_via, id_tra, sexo, edad, p5_14, p5_16_1_1, p5_16_1_2) %>% # stage plus mode and stage time
+           {.[,c(1, 2,3, 4, 5 ,10)]}
+stage <- stage_0 %>% select(id_via, id_tra, sexo, edad, p5_14, p5_16_1_1, p5_16_1_2) %>% # stage plus mode and stage time
     mutate(p5_14 = as.numeric(p5_14), # make mode code as numeric for binding
            stage_duration = as.numeric(p5_16_1_1)*60 + as.numeric(p5_16_1_2)) %>% {.[,-c(6,7)]}  #calculate stage time
 
@@ -2390,8 +2263,6 @@ trip <- trip %>% group_by(participant_id, sex, age, trip_id) %>% summarise(trip_
 
 quality_check(trip)
 #write.csv(trip, "trip_mexico.csv")
-
-
 
 ## Message from Ralph: I just shared a dropbox folder with the US (2017) and German (2008) data as requested. 
 ###I followed the codebook you provided. Two items to note: weights are trip weights not not hh weights. 
