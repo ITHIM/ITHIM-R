@@ -1,61 +1,41 @@
 #####A Notes -------------------------------------------------------------------
 ## These codes were initiated by Raul. Lambed is modifying the codes to generate trip datasets for the selected TIGTHAT cities. Please change work directory from J to V if you are on medschool network. 
 
+## trip data set is processed to stage level where possible
+
 #####A Required Packages and functions -------------------------------------------------------
-library(tidyverse)
-library(readxl)
-library(haven)
-library(nnet)
-
-quality_check <- function(trip){
-    
-    proportion_people_with_trips <- trip %>% 
-        filter(!is.na(trip_id)) %>% 
-        distinct(participant_id) %>% 
-        nrow() / 
-        trip %>% distinct(participant_id) %>% 
-        nrow()
-    trip_per_capita <- trip %>% 
-        group_by(participant_id, trip_id) %>% 
-        nrow / 
-        trip %>% distinct(participant_id) %>% nrow
-    mode_share <- trip %>% filter(!is.na(trip_id)) %>% group_by(trip_mode) %>% summarise(mode_share = n()*100/nrow(.))
-    avg_mode_time <- trip %>% filter(!is.na(trip_id)) %>% group_by(trip_mode) %>% summarise(avg_mode_time = mean(trip_duration, na.rm = T))
-    
-    print(proportion_people_with_trips)
-    print(trip_per_capita)
-    print(mode_share)
-    print(avg_mode_time)
-    
-   # par(mfrow=c(2,2))
-   # plot(trip$trip_duration)
-   # boxplot(trip_duration ~ trip_mode, trip)
-   # hist(trip$trip_duration[which(trip$trip_mode == "walk")], breaks = 50)
-   # plot(density(trip$trip_duration[which(trip$trip_mode == "walk")], bw = 100))
-}
-
 #####Argentina Buenos Aires############
+
+rm(list =ls())
+
+source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+package()
+
+
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Argentina/WP1-TS/Buenos Aires/')
 
 person_0 <- read_sav('ENMODO_PERSONAS_pub_20121115.sav')
 trip_0 <- read_sav("ENMODO_VIAJES_pub_20121115.sav")
 stage_0 <- read_sav('ENMODO_ETAPAS_pub_20121115.sav')
-lookup_trip_purpose <- read_excel("lookup_trip_purpose.xlsx",sheet = 1, range = cell_cols("A:B"))
-lookup_stage_mode <- read_excel("lookup_stage_mode.xlsx",sheet = 1, range = cell_cols("A:C"))# also ranks the modes 
+
+trip_purpose <- read_excel("lookup.xlsx",sheet = "trip_purpose", range = cell_cols("A:B"))
+stage_mode <- read_excel("lookup.xlsx",sheet= "stage_mode", range = cell_cols("A:C"))# also ranks the modes 
 
 #keep relevant variables
 person <- person_0[,c("IDP", "EDAD", "SEXO")]
-trip <- trip_0[, c("IDP", "IDV", "ACTIDEST","HORAFIN", "HORAINI", "HORASALI", "MINSALID", "HORALLEG", "MINLLEGA")] %>% 
+
+trip <- trip_0 %>% 
     mutate(trip_duration_1 = ((HORALLEG - HORASALI)%%24)*60 + (MINLLEGA - MINSALID), 
            trip_duration_2 = difftime(HORAFIN,HORAINI,tz="GMT",units="mins"),
            trip_duration = ifelse(trip_duration_1 > 540, abs(trip_duration_2), trip_duration_1)) %>% 
-    left_join(lookup_trip_purpose) %>%
-    {.[,c(1,2,12,13)]}
-stage <- stage_0[,c("IDP","IDV","IDE","MODOTRAN", "DURAHORA", "DURAMINU")] %>% # select relevant data
-    left_join(lookup_stage_mode) %>%  #add mode names in english and ranks
-    left_join(count(.,IDV)) %>%  # add number of stages for each trip
-    left_join(trip[,c("IDV", "trip_duration")]) %>% 
-    mutate(stage_duration = ifelse(DURAMINU == 99 & n == 1, trip_duration,
+    left_join(trip_purpose) %>%
+    select(IDP, IDV, trip_duration, trip_purpose)
+
+stage <- stage_0 %>% 
+    left_join(stage_mode) %>%  #add mode names in english and ranks
+    left_join(count(.,IDV)) %>%  # add number of stages for each trip --> to be used later
+    left_join(trip[,c("IDV", "trip_duration")]) %>% #add trip duration
+    mutate(stage_duration = ifelse(DURAMINU == 99 & n == 1, trip_duration, #get stage duration from trip duration
                                    ifelse(DURAMINU == 99 & n > 1, NA, 60*DURAHORA + DURAMINU))) %>% 
     
     left_join(group_by(., stage_mode) %>% summarise(average_mode_time = mean(stage_duration, na.rm=T))) %>% 
@@ -70,9 +50,10 @@ stage <- stage_0[,c("IDP","IDV","IDE","MODOTRAN", "DURAHORA", "DURAMINU")] %>% #
     
     {.[,c("IDP", "IDV", "IDE", "stage_mode", "stage_duration", "trip_mode")]}
        
-
 #Join the three datasets and rename variables
-trip <- person %>% left_join(trip) %>% left_join(stage)
+trip <- person %>% 
+    left_join(trip) %>% 
+    left_join(stage)
 names(trip) <- c("participant_id", "age","sex", "trip_id","trip_duration", "trip_purpose", "stage_id", "stage_mode","stage_duration", "trip_mode")
 
 quality_check(trip)
@@ -945,6 +926,12 @@ rm("person","trips")
 
 #####Brazil Sao Paulo####
 
+rm(list =ls())
+
+source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+package()
+
+
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Sao Paulo/Pesquisa Origem Destino 2012')
 
 trip_0 <- read.csv('Mobilidade_2012_v0.csv')
@@ -954,108 +941,59 @@ stage_mode <- read_excel("lookup.xlsx", sheet = 2)
 
 
 #select relevant data
-trip <- trip_0 %>% select(ZONA, ID_DOM, F_DOM, FE_DOM, ID_PESS, F_PESS, FE_PESS, IDADE, SEXO, 
-                          N_VIAG, FE_VIA, MOTIVO_O, MOTIVO_D, MODO1,MODO2,MODO3,MODO4, DURACAO, MODOPRIN, DISTANCIA) 
-    
-no_trip <-  trip %>% filter(is.na(MODO1) & is.na(MODO2) & is.na(MODO3) & is.na(MODO4))
-trip <- setdiff(trip, no_trip) %>% 
+no_trip <-  trip_0 %>% filter(is.na(MODO1) & is.na(MODO2) & is.na(MODO3) & is.na(MODO4))
+trip <- setdiff(trip_0, no_trip) %>%
     gather("stage_id","stg_mode", MODO1, MODO2, MODO3, MODO4 ) %>% 
     filter(!is.na(stg_mode)) %>% 
-    bind_rows(no_trip %>% rename(stage_id = MODO1, stg_mode= MODO2) %>% select(-c(MODO3, MODO4)))
-
-trip <- trip %>%
+    bind_rows(no_trip %>% rename(stage_id = MODO1, stg_mode= MODO2) %>% select(-c(MODO3, MODO4))) %>% 
     mutate(stage_id = ifelse(stage_id =="MODO1", 1, 
                              ifelse(stage_id=="MODO2",2,
                                     ifelse(stage_id == "MODO3", 3, 
                                            ifelse(stage_id == "MODO4", 4, NA)))),
-           trip_id = N_VIAG, trip_distance = as.numeric(DISTANCIA)/1000) %>% 
+           trip_distance = as.numeric(DISTANCIA)/1000) %>% 
     left_join(trip_mode) %>%
     left_join(stage_mode) %>% 
-    rename(participant_id = ID_PESS, age = IDADE, sex = SEXO, trip_purpose = MOTIVO_O, trip_duration = DURACAO) %>% 
+    rename(participant_id = ID_PESS, age = IDADE, sex = SEXO, trip_purpose = MOTIVO_O, trip_id = N_VIAG,trip_duration = DURACAO) %>% 
     select(participant_id, age, sex, trip_id, trip_purpose, trip_mode, trip_duration, stage_id, stage_mode)
 
 quality_check(trip)
 
 
 #####Brazil Belo Horizonte######
+
+rm(list =ls())
+
+source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+package()
+
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Belo Horizonte/Travel survey')
-trip<-read.table('dbo_TB_VIAGENS_INTERNAS_RMBH.txt', header = TRUE, sep=",")
-person<- read.table('dbo_TB_DOMICILIO_PESSOA_ENTREGA.txt', header = TRUE, sep=",")
+
+trip_0 <- read.table('dbo_TB_VIAGENS_INTERNAS_RMBH.txt', header = TRUE, sep=",")
+person_0 <- read.table('dbo_TB_DOMICILIO_PESSOA_ENTREGA.txt', header = TRUE, sep=",")
 #hh_weights<- read.table('dbo_TB_FATOR_EXPANSÂO_DOMICÍLIO.txt', header = TRUE, sep=",")
 
-###there are no stages, therefore, walking to and from public transport is not included
-### we have a process coded in the ITHIM-R which adds this walking in such cases (Ali does it once we provide him the data)
-
-##create unique person id
-person$participant_id<- paste0(person$ID_DOMICILIO, "_", person$ID_PESSOA)
-##selecting the variables needed for individuals (personid, sex, age)
-person<- subset(person, select=c("participant_id","DS_SEXO","IDADE"))
-person$sex<-"Male"
-person$sex[which(person$Sexo=="Feminino")]<-"Female"
-#removing the sexo variables
-person<- person[,-2]
-
-##create trip and person id
-trip$trip_id<- paste0(trip$Domicilio, "_", trip$Pessoa, "_", trip$Identificação)
-trip$participant_id<- paste0(trip$Domicilio, "_", trip$Pessoa)
-
-##calculate trip duration
-trip$trip_duration <- NA
-trip$trip_duration <- (as.numeric(substr(trip$TEMPO.DE.DESLOCAMENTO, 12,13)))*60 + as.numeric(substr(trip$TEMPO.DE.DESLOCAMENTO, 15,16))
-
-##allocating mode names in english
-lookup<- as.data.frame((unique(trip$DS_SH_MEIO_TRANSPORTE)))
-lookup<- cbind(lookup, c("bus", "car", "walk", "metro", "bus", "car", "motorcycle", "other", "truck", "bicycle", "taxi"))
-names(lookup)<- c("DS_SH_MEIO_TRANSPORTE", "trip_mode")
-trip <- trip %>% left_join(lookup, by="DS_SH_MEIO_TRANSPORTE")
-
-##renaming the sex
-trip$sex<-"Male"
-trip$sex[which(trip$Sexo=="Feminino")]<-"Female"
+trip_mode <- data.frame(
+    DS_SH_MEIO_TRANSPORTE = unique(trip_0$DS_SH_MEIO_TRANSPORTE),
+    trip_mode = c("bus", "car", "walk", "metro", "bus", "car", "motorcycle", "other", "truck", "bicycle", "taxi"))
 
 
-trip %>% group_by(trip_mode) %>% summarise(n())
+#selecting relevant variables
+person <-  person_0 %>%
+    mutate(participant_id = paste0(ID_DOMICILIO,"_",ID_PESSOA)) %>% 
+    select(participant_id, DS_SEXO, IDADE)
 
-###checking for data quality
-##trip rate
-nrow(trip)/nrow(person)
-##trip rate for older than 15 (it goes up from 1.39 to 1.42)
-nrow(trip[which(trip$Idade>15),])/nrow(person[which(person$IDADE>15),])
-##duration per capita (seems lower value than expected)
-sum(trip$trip_duration)/nrow(person)
-##average trip duration per mode
-trip %>% group_by(trip_mode) %>% summarise(mean(trip_duration))
+trip <- trip_0 %>%
+    mutate(participant_id = paste0(Domicilio,"_",Pessoa),
+           trip_duration = (as.numeric(substr(trip_0$TEMPO.DE.DESLOCAMENTO, 12,13)))*60 + 
+               as.numeric(substr(trip_0$TEMPO.DE.DESLOCAMENTO, 15,16))) %>% 
+    left_join(trip_mode) %>% 
+    select(participant_id, Viagem, trip_duration, trip_mode)
 
-##number of unique people who made a trip
-length(unique(trip$participant_id))
-##dividing this by the total number of people-- 59% of total sample made a trip, which brings down the average trip rate per capita
-length(unique(trip$participant_id))/nrow(person)
-
-##selecting the variables needed for trips (this one unusually has sex and age (idade) included in the trips file)
-trip<- subset(trip, select=c("participant_id", "trip_id","trip_duration","trip_mode", "Idade", "sex"))
-
-##it seems that persons file has no weight variable, in which case we may have to get rid of the weight variable in the trip file also (Fator.expansão)
-##selecting persons which did not make any trip, to add to the trip file
-person<-person[which(!(person$participant_id %in% unique(trip$participant_id))),]
-#renaming age variable same as trip
-names(person)[2]<-"Idade"
-
-##adding all the other columns
-
-person$trip_id<- NA
-person$trip_duration<- NA
-person$trip_mode<- NA
-#person$Idade<- NA
-
-##settings the sequence same as trips
-person<- subset(person, select=c("participant_id", "trip_id","trip_duration","trip_mode", "Idade", "sex"))
-
-trip<- rbind(trip, person)
-trip <- trip %>% rename(age = Idade)
+trip <- person %>% 
+    left_join(trip) %>% 
+    rename(age= IDADE, sex = DS_SEXO, trip_id = Viagem)
 
 quality_check(trip)
-
-write.csv(trip,'V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Belo Horizonte/ITHIM R data/trips.csv')
 
 
 #####Brazil Salvador######
@@ -1143,35 +1081,46 @@ rm("person","trips","age")
 
 #####Chile Santiago#####
 ###added duration in the raw excel file(Viaje) as the column 'duration'
+
+rm(list =ls())
+
+source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+package()
+
+
 setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Chile/Travel Surveys/Santiago")
 
-person <- read.csv("Persona.csv")
-trip <- read.csv("Viaje.csv")
-stage <- read.csv("stages.csv")
-age<-read.csv('EdadPersonas.csv')
-lookup_person_sex <- read.csv("lookup_person_sex.csv")
-lookup_trip_purpose <- read.csv("lookup_trip_purpose.csv")
-lookup_trip_mode <- read.csv("lookup_trip_mode.csv")
-lookup_stage_mode <- read.csv("lookup_stage_mode.csv")
+person_0 <- read.csv("Persona.csv")
+trip_0 <- read.csv("Viaje.csv")
+stage_0 <- read.csv("stages.csv")
 
-#add age and sex to person
-person <- person %>% select(Hogar, Persona, Sexo) %>% left_join(age) %>% left_join(lookup_person_sex) %>% {.[,-3]}
+age <- read.csv('EdadPersonas.csv')
+trip_purpose <- read.csv("lookup_trip_purpose.csv")
+trip_mode <- read.csv("lookup_trip_mode.csv")
+stage_mode <- read.csv("lookup_stage_mode.csv")
 
-#extract relevant variable in tripset
-trip <- trip %>% select(Hogar, Persona, Viaje, PropositoAgregado,TiempoViaje , ModoAgregado) %>% left_join(lookup_trip_mode) %>% left_join(lookup_trip_purpose)%>% {.[,-c(4,6,8)]}
 
-#extract relevant variable in stage
-stage <- stage %>% select(Hogar, Persona, Viaje, Etapa, Modo) %>% left_join(lookup_stage_mode) %>% {.[,-c(5,7)]}
+person <- person_0 %>% 
+    left_join(age) %>% 
+    select(Persona, Sexo, Edad)
 
-#add trip and stages to person
-trip <- person %>% left_join(trip) %>% left_join(stage) %>% select(Persona, Edad, sex, Viaje, Etapa, stage_mode, trip_mode, TiempoViaje, trip_purpose)
-names(trip) <- c("participant_id", "age", "sex", "trip_id", "stage_id", "stage_mode", "trip_mode", "trip_duration", "trip_purpose")
+trip <- trip_0 %>% 
+    left_join(trip_purpose) %>% 
+    left_join(trip_mode) %>% 
+    select(Persona, Viaje, TiempoViaje, trip_purpose, trip_mode)
 
+stage <- stage_0 %>% 
+    left_join(stage_mode) %>% 
+    select(Persona, Viaje, Etapa, stage_mode)
+
+
+trip <- person %>%
+    left_join(trip) %>% 
+    left_join(stage) %>% 
+    rename(participant_id = Persona, age = Edad, sex = Sexo, trip_id = Viaje, 
+           stage_id = Etapa, trip_duration = TiempoViaje)
+    
 quality_check(trip)
-
-#write.csv(trip, "trips_santiago.csv")
-
-
 
 #####Chile Arica####
 ###added duration in the raw excel file (Viaje) as the column 'duration'
@@ -1507,7 +1456,12 @@ colnames(trips)<-c("country", "city/region","urban", "hh_ID", "ind_ID","female",
 a<-rbind(a, trips)
 rm("person","trips","age")
 
-#####Colombia Bogota Lambed----
+#####Colombia Bogota----
+
+rm(list =ls())
+
+source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+package()
 
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel')
 
@@ -1559,67 +1513,6 @@ trip <- trip %>% select(-trip_mode) %>% group_by(participant_id, trip_id) %>% su
 
 quality_check(trip)
 #write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/bogota/trip_bogota.csv")
-
-
-#####Colombia Bogota (Use this one)####
-##In the previous version, stages were used, but there is no benefit as the stages for public transport hardly reports walking
-###added duration in the raw excel file (Viaje) as the column 'duration'-- calculated from the clock time of start and end
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel')
-trips<- read.csv('encuesta 2015 - viajes.csv')
-lookup_mode_name<-read.csv('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/spanish_english_modes.csv')
-##to map the mode names in trip file to that of stage file; both files have different names
-#lookup<- read.csv('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/lookup_mediotransporte_main_mode.csv')
-
-trips<- subset(trips, select=c('ID_ENCUESTA',  'NUMERO_PERSONA', 'NUMERO_VIAJE','MEDIO_PREDOMINANTE','DURATION','FACTOR_AJUSTE'))
-trips$trip_id<- NA
-trips$trip_id<- paste0(trips$ID_ENCUESTA, trips$NUMERO_PERSONA, trips$NUMERO_VIAJE)
-trips$person_id<- NA
-trips$person_id<- paste0(trips$ID_ENCUESTA, trips$NUMERO_PERSONA)
-
-trips<- subset(trips, select=c('trip_id', 'MEDIO_PREDOMINANTE', 'DURATION','person_id'))
-
-
-##adding the persons who made no trips
-person<-read.csv('encuesta 2015 - personas.csv')
-person$person_id<- NA
-person$person_id<- paste0(person$ID_ENCUESTA, person$NUMERO_PERSONA)
-person<- subset(person, select=c('person_id','SEXO', 'EDAD', 'FE_TOTAL'))
-person$FE_TOTAL<-as.character(person$FE_TOTAL)
-for (i in 1:nrow(person))
-{
-    person$weights[i]<- as.numeric(strsplit(as.character(person$FE_TOTAL[i]), ',')[[1]][1])
-}
-
-trips<- trips %>% left_join(person, by="person_id")
-
-trips<- trips[,-7]
-
-## added these lines to get the mode share
-#trips <- trips  %>% left_join(lookup_mode_name, by="MEDIO_PREDOMINANTE")
-#trips %>% group_by(main_mode_eng) %>% summarise(sum(weights))
-
-trips_temp<- trips[which(!duplicated(trips$person_id)),]
-trips_temp$include<-1
-
-trips_temp<- trips_temp[,-c(5,6,7)]
-
-
-
-person<- person %>% left_join(trips_temp, by="person_id")
-
-person<- person[which(is.na(person$include)),]
-
-person<- subset(person, select=c("trip_id", "MEDIO_PREDOMINANTE", "DURATION","person_id", "SEXO", "EDAD", "weights" ))
-
-bogota_data<- rbind(trips, person)
-#names(bogota_data)[2]<-"Mode"
-bogota_data<- bogota_data %>% left_join(lookup_mode_name, by="MEDIO_PREDOMINANTE")
-
-bogota_data$sex<- "NA"
-bogota_data$sex[which(bogota_data$SEXO=="Mujer")]<- "Female"
-bogota_data$sex[which(bogota_data$SEXO=="Hombre")]<- "Male"
-bogota_data<- bogota_data[,-5]
-write.csv(bogota_data,'C:/ITHIM-R/data/local/bogota/bogota_trips.csv')
 
 #####England LONDON#####
 setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/London/LTDS0514_Combined_V3U_v1.2')
@@ -1740,6 +1633,11 @@ rm("german")
 
 #####India Delhi#####
 
+rm(list =ls())
+
+source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+package()
+
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Delhi')
 
 person_0 <- read.csv('persons.csv', na.strings = c("", "NA"))
@@ -1758,23 +1656,26 @@ person <- person[which(!duplicated(person$participant_id)),]
 
 stage <- stage_0 %>% 
     mutate(participant_id = paste0(stage_0$Form.ID, stage_0$Member.No.), stage_id = row_number(),
-           Trip_Time_Duration = Trip_Time_Duration*60,Travel.Time = Travel.Time*60) %>%
-    left_join(stage_mode) %>% left_join(trip_mode) %>% 
-    rename(trip_id = Trip.ID, trip_duration = Trip_Time_Duration, trip_distance = Trip_total_distance, 
-           stage_duration = Travel.Time, stage_distance = Distance, trip_purpose = Trip.Purpose) %>% 
+           trip_duration = Trip_Time_Duration*60,stage_duration = Travel.Time*60) %>%
+    left_join(stage_mode) %>% 
+    left_join(trip_mode) %>% 
+    rename(trip_id = Trip.ID, trip_distance = Trip_total_distance, 
+            stage_distance = Distance, trip_purpose = Trip.Purpose) %>% 
     select(participant_id, trip_id, stage_id, trip_mode, trip_purpose, trip_duration, trip_distance, stage_mode, 
            stage_duration, stage_distance)
 
 #combine dataframes 
-trip <- person %>% left_join(stage)
+trip <- person %>% 
+    left_join(stage)
 
 quality_check(trip)
 
 #####india- Bangalore (lambed checking after rob identified duplicates####
-library(tidyverse)
-library(readxl)
-library(gsubfn)
-library(nnet)
+
+rm(list =ls())
+
+source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+package()
 
 setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Bangalore")
 data <- read_excel("COMPILED DATA final.xlsx",sheet = 1, range = cell_cols("A:AA"), col_types = c("text"))
@@ -2224,31 +2125,48 @@ write.csv(trips_final,'V:/Group/RG_PHM/ITHIM-R/data/local/bangalore/bangalore_tr
 
 
 #####Mexico city ####
+
+rm(list =ls())
+
+source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+package()
+
 setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Mexico/Travel surveys/Mexico City 2017/Databases/eod_2017_csv")
 
 person_0 <- read_csv('tsdem_eod2017/conjunto_de_datos/tsdem.csv')
 trip_0 <- read_csv('tviaje_eod2017/conjunto_de_datos/tviaje.csv')
 stage_0 <- read_csv('ttransporte_eod2017/conjunto_de_datos/ttransporte.csv')
-lookup_trip_purpose <- read_csv('lookup_trip_purpose.csv')
-lookup_stage_mode <- read_csv('lookup_stage_mode.csv')
+
+trip_purpose <- read_excel("lookup.xlsx",'trip_purpose')
+stage_mode <- read_excel("lookup.xlsx",'stage_mode')
+
+
 
 ##selecting relevant variables
 person <- select(person_0, id_hog, id_soc, sexo, edad)  ## all ind id's sex and age
-trip <- trip_0 %>% select(id_soc,id_via, sexo, edad, p5_13, p5_9_1, p5_9_2, p5_10_1,p5_10_2) %>% # trips with purpose and start and end time
-    mutate(p5_13 = as.numeric(p5_13), # make mode code as numeric for binding
-           trip_duration = (as.numeric(p5_10_1) - as.numeric(p5_9_1))*60 + (as.numeric(p5_10_2) - as.numeric(p5_9_2))) %>% # calculate trip duration
-           {.[,c(1, 2,3, 4, 5 ,10)]}
-stage <- stage_0 %>% select(id_via, id_tra, sexo, edad, p5_14, p5_16_1_1, p5_16_1_2) %>% # stage plus mode and stage time
+trip <- trip_0 %>% 
+    mutate(trip_duration = (as.numeric(p5_10_1) - as.numeric(p5_9_1))*60 + 
+               (as.numeric(p5_10_2) - as.numeric(p5_9_2)),
+           p5_13 = as.numeric(p5_13)) %>% 
+    left_join(trip_purpose) %>% 
+    select(id_soc,id_via, sexo, edad, trip_duration, trip_purpose)
+    
+stage <- stage_0 %>% 
     mutate(p5_14 = as.numeric(p5_14), # make mode code as numeric for binding
-           stage_duration = as.numeric(p5_16_1_1)*60 + as.numeric(p5_16_1_2)) %>% {.[,-c(6,7)]}  #calculate stage time
+           stage_duration = as.numeric(p5_16_1_1)*60 + as.numeric(p5_16_1_2)) %>%
+    left_join(stage_mode) %>%
+    right_join(group_by(.,id_via) %>% summarise(trip_mode = stage_mode[which.is.max(stage_duration)])) %>% 
+    select(id_via, id_tra, sexo, edad, stage_mode,trip_mode, stage_duration)
 
 #bind all datesets and retain only useful ones  
-trip <- person %>% left_join(trip) %>% left_join(stage)  %>% left_join(lookup_trip_purpose) %>% left_join(lookup_stage_mode) %>% {.[,-c(1, 6,9,12,13)]}
-names(trip) <-  c("participant_id", "sex", "age", "trip_id", "trip_duration", "stage_id", "stage_duration", "trip_purpose", "stage_mode")
-
-#add trip mode as stage mode with londest time
-trip <- trip %>% group_by(participant_id, sex, age, trip_id) %>% summarise(trip_mode = stage_mode[which.is.max(stage_duration)]) %>% left_join(trip)
-
+trip <- person %>% 
+    left_join(trip) %>% 
+    left_join(stage) %>% 
+    mutate(participant_id = paste0(id_hog,"_",id_soc),
+           trip_mode) %>% 
+    rename(trip_id = id_via, age = edad, sex = sexo, stage_id = id_tra) %>% 
+    select(-c(id_hog, id_soc))
+    
 quality_check(trip)
 #write.csv(trip, "trip_mexico.csv")
 
