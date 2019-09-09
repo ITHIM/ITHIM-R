@@ -1668,6 +1668,10 @@ stage <- stage_0 %>%
 trip <- person %>% 
     left_join(stage)
 
+trip <- trip %>% filter(!is.na(trip_id) & is.na(trip_mode)) %>% 
+        mutate(trip_mode = "unnamed") %>% 
+        bind_rows(trip %>% filter(!((!is.na(trip_id) & is.na(trip_mode)))))
+
 quality_check(trip)
 
 #####india- Bangalore (lambed checking after rob identified duplicates####
