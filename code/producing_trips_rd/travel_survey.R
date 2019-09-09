@@ -1459,7 +1459,7 @@ rm("person","trips","age")
 #####Colombia Bogota----
 
 rm(list =ls())
-
+rm(list =ls())
 source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
 package()
 
@@ -1471,44 +1471,76 @@ trip_0 <- read_excel("encuesta 2015 - viajes.xlsx",sheet = 1, range = cell_cols(
 stage_0 <- read_excel("encuesta 2015 - etapas.xlsx",sheet = 1, range = cell_cols("A:K"))
 
 #lookup tables
-lookup_trip_mode <- read_excel("lookup_trip_mode.xlsx",sheet = 1, range = cell_cols("A:B"))
-lookup_stage_mode <- read_excel("lookup_stage_mode.xlsx",sheet = 1, range = cell_cols("A:B"))
-lookup_trip_purpose <-  read_excel("lookup_trip_purpose.xlsx",sheet = 1, range = cell_cols("A:B"))
-lookup_sex <- data.frame(SEXO = c("Hombre", "Mujer"), sex=c("Male", "Female"))
+trip_mode <- read_excel("lookup_trip_mode.xlsx",sheet = 1, range = cell_cols("A:B"))
+stage_mode <- read_excel("lookup_stage_mode.xlsx",sheet = 1, range = cell_cols("A:B"))
+trip_purpose <-  read_excel("lookup_trip_purpose.xlsx",sheet = 1, range = cell_cols("A:B"))
+sex <- data.frame(SEXO = c("Hombre", "Mujer"), sex=c("Male", "Female"))
 
 
 #select relevant varaibles
-person <- person_0 %>% mutate(participant_id = paste(ID_ENCUESTA, NUMERO_PERSONA, sep = "_")) %>% select(participant_id, SEXO, EDAD)
-trip <- trip_0 %>% mutate(participant_id = paste(ID_ENCUESTA, NUMERO_PERSONA, sep = "_"), trip_id = paste(participant_id, NUMERO_VIAJE, sep ="_")) %>% 
-    left_join(lookup_trip_mode) %>% select(participant_id, trip_id, MOTIVOVIAJE, DURATION, trip_mode)
-stage <- stage_0 %>% mutate(participant_id = paste(ID_ENCUESTA, NUMERO_PERSONA, sep = "_"), 
+person <- person_0 %>%
+    mutate(participant_id = paste(ID_ENCUESTA, NUMERO_PERSONA, sep = "_")) %>% 
+    select(participant_id, SEXO, EDAD)
+trip <- trip_0 %>% 
+    mutate(participant_id = paste(ID_ENCUESTA, NUMERO_PERSONA, sep = "_"), 
+           trip_id = paste(participant_id, NUMERO_VIAJE, sep ="_"),
+           DURATION = DURATION*.65) %>% #about 30 to 40 % of duaration seem not to be used for travelling
+    left_join(trip_mode) %>% 
+    select(participant_id, trip_id, MOTIVOVIAJE, DURATION, trip_mode)
+stage <- stage_0 %>% 
+    mutate(participant_id = paste(ID_ENCUESTA, NUMERO_PERSONA, sep = "_"), 
                             trip_id = paste(participant_id, NUMERO_VIAJE, sep ="_"), 
                             stage_id = paste(trip_id, NUMERO_ETAPA, sep ="_")) %>% 
-    left_join(lookup_stage_mode) %>% select(participant_id, trip_id, stage_id, stage_mode)
+    left_join(stage_mode) %>% 
+    select(participant_id, trip_id, stage_id, stage_mode)
 
-#calcualte average mode time for unimodal trips and later use the ratio to calculate stage duration except for walk to public transport
-stage <- stage %>% group_by(participant_id, trip_id) %>% summarise(c = n()) %>% filter(c == 1) %>% left_join(trip) %>% group_by(trip_mode) %>% 
-    summarise(average_mode_time = mean(DURATION, na.rm = T)) %>% rename(stage_mode = trip_mode) %>% right_join(stage)
+#calcualte avg mode time for unimodal trips 
+#later use the ratios to calculate stage duration except for walk to public transport
+stage <- stage %>% 
+    count(participant_id, trip_id) %>% 
+    filter(n == 1) %>% 
+    left_join(trip) %>% 
+    group_by(trip_mode) %>% 
+    summarise(average_mode_time = mean(DURATION, na.rm = T)) %>% 
+    rename(stage_mode = trip_mode) %>% right_join(stage)
 
-stage <- stage %>% filter(is.na(average_mode_time)) %>% left_join(trip) %>% group_by(trip_mode) %>% summarise(average_mode_time = mean(DURATION, na.rm = T)) %>% rename(stage_mode = trip_mode) %>% right_join(stage)
+#average mode time for multimodal trips
+stage <- stage %>% 
+    filter(is.na(average_mode_time)) %>% 
+    left_join(trip) %>% 
+    group_by(trip_mode) %>% 
+    summarise(average_mode_time = mean(DURATION, na.rm = T)) %>% 
+    rename(stage_mode = trip_mode) %>% right_join(stage)
 
-View()
-
-stage <- stage %>% group_by(participant_id, trip_id) %>% 
-    mutate(average_mode_time = ifelse("walk" %in% levels(as.factor(stage_mode)) & length(levels(as.factor(stage_mode)))> 1 & stage_mode == "walk", 1, 
-                                      ifelse("walk" %in% levels(as.factor(stage_mode)) & length(levels(as.factor(stage_mode)))> 1 & stage_mode != "walk", 6,
+#ratio of mode time for public transport trips with walking
+stage <- stage %>% 
+    group_by(participant_id, trip_id) %>% 
+    mutate(average_mode_time = ifelse("walk" %in% levels(as.factor(stage_mode)) & 
+                                          length(levels(as.factor(stage_mode)))> 1 & 
+                                          stage_mode == "walk", 1, 
+                                      ifelse("walk" %in% levels(as.factor(stage_mode)) & 
+                                                 length(levels(as.factor(stage_mode)))> 1 & 
+                                                 stage_mode != "walk", 6,
                                              average_mode_time))) %>% #add walking to public transport ratio of 1:6
     left_join(group_by(.,participant_id, trip_id) %>% summarise(sum_average = sum(average_mode_time , na.rm = T)))
     
-
-trip <- person %>% left_join(trip) %>% left_join(stage) %>% left_join(lookup_sex) %>% left_join(lookup_trip_purpose) %>% 
-    mutate(stage_duration = round(DURATION*average_mode_time/sum_average))
-
-trip <- trip %>% mutate(age= EDAD, trip_duration = DURATION) %>% 
+#compose trip dataset
+trip <- person %>% 
+    left_join(trip) %>% 
+    left_join(stage) %>% 
+    left_join(sex) %>% 
+    left_join(trip_purpose) %>% 
+    mutate(stage_duration = round(DURATION*average_mode_time/sum_average)) %>% 
+    rename(age= EDAD, trip_duration = DURATION) %>% 
     select(participant_id, sex, age, trip_id, trip_purpose, trip_mode, trip_duration, stage_id, stage_duration, stage_mode)
 
 #replace mode = special with appropriate modes (car and bus)
-trip <- trip %>% select(-trip_mode) %>% group_by(participant_id, trip_id) %>% summarise(trip_mode = stage_mode[which.is.max(stage_duration)]) %>% right_join(select(trip, - trip_mode))
+trip <- trip %>% 
+    select(-trip_mode) %>% 
+    group_by(participant_id, trip_id) %>% 
+    summarise(trip_mode = stage_mode[which.is.max(stage_duration)]) %>% 
+    right_join(select(trip, - trip_mode)) %>% 
+    mutate(trip_mode = ifelse(is.na(trip_mode), stage_mode, trip_mode))
 
 
 quality_check(trip)
