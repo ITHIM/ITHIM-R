@@ -22,7 +22,7 @@ trip_purpose <- read_excel("lookup.xlsx",sheet = "trip_purpose", range = cell_co
 stage_mode <- read_excel("lookup.xlsx",sheet= "stage_mode", range = cell_cols("A:C"))# also ranks the modes 
 
 #keep relevant variables
-person <- person_0[,c("IDP", "EDAD", "SEXO")]
+person <- person_0[,c("PARTIDO","IDH","IDP", "EDAD", "SEXO","wt1")]
 
 trip <- trip_0 %>% 
     mutate(trip_duration_1 = ((HORALLEG - HORASALI)%%24)*60 + (MINLLEGA - MINSALID), 
@@ -42,19 +42,38 @@ stage <- stage_0 %>%
     
     group_by(IDV) %>% 
     mutate(trip_mode = stage_mode[which.is.max(rank)], # add trip main mode
-           average_mode_time = ifelse(DURAMINU == 99 & n > 1 & "walk" %in% levels(as.factor(stage_mode)) & stage_mode == "walk", 1,
-                                      ifelse(DURAMINU == 99 & n > 1 & "walk" %in% levels(as.factor(stage_mode)) & stage_mode != "walk",6,average_mode_time))) %>% 
+           average_mode_time = ifelse(DURAMINU == 99 & n > 1 & "walk" %in% levels(as.factor(stage_mode)) & 
+                                          stage_mode == "walk", 1,
+                                      ifelse(DURAMINU == 99 & n > 1 & "walk" %in% levels(as.factor(stage_mode)) & 
+                                                 stage_mode != "walk",6,average_mode_time))) %>% 
     
-    left_join(group_by(.,IDV) %>% summarise(sum_average = sum(average_mode_time))) %>% 
-    mutate(stage_duration = ifelse(is.na(stage_duration), round(trip_duration*average_mode_time/sum_average), stage_duration)) %>% 
-    
+    left_join(group_by(.,IDV) %>% summarise(sum_average =sum(average_mode_time))) %>% 
+    mutate(stage_duration = ifelse(is.na(stage_duration), 
+                                   round(trip_duration*average_mode_time/sum_average),
+                                   stage_duration)) %>% 
     {.[,c("IDP", "IDV", "IDE", "stage_mode", "stage_duration", "trip_mode")]}
        
 #Join the three datasets and rename variables
 trip <- person %>% 
     left_join(trip) %>% 
-    left_join(stage)
-names(trip) <- c("participant_id", "age","sex", "trip_id","trip_duration", "trip_purpose", "stage_id", "stage_mode","stage_duration", "trip_mode")
+    left_join(stage) %>% 
+    left_join(mode_speed %>% rename(trip_mode = mode)) %>%
+    mutate(trip_distance = round(mode_speed*trip_duration/60)) %>% 
+    select(-mode_speed) %>% 
+    left_join(mode_speed %>% rename(stage_mode = mode)) %>% 
+    mutate(stage_distance = round(mode_speed*stage_duration/60),
+           sex = ifelse(SEXO == "Masculino", "Male", "Female")) %>% 
+    rename(cluster_id = PARTIDO,
+           household_id = IDH,
+           participant_id = IDP,
+           participant_wt = wt1,
+           trip_id = IDV,
+           age = EDAD,
+           stage_id = IDE) %>% 
+    select(cluster_id, household_id, participant_id, 
+           participant_wt, age, sex, trip_id, trip_purpose, 
+           trip_mode, trip_duration, trip_distance, stage_id,
+           stage_mode, stage_duration, stage_distance)
 
 quality_check(trip)
 #write.csv(trip, "trips_buenas_aires.csv")
@@ -936,8 +955,18 @@ setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Sao Paulo/Pesquisa Orig
 
 trip_0 <- read.csv('Mobilidade_2012_v0.csv')
 
-trip_mode <- read_excel("lookup.xlsx", sheet = 1)
-stage_mode <- read_excel("lookup.xlsx", sheet = 2)
+trip_mode <- data.frame(MODOPRIN = 1:17,
+                        trip_mode = c("bus","bus","bus","bus","bus",
+                                      "car","car", "taxi","bus","bus","bus", 
+                                      "metro", "train", "motorcycle", "bicycle", "walk", "other"))
+stage_mode <- data.frame(stg_mode = 1:17,
+                         stage_mode = c("bus","bus","bus","bus","bus",
+                                       "car","car", "taxi","bus","bus","bus", 
+                                       "metro", "train", "motorcycle", "bicycle", "walk", "other"))
+sex <- data.frame(sex = c("Male", "Female"), SEXO = 1:2)
+trip_purpose <- data.frame(trip_purpose = c("other", "other","work", "school", "other", "other", 
+                                            "other", "return", "other", "other"), 
+                           MOTIVO_O = 1:10)
 
 
 #select relevant data
@@ -952,9 +981,17 @@ trip <- setdiff(trip_0, no_trip) %>%
                                            ifelse(stage_id == "MODO4", 4, NA)))),
            trip_distance = as.numeric(DISTANCIA)/1000) %>% 
     left_join(trip_mode) %>%
-    left_join(stage_mode) %>% 
-    rename(participant_id = ID_PESS, age = IDADE, sex = SEXO, trip_purpose = MOTIVO_O, trip_id = N_VIAG,trip_duration = DURACAO) %>% 
-    select(participant_id, age, sex, trip_id, trip_purpose, trip_mode, trip_duration, stage_id, stage_mode)
+    left_join(stage_mode) %>%
+    left_join(sex) %>% 
+    left_join(trip_purpose) %>% 
+    rename(cluster_id = ZONA,
+           household_id = ID_DOM,
+           participant_id = ID_PESS,
+           participant_wt = FE_PESS,
+           age = IDADE, 
+           trip_id = N_VIAG,
+           trip_duration = DURACAO) %>% 
+    select(cluster_id, household_id, participant_id, participant_wt, age, sex, trip_id, trip_purpose, trip_mode, trip_duration,trip_distance, stage_id, stage_mode)
 
 quality_check(trip)
 
@@ -970,28 +1007,40 @@ setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Belo Horizonte/Travel s
 
 trip_0 <- read.table('dbo_TB_VIAGENS_INTERNAS_RMBH.txt', header = TRUE, sep=",")
 person_0 <- read.table('dbo_TB_DOMICILIO_PESSOA_ENTREGA.txt', header = TRUE, sep=",")
-#hh_weights<- read.table('dbo_TB_FATOR_EXPANSÂO_DOMICÍLIO.txt', header = TRUE, sep=",")
+#hh_weights_0<- read.table('dbo_TB_FATOR_EXPANSÂO_DOMICÍLIO.txt', header = TRUE, sep=",")
 
-trip_mode <- data.frame(
-    DS_SH_MEIO_TRANSPORTE = unique(trip_0$DS_SH_MEIO_TRANSPORTE),
-    trip_mode = c("bus", "car", "walk", "metro", "bus", "car", "motorcycle", "other", "truck", "bicycle", "taxi"))
 
+#lookup tables
+trip_mode <- bind_cols(
+    DS_SH_MEIO_TRANSPORTE =distinct(trip_0, DS_SH_MEIO_TRANSPORTE),
+    trip_mode = factor(c("bus", "car", "walk", "metro", "bus", "car", "motorcycle", "other", "car", "bicycle", "taxi"),
+                       levels = c("bicycle","bus","car","metro","motorcycle","other" ,"taxi", "train","walk")))
+sex <- data.frame(sex= c("Male", "Female"), DS_SEXO = c("Masculino", "Feminino"))
+trip_purpose <- data.frame(distinct(trip_0, motivo_origem), 
+                           trip_purpose =c("return", "school", "work", "other", "other", "other", 
+                                           "work", "work", "other", "other", "other", "other", "other", "other") )
 
 #selecting relevant variables
 person <-  person_0 %>%
-    mutate(participant_id = paste0(ID_DOMICILIO,"_",ID_PESSOA)) %>% 
-    select(participant_id, DS_SEXO, IDADE)
+    mutate(cluster_id = 1,
+           household_id = ID_DOMICILIO, 
+           participant_id = paste0(ID_DOMICILIO,"_",ID_PESSOA),
+           participant_wt = 1) %>%
+    left_join(sex) %>% 
+    select(cluster_id, household_id, participant_id,participant_wt, sex, IDADE)
 
 trip <- trip_0 %>%
     mutate(participant_id = paste0(Domicilio,"_",Pessoa),
            trip_duration = (as.numeric(substr(trip_0$TEMPO.DE.DESLOCAMENTO, 12,13)))*60 + 
                as.numeric(substr(trip_0$TEMPO.DE.DESLOCAMENTO, 15,16))) %>% 
-    left_join(trip_mode) %>% 
-    select(participant_id, Viagem, trip_duration, trip_mode)
+    left_join(trip_mode) %>%
+    left_join(trip_purpose) %>% 
+    select(participant_id, Viagem, trip_duration, trip_mode, trip_purpose)
 
 trip <- person %>% 
-    left_join(trip) %>% 
-    rename(age= IDADE, sex = DS_SEXO, trip_id = Viagem)
+    left_join(trip) %>%
+    rename(age= IDADE, trip_id = Viagem)
+trip[129,9] <- "train"
 
 quality_check(trip)
 
@@ -1079,8 +1128,7 @@ rm("person","trips","age")
 
 
 
-#####Chile Santiago#####
-###added duration in the raw excel file(Viaje) as the column 'duration'
+#####Chile Santiago####
 
 rm(list =ls())
 
@@ -1098,11 +1146,16 @@ age <- read.csv('EdadPersonas.csv')
 trip_purpose <- read.csv("lookup_trip_purpose.csv")
 trip_mode <- read.csv("lookup_trip_mode.csv")
 stage_mode <- read.csv("lookup_stage_mode.csv")
+sex <- bind_cols(sex= c("Male", "Female"), Sexo = c(1,2))
 
 
 person <- person_0 %>% 
-    left_join(age) %>% 
-    select(Persona, Sexo, Edad)
+    mutate(cluster_id = 1,
+           household_id = Hogar,
+           participant_wt = Factor) %>% 
+    left_join(rename(age, age= Edad)) %>% 
+    left_join(sex) %>% 
+    select(cluster_id, household_id, participant_wt, Persona, sex, age)
 
 trip <- trip_0 %>% 
     left_join(trip_purpose) %>% 
@@ -1117,10 +1170,33 @@ stage <- stage_0 %>%
 trip <- person %>%
     left_join(trip) %>% 
     left_join(stage) %>% 
-    rename(participant_id = Persona, age = Edad, sex = Sexo, trip_id = Viaje, 
+    rename(participant_id = Persona, trip_id = Viaje, 
            stage_id = Etapa, trip_duration = TiempoViaje)
+
+#trip with "other" mode
+trip_1 <- 
+    trip %>%
+    filter(trip_mode == "other") %>% 
+    mutate(mode = stage_mode) %>% 
+    left_join(mode_speed) %>% 
+    group_by(cluster_id, household_id, trip_id) %>% 
+    mutate(trip_mode = stage_mode[which.is.max(mode_speed)]) %>% 
+    select(-mode, -mode_speed) 
+
+#trip with modes other than "other"
+trip_2 <- 
+    trip %>% 
+    setdiff(
+        trip %>% 
+            filter(trip_mode == "other")
+    )
+#bind rows  
+trip <- bind_rows(trip_2, trip_1, .id =NULL)
     
+
 quality_check(trip)
+
+
 
 #####Chile Arica####
 ###added duration in the raw excel file (Viaje) as the column 'duration'
@@ -1466,7 +1542,7 @@ package()
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel')
 
 #data
-person_0 <- read_excel("encuesta 2015 - personas.xlsx",sheet = 1, range = cell_cols("A:E"))
+person_0 <- read_excel("encuesta 2015 - personas.xlsx",sheet = 1, range = cell_cols("A:BS"))
 trip_0 <- read_excel("encuesta 2015 - viajes.xlsx",sheet = 1, range = cell_cols("A:K"))
 stage_0 <- read_excel("encuesta 2015 - etapas.xlsx",sheet = 1, range = cell_cols("A:K"))
 
@@ -1474,47 +1550,48 @@ stage_0 <- read_excel("encuesta 2015 - etapas.xlsx",sheet = 1, range = cell_cols
 trip_mode <- read_excel("lookup_trip_mode.xlsx",sheet = 1, range = cell_cols("A:B"))
 stage_mode <- read_excel("lookup_stage_mode.xlsx",sheet = 1, range = cell_cols("A:B"))
 trip_purpose <-  read_excel("lookup_trip_purpose.xlsx",sheet = 1, range = cell_cols("A:B"))
-sex <- data.frame(SEXO = c("Hombre", "Mujer"), sex=c("Male", "Female"))
 
 
 #select relevant varaibles
-person <- person_0 %>%
-    mutate(participant_id = paste(ID_ENCUESTA, NUMERO_PERSONA, sep = "_")) %>% 
-    select(participant_id, SEXO, EDAD)
-trip <- trip_0 %>% 
-    mutate(participant_id = paste(ID_ENCUESTA, NUMERO_PERSONA, sep = "_"), 
-           trip_id = paste(participant_id, NUMERO_VIAJE, sep ="_"),
-           DURATION = DURATION*.65) %>% #about 30 to 40 % of duaration seem not to be used for travelling
+person <- 
+    person_0 %>%
+    mutate(sex = ifelse(SEXO == "Hombre", "Male","Female"),
+           cluster_id = 1) %>% 
+    select(cluster_id, ID_ENCUESTA, NUMERO_PERSONA, FE_TOTAL,sex,EDAD)
+
+
+trip_1 <- trip_0 %>% 
+    mutate(DURATION = DURATION*.7) %>% #about 30 to 40 % of duaration seem not to be used for travelling
     left_join(trip_mode) %>% 
-    select(participant_id, trip_id, MOTIVOVIAJE, DURATION, trip_mode)
+    select(ID_ENCUESTA, NUMERO_PERSONA, NUMERO_VIAJE, MOTIVOVIAJE, DURATION, trip_mode)
+
 stage <- stage_0 %>% 
-    mutate(participant_id = paste(ID_ENCUESTA, NUMERO_PERSONA, sep = "_"), 
-                            trip_id = paste(participant_id, NUMERO_VIAJE, sep ="_"), 
-                            stage_id = paste(trip_id, NUMERO_ETAPA, sep ="_")) %>% 
     left_join(stage_mode) %>% 
-    select(participant_id, trip_id, stage_id, stage_mode)
+    select(ID_ENCUESTA, NUMERO_PERSONA, NUMERO_VIAJE,NUMERO_ETAPA, stage_mode)
 
 #calcualte avg mode time for unimodal trips 
 #later use the ratios to calculate stage duration except for walk to public transport
 stage <- stage %>% 
-    count(participant_id, trip_id) %>% 
+    count(ID_ENCUESTA, NUMERO_PERSONA, NUMERO_VIAJE) %>% 
     filter(n == 1) %>% 
-    left_join(trip) %>% 
+    left_join(trip_1) %>% 
     group_by(trip_mode) %>% 
     summarise(average_mode_time = mean(DURATION, na.rm = T)) %>% 
-    rename(stage_mode = trip_mode) %>% right_join(stage)
+    rename(stage_mode = trip_mode) %>% 
+    right_join(stage)
 
 #average mode time for multimodal trips
 stage <- stage %>% 
     filter(is.na(average_mode_time)) %>% 
-    left_join(trip) %>% 
+    left_join(trip_1) %>% 
     group_by(trip_mode) %>% 
     summarise(average_mode_time = mean(DURATION, na.rm = T)) %>% 
-    rename(stage_mode = trip_mode) %>% right_join(stage)
+    rename(stage_mode = trip_mode) %>% 
+    right_join(stage)
 
 #ratio of mode time for public transport trips with walking
 stage <- stage %>% 
-    group_by(participant_id, trip_id) %>% 
+    group_by(ID_ENCUESTA, NUMERO_PERSONA, NUMERO_VIAJE) %>% 
     mutate(average_mode_time = ifelse("walk" %in% levels(as.factor(stage_mode)) & 
                                           length(levels(as.factor(stage_mode)))> 1 & 
                                           stage_mode == "walk", 1, 
@@ -1522,29 +1599,45 @@ stage <- stage %>%
                                                  length(levels(as.factor(stage_mode)))> 1 & 
                                                  stage_mode != "walk", 6,
                                              average_mode_time))) %>% #add walking to public transport ratio of 1:6
-    left_join(group_by(.,participant_id, trip_id) %>% summarise(sum_average = sum(average_mode_time , na.rm = T)))
+    left_join(group_by(.,ID_ENCUESTA, NUMERO_PERSONA, NUMERO_VIAJE) %>% summarise(sum_average = sum(average_mode_time , na.rm = T)))
     
 #compose trip dataset
-trip <- person %>% 
-    left_join(trip) %>% 
+trip_2 <- person %>% 
+    left_join(trip_1) %>% 
     left_join(stage) %>% 
-    left_join(sex) %>% 
     left_join(trip_purpose) %>% 
     mutate(stage_duration = round(DURATION*average_mode_time/sum_average)) %>% 
-    rename(age= EDAD, trip_duration = DURATION) %>% 
-    select(participant_id, sex, age, trip_id, trip_purpose, trip_mode, trip_duration, stage_id, stage_duration, stage_mode)
+    rename(household_id = ID_ENCUESTA,
+           participant_wt = FE_TOTAL,
+           participant_id = NUMERO_PERSONA,
+           trip_id = NUMERO_VIAJE,
+           stage_id = NUMERO_ETAPA,
+           age= EDAD, 
+           trip_duration = DURATION) %>% 
+    select(cluster_id, household_id, participant_id, sex, age,participant_wt,
+           trip_id, trip_purpose, trip_mode, trip_duration, stage_id, stage_duration, stage_mode)
 
 #replace mode = special with appropriate modes (car and bus)
-trip <- trip %>% 
+trip_3 <- 
+    trip_2 %>% 
+    filter(!is.na(trip_id)) %>% 
+    group_by(cluster_id, household_id, participant_id, trip_id) %>% 
+    summarise(trip_mode = stage_mode[which.is.max(stage_duration)],
+              trip_mode = ifelse(is.na(trip_mode), stage_mode, trip_mode)) 
+
+
+trip <- 
+    trip_2 %>%
     select(-trip_mode) %>% 
-    group_by(participant_id, trip_id) %>% 
-    summarise(trip_mode = stage_mode[which.is.max(stage_duration)]) %>% 
-    right_join(select(trip, - trip_mode)) %>% 
-    mutate(trip_mode = ifelse(is.na(trip_mode), stage_mode, trip_mode))
+    left_join(trip_3) 
 
 
 quality_check(trip)
-#write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/bogota/trip_bogota.csv")
+
+trip %>% filter(!is.na(trip_id) & is.na(trip_mode)) %>% View()
+
+
+
 
 #####England LONDON#####
 setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/London/LTDS0514_Combined_V3U_v1.2')
@@ -1649,6 +1742,100 @@ a<-rbind(a, trips)
 rm("trips", "background")
 
 
+#####Ghana ####
+
+rm(list =ls())
+
+source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+package()
+
+setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Accra/Accra data and microdata/Time Use Survey/Data")
+
+# read data
+time_use_0 <- read.spss("GTUS 2009 24 Hours Individual Diary.sav", to.data.frame = T)
+
+#lookup
+trip_mode <- data.frame(distinct(time_use_0, ActLoc2), 
+                        trip_mode = c(NA, "walk","bus","taxi",  "bicycle",  "car", 
+                                      "other","train","other","other","other" ))
+
+
+dat <- 
+    time_use_0 %>% 
+    filter(region == "Greater Accra", URBRUR == "Urban") %>% 
+    rename(sex = B102,
+           age = B105,
+           cluster_id = EANum,
+           household_id = HHNum,
+           participant_id = MemID,
+           participant_wt = Adj_hh_wt) %>% 
+    mutate(#separate start and end time,
+        start = substr(Diary_hour, 1,2),
+        end = substr(Diary_hour, 6,7),
+        Duration = ActDur,
+        Duplicate = "notDuplicate",
+        Same = "notSame")
+
+dat$ActCode1 <- ifelse(grepl("Work", dat$ActCode1), "work", ifelse(grepl("Learning",dat$ActCode1), "school", "other"))
+
+
+
+levels(dat$ActLoc2) <- c(levels(dat$ActLoc2), "missing")
+dat$ActLoc2[which(is.na(dat$ActLoc2))] <- "missing"
+
+#for loop sums same activity
+for(i in 2:nrow(dat)){
+    if(dat$cluster_id[i]== dat$cluster_id[i-1] &
+       dat$household_id[i] == dat$household_id[i-1] &
+       dat$participant_id[i] == dat$participant_id[i-1] &
+       dat$ActCode[i] == dat$ActCode[i-1] & 
+       dat$ActLoc2[i] == dat$ActLoc2[i-1] &
+       dat$start[i] == dat$end[i-1]){
+        dat$Duration[i] <- `+`(dat$Duration[i], dat$Duration[i-1])
+        dat$Duplicate[i] <- "Duplicate"
+        dat$Same[i-1] <- "Same"		
+    }
+}
+
+dat$ActLoc2[which(dat$ActLoc2 =="missing")] <- NA
+
+dat <- dat %>% 
+    #drop sub-activities that have been summed into one activity
+    filter(!(Same == "Same")) %>% 
+    #add modes
+    left_join(trip_mode) 
+
+    
+
+trip <- 
+    dat %>% 
+    #filter trips only
+    filter(ActLoc1 == "Travelling / Moving") %>% 
+    mutate(#identify trip by row number
+        trip_id = row_number(),
+        trip_duration = Duration,
+        trip_purpose = ActCode1)
+
+no_trip <- dat %>% 
+    anti_join(trip, by= c("cluster_id", "household_id", "participant_id")) %>% 
+    mutate(trip_id = NA,
+           trip_duration = NA,
+           trip_purpose = NA)
+#join datasets
+trip <- bind_rows(trip, no_trip) %>% 
+    select(cluster_id, household_id, participant_id, participant_wt, age, sex, 
+           trip_id, trip_mode, trip_duration, trip_purpose) %>% 
+           {.[!duplicated(.),]}
+
+trip$trip_mode[which(!is.na(trip$trip_id) & is.na(trip$trip_mode))] <- "other"
+
+
+
+quality_check(trip)
+
+
+
+
 #####Germany from Ralph####
 setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/USA 2017 and German 2008/Germany MOP')
 german <- read.dta13("MOP 2014 2015 2016 Pooled for Rahul.dta")
@@ -1672,27 +1859,48 @@ package()
 
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Delhi')
 
+#data
 person_0 <- read.csv('persons.csv', na.strings = c("", "NA"))
 stage_0 <- read.csv('trips_stages_delhi.csv')
 
-stage_mode <- read_excel('lookup.xlsx', range = cell_cols("A:B"))
-trip_mode <- read_excel('lookup.xlsx', range = cell_cols("C:D"))
+
+#lookups
+stage_mode <- bind_cols(stage_mode = c("walk", "bicycle", "motorcycle", "car", 
+                                       "rickshaw", "rickshaw", "car", "bus", "metro", "train", "taxi"),
+                        mode = 1:11)
+trip_mode <- bind_cols(trip_mode = c("walk", "bicycle", "motorcycle", "car", 
+                                      "rickshaw", "rickshaw", "car", "bus", "metro", "train", "taxi"),
+                       Main.Mode = 1:11)
+sex <-  bind_cols(sex = c("Male", "Female"), female = c(0,1))
+trip_purpose <- bind_cols(Trip.Purpose = 0:12,
+                          trip_purpose = c("return", "work", "school", "other","other","other","other",
+                                           "other","other","other","other","other","other"))
 
 
 #select relevant variables
-names(person_0)<- c('participant_id', 'hh_id', 'hh_nr', 'person_nr', 'female', 'age', 'hh_weights')
-person <- select(person_0, participant_id, female, age, hh_weights)
-person <- person %>% mutate(participant_id = ifelse(is.na(participant_id), paste0("U0", row_number()), paste(participant_id)))
-person <- person[which(!duplicated(person$participant_id)),]
+person <- 
+    person_0 %>% 
+    rename(participant_id = Member.ID, household_id =Form.No.,
+           age = Age, participant_wt = Weights_final) %>%
+    left_join(sex) %>% 
+    mutate(cluster_id = 1,
+           participant_id = ifelse(is.na(participant_id), paste0("U0", row_number()), paste(participant_id))) %>% 
+    {.[which(!duplicated(.$participant_id)),]} %>% 
+    select(-Form_id_new, -Member.No., -female)
 
 
-stage <- stage_0 %>% 
-    mutate(participant_id = paste0(stage_0$Form.ID, stage_0$Member.No.), stage_id = row_number(),
-           trip_duration = Trip_Time_Duration*60,stage_duration = Travel.Time*60) %>%
+stage <- 
+    stage_0 %>% 
+    mutate(participant_id = paste0(stage_0$Form.ID, stage_0$Member.No.), 
+           stage_id = row_number(),
+           trip_duration = Trip_Time_Duration*60,
+           stage_duration = Travel.Time*60) %>%
     left_join(stage_mode) %>% 
     left_join(trip_mode) %>% 
-    rename(trip_id = Trip.ID, trip_distance = Trip_total_distance, 
-            stage_distance = Distance, trip_purpose = Trip.Purpose) %>% 
+    left_join((trip_purpose)) %>% 
+    rename(trip_id = Trip.ID, 
+           trip_distance = Trip_total_distance, 
+           stage_distance = Distance) %>% 
     select(participant_id, trip_id, stage_id, trip_mode, trip_purpose, trip_duration, trip_distance, stage_mode, 
            stage_duration, stage_distance)
 
@@ -1700,465 +1908,153 @@ stage <- stage_0 %>%
 trip <- person %>% 
     left_join(stage)
 
-trip <- trip %>% filter(!is.na(trip_id) & is.na(trip_mode)) %>% 
-        mutate(trip_mode = "unnamed") %>% 
-        bind_rows(trip %>% filter(!((!is.na(trip_id) & is.na(trip_mode)))))
+#replace NA trip modes with other
+trip$trip_mode[which(!is.na(trip$trip_id) & is.na(trip$trip_mode) )] <- "other"
+
 
 quality_check(trip)
 
-#####india- Bangalore (lambed checking after rob identified duplicates####
-
+#####india Bangalore ####
 rm(list =ls())
 
 source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
 package()
 
 setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Bangalore")
-data <- read_excel("COMPILED DATA final.xlsx",sheet = 1, range = cell_cols("A:AA"), col_types = c("text"))
-bangalore <- data
-bangalore <- bangalore[-1,-c(3, 4, 5, 11, 14,21,22,23)]# remove first row and other columns
-bangalore <- rename_all(bangalore, funs(str_remove_all(.," "))) # modifying names of variables
-names(bangalore)[c(6,7,8,9,10,15)]<- c("startinglanduse","startingaddress", "finishinglanduse", "finishingaddress","transfertime","distance")
 
-#insert missing ward, hh, and person numbers
+person_0 <- read_excel("HH information-urban bmr.xlsx",sheet = 1, range = cell_cols("A:AM"),col_types = c("text"))
+stage_0 <- read_excel("COMPILED DATA final.xlsx",sheet = 1, range = cell_cols("A:AA"), col_types = c("text"))
 
-#ward number
-for (i in 1: nrow(bangalore))
-{
-    print(i)
-    value<- bangalore$WardNo.[i]
-    repeat
-    {
-        i<- i+1
-        if (!is.na(bangalore$WardNo.[i]))
-        {
-            break
-        }
-        bangalore$WardNo.[i] <- value
+#lookup
+trip_purpose <-  bind_cols(distinct(stage_0, `Purpose of travel`),
+                            trip_purpose = c("other", "work", "return", "school", "other","other","other","other","other",
+                                             "other","other","other","other","other","other","other","other","other",
+                                             "other","other","other"))
+stage_mode <-  bind_cols( distinct(stage_0,`Mode of Travel`),
+                           mode = c("other", "walk", "bus", "motorcycle", "bicycle", 
+                           "bus", "car","bus","taxi", "rickshaw", 
+                           "bus","other", "train","other", "taxi", "other","other"))
+
+
+person <- person_0 %>% 
+    {.[-c(1,2),]} %>% 
+    filter(is.na(...39)) %>% 
+    rename(household_id = `Household Serial Number`,
+           cluster_id = `WARD NO`,
+           person = ...28,
+           age = `Age(Years)`,
+           sex = `Sex:\r\n1. Male,\r\n2. Female`,
+           id = ...38) %>% 
+    select(household_id, cluster_id, person, age, sex, id) %>% 
+    bind_rows(
+        person_0 %>% 
+            filter(!is.na(...39)) %>% 
+            slice(1:186) %>% 
+        rename(household_id = `Household Serial Number`,
+               cluster_id = `WARD NO`,
+               person = Name, 
+               age = `Sex:\r\n1. Male,\r\n2. Female`, 
+               sex = `Marital Status:\r\n1. Unmarried,\r\n2. Married,\r\n3. Others.`, 
+               id = ...39) %>% 
+            select(household_id, cluster_id, person, age, sex, id) %>% 
+            bind_rows(
+                person_0 %>% 
+                    filter(!is.na(...39)) %>% 
+                    slice(187:715) %>% 
+                    rename(household_id = `Household Serial Number`,
+                           cluster_id = `WARD NO`,
+                           person = ...28,
+                           age = `Sex:\r\n1. Male,\r\n2. Female`, 
+                           sex = `Marital Status:\r\n1. Unmarried,\r\n2. Married,\r\n3. Others.`, 
+                           id = ...39) %>% 
+                    select(household_id, cluster_id, person, age, sex, id)  ) ) %>% 
+    rename(participant_id = id) %>% 
+    select(cluster_id, household_id, participant_id, age, sex) %>% 
+    mutate(participant_wt =1, sex = ifelse(sex==1,"Male", "Female"))
+
+#add omitted cluster_id and household_id
+for(i in 2:nrow(person)){
+    if(is.na(person$cluster_id[i])){
+        person$cluster_id[i] = person$cluster_id[i-1]
     }
 }
+       
 
-#hh number
-for (i in 1: nrow(bangalore))
-{
-    print(i)
-    value<- bangalore$Householdserial.No[i]
-    repeat
-    {
-        i<- i+1
-        if (!is.na(bangalore$Householdserial.No[i]))
-        {
-            break
-        }
-        bangalore$Householdserial.No[i] <- value 
-    }
-}
-
-# Peron number
-for (i in 1: nrow(bangalore))
-{
-    print(i)
-    value<- bangalore$No.ofPerson[i]
-    repeat
-    {
-        i<- i+1
-        if (bangalore$No.ofPerson[i]!="0")
-        {
-            break
-        }
-        bangalore$No.ofPerson[i] <- value 
-    }
-}
-
-for (i in 1: nrow(bangalore))
-{
-    print(i)
-    value<- bangalore$No.ofPerson[i]
-    repeat
-    {
-        i<- i+1
-        if (bangalore$No.ofPerson[i]!="-")
-        {
-            break
-        }
-        bangalore$No.ofPerson <- value 
-    }
-}
-for (i in 1: nrow(bangalore))
-{
-    print(i)
-    value<- bangalore$No.ofPerson[i]
-    repeat
-    {
-        i<- i+1
-        if (!is.na(bangalore$No.ofPerson[i]))
-        {
-            break
-        }
-        bangalore$No.ofPerson[i] <- value 
+for(i in 2:nrow(person)){
+    if(is.na(person$household_id[i])){
+        person$household_id[i] = person$household_id[i-1]
     }
 }
 
 
-data_1 <- bangalore
-data_2 <- data_1
-
-#compose trip_duration from transfertime, and diff btw starting and finishing time
-bangalore$transfertime <- ifelse(grepl("E-",bangalore$transfertime),
-                                 as.numeric(bangalore$transfertime)*1440, 
-                                 bangalore$transfertime)
-bangalore$transfertime <- gsub("([A-z]|:00|:|;|\\s|-|\\.$)","", bangalore$transfertime ) # remove non digits
-#time difference between start and stop time
-bangalore$time_diff = ifelse(as.numeric(bangalore$Startingtime)<1, 
-                             (as.numeric(bangalore$FinishingTime) - as.numeric(bangalore$Startingtime))*1440, 
-                             (as.numeric(bangalore$FinishingTime) - as.numeric(bangalore$Startingtime)))
-#some 2's and 3's are minutes while some are hours, differentiate them
-bangalore$transfertime <- ifelse((bangalore$transfertime == "2" | bangalore$transfertime == "3") & 
-                                     (grepl("m|M", bangalore$transfertime) | (as.numeric(bangalore$time_diff <1) & !is.na(bangalore$time_diff))),
-                                 as.numeric(bangalore$transfertime)/100, bangalore$transfertime)
-#replace na, o and wired times in transfer time with time diff
-bangalore$transfertime <- ifelse((bangalore$transfertime == 0 | is.na(bangalore$transfertime)) 
-                                 & (bangalore$time_diff<180 & bangalore$time_diff>0), 
-                                 bangalore$time_diff, bangalore$transfertime )
-#calculate travel duration
-bangalore$trip_duration <- ifelse(as.numeric(bangalore$transfertime) < 4,
-                                  gsubfn("([0-3])(\\.*\\d*)", ~as.numeric(x)*60 + ifelse(is.na(as.numeric(y)),0,as.numeric(y)*100), bangalore$transfertime),
-                                  bangalore$transfertime)
-#Examining duplicated rows 
-# duplicate <- bangalore[duplicated(bangalore),] # make a dataset of duplicated rows
-# bangalore %>% distinct(WardNo.) %>% nrow # checking number of wards = 125
-# duplicate %>% distinct(WardNo.) %>% nrow # checking wards with duplicates = 45
-# write.table(table(factor(duplicate$WardNo.)), sep=",", quote = TRUE)
-# overlap <- bangalore[duplicated(bangalore[,c('ID', 'Startingtime')]),]
-# overlap %>% distinct(WardNo.) %>% nrow
-# overlap_id <- overlap %>% distinct(ID)
-# overlap_all <- left_join(overlap_id, bangalore, by ="ID") #all trips for individuals with overlapping trips
-# overlap_all %>% filter(as.numeric(Startingtime)>1) %>% nrow #trips with stating time in 12hr format
-# overlap_all[!duplicated(overlap_all[,c('ID', 'Startingtime')]),] %>%
-#   group_by(ID) %>% summarise(c = n()) %>% filter(c == 1) %>% nrow # individuals with no return if duplicates removed
-# write.table(table(factor(overlap$WardNo.)), sep=",", quote = TRUE)
-# write.table(table(factor(overlap_all$WardNo.)), sep=",", quote = TRUE)
-# a <- overlap_all %>% group_by(ID, Startingtime, row_number(),add = TRUE)  %>% summarise(c = n()) #visually explore all trips for persons with overlap
-#    names(a)[3] <- "index"
-#    a <- a[-4]
-#    b <- overlap_all %>% mutate(index = row_number())
-#    c <- left_join(a,b)
 
 
-#remove complete duplicates and retain only longer trips where overlaping
-no_duplicate <- bangalore[!duplicated(bangalore),] # remove complete duplicates
-no_duplicate <- no_duplicate %>% mutate(index = row_number())
-
-no_overlap <- no_duplicate %>% group_by(ID,Startingtime, add = TRUE) %>% summarise( trip_duration = max(trip_duration, na.rm = TRUE), index = index[which.is.max(trip_duration)])%>% left_join(no_duplicate)  # keep only long trips in case of overlap
-
-#Examine long and short overlaping trips
-# overlap_only <- inner_join(overlap %>% select(ID, Startingtime), bangalore, by = c("ID", "Startingtime"))# all averlapping trips
-# overlap_only <- overlap_only %>% mutate(index = row_number())
-# long_trips <- overlap_only %>% group_by(ID,Startingtime, add = TRUE) %>% summarise( trip_duration = max(trip_duration, na.rm = TRUE), index = index[which.is.max(trip_duration)])%>% left_join(overlap_only) # keep only long trips in case of overlap 
-# short_trips <- setdiff(overlap_only, long_trips)
-# write.table(table(factor(long_trips$ModeofTravel)), sep=",", quote = TRUE); write.table(table(factor(long_trips$Purposeoftravel)), sep=",", quote = TRUE)
-# write.table(table(factor(short_trips$ModeofTravel)), sep=",", quote = TRUE); write.table(table(factor(short_trips$Purposeoftravel)), sep=",", quote = TRUE)
-
-
-#Clean distance variable and use it to calculate trip duration where missing
-bangalore <- no_overlap
-bangalore$distance <- ifelse(grepl("^0\\.(\\d{3,})|E-",bangalore$distance),
-                             as.numeric(bangalore$distance)*1440, bangalore$distance)
-##Replace ":" at start of string assumed to be "."
-bangalore$distance <- gsub("::|:|,", ".", bangalore$distance,ignore.case = TRUE)
-bangalore$distance <- gsub("(\\-1\\/2|1\\/2)", ".5", bangalore$distance,ignore.case = TRUE)
-bangalore$distance <- gsub("(1\\/4)", ".25", bangalore$distance,ignore.case = TRUE)
-bangalore$distance <- gsub("(3\\/4)", ".75", bangalore$distance,ignore.case = TRUE)
-bangalore$distance <- gsub("(1\\/5)", ".2", bangalore$distance,ignore.case = TRUE)
-bangalore$distance <- gsub("(\\.\\.)", ".", bangalore$distance,ignore.case = TRUE)
-##remove units from distances
-bangalore$distance <- gsub("([a-z]|\\s|]|:|\\/\\-|)", "", bangalore$distance,ignore.case = TRUE)
-bangalore$distance <- gsub("(^$|\\-)", "0", bangalore$distance,ignore.case = TRUE)
-bangalore$distance <- gsub("\\.$", "", bangalore$distance,ignore.case = TRUE)
-a <- as.numeric(bangalore$distance)
-bangalore$distance <-ifelse((bangalore$ModeofTravel == 1 & a >30) | a >90, a/1000, a)#change m to km
-
-#impute trip_duration with distance and mode speed where approapriate
-bangalore <- bangalore%>%
-    mutate(mode_speed = ifelse(ModeofTravel == "1",5,
-                               ifelse(ModeofTravel == "2",15,
-                                      ifelse(ModeofTravel == "3",25,
-                                             ifelse(ModeofTravel == "4",25,
-                                                    ifelse(ModeofTravel == "5",25,
-                                                           ifelse(ModeofTravel == "6",25,
-                                                                  ifelse(ModeofTravel == "7",25,
-                                                                         ifelse(ModeofTravel == "8",15,
-                                                                                ifelse(ModeofTravel == "9",15,
-                                                                                       ifelse(ModeofTravel == "10",15,
-                                                                                              ifelse(ModeofTravel== "11",15,
-                                                                                                     ifelse(ModeofTravel == "12",30,
-                                                                                                            NA)))))))))))))
-
-bangalore <- bangalore %>% mutate(trip_duration = ifelse(as.numeric(trip_duration) <= 0 | as.numeric(trip_duration) >= 200 | is.na(trip_duration),
-                                                         distance*60/mode_speed, as.numeric(trip_duration)))
-
-#Some more discriptive stats
-bagalore %>% group_by(Householdserial.No) %>% group_by(person)
-
-
-
-person <- read_excel("HH information-urban bmr.xlsx",sheet = 1, range = cell_cols("AD:AL"),col_types = c("text"))
-person <- person[-c(1,2),]
-names(person) <- c("age", "female_2", "married_2", "education_asc","occupation_desc", "govt_employed_1", "school_asc", "id")
-View(person)
-
-
-trip <-  bangalore %>% group_by(ID,AGE, GENDER, add = TRUE) %>% summarise(trip = max(as.numeric(Trips), na.rm = TRUE)) 
-trip <- trip[-c(1:3),-5]
-hh <- person[-c(1,2),c(9, 1,2)]
-names(hh)[c(1, 2, 3)] <- c("ID", "AGE", "GENDER")
-
-hh_trip <- left_join(hh,trip)
-View(hh_trip)
-
-
-
-
-a <-  bangalore %>% group_by(ID) %>% summarise(trip = max(as.numeric(Trips), na.rm = T)) 
-
-
-View(a)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#####India- Bangalore (post cleaning, Lambed's help, 24-April-2019)#####
-##cleaned the household member file -- this includes converting the age to numeral, when mentioned along with months, years, or fractions
-##reading the HH file
-persons<- read.csv('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Bangalore/Post cleaning/HH information-urban bmr_cleaned_2019_04_24.csv')
-persons$married<- as.numeric(persons$married)
-for (i in 1: nrow(persons))
+stage <- stage_0 %>% 
+    mutate(x = `Transfer time in Min     (Walk time+wait time for next mode)`,
+           duration = ifelse(grepl("E-",x), as.numeric(x)*1440,x),
+           duration = gsub("([A-z]|:00|:|;|\\s|-|\\.$)","", duration ),
+           time_diff = ifelse(as.numeric(`Starting time`)<1, 
+                              (as.numeric(`Finishing Time`) - as.numeric(`Starting time`))*1440, 
+                              (as.numeric(`Finishing Time`) - as.numeric(`Starting time`))),
+           duration = ifelse((duration == "2" | duration == "3") & 
+                                 (grepl("m|M", x) | time_diff < 1), as.numeric(duration)/100, duration),
+           duration =  ifelse((duration == "0" | is.na(duration)) & (time_diff<180 & time_diff>0), time_diff, duration ),
+           stage_duration = ifelse(as.numeric(duration) < 4,
+                                   gsubfn("([0-3])(\\.*\\d*)",
+                                          ~as.numeric(x)*60 + ifelse(is.na(as.numeric(y)),0,as.numeric(y)*100), duration),
+                                   duration),
+           stage_duration = as.numeric(stage_duration),
+           
+           #stage distance
+           y = `Stage Distance(Kms)`,
+           distance = ifelse(grepl("^0\\.(\\d{3,})|E-",y), as.numeric(y)*1440, y),
+           #Replace ":" at start of string assumed to be "."
+           distance = gsub("::|:|,", ".", distance,ignore.case = TRUE),
+           distance = gsub("(\\-1\\/2|1\\/2)", ".5", distance,ignore.case = TRUE),
+           distance = gsub("(1\\/4)", ".25", distance,ignore.case = TRUE),
+           distance = gsub("(3\\/4)", ".75", distance,ignore.case = TRUE),
+           distance = gsub("(1\\/5)", ".2", distance,ignore.case = TRUE),
+           distance = gsub("(\\.\\.)", ".", distance,ignore.case = TRUE),
+           ##remove units from distances
+           distance = gsub("([a-z]|\\s|]|:|\\/\\-|)", "", distance,ignore.case = TRUE),
+           distance = gsub("(^$|\\-)", "0", distance,ignore.case = TRUE),
+           distance = gsub("\\.$", "", distance,ignore.case = TRUE),
+           distance = as.numeric(distance),
+           distance = ifelse((`Mode of Travel` == 1 & distance >30) | distance >90, distance/1000, distance)) %>%
     
-{
-    if(is.na(persons$age[i]))
-    {
-        if (!is.na(persons$sex[i]))
-        {
-            
-            
-            if(persons$sex[i]>2 | persons$sex[i]<1 | (persons$sex[i]>1 & persons$sex[i]<2))
-            {
-                if( !is.na(persons$married[i]) & persons$married[i]<3)
-                {
-                    persons$age[i]<- persons$sex[i]
-                    persons$sex[i]<- persons$married[i]
-                }
-            }
-        }
-    }
-}
-
-## shifting those columns where age is not NA, but the same value as person_nr
-
-for (i in 1: nrow(persons))
-{
-    if (!is.na(persons$sex[i]))
-    {
-        
-        
-        if (!is.na(persons$person_nr[i]) & !is.na(persons$age[i]) & persons$sex[i]>2)
-        {
-            
-            if(persons$age[i]==persons$person_nr[i])
-            {
-                
-                persons$age[i]<- persons$sex[i]
-                persons$sex[i]<- persons$married[i]
-                
-            }
-            
-        }
-        
-    }
-}
-
-
-
-for (i in 1: nrow(persons))
-{
     
-    value<- persons$ward_nr[i]
-    repeat
-    {
-        i<- i+1
-        if (persons$ward_nr[i]!="")
-        {
-            break
-        }
-        
-        persons$ward_nr[i] <- value
-        
-    }
+    rename(`Purpose of travel`=`Purpose of travel`, `Mode of Travel`=`Mode of Travel` ) %>% 
+    #add purpose
+    left_join(trip_purpose) %>% 
+    #add mode names
+    left_join(stage_mode) %>% 
+    #add mode speed
+    left_join(mode_speed) %>% 
+    mutate(stage_duratoion  = ifelse(stage_duration <= 0 | stage_duration >= 200 | is.na(stage_duration),
+                                     distance*60/mode_speed, stage_duration),
+           stage_distance = ifelse(distance <= 0 | is.na(distance), stage_duration*mode_speed/60, distance)) %>%
+    rename(hh = `House hold serial.No`, ward =`Ward No.`, person = `No. of Person`, participant_id = ID ,
+           trip_id = Trips, stage_id = Stage, age = AGE, stage_mode = mode ) %>%
+           {.[-1,]} %>% 
+    select(participant_id, trip_id, stage_id, age, trip_purpose, 
+           stage_mode, stage_distance, stage_duration, mode_speed) %>% 
+           {.[!duplicated(.),]}
+
+
+trip <- 
+    stage %>% 
+    group_by(participant_id, trip_id) %>% 
+    summarise(trip_mode = ifelse(is.na(stage_mode[which.is.max(stage_duration)]),
+                                 stage_mode[which.is.max(mode_speed)], stage_mode[which.is.max(stage_duration)]),
+              trip_duration = sum(stage_duration, na.rm=T))  
     
-}
+trip <- 
+    person %>%
+    left_join(trip) %>% 
+    left_join(stage) %>% 
+    select(-mode_speed)
 
-persons$person_id<-paste0(persons$ward_nr,  sep="_", persons$hh_nr, sep="_", persons$person_nr)
-persons$hh_id<-paste0(persons$ward_nr,  sep="_", persons$hh_nr)
-
-#saveRDS(persons, 'V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Bangalore/Post cleaning/bangalore_persons_cleaned.RDS')
-persons <- readRDS('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Bangalore/Post cleaning/bangalore_persons_cleaned.RDS')
-#write.csv(persons,'V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Bangalore/Post cleaning/persons_cleaned_new_variables.csv' )
-
-##removing duplicated person ids
-persons<- persons[which(!duplicated(persons$person_id)),]
-
-#persons<- persons[which(!duplicated(persons$hh_id)),]
-#summary_wards_persons<- persons %>% group_by(ward_nr) %>% summarise(n())
-#write.csv(summary_wards_persons, 'V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Bangalore/Post cleaning/unique_hhs_per_ward_persons_file.csv')
-
-
-##trips dataset
-trips<- read.csv('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Bangalore/Post cleaning/Lambed cleaned data/bangalo_rm_useless.csv')
-
-###correcting ward numbers
-##there are 2 instances of ward 46 in trips dataset, first of them is actually 41
-trips$WardNum<-as.character(trips$WardNum)
-trips$WardNum[which(trips$Sn<26700 & trips$WardNum=="46")]<- "41"
-
-###there were blanks for ward column after 2A, which were wrongly filled as 2A, but is actually 3
-trips$WardNum[which(trips$Sn>1440 & trips$WardNum=="2A")]<- "3"
-
-##removing the wards for which corresponding data in persons file is absent
-trips<- trips[which(!(trips$WardNum %in% c("47", "66", "85","118", "102a", "2A"))),]
-
-##removing the wards in which all trips reported by person 1
-trips<- trips[which(!(trips$WardNum %in% c("48", "70", "16A","17A", "52A", "99", "50"))),]
-
-
-
-#trips<- trips[which(!duplicated(trips$hh_id)),]
-#summary_wards_trips<- trips %>% group_by(WardNum) %>% summarise(n())
-#write.csv(summary_wards_trips, 'V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Bangalore/Post cleaning/unique_hhs_per_ward_trips_file.csv')
-
-trips$person_id<- paste0(trips$WardNum,  sep="_", trips$HouseHoldSerialNum, sep="_", trips$PersonNum)
-
-trips$hh_id<- paste0(trips$WardNum,  sep="_", trips$HouseHoldSerialNum)
-
-trips$trip_id<-paste0(trips$WardNum,  sep="_", trips$HouseHoldSerialNum, sep="_", trips$PersonNum, sep="_", trips$Trips)
-
-##calculating the stage with maximum travel time
-
-trip_maxtt<- trips %>% group_by(trip_id) %>% summarise('maxtt'=max(Time))
-
-trips <- trips  %>% left_join(trip_maxtt, by='trip_id')
-
-
-trips$main_mode<-0
-for (i in 1: nrow(trips))
-{
-    if(!is.na(trips$maxtt[i]))
-    {
-        
-        if(trips$Time[i] == trips$maxtt[i])
-        {
-            
-            trips$main_mode[i]<-1
-        }
-    }
-}
-
-trips<- trips[which(trips$Time!='Inf'),]
-trips<- trips[which(trips$Time!=0),]
-trips$Age<-as.numeric(trips$Age)
-#trips<- trips[which(trips$Age>15),]
-
-
-sum(trips$Time, na.rm=TRUE)/length(unique(trips$person_id))
-sum(trips$Distance, na.rm=TRUE)/ length(unique(trips$person_id))
-
-str(trips)
-
-##trips database with unique person_id
-trips_uni<- trips[which(!duplicated(trips$person_id)),]
-
-##identifying persons which made any trips
-persons <- persons %>% left_join(trips_uni, by="person_id")
-persons_trips<- persons[which(!is.na(persons$trip_id)),]
-
-##selecting households which contributed at least one trips
-hh_trips<- persons_trips[which(!duplicated(persons_trips$hh_id.x)),]
-hh_trips<- subset(hh_trips, select=c('hh_id.x'))
-hh_trips$include<- 1 
-names(hh_trips)[1]<-"hh_id"
-names(persons)[8]<-"hh_id"
-persons<- persons %>% left_join(hh_trips, by='hh_id')
-persons<- persons[which(persons$include==1),]
-nrow(persons)
-
-persons<- subset(persons, select=c('age','sex', 'person_id','hh_id', 'ward_nr'))
-
-
-##cleaning the trips from extra variables
-trips <- subset(trips, select=c('hh_id', 'person_id', 'trip_id', 'Stage', 'ModeOfTravel','main_mode', 'Distance', 'Time'))
-
-##selecting the trips for the households which are present in the persons file
-persons_uni<- persons[which(!duplicated(persons$hh_id)),]
-
-trips_temp <- trips %>% left_join(persons_uni, by='hh_id')
-trips_temp <- trips_temp[which(!is.na(trips_temp$person_id.y)),]
-
-###list of households in trips file which need to be included
-trips_hhs<- trips_temp[which(!duplicated(trips_temp$hh_id)),]
-
-trips_hhs<- subset(trips_hhs, select=c('hh_id'))
-trips_hhs$include<-1
-
-
-trips<- trips %>% left_join(trips_hhs, by="hh_id")
-
-trips<- trips[which(trips$include==1),]
-
-str(trips)
-
-##attaching the persons file
-#trips<- trips %>% left_join(persons, by="person_id")
-
-
-
-str(persons)
-
-trips_final <- persons %>% left_join(trips, by="person_id")
-
-##mode names
-
-ModeOfTravel<-as.data.frame(as.factor(seq(1,13)))
-mode<- as.data.frame (c("walk","bicycle", "taxi","auto_rickshaw", "shared_auto", "mc", "car", "bus", "bus", "bus", "mini_bus", "train", "other"))
-mode_lookup<- cbind(ModeOfTravel, mode)
-names(mode_lookup)<-c("ModeOfTravel", "mode")
-trips_final<- trips_final %>% left_join(mode_lookup, by="ModeOfTravel")
-
-trips_final$sex[which(trips_final$sex==1)]<-"male"
-trips_final$sex[which(trips_final$sex==2)]<-"female"
-
-trips_final <- trips_final[,-c(4,5,6,9,13)]
-
-str(trips_final)
-
-
-write.csv(trips_final,'V:/Group/RG_PHM/ITHIM-R/data/local/bangalore/bangalore_travel_survey_April2019_post_cleaning.csv')
-
-
-
+quality_check(trip)
 
 #####Mexico city ####
 
@@ -2169,39 +2065,45 @@ package()
 
 setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Mexico/Travel surveys/Mexico City 2017/Databases/eod_2017_csv")
 
+#data
 person_0 <- read_csv('tsdem_eod2017/conjunto_de_datos/tsdem.csv')
 trip_0 <- read_csv('tviaje_eod2017/conjunto_de_datos/tviaje.csv')
 stage_0 <- read_csv('ttransporte_eod2017/conjunto_de_datos/ttransporte.csv')
 
+#lookups
 trip_purpose <- read_excel("lookup.xlsx",'trip_purpose')
 stage_mode <- read_excel("lookup.xlsx",'stage_mode')
+sex <- bind_cols(sex=c("Male", "Female"), sexo = 1:2)
 
 
 
 ##selecting relevant variables
-person <- select(person_0, id_hog, id_soc, sexo, edad)  ## all ind id's sex and age
+person <- person_0 %>% 
+    left_join(sex) %>%
+    mutate(cluster_id = 1) %>% # select the appropriate cluster number
+    select(cluster_id,id_hog, id_soc, sex, edad, factor) 
+    ## all ind id's sex and age
 trip <- trip_0 %>% 
     mutate(trip_duration = (as.numeric(p5_10_1) - as.numeric(p5_9_1))*60 + 
                (as.numeric(p5_10_2) - as.numeric(p5_9_2)),
            p5_13 = as.numeric(p5_13)) %>% 
     left_join(trip_purpose) %>% 
-    select(id_soc,id_via, sexo, edad, trip_duration, trip_purpose)
+    select(id_soc,id_via, trip_duration, trip_purpose)
     
 stage <- stage_0 %>% 
     mutate(p5_14 = as.numeric(p5_14), # make mode code as numeric for binding
            stage_duration = as.numeric(p5_16_1_1)*60 + as.numeric(p5_16_1_2)) %>%
     left_join(stage_mode) %>%
     right_join(group_by(.,id_via) %>% summarise(trip_mode = stage_mode[which.is.max(stage_duration)])) %>% 
-    select(id_via, id_tra, sexo, edad, stage_mode,trip_mode, stage_duration)
+    select(id_via, id_tra, stage_mode,trip_mode, stage_duration)
 
 #bind all datesets and retain only useful ones  
 trip <- person %>% 
     left_join(trip) %>% 
     left_join(stage) %>% 
-    mutate(participant_id = paste0(id_hog,"_",id_soc),
-           trip_mode) %>% 
-    rename(trip_id = id_via, age = edad, sex = sexo, stage_id = id_tra) %>% 
-    select(-c(id_hog, id_soc))
+    rename(household_id = id_hog, participant_id = id_soc,participant_wt = factor,
+           trip_id = id_via, age = edad, stage_id = id_tra) 
+ 
     
 quality_check(trip)
 #write.csv(trip, "trip_mexico.csv")
