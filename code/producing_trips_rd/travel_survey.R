@@ -9,8 +9,6 @@
 rm(list =ls())
 
 source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
-package()
-
 
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Argentina/WP1-TS/Buenos Aires/')
 
@@ -75,7 +73,13 @@ trip <- person %>%
            trip_mode, trip_duration, trip_distance, stage_id,
            stage_mode, stage_duration, stage_distance)
 
-quality_check(trip)
+
+trip$year <- "2012"
+
+buenos_aires_trip <- trip
+#quality_check(Buenos_Aires)
+write.csv(buenos_aires_trip, "J:/Group/lambed/ITHIM-R/data/local/buenas_aires/buenos_aires_trip.csv")
+
 #write.csv(trip, "trips_buenas_aires.csv")
 
 #####Argentina Cordoba###########
@@ -948,7 +952,6 @@ rm("person","trips")
 rm(list =ls())
 
 source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
-package()
 
 
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Sao Paulo/Pesquisa Origem Destino 2012')
@@ -993,15 +996,16 @@ trip <- setdiff(trip_0, no_trip) %>%
            trip_duration = DURACAO) %>% 
     select(cluster_id, household_id, participant_id, participant_wt, age, sex, trip_id, trip_purpose, trip_mode, trip_duration,trip_distance, stage_id, stage_mode)
 
-quality_check(trip)
+trip$year <- "2012"
 
+#quality_check(trip)
+write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/sao_paulo/sao_paulo.csv")
 
 #####Brazil Belo Horizonte######
 
 rm(list =ls())
 
 source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
-package()
 
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Belo Horizonte/Travel survey')
 
@@ -1041,8 +1045,11 @@ trip <- person %>%
     left_join(trip) %>%
     rename(age= IDADE, trip_id = Viagem)
 trip[129,9] <- "train"
+#quality_check(trip)
 
-quality_check(trip)
+trip$year <- "2012"
+
+write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/belo_horizonte/belo_horizonte_trip.csv")
 
 
 #####Brazil Salvador######
@@ -1133,8 +1140,6 @@ rm("person","trips","age")
 rm(list =ls())
 
 source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
-package()
-
 
 setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Chile/Travel Surveys/Santiago")
 
@@ -1191,11 +1196,14 @@ trip_2 <-
             filter(trip_mode == "other")
     )
 #bind rows  
-trip <- bind_rows(trip_2, trip_1, .id =NULL)
+santiago <- bind_rows(trip_2, trip_1, .id =NULL)
+
+
+trip <- santiago
+trip$year <- "2012"
     
-
-quality_check(trip)
-
+#quality_check(santiago)
+write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/santiago/santiago.csv")
 
 
 #####Chile Arica####
@@ -1631,10 +1639,12 @@ trip <-
     select(-trip_mode) %>% 
     left_join(trip_3) 
 
+trip$year <- "2015"
 
-quality_check(trip)
+write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/bogota/bogota.csv")
 
-trip %>% filter(!is.na(trip_id) & is.na(trip_mode)) %>% View()
+#quality_check(trip)
+#trip %>% filter(!is.na(trip_id) & is.na(trip_mode)) %>% View()
 
 
 
@@ -1747,7 +1757,6 @@ rm("trips", "background")
 rm(list =ls())
 
 source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
-package()
 
 setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Accra/Accra data and microdata/Time Use Survey/Data")
 
@@ -1830,8 +1839,9 @@ trip <- bind_rows(trip, no_trip) %>%
 trip$trip_mode[which(!is.na(trip$trip_id) & is.na(trip$trip_mode))] <- "other"
 
 
-
-quality_check(trip)
+trip$year <- "2009"
+write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/accra/accra_trip.csv")
+#quality_check(trip)
 
 
 
@@ -1911,14 +1921,15 @@ trip <- person %>%
 #replace NA trip modes with other
 trip$trip_mode[which(!is.na(trip$trip_id) & is.na(trip$trip_mode) )] <- "other"
 
+trip$year <- "Year"
+write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/delhi/delhi_trip.csv")
 
-quality_check(trip)
+#quality_check(trip)
 
 #####india Bangalore ####
 rm(list =ls())
 
 source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
-package()
 
 setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/India/Bangalore")
 
@@ -2054,14 +2065,16 @@ trip <-
     left_join(stage) %>% 
     select(-mode_speed)
 
-quality_check(trip)
+trip$year <- "2011"
+write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/bangalore/bangalore_trip.csv")
+
+#quality_check(trip)
 
 #####Mexico city ####
 
 rm(list =ls())
 
 source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
-package()
 
 setwd("J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Mexico/Travel surveys/Mexico City 2017/Databases/eod_2017_csv")
 
@@ -2092,21 +2105,29 @@ trip <- trip_0 %>%
     
 stage <- stage_0 %>% 
     mutate(p5_14 = as.numeric(p5_14), # make mode code as numeric for binding
-           stage_duration = as.numeric(p5_16_1_1)*60 + as.numeric(p5_16_1_2)) %>%
+           stage_duration = as.numeric(p5_16_1_1)*60 + as.numeric(p5_16_1_2),
+           stage_duration = ifelse(p5_16_1_1 == "99", NA,stage_duration)) %>%
     left_join(stage_mode) %>%
-    right_join(group_by(.,id_via) %>% summarise(trip_mode = stage_mode[which.is.max(stage_duration)])) %>% 
+    mutate(mode = stage_mode) %>% 
+    left_join(mode_speed) %>% 
+    left_join(group_by(.,id_via) %>% 
+                  summarise(trip_mode = ifelse(is.na(stage_mode[which.is.max(stage_duration)]), 
+                                               stage_mode[which.is.max(mode_speed)],
+                                               stage_mode[which.is.max(stage_duration)] ))) %>% 
     select(id_via, id_tra, stage_mode,trip_mode, stage_duration)
 
+
 #bind all datesets and retain only useful ones  
-trip <- person %>% 
+mexico_city <- person %>% 
     left_join(trip) %>% 
     left_join(stage) %>% 
     rename(household_id = id_hog, participant_id = id_soc,participant_wt = factor,
            trip_id = id_via, age = edad, stage_id = id_tra) 
- 
-    
-quality_check(trip)
-#write.csv(trip, "trip_mexico.csv")
+
+trip <- mexico_city
+trip$year <- "2017"
+#quality_check(mexico_city)
+write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/mexico/mexico_city_trip.csv")
 
 ## Message from Ralph: I just shared a dropbox folder with the US (2017) and German (2008) data as requested. 
 ###I followed the codebook you provided. Two items to note: weights are trip weights not not hh weights. 

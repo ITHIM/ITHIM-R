@@ -1,38 +1,109 @@
-package <- function(){
-    #required packages
-    library(tidyverse)
-    library(readxl)
-    library(haven)
-    library(nnet)
-    library(foreign)
-    library(gsubfn)
+## @knitr package
+
+#required packages
+library(tidyverse)
+library(readxl)
+library(haven)
+library(nnet)
+library(foreign)
+library(gsubfn)
+library(knitr)
+library(kableExtra)
+
     
-    #mode speeds --> pls add other modes and their average mode speeds.
-    mode_speed <<- data.frame(mode = c("bicycle","bus","car","metro", "motorcycle",
-                                             "other", "rickshaw", "taxi", "train", "walk" ),
-                              mode_speed = c(15, 15, 25, 25, 25,21 ,25,25, 30, 5 ))
-    
-    #function for evaluating data quality
-    quality_check <<- function(trip){
+#mode speeds --> pls add other modes and their average mode speeds.
+mode_speed <- data.frame(mode = c("bicycle","bus","car","metro", "motorcycle",
+                                "other", "rickshaw", "taxi","train","truck", "van","walk" ),
+                              mode_speed = c(15, 15, 25, 25, 25,21 ,25,25, 30,25,25, 5 ))
+
+
+## @knitr trip_summary
+trip_summary <- data.frame(row.names = paste(seq(1:49),
+                                             c("Year of survey",
+                                               "Number of households",
+                                               "Number of individuals",
+                                               "Adults (% > 17 years)",
+                                               "Household size",
+                                               "Adults per household",
+                                               "Male to female ratio",
+                                               "People with trips (%)",
+                                               "Trip distribution by sex (%)",
+                                               "Trip rates by sex (%)",
+                                               "People with 1 trip (%)",
+                                               "People with 2 trips (%)",
+                                               "People with 3 trips (%)",
+                                               "People with 4 trips (%)",
+                                               "Trip per capita (overall)",
+                                               "Trip per capita (adults)",
+                                               "Trip duration (mins)",
+                                               "travel time per person",
+                                               "Mean trip duration",
+                                               "Bicycle",
+                                               "Bus",
+                                               "Car",
+                                               "Metro",
+                                               "Motocycle",
+                                               "Other",
+                                               "Rickshaw",
+                                               "Taxi",
+                                               "Train",
+                                               "Truck",
+                                               "Van",
+                                               "Walk",
+                                               "Trip mode Shares (%)",
+                                               "Bicycle",
+                                               "Bus",
+                                               "Car",
+                                               "Metro",
+                                               "Motocycle",
+                                               "Other",
+                                               "Rickshaw",
+                                               "Taxi",
+                                               "Train",
+                                               "Truck",
+                                               "Van",
+                                               "Walk",
+                                               "Trip Purpose (%)",
+                                               "Work related",
+                                               "School related",
+                                               "Return home",
+                                               "Other")))
+
+
+## @knitr function_quality_check
+quality_check <- function(trip){
         trip$trip_mode <- factor(trip$trip_mode, levels = c("bicycle","bus","car","metro", "motorcycle",
-                                                            "other", "rickshaw", "taxi", "train", "walk" ))
-        total_household <-trip %>% 
+                                                            "other", "rickshaw", "taxi", "train", "truck", "van", "walk" ))
+        
+        year <- trip[1, "year"]
+        
+        total_household <-
+            trip %>% 
             count(cluster_id, household_id) %>%
             nrow
-        total_participant <- trip %>% 
+        
+        total_participant <- 
+            trip %>% 
             count(cluster_id, household_id, participant_id) %>%
             nrow
-        proportion_adult_participant <- trip %>% 
+        
+        proportion_adult_participant <- 
+            trip %>% 
             filter(age>17) %>% 
             count(cluster_id, household_id, participant_id) %>% 
             nrow*100/
             total_participant
-        household_size <- total_participant/total_household
-        adult_per_house <- trip %>% 
+        
+        household_size <- 
+            total_participant/total_household
+        
+        adult_per_house <- 
+            trip %>% 
             filter(age>17) %>% 
             count(cluster_id, household_id, participant_id) %>% 
             nrow/
             total_household
+        
         male_propotion <- 
             trip %>% 
             filter(sex == "Male") %>% 
@@ -41,6 +112,7 @@ package <- function(){
             trip %>% 
             count(cluster_id, household_id, participant_id) %>%
             nrow
+        
         female_proportion <- 
             trip %>% 
             filter(sex == "Female") %>% 
@@ -49,14 +121,22 @@ package <- function(){
             trip %>% 
             count(cluster_id, household_id, participant_id) %>%
             nrow
-        proportion_people_with_trips <- trip %>% 
+        
+        male_female_proportion <- 
+            paste0(round(male_propotion*100),":",
+                   round(female_proportion*100))
+        
+        proportion_people_with_trips <- 
+            trip %>% 
             filter(!is.na(trip_id)) %>% 
             count(cluster_id, household_id, participant_id) %>% 
             nrow/ 
             trip %>% 
             count(cluster_id, household_id, participant_id)  %>% 
             nrow
-        proportion_household_with_trip <-  trip %>% 
+        
+        proportion_household_with_trip <-  
+            trip %>% 
             group_by(cluster_id, household_id, participant_id) %>% 
             mutate(trip_status = ifelse(is.na(trip_id), 0, 1) ) %>% 
             count(cluster_id, household_id, participant_id, trip_status) %>% 
@@ -64,6 +144,7 @@ package <- function(){
             summarise(mean_hh_trip = mean(trip_status)) %>%
             ungroup() %>% 
             summarise(value = mean(mean_hh_trip)) 
+        
         male_trip_fraction <- 
             trip %>% 
             filter(!is.na(trip_id) & sex == "Male") %>%
@@ -73,6 +154,7 @@ package <- function(){
             filter(!is.na(trip_id)) %>%
             count(cluster_id, household_id, participant_id, trip_id) %>%
             nrow
+        
         female_trip_fraction <- 
             trip %>% 
             filter(!is.na(trip_id) & sex == "Female") %>% 
@@ -82,6 +164,11 @@ package <- function(){
             filter(!is.na(trip_id)) %>% 
             count(cluster_id, household_id, participant_id, trip_id) %>%
             nrow
+        
+        male_female_trip_fraction <- 
+            paste0(round(male_trip_fraction*100), " : ",
+                   round(female_trip_fraction*100))
+        
         proportion_male_with_trip <- 
             trip %>%
             filter(sex == "Male" & !is.na(trip_id)) %>% 
@@ -91,7 +178,9 @@ package <- function(){
             filter(sex == "Male") %>% 
             count(cluster_id, household_id, participant_id) %>% 
             nrow 
-         proportion_female_with_trip <- trip %>%
+        
+         proportion_female_with_trip <- 
+             trip %>%
              filter(sex == "Female" & !is.na(trip_id)) %>% 
              count(cluster_id, household_id, participant_id) %>% 
              nrow /
@@ -99,13 +188,29 @@ package <- function(){
              filter(sex == "Female") %>% 
              count(cluster_id, household_id, participant_id) %>% 
              nrow 
-        trip_per_capita <- trip %>% 
+        
+         trip_distribution_sex <- 
+             paste0(round(proportion_male_with_trip*100),
+                    " : ",round(proportion_female_with_trip*100))
+        
+         
+         trip_distribution_number <-
+             trip %>% 
+             filter(!is.na(trip_id)) %>% 
+             count(cluster_id, household_id, participant_id, trip_id) %>% 
+             count(cluster_id, household_id,participant_id) %>% 
+             group_by(n) %>%
+             summarise(number_of_trips = round(n()*100/nrow(.),1))
+             
+        trip_per_capita <- 
+            trip %>% 
             filter(!is.na(trip_id)) %>% 
             count(cluster_id, household_id, participant_id, trip_id) %>% 
             nrow() / 
             trip %>% 
             count(cluster_id, household_id, participant_id) %>% 
             nrow()
+        
         trip_per_capita_adult <- 
             trip %>% 
             filter(!is.na(trip_id) & age > 17) %>% 
@@ -115,54 +220,91 @@ package <- function(){
             filter(age > 17) %>% 
             count(cluster_id, household_id, participant_id) %>%
             nrow()
-        trip_purpose <- 
-            trip %>%
-            filter(!is.na(trip_id)) %>% 
-            group_by(trip_purpose) %>%
-            summarise(share = round(n()*100/nrow(.),1))
-        mode_share <- 
+       
+         travel_time_per_person <- 
+             sum(trip$trip_duration, na.rm = T)/
+             count(trip, cluster_id, household_id, participant_id) %>% 
+             nrow
+        
+        average_trip_duration_trip <-
+            filter(trip,!is.na(trip_id)) %>% 
+            summarise(x =  mean(trip_duration, na.rm = T))
+       
+         avg_mode_time <- 
             trip %>% 
             filter(!is.na(trip_id)) %>% 
-            group_by(trip_mode, .drop =FALSE) %>% 
-            summarise(mode_share = round(n()*100/nrow(.),1))
-        avg_mode_time <- trip %>% 
-            filter(!is.na(trip_id)) %>% 
+            count(cluster_id,household_id,participant_id, trip_id, trip_mode, trip_duration) %>% 
             group_by(trip_mode, .drop = FALSE) %>% 
             summarise(avg_mode_time = round(mean(trip_duration, na.rm = T),1))
         
+        mode_share <- 
+            trip %>% 
+            filter(!is.na(trip_id)) %>% 
+            count(cluster_id,household_id,participant_id, trip_id, trip_mode, trip_duration) %>% 
+            group_by(trip_mode, .drop = F) %>% 
+            summarise(mode_share = round(n()*100/nrow(.),1))
         
-        #printed outputs
-        cat("number of households                     =","\t",total_household,sep = "" , "\n")
-        cat("number of individuals (adults> 17yrs)    =","\t", total_participant,
-            "(", round(proportion_adult_participant),")",sep = "", "\n")
-        cat("average household size                   = ","\t",round(household_size,1),sep = "", "\n")
-        cat("avg number of adults per houshold        =","\t",round(adult_per_house,1),sep = "","\n")
-        cat("proportion of males to females           =","\t",round(male_propotion*100),":",
-            round(female_proportion*100),sep = "","\n")
-        cat("proportion of people with trips          = ", "\t",round(proportion_people_with_trips*100),sep = "", "\n")
-        cat("avg prop of houshold members with trips  =","\t",round(proportion_household_with_trip$value*100),sep = "","\n")
-        cat("trip distribution by (male : female)     =", "\t", round(male_trip_fraction*100), ":",
-            round(female_trip_fraction*100),sep = "","\n")
-        cat("male trip rate cp with female            =","\t",round(proportion_male_with_trip*100),
-            ":",round(proportion_female_with_trip*100),sep = "", "\n")
-        cat("trip per capita (adults > 17)            = ","\t", round(trip_per_capita, 1),
-            "(",round(trip_per_capita_adult,1),")",sep = "","\n")
-        
-        print(trip_purpose)
-        print(mode_share)
-        print(avg_mode_time)
+        trip_purpose <- 
+            trip %>%
+            filter(!is.na(trip_id)) %>% 
+            count(cluster_id,household_id,participant_id, trip_id, trip_mode, trip_purpose) %>% 
+            group_by(trip_purpose) %>%
+            summarise(share = round(n()*100/nrow(.),1))
         
         
+        value <<- c(year,
+                   total_household, 
+                   total_participant,
+                   round(proportion_adult_participant),
+                   round(household_size,1),
+                   round(adult_per_house,1),
+                   male_female_proportion,
+                   round(proportion_people_with_trips*100),
+                   male_female_trip_fraction,
+                   trip_distribution_sex,
+                   trip_distribution_number$number_of_trips[1],
+                   trip_distribution_number$number_of_trips[2],
+                   trip_distribution_number$number_of_trips[3],
+                   trip_distribution_number$number_of_trips[4],
+                   round(trip_per_capita,1),
+                   round(trip_per_capita_adult,1),
+                   "",
+                   round(travel_time_per_person),
+                   round(average_trip_duration_trip$x),
+                   avg_mode_time$avg_mode_time[1],
+                   avg_mode_time$avg_mode_time[2],
+                   avg_mode_time$avg_mode_time[3],
+                   avg_mode_time$avg_mode_time[4],
+                   avg_mode_time$avg_mode_time[5],
+                   avg_mode_time$avg_mode_time[6],
+                   avg_mode_time$avg_mode_time[7],
+                   avg_mode_time$avg_mode_time[8],
+                   avg_mode_time$avg_mode_time[9],
+                   avg_mode_time$avg_mode_time[10],
+                   avg_mode_time$avg_mode_time[11],
+                   avg_mode_time$avg_mode_time[12],
+                   "",
+                   mode_share$mode_share[1],
+                   mode_share$mode_share[2],
+                   mode_share$mode_share[3],
+                   mode_share$mode_share[4],
+                   mode_share$mode_share[5],
+                   mode_share$mode_share[6],
+                   mode_share$mode_share[7],
+                   mode_share$mode_share[8],
+                   mode_share$mode_share[9],
+                   mode_share$mode_share[10],
+                   mode_share$mode_share[11],
+                   mode_share$mode_share[12],
+                   "",
+                   trip_purpose$share[4],
+                   trip_purpose$share[3],
+                   trip_purpose$share[2],
+                   trip_purpose$share[1]
+                   )
+     
         
-        #for copying to excel
-        write.table(trip_purpose)
-        write.table(mode_share)
-        write.table(avg_mode_time)
-        # par(mfrow=c(2,2))
-        # plot(trip$trip_duration)
-        # boxplot(trip_duration ~ trip_mode, trip)
-        # hist(trip$trip_duration[which(trip$trip_mode == "walk")], breaks = 50)
-        # plot(density(trip$trip_duration[which(trip$trip_mode == "walk")], bw = 100))
     }
     
-}
+
+

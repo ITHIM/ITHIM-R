@@ -1,0 +1,51 @@
+---
+title: "Summary Tables ITHIMR"
+author: "Lambed Tatah, MRC Epidemiology Unit, University of Cambridge, UK"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document: default
+---
+
+```{r, setup, comment=NA, message=FALSE, warning=FALSE, prompt=FALSE, cache=FALSE, echo=F, include=FALSE, results='asis'}
+
+source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+
+trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/buenos_aires/buenos_aires_trip.csv")
+quality_check(trip)
+trip_summary$buenos_aires <- value
+
+trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/sao_paulo/sao_paulo_trip.csv")
+quality_check(trip)
+trip_summary$sao_paulo <- value
+
+trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/belo_horizonte/belo_horizonte_trip.csv")
+quality_check(trip)
+trip_summary$belo_horizonte <- value
+
+trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/santiago/santiago_trip.csv")
+quality_check(trip)
+trip_summary$santiago <- value
+
+trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/bogota/bogota_trip.csv")
+quality_check(trip)
+trip_summary$bogota <- value
+
+trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/accra/accra_trip.csv")
+quality_check(trip)
+trip_summary$accra <- value
+
+trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/delhi/delhi_trip.csv")
+quality_check(trip)
+trip_summary$delhi <- value
+
+trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/bangalore/bangalore_trip.csv")
+quality_check(trip)
+trip_summary$bangalore <- value
+
+trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/mexico/mexico_city_trip.csv")
+quality_check(trip)
+trip_summary$mexico_city <- value
+
+print(kable_styling(kable(trip_summary)))
+
+```
