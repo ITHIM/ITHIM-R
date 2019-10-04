@@ -1,14 +1,21 @@
 ---
-title: "Summary Tables ITHIMR"
+title: "Trip Summary ITHIM-R"
 author: "Lambed Tatah, MRC Epidemiology Unit, University of Cambridge, UK"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
-  html_document: default
+    html_document:
+        theme: null
 ---
 
-```{r, setup, comment=NA, message=FALSE, warning=FALSE, prompt=FALSE, cache=FALSE, echo=F, include=FALSE, results='asis'}
 
+```{r, include = FALSE}
 source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+
+```
+
+
+
+```{r,  comment=NA, message=FALSE, warning=FALSE, prompt=FALSE, cache=FALSE, echo=F}
 
 trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/buenos_aires/buenos_aires_trip.csv")
 quality_check(trip)
@@ -24,28 +31,33 @@ trip_summary$belo_horizonte <- value
 
 trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/santiago/santiago_trip.csv")
 quality_check(trip)
-trip_summary$santiago <- value
+trip_summary$santiago_city <- value
 
 trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/bogota/bogota_trip.csv")
 quality_check(trip)
-trip_summary$bogota <- value
+trip_summary$bogota_city <- value
 
 trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/accra/accra_trip.csv")
 quality_check(trip)
-trip_summary$accra <- value
+trip_summary$accra_city <- value
 
 trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/delhi/delhi_trip.csv")
 quality_check(trip)
-trip_summary$delhi <- value
+trip_summary$delhi_city <- value
 
 trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/bangalore/bangalore_trip.csv")
 quality_check(trip)
-trip_summary$bangalore <- value
+trip_summary$bangalore_city <- value
 
 trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/mexico/mexico_city_trip.csv")
 quality_check(trip)
 trip_summary$mexico_city <- value
 
-print(kable_styling(kable(trip_summary)))
+```
 
+
+```{r, include = TRUE,  echo= FALSE, results='asis'}
+kable(trip_summary) %>%
+kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 14, fixed_thead = T)
+    
 ```
