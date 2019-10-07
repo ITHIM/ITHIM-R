@@ -172,7 +172,7 @@ for(city in cities){
   layout.matrix <- matrix(c(2:6,1,7:12), nrow =2, ncol =6,byrow=T)
   graphics::layout(mat = layout.matrix,heights = c(2,3),widths = c(2.8,2,2,2,2,2.5))
   ylim <- range(result_mat)
-  cols <- c('navyblue','hotpink','grey','darkorange')
+  cols <- c('navyblue','hotpink','grey','darkorange','turquoise')
   mar1 <- rep(7,nDiseases); mar1[1:6] <- 1
   mar2 <- rep(1,nDiseases); mar2[c(2,7)] <- 6; mar2[c(1,12)] <- 3
   for(i in 1:nDiseases){
