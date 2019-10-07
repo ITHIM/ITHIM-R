@@ -1,7 +1,6 @@
-rm(list=ls())
 library(ithimr)
-setwd('~/overflow_dropbox/ITHIM-R/')
-cities <- c('accra','sao_paulo','delhi','bangalore')
+rm(list=ls())
+cities <- c('accra','sao_paulo','delhi','bangalore','belo_horizonte')
 min_age <- 15
 max_age <- 69
 
@@ -34,15 +33,25 @@ emission_inventories = list(accra=NULL,
                                            truck=703,
                                            van=0,
                                            other=0,
-                                           taxi=0))
-
+                                           taxi=0),
+                            belo_horizonte=list(motorcycle=30.6,
+                                                auto_rickshaw=0,
+                                                car=5.06,
+                                                bus_driver=34.17,
+                                                big_truck=24.43,
+                                                truck=60.48,
+                                                van=0,
+                                                other=0,
+                                                taxi=0)
+)
 ##################################################################
 speeds <- list(accra=NULL,
                sao_paulo=NULL,
                delhi=list(subway=32,
                           bicycle=15),
                bangalore=list(subway=32,
-                              bicycle=15))
+                              bicycle=15),
+               belo_horizonte=NULL)
 
 # constant parameters for DAY_TO_WEEK_TRAVEL_SCALAR
 day_to_week_scalar <- 7
@@ -65,37 +74,44 @@ setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","MOTORCYCLE_TO_CAR_RATIO"
 injury_reporting_rate <- list(accra=c(8,3),
                               sao_paulo=c(40,3),
                               delhi=c(40,3),
-                              bangalore=c(40,3))
+                              bangalore=c(40,3),
+                              belo_horizonte=c(40,3))
 # lnorm parameters for CHRONIC_DISEASE_SCALAR
 chronic_disease_scalar <- list(accra=c(0,log(1.2)),
                                sao_paulo=c(0,log(1.2)),
                                delhi=c(0,log(1.2)),
-                               bangalore=c(0,log(1.2)))
+                               bangalore=c(0,log(1.2)),
+                               belo_horizonte=c(0,log(1.5)))
 # lnorm parameters for PM_CONC_BASE
 pm_conc_base <- list(accra=c(log(50),log(1.3)),
                      sao_paulo=c(log(20),log(1.3)),
                      delhi=c(log(122),log(1.3)),
-                     bangalore=c(log(47),log(1.17))) ## mean=47.4, sd=7.5
+                     bangalore=c(log(47),log(1.17)), ## mean=47.4, sd=7.5
+                     belo_horizonte=c(log(17),log(1.3)))
 # beta parameters for PM_TRANS_SHARE
 pm_trans_share <- list(accra=c(5,20),
                        sao_paulo=c(8,8),
                        delhi=c(4,4),
-                       bangalore=c(6.5,17)) ## mean 0.281, sd 0.089
+                       bangalore=c(6.5,17),## mean 0.281, sd 0.089
+                       belo_horizonte=c(3,13,5)) 
 # lnorm parameters for BACKGROUND_PA_SCALAR
 background_pa_scalar <- list(accra=c(0,log(1.2)),
                              sao_paulo=c(0,log(1.2)),
                              delhi=c(0,log(1.2)),
-                             bangalore=c(0,log(1.2)))
+                             bangalore=c(0,log(1.2)),
+                             belo_horizonte=c(0,1.2))
 # values between 0 and 1 for BACKGROUND_PA_CONFIDENCE
 background_pa_confidence <- list(accra=0.5,
                                  sao_paulo=0.7,
                                  delhi=0.3,
-                                 bangalore=0.3)
+                                 bangalore=0.3,
+                                 belo_horizonte=0.3)
 # lnorm parameters for BUS_WALK_TIME
 bus_walk_time <- list(accra=10.55,
                       sao_paulo=11.63078,
                       delhi=9.270711,
-                      bangalore=5.170816)
+                      bangalore=5.170816,
+                      belo_horizonte=10.55)
 # lnorm parameters for MMET_CYCLING
 mmet_cycling <- c(log(4.63),log(1.2))
 # lnorm parameters for MMET_WALKING
@@ -104,7 +120,8 @@ mmet_walking <- c(log(2.53),log(1.1))
 motorcycle_to_car_ratio <- list(accra=c(-1.4,0.4),
                                 sao_paulo=0,
                                 delhi=0,
-                                bangalore=0)
+                                bangalore=0,
+                                belo_horizonte=0)
 # lnorm parameters for INJURY_LINEARITY
 injury_linearity <- c(log(0.9),log(1.1))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
@@ -121,49 +138,58 @@ test_cycle_scenario <- F
 ref_scenarios <- list(accra='Baseline',
                       sao_paulo='Baseline',
                       delhi='Baseline',
-                      bangalore='Baseline')
+                      bangalore='Baseline',
+                      belo_horizonte='Baseline')
 # whether or not to add walk trips to bus trips
-add_walk_to_bus_trips <- c(F,F,F,F)
+add_walk_to_bus_trips <- c(F,F,F,F,F)
 # bus occupancy beta distribution
 bus_to_passenger_ratio  <- list(accra=c(20,600),
                                 sao_paulo=c(20,600),
                                 delhi=c(20,600),
-                                bangalore=c(20,600))
+                                bangalore=c(20,600),
+                                belo_horizonte=c(20,600))
 # truck beta distribution
 truck_to_car_ratio  <- list(accra=c(3,10),
                             sao_paulo=c(3,10),
                             delhi=c(3,10),
-                            bangalore=c(3,10))
+                            bangalore=c(3,10),
+                            belo_horizonte=c(3,10))
 # emission confidences
 emission_confidence  <- list(accra=0.5,
                              sao_paulo=0.7,
                              delhi=0.9,
-                             bangalore=0.9)
+                             bangalore=0.9,
+                             belo_horizonte=0.5)
 # lnorm parameters for DISTANCE_SCALAR_CAR_TAXI
 distance_scalar_car_taxi <- list(accra=c(0,log(1.2)),
                                  sao_paulo=c(0,log(1.2)),
                                  delhi=c(0,log(1.2)),
-                                 bangalore=c(0,log(1.2)))
+                                 bangalore=c(0,log(1.2)),
+                                 belo_horizonte=c(0,log(1.2)))
 # lnorm parameters for DISTANCE_SCALAR_MOTORCYCLE
 distance_scalar_motorcycle <- list(accra=c(0,log(1.2)),
                                    sao_paulo=c(0,log(1.2)),
                                    delhi=c(0,log(1.2)),
-                                   bangalore=c(0,log(1.2)))
+                                   bangalore=c(0,log(1.2)),
+                                   belo_horizonte=c(0,log(1.2)))
 # lnorm parameters for DISTANCE_SCALAR_PT
 distance_scalar_pt <- list(accra=c(0,log(1.2)),
                            sao_paulo=c(0,log(1.2)),
                            delhi=c(0,log(1.2)),
-                           bangalore=c(0,log(1.2)))
+                           bangalore=c(0,log(1.2)),
+                           belo_horizonte=c(0,log(1.2)))
 # lnorm parameters for DISTANCE_SCALAR_WALKING
 distance_scalar_walking <- list(accra=c(0,log(1.2)),
                                 sao_paulo=c(0,log(1.2)),
                                 delhi=c(0,log(1.2)),
-                                bangalore=c(0,log(1.2)))
+                                bangalore=c(0,log(1.2)),
+                                belo_horizonte=c(0,log(1.2)))
 # lnorm parameters for DISTANCE_SCALAR_CYCLING
 distance_scalar_cycling <- list(accra=c(0,log(1.2)),
                                 sao_paulo=c(0,log(1.2)),
                                 delhi=c(0,log(1.2)),
-                                bangalore=c(0,log(1.2)))
+                                bangalore=c(0,log(1.2)),
+                                belo_horizonte=c(0,log(1.2)))
 
 betaVariables <- c("PM_TRANS_SHARE",
                    "INJURY_REPORTING_RATE",
