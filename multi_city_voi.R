@@ -258,7 +258,6 @@ print(system.time(
                                               BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
                                               BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
                                               BUS_WALK_TIME = bus_walk_time[[city]],## not random; use mean
-                                              MOTORCYCLE_TO_CAR_RATIO = motorcycle_to_car_ratio[[city]],
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                               TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
                                               EMISSION_INVENTORY_CONFIDENCE = emission_confidence[[city]],
