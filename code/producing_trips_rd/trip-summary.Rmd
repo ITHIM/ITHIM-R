@@ -7,7 +7,7 @@ output: html_document
 
 
 ```{r, include = FALSE}
-source("V:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+source("used_functions.R")
 knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis')
 ```
 
@@ -24,40 +24,39 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 ```
 
 ```{r,  comment=NA, message=FALSE, warning=FALSE, prompt=FALSE, cache=FALSE, echo=F}
-
-trip <- read_csv("V:/Group/lambed/ITHIM-R/data/local/buenos_aires/buenos_aires_trip.csv")
+trip <- read_csv("../../data/local/buenos_aires/buenos_aires_trip.csv")
 quality_check(trip)
 trip_summary$buenos_aires <- value
 
-trip <- read_csv("V:/Group/lambed/ITHIM-R/data/local/sao_paulo/sao_paulo_trip.csv")
+trip <- read_csv("../../data/local/sao_paulo/sao_paulo_trip.csv")
 quality_check(trip)
 trip_summary$sao_paulo <- value
 
-trip <- read_csv("V:/Group/lambed/ITHIM-R/data/local/belo_horizonte/belo_horizonte_trip.csv")
+trip <- read_csv("../../data/local/belo_horizonte/belo_horizonte_trip.csv")
 quality_check(trip)
 trip_summary$belo_horizonte <- value
 
-trip <- read_csv("V:/Group/lambed/ITHIM-R/data/local/santiago/santiago_trip.csv")
+trip <- read_csv("../../data/local/santiago/santiago_trip.csv")
 quality_check(trip)
 trip_summary$santiago_city <- value
 
-trip <- read_csv("V:/Group/lambed/ITHIM-R/data/local/bogota/bogota_trip.csv")
+trip <- read_csv("../../data/local/bogota/bogota_trip.csv")
 quality_check(trip)
 trip_summary$bogota_city <- value
 
-trip <- read_csv("V:/Group/lambed/ITHIM-R/data/local/accra/accra_trip.csv")
+trip <- read_csv("../../data/local/accra/accra_trip.csv")
 quality_check(trip)
 trip_summary$accra_city <- value
 
-trip <- read_csv("V:/Group/lambed/ITHIM-R/data/local/delhi/delhi_trip.csv")
+trip <- read_csv("../../data/local/delhi/delhi_trip.csv")
 quality_check(trip)
 trip_summary$delhi_city <- value
 
-trip <- read_csv("V:/Group/lambed/ITHIM-R/data/local/bangalore/bangalore_trip.csv")
+trip <- read_csv("../../data/local/bangalore/bangalore_trip.csv")
 quality_check(trip)
 trip_summary$bangalore_city <- value
 
-trip <- read_csv("V:/Group/lambed/ITHIM-R/data/local/mexico/mexico_city_trip.csv")
+trip <- read_csv("../../data/local/mexico/mexico_city_trip.csv")
 quality_check(trip)
 trip_summary$mexico_city <- value
 
