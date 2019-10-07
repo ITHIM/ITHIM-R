@@ -1,6 +1,6 @@
 library(ithimr)
 rm(list=ls())
-cities <- c('accra','sao_paulo','delhi','bangalore')
+cities <- c('accra','sao_paulo','delhi','bangalore','belo_horizonte')
 min_age <- 15
 max_age <- 69
 
@@ -33,7 +33,17 @@ emission_inventories = list(accra=NULL,
                                            truck=703,
                                            van=0,
                                            other=0,
-                                           taxi=0))
+                                           taxi=0),
+                            belo_horizonte=list(motorcycle=30.6,
+                                           auto_rickshaw=0,
+                                           car=5.06,
+                                           bus_driver=34.17,
+                                           big_truck=24.43,
+                                           truck=60.48,
+                                           van=0,
+                                           other=0,
+                                           taxi=0)
+)
 #################################################################
 ## run diagnostics
 #for(city in cities){
@@ -48,7 +58,8 @@ speeds <- list(accra=NULL,
                delhi=list(subway=32,
                           bicycle=15),
                bangalore=list(subway=32,
-                          bicycle=15))
+                          bicycle=15),
+               belo_horizonte=NULL)
 
 # constant parameters for DAY_TO_WEEK_TRAVEL_SCALAR
 day_to_week_scalar <- 7
@@ -57,32 +68,38 @@ day_to_week_scalar <- 7
 injury_report_rate <- list(accra=1,
                            sao_paulo=1,
                            delhi=1,
-                           bangalore=1)
+                           bangalore=1,
+                           belo_horizonte=1)
 # constant parameters for CHRONIC_DISEASE_SCALAR
 chronic_disease_scalar <- list(accra=1,
                                sao_paulo=1,
                                delhi=1,
-                               bangalore=1)
+                               bangalore=1,
+                               belo_horizonte=1)
 # constant parameters for PM_CONC_BASE
 pm_concentration <- list(accra=50,
                          sao_paulo=18,
                          delhi=122,
-                         bangalore=47.4)
+                         bangalore=47.4,
+                         belo_horizonte=17)
 # constant parameters for PM_TRANS_SHARE
 pm_trans_share <- list(accra=0.225,
                        sao_paulo=0.4,
                        delhi=0.225,
-                       bangalore=0.281)
+                       bangalore=0.281,
+                       belo_horizonte=0.18)
 # constant parameters for BACKGROUND_PA_SCALAR
 background_pa_scalar <- list(accra=1,
                              sao_paulo=1,
                              delhi=1,
-                             bangalore=1)
+                             bangalore=1,
+                             belo_horizonte=1)
 # constant parameters for BUS_WALK_TIME
 bus_walk_time <- list(accra=10.55,
                       sao_paulo=10.55,
                       delhi=10.55,
-                      bangalore=10.55)
+                      bangalore=10.55,
+                      belo_horizonte=10.55)
 # constant parameters for MMET_CYCLING
 mmet_cycling <- 4.63
 # constant parameters for MMET_WALKING
@@ -91,7 +108,8 @@ mmet_walking <- 2.53
 mc_car_ratio <- list(accra=0.2,
                      sao_paulo=0,
                      delhi=0,
-                     bangalore=0)
+                     bangalore=0,
+                     belo_horizonte=0)
 # constant parameters for INJURY_LINEARITY
 injury_linearity <- 0.9
 # constant parameters for CASUALTY_EXPONENT_FRACTION
@@ -124,8 +142,7 @@ for(city in cities){
                                   PM_CONC_BASE = pm_concentration[[city]],  
                                   PM_TRANS_SHARE = pm_trans_share[[city]],  
                                   BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
-                                  BUS_WALK_TIME = bus_walk_time[[city]],
-                                  MOTORCYCLE_TO_CAR_RATIO = mc_car_ratio[[city]])
+                                  BUS_WALK_TIME = bus_walk_time[[city]])
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS
   ithim_objects[[city]]$outcomes <- run_ithim(ithim_objects[[city]], seed = 1)
   ithim_objects[[city]]$synth_pop <- SYNTHETIC_POPULATION
