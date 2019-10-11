@@ -1,51 +1,70 @@
 ---
-title: "Summary Tables ITHIMR"
-author: "Lambed Tatah, MRC Epidemiology Unit, University of Cambridge, UK"
+title: "Trip Summary ITHIM-R"
+author: ""
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-output:
-  html_document: default
+output: html_document
 ---
 
-```{r, setup, comment=NA, message=FALSE, warning=FALSE, prompt=FALSE, cache=FALSE, echo=F, include=FALSE, results='asis'}
 
-source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+```{r, include = FALSE}
+source("used_functions.R")
+knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis')
+```
 
-trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/buenos_aires/buenos_aires_trip.csv")
+```{r loadLibraries, echo = F, message = F}
+
+st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
+           plain.ascii       = FALSE,       # One of the essential settings
+           style             = "rmarkdown", # Idem.
+           dfSummary.silent  = TRUE,        # Suppresses messages about temporary files
+           footnote          = NA,          # Keeping the results minimalistic
+           subtitle.emphasis = FALSE)       # For the vignette theme, this gives
+                                            # much better results. Your mileage may vary
+
+```
+
+```{r,  comment=NA, message=FALSE, warning=FALSE, prompt=FALSE, cache=FALSE, echo=F}
+trip <- read_csv("../../data/local/buenos_aires/buenos_aires_trip.csv")
 quality_check(trip)
 trip_summary$buenos_aires <- value
 
-trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/sao_paulo/sao_paulo_trip.csv")
+trip <- read_csv("../../data/local/sao_paulo/sao_paulo_trip.csv")
 quality_check(trip)
 trip_summary$sao_paulo <- value
 
-trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/belo_horizonte/belo_horizonte_trip.csv")
+trip <- read_csv("../../data/local/belo_horizonte/belo_horizonte_trip.csv")
 quality_check(trip)
 trip_summary$belo_horizonte <- value
 
-trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/santiago/santiago_trip.csv")
+trip <- read_csv("../../data/local/santiago/santiago_trip.csv")
 quality_check(trip)
-trip_summary$santiago <- value
+trip_summary$santiago_city <- value
 
-trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/bogota/bogota_trip.csv")
+trip <- read_csv("../../data/local/bogota/bogota_trip.csv")
 quality_check(trip)
-trip_summary$bogota <- value
+trip_summary$bogota_city <- value
 
-trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/accra/accra_trip.csv")
+trip <- read_csv("../../data/local/accra/accra_trip.csv")
 quality_check(trip)
-trip_summary$accra <- value
+trip_summary$accra_city <- value
 
-trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/delhi/delhi_trip.csv")
+trip <- read_csv("../../data/local/delhi/delhi_trip.csv")
 quality_check(trip)
-trip_summary$delhi <- value
+trip_summary$delhi_city <- value
 
-trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/bangalore/bangalore_trip.csv")
+trip <- read_csv("../../data/local/bangalore/bangalore_trip.csv")
 quality_check(trip)
-trip_summary$bangalore <- value
+trip_summary$bangalore_city <- value
 
-trip <- read_csv("J:/Group/lambed/ITHIM-R/data/local/mexico/mexico_city_trip.csv")
+trip <- read_csv("../../data/local/mexico/mexico_city_trip.csv")
 quality_check(trip)
 trip_summary$mexico_city <- value
 
-print(kable_styling(kable(trip_summary)))
+```
 
+
+```{r, include = TRUE,  echo= FALSE, results='asis'}
+kable(trip_summary) %>%
+kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 14, fixed_thead = T)
+    
 ```

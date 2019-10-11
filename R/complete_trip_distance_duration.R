@@ -23,9 +23,11 @@ complete_trip_distance_duration <- function(){
   ## e.g. as a function of trip duration or it might just be the same as stage_distance but
   ## to allow for all eventualities we just sum the stages of each trip.
   if(!'trip_distance'%in%colnames(trip_set)){
-    trip_set$trip_distance <- sapply(trip_set$trip_id,function(x)sum(subset(trip_set,trip_id==x)$stage_distance))
+    distances <- setDT(trip_set)[,sum(stage_distance),by='trip_id']
+    colnames(distances)[2] <- 'trip_distance'
+    trip_set <- left_join(trip_set,distances,by='trip_id')
   }
   
-  TRIP_SET <<- trip_set
+  TRIP_SET <<- as.data.frame(trip_set)
     
 }

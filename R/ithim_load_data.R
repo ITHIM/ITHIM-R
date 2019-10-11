@@ -3,11 +3,12 @@
 #' Loads and processes data from file. Local data for the setting and global data for the model.
 #' Writes objects to the global environment.
 #' 
+#' @param setup_call_summary_filename name of file to write to
 #' @param speeds named list of mode speeds
 #' 
 #' 
 #' @export
-ithim_load_data <- function(speeds=list(
+ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   bus=15,
   bus_driver=15,
   minibus=15,
@@ -45,6 +46,7 @@ ithim_load_data <- function(speeds=list(
            readr::read_csv(list_of_files[[i]],col_types = cols()),
            pos = 1)
   }
+  cat(paste0('\n  Dose--response read from ',global_path,'dose_response/drpa/extdata/ \n\n'),file=setup_call_summary_filename,append=T)
   
   ## these datasets are all local, saved in local folder.
   local_path <- PATH_TO_LOCAL_DATA
@@ -58,6 +60,7 @@ ithim_load_data <- function(speeds=list(
   ## if either trip or stage labels are missing, we copy over from the other.
   filename <- paste0(local_path,"/trips_",CITY,".csv")
   trip_set <- read_csv(filename,col_types = cols())
+  cat(paste0('\n  Trips read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
   ## copy over as required
   mode_cols <- c('trip_mode','stage_mode')
@@ -112,8 +115,10 @@ ithim_load_data <- function(speeds=list(
   # max_age (=number, e.g. 49)
   filename <- paste0(local_path,"/gbd_",CITY,".csv")
   GBD_DATA <- read_csv(filename,col_types = cols())
+  cat(paste0('\n  GBD read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   filename <- paste0(local_path,"/population_",CITY,".csv")
   demographic <- read_csv(filename,col_types = cols())
+  cat(paste0('\n  Population read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   age_category <- demographic$age
   max_age <- max(as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][2])))
   max_age <- min(max_age,max(trip_set$age),AGE_RANGE[2])
@@ -169,10 +174,12 @@ ithim_load_data <- function(speeds=list(
   ## pa data
   filename <- paste0(local_path,"/pa_",CITY,".csv")
   PA_SET <<- read_csv(filename,col_types = cols())
+  cat(paste0('\n  Physical activity survey read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   
   ## injury data
   filename <- paste0(local_path,"/injuries_",CITY,".csv")
   injuries <- read_csv(filename,col_types = cols())
+  cat(paste0('\n  Injuries read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   if('cas_age'%in%colnames(injuries)) injuries <- assign_age_groups(injuries,age_label='cas_age')
   injuries$cas_mode <- tolower(injuries$cas_mode)
   injuries$strike_mode <- tolower(injuries$strike_mode)

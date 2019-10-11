@@ -246,7 +246,7 @@ run_ithim_setup <- function(seed = 1,
   }
   
   ## LOAD DATA
-  ithim_load_data(speeds=default_speeds)  
+  ithim_load_data(setup_call_summary_filename,speeds=default_speeds)  
   
   if(any(!unique(TRIP_SET$stage_mode)%in%MODE_SPEEDS$stage_mode)){
     cat("\n  The following modes do not have speeds, and won't be included in the model:\n",file=setup_call_summary_filename,append=T)

@@ -1,6 +1,5 @@
 ## @knitr package
 
-#required packages
 library(tidyverse)
 library(readxl)
 library(haven)
@@ -9,26 +8,29 @@ library(foreign)
 library(gsubfn)
 library(knitr)
 library(kableExtra)
+library(summarytools)
 
     
-#mode speeds --> pls add other modes and their average mode speeds.
+## @knitr mode_speed
+#pls add other modes and their average mode speeds.
 mode_speed <- data.frame(mode = c("bicycle","bus","car","metro", "motorcycle",
                                 "other", "rickshaw", "taxi","train","truck", "van","walk" ),
                               mode_speed = c(15, 15, 25, 25, 25,21 ,25,25, 30,25,25, 5 ))
 
 
 ## @knitr trip_summary
-trip_summary <- data.frame(row.names = paste(seq(1:49),
-                                             c("Year of survey",
+trip_summary <- data.frame(row.names =       c("Year of survey",
+                                               "",
                                                "Number of households",
                                                "Number of individuals",
                                                "Adults (% > 17 years)",
                                                "Household size",
                                                "Adults per household",
-                                               "Male to female ratio",
+                                               "Male to female ratio (M:F)",
+                                               "Trip Frequency",
                                                "People with trips (%)",
-                                               "Trip distribution by sex (%)",
-                                               "Trip rates by sex (%)",
+                                               "Prop. of sex with trips (M:F,%)",
+                                               "Trip Distribution by sex (M:F,%)",
                                                "People with 1 trip (%)",
                                                "People with 2 trips (%)",
                                                "People with 3 trips (%)",
@@ -38,36 +40,36 @@ trip_summary <- data.frame(row.names = paste(seq(1:49),
                                                "Trip duration (mins)",
                                                "travel time per person",
                                                "Mean trip duration",
-                                               "Bicycle",
-                                               "Bus",
-                                               "Car",
-                                               "Metro",
-                                               "Motocycle",
-                                               "Other",
-                                               "Rickshaw",
-                                               "Taxi",
-                                               "Train",
-                                               "Truck",
-                                               "Van",
-                                               "Walk",
+                                               "Bicycle_duration",
+                                               "Bus_duration",
+                                               "Car_duration",
+                                               "Metro_duration",
+                                               "Motocycle_duration",
+                                               "Other_duration",
+                                               "Rickshaw_duration",
+                                               "Taxi_duration",
+                                               "Train_duration",
+                                               "Truck_duration",
+                                               "Van_duration",
+                                               "Walk_duration",
                                                "Trip mode Shares (%)",
-                                               "Bicycle",
-                                               "Bus",
-                                               "Car",
-                                               "Metro",
-                                               "Motocycle",
-                                               "Other",
-                                               "Rickshaw",
-                                               "Taxi",
-                                               "Train",
-                                               "Truck",
-                                               "Van",
-                                               "Walk",
+                                               "Bicycle_share",
+                                               "Bus_share",
+                                               "Car_share",
+                                               "Metro_share",
+                                               "Motocycle_share",
+                                               "Other_share",
+                                               "Rickshaw_share",
+                                               "Taxi_share",
+                                               "Train_share",
+                                               "Truck_share",
+                                               "Van_share",
+                                               "Walk_share",
                                                "Trip Purpose (%)",
                                                "Work related",
                                                "School related",
                                                "Return home",
-                                               "Other")))
+                                               "Other"))
 
 
 ## @knitr function_quality_check
@@ -166,7 +168,7 @@ quality_check <- function(trip){
             nrow
         
         male_female_trip_fraction <- 
-            paste0(round(male_trip_fraction*100), " : ",
+            paste0(round(male_trip_fraction*100), ":",
                    round(female_trip_fraction*100))
         
         proportion_male_with_trip <- 
@@ -191,7 +193,7 @@ quality_check <- function(trip){
         
          trip_distribution_sex <- 
              paste0(round(proportion_male_with_trip*100),
-                    " : ",round(proportion_female_with_trip*100))
+                    ":",round(proportion_female_with_trip*100))
         
          
          trip_distribution_number <-
@@ -253,15 +255,17 @@ quality_check <- function(trip){
         
         
         value <<- c(year,
+                    "",
                    total_household, 
                    total_participant,
                    round(proportion_adult_participant),
                    round(household_size,1),
                    round(adult_per_house,1),
                    male_female_proportion,
+                   "",
                    round(proportion_people_with_trips*100),
-                   male_female_trip_fraction,
                    trip_distribution_sex,
+                   male_female_trip_fraction,
                    trip_distribution_number$number_of_trips[1],
                    trip_distribution_number$number_of_trips[2],
                    trip_distribution_number$number_of_trips[3],
