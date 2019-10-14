@@ -3,7 +3,6 @@
 
 ## trip data set is processed to stage level where possible
 
-#####A Required Packages and functions -------------------------------------------------------
 #####Argentina Buenos Aires############
 
 rm(list =ls())
@@ -76,9 +75,9 @@ trip <- person %>%
 
 trip$year <- "2012"
 
-buenos_aires_trip <- trip
+
 #quality_check(Buenos_Aires)
-write.csv(buenos_aires_trip, "J:/Group/lambed/ITHIM-R/data/local/buenas_aires/buenos_aires_trip.csv")
+write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/buenos_aires/buenos_aires_trip.csv")
 
 #write.csv(trip, "trips_buenas_aires.csv")
 
@@ -960,11 +959,11 @@ trip_0 <- read.csv('Mobilidade_2012_v0.csv')
 
 trip_mode <- data.frame(MODOPRIN = 1:17,
                         trip_mode = c("bus","bus","bus","bus","bus",
-                                      "car","car", "taxi","bus","bus","bus", 
+                                      "car","car", "taxi","van","van","van", 
                                       "metro", "train", "motorcycle", "bicycle", "walk", "other"))
 stage_mode <- data.frame(stg_mode = 1:17,
                          stage_mode = c("bus","bus","bus","bus","bus",
-                                       "car","car", "taxi","bus","bus","bus", 
+                                       "car","car", "taxi","van","van","van", 
                                        "metro", "train", "motorcycle", "bicycle", "walk", "other"))
 sex <- data.frame(sex = c("Male", "Female"), SEXO = 1:2)
 trip_purpose <- data.frame(trip_purpose = c("other", "other","work", "school", "other", "other", 
@@ -1017,8 +1016,8 @@ person_0 <- read.table('dbo_TB_DOMICILIO_PESSOA_ENTREGA.txt', header = TRUE, sep
 #lookup tables
 trip_mode <- bind_cols(
     DS_SH_MEIO_TRANSPORTE =distinct(trip_0, DS_SH_MEIO_TRANSPORTE),
-    trip_mode = factor(c("bus", "car", "walk", "metro", "bus", "car", "motorcycle", "other", "car", "bicycle", "taxi"),
-                       levels = c("bicycle","bus","car","metro","motorcycle","other" ,"taxi", "train","walk")))
+    trip_mode = factor(c("bus", "car", "walk", "metro", "van", "car", "motorcycle", "other", "car", "bicycle", "taxi"),
+                       levels = c("bicycle","bus","car","metro","motorcycle","other" ,"taxi", "train","van","walk")))
 sex <- data.frame(sex= c("Male", "Female"), DS_SEXO = c("Masculino", "Feminino"))
 trip_purpose <- data.frame(distinct(trip_0, motivo_origem), 
                            trip_purpose =c("return", "school", "work", "other", "other", "other", 
@@ -1044,7 +1043,6 @@ trip <- trip_0 %>%
 trip <- person %>% 
     left_join(trip) %>%
     rename(age= IDADE, trip_id = Viagem)
-trip[129,9] <- "train"
 #quality_check(trip)
 
 trip$year <- "2012"
@@ -1544,8 +1542,9 @@ rm("person","trips","age")
 
 rm(list =ls())
 rm(list =ls())
+
 source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
-package()
+
 
 setwd('J:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel')
 
@@ -1641,7 +1640,7 @@ trip <-
 
 trip$year <- "2015"
 
-write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/bogota/bogota.csv")
+write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/bogota/bogota_trip.csv")
 
 #quality_check(trip)
 #trip %>% filter(!is.na(trip_id) & is.na(trip_mode)) %>% View()
@@ -1842,7 +1841,6 @@ trip$trip_mode[which(!is.na(trip$trip_id) & is.na(trip$trip_mode))] <- "other"
 trip$year <- "2009"
 write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/accra/accra_trip.csv")
 #quality_check(trip)
-
 
 
 
@@ -2099,6 +2097,8 @@ person <- person_0 %>%
 trip <- trip_0 %>% 
     mutate(trip_duration = (as.numeric(p5_10_1) - as.numeric(p5_9_1))*60 + 
                (as.numeric(p5_10_2) - as.numeric(p5_9_2)),
+           trip_duration = ifelse(trip_duration < (-450), 1440 + trip_duration, trip_duration),
+           trip_duration = ifelse(trip_duration < 0, 0 - trip_duration, trip_duration),
            p5_13 = as.numeric(p5_13)) %>% 
     left_join(trip_purpose) %>% 
     select(id_soc,id_via, trip_duration, trip_purpose)

@@ -1,4 +1,4 @@
-## @knitr package
+## packages
 
 library(tidyverse)
 library(readxl)
@@ -11,14 +11,13 @@ library(kableExtra)
 library(summarytools)
 
     
-## @knitr mode_speed
-#pls add other modes and their average mode speeds.
+## mode_speed - pls add other modes and their average mode speeds if needed.
 mode_speed <- data.frame(mode = c("bicycle","bus","car","metro", "motorcycle",
                                 "other", "rickshaw", "taxi","train","truck", "van","walk" ),
                               mode_speed = c(15, 15, 25, 25, 25,21 ,25,25, 30,25,25, 5 ))
 
 
-## @knitr trip_summary
+## trip_summary
 trip_summary <- data.frame(row.names =       c("Year of survey",
                                                "",
                                                "Number of households",
@@ -40,6 +39,10 @@ trip_summary <- data.frame(row.names =       c("Year of survey",
                                                "Trip duration (mins)",
                                                "travel time per person",
                                                "Mean trip duration",
+                                               "Median trip duration",
+                                               "1st Quart of trip duration",
+                                               "3rd Quart of trip duration",
+                                               "IQR of trip duration",
                                                "Bicycle_duration",
                                                "Bus_duration",
                                                "Car_duration",
@@ -72,7 +75,7 @@ trip_summary <- data.frame(row.names =       c("Year of survey",
                                                "Other"))
 
 
-## @knitr function_quality_check
+## function_quality_check
 quality_check <- function(trip){
         trip$trip_mode <- factor(trip$trip_mode, levels = c("bicycle","bus","car","metro", "motorcycle",
                                                             "other", "rickshaw", "taxi", "train", "truck", "van", "walk" ))
@@ -111,31 +114,26 @@ quality_check <- function(trip){
             filter(sex == "Male") %>% 
             count(cluster_id, household_id, participant_id) %>%
             nrow /
-            trip %>% 
-            count(cluster_id, household_id, participant_id) %>%
-            nrow
+            total_participant
         
         female_proportion <- 
             trip %>% 
             filter(sex == "Female") %>% 
             count(cluster_id, household_id, participant_id) %>%
             nrow /
-            trip %>% 
-            count(cluster_id, household_id, participant_id) %>%
-            nrow
+            total_participant
         
         male_female_proportion <- 
             paste0(round(male_propotion*100),":",
                    round(female_proportion*100))
         
-        proportion_people_with_trips <- 
+        people_with_trip <- 
             trip %>% 
             filter(!is.na(trip_id)) %>% 
             count(cluster_id, household_id, participant_id) %>% 
-            nrow/ 
-            trip %>% 
-            count(cluster_id, household_id, participant_id)  %>% 
             nrow
+        
+        proportion_people_with_trips <- round(people_with_trip*100/total_participant)
         
         proportion_household_with_trip <-  
             trip %>% 
@@ -154,7 +152,7 @@ quality_check <- function(trip){
             nrow/
             trip %>% 
             filter(!is.na(trip_id)) %>%
-            count(cluster_id, household_id, participant_id, trip_id) %>%
+            count(cluster_id, household_id, participant_id, trip_id) %>% 
             nrow
         
         female_trip_fraction <- 
@@ -163,8 +161,8 @@ quality_check <- function(trip){
             count(cluster_id, household_id, participant_id, trip_id) %>% 
             nrow/
             trip %>% 
-            filter(!is.na(trip_id)) %>% 
-            count(cluster_id, household_id, participant_id, trip_id) %>%
+            filter(!is.na(trip_id)) %>%
+            count(cluster_id, household_id, participant_id, trip_id) %>% 
             nrow
         
         male_female_trip_fraction <- 
@@ -228,9 +226,10 @@ quality_check <- function(trip){
              count(trip, cluster_id, household_id, participant_id) %>% 
              nrow
         
-        average_trip_duration_trip <-
-            filter(trip,!is.na(trip_id)) %>% 
-            summarise(x =  mean(trip_duration, na.rm = T))
+        average_trip_duration <-
+            summary(trip$trip_duration)
+        
+        iqr <-round((average_trip_duration[["3rd Qu."]] - average_trip_duration[["1st Qu."]]),1)
        
          avg_mode_time <- 
             trip %>% 
@@ -263,7 +262,7 @@ quality_check <- function(trip){
                    round(adult_per_house,1),
                    male_female_proportion,
                    "",
-                   round(proportion_people_with_trips*100),
+                   proportion_people_with_trips,
                    trip_distribution_sex,
                    male_female_trip_fraction,
                    trip_distribution_number$number_of_trips[1],
@@ -274,7 +273,11 @@ quality_check <- function(trip){
                    round(trip_per_capita_adult,1),
                    "",
                    round(travel_time_per_person),
-                   round(average_trip_duration_trip$x),
+                   round(average_trip_duration[["Mean"]],1),
+                   round(average_trip_duration[["Median"]],1),
+                   round(average_trip_duration[["1st Qu."]],1),
+                   round(average_trip_duration[["3rd Qu."]],1),
+                   iqr,
                    avg_mode_time$avg_mode_time[1],
                    avg_mode_time$avg_mode_time[2],
                    avg_mode_time$avg_mode_time[3],
