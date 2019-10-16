@@ -1,6 +1,7 @@
 ## packages
 
 library(tidyverse)
+library(magrittr)
 library(readxl)
 library(haven)
 library(nnet)
@@ -221,13 +222,17 @@ quality_check <- function(trip){
             count(cluster_id, household_id, participant_id) %>%
             nrow()
        
-         travel_time_per_person <- 
-             sum(trip$trip_duration, na.rm = T)/
+         travel_time_per_person <-
+             trip %>% 
+             count(cluster_id, household_id, participant_id, trip_id, trip_duration) %$% 
+             sum(trip_duration, na.rm = T)/
              count(trip, cluster_id, household_id, participant_id) %>% 
              nrow
         
         average_trip_duration <-
-            summary(trip$trip_duration)
+            trip %>% 
+            count(cluster_id, household_id, participant_id, trip_id, trip_duration) %$% 
+            summary(trip_duration)
         
         iqr <-round((average_trip_duration[["3rd Qu."]] - average_trip_duration[["1st Qu."]]),1)
        

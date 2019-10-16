@@ -2099,6 +2099,7 @@ trip <- trip_0 %>%
                (as.numeric(p5_10_2) - as.numeric(p5_9_2)),
            trip_duration = ifelse(trip_duration < (-450), 1440 + trip_duration, trip_duration),
            trip_duration = ifelse(trip_duration < 0, 0 - trip_duration, trip_duration),
+           trip_duration = ifelse(trip_duration == 0, NA, trip_duration),
            p5_13 = as.numeric(p5_13)) %>% 
     left_join(trip_purpose) %>% 
     select(id_soc,id_via, trip_duration, trip_purpose)
