@@ -31,6 +31,7 @@ get_synthetic_from_trips <- function(){
   ## add bus and truck trips
   if(ADD_BUS_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set)
   if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',distance_ratio=TRUCK_TO_CAR_RATIO*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car')
+  if(ADD_MOTORCYCLE_FLEET) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='motorcycle',distance_ratio=FLEET_TO_MOTORCYCLE_RATIO,reference_mode='motorcycle')
 
   # create synthetic population
   synth_pop <- create_synth_pop(raw_trip_set)
