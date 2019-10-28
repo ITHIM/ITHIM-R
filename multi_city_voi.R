@@ -127,9 +127,9 @@ injury_linearity <- c(log(0.9),log(1.1))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
 casualty_exponent_fraction <- c(15,15)
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
-pa_dr_quantile <- c(T,F,F,F)
+pa_dr_quantile <- c(T,F,F,F,F)
 # logical for AP dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
-ap_dr_quantile <- c(T,F,F,F)
+ap_dr_quantile <- c(T,F,F,F,F)
 # logical for walk scenario
 test_walk_scenario <- F
 # logical for cycle scenario
@@ -339,6 +339,7 @@ print(system.time(
 saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 
 #################################################
+library(infotheo)
 NSCEN <- ncol(outcome[[1]])/sum(sapply(colnames(outcome[[1]]),function(x)grepl('scen1',x)))
 SCEN_SHORT_NAME <- c('baseline',rownames(SCENARIO_PROPORTIONS))
 ## compute and save yll per hundred thousand by age
@@ -408,7 +409,7 @@ for(i in 1:length(outcome_pp)){
 outcomes_pp <- do.call(cbind,outcome_pp)
 outcome$combined <- outcomes_pp
 saveRDS(outcome,'results/multi_city/outcome.Rds',version=2)
-evppi <- matrix(0, ncol = NSCEN*(length(cities)+1), nrow = ncol(parameter_samples))
+evppi <- mi <- matrix(0, ncol = NSCEN*(length(cities)+1), nrow = ncol(parameter_samples))
 for(j in 1:length(outcome)){
   case <- outcome[[j]]
   for(k in 1:NSCEN){
@@ -419,11 +420,12 @@ for(j in 1:length(outcome)){
       x <- parameter_samples[, i];
       model <- gam(y ~ s(x))
       evppi[i, (j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+      mi[i, (j-1)*NSCEN + k] <- mutinformation(discretize(x),discretize(y))
     }
   }
 }
-colnames(evppi) <- apply(expand.grid(SCEN_SHORT_NAME[2:6],names(outcome)),1,function(x)paste0(x,collapse='_'))
-rownames(evppi) <- colnames(parameter_samples)
+colnames(evppi) <- colnames(mi) <- apply(expand.grid(SCEN_SHORT_NAME[2:6],names(outcome)),1,function(x)paste0(x,collapse='_'))
+rownames(evppi) <- rownames(mi) <- colnames(parameter_samples)
 ## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
 
 multi_city_parallel_evppi_for_AP <- function(disease,parameter_samples,outcome){
@@ -456,6 +458,39 @@ if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
                            mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
   names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
   evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
+  ## get rows to remove
+  keep_names <- sapply(rownames(evppi),function(x)!any(c('ALPHA','BETA','GAMMA','TMREL')%in%strsplit(x,'_')[[1]]))
+  evppi <- evppi[keep_names,]
+}
+
+multi_city_parallel_mi_for_AP <- function(disease,parameter_samples,outcome){
+  voi <- c()
+  x1 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease))];
+  x2 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease))];
+  x3 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease))];
+  x4 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease))];
+  for(j in 1:length(outcome)){
+    case <- outcome[[j]]
+    for(k in 1:NSCEN){
+      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
+      y <- rowSums(scen_case)
+      voi[(j-1)*NSCEN + k] <- multiinformation(data.frame(discretize(x1),discretize(x2),discretize(x3),discretize(x4),discretize(y)))
+    }
+  }
+  voi
+}
+
+numcores <- 8
+if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
+  AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
+  diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
+  mi_for_AP <- mclapply(diseases, 
+                           FUN = multi_city_parallel_mi_for_AP,
+                           parameter_samples,
+                           outcome, 
+                           mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+  names(mi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
+  mi <- rbind(mi,do.call(rbind,evppi_for_AP))
   ## get rows to remove
   keep_names <- sapply(rownames(evppi),function(x)!any(c('ALPHA','BETA','GAMMA','TMREL')%in%strsplit(x,'_')[[1]]))
   evppi <- evppi[keep_names,]
@@ -569,6 +604,25 @@ evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
   for(ii in 1:length(unlist(evppi)))
     cellcolors[ii] <- redCol[tail(which(unlist(evppi[ii])<bkT),n=1)]
   color2D.matplot(evppi,cellcolors=cellcolors,main="",xlab="",ylab="",cex.lab=2,axes=F,border='white')
+  fullaxis(side=1,las=2,at=NSCEN*0:(length(outcome)-1)+NSCEN/2,labels=names(outcome),line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=1)
+  fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.8)
+  mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
+  color.legend(NSCEN*length(outcome)+0.5,0,NSCEN*length(outcome)+0.8,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
+  for(i in seq(0,NSCEN*length(outcome),by=NSCEN)) abline(v=i)
+  for(i in seq(0,length(labs),by=NSCEN)) abline(h=i)
+  dev.off()}
+{pdf('results/multi_city/mi.pdf',height=15,width=8); par(mar=c(6,20,3.5,5.5))
+  labs <- rownames(mi)
+  get.pal=colorRampPalette(brewer.pal(9,"Reds"))
+  redCol=rev(get.pal(12))
+  bkT <- seq(max(mi)+1e-10, 0,length=13)
+  cex.lab <- 1.5
+  maxval <- round(bkT[1],digits=1)
+  col.labels<- c(0,maxval/2,maxval)
+  cellcolors <- vector()
+  for(ii in 1:length(unlist(mi)))
+    cellcolors[ii] <- redCol[tail(which(unlist(mi[ii])<bkT),n=1)]
+  color2D.matplot(mi,cellcolors=cellcolors,main="",xlab="",ylab="",cex.lab=2,axes=F,border='white')
   fullaxis(side=1,las=2,at=NSCEN*0:(length(outcome)-1)+NSCEN/2,labels=names(outcome),line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=1)
   fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.8)
   mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
