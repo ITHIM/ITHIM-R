@@ -51,7 +51,9 @@ for(gen in 1:2){
   weights[[gen]][13,2:9][is.na( weights[[gen]][13,2:9])] <- 1 
 }
 
-injuries <- data.frame(cas_mode=character(),cas_gender=character(),cas_age_cat=character(),strike_mode=character(),weight=numeric(),stringsAsFactors = F)
+ages <- whw_gender$male[1:9,1]
+age_cats <- sapply(ages,function(x)as.numeric(strsplit(as.character(x),'-')[[1]]))
+injuries <- data.frame(cas_mode=character(),cas_gender=character(),cas_age=character(),strike_mode=character(),weight=numeric(),stringsAsFactors = F)
 number_of_years <- 1
 for(gen in 1:2){
 for(i in 1:(nrow(whw_gender[[gen]])-2)) # age cat
@@ -61,12 +63,13 @@ for(i in 1:(nrow(whw_gender[[gen]])-2)) # age cat
       weight <- weights[[gen]][13,j] * weights[[gen]][i,13]
       for(k in 1:round(count)){ 
         #print(c(k,count))
-        injuries[nrow(injuries)+1,] <- c(colnames(whw_gender[[gen]])[j],names(whw_gender)[gen],as.character(whw_gender[[gen]][i,1]),'NOV',as.numeric(weight))
+        injuries[nrow(injuries)+1,] <- c(colnames(whw_gender[[gen]])[j],names(whw_gender)[gen],sample(age_cats[1,i]:age_cats[2,i],1),'NOV',as.numeric(weight))
       }
     }
   }
 }
 injuries$weight <- as.numeric(injuries$weight)
+sum(injuries$weight)
 unique(injuries$cas_mode)
 unique(injuries$strike_mode)
 injuries$cas_mode[injuries$cas_mode=='motorbike'] <- 'motorcycle'
