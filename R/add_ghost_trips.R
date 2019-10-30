@@ -22,7 +22,7 @@ add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',distance_ratio=B
   ## add new travel
   new_mode <- trip_mode
   total_new_distance <- total_ref_distance*distance_ratio
-  distance_range <- c(floor(total_new_distance/nPeople),ceiling(total_new_distance/nPeople))
+  distance_range <- c(floor(total_new_distance/nPeople/nTrips),ceiling(total_new_distance/nPeople/nTrips))
   speed <- MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==new_mode]
   for(i in 1:nPeople){
     new_trips <- add_trips(trip_ids   = max(raw_trip_set$trip_id) + 1: nTrips, 
