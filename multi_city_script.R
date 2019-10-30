@@ -114,6 +114,17 @@ mc_car_ratio <- list(accra=0.2,
 injury_linearity <- 0.9
 # constant parameters for CASUALTY_EXPONENT_FRACTION
 cas_exponent <- 0.5
+# add mc fleet to sp
+add_motorcycle_fleet <- list(accra=F,
+                             sao_paulo=T,
+                             delhi=F,
+                             bangalore=F,
+                             belo_horizonte=F)
+fleet_to_motorcycle_ratio <- list(accra=0,
+                                  sao_paulo=130.97/(130.97+115.12),#c(130.97,115.12),
+                                  delhi=0,
+                                  bangalore=0,
+                                  belo_horizonte=0)
 
 #################################################
 ## without uncertainty
@@ -127,9 +138,11 @@ for(city in cities){
                                   ADD_TRUCK_DRIVERS = F,
                                   MAX_MODE_SHARE_SCENARIO = T,
                                   ADD_BUS_DRIVERS = F,
+                                  ADD_MOTORCYCLE_FLEET = add_motorcycle_fleet[[city]],
                                   emission_inventory = emission_inventories[[city]],
                                   speeds = speeds[[city]],
                                   
+                                  FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
                                   MMET_CYCLING = mmet_cycling, 
                                   MMET_WALKING = mmet_walking, 
                                   DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,

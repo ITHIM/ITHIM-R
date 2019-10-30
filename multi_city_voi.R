@@ -190,12 +190,24 @@ distance_scalar_cycling <- list(accra=c(0,log(1.2)),
                                 delhi=c(0,log(1.2)),
                                 bangalore=c(0,log(1.2)),
                                 belo_horizonte=c(0,log(1.2)))
+# add mc fleet to sp
+add_motorcycle_fleet <- list(accra=F,
+                             sao_paulo=T,
+                             delhi=F,
+                             bangalore=F,
+                             belo_horizonte=F)
+fleet_to_motorcycle_ratio <- list(accra=0,
+                                  sao_paulo=130.97/115.12,#c(130.97,115.12),
+                                  delhi=0,
+                                  bangalore=0,
+                                  belo_horizonte=0)
 
 betaVariables <- c("PM_TRANS_SHARE",
                    "INJURY_REPORTING_RATE",
                    "CASUALTY_EXPONENT_FRACTION",
                    "BUS_TO_PASSENGER_RATIO",
-                   "TRUCK_TO_CAR_RATIO")
+                   "TRUCK_TO_CAR_RATIO",
+                   "FLEET_TO_MOTORCYCLE_RATIO")
 normVariables <- c("BUS_WALK_TIME",
                    "MMET_CYCLING",
                    "MMET_WALKING",
@@ -214,7 +226,8 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
      background_pa_scalar,background_pa_confidence,bus_walk_time,mmet_cycling,mmet_walking,emission_inventories,
      motorcycle_to_car_ratio,injury_linearity,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
      bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
-     distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
+     distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,add_motorcycle_fleet,fleet_to_motorcycle_ratio,
+     betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
 
 parameters_only <- F
@@ -237,6 +250,7 @@ print(system.time(
                                               MAX_MODE_SHARE_SCENARIO=T,
                                               ADD_BUS_DRIVERS = F,
                                               ADD_TRUCK_DRIVERS = F,
+                                              ADD_MOTORCYCLE_FLEET = add_motorcycle_fleet[[city]],
                                               ADD_WALK_TO_BUS_TRIPS = add_walk_to_bus_trips[ci],
                                               
                                               speeds = speeds[[city]],
@@ -260,6 +274,7 @@ print(system.time(
                                               BUS_WALK_TIME = bus_walk_time[[city]],## not random; use mean
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                               TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
+                                              FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
                                               EMISSION_INVENTORY_CONFIDENCE = emission_confidence[[city]],
                                               DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
                                               DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
