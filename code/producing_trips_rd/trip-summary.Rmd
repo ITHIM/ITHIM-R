@@ -40,6 +40,10 @@ trip <- read_csv("../../data/local/santiago/santiago_trip.csv")
 quality_check(trip)
 trip_summary$santiago_city <- value
 
+trip <- read_csv("../../data/local/bogota/bogota_trip_original.csv")
+quality_check(trip)
+trip_summary$bogota_city_0 <- value
+
 trip <- read_csv("../../data/local/bogota/bogota_trip.csv")
 quality_check(trip)
 trip_summary$bogota_city <- value
