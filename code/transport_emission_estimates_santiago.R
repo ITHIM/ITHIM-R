@@ -33,7 +33,8 @@ x$total_distance<- x$total_duration*x$speed/60
 ##converting distance to per capita (sample size)
 x$dist_per_capita<- x$total_distance/91765
 ##calculating it for the whole population
-x$total_distance_pop<- x$dist_per_capita*7776665
+x$total_distance_pop<- x$dist_per_capita*8080734
+#x$total_distance_pop<- x$dist_per_capita*7776665
 ##multiplying by the duration scaling factor (as duration in Bogota data seems over)
 x$total_distance_pop_corr<-x$total_distance_pop*0.7
 ##adding transport emissions for each mode from EDGAR data
