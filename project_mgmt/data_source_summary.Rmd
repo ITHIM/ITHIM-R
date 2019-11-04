@@ -1,0 +1,45 @@
+---
+title: "Data source summary"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is a summary of data sources as saved in project_mgmt/case_cities_data.xlsx
+
+```{r start, echo=FALSE}
+library(xlsx)
+#setwd('project_mgmt/')
+x <- xlsx::read.xlsx2('case_cities_data.xlsx',sheetIndex=1,colClasses = 'character',stringsAsFactors=FALSE)
+
+start_index <- which(x[,1]=='Country') + 1
+stop_index <- which(x[,1]=='Extras') - 1
+
+countries <- x[start_index:stop_index,1]
+cities <- x[start_index:stop_index,2]
+
+
+```
+
+## Travel 
+
+```{r travel, echo=FALSE}
+
+travel_section <- which(colnames(x)=='Background.travel.data')
+travel_year <- which(x[1,travel_section:ncol(x)]=='Year of data collection')[1] + travel_section - 1
+travel_source <- which(x[1,travel_section:ncol(x)]=='Source of data')[1] + travel_section - 1
+
+for(i in start_index:stop_index){
+  cat('Travel data for ')
+  cat(paste0(cities[i-start_index+1],' (',countries[i-start_index+1],') '))
+  cat('for year ')
+  cat(x[i,travel_year])
+  cat(' were obtained from ')
+  cat(x[i,travel_source])
+  cat('.\n')
+}
+```
+
+
