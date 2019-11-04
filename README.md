@@ -165,12 +165,12 @@ See [communication channels on Wiki](https://github.com/ITHIM/ITHIM-R/wiki/Commu
 
 ## How The Code Works
 
-There are three main blocks to the code: setting up, running the model, and assessing uncertainty. The first block, **run_ithim_setup**, sets the variables for computing the ITHIM. This is done in the second block, **run_ithim**. The separation of these blocks aims to isolate computations that are processing steps from those that contribute to the ITHIM calculation. (This distinction should mean that Section **run_ithim_setup** is a data harmonisation step and deals with all location-specific issues, whereas **run_ithim** should be able to be exactly the same for all settings. Another view of grouping the steps is those that, when sampling, we do only once, and those we do in a loop. This breaks down when distance-related parameters become uncertain.) Finally, **ithim_uncertainty** is a wrapper for sampling from the ITHIM output in a loop. **ithim_uncertainty** is used for the ''sample'' use case. We refer to using **run_ithim** alone as the ''constant'' use case, as all parameters are set to constant values.
+There are three main blocks to the code: setting up, running the model, and assessing uncertainty. The first block, `run_ithim_setup`, sets the variables for computing the ITHIM. This is done in the second block, `run_ithim`. The separation of these blocks aims to isolate computations that are processing steps from those that contribute to the ITHIM calculation. (This distinction should mean that Section `run_ithim_setup` is a data harmonisation step and deals with all location-specific issues, whereas `run_ithim` should be able to be exactly the same for all settings. Another view of grouping the steps is those that, when sampling, we do only once, and those we do in a loop. This breaks down when distance-related parameters become uncertain.) Finally, `ithim_uncertainty` is a wrapper for sampling from the ITHIM output in a loop. `ithim_uncertainty` is used for the ''sample'' use case. We refer to using `run_ithim` alone as the ''constant'' use case, as all parameters are set to constant values.
 
 
 ### Setting up
 
-**run_ithim_setup** sets the variables for computing the ITHIM. There are functional settings, such as:
+`run_ithim_setup` sets the variables for computing the ITHIM. There are functional settings, such as:
 
   * the number of samples for the ''sample'' use case;
   *  the city;
@@ -184,7 +184,7 @@ There are three main blocks to the code: setting up, running the model, and asse
   * whether or not to add walk trips to bus trips;
   * the path to local data files (if not using an ITHIM-R example case).
 
-Raw data are loaded in **ithim_load_data**; the parameters are set or sampled in **ithim_setup_parameters**; then some distance calculations are made. At present, we compute **set_vehicle_inventory**, **get_synthetic_from_trips**, and **get_all_distances** if (a) ITHIM is running in ''constant'' mode, or (b) ITHIM is running in ''sample'' mode and the variable parameters do not impact the distances or synthetic populations. This separation is to increase efficiency. It might not be necessary if we are unlikely to have sampling use cases that do not impact on distances.
+Raw data are loaded in `ithim_load_data`; the parameters are set or sampled in `ithim_setup_parameters`; then some distance calculations are made. At present, we compute `set_vehicle_inventory`, `get_synthetic_from_trips`, and `get_all_distances` if (a) ITHIM is running in ''constant'' mode, or (b) ITHIM is running in ''sample'' mode and the variable parameters do not impact the distances or synthetic populations. This separation is to increase efficiency. It might not be necessary if we are unlikely to have sampling use cases that do not impact on distances.
 
 #### Data
 
@@ -194,10 +194,10 @@ The global data include the disease inventory, which lists the diseases we model
 
 Location-specific data include the emission inventory, population, and GBD data. It makes sense for the age categories to be used in the model to be defined in this dataset. Column labels include age, sex, cause (matching the disease inventory), measure, metric, population and burden. The ages and genders should match in the population dataset to allow burden imputation for the city. The trip set (survey data) which forms the basis of our synthetic trip set, and PA data, which form the basis of our synthetic population, are also case specific. 
 
-Injuries will also be case specific. They are presented in long form, i.e. there is one row per event, and the columns list the specifics of the incident. Column headers should include ''strike_mode'' and ''cas_mode'', potentially also ''year'', ''cas_gender'' and ''cas_age''. From this dataset we form the injury contingency table for regression **set_injury_contingency**. 
+Injuries will also be case specific. They are presented in long form, i.e. there is one row per event, and the columns list the specifics of the incident. Column headers should include ''strike_mode'' and ''cas_mode'', potentially also ''year'', ''cas_gender'' and ''cas_age''. From this dataset we form the injury contingency table for regression `set_injury_contingency`. 
 
 #### Injury contingency table
-**set_injury_contingency** uses injury data alone to create a contingency table of injuries. Distance data are added later. This contingency table is typically sparse. It enumerates all possible combinations of the covariates in the injury dataset and counts the number of injury (fatality) events fitting that row. It requires matching of covariates across the modules.
+`set_injury_contingency` uses injury data alone to create a contingency table of injuries. Distance data are added later. This contingency table is typically sparse. It enumerates all possible combinations of the covariates in the injury dataset and counts the number of injury (fatality) events fitting that row. It requires matching of covariates across the modules.
 
 #### Parameters
 Parameters are set or sampled according to what the user supplies. For most variables, a single value will set the variable to that value, whereas a vector of two values will prompt sampling from a prespecified distribution with the given parameters. These distributions are all log normal or beta distributions. AP and PA dose--response relationships work differently. They are binary logical variables which, if false, fix the relationships to their medians and if true prompt sampling of dose--response curves.
@@ -211,28 +211,28 @@ The vehicle inventory should be a comprehensive record of all vehicle attributes
 The synthetic population is created by isolating the trip-set individuals  and matching to them the individuals surveyed for physical activity. They are matched based on age and gender. For Accra, the age groups are different: the PA people are grouped into 15--55 and 56--69 and matched to the trip set ages grouped as 15--49 and 50--69. These random allocations are not captured anywhere in the VOI analysis.
 
 **Synthetic trips**
-**get_synthetic_from_trips** takes the loaded trip set and forms from it the synthetic trip set. We add truck and bus driver trips (**add_ghost_trips**), if the input dictates that they should be added. We create two male truck drivers and two male bus drivers who each take one trip. (N.B. the bus drivers' mode is ''bus_driver'' to distinguish it from the mode ''bus'', which is assumed to be taken as a passenger.) Again, the ages are uniformly sampled from the lowest and highest ages of our existing population. The total duration is calculated as before, using the ''TRUCK_TO_CAR_RATIO'' (0.21) and ''BUS_TO_PASSENGER_RATIO'' (0.022, CIRT (2011), State Transport Undertakings, Profile & Performance 2008-09, Central Institute of Road Transport, Pune, India) respectively, and is split as before evenly between the drivers. 
+`get_synthetic_from_trips` takes the loaded trip set and forms from it the synthetic trip set. We add truck and bus driver trips (`add_ghost_trips`), if the input dictates that they should be added. We create two male truck drivers and two male bus drivers who each take one trip. (N.B. the bus drivers' mode is ''bus_driver'' to distinguish it from the mode ''bus'', which is assumed to be taken as a passenger.) Again, the ages are uniformly sampled from the lowest and highest ages of our existing population. The total duration is calculated as before, using the ''TRUCK_TO_CAR_RATIO'' (0.21) and ''BUS_TO_PASSENGER_RATIO'' (0.022, CIRT (2011), State Transport Undertakings, Profile & Performance 2008-09, Central Institute of Road Transport, Pune, India) respectively, and is split as before evenly between the drivers. 
   
 The bus and truck drivers do not get a person ID and so are not counted in the synthetic population. Therefore, they contribute to other people's exposure to injury risk and pollution, but they do not contribute to the health burden via the pollution or PA pathways. As they have ages and genders, they do contribute to the at-risk-of-injury road-user population. 
 
 **Scenarios** 
-**ithim_setup_baseline_scenario** creates the baseline scenario (by adding distances and the column ''Scenario'' with entries ''Baseline'') and a scenario-generation function creates all the pre-set scenarios by changing the modes of randomly sampled trips (e.g. **create_max_mode_share_scenarios** and **create_all_scenarios** for Accra and Sao Paulo) or adding trips for everyone (e.g. **create_walk_scenario** and **create_cycle_scenario**). This is another unaccounted-for source of randomness. 
+`ithim_setup_baseline_scenario` creates the baseline scenario (by adding distances and the column ''Scenario'' with entries ''Baseline'') and a scenario-generation function creates all the pre-set scenarios by changing the modes of randomly sampled trips (e.g. `create_max_mode_share_scenarios` and `create_all_scenarios` for Accra and Sao Paulo) or adding trips for everyone (e.g. `create_walk_scenario` and `create_cycle_scenario`). This is another unaccounted-for source of randomness. 
 
 #### Calculating distances
 
-ITHIM-R requires the distance data in various formats. All these are processed from one function, **get_all_distances**.
+ITHIM-R requires the distance data in various formats. All these are processed from one function, `get_all_distances`.
 
 **Adding walk trips**
 
-First, bus journeys are augmented with a walk component (if the user input dictates it) in the function **walk_to_bus_and_combine_scen**: we take the set of PT trips, which has J entries. We add J journeys with mode ''walk_to_pt'' and duration WALK_TO_BUS_TIME to the set, with trip_id and participant_id to match that of the corresponding trip in the original set.
+First, bus journeys are augmented with a walk component (if the user input dictates it) in the function `walk_to_bus_and_combine_scen`: we take the set of PT trips, which has J entries. We add J journeys with mode ''walk_to_pt'' and duration WALK_TO_BUS_TIME to the set, with trip_id and participant_id to match that of the corresponding trip in the original set.
 
 **Travel summaries**
 
-The total distance and duration matrices are calculated in **dist_dur_tbls**. The distance set is the total distance travelled per mode per scenario, and the duration set is constructed analogously. The distance for bus drivers scales linearly with bus passengers, where the distance in the baseline is defined based on the bus driver distance relative to car.
+The total distance and duration matrices are calculated in `dist_dur_tbls`. The distance set is the total distance travelled per mode per scenario, and the duration set is constructed analogously. The distance for bus drivers scales linearly with bus passengers, where the distance in the baseline is defined based on the bus driver distance relative to car.
 
 **Injuries**
 
-Distances are calculated for the injury module in **distances_for_injury_function**, where we match mode names to those in the injury dataset, e.g. ''taxi'', ''shared_auto'', ''shared_taxi'' and ''car'' combine to form ''car'', and ''auto_rickshaw'' is added to ''motorcycle'' to represent two/three-wheeled striking vehicle. Some work is required to separate drivers from passengers; we currently assume all travellers are drivers, with the exception of ``bus''. (This is a problem for the examples of Delhi and Bangalore, whose trip sets have car travellers under the age at which driving is permitted and who therefore should not contribute to striking distance.)
+Distances are calculated for the injury module in `distances_for_injury_function`, where we match mode names to those in the injury dataset, e.g. ''taxi'', ''shared_auto'', ''shared_taxi'' and ''car'' combine to form ''car'', and ''auto_rickshaw'' is added to ''motorcycle'' to represent two/three-wheeled striking vehicle. Some work is required to separate drivers from passengers; we currently assume all travellers are drivers, with the exception of ''bus''. (This is a problem for the examples of Delhi and Bangalore, whose trip sets have car travellers under the age at which driving is permitted and who therefore should not contribute to striking distance.)
 
 We model injuries via regression by predicting the number of fatalities of each demographic group on each mode, which we calculate as a sum over all the ways in which they might have been injured (i.e., all the modes with which they might have collided). 
 
@@ -245,11 +245,11 @@ We use, for Accra, the covariates ''casualty_mode*strike_mode'', ''casualty_age'
 
 ### The ITHIM programme
 
-**run_ithim** computes the ITHIM output by calling each module in turn and summarising their outputs in terms of the health burden. Other outputs of the model include: MMETs per person, PM2.5 in each scenario, PM2.5 per person, and injuries burden.
+`run_ithim` computes the ITHIM output by calling each module in turn and summarising their outputs in terms of the health burden. Other outputs of the model include: MMETs per person, PM2.5 in each scenario, PM2.5 per person, and injuries burden.
 
 #### Calculating background PM2.5
 
-**scenario_pm_calculations** uses total distance by mode to compute the total PM2.5 in the scenario. First we compute the emission inventory in terms of fractions. If  the confidence is 1 then we use the inventory directly. If P<1, we sample the emission inventory fractions as is (https://www.overleaf.com/read/mrjtkhffzfzr).
+`scenario_pm_calculations` uses total distance by mode to compute the total PM2.5 in the scenario. First we compute the emission inventory in terms of fractions. If  the confidence is 1 then we use the inventory directly. If P<1, we sample the emission inventory fractions as is (https://www.overleaf.com/read/mrjtkhffzfzr).
 
 Then we multiply vehicle distance by vehicle emission factor (where the emission factor is the emission inventory (fraction) divided by distance at baseline).
 
@@ -267,7 +267,7 @@ Ventilation rates are calculated for each mode, assuming a base-level inhalation
 The air inhaled when not travelling is the base-level ventilation times the time spent not travelling. Together, the PM2.5 exposure is calculated as the total PM2.5 inhaled per hour (https://www.overleaf.com/read/mrjtkhffzfzr).
 
 #### AP--disease dose--response relative risk
-**gen_ap_rr** uses each person's exposure to PM2.5 to compute their relative risk of five diseases (IHD, lung cancer, COPD, stroke, LRI), using curves parametrised by four disease-specific variables (Burnett, 2014). Of the five diseases, two (IHD and stroke) have parameters specific to age groups starting at age 25. (For any person of age lower than 25, we set the relative risk to 1.) The other three (lung cancer, LRI and COPD) have one set of parameters for all ages.
+`gen_ap_rr` uses each person's exposure to PM2.5 to compute their relative risk of five diseases (IHD, lung cancer, COPD, stroke, LRI), using curves parametrised by four disease-specific variables (Burnett, 2014). Of the five diseases, two (IHD and stroke) have parameters specific to age groups starting at age 25. (For any person of age lower than 25, we set the relative risk to 1.) The other three (lung cancer, LRI and COPD) have one set of parameters for all ages.
 
 The curves are in the form of samples of the set of four parameters. We model the densities of these samples (using a quantile for parameter 3, kernel density estimation for parameter 2, and GAMs for parameters 1 and 4)  in order to draw either the median or random samples via their quantiles. (The four parameters refer, in numerical order, to alpha, beta, gamma and tmrel in Burnett (2014).)
 
@@ -275,29 +275,29 @@ From these parameters, the relative risk of mortality is defined as in Burnett (
 RR = 1 + alpha * (1 - exp( - beta * (AP - tmrel) ^ gamma ) ).
 
 #### Individual-level MMETs
-Using trip sets and the synthetic population, **total_mmet** computes total MMETs per person as the sum of walking MMETs per day and cycling MMETs per day, which are scaled up to a week via the PA scalar, and work/leisure MMETs per week.
+Using trip sets and the synthetic population, `total_mmet` computes total MMETs per person as the sum of walking MMETs per day and cycling MMETs per day, which are scaled up to a week via the PA scalar, and work/leisure MMETs per week.
 
 We calculate the proportion of people who do no work/leisure PA according to the confidence in the PA survey. First, we calculate the raw probability that a person in demographic group completes no non-travel PA. Then, we set the probability to use as the raw value if our confidence is 1. If it's less than, we map the confidence to parametrise a Beta distribution.
 
 Finally, for each person in the population, we sample non-travel MMETs as zero with the calculated probability and from the raw non-zero density of their demographic group.
 
 #### PA--disease dose--response relative risk
-**gen_pa_rr** uses each person's MMETs per week to compute their relative risk of six diseases, using curves found from meta analysis. Each disease (except type 2 diabetes) has a threshold beyond which there is no further change in relative risk. (Total cancer, breast cancer, colon & rectum cancer, endometrial cancer, & coronary heart disease: 35; lung cancer: 10; stroke: 32; all cause: 16.08.) For all other diseases, we use mortality.
+`gen_pa_rr` uses each person's MMETs per week to compute their relative risk of six diseases, using curves found from meta analysis. Each disease (except type 2 diabetes) has a threshold beyond which there is no further change in relative risk. (Total cancer, breast cancer, colon & rectum cancer, endometrial cancer, & coronary heart disease: 35; lung cancer: 10; stroke: 32; all cause: 16.08.) For all other diseases, we use mortality.
 
-The relative risk for each person for each disease is calculated in **PA_dose_response** using the curve selected, which is an interpolated mean or a sample of functions. See https://www.overleaf.com/read/mrjtkhffzfzr for an example. 
+The relative risk for each person for each disease is calculated in `PA_dose_response` using the curve selected, which is an interpolated mean or a sample of functions. See https://www.overleaf.com/read/mrjtkhffzfzr for an example. 
 
 #### Combining PA and AP relative risks
-  **combined_rr_ap_pa** combines the relative risks of **gen_ap_rr** and gen_pa_rr** through multiplication.  Not all diseases have a dose--response relationship for both AP and PA. Just stroke, lung cancer, and IHD have both. For the other diseases, only one of the RRs is different from one.
+  `combined_rr_ap_pa` combines the relative risks of `gen_ap_rr` and `gen_pa_rr` through multiplication.  Not all diseases have a dose--response relationship for both AP and PA. Just stroke, lung cancer, and IHD have both. For the other diseases, only one of the RRs is different from one.
   
 #### Calculating injuries
 
-**injuries_function** predicts the number of injuries in each scenario based on the training model built from the baseline scenario. We predict for the year 2016 (for Accra), using scenario-specific travel data.
+`injuries_function` predicts the number of injuries in each scenario based on the training model built from the baseline scenario. We predict for the year 2016 (for Accra), using scenario-specific travel data.
 The number of fatalities is taken as the sum of fatalities over the strike modes.
-**injury_death_to_yll** extrapolates injury deaths to injury YLLs via the ratio in the GBD.
+`injury_death_to_yll` extrapolates injury deaths to injury YLLs via the ratio in the GBD.
 
 #### Calculating the health burden
 
-**health_burden** calculates the total health burden relative to the reference scenario (which, by default, is the baseline) using the injury and health outputs combined with GBD data, via population attributable fractions (PAF). We then calculate the PAF relative to the reference scenario.
+`health_burden` calculates the total health burden relative to the reference scenario (which, by default, is the baseline) using the injury and health outputs combined with GBD data, via population attributable fractions (PAF). We then calculate the PAF relative to the reference scenario.
 
 We estimate the background burden of disease using Global Burden of Disease data and scaling based on the ratio of populations between country and city. If we are scaling the background burden of diseases, we do so here.
 
@@ -307,7 +307,7 @@ and subtract from the values for the reference scenario. Then we have change in 
 
 ### Uncertain parameters
 
-**ithim_uncertainty** is a wrapper for sampling from the ITHIM output in a loop. The number of samples to take is set at the initiation step, along with specifications of parametric distributions, from which the required number of samples are taken. First, it sets the parameters to the environment for the current sample. Then it recalculates any distance-related objects: **set_vehicle_inventory** and **get_synthetic_from_trips** if any raw distances change, and **get_all_distances** if e.g. the walk-to-bus time has changed. Then the basic **run_ithim** function is called.
+`ithim_uncertainty` is a wrapper for sampling from the ITHIM output in a loop. The number of samples to take is set at the initiation step, along with specifications of parametric distributions, from which the required number of samples are taken. First, it sets the parameters to the environment for the current sample. Then it recalculates any distance-related objects: `set_vehicle_inventory` and `get_synthetic_from_trips` if any raw distances change, and `get_all_distances` if e.g. the walk-to-bus time has changed. Then the basic `run_ithim` function is called.
 
 Running ITHIM with uncertain parameters allows assessment of their impact on the outcome (AKA sensitivity analysis). We use EVPPI to calculate the expected reduction in uncertainty in the outcome were we to learn a parameter perfectly. This means we can implement models that are basic in their parametrisation, and learn at the end for which parameters it would be worthwhile spending dedicated time learning better. 
 
