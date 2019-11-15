@@ -1,3 +1,3 @@
 PM2.5 concentration: 29 µg/m3 (95% CI: 2ug/m3)
 
-Transport's share-- 31%
+Transport's share-- Mean: 0.2774 95% CI (0.1351, 0.457)
