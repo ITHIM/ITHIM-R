@@ -64,6 +64,10 @@ trip <- read_csv("../../data/local/mexico/mexico_city_trip.csv")
 quality_check(trip)
 trip_summary$mexico_city <- value
 
+trip <- read_csv("../../data/local/cape_town/cape_town_trip.csv")
+quality_check(trip)
+trip_summary$cape_town <- value
+
 ```
 
 
