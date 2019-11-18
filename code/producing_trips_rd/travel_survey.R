@@ -2194,6 +2194,92 @@ rm("neth", "neth_selected")
 #str(household)
 #household<- subset(household, select=c('HHNR','W_Ort', 'DEG'))
 
+#####SOUTH AFRICA CAPE TOWN####
+
+
+rm(list =ls())
+
+source("V:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+library(chron)
+
+setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Cape Town')
+
+#original data
+household_0 <- read_excel("2013 Household Survey Data Sets & Meta Data_RHDHV_230114/Final datasheets_incl metadata_05-12-2013/CT_Household_travel_survey_householdinfo/test.xlsx")
+
+
+person_0 <- read_excel("2013 Household Survey Data Sets & Meta Data_RHDHV_230114/Final datasheets_incl metadata_05-12-2013/CT_Household_travel_survey_person info/CT_household_travel_survey_person.xlsx",
+                       range = cell_cols("B:E"))
+
+trip_0 <- read_excel("2013 Household Survey Data Sets & Meta Data_RHDHV_230114/Final datasheets_incl metadata_05-12-2013/CT_Trip diary/CT_household_travel_survey_diary.xlsx",
+                     sheet = "Trip Diary_copy")
+
+
+#get relevant household info
+household <- household_0[-c(1:14),]
+colnames(household)=household[1,]
+household <- household[-1,]
+
+
+#get person info (id, age, sex)
+person <- person_0 %>% 
+  mutate(cluster_id = 1, age = 2013-as.numeric(`Year of`), participant_wt = 1,
+         participant_id = as.numeric(`Number of`),
+         sex = ifelse(`Gender:`==1, "Male", ifelse(`Gender:`==2,"Female", `Gender:`))) %>% 
+  rename(household_id = `Unique number`) %>% 
+  {.[-c(1:15),-c(2:4)]}
+
+#get relevant trip data
+##label for variables
+
+trip_mode <- data.frame(TD_Mode_Used = 1:13, trip_mode = c("walk", "car", "car", "train", "bus", "bus", 
+                                                           "bicycle", "motorcycle", "motorcycle", "bus", 
+                                                           "car", "bus", "other"))
+  #original tip modes 1=walk, 2=car-driver, 3=car-passenger, 4=train, 5=bus, 6=minibus taxi, 7=bicycle, 
+  #8=motorcycle driver, 9=motorcycle passenger, 10=MyCiti bus, 11=employer transport, 12=scholar trasnport, 13=othe
+
+trip_purpose <- data.frame(TD_Trip_purpose =as.character(1:18), trip_purpose = c("return", "work", "school", "school", 
+                                                                                 "school", "other", "other", "work", 
+                                                                                 "other", "other", "other ", "other", 
+                                                                                 "other ", "other", "other ", "other", 
+                                                                                 "other ", "other"))
+  #original trip purose: 1=home, 2=work, 3=school, 4=tertiary educ., 5=pick up/drop off children, 
+  #6=pick up/drop off other person, 7=transfer, 8=errand at work, 9=shopping, 10=recreation, 
+  #11=fuel station, 12=medicare, 13=post office/bank etc., 14=visit a person, 15=fetch water, 
+  #16=tend to animals, 17=other(1), 18=other(2),
+
+##mutate and rename trip variables 
+trip <- trip_0 %>% 
+  {.[-15495,]} %>% #remove the last row which is empty
+  mutate(trip_duration = abs((times(Trip_end_Time)-times(Trip_start_Time))*24*60),
+         Trip_no = ifelse(as.numeric(Trip_no)<0,NA,Trip_no),
+         Trip_no = ifelse(is.na(Trip_no) & !is.na(TD_Trip_purpose), 5, Trip_no)) %>% 
+  left_join(trip_mode) %>% 
+  left_join(trip_purpose) %>% 
+  rename(household_id = Unique_Input,participant_id = Person_ID, trip_id = Trip_no) %>% 
+  select(household_id, participant_id,trip_id, trip_mode, trip_purpose, trip_duration)
+
+##remove rows indicating no trips for individuals with trips
+a <- trip %>% filter(is.na(trip_id))# rows with no trips
+b <- trip %>% filter(!is.na(trip_id)) # rows with trips
+c <- semi_join(a, b, by = c("household_id", "participant_id"))# rows without trips and have trips elsewhere
+trip <- anti_join(trip, c)
+
+##add person characteristics to trip data
+trip <- left_join(trip, person, by=c("household_id", "participant_id"))
+
+##assign participant numbers to rows with trip numbers and no participant
+trip$participant_id <- ifelse(is.na(trip$participant_id)&!is.na(trip$trip_id), 10, trip$participant_id)
+
+##remove rows with no participant number
+trip <- trip[which(!is.na(trip$participant_id)),]
+
+
+##add year of survey to trips
+trip$year <- "2013"
+
+write.csv(trip, "V:/Group/lambed/ITHIM-R/data/local/cape_town/cape_town_trip.csv")
+
 #####Switzerland 2015####
 setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Switzerland/MZMV2015_ohne_geo/4_DB_csv/04_DB_CSV')
 stages<-read.csv('etappen.csv')
