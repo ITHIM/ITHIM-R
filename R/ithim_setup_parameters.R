@@ -23,7 +23,7 @@
 #' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to linearity of scalaing of injuries in space
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
-#' @param FLEET_TO_MOTORCYCLE_RATIO lognormal parameter: amount of fleet per motorcycle
+#' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: amount of motorcycle that's fleet
 #' @param EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
 #' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar for car distance travelled
 #' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar for walking distance travelled
@@ -95,7 +95,6 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                  "BACKGROUND_PA_SCALAR",
                  "CHRONIC_DISEASE_SCALAR",
                  "INJURY_LINEARITY",
-                 "FLEET_TO_MOTORCYCLE_RATIO",
                  "DISTANCE_SCALAR_CAR_TAXI",
                  "DISTANCE_SCALAR_WALKING",
                  "DISTANCE_SCALAR_PT",
@@ -117,7 +116,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                      "INJURY_REPORTING_RATE",
                      "CASUALTY_EXPONENT_FRACTION",
                      "BUS_TO_PASSENGER_RATIO",
-                     "TRUCK_TO_CAR_RATIO")
+                     "TRUCK_TO_CAR_RATIO",
+                     "FLEET_TO_MOTORCYCLE_RATIO")
   for (i in 1:length(betaVariables)) {
     name <- betaVariables[i]
     val <- get(betaVariables[i])

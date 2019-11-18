@@ -41,7 +41,7 @@
 #' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to linearity of scalaing of injuries in space
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
-#' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: number of fleet motorcycles per motorcycle
+#' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: fraction of total motorcycles that's fleet
 #' @param EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
 #' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar for car distance travelled
 #' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar for walking distance travelled
@@ -85,7 +85,7 @@ run_ithim_setup <- function(seed = 1,
                             CASUALTY_EXPONENT_FRACTION = 0.5,
                             BUS_TO_PASSENGER_RATIO = 0.022,
                             TRUCK_TO_CAR_RATIO = 0.21,
-                            FLEET_TO_MOTORCYCLE_RATIO = 0,
+                            FLEET_TO_MOTORCYCLE_RATIO = 0.01,
                             EMISSION_INVENTORY_CONFIDENCE = 1,
                             DISTANCE_SCALAR_CAR_TAXI = 1,
                             DISTANCE_SCALAR_WALKING = 1,

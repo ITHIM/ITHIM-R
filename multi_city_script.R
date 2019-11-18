@@ -4,46 +4,54 @@ cities <- c('accra','sao_paulo','delhi','bangalore','belo_horizonte')
 min_age <- 15
 max_age <- 69
 
+all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F)
+
+parameter_names <- all_inputs$parameter
+parameter_starts <- which(parameter_names!='')
+parameter_stops <- c(parameter_starts[-1] - 1, nrow(all_inputs))
+parameter_names <- parameter_names[parameter_names!='']
+parameter_list <- list()
+compute_mode <- 'constant'
+for(i in 1:length(parameter_names)){
+  parameter_list[[parameter_names[i]]] <- list()
+  parameter_index <- which(all_inputs$parameter==parameter_names[i])
+  if(all_inputs[parameter_index,2]=='')  {
+    parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
+      city_index <- which(colnames(all_inputs)==x)
+      val <- all_inputs[parameter_index,city_index]
+      ifelse(val%in%c('T','F'),val,as.numeric(val))
+    })
+    names(parameter_list[[parameter_names[i]]]) <- cities
+  }else if(all_inputs[parameter_index,2]=='constant'){
+    indices <- 0
+    if(compute_mode=='sample') indices <- 1:2
+    parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
+      city_index <- which(colnames(all_inputs)==x)
+      val <- all_inputs[parameter_index+indices,city_index]
+      ifelse(val=='',0,as.numeric(val))
+    })
+    names(parameter_list[[parameter_names[i]]]) <- cities
+  }else{
+    parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
+      city_index <- which(colnames(all_inputs)==x)
+      if(any(all_inputs[parameter_starts[i]:parameter_stops[i],city_index]!='')){
+        sublist_indices <- which(all_inputs[parameter_starts[i]:parameter_stops[i],city_index]!='')
+        thing <- as.list(as.numeric(c(all_inputs[parameter_starts[i]:parameter_stops[i],city_index])[sublist_indices]))
+        names(thing) <- c(all_inputs[parameter_starts[i]:parameter_stops[i],2])[sublist_indices]
+        thing
+      }
+    }
+    )
+    names(parameter_list[[parameter_names[i]]]) <- cities
+  }
+}
+
+for(i in 1:length(parameter_list)) assign(names(parameter_list)[i],parameter_list[[i]])
+
+
 ###changed the bangalore transport emissions-- MC emissions from 1757 to 817 and car emissions from 4173 to 1107
 ##this is done based on ratio of car/MC ownership in bangalore to that of delhi from Census data (0.50 and 0.58 respectively)==
 ###1757=0.58*1409 and 1107=  0.50*2214
-emission_inventories = list(accra=NULL,
-                            sao_paulo=list(motorcycle=4,
-                                           car=4,
-                                           bus_driver=32,
-                                           big_truck=56,
-                                           truck=4,
-                                           van=0,
-                                           other=0,
-                                           taxi=0),
-                            delhi=list(motorcycle=1409,
-                                       auto_rickshaw=133,
-                                       car=2214,
-                                       bus_driver=644,
-                                       big_truck=4624,
-                                       truck=3337,
-                                       van=0,
-                                       other=0,
-                                       taxi=0),
-                            bangalore=list(motorcycle=817,
-                                           auto_rickshaw=220,
-                                           car=1107,
-                                           bus_driver=1255,
-                                           big_truck=4455,
-                                           truck=703,
-                                           van=0,
-                                           other=0,
-                                           taxi=0),
-                            belo_horizonte=list(motorcycle=30.6,
-                                           auto_rickshaw=0,
-                                           car=5.06,
-                                           bus_driver=34.17,
-                                           big_truck=24.43,
-                                           truck=60.48,
-                                           van=0,
-                                           other=0,
-                                           taxi=0)
-)
 #################################################################
 ## run diagnostics
 #for(city in cities){
@@ -53,67 +61,19 @@ emission_inventories = list(accra=NULL,
 
 
 ##################################################################
-speeds <- list(accra=NULL,
-               sao_paulo=NULL,
-               delhi=list(subway=32,
-                          bicycle=15),
-               bangalore=list(subway=32,
-                          bicycle=15),
-               belo_horizonte=NULL)
 
 # constant parameters for DAY_TO_WEEK_TRAVEL_SCALAR
 day_to_week_scalar <- 7
 
-# constant parameters for INJURY_REPORTING_RATE
-injury_report_rate <- list(accra=1,
-                           sao_paulo=1,
-                           delhi=1,
-                           bangalore=1,
-                           belo_horizonte=1)
-# constant parameters for CHRONIC_DISEASE_SCALAR
-chronic_disease_scalar <- list(accra=1,
-                               sao_paulo=1,
-                               delhi=1,
-                               bangalore=1,
-                               belo_horizonte=1)
-# constant parameters for PM_CONC_BASE
-pm_concentration <- list(accra=50,
-                         sao_paulo=18,
-                         delhi=122,
-                         bangalore=47.4,
-                         belo_horizonte=17)
-# constant parameters for PM_TRANS_SHARE
-pm_trans_share <- list(accra=0.225,
-                       sao_paulo=0.4,
-                       delhi=0.225,
-                       bangalore=0.281,
-                       belo_horizonte=0.18)
-# constant parameters for BACKGROUND_PA_SCALAR
-background_pa_scalar <- list(accra=1,
-                             sao_paulo=1,
-                             delhi=1,
-                             bangalore=1,
-                             belo_horizonte=1)
-# constant parameters for BUS_WALK_TIME
-bus_walk_time <- list(accra=10.55,
-                      sao_paulo=10.55,
-                      delhi=10.55,
-                      bangalore=10.55,
-                      belo_horizonte=10.55)
 # constant parameters for MMET_CYCLING
 mmet_cycling <- 4.63
 # constant parameters for MMET_WALKING
 mmet_walking <- 2.53
-# constant parameters for MOTORCYCLE_TO_CAR_RATIO
-mc_car_ratio <- list(accra=0.2,
-                     sao_paulo=0,
-                     delhi=0,
-                     bangalore=0,
-                     belo_horizonte=0)
 # constant parameters for INJURY_LINEARITY
 injury_linearity <- 0.9
 # constant parameters for CASUALTY_EXPONENT_FRACTION
 cas_exponent <- 0.5
+# add mc fleet to sp
 
 #################################################
 ## without uncertainty
@@ -127,9 +87,11 @@ for(city in cities){
                                   ADD_TRUCK_DRIVERS = F,
                                   MAX_MODE_SHARE_SCENARIO = T,
                                   ADD_BUS_DRIVERS = F,
+                                  ADD_MOTORCYCLE_FLEET = add_motorcycle_fleet[[city]],
                                   emission_inventory = emission_inventories[[city]],
                                   speeds = speeds[[city]],
                                   
+                                  FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
                                   MMET_CYCLING = mmet_cycling, 
                                   MMET_WALKING = mmet_walking, 
                                   DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
@@ -137,9 +99,9 @@ for(city in cities){
                                   CASUALTY_EXPONENT_FRACTION = cas_exponent,
                                   PA_DOSE_RESPONSE_QUANTILE = F,  
                                   AP_DOSE_RESPONSE_QUANTILE = F,
-                                  INJURY_REPORTING_RATE = injury_report_rate[[city]],  
+                                  INJURY_REPORTING_RATE = injury_reporting_rate[[city]],  
                                   CHRONIC_DISEASE_SCALAR = chronic_disease_scalar[[city]],  
-                                  PM_CONC_BASE = pm_concentration[[city]],  
+                                  PM_CONC_BASE = pm_conc_base[[city]],  
                                   PM_TRANS_SHARE = pm_trans_share[[city]],  
                                   BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
                                   BUS_WALK_TIME = bus_walk_time[[city]])
