@@ -69,8 +69,8 @@ day_to_week_scalar <- 7
 mmet_cycling <- 4.63
 # constant parameters for MMET_WALKING
 mmet_walking <- 2.53
-# constant parameters for INJURY_LINEARITY
-injury_linearity <- 0.9
+# constant parameters for SIN_EXPONENT_SUM
+sin_exponent_sum <- 2
 # constant parameters for CASUALTY_EXPONENT_FRACTION
 cas_exponent <- 0.5
 # add mc fleet to sp
@@ -95,7 +95,7 @@ for(city in cities){
                                   MMET_CYCLING = mmet_cycling, 
                                   MMET_WALKING = mmet_walking, 
                                   DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
-                                  INJURY_LINEARITY= injury_linearity,
+                                  SIN_EXPONENT_SUM= sin_exponent_sum,
                                   CASUALTY_EXPONENT_FRACTION = cas_exponent,
                                   PA_DOSE_RESPONSE_QUANTILE = F,  
                                   AP_DOSE_RESPONSE_QUANTILE = F,

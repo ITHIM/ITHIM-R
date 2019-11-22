@@ -10,11 +10,12 @@ ithim_setup_parameters(NSAMPLES = 1, BUS_WALK_TIME = 5,
   AP_DOSE_RESPONSE_QUANTILE = F, BACKGROUND_PA_SCALAR = 1,
   BACKGROUND_PA_CONFIDENCE = 1, INJURY_REPORTING_RATE = 1,
   CHRONIC_DISEASE_SCALAR = 1, DAY_TO_WEEK_TRAVEL_SCALAR = 7,
-  INJURY_LINEARITY = 1, CASUALTY_EXPONENT_FRACTION = 0.5,
+  SIN_EXPONENT_SUM = 2, CASUALTY_EXPONENT_FRACTION = 0.5,
   BUS_TO_PASSENGER_RATIO = 0.022, TRUCK_TO_CAR_RATIO = 0.21,
-  EMISSION_INVENTORY_CONFIDENCE = 1, DISTANCE_SCALAR_CAR_TAXI = 1,
-  DISTANCE_SCALAR_WALKING = 1, DISTANCE_SCALAR_PT = 1,
-  DISTANCE_SCALAR_CYCLING = 1, DISTANCE_SCALAR_MOTORCYCLE = 1)
+  FLEET_TO_MOTORCYCLE_RATIO = 0, EMISSION_INVENTORY_CONFIDENCE = 1,
+  DISTANCE_SCALAR_CAR_TAXI = 1, DISTANCE_SCALAR_WALKING = 1,
+  DISTANCE_SCALAR_PT = 1, DISTANCE_SCALAR_CYCLING = 1,
+  DISTANCE_SCALAR_MOTORCYCLE = 1)
 }
 \arguments{
 \item{NSAMPLES}{constant integer: number of samples to take}
@@ -43,13 +44,15 @@ ithim_setup_parameters(NSAMPLES = 1, BUS_WALK_TIME = 5,
 
 \item{DAY_TO_WEEK_TRAVEL_SCALAR}{beta parameter: rate of scaling travel from one day to one week}
 
-\item{INJURY_LINEARITY}{lognormal parameter: linearity of injuries in space}
+\item{SIN_EXPONENT_SUM}{lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.}
 
 \item{CASUALTY_EXPONENT_FRACTION}{beta parameter: casualty contribution to linearity of scalaing of injuries in space}
 
 \item{BUS_TO_PASSENGER_RATIO}{beta parameter: number of buses per passenger}
 
 \item{TRUCK_TO_CAR_RATIO}{beta parameter: number of trucks per car}
+
+\item{FLEET_TO_MOTORCYCLE_RATIO}{beta parameter: amount of motorcycle that's fleet}
 
 \item{EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of emission inventory}
 

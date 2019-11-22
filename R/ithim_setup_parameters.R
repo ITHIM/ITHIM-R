@@ -19,7 +19,7 @@
 #' @param INJURY_REPORTING_RATE lognormal parameter: rate of injury reporting
 #' @param CHRONIC_DISEASE_SCALAR lognormal parameter: scalar for background disease rates
 #' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week
-#' @param INJURY_LINEARITY lognormal parameter: linearity of injuries in space
+#' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.
 #' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to linearity of scalaing of injuries in space
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
@@ -47,7 +47,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    INJURY_REPORTING_RATE = 1,
                                    CHRONIC_DISEASE_SCALAR = 1,
                                    DAY_TO_WEEK_TRAVEL_SCALAR = 7,
-                                   INJURY_LINEARITY= 1,
+                                   SIN_EXPONENT_SUM= 2,
                                    CASUALTY_EXPONENT_FRACTION = 0.5,
                                    BUS_TO_PASSENGER_RATIO = 0.022,
                                    TRUCK_TO_CAR_RATIO = 0.21,
@@ -75,7 +75,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   BACKGROUND_PA_CONFIDENCE <<- BACKGROUND_PA_CONFIDENCE
   INJURY_REPORTING_RATE <<- INJURY_REPORTING_RATE
   CHRONIC_DISEASE_SCALAR <<- CHRONIC_DISEASE_SCALAR
-  INJURY_LINEARITY <<- INJURY_LINEARITY
+  SIN_EXPONENT_SUM <<- SIN_EXPONENT_SUM
   CASUALTY_EXPONENT_FRACTION <<- CASUALTY_EXPONENT_FRACTION
   BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
   TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
@@ -94,7 +94,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                  "PM_CONC_BASE",
                  "BACKGROUND_PA_SCALAR",
                  "CHRONIC_DISEASE_SCALAR",
-                 "INJURY_LINEARITY",
+                 "SIN_EXPONENT_SUM",
                  "DISTANCE_SCALAR_CAR_TAXI",
                  "DISTANCE_SCALAR_WALKING",
                  "DISTANCE_SCALAR_PT",

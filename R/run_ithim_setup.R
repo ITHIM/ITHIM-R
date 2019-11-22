@@ -37,7 +37,7 @@
 #' @param INJURY_REPORTING_RATE lognormal parameter: rate of injury reporting
 #' @param CHRONIC_DISEASE_SCALAR lognormal parameter: scalar for background disease rates
 #' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week
-#' @param INJURY_LINEARITY lognormal parameter: linearity of injuries in space
+#' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.
 #' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to linearity of scalaing of injuries in space
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
@@ -81,7 +81,7 @@ run_ithim_setup <- function(seed = 1,
                             INJURY_REPORTING_RATE = 1,
                             CHRONIC_DISEASE_SCALAR = 1,
                             DAY_TO_WEEK_TRAVEL_SCALAR = 7,
-                            INJURY_LINEARITY= 1,
+                            SIN_EXPONENT_SUM = 2,
                             CASUALTY_EXPONENT_FRACTION = 0.5,
                             BUS_TO_PASSENGER_RATIO = 0.022,
                             TRUCK_TO_CAR_RATIO = 0.21,
@@ -132,7 +132,7 @@ run_ithim_setup <- function(seed = 1,
   # BACKGROUND_PA_SCALAR = parameter. double: sets scalar for background PA. vector: samples from distribution.
   # BACKGROUND_PA_CONFIDENCE = parameter. double between 0 and 1. 1 = use PA data as they are.
   # INJURY_REPORTING_RATE = parameter. double: sets scalar for injury counts (inverse). vector: samples from distribution.
-  # INJURY_LINEARITY = parameter. double: sets scalar. vector: samples from distribution.
+  # SIN_EXPONENT_SUM = parameter. double: sets scalar. vector: samples from distribution.
   # CASUALTY_EXPONENT_FRACTION = parameter. double: sets scalar. vector: samples from distribution.
   
   # DAY_TO_WEEK_TRAVEL_SCALAR = parameter. double: sets scalar for extrapolation from day to week. vector: samples from distribution.
@@ -274,7 +274,7 @@ run_ithim_setup <- function(seed = 1,
                                                     INJURY_REPORTING_RATE,
                                                     CHRONIC_DISEASE_SCALAR,
                                                     DAY_TO_WEEK_TRAVEL_SCALAR,
-                                                    INJURY_LINEARITY,
+                                                    SIN_EXPONENT_SUM,
                                                     CASUALTY_EXPONENT_FRACTION,
                                                     BUS_TO_PASSENGER_RATIO,
                                                     TRUCK_TO_CAR_RATIO,
@@ -296,7 +296,7 @@ run_ithim_setup <- function(seed = 1,
                               'BUS_TO_PASSENGER_RATIO',
                               'TRUCK_TO_CAR_RATIO',
                               'BACKGROUND_PA_ZEROS')%in%names(ithim_object$parameters))
-  RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('INJURY_LINEARITY',
+  RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('SIN_EXPONENT_SUM',
                                                      'CASUALTY_EXPONENT_FRACTION')%in%names(ithim_object$parameters))
   
   ## complete TRIP_SET to contain distances and durations for trips and stages

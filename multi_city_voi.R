@@ -74,8 +74,8 @@ setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","BACKGROUND_PA_SCALAR","B
 mmet_cycling <- c(log(4.63),log(1.2))
 # lnorm parameters for MMET_WALKING
 mmet_walking <- c(log(2.53),log(1.1))
-# lnorm parameters for INJURY_LINEARITY
-injury_linearity <- c(log(0.9),log(1.1))
+# lnorm parameters for SIN_EXPONENT_SUM
+sin_exponent_sum <- c(log(0.9),log(1.1))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
 casualty_exponent_fraction <- c(15,15)
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
@@ -105,7 +105,7 @@ normVariables <- c("BUS_WALK_TIME",
                    "PM_CONC_BASE",
                    "BACKGROUND_PA_SCALAR",
                    "CHRONIC_DISEASE_SCALAR",
-                   "INJURY_LINEARITY",
+                   "SIN_EXPONENT_SUM",
                    "DISTANCE_SCALAR_CAR_TAXI",
                    "DISTANCE_SCALAR_WALKING",
                    "DISTANCE_SCALAR_PT",
@@ -114,7 +114,7 @@ normVariables <- c("BUS_WALK_TIME",
 
 save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
      background_pa_scalar,background_pa_confidence,bus_walk_time,mmet_cycling,mmet_walking,emission_inventories,
-     injury_linearity,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
+     sin_exponent_sum,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
      bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
      distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,add_motorcycle_fleet,fleet_to_motorcycle_ratio,
      betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
@@ -149,7 +149,7 @@ print(system.time(
                                               MMET_CYCLING = mmet_cycling, 
                                               MMET_WALKING = mmet_walking, 
                                               DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
-                                              INJURY_LINEARITY= injury_linearity,
+                                              SIN_EXPONENT_SUM= sin_exponent_sum,
                                               CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
                                               
                                               PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile[ci],  
