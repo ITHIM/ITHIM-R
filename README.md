@@ -94,8 +94,8 @@ Logic values determine how the dose--response relationships are used: if F, the 
       * CHRONIC_DISEASE_SCALAR - lognormal - scalar for GBD data
   * Injury values:
       * INJURY_REPORTING_RATE - lognormal - the rate at which injuries are reported
-      * INJURY_LINEARITY - lognormal - how linear injuries are in space
-      * CASUALTY_EXPONENT_FRACTION - beta - fraction of injury linearity attributed to casualty mode
+      * SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.
+      * CASUALTY_EXPONENT_FRACTION - beta - fraction of SIN_EXPONENT_SUM attributed to casualty mode
       
 #### Synthetic Population
 
