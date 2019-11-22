@@ -20,7 +20,7 @@
 #' @param CHRONIC_DISEASE_SCALAR lognormal parameter: scalar for background disease rates
 #' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week
 #' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to linearity of scalaing of injuries in space
+#' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to SIN_EXPONENT_SUM
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
 #' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: amount of motorcycle that's fleet

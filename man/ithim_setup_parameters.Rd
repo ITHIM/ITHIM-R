@@ -46,7 +46,7 @@ ithim_setup_parameters(NSAMPLES = 1, BUS_WALK_TIME = 5,
 
 \item{SIN_EXPONENT_SUM}{lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.}
 
-\item{CASUALTY_EXPONENT_FRACTION}{beta parameter: casualty contribution to linearity of scalaing of injuries in space}
+\item{CASUALTY_EXPONENT_FRACTION}{beta parameter: casualty contribution to SIN_EXPONENT_SUM}
 
 \item{BUS_TO_PASSENGER_RATIO}{beta parameter: number of buses per passenger}
 
