@@ -6,27 +6,24 @@ library(tidyverse)
 library(summarytools)
 
 # Read belo horizonte's travel survey
-rd <- read_csv("data/local/belo_horizonte/trips_dataset_LT_170719.csv")
+raw_rd <- read_csv("data/local/belo_horizonte/belo_horizonte_trip.csv")
+
+raw_rd$trip_id <- as.integer(as.factor(with(raw_rd, paste0(cluster_id, household_id, participant_id, trip_id, sep = "_"))))
 
 # Remove unused column
-rd$X1 <- NULL
+rd <- raw_rd %>% select(-c(X1, cluster_id, household_id, participant_wt, year, trip_purpose))
+
+# Convert id to numeric
+rd$participant_id <- as.numeric(as.factor(rd$participant_id))
+
+rd <- arrange(rd, participant_id)
+
+rd$stage_mode <- rd$trip_mode
 
 # Rename columns
-rd <- rd %>% rename(participant_id = id_person,
-                    age = Idade,
-                    sex = female,
-                    trip_id = id_trip,
-                    stage_mode = mode_eng,
-                    stage_duration = trip_duration
-                    )
-
-# Convert factor to appropriate classes
-rd <- mutate(rd, participant_id = as.integer(as.factor(participant_id)),
-             sex = ifelse(sex == 1, "Female", "Male"),
-             trip_id = as.integer(as.factor(trip_id)))
-
+rd <- rd %>% rename(stage_duration = trip_duration)
 # Show mode share (%)
-rd %>% group_by(stage_mode) %>% summarise(count = n(), `share (%)` = (n() / nrow(.) * 100) %>% round(2))
+rd %>% filter(!is.na(stage_mode)) %>% group_by(stage_mode) %>% summarise(count = n(), `share (%)` = (n() / nrow(.) * 100) %>% round(2))
 
 # Show mode duration (minutes)
 rd %>% group_by(stage_mode) %>% summarise(mean_duration = mean(stage_duration) %>% round(2))
