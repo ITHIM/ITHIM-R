@@ -47,7 +47,7 @@ rdpt[rdpt$stage_mode == "walk",]$stage_mode <- "walk_to_pt"
 #distinct_rdpt <- rdpt %>% distinct(trip_id, .keep_all = T)
 
 # Filter trips with walk elements
-rdptww <- rdpt %>% filter(stage_mode == "walk_to_pt") %>% distinct(trip_id, .keep_all = T)
+rdptww <- rdpt %>% filter(stage_mode == "walk_to_pt")
 
 # Get distinct trips without any walk elements
 distinct_rdpt <- rdpt %>% filter(!trip_id %in% rdptww$trip_id) %>% distinct(trip_id, .keep_all = T)
@@ -71,4 +71,4 @@ rd <- arrange(rd, participant_id, trip_id, stage_id)
 
 #####
 # Write streamlined travel survey data as a csv in the inst folder
-write_csv(rd1, "inst/extdata/local/bogota/trips_bogota.csv")
+write_csv(rd, "inst/extdata/local/bogota/trips_bogota.csv")
