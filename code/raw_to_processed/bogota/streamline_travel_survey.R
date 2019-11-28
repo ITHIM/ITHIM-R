@@ -33,7 +33,7 @@ raw_rd$pid <- NULL
 rd <- raw_rd
 
 # Remove unused column
-rd <- raw_rd %>% select(-c(X1, cluster_id, household_id, participant_wt, year, trip_purpose))
+rd <- rd %>% select(-c(X1, cluster_id, household_id, participant_wt, year, trip_purpose))
 
 # Print summary
 rd %>% filter(!is.na(trip_id)) %>% distinct(trip_id, .keep_all = TRUE) %>% group_by(trip_mode, .drop = F) %>% summarise(mode_share = round(n()*100/nrow(.),1))
@@ -62,6 +62,9 @@ rdpt <- rbind(rdpt, distinct_rdpt)
 
 # Add pt trips
 rd <- rbind(rd %>% filter(trip_mode != c('bus', 'train') | is.na(trip_mode)), rdpt)
+
+# Rename walk to walk_to_pt for pt modes
+rd[rd$trip_mode %in% c("bus", "train") & rd$stage_mode == "walk",] <- "walk_to_pt"
 
 # Arrange df
 rd <- arrange(rd, participant_id, trip_id, stage_id)
