@@ -34,6 +34,9 @@ raw_rd$pid <- NULL
 # Create a local copy of raw df
 rd <- raw_rd
 
+# Assign auto-increasing stage_id
+rd$stage_id <- sequence(rle(rd$trip_id)$lengths)
+
 # Remove unused column
 rd <- rd %>% select(-c(X1, cluster_id, household_id, participant_wt, year, trip_purpose))
 
