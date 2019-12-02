@@ -1,6 +1,6 @@
 library(ithimr)
 rm(list=ls())
-cities <- c('accra','sao_paulo','delhi','bangalore','belo_horizonte')
+cities <- c('accra','sao_paulo','delhi','bangalore','belo_horizonte', 'santiago')
 min_age <- 15
 max_age <- 69
 
