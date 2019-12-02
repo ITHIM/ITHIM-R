@@ -8,6 +8,9 @@ library(summarytools)
 # Read belo horizonte's travel survey
 raw_rd <- read_csv("data/local/mexico/mexico_city_trip.csv")
 
+# convert age to integer
+raw_rd$age <- as.integer(raw_rd$age)
+
 # Create a new var id to represent unique trips
 raw_rd <- raw_rd %>% mutate(id = ifelse(!is.na(trip_mode), as.integer(as.factor(with(raw_rd, paste0(cluster_id,household_id,participant_id, trip_id, trip_mode, trip_duration)))), NA))
 
