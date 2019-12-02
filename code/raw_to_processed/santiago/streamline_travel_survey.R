@@ -68,8 +68,10 @@ rdpt <- plyr::rbind.fill(rdpt, distinct_rdpt)
 # Add pt trips
 rd <- plyr::rbind.fill(rd %>% filter(!trip_mode %in% c('bus', 'train', 'metro') | is.na(trip_mode)), rdpt)
 
+# Add trip duration to stages
 rd[rd$stage_id == 1,]$stage_duration <- rd[rd$stage_id == 1,]$trip_duration
 
+# Recalculate trip duration by adding walk stage duration
 rd$trip_duration <- ave(rd$stage_duration, rd$trip_id, FUN = function(x) sum(x, na.rm=T))
 
 # Rename walk to walk_to_pt for pt modes
