@@ -11,7 +11,7 @@ raw_rd <- read_csv("data/local/belo_horizonte/belo_horizonte_trip.csv")
 raw_rd$trip_id <- as.integer(as.factor(with(raw_rd, paste0(cluster_id, household_id, participant_id, trip_id, sep = "_"))))
 
 # Remove unused column
-rd <- raw_rd %>% select(-c(X1, cluster_id, household_id, participant_wt, year, trip_purpose))
+rd <- raw_rd %>% dplyr::select(-c(X1, cluster_id, household_id, participant_wt, year, trip_purpose))
 
 # Convert id to numeric
 rd$participant_id <- as.numeric(as.factor(rd$participant_id))

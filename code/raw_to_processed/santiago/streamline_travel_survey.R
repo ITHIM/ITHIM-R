@@ -38,7 +38,7 @@ rd <- raw_rd
 rd$stage_id <- sequence(rle(rd$trip_id)$lengths)
 
 # Remove unused column
-rd <- rd %>% select(-c(X1, cluster_id, household_id, participant_wt, year, trip_purpose))
+rd <- rd %>% dplyr::select(-c(X1, cluster_id, household_id, participant_wt, year, trip_purpose))
 
 # Print summary
 rd %>% filter(!is.na(trip_id)) %>% distinct(trip_id, .keep_all = TRUE) %>% group_by(trip_mode, .drop = F) %>% summarise(mode_share = round(n()*100/nrow(.),1))
