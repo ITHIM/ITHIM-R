@@ -4,8 +4,13 @@
 \alias{add_distance_columns}
 \title{Add distance columns to injury tables}
 \usage{
-add_distance_columns(injury_table, mode_names, true_distances_0, dist,
-  scenarios = SCEN)
+add_distance_columns(
+  injury_table,
+  mode_names,
+  true_distances_0,
+  dist,
+  scenarios = SCEN
+)
 }
 \arguments{
 \item{injury_table}{(list of) data frame(s) to be edited}
