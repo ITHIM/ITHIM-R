@@ -55,7 +55,7 @@ rdpt <- rd %>% filter(trip_mode %in% c('bus', 'train', 'metro'))
 #rdptww <- rdpt %>% filter(stage_mode == "walk_to_pt")
 
 # Get distinct trips without any walk elements
-distinct_rdpt <- rdpt %>% filter(!trip_id %in% rdptww$trip_id) %>% distinct(trip_id, .keep_all = T)
+distinct_rdpt <- rdpt %>% distinct(trip_id, .keep_all = T)
 
 # Add walk_to_pt with default values
 distinct_rdpt$stage_mode <- "walk_to_pt"
@@ -63,13 +63,17 @@ distinct_rdpt$stage_duration <- 10.55
 distinct_rdpt$stage_id <- distinct_rdpt$stage_id + 1
 
 # Add walk elements to the missing pt trips
-rdpt <- rbind(rdpt, distinct_rdpt)
+rdpt <- plyr::rbind.fill(rdpt, distinct_rdpt)
 
 # Add pt trips
-rd <- rbind(rd %>% filter(!trip_mode %in% c('bus', 'train', 'metro') | is.na(trip_mode)), rdpt)
+rd <- plyr::rbind.fill(rd %>% filter(!trip_mode %in% c('bus', 'train', 'metro') | is.na(trip_mode)), rdpt)
+
+rd[rd$stage_id == 1,]$stage_duration <- rd[rd$stage_id == 1,]$trip_duration
+
+rd$trip_duration <- ave(rd$stage_duration, rd$trip_id, FUN = function(x) sum(x, na.rm=T))
 
 # Rename walk to walk_to_pt for pt modes
-rd[rd$trip_mode %in% c("bus", "train", 'metro') & rd$stage_mode == "walk",] <- "walk_to_pt"
+#rd[rd$trip_mode %in% c("bus", "train", 'metro') && rd$stage_mode == "walk",] <- "walk_to_pt"
 
 # Arrange df
 rd <- arrange(rd, participant_id, trip_id, stage_id)
