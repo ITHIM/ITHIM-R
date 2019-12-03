@@ -67,7 +67,7 @@ rdpt <- rbind(rdpt, distinct_rdpt)
 rd <- rbind(rd %>% filter(!trip_mode %in% c('bus', 'train', 'metro') | is.na(trip_mode)), rdpt)
 
 # Rename walk to walk_to_pt for pt modes
-rd[rd$trip_mode %in% c("bus", "train") & rd$stage_mode == "walk",] <- "walk_to_pt"
+rd$stage_mode[rd$trip_mode %in% c("bus", "train") & rd$stage_mode == "walk"] <- "walk_to_pt"
 
 # Arrange df
 rd <- arrange(rd, participant_id, trip_id, stage_id)
