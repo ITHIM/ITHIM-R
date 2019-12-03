@@ -1,6 +1,9 @@
 library(ithimr)
 rm(list=ls())
-cities <- c('accra','sao_paulo','delhi','bangalore','belo_horizonte', 'santiago')
+cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city')#c('buenos_aires', 'belo_horizonte', 'santiago', 'mexico_city')
+
+# Problematic injuries dataset for bogota - hence being excluded
+
 min_age <- 15
 max_age <- 69
 
@@ -80,6 +83,7 @@ cas_exponent <- 0.5
 toplot <- matrix(0,nrow=5,ncol=length(cities)) #5 scenarios, 4 cities
 ithim_objects <- list()
 for(city in cities){
+  print(city)
   ithim_objects[[city]] <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),
                                   ADD_WALK_TO_BUS_TRIPS = F,
                                   CITY = city,
@@ -150,9 +154,4 @@ for(city in cities){
 ## Save the ithim_object in the results folder
 ##########
 
-saveRDS(ithim_objects, "results/multi_city/io.rds",version=2)
-
-
-
-                                            
- 
+saveRDS(ithim_objects, "results/multi_city/io.rds",version = 2)
