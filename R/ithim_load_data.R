@@ -107,7 +107,7 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   
   # GBD file needs to have the following columns: 
   # age (=label, e.g. 15-49)
-  # sex (=Male or Female)
+  # sex (=male or female)
   # measure
   # cause (GBD_DATA$cause matches DISEASE_INVENTORY$GBD_name)
   # metric
@@ -189,7 +189,7 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   if('cas_age'%in%colnames(injuries)) injuries <- assign_age_groups(injuries,age_label='cas_age')
   injuries$cas_mode <- tolower(injuries$cas_mode)
   injuries$strike_mode <- tolower(injuries$strike_mode)
-  injuries$cas_gender <- tolower(injuries$cas_gender)
+  if('cas_gender'%in%colnames(injuries)) injuries$cas_gender <- tolower(injuries$cas_gender)
   injuries$strike_mode[is.na(injuries$strike_mode)] <- 'listed_na'
   nov_words <- c('no.other.fixed.or.stationary.object','no other vehicle','none')
   injuries$strike_mode[injuries$strike_mode%in%nov_words] <- 'nov'
