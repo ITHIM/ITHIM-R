@@ -9,8 +9,8 @@ for(i in 1:nrow(whw))
   for(j in 2:ncol(whw)){
     count <- whw[i,j]
     if(count>0){
-      weight <- number_of_years*round(count)/count
-      for(k in 1:round(count)){ ## six years of data
+      weight <- number_of_years*ceiling(count)/count
+      for(k in 1:ceiling(count)){ ## six years of data
         #print(c(k,count))
         injuries[nrow(injuries)+1,] <- c(as.character(whw[i,1]),colnames(whw)[j],weight)
       }
