@@ -1,4 +1,5 @@
 library(ithimr)
+library(earth)
 rm(list=ls())
 cities <- c('accra','sao_paulo','delhi','bangalore','belo_horizonte')
 min_age <- 15
@@ -314,7 +315,9 @@ for(i in 1:length(outcome_pp)){
 outcomes_pp <- do.call(cbind,outcome_pp)
 outcome$combined <- outcomes_pp
 saveRDS(outcome,'results/multi_city/outcome.Rds',version=2)
-evppi <- mi <- matrix(0, ncol = NSCEN*(length(cities)+1), nrow = ncol(parameter_samples))
+
+
+evppi <- matrix(0, ncol = NSCEN*(length(cities)+1), nrow = ncol(parameter_samples))
 for(j in 1:length(outcome)){
   case <- outcome[[j]]
   for(k in 1:NSCEN){
@@ -323,14 +326,13 @@ for(j in 1:length(outcome)){
     vary <- var(y)
     for(i in 1:ncol(parameter_samples)){
       x <- parameter_samples[, i];
-      model <- gam(y ~ s(x))
+      model <- earth(y ~ x)
       evppi[i, (j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-      mi[i, (j-1)*NSCEN + k] <- mutinformation(discretize(x),discretize(y))
     }
   }
 }
-colnames(evppi) <- colnames(mi) <- apply(expand.grid(SCEN_SHORT_NAME[2:6],names(outcome)),1,function(x)paste0(x,collapse='_'))
-rownames(evppi) <- rownames(mi) <- colnames(parameter_samples)
+colnames(evppi) <- apply(expand.grid(SCEN_SHORT_NAME[2:6],names(outcome)),1,function(x)paste0(x,collapse='_'))
+rownames(evppi) <- colnames(parameter_samples)
 ## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
 
 multi_city_parallel_evppi_for_AP <- function(disease,parameter_samples,outcome){
@@ -345,7 +347,7 @@ multi_city_parallel_evppi_for_AP <- function(disease,parameter_samples,outcome){
       scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
       y <- rowSums(scen_case)
       vary <- var(y)
-      model <- gam(y ~ te(x1,x2,x3,x4))
+      model <- earth(y ~ x1+x2+x3+x4,degree=4)
       voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
     }
   }
@@ -368,57 +370,15 @@ if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
   evppi <- evppi[keep_names,]
 }
 
-multi_city_parallel_mi_for_AP <- function(disease,parameter_samples,outcome){
-  voi <- c()
-  x1 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease))];
-  x2 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease))];
-  x3 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease))];
-  x4 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease))];
-  for(j in 1:length(outcome)){
-    case <- outcome[[j]]
-    for(k in 1:NSCEN){
-      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
-      y <- rowSums(scen_case)
-      voi[(j-1)*NSCEN + k] <- multiinformation(data.frame(discretize(x1),discretize(x2),discretize(x3),discretize(x4),discretize(y)))
-    }
-  }
-  voi
-}
-
-numcores <- 8
-if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
-  AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
-  diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-  mi_for_AP <- mclapply(diseases, 
-                           FUN = multi_city_parallel_mi_for_AP,
-                           parameter_samples,
-                           outcome, 
-                           mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
-  names(mi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
-  mi <- rbind(mi,do.call(rbind,evppi_for_AP))
-  ## get rows to remove
-  keep_names <- sapply(rownames(evppi),function(x)!any(c('ALPHA','BETA','GAMMA','TMREL')%in%strsplit(x,'_')[[1]]))
-  evppi <- evppi[keep_names,]
-}
-
 multi_city_parallel_evppi_for_emissions <- function(sources,outcome){
   voi <- c()
-  nSources <- ncol(sources)
-  for(i in 1:nSources)
-    assign(paste0('x',i),sources[,i])
-  form <- 'y ~ '
-  m <- nSources + 1
-  #for(m in 3:nSources)
-    for(i in 2:(m-1))
-      for(l in 1:(i-1))
-        form <- paste0(form,ifelse(form=='y ~ ','','+'),paste0('te(',paste0('x',l),',',paste0('x',i),')'))#,paste0('x',m),','
   for(j in 1:length(outcome)){
     case <- outcome[[j]]
     for(k in 1:NSCEN){
       scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
       y <- rowSums(scen_case)
       vary <- var(y)
-      model <- gam(as.formula(form))
+      model <- earth(y ~ sources, degree=min(4,ncol(sources)))
       voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
     }
   }
@@ -459,7 +419,7 @@ multi_city_parallel_evppi_for_pa <- function(sources,outcome){
       scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
       y <- rowSums(scen_case)
       vary <- var(y)
-      model <- gam(y ~ te(x1,x2))
+      model <- earth(y ~ x1+x2,degree=2)
       voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
     }
   }
@@ -516,25 +476,6 @@ evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
   for(i in seq(0,NSCEN*length(outcome),by=NSCEN)) abline(v=i)
   for(i in seq(0,length(labs),by=NSCEN)) abline(h=i)
   dev.off()}
-{pdf('results/multi_city/mi.pdf',height=15,width=8); par(mar=c(6,20,3.5,5.5))
-  labs <- rownames(mi)
-  get.pal=colorRampPalette(brewer.pal(9,"Reds"))
-  redCol=rev(get.pal(12))
-  bkT <- seq(max(mi)+1e-10, 0,length=13)
-  cex.lab <- 1.5
-  maxval <- round(bkT[1],digits=1)
-  col.labels<- c(0,maxval/2,maxval)
-  cellcolors <- vector()
-  for(ii in 1:length(unlist(mi)))
-    cellcolors[ii] <- redCol[tail(which(unlist(mi[ii])<bkT),n=1)]
-  color2D.matplot(mi,cellcolors=cellcolors,main="",xlab="",ylab="",cex.lab=2,axes=F,border='white')
-  fullaxis(side=1,las=2,at=NSCEN*0:(length(outcome)-1)+NSCEN/2,labels=names(outcome),line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=1)
-  fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.8)
-  mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
-  color.legend(NSCEN*length(outcome)+0.5,0,NSCEN*length(outcome)+0.8,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
-  for(i in seq(0,NSCEN*length(outcome),by=NSCEN)) abline(v=i)
-  for(i in seq(0,length(labs),by=NSCEN)) abline(h=i)
-  dev.off()}
 
 scen_out <- lapply(outcome[-5],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
 ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
@@ -565,104 +506,3 @@ means <- apply(comb_out,2,mean)
   dev.off()
 }
 
-
-
-# numcores <- 20
-# cities <- names(outcome)[1:4]
-# sources <- list()
-# for(ci in 1:length(cities)){
-#   city <- cities[ci]
-#   emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
-#   sources[[ci]] <- parameter_samples[,emission_names]
-# }
-# 
-# evppi_for_emissions <- matrix(0,nrow=length(sources),ncol=ncol(evppi))
-# rownames(evppi_for_emissions) <- paste0('EMISSION_INVENTORY_',cities)
-# colnames(evppi_for_emissions) <- colnames(evppi)
-# calcflag <- sapply(colnames(evppi_for_emissions),function(y)
-#   sapply(rownames(evppi_for_emissions),function(x){city <- strsplit(x,'EMISSION_INVENTORY_')[[1]][2]; grepl(city,y)|grepl('combined',y)})
-# )
-# 
-# 
-# cases_scen <- NSCEN*length(sources)
-# outcome_index <- 4
-# scen_index <- 1
-# source_index <- 4
-# inputs <- sources[[source_index]]
-# 
-# ## older:
-# averages <- colMeans(inputs)
-# x1 <- inputs[,order(averages,decreasing=T)[1]];
-# x2 <- inputs[,order(averages,decreasing=T)[2]];
-# x3 <- inputs[,order(averages,decreasing=T)[3]];
-# x4 <- inputs[,order(averages,decreasing=T)[4]];
-# j <- 4
-# case <- outcome[[j]]
-# k <- 1
-# scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
-# y <- rowSums(scen_case)
-# vary <- var(y)
-# model <- gam(y ~ te(x1,x2,x3,x4))
-# voi <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-# print(voi)
-# 
-# ## old:
-# averages <- colMeans(inputs)
-# x1 <- inputs[,order(averages,decreasing=T)[1]];
-# x2 <- inputs[,order(averages,decreasing=T)[2]];
-# x3 <- inputs[,order(averages,decreasing=T)[3]];
-# x4 <- inputs[,order(averages,decreasing=T)[4]];
-# x5 <- inputs[,order(averages,decreasing=T)[5]];
-# form <- 'y ~ te(x1,x2,x3,x4)'
-# print(form)
-# case <- outcome[[outcome_index]]
-# scen_case <- case[,seq(scen_index,ncol(case),by=NSCEN)]
-# y <- rowSums(scen_case)
-# vary <- var(y)
-# model <- gam(as.formula(form))
-# voi <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-# print(voi)
-# 
-# multi_city_parallel_evppi_for_emissions <- function(sources,outcome){
-#   voi <- c()
-#   averages <- colMeans(sources)
-#   x1 <- sources[,order(averages,decreasing=T)[1]];
-#   x2 <- sources[,order(averages,decreasing=T)[2]];
-#   x3 <- sources[,order(averages,decreasing=T)[3]];
-#   x4 <- sources[,order(averages,decreasing=T)[4]];
-#   for(j in 1:length(outcome)){
-#     case <- outcome[[j]]
-#     for(k in 1:NSCEN){
-#       scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
-#       y <- rowSums(scen_case)
-#       vary <- var(y)
-#       model <- gam(y ~ te(x1,x2,x3,x4))
-#       voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-#     }
-#   }
-#   voi
-# }
-# sources <- list()
-# for(ci in 1:length(cities)){
-#   city <- cities[ci]
-#   emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
-#   sources[[ci]] <- parameter_samples[,emission_names]
-# }
-# evppi_for_emissions <- mclapply(sources, 
-#                                 FUN = multi_city_parallel_evppi_for_emissions,
-#                                 outcome, 
-#                                 mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
-# 
-# names(evppi_for_emissions) <- paste0('EMISSION_INVENTORY_',cities)
-# print(evppi_for_emissions)
-# 
-# 
-# form <- 'y ~ te(x1,x2,x3,x4,x5)'
-# print(form)
-# case <- outcome[[outcome_index]]
-# scen_case <- case[,seq(scen_index,ncol(case),by=NSCEN)]
-# y <- rowSums(scen_case)
-# vary <- var(y)
-# model <- gam(as.formula(form))
-# voi <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-# print(voi)
