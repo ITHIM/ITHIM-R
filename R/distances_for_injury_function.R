@@ -55,7 +55,7 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
                                                  cas_gender=unique(DEMOGRAPHIC$sex),
                                        cas_mode=unique(injuries_for_model[[1]][[type]]$cas_mode),
                                        strike_mode=unique(injuries_for_model[[1]][[type]]$strike_mode))
-  injuries_list <- add_distance_columns(scenario_injury_table,mode_names,true_distances_0,dist)
+  injuries_list <- add_distance_columns(injury_table=scenario_injury_table,mode_names,true_distances_0,dist)
   for (n in 1:(NSCEN+1))
     for(type in INJURY_TABLE_TYPES) 
       injuries_list[[n]][[type]]$injury_gen_age <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_gender),as.character(injuries_list[[n]][[type]]$age_cat)),1,function(x)paste(x,collapse='_'))
