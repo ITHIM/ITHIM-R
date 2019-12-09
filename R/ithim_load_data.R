@@ -95,6 +95,7 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   }
   trip_set <- subset(trip_set,!is.na(age))
   trip_set <- subset(trip_set,!is.na(sex))
+  trip_set$sex <- tolower(trip_set$sex)
   TRIP_SET <<- trip_set
   
   if(MAX_MODE_SHARE_SCENARIO&&
@@ -119,6 +120,7 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   filename <- paste0(local_path,"/population_",CITY,".csv")
   demographic <- read_csv(filename,col_types = cols())
   demographic <- demographic[!apply(demographic,1,anyNA),]
+  demographic$sex <- tolower(demographic$sex)
   cat(paste0('\n  Population read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   age_category <- demographic$age
   max_age <- max(as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][2])))
@@ -140,6 +142,7 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   GBD_DATA <- subset(GBD_DATA,max_age>=AGE_LOWER_BOUNDS[1])
   GBD_DATA <- subset(GBD_DATA,min_age<=MAX_AGE)
   names(GBD_DATA)[c(1,3,4,5)] <- c('measure','sex','age','cause')
+  GBD_DATA$sex <- tolower(GBD_DATA$sex)
   
   burden_of_disease <- expand.grid(measure=unique(GBD_DATA$measure),sex=unique(DEMOGRAPHIC$sex),age=unique(DEMOGRAPHIC$age),
                                    cause=disease_names,stringsAsFactors = F)
@@ -174,7 +177,9 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
     
   ## pa data
   filename <- paste0(local_path,"/pa_",CITY,".csv")
-  PA_SET <<- read_csv(filename,col_types = cols())
+  pa_set <- read_csv(filename,col_types = cols())
+  pa_set$sex <- tolower(pa_set$sex)
+  PA_SET <<- pa_set
   cat(paste0('\n  Physical activity survey read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   
   ## injury data
@@ -184,6 +189,7 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   if('cas_age'%in%colnames(injuries)) injuries <- assign_age_groups(injuries,age_label='cas_age')
   injuries$cas_mode <- tolower(injuries$cas_mode)
   injuries$strike_mode <- tolower(injuries$strike_mode)
+  injuries$cas_gender <- tolower(injuries$cas_gender)
   injuries$strike_mode[is.na(injuries$strike_mode)] <- 'listed_na'
   nov_words <- c('no.other.fixed.or.stationary.object','no other vehicle','none')
   injuries$strike_mode[injuries$strike_mode%in%nov_words] <- 'nov'
@@ -204,3 +210,4 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   # in future, we can add other covariates
   
 }
+
