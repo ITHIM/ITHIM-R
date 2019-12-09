@@ -39,12 +39,14 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
     dem_index[[type]] <- length(u_gen)*(age_index-1)+gen_index
     cas_mode_indices[[type]] <- match(injury_table[[type]]$cas_mode,mode_names)
   }
-  ## group 2W and 3W striking vehicles
-  strike_distances <- true_distances_0
-  strike_distances$motorcycle <- rowSums(strike_distances[,colnames(strike_distances)%in%c('motorcycle','auto_rickshaw')])
-  strike_modes <- unique(as.character(injury_table$whw$strike_mode))
-  ##!! this order matters to strike_distance_sums later
-  strike_mode_indices <- match(injury_table$whw$strike_mode,unique(c(mode_names,strike_modes)))
+  if('whw'%in%INJURY_TABLE_TYPES){
+    ## group 2W and 3W striking vehicles
+    strike_distances <- true_distances_0
+    strike_distances$motorcycle <- rowSums(strike_distances[,colnames(strike_distances)%in%c('motorcycle','auto_rickshaw')])
+    strike_modes <- unique(as.character(injury_table$whw$strike_mode))
+    ##!! this order matters to strike_distance_sums later
+    strike_mode_indices <- match(injury_table$whw$strike_mode,unique(c(mode_names,strike_modes)))
+  }
   
   ## Calculated distances
   ## true distances should be the total for the whole population for a whole year. 
@@ -57,16 +59,19 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
     true_scen_dist <- subset(true_distances_0,scenario==scen)
     dist_summary <- as.data.frame(t(sapply(sort(unique(true_scen_dist$dem_index)),function(x)
       colSums(subset(true_scen_dist,dem_index==x)[,!colnames(true_scen_dist)%in%c('age_cat','sex','scenario','sex_age','dem_index')]))))
-    strike_true_scen_dist <- subset(strike_distances,scenario==scen)
-    strike_dist_summary <- as.data.frame(t(sapply(unique(strike_true_scen_dist$dem_index),function(x)
-      colSums(subset(strike_true_scen_dist,dem_index==x)[,!colnames(strike_true_scen_dist)%in%c('age_cat','sex','scenario','sex_age','dem_index')]))))
     # apply casualty distance sums
     distance_sums <- sapply(mode_names,function(x)sum(dist_summary[[x]]))
-    # apply strike distance sums
-    strike_distance_sums <- sapply(mode_names,function(x)sum(strike_dist_summary[[x]]))
-    old_length <- length(strike_distance_sums)
-    for(str_mode in strike_modes[!strike_modes%in%names(strike_distance_sums)]) strike_distance_sums <- c(strike_distance_sums,mean(strike_distance_sums))
-    names(strike_distance_sums)[(old_length+1):length(strike_distance_sums)] <- strike_modes[!strike_modes%in%names(strike_distance_sums)]
+    
+    if('whw'%in%INJURY_TABLE_TYPES){
+      strike_true_scen_dist <- subset(strike_distances,scenario==scen)
+      strike_dist_summary <- as.data.frame(t(sapply(unique(strike_true_scen_dist$dem_index),function(x)
+        colSums(subset(strike_true_scen_dist,dem_index==x)[,!colnames(strike_true_scen_dist)%in%c('age_cat','sex','scenario','sex_age','dem_index')]))))
+      # apply strike distance sums
+      strike_distance_sums <- sapply(mode_names,function(x)sum(strike_dist_summary[[x]]))
+      old_length <- length(strike_distance_sums)
+      for(str_mode in strike_modes[!strike_modes%in%names(strike_distance_sums)]) strike_distance_sums <- c(strike_distance_sums,mean(strike_distance_sums))
+      names(strike_distance_sums)[(old_length+1):length(strike_distance_sums)] <- strike_modes[!strike_modes%in%names(strike_distance_sums)]
+    }
     for(type in INJURY_TABLE_TYPES){
       injuries_list[[scen]][[type]] <- injury_table[[type]]
       ##TODO get distances without prior knowledge of column names
