@@ -1,6 +1,6 @@
 library(ithimr)
 rm(list=ls())
-cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city')#c('buenos_aires', 'belo_horizonte', 'santiago', 'mexico_city')
+cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota')
 
 # Problematic injuries dataset for bogota - hence being excluded
 
@@ -147,7 +147,7 @@ for(city in cities){
       barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, names.arg=if(i<7) NULL else  rownames(SCENARIO_PROPORTIONS), 
               main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
     if(i%in%c(2,1,7,12)) {axis(2,cex.axis=1.5); if(i%in%c(2,7)) mtext(side=2,'YLL gain per person',line=3)}
-    if(i==nDiseases-1) legend(legend=cities,fill=cols,bty='n',y=-1e-5,x=5)
+    if(i==nDiseases-1) legend(legend=cities,fill=cols,bty='n',y=-1e-5,x=5,cex=0.9)
   }
 }
 
