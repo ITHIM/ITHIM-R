@@ -118,6 +118,7 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   cat(paste0('\n  GBD read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   filename <- paste0(local_path,"/population_",CITY,".csv")
   demographic <- read_csv(filename,col_types = cols())
+  demographic <- demographic[!apply(demographic,1,anyNA),]
   cat(paste0('\n  Population read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   age_category <- demographic$age
   max_age <- max(as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][2])))
