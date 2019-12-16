@@ -327,7 +327,22 @@ for(j in 1:length(outcome)){
 }
 colnames(evppi) <- apply(expand.grid(SCEN_SHORT_NAME[2:6],names(outcome)),1,function(x)paste0(x,collapse='_'))
 rownames(evppi) <- colnames(parameter_samples)
-## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
+
+multi_city_parallel_evppi <- function(jj,sources,outcome,all=F){
+  voi <- rep(0,length(outcome)*NSCEN)
+  if(all==T) jj <- 1:(length(outcome)-1)
+  for(j in c(jj,length(outcome))){
+    case <- outcome[[j]]
+    for(k in 1:NSCEN){
+      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
+      y <- rowSums(scen_case)
+      vary <- var(y)
+      model <- earth(y ~ sources, degree=min(4,ncol(sources)))
+      voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+    }
+  }
+  voi
+}
 
 multi_city_parallel_evppi_for_AP <- function(disease,parameter_samples,outcome){
   voi <- c()
@@ -348,14 +363,22 @@ multi_city_parallel_evppi_for_AP <- function(disease,parameter_samples,outcome){
   voi
 }
 
+## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
+
 numcores <- 8
 if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
   AP_names <- sapply(names(multi_city_ithim[[1]]$parameters),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
   diseases <- sapply(names(multi_city_ithim[[1]]$parameters)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-  evppi_for_AP <- mclapply(diseases, 
-                           FUN = multi_city_parallel_evppi_for_AP,
-                           parameter_samples,
+  sources <- list()
+  for(di in diseases){
+    col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
+    sources[[di]] <- parameter_samples[,col_names]
+  }
+  evppi_for_AP <- mclapply(1:length(sources), 
+                           FUN = multi_city_parallel_evppi,
+                           sources,
                            outcome, 
+                           all=T,
                            mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
   names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
   evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
@@ -364,20 +387,6 @@ if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
   evppi <- evppi[keep_names,]
 }
 
-multi_city_parallel_evppi <- function(jj,sources,outcome){
-  voi <- rep(0,length(outcome)*NSCEN)
-  for(j in c(jj,length(outcome))){
-    case <- outcome[[j]]
-    for(k in 1:NSCEN){
-      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
-      y <- rowSums(scen_case)
-      vary <- var(y)
-      model <- earth(y ~ sources, degree=min(4,ncol(sources)))
-      voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-    }
-  }
-  voi
-}
 # x2 <- evppi(parameter=c(38:40),input=inp$mat,he=m,method="GP")
 #fit <- fit.gp(parameter = parameter, inputs = inputs, x = x, n.sim = n.sim)
 if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
