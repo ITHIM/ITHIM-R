@@ -328,10 +328,12 @@ for(j in 1:length(outcome)){
 colnames(evppi) <- apply(expand.grid(SCEN_SHORT_NAME[2:6],names(outcome)),1,function(x)paste0(x,collapse='_'))
 rownames(evppi) <- colnames(parameter_samples)
 
-multi_city_parallel_evppi <- function(jj,sources,outcome,all=F){
+multi_city_parallel_evppi <- function(jj,sources,outcome,all=F,multi_city_outcome=T){
   voi <- rep(0,length(outcome)*NSCEN)
-  if(all==T) jj <- 1:(length(outcome)-1)
-  for(j in c(jj,length(outcome))){
+  ncities <- length(outcome) - as.numeric(multi_city_outcome)
+  if(all==T) jj <- 1:ncities
+  if(multi_city_outcome==T) jj <- c(jj,length(outcome))
+  for(j in jj){
     case <- outcome[[j]]
     for(k in 1:NSCEN){
       scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
