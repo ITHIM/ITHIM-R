@@ -346,6 +346,27 @@ multi_city_parallel_evppi <- function(jj,sources,outcome,all=F,multi_city_outcom
   voi
 }
 
+multi_city_parallel_evppi <- function(jj,sources,outcome,all=F,multi_city_outcome=T){
+  voi <- rep(0,length(outcome)*NSCEN)
+  sourcesj <- sources[[jj]]
+  ncities <- length(outcome) - as.numeric(multi_city_outcome)
+  if(all==T) jj <- 1:ncities
+  if(multi_city_outcome==T) jj <- c(jj,length(outcome))
+  for(j in jj){
+    case <- outcome[[j]]
+    for(k in 1:NSCEN){
+      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
+      y <- rowSums(scen_case)
+      vary <- var(y)
+      model <- earth(y ~ sourcesj, degree=min(4,ncol(sourcesj)))
+      voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
+    }
+  }
+  voi
+}
+
+
+
 multi_city_parallel_evppi_for_AP <- function(disease,parameter_samples,outcome){
   voi <- c()
   x1 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease))];
