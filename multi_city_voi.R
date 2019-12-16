@@ -87,12 +87,6 @@ ap_dr_quantile <- c(T,rep(F,length(cities)-1))
 test_walk_scenario <- F
 # logical for cycle scenario
 test_cycle_scenario <- F
-# if walk scenario, choose Baseline as reference scenario
-ref_scenarios <- list(accra='Baseline',
-                      sao_paulo='Baseline',
-                      delhi='Baseline',
-                      bangalore='Baseline',
-                      belo_horizonte='Baseline')
 
 betaVariables <- c("PM_TRANS_SHARE",
                    "INJURY_REPORTING_RATE",
@@ -137,7 +131,7 @@ print(system.time(
                                               AGE_RANGE = c(min_age,max_age),
                                               TEST_WALK_SCENARIO = test_walk_scenario,
                                               TEST_CYCLE_SCENARIO = test_cycle_scenario,
-                                              REFERENCE_SCENARIO=ref_scenarios[[1]],
+                                              REFERENCE_SCENARIO='Baseline',
                                               MAX_MODE_SHARE_SCENARIO=T,
                                               ADD_BUS_DRIVERS = F,
                                               ADD_TRUCK_DRIVERS = F,
@@ -370,9 +364,9 @@ if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
   evppi <- evppi[keep_names,]
 }
 
-multi_city_parallel_evppi_for_emissions <- function(sources,outcome){
-  voi <- c()
-  for(j in 1:length(outcome)){
+multi_city_parallel_evppi_for_emissions <- function(jj,sources,outcome){
+  voi <- rep(0,length(outcome)*NSCEN)
+  for(j in c(jj,length(outcome))){
     case <- outcome[[j]]
     for(k in 1:NSCEN){
       scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
@@ -393,8 +387,9 @@ if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NS
    emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
    sources[[ci]] <- parameter_samples[,emission_names]
  }
- evppi_for_emissions <- mclapply(sources,
+ evppi_for_emissions <- mclapply(1:length(sources),
                                  FUN = multi_city_parallel_evppi_for_emissions,
+                                 sources,
                                  outcome,
                                  mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
 
@@ -408,18 +403,15 @@ if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NS
 print(evppi)
 
 ## PA
-multi_city_parallel_evppi_for_pa <- function(sources,outcome){
-  voi <- c()
-  averages <- colMeans(sources)
-  x1 <- sources[,1];
-  x2 <- sources[,2];
-  for(j in 1:length(outcome)){
+multi_city_parallel_evppi_for_pa <- function(jj,sources,outcome){
+  voi <- rep(0,length(outcome)*NSCEN)
+  for(j in c(jj,length(outcome))){
     case <- outcome[[j]]
     for(k in 1:NSCEN){
       scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
       y <- rowSums(scen_case)
       vary <- var(y)
-      model <- earth(y ~ x1+x2,degree=2)
+      model <- earth(y ~ sources,degree=2)
       voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
     }
   }
@@ -432,10 +424,11 @@ if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%names(mult
     pa_names <- sapply(colnames(parameter_samples),function(x)(grepl('BACKGROUND_PA_SCALAR_',x)||grepl('BACKGROUND_PA_ZEROS_',x))&grepl(city,x))
     sources[[ci]] <- parameter_samples[,pa_names]
   }
-  evppi_for_pa <- mclapply(sources, 
-                                  FUN = multi_city_parallel_evppi_for_pa,
-                                  outcome, 
-                                  mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+  evppi_for_pa <- mclapply(1:length(sources), 
+                           FUN = multi_city_parallel_evppi_for_pa,
+                           sources, 
+                           outcome, 
+                           mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
   
   names(evppi_for_pa) <- paste0('BACKGROUND_PA_',cities)
   ## get rows to remove
