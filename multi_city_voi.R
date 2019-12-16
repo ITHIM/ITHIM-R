@@ -364,7 +364,7 @@ if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
   evppi <- evppi[keep_names,]
 }
 
-multi_city_parallel_evppi_for_emissions <- function(jj,sources,outcome){
+multi_city_parallel_evppi <- function(jj,sources,outcome){
   voi <- rep(0,length(outcome)*NSCEN)
   for(j in c(jj,length(outcome))){
     case <- outcome[[j]]
@@ -388,7 +388,7 @@ if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NS
    sources[[ci]] <- parameter_samples[,emission_names]
  }
  evppi_for_emissions <- mclapply(1:length(sources),
-                                 FUN = multi_city_parallel_evppi_for_emissions,
+                                 FUN = multi_city_parallel_evppi,
                                  sources,
                                  outcome,
                                  mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
@@ -400,23 +400,7 @@ if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NS
 
  evppi <- rbind(evppi,do.call(rbind,evppi_for_emissions))
 }
-print(evppi)
 
-## PA
-multi_city_parallel_evppi_for_pa <- function(jj,sources,outcome){
-  voi <- rep(0,length(outcome)*NSCEN)
-  for(j in c(jj,length(outcome))){
-    case <- outcome[[j]]
-    for(k in 1:NSCEN){
-      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
-      y <- rowSums(scen_case)
-      vary <- var(y)
-      model <- earth(y ~ sources,degree=2)
-      voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-    }
-  }
-  voi
-}
 if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%names(multi_city_ithim[[1]]$parameters))==2&&NSAMPLES>=1024){
   sources <- list()
   for(ci in 1:length(cities)){
@@ -425,7 +409,7 @@ if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%names(mult
     sources[[ci]] <- parameter_samples[,pa_names]
   }
   evppi_for_pa <- mclapply(1:length(sources), 
-                           FUN = multi_city_parallel_evppi_for_pa,
+                           FUN = multi_city_parallel_evppi,
                            sources, 
                            outcome, 
                            mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
