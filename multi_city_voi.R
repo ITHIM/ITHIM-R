@@ -1,7 +1,7 @@
 library(ithimr)
 library(earth)
 rm(list=ls())
-cities <- c('accra','sao_paulo','delhi','bangalore','belo_horizonte')
+cities <- c('accra','sao_paulo','delhi','bangalore','belo_horizonte','santiago','mexico_city','buenos_aires','bogota')
 min_age <- 15
 max_age <- 69
 
@@ -137,7 +137,7 @@ print(system.time(
                                               AGE_RANGE = c(min_age,max_age),
                                               TEST_WALK_SCENARIO = test_walk_scenario,
                                               TEST_CYCLE_SCENARIO = test_cycle_scenario,
-                                              REFERENCE_SCENARIO=ref_scenarios[[city]],
+                                              REFERENCE_SCENARIO=ref_scenarios[[1]],
                                               MAX_MODE_SHARE_SCENARIO=T,
                                               ADD_BUS_DRIVERS = F,
                                               ADD_TRUCK_DRIVERS = F,
@@ -457,7 +457,7 @@ library(plotrix)
 #                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
 #                     'COPD (AP)','stroke (AP)')
 evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
-{pdf('results/multi_city/evppi.pdf',height=15,width=8); par(mar=c(6,20,3.5,5.5))
+{pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome)); par(mar=c(10,22,3.5,5.5))
   labs <- rownames(evppi)
   get.pal=colorRampPalette(brewer.pal(9,"Reds"))
   redCol=rev(get.pal(12))
