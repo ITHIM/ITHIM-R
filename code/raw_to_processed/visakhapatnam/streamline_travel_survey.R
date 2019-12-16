@@ -40,3 +40,12 @@ distinct_rdpt$stage_id <- distinct_rdpt$stage_id + 1
 
 # Add pt trips
 rd <- plyr::rbind.fill(rd, distinct_rdpt)
+
+# Arrange by trip_id
+rd <- arrange(rd, trip_id)
+
+# Recalculate trip duration by adding walk stage duration
+rd$trip_duration <- ave(rd$stage_duration, rd$trip_id, FUN = function(x) sum(x, na.rm=T))
+
+# Recalculate trip duration by adding walk stage duration
+rd$trip_distance <- ave(rd$stage_distance, rd$trip_id, FUN = function(x) sum(x, na.rm=T))
