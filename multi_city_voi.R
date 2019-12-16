@@ -123,8 +123,8 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
 
 parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
-numcores <- 4
-nsamples <- 4
+numcores <- 16
+nsamples <- 1024
 print(system.time(
   for(ci in 1:length(cities)){
     city <- cities[ci]
