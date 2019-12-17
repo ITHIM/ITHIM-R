@@ -25,14 +25,23 @@ complete_trip_distance_duration <- function(){
       if(na_trip){
         stop("NA in both stage duration and trip duration.\n")
       }else{
-        ##!! populate trip durations by summing stage durations
-        cat('Populating stage duration from trip duration\n')
-        na_stage_ids <- trip_set$trip_id[is.na(trip_set$stage_duration)&!is.na(trip_set$stage_mode)]
-        na_stage_set <- setDT(subset(trip_set[trip_set$trip_id%in%na_stage_ids,]))
-        na_stage_set[,nstages:=.N,by='trip_id']
-        na_stage_set[,stage_duration:=trip_duration/nstages]
-        other_set <- subset(trip_set[!trip_set$trip_id%in%na_stage_ids,])
-        trip_set <- rbind(other_set,as.data.frame(na_stage_set)[,colnames(na_stage_set)%in%colnames(other_set)])
+        ## populate trip durations by summing stage durations
+        if('stage_distance'%in%colnames(trip_set)&&!is.na(sum(trip_set$stage_distance[!is.na(trip_set$stage_mode)]))){
+          cat('Populating stage duration from stage distance\n')
+          trip_set$stage_duration <- trip_set$stage_distance / stage_speed * 60
+        }else if('trip_duration'%in%colnames(trip_set)){
+          ## populate trip durations by summing stage durations
+          cat('Populating stage duration from trip duration\n')
+          na_stage_ids <- trip_set$trip_id[is.na(trip_set$stage_duration)&!is.na(trip_set$stage_mode)]
+          na_stage_set <- setDT(subset(trip_set[trip_set$trip_id%in%na_stage_ids,]))
+          na_stage_set[,nstages:=.N,by='trip_id']
+          na_stage_set[,stage_duration:=trip_duration/nstages]
+          other_set <- subset(trip_set[!trip_set$trip_id%in%na_stage_ids,])
+          trip_set <- rbind(other_set,as.data.frame(na_stage_set)[,colnames(na_stage_set)%in%colnames(other_set)])
+        }else{
+          cat("Removing trips with NA stage duration from trip set.\n")
+          trip_set <- subset(trip_set,!(is.na(stage_duration)&!is.na(stage_mode)))
+        }
       }
     }
   }
