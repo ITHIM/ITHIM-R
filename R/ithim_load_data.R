@@ -96,6 +96,7 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   trip_set <- subset(trip_set,!is.na(age))
   trip_set <- subset(trip_set,!is.na(sex))
   trip_set$sex <- tolower(trip_set$sex)
+  trip_set$trip_id[is.na(trip_set$stage_mode)] <- 0
   TRIP_SET <<- trip_set
   
   if(MAX_MODE_SHARE_SCENARIO&&

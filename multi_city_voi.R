@@ -1,7 +1,9 @@
 library(ithimr)
 library(earth)
+library(RColorBrewer)
+library(plotrix)
 rm(list=ls())
-cities <- c('accra','sao_paulo','delhi','bangalore','belo_horizonte')
+cities <- c('accra','sao_paulo','delhi','bangalore','bogota','belo_horizonte','santiago','mexico_city','buenos_aires')
 min_age <- 15
 max_age <- 69
 
@@ -87,12 +89,6 @@ ap_dr_quantile <- c(T,rep(F,length(cities)-1))
 test_walk_scenario <- F
 # logical for cycle scenario
 test_cycle_scenario <- F
-# if walk scenario, choose Baseline as reference scenario
-ref_scenarios <- list(accra='Baseline',
-                      sao_paulo='Baseline',
-                      delhi='Baseline',
-                      bangalore='Baseline',
-                      belo_horizonte='Baseline')
 
 betaVariables <- c("PM_TRANS_SHARE",
                    "INJURY_REPORTING_RATE",
@@ -137,7 +133,7 @@ print(system.time(
                                               AGE_RANGE = c(min_age,max_age),
                                               TEST_WALK_SCENARIO = test_walk_scenario,
                                               TEST_CYCLE_SCENARIO = test_cycle_scenario,
-                                              REFERENCE_SCENARIO=ref_scenarios[[city]],
+                                              REFERENCE_SCENARIO='Baseline',
                                               MAX_MODE_SHARE_SCENARIO=T,
                                               ADD_BUS_DRIVERS = F,
                                               ADD_TRUCK_DRIVERS = F,
@@ -239,13 +235,13 @@ print(system.time(
     ## get parameter samples and add to array of parameter samples
     parameter_samples <- cbind(parameter_samples,sapply(parameter_names_city,function(x)multi_city_ithim[[ci]]$parameters[[x]]))
     
+    saveRDS(multi_city_ithim[[ci]],paste0('results/multi_city/',city,'.Rds'))
   }
 ))
 
 saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 
-#################################################
-library(infotheo)
+## gather results ###############################################
 NSCEN <- ncol(outcome[[1]])/sum(sapply(colnames(outcome[[1]]),function(x)grepl('scen1',x)))
 SCEN_SHORT_NAME <- c('baseline',rownames(SCENARIO_PROPORTIONS))
 ## compute and save yll per hundred thousand by age
@@ -300,7 +296,40 @@ for(i in 1:length(yll_per_hundred_thousand_results))
     write.csv(yll_per_hundred_thousand_results[[i]][[j]],
               paste0('results/multi_city/yll_per_hundred_thousand/',names(yll_per_hundred_thousand_results)[i],names(yll_per_hundred_thousand_results[[i]])[j],'.csv'))
 
-## calculate EVPPI
+## plot results #####################################################################
+
+scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
+means <- sapply(scen_out,function(x)apply(x,2,mean))
+yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
+cols <- c('navyblue','hotpink','grey','darkorange')
+{pdf('results/multi_city/city_yll.pdf',height=6,width=6); par(mar=c(5,5,1,1))
+  plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
+  axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME[2:6])
+  #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
+  for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
+  abline(v=0,col='grey',lty=2,lwd=2)
+  text(y=4.2,x=ninefive[[2]][1,4],'90%',col='navyblue',adj=c(-0,-0.7))
+  legend(col=rev(cols),lty=1,bty='n',x=ninefive[[2]][1,4],legend=rev(names(outcome)[-5]),y=3)
+  dev.off()
+}
+
+comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
+ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
+means <- apply(comb_out,2,mean)
+{pdf('results/multi_city/combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
+  plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL pp relative to baseline',col='navyblue',yaxt='n',xlim=range(ninefive))
+  axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:6])
+  #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
+  for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
+  abline(v=0,col='grey',lty=2,lwd=2)
+  text(y=4,x=ninefive[1,4],'90%',col='navyblue',adj=c(-0,-0.7))
+  dev.off()
+}
+
+
+
+## calculate EVPPI ##################################################################
 for(i in 1:length(outcome_pp)){
   outcome_pp_quantile <- matrix(0,nrow=NSCEN,ncol=3)#(median=numeric(),'5%'=numeric(),'95%'=numeric())
   colnames(outcome_pp_quantile) <- c('median','5%','95%')
@@ -333,35 +362,42 @@ for(j in 1:length(outcome)){
 }
 colnames(evppi) <- apply(expand.grid(SCEN_SHORT_NAME[2:6],names(outcome)),1,function(x)paste0(x,collapse='_'))
 rownames(evppi) <- colnames(parameter_samples)
-## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
 
-multi_city_parallel_evppi_for_AP <- function(disease,parameter_samples,outcome){
-  voi <- c()
-  x1 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease))];
-  x2 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease))];
-  x3 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease))];
-  x4 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease))];
-  for(j in 1:length(outcome)){
+multi_city_parallel_evppi <- function(jj,sources,outcome,all=F,multi_city_outcome=T){
+  voi <- rep(0,length(outcome)*NSCEN)
+  sourcesj <- sources[[jj]]
+  ncities <- length(outcome) - as.numeric(multi_city_outcome)
+  if(all==T) jj <- 1:ncities
+  if(multi_city_outcome==T) jj <- c(jj,length(outcome))
+  for(j in jj){
     case <- outcome[[j]]
     for(k in 1:NSCEN){
       scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
       y <- rowSums(scen_case)
       vary <- var(y)
-      model <- earth(y ~ x1+x2+x3+x4,degree=4)
+      model <- earth(y ~ sourcesj, degree=min(4,ncol(sourcesj)))
       voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
     }
   }
   voi
 }
 
+## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
+
 numcores <- 8
 if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
   AP_names <- sapply(names(multi_city_ithim[[1]]$parameters),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
   diseases <- sapply(names(multi_city_ithim[[1]]$parameters)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-  evppi_for_AP <- mclapply(diseases, 
-                           FUN = multi_city_parallel_evppi_for_AP,
-                           parameter_samples,
+  sources <- list()
+  for(di in diseases){
+    col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
+    sources[[di]] <- parameter_samples[,col_names]
+  }
+  evppi_for_AP <- mclapply(1:length(sources), 
+                           FUN = multi_city_parallel_evppi,
+                           sources,
                            outcome, 
+                           all=T,
                            mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
   names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
   evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
@@ -370,20 +406,6 @@ if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
   evppi <- evppi[keep_names,]
 }
 
-multi_city_parallel_evppi_for_emissions <- function(sources,outcome){
-  voi <- c()
-  for(j in 1:length(outcome)){
-    case <- outcome[[j]]
-    for(k in 1:NSCEN){
-      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
-      y <- rowSums(scen_case)
-      vary <- var(y)
-      model <- earth(y ~ sources, degree=min(4,ncol(sources)))
-      voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-    }
-  }
-  voi
-}
 # x2 <- evppi(parameter=c(38:40),input=inp$mat,he=m,method="GP")
 #fit <- fit.gp(parameter = parameter, inputs = inputs, x = x, n.sim = n.sim)
 if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
@@ -393,8 +415,9 @@ if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NS
    emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
    sources[[ci]] <- parameter_samples[,emission_names]
  }
- evppi_for_emissions <- mclapply(sources,
-                                 FUN = multi_city_parallel_evppi_for_emissions,
+ evppi_for_emissions <- mclapply(1:length(sources),
+                                 FUN = multi_city_parallel_evppi,
+                                 sources,
                                  outcome,
                                  mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
 
@@ -405,26 +428,7 @@ if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NS
 
  evppi <- rbind(evppi,do.call(rbind,evppi_for_emissions))
 }
-print(evppi)
 
-## PA
-multi_city_parallel_evppi_for_pa <- function(sources,outcome){
-  voi <- c()
-  averages <- colMeans(sources)
-  x1 <- sources[,1];
-  x2 <- sources[,2];
-  for(j in 1:length(outcome)){
-    case <- outcome[[j]]
-    for(k in 1:NSCEN){
-      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
-      y <- rowSums(scen_case)
-      vary <- var(y)
-      model <- earth(y ~ x1+x2,degree=2)
-      voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-    }
-  }
-  voi
-}
 if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%names(multi_city_ithim[[1]]$parameters))==2&&NSAMPLES>=1024){
   sources <- list()
   for(ci in 1:length(cities)){
@@ -432,10 +436,11 @@ if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%names(mult
     pa_names <- sapply(colnames(parameter_samples),function(x)(grepl('BACKGROUND_PA_SCALAR_',x)||grepl('BACKGROUND_PA_ZEROS_',x))&grepl(city,x))
     sources[[ci]] <- parameter_samples[,pa_names]
   }
-  evppi_for_pa <- mclapply(sources, 
-                                  FUN = multi_city_parallel_evppi_for_pa,
-                                  outcome, 
-                                  mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+  evppi_for_pa <- mclapply(1:length(sources), 
+                           FUN = multi_city_parallel_evppi,
+                           sources, 
+                           outcome, 
+                           mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
   
   names(evppi_for_pa) <- paste0('BACKGROUND_PA_',cities)
   ## get rows to remove
@@ -448,8 +453,6 @@ if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%names(mult
 saveRDS(evppi,'results/multi_city/evppi.Rds',version=2)
 write.csv(evppi,'results/multi_city/evppi.csv')
 
-library(RColorBrewer)
-library(plotrix)
 
 
 #parameter_names <- c('walk-to-bus time','cycling MMETs','walking MMETs','background PM2.5','motorcycle distance','non-travel PA','non-communicable disease burden',
@@ -457,7 +460,7 @@ library(plotrix)
 #                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
 #                     'COPD (AP)','stroke (AP)')
 evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
-{pdf('results/multi_city/evppi.pdf',height=15,width=8); par(mar=c(6,20,3.5,5.5))
+{pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome)); par(mar=c(10,22,3.5,5.5))
   labs <- rownames(evppi)
   get.pal=colorRampPalette(brewer.pal(9,"Reds"))
   redCol=rev(get.pal(12))
@@ -476,33 +479,4 @@ evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
   for(i in seq(0,NSCEN*length(outcome),by=NSCEN)) abline(v=i)
   for(i in seq(0,length(labs),by=NSCEN)) abline(h=i)
   dev.off()}
-
-scen_out <- lapply(outcome[-5],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
-ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
-means <- sapply(scen_out,function(x)apply(x,2,mean))
-yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
-cols <- c('navyblue','hotpink','grey','darkorange')
-{pdf('results/multi_city/city_yll.pdf',height=6,width=6); par(mar=c(5,5,1,1))
-  plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
-  axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME[2:6])
-  #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
-  for(i in 1:length(outcome[-5])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
-  abline(v=0,col='grey',lty=2,lwd=2)
-  text(y=4.2,x=ninefive[[2]][1,4],'90%',col='navyblue',adj=c(-0,-0.7))
-  legend(col=rev(cols),lty=1,bty='n',x=ninefive[[2]][1,4],legend=rev(names(outcome)[-5]),y=3)
-  dev.off()
-}
-
-comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[5]][,seq(y,ncol(outcome[[5]]),by=NSCEN)]))
-ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
-means <- apply(comb_out,2,mean)
-{pdf('results/multi_city/combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
-  plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL pp relative to baseline',col='navyblue',yaxt='n',xlim=range(ninefive))
-  axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:6])
-  #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
-  for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
-  abline(v=0,col='grey',lty=2,lwd=2)
-  text(y=4,x=ninefive[1,4],'90%',col='navyblue',adj=c(-0,-0.7))
-  dev.off()
-}
 

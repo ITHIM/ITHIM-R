@@ -1,0 +1,9 @@
+PM2.5 concentrations: 
+Mean: 51.8 and SD 13.3
+
+Share of Transport:
+Mean:19.3 and SD 8.9
+
+http://www.urbanemissions.info/wp-content/uploads/apna/docs/2019-07-APnA30city_summary_report.pdf
+
+Transport Emissions total from Urbanemission estimates and share of different modes from LCMP spreadsheet calculations:
