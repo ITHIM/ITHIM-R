@@ -240,7 +240,7 @@ print(system.time(
   }
 ))
 
-for(city in cities) multi_city_ithim[[city]] <- readRDS(paste0('results/multi_city/',city,'.Rds'))
+for(ci in 1:length(cities)) multi_city_ithim[[ci]] <- readRDS(paste0('results/multi_city/',cities[ci],'.Rds'))
 
 saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 
