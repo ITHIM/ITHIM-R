@@ -55,3 +55,7 @@ rd <- plyr::rbind.fill(rd, distinct_rdpt)
 
 # Arrange by trip_id
 rd <- arrange(rd, trip_id)
+
+#####
+# Write streamlined travel survey data as a csv in the inst folder
+write_csv(rd, "inst/extdata/local/cape_town/trips_cape_town.csv")
