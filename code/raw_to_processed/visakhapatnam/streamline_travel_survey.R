@@ -49,3 +49,7 @@ rd$trip_duration <- ave(rd$stage_duration, rd$trip_id, FUN = function(x) sum(x, 
 
 # Recalculate trip duration by adding walk stage duration
 rd$trip_distance <- ave(rd$stage_distance, rd$trip_id, FUN = function(x) sum(x, na.rm=T))
+
+#####
+# Write streamlined travel survey data as a csv in the inst folder
+write_csv(rd, "inst/extdata/local/vizag/trips_vizag.csv")
