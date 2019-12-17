@@ -1,5 +1,7 @@
 library(ithimr)
 library(earth)
+library(RColorBrewer)
+library(plotrix)
 rm(list=ls())
 cities <- c('accra','sao_paulo','delhi','bangalore','bogota','belo_horizonte','santiago','mexico_city','buenos_aires')
 min_age <- 15
@@ -239,8 +241,7 @@ print(system.time(
 
 saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 
-#################################################
-library(infotheo)
+## gather results ###############################################
 NSCEN <- ncol(outcome[[1]])/sum(sapply(colnames(outcome[[1]]),function(x)grepl('scen1',x)))
 SCEN_SHORT_NAME <- c('baseline',rownames(SCENARIO_PROPORTIONS))
 ## compute and save yll per hundred thousand by age
@@ -295,7 +296,40 @@ for(i in 1:length(yll_per_hundred_thousand_results))
     write.csv(yll_per_hundred_thousand_results[[i]][[j]],
               paste0('results/multi_city/yll_per_hundred_thousand/',names(yll_per_hundred_thousand_results)[i],names(yll_per_hundred_thousand_results[[i]])[j],'.csv'))
 
-## calculate EVPPI
+## plot results #####################################################################
+
+scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
+means <- sapply(scen_out,function(x)apply(x,2,mean))
+yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
+cols <- c('navyblue','hotpink','grey','darkorange')
+{pdf('results/multi_city/city_yll.pdf',height=6,width=6); par(mar=c(5,5,1,1))
+  plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
+  axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME[2:6])
+  #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
+  for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
+  abline(v=0,col='grey',lty=2,lwd=2)
+  text(y=4.2,x=ninefive[[2]][1,4],'90%',col='navyblue',adj=c(-0,-0.7))
+  legend(col=rev(cols),lty=1,bty='n',x=ninefive[[2]][1,4],legend=rev(names(outcome)[-5]),y=3)
+  dev.off()
+}
+
+comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
+ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
+means <- apply(comb_out,2,mean)
+{pdf('results/multi_city/combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
+  plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL pp relative to baseline',col='navyblue',yaxt='n',xlim=range(ninefive))
+  axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:6])
+  #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
+  for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
+  abline(v=0,col='grey',lty=2,lwd=2)
+  text(y=4,x=ninefive[1,4],'90%',col='navyblue',adj=c(-0,-0.7))
+  dev.off()
+}
+
+
+
+## calculate EVPPI ##################################################################
 for(i in 1:length(outcome_pp)){
   outcome_pp_quantile <- matrix(0,nrow=NSCEN,ncol=3)#(median=numeric(),'5%'=numeric(),'95%'=numeric())
   colnames(outcome_pp_quantile) <- c('median','5%','95%')
@@ -419,8 +453,6 @@ if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%names(mult
 saveRDS(evppi,'results/multi_city/evppi.Rds',version=2)
 write.csv(evppi,'results/multi_city/evppi.csv')
 
-library(RColorBrewer)
-library(plotrix)
 
 
 #parameter_names <- c('walk-to-bus time','cycling MMETs','walking MMETs','background PM2.5','motorcycle distance','non-travel PA','non-communicable disease burden',
@@ -447,33 +479,4 @@ evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
   for(i in seq(0,NSCEN*length(outcome),by=NSCEN)) abline(v=i)
   for(i in seq(0,length(labs),by=NSCEN)) abline(h=i)
   dev.off()}
-
-scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
-ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
-means <- sapply(scen_out,function(x)apply(x,2,mean))
-yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
-cols <- c('navyblue','hotpink','grey','darkorange')
-{pdf('results/multi_city/city_yll.pdf',height=6,width=6); par(mar=c(5,5,1,1))
-  plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
-  axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME[2:6])
-  #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
-  for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
-  abline(v=0,col='grey',lty=2,lwd=2)
-  text(y=4.2,x=ninefive[[2]][1,4],'90%',col='navyblue',adj=c(-0,-0.7))
-  legend(col=rev(cols),lty=1,bty='n',x=ninefive[[2]][1,4],legend=rev(names(outcome)[-5]),y=3)
-  dev.off()
-}
-
-comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
-ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
-means <- apply(comb_out,2,mean)
-{pdf('results/multi_city/combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
-  plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL pp relative to baseline',col='navyblue',yaxt='n',xlim=range(ninefive))
-  axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:6])
-  #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
-  for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
-  abline(v=0,col='grey',lty=2,lwd=2)
-  text(y=4,x=ninefive[1,4],'90%',col='navyblue',adj=c(-0,-0.7))
-  dev.off()
-}
 
