@@ -236,8 +236,11 @@ print(system.time(
     parameter_samples <- cbind(parameter_samples,sapply(parameter_names_city,function(x)multi_city_ithim[[ci]]$parameters[[x]]))
     
     saveRDS(multi_city_ithim[[ci]],paste0('results/multi_city/',city,'.Rds'))
+    if(ci>1) multi_city_ithim[[ci]] <- 0
   }
 ))
+
+for(city in cities) multi_city_ithim[[city]] <- readRDS(paste0('results/multi_city/',city,'.Rds'))
 
 saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 
@@ -302,15 +305,14 @@ scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(
 ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
 means <- sapply(scen_out,function(x)apply(x,2,mean))
 yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
-cols <- c('navyblue','hotpink','grey','darkorange')
+cols <- rainbow(length(outcome)-1)
 {pdf('results/multi_city/city_yll.pdf',height=6,width=6); par(mar=c(5,5,1,1))
   plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
   axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME[2:6])
-  #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
   for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
   abline(v=0,col='grey',lty=2,lwd=2)
   text(y=4.2,x=ninefive[[2]][1,4],'90%',col='navyblue',adj=c(-0,-0.7))
-  legend(col=rev(cols),lty=1,bty='n',x=ninefive[[2]][1,4],legend=rev(names(outcome)[-5]),y=3)
+  legend(col=rev(cols),lty=1,bty='n',x=ninefive[[2]][1,4],legend=rev(names(outcome)[-length(outcome)]),y=4,lwd=2)
   dev.off()
 }
 
@@ -320,7 +322,6 @@ means <- apply(comb_out,2,mean)
 {pdf('results/multi_city/combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
   plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL pp relative to baseline',col='navyblue',yaxt='n',xlim=range(ninefive))
   axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:6])
-  #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
   for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
   abline(v=0,col='grey',lty=2,lwd=2)
   text(y=4,x=ninefive[1,4],'90%',col='navyblue',adj=c(-0,-0.7))
