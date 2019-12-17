@@ -37,3 +37,21 @@ rd$stage_id <- sequence(rle(rd$trip_id)$lengths)
 
 # Remove unused column
 rd <- rd %>% dplyr::select(-c(X1, cluster_id, household_id, participant_wt, year, trip_purpose, id))
+
+# Copy single trip info to stages
+rd$stage_duration <- rd$trip_duration
+rd$stage_mode <- rd$trip_mode
+
+# Get distinct trips without any walk elements
+distinct_rdpt <- rd %>% filter(!is.na(trip_id) & trip_mode %in% c('bus', 'train') ) %>% distinct(trip_id, .keep_all = T)
+
+# Add walk_to_pt with default values
+distinct_rdpt$stage_mode <- "walk_to_pt"
+distinct_rdpt$stage_duration <- 10.55
+distinct_rdpt$stage_id <- distinct_rdpt$stage_id + 1
+
+# Add pt trips
+rd <- plyr::rbind.fill(rd, distinct_rdpt)
+
+# Arrange by trip_id
+rd <- arrange(rd, trip_id)
