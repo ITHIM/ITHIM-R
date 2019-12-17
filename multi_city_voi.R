@@ -1,7 +1,7 @@
 library(ithimr)
 library(earth)
 rm(list=ls())
-cities <- c('accra','sao_paulo','delhi','bangalore','belo_horizonte','santiago','mexico_city','buenos_aires','bogota')
+cities <- c('accra','sao_paulo','delhi','bangalore','bogota','belo_horizonte','santiago','mexico_city','buenos_aires')
 min_age <- 15
 max_age <- 69
 
@@ -233,6 +233,7 @@ print(system.time(
     ## get parameter samples and add to array of parameter samples
     parameter_samples <- cbind(parameter_samples,sapply(parameter_names_city,function(x)multi_city_ithim[[ci]]$parameters[[x]]))
     
+    saveRDS(multi_city_ithim[[ci]],paste0('results/multi_city/',city,'.Rds'))
   }
 ))
 
@@ -330,24 +331,6 @@ rownames(evppi) <- colnames(parameter_samples)
 
 multi_city_parallel_evppi <- function(jj,sources,outcome,all=F,multi_city_outcome=T){
   voi <- rep(0,length(outcome)*NSCEN)
-  ncities <- length(outcome) - as.numeric(multi_city_outcome)
-  if(all==T) jj <- 1:ncities
-  if(multi_city_outcome==T) jj <- c(jj,length(outcome))
-  for(j in jj){
-    case <- outcome[[j]]
-    for(k in 1:NSCEN){
-      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
-      y <- rowSums(scen_case)
-      vary <- var(y)
-      model <- earth(y ~ sources, degree=min(4,ncol(sources)))
-      voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-    }
-  }
-  voi
-}
-
-multi_city_parallel_evppi <- function(jj,sources,outcome,all=F,multi_city_outcome=T){
-  voi <- rep(0,length(outcome)*NSCEN)
   sourcesj <- sources[[jj]]
   ncities <- length(outcome) - as.numeric(multi_city_outcome)
   if(all==T) jj <- 1:ncities
@@ -359,27 +342,6 @@ multi_city_parallel_evppi <- function(jj,sources,outcome,all=F,multi_city_outcom
       y <- rowSums(scen_case)
       vary <- var(y)
       model <- earth(y ~ sourcesj, degree=min(4,ncol(sourcesj)))
-      voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-    }
-  }
-  voi
-}
-
-
-
-multi_city_parallel_evppi_for_AP <- function(disease,parameter_samples,outcome){
-  voi <- c()
-  x1 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease))];
-  x2 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_BETA_',disease))];
-  x3 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_GAMMA_',disease))];
-  x4 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_TMREL_',disease))];
-  for(j in 1:length(outcome)){
-    case <- outcome[[j]]
-    for(k in 1:NSCEN){
-      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
-      y <- rowSums(scen_case)
-      vary <- var(y)
-      model <- earth(y ~ x1+x2+x3+x4,degree=4)
       voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
     }
   }
@@ -486,7 +448,7 @@ evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
   for(i in seq(0,length(labs),by=NSCEN)) abline(h=i)
   dev.off()}
 
-scen_out <- lapply(outcome[-5],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
 ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
 means <- sapply(scen_out,function(x)apply(x,2,mean))
 yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
@@ -495,14 +457,14 @@ cols <- c('navyblue','hotpink','grey','darkorange')
   plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
   axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME[2:6])
   #text(names(outcome)[-5],x=rep(min(unlist(ninefive))/3*2,length(outcome[-5])),y=yvals[17:20])
-  for(i in 1:length(outcome[-5])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
+  for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
   abline(v=0,col='grey',lty=2,lwd=2)
   text(y=4.2,x=ninefive[[2]][1,4],'90%',col='navyblue',adj=c(-0,-0.7))
   legend(col=rev(cols),lty=1,bty='n',x=ninefive[[2]][1,4],legend=rev(names(outcome)[-5]),y=3)
   dev.off()
 }
 
-comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[5]][,seq(y,ncol(outcome[[5]]),by=NSCEN)]))
+comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
 ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
 means <- apply(comb_out,2,mean)
 {pdf('results/multi_city/combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
