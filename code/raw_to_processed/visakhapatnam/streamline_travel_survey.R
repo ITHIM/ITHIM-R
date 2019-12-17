@@ -35,7 +35,17 @@ distinct_rdpt <- rd %>% filter(trip_mode %in% c('bus', 'shared_autorickshaw'))
 # Add walk_to_pt with default values
 distinct_rdpt$stage_mode <- "walk_to_pt"
 distinct_rdpt$stage_duration <- 10.55
+distinct_rdpt$stage_distance <- distinct_rdpt$stage_duration * 4.8 /60
 distinct_rdpt$stage_id <- distinct_rdpt$stage_id + 1
 
 # Add pt trips
-rd <- plyr::rbind.fill(rd %>% filter(!trip_mode %in% c('bus', 'train', 'metro') | is.na(trip_mode)), distinct_rdpt)
+rd <- plyr::rbind.fill(rd, distinct_rdpt)
+
+# Arrange by trip_id
+rd <- arrange(rd, trip_id)
+
+# Recalculate trip duration by adding walk stage duration
+rd$trip_duration <- ave(rd$stage_duration, rd$trip_id, FUN = function(x) sum(x, na.rm=T))
+
+# Recalculate trip duration by adding walk stage duration
+rd$trip_distance <- ave(rd$stage_distance, rd$trip_id, FUN = function(x) sum(x, na.rm=T))
