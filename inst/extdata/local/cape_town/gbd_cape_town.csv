@@ -1,0 +1,1189 @@
+"measure_name.x","location_name","sex_name","age_name","cause_name","val","population"
+"Deaths","São Paulo","Male","0 to 4","Neoplasms",72.5955345897737,1364447.0335134
+"Deaths","São Paulo","Female","0 to 4","Neoplasms",74.5951263905263,1306763.1285606
+"Deaths","São Paulo","Male","5 to 9","Neoplasms",70.2722629130514,1455910.44686157
+"Deaths","São Paulo","Female","5 to 9","Neoplasms",51.4545455798315,1404245.2655022
+"Deaths","São Paulo","Male","10 to 14","Neoplasms",79.1474863872881,1572995.49665588
+"Deaths","São Paulo","Female","10 to 14","Neoplasms",61.1936848887841,1515869.09928763
+"Deaths","São Paulo","Male","15 to 19","Neoplasms",116.96992890752,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","Neoplasms",86.2742405431313,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","Neoplasms",133.531949591954,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","Neoplasms",113.448107180413,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","Neoplasms",171.295680903967,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","Neoplasms",197.107347892618,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","Neoplasms",264.5123742025,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","Neoplasms",369.123321103332,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","Neoplasms",419.127289478293,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","Neoplasms",646.887772854947,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","Neoplasms",692.64138713469,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Neoplasms",971.332438677218,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Neoplasms",1270.95346787006,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Neoplasms",1415.37823533457,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Neoplasms",2262.01624622606,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Neoplasms",2118.31081355628,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Neoplasms",3425.58892318632,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Neoplasms",2819.39821138719,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Neoplasms",4243.84641185475,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Neoplasms",3246.51392291535,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Neoplasms",4537.49600176758,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Neoplasms",3406.58904032387,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Neoplasms",4237.94161422813,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Neoplasms",3204.40142715631,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Neoplasms",3933.44107650949,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Neoplasms",3110.79336525624,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Neoplasms",3020.14803164253,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Neoplasms",2720.68992219139,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Neoplasms",1999.27502385908,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Neoplasms",2093.15913888236,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","Neoplasms",788.531697421094,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Neoplasms",1028.04093789135,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Neoplasms",166.461601051309,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Neoplasms",166.461601051309,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Neoplasms",298.228107040216,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Neoplasms",298.228107040216,15731.0706701602
+"Deaths","São Paulo","Male","15 to 19","Stomach cancer",1.62330170261479,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","Stomach cancer",0.909676328440741,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","Stomach cancer",3.2921034663874,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","Stomach cancer",3.15452446497866,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","Stomach cancer",7.69342720953932,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","Stomach cancer",9.51837934210343,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","Stomach cancer",19.9820342234355,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","Stomach cancer",21.339153682192,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","Stomach cancer",43.5776203947538,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","Stomach cancer",38.3616931113136,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","Stomach cancer",69.2070886238854,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Stomach cancer",57.3115491575373,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Stomach cancer",132.112297843558,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Stomach cancer",74.0398163997025,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Stomach cancer",228.469577087616,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Stomach cancer",98.1103703141077,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Stomach cancer",347.745207285728,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Stomach cancer",137.808637199772,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Stomach cancer",457.457078679653,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Stomach cancer",165.966331953185,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Stomach cancer",500.769213734637,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Stomach cancer",191.657227488974,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Stomach cancer",486.368636105307,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Stomach cancer",197.0085583254,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Stomach cancer",448.570020935822,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Stomach cancer",221.048365139973,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Stomach cancer",294.826216246649,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Stomach cancer",208.20721078308,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Stomach cancer",193.32501881706,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Stomach cancer",166.882676777786,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","Stomach cancer",70.7513205388919,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Stomach cancer",83.7433913791429,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Stomach cancer",15.6493103869663,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Stomach cancer",15.6493103869663,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Stomach cancer",24.1352974151555,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Stomach cancer",24.1352974151555,15731.0706701602
+"Deaths","São Paulo","Male","5 to 9","Liver cancer",0.746501294995414,1455910.44686157
+"Deaths","São Paulo","Female","5 to 9","Liver cancer",0.380314343870893,1404245.2655022
+"Deaths","São Paulo","Male","10 to 14","Liver cancer",0.933760119084258,1572995.49665588
+"Deaths","São Paulo","Female","10 to 14","Liver cancer",0.392286846111402,1515869.09928763
+"Deaths","São Paulo","Male","15 to 19","Liver cancer",1.46843556030781,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","Liver cancer",1.06642923756687,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","Liver cancer",2.56437986549277,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","Liver cancer",1.98287122922288,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","Liver cancer",4.46967115159156,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","Liver cancer",3.18630459203383,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","Liver cancer",8.63387559715906,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","Liver cancer",6.81366359512997,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","Liver cancer",17.2642959087353,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","Liver cancer",14.4186186264237,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","Liver cancer",31.5484922206181,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Liver cancer",20.3369814118713,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Liver cancer",65.3079888130546,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Liver cancer",40.1081138752503,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Liver cancer",133.525884878844,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Liver cancer",65.4611830124582,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Liver cancer",217.377192890658,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Liver cancer",107.390792794816,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Liver cancer",258.199767475884,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Liver cancer",135.024289770378,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Liver cancer",267.516430673344,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Liver cancer",147.201462395541,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Liver cancer",224.321748658996,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Liver cancer",153.288629624012,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Liver cancer",176.356012033617,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Liver cancer",146.73701591956,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Liver cancer",133.943292059858,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Liver cancer",131.334686031674,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Liver cancer",77.4495732898006,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Liver cancer",92.4482497575508,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","Liver cancer",24.0318116748777,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Liver cancer",37.2980303837427,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Liver cancer",4.60956407949479,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Liver cancer",4.60956407949479,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Liver cancer",10.2715371667608,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Liver cancer",10.2715371667608,15731.0706701602
+"Deaths","São Paulo","Male","15 to 19","Tracheal, bronchus, and lung cancer",2.22067117762234,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","Tracheal, bronchus, and lung cancer",1.8066314884559,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","Tracheal, bronchus, and lung cancer",4.13366290162515,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","Tracheal, bronchus, and lung cancer",2.98811244006338,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","Tracheal, bronchus, and lung cancer",5.05612206948582,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","Tracheal, bronchus, and lung cancer",5.20099433132905,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","Tracheal, bronchus, and lung cancer",10.7336484511343,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","Tracheal, bronchus, and lung cancer",14.4296285609829,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","Tracheal, bronchus, and lung cancer",21.1869173048968,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","Tracheal, bronchus, and lung cancer",30.2072121544048,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","Tracheal, bronchus, and lung cancer",49.1601966949076,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Tracheal, bronchus, and lung cancer",61.6482270207059,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Tracheal, bronchus, and lung cancer",124.703267294819,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Tracheal, bronchus, and lung cancer",127.14941995987,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Tracheal, bronchus, and lung cancer",273.576681724291,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Tracheal, bronchus, and lung cancer",264.743054352798,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Tracheal, bronchus, and lung cancer",494.784548432531,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Tracheal, bronchus, and lung cancer",401.080885399737,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Tracheal, bronchus, and lung cancer",678.912891187731,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Tracheal, bronchus, and lung cancer",482.425692319718,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Tracheal, bronchus, and lung cancer",758.934821415904,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Tracheal, bronchus, and lung cancer",497.165531095896,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Tracheal, bronchus, and lung cancer",703.978609036926,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Tracheal, bronchus, and lung cancer",452.875718628851,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Tracheal, bronchus, and lung cancer",621.041599145048,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Tracheal, bronchus, and lung cancer",391.420476984292,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Tracheal, bronchus, and lung cancer",419.319939195733,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Tracheal, bronchus, and lung cancer",305.056845755047,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Tracheal, bronchus, and lung cancer",231.212441883964,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Tracheal, bronchus, and lung cancer",209.036031438752,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","Tracheal, bronchus, and lung cancer",77.25131425009,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Tracheal, bronchus, and lung cancer",95.6789824587954,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Tracheal, bronchus, and lung cancer",14.234260770886,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Tracheal, bronchus, and lung cancer",14.234260770886,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Tracheal, bronchus, and lung cancer",27.8429535591939,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Tracheal, bronchus, and lung cancer",27.8429535591939,15731.0706701602
+"Deaths","São Paulo","Male","15 to 19","Breast cancer",0.182652291210827,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","Breast cancer",0.731028866361683,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","Breast cancer",0.189452522755711,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","Breast cancer",4.29291356812576,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","Breast cancer",0.207667827819282,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","Breast cancer",27.580285931112,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","Breast cancer",0.343539592979211,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","Breast cancer",90.0400169415181,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","Breast cancer",0.647098246270072,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","Breast cancer",188.340918825046,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","Breast cancer",1.12510679175628,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Breast cancer",294.01230241229,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Breast cancer",3.91172054930245,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Breast cancer",395.223508103361,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Breast cancer",7.51916189760583,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Breast cancer",511.068539976045,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Breast cancer",9.55023543518079,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Breast cancer",567.747539928359,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Breast cancer",13.0298824256818,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Breast cancer",555.593113938136,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Breast cancer",13.6567650833954,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Breast cancer",513.583001820584,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Breast cancer",11.5567258259284,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Breast cancer",421.284902083263,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Breast cancer",5.7792222960494,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Breast cancer",368.709033060211,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Breast cancer",3.93514141317686,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Breast cancer",325.825480177926,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Breast cancer",2.89451870197752,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Breast cancer",256.543928929221,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","Breast cancer",1.52063352861398,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Breast cancer",135.128046971766,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Breast cancer",0.325175952476896,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Breast cancer",0.325175952476896,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Breast cancer",43.0310475456586,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Breast cancer",43.0310475456586,15731.0706701602
+"Deaths","São Paulo","Female","15 to 19","Uterine cancer",0.256863285449651,1634759.60802005
+"Deaths","São Paulo","Female","20 to 24","Uterine cancer",0.582215758301832,1729892.62176701
+"Deaths","São Paulo","Female","25 to 29","Uterine cancer",1.97251353605023,1804228.22552473
+"Deaths","São Paulo","Female","30 to 34","Uterine cancer",2.16002453269149,1929566.67221472
+"Deaths","São Paulo","Female","35 to 39","Uterine cancer",5.03373796110329,1929743.70542923
+"Deaths","São Paulo","Female","40 to 44","Uterine cancer",9.74656809107083,1724668.45765529
+"Deaths","São Paulo","Female","45 to 49","Uterine cancer",21.9496274697526,1559807.59965781
+"Deaths","São Paulo","Female","50 to 54","Uterine cancer",38.789355327144,1489216.4387145
+"Deaths","São Paulo","Female","55 to 59","Uterine cancer",65.1607166320286,1324935.37038828
+"Deaths","São Paulo","Female","60 to 64","Uterine cancer",98.7190087070726,1116622.23828263
+"Deaths","São Paulo","Female","65 to 69","Uterine cancer",108.654548106095,866131.523850021
+"Deaths","São Paulo","Female","70 to 74","Uterine cancer",101.399096053705,629656.691690606
+"Deaths","São Paulo","Female","75 to 79","Uterine cancer",88.0313547845766,449135.433611111
+"Deaths","São Paulo","Female","80 to 84","Uterine cancer",68.264532202335,299232.017721493
+"Deaths","São Paulo","Female","85 to 89","Uterine cancer",47.1439255751124,169068.325772878
+"Deaths","São Paulo","Female","90 to 94","Uterine cancer",20.0954586134912,65455.9132386818
+"Deaths","São Paulo","Female","95 to 99","Uterine cancer",5.08024892995399,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Uterine cancer",5.08024892995399,15731.0706701602
+"Deaths","São Paulo","Male","15 to 19","Colon and rectum cancer",2.54195205258964,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","Colon and rectum cancer",1.84085820210439,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","Colon and rectum cancer",5.84567821496286,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","Colon and rectum cancer",5.65521164530568,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","Colon and rectum cancer",10.6793758645637,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","Colon and rectum cancer",13.3361268454927,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","Colon and rectum cancer",27.7982870055654,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","Colon and rectum cancer",29.3106678107086,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","Colon and rectum cancer",50.3657665982963,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","Colon and rectum cancer",56.4997109014606,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","Colon and rectum cancer",75.6070012466946,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Colon and rectum cancer",92.329417027855,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Colon and rectum cancer",132.310242947505,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Colon and rectum cancer",146.675430580037,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Colon and rectum cancer",211.140359045858,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Colon and rectum cancer",216.850330963645,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Colon and rectum cancer",326.033062414402,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Colon and rectum cancer",302.248346615185,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Colon and rectum cancer",434.53807530716,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Colon and rectum cancer",361.486408988263,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Colon and rectum cancer",478.974175917493,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Colon and rectum cancer",387.371544544518,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Colon and rectum cancer",465.649161796625,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Colon and rectum cancer",386.653347327703,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Colon and rectum cancer",426.328831241718,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Colon and rectum cancer",413.224304584927,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Colon and rectum cancer",323.44644905408,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Colon and rectum cancer",386.698279680502,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Colon and rectum cancer",210.618125290992,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Colon and rectum cancer",326.852346691519,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","Colon and rectum cancer",77.1024356297021,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Colon and rectum cancer",159.269538172862,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Colon and rectum cancer",16.6511453741202,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Colon and rectum cancer",16.6511453741202,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Colon and rectum cancer",42.5024223336888,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Colon and rectum cancer",42.5024223336888,15731.0706701602
+"Deaths","São Paulo","Male","0 to 4","Road injuries",46.0402800902535,1364447.0335134
+"Deaths","São Paulo","Female","0 to 4","Road injuries",39.5571695898007,1306763.1285606
+"Deaths","São Paulo","Male","5 to 9","Road injuries",39.5705134865865,1455910.44686157
+"Deaths","São Paulo","Female","5 to 9","Road injuries",25.5463165594243,1404245.2655022
+"Deaths","São Paulo","Male","10 to 14","Road injuries",69.5893534987499,1572995.49665588
+"Deaths","São Paulo","Female","10 to 14","Road injuries",35.11618302172,1515869.09928763
+"Deaths","São Paulo","Male","15 to 19","Road injuries",410.394802090338,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","Road injuries",111.940174639023,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","Road injuries",694.860291306875,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","Road injuries",140.426194341983,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","Road injuries",623.834365861608,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","Road injuries",124.975615768263,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","Road injuries",601.94862590898,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","Road injuries",113.696969323564,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","Road injuries",577.083092292633,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","Road injuries",121.408178253478,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","Road injuries",482.108308096582,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Road injuries",110.930412085607,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Road injuries",464.219939361795,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Road injuries",94.5805858189047,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Road injuries",429.524297994214,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Road injuries",105.253628290842,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Road injuries",389.126171508882,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Road injuries",96.3103884045639,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Road injuries",302.693078688821,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Road injuries",98.5356239781632,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Road injuries",246.155552555666,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Road injuries",95.0575477785095,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Road injuries",173.69480194639,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Road injuries",95.4344476193566,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Road injuries",132.019753651,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Road injuries",78.7145994557388,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Road injuries",96.731964212289,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Road injuries",69.8577726882123,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Road injuries",51.2881362033705,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Road injuries",48.3374382699097,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","Road injuries",19.85430887481,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Road injuries",23.1271408621529,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Road injuries",3.44066380233949,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Road injuries",3.44066380233949,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Road injuries",7.66366981571119,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Road injuries",7.66366981571119,15731.0706701602
+"Deaths","São Paulo","Male","0 to 4","All causes",4184.77670431299,1364447.0335134
+"Deaths","São Paulo","Female","0 to 4","All causes",3369.71607360244,1306763.1285606
+"Deaths","São Paulo","Male","5 to 9","All causes",315.54051959035,1455910.44686157
+"Deaths","São Paulo","Female","5 to 9","All causes",218.723092811222,1404245.2655022
+"Deaths","São Paulo","Male","10 to 14","All causes",442.545296858567,1572995.49665588
+"Deaths","São Paulo","Female","10 to 14","All causes",285.090982362562,1515869.09928763
+"Deaths","São Paulo","Male","15 to 19","All causes",1973.23788941966,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","All causes",612.347496633493,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","All causes",2819.82840708818,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","All causes",818.086523783883,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","All causes",2973.78706862504,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","All causes",1054.183603995,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","All causes",3713.70465950554,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","All causes",1479.78851623404,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","All causes",4616.47704790193,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","All causes",2271.88726361732,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","All causes",5515.9504816613,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","All causes",3022.9902016824,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","All causes",7539.65672091654,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","All causes",4077.28418805305,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","All causes",10502.2163394806,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","All causes",5927.06389954591,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","All causes",13611.637944801,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","All causes",8107.30109162229,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","All causes",15814.5433812576,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","All causes",10211.7508580965,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","All causes",17252.4832016796,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","All causes",12277.2309122618,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","All causes",16968.8448587966,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","All causes",13672.2087535686,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","All causes",17557.3632432632,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","All causes",16431.1558567867,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","All causes",15812.13896293,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","All causes",18778.643387017,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","All causes",12467.109880559,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","All causes",18865.5647266737,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","All causes",6215.03605527128,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","All causes",12492.3873427307,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","All causes",1724.89437967772,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","All causes",1724.89437967772,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","All causes",5136.51413367104,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","All causes",5136.51413367104,15731.0706701602
+"Deaths","São Paulo","Male","0 to 4","Lower respiratory infections",304.269639542724,1364447.0335134
+"Deaths","São Paulo","Female","0 to 4","Lower respiratory infections",239.831644586966,1306763.1285606
+"Deaths","São Paulo","Male","5 to 9","Lower respiratory infections",23.6647087108276,1455910.44686157
+"Deaths","São Paulo","Female","5 to 9","Lower respiratory infections",19.5032878352513,1404245.2655022
+"Deaths","São Paulo","Male","10 to 14","Lower respiratory infections",22.7222564663458,1572995.49665588
+"Deaths","São Paulo","Female","10 to 14","Lower respiratory infections",19.7976231128921,1515869.09928763
+"Deaths","São Paulo","Male","15 to 19","Lower respiratory infections",49.0292417104159,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","Lower respiratory infections",33.3888006026357,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","Lower respiratory infections",70.3866200157688,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","Lower respiratory infections",41.8683973387733,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","Lower respiratory infections",95.623623484767,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","Lower respiratory infections",50.3955143231319,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","Lower respiratory infections",162.976186410334,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","Lower respiratory infections",70.8200767069317,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","Lower respiratory infections",245.265507088571,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","Lower respiratory infections",106.893378503813,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","Lower respiratory infections",323.560878132556,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Lower respiratory infections",132.944567749057,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Lower respiratory infections",443.870744283719,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Lower respiratory infections",179.393332658496,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Lower respiratory infections",631.550022976229,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Lower respiratory infections",303.337521568821,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Lower respiratory infections",804.094938889116,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Lower respiratory infections",428.347010047977,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Lower respiratory infections",932.735621680958,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Lower respiratory infections",559.7236908378,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Lower respiratory infections",1097.9957590495,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Lower respiratory infections",755.433487520749,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Lower respiratory infections",1226.91883431351,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Lower respiratory infections",949.832671654382,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Lower respiratory infections",1430.94384008295,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Lower respiratory infections",1325.36490744451,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Lower respiratory infections",1579.29159099103,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Lower respiratory infections",1817.7854433637,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Lower respiratory infections",1478.11716330108,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Lower respiratory infections",2153.59024012518,169068.325772878
+"Deaths","São Paulo","Male","0 to 4","Chronic obstructive pulmonary disease",1.31444660770844,1364447.0335134
+"Deaths","São Paulo","Female","0 to 4","Chronic obstructive pulmonary disease",1.31319528212319,1306763.1285606
+"Deaths","São Paulo","Male","5 to 9","Chronic obstructive pulmonary disease",0.41191380701232,1455910.44686157
+"Deaths","São Paulo","Female","5 to 9","Chronic obstructive pulmonary disease",1.01967778729033,1404245.2655022
+"Deaths","São Paulo","Male","10 to 14","Chronic obstructive pulmonary disease",0.59557518766507,1572995.49665588
+"Deaths","São Paulo","Female","10 to 14","Chronic obstructive pulmonary disease",1.22663535624678,1515869.09928763
+"Deaths","São Paulo","Male","15 to 19","Chronic obstructive pulmonary disease",9.0858789576441,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","Chronic obstructive pulmonary disease",5.91981406539412,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","Chronic obstructive pulmonary disease",12.1850574535778,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","Chronic obstructive pulmonary disease",7.23150529315467,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","Chronic obstructive pulmonary disease",14.8952062435957,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","Chronic obstructive pulmonary disease",10.3671657691001,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","Chronic obstructive pulmonary disease",21.678575040769,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","Chronic obstructive pulmonary disease",13.7207356824389,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","Chronic obstructive pulmonary disease",39.0252873451444,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","Chronic obstructive pulmonary disease",21.1615989685379,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","Chronic obstructive pulmonary disease",53.2242886380258,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Chronic obstructive pulmonary disease",41.0510578181652,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Chronic obstructive pulmonary disease",109.285166953143,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Chronic obstructive pulmonary disease",85.5729429648781,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Chronic obstructive pulmonary disease",221.256985376526,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Chronic obstructive pulmonary disease",184.661056946919,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Chronic obstructive pulmonary disease",392.266350963894,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Chronic obstructive pulmonary disease",321.591802023631,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Chronic obstructive pulmonary disease",643.311990947521,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Chronic obstructive pulmonary disease",498.028179789263,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Chronic obstructive pulmonary disease",901.630035172987,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Chronic obstructive pulmonary disease",668.702410050571,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Chronic obstructive pulmonary disease",1063.1767759155,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Chronic obstructive pulmonary disease",807.854970005372,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Chronic obstructive pulmonary disease",1320.42262226618,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Chronic obstructive pulmonary disease",894.505780105023,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Chronic obstructive pulmonary disease",1263.18948412287,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Chronic obstructive pulmonary disease",990.229251089983,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Chronic obstructive pulmonary disease",1022.15547591922,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Chronic obstructive pulmonary disease",921.446020301996,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","Chronic obstructive pulmonary disease",484.497148099185,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Chronic obstructive pulmonary disease",542.529328064631,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Chronic obstructive pulmonary disease",124.133698956159,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Chronic obstructive pulmonary disease",124.133698956159,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Chronic obstructive pulmonary disease",208.820677572983,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Chronic obstructive pulmonary disease",208.820677572983,15731.0706701602
+"Deaths","São Paulo","Male","90 to 94","Lower respiratory infections",957.408542579925,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Lower respiratory infections",1662.37708217019,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Lower respiratory infections",311.255137540785,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Lower respiratory infections",311.255137540785,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Lower respiratory infections",787.349631038891,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Lower respiratory infections",787.349631038891,15731.0706701602
+"Deaths","São Paulo","Male","15 to 19","Diabetes mellitus type 2",0.448443122024665,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","Diabetes mellitus type 2",0.501654434660098,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","Diabetes mellitus type 2",0.788413578088914,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","Diabetes mellitus type 2",1.02887068983138,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","Diabetes mellitus type 2",1.55598863254102,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","Diabetes mellitus type 2",1.62214928049908,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","Diabetes mellitus type 2",5.88019864605317,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","Diabetes mellitus type 2",5.61256688167503,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","Diabetes mellitus type 2",10.5114707367528,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","Diabetes mellitus type 2",11.1174523961929,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","Diabetes mellitus type 2",19.0529449034739,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Diabetes mellitus type 2",21.2731358816805,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Diabetes mellitus type 2",89.7130200629982,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Diabetes mellitus type 2",67.003982542728,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Diabetes mellitus type 2",163.820480232784,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Diabetes mellitus type 2",122.761852056535,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Diabetes mellitus type 2",261.749165864886,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Diabetes mellitus type 2",204.502081316874,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Diabetes mellitus type 2",409.898480505848,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Diabetes mellitus type 2",356.752354410998,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Diabetes mellitus type 2",470.721315143116,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Diabetes mellitus type 2",472.512072954804,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Diabetes mellitus type 2",492.021725759959,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Diabetes mellitus type 2",552.61497651468,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Diabetes mellitus type 2",465.045972530109,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Diabetes mellitus type 2",643.186223873715,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Diabetes mellitus type 2",398.280748981968,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Diabetes mellitus type 2",691.746541383097,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Diabetes mellitus type 2",279.459359482928,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Diabetes mellitus type 2",600.122406349574,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","Diabetes mellitus type 2",116.561735981018,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Diabetes mellitus type 2",316.104717655289,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Diabetes mellitus type 2",27.9631930531771,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Diabetes mellitus type 2",27.9631930531771,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Diabetes mellitus type 2",104.567848596509,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Diabetes mellitus type 2",104.567848596509,15731.0706701602
+"Deaths","São Paulo","Male","40 to 44","Alzheimer's disease and other dementias",1.59226014725484,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Alzheimer's disease and other dementias",1.379611029953,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Alzheimer's disease and other dementias",6.16295689511908,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Alzheimer's disease and other dementias",5.79655499036256,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Alzheimer's disease and other dementias",22.8663812973044,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Alzheimer's disease and other dementias",26.0784499106326,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Alzheimer's disease and other dementias",57.4966078001666,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Alzheimer's disease and other dementias",70.6188963322659,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Alzheimer's disease and other dementias",160.481466802035,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Alzheimer's disease and other dementias",199.183855717763,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Alzheimer's disease and other dementias",349.646733699471,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Alzheimer's disease and other dementias",438.340329096409,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Alzheimer's disease and other dementias",578.18134319663,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Alzheimer's disease and other dementias",763.961136908096,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Alzheimer's disease and other dementias",1012.68592792669,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Alzheimer's disease and other dementias",1405.59151902141,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Alzheimer's disease and other dementias",1346.76229914091,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Alzheimer's disease and other dementias",2196.76683811111,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Alzheimer's disease and other dementias",1382.60834953694,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Alzheimer's disease and other dementias",2775.85943854785,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","Alzheimer's disease and other dementias",791.741731372898,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Alzheimer's disease and other dementias",2501.20789711446,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Alzheimer's disease and other dementias",262.320600624214,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Alzheimer's disease and other dementias",262.320600624214,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Alzheimer's disease and other dementias",1163.48943412053,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Alzheimer's disease and other dementias",1163.48943412053,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","0 to 4","Cardiovascular diseases",5978.64376562741,1364447.0335134
+"YLLs (Years of Life Lost)","São Paulo","Female","0 to 4","Cardiovascular diseases",4812.50907946595,1306763.1285606
+"YLLs (Years of Life Lost)","São Paulo","Male","5 to 9","Cardiovascular diseases",1061.4643826411,1455910.44686157
+"YLLs (Years of Life Lost)","São Paulo","Female","5 to 9","Cardiovascular diseases",827.350132175958,1404245.2655022
+"YLLs (Years of Life Lost)","São Paulo","Male","10 to 14","Cardiovascular diseases",1904.21114299577,1572995.49665588
+"YLLs (Years of Life Lost)","São Paulo","Female","10 to 14","Cardiovascular diseases",1314.16001522563,1515869.09928763
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Cardiovascular diseases",7133.49078577147,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Cardiovascular diseases",3968.39493327864,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Cardiovascular diseases",10078.1344046287,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Cardiovascular diseases",6129.08133237746,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","Cardiovascular diseases",14153.8266348144,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Cardiovascular diseases",8466.25738474796,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","Cardiovascular diseases",23163.1733758812,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Cardiovascular diseases",13210.3286745783,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","Cardiovascular diseases",36567.930164966,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Cardiovascular diseases",23279.2447799686,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Cardiovascular diseases",51447.6294407132,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Cardiovascular diseases",34261.0289836174,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Cardiovascular diseases",78375.3392269682,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Cardiovascular diseases",46106.0198985229,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Cardiovascular diseases",111066.602668037,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Cardiovascular diseases",62076.9049518896,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Cardiovascular diseases",136320.169462278,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Cardiovascular diseases",77192.7446710359,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Cardiovascular diseases",144046.219719974,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Cardiovascular diseases",87692.5005071287,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Cardiovascular diseases",134384.469495206,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Cardiovascular diseases",91513.6458177394,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Cardiovascular diseases",108061.223672919,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Cardiovascular diseases",85137.7257889008,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Cardiovascular diseases",84241.6734269454,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Cardiovascular diseases",81841.8303300783,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Cardiovascular diseases",54494.8344289587,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Cardiovascular diseases",69441.4348689294,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Cardiovascular diseases",29737.6893724499,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Cardiovascular diseases",49410.391589501,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Cardiovascular diseases",9723.22920640447,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Cardiovascular diseases",20804.9488449914,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Cardiovascular diseases",1485.11836353755,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Cardiovascular diseases",1485.11836353755,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Cardiovascular diseases",4714.20812757998,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Cardiovascular diseases",4714.20812757998,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Ischemic heart disease",2814.26695653588,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Ischemic heart disease",963.396014223256,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Ischemic heart disease",4219.26406458593,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Ischemic heart disease",1630.62721055725,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","Ischemic heart disease",6019.44121785586,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Ischemic heart disease",2100.87241305495,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","Ischemic heart disease",10604.4498768894,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Ischemic heart disease",3697.02007275707,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","Ischemic heart disease",17036.8683309107,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Ischemic heart disease",6869.74760381735,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Ischemic heart disease",25385.8759144845,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Ischemic heart disease",11055.0554819864,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Ischemic heart disease",41062.7188283015,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Ischemic heart disease",17382.4978129438,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Ischemic heart disease",59703.6198496388,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Ischemic heart disease",25727.9624823252,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Ischemic heart disease",73697.3713586702,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Ischemic heart disease",33810.5016149582,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Ischemic heart disease",75915.5838416182,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Ischemic heart disease",40960.6688966711,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Ischemic heart disease",68035.1174580032,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Ischemic heart disease",42546.3327266839,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Ischemic heart disease",52321.8848306931,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Ischemic heart disease",38209.5941750207,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Ischemic heart disease",38590.5135154026,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Ischemic heart disease",36238.412927151,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Ischemic heart disease",24119.9871196001,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Ischemic heart disease",29632.8341009152,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Ischemic heart disease",12748.9364443391,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Ischemic heart disease",20656.0746878545,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Ischemic heart disease",4223.28481375171,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Ischemic heart disease",8661.53142967213,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Ischemic heart disease",665.704356404173,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Ischemic heart disease",665.704356404173,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Ischemic heart disease",2078.10974834053,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Ischemic heart disease",2078.10974834053,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","0 to 4","Stroke",621.203956224871,1364447.0335134
+"YLLs (Years of Life Lost)","São Paulo","Female","0 to 4","Stroke",357.017878603298,1306763.1285606
+"YLLs (Years of Life Lost)","São Paulo","Male","5 to 9","Stroke",246.331825702155,1455910.44686157
+"YLLs (Years of Life Lost)","São Paulo","Female","5 to 9","Stroke",162.515014940579,1404245.2655022
+"YLLs (Years of Life Lost)","São Paulo","Male","10 to 14","Stroke",507.176283588392,1572995.49665588
+"YLLs (Years of Life Lost)","São Paulo","Female","10 to 14","Stroke",351.858335480506,1515869.09928763
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Stroke",1362.59504802476,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Stroke",1105.42910431605,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Stroke",1767.63205637465,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Stroke",1631.87563343809,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","Stroke",2703.43958747086,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Stroke",2533.33697903522,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","Stroke",4490.58604862719,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Stroke",4427.35638438097,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","Stroke",7826.40896453466,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Stroke",8440.5307349227,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Stroke",11272.7312208281,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Stroke",12713.754045173,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Stroke",17588.0797347466,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Stroke",15629.6263402755,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Stroke",25290.4807980824,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Stroke",19220.528867806,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Stroke",31446.7275240215,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Stroke",22341.4534212128,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Stroke",35255.2334829964,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Stroke",23470.4934347701,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Stroke",35123.9972991021,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Stroke",24345.7980134452,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Stroke",30133.1350665533,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Stroke",23440.4428923011,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Stroke",25261.7755658424,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Stroke",23440.5505419209,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Stroke",16492.2627641476,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Stroke",19928.9816295148,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Stroke",8999.92531251587,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Stroke",14160.0284090411,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Stroke",2805.80060908488,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Stroke",5435.3183859865,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Stroke",382.274771915177,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Stroke",382.274771915177,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Stroke",1124.69118353725,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Stroke",1124.69118353725,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","0 to 4","Neoplasms",6239.73379169762,1364447.0335134
+"YLLs (Years of Life Lost)","São Paulo","Female","0 to 4","Neoplasms",6414.78266829664,1306763.1285606
+"YLLs (Years of Life Lost)","São Paulo","Male","5 to 9","Neoplasms",5669.75197168813,1455910.44686157
+"YLLs (Years of Life Lost)","São Paulo","Female","5 to 9","Neoplasms",4156.10543939238,1404245.2655022
+"YLLs (Years of Life Lost)","São Paulo","Male","10 to 14","Neoplasms",5963.03628791465,1572995.49665588
+"YLLs (Years of Life Lost)","São Paulo","Female","10 to 14","Neoplasms",4613.43063936797,1515869.09928763
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Neoplasms",8231.34794847643,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Neoplasms",6078.09211270598,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Neoplasms",8760.23496171271,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Neoplasms",7437.03519008753,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","Neoplasms",10389.5335544664,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Neoplasms",11945.3222282915,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","Neoplasms",14720.2236615168,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Neoplasms",20520.0017238997,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","Neoplasms",21258.8775585141,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Neoplasms",32766.8904538321,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Neoplasms",31720.200809372,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Neoplasms",44473.66792772,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Neoplasms",52040.9449286786,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Neoplasms",57954.616483117,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Neoplasms",81887.1890551909,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Neoplasms",76644.9167406883,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Neoplasms",108000.360969013,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Neoplasms",88836.0376238406,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Neoplasms",114262.640629011,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Neoplasms",87291.1657911279,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Neoplasms",101819.068931727,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Neoplasms",76321.813605909,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Neoplasms",76840.7723590208,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Neoplasms",57938.4713774748,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Neoplasms",55394.2612698167,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Neoplasms",43638.5577366715,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Neoplasms",31610.9894430888,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Neoplasms",28328.585263035,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Neoplasms",14944.3117009284,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Neoplasms",15543.6678963147,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Neoplasms",4011.830695492,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Neoplasms",5194.79900907168,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Neoplasms",486.567592796178,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Neoplasms",486.567592796178,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Neoplasms",851.809706426067,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Neoplasms",851.809706426067,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Stomach cancer",114.234156285936,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Stomach cancer",64.0874550990318,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Stomach cancer",215.975277616707,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Stomach cancer",206.793308739213,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","Stomach cancer",466.626593972121,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Stomach cancer",576.843580658809,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","Stomach cancer",1112.00851706042,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Stomach cancer",1186.26877607271,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","Stomach cancer",2210.33399523239,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Stomach cancer",1943.13982818747,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Stomach cancer",3169.40741537693,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Stomach cancer",2624.08080299119,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Stomach cancer",5409.52048228779,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Stomach cancer",3031.66253147227,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Stomach cancer",8270.8209914702,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Stomach cancer",3549.83844485911,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Stomach cancer",10963.5478028022,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Stomach cancer",4342.19374536161,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Stomach cancer",12316.7166555224,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Stomach cancer",4462.44647097069,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Stomach cancer",11237.002759291,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Stomach cancer",4293.92187302056,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Stomach cancer",8818.65420799151,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Stomach cancer",3562.0926332514,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Stomach cancer",6317.16719640711,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Stomach cancer",3100.89122360043,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Stomach cancer",3085.85814724124,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Stomach cancer",2167.91177669244,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Stomach cancer",1445.07849410999,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Stomach cancer",1239.2602441432,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Stomach cancer",359.963106635829,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Stomach cancer",423.164166443582,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Stomach cancer",45.7429655597231,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Stomach cancer",45.7429655597231,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Stomach cancer",68.9360932802253,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Stomach cancer",68.9360932802253,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","5 to 9","Liver cancer",60.2296982296541,1455910.44686157
+"YLLs (Years of Life Lost)","São Paulo","Female","5 to 9","Liver cancer",30.718889758504,1404245.2655022
+"YLLs (Years of Life Lost)","São Paulo","Male","10 to 14","Liver cancer",70.3502502538254,1572995.49665588
+"YLLs (Years of Life Lost)","São Paulo","Female","10 to 14","Liver cancer",29.5747536459122,1515869.09928763
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Liver cancer",103.335995410975,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Liver cancer",75.1308281221412,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Liver cancer",168.233671577842,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Liver cancer",129.986153807675,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","Liver cancer",271.097310579156,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Liver cancer",193.100031410623,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","Liver cancer",480.478768674151,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Liver cancer",378.779613003645,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","Liver cancer",875.67562903052,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Liver cancer",730.348163704661,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Liver cancer",1444.79456044447,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Liver cancer",931.154074495328,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Liver cancer",2674.12579228307,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Liver cancer",1642.28211192739,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Liver cancer",4833.76695330016,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Liver cancer",2368.5225461856,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Liver cancer",6853.36618755322,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Liver cancer",3383.76199241482,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Liver cancer",6951.85083964838,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Liver cancer",3630.48733011169,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Liver cancer",6002.9306658316,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Liver cancer",3297.92717656417,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Liver cancer",4067.31805035091,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Liver cancer",2771.59684323469,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Liver cancer",2483.60425822423,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Liver cancer",2058.44329386537,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Liver cancer",1401.9445228895,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Liver cancer",1367.49352467388,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Liver cancer",578.925135628695,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Liver cancer",686.514878459838,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Liver cancer",122.267196183582,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Liver cancer",188.470871281848,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Liver cancer",13.4737650234914,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Liver cancer",13.4737650234914,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Liver cancer",29.3379290952717,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Liver cancer",29.3379290952717,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","0 to 4","Chronic obstructive pulmonary disease",112.304161155726,1364447.0335134
+"YLLs (Years of Life Lost)","São Paulo","Female","0 to 4","Chronic obstructive pulmonary disease",112.275487499665,1306763.1285606
+"YLLs (Years of Life Lost)","São Paulo","Male","5 to 9","Chronic obstructive pulmonary disease",33.2342950498597,1455910.44686157
+"YLLs (Years of Life Lost)","São Paulo","Female","5 to 9","Chronic obstructive pulmonary disease",82.3617884567623,1404245.2655022
+"YLLs (Years of Life Lost)","São Paulo","Male","10 to 14","Chronic obstructive pulmonary disease",44.8711212236147,1572995.49665588
+"YLLs (Years of Life Lost)","São Paulo","Female","10 to 14","Chronic obstructive pulmonary disease",92.4768159676253,1515869.09928763
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Chronic obstructive pulmonary disease",639.386822037305,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Chronic obstructive pulmonary disease",417.055832112131,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Chronic obstructive pulmonary disease",799.388960031646,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Chronic obstructive pulmonary disease",474.057793286666,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","Chronic obstructive pulmonary disease",903.433433066498,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Chronic obstructive pulmonary disease",628.282694836323,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","Chronic obstructive pulmonary disease",1206.42171930601,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Chronic obstructive pulmonary disease",762.751914496355,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","Chronic obstructive pulmonary disease",1979.43160987904,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Chronic obstructive pulmonary disease",1071.90122356122,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Chronic obstructive pulmonary disease",2437.4592031213,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Chronic obstructive pulmonary disease",1879.57391392485,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Chronic obstructive pulmonary disease",4474.832083712,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Chronic obstructive pulmonary disease",3503.90232593117,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Chronic obstructive pulmonary disease",8009.718153677,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Chronic obstructive pulmonary disease",6681.42335127066,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Chronic obstructive pulmonary disease",12367.1895402711,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Chronic obstructive pulmonary disease",10132.9926750693,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Chronic obstructive pulmonary disease",17320.7321143002,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Chronic obstructive pulmonary disease",13390.8128666208,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Chronic obstructive pulmonary disease",20232.1127481837,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Chronic obstructive pulmonary disease",14981.7251489923,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Chronic obstructive pulmonary disease",19277.1236727857,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Chronic obstructive pulmonary disease",14606.7473507351,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Chronic obstructive pulmonary disease",18595.381067535,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Chronic obstructive pulmonary disease",12548.2272679606,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Chronic obstructive pulmonary disease",13221.4278998479,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Chronic obstructive pulmonary disease",10310.5442265392,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Chronic obstructive pulmonary disease",7640.4746003691,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Chronic obstructive pulmonary disease",6842.60009566335,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Chronic obstructive pulmonary disease",2464.9871869192,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Chronic obstructive pulmonary disease",2741.4577687959,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Chronic obstructive pulmonary disease",362.843050316251,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Chronic obstructive pulmonary disease",362.843050316251,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Chronic obstructive pulmonary disease",596.441032418008,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Chronic obstructive pulmonary disease",596.441032418008,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Tracheal, bronchus, and lung cancer",156.271935127996,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Tracheal, bronchus, and lung cancer",127.278693285748,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Tracheal, bronchus, and lung cancer",271.184973943744,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Tracheal, bronchus, and lung cancer",195.884249821372,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","Tracheal, bronchus, and lung cancer",306.667101115358,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Tracheal, bronchus, and lung cancer",315.196535590798,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","Tracheal, bronchus, and lung cancer",597.33200150338,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Tracheal, bronchus, and lung cancer",802.160107525997,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","Tracheal, bronchus, and lung cancer",1074.63792536108,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Tracheal, bronchus, and lung cancer",1530.08984419465,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Tracheal, bronchus, and lung cancer",2251.34007287881,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Tracheal, bronchus, and lung cancer",2822.64101113034,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Tracheal, bronchus, and lung cancer",5106.1474945985,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Tracheal, bronchus, and lung cancer",5206.30859360586,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Tracheal, bronchus, and lung cancer",9903.74206853065,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Tracheal, bronchus, and lung cancer",9578.95754895394,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Tracheal, bronchus, and lung cancer",15599.3351890276,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Tracheal, bronchus, and lung cancer",12637.6034721408,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Tracheal, bronchus, and lung cancer",18279.2618242476,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Tracheal, bronchus, and lung cancer",12971.2984727829,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Tracheal, bronchus, and lung cancer",17030.105782205,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Tracheal, bronchus, and lung cancer",11138.5830654749,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Tracheal, bronchus, and lung cancer",12764.2768510578,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Tracheal, bronchus, and lung cancer",8188.40193958357,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Tracheal, bronchus, and lung cancer",8746.06735764138,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Tracheal, bronchus, and lung cancer",5490.89029022906,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Tracheal, bronchus, and lung cancer",4388.89684621986,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Tracheal, bronchus, and lung cancer",3176.33729391837,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Tracheal, bronchus, and lung cancer",1728.28188188795,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Tracheal, bronchus, and lung cancer",1552.28840019419,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Tracheal, bronchus, and lung cancer",393.033272840148,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Tracheal, bronchus, and lung cancer",483.475963793247,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Tracheal, bronchus, and lung cancer",41.6067727018213,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Tracheal, bronchus, and lung cancer",41.6067727018213,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Tracheal, bronchus, and lung cancer",79.526032380621,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Tracheal, bronchus, and lung cancer",79.526032380621,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Breast cancer",12.8535135191152,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Breast cancer",51.5015925822263,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Breast cancer",12.428850312609,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Breast cancer",281.419849723749,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","Breast cancer",12.5955999236266,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Breast cancer",1671.45165372035,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","Breast cancer",19.1181212617638,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Breast cancer",5005.43096907901,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","Breast cancer",32.8219677676157,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Breast cancer",9540.05704556446,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Breast cancer",51.5253838846298,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Breast cancer",13461.7201933001,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Breast cancer",160.170799977268,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Breast cancer",16182.9723429568,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Breast cancer",272.200976837857,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Breast cancer",18491.5289317189,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Breast cancer",301.095343739961,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Breast cancer",17889.0805896848,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Breast cancer",350.820606722491,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Breast cancer",14938.599301503,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Breast cancer",306.450761580609,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Breast cancer",11506.4029362307,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Breast cancer",209.542230460275,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Breast cancer",7617.21144993198,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Breast cancer",81.3882154522563,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Breast cancer",5172.29161118033,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Breast cancer",41.187952499581,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Breast cancer",3392.58613074703,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Breast cancer",21.6361376950647,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Breast cancer",1905.07905396087,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Breast cancer",7.73656187397381,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Breast cancer",682.816236818873,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Breast cancer",0.950489959441871,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Breast cancer",0.950489959441871,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Breast cancer",122.906805602098,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Breast cancer",122.906805602098,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Uterine cancer",18.0962324270447,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Uterine cancer",38.1668693319708,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Uterine cancer",119.540494252012,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Uterine cancer",120.078316921318,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Uterine cancer",254.9745833297,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Uterine cancer",446.258783766656,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Uterine cancer",898.757809184557,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Uterine cancer",1403.48002306741,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Uterine cancer",2053.14022366184,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Uterine cancer",2654.32324037182,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Uterine cancer",2434.31540166033,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Uterine cancer",1833.38722003473,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Uterine cancer",1234.91370442978,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Uterine cancer",710.789423359727,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Uterine cancer",350.087821253472,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Uterine cancer",101.544466416217,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Uterine cancer",14.5103873425716,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Uterine cancer",14.5103873425716,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Colon and rectum cancer",178.880948365388,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Colon and rectum cancer",129.689993773137,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Colon and rectum cancer",383.500089904517,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Colon and rectum cancer",370.724634009519,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","Colon and rectum cancer",647.732232944314,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Colon and rectum cancer",808.211028913885,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","Colon and rectum cancer",1546.98623594711,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Colon and rectum cancer",1629.41466880664,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","Colon and rectum cancer",2554.6407789067,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Colon and rectum cancer",2861.8872012541,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Colon and rectum cancer",3462.49777545161,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Colon and rectum cancer",4227.41758573279,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Colon and rectum cancer",5417.6256179311,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Colon and rectum cancer",6005.82806386926,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Colon and rectum cancer",7643.4864370294,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Colon and rectum cancer",7846.09862515706,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Colon and rectum cancer",10279.017482295,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Colon and rectum cancer",9523.50234997108,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Colon and rectum cancer",11699.6382809114,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Colon and rectum cancer",9719.52402098378,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Colon and rectum cancer",10747.9333569138,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Colon and rectum cancer",8678.73948662414,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Colon and rectum cancer",8442.97644890989,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Colon and rectum cancer",6991.04166765751,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Colon and rectum cancer",6003.94672382282,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Colon and rectum cancer",5796.75682583947,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Colon and rectum cancer",3385.41759520724,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Colon and rectum cancer",4026.41076355169,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Colon and rectum cancer",1574.3421373505,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Colon and rectum cancer",2427.18493483337,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Colon and rectum cancer",392.275819688768,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Colon and rectum cancer",804.805731542888,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Colon and rectum cancer",48.6713312308441,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Colon and rectum cancer",48.6713312308441,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Colon and rectum cancer",121.396927505475,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Colon and rectum cancer",121.396927505475,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","0 to 4","Road injuries",3968.6622729787,1364447.0335134
+"YLLs (Years of Life Lost)","São Paulo","Female","0 to 4","Road injuries",3409.44924842041,1306763.1285606
+"YLLs (Years of Life Lost)","São Paulo","Male","5 to 9","Road injuries",3192.65365253546,1455910.44686157
+"YLLs (Years of Life Lost)","São Paulo","Female","5 to 9","Road injuries",2063.436456636,1404245.2655022
+"YLLs (Years of Life Lost)","São Paulo","Male","10 to 14","Road injuries",5242.91874709764,1572995.49665588
+"YLLs (Years of Life Lost)","São Paulo","Female","10 to 14","Road injuries",2647.43126655132,1515869.09928763
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Road injuries",28880.0928905626,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Road injuries",7886.27854948465,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Road injuries",45585.640260727,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Road injuries",9205.57050167968,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","Road injuries",37837.1949738888,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Road injuries",7573.91348923408,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","Road injuries",33498.6914424631,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Road injuries",6320.54891451468,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","Road injuries",29270.6753010726,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Road injuries",6149.70423613659,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Road injuries",22078.6291849412,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Road injuries",5079.08735849379,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Road injuries",19008.1265049049,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Road injuries",3872.73270214407,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Road injuries",15549.1975145325,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Road injuries",3808.29646215303,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Road injuries",12268.1874351576,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Road injuries",3034.63102633697,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Road injuries",8149.80258816529,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Road injuries",2649.39245394832,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Road injuries",5523.60358308402,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Road injuries",2129.68584044304,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Road injuries",3149.36918703601,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Road injuries",1725.54099026417,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Road injuries",1859.22112071142,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Road injuries",1104.21721720024,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Road injuries",1012.46464328469,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Road injuries",727.37868940602,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Road injuries",383.371914737062,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Road injuries",358.950771333737,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Road injuries",101.013219940613,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Road injuries",116.863875751677,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Road injuries",10.057067175566,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Road injuries",10.057067175566,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Road injuries",21.8892457879127,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Road injuries",21.8892457879127,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","0 to 4","All causes",365986.480170121,1364447.0335134
+"YLLs (Years of Life Lost)","São Paulo","Female","0 to 4","All causes",294545.08723771,1306763.1285606
+"YLLs (Years of Life Lost)","São Paulo","Male","5 to 9","All causes",25458.6434096832,1455910.44686157
+"YLLs (Years of Life Lost)","São Paulo","Female","5 to 9","All causes",17666.7819239231,1404245.2655022
+"YLLs (Years of Life Lost)","São Paulo","Male","10 to 14","All causes",33341.724224832,1572995.49665588
+"YLLs (Years of Life Lost)","São Paulo","Female","10 to 14","All causes",21493.1896229054,1515869.09928763
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","All causes",138859.686456441,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","All causes",43140.3912232943,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","All causes",184992.127152264,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","All causes",53629.2620223423,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","All causes",180368.006772099,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","All causes",63886.8259967772,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","All causes",206669.209202622,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","All causes",82263.1927274764,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","All causes",234155.882417484,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","All causes",115078.200909353,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","All causes",252608.435162458,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","All causes",138411.3790758,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","All causes",308721.656703859,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","All causes",166950.031809296,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","All causes",380190.450145695,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","All causes",214453.571303248,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","All causes",429141.337265491,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","All causes",255451.85561028,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","All causes",425795.684319969,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","All causes",274570.095288957,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","All causes",387136.820764359,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","All causes",275061.217596493,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","All causes",307672.748631724,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","All causes",247205.880269024,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","All causes",247258.608375914,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","All causes",230498.09464846,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","All causes",165500.946507577,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","All causes",195528.492965769,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","All causes",93189.9682841884,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","All causes",140094.495129701,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","All causes",31620.3806412258,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","All causes",63125.3474419667,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","All causes",5041.86972158671,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","All causes",5041.86972158671,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","All causes",14671.094014843,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","All causes",14671.094014843,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","0 to 4","Lower respiratory infections",26509.561590373,1364447.0335134
+"YLLs (Years of Life Lost)","São Paulo","Female","0 to 4","Lower respiratory infections",20841.4203947598,1306763.1285606
+"YLLs (Years of Life Lost)","São Paulo","Male","5 to 9","Lower respiratory infections",1909.33126827941,1455910.44686157
+"YLLs (Years of Life Lost)","São Paulo","Female","5 to 9","Lower respiratory infections",1575.32672273555,1404245.2655022
+"YLLs (Years of Life Lost)","São Paulo","Male","10 to 14","Lower respiratory infections",1711.91336625803,1572995.49665588
+"YLLs (Years of Life Lost)","São Paulo","Female","10 to 14","Lower respiratory infections",1492.55533837637,1515869.09928763
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Lower respiratory infections",3450.26069467363,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Lower respiratory infections",2352.26881532658,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Lower respiratory infections",4617.64642381943,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Lower respiratory infections",2744.66231389699,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","Lower respiratory infections",5799.82425448089,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Lower respiratory infections",3054.12590594163,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","Lower respiratory infections",9069.69257182863,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Lower respiratory infections",3936.97177346901,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","Lower respiratory infections",12440.3003942144,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Lower respiratory infections",5414.48419749288,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Lower respiratory infections",14817.7920335932,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Lower respiratory infections",6087.03294921114,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Lower respiratory infections",18174.9006101947,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Lower respiratory infections",7345.50774789452,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Lower respiratory infections",22862.7253299118,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Lower respiratory infections",10975.3861124551,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Lower respiratory infections",25351.1281127697,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Lower respiratory infections",13496.7281127554,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Lower respiratory infections",25113.2639589164,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Lower respiratory infections",15049.6608529156,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Lower respiratory infections",24638.458267259,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Lower respiratory infections",16924.8632998417,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Lower respiratory infections",22246.0334361285,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Lower respiratory infections",17173.8324024137,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Lower respiratory infections",20151.8404364481,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Lower respiratory infections",18592.3673625012,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Lower respiratory infections",16529.974454009,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Lower respiratory infections",18927.291016227,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Lower respiratory infections",11048.7268411054,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Lower respiratory infections",15992.4254469845,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Lower respiratory infections",4871.02927099865,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Lower respiratory infections",8400.16627827499,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Lower respiratory infections",909.79938954199,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Lower respiratory infections",909.79938954199,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Lower respiratory infections",2248.85596708518,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Lower respiratory infections",2248.85596708518,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","15 to 19","Diabetes mellitus type 2",31.5576097802413,1679422.51172377
+"YLLs (Years of Life Lost)","São Paulo","Female","15 to 19","Diabetes mellitus type 2",35.3419727999479,1634759.60802005
+"YLLs (Years of Life Lost)","São Paulo","Male","20 to 24","Diabetes mellitus type 2",51.7231135482476,1775806.86064904
+"YLLs (Years of Life Lost)","São Paulo","Female","20 to 24","Diabetes mellitus type 2",67.4471149541286,1729892.62176701
+"YLLs (Years of Life Lost)","São Paulo","Male","25 to 29","Diabetes mellitus type 2",94.3748028137167,1818368.66489656
+"YLLs (Years of Life Lost)","São Paulo","Female","25 to 29","Diabetes mellitus type 2",98.3073237254926,1804228.22552473
+"YLLs (Years of Life Lost)","São Paulo","Male","30 to 34","Diabetes mellitus type 2",327.235500815496,1898422.96996084
+"YLLs (Years of Life Lost)","São Paulo","Female","30 to 34","Diabetes mellitus type 2",312.009227006368,1929566.67221472
+"YLLs (Years of Life Lost)","São Paulo","Male","35 to 39","Diabetes mellitus type 2",533.160390559836,1842541.14151164
+"YLLs (Years of Life Lost)","São Paulo","Female","35 to 39","Diabetes mellitus type 2",563.133761493172,1929743.70542923
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Diabetes mellitus type 2",872.548550481822,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Diabetes mellitus type 2",974.017075216324,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Diabetes mellitus type 2",3673.42350016017,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Diabetes mellitus type 2",2743.57059771189,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Diabetes mellitus type 2",5930.46078175403,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Diabetes mellitus type 2",4441.78062519993,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Diabetes mellitus type 2",8252.30494102935,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Diabetes mellitus type 2",6443.62847243243,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Diabetes mellitus type 2",11036.2341675669,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Diabetes mellitus type 2",9592.23636635477,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Diabetes mellitus type 2",10562.7434196129,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Diabetes mellitus type 2",10586.2426995801,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Diabetes mellitus type 2",8921.15391535413,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Diabetes mellitus type 2",9991.7777867092,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Diabetes mellitus type 2",6549.19639159024,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Diabetes mellitus type 2",9022.68838535754,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Diabetes mellitus type 2",4168.68591193107,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Diabetes mellitus type 2",7202.6586779124,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Diabetes mellitus type 2",2088.9210969051,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Diabetes mellitus type 2",4456.47118184034,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Diabetes mellitus type 2",593.033801758209,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Diabetes mellitus type 2",1597.31039252847,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Diabetes mellitus type 2",81.7364692208227,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Diabetes mellitus type 2",81.7364692208227,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Diabetes mellitus type 2",298.670401319975,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Diabetes mellitus type 2",298.670401319975,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Male","40 to 44","Alzheimer's disease and other dementias",72.919136150122,1615951.56783548
+"YLLs (Years of Life Lost)","São Paulo","Female","40 to 44","Alzheimer's disease and other dementias",63.1672127609637,1724668.45765529
+"YLLs (Years of Life Lost)","São Paulo","Male","45 to 49","Alzheimer's disease and other dementias",252.350781114123,1455747.92536113
+"YLLs (Years of Life Lost)","São Paulo","Female","45 to 49","Alzheimer's disease and other dementias",237.347949122837,1559807.59965781
+"YLLs (Years of Life Lost)","São Paulo","Male","50 to 54","Alzheimer's disease and other dementias",827.785251951424,1330938.52956528
+"YLLs (Years of Life Lost)","São Paulo","Female","50 to 54","Alzheimer's disease and other dementias",943.572873883901,1489216.4387145
+"YLLs (Years of Life Lost)","São Paulo","Male","55 to 59","Alzheimer's disease and other dementias",1812.72608481459,1151896.92360273
+"YLLs (Years of Life Lost)","São Paulo","Female","55 to 59","Alzheimer's disease and other dementias",2225.12127098236,1324935.37038828
+"YLLs (Years of Life Lost)","São Paulo","Male","60 to 64","Alzheimer's disease and other dementias",4320.85292191418,935970.824598277
+"YLLs (Years of Life Lost)","São Paulo","Female","60 to 64","Alzheimer's disease and other dementias",5355.58798921212,1116622.23828263
+"YLLs (Years of Life Lost)","São Paulo","Male","65 to 69","Alzheimer's disease and other dementias",7845.89228650155,714744.511620098
+"YLLs (Years of Life Lost)","São Paulo","Female","65 to 69","Alzheimer's disease and other dementias",9820.6530042932,866131.523850021
+"YLLs (Years of Life Lost)","São Paulo","Male","70 to 74","Alzheimer's disease and other dementias",10483.3678750189,476680.892579217
+"YLLs (Years of Life Lost)","São Paulo","Female","70 to 74","Alzheimer's disease and other dementias",13813.107212205,629656.691690606
+"YLLs (Years of Life Lost)","São Paulo","Male","75 to 79","Alzheimer's disease and other dementias",14261.5556670847,325579.580383601
+"YLLs (Years of Life Lost)","São Paulo","Female","75 to 79","Alzheimer's disease and other dementias",19717.7952550825,449135.433611111
+"YLLs (Years of Life Lost)","São Paulo","Male","80 to 84","Alzheimer's disease and other dementias",14096.1596499427,182891.295308898
+"YLLs (Years of Life Lost)","São Paulo","Female","80 to 84","Alzheimer's disease and other dementias",22873.3514131276,299232.017721493
+"YLLs (Years of Life Lost)","São Paulo","Male","85 to 89","Alzheimer's disease and other dementias",10334.8113137048,89130.1159476235
+"YLLs (Years of Life Lost)","São Paulo","Female","85 to 89","Alzheimer's disease and other dementias",20613.3573115117,169068.325772878
+"YLLs (Years of Life Lost)","São Paulo","Male","90 to 94","Alzheimer's disease and other dementias",4028.16245841737,28561.9802502635
+"YLLs (Years of Life Lost)","São Paulo","Female","90 to 94","Alzheimer's disease and other dementias",12638.8666311901,65455.9132386818
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Alzheimer's disease and other dementias",766.763640265778,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Male","95 to 99","Alzheimer's disease and other dementias",766.763640265778,5891.3002745109
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Alzheimer's disease and other dementias",3323.19982560998,15731.0706701602
+"YLLs (Years of Life Lost)","São Paulo","Female","95 to 99","Alzheimer's disease and other dementias",3323.19982560998,15731.0706701602
+"Deaths","São Paulo","Male","0 to 4","Cardiovascular diseases",68.7830422878342,1364447.0335134
+"Deaths","São Paulo","Female","0 to 4","Cardiovascular diseases",55.4374677295717,1306763.1285606
+"Deaths","São Paulo","Male","5 to 9","Cardiovascular diseases",13.1560436051289,1455910.44686157
+"Deaths","São Paulo","Female","5 to 9","Cardiovascular diseases",10.2429848586208,1404245.2655022
+"Deaths","São Paulo","Male","10 to 14","Cardiovascular diseases",25.2746282668499,1572995.49665588
+"Deaths","São Paulo","Female","10 to 14","Cardiovascular diseases",17.4313434299674,1515869.09928763
+"Deaths","São Paulo","Male","15 to 19","Cardiovascular diseases",101.369048580747,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","Cardiovascular diseases",56.3285736206787,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","Cardiovascular diseases",153.620643873314,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","Cardiovascular diseases",93.4959507573393,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","Cardiovascular diseases",233.358827718014,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","Cardiovascular diseases",139.70000204194,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","Cardiovascular diseases",416.22641914988,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","Cardiovascular diseases",237.633527464451,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","Cardiovascular diseases",720.951395937432,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","Cardiovascular diseases",459.58156544262,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","Cardiovascular diseases",1123.40894796853,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Cardiovascular diseases",748.282082070088,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Cardiovascular diseases",1914.09685820508,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Cardiovascular diseases",1126.00964413736,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Cardiovascular diseases",3068.05573065778,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Cardiovascular diseases",1715.68036894852,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Cardiovascular diseases",4323.84538650609,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Cardiovascular diseases",2449.87385838988,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Cardiovascular diseases",5350.04293034553,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Cardiovascular diseases",3261.44027578779,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Cardiovascular diseases",5988.75043183728,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Cardiovascular diseases",4084.66948246962,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Cardiovascular diseases",5959.8198017607,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Cardiovascular diseases",4708.70983539378,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Cardiovascular diseases",5981.84091665102,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Cardiovascular diseases",5834.13009035557,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Cardiovascular diseases",5206.49526746426,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Cardiovascular diseases",6669.18627514141,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Cardiovascular diseases",3978.35784072446,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Cardiovascular diseases",6653.75852091138,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","Cardiovascular diseases",1911.11614933197,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Cardiovascular diseases",4117.26018389472,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Cardiovascular diseases",508.079831466947,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Cardiovascular diseases",508.079831466947,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Cardiovascular diseases",1650.49700123816,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Cardiovascular diseases",1650.49700123816,15731.0706701602
+"Deaths","São Paulo","Male","15 to 19","Ischemic heart disease",39.9915794950347,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","Ischemic heart disease",13.6747285049597,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","Ischemic heart disease",64.3140918993436,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","Ischemic heart disease",24.8743707440248,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","Ischemic heart disease",99.2445211008304,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","Ischemic heart disease",34.6660710932744,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","Ischemic heart disease",190.554727872823,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","Ischemic heart disease",66.5037140738807,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","Ischemic heart disease",335.888685800975,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","Ischemic heart disease",135.623358394977,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","Ischemic heart disease",554.325251996594,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Ischemic heart disease",241.449255287012,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Ischemic heart disease",1002.84122370427,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Ischemic heart disease",424.51853835248,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Ischemic heart disease",1649.22693789581,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Ischemic heart disease",711.068958708225,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Ischemic heart disease",2337.5560667491,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Ischemic heart disease",1073.04727145704,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Ischemic heart disease",2819.59244348418,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Ischemic heart disease",1523.4002279585,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Ischemic heart disease",3031.93769776538,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Ischemic heart disease",1899.03598886011,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Ischemic heart disease",2885.66975905487,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Ischemic heart disease",2113.25696371585,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Ischemic heart disease",2740.23892629811,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Ischemic heart disease",2583.27085834152,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Ischemic heart disease",2304.44958876254,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Ischemic heart disease",2845.95056038784,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Ischemic heart disease",1705.57404877672,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Ischemic heart disease",2781.61189461403,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","Ischemic heart disease",830.093340335231,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Ischemic heart disease",1714.10075326992,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Ischemic heart disease",227.74680154313,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Ischemic heart disease",227.74680154313,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Ischemic heart disease",727.569469793555,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Ischemic heart disease",727.569469793555,15731.0706701602
+"Deaths","São Paulo","Male","0 to 4","Stroke",7.15612352185691,1364447.0335134
+"Deaths","São Paulo","Female","0 to 4","Stroke",4.12026734690673,1306763.1285606
+"Deaths","São Paulo","Male","5 to 9","Stroke",3.05309560383464,1455910.44686157
+"Deaths","São Paulo","Female","5 to 9","Stroke",2.01201253568041,1404245.2655022
+"Deaths","São Paulo","Male","10 to 14","Stroke",6.73175980542382,1572995.49665588
+"Deaths","São Paulo","Female","10 to 14","Stroke",4.66713597537384,1515869.09928763
+"Deaths","São Paulo","Male","15 to 19","Stroke",19.3628852643383,1679422.51172377
+"Deaths","São Paulo","Female","15 to 19","Stroke",15.690788273803,1634759.60802005
+"Deaths","São Paulo","Male","20 to 24","Stroke",26.9439524944882,1775806.86064904
+"Deaths","São Paulo","Female","20 to 24","Stroke",24.8934147863309,1729892.62176701
+"Deaths","São Paulo","Male","25 to 29","Stroke",44.5725039041318,1818368.66489656
+"Deaths","São Paulo","Female","25 to 29","Stroke",41.8020814937318,1804228.22552473
+"Deaths","São Paulo","Male","30 to 34","Stroke",80.6927669440459,1898422.96996084
+"Deaths","São Paulo","Female","30 to 34","Stroke",79.6413428370882,1929566.67221472
+"Deaths","São Paulo","Male","35 to 39","Stroke",154.300788770491,1842541.14151164
+"Deaths","São Paulo","Female","35 to 39","Stroke",166.633942165522,1929743.70542923
+"Deaths","São Paulo","Male","40 to 44","Stroke",246.151032791822,1615951.56783548
+"Deaths","São Paulo","Female","40 to 44","Stroke",277.676258713599,1724668.45765529
+"Deaths","São Paulo","Male","45 to 49","Stroke",429.539297618185,1455747.92536113
+"Deaths","São Paulo","Female","45 to 49","Stroke",381.709590898289,1559807.59965781
+"Deaths","São Paulo","Male","50 to 54","Stroke",698.6132886009,1330938.52956528
+"Deaths","São Paulo","Female","50 to 54","Stroke",531.216626938156,1489216.4387145
+"Deaths","São Paulo","Male","55 to 59","Stroke",997.437050304431,1151896.92360273
+"Deaths","São Paulo","Female","55 to 59","Stroke",709.052941805832,1324935.37038828
+"Deaths","São Paulo","Male","60 to 64","Stroke",1309.42008072171,935970.824598277
+"Deaths","São Paulo","Female","60 to 64","Stroke",872.909452211931,1116622.23828263
+"Deaths","São Paulo","Male","65 to 69","Stroke",1565.27651433973,714744.511620098
+"Deaths","São Paulo","Female","65 to 69","Stroke",1086.66349464369,866131.523850021
+"Deaths","São Paulo","Male","70 to 74","Stroke",1661.9102482344,476680.892579217
+"Deaths","São Paulo","Female","70 to 74","Stroke",1296.41992395519,629656.691690606
+"Deaths","São Paulo","Male","75 to 79","Stroke",1793.7906093242,325579.580383601
+"Deaths","São Paulo","Female","75 to 79","Stroke",1670.96973148781,449135.433611111
+"Deaths","São Paulo","Male","80 to 84","Stroke",1575.68857546031,182891.295308898
+"Deaths","São Paulo","Female","80 to 84","Stroke",1913.98825516743,299232.017721493
+"Deaths","São Paulo","Male","85 to 89","Stroke",1204.02506679463,89130.1159476235
+"Deaths","São Paulo","Female","85 to 89","Stroke",1906.83389975447,169068.325772878
+"Deaths","São Paulo","Male","90 to 94","Stroke",551.484567729374,28561.9802502635
+"Deaths","São Paulo","Female","90 to 94","Stroke",1075.63926949047,65455.9132386818
+"Deaths","São Paulo","Male","95 to 99","Stroke",130.781563582638,5891.3002745109
+"Deaths","São Paulo","Male","95 to 99","Stroke",130.781563582638,5891.3002745109
+"Deaths","São Paulo","Female","95 to 99","Stroke",393.766964781878,15731.0706701602
+"Deaths","São Paulo","Female","95 to 99","Stroke",393.766964781878,15731.0706701602
