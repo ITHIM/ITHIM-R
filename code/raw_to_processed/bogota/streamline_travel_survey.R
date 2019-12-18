@@ -6,7 +6,7 @@ library(tidyverse)
 library(summarytools)
 
 # Read belo horizonte's travel survey
-raw_rd <- read_csv("data/local/bogota/bogota_trip_original.csv")
+raw_rd <- read_csv("data/local/bogota/bogota_trip.csv")
 
 # Create a new var id to represent unique trips
 raw_rd <- raw_rd %>% mutate(id = ifelse(!is.na(trip_mode), as.integer(as.factor(with(raw_rd, paste0(cluster_id,household_id,participant_id, trip_id, trip_mode, trip_duration)))), NA))
@@ -36,7 +36,7 @@ rd <- raw_rd
 rd <- rd %>% dplyr::select(-c(X1, cluster_id, household_id, participant_wt, year, trip_purpose))
 
 # Print summary
-rd %>% filter(!is.na(trip_id)) %>% distinct(trip_id, .keep_all = TRUE) %>% group_by(trip_mode, .drop = F) %>% summarise(mode_share = round(n()*100/nrow(.),1))
+rd %>% filter(!is.na(trip_id)) %>% distinct(trip_id, .keep_all = TRUE) %>% group_by(trip_mode) %>% summarise(mode_share = round(n()*100/nrow(.),1))
 
 # Get public transport modes
 rdpt <- rd %>% filter(trip_mode %in% c('bus', 'train'))

@@ -11,7 +11,8 @@
 #' @return data frame of proportions by mode and distance category
 #' 
 #' @export
-get_scenario_settings <- function(cities=c('accra','sao_paulo','delhi','bangalore'),
+get_scenario_settings <- function(cities = c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota',
+                                             'cape_town', 'vizag'),
                                   modes=c("walking","bicycle","car","motorcycle","bus"),     
                                   distances=c('0-1 km','2-5 km','6+ km'),
                                   speeds = list(
