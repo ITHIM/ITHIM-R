@@ -61,7 +61,7 @@ rd <- rbind(rd, rdpt)
 #####
 ## Recalculate distances from speed when they're NA
 # Read speed table for Delhi
-speed_tbl <- read_csv("inst/extdata/local/delhi/speed_modes_india.csv")
+speed_tbl <- read_csv("data/local/delhi/speed_modes_india.csv")
 
 speed_tbl[nrow(speed_tbl) + 1,] = list("walk_to_pt", 4.8)
 
@@ -71,180 +71,201 @@ rd[is.na(rd$distance) & !is.na(rd$duration), ]$distance <-
   speed_tbl$Speed[match(rd[is.na(rd$distance) & !is.na(rd$duration), ]$mode_name, speed_tbl$Mode)]
 
 #####
-# Modify raw dataset to expand based on household weights
-# Add new ids for trips and persons
+# Expand by household IDs
 
-# Initialize all pid (new column for person_id) as -1
-rd$pid <- -1
-# Initialize all tid as -1
-rd$tid <- -1
-# Starting tid from 1
-tid <- 1
-# Starting id from 1
-id <- 1
-# Get unique person_ids
-pid_list <- unique(rd$person_id)
-#pid_list <- c("M00031")
+rd <- arrange(rd, hh_id, person_id)
+rd <- rd %>% mutate(w = if_else(is.na(hh_weights), 0, round(hh_weights)))
+rd <- rd %>% mutate(w = if_else(w > 0, w - 1, w))
+rd$hh_weights <- rd$w
 
-saved_obj <- rd
+exp1 <- rd %>% filter(w > 0) %>% uncount(w, .id = "pid")
+exp2 <- rd %>% filter(w == 0) %>% mutate(pid = 1)
 
-#rd <- saved_obj %>% filter(person_id == "M00031")
+rd <- plyr::rbind.fill(exp1, exp2) %>% arrange(hh_id, person_id, trip_id)
 
-# Loop through them and expand them using household weights
-for(i in 1:length(pid_list)) {
-  # print(i)
-  # i <- 1
-  # Filter by person_id to get all trips for a person
-  pg <- filter(rd, person_id == pid_list[i])
-  
-  # Local var for p id
-  local_pid <- pid_list[i]
+rd$participant_id <- as.integer(as.factor(with(rd, paste(hh_id, person_id, pid, sep = "_"))))
 
-  # If there are more than 1 trip and house hold weight for that person/trip is not NA
-  if (!is.na(pg) && !is.na(pg$hh_weights)){
-    # Get household weight (and round it)
-    count <- round(pg$hh_weights[1])
-    # Get unique trips count
-    utrips <- length(unique(pg$trip_id))
-    # If there is no weight (after rounding), assign a new id to that person
-    if (count == 0 || count == 1){
-      # Assign id (an auto-increasing id)
-      rd[rd$person_id == pid_list[i],]$pid <- id
-      # Increment id by 1
-      id <- id + 1
-      ## Increment by 1
-      #tid <- tid + 1
-      # Assing a new trip ID
-      for (utid in unique(rd[rd$person_id == pid_list[i],]$trip_id)){
-        # Identify total stages
-        ustages <- rd %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% dplyr::select(count) %>% as.integer()
-        if (ustages > 0){
-          # print("L82")
-          a <- nrow(rd[rd$trip_id == utid,])
-          b <- ustages
-          if (a != b){
-            cat(local_pid, " L82: rows ", a, " repeated by ", b, "\n")
-          }
-          # Update same trip id stages time
-          rd$tid[rd$trip_id == utid] <- rep(tid, ustages)
-          
-        }else{
-          rd$tid[rd$trip_id == utid] <- tid
-        }
-        # Increment tid by adding 1
-        tid <- tid + 1
-      }
-    }
-    # If household weight is greater than 1
-    if (count > 1){
-      # Replicate filtered dataset 'count' many times
-      d <- bind_rows(replicate((count), pg, simplify = FALSE))
-      # Sort it by trip id
-      d <- arrange(d, trip_id)
-      # Assign id for the selected person
-      rd[rd$person_id == pid_list[i],]$pid <- id
-      # Assing a new trip ID
-      for (utid in unique(pg$trip_id)){
-        ustages <- rd %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% dplyr::select(count) %>% as.integer()
-        # cat(utid, " - ", ustages, "\n")
-        if (ustages > 0){
-          a <- nrow(rd[rd$trip_id == utid,])
-          b <- ustages
-          if (a != b){
-            cat(local_pid, " L111: rows ", a, " repeated by ", b, "\n")
-          }
-          # Update same trip id stages time
-          rd$tid[rd$trip_id == utid] <- rep(tid, ustages)
-        }else{
-          rd$tid[rd$trip_id == utid] <- tid
-        }
-        # Increment tid by adding utrips to it
-        tid <- tid + 1
-      }
-      
-      # Generate new IDs for all newly generated persons (along with their trips)
-      d$pid <- rep((id + 1):(id + count), nrow(pg))
-      # s <- 1
-      # e <- nrow(d)
-      # d$urep <- -1
-      # for (i in 1:count){
-      #   d$urep[s:nrow(pg)]  
-      # }
-      
-      # Assing a new trip ID
-      for (utid in unique(d$trip_id)){
-        ustages <- d %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% dplyr::select(count) %>% as.integer()
-        # cat(utid, " - ", ustages, "\n")
-        if (ustages > 0){
-          a <- nrow(d[d$trip_id == utid,]) / count
-          b <- ustages
-          if (a != b){
-            cat(local_pid, " L128: rows ", a, " repeated by ", b, "\n")
-          }
-          
-          stid <- tid
-          etid <- tid + (ustages) - 1
-          
-          # Update same trip id stages time
-          d$tid[d$trip_id == utid] <- rep(stid:etid, each = 2)
-          tid <- etid
-          #rep(tid, ustages)
-        }else{
-          d$tid[d$trip_id == utid] <- tid
-        }
-        # Increment tid by 1
-        tid <- tid + 1
-      }
-      # Increment id by adding count to it
-      id <- id + count
-      # Rbind new trips to the overall dataset
-      rd <- bind_rows(rd, d)
-    }
-    # If household weight is undefined
-  }else{
-    # Assign the new id
-    rd[rd$person_id == pid_list[i],]$pid <- id
-    # Increment by 1
-    id <- id + 1
-    ## Increment by 1
-    #tid <- tid + 1
-    # Assing a new trip ID
-    for (utid in unique(rd[rd$person_id == pid_list[i],]$trip_id)){
-      # filter rd for a person
-      ustages <- rd %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% dplyr::select(count) %>% as.integer()
-      # cat(utid, " - ", ustages, "\n")
-      
-      if (ustages > 0){
-        a <- nrow(rd[rd$trip_id == utid,])
-        b <- ustages
-        if (a != b){
-          cat(local_pid, " L168: rows ", a, " repeated by ", b, "\n")
-        }
-        # Update same trip id stages time
-        rd$tid[rd$trip_id == utid] <- rep(tid, ustages)
-      }else{
-        rd$tid[rd$trip_id == utid] <- tid
-      }
-      # Increment tid by adding utrips to it
-      tid <- tid + 1
-    }
-    
-  }
-}
+rd$trip_id <- as.integer(as.factor(with(rd, paste(hh_id, person_id, pid, trip_id, sep = "_"))))
+
+
+# #####
+# # Modify raw dataset to expand based on household weights
+# # Add new ids for trips and persons
+# 
+# # Initialize all pid (new column for person_id) as -1
+# rd$pid <- -1
+# # Initialize all tid as -1
+# rd$tid <- -1
+# # Starting tid from 1
+# tid <- 1
+# # Starting id from 1
+# id <- 1
+# # Get unique person_ids
+# pid_list <- unique(rd$person_id)
+# #pid_list <- c("M00031")
+# 
+# saved_obj <- rd
+# 
+# #rd <- saved_obj %>% filter(person_id == "M00031")
+# 
+# # Loop through them and expand them using household weights
+# for(i in 1:length(pid_list)) {
+#   # print(i)
+#   # i <- 1
+#   # Filter by person_id to get all trips for a person
+#   pg <- filter(rd, person_id == pid_list[i])
+#   
+#   # Local var for p id
+#   local_pid <- pid_list[i]
+# 
+#   # If there are more than 1 trip and house hold weight for that person/trip is not NA
+#   if (!is.na(pg) && !is.na(pg$hh_weights)){
+#     # Get household weight (and round it)
+#     count <- round(pg$hh_weights[1])
+#     # Get unique trips count
+#     utrips <- length(unique(pg$trip_id))
+#     # If there is no weight (after rounding), assign a new id to that person
+#     if (count == 0 || count == 1){
+#       # Assign id (an auto-increasing id)
+#       rd[rd$person_id == pid_list[i],]$pid <- id
+#       # Increment id by 1
+#       id <- id + 1
+#       ## Increment by 1
+#       #tid <- tid + 1
+#       # Assing a new trip ID
+#       for (utid in unique(rd[rd$person_id == pid_list[i],]$trip_id)){
+#         # Identify total stages
+#         ustages <- rd %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% dplyr::select(count) %>% as.integer()
+#         if (ustages > 0){
+#           # print("L82")
+#           a <- nrow(rd[rd$trip_id == utid,])
+#           b <- ustages
+#           if (a != b){
+#             cat(local_pid, " L82: rows ", a, " repeated by ", b, "\n")
+#           }
+#           # Update same trip id stages time
+#           rd$tid[rd$trip_id == utid] <- rep(tid, ustages)
+#           
+#         }else{
+#           rd$tid[rd$trip_id == utid] <- tid
+#         }
+#         # Increment tid by adding 1
+#         tid <- tid + 1
+#       }
+#     }
+#     # If household weight is greater than 1
+#     if (count > 1){
+#       # Replicate filtered dataset 'count' many times
+#       d <- bind_rows(replicate((count), pg, simplify = FALSE))
+#       # Sort it by trip id
+#       d <- arrange(d, trip_id)
+#       # Assign id for the selected person
+#       rd[rd$person_id == pid_list[i],]$pid <- id
+#       # Assing a new trip ID
+#       for (utid in unique(pg$trip_id)){
+#         ustages <- rd %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% dplyr::select(count) %>% as.integer()
+#         # cat(utid, " - ", ustages, "\n")
+#         if (ustages > 0){
+#           a <- nrow(rd[rd$trip_id == utid,])
+#           b <- ustages
+#           if (a != b){
+#             cat(local_pid, " L111: rows ", a, " repeated by ", b, "\n")
+#           }
+#           # Update same trip id stages time
+#           rd$tid[rd$trip_id == utid] <- rep(tid, ustages)
+#         }else{
+#           rd$tid[rd$trip_id == utid] <- tid
+#         }
+#         # Increment tid by adding utrips to it
+#         tid <- tid + 1
+#       }
+#       
+#       # Generate new IDs for all newly generated persons (along with their trips)
+#       d$pid <- rep((id + 1):(id + count), nrow(pg))
+#       # s <- 1
+#       # e <- nrow(d)
+#       # d$urep <- -1
+#       # for (i in 1:count){
+#       #   d$urep[s:nrow(pg)]  
+#       # }
+#       
+#       # Assing a new trip ID
+#       for (utid in unique(d$trip_id)){
+#         ustages <- d %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% dplyr::select(count) %>% as.integer()
+#         # cat(utid, " - ", ustages, "\n")
+#         if (ustages > 0){
+#           a <- nrow(d[d$trip_id == utid,]) / count
+#           b <- ustages
+#           if (a != b){
+#             cat(local_pid, " L128: rows ", a, " repeated by ", b, "\n")
+#           }
+#           
+#           stid <- tid
+#           etid <- tid + (ustages) - 1
+#           
+#           # Update same trip id stages time
+#           d$tid[d$trip_id == utid] <- rep(stid:etid, each = 2)
+#           tid <- etid
+#           #rep(tid, ustages)
+#         }else{
+#           d$tid[d$trip_id == utid] <- tid
+#         }
+#         # Increment tid by 1
+#         tid <- tid + 1
+#       }
+#       # Increment id by adding count to it
+#       id <- id + count
+#       # Rbind new trips to the overall dataset
+#       rd <- bind_rows(rd, d)
+#     }
+#     # If household weight is undefined
+#   }else{
+#     # Assign the new id
+#     rd[rd$person_id == pid_list[i],]$pid <- id
+#     # Increment by 1
+#     id <- id + 1
+#     ## Increment by 1
+#     #tid <- tid + 1
+#     # Assing a new trip ID
+#     for (utid in unique(rd[rd$person_id == pid_list[i],]$trip_id)){
+#       # filter rd for a person
+#       ustages <- rd %>% filter(trip_id == utid) %>% group_by(trip_id) %>% summarise(count = length(unique(stage))) %>% dplyr::select(count) %>% as.integer()
+#       # cat(utid, " - ", ustages, "\n")
+#       
+#       if (ustages > 0){
+#         a <- nrow(rd[rd$trip_id == utid,])
+#         b <- ustages
+#         if (a != b){
+#           cat(local_pid, " L168: rows ", a, " repeated by ", b, "\n")
+#         }
+#         # Update same trip id stages time
+#         rd$tid[rd$trip_id == utid] <- rep(tid, ustages)
+#       }else{
+#         rd$tid[rd$trip_id == utid] <- tid
+#       }
+#       # Increment tid by adding utrips to it
+#       tid <- tid + 1
+#     }
+#     
+#   }
+# }
+
+# save this in a local temp var
+b <- rd
 
 #####
 # Column (vars) manipulations
 
-# Replace trip_id by tid
-rd$trip_id <- rd$tid
-rd$tid <- NULL
-
-# Replace person_id by pid
-rd$person_id <- rd$pid
-rd$pid <- NULL
-
-# Rename person_id to participant_id
-rd <- rename(rd, participant_id = person_id)
+# # Replace trip_id by tid
+# rd$trip_id <- rd$tid
+# rd$tid <- NULL
+# 
+# # Replace person_id by pid
+# rd$person_id <- rd$pid
+# rd$pid <- NULL
+# 
+# # Rename person_id to participant_id
+# rd <- rename(rd, participant_id = person_id)
 
 # Introduce sex column - and remove female column
 rd$sex <- "Male"
@@ -256,13 +277,10 @@ rd$female <- NULL
 rd$hh_id <- NULL
 
 # Calculate total distance by summing all stages' distance
-rd$total_distance <- ave(rd$distance, rd$trip_id, FUN = sum)
+rd$total_distance <- ave(rd$distance, rd$trip_id, FUN = function(x) sum(x, na.rm=T))
 
 # Change unit of stage_duration from hours to mins
 rd <- rd %>% mutate(duration = duration * 60)
-
-# save this in a local temp var
-b <- rd
 
 #####
 ## Rename columns
@@ -270,12 +288,21 @@ b <- rd
 rd <- rd %>% dplyr::rename(stage_mode_int = mode, stage_id = stage, stage_mode = mode_name, stage_distance = distance, stage_duration = duration, trip_mode_int = main_mode,
                      trip_mode = main_mode_name, trip_distance = total_distance)
 
+# Calculate total duration by summing all stages' duration
+rd$trip_duration <- ave(rd$stage_duration, rd$trip_id, FUN = function(x) sum(x, na.rm=T))
+
 
 #####
 ## Reorder columns
 rd <- rd %>% dplyr::select(participant_id, age, sex, hh_weights, stage_id, stage_mode_int, stage_mode, stage_duration, stage_distance,
-                     trip_id, trip_mode_int, trip_mode, trip_distance)
-  
+                     trip_id, trip_mode_int, trip_mode, trip_distance, trip_duration)
+
+# pwt <- rd %>% filter(is.na(trip_mode)) %>% distinct(participant_id, .keep_all = T)
+# 
+# rd1 <- rd %>% filter(!is.na(stage_duration))
+
+# Remove rows without 
+
 #####
 # Write streamlined travel survey data as a csv in the inst folder
 write_csv(rd, "inst/extdata/local/delhi/trips_delhi.csv")
