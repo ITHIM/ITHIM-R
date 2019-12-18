@@ -4,8 +4,16 @@
 \alias{create_scenario}
 \title{Create individual scenario}
 \usage{
-create_scenario(rdr, scen_name, source_modes, combined_modes = F,
-  target_modes, source_distance_cats, source_trips, target_trips)
+create_scenario(
+  rdr,
+  scen_name,
+  source_modes,
+  combined_modes = F,
+  target_modes,
+  source_distance_cats,
+  source_trips,
+  target_trips
+)
 }
 \arguments{
 \item{rdr}{data frame of trips}

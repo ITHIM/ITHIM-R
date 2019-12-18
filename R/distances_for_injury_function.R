@@ -55,7 +55,7 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
                                                  cas_gender=unique(DEMOGRAPHIC$sex),
                                        cas_mode=unique(injuries_for_model[[1]][[type]]$cas_mode),
                                        strike_mode=unique(injuries_for_model[[1]][[type]]$strike_mode))
-  injuries_list <- add_distance_columns(scenario_injury_table,mode_names,true_distances_0,dist)
+  injuries_list <- add_distance_columns(injury_table=scenario_injury_table,mode_names,true_distances_0,dist)
   for (n in 1:(NSCEN+1))
     for(type in INJURY_TABLE_TYPES) 
       injuries_list[[n]][[type]]$injury_gen_age <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_gender),as.character(injuries_list[[n]][[type]]$age_cat)),1,function(x)paste(x,collapse='_'))
@@ -68,7 +68,7 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
   ##RJ linearity in group rates
   CAS_EXPONENT <<- SIN_EXPONENT_SUM * CASUALTY_EXPONENT_FRACTION
   STR_EXPONENT <<- SIN_EXPONENT_SUM - CAS_EXPONENT
-  forms <- list(whw='count~cas_mode*strike_mode+offset(log(cas_distance)+log(strike_distance)-CAS_EXPONENT*log(cas_distance_sum)-STR_EXPONENT*log(strike_distance_sum)-log(injury_reporting_rate)+log(weight))',
+  forms <- list(whw='count~cas_mode*strike_mode+offset(log(cas_distance)+log(strike_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+(STR_EXPONENT-1)*log(strike_distance_sum)-log(injury_reporting_rate)+log(weight))',
                 nov='count~cas_mode+offset(2*CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate)+log(weight))')
   if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
     for(type in INJURY_TABLE_TYPES)

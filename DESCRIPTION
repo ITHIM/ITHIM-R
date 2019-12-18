@@ -52,5 +52,6 @@ Imports:
     MASS,
     stringr
 Suggests:
-    testthat
-RoxygenNote: 6.1.1
+    testthat,
+    earth
+RoxygenNote: 7.0.2

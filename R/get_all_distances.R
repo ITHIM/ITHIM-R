@@ -18,7 +18,7 @@ get_all_distances <- function(ithim_object){
   ithim_object$dur <- dist_and_dir$dur
   
   # distances for injuries calculation
-  ithim_object$inj_distances <- distances_for_injury_function(ithim_object$trip_scen_sets,ithim_object$dist)
+  ithim_object$inj_distances <- distances_for_injury_function(trip_scen_sets=ithim_object$trip_scen_sets,ithim_object$dist)
   
   return(ithim_object)
 }

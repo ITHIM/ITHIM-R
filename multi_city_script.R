@@ -1,6 +1,9 @@
 library(ithimr)
 rm(list=ls())
-cities <- c('accra','sao_paulo','delhi','bangalore','belo_horizonte')
+cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota')
+
+# Problematic injuries dataset for bogota - hence being excluded
+
 min_age <- 15
 max_age <- 69
 
@@ -80,6 +83,7 @@ cas_exponent <- 0.5
 toplot <- matrix(0,nrow=5,ncol=length(cities)) #5 scenarios, 4 cities
 ithim_objects <- list()
 for(city in cities){
+  print(city)
   ithim_objects[[city]] <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),
                                   ADD_WALK_TO_BUS_TRIPS = F,
                                   CITY = city,
@@ -106,7 +110,7 @@ for(city in cities){
                                   BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
                                   BUS_WALK_TIME = bus_walk_time[[city]])
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS
-  ithim_objects[[city]]$outcomes <- run_ithim(ithim_objects[[city]], seed = 1)
+  ithim_objects[[city]]$outcomes <- run_ithim(ithim_object=ithim_objects[[city]], seed = 1)
   ithim_objects[[city]]$synth_pop <- SYNTHETIC_POPULATION
   ithim_objects[[city]]$demographic <- DEMOGRAPHIC
   ithim_objects[[city]]$disease_burden <- DISEASE_BURDEN
@@ -134,25 +138,20 @@ for(city in cities){
   layout.matrix <- matrix(c(2:6,1,7:12), nrow =2, ncol =6,byrow=T)
   graphics::layout(mat = layout.matrix,heights = c(2,3),widths = c(2.8,2,2,2,2,2.5))
   ylim <- range(result_mat)
-  cols <- c('navyblue','hotpink','grey','darkorange','turquoise')
+  cols <- rainbow(length(cities))
   mar1 <- rep(7,nDiseases); mar1[1:6] <- 1
   mar2 <- rep(1,nDiseases); mar2[c(2,7)] <- 6; mar2[c(1,12)] <- 3
   for(i in 1:nDiseases){
-    ylim <- if(i==12) c(-0.009,0.0005)*1 else if(i==1) c(-6,5)*1e-3 else c(-11,4)*1e-4
+    ylim <- if(i==12) c(-0.013,0.0005)*1 else if(i==1) c(-6,5)*1e-3 else c(-11,4)*1e-4
     par(mar = c(mar1[i], mar2[i], 4, 1))
       barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, names.arg=if(i<7) NULL else  rownames(SCENARIO_PROPORTIONS), 
               main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')
     if(i%in%c(2,1,7,12)) {axis(2,cex.axis=1.5); if(i%in%c(2,7)) mtext(side=2,'YLL gain per person',line=3)}
-    if(i==nDiseases-1) legend(legend=cities,fill=cols,bty='n',y=-1e-5,x=5)
+    if(i==nDiseases-1) legend(legend=cities,fill=cols,bty='n',y=-1e-5,x=5,cex=0.9)
   }
 }
 
 ## Save the ithim_object in the results folder
 ##########
 
-saveRDS(ithim_objects, "results/multi_city/io.rds",version=2)
-
-
-
-                                            
- 
+saveRDS(ithim_objects, "results/multi_city/io.rds",version = 2)
