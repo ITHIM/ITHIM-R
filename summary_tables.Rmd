@@ -32,7 +32,7 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 ```{r load_objects = "asis", echo = F, message = F}
 io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
-cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota')
+cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota', 'cape_town', 'vizag')
 
 # cities <- c('sao_paulo')
 
@@ -146,6 +146,22 @@ kable(scen_prop, headings = "Scenario Proportions")
 | car | 1.1|10.3|18.9 |
 | motorcycle | 0.0|0.0|0.1 |
 | bus | 1.4|17.6|65.7 |
+
+|cape_town|0-1 km|2-5 km|6+ km|
+|---|---|---|---|
+| walking | 70.8|23.9|2.3 |
+| bicycle | 0.0|0.5|0.4 |
+| car | 7.5|47.2|54.6 |
+| motorcycle | 0.0|0.3|0.7 |
+| bus | 1.6|28.1|42.1 |
+
+|vizag|0-1 km|2-5 km|6+ km|
+|---|---|---|---|
+| walking | 81.4|19.6|0.1 |
+| bicycle | 3.9|7.6|1.9 |
+| car | 0.6|2.5|2.2 |
+| motorcycle | 9.6|25.4|22.9 |
+| bus | 0.1|21.7|56.1 |
 
 
 ## Trip proportion
