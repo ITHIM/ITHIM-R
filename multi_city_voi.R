@@ -124,7 +124,7 @@ nsamples <- 1024
 print(system.time(
   for(ci in 1:length(cities)){
     city <- cities[ci]
-    
+    print(city)
     multi_city_ithim[[ci]] <- run_ithim_setup(CITY=city,  
                                               NSAMPLES = nsamples,
                                               seed=ci,
@@ -190,35 +190,6 @@ print(system.time(
         multi_city_ithim[[ci]]$outcomes <- mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
       }
       multi_city_ithim[[ci]]$DEMOGRAPHIC <- DEMOGRAPHIC
-      
-      ## get outcomes
-      min_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-      max_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-      keep_rows <- which(min_ages>=min_age&max_ages<=max_age)
-      keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('ac|neo|age|sex',as.character(x))))
-      print(city)
-      #for(i in 1:length(multi_city_ithim[[ci]]$outcomes)) print(length(multi_city_ithim[[ci]]$outcomes[[i]]))
-      outcome_pp[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
-      min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-      max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-      outcome_pp[[city]] <- outcome_pp[[city]]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
-      colnames(outcome_pp[[city]]) <- paste0(colnames(outcome_pp[[city]]),'_',city)
-      ## get yll per 100,000 by age
-      outcome_age_min <- c(15,50)
-      outcome_age_max <- c(49,69)
-      outcome_age_groups <- c('15-49','50-69')
-      yll_per_hundred_thousand[[city]] <- list()
-      for(aa in 1:length(outcome_age_groups)){
-        age <- outcome_age_groups[aa]
-        keep_rows2 <- which(min_ages>=outcome_age_min[aa]&max_ages<=outcome_age_max[aa])
-        tmp <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows2,keep_cols],na.rm=T)))
-        tmp <- tmp/sum(subset(DEMOGRAPHIC,min_pop_ages>=outcome_age_min[aa]&max_pop_ages<=outcome_age_max[aa])$population)*100000
-        yll_per_hundred_thousand[[city]][[age]] <- tmp
-      }
-      ## omit ac (all cause) and neoplasms (neo) and age and gender columns
-      outcome[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
-      colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
-      
     }
     
     ## rename city-specific parameters according to city
@@ -240,29 +211,69 @@ print(system.time(
   }
 ))
 
-for(ci in 1:length(cities)) multi_city_ithim[[ci]] <- readRDS(paste0('results/multi_city/',cities[ci],'.Rds'))
-
 saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
+
+## re-read and extract results #########################################
+## set age groups to summarise results across all cities
+parameter_samples <- readRDS('diagnostic/parameter_samples.Rds')
+
+outcome_age_min <- c(15,50)
+outcome_age_max <- c(49,69)
+outcome_age_groups <- c('15-49','50-69')
+age_pops <- list()
+age_populations <- rep(0,length(outcome_age_groups))
+city_populations <- matrix(0,nrow=length(cities),ncol=length(outcome_age_groups))
+for(ci in 1:length(cities)){
+  city <- cities[ci]
+  multi_city_ithim[[ci]] <- readRDS(paste0('results/multi_city/',city,'.Rds'))
+  
+  DEMOGRAPHIC <- multi_city_ithim[[ci]]$DEMOGRAPHIC 
+  age_pops[[city]] <- list()
+  min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+  max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+  age_pops[[city]]$min_pop_ages <- min_pop_ages
+  age_pops[[city]]$max_pop_ages <- max_pop_ages
+  
+  ## get outcomes
+  min_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+  max_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+  keep_rows <- which(min_ages>=min_age&max_ages<=max_age)
+  keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('ac|neo|age|sex',as.character(x))))
+  
+  #for(i in 1:length(multi_city_ithim[[ci]]$outcomes)) print(length(multi_city_ithim[[ci]]$outcomes[[i]]))
+  outcome_pp[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
+  outcome_pp[[city]] <- outcome_pp[[city]]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
+  colnames(outcome_pp[[city]]) <- paste0(colnames(outcome_pp[[city]]),'_',city)
+  ## get yll per 100,000 by age
+  yll_per_hundred_thousand[[city]] <- list()
+  for(aa in 1:length(outcome_age_groups)){
+    age <- outcome_age_groups[aa]
+    city_populations[ci,aa] <- sum(subset(DEMOGRAPHIC,min_pop_ages>=outcome_age_min[aa]&max_pop_ages<=outcome_age_max[aa])$population)
+    age_populations[aa] <- age_populations[aa] + city_populations[ci,aa]
+    keep_rows2 <- which(min_ages>=outcome_age_min[aa]&max_ages<=outcome_age_max[aa])
+    tmp <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows2,keep_cols],na.rm=T)))
+    tmp <- tmp/city_populations[ci,aa]*100000
+    yll_per_hundred_thousand[[city]][[age]] <- tmp
+  }
+  ## omit ac (all cause) and neoplasms (neo) and age and gender columns
+  outcome[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
+  colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
+  
+  multi_city_ithim[[ci]] <- 0
+}
+
 
 ## gather results ###############################################
 NSCEN <- ncol(outcome[[1]])/sum(sapply(colnames(outcome[[1]]),function(x)grepl('scen1',x)))
-SCEN_SHORT_NAME <- c('baseline',rownames(SCENARIO_PROPORTIONS))
+SCEN_SHORT_NAME <- c('baseline',sapply(colnames(outcome[[1]])[1:NSCEN],function(x)strsplit(x,'_')[[1]][1]))
+NSAMPLES <- nrow(outcome[[1]])
 ## compute and save yll per hundred thousand by age
 saveRDS(yll_per_hundred_thousand,'results/multi_city/yll_per_hundred_thousand.Rds',version=2)
 yll_per_hundred_thousand_results <- list()
-populations <- rep(0,length(outcome_age_groups))
-combined_yll <- combined_yll_quantile <- list()
+combined_yll <- list()
 for(aa in 1:length(outcome_age_groups)){
   age <- outcome_age_groups[aa]
-  for(ci in 1:length(cities)){
-    min_pop_ages <- sapply(multi_city_ithim[[ci]]$DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-    max_pop_ages <- sapply(multi_city_ithim[[ci]]$DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-    populations[aa] <- populations[aa] + sum(subset(multi_city_ithim[[ci]]$DEMOGRAPHIC,min_pop_ages>=outcome_age_min[aa]&max_pop_ages<=outcome_age_max[aa])$population)
-  }
   combined_yll[[age]] <- matrix(0,ncol=NSCEN,nrow=NSAMPLES)
-  combined_yll_quantile[[age]] <- matrix(0,nrow=NSCEN,ncol=3)#(median=numeric(),'5%'=numeric(),'95%'=numeric())
-  colnames(combined_yll_quantile[[age]]) <- c('median','5%','95%')
-  rownames(combined_yll_quantile[[age]]) <- rownames(SCENARIO_PROPORTIONS)
 }
 for(ci in 1:length(cities)){
   city <- cities[ci]
@@ -270,12 +281,12 @@ for(ci in 1:length(cities)){
   yll_per_hundred_thousand_results[[city]] <- list()
   for(aa in 1:length(outcome_age_groups)){
     age <- outcome_age_groups[aa]
-    min_pop_ages <- sapply(multi_city_ithim[[ci]]$DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-    max_pop_ages <- sapply(multi_city_ithim[[ci]]$DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-    population <- sum(subset(multi_city_ithim[[ci]]$DEMOGRAPHIC,min_pop_ages>=outcome_age_min[aa]&max_pop_ages<=outcome_age_max[aa])$population)
+    min_pop_ages <- age_pops[[city]]$min_pop_ages
+    max_pop_ages <- age_pops[[city]]$max_pop_ages
+    population <- city_populations[ci,aa]
     yll_per_hundred_thousand_results[[city]][[age]] <- matrix(0,nrow=NSCEN,ncol=3)#(median=numeric(),'5%'=numeric(),'95%'=numeric())
     colnames(yll_per_hundred_thousand_results[[city]][[age]]) <- c('median','5%','95%')
-    rownames(yll_per_hundred_thousand_results[[city]][[age]]) <- rownames(SCENARIO_PROPORTIONS)
+    rownames(yll_per_hundred_thousand_results[[city]][[age]]) <- SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)]
     case_age <- case[[age]]
     for(k in 1:NSCEN){
       scen_case <- case_age[,seq(k,ncol(case_age),by=NSCEN)]
@@ -288,9 +299,9 @@ for(ci in 1:length(cities)){
 yll_per_hundred_thousand_results$combined <- list()
 for(aa in 1:length(outcome_age_groups)){
   age <- outcome_age_groups[aa]
-  yll_per_hundred_thousand_results$combined[[age]] <- t(apply(combined_yll[[age]]/populations[aa]*100000,2,quantile,c(0.5,0.05,0.95)))
+  yll_per_hundred_thousand_results$combined[[age]] <- t(apply(combined_yll[[age]]/age_populations[aa]*100000,2,quantile,c(0.5,0.05,0.95)))
   colnames(yll_per_hundred_thousand_results$combined[[age]]) <- c('median','5%','95%')
-  rownames(yll_per_hundred_thousand_results$combined[[age]]) <- rownames(SCENARIO_PROPORTIONS)
+  rownames(yll_per_hundred_thousand_results$combined[[age]]) <- SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)]
 }
 
 saveRDS(yll_per_hundred_thousand_results,'results/multi_city/yll_per_hundred_thousand_quantiles.Rds',version=2)
@@ -302,7 +313,7 @@ for(i in 1:length(yll_per_hundred_thousand_results))
 for(i in 1:length(outcome_pp)){
   outcome_pp_quantile <- matrix(0,nrow=NSCEN,ncol=3)#(median=numeric(),'5%'=numeric(),'95%'=numeric())
   colnames(outcome_pp_quantile) <- c('median','5%','95%')
-  rownames(outcome_pp_quantile) <- rownames(SCENARIO_PROPORTIONS)
+  rownames(outcome_pp_quantile) <- SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)]
   for(k in 1:NSCEN){
     scen_case <- outcome_pp[[i]][,seq(k,ncol(outcome_pp[[i]]),by=NSCEN)]
     y <- rowSums(scen_case)*100000
@@ -349,57 +360,34 @@ means <- apply(comb_out,2,mean)
 ## calculate EVPPI ##################################################################
 
 
-evppi <- matrix(0, ncol = NSCEN*(length(cities)+1), nrow = ncol(parameter_samples))
-for(j in 1:length(outcome)){
-  case <- outcome[[j]]
-  for(k in 1:NSCEN){
-    scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
-    y <- rowSums(scen_case)
-    vary <- var(y)
-    for(i in 1:ncol(parameter_samples)){
-      x <- parameter_samples[, i];
-      model <- earth(y ~ x)
-      evppi[i, (j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-    }
-  }
-}
-colnames(evppi) <- apply(expand.grid(SCEN_SHORT_NAME[2:6],names(outcome)),1,function(x)paste0(x,collapse='_'))
-rownames(evppi) <- colnames(parameter_samples)
+numcores <- 8
 
-multi_city_parallel_evppi <- function(jj,sources,outcome,all=F,multi_city_outcome=T){
-  voi <- rep(0,length(outcome)*NSCEN)
-  sourcesj <- sources[[jj]]
-  ncities <- length(outcome) - as.numeric(multi_city_outcome)
-  if(all==T) jj <- 1:ncities
-  if(multi_city_outcome==T) jj <- c(jj,length(outcome))
-  for(j in jj){
-    case <- outcome[[j]]
-    for(k in 1:NSCEN){
-      scen_case <- case[,seq(k,ncol(case),by=NSCEN)]
-      y <- rowSums(scen_case)
-      vary <- var(y)
-      model <- earth(y ~ sourcesj, degree=min(4,ncol(sourcesj)))
-      voi[(j-1)*NSCEN + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-    }
-  }
-  voi
-}
+evppi <- mclapply(1:ncol(parameter_samples), 
+         FUN = compute_evppi,
+         as.data.frame(parameter_samples),
+         outcome, 
+         nscen=NSCEN,
+         all=T,
+         mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+evppi <- do.call(rbind,evppi)
+colnames(evppi) <- apply(expand.grid(SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)],names(outcome)),1,function(x)paste0(x,collapse='_'))
+rownames(evppi) <- colnames(parameter_samples)
 
 ## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
 
-numcores <- 8
-if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
-  AP_names <- sapply(names(multi_city_ithim[[1]]$parameters),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
-  diseases <- sapply(names(multi_city_ithim[[1]]$parameters)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
+if(any(ap_dr_quantile)&&NSAMPLES>=1024){
+  AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
+  diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
   sources <- list()
   for(di in diseases){
     col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
     sources[[di]] <- parameter_samples[,col_names]
   }
   evppi_for_AP <- mclapply(1:length(sources), 
-                           FUN = multi_city_parallel_evppi,
+                           FUN = compute_evppi,
                            sources,
                            outcome, 
+                           nscen=NSCEN,
                            all=T,
                            mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
   names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
@@ -411,7 +399,7 @@ if("DR_AP_LIST"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
 
 # x2 <- evppi(parameter=c(38:40),input=inp$mat,he=m,method="GP")
 #fit <- fit.gp(parameter = parameter, inputs = inputs, x = x, n.sim = n.sim)
-if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NSAMPLES>=1024){
+if("EMISSION_INVENTORY_car_accra"%in%colnames(parameter_samples)&&NSAMPLES>=1024){
  sources <- list()
  for(ci in 1:length(cities)){
    city <- cities[ci]
@@ -419,9 +407,10 @@ if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NS
    sources[[ci]] <- parameter_samples[,emission_names]
  }
  evppi_for_emissions <- mclapply(1:length(sources),
-                                 FUN = multi_city_parallel_evppi,
+                                 FUN = compute_evppi,
                                  sources,
                                  outcome,
+                                 nscen=NSCEN,
                                  mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
 
  names(evppi_for_emissions) <- paste0('EMISSION_INVENTORY_',cities)
@@ -432,7 +421,7 @@ if("EMISSION_INVENTORY_car_accra"%in%names(multi_city_ithim[[1]]$parameters)&&NS
  evppi <- rbind(evppi,do.call(rbind,evppi_for_emissions))
 }
 
-if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%names(multi_city_ithim[[1]]$parameters))==2&&NSAMPLES>=1024){
+if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%colnames(parameter_samples))==2&&NSAMPLES>=1024){
   sources <- list()
   for(ci in 1:length(cities)){
     city <- cities[ci]
@@ -440,9 +429,10 @@ if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%names(mult
     sources[[ci]] <- parameter_samples[,pa_names]
   }
   evppi_for_pa <- mclapply(1:length(sources), 
-                           FUN = multi_city_parallel_evppi,
+                           FUN = compute_evppi,
                            sources, 
                            outcome, 
+                           nscen=NSCEN,
                            mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
   
   names(evppi_for_pa) <- paste0('BACKGROUND_PA_',cities)
