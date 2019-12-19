@@ -8,6 +8,9 @@ library(summarytools)
 # Read capetown's travel survey
 raw_rd <- read_csv("data/local/cape_town/cape_town_trip.csv")
 
+# Replace train by rail
+raw_rd[raw_rd$trip_mode == 'train' & !is.na(raw_rd$trip_mode),]$trip_mode <- 'rail'
+
 rd <- raw_rd
 
 rd %>% filter(!is.na(trip_id)) %>% distinct(trip_id, .keep_all = TRUE) %>% group_by(trip_mode, .drop = F) %>% summarise(mode_share = round(n()*100/nrow(.),1))
