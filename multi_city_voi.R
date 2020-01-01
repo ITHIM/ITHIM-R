@@ -119,7 +119,7 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
 
 parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
-numcores <- 16
+numcores <- 8
 nsamples <- 4096
 print(system.time(
   for(ci in 1:length(cities)){
@@ -205,9 +205,13 @@ print(system.time(
     parameter_names <- c(parameter_names,parameter_names_city)
     ## get parameter samples and add to array of parameter samples
     parameter_samples <- cbind(parameter_samples,sapply(parameter_names_city,function(x)multi_city_ithim[[ci]]$parameters[[x]]))
-    
+    if(ci>1) multi_city_ithim[[ci]]$parameters <- c()
     saveRDS(multi_city_ithim[[ci]],paste0('results/multi_city/',city,'.Rds'))
-    if(ci>1) multi_city_ithim[[ci]] <- 0
+    if(ci>1){
+      multi_city_ithim[[ci]] <- 0
+    }else{
+      multi_city_ithim[[ci]]$outcome <- 0
+    }
   }
 ))
 
