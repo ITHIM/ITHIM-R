@@ -367,7 +367,7 @@ means <- apply(comb_out,2,mean)
 numcores <- 8
 
 evppi <- mclapply(1:ncol(parameter_samples), 
-         FUN = compute_evppi,
+         FUN = ithimr:::compute_evppi,
          as.data.frame(parameter_samples),
          outcome, 
          nscen=NSCEN,
@@ -388,7 +388,7 @@ if(any(ap_dr_quantile)&&NSAMPLES>=1024){
     sources[[di]] <- parameter_samples[,col_names]
   }
   evppi_for_AP <- mclapply(1:length(sources), 
-                           FUN = compute_evppi,
+                           FUN = ithimr:::compute_evppi,
                            sources,
                            outcome, 
                            nscen=NSCEN,
@@ -411,7 +411,7 @@ if("EMISSION_INVENTORY_car_accra"%in%colnames(parameter_samples)&&NSAMPLES>=1024
    sources[[ci]] <- parameter_samples[,emission_names]
  }
  evppi_for_emissions <- mclapply(1:length(sources),
-                                 FUN = compute_evppi,
+                                 FUN = ithimr:::compute_evppi,
                                  sources,
                                  outcome,
                                  nscen=NSCEN,
@@ -433,7 +433,7 @@ if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%colnames(p
     sources[[ci]] <- parameter_samples[,pa_names]
   }
   evppi_for_pa <- mclapply(1:length(sources), 
-                           FUN = compute_evppi,
+                           FUN = ithimr:::compute_evppi,
                            sources, 
                            outcome, 
                            nscen=NSCEN,
