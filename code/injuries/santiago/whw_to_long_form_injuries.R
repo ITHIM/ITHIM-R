@@ -1,8 +1,7 @@
-library(ithimr)
-setwd('ITHIM-R')
-whw_file <- 'injuries_whw.csv'
-path <- file.path('code/injuries/santiago/')
+whw_file <- 'santiago_fatality_matrix_4_years_2011_2014.csv'
+path <- 'data/local/santiago/'
 whw <- read.csv(paste0(path,whw_file))
+
 injuries <- data.frame(cas_mode=character(),strike_mode=character(),weight=numeric(),stringsAsFactors = F)
 number_of_years <- 4
 for(i in 1:nrow(whw))
