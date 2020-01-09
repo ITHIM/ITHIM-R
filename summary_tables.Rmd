@@ -236,45 +236,42 @@ for(city in cities){
 
 ```
 
-## Distance by mode by distance category
+## Distance by distance category
+### Tables
 
 ```{r trip_dist_mode_figs = "asis"}
 
 for (city in cities){
   
-  df <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline' & trip_mode %in% c('walking', 'bicycle', 'car', 'motorcycle', 'bus')) %>% distinct(trip_id, .keep_all = T) %>% group_by(trip_mode, trip_distance_cat) %>% summarise(sum_dist = sum(trip_distance), n_vals = n()) %>% 
-    group_by(trip_mode) %>% mutate(n_vals_1 = sum(n_vals)) %>% 
-    mutate(prop = round(n_vals/n_vals_1 * 100, 1))
+  df <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline') %>% distinct(trip_id, .keep_all = T) %>% group_by(trip_distance_cat) %>% summarise(sum_dist = sum(trip_distance), n_vals = n(), prop = round(n_vals / nrow(.) * 100, 1))
   print(kable(df, caption = paste("Distance by mode by for  ", city)))
 }
 
 ```
 
-# Figures
+<!-- ### Figures -->
 
-  
+<!-- ```{r trip_dist_mode_figs = "asis"} -->
 
-```{r trip_dist_mode_figs = "asis"}
+<!-- for (city in cities){ -->
 
-for (city in cities){
-  
-  df <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline' & trip_mode %in% c('walking', 'bicycle', 'car', 'motorcycle', 'bus')) %>% distinct(trip_id, .keep_all = T) %>% group_by(trip_mode, trip_distance_cat) %>% summarise(sum_dist = sum(trip_distance), n_vals = n()) %>% 
-    group_by(trip_mode) %>% mutate(n_vals_1 = sum(n_vals)) %>% 
-    mutate(prop = round(n_vals/n_vals_1 * 100, 1))
-  
-  print(ggplot(data=df, aes(x=trip_distance_cat, y=prop)) +
-          geom_bar(stat="identity", fill="steelblue")+
-          facet_wrap(vars(trip_mode)) +
-          geom_text(aes(label=prop), vjust = -0.3, size = 3.5)+
-          theme_minimal() +
-          theme(panel.spacing = unit(2, "lines")) +
-          labs(title = paste(city, ' by dist by mode')))
-}
+<!--   df <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline' & trip_mode %in% c('walking', 'bicycle', 'car', 'motorcycle', 'bus')) %>% distinct(trip_id, .keep_all = T) %>% group_by(trip_mode, trip_distance_cat) %>% summarise(sum_dist = sum(trip_distance), n_vals = n()) %>%  -->
+<!--     group_by(trip_mode) %>% mutate(n_vals_1 = sum(n_vals)) %>%  -->
+<!--     mutate(prop = round(n_vals/n_vals_1 * 100, 1)) -->
+
+<!--   print(ggplot(data=df, aes(x=trip_distance_cat, y=prop)) + -->
+<!--           geom_bar(stat="identity", fill="steelblue")+ -->
+<!--           facet_wrap(vars(trip_mode)) + -->
+<!--           geom_text(aes(label=prop), vjust = -0.3, size = 3.5)+ -->
+<!--           theme_minimal() + -->
+<!--           theme(panel.spacing = unit(2, "lines")) + -->
+<!--           labs(title = paste(city, ' by dist by mode'))) -->
+<!-- } -->
 
 
 
 
-```
+<!-- ``` -->
 
 
 ## Duration tables
