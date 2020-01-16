@@ -15,7 +15,6 @@ age,sex,population
 65-69,Male,16261
 70-74,Male,10423
 75-79,Male,4881
-80+,Male,5565
 0-4,Female,57058.12549
 5-9,Female,62730.46865
 10-14,Female,72232.2851
@@ -32,4 +31,3 @@ age,sex,population
 65-69,Female,17101.21629
 70-74,Female,10686.59184
 75-79,Female,5471.116142
-80+,Female,7518.293021
