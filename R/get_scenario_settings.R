@@ -11,7 +11,8 @@
 #' @return data frame of proportions by mode and distance category
 #' 
 #' @export
-get_scenario_settings <- function(cities=c('accra','sao_paulo','delhi','bangalore'),
+get_scenario_settings <- function(cities = c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota',
+                                             'cape_town', 'vizag'),
                                   modes=c("walking","bicycle","car","motorcycle","bus"),     
                                   distances=c('0-1 km','2-5 km','6+ km'),
                                   speeds = list(
@@ -56,6 +57,7 @@ get_scenario_settings <- function(cities=c('accra','sao_paulo','delhi','bangalor
     bike_words <- c('bike','cycle','cycling')
     mc_words <- c('motorbike','mcycle','mc','mtw')
     subway_words <- c('metro','underground')
+    rail_words <- c('train')
     ## lower case mode names
     trip_set[['trip_mode']] <- tolower(trip_set[['trip_mode']])
     ## replaces spaces with _
@@ -65,6 +67,8 @@ get_scenario_settings <- function(cities=c('accra','sao_paulo','delhi','bangalor
     trip_set[['trip_mode']][trip_set[['trip_mode']]%in%bike_words] <- 'bicycle'
     trip_set[['trip_mode']][trip_set[['trip_mode']]%in%mc_words] <- 'motorcycle'
     trip_set[['trip_mode']][trip_set[['trip_mode']]%in%subway_words] <- 'subway'
+    trip_set[['trip_mode']][trip_set[['trip_mode']]%in%rail_words] <- 'rail'
+    
     trip_set <- drop_na(trip_set)
     
     ## get distances

@@ -1,6 +1,9 @@
 library(ithimr)
 rm(list=ls())
-cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota')
+cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota',
+            'cape_town', 'vizag')
+
+# 
 
 # Problematic injuries dataset for bogota - hence being excluded
 
@@ -8,6 +11,9 @@ min_age <- 15
 max_age <- 69
 
 all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F)
+
+all_inputs$cape_town <- all_inputs$accra
+all_inputs$vizag <- all_inputs$sao_paulo
 
 parameter_names <- all_inputs$parameter
 parameter_starts <- which(parameter_names!='')
