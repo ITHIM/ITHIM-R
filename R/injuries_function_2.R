@@ -47,9 +47,14 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
     
     for(injured_mode in cas_modes)
       for(index in unique(injuries$dem_index))
+        injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] <- 0
+    
+    for(injured_mode in cas_modes)
+      for(index in unique(injuries$dem_index))
         for(type in INJURY_TABLE_TYPES)
           injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] <- 
-            sum(injuries_list[[scen]][[type]][injuries_list[[scen]][[type]]$cas_mode==injured_mode&
+            injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] + 
+              sum(injuries_list[[scen]][[type]][injuries_list[[scen]][[type]]$cas_mode==injured_mode&
                                                 injuries_list[[scen]][[type]]$dem_index==index,]$pred) 
       
   }
