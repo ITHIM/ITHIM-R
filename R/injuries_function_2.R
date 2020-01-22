@@ -12,7 +12,7 @@
 #' @export
 injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_mode=F){
   ## For predictive uncertainty, we could sample a number from the predicted distribution
-  cas_modes <- unique(as.character(injuries_list[[1]]$whw$cas_mode))
+  cas_modes <- unique(as.character(injuries_list[[1]][[1]]$cas_mode))
   if(length(injuries_list[[1]])==2)
     cas_modes <- unique(c(cas_modes,as.character(injuries_list[[1]]$nov$cas_mode)))
   demographic <- DEMOGRAPHIC
