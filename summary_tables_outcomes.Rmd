@@ -16,8 +16,8 @@ knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='as
 ```{r loadLibraries, echo = F, message = F}
 
 st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
-           plain.ascii       = FALSE,       # One of the essential settings
-           style             = "rmarkdown", # Idem.
+             plain.ascii       = FALSE,       # One of the essential settings
+             style             = "rmarkdown", # Idem.
            dfSummary.silent  = TRUE,        # Suppresses messages about temporary files
            footnote          = NA,          # Keeping the results minimalistic
            subtitle.emphasis = FALSE)       # For the vignette theme, this gives
