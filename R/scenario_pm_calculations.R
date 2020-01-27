@@ -26,11 +26,11 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
     trans_emissions[nrow(trans_emissions)+1,] <- VEHICLE_INVENTORY$emission_inventory[mode_type]
   
   ## scenario travel pm2.5 calculated as relative to the baseline
-  baseline_sum <- sum(trans_emissions[[SCEN[1]]])
+  baseline_sum <- sum(trans_emissions[[SCEN[1]]], na.rm = T)
   conc_pm <- c()
   ## in this sum, the non-transport pm is constant; the transport emissions scale the transport contribution (PM_TRANS_SHARE) to the base level (PM_CONC_BASE)
   for(i in 1:length(SCEN_SHORT_NAME))
-    conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN[i]]])/baseline_sum
+    conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN[i]]], na.rm = T)/baseline_sum
   
   ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
   vent_rates <- data.frame(stage_mode=VEHICLE_INVENTORY$stage_mode,stringsAsFactors = F) 
@@ -104,6 +104,8 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
     #synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]] <- normalise*synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]]
   
   synth_pop$participant_id <- as.integer(synth_pop$participant_id)
+  
+  # browser()
   
   list(scenario_pm=conc_pm, pm_conc_pp=tbl_df(synth_pop))
   
