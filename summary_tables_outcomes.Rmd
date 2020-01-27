@@ -28,8 +28,8 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 ```{r load_objects = "asis"}
 io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
-cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota', 'cape_town', 'vizag')
-# round to
+cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota','cape_town', 'vizag')
+
 round_to <- 1
 
 # Set plot_mmets to F
@@ -100,9 +100,9 @@ for(city in cities)
 for(city in cities) io[[city]]$demographic <- collapse_ages(io[[city]]$demographic,age_lab='age')
 pop_by_age <- lapply(io,function(x)sapply(unique(x$demographic$age),function(y)sum(subset(x$demographic,age==y)$population)))
 pop_by_gender <- lapply(io,function(x)sapply(unique(x$demographic$sex),function(y)sum(subset(x$demographic,sex==y)$population)))
-injury_col <- which(colnames(io$accra$outcomes$hb$deaths)=='scen1_deaths_inj')
-ap_cols <- which(sapply(colnames(io$accra$outcomes$pathway_hb$deaths),function(x)grepl('ap',as.character(x))))
-pa_cols <- which(sapply(colnames(io$accra$outcomes$pathway_hb$deaths),function(x)grepl('pa',as.character(x))))
+injury_col <- which(colnames(io[[1]]$outcomes$hb$deaths)=='scen1_deaths_inj')
+ap_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$deaths),function(x)grepl('ap',as.character(x))))
+pa_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$deaths),function(x)grepl('pa',as.character(x))))
 scen_names <- rownames(scen_prop)
 
 ```
