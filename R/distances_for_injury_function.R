@@ -93,7 +93,7 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
     if(length(test)==1&&test == 'try-error')
       test <- try(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson'))
     if(length(test)==1&&test == 'try-error')
-      test <- try(glm('offset(2*CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate)+log(weight))',data=injuries_for_model[[1]][[type]],family='poisson'))
+      test <- try(glm('offset(CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate)+log(weight))',data=injuries_for_model[[1]][[type]],family='poisson'))
     #
     reg_model[[type]] <- trim_glm_object(test)
     test <- NULL
