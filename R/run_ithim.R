@@ -93,7 +93,7 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   whw <- injuries0[[2]]
   injuries0 <- NULL
   deaths_yll_injuries <- injury_death_to_yll(injuries)
-  injuries <- NULL
+  #injuries <- NULL
   ref_injuries <- deaths_yll_injuries$ref_injuries
   
   #print(sort(sapply(ls(),function(x)object.size(get(x)))))

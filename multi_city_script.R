@@ -79,7 +79,7 @@ mmet_cycling <- 4.63
 # constant parameters for MMET_WALKING
 mmet_walking <- 2.53
 # constant parameters for SIN_EXPONENT_SUM
-sin_exponent_sum <- 2
+sin_exponent_sum <- 1.7
 # constant parameters for CASUALTY_EXPONENT_FRACTION
 cas_exponent <- 0.5
 # add mc fleet to sp
@@ -148,7 +148,7 @@ for(city in cities){
   mar1 <- rep(7,nDiseases); mar1[1:6] <- 1
   mar2 <- rep(1,nDiseases); mar2[c(2,7)] <- 6; mar2[c(1,12)] <- 3
   for(i in 1:nDiseases){
-    ylim <- if(i==12) c(-0.013,0.0005)*1 else if(i==1) c(-6,5)*1e-3 else c(-11,4)*1e-4
+    ylim <- if(i%in%c(1,12)) range(disease_list[[i]]) else c(-11,4)*1e-4
     par(mar = c(mar1[i], mar2[i], 4, 1))
       barplot(t(disease_list[[i]]), ylim = ylim, las = 2,beside=T,col=cols, names.arg=if(i<7) NULL else  rownames(SCENARIO_PROPORTIONS), 
               main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),yaxt='n')

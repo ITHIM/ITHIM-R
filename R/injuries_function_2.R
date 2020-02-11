@@ -12,7 +12,7 @@
 #' @export
 injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_mode=F){
   ## For predictive uncertainty, we could sample a number from the predicted distribution
-  cas_modes <- unique(as.character(injuries_list[[1]]$whw$cas_mode))
+  cas_modes <- unique(as.character(injuries_list[[1]][[1]]$cas_mode))
   if(length(injuries_list[[1]])==2)
     cas_modes <- unique(c(cas_modes,as.character(injuries_list[[1]]$nov$cas_mode)))
   demographic <- DEMOGRAPHIC
@@ -46,19 +46,21 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
     }
     
     for(injured_mode in cas_modes)
-      for(index in unique(injuries$dem_index)){
-        injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] <- 
-          sum(injuries_list[[scen]]$whw[injuries_list[[scen]]$whw$cas_mode==injured_mode&
-                                                 injuries_list[[scen]]$whw$dem_index==index,]$pred) 
-        if(length(injuries_list[[scen]])==2)
+      for(index in unique(injuries$dem_index))
+        injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] <- 0
+    
+    for(injured_mode in cas_modes)
+      for(index in unique(injuries$dem_index))
+        for(type in INJURY_TABLE_TYPES)
           injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] <- 
             injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] + 
-            sum(injuries_list[[scen]]$nov[injuries_list[[scen]]$nov$cas_mode==injured_mode&
-                                            injuries_list[[scen]]$nov$dem_index==index,]$pred)
-      }
+              sum(injuries_list[[scen]][[type]][injuries_list[[scen]][[type]]$cas_mode==injured_mode&
+                                                injuries_list[[scen]][[type]]$dem_index==index,]$pred) 
+      
   }
   
-  injuries$Deaths <- rowSums(injuries[,match(unique(injuries_list[[1]]$whw$cas_mode),colnames(injuries))])
+  injuries$Deaths <- rowSums(injuries[,match(unique(injuries_list[[1]]$whw$cas_mode),colnames(injuries))]) +
+    rowSums(injuries[,match(unique(injuries_list[[1]]$nov$cas_mode),colnames(injuries))])
   list(injuries,whw_temp)
   ##TODO add in uncaptured fatalities as constant
 }
