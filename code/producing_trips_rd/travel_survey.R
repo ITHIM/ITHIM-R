@@ -2068,6 +2068,34 @@ write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/bangalore/bangalore_trip.csv
 
 #quality_check(trip)
 
+#####india Visakhapatnam ####
+rm(list =ls())
+
+source("J:/Group/lambed/ITHIM-R/code/producing_trips_rd/used_functions.R")
+
+visakhapatnam_trips <- read_csv("J:/Group/lambed/ITHIM-R/data/local/vizag/visakhapatnam_trips.csv")
+
+trip <- visakhapatnam_trips
+
+trip %<>% 
+  mutate(cluster_id = 1,
+         household_id = 1,
+         participant_id= ind_id,
+         trip_id = ifelse(is.na(travel_time), NA, X1),
+         sex = ifelse(sex=="M", "Male", "Female"),
+         trip_duration = travel_time,
+         trip_distance = distance,
+         trip_purpose = "unknown",
+         trip_mode = ifelse(mode=="autorickshaw"|mode=="shared_autorickshaw"|mode=="cyclerickshaw", "rickshaw",
+                            ifelse(mode=="mtw", "motorcycle",
+                                   ifelse(mode=="company_bus", "bus", mode))),
+         trip_wkly_frequency = wk_freq) %>% 
+  select(cluster_id, household_id, participant_id,age, sex, trip_id,trip_mode, trip_duration, trip_distance,trip_wkly_frequency, trip_purpose) 
+trip$year <- "2011"
+write.csv(trip, "J:/Group/lambed/ITHIM-R/data/local/vizag/visakhapatnam_trip.csv")
+
+#quality_check(trip)
+
 #####Mexico city ####
 
 rm(list =ls())
