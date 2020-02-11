@@ -68,8 +68,8 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
   ##RJ linearity in group rates
   CAS_EXPONENT <<- SIN_EXPONENT_SUM * CASUALTY_EXPONENT_FRACTION
   STR_EXPONENT <<- SIN_EXPONENT_SUM - CAS_EXPONENT
-  forms <- list(whw='count~cas_mode*strike_mode+offset(log(cas_distance)+log(strike_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+(STR_EXPONENT-1)*log(strike_distance_sum)-log(injury_reporting_rate)+log(weight))',
-                nov='count~cas_mode+offset(CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate)+log(weight))')
+  forms <- list(whw='count~cas_mode*strike_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+log(strike_distance)+(STR_EXPONENT-1)*log(strike_distance_sum)-log(injury_reporting_rate)+log(weight))',
+                nov='count~cas_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)-log(injury_reporting_rate)+log(weight))')
   if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
     for(type in INJURY_TABLE_TYPES)
       forms[[type]] <- paste0(c(forms[[type]],'age_cat'),collapse='+')
@@ -93,7 +93,7 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
     if(length(test)==1&&test == 'try-error')
       test <- try(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson'))
     if(length(test)==1&&test == 'try-error')
-      test <- try(glm('offset(CAS_EXPONENT*log(cas_distance)-log(injury_reporting_rate)+log(weight))',data=injuries_for_model[[1]][[type]],family='poisson'))
+      test <- try(glm('offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)-log(injury_reporting_rate)+log(weight))',data=injuries_for_model[[1]][[type]],family='poisson'))
     #
     reg_model[[type]] <- trim_glm_object(test)
     test <- NULL
