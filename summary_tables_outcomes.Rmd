@@ -123,8 +123,26 @@ Who hit whom matrix for baseline for each case study
 
 for(city in cities){
   if (!city %in% c('buenos_aires', 'mexico_city')){
-    for (cs in names(io$accra$outcomes$whw)){
+    for (cs in names(io$accra$outcomes$whw)[1]){
       print(kable(format(round(io[[city]]$outcomes$whw[[cs]]$whw)), caption = paste('Who Hit Whom (WHW) ', cs, ' matrix for ', city)))
+      cat("\n")
+    }
+
+  }
+}
+
+```
+
+No Other Vehicle matrix for baseline for each case study
+
+### No Other Vehicle matrix matrix for baseline {#nov_baseline}
+
+```{r nov}
+
+for(city in cities){
+  if (!city %in% c('bogota', 'vizag')){
+    for (cs in names(io$accra$outcomes$whw)[1]){
+      print(kable(format(round(io[[city]]$outcomes$whw[[cs]]$nov)), caption = paste('NOV ', cs, ' matrix for ', city)))
       cat("\n")
     }
 
