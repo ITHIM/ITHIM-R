@@ -79,7 +79,7 @@ mmet_cycling <- 4.63
 # constant parameters for MMET_WALKING
 mmet_walking <- 2.53
 # constant parameters for SIN_EXPONENT_SUM
-sin_exponent_sum <- 1.7
+sin_exponent_sum <- 1.35
 # constant parameters for CASUALTY_EXPONENT_FRACTION
 cas_exponent <- 0.5
 # add mc fleet to sp
