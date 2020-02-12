@@ -66,7 +66,7 @@ distances_for_injury_function <- function(trip_scen_sets,dist){
   ##TODO write formulae without prior knowledge of column names
   ##TODO use all ages with ns(age,...).
   ##RJ linearity in group rates
-  CAS_EXPONENT <<- SIN_EXPONENT_SUM * CASUALTY_EXPONENT_FRACTION
+  CAS_EXPONENT <<- SIN_EXPONENT_SUM  - 0.85#* CASUALTY_EXPONENT_FRACTION
   STR_EXPONENT <<- SIN_EXPONENT_SUM - CAS_EXPONENT
   forms <- list(whw='count~cas_mode*strike_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+log(strike_distance)+(STR_EXPONENT-1)*log(strike_distance_sum)-log(injury_reporting_rate)+log(weight))',
                 nov='count~cas_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)-log(injury_reporting_rate)+log(weight))')
