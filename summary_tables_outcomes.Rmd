@@ -55,6 +55,17 @@ round_and_print <- function(data,text=''){
 
 Click here: [change in yll](#change_in_yll_100k)
 
+```{r whw}
+
+for(city in cities){
+  if (!city %in% c('buenos_aires', 'mexico_city')){
+    print(kable(format(round(io[[city]]$outcomes$whw$Baseline$whw))), caption = paste('whw for ', city))
+    cat("\n")
+  }
+}
+
+```
+
 ```{r preprocessing}
 
 
