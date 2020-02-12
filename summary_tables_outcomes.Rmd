@@ -135,7 +135,7 @@ for(city in cities){
 
 No Other Vehicle matrix for baseline for each case study
 
-### No Other Vehicle matrix matrix for baseline {#nov_baseline}
+### No Other Vehicle matrix for baseline {#nov_baseline}
 
 ```{r nov}
 
