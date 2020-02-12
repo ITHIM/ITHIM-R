@@ -53,7 +53,7 @@ round_and_print <- function(data,text=''){
 
 ```
 
-Click here: [change in yll](#change_in_yll_100k)
+Click here: [change in yll](#change_yll_100k)
 
 ```{r whw}
 
@@ -127,6 +127,8 @@ scen_names <- rownames(scen_prop)
 
 Change in deaths total (for the city based on real population size) by age group by scenario
 
+### Change in deaths {#change_death}
+
 ```{r scen_prop = "asis"}
 death_totals <- lapply(io,function(x){
   temp <- sapply(1:5,function(y){
@@ -145,6 +147,8 @@ sum_and_round_and_print(death_totals,"Change in deaths total in ")
 
 Change in deaths per 100,000 people by age group by scenario
 
+### Change in deaths per 100,000 {#change_death_100k}
+
 ```{r scen_prop = "asis"}
 death_rates <- lapply(cities,function(x) rbind(death_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000, Total=colSums(death_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
 names(death_rates) <- cities
@@ -153,6 +157,8 @@ round_and_print(death_rates,"Change in deaths per 100,000 in ")
 ```
 
 YLLs total (for the city based on real population size) by age group  by scenario
+
+### Change in YLL {#change_YLL}
 
 ```{r scen_prop = "asis"}
 yll_totals <- lapply(io,function(x){
@@ -170,6 +176,8 @@ sum_and_round_and_print(yll_totals,"Change in YLL total in ")
 
 YLLs per 100,000 people by age group by scenario
 
+### Change in YLLs per 100,000 {#change_YLL_age_100k}
+
 ```{r scen_prop = "asis"}
 yll_rates <- lapply(cities,function(x) rbind(yll_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000, Total=colSums(yll_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
 names(yll_rates) <- cities
@@ -177,6 +185,8 @@ round_and_print(yll_rates,"Change in YLLs per 100,000 in ")
 ```
 
 YLLs per 100,000 people by gender by age group scenario
+
+### Change in YLLs per 100,000 {#change_YLL_gender_age_100k}
 
 ```{r scen_prop = "asis"}
 yll_totals <- lapply(io,function(x){
@@ -203,7 +213,7 @@ By pathway (with non- injury separate & summed)
 
 Change in deaths total (for the city based on real population size) by age group by scenario
 
-### Change in deaths due to injury
+### Change in deaths due to injury {#change_death_injury}
 
 ```{r}
 injury_totals <- lapply(io,function(x){
@@ -215,7 +225,7 @@ injury_totals <- lapply(io,function(x){
 sum_and_round_and_print(injury_totals,"Change in deaths due to injury in ")
 ```
 
-### Change in deaths due to PA
+### Change in deaths due to PA {#change_death_PA}
 
 ```{r}
 
@@ -231,7 +241,7 @@ pa_totals <- lapply(io,function(x){
 sum_and_round_and_print(pa_totals,"Change in deaths due to PA in ")
 ```
 
-### Change in deaths due to AP
+### Change in deaths due to AP {#change_death_AP}
 
 ```{r}
 ap_totals <- lapply(io,function(x){
@@ -248,7 +258,7 @@ sum_and_round_and_print(ap_totals,"Change in deaths due to AP in ")
 
 ## Change in deaths per 100,000 people by age group by scenario
 
-### Change in deaths due to injury per 100,000
+### Change in deaths due to injury per 100,000 {#change_death_injury_100k}
 
 ```{r scen_prop = "asis"}
 injury_rates <- lapply(cities,function(x) rbind(injury_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000, Total=colSums(injury_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
@@ -256,7 +266,7 @@ names(injury_rates) <- cities
 round_and_print(injury_rates,"Change in deaths due to injury per 100,000 in ")
 ```
 
-### Change in deaths due to PA per 100,000
+### Change in deaths due to PA per 100,000 {#change_death_PA_100k}
 ```{r}
 pa_rates <- lapply(cities,function(x) rbind(pa_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000, Total=colSums(pa_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
 names(pa_rates) <- cities
@@ -264,7 +274,7 @@ round_and_print(pa_rates,"Change in deaths due to PA per 100,000 in ")
 
 ```
 
-### Change in deaths due to AP per 100,000
+### Change in deaths due to AP per 100,000 {#change_death_AP_100k}
 ```{r}
 
 ap_rates <- lapply(cities,function(x) rbind(ap_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000, Total=colSums(ap_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
@@ -274,7 +284,7 @@ round_and_print(ap_rates,"Change in deaths due to AP per 100,000 in ")
 
 YLLs total (for the city based on real population size) by age group by scenario
 
-### Change in YLLs due to injury
+### Change in YLLs due to injury {#change_yll_injury}
 
 ```{r}
 injury_totals <- lapply(io,function(x){
@@ -286,7 +296,7 @@ injury_totals <- lapply(io,function(x){
 sum_and_round_and_print(injury_totals,"Change in YLLs due to injury in ")
 ```
 
-### Change in YLLs due to PA
+### Change in YLLs due to PA {#change_yll_PA}
 ```{r}
 pa_totals <- lapply(io,function(x){
   xx <- x$outcomes$pathway_hb$ylls
@@ -300,7 +310,7 @@ pa_totals <- lapply(io,function(x){
 sum_and_round_and_print(pa_totals,"Change in YLLs due to PA in ")
 ```
 
-### Change in YLLs due to AP
+### Change in YLLs due to AP {#change_yll_AP}
 ```{r}
 ap_totals <- lapply(io,function(x){
   xx <- x$outcomes$pathway_hb$ylls
@@ -316,7 +326,7 @@ sum_and_round_and_print(ap_totals,"Change in YLLs due to AP in ")
 
 YLLs per 100,000 people by age group by scenario
 
-### Change in YLLs due to injury per 100,000
+### Change in YLLs due to injury per 100,000 {#change_yll_injury_100k}
 
 ```{r scen_prop = "asis"}
 injury_rates <- lapply(cities,function(x) rbind(injury_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000, Total=colSums(injury_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
@@ -324,14 +334,14 @@ names(injury_rates) <- cities
 round_and_print(injury_rates,"Change in YLLs due to injury per 100,000 in ")
 ```
 
-### Change in YLLs due to PA per 100,000
+### Change in YLLs due to PA per 100,000 {#change_yll_PA_100k}
 ```{r}
 pa_rates <- lapply(cities,function(x) rbind(pa_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000, Total=colSums(pa_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
 names(pa_rates) <- cities
 round_and_print(pa_rates,"Change in YLLs due to PA per 100,000 in ")
 ```
 
-### Change in YLLs due to injury AP 100,000
+### Change in YLLs due to injury AP 100,000 {#change_yll_AP_100k}
 ```{r}
 ap_rates <- lapply(cities,function(x) rbind(ap_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000, Total=colSums(ap_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
 names(ap_rates) <- cities
@@ -342,7 +352,7 @@ round_and_print(ap_rates,"Change in YLLs due to AP per 100,000 in ")
 
 Change in deaths total (for the city based on real population size) by scenario
 
-### Change in deaths due to disease
+### Change in deaths due to disease {#change_death_disease}
 
 ```{r}
 
@@ -362,7 +372,7 @@ sum_and_round_and_print(disease_totals,"Change in deaths due to disease in ")
 
 Change in deaths per 100,000 people by scenario
 
-### Change in deaths due to disease per 100,000
+### Change in deaths due to disease per 100,000 {#change_death_disease_100k}
 
 ```{r scen_prop = "asis"}
 disease_rates <- lapply(cities,function(x) rbind(disease_totals[[x]]/sum(pop_by_age[[x]])*100000, Total=colSums(disease_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
@@ -372,7 +382,7 @@ round_and_print(disease_rates,"Change in deaths due to disease per 100,000 in ")
 
 Change in YLL total (for the city based on real population size) by scenario
 
-### Change in YLL due to disease
+### Change in YLL due to disease {#change_yll_disease}
 
 ```{r}
 
@@ -389,7 +399,7 @@ sum_and_round_and_print(disease_totals,"Change in YLL due to disease in ")
 
 ```
 
-## Change in YLL due to disease per 100,000 {#change_in_yll_100k}
+## Change in YLL due to disease per 100,000 {#change_yll_disease_100k}
 
 ```{r scen_prop = "asis"}
 disease_rates <- lapply(cities,function(x) rbind(disease_totals[[x]]/sum(pop_by_age[[x]])*100000, Total=colSums(disease_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
