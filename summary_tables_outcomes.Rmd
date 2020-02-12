@@ -57,17 +57,6 @@ round_and_print <- function(data,text=''){
 ```
 
 
-```{r whw}
-
-for(city in cities){
-  if (!city %in% c('buenos_aires', 'mexico_city')){
-    print(kable(format(round(io[[city]]$outcomes$whw$Baseline$whw)), caption = paste('Who Hit Whom (WHW) baseline matrix for ', city)))
-    cat("\n")
-  }
-}
-
-```
-
 ```{r preprocessing}
 
 
@@ -124,6 +113,25 @@ scen_names <- rownames(scen_prop)
 
 ```
 
+## Who Hit Whom matrix
+
+Who hit whom matrix for baseline for each case study
+
+### Who hit whom matrix for baseline {#whw_baseline}
+
+```{r whw}
+
+for(city in cities){
+  if (!city %in% c('buenos_aires', 'mexico_city')){
+    for (cs in names(io$accra$outcomes$whw)){
+      print(kable(format(round(io[[city]]$outcomes$whw[[cs]]$whw)), caption = paste('Who Hit Whom (WHW) ', cs, ' matrix for ', city)))
+      cat("\n")
+    }
+
+  }
+}
+
+```
 
 ## TOTAL
 
