@@ -53,7 +53,11 @@ round_and_print <- function(data,text=''){
 
 ```
 
+Click here: [change in yll](#change_in_yll_100k)
+
 ```{r preprocessing}
+
+
 collapse_ages <- function(data,ages=c('15-49','50-69'),age_lab='age_cat'){
   target_min_age <- as.numeric(sapply(ages,function(x)strsplit(x,'-')[[1]][1]))
   target_max_age <- as.numeric(sapply(ages,function(x)strsplit(x,'-')[[1]][2]))
@@ -331,7 +335,7 @@ sum_and_round_and_print(disease_totals,"Change in YLL due to disease in ")
 
 ```
 
-Change in YLL per 100,000 people by scenario
+## Change in YLL due to disease per 100,000 {#change_in_yll_100k}
 
 ```{r scen_prop = "asis"}
 disease_rates <- lapply(cities,function(x) rbind(disease_totals[[x]]/sum(pop_by_age[[x]])*100000, Total=colSums(disease_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
