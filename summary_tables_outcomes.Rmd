@@ -401,7 +401,7 @@ sum_and_round_and_print(disease_totals,"Change in YLL due to disease in ")
 
 ```
 
-## Change in YLL due to disease per 100,000 {#change_yll_disease_100k}
+### Change in YLL due to disease per 100,000 {#change_yll_disease_100k}
 
 ```{r scen_prop = "asis"}
 disease_rates <- lapply(cities,function(x) rbind(disease_totals[[x]]/sum(pop_by_age[[x]])*100000, Total=colSums(disease_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
