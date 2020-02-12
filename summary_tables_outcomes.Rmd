@@ -52,8 +52,27 @@ round_and_print <- function(data,text=''){
 }
 
 ```
-
-Click here: [change in yll](#change_yll_100k)
+* [change in yll](#change_yll_100k)
+* [Change in total deaths](#change_death)
+* [Change in deaths per 100k](#change_death_100k)
+* [Change in total YLLs](#change_YLL)
+* [Change in YLLs by age per 100k](#change_YLL_age_100k)
+* [Change in YLLs by gender by age per 100k](#change_in_YLL_gender_age_100k)
+* [Change in deaths due to injury](#change_death_injury)
+* [Change in deaths due to PA](#change_death_PA)
+* [Change in deaths due to AP](#change_death_AP)
+* [Change in deathe due to injury per 100k](#change_death_injury_100k)
+* [Change in deahts due to PA per 100k](#change_death_PA_100k)
+* [Change in deaths due to AP per 100k](#change_death_AP_100k)
+* [Change in YLLs due to injury](#change_yll_injury)
+* [Change in YLLs due to PA](#change_yll_PA)
+* [Change in YLLs due to Ap](#change_yll_AP)
+* [Change in YLLs due to injury per 100k](#change_yll_injury_100k)
+* [Change in YLLs due to PA per 100k](#change_yll_PA_100k)
+* [Change in YLLs due to AP per 100k](#change_yll_AP_100k)
+* [Change in deaths by disease due per 100k](#change_death_disease_100k)
+* [Change in YLLs by disease](#change_yll_disease)
+* [Change in deaths due per 100k](#change_yll_disease_100k)
 
 ```{r whw}
 
