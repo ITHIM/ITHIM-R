@@ -253,7 +253,7 @@ injury_totals <- lapply(io,function(x){
 sum_and_round_and_print(injury_totals,"Change in deaths due to injury in ")
 ```
 
-### Change in deaths due to injury per 100,000K
+### Change in deaths due to injury per 100,000 km
 
 ```{r inj_100k = "asis"}
 require(tibble)
