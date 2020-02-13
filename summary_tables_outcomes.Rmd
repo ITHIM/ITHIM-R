@@ -434,3 +434,60 @@ disease_rates <- lapply(cities,function(x) rbind(disease_totals[[x]]/sum(pop_by_
 names(disease_rates) <- cities
 round_and_print(disease_rates,"Change in YLL due to disease per 100,000 in ")
 ```
+
+### Change in inury per 100K
+
+```{r inj_100k = "asis"}
+require(tibble)
+
+for (city in cities){
+  
+  print(city)
+  
+  el <- list()
+  
+  if (!city %in% c('buenos_aires', 'mexico_city', 'bogota', 'vizag')){
+    
+    for (cs in names(io[[city]]$outcomes$whw)){
+      #cs <- 'Baseline'
+      #city <- 'accra'
+      td1 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td2 <- colSums(round(io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td3 <- left_join(td2, td1, by = 'mode') %>% mutate(count = rowSums(.[2:3], na.rm = T))
+      td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
+      
+      td4 <- io[[city]]$dist %>% filter(stage_mode %in% td3$mode) %>% dplyr::select(stage_mode, cs)
+      
+      if (length(el) == 0){
+        el <- td4 %>% dplyr::select(stage_mode)
+      }
+      
+      td4 <- left_join(td4, td3 %>% dplyr::select(mode, count) %>% rename(stage_mode = mode), by = 'stage_mode')
+      
+      td5 <- td4
+      
+      td4[, 2] <- round((td4[,3] / td4[,2]) * 100000, 1)
+      
+      names(td4)[3] <- paste(names(td4)[2], names(td4)[3], sep = "_")
+      
+      el <- inner_join(el, td4, by = 'stage_mode')
+      
+      
+      
+      # for (i in 1:nrow(td4)){
+      #   td4[i, 2:(ncol(td4) - 2)] <- round((td4$total[i] /(td4[i, 2:6])) * 100000, 1)
+      #   
+      #   
+      # }
+      
+      # print(td4)
+    }
+    print(kable(el, caption = city))
+    cat("\n")
+    #kable(print(el), caption = city)
+  }
+  
+  
+  
+}
+```
