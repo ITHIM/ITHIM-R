@@ -3,6 +3,8 @@ rm(list=ls())
 cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota',
             'cape_town', 'vizag')
 
+# cities <- c('accra')
+
 # 
 
 # Problematic injuries dataset for bogota - hence being excluded
@@ -116,9 +118,9 @@ for(city in cities){
                                   BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
                                   BUS_WALK_TIME = bus_walk_time[[city]])
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS
+  ithim_objects[[city]]$demographic <- DEMOGRAPHIC
   ithim_objects[[city]]$outcomes <- run_ithim(ithim_object=ithim_objects[[city]], seed = 1)
   ithim_objects[[city]]$synth_pop <- SYNTHETIC_POPULATION
-  ithim_objects[[city]]$demographic <- DEMOGRAPHIC
   ithim_objects[[city]]$disease_burden <- DISEASE_BURDEN
   ithim_objects[[city]]$emission_inventory <- EMISSION_INVENTORY
   ithim_objects[[city]]$injury_table <- INJURY_TABLE
