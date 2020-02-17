@@ -284,7 +284,7 @@ for (city in cities){
         
       }
       
-      td4 <- io[[city]]$dist %>% filter(stage_mode %in% td3$mode) %>% dplyr::select(stage_mode, cs)
+      td4 <- io[[city]]$true_dist %>% filter(stage_mode %in% td3$mode) %>% dplyr::select(stage_mode, cs)
       
       if (length(el) == 0){
         el <- td4 %>% dplyr::select(stage_mode)
