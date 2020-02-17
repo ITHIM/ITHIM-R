@@ -44,6 +44,7 @@ get_all_distances <- function(ithim_object){
   # Recalculate dist by using total distance
   dist <- journeys %>% group_by(stage_mode, scenario) %>% summarise(dist = sum(tot_dist)) %>% spread(scenario, dist)
   
+  # Add true_dist to the ithim_object
   ithim_object$true_dist <- dist
   
   # distances for injuries calculation
