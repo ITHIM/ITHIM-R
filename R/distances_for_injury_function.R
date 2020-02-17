@@ -9,35 +9,10 @@
 #' @return list of distances, injury table, and injury regression model
 #' 
 #' @export
-distances_for_injury_function <- function(trip_scen_sets, dist){
+distances_for_injury_function <- function(journeys, dist){
   
   ##!! RJ need to scale distances up for representativeness of survey population of total population
   ##!! AA have added total distance by taking demographic into the calculations, and then scaling distance accordingly
-  
-  ## for injury_function
-  # get average total distances by sex and age cat
-  journeys <- trip_scen_sets %>% 
-    group_by (age_cat,sex,stage_mode, scenario) %>% 
-    summarise(tot_dist = sum(stage_distance) / dplyr::n())
-  trip_scen_sets <- NULL
-  
-  # Use demographic
-  pop <- DEMOGRAPHIC
-  
-  # Rename col
-  pop <- pop %>% dplyr::rename(age_cat = age)
-  
-  # Add population values by sex and age category
-  journeys <- dplyr::left_join(journeys, pop, by = c('sex', 'age_cat'))
-  
-  # Calculate total distance by population
-  journeys$tot_dist <- journeys$tot_dist * journeys$population
-  
-  # Remove additional population column
-  journeys <- journeys %>% dplyr::select(-population)
-  
-  # Recalculate dist by using total distance
-  dist <- journeys %>% group_by(stage_mode, scenario) %>% summarise(dist = sum(tot_dist)) %>% spread(scenario, dist)
   
   distances <- spread(journeys,stage_mode, tot_dist,fill=0) 
   distances$pedestrian <- distances$walking 
