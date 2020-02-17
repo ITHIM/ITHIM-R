@@ -3,7 +3,7 @@
 #' Computes exposures (distances) to parametrise the injury regression model, 
 #' which is computed as a Poisson with various offsets and used later in prediction
 #' 
-#' @param trip_scen_sets list of synthetic trip sets for scenarios
+#' @param journeys df with sex and age_cat total distance (by total population) for scenarios
 #' @param dist table of (total) distances per mode per scenario
 #' 
 #' @return list of distances, injury table, and injury regression model
