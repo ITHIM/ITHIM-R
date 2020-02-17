@@ -30,6 +30,8 @@ distances_for_injury_function <- function(trip_scen_sets, dist){
   
   journeys <- journeys %>% dplyr::select(-population)
   
+  dist <- journeys %>% group_by(stage_mode, scenario) %>% summarise(dist = sum(tot_dist)) %>% spread(scenario, dist)
+  
   distances <- spread(journeys,stage_mode, tot_dist,fill=0) 
   distances$pedestrian <- distances$walking 
   if('walk_to_pt'%in%names(distances)){
