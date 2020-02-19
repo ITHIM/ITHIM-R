@@ -72,13 +72,13 @@ setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","BACKGROUND_PA_SCALAR","B
                         "DISTANCE_SCALAR_CYCLING",
                         "DISTANCE_SCALAR_MOTORCYCLE")
 
-
-# lnorm parameters for MMET_CYCLING
-mmet_cycling <- c(log(4.63),log(1.2))
-# lnorm parameters for MMET_WALKING
-mmet_walking <- c(log(2.53),log(1.1))
-# lnorm parameters for SIN_EXPONENT_SUM
-sin_exponent_sum <- c(log(1.7),log(1.03))
+## VALUES ARE IN NORMAL FORM - NOT LOG
+# lnorm parameters for MMET_CYCLING - MEAN, SD
+mmet_cycling <- c(4.63, 1.2)
+# lnorm parameters for MMET_WALKING - MEAN, SD
+mmet_walking <- c(2.53, 1.1)
+# lnorm parameters for SIN_EXPONENT_SUM - MEAN, SD
+sin_exponent_sum <- c(1.7, 1.03)
 # beta parameters for CASUALTY_EXPONENT_FRACTION
 casualty_exponent_fraction <- c(15,15)
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
