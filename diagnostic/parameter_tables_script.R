@@ -3,6 +3,10 @@ setwd('diagnostic')
 parameter_samples <- readRDS('parameter_samples.Rds')
 load('parameter_settings.Rdata')
 source('dfSummaryrj.R')
+library(summarytools)
+library(ithimr)
+align_numbers_dfs <<- summarytools:::align_numbers_dfs
+txtbarplot <<- summarytools:::txtbarplot
 
 # values between 0 and 1 for BACKGROUND_PA_CONFIDENCE
 background_pa_zeros <- list()

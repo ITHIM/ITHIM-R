@@ -29,8 +29,7 @@ dfSummaryrj <- function (x, distributions, round.digits = st_options("round.digi
   if (length(errmsg) > 0) {
     stop(paste(errmsg, collapse = "\n  "))
   }
-  if (isTRUE(labels.col) && length(label(x, all = TRUE)) == 
-      0) {
+  if (isTRUE(labels.col) && length(label(x, all = TRUE)) == 0) {
     labels.col <- FALSE
   }
   parse_info <- try(parse_args(sys.calls(), sys.frames(), match.call(), 
@@ -57,8 +56,7 @@ dfSummaryrj <- function (x, distributions, round.digits = st_options("round.digi
         message("text graphs are displayed; set 'tmp.img.dir' parameter to ", 
                 "activate png graphs")
       }
-    }
-    else {
+    } else {
       store_imgs <- TRUE
       dir.create(tmp.img.dir, showWarnings = FALSE)
       if (Sys.info()[["sysname"]] == "Windows" || tmp.img.dir != 
@@ -69,8 +67,7 @@ dfSummaryrj <- function (x, distributions, round.digits = st_options("round.digi
         }
       }
     }
-  }
-  else {
+  } else {
     store_imgs <- FALSE
   }
   output <- data.frame(no = numeric(), variable = character(), 
@@ -85,8 +82,7 @@ dfSummaryrj <- function (x, distributions, round.digits = st_options("round.digi
                                                        collapse = ", "), "]")
     if (is.factor(column_data)) {
       barcode_type <- summarytools:::detect_barcode(levels(column_data))
-    }
-    else {
+    }else {
       barcode_type <- summarytools:::detect_barcode(column_data)
     }
     if (is.character(barcode_type)) {
@@ -105,11 +101,9 @@ dfSummaryrj <- function (x, distributions, round.digits = st_options("round.digi
     n_valid <- n_tot - n_miss
     if (is.factor(column_data)) {
       output[i, 4:7] <- summarytools:::crunch_factor(column_data)
-    }
-    else if (is.character(column_data)) {
+    }else if (is.character(column_data)) {
       output[i, 4:7] <- summarytools:::crunch_character(column_data)
-    }
-    else if (is.numeric(column_data)) {
+    }else if (is.numeric(column_data)) {
       output[i, 4:7] <- crunch_numeric_rj(column_data, is.character(barcode_type))
     }
     else if (inherits(column_data, c("Date", "POSIXct"))) {
@@ -184,13 +178,11 @@ crunch_numeric_rj <- function (column_data, is_barcode){
   round.digits <- parent.frame()$round.digits
   if (parent.frame()$n_miss == parent.frame()$n_tot) {
     outlist[[1]] <- paste0(summarytools:::trs("all.nas"), "\n")
-  }
-  else {
+  }else {
     counts <- table(column_data, useNA = "no")
     if (length(counts) == 1) {
       outlist[[1]] <- paste(1, summarytools:::trs("distinct.value"))
-    }
-    else {
+    }else {
       if (isTRUE(is_barcode)) {
         maxchars <- max(nchar(c(summarytools:::trs("min"), summarytools:::trs("max"), 
                                 summarytools:::trs("mode"))))
@@ -203,8 +195,7 @@ crunch_numeric_rj <- function (column_data, is_barcode){
                                "\\\n", summarytools:::trs("max"), 
                                strrep(" ", maxchars - nchar(summarytools:::trs("max"))), " : ", 
                                max(column_data, na.rm = TRUE))
-      }
-      else if (length(counts) == 2) {
+      }else if (length(counts) == 2) {
         maxchars <- max(nchar(c(summarytools:::trs("min"), summarytools:::trs("max"), 
                                 summarytools:::trs("mean"))))
         outlist[[1]] <- paste0(summarytools:::trs("min"), strrep(" ", maxchars - nchar(summarytools:::trs("min"))), 
@@ -213,8 +204,7 @@ crunch_numeric_rj <- function (column_data, is_barcode){
                                " : ", round(mean(column_data, na.rm = TRUE), round.digits - 1), "\\\n", 
                                summarytools:::trs("max"), strrep(" ", maxchars - nchar(summarytools:::trs("max"))), 
                                " : ", round(max(column_data, na.rm = TRUE), round.digits - 1))
-      }
-      else {
+      }else {
         outlist[[1]] <- paste(summarytools:::trs("mean"), 
                               paste0(" (", summarytools:::trs("sd"), ") : "), 
                               round(mean(column_data, na.rm = TRUE), round.digits - 1), 
@@ -242,12 +232,10 @@ crunch_numeric_rj <- function (column_data, is_barcode){
                             paste0("\\\n", summarytools:::trs("end"), 
                                    strrep(" ", maxchars - nchar(summarytools:::trs("end"))), ":"), 
                             paste(sprintf("%02d", end(column_data)), collapse = "-"))
-    }
-    else if (length(counts) <= max.distinct.values && 
+    }else if (length(counts) <= max.distinct.values && 
              (all(column_data%%1 == 0, na.rm = TRUE) || identical(names(column_data), "0") || 
               all(abs(as.numeric(names(counts[-which(names(counts) == "0")]))) >= 10^-round.digits))) {
-      props <- round(prop.table(counts), round.digits + 
-                       2)
+      props <- round(prop.table(counts), round.digits + 2)
       counts_props <- align_numbers_dfs(counts, props)
       rounded_names <- trimws(format(round(as.numeric(names(counts)), 
                                            round.digits), nsmall = round.digits * !all(column_data%%1 == 
@@ -262,13 +250,11 @@ crunch_numeric_rj <- function (column_data, is_barcode){
         outlist[[2]] <- paste(outlist[[2]], paste("!", 
                                                   summarytools:::trs("rounded")), sep = "\\\n")
       }
-    }
-    else {
+    }else {
       outlist[[2]] <- paste(length(counts), summarytools:::trs("distinct.values"))
       if (parent.frame()$n_miss == 0 && (isTRUE(all.equal(column_data, min(column_data):max(column_data))) || 
                                          isTRUE(all.equal(column_data, max(column_data):min(column_data))))) {
-        outlist[[2]] <- paste(outlist[[2]], paste0("(", 
-                                                   summarytools:::trs("int.sequence"), ")"), sep = "\\\n")
+        outlist[[2]] <- paste(outlist[[2]], paste0("(", summarytools:::trs("int.sequence"), ")"), sep = "\\\n")
       }
     }
     if (isTRUE(parent.frame()$graph.col)) {
