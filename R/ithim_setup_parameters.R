@@ -106,8 +106,9 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     if (length(val) == 1) {
       assign(name, val, envir = .GlobalEnv)
     } else {
+      # Use mean and sd values in log form
       parameters[[name]] <-
-        rlnorm(NSAMPLES, val[1], val[2])
+        rlnorm(NSAMPLES, log(val[1]), log(val[2]))
     }
   }
   
