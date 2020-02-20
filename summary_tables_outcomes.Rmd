@@ -123,8 +123,21 @@ Who hit whom matrix for baseline for each case study
 
 for(city in cities){
   if (!city %in% c('buenos_aires', 'mexico_city')){
-    for (cs in names(io$accra$outcomes$whw)[1]){
-      print(kable(format(round(io[[city]]$outcomes$whw[[cs]]$whw)), caption = paste('Who Hit Whom (WHW) ', cs, ' matrix for ', city)))
+    for (cs in names(io$accra$outcomes$whw)){
+      print(city)
+      td1 <- (io[[city]]$outcomes$whw[[cs]]$whw) %>% as.data.frame() %>% tibble::rownames_to_column("mode")
+      td3 <- td1
+      if (!is.null(io[[city]]$outcomes$whw[[cs]]$nov)){
+        td2 <- t(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame()
+        td2$mode <- 'NOV'
+        
+        td3 <- plyr::rbind.fill(td1, td2)
+      }
+      td3 <- td3 %>% mutate(rowSum = rowSums(.[2:ncol(td3)], na.rm = T))
+      td3 <- td3 %>% janitor::adorn_totals("row")
+      td3[, 2:ncol(td3)] <- round(td3[, 2:ncol(td3)], 2)
+        
+        print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', cs, ' matrix for ', city)))
       cat("\n")
     }
 
@@ -141,7 +154,7 @@ No Other Vehicle matrix for baseline for each case study
 
 for(city in cities){
   if (!city %in% c('bogota', 'vizag')){
-    for (cs in names(io$accra$outcomes$whw)[1]){
+    for (cs in names(io$accra$outcomes$whw)){
       print(kable(format(round(io[[city]]$outcomes$whw[[cs]]$nov)), caption = paste('NOV ', cs, ' matrix for ', city)))
       cat("\n")
     }
@@ -258,7 +271,11 @@ sum_and_round_and_print(injury_totals,"Change in deaths due to injury in ")
 ```{r inj_100k = "asis"}
 require(tibble)
 
+overall_el <- list()
+
 for (city in cities){
+  
+  #city <- 'delhi'
   
   print(city)
   
@@ -311,6 +328,12 @@ for (city in cities){
       # print(td4)
     }
     print(kable(el, caption = city))
+    
+    td <- el %>% dplyr::select(-contains('count'))
+    names(td)[2:ncol(td)] <- paste(names(td)[2:ncol(td)], city, sep = "_")
+    
+    overall_el[[city]] <- td
+    
     cat("\n")
     #kable(print(el), caption = city)
   #}
@@ -320,6 +343,20 @@ for (city in cities){
 }
 ```
 
+
+### Change in deaths due to injury per 100,000 km across cities
+
+```{r inj_100k_all_cities = "asis"}
+require(tibble)
+
+td <- overall_el %>% purrr::reduce(full_join, by = "stage_mode") %>% as.data.frame()
+
+td <- td %>% dplyr::select(stage_mode, sort(names(.)))
+
+print(kable(format(td, scientific = F), caption = paste('Injury per 100k across all cities')))
+
+
+```
 
 
 ### Change in deaths due to PA {#change_death_PA}
