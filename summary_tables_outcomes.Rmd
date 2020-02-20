@@ -174,6 +174,32 @@ for (cs in names(all_whw)){
 
 ```
 
+### Test DT
+
+```{r dt}
+
+fname <- "whw"
+
+DT::datatable(td, 
+                  extensions = 'Buttons',
+                  escape = FALSE,
+                  rownames = FALSE,
+                  options = list(dom = 'Bfrtip',
+                                 buttons = 
+                                   list('colvis', list(
+                                     extend = 'collection',
+                                     buttons = list(list(extend='csv',
+                                                         filename = fname),
+                                                    list(extend='excel',
+                                                         filename = fname)),
+                                     text = 'Download'
+                                   )),
+                                 scrollX = TRUE,
+                                 pageLength = nrow(td),
+                                 order=list(list(2,'desc'))))
+```
+
+
 No Other Vehicle matrix for baseline for each case study
 
 ### No Other Vehicle matrix for baseline {#nov_baseline}
