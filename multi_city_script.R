@@ -81,7 +81,7 @@ mmet_cycling <- 4.63
 # constant parameters for MMET_WALKING
 mmet_walking <- 2.53
 # constant parameters for SIN_EXPONENT_SUM
-sin_exponent_sum <- 1.35
+sin_exponent_sum <- 1.4
 # constant parameters for CASUALTY_EXPONENT_FRACTION
 cas_exponent <- 0.5
 # add mc fleet to sp
@@ -162,4 +162,5 @@ for(city in cities){
 ## Save the ithim_object in the results folder
 ##########
 
-saveRDS(ithim_objects, "results/multi_city/io.rds",version = 2)
+# saveRDS(ithim_objects, paste("results/multi_city/io", CAS_EXPONENT, STR_EXPONENT, ".rds", sep = "_"),version = 2)
+saveRDS(ithim_objects, "results/multi_city/io.rds", version = 2)
