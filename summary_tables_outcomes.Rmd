@@ -11,6 +11,8 @@ library(knitr)
 library(pracma)
 library(summarytools)
 library(dplyr)
+library(purrr)
+library(DT)
 knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis')
 
 ```
@@ -115,11 +117,13 @@ scen_names <- rownames(scen_prop)
 
 ## Who Hit Whom matrix
 
-Who hit whom matrix for baseline for each case study
+Who hit whom matrix for all scenarios for each case study
 
-### Who hit whom matrix for baseline {#whw_baseline}
+### Who hit whom matrix {#whw}
 
 ```{r whw}
+
+all_whw <- list()
 
 for(city in cities){
   if (!city %in% c('buenos_aires', 'mexico_city')){
@@ -139,9 +143,33 @@ for(city in cities){
         
         print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', cs, ' matrix for ', city)))
       cat("\n")
+      
+      td <- td3
+      names(td)[2:ncol(td)] <- paste(names(td)[2:ncol(td)], city, sep = "_")
+    
+      all_whw[[cs]][[city]] <- td
     }
 
   }
+}
+
+```
+
+
+### Who hit whom matrix for all case cities {#whw_all}
+
+```{r whw_for_all_cs}
+
+for (cs in names(all_whw)){
+  
+  td <- all_whw[[cs]] %>% purrr::reduce(full_join, by = "mode") %>% as.data.frame() %>% dplyr::select(mode, sort(names(.)))
+  
+  td <- rbind(td %>% dplyr::filter(!mode %in% c("Total", "NOV")) %>% arrange(mode), td %>% filter(mode == 'NOV'), td %>% filter(mode == 'Total'))
+  
+   td[is.na(td)] <- 0
+  
+  print(kable(format(td, scientific = F), caption = paste('Who Hit Whom (WHW) for all case cities for ', cs)))
+  
 }
 
 ```
