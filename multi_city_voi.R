@@ -64,7 +64,7 @@ day_to_week_scalar <- 7
 #################################################
 ## with uncertainty
 ## comparison across cities
-setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","EMISSION_INVENTORY",                        
+setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","EMISSION_INVENTORY",                        
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO",
                         "FLEET_TO_MOTORCYCLE_RATIO","DISTANCE_SCALAR_CAR_TAXI",
                         "DISTANCE_SCALAR_WALKING",
@@ -72,13 +72,13 @@ setting_parameters <- c("BUS_WALK_TIME","PM_CONC_BASE","BACKGROUND_PA_SCALAR","B
                         "DISTANCE_SCALAR_CYCLING",
                         "DISTANCE_SCALAR_MOTORCYCLE")
 
-## VALUES ARE IN NORMAL FORM - NOT LOG
-# lnorm parameters for MMET_CYCLING - MEAN, SD
-mmet_cycling <- c(4.63, 1.2)
-# lnorm parameters for MMET_WALKING - MEAN, SD
-mmet_walking <- c(2.53, 1.1)
-# lnorm parameters for SIN_EXPONENT_SUM - MEAN, SD
-sin_exponent_sum <- c(1.7, 1.03)
+
+# lnorm parameters for MMET_CYCLING
+mmet_cycling <- c((4.63),(1.2))
+# lnorm parameters for MMET_WALKING
+mmet_walking <- c((2.53),(1.1))
+# lnorm parameters for SIN_EXPONENT_SUM
+sin_exponent_sum <- c((1.7),(1.03))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
 casualty_exponent_fraction <- c(15,15)
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
@@ -96,8 +96,7 @@ betaVariables <- c("PM_TRANS_SHARE",
                    "BUS_TO_PASSENGER_RATIO",
                    "TRUCK_TO_CAR_RATIO",
                    "FLEET_TO_MOTORCYCLE_RATIO")
-normVariables <- c("BUS_WALK_TIME",
-                   "MMET_CYCLING",
+normVariables <- c("MMET_CYCLING",
                    "MMET_WALKING",
                    "PM_CONC_BASE",
                    "BACKGROUND_PA_SCALAR",
@@ -110,17 +109,17 @@ normVariables <- c("BUS_WALK_TIME",
                    "DISTANCE_SCALAR_MOTORCYCLE")
 
 save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
-     background_pa_scalar,background_pa_confidence,bus_walk_time,mmet_cycling,mmet_walking,emission_inventories,
+     background_pa_scalar,background_pa_confidence,mmet_cycling,mmet_walking,emission_inventories,
      sin_exponent_sum,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
      bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
      distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,add_motorcycle_fleet,fleet_to_motorcycle_ratio,
      betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
 
-parameters_only <- F
+parameters_only <- T
 multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
-numcores <- 8
-nsamples <- 4096
+numcores <- 4
+nsamples <- 1024
 print(system.time(
   for(ci in 1:length(cities)){
     city <- cities[ci]
@@ -158,7 +157,7 @@ print(system.time(
                                               PM_TRANS_SHARE = pm_trans_share[[city]],  
                                               BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
                                               BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
-                                              BUS_WALK_TIME = bus_walk_time[[city]],## not random; use mean
+                                              #BUS_WALK_TIME = bus_walk_time[[city]],## not random; use mean
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                               TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
                                               FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
@@ -176,10 +175,10 @@ print(system.time(
       parameter_samples <- sapply(parameter_names,function(x)multi_city_ithim[[ci]]$parameters[[x]])
     }else{
       for(param in model_parameters) multi_city_ithim[[ci]]$parameters[[param]] <- multi_city_ithim[[1]]$parameters[[param]]
-      background_quantile <- plnorm(multi_city_ithim[[1]]$parameters$PM_CONC_BASE,pm_conc_base[[1]][1],pm_conc_base[[1]][2])
-      multi_city_ithim[[ci]]$parameters$PM_CONC_BASE <- qlnorm(background_quantile,pm_conc_base[[city]][1],pm_conc_base[[city]][2])
+      background_quantile <- plnorm(multi_city_ithim[[1]]$parameters$PM_CONC_BASE,log(pm_conc_base[[1]][1]),log(pm_conc_base[[1]][2]))
+      multi_city_ithim[[ci]]$parameters$PM_CONC_BASE <- qlnorm(background_quantile,log(pm_conc_base[[city]][1]),log(pm_conc_base[[city]][2]))
       proportion_quantile <- pbeta(multi_city_ithim[[1]]$parameters$PM_TRANS_SHARE,pm_trans_share[[1]][1],pm_trans_share[[1]][2])
-      multi_city_ithim[[ci]]$parameters$PM_TRANS_SHARE <- qbeta(background_quantile,pm_trans_share[[city]][1],pm_trans_share[[city]][2])
+      multi_city_ithim[[ci]]$parameters$PM_TRANS_SHARE <- qbeta(proportion_quantile,pm_trans_share[[city]][1],pm_trans_share[[city]][2])
     }
     
     if(!parameters_only){
