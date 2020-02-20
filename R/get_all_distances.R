@@ -19,18 +19,21 @@ get_all_distances <- function(ithim_object){
   
   trip_scen_sets <- ithim_object$trip_scen_sets
   
+  # Use demographic
+  pop <- DEMOGRAPHIC
+  
+  # Rename col
+  pop <- pop %>% dplyr::rename(age_cat = age)
+  
+  # Recalculate dist by using total distance - using overall population
+  dist <- trip_scen_sets %>% group_by(stage_mode, scenario) %>% summarise(ave_dist = sum(stage_distance) / nrow(.) * sum(pop$population)) %>% spread(scenario, ave_dist)
+  
   ## for injury_function
   # get average total distances by sex and age cat
   journeys <- trip_scen_sets %>% 
     group_by (age_cat,sex,stage_mode, scenario) %>% 
     summarise(tot_dist = sum(stage_distance) / dplyr::n())
   trip_scen_sets <- NULL
-  
-  # Use demographic
-  pop <- DEMOGRAPHIC
-  
-  # Rename col
-  pop <- pop %>% dplyr::rename(age_cat = age)
   
   # Add population values by sex and age category
   journeys <- dplyr::left_join(journeys, pop, by = c('sex', 'age_cat'))
@@ -41,14 +44,13 @@ get_all_distances <- function(ithim_object){
   # Remove additional population column
   journeys <- journeys %>% dplyr::select(-population)
   
-  # Recalculate dist by using total distance
-  dist <- journeys %>% group_by(stage_mode, scenario) %>% summarise(dist = sum(tot_dist)) %>% spread(scenario, dist)
+  # dist <- journeys %>% group_by(stage_mode, scenario) %>% summarise(dist = sum(tot_dist)) %>% spread(scenario, dist)
   
   # Add true_dist to the ithim_object
   ithim_object$true_dist <- dist
   
   # distances for injuries calculation
-  ithim_object$inj_distances <- distances_for_injury_function(journeys = journeys,dist = dist)
+  ithim_object$inj_distances <- distances_for_injury_function(journeys = journeys, dist = dist)
   
   return(ithim_object)
 }
