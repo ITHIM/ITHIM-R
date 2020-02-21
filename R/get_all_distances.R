@@ -22,11 +22,22 @@ get_all_distances <- function(ithim_object){
   # Use demographic
   pop <- DEMOGRAPHIC
   
-  # Rename col
-  pop <- pop %>% dplyr::rename(age_cat = age)
+  # trip_scen_sets <- io$delhi$trip_scen_sets
+  # 
+  # pop <- io$delhi$demographic
   
   # Recalculate dist by using total distance - using overall population
   dist <- trip_scen_sets %>% group_by(stage_mode, scenario) %>% summarise(ave_dist = sum(stage_distance) / nrow(.) * sum(pop$population)) %>% spread(scenario, ave_dist)
+  
+  if ('walk_to_pt' %in% dist$stage_mode && 'walk_to_pt' %in% dist$stage_mode){
+    dist[dist$stage_mode == "walking",][2:ncol(dist)] <- dist[dist$stage_mode == "walking",][2:ncol(dist)] +
+      dist[dist$stage_mode == "walking",][2:ncol(dist)]
+    
+    dist <- dist %>% filter(stage_mode != 'walk_to_pt')
+  }
+  
+  # Rename col
+  pop <- pop %>% dplyr::rename(age_cat = age)
   
   ## for injury_function
   # get average total distances by sex and age cat
@@ -45,6 +56,7 @@ get_all_distances <- function(ithim_object){
   journeys <- journeys %>% dplyr::select(-population)
   
   # dist <- journeys %>% group_by(stage_mode, scenario) %>% summarise(dist = sum(tot_dist)) %>% spread(scenario, dist)
+  
   
   # Add true_dist to the ithim_object
   ithim_object$true_dist <- dist
