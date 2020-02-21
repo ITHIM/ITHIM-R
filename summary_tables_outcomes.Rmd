@@ -432,6 +432,8 @@ td <- overall_el %>% purrr::reduce(full_join, by = "stage_mode") %>% as.data.fra
 
 td <- td %>% dplyr::select(stage_mode, sort(names(.)))
 
+readr::write_csv(td, 'results/multi_city/whw_matrices/injury_risks.csv')
+
 print(kable(format(td, scientific = F), caption = paste('Injury per 100k across all cities')))
 
 
