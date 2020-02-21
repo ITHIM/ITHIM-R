@@ -127,21 +127,35 @@ all_whw <- list()
 
 for(city in cities){
   if (!city %in% c('buenos_aires', 'mexico_city')){
+     # city <- 'buenos_aires'
     for (cs in names(io$accra$outcomes$whw)){
       print(city)
-      td1 <- (io[[city]]$outcomes$whw[[cs]]$whw) %>% as.data.frame() %>% tibble::rownames_to_column("mode")
-      td3 <- td1
-      if (!is.null(io[[city]]$outcomes$whw[[cs]]$nov)){
-        td2 <- t(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame()
-        td2$mode <- 'NOV'
+      
+      if (is.null(io[[city]]$outcomes$whw[[cs]]$whw)){
+        if (!is.null(io[[city]]$outcomes$whw[[cs]]$nov)){
+          td2 <- t(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame()
+          td2$mode <- 'NOV'
+          
+          td2 <- td2 %>% dplyr::select(mode, names(.))
+          
+          td3 <- td2
+        }
         
-        td3 <- plyr::rbind.fill(td1, td2)
+      }else{
+        td1 <- (io[[city]]$outcomes$whw[[cs]]$whw) %>% as.data.frame() %>% tibble::rownames_to_column("mode")
+        td3 <- td1
+        if (!is.null(io[[city]]$outcomes$whw[[cs]]$nov)){
+          td2 <- t(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame()
+          td2$mode <- 'NOV'
+          
+          td3 <- plyr::rbind.fill(td1, td2)
+        }
       }
       td3 <- td3 %>% mutate(rowSum = rowSums(.[2:ncol(td3)], na.rm = T))
       td3 <- td3 %>% janitor::adorn_totals("row")
       td3[, 2:ncol(td3)] <- round(td3[, 2:ncol(td3)], 2)
         
-        print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', cs, ' matrix for ', city)))
+      print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', cs, ' matrix for ', city)))
       cat("\n")
       
       td <- td3
@@ -377,6 +391,7 @@ for (city in cities){
       }else {
         
         td3 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+        td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
         
       }
       
