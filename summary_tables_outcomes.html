@@ -448,13 +448,38 @@ color: #d14;
           theseArgs = theseArgs.concat([task.data]);
           task = task.code;
         }
-        var taskFunc = eval("(" + task + ")");
+        var taskFunc = tryEval(task);
         if (typeof(taskFunc) !== "function") {
           throw new Error("Task must be a function! Source:\n" + task);
         }
         taskFunc.apply(target, theseArgs);
       });
     }
+  }
+
+  // Attempt eval() both with and without enclosing in parentheses.
+  // Note that enclosing coerces a function declaration into
+  // an expression that eval() can parse
+  // (otherwise, a SyntaxError is thrown)
+  function tryEval(code) {
+    var result = null;
+    try {
+      result = eval(code);
+    } catch(error) {
+      if (!error instanceof SyntaxError) {
+        throw error;
+      }
+      try {
+        result = eval("(" + code + ")");
+      } catch(e) {
+        if (e instanceof SyntaxError) {
+          throw error;
+        } else {
+          throw e;
+        }
+      }
+    }
+    return result;
   }
 
   function initSizing(el) {
@@ -849,17 +874,56 @@ color: #d14;
     invokePostRenderHandlers();
   }
 
-  // Wait until after the document has loaded to render the widgets.
+
+  function has_jQuery3() {
+    if (!window.jQuery) {
+      return false;
+    }
+    var $version = window.jQuery.fn.jquery;
+    var $major_version = parseInt($version.split(".")[0]);
+    return $major_version >= 3;
+  }
+
+  /*
+  / Shiny 1.4 bumped jQuery from 1.x to 3.x which means jQuery's
+  / on-ready handler (i.e., $(fn)) is now asyncronous (i.e., it now
+  / really means $(setTimeout(fn)).
+  / https://jquery.com/upgrade-guide/3.0/#breaking-change-document-ready-handlers-are-now-asynchronous
+  /
+  / Since Shiny uses $() to schedule initShiny, shiny>=1.4 calls initShiny
+  / one tick later than it did before, which means staticRender() is
+  / called renderValue() earlier than (advanced) widget authors might be expecting.
+  / https://github.com/rstudio/shiny/issues/2630
+  /
+  / For a concrete example, leaflet has some methods (e.g., updateBounds)
+  / which reference Shiny methods registered in initShiny (e.g., setInputValue).
+  / Since leaflet is privy to this life-cycle, it knows to use setTimeout() to
+  / delay execution of those methods (until Shiny methods are ready)
+  / https://github.com/rstudio/leaflet/blob/18ec981/javascript/src/index.js#L266-L268
+  /
+  / Ideally widget authors wouldn't need to use this setTimeout() hack that
+  / leaflet uses to call Shiny methods on a staticRender(). In the long run,
+  / the logic initShiny should be broken up so that method registration happens
+  / right away, but binding happens later.
+  */
+  function maybeStaticRenderLater() {
+    if (shinyMode && has_jQuery3()) {
+      window.jQuery(window.HTMLWidgets.staticRender);
+    } else {
+      window.HTMLWidgets.staticRender();
+    }
+  }
+
   if (document.addEventListener) {
     document.addEventListener("DOMContentLoaded", function() {
       document.removeEventListener("DOMContentLoaded", arguments.callee, false);
-      window.HTMLWidgets.staticRender();
+      maybeStaticRenderLater();
     }, false);
   } else if (document.attachEvent) {
     document.attachEvent("onreadystatechange", function() {
       if (document.readyState === "complete") {
         document.detachEvent("onreadystatechange", arguments.callee);
-        window.HTMLWidgets.staticRender();
+        maybeStaticRenderLater();
       }
     });
   }
@@ -947,7 +1011,7 @@ color: #d14;
       if (o !== null && typeof o === "object" && part in o) {
         if (i == (l - 1)) { // if we are at the end of the line then evalulate
           if (typeof o[part] === "string")
-            o[part] = eval("(" + o[part] + ")");
+            o[part] = tryEval(o[part]);
         } else { // otherwise continue to next embedded object
           o = o[part];
         }
@@ -2811,8 +2875,7 @@ summary {
 <li><a href="#who-hit-whom-matrix">Who Hit Whom matrix</a><ul>
 <li><a href="#whw">Who hit whom matrix</a></li>
 <li><a href="#whw_all">Who hit whom matrix for all case cities</a></li>
-<li><a href="#test-dt">Test DT</a></li>
-<li><a href="#nov_baseline">No Other Vehicle matrix for baseline</a></li>
+<li><a href="#whw_all">DT - Who hit whom matrix for all case cities</a></li>
 </ul></li>
 <li><a href="#total">TOTAL</a><ul>
 <li><a href="#change_death">Change in deaths</a></li>
@@ -8592,6 +8655,18 @@ summary {
 </div>
 <div id="whw_all" class="section level3">
 <h3>Who hit whom matrix for all case cities</h3>
+<pre><code>Warning: funs() is soft deprecated as of dplyr 0.8.0
+Please use a list of either functions or lambdas: 
+
+  # Simple named list: 
+  list(mean = mean, median = median)
+
+  # Auto named with `tibble::lst()`: 
+  tibble::lst(mean, median)
+
+  # Using lambdas
+  list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+This warning is displayed once per session.</code></pre>
 <table>
 <caption>Who Hit Whom (WHW) for all case cities for Baseline</caption>
 <thead>
@@ -8658,66 +8733,6 @@ summary {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">?</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0.3</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.1</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.3</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">10.8</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">11.5</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">bicycle</td>
 <td align="left">0</td>
 <td align="left">0</td>
@@ -8777,124 +8792,64 @@ summary {
 <td align="left">0</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">bus</td>
 <td align="left">3</td>
 <td align="left">3</td>
-<td align="left">0.0</td>
+<td align="left">0.5</td>
 <td align="left">1</td>
 <td align="left">2.52</td>
 <td align="left">16.94</td>
-<td align="left">0.0</td>
+<td align="left">6.4</td>
 <td align="left">15</td>
 <td align="left">8.50</td>
-<td align="left">0.0</td>
+<td align="left">9.6</td>
 <td align="left">9</td>
-<td align="left">0.0</td>
+<td align="left">0.6</td>
 <td align="left">8</td>
 <td align="left">1.13</td>
 <td align="left">7.66</td>
-<td align="left">0.0</td>
+<td align="left">3.8</td>
 <td align="left">2</td>
 <td align="left">1.00</td>
-<td align="left">0.0</td>
+<td align="left">3.8</td>
 <td align="left">14</td>
-<td align="left">0.0</td>
+<td align="left">1.8</td>
 <td align="left">2</td>
 <td align="left">24.25</td>
 <td align="left">2.41</td>
-<td align="left">0.0</td>
+<td align="left">19.2</td>
 <td align="left">4</td>
 <td align="left">10.50</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">59</td>
-<td align="left">41.65</td>
-<td align="left">31.89</td>
-<td align="left">0.0</td>
-<td align="left">60</td>
-<td align="left">3.75</td>
-<td align="left">0.0</td>
-<td align="left">44</td>
-<td align="left">0.0</td>
-<td align="left">39</td>
-<td align="left">56.20</td>
-<td align="left">60.91</td>
-<td align="left">0.0</td>
-<td align="left">61</td>
-<td align="left">36.50</td>
-<td align="left">0.0</td>
-<td align="left">61</td>
-<td align="left">0.0</td>
-<td align="left">112</td>
-<td align="left">125.75</td>
-<td align="left">119.82</td>
-<td align="left">0.0</td>
-<td align="left">145</td>
-<td align="left">60.25</td>
-<td align="left">0.0</td>
-<td align="left">128</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
-<td align="left">bus_driver</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0.5</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">6.4</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">9.6</td>
-<td align="left">0</td>
-<td align="left">0.6</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.8</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">3.8</td>
-<td align="left">0</td>
-<td align="left">1.8</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">19.2</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
 <td align="left">19.2</td>
 <td align="left">0</td>
 <td align="left">2.5</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">59</td>
+<td align="left">41.65</td>
+<td align="left">31.89</td>
 <td align="left">56.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
+<td align="left">60</td>
+<td align="left">3.75</td>
 <td align="left">61.2</td>
-<td align="left">0</td>
+<td align="left">44</td>
 <td align="left">15.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">39</td>
+<td align="left">56.20</td>
+<td align="left">60.91</td>
 <td align="left">73.6</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
+<td align="left">61</td>
+<td align="left">36.50</td>
 <td align="left">73.6</td>
-<td align="left">0</td>
+<td align="left">61</td>
 <td align="left">20.4</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">112</td>
+<td align="left">125.75</td>
+<td align="left">119.82</td>
 <td align="left">159.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
+<td align="left">145</td>
+<td align="left">60.25</td>
 <td align="left">167.4</td>
-<td align="left">0</td>
+<td align="left">128</td>
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
@@ -8958,66 +8913,6 @@ summary {
 <td align="left">0.17</td>
 </tr>
 <tr class="even">
-<td align="left">listed_na</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">56.6</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">56.6</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">56.6</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">56.6</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="odd">
 <td align="left">mini</td>
 <td align="left">0</td>
 <td align="left">0</td>
@@ -9077,7 +8972,7 @@ summary {
 <td align="left">0</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">motorcycle</td>
 <td align="left">0</td>
 <td align="left">2</td>
@@ -9137,66 +9032,6 @@ summary {
 <td align="left">351</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
-<td align="left">non.motor.vehicle</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.63</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.27</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">1</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.90</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">1</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="even">
 <td align="left">other</td>
 <td align="left">0</td>
@@ -9212,49 +9047,49 @@ summary {
 <td align="left">0</td>
 <td align="left">0.0</td>
 <td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.3</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
+<td align="left">0.38</td>
 <td align="left">0.00</td>
 <td align="left">0.0</td>
 <td align="left">0</td>
 <td align="left">0.00</td>
 <td align="left">0.0</td>
 <td align="left">0</td>
+<td align="left">0.7</td>
+<td align="left">0</td>
+<td align="left">0.27</td>
+<td align="left">0.00</td>
 <td align="left">0.0</td>
 <td align="left">0</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.6</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.6</td>
+<td align="left">0.0</td>
 <td align="left">0</td>
 <td align="left">0.5</td>
 <td align="left">0</td>
+<td align="left">0.63</td>
 <td align="left">0.00</td>
+<td align="left">0.6</td>
+<td align="left">0</td>
+<td align="left">0.00</td>
+<td align="left">0.6</td>
+<td align="left">0</td>
+<td align="left">2.7</td>
+<td align="left">0</td>
+<td align="left">4.95</td>
 <td align="left">0.00</td>
 <td align="left">0.4</td>
 <td align="left">0</td>
 <td align="left">0.00</td>
 <td align="left">0.4</td>
+<td align="left">1</td>
+<td align="left">4.0</td>
 <td align="left">0</td>
-<td align="left">0.9</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.0</td>
-<td align="left">0</td>
+<td align="left">6.23</td>
 <td align="left">0.00</td>
 <td align="left">1.0</td>
 <td align="left">0</td>
+<td align="left">0.00</td>
+<td align="left">1.0</td>
+<td align="left">1</td>
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
@@ -9318,70 +9153,10 @@ summary {
 <td align="left">0.00</td>
 </tr>
 <tr class="even">
-<td align="left">picku</td>
+<td align="left">pickup</td>
 <td align="left">0</td>
 <td align="left">0</td>
 <td align="left">0.3</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.3</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">1.1</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">7.4</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">9.1</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="odd">
-<td align="left">pickup/light goods</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
 <td align="left">0</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -9399,7 +9174,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.4</td>
 <td align="left">0</td>
-<td align="left">0.0</td>
+<td align="left">0.3</td>
 <td align="left">0</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -9408,7 +9183,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">1.4</td>
 <td align="left">0</td>
-<td align="left">0.0</td>
+<td align="left">1.1</td>
 <td align="left">0</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -9417,7 +9192,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">9.6</td>
 <td align="left">0</td>
-<td align="left">0.0</td>
+<td align="left">7.4</td>
 <td align="left">0</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -9426,7 +9201,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">9.4</td>
 <td align="left">0</td>
-<td align="left">0.0</td>
+<td align="left">9.1</td>
 <td align="left">0</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -9437,127 +9212,7 @@ summary {
 <td align="left">0</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="even">
-<td align="left">railway.train.railway.vehicle</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.38</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.27</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">4.68</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">5.33</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="odd">
-<td align="left">tract</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.4</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.5</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">2.2</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">3.1</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">truck</td>
 <td align="left">8</td>
 <td align="left">8</td>
@@ -9617,71 +9272,11 @@ summary {
 <td align="left">320</td>
 <td align="left">0.83</td>
 </tr>
-<tr class="odd">
-<td align="left">unk</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0.5</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.6</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">6.9</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">8.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="even">
 <td align="left">unknown</td>
 <td align="left">0</td>
 <td align="left">10</td>
-<td align="left">0.0</td>
+<td align="left">0.5</td>
 <td align="left">3</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -9708,7 +9303,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.0</td>
 <td align="left">0</td>
-<td align="left">0.0</td>
+<td align="left">0.6</td>
 <td align="left">8</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -9717,7 +9312,7 @@ summary {
 <td align="left">1.00</td>
 <td align="left">0.0</td>
 <td align="left">4</td>
-<td align="left">0.0</td>
+<td align="left">6.9</td>
 <td align="left">59</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -9726,7 +9321,7 @@ summary {
 <td align="left">5.00</td>
 <td align="left">0.0</td>
 <td align="left">1</td>
-<td align="left">0.0</td>
+<td align="left">8.0</td>
 <td align="left">72</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -9738,66 +9333,6 @@ summary {
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left">unspecified</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">3</td>
-<td align="left">0.00</td>
-<td align="left">0.17</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">4</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">1</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">0</td>
-<td align="left">0.0</td>
-<td align="left">10</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">1</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">10</td>
-<td align="left">0.0</td>
-<td align="left">7</td>
-<td align="left">0.00</td>
-<td align="left">7.79</td>
-<td align="left">0.0</td>
-<td align="left">1</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">52</td>
-<td align="left">0.0</td>
-<td align="left">20</td>
-<td align="left">0.00</td>
-<td align="left">7.96</td>
-<td align="left">0.0</td>
-<td align="left">3</td>
-<td align="left">0.00</td>
-<td align="left">0.0</td>
-<td align="left">66</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">NOV</td>
 <td align="left">3</td>
 <td align="left">6</td>
@@ -9857,7 +9392,7 @@ summary {
 <td align="left">0</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Total</td>
 <td align="left">18</td>
 <td align="left">42</td>
@@ -9985,66 +9520,6 @@ summary {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">?</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.30</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.10</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.30</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">11.13</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">11.83</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">bicycle</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -10104,124 +9579,64 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">bus</td>
 <td align="left">3.56</td>
 <td align="left">3.44</td>
-<td align="left">0.00</td>
+<td align="left">0.50</td>
 <td align="left">1.14</td>
 <td align="left">2.90</td>
 <td align="left">18.08</td>
-<td align="left">0.00</td>
+<td align="left">6.74</td>
 <td align="left">19.36</td>
 <td align="left">10.05</td>
-<td align="left">0.00</td>
+<td align="left">16.72</td>
 <td align="left">11.82</td>
-<td align="left">0.00</td>
+<td align="left">0.60</td>
 <td align="left">8.64</td>
 <td align="left">1.16</td>
 <td align="left">7.82</td>
-<td align="left">0.00</td>
+<td align="left">4.37</td>
 <td align="left">2.37</td>
 <td align="left">1.03</td>
-<td align="left">0.00</td>
+<td align="left">5.38</td>
 <td align="left">16.61</td>
-<td align="left">0.00</td>
+<td align="left">1.80</td>
 <td align="left">2.17</td>
 <td align="left">26.92</td>
 <td align="left">2.53</td>
-<td align="left">0.00</td>
+<td align="left">22.76</td>
 <td align="left">4.98</td>
 <td align="left">11.41</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">66.60</td>
-<td align="left">45.62</td>
-<td align="left">33.95</td>
-<td align="left">0.00</td>
-<td align="left">82.43</td>
-<td align="left">4.07</td>
-<td align="left">0.00</td>
-<td align="left">62.04</td>
-<td align="left">0.00</td>
-<td align="left">43.29</td>
-<td align="left">72.34</td>
-<td align="left">69.23</td>
-<td align="left">0.00</td>
-<td align="left">75.60</td>
-<td align="left">49.22</td>
-<td align="left">0.00</td>
-<td align="left">80.25</td>
-<td align="left">0.00</td>
-<td align="left">125.40</td>
-<td align="left">148.94</td>
-<td align="left">131.61</td>
-<td align="left">0.00</td>
-<td align="left">188.17</td>
-<td align="left">75.77</td>
-<td align="left">0.00</td>
-<td align="left">170.72</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
-<td align="left">bus_driver</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.50</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">6.74</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">16.72</td>
-<td align="left">0.00</td>
-<td align="left">0.60</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">4.37</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">5.38</td>
-<td align="left">0.00</td>
-<td align="left">1.80</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">22.76</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
 <td align="left">30.62</td>
 <td align="left">0.00</td>
 <td align="left">2.51</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">66.60</td>
+<td align="left">45.62</td>
+<td align="left">33.95</td>
 <td align="left">60.14</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">82.43</td>
+<td align="left">4.07</td>
 <td align="left">100.07</td>
-<td align="left">0.00</td>
+<td align="left">62.04</td>
 <td align="left">15.45</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">43.29</td>
+<td align="left">72.34</td>
+<td align="left">69.23</td>
 <td align="left">91.11</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">75.60</td>
+<td align="left">49.22</td>
 <td align="left">101.95</td>
-<td align="left">0.00</td>
+<td align="left">80.25</td>
 <td align="left">20.85</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">125.40</td>
+<td align="left">148.94</td>
+<td align="left">131.61</td>
 <td align="left">185.11</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">188.17</td>
+<td align="left">75.77</td>
 <td align="left">254.73</td>
-<td align="left">0.00</td>
+<td align="left">170.72</td>
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
@@ -10285,66 +9700,6 @@ summary {
 <td align="left">0.17</td>
 </tr>
 <tr class="even">
-<td align="left">listed_na</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">70.06</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">78.40</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">70.06</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">78.40</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="odd">
 <td align="left">mini</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -10404,7 +9759,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">motorcycle</td>
 <td align="left">0.00</td>
 <td align="left">2.48</td>
@@ -10464,66 +9819,6 @@ summary {
 <td align="left">565.64</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
-<td align="left">non.motor.vehicle</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.72</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.36</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.40</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.08</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.40</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="even">
 <td align="left">other</td>
 <td align="left">0.00</td>
@@ -10539,49 +9834,49 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.41</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.70</td>
 <td align="left">0.00</td>
-<td align="left">0.30</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.31</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.50</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.72</td>
 <td align="left">0.00</td>
 <td align="left">0.64</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.98</td>
 <td align="left">0.00</td>
-<td align="left">0.52</td>
+<td align="left">2.79</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">6.64</td>
 <td align="left">0.00</td>
 <td align="left">0.50</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.55</td>
+<td align="left">1.40</td>
+<td align="left">4.08</td>
 <td align="left">0.00</td>
-<td align="left">0.91</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">8.07</td>
 <td align="left">0.00</td>
 <td align="left">1.14</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">1.54</td>
-<td align="left">0.00</td>
+<td align="left">1.40</td>
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
@@ -10645,70 +9940,10 @@ summary {
 <td align="left">0.00</td>
 </tr>
 <tr class="even">
-<td align="left">picku</td>
+<td align="left">pickup</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.30</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.30</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.10</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">7.62</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">9.32</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="odd">
-<td align="left">pickup/light goods</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -10726,7 +9961,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.57</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.30</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -10735,7 +9970,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">2.23</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">1.10</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -10744,7 +9979,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">15.70</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">7.62</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -10753,7 +9988,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">13.02</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">9.32</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -10764,127 +9999,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="even">
-<td align="left">railway.train.railway.vehicle</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.41</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.31</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">6.28</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">6.99</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="odd">
-<td align="left">tract</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.40</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.50</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">2.27</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.17</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">truck</td>
 <td align="left">9.68</td>
 <td align="left">9.31</td>
@@ -10944,71 +10059,11 @@ summary {
 <td align="left">462.46</td>
 <td align="left">0.83</td>
 </tr>
-<tr class="odd">
-<td align="left">unk</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.50</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.60</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">7.11</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">8.21</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="even">
 <td align="left">unknown</td>
 <td align="left">0.00</td>
 <td align="left">11.64</td>
-<td align="left">0.00</td>
+<td align="left">0.50</td>
 <td align="left">3.47</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -11035,7 +10090,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.60</td>
 <td align="left">9.20</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -11044,7 +10099,7 @@ summary {
 <td align="left">1.12</td>
 <td align="left">0.00</td>
 <td align="left">6.00</td>
-<td align="left">0.00</td>
+<td align="left">7.11</td>
 <td align="left">66.71</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -11053,7 +10108,7 @@ summary {
 <td align="left">6.95</td>
 <td align="left">0.00</td>
 <td align="left">1.40</td>
-<td align="left">0.00</td>
+<td align="left">8.21</td>
 <td align="left">81.59</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -11065,66 +10120,6 @@ summary {
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left">unspecified</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.47</td>
-<td align="left">0.00</td>
-<td align="left">0.18</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">5.59</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.26</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">11.50</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.39</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">15.00</td>
-<td align="left">0.00</td>
-<td align="left">7.91</td>
-<td align="left">0.00</td>
-<td align="left">9.06</td>
-<td align="left">0.00</td>
-<td align="left">1.26</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">72.77</td>
-<td align="left">0.00</td>
-<td align="left">22.88</td>
-<td align="left">0.00</td>
-<td align="left">9.25</td>
-<td align="left">0.00</td>
-<td align="left">3.91</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">93.36</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">NOV</td>
 <td align="left">3.43</td>
 <td align="left">6.33</td>
@@ -11184,7 +10179,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Total</td>
 <td align="left">21.45</td>
 <td align="left">48.89</td>
@@ -11312,66 +10307,6 @@ summary {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">?</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.35</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.10</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.31</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">10.91</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">11.67</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">bicycle</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -11431,124 +10366,64 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">bus</td>
 <td align="left">3.00</td>
 <td align="left">3.01</td>
-<td align="left">0.00</td>
+<td align="left">0.58</td>
 <td align="left">1.06</td>
 <td align="left">3.19</td>
 <td align="left">16.94</td>
-<td align="left">0.00</td>
+<td align="left">9.51</td>
 <td align="left">13.50</td>
 <td align="left">8.48</td>
-<td align="left">0.00</td>
+<td align="left">11.58</td>
 <td align="left">11.51</td>
-<td align="left">0.00</td>
+<td align="left">0.62</td>
 <td align="left">8.00</td>
 <td align="left">1.14</td>
 <td align="left">7.66</td>
-<td align="left">0.00</td>
+<td align="left">4.00</td>
 <td align="left">2.02</td>
 <td align="left">1.00</td>
-<td align="left">0.00</td>
+<td align="left">3.97</td>
 <td align="left">14.11</td>
-<td align="left">0.00</td>
+<td align="left">1.86</td>
 <td align="left">2.00</td>
 <td align="left">24.55</td>
 <td align="left">2.41</td>
-<td align="left">0.00</td>
+<td align="left">20.15</td>
 <td align="left">4.05</td>
 <td align="left">10.55</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">59.23</td>
-<td align="left">41.27</td>
-<td align="left">31.89</td>
-<td align="left">0.00</td>
-<td align="left">61.49</td>
-<td align="left">3.75</td>
-<td align="left">0.00</td>
-<td align="left">44.24</td>
-<td align="left">0.00</td>
-<td align="left">38.94</td>
-<td align="left">55.91</td>
-<td align="left">60.91</td>
-<td align="left">0.00</td>
-<td align="left">61.49</td>
-<td align="left">36.55</td>
-<td align="left">0.00</td>
-<td align="left">60.83</td>
-<td align="left">0.00</td>
-<td align="left">112.23</td>
-<td align="left">126.05</td>
-<td align="left">119.82</td>
-<td align="left">0.00</td>
-<td align="left">145.56</td>
-<td align="left">60.34</td>
-<td align="left">0.00</td>
-<td align="left">130.70</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
-<td align="left">bus_driver</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.58</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">9.51</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">11.58</td>
-<td align="left">0.00</td>
-<td align="left">0.62</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">4.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.97</td>
-<td align="left">0.00</td>
-<td align="left">1.86</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">20.15</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
 <td align="left">19.97</td>
 <td align="left">0.00</td>
 <td align="left">2.58</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">59.23</td>
+<td align="left">41.27</td>
+<td align="left">31.89</td>
 <td align="left">59.06</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">61.49</td>
+<td align="left">3.75</td>
 <td align="left">63.41</td>
-<td align="left">0.00</td>
+<td align="left">44.24</td>
 <td align="left">15.16</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">38.94</td>
+<td align="left">55.91</td>
+<td align="left">60.91</td>
 <td align="left">76.38</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">61.49</td>
+<td align="left">36.55</td>
 <td align="left">75.38</td>
-<td align="left">0.00</td>
+<td align="left">60.83</td>
 <td align="left">20.80</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">112.23</td>
+<td align="left">126.05</td>
+<td align="left">119.82</td>
 <td align="left">169.10</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">145.56</td>
+<td align="left">60.34</td>
 <td align="left">174.30</td>
-<td align="left">0.00</td>
+<td align="left">130.70</td>
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
@@ -11612,66 +10487,6 @@ summary {
 <td align="left">0.17</td>
 </tr>
 <tr class="even">
-<td align="left">listed_na</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">58.74</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">57.97</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">58.74</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">57.97</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="odd">
 <td align="left">mini</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -11731,7 +10546,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">motorcycle</td>
 <td align="left">0.00</td>
 <td align="left">2.02</td>
@@ -11791,66 +10606,6 @@ summary {
 <td align="left">354.02</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
-<td align="left">non.motor.vehicle</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.64</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.27</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.02</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.90</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.02</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="even">
 <td align="left">other</td>
 <td align="left">0.00</td>
@@ -11866,49 +10621,49 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.39</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.72</td>
 <td align="left">0.00</td>
-<td align="left">0.31</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.27</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.52</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.64</td>
 <td align="left">0.00</td>
 <td align="left">0.63</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.62</td>
 <td align="left">0.00</td>
-<td align="left">0.51</td>
+<td align="left">2.73</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">4.99</td>
 <td align="left">0.00</td>
 <td align="left">0.42</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.41</td>
+<td align="left">1.02</td>
+<td align="left">4.08</td>
 <td align="left">0.00</td>
-<td align="left">0.93</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">6.28</td>
 <td align="left">0.00</td>
 <td align="left">1.05</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">1.03</td>
-<td align="left">0.00</td>
+<td align="left">1.02</td>
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
@@ -11972,70 +10727,10 @@ summary {
 <td align="left">0.00</td>
 </tr>
 <tr class="even">
-<td align="left">picku</td>
+<td align="left">pickup</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.35</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.31</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.14</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">7.48</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">9.27</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="odd">
-<td align="left">pickup/light goods</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -12053,7 +10748,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.42</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.31</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -12062,7 +10757,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">1.46</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">1.14</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -12071,7 +10766,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">9.95</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">7.48</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -12080,7 +10775,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">9.63</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">9.27</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -12091,127 +10786,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="even">
-<td align="left">railway.train.railway.vehicle</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.39</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.27</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">4.72</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">5.38</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="odd">
-<td align="left">tract</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.41</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.52</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">2.22</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.15</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">truck</td>
 <td align="left">8.03</td>
 <td align="left">8.01</td>
@@ -12271,71 +10846,11 @@ summary {
 <td align="left">335.66</td>
 <td align="left">0.83</td>
 </tr>
-<tr class="odd">
-<td align="left">unk</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.58</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.62</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">6.97</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">8.17</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="even">
 <td align="left">unknown</td>
 <td align="left">0.00</td>
 <td align="left">10.01</td>
-<td align="left">0.00</td>
+<td align="left">0.58</td>
 <td align="left">3.19</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -12362,7 +10877,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.62</td>
 <td align="left">8.07</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -12371,7 +10886,7 @@ summary {
 <td align="left">1.00</td>
 <td align="left">0.00</td>
 <td align="left">4.11</td>
-<td align="left">0.00</td>
+<td align="left">6.97</td>
 <td align="left">59.21</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -12380,7 +10895,7 @@ summary {
 <td align="left">4.99</td>
 <td align="left">0.00</td>
 <td align="left">1.02</td>
-<td align="left">0.00</td>
+<td align="left">8.17</td>
 <td align="left">72.48</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -12392,66 +10907,6 @@ summary {
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left">unspecified</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.19</td>
-<td align="left">0.00</td>
-<td align="left">0.17</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">5.22</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.01</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">10.09</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.02</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">10.27</td>
-<td align="left">0.00</td>
-<td align="left">7.02</td>
-<td align="left">0.00</td>
-<td align="left">7.79</td>
-<td align="left">0.00</td>
-<td align="left">1.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">52.96</td>
-<td align="left">0.00</td>
-<td align="left">20.31</td>
-<td align="left">0.00</td>
-<td align="left">7.96</td>
-<td align="left">0.00</td>
-<td align="left">3.03</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">68.45</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">NOV</td>
 <td align="left">3.00</td>
 <td align="left">6.00</td>
@@ -12511,7 +10966,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Total</td>
 <td align="left">18.02</td>
 <td align="left">42.16</td>
@@ -12639,66 +11094,6 @@ summary {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">?</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.28</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.08</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.27</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">9.76</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">10.38</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">bicycle</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -12758,124 +11153,64 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">bus</td>
 <td align="left">2.96</td>
 <td align="left">3.03</td>
-<td align="left">0.00</td>
+<td align="left">0.46</td>
 <td align="left">0.98</td>
 <td align="left">2.53</td>
 <td align="left">16.66</td>
-<td align="left">0.00</td>
+<td align="left">6.35</td>
 <td align="left">15.20</td>
 <td align="left">8.14</td>
-<td align="left">0.00</td>
+<td align="left">8.53</td>
 <td align="left">8.47</td>
-<td align="left">0.00</td>
+<td align="left">0.56</td>
 <td align="left">8.02</td>
 <td align="left">1.13</td>
 <td align="left">7.64</td>
-<td align="left">0.00</td>
+<td align="left">3.77</td>
 <td align="left">2.08</td>
 <td align="left">0.99</td>
-<td align="left">0.00</td>
+<td align="left">3.49</td>
 <td align="left">13.94</td>
-<td align="left">0.00</td>
+<td align="left">1.38</td>
 <td align="left">1.75</td>
 <td align="left">23.13</td>
 <td align="left">2.05</td>
-<td align="left">0.00</td>
+<td align="left">18.16</td>
 <td align="left">3.36</td>
 <td align="left">9.51</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">58.66</td>
-<td align="left">41.80</td>
-<td align="left">32.12</td>
-<td align="left">0.00</td>
-<td align="left">58.38</td>
-<td align="left">3.60</td>
-<td align="left">0.00</td>
-<td align="left">41.00</td>
-<td align="left">0.00</td>
-<td align="left">39.05</td>
-<td align="left">56.80</td>
-<td align="left">59.18</td>
-<td align="left">0.00</td>
-<td align="left">61.52</td>
-<td align="left">36.47</td>
-<td align="left">0.00</td>
-<td align="left">59.03</td>
-<td align="left">0.00</td>
-<td align="left">111.42</td>
-<td align="left">125.40</td>
-<td align="left">117.65</td>
-<td align="left">0.00</td>
-<td align="left">143.58</td>
-<td align="left">58.71</td>
-<td align="left">0.00</td>
-<td align="left">122.45</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
-<td align="left">bus_driver</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.46</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">6.35</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">8.53</td>
-<td align="left">0.00</td>
-<td align="left">0.56</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.77</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.49</td>
-<td align="left">0.00</td>
-<td align="left">1.38</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">18.16</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
 <td align="left">18.87</td>
 <td align="left">0.00</td>
 <td align="left">2.23</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">58.66</td>
+<td align="left">41.80</td>
+<td align="left">32.12</td>
 <td align="left">55.61</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">58.38</td>
+<td align="left">3.60</td>
 <td align="left">55.53</td>
-<td align="left">0.00</td>
+<td align="left">41.00</td>
 <td align="left">13.55</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">39.05</td>
+<td align="left">56.80</td>
+<td align="left">59.18</td>
 <td align="left">75.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">61.52</td>
+<td align="left">36.47</td>
 <td align="left">67.60</td>
-<td align="left">0.00</td>
+<td align="left">59.03</td>
 <td align="left">18.17</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">111.42</td>
+<td align="left">125.40</td>
+<td align="left">117.65</td>
 <td align="left">158.89</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">143.58</td>
+<td align="left">58.71</td>
 <td align="left">154.03</td>
-<td align="left">0.00</td>
+<td align="left">122.45</td>
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
@@ -12939,66 +11274,6 @@ summary {
 <td align="left">0.14</td>
 </tr>
 <tr class="even">
-<td align="left">listed_na</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">57.67</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">51.98</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">57.67</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">51.98</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="odd">
 <td align="left">mini</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -13058,7 +11333,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">motorcycle</td>
 <td align="left">0.00</td>
 <td align="left">1.92</td>
@@ -13118,66 +11393,6 @@ summary {
 <td align="left">312.58</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
-<td align="left">non.motor.vehicle</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.63</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.27</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.86</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.90</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.86</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="even">
 <td align="left">other</td>
 <td align="left">0.00</td>
@@ -13193,49 +11408,49 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.38</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.54</td>
 <td align="left">0.00</td>
-<td align="left">0.23</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.25</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.45</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.63</td>
 <td align="left">0.00</td>
 <td align="left">0.60</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.54</td>
 <td align="left">0.00</td>
-<td align="left">0.45</td>
+<td align="left">2.44</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">4.98</td>
 <td align="left">0.00</td>
 <td align="left">0.41</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.37</td>
+<td align="left">0.86</td>
+<td align="left">3.51</td>
 <td align="left">0.00</td>
-<td align="left">0.77</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">6.24</td>
 <td align="left">0.00</td>
 <td align="left">1.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.91</td>
-<td align="left">0.00</td>
+<td align="left">0.86</td>
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
@@ -13299,70 +11514,10 @@ summary {
 <td align="left">0.00</td>
 </tr>
 <tr class="even">
-<td align="left">picku</td>
+<td align="left">pickup</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.28</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.23</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.98</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">6.68</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">8.17</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="odd">
-<td align="left">pickup/light goods</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -13380,7 +11535,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.37</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.23</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -13389,7 +11544,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">1.38</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.98</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -13398,7 +11553,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">8.71</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">6.68</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -13407,7 +11562,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">8.63</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">8.17</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -13418,127 +11573,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="even">
-<td align="left">railway.train.railway.vehicle</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.38</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.25</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">4.71</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">5.34</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="odd">
-<td align="left">tract</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.31</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.45</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.99</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">2.74</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">truck</td>
 <td align="left">7.39</td>
 <td align="left">7.31</td>
@@ -13598,71 +11633,11 @@ summary {
 <td align="left">265.78</td>
 <td align="left">0.84</td>
 </tr>
-<tr class="odd">
-<td align="left">unk</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.46</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.53</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">6.23</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">7.23</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="even">
 <td align="left">unknown</td>
 <td align="left">0.00</td>
 <td align="left">9.14</td>
-<td align="left">0.00</td>
+<td align="left">0.46</td>
 <td align="left">2.77</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -13689,7 +11664,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.53</td>
 <td align="left">7.45</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -13698,7 +11673,7 @@ summary {
 <td align="left">0.91</td>
 <td align="left">0.00</td>
 <td align="left">3.31</td>
-<td align="left">0.00</td>
+<td align="left">6.23</td>
 <td align="left">55.35</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -13707,7 +11682,7 @@ summary {
 <td align="left">4.74</td>
 <td align="left">0.00</td>
 <td align="left">0.86</td>
-<td align="left">0.00</td>
+<td align="left">7.23</td>
 <td align="left">67.21</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -13719,66 +11694,6 @@ summary {
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left">unspecified</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">2.77</td>
-<td align="left">0.00</td>
-<td align="left">0.16</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.34</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.76</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">9.32</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.88</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">8.28</td>
-<td align="left">0.00</td>
-<td align="left">6.57</td>
-<td align="left">0.00</td>
-<td align="left">7.30</td>
-<td align="left">0.00</td>
-<td align="left">0.91</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">44.70</td>
-<td align="left">0.00</td>
-<td align="left">18.65</td>
-<td align="left">0.00</td>
-<td align="left">7.46</td>
-<td align="left">0.00</td>
-<td align="left">2.56</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">56.32</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">NOV</td>
 <td align="left">2.95</td>
 <td align="left">5.95</td>
@@ -13838,7 +11753,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Total</td>
 <td align="left">16.74</td>
 <td align="left">37.99</td>
@@ -13966,66 +11881,6 @@ summary {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">?</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.22</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.09</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.17</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">9.04</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">9.52</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">bicycle</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -14085,124 +11940,64 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">bus</td>
 <td align="left">3.01</td>
 <td align="left">2.67</td>
-<td align="left">0.00</td>
+<td align="left">0.36</td>
 <td align="left">1.00</td>
 <td align="left">2.35</td>
 <td align="left">15.40</td>
-<td align="left">0.00</td>
+<td align="left">6.02</td>
 <td align="left">13.46</td>
 <td align="left">7.95</td>
-<td align="left">0.00</td>
+<td align="left">7.62</td>
 <td align="left">8.33</td>
-<td align="left">0.00</td>
+<td align="left">0.52</td>
 <td align="left">8.01</td>
 <td align="left">1.11</td>
 <td align="left">7.55</td>
-<td align="left">0.00</td>
+<td align="left">3.94</td>
 <td align="left">1.78</td>
 <td align="left">0.98</td>
-<td align="left">0.00</td>
+<td align="left">3.22</td>
 <td align="left">12.89</td>
-<td align="left">0.00</td>
+<td align="left">1.53</td>
 <td align="left">2.00</td>
 <td align="left">23.39</td>
 <td align="left">2.33</td>
-<td align="left">0.00</td>
+<td align="left">18.57</td>
 <td align="left">3.69</td>
 <td align="left">10.13</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">57.70</td>
-<td align="left">27.99</td>
-<td align="left">16.94</td>
-<td align="left">0.00</td>
-<td align="left">66.66</td>
-<td align="left">2.33</td>
-<td align="left">0.00</td>
-<td align="left">48.82</td>
-<td align="left">0.00</td>
-<td align="left">39.08</td>
-<td align="left">53.70</td>
-<td align="left">57.52</td>
-<td align="left">0.00</td>
-<td align="left">52.78</td>
-<td align="left">35.16</td>
-<td align="left">0.00</td>
-<td align="left">58.39</td>
-<td align="left">0.00</td>
-<td align="left">110.81</td>
-<td align="left">108.54</td>
-<td align="left">99.75</td>
-<td align="left">0.00</td>
-<td align="left">141.04</td>
-<td align="left">56.55</td>
-<td align="left">0.00</td>
-<td align="left">128.42</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
-<td align="left">bus_driver</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.36</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">6.02</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">7.62</td>
-<td align="left">0.00</td>
-<td align="left">0.52</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.94</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.22</td>
-<td align="left">0.00</td>
-<td align="left">1.53</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">18.57</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
 <td align="left">15.45</td>
 <td align="left">0.00</td>
 <td align="left">1.42</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">57.70</td>
+<td align="left">27.99</td>
+<td align="left">16.94</td>
 <td align="left">65.68</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">66.66</td>
+<td align="left">2.33</td>
 <td align="left">31.76</td>
-<td align="left">0.00</td>
+<td align="left">48.82</td>
 <td align="left">12.56</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">39.08</td>
+<td align="left">53.70</td>
+<td align="left">57.52</td>
 <td align="left">67.33</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">52.78</td>
+<td align="left">35.16</td>
 <td align="left">59.45</td>
-<td align="left">0.00</td>
+<td align="left">58.39</td>
 <td align="left">16.40</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">110.81</td>
+<td align="left">108.54</td>
+<td align="left">99.75</td>
 <td align="left">161.54</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">141.04</td>
+<td align="left">56.55</td>
 <td align="left">117.51</td>
-<td align="left">0.00</td>
+<td align="left">128.42</td>
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
@@ -14266,66 +12061,6 @@ summary {
 <td align="left">0.16</td>
 </tr>
 <tr class="even">
-<td align="left">listed_na</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">51.78</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">45.72</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">51.78</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">45.72</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="odd">
 <td align="left">mini</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -14385,7 +12120,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">motorcycle</td>
 <td align="left">0.00</td>
 <td align="left">2.04</td>
@@ -14445,66 +12180,6 @@ summary {
 <td align="left">432.08</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
-<td align="left">non.motor.vehicle</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.40</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.24</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.99</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.64</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.99</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="even">
 <td align="left">other</td>
 <td align="left">0.00</td>
@@ -14520,49 +12195,49 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.35</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.60</td>
 <td align="left">0.00</td>
-<td align="left">0.26</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.24</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.28</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.40</td>
 <td align="left">0.00</td>
 <td align="left">0.70</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.31</td>
 <td align="left">0.00</td>
-<td align="left">0.42</td>
+<td align="left">2.26</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">4.42</td>
 <td align="left">0.00</td>
 <td align="left">0.37</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.32</td>
+<td align="left">0.99</td>
+<td align="left">3.22</td>
 <td align="left">0.00</td>
-<td align="left">0.75</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">5.41</td>
 <td align="left">0.00</td>
 <td align="left">1.07</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.63</td>
-<td align="left">0.00</td>
+<td align="left">0.99</td>
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
@@ -14626,70 +12301,10 @@ summary {
 <td align="left">0.00</td>
 </tr>
 <tr class="even">
-<td align="left">picku</td>
+<td align="left">pickup</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.22</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.26</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.63</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">6.20</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">7.30</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="odd">
-<td align="left">pickup/light goods</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -14707,7 +12322,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.34</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.26</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -14716,7 +12331,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">1.13</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.63</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -14725,7 +12340,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">4.98</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">6.20</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -14734,7 +12349,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">7.59</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">7.30</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -14745,127 +12360,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="even">
-<td align="left">railway.train.railway.vehicle</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.35</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.24</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">4.18</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">4.77</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="odd">
-<td align="left">tract</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.34</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.28</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.84</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">2.47</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">truck</td>
 <td align="left">8.00</td>
 <td align="left">7.48</td>
@@ -14925,71 +12420,11 @@ summary {
 <td align="left">338.18</td>
 <td align="left">0.84</td>
 </tr>
-<tr class="odd">
-<td align="left">unk</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.36</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.34</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">5.78</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">6.48</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="even">
 <td align="left">unknown</td>
 <td align="left">0.00</td>
 <td align="left">9.35</td>
-<td align="left">0.00</td>
+<td align="left">0.36</td>
 <td align="left">3.01</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -15016,7 +12451,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.34</td>
 <td align="left">7.81</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -15025,7 +12460,7 @@ summary {
 <td align="left">0.57</td>
 <td align="left">0.00</td>
 <td align="left">4.57</td>
-<td align="left">0.00</td>
+<td align="left">5.78</td>
 <td align="left">59.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -15034,7 +12469,7 @@ summary {
 <td align="left">4.44</td>
 <td align="left">0.00</td>
 <td align="left">0.99</td>
-<td align="left">0.00</td>
+<td align="left">6.48</td>
 <td align="left">71.81</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -15046,66 +12481,6 @@ summary {
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left">unspecified</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.01</td>
-<td align="left">0.00</td>
-<td align="left">0.13</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.81</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.97</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">9.76</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.17</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">11.43</td>
-<td align="left">0.00</td>
-<td align="left">7.00</td>
-<td align="left">0.00</td>
-<td align="left">6.49</td>
-<td align="left">0.00</td>
-<td align="left">0.91</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">51.26</td>
-<td align="left">0.00</td>
-<td align="left">19.77</td>
-<td align="left">0.00</td>
-<td align="left">6.62</td>
-<td align="left">0.00</td>
-<td align="left">3.04</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">66.50</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">NOV</td>
 <td align="left">3.01</td>
 <td align="left">5.67</td>
@@ -15165,7 +12540,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Total</td>
 <td align="left">18.03</td>
 <td align="left">39.20</td>
@@ -15293,66 +12668,6 @@ summary {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">?</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.31</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.10</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.30</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">10.76</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">11.47</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">bicycle</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -15412,124 +12727,64 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">bus</td>
 <td align="left">2.48</td>
 <td align="left">2.51</td>
-<td align="left">0.00</td>
+<td align="left">0.51</td>
 <td align="left">0.82</td>
 <td align="left">2.15</td>
 <td align="left">16.85</td>
-<td align="left">0.00</td>
+<td align="left">6.35</td>
 <td align="left">12.62</td>
 <td align="left">8.31</td>
-<td align="left">0.00</td>
+<td align="left">9.62</td>
 <td align="left">7.93</td>
-<td align="left">0.00</td>
+<td align="left">0.54</td>
 <td align="left">5.08</td>
 <td align="left">0.75</td>
 <td align="left">7.42</td>
-<td align="left">0.00</td>
+<td align="left">3.53</td>
 <td align="left">1.39</td>
 <td align="left">0.90</td>
-<td align="left">0.00</td>
+<td align="left">3.74</td>
 <td align="left">10.56</td>
-<td align="left">0.00</td>
+<td align="left">1.81</td>
 <td align="left">1.63</td>
 <td align="left">20.70</td>
 <td align="left">2.38</td>
-<td align="left">0.00</td>
+<td align="left">19.12</td>
 <td align="left">3.40</td>
 <td align="left">10.15</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">48.77</td>
-<td align="left">35.94</td>
-<td align="left">31.47</td>
-<td align="left">0.00</td>
-<td align="left">50.97</td>
-<td align="left">3.62</td>
-<td align="left">0.00</td>
-<td align="left">38.69</td>
-<td align="left">0.00</td>
-<td align="left">26.47</td>
-<td align="left">44.64</td>
-<td align="left">60.75</td>
-<td align="left">0.00</td>
-<td align="left">45.22</td>
-<td align="left">33.97</td>
-<td align="left">0.00</td>
-<td align="left">51.58</td>
-<td align="left">0.00</td>
-<td align="left">85.24</td>
-<td align="left">104.17</td>
-<td align="left">118.88</td>
-<td align="left">0.00</td>
-<td align="left">116.11</td>
-<td align="left">56.95</td>
-<td align="left">0.00</td>
-<td align="left">108.76</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
-<td align="left">bus_driver</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.51</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">6.35</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">9.62</td>
-<td align="left">0.00</td>
-<td align="left">0.54</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.53</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.74</td>
-<td align="left">0.00</td>
-<td align="left">1.81</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">19.12</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
 <td align="left">19.24</td>
 <td align="left">0.00</td>
 <td align="left">2.49</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">48.77</td>
+<td align="left">35.94</td>
+<td align="left">31.47</td>
 <td align="left">55.60</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">50.97</td>
+<td align="left">3.62</td>
 <td align="left">61.32</td>
-<td align="left">0.00</td>
+<td align="left">38.69</td>
 <td align="left">14.95</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">26.47</td>
+<td align="left">44.64</td>
+<td align="left">60.75</td>
 <td align="left">74.58</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">45.22</td>
+<td align="left">33.97</td>
 <td align="left">73.79</td>
-<td align="left">0.00</td>
+<td align="left">51.58</td>
 <td align="left">20.30</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">85.24</td>
+<td align="left">104.17</td>
+<td align="left">118.88</td>
 <td align="left">159.17</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">116.11</td>
+<td align="left">56.95</td>
 <td align="left">167.71</td>
-<td align="left">0.00</td>
+<td align="left">108.76</td>
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
@@ -15593,66 +12848,6 @@ summary {
 <td align="left">0.17</td>
 </tr>
 <tr class="even">
-<td align="left">listed_na</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">57.36</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">56.75</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">57.36</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">56.75</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="odd">
 <td align="left">mini</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -15712,7 +12907,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">motorcycle</td>
 <td align="left">0.00</td>
 <td align="left">2.02</td>
@@ -15772,66 +12967,6 @@ summary {
 <td align="left">352.26</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
-<td align="left">non.motor.vehicle</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.67</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.26</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.93</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.93</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.93</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="even">
 <td align="left">other</td>
 <td align="left">0.00</td>
@@ -15847,49 +12982,49 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.31</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
+<td align="left">0.70</td>
 <td align="left">0.00</td>
-<td align="left">0.30</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.28</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.60</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.60</td>
 <td align="left">0.00</td>
 <td align="left">0.50</td>
 <td align="left">0.00</td>
+<td align="left">0.67</td>
 <td align="left">0.00</td>
+<td align="left">0.60</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.60</td>
+<td align="left">0.00</td>
+<td align="left">2.69</td>
+<td align="left">0.00</td>
+<td align="left">4.82</td>
 <td align="left">0.00</td>
 <td align="left">0.41</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.40</td>
+<td align="left">0.93</td>
+<td align="left">3.99</td>
 <td align="left">0.00</td>
-<td align="left">0.90</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.00</td>
-<td align="left">0.00</td>
+<td align="left">6.08</td>
 <td align="left">0.00</td>
 <td align="left">1.00</td>
 <td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">1.00</td>
+<td align="left">0.93</td>
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
@@ -15953,70 +13088,10 @@ summary {
 <td align="left">0.00</td>
 </tr>
 <tr class="even">
-<td align="left">picku</td>
+<td align="left">pickup</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.31</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.30</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.10</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">7.38</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">9.08</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="odd">
-<td align="left">pickup/light goods</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -16034,7 +13109,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.39</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.30</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -16043,7 +13118,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">1.40</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">1.10</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -16052,7 +13127,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">9.62</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">7.38</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -16061,7 +13136,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">9.42</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">9.08</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -16072,127 +13147,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="even">
-<td align="left">railway.train.railway.vehicle</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.31</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.28</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">4.56</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">5.15</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="odd">
-<td align="left">tract</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.40</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.50</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">2.19</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.09</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">truck</td>
 <td align="left">8.21</td>
 <td align="left">7.89</td>
@@ -16252,71 +13207,11 @@ summary {
 <td align="left">304.16</td>
 <td align="left">0.83</td>
 </tr>
-<tr class="odd">
-<td align="left">unk</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.51</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.60</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">6.88</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">7.99</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-</tr>
 <tr class="even">
 <td align="left">unknown</td>
 <td align="left">0.00</td>
 <td align="left">9.86</td>
-<td align="left">0.00</td>
+<td align="left">0.51</td>
 <td align="left">3.05</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -16343,7 +13238,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
-<td align="left">0.00</td>
+<td align="left">0.60</td>
 <td align="left">8.20</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -16352,7 +13247,7 @@ summary {
 <td align="left">1.02</td>
 <td align="left">0.00</td>
 <td align="left">3.86</td>
-<td align="left">0.00</td>
+<td align="left">6.88</td>
 <td align="left">49.69</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -16361,7 +13256,7 @@ summary {
 <td align="left">4.91</td>
 <td align="left">0.00</td>
 <td align="left">0.93</td>
-<td align="left">0.00</td>
+<td align="left">7.99</td>
 <td align="left">62.96</td>
 <td align="left">0.00</td>
 <td align="left">0.00</td>
@@ -16373,66 +13268,6 @@ summary {
 <td align="left">0.00</td>
 </tr>
 <tr class="odd">
-<td align="left">unspecified</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.05</td>
-<td align="left">0.00</td>
-<td align="left">0.17</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">3.87</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">10.26</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">1.00</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">9.65</td>
-<td align="left">0.00</td>
-<td align="left">5.89</td>
-<td align="left">0.00</td>
-<td align="left">7.90</td>
-<td align="left">0.00</td>
-<td align="left">0.87</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">48.25</td>
-<td align="left">0.00</td>
-<td align="left">19.20</td>
-<td align="left">0.00</td>
-<td align="left">8.07</td>
-<td align="left">0.00</td>
-<td align="left">2.88</td>
-<td align="left">0.00</td>
-<td align="left">0.00</td>
-<td align="left">61.76</td>
-<td align="left">0.00</td>
-</tr>
-<tr class="even">
 <td align="left">NOV</td>
 <td align="left">3.12</td>
 <td align="left">6.00</td>
@@ -16492,7 +13327,7 @@ summary {
 <td align="left">0.00</td>
 <td align="left">0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Total</td>
 <td align="left">18.06</td>
 <td align="left">41.50</td>
@@ -16555,1594 +13390,13 @@ summary {
 </tbody>
 </table>
 </div>
-<div id="test-dt" class="section level3">
-<h3>Test DT</h3>
-<pre><code>This version of Shiny is designed to work with &#39;htmlwidgets&#39; &gt;= 1.5.
-    Please upgrade via install.packages(&#39;htmlwidgets&#39;).</code></pre>
-<div id="htmlwidget-fdcc49b6e271ae8ec3a8" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fdcc49b6e271ae8ec3a8">{"x":{"filter":"none","extensions":["Buttons"],"data":[["?","bicycle","bus","bus_driver","car","listed_na","mini","motorcycle","non.motor.vehicle","other","pedestrian","picku","pickup/light goods","railway.train.railway.vehicle","tract","truck","unk","unknown","unspecified","NOV","Total"],[0,0,2.48,0,4.25,0,0,0,0,0,0,0,0,0,0,8.21,0,0,0,3.12,18.06],[0,0,2.51,0,13.23,0,0,2.02,0,0,0,0,0,0,0,7.89,0,9.86,0,6,41.5],[0.31,0,0,0.51,4.69,0,2.35,0.41,0,0.1,0,0.31,0,0,0,2.45,0.51,0,0,0,11.65],[0,0,0.82,0,7.36,0,0,3.2,0,0,0,0,0,0,0,4.06,0,3.05,3.05,0,21.54],[0,0,2.15,0,4.5,0,0,1.94,0,0,0,0,0,0,0,0,0,0,0,8.95,17.53],[0,0.51,16.85,0,15.8,0,0,2.7,0,0,0.8,0,0,0,0,5.56,0,0,0.17,0,42.38],[0,5.4,0,6.35,6.82,0,0,1.4,0,0,0,0,0.4,0,0,2.78,0,0,0,1.4,24.55],[0,0,12.62,0,35.86,0,0,8.15,0,0,0,0,0,0,0,24.82,0,29.78,0,0,111.22],[0,0,8.31,0,9.14,0,0,0.26,0,0,0,0,0,0,0,6.45,0,0.26,0,2.83,27.25],[0,8.44,0,9.62,9.84,0,0,2.01,0,0,0,0,0.6,0,0,4.21,0,0,0,1.81,36.53],[0,0,7.93,0,12.26,0,0,13.34,0,0,0,0,0,0,0,28.02,0,3.87,3.87,0,69.28],[0,0.09,0,0.54,0.55,0,0.45,0,0,0,0,0,0,0,0,2.17,0,0,0,2.43,6.24],[0,0,5.08,0,0,0,0,0,0,0,0,0,0,0,0,3.15,0,0,0,4.78,13.01],[0,0,0.75,0,0.48,0,0,0,0,0,0,0,0,0.31,0,0,0,0,0,3.04,4.58],[0,0,7.42,0,0.33,0,0,0,0,0,0.34,0,0,0,0,0,0,0,0,0,8.09],[0,0,0,3.53,1.5,0,0,1.31,0,0,0,0,0.37,0,0,0.37,0,0,0,0.37,7.45],[0,0,1.39,0,1.7,0,0,0.84,0,0,0,0,0,0,0,0.82,0,0,0,2.5,7.26],[0,0,0.9,0,0.97,0,0,0,0,0,0,0,0,0,0,0.24,0,0,0,2.85,4.96],[0,0,0,3.74,1.58,0,0,1.38,0,0,0,0,0.39,0,0,0.39,0,0,0,0.39,7.89],[0,0,10.56,0,0,0,0,0,0,0,0,0,0,0,0,0.83,0,0,0,0,11.39],[0.1,0,0,1.81,5.23,0,1.31,0.71,0,0.3,0.92,0.3,0,0,0.4,7.23,0,0,0,9.01,27.31],[0,0,1.63,0,1.05,0,0,3.18,0,0,0,0,0,0,0,7.08,0,2.02,0,9.2,24.16],[0,0,20.7,0,22.58,0,0,0.91,0,0,0,0,0,0.28,0,0,0,0,0,63.84,108.3],[0,0,2.38,0,16.55,0,0,0.28,0,0,0,0,0,0,0,0.82,0,0,0,0,20.02],[0,0,0,19.12,45.68,0,0,3.21,0,0,0,0,1.39,0,0,11.15,0,0,0,72.69,153.25],[0,0,3.4,0,21.72,0,0,2.06,0,0,0,0,0,0,0,21.04,0,16.03,1,32.54,97.77],[0,0,10.15,0,20.13,0,0,0.26,0,0,0.75,0,0,0,0,6.63,0,0,0,33.02,70.93],[0,0,0,19.24,45.59,0,0,3.22,0,0,0,0,1.4,0,0,11.22,0,0,0,72.79,153.46],[0,0,0,0,21.34,0,0,0,0,0,0,0,0,0,0,12.49,0,0,0,0,33.83],[0.3,0,0,2.49,9.86,0,4.68,1.01,0,0,1.01,1.1,0,0,0.5,5.78,0.6,0,0,3.32,30.64],[0,1.07,48.77,0,49.87,0,0,46.3,0,0,2.65,0,0,0,0,104.61,0,8.2,10.26,30.09,301.81],[0,0.24,35.94,0,47.95,0,0,7.23,0.67,0,1.99,0,0,0,0,0,0,0,0,58.33,152.35],[0,1.57,31.47,0,47.03,0,0,36.14,0,0,3.05,0,0,0,0,18.76,0,0,0,0,138.03],[0,0.2,0,55.6,98.33,0,0,89.2,0,0.6,0,0,8.54,0,0,52.42,0,0,0,70.8,375.68],[0,0,50.97,0,145.93,0,0,25.71,0,0,0,0,0,0,0,139.36,0,259.67,1,58.01,680.65],[0,0.26,3.62,0,13.91,0,0,0.77,0,0,0,0,0,0,0,7.64,0,1.02,0,15.21,42.42],[0,0.2,0,61.32,107.66,0,0,96.41,0,0.6,0,0,9.62,0,0,62.32,0,0,0,74.67,412.81],[0,0,38.69,0,57.13,0,0,154.68,0,0,0,0,0,0,0,151.47,0,3.86,9.65,0,415.48],[10.76,0.41,0,14.95,65.33,0,18.94,7.46,0,0.5,0,7.38,0,0,2.19,15.75,6.88,0,0,0.3,150.85],[0,0,26.47,0,75.8,0,0,105.21,0,0,0,0,0,0,0,52.21,0,49.69,5.89,0,315.28],[0,1.87,44.64,0,70.61,0,0,60.3,0.26,0,0,0,0,4.56,0,0,0,0,0,0,182.24],[0,2.67,60.75,0,108.34,0,0,81.71,0,0,0,0,0,0,0,13.46,0,0,7.9,0,274.83],[0,0.61,0,74.58,151.17,57.36,0,60.63,0,0.41,0,0,9.53,0,0,30.6,0,0,0,2.25,387.13],[0,0,45.22,0,180.62,0,0,73.59,0,0,0,0,0,0,0,83.11,0,372.7,0.87,0,756.12],[0,0,33.97,0,49.97,0,0,3.23,0,0,0,0,0,0,0,15.97,0,4.91,0,3.91,111.96],[0,0.6,0,73.79,148.33,56.75,0,59.82,0,0.4,0,0,9.42,0,0,30.28,0,0,0,2.21,381.59],[0,0,51.58,0,96.16,0,0,184.24,0.93,0,0,0,0,0,0,111.35,0,0.93,48.25,0,493.44],[11.47,0.51,0,20.3,85.67,0,27.72,9.59,0,0.9,1.93,9.08,0,0,3.09,33.37,7.99,0,0,15.07,226.68],[0,1.07,85.24,0,138.33,0,0,157.9,0,0,2.65,0,0,0,0,179.32,0,62.96,19.2,47.19,693.85],[0,2.11,104.17,0,146.12,0,0,70.37,0.93,0,1.99,0,0,5.15,0,0,0,0,0,134.16,465.01],[0,4.76,118.88,0,188.21,0,0,120.83,0,0,4.18,0,0,0,0,39.43,0,0,8.07,0,484.35],[0,6.21,0,159.17,303.51,57.36,0,155.75,0,1,0,0,20.23,0,0,97.32,0,0,0,147.52,948.07],[0,0,116.11,0,399.06,0,0,112.36,0,0,0,0,0,0,0,277.03,0,688.04,2.88,99.06,1694.53],[0,0.26,56.95,0,94.11,0,0,4.51,0,0,0.75,0,0,0,0,36.94,0,6.19,0,57.82,257.53],[0,9.24,0,167.71,313.01,56.75,0,162.85,0,1,0,0,21.44,0,0,108.42,0,0,0,151.87,992.29],[0,0,108.76,0,186.9,0,0,352.26,0.93,0,0,0,0,0,0,304.16,0,8.65,61.76,0,1023.42],[0,0,0,0,0.17,0,0,0,0,0,0,0,0,0,0,0.83,0,0,0,0,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>mode<\/th>\n      <th>auto_rickshaw_bangalore<\/th>\n      <th>auto_rickshaw_delhi<\/th>\n      <th>bicycle_accra<\/th>\n      <th>bicycle_bangalore<\/th>\n      <th>bicycle_belo_horizonte<\/th>\n      <th>bicycle_bogota<\/th>\n      <th>bicycle_cape_town<\/th>\n      <th>bicycle_delhi<\/th>\n      <th>bicycle_santiago<\/th>\n      <th>bicycle_sao_paulo<\/th>\n      <th>bicycle_vizag<\/th>\n      <th>bus_accra<\/th>\n      <th>bus_bangalore<\/th>\n      <th>bus_belo_horizonte<\/th>\n      <th>bus_bogota<\/th>\n      <th>bus_cape_town<\/th>\n      <th>bus_delhi<\/th>\n      <th>bus_santiago<\/th>\n      <th>bus_sao_paulo<\/th>\n      <th>bus_vizag<\/th>\n      <th>car_accra<\/th>\n      <th>car_bangalore<\/th>\n      <th>car_belo_horizonte<\/th>\n      <th>car_bogota<\/th>\n      <th>car_cape_town<\/th>\n      <th>car_delhi<\/th>\n      <th>car_santiago<\/th>\n      <th>car_sao_paulo<\/th>\n      <th>car_vizag<\/th>\n      <th>motorcycle_accra<\/th>\n      <th>motorcycle_bangalore<\/th>\n      <th>motorcycle_belo_horizonte<\/th>\n      <th>motorcycle_bogota<\/th>\n      <th>motorcycle_cape_town<\/th>\n      <th>motorcycle_delhi<\/th>\n      <th>motorcycle_santiago<\/th>\n      <th>motorcycle_sao_paulo<\/th>\n      <th>motorcycle_vizag<\/th>\n      <th>pedestrian_accra<\/th>\n      <th>pedestrian_bangalore<\/th>\n      <th>pedestrian_belo_horizonte<\/th>\n      <th>pedestrian_bogota<\/th>\n      <th>pedestrian_cape_town<\/th>\n      <th>pedestrian_delhi<\/th>\n      <th>pedestrian_santiago<\/th>\n      <th>pedestrian_sao_paulo<\/th>\n      <th>pedestrian_vizag<\/th>\n      <th>rowSum_accra<\/th>\n      <th>rowSum_bangalore<\/th>\n      <th>rowSum_belo_horizonte<\/th>\n      <th>rowSum_bogota<\/th>\n      <th>rowSum_cape_town<\/th>\n      <th>rowSum_delhi<\/th>\n      <th>rowSum_santiago<\/th>\n      <th>rowSum_sao_paulo<\/th>\n      <th>rowSum_vizag<\/th>\n      <th>truck_bogota<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Bfrtip","buttons":["colvis",{"extend":"collection","buttons":[{"extend":"csv","filename":"whw"},{"extend":"excel","filename":"whw"}],"text":"Download"}],"scrollX":true,"pageLength":21,"order":[[2,"desc"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57]}],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,21,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-<p>No Other Vehicle matrix for baseline for each case study</p>
+<div id="whw_all" class="section level3">
+<h3>DT - Who hit whom matrix for all case cities</h3>
+<div id="baseline" class="section level4">
+<h4>Baseline</h4>
+<div id="htmlwidget-ef635df87c9523236627" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ef635df87c9523236627">{"x":{"filter":"none","extensions":["Buttons"],"data":[["bicycle","bus","car","mini","motorcycle","other","pedestrian","pickup","truck","unknown","NOV","Total"],[" 0"," 3"," 4"," 0"," 0"," 0"," 0"," 0"," 8"," 0"," 3","18"],[" 0"," 3","13"," 0"," 2"," 0"," 0"," 0"," 8","10"," 6","42"],[" 0.0"," 0.5"," 4.5"," 2.3"," 0.4"," 0.1"," 0.0"," 0.3"," 2.4"," 0.5"," 0.0","11.3"],[" 0"," 1"," 7"," 0"," 3"," 0"," 0"," 0"," 4"," 3"," 0","21"],[" 0.00"," 2.52"," 4.07"," 0.00"," 1.73"," 0.00"," 0.00"," 0.00"," 0.00"," 0.00"," 8.51","16.83"],[" 0.50","16.94","15.61"," 0.00"," 2.67"," 0.00"," 0.78"," 0.00"," 5.50"," 0.00"," 0.00","42.17"],[" 5.4"," 6.4"," 6.8"," 0.0"," 1.4"," 0.0"," 0.0"," 0.4"," 2.8"," 0.0"," 1.4","24.6"],["  0"," 15"," 35","  0","  8","  0","  0","  0"," 25"," 30","  0","113"],[" 0.00"," 8.50"," 8.75"," 0.00"," 0.25"," 0.00"," 0.00"," 0.00"," 6.25"," 0.25"," 2.75","26.75"],[" 8.4"," 9.6"," 9.8"," 0.0"," 2.0"," 0.0"," 0.0"," 0.6"," 4.2"," 0.0"," 1.8","36.4"],[" 0"," 9","12"," 0","13"," 0"," 0"," 0","29"," 4"," 0","71"],["0.1","0.6","0.6","0.5","0.0","0.0","0.0","0.0","2.4","0.0","2.7","6.9"],[" 0"," 8"," 0"," 0"," 0"," 0"," 0"," 0"," 4"," 0"," 6","18"],["0.00","1.13","0.57","0.00","0.00","0.38","0.00","0.00","0.00","0.00","3.74","5.83"],["0.00","7.66","0.33","0.00","0.00","0.00","0.34","0.00","0.00","0.00","0.00","8.33"],["0.0","3.8","1.6","0.0","1.4","0.0","0.0","0.4","0.4","0.0","0.4","8.0"],["0","2","2","0","1","0","0","0","1","0","3","9"],["0.00","1.00","1.00","0.00","0.00","0.00","0.00","0.00","0.25","0.00","3.00","5.25"],["0.0","3.8","1.6","0.0","1.4","0.0","0.0","0.4","0.4","0.0","0.4","8.0"],[" 0","14"," 0"," 0"," 0"," 0"," 0"," 0"," 1"," 0"," 0","15"],[" 0.0"," 1.8"," 5.1"," 1.3"," 0.7"," 0.7"," 0.9"," 0.3"," 7.2"," 0.0"," 8.9","27.0"],[" 0"," 2"," 1"," 0"," 3"," 0"," 0"," 0"," 7"," 2"," 9","24"],["  0.00"," 24.25"," 20.43","  0.00","  0.82","  0.27","  0.00","  0.00","  0.00","  0.00"," 60.73","106.50"],[" 0.00"," 2.41","16.50"," 0.00"," 0.28"," 0.00"," 0.00"," 0.00"," 0.81"," 0.00"," 0.00","20.00"],["  0.0"," 19.2"," 45.4","  0.0","  3.2","  0.0","  0.0","  1.4"," 11.2","  0.0"," 72.6","153.0"],[" 0"," 4","21"," 0"," 2"," 0"," 0"," 0","21","16","32","97"],[" 0.00","10.50","19.50"," 0.00"," 0.25"," 0.00"," 0.75"," 0.00"," 6.50"," 0.00","32.50","70.00"],["  0.0"," 19.2"," 45.4","  0.0","  3.2","  0.0","  0.0","  1.4"," 11.2","  0.0"," 72.6","153.0"],[" 0"," 0","21"," 0"," 0"," 0"," 0"," 0","13"," 0"," 0","34"],[" 0.0"," 2.5"," 9.7"," 4.7"," 1.0"," 0.5"," 1.0"," 1.1"," 5.8"," 0.6"," 3.3","30.5"],["  1"," 59"," 47","  0"," 43","  0","  3","  0","102","  8"," 29","302"],["  0.22"," 41.65"," 42.93","  0.00","  6.40","  0.63","  1.92","  0.00","  0.00","  0.00"," 54.90","148.65"],["  1.56"," 31.89"," 46.85","  0.00"," 35.98","  0.00","  3.00","  0.00"," 18.72","  0.00","  0.00","138.00"],["  0.2"," 56.0"," 98.0","  0.0"," 89.2","  0.6","  0.0","  8.6"," 52.8","  0.0"," 70.8","376.2"],["  0"," 60","141","  0"," 25","  0","  0","  0","139","259"," 57","682"],[" 0.25"," 3.75","13.50"," 0.00"," 0.75"," 0.00"," 0.00"," 0.00"," 7.50"," 1.00","15.00","41.75"],["  0.2"," 61.2","107.2","  0.0"," 95.8","  0.6","  0.0","  9.6"," 62.2","  0.0"," 74.6","411.4"],["  0"," 44"," 56","  0","151","  0","  0","  0","157","  4","  0","422"],["  0.4"," 15.0"," 64.2"," 19.0","  7.4","  2.7","  0.0","  7.4"," 15.8","  6.9","  0.3","149.9"],["  0"," 39"," 87","  0","119","  0","  0","  0"," 62"," 59","  0","373"],["  1.82"," 56.20"," 68.68","  0.00"," 58.02","  4.95","  0.00","  0.00","  0.00","  0.00","  0.00","189.67"],["  2.61"," 60.91","106.77","  0.00"," 80.47","  0.00","  0.00","  0.00"," 13.28","  0.00","  0.00","271.83"],["  0.6"," 73.6","147.6","  0.0"," 59.4","  0.4","  0.0","  9.4"," 30.2","  0.0","  2.2","380.0"],["  0"," 61","200","  0"," 82","  0","  0","  0"," 95","426","  0","865"],["  0.00"," 36.50"," 50.25","  0.00","  3.25","  0.00","  0.00","  0.00"," 16.25","  5.00","  4.00","115.25"],["  0.6"," 73.6","147.6","  0.0"," 59.4","  0.4","  0.0","  9.4"," 30.2","  0.0","  2.2","380.0"],["  0"," 61"," 98","  0","187","  1","  0","  0","120","  1","  0","520"],["  0.5"," 20.4"," 84.1"," 27.8","  9.5","  4.0","  1.9","  9.1"," 33.6","  8.0"," 15.2","225.6"],["  1","112","146","  0","168","  0","  3","  0","187"," 72"," 47","756"],["  2.03","125.75","136.68","  0.00"," 66.97","  6.23","  1.92","  0.00","  0.00","  0.00","127.89","467.47"],["  4.67","119.82","186.22","  0.00","119.40","  0.00","  4.12","  0.00"," 39.15","  0.00","  0.00","481.33"],["  6.2","159.0","299.4","  0.0","154.6","  1.0","  0.0"," 20.2"," 97.4","  0.0","147.4","941.8"],["   0"," 145"," 412","   0"," 120","   0","   0","   0"," 289"," 741","  98","1808"],["  0.25"," 60.25"," 93.00","  0.00","  4.50","  0.00","  0.75","  0.00"," 36.75","  6.25"," 57.25","259.00"],["  9.2","167.4","311.6","  0.0","161.8","  1.0","  0.0"," 21.4","108.2","  0.0","151.6","988.8"],["   0"," 128"," 187","   0"," 351","   1","   0","   0"," 320","   9","   0","1062"],["0.00","0.00","0.17","0.00","0.00","0.00","0.00","0.00","0.83","0.00","0.00","1.00"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>mode<\/th>\n      <th>auto_rickshaw_bangalore<\/th>\n      <th>auto_rickshaw_delhi<\/th>\n      <th>bicycle_accra<\/th>\n      <th>bicycle_bangalore<\/th>\n      <th>bicycle_belo_horizonte<\/th>\n      <th>bicycle_bogota<\/th>\n      <th>bicycle_cape_town<\/th>\n      <th>bicycle_delhi<\/th>\n      <th>bicycle_santiago<\/th>\n      <th>bicycle_sao_paulo<\/th>\n      <th>bicycle_vizag<\/th>\n      <th>bus_accra<\/th>\n      <th>bus_bangalore<\/th>\n      <th>bus_belo_horizonte<\/th>\n      <th>bus_bogota<\/th>\n      <th>bus_cape_town<\/th>\n      <th>bus_delhi<\/th>\n      <th>bus_santiago<\/th>\n      <th>bus_sao_paulo<\/th>\n      <th>bus_vizag<\/th>\n      <th>car_accra<\/th>\n      <th>car_bangalore<\/th>\n      <th>car_belo_horizonte<\/th>\n      <th>car_bogota<\/th>\n      <th>car_cape_town<\/th>\n      <th>car_delhi<\/th>\n      <th>car_santiago<\/th>\n      <th>car_sao_paulo<\/th>\n      <th>car_vizag<\/th>\n      <th>motorcycle_accra<\/th>\n      <th>motorcycle_bangalore<\/th>\n      <th>motorcycle_belo_horizonte<\/th>\n      <th>motorcycle_bogota<\/th>\n      <th>motorcycle_cape_town<\/th>\n      <th>motorcycle_delhi<\/th>\n      <th>motorcycle_santiago<\/th>\n      <th>motorcycle_sao_paulo<\/th>\n      <th>motorcycle_vizag<\/th>\n      <th>pedestrian_accra<\/th>\n      <th>pedestrian_bangalore<\/th>\n      <th>pedestrian_belo_horizonte<\/th>\n      <th>pedestrian_bogota<\/th>\n      <th>pedestrian_cape_town<\/th>\n      <th>pedestrian_delhi<\/th>\n      <th>pedestrian_santiago<\/th>\n      <th>pedestrian_sao_paulo<\/th>\n      <th>pedestrian_vizag<\/th>\n      <th>rowSum_accra<\/th>\n      <th>rowSum_bangalore<\/th>\n      <th>rowSum_belo_horizonte<\/th>\n      <th>rowSum_bogota<\/th>\n      <th>rowSum_cape_town<\/th>\n      <th>rowSum_delhi<\/th>\n      <th>rowSum_santiago<\/th>\n      <th>rowSum_sao_paulo<\/th>\n      <th>rowSum_vizag<\/th>\n      <th>truck_bogota<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Bfrtip","buttons":["colvis",{"extend":"collection","buttons":[{"extend":"csv","filename":"whw Baseline"},{"extend":"excel","filename":"whw Baseline"}],"text":"Download"}],"scrollX":true,"pageLength":12,"order":[[2,"desc"]],"columnDefs":[{"visible":false,"targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57]}],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,12,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="nov_baseline" class="section level3">
-<h3>No Other Vehicle matrix for baseline</h3>
-<table>
-<caption>NOV Baseline matrix for accra</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">9</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 1 matrix for accra</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">9</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 2 matrix for accra</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">9</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 3 matrix for accra</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">7</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 4 matrix for accra</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">9</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 5 matrix for accra</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">9</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Baseline matrix for sao_paulo</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>car</td>
-<td align="left">73</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">75</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td>bus</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 1 matrix for sao_paulo</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>car</td>
-<td align="left">95</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">93</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td>bus</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 2 matrix for sao_paulo</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>car</td>
-<td align="left">73</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">74</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td>bus</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 3 matrix for sao_paulo</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>car</td>
-<td align="left">74</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">70</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td>bus</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 4 matrix for sao_paulo</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>car</td>
-<td align="left">65</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">48</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td>bus</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 5 matrix for sao_paulo</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>car</td>
-<td align="left">73</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">75</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td>bus</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Baseline matrix for delhi</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">57</td>
-</tr>
-<tr class="even">
-<td>auto_rickshaw</td>
-<td align="left">6</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">32</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 1 matrix for delhi</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">72</td>
-</tr>
-<tr class="even">
-<td>auto_rickshaw</td>
-<td align="left">6</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">37</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 2 matrix for delhi</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">58</td>
-</tr>
-<tr class="even">
-<td>auto_rickshaw</td>
-<td align="left">6</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">32</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 3 matrix for delhi</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">54</td>
-</tr>
-<tr class="even">
-<td>auto_rickshaw</td>
-<td align="left">6</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">26</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 4 matrix for delhi</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">67</td>
-</tr>
-<tr class="even">
-<td>auto_rickshaw</td>
-<td align="left">6</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">31</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 5 matrix for delhi</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">58</td>
-</tr>
-<tr class="even">
-<td>auto_rickshaw</td>
-<td align="left">6</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">33</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Baseline matrix for bangalore</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">29</td>
-</tr>
-<tr class="even">
-<td>auto_rickshaw</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">9</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">6</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 1 matrix for bangalore</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">31</td>
-</tr>
-<tr class="even">
-<td>auto_rickshaw</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">9</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">6</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 2 matrix for bangalore</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">29</td>
-</tr>
-<tr class="even">
-<td>auto_rickshaw</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">9</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">6</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 3 matrix for bangalore</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">29</td>
-</tr>
-<tr class="even">
-<td>auto_rickshaw</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">8</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">6</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 4 matrix for bangalore</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">28</td>
-</tr>
-<tr class="even">
-<td>auto_rickshaw</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">9</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">6</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 5 matrix for bangalore</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">30</td>
-</tr>
-<tr class="even">
-<td>auto_rickshaw</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">9</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">5</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Baseline matrix for santiago</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">33</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">15</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">4</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 1 matrix for santiago</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">35</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">16</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">5</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 2 matrix for santiago</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">33</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">15</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">4</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 3 matrix for santiago</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">30</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">14</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">4</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 4 matrix for santiago</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">32</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">9</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">4</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 5 matrix for santiago</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">33</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">15</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">4</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Baseline matrix for belo_horizonte</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">9</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">55</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">61</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">4</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 1 matrix for belo_horizonte</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">10</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">60</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">67</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">4</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 2 matrix for belo_horizonte</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">11</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">54</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">61</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">4</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 3 matrix for belo_horizonte</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">9</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">55</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">58</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">4</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 4 matrix for belo_horizonte</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">8</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">37</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">59</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">4</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 5 matrix for belo_horizonte</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">9</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">58</td>
-</tr>
-<tr class="odd">
-<td>car</td>
-<td align="left">64</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">3</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Baseline matrix for buenos_aires</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">41</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">366</td>
-</tr>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">130</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">14</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">638</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 1 matrix for buenos_aires</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">45</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">389</td>
-</tr>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">142</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">14</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">725</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 2 matrix for buenos_aires</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">54</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">367</td>
-</tr>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">130</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">14</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">639</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 3 matrix for buenos_aires</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">41</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">335</td>
-</tr>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">132</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">14</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">635</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 4 matrix for buenos_aires</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">38</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">361</td>
-</tr>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">80</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">14</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">628</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 5 matrix for buenos_aires</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">41</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">366</td>
-</tr>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">130</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">14</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">631</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Baseline matrix for mexico_city</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">41</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">366</td>
-</tr>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">130</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">14</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">638</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 1 matrix for mexico_city</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">45</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">383</td>
-</tr>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">139</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">14</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">766</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 2 matrix for mexico_city</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">45</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">368</td>
-</tr>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">132</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">14</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">636</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 3 matrix for mexico_city</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">41</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">296</td>
-</tr>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">136</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">14</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">631</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 4 matrix for mexico_city</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">39</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">355</td>
-</tr>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">76</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">14</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">625</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 5 matrix for mexico_city</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">41</td>
-</tr>
-<tr class="even">
-<td>car</td>
-<td align="left">367</td>
-</tr>
-<tr class="odd">
-<td>motorcycle</td>
-<td align="left">130</td>
-</tr>
-<tr class="even">
-<td>bus</td>
-<td align="left">14</td>
-</tr>
-<tr class="odd">
-<td>pedestrian</td>
-<td align="left">643</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Baseline matrix for cape_town</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>car</td>
-<td align="left">73</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">71</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td>bus</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 1 matrix for cape_town</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>car</td>
-<td align="left">80</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">72</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td>bus</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 2 matrix for cape_town</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>car</td>
-<td align="left">74</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">73</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td>bus</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 3 matrix for cape_town</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>car</td>
-<td align="left">68</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">71</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td>bus</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 4 matrix for cape_town</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>car</td>
-<td align="left">69</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">58</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td>bus</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>NOV Scenario 5 matrix for cape_town</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>car</td>
-<td align="left">73</td>
-</tr>
-<tr class="even">
-<td>motorcycle</td>
-<td align="left">71</td>
-</tr>
-<tr class="odd">
-<td>bicycle</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td>pedestrian</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td>bus</td>
-<td align="left">0</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 <div id="total" class="section level2">
@@ -21016,17 +16270,17 @@ Attaching package: &#39;tibble&#39;</code></pre>
 </tr>
 <tr class="odd">
 <td align="left">walking</td>
-<td align="right">44.5</td>
+<td align="right">22.3</td>
 <td align="right">148</td>
-<td align="right">43.8</td>
+<td align="right">21.9</td>
 <td align="right">154</td>
-<td align="right">49.9</td>
+<td align="right">25.0</td>
 <td align="right">150</td>
-<td align="right">57.0</td>
+<td align="right">28.5</td>
 <td align="right">127</td>
-<td align="right">52.8</td>
+<td align="right">26.4</td>
 <td align="right">127</td>
-<td align="right">48.4</td>
+<td align="right">24.2</td>
 <td align="right">149</td>
 </tr>
 </tbody>
@@ -21114,17 +16368,17 @@ Attaching package: &#39;tibble&#39;</code></pre>
 </tr>
 <tr class="odd">
 <td align="left">walking</td>
-<td align="right">59.3</td>
+<td align="right">29.6</td>
 <td align="right">380</td>
-<td align="right">29.4</td>
+<td align="right">14.7</td>
 <td align="right">568</td>
-<td align="right">63.3</td>
+<td align="right">31.7</td>
 <td align="right">386</td>
-<td align="right">63.8</td>
+<td align="right">31.9</td>
 <td align="right">354</td>
-<td align="right">65.2</td>
+<td align="right">32.6</td>
 <td align="right">294</td>
-<td align="right">59.8</td>
+<td align="right">29.9</td>
 <td align="right">381</td>
 </tr>
 </tbody>
@@ -21227,17 +16481,17 @@ Attaching package: &#39;tibble&#39;</code></pre>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">196.9</td>
+<td align="right">98.5</td>
 <td align="right">865</td>
-<td align="right">86.7</td>
+<td align="right">43.3</td>
 <td align="right">1101</td>
-<td align="right">203.3</td>
+<td align="right">101.7</td>
 <td align="right">870</td>
-<td align="right">242.7</td>
+<td align="right">121.3</td>
 <td align="right">781</td>
-<td align="right">190.3</td>
+<td align="right">95.1</td>
 <td align="right">787</td>
-<td align="right">187.0</td>
+<td align="right">93.5</td>
 <td align="right">757</td>
 </tr>
 </tbody>
@@ -21340,17 +16594,17 @@ Attaching package: &#39;tibble&#39;</code></pre>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">100.4</td>
+<td align="right">50.2</td>
 <td align="right">373</td>
-<td align="right">65.8</td>
+<td align="right">32.9</td>
 <td align="right">426</td>
-<td align="right">103.6</td>
+<td align="right">51.8</td>
 <td align="right">373</td>
-<td align="right">140.5</td>
+<td align="right">70.3</td>
 <td align="right">353</td>
-<td align="right">101.9</td>
+<td align="right">51.0</td>
 <td align="right">372</td>
-<td align="right">99.6</td>
+<td align="right">49.8</td>
 <td align="right">315</td>
 </tr>
 </tbody>
@@ -21438,17 +16692,17 @@ Attaching package: &#39;tibble&#39;</code></pre>
 </tr>
 <tr class="odd">
 <td align="left">walking</td>
-<td align="right">74.2</td>
+<td align="right">37.1</td>
 <td align="right">114</td>
-<td align="right">33.8</td>
+<td align="right">16.9</td>
 <td align="right">160</td>
-<td align="right">77.2</td>
+<td align="right">38.6</td>
 <td align="right">115</td>
-<td align="right">82.6</td>
+<td align="right">41.3</td>
 <td align="right">109</td>
-<td align="right">88.0</td>
+<td align="right">44.0</td>
 <td align="right">107</td>
-<td align="right">82.0</td>
+<td align="right">41.0</td>
 <td align="right">112</td>
 </tr>
 </tbody>
@@ -21536,17 +16790,17 @@ Attaching package: &#39;tibble&#39;</code></pre>
 </tr>
 <tr class="odd">
 <td align="left">walking</td>
-<td align="right">76.8</td>
+<td align="right">38.4</td>
 <td align="right">190</td>
-<td align="right">50.8</td>
+<td align="right">25.4</td>
 <td align="right">257</td>
-<td align="right">82.0</td>
+<td align="right">41.0</td>
 <td align="right">189</td>
-<td align="right">85.9</td>
+<td align="right">42.9</td>
 <td align="right">189</td>
-<td align="right">83.0</td>
+<td align="right">41.5</td>
 <td align="right">162</td>
-<td align="right">91.6</td>
+<td align="right">45.8</td>
 <td align="right">183</td>
 </tr>
 </tbody>
@@ -21815,17 +17069,17 @@ Attaching package: &#39;tibble&#39;</code></pre>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">127.2</td>
+<td align="right">63.6</td>
 <td align="right">272</td>
-<td align="right">94.8</td>
+<td align="right">47.4</td>
 <td align="right">316</td>
-<td align="right">127.2</td>
+<td align="right">63.6</td>
 <td align="right">272</td>
-<td align="right">161.4</td>
+<td align="right">80.7</td>
 <td align="right">249</td>
-<td align="right">133.7</td>
+<td align="right">66.9</td>
 <td align="right">219</td>
-<td align="right">133.7</td>
+<td align="right">66.8</td>
 <td align="right">275</td>
 </tr>
 </tbody>
@@ -21913,17 +17167,17 @@ Attaching package: &#39;tibble&#39;</code></pre>
 </tr>
 <tr class="odd">
 <td align="left">walking</td>
-<td align="right">28.8</td>
+<td align="right">14.4</td>
 <td align="right">380</td>
-<td align="right">18.1</td>
+<td align="right">9.0</td>
 <td align="right">478</td>
-<td align="right">31.3</td>
+<td align="right">15.7</td>
 <td align="right">390</td>
-<td align="right">30.4</td>
+<td align="right">15.2</td>
 <td align="right">381</td>
-<td align="right">37.6</td>
+<td align="right">18.8</td>
 <td align="right">357</td>
-<td align="right">30.3</td>
+<td align="right">15.2</td>
 <td align="right">388</td>
 </tr>
 </tbody>
@@ -22011,17 +17265,17 @@ Attaching package: &#39;tibble&#39;</code></pre>
 </tr>
 <tr class="odd">
 <td align="left">walking</td>
-<td align="right">882.4</td>
+<td align="right">441.2</td>
 <td align="right">520</td>
-<td align="right">469.9</td>
+<td align="right">234.9</td>
 <td align="right">751</td>
-<td align="right">911.1</td>
+<td align="right">455.6</td>
 <td align="right">521</td>
-<td align="right">1093.3</td>
+<td align="right">546.7</td>
 <td align="right">440</td>
-<td align="right">919.4</td>
+<td align="right">459.7</td>
 <td align="right">536</td>
-<td align="right">880.2</td>
+<td align="right">440.1</td>
 <td align="right">493</td>
 </tr>
 </tbody>
@@ -22381,72 +17635,72 @@ Attaching package: &#39;tibble&#39;</code></pre>
 </tr>
 <tr class="odd">
 <td align="left">walking</td>
-<td align="left">44.5</td>
-<td align="left">100.4</td>
-<td align="left">76.8</td>
-<td align="left">127.2</td>
+<td align="left">22.3</td>
+<td align="left">50.2</td>
+<td align="left">38.4</td>
+<td align="left">63.6</td>
 <td align="left">NA</td>
-<td align="left">28.8</td>
-<td align="left">196.9</td>
+<td align="left">14.4</td>
+<td align="left">98.5</td>
 <td align="left">NA</td>
-<td align="left">74.2</td>
-<td align="left">59.3</td>
-<td align="left">882.4</td>
-<td align="left">43.8</td>
-<td align="left">65.8</td>
-<td align="left">50.8</td>
-<td align="left">94.8</td>
+<td align="left">37.1</td>
+<td align="left">29.6</td>
+<td align="left">441.2</td>
+<td align="left">21.9</td>
+<td align="left">32.9</td>
+<td align="left">25.4</td>
+<td align="left">47.4</td>
 <td align="left">NA</td>
-<td align="left">18.1</td>
-<td align="left">86.7</td>
+<td align="left">9.0</td>
+<td align="left">43.3</td>
 <td align="left">NA</td>
-<td align="left">33.8</td>
-<td align="left">29.4</td>
-<td align="left">469.9</td>
-<td align="left">49.9</td>
-<td align="left">103.6</td>
-<td align="left">82.0</td>
-<td align="left">127.2</td>
+<td align="left">16.9</td>
+<td align="left">14.7</td>
+<td align="left">234.9</td>
+<td align="left">25.0</td>
+<td align="left">51.8</td>
+<td align="left">41.0</td>
+<td align="left">63.6</td>
 <td align="left">NA</td>
-<td align="left">31.3</td>
-<td align="left">203.3</td>
+<td align="left">15.7</td>
+<td align="left">101.7</td>
 <td align="left">NA</td>
-<td align="left">77.2</td>
-<td align="left">63.3</td>
-<td align="left">911.1</td>
-<td align="left">57.0</td>
-<td align="left">140.5</td>
-<td align="left">85.9</td>
-<td align="left">161.4</td>
+<td align="left">38.6</td>
+<td align="left">31.7</td>
+<td align="left">455.6</td>
+<td align="left">28.5</td>
+<td align="left">70.3</td>
+<td align="left">42.9</td>
+<td align="left">80.7</td>
 <td align="left">NA</td>
-<td align="left">30.4</td>
-<td align="left">242.7</td>
+<td align="left">15.2</td>
+<td align="left">121.3</td>
 <td align="left">NA</td>
-<td align="left">82.6</td>
-<td align="left">63.8</td>
-<td align="left">1093.3</td>
-<td align="left">52.8</td>
-<td align="left">101.9</td>
-<td align="left">83.0</td>
-<td align="left">133.7</td>
+<td align="left">41.3</td>
+<td align="left">31.9</td>
+<td align="left">546.7</td>
+<td align="left">26.4</td>
+<td align="left">51.0</td>
+<td align="left">41.5</td>
+<td align="left">66.9</td>
 <td align="left">NA</td>
-<td align="left">37.6</td>
-<td align="left">190.3</td>
+<td align="left">18.8</td>
+<td align="left">95.1</td>
 <td align="left">NA</td>
-<td align="left">88.0</td>
-<td align="left">65.2</td>
-<td align="left">919.4</td>
-<td align="left">48.4</td>
-<td align="left">99.6</td>
-<td align="left">91.6</td>
-<td align="left">133.7</td>
+<td align="left">44.0</td>
+<td align="left">32.6</td>
+<td align="left">459.7</td>
+<td align="left">24.2</td>
+<td align="left">49.8</td>
+<td align="left">45.8</td>
+<td align="left">66.8</td>
 <td align="left">NA</td>
-<td align="left">30.3</td>
-<td align="left">187.0</td>
+<td align="left">15.2</td>
+<td align="left">93.5</td>
 <td align="left">NA</td>
-<td align="left">82.0</td>
-<td align="left">59.8</td>
-<td align="left">880.2</td>
+<td align="left">41.0</td>
+<td align="left">29.9</td>
+<td align="left">440.1</td>
 </tr>
 <tr class="even">
 <td align="left">auto_rickshaw</td>
