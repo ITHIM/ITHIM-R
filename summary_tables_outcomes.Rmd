@@ -195,7 +195,7 @@ for (cs in names(all_whw)){
    
    td <- td %>% mutate_if(is.numeric, round, 2)
    
-   readr::write_csv(td, paste0('results/multi_city/whw_', cs, '.csv'))
+   readr::write_csv(td, paste0('results/multi_city/whw_matrices/whw_', cs, '.csv'))
    
    st[[cs]] <- format(td, scientific = F)
   
