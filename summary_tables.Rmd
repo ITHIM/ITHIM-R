@@ -1,7 +1,10 @@
 ---
 title: "Summary Tables"
-output: html_document
 date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    theme: united
 ---
 
 ```{r setup, include=FALSE}
@@ -248,6 +251,21 @@ for (city in cities){
 }
 
 ```
+
+
+## True Distance by total population
+### Tables
+
+```{r trip_dist_mode_figs = "asis"}
+
+for (city in cities){
+  
+  df <- io[[city]]$true_dist
+  print(kable(df, caption = paste("True distance by mode for  ", city)))
+}
+
+```
+
 
 <!-- ### Figures -->
 
