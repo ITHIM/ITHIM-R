@@ -160,13 +160,44 @@ for(city in cities){
 
 ```{r whw_for_all_cs}
 
+st <- list()
+
+td <- NULL
+
 for (cs in names(all_whw)){
+  # cs <- 'Baseline'
   
   td <- all_whw[[cs]] %>% purrr::reduce(full_join, by = "mode") %>% as.data.frame() %>% dplyr::select(mode, sort(names(.)))
   
-  td <- rbind(td %>% dplyr::filter(!mode %in% c("Total", "NOV")) %>% arrange(mode), td %>% filter(mode == 'NOV'), td %>% filter(mode == 'Total'))
-  
    td[is.na(td)] <- 0
+   
+   unk <- td %>% filter(mode %in% c('unknown', 'unk')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'unknown')
+   
+   unsp <- td %>% filter(mode %in% c('unspecified', 'listed_na', '?')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'unspecified')
+   
+   other <- unsp <- td %>% filter(mode %in% c('other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'other')
+   
+   pu <- td %>% filter(mode %in% c('picku', 'pickup/light goods')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'pickup')
+   
+   bus <- td %>% filter(mode %in% c('bus', 'bus_driver')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'bus')
+   
+   td <- td %>% filter(!mode %in% c('bus', 'bus_driver', 'unknown', 'unk', 'unspecified', 'listed_na', '?', 
+                                  'other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle',
+                                  'picku', 'pickup/light goods'))
+   
+   td <- plyr::rbind.fill(td, bus, unk, unsp, other, pu)
+   
+   td <- (td[!duplicated(td), ])
+   
+   td <- rbind(td %>% dplyr::filter(!mode %in% c("Total", "NOV")) %>% arrange(mode), td %>% filter(mode == 'NOV'), td %>% filter(mode == 'Total'))
+   
+   td[is.na(td)] <- 0
+   
+   td <- td %>% mutate_if(is.numeric, round, 2)
+   
+   readr::write_csv(td, paste0('results/multi_city/whw_', cs, '.csv'))
+   
+   st[[cs]] <- format(td, scientific = F)
   
   print(kable(format(td, scientific = F), caption = paste('Who Hit Whom (WHW) for all case cities for ', cs)))
   
@@ -174,29 +205,42 @@ for (cs in names(all_whw)){
 
 ```
 
-### Test DT
+### DT - Who hit whom matrix for all case cities {#whw_all}
+
+#### Baseline
 
 ```{r dt}
 
-fname <- "whw"
+#for (cs in names(all_whw)){
+td <- NULL
+
+cs <- 'Baseline'
+
+fname <- paste("whw", cs)
+
+td <- st[[cs]]
 
 DT::datatable(td, 
-                  extensions = 'Buttons',
-                  escape = FALSE,
-                  rownames = FALSE,
-                  options = list(dom = 'Bfrtip',
-                                 buttons = 
-                                   list('colvis', list(
-                                     extend = 'collection',
-                                     buttons = list(list(extend='csv',
-                                                         filename = fname),
-                                                    list(extend='excel',
-                                                         filename = fname)),
-                                     text = 'Download'
-                                   )),
-                                 scrollX = TRUE,
-                                 pageLength = nrow(td),
-                                 order=list(list(2,'desc'))))
+              extensions = 'Buttons',
+              escape = FALSE,
+              rownames = FALSE,
+              options = list(dom = 'Bfrtip',
+                             buttons = 
+                               list('colvis', list(
+                                 extend = 'collection',
+                                 buttons = list(list(extend='csv',
+                                                     filename = fname),
+                                                list(extend='excel',
+                                                     filename = fname)),
+                                 text = 'Download'
+                               )),
+                             scrollX = TRUE,
+                             pageLength = nrow(td),
+                             order=list(list(2,'desc')),
+                             columnDefs = list(list(visible=FALSE, targets=c(1:(ncol(td) - 1))))))
+
+# }
+
 ```
 
 
