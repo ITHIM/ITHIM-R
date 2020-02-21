@@ -206,8 +206,7 @@ for (cs in names(all_whw)){
 ```
 
 ### DT - Who hit whom matrix for all case cities {#whw_all}
-
-#### Baseline
+Baseline
 
 ```{r dt}
 
