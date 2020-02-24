@@ -158,7 +158,7 @@ for(city in cities){
       td3 <- td3 %>% janitor::adorn_totals("row")
       td3[, 2:ncol(td3)] <- round(td3[, 2:ncol(td3)], 2)
       
-      var <- scen_lt %>% filter(scen_name == cs) %>% select(val) %>% as.character()
+      var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
         
       print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', var, ' matrix for ', city)))
       cat("\n")
@@ -215,8 +215,6 @@ for (cs in names(all_whw)){
    td <- td %>% mutate_if(is.numeric, round, 2)
    
    #var <- scen_lt %>% filter(scen_name == cs) %>% select(val) %>% as.character()
-   
-   #print(var)
    
    readr::write_csv(td, paste0('results/multi_city/whw_matrices/whw_', cs, '.csv'))
    
