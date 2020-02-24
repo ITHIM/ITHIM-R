@@ -33,4 +33,4 @@ head(injuries)
 unique(injuries$cas_mode)
 unique(injuries$strike_mode)
 injury_file <- 'injuries_vizag.csv'
-write.csv(injuries,paste0('inst/extdata/local/vizag/',injury_file))
+readr::write_csv(injuries, paste0('inst/extdata/local/vizag/', injury_file))
