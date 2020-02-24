@@ -43,7 +43,7 @@ get_all_distances <- function(ithim_object){
   # get average total distances by sex and age cat
   journeys <- trip_scen_sets %>% 
     group_by (age_cat,sex,stage_mode, scenario) %>% 
-    summarise(tot_dist = sum(stage_distance) / dplyr::n())
+    summarise(tot_dist = sum(stage_distance) / nrow(.))
   trip_scen_sets <- NULL
   
   # Add population values by sex and age category
