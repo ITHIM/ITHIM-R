@@ -262,6 +262,8 @@ for (city in cities){
   
   df <- io[[city]]$true_dist
   
+  names(df)[-1] <- lapply(append('baseline', rownames(scen_prop)), as.character)
+  
   readr::write_csv(df, paste0('results/multi_city/true_distances/true_distance_', city, '.csv'))
   
   print(kable(df, caption = paste("True distance by mode for  ", city)))
