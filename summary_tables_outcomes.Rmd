@@ -123,7 +123,7 @@ Who hit whom matrix for all scenarios for each case study
 
 ```{r whw}
 
-scen_names_w_baseline <- append('baseline', scen_names)
+scen_names_w_baseline <- c('bl', 'w_sc', 'bi_sc', 'car_sc', 'mc_sc', 'bus_sc')
 scen_lt <- data.frame("scen_name" = names(io$accra$outcomes$whw), "val" = scen_names_w_baseline, stringsAsFactors = FALSE)
 
 all_whw <- list()
@@ -236,7 +236,7 @@ td <- NULL
 
 cs <- 'Baseline'
 
-var <- scen_lt %>% filter(scen_name == cs) %>% select(val) %>% as.character()
+var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
 
 fname <- paste("whw_", var, ".csv")
 
@@ -412,9 +412,13 @@ for (city in cities){
       
       td4 <- left_join(td4, td3 %>% dplyr::select(mode, count) %>% rename(stage_mode = mode), by = 'stage_mode')
       
+      var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
+      
+      names(td4)[2] <- var
+      
       td5 <- td4
       
-      td4[, 2] <- round((td4[,3] / td4[,2] ) * 100000, 4)
+      td4[, 2] <- round((td4[,3] / ( td4[,2] )) * 100000, 4)
       # / sum(io[[city]]$demographic$population, na.rm = T)
       
       names(td4)[3] <- paste(names(td4)[2], names(td4)[3], sep = "_")
