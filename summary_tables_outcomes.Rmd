@@ -418,7 +418,7 @@ for (city in cities){
       
       td5 <- td4
       
-      td4[, 2] <- round((td4[,3] / ( td4[,2] )) * 100000, 4)
+      td4[, 2] <- round((td4[,3] / ( td4[,2] * 52)) * 100000, 4)
       # / sum(io[[city]]$demographic$population, na.rm = T)
       
       names(td4)[3] <- paste(names(td4)[2], names(td4)[3], sep = "_")
