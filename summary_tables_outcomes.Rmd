@@ -123,6 +123,9 @@ Who hit whom matrix for all scenarios for each case study
 
 ```{r whw}
 
+scen_names_w_baseline <- append('baseline', scen_names)
+scen_lt <- data.frame("scen_name" = names(io$accra$outcomes$whw), "val" = scen_names_w_baseline, stringsAsFactors = FALSE)
+
 all_whw <- list()
 
 for(city in cities){
@@ -154,14 +157,16 @@ for(city in cities){
       td3 <- td3 %>% mutate(rowSum = rowSums(.[2:ncol(td3)], na.rm = T))
       td3 <- td3 %>% janitor::adorn_totals("row")
       td3[, 2:ncol(td3)] <- round(td3[, 2:ncol(td3)], 2)
+      
+      var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
         
-      print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', cs, ' matrix for ', city)))
+      print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', var, ' matrix for ', city)))
       cat("\n")
       
       td <- td3
       names(td)[2:ncol(td)] <- paste(names(td)[2:ncol(td)], city, sep = "_")
     
-      all_whw[[cs]][[city]] <- td
+      all_whw[[var]][[city]] <- td
     }
 
   }
@@ -209,6 +214,8 @@ for (cs in names(all_whw)){
    
    td <- td %>% mutate_if(is.numeric, round, 2)
    
+   #var <- scen_lt %>% filter(scen_name == cs) %>% select(val) %>% as.character()
+   
    readr::write_csv(td, paste0('results/multi_city/whw_matrices/whw_', cs, '.csv'))
    
    st[[cs]] <- format(td, scientific = F)
@@ -229,9 +236,11 @@ td <- NULL
 
 cs <- 'Baseline'
 
-fname <- paste("whw", cs)
+var <- scen_lt %>% filter(scen_name == cs) %>% select(val) %>% as.character()
 
-td <- st[[cs]]
+fname <- paste("whw_", var, ".csv")
+
+td <- st[[var]]
 
 DT::datatable(td, 
               extensions = 'Buttons',
@@ -378,17 +387,17 @@ for (city in cities){
     
     for (cs in names(io[[city]]$outcomes$whw)){
       # cs <- 'Baseline'
-      # city <- 'mexico_city'
+      # city <- 'vizag'
       if (length(names(io[[city]]$outcomes$whw$Baseline)) == 2){
       td1 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
       td2 <- colSums(round(io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
       td3 <- left_join(td2, td1, by = 'mode') %>% mutate(count = rowSums(.[2:3], na.rm = T))
       td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
       
-      }else if(names(io[[city]]$outcomes$whw$Baseline) == 'whw'){
+      }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'whw'){
         td3 <- colSums(round(io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
         td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
-      }else {
+      }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'nov'){
         
         td3 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
         td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
@@ -405,7 +414,8 @@ for (city in cities){
       
       td5 <- td4
       
-      td4[, 2] <- round((td4[,3] / td4[,2]) * 100000, 1)
+      td4[, 2] <- round((td4[,3] / td4[,2] ) * 100000, 4)
+      # / sum(io[[city]]$demographic$population, na.rm = T)
       
       names(td4)[3] <- paste(names(td4)[2], names(td4)[3], sep = "_")
       
