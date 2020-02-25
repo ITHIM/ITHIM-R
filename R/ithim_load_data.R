@@ -196,6 +196,31 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   injuries$strike_mode[injuries$strike_mode%in%nov_words] <- 'nov'
   ## add weight column if missing
   if(!'weight'%in%colnames(injuries)) injuries$weight <- 1
+  
+  ## AA - Hard-coded
+  ## INJURIES - Make all incidents of car, bus, motorcycle and bicycle with themselves, as NOV
+  ## 25-02-2020
+  
+  # Get all injuries with same casualty and strike mode for car, bus, motorcycle and bicycle
+  # Treat bus_driver same as bus for strike mode
+  same_cas_str_modes <- injuries %>% filter((cas_mode == 'car' & strike_mode == 'car') | 
+                                              (cas_mode == 'bus' & (strike_mode %in% c('bus', 'bus_driver'))) | 
+                                              (cas_mode == 'motorcycle' & strike_mode == 'motorcycle') | 
+                                              (cas_mode == 'bicycle' & strike_mode == 'bicycle'))
+  
+  # Filter all those with similar casualty and strike mode
+  injuries <- injuries %>% filter(!( (cas_mode == 'car' & strike_mode == 'car') | 
+                                       (cas_mode == 'bus' & (strike_mode %in% c('bus', 'bus_driver'))) | 
+                                       (cas_mode == 'motorcycle' & strike_mode == 'motorcycle') |
+                                       (cas_mode == 'bicycle' & strike_mode == 'bicycle')))
+  
+  # Mutate strike mode as NOV
+  same_cas_str_modes <- same_cas_str_modes %>% mutate(strike_mode = 'nov')
+  
+  # Re-add with NOV
+  injuries <- plyr::rbind.fill(injuries, same_cas_str_modes)
+  
+  # Call function to set tables for WHW and NOV
   set_injury_contingency(injuries)
   
   ## DESCRIPTION OF INJURIES (set_injury_contingency(injuries))
