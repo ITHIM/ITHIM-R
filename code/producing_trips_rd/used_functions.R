@@ -20,6 +20,8 @@ mode_speed <- data.frame(mode = c("bicycle","bus","car","metro", "motorcycle",
 
 ## trip_summary
 trip_summary <- data.frame(row.names =       c("Year of survey",
+                                               "Population_2014",
+                                               "GDP_capita_2014 ($)",
                                                "",
                                                "Number of households",
                                                "Number of individuals",
@@ -82,6 +84,8 @@ quality_check <- function(trip){
                                                             "other", "rickshaw", "taxi", "train", "truck", "van", "walk" ))
         
         year <- trip[1, "year"]
+        population2014 <- trip[1, "population2014"]
+        gdppc2014 <- trip[1, "gdppc2014"]
         
         total_household <-
             trip %>% 
@@ -259,6 +263,8 @@ quality_check <- function(trip){
         
         
         value <<- c(year,
+                    population2014,
+                    gdppc2014,
                     "",
                    total_household, 
                    total_participant,
