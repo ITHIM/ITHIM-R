@@ -26,43 +26,47 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 ```{r,  comment=NA, message=FALSE, warning=FALSE, prompt=FALSE, cache=FALSE, echo=F}
 trip <- read_csv("../../data/local/buenos_aires/buenos_aires_trip.csv")
 quality_check(trip)
-trip_summary$buenos_aires <- value
+trip_summary$Buenos_Aires <- value
 
 trip <- read_csv("../../data/local/sao_paulo/sao_paulo_trip.csv")
 quality_check(trip)
-trip_summary$sao_paulo <- value
+trip_summary$Sao_Paulo <- value
 
 trip <- read_csv("../../data/local/belo_horizonte/belo_horizonte_trip.csv")
 quality_check(trip)
-trip_summary$belo_horizonte <- value
-
-trip <- read_csv("../../data/local/santiago/santiago_trip.csv")
-quality_check(trip)
-trip_summary$santiago_city <- value
-
-trip <- read_csv("../../data/local/vizag/visakhapatnam_trip.csv")
-quality_check(trip)
-trip_summary$visakhapatnam <- value
-
-trip <- read_csv("../../data/local/accra/accra_trip.csv")
-quality_check(trip)
-trip_summary$accra_city <- value
-
-trip <- read_csv("../../data/local/delhi/delhi_trip.csv")
-quality_check(trip)
-trip_summary$delhi_city <- value
-
-trip <- read_csv("../../data/local/bangalore/bangalore_trip.csv")
-quality_check(trip)
-trip_summary$bangalore_city <- value
+trip_summary$Belo_Horizonte <- value
 
 trip <- read_csv("../../data/local/mexico/mexico_city_trip.csv")
 quality_check(trip)
-trip_summary$mexico_city <- value
+trip_summary$Mexico <- value
+
+trip <- read_csv("../../data/local/bogota/bogota_trip.csv")
+quality_check(trip)
+trip_summary$Bogota <- value
+
+trip <- read_csv("../../data/local/santiago/santiago_trip.csv")
+quality_check(trip)
+trip_summary$Santiago <- value
+
+trip <- read_csv("../../data/local/vizag/visakhapatnam_trip.csv")
+quality_check(trip)
+trip_summary$Visakhapatnam <- value
+
+trip <- read_csv("../../data/local/delhi/delhi_trip.csv")
+quality_check(trip)
+trip_summary$Delhi <- value
+
+trip <- read_csv("../../data/local/bangalore/bangalore_trip.csv")
+quality_check(trip)
+trip_summary$Bangalore <- value
+
+trip <- read_csv("../../data/local/accra/accra_trip.csv")
+quality_check(trip)
+trip_summary$Accra <- value
 
 trip <- read_csv("../../data/local/cape_town/cape_town_trip.csv")
 quality_check(trip)
-trip_summary$cape_town <- value
+trip_summary$Cape_Town <- value
 
 ```
 
