@@ -13,6 +13,7 @@ library(summarytools)
 library(dplyr)
 library(purrr)
 library(DT)
+library(ggplot2)
 knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis')
 
 ```
@@ -177,14 +178,16 @@ for(city in cities){
 
 ### Who hit whom matrix for all case cities {#whw_all}
 
-```{r whw_for_all_cs}
+```{r whw_for_all_cs, fig.width=7, fig.height=4, echo=FALSE}
 
 st <- list()
+
+file_list <- list()
 
 td <- NULL
 
 for (cs in names(all_whw)){
-  # cs <- 'Baseline'
+  # cs <- names(all_whw)[1]
   
   td <- all_whw[[cs]] %>% purrr::reduce(full_join, by = "mode") %>% as.data.frame() %>% dplyr::select(mode, sort(names(.)))
   
@@ -214,9 +217,61 @@ for (cs in names(all_whw)){
    
    td <- td %>% mutate_if(is.numeric, round, 2)
    
-   #var <- scen_lt %>% filter(scen_name == cs) %>% select(val) %>% as.character()
+   backup_td <- td
    
    readr::write_csv(td, paste0('results/multi_city/whw_matrices/whw_', cs, '.csv'))
+   
+   colnames(td) = gsub("auto_rickshaw", "ar", colnames(td))
+   
+   whw_lng <- reshape2::melt(td)
+   
+   col_split <- stringr::str_split(whw_lng$variable, "_", simplify = TRUE, n = 2)
+   
+   whw_lng <- cbind(whw_lng, col_split)
+   names(whw_lng)[4] <- 'strike_mode'
+   names(whw_lng)[5] <- 'city'
+   whw_lng <- whw_lng %>% dplyr::select(-variable)
+   whw_lng <- whw_lng %>% dplyr::filter(strike_mode != "rowSum")
+   whw_lng <- whw_lng %>% rename(str_mode = mode, cas_mode = strike_mode)
+   
+   whw_lng$str_mode <- factor(whw_lng$str_mode, levels = unique(whw_lng$str_mode))
+   
+   qualified_scen_name <- 'Bus'
+   scen <- 'Scenario'
+   
+   if (cs == 'bl'){
+     qualified_scen_name <- 'Baseline'
+     scen <- ''
+   }else if(cs == "w_sc"){
+     qualified_scen_name <- 'Walking'
+   }else if(cs == "bi_sc"){
+     qualified_scen_name <- 'Bicycle'
+   }else if(cs == "car_sc"){
+     qualified_scen_name <- 'Car'
+   }else if(cs == "mc_sc"){
+     qualified_scen_name <- 'Motorcyle'
+   }
+   
+   readr::write_csv(whw_lng, paste0('results/multi_city/whw_matrices/whw_lng_', cs, '.csv'))
+   
+   f <- ggplot(data = whw_lng) +
+     aes(x = str_mode, fill = cas_mode, weight = value) +
+     geom_bar(position = "stack") +
+     scale_fill_brewer(palette = "Dark2") +
+     labs(x = "Strike Mode", y = "# of incidents", title = paste("WHW - ", qualified_scen_name, scen)) +
+     coord_flip() +
+     facet_wrap(vars(city), scales = "free_y")
+   
+   file_list[[cs]] <- f
+   
+   
+   ggsave(f, file = paste0("results/multi_city/whw_matrices/plots/whw_", cs,".png"), limitsize = F, dpi = 300, scale = 1.5)
+   
+   d <- paste0("results/multi_city/whw_matrices/interactive_plots/whw_", cs,".html")
+   
+   htmlwidgets::saveWidget(plotly::ggplotly(f), file.path(normalizePath(dirname(d)), basename(d)))
+  #ggsave(f, file=paste0("results/multi_city/whw_matrices/whw_", cs,".png"), width = 14, height = 10, units = "cm")
+   
    
    st[[cs]] <- format(td, scientific = F)
   
