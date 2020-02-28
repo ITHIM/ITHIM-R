@@ -368,7 +368,7 @@ summary {
 
 
 <h1 class="title toc-ignore">Summary Tables</h1>
-<h4 class="date">27 February, 2020</h4>
+<h4 class="date">28 February, 2020</h4>
 
 </div>
 
@@ -378,6 +378,7 @@ summary {
 <li><a href="#case-study-specific-propensities">Case study specific propensities</a></li>
 <li><a href="#trip-proportion">Trip proportion</a></li>
 <li><a href="#distance-tables">Distance tables</a></li>
+<li><a href="#distance-tables-by-using-true-distance">Distance tables by using true distance</a></li>
 <li><a href="#distance-by-distance-category">Distance by distance category</a><ul>
 <li><a href="#tables">Tables</a></li>
 </ul></li>
@@ -4053,6 +4054,2142 @@ summary {
 </tbody>
 </table>
 </div>
+<div id="distance-tables-by-using-true-distance" class="section level2">
+<h2>Distance tables by using true distance</h2>
+<p>Case study specific distance tables for baseline and five scenarios</p>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (km) for accra ( 8169 ) per person</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">56.0</td>
+<td align="right">55.8</td>
+<td align="right">53.0</td>
+<td align="right">150.3</td>
+<td align="right">30.0</td>
+<td align="right">55.6</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">9.6</td>
+<td align="right">9.5</td>
+<td align="right">9.1</td>
+<td align="right">5.4</td>
+<td align="right">143.6</td>
+<td align="right">9.6</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">174.2</td>
+<td align="right">172.4</td>
+<td align="right">166.9</td>
+<td align="right">110.5</td>
+<td align="right">93.7</td>
+<td align="right">177.9</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">52.7</td>
+<td align="right">54.9</td>
+<td align="right">48.1</td>
+<td align="right">34.8</td>
+<td align="right">36.0</td>
+<td align="right">51.6</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">0.9</td>
+<td align="right">0.9</td>
+<td align="right">17.3</td>
+<td align="right">0.6</td>
+<td align="right">0.5</td>
+<td align="right">0.9</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">22.3</td>
+<td align="right">22.1</td>
+<td align="right">21.4</td>
+<td align="right">14.4</td>
+<td align="right">12.5</td>
+<td align="right">22.1</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">1.6</td>
+<td align="right">1.6</td>
+<td align="right">1.5</td>
+<td align="right">1.1</td>
+<td align="right">0.9</td>
+<td align="right">1.6</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (mins) for accra ( 7006 ) per person (people with trips)</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">65.3</td>
+<td align="right">65.0</td>
+<td align="right">61.8</td>
+<td align="right">175.3</td>
+<td align="right">34.9</td>
+<td align="right">64.8</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">11.2</td>
+<td align="right">11.1</td>
+<td align="right">10.6</td>
+<td align="right">6.3</td>
+<td align="right">167.5</td>
+<td align="right">11.2</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">203.1</td>
+<td align="right">201.0</td>
+<td align="right">194.6</td>
+<td align="right">128.8</td>
+<td align="right">109.2</td>
+<td align="right">207.4</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">61.4</td>
+<td align="right">64.1</td>
+<td align="right">56.1</td>
+<td align="right">40.6</td>
+<td align="right">42.0</td>
+<td align="right">60.2</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">1.1</td>
+<td align="right">1.1</td>
+<td align="right">20.2</td>
+<td align="right">0.7</td>
+<td align="right">0.6</td>
+<td align="right">1.1</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">25.9</td>
+<td align="right">25.8</td>
+<td align="right">24.9</td>
+<td align="right">16.8</td>
+<td align="right">14.6</td>
+<td align="right">25.8</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">1.8</td>
+<td align="right">1.8</td>
+<td align="right">1.7</td>
+<td align="right">1.3</td>
+<td align="right">1.0</td>
+<td align="right">1.8</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (km) for sao_paulo ( 147934 ) per person</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">25.1</td>
+<td align="right">20.7</td>
+<td align="right">23.6</td>
+<td align="right">42.1</td>
+<td align="right">14.6</td>
+<td align="right">25.1</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">7.0</td>
+<td align="right">6.6</td>
+<td align="right">6.6</td>
+<td align="right">5.4</td>
+<td align="right">44.9</td>
+<td align="right">7.0</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">24.5</td>
+<td align="right">21.9</td>
+<td align="right">23.2</td>
+<td align="right">18.6</td>
+<td align="right">13.7</td>
+<td align="right">24.6</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">9.4</td>
+<td align="right">17.3</td>
+<td align="right">8.8</td>
+<td align="right">7.7</td>
+<td align="right">5.9</td>
+<td align="right">9.4</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">0.4</td>
+<td align="right">0.2</td>
+<td align="right">5.2</td>
+<td align="right">0.3</td>
+<td align="right">0.2</td>
+<td align="right">0.4</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">7.1</td>
+<td align="right">7.0</td>
+<td align="right">6.8</td>
+<td align="right">5.2</td>
+<td align="right">3.9</td>
+<td align="right">7.1</td>
+</tr>
+<tr class="even">
+<td align="left">subway</td>
+<td align="right">21.3</td>
+<td align="right">21.0</td>
+<td align="right">20.4</td>
+<td align="right">15.5</td>
+<td align="right">11.5</td>
+<td align="right">21.3</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (mins) for sao_paulo ( 109772 ) per person (people with trips)</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">33.8</td>
+<td align="right">27.9</td>
+<td align="right">31.9</td>
+<td align="right">56.7</td>
+<td align="right">19.7</td>
+<td align="right">33.8</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">9.4</td>
+<td align="right">9.0</td>
+<td align="right">8.9</td>
+<td align="right">7.3</td>
+<td align="right">60.6</td>
+<td align="right">9.4</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">33.0</td>
+<td align="right">29.5</td>
+<td align="right">31.3</td>
+<td align="right">25.1</td>
+<td align="right">18.5</td>
+<td align="right">33.1</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">12.6</td>
+<td align="right">23.3</td>
+<td align="right">11.9</td>
+<td align="right">10.4</td>
+<td align="right">8.0</td>
+<td align="right">12.7</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">0.5</td>
+<td align="right">0.3</td>
+<td align="right">7.0</td>
+<td align="right">0.4</td>
+<td align="right">0.3</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">9.6</td>
+<td align="right">9.5</td>
+<td align="right">9.2</td>
+<td align="right">7.0</td>
+<td align="right">5.2</td>
+<td align="right">9.6</td>
+</tr>
+<tr class="even">
+<td align="left">subway</td>
+<td align="right">28.7</td>
+<td align="right">28.2</td>
+<td align="right">27.5</td>
+<td align="right">20.9</td>
+<td align="right">15.5</td>
+<td align="right">28.7</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (km) for delhi ( 5604 ) per person</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">530.6</td>
+<td align="right">506.1</td>
+<td align="right">525.3</td>
+<td align="right">1102.8</td>
+<td align="right">376.6</td>
+<td align="right">528.2</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">480.0</td>
+<td align="right">426.4</td>
+<td align="right">475.7</td>
+<td align="right">310.5</td>
+<td align="right">981.4</td>
+<td align="right">474.5</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">502.4</td>
+<td align="right">475.3</td>
+<td align="right">498.4</td>
+<td align="right">332.7</td>
+<td align="right">358.3</td>
+<td align="right">519.1</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">401.0</td>
+<td align="right">539.1</td>
+<td align="right">397.4</td>
+<td align="right">276.0</td>
+<td align="right">292.1</td>
+<td align="right">405.2</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">59.6</td>
+<td align="right">47.0</td>
+<td align="right">78.8</td>
+<td align="right">42.0</td>
+<td align="right">47.0</td>
+<td align="right">58.6</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">67.0</td>
+<td align="right">65.1</td>
+<td align="right">66.7</td>
+<td align="right">46.1</td>
+<td align="right">46.6</td>
+<td align="right">66.5</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">11.4</td>
+<td align="right">11.3</td>
+<td align="right">11.4</td>
+<td align="right">5.1</td>
+<td align="right">9.8</td>
+<td align="right">11.4</td>
+</tr>
+<tr class="even">
+<td align="left">subway</td>
+<td align="right">148.3</td>
+<td align="right">146.4</td>
+<td align="right">148.1</td>
+<td align="right">100.8</td>
+<td align="right">103.2</td>
+<td align="right">148.3</td>
+</tr>
+<tr class="odd">
+<td align="left">shared_auto</td>
+<td align="right">24.2</td>
+<td align="right">17.7</td>
+<td align="right">23.1</td>
+<td align="right">20.8</td>
+<td align="right">16.4</td>
+<td align="right">23.7</td>
+</tr>
+<tr class="even">
+<td align="left">cycle_rickshaw</td>
+<td align="right">10.9</td>
+<td align="right">6.1</td>
+<td align="right">10.4</td>
+<td align="right">7.5</td>
+<td align="right">10.2</td>
+<td align="right">10.5</td>
+</tr>
+<tr class="odd">
+<td align="left">auto_rickshaw</td>
+<td align="right">27.1</td>
+<td align="right">21.9</td>
+<td align="right">27.1</td>
+<td align="right">18.1</td>
+<td align="right">20.9</td>
+<td align="right">26.8</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (mins) for delhi ( 3422 ) per person (people with trips)</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">868.9</td>
+<td align="right">828.9</td>
+<td align="right">860.3</td>
+<td align="right">1806.0</td>
+<td align="right">616.7</td>
+<td align="right">865.0</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">786.0</td>
+<td align="right">698.3</td>
+<td align="right">779.1</td>
+<td align="right">508.5</td>
+<td align="right">1607.2</td>
+<td align="right">777.1</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">822.8</td>
+<td align="right">778.3</td>
+<td align="right">816.2</td>
+<td align="right">544.9</td>
+<td align="right">586.7</td>
+<td align="right">850.0</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">656.6</td>
+<td align="right">882.8</td>
+<td align="right">650.7</td>
+<td align="right">452.0</td>
+<td align="right">478.4</td>
+<td align="right">663.5</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">97.7</td>
+<td align="right">77.0</td>
+<td align="right">129.0</td>
+<td align="right">68.7</td>
+<td align="right">77.0</td>
+<td align="right">96.0</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">109.7</td>
+<td align="right">106.5</td>
+<td align="right">109.2</td>
+<td align="right">75.5</td>
+<td align="right">76.2</td>
+<td align="right">109.0</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">18.7</td>
+<td align="right">18.5</td>
+<td align="right">18.7</td>
+<td align="right">8.3</td>
+<td align="right">16.0</td>
+<td align="right">18.7</td>
+</tr>
+<tr class="even">
+<td align="left">subway</td>
+<td align="right">242.8</td>
+<td align="right">239.8</td>
+<td align="right">242.6</td>
+<td align="right">165.1</td>
+<td align="right">169.0</td>
+<td align="right">242.8</td>
+</tr>
+<tr class="odd">
+<td align="left">shared_auto</td>
+<td align="right">39.7</td>
+<td align="right">29.0</td>
+<td align="right">37.9</td>
+<td align="right">34.1</td>
+<td align="right">26.9</td>
+<td align="right">38.9</td>
+</tr>
+<tr class="even">
+<td align="left">cycle_rickshaw</td>
+<td align="right">17.9</td>
+<td align="right">10.0</td>
+<td align="right">17.0</td>
+<td align="right">12.4</td>
+<td align="right">16.7</td>
+<td align="right">17.1</td>
+</tr>
+<tr class="odd">
+<td align="left">auto_rickshaw</td>
+<td align="right">44.3</td>
+<td align="right">35.9</td>
+<td align="right">44.3</td>
+<td align="right">29.7</td>
+<td align="right">34.2</td>
+<td align="right">43.9</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (km) for bangalore ( 48407 ) per person</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">5.9</td>
+<td align="right">5.6</td>
+<td align="right">5.7</td>
+<td align="right">52.2</td>
+<td align="right">5.9</td>
+<td align="right">5.7</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">55.9</td>
+<td align="right">52.2</td>
+<td align="right">54.2</td>
+<td align="right">31.6</td>
+<td align="right">56.0</td>
+<td align="right">53.7</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">21.9</td>
+<td align="right">21.5</td>
+<td align="right">21.2</td>
+<td align="right">12.4</td>
+<td align="right">21.9</td>
+<td align="right">26.0</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">26.2</td>
+<td align="right">31.6</td>
+<td align="right">25.3</td>
+<td align="right">15.9</td>
+<td align="right">26.0</td>
+<td align="right">25.7</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">2.3</td>
+<td align="right">1.6</td>
+<td align="right">5.9</td>
+<td align="right">1.4</td>
+<td align="right">2.3</td>
+<td align="right">1.9</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">0.1</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+</tr>
+<tr class="even">
+<td align="left">shared_auto</td>
+<td align="right">1.4</td>
+<td align="right">1.4</td>
+<td align="right">1.4</td>
+<td align="right">0.9</td>
+<td align="right">1.4</td>
+<td align="right">1.4</td>
+</tr>
+<tr class="odd">
+<td align="left">auto_rickshaw</td>
+<td align="right">1.6</td>
+<td align="right">1.3</td>
+<td align="right">1.5</td>
+<td align="right">0.9</td>
+<td align="right">1.6</td>
+<td align="right">1.4</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (mins) for bangalore ( 23579 ) per person (people with trips)</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">12.1</td>
+<td align="right">11.5</td>
+<td align="right">11.6</td>
+<td align="right">107.3</td>
+<td align="right">12.0</td>
+<td align="right">11.7</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">114.7</td>
+<td align="right">107.1</td>
+<td align="right">111.2</td>
+<td align="right">64.9</td>
+<td align="right">115.0</td>
+<td align="right">110.3</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">44.9</td>
+<td align="right">44.2</td>
+<td align="right">43.5</td>
+<td align="right">25.5</td>
+<td align="right">44.9</td>
+<td align="right">53.4</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">53.7</td>
+<td align="right">64.9</td>
+<td align="right">52.0</td>
+<td align="right">32.7</td>
+<td align="right">53.4</td>
+<td align="right">52.8</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">4.8</td>
+<td align="right">3.2</td>
+<td align="right">12.1</td>
+<td align="right">2.9</td>
+<td align="right">4.8</td>
+<td align="right">3.9</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">0.2</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">0.6</td>
+<td align="right">0.6</td>
+<td align="right">0.6</td>
+<td align="right">0.3</td>
+<td align="right">0.6</td>
+<td align="right">0.6</td>
+</tr>
+<tr class="even">
+<td align="left">shared_auto</td>
+<td align="right">3.0</td>
+<td align="right">3.0</td>
+<td align="right">2.9</td>
+<td align="right">1.8</td>
+<td align="right">3.0</td>
+<td align="right">3.0</td>
+</tr>
+<tr class="odd">
+<td align="left">auto_rickshaw</td>
+<td align="right">3.2</td>
+<td align="right">2.6</td>
+<td align="right">3.1</td>
+<td align="right">1.9</td>
+<td align="right">3.2</td>
+<td align="right">2.9</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (km) for santiago ( 43785 ) per person</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">36.6</td>
+<td align="right">33.6</td>
+<td align="right">35.9</td>
+<td align="right">62.0</td>
+<td align="right">19.8</td>
+<td align="right">36.0</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">2.0</td>
+<td align="right">2.0</td>
+<td align="right">2.0</td>
+<td align="right">1.5</td>
+<td align="right">66.7</td>
+<td align="right">2.0</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">48.4</td>
+<td align="right">46.5</td>
+<td align="right">47.7</td>
+<td align="right">36.5</td>
+<td align="right">25.3</td>
+<td align="right">49.6</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">10.6</td>
+<td align="right">17.6</td>
+<td align="right">10.4</td>
+<td align="right">8.4</td>
+<td align="right">6.5</td>
+<td align="right">10.7</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">2.9</td>
+<td align="right">2.4</td>
+<td align="right">5.1</td>
+<td align="right">2.3</td>
+<td align="right">1.6</td>
+<td align="right">2.8</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">8.1</td>
+<td align="right">7.6</td>
+<td align="right">8.0</td>
+<td align="right">6.2</td>
+<td align="right">4.4</td>
+<td align="right">8.0</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="even">
+<td align="left">subway</td>
+<td align="right">32.5</td>
+<td align="right">31.7</td>
+<td align="right">32.1</td>
+<td align="right">24.5</td>
+<td align="right">17.1</td>
+<td align="right">32.5</td>
+</tr>
+<tr class="odd">
+<td align="left">other</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">van</td>
+<td align="right">0.5</td>
+<td align="right">0.4</td>
+<td align="right">0.5</td>
+<td align="right">0.4</td>
+<td align="right">0.3</td>
+<td align="right">0.5</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (mins) for santiago ( 35357 ) per person (people with trips)</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">45.3</td>
+<td align="right">41.6</td>
+<td align="right">44.4</td>
+<td align="right">76.8</td>
+<td align="right">24.6</td>
+<td align="right">44.6</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">2.5</td>
+<td align="right">2.4</td>
+<td align="right">2.5</td>
+<td align="right">1.9</td>
+<td align="right">82.6</td>
+<td align="right">2.5</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">59.9</td>
+<td align="right">57.5</td>
+<td align="right">59.1</td>
+<td align="right">45.2</td>
+<td align="right">31.3</td>
+<td align="right">61.5</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">13.2</td>
+<td align="right">21.8</td>
+<td align="right">12.9</td>
+<td align="right">10.4</td>
+<td align="right">8.1</td>
+<td align="right">13.2</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">3.6</td>
+<td align="right">2.9</td>
+<td align="right">6.3</td>
+<td align="right">2.9</td>
+<td align="right">2.0</td>
+<td align="right">3.4</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">10.1</td>
+<td align="right">9.4</td>
+<td align="right">9.9</td>
+<td align="right">7.6</td>
+<td align="right">5.5</td>
+<td align="right">9.9</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">0.3</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.3</td>
+</tr>
+<tr class="even">
+<td align="left">subway</td>
+<td align="right">40.3</td>
+<td align="right">39.2</td>
+<td align="right">39.7</td>
+<td align="right">30.4</td>
+<td align="right">21.2</td>
+<td align="right">40.3</td>
+</tr>
+<tr class="odd">
+<td align="left">other</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">van</td>
+<td align="right">0.6</td>
+<td align="right">0.5</td>
+<td align="right">0.6</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">0.6</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (km) for belo_horizonte ( 75313 ) per person</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">25.1</td>
+<td align="right">23.3</td>
+<td align="right">24.2</td>
+<td align="right">30.0</td>
+<td align="right">14.5</td>
+<td align="right">24.3</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">9.9</td>
+<td align="right">9.4</td>
+<td align="right">9.4</td>
+<td align="right">9.1</td>
+<td align="right">36.5</td>
+<td align="right">9.7</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">26.9</td>
+<td align="right">26.2</td>
+<td align="right">26.0</td>
+<td align="right">24.1</td>
+<td align="right">15.3</td>
+<td align="right">28.7</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">4.6</td>
+<td align="right">8.0</td>
+<td align="right">4.4</td>
+<td align="right">4.1</td>
+<td align="right">3.4</td>
+<td align="right">4.6</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">0.6</td>
+<td align="right">0.5</td>
+<td align="right">3.4</td>
+<td align="right">0.5</td>
+<td align="right">0.3</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">0.3</td>
+<td align="right">0.2</td>
+<td align="right">0.4</td>
+</tr>
+<tr class="odd">
+<td align="left">subway</td>
+<td align="right">4.5</td>
+<td align="right">4.4</td>
+<td align="right">4.3</td>
+<td align="right">4.0</td>
+<td align="right">2.5</td>
+<td align="right">4.5</td>
+</tr>
+<tr class="even">
+<td align="left">van</td>
+<td align="right">1.8</td>
+<td align="right">1.7</td>
+<td align="right">1.7</td>
+<td align="right">1.6</td>
+<td align="right">1.0</td>
+<td align="right">1.7</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (mins) for belo_horizonte ( 45002 ) per person (people with trips)</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">42.1</td>
+<td align="right">39.1</td>
+<td align="right">40.5</td>
+<td align="right">50.3</td>
+<td align="right">24.3</td>
+<td align="right">40.7</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">16.5</td>
+<td align="right">15.8</td>
+<td align="right">15.7</td>
+<td align="right">15.2</td>
+<td align="right">61.1</td>
+<td align="right">16.3</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">45.1</td>
+<td align="right">43.8</td>
+<td align="right">43.5</td>
+<td align="right">40.3</td>
+<td align="right">25.6</td>
+<td align="right">48.0</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">7.8</td>
+<td align="right">13.4</td>
+<td align="right">7.3</td>
+<td align="right">6.9</td>
+<td align="right">5.7</td>
+<td align="right">7.6</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">1.0</td>
+<td align="right">0.8</td>
+<td align="right">5.8</td>
+<td align="right">0.9</td>
+<td align="right">0.6</td>
+<td align="right">0.9</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">0.6</td>
+<td align="right">0.6</td>
+<td align="right">0.6</td>
+<td align="right">0.6</td>
+<td align="right">0.4</td>
+<td align="right">0.6</td>
+</tr>
+<tr class="odd">
+<td align="left">subway</td>
+<td align="right">7.5</td>
+<td align="right">7.4</td>
+<td align="right">7.3</td>
+<td align="right">6.7</td>
+<td align="right">4.3</td>
+<td align="right">7.5</td>
+</tr>
+<tr class="even">
+<td align="left">van</td>
+<td align="right">3.0</td>
+<td align="right">2.8</td>
+<td align="right">2.9</td>
+<td align="right">2.7</td>
+<td align="right">1.7</td>
+<td align="right">2.9</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (km) for buenos_aires ( 47891 ) per person</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">39.4</td>
+<td align="right">36.8</td>
+<td align="right">38.3</td>
+<td align="right">86.7</td>
+<td align="right">21.0</td>
+<td align="right">39.4</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">7.1</td>
+<td align="right">6.7</td>
+<td align="right">6.9</td>
+<td align="right">5.0</td>
+<td align="right">95.4</td>
+<td align="right">7.1</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">52.4</td>
+<td align="right">49.8</td>
+<td align="right">51.0</td>
+<td align="right">37.0</td>
+<td align="right">27.9</td>
+<td align="right">52.6</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">61.9</td>
+<td align="right">69.3</td>
+<td align="right">60.2</td>
+<td align="right">43.8</td>
+<td align="right">34.1</td>
+<td align="right">61.9</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">2.9</td>
+<td align="right">2.2</td>
+<td align="right">8.1</td>
+<td align="right">2.1</td>
+<td align="right">1.7</td>
+<td align="right">2.9</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">3.0</td>
+<td align="right">2.8</td>
+<td align="right">2.9</td>
+<td align="right">2.1</td>
+<td align="right">1.6</td>
+<td align="right">3.0</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">26.5</td>
+<td align="right">25.7</td>
+<td align="right">25.8</td>
+<td align="right">18.3</td>
+<td align="right">14.4</td>
+<td align="right">26.5</td>
+</tr>
+<tr class="even">
+<td align="left">subway</td>
+<td align="right">5.0</td>
+<td align="right">4.9</td>
+<td align="right">4.9</td>
+<td align="right">3.5</td>
+<td align="right">2.7</td>
+<td align="right">5.0</td>
+</tr>
+<tr class="odd">
+<td align="left">other</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="even">
+<td align="left">van</td>
+<td align="right">1.6</td>
+<td align="right">1.6</td>
+<td align="right">1.6</td>
+<td align="right">1.2</td>
+<td align="right">0.9</td>
+<td align="right">1.6</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (mins) for buenos_aires ( 32518 ) per person (people with trips)</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">58.0</td>
+<td align="right">54.3</td>
+<td align="right">56.4</td>
+<td align="right">127.7</td>
+<td align="right">30.9</td>
+<td align="right">58.0</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">10.4</td>
+<td align="right">9.8</td>
+<td align="right">10.2</td>
+<td align="right">7.4</td>
+<td align="right">140.5</td>
+<td align="right">10.4</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">77.2</td>
+<td align="right">73.3</td>
+<td align="right">75.1</td>
+<td align="right">54.5</td>
+<td align="right">41.1</td>
+<td align="right">77.4</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">91.1</td>
+<td align="right">102.1</td>
+<td align="right">88.7</td>
+<td align="right">64.5</td>
+<td align="right">50.3</td>
+<td align="right">91.2</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">4.2</td>
+<td align="right">3.2</td>
+<td align="right">11.9</td>
+<td align="right">3.0</td>
+<td align="right">2.4</td>
+<td align="right">4.2</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">4.4</td>
+<td align="right">4.1</td>
+<td align="right">4.3</td>
+<td align="right">3.2</td>
+<td align="right">2.4</td>
+<td align="right">4.4</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">39.0</td>
+<td align="right">37.9</td>
+<td align="right">38.0</td>
+<td align="right">27.0</td>
+<td align="right">21.3</td>
+<td align="right">39.0</td>
+</tr>
+<tr class="even">
+<td align="left">subway</td>
+<td align="right">7.4</td>
+<td align="right">7.1</td>
+<td align="right">7.2</td>
+<td align="right">5.2</td>
+<td align="right">4.0</td>
+<td align="right">7.4</td>
+</tr>
+<tr class="odd">
+<td align="left">other</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="even">
+<td align="left">van</td>
+<td align="right">2.4</td>
+<td align="right">2.3</td>
+<td align="right">2.3</td>
+<td align="right">1.8</td>
+<td align="right">1.3</td>
+<td align="right">2.4</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (km) for mexico_city ( 147623 ) per person</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">30.2</td>
+<td align="right">29.3</td>
+<td align="right">29.2</td>
+<td align="right">49.8</td>
+<td align="right">16.2</td>
+<td align="right">30.2</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">3.6</td>
+<td align="right">3.4</td>
+<td align="right">3.5</td>
+<td align="right">2.8</td>
+<td align="right">53.4</td>
+<td align="right">3.6</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">41.6</td>
+<td align="right">40.5</td>
+<td align="right">40.3</td>
+<td align="right">31.6</td>
+<td align="right">22.3</td>
+<td align="right">41.8</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">6.9</td>
+<td align="right">9.8</td>
+<td align="right">6.7</td>
+<td align="right">5.3</td>
+<td align="right">4.6</td>
+<td align="right">6.9</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">1.1</td>
+<td align="right">0.9</td>
+<td align="right">4.6</td>
+<td align="right">0.8</td>
+<td align="right">0.7</td>
+<td align="right">1.1</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">4.0</td>
+<td align="right">3.7</td>
+<td align="right">3.8</td>
+<td align="right">3.0</td>
+<td align="right">2.2</td>
+<td align="right">4.0</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">0.5</td>
+<td align="right">0.5</td>
+<td align="right">0.5</td>
+<td align="right">0.4</td>
+<td align="right">0.3</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="even">
+<td align="left">subway</td>
+<td align="right">24.7</td>
+<td align="right">24.5</td>
+<td align="right">24.0</td>
+<td align="right">18.9</td>
+<td align="right">13.0</td>
+<td align="right">24.7</td>
+</tr>
+<tr class="odd">
+<td align="left">other</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">van</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (mins) for mexico_city ( 128595 ) per person (people with trips)</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">34.6</td>
+<td align="right">33.6</td>
+<td align="right">33.5</td>
+<td align="right">57.2</td>
+<td align="right">18.6</td>
+<td align="right">34.6</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">4.1</td>
+<td align="right">4.0</td>
+<td align="right">4.0</td>
+<td align="right">3.2</td>
+<td align="right">61.3</td>
+<td align="right">4.1</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">47.8</td>
+<td align="right">46.4</td>
+<td align="right">46.2</td>
+<td align="right">36.3</td>
+<td align="right">25.6</td>
+<td align="right">48.0</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">8.0</td>
+<td align="right">11.2</td>
+<td align="right">7.6</td>
+<td align="right">6.1</td>
+<td align="right">5.3</td>
+<td align="right">8.0</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">1.3</td>
+<td align="right">1.0</td>
+<td align="right">5.3</td>
+<td align="right">0.9</td>
+<td align="right">0.8</td>
+<td align="right">1.3</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">4.6</td>
+<td align="right">4.3</td>
+<td align="right">4.4</td>
+<td align="right">3.5</td>
+<td align="right">2.5</td>
+<td align="right">4.6</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">0.6</td>
+<td align="right">0.6</td>
+<td align="right">0.5</td>
+<td align="right">0.4</td>
+<td align="right">0.3</td>
+<td align="right">0.6</td>
+</tr>
+<tr class="even">
+<td align="left">subway</td>
+<td align="right">28.3</td>
+<td align="right">28.1</td>
+<td align="right">27.5</td>
+<td align="right">21.7</td>
+<td align="right">15.0</td>
+<td align="right">28.3</td>
+</tr>
+<tr class="odd">
+<td align="left">other</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">van</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.3</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (km) for bogota ( 68060 ) per person</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">12.1</td>
+<td align="right">11.8</td>
+<td align="right">12.1</td>
+<td align="right">38.0</td>
+<td align="right">7.0</td>
+<td align="right">12.1</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">9.6</td>
+<td align="right">9.4</td>
+<td align="right">9.6</td>
+<td align="right">6.4</td>
+<td align="right">43.1</td>
+<td align="right">9.6</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">55.9</td>
+<td align="right">55.2</td>
+<td align="right">55.9</td>
+<td align="right">36.9</td>
+<td align="right">31.8</td>
+<td align="right">56.0</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">5.6</td>
+<td align="right">7.3</td>
+<td align="right">5.6</td>
+<td align="right">3.9</td>
+<td align="right">3.8</td>
+<td align="right">5.6</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">3.1</td>
+<td align="right">2.7</td>
+<td align="right">3.1</td>
+<td align="right">2.1</td>
+<td align="right">1.9</td>
+<td align="right">3.1</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">3.0</td>
+<td align="right">2.9</td>
+<td align="right">3.0</td>
+<td align="right">2.0</td>
+<td align="right">1.8</td>
+<td align="right">3.0</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">truck</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="odd">
+<td align="left">other</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">van</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">0.3</td>
+<td align="right">0.2</td>
+<td align="right">0.4</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (mins) for bogota ( 57508 ) per person (people with trips)</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">14.3</td>
+<td align="right">14.0</td>
+<td align="right">14.3</td>
+<td align="right">44.9</td>
+<td align="right">8.3</td>
+<td align="right">14.3</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">11.4</td>
+<td align="right">11.1</td>
+<td align="right">11.4</td>
+<td align="right">7.6</td>
+<td align="right">51.0</td>
+<td align="right">11.4</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">66.1</td>
+<td align="right">65.3</td>
+<td align="right">66.1</td>
+<td align="right">43.7</td>
+<td align="right">37.7</td>
+<td align="right">66.3</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">6.6</td>
+<td align="right">8.6</td>
+<td align="right">6.6</td>
+<td align="right">4.6</td>
+<td align="right">4.5</td>
+<td align="right">6.6</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">3.6</td>
+<td align="right">3.2</td>
+<td align="right">3.6</td>
+<td align="right">2.5</td>
+<td align="right">2.2</td>
+<td align="right">3.6</td>
+</tr>
+<tr class="even">
+<td align="left">taxi</td>
+<td align="right">3.5</td>
+<td align="right">3.4</td>
+<td align="right">3.5</td>
+<td align="right">2.4</td>
+<td align="right">2.1</td>
+<td align="right">3.5</td>
+</tr>
+<tr class="odd">
+<td align="left">rail</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">truck</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="odd">
+<td align="left">other</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">van</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">0.4</td>
+<td align="right">0.3</td>
+<td align="right">0.3</td>
+<td align="right">0.4</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (km) for cape_town ( 5650 ) per person</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">1921.0</td>
+<td align="right">1782.4</td>
+<td align="right">1827.5</td>
+<td align="right">1935.8</td>
+<td align="right">1081.0</td>
+<td align="right">1919.5</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">25.3</td>
+<td align="right">24.7</td>
+<td align="right">25.2</td>
+<td align="right">25.2</td>
+<td align="right">1934.0</td>
+<td align="right">25.3</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">1151.7</td>
+<td align="right">1082.1</td>
+<td align="right">1089.1</td>
+<td align="right">1149.9</td>
+<td align="right">593.8</td>
+<td align="right">1159.8</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">312.7</td>
+<td align="right">533.2</td>
+<td align="right">293.7</td>
+<td align="right">300.5</td>
+<td align="right">211.6</td>
+<td align="right">312.7</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">8.2</td>
+<td align="right">7.2</td>
+<td align="right">206.4</td>
+<td align="right">8.2</td>
+<td align="right">4.4</td>
+<td align="right">8.2</td>
+</tr>
+<tr class="even">
+<td align="left">rail</td>
+<td align="right">809.9</td>
+<td align="right">799.3</td>
+<td align="right">787.0</td>
+<td align="right">809.3</td>
+<td align="right">404.0</td>
+<td align="right">809.9</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (mins) for cape_town ( 3869 ) per person (people with trips)</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">2805.3</td>
+<td align="right">2602.8</td>
+<td align="right">2668.7</td>
+<td align="right">2826.9</td>
+<td align="right">1578.7</td>
+<td align="right">2803.2</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">37.0</td>
+<td align="right">36.1</td>
+<td align="right">36.7</td>
+<td align="right">36.7</td>
+<td align="right">2824.3</td>
+<td align="right">37.0</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">1681.9</td>
+<td align="right">1580.2</td>
+<td align="right">1590.5</td>
+<td align="right">1679.2</td>
+<td align="right">867.2</td>
+<td align="right">1693.7</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">456.6</td>
+<td align="right">778.7</td>
+<td align="right">428.8</td>
+<td align="right">438.8</td>
+<td align="right">309.0</td>
+<td align="right">456.7</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">12.0</td>
+<td align="right">10.5</td>
+<td align="right">301.4</td>
+<td align="right">12.0</td>
+<td align="right">6.4</td>
+<td align="right">12.0</td>
+</tr>
+<tr class="even">
+<td align="left">rail</td>
+<td align="right">1182.8</td>
+<td align="right">1167.2</td>
+<td align="right">1149.3</td>
+<td align="right">1181.8</td>
+<td align="right">590.0</td>
+<td align="right">1182.8</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (km) for vizag ( 7557 ) per person</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">4.3</td>
+<td align="right">3.8</td>
+<td align="right">4.2</td>
+<td align="right">63.4</td>
+<td align="right">3.6</td>
+<td align="right">4.3</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">34.1</td>
+<td align="right">28.8</td>
+<td align="right">33.3</td>
+<td align="right">18.5</td>
+<td align="right">56.4</td>
+<td align="right">34.0</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">81.9</td>
+<td align="right">76.6</td>
+<td align="right">80.1</td>
+<td align="right">45.1</td>
+<td align="right">61.9</td>
+<td align="right">82.4</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">13.0</td>
+<td align="right">25.5</td>
+<td align="right">12.7</td>
+<td align="right">8.2</td>
+<td align="right">11.9</td>
+<td align="right">13.0</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">4.0</td>
+<td align="right">2.6</td>
+<td align="right">7.2</td>
+<td align="right">2.2</td>
+<td align="right">3.5</td>
+<td align="right">3.9</td>
+</tr>
+</tbody>
+</table>
+<pre><code>`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`
+`mutate_if()` ignored the following grouping variables:
+Column `stage_mode`</code></pre>
+<table>
+<caption>Distance table (mins) for vizag ( 5715 ) per person (people with trips)</caption>
+<thead>
+<tr class="header">
+<th align="left">stage_mode</th>
+<th align="right">Baseline</th>
+<th align="right">walking_scen</th>
+<th align="right">bicycle_scen</th>
+<th align="right">car_scen</th>
+<th align="right">motorcycle_scen</th>
+<th align="right">bus_scen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">car</td>
+<td align="right">5.7</td>
+<td align="right">5.1</td>
+<td align="right">5.5</td>
+<td align="right">83.8</td>
+<td align="right">4.8</td>
+<td align="right">5.7</td>
+</tr>
+<tr class="even">
+<td align="left">motorcycle</td>
+<td align="right">45.1</td>
+<td align="right">38.0</td>
+<td align="right">44.0</td>
+<td align="right">24.4</td>
+<td align="right">74.6</td>
+<td align="right">45.0</td>
+</tr>
+<tr class="odd">
+<td align="left">bus</td>
+<td align="right">108.3</td>
+<td align="right">101.3</td>
+<td align="right">105.9</td>
+<td align="right">59.6</td>
+<td align="right">81.9</td>
+<td align="right">109.0</td>
+</tr>
+<tr class="even">
+<td align="left">walking</td>
+<td align="right">17.2</td>
+<td align="right">33.7</td>
+<td align="right">16.7</td>
+<td align="right">10.8</td>
+<td align="right">15.7</td>
+<td align="right">17.2</td>
+</tr>
+<tr class="odd">
+<td align="left">bicycle</td>
+<td align="right">5.3</td>
+<td align="right">3.4</td>
+<td align="right">9.5</td>
+<td align="right">2.9</td>
+<td align="right">4.6</td>
+<td align="right">5.2</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div id="distance-by-distance-category" class="section level2">
 <h2>Distance by distance category</h2>
 <div id="tables" class="section level3">
@@ -4422,66 +6559,66 @@ This warning is displayed once per session.</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">bicycle</td>
-<td align="right">3289.602</td>
-<td align="right">3289.602</td>
-<td align="right">54176.258</td>
-<td align="right">2228.625</td>
-<td align="right">1845.300</td>
-<td align="right">3211.031</td>
+<td align="right">7719.892</td>
+<td align="right">7719.892</td>
+<td align="right">141453.68</td>
+<td align="right">5230.143</td>
+<td align="right">4327.818</td>
+<td align="right">7536.085</td>
 </tr>
 <tr class="even">
 <td align="left">bus</td>
-<td align="right">531469.679</td>
-<td align="right">526179.823</td>
-<td align="right">508829.919</td>
-<td align="right">337587.049</td>
-<td align="right">287076.050</td>
-<td align="right">543444.988</td>
+<td align="right">1423170.606</td>
+<td align="right">1408425.715</td>
+<td align="right">1363257.60</td>
+<td align="right">902605.100</td>
+<td align="right">765154.372</td>
+<td align="right">1453113.163</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
-<td align="right">165925.698</td>
-<td align="right">165139.245</td>
-<td align="right">157015.967</td>
-<td align="right">458307.856</td>
-<td align="right">89703.918</td>
-<td align="right">164668.880</td>
+<td align="right">457312.865</td>
+<td align="right">455425.242</td>
+<td align="right">432676.97</td>
+<td align="right">1228065.740</td>
+<td align="right">244858.526</td>
+<td align="right">454040.985</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">31276.097</td>
-<td align="right">31072.310</td>
-<td align="right">29760.658</td>
-<td align="right">17341.665</td>
-<td align="right">439182.242</td>
-<td align="right">31248.045</td>
+<td align="right">78392.803</td>
+<td align="right">77784.339</td>
+<td align="right">74460.83</td>
+<td align="right">44228.909</td>
+<td align="right">1173193.737</td>
+<td align="right">78268.345</td>
 </tr>
 <tr class="odd">
 <td align="left">rail</td>
-<td align="right">5389.941</td>
-<td align="right">5389.941</td>
-<td align="right">5197.688</td>
-<td align="right">3772.958</td>
-<td align="right">3079.476</td>
-<td align="right">5389.941</td>
+<td align="right">12664.818</td>
+<td align="right">12664.818</td>
+<td align="right">12213.08</td>
+<td align="right">8865.373</td>
+<td align="right">7235.886</td>
+<td align="right">12664.818</td>
 </tr>
 <tr class="even">
 <td align="left">taxi</td>
-<td align="right">66615.908</td>
-<td align="right">66295.808</td>
-<td align="right">64176.279</td>
-<td align="right">42727.250</td>
-<td align="right">36751.993</td>
-<td align="right">66093.526</td>
+<td align="right">181792.572</td>
+<td align="right">180655.159</td>
+<td align="right">174648.65</td>
+<td align="right">117947.369</td>
+<td align="right">102328.503</td>
+<td align="right">180432.516</td>
 </tr>
 <tr class="odd">
 <td align="left">walking</td>
-<td align="right">268364.353</td>
-<td align="right">282148.266</td>
-<td align="right">242139.592</td>
-<td align="right">179433.974</td>
-<td align="right">194244.295</td>
-<td align="right">248185.381</td>
+<td align="right">430448.082</td>
+<td align="right">448826.473</td>
+<td align="right">392790.83</td>
+<td align="right">284559.003</td>
+<td align="right">294402.796</td>
+<td align="right">421599.018</td>
 </tr>
 </tbody>
 </table>
@@ -4501,75 +6638,75 @@ This warning is displayed once per session.</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">bicycle</td>
-<td align="right">2477.842</td>
-<td align="right">1599.6827</td>
-<td align="right">38720.264</td>
-<td align="right">2018.0968</td>
-<td align="right">1630.5989</td>
-<td align="right">2470.824</td>
+<td align="right">53349.54</td>
+<td align="right">36678.81</td>
+<td align="right">766352.5</td>
+<td align="right">42744.95</td>
+<td align="right">34835.34</td>
+<td align="right">53227.49</td>
 </tr>
 <tr class="even">
 <td align="left">bus</td>
-<td align="right">187244.189</td>
-<td align="right">167684.4883</td>
-<td align="right">177380.684</td>
-<td align="right">142343.3130</td>
-<td align="right">104578.6067</td>
-<td align="right">187642.572</td>
+<td align="right">3623852.62</td>
+<td align="right">3239577.09</td>
+<td align="right">3432058.7</td>
+<td align="right">2756913.90</td>
+<td align="right">2025660.80</td>
+<td align="right">3631796.78</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
-<td align="right">178922.723</td>
-<td align="right">148240.1422</td>
-<td align="right">168645.174</td>
-<td align="right">310436.1017</td>
-<td align="right">104149.3565</td>
-<td align="right">178771.579</td>
+<td align="right">3715754.84</td>
+<td align="right">3065541.77</td>
+<td align="right">3498208.6</td>
+<td align="right">6227362.60</td>
+<td align="right">2163758.23</td>
+<td align="right">3712582.15</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">52363.405</td>
-<td align="right">49622.8223</td>
-<td align="right">49403.424</td>
-<td align="right">40292.5916</td>
-<td align="right">339907.7180</td>
-<td align="right">52353.786</td>
+<td align="right">1032640.33</td>
+<td align="right">983752.02</td>
+<td align="right">978781.4</td>
+<td align="right">796813.28</td>
+<td align="right">6646884.83</td>
+<td align="right">1032463.25</td>
 </tr>
 <tr class="odd">
 <td align="left">rail</td>
-<td align="right">56781.004</td>
-<td align="right">56138.0724</td>
-<td align="right">54545.906</td>
-<td align="right">41203.3739</td>
-<td align="right">31032.0002</td>
-<td align="right">56780.961</td>
+<td align="right">1054003.30</td>
+<td align="right">1042078.32</td>
+<td align="right">1012221.1</td>
+<td align="right">765331.71</td>
+<td align="right">576239.60</td>
+<td align="right">1054002.58</td>
 </tr>
 <tr class="even">
 <td align="left">subway</td>
-<td align="right">166755.316</td>
-<td align="right">164249.0592</td>
-<td align="right">159937.460</td>
-<td align="right">121336.7003</td>
-<td align="right">89967.4645</td>
-<td align="right">166754.848</td>
+<td align="right">3148240.76</td>
+<td align="right">3100526.28</td>
+<td align="right">3019913.7</td>
+<td align="right">2291220.70</td>
+<td align="right">1699851.73</td>
+<td align="right">3148229.82</td>
 </tr>
 <tr class="odd">
 <td align="left">taxi</td>
-<td align="right">1115.931</td>
-<td align="right">789.6318</td>
-<td align="right">1034.427</td>
-<td align="right">946.9112</td>
-<td align="right">677.8955</td>
-<td align="right">1114.264</td>
+<td align="right">24836.01</td>
+<td align="right">17544.14</td>
+<td align="right">23048.2</td>
+<td align="right">20995.40</td>
+<td align="right">14974.79</td>
+<td align="right">24802.24</td>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">65184.180</td>
-<td align="right">192698.4442</td>
-<td align="right">61951.074</td>
-<td align="right">56372.4701</td>
-<td align="right">45907.8954</td>
-<td align="right">64728.763</td>
+<td align="right">1386793.69</td>
+<td align="right">2553772.66</td>
+<td align="right">1308887.0</td>
+<td align="right">1138088.53</td>
+<td align="right">877265.78</td>
+<td align="right">1392898.86</td>
 </tr>
 </tbody>
 </table>
@@ -4589,102 +6726,102 @@ This warning is displayed once per session.</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">auto_rickshaw</td>
-<td align="right">8589.785</td>
-<td align="right">7107.170</td>
-<td align="right">8589.785</td>
-<td align="right">5587.463</td>
-<td align="right">6615.666</td>
-<td align="right">8533.811</td>
+<td align="right">151589.64</td>
+<td align="right">122945.13</td>
+<td align="right">151589.64</td>
+<td align="right">101671.64</td>
+<td align="right">116869.02</td>
+<td align="right">150308.96</td>
 </tr>
 <tr class="even">
 <td align="left">bicycle</td>
-<td align="right">17671.746</td>
-<td align="right">14234.892</td>
-<td align="right">23565.609</td>
-<td align="right">12741.247</td>
-<td align="right">13751.378</td>
-<td align="right">17433.249</td>
+<td align="right">334182.37</td>
+<td align="right">263392.87</td>
+<td align="right">441601.19</td>
+<td align="right">235228.61</td>
+<td align="right">263638.33</td>
+<td align="right">328632.76</td>
 </tr>
 <tr class="odd">
 <td align="left">bus</td>
-<td align="right">160296.976</td>
-<td align="right">151310.078</td>
-<td align="right">158840.179</td>
-<td align="right">107526.217</td>
-<td align="right">114513.405</td>
-<td align="right">165611.057</td>
+<td align="right">2815650.54</td>
+<td align="right">2663326.64</td>
+<td align="right">2793131.94</td>
+<td align="right">1864714.77</td>
+<td align="right">2007755.88</td>
+<td align="right">2908864.01</td>
 </tr>
 <tr class="even">
 <td align="left">car</td>
-<td align="right">151440.191</td>
-<td align="right">144661.350</td>
-<td align="right">150156.370</td>
-<td align="right">336863.239</td>
-<td align="right">107988.140</td>
-<td align="right">150794.361</td>
+<td align="right">2973355.42</td>
+<td align="right">2836433.81</td>
+<td align="right">2943959.58</td>
+<td align="right">6180069.94</td>
+<td align="right">2110284.87</td>
+<td align="right">2960015.02</td>
 </tr>
 <tr class="odd">
 <td align="left">cycle_rickshaw</td>
-<td align="right">3349.717</td>
-<td align="right">1760.148</td>
-<td align="right">3143.357</td>
-<td align="right">2235.898</td>
-<td align="right">3170.873</td>
-<td align="right">3209.037</td>
+<td align="right">61259.12</td>
+<td align="right">34258.15</td>
+<td align="right">58270.87</td>
+<td align="right">42262.39</td>
+<td align="right">57075.57</td>
+<td align="right">58591.04</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">156735.186</td>
-<td align="right">138772.154</td>
-<td align="right">155385.434</td>
-<td align="right">100817.671</td>
-<td align="right">314711.411</td>
-<td align="right">154847.265</td>
+<td align="right">2689803.25</td>
+<td align="right">2389718.94</td>
+<td align="right">2666053.07</td>
+<td align="right">1739952.50</td>
+<td align="right">5499907.95</td>
+<td align="right">2659155.19</td>
 </tr>
 <tr class="odd">
 <td align="left">rail</td>
-<td align="right">3372.603</td>
-<td align="right">3320.986</td>
-<td align="right">3372.603</td>
-<td align="right">1495.824</td>
-<td align="right">2946.765</td>
-<td align="right">3372.603</td>
+<td align="right">63820.48</td>
+<td align="right">63180.14</td>
+<td align="right">63820.48</td>
+<td align="right">28388.37</td>
+<td align="right">54855.73</td>
+<td align="right">63820.48</td>
 </tr>
 <tr class="even">
 <td align="left">shared_auto</td>
-<td align="right">8641.232</td>
-<td align="right">6411.564</td>
-<td align="right">8268.698</td>
-<td align="right">7469.008</td>
-<td align="right">5829.771</td>
-<td align="right">8475.536</td>
+<td align="right">135858.64</td>
+<td align="right">99359.30</td>
+<td align="right">129561.97</td>
+<td align="right">116755.18</td>
+<td align="right">92102.12</td>
+<td align="right">133083.84</td>
 </tr>
 <tr class="odd">
 <td align="left">subway</td>
-<td align="right">50492.609</td>
-<td align="right">50046.660</td>
-<td align="right">50438.917</td>
-<td align="right">34405.628</td>
-<td align="right">34787.374</td>
-<td align="right">50492.609</td>
+<td align="right">831010.90</td>
+<td align="right">820701.44</td>
+<td align="right">830157.11</td>
+<td align="right">564843.23</td>
+<td align="right">578290.35</td>
+<td align="right">831010.90</td>
 </tr>
 <tr class="even">
 <td align="left">taxi</td>
-<td align="right">25750.027</td>
-<td align="right">24976.786</td>
-<td align="right">25642.838</td>
-<td align="right">17539.664</td>
-<td align="right">17552.091</td>
-<td align="right">25590.434</td>
+<td align="right">375313.49</td>
+<td align="right">364566.46</td>
+<td align="right">373819.37</td>
+<td align="right">258195.45</td>
+<td align="right">260906.22</td>
+<td align="right">372858.86</td>
 </tr>
 <tr class="odd">
 <td align="left">walking</td>
-<td align="right">51048.305</td>
-<td align="right">144708.223</td>
-<td align="right">49914.763</td>
-<td align="right">37078.940</td>
-<td align="right">47876.719</td>
-<td align="right">47019.924</td>
+<td align="right">2246978.08</td>
+<td align="right">3020939.02</td>
+<td align="right">2226856.70</td>
+<td align="right">1546739.82</td>
+<td align="right">1637135.87</td>
+<td align="right">2270578.44</td>
 </tr>
 </tbody>
 </table>
@@ -4704,84 +6841,84 @@ This warning is displayed once per session.</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">auto_rickshaw</td>
-<td align="right">4561.1315</td>
-<td align="right">3753.3828</td>
-<td align="right">4425.1779</td>
-<td align="right">2717.5817</td>
-<td align="right">4555.0446</td>
-<td align="right">4082.5407</td>
+<td align="right">75829.36</td>
+<td align="right">61883.280</td>
+<td align="right">73636.66</td>
+<td align="right">45400.048</td>
+<td align="right">75737.38</td>
+<td align="right">67391.016</td>
 </tr>
 <tr class="even">
 <td align="left">bicycle</td>
-<td align="right">7042.9627</td>
-<td align="right">4599.8706</td>
-<td align="right">17457.4396</td>
-<td align="right">4247.2259</td>
-<td align="right">7035.9239</td>
-<td align="right">5680.7173</td>
+<td align="right">113449.62</td>
+<td align="right">75276.901</td>
+<td align="right">286113.72</td>
+<td align="right">67713.233</td>
+<td align="right">113350.43</td>
+<td align="right">92178.834</td>
 </tr>
 <tr class="odd">
 <td align="left">bus</td>
-<td align="right">64966.0272</td>
-<td align="right">63929.6803</td>
-<td align="right">62992.3355</td>
-<td align="right">36626.3959</td>
-<td align="right">64965.1277</td>
-<td align="right">77090.9900</td>
+<td align="right">1058424.02</td>
+<td align="right">1041033.352</td>
+<td align="right">1025480.40</td>
+<td align="right">601696.720</td>
+<td align="right">1058393.36</td>
+<td align="right">1259754.196</td>
 </tr>
 <tr class="even">
 <td align="left">car</td>
-<td align="right">15879.9925</td>
-<td align="right">15069.9967</td>
-<td align="right">15348.0551</td>
-<td align="right">152726.2578</td>
-<td align="right">15877.3912</td>
-<td align="right">15368.3043</td>
+<td align="right">284141.65</td>
+<td align="right">270371.709</td>
+<td align="right">273816.90</td>
+<td align="right">2528853.237</td>
+<td align="right">284096.56</td>
+<td align="right">275696.696</td>
 </tr>
 <tr class="odd">
 <td align="left">motorcycle</td>
-<td align="right">163619.1509</td>
-<td align="right">152760.6021</td>
-<td align="right">158484.2076</td>
-<td align="right">92406.5311</td>
-<td align="right">164015.3748</td>
-<td align="right">157306.8104</td>
+<td align="right">2705293.79</td>
+<td align="right">2525828.942</td>
+<td align="right">2622115.67</td>
+<td align="right">1529165.267</td>
+<td align="right">2712022.04</td>
+<td align="right">2599839.221</td>
 </tr>
 <tr class="even">
 <td align="left">rail</td>
-<td align="right">847.3958</td>
-<td align="right">844.5852</td>
-<td align="right">846.0731</td>
-<td align="right">498.7634</td>
-<td align="right">847.3958</td>
-<td align="right">846.0239</td>
+<td align="right">13422.00</td>
+<td align="right">13363.564</td>
+<td align="right">13403.96</td>
+<td align="right">7254.197</td>
+<td align="right">13422.00</td>
+<td align="right">13401.797</td>
 </tr>
 <tr class="odd">
 <td align="left">shared_auto</td>
-<td align="right">4471.5632</td>
-<td align="right">4458.6289</td>
-<td align="right">4307.9779</td>
-<td align="right">2689.1254</td>
-<td align="right">4471.2844</td>
-<td align="right">4463.4116</td>
+<td align="right">70036.26</td>
+<td align="right">69827.958</td>
+<td align="right">67655.70</td>
+<td align="right">41835.169</td>
+<td align="right">70033.01</td>
+<td align="right">69864.929</td>
 </tr>
 <tr class="even">
 <td align="left">taxi</td>
-<td align="right">632.4613</td>
-<td align="right">580.3709</td>
-<td align="right">608.9560</td>
-<td align="right">345.9760</td>
-<td align="right">632.4613</td>
-<td align="right">596.9186</td>
+<td align="right">10559.20</td>
+<td align="right">9537.244</td>
+<td align="right">10108.34</td>
+<td align="right">5426.881</td>
+<td align="right">10559.20</td>
+<td align="right">9909.957</td>
 </tr>
 <tr class="odd">
 <td align="left">walking</td>
-<td align="right">44129.4263</td>
-<td align="right">77583.6882</td>
-<td align="right">42738.9140</td>
-<td align="right">29928.4650</td>
-<td align="right">43373.1010</td>
-<td align="right">37489.5265</td>
+<td align="right">1266716.71</td>
+<td align="right">1530749.658</td>
+<td align="right">1225541.25</td>
+<td align="right">770527.857</td>
+<td align="right">1260258.62</td>
+<td align="right">1244652.933</td>
 </tr>
 </tbody>
 </table>
@@ -4801,93 +6938,93 @@ This warning is displayed once per session.</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">bicycle</td>
-<td align="right">6006.6543</td>
-<td align="right">4890.0197</td>
-<td align="right">10600.2627</td>
-<td align="right">4823.1353</td>
-<td align="right">3312.8081</td>
-<td align="right">5737.2194</td>
+<td align="right">127115.129</td>
+<td align="right">103722.089</td>
+<td align="right">223482.155</td>
+<td align="right">101084.90</td>
+<td align="right">70453.681</td>
+<td align="right">121507.532</td>
 </tr>
 <tr class="even">
 <td align="left">bus</td>
-<td align="right">101751.3491</td>
-<td align="right">97740.0188</td>
-<td align="right">100377.0780</td>
-<td align="right">76685.5499</td>
-<td align="right">53121.6571</td>
-<td align="right">104239.2683</td>
+<td align="right">2119014.574</td>
+<td align="right">2034632.173</td>
+<td align="right">2090541.516</td>
+<td align="right">1597288.82</td>
+<td align="right">1106628.603</td>
+<td align="right">2172884.870</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
-<td align="right">73941.8156</td>
-<td align="right">67913.9658</td>
-<td align="right">72533.0828</td>
-<td align="right">127679.0008</td>
-<td align="right">40082.3523</td>
-<td align="right">72772.7721</td>
+<td align="right">1600910.831</td>
+<td align="right">1469209.416</td>
+<td align="right">1570272.891</td>
+<td align="right">2713810.09</td>
+<td align="right">868935.201</td>
+<td align="right">1575332.222</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">4335.9878</td>
-<td align="right">4228.0791</td>
-<td align="right">4265.0233</td>
-<td align="right">3328.2174</td>
-<td align="right">139831.1469</td>
-<td align="right">4323.2838</td>
+<td align="right">88251.492</td>
+<td align="right">86034.764</td>
+<td align="right">86792.850</td>
+<td align="right">67299.71</td>
+<td align="right">2921012.704</td>
+<td align="right">87989.293</td>
 </tr>
 <tr class="odd">
 <td align="left">other</td>
-<td align="right">0.0000</td>
-<td align="right">0.0000</td>
-<td align="right">0.0000</td>
-<td align="right">0.0000</td>
-<td align="right">0.0000</td>
-<td align="right">0.0000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.00</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
 </tr>
 <tr class="even">
 <td align="left">rail</td>
-<td align="right">397.8648</td>
-<td align="right">366.6560</td>
-<td align="right">371.2054</td>
-<td align="right">303.5034</td>
-<td align="right">198.5378</td>
-<td align="right">397.2590</td>
+<td align="right">8914.115</td>
+<td align="right">8298.858</td>
+<td align="right">8348.693</td>
+<td align="right">6789.44</td>
+<td align="right">4556.497</td>
+<td align="right">8901.583</td>
 </tr>
 <tr class="odd">
 <td align="left">subway</td>
-<td align="right">70015.9332</td>
-<td align="right">68162.0421</td>
-<td align="right">69026.5080</td>
-<td align="right">52754.8419</td>
-<td align="right">36729.4991</td>
-<td align="right">69984.8987</td>
+<td align="right">1424874.649</td>
+<td align="right">1387078.333</td>
+<td align="right">1404983.506</td>
+<td align="right">1073319.84</td>
+<td align="right">748888.739</td>
+<td align="right">1424231.109</td>
 </tr>
 <tr class="even">
 <td align="left">taxi</td>
-<td align="right">16907.2443</td>
-<td align="right">15825.7828</td>
-<td align="right">16641.0073</td>
-<td align="right">12770.2252</td>
-<td align="right">9142.8551</td>
-<td align="right">16718.8593</td>
+<td align="right">355956.130</td>
+<td align="right">332506.756</td>
+<td align="right">350136.113</td>
+<td align="right">269485.21</td>
+<td align="right">192967.772</td>
+<td align="right">351779.987</td>
 </tr>
 <tr class="odd">
 <td align="left">van</td>
-<td align="right">956.6080</td>
-<td align="right">866.6141</td>
-<td align="right">940.9908</td>
-<td align="right">721.9354</td>
-<td align="right">568.6493</td>
-<td align="right">942.8073</td>
+<td align="right">20981.906</td>
+<td align="right">18968.829</td>
+<td align="right">20661.158</td>
+<td align="right">15868.26</td>
+<td align="right">12614.397</td>
+<td align="right">20661.158</td>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">14279.3670</td>
-<td align="right">44262.6630</td>
-<td align="right">13827.0947</td>
-<td align="right">12258.2249</td>
-<td align="right">11296.8753</td>
-<td align="right">12685.6913</td>
+<td align="right">466049.619</td>
+<td align="right">771617.229</td>
+<td align="right">456849.564</td>
+<td align="right">367122.17</td>
+<td align="right">286010.852</td>
+<td align="right">467972.855</td>
 </tr>
 </tbody>
 </table>
@@ -4907,75 +7044,75 @@ This warning is displayed once per session.</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">bicycle</td>
-<td align="right">2106.684</td>
-<td align="right">1702.327</td>
-<td align="right">12769.398</td>
-<td align="right">1934.736</td>
-<td align="right">1273.9670</td>
-<td align="right">1858.503</td>
+<td align="right">43832.71</td>
+<td align="right">35598.55</td>
+<td align="right">259586.38</td>
+<td align="right">40028.86</td>
+<td align="right">26355.34</td>
+<td align="right">38797.90</td>
 </tr>
 <tr class="even">
 <td align="left">bus</td>
-<td align="right">104413.163</td>
-<td align="right">101443.603</td>
-<td align="right">100830.703</td>
-<td align="right">93382.764</td>
-<td align="right">59477.4174</td>
-<td align="right">110929.869</td>
+<td align="right">2028474.05</td>
+<td align="right">1970952.95</td>
+<td align="right">1959283.01</td>
+<td align="right">1813027.30</td>
+<td align="right">1152905.48</td>
+<td align="right">2160593.61</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
-<td align="right">91860.373</td>
-<td align="right">85468.683</td>
-<td align="right">88318.630</td>
-<td align="right">110857.249</td>
-<td align="right">52933.7324</td>
-<td align="right">88872.420</td>
+<td align="right">1893993.50</td>
+<td align="right">1758218.02</td>
+<td align="right">1820986.77</td>
+<td align="right">2262064.92</td>
+<td align="right">1093574.35</td>
+<td align="right">1830525.04</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">37605.251</td>
-<td align="right">35883.102</td>
-<td align="right">36057.068</td>
-<td align="right">34505.084</td>
-<td align="right">138978.9733</td>
-<td align="right">37060.859</td>
+<td align="right">742410.05</td>
+<td align="right">709021.98</td>
+<td align="right">707140.76</td>
+<td align="right">683413.07</td>
+<td align="right">2749273.35</td>
+<td align="right">732511.73</td>
 </tr>
 <tr class="odd">
 <td align="left">subway</td>
-<td align="right">17851.375</td>
-<td align="right">17537.170</td>
-<td align="right">17259.549</td>
-<td align="right">15966.930</td>
-<td align="right">9906.1066</td>
-<td align="right">17849.969</td>
+<td align="right">338328.87</td>
+<td align="right">331900.83</td>
+<td align="right">327108.82</td>
+<td align="right">302856.39</td>
+<td align="right">191401.42</td>
+<td align="right">338306.55</td>
 </tr>
 <tr class="even">
 <td align="left">taxi</td>
-<td align="right">1211.907</td>
-<td align="right">1103.208</td>
-<td align="right">1150.407</td>
-<td align="right">1113.376</td>
-<td align="right">722.1579</td>
-<td align="right">1154.111</td>
+<td align="right">28978.05</td>
+<td align="right">26391.77</td>
+<td align="right">27580.28</td>
+<td align="right">26202.61</td>
+<td align="right">17009.18</td>
+<td align="right">27640.55</td>
 </tr>
 <tr class="odd">
 <td align="left">van</td>
-<td align="right">7810.384</td>
-<td align="right">7231.294</td>
-<td align="right">7530.592</td>
-<td align="right">7034.049</td>
-<td align="right">4447.5330</td>
-<td align="right">7536.459</td>
+<td align="right">136433.11</td>
+<td align="right">126218.33</td>
+<td align="right">131511.65</td>
+<td align="right">122888.33</td>
+<td align="right">77829.91</td>
+<td align="right">131572.63</td>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">25010.515</td>
-<td align="right">50407.035</td>
-<td align="right">23280.666</td>
-<td align="right">22243.487</td>
-<td align="right">19758.1778</td>
-<td align="right">20204.914</td>
+<td align="right">350203.57</td>
+<td align="right">604351.50</td>
+<td align="right">329456.25</td>
+<td align="right">312172.45</td>
+<td align="right">254304.90</td>
+<td align="right">343859.60</td>
 </tr>
 </tbody>
 </table>
@@ -4995,93 +7132,93 @@ This warning is displayed once per session.</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">bicycle</td>
-<td align="right">6589.6053</td>
-<td align="right">4959.5750</td>
-<td align="right">18471.5520</td>
-<td align="right">4707.2315</td>
-<td align="right">3792.51913</td>
-<td align="right">6563.4631</td>
+<td align="right">137917.97</td>
+<td align="right">103982.08</td>
+<td align="right">386499.26</td>
+<td align="right">98304.417</td>
+<td align="right">79282.852</td>
+<td align="right">137351.13</td>
 </tr>
 <tr class="even">
 <td align="left">bus</td>
-<td align="right">122631.9083</td>
-<td align="right">116438.2194</td>
-<td align="right">119304.2385</td>
-<td align="right">86453.0345</td>
-<td align="right">65263.73957</td>
-<td align="right">123017.4005</td>
+<td align="right">2509889.54</td>
+<td align="right">2383456.99</td>
+<td align="right">2440688.95</td>
+<td align="right">1770641.061</td>
+<td align="right">1335904.899</td>
+<td align="right">2517630.11</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
-<td align="right">85600.5108</td>
-<td align="right">80089.8643</td>
-<td align="right">83271.3787</td>
-<td align="right">196287.3767</td>
-<td align="right">45862.86019</td>
-<td align="right">85598.2689</td>
+<td align="right">1885132.86</td>
+<td align="right">1764322.22</td>
+<td align="right">1835288.37</td>
+<td align="right">4151208.111</td>
+<td align="right">1006414.586</td>
+<td align="right">1885077.10</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">16376.0421</td>
-<td align="right">15494.1120</td>
-<td align="right">16018.3403</td>
-<td align="right">11758.5546</td>
-<td align="right">219145.16728</td>
-<td align="right">16376.0421</td>
+<td align="right">337937.12</td>
+<td align="right">320281.53</td>
+<td align="right">330521.77</td>
+<td align="right">241184.531</td>
+<td align="right">4568558.171</td>
+<td align="right">337937.12</td>
 </tr>
 <tr class="odd">
 <td align="left">other</td>
-<td align="right">168.6071</td>
-<td align="right">166.8648</td>
-<td align="right">166.8648</td>
-<td align="right">128.9065</td>
-<td align="right">99.22877</td>
-<td align="right">168.6071</td>
+<td align="right">3391.73</td>
+<td align="right">3354.56</td>
+<td align="right">3354.56</td>
+<td align="right">2508.951</td>
+<td align="right">1979.284</td>
+<td align="right">3391.73</td>
 </tr>
 <tr class="even">
 <td align="left">rail</td>
-<td align="right">61485.6085</td>
-<td align="right">59792.0377</td>
-<td align="right">59972.5963</td>
-<td align="right">42555.2105</td>
-<td align="right">33823.14223</td>
-<td align="right">61482.6086</td>
+<td align="right">1267596.39</td>
+<td align="right">1233056.49</td>
+<td align="right">1236215.91</td>
+<td align="right">878560.302</td>
+<td align="right">691197.416</td>
+<td align="right">1267522.05</td>
 </tr>
 <tr class="odd">
 <td align="left">subway</td>
-<td align="right">11863.7931</td>
-<td align="right">11476.6525</td>
-<td align="right">11591.7553</td>
-<td align="right">8331.0760</td>
-<td align="right">6448.26869</td>
-<td align="right">11863.7931</td>
+<td align="right">240218.12</td>
+<td align="right">232403.20</td>
+<td align="right">234410.36</td>
+<td align="right">168824.525</td>
+<td align="right">130084.463</td>
+<td align="right">240218.12</td>
 </tr>
 <tr class="even">
 <td align="left">taxi</td>
-<td align="right">6592.8633</td>
-<td align="right">6072.9205</td>
-<td align="right">6394.8034</td>
-<td align="right">4680.3691</td>
-<td align="right">3612.71376</td>
-<td align="right">6592.3550</td>
+<td align="right">144283.27</td>
+<td align="right">132519.07</td>
+<td align="right">140138.85</td>
+<td align="right">102448.833</td>
+<td align="right">78873.986</td>
+<td align="right">144273.98</td>
 </tr>
 <tr class="odd">
 <td align="left">van</td>
-<td align="right">3805.8905</td>
-<td align="right">3662.1837</td>
-<td align="right">3692.0844</td>
-<td align="right">2859.5931</td>
-<td align="right">1997.16486</td>
-<td align="right">3805.8905</td>
+<td align="right">78632.38</td>
+<td align="right">75695.98</td>
+<td align="right">76244.23</td>
+<td align="right">58960.349</td>
+<td align="right">41592.832</td>
+<td align="right">78632.38</td>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">18948.3318</td>
-<td align="right">65809.3975</td>
-<td align="right">18503.8526</td>
-<td align="right">14257.8139</td>
-<td align="right">14480.71184</td>
-<td align="right">18247.1315</td>
+<td align="right">2963545.05</td>
+<td align="right">3319472.27</td>
+<td align="right">2885182.14</td>
+<td align="right">2095903.328</td>
+<td align="right">1634655.917</td>
+<td align="right">2964369.17</td>
 </tr>
 </tbody>
 </table>
@@ -5101,93 +7238,93 @@ This warning is displayed once per session.</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">bicycle</td>
-<td align="right">7896.238</td>
-<td align="right">6366.004</td>
-<td align="right">33821.236</td>
-<td align="right">5856.563</td>
-<td align="right">4645.313</td>
-<td align="right">7879.245</td>
+<td align="right">164768.13</td>
+<td align="right">133338.20</td>
+<td align="right">684608.98</td>
+<td align="right">121787.48</td>
+<td align="right">96778.46</td>
+<td align="right">164418.29</td>
 </tr>
 <tr class="even">
 <td align="left">bus</td>
-<td align="right">311801.272</td>
-<td align="right">302962.425</td>
-<td align="right">301710.791</td>
-<td align="right">237088.611</td>
-<td align="right">167402.984</td>
-<td align="right">313220.615</td>
+<td align="right">6144618.36</td>
+<td align="right">5972261.51</td>
+<td align="right">5946750.50</td>
+<td align="right">4671013.29</td>
+<td align="right">3295142.14</td>
+<td align="right">6173356.51</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
-<td align="right">209693.471</td>
-<td align="right">203532.071</td>
-<td align="right">203022.019</td>
-<td align="right">356045.655</td>
-<td align="right">112979.553</td>
-<td align="right">209626.836</td>
+<td align="right">4455159.65</td>
+<td align="right">4323949.25</td>
+<td align="right">4314303.33</td>
+<td align="right">7349836.49</td>
+<td align="right">2396368.57</td>
+<td align="right">4453691.90</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">25768.590</td>
-<td align="right">24905.274</td>
-<td align="right">25292.337</td>
-<td align="right">20177.258</td>
-<td align="right">390466.188</td>
-<td align="right">25768.174</td>
+<td align="right">525262.59</td>
+<td align="right">508046.49</td>
+<td align="right">516137.46</td>
+<td align="right">413991.57</td>
+<td align="right">7886151.57</td>
+<td align="right">525253.70</td>
 </tr>
 <tr class="odd">
 <td align="left">other</td>
-<td align="right">0.000</td>
-<td align="right">0.000</td>
-<td align="right">0.000</td>
-<td align="right">0.000</td>
-<td align="right">0.000</td>
-<td align="right">0.000</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
 </tr>
 <tr class="even">
 <td align="left">rail</td>
-<td align="right">3611.026</td>
-<td align="right">3585.048</td>
-<td align="right">3494.345</td>
-<td align="right">2744.570</td>
-<td align="right">1907.433</td>
-<td align="right">3611.026</td>
+<td align="right">72368.44</td>
+<td align="right">71799.54</td>
+<td align="right">70140.87</td>
+<td align="right">54908.78</td>
+<td align="right">38014.45</td>
+<td align="right">72368.44</td>
 </tr>
 <tr class="odd">
 <td align="left">subway</td>
-<td align="right">184455.447</td>
-<td align="right">183333.858</td>
-<td align="right">179143.318</td>
-<td align="right">141121.721</td>
-<td align="right">97485.626</td>
-<td align="right">184455.447</td>
+<td align="right">3641872.26</td>
+<td align="right">3619756.57</td>
+<td align="right">3537476.25</td>
+<td align="right">2789603.30</td>
+<td align="right">1924365.02</td>
+<td align="right">3641872.26</td>
 </tr>
 <tr class="even">
 <td align="left">taxi</td>
-<td align="right">28812.452</td>
-<td align="right">26917.522</td>
-<td align="right">27766.570</td>
-<td align="right">21791.888</td>
-<td align="right">15617.386</td>
-<td align="right">28798.383</td>
+<td align="right">587196.07</td>
+<td align="right">548625.17</td>
+<td align="right">565908.48</td>
+<td align="right">443776.54</td>
+<td align="right">317937.92</td>
+<td align="right">586908.07</td>
 </tr>
 <tr class="odd">
 <td align="left">van</td>
-<td align="right">2052.654</td>
-<td align="right">1992.719</td>
-<td align="right">1986.281</td>
-<td align="right">1500.934</td>
-<td align="right">1081.740</td>
-<td align="right">2052.654</td>
+<td align="right">36063.46</td>
+<td align="right">35029.54</td>
+<td align="right">34910.69</td>
+<td align="right">26318.63</td>
+<td align="right">19192.50</td>
+<td align="right">36063.46</td>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">47908.536</td>
-<td align="right">91776.352</td>
-<td align="right">45519.609</td>
-<td align="right">36744.145</td>
-<td align="right">38109.083</td>
-<td align="right">45266.079</td>
+<td align="right">1025642.79</td>
+<td align="right">1440145.45</td>
+<td align="right">982715.18</td>
+<td align="right">781715.66</td>
+<td align="right">679001.11</td>
+<td align="right">1022886.61</td>
 </tr>
 </tbody>
 </table>
@@ -5207,93 +7344,93 @@ This warning is displayed once per session.</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">bicycle</td>
-<td align="right">10200.16737</td>
-<td align="right">9106.33722</td>
-<td align="right">10200.16737</td>
-<td align="right">7077.73147</td>
-<td align="right">6179.19338</td>
-<td align="right">10161.86464</td>
+<td align="right">208605.7521</td>
+<td align="right">186241.9023</td>
+<td align="right">208605.7521</td>
+<td align="right">144420.1507</td>
+<td align="right">126031.2524</td>
+<td align="right">207832.2530</td>
 </tr>
 <tr class="even">
 <td align="left">bus</td>
-<td align="right">186800.43186</td>
-<td align="right">184440.21633</td>
-<td align="right">186800.43186</td>
-<td align="right">123434.94903</td>
-<td align="right">106426.45930</td>
-<td align="right">187243.43056</td>
+<td align="right">3801586.3661</td>
+<td align="right">3753583.9369</td>
+<td align="right">3801586.3661</td>
+<td align="right">2513611.4329</td>
+<td align="right">2166914.9103</td>
+<td align="right">3810828.4582</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
-<td align="right">37995.81601</td>
-<td align="right">37038.91972</td>
-<td align="right">37995.81601</td>
-<td align="right">124352.50436</td>
-<td align="right">22017.22408</td>
-<td align="right">37989.03353</td>
+<td align="right">824094.8553</td>
+<td align="right">803242.2913</td>
+<td align="right">824094.8553</td>
+<td align="right">2583043.8136</td>
+<td align="right">477634.7985</td>
+<td align="right">823939.2291</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">32226.49175</td>
-<td align="right">31556.29553</td>
-<td align="right">32226.49175</td>
-<td align="right">21425.83808</td>
-<td align="right">142827.61695</td>
-<td align="right">32220.77313</td>
+<td align="right">653255.0236</td>
+<td align="right">640404.3659</td>
+<td align="right">653255.0236</td>
+<td align="right">435263.4041</td>
+<td align="right">2930329.1730</td>
+<td align="right">653140.0289</td>
 </tr>
 <tr class="odd">
 <td align="left">other</td>
-<td align="right">0.00000</td>
-<td align="right">0.00000</td>
-<td align="right">0.00000</td>
-<td align="right">0.00000</td>
-<td align="right">0.00000</td>
-<td align="right">0.00000</td>
+<td align="right">0.0000</td>
+<td align="right">0.0000</td>
+<td align="right">0.0000</td>
+<td align="right">0.0000</td>
+<td align="right">0.0000</td>
+<td align="right">0.0000</td>
 </tr>
 <tr class="even">
 <td align="left">rail</td>
-<td align="right">23.22149</td>
-<td align="right">23.22149</td>
-<td align="right">23.22149</td>
-<td align="right">21.73793</td>
-<td align="right">21.73793</td>
-<td align="right">23.22149</td>
+<td align="right">417.3882</td>
+<td align="right">417.3882</td>
+<td align="right">417.3882</td>
+<td align="right">391.2269</td>
+<td align="right">391.2269</td>
+<td align="right">417.3882</td>
 </tr>
 <tr class="odd">
 <td align="left">taxi</td>
-<td align="right">9400.69819</td>
-<td align="right">9032.06122</td>
-<td align="right">9400.69819</td>
-<td align="right">6340.63405</td>
-<td align="right">5595.85813</td>
-<td align="right">9395.37531</td>
+<td align="right">202314.5454</td>
+<td align="right">194475.5484</td>
+<td align="right">202314.5454</td>
+<td align="right">136431.6861</td>
+<td align="right">120021.1758</td>
+<td align="right">202196.4842</td>
 </tr>
 <tr class="even">
 <td align="left">truck</td>
-<td align="right">352.49229</td>
-<td align="right">352.49229</td>
-<td align="right">352.49229</td>
-<td align="right">349.79803</td>
-<td align="right">351.31521</td>
-<td align="right">352.49229</td>
+<td align="right">7964.6249</td>
+<td align="right">7964.6249</td>
+<td align="right">7964.6249</td>
+<td align="right">7913.7244</td>
+<td align="right">7941.8981</td>
+<td align="right">7964.6249</td>
 </tr>
 <tr class="odd">
 <td align="left">van</td>
-<td align="right">1333.32206</td>
-<td align="right">1227.37231</td>
-<td align="right">1333.32206</td>
-<td align="right">955.98689</td>
-<td align="right">775.14119</td>
-<td align="right">1331.45491</td>
+<td align="right">25877.0976</td>
+<td align="right">23859.8989</td>
+<td align="right">25877.0976</td>
+<td align="right">18558.9627</td>
+<td align="right">15063.6029</td>
+<td align="right">25842.2159</td>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">20608.55802</td>
-<td align="right">32263.76545</td>
-<td align="right">20608.55802</td>
-<td align="right">14880.75318</td>
-<td align="right">15787.10516</td>
-<td align="right">19838.54835</td>
+<td align="right">380216.1218</td>
+<td align="right">494141.8182</td>
+<td align="right">380216.1218</td>
+<td align="right">264697.3736</td>
+<td align="right">260003.7372</td>
+<td align="right">381381.6621</td>
 </tr>
 </tbody>
 </table>
@@ -5313,57 +7450,57 @@ This warning is displayed once per session.</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">bicycle</td>
-<td align="right">2118.635</td>
-<td align="right">1828.513</td>
-<td align="right">58565.543</td>
-<td align="right">2118.635</td>
-<td align="right">1278.245</td>
-<td align="right">2118.635</td>
+<td align="right">46443.53</td>
+<td align="right">40662.79</td>
+<td align="right">1166264.2</td>
+<td align="right">46443.53</td>
+<td align="right">24852.23</td>
+<td align="right">46443.53</td>
 </tr>
 <tr class="even">
 <td align="left">bus</td>
-<td align="right">344717.945</td>
-<td align="right">323423.861</td>
-<td align="right">326834.003</td>
-<td align="right">344145.463</td>
-<td align="right">178049.998</td>
-<td align="right">347102.740</td>
+<td align="right">6507137.30</td>
+<td align="right">6113679.16</td>
+<td align="right">6153597.4</td>
+<td align="right">6496761.62</td>
+<td align="right">3355127.67</td>
+<td align="right">6553092.88</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
-<td align="right">548322.929</td>
-<td align="right">511847.502</td>
-<td align="right">522033.009</td>
-<td align="right">552727.732</td>
-<td align="right">309992.268</td>
-<td align="right">547957.200</td>
+<td align="right">10853607.75</td>
+<td align="right">10070422.62</td>
+<td align="right">10325235.1</td>
+<td align="right">10937356.71</td>
+<td align="right">6107842.20</td>
+<td align="right">10845450.31</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">8059.648</td>
-<td align="right">7921.394</td>
-<td align="right">8016.171</td>
-<td align="right">8024.245</td>
-<td align="right">560408.436</td>
-<td align="right">8059.648</td>
+<td align="right">143027.67</td>
+<td align="right">139620.22</td>
+<td align="right">142175.8</td>
+<td align="right">142175.81</td>
+<td align="right">10927174.91</td>
+<td align="right">143027.67</td>
 </tr>
 <tr class="odd">
 <td align="left">rail</td>
-<td align="right">236927.893</td>
-<td align="right">233848.906</td>
-<td align="right">230419.541</td>
-<td align="right">236727.987</td>
-<td align="right">121154.749</td>
-<td align="right">236927.893</td>
+<td align="right">4576152.96</td>
+<td align="right">4515926.30</td>
+<td align="right">4446635.8</td>
+<td align="right">4572575.14</td>
+<td align="right">2282650.12</td>
+<td align="right">4576152.96</td>
 </tr>
 <tr class="even">
 <td align="left">walking</td>
-<td align="right">141615.004</td>
-<td align="right">272832.979</td>
-<td align="right">133746.073</td>
-<td align="right">134709.015</td>
-<td align="right">101608.702</td>
-<td align="right">137576.872</td>
+<td align="right">1766750.34</td>
+<td align="right">3012808.45</td>
+<td align="right">1659211.2</td>
+<td align="right">1697806.74</td>
+<td align="right">1195472.42</td>
+<td align="right">1766913.89</td>
 </tr>
 </tbody>
 </table>
@@ -5383,48 +7520,48 @@ This warning is displayed once per session.</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">bicycle</td>
-<td align="right">1570.537</td>
-<td align="right">1016.887</td>
-<td align="right">2933.684</td>
-<td align="right">857.7008</td>
-<td align="right">1362.197</td>
-<td align="right">1554.689</td>
+<td align="right">30139.19</td>
+<td align="right">19628.01</td>
+<td align="right">54211.68</td>
+<td align="right">16421.24</td>
+<td align="right">26177.44</td>
+<td align="right">29847.33</td>
 </tr>
 <tr class="even">
 <td align="left">bus</td>
-<td align="right">35843.364</td>
-<td align="right">33554.598</td>
-<td align="right">35022.677</td>
-<td align="right">19685.7134</td>
-<td align="right">27034.904</td>
-<td align="right">36049.280</td>
+<td align="right">618973.65</td>
+<td align="right">579125.64</td>
+<td align="right">604984.94</td>
+<td align="right">340520.89</td>
+<td align="right">468070.63</td>
+<td align="right">622807.40</td>
 </tr>
 <tr class="odd">
 <td align="left">car</td>
-<td align="right">1653.003</td>
-<td align="right">1472.765</td>
-<td align="right">1594.238</td>
-<td align="right">27056.9846</td>
-<td align="right">1388.015</td>
-<td align="right">1651.870</td>
+<td align="right">32678.70</td>
+<td align="right">28867.78</td>
+<td align="right">31535.85</td>
+<td align="right">479149.61</td>
+<td align="right">27376.43</td>
+<td align="right">32652.45</td>
 </tr>
 <tr class="even">
 <td align="left">motorcycle</td>
-<td align="right">14182.075</td>
-<td align="right">12000.077</td>
-<td align="right">13852.438</td>
-<td align="right">7671.9852</td>
-<td align="right">23958.385</td>
-<td align="right">14149.645</td>
+<td align="right">257496.99</td>
+<td align="right">217313.76</td>
+<td align="right">251375.80</td>
+<td align="right">139700.53</td>
+<td align="right">426266.38</td>
+<td align="right">256898.03</td>
 </tr>
 <tr class="odd">
 <td align="left">walking</td>
-<td align="right">6342.935</td>
-<td align="right">17497.423</td>
-<td align="right">6158.476</td>
-<td align="right">4338.9600</td>
-<td align="right">6274.877</td>
-<td align="right">6029.928</td>
+<td align="right">98447.70</td>
+<td align="right">192801.04</td>
+<td align="right">95627.96</td>
+<td align="right">61943.96</td>
+<td align="right">89845.35</td>
+<td align="right">98202.64</td>
 </tr>
 </tbody>
 </table>
