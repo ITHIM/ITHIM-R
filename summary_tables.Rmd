@@ -37,6 +37,8 @@ io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
 cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota', 'cape_town', 'vizag')
 
+#cities <- c('accra','sao_paulo','buenos_aires')
+
 # cities <- c('sao_paulo')
 
 # Read trip_order
@@ -238,6 +240,41 @@ for(city in cities){
 }
 
 ```
+
+## Distance tables by using true distance
+Case study specific distance tables for baseline and five scenarios
+
+
+```{r trip_dist = "asis"}
+
+for(city in cities){
+  count_people <- nrow(io[[city]]$synth_pop)
+  td <- io[[city]]$true_dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  colnames(td)[3:7] <- rownames(scen_prop)
+  
+  x <- match(td$stage_mode, trip_order$mode)
+  x[!is.na(x)]
+  td <- td[order(x),]
+  row.names(td) <- NULL
+  
+  print(kable(td, caption = paste("Distance table (km) for ", city, "( ", count_people, " ) per person")))
+  cat("\n")
+  
+  
+  count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
+  td <- io[[city]]$true_dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  colnames(td)[3:7] <- rownames(scen_prop)
+  x <- match(td$stage_mode, trip_order$mode)
+  x[!is.na(x)]
+  td <- td[order(x),]
+  row.names(td) <- NULL
+  
+  print(kable(td, caption = paste("Distance table (mins) for ", city, "( ", count_people, " ) per person (people with trips)")))
+  
+}
+
+```
+
 
 ## Distance by distance category
 ### Tables
