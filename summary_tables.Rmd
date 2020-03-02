@@ -12,6 +12,17 @@ knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='as
 
 ```
 
+```{r helper_functions, echo = F, message = F}
+
+# Source: https://stackoverflow.com/questions/28159936/formatting-large-currency-or-dollar-values-to-millions-billions
+comprss <- function(tx) { 
+  div <- findInterval(as.numeric(gsub("\\,", "", tx)), 
+                      c(0, 1e3, 1e6, 1e9, 1e12) )  # modify this if negative numbers are possible
+  paste(round( as.numeric(gsub("\\,","",tx))/10^(3*(div-1)), 2), 
+        c("","K","M","B","T")[div] )
+}
+
+```
 
 ```{r loadLibraries, echo = F, message = F}
 suppressWarnings({
@@ -296,14 +307,6 @@ for(city in cities){
 ```{r trip_dist_all_cities = "asis", message=F}
 
 # tab <- bl_td %>% gt() %>% fmt_number(columns = 2:ncol(bl_td), decimals = T, suffixing = T)
-
-# Source: https://stackoverflow.com/questions/28159936/formatting-large-currency-or-dollar-values-to-millions-billions
-comprss <- function(tx) { 
-  div <- findInterval(as.numeric(gsub("\\,", "", tx)), 
-                      c(0, 1e3, 1e6, 1e9, 1e12) )  # modify this if negative numbers are possible
-  paste(round( as.numeric(gsub("\\,","",tx))/10^(3*(div-1)), 2), 
-        c("","K","M","B","T")[div] )
-}
 
 backup <- bl_td
 
