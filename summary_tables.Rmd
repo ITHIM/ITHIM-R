@@ -228,10 +228,10 @@ for(city in cities){
 ```
 
 
-### Trip proportion Baseline
+### Baseline trip proportion (%)
 ```{r}
 
-kable(trip_prop)
+kable(trip_prop, caption = 'Trip prop (%) for all case studies - only selected modes')
 
 ```
 
@@ -285,17 +285,17 @@ for(city in cities){
   td <- td[order(x),]
   row.names(td) <- NULL
   
-  print(kable(td, caption = paste("Distance table (mins) for ", city, "( ", count_people, " ) per person (people with trips)")))
+  print(kable(td, caption = paste("Distance table (km) for ", city, "( ", count_people, " ) per person (people with trips)")))
   
 }
 
 ```
 
 
-### Average distance Baseline
+### Baseline average distance (km) for all case studies
 ```{r}
 
-kable(trip_dist)
+kable(trip_dist, caption = "Avg. distance per person (km) across all case studies")
 
 ```
 
