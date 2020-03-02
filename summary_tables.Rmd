@@ -348,7 +348,7 @@ for(city in cities){
 
 
 
-## Baseline total distance tables for all case studies (per year in km)
+## Baseline total distance for all case studies (per year in km)
 
 
 ```{r trip_dist_all_cities = "asis", message=F}
