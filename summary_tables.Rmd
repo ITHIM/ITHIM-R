@@ -241,37 +241,83 @@ for(city in cities){
 
 ```
 
-## Distance tables by using true distance
+## Distance tables scaled by using total population (per year in km)
 Case study specific distance tables for baseline and five scenarios
 
 
-```{r trip_dist = "asis"}
+```{r trip_tot_dist = "asis", message=F}
+
+bl_td <- list()
+
+require(gt)
 
 for(city in cities){
-  count_people <- nrow(io[[city]]$synth_pop)
-  td <- io[[city]]$true_dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  
+  print(city)
+  count_people <- round(sum(io[[city]]$demographic$population))
+  td <- io[[city]]$true_dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, list(~round((.) * 52, 3)))
   colnames(td)[3:7] <- rownames(scen_prop)
+  
+  # 
   
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
   td <- td[order(x),]
   row.names(td) <- NULL
   
-  print(kable(td, caption = paste("Distance table (km) for ", city, "( ", count_people, " ) per person")))
+  if (length(bl_td) == 0){
+    bl_td <- td %>% dplyr::select(stage_mode)
+  }
+  
+  td <- td %>% ungroup() %>% janitor::adorn_totals(c('row', 'col'))
+  
+  td1 <- td %>% dplyr::select(stage_mode, Baseline)
+  
+  names(td1)[2] <- city
+  
+  bl_td <- inner_join(bl_td, td1, by = 'stage_mode')
+  
+  td1 <- td %>% gt() %>% fmt_number(columns = 2:ncol(td), decimals = T, suffixing = T)
+  
+  print(td1)
+  
+  # print(kable(td, caption = paste("Distance table (km) for ", city, "( ", sitools::f2si(count_people), " ) per person")))
   cat("\n")
   
-  
-  count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
-  td <- io[[city]]$true_dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
-  colnames(td)[3:7] <- rownames(scen_prop)
-  x <- match(td$stage_mode, trip_order$mode)
-  x[!is.na(x)]
-  td <- td[order(x),]
-  row.names(td) <- NULL
-  
-  print(kable(td, caption = paste("Distance table (mins) for ", city, "( ", count_people, " ) per person (people with trips)")))
+}
+
+```
+
+
+
+## Baseline total distance tables for all case studies (per year in km)
+
+
+```{r trip_dist_all_cities = "asis", message=F}
+
+# tab <- bl_td %>% gt() %>% fmt_number(columns = 2:ncol(bl_td), decimals = T, suffixing = T)
+
+# Source: https://stackoverflow.com/questions/28159936/formatting-large-currency-or-dollar-values-to-millions-billions
+comprss <- function(tx) { 
+  div <- findInterval(as.numeric(gsub("\\,", "", tx)), 
+                      c(0, 1e3, 1e6, 1e9, 1e12) )  # modify this if negative numbers are possible
+  paste(round( as.numeric(gsub("\\,","",tx))/10^(3*(div-1)), 2), 
+        c("","K","M","B","T")[div] )
+}
+
+backup <- bl_td
+
+td <- as.data.frame(bl_td)
+
+for (i in 2:ncol(td)){
+  td[, i] <- comprss(td[, i])
   
 }
+
+print(kable(td, caption = paste("Distance table (km)")))
+
+
+
 
 ```
 
