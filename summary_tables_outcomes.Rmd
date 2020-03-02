@@ -22,12 +22,12 @@ knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='as
 ```{r loadLibraries, echo = F, message = F}
 
 st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
-             plain.ascii       = FALSE,       # One of the essential settings
-             style             = "rmarkdown", # Idem.
+           plain.ascii       = FALSE,       # One of the essential settings
+           style             = "rmarkdown", # Idem.
            dfSummary.silent  = TRUE,        # Suppresses messages about temporary files
            footnote          = NA,          # Keeping the results minimalistic
            subtitle.emphasis = FALSE)       # For the vignette theme, this gives
-                                            # much better results. Your mileage may vary
+# much better results. Your mileage may vary
 
 ```
 
@@ -73,21 +73,21 @@ collapse_ages <- function(data,ages=c('15-49','50-69'),age_lab='age_cat'){
   genders <- unique(data$sex)
   if(ncol(data)>3) {
     reformatted <- do.call(rbind,lapply(1:length(ages),
-    function(x) t(sapply(genders,
-          function(y) 
-            if(ncol(data)>3) colSums(data[min_ages<=target_max_age[x]&max_ages>=target_min_age[x]&data$sex==y,-c(1,2),drop=F])
-          else sum(data[min_ages<=target_max_age[x]&max_ages>=target_min_age[x]&data$sex==y,-c(1,2),drop=F])
-         ))
-  ))
-  data.frame(age_cat=rep(ages,each=2),sex=rep(genders,2),reformatted,stringsAsFactors=F)
+                                        function(x) t(sapply(genders,
+                                                             function(y) 
+                                                               if(ncol(data)>3) colSums(data[min_ages<=target_max_age[x]&max_ages>=target_min_age[x]&data$sex==y,-c(1,2),drop=F])
+                                                             else sum(data[min_ages<=target_max_age[x]&max_ages>=target_min_age[x]&data$sex==y,-c(1,2),drop=F])
+                                        ))
+    ))
+    data.frame(age_cat=rep(ages,each=2),sex=rep(genders,2),reformatted,stringsAsFactors=F)
   }else{
-  reformatted <- do.call(c,lapply(1:length(ages),
-    function(x) sapply(genders,
-          function(y) 
-            sum(data[min_ages<=target_max_age[x]&max_ages>=target_min_age[x]&data$sex==y,-c(1,2),drop=F])
-         )
-  ))
-  data.frame(age=rep(ages,each=2),sex=rep(genders,2),population=as.numeric(reformatted),stringsAsFactors=F)
+    reformatted <- do.call(c,lapply(1:length(ages),
+                                    function(x) sapply(genders,
+                                                       function(y) 
+                                                         sum(data[min_ages<=target_max_age[x]&max_ages>=target_min_age[x]&data$sex==y,-c(1,2),drop=F])
+                                    )
+    ))
+    data.frame(age=rep(ages,each=2),sex=rep(genders,2),population=as.numeric(reformatted),stringsAsFactors=F)
   }
 }
 
@@ -133,8 +133,8 @@ all_whw <- list()
 
 for(city in cities){
   # if (!city %in% c('buenos_aires', 'mexico_city'))
-    {
-     # city <- 'buenos_aires'
+  {
+    # city <- 'buenos_aires'
     for (cs in names(io$accra$outcomes$whw)){
       print(city)
       
@@ -163,16 +163,16 @@ for(city in cities){
       td3[, 2:ncol(td3)] <- round(td3[, 2:ncol(td3)], 2)
       
       var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
-        
+      
       print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', var, ' matrix for ', city)))
       cat("\n")
       
       td <- td3
       names(td)[2:ncol(td)] <- paste(names(td)[2:ncol(td)], city, sep = "_")
-    
+      
       all_whw[[var]][[city]] <- td
     }
-
+    
   }
 }
 
@@ -194,89 +194,89 @@ for (cs in names(all_whw)){
   
   td <- all_whw[[cs]] %>% purrr::reduce(full_join, by = "mode") %>% as.data.frame() %>% dplyr::select(mode, sort(names(.)))
   
-   td[is.na(td)] <- 0
-   
-   unk <- td %>% filter(mode %in% c('unknown', 'unk')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'unknown')
-   
-   unsp <- td %>% filter(mode %in% c('unspecified', 'listed_na', '?')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'unspecified')
-   
-   other <- unsp <- td %>% filter(mode %in% c('other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'other')
-   
-   pu <- td %>% filter(mode %in% c('picku', 'pickup/light goods')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'pickup')
-   
-   bus <- td %>% filter(mode %in% c('bus', 'bus_driver')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'bus')
-   
-   td <- td %>% filter(!mode %in% c('bus', 'bus_driver', 'unknown', 'unk', 'unspecified', 'listed_na', '?', 
-                                  'other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle',
-                                  'picku', 'pickup/light goods'))
-   
-   td <- plyr::rbind.fill(td, bus, unk, unsp, other, pu)
-   
-   td <- (td[!duplicated(td), ])
-   
-   td <- rbind(td %>% dplyr::filter(!mode %in% c("Total", "NOV")) %>% arrange(mode), td %>% filter(mode == 'NOV'), td %>% filter(mode == 'Total'))
-   
-   td[is.na(td)] <- 0
-   
-   td <- td %>% mutate_if(is.numeric, round, 2)
-   
-   backup_td <- td
-   
-   readr::write_csv(td, paste0('results/multi_city/whw_matrices/whw_', cs, '.csv'))
-   
-   colnames(td) = gsub("auto_rickshaw", "ar", colnames(td))
-   
-   whw_lng <- reshape2::melt(td)
-   
-   col_split <- stringr::str_split(whw_lng$variable, "_", simplify = TRUE, n = 2)
-   
-   whw_lng <- cbind(whw_lng, col_split)
-   names(whw_lng)[4] <- 'strike_mode'
-   names(whw_lng)[5] <- 'city'
-   whw_lng <- whw_lng %>% dplyr::select(-variable)
-   whw_lng <- whw_lng %>% dplyr::filter(strike_mode != "rowSum")
-   whw_lng <- whw_lng %>% rename(str_mode = mode, cas_mode = strike_mode)
-   
-   whw_lng$str_mode <- factor(whw_lng$str_mode, levels = unique(whw_lng$str_mode))
-   
-   qualified_scen_name <- 'Bus'
-   scen <- 'Scenario'
-   
-   if (cs == 'bl'){
-     qualified_scen_name <- 'Baseline'
-     scen <- ''
-   }else if(cs == "w_sc"){
-     qualified_scen_name <- 'Walking'
-   }else if(cs == "bi_sc"){
-     qualified_scen_name <- 'Bicycle'
-   }else if(cs == "car_sc"){
-     qualified_scen_name <- 'Car'
-   }else if(cs == "mc_sc"){
-     qualified_scen_name <- 'Motorcyle'
-   }
-   
-   readr::write_csv(whw_lng, paste0('results/multi_city/whw_matrices/whw_lng_', cs, '.csv'))
-   
-   f <- ggplot(data = whw_lng) +
-     aes(x = str_mode, fill = cas_mode, weight = value) +
-     geom_bar(position = "stack") +
-     scale_fill_brewer(palette = "Dark2") +
-     labs(x = "Strike Mode", y = "# of incidents", title = paste("WHW - ", qualified_scen_name, scen)) +
-     coord_flip() +
-     facet_wrap(vars(city), scales = "free_y")
-   
-   file_list[[cs]] <- f
-   
-   
-   ggsave(f, file = paste0("results/multi_city/whw_matrices/plots/whw_", cs,".png"), limitsize = F, dpi = 300, scale = 1.5)
-   
-   d <- paste0("results/multi_city/whw_matrices/interactive_plots/whw_", cs,".html")
-   
-   htmlwidgets::saveWidget(plotly::ggplotly(f), file.path(normalizePath(dirname(d)), basename(d)))
+  td[is.na(td)] <- 0
+  
+  unk <- td %>% filter(mode %in% c('unknown', 'unk')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'unknown')
+  
+  unsp <- td %>% filter(mode %in% c('unspecified', 'listed_na', '?')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'unspecified')
+  
+  other <- unsp <- td %>% filter(mode %in% c('other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'other')
+  
+  pu <- td %>% filter(mode %in% c('picku', 'pickup/light goods')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'pickup')
+  
+  bus <- td %>% filter(mode %in% c('bus', 'bus_driver')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'bus')
+  
+  td <- td %>% filter(!mode %in% c('bus', 'bus_driver', 'unknown', 'unk', 'unspecified', 'listed_na', '?', 
+                                   'other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle',
+                                   'picku', 'pickup/light goods'))
+  
+  td <- plyr::rbind.fill(td, bus, unk, unsp, other, pu)
+  
+  td <- (td[!duplicated(td), ])
+  
+  td <- rbind(td %>% dplyr::filter(!mode %in% c("Total", "NOV")) %>% arrange(mode), td %>% filter(mode == 'NOV'), td %>% filter(mode == 'Total'))
+  
+  td[is.na(td)] <- 0
+  
+  td <- td %>% mutate_if(is.numeric, round, 2)
+  
+  backup_td <- td
+  
+  readr::write_csv(td, paste0('results/multi_city/whw_matrices/whw_', cs, '.csv'))
+  
+  colnames(td) = gsub("auto_rickshaw", "ar", colnames(td))
+  
+  whw_lng <- reshape2::melt(td)
+  
+  col_split <- stringr::str_split(whw_lng$variable, "_", simplify = TRUE, n = 2)
+  
+  whw_lng <- cbind(whw_lng, col_split)
+  names(whw_lng)[4] <- 'strike_mode'
+  names(whw_lng)[5] <- 'city'
+  whw_lng <- whw_lng %>% dplyr::select(-variable)
+  whw_lng <- whw_lng %>% dplyr::filter(strike_mode != "rowSum")
+  whw_lng <- whw_lng %>% rename(str_mode = mode, cas_mode = strike_mode)
+  
+  whw_lng$str_mode <- factor(whw_lng$str_mode, levels = unique(whw_lng$str_mode))
+  
+  qualified_scen_name <- 'Bus'
+  scen <- 'Scenario'
+  
+  if (cs == 'bl'){
+    qualified_scen_name <- 'Baseline'
+    scen <- ''
+  }else if(cs == "w_sc"){
+    qualified_scen_name <- 'Walking'
+  }else if(cs == "bi_sc"){
+    qualified_scen_name <- 'Bicycle'
+  }else if(cs == "car_sc"){
+    qualified_scen_name <- 'Car'
+  }else if(cs == "mc_sc"){
+    qualified_scen_name <- 'Motorcyle'
+  }
+  
+  readr::write_csv(whw_lng, paste0('results/multi_city/whw_matrices/whw_lng_', cs, '.csv'))
+  
+  f <- ggplot(data = whw_lng) +
+    aes(x = str_mode, fill = cas_mode, weight = value) +
+    geom_bar(position = "stack") +
+    scale_fill_brewer(palette = "Dark2") +
+    labs(x = "Strike Mode", y = "# of incidents", title = paste("WHW - ", qualified_scen_name, scen)) +
+    coord_flip() +
+    facet_wrap(vars(city), scales = "free_y")
+  
+  file_list[[cs]] <- f
+  
+  
+  ggsave(f, file = paste0("results/multi_city/whw_matrices/plots/whw_", cs,".png"), limitsize = F, dpi = 300, scale = 1.5)
+  
+  d <- paste0("results/multi_city/whw_matrices/interactive_plots/whw_", cs,".html")
+  
+  htmlwidgets::saveWidget(plotly::ggplotly(f), file.path(normalizePath(dirname(d)), basename(d)))
   #ggsave(f, file=paste0("results/multi_city/whw_matrices/whw_", cs,".png"), width = 14, height = 10, units = "cm")
-   
-   
-   st[[cs]] <- format(td, scientific = F)
+  
+  
+  st[[cs]] <- format(td, scientific = F)
   
   print(kable(format(td, scientific = F), caption = paste('Who Hit Whom (WHW) for all case cities for ', cs)))
   
@@ -341,7 +341,7 @@ death_totals <- lapply(io,function(x){
   #rownames(temp) <- apply(x$outcomes$hb$deaths[,1:2],1,function(z)paste0(z[1],'_',z[2]))
   colnames(temp) <- scen_names
   temp
-  })
+})
 
 sum_and_round_and_print(death_totals,"Change in deaths total in ")
 ```
@@ -371,7 +371,7 @@ yll_totals <- lapply(io,function(x){
   })
   colnames(temp) <- scen_names
   temp
-  })
+})
 sum_and_round_and_print(yll_totals,"Change in YLL total in ")
 ```
 
@@ -398,16 +398,16 @@ yll_totals <- lapply(io,function(x){
   rownames(temp) <- apply(x$outcomes$hb$deaths[,1:2],1,function(z)paste0(z[1],'_',z[2]))
   colnames(temp) <- scen_names
   temp
-  })
+})
 
 yll_rates <- lapply(cities,function(x) 
   rbind(yll_totals[[x]][match(apply(io[[x]]$demographic[,c('sex','age')],1,function(z)paste0(z[2],'_',z[1])),rownames(yll_totals[[x]])),]/
-    t(repmat(io[[x]]$demographic$population,5,1))*100000, Total=colSums(yll_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
+          t(repmat(io[[x]]$demographic$population,5,1))*100000, Total=colSums(yll_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
 names(yll_rates) <- cities
 round_and_print(yll_rates,"Change in YLLs per 100,000 in ")
 ``` 
 
- 
+
 ## BY PATHWAY
 
 By pathway (with non- injury separate & summed)
@@ -422,7 +422,7 @@ injury_totals <- lapply(io,function(x){
   xxx <- sapply(1:5,function(y)sapply(sort(unique(xx$age_cat)),function(z)sum(xx[xx$age_cat==z,injury_col-1+y])))
   colnames(xxx) <- scen_names
   xxx
-  })
+})
 sum_and_round_and_print(injury_totals,"Change in deaths due to injury in ")
 ```
 
@@ -442,67 +442,67 @@ for (city in cities){
   el <- list()
   
   #if (!city %in% c('buenos_aires', 'mexico_city', 'bogota', 'vizag')){
-    
-    for (cs in names(io[[city]]$outcomes$whw)){
-      # cs <- 'Baseline'
-      # cs <- "Scenario 4"
-      # city <- 'buenos_aires'
-      if (length(names(io[[city]]$outcomes$whw$Baseline)) == 2){
+  
+  for (cs in names(io[[city]]$outcomes$whw)){
+    # cs <- 'Baseline'
+    # cs <- "Scenario 4"
+    # city <- 'buenos_aires'
+    if (length(names(io[[city]]$outcomes$whw$Baseline)) == 2){
       td1 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
       td2 <- colSums(round(io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
       td3 <- left_join(td2, td1, by = 'mode') %>% mutate(count = rowSums(.[2:3], na.rm = T))
       td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
       
-      }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'whw'){
-        td3 <- colSums(round(io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
-        td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
-      }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'nov'){
-        
-        td3 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
-        td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
-        
-      }
+    }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'whw'){
+      td3 <- colSums(round(io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
+    }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'nov'){
       
-      td4 <- io[[city]]$true_dist %>% filter(stage_mode %in% td3$mode) %>% dplyr::select(stage_mode, cs)
+      td3 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
       
-      if (length(el) == 0){
-        el <- td4 %>% dplyr::select(stage_mode)
-      }
-      
-      td4 <- left_join(td4, td3 %>% dplyr::select(mode, count) %>% rename(stage_mode = mode), by = 'stage_mode')
-      
-      var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
-      
-      names(td4)[2] <- var
-      
-      td5 <- td4
-      
-      td4[, 2] <- round((td4[,3] / ( td4[,2] * 52)) * 100000, 4)
-      # / sum(io[[city]]$demographic$population, na.rm = T)
-      
-      names(td4)[3] <- paste(names(td4)[2], names(td4)[3], sep = "_")
-      
-      el <- inner_join(el, td4, by = 'stage_mode')
-      
-      
-      
-      # for (i in 1:nrow(td4)){
-      #   td4[i, 2:(ncol(td4) - 2)] <- round((td4$total[i] /(td4[i, 2:6])) * 100000, 1)
-      #   
-      #   
-      # }
-      
-      # print(td4)
     }
-    print(kable(el, caption = city))
     
-    td <- el %>% dplyr::select(-contains('count'))
-    names(td)[2:ncol(td)] <- paste(names(td)[2:ncol(td)], city, sep = "_")
+    td4 <- io[[city]]$true_dist %>% filter(stage_mode %in% td3$mode) %>% dplyr::select(stage_mode, cs)
     
-    overall_el[[city]] <- td
+    if (length(el) == 0){
+      el <- td4 %>% dplyr::select(stage_mode)
+    }
     
-    cat("\n")
-    #kable(print(el), caption = city)
+    td4 <- left_join(td4, td3 %>% dplyr::select(mode, count) %>% rename(stage_mode = mode), by = 'stage_mode')
+    
+    var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
+    
+    names(td4)[2] <- var
+    
+    td5 <- td4
+    
+    td4[, 2] <- round((td4[,3] / ( td4[,2] * 52)) * 100000, 4)
+    # / sum(io[[city]]$demographic$population, na.rm = T)
+    
+    names(td4)[3] <- paste(names(td4)[2], names(td4)[3], sep = "_")
+    
+    el <- inner_join(el, td4, by = 'stage_mode')
+    
+    
+    
+    # for (i in 1:nrow(td4)){
+    #   td4[i, 2:(ncol(td4) - 2)] <- round((td4$total[i] /(td4[i, 2:6])) * 100000, 1)
+    #   
+    #   
+    # }
+    
+    # print(td4)
+  }
+  print(kable(el, caption = city))
+  
+  td <- el %>% dplyr::select(-contains('count'))
+  names(td)[2:ncol(td)] <- paste(names(td)[2:ncol(td)], city, sep = "_")
+  
+  overall_el[[city]] <- td
+  
+  cat("\n")
+  #kable(print(el), caption = city)
   #}
   
   
@@ -563,7 +563,7 @@ d <- ggplot(injury_risks_lng) +
 ggsave(d, file = paste0("results/multi_city/whw_matrices/plots/injury_risk_100k_km.png"), limitsize = F, dpi = 300, scale = 1.5)
 
 fp <- paste0("results/multi_city/whw_matrices/interactive_plots/injury_risk_100k_km.html")
-   
+
 htmlwidgets::saveWidget(plotly::ggplotly(d), file.path(normalizePath(dirname(fp)), basename(fp)))
 
 print(kable(format(td, scientific = F), caption = paste('Injury per 100k across all cities')))
@@ -576,7 +576,7 @@ print(kable(format(td, scientific = F), caption = paste('Injury per 100k across 
 ```{r inj_100k = "asis"}
 require(tibble)
 
-overall_el <- list()
+overall_el_normalized <- list()
 
 for (city in cities){
   
@@ -585,53 +585,56 @@ for (city in cities){
   el <- list()
   
   #if (!city %in% c('buenos_aires', 'mexico_city', 'bogota', 'vizag')){
-    
-    for (cs in names(io[[city]]$outcomes$whw)){
-      # cs <- 'Baseline'
-      # # cs <- "Baseline"
-      # city <- 'accra'
-      if (length(names(io[[city]]$outcomes$whw$Baseline)) == 2){
+  
+  for (cs in names(io[[city]]$outcomes$whw)){
+    # cs <- 'Baseline'
+    # # cs <- "Baseline"
+    # city <- 'accra'
+    if (length(names(io[[city]]$outcomes$whw$Baseline)) == 2){
       td1 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
       td2 <- colSums(round(io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
       td3 <- left_join(td2, td1, by = 'mode') %>% mutate(count = rowSums(.[2:3], na.rm = T))
       td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
       
-      }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'whw'){
-        td3 <- colSums(round(io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
-        td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
-      }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'nov'){
-        
-        td3 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
-        td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
-        
-      }
+    }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'whw'){
+      td3 <- colSums(round(io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
+    }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'nov'){
       
-      td4 <- io[[city]]$true_dist %>% filter(stage_mode %in% td3$mode) %>% dplyr::select(stage_mode)
+      td3 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
       
-      if (length(el) == 0){
-        el <- td4 %>% dplyr::select(stage_mode)
-      }
-      
-      td4 <- left_join(td4, td3 %>% dplyr::select(mode, count) %>% rename(stage_mode = mode), by = 'stage_mode')
-      
-      var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
-      
-      names(td4)[2] <- var
-      
-      td5 <- td4
-      
-      td4[, 2] <- round(td4[, 2] / sum(io[[city]]$demographic$population) * 100000, 2)
-      
-      el <- inner_join(el, td4, by = 'stage_mode')
     }
-    print(kable(el, caption = city))
-    td <- el
-    names(td)[2:ncol(td)] <- paste(names(td)[2:ncol(td)], city, sep = "_")
     
-    overall_el[[city]] <- td
+    td4 <- io[[city]]$true_dist %>% filter(stage_mode %in% td3$mode) %>% dplyr::select(stage_mode)
     
-    cat("\n")
-    #kable(print(el), caption = city)
+    if (length(el) == 0){
+      el <- td4 %>% dplyr::select(stage_mode)
+    }
+    
+    td4 <- left_join(td4, td3 %>% dplyr::select(mode, count) %>% rename(stage_mode = mode), by = 'stage_mode')
+    
+    var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
+    
+    names(td4)[2] <- var
+    
+    td5 <- td4
+    
+    td4[, 2] <- round(td4[, 2] / sum(io[[city]]$demographic$population) * 100000, 2)
+    
+    el <- inner_join(el, td4, by = 'stage_mode')
+  }
+  
+  el <- el %>% ungroup() %>% janitor::adorn_totals(c('row', 'col'))
+  
+  print(kable(el, caption = city))
+  td <- el
+  names(td)[2:ncol(td)] <- paste(names(td)[2:ncol(td)], city, sep = "_")
+  
+  overall_el_normalized[[city]] <- td
+  
+  cat("\n")
+  #kable(print(el), caption = city)
   #}
   
   
@@ -652,7 +655,7 @@ pa_totals <- lapply(io,function(x){
   })
   colnames(xxx) <- scen_names
   xxx
-  })
+})
 sum_and_round_and_print(pa_totals,"Change in deaths due to PA in ")
 ```
 
@@ -667,7 +670,7 @@ ap_totals <- lapply(io,function(x){
   })
   colnames(xxx) <- scen_names
   xxx
-  })
+})
 sum_and_round_and_print(ap_totals,"Change in deaths due to AP in ")
 ```
 
@@ -707,7 +710,7 @@ injury_totals <- lapply(io,function(x){
   xxx <- sapply(1:5,function(y)sapply(sort(unique(xx$age_cat)),function(z)sum(xx[xx$age_cat==z,injury_col-1+y])))
   colnames(xxx) <- scen_names
   xxx
-  })
+})
 sum_and_round_and_print(injury_totals,"Change in YLLs due to injury in ")
 ```
 
@@ -721,7 +724,7 @@ pa_totals <- lapply(io,function(x){
   })
   colnames(xxx) <- scen_names
   xxx
-  })
+})
 sum_and_round_and_print(pa_totals,"Change in YLLs due to PA in ")
 ```
 
@@ -735,7 +738,7 @@ ap_totals <- lapply(io,function(x){
   })
   colnames(xxx) <- scen_names
   xxx
-  })
+})
 sum_and_round_and_print(ap_totals,"Change in YLLs due to AP in ")
 ```
 
@@ -779,7 +782,7 @@ disease_totals <- lapply(io,function(x){
   colnames(xxx) <- scen_names
   rownames(xxx) <- sapply(rownames(xxx),function(y)gsub('scen1_','',y))
   xxx
-  })
+})
 sum_and_round_and_print(disease_totals,"Change in deaths due to disease in ")
 
 
@@ -809,7 +812,7 @@ disease_totals <- lapply(io,function(x){
   colnames(xxx) <- scen_names
   rownames(xxx) <- sapply(rownames(xxx),function(y)gsub('scen1_','',y))
   xxx
-  })
+})
 sum_and_round_and_print(disease_totals,"Change in YLL due to disease in ")
 
 ```
