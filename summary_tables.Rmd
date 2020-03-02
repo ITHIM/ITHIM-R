@@ -231,6 +231,8 @@ for(city in cities){
 ### Baseline trip proportion (%)
 ```{r}
 
+trip_prop <- trip_prop %>% dplyr::filter(stage_mode != "row_sums") %>% mutate_if(is.factor, ~ as.numeric(as.character(.x))) %>% janitor::adorn_totals('row')
+
 kable(trip_prop, caption = 'Trip prop (%) for all case studies - only selected modes')
 
 ```
@@ -295,6 +297,8 @@ for(city in cities){
 ### Baseline average distance (km) for all case studies
 ```{r}
 
+trip_dist <- trip_dist %>% janitor::adorn_totals('row')
+
 kable(trip_dist, caption = "Avg. distance per person (km) across all case studies")
 
 ```
@@ -357,7 +361,7 @@ for(city in cities){
 
 backup <- bl_td
 
-td <- as.data.frame(bl_td)
+td <- as.data.frame(bl_td) %>% janitor::adorn_totals('row')
 
 for (i in 2:ncol(td)){
   td[, i] <- comprss(td[, i])
