@@ -193,6 +193,8 @@ suppressWarnings({
 
 ```{r trip_mode_dist = "asis", echo = F}
 
+trip_prop <- list()
+
 for(city in cities){
   print(city)
   df <- io[[city]]$trip_scen_sets
@@ -205,9 +207,31 @@ for(city in cities){
   x[!is.na(x)]
   td <- td[order(x),]
   
+  td1 <- td %>% rownames_to_column()
+  
+  names(td1)[1] <- 'stage_mode'
+  
+  if (length(trip_prop) == 0){
+    trip_prop <- td1 %>% dplyr::select(stage_mode)
+  }
+  
+  td1 <- td1 %>% dplyr::select(stage_mode, baseline)
+  
+  names(td1)[2] <- city
+  
+  trip_prop <- inner_join(trip_prop, td1, by = 'stage_mode')
+  
   print(kable(td, caption = paste("Trip proportion (%) by mode for ", city)))
   cat("\n")
 }
+
+```
+
+
+### Trip proportion Baseline
+```{r}
+
+kable(trip_prop)
 
 ```
 
@@ -224,7 +248,10 @@ Case study specific distance tables for baseline and five scenarios
 
 ```{r trip_dist = "asis"}
 
+trip_dist <- list()
+
 for(city in cities){
+  
   count_people <- nrow(io[[city]]$synth_pop)
   td <- io[[city]]$dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   colnames(td)[3:7] <- rownames(scen_prop)
@@ -236,6 +263,18 @@ for(city in cities){
   
   print(kable(td, caption = paste("Distance table (km) for ", city, "( ", count_people, " ) per person")))
   cat("\n")
+  
+  td1 <- td
+  
+  if (length(trip_dist) == 0){
+    trip_dist <- td1 %>% dplyr::select(stage_mode)
+  }
+  
+  td1 <- td1 %>% dplyr::select(stage_mode, Baseline)
+  
+  names(td1)[2] <- city
+  
+  trip_dist <- inner_join(trip_dist, td1, by = 'stage_mode')
   
   
   count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
@@ -249,6 +288,14 @@ for(city in cities){
   print(kable(td, caption = paste("Distance table (mins) for ", city, "( ", count_people, " ) per person (people with trips)")))
   
 }
+
+```
+
+
+### Average distance Baseline
+```{r}
+
+kable(trip_dist)
 
 ```
 
