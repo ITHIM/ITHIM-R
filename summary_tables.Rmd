@@ -263,7 +263,7 @@ for(city in cities){
   td <- td[order(x),]
   row.names(td) <- NULL
   
-  print(kable(td, caption = paste("Distance table (km) for ", city, "( ", count_people, " ) per person")))
+  print(kable(td, caption = paste("Distance table (km) per day for ", city, "( ", count_people, " ) per person")))
   cat("\n")
   
   td1 <- td
@@ -294,12 +294,12 @@ for(city in cities){
 ```
 
 
-### Baseline average distance (km) for all case studies
+### Baseline average distance (km) per day for all case studies
 ```{r}
 
 trip_dist <- trip_dist %>% janitor::adorn_totals('row')
 
-kable(trip_dist, caption = "Avg. distance per person (km) across all case studies")
+kable(trip_dist, caption = "Avg. distance per person (km) per day across all case studies")
 
 ```
 
@@ -317,7 +317,7 @@ for(city in cities){
   
   print(city)
   count_people <- round(sum(io[[city]]$demographic$population))
-  td <- io[[city]]$true_dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, list(~round((.) * 52, 3)))
+  td <- io[[city]]$true_dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, list(~round((.) * 365, 3)))
   colnames(td)[3:7] <- rownames(scen_prop)
   
   # 
@@ -388,7 +388,7 @@ for (city in cities){
 ```
 
 
-## True Distance by total population
+## True Distance by total population (per day in km)
 ### Tables
 
 ```{r trip_dist_mode_figs = "asis"}
@@ -401,7 +401,7 @@ for (city in cities){
   
   readr::write_csv(df, paste0('results/multi_city/true_distances/true_distance_', city, '.csv'))
   
-  print(kable(df, caption = paste("True distance by mode for  ", city)))
+  print(kable(df, caption = paste("True distance by mode per day for  ", city)))
 }
 
 ```
@@ -433,7 +433,7 @@ for (city in cities){
 
 
 ## Duration tables
-Case study specific duration tables for baseline and five scenarios
+Case study specific duration tables for baseline and five scenarios (per day in km)
 
 
 ```{r trip_dur = "asis"}
@@ -448,7 +448,7 @@ for(city in cities){
   td <- td[order(x),]
   row.names(td) <- NULL
   
-  print(kable(td, caption = paste("Duration table (mins) for ", city, "( ", count_people, " ) per person (everyone)")))
+  print(kable(td, caption = paste("Duration table (mins) per day for ", city, "( ", count_people, " ) per person (everyone)")))
   
   
   count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
@@ -460,7 +460,7 @@ for(city in cities){
   td <- td[order(x),]
   row.names(td) <- NULL
   
-  print(kable(td, caption = paste("Duration table (mins) for ", city, "( ", count_people, " ) per person (people with trips)")))
+  print(kable(td, caption = paste("Duration table (mins) per day for ", city, "( ", count_people, " ) per person (people with trips)")))
   cat("\n")
 }
 
