@@ -520,7 +520,7 @@ td <- overall_el %>% purrr::reduce(full_join, by = "stage_mode") %>% as.data.fra
 
 td <- td %>% dplyr::select(stage_mode, sort(names(.)))
 
-readr::write_csv(td, 'results/multi_city/whw_matrices/injury_risks.csv')
+readr::write_csv(td, 'results/multi_city/whw_matrices/injury_risks_per_100k_kms.csv')
 
 colnames(td) = gsub("bi_sc", "bisc", colnames(td))
 
