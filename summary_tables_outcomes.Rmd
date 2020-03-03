@@ -571,6 +571,68 @@ print(kable(format(td, scientific = F), caption = paste('Injury per 100k across 
 
 ```
 
+
+### Change in deaths due to injury per Billion km across cities
+
+```{r inj_100k_all_cities = "asis"}
+require(tibble)
+
+injury_risks_b <- td
+
+# Convert it into Billion by multiping the values by 10000
+injury_risks_b[, 2:ncol(injury_risks_b)] <- injury_risks_b[, 2:ncol(injury_risks_b)] * 10000
+
+readr::write_csv(injury_risks_b, 'results/multi_city/whw_matrices/injury_risks_per_billion_kms.csv')
+
+colnames(injury_risks_b) = gsub("bi_sc", "bisc", colnames(injury_risks_b))
+
+colnames(injury_risks_b) = gsub("bus_sc", "bssc", colnames(injury_risks_b))
+
+colnames(injury_risks_b) = gsub("car_sc", "csc", colnames(injury_risks_b))
+
+colnames(injury_risks_b) = gsub("mc_sc", "mcsc", colnames(injury_risks_b))
+
+colnames(injury_risks_b) = gsub("w_sc", "wsc", colnames(injury_risks_b))
+
+injury_risks_lng <- reshape2::melt(injury_risks_b)
+
+col_split <- stringr::str_split(injury_risks_lng$variable, "_", simplify = TRUE, n = 2)
+
+injury_risks_lng <- cbind(injury_risks_lng, col_split)
+names(injury_risks_lng)[4] <- 'scenario'
+names(injury_risks_lng)[5] <- 'city'
+injury_risks_lng <- injury_risks_lng %>% dplyr::select(-variable)
+cols <- c("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02")
+
+injury_risks_lng$scenario <- as.character(injury_risks_lng$scenario)
+
+injury_risks_lng[injury_risks_lng$scenario == 'bl',]$scenario <- 'Baseline'
+injury_risks_lng[injury_risks_lng$scenario == 'bisc',]$scenario <- 'Bicycle Scenario'
+injury_risks_lng[injury_risks_lng$scenario == 'bssc',]$scenario <- 'Bus Scenario'
+injury_risks_lng[injury_risks_lng$scenario == 'csc',]$scenario <- 'Car Scenario'
+injury_risks_lng[injury_risks_lng$scenario == 'mcsc',]$scenario <- 'Motorcycle Scenario'
+injury_risks_lng[injury_risks_lng$scenario == 'wsc',]$scenario <- 'Walking Scenario'
+
+d <- ggplot(injury_risks_lng) +
+  aes(x = stage_mode, fill = scenario, weight = value) +
+  geom_bar(position = "dodge", colour = 'black') +
+  scale_color_manual(values = cols) +
+  coord_flip() +
+  theme_minimal() +
+  facet_wrap(vars(city)) +
+  labs(x = "Strike Mode", y = "# of incidents", title = paste("Injury risk per billion km")) 
+
+ggsave(d, file = paste0("results/multi_city/whw_matrices/plots/injury_risk_billion_km.png"), limitsize = F, dpi = 300, scale = 1.5)
+
+fp <- paste0("results/multi_city/whw_matrices/interactive_plots/injury_risk_billion_km.html")
+
+htmlwidgets::saveWidget(plotly::ggplotly(d), file.path(normalizePath(dirname(fp)), basename(fp)))
+
+print(kable(format(injury_risks_b, scientific = F), caption = paste('Injury per billion km across all cities')))
+
+
+```
+
 ### # of deaths due to injury per 100,000 people
 
 ```{r inj_100k = "asis"}
