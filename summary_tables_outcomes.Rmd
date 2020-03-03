@@ -190,21 +190,21 @@ file_list <- list()
 td <- NULL
 
 for (cs in names(all_whw)){
-  cs <- names(all_whw)[1]
+  # cs <- names(all_whw)[1]
   
   td <- all_whw[[cs]] %>% purrr::reduce(full_join, by = "mode") %>% as.data.frame() %>% dplyr::select(mode, sort(names(.)))
   
   td[is.na(td)] <- 0
   
-  unk <- td %>% filter(mode %in% c('unknown', 'unk')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'unknown')
+  unk <- td %>% filter(mode %in% c('unknown', 'unk')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unknown')
   
-  unsp <- td %>% filter(mode %in% c('unspecified', 'listed_na', '?')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'unspecified')
+  unsp <- td %>% filter(mode %in% c('unspecified', 'listed_na', '?')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unspecified')
   
-  other <- unsp <- td %>% filter(mode %in% c('other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'other')
+  other <- unsp <- td %>% filter(mode %in% c('other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'other')
   
-  pu <- td %>% filter(mode %in% c('picku', 'pickup/light goods')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'pickup')
+  pu <- td %>% filter(mode %in% c('picku', 'pickup/light goods')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'pickup')
   
-  bus <- td %>% filter(mode %in% c('bus', 'bus_driver')) %>% summarise_if(is.numeric, funs(sum)) %>% mutate(mode = 'bus')
+  bus <- td %>% filter(mode %in% c('bus', 'bus_driver')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'bus')
   
   td <- td %>% filter(!mode %in% c('bus', 'bus_driver', 'unknown', 'unk', 'unspecified', 'listed_na', '?', 
                                    'other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle',
