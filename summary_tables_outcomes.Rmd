@@ -518,6 +518,8 @@ require(tibble)
 
 td <- overall_el %>% purrr::reduce(full_join, by = "stage_mode") %>% as.data.frame()
 
+td[is.na(td)] <- 0
+
 td <- td %>% dplyr::select(stage_mode, sort(names(.)))
 
 readr::write_csv(td, 'results/multi_city/whw_matrices/injury_risks_per_100k_kms.csv')
