@@ -14,7 +14,7 @@ library(dplyr)
 library(purrr)
 library(DT)
 library(ggplot2)
-knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis')
+knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, message = F, warning = F, results='asis')
 
 ```
 
@@ -190,7 +190,7 @@ file_list <- list()
 td <- NULL
 
 for (cs in names(all_whw)){
-  # cs <- names(all_whw)[1]
+  cs <- names(all_whw)[1]
   
   td <- all_whw[[cs]] %>% purrr::reduce(full_join, by = "mode") %>% as.data.frame() %>% dplyr::select(mode, sort(names(.)))
   
@@ -350,7 +350,7 @@ Change in deaths per 100,000 people by age group by scenario
 
 ### Change in deaths per 100,000 {#change_death_100k}
 
-```{r scen_prop = "asis"}
+```{r scen_prop = "asis", echo = F, message = F}
 death_rates <- lapply(cities,function(x) rbind(death_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000, Total=colSums(death_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
 names(death_rates) <- cities
 
@@ -428,7 +428,7 @@ sum_and_round_and_print(injury_totals,"Change in deaths due to injury in ")
 
 ### Change in deaths due to injury per 100,000 km
 
-```{r inj_100k = "asis"}
+```{r inj_100k = "asis", echo = F, message = F}
 require(tibble)
 
 overall_el <- list()
