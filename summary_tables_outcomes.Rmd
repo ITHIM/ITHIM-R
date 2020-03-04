@@ -557,6 +557,7 @@ d <- ggplot(injury_risks_lng) +
   aes(x = stage_mode, fill = scenario, weight = value) +
   geom_bar(position = "dodge", colour = 'black') +
   scale_color_manual(values = cols) +
+  scale_fill_discrete(guide = guide_legend(reverse=TRUE)) +
   coord_flip() +
   theme_minimal() +
   facet_wrap(vars(city)) +
@@ -619,6 +620,7 @@ d <- ggplot(injury_risks_lng) +
   aes(x = stage_mode, fill = scenario, weight = value) +
   geom_bar(position = "dodge", colour = 'black') +
   scale_color_manual(values = cols) +
+  scale_fill_discrete(guide = guide_legend(reverse=TRUE)) +
   coord_flip() +
   theme_minimal() +
   facet_wrap(vars(city)) +
