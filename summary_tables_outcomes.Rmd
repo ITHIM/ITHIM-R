@@ -553,6 +553,18 @@ injury_risks_lng[injury_risks_lng$scenario == 'csc',]$scenario <- 'Car Scenario'
 injury_risks_lng[injury_risks_lng$scenario == 'mcsc',]$scenario <- 'Motorcycle Scenario'
 injury_risks_lng[injury_risks_lng$scenario == 'wsc',]$scenario <- 'Walking Scenario'
 
+cols_city <- c("#e41a1c",
+"#377eb8",
+"#4daf4a",
+"#984ea3",
+"#ff7f00",
+"#ffff33",
+"#a65628",
+"#f781bf",
+"#999999")
+
+cols_cbrewer <- c('#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#c51b7d','#ff7f00','#cab2d6','#6a3d9a','#543005','#b15928')
+
 d <- ggplot(injury_risks_lng) +
   aes(x = stage_mode, fill = scenario, weight = value) +
   geom_bar(position = "dodge", colour = 'black') +
@@ -616,6 +628,9 @@ injury_risks_lng[injury_risks_lng$scenario == 'csc',]$scenario <- 'Car Scenario'
 injury_risks_lng[injury_risks_lng$scenario == 'mcsc',]$scenario <- 'Motorcycle Scenario'
 injury_risks_lng[injury_risks_lng$scenario == 'wsc',]$scenario <- 'Walking Scenario'
 
+temp <- injury_risks_lng %>% group_by(stage_mode, scenario) %>% summarise(mv = mean(value), sd = sd(value))
+# injury_risks_lng <- left_join(injury_risks_lng, td, by = c('stage_mode', 'scenario'))
+
 d <- ggplot(injury_risks_lng) +
   aes(x = stage_mode, fill = scenario, weight = value) +
   geom_bar(position = "dodge", colour = 'black') +
@@ -626,11 +641,35 @@ d <- ggplot(injury_risks_lng) +
   facet_wrap(vars(city)) +
   labs(x = "Strike Mode", y = "# of incidents", title = paste("Injury risk per billion km")) 
 
+
+df <- injury_risks_lng %>% filter(city != 'cape_town') %>% spread(value = value, key = city) 
+df[df == 0] <- NA
+df <- df %>% mutate(mv = rowMeans(select(., -c(stage_mode, scenario)))) %>% reshape2::melt()
+df1 <- df %>% dplyr::filter(variable == 'mv')
+df <- df %>% dplyr::filter(variable != 'mv')
+
+d1 <- ggplot(df, aes(x = stage_mode, fill = variable, weight = value)) +
+   geom_bar(position = "dodge", colour = 'black') +
+   scale_fill_manual(values = cols_cbrewer) +
+   theme_minimal() + 
+   geom_point(data = df1, aes(x = stage_mode, fill = variable, y = value), colour = "black") + 
+   facet_wrap(vars(scenario)) + 
+   scale_y_continuous(breaks = seq(0, max(df$value, na.rm = T), 25)) +
+   labs(x = "Strike Mode", y = "# of incidents", title = paste("Injury risk per billion km")) +
+   theme(axis.text.x = element_text(face="bold", color="#993333", size=8, angle=90))
+
+
 ggsave(d, file = paste0("results/multi_city/whw_matrices/plots/injury_risk_billion_km.png"), limitsize = F, dpi = 300, scale = 1.5)
 
 fp <- paste0("results/multi_city/whw_matrices/interactive_plots/injury_risk_billion_km.html")
 
 htmlwidgets::saveWidget(plotly::ggplotly(d), file.path(normalizePath(dirname(fp)), basename(fp)))
+
+ggsave(d1, file = paste0("results/multi_city/whw_matrices/plots/injury_risk_billion_km_by_mode.png"),  width = 8, height = 5, dpi = 300, units = "in", scale = 2, device='png')
+
+fp <- paste0("results/multi_city/whw_matrices/interactive_plots/injury_risk_billion_km_by_mode.html")
+
+htmlwidgets::saveWidget(plotly::ggplotly(d1), file.path(normalizePath(dirname(fp)), basename(fp)))
 
 print(kable(format(injury_risks_b, scientific = F), caption = paste('Injury per billion km across all cities')))
 
