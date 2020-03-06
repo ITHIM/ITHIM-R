@@ -14,6 +14,7 @@ library(dplyr)
 library(purrr)
 library(DT)
 library(ggplot2)
+library(tidyr)
 knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, message = F, warning = F, results='asis')
 
 ```
