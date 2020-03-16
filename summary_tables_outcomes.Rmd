@@ -667,7 +667,7 @@ d2 <- ggplot(df %>% filter(!stage_mode %in% c('auto_rickshaw', 'bus', 'truck')),
     facet_grid(vars(scenario), scales='free_x') + 
     scale_y_continuous(breaks = seq(0, max(df$value, na.rm = T), 50)) +
     labs(x = "Strike Mode", y = "# of incidents", title = paste("Injury risk per billion km")) +
-    theme(axis.text.x = element_text(face="bold", color="#993333", size=10))
+    theme(axis.text.x = element_text(face="bold", color="#993333", size=14))
 
 
 ggsave(d, file = paste0("results/multi_city/whw_matrices/plots/injury_risk_billion_km.png"), limitsize = F, dpi = 300, scale = 1.5)
