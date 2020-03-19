@@ -119,7 +119,7 @@ scen_names <- rownames(scen_prop)
 
 ```
 
-## Who Hit Whom matrix
+## Who Hit Whom matrix (normalized to annual figures)
 
 Who hit whom matrix for all scenarios for each case study
 
@@ -285,44 +285,44 @@ for (cs in names(all_whw)){
 
 ```
 
-### DT - Who hit whom matrix for all case cities {#whw_all}
-Baseline
+<!-- ### DT - Who hit whom matrix for all case cities {#whw_all} -->
+<!-- Baseline -->
 
-```{r dt}
+<!-- ```{r dt} -->
 
-#for (cs in names(all_whw)){
-td <- NULL
+<!-- #for (cs in names(all_whw)){ -->
+<!-- td <- NULL -->
 
-cs <- 'Baseline'
+<!-- cs <- 'Baseline' -->
 
-var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
+<!-- var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character() -->
 
-fname <- paste("whw_", var, ".csv")
+<!-- fname <- paste("whw_", var, ".csv") -->
 
-td <- st[[var]]
+<!-- td <- st[[var]] -->
 
-DT::datatable(td, 
-              extensions = 'Buttons',
-              escape = FALSE,
-              rownames = FALSE,
-              options = list(dom = 'Bfrtip',
-                             buttons = 
-                               list('colvis', list(
-                                 extend = 'collection',
-                                 buttons = list(list(extend='csv',
-                                                     filename = fname),
-                                                list(extend='excel',
-                                                     filename = fname)),
-                                 text = 'Download'
-                               )),
-                             scrollX = TRUE,
-                             pageLength = nrow(td),
-                             order=list(list(2,'desc')),
-                             columnDefs = list(list(visible=FALSE, targets=c(1:(ncol(td) - 1))))))
+<!-- DT::datatable(td,  -->
+<!--               extensions = 'Buttons', -->
+<!--               escape = FALSE, -->
+<!--               rownames = FALSE, -->
+<!--               options = list(dom = 'Bfrtip', -->
+<!--                              buttons =  -->
+<!--                                list('colvis', list( -->
+<!--                                  extend = 'collection', -->
+<!--                                  buttons = list(list(extend='csv', -->
+<!--                                                      filename = fname), -->
+<!--                                                 list(extend='excel', -->
+<!--                                                      filename = fname)), -->
+<!--                                  text = 'Download' -->
+<!--                                )), -->
+<!--                              scrollX = TRUE, -->
+<!--                              pageLength = nrow(td), -->
+<!--                              order=list(list(2,'desc')), -->
+<!--                              columnDefs = list(list(visible=FALSE, targets=c(1:(ncol(td) - 1)))))) -->
 
-# }
+<!-- # } -->
 
-```
+<!-- ``` -->
 
 
 ## TOTAL
@@ -820,7 +820,7 @@ names(ap_rates) <- cities
 round_and_print(ap_rates,"Change in deaths due to AP per 100,000 in ")
 ```
 
-YLLs total (for the city based on real population size) by age group by scenario
+<!-- YLLs total (for the city based on real population size) by age group by scenario -->
 
 <!-- ### Change in YLLs due to injury {#change_yll_injury} -->
 
