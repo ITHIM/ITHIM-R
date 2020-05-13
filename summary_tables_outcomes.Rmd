@@ -3,6 +3,9 @@ title: "Summary Tables"
 output:
   html_document:
     toc: true
+    toc_depth: 5
+    toc_float: true
+    number_sections: true
     theme: united
 ---
 
@@ -119,11 +122,11 @@ scen_names <- rownames(scen_prop)
 
 ```
 
-## Who Hit Whom matrix (normalized to annual figures)
+# Who Hit Whom matrix (normalized to annual figures)
 
 Who hit whom matrix for all scenarios for each case study
 
-### Who hit whom matrix {#whw}
+## Who hit whom matrix {#whw}
 
 ```{r whw}
 
@@ -179,10 +182,9 @@ for(city in cities){
 
 ```
 
-
 ### Who hit whom matrix for all case cities {#whw_all}
 
-```{r whw_for_all_cs, fig.width=7, fig.height=4, echo=FALSE}
+```{r whw_for_all_cs, results = 'asis', fig.width=7, fig.height=4, echo=FALSE}
 
 st <- list()
 
@@ -276,10 +278,11 @@ for (cs in names(all_whw)){
   htmlwidgets::saveWidget(plotly::ggplotly(f), file.path(normalizePath(dirname(d)), basename(d)))
   #ggsave(f, file=paste0("results/multi_city/whw_matrices/whw_", cs,".png"), width = 14, height = 10, units = "cm")
   
-  
+  qual_name <- paste(qualified_scen_name, scen)
   st[[cs]] <- format(td, scientific = F)
-  
-  print(kable(format(td, scientific = F), caption = paste('Who Hit Whom (WHW) for all case cities for ', cs)))
+  cat('####', qual_name, '\n')
+  print(kable(format(td, scientific = F), caption = paste('Who Hit Whom (WHW) for all case cities for ', qual_name)))
+  cat('\n')
   
 }
 
@@ -325,11 +328,11 @@ for (cs in names(all_whw)){
 <!-- ``` -->
 
 
-## TOTAL
+# TOTAL
 
 Change in deaths total (for the city based on real population size) by age group by scenario
 
-### Change in deaths {#change_death}
+## Change in deaths {#change_death}
 
 ```{r scen_prop = "asis"}
 death_totals <- lapply(io,function(x){
@@ -349,7 +352,7 @@ sum_and_round_and_print(death_totals,"Change in deaths total in ")
 
 Change in deaths per 100,000 people by age group by scenario
 
-### Change in deaths per 100,000 {#change_death_100k}
+## Change in deaths per 100,000 {#change_death_100k}
 
 ```{r scen_prop = "asis", echo = F, message = F}
 death_rates <- lapply(cities,function(x) rbind(death_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000, Total=colSums(death_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
@@ -409,7 +412,7 @@ YLLs total (for the city based on real population size) by age group  by scenari
 <!-- ```  -->
 
 
-## BY PATHWAY
+# BY PATHWAY
 
 By pathway (with non- injury separate & summed)
 
@@ -794,9 +797,9 @@ ap_totals <- lapply(io,function(x){
 sum_and_round_and_print(ap_totals,"Change in deaths due to AP in ")
 ```
 
-## Change in deaths per 100,000 people by age group by scenario
+# Change in deaths per 100,000 people by age group by scenario
 
-### Change in deaths due to injury per 100,000 {#change_death_injury_100k}
+## Change in deaths due to injury per 100,000 {#change_death_injury_100k}
 
 ```{r scen_prop = "asis"}
 injury_rates <- lapply(cities,function(x) rbind(injury_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000, Total=colSums(injury_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
@@ -804,7 +807,7 @@ names(injury_rates) <- cities
 round_and_print(injury_rates,"Change in deaths due to injury per 100,000 in ")
 ```
 
-### Change in deaths due to PA per 100,000 {#change_death_PA_100k}
+## Change in deaths due to PA per 100,000 {#change_death_PA_100k}
 ```{r}
 pa_rates <- lapply(cities,function(x) rbind(pa_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000, Total=colSums(pa_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
 names(pa_rates) <- cities
@@ -812,7 +815,7 @@ round_and_print(pa_rates,"Change in deaths due to PA per 100,000 in ")
 
 ```
 
-### Change in deaths due to AP per 100,000 {#change_death_AP_100k}
+## Change in deaths due to AP per 100,000 {#change_death_AP_100k}
 ```{r}
 
 ap_rates <- lapply(cities,function(x) rbind(ap_totals[[x]]/t(repmat(pop_by_age[[x]],5,1))*100000, Total=colSums(ap_totals[[x]])/rep(sum(pop_by_age[[x]]),length=5)*100000))
