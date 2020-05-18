@@ -4,9 +4,7 @@ output:
   html_document:
     toc: true
     toc_depth: 5
-    toc_float: true
-    number_sections: true
-    theme: united
+    toc_float: false
 ---
 
 ```{r setup, include=FALSE}
@@ -126,7 +124,7 @@ scen_names <- rownames(scen_prop)
 
 Who hit whom matrix for all scenarios for each case study
 
-## Who hit whom matrix {#whw}
+## Who hit whom matrix of each case study (by baseline + scenarios) {#whw}
 
 ```{r whw}
 
@@ -168,7 +166,20 @@ for(city in cities){
       
       var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
       
-      print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', var, ' matrix for ', city)))
+      if (var == 'bl'){
+        qualified_scen_name <- 'Baseline'
+        scen <- ''
+      }else if(var == "w_sc"){
+        qualified_scen_name <- 'Walking'
+      }else if(var == "bi_sc"){
+        qualified_scen_name <- 'Bicycle'
+      }else if(var == "car_sc"){
+        qualified_scen_name <- 'Car'
+      }else if(var == "mc_sc"){
+        qualified_scen_name <- 'Motorcyle'
+      }
+      
+      print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', qualified_scen_name, ' scenario matrix for ', city)))
       cat("\n")
       
       td <- td3
