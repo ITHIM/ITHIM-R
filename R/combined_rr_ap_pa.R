@@ -16,8 +16,8 @@ combined_rr_ap_pa <- function(ind_pa,ind_ap){
   # Replace Na with 1
   ind_pa[is.na(ind_pa)] <- 1
   
-  # join pa and ap datasets
-  ind_ap_pa <- left_join(ind_pa, ind_ap, by = c('participant_id','age','sex','age_cat'))
+  # join pa and ap datasets (all data.frames)
+  ind_ap_pa <- dplyr::left_join(ind_pa, ind_ap, by = c('participant_id','age','sex','age_cat'))
   
   ### iterating over all all disease outcomes
   for ( j in c(1:nrow(DISEASE_INVENTORY))[DISEASE_INVENTORY$physical_activity == 1 & DISEASE_INVENTORY$air_pollution == 1]){

@@ -51,7 +51,8 @@ complete_trip_distance_duration <- function(){
   if(!'trip_distance'%in%colnames(trip_set)){
     distances <- setDT(trip_set)[,sum(stage_distance),by='trip_id']
     colnames(distances)[2] <- 'trip_distance'
-    trip_set <- left_join(trip_set,distances,by='trip_id')
+    # joins two data.tables, returns data.table
+    trip_set <- dplyr::left_join(trip_set,distances,by='trip_id')
   }
   
   

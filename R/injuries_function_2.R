@@ -20,7 +20,8 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
   demographic <- demographic[,-which(colnames(demographic)=='population')]
   colnames(demographic)[which(colnames(demographic)=='age')] <- 'age_cat'
   injuries <- true_distances
-  injuries <- left_join(injuries,demographic,by=c('age_cat','sex'))
+  # both tibbles, return tibble
+  injuries <- dplyr::left_join(injuries,demographic,by=c('age_cat','sex'))
   injuries$bus_driver <- 0
   colnames(demographic)[which(colnames(demographic)=='sex')] <- 'cas_gender'
   whw_temp <- list()
@@ -40,8 +41,9 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
           names(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$cas_mode)
         }
       }
+      # data.frame and tibble, returns data.frame
       suppressWarnings(
-        injuries_list[[scen]][[type]] <- left_join(injuries_list[[scen]][[type]],demographic,by=c('age_cat','cas_gender'))
+        injuries_list[[scen]][[type]] <- dplyr::left_join(injuries_list[[scen]][[type]],demographic,by=c('age_cat','cas_gender'))
       )
     }
     

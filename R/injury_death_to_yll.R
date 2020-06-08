@@ -8,8 +8,8 @@
 #' 
 #' @export
 injury_death_to_yll <- function(injuries){
-  
-  joined_injury <- left_join(injuries, GBD_INJ_YLL[,c('sex_age','sex','yll_dth_ratio')], by=c("sex_age",'sex'))
+  # injuries is a tibble, GBD_INJ_YLL is a data.frame, returns a tibble
+  joined_injury <- dplyr::left_join(injuries, GBD_INJ_YLL[,c('sex_age','sex','yll_dth_ratio')], by=c("sex_age",'sex'))
   
   joined_injury$YLL <- joined_injury$Deaths*joined_injury$yll_dth_ratio
   death_and_yll <- dplyr::select(joined_injury, c('age_cat','sex','scenario','Deaths','YLL'))

@@ -19,12 +19,14 @@ health_burden <- function(ind_ap_pa,combined_AP_PA=T){
   gbd_data_scaled <- DISEASE_BURDEN
   ## chronic disease scalar scales all diseases
   names(gbd_data_scaled)[which(names(gbd_data_scaled)=='age')] <- 'age_cat'
-  gbd_data_scaled <- left_join(gbd_data_scaled,demographic, by=c('sex','age_cat'))
+  ## gbd_data_scaled is a data.frame, demographic is a tibble
+  gbd_data_scaled <- dplyr::left_join(gbd_data_scaled,demographic, by=c('sex','age_cat'))
   gbd_data_scaled$burden <- gbd_data_scaled$burden*CHRONIC_DISEASE_SCALAR
   gbd_deaths <- subset(gbd_data_scaled,measure=='Deaths')
   gbd_ylls <- subset(gbd_data_scaled,measure=='YLLs (Years of Life Lost)')
   
-  ind_ap_pa <- left_join(ind_ap_pa, demographic, by=c('sex','age_cat'))
+  ## ind_ap_pa is a data.frame, demographic is a tibble
+  ind_ap_pa <- dplyr::left_join(ind_ap_pa, demographic, by=c('sex','age_cat'))
   pop_details <- deaths <- ylls <- demographic
   # set up reference (scen1)
   reference_scenario <- SCEN_SHORT_NAME[which(SCEN==REFERENCE_SCENARIO)]
@@ -105,7 +107,7 @@ join_hb_and_injury <- function(ind_ap_pa,inj){
   # Select yll columns
   inj_ylls <- dplyr::select(inj, c(age_cat, sex, contains("yll")))
   # Join injuries data to global datasets
-  deaths <- left_join(deaths, inj_deaths, by = c("age_cat", "sex"))
-  ylls <- left_join(ylls, inj_ylls, by = c("age_cat", "sex"))
+  deaths <- dplyr::left_join(deaths, inj_deaths, by = c("age_cat", "sex"))
+  ylls <- dplyr::left_join(ylls, inj_ylls, by = c("age_cat", "sex"))
   list(deaths=deaths,ylls=ylls)
 }
