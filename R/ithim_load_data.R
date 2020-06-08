@@ -101,7 +101,7 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   
   if(MAX_MODE_SHARE_SCENARIO&&
      (!exists('SCENARIO_PROPORTIONS')||
-      exists('SCENARIO_PROPORTIONS')&&!isTRUE(all_equal(DIST_CAT,colnames(SCENARIO_PROPORTIONS)))
+      exists('SCENARIO_PROPORTIONS')&&!isTRUE(base::all.equal(DIST_CAT,colnames(SCENARIO_PROPORTIONS)))
      )){
     SCENARIO_PROPORTIONS <<- get_scenario_settings(distances=DIST_CAT,speeds=speeds)
   }
@@ -147,7 +147,7 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   
   burden_of_disease <- expand.grid(measure=unique(GBD_DATA$measure),sex=unique(DEMOGRAPHIC$sex),age=unique(DEMOGRAPHIC$age),
                                    cause=disease_names,stringsAsFactors = F)
-  burden_of_disease <- left_join(burden_of_disease,DEMOGRAPHIC,by=c('age','sex'))
+  burden_of_disease <- dplyr::left_join(burden_of_disease,DEMOGRAPHIC,by=c('age','sex'))
   burden_of_disease$min_age <- as.numeric(sapply(burden_of_disease$age,function(x)str_split(x,'-')[[1]][1]))
   burden_of_disease$max_age <- as.numeric(sapply(burden_of_disease$age,function(x)str_split(x,'-')[[1]][2]))
   ## when we sum ages, we assume that all age boundaries used coincide with the GBD age boundaries.
@@ -163,8 +163,6 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   burden_of_disease$burden[is.na(burden_of_disease$burden)] <- 0
   
   ## scale disease burden from country to city using populations
-  #burden_of_disease <- left_join(GBD_DATA[,!colnames(GBD_DATA)=='population'],DEMOGRAPHIC,by=c('age','sex'))
-  #burden_of_disease$burden <- GBD_DATA$burden*burden_of_disease$population/GBD_DATA$population
   DISEASE_BURDEN <<- burden_of_disease
   
   gbd_injuries <- DISEASE_BURDEN[which(DISEASE_BURDEN$cause == "Road injuries"),]
