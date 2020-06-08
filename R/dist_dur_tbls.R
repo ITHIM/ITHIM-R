@@ -54,16 +54,16 @@ dist_dur_tbls <- function(trip_scen_sets){
       local_dist <- l_dist[[i]]
       local_dur <- l_dur[[i]]
     }else{
-      local_dist <- left_join(local_dist, l_dist[[i]], by = "stage_mode")
-      local_dur <- left_join(local_dur, l_dur[[i]], by = "stage_mode")
+      local_dist <- local_dist[l_dist[[i]],on="stage_mode"]  #<- left_join(local_dist, , by = "stage_mode")
+      local_dur <- local_dur[l_dur[[i]],on="stage_mode"]  # <- left_join(local_dur, l_dur[[i]], by = "stage_mode")
     }
   }
   
   # Remove short walking
   #dist <- filter(local_dist, stage_mode != 'walk_to_pt')
   #dur <- filter(local_dur, stage_mode != 'walk_to_pt')
-  dist <- local_dist[local_dist$stage_mode != 'walk_to_pt',]
-  dur <- local_dur[local_dur$stage_mode != 'walk_to_pt',]
+  dist <- as.data.frame(local_dist[local_dist$stage_mode != 'walk_to_pt',])
+  dur <- as.data.frame(local_dur[local_dur$stage_mode != 'walk_to_pt',])
   
   dist$stage_mode <- as.character(dist$stage_mode)
   dur$stage_mode <- as.character(dur$stage_mode)
