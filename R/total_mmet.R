@@ -28,7 +28,7 @@ total_mmet <- function(trip_scen_sets){
   }
   
   name_indices <- which(colnames(synth_pop)%in%c('participant_id', 'sex', 'age', 'age_cat', paste0(SCEN_SHORT_NAME,'_mmet')))
-  mmets <- tbl_df(synth_pop)[,name_indices]
+  mmets <- as.data.frame(synth_pop)[,name_indices]
   mmets
   
 }

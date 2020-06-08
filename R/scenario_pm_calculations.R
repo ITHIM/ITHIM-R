@@ -57,7 +57,8 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   
   trip_set <- trip_scen_sets
   trip_set$stage_mode[trip_set$stage_mode=='walk_to_pt'] <- 'walking'
-  trip_set <- left_join(trip_set,vent_rates,'stage_mode')
+  # trip set is a data.table, vent_rates is a data.frame, returns a data.table
+  trip_set <- dplyr::left_join(trip_set,vent_rates,'stage_mode')
   # litres of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode
   trip_set$on_road_air <- trip_set$stage_duration*trip_set$vent_rate / (60) # L
   # get indices for quick matching of values
@@ -107,6 +108,6 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   
   # browser()
   
-  list(scenario_pm=conc_pm, pm_conc_pp=tbl_df(synth_pop))
+  list(scenario_pm=conc_pm, pm_conc_pp=as.data.frame(synth_pop))
   
 }
