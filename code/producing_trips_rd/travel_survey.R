@@ -1837,6 +1837,38 @@ trip$gdppc2014 <- 4000
 trip$population2014 <- 2242000
   
 write.csv(trip, "data/local/accra/accra_trip.csv")
+
+# Reread already stored trip data
+trip <- read_csv("data/local/accra/accra_trip.csv")
+
+# Save it in a local var
+rd <- trip
+# Expand by household IDs
+
+# Round participant weight
+rd <- rd %>% mutate(w = if_else(is.na(participant_wt), 0, round(participant_wt)))
+
+# Subtract 1 from non-zero entries
+rd <- rd %>% mutate(w = if_else(w > 0, w - 1, w))
+
+# Expand it according to weights, and assign IDs to the newly expanded rows
+exp <- rd %>% filter(w > 0) %>% uncount(w, .id = "pid")
+
+# Arrange df
+rd <- exp %>% arrange(cluster_id, household_id, participant_id, trip_id)
+
+# Create participant_id as a combination of cluster_id, household_id, participant_id, and pid (the newly expanded id)
+rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, sep = "_"))))
+
+# Create trip_id as a combination of cluster_id, household_id, participant_id, pid (the newly expanded id) and trip_id
+rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id, sep = "_"))))
+
+# Reorder and select columns
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration)
+
+# Write as accra trip dataset
+write_csv(rd1, 'inst/extdata/local/accra/trips_accra.csv')
+
 #quality_check(trip)
 
 
