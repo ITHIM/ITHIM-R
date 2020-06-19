@@ -322,7 +322,33 @@ quality_check <- function(trip){
                    )
      
         
-    }
+}
+
+expand_using_weights <- function(trip){
+    # Save it in a local var
+    rd <- trip
+    # Expand by household IDs
+    
+    # Round participant weight
+    rd <- rd %>% mutate(w = if_else(is.na(participant_wt), 0, round(participant_wt)))
+    
+    # Subtract 1 from non-zero entries, and set weight to 1 for (0, 1, 2)
+    rd <- rd %>% mutate(w = if_else(w > 1, w - 1, 1))
+    
+    # Expand it according to weights, and assign IDs to the newly expanded rows
+    exp <- rd %>% uncount(w, .id = "pid")
+    
+    # Arrange df
+    rd <- exp %>% arrange(cluster_id, household_id, participant_id, trip_id)
+    
+    # Create participant_id as a combination of cluster_id, household_id, participant_id, and pid (the newly expanded id)
+    rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, sep = "_"))))
+    
+    # Create trip_id as a combination of cluster_id, household_id, participant_id, pid (the newly expanded id) and trip_id
+    rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id, sep = "_"))))
+    
+    return(rd)
+}
     
 
 
