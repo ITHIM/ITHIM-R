@@ -2174,6 +2174,28 @@ trip$population2014 <- 1878000
   
 write.csv(trip, "data/local/vizag/visakhapatnam_trip.csv")
 
+trip <- read_csv('data/local/vizag/visakhapatnam_trip.csv')
+
+# rd <- expand_using_weights(trip)
+rd <- trip
+
+# Expand dataset by trip_wkly_frequency
+# Add trip and stage id
+rd <- rd %>% mutate(trip_wkly_frequency = if_else(is.na(trip_wkly_frequency), 1, trip_wkly_frequency)) %>% uncount(trip_wkly_frequency, .id = "tid") %>% 
+  mutate(trip_id = as.integer(rownames(.)))
+
+# Remove extra columns
+rd$X1 <- NULL
+
+rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_"))))
+
+rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id, tid, sep = "_"))))
+
+# Reorder and select columns
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration, trip_distance)
+
+write_csv(rd1, 'inst/extdata/local/vizag/trips_vizag.csv')
+
 #quality_check(trip)
 
 #####Mexico city ####
