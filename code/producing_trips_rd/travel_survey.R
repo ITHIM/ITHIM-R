@@ -1960,7 +1960,7 @@ rd <- trip
 # Round participant weight
 rd <- rd %>% mutate(w = if_else(is.na(participant_wt), 0, round(participant_wt)))
 
-# Subtract 1 from non-zero entries
+# Subtract 1 from non-zero entries, and set weight to 1 for (0, 1, 2)
 rd <- rd %>% mutate(w = if_else(w > 1, w - 1, 1))
 
 # Expand it according to weights, and assign IDs to the newly expanded rows
@@ -2124,9 +2124,25 @@ trip$year <- 2011
 trip$gdppc2014 <- 5051
 trip$population2014 <- 8971800
 
+# trip <- read_csv("data/local/bangalore/bangalore_trip.csv")
 write.csv(trip, "data/local/bangalore/bangalore_trip.csv")
 
-#quality_check(trip)
+#rd <- expand_using_weights(trip)
+rd <- trip
+
+# Arrange df
+rd <- rd %>% arrange(cluster_id, household_id, participant_id, trip_id)
+
+# Create participant_id as a combination of cluster_id, household_id, participant_id
+rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_"))))
+
+# Create trip_id as a combination of cluster_id, household_id, participant_id, and trip_id
+rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id, sep = "_"))))
+
+# Reorder and select columns
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration, stage_id, stage_mode, stage_duration, stage_distance)
+
+write_csv(rd1, 'inst/extdata/local/bangalore/trips_bangalore.csv')
 
 #####india Visakhapatnam ####
 rm(list =ls())
