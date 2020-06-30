@@ -1754,7 +1754,7 @@ rm(list =ls())
 source("code/producing_trips_rd/used_functions.R")
 
 # read data
-time_use_0 <- read.spss("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Accra/Accra data and microdata/Time Use Survey/Data/GTUS 2009 24 Hours Individual Diary.sav", to.data.frame = T)
+time_use_0 <- haven::read_spss("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Accra/Accra data and microdata/Time Use Survey/Data/GTUS 2009 24 Hours Individual Diary.sav")
 
 #lookup
 trip_mode <- data.frame(distinct(time_use_0, ActLoc2), 
@@ -1845,23 +1845,23 @@ trip <- read_csv("data/local/accra/accra_trip.csv")
 rd <- trip
 # Expand by household IDs
 
-# Round participant weight
-rd <- rd %>% mutate(w = if_else(is.na(participant_wt), 0, round(participant_wt)))
-
-# Subtract 1 from non-zero entries
-rd <- rd %>% mutate(w = if_else(w > 0, w - 1, w))
-
-# Expand it according to weights, and assign IDs to the newly expanded rows
-exp <- rd %>% filter(w > 0) %>% uncount(w, .id = "pid")
+# # Round participant weight
+# rd <- rd %>% mutate(w = if_else(is.na(participant_wt), 0, round(participant_wt)))
+# 
+# # Subtract 1 from non-zero entries
+# rd <- rd %>% mutate(w = if_else(w > 0, w - 1, w))
+# 
+# # Expand it according to weights, and assign IDs to the newly expanded rows
+# exp <- rd %>% filter(w > 0) %>% uncount(w, .id = "pid")
 
 # Arrange df
-rd <- exp %>% arrange(cluster_id, household_id, participant_id, trip_id)
+rd <- rd %>% arrange(cluster_id, household_id, participant_id, trip_id)
 
-# Create participant_id as a combination of cluster_id, household_id, participant_id, and pid (the newly expanded id)
-rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, sep = "_"))))
+# Create participant_id as a combination of cluster_id, household_id, participant_id
+rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_"))))
 
-# Create trip_id as a combination of cluster_id, household_id, participant_id, pid (the newly expanded id) and trip_id
-rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id, sep = "_"))))
+# Create trip_id as a combination of cluster_id, household_id, participant_id and trip_id
+rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id, sep = "_"))))
 
 # Reorder and select columns
 rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration)
