@@ -1261,6 +1261,24 @@ trip$population2014 <- 7164400
 #quality_check(santiago)
 write.csv(trip, "data/local/santiago/santiago_trip.csv")
 
+trip <- read_csv("data/local/santiago/santiago_trip.csv")
+
+# Expand by household IDs
+rd <- expand_using_weights(trip, normalize_by = 10)
+
+# Remove extra columns
+rd$X1 <- NULL
+
+rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, sep = "_"))))
+
+rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id,  sep = "_"))))
+
+# Reorder and select columns
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration,  
+                            stage_id, stage_mode)
+
+write_csv(rd1, 'inst/extdata/local/santiago/trips_santiago.csv')
+
 
 #####Chile Arica####
 ###added duration in the raw excel file (Viaje) as the column 'duration'
@@ -1697,6 +1715,23 @@ trip$gdppc2014 <- 17497
 trip$population2014 <- 9135800
 
 write.csv(trip, "data/local/bogota/bogota_trip.csv")
+
+# trip <- read_csv('data/local/bogota/bogota_trip.csv')
+# 
+# rd <- trip
+# 
+# # Remove extra columns
+# rd$X1 <- NULL
+# 
+# rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, sep = "_"))))
+# 
+# rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id,  sep = "_"))))
+# 
+# # Reorder and select columns
+# rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration, trip_distance, 
+#                             stage_id, stage_mode)
+# 
+# write_csv(rd1, 'inst/extdata/local/sao_paulo/trips_sao_paulo.csv')
 
 #quality_check(trip)
 #trip %>% filter(!is.na(trip_id) & is.na(trip_mode)) %>% View()
