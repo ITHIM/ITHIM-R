@@ -999,6 +999,7 @@ trip$population2014 <- 20847500
 #quality_check(trip)
 write.csv(trip, "data/local/sao_paulo/sao_paulo_trip.csv")
 
+
 #####Brazil Belo Horizonte######
 
 rm(list =ls())
@@ -1948,35 +1949,30 @@ trip$year <- 2014
 trip$gdppc2014 <- 12747
 trip$population2014 <- 23036600 
   
-#write.csv(trip, "data/local/delhi/delhi_trip.csv")
+write.csv(trip, "data/local/delhi/delhi_trip.csv")
 
 # Reread already stored trip data
-#trip <- read_csv("data/local/delhi/delhi_trip.csv")
+trip <- read_csv("data/local/delhi/delhi_trip.csv")
+
+# Source
+source("code/producing_trips_rd/used_functions.R")
 
 # Save it in a local var
 rd <- trip
+
 # Expand by household IDs
+rd <- expand_using_weights(trip, normalize_by = 1)
 
-# Round participant weight
-rd <- rd %>% mutate(w = if_else(is.na(participant_wt), 0, round(participant_wt)))
+# Remove extra columns
+rd$X1 <- NULL
 
-# Subtract 1 from non-zero entries, and set weight to 1 for (0, 1, 2)
-rd <- rd %>% mutate(w = if_else(w > 1, w - 1, 1))
-
-# Expand it according to weights, and assign IDs to the newly expanded rows
-exp <- rd %>% uncount(w, .id = "pid")
-
-# Arrange df
-rd <- exp %>% arrange(cluster_id, household_id, participant_id, trip_id)
-
-# Create participant_id as a combination of cluster_id, household_id, participant_id, and pid (the newly expanded id)
 rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, sep = "_"))))
 
-# Create trip_id as a combination of cluster_id, household_id, participant_id, pid (the newly expanded id) and trip_id
-rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id, sep = "_"))))
+rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id,  sep = "_"))))
 
 # Reorder and select columns
-rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration, trip_distance, stage_id, stage_mode, stage_duration, stage_distance)
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration, trip_distance, 
+                            stage_id, stage_mode, stage_duration, stage_distance)
 
 # Write as accra trip dataset
 write_csv(rd1, 'inst/extdata/local/delhi/trips_delhi.csv')
@@ -2124,7 +2120,7 @@ trip$year <- 2011
 trip$gdppc2014 <- 5051
 trip$population2014 <- 8971800
 
-# trip <- read_csv("data/local/bangalore/bangalore_trip.csv")
+#trip <- read_csv("data/local/bangalore/bangalore_trip.csv")
 write.csv(trip, "data/local/bangalore/bangalore_trip.csv")
 
 #rd <- expand_using_weights(trip)
@@ -2246,7 +2242,7 @@ stage <- stage_0 %>%
     select(id_via, id_tra, stage_mode,trip_mode, stage_duration)
 
 
-#bind all datesets and retain only useful ones  
+#bind all datasets and retain only useful ones  
 mexico_city <- person %>% 
     left_join(trip) %>% 
     left_join(stage) %>% 
@@ -2260,6 +2256,8 @@ trip$population2014 <-20976700
 
 #quality_check(mexico_city)
 write.csv(trip, "data/local/mexico/mexico_city_trip.csv")
+
+  
 
 ## Message from Ralph: I just shared a dropbox folder with the US (2017) and German (2008) data as requested. 
 ###I followed the codebook you provided. Two items to note: weights are trip weights not not hh weights. 
