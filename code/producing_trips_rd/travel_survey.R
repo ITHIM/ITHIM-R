@@ -79,6 +79,24 @@ trip$population2014 <- 13381800
 #quality_check(Buenos_Aires)
 write.csv(trip, "data/local/buenos_aires/buenos_aires_trip.csv")
 
+trip <- read_csv('data/local/buenos_aires/buenos_aires_trip.csv')
+
+# Expand by household IDs
+rd <- expand_using_weights(trip, normalize_by = 20)
+
+# Remove extra columns
+rd$X1 <- NULL
+
+rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, sep = "_"))))
+
+rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id,  sep = "_"))))
+
+# Reorder and select columns
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration, trip_distance, 
+                            stage_id, stage_mode, stage_duration, stage_distance)
+
+write_csv(rd1, 'inst/extdata/local/buenos_aires/trips_buenos_aires.csv')
+
 #write.csv(trip, "trips_buenas_aires.csv")
 
 #####Argentina Cordoba###########
