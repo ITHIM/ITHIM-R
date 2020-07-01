@@ -1070,6 +1070,26 @@ trip$population2014 <-5595800
 
 write.csv(trip, "data/local/belo_horizonte/belo_horizonte_trip.csv")
 
+# Source
+source("code/producing_trips_rd/used_functions.R")
+
+trip <- read_csv('data/local/belo_horizonte/belo_horizonte_trip.csv')
+
+# Expand by household IDs
+rd <- trip
+
+# Remove extra columns
+rd$X1 <- NULL
+
+rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_"))))
+
+rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id,  sep = "_"))))
+
+# Reorder and select columns
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration)
+
+write_csv(rd1, 'inst/extdata/local/belo_horizonte/trips_belo_horizonte.csv')
+
 #####Brazil Salvador######
 setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Brazil/Salvador')
 trips<-read.csv('trips.csv')
