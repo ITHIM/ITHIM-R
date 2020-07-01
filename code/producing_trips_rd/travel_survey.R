@@ -999,6 +999,27 @@ trip$population2014 <- 20847500
 #quality_check(trip)
 write.csv(trip, "data/local/sao_paulo/sao_paulo_trip.csv")
 
+# Source
+source("code/producing_trips_rd/used_functions.R")
+
+trip <- read_csv('data/local/sao_paulo/sao_paulo_trip.csv')
+
+# Expand by household IDs
+rd <- expand_using_weights(trip, normalize_by = 200)
+
+# Remove extra columns
+rd$X1 <- NULL
+
+rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, sep = "_"))))
+
+rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id,  sep = "_"))))
+
+# Reorder and select columns
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration, trip_distance, 
+                            stage_id, stage_mode)
+
+write_csv(rd1, 'inst/extdata/local/sao_paulo/trips_sao_paulo.csv')
+
 
 #####Brazil Belo Horizonte######
 
