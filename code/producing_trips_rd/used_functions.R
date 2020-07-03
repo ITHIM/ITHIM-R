@@ -324,13 +324,15 @@ quality_check <- function(trip){
         
 }
 
-expand_using_weights <- function(trip){
+expand_using_weights <- function(trip, normalize_by = 10){
     # Save it in a local var
     rd <- trip
     # Expand by household IDs
     
     # Round participant weight
     rd <- rd %>% mutate(w = if_else(is.na(participant_wt), 0, round(participant_wt)))
+    
+    rd <- rd %>% mutate(w = round(w / normalize_by))
     
     # Subtract 1 from non-zero entries, and set weight to 1 for (0, 1, 2)
     rd <- rd %>% mutate(w = if_else(w > 1, w - 1, 1))
