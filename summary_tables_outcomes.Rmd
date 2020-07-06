@@ -1,10 +1,11 @@
 ---
-title: "Summary Tables"
+title: "Summary Outcome Tables"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
     toc: true
     toc_depth: 5
-    toc_float: false
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
@@ -36,7 +37,8 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 ```{r load_objects = "asis"}
 io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
-cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota','cape_town', 'vizag')
+cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'bogota',
+             'cape_town', 'vizag')
 
 #cities <- c('accra','sao_paulo','buenos_aires')
 
