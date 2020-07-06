@@ -665,6 +665,13 @@ df <- df %>% mutate(mv = rowMeans(select(., -c(stage_mode, scenario)))) %>% resh
 df1 <- df %>% dplyr::filter(variable == 'mv')
 df <- df %>% dplyr::filter(variable != 'mv')
 
+
+df1 <- df %>% filter(!stage_mode %in% c('auto_rickshaw', 'bus', 'truck'))
+df1 <- spread(data = df1, key = stage_mode, value = value)
+
+readr::write_csv(df1, 'results/multi_city/whw_matrices/injury_risks_per_billion_kms_by_scen.csv')
+
+
 d1 <- ggplot(df, aes(x = stage_mode, fill = variable, weight = value)) +
    geom_bar(position = "dodge", colour = 'black') +
    scale_fill_manual(values = cols_cbrewer) +
