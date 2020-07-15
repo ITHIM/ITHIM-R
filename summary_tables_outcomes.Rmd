@@ -38,7 +38,8 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
 cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'bogota',
-             'cape_town', 'vizag')
+             'mexico_city', 'vizag')
+
 
 #cities <- c('accra','sao_paulo','buenos_aires')
 
@@ -205,6 +206,8 @@ file_list <- list()
 
 td <- NULL
 
+whw_list <- list()
+
 for (cs in names(all_whw)){
   # cs <- names(all_whw)[1]
   
@@ -273,6 +276,13 @@ for (cs in names(all_whw)){
   
   readr::write_csv(whw_lng, paste0('results/multi_city/whw_matrices/whw_lng_', cs, '.csv'))
   
+  whw_lng$scenario <- qualified_scen_name
+  
+  if (length(whw_list) == 0)
+    whw_list <- whw_lng
+  else
+    whw_list <- rbind(whw_list, whw_lng)
+  
   f <- ggplot(data = whw_lng) +
     aes(x = str_mode, fill = cas_mode, weight = value) +
     geom_bar(position = "stack") +
@@ -317,12 +327,12 @@ for (cs in names(all_whw)){
 
 <!-- td <- st[[var]] -->
 
-<!-- DT::datatable(td,  -->
+<!-- DT::datatable(td, -->
 <!--               extensions = 'Buttons', -->
 <!--               escape = FALSE, -->
 <!--               rownames = FALSE, -->
 <!--               options = list(dom = 'Bfrtip', -->
-<!--                              buttons =  -->
+<!--                              buttons = -->
 <!--                                list('colvis', list( -->
 <!--                                  extend = 'collection', -->
 <!--                                  buttons = list(list(extend='csv', -->
@@ -661,15 +671,15 @@ d <- ggplot(injury_risks_lng) +
 
 df <- injury_risks_lng %>% filter(city != 'cape_town') %>% spread(value = value, key = city) 
 df[df == 0] <- NA
-df <- df %>% mutate(mv = rowMeans(select(., -c(stage_mode, scenario)))) %>% reshape2::melt()
+df <- df %>% mutate(mv = rowMeans(dplyr::select(., -c(stage_mode, scenario)))) %>% reshape2::melt()
 df1 <- df %>% dplyr::filter(variable == 'mv')
 df <- df %>% dplyr::filter(variable != 'mv')
 
 
-df1 <- df %>% filter(!stage_mode %in% c('auto_rickshaw', 'bus', 'truck'))
-df1 <- spread(data = df1, key = stage_mode, value = value)
+df_rr <- df1 %>% dplyr::filter(!stage_mode %in% c('auto_rickshaw', 'bus', 'truck'))
+df_rr <- tidyr::spread(data = df_rr, key = stage_mode, value = value)
 
-readr::write_csv(df1, 'results/multi_city/whw_matrices/injury_risks_per_billion_kms_by_scen.csv')
+readr::write_csv(df_rr, 'results/multi_city/whw_matrices/injury_risks_per_billion_kms_by_scen.csv')
 
 
 d1 <- ggplot(df, aes(x = stage_mode, fill = variable, weight = value)) +
@@ -682,7 +692,7 @@ d1 <- ggplot(df, aes(x = stage_mode, fill = variable, weight = value)) +
    labs(x = "Strike Mode", y = "# of incidents", title = paste("Injury risk per billion km")) +
    theme(axis.text.x = element_text(face="bold", color="#993333", size=8, angle=90))
 
-d2 <- ggplot(df %>% filter(!stage_mode %in% c('auto_rickshaw', 'bus', 'truck')), aes(x = stage_mode, fill = variable, weight = value)) +
+d2 <- ggplot(df %>% dplyr::filter(!stage_mode %in% c('auto_rickshaw', 'bus', 'truck')), aes(x = stage_mode, fill = variable, weight = value)) +
     geom_bar(position = "dodge", colour = 'black') +
     scale_fill_manual(values = cols_cbrewer) +
     theme_minimal() + 
