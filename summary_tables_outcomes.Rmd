@@ -14,7 +14,7 @@ library(pracma)
 library(summarytools)
 library(dplyr)
 library(purrr)
-library(DT)
+library(flextable)
 library(ggplot2)
 library(tidyr)
 knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, message = F, warning = F, results='asis')
@@ -339,12 +339,24 @@ for (i in 1:length(scen_names)){
     list_temp[[index]] <- temp1
       
     index <- index + 1
+    cat('\n')
     cat('####', cm, '\n')
-    print(kable(format(temp1, scientific = F), caption = paste('Who Hit Whom (WHW) for ', scen_names[i], 'scenario and ', cas_mode[j], ' mode')))
-  
+    #print(kable(format(temp1, scientific = F), caption = paste('Who Hit Whom (WHW) for ', scen_names[i], 'scenario and ', cas_mode[j], ' mode')))
+    
+    ft <- flextable(temp1)
+    ft <- add_header_row(ft, values = c(' ', 'strike mode'), colwidths = c(3, ncol(temp1) - 3))
+    ft <- merge_v(ft, j = 1:3, part = 'body')
+    
+    
+    cat('\n')
+    
+    cat(knit_print(ft))
+    
     cat('\n')
     
   }
+  
+  cat('\n')
   
 }
 
