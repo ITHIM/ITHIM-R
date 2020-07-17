@@ -7,16 +7,16 @@ library(plotly)
 library(ithimr)
 
 # Read accra travel survey 
-raw_trip_set <- read_csv("data/local/accra/trips_accra.csv")
+raw_trip_set <- read_csv("data/local/accra/accra_trip.csv")
 
 # Remove already added motorcycle trips
 
 # raw_trip_set <- filter()
 
-# Convert all current modes to lower case
-# Change 'Private Car' to 'car'
-raw_trip_set$trip_mode[raw_trip_set$trip_mode == "Private Car"] <- "car"
-raw_trip_set$trip_mode <- tolower(raw_trip_set$trip_mode)
+# # Convert all current modes to lower case
+# # Change 'Private Car' to 'car'
+# raw_trip_set$trip_mode[raw_trip_set$trip_mode == "Private Car"] <- "car"
+# raw_trip_set$trip_mode <- tolower(raw_trip_set$trip_mode)
 
 # Copy trip mode to stage mode
 raw_trip_set$stage_mode <- raw_trip_set$trip_mode
@@ -39,11 +39,11 @@ walk_to_bus$stage_duration <- 10.55
 raw_trip_set <- rbind(raw_trip_set, walk_to_bus)
 
 # Redefine motorcycle mode for a select 14 rows
-raw_trip_set$trip_mode[raw_trip_set$trip_mode=='other'][1:14] <- 'motorcycle'
-raw_trip_set <- subset(raw_trip_set,trip_mode!='other')
-raw_trip_set$stage_mode[raw_trip_set$stage_mode=='other'][1:14] <- 'motorcycle'
-raw_trip_set <- subset(raw_trip_set,stage_mode!='other')
+raw_trip_set$trip_mode[!is.na(raw_trip_set$trip_mode) & raw_trip_set$trip_mode == 'other'][1:14] <- 'motorcycle'
+raw_trip_set <- subset(raw_trip_set, is.na(trip_mode) | trip_mode !='other')
 
+raw_trip_set$stage_mode[!is.na(raw_trip_set$stage_mode) & raw_trip_set$stage_mode == 'other'][1:14] <- 'motorcycle'
+raw_trip_set <- subset(raw_trip_set, is.na(stage_mode) | stage_mode !='other')
 
 ## default speeds from ITHIM-R model
 default_speeds <- list(
@@ -123,7 +123,7 @@ for(i in 1:nPeople){
                          speed=speed)
   # Add new motorbikes trips to baseline
   # print(summary(new_trips$trip_distance))
-  raw_trip_set <- rbind(raw_trip_set, new_trips)
+  raw_trip_set <- plyr::rbind.fill(raw_trip_set, new_trips)
 }
 
 ## Apply census weights to accra trip set at person level
@@ -170,4 +170,4 @@ raw_trip_set$age_cat <- NULL
 
 #####
 # Write streamlined travel survey data as a csv in the inst folder
-write_csv(raw_trip_set, "inst/extdata/local/accra/trips_accra.csv")
+write_csv(raw_trip_set, "data/local/accra/accra_trip_with_mbike.csv")
