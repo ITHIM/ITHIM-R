@@ -1933,8 +1933,11 @@ trip$population2014 <- 2242000
   
 write.csv(trip, "data/local/accra/accra_trip.csv")
 
+# Source processing code
+source("code/raw_to_processed/accra/streamline_travel_survey.R")
+
 # Reread already stored trip data
-trip <- read_csv("data/local/accra/accra_trip.csv")
+trip <- read_csv("data/local/accra/accra_trip_with_mbike.csv")
 
 # Save it in a local var
 rd <- trip
@@ -1959,7 +1962,7 @@ rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_i
 rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id, sep = "_"))))
 
 # Reorder and select columns
-rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration)
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_distance, stage_mode, stage_duration, stage_distance)
 
 # Write as accra trip dataset
 write_csv(rd1, 'inst/extdata/local/accra/trips_accra.csv')
@@ -2361,7 +2364,7 @@ trip$age <- as.integer(trip$age)
 # Source functions
 source("code/producing_trips_rd/used_functions.R")
 
-rd <- expand_using_weights(trip, normalize_by = 100)
+rd <- expand_using_weights(trip, normalize_by = 10)
 
 # Remove extra columns
 rd$X1 <- NULL
@@ -2375,7 +2378,9 @@ rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_d
 
 # write
 
-write_csv(rd1, 'inst/extdata/local/mexico_city/trips_mexico_city.csv')
+rd2 <- slice_sample(rd1, prop = 0.1)
+
+write_csv(rd2, 'inst/extdata/local/mexico_city/trips_mexico_city.csv')
 
 ## Message from Ralph: I just shared a dropbox folder with the US (2017) and German (2008) data as requested. 
 ###I followed the codebook you provided. Two items to note: weights are trip weights not not hh weights. 
