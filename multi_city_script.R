@@ -1,14 +1,9 @@
 library(ithimr)
 rm(list=ls())
-cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota',
-             'cape_town', 'vizag')
+cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'bogota',
+             'mexico_city', 'vizag')
 
-# cities <- c('accra','sao_paulo','buenos_aires')
-
-
-# cities <- c('accra')
-
-# 
+#'mexico_city'
 
 # Problematic injuries dataset for bogota - hence being excluded
 
@@ -96,13 +91,13 @@ ithim_objects <- list()
 for(city in cities){
   print(city)
   ithim_objects[[city]] <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),
-                                  ADD_WALK_TO_BUS_TRIPS = F,
+                                  ADD_WALK_TO_BUS_TRIPS = as.logical(add_walk_to_bus_trips[[city]]),
                                   CITY = city,
                                   AGE_RANGE = c(min_age,max_age),
                                   ADD_TRUCK_DRIVERS = F,
                                   MAX_MODE_SHARE_SCENARIO = T,
                                   ADD_BUS_DRIVERS = F,
-                                  ADD_MOTORCYCLE_FLEET = add_motorcycle_fleet[[city]],
+                                  ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]),
                                   emission_inventory = emission_inventories[[city]],
                                   speeds = speeds[[city]],
                                   
