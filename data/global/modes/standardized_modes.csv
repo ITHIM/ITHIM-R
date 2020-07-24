@@ -1,0 +1,13 @@
+number,exhaustive list of modes in order,travel behaviour (long),travel behaviour (short),injury victim (long),injury victim (short),injury striking (long),injury striking (short),original
+1,ped(estrian),ped(estrian),ped(estrian),ped(estrian),ped(estrian),ped(estrian),,walk
+2,bike,bike,bike,bike,bike,bike,bike,bike; bicycle
+3,motorbike,motorbike,motorbike,motorbike,motorbike,motorbike,motorbike,motorbike; motorcycle
+4,car,car,car,car,car,car,car,picku; car; van
+5,bus,bus,public transport,bus,,bus,bus,bus_driver; mini; bus
+6,truck,truck,truck,truck,,truck,truck,truck
+7,taxi,taxi,taxi,car,car,car,car,taxi
+8,auto-rickshaw,auto-rickshaw,taxi,other,,other,,auto_rickshaw; auto-rickshaw
+9,rail,rail,public transport,other,,rail,,metro; train; railway.train.railway.vehicle; subway
+10,other,other,,other,,other,,tract; other; non.motor.vehicle
+11,unknown,NA,NA,unknown,,unknown,unknown/NOV,unk; ?; unspecified; listed_na
+12,NOV,NA,NA,NA,,NOV,unknown/NOV,
