@@ -81,6 +81,10 @@ write.csv(trip, "data/local/buenos_aires/buenos_aires_trip.csv")
 
 trip <- read_csv('data/local/buenos_aires/buenos_aires_trip.csv')
 
+# Standardized travel modes
+
+trip <- standardize_modes(trip)
+
 # Expand by household IDs
 rd <- expand_using_weights(trip, normalize_by = 20)
 
