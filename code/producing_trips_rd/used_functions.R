@@ -351,6 +351,18 @@ expand_using_weights <- function(trip, normalize_by = 10){
     
     return(rd)
 }
+
+standardize_modes <- function(trip){
+    
+    smodes <- read_csv('data/global/modes/standardized_modes.csv')
+    smodes <- smodes %>% separate_rows(original, sep = ';')
+    
+    smodes <- smodes %>% 
+        mutate(across(where(is.character), str_trim))
+    
+    
+    
+}
     
 
 
