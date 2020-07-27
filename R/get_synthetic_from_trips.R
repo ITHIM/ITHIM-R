@@ -9,7 +9,24 @@
 get_synthetic_from_trips <- function(){
   
   ##!! to get the right order of trip columns; needed if trips are added
-  raw_trip_set <- data.frame(trip_id=TRIP_SET$trip_id,
+  if (CITY == 'bogota') {
+    raw_trip_set <- data.frame(trip_id=TRIP_SET$trip_id,
+                               trip_mode=TRIP_SET$trip_mode,
+                               trip_distance=TRIP_SET$trip_distance,
+                               stage_mode=TRIP_SET$stage_mode,
+                               stage_distance=TRIP_SET$stage_distance,
+                               stage_duration=TRIP_SET$stage_duration,
+                               participant_id=TRIP_SET$participant_id,
+                               age=TRIP_SET$age,
+                               sex=TRIP_SET$sex,
+                               estrato = TRIP_SET$estrato,
+                               limitacion = TRIP_SET$limitacion,
+                               motivo = TRIP_SET$p17_Id_motivo_viaje,
+                               hora_inicio = TRIP_SET$hora_inicio_viaje,
+                               hora_fin = TRIP_SET$p31_hora_llegada,
+                               stringsAsFactors = F)
+  } else {
+    raw_trip_set <- data.frame(trip_id=TRIP_SET$trip_id,
                              trip_mode=TRIP_SET$trip_mode,
                              trip_distance=TRIP_SET$trip_distance,
                              stage_mode=TRIP_SET$stage_mode,
@@ -19,6 +36,7 @@ get_synthetic_from_trips <- function(){
                              age=TRIP_SET$age,
                              sex=TRIP_SET$sex, 
                              stringsAsFactors = F)
+  }
   TRIP_SET <- NULL
   
   ##!! number trips
