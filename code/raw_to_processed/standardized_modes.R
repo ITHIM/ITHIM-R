@@ -51,3 +51,19 @@ inj_bang$strike_mode <- smodes$exhaustive_list[match(tolower(inj_bang$strike_mod
 # Write
 
 write_csv(inj_bang, 'inst/extdata/local/bangalore/injuries_bangalore.csv')
+
+#### Delhi
+
+# Read bangalore dataset
+inj_del <- read_csv('data/local/delhi/pkg_injuries_delhi.csv')
+
+# smodes
+smodes <- read_smodes()
+
+# Mutate
+inj_del$cas_mode <- smodes$exhaustive_list[match(tolower(inj_del$cas_mode), smodes$original)]
+
+# Mutate
+inj_del$strike_mode <- smodes$exhaustive_list[match(tolower(inj_del$strike_mode), smodes$original)]
+
+write_csv(inj_del, 'inst/extdata/local/delhi/injuries_delhi.csv')
