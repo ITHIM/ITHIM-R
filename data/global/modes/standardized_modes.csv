@@ -2,7 +2,7 @@ number,exhaustive_list,trav_lng,trav_shrt,inj_vic_lng,inj_vic_shrt,inj_str_lng,i
 1,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,,walk; pedestrian
 2,bike,bike,bike,bike,bike,bike,bike,bike; bicycle
 3,motorbike,motorbike,motorbike,motorbike,motorbike,motorbike,motorbike,motorbike; motorcycle
-4,car,car,car,car,car,car,car,picku; car; van
+4,car,car,car,car,car,car,car,picku; pick-up truck/van; car; van
 5,bus,bus,public transport,bus,,bus,bus,bus_driver; mini; bus
 6,truck,truck,truck,truck,,truck,truck,truck
 7,taxi,taxi,taxi,car,car,car,car,taxi
