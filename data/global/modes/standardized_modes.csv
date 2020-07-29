@@ -10,5 +10,5 @@ number,exhaustive_list,trav_lng,trav_shrt,inj_vic_lng,inj_vic_shrt,inj_str_lng,i
 9,rail,rail,public transport,other,,rail,,metro; train; railway.train.railway.vehicle; subway
 10,other,other,,other,,other,,tract; other; non.motor.vehicle
 11,unknown,NA,NA,unknown,,unknown,unknown/NOV,unk; ?; unspecified; listed_na
-12,NOV,NA,NA,NA,,NOV,unknown/NOV,NOV
+12,NOV,NA,NA,NA,,NOV,unknown/NOV,NOV; nov
 13,NA,NA,NA,NA,NA,NA,NA,NA
