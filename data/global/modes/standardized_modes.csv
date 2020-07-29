@@ -1,5 +1,5 @@
-number,exhaustive list of modes in order,travel behaviour (long),travel behaviour (short),injury victim (long),injury victim (short),injury striking (long),injury striking (short),original
-1,ped(estrian),ped(estrian),ped(estrian),ped(estrian),ped(estrian),ped(estrian),,walk
+number,exhaustive_list,trav_lng,trav_shrt,inj_vic_lng,inj_vic_shrt,inj_str_lng,inj_str_shrt,original
+1,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,,walk
 2,bike,bike,bike,bike,bike,bike,bike,bike; bicycle
 3,motorbike,motorbike,motorbike,motorbike,motorbike,motorbike,motorbike,motorbike; motorcycle
 4,car,car,car,car,car,car,car,picku; car; van
@@ -10,4 +10,5 @@ number,exhaustive list of modes in order,travel behaviour (long),travel behaviou
 9,rail,rail,public transport,other,,rail,,metro; train; railway.train.railway.vehicle; subway
 10,other,other,,other,,other,,tract; other; non.motor.vehicle
 11,unknown,NA,NA,unknown,,unknown,unknown/NOV,unk; ?; unspecified; listed_na
-12,NOV,NA,NA,NA,,NOV,unknown/NOV,
+12,NOV,NA,NA,NA,,NOV,unknown/NOV,NOV
+13,NA,NA,NA,NA,NA,NA,NA,NA
