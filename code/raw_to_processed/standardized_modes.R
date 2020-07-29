@@ -176,5 +176,5 @@ inj_vg$cas_mode <- smodes$exhaustive_list[match(tolower(inj_vg$cas_mode), smodes
 # Mutate
 inj_vg$strike_mode <- smodes$exhaustive_list[match(tolower(inj_vg$strike_mode), smodes$original)]
 
-write_csv(inj_sp, 'inst/extdata/local/sao_paulo/injuries_sao_paulo.csv')
+write_csv(inj_vg, 'inst/extdata/local/vizag/injuries_vizag.csv')
 
