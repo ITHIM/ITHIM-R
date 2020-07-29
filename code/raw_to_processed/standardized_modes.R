@@ -162,3 +162,19 @@ inj_sp$cas_mode <- smodes$exhaustive_list[match(tolower(inj_sp$cas_mode), smodes
 inj_sp$strike_mode <- smodes$exhaustive_list[match(tolower(inj_sp$strike_mode), smodes$original)]
 
 write_csv(inj_sp, 'inst/extdata/local/sao_paulo/injuries_sao_paulo.csv')
+
+###### Vizag
+# Read vizag dataset
+inj_vg <- read_csv('data/local/vizag/pkg_injuries_vizag.csv')
+
+# smodes
+smodes <- read_smodes()
+
+# Mutate
+inj_vg$cas_mode <- smodes$exhaustive_list[match(tolower(inj_vg$cas_mode), smodes$original)]
+
+# Mutate
+inj_vg$strike_mode <- smodes$exhaustive_list[match(tolower(inj_vg$strike_mode), smodes$original)]
+
+write_csv(inj_sp, 'inst/extdata/local/sao_paulo/injuries_sao_paulo.csv')
+
