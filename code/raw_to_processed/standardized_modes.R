@@ -148,3 +148,17 @@ inj_santiago$strike_mode <- smodes$exhaustive_list[match(tolower(inj_santiago$st
 write_csv(inj_santiago, 'inst/extdata/local/santiago/injuries_santiago.csv')
 
 
+###### Sao Paulo
+# Read Sao Paulo dataset
+inj_sp <- read_csv('data/local/sao_paulo/pkg_injuries_sao_paulo.csv')
+
+# smodes
+smodes <- read_smodes()
+
+# Mutate
+inj_sp$cas_mode <- smodes$exhaustive_list[match(tolower(inj_sp$cas_mode), smodes$original)]
+
+# Mutate
+inj_sp$strike_mode <- smodes$exhaustive_list[match(tolower(inj_sp$strike_mode), smodes$original)]
+
+write_csv(inj_sp, 'inst/extdata/local/sao_paulo/injuries_sao_paulo.csv')
