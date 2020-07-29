@@ -40,6 +40,7 @@ io <- readRDS("results/multi_city/io.rds")
 cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'bogota',
              'mexico_city', 'vizag')
 
+cities <- names(io)[!names(io) %in% 'scen_prop']
 
 #cities <- c('accra','sao_paulo','buenos_aires')
 
@@ -346,6 +347,7 @@ for (i in 1:length(scen_names)){
     ft <- flextable(temp1)
     ft <- add_header_row(ft, values = c(' ', 'strike mode'), colwidths = c(3, ncol(temp1) - 3))
     ft <- merge_v(ft, j = 1:3, part = 'body')
+    #fix_border_issues(ft)
     
     
     cat('\n')
@@ -361,6 +363,8 @@ for (i in 1:length(scen_names)){
 }
 
 ```
+
+### Who hit whom matrix for all case cities as CSV {#whw_all_csv}
 
 [View from](https://github.com/ITHIM/ITHIM-R/blob/master/results/multi_city/whw_matrices/whw_lng.csv)
 
