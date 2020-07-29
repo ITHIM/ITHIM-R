@@ -145,6 +145,6 @@ inj_santiago$cas_mode <- smodes$exhaustive_list[match(tolower(inj_santiago$cas_m
 # Mutate
 inj_santiago$strike_mode <- smodes$exhaustive_list[match(tolower(inj_santiago$strike_mode), smodes$original)]
 
-write_csv(inj_santiago, 'inst/extdata/local/mexico_city/injuries_mexico_city.csv')
+write_csv(inj_santiago, 'inst/extdata/local/santiago/injuries_santiago.csv')
 
 
