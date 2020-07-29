@@ -1,14 +1,14 @@
 number,exhaustive_list,trav_lng,trav_shrt,inj_vic_lng,inj_vic_shrt,inj_str_lng,inj_str_shrt,original
-1,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,,walk; pedestrian
+1,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,walk; pedestrian
 2,bike,bike,bike,bike,bike,bike,bike,bike; bicycle
 3,motorbike,motorbike,motorbike,motorbike,motorbike,motorbike,motorbike,motorbike; motorcycle
 4,car,car,car,car,car,car,car,picku; pick-up truck/van; pickup; pickup/light goods; car; van
-5,bus,bus,public transport,bus,,bus,bus,bus_driver; mini; bus; minibus
-6,truck,truck,truck,truck,,truck,truck,truck
+5,bus,bus,public transport,bus,bus,bus,bus,bus_driver; mini; bus; minibus
+6,truck,truck,truck,truck,truck,truck,truck,truck
 7,taxi,taxi,taxi,car,car,car,car,taxi
-8,auto-rickshaw,auto-rickshaw,taxi,other,,other,,auto_rickshaw; auto-rickshaw
-9,rail,rail,public transport,other,,rail,,metro; train; railway.train.railway.vehicle; subway
-10,other,other,,other,,other,,tract; other; others; non.motor.vehicle; cart
-11,unknown,NA,NA,unknown,,unknown,unknown/NOV,unk; ?; unspecified; listed_na; no.other.fixed.or.stationary.object; unknown
-12,NOV,NA,NA,NA,,NOV,unknown/NOV,NOV; nov; no other vehicle
+8,auto-rickshaw,auto-rickshaw,taxi,other,auto-rickshaw,other,auto-rickshaw,auto_rickshaw; auto-rickshaw
+9,rail,rail,public transport,other,rail,rail,rail,metro; train; railway.train.railway.vehicle; subway
+10,other,other,other,other,other,other,other,tract; other; others; non.motor.vehicle; cart
+11,unknown,NA,NA,unknown,unknown,unknown,unknown/NOV,unk; ?; unspecified; listed_na; no.other.fixed.or.stationary.object; unknown
+12,NOV,NA,NA,NA,NOV,NOV,unknown/NOV,NOV; nov; no other vehicle
 13,NA,NA,NA,NA,NA,NA,NA,NA
