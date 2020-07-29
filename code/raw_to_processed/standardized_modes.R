@@ -132,5 +132,19 @@ inj_mex$strike_mode <- smodes$exhaustive_list[match(tolower(inj_mex$strike_mode)
 
 write_csv(inj_mex, 'inst/extdata/local/mexico_city/injuries_mexico_city.csv')
 
+###### Santiago
+# Read Santiago dataset
+inj_santiago <- read_csv('data/local/santiago/pkg_injuries_santiago.csv')
+
+# smodes
+smodes <- read_smodes()
+
+# Mutate
+inj_santiago$cas_mode <- smodes$exhaustive_list[match(tolower(inj_santiago$cas_mode), smodes$original)]
+
+# Mutate
+inj_santiago$strike_mode <- smodes$exhaustive_list[match(tolower(inj_santiago$strike_mode), smodes$original)]
+
+write_csv(inj_santiago, 'inst/extdata/local/mexico_city/injuries_mexico_city.csv')
 
 
