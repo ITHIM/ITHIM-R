@@ -86,7 +86,7 @@ write_csv(inj_bh, 'inst/extdata/local/belo_horizonte/injuries_belo_horizonte.csv
 
 ##### Bogota
 
-# Read bangalore dataset
+# Read bogota dataset
 inj_bg <- read_csv('data/local/bogota/pkg_injuries_bogota.csv')
 
 # smodes
@@ -99,5 +99,23 @@ inj_bg$cas_mode <- smodes$exhaustive_list[match(tolower(inj_bg$cas_mode), smodes
 inj_bg$strike_mode <- smodes$exhaustive_list[match(tolower(inj_bg$strike_mode), smodes$original)]
 
 write_csv(inj_bg, 'inst/extdata/local/bogota/injuries_bogota.csv')
+
+###### Buenos Aires
+
+# Read Buenos Aires dataset
+inj_ba <- read_csv('data/local/buenos_aires/pkg_injuries_buenos_aires.csv')
+
+# smodes
+smodes <- read_smodes()
+
+# Mutate
+inj_ba$cas_mode <- smodes$exhaustive_list[match(tolower(inj_ba$cas_mode), smodes$original)]
+
+# Mutate
+inj_ba$strike_mode <- smodes$exhaustive_list[match(tolower(inj_ba$strike_mode), smodes$original)]
+
+write_csv(inj_ba, 'inst/extdata/local/buenos_aires/injuries_buenos_aires.csv')
+
+
 
 
