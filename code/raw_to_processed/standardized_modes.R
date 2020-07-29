@@ -52,22 +52,6 @@ inj_bang$strike_mode <- smodes$exhaustive_list[match(tolower(inj_bang$strike_mod
 
 write_csv(inj_bang, 'inst/extdata/local/bangalore/injuries_bangalore.csv')
 
-#### Delhi
-
-# Read bangalore dataset
-inj_del <- read_csv('data/local/delhi/pkg_injuries_delhi.csv')
-
-# smodes
-smodes <- read_smodes()
-
-# Mutate
-inj_del$cas_mode <- smodes$exhaustive_list[match(tolower(inj_del$cas_mode), smodes$original)]
-
-# Mutate
-inj_del$strike_mode <- smodes$exhaustive_list[match(tolower(inj_del$strike_mode), smodes$original)]
-
-write_csv(inj_del, 'inst/extdata/local/delhi/injuries_delhi.csv')
-
 ##### Belo Horizonte
 
 # Read bangalore dataset
@@ -116,6 +100,37 @@ inj_ba$strike_mode <- smodes$exhaustive_list[match(tolower(inj_ba$strike_mode), 
 
 write_csv(inj_ba, 'inst/extdata/local/buenos_aires/injuries_buenos_aires.csv')
 
+###### Delhi
+
+# Read bangalore dataset
+inj_del <- read_csv('data/local/delhi/pkg_injuries_delhi.csv')
+
+# smodes
+smodes <- read_smodes()
+
+# Mutate
+inj_del$cas_mode <- smodes$exhaustive_list[match(tolower(inj_del$cas_mode), smodes$original)]
+
+# Mutate
+inj_del$strike_mode <- smodes$exhaustive_list[match(tolower(inj_del$strike_mode), smodes$original)]
+
+write_csv(inj_del, 'inst/extdata/local/delhi/injuries_delhi.csv')
+
+
+###### Mexico City
+# Read Mexico City dataset
+inj_mex <- read_csv('data/local/mexico_city/pkg_injuries_mexico_city.csv')
+
+# smodes
+smodes <- read_smodes()
+
+# Mutate
+inj_mex$cas_mode <- smodes$exhaustive_list[match(tolower(inj_mex$cas_mode), smodes$original)]
+
+# Mutate
+inj_mex$strike_mode <- smodes$exhaustive_list[match(tolower(inj_mex$strike_mode), smodes$original)]
+
+write_csv(inj_mex, 'inst/extdata/local/mexico_city/injuries_mexico_city.csv')
 
 
 
