@@ -106,8 +106,6 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   
   synth_pop$participant_id <- as.integer(synth_pop$participant_id)
   
-  # browser()
-  
   list(scenario_pm=conc_pm, pm_conc_pp=as.data.frame(synth_pop))
   
 }

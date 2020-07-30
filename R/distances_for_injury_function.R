@@ -15,9 +15,7 @@ distances_for_injury_function <- function(journeys, dist){
   ##!! AA have added total distance by taking demographic into the calculations, and then scaling distance accordingly
   
   distances <- spread(journeys,stage_mode, tot_dist,fill=0) 
-  #distances$pedestrian <- distances$walking 
   
-  # browser()
   if('walk_to_pt'%in%names(distances)){
     distances$pedestrian <- distances$pedestrian + distances$walk_to_pt
   }
