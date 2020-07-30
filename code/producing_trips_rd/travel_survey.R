@@ -82,8 +82,7 @@ write.csv(trip, "data/local/buenos_aires/buenos_aires_trip.csv")
 trip <- read_csv('data/local/buenos_aires/buenos_aires_trip.csv')
 
 # Standardized travel modes
-
-trip <- standardize_modes(trip)
+trip <- standardize_modes(trip, mode = c('stage', 'trip'))
 
 # Expand by household IDs
 rd <- expand_using_weights(trip, normalize_by = 20)
@@ -1026,6 +1025,9 @@ source("code/producing_trips_rd/used_functions.R")
 
 trip <- read_csv('data/local/sao_paulo/sao_paulo_trip.csv')
 
+# Standardized travel modes
+trip <- standardize_modes(trip, mode = c('stage', 'trip'))
+
 # Expand by household IDs
 rd <- expand_using_weights(trip, normalize_by = 200)
 
@@ -1096,6 +1098,9 @@ write.csv(trip, "data/local/belo_horizonte/belo_horizonte_trip.csv")
 source("code/producing_trips_rd/used_functions.R")
 
 trip <- read_csv('data/local/belo_horizonte/belo_horizonte_trip.csv')
+
+# Standardized travel modes
+trip <- standardize_modes(trip, mode = c('trip'))
 
 # Expand by household IDs
 rd <- trip
@@ -1266,6 +1271,9 @@ trip$population2014 <- 7164400
 write.csv(trip, "data/local/santiago/santiago_trip.csv")
 
 trip <- read_csv("data/local/santiago/santiago_trip.csv")
+
+# Standardized travel modes
+trip <- standardize_modes(trip, mode = c('stage', 'trip'))
 
 # Expand by household IDs
 rd <- expand_using_weights(trip, normalize_by = 10)
@@ -1722,28 +1730,27 @@ trip$population2014 <- 9135800
 
 write.csv(trip, "data/local/bogota/bogota_trip.csv")
 
-# trip <- read_csv('data/local/bogota/bogota_trip.csv')
+trip <- read_csv('data/local/bogota/bogota_trip.csv')
+
+# Standardized travel modes
+trip <- standardize_modes(trip, mode = c('stage', 'trip'))
+
+rd <- trip
+
+# Remove extra columns
+rd$X1 <- NULL
+
+rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_"))))
+
+rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id,  sep = "_"))))
+
+# Reorder and select columns
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration, stage_id, stage_mode)
 # 
-# rd <- trip
-# 
-# # Remove extra columns
-# rd$X1 <- NULL
-# 
-# rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, sep = "_"))))
-# 
-# rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id,  sep = "_"))))
-# 
-# # Reorder and select columns
-# rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration, trip_distance, 
-#                             stage_id, stage_mode)
-# 
-# write_csv(rd1, 'inst/extdata/local/sao_paulo/trips_sao_paulo.csv')
+write_csv(rd1, 'inst/extdata/local/bogota/trips_bogota.csv')
 
 #quality_check(trip)
 #trip %>% filter(!is.na(trip_id) & is.na(trip_mode)) %>% View()
-
-
-
 
 #####England LONDON#####
 setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/London/LTDS0514_Combined_V3U_v1.2')
@@ -1945,6 +1952,9 @@ source("code/raw_to_processed/accra/streamline_travel_survey.R")
 # Reread already stored trip data
 trip <- read_csv("data/local/accra/accra_trip_with_mbike.csv")
 
+# Standardized travel modes
+trip <- standardize_modes(trip, mode = c('stage', 'trip'))
+
 # Save it in a local var
 rd <- trip
 # Expand by household IDs
@@ -2056,6 +2066,9 @@ write.csv(trip, "data/local/delhi/delhi_trip.csv")
 
 # Reread already stored trip data
 trip <- read_csv("data/local/delhi/delhi_trip.csv")
+
+# Standardized travel modes
+trip <- standardize_modes(trip, mode = c('stage', 'trip'))
 
 # Source
 source("code/producing_trips_rd/used_functions.R")
@@ -2223,8 +2236,11 @@ trip$year <- 2011
 trip$gdppc2014 <- 5051
 trip$population2014 <- 8971800
 
-#trip <- read_csv("data/local/bangalore/bangalore_trip.csv")
+trip <- read.csv("data/local/bangalore/bangalore_trip.csv", stringsAsFactors = F)
 write.csv(trip, "data/local/bangalore/bangalore_trip.csv")
+
+# Standardized travel modes
+trip <- standardize_modes(trip, mode = c('stage', 'trip'))
 
 #rd <- expand_using_weights(trip)
 rd <- trip
@@ -2274,6 +2290,9 @@ trip$population2014 <- 1878000
 write.csv(trip, "data/local/vizag/visakhapatnam_trip.csv")
 
 trip <- read_csv('data/local/vizag/visakhapatnam_trip.csv')
+
+# Standardized travel modes
+trip <- standardize_modes(trip, mode = c('trip'))
 
 # rd <- expand_using_weights(trip)
 rd <- trip
@@ -2362,6 +2381,9 @@ write.csv(trip, "data/local/mexico/mexico_city_trip.csv")
 
 ## Expand trip dataset using participant weight
 trip <- read_csv("data/local/mexico/mexico_city_trip.csv")
+
+# Standardized travel modes
+trip <- standardize_modes(trip, mode = c('stage', 'trip'))
 
 ## Convert age as character to integer
 

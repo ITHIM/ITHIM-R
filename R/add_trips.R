@@ -14,7 +14,7 @@
 #' @return data frame of trips
 #' 
 #' @export
-add_trips <- function(trip_ids=0,new_mode='walking',distance=1,participant_id=0,age=20,sex='male',nTrips=3,speed=4.8){
+add_trips <- function(trip_ids=0,new_mode='pedestrian',distance=1,participant_id=0,age=20,sex='male',nTrips=3,speed=4.8){
   dist <- sample(distance,nTrips,replace=T)
   return(data.frame(trip_id   = trip_ids, 
              trip_mode = new_mode, 

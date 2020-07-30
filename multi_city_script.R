@@ -1,11 +1,7 @@
 library(ithimr)
 rm(list=ls())
-cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'bogota',
-             'mexico_city', 'vizag')
-
-#'mexico_city'
-
-# Problematic injuries dataset for bogota - hence being excluded
+cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires',
+            'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
 
 min_age <- 15
 max_age <- 69

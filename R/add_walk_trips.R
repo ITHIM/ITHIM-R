@@ -1,4 +1,4 @@
-#' Add walk trips to trip set
+#' Add pedestrian trips to trip set
 #' 
 #' Create data frame of walk-to-PT trips from PT trips and walk-to-bus time
 #' 
@@ -24,7 +24,7 @@ add_walk_trips <- function(pt_trips){
     walk_trips$stage_duration[(walk_trips$stage_duration - pt_trips$stage_duration)  >= 0] <- 0
   
   # Corrrect walk trips distance
-  walk_trips$stage_distance <- (walk_trips$stage_duration / 60) * VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$stage_mode=='walking']
+  walk_trips$stage_distance <- (walk_trips$stage_duration / 60) * VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$stage_mode=='pedestrian']
   pt_trips$stage_distance <- pt_trips$trip_distance - walk_trips$stage_distance
   
   # Recategorise trip_distance_cat for both bus and walk trips

@@ -23,7 +23,7 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
       # separate out bus trips
       pt_trips <- subset(rd_list[[i]],stage_mode%in%pt_modes)
       not_pt_trips <- subset(rd_list[[i]],!stage_mode%in%pt_modes)
-      # divide bus trips into bus and walking
+      # divide bus trips into bus and pedestrian
       pt_walk_trips <- add_walk_trips(pt_trips)
       # recombine all trips
       rd_list[[i]] <- rbind(not_pt_trips,pt_walk_trips[[1]],pt_walk_trips[[2]])
@@ -57,10 +57,10 @@ scale_trip_distances <- function(trips){
   match_modes <- rep(1,nrow(trips))
   stage_modes <- trips$stage_mode
   match_modes[stage_modes%in%car_taxi_modes] <- DISTANCE_SCALAR_CAR_TAXI
-  match_modes[stage_modes=='walking'] <- DISTANCE_SCALAR_WALKING
+  match_modes[stage_modes=='pedestrian'] <- DISTANCE_SCALAR_WALKING
   match_modes[stage_modes%in%pt_modes] <- DISTANCE_SCALAR_PT
-  match_modes[stage_modes=='cycling'] <- DISTANCE_SCALAR_CYCLING
-  match_modes[stage_modes=='motorcycle'] <- DISTANCE_SCALAR_MOTORCYCLE
+  match_modes[stage_modes=='bike'] <- DISTANCE_SCALAR_CYCLING
+  match_modes[stage_modes=='motorbike'] <- DISTANCE_SCALAR_MOTORBIKE
   trips$stage_distance <- trips$stage_distance*match_modes
   trips$stage_duration <- trips$stage_duration*match_modes
   

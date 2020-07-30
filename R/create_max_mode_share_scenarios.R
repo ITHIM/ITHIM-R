@@ -1,7 +1,7 @@
 #' Create scenarios defined by maximum mode share
 #' 
 #' Creates five scenarios where, in each one, the mode share is elevated to the maximum observed across the cities.
-#' The scenario-modes are walking, cycling, car, motorcycle and bus
+#' The scenario-modes are pedestrian, bike, car, motorbike and bus
 #' 
 #' @param trip_set data frame, baseline scenario
 #' 
@@ -53,7 +53,7 @@ create_max_mode_share_scenarios <- function(trip_set){
           walk_trips <- change_trips;
           walk_trips$stage_mode <- 'walk_to_pt';
           walk_trips$stage_duration <- BUS_WALK_TIME;
-          walk_trips$stage_distance <- walk_trips$stage_duration * MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode == 'walking'] / 60
+          walk_trips$stage_distance <- walk_trips$stage_duration * MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode == 'pedestrian'] / 60
           change_trips <- rbind(change_trips, walk_trips)
         }
         rdr_copy[[j]] <- rbind(rdr_copy[[j]][!rdr_copy[[j]]$trip_id%in%change_trip_ids,],change_trips)

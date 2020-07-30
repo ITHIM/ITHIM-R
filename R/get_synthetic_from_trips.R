@@ -42,16 +42,16 @@ get_synthetic_from_trips <- function(){
   ##!! number trips
   #raw_trip_set$trip_id[!is.na(raw_trip_set$trip_id)] <- 1:sum(!is.na(raw_trip_set$trip_id))
   
-  ## add motorcycle trip to accra, and replicate set four times
+  ## add motorbike trip to accra, and replicate set four times
   #if(CITY=='accra') raw_trip_set <- edit_accra_trips(raw_trip_set)
   #SURVEY_SCALAR <<- population/length(unique(TRIP_SET$participant_id))/survey_coverage
   
   ## add bus and truck trips
   if(ADD_BUS_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set)
   if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',distance_ratio=TRUCK_TO_CAR_RATIO*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car')
-  ## because we have the fraction of total MC travel that is fleet, we need to adjust the parameter to compute fleet travel from non-fleet motorcycle travel
-  if(ADD_MOTORCYCLE_FLEET) 
-    raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='motorcycle',distance_ratio=FLEET_TO_MOTORCYCLE_RATIO/(1-FLEET_TO_MOTORCYCLE_RATIO),reference_mode='motorcycle')
+  ## because we have the fraction of total MC travel that is fleet, we need to adjust the parameter to compute fleet travel from non-fleet motorbike travel
+  if(ADD_MOTORBIKE_FLEET) 
+    raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='motorbike',distance_ratio=FLEET_TO_MOTORBIKE_RATIO/(1-FLEET_TO_MOTORBIKE_RATIO),reference_mode='motorbike')
 
   # create synthetic population
   synth_pop <- create_synth_pop(raw_trip_set)
@@ -60,7 +60,7 @@ get_synthetic_from_trips <- function(){
   trip_set <- synth_pop$trip_set
   synth_pop <- NULL
   
-  # create scenarios: either the walking test case, or the 5 hard-coded Accra scenarios
+  # create scenarios: either the pedestrian test case, or the 5 hard-coded Accra scenarios
   trip_set <- ithim_setup_baseline_scenario(trip_set)
   if(TEST_WALK_SCENARIO){
     SYNTHETIC_TRIPS <- create_walk_scenario(trip_set)

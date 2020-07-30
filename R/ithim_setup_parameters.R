@@ -23,13 +23,13 @@
 #' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to SIN_EXPONENT_SUM
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
-#' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: amount of motorcycle that's fleet
+#' @param FLEET_TO_MOTORBIKE_RATIO beta parameter: amount of motorbike that's fleet
 #' @param EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
 #' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar for car distance travelled
 #' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar for walking distance travelled
 #' @param DISTANCE_SCALAR_PT lognormal parameter: scalar for PT distance travelled
 #' @param DISTANCE_SCALAR_CYCLING lognormal parameter: scalar for cycling distance travelled
-#' @param DISTANCE_SCALAR_MOTORCYCLE lognormal parameter: scalar for motorcycle distance travelled
+#' @param DISTANCE_SCALAR_MOTORBIKE lognormal parameter: scalar for motorbike distance travelled
 #' 
 #' @return list of samples of uncertain parameters
 #' 
@@ -51,13 +51,13 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    CASUALTY_EXPONENT_FRACTION = 0.5,
                                    BUS_TO_PASSENGER_RATIO = 0.022,
                                    TRUCK_TO_CAR_RATIO = 0.21,
-                                   FLEET_TO_MOTORCYCLE_RATIO = 0,
+                                   FLEET_TO_MOTORBIKE_RATIO = 0,
                                    EMISSION_INVENTORY_CONFIDENCE = 1,
                                    DISTANCE_SCALAR_CAR_TAXI = 1,
                                    DISTANCE_SCALAR_WALKING = 1,
                                    DISTANCE_SCALAR_PT = 1,
                                    DISTANCE_SCALAR_CYCLING = 1,
-                                   DISTANCE_SCALAR_MOTORCYCLE = 1){
+                                   DISTANCE_SCALAR_MOTORBIKE = 1){
   
   if ((length(PM_CONC_BASE==1)&&PM_CONC_BASE == 50) |
       (length(PM_TRANS_SHARE==1)&&PM_TRANS_SHARE == 0.225))
@@ -79,12 +79,12 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   CASUALTY_EXPONENT_FRACTION <<- CASUALTY_EXPONENT_FRACTION
   BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
   TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
-  FLEET_TO_MOTORCYCLE_RATIO <<- FLEET_TO_MOTORCYCLE_RATIO
+  FLEET_TO_MOTORBIKE_RATIO <<- FLEET_TO_MOTORBIKE_RATIO
   DISTANCE_SCALAR_CAR_TAXI <<- DISTANCE_SCALAR_CAR_TAXI
   DISTANCE_SCALAR_WALKING <<- DISTANCE_SCALAR_WALKING
   DISTANCE_SCALAR_PT <<- DISTANCE_SCALAR_PT
   DISTANCE_SCALAR_CYCLING <<-  DISTANCE_SCALAR_CYCLING
-  DISTANCE_SCALAR_MOTORCYCLE <<- DISTANCE_SCALAR_MOTORCYCLE
+  DISTANCE_SCALAR_MOTORBIKE <<- DISTANCE_SCALAR_MOTORBIKE
   parameters <- list()
   
   ##Variables with normal distribution
@@ -99,7 +99,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                  "DISTANCE_SCALAR_WALKING",
                  "DISTANCE_SCALAR_PT",
                  "DISTANCE_SCALAR_CYCLING",
-                 "DISTANCE_SCALAR_MOTORCYCLE")
+                 "DISTANCE_SCALAR_MOTORBIKE")
   for (i in 1:length(normVariables)) {
     name <- normVariables[i]
     val <- get(normVariables[i])
@@ -118,7 +118,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                      "CASUALTY_EXPONENT_FRACTION",
                      "BUS_TO_PASSENGER_RATIO",
                      "TRUCK_TO_CAR_RATIO",
-                     "FLEET_TO_MOTORCYCLE_RATIO")
+                     "FLEET_TO_MOTORBIKE_RATIO")
   for (i in 1:length(betaVariables)) {
     name <- betaVariables[i]
     val <- get(betaVariables[i])

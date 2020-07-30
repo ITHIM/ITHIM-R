@@ -32,11 +32,11 @@ dist_dur_tbls <- function(trip_scen_sets){
     
     # add walk_to_pt, if walk_to_pt has been added
     if("walk_to_pt"%in%local_dist$stage_mode){
-      local_dist$sum_dist[local_dist$stage_mode == "walking"] <- 
-        local_dist$sum_dist[local_dist$stage_mode == "walking"] + 
+      local_dist$sum_dist[local_dist$stage_mode == "pedestrian"] <- 
+        local_dist$sum_dist[local_dist$stage_mode == "pedestrian"] + 
         local_dist$sum_dist[local_dist$stage_mode == "walk_to_pt"]
-      local_dur$sum_dur[local_dur$stage_mode == "walking"] <- 
-        local_dur$sum_dur[local_dur$stage_mode == "walking"] + 
+      local_dur$sum_dur[local_dur$stage_mode == "pedestrian"] <- 
+        local_dur$sum_dur[local_dur$stage_mode == "pedestrian"] + 
         local_dur$sum_dur[local_dur$stage_mode == "walk_to_pt"]
     }
     
@@ -59,7 +59,7 @@ dist_dur_tbls <- function(trip_scen_sets){
     }
   }
   
-  # Remove short walking
+  # Remove short pedestrian
   #dist <- filter(local_dist, stage_mode != 'walk_to_pt')
   #dur <- filter(local_dur, stage_mode != 'walk_to_pt')
   dist <- as.data.frame(local_dist[local_dist$stage_mode != 'walk_to_pt',])

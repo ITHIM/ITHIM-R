@@ -18,7 +18,7 @@
 #' @param ADD_WALK_TO_BUS_TRIPS logic: whether or not to add short walks to all PT trips
 #' @param ADD_BUS_DRIVERS logic: whether or not to add bus drivers
 #' @param ADD_TRUCK_DRIVERS logic: whether or not to add truck drivers
-#' @param ADD_MOTORCYCLE_FLEET logic: whether or not to add motorcycle fleet
+#' @param ADD_MOTORBIKE_FLEET logic: whether or not to add motorbike fleet
 #' @param TEST_WALK_SCENARIO logic: whether or not to run the walk scenario
 #' @param TEST_CYCLE_SCENARIO logic: whether or not to run the cycle scenario
 #' @param MAX_MODE_SHARE_SCENARIO logic: whether or not to run the max mode share scenario
@@ -41,13 +41,13 @@
 #' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to SIN_EXPONENT_SUM
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
-#' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: fraction of total motorcycles that's fleet
+#' @param FLEET_TO_MOTORBIKE_RATIO beta parameter: fraction of total motorbikes that's fleet
 #' @param EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
 #' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar for car distance travelled
 #' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar for walking distance travelled
 #' @param DISTANCE_SCALAR_PT lognormal parameter: scalar for PT distance travelled
 #' @param DISTANCE_SCALAR_CYCLING lognormal parameter: scalar for cycling distance travelled
-#' @param DISTANCE_SCALAR_MOTORCYCLE lognormal parameter: scalar for motorcycle distance travelled
+#' @param DISTANCE_SCALAR_MOTORBIKE lognormal parameter: scalar for motorbike distance travelled
 #' 
 #' @return ithim_object list of objects for onward use.
 #' 
@@ -62,7 +62,7 @@ run_ithim_setup <- function(seed = 1,
                             ADD_WALK_TO_BUS_TRIPS = T,
                             ADD_BUS_DRIVERS = T,
                             ADD_TRUCK_DRIVERS = T,
-                            ADD_MOTORCYCLE_FLEET = F,
+                            ADD_MOTORBIKE_FLEET = F,
                             TEST_WALK_SCENARIO = F,
                             TEST_CYCLE_SCENARIO = F,
                             MAX_MODE_SHARE_SCENARIO = F,
@@ -85,13 +85,13 @@ run_ithim_setup <- function(seed = 1,
                             CASUALTY_EXPONENT_FRACTION = 0.5,
                             BUS_TO_PASSENGER_RATIO = 0.022,
                             TRUCK_TO_CAR_RATIO = 0.21,
-                            FLEET_TO_MOTORCYCLE_RATIO = 0.01,
+                            FLEET_TO_MOTORBIKE_RATIO = 0.01,
                             EMISSION_INVENTORY_CONFIDENCE = 1,
                             DISTANCE_SCALAR_CAR_TAXI = 1,
                             DISTANCE_SCALAR_WALKING = 1,
                             DISTANCE_SCALAR_PT = 1,
                             DISTANCE_SCALAR_CYCLING = 1,
-                            DISTANCE_SCALAR_MOTORCYCLE = 1){
+                            DISTANCE_SCALAR_MOTORBIKE = 1){
   
   ## SUMMARY OF INPUTS
   # seed = double. sets seed to allow some reproducibility.
@@ -108,7 +108,7 @@ run_ithim_setup <- function(seed = 1,
   # ADD_WALK_TO_BUS_TRIPS = logic. T: adds walk trips to all bus trips whose duration exceeds BUS_WALK_TIME. F: no trips added
   # ADD_BUS_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
   # ADD_TRUCK_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
-  # ADD_MOTORCYCLE_FLEET = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
+  # ADD_MOTORBIKE_FLEET = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
   
   # TEST_WALK_SCENARIO = logic. T: run `scenario 0', one simple scenario where everyone takes one (extra) ten-minute walk trip. F: 5 Accra scenarios.
   # TEST_CYCLE_SCENARIO = logic. F: 5 Accra scenarios.
@@ -138,13 +138,13 @@ run_ithim_setup <- function(seed = 1,
   # DAY_TO_WEEK_TRAVEL_SCALAR = parameter. double: sets scalar for extrapolation from day to week. vector: samples from distribution.
   # BUS_TO_PASSENGER_RATIO = parameter. double: sets bus distance relative to bus passenger distance. vector: samples from distribution.
   # TRUCK_TO_CAR_RATIO = parameter. double: sets truck distance relative to car. vector: samples from distribution.
-  # FLEET_TO_MOTORCYCLE_RATIO = parameter. double: sets fleet distance relative to motorcycle. vector: samples from distribution.
+  # FLEET_TO_MOTORBIKE_RATIO = parameter. double: sets fleet distance relative to motorbike. vector: samples from distribution.
   # EMISSION_INVENTORY_CONFIDENCE = parameter. double between 0 and 1. 1 = use emission data as they are.
   # DISTANCE_SCALAR_CAR_TAXI = double: sets scalar. vector: samples from distribution.
   # DISTANCE_SCALAR_WALKING = double: sets scalar. vector: samples from distribution.
   # DISTANCE_SCALAR_PT = double: sets scalar. vector: samples from distribution.
   # DISTANCE_SCALAR_CYCLING = double: sets scalar. vector: samples from distribution.
-  # DISTANCE_SCALAR_MOTORCYCLE = double: sets scalar. vector: samples from distribution.
+  # DISTANCE_SCALAR_MOTORBIKE = double: sets scalar. vector: samples from distribution.
   
   #################################################
   set.seed(seed)
@@ -159,7 +159,7 @@ run_ithim_setup <- function(seed = 1,
   ADD_WALK_TO_BUS_TRIPS <<- ADD_WALK_TO_BUS_TRIPS
   ADD_BUS_DRIVERS <<- ADD_BUS_DRIVERS
   ADD_TRUCK_DRIVERS <<- ADD_TRUCK_DRIVERS
-  ADD_MOTORCYCLE_FLEET <<- ADD_MOTORCYCLE_FLEET
+  ADD_MOTORBIKE_FLEET <<- ADD_MOTORBIKE_FLEET
   TEST_WALK_SCENARIO <<- TEST_WALK_SCENARIO
   TEST_CYCLE_SCENARIO <<- TEST_CYCLE_SCENARIO
   MAX_MODE_SHARE_SCENARIO <<- MAX_MODE_SHARE_SCENARIO
@@ -195,10 +195,10 @@ run_ithim_setup <- function(seed = 1,
     minibus_driver=15,
     car=21,
     taxi=21,
-    walking=4.8,
+    pedestrian=4.8,
     walk_to_pt=4.8,
-    bicycle=14.5,
-    motorcycle=25,
+    bike=14.5,
+    motorbike=25,
     truck=21,
     van=15,
     subway=28,
@@ -228,9 +228,9 @@ run_ithim_setup <- function(seed = 1,
     bus_driver=0.82,
     car=0.228,
     taxi=0.011,
-    walking=0,
-    bicycle=0,
-    motorcycle=0.011,
+    pedestrian=0,
+    bike=0,
+    motorbike=0.011,
     truck=0.859,
     big_truck=0.711,
     other=0.082
@@ -278,19 +278,19 @@ run_ithim_setup <- function(seed = 1,
                                                     CASUALTY_EXPONENT_FRACTION,
                                                     BUS_TO_PASSENGER_RATIO,
                                                     TRUCK_TO_CAR_RATIO,
-                                                    FLEET_TO_MOTORCYCLE_RATIO,
+                                                    FLEET_TO_MOTORBIKE_RATIO,
                                                     EMISSION_INVENTORY_CONFIDENCE,
                                                     DISTANCE_SCALAR_CAR_TAXI,
                                                     DISTANCE_SCALAR_WALKING,
                                                     DISTANCE_SCALAR_PT,
                                                     DISTANCE_SCALAR_CYCLING,
-                                                    DISTANCE_SCALAR_MOTORCYCLE)
+                                                    DISTANCE_SCALAR_MOTORBIKE)
   
   # programming flags: do we need to recompute elements given uncertain variables?
   RECALCULATE_EMISSION_INVENTORY <<- any(c('EMISSION_INVENTORY')%in%names(ithim_object$parameters))
   RECALCULATE_TRIPS <<- any(c('BUS_WALK_TIME',"DISTANCE_SCALAR_PT",
                               "DISTANCE_SCALAR_CAR_TAXI",
-                              "DISTANCE_SCALAR_MOTORCYCLE",
+                              "DISTANCE_SCALAR_MOTORBIKE",
                               "DISTANCE_SCALAR_WALKING",
                               "DISTANCE_SCALAR_CYCLING",
                               'BUS_TO_PASSENGER_RATIO',

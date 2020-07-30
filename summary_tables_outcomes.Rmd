@@ -40,8 +40,7 @@ io <- readRDS("results/multi_city/io.rds")
 cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'bogota',
              'mexico_city', 'vizag')
 
-
-#cities <- c('accra','sao_paulo','buenos_aires')
+cities <- names(io)[!names(io) %in% 'scen_prop']
 
 round_to <- 1
 
@@ -120,6 +119,8 @@ injury_col <- which(colnames(io[[1]]$outcomes$hb$deaths)=='scen1_deaths_inj')
 ap_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$deaths),function(x)grepl('ap',as.character(x))))
 pa_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$deaths),function(x)grepl('pa',as.character(x))))
 scen_names <- rownames(scen_prop)
+# scen_names <- c('Walking', 'Bicycling', 'Driving', 'Public Transport', 'Motorcycling')
+
 
 ```
 
@@ -180,6 +181,8 @@ for(city in cities){
         qualified_scen_name <- 'Car'
       }else if(var == "mc_sc"){
         qualified_scen_name <- 'Motorcyle'
+      }else if(var == "bus_sc"){
+        qualified_scen_name <- 'Bus'
       }
       
       print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', qualified_scen_name, ' scenario matrix for ', city)))
@@ -214,22 +217,22 @@ for (cs in names(all_whw)){
   
   td[is.na(td)] <- 0
   
-  unk <- td %>% filter(mode %in% c('unknown', 'unk')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unknown')
-  
-  unsp <- td %>% filter(mode %in% c('unspecified', 'listed_na', '?')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unspecified')
-  
-  other <- unsp <- td %>% filter(mode %in% c('other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'other')
-  
-  pu <- td %>% filter(mode %in% c('picku', 'pickup/light goods')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'pickup')
-  
-  bus <- td %>% filter(mode %in% c('bus', 'bus_driver')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'bus')
-  
-  td <- td %>% filter(!mode %in% c('bus', 'bus_driver', 'unknown', 'unk', 'unspecified', 'listed_na', '?', 
-                                   'other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle',
-                                   'picku', 'pickup/light goods'))
-  
-  td <- plyr::rbind.fill(td, bus, unk, unsp, other, pu)
-  
+  # unk <- td %>% filter(mode %in% c('unknown', 'unk')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unknown')
+  # 
+  # unsp <- td %>% filter(mode %in% c('unspecified', 'listed_na', '?')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unspecified')
+  # 
+  # other <- unsp <- td %>% filter(mode %in% c('other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'other')
+  # 
+  # pu <- td %>% filter(mode %in% c('picku', 'pickup/light goods')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'pickup')
+  # 
+  # bus <- td %>% filter(mode %in% c('bus', 'bus_driver')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'bus')
+  # 
+  # td <- td %>% filter(!mode %in% c('bus', 'bus_driver', 'unknown', 'unk', 'unspecified', 'listed_na', '?', 
+  #                                  'other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle',
+  #                                  'picku', 'pickup/light goods'))
+  # 
+  # td <- plyr::rbind.fill(td, bus, unk, unsp, other, pu)
+  # 
   td <- (td[!duplicated(td), ])
   
   td <- rbind(td %>% dplyr::filter(!mode %in% c("Total", "NOV")) %>% arrange(mode), td %>% filter(mode == 'NOV'), td %>% filter(mode == 'Total'))
@@ -346,6 +349,7 @@ for (i in 1:length(scen_names)){
     ft <- flextable(temp1)
     ft <- add_header_row(ft, values = c(' ', 'strike mode'), colwidths = c(3, ncol(temp1) - 3))
     ft <- merge_v(ft, j = 1:3, part = 'body')
+    #fix_border_issues(ft)
     
     
     cat('\n')
@@ -361,6 +365,8 @@ for (i in 1:length(scen_names)){
 }
 
 ```
+
+### Who hit whom matrix for all case cities as CSV {#whw_all_csv}
 
 [View from](https://github.com/ITHIM/ITHIM-R/blob/master/results/multi_city/whw_matrices/whw_lng.csv)
 
