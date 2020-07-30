@@ -42,8 +42,6 @@ cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte
 
 cities <- names(io)[!names(io) %in% 'scen_prop']
 
-#cities <- c('accra','sao_paulo','buenos_aires')
-
 round_to <- 1
 
 # Set plot_mmets to F
@@ -121,6 +119,8 @@ injury_col <- which(colnames(io[[1]]$outcomes$hb$deaths)=='scen1_deaths_inj')
 ap_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$deaths),function(x)grepl('ap',as.character(x))))
 pa_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$deaths),function(x)grepl('pa',as.character(x))))
 scen_names <- rownames(scen_prop)
+# scen_names <- c('Walking', 'Bicycling', 'Driving', 'Public Transport', 'Motorcycling')
+
 
 ```
 
@@ -181,6 +181,8 @@ for(city in cities){
         qualified_scen_name <- 'Car'
       }else if(var == "mc_sc"){
         qualified_scen_name <- 'Motorcyle'
+      }else if(var == "bus_sc"){
+        qualified_scen_name <- 'Bus'
       }
       
       print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', qualified_scen_name, ' scenario matrix for ', city)))
@@ -215,22 +217,22 @@ for (cs in names(all_whw)){
   
   td[is.na(td)] <- 0
   
-  unk <- td %>% filter(mode %in% c('unknown', 'unk')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unknown')
-  
-  unsp <- td %>% filter(mode %in% c('unspecified', 'listed_na', '?')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unspecified')
-  
-  other <- unsp <- td %>% filter(mode %in% c('other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'other')
-  
-  pu <- td %>% filter(mode %in% c('picku', 'pickup/light goods')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'pickup')
-  
-  bus <- td %>% filter(mode %in% c('bus', 'bus_driver')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'bus')
-  
-  td <- td %>% filter(!mode %in% c('bus', 'bus_driver', 'unknown', 'unk', 'unspecified', 'listed_na', '?', 
-                                   'other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle',
-                                   'picku', 'pickup/light goods'))
-  
-  td <- plyr::rbind.fill(td, bus, unk, unsp, other, pu)
-  
+  # unk <- td %>% filter(mode %in% c('unknown', 'unk')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unknown')
+  # 
+  # unsp <- td %>% filter(mode %in% c('unspecified', 'listed_na', '?')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unspecified')
+  # 
+  # other <- unsp <- td %>% filter(mode %in% c('other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'other')
+  # 
+  # pu <- td %>% filter(mode %in% c('picku', 'pickup/light goods')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'pickup')
+  # 
+  # bus <- td %>% filter(mode %in% c('bus', 'bus_driver')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'bus')
+  # 
+  # td <- td %>% filter(!mode %in% c('bus', 'bus_driver', 'unknown', 'unk', 'unspecified', 'listed_na', '?', 
+  #                                  'other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle',
+  #                                  'picku', 'pickup/light goods'))
+  # 
+  # td <- plyr::rbind.fill(td, bus, unk, unsp, other, pu)
+  # 
   td <- (td[!duplicated(td), ])
   
   td <- rbind(td %>% dplyr::filter(!mode %in% c("Total", "NOV")) %>% arrange(mode), td %>% filter(mode == 'NOV'), td %>% filter(mode == 'Total'))
