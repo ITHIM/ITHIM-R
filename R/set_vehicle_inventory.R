@@ -20,7 +20,7 @@ set_vehicle_inventory <- function(){
   # the other variables are `emission factor' and `distance ratio to car', which we set per mode, where they differ from 0 and 1, respectively.
   # emission factors come from global data. we will need at to have at least three versions of this, corresponding to different global regulatory standards. For Accra, we use `Euro III'
   # distance ratios can be provided as inputs to run_ithim_setup
-  # we don't enter ratio values for cycling and walking as it's assumed they will be covered by the survey.
+  # we don't enter ratio values for cycling and pedestrian as it's assumed they will be covered by the survey.
   vehicle_inventory$emission_inventory <- 0
   #vehicle_inventory$distance_ratio_to_car <- 1
 
@@ -30,7 +30,7 @@ set_vehicle_inventory <- function(){
   #    vehicle_inventory$distance_ratio_to_car[vehicle_inventory$stage_mode%in%m] <- DISTANCE_RATIOS[[m]]
   
   ##!! this is the only part that currently changes with uncertainty
-  #vehicle_inventory$distance_ratio_to_car[vehicle_inventory$stage_mode%in%c('motorcycle')] <- MOTORCYCLE_TO_CAR_RATIO#DISTANCE_RATIOS$motorcycle
+  #vehicle_inventory$distance_ratio_to_car[vehicle_inventory$stage_mode%in%c('motorbike')] <- MOTORBIKE_TO_CAR_RATIO#DISTANCE_RATIOS$motorbike
   
   vehicle_inventory <- rbind(vehicle_inventory,data.frame(stage_mode='big_truck',
                                                           speed=21,

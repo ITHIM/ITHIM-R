@@ -14,8 +14,8 @@ set_injury_contingency <- function(injuries){
   # mode_names <- mode_names[mode_names!='other']
   # if(ADD_BUS_DRIVERS) mode_names <- c(mode_names,'bus_driver')
   # if(ADD_TRUCK_DRIVERS) mode_names <- c(mode_names,'truck')
-  # if(CITY=='accra') mode_names <- c(mode_names,'motorcycle')
-  # #mode_names <- c("bicycle","bus","bus_driver","motorcycle","truck","pedestrian","car")
+  # if(CITY=='accra') mode_names <- c(mode_names,'motorbike')
+  # #mode_names <- c("bicycle","bus","bus_driver","motorbike","truck","pedestrian","car")
   # # strike mode bus -> bus_driver
   # if('bus'%in%injuries$strike_mode) injuries$strike_mode[injuries$strike_mode=='bus'] <- 'bus_driver'
   # # divide injuries into those for which we can write a WHW matrix, i.e. we know distances of both striker and casualty, 
@@ -31,7 +31,7 @@ set_injury_contingency <- function(injuries){
   mode_names <- mode_names[mode_names!='other']
   if(ADD_BUS_DRIVERS) mode_names <- c(mode_names,'bus_driver')
   if(ADD_TRUCK_DRIVERS) mode_names <- c(mode_names,'truck')
-  if(CITY=='accra') mode_names <- c(mode_names,'motorcycle')
+  if(CITY=='accra') mode_names <- c(mode_names,'motorbike')
   injury_list <- list()
   injury_table_types <- c()
   if(length(unique(injuries$strike_mode))==1&&!'nov'%in%injuries$strike_mode||length(unique(injuries$strike_mode))>1){

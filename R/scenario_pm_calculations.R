@@ -35,9 +35,9 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
   vent_rates <- data.frame(stage_mode=VEHICLE_INVENTORY$stage_mode,stringsAsFactors = F) 
   vent_rates$vent_rate <- BASE_LEVEL_INHALATION_RATE # L / min
-  vent_rates$vent_rate[vent_rates$stage_mode=='bicycle'] <- BASE_LEVEL_INHALATION_RATE + MMET_CYCLING/2.0
-  vent_rates$stage_mode[vent_rates$stage_mode=='walk_to_pt'] <- 'walking'
-  vent_rates$vent_rate[vent_rates$stage_mode=='walking'] <- BASE_LEVEL_INHALATION_RATE + MMET_WALKING/2.0
+  vent_rates$vent_rate[vent_rates$stage_mode=='bike'] <- BASE_LEVEL_INHALATION_RATE + MMET_CYCLING/2.0
+  vent_rates$stage_mode[vent_rates$stage_mode=='walk_to_pt'] <- 'pedestrian'
+  vent_rates$vent_rate[vent_rates$stage_mode=='pedestrian'] <- BASE_LEVEL_INHALATION_RATE + MMET_WALKING/2.0
   
   ##RJ rewriting exposure ratio as function of ambient PM2.5, as in Goel et al 2015
   ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE (10), CLOSED_WINDOW_PM_RATIO (0.5), CLOSED_WINDOW_RATIO (0.5), ROAD_RATIO_MAX (3.216), ROAD_RATIO_SLOPE (0.379)
@@ -51,12 +51,12 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   # open vehicles experience the ``on_road_off_road_ratio'', and closed vehicles experience the ``in_vehicle_ratio''
   ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio,subway_ratio)
   # assign rates according to the order of the ratio_by_mode array: 1 is open vehicle, 2 is closed vehicle, 3 is subway
-  open_vehicles <- c('walking','bicycle','motorcycle','auto_rickshaw','shared_auto','cycle_rickshaw')
+  open_vehicles <- c('pedestrian','bike','motorbike','auto_rickshaw','shared_auto','cycle_rickshaw')
   rail_vehicles <- c('subway','rail')
   vent_rates$vehicle_ratio_index <- sapply(vent_rates$stage_mode,function(x) ifelse(x%in%rail_vehicles,3,ifelse(x%in%open_vehicles,1,2)))
   
   trip_set <- trip_scen_sets
-  trip_set$stage_mode[trip_set$stage_mode=='walk_to_pt'] <- 'walking'
+  trip_set$stage_mode[trip_set$stage_mode=='walk_to_pt'] <- 'pedestrian'
   # trip set is a data.table, vent_rates is a data.frame, returns a data.table
   trip_set <- dplyr::left_join(trip_set,vent_rates,'stage_mode')
   # litres of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode

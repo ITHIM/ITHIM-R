@@ -13,7 +13,7 @@
 #' @export
 get_scenario_settings <- function(cities = c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota',
                                              'cape_town', 'vizag'),
-                                  modes=c("walking","bicycle","car","motorcycle","bus"),     
+                                  modes=c("pedestrian","bike","car","motorbike","bus"),     
                                   distances=c('0-1 km','2-5 km','6+ km'),
                                   speeds = list(
                                     bus=15,
@@ -22,10 +22,10 @@ get_scenario_settings <- function(cities = c('accra','sao_paulo','delhi','bangal
                                     minibus_driver=15,
                                     car=21,
                                     taxi=21,
-                                    walking=4.8,
+                                    pedestrian=4.8,
                                     walk_to_pt=4.8,
-                                    bicycle=14.5,
-                                    motorcycle=25,
+                                    bike=14.5,
+                                    motorbike=25,
                                     truck=21,
                                     van=15,
                                     subway=28,
@@ -63,9 +63,9 @@ get_scenario_settings <- function(cities = c('accra','sao_paulo','delhi','bangal
     ## replaces spaces with _
     trip_set[['trip_mode']] <- sapply(trip_set[['trip_mode']],function(x)gsub(' ','_',as.character(x)))
     trip_set[['trip_mode']][trip_set[['trip_mode']]=='private_car'] <- 'car'
-    trip_set[['trip_mode']][trip_set[['trip_mode']]%in%walk_words] <- 'walking'
-    trip_set[['trip_mode']][trip_set[['trip_mode']]%in%bike_words] <- 'bicycle'
-    trip_set[['trip_mode']][trip_set[['trip_mode']]%in%mc_words] <- 'motorcycle'
+    trip_set[['trip_mode']][trip_set[['trip_mode']]%in%walk_words] <- 'pedestrian'
+    trip_set[['trip_mode']][trip_set[['trip_mode']]%in%bike_words] <- 'bike'
+    trip_set[['trip_mode']][trip_set[['trip_mode']]%in%mc_words] <- 'motorbike'
     trip_set[['trip_mode']][trip_set[['trip_mode']]%in%subway_words] <- 'subway'
     trip_set[['trip_mode']][trip_set[['trip_mode']]%in%rail_words] <- 'rail'
     

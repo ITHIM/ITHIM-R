@@ -34,8 +34,8 @@ get_all_distances <- function(ithim_object){
   # Recalculate dist by using total distance - using overall population
   dist <- trip_scen_sets %>% group_by(stage_mode, scenario) %>% summarise(ave_dist = sum(stage_distance) / total_synth_pop * sum(pop$population)) %>% spread(scenario, ave_dist)
 
-  if ('walking' %in% dist$stage_mode && 'walk_to_pt' %in% dist$stage_mode){
-    dist[dist$stage_mode == "walking",][2:ncol(dist)] <- dist[dist$stage_mode == "walking",][2:ncol(dist)] +
+  if ('pedestrian' %in% dist$stage_mode && 'walk_to_pt' %in% dist$stage_mode){
+    dist[dist$stage_mode == "pedestrian",][2:ncol(dist)] <- dist[dist$stage_mode == "pedestrian",][2:ncol(dist)] +
       dist[dist$stage_mode == "walk_to_pt",][2:ncol(dist)]
 
     dist <- dist %>% filter(stage_mode != 'walk_to_pt')
@@ -60,8 +60,8 @@ get_all_distances <- function(ithim_object){
   # dist <- journeys %>% group_by(stage_mode, scenario) %>% summarise(dist = sum(tot_dist)) %>% spread(scenario, dist)
   # 
   # if ('walk_to_pt' %in% dist$stage_mode && 'walk_to_pt' %in% dist$stage_mode){
-  #   dist[dist$stage_mode == "walking",][2:ncol(dist)] <- dist[dist$stage_mode == "walking",][2:ncol(dist)] +
-  #     dist[dist$stage_mode == "walking",][2:ncol(dist)]
+  #   dist[dist$stage_mode == "pedestrian",][2:ncol(dist)] <- dist[dist$stage_mode == "pedestrian",][2:ncol(dist)] +
+  #     dist[dist$stage_mode == "pedestrian",][2:ncol(dist)]
   #   
   #   dist <- dist %>% filter(stage_mode != 'walk_to_pt')
   # }
