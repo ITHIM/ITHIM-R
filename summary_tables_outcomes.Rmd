@@ -170,19 +170,22 @@ for(city in cities){
       
       var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
       
+      # scen_names <- c('Walking', 'Bicycling', 'Driving', 'Public Transport', 'Motorcycling')
+
+      
       if (var == 'bl'){
         qualified_scen_name <- 'Baseline'
         scen <- ''
       }else if(var == "w_sc"){
         qualified_scen_name <- 'Walking'
       }else if(var == "bi_sc"){
-        qualified_scen_name <- 'Bicycle'
+        qualified_scen_name <- 'Bicycling'
       }else if(var == "car_sc"){
-        qualified_scen_name <- 'Car'
+        qualified_scen_name <- 'Driving'
       }else if(var == "mc_sc"){
-        qualified_scen_name <- 'Motorcyle'
+        qualified_scen_name <- 'Motorcyling'
       }else if(var == "bus_sc"){
-        qualified_scen_name <- 'Bus'
+        qualified_scen_name <- 'Public Transport'
       }
       
       print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', qualified_scen_name, ' scenario matrix for ', city)))
@@ -260,7 +263,9 @@ for (cs in names(all_whw)){
   
   whw_lng$str_mode <- factor(whw_lng$str_mode, levels = unique(whw_lng$str_mode))
   
-  qualified_scen_name <- 'Bus'
+  # scen_names <- c('Walking', 'Bicycling', 'Driving', 'Public Transport', 'Motorcycling')
+
+  qualified_scen_name <- 'Public Transport'
   scen <- 'Scenario'
   
   if (cs == 'bl'){
@@ -269,11 +274,11 @@ for (cs in names(all_whw)){
   }else if(cs == "w_sc"){
     qualified_scen_name <- 'Walking'
   }else if(cs == "bi_sc"){
-    qualified_scen_name <- 'Bicycle'
+    qualified_scen_name <- 'Bicycling'
   }else if(cs == "car_sc"){
-    qualified_scen_name <- 'Car'
+    qualified_scen_name <- 'Driving'
   }else if(cs == "mc_sc"){
-    qualified_scen_name <- 'Motorcyle'
+    qualified_scen_name <- 'Motorcycling'
   }
   
   # readr::write_csv(whw_lng, paste0('results/multi_city/whw_matrices/whw_lng_', cs, '.csv'))
@@ -326,7 +331,7 @@ index <- 1
 scen_names <- unique(whw_list$scenario)
 for (i in 1:length(scen_names)){
   sn <- scen_names[i]
-  cat('###', sn, '\n')
+  cat('###', sn, ' scenario', '\n')
   
   temp <- whw_list %>% filter(scenario == sn) %>% dplyr::select(cas_mode)
   
