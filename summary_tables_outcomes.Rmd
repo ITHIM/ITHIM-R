@@ -38,7 +38,7 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
 cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'bogota',
-             'mexico_city', 'vizag')
+            'mexico_city', 'vizag')
 
 cities <- names(io)[!names(io) %in% 'scen_prop']
 
@@ -171,7 +171,7 @@ for(city in cities){
       var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
       
       # scen_names <- c('Walking', 'Bicycling', 'Driving', 'Public Transport', 'Motorcycling')
-
+      
       
       if (var == 'bl'){
         qualified_scen_name <- 'Baseline'
@@ -188,7 +188,12 @@ for(city in cities){
         qualified_scen_name <- 'Public Transport'
       }
       
-      print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', qualified_scen_name, ' scenario matrix for ', city)))
+      temp <- td3 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.))
+      
+      ft <- flextable(temp)
+      cat(knit_print(ft))
+      
+      #print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', qualified_scen_name, ' scenario matrix for ', city)))
       cat("\n")
       
       td <- td3
@@ -264,7 +269,7 @@ for (cs in names(all_whw)){
   whw_lng$str_mode <- factor(whw_lng$str_mode, levels = unique(whw_lng$str_mode))
   
   # scen_names <- c('Walking', 'Bicycling', 'Driving', 'Public Transport', 'Motorcycling')
-
+  
   qualified_scen_name <- 'Public Transport'
   scen <- 'Scenario'
   
@@ -345,7 +350,7 @@ for (i in 1:length(scen_names)){
     temp1 <- temp1 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.))
     
     list_temp[[index]] <- temp1
-      
+    
     index <- index + 1
     cat('\n')
     cat('####', cm, '\n')
