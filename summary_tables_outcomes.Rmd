@@ -130,7 +130,7 @@ Who hit whom matrix for all scenarios for each case study
 
 ## Who hit whom matrix of each case study (by baseline + scenarios) {#whw}
 
-```{r whw}
+```{r whw, results = 'asis', fig.width=7, fig.height=4, echo=FALSE}
 
 scen_names_w_baseline <- c('bl', 'w_sc', 'bi_sc', 'car_sc', 'mc_sc', 'bus_sc')
 scen_lt <- data.frame("scen_name" = names(io$accra$outcomes$whw), "val" = scen_names_w_baseline, stringsAsFactors = FALSE)
@@ -200,7 +200,9 @@ for(city in cities){
       temp <- td3 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.))
       
       ft <- flextable(temp)
-      ft <- autofit(ft)
+      ft <- add_header_row(ft, values = c('Strike Mode', 'Casualty Mode'), colwidths = c(1, ncol(temp) - 1))
+      
+      #ft <- autofit(ft)
       cat(knit_print(ft))
       
       #print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', qualified_scen_name, ' scenario matrix for ', city)))
@@ -335,7 +337,7 @@ readr::write_csv(whw_list, paste0('results/multi_city/whw_matrices/whw_lng.csv')
 
 ```
 
-### Who hit whom matrix for all case cities {#whw_all}
+## Who hit whom matrix for all case cities {#whw_all}
 
 
 ```{r whw_print, results = 'asis', fig.width=7, fig.height=4, echo=FALSE}
@@ -346,7 +348,7 @@ index <- 1
 scen_names <- unique(whw_list$scenario)
 for (i in 1:length(scen_names)){
   sn <- scen_names[i]
-  cat('###', sn, ' scenario', '\n')
+  cat('##', sn, ' scenario', '\n')
   
   temp <- whw_list %>% filter(scenario == sn) %>% dplyr::select(cas_mode)
   
@@ -363,7 +365,7 @@ for (i in 1:length(scen_names)){
     
     index <- index + 1
     cat('\n')
-    cat('####', cm, '\n')
+    cat('###', cm, '\n')
     #print(kable(format(temp1, scientific = F), caption = paste('Who Hit Whom (WHW) for ', scen_names[i], 'scenario and ', cas_mode[j], ' mode')))
     
     ft <- flextable(temp1)
