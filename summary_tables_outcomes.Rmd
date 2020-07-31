@@ -138,11 +138,12 @@ scen_lt <- data.frame("scen_name" = names(io$accra$outcomes$whw), "val" = scen_n
 all_whw <- list()
 
 for(city in cities){
-  # if (!city %in% c('buenos_aires', 'mexico_city'))
   {
-    # city <- 'buenos_aires'
+    cat('\n')
+    
+    cat('###', city, '\n')
+
     for (cs in names(io$accra$outcomes$whw)){
-      print(city)
       
       if (is.null(io[[city]]$outcomes$whw[[cs]]$whw)){
         if (!is.null(io[[city]]$outcomes$whw[[cs]]$nov)){
@@ -188,9 +189,18 @@ for(city in cities){
         qualified_scen_name <- 'Public Transport'
       }
       
+      cat('\n')
+      
+      cat('####', qualified_scen_name, ' WHW', '\n')
+      
+      cat('\n')
+
+
+      
       temp <- td3 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.))
       
       ft <- flextable(temp)
+      ft <- autofit(ft)
       cat(knit_print(ft))
       
       #print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', qualified_scen_name, ' scenario matrix for ', city)))
