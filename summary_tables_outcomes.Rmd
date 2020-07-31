@@ -202,10 +202,8 @@ for(city in cities){
       ft <- flextable(temp)
       ft <- add_header_row(ft, values = c('Strike Mode', 'Casualty Mode'), colwidths = c(1, ncol(temp) - 1))
       
-      #ft <- autofit(ft)
       cat(knit_print(ft))
       
-      #print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', qualified_scen_name, ' scenario matrix for ', city)))
       cat("\n")
       
       td <- td3
@@ -237,22 +235,6 @@ for (cs in names(all_whw)){
   
   td[is.na(td)] <- 0
   
-  # unk <- td %>% filter(mode %in% c('unknown', 'unk')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unknown')
-  # 
-  # unsp <- td %>% filter(mode %in% c('unspecified', 'listed_na', '?')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unspecified')
-  # 
-  # other <- unsp <- td %>% filter(mode %in% c('other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'other')
-  # 
-  # pu <- td %>% filter(mode %in% c('picku', 'pickup/light goods')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'pickup')
-  # 
-  # bus <- td %>% filter(mode %in% c('bus', 'bus_driver')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'bus')
-  # 
-  # td <- td %>% filter(!mode %in% c('bus', 'bus_driver', 'unknown', 'unk', 'unspecified', 'listed_na', '?', 
-  #                                  'other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle',
-  #                                  'picku', 'pickup/light goods'))
-  # 
-  # td <- plyr::rbind.fill(td, bus, unk, unsp, other, pu)
-  # 
   td <- (td[!duplicated(td), ])
   
   td <- rbind(td %>% dplyr::filter(!mode %in% c("Total", "NOV")) %>% arrange(mode), td %>% filter(mode == 'NOV'), td %>% filter(mode == 'Total'))
@@ -262,8 +244,6 @@ for (cs in names(all_whw)){
   td <- td %>% mutate_if(is.numeric, round, 2)
   
   backup_td <- td
-  
-  # readr::write_csv(td, paste0('results/multi_city/whw_matrices/whw_', cs, '.csv'))
   
   colnames(td) = gsub("auto_rickshaw", "ar", colnames(td))
   
@@ -280,8 +260,6 @@ for (cs in names(all_whw)){
   
   whw_lng$str_mode <- factor(whw_lng$str_mode, levels = unique(whw_lng$str_mode))
   
-  # scen_names <- c('Walking', 'Bicycling', 'Driving', 'Public Transport', 'Motorcycling')
-  
   qualified_scen_name <- 'Public Transport'
   scen <- 'Scenario'
   
@@ -297,8 +275,6 @@ for (cs in names(all_whw)){
   }else if(cs == "mc_sc"){
     qualified_scen_name <- 'Motorcycling'
   }
-  
-  # readr::write_csv(whw_lng, paste0('results/multi_city/whw_matrices/whw_lng_', cs, '.csv'))
   
   whw_lng$scenario <- qualified_scen_name
   
@@ -327,9 +303,6 @@ for (cs in names(all_whw)){
   
   qual_name <- paste(qualified_scen_name, scen)
   st[[cs]] <- format(td, scientific = F)
-  #cat('####', qual_name, '\n')
-  #print(kable(format(td, scientific = F), caption = paste('Who Hit Whom (WHW) for all case cities for ', qual_name)))
-  #cat('\n')
   
 }
 
@@ -355,7 +328,7 @@ for (i in 1:length(scen_names)){
   cas_mode <- unique(temp$cas_mode)
   
   for (j in 1:length(cas_mode)){
-    # print(cat(scen_names[i], ' - ', cas_mode[j], ' - '))
+
     cm <- cas_mode[j]
     temp1 <- whw_list %>% filter(scenario == sn & cas_mode == cm) %>% spread(value = value, key = str_mode)
     
@@ -371,8 +344,6 @@ for (i in 1:length(scen_names)){
     ft <- flextable(temp1)
     ft <- add_header_row(ft, values = c(' ', 'strike mode'), colwidths = c(3, ncol(temp1) - 3))
     ft <- merge_v(ft, j = 1:3, part = 'body')
-    #fix_border_issues(ft)
-    
     
     cat('\n')
     
@@ -391,44 +362,3 @@ for (i in 1:length(scen_names)){
 ### Who hit whom matrix for all case cities as CSV {#whw_all_csv}
 
 [View from](https://github.com/ITHIM/ITHIM-R/blob/master/results/multi_city/whw_matrices/whw_lng.csv)
-
-
-<!-- ### DT - Who hit whom matrix for all case cities {#whw_all} -->
-<!-- Baseline -->
-
-<!-- ```{r dt} -->
-
-<!-- #for (cs in names(all_whw)){ -->
-<!-- td <- NULL -->
-
-<!-- cs <- 'Baseline' -->
-
-<!-- var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character() -->
-
-<!-- fname <- paste("whw_", var, ".csv") -->
-
-<!-- td <- st[[var]] -->
-
-<!-- DT::datatable(td, -->
-<!--               extensions = 'Buttons', -->
-<!--               escape = FALSE, -->
-<!--               rownames = FALSE, -->
-<!--               options = list(dom = 'Bfrtip', -->
-<!--                              buttons = -->
-<!--                                list('colvis', list( -->
-<!--                                  extend = 'collection', -->
-<!--                                  buttons = list(list(extend='csv', -->
-<!--                                                      filename = fname), -->
-<!--                                                 list(extend='excel', -->
-<!--                                                      filename = fname)), -->
-<!--                                  text = 'Download' -->
-<!--                                )), -->
-<!--                              scrollX = TRUE, -->
-<!--                              pageLength = nrow(td), -->
-<!--                              order=list(list(2,'desc')), -->
-<!--                              columnDefs = list(list(visible=FALSE, targets=c(1:(ncol(td) - 1)))))) -->
-
-<!-- # } -->
-
-<!-- ``` -->
-
