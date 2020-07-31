@@ -16,8 +16,10 @@ library(dplyr)
 library(purrr)
 library(flextable)
 library(ggplot2)
-library(tidyr)
+library(tidyverse)
 knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, message = F, warning = F, results='asis')
+
+smodes <- read_csv('data/global/modes/standardized_modes.csv')
 
 ```
 
@@ -192,8 +194,10 @@ for(city in cities){
       cat('####', qualified_scen_name, ' WHW', '\n')
       
       cat('\n')
-
-
+      
+      td3 <- td3[,c(1, na.omit(match(smodes$exhaustive_list, colnames(td3))), ncol(td3))]
+      
+      td3 <- td3[c(na.omit(match(smodes$exhaustive_list, td3$mode)), nrow(td3)),]
       
       temp <- td3 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.))
       
@@ -329,6 +333,8 @@ for (i in 1:length(scen_names)){
 
     cm <- cas_mode[j]
     temp1 <- whw_list %>% filter(scenario == sn & cas_mode == cm) %>% spread(value = value, key = str_mode)
+    
+    temp1 <- temp1[,c(1, 2, 3, na.omit(match(smodes$exhaustive_list, colnames(temp1))), ncol(temp1))]
     
     temp1 <- temp1 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.))
     
