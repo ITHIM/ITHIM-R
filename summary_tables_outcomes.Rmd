@@ -141,7 +141,7 @@ for(city in cities){
   {
     cat('\n')
     
-    cat('###', city, '\n')
+    cat('###', stringr::str_to_title(stringr::str_replace(city, '_', ' ')), '\n')
 
     for (cs in names(io$accra$outcomes$whw)){
       
@@ -342,7 +342,7 @@ for (i in 1:length(scen_names)){
     
     index <- index + 1
     cat('\n')
-    cat('####', cm, '\n')
+    cat('#### Casualty mode: ', stringr::str_to_title(cm), '\n')
     #print(kable(format(temp1, scientific = F), caption = paste('Who Hit Whom (WHW) for ', scen_names[i], 'scenario and ', cas_mode[j], ' mode')))
     
     ft <- flextable(temp1)
