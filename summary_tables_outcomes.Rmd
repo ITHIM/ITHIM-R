@@ -1,5 +1,5 @@
 ---
-title: "Summary Outcome Tables"
+title: "Injrury Outcomes - WHW matrices"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
@@ -37,9 +37,7 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 ```{r load_objects = "asis"}
 io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
-cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'bogota',
-            'mexico_city', 'vizag')
-
+# Get names of cities from the io object
 cities <- names(io)[!names(io) %in% 'scen_prop']
 
 round_to <- 1
@@ -321,7 +319,7 @@ index <- 1
 scen_names <- unique(whw_list$scenario)
 for (i in 1:length(scen_names)){
   sn <- scen_names[i]
-  cat('##', sn, ' scenario', '\n')
+  cat('###', sn, ' scenario', '\n')
   
   temp <- whw_list %>% filter(scenario == sn) %>% dplyr::select(cas_mode)
   
@@ -338,7 +336,7 @@ for (i in 1:length(scen_names)){
     
     index <- index + 1
     cat('\n')
-    cat('###', cm, '\n')
+    cat('####', cm, '\n')
     #print(kable(format(temp1, scientific = F), caption = paste('Who Hit Whom (WHW) for ', scen_names[i], 'scenario and ', cas_mode[j], ' mode')))
     
     ft <- flextable(temp1)
