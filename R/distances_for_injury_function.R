@@ -21,7 +21,7 @@ distances_for_injury_function <- function(journeys, dist){
   }
   ## car is car, taxi, shared auto, shared taxi
   distances$car <- rowSums(distances[,colnames(distances)%in%c('car','taxi','shared_auto','shared_taxi')])
-  distances <- distances[, -which(names(distances) %in% c('taxi','shared_auto','shared_taxi',"pedestrian","walk_to_pt"))]
+  distances <- distances[, -which(names(distances) %in% c('taxi','shared_auto','shared_taxi',"walk_to_pt"))]
   ## bus distance increases linearly with bus passenger distance
   if('bus_driver'%in%colnames(distances)){
     passenger <- sapply(SCEN,function(x)sum(subset(distances,scenario==x)$bus))
@@ -111,7 +111,6 @@ distances_for_injury_function <- function(journeys, dist){
   #     for(type in INJURY_TABLE_TYPES)
   #       injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==most_recent_year)
   # }
-  
   return(list(true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model))
 }
 
