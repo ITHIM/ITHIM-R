@@ -1,5 +1,5 @@
 ---
-title: "Summary Outcome Tables"
+title: "Injrury Outcomes - WHW matrices"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
@@ -16,8 +16,10 @@ library(dplyr)
 library(purrr)
 library(flextable)
 library(ggplot2)
-library(tidyr)
+library(tidyverse)
 knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, message = F, warning = F, results='asis')
+
+smodes <- read_csv('data/global/modes/standardized_modes.csv')
 
 ```
 
@@ -37,9 +39,7 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 ```{r load_objects = "asis"}
 io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
-cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'bogota',
-             'mexico_city', 'vizag')
-
+# Get names of cities from the io object
 cities <- names(io)[!names(io) %in% 'scen_prop']
 
 round_to <- 1
@@ -130,7 +130,7 @@ Who hit whom matrix for all scenarios for each case study
 
 ## Who hit whom matrix of each case study (by baseline + scenarios) {#whw}
 
-```{r whw}
+```{r whw, results = 'asis', fig.width=7, fig.height=4, echo=FALSE}
 
 scen_names_w_baseline <- c('bl', 'w_sc', 'bi_sc', 'car_sc', 'mc_sc', 'bus_sc')
 scen_lt <- data.frame("scen_name" = names(io$accra$outcomes$whw), "val" = scen_names_w_baseline, stringsAsFactors = FALSE)
@@ -138,11 +138,12 @@ scen_lt <- data.frame("scen_name" = names(io$accra$outcomes$whw), "val" = scen_n
 all_whw <- list()
 
 for(city in cities){
-  # if (!city %in% c('buenos_aires', 'mexico_city'))
   {
-    # city <- 'buenos_aires'
+    cat('\n')
+    
+    cat('###', stringr::str_to_title(stringr::str_replace(city, '_', ' ')), '\n')
+
     for (cs in names(io$accra$outcomes$whw)){
-      print(city)
       
       if (is.null(io[[city]]$outcomes$whw[[cs]]$whw)){
         if (!is.null(io[[city]]$outcomes$whw[[cs]]$nov)){
@@ -170,22 +171,41 @@ for(city in cities){
       
       var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character()
       
+      # scen_names <- c('Walking', 'Bicycling', 'Driving', 'Public Transport', 'Motorcycling')
+      
+      
       if (var == 'bl'){
         qualified_scen_name <- 'Baseline'
         scen <- ''
       }else if(var == "w_sc"){
         qualified_scen_name <- 'Walking'
       }else if(var == "bi_sc"){
-        qualified_scen_name <- 'Bicycle'
+        qualified_scen_name <- 'Bicycling'
       }else if(var == "car_sc"){
-        qualified_scen_name <- 'Car'
+        qualified_scen_name <- 'Driving'
       }else if(var == "mc_sc"){
-        qualified_scen_name <- 'Motorcyle'
+        qualified_scen_name <- 'Motorcyling'
       }else if(var == "bus_sc"){
-        qualified_scen_name <- 'Bus'
+        qualified_scen_name <- 'Public Transport'
       }
       
-      print(kable(format(td3, scientific = F), caption = paste('Who Hit Whom (WHW) ', qualified_scen_name, ' scenario matrix for ', city)))
+      cat('\n')
+      
+      cat('####', qualified_scen_name, ' WHW', '\n')
+      
+      cat('\n')
+      
+      td3 <- td3[,c(1, na.omit(match(smodes$exhaustive_list, colnames(td3))), ncol(td3))]
+      
+      td3 <- td3[c(na.omit(match(smodes$exhaustive_list, td3$mode)), nrow(td3)),]
+      
+      temp <- td3 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.))
+      
+      ft <- flextable(temp)
+      ft <- add_header_row(ft, values = c('Strike Mode', 'Casualty Mode'), colwidths = c(1, ncol(temp) - 1))
+      
+      cat(knit_print(ft))
+      
       cat("\n")
       
       td <- td3
@@ -217,22 +237,6 @@ for (cs in names(all_whw)){
   
   td[is.na(td)] <- 0
   
-  # unk <- td %>% filter(mode %in% c('unknown', 'unk')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unknown')
-  # 
-  # unsp <- td %>% filter(mode %in% c('unspecified', 'listed_na', '?')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'unspecified')
-  # 
-  # other <- unsp <- td %>% filter(mode %in% c('other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'other')
-  # 
-  # pu <- td %>% filter(mode %in% c('picku', 'pickup/light goods')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'pickup')
-  # 
-  # bus <- td %>% filter(mode %in% c('bus', 'bus_driver')) %>% summarise_if(is.numeric, sum) %>% mutate(mode = 'bus')
-  # 
-  # td <- td %>% filter(!mode %in% c('bus', 'bus_driver', 'unknown', 'unk', 'unspecified', 'listed_na', '?', 
-  #                                  'other', 'non.motor.vehicle', 'tract', 'railway.train.railway.vehicle',
-  #                                  'picku', 'pickup/light goods'))
-  # 
-  # td <- plyr::rbind.fill(td, bus, unk, unsp, other, pu)
-  # 
   td <- (td[!duplicated(td), ])
   
   td <- rbind(td %>% dplyr::filter(!mode %in% c("Total", "NOV")) %>% arrange(mode), td %>% filter(mode == 'NOV'), td %>% filter(mode == 'Total'))
@@ -242,8 +246,6 @@ for (cs in names(all_whw)){
   td <- td %>% mutate_if(is.numeric, round, 2)
   
   backup_td <- td
-  
-  # readr::write_csv(td, paste0('results/multi_city/whw_matrices/whw_', cs, '.csv'))
   
   colnames(td) = gsub("auto_rickshaw", "ar", colnames(td))
   
@@ -260,7 +262,7 @@ for (cs in names(all_whw)){
   
   whw_lng$str_mode <- factor(whw_lng$str_mode, levels = unique(whw_lng$str_mode))
   
-  qualified_scen_name <- 'Bus'
+  qualified_scen_name <- 'Public Transport'
   scen <- 'Scenario'
   
   if (cs == 'bl'){
@@ -269,14 +271,12 @@ for (cs in names(all_whw)){
   }else if(cs == "w_sc"){
     qualified_scen_name <- 'Walking'
   }else if(cs == "bi_sc"){
-    qualified_scen_name <- 'Bicycle'
+    qualified_scen_name <- 'Bicycling'
   }else if(cs == "car_sc"){
-    qualified_scen_name <- 'Car'
+    qualified_scen_name <- 'Driving'
   }else if(cs == "mc_sc"){
-    qualified_scen_name <- 'Motorcyle'
+    qualified_scen_name <- 'Motorcycling'
   }
-  
-  # readr::write_csv(whw_lng, paste0('results/multi_city/whw_matrices/whw_lng_', cs, '.csv'))
   
   whw_lng$scenario <- qualified_scen_name
   
@@ -305,9 +305,6 @@ for (cs in names(all_whw)){
   
   qual_name <- paste(qualified_scen_name, scen)
   st[[cs]] <- format(td, scientific = F)
-  #cat('####', qual_name, '\n')
-  #print(kable(format(td, scientific = F), caption = paste('Who Hit Whom (WHW) for all case cities for ', qual_name)))
-  #cat('\n')
   
 }
 
@@ -315,7 +312,7 @@ readr::write_csv(whw_list, paste0('results/multi_city/whw_matrices/whw_lng.csv')
 
 ```
 
-### Who hit whom matrix for all case cities {#whw_all}
+## Who hit whom matrix for all case cities {#whw_all}
 
 
 ```{r whw_print, results = 'asis', fig.width=7, fig.height=4, echo=FALSE}
@@ -326,31 +323,31 @@ index <- 1
 scen_names <- unique(whw_list$scenario)
 for (i in 1:length(scen_names)){
   sn <- scen_names[i]
-  cat('###', sn, '\n')
+  cat('###', sn, ' scenario', '\n')
   
   temp <- whw_list %>% filter(scenario == sn) %>% dplyr::select(cas_mode)
   
   cas_mode <- unique(temp$cas_mode)
   
   for (j in 1:length(cas_mode)){
-    # print(cat(scen_names[i], ' - ', cas_mode[j], ' - '))
+
     cm <- cas_mode[j]
     temp1 <- whw_list %>% filter(scenario == sn & cas_mode == cm) %>% spread(value = value, key = str_mode)
+    
+    temp1 <- temp1[,c(1, 2, 3, na.omit(match(smodes$exhaustive_list, colnames(temp1))), ncol(temp1))]
     
     temp1 <- temp1 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.))
     
     list_temp[[index]] <- temp1
-      
+    
     index <- index + 1
     cat('\n')
-    cat('####', cm, '\n')
+    cat('#### Casualty mode: ', stringr::str_to_title(cm), '\n')
     #print(kable(format(temp1, scientific = F), caption = paste('Who Hit Whom (WHW) for ', scen_names[i], 'scenario and ', cas_mode[j], ' mode')))
     
     ft <- flextable(temp1)
     ft <- add_header_row(ft, values = c(' ', 'strike mode'), colwidths = c(3, ncol(temp1) - 3))
     ft <- merge_v(ft, j = 1:3, part = 'body')
-    #fix_border_issues(ft)
-    
     
     cat('\n')
     
@@ -369,44 +366,3 @@ for (i in 1:length(scen_names)){
 ### Who hit whom matrix for all case cities as CSV {#whw_all_csv}
 
 [View from](https://github.com/ITHIM/ITHIM-R/blob/master/results/multi_city/whw_matrices/whw_lng.csv)
-
-
-<!-- ### DT - Who hit whom matrix for all case cities {#whw_all} -->
-<!-- Baseline -->
-
-<!-- ```{r dt} -->
-
-<!-- #for (cs in names(all_whw)){ -->
-<!-- td <- NULL -->
-
-<!-- cs <- 'Baseline' -->
-
-<!-- var <- scen_lt %>% filter(scen_name == cs) %>% dplyr::select(val) %>% as.character() -->
-
-<!-- fname <- paste("whw_", var, ".csv") -->
-
-<!-- td <- st[[var]] -->
-
-<!-- DT::datatable(td, -->
-<!--               extensions = 'Buttons', -->
-<!--               escape = FALSE, -->
-<!--               rownames = FALSE, -->
-<!--               options = list(dom = 'Bfrtip', -->
-<!--                              buttons = -->
-<!--                                list('colvis', list( -->
-<!--                                  extend = 'collection', -->
-<!--                                  buttons = list(list(extend='csv', -->
-<!--                                                      filename = fname), -->
-<!--                                                 list(extend='excel', -->
-<!--                                                      filename = fname)), -->
-<!--                                  text = 'Download' -->
-<!--                                )), -->
-<!--                              scrollX = TRUE, -->
-<!--                              pageLength = nrow(td), -->
-<!--                              order=list(list(2,'desc')), -->
-<!--                              columnDefs = list(list(visible=FALSE, targets=c(1:(ncol(td) - 1)))))) -->
-
-<!-- # } -->
-
-<!-- ``` -->
-

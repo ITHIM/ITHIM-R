@@ -19,7 +19,7 @@ create_all_scenarios <- function(trip_set){
     rd_list <- list()
     rd_list[[1]] <- rdr
     # Scenario 1
-    source_modes <- c('bus', 'walking')
+    source_modes <- c('bus', 'pedestrian')
     target_modes <- c('car')
     source_percentages <- round(c(0.16, 0.49)* tt)
     rdr <- create_scenario(rdr, scen_name = 'Scenario 1', source_modes = source_modes, 
@@ -106,7 +106,7 @@ create_all_scenarios <- function(trip_set){
     rdr <- rd_list[[2]]
     # 3.5 % Cycle
     source_modes <- c('car', 'taxi')
-    target_modes <- c('walking')
+    target_modes <- c('pedestrian')
     target_new_trips <- min(round(0.54 * tt) - sum(rdr$trip_mode == target_modes), sum(rdr$trip_mode%in%source_modes&rdr$trip_distance_cat==DIST_CAT[1]))
     motorised_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes, combined_modes = T, 
                                        target_modes = target_modes,source_distance_cats = DIST_CAT[1],source_trips = target_new_trips)
@@ -131,7 +131,7 @@ create_all_scenarios <- function(trip_set){
     rd_list <- list()
     rd_list[[1]] <- rdr
     # Scenario 1
-    source_modes <- c('bus', 'walking')
+    source_modes <- c('bus', 'pedestrian')
     target_modes <- c('car')
     source_percentages <- round(c(0.15, 0.20)* tt)
     rdr <- create_scenario(rdr, scen_name = 'Scenario 1', source_modes = source_modes, 
@@ -220,7 +220,7 @@ create_all_scenarios <- function(trip_set){
     rdr <- rd_list[[2]]
     # 3.5 % Cycle
     source_modes <- c('car', 'taxi')
-    target_modes <- c('walking')
+    target_modes <- c('pedestrian')
     target_new_trips <- min(round(0.54 * tt) - sum(rdr$trip_mode == target_modes), sum(rdr$trip_mode%in%source_modes&rdr$trip_distance_cat==DIST_CAT[1]))
     motorised_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes, combined_modes = T, 
                                        target_modes = target_modes,source_distance_cats = DIST_CAT[1],source_trips = target_new_trips)

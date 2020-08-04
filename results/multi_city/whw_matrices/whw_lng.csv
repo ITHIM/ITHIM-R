@@ -417,6 +417,116 @@ truck,52.33,motorbike,vizag,Baseline
 unknown,5,motorbike,vizag,Baseline
 NOV,50.5,motorbike,vizag,Baseline
 Total,141.33,motorbike,vizag,Baseline
+bike,0.4,pedestrian,accra,Baseline
+bus,34,pedestrian,accra,Baseline
+car,71.6,pedestrian,accra,Baseline
+motorbike,7.4,pedestrian,accra,Baseline
+other,2.7,pedestrian,accra,Baseline
+pedestrian,0,pedestrian,accra,Baseline
+rail,0,pedestrian,accra,Baseline
+truck,15.8,pedestrian,accra,Baseline
+unknown,17.7,pedestrian,accra,Baseline
+NOV,0.3,pedestrian,accra,Baseline
+Total,149.9,pedestrian,accra,Baseline
+bike,0,pedestrian,bangalore,Baseline
+bus,39,pedestrian,bangalore,Baseline
+car,87,pedestrian,bangalore,Baseline
+motorbike,119,pedestrian,bangalore,Baseline
+other,0,pedestrian,bangalore,Baseline
+pedestrian,0,pedestrian,bangalore,Baseline
+rail,0,pedestrian,bangalore,Baseline
+truck,62,pedestrian,bangalore,Baseline
+unknown,66,pedestrian,bangalore,Baseline
+NOV,0,pedestrian,bangalore,Baseline
+Total,373,pedestrian,bangalore,Baseline
+bike,0,pedestrian,belo_horizonte,Baseline
+bus,56.2,pedestrian,belo_horizonte,Baseline
+car,68.68,pedestrian,belo_horizonte,Baseline
+motorbike,0,pedestrian,belo_horizonte,Baseline
+other,0.27,pedestrian,belo_horizonte,Baseline
+pedestrian,0,pedestrian,belo_horizonte,Baseline
+rail,4.68,pedestrian,belo_horizonte,Baseline
+truck,0,pedestrian,belo_horizonte,Baseline
+unknown,0,pedestrian,belo_horizonte,Baseline
+NOV,0,pedestrian,belo_horizonte,Baseline
+Total,129.83,pedestrian,belo_horizonte,Baseline
+bike,2.61,pedestrian,bogota,Baseline
+bus,60.91,pedestrian,bogota,Baseline
+car,106.77,pedestrian,bogota,Baseline
+motorbike,80.47,pedestrian,bogota,Baseline
+other,0,pedestrian,bogota,Baseline
+pedestrian,0,pedestrian,bogota,Baseline
+rail,0,pedestrian,bogota,Baseline
+truck,13.28,pedestrian,bogota,Baseline
+unknown,7.79,pedestrian,bogota,Baseline
+NOV,0,pedestrian,bogota,Baseline
+Total,271.83,pedestrian,bogota,Baseline
+bike,0,pedestrian,buenos_aires,Baseline
+bus,0,pedestrian,buenos_aires,Baseline
+car,0,pedestrian,buenos_aires,Baseline
+motorbike,0,pedestrian,buenos_aires,Baseline
+other,0,pedestrian,buenos_aires,Baseline
+pedestrian,0,pedestrian,buenos_aires,Baseline
+rail,0,pedestrian,buenos_aires,Baseline
+truck,0,pedestrian,buenos_aires,Baseline
+unknown,0,pedestrian,buenos_aires,Baseline
+NOV,638,pedestrian,buenos_aires,Baseline
+Total,638,pedestrian,buenos_aires,Baseline
+bike,0,pedestrian,delhi,Baseline
+bus,61,pedestrian,delhi,Baseline
+car,200,pedestrian,delhi,Baseline
+motorbike,82,pedestrian,delhi,Baseline
+other,0,pedestrian,delhi,Baseline
+pedestrian,0,pedestrian,delhi,Baseline
+rail,0,pedestrian,delhi,Baseline
+truck,95,pedestrian,delhi,Baseline
+unknown,427,pedestrian,delhi,Baseline
+NOV,0,pedestrian,delhi,Baseline
+Total,865,pedestrian,delhi,Baseline
+bike,0,pedestrian,mexico_city,Baseline
+bus,0,pedestrian,mexico_city,Baseline
+car,0,pedestrian,mexico_city,Baseline
+motorbike,0,pedestrian,mexico_city,Baseline
+other,0,pedestrian,mexico_city,Baseline
+pedestrian,0,pedestrian,mexico_city,Baseline
+rail,0,pedestrian,mexico_city,Baseline
+truck,0,pedestrian,mexico_city,Baseline
+unknown,0,pedestrian,mexico_city,Baseline
+NOV,638,pedestrian,mexico_city,Baseline
+Total,638,pedestrian,mexico_city,Baseline
+bike,0,pedestrian,santiago,Baseline
+bus,36.5,pedestrian,santiago,Baseline
+car,50.25,pedestrian,santiago,Baseline
+motorbike,3.25,pedestrian,santiago,Baseline
+other,0,pedestrian,santiago,Baseline
+pedestrian,0,pedestrian,santiago,Baseline
+rail,0,pedestrian,santiago,Baseline
+truck,16.25,pedestrian,santiago,Baseline
+unknown,5,pedestrian,santiago,Baseline
+NOV,4,pedestrian,santiago,Baseline
+Total,115.25,pedestrian,santiago,Baseline
+bike,0.6,pedestrian,sao_paulo,Baseline
+bus,73.6,pedestrian,sao_paulo,Baseline
+car,157,pedestrian,sao_paulo,Baseline
+motorbike,59.4,pedestrian,sao_paulo,Baseline
+other,0.4,pedestrian,sao_paulo,Baseline
+pedestrian,0,pedestrian,sao_paulo,Baseline
+rail,0,pedestrian,sao_paulo,Baseline
+truck,30.2,pedestrian,sao_paulo,Baseline
+unknown,0,pedestrian,sao_paulo,Baseline
+NOV,2.2,pedestrian,sao_paulo,Baseline
+Total,323.4,pedestrian,sao_paulo,Baseline
+bike,0,pedestrian,vizag,Baseline
+bus,20.33,pedestrian,vizag,Baseline
+car,32.67,pedestrian,vizag,Baseline
+motorbike,62.33,pedestrian,vizag,Baseline
+other,0.33,pedestrian,vizag,Baseline
+pedestrian,0,pedestrian,vizag,Baseline
+rail,0,pedestrian,vizag,Baseline
+truck,40,pedestrian,vizag,Baseline
+unknown,17.67,pedestrian,vizag,Baseline
+NOV,0,pedestrian,vizag,Baseline
+Total,173.33,pedestrian,vizag,Baseline
 bike,0,truck,bogota,Baseline
 bus,0,truck,bogota,Baseline
 car,0.17,truck,bogota,Baseline
@@ -430,15 +540,15 @@ NOV,0,truck,bogota,Baseline
 Total,1,truck,bogota,Baseline
 bike,0,bike,accra,Walking
 bus,2.37,bike,accra,Walking
-car,4.04,bike,accra,Walking
+car,4.05,bike,accra,Walking
 motorbike,0.35,bike,accra,Walking
-other,0.08,bike,accra,Walking
+other,0.09,bike,accra,Walking
 pedestrian,0,bike,accra,Walking
 rail,0,bike,accra,Walking
-truck,2.03,bike,accra,Walking
-unknown,0.68,bike,accra,Walking
+truck,2.11,bike,accra,Walking
+unknown,0.7,bike,accra,Walking
 NOV,0,bike,accra,Walking
-Total,9.56,bike,accra,Walking
+Total,9.67,bike,accra,Walking
 bike,0,bike,bangalore,Walking
 bus,0.79,bike,bangalore,Walking
 car,5.5,bike,bangalore,Walking
@@ -446,21 +556,21 @@ motorbike,2.37,bike,bangalore,Walking
 other,0,bike,bangalore,Walking
 pedestrian,0,bike,bangalore,Walking
 rail,0,bike,bangalore,Walking
-truck,3.14,bike,bangalore,Walking
-unknown,4.72,bike,bangalore,Walking
+truck,3.31,bike,bangalore,Walking
+unknown,4.96,bike,bangalore,Walking
 NOV,0,bike,bangalore,Walking
-Total,16.51,bike,bangalore,Walking
+Total,16.92,bike,bangalore,Walking
 bike,0,bike,bogota,Walking
 bus,16.69,bike,bogota,Walking
 car,15.36,bike,bogota,Walking
 motorbike,2.63,bike,bogota,Walking
 other,0,bike,bogota,Walking
-pedestrian,0.77,bike,bogota,Walking
+pedestrian,0.78,bike,bogota,Walking
 rail,0,bike,bogota,Walking
 truck,5.42,bike,bogota,Walking
 unknown,0.16,bike,bogota,Walking
 NOV,0.49,bike,bogota,Walking
-Total,41.51,bike,bogota,Walking
+Total,41.52,bike,bogota,Walking
 bike,0,bike,buenos_aires,Walking
 bus,0,bike,buenos_aires,Walking
 car,0,bike,buenos_aires,Walking
@@ -479,10 +589,10 @@ motorbike,6.61,bike,delhi,Walking
 other,0,bike,delhi,Walking
 pedestrian,0,bike,delhi,Walking
 rail,0,bike,delhi,Walking
-truck,21.04,bike,delhi,Walking
-unknown,25.24,bike,delhi,Walking
+truck,21.95,bike,delhi,Walking
+unknown,26.34,bike,delhi,Walking
 NOV,0,bike,delhi,Walking
-Total,95.23,bike,delhi,Walking
+Total,97.25,bike,delhi,Walking
 bike,0,bike,mexico_city,Walking
 bus,0,bike,mexico_city,Walking
 car,0,bike,mexico_city,Walking
@@ -501,21 +611,21 @@ motorbike,0.22,bike,santiago,Walking
 other,0,bike,santiago,Walking
 pedestrian,0,bike,santiago,Walking
 rail,0,bike,santiago,Walking
-truck,5.44,bike,santiago,Walking
+truck,5.61,bike,santiago,Walking
 unknown,0.22,bike,santiago,Walking
 NOV,2.47,bike,santiago,Walking
-Total,23.29,bike,santiago,Walking
+Total,23.47,bike,santiago,Walking
 bike,0,bike,sao_paulo,Walking
-bus,6.48,bike,sao_paulo,Walking
-car,6.67,bike,sao_paulo,Walking
-motorbike,1.35,bike,sao_paulo,Walking
+bus,8.05,bike,sao_paulo,Walking
+car,8.27,bike,sao_paulo,Walking
+motorbike,1.67,bike,sao_paulo,Walking
 other,0,bike,sao_paulo,Walking
 pedestrian,0,bike,sao_paulo,Walking
 rail,0,bike,sao_paulo,Walking
-truck,2.82,bike,sao_paulo,Walking
+truck,3.63,bike,sao_paulo,Walking
 unknown,0,bike,sao_paulo,Walking
-NOV,7.21,bike,sao_paulo,Walking
-Total,24.52,bike,sao_paulo,Walking
+NOV,7.23,bike,sao_paulo,Walking
+Total,28.85,bike,sao_paulo,Walking
 bike,0,bike,vizag,Walking
 bus,2.39,bike,vizag,Walking
 car,3.14,bike,vizag,Walking
@@ -523,21 +633,21 @@ motorbike,3.32,bike,vizag,Walking
 other,0,bike,vizag,Walking
 pedestrian,0,bike,vizag,Walking
 rail,0,bike,vizag,Walking
-truck,7.59,bike,vizag,Walking
-unknown,2.09,bike,vizag,Walking
+truck,8.01,bike,vizag,Walking
+unknown,2.21,bike,vizag,Walking
 NOV,0,bike,vizag,Walking
-Total,18.53,bike,vizag,Walking
+Total,19.07,bike,vizag,Walking
 bike,0.09,bus,accra,Walking
 bus,0,bus,accra,Walking
 car,2.04,bus,accra,Walking
 motorbike,0.19,bus,accra,Walking
 other,0.19,bus,accra,Walking
-pedestrian,0.09,bus,accra,Walking
+pedestrian,0.18,bus,accra,Walking
 rail,0,bus,accra,Walking
-truck,5.3,bus,accra,Walking
+truck,5.49,bus,accra,Walking
 unknown,0,bus,accra,Walking
 NOV,7.92,bus,accra,Walking
-Total,15.82,bus,accra,Walking
+Total,16.1,bus,accra,Walking
 bike,0,bus,bangalore,Walking
 bus,0,bus,bangalore,Walking
 car,0,bus,bangalore,Walking
@@ -545,32 +655,32 @@ motorbike,0,bus,bangalore,Walking
 other,0,bus,bangalore,Walking
 pedestrian,0,bus,bangalore,Walking
 rail,0,bus,bangalore,Walking
-truck,3.63,bus,bangalore,Walking
+truck,3.82,bus,bangalore,Walking
 unknown,0,bus,bangalore,Walking
 NOV,13.37,bus,bangalore,Walking
-Total,17,bus,bangalore,Walking
+Total,17.19,bus,bangalore,Walking
 bike,0,bus,belo_horizonte,Walking
 bus,0,bus,belo_horizonte,Walking
 car,0.54,bus,belo_horizonte,Walking
 motorbike,0,bus,belo_horizonte,Walking
 other,0,bus,belo_horizonte,Walking
 pedestrian,0,bus,belo_horizonte,Walking
-rail,0.37,bus,belo_horizonte,Walking
+rail,0.38,bus,belo_horizonte,Walking
 truck,0,bus,belo_horizonte,Walking
 unknown,0,bus,belo_horizonte,Walking
 NOV,4.78,bus,belo_horizonte,Walking
-Total,5.69,bus,belo_horizonte,Walking
+Total,5.7,bus,belo_horizonte,Walking
 bike,0,bus,bogota,Walking
 bus,0,bus,bogota,Walking
 car,0.33,bus,bogota,Walking
 motorbike,0,bus,bogota,Walking
 other,0,bus,bogota,Walking
-pedestrian,0.34,bus,bogota,Walking
+pedestrian,0.35,bus,bogota,Walking
 rail,0,bus,bogota,Walking
 truck,0,bus,bogota,Walking
 unknown,0,bus,bogota,Walking
 NOV,7.66,bus,bogota,Walking
-Total,8.33,bus,bogota,Walking
+Total,8.34,bus,bogota,Walking
 bike,0,bus,buenos_aires,Walking
 bus,0,bus,buenos_aires,Walking
 car,0,bus,buenos_aires,Walking
@@ -589,10 +699,10 @@ motorbike,0.91,bus,delhi,Walking
 other,0,bus,delhi,Walking
 pedestrian,0,bus,delhi,Walking
 rail,0,bus,delhi,Walking
-truck,0.93,bus,delhi,Walking
+truck,0.97,bus,delhi,Walking
 unknown,0,bus,delhi,Walking
 NOV,4.84,bus,delhi,Walking
-Total,8.53,bus,delhi,Walking
+Total,8.57,bus,delhi,Walking
 bike,0,bus,mexico_city,Walking
 bus,0,bus,mexico_city,Walking
 car,0,bus,mexico_city,Walking
@@ -614,18 +724,18 @@ rail,0,bus,santiago,Walking
 truck,0.24,bus,santiago,Walking
 unknown,0,bus,santiago,Walking
 NOV,3.9,bus,santiago,Walking
-Total,5.06,bus,santiago,Walking
+Total,5.07,bus,santiago,Walking
 bike,0,bus,sao_paulo,Walking
 bus,0,bus,sao_paulo,Walking
-car,1.94,bus,sao_paulo,Walking
-motorbike,1.48,bus,sao_paulo,Walking
+car,1.96,bus,sao_paulo,Walking
+motorbike,1.5,bus,sao_paulo,Walking
 other,0,bus,sao_paulo,Walking
 pedestrian,0,bus,sao_paulo,Walking
 rail,0,bus,sao_paulo,Walking
-truck,0.37,bus,sao_paulo,Walking
+truck,0.39,bus,sao_paulo,Walking
 unknown,0,bus,sao_paulo,Walking
 NOV,4.99,bus,sao_paulo,Walking
-Total,8.78,bus,sao_paulo,Walking
+Total,8.84,bus,sao_paulo,Walking
 bike,0,bus,vizag,Walking
 bus,0,bus,vizag,Walking
 car,0,bus,vizag,Walking
@@ -633,21 +743,21 @@ motorbike,0,bus,vizag,Walking
 other,0,bus,vizag,Walking
 pedestrian,0,bus,vizag,Walking
 rail,0,bus,vizag,Walking
-truck,0.3,bus,vizag,Walking
+truck,0.32,bus,vizag,Walking
 unknown,0,bus,vizag,Walking
 NOV,4.49,bus,vizag,Walking
-Total,4.79,bus,vizag,Walking
+Total,4.81,bus,vizag,Walking
 bike,0,car,accra,Walking
-bus,3.36,car,accra,Walking
+bus,3.35,car,accra,Walking
 car,0,car,accra,Walking
 motorbike,0.68,car,accra,Walking
-other,0.65,car,accra,Walking
-pedestrian,1.02,car,accra,Walking
+other,0.67,car,accra,Walking
+pedestrian,2,car,accra,Walking
 rail,0,car,accra,Walking
-truck,7.36,car,accra,Walking
-unknown,0.47,car,accra,Walking
+truck,7.62,car,accra,Walking
+unknown,0.48,car,accra,Walking
 NOV,16.51,car,accra,Walking
-Total,30.04,car,accra,Walking
+Total,31.32,car,accra,Walking
 bike,0,car,bangalore,Walking
 bus,3.63,car,bangalore,Walking
 car,0,car,bangalore,Walking
@@ -655,21 +765,21 @@ motorbike,2.72,car,bangalore,Walking
 other,0,car,bangalore,Walking
 pedestrian,0,car,bangalore,Walking
 rail,0,car,bangalore,Walking
-truck,6.33,car,bangalore,Walking
-unknown,1.81,car,bangalore,Walking
+truck,6.65,car,bangalore,Walking
+unknown,1.9,car,bangalore,Walking
 NOV,9.51,car,bangalore,Walking
-Total,23.99,car,bangalore,Walking
+Total,24.41,car,bangalore,Walking
 bike,0,car,belo_horizonte,Walking
 bus,23.17,car,belo_horizonte,Walking
 car,0,car,belo_horizonte,Walking
 motorbike,0,car,belo_horizonte,Walking
 other,0,car,belo_horizonte,Walking
 pedestrian,0,car,belo_horizonte,Walking
-rail,0.25,car,belo_horizonte,Walking
+rail,0.26,car,belo_horizonte,Walking
 truck,0,car,belo_horizonte,Walking
 unknown,0,car,belo_horizonte,Walking
 NOV,79.11,car,belo_horizonte,Walking
-Total,102.53,car,belo_horizonte,Walking
+Total,102.54,car,belo_horizonte,Walking
 bike,0,car,bogota,Walking
 bus,2.41,car,bogota,Walking
 car,0,car,bogota,Walking
@@ -699,10 +809,10 @@ motorbike,1.81,car,delhi,Walking
 other,0,car,delhi,Walking
 pedestrian,0,car,delhi,Walking
 rail,0,car,delhi,Walking
-truck,23.02,car,delhi,Walking
-unknown,19.33,car,delhi,Walking
+truck,24.02,car,delhi,Walking
+unknown,20.17,car,delhi,Walking
 NOV,65.4,car,delhi,Walking
-Total,115.14,car,delhi,Walking
+Total,116.98,car,delhi,Walking
 bike,0,car,mexico_city,Walking
 bus,0,car,mexico_city,Walking
 car,0,car,mexico_city,Walking
@@ -719,23 +829,23 @@ bus,9.76,car,santiago,Walking
 car,0,car,santiago,Walking
 motorbike,0.23,car,santiago,Walking
 other,0,car,santiago,Walking
-pedestrian,0.69,car,santiago,Walking
+pedestrian,1.24,car,santiago,Walking
 rail,0,car,santiago,Walking
-truck,6,car,santiago,Walking
+truck,6.19,car,santiago,Walking
 unknown,0,car,santiago,Walking
 NOV,49.62,car,santiago,Walking
-Total,66.31,car,santiago,Walking
+Total,67.05,car,santiago,Walking
 bike,0,car,sao_paulo,Walking
-bus,17.7,car,sao_paulo,Walking
+bus,17.59,car,sao_paulo,Walking
 car,0,car,sao_paulo,Walking
-motorbike,2.85,car,sao_paulo,Walking
+motorbike,2.84,car,sao_paulo,Walking
 other,0,car,sao_paulo,Walking
 pedestrian,0,car,sao_paulo,Walking
 rail,0,car,sao_paulo,Walking
-truck,11.72,car,sao_paulo,Walking
+truck,12.11,car,sao_paulo,Walking
 unknown,0,car,sao_paulo,Walking
-NOV,115.04,car,sao_paulo,Walking
-Total,147.31,car,sao_paulo,Walking
+NOV,115.03,car,sao_paulo,Walking
+Total,147.57,car,sao_paulo,Walking
 bike,0,car,vizag,Walking
 bus,0,car,vizag,Walking
 car,0,car,vizag,Walking
@@ -743,43 +853,43 @@ motorbike,0,car,vizag,Walking
 other,0,car,vizag,Walking
 pedestrian,0,car,vizag,Walking
 rail,0,car,vizag,Walking
-truck,4.05,car,vizag,Walking
+truck,4.27,car,vizag,Walking
 unknown,0,car,vizag,Walking
 NOV,7.11,car,vizag,Walking
-Total,11.16,car,vizag,Walking
+Total,11.38,car,vizag,Walking
 bike,0,motorbike,accra,Walking
-bus,6.45,motorbike,accra,Walking
-car,10.05,motorbike,accra,Walking
+bus,6.43,motorbike,accra,Walking
+car,10.03,motorbike,accra,Walking
 motorbike,0,motorbike,accra,Walking
-other,0.48,motorbike,accra,Walking
-pedestrian,0.96,motorbike,accra,Walking
+other,0.5,motorbike,accra,Walking
+pedestrian,1.88,motorbike,accra,Walking
 rail,0,motorbike,accra,Walking
-truck,4.81,motorbike,accra,Walking
-unknown,0.87,motorbike,accra,Walking
+truck,4.97,motorbike,accra,Walking
+unknown,0.89,motorbike,accra,Walking
 NOV,4.19,motorbike,accra,Walking
-Total,27.81,motorbike,accra,Walking
+Total,28.89,motorbike,accra,Walking
 bike,0.79,motorbike,bangalore,Walking
 bus,53.76,motorbike,bangalore,Walking
 car,42.63,motorbike,bangalore,Walking
 motorbike,0,motorbike,bangalore,Walking
 other,0,motorbike,bangalore,Walking
-pedestrian,2.72,motorbike,bangalore,Walking
+pedestrian,4.01,motorbike,bangalore,Walking
 rail,0,motorbike,bangalore,Walking
-truck,92.54,motorbike,bangalore,Walking
-unknown,16.33,motorbike,bangalore,Walking
+truck,97.32,motorbike,bangalore,Walking
+unknown,17.17,motorbike,bangalore,Walking
 NOV,68.7,motorbike,bangalore,Walking
-Total,277.46,motorbike,bangalore,Walking
+Total,284.38,motorbike,bangalore,Walking
 bike,1.53,motorbike,bogota,Walking
 bus,31.86,motorbike,bogota,Walking
 car,46.77,motorbike,bogota,Walking
 motorbike,0,motorbike,bogota,Walking
 other,0,motorbike,bogota,Walking
-pedestrian,3,motorbike,bogota,Walking
+pedestrian,3.04,motorbike,bogota,Walking
 rail,0,motorbike,bogota,Walking
 truck,18.71,motorbike,bogota,Walking
 unknown,0,motorbike,bogota,Walking
 NOV,35.96,motorbike,bogota,Walking
-Total,137.83,motorbike,bogota,Walking
+Total,137.88,motorbike,bogota,Walking
 bike,0,motorbike,buenos_aires,Walking
 bus,0,motorbike,buenos_aires,Walking
 car,0,motorbike,buenos_aires,Walking
@@ -798,10 +908,10 @@ motorbike,0,motorbike,delhi,Walking
 other,0,motorbike,delhi,Walking
 pedestrian,0,motorbike,delhi,Walking
 rail,0,motorbike,delhi,Walking
-truck,125.13,motorbike,delhi,Walking
-unknown,234.06,motorbike,delhi,Walking
+truck,130.57,motorbike,delhi,Walking
+unknown,244.23,motorbike,delhi,Walking
 NOV,77.11,motorbike,delhi,Walking
-Total,618.4,motorbike,delhi,Walking
+Total,634,motorbike,delhi,Walking
 bike,0,motorbike,mexico_city,Walking
 bus,0,motorbike,mexico_city,Walking
 car,0,motorbike,mexico_city,Walking
@@ -820,21 +930,21 @@ motorbike,0,motorbike,santiago,Walking
 other,0,motorbike,santiago,Walking
 pedestrian,0,motorbike,santiago,Walking
 rail,0,motorbike,santiago,Walking
-truck,7.05,motorbike,santiago,Walking
-unknown,0.94,motorbike,santiago,Walking
+truck,7.27,motorbike,santiago,Walking
+unknown,0.97,motorbike,santiago,Walking
 NOV,15.29,motorbike,santiago,Walking
-Total,39.54,motorbike,santiago,Walking
-bike,0.15,motorbike,sao_paulo,Walking
-bus,57.17,motorbike,sao_paulo,Walking
-car,103.55,motorbike,sao_paulo,Walking
+Total,39.79,motorbike,santiago,Walking
+bike,0.16,motorbike,sao_paulo,Walking
+bus,57.54,motorbike,sao_paulo,Walking
+car,104.23,motorbike,sao_paulo,Walking
 motorbike,0,motorbike,sao_paulo,Walking
-other,0.56,motorbike,sao_paulo,Walking
+other,0.58,motorbike,sao_paulo,Walking
 pedestrian,0,motorbike,sao_paulo,Walking
 rail,0,motorbike,sao_paulo,Walking
-truck,57.71,motorbike,sao_paulo,Walking
+truck,60.38,motorbike,sao_paulo,Walking
 unknown,0,motorbike,sao_paulo,Walking
 NOV,164.73,motorbike,sao_paulo,Walking
-Total,383.87,motorbike,sao_paulo,Walking
+Total,387.61,motorbike,sao_paulo,Walking
 bike,0,motorbike,vizag,Walking
 bus,13.05,motorbike,vizag,Walking
 car,16.53,motorbike,vizag,Walking
@@ -842,10 +952,120 @@ motorbike,0,motorbike,vizag,Walking
 other,0,motorbike,vizag,Walking
 pedestrian,0,motorbike,vizag,Walking
 rail,0,motorbike,vizag,Walking
-truck,45.91,motorbike,vizag,Walking
-unknown,4.38,motorbike,vizag,Walking
+truck,48.43,motorbike,vizag,Walking
+unknown,4.62,motorbike,vizag,Walking
 NOV,46.73,motorbike,vizag,Walking
-Total,126.61,motorbike,vizag,Walking
+Total,129.37,motorbike,vizag,Walking
+bike,0.68,pedestrian,accra,Walking
+bus,62.73,pedestrian,accra,Walking
+car,131.38,pedestrian,accra,Walking
+motorbike,14.15,pedestrian,accra,Walking
+other,5.16,pedestrian,accra,Walking
+pedestrian,0,pedestrian,accra,Walking
+rail,0,pedestrian,accra,Walking
+truck,30.17,pedestrian,accra,Walking
+unknown,33.8,pedestrian,accra,Walking
+NOV,0.58,pedestrian,accra,Walking
+Total,278.65,pedestrian,accra,Walking
+bike,0,pedestrian,bangalore,Walking
+bus,52.18,pedestrian,bangalore,Walking
+car,115.87,pedestrian,bangalore,Walking
+motorbike,159.09,pedestrian,bangalore,Walking
+other,0,pedestrian,bangalore,Walking
+pedestrian,0,pedestrian,bangalore,Walking
+rail,0,pedestrian,bangalore,Walking
+truck,86.87,pedestrian,bangalore,Walking
+unknown,92.47,pedestrian,bangalore,Walking
+NOV,0,pedestrian,bangalore,Walking
+Total,506.49,pedestrian,bangalore,Walking
+bike,0,pedestrian,belo_horizonte,Walking
+bus,69.7,pedestrian,belo_horizonte,Walking
+car,84.68,pedestrian,belo_horizonte,Walking
+motorbike,0,pedestrian,belo_horizonte,Walking
+other,0.34,pedestrian,belo_horizonte,Walking
+pedestrian,0,pedestrian,belo_horizonte,Walking
+rail,5.92,pedestrian,belo_horizonte,Walking
+truck,0,pedestrian,belo_horizonte,Walking
+unknown,0,pedestrian,belo_horizonte,Walking
+NOV,0,pedestrian,belo_horizonte,Walking
+Total,160.65,pedestrian,belo_horizonte,Walking
+bike,2.61,pedestrian,bogota,Walking
+bus,61.8,pedestrian,bogota,Walking
+car,108.24,pedestrian,bogota,Walking
+motorbike,81.62,pedestrian,bogota,Walking
+other,0,pedestrian,bogota,Walking
+pedestrian,0,pedestrian,bogota,Walking
+rail,0,pedestrian,bogota,Walking
+truck,13.48,pedestrian,bogota,Walking
+unknown,7.9,pedestrian,bogota,Walking
+NOV,0,pedestrian,bogota,Walking
+Total,275.65,pedestrian,bogota,Walking
+bike,0,pedestrian,buenos_aires,Walking
+bus,0,pedestrian,buenos_aires,Walking
+car,0,pedestrian,buenos_aires,Walking
+motorbike,0,pedestrian,buenos_aires,Walking
+other,0,pedestrian,buenos_aires,Walking
+pedestrian,0,pedestrian,buenos_aires,Walking
+rail,0,pedestrian,buenos_aires,Walking
+truck,0,pedestrian,buenos_aires,Walking
+unknown,0,pedestrian,buenos_aires,Walking
+NOV,847.54,pedestrian,buenos_aires,Walking
+Total,847.54,pedestrian,buenos_aires,Walking
+bike,0,pedestrian,delhi,Walking
+bus,86.63,pedestrian,delhi,Walking
+car,282.49,pedestrian,delhi,Walking
+motorbike,113.25,pedestrian,delhi,Walking
+other,0,pedestrian,delhi,Walking
+pedestrian,0,pedestrian,delhi,Walking
+rail,0,pedestrian,delhi,Walking
+truck,139.36,pedestrian,delhi,Walking
+unknown,626.4,pedestrian,delhi,Walking
+NOV,0,pedestrian,delhi,Walking
+Total,1248.14,pedestrian,delhi,Walking
+bike,0,pedestrian,mexico_city,Walking
+bus,0,pedestrian,mexico_city,Walking
+car,0,pedestrian,mexico_city,Walking
+motorbike,0,pedestrian,mexico_city,Walking
+other,0,pedestrian,mexico_city,Walking
+pedestrian,0,pedestrian,mexico_city,Walking
+rail,0,pedestrian,mexico_city,Walking
+truck,0,pedestrian,mexico_city,Walking
+unknown,0,pedestrian,mexico_city,Walking
+NOV,872.45,pedestrian,mexico_city,Walking
+Total,872.45,pedestrian,mexico_city,Walking
+bike,0,pedestrian,santiago,Walking
+bus,61.71,pedestrian,santiago,Walking
+car,83.24,pedestrian,santiago,Walking
+motorbike,5.48,pedestrian,santiago,Walking
+other,0,pedestrian,santiago,Walking
+pedestrian,0,pedestrian,santiago,Walking
+rail,0,pedestrian,santiago,Walking
+truck,28.16,pedestrian,santiago,Walking
+unknown,8.66,pedestrian,santiago,Walking
+NOV,6.94,pedestrian,santiago,Walking
+Total,194.18,pedestrian,santiago,Walking
+bike,0.71,pedestrian,sao_paulo,Walking
+bus,105.81,pedestrian,sao_paulo,Walking
+car,214.22,pedestrian,sao_paulo,Walking
+motorbike,85.19,pedestrian,sao_paulo,Walking
+other,0.59,pedestrian,sao_paulo,Walking
+pedestrian,0,pedestrian,sao_paulo,Walking
+rail,0,pedestrian,sao_paulo,Walking
+truck,44.82,pedestrian,sao_paulo,Walking
+unknown,0,pedestrian,sao_paulo,Walking
+NOV,2.88,pedestrian,sao_paulo,Walking
+Total,454.23,pedestrian,sao_paulo,Walking
+bike,0,pedestrian,vizag,Walking
+bus,31.63,pedestrian,vizag,Walking
+car,50.11,pedestrian,vizag,Walking
+motorbike,93.28,pedestrian,vizag,Walking
+other,0.54,pedestrian,vizag,Walking
+pedestrian,0,pedestrian,vizag,Walking
+rail,0,pedestrian,vizag,Walking
+truck,64.68,pedestrian,vizag,Walking
+unknown,28.57,pedestrian,vizag,Walking
+NOV,0,pedestrian,vizag,Walking
+Total,268.8,pedestrian,vizag,Walking
 bike,0,truck,bogota,Walking
 bus,0,truck,bogota,Walking
 car,0.17,truck,bogota,Walking
@@ -857,1719 +1077,2159 @@ truck,0.83,truck,bogota,Walking
 unknown,0,truck,bogota,Walking
 NOV,0,truck,bogota,Walking
 Total,1,truck,bogota,Walking
-bike,0,bike,accra,Bicycle
-bus,16.39,bike,accra,Bicycle
-car,28.31,bike,accra,Bicycle
-motorbike,2.37,bike,accra,Bicycle
-other,0.61,bike,accra,Bicycle
-pedestrian,0,bike,accra,Bicycle
-rail,0,bike,accra,Bicycle
-truck,14.59,bike,accra,Bicycle
-unknown,4.86,bike,accra,Bicycle
-NOV,0,bike,accra,Bicycle
-Total,67.13,bike,accra,Bicycle
-bike,0,bike,bangalore,Bicycle
-bus,2.12,bike,bangalore,Bicycle
-car,14.77,bike,bangalore,Bicycle
-motorbike,6.4,bike,bangalore,Bicycle
-other,0,bike,bangalore,Bicycle
-pedestrian,0,bike,bangalore,Bicycle
-rail,0,bike,bangalore,Bicycle
-truck,8.83,bike,bangalore,Bicycle
-unknown,13.24,bike,bangalore,Bicycle
-NOV,0,bike,bangalore,Bicycle
-Total,45.36,bike,bangalore,Bicycle
-bike,0,bike,bogota,Bicycle
-bus,16.94,bike,bogota,Bicycle
-car,15.61,bike,bogota,Bicycle
-motorbike,2.67,bike,bogota,Bicycle
-other,0,bike,bogota,Bicycle
-pedestrian,0.78,bike,bogota,Bicycle
-rail,0,bike,bogota,Bicycle
-truck,5.5,bike,bogota,Bicycle
-unknown,0.17,bike,bogota,Bicycle
-NOV,0.5,bike,bogota,Bicycle
-Total,42.17,bike,bogota,Bicycle
-bike,0,bike,buenos_aires,Bicycle
-bus,0,bike,buenos_aires,Bicycle
-car,0,bike,buenos_aires,Bicycle
-motorbike,0,bike,buenos_aires,Bicycle
-other,0,bike,buenos_aires,Bicycle
-pedestrian,0,bike,buenos_aires,Bicycle
-rail,0,bike,buenos_aires,Bicycle
-truck,0,bike,buenos_aires,Bicycle
-unknown,0,bike,buenos_aires,Bicycle
-NOV,95.97,bike,buenos_aires,Bicycle
-Total,95.97,bike,buenos_aires,Bicycle
-bike,0,bike,delhi,Bicycle
-bus,17.47,bike,delhi,Bicycle
-car,40.85,bike,delhi,Bicycle
-motorbike,9.29,bike,delhi,Bicycle
-other,0,bike,delhi,Bicycle
-pedestrian,0,bike,delhi,Bicycle
-rail,0,bike,delhi,Bicycle
-truck,29.28,bike,delhi,Bicycle
-unknown,35.14,bike,delhi,Bicycle
-NOV,0,bike,delhi,Bicycle
-Total,132.04,bike,delhi,Bicycle
-bike,0,bike,mexico_city,Bicycle
-bus,0,bike,mexico_city,Bicycle
-car,0,bike,mexico_city,Bicycle
-motorbike,0,bike,mexico_city,Bicycle
-other,0,bike,mexico_city,Bicycle
-pedestrian,0,bike,mexico_city,Bicycle
-rail,0,bike,mexico_city,Bicycle
-truck,0,bike,mexico_city,Bicycle
-unknown,0,bike,mexico_city,Bicycle
-NOV,170.13,bike,mexico_city,Bicycle
-Total,170.13,bike,mexico_city,Bicycle
-bike,0,bike,santiago,Bicycle
-bus,18.39,bike,santiago,Bicycle
-car,18.85,bike,santiago,Bicycle
-motorbike,0.54,bike,santiago,Bicycle
-other,0,bike,santiago,Bicycle
-pedestrian,0,bike,santiago,Bicycle
-rail,0,bike,santiago,Bicycle
-truck,13.74,bike,santiago,Bicycle
-unknown,0.55,bike,santiago,Bicycle
-NOV,6.05,bike,santiago,Bicycle
-Total,58.12,bike,santiago,Bicycle
-bike,0,bike,sao_paulo,Bicycle
-bus,107.38,bike,sao_paulo,Bicycle
-car,115.75,bike,sao_paulo,Bicycle
-motorbike,22.42,bike,sao_paulo,Bicycle
-other,0,bike,sao_paulo,Bicycle
-pedestrian,0,bike,sao_paulo,Bicycle
-rail,0,bike,sao_paulo,Bicycle
-truck,49.13,bike,sao_paulo,Bicycle
-unknown,0,bike,sao_paulo,Bicycle
-NOV,86.15,bike,sao_paulo,Bicycle
-Total,380.84,bike,sao_paulo,Bicycle
-bike,0,bike,vizag,Bicycle
-bus,4.77,bike,vizag,Bicycle
-car,6.39,bike,vizag,Bicycle
-motorbike,6.86,bike,vizag,Bicycle
-other,0,bike,vizag,Bicycle
-pedestrian,0,bike,vizag,Bicycle
-rail,0,bike,vizag,Bicycle
-truck,15.66,bike,vizag,Bicycle
-unknown,4.32,bike,vizag,Bicycle
-NOV,0,bike,vizag,Bicycle
-Total,38.01,bike,vizag,Bicycle
-bike,0.86,bus,accra,Bicycle
-bus,0,bus,accra,Bicycle
-car,2.05,bus,accra,Bicycle
-motorbike,0.19,bus,accra,Bicycle
-other,0.19,bus,accra,Bicycle
-pedestrian,0.1,bus,accra,Bicycle
-rail,0,bus,accra,Bicycle
-truck,5.48,bus,accra,Bicycle
-unknown,0,bus,accra,Bicycle
-NOV,7.88,bus,accra,Bicycle
-Total,16.74,bus,accra,Bicycle
-bike,0,bus,bangalore,Bicycle
-bus,0,bus,bangalore,Bicycle
-car,0,bus,bangalore,Bicycle
-motorbike,0,bus,bangalore,Bicycle
-other,0,bus,bangalore,Bicycle
-pedestrian,0,bus,bangalore,Bicycle
-rail,0,bus,bangalore,Bicycle
-truck,3.88,bus,bangalore,Bicycle
-unknown,0,bus,bangalore,Bicycle
-NOV,13.53,bus,bangalore,Bicycle
-Total,17.42,bus,bangalore,Bicycle
-bike,0,bus,belo_horizonte,Bicycle
-bus,0,bus,belo_horizonte,Bicycle
-car,0.52,bus,belo_horizonte,Bicycle
-motorbike,0,bus,belo_horizonte,Bicycle
-other,0,bus,belo_horizonte,Bicycle
-pedestrian,0,bus,belo_horizonte,Bicycle
-rail,0.37,bus,belo_horizonte,Bicycle
-truck,0,bus,belo_horizonte,Bicycle
-unknown,0,bus,belo_horizonte,Bicycle
-NOV,4.71,bus,belo_horizonte,Bicycle
-Total,5.6,bus,belo_horizonte,Bicycle
-bike,0,bus,bogota,Bicycle
-bus,0,bus,bogota,Bicycle
-car,0.33,bus,bogota,Bicycle
-motorbike,0,bus,bogota,Bicycle
-other,0,bus,bogota,Bicycle
-pedestrian,0.34,bus,bogota,Bicycle
-rail,0,bus,bogota,Bicycle
-truck,0,bus,bogota,Bicycle
-unknown,0,bus,bogota,Bicycle
-NOV,7.66,bus,bogota,Bicycle
-Total,8.33,bus,bogota,Bicycle
-bike,0,bus,buenos_aires,Bicycle
-bus,0,bus,buenos_aires,Bicycle
-car,0,bus,buenos_aires,Bicycle
-motorbike,0,bus,buenos_aires,Bicycle
-other,0,bus,buenos_aires,Bicycle
-pedestrian,0,bus,buenos_aires,Bicycle
-rail,0,bus,buenos_aires,Bicycle
-truck,0,bus,buenos_aires,Bicycle
-unknown,0,bus,buenos_aires,Bicycle
-NOV,13.66,bus,buenos_aires,Bicycle
-Total,13.66,bus,buenos_aires,Bicycle
-bike,0,bus,delhi,Bicycle
-bus,0,bus,delhi,Bicycle
-car,1.99,bus,delhi,Bicycle
-motorbike,0.99,bus,delhi,Bicycle
-other,0,bus,delhi,Bicycle
-pedestrian,0,bus,delhi,Bicycle
-rail,0,bus,delhi,Bicycle
-truck,1,bus,delhi,Bicycle
-unknown,0,bus,delhi,Bicycle
-NOV,4.98,bus,delhi,Bicycle
-Total,8.95,bus,delhi,Bicycle
-bike,0,bus,mexico_city,Bicycle
-bus,0,bus,mexico_city,Bicycle
-car,0,bus,mexico_city,Bicycle
-motorbike,0,bus,mexico_city,Bicycle
-other,0,bus,mexico_city,Bicycle
-pedestrian,0,bus,mexico_city,Bicycle
-rail,0,bus,mexico_city,Bicycle
-truck,0,bus,mexico_city,Bicycle
-unknown,0,bus,mexico_city,Bicycle
-NOV,13.51,bus,mexico_city,Bicycle
-Total,13.51,bus,mexico_city,Bicycle
-bike,0,bus,santiago,Bicycle
-bus,0,bus,santiago,Bicycle
-car,0.96,bus,santiago,Bicycle
-motorbike,0,bus,santiago,Bicycle
-other,0,bus,santiago,Bicycle
-pedestrian,0,bus,santiago,Bicycle
-rail,0,bus,santiago,Bicycle
-truck,0.25,bus,santiago,Bicycle
-unknown,0,bus,santiago,Bicycle
-NOV,3.93,bus,santiago,Bicycle
-Total,5.14,bus,santiago,Bicycle
-bike,0,bus,sao_paulo,Bicycle
-bus,0,bus,sao_paulo,Bicycle
-car,2.01,bus,sao_paulo,Bicycle
-motorbike,1.47,bus,sao_paulo,Bicycle
-other,0,bus,sao_paulo,Bicycle
-pedestrian,0,bus,sao_paulo,Bicycle
-rail,0,bus,sao_paulo,Bicycle
-truck,0.38,bus,sao_paulo,Bicycle
-unknown,0,bus,sao_paulo,Bicycle
-NOV,4.99,bus,sao_paulo,Bicycle
-Total,8.86,bus,sao_paulo,Bicycle
-bike,0,bus,vizag,Bicycle
-bus,0,bus,vizag,Bicycle
-car,0,bus,vizag,Bicycle
-motorbike,0,bus,vizag,Bicycle
-other,0,bus,vizag,Bicycle
-pedestrian,0,bus,vizag,Bicycle
-rail,0,bus,vizag,Bicycle
-truck,0.33,bus,vizag,Bicycle
-unknown,0,bus,vizag,Bicycle
-NOV,4.59,bus,vizag,Bicycle
-Total,4.92,bus,vizag,Bicycle
-bike,0,car,accra,Bicycle
-bus,3.37,car,accra,Bicycle
-car,0,car,accra,Bicycle
-motorbike,0.66,car,accra,Bicycle
-other,0.68,car,accra,Bicycle
-pedestrian,1.07,car,accra,Bicycle
-rail,0,car,accra,Bicycle
-truck,7.69,car,accra,Bicycle
-unknown,0.49,car,accra,Bicycle
-NOV,16.63,car,accra,Bicycle
-Total,30.6,car,accra,Bicycle
-bike,0,car,bangalore,Bicycle
-bus,3.71,car,bangalore,Bicycle
-car,0,car,bangalore,Bicycle
-motorbike,2.79,car,bangalore,Bicycle
-other,0,car,bangalore,Bicycle
-pedestrian,0,car,bangalore,Bicycle
-rail,0,car,bangalore,Bicycle
-truck,6.75,car,bangalore,Bicycle
-unknown,1.93,car,bangalore,Bicycle
-NOV,9.6,car,bangalore,Bicycle
-Total,24.78,car,bangalore,Bicycle
-bike,0,car,belo_horizonte,Bicycle
-bus,22.38,car,belo_horizonte,Bicycle
-car,0,car,belo_horizonte,Bicycle
-motorbike,0,car,belo_horizonte,Bicycle
-other,0,car,belo_horizonte,Bicycle
-pedestrian,0,car,belo_horizonte,Bicycle
-rail,0.26,car,belo_horizonte,Bicycle
-truck,0,car,belo_horizonte,Bicycle
-unknown,0,car,belo_horizonte,Bicycle
-NOV,77.56,car,belo_horizonte,Bicycle
-Total,100.2,car,belo_horizonte,Bicycle
-bike,0,car,bogota,Bicycle
-bus,2.41,car,bogota,Bicycle
-car,0,car,bogota,Bicycle
-motorbike,0.28,car,bogota,Bicycle
-other,0,car,bogota,Bicycle
-pedestrian,0,car,bogota,Bicycle
-rail,0,car,bogota,Bicycle
-truck,0.81,car,bogota,Bicycle
-unknown,0,car,bogota,Bicycle
-NOV,16.5,car,bogota,Bicycle
-Total,20,car,bogota,Bicycle
-bike,0,car,buenos_aires,Bicycle
-bus,0,car,buenos_aires,Bicycle
-car,0,car,buenos_aires,Bicycle
-motorbike,0,car,buenos_aires,Bicycle
-other,0,car,buenos_aires,Bicycle
-pedestrian,0,car,buenos_aires,Bicycle
-rail,0,car,buenos_aires,Bicycle
-truck,0,car,buenos_aires,Bicycle
-unknown,0,car,buenos_aires,Bicycle
-NOV,356.16,car,buenos_aires,Bicycle
-Total,356.16,car,buenos_aires,Bicycle
-bike,0,car,delhi,Bicycle
-bus,5.96,car,delhi,Bicycle
-car,0,car,delhi,Bicycle
-motorbike,1.98,car,delhi,Bicycle
-other,0,car,delhi,Bicycle
-pedestrian,0,car,delhi,Bicycle
-rail,0,car,delhi,Bicycle
-truck,24.96,car,delhi,Bicycle
-unknown,20.97,car,delhi,Bicycle
-NOV,67.82,car,delhi,Bicycle
-Total,121.69,car,delhi,Bicycle
-bike,0,car,mexico_city,Bicycle
-bus,0,car,mexico_city,Bicycle
-car,0,car,mexico_city,Bicycle
-motorbike,0,car,mexico_city,Bicycle
-other,0,car,mexico_city,Bicycle
-pedestrian,0,car,mexico_city,Bicycle
-rail,0,car,mexico_city,Bicycle
-truck,0,car,mexico_city,Bicycle
-unknown,0,car,mexico_city,Bicycle
-NOV,354.46,car,mexico_city,Bicycle
-Total,354.46,car,mexico_city,Bicycle
-bike,0,car,santiago,Bicycle
-bus,10.12,car,santiago,Bicycle
-car,0,car,santiago,Bicycle
-motorbike,0.24,car,santiago,Bicycle
-other,0,car,santiago,Bicycle
-pedestrian,0.73,car,santiago,Bicycle
-rail,0,car,santiago,Bicycle
-truck,6.36,car,santiago,Bicycle
-unknown,0,car,santiago,Bicycle
-NOV,50.94,car,santiago,Bicycle
-Total,68.39,car,santiago,Bicycle
-bike,0,car,sao_paulo,Bicycle
-bus,18.16,car,sao_paulo,Bicycle
-car,0,car,sao_paulo,Bicycle
-motorbike,2.94,car,sao_paulo,Bicycle
-other,0,car,sao_paulo,Bicycle
-pedestrian,0,car,sao_paulo,Bicycle
-rail,0,car,sao_paulo,Bicycle
-truck,12.66,car,sao_paulo,Bicycle
-unknown,0,car,sao_paulo,Bicycle
-NOV,118.43,car,sao_paulo,Bicycle
-Total,152.19,car,sao_paulo,Bicycle
-bike,0,car,vizag,Bicycle
-bus,0,car,vizag,Bicycle
-car,0,car,vizag,Bicycle
-motorbike,0,car,vizag,Bicycle
-other,0,car,vizag,Bicycle
-pedestrian,0,car,vizag,Bicycle
-rail,0,car,vizag,Bicycle
-truck,4.45,car,vizag,Bicycle
-unknown,0,car,vizag,Bicycle
-NOV,7.41,car,vizag,Bicycle
-Total,11.87,car,vizag,Bicycle
-bike,0,motorbike,accra,Bicycle
-bus,6.12,motorbike,accra,Bicycle
-car,9.66,motorbike,accra,Bicycle
-motorbike,0,motorbike,accra,Bicycle
-other,0.47,motorbike,accra,Bicycle
-pedestrian,0.95,motorbike,accra,Bicycle
-rail,0,motorbike,accra,Bicycle
-truck,4.74,motorbike,accra,Bicycle
-unknown,0.85,motorbike,accra,Bicycle
-NOV,4.01,motorbike,accra,Bicycle
-Total,26.82,motorbike,accra,Bicycle
-bike,2.13,motorbike,bangalore,Bicycle
-bus,55.35,motorbike,bangalore,Bicycle
-car,43.78,motorbike,bangalore,Bicycle
-motorbike,0,motorbike,bangalore,Bicycle
-other,0,motorbike,bangalore,Bicycle
-pedestrian,2.92,motorbike,bangalore,Bicycle
-rail,0,motorbike,bangalore,Bicycle
-truck,99.37,motorbike,bangalore,Bicycle
-unknown,17.54,motorbike,bangalore,Bicycle
-NOV,69.87,motorbike,bangalore,Bicycle
-Total,290.97,motorbike,bangalore,Bicycle
-bike,1.56,motorbike,bogota,Bicycle
-bus,31.89,motorbike,bogota,Bicycle
-car,46.85,motorbike,bogota,Bicycle
-motorbike,0,motorbike,bogota,Bicycle
-other,0,motorbike,bogota,Bicycle
-pedestrian,3,motorbike,bogota,Bicycle
-rail,0,motorbike,bogota,Bicycle
-truck,18.72,motorbike,bogota,Bicycle
-unknown,0,motorbike,bogota,Bicycle
-NOV,35.98,motorbike,bogota,Bicycle
-Total,138,motorbike,bogota,Bicycle
-bike,0,motorbike,buenos_aires,Bicycle
-bus,0,motorbike,buenos_aires,Bicycle
-car,0,motorbike,buenos_aires,Bicycle
-motorbike,0,motorbike,buenos_aires,Bicycle
-other,0,motorbike,buenos_aires,Bicycle
-pedestrian,0,motorbike,buenos_aires,Bicycle
-rail,0,motorbike,buenos_aires,Bicycle
-truck,0,motorbike,buenos_aires,Bicycle
-unknown,0,motorbike,buenos_aires,Bicycle
-NOV,126.57,motorbike,buenos_aires,Bicycle
-Total,126.57,motorbike,buenos_aires,Bicycle
-bike,0,motorbike,delhi,Bicycle
-bus,59.28,motorbike,delhi,Bicycle
-car,139.56,motorbike,delhi,Bicycle
-motorbike,0,motorbike,delhi,Bicycle
-other,0,motorbike,delhi,Bicycle
-pedestrian,0,motorbike,delhi,Bicycle
-rail,0,motorbike,delhi,Bicycle
-truck,138.09,motorbike,delhi,Bicycle
-unknown,258.3,motorbike,delhi,Bicycle
-NOV,81.37,motorbike,delhi,Bicycle
-Total,676.6,motorbike,delhi,Bicycle
-bike,0,motorbike,mexico_city,Bicycle
-bus,0,motorbike,mexico_city,Bicycle
-car,0,motorbike,mexico_city,Bicycle
-motorbike,0,motorbike,mexico_city,Bicycle
-other,0,motorbike,mexico_city,Bicycle
-pedestrian,0,motorbike,mexico_city,Bicycle
-rail,0,motorbike,mexico_city,Bicycle
-truck,0,motorbike,mexico_city,Bicycle
-unknown,0,motorbike,mexico_city,Bicycle
-NOV,126.33,motorbike,mexico_city,Bicycle
-Total,126.33,motorbike,mexico_city,Bicycle
-bike,0.54,motorbike,santiago,Bicycle
-bus,3.61,motorbike,santiago,Bicycle
-car,12.94,motorbike,santiago,Bicycle
-motorbike,0,motorbike,santiago,Bicycle
-other,0,motorbike,santiago,Bicycle
-pedestrian,0,motorbike,santiago,Bicycle
-rail,0,motorbike,santiago,Bicycle
-truck,7.34,motorbike,santiago,Bicycle
-unknown,0.98,motorbike,santiago,Bicycle
-NOV,15.41,motorbike,santiago,Bicycle
-Total,40.82,motorbike,santiago,Bicycle
-bike,2.3,motorbike,sao_paulo,Bicycle
-bus,56.79,motorbike,sao_paulo,Bicycle
-car,107.84,motorbike,sao_paulo,Bicycle
-motorbike,0,motorbike,sao_paulo,Bicycle
-other,0.58,motorbike,sao_paulo,Bicycle
-pedestrian,0,motorbike,sao_paulo,Bicycle
-rail,0,motorbike,sao_paulo,Bicycle
-truck,60.37,motorbike,sao_paulo,Bicycle
-unknown,0,motorbike,sao_paulo,Bicycle
-NOV,164.78,motorbike,sao_paulo,Bicycle
-Total,392.66,motorbike,sao_paulo,Bicycle
-bike,0,motorbike,vizag,Bicycle
-bus,14.12,motorbike,vizag,Bicycle
-car,18.23,motorbike,vizag,Bicycle
-motorbike,0,motorbike,vizag,Bicycle
-other,0,motorbike,vizag,Bicycle
-pedestrian,0,motorbike,vizag,Bicycle
-rail,0,motorbike,vizag,Bicycle
-truck,51.34,motorbike,vizag,Bicycle
-unknown,4.9,motorbike,vizag,Bicycle
-NOV,49.46,motorbike,vizag,Bicycle
-Total,138.05,motorbike,vizag,Bicycle
-bike,0,truck,bogota,Bicycle
-bus,0,truck,bogota,Bicycle
-car,0.17,truck,bogota,Bicycle
-motorbike,0,truck,bogota,Bicycle
-other,0,truck,bogota,Bicycle
-pedestrian,0,truck,bogota,Bicycle
-rail,0,truck,bogota,Bicycle
-truck,0.83,truck,bogota,Bicycle
-unknown,0,truck,bogota,Bicycle
-NOV,0,truck,bogota,Bicycle
-Total,1,truck,bogota,Bicycle
-bike,0,bike,accra,Car
-bus,2.23,bike,accra,Car
-car,5,bike,accra,Car
-motorbike,0.31,bike,accra,Car
-other,0.09,bike,accra,Car
-pedestrian,0,bike,accra,Car
-rail,0,bike,accra,Car
-truck,2.13,bike,accra,Car
-unknown,0.71,bike,accra,Car
-NOV,0,bike,accra,Car
-Total,10.48,bike,accra,Car
-bike,0,bike,bangalore,Car
-bus,0.35,bike,bangalore,Car
-car,22.34,bike,bangalore,Car
-motorbike,1.05,bike,bangalore,Car
-other,0,bike,bangalore,Car
-pedestrian,0,bike,bangalore,Car
-rail,0,bike,bangalore,Car
-truck,2.4,bike,bangalore,Car
-unknown,3.6,bike,bangalore,Car
-NOV,0,bike,bangalore,Car
-Total,29.75,bike,bangalore,Car
-bike,0,bike,bogota,Car
-bus,8.63,bike,bogota,Car
-car,23.73,bike,bogota,Car
-motorbike,1.33,bike,bogota,Car
-other,0,bike,bogota,Car
-pedestrian,0.49,bike,bogota,Car
-rail,0,bike,bogota,Car
-truck,3.88,bike,bogota,Car
-unknown,0.11,bike,bogota,Car
-NOV,0.35,bike,bogota,Car
-Total,38.52,bike,bogota,Car
-bike,0,bike,buenos_aires,Car
-bus,0,bike,buenos_aires,Car
-car,0,bike,buenos_aires,Car
-motorbike,0,bike,buenos_aires,Car
-other,0,bike,buenos_aires,Car
-pedestrian,0,bike,buenos_aires,Car
-rail,0,bike,buenos_aires,Car
-truck,0,bike,buenos_aires,Car
-unknown,0,bike,buenos_aires,Car
-NOV,30.1,bike,buenos_aires,Car
-Total,30.1,bike,buenos_aires,Car
-bike,0,bike,delhi,Car
-bus,7.89,bike,delhi,Car
-car,38.79,bike,delhi,Car
-motorbike,4.03,bike,delhi,Car
-other,0,bike,delhi,Car
-pedestrian,0,bike,delhi,Car
-rail,0,bike,delhi,Car
-truck,17.87,bike,delhi,Car
-unknown,21.44,bike,delhi,Car
-NOV,0,bike,delhi,Car
-Total,90.02,bike,delhi,Car
-bike,0,bike,mexico_city,Car
-bus,0,bike,mexico_city,Car
-car,0,bike,mexico_city,Car
-motorbike,0,bike,mexico_city,Car
-other,0,bike,mexico_city,Car
-pedestrian,0,bike,mexico_city,Car
-rail,0,bike,mexico_city,Car
-truck,0,bike,mexico_city,Car
-unknown,0,bike,mexico_city,Car
-NOV,28.85,bike,mexico_city,Car
-Total,28.85,bike,mexico_city,Car
-bike,0,bike,santiago,Car
-bus,5.54,bike,santiago,Car
-car,11.63,bike,santiago,Car
-motorbike,0.17,bike,santiago,Car
-other,0,bike,santiago,Car
-pedestrian,0,bike,santiago,Car
-rail,0,bike,santiago,Car
-truck,5.19,bike,santiago,Car
-unknown,0.21,bike,santiago,Car
-NOV,2.3,bike,santiago,Car
-Total,25.05,bike,santiago,Car
-bike,0,bike,sao_paulo,Car
-bus,6.99,bike,sao_paulo,Car
-car,15.21,bike,sao_paulo,Car
-motorbike,1.43,bike,sao_paulo,Car
-other,0,bike,sao_paulo,Car
-pedestrian,0,bike,sao_paulo,Car
-rail,0,bike,sao_paulo,Car
-truck,3.88,bike,sao_paulo,Car
-unknown,0,bike,sao_paulo,Car
-NOV,9.33,bike,sao_paulo,Car
-Total,36.83,bike,sao_paulo,Car
-bike,0,bike,vizag,Car
-bus,1.04,bike,vizag,Car
-car,25.3,bike,vizag,Car
-motorbike,1.49,bike,vizag,Car
-other,0,bike,vizag,Car
-pedestrian,0,bike,vizag,Car
-rail,0,bike,vizag,Car
-truck,5.79,bike,vizag,Car
-unknown,1.6,bike,vizag,Car
-NOV,0,bike,vizag,Car
-Total,35.22,bike,vizag,Car
-bike,0.08,bus,accra,Car
-bus,0,bus,accra,Car
-car,2.34,bus,accra,Car
-motorbike,0.16,bus,accra,Car
-other,0.18,bus,accra,Car
-pedestrian,0.09,bus,accra,Car
-rail,0,bus,accra,Car
-truck,5.17,bus,accra,Car
-unknown,0,bus,accra,Car
-NOV,7.42,bus,accra,Car
-Total,15.44,bus,accra,Car
-bike,0,bus,bangalore,Car
-bus,0,bus,bangalore,Car
-car,0,bus,bangalore,Car
-motorbike,0,bus,bangalore,Car
-other,0,bus,bangalore,Car
-pedestrian,0,bus,bangalore,Car
-rail,0,bus,bangalore,Car
-truck,2.49,bus,bangalore,Car
-unknown,0,bus,bangalore,Car
-NOV,8.42,bus,bangalore,Car
-Total,10.9,bus,bangalore,Car
-bike,0,bus,belo_horizonte,Car
-bus,0,bus,belo_horizonte,Car
-car,0.58,bus,belo_horizonte,Car
-motorbike,0,bus,belo_horizonte,Car
-other,0,bus,belo_horizonte,Car
-pedestrian,0,bus,belo_horizonte,Car
-rail,0.37,bus,belo_horizonte,Car
-truck,0,bus,belo_horizonte,Car
-unknown,0,bus,belo_horizonte,Car
-NOV,4.71,bus,belo_horizonte,Car
-Total,5.66,bus,belo_horizonte,Car
-bike,0,bus,bogota,Car
-bus,0,bus,bogota,Car
-car,0.52,bus,bogota,Car
-motorbike,0,bus,bogota,Car
-other,0,bus,bogota,Car
-pedestrian,0.22,bus,bogota,Car
-rail,0,bus,bogota,Car
-truck,0,bus,bogota,Car
-unknown,0,bus,bogota,Car
-NOV,5.53,bus,bogota,Car
-Total,6.27,bus,bogota,Car
-bike,0,bus,buenos_aires,Car
-bus,0,bus,buenos_aires,Car
-car,0,bus,buenos_aires,Car
-motorbike,0,bus,buenos_aires,Car
-other,0,bus,buenos_aires,Car
-pedestrian,0,bus,buenos_aires,Car
-rail,0,bus,buenos_aires,Car
-truck,0,bus,buenos_aires,Car
-unknown,0,bus,buenos_aires,Car
-NOV,10.42,bus,buenos_aires,Car
-Total,10.42,bus,buenos_aires,Car
-bike,0,bus,delhi,Car
-bus,0,bus,delhi,Car
-car,2.34,bus,delhi,Car
-motorbike,0.53,bus,delhi,Car
-other,0,bus,delhi,Car
-pedestrian,0,bus,delhi,Car
-rail,0,bus,delhi,Car
-truck,0.75,bus,delhi,Car
-unknown,0,bus,delhi,Car
-NOV,3.73,bus,delhi,Car
-Total,7.35,bus,delhi,Car
-bike,0,bus,mexico_city,Car
-bus,0,bus,mexico_city,Car
-car,0,bus,mexico_city,Car
-motorbike,0,bus,mexico_city,Car
-other,0,bus,mexico_city,Car
-pedestrian,0,bus,mexico_city,Car
-rail,0,bus,mexico_city,Car
-truck,0,bus,mexico_city,Car
-unknown,0,bus,mexico_city,Car
-NOV,10.24,bus,mexico_city,Car
-Total,10.24,bus,mexico_city,Car
-bike,0,bus,santiago,Car
-bus,0,bus,santiago,Car
-car,1.24,bus,santiago,Car
-motorbike,0,bus,santiago,Car
-other,0,bus,santiago,Car
-pedestrian,0,bus,santiago,Car
-rail,0,bus,santiago,Car
-truck,0.19,bus,santiago,Car
-unknown,0,bus,santiago,Car
-NOV,3.11,bus,santiago,Car
-Total,4.54,bus,santiago,Car
-bike,0,bus,sao_paulo,Car
-bus,0,bus,sao_paulo,Car
-car,2.84,bus,sao_paulo,Car
-motorbike,1.01,bus,sao_paulo,Car
-other,0,bus,sao_paulo,Car
-pedestrian,0,bus,sao_paulo,Car
-rail,0,bus,sao_paulo,Car
-truck,0.33,bus,sao_paulo,Car
-unknown,0,bus,sao_paulo,Car
-NOV,4.18,bus,sao_paulo,Car
-Total,8.36,bus,sao_paulo,Car
-bike,0,bus,vizag,Car
-bus,0,bus,vizag,Car
-car,0,bus,vizag,Car
-motorbike,0,bus,vizag,Car
-other,0,bus,vizag,Car
-pedestrian,0,bus,vizag,Car
-rail,0,bus,vizag,Car
-truck,0.2,bus,vizag,Car
-unknown,0,bus,vizag,Car
-NOV,2.78,bus,vizag,Car
-Total,2.98,bus,vizag,Car
-bike,0,car,accra,Car
-bus,3.58,car,accra,Car
-car,0,car,accra,Car
-motorbike,0.68,car,accra,Car
-other,0.77,car,accra,Car
-pedestrian,1.22,car,accra,Car
-rail,0,car,accra,Car
-truck,8.74,car,accra,Car
-unknown,0.55,car,accra,Car
-NOV,19.14,car,accra,Car
-Total,34.69,car,accra,Car
-bike,0,car,bangalore,Car
-bus,13.21,car,bangalore,Car
-car,0,car,bangalore,Car
-motorbike,9.97,car,bangalore,Car
-other,0,car,bangalore,Car
-pedestrian,0,car,bangalore,Car
-rail,0,car,bangalore,Car
-truck,39.76,car,bangalore,Car
-unknown,11.36,car,bangalore,Car
-NOV,54.94,car,bangalore,Car
-Total,129.24,car,bangalore,Car
-bike,0,car,belo_horizonte,Car
-bus,24.75,car,belo_horizonte,Car
-car,0,car,belo_horizonte,Car
-motorbike,0,car,belo_horizonte,Car
-other,0,car,belo_horizonte,Car
-pedestrian,0,car,belo_horizonte,Car
-rail,0.28,car,belo_horizonte,Car
-truck,0,car,belo_horizonte,Car
-unknown,0,car,belo_horizonte,Car
-NOV,85.75,car,belo_horizonte,Car
-Total,110.78,car,belo_horizonte,Car
-bike,0,car,bogota,Car
-bus,3.75,car,bogota,Car
-car,0,car,bogota,Car
-motorbike,0.42,car,bogota,Car
-other,0,car,bogota,Car
-pedestrian,0,car,bogota,Car
-rail,0,car,bogota,Car
-truck,1.76,car,bogota,Car
-unknown,0,car,bogota,Car
-NOV,35.53,car,bogota,Car
-Total,41.46,car,bogota,Car
-bike,0,car,buenos_aires,Car
-bus,0,car,buenos_aires,Car
-car,0,car,buenos_aires,Car
-motorbike,0,car,buenos_aires,Car
-other,0,car,buenos_aires,Car
-pedestrian,0,car,buenos_aires,Car
-rail,0,car,buenos_aires,Car
-truck,0,car,buenos_aires,Car
-unknown,0,car,buenos_aires,Car
-NOV,561.05,car,buenos_aires,Car
-Total,561.05,car,buenos_aires,Car
-bike,0,car,delhi,Car
-bus,7.02,car,delhi,Car
-car,0,car,delhi,Car
-motorbike,2.24,car,delhi,Car
-other,0,car,delhi,Car
-pedestrian,0,car,delhi,Car
-rail,0,car,delhi,Car
-truck,39.79,car,delhi,Car
-unknown,33.42,car,delhi,Car
-NOV,106.82,car,delhi,Car
-Total,189.3,car,delhi,Car
-bike,0,car,mexico_city,Car
-bus,0,car,mexico_city,Car
-car,0,car,mexico_city,Car
-motorbike,0,car,mexico_city,Car
-other,0,car,mexico_city,Car
-pedestrian,0,car,mexico_city,Car
-rail,0,car,mexico_city,Car
-truck,0,car,mexico_city,Car
-unknown,0,car,mexico_city,Car
-NOV,588.71,car,mexico_city,Car
-Total,588.71,car,mexico_city,Car
-bike,0,car,santiago,Car
-bus,12.97,car,santiago,Car
-car,0,car,santiago,Car
-motorbike,0.32,car,santiago,Car
-other,0,car,santiago,Car
-pedestrian,1.18,car,santiago,Car
-rail,0,car,santiago,Car
-truck,10.24,car,santiago,Car
-unknown,0,car,santiago,Car
-NOV,82.52,car,santiago,Car
-Total,107.23,car,santiago,Car
-bike,0,car,sao_paulo,Car
-bus,27.47,car,sao_paulo,Car
-car,0,car,sao_paulo,Car
-motorbike,4.38,car,sao_paulo,Car
-other,0,car,sao_paulo,Car
-pedestrian,0,car,sao_paulo,Car
-rail,0,car,sao_paulo,Car
-truck,23.23,car,sao_paulo,Car
-unknown,0,car,sao_paulo,Car
-NOV,216.23,car,sao_paulo,Car
-Total,271.31,car,sao_paulo,Car
-bike,0,car,vizag,Car
-bus,0,car,vizag,Car
-car,0,car,vizag,Car
-motorbike,0,car,vizag,Car
-other,0,car,vizag,Car
-pedestrian,0,car,vizag,Car
-rail,0,car,vizag,Car
-truck,49.99,car,vizag,Car
-unknown,0,car,vizag,Car
-NOV,81.24,car,vizag,Car
-Total,131.23,car,vizag,Car
-bike,0,motorbike,accra,Car
-bus,5.53,motorbike,accra,Car
-car,11.33,motorbike,accra,Car
-motorbike,0,motorbike,accra,Car
-other,0.46,motorbike,accra,Car
-pedestrian,0.92,motorbike,accra,Car
-rail,0,motorbike,accra,Car
-truck,4.6,motorbike,accra,Car
-unknown,0.83,motorbike,accra,Car
-NOV,3.81,motorbike,accra,Car
-Total,27.47,motorbike,accra,Car
-bike,0.35,motorbike,bangalore,Car
-bus,21.46,motorbike,bangalore,Car
-car,156.25,motorbike,bangalore,Car
-motorbike,0,motorbike,bangalore,Car
-other,0,motorbike,bangalore,Car
-pedestrian,1.88,motorbike,bangalore,Car
-rail,0,motorbike,bangalore,Car
-truck,63.81,motorbike,bangalore,Car
-unknown,11.26,motorbike,bangalore,Car
-NOV,43.57,motorbike,bangalore,Car
-Total,298.58,motorbike,bangalore,Car
-bike,0.78,motorbike,bogota,Car
-bus,16.33,motorbike,bogota,Car
-car,71.57,motorbike,bogota,Car
-motorbike,0,motorbike,bogota,Car
-other,0,motorbike,bogota,Car
-pedestrian,1.91,motorbike,bogota,Car
-rail,0,motorbike,bogota,Car
-truck,13.28,motorbike,bogota,Car
-unknown,0,motorbike,bogota,Car
-NOV,25.52,motorbike,bogota,Car
-Total,129.38,motorbike,bogota,Car
-bike,0,motorbike,buenos_aires,Car
-bus,0,motorbike,buenos_aires,Car
-car,0,motorbike,buenos_aires,Car
-motorbike,0,motorbike,buenos_aires,Car
-other,0,motorbike,buenos_aires,Car
-pedestrian,0,motorbike,buenos_aires,Car
-rail,0,motorbike,buenos_aires,Car
-truck,0,motorbike,buenos_aires,Car
-unknown,0,motorbike,buenos_aires,Car
-NOV,96.99,motorbike,buenos_aires,Car
-Total,96.99,motorbike,buenos_aires,Car
-bike,0,motorbike,delhi,Car
-bus,31.93,motorbike,delhi,Car
-car,158.17,motorbike,delhi,Car
-motorbike,0,motorbike,delhi,Car
-other,0,motorbike,delhi,Car
-pedestrian,0,motorbike,delhi,Car
-rail,0,motorbike,delhi,Car
-truck,100.56,motorbike,delhi,Car
-unknown,188.1,motorbike,delhi,Car
-NOV,58.56,motorbike,delhi,Car
-Total,537.31,motorbike,delhi,Car
-bike,0,motorbike,mexico_city,Car
-bus,0,motorbike,mexico_city,Car
-car,0,motorbike,mexico_city,Car
-motorbike,0,motorbike,mexico_city,Car
-other,0,motorbike,mexico_city,Car
-pedestrian,0,motorbike,mexico_city,Car
-rail,0,motorbike,mexico_city,Car
-truck,0,motorbike,mexico_city,Car
-unknown,0,motorbike,mexico_city,Car
-NOV,96.93,motorbike,mexico_city,Car
-Total,96.93,motorbike,mexico_city,Car
-bike,0.17,motorbike,santiago,Car
-bus,2.38,motorbike,santiago,Car
-car,17.45,motorbike,santiago,Car
-motorbike,0,motorbike,santiago,Car
-other,0,motorbike,santiago,Car
-pedestrian,0,motorbike,santiago,Car
-rail,0,motorbike,santiago,Car
-truck,6.06,motorbike,santiago,Car
-unknown,0.81,motorbike,santiago,Car
-NOV,12.83,motorbike,santiago,Car
-Total,39.69,motorbike,santiago,Car
-bike,0.13,motorbike,sao_paulo,Car
-bus,37.85,motorbike,sao_paulo,Car
-car,145.15,motorbike,sao_paulo,Car
-motorbike,0,motorbike,sao_paulo,Car
-other,0.47,motorbike,sao_paulo,Car
-pedestrian,0,motorbike,sao_paulo,Car
-rail,0,motorbike,sao_paulo,Car
-truck,48.79,motorbike,sao_paulo,Car
-unknown,0,motorbike,sao_paulo,Car
-NOV,131.3,motorbike,sao_paulo,Car
-Total,363.7,motorbike,sao_paulo,Car
-bike,0,motorbike,vizag,Car
-bus,5.15,motorbike,vizag,Car
-car,120.48,motorbike,vizag,Car
-motorbike,0,motorbike,vizag,Car
-other,0,motorbike,vizag,Car
-pedestrian,0,motorbike,vizag,Car
-rail,0,motorbike,vizag,Car
-truck,31.69,motorbike,vizag,Car
-unknown,3.03,motorbike,vizag,Car
-NOV,29.82,motorbike,vizag,Car
-Total,190.17,motorbike,vizag,Car
-bike,0,truck,bogota,Car
-bus,0,truck,bogota,Car
-car,0.36,truck,bogota,Car
-motorbike,0,truck,bogota,Car
-other,0,truck,bogota,Car
-pedestrian,0,truck,bogota,Car
-rail,0,truck,bogota,Car
-truck,0.83,truck,bogota,Car
-unknown,0,truck,bogota,Car
-NOV,0,truck,bogota,Car
-Total,1.19,truck,bogota,Car
-bike,0,bike,accra,Motorcyle
-bus,0.67,bike,accra,Motorcyle
-car,1.02,bike,accra,Motorcyle
-motorbike,3.25,bike,accra,Motorcyle
-other,0.05,bike,accra,Motorcyle
-pedestrian,0,bike,accra,Motorcyle
-rail,0,bike,accra,Motorcyle
-truck,1.26,bike,accra,Motorcyle
-unknown,0.42,bike,accra,Motorcyle
-NOV,0,bike,accra,Motorcyle
-Total,6.67,bike,accra,Motorcyle
-bike,0,bike,bangalore,Motorcyle
-bus,0.9,bike,bangalore,Motorcyle
-car,6.29,bike,bangalore,Motorcyle
-motorbike,3.1,bike,bangalore,Motorcyle
-other,0,bike,bangalore,Motorcyle
-pedestrian,0,bike,bangalore,Motorcyle
-rail,0,bike,bangalore,Motorcyle
-truck,3.92,bike,bangalore,Motorcyle
-unknown,5.87,bike,bangalore,Motorcyle
-NOV,0,bike,bangalore,Motorcyle
-Total,20.09,bike,bangalore,Motorcyle
-bike,0,bike,bogota,Motorcyle
-bus,4.09,bike,bogota,Motorcyle
-car,3.94,bike,bogota,Motorcyle
-motorbike,5.95,bike,bogota,Motorcyle
-other,0,bike,bogota,Motorcyle
-pedestrian,0.33,bike,bogota,Motorcyle
-rail,0,bike,bogota,Motorcyle
-truck,2.9,bike,bogota,Motorcyle
-unknown,0.07,bike,bogota,Motorcyle
-NOV,0.26,bike,bogota,Motorcyle
-Total,17.54,bike,bogota,Motorcyle
-bike,0,bike,buenos_aires,Motorcyle
-bus,0,bike,buenos_aires,Motorcyle
-car,0,bike,buenos_aires,Motorcyle
-motorbike,0,bike,buenos_aires,Motorcyle
-other,0,bike,buenos_aires,Motorcyle
-pedestrian,0,bike,buenos_aires,Motorcyle
-rail,0,bike,buenos_aires,Motorcyle
-truck,0,bike,buenos_aires,Motorcyle
-unknown,0,bike,buenos_aires,Motorcyle
-NOV,23.41,bike,buenos_aires,Motorcyle
-Total,23.41,bike,buenos_aires,Motorcyle
-bike,0,bike,delhi,Motorcyle
-bus,6.17,bike,delhi,Motorcyle
-car,14.09,bike,delhi,Motorcyle
-motorbike,11.53,bike,delhi,Motorcyle
-other,0,bike,delhi,Motorcyle
-pedestrian,0,bike,delhi,Motorcyle
-rail,0,bike,delhi,Motorcyle
-truck,17.98,bike,delhi,Motorcyle
-unknown,21.58,bike,delhi,Motorcyle
-NOV,0,bike,delhi,Motorcyle
-Total,71.36,bike,delhi,Motorcyle
-bike,0,bike,mexico_city,Motorcyle
-bus,0,bike,mexico_city,Motorcyle
-car,0,bike,mexico_city,Motorcyle
-motorbike,0,bike,mexico_city,Motorcyle
-other,0,bike,mexico_city,Motorcyle
-pedestrian,0,bike,mexico_city,Motorcyle
-rail,0,bike,mexico_city,Motorcyle
-truck,0,bike,mexico_city,Motorcyle
-unknown,0,bike,mexico_city,Motorcyle
-NOV,22.41,bike,mexico_city,Motorcyle
-Total,22.41,bike,mexico_city,Motorcyle
-bike,0,bike,santiago,Motorcyle
-bus,1.94,bike,santiago,Motorcyle
-car,2.09,bike,santiago,Motorcyle
-motorbike,2.38,bike,santiago,Motorcyle
-other,0,bike,santiago,Motorcyle
-pedestrian,0,bike,santiago,Motorcyle
-rail,0,bike,santiago,Motorcyle
-truck,3.27,bike,santiago,Motorcyle
-unknown,0.13,bike,santiago,Motorcyle
-NOV,1.47,bike,santiago,Motorcyle
-Total,11.28,bike,santiago,Motorcyle
-bike,0,bike,sao_paulo,Motorcyle
-bus,3,bike,sao_paulo,Motorcyle
-car,3.47,bike,sao_paulo,Motorcyle
-motorbike,10.89,bike,sao_paulo,Motorcyle
-other,0,bike,sao_paulo,Motorcyle
-pedestrian,0,bike,sao_paulo,Motorcyle
-rail,0,bike,sao_paulo,Motorcyle
-truck,2.94,bike,sao_paulo,Motorcyle
-unknown,0,bike,sao_paulo,Motorcyle
-NOV,6.9,bike,sao_paulo,Motorcyle
-Total,27.22,bike,sao_paulo,Motorcyle
-bike,0,bike,vizag,Motorcyle
-bus,1.49,bike,vizag,Motorcyle
-car,1.94,bike,vizag,Motorcyle
-motorbike,6.78,bike,vizag,Motorcyle
-other,0,bike,vizag,Motorcyle
-pedestrian,0,bike,vizag,Motorcyle
-rail,0,bike,vizag,Motorcyle
-truck,7.76,bike,vizag,Motorcyle
-unknown,2.14,bike,vizag,Motorcyle
-NOV,0,bike,vizag,Motorcyle
-Total,20.11,bike,vizag,Motorcyle
-bike,0.02,bus,accra,Motorcyle
-bus,0,bus,accra,Motorcyle
-car,0.39,bus,accra,Motorcyle
-motorbike,1.36,bus,accra,Motorcyle
-other,0.09,bus,accra,Motorcyle
-pedestrian,0.04,bus,accra,Motorcyle
-rail,0,bus,accra,Motorcyle
-truck,2.5,bus,accra,Motorcyle
-unknown,0,bus,accra,Motorcyle
-NOV,3.62,bus,accra,Motorcyle
-Total,8.02,bus,accra,Motorcyle
-bike,0,bus,bangalore,Motorcyle
-bus,0,bus,bangalore,Motorcyle
-car,0,bus,bangalore,Motorcyle
-motorbike,0,bus,bangalore,Motorcyle
-other,0,bus,bangalore,Motorcyle
-pedestrian,0,bus,bangalore,Motorcyle
-rail,0,bus,bangalore,Motorcyle
-truck,3.71,bus,bangalore,Motorcyle
-unknown,0,bus,bangalore,Motorcyle
-NOV,12.97,bus,bangalore,Motorcyle
-Total,16.68,bus,bangalore,Motorcyle
-bike,0,bus,belo_horizonte,Motorcyle
-bus,0,bus,belo_horizonte,Motorcyle
-car,0.11,bus,belo_horizonte,Motorcyle
-motorbike,0,bus,belo_horizonte,Motorcyle
-other,0,bus,belo_horizonte,Motorcyle
-pedestrian,0,bus,belo_horizonte,Motorcyle
-rail,0.17,bus,belo_horizonte,Motorcyle
-truck,0,bus,belo_horizonte,Motorcyle
-unknown,0,bus,belo_horizonte,Motorcyle
-NOV,2.06,bus,belo_horizonte,Motorcyle
-Total,2.34,bus,belo_horizonte,Motorcyle
-bike,0,bus,bogota,Motorcyle
-bus,0,bus,bogota,Motorcyle
-car,0.07,bus,bogota,Motorcyle
-motorbike,0,bus,bogota,Motorcyle
-other,0,bus,bogota,Motorcyle
-pedestrian,0.12,bus,bogota,Motorcyle
-rail,0,bus,bogota,Motorcyle
-truck,0,bus,bogota,Motorcyle
-unknown,0,bus,bogota,Motorcyle
-NOV,3.51,bus,bogota,Motorcyle
-Total,3.71,bus,bogota,Motorcyle
-bike,0,bus,buenos_aires,Motorcyle
-bus,0,bus,buenos_aires,Motorcyle
-car,0,bus,buenos_aires,Motorcyle
-motorbike,0,bus,buenos_aires,Motorcyle
-other,0,bus,buenos_aires,Motorcyle
-pedestrian,0,bus,buenos_aires,Motorcyle
-rail,0,bus,buenos_aires,Motorcyle
-truck,0,bus,buenos_aires,Motorcyle
-unknown,0,bus,buenos_aires,Motorcyle
-NOV,6.03,bus,buenos_aires,Motorcyle
-Total,6.03,bus,buenos_aires,Motorcyle
-bike,0,bus,delhi,Motorcyle
-bus,0,bus,delhi,Motorcyle
-car,0.64,bus,delhi,Motorcyle
-motorbike,1.15,bus,delhi,Motorcyle
-other,0,bus,delhi,Motorcyle
-pedestrian,0,bus,delhi,Motorcyle
-rail,0,bus,delhi,Motorcyle
-truck,0.57,bus,delhi,Motorcyle
-unknown,0,bus,delhi,Motorcyle
-NOV,2.86,bus,delhi,Motorcyle
-Total,5.23,bus,delhi,Motorcyle
-bike,0,bus,mexico_city,Motorcyle
-bus,0,bus,mexico_city,Motorcyle
-car,0,bus,mexico_city,Motorcyle
-motorbike,0,bus,mexico_city,Motorcyle
-other,0,bus,mexico_city,Motorcyle
-pedestrian,0,bus,mexico_city,Motorcyle
-rail,0,bus,mexico_city,Motorcyle
-truck,0,bus,mexico_city,Motorcyle
-unknown,0,bus,mexico_city,Motorcyle
-NOV,6.45,bus,mexico_city,Motorcyle
-Total,6.45,bus,mexico_city,Motorcyle
-bike,0,bus,santiago,Motorcyle
-bus,0,bus,santiago,Motorcyle
-car,0.19,bus,santiago,Motorcyle
-motorbike,0,bus,santiago,Motorcyle
-other,0,bus,santiago,Motorcyle
-pedestrian,0,bus,santiago,Motorcyle
-rail,0,bus,santiago,Motorcyle
-truck,0.1,bus,santiago,Motorcyle
-unknown,0,bus,santiago,Motorcyle
-NOV,1.71,bus,santiago,Motorcyle
-Total,2.01,bus,santiago,Motorcyle
-bike,0,bus,sao_paulo,Motorcyle
-bus,0,bus,sao_paulo,Motorcyle
-car,0.51,bus,sao_paulo,Motorcyle
-motorbike,6,bus,sao_paulo,Motorcyle
-other,0,bus,sao_paulo,Motorcyle
-pedestrian,0,bus,sao_paulo,Motorcyle
-rail,0,bus,sao_paulo,Motorcyle
-truck,0.19,bus,sao_paulo,Motorcyle
-unknown,0,bus,sao_paulo,Motorcyle
-NOV,2.43,bus,sao_paulo,Motorcyle
-Total,9.13,bus,sao_paulo,Motorcyle
-bike,0,bus,vizag,Motorcyle
-bus,0,bus,vizag,Motorcyle
-car,0,bus,vizag,Motorcyle
-motorbike,0,bus,vizag,Motorcyle
-other,0,bus,vizag,Motorcyle
-pedestrian,0,bus,vizag,Motorcyle
-rail,0,bus,vizag,Motorcyle
-truck,0.21,bus,vizag,Motorcyle
-unknown,0,bus,vizag,Motorcyle
-NOV,2.9,bus,vizag,Motorcyle
-Total,3.11,bus,vizag,Motorcyle
-bike,0,car,accra,Motorcyle
-bus,0.63,car,accra,Motorcyle
-car,0,car,accra,Motorcyle
-motorbike,4.17,car,accra,Motorcyle
-other,0.27,car,accra,Motorcyle
-pedestrian,0.42,car,accra,Motorcyle
-rail,0,car,accra,Motorcyle
-truck,3.05,car,accra,Motorcyle
-unknown,0.19,car,accra,Motorcyle
-NOV,6.65,car,accra,Motorcyle
-Total,15.39,car,accra,Motorcyle
-bike,0,car,bangalore,Motorcyle
-bus,3.41,car,bangalore,Motorcyle
-car,0,car,bangalore,Motorcyle
-motorbike,2.93,car,bangalore,Motorcyle
-other,0,car,bangalore,Motorcyle
-pedestrian,0,car,bangalore,Motorcyle
-rail,0,car,bangalore,Motorcyle
-truck,6.46,car,bangalore,Motorcyle
-unknown,1.85,car,bangalore,Motorcyle
-NOV,9.21,car,bangalore,Motorcyle
-Total,23.86,car,bangalore,Motorcyle
-bike,0,car,belo_horizonte,Motorcyle
-bus,4.59,car,belo_horizonte,Motorcyle
-car,0,car,belo_horizonte,Motorcyle
-motorbike,0,car,belo_horizonte,Motorcyle
-other,0,car,belo_horizonte,Motorcyle
-pedestrian,0,car,belo_horizonte,Motorcyle
-rail,0.12,car,belo_horizonte,Motorcyle
-truck,0,car,belo_horizonte,Motorcyle
-unknown,0,car,belo_horizonte,Motorcyle
-NOV,36.34,car,belo_horizonte,Motorcyle
-Total,41.05,car,belo_horizonte,Motorcyle
-bike,0,car,bogota,Motorcyle
-bus,0.53,car,bogota,Motorcyle
-car,0,car,bogota,Motorcyle
-motorbike,0.56,car,bogota,Motorcyle
-other,0,car,bogota,Motorcyle
-pedestrian,0,car,bogota,Motorcyle
-rail,0,car,bogota,Motorcyle
-truck,0.39,car,bogota,Motorcyle
-unknown,0,car,bogota,Motorcyle
-NOV,7.91,car,bogota,Motorcyle
-Total,9.39,car,bogota,Motorcyle
-bike,0,car,buenos_aires,Motorcyle
-bus,0,car,buenos_aires,Motorcyle
-car,0,car,buenos_aires,Motorcyle
-motorbike,0,car,buenos_aires,Motorcyle
-other,0,car,buenos_aires,Motorcyle
-pedestrian,0,car,buenos_aires,Motorcyle
-rail,0,car,buenos_aires,Motorcyle
-truck,0,car,buenos_aires,Motorcyle
-unknown,0,car,buenos_aires,Motorcyle
-NOV,163.34,car,buenos_aires,Motorcyle
-Total,163.34,car,buenos_aires,Motorcyle
-bike,0,car,delhi,Motorcyle
-bus,1.93,car,delhi,Motorcyle
-car,0,car,delhi,Motorcyle
-motorbike,2.25,car,delhi,Motorcyle
-other,0,car,delhi,Motorcyle
-pedestrian,0,car,delhi,Motorcyle
-rail,0,car,delhi,Motorcyle
-truck,14.03,car,delhi,Motorcyle
-unknown,11.78,car,delhi,Motorcyle
-NOV,38.1,car,delhi,Motorcyle
-Total,68.09,car,delhi,Motorcyle
-bike,0,car,mexico_city,Motorcyle
-bus,0,car,mexico_city,Motorcyle
-car,0,car,mexico_city,Motorcyle
-motorbike,0,car,mexico_city,Motorcyle
-other,0,car,mexico_city,Motorcyle
-pedestrian,0,car,mexico_city,Motorcyle
-rail,0,car,mexico_city,Motorcyle
-truck,0,car,mexico_city,Motorcyle
-unknown,0,car,mexico_city,Motorcyle
-NOV,163.47,car,mexico_city,Motorcyle
-Total,163.47,car,mexico_city,Motorcyle
-bike,0,car,santiago,Motorcyle
-bus,2.01,car,santiago,Motorcyle
-car,0,car,santiago,Motorcyle
-motorbike,2,car,santiago,Motorcyle
-other,0,car,santiago,Motorcyle
-pedestrian,0.33,car,santiago,Motorcyle
-rail,0,car,santiago,Motorcyle
-truck,2.85,car,santiago,Motorcyle
-unknown,0,car,santiago,Motorcyle
-NOV,23.29,car,santiago,Motorcyle
-Total,30.48,car,santiago,Motorcyle
-bike,0,car,sao_paulo,Motorcyle
-bus,4.44,car,sao_paulo,Motorcyle
-car,0,car,sao_paulo,Motorcyle
-motorbike,12.5,car,sao_paulo,Motorcyle
-other,0,car,sao_paulo,Motorcyle
-pedestrian,0,car,sao_paulo,Motorcyle
-rail,0,car,sao_paulo,Motorcyle
-truck,6.63,car,sao_paulo,Motorcyle
-unknown,0,car,sao_paulo,Motorcyle
-NOV,59.97,car,sao_paulo,Motorcyle
-Total,83.55,car,sao_paulo,Motorcyle
-bike,0,car,vizag,Motorcyle
-bus,0,car,vizag,Motorcyle
-car,0,car,vizag,Motorcyle
-motorbike,0,car,vizag,Motorcyle
-other,0,car,vizag,Motorcyle
-pedestrian,0,car,vizag,Motorcyle
-rail,0,car,vizag,Motorcyle
-truck,2.75,car,vizag,Motorcyle
-unknown,0,car,vizag,Motorcyle
-NOV,4.56,car,vizag,Motorcyle
-Total,7.31,car,vizag,Motorcyle
-bike,0,motorbike,accra,Motorcyle
-bus,79.7,motorbike,accra,Motorcyle
-car,110.13,motorbike,accra,Motorcyle
-motorbike,0,motorbike,accra,Motorcyle
-other,13.01,motorbike,accra,Motorcyle
-pedestrian,26.02,motorbike,accra,Motorcyle
-rail,0,motorbike,accra,Motorcyle
-truck,130.09,motorbike,accra,Motorcyle
-unknown,23.42,motorbike,accra,Motorcyle
-NOV,94.92,motorbike,accra,Motorcyle
-Total,477.28,motorbike,accra,Motorcyle
-bike,1.03,motorbike,bangalore,Motorcyle
-bus,57.92,motorbike,bangalore,Motorcyle
-car,45.87,motorbike,bangalore,Motorcyle
-motorbike,0,motorbike,bangalore,Motorcyle
-other,0,motorbike,bangalore,Motorcyle
-pedestrian,3.19,motorbike,bangalore,Motorcyle
-rail,0,motorbike,bangalore,Motorcyle
-truck,108.36,motorbike,bangalore,Motorcyle
-unknown,19.12,motorbike,bangalore,Motorcyle
-NOV,76.3,motorbike,bangalore,Motorcyle
-Total,311.8,motorbike,bangalore,Motorcyle
-bike,3.47,motorbike,bogota,Motorcyle
-bus,61.87,motorbike,bogota,Motorcyle
-car,95.02,motorbike,bogota,Motorcyle
-motorbike,0,motorbike,bogota,Motorcyle
-other,0,motorbike,bogota,Motorcyle
-pedestrian,10.11,motorbike,bogota,Motorcyle
-rail,0,motorbike,bogota,Motorcyle
-truck,79.22,motorbike,bogota,Motorcyle
-unknown,0,motorbike,bogota,Motorcyle
-NOV,152.25,motorbike,bogota,Motorcyle
-Total,401.93,motorbike,bogota,Motorcyle
-bike,0,motorbike,buenos_aires,Motorcyle
-bus,0,motorbike,buenos_aires,Motorcyle
-car,0,motorbike,buenos_aires,Motorcyle
-motorbike,0,motorbike,buenos_aires,Motorcyle
-other,0,motorbike,buenos_aires,Motorcyle
-pedestrian,0,motorbike,buenos_aires,Motorcyle
-rail,0,motorbike,buenos_aires,Motorcyle
-truck,0,motorbike,buenos_aires,Motorcyle
-unknown,0,motorbike,buenos_aires,Motorcyle
-NOV,1246.04,motorbike,buenos_aires,Motorcyle
-Total,1246.04,motorbike,buenos_aires,Motorcyle
-bike,0,motorbike,delhi,Motorcyle
-bus,68.92,motorbike,delhi,Motorcyle
-car,158.46,motorbike,delhi,Motorcyle
-motorbike,0,motorbike,delhi,Motorcyle
-other,0,motorbike,delhi,Motorcyle
-pedestrian,0,motorbike,delhi,Motorcyle
-rail,0,motorbike,delhi,Motorcyle
-truck,279.14,motorbike,delhi,Motorcyle
-unknown,522.14,motorbike,delhi,Motorcyle
-NOV,164.46,motorbike,delhi,Motorcyle
-Total,1193.13,motorbike,delhi,Motorcyle
-bike,0,motorbike,mexico_city,Motorcyle
-bus,0,motorbike,mexico_city,Motorcyle
-car,0,motorbike,mexico_city,Motorcyle
-motorbike,0,motorbike,mexico_city,Motorcyle
-other,0,motorbike,mexico_city,Motorcyle
-pedestrian,0,motorbike,mexico_city,Motorcyle
-rail,0,motorbike,mexico_city,Motorcyle
-truck,0,motorbike,mexico_city,Motorcyle
-unknown,0,motorbike,mexico_city,Motorcyle
-NOV,1661.6,motorbike,mexico_city,Motorcyle
-Total,1661.6,motorbike,mexico_city,Motorcyle
-bike,2.38,motorbike,santiago,Motorcyle
-bus,28.72,motorbike,santiago,Motorcyle
-car,108.08,motorbike,santiago,Motorcyle
-motorbike,0,motorbike,santiago,Motorcyle
-other,0,motorbike,santiago,Motorcyle
-pedestrian,0,motorbike,santiago,Motorcyle
-rail,0,motorbike,santiago,Motorcyle
-truck,131.44,motorbike,santiago,Motorcyle
-unknown,17.53,motorbike,santiago,Motorcyle
-NOV,281.59,motorbike,santiago,Motorcyle
-Total,569.75,motorbike,santiago,Motorcyle
-bike,1.29,motorbike,sao_paulo,Motorcyle
-bus,313.82,motorbike,sao_paulo,Motorcyle
-car,639.59,motorbike,sao_paulo,Motorcyle
-motorbike,0,motorbike,sao_paulo,Motorcyle
-other,6.89,motorbike,sao_paulo,Motorcyle
-pedestrian,0,motorbike,sao_paulo,Motorcyle
-rail,0,motorbike,sao_paulo,Motorcyle
-truck,714.17,motorbike,sao_paulo,Motorcyle
-unknown,0,motorbike,sao_paulo,Motorcyle
-NOV,1430.65,motorbike,sao_paulo,Motorcyle
-Total,3106.41,motorbike,sao_paulo,Motorcyle
-bike,0,motorbike,vizag,Motorcyle
-bus,17.89,motorbike,vizag,Motorcyle
-car,22.46,motorbike,vizag,Motorcyle
-motorbike,0,motorbike,vizag,Motorcyle
-other,0,motorbike,vizag,Motorcyle
-pedestrian,0,motorbike,vizag,Motorcyle
-rail,0,motorbike,vizag,Motorcyle
-truck,103.45,motorbike,vizag,Motorcyle
-unknown,9.88,motorbike,vizag,Motorcyle
-NOV,99.15,motorbike,vizag,Motorcyle
-Total,252.84,motorbike,vizag,Motorcyle
-bike,0,truck,bogota,Motorcyle
-bus,0,truck,bogota,Motorcyle
-car,0.08,truck,bogota,Motorcyle
-motorbike,0,truck,bogota,Motorcyle
-other,0,truck,bogota,Motorcyle
-pedestrian,0,truck,bogota,Motorcyle
-rail,0,truck,bogota,Motorcyle
-truck,0.83,truck,bogota,Motorcyle
-unknown,0,truck,bogota,Motorcyle
-NOV,0,truck,bogota,Motorcyle
-Total,0.91,truck,bogota,Motorcyle
-bike,0,bike,accra,Bus
-bus,2.71,bike,accra,Bus
-car,4.64,bike,accra,Bus
-motorbike,0.39,bike,accra,Bus
-other,0.1,bike,accra,Bus
-pedestrian,0,bike,accra,Bus
-rail,0,bike,accra,Bus
-truck,2.32,bike,accra,Bus
-unknown,0.77,bike,accra,Bus
-NOV,0,bike,accra,Bus
-Total,10.92,bike,accra,Bus
-bike,0,bike,bangalore,Bus
-bus,1.18,bike,bangalore,Bus
-car,2.36,bike,bangalore,Bus
-motorbike,1.02,bike,bangalore,Bus
-other,0,bike,bangalore,Bus
-pedestrian,0,bike,bangalore,Bus
-rail,0,bike,bangalore,Bus
-truck,2.59,bike,bangalore,Bus
-unknown,3.89,bike,bangalore,Bus
-NOV,0,bike,bangalore,Bus
-Total,11.05,bike,bangalore,Bus
-bike,0,bike,bogota,Bus
-bus,15.94,bike,bogota,Bus
-car,14.33,bike,bogota,Bus
-motorbike,2.46,bike,bogota,Bus
-other,0,bike,bogota,Bus
-pedestrian,0.73,bike,bogota,Bus
-rail,0,bike,bogota,Bus
-truck,5.12,bike,bogota,Bus
-unknown,0.16,bike,bogota,Bus
-NOV,0.47,bike,bogota,Bus
-Total,39.19,bike,bogota,Bus
-bike,0,bike,buenos_aires,Bus
-bus,0,bike,buenos_aires,Bus
-car,0,bike,buenos_aires,Bus
-motorbike,0,bike,buenos_aires,Bus
-other,0,bike,buenos_aires,Bus
-pedestrian,0,bike,buenos_aires,Bus
-rail,0,bike,buenos_aires,Bus
-truck,0,bike,buenos_aires,Bus
-unknown,0,bike,buenos_aires,Bus
-NOV,28.13,bike,buenos_aires,Bus
-Total,28.13,bike,buenos_aires,Bus
-bike,0,bike,delhi,Bus
-bus,18.34,bike,delhi,Bus
-car,23.53,bike,delhi,Bus
-motorbike,4.94,bike,delhi,Bus
-other,0,bike,delhi,Bus
-pedestrian,0,bike,delhi,Bus
-rail,0,bike,delhi,Bus
-truck,20.26,bike,delhi,Bus
-unknown,24.31,bike,delhi,Bus
-NOV,0,bike,delhi,Bus
-Total,91.39,bike,delhi,Bus
-bike,0,bike,mexico_city,Bus
-bus,0,bike,mexico_city,Bus
-car,0,bike,mexico_city,Bus
-motorbike,0,bike,mexico_city,Bus
-other,0,bike,mexico_city,Bus
-pedestrian,0,bike,mexico_city,Bus
-rail,0,bike,mexico_city,Bus
-truck,0,bike,mexico_city,Bus
-unknown,0,bike,mexico_city,Bus
-NOV,32.24,bike,mexico_city,Bus
-Total,32.24,bike,mexico_city,Bus
-bike,0,bike,santiago,Bus
-bus,7.33,bike,santiago,Bus
-car,1.93,bike,santiago,Bus
-motorbike,0.05,bike,santiago,Bus
-other,0,bike,santiago,Bus
-pedestrian,0,bike,santiago,Bus
-rail,0,bike,santiago,Bus
-truck,2.99,bike,santiago,Bus
-unknown,0.12,bike,santiago,Bus
-NOV,1.32,bike,santiago,Bus
-Total,13.74,bike,santiago,Bus
-bike,0,bike,sao_paulo,Bus
-bus,11.38,bike,sao_paulo,Bus
-car,5.63,bike,sao_paulo,Bus
-motorbike,0.99,bike,sao_paulo,Bus
-other,0,bike,sao_paulo,Bus
-pedestrian,0,bike,sao_paulo,Bus
-rail,0,bike,sao_paulo,Bus
-truck,3.33,bike,sao_paulo,Bus
-unknown,0,bike,sao_paulo,Bus
-NOV,7.97,bike,sao_paulo,Bus
-Total,29.3,bike,sao_paulo,Bus
-bike,0,bike,vizag,Bus
-bus,2.45,bike,vizag,Bus
-car,2.13,bike,vizag,Bus
-motorbike,2.27,bike,vizag,Bus
-other,0,bike,vizag,Bus
-pedestrian,0,bike,vizag,Bus
-rail,0,bike,vizag,Bus
-truck,6.99,bike,vizag,Bus
-unknown,1.93,bike,vizag,Bus
-NOV,0,bike,vizag,Bus
-Total,15.77,bike,vizag,Bus
-bike,0.1,bus,accra,Bus
-bus,0,bus,accra,Bus
-car,2.2,bus,accra,Bus
-motorbike,0.2,bus,accra,Bus
-other,0.2,bus,accra,Bus
-pedestrian,0.1,bus,accra,Bus
-rail,0,bus,accra,Bus
-truck,5.71,bus,accra,Bus
-unknown,0,bus,accra,Bus
-NOV,8.21,bus,accra,Bus
-Total,16.71,bus,accra,Bus
-bike,0,bus,bangalore,Bus
-bus,0,bus,bangalore,Bus
-car,0,bus,bangalore,Bus
-motorbike,0,bus,bangalore,Bus
-other,0,bus,bangalore,Bus
-pedestrian,0,bus,bangalore,Bus
-rail,0,bus,bangalore,Bus
-truck,7.24,bus,bangalore,Bus
-unknown,0,bus,bangalore,Bus
-NOV,25.41,bus,bangalore,Bus
-Total,32.66,bus,bangalore,Bus
-bike,0,bus,belo_horizonte,Bus
-bus,0,bus,belo_horizonte,Bus
-car,0.45,bus,belo_horizonte,Bus
-motorbike,0,bus,belo_horizonte,Bus
-other,0,bus,belo_horizonte,Bus
-pedestrian,0,bus,belo_horizonte,Bus
-rail,0.58,bus,belo_horizonte,Bus
-truck,0,bus,belo_horizonte,Bus
-unknown,0,bus,belo_horizonte,Bus
-NOV,7.4,bus,belo_horizonte,Bus
-Total,8.43,bus,belo_horizonte,Bus
-bike,0,bus,bogota,Bus
-bus,0,bus,bogota,Bus
-car,0.33,bus,bogota,Bus
-motorbike,0,bus,bogota,Bus
-other,0,bus,bogota,Bus
-pedestrian,0.35,bus,bogota,Bus
-rail,0,bus,bogota,Bus
-truck,0,bus,bogota,Bus
-unknown,0,bus,bogota,Bus
-NOV,7.73,bus,bogota,Bus
-Total,8.41,bus,bogota,Bus
-bike,0,bus,buenos_aires,Bus
-bus,0,bus,buenos_aires,Bus
-car,0,bus,buenos_aires,Bus
-motorbike,0,bus,buenos_aires,Bus
-other,0,bus,buenos_aires,Bus
-pedestrian,0,bus,buenos_aires,Bus
-rail,0,bus,buenos_aires,Bus
-truck,0,bus,buenos_aires,Bus
-unknown,0,bus,buenos_aires,Bus
-NOV,17.33,bus,buenos_aires,Bus
-Total,17.33,bus,buenos_aires,Bus
-bike,0,bus,delhi,Bus
-bus,0,bus,delhi,Bus
-car,2.61,bus,delhi,Bus
-motorbike,1.2,bus,delhi,Bus
-other,0,bus,delhi,Bus
-pedestrian,0,bus,delhi,Bus
-rail,0,bus,delhi,Bus
-truck,1.57,bus,delhi,Bus
-unknown,0,bus,delhi,Bus
-NOV,7.71,bus,delhi,Bus
-Total,13.09,bus,delhi,Bus
-bike,0,bus,mexico_city,Bus
-bus,0,bus,mexico_city,Bus
-car,0,bus,mexico_city,Bus
-motorbike,0,bus,mexico_city,Bus
-other,0,bus,mexico_city,Bus
-pedestrian,0,bus,mexico_city,Bus
-rail,0,bus,mexico_city,Bus
-truck,0,bus,mexico_city,Bus
-unknown,0,bus,mexico_city,Bus
-NOV,19.26,bus,mexico_city,Bus
-Total,19.26,bus,mexico_city,Bus
-bike,0,bus,santiago,Bus
-bus,0,bus,santiago,Bus
-car,0.83,bus,santiago,Bus
-motorbike,0,bus,santiago,Bus
-other,0,bus,santiago,Bus
-pedestrian,0,bus,santiago,Bus
-rail,0,bus,santiago,Bus
-truck,0.45,bus,santiago,Bus
-unknown,0,bus,santiago,Bus
-NOV,7.21,bus,santiago,Bus
-Total,8.48,bus,santiago,Bus
-bike,0,bus,sao_paulo,Bus
-bus,0,bus,sao_paulo,Bus
-car,2.15,bus,sao_paulo,Bus
-motorbike,1.43,bus,sao_paulo,Bus
-other,0,bus,sao_paulo,Bus
-pedestrian,0,bus,sao_paulo,Bus
-rail,0,bus,sao_paulo,Bus
-truck,0.57,bus,sao_paulo,Bus
-unknown,0,bus,sao_paulo,Bus
-NOV,7.55,bus,sao_paulo,Bus
-Total,11.69,bus,sao_paulo,Bus
-bike,0,bus,vizag,Bus
-bus,0,bus,vizag,Bus
-car,0,bus,vizag,Bus
-motorbike,0,bus,vizag,Bus
-other,0,bus,vizag,Bus
-pedestrian,0,bus,vizag,Bus
-rail,0,bus,vizag,Bus
-truck,0.38,bus,vizag,Bus
-unknown,0,bus,vizag,Bus
-NOV,5.29,bus,vizag,Bus
-Total,5.67,bus,vizag,Bus
-bike,0,car,accra,Bus
-bus,3.6,car,accra,Bus
-car,0,car,accra,Bus
-motorbike,0.7,car,accra,Bus
-other,0.7,car,accra,Bus
-pedestrian,1.1,car,accra,Bus
-rail,0,car,accra,Bus
-truck,7.89,car,accra,Bus
-unknown,0.5,car,accra,Bus
-NOV,17.09,car,accra,Bus
-Total,31.58,car,accra,Bus
-bike,0,car,bangalore,Bus
-bus,3.77,car,bangalore,Bus
-car,0,car,bangalore,Bus
-motorbike,0.82,car,bangalore,Bus
-other,0,car,bangalore,Bus
-pedestrian,0,car,bangalore,Bus
-rail,0,car,bangalore,Bus
-truck,3.63,car,bangalore,Bus
-unknown,1.04,car,bangalore,Bus
-NOV,5.2,car,bangalore,Bus
-Total,14.46,car,bangalore,Bus
-bike,0,car,belo_horizonte,Bus
-bus,19.25,car,belo_horizonte,Bus
-car,0,car,belo_horizonte,Bus
-motorbike,0,car,belo_horizonte,Bus
-other,0,car,belo_horizonte,Bus
-pedestrian,0,car,belo_horizonte,Bus
-rail,0.14,car,belo_horizonte,Bus
-truck,0,car,belo_horizonte,Bus
-unknown,0,car,belo_horizonte,Bus
-NOV,42.47,car,belo_horizonte,Bus
-Total,61.86,car,belo_horizonte,Bus
-bike,0,car,bogota,Bus
-bus,2.4,car,bogota,Bus
-car,0,car,bogota,Bus
-motorbike,0.27,car,bogota,Bus
-other,0,car,bogota,Bus
-pedestrian,0,car,bogota,Bus
-rail,0,car,bogota,Bus
-truck,0.8,car,bogota,Bus
-unknown,0,car,bogota,Bus
-NOV,16.25,car,bogota,Bus
-Total,19.73,car,bogota,Bus
-bike,0,car,buenos_aires,Bus
-bus,0,car,buenos_aires,Bus
-car,0,car,buenos_aires,Bus
-motorbike,0,car,buenos_aires,Bus
-other,0,car,buenos_aires,Bus
-pedestrian,0,car,buenos_aires,Bus
-rail,0,car,buenos_aires,Bus
-truck,0,car,buenos_aires,Bus
-unknown,0,car,buenos_aires,Bus
-NOV,270.66,car,buenos_aires,Bus
-Total,270.66,car,buenos_aires,Bus
-bike,0,car,delhi,Bus
-bus,7.84,car,delhi,Bus
-car,0,car,delhi,Bus
-motorbike,1.32,car,delhi,Bus
-other,0,car,delhi,Bus
-pedestrian,0,car,delhi,Bus
-rail,0,car,delhi,Bus
-truck,21.64,car,delhi,Bus
-unknown,18.18,car,delhi,Bus
-NOV,57.63,car,delhi,Bus
-Total,106.61,car,delhi,Bus
-bike,0,car,mexico_city,Bus
-bus,0,car,mexico_city,Bus
-car,0,car,mexico_city,Bus
-motorbike,0,car,mexico_city,Bus
-other,0,car,mexico_city,Bus
-pedestrian,0,car,mexico_city,Bus
-rail,0,car,mexico_city,Bus
-truck,0,car,mexico_city,Bus
-unknown,0,car,mexico_city,Bus
-NOV,267.46,car,mexico_city,Bus
-Total,267.46,car,mexico_city,Bus
-bike,0,car,santiago,Bus
-bus,8.7,car,santiago,Bus
-car,0,car,santiago,Bus
-motorbike,0.05,car,santiago,Bus
-other,0,car,santiago,Bus
-pedestrian,0.34,car,santiago,Bus
-rail,0,car,santiago,Bus
-truck,2.98,car,santiago,Bus
-unknown,0,car,santiago,Bus
-NOV,23.91,car,santiago,Bus
-Total,35.99,car,santiago,Bus
-bike,0,car,sao_paulo,Bus
-bus,20.34,car,sao_paulo,Bus
-car,0,car,sao_paulo,Bus
-motorbike,1.38,car,sao_paulo,Bus
-other,0,car,sao_paulo,Bus
-pedestrian,0,car,sao_paulo,Bus
-rail,0,car,sao_paulo,Bus
-truck,9.06,car,sao_paulo,Bus
-unknown,0,car,sao_paulo,Bus
-NOV,84.87,car,sao_paulo,Bus
-Total,115.65,car,sao_paulo,Bus
-bike,0,car,vizag,Bus
-bus,0,car,vizag,Bus
-car,0,car,vizag,Bus
-motorbike,0,car,vizag,Bus
-other,0,car,vizag,Bus
-pedestrian,0,car,vizag,Bus
-rail,0,car,vizag,Bus
-truck,3.35,car,vizag,Bus
-unknown,0,car,vizag,Bus
-NOV,5.55,car,vizag,Bus
-Total,8.91,car,vizag,Bus
-bike,0,motorbike,accra,Bus
-bus,6.7,motorbike,accra,Bus
-car,10.5,motorbike,accra,Bus
-motorbike,0,motorbike,accra,Bus
-other,0.5,motorbike,accra,Bus
-pedestrian,1,motorbike,accra,Bus
-rail,0,motorbike,accra,Bus
-truck,5,motorbike,accra,Bus
-unknown,0.9,motorbike,accra,Bus
-NOV,4.2,motorbike,accra,Bus
-Total,28.8,motorbike,accra,Bus
-bike,0.34,motorbike,bangalore,Bus
-bus,56.25,motorbike,bangalore,Bus
-car,12.83,motorbike,bangalore,Bus
-motorbike,0,motorbike,bangalore,Bus
-other,0,motorbike,bangalore,Bus
-pedestrian,1.57,motorbike,bangalore,Bus
-rail,0,motorbike,bangalore,Bus
-truck,53.46,motorbike,bangalore,Bus
-unknown,9.43,motorbike,bangalore,Bus
-NOV,37.82,motorbike,bangalore,Bus
-Total,171.71,motorbike,bangalore,Bus
-bike,1.43,motorbike,bogota,Bus
-bus,31.87,motorbike,bogota,Bus
-car,45.69,motorbike,bogota,Bus
-motorbike,0,motorbike,bogota,Bus
-other,0,motorbike,bogota,Bus
-pedestrian,2.98,motorbike,bogota,Bus
-rail,0,motorbike,bogota,Bus
-truck,18.53,motorbike,bogota,Bus
-unknown,0,motorbike,bogota,Bus
-NOV,35.61,motorbike,bogota,Bus
-Total,136.12,motorbike,bogota,Bus
-bike,0,motorbike,buenos_aires,Bus
-bus,0,motorbike,buenos_aires,Bus
-car,0,motorbike,buenos_aires,Bus
-motorbike,0,motorbike,buenos_aires,Bus
-other,0,motorbike,buenos_aires,Bus
-pedestrian,0,motorbike,buenos_aires,Bus
-rail,0,motorbike,buenos_aires,Bus
-truck,0,motorbike,buenos_aires,Bus
-unknown,0,motorbike,buenos_aires,Bus
-NOV,91.2,motorbike,buenos_aires,Bus
-Total,91.2,motorbike,buenos_aires,Bus
-bike,0,motorbike,delhi,Bus
-bus,71.96,motorbike,delhi,Bus
-car,92.97,motorbike,delhi,Bus
-motorbike,0,motorbike,delhi,Bus
-other,0,motorbike,delhi,Bus
-pedestrian,0,motorbike,delhi,Bus
-rail,0,motorbike,delhi,Bus
-truck,110.48,motorbike,delhi,Bus
-unknown,206.65,motorbike,delhi,Bus
-NOV,63.8,motorbike,delhi,Bus
-Total,545.87,motorbike,delhi,Bus
-bike,0,motorbike,mexico_city,Bus
-bus,0,motorbike,mexico_city,Bus
-car,0,motorbike,mexico_city,Bus
-motorbike,0,motorbike,mexico_city,Bus
-other,0,motorbike,mexico_city,Bus
-pedestrian,0,motorbike,mexico_city,Bus
-rail,0,motorbike,mexico_city,Bus
-truck,0,motorbike,mexico_city,Bus
-unknown,0,motorbike,mexico_city,Bus
-NOV,94.52,motorbike,mexico_city,Bus
-Total,94.52,motorbike,mexico_city,Bus
-bike,0.05,motorbike,santiago,Bus
-bus,2.83,motorbike,santiago,Bus
-car,2.6,motorbike,santiago,Bus
-motorbike,0,motorbike,santiago,Bus
-other,0,motorbike,santiago,Bus
-pedestrian,0,motorbike,santiago,Bus
-rail,0,motorbike,santiago,Bus
-truck,3.14,motorbike,santiago,Bus
-unknown,0.42,motorbike,santiago,Bus
-NOV,6.6,motorbike,santiago,Bus
-Total,15.64,motorbike,santiago,Bus
-bike,0.08,motorbike,sao_paulo,Bus
-bus,56.49,motorbike,sao_paulo,Bus
-car,49.2,motorbike,sao_paulo,Bus
-motorbike,0,motorbike,sao_paulo,Bus
-other,0.37,motorbike,sao_paulo,Bus
-pedestrian,0,motorbike,sao_paulo,Bus
-rail,0,motorbike,sao_paulo,Bus
-truck,38.35,motorbike,sao_paulo,Bus
-unknown,0,motorbike,sao_paulo,Bus
-NOV,103.32,motorbike,sao_paulo,Bus
-Total,247.82,motorbike,sao_paulo,Bus
-bike,0,motorbike,vizag,Bus
-bus,12.12,motorbike,vizag,Bus
-car,10.16,motorbike,vizag,Bus
-motorbike,0,motorbike,vizag,Bus
-other,0,motorbike,vizag,Bus
-pedestrian,0,motorbike,vizag,Bus
-rail,0,motorbike,vizag,Bus
-truck,38.39,motorbike,vizag,Bus
-unknown,3.67,motorbike,vizag,Bus
-NOV,36.8,motorbike,vizag,Bus
-Total,101.14,motorbike,vizag,Bus
-bike,0,truck,bogota,Bus
-bus,0,truck,bogota,Bus
-car,0.16,truck,bogota,Bus
-motorbike,0,truck,bogota,Bus
-other,0,truck,bogota,Bus
-pedestrian,0,truck,bogota,Bus
-rail,0,truck,bogota,Bus
-truck,0.83,truck,bogota,Bus
-unknown,0,truck,bogota,Bus
-NOV,0,truck,bogota,Bus
-Total,1,truck,bogota,Bus
+bike,0,bike,accra,Bicycling
+bus,18.44,bike,accra,Bicycling
+car,31.86,bike,accra,Bicycling
+motorbike,2.67,bike,accra,Bicycling
+other,0.68,bike,accra,Bicycling
+pedestrian,0,bike,accra,Bicycling
+rail,0,bike,accra,Bicycling
+truck,16.39,bike,accra,Bicycling
+unknown,5.46,bike,accra,Bicycling
+NOV,0,bike,accra,Bicycling
+Total,75.5,bike,accra,Bicycling
+bike,0,bike,bangalore,Bicycling
+bus,2.12,bike,bangalore,Bicycling
+car,14.77,bike,bangalore,Bicycling
+motorbike,6.4,bike,bangalore,Bicycling
+other,0,bike,bangalore,Bicycling
+pedestrian,0,bike,bangalore,Bicycling
+rail,0,bike,bangalore,Bicycling
+truck,8.79,bike,bangalore,Bicycling
+unknown,13.19,bike,bangalore,Bicycling
+NOV,0,bike,bangalore,Bicycling
+Total,45.27,bike,bangalore,Bicycling
+bike,0,bike,bogota,Bicycling
+bus,16.94,bike,bogota,Bicycling
+car,15.61,bike,bogota,Bicycling
+motorbike,2.67,bike,bogota,Bicycling
+other,0,bike,bogota,Bicycling
+pedestrian,0.78,bike,bogota,Bicycling
+rail,0,bike,bogota,Bicycling
+truck,5.5,bike,bogota,Bicycling
+unknown,0.17,bike,bogota,Bicycling
+NOV,0.5,bike,bogota,Bicycling
+Total,42.17,bike,bogota,Bicycling
+bike,0,bike,buenos_aires,Bicycling
+bus,0,bike,buenos_aires,Bicycling
+car,0,bike,buenos_aires,Bicycling
+motorbike,0,bike,buenos_aires,Bicycling
+other,0,bike,buenos_aires,Bicycling
+pedestrian,0,bike,buenos_aires,Bicycling
+rail,0,bike,buenos_aires,Bicycling
+truck,0,bike,buenos_aires,Bicycling
+unknown,0,bike,buenos_aires,Bicycling
+NOV,95.97,bike,buenos_aires,Bicycling
+Total,95.97,bike,buenos_aires,Bicycling
+bike,0,bike,delhi,Bicycling
+bus,17.47,bike,delhi,Bicycling
+car,40.85,bike,delhi,Bicycling
+motorbike,9.29,bike,delhi,Bicycling
+other,0,bike,delhi,Bicycling
+pedestrian,0,bike,delhi,Bicycling
+rail,0,bike,delhi,Bicycling
+truck,29.25,bike,delhi,Bicycling
+unknown,35.1,bike,delhi,Bicycling
+NOV,0,bike,delhi,Bicycling
+Total,131.96,bike,delhi,Bicycling
+bike,0,bike,mexico_city,Bicycling
+bus,0,bike,mexico_city,Bicycling
+car,0,bike,mexico_city,Bicycling
+motorbike,0,bike,mexico_city,Bicycling
+other,0,bike,mexico_city,Bicycling
+pedestrian,0,bike,mexico_city,Bicycling
+rail,0,bike,mexico_city,Bicycling
+truck,0,bike,mexico_city,Bicycling
+unknown,0,bike,mexico_city,Bicycling
+NOV,170.13,bike,mexico_city,Bicycling
+Total,170.13,bike,mexico_city,Bicycling
+bike,0,bike,santiago,Bicycling
+bus,18.39,bike,santiago,Bicycling
+car,18.85,bike,santiago,Bicycling
+motorbike,0.54,bike,santiago,Bicycling
+other,0,bike,santiago,Bicycling
+pedestrian,0,bike,santiago,Bicycling
+rail,0,bike,santiago,Bicycling
+truck,13.73,bike,santiago,Bicycling
+unknown,0.55,bike,santiago,Bicycling
+NOV,6.05,bike,santiago,Bicycling
+Total,58.11,bike,santiago,Bicycling
+bike,0,bike,sao_paulo,Bicycling
+bus,65.15,bike,sao_paulo,Bicycling
+car,70.23,bike,sao_paulo,Bicycling
+motorbike,13.6,bike,sao_paulo,Bicycling
+other,0,bike,sao_paulo,Bicycling
+pedestrian,0,bike,sao_paulo,Bicycling
+rail,0,bike,sao_paulo,Bicycling
+truck,29.7,bike,sao_paulo,Bicycling
+unknown,0,bike,sao_paulo,Bicycling
+NOV,86.1,bike,sao_paulo,Bicycling
+Total,264.78,bike,sao_paulo,Bicycling
+bike,0,bike,vizag,Bicycling
+bus,4.77,bike,vizag,Bicycling
+car,6.39,bike,vizag,Bicycling
+motorbike,6.86,bike,vizag,Bicycling
+other,0,bike,vizag,Bicycling
+pedestrian,0,bike,vizag,Bicycling
+rail,0,bike,vizag,Bicycling
+truck,15.64,bike,vizag,Bicycling
+unknown,4.31,bike,vizag,Bicycling
+NOV,0,bike,vizag,Bicycling
+Total,37.98,bike,vizag,Bicycling
+bike,0.86,bus,accra,Bicycling
+bus,0,bus,accra,Bicycling
+car,2.05,bus,accra,Bicycling
+motorbike,0.19,bus,accra,Bicycling
+other,0.19,bus,accra,Bicycling
+pedestrian,0.09,bus,accra,Bicycling
+rail,0,bus,accra,Bicycling
+truck,5.48,bus,accra,Bicycling
+unknown,0,bus,accra,Bicycling
+NOV,7.88,bus,accra,Bicycling
+Total,16.75,bus,accra,Bicycling
+bike,0,bus,bangalore,Bicycling
+bus,0,bus,bangalore,Bicycling
+car,0,bus,bangalore,Bicycling
+motorbike,0,bus,bangalore,Bicycling
+other,0,bus,bangalore,Bicycling
+pedestrian,0,bus,bangalore,Bicycling
+rail,0,bus,bangalore,Bicycling
+truck,3.87,bus,bangalore,Bicycling
+unknown,0,bus,bangalore,Bicycling
+NOV,13.53,bus,bangalore,Bicycling
+Total,17.4,bus,bangalore,Bicycling
+bike,0,bus,belo_horizonte,Bicycling
+bus,0,bus,belo_horizonte,Bicycling
+car,0.52,bus,belo_horizonte,Bicycling
+motorbike,0,bus,belo_horizonte,Bicycling
+other,0,bus,belo_horizonte,Bicycling
+pedestrian,0,bus,belo_horizonte,Bicycling
+rail,0.37,bus,belo_horizonte,Bicycling
+truck,0,bus,belo_horizonte,Bicycling
+unknown,0,bus,belo_horizonte,Bicycling
+NOV,4.71,bus,belo_horizonte,Bicycling
+Total,5.6,bus,belo_horizonte,Bicycling
+bike,0,bus,bogota,Bicycling
+bus,0,bus,bogota,Bicycling
+car,0.33,bus,bogota,Bicycling
+motorbike,0,bus,bogota,Bicycling
+other,0,bus,bogota,Bicycling
+pedestrian,0.34,bus,bogota,Bicycling
+rail,0,bus,bogota,Bicycling
+truck,0,bus,bogota,Bicycling
+unknown,0,bus,bogota,Bicycling
+NOV,7.66,bus,bogota,Bicycling
+Total,8.33,bus,bogota,Bicycling
+bike,0,bus,buenos_aires,Bicycling
+bus,0,bus,buenos_aires,Bicycling
+car,0,bus,buenos_aires,Bicycling
+motorbike,0,bus,buenos_aires,Bicycling
+other,0,bus,buenos_aires,Bicycling
+pedestrian,0,bus,buenos_aires,Bicycling
+rail,0,bus,buenos_aires,Bicycling
+truck,0,bus,buenos_aires,Bicycling
+unknown,0,bus,buenos_aires,Bicycling
+NOV,13.66,bus,buenos_aires,Bicycling
+Total,13.66,bus,buenos_aires,Bicycling
+bike,0,bus,delhi,Bicycling
+bus,0,bus,delhi,Bicycling
+car,1.99,bus,delhi,Bicycling
+motorbike,0.99,bus,delhi,Bicycling
+other,0,bus,delhi,Bicycling
+pedestrian,0,bus,delhi,Bicycling
+rail,0,bus,delhi,Bicycling
+truck,1,bus,delhi,Bicycling
+unknown,0,bus,delhi,Bicycling
+NOV,4.98,bus,delhi,Bicycling
+Total,8.95,bus,delhi,Bicycling
+bike,0,bus,mexico_city,Bicycling
+bus,0,bus,mexico_city,Bicycling
+car,0,bus,mexico_city,Bicycling
+motorbike,0,bus,mexico_city,Bicycling
+other,0,bus,mexico_city,Bicycling
+pedestrian,0,bus,mexico_city,Bicycling
+rail,0,bus,mexico_city,Bicycling
+truck,0,bus,mexico_city,Bicycling
+unknown,0,bus,mexico_city,Bicycling
+NOV,13.51,bus,mexico_city,Bicycling
+Total,13.51,bus,mexico_city,Bicycling
+bike,0,bus,santiago,Bicycling
+bus,0,bus,santiago,Bicycling
+car,0.96,bus,santiago,Bicycling
+motorbike,0,bus,santiago,Bicycling
+other,0,bus,santiago,Bicycling
+pedestrian,0,bus,santiago,Bicycling
+rail,0,bus,santiago,Bicycling
+truck,0.25,bus,santiago,Bicycling
+unknown,0,bus,santiago,Bicycling
+NOV,3.93,bus,santiago,Bicycling
+Total,5.14,bus,santiago,Bicycling
+bike,0,bus,sao_paulo,Bicycling
+bus,0,bus,sao_paulo,Bicycling
+car,2.02,bus,sao_paulo,Bicycling
+motorbike,1.48,bus,sao_paulo,Bicycling
+other,0,bus,sao_paulo,Bicycling
+pedestrian,0,bus,sao_paulo,Bicycling
+rail,0,bus,sao_paulo,Bicycling
+truck,0.38,bus,sao_paulo,Bicycling
+unknown,0,bus,sao_paulo,Bicycling
+NOV,4.99,bus,sao_paulo,Bicycling
+Total,8.87,bus,sao_paulo,Bicycling
+bike,0,bus,vizag,Bicycling
+bus,0,bus,vizag,Bicycling
+car,0,bus,vizag,Bicycling
+motorbike,0,bus,vizag,Bicycling
+other,0,bus,vizag,Bicycling
+pedestrian,0,bus,vizag,Bicycling
+rail,0,bus,vizag,Bicycling
+truck,0.33,bus,vizag,Bicycling
+unknown,0,bus,vizag,Bicycling
+NOV,4.59,bus,vizag,Bicycling
+Total,4.92,bus,vizag,Bicycling
+bike,0,car,accra,Bicycling
+bus,3.37,car,accra,Bicycling
+car,0,car,accra,Bicycling
+motorbike,0.66,car,accra,Bicycling
+other,0.68,car,accra,Bicycling
+pedestrian,1.03,car,accra,Bicycling
+rail,0,car,accra,Bicycling
+truck,7.68,car,accra,Bicycling
+unknown,0.49,car,accra,Bicycling
+NOV,16.63,car,accra,Bicycling
+Total,30.54,car,accra,Bicycling
+bike,0,car,bangalore,Bicycling
+bus,3.71,car,bangalore,Bicycling
+car,0,car,bangalore,Bicycling
+motorbike,2.79,car,bangalore,Bicycling
+other,0,car,bangalore,Bicycling
+pedestrian,0,car,bangalore,Bicycling
+rail,0,car,bangalore,Bicycling
+truck,6.72,car,bangalore,Bicycling
+unknown,1.92,car,bangalore,Bicycling
+NOV,9.6,car,bangalore,Bicycling
+Total,24.75,car,bangalore,Bicycling
+bike,0,car,belo_horizonte,Bicycling
+bus,22.38,car,belo_horizonte,Bicycling
+car,0,car,belo_horizonte,Bicycling
+motorbike,0,car,belo_horizonte,Bicycling
+other,0,car,belo_horizonte,Bicycling
+pedestrian,0,car,belo_horizonte,Bicycling
+rail,0.25,car,belo_horizonte,Bicycling
+truck,0,car,belo_horizonte,Bicycling
+unknown,0,car,belo_horizonte,Bicycling
+NOV,77.56,car,belo_horizonte,Bicycling
+Total,100.19,car,belo_horizonte,Bicycling
+bike,0,car,bogota,Bicycling
+bus,2.41,car,bogota,Bicycling
+car,0,car,bogota,Bicycling
+motorbike,0.28,car,bogota,Bicycling
+other,0,car,bogota,Bicycling
+pedestrian,0,car,bogota,Bicycling
+rail,0,car,bogota,Bicycling
+truck,0.81,car,bogota,Bicycling
+unknown,0,car,bogota,Bicycling
+NOV,16.5,car,bogota,Bicycling
+Total,20,car,bogota,Bicycling
+bike,0,car,buenos_aires,Bicycling
+bus,0,car,buenos_aires,Bicycling
+car,0,car,buenos_aires,Bicycling
+motorbike,0,car,buenos_aires,Bicycling
+other,0,car,buenos_aires,Bicycling
+pedestrian,0,car,buenos_aires,Bicycling
+rail,0,car,buenos_aires,Bicycling
+truck,0,car,buenos_aires,Bicycling
+unknown,0,car,buenos_aires,Bicycling
+NOV,356.16,car,buenos_aires,Bicycling
+Total,356.16,car,buenos_aires,Bicycling
+bike,0,car,delhi,Bicycling
+bus,5.96,car,delhi,Bicycling
+car,0,car,delhi,Bicycling
+motorbike,1.98,car,delhi,Bicycling
+other,0,car,delhi,Bicycling
+pedestrian,0,car,delhi,Bicycling
+rail,0,car,delhi,Bicycling
+truck,24.93,car,delhi,Bicycling
+unknown,20.94,car,delhi,Bicycling
+NOV,67.82,car,delhi,Bicycling
+Total,121.64,car,delhi,Bicycling
+bike,0,car,mexico_city,Bicycling
+bus,0,car,mexico_city,Bicycling
+car,0,car,mexico_city,Bicycling
+motorbike,0,car,mexico_city,Bicycling
+other,0,car,mexico_city,Bicycling
+pedestrian,0,car,mexico_city,Bicycling
+rail,0,car,mexico_city,Bicycling
+truck,0,car,mexico_city,Bicycling
+unknown,0,car,mexico_city,Bicycling
+NOV,354.46,car,mexico_city,Bicycling
+Total,354.46,car,mexico_city,Bicycling
+bike,0,car,santiago,Bicycling
+bus,10.12,car,santiago,Bicycling
+car,0,car,santiago,Bicycling
+motorbike,0.24,car,santiago,Bicycling
+other,0,car,santiago,Bicycling
+pedestrian,0.72,car,santiago,Bicycling
+rail,0,car,santiago,Bicycling
+truck,6.36,car,santiago,Bicycling
+unknown,0,car,santiago,Bicycling
+NOV,50.94,car,santiago,Bicycling
+Total,68.38,car,santiago,Bicycling
+bike,0,car,sao_paulo,Bicycling
+bus,18.16,car,sao_paulo,Bicycling
+car,0,car,sao_paulo,Bicycling
+motorbike,2.94,car,sao_paulo,Bicycling
+other,0,car,sao_paulo,Bicycling
+pedestrian,0,car,sao_paulo,Bicycling
+rail,0,car,sao_paulo,Bicycling
+truck,12.62,car,sao_paulo,Bicycling
+unknown,0,car,sao_paulo,Bicycling
+NOV,118.42,car,sao_paulo,Bicycling
+Total,152.14,car,sao_paulo,Bicycling
+bike,0,car,vizag,Bicycling
+bus,0,car,vizag,Bicycling
+car,0,car,vizag,Bicycling
+motorbike,0,car,vizag,Bicycling
+other,0,car,vizag,Bicycling
+pedestrian,0,car,vizag,Bicycling
+rail,0,car,vizag,Bicycling
+truck,4.45,car,vizag,Bicycling
+unknown,0,car,vizag,Bicycling
+NOV,7.41,car,vizag,Bicycling
+Total,11.86,car,vizag,Bicycling
+bike,0,motorbike,accra,Bicycling
+bus,6.15,motorbike,accra,Bicycling
+car,9.72,motorbike,accra,Bicycling
+motorbike,0,motorbike,accra,Bicycling
+other,0.48,motorbike,accra,Bicycling
+pedestrian,0.91,motorbike,accra,Bicycling
+rail,0,motorbike,accra,Bicycling
+truck,4.76,motorbike,accra,Bicycling
+unknown,0.86,motorbike,accra,Bicycling
+NOV,4.01,motorbike,accra,Bicycling
+Total,26.9,motorbike,accra,Bicycling
+bike,2.13,motorbike,bangalore,Bicycling
+bus,55.35,motorbike,bangalore,Bicycling
+car,43.78,motorbike,bangalore,Bicycling
+motorbike,0,motorbike,bangalore,Bicycling
+other,0,motorbike,bangalore,Bicycling
+pedestrian,2.81,motorbike,bangalore,Bicycling
+rail,0,motorbike,bangalore,Bicycling
+truck,98.98,motorbike,bangalore,Bicycling
+unknown,17.47,motorbike,bangalore,Bicycling
+NOV,69.87,motorbike,bangalore,Bicycling
+Total,290.39,motorbike,bangalore,Bicycling
+bike,1.56,motorbike,bogota,Bicycling
+bus,31.89,motorbike,bogota,Bicycling
+car,46.85,motorbike,bogota,Bicycling
+motorbike,0,motorbike,bogota,Bicycling
+other,0,motorbike,bogota,Bicycling
+pedestrian,3,motorbike,bogota,Bicycling
+rail,0,motorbike,bogota,Bicycling
+truck,18.72,motorbike,bogota,Bicycling
+unknown,0,motorbike,bogota,Bicycling
+NOV,35.98,motorbike,bogota,Bicycling
+Total,138,motorbike,bogota,Bicycling
+bike,0,motorbike,buenos_aires,Bicycling
+bus,0,motorbike,buenos_aires,Bicycling
+car,0,motorbike,buenos_aires,Bicycling
+motorbike,0,motorbike,buenos_aires,Bicycling
+other,0,motorbike,buenos_aires,Bicycling
+pedestrian,0,motorbike,buenos_aires,Bicycling
+rail,0,motorbike,buenos_aires,Bicycling
+truck,0,motorbike,buenos_aires,Bicycling
+unknown,0,motorbike,buenos_aires,Bicycling
+NOV,126.57,motorbike,buenos_aires,Bicycling
+Total,126.57,motorbike,buenos_aires,Bicycling
+bike,0,motorbike,delhi,Bicycling
+bus,59.28,motorbike,delhi,Bicycling
+car,139.56,motorbike,delhi,Bicycling
+motorbike,0,motorbike,delhi,Bicycling
+other,0,motorbike,delhi,Bicycling
+pedestrian,0,motorbike,delhi,Bicycling
+rail,0,motorbike,delhi,Bicycling
+truck,137.93,motorbike,delhi,Bicycling
+unknown,258,motorbike,delhi,Bicycling
+NOV,81.37,motorbike,delhi,Bicycling
+Total,676.13,motorbike,delhi,Bicycling
+bike,0,motorbike,mexico_city,Bicycling
+bus,0,motorbike,mexico_city,Bicycling
+car,0,motorbike,mexico_city,Bicycling
+motorbike,0,motorbike,mexico_city,Bicycling
+other,0,motorbike,mexico_city,Bicycling
+pedestrian,0,motorbike,mexico_city,Bicycling
+rail,0,motorbike,mexico_city,Bicycling
+truck,0,motorbike,mexico_city,Bicycling
+unknown,0,motorbike,mexico_city,Bicycling
+NOV,126.33,motorbike,mexico_city,Bicycling
+Total,126.33,motorbike,mexico_city,Bicycling
+bike,0.54,motorbike,santiago,Bicycling
+bus,3.61,motorbike,santiago,Bicycling
+car,12.94,motorbike,santiago,Bicycling
+motorbike,0,motorbike,santiago,Bicycling
+other,0,motorbike,santiago,Bicycling
+pedestrian,0,motorbike,santiago,Bicycling
+rail,0,motorbike,santiago,Bicycling
+truck,7.33,motorbike,santiago,Bicycling
+unknown,0.98,motorbike,santiago,Bicycling
+NOV,15.41,motorbike,santiago,Bicycling
+Total,40.81,motorbike,santiago,Bicycling
+bike,2.26,motorbike,sao_paulo,Bicycling
+bus,55.88,motorbike,sao_paulo,Bicycling
+car,106.12,motorbike,sao_paulo,Bicycling
+motorbike,0,motorbike,sao_paulo,Bicycling
+other,0.57,motorbike,sao_paulo,Bicycling
+pedestrian,0,motorbike,sao_paulo,Bicycling
+rail,0,motorbike,sao_paulo,Bicycling
+truck,59.17,motorbike,sao_paulo,Bicycling
+unknown,0,motorbike,sao_paulo,Bicycling
+NOV,164.78,motorbike,sao_paulo,Bicycling
+Total,388.79,motorbike,sao_paulo,Bicycling
+bike,0,motorbike,vizag,Bicycling
+bus,14.12,motorbike,vizag,Bicycling
+car,18.23,motorbike,vizag,Bicycling
+motorbike,0,motorbike,vizag,Bicycling
+other,0,motorbike,vizag,Bicycling
+pedestrian,0,motorbike,vizag,Bicycling
+rail,0,motorbike,vizag,Bicycling
+truck,51.25,motorbike,vizag,Bicycling
+unknown,4.89,motorbike,vizag,Bicycling
+NOV,49.46,motorbike,vizag,Bicycling
+Total,137.95,motorbike,vizag,Bicycling
+bike,3.42,pedestrian,accra,Bicycling
+bus,31.3,pedestrian,accra,Bicycling
+car,66.44,pedestrian,accra,Bicycling
+motorbike,6.9,pedestrian,accra,Bicycling
+other,2.58,pedestrian,accra,Bicycling
+pedestrian,0,pedestrian,accra,Bicycling
+rail,0,pedestrian,accra,Bicycling
+truck,15.09,pedestrian,accra,Bicycling
+unknown,16.9,pedestrian,accra,Bicycling
+NOV,0.29,pedestrian,accra,Bicycling
+Total,142.92,pedestrian,accra,Bicycling
+bike,0,pedestrian,bangalore,Bicycling
+bus,36.43,pedestrian,bangalore,Bicycling
+car,80.7,pedestrian,bangalore,Bicycling
+motorbike,111.58,pedestrian,bangalore,Bicycling
+other,0,pedestrian,bangalore,Bicycling
+pedestrian,0,pedestrian,bangalore,Bicycling
+rail,0,pedestrian,bangalore,Bicycling
+truck,59.91,pedestrian,bangalore,Bicycling
+unknown,63.77,pedestrian,bangalore,Bicycling
+NOV,0,pedestrian,bangalore,Bicycling
+Total,352.39,pedestrian,bangalore,Bicycling
+bike,0,pedestrian,belo_horizonte,Bicycling
+bus,50.95,pedestrian,belo_horizonte,Bicycling
+car,61.62,pedestrian,belo_horizonte,Bicycling
+motorbike,0,pedestrian,belo_horizonte,Bicycling
+other,0.25,pedestrian,belo_horizonte,Bicycling
+pedestrian,0,pedestrian,belo_horizonte,Bicycling
+rail,4.4,pedestrian,belo_horizonte,Bicycling
+truck,0,pedestrian,belo_horizonte,Bicycling
+unknown,0,pedestrian,belo_horizonte,Bicycling
+NOV,0,pedestrian,belo_horizonte,Bicycling
+Total,117.22,pedestrian,belo_horizonte,Bicycling
+bike,2.61,pedestrian,bogota,Bicycling
+bus,60.91,pedestrian,bogota,Bicycling
+car,106.77,pedestrian,bogota,Bicycling
+motorbike,80.47,pedestrian,bogota,Bicycling
+other,0,pedestrian,bogota,Bicycling
+pedestrian,0,pedestrian,bogota,Bicycling
+rail,0,pedestrian,bogota,Bicycling
+truck,13.28,pedestrian,bogota,Bicycling
+unknown,7.79,pedestrian,bogota,Bicycling
+NOV,0,pedestrian,bogota,Bicycling
+Total,271.83,pedestrian,bogota,Bicycling
+bike,0,pedestrian,buenos_aires,Bicycling
+bus,0,pedestrian,buenos_aires,Bicycling
+car,0,pedestrian,buenos_aires,Bicycling
+motorbike,0,pedestrian,buenos_aires,Bicycling
+other,0,pedestrian,buenos_aires,Bicycling
+pedestrian,0,pedestrian,buenos_aires,Bicycling
+rail,0,pedestrian,buenos_aires,Bicycling
+truck,0,pedestrian,buenos_aires,Bicycling
+unknown,0,pedestrian,buenos_aires,Bicycling
+NOV,620.62,pedestrian,buenos_aires,Bicycling
+Total,620.62,pedestrian,buenos_aires,Bicycling
+bike,0,pedestrian,delhi,Bicycling
+bus,59.88,pedestrian,delhi,Bicycling
+car,196.68,pedestrian,delhi,Bicycling
+motorbike,80.24,pedestrian,delhi,Bicycling
+other,0,pedestrian,delhi,Bicycling
+pedestrian,0,pedestrian,delhi,Bicycling
+rail,0,pedestrian,delhi,Bicycling
+truck,93.66,pedestrian,delhi,Bicycling
+unknown,420.99,pedestrian,delhi,Bicycling
+NOV,0,pedestrian,delhi,Bicycling
+Total,851.45,pedestrian,delhi,Bicycling
+bike,0,pedestrian,mexico_city,Bicycling
+bus,0,pedestrian,mexico_city,Bicycling
+car,0,pedestrian,mexico_city,Bicycling
+motorbike,0,pedestrian,mexico_city,Bicycling
+other,0,pedestrian,mexico_city,Bicycling
+pedestrian,0,pedestrian,mexico_city,Bicycling
+rail,0,pedestrian,mexico_city,Bicycling
+truck,0,pedestrian,mexico_city,Bicycling
+unknown,0,pedestrian,mexico_city,Bicycling
+NOV,610.08,pedestrian,mexico_city,Bicycling
+Total,610.08,pedestrian,mexico_city,Bicycling
+bike,0,pedestrian,santiago,Bicycling
+bus,35.28,pedestrian,santiago,Bicycling
+car,48.38,pedestrian,santiago,Bicycling
+motorbike,3.13,pedestrian,santiago,Bicycling
+other,0,pedestrian,santiago,Bicycling
+pedestrian,0,pedestrian,santiago,Bicycling
+rail,0,pedestrian,santiago,Bicycling
+truck,15.95,pedestrian,santiago,Bicycling
+unknown,4.91,pedestrian,santiago,Bicycling
+NOV,3.93,pedestrian,santiago,Bicycling
+Total,111.57,pedestrian,santiago,Bicycling
+bike,6.8,pedestrian,sao_paulo,Bicycling
+bus,67.34,pedestrian,sao_paulo,Bicycling
+car,142.94,pedestrian,sao_paulo,Bicycling
+motorbike,54.46,pedestrian,sao_paulo,Bicycling
+other,0.38,pedestrian,sao_paulo,Bicycling
+pedestrian,0,pedestrian,sao_paulo,Bicycling
+rail,0,pedestrian,sao_paulo,Bicycling
+truck,28.79,pedestrian,sao_paulo,Bicycling
+unknown,0,pedestrian,sao_paulo,Bicycling
+NOV,2.1,pedestrian,sao_paulo,Bicycling
+Total,302.8,pedestrian,sao_paulo,Bicycling
+bike,0,pedestrian,vizag,Bicycling
+bus,19.56,pedestrian,vizag,Bicycling
+car,31.58,pedestrian,vizag,Bicycling
+motorbike,59.72,pedestrian,vizag,Bicycling
+other,0.33,pedestrian,vizag,Bicycling
+pedestrian,0,pedestrian,vizag,Bicycling
+rail,0,pedestrian,vizag,Bicycling
+truck,39.13,pedestrian,vizag,Bicycling
+unknown,17.28,pedestrian,vizag,Bicycling
+NOV,0,pedestrian,vizag,Bicycling
+Total,167.61,pedestrian,vizag,Bicycling
+bike,0,truck,bogota,Bicycling
+bus,0,truck,bogota,Bicycling
+car,0.17,truck,bogota,Bicycling
+motorbike,0,truck,bogota,Bicycling
+other,0,truck,bogota,Bicycling
+pedestrian,0,truck,bogota,Bicycling
+rail,0,truck,bogota,Bicycling
+truck,0.83,truck,bogota,Bicycling
+unknown,0,truck,bogota,Bicycling
+NOV,0,truck,bogota,Bicycling
+Total,1,truck,bogota,Bicycling
+bike,0,bike,accra,Driving
+bus,2.23,bike,accra,Driving
+car,5,bike,accra,Driving
+motorbike,0.31,bike,accra,Driving
+other,0.09,bike,accra,Driving
+pedestrian,0,bike,accra,Driving
+rail,0,bike,accra,Driving
+truck,2.13,bike,accra,Driving
+unknown,0.71,bike,accra,Driving
+NOV,0,bike,accra,Driving
+Total,10.47,bike,accra,Driving
+bike,0,bike,bangalore,Driving
+bus,0.35,bike,bangalore,Driving
+car,22.34,bike,bangalore,Driving
+motorbike,1.05,bike,bangalore,Driving
+other,0,bike,bangalore,Driving
+pedestrian,0,bike,bangalore,Driving
+rail,0,bike,bangalore,Driving
+truck,2.32,bike,bangalore,Driving
+unknown,3.49,bike,bangalore,Driving
+NOV,0,bike,bangalore,Driving
+Total,29.55,bike,bangalore,Driving
+bike,0,bike,bogota,Driving
+bus,8.63,bike,bogota,Driving
+car,23.73,bike,bogota,Driving
+motorbike,1.33,bike,bogota,Driving
+other,0,bike,bogota,Driving
+pedestrian,0.4,bike,bogota,Driving
+rail,0,bike,bogota,Driving
+truck,3.88,bike,bogota,Driving
+unknown,0.1,bike,bogota,Driving
+NOV,0.35,bike,bogota,Driving
+Total,38.43,bike,bogota,Driving
+bike,0,bike,buenos_aires,Driving
+bus,0,bike,buenos_aires,Driving
+car,0,bike,buenos_aires,Driving
+motorbike,0,bike,buenos_aires,Driving
+other,0,bike,buenos_aires,Driving
+pedestrian,0,bike,buenos_aires,Driving
+rail,0,bike,buenos_aires,Driving
+truck,0,bike,buenos_aires,Driving
+unknown,0,bike,buenos_aires,Driving
+NOV,30.1,bike,buenos_aires,Driving
+Total,30.1,bike,buenos_aires,Driving
+bike,0,bike,delhi,Driving
+bus,7.89,bike,delhi,Driving
+car,38.79,bike,delhi,Driving
+motorbike,4.03,bike,delhi,Driving
+other,0,bike,delhi,Driving
+pedestrian,0,bike,delhi,Driving
+rail,0,bike,delhi,Driving
+truck,17.53,bike,delhi,Driving
+unknown,21.04,bike,delhi,Driving
+NOV,0,bike,delhi,Driving
+Total,89.27,bike,delhi,Driving
+bike,0,bike,mexico_city,Driving
+bus,0,bike,mexico_city,Driving
+car,0,bike,mexico_city,Driving
+motorbike,0,bike,mexico_city,Driving
+other,0,bike,mexico_city,Driving
+pedestrian,0,bike,mexico_city,Driving
+rail,0,bike,mexico_city,Driving
+truck,0,bike,mexico_city,Driving
+unknown,0,bike,mexico_city,Driving
+NOV,28.85,bike,mexico_city,Driving
+Total,28.85,bike,mexico_city,Driving
+bike,0,bike,santiago,Driving
+bus,5.54,bike,santiago,Driving
+car,11.63,bike,santiago,Driving
+motorbike,0.17,bike,santiago,Driving
+other,0,bike,santiago,Driving
+pedestrian,0,bike,santiago,Driving
+rail,0,bike,santiago,Driving
+truck,5.16,bike,santiago,Driving
+unknown,0.21,bike,santiago,Driving
+NOV,2.3,bike,santiago,Driving
+Total,25.01,bike,santiago,Driving
+bike,0,bike,sao_paulo,Driving
+bus,6.47,bike,sao_paulo,Driving
+car,14.08,bike,sao_paulo,Driving
+motorbike,1.33,bike,sao_paulo,Driving
+other,0,bike,sao_paulo,Driving
+pedestrian,0,bike,sao_paulo,Driving
+rail,0,bike,sao_paulo,Driving
+truck,3.55,bike,sao_paulo,Driving
+unknown,0,bike,sao_paulo,Driving
+NOV,9.32,bike,sao_paulo,Driving
+Total,34.73,bike,sao_paulo,Driving
+bike,0,bike,vizag,Driving
+bus,1.04,bike,vizag,Driving
+car,25.3,bike,vizag,Driving
+motorbike,1.49,bike,vizag,Driving
+other,0,bike,vizag,Driving
+pedestrian,0,bike,vizag,Driving
+rail,0,bike,vizag,Driving
+truck,5.64,bike,vizag,Driving
+unknown,1.56,bike,vizag,Driving
+NOV,0,bike,vizag,Driving
+Total,35.04,bike,vizag,Driving
+bike,0.08,bus,accra,Driving
+bus,0,bus,accra,Driving
+car,2.34,bus,accra,Driving
+motorbike,0.16,bus,accra,Driving
+other,0.18,bus,accra,Driving
+pedestrian,0.08,bus,accra,Driving
+rail,0,bus,accra,Driving
+truck,5.16,bus,accra,Driving
+unknown,0,bus,accra,Driving
+NOV,7.42,bus,accra,Driving
+Total,15.43,bus,accra,Driving
+bike,0,bus,bangalore,Driving
+bus,0,bus,bangalore,Driving
+car,0,bus,bangalore,Driving
+motorbike,0,bus,bangalore,Driving
+other,0,bus,bangalore,Driving
+pedestrian,0,bus,bangalore,Driving
+rail,0,bus,bangalore,Driving
+truck,2.4,bus,bangalore,Driving
+unknown,0,bus,bangalore,Driving
+NOV,8.42,bus,bangalore,Driving
+Total,10.82,bus,bangalore,Driving
+bike,0,bus,belo_horizonte,Driving
+bus,0,bus,belo_horizonte,Driving
+car,0.58,bus,belo_horizonte,Driving
+motorbike,0,bus,belo_horizonte,Driving
+other,0,bus,belo_horizonte,Driving
+pedestrian,0,bus,belo_horizonte,Driving
+rail,0.37,bus,belo_horizonte,Driving
+truck,0,bus,belo_horizonte,Driving
+unknown,0,bus,belo_horizonte,Driving
+NOV,4.71,bus,belo_horizonte,Driving
+Total,5.66,bus,belo_horizonte,Driving
+bike,0,bus,bogota,Driving
+bus,0,bus,bogota,Driving
+car,0.52,bus,bogota,Driving
+motorbike,0,bus,bogota,Driving
+other,0,bus,bogota,Driving
+pedestrian,0.18,bus,bogota,Driving
+rail,0,bus,bogota,Driving
+truck,0,bus,bogota,Driving
+unknown,0,bus,bogota,Driving
+NOV,5.53,bus,bogota,Driving
+Total,6.23,bus,bogota,Driving
+bike,0,bus,buenos_aires,Driving
+bus,0,bus,buenos_aires,Driving
+car,0,bus,buenos_aires,Driving
+motorbike,0,bus,buenos_aires,Driving
+other,0,bus,buenos_aires,Driving
+pedestrian,0,bus,buenos_aires,Driving
+rail,0,bus,buenos_aires,Driving
+truck,0,bus,buenos_aires,Driving
+unknown,0,bus,buenos_aires,Driving
+NOV,10.42,bus,buenos_aires,Driving
+Total,10.42,bus,buenos_aires,Driving
+bike,0,bus,delhi,Driving
+bus,0,bus,delhi,Driving
+car,2.34,bus,delhi,Driving
+motorbike,0.53,bus,delhi,Driving
+other,0,bus,delhi,Driving
+pedestrian,0,bus,delhi,Driving
+rail,0,bus,delhi,Driving
+truck,0.74,bus,delhi,Driving
+unknown,0,bus,delhi,Driving
+NOV,3.73,bus,delhi,Driving
+Total,7.34,bus,delhi,Driving
+bike,0,bus,mexico_city,Driving
+bus,0,bus,mexico_city,Driving
+car,0,bus,mexico_city,Driving
+motorbike,0,bus,mexico_city,Driving
+other,0,bus,mexico_city,Driving
+pedestrian,0,bus,mexico_city,Driving
+rail,0,bus,mexico_city,Driving
+truck,0,bus,mexico_city,Driving
+unknown,0,bus,mexico_city,Driving
+NOV,10.24,bus,mexico_city,Driving
+Total,10.24,bus,mexico_city,Driving
+bike,0,bus,santiago,Driving
+bus,0,bus,santiago,Driving
+car,1.24,bus,santiago,Driving
+motorbike,0,bus,santiago,Driving
+other,0,bus,santiago,Driving
+pedestrian,0,bus,santiago,Driving
+rail,0,bus,santiago,Driving
+truck,0.19,bus,santiago,Driving
+unknown,0,bus,santiago,Driving
+NOV,3.11,bus,santiago,Driving
+Total,4.54,bus,santiago,Driving
+bike,0,bus,sao_paulo,Driving
+bus,0,bus,sao_paulo,Driving
+car,2.84,bus,sao_paulo,Driving
+motorbike,1.01,bus,sao_paulo,Driving
+other,0,bus,sao_paulo,Driving
+pedestrian,0,bus,sao_paulo,Driving
+rail,0,bus,sao_paulo,Driving
+truck,0.32,bus,sao_paulo,Driving
+unknown,0,bus,sao_paulo,Driving
+NOV,4.18,bus,sao_paulo,Driving
+Total,8.36,bus,sao_paulo,Driving
+bike,0,bus,vizag,Driving
+bus,0,bus,vizag,Driving
+car,0,bus,vizag,Driving
+motorbike,0,bus,vizag,Driving
+other,0,bus,vizag,Driving
+pedestrian,0,bus,vizag,Driving
+rail,0,bus,vizag,Driving
+truck,0.2,bus,vizag,Driving
+unknown,0,bus,vizag,Driving
+NOV,2.78,bus,vizag,Driving
+Total,2.97,bus,vizag,Driving
+bike,0,car,accra,Driving
+bus,3.6,car,accra,Driving
+car,0,car,accra,Driving
+motorbike,0.68,car,accra,Driving
+other,0.78,car,accra,Driving
+pedestrian,1.11,car,accra,Driving
+rail,0,car,accra,Driving
+truck,8.77,car,accra,Driving
+unknown,0.56,car,accra,Driving
+NOV,19.15,car,accra,Driving
+Total,34.64,car,accra,Driving
+bike,0,car,bangalore,Driving
+bus,13.21,car,bangalore,Driving
+car,0,car,bangalore,Driving
+motorbike,9.97,car,bangalore,Driving
+other,0,car,bangalore,Driving
+pedestrian,0,car,bangalore,Driving
+rail,0,car,bangalore,Driving
+truck,38.46,car,bangalore,Driving
+unknown,10.99,car,bangalore,Driving
+NOV,54.94,car,bangalore,Driving
+Total,127.57,car,bangalore,Driving
+bike,0,car,belo_horizonte,Driving
+bus,24.75,car,belo_horizonte,Driving
+car,0,car,belo_horizonte,Driving
+motorbike,0,car,belo_horizonte,Driving
+other,0,car,belo_horizonte,Driving
+pedestrian,0,car,belo_horizonte,Driving
+rail,0.28,car,belo_horizonte,Driving
+truck,0,car,belo_horizonte,Driving
+unknown,0,car,belo_horizonte,Driving
+NOV,85.75,car,belo_horizonte,Driving
+Total,110.78,car,belo_horizonte,Driving
+bike,0,car,bogota,Driving
+bus,3.75,car,bogota,Driving
+car,0,car,bogota,Driving
+motorbike,0.42,car,bogota,Driving
+other,0,car,bogota,Driving
+pedestrian,0,car,bogota,Driving
+rail,0,car,bogota,Driving
+truck,1.76,car,bogota,Driving
+unknown,0,car,bogota,Driving
+NOV,35.53,car,bogota,Driving
+Total,41.46,car,bogota,Driving
+bike,0,car,buenos_aires,Driving
+bus,0,car,buenos_aires,Driving
+car,0,car,buenos_aires,Driving
+motorbike,0,car,buenos_aires,Driving
+other,0,car,buenos_aires,Driving
+pedestrian,0,car,buenos_aires,Driving
+rail,0,car,buenos_aires,Driving
+truck,0,car,buenos_aires,Driving
+unknown,0,car,buenos_aires,Driving
+NOV,561.05,car,buenos_aires,Driving
+Total,561.05,car,buenos_aires,Driving
+bike,0,car,delhi,Driving
+bus,7.02,car,delhi,Driving
+car,0,car,delhi,Driving
+motorbike,2.24,car,delhi,Driving
+other,0,car,delhi,Driving
+pedestrian,0,car,delhi,Driving
+rail,0,car,delhi,Driving
+truck,39.03,car,delhi,Driving
+unknown,32.79,car,delhi,Driving
+NOV,106.82,car,delhi,Driving
+Total,187.91,car,delhi,Driving
+bike,0,car,mexico_city,Driving
+bus,0,car,mexico_city,Driving
+car,0,car,mexico_city,Driving
+motorbike,0,car,mexico_city,Driving
+other,0,car,mexico_city,Driving
+pedestrian,0,car,mexico_city,Driving
+rail,0,car,mexico_city,Driving
+truck,0,car,mexico_city,Driving
+unknown,0,car,mexico_city,Driving
+NOV,588.71,car,mexico_city,Driving
+Total,588.71,car,mexico_city,Driving
+bike,0,car,santiago,Driving
+bus,12.97,car,santiago,Driving
+car,0,car,santiago,Driving
+motorbike,0.32,car,santiago,Driving
+other,0,car,santiago,Driving
+pedestrian,0.99,car,santiago,Driving
+rail,0,car,santiago,Driving
+truck,10.18,car,santiago,Driving
+unknown,0,car,santiago,Driving
+NOV,82.52,car,santiago,Driving
+Total,106.99,car,santiago,Driving
+bike,0,car,sao_paulo,Driving
+bus,23.74,car,sao_paulo,Driving
+car,0,car,sao_paulo,Driving
+motorbike,3.78,car,sao_paulo,Driving
+other,0,car,sao_paulo,Driving
+pedestrian,0,car,sao_paulo,Driving
+rail,0,car,sao_paulo,Driving
+truck,19.83,car,sao_paulo,Driving
+unknown,0,car,sao_paulo,Driving
+NOV,215.9,car,sao_paulo,Driving
+Total,263.24,car,sao_paulo,Driving
+bike,0,car,vizag,Driving
+bus,0,car,vizag,Driving
+car,0,car,vizag,Driving
+motorbike,0,car,vizag,Driving
+other,0,car,vizag,Driving
+pedestrian,0,car,vizag,Driving
+rail,0,car,vizag,Driving
+truck,48.75,car,vizag,Driving
+unknown,0,car,vizag,Driving
+NOV,81.24,car,vizag,Driving
+Total,129.99,car,vizag,Driving
+bike,0,motorbike,accra,Driving
+bus,5.46,motorbike,accra,Driving
+car,11.18,motorbike,accra,Driving
+motorbike,0,motorbike,accra,Driving
+other,0.45,motorbike,accra,Driving
+pedestrian,0.82,motorbike,accra,Driving
+rail,0,motorbike,accra,Driving
+truck,4.52,motorbike,accra,Driving
+unknown,0.81,motorbike,accra,Driving
+NOV,3.81,motorbike,accra,Driving
+Total,27.06,motorbike,accra,Driving
+bike,0.35,motorbike,bangalore,Driving
+bus,21.46,motorbike,bangalore,Driving
+car,156.25,motorbike,bangalore,Driving
+motorbike,0,motorbike,bangalore,Driving
+other,0,motorbike,bangalore,Driving
+pedestrian,1.28,motorbike,bangalore,Driving
+rail,0,motorbike,bangalore,Driving
+truck,61.72,motorbike,bangalore,Driving
+unknown,10.89,motorbike,bangalore,Driving
+NOV,43.57,motorbike,bangalore,Driving
+Total,295.51,motorbike,bangalore,Driving
+bike,0.78,motorbike,bogota,Driving
+bus,16.33,motorbike,bogota,Driving
+car,71.57,motorbike,bogota,Driving
+motorbike,0,motorbike,bogota,Driving
+other,0,motorbike,bogota,Driving
+pedestrian,1.54,motorbike,bogota,Driving
+rail,0,motorbike,bogota,Driving
+truck,13.28,motorbike,bogota,Driving
+unknown,0,motorbike,bogota,Driving
+NOV,25.52,motorbike,bogota,Driving
+Total,129.02,motorbike,bogota,Driving
+bike,0,motorbike,buenos_aires,Driving
+bus,0,motorbike,buenos_aires,Driving
+car,0,motorbike,buenos_aires,Driving
+motorbike,0,motorbike,buenos_aires,Driving
+other,0,motorbike,buenos_aires,Driving
+pedestrian,0,motorbike,buenos_aires,Driving
+rail,0,motorbike,buenos_aires,Driving
+truck,0,motorbike,buenos_aires,Driving
+unknown,0,motorbike,buenos_aires,Driving
+NOV,96.99,motorbike,buenos_aires,Driving
+Total,96.99,motorbike,buenos_aires,Driving
+bike,0,motorbike,delhi,Driving
+bus,31.93,motorbike,delhi,Driving
+car,158.17,motorbike,delhi,Driving
+motorbike,0,motorbike,delhi,Driving
+other,0,motorbike,delhi,Driving
+pedestrian,0,motorbike,delhi,Driving
+rail,0,motorbike,delhi,Driving
+truck,98.65,motorbike,delhi,Driving
+unknown,184.52,motorbike,delhi,Driving
+NOV,58.56,motorbike,delhi,Driving
+Total,531.82,motorbike,delhi,Driving
+bike,0,motorbike,mexico_city,Driving
+bus,0,motorbike,mexico_city,Driving
+car,0,motorbike,mexico_city,Driving
+motorbike,0,motorbike,mexico_city,Driving
+other,0,motorbike,mexico_city,Driving
+pedestrian,0,motorbike,mexico_city,Driving
+rail,0,motorbike,mexico_city,Driving
+truck,0,motorbike,mexico_city,Driving
+unknown,0,motorbike,mexico_city,Driving
+NOV,96.93,motorbike,mexico_city,Driving
+Total,96.93,motorbike,mexico_city,Driving
+bike,0.17,motorbike,santiago,Driving
+bus,2.38,motorbike,santiago,Driving
+car,17.45,motorbike,santiago,Driving
+motorbike,0,motorbike,santiago,Driving
+other,0,motorbike,santiago,Driving
+pedestrian,0,motorbike,santiago,Driving
+rail,0,motorbike,santiago,Driving
+truck,6.03,motorbike,santiago,Driving
+unknown,0.8,motorbike,santiago,Driving
+NOV,12.83,motorbike,santiago,Driving
+Total,39.65,motorbike,santiago,Driving
+bike,0.14,motorbike,sao_paulo,Driving
+bus,38.43,motorbike,sao_paulo,Driving
+car,147.38,motorbike,sao_paulo,Driving
+motorbike,0,motorbike,sao_paulo,Driving
+other,0.47,motorbike,sao_paulo,Driving
+pedestrian,0,motorbike,sao_paulo,Driving
+rail,0,motorbike,sao_paulo,Driving
+truck,48.94,motorbike,sao_paulo,Driving
+unknown,0,motorbike,sao_paulo,Driving
+NOV,131.33,motorbike,sao_paulo,Driving
+Total,366.69,motorbike,sao_paulo,Driving
+bike,0,motorbike,vizag,Driving
+bus,5.15,motorbike,vizag,Driving
+car,120.48,motorbike,vizag,Driving
+motorbike,0,motorbike,vizag,Driving
+other,0,motorbike,vizag,Driving
+pedestrian,0,motorbike,vizag,Driving
+rail,0,motorbike,vizag,Driving
+truck,30.91,motorbike,vizag,Driving
+unknown,2.95,motorbike,vizag,Driving
+NOV,29.82,motorbike,vizag,Driving
+Total,189.3,motorbike,vizag,Driving
+bike,0.32,pedestrian,accra,Driving
+bus,27.7,pedestrian,accra,Driving
+car,76.18,pedestrian,accra,Driving
+motorbike,5.9,pedestrian,accra,Driving
+other,2.44,pedestrian,accra,Driving
+pedestrian,0,pedestrian,accra,Driving
+rail,0,pedestrian,accra,Driving
+truck,14.28,pedestrian,accra,Driving
+unknown,16,pedestrian,accra,Driving
+NOV,0.27,pedestrian,accra,Driving
+Total,143.1,pedestrian,accra,Driving
+bike,0,pedestrian,bangalore,Driving
+bus,16.5,pedestrian,bangalore,Driving
+car,336.34,pedestrian,bangalore,Driving
+motorbike,50.67,pedestrian,bangalore,Driving
+other,0,pedestrian,bangalore,Driving
+pedestrian,0,pedestrian,bangalore,Driving
+rail,0,pedestrian,bangalore,Driving
+truck,43.63,pedestrian,bangalore,Driving
+unknown,46.44,pedestrian,bangalore,Driving
+NOV,0,pedestrian,bangalore,Driving
+Total,493.58,pedestrian,bangalore,Driving
+bike,0,pedestrian,belo_horizonte,Driving
+bus,50.78,pedestrian,belo_horizonte,Driving
+car,67.86,pedestrian,belo_horizonte,Driving
+motorbike,0,pedestrian,belo_horizonte,Driving
+other,0.25,pedestrian,belo_horizonte,Driving
+pedestrian,0,pedestrian,belo_horizonte,Driving
+rail,4.38,pedestrian,belo_horizonte,Driving
+truck,0,pedestrian,belo_horizonte,Driving
+unknown,0,pedestrian,belo_horizonte,Driving
+NOV,0,pedestrian,belo_horizonte,Driving
+Total,123.28,pedestrian,belo_horizonte,Driving
+bike,1.33,pedestrian,bogota,Driving
+bus,31.84,pedestrian,bogota,Driving
+car,166.52,pedestrian,bogota,Driving
+motorbike,41.33,pedestrian,bogota,Driving
+other,0,pedestrian,bogota,Driving
+pedestrian,0,pedestrian,bogota,Driving
+rail,0,pedestrian,bogota,Driving
+truck,9.62,pedestrian,bogota,Driving
+unknown,5.02,pedestrian,bogota,Driving
+NOV,0,pedestrian,bogota,Driving
+Total,255.65,pedestrian,bogota,Driving
+bike,0,pedestrian,buenos_aires,Driving
+bus,0,pedestrian,buenos_aires,Driving
+car,0,pedestrian,buenos_aires,Driving
+motorbike,0,pedestrian,buenos_aires,Driving
+other,0,pedestrian,buenos_aires,Driving
+pedestrian,0,pedestrian,buenos_aires,Driving
+rail,0,pedestrian,buenos_aires,Driving
+truck,0,pedestrian,buenos_aires,Driving
+unknown,0,pedestrian,buenos_aires,Driving
+NOV,480.42,pedestrian,buenos_aires,Driving
+Total,480.42,pedestrian,buenos_aires,Driving
+bike,0,pedestrian,delhi,Driving
+bus,34.63,pedestrian,delhi,Driving
+car,239.36,pedestrian,delhi,Driving
+motorbike,44.61,pedestrian,delhi,Driving
+other,0,pedestrian,delhi,Driving
+pedestrian,0,pedestrian,delhi,Driving
+rail,0,pedestrian,delhi,Driving
+truck,71.93,pedestrian,delhi,Driving
+unknown,323.3,pedestrian,delhi,Driving
+NOV,0,pedestrian,delhi,Driving
+Total,713.83,pedestrian,delhi,Driving
+bike,0,pedestrian,mexico_city,Driving
+bus,0,pedestrian,mexico_city,Driving
+car,0,pedestrian,mexico_city,Driving
+motorbike,0,pedestrian,mexico_city,Driving
+other,0,pedestrian,mexico_city,Driving
+pedestrian,0,pedestrian,mexico_city,Driving
+rail,0,pedestrian,mexico_city,Driving
+truck,0,pedestrian,mexico_city,Driving
+unknown,0,pedestrian,mexico_city,Driving
+NOV,482.27,pedestrian,mexico_city,Driving
+Total,482.27,pedestrian,mexico_city,Driving
+bike,0,pedestrian,santiago,Driving
+bus,23.7,pedestrian,santiago,Driving
+car,66.53,pedestrian,santiago,Driving
+motorbike,2.21,pedestrian,santiago,Driving
+other,0,pedestrian,santiago,Driving
+pedestrian,0,pedestrian,santiago,Driving
+rail,0,pedestrian,santiago,Driving
+truck,13.38,pedestrian,santiago,Driving
+unknown,4.12,pedestrian,santiago,Driving
+NOV,3.34,pedestrian,santiago,Driving
+Total,113.27,pedestrian,santiago,Driving
+bike,0.44,pedestrian,sao_paulo,Driving
+bus,50.32,pedestrian,sao_paulo,Driving
+car,215.69,pedestrian,sao_paulo,Driving
+motorbike,40.03,pedestrian,sao_paulo,Driving
+other,0.34,pedestrian,sao_paulo,Driving
+pedestrian,0,pedestrian,sao_paulo,Driving
+rail,0,pedestrian,sao_paulo,Driving
+truck,25.87,pedestrian,sao_paulo,Driving
+unknown,0,pedestrian,sao_paulo,Driving
+NOV,1.93,pedestrian,sao_paulo,Driving
+Total,334.62,pedestrian,sao_paulo,Driving
+bike,0,pedestrian,vizag,Driving
+bus,8.1,pedestrian,vizag,Driving
+car,236.98,pedestrian,vizag,Driving
+motorbike,24.65,pedestrian,vizag,Driving
+other,0.22,pedestrian,vizag,Driving
+pedestrian,0,pedestrian,vizag,Driving
+rail,0,pedestrian,vizag,Driving
+truck,26.79,pedestrian,vizag,Driving
+unknown,11.83,pedestrian,vizag,Driving
+NOV,0,pedestrian,vizag,Driving
+Total,308.57,pedestrian,vizag,Driving
+bike,0,truck,bogota,Driving
+bus,0,truck,bogota,Driving
+car,0.36,truck,bogota,Driving
+motorbike,0,truck,bogota,Driving
+other,0,truck,bogota,Driving
+pedestrian,0,truck,bogota,Driving
+rail,0,truck,bogota,Driving
+truck,0.83,truck,bogota,Driving
+unknown,0,truck,bogota,Driving
+NOV,0,truck,bogota,Driving
+Total,1.19,truck,bogota,Driving
+bike,0,bike,accra,Motorcycling
+bus,0.67,bike,accra,Motorcycling
+car,1.02,bike,accra,Motorcycling
+motorbike,3.26,bike,accra,Motorcycling
+other,0.05,bike,accra,Motorcycling
+pedestrian,0,bike,accra,Motorcycling
+rail,0,bike,accra,Motorcycling
+truck,1.24,bike,accra,Motorcycling
+unknown,0.41,bike,accra,Motorcycling
+NOV,0,bike,accra,Motorcycling
+Total,6.66,bike,accra,Motorcycling
+bike,0,bike,bangalore,Motorcycling
+bus,0.9,bike,bangalore,Motorcycling
+car,6.29,bike,bangalore,Motorcycling
+motorbike,3.1,bike,bangalore,Motorcycling
+other,0,bike,bangalore,Motorcycling
+pedestrian,0,bike,bangalore,Motorcycling
+rail,0,bike,bangalore,Motorcycling
+truck,3.91,bike,bangalore,Motorcycling
+unknown,5.86,bike,bangalore,Motorcycling
+NOV,0,bike,bangalore,Motorcycling
+Total,20.07,bike,bangalore,Motorcycling
+bike,0,bike,bogota,Motorcycling
+bus,4.09,bike,bogota,Motorcycling
+car,3.94,bike,bogota,Motorcycling
+motorbike,5.95,bike,bogota,Motorcycling
+other,0,bike,bogota,Motorcycling
+pedestrian,0.24,bike,bogota,Motorcycling
+rail,0,bike,bogota,Motorcycling
+truck,2.9,bike,bogota,Motorcycling
+unknown,0.07,bike,bogota,Motorcycling
+NOV,0.26,bike,bogota,Motorcycling
+Total,17.46,bike,bogota,Motorcycling
+bike,0,bike,buenos_aires,Motorcycling
+bus,0,bike,buenos_aires,Motorcycling
+car,0,bike,buenos_aires,Motorcycling
+motorbike,0,bike,buenos_aires,Motorcycling
+other,0,bike,buenos_aires,Motorcycling
+pedestrian,0,bike,buenos_aires,Motorcycling
+rail,0,bike,buenos_aires,Motorcycling
+truck,0,bike,buenos_aires,Motorcycling
+unknown,0,bike,buenos_aires,Motorcycling
+NOV,23.41,bike,buenos_aires,Motorcycling
+Total,23.41,bike,buenos_aires,Motorcycling
+bike,0,bike,delhi,Motorcycling
+bus,6.17,bike,delhi,Motorcycling
+car,14.09,bike,delhi,Motorcycling
+motorbike,11.53,bike,delhi,Motorcycling
+other,0,bike,delhi,Motorcycling
+pedestrian,0,bike,delhi,Motorcycling
+rail,0,bike,delhi,Motorcycling
+truck,17.67,bike,delhi,Motorcycling
+unknown,21.2,bike,delhi,Motorcycling
+NOV,0,bike,delhi,Motorcycling
+Total,70.66,bike,delhi,Motorcycling
+bike,0,bike,mexico_city,Motorcycling
+bus,0,bike,mexico_city,Motorcycling
+car,0,bike,mexico_city,Motorcycling
+motorbike,0,bike,mexico_city,Motorcycling
+other,0,bike,mexico_city,Motorcycling
+pedestrian,0,bike,mexico_city,Motorcycling
+rail,0,bike,mexico_city,Motorcycling
+truck,0,bike,mexico_city,Motorcycling
+unknown,0,bike,mexico_city,Motorcycling
+NOV,22.41,bike,mexico_city,Motorcycling
+Total,22.41,bike,mexico_city,Motorcycling
+bike,0,bike,santiago,Motorcycling
+bus,1.94,bike,santiago,Motorcycling
+car,2.09,bike,santiago,Motorcycling
+motorbike,2.38,bike,santiago,Motorcycling
+other,0,bike,santiago,Motorcycling
+pedestrian,0,bike,santiago,Motorcycling
+rail,0,bike,santiago,Motorcycling
+truck,3.22,bike,santiago,Motorcycling
+unknown,0.13,bike,santiago,Motorcycling
+NOV,1.47,bike,santiago,Motorcycling
+Total,11.24,bike,santiago,Motorcycling
+bike,0,bike,sao_paulo,Motorcycling
+bus,2.39,bike,sao_paulo,Motorcycling
+car,2.77,bike,sao_paulo,Motorcycling
+motorbike,8.68,bike,sao_paulo,Motorcycling
+other,0,bike,sao_paulo,Motorcycling
+pedestrian,0,bike,sao_paulo,Motorcycling
+rail,0,bike,sao_paulo,Motorcycling
+truck,2.27,bike,sao_paulo,Motorcycling
+unknown,0,bike,sao_paulo,Motorcycling
+NOV,6.88,bike,sao_paulo,Motorcycling
+Total,22.99,bike,sao_paulo,Motorcycling
+bike,0,bike,vizag,Motorcycling
+bus,1.49,bike,vizag,Motorcycling
+car,1.94,bike,vizag,Motorcycling
+motorbike,6.78,bike,vizag,Motorcycling
+other,0,bike,vizag,Motorcycling
+pedestrian,0,bike,vizag,Motorcycling
+rail,0,bike,vizag,Motorcycling
+truck,7.71,bike,vizag,Motorcycling
+unknown,2.13,bike,vizag,Motorcycling
+NOV,0,bike,vizag,Motorcycling
+Total,20.04,bike,vizag,Motorcycling
+bike,0.02,bus,accra,Motorcycling
+bus,0,bus,accra,Motorcycling
+car,0.39,bus,accra,Motorcycling
+motorbike,1.37,bus,accra,Motorcycling
+other,0.09,bus,accra,Motorcycling
+pedestrian,0.02,bus,accra,Motorcycling
+rail,0,bus,accra,Motorcycling
+truck,2.49,bus,accra,Motorcycling
+unknown,0,bus,accra,Motorcycling
+NOV,3.62,bus,accra,Motorcycling
+Total,8.01,bus,accra,Motorcycling
+bike,0,bus,bangalore,Motorcycling
+bus,0,bus,bangalore,Motorcycling
+car,0,bus,bangalore,Motorcycling
+motorbike,0,bus,bangalore,Motorcycling
+other,0,bus,bangalore,Motorcycling
+pedestrian,0,bus,bangalore,Motorcycling
+rail,0,bus,bangalore,Motorcycling
+truck,3.71,bus,bangalore,Motorcycling
+unknown,0,bus,bangalore,Motorcycling
+NOV,12.97,bus,bangalore,Motorcycling
+Total,16.67,bus,bangalore,Motorcycling
+bike,0,bus,belo_horizonte,Motorcycling
+bus,0,bus,belo_horizonte,Motorcycling
+car,0.11,bus,belo_horizonte,Motorcycling
+motorbike,0,bus,belo_horizonte,Motorcycling
+other,0,bus,belo_horizonte,Motorcycling
+pedestrian,0,bus,belo_horizonte,Motorcycling
+rail,0.16,bus,belo_horizonte,Motorcycling
+truck,0,bus,belo_horizonte,Motorcycling
+unknown,0,bus,belo_horizonte,Motorcycling
+NOV,2.06,bus,belo_horizonte,Motorcycling
+Total,2.33,bus,belo_horizonte,Motorcycling
+bike,0,bus,bogota,Motorcycling
+bus,0,bus,bogota,Motorcycling
+car,0.07,bus,bogota,Motorcycling
+motorbike,0,bus,bogota,Motorcycling
+other,0,bus,bogota,Motorcycling
+pedestrian,0.09,bus,bogota,Motorcycling
+rail,0,bus,bogota,Motorcycling
+truck,0,bus,bogota,Motorcycling
+unknown,0,bus,bogota,Motorcycling
+NOV,3.51,bus,bogota,Motorcycling
+Total,3.68,bus,bogota,Motorcycling
+bike,0,bus,buenos_aires,Motorcycling
+bus,0,bus,buenos_aires,Motorcycling
+car,0,bus,buenos_aires,Motorcycling
+motorbike,0,bus,buenos_aires,Motorcycling
+other,0,bus,buenos_aires,Motorcycling
+pedestrian,0,bus,buenos_aires,Motorcycling
+rail,0,bus,buenos_aires,Motorcycling
+truck,0,bus,buenos_aires,Motorcycling
+unknown,0,bus,buenos_aires,Motorcycling
+NOV,6.03,bus,buenos_aires,Motorcycling
+Total,6.03,bus,buenos_aires,Motorcycling
+bike,0,bus,delhi,Motorcycling
+bus,0,bus,delhi,Motorcycling
+car,0.64,bus,delhi,Motorcycling
+motorbike,1.15,bus,delhi,Motorcycling
+other,0,bus,delhi,Motorcycling
+pedestrian,0,bus,delhi,Motorcycling
+rail,0,bus,delhi,Motorcycling
+truck,0.56,bus,delhi,Motorcycling
+unknown,0,bus,delhi,Motorcycling
+NOV,2.86,bus,delhi,Motorcycling
+Total,5.22,bus,delhi,Motorcycling
+bike,0,bus,mexico_city,Motorcycling
+bus,0,bus,mexico_city,Motorcycling
+car,0,bus,mexico_city,Motorcycling
+motorbike,0,bus,mexico_city,Motorcycling
+other,0,bus,mexico_city,Motorcycling
+pedestrian,0,bus,mexico_city,Motorcycling
+rail,0,bus,mexico_city,Motorcycling
+truck,0,bus,mexico_city,Motorcycling
+unknown,0,bus,mexico_city,Motorcycling
+NOV,6.45,bus,mexico_city,Motorcycling
+Total,6.45,bus,mexico_city,Motorcycling
+bike,0,bus,santiago,Motorcycling
+bus,0,bus,santiago,Motorcycling
+car,0.19,bus,santiago,Motorcycling
+motorbike,0,bus,santiago,Motorcycling
+other,0,bus,santiago,Motorcycling
+pedestrian,0,bus,santiago,Motorcycling
+rail,0,bus,santiago,Motorcycling
+truck,0.1,bus,santiago,Motorcycling
+unknown,0,bus,santiago,Motorcycling
+NOV,1.71,bus,santiago,Motorcycling
+Total,2.01,bus,santiago,Motorcycling
+bike,0,bus,sao_paulo,Motorcycling
+bus,0,bus,sao_paulo,Motorcycling
+car,0.5,bus,sao_paulo,Motorcycling
+motorbike,5.9,bus,sao_paulo,Motorcycling
+other,0,bus,sao_paulo,Motorcycling
+pedestrian,0,bus,sao_paulo,Motorcycling
+rail,0,bus,sao_paulo,Motorcycling
+truck,0.18,bus,sao_paulo,Motorcycling
+unknown,0,bus,sao_paulo,Motorcycling
+NOV,2.43,bus,sao_paulo,Motorcycling
+Total,9.01,bus,sao_paulo,Motorcycling
+bike,0,bus,vizag,Motorcycling
+bus,0,bus,vizag,Motorcycling
+car,0,bus,vizag,Motorcycling
+motorbike,0,bus,vizag,Motorcycling
+other,0,bus,vizag,Motorcycling
+pedestrian,0,bus,vizag,Motorcycling
+rail,0,bus,vizag,Motorcycling
+truck,0.21,bus,vizag,Motorcycling
+unknown,0,bus,vizag,Motorcycling
+NOV,2.9,bus,vizag,Motorcycling
+Total,3.11,bus,vizag,Motorcycling
+bike,0,car,accra,Motorcycling
+bus,0.64,car,accra,Motorcycling
+car,0,car,accra,Motorcycling
+motorbike,4.23,car,accra,Motorcycling
+other,0.27,car,accra,Motorcycling
+pedestrian,0.21,car,accra,Motorcycling
+rail,0,car,accra,Motorcycling
+truck,3.04,car,accra,Motorcycling
+unknown,0.19,car,accra,Motorcycling
+NOV,6.66,car,accra,Motorcycling
+Total,15.23,car,accra,Motorcycling
+bike,0,car,bangalore,Motorcycling
+bus,3.41,car,bangalore,Motorcycling
+car,0,car,bangalore,Motorcycling
+motorbike,2.93,car,bangalore,Motorcycling
+other,0,car,bangalore,Motorcycling
+pedestrian,0,car,bangalore,Motorcycling
+rail,0,car,bangalore,Motorcycling
+truck,6.45,car,bangalore,Motorcycling
+unknown,1.84,car,bangalore,Motorcycling
+NOV,9.21,car,bangalore,Motorcycling
+Total,23.84,car,bangalore,Motorcycling
+bike,0,car,belo_horizonte,Motorcycling
+bus,4.59,car,belo_horizonte,Motorcycling
+car,0,car,belo_horizonte,Motorcycling
+motorbike,0,car,belo_horizonte,Motorcycling
+other,0,car,belo_horizonte,Motorcycling
+pedestrian,0,car,belo_horizonte,Motorcycling
+rail,0.12,car,belo_horizonte,Motorcycling
+truck,0,car,belo_horizonte,Motorcycling
+unknown,0,car,belo_horizonte,Motorcycling
+NOV,36.34,car,belo_horizonte,Motorcycling
+Total,41.05,car,belo_horizonte,Motorcycling
+bike,0,car,bogota,Motorcycling
+bus,0.53,car,bogota,Motorcycling
+car,0,car,bogota,Motorcycling
+motorbike,0.56,car,bogota,Motorcycling
+other,0,car,bogota,Motorcycling
+pedestrian,0,car,bogota,Motorcycling
+rail,0,car,bogota,Motorcycling
+truck,0.39,car,bogota,Motorcycling
+unknown,0,car,bogota,Motorcycling
+NOV,7.91,car,bogota,Motorcycling
+Total,9.39,car,bogota,Motorcycling
+bike,0,car,buenos_aires,Motorcycling
+bus,0,car,buenos_aires,Motorcycling
+car,0,car,buenos_aires,Motorcycling
+motorbike,0,car,buenos_aires,Motorcycling
+other,0,car,buenos_aires,Motorcycling
+pedestrian,0,car,buenos_aires,Motorcycling
+rail,0,car,buenos_aires,Motorcycling
+truck,0,car,buenos_aires,Motorcycling
+unknown,0,car,buenos_aires,Motorcycling
+NOV,163.34,car,buenos_aires,Motorcycling
+Total,163.34,car,buenos_aires,Motorcycling
+bike,0,car,delhi,Motorcycling
+bus,1.93,car,delhi,Motorcycling
+car,0,car,delhi,Motorcycling
+motorbike,2.25,car,delhi,Motorcycling
+other,0,car,delhi,Motorcycling
+pedestrian,0,car,delhi,Motorcycling
+rail,0,car,delhi,Motorcycling
+truck,13.78,car,delhi,Motorcycling
+unknown,11.58,car,delhi,Motorcycling
+NOV,38.1,car,delhi,Motorcycling
+Total,67.64,car,delhi,Motorcycling
+bike,0,car,mexico_city,Motorcycling
+bus,0,car,mexico_city,Motorcycling
+car,0,car,mexico_city,Motorcycling
+motorbike,0,car,mexico_city,Motorcycling
+other,0,car,mexico_city,Motorcycling
+pedestrian,0,car,mexico_city,Motorcycling
+rail,0,car,mexico_city,Motorcycling
+truck,0,car,mexico_city,Motorcycling
+unknown,0,car,mexico_city,Motorcycling
+NOV,163.47,car,mexico_city,Motorcycling
+Total,163.47,car,mexico_city,Motorcycling
+bike,0,car,santiago,Motorcycling
+bus,2.01,car,santiago,Motorcycling
+car,0,car,santiago,Motorcycling
+motorbike,2,car,santiago,Motorcycling
+other,0,car,santiago,Motorcycling
+pedestrian,0.2,car,santiago,Motorcycling
+rail,0,car,santiago,Motorcycling
+truck,2.81,car,santiago,Motorcycling
+unknown,0,car,santiago,Motorcycling
+NOV,23.29,car,santiago,Motorcycling
+Total,30.31,car,santiago,Motorcycling
+bike,0,car,sao_paulo,Motorcycling
+bus,4.54,car,sao_paulo,Motorcycling
+car,0,car,sao_paulo,Motorcycling
+motorbike,12.78,car,sao_paulo,Motorcycling
+other,0,car,sao_paulo,Motorcycling
+pedestrian,0,car,sao_paulo,Motorcycling
+rail,0,car,sao_paulo,Motorcycling
+truck,6.56,car,sao_paulo,Motorcycling
+unknown,0,car,sao_paulo,Motorcycling
+NOV,59.99,car,sao_paulo,Motorcycling
+Total,83.87,car,sao_paulo,Motorcycling
+bike,0,car,vizag,Motorcycling
+bus,0,car,vizag,Motorcycling
+car,0,car,vizag,Motorcycling
+motorbike,0,car,vizag,Motorcycling
+other,0,car,vizag,Motorcycling
+pedestrian,0,car,vizag,Motorcycling
+rail,0,car,vizag,Motorcycling
+truck,2.73,car,vizag,Motorcycling
+unknown,0,car,vizag,Motorcycling
+NOV,4.56,car,vizag,Motorcycling
+Total,7.29,car,vizag,Motorcycling
+bike,0,motorbike,accra,Motorcycling
+bus,78.15,motorbike,accra,Motorcycling
+car,107.98,motorbike,accra,Motorcycling
+motorbike,0,motorbike,accra,Motorcycling
+other,12.53,motorbike,accra,Motorcycling
+pedestrian,12.32,motorbike,accra,Motorcycling
+rail,0,motorbike,accra,Motorcycling
+truck,125.34,motorbike,accra,Motorcycling
+unknown,22.56,motorbike,accra,Motorcycling
+NOV,95.01,motorbike,accra,Motorcycling
+Total,453.9,motorbike,accra,Motorcycling
+bike,1.03,motorbike,bangalore,Motorcycling
+bus,57.92,motorbike,bangalore,Motorcycling
+car,45.87,motorbike,bangalore,Motorcycling
+motorbike,0,motorbike,bangalore,Motorcycling
+other,0,motorbike,bangalore,Motorcycling
+pedestrian,3.11,motorbike,bangalore,Motorcycling
+rail,0,motorbike,bangalore,Motorcycling
+truck,108.1,motorbike,bangalore,Motorcycling
+unknown,19.08,motorbike,bangalore,Motorcycling
+NOV,76.3,motorbike,bangalore,Motorcycling
+Total,311.41,motorbike,bangalore,Motorcycling
+bike,3.47,motorbike,bogota,Motorcycling
+bus,61.87,motorbike,bogota,Motorcycling
+car,95.02,motorbike,bogota,Motorcycling
+motorbike,0,motorbike,bogota,Motorcycling
+other,0,motorbike,bogota,Motorcycling
+pedestrian,7.54,motorbike,bogota,Motorcycling
+rail,0,motorbike,bogota,Motorcycling
+truck,79.22,motorbike,bogota,Motorcycling
+unknown,0,motorbike,bogota,Motorcycling
+NOV,152.25,motorbike,bogota,Motorcycling
+Total,399.37,motorbike,bogota,Motorcycling
+bike,0,motorbike,buenos_aires,Motorcycling
+bus,0,motorbike,buenos_aires,Motorcycling
+car,0,motorbike,buenos_aires,Motorcycling
+motorbike,0,motorbike,buenos_aires,Motorcycling
+other,0,motorbike,buenos_aires,Motorcycling
+pedestrian,0,motorbike,buenos_aires,Motorcycling
+rail,0,motorbike,buenos_aires,Motorcycling
+truck,0,motorbike,buenos_aires,Motorcycling
+unknown,0,motorbike,buenos_aires,Motorcycling
+NOV,1246.04,motorbike,buenos_aires,Motorcycling
+Total,1246.04,motorbike,buenos_aires,Motorcycling
+bike,0,motorbike,delhi,Motorcycling
+bus,68.92,motorbike,delhi,Motorcycling
+car,158.46,motorbike,delhi,Motorcycling
+motorbike,0,motorbike,delhi,Motorcycling
+other,0,motorbike,delhi,Motorcycling
+pedestrian,0,motorbike,delhi,Motorcycling
+rail,0,motorbike,delhi,Motorcycling
+truck,274.26,motorbike,delhi,Motorcycling
+unknown,513,motorbike,delhi,Motorcycling
+NOV,164.46,motorbike,delhi,Motorcycling
+Total,1179.1,motorbike,delhi,Motorcycling
+bike,0,motorbike,mexico_city,Motorcycling
+bus,0,motorbike,mexico_city,Motorcycling
+car,0,motorbike,mexico_city,Motorcycling
+motorbike,0,motorbike,mexico_city,Motorcycling
+other,0,motorbike,mexico_city,Motorcycling
+pedestrian,0,motorbike,mexico_city,Motorcycling
+rail,0,motorbike,mexico_city,Motorcycling
+truck,0,motorbike,mexico_city,Motorcycling
+unknown,0,motorbike,mexico_city,Motorcycling
+NOV,1661.6,motorbike,mexico_city,Motorcycling
+Total,1661.6,motorbike,mexico_city,Motorcycling
+bike,2.38,motorbike,santiago,Motorcycling
+bus,28.72,motorbike,santiago,Motorcycling
+car,108.08,motorbike,santiago,Motorcycling
+motorbike,0,motorbike,santiago,Motorcycling
+other,0,motorbike,santiago,Motorcycling
+pedestrian,0,motorbike,santiago,Motorcycling
+rail,0,motorbike,santiago,Motorcycling
+truck,129.57,motorbike,santiago,Motorcycling
+unknown,17.28,motorbike,santiago,Motorcycling
+NOV,281.59,motorbike,santiago,Motorcycling
+Total,567.63,motorbike,santiago,Motorcycling
+bike,0.73,motorbike,sao_paulo,Motorcycling
+bus,179.14,motorbike,sao_paulo,Motorcycling
+car,365.1,motorbike,sao_paulo,Motorcycling
+motorbike,0,motorbike,sao_paulo,Motorcycling
+other,3.8,motorbike,sao_paulo,Motorcycling
+pedestrian,0,motorbike,sao_paulo,Motorcycling
+rail,0,motorbike,sao_paulo,Motorcycling
+truck,394.41,motorbike,sao_paulo,Motorcycling
+unknown,0,motorbike,sao_paulo,Motorcycling
+NOV,1420.05,motorbike,sao_paulo,Motorcycling
+Total,2363.22,motorbike,sao_paulo,Motorcycling
+bike,0,motorbike,vizag,Motorcycling
+bus,17.89,motorbike,vizag,Motorcycling
+car,22.46,motorbike,vizag,Motorcycling
+motorbike,0,motorbike,vizag,Motorcycling
+other,0,motorbike,vizag,Motorcycling
+pedestrian,0,motorbike,vizag,Motorcycling
+rail,0,motorbike,vizag,Motorcycling
+truck,102.75,motorbike,vizag,Motorcycling
+unknown,9.81,motorbike,vizag,Motorcycling
+NOV,99.15,motorbike,vizag,Motorcycling
+Total,252.07,motorbike,vizag,Motorcycling
+bike,0.1,pedestrian,accra,Motorcycling
+bus,7.26,pedestrian,accra,Motorcycling
+car,13.47,pedestrian,accra,Motorcycling
+motorbike,53.39,pedestrian,accra,Motorcycling
+other,1.24,pedestrian,accra,Motorcycling
+pedestrian,0,pedestrian,accra,Motorcycling
+rail,0,pedestrian,accra,Motorcycling
+truck,7.25,pedestrian,accra,Motorcycling
+unknown,8.12,pedestrian,accra,Motorcycling
+NOV,0.14,pedestrian,accra,Motorcycling
+Total,90.97,pedestrian,accra,Motorcycling
+bike,0,pedestrian,bangalore,Motorcycling
+bus,35.37,pedestrian,bangalore,Motorcycling
+car,78.45,pedestrian,bangalore,Motorcycling
+motorbike,123.49,pedestrian,bangalore,Motorcycling
+other,0,pedestrian,bangalore,Motorcycling
+pedestrian,0,pedestrian,bangalore,Motorcycling
+rail,0,pedestrian,bangalore,Motorcycling
+truck,60.71,pedestrian,bangalore,Motorcycling
+unknown,64.63,pedestrian,bangalore,Motorcycling
+NOV,0,pedestrian,bangalore,Motorcycling
+Total,362.65,pedestrian,bangalore,Motorcycling
+bike,0,pedestrian,belo_horizonte,Motorcycling
+bus,16.31,pedestrian,belo_horizonte,Motorcycling
+car,21.08,pedestrian,belo_horizonte,Motorcycling
+motorbike,0,pedestrian,belo_horizonte,Motorcycling
+other,0.18,pedestrian,belo_horizonte,Motorcycling
+pedestrian,0,pedestrian,belo_horizonte,Motorcycling
+rail,3.21,pedestrian,belo_horizonte,Motorcycling
+truck,0,pedestrian,belo_horizonte,Motorcycling
+unknown,0,pedestrian,belo_horizonte,Motorcycling
+NOV,0,pedestrian,belo_horizonte,Motorcycling
+Total,40.79,pedestrian,belo_horizonte,Motorcycling
+bike,0.82,pedestrian,bogota,Motorcycling
+bus,16.6,pedestrian,bogota,Motorcycling
+car,30.42,pedestrian,bogota,Motorcycling
+motorbike,202.38,pedestrian,bogota,Motorcycling
+other,0,pedestrian,bogota,Motorcycling
+pedestrian,0,pedestrian,bogota,Motorcycling
+rail,0,pedestrian,bogota,Motorcycling
+truck,7.9,pedestrian,bogota,Motorcycling
+unknown,3.64,pedestrian,bogota,Motorcycling
+NOV,0,pedestrian,bogota,Motorcycling
+Total,261.76,pedestrian,bogota,Motorcycling
+bike,0,pedestrian,buenos_aires,Motorcycling
+bus,0,pedestrian,buenos_aires,Motorcycling
+car,0,pedestrian,buenos_aires,Motorcycling
+motorbike,0,pedestrian,buenos_aires,Motorcycling
+other,0,pedestrian,buenos_aires,Motorcycling
+pedestrian,0,pedestrian,buenos_aires,Motorcycling
+rail,0,pedestrian,buenos_aires,Motorcycling
+truck,0,pedestrian,buenos_aires,Motorcycling
+unknown,0,pedestrian,buenos_aires,Motorcycling
+NOV,371.49,pedestrian,buenos_aires,Motorcycling
+Total,371.49,pedestrian,buenos_aires,Motorcycling
+bike,0,pedestrian,delhi,Motorcycling
+bus,27.01,pedestrian,delhi,Motorcycling
+car,86.66,pedestrian,delhi,Motorcycling
+motorbike,127.16,pedestrian,delhi,Motorcycling
+other,0,pedestrian,delhi,Motorcycling
+pedestrian,0,pedestrian,delhi,Motorcycling
+rail,0,pedestrian,delhi,Motorcycling
+truck,72.26,pedestrian,delhi,Motorcycling
+unknown,324.81,pedestrian,delhi,Motorcycling
+NOV,0,pedestrian,delhi,Motorcycling
+Total,637.9,pedestrian,delhi,Motorcycling
+bike,0,pedestrian,mexico_city,Motorcycling
+bus,0,pedestrian,mexico_city,Motorcycling
+car,0,pedestrian,mexico_city,Motorcycling
+motorbike,0,pedestrian,mexico_city,Motorcycling
+other,0,pedestrian,mexico_city,Motorcycling
+pedestrian,0,pedestrian,mexico_city,Motorcycling
+rail,0,pedestrian,mexico_city,Motorcycling
+truck,0,pedestrian,mexico_city,Motorcycling
+unknown,0,pedestrian,mexico_city,Motorcycling
+NOV,436.37,pedestrian,mexico_city,Motorcycling
+Total,436.37,pedestrian,mexico_city,Motorcycling
+bike,0,pedestrian,santiago,Motorcycling
+bus,9.22,pedestrian,santiago,Motorcycling
+car,13.27,pedestrian,santiago,Motorcycling
+motorbike,34.26,pedestrian,santiago,Motorcycling
+other,0,pedestrian,santiago,Motorcycling
+pedestrian,0,pedestrian,santiago,Motorcycling
+rail,0,pedestrian,santiago,Motorcycling
+truck,9.26,pedestrian,santiago,Motorcycling
+unknown,2.85,pedestrian,santiago,Motorcycling
+NOV,2.36,pedestrian,santiago,Motorcycling
+Total,71.21,pedestrian,santiago,Motorcycling
+bike,0.21,pedestrian,sao_paulo,Motorcycling
+bus,20.08,pedestrian,sao_paulo,Motorcycling
+car,45.73,pedestrian,sao_paulo,Motorcycling
+motorbike,282.03,pedestrian,sao_paulo,Motorcycling
+other,0.24,pedestrian,sao_paulo,Motorcycling
+pedestrian,0,pedestrian,sao_paulo,Motorcycling
+rail,0,pedestrian,sao_paulo,Motorcycling
+truck,17.84,pedestrian,sao_paulo,Motorcycling
+unknown,0,pedestrian,sao_paulo,Motorcycling
+NOV,1.4,pedestrian,sao_paulo,Motorcycling
+Total,367.52,pedestrian,sao_paulo,Motorcycling
+bike,0,pedestrian,vizag,Motorcycling
+bus,11.55,pedestrian,vizag,Motorcycling
+car,18.15,pedestrian,vizag,Motorcycling
+motorbike,111.91,pedestrian,vizag,Motorcycling
+other,0.3,pedestrian,vizag,Motorcycling
+pedestrian,0,pedestrian,vizag,Motorcycling
+rail,0,pedestrian,vizag,Motorcycling
+truck,36.58,pedestrian,vizag,Motorcycling
+unknown,16.15,pedestrian,vizag,Motorcycling
+NOV,0,pedestrian,vizag,Motorcycling
+Total,194.65,pedestrian,vizag,Motorcycling
+bike,0,truck,bogota,Motorcycling
+bus,0,truck,bogota,Motorcycling
+car,0.08,truck,bogota,Motorcycling
+motorbike,0,truck,bogota,Motorcycling
+other,0,truck,bogota,Motorcycling
+pedestrian,0,truck,bogota,Motorcycling
+rail,0,truck,bogota,Motorcycling
+truck,0.83,truck,bogota,Motorcycling
+unknown,0,truck,bogota,Motorcycling
+NOV,0,truck,bogota,Motorcycling
+Total,0.91,truck,bogota,Motorcycling
+bike,0,bike,accra,Public Transport
+bus,2.7,bike,accra,Public Transport
+car,4.63,bike,accra,Public Transport
+motorbike,0.39,bike,accra,Public Transport
+other,0.1,bike,accra,Public Transport
+pedestrian,0,bike,accra,Public Transport
+rail,0,bike,accra,Public Transport
+truck,2.34,bike,accra,Public Transport
+unknown,0.78,bike,accra,Public Transport
+NOV,0,bike,accra,Public Transport
+Total,10.94,bike,accra,Public Transport
+bike,0,bike,bangalore,Public Transport
+bus,1.18,bike,bangalore,Public Transport
+car,2.36,bike,bangalore,Public Transport
+motorbike,1.02,bike,bangalore,Public Transport
+other,0,bike,bangalore,Public Transport
+pedestrian,0,bike,bangalore,Public Transport
+rail,0,bike,bangalore,Public Transport
+truck,2.63,bike,bangalore,Public Transport
+unknown,3.95,bike,bangalore,Public Transport
+NOV,0,bike,bangalore,Public Transport
+Total,11.15,bike,bangalore,Public Transport
+bike,0,bike,bogota,Public Transport
+bus,15.94,bike,bogota,Public Transport
+car,14.33,bike,bogota,Public Transport
+motorbike,2.46,bike,bogota,Public Transport
+other,0,bike,bogota,Public Transport
+pedestrian,0.73,bike,bogota,Public Transport
+rail,0,bike,bogota,Public Transport
+truck,5.12,bike,bogota,Public Transport
+unknown,0.16,bike,bogota,Public Transport
+NOV,0.47,bike,bogota,Public Transport
+Total,39.19,bike,bogota,Public Transport
+bike,0,bike,buenos_aires,Public Transport
+bus,0,bike,buenos_aires,Public Transport
+car,0,bike,buenos_aires,Public Transport
+motorbike,0,bike,buenos_aires,Public Transport
+other,0,bike,buenos_aires,Public Transport
+pedestrian,0,bike,buenos_aires,Public Transport
+rail,0,bike,buenos_aires,Public Transport
+truck,0,bike,buenos_aires,Public Transport
+unknown,0,bike,buenos_aires,Public Transport
+NOV,28.13,bike,buenos_aires,Public Transport
+Total,28.13,bike,buenos_aires,Public Transport
+bike,0,bike,delhi,Public Transport
+bus,18.34,bike,delhi,Public Transport
+car,23.53,bike,delhi,Public Transport
+motorbike,4.94,bike,delhi,Public Transport
+other,0,bike,delhi,Public Transport
+pedestrian,0,bike,delhi,Public Transport
+rail,0,bike,delhi,Public Transport
+truck,20.48,bike,delhi,Public Transport
+unknown,24.58,bike,delhi,Public Transport
+NOV,0,bike,delhi,Public Transport
+Total,91.88,bike,delhi,Public Transport
+bike,0,bike,mexico_city,Public Transport
+bus,0,bike,mexico_city,Public Transport
+car,0,bike,mexico_city,Public Transport
+motorbike,0,bike,mexico_city,Public Transport
+other,0,bike,mexico_city,Public Transport
+pedestrian,0,bike,mexico_city,Public Transport
+rail,0,bike,mexico_city,Public Transport
+truck,0,bike,mexico_city,Public Transport
+unknown,0,bike,mexico_city,Public Transport
+NOV,32.24,bike,mexico_city,Public Transport
+Total,32.24,bike,mexico_city,Public Transport
+bike,0,bike,santiago,Public Transport
+bus,7.33,bike,santiago,Public Transport
+car,1.93,bike,santiago,Public Transport
+motorbike,0.05,bike,santiago,Public Transport
+other,0,bike,santiago,Public Transport
+pedestrian,0,bike,santiago,Public Transport
+rail,0,bike,santiago,Public Transport
+truck,3.05,bike,santiago,Public Transport
+unknown,0.12,bike,santiago,Public Transport
+NOV,1.32,bike,santiago,Public Transport
+Total,13.81,bike,santiago,Public Transport
+bike,0,bike,sao_paulo,Public Transport
+bus,8.92,bike,sao_paulo,Public Transport
+car,4.41,bike,sao_paulo,Public Transport
+motorbike,0.78,bike,sao_paulo,Public Transport
+other,0,bike,sao_paulo,Public Transport
+pedestrian,0,bike,sao_paulo,Public Transport
+rail,0,bike,sao_paulo,Public Transport
+truck,2.65,bike,sao_paulo,Public Transport
+unknown,0,bike,sao_paulo,Public Transport
+NOV,7.96,bike,sao_paulo,Public Transport
+Total,24.72,bike,sao_paulo,Public Transport
+bike,0,bike,vizag,Public Transport
+bus,2.45,bike,vizag,Public Transport
+car,2.13,bike,vizag,Public Transport
+motorbike,2.27,bike,vizag,Public Transport
+other,0,bike,vizag,Public Transport
+pedestrian,0,bike,vizag,Public Transport
+rail,0,bike,vizag,Public Transport
+truck,7.01,bike,vizag,Public Transport
+unknown,1.93,bike,vizag,Public Transport
+NOV,0,bike,vizag,Public Transport
+Total,15.79,bike,vizag,Public Transport
+bike,0.1,bus,accra,Public Transport
+bus,0,bus,accra,Public Transport
+car,2.2,bus,accra,Public Transport
+motorbike,0.2,bus,accra,Public Transport
+other,0.2,bus,accra,Public Transport
+pedestrian,0.13,bus,accra,Public Transport
+rail,0,bus,accra,Public Transport
+truck,5.76,bus,accra,Public Transport
+unknown,0,bus,accra,Public Transport
+NOV,8.21,bus,accra,Public Transport
+Total,16.8,bus,accra,Public Transport
+bike,0,bus,bangalore,Public Transport
+bus,0,bus,bangalore,Public Transport
+car,0,bus,bangalore,Public Transport
+motorbike,0,bus,bangalore,Public Transport
+other,0,bus,bangalore,Public Transport
+pedestrian,0,bus,bangalore,Public Transport
+rail,0,bus,bangalore,Public Transport
+truck,7.36,bus,bangalore,Public Transport
+unknown,0,bus,bangalore,Public Transport
+NOV,25.41,bus,bangalore,Public Transport
+Total,32.77,bus,bangalore,Public Transport
+bike,0,bus,belo_horizonte,Public Transport
+bus,0,bus,belo_horizonte,Public Transport
+car,0.45,bus,belo_horizonte,Public Transport
+motorbike,0,bus,belo_horizonte,Public Transport
+other,0,bus,belo_horizonte,Public Transport
+pedestrian,0,bus,belo_horizonte,Public Transport
+rail,0.59,bus,belo_horizonte,Public Transport
+truck,0,bus,belo_horizonte,Public Transport
+unknown,0,bus,belo_horizonte,Public Transport
+NOV,7.4,bus,belo_horizonte,Public Transport
+Total,8.44,bus,belo_horizonte,Public Transport
+bike,0,bus,bogota,Public Transport
+bus,0,bus,bogota,Public Transport
+car,0.33,bus,bogota,Public Transport
+motorbike,0,bus,bogota,Public Transport
+other,0,bus,bogota,Public Transport
+pedestrian,0.35,bus,bogota,Public Transport
+rail,0,bus,bogota,Public Transport
+truck,0,bus,bogota,Public Transport
+unknown,0,bus,bogota,Public Transport
+NOV,7.73,bus,bogota,Public Transport
+Total,8.41,bus,bogota,Public Transport
+bike,0,bus,buenos_aires,Public Transport
+bus,0,bus,buenos_aires,Public Transport
+car,0,bus,buenos_aires,Public Transport
+motorbike,0,bus,buenos_aires,Public Transport
+other,0,bus,buenos_aires,Public Transport
+pedestrian,0,bus,buenos_aires,Public Transport
+rail,0,bus,buenos_aires,Public Transport
+truck,0,bus,buenos_aires,Public Transport
+unknown,0,bus,buenos_aires,Public Transport
+NOV,17.33,bus,buenos_aires,Public Transport
+Total,17.33,bus,buenos_aires,Public Transport
+bike,0,bus,delhi,Public Transport
+bus,0,bus,delhi,Public Transport
+car,2.61,bus,delhi,Public Transport
+motorbike,1.2,bus,delhi,Public Transport
+other,0,bus,delhi,Public Transport
+pedestrian,0,bus,delhi,Public Transport
+rail,0,bus,delhi,Public Transport
+truck,1.59,bus,delhi,Public Transport
+unknown,0,bus,delhi,Public Transport
+NOV,7.71,bus,delhi,Public Transport
+Total,13.11,bus,delhi,Public Transport
+bike,0,bus,mexico_city,Public Transport
+bus,0,bus,mexico_city,Public Transport
+car,0,bus,mexico_city,Public Transport
+motorbike,0,bus,mexico_city,Public Transport
+other,0,bus,mexico_city,Public Transport
+pedestrian,0,bus,mexico_city,Public Transport
+rail,0,bus,mexico_city,Public Transport
+truck,0,bus,mexico_city,Public Transport
+unknown,0,bus,mexico_city,Public Transport
+NOV,19.26,bus,mexico_city,Public Transport
+Total,19.26,bus,mexico_city,Public Transport
+bike,0,bus,santiago,Public Transport
+bus,0,bus,santiago,Public Transport
+car,0.83,bus,santiago,Public Transport
+motorbike,0,bus,santiago,Public Transport
+other,0,bus,santiago,Public Transport
+pedestrian,0,bus,santiago,Public Transport
+rail,0,bus,santiago,Public Transport
+truck,0.46,bus,santiago,Public Transport
+unknown,0,bus,santiago,Public Transport
+NOV,7.21,bus,santiago,Public Transport
+Total,8.49,bus,santiago,Public Transport
+bike,0,bus,sao_paulo,Public Transport
+bus,0,bus,sao_paulo,Public Transport
+car,2.34,bus,sao_paulo,Public Transport
+motorbike,1.56,bus,sao_paulo,Public Transport
+other,0,bus,sao_paulo,Public Transport
+pedestrian,0,bus,sao_paulo,Public Transport
+rail,0,bus,sao_paulo,Public Transport
+truck,0.63,bus,sao_paulo,Public Transport
+unknown,0,bus,sao_paulo,Public Transport
+NOV,7.55,bus,sao_paulo,Public Transport
+Total,12.09,bus,sao_paulo,Public Transport
+bike,0,bus,vizag,Public Transport
+bus,0,bus,vizag,Public Transport
+car,0,bus,vizag,Public Transport
+motorbike,0,bus,vizag,Public Transport
+other,0,bus,vizag,Public Transport
+pedestrian,0,bus,vizag,Public Transport
+rail,0,bus,vizag,Public Transport
+truck,0.38,bus,vizag,Public Transport
+unknown,0,bus,vizag,Public Transport
+NOV,5.29,bus,vizag,Public Transport
+Total,5.67,bus,vizag,Public Transport
+bike,0,car,accra,Public Transport
+bus,3.6,car,accra,Public Transport
+car,0,car,accra,Public Transport
+motorbike,0.7,car,accra,Public Transport
+other,0.71,car,accra,Public Transport
+pedestrian,1.41,car,accra,Public Transport
+rail,0,car,accra,Public Transport
+truck,7.97,car,accra,Public Transport
+unknown,0.5,car,accra,Public Transport
+NOV,17.09,car,accra,Public Transport
+Total,31.98,car,accra,Public Transport
+bike,0,car,bangalore,Public Transport
+bus,3.77,car,bangalore,Public Transport
+car,0,car,bangalore,Public Transport
+motorbike,0.82,car,bangalore,Public Transport
+other,0,car,bangalore,Public Transport
+pedestrian,0,car,bangalore,Public Transport
+rail,0,car,bangalore,Public Transport
+truck,3.69,car,bangalore,Public Transport
+unknown,1.05,car,bangalore,Public Transport
+NOV,5.2,car,bangalore,Public Transport
+Total,14.54,car,bangalore,Public Transport
+bike,0,car,belo_horizonte,Public Transport
+bus,19.25,car,belo_horizonte,Public Transport
+car,0,car,belo_horizonte,Public Transport
+motorbike,0,car,belo_horizonte,Public Transport
+other,0,car,belo_horizonte,Public Transport
+pedestrian,0,car,belo_horizonte,Public Transport
+rail,0.14,car,belo_horizonte,Public Transport
+truck,0,car,belo_horizonte,Public Transport
+unknown,0,car,belo_horizonte,Public Transport
+NOV,42.47,car,belo_horizonte,Public Transport
+Total,61.86,car,belo_horizonte,Public Transport
+bike,0,car,bogota,Public Transport
+bus,2.4,car,bogota,Public Transport
+car,0,car,bogota,Public Transport
+motorbike,0.27,car,bogota,Public Transport
+other,0,car,bogota,Public Transport
+pedestrian,0,car,bogota,Public Transport
+rail,0,car,bogota,Public Transport
+truck,0.8,car,bogota,Public Transport
+unknown,0,car,bogota,Public Transport
+NOV,16.25,car,bogota,Public Transport
+Total,19.73,car,bogota,Public Transport
+bike,0,car,buenos_aires,Public Transport
+bus,0,car,buenos_aires,Public Transport
+car,0,car,buenos_aires,Public Transport
+motorbike,0,car,buenos_aires,Public Transport
+other,0,car,buenos_aires,Public Transport
+pedestrian,0,car,buenos_aires,Public Transport
+rail,0,car,buenos_aires,Public Transport
+truck,0,car,buenos_aires,Public Transport
+unknown,0,car,buenos_aires,Public Transport
+NOV,270.66,car,buenos_aires,Public Transport
+Total,270.66,car,buenos_aires,Public Transport
+bike,0,car,delhi,Public Transport
+bus,7.84,car,delhi,Public Transport
+car,0,car,delhi,Public Transport
+motorbike,1.32,car,delhi,Public Transport
+other,0,car,delhi,Public Transport
+pedestrian,0,car,delhi,Public Transport
+rail,0,car,delhi,Public Transport
+truck,21.88,car,delhi,Public Transport
+unknown,18.38,car,delhi,Public Transport
+NOV,57.63,car,delhi,Public Transport
+Total,107.04,car,delhi,Public Transport
+bike,0,car,mexico_city,Public Transport
+bus,0,car,mexico_city,Public Transport
+car,0,car,mexico_city,Public Transport
+motorbike,0,car,mexico_city,Public Transport
+other,0,car,mexico_city,Public Transport
+pedestrian,0,car,mexico_city,Public Transport
+rail,0,car,mexico_city,Public Transport
+truck,0,car,mexico_city,Public Transport
+unknown,0,car,mexico_city,Public Transport
+NOV,267.46,car,mexico_city,Public Transport
+Total,267.46,car,mexico_city,Public Transport
+bike,0,car,santiago,Public Transport
+bus,8.7,car,santiago,Public Transport
+car,0,car,santiago,Public Transport
+motorbike,0.05,car,santiago,Public Transport
+other,0,car,santiago,Public Transport
+pedestrian,0.55,car,santiago,Public Transport
+rail,0,car,santiago,Public Transport
+truck,3.05,car,santiago,Public Transport
+unknown,0,car,santiago,Public Transport
+NOV,23.91,car,santiago,Public Transport
+Total,36.26,car,santiago,Public Transport
+bike,0,car,sao_paulo,Public Transport
+bus,20.27,car,sao_paulo,Public Transport
+car,0,car,sao_paulo,Public Transport
+motorbike,1.37,car,sao_paulo,Public Transport
+other,0,car,sao_paulo,Public Transport
+pedestrian,0,car,sao_paulo,Public Transport
+rail,0,car,sao_paulo,Public Transport
+truck,9.18,car,sao_paulo,Public Transport
+unknown,0,car,sao_paulo,Public Transport
+NOV,84.86,car,sao_paulo,Public Transport
+Total,115.68,car,sao_paulo,Public Transport
+bike,0,car,vizag,Public Transport
+bus,0,car,vizag,Public Transport
+car,0,car,vizag,Public Transport
+motorbike,0,car,vizag,Public Transport
+other,0,car,vizag,Public Transport
+pedestrian,0,car,vizag,Public Transport
+rail,0,car,vizag,Public Transport
+truck,3.36,car,vizag,Public Transport
+unknown,0,car,vizag,Public Transport
+NOV,5.55,car,vizag,Public Transport
+Total,8.92,car,vizag,Public Transport
+bike,0,motorbike,accra,Public Transport
+bus,6.7,motorbike,accra,Public Transport
+car,10.5,motorbike,accra,Public Transport
+motorbike,0,motorbike,accra,Public Transport
+other,0.51,motorbike,accra,Public Transport
+pedestrian,1.28,motorbike,accra,Public Transport
+rail,0,motorbike,accra,Public Transport
+truck,5.05,motorbike,accra,Public Transport
+unknown,0.91,motorbike,accra,Public Transport
+NOV,4.2,motorbike,accra,Public Transport
+Total,29.14,motorbike,accra,Public Transport
+bike,0.34,motorbike,bangalore,Public Transport
+bus,56.25,motorbike,bangalore,Public Transport
+car,12.83,motorbike,bangalore,Public Transport
+motorbike,0,motorbike,bangalore,Public Transport
+other,0,motorbike,bangalore,Public Transport
+pedestrian,1.81,motorbike,bangalore,Public Transport
+rail,0,motorbike,bangalore,Public Transport
+truck,54.32,motorbike,bangalore,Public Transport
+unknown,9.59,motorbike,bangalore,Public Transport
+NOV,37.82,motorbike,bangalore,Public Transport
+Total,172.96,motorbike,bangalore,Public Transport
+bike,1.43,motorbike,bogota,Public Transport
+bus,31.87,motorbike,bogota,Public Transport
+car,45.69,motorbike,bogota,Public Transport
+motorbike,0,motorbike,bogota,Public Transport
+other,0,motorbike,bogota,Public Transport
+pedestrian,2.99,motorbike,bogota,Public Transport
+rail,0,motorbike,bogota,Public Transport
+truck,18.53,motorbike,bogota,Public Transport
+unknown,0,motorbike,bogota,Public Transport
+NOV,35.61,motorbike,bogota,Public Transport
+Total,136.12,motorbike,bogota,Public Transport
+bike,0,motorbike,buenos_aires,Public Transport
+bus,0,motorbike,buenos_aires,Public Transport
+car,0,motorbike,buenos_aires,Public Transport
+motorbike,0,motorbike,buenos_aires,Public Transport
+other,0,motorbike,buenos_aires,Public Transport
+pedestrian,0,motorbike,buenos_aires,Public Transport
+rail,0,motorbike,buenos_aires,Public Transport
+truck,0,motorbike,buenos_aires,Public Transport
+unknown,0,motorbike,buenos_aires,Public Transport
+NOV,91.2,motorbike,buenos_aires,Public Transport
+Total,91.2,motorbike,buenos_aires,Public Transport
+bike,0,motorbike,delhi,Public Transport
+bus,71.96,motorbike,delhi,Public Transport
+car,92.97,motorbike,delhi,Public Transport
+motorbike,0,motorbike,delhi,Public Transport
+other,0,motorbike,delhi,Public Transport
+pedestrian,0,motorbike,delhi,Public Transport
+rail,0,motorbike,delhi,Public Transport
+truck,111.68,motorbike,delhi,Public Transport
+unknown,208.91,motorbike,delhi,Public Transport
+NOV,63.8,motorbike,delhi,Public Transport
+Total,549.33,motorbike,delhi,Public Transport
+bike,0,motorbike,mexico_city,Public Transport
+bus,0,motorbike,mexico_city,Public Transport
+car,0,motorbike,mexico_city,Public Transport
+motorbike,0,motorbike,mexico_city,Public Transport
+other,0,motorbike,mexico_city,Public Transport
+pedestrian,0,motorbike,mexico_city,Public Transport
+rail,0,motorbike,mexico_city,Public Transport
+truck,0,motorbike,mexico_city,Public Transport
+unknown,0,motorbike,mexico_city,Public Transport
+NOV,94.52,motorbike,mexico_city,Public Transport
+Total,94.52,motorbike,mexico_city,Public Transport
+bike,0.05,motorbike,santiago,Public Transport
+bus,2.83,motorbike,santiago,Public Transport
+car,2.6,motorbike,santiago,Public Transport
+motorbike,0,motorbike,santiago,Public Transport
+other,0,motorbike,santiago,Public Transport
+pedestrian,0,motorbike,santiago,Public Transport
+rail,0,motorbike,santiago,Public Transport
+truck,3.21,motorbike,santiago,Public Transport
+unknown,0.43,motorbike,santiago,Public Transport
+NOV,6.6,motorbike,santiago,Public Transport
+Total,15.73,motorbike,santiago,Public Transport
+bike,0.08,motorbike,sao_paulo,Public Transport
+bus,55.49,motorbike,sao_paulo,Public Transport
+car,48.33,motorbike,sao_paulo,Public Transport
+motorbike,0,motorbike,sao_paulo,Public Transport
+other,0.37,motorbike,sao_paulo,Public Transport
+pedestrian,0,motorbike,sao_paulo,Public Transport
+rail,0,motorbike,sao_paulo,Public Transport
+truck,38.32,motorbike,sao_paulo,Public Transport
+unknown,0,motorbike,sao_paulo,Public Transport
+NOV,103.38,motorbike,sao_paulo,Public Transport
+Total,245.98,motorbike,sao_paulo,Public Transport
+bike,0,motorbike,vizag,Public Transport
+bus,12.12,motorbike,vizag,Public Transport
+car,10.16,motorbike,vizag,Public Transport
+motorbike,0,motorbike,vizag,Public Transport
+other,0,motorbike,vizag,Public Transport
+pedestrian,0,motorbike,vizag,Public Transport
+rail,0,motorbike,vizag,Public Transport
+truck,38.49,motorbike,vizag,Public Transport
+unknown,3.67,motorbike,vizag,Public Transport
+NOV,36.8,motorbike,vizag,Public Transport
+Total,101.25,motorbike,vizag,Public Transport
+bike,0.49,pedestrian,accra,Public Transport
+bus,43.34,pedestrian,accra,Public Transport
+car,91.18,pedestrian,accra,Public Transport
+motorbike,9.43,pedestrian,accra,Public Transport
+other,3.47,pedestrian,accra,Public Transport
+pedestrian,0,pedestrian,accra,Public Transport
+rail,0,pedestrian,accra,Public Transport
+truck,20.33,pedestrian,accra,Public Transport
+unknown,22.78,pedestrian,accra,Public Transport
+NOV,0.39,pedestrian,accra,Public Transport
+Total,191.41,pedestrian,accra,Public Transport
+bike,0,pedestrian,bangalore,Public Transport
+bus,81.32,pedestrian,bangalore,Public Transport
+car,51.95,pedestrian,bangalore,Public Transport
+motorbike,71.8,pedestrian,bangalore,Public Transport
+other,0,pedestrian,bangalore,Public Transport
+pedestrian,0,pedestrian,bangalore,Public Transport
+rail,0,pedestrian,bangalore,Public Transport
+truck,72.21,pedestrian,bangalore,Public Transport
+unknown,76.87,pedestrian,bangalore,Public Transport
+NOV,0,pedestrian,bangalore,Public Transport
+Total,354.16,pedestrian,bangalore,Public Transport
+bike,0,pedestrian,belo_horizonte,Public Transport
+bus,107.41,pedestrian,belo_horizonte,Public Transport
+car,45.29,pedestrian,belo_horizonte,Public Transport
+motorbike,0,pedestrian,belo_horizonte,Public Transport
+other,0.34,pedestrian,belo_horizonte,Public Transport
+pedestrian,0,pedestrian,belo_horizonte,Public Transport
+rail,6.03,pedestrian,belo_horizonte,Public Transport
+truck,0,pedestrian,belo_horizonte,Public Transport
+unknown,0,pedestrian,belo_horizonte,Public Transport
+NOV,0,pedestrian,belo_horizonte,Public Transport
+Total,159.07,pedestrian,belo_horizonte,Public Transport
+bike,2.45,pedestrian,bogota,Public Transport
+bus,61.86,pedestrian,bogota,Public Transport
+car,105.8,pedestrian,bogota,Public Transport
+motorbike,80.11,pedestrian,bogota,Public Transport
+other,0,pedestrian,bogota,Public Transport
+pedestrian,0,pedestrian,bogota,Public Transport
+rail,0,pedestrian,bogota,Public Transport
+truck,13.36,pedestrian,bogota,Public Transport
+unknown,7.86,pedestrian,bogota,Public Transport
+NOV,0,pedestrian,bogota,Public Transport
+Total,271.45,pedestrian,bogota,Public Transport
+bike,0,pedestrian,buenos_aires,Public Transport
+bus,0,pedestrian,buenos_aires,Public Transport
+car,0,pedestrian,buenos_aires,Public Transport
+motorbike,0,pedestrian,buenos_aires,Public Transport
+other,0,pedestrian,buenos_aires,Public Transport
+pedestrian,0,pedestrian,buenos_aires,Public Transport
+rail,0,pedestrian,buenos_aires,Public Transport
+truck,0,pedestrian,buenos_aires,Public Transport
+unknown,0,pedestrian,buenos_aires,Public Transport
+NOV,768.69,pedestrian,buenos_aires,Public Transport
+Total,768.69,pedestrian,buenos_aires,Public Transport
+bike,0,pedestrian,delhi,Public Transport
+bus,109.3,pedestrian,delhi,Public Transport
+car,197.02,pedestrian,delhi,Public Transport
+motorbike,74.16,pedestrian,delhi,Public Transport
+other,0,pedestrian,delhi,Public Transport
+pedestrian,0,pedestrian,delhi,Public Transport
+rail,0,pedestrian,delhi,Public Transport
+truck,114.03,pedestrian,delhi,Public Transport
+unknown,512.55,pedestrian,delhi,Public Transport
+NOV,0,pedestrian,delhi,Public Transport
+Total,1007.06,pedestrian,delhi,Public Transport
+bike,0,pedestrian,mexico_city,Public Transport
+bus,0,pedestrian,mexico_city,Public Transport
+car,0,pedestrian,mexico_city,Public Transport
+motorbike,0,pedestrian,mexico_city,Public Transport
+other,0,pedestrian,mexico_city,Public Transport
+pedestrian,0,pedestrian,mexico_city,Public Transport
+rail,0,pedestrian,mexico_city,Public Transport
+truck,0,pedestrian,mexico_city,Public Transport
+unknown,0,pedestrian,mexico_city,Public Transport
+NOV,714.6,pedestrian,mexico_city,Public Transport
+Total,714.6,pedestrian,mexico_city,Public Transport
+bike,0,pedestrian,santiago,Public Transport
+bus,104.45,pedestrian,santiago,Public Transport
+car,36.7,pedestrian,santiago,Public Transport
+motorbike,2.16,pedestrian,santiago,Public Transport
+other,0,pedestrian,santiago,Public Transport
+pedestrian,0,pedestrian,santiago,Public Transport
+rail,0,pedestrian,santiago,Public Transport
+truck,26.34,pedestrian,santiago,Public Transport
+unknown,8.1,pedestrian,santiago,Public Transport
+NOV,6.35,pedestrian,santiago,Public Transport
+Total,184.11,pedestrian,santiago,Public Transport
+bike,0.51,pedestrian,sao_paulo,Public Transport
+bus,137.52,pedestrian,sao_paulo,Public Transport
+car,133.87,pedestrian,sao_paulo,Public Transport
+motorbike,46.45,pedestrian,sao_paulo,Public Transport
+other,0.51,pedestrian,sao_paulo,Public Transport
+pedestrian,0,pedestrian,sao_paulo,Public Transport
+rail,0,pedestrian,sao_paulo,Public Transport
+truck,38.34,pedestrian,sao_paulo,Public Transport
+unknown,0,pedestrian,sao_paulo,Public Transport
+NOV,2.45,pedestrian,sao_paulo,Public Transport
+Total,359.64,pedestrian,sao_paulo,Public Transport
+bike,0,pedestrian,vizag,Public Transport
+bus,24.02,pedestrian,vizag,Public Transport
+car,25.19,pedestrian,vizag,Public Transport
+motorbike,47.3,pedestrian,vizag,Public Transport
+other,0.35,pedestrian,vizag,Public Transport
+pedestrian,0,pedestrian,vizag,Public Transport
+rail,0,pedestrian,vizag,Public Transport
+truck,42.04,pedestrian,vizag,Public Transport
+unknown,18.57,pedestrian,vizag,Public Transport
+NOV,0,pedestrian,vizag,Public Transport
+Total,157.47,pedestrian,vizag,Public Transport
+bike,0,truck,bogota,Public Transport
+bus,0,truck,bogota,Public Transport
+car,0.16,truck,bogota,Public Transport
+motorbike,0,truck,bogota,Public Transport
+other,0,truck,bogota,Public Transport
+pedestrian,0,truck,bogota,Public Transport
+rail,0,truck,bogota,Public Transport
+truck,0.83,truck,bogota,Public Transport
+unknown,0,truck,bogota,Public Transport
+NOV,0,truck,bogota,Public Transport
+Total,1,truck,bogota,Public Transport
