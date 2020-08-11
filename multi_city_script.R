@@ -93,11 +93,11 @@ for(city in cities){
                                   ADD_TRUCK_DRIVERS = F,
                                   MAX_MODE_SHARE_SCENARIO = T,
                                   ADD_BUS_DRIVERS = F,
-                                  ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]),
+                                  ADD_MOTORBIKE_FLEET = as.logical(add_motorbike_fleet[[city]]),
                                   emission_inventory = emission_inventories[[city]],
                                   speeds = speeds[[city]],
                                   
-                                  FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
+                                  FLEET_TO_MOTORBIKE_RATIO = fleet_to_motorbike_ratio[[city]],
                                   MMET_CYCLING = mmet_cycling, 
                                   MMET_WALKING = mmet_walking, 
                                   DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
