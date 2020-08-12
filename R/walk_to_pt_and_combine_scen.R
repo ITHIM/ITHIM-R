@@ -60,7 +60,7 @@ scale_trip_distances <- function(trips){
   match_modes[stage_modes=='pedestrian'] <- DISTANCE_SCALAR_WALKING
   match_modes[stage_modes%in%pt_modes] <- DISTANCE_SCALAR_PT
   match_modes[stage_modes=='cycle'] <- DISTANCE_SCALAR_CYCLING
-  match_modes[stage_modes=='motorbike'] <- DISTANCE_SCALAR_MOTORCYCLE
+  match_modes[stage_modes=='motorcycle'] <- DISTANCE_SCALAR_MOTORCYCLE
   trips$stage_distance <- trips$stage_distance*match_modes
   trips$stage_duration <- trips$stage_duration*match_modes
   
