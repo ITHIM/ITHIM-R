@@ -365,4 +365,4 @@ for (i in 1:length(scen_names)){
 
 ### Who hit whom matrix for all case cities as CSV {#whw_all_csv}
 
-[View from](https://github.com/ITHIM/ITHIM-R/blob/master/results/multi_city/whw_matrices/whw_lng.csv)
+[Download from](https://raw.githubusercontent.com/ITHIM/ITHIM-R/master/results/multi_city/whw_matrices/whw_lng.csv)
