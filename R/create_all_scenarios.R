@@ -83,9 +83,9 @@ create_all_scenarios <- function(trip_set){
     rdr <- rd_list[[2]]
     # 3.5 % Cycle
     source_modes <- c('motorcycle', 'car', 'taxi')
-    target_modes <- c('bike')
+    target_modes <- c('cycle')
     mtrips <- max(min(52,sum(rdr$trip_mode == 'motorcycle')),1)
-    btrips <- sum(rdr$trip_mode == 'bike')
+    btrips <- sum(rdr$trip_mode == 'cycle')
     ctrips <- max(min(round(0.035 * tt) - btrips - mtrips, sum(rdr$trip_mode %in% c('car', 'taxi')&rdr$trip_distance_cat==DIST_CAT[1])),1)
     target_new_trips <- c(mtrips, ctrips)
     mbike_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes[1],combined_modes = T, 
@@ -197,9 +197,9 @@ create_all_scenarios <- function(trip_set){
     rdr <- rd_list[[2]]
     # 3.5 % Cycle
     source_modes <- c('motorcycle', 'car', 'taxi')
-    target_modes <- c('bike')
+    target_modes <- c('cycle')
     mtrips <- max(min(52,sum(rdr$trip_mode == 'motorcycle')),1)
-    btrips <- sum(rdr$trip_mode == 'bike')
+    btrips <- sum(rdr$trip_mode == 'cycle')
     ctrips <- max(min(round(0.035 * tt) - btrips - mtrips, sum(rdr$trip_mode %in% c('car', 'taxi')&rdr$trip_distance_cat==DIST_CAT[1])),1)
     target_new_trips <- c(mtrips, ctrips)
     mbike_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes[1],combined_modes = T, 
