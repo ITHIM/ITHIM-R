@@ -1,7 +1,7 @@
 #' Create scenarios defined by maximum mode share
 #' 
 #' Creates five scenarios where, in each one, the mode share is elevated to the maximum observed across the cities.
-#' The scenario-modes are pedestrian, bike, car, motorbike and bus
+#' The scenario-modes are pedestrian, cycle, car, motorcycle and bus
 #' 
 #' @param trip_set data frame, baseline scenario
 #' 
