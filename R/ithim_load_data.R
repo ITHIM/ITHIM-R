@@ -18,7 +18,7 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   pedestrian=4.8,
   walk_to_pt=4.8,
   bike=14.5,
-  motorbike=25,
+  motorcycle=25,
   truck=21,
   van=15,
   subway=28,
@@ -78,7 +78,7 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   ## use specified words for key modes
   walk_words <- c('walk','walked','pedestrian')
   bike_words <- c('bike','cycle','cycling')
-  mc_words <- c('motorbike','mcycle','mc','mtw')
+  mc_words <- c('motorcycle','mcycle','mc','mtw')
   subway_words <- c('metro','underground')
   rail_words <- c('train')
   for(i in 1:length(mode_cols)){
@@ -89,7 +89,7 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]=='private_car'] <- 'car'
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%walk_words] <- 'pedestrian'
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%bike_words] <- 'bike'
-    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%mc_words] <- 'motorbike'
+    trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%mc_words] <- 'motorcycle'
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%subway_words] <- 'subway'
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]]%in%rail_words] <- 'rail'
   }
@@ -196,20 +196,20 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   if(!'weight'%in%colnames(injuries)) injuries$weight <- 1
   
   ## AA - Hard-coded
-  ## INJURIES - Make all incidents of car, bus, motorbike and bike with themselves, as NOV
+  ## INJURIES - Make all incidents of car, bus, motorcycle and bike with themselves, as NOV
   ## 25-02-2020
   
-  # Get all injuries with same casualty and strike mode for car, bus, motorbike and bike
+  # Get all injuries with same casualty and strike mode for car, bus, motorcycle and bike
   # Treat bus_driver same as bus for strike mode
   same_cas_str_modes <- injuries %>% filter((cas_mode == 'car' & strike_mode == 'car') | 
                                               (cas_mode == 'bus' & (strike_mode %in% c('bus', 'bus_driver'))) | 
-                                              (cas_mode == 'motorbike' & strike_mode == 'motorbike') | 
+                                              (cas_mode == 'motorcycle' & strike_mode == 'motorcycle') | 
                                               (cas_mode == 'bike' & strike_mode == 'bike'))
   
   # Filter all those with similar casualty and strike mode
   injuries <- injuries %>% filter(!( (cas_mode == 'car' & strike_mode == 'car') | 
                                        (cas_mode == 'bus' & (strike_mode %in% c('bus', 'bus_driver'))) | 
-                                       (cas_mode == 'motorbike' & strike_mode == 'motorbike') |
+                                       (cas_mode == 'motorcycle' & strike_mode == 'motorcycle') |
                                        (cas_mode == 'bike' & strike_mode == 'bike')))
   
   # Mutate strike mode as NOV

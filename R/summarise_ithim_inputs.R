@@ -23,9 +23,9 @@ summarise_ithim_inputs <- function(ithim_object){
     cas_modes <- unique(c(cas_modes,as.character(INJURY_TABLE$nov$cas_mode)))
     injuries <- sapply(cas_modes,function(x)sum(subset(INJURY_TABLE$whw,cas_mode==x)$count)+sum(subset(INJURY_TABLE$nov,cas_mode==x)$count))
   }
-  injury_modes <- c('pedestrian','bike','car','motorbike')
-  injury_rates <- sapply(injury_modes,function(x)injuries[match(c('pedestrian','bike','car','motorbike'),names(injuries))])/
-    distances[match(c('pedestrian','bike','car','motorbike'),modenames),1]
+  injury_modes <- c('pedestrian','bike','car','motorcycle')
+  injury_rates <- sapply(injury_modes,function(x)injuries[match(c('pedestrian','bike','car','motorcycle'),names(injuries))])/
+    distances[match(c('pedestrian','bike','car','motorcycle'),modenames),1]
   
   print(injuries)
   par(mar=c(8,7,2,2)); barplot(injury_rates,col=rainbow(length(injury_rates)),ylab='',las=2)

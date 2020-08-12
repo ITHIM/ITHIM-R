@@ -42,7 +42,7 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
   if('whw'%in%INJURY_TABLE_TYPES){
     ## group 2W and 3W striking vehicles
     strike_distances <- true_distances_0
-    strike_distances$motorbike <- rowSums(strike_distances[,colnames(strike_distances)%in%c('motorbike','auto_rickshaw')])
+    strike_distances$motorcycle <- rowSums(strike_distances[,colnames(strike_distances)%in%c('motorcycle','auto_rickshaw')])
     strike_modes <- unique(as.character(injury_table$whw$strike_mode))
     ##!! this order matters to strike_distance_sums later
     strike_mode_indices <- match(injury_table$whw$strike_mode,unique(c(mode_names,strike_modes)))

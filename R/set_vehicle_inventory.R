@@ -30,7 +30,7 @@ set_vehicle_inventory <- function(){
   #    vehicle_inventory$distance_ratio_to_car[vehicle_inventory$stage_mode%in%m] <- DISTANCE_RATIOS[[m]]
   
   ##!! this is the only part that currently changes with uncertainty
-  #vehicle_inventory$distance_ratio_to_car[vehicle_inventory$stage_mode%in%c('motorbike')] <- MOTORBIKE_TO_CAR_RATIO#DISTANCE_RATIOS$motorbike
+  #vehicle_inventory$distance_ratio_to_car[vehicle_inventory$stage_mode%in%c('motorbike')] <- MOTORCYCLE_TO_CAR_RATIO#DISTANCE_RATIOS$motorbike
   
   vehicle_inventory <- rbind(vehicle_inventory,data.frame(stage_mode='big_truck',
                                                           speed=21,
