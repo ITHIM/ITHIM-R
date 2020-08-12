@@ -96,7 +96,7 @@ MOTORCYCLE_TO_CAR_RATIO <- 0.2
 
 total_car_distance <- sum(subset(raw_trip_set,stage_mode=='car')$trip_distance)*DISTANCE_SCALAR_CAR_TAXI
 
-# Create new motorbike trips
+# Create new motorcycle trips
 # Add 4 new people with 3 trips each
 # Age: 15-59 and gender: male
 new_mode <- 'motorcycle'
@@ -121,7 +121,7 @@ for(i in 1:nPeople){
                          sex = new_gender,
                          nTrips=nTrips,
                          speed=speed)
-  # Add new motorbikes trips to baseline
+  # Add new motorcycles trips to baseline
   # print(summary(new_trips$trip_distance))
   raw_trip_set <- plyr::rbind.fill(raw_trip_set, new_trips)
 }
