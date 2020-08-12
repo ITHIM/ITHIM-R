@@ -9,7 +9,7 @@
 get_synthetic_from_trips <- function(){
   
   ##!! to get the right order of trip columns; needed if trips are added
-  if (CITY == 'bogota') {
+  if (CITY == 'bogota_wb') {
     raw_trip_set <- data.frame(trip_id=TRIP_SET$trip_id,
                                trip_mode=TRIP_SET$trip_mode,
                                trip_distance=TRIP_SET$trip_distance,

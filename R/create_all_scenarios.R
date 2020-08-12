@@ -237,7 +237,7 @@ create_all_scenarios <- function(trip_set){
   }
   
   #----
-  if (CITY == 'bogota') {
+  if (CITY == 'bogota_wb') {
     
     ###############################################################
     # Scenario 1: mujeres hicieran la misma proporcion de viajes que los hombres
