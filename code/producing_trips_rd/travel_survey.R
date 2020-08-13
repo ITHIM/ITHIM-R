@@ -87,6 +87,9 @@ trip <- standardize_modes(trip, mode = c('stage', 'trip'))
 # Expand by household IDs
 rd <- expand_using_weights(trip, normalize_by = 20)
 
+# Reduce filesize by slicing it to 10%
+rd <- slice_sample(rd, prop = 0.1)
+
 # Remove extra columns
 rd$X1 <- NULL
 
@@ -2236,8 +2239,11 @@ trip$year <- 2011
 trip$gdppc2014 <- 5051
 trip$population2014 <- 8971800
 
-trip <- read.csv("data/local/bangalore/bangalore_trip.csv", stringsAsFactors = F)
-write.csv(trip, "data/local/bangalore/bangalore_trip.csv")
+write_csv(trip, "data/local/bangalore/bangalore_trip.csv")
+
+# Read trip dataset
+trip <- read_csv("data/local/bangalore/bangalore_trip.csv")
+
 
 # Standardized travel modes
 trip <- standardize_modes(trip, mode = c('stage', 'trip'))
@@ -2377,10 +2383,10 @@ trip$gdppc2014 <- 19239
 trip$population2014 <-20976700 
 
 #quality_check(mexico_city)
-write.csv(trip, "data/local/mexico/mexico_city_trip.csv")
+write.csv(trip, "data/local/mexico_city/mexico_city_trip.csv")
 
 ## Expand trip dataset using participant weight
-trip <- read_csv("data/local/mexico/mexico_city_trip.csv")
+trip <- read_csv("data/local/mexico_city/mexico_city_trip.csv")
 
 # Standardized travel modes
 trip <- standardize_modes(trip, mode = c('stage', 'trip'))
