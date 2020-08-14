@@ -308,7 +308,8 @@ for (cs in names(all_whw)){
   
 }
 
-readr::write_csv(whw_list, paste0('results/multi_city/whw_matrices/whw_lng.csv'))
+# Remove total from whw long form, and write as csv
+readr::write_csv(whw_list %>% filter(str_mode != 'Total'), paste0('results/multi_city/whw_matrices/whw_lng.csv'))
 
 ```
 
