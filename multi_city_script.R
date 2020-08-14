@@ -1,6 +1,6 @@
 library(ithimr)
 rm(list=ls())
-cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires',
+cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
 
 #cities <- c('belo_horizonte', 'buenos_aires', 'mexico_city' )
