@@ -1,14 +1,14 @@
-library(ithimr)
-setwd('ITHIM-R')
-whw_file <- 'nov.csv'
-path <- file.path('code/injuries/buenos_aires/')
-whw <- read.csv(paste0(path,whw_file))
+library(tidyverse)
+file_path <- file.path('data/local/buenos_aires/buenos_aires_injuries_NOV.csv')
+whw <- read_csv(file_path)
 colnames(whw)[2] <- 'NOV'
 injuries <- data.frame(cas_mode=character(),strike_mode=character(),weight=numeric(),stringsAsFactors = F)
 number_of_years <- 1
 for(i in 1:nrow(whw))
   for(j in 2:ncol(whw)){
-    count <- whw[i,j]
+    count <- whw[i,j] %>% as.numeric()
+    cat("count is ", count, "\n")
+    cat(ceiling(count), "\n")
     if(count>0){
       weight <- number_of_years*ceiling(count)/count
       for(k in 1:ceiling(count)){ ## six years of data
@@ -20,13 +20,13 @@ for(i in 1:nrow(whw))
 ## rahul recommends omitting pick up truck and 3wheeled strikers – both almost zero in the matrix.
 unique(injuries$cas_mode)
 unique(injuries$strike_mode)
-injuries$cas_mode[injuries$cas_mode=='cycle'] <- 'bicycle'
+#injuries$cas_mode[injuries$cas_mode=='cycle'] <- 'bicycle'
 injuries
 head(injuries)
 unique(injuries$cas_mode)
 unique(injuries$strike_mode)
 injury_file <- 'injuries_buenos_aires.csv'
-write.csv(injuries,paste0('inst/extdata/local/buenos_aires/',injury_file))
+write_csv(injuries, paste0('inst/extdata/local/buenos_aires/',injury_file))
 
 #####################################################################
 ## with weights
