@@ -68,8 +68,7 @@ inj_bh$strike_mode <- smodes$exhaustive_list[match(tolower(inj_bh$strike_mode), 
 
 write_csv(inj_bh, 'inst/extdata/local/belo_horizonte/injuries_belo_horizonte.csv')
 
-##### Bogota
-# Sao Paulo ####
+# Bogota ####
 
 # Read bogota dataset
 inj_bg <- read_csv('data/local/bogota/pkg_injuries_bogota.csv')
