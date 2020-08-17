@@ -2566,6 +2566,27 @@ trip$population2014 <-4178700
 
 write.csv(trip, "data/local/cape_town/cape_town_trip.csv")
 
+trip <- read_csv("data/local/cape_town/cape_town_trip.csv")
+
+source("code/producing_trips_rd/used_functions.R")
+
+# Standardized travel modes
+trip <- standardize_modes(trip, mode = c('trip'))
+
+rd <- expand_using_weights(trip, normalize_by = 1)
+
+# Remove extra columns
+rd$X1 <- NULL
+
+rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, sep = "_"))))
+
+rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id,  sep = "_"))))
+
+# Reorder and select columns
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration)
+
+write_csv(rd1, 'inst/extdata/local/cape_town/trips_cape_town.csv')
+
 #####Switzerland 2015####
 setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Switzerland/MZMV2015_ohne_geo/4_DB_csv/04_DB_CSV')
 stages<-read.csv('etappen.csv')
