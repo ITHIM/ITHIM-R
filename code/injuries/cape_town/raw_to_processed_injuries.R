@@ -13,6 +13,9 @@ whw$X1 <- whw$year <- NULL
 # Rename column
 whw <- whw %>% rename(cas_gender = cas_sex)
 
+# Add weight column
+whw$weight <- 4
+
 # Read lookup table
 smodes <- read_csv('data/global/modes/standardized_modes.csv')
 # Separate rows 
