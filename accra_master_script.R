@@ -344,7 +344,7 @@ for(m in 1:length(modes)){
 confidences <- c(0.5,0.7,0.9)
 parameters <- c(100,600,10000)
 dists <- list()
-emis <- list(car=4,motorbike=4,bus=20,hgv=60)
+emis <- list(car=4,motorcycle=4,bus=20,hgv=60)
 total <- sum(unlist(emis))
 for(i in 1:length(confidences)){
   confidence <- confidences[i]
