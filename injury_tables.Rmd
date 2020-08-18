@@ -260,6 +260,14 @@ for (cs in names(all_whw)){
   whw_lng <- whw_lng %>% dplyr::filter(strike_mode != "rowSum")
   whw_lng <- whw_lng %>% rename(str_mode = mode, cas_mode = strike_mode)
   
+  if (nrow(whw_lng[whw_lng$cas_mode == 'ar',]) > 0){
+    whw_lng[whw_lng$cas_mode == 'ar',]$cas_mode <- "auto_rickshaw"
+  }
+  
+  if (nrow(whw_lng[whw_lng$str_mode == 'ar',]) > 0){
+    whw_lng[whw_lng$str_mode == 'ar',]$str_mode <- "auto_rickshaw"
+  }
+  
   whw_lng$str_mode <- factor(whw_lng$str_mode, levels = unique(whw_lng$str_mode))
   
   qualified_scen_name <- 'Public Transport'
