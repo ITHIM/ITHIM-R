@@ -6,7 +6,7 @@ number,exhaustive_list,trav_lng,trav_shrt,inj_vic_lng,inj_vic_shrt,inj_str_lng,i
 5,bus,bus,public transport,bus,bus,bus,bus,bus_driver; mini; bus; minibus
 6,truck,truck,truck,truck,truck,truck,truck,truck
 7,taxi,taxi,taxi,car,car,car,car,taxi
-8,auto-rickshaw,auto-rickshaw,taxi,auto-rickshaw,other,auto-rickshaw,other,auto_rickshaw; auto-rickshaw
+8,auto_rickshaw,auto_rickshaw,taxi,auto_rickshaw,other,auto_rickshaw,other,auto_rickshaw; auto-rickshaw; rickshaw
 9,rail,rail,public transport,rail,other,rail,other,metro; train; railway.train.railway.vehicle; subway
 10,other,other,other,other,other,other,other,tract; other; others; non.motor.vehicle; cart
 11,unknown,NA,NA,unknown,unknown,unknown,unknown/NOV,unk; ?; unspecified; listed_na; unknown; NA
