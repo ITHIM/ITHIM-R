@@ -264,8 +264,10 @@ create_all_scenarios <- function(trip_set){
                               0.31468225259871,
                               0.12532840878803,
                               0.01913338156342,
-                              0.05380192666489,
-                              0.40378098465522))
+                              0.40378098465522, # Pedestrian instead of walk
+                              0.05380192666489))
+                              # 0.05380192666489,
+                              # 0.40378098465522))
     
     # Difference of trips between baseline and scenario 1
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -318,17 +320,17 @@ create_all_scenarios <- function(trip_set){
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[5]*-1)
+                                  source_trips = diff_trips[6]*-1)
     
     # Redistribution of walking trips to bicycle on any distance
-    source_modes <- c('walking')
+    source_modes <- c('pedestrian')
     target_modes <- c('bicycle')
     w2bb_trips <- create_scenario(rdr2, scen_name = 'Scenario 1',
                                   source_modes = source_modes,
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[6]*-1)
+                                  source_trips = diff_trips[5]*-1)
     
     redistribute_trips <- rbind(b2bb_trips, c2bb_trips, m2bb_trips,
                                 t2bb_trips, w2bb_trips)
@@ -371,8 +373,10 @@ create_all_scenarios <- function(trip_set){
                               0.38932790224033,
                               0.03934826883910,
                               0.05409368635438,
-                              0.01694501018330,
-                              0.43560081466395))
+                              0.43560081466395, # Pedestrian instead of walk
+                              0.01694501018330))
+                              # 0.01694501018330,
+                              # 0.43560081466395))
     
     # Difference of trips between baseline and scenario 2
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -425,17 +429,17 @@ create_all_scenarios <- function(trip_set){
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[5]*-1)
+                                  source_trips = diff_trips[6]*-1)
     
     # Redistribution of walking trips to bicycle on any distance
-    source_modes <- c('walking')
+    source_modes <- c('pedestrian')
     target_modes <- c('bicycle')
     w2bb_trips <- create_scenario(rdr2, scen_name = 'Scenario 2',
                                   source_modes = source_modes,
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[6]*-1)
+                                  source_trips = diff_trips[5]*-1)
     
     redistribute_trips <- rbind(b2bb_trips, c2bb_trips, m2bb_trips, t2bb_trips,
                                 w2bb_trips)
@@ -464,8 +468,10 @@ create_all_scenarios <- function(trip_set){
                               0.31338038229664,
                               0.15077573644961,
                               0.04405840166862,
-                              0.05188719677705,
-                              0.37515357581645))
+                              0.37515357581645, # Pedestrian instead of walk
+                              0.05188719677705))
+                              # 0.05188719677705,
+                              # 0.37515357581645))
     
     # Difference of trips between baseline and scenario 2
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -518,17 +524,17 @@ create_all_scenarios <- function(trip_set){
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[5]*-1)
+                                  source_trips = diff_trips[6]*-1)
     
     # Redistribution of walking trips to bicycle on any distance
-    source_modes <- c('walking')
+    source_modes <- c('pedestrian')
     target_modes <- c('bicycle')
     w2bb_trips <- create_scenario(rdr2, scen_name = 'Scenario 2',
                                   source_modes = source_modes,
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[6]*-1)
+                                  source_trips = diff_trips[5]*-1)
     
     redistribute_trips <- rbind(b2bb_trips, c2bb_trips, m2bb_trips, t2bb_trips,
                                 w2bb_trips)
@@ -557,8 +563,10 @@ create_all_scenarios <- function(trip_set){
                               0.25980160604629,
                               0.30278696268304,
                               0.01747756258857,
-                              0.09177407382414,
-                              0.26337809568797))
+                              0.26337809568797, # Pedestrian instead of walk
+                              0.09177407382414))
+                              # 0.09177407382414,
+                              # 0.26337809568797))
     
     # Difference of trips between baseline and scenario 2
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -611,17 +619,17 @@ create_all_scenarios <- function(trip_set){
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[5]*-1)
+                                  source_trips = diff_trips[6]*-1)
     
     # Redistribution of walking trips to bicycle on any distance
-    source_modes <- c('walking')
+    source_modes <- c('pedestrian')
     target_modes <- c('bicycle')
     w2bb_trips <- create_scenario(rdr2, scen_name = 'Scenario 2',
                                   source_modes = source_modes,
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[6]*-1)
+                                  source_trips = diff_trips[5]*-1)
     
     redistribute_trips <- rbind(b2bb_trips, c2bb_trips, m2bb_trips, t2bb_trips,
                                 w2bb_trips)
@@ -650,8 +658,10 @@ create_all_scenarios <- function(trip_set){
                               0.17937100213220,
                               0.42057569296375,
                               0.01918976545842,
-                              0.09035181236674,
-                              0.22547974413646))
+                              0.22547974413646, # Pedestrian instead of walk
+                              0.09035181236674))
+                              # 0.09035181236674,
+                              # 0.22547974413646))
     
     # Difference of trips between baseline and scenario 2
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -704,17 +714,17 @@ create_all_scenarios <- function(trip_set){
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[5]*-1)
+                                  source_trips = diff_trips[6]*-1)
     
     # Redistribution of walking trips to bicycle on any distance
-    source_modes <- c('walking')
+    source_modes <- c('pedestrian')
     target_modes <- c('bicycle')
     w2bb_trips <- create_scenario(rdr2, scen_name = 'Scenario 2',
                                   source_modes = source_modes,
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[6]*-1)
+                                  source_trips = diff_trips[5]*-1)
     
     redistribute_trips <- rbind(b2bb_trips, c2bb_trips, m2bb_trips, t2bb_trips,
                                 w2bb_trips)
@@ -742,8 +752,10 @@ create_all_scenarios <- function(trip_set){
                               0.10809141445337,
                               0.44379246448425,
                               0.01142680667078,
-                              0.08431130327363,
-                              0.28752316244595))
+                              0.28752316244595, # Pedestrian instead of walk
+                              0.08431130327363))
+                              # 0.08431130327363,
+                              # 0.28752316244595))
     
     # Difference of trips between baseline and scenario 2
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -796,17 +808,17 @@ create_all_scenarios <- function(trip_set){
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[5]*-1)
+                                  source_trips = diff_trips[6]*-1)
     
     # Redistribution of walking trips to bicycle on any distance
-    source_modes <- c('walking')
+    source_modes <- c('pedestrian')
     target_modes <- c('bicycle')
     w2bb_trips <- create_scenario(rdr2, scen_name = 'Scenario 2',
                                   source_modes = source_modes,
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[6]*-1)
+                                  source_trips = diff_trips[5]*-1)
     
     redistribute_trips <- rbind(b2bb_trips, c2bb_trips, m2bb_trips, t2bb_trips,
                                 w2bb_trips)
@@ -850,8 +862,10 @@ create_all_scenarios <- function(trip_set){
                               0.31946261447117,
                               0.10407567676361,
                               0.04491295159505,
-                              0.04941129113415,
-                              0.37886686122572))
+                              0.37886686122572, # Pedestrian instead of walk
+                              0.04941129113415))
+                              # 0.04941129113415,
+                              # 0.37886686122572))
     
     # Difference of trips between baseline and scenario 3
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -921,8 +935,10 @@ create_all_scenarios <- function(trip_set){
                               0.31946261447117,
                               0.11651403844219,
                               0.03247458991647,
-                              0.04941129113415,
-                              0.37886686122572))
+                              0.37886686122572, # Pedestrian instead of walk
+                              0.04941129113415))
+                              # 0.04941129113415,
+                              # 0.37886686122572))
     
     # Difference of trips between baseline and scenario 3
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -1000,8 +1016,10 @@ create_all_scenarios <- function(trip_set){
                               0.26782731206602,
                               0.15571097916876,
                               0.04491295159505,
-                              0.04941129113415,
-                              0.37886686122572))
+                              0.37886686122572, # Pedestrian instead of walk
+                              0.04941129113415))
+                              # 0.04941129113415,
+                              # 0.37886686122572))
     
     # Difference of trips between baseline and scenario 3
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -1067,8 +1085,10 @@ create_all_scenarios <- function(trip_set){
                               0.31946261447117,
                               0.15571097916876,
                               0.04491295159505,
-                              0.04941129113415,
-                              0.32723155882057))
+                              0.32723155882057, # Pedestrian instead of walk
+                              0.04941129113415))
+                              # 0.04941129113415,
+                              # 0.32723155882057))
     
     # Difference of trips between baseline and scenario 3
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -1084,14 +1104,14 @@ create_all_scenarios <- function(trip_set){
                      (limitacion == 0))
     
     # Redistribution of walking trips to bicycle on any distance
-    source_modes <- c('walking')
+    source_modes <- c('pedestrian')
     target_modes <- c('bicycle')
     w2bb_trips <- create_scenario(rdr2, scen_name = 'Scenario 6',
                                   source_modes = source_modes,
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[6]*-1)
+                                  source_trips = diff_trips[5]*-1)
     
     redistribute_trips <- w2bb_trips
     
@@ -1128,8 +1148,10 @@ create_all_scenarios <- function(trip_set){
                               0.28518396888884,
                               0.18533738859104,
                               0.05345833162812,
-                              0.04901045789343,
-                              0.37579342541177))
+                              0.37579342541177, # Pedestrian instead of walk
+                              0.04901045789343))
+                              # 0.04901045789343,
+                              # 0.37579342541177))
     
     # Difference of trips between baseline and scenario 7
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -1138,14 +1160,14 @@ create_all_scenarios <- function(trip_set){
     rdr$id <- 1:nrow(rdr)
     
     # Redistribution of walking trips to motorcycle on medium and large distance
-    source_modes <- c('walking')
+    source_modes <- c('pedestrian')
     target_modes <- c('motorcycle')
     w2m_trips <- create_scenario(rdr, scen_name = 'Scenario 7',
                                  source_modes = source_modes,
                                  combined_modes = T,
                                  target_modes = target_modes,
                                  source_distance_cats = DIST_CAT[-1],
-                                 source_trips = diff_trips[6]*-1)
+                                 source_trips = diff_trips[5]*-1)
     
     # Redistribution of taxi trips to motorcycle on any distance
     source_modes <- c('taxi')
@@ -1155,7 +1177,7 @@ create_all_scenarios <- function(trip_set){
                                  combined_modes = T,
                                  target_modes = target_modes,
                                  source_distance_cats = DIST_CAT,
-                                 source_trips = diff_trips[5]*-1)
+                                 source_trips = diff_trips[6]*-1)
     
     # Redistribution of bicycle trips to motorcycle on any distance
     source_modes <- c('bicycle')
@@ -1227,8 +1249,10 @@ create_all_scenarios <- function(trip_set){
                               0.34031490787270,
                               0.12440603015075,
                               0.03588341708543,
-                              0.04079329983250,
-                              0.40359664991625))
+                              0.40359664991625, # Pedestrian instead of walk
+                              0.04079329983250))
+                              # 0.04079329983250,
+                              # 0.40359664991625))
     
     # Difference of trips between baseline and scenario 7
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -1268,7 +1292,7 @@ create_all_scenarios <- function(trip_set){
     
     # Redistribution of car trips to walk on short distance
     source_modes <- c('car')
-    target_modes <- c('walking')
+    target_modes <- c('pedestrian')
     remaining_c <- (diff_trips[3] + diff_trips[1] + diff_trips[2])*-1
     # walking trips shouldnt be the same as those chosen to be bicycle
     rdr4 <- rdr3[-match(c2b_trips$id,rdr3$id),]
@@ -1281,7 +1305,7 @@ create_all_scenarios <- function(trip_set){
     
     # Redistribution of motorcycle trips to walk on short distance
     source_modes <- c('motorcycle')
-    target_modes <- c('walking')
+    target_modes <- c('pedestrian')
     
     # Define weights to give priority to short and medium distances
     rdr5 <- rdr
@@ -1299,13 +1323,13 @@ create_all_scenarios <- function(trip_set){
     
     # Redistribution of taxi trips to walk on short distance
     source_modes <- c('taxi')
-    target_modes <- c('walking')
+    target_modes <- c('pedestrian')
     t2w_trips <- create_scenario(rdr5, scen_name = 'Scenario 8',
                                  source_modes = source_modes,
                                  combined_modes = T,
                                  target_modes = target_modes,
                                  source_distance_cats = DIST_CAT[-3],
-                                 source_trips = diff_trips[5]*-1)
+                                 source_trips = diff_trips[6]*-1)
     
     redistribute_trips <- rbind(c2b_trips, c2bb_trips, c2w_trips,
                                 m2w_trips[,-ncol(m2w_trips)],
@@ -1345,8 +1369,10 @@ create_all_scenarios <- function(trip_set){
                               0.33138259403709,
                               0.14189691819549,
                               0.04092845252417,
-                              0.04406968067042,
-                              0.38565751013329))
+                              0.38565751013329, # Pedestrian instead of walk
+                              0.04406968067042))
+                              # 0.04406968067042,
+                              # 0.38565751013329))
     
     # Difference of trips between baseline and scenario 7
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -1384,7 +1410,7 @@ create_all_scenarios <- function(trip_set){
     # Redistribution of taxi trips to bus on any distance
     source_modes <- c('taxi')
     target_modes <- c('bus')
-    remaining_t <- (diff_trips[5] + diff_trips[1] + diff_trips[4])*-1
+    remaining_t <- (diff_trips[6] + diff_trips[1] + diff_trips[4])*-1
     # bus trips shouldnt be the same as those chosen to be bicycle
     rdr3 <- rdr[-match(t2bb_trips$id,rdr$id),]
     t2b_trips <- create_scenario(rdr3, scen_name = 'Scenario 9',
@@ -1396,13 +1422,13 @@ create_all_scenarios <- function(trip_set){
     
     # Redistribution of car trips to walking on short distance
     source_modes <- c('car')
-    target_modes <- c('walking')
+    target_modes <- c('pedestrian')
     c2w_trips <- create_scenario(rdr, scen_name = 'Scenario 9',
                                  source_modes = source_modes,
                                  combined_modes = T,
                                  target_modes = target_modes,
                                  source_distance_cats = DIST_CAT[1],
-                                 source_trips = diff_trips[6])
+                                 source_trips = diff_trips[5])
     
     # Redistribution of car trips to bus on any distance
     source_modes <- c('car')
@@ -1453,8 +1479,10 @@ create_all_scenarios <- function(trip_set){
                               0.30565187390953,
                               0.13983792956414,
                               0.04048315192109,
-                              0.04382660951177,
-                              0.36660415642052))
+                              0.36660415642052, # Pedestrian instead of walk
+                              0.04382660951177))
+                              # 0.04382660951177,
+                              # 0.36660415642052))
     
     # Difference of trips between baseline and scenario 3
     diff_trips <- new_trips - table(rdr$trip_mode)
@@ -1507,17 +1535,17 @@ create_all_scenarios <- function(trip_set){
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[5]*-1)
+                                  source_trips = diff_trips[6]*-1)
     
     # Redistribution of walk trips to bicycle on short and medium distance
-    source_modes <- c('walking')
+    source_modes <- c('pedestrian')
     target_modes <- c('bicycle')
     w2bb_trips <- create_scenario(rdr2, scen_name = 'Scenario 10',
                                   source_modes = source_modes,
                                   combined_modes = T,
                                   target_modes = target_modes,
                                   source_distance_cats = DIST_CAT[-3],
-                                  source_trips = diff_trips[6]*-1)
+                                  source_trips = diff_trips[5]*-1)
     
     redistribute_trips <- rbind(b2bb_trips, c2bb_trips, m2bb_trips, t2bb_trips,
                                 w2bb_trips)
