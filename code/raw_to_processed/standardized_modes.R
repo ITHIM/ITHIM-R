@@ -100,6 +100,10 @@ inj_ba$strike_mode <- smodes$exhaustive_list[match(tolower(inj_ba$strike_mode), 
 
 write_csv(inj_ba, 'inst/extdata/local/buenos_aires/injuries_buenos_aires.csv')
 
+# Cape town ####
+
+inj_ct <- read_csv('data/local/cape_town/injuries_cape_town.csv')
+
 # Delhi ####
 
 # Read bangalore dataset
