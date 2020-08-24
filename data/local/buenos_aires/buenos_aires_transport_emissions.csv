@@ -1,6 +1,6 @@
-mode,emission_share,,,,
-bus,0.096,,,,
-hdv,0.126,,,,
-ldv,0.163,,,,
-mc,0.015,,,,
-car,0.6,,,,
+mode,emission_share
+bus,0.081
+hdv,0.103
+ldv,0.138
+mc,0.017
+car,0.66

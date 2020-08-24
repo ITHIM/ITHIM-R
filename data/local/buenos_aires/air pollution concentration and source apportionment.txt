@@ -1,3 +1,6 @@
 PM2.5 concentration: 14 µg/m3 (95% CI: 1ug/m3)
 
 Transport's share-- 32%
+
+
+Changed the emissions data based on new calculations done in Aug 2020, as the previous proportions were calculated based on wrong city boundary of buenos aires
