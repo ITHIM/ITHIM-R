@@ -10,3 +10,6 @@ Other		Otro		1 (other)
 Pedestrian	Peatón		99 (ped)
 Unspecified	Sin especificar	147 (ped, assumption)
 Vehicle		Vehículo	73 (car)
+
+
+Used Bogota city injury data to apportion victims to their respective striking vehicles
