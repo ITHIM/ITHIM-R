@@ -1,11 +1,7 @@
 library(ithimr)
-setwd('ITHIM-R')
-whw_file <- 'mexico city injury data updated using bogota.csv'
-path <- file.path('code/injuries/mexico_city/')
-whw <- read.csv(paste0(path,whw_file))
-colnames(whw)[2] <- 'NOV'
+file_path <- file.path('data/local/mexico_city/mexico city injury data updated using bogota.csv')
+whw <- read_csv(file_path)
 injuries <- data.frame(cas_mode=character(),strike_mode=character(),weight=numeric(),stringsAsFactors = F)
-number_of_years <- 1
 for(i in 1:nrow(whw))
   for(j in 2:ncol(whw)){
     count <- whw[i,j]
@@ -17,6 +13,14 @@ for(i in 1:nrow(whw))
       }
     }
   }
+
+
+unique(injuries$cas_mode)
+unique(injuries$strike_mode)
+head(injuries)
+unique(injuries$cas_mode)
+unique(injuries$strike_mode)
+
 ## rahul recommends omitting pick up truck and 3wheeled strikers – both almost zero in the matrix.
 unique(injuries$cas_mode)
 unique(injuries$strike_mode)
