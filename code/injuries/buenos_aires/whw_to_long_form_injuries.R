@@ -1,5 +1,5 @@
 library(tidyverse)
-file_path <- file.path('data/local/buenos_aires/buenos_aires_injuries_NOV.csv')
+file_path <- file.path('data/local/buenos_aires/buenos_aires_injuries_NOV updated using bogota.csv')
 whw <- read_csv(file_path)
 colnames(whw)[2] <- 'NOV'
 injuries <- data.frame(cas_mode=character(),strike_mode=character(),weight=numeric(),stringsAsFactors = F)

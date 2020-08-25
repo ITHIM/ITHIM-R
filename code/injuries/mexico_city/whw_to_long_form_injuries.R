@@ -1,6 +1,6 @@
 library(ithimr)
 setwd('ITHIM-R')
-whw_file <- 'nov.csv'
+whw_file <- 'mexico city injury data updated using bogota.csv'
 path <- file.path('code/injuries/mexico_city/')
 whw <- read.csv(paste0(path,whw_file))
 colnames(whw)[2] <- 'NOV'
