@@ -14,11 +14,13 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   # concentration contributed by non-transport share (remains constant across the scenarios)
   non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
   
+  # browser()
+  
   ## adding in travel not covered in the synthetic trip set, based on distances travelled relative to car, set in VEHICLE_INVENTORY
   emission_dist <- dist
   
   ## get emission factor by dividing inventory by baseline distance. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
-  ordered_efs <- VEHICLE_INVENTORY$emission_inventory[match(emission_dist$stage_mode,VEHICLE_INVENTORY$stage_mode)]/emission_dist$Baseline
+  ordered_efs <- (VEHICLE_INVENTORY$emission_inventory[match(emission_dist$stage_mode,VEHICLE_INVENTORY$stage_mode)] %>% as.numeric())/(emission_dist$Baseline %>% as.numeric())
   ## get new emission by multiplying emission factor by scenario distance.
   trans_emissions <- emission_dist[,0:NSCEN+2]*t(repmat(ordered_efs,NSCEN+1,1))
   ## augment with travel emission contributions that aren't included in distance calculation
