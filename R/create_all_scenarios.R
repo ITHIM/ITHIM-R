@@ -277,11 +277,11 @@ create_all_scenarios <- function(trip_set){
     rdr$id <- 1:nrow(rdr)
     
     # Subset dataset with restrictions
-    rdr2 <- subset(rdr, !(motivo %in% c(4,7,8)) &
+    rdr2 <- subset(rdr, !(trip_motive %in% c(4,7,8)) &
                      (age >= 16 & age <= 62) &
-                     (strptime(hora_inicio, "%H:%M") >= strptime("05:30", "%H:%M") &
-                        strptime(hora_inicio, "%H:%M") <= strptime("23:30", "%H:%M")) &
-                     (limitacion == 0))
+                     (strptime(trip_start_time, "%H:%M") >= strptime("05:30", "%H:%M") &
+                        strptime(trip_start_time, "%H:%M") <= strptime("23:30", "%H:%M")) &
+                     (limitation == 0))
     
     # Redistribution of bus trips to bicycle on any distance
     source_modes <- c('bus')
@@ -353,19 +353,20 @@ create_all_scenarios <- function(trip_set){
     
     # ###############################################################
     # Scenario 2
-    # Todos los estratos hacen la misma proporción de viajes que el estrato
-    # que mas hace
+    # To proportion of bicycle is the same for each socio-economical stratum. 
+    # The value assigned is the stratum that have the highest proportion, which in
+    # this case is stratum 2.
     rdr_full <- trip_set
     
-    # cbind(table(trip_set$trip_mode, trip_set$estrato),
-    #       prop.table(table(trip_set$trip_mode, trip_set$estrato),margin = 2)) #Proportion of each sex
+    # cbind(table(trip_set$trip_mode, trip_set$strata),
+    #       prop.table(table(trip_set$trip_mode, trip_set$strata),margin = 2)) #Proportion of each sex
     # table(trip_set$trip_distance_cat, trip_set$trip_mode)
     
-    # Estrato 1
+    # strata 1
     # subset of trips that are going to be changed
-    rdr <- trip_set[trip_set$estrato == 1,]
+    rdr <- trip_set[trip_set$strata == 1,]
     
-    # Total number of trips made by estrato 1
+    # Total number of trips made by strata 1
     tt <- nrow(rdr)
     
     # Define new proportions
@@ -387,11 +388,11 @@ create_all_scenarios <- function(trip_set){
     rdr$id <- 1:nrow(rdr)
     
     # Subset dataset with restrictions
-    rdr2 <- subset(rdr, !(motivo %in% c(4,7,8)) &
+    rdr2 <- subset(rdr, !(trip_motive %in% c(4,7,8)) &
                      (age >= 16 & age <= 62) &
-                     (strptime(hora_inicio, "%H:%M") >= strptime("05:30", "%H:%M") &
-                        strptime(hora_inicio, "%H:%M") <= strptime("23:30", "%H:%M")) &
-                     (limitacion == 0))
+                     (strptime(trip_start_time, "%H:%M") >= strptime("05:30", "%H:%M") &
+                        strptime(trip_start_time, "%H:%M") <= strptime("23:30", "%H:%M")) &
+                     (limitation == 0))
     
     # Redistribution of bus trips to bicycle on any distance
     source_modes <- c('bus')
@@ -457,11 +458,11 @@ create_all_scenarios <- function(trip_set){
     rdr_1 <- rdr
     
     #####
-    ### Estrato 3
+    ### strata 3
     # subset of trips that are going to be changed
-    rdr <- trip_set[trip_set$estrato == 3,]
+    rdr <- trip_set[trip_set$strata == 3,]
     
-    # Total number of trips made by estrato 3
+    # Total number of trips made by strata 3
     tt <- nrow(rdr)
     
     # Define new proportions
@@ -483,11 +484,11 @@ create_all_scenarios <- function(trip_set){
     rdr$id <- 1:nrow(rdr)
     
     # Subset dataset with restrictions
-    rdr2 <- subset(rdr, !(motivo %in% c(4,7,8)) &
+    rdr2 <- subset(rdr, !(trip_motive %in% c(4,7,8)) &
                      (age >= 16 & age <= 62) &
-                     (strptime(hora_inicio, "%H:%M") >= strptime("05:30", "%H:%M") &
-                        strptime(hora_inicio, "%H:%M") <= strptime("23:30", "%H:%M")) &
-                     (limitacion == 0))
+                     (strptime(trip_start_time, "%H:%M") >= strptime("05:30", "%H:%M") &
+                        strptime(trip_start_time, "%H:%M") <= strptime("23:30", "%H:%M")) &
+                     (limitation == 0))
     
     # Redistribution of bus trips to bicycle on any distance
     source_modes <- c('bus')
@@ -553,11 +554,11 @@ create_all_scenarios <- function(trip_set){
     rdr_3 <- rdr
     
     ####
-    # Estrato 4
+    # strata 4
     # subset of trips that are going to be changed
-    rdr <- trip_set[trip_set$estrato == 4,]
+    rdr <- trip_set[trip_set$strata == 4,]
     
-    # Total number of trips made by estrato 4
+    # Total number of trips made by strata 4
     tt <- nrow(rdr)
     
     # Define new proportions
@@ -579,11 +580,11 @@ create_all_scenarios <- function(trip_set){
     rdr$id <- 1:nrow(rdr)
     
     # Subset dataset with restrictions
-    rdr2 <- subset(rdr, !(motivo %in% c(4,7,8)) &
+    rdr2 <- subset(rdr, !(trip_motive %in% c(4,7,8)) &
                      (age >= 16 & age <= 62) &
-                     (strptime(hora_inicio, "%H:%M") >= strptime("05:30", "%H:%M") &
-                        strptime(hora_inicio, "%H:%M") <= strptime("23:30", "%H:%M")) &
-                     (limitacion == 0))
+                     (strptime(trip_start_time, "%H:%M") >= strptime("05:30", "%H:%M") &
+                        strptime(trip_start_time, "%H:%M") <= strptime("23:30", "%H:%M")) &
+                     (limitation == 0))
     
     # Redistribution of bus trips to bicycle on any distance
     source_modes <- c('bus')
@@ -649,11 +650,11 @@ create_all_scenarios <- function(trip_set){
     rdr_4 <- rdr
     
     #####
-    # Estrato 5
+    # strata 5
     # subset of trips that are going to be changed
-    rdr <- trip_set[trip_set$estrato == 5,]
+    rdr <- trip_set[trip_set$strata == 5,]
     
-    # Total number of trips made by estrato 5
+    # Total number of trips made by strata 5
     tt <- nrow(rdr)
     
     # Define new proportions
@@ -675,11 +676,11 @@ create_all_scenarios <- function(trip_set){
     rdr$id <- 1:nrow(rdr)
     
     # Subset dataset with restrictions
-    rdr2 <- subset(rdr, !(motivo %in% c(4,7,8)) &
+    rdr2 <- subset(rdr, !(trip_motive %in% c(4,7,8)) &
                      (age >= 16 & age <= 62) &
-                     (strptime(hora_inicio, "%H:%M") >= strptime("05:30", "%H:%M") &
-                        strptime(hora_inicio, "%H:%M") <= strptime("23:30", "%H:%M")) &
-                     (limitacion == 0))
+                     (strptime(trip_start_time, "%H:%M") >= strptime("05:30", "%H:%M") &
+                        strptime(trip_start_time, "%H:%M") <= strptime("23:30", "%H:%M")) &
+                     (limitation == 0))
     
     # Redistribution of bus trips to bicycle on any distance
     source_modes <- c('bus')
@@ -744,11 +745,11 @@ create_all_scenarios <- function(trip_set){
     # Save updated trips in other object
     rdr_5 <- rdr
     
-    # Estrato 6
+    # strata 6
     # subset of trips that are going to be changed
-    rdr <- trip_set[trip_set$estrato == 6,]
+    rdr <- trip_set[trip_set$strata == 6,]
     
-    # Total number of trips made by estrato 6
+    # Total number of trips made by strata 6
     tt <- nrow(rdr)
     
     # Define new proportions
@@ -770,11 +771,11 @@ create_all_scenarios <- function(trip_set){
     rdr$id <- 1:nrow(rdr)
     
     # Subset dataset with restrictions
-    rdr2 <- subset(rdr, !(motivo %in% c(4,7,8)) &
+    rdr2 <- subset(rdr, !(trip_motive %in% c(4,7,8)) &
                      (age >= 16 & age <= 62) &
-                     (strptime(hora_inicio, "%H:%M") >= strptime("05:30", "%H:%M") &
-                        strptime(hora_inicio, "%H:%M") <= strptime("23:30", "%H:%M")) &
-                     (limitacion == 0))
+                     (strptime(trip_start_time, "%H:%M") >= strptime("05:30", "%H:%M") &
+                        strptime(trip_start_time, "%H:%M") <= strptime("23:30", "%H:%M")) &
+                     (limitation == 0))
     
     # Redistribution of bus trips to bicycle on any distance
     source_modes <- c('bus')
@@ -840,7 +841,7 @@ create_all_scenarios <- function(trip_set){
     rdr_6 <- rdr
     
     # Join all trips in a single dataset
-    rdr_full <- rbind(rdr_full[rdr_full$estrato == 2,], rdr_1[,-ncol(rdr_1)],
+    rdr_full <- rbind(rdr_full[rdr_full$strata == 2,], rdr_1[,-ncol(rdr_1)],
                       rdr_3[,-ncol(rdr_3)], rdr_4[,-ncol(rdr_4)],
                       rdr_5[,-ncol(rdr_5)], rdr_6[,-ncol(rdr_6)])
     rdr_full$scenario <- "Scenario 2"
@@ -881,11 +882,11 @@ create_all_scenarios <- function(trip_set){
     rdr$id <- 1:nrow(rdr)
     
     # Subset dataset with restrictions
-    rdr2 <- subset(rdr, !(motivo %in% c(4,7,8)) &
+    rdr2 <- subset(rdr, !(trip_motive %in% c(4,7,8)) &
                      (age >= 16 & age <= 62) &
-                     (strptime(hora_inicio, "%H:%M") >= strptime("05:30", "%H:%M") &
-                        strptime(hora_inicio, "%H:%M") <= strptime("23:30", "%H:%M")) &
-                     (limitacion == 0))
+                     (strptime(trip_start_time, "%H:%M") >= strptime("05:30", "%H:%M") &
+                        strptime(trip_start_time, "%H:%M") <= strptime("23:30", "%H:%M")) &
+                     (limitation == 0))
     
     # Define weights to give priority to short and medium distances
     rdr2$w <- NA
@@ -955,11 +956,11 @@ create_all_scenarios <- function(trip_set){
     rdr$id <- 1:nrow(rdr)
     
     # Subset dataset with restrictions
-    rdr2 <- subset(rdr, !(motivo %in% c(4,7,8)) &
+    rdr2 <- subset(rdr, !(trip_motive %in% c(4,7,8)) &
                      (age >= 16 & age <= 62) &
-                     (strptime(hora_inicio, "%H:%M") >= strptime("05:30", "%H:%M") &
-                        strptime(hora_inicio, "%H:%M") <= strptime("23:30", "%H:%M")) &
-                     (limitacion == 0))
+                     (strptime(trip_start_time, "%H:%M") >= strptime("05:30", "%H:%M") &
+                        strptime(trip_start_time, "%H:%M") <= strptime("23:30", "%H:%M")) &
+                     (limitation == 0))
     
     # Define weights to give priority to short and medium distances
     rdr2$w <- NA
@@ -1037,11 +1038,11 @@ create_all_scenarios <- function(trip_set){
     rdr$id <- 1:nrow(rdr)
     
     # Subset dataset with restrictions
-    rdr2 <- subset(rdr, !(motivo %in% c(4,7,8)) &
+    rdr2 <- subset(rdr, !(trip_motive %in% c(4,7,8)) &
                      (age >= 16 & age <= 62) &
-                     (strptime(hora_inicio, "%H:%M") >= strptime("05:30", "%H:%M") &
-                        strptime(hora_inicio, "%H:%M") <= strptime("23:30", "%H:%M")) &
-                     (limitacion == 0))
+                     (strptime(trip_start_time, "%H:%M") >= strptime("05:30", "%H:%M") &
+                        strptime(trip_start_time, "%H:%M") <= strptime("23:30", "%H:%M")) &
+                     (limitation == 0))
     
     # Define weights to give priority to short and medium distances
     rdr2$w <- NA
@@ -1107,11 +1108,11 @@ create_all_scenarios <- function(trip_set){
     rdr$id <- 1:nrow(rdr)
     
     # Subset dataset with restrictions
-    rdr2 <- subset(rdr, !(motivo %in% c(4,7,8)) &
+    rdr2 <- subset(rdr, !(trip_motive %in% c(4,7,8)) &
                      (age >= 16 & age <= 62) &
-                     (strptime(hora_inicio, "%H:%M") >= strptime("05:30", "%H:%M") &
-                        strptime(hora_inicio, "%H:%M") <= strptime("23:30", "%H:%M")) &
-                     (limitacion == 0))
+                     (strptime(trip_start_time, "%H:%M") >= strptime("05:30", "%H:%M") &
+                        strptime(trip_start_time, "%H:%M") <= strptime("23:30", "%H:%M")) &
+                     (limitation == 0))
     
     # Redistribution of walking trips to bicycle on any distance
     source_modes <- c('pedestrian')
@@ -1277,11 +1278,11 @@ create_all_scenarios <- function(trip_set){
     target_modes <- c('cycle')
     
     # Subset dataset with restrictions
-    rdr2 <- subset(rdr, !(motivo %in% c(4,7,8)) &
+    rdr2 <- subset(rdr, !(trip_motive %in% c(4,7,8)) &
                      (age >= 16 & age <= 62) &
-                     (strptime(hora_inicio, "%H:%M") >= strptime("05:30", "%H:%M") &
-                        strptime(hora_inicio, "%H:%M") <= strptime("23:30", "%H:%M")) &
-                     (limitacion == 0))
+                     (strptime(trip_start_time, "%H:%M") >= strptime("05:30", "%H:%M") &
+                        strptime(trip_start_time, "%H:%M") <= strptime("23:30", "%H:%M")) &
+                     (limitation == 0))
     
     c2bb_trips <- create_scenario(rdr2, scen_name = 'Scenario 8',
                                   source_modes = source_modes,
@@ -1394,11 +1395,11 @@ create_all_scenarios <- function(trip_set){
     rdr$id <- 1:nrow(rdr)
     
     # Subset dataset with restrictions
-    rdr2 <- subset(rdr, !(motivo %in% c(4,7,8)) &
+    rdr2 <- subset(rdr, !(trip_motive %in% c(4,7,8)) &
                      (age >= 16 & age <= 62) &
-                     (strptime(hora_inicio, "%H:%M") >= strptime("05:30", "%H:%M") &
-                        strptime(hora_inicio, "%H:%M") <= strptime("23:30", "%H:%M")) &
-                     (limitacion == 0))
+                     (strptime(trip_start_time, "%H:%M") >= strptime("05:30", "%H:%M") &
+                        strptime(trip_start_time, "%H:%M") <= strptime("23:30", "%H:%M")) &
+                     (limitation == 0))
     
     # Redistribution of motorcycle trips to bicycle on short and medium distance
     source_modes <- c('motorcycle')
@@ -1505,11 +1506,11 @@ create_all_scenarios <- function(trip_set){
     rdr$id <- 1:nrow(rdr)
     
     # Subset dataset with restrictions
-    rdr2 <- subset(rdr, !(motivo %in% c(4,7,8)) &
+    rdr2 <- subset(rdr, !(trip_motive %in% c(4,7,8)) &
                      (age >= 16 & age <= 62) &
-                     (strptime(hora_inicio, "%H:%M") >= strptime("05:30", "%H:%M") &
-                        strptime(hora_inicio, "%H:%M") <= strptime("23:30", "%H:%M")) &
-                     (limitacion == 0))
+                     (strptime(trip_start_time, "%H:%M") >= strptime("05:30", "%H:%M") &
+                        strptime(trip_start_time, "%H:%M") <= strptime("23:30", "%H:%M")) &
+                     (limitation == 0))
     
     # Redistribution of bus trips to bicycle on short and medium distance
     source_modes <- c('bus')

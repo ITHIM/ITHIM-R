@@ -19,11 +19,11 @@ get_synthetic_from_trips <- function(){
                                participant_id=TRIP_SET$participant_id,
                                age=TRIP_SET$age,
                                sex=TRIP_SET$sex,
-                               estrato = TRIP_SET$estrato,
-                               limitacion = TRIP_SET$limitacion,
-                               motivo = TRIP_SET$p17_Id_motivo_viaje,
-                               hora_inicio = TRIP_SET$hora_inicio_viaje,
-                               hora_fin = TRIP_SET$p31_hora_llegada,
+                               strata = TRIP_SET$strata,
+                               limitation = TRIP_SET$limitation,
+                               trip_motive = TRIP_SET$trip_motive,
+                               trip_start_time = TRIP_SET$trip_start_time,
+                               trip_end_time = TRIP_SET$trip_end_time,
                                stringsAsFactors = F)
   } else {
     raw_trip_set <- data.frame(trip_id=TRIP_SET$trip_id,
