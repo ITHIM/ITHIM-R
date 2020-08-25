@@ -40,7 +40,9 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   ############################
   ## (1) AP PATHWAY
   # Calculated PM2.5 concentrations
-  pm_conc <- scenario_pm_calculations(dist=true_dist, trip_scen_sets=trip_scen_sets)#3
+  pm_conc <- scenario_pm_calculations(dist = (true_dist %>% dplyr::filter(stage_mode != 'unknown')
+                                      %>% mutate_at(-c(1), as.integer)), 
+                                      trip_scen_sets=trip_scen_sets)#3
   
   ############################
   ## (2) PA PATHWAY
