@@ -23,6 +23,10 @@ smodes <- read_csv('data/global/modes/standardized_modes.csv')
 
 ```
 
+```{js echo=FALSE}
+window.location.href='#Who_Hit_Whom_matrix_(normalized_to_annual_figures)';
+```
+
 
 ```{r loadLibraries, echo = F, message = F}
 
