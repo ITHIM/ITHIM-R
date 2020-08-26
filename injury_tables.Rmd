@@ -488,7 +488,7 @@ injury_risks_lng$scenario <- as.character(injury_risks_lng$scenario)
 injury_risks_lng[injury_risks_lng$scenario == 'bl',]$scenario <- 'Baseline'
 injury_risks_lng[injury_risks_lng$scenario == 'bisc',]$scenario <- 'Bicycling'
 injury_risks_lng[injury_risks_lng$scenario == 'bssc',]$scenario <- 'Public Transport'
-injury_risks_lng[injury_risks_lng$scenario == 'csc',]$scenario2 <- 'Driving'
+injury_risks_lng[injury_risks_lng$scenario == 'csc',]$scenario <- 'Driving'
 injury_risks_lng[injury_risks_lng$scenario == 'mcsc',]$scenario <- 'Motorcycling'
 injury_risks_lng[injury_risks_lng$scenario == 'wsc',]$scenario <- 'Walking'
 
