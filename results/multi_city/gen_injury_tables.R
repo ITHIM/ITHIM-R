@@ -15,7 +15,7 @@ get_summary_table <- function(mode = 'strike', scen = scen, mode_name){
     
     temp1 <- temp1[,c(1, 2, 3, na.omit(match(smodes$exhaustive_list, colnames(temp1))))]
     
-    return(temp1 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.)))
+    return(temp1 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))))
     
   }else if (mode == 'casualty') {
     
@@ -23,7 +23,7 @@ get_summary_table <- function(mode = 'strike', scen = scen, mode_name){
     
     temp1 <- temp1[,c(1, 2, 3, na.omit(match(smodes$exhaustive_list, colnames(temp1))))]
     
-    return(temp1 <- temp1 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.)))
+    return(temp1 <- temp1 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))))
     
     
   }
@@ -31,13 +31,15 @@ get_summary_table <- function(mode = 'strike', scen = scen, mode_name){
 
 get_summary_table_injury_risk <- function(obj = injury_risks_per_100k, mode = 'city', var = var){
   if (mode == 'scen'){
-  td <- obj %>% filter(scenario == var) %>% spread(value = value, key = mode)
-  return(td[,c(1, 2, na.omit(match(smodes$exhaustive_list, colnames(td))))] %>% 
-    mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.)))
+    td <- obj %>% filter(scenario == var) %>% spread(value = value, key = mode)
+    return(td[,c(1, 2, na.omit(match(smodes$exhaustive_list, colnames(td))))] %>% 
+             mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))))
   }else if (mode == 'city'){
     td <- obj %>% filter(city == var) %>% spread(value = value, key = mode)
     return(td[,c(1, 2, na.omit(match(smodes$exhaustive_list, colnames(td))))] %>% 
-             mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.)))
+             mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))))
+    
+    #  %>%  mutate_if(is.numeric, ~as.character(.))
   }
   
   
@@ -58,9 +60,8 @@ sm <- 'unknown'
 
 cn <- 'delhi'
 
-get_summary_table(mode = 'casualty', scen = scen, mode_name = cm ) %>% View()
-
-get_summary_table(mode = 'strike', scen = scen, mode_name = sm ) %>% View()
+get_summary_table(mode = 'casualty', scen = scen, mode_name = cm ) %>% janitor::adorn_totals(where = c('row', 'col')) %>% View()
+get_summary_table(mode = 'strike', scen = scen, mode_name = sm ) %>% janitor::adorn_totals(where = c('row', 'col')) %>% View()
 
 # ft <- flextable()
 # ft <- add_header_row(ft, values = c(' ', 'strike mode'), colwidths = c(3, ncol(temp1) - 3))
@@ -70,6 +71,8 @@ get_summary_table(mode = 'strike', scen = scen, mode_name = sm ) %>% View()
 
 ##################
 
-get_summary_table_injury_risk(injury_risks_per_100k, mode = 'scen', var = scen) %>% View()
+get_summary_table_injury_risk(injury_risks_per_100k, mode = 'scen', var = scen)  %>% janitor::adorn_totals(where = c('row', 'col')) %>% View()  
+get_summary_table_injury_risk(injury_risks_per_100k, mode = 'city', var = cn)  %>% janitor::adorn_totals(where = c('row', 'col')) %>% View()
 
-get_summary_table_injury_risk(injury_risks_per_billion_kms, mode = 'city', var = cn) %>% View()
+get_summary_table_injury_risk(injury_risks_per_billion_kms, mode = 'scen', var = scen)  %>% janitor::adorn_totals(where = c('row', 'col')) %>% View()
+get_summary_table_injury_risk(injury_risks_per_billion_kms, mode = 'city', var = cn)  %>% janitor::adorn_totals(where = c('row', 'col')) %>% View()
