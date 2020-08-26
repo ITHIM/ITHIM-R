@@ -35,7 +35,4 @@ head(injuries)
 unique(injuries$cas_mode)
 unique(injuries$strike_mode)
 injury_file <- 'injuries_mexico_city.csv'
-write.csv(injuries,paste0('inst/extdata/local/mexico_city/',injury_file))
-
-
-
+write_csv(injuries,paste0('inst/extdata/local/mexico_city/',injury_file))
