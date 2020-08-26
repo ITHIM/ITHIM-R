@@ -21,7 +21,15 @@ unique(injuries$strike_mode)
 ## rahul recommends omitting pick up truck and 3wheeled strikers – both almost zero in the matrix.
 unique(injuries$cas_mode)
 unique(injuries$strike_mode)
-injuries$cas_mode[injuries$cas_mode=='cycle'] <- 'bicycle'
+i
+injuries$strike_mode[injuries$strike_mode=='Pedestrian'] <- 'pedestrian'
+injuries$strike_mode[injuries$strike_mode=='Pedal cycle'] <- 'cycle'
+injuries$strike_mode[injuries$strike_mode=='2/3 Wheeled'] <- 'motorcycle'
+injuries$strike_mode[injuries$strike_mode=='Car/pick-up/van'] <- 'car'
+injuries$strike_mode[injuries$strike_mode=='Bus'] <- 'bus'
+injuries$strike_mode[injuries$strike_mode=='unspecified'] <- 'unknown'
+injuries$strike_mode[injuries$strike_mode=='Trucks'] <- 'truck'
+
 injuries
 head(injuries)
 unique(injuries$cas_mode)
