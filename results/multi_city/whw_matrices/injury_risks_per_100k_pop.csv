@@ -48,9 +48,9 @@ motorcycle,5.72,Bicycling,delhi
 pedestrian,7.21,Bicycling,delhi
 auto_rickshaw,0.36,Bicycling,delhi
 truck,0,Bicycling,delhi
-bus,0.09,Bicycling,mexico_city
-car,2.37,Bicycling,mexico_city
-cycle,1.12,Bicycling,mexico_city
+bus,0.1,Bicycling,mexico_city
+car,2.36,Bicycling,mexico_city
+cycle,1.05,Bicycling,mexico_city
 motorcycle,0.84,Bicycling,mexico_city
 pedestrian,4.07,Bicycling,mexico_city
 auto_rickshaw,0,Bicycling,mexico_city
@@ -125,7 +125,7 @@ motorcycle,5.78,Baseline,delhi
 pedestrian,7.33,Baseline,delhi
 auto_rickshaw,0.36,Baseline,delhi
 truck,0,Baseline,delhi
-bus,0.09,Baseline,mexico_city
+bus,0.1,Baseline,mexico_city
 car,2.44,Baseline,mexico_city
 cycle,0.27,Baseline,mexico_city
 motorcycle,0.87,Baseline,mexico_city
@@ -202,11 +202,11 @@ motorcycle,4.59,Public Transport,delhi
 pedestrian,8.62,Public Transport,delhi
 auto_rickshaw,0.25,Public Transport,delhi
 truck,0,Public Transport,delhi
-bus,0.13,Public Transport,mexico_city
-car,1.78,Public Transport,mexico_city
-cycle,0.21,Public Transport,mexico_city
+bus,0.14,Public Transport,mexico_city
+car,1.86,Public Transport,mexico_city
+cycle,0.22,Public Transport,mexico_city
 motorcycle,0.64,Public Transport,mexico_city
-pedestrian,4.77,Public Transport,mexico_city
+pedestrian,4.29,Public Transport,mexico_city
 auto_rickshaw,0,Public Transport,mexico_city
 truck,0,Public Transport,mexico_city
 bus,0.15,Public Transport,santiago
@@ -280,10 +280,10 @@ pedestrian,5.9,Driving,delhi
 auto_rickshaw,0.31,Driving,delhi
 truck,0,Driving,delhi
 bus,0.07,Driving,mexico_city
-car,4.04,Driving,mexico_city
-cycle,0.19,Driving,mexico_city
-motorcycle,0.64,Driving,mexico_city
-pedestrian,3.18,Driving,mexico_city
+car,3.88,Driving,mexico_city
+cycle,0.21,Driving,mexico_city
+motorcycle,0.74,Driving,mexico_city
+pedestrian,3.52,Driving,mexico_city
 auto_rickshaw,0,Driving,mexico_city
 truck,0,Driving,mexico_city
 bus,0.08,Driving,santiago
@@ -356,11 +356,11 @@ motorcycle,9.9,Motorcycling,delhi
 pedestrian,5.53,Motorcycling,delhi
 auto_rickshaw,0.22,Motorcycling,delhi
 truck,0,Motorcycling,delhi
-bus,0.05,Motorcycling,mexico_city
-car,1.11,Motorcycling,mexico_city
-cycle,0.15,Motorcycling,mexico_city
-motorcycle,10.68,Motorcycling,mexico_city
-pedestrian,2.94,Motorcycling,mexico_city
+bus,0.04,Motorcycling,mexico_city
+car,1.21,Motorcycling,mexico_city
+cycle,0.21,Motorcycling,mexico_city
+motorcycle,7.26,Motorcycling,mexico_city
+pedestrian,11.81,Motorcycling,mexico_city
 auto_rickshaw,0,Motorcycling,mexico_city
 truck,0,Motorcycling,mexico_city
 bus,0.04,Motorcycling,santiago
@@ -434,10 +434,10 @@ pedestrian,10.56,Walking,delhi
 auto_rickshaw,0.3,Walking,delhi
 truck,0,Walking,delhi
 bus,0.09,Walking,mexico_city
-car,2.35,Walking,mexico_city
-cycle,0.24,Walking,mexico_city
+car,2.34,Walking,mexico_city
+cycle,0.23,Walking,mexico_city
 motorcycle,0.83,Walking,mexico_city
-pedestrian,5.82,Walking,mexico_city
+pedestrian,5.61,Walking,mexico_city
 auto_rickshaw,0,Walking,mexico_city
 truck,0,Walking,mexico_city
 bus,0.1,Walking,santiago
