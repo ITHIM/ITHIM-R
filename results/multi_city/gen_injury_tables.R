@@ -60,8 +60,10 @@ sm <- 'unknown'
 
 cn <- 'delhi'
 
-get_summary_table(mode = 'casualty', scen = scen, mode_name = cm ) %>% janitor::adorn_totals(where = c('row', 'col')) %>% View()
-get_summary_table(mode = 'strike', scen = scen, mode_name = sm ) %>% janitor::adorn_totals(where = c('row', 'col')) %>% View()
+whw_cas <- get_summary_table(mode = 'casualty', scen = scen, mode_name = cm ) %>% janitor::adorn_totals(where = c('row', 'col'))
+View(whw_cas)
+whw_str <- get_summary_table(mode = 'strike', scen = scen, mode_name = sm ) %>% janitor::adorn_totals(where = c('row', 'col'))
+View(whw_str)
 
 # ft <- flextable()
 # ft <- add_header_row(ft, values = c(' ', 'strike mode'), colwidths = c(3, ncol(temp1) - 3))
@@ -71,8 +73,12 @@ get_summary_table(mode = 'strike', scen = scen, mode_name = sm ) %>% janitor::ad
 
 ##################
 
-get_summary_table_injury_risk(injury_risks_per_100k, mode = 'scen', var = scen)  %>% janitor::adorn_totals(where = c('row', 'col')) %>% View()  
-get_summary_table_injury_risk(injury_risks_per_100k, mode = 'city', var = cn)  %>% janitor::adorn_totals(where = c('row', 'col')) %>% View()
+injury_risks_per_100k_by_scen <- get_summary_table_injury_risk(injury_risks_per_100k, mode = 'scen', var = scen)  %>% janitor::adorn_totals(where = c('row', 'col'))
+View(injury_risks_per_100k_by_scen)
+injury_risks_per_100k_by_city <- get_summary_table_injury_risk(injury_risks_per_100k, mode = 'city', var = cn)  %>% janitor::adorn_totals(where = c('row', 'col'))
+View(injury_risks_per_100k_by_city)
 
-get_summary_table_injury_risk(injury_risks_per_billion_kms, mode = 'scen', var = scen)  %>% janitor::adorn_totals(where = c('row', 'col')) %>% View()
-get_summary_table_injury_risk(injury_risks_per_billion_kms, mode = 'city', var = cn)  %>% janitor::adorn_totals(where = c('row', 'col')) %>% View()
+injury_risks_per_billion_kms_by_scen <- get_summary_table_injury_risk(injury_risks_per_billion_kms, mode = 'scen', var = scen)  %>% janitor::adorn_totals(where = c('row', 'col'))
+View(injury_risks_per_billion_kms_by_scen)
+injury_risks_per_billion_kms_by_city <- get_summary_table_injury_risk(injury_risks_per_billion_kms, mode = 'city', var = cn)  %>% janitor::adorn_totals(where = c('row', 'col'))
+View(injury_risks_per_billion_kms_by_city)
