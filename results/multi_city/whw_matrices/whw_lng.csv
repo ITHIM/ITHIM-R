@@ -60,15 +60,15 @@ truck,0,bus,bogota,Baseline
 unknown,0,bus,bogota,Baseline
 NOV,7.66,bus,bogota,Baseline
 bus,0,bus,buenos_aires,Baseline
-car,0,bus,buenos_aires,Baseline
+car,1,bus,buenos_aires,Baseline
 cycle,0,bus,buenos_aires,Baseline
 motorcycle,0,bus,buenos_aires,Baseline
 other,0,bus,buenos_aires,Baseline
-pedestrian,0,bus,buenos_aires,Baseline
+pedestrian,1,bus,buenos_aires,Baseline
 rail,0,bus,buenos_aires,Baseline
 truck,0,bus,buenos_aires,Baseline
 unknown,0,bus,buenos_aires,Baseline
-NOV,14,bus,buenos_aires,Baseline
+NOV,4,bus,buenos_aires,Baseline
 bus,0,bus,cape_town,Baseline
 car,17.75,bus,cape_town,Baseline
 cycle,0.25,bus,cape_town,Baseline
@@ -169,16 +169,16 @@ rail,0,car,bogota,Baseline
 truck,0.81,car,bogota,Baseline
 unknown,0,car,bogota,Baseline
 NOV,16.5,car,bogota,Baseline
-bus,0,car,buenos_aires,Baseline
+bus,9,car,buenos_aires,Baseline
 car,0,car,buenos_aires,Baseline
 cycle,0,car,buenos_aires,Baseline
-motorcycle,0,car,buenos_aires,Baseline
+motorcycle,1,car,buenos_aires,Baseline
 other,0,car,buenos_aires,Baseline
 pedestrian,0,car,buenos_aires,Baseline
 rail,0,car,buenos_aires,Baseline
-truck,0,car,buenos_aires,Baseline
+truck,4,car,buenos_aires,Baseline
 unknown,0,car,buenos_aires,Baseline
-NOV,366,car,buenos_aires,Baseline
+NOV,62,car,buenos_aires,Baseline
 bus,33.75,car,cape_town,Baseline
 car,0,car,cape_town,Baseline
 cycle,0,car,cape_town,Baseline
@@ -279,16 +279,16 @@ rail,0,cycle,bogota,Baseline
 truck,5.5,cycle,bogota,Baseline
 unknown,0.17,cycle,bogota,Baseline
 NOV,0.5,cycle,bogota,Baseline
-bus,0,cycle,buenos_aires,Baseline
-car,0,cycle,buenos_aires,Baseline
+bus,6,cycle,buenos_aires,Baseline
+car,6,cycle,buenos_aires,Baseline
 cycle,0,cycle,buenos_aires,Baseline
-motorcycle,0,cycle,buenos_aires,Baseline
+motorcycle,1,cycle,buenos_aires,Baseline
 other,0,cycle,buenos_aires,Baseline
-pedestrian,0,cycle,buenos_aires,Baseline
+pedestrian,1,cycle,buenos_aires,Baseline
 rail,0,cycle,buenos_aires,Baseline
-truck,0,cycle,buenos_aires,Baseline
-unknown,0,cycle,buenos_aires,Baseline
-NOV,41,cycle,buenos_aires,Baseline
+truck,2,cycle,buenos_aires,Baseline
+unknown,1,cycle,buenos_aires,Baseline
+NOV,1,cycle,buenos_aires,Baseline
 bus,0.5,cycle,cape_town,Baseline
 car,3.25,cycle,cape_town,Baseline
 cycle,0,cycle,cape_town,Baseline
@@ -389,16 +389,16 @@ rail,0,motorcycle,bogota,Baseline
 truck,18.72,motorcycle,bogota,Baseline
 unknown,0,motorcycle,bogota,Baseline
 NOV,35.98,motorcycle,bogota,Baseline
-bus,0,motorcycle,buenos_aires,Baseline
-car,0,motorcycle,buenos_aires,Baseline
-cycle,0,motorcycle,buenos_aires,Baseline
+bus,44,motorcycle,buenos_aires,Baseline
+car,64,motorcycle,buenos_aires,Baseline
+cycle,3,motorcycle,buenos_aires,Baseline
 motorcycle,0,motorcycle,buenos_aires,Baseline
 other,0,motorcycle,buenos_aires,Baseline
-pedestrian,0,motorcycle,buenos_aires,Baseline
+pedestrian,5,motorcycle,buenos_aires,Baseline
 rail,0,motorcycle,buenos_aires,Baseline
-truck,0,motorcycle,buenos_aires,Baseline
+truck,26,motorcycle,buenos_aires,Baseline
 unknown,0,motorcycle,buenos_aires,Baseline
-NOV,130,motorcycle,buenos_aires,Baseline
+NOV,49,motorcycle,buenos_aires,Baseline
 bus,6.5,motorcycle,cape_town,Baseline
 car,36.25,motorcycle,cape_town,Baseline
 cycle,0,motorcycle,cape_town,Baseline
@@ -499,16 +499,16 @@ rail,0,pedestrian,bogota,Baseline
 truck,13.28,pedestrian,bogota,Baseline
 unknown,7.79,pedestrian,bogota,Baseline
 NOV,0,pedestrian,bogota,Baseline
-bus,0,pedestrian,buenos_aires,Baseline
-car,0,pedestrian,buenos_aires,Baseline
-cycle,0,pedestrian,buenos_aires,Baseline
-motorcycle,0,pedestrian,buenos_aires,Baseline
+bus,56,pedestrian,buenos_aires,Baseline
+car,97,pedestrian,buenos_aires,Baseline
+cycle,3,pedestrian,buenos_aires,Baseline
+motorcycle,73,pedestrian,buenos_aires,Baseline
 other,0,pedestrian,buenos_aires,Baseline
 pedestrian,0,pedestrian,buenos_aires,Baseline
 rail,0,pedestrian,buenos_aires,Baseline
-truck,0,pedestrian,buenos_aires,Baseline
-unknown,0,pedestrian,buenos_aires,Baseline
-NOV,638,pedestrian,buenos_aires,Baseline
+truck,12,pedestrian,buenos_aires,Baseline
+unknown,7,pedestrian,buenos_aires,Baseline
+NOV,0,pedestrian,buenos_aires,Baseline
 bus,60.75,pedestrian,cape_town,Baseline
 car,302.25,pedestrian,cape_town,Baseline
 cycle,0.5,pedestrian,cape_town,Baseline
@@ -640,15 +640,15 @@ truck,0,bus,bogota,Walking
 unknown,0,bus,bogota,Walking
 NOV,7.66,bus,bogota,Walking
 bus,0,bus,buenos_aires,Walking
-car,0,bus,buenos_aires,Walking
+car,0.95,bus,buenos_aires,Walking
 cycle,0,bus,buenos_aires,Walking
 motorcycle,0,bus,buenos_aires,Walking
 other,0,bus,buenos_aires,Walking
-pedestrian,0,bus,buenos_aires,Walking
+pedestrian,1.28,bus,buenos_aires,Walking
 rail,0,bus,buenos_aires,Walking
 truck,0,bus,buenos_aires,Walking
 unknown,0,bus,buenos_aires,Walking
-NOV,13.65,bus,buenos_aires,Walking
+NOV,3.9,bus,buenos_aires,Walking
 bus,0,bus,cape_town,Walking
 car,16.75,bus,cape_town,Walking
 cycle,0.24,bus,cape_town,Walking
@@ -749,16 +749,16 @@ rail,0,car,bogota,Walking
 truck,0.81,car,bogota,Walking
 unknown,0,car,bogota,Walking
 NOV,16.48,car,bogota,Walking
-bus,0,car,buenos_aires,Walking
+bus,8.53,car,buenos_aires,Walking
 car,0,car,buenos_aires,Walking
 cycle,0,car,buenos_aires,Walking
-motorcycle,0,car,buenos_aires,Walking
+motorcycle,0.96,car,buenos_aires,Walking
 other,0,car,buenos_aires,Walking
 pedestrian,0,car,buenos_aires,Walking
 rail,0,car,buenos_aires,Walking
-truck,0,car,buenos_aires,Walking
+truck,3.84,car,buenos_aires,Walking
 unknown,0,car,buenos_aires,Walking
-NOV,355.85,car,buenos_aires,Walking
+NOV,60.28,car,buenos_aires,Walking
 bus,31.94,car,cape_town,Walking
 car,0,car,cape_town,Walking
 cycle,0,car,cape_town,Walking
@@ -859,16 +859,16 @@ rail,0,cycle,bogota,Walking
 truck,5.42,cycle,bogota,Walking
 unknown,0.16,cycle,bogota,Walking
 NOV,0.49,cycle,bogota,Walking
-bus,0,cycle,buenos_aires,Walking
-car,0,cycle,buenos_aires,Walking
+bus,5.46,cycle,buenos_aires,Walking
+car,5.45,cycle,buenos_aires,Walking
 cycle,0,cycle,buenos_aires,Walking
-motorcycle,0,cycle,buenos_aires,Walking
+motorcycle,0.92,cycle,buenos_aires,Walking
 other,0,cycle,buenos_aires,Walking
-pedestrian,0,cycle,buenos_aires,Walking
+pedestrian,1.22,cycle,buenos_aires,Walking
 rail,0,cycle,buenos_aires,Walking
-truck,0,cycle,buenos_aires,Walking
-unknown,0,cycle,buenos_aires,Walking
-NOV,38.28,cycle,buenos_aires,Walking
+truck,1.84,cycle,buenos_aires,Walking
+unknown,0.92,cycle,buenos_aires,Walking
+NOV,0.93,cycle,buenos_aires,Walking
 bus,0.49,cycle,cape_town,Walking
 car,3.16,cycle,cape_town,Walking
 cycle,0,cycle,cape_town,Walking
@@ -969,16 +969,16 @@ rail,0,motorcycle,bogota,Walking
 truck,18.71,motorcycle,bogota,Walking
 unknown,0,motorcycle,bogota,Walking
 NOV,35.96,motorcycle,bogota,Walking
-bus,0,motorcycle,buenos_aires,Walking
-car,0,motorcycle,buenos_aires,Walking
-cycle,0,motorcycle,buenos_aires,Walking
+bus,42.19,motorcycle,buenos_aires,Walking
+car,61.22,motorcycle,buenos_aires,Walking
+cycle,2.76,motorcycle,buenos_aires,Walking
 motorcycle,0,motorcycle,buenos_aires,Walking
 other,0,motorcycle,buenos_aires,Walking
-pedestrian,0,motorcycle,buenos_aires,Walking
+pedestrian,6.45,motorcycle,buenos_aires,Walking
 rail,0,motorcycle,buenos_aires,Walking
-truck,0,motorcycle,buenos_aires,Walking
+truck,25.27,motorcycle,buenos_aires,Walking
 unknown,0,motorcycle,buenos_aires,Walking
-NOV,127.9,motorcycle,buenos_aires,Walking
+NOV,48.21,motorcycle,buenos_aires,Walking
 bus,6.34,motorcycle,cape_town,Walking
 car,35.24,motorcycle,cape_town,Walking
 cycle,0,motorcycle,cape_town,Walking
@@ -1079,16 +1079,16 @@ rail,0,pedestrian,bogota,Walking
 truck,13.48,pedestrian,bogota,Walking
 unknown,7.91,pedestrian,bogota,Walking
 NOV,0,pedestrian,bogota,Walking
-bus,0,pedestrian,buenos_aires,Walking
-car,0,pedestrian,buenos_aires,Walking
-cycle,0,pedestrian,buenos_aires,Walking
-motorcycle,0,pedestrian,buenos_aires,Walking
+bus,71.57,pedestrian,buenos_aires,Walking
+car,123.67,pedestrian,buenos_aires,Walking
+cycle,3.67,pedestrian,buenos_aires,Walking
+motorcycle,94.18,pedestrian,buenos_aires,Walking
 other,0,pedestrian,buenos_aires,Walking
 pedestrian,0,pedestrian,buenos_aires,Walking
 rail,0,pedestrian,buenos_aires,Walking
-truck,0,pedestrian,buenos_aires,Walking
-unknown,0,pedestrian,buenos_aires,Walking
-NOV,836.6,pedestrian,buenos_aires,Walking
+truck,15.54,pedestrian,buenos_aires,Walking
+unknown,9.07,pedestrian,buenos_aires,Walking
+NOV,0,pedestrian,buenos_aires,Walking
 bus,79.39,pedestrian,cape_town,Walking
 car,393.94,pedestrian,cape_town,Walking
 cycle,0.65,pedestrian,cape_town,Walking
@@ -1220,15 +1220,15 @@ truck,0,bus,bogota,Bicycling
 unknown,0,bus,bogota,Bicycling
 NOV,7.66,bus,bogota,Bicycling
 bus,0,bus,buenos_aires,Bicycling
-car,0,bus,buenos_aires,Bicycling
+car,0.95,bus,buenos_aires,Bicycling
 cycle,0,bus,buenos_aires,Bicycling
 motorcycle,0,bus,buenos_aires,Bicycling
 other,0,bus,buenos_aires,Bicycling
-pedestrian,0,bus,buenos_aires,Bicycling
+pedestrian,0.95,bus,buenos_aires,Bicycling
 rail,0,bus,buenos_aires,Bicycling
 truck,0,bus,buenos_aires,Bicycling
 unknown,0,bus,buenos_aires,Bicycling
-NOV,13.64,bus,buenos_aires,Bicycling
+NOV,3.9,bus,buenos_aires,Bicycling
 bus,0,bus,cape_town,Bicycling
 car,16.48,bus,cape_town,Bicycling
 cycle,4.12,bus,cape_town,Bicycling
@@ -1329,16 +1329,16 @@ rail,0,car,bogota,Bicycling
 truck,0.81,car,bogota,Bicycling
 unknown,0,car,bogota,Bicycling
 NOV,16.5,car,bogota,Bicycling
-bus,0,car,buenos_aires,Bicycling
+bus,8.54,car,buenos_aires,Bicycling
 car,0,car,buenos_aires,Bicycling
 cycle,0,car,buenos_aires,Bicycling
-motorcycle,0,car,buenos_aires,Bicycling
+motorcycle,0.94,car,buenos_aires,Bicycling
 other,0,car,buenos_aires,Bicycling
 pedestrian,0,car,buenos_aires,Bicycling
 rail,0,car,buenos_aires,Bicycling
-truck,0,car,buenos_aires,Bicycling
+truck,3.84,car,buenos_aires,Bicycling
 unknown,0,car,buenos_aires,Bicycling
-NOV,356.33,car,buenos_aires,Bicycling
+NOV,60.36,car,buenos_aires,Bicycling
 bus,31.4,car,cape_town,Bicycling
 car,0,car,cape_town,Bicycling
 cycle,0,car,cape_town,Bicycling
@@ -1439,16 +1439,16 @@ rail,0,cycle,bogota,Bicycling
 truck,5.5,cycle,bogota,Bicycling
 unknown,0.17,cycle,bogota,Bicycling
 NOV,0.5,cycle,bogota,Bicycling
-bus,0,cycle,buenos_aires,Bicycling
-car,0,cycle,buenos_aires,Bicycling
+bus,13.79,cycle,buenos_aires,Bicycling
+car,13.78,cycle,buenos_aires,Bicycling
 cycle,0,cycle,buenos_aires,Bicycling
-motorcycle,0,cycle,buenos_aires,Bicycling
+motorcycle,2.27,cycle,buenos_aires,Bicycling
 other,0,cycle,buenos_aires,Bicycling
-pedestrian,0,cycle,buenos_aires,Bicycling
+pedestrian,2.29,cycle,buenos_aires,Bicycling
 rail,0,cycle,buenos_aires,Bicycling
-truck,0,cycle,buenos_aires,Bicycling
-unknown,0,cycle,buenos_aires,Bicycling
-NOV,96.68,cycle,buenos_aires,Bicycling
+truck,4.66,cycle,buenos_aires,Bicycling
+unknown,2.33,cycle,buenos_aires,Bicycling
+NOV,2.36,cycle,buenos_aires,Bicycling
 bus,4.46,cycle,cape_town,Bicycling
 car,29.23,cycle,cape_town,Bicycling
 cycle,0,cycle,cape_town,Bicycling
@@ -1549,16 +1549,16 @@ rail,0,motorcycle,bogota,Bicycling
 truck,18.72,motorcycle,bogota,Bicycling
 unknown,0,motorcycle,bogota,Bicycling
 NOV,35.98,motorcycle,bogota,Bicycling
-bus,0,motorcycle,buenos_aires,Bicycling
-car,0,motorcycle,buenos_aires,Bicycling
-cycle,0,motorcycle,buenos_aires,Bicycling
+bus,41.27,motorcycle,buenos_aires,Bicycling
+car,59.98,motorcycle,buenos_aires,Bicycling
+cycle,6.81,motorcycle,buenos_aires,Bicycling
 motorcycle,0,motorcycle,buenos_aires,Bicycling
 other,0,motorcycle,buenos_aires,Bicycling
-pedestrian,0,motorcycle,buenos_aires,Bicycling
+pedestrian,4.67,motorcycle,buenos_aires,Bicycling
 rail,0,motorcycle,buenos_aires,Bicycling
-truck,0,motorcycle,buenos_aires,Bicycling
+truck,24.71,motorcycle,buenos_aires,Bicycling
 unknown,0,motorcycle,buenos_aires,Bicycling
-NOV,125.14,motorcycle,buenos_aires,Bicycling
+NOV,47.17,motorcycle,buenos_aires,Bicycling
 bus,6.12,motorcycle,cape_town,Bicycling
 car,34.42,motorcycle,cape_town,Bicycling
 cycle,0,motorcycle,cape_town,Bicycling
@@ -1659,16 +1659,16 @@ rail,0,pedestrian,bogota,Bicycling
 truck,13.28,pedestrian,bogota,Bicycling
 unknown,7.79,pedestrian,bogota,Bicycling
 NOV,0,pedestrian,bogota,Bicycling
-bus,0,pedestrian,buenos_aires,Bicycling
-car,0,pedestrian,buenos_aires,Bicycling
-cycle,0,pedestrian,buenos_aires,Bicycling
-motorcycle,0,pedestrian,buenos_aires,Bicycling
+bus,52.98,pedestrian,buenos_aires,Bicycling
+car,91.69,pedestrian,buenos_aires,Bicycling
+cycle,6.87,pedestrian,buenos_aires,Bicycling
+motorcycle,68.23,pedestrian,buenos_aires,Bicycling
 other,0,pedestrian,buenos_aires,Bicycling
 pedestrian,0,pedestrian,buenos_aires,Bicycling
 rail,0,pedestrian,buenos_aires,Bicycling
-truck,0,pedestrian,buenos_aires,Bicycling
-unknown,0,pedestrian,buenos_aires,Bicycling
-NOV,619.46,pedestrian,buenos_aires,Bicycling
+truck,11.5,pedestrian,buenos_aires,Bicycling
+unknown,6.71,pedestrian,buenos_aires,Bicycling
+NOV,0,pedestrian,buenos_aires,Bicycling
 bus,54.82,pedestrian,cape_town,Bicycling
 car,275.15,pedestrian,cape_town,Bicycling
 cycle,8.07,pedestrian,cape_town,Bicycling
@@ -1800,15 +1800,15 @@ truck,0,bus,bogota,Driving
 unknown,0,bus,bogota,Driving
 NOV,5.33,bus,bogota,Driving
 bus,0,bus,buenos_aires,Driving
-car,0,bus,buenos_aires,Driving
+car,1.13,bus,buenos_aires,Driving
 cycle,0,bus,buenos_aires,Driving
 motorcycle,0,bus,buenos_aires,Driving
 other,0,bus,buenos_aires,Driving
-pedestrian,0,bus,buenos_aires,Driving
+pedestrian,0.49,bus,buenos_aires,Driving
 rail,0,bus,buenos_aires,Driving
 truck,0,bus,buenos_aires,Driving
 unknown,0,bus,buenos_aires,Driving
-NOV,9.57,bus,buenos_aires,Driving
+NOV,2.74,bus,buenos_aires,Driving
 bus,0,bus,cape_town,Driving
 car,17.92,bus,cape_town,Driving
 cycle,0.23,bus,cape_town,Driving
@@ -1909,16 +1909,16 @@ rail,0,car,bogota,Driving
 truck,1.8,car,bogota,Driving
 unknown,0,car,bogota,Driving
 NOV,36.6,car,bogota,Driving
-bus,0,car,buenos_aires,Driving
+bus,10.18,car,buenos_aires,Driving
 car,0,car,buenos_aires,Driving
 cycle,0,car,buenos_aires,Driving
-motorcycle,0,car,buenos_aires,Driving
+motorcycle,1.09,car,buenos_aires,Driving
 other,0,car,buenos_aires,Driving
 pedestrian,0,car,buenos_aires,Driving
 rail,0,car,buenos_aires,Driving
-truck,0,car,buenos_aires,Driving
+truck,5.58,car,buenos_aires,Driving
 unknown,0,car,buenos_aires,Driving
-NOV,605.37,car,buenos_aires,Driving
+NOV,102.55,car,buenos_aires,Driving
 bus,34.18,car,cape_town,Driving
 car,0,car,cape_town,Driving
 cycle,0,car,cape_town,Driving
@@ -2019,16 +2019,16 @@ rail,0,cycle,bogota,Driving
 truck,3.77,cycle,bogota,Driving
 unknown,0.1,cycle,bogota,Driving
 NOV,0.34,cycle,bogota,Driving
-bus,0,cycle,buenos_aires,Driving
-car,0,cycle,buenos_aires,Driving
+bus,2.92,cycle,buenos_aires,Driving
+car,7.07,cycle,buenos_aires,Driving
 cycle,0,cycle,buenos_aires,Driving
-motorcycle,0,cycle,buenos_aires,Driving
+motorcycle,0.47,cycle,buenos_aires,Driving
 other,0,cycle,buenos_aires,Driving
-pedestrian,0,cycle,buenos_aires,Driving
+pedestrian,0.51,cycle,buenos_aires,Driving
 rail,0,cycle,buenos_aires,Driving
-truck,0,cycle,buenos_aires,Driving
-unknown,0,cycle,buenos_aires,Driving
-NOV,29.2,cycle,buenos_aires,Driving
+truck,1.2,cycle,buenos_aires,Driving
+unknown,0.6,cycle,buenos_aires,Driving
+NOV,0.71,cycle,buenos_aires,Driving
 bus,0.46,cycle,cape_town,Driving
 car,3.32,cycle,cape_town,Driving
 cycle,0,cycle,cape_town,Driving
@@ -2129,16 +2129,16 @@ rail,0,motorcycle,bogota,Driving
 truck,13.75,motorcycle,bogota,Driving
 unknown,0,motorcycle,bogota,Driving
 NOV,26.58,motorcycle,bogota,Driving
-bus,0,motorcycle,buenos_aires,Driving
-car,0,motorcycle,buenos_aires,Driving
-cycle,0,motorcycle,buenos_aires,Driving
+bus,19.75,motorcycle,buenos_aires,Driving
+car,69.48,motorcycle,buenos_aires,Driving
+cycle,1.4,motorcycle,buenos_aires,Driving
 motorcycle,0,motorcycle,buenos_aires,Driving
 other,0,motorcycle,buenos_aires,Driving
-pedestrian,0,motorcycle,buenos_aires,Driving
+pedestrian,2.34,motorcycle,buenos_aires,Driving
 rail,0,motorcycle,buenos_aires,Driving
-truck,0,motorcycle,buenos_aires,Driving
+truck,14.38,motorcycle,buenos_aires,Driving
 unknown,0,motorcycle,buenos_aires,Driving
-NOV,85.33,motorcycle,buenos_aires,Driving
+NOV,32.16,motorcycle,buenos_aires,Driving
 bus,6.23,motorcycle,cape_town,Driving
 car,38.21,motorcycle,cape_town,Driving
 cycle,0,motorcycle,cape_town,Driving
@@ -2239,16 +2239,16 @@ rail,0,pedestrian,bogota,Driving
 truck,9.33,pedestrian,bogota,Driving
 unknown,4.83,pedestrian,bogota,Driving
 NOV,0,pedestrian,bogota,Driving
-bus,0,pedestrian,buenos_aires,Driving
-car,0,pedestrian,buenos_aires,Driving
-cycle,0,pedestrian,buenos_aires,Driving
-motorcycle,0,pedestrian,buenos_aires,Driving
+bus,27.26,pedestrian,buenos_aires,Driving
+car,114.2,pedestrian,buenos_aires,Driving
+cycle,1.52,pedestrian,buenos_aires,Driving
+motorcycle,34.11,pedestrian,buenos_aires,Driving
 other,0,pedestrian,buenos_aires,Driving
 pedestrian,0,pedestrian,buenos_aires,Driving
 rail,0,pedestrian,buenos_aires,Driving
-truck,0,pedestrian,buenos_aires,Driving
-unknown,0,pedestrian,buenos_aires,Driving
-NOV,454.12,pedestrian,buenos_aires,Driving
+truck,7.2,pedestrian,buenos_aires,Driving
+unknown,4.2,pedestrian,buenos_aires,Driving
+NOV,0,pedestrian,buenos_aires,Driving
 bus,54.94,pedestrian,cape_town,Driving
 car,300.49,pedestrian,cape_town,Driving
 cycle,0.46,pedestrian,cape_town,Driving
@@ -2380,15 +2380,15 @@ truck,0,bus,bogota,Motorcycling
 unknown,0,bus,bogota,Motorcycling
 NOV,3.65,bus,bogota,Motorcycling
 bus,0,bus,buenos_aires,Motorcycling
-car,0,bus,buenos_aires,Motorcycling
+car,0.2,bus,buenos_aires,Motorcycling
 cycle,0,bus,buenos_aires,Motorcycling
 motorcycle,0,bus,buenos_aires,Motorcycling
 other,0,bus,buenos_aires,Motorcycling
-pedestrian,0,bus,buenos_aires,Motorcycling
+pedestrian,0.27,bus,buenos_aires,Motorcycling
 rail,0,bus,buenos_aires,Motorcycling
 truck,0,bus,buenos_aires,Motorcycling
 unknown,0,bus,buenos_aires,Motorcycling
-NOV,6.26,bus,buenos_aires,Motorcycling
+NOV,1.79,bus,buenos_aires,Motorcycling
 bus,0,bus,cape_town,Motorcycling
 car,3.53,bus,cape_town,Motorcycling
 cycle,0.05,bus,cape_town,Motorcycling
@@ -2489,16 +2489,16 @@ rail,0,car,bogota,Motorcycling
 truck,0.38,car,bogota,Motorcycling
 unknown,0,car,bogota,Motorcycling
 NOV,7.86,car,bogota,Motorcycling
-bus,0,car,buenos_aires,Motorcycling
+bus,1.83,car,buenos_aires,Motorcycling
 car,0,car,buenos_aires,Motorcycling
 cycle,0,car,buenos_aires,Motorcycling
-motorcycle,0,car,buenos_aires,Motorcycling
+motorcycle,4.51,car,buenos_aires,Motorcycling
 other,0,car,buenos_aires,Motorcycling
 pedestrian,0,car,buenos_aires,Motorcycling
 rail,0,car,buenos_aires,Motorcycling
-truck,0,car,buenos_aires,Motorcycling
+truck,1.32,car,buenos_aires,Motorcycling
 unknown,0,car,buenos_aires,Motorcycling
-NOV,166.2,car,buenos_aires,Motorcycling
+NOV,28.15,car,buenos_aires,Motorcycling
 bus,7.19,car,cape_town,Motorcycling
 car,0,car,cape_town,Motorcycling
 cycle,0,car,cape_town,Motorcycling
@@ -2599,16 +2599,16 @@ rail,0,cycle,bogota,Motorcycling
 truck,2.95,cycle,bogota,Motorcycling
 unknown,0.07,cycle,bogota,Motorcycling
 NOV,0.27,cycle,bogota,Motorcycling
-bus,0,cycle,buenos_aires,Motorcycling
-car,0,cycle,buenos_aires,Motorcycling
+bus,1.57,cycle,buenos_aires,Motorcycling
+car,1.6,cycle,buenos_aires,Motorcycling
 cycle,0,cycle,buenos_aires,Motorcycling
-motorcycle,0,cycle,buenos_aires,Motorcycling
+motorcycle,5.82,cycle,buenos_aires,Motorcycling
 other,0,cycle,buenos_aires,Motorcycling
-pedestrian,0,cycle,buenos_aires,Motorcycling
+pedestrian,0.35,cycle,buenos_aires,Motorcycling
 rail,0,cycle,buenos_aires,Motorcycling
-truck,0,cycle,buenos_aires,Motorcycling
-unknown,0,cycle,buenos_aires,Motorcycling
-NOV,24.03,cycle,buenos_aires,Motorcycling
+truck,0.85,cycle,buenos_aires,Motorcycling
+unknown,0.43,cycle,buenos_aires,Motorcycling
+NOV,0.59,cycle,buenos_aires,Motorcycling
 bus,0.08,cycle,cape_town,Motorcycling
 car,0.61,cycle,cape_town,Motorcycling
 cycle,0,cycle,cape_town,Motorcycling
@@ -2709,16 +2709,16 @@ rail,0,motorcycle,bogota,Motorcycling
 truck,77.33,motorcycle,bogota,Motorcycling
 unknown,0,motorcycle,bogota,Motorcycling
 NOV,150.26,motorcycle,bogota,Motorcycling
-bus,0,motorcycle,buenos_aires,Motorcycling
-car,0,motorcycle,buenos_aires,Motorcycling
-cycle,0,motorcycle,buenos_aires,Motorcycling
+bus,195.18,motorcycle,buenos_aires,Motorcycling
+car,288.45,motorcycle,buenos_aires,Motorcycling
+cycle,17.45,motorcycle,buenos_aires,Motorcycling
 motorcycle,0,motorcycle,buenos_aires,Motorcycling
 other,0,motorcycle,buenos_aires,Motorcycling
-pedestrian,0,motorcycle,buenos_aires,Motorcycling
+pedestrian,29.45,motorcycle,buenos_aires,Motorcycling
 rail,0,motorcycle,buenos_aires,Motorcycling
-truck,0,motorcycle,buenos_aires,Motorcycling
+truck,187.25,motorcycle,buenos_aires,Motorcycling
 unknown,0,motorcycle,buenos_aires,Motorcycling
-NOV,1290.31,motorcycle,buenos_aires,Motorcycling
+NOV,486.35,motorcycle,buenos_aires,Motorcycling
 bus,96.34,motorcycle,cape_town,Motorcycling
 car,594.47,motorcycle,cape_town,Motorcycling
 cycle,0,motorcycle,cape_town,Motorcycling
@@ -2819,16 +2819,16 @@ rail,0,pedestrian,bogota,Motorcycling
 truck,7.94,pedestrian,bogota,Motorcycling
 unknown,3.73,pedestrian,bogota,Motorcycling
 NOV,0,pedestrian,bogota,Motorcycling
-bus,0,pedestrian,buenos_aires,Motorcycling
-car,0,pedestrian,buenos_aires,Motorcycling
-cycle,0,pedestrian,buenos_aires,Motorcycling
-motorcycle,0,pedestrian,buenos_aires,Motorcycling
+bus,14.85,pedestrian,buenos_aires,Motorcycling
+car,26.14,pedestrian,buenos_aires,Motorcycling
+cycle,1.04,pedestrian,buenos_aires,Motorcycling
+motorcycle,430.03,pedestrian,buenos_aires,Motorcycling
 other,0,pedestrian,buenos_aires,Motorcycling
 pedestrian,0,pedestrian,buenos_aires,Motorcycling
 rail,0,pedestrian,buenos_aires,Motorcycling
-truck,0,pedestrian,buenos_aires,Motorcycling
-unknown,0,pedestrian,buenos_aires,Motorcycling
-NOV,378.66,pedestrian,buenos_aires,Motorcycling
+truck,5.17,pedestrian,buenos_aires,Motorcycling
+unknown,3.01,pedestrian,buenos_aires,Motorcycling
+NOV,0,pedestrian,buenos_aires,Motorcycling
 bus,15.85,pedestrian,cape_town,Motorcycling
 car,87.25,pedestrian,cape_town,Motorcycling
 cycle,0.14,pedestrian,cape_town,Motorcycling
@@ -2960,15 +2960,15 @@ truck,0,bus,bogota,Public Transport
 unknown,0,bus,bogota,Public Transport
 NOV,7.73,bus,bogota,Public Transport
 bus,0,bus,buenos_aires,Public Transport
-car,0,bus,buenos_aires,Public Transport
+car,0.79,bus,buenos_aires,Public Transport
 cycle,0,bus,buenos_aires,Public Transport
 motorcycle,0,bus,buenos_aires,Public Transport
 other,0,bus,buenos_aires,Public Transport
-pedestrian,0,bus,buenos_aires,Public Transport
+pedestrian,1.82,bus,buenos_aires,Public Transport
 rail,0,bus,buenos_aires,Public Transport
 truck,0,bus,buenos_aires,Public Transport
 unknown,0,bus,buenos_aires,Public Transport
-NOV,19.21,bus,buenos_aires,Public Transport
+NOV,5.49,bus,buenos_aires,Public Transport
 bus,0,bus,cape_town,Public Transport
 car,22.72,bus,cape_town,Public Transport
 cycle,0.41,bus,cape_town,Public Transport
@@ -3069,16 +3069,16 @@ rail,0,car,bogota,Public Transport
 truck,0.8,car,bogota,Public Transport
 unknown,0,car,bogota,Public Transport
 NOV,16.24,car,bogota,Public Transport
-bus,0,car,buenos_aires,Public Transport
+bus,7.13,car,buenos_aires,Public Transport
 car,0,car,buenos_aires,Public Transport
 cycle,0,car,buenos_aires,Public Transport
-motorcycle,0,car,buenos_aires,Public Transport
+motorcycle,0.33,car,buenos_aires,Public Transport
 other,0,car,buenos_aires,Public Transport
 pedestrian,0,car,buenos_aires,Public Transport
 rail,0,car,buenos_aires,Public Transport
-truck,0,car,buenos_aires,Public Transport
+truck,2.36,car,buenos_aires,Public Transport
 unknown,0,car,buenos_aires,Public Transport
-NOV,211.35,car,buenos_aires,Public Transport
+NOV,35.8,car,buenos_aires,Public Transport
 bus,34.61,car,cape_town,Public Transport
 car,0,car,cape_town,Public Transport
 cycle,0,car,cape_town,Public Transport
@@ -3179,16 +3179,16 @@ rail,0,cycle,bogota,Public Transport
 truck,5.11,cycle,bogota,Public Transport
 unknown,0.16,cycle,bogota,Public Transport
 NOV,0.46,cycle,bogota,Public Transport
-bus,0,cycle,buenos_aires,Public Transport
-car,0,cycle,buenos_aires,Public Transport
+bus,5,cycle,buenos_aires,Public Transport
+car,2.1,cycle,buenos_aires,Public Transport
 cycle,0,cycle,buenos_aires,Public Transport
-motorcycle,0,cycle,buenos_aires,Public Transport
+motorcycle,0.35,cycle,buenos_aires,Public Transport
 other,0,cycle,buenos_aires,Public Transport
-pedestrian,0,cycle,buenos_aires,Public Transport
+pedestrian,0.8,cycle,buenos_aires,Public Transport
 rail,0,cycle,buenos_aires,Public Transport
-truck,0,cycle,buenos_aires,Public Transport
-unknown,0,cycle,buenos_aires,Public Transport
-NOV,24.9,cycle,buenos_aires,Public Transport
+truck,1.24,cycle,buenos_aires,Public Transport
+unknown,0.62,cycle,buenos_aires,Public Transport
+NOV,0.61,cycle,buenos_aires,Public Transport
 bus,0.7,cycle,cape_town,Public Transport
 car,1.08,cycle,cape_town,Public Transport
 cycle,0,cycle,cape_town,Public Transport
@@ -3289,16 +3289,16 @@ rail,0,motorcycle,bogota,Public Transport
 truck,18.53,motorcycle,bogota,Public Transport
 unknown,0,motorcycle,bogota,Public Transport
 NOV,35.6,motorcycle,bogota,Public Transport
-bus,0,motorcycle,buenos_aires,Public Transport
-car,0,motorcycle,buenos_aires,Public Transport
-cycle,0,motorcycle,buenos_aires,Public Transport
+bus,34.9,motorcycle,buenos_aires,Public Transport
+car,21.37,motorcycle,buenos_aires,Public Transport
+cycle,1.05,motorcycle,buenos_aires,Public Transport
 motorcycle,0,motorcycle,buenos_aires,Public Transport
 other,0,motorcycle,buenos_aires,Public Transport
-pedestrian,0,motorcycle,buenos_aires,Public Transport
+pedestrian,3.83,motorcycle,buenos_aires,Public Transport
 rail,0,motorcycle,buenos_aires,Public Transport
-truck,0,motorcycle,buenos_aires,Public Transport
+truck,15.34,motorcycle,buenos_aires,Public Transport
 unknown,0,motorcycle,buenos_aires,Public Transport
-NOV,75.16,motorcycle,buenos_aires,Public Transport
+NOV,28.33,motorcycle,buenos_aires,Public Transport
 bus,7.88,motorcycle,cape_town,Public Transport
 car,10.48,motorcycle,cape_town,Public Transport
 cycle,0,motorcycle,cape_town,Public Transport
@@ -3399,16 +3399,16 @@ rail,0,pedestrian,bogota,Public Transport
 truck,13.38,pedestrian,bogota,Public Transport
 unknown,7.87,pedestrian,bogota,Public Transport
 NOV,0,pedestrian,bogota,Public Transport
-bus,0,pedestrian,buenos_aires,Public Transport
-car,0,pedestrian,buenos_aires,Public Transport
-cycle,0,pedestrian,buenos_aires,Public Transport
-motorcycle,0,pedestrian,buenos_aires,Public Transport
+bus,101.77,pedestrian,buenos_aires,Public Transport
+car,74.2,pedestrian,buenos_aires,Public Transport
+cycle,2.41,pedestrian,buenos_aires,Public Transport
+motorcycle,55.91,pedestrian,buenos_aires,Public Transport
 other,0,pedestrian,buenos_aires,Public Transport
 pedestrian,0,pedestrian,buenos_aires,Public Transport
 rail,0,pedestrian,buenos_aires,Public Transport
-truck,0,pedestrian,buenos_aires,Public Transport
-unknown,0,pedestrian,buenos_aires,Public Transport
-NOV,845.11,pedestrian,buenos_aires,Public Transport
+truck,16.22,pedestrian,buenos_aires,Public Transport
+unknown,9.46,pedestrian,buenos_aires,Public Transport
+NOV,0,pedestrian,buenos_aires,Public Transport
 bus,164.54,pedestrian,cape_town,Public Transport
 car,195.11,pedestrian,cape_town,Public Transport
 cycle,0.42,pedestrian,cape_town,Public Transport
