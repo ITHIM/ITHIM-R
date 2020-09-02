@@ -41,7 +41,13 @@ create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, ta
     
     candidate_trips <- filter(rdr,trip_mode %in% source_modes &
                                 trip_distance_cat %in% source_distance_cats)
-    sample_trips <- candidate_trips[sample(1:nrow(candidate_trips),source_trips),]
+    if (CITY == "bogota_wb")
+      sample_trips <- candidate_trips[sample(1:nrow(candidate_trips),
+                                             source_trips, replace = F,
+                                             candidate_trips$w),]
+    else
+      sample_trips <- candidate_trips[sample(1:nrow(candidate_trips),source_trips),]
+    
     sample_trips$trip_mode <- target_modes
     sample_trips$stage_mode <- target_modes
     sample_trips$stage_distance <- sample_trips$trip_distance
