@@ -1,7 +1,7 @@
 ---
 title: "Summary Tables ITHIMR"
 author: "Rahul Goel, MRC Epidemiology Unit, University of Cambridge, UK"
-date: "25 April 2019"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document: default
   word_document: default
