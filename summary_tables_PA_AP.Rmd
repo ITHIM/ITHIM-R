@@ -39,7 +39,9 @@ library(dplyr)
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 io <- readRDS("results/multi_city/io.rds")
 
-cities <- c("accra", "sao_paulo", "delhi", "bangalore")
+# Assumes that multi_city_script.R has been run till 
+# Get names of cities from the io object
+cities <- names(io)[!names(io) %in% 'scen_prop']
 high<- c(70, 25, 150,60)
 low<- c(40,15,100,40)
 for (x in 1: length(cities))
@@ -185,7 +187,7 @@ for (x in 1: length(cities))
 for (x in 1: length(cities))
 {
 
-  summary<- as.data.frame(io[[cities[x]]]$outcomes$injuries %>% group_by(scenario) %>% summarise('Ped'=sum(pedestrian,na.rm=T),'Bike'= sum(bicycle), 'Car'=sum(car), "Motorcycle"=sum(motorcycle,na.rm=T), "All modes"=sum(Deaths,na.rm=T)))
+  summary<- as.data.frame(io[[cities[x]]]$outcomes$injuries %>% group_by(scenario) %>% summarise('Ped'=sum(pedestrian,na.rm=T),'Bike'= sum(cycle), 'Car'=sum(car), "Motorcycle"=sum(motorcycle,na.rm=T), "All modes"=sum(Deaths,na.rm=T)))
   summary$scenario<- c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
   summary<- cbind(summary$scenario ,round(summary[,2:6], digits=0))
   names(summary)[1]<-"Scenario"
@@ -234,7 +236,7 @@ print(kable(summary, caption= cities[x]))
 for (x in 1: length(cities))
 {
   
-  select<- c("car", "motorcycle", "walking", "bicycle", "bus")
+  select<- c("car", "motorcycle", "walking", "cycle", "bus")
   
   io[[cities[x]]]$trip_scen_sets$trip_mode[!io[[cities[x]]]$trip_scen_sets$trip_mode %in% select]<- "other"
   
