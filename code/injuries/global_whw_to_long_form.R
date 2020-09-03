@@ -3,7 +3,7 @@ library(tidyverse)
 library(reshape2)
 
 # Specify cities
-cities <- c('bangalore', 'bogota','buenos_aires', 'delhi', 'mexico_city', 'vizag')
+cities <- c('bangalore', 'bogota','buenos_aires', 'delhi', 'mexico_city', 'santiago', 'vizag')
 
 # Read lookup table for standardized modes
 smodes <- read_csv('data/global/modes/standardized_modes.csv')
