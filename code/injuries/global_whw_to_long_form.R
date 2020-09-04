@@ -65,10 +65,10 @@ for (city in cities){
   }
   
   # Recode cas mode to standard mode
-  whw_lng$cas_mode <- smodes$exhaustive_list[match(tolower(whw_lng$cas_mode), smodes$original)]
+  whw_lng$cas_mode <- smodes$inj_vic_lng[match(tolower(whw_lng$cas_mode), smodes$original)]
   
   # Recode strike mode to standard mode
-  whw_lng$strike_mode <- smodes$exhaustive_list[match(tolower(whw_lng$strike_mode), smodes$original)]
+  whw_lng$strike_mode <- smodes$inj_str_lng[match(tolower(whw_lng$strike_mode), smodes$original)]  
   
   # Save whw_lng in list
   temp[[city]] <- whw_lng
