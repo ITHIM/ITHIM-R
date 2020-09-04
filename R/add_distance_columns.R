@@ -61,7 +61,6 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
       colSums(subset(true_scen_dist,dem_index==x)[,!colnames(true_scen_dist)%in%c('age_cat','sex','scenario','sex_age','dem_index')]))))
     # apply casualty distance sums
     distance_sums <- sapply(mode_names,function(x)sum(dist_summary[[x]]))
-    
     if('whw'%in%INJURY_TABLE_TYPES){
       strike_true_scen_dist <- subset(strike_distances,scenario==scen)
       strike_dist_summary <- as.data.frame(t(sapply(unique(strike_true_scen_dist$dem_index),function(x)
@@ -69,8 +68,10 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
       # apply strike distance sums
       strike_distance_sums <- sapply(mode_names,function(x)sum(strike_dist_summary[[x]]))
       old_length <- length(strike_distance_sums)
-      for(str_mode in strike_modes[!strike_modes%in%names(strike_distance_sums)]) strike_distance_sums <- c(strike_distance_sums,mean(strike_distance_sums))
-      names(strike_distance_sums)[(old_length+1):length(strike_distance_sums)] <- strike_modes[!strike_modes%in%names(strike_distance_sums)]
+      for(str_mode in strike_modes[!strike_modes%in%names(strike_distance_sums)]){
+        strike_distance_sums <- c(strike_distance_sums,mean(strike_distance_sums))
+        names(strike_distance_sums)[(old_length+1):length(strike_distance_sums)] <- strike_modes[!strike_modes%in%names(strike_distance_sums)]
+      }
     }
     for(type in INJURY_TABLE_TYPES){
       injuries_list[[scen]][[type]] <- injury_table[[type]]
@@ -92,8 +93,13 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
         injuries_list[[scen]][[type]]$strike_distance_sum <- injuries_list[[scen]][[type]]$strike_distance
       }else{
         if(!'bus_driver'%in%mode_names){
-          injuries_list[[scen]][[type]]$strike_distance[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(dist$stage_mode=='bus_driver'),i+1]/bus_base
-          injuries_list[[scen]][[type]]$strike_distance_sum[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(dist$stage_mode=='bus_driver'),i+1]/bus_base
+          
+          # browser()
+          
+          if (length(bus_base) > 0){
+            injuries_list[[scen]][[type]]$strike_distance[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(dist$stage_mode=='bus_driver'),i+1]/bus_base
+            injuries_list[[scen]][[type]]$strike_distance_sum[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(dist$stage_mode=='bus_driver'),i+1]/bus_base
+          }
         }
       }
       
