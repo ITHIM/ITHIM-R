@@ -1,1 +1,7 @@
-V:\Studies\MOVED\HealthImpact\Clone\lambed\meelan_hia_africa\data\local\cape_town\injuries_cape_town.csv
+V:\Studies\MOVED\HealthImpact\Data\TIGTHAT\Cape Town\Crash Data_CCT_190919
+
+original file: whw_cape_town
+
+first, allocated unknown striking vehicles to known 
+second, allocated unknown victim types to known using the proportions of known victim types
+
