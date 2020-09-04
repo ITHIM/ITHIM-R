@@ -28,6 +28,9 @@ for (city in cities){
   # Format to long form
   whw_lng <- reshape2::melt(whw)
   
+  # Remove all values with NA as value
+  whw_lng <- whw_lng %>% filter(!is.na(value))
+  
   # Repeat rows with cieled count
   whw_lng <- whw_lng[rep(1:nrow(whw_lng), ceiling(whw_lng$value)),1:2] %>% as.data.frame()
   
