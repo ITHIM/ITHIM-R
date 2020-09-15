@@ -2,7 +2,3 @@ accra_whw_matrix is the original matrix
 and accra_injuries is modified version where unspecified and unknown have been reallocated to the known striking vehicle types
 
 also, other victim and unknown striking vehicles were allocated to known striking vehicles using the overall matrix
-
-also, reduced all cycle deaths by a ratio. We did the following:
-1) Used billion km travelled of cyclists in accra and multiplied it by cycle deaths per km for Delhi (closest to Accra in terms of cyclist risk). We used those death number and divided by the baseline deaths of cyclists in Accra. We used this ratio and multiplied by the cycle deaths in each cell in the revised matrix.
-
