@@ -3,7 +3,10 @@
 ### To make it simple may be make a new object VEHICLE_CO2_INVENTORY
 
 ### After that you need to run the following set of lines, these are from scenario_pm_calculations (lines 22 to 31)
-
+scenario_co2_calculations <- function(dist, trip_scen_sets){
+  
+  ## adding in travel not covered in the synthetic trip set, based on distances travelled relative to car, set in VEHICLE_INVENTORY
+  emission_dist <- dist
 
   ## get emission factor by dividing inventory by baseline distance. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
   ordered_efs <- (VEHICLE_INVENTORY$emission_inventory[match(emission_dist$stage_mode,VEHICLE_INVENTORY$stage_mode)] %>% as.numeric())/(emission_dist$Baseline %>% as.numeric())
@@ -17,3 +20,4 @@
   baseline_sum <- sum(trans_emissions[[SCEN[1]]], na.rm = T)
   
 ## we then report this baseline_sum of CO2 emissions for each scenario
+}
