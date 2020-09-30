@@ -4,26 +4,49 @@
 \alias{run_ithim_setup}
 \title{Run the set up script for ITHIM}
 \usage{
-run_ithim_setup(seed = 1, CITY = "accra", speeds = NULL,
-  emission_inventory = NULL,
+run_ithim_setup(
+  seed = 1,
+  CITY = "accra",
+  speeds = NULL,
+  PM_emission_inventory = NULL,
+  CO2_emission_inventory = NULL,
   setup_call_summary_filename = "setup_call_summary.txt",
-  DIST_CAT = c("0-6 km", "7-9 km", "10+ km"), AGE_RANGE = c(0, 150),
-  ADD_WALK_TO_BUS_TRIPS = T, ADD_BUS_DRIVERS = T,
-  ADD_TRUCK_DRIVERS = T, ADD_MOTORCYCLE_FLEET = F,
-  TEST_WALK_SCENARIO = F, TEST_CYCLE_SCENARIO = F,
-  MAX_MODE_SHARE_SCENARIO = F, REFERENCE_SCENARIO = "Baseline",
-  PATH_TO_LOCAL_DATA = NULL, NSAMPLES = 1, BUS_WALK_TIME = 5,
-  MMET_CYCLING = 4.63, MMET_WALKING = 2.53, PM_CONC_BASE = 50,
-  PM_TRANS_SHARE = 0.225, PA_DOSE_RESPONSE_QUANTILE = F,
-  AP_DOSE_RESPONSE_QUANTILE = F, BACKGROUND_PA_SCALAR = 1,
-  BACKGROUND_PA_CONFIDENCE = 1, INJURY_REPORTING_RATE = 1,
-  CHRONIC_DISEASE_SCALAR = 1, DAY_TO_WEEK_TRAVEL_SCALAR = 7,
-  SIN_EXPONENT_SUM = 2, CASUALTY_EXPONENT_FRACTION = 0.5,
-  BUS_TO_PASSENGER_RATIO = 0.022, TRUCK_TO_CAR_RATIO = 0.21,
-  FLEET_TO_MOTORCYCLE_RATIO = 0.01, EMISSION_INVENTORY_CONFIDENCE = 1,
-  DISTANCE_SCALAR_CAR_TAXI = 1, DISTANCE_SCALAR_WALKING = 1,
-  DISTANCE_SCALAR_PT = 1, DISTANCE_SCALAR_CYCLING = 1,
-  DISTANCE_SCALAR_MOTORCYCLE = 1)
+  DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
+  AGE_RANGE = c(0, 150),
+  ADD_WALK_TO_BUS_TRIPS = T,
+  ADD_BUS_DRIVERS = T,
+  ADD_TRUCK_DRIVERS = T,
+  ADD_MOTORCYCLE_FLEET = F,
+  TEST_WALK_SCENARIO = F,
+  TEST_CYCLE_SCENARIO = F,
+  MAX_MODE_SHARE_SCENARIO = F,
+  REFERENCE_SCENARIO = "Baseline",
+  PATH_TO_LOCAL_DATA = NULL,
+  NSAMPLES = 1,
+  BUS_WALK_TIME = 5,
+  MMET_CYCLING = 4.63,
+  MMET_WALKING = 2.53,
+  PM_CONC_BASE = 50,
+  PM_TRANS_SHARE = 0.225,
+  PA_DOSE_RESPONSE_QUANTILE = F,
+  AP_DOSE_RESPONSE_QUANTILE = F,
+  BACKGROUND_PA_SCALAR = 1,
+  BACKGROUND_PA_CONFIDENCE = 1,
+  INJURY_REPORTING_RATE = 1,
+  CHRONIC_DISEASE_SCALAR = 1,
+  DAY_TO_WEEK_TRAVEL_SCALAR = 7,
+  SIN_EXPONENT_SUM = 2,
+  CASUALTY_EXPONENT_FRACTION = 0.5,
+  BUS_TO_PASSENGER_RATIO = 0.022,
+  TRUCK_TO_CAR_RATIO = 0.21,
+  FLEET_TO_MOTORCYCLE_RATIO = 0.01,
+  PM_EMISSION_INVENTORY_CONFIDENCE = 1,
+  DISTANCE_SCALAR_CAR_TAXI = 1,
+  DISTANCE_SCALAR_WALKING = 1,
+  DISTANCE_SCALAR_PT = 1,
+  DISTANCE_SCALAR_CYCLING = 1,
+  DISTANCE_SCALAR_MOTORCYCLE = 1
+)
 }
 \arguments{
 \item{seed}{random seed}
@@ -32,7 +55,7 @@ run_ithim_setup(seed = 1, CITY = "accra", speeds = NULL,
 
 \item{speeds}{named list of mode speeds}
 
-\item{emission_inventory}{named list of mode emissions}
+\item{PM_emission_inventory}{named list of mode emissions}
 
 \item{setup_call_summary_filename}{name to write setup call summary to}
 
@@ -94,7 +117,7 @@ run_ithim_setup(seed = 1, CITY = "accra", speeds = NULL,
 
 \item{FLEET_TO_MOTORCYCLE_RATIO}{beta parameter: fraction of total motorcycles that's fleet}
 
-\item{EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of emission inventory}
+\item{PM_EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of emission inventory}
 
 \item{DISTANCE_SCALAR_CAR_TAXI}{lognormal parameter: scalar for car distance travelled}
 

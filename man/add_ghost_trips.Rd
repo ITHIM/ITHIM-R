@@ -4,9 +4,12 @@
 \alias{add_ghost_trips}
 \title{Add trips taken by no one}
 \usage{
-add_ghost_trips(raw_trip_set, trip_mode = "bus_driver",
+add_ghost_trips(
+  raw_trip_set,
+  trip_mode = "bus_driver",
   distance_ratio = BUS_TO_PASSENGER_RATIO * DISTANCE_SCALAR_PT,
-  reference_mode = "bus")
+  reference_mode = "bus"
+)
 }
 \arguments{
 \item{raw_trip_set}{data frame of trips}

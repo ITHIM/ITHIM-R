@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_walk_scenario.R
 \name{create_walk_scenario}
 \alias{create_walk_scenario}
-\title{Create basic walk scenario}
+\title{Create basic pedestrian scenario}
 \usage{
 create_walk_scenario(trip_set)
 }
@@ -10,7 +10,7 @@ create_walk_scenario(trip_set)
 \item{trip_set}{data frame, baseline scenario}
 }
 \value{
-list of baseline scenario and walking scenario
+list of baseline scenario and pedestrian scenario
 }
 \description{
 Duplicate baseline scenario; give each person one 1km walk in the scenario

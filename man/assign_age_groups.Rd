@@ -4,9 +4,14 @@
 \alias{assign_age_groups}
 \title{Assign age groups to individuals}
 \usage{
-assign_age_groups(dataset, age_category = AGE_CATEGORY,
-  age_lower_bounds = AGE_LOWER_BOUNDS, max_age = MAX_AGE,
-  min_age = AGE_LOWER_BOUNDS[1], age_label = "age")
+assign_age_groups(
+  dataset,
+  age_category = AGE_CATEGORY,
+  age_lower_bounds = AGE_LOWER_BOUNDS,
+  max_age = MAX_AGE,
+  min_age = AGE_LOWER_BOUNDS[1],
+  age_label = "age"
+)
 }
 \arguments{
 \item{dataset}{data frame to be edited}
