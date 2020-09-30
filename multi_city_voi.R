@@ -3,7 +3,10 @@ library(earth)
 library(RColorBrewer)
 library(plotrix)
 rm(list=ls())
-cities <- c('accra','mexico_city','buenos_aires','sao_paulo','delhi','bangalore','bogota','belo_horizonte','santiago')
+#cities <- c('accra','mexico_city','buenos_aires','sao_paulo','delhi','bangalore','bogota','belo_horizonte','santiago')
+cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
+            'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
+
 min_age <- 15
 max_age <- 69
 
@@ -109,7 +112,7 @@ normVariables <- c("MMET_CYCLING",
                    "DISTANCE_SCALAR_MOTORCYCLE")
 
 save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
-     background_pa_scalar,background_pa_confidence,mmet_cycling,mmet_walking,emission_inventories,
+     background_pa_scalar,background_pa_confidence,mmet_cycling,mmet_walking,PM_emission_inventories,
      sin_exponent_sum,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
      bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
      distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,add_motorcycle_fleet,fleet_to_motorcycle_ratio,
@@ -140,7 +143,7 @@ print(system.time(
                                               ADD_WALK_TO_BUS_TRIPS = F,#add_walk_to_bus_trips[[city]],
                                               
                                               speeds = speeds[[city]],
-                                              emission_inventory = emission_inventories[[city]],
+                                              PM_emission_inventory = PM_emission_inventories[[city]],
                                               
                                               MMET_CYCLING = mmet_cycling, 
                                               MMET_WALKING = mmet_walking, 
