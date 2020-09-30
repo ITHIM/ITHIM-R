@@ -10,7 +10,7 @@ max_age <- 69
 
 all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F)
 
-all_inputs$cape_town <- all_inputs$accra
+#all_inputs$cape_town <- all_inputs$accra
 #all_inputs$vizag <- all_inputs$sao_paulo
 
 parameter_names <- all_inputs$parameter
