@@ -44,6 +44,10 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
                                       %>% mutate_at(-c(1), as.integer)), 
                                       trip_scen_sets=trip_scen_sets)#3
   
+  # Calculated PM2.5 concentrations
+  co2_conc <- scenario_co2_calculations(dist = (true_dist %>% dplyr::filter(stage_mode != 'unknown')
+                                              %>% mutate_at(-c(1), as.integer)))
+  
   ############################
   ## (2) PA PATHWAY
   # Calculate total mMETs
@@ -105,7 +109,8 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   hb <- join_hb_and_injury(hb_AP_PA,deaths_yll_injuries$deaths_yll_injuries)
   if(constant_mode) {
     pathway_hb <- join_hb_and_injury(pathway_hb_AP_PA,deaths_yll_injuries$deaths_yll_injuries)
-    return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp,injuries=injuries,ref_injuries=ref_injuries,hb=hb,pathway_hb=pathway_hb,whw=whw))
+    return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp, co2_conc = co2_conc,
+                injuries=injuries,ref_injuries=ref_injuries,hb=hb,pathway_hb=pathway_hb,whw=whw))
   }else{
     return(list(hb=hb,ref_injuries=ref_injuries))
   }
