@@ -47,8 +47,8 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 ```{r load_objects = "asis", echo = F, message = F}
 io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
-cities <- c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'bogota',
-             'mexico_city', 'vizag')
+# Get names of cities from the io object
+cities <- names(io)[!names(io) %in% 'scen_prop']
 
 #cities <- c('accra','sao_paulo','buenos_aires')
 
