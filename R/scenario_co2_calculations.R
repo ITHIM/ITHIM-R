@@ -1,8 +1,12 @@
-###Please see city parameter file which has CO2 emissions for same set of modes as PM2.5 added in the bottom rows
-### I think you need to read it in an object same as VEHICLE_INVENTORY
-### To make it simple may be make a new object VEHICLE_CO2_INVENTORY
-
-### After that you need to run the following set of lines, these are from scenario_pm_calculations (lines 22 to 31)
+#' Calculate total CO2 exposure per mode
+#' 
+#' Calculate total CO2 exposure per person based on population and personal travel
+#' 
+#' @param dist data frame of population travel from all scenarios
+#' 
+#' @return total CO2 exposure per mode
+#' 
+#' @export
 scenario_co2_calculations <- function(dist){
   
   ## adding in travel not covered in the synthetic trip set, based on distances travelled relative to car, set in VEHICLE_INVENTORY
