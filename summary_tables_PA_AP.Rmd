@@ -16,7 +16,7 @@ knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='as
 These are the summary tables of the following items
 
 1) Individual-level PM2.5 concentrations for baseline and scenarios
-2) Individual-level CO2 for baseline and scenarios
+2) Overall CO2 emissions for baseline and scenarios
 3) Individual-level physical activity for baseline and scenarios
 
 
