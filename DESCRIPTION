@@ -1,6 +1,6 @@
 Package: ithimr
 Title: Integrated Transport and Health Impact Model
-Version: 0.1
+Version: 0.1.1
 Authors@R: c(person(given = "Rob",
              family = "Johnson",
              role = c("aut", "cre"),
