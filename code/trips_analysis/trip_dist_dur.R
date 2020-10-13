@@ -12,7 +12,7 @@ for (city in cities){
   trip_set <- read.csv(paste0('inst/extdata/local/',city,'/trips_', city, '.csv'), stringsAsFactors = F)
   l[[city]] <- trip_set
   
-  dist <- trip_set %>% dplyr::select(ends_with('duration')) %>% length()
+  dist <- trip_set %>% dplyr::select(ends_with('distance')) %>% length()
   dur <- trip_set %>% dplyr::select(ends_with('duration')) %>% length()
   
     if(dist && dur){
