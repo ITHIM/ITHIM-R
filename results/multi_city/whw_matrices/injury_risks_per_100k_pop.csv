@@ -1,9 +1,9 @@
 mode,value,scenario,city
-bus,0.54,Bicycling,accra
-car,1.04,Bicycling,accra
-cycle,2.63,Bicycling,accra
-motorcycle,0.91,Bicycling,accra
-pedestrian,4.79,Bicycling,accra
+bus,3.03,Bicycling,accra
+car,5.12,Bicycling,accra
+cycle,15.4,Bicycling,accra
+motorcycle,4.75,Bicycling,accra
+pedestrian,28.48,Bicycling,accra
 truck,0,Bicycling,accra
 bus,0.18,Bicycling,bangalore
 car,0.29,Bicycling,bangalore
@@ -31,7 +31,7 @@ pedestrian,3.26,Bicycling,buenos_aires
 truck,0,Bicycling,buenos_aires
 bus,0.15,Bicycling,cape_town
 car,1.46,Bicycling,cape_town
-cycle,0.21,Bicycling,cape_town
+cycle,0.2,Bicycling,cape_town
 motorcycle,0.29,Bicycling,cape_town
 pedestrian,2.46,Bicycling,cape_town
 truck,0,Bicycling,cape_town
@@ -65,11 +65,11 @@ cycle,9.24,Bicycling,vizag
 motorcycle,40.08,Bicycling,vizag
 pedestrian,39.15,Bicycling,vizag
 truck,0,Bicycling,vizag
-bus,0.54,Baseline,accra
-car,1.08,Baseline,accra
-cycle,0.37,Baseline,accra
-motorcycle,0.94,Baseline,accra
-pedestrian,5.06,Baseline,accra
+bus,2.66,Baseline,accra
+car,5.32,Baseline,accra
+cycle,1.75,Baseline,accra
+motorcycle,4.95,Baseline,accra
+pedestrian,29.79,Baseline,accra
 truck,0,Baseline,accra
 bus,0.18,Baseline,bangalore
 car,0.29,Baseline,bangalore
@@ -95,11 +95,11 @@ cycle,0.23,Baseline,buenos_aires
 motorcycle,2.61,Baseline,buenos_aires
 pedestrian,3.39,Baseline,buenos_aires
 truck,0,Baseline,buenos_aires
-bus,0.14,Baseline,cape_town
+bus,0.15,Baseline,cape_town
 car,1.51,Baseline,cape_town
-cycle,0.02,Baseline,cape_town
+cycle,0.03,Baseline,cape_town
 motorcycle,0.31,Baseline,cape_town
-pedestrian,2.65,Baseline,cape_town
+pedestrian,2.66,Baseline,cape_town
 truck,0,Baseline,cape_town
 bus,0.05,Baseline,delhi
 car,0.64,Baseline,delhi
@@ -131,11 +131,11 @@ cycle,5.67,Baseline,vizag
 motorcycle,41.17,Baseline,vizag
 pedestrian,40.63,Baseline,vizag
 truck,0,Baseline,vizag
-bus,0.54,Public Transport,accra
-car,1.11,Public Transport,accra
-cycle,0.37,Public Transport,accra
-motorcycle,0.98,Public Transport,accra
-pedestrian,6.37,Public Transport,accra
+bus,2.7,Public Transport,accra
+car,5.36,Public Transport,accra
+cycle,1.72,Public Transport,accra
+motorcycle,5.02,Public Transport,accra
+pedestrian,37.91,Public Transport,accra
 truck,0,Public Transport,accra
 bus,0.34,Public Transport,bangalore
 car,0.17,Public Transport,bangalore
@@ -165,7 +165,7 @@ bus,0.22,Public Transport,cape_town
 car,0.88,Public Transport,cape_town
 cycle,0.01,Public Transport,cape_town
 motorcycle,0.14,Public Transport,cape_town
-pedestrian,2.71,Public Transport,cape_town
+pedestrian,2.8,Public Transport,cape_town
 truck,0,Public Transport,cape_town
 bus,0.08,Public Transport,delhi
 car,0.53,Public Transport,delhi
@@ -197,11 +197,11 @@ cycle,3.81,Public Transport,vizag
 motorcycle,29.36,Public Transport,vizag
 pedestrian,36.35,Public Transport,vizag
 truck,0,Public Transport,vizag
-bus,0.47,Driving,accra
-car,1.25,Driving,accra
-cycle,0.34,Driving,accra
-motorcycle,0.88,Driving,accra
-pedestrian,4.79,Driving,accra
+bus,2.43,Driving,accra
+car,6.23,Driving,accra
+cycle,1.65,Driving,accra
+motorcycle,4.55,Driving,accra
+pedestrian,28.07,Driving,accra
 truck,0,Driving,accra
 bus,0.11,Driving,bangalore
 car,1.32,Driving,bangalore
@@ -231,7 +231,7 @@ bus,0.14,Driving,cape_town
 car,1.59,Driving,cape_town
 cycle,0.02,Driving,cape_town
 motorcycle,0.31,Driving,cape_town
-pedestrian,2.57,Driving,cape_town
+pedestrian,2.58,Driving,cape_town
 truck,0,Driving,cape_town
 bus,0.04,Driving,delhi
 car,0.99,Driving,delhi
@@ -263,11 +263,11 @@ cycle,9.4,Driving,vizag
 motorcycle,52.74,Driving,vizag
 pedestrian,78.46,Driving,vizag
 truck,0,Driving,vizag
-bus,0.27,Motorcycling,accra
-car,0.54,Motorcycling,accra
-cycle,0.2,Motorcycling,accra
-motorcycle,15.06,Motorcycling,accra
-pedestrian,3.2,Motorcycling,accra
+bus,1.62,Motorcycling,accra
+car,3.1,Motorcycling,accra
+cycle,1.38,Motorcycling,accra
+motorcycle,47.15,Motorcycling,accra
+pedestrian,24.26,Motorcycling,accra
 truck,0,Motorcycling,accra
 bus,0.17,Motorcycling,bangalore
 car,0.26,Motorcycling,bangalore
@@ -296,8 +296,8 @@ truck,0,Motorcycling,buenos_aires
 bus,0.04,Motorcycling,cape_town
 car,0.99,Motorcycling,cape_town
 cycle,0.01,Motorcycling,cape_town
-motorcycle,5.54,Motorcycling,cape_town
-pedestrian,2.22,Motorcycling,cape_town
+motorcycle,5.55,Motorcycling,cape_town
+pedestrian,2.21,Motorcycling,cape_town
 truck,0,Motorcycling,cape_town
 bus,0.03,Motorcycling,delhi
 car,0.41,Motorcycling,delhi
@@ -329,11 +329,11 @@ cycle,5.05,Motorcycling,vizag
 motorcycle,73.8,Motorcycling,vizag
 pedestrian,47.38,Motorcycling,vizag
 truck,0,Motorcycling,vizag
-bus,0.51,Walking,accra
-car,1.08,Walking,accra
-cycle,0.3,Walking,accra
-motorcycle,0.94,Walking,accra
-pedestrian,9.37,Walking,accra
+bus,2.59,Walking,accra
+car,5.22,Walking,accra
+cycle,1.52,Walking,accra
+motorcycle,5.06,Walking,accra
+pedestrian,53.75,Walking,accra
 truck,0,Walking,accra
 bus,0.18,Walking,bangalore
 car,0.29,Walking,bangalore
@@ -363,7 +363,7 @@ bus,0.13,Walking,cape_town
 car,1.47,Walking,cape_town
 cycle,0.02,Walking,cape_town
 motorcycle,0.3,Walking,cape_town
-pedestrian,3.47,Walking,cape_town
+pedestrian,3.45,Walking,cape_town
 truck,0,Walking,cape_town
 bus,0.05,Walking,delhi
 car,0.62,Walking,delhi
