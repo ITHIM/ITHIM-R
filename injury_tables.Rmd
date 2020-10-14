@@ -513,7 +513,7 @@ d <- ggplot(injury_risks_lng) +
   labs(x = "Strike Mode", y = "# of incidents", title = paste("Injury risk per billion km")) 
 df <- injury_risks_lng %>% spread(value = value, key = city) 
 df[df == 0] <- NA
-df <- df %>% mutate(mv = rowMeans(select(., -c(stage_mode, scenario)))) %>% reshape2::melt()
+df <- df %>% mutate(mv = rowMeans(dplyr::select(., -c(stage_mode, scenario)))) %>% reshape2::melt()
 df1 <- df %>% dplyr::filter(variable == 'mv')
 df <- df %>% dplyr::filter(variable != 'mv')
 d1 <- ggplot(df, aes(x = stage_mode, fill = variable, weight = value)) +
@@ -522,7 +522,7 @@ d1 <- ggplot(df, aes(x = stage_mode, fill = variable, weight = value)) +
    theme_minimal() + 
    geom_point(data = df1, aes(x = stage_mode, fill = variable, y = value), colour = "black") + 
    facet_wrap(vars(scenario)) + 
-   scale_y_continuous(breaks = seq(0, max(df$value, na.rm = T), 25)) +
+   #scale_y_continuous(breaks = seq(0, max(df$value, na.rm = T), 25)) +
    labs(x = "Strike Mode", y = "# of incidents", title = paste("Injury risk per billion km")) +
    theme(axis.text.x = element_text(face="bold", color="#993333", size=8, angle=90))
 d2 <- ggplot(df %>% filter(!stage_mode %in% c('auto_rickshaw', 'bus', 'truck')), aes(x = stage_mode, fill = variable, weight = value)) +
@@ -531,18 +531,19 @@ d2 <- ggplot(df %>% filter(!stage_mode %in% c('auto_rickshaw', 'bus', 'truck')),
     theme_minimal() + 
     geom_point(data = df1 %>% filter(!stage_mode %in% c('auto_rickshaw', 'bus', 'truck')) , aes(x = stage_mode, fill = variable, y = value), colour = "black") + 
     facet_grid(vars(scenario), scales='free_x') + 
-    scale_y_continuous(breaks = seq(0, max(df$value, na.rm = T), 50)) +
+    # scale_y_continuous(breaks = seq(0, max(df$value, na.rm = T), 50)) +
     labs(x = "Strike Mode", y = "# of incidents", title = paste("Injury risk per billion km")) +
     theme(axis.text.x = element_text(face="bold", color="#993333", size=14))
-# ggsave(d, file = paste0("results/multi_city/whw_matrices/plots/injury_risk_billion_km.png"), limitsize = F, dpi = 300, scale = 1.5)
+ggsave(d, file = paste0("results/multi_city/whw_matrices/plots/injury_risk_billion_km.png"), limitsize = F, dpi = 300, scale = 1.5)
 fp <- paste0("results/multi_city/whw_matrices/interactive_plots/injury_risk_billion_km.html")
-#htmlwidgets::saveWidget(plotly::ggplotly(d), file.path(normalizePath(dirname(fp)), basename(fp)))
-# ggsave(d1, file = paste0("results/multi_city/whw_matrices/plots/injury_risk_billion_km_by_mode.png"),  width = 8, height = 5, dpi = 300, units = "in", scale = 2, device='png')
+htmlwidgets::saveWidget(plotly::ggplotly(d), file.path(normalizePath(dirname(fp)), basename(fp)))
+ggsave(d1, file = paste0("results/multi_city/whw_matrices/plots/injury_risk_billion_km_by_mode.png"),  width = 8, height = 5, dpi = 300, units = "in", scale = 2, device='png')
 fp <- paste0("results/multi_city/whw_matrices/interactive_plots/injury_risk_billion_km_by_mode.html")
-#htmlwidgets::saveWidget(plotly::ggplotly(d1), file.path(normalizePath(dirname(fp)), basename(fp)))
+htmlwidgets::saveWidget(plotly::ggplotly(d1), file.path(normalizePath(dirname(fp)), basename(fp)))
 print(kable(format(injury_risks_b, scientific = F), caption = paste('Injury per billion km across all cities')))
+ggsave(d2, file = paste0("results/multi_city/whw_matrices/plots/injury_risk_billion_km_by_specific_mode.png"), limitsize = F, dpi = 300, scale = 1.5)
 fp <- paste0("results/multi_city/whw_matrices/interactive_plots/injury_risk_billion_km_by_specific_mode.html")
-#htmlwidgets::saveWidget(plotly::ggplotly(d2), file.path(normalizePath(dirname(fp)), basename(fp)))
+htmlwidgets::saveWidget(plotly::ggplotly(d2), file.path(normalizePath(dirname(fp)), basename(fp)))
 ```
 
 ### # of deaths due to injury per 100,000 people
