@@ -60,3 +60,5 @@ for (city in cities){
   i <- i + 1
   
 }
+
+write_csv(speed_df, 'data/analysis/mode_speed/speed_df.csv')
