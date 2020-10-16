@@ -1,5 +1,10 @@
 # Load library
 require(tidyverse)
+library(dplyr, warn.conflicts = FALSE)
+
+# Suppress summarise info
+options(dplyr.summarise.inform = FALSE)
+
 
 # Clear workspace
 rm(list=ls())
