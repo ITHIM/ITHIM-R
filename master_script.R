@@ -6,12 +6,26 @@
 #R version 4.0.2
 
 
-#Clean global environment and call packages####
+#Build ITHIM package####
+package.check <- lapply("devtools", FUN = function(x) {
+  if (!require(x, character.only = TRUE)) {
+    install.packages(x, dependencies = TRUE)
+    library(x, character.only = TRUE)
+  }
+}
+)
+install(dependencies = TRUE, upgrade = "never")
+
+#Call packages and clean global environment####
+packages = c("tidyverse", "earth", "ggpubr", "ithimr")
+package.check <- lapply(packages, FUN = function(x) {
+  if (!require(x, character.only = TRUE)) {
+    install.packages(x, dependencies = TRUE)
+    library(x, character.only = TRUE)
+    }
+  }
+)
 rm(list = ls())
-library(tidyverse)
-library(ithimr)
-library(earth)
-library(ggpubr)
 
 #Create ITHIM object according to parameters####
 ithim_object <- run_ithim_setup(seed = 1,
