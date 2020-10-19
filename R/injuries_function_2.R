@@ -31,7 +31,7 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
       injuries_list[[scen]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
       injuries_list[[scen]][[type]]$weight <- 1
       injuries_list[[scen]][[type]]$pred <- predict(reg_model[[type]],newdata = remove_missing_levels(reg_model[[type]],injuries_list[[scen]][[type]]),type='response')
-      if(constant_mode){
+      #if(constant_mode){
         whw_temp[[scen]][[type]] <- sapply(unique(injuries_list[[scen]][[type]]$cas_mode),function(x)
           sapply(unique(injuries_list[[scen]][[type]]$strike_mode),function(y)sum(subset(injuries_list[[scen]][[type]],cas_mode==x&strike_mode==y)$pred,na.rm=T)))
         if(type=='whw'){
@@ -40,7 +40,7 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
         }else{
           names(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$cas_mode)
         }
-      }
+      #}
       # data.frame and tibble, returns data.frame
       suppressWarnings(
         injuries_list[[scen]][[type]] <- dplyr::left_join(injuries_list[[scen]][[type]],demographic,by=c('age_cat','cas_gender'))

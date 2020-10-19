@@ -35,7 +35,7 @@ ithim_uncertainty <- function(ithim_object,seed=1){
   system.time(run_results <- ithim_calculation_sequence(ithim_object,seed))#9
   run_results$dist <- ithim_object$dist
   run_results$dur <- ithim_object$dur
-  #return(run_results)
+  return(run_results)
   ##!! RJ for now return only hb from uncertain simulations; otherwise the file is too big
   return(list(hb=run_results$hb,inj=run_results$ref_injuries))
 }

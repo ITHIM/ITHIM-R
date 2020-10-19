@@ -52,17 +52,17 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   ## (1) AP PATHWAY
   scenario_pm <- pm_conc$scenario_pm
   pm_conc_pp <- pm_conc$pm_conc_pp
-  pm_conc <- NULL
+  #pm_conc <- NULL
   
   # Air pollution calculation
   RR_AP_calculations <- gen_ap_rr(pm_conc_pp)
-  if(!constant_mode) pm_conc_pp <- NULL
+  #if(!constant_mode) pm_conc_pp <- NULL
   
   ############################
   ## (2) PA PATHWAY
   # Physical activity calculation
   RR_PA_calculations <- gen_pa_rr(mmets_pp)
-  if(!constant_mode) mmets_pp <- NULL
+  #if(!constant_mode) mmets_pp <- NULL
   
   ############################
   ## (3) COMBINE (1) AND (2)
@@ -84,14 +84,14 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   inj_distances <- NULL
   
   #(injuries <- injuries_function(relative_distances,scen_dist))
-  injuries0 <- injuries_function_2(true_distances,injuries_list,reg_model,constant_mode)
+  injuries0 <- injuries_function_2(true_distances,injuries_list,reg_model,constant_mode = F)
   injuries_list <- NULL
   reg_model <- NULL
   true_distances <- NULL
   
   injuries <- injuries0[[1]]
   whw <- injuries0[[2]]
-  injuries0 <- NULL
+  #injuries0 <- NULL
   deaths_yll_injuries <- injury_death_to_yll(injuries)
   #injuries <- NULL
   ref_injuries <- deaths_yll_injuries$ref_injuries
@@ -105,7 +105,7 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
     pathway_hb <- join_hb_and_injury(pathway_hb_AP_PA,deaths_yll_injuries$deaths_yll_injuries)
     return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp,injuries=injuries,ref_injuries=ref_injuries,hb=hb,pathway_hb=pathway_hb,whw=whw))
   }else{
-    return(list(hb=hb,ref_injuries=ref_injuries))
+    return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp,ref_injuries=ref_injuries,whw=whw,hb=hb))
   }
 }
       
