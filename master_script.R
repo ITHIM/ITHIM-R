@@ -196,7 +196,7 @@ parameters_figure <- ggplot(parameter_samples.m, aes(x = value), sprintf("%0.2f"
   theme(axis.title = element_blank(),
         axis.text = element_text(size = 8))
 
-ggsave("fig 1- parameters.png", plot = parameters_figure, height = 7)
+ggsave("figure parameters.pdf", plot = parameters_figure, height = 7, dpi = 600)
 
 #Generate bar plots with deaths and YLLs averted####
 temp1 <- rAllScen %>% filter(key %in% "mean")
@@ -322,7 +322,7 @@ outcomes_figure <- ggarrange(fig_ncd_deaths, fig_inj_deaths, fig_total_deaths,
                             ncol = 3, nrow = 2,
                             common.legend = TRUE,
                             legend = "bottom")
-ggsave("fig 2 - deaths and ylls.png", plot = outcomes_figure)
+ggsave("figure deaths and ylls.pdf", plot = outcomes_figure, dpi = 600)
 
 #Generate EVPPI figure####
 evppi.m <- reshape2::melt(evppi) %>%
@@ -419,7 +419,7 @@ evppi_figure <- ggarrange(evppi_deaths, evppi_ylls, ncol = 1, nrow = 2,
                           common.legend = TRUE,
                           legend = "bottom")
 
-ggsave("fig 3 - evppi.png", plot = evppi_figure, height = 14, width = 9.5)
+ggsave("figure evppi.pdf", plot = evppi_figure, height = 14, width = 9.5, dpi = 600)
 
 #Travel duration (min) by mode and scenario####
 dur_list <- list()
