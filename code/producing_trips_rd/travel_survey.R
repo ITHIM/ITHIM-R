@@ -67,8 +67,8 @@ trip <- person %>%
            stage_id = IDE) %>% 
     select(cluster_id, household_id, participant_id, 
            participant_wt, age, sex, trip_id, trip_purpose, 
-           trip_mode, trip_duration, trip_distance, stage_id,
-           stage_mode, stage_duration, stage_distance)
+           trip_mode, trip_duration, stage_id,
+           stage_mode, stage_duration)
 
 
 trip$year <- 2012
@@ -997,7 +997,10 @@ no_trip <-  trip_0 %>% filter(is.na(MODO1) & is.na(MODO2) & is.na(MODO3) & is.na
 trip <- setdiff(trip_0, no_trip) %>%
     gather("stage_id","stg_mode", MODO1, MODO2, MODO3, MODO4 ) %>% 
     filter(!is.na(stg_mode)) %>% 
-    bind_rows(no_trip %>% rename(stage_id = MODO1, stg_mode= MODO2) %>% select(-c(MODO3, MODO4))) %>% 
+    bind_rows(no_trip %>% 
+                rename(stage_id = MODO1, stg_mode= MODO2) %>%
+                select(-c(MODO3, MODO4)) %>% 
+                mutate(stage_id = as.character(stage_id))) %>% 
     mutate(stage_id = ifelse(stage_id =="MODO1", 1, 
                              ifelse(stage_id=="MODO2",2,
                                     ifelse(stage_id == "MODO3", 3, 
@@ -1638,14 +1641,14 @@ rm(list =ls())
 source("code/producing_trips_rd/used_functions.R")
 
 #data
-person_0 <- read_excel("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/encuesta 2015 - personas.xlsx",sheet = 1, range = cell_cols("A:BS"))
-trip_0 <- read_excel("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/encuesta 2015 - viajes.xlsx",sheet = 1, range = cell_cols("A:K"))
-stage_0 <- read_excel("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/encuesta 2015 - etapas.xlsx",sheet = 1, range = cell_cols("A:K"))
+person_0 <- read_excel("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/trips_2015/encuesta 2015 - personas.xlsx",sheet = 1, range = cell_cols("A:BS"))
+trip_0 <- read_excel("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/trips_2015/encuesta 2015 - viajes.xlsx",sheet = 1, range = cell_cols("A:K"))
+stage_0 <- read_excel("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/trips_2015/encuesta 2015 - etapas.xlsx",sheet = 1, range = cell_cols("A:K"))
 
 #lookup tables
-trip_mode <- read_excel("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/lookup_trip_mode.xlsx",sheet = 1, range = cell_cols("A:B"))
-stage_mode <- read_excel("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/lookup_stage_mode.xlsx",sheet = 1, range = cell_cols("A:B"))
-trip_purpose <-  read_excel("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/lookup_trip_purpose.xlsx",sheet = 1, range = cell_cols("A:B"))
+trip_mode <- read_excel("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/trips_2015/lookup_trip_mode.xlsx",sheet = 1, range = cell_cols("A:B"))
+stage_mode <- read_excel("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/trips_2015/lookup_stage_mode.xlsx",sheet = 1, range = cell_cols("A:B"))
+trip_purpose <-  read_excel("V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Travel/trips_2015/lookup_trip_purpose.xlsx",sheet = 1, range = cell_cols("A:B"))
 
 
 #select relevant varaibles

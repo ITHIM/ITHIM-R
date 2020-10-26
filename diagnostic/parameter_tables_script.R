@@ -23,16 +23,16 @@ for(city in cities){
 }
 
 # remove zeros from emission inventory
-emission_inventory1 <- emission_inventories
+PM_emission_inventory1 <- PM_emission_inventories
 tmp <- run_ithim_setup()
-emission_inventory1$accra <- EMISSION_INVENTORY
-for(i in 1:length(emission_inventory1))
-  for(j in length(emission_inventory1[[i]]):1)
-    if(emission_inventory1[[i]][[j]] == 0) emission_inventory1[[i]][[j]] <- NULL
+PM_emission_inventory1$accra <- EMISSION_INVENTORY
+for(i in 1:length(PM_emission_inventory1))
+  for(j in length(PM_emission_inventory1[[i]]):1)
+    if(PM_emission_inventory1[[i]][[j]] == 0) PM_emission_inventory1[[i]][[j]] <- NULL
 
-emission_inventory2 <- lapply(emission_inventory1,function(x)sapply(x,function(y)y/sum(unlist(x))))
-emission_inventory <- lapply(cities,function(x)formatC(signif(emission_inventory2[[x]]*dirichlet_pointiness(emission_confidence[[x]]),digits=2), digits=2,format="fg"))
-names(emission_inventory) <- cities
+PM_emission_inventory2 <- lapply(PM_emission_inventory1,function(x)sapply(x,function(y)y/sum(unlist(x))))
+PM_emission_inventory <- lapply(cities,function(x)formatC(signif(PM_emission_inventory2[[x]]*dirichlet_pointiness(emission_confidence[[x]]),digits=2), digits=2,format="fg"))
+names(PM_emission_inventory) <- cities
 
 ## remove DOSE_RESPOSE parameters
 parameter_samples_to_plot <- parameter_samples_to_plot[,!sapply(colnames(parameter_samples_to_plot),function(x)grepl('DOSE_RESPONSE',x))]
@@ -41,7 +41,7 @@ parameter_samples_to_plot <- parameter_samples_to_plot[,!sapply(colnames(paramet
 distributions <- sapply(colnames(parameter_samples_to_plot),
                         function(x){
                           if(grepl('EMISSION_INVENTORY',x)){ city <- cities[sapply(cities,function(y)grepl(y,x))]; 
-                          paste0('Dir(',paste(emission_inventory[[city]],collapse=', '),');\\\nConfidence=',emission_confidence[[city]])}
+                          paste0('Dir(',paste(PM_emission_inventory[[city]],collapse=', '),');\\\nConfidence=',emission_confidence[[city]])}
                           else if(grepl('DOSE_RESPONSE',x)) 'Uniform(0,1)' 
                           else if(x%in%normVariables) paste0('Lnorm(',sprintf('%.1f',get(tolower(x))[1]),', ',
                                                              sprintf('%.2f',get(tolower(x))[2]),')') 

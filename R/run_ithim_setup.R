@@ -11,7 +11,7 @@
 #' @param seed random seed
 #' @param CITY name of the city, and name of the directory containing city data files
 #' @param speeds named list of mode speeds
-#' @param emission_inventory named list of mode emissions
+#' @param PM_emission_inventory named list of mode emissions
 #' @param setup_call_summary_filename name to write setup call summary to
 #' @param DIST_CAT vector string of distance categories in the form '0-6'. (The unit is assumed to be the same as in the trip set.)
 #' @param AGE_RANGE vector of minimum and maximum ages to include
@@ -42,7 +42,7 @@
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
 #' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: fraction of total motorcycles that's fleet
-#' @param EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
+#' @param PM_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
 #' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar for car distance travelled
 #' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar for walking distance travelled
 #' @param DISTANCE_SCALAR_PT lognormal parameter: scalar for PT distance travelled
@@ -55,7 +55,8 @@
 run_ithim_setup <- function(seed = 1,
                             CITY = 'accra',
                             speeds = NULL,
-                            emission_inventory = NULL,
+                            PM_emission_inventory = NULL,
+                            CO2_emission_inventory = NULL,
                             setup_call_summary_filename = 'setup_call_summary.txt',
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             AGE_RANGE = c(0,150),
@@ -86,7 +87,7 @@ run_ithim_setup <- function(seed = 1,
                             BUS_TO_PASSENGER_RATIO = 0.022,
                             TRUCK_TO_CAR_RATIO = 0.21,
                             FLEET_TO_MOTORCYCLE_RATIO = 0.01,
-                            EMISSION_INVENTORY_CONFIDENCE = 1,
+                            PM_EMISSION_INVENTORY_CONFIDENCE = 1,
                             DISTANCE_SCALAR_CAR_TAXI = 1,
                             DISTANCE_SCALAR_WALKING = 1,
                             DISTANCE_SCALAR_PT = 1,
@@ -98,7 +99,8 @@ run_ithim_setup <- function(seed = 1,
   # CITY = string. used to identify input files.
   
   # speeds = named list of doubles. average mode speeds.
-  # emission_inventory = named list of doubles. vehicle emission factors.
+  # PM_emission_inventory = named list of doubles. vehicle emission factors.
+  # CO2_emission_inventory = named list of doubles. CO2 emission factors
   # setup_call_summary_filename = string. Where to write input call summary.
   # DIST_CAT = vector of strings. defines distance categories for scenario generation (5 accra scenarios)
   
@@ -139,7 +141,7 @@ run_ithim_setup <- function(seed = 1,
   # BUS_TO_PASSENGER_RATIO = parameter. double: sets bus distance relative to bus passenger distance. vector: samples from distribution.
   # TRUCK_TO_CAR_RATIO = parameter. double: sets truck distance relative to car. vector: samples from distribution.
   # FLEET_TO_MOTORCYCLE_RATIO = parameter. double: sets fleet distance relative to motorcycle. vector: samples from distribution.
-  # EMISSION_INVENTORY_CONFIDENCE = parameter. double between 0 and 1. 1 = use emission data as they are.
+  # PM_EMISSION_INVENTORY_CONFIDENCE = parameter. double between 0 and 1. 1 = use emission data as they are.
   # DISTANCE_SCALAR_CAR_TAXI = double: sets scalar. vector: samples from distribution.
   # DISTANCE_SCALAR_WALKING = double: sets scalar. vector: samples from distribution.
   # DISTANCE_SCALAR_PT = double: sets scalar. vector: samples from distribution.
@@ -222,8 +224,8 @@ run_ithim_setup <- function(seed = 1,
     cat('\n',file=setup_call_summary_filename,append=T)
   }
   
-  ## default emission contributions that can be edited by input. 
-  default_emission_inventory <- list(
+  ## default PM2.5 emission contributions that can be edited by input. 
+  default_PM_emission_inventory <- list(
     bus=0,
     bus_driver=0.82,
     car=0.228,
@@ -235,20 +237,48 @@ run_ithim_setup <- function(seed = 1,
     big_truck=0.711,
     other=0.082
   )
-  if(!is.null(emission_inventory)){
-    for(m in names(emission_inventory))
-      if(grepl('bus$',m,ignore.case=T)&&!paste0(m,'_driver')%in%names(emission_inventory)){
-        default_emission_inventory[[paste0(m,'_driver')]] <- emission_inventory[[m]]
+  if(!is.null(PM_emission_inventory)){
+    for(m in names(PM_emission_inventory))
+      if(grepl('bus$',m,ignore.case=T)&&!paste0(m,'_driver')%in%names(PM_emission_inventory)){
+        default_PM_emission_inventory[[paste0(m,'_driver')]] <- PM_emission_inventory[[m]]
       }else{
-        default_emission_inventory[[m]] <- emission_inventory[[m]]
+        default_PM_emission_inventory[[m]] <- PM_emission_inventory[[m]]
       }
   }
-  names(default_emission_inventory) <- tolower(names(default_emission_inventory))
+  names(default_PM_emission_inventory) <- tolower(names(default_PM_emission_inventory))
     
-  EMISSION_INVENTORY <<- default_emission_inventory
-  cat('\n  EMISSION INVENTORY \n\n',file=setup_call_summary_filename,append=T)
-  for(i in 1:length(default_emission_inventory)) {
-    cat(paste(names(EMISSION_INVENTORY)[i],EMISSION_INVENTORY[[i]]),file=setup_call_summary_filename,append=T); 
+  PM_EMISSION_INVENTORY <<- default_PM_emission_inventory
+  cat('\n  PM 2.5 EMISSION INVENTORY \n\n',file=setup_call_summary_filename,append=T)
+  for(i in 1:length(default_PM_emission_inventory)) {
+    cat(paste(names(PM_EMISSION_INVENTORY)[i],PM_EMISSION_INVENTORY[[i]]),file=setup_call_summary_filename,append=T); 
+    cat('\n',file=setup_call_summary_filename,append=T)
+  }
+  
+  ## default C02 emission contributions that can be edited by input. 
+  default_CO2_emission_inventory <- list(
+    motorcycle = 15.95,
+    car = 33.13,
+    bus_driver = 9.76,
+    big_truck = 3.68,
+    truck	= 6.19,
+    other	= 31.28
+  )
+  
+  
+  if(!is.null(CO2_emission_inventory)){
+    for(m in names(CO2_emission_inventory))
+      if(grepl('bus$',m,ignore.case=T)&&!paste0(m,'_driver')%in%names(CO2_emission_inventory)){
+        default_CO2_emission_inventory[[paste0(m,'_driver')]] <- CO2_emission_inventory[[m]]
+      }else{
+        default_CO2_emission_inventory[[m]] <- CO2_emission_inventory[[m]]
+      }
+  }
+  names(default_CO2_emission_inventory) <- tolower(names(default_CO2_emission_inventory))
+  
+  CO2_EMISSION_INVENTORY <<- default_CO2_emission_inventory
+  cat('\n  CO2 EMISSION INVENTORY \n\n',file=setup_call_summary_filename,append=T)
+  for(i in 1:length(default_CO2_emission_inventory)) {
+    cat(paste(names(CO2_EMISSION_INVENTORY)[i],CO2_EMISSION_INVENTORY[[i]]),file=setup_call_summary_filename,append=T); 
     cat('\n',file=setup_call_summary_filename,append=T)
   }
   
@@ -279,7 +309,7 @@ run_ithim_setup <- function(seed = 1,
                                                     BUS_TO_PASSENGER_RATIO,
                                                     TRUCK_TO_CAR_RATIO,
                                                     FLEET_TO_MOTORCYCLE_RATIO,
-                                                    EMISSION_INVENTORY_CONFIDENCE,
+                                                    PM_EMISSION_INVENTORY_CONFIDENCE,
                                                     DISTANCE_SCALAR_CAR_TAXI,
                                                     DISTANCE_SCALAR_WALKING,
                                                     DISTANCE_SCALAR_PT,
@@ -287,7 +317,7 @@ run_ithim_setup <- function(seed = 1,
                                                     DISTANCE_SCALAR_MOTORCYCLE)
   
   # programming flags: do we need to recompute elements given uncertain variables?
-  RECALCULATE_EMISSION_INVENTORY <<- any(c('EMISSION_INVENTORY')%in%names(ithim_object$parameters))
+  RECALCULATE_PM_EMISSION_INVENTORY <<- any(c('PM_EMISSION_INVENTORY')%in%names(ithim_object$parameters))
   RECALCULATE_TRIPS <<- any(c('BUS_WALK_TIME',"DISTANCE_SCALAR_PT",
                               "DISTANCE_SCALAR_CAR_TAXI",
                               "DISTANCE_SCALAR_MOTORCYCLE",
@@ -301,7 +331,7 @@ run_ithim_setup <- function(seed = 1,
   
   ## complete TRIP_SET to contain distances and durations for trips and stages
   complete_trip_distance_duration() 
-  if(!RECALCULATE_EMISSION_INVENTORY) set_vehicle_inventory() # sets vehicle inventory
+  if(!RECALCULATE_PM_EMISSION_INVENTORY) set_vehicle_inventory() # sets vehicle inventory
   
   ## create inventory and edit trips, if they are not variable dependent
   if(!RECALCULATE_TRIPS){
@@ -324,9 +354,9 @@ run_ithim_setup <- function(seed = 1,
   }
   
   cat('\n  Emissions will be calculated for the following modes:\n',file=setup_call_summary_filename,append=T)
-  cat(names(EMISSION_INVENTORY)[unlist(EMISSION_INVENTORY)>0],file=setup_call_summary_filename,append=T)
-  cat("\n  To edit an emission contribution, supply e.g. 'emission_inventory=list(car=4)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
-  cat("  To exclude a mode from the emission inventory, supply e.g. 'emission_inventory=list(other=0)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
+  cat(names(PM_EMISSION_INVENTORY)[unlist(PM_EMISSION_INVENTORY)>0],file=setup_call_summary_filename,append=T)
+  cat("\n  To edit an emission contribution, supply e.g. 'PM_emission_inventory=list(car=4)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
+  cat("  To exclude a mode from the emission inventory, supply e.g. 'PM_emission_inventory=list(other=0)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
   cat('\n\n',file=setup_call_summary_filename,append=T)
   
   return(ithim_object)

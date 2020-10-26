@@ -11,8 +11,8 @@
 #' @return data frame of proportions by mode and distance category
 #' 
 #' @export
-get_scenario_settings <- function(cities = c('accra','sao_paulo','delhi','bangalore', 'santiago', 'belo_horizonte', 'buenos_aires', 'mexico_city','bogota',
-                                             'cape_town', 'vizag'),
+get_scenario_settings <- function(cities = c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
+                                             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag'),
                                   modes=c("pedestrian","cycle","car","motorcycle","bus"),     
                                   distances=c('0-1 km','2-5 km','6+ km'),
                                   speeds = list(
@@ -95,7 +95,9 @@ get_scenario_settings <- function(cities = c('accra','sao_paulo','delhi','bangal
   #for(i in 1:nrow(mode_proportions_tab)) cat('|',rownames(mode_proportions_tab)[i],'|',paste0(sapply(mode_proportions_tab[i,],function(x)sprintf('%.1f',x)),collapse='|'),'|\n')
   #}
   for(j in 1:length(mode_proportions_list)){
-    {cat(  paste0('|',names(mode_proportions_list)[j],'|',(paste0(colnames(mode_proportions_list[[j]]),collapse='|')),'|\n|---|---|---|---|\n'))
+    {
+      
+      cat(  paste0('|',names(mode_proportions_list)[j],'|',(paste0(colnames(mode_proportions_list[[j]]),collapse='|')),'|\n|---|---|---|---|\n'))
       for(i in 1:nrow(mode_proportions_list[[j]])) cat('|',rownames(mode_proportions_list[[j]])[i],'|',paste0(sapply(mode_proportions_list[[j]][i,],function(x)sprintf('%.1f',x)),collapse='|'),'|\n')
     }
   }
