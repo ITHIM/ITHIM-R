@@ -4,13 +4,16 @@
 \alias{get_scenario_settings}
 \title{Get values for max mode share scenario}
 \usage{
-get_scenario_settings(cities = c("accra", "sao_paulo", "delhi",
-  "bangalore"), modes = c("walking", "bicycle", "car", "motorcycle",
-  "bus"), distances = c("0-1 km", "2-5 km", "6+ km"), speeds = list(bus
-  = 15, bus_driver = 15, minibus = 15, minibus_driver = 15, car = 21, taxi
-  = 21, walking = 4.8, walk_to_pt = 4.8, bicycle = 14.5, motorcycle = 25,
-  truck = 21, van = 15, subway = 28, rail = 35, auto_rickshaw = 22,
-  shared_auto = 22, cycle_rickshaw = 10))
+get_scenario_settings(
+  cities = c("accra", "sao_paulo", "delhi", "bangalore", "santiago", "belo_horizonte",
+    "buenos_aires", "mexico_city", "bogota", "cape_town", "vizag"),
+  modes = c("pedestrian", "cycle", "car", "motorcycle", "bus"),
+  distances = c("0-1 km", "2-5 km", "6+ km"),
+  speeds = list(bus = 15, bus_driver = 15, minibus = 15, minibus_driver = 15, car = 21,
+    taxi = 21, pedestrian = 4.8, walk_to_pt = 4.8, cycle = 14.5, motorcycle = 25, truck =
+    21, van = 15, subway = 28, rail = 35, auto_rickshaw = 22, shared_auto = 22,
+    cycle_rickshaw = 10)
+)
 }
 \arguments{
 \item{cities}{which cities to use}

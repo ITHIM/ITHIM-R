@@ -4,10 +4,10 @@
 \alias{distances_for_injury_function}
 \title{Get distances and model for injuries module}
 \usage{
-distances_for_injury_function(trip_scen_sets, dist)
+distances_for_injury_function(journeys, dist)
 }
 \arguments{
-\item{trip_scen_sets}{list of synthetic trip sets for scenarios}
+\item{journeys}{df with sex and age_cat total distance (by total population) for scenarios}
 
 \item{dist}{table of (total) distances per mode per scenario}
 }

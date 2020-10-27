@@ -4,11 +4,13 @@
 \alias{ithim_load_data}
 \title{Load data for model and setting}
 \usage{
-ithim_load_data(setup_call_summary_filename, speeds = list(bus = 15,
-  bus_driver = 15, minibus = 15, minibus_driver = 15, car = 21, taxi = 21,
-  walking = 4.8, walk_to_pt = 4.8, bicycle = 14.5, motorcycle = 25, truck =
-  21, van = 15, subway = 28, rail = 35, auto_rickshaw = 22, shared_auto =
-  22, cycle_rickshaw = 10))
+ithim_load_data(
+  setup_call_summary_filename,
+  speeds = list(bus = 15, bus_driver = 15, minibus = 15, minibus_driver = 15, car = 21,
+    taxi = 21, pedestrian = 4.8, walk_to_pt = 4.8, cycle = 14.5, motorcycle = 25, truck =
+    21, van = 15, subway = 28, rail = 35, auto_rickshaw = 22, shared_auto = 22,
+    cycle_rickshaw = 10)
+)
 }
 \arguments{
 \item{setup_call_summary_filename}{name of file to write to}

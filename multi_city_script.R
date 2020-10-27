@@ -3,14 +3,14 @@ rm(list=ls())
 cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
 
-#cities <- c('belo_horizonte', 'buenos_aires', 'mexico_city' )
+# cities <- c('bogota')
 
 min_age <- 15
 max_age <- 69
 
 all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F)
 
-all_inputs$cape_town <- all_inputs$accra
+#all_inputs$cape_town <- all_inputs$accra
 #all_inputs$vizag <- all_inputs$sao_paulo
 
 parameter_names <- all_inputs$parameter
@@ -62,7 +62,7 @@ for(i in 1:length(parameter_list)) assign(names(parameter_list)[i],parameter_lis
 #################################################################
 ## run diagnostics
 #for(city in cities){
-#  ithim_object <- run_ithim_setup(ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F,CITY=city,MAX_MODE_SHARE_SCENARIO=T,DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),emission_inventory = emission_inventories[[city]])
+#  ithim_object <- run_ithim_setup(ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F,CITY=city,MAX_MODE_SHARE_SCENARIO=T,DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),PM_emission_inventory = PM_emission_inventories[[city]])
 #  summarise_ithim_inputs(ithim_object)
 #}
 
@@ -96,7 +96,8 @@ for(city in cities){
                                   MAX_MODE_SHARE_SCENARIO = T,
                                   ADD_BUS_DRIVERS = F,
                                   ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]),
-                                  emission_inventory = emission_inventories[[city]],
+                                  PM_emission_inventory = PM_emission_inventories[[city]],
+                                  CO2_emission_inventory = CO2_emission_inventories[[city]],
                                   speeds = speeds[[city]],
                                   
                                   FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
@@ -118,7 +119,7 @@ for(city in cities){
   ithim_objects[[city]]$synth_pop <- SYNTHETIC_POPULATION
   ithim_objects[[city]]$outcomes <- run_ithim(ithim_object=ithim_objects[[city]], seed = 1)
   ithim_objects[[city]]$disease_burden <- DISEASE_BURDEN
-  ithim_objects[[city]]$emission_inventory <- EMISSION_INVENTORY
+  ithim_objects[[city]]$PM_emission_inventory <- PM_EMISSION_INVENTORY
   ithim_objects[[city]]$injury_table <- INJURY_TABLE
   
   ## store results to plot

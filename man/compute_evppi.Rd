@@ -4,8 +4,7 @@
 \alias{compute_evppi}
 \title{Compute evppi, designed to be run in parallel}
 \usage{
-compute_evppi(jj, sources, outcome, nscen = 1, all = F,
-  multi_city_outcome = T)
+compute_evppi(jj, sources, outcome, nscen = 1, all = F, multi_city_outcome = T)
 }
 \arguments{
 \item{jj}{index for input and (potentially) outcome}
