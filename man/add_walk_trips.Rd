@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_walk_trips.R
 \name{add_walk_trips}
 \alias{add_walk_trips}
-\title{Add walk trips to trip set}
+\title{Add pedestrian trips to trip set}
 \usage{
 add_walk_trips(pt_trips)
 }

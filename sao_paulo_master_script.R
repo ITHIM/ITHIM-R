@@ -10,7 +10,7 @@
                                   TEST_WALK_SCENARIO = F,
                                   BUS_WALK_TIME= 5,
                                   PM_TRANS_SHARE = 0.4,
-                                  emission_inventory = list(motorcycle=4,
+                                  PM_emission_inventory = list(motorcycle=4,
                                                             car=4,
                                                             bus_driver=32,
                                                             big_truck=56,

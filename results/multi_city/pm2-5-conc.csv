@@ -1,0 +1,397 @@
+val,age,city,scenario,value
+Min.,15,accra,Baseline,50
+Min.,15,accra,Walking,49.9376156508222
+Min.,15,accra,Bicycling,49.9452851587149
+Min.,15,accra,Driving,50.6339827853992
+Min.,15,accra,Motorcycling,50.6941208654397
+Min.,15,accra,Public Transport,49.9990728119461
+1st Qu.,23,accra,Baseline,52.38678381387
+1st Qu.,23,accra,Walking,52.93083527492
+1st Qu.,23,accra,Bicycling,52.2797133172109
+1st Qu.,23,accra,Driving,50.8951858104116
+1st Qu.,23,accra,Motorcycling,51.9860164867995
+1st Qu.,23,accra,Public Transport,52.385831349209
+Median,31,accra,Baseline,56.0958802736152
+Median,31,accra,Walking,56.7379484839022
+Median,31,accra,Bicycling,56.0364507059931
+Median,31,accra,Driving,55.4218604760879
+Median,31,accra,Motorcycling,55.4651838796028
+Median,31,accra,Public Transport,56.0948732084847
+Mean,33.942989401876,accra,Baseline,59.9801369692094
+Mean,33.942989401876,accra,Walking,61.8469867995885
+Mean,33.942989401876,accra,Bicycling,60.085188520579
+Mean,33.942989401876,accra,Driving,58.8823878003822
+Mean,33.942989401876,accra,Motorcycling,59.3894254867612
+Mean,33.942989401876,accra,Public Transport,59.4411173779172
+3rd Qu.,42,accra,Baseline,62.6778923825277
+3rd Qu.,42,accra,Walking,64.9297379160063
+3rd Qu.,42,accra,Bicycling,62.7965034672919
+3rd Qu.,42,accra,Driving,60.8845734532204
+3rd Qu.,42,accra,Motorcycling,61.9792168219216
+3rd Qu.,42,accra,Public Transport,62.1906736050232
+Max.,69,accra,Baseline,183.093385973932
+Max.,69,accra,Walking,742.732502723545
+Max.,69,accra,Bicycling,206.090148593638
+Max.,69,accra,Driving,184.916720533857
+Max.,69,accra,Motorcycling,185.089354528996
+Max.,69,accra,Public Transport,183.090714803038
+Min.,15,bangalore,Baseline,47.4
+Min.,15,bangalore,Walking,47.2011242335885
+Min.,15,bangalore,Bicycling,47.273879867957
+Min.,15,bangalore,Driving,61.2328229338513
+Min.,15,bangalore,Motorcycling,47.3255350881991
+Min.,15,bangalore,Public Transport,45.6196422872456
+1st Qu.,25,bangalore,Baseline,47.4
+1st Qu.,25,bangalore,Walking,47.2011242335885
+1st Qu.,25,bangalore,Bicycling,47.273879867957
+1st Qu.,25,bangalore,Driving,61.2328229338514
+1st Qu.,25,bangalore,Motorcycling,47.3255350881991
+1st Qu.,25,bangalore,Public Transport,45.6196422872456
+Median,30,bangalore,Baseline,47.5669415987539
+Median,30,bangalore,Walking,47.4520529696683
+Median,30,bangalore,Bicycling,47.4410402731628
+Median,30,bangalore,Driving,61.2518409500208
+Median,30,bangalore,Motorcycling,47.4926060903869
+Median,30,bangalore,Public Transport,45.8629761145714
+Mean,33.4143092903602,bangalore,Baseline,49.3298130762389
+Mean,33.4143092903602,bangalore,Walking,49.8295945686218
+Mean,33.4143092903602,bangalore,Bicycling,49.2723027468811
+Mean,33.4143092903602,bangalore,Driving,62.7422674952889
+Mean,33.4143092903602,bangalore,Motorcycling,49.2285784232414
+Mean,33.4143092903602,bangalore,Public Transport,47.6745947403317
+3rd Qu.,40,bangalore,Baseline,50.3766495925231
+3rd Qu.,40,bangalore,Walking,51.1023927762726
+3rd Qu.,40,bangalore,Bicycling,50.24658729369
+3rd Qu.,40,bangalore,Driving,63.1712244706054
+3rd Qu.,40,bangalore,Motorcycling,50.2998583966673
+3rd Qu.,40,bangalore,Public Transport,49.4272703043005
+Max.,69,bangalore,Baseline,245.15447598285
+Max.,69,bangalore,Walking,244.365468459902
+Max.,69,bangalore,Bicycling,244.654231822293
+Max.,69,bangalore,Driving,145.604880792018
+Max.,69,bangalore,Motorcycling,244.859166660104
+Max.,69,bangalore,Public Transport,240.006697747804
+Min.,15,belo_horizonte,Baseline,16.1887166926558
+Min.,15,belo_horizonte,Walking,16.1595953646466
+Min.,15,belo_horizonte,Bicycling,16.1537317627599
+Min.,15,belo_horizonte,Driving,16.1130716705474
+Min.,15,belo_horizonte,Motorcycling,21.6070662073415
+Min.,15,belo_horizonte,Public Transport,16.1522727675196
+1st Qu.,26,belo_horizonte,Baseline,17
+1st Qu.,26,belo_horizonte,Walking,16.9690103185684
+1st Qu.,26,belo_horizonte,Bicycling,16.962770613854
+1st Qu.,26,belo_horizonte,Driving,16.919503350007
+1st Qu.,26,belo_horizonte,Motorcycling,21.6070662073415
+1st Qu.,26,belo_horizonte,Public Transport,16.1522727675196
+Median,38,belo_horizonte,Baseline,17.2501951472223
+Median,38,belo_horizonte,Walking,17.2720502866821
+Median,38,belo_horizonte,Bicycling,17.246827690321
+Median,38,belo_horizonte,Driving,17.1465105663515
+Median,38,belo_horizonte,Motorcycling,22.1034212728688
+Median,38,belo_horizonte,Public Transport,17.9003173405614
+Mean,38.8191945613639,belo_horizonte,Baseline,18.3146572753807
+Mean,38.8191945613639,belo_horizonte,Walking,18.7127398843734
+Mean,38.8191945613639,belo_horizonte,Bicycling,18.3611143554714
+Mean,38.8191945613639,belo_horizonte,Driving,18.1135577947288
+Mean,38.8191945613639,belo_horizonte,Motorcycling,22.918695045677
+Mean,38.8191945613639,belo_horizonte,Public Transport,17.8921331005435
+3rd Qu.,51,belo_horizonte,Baseline,19.2738152274624
+3rd Qu.,51,belo_horizonte,Walking,19.3588908439375
+3rd Qu.,51,belo_horizonte,Bicycling,19.2649210802139
+3rd Qu.,51,belo_horizonte,Driving,18.8075261399723
+3rd Qu.,51,belo_horizonte,Motorcycling,23.6396056948826
+3rd Qu.,51,belo_horizonte,Public Transport,18.8498817405023
+Max.,69,belo_horizonte,Baseline,114.228339126292
+Max.,69,belo_horizonte,Walking,332.997855142896
+Max.,69,belo_horizonte,Bicycling,114.025581442667
+Max.,69,belo_horizonte,Driving,113.789809569117
+Max.,69,belo_horizonte,Motorcycling,138.58061339229
+Max.,69,belo_horizonte,Public Transport,103.115930330167
+Min.,15,bogota,Baseline,24
+Min.,15,bogota,Walking,23.9926591501299
+Min.,15,bogota,Bicycling,24
+Min.,15,bogota,Driving,34.6369883989431
+Min.,15,bogota,Motorcycling,21.4088501981478
+Min.,15,bogota,Public Transport,23.9030491719763
+1st Qu.,25,bogota,Baseline,24.4386263405406
+1st Qu.,25,bogota,Walking,24.481972192311
+1st Qu.,25,bogota,Bicycling,24.4386263405406
+1st Qu.,25,bogota,Driving,34.9057674665675
+1st Qu.,25,bogota,Motorcycling,21.9687066075781
+1st Qu.,25,bogota,Public Transport,24.4991915501762
+Median,37,bogota,Baseline,26.769661515742
+Median,37,bogota,Walking,26.8064732504563
+Median,37,bogota,Bicycling,26.769661515742
+Median,37,bogota,Driving,36.6016055975184
+Median,37,bogota,Motorcycling,23.0281091336603
+Median,37,bogota,Public Transport,26.6975463525168
+Mean,38.1286071113723,bogota,Baseline,27.8795677416274
+Mean,38.1286071113723,bogota,Walking,27.9194057021472
+Mean,38.1286071113723,bogota,Bicycling,27.8795677416274
+Mean,38.1286071113723,bogota,Driving,38.0648288305701
+Mean,38.1286071113723,bogota,Motorcycling,23.8427288940771
+Mean,38.1286071113723,bogota,Public Transport,27.7682880840249
+3rd Qu.,50,bogota,Baseline,29.3602918720797
+3rd Qu.,50,bogota,Walking,29.384806808671
+3rd Qu.,50,bogota,Bicycling,29.3602918720797
+3rd Qu.,50,bogota,Driving,38.8201850312957
+3rd Qu.,50,bogota,Motorcycling,24.5156048821878
+3rd Qu.,50,bogota,Public Transport,29.0359946137345
+Max.,69,bogota,Baseline,166.385737900216
+Max.,69,bogota,Walking,166.345357335615
+Max.,69,bogota,Bicycling,166.385737900216
+Max.,69,bogota,Driving,195.149230961134
+Max.,69,bogota,Motorcycling,107.052858505774
+Max.,69,bogota,Public Transport,165.852170963208
+Min.,15,buenos_aires,Baseline,7.82440823235955
+Min.,15,buenos_aires,Walking,7.77226851060804
+Min.,15,buenos_aires,Bicycling,7.77308206999499
+Min.,15,buenos_aires,Driving,10.0392337209932
+Min.,15,buenos_aires,Motorcycling,13.2424979806194
+Min.,15,buenos_aires,Public Transport,7.03558221577144
+1st Qu.,26,buenos_aires,Baseline,14.0347957007259
+1st Qu.,26,buenos_aires,Walking,13.9392509905948
+1st Qu.,26,buenos_aires,Bicycling,13.9407417083525
+1st Qu.,26,buenos_aires,Driving,16.5082117226869
+1st Qu.,26,buenos_aires,Motorcycling,13.3340884968679
+1st Qu.,26,buenos_aires,Public Transport,12.6073618550128
+Median,37,buenos_aires,Baseline,14.7660748990262
+Median,37,buenos_aires,Walking,14.6818041458498
+Median,37,buenos_aires,Bicycling,14.6778252945458
+Median,37,buenos_aires,Driving,16.5883840391391
+Median,37,buenos_aires,Motorcycling,13.4981985026
+Median,37,buenos_aires,Public Transport,13.3640190764996
+Mean,38.3988936242963,buenos_aires,Baseline,14.6586149344231
+Mean,38.3988936242963,buenos_aires,Walking,14.7717559438098
+Mean,38.3988936242963,buenos_aires,Bicycling,14.5964108516128
+Mean,38.3988936242963,buenos_aires,Driving,16.9948513980312
+Mean,38.3988936242963,buenos_aires,Motorcycling,13.7348582831614
+Mean,38.3988936242963,buenos_aires,Public Transport,13.3832539970585
+3rd Qu.,50,buenos_aires,Baseline,14.9287953345373
+3rd Qu.,50,buenos_aires,Walking,14.8632868488029
+3rd Qu.,50,buenos_aires,Bicycling,14.8475091959987
+3rd Qu.,50,buenos_aires,Driving,17.463150125718
+3rd Qu.,50,buenos_aires,Motorcycling,14.0289593078429
+3rd Qu.,50,buenos_aires,Public Transport,13.6336659432898
+Max.,69,buenos_aires,Baseline,107.771552495874
+Max.,69,buenos_aires,Walking,451.100281189248
+Max.,69,buenos_aires,Bicycling,107.182332431137
+Max.,69,buenos_aires,Driving,122.961588025312
+Max.,69,buenos_aires,Motorcycling,103.228282707902
+Max.,69,buenos_aires,Public Transport,98.6231263662188
+Min.,15,cape_town,Baseline,49.7644870219974
+Min.,15,cape_town,Walking,49.7287858994134
+Min.,15,cape_town,Bicycling,49.9533905299559
+Min.,15,cape_town,Driving,50.0411689706761
+Min.,15,cape_town,Motorcycling,53.7044658506997
+Min.,15,cape_town,Public Transport,49.3646789460181
+1st Qu.,26,cape_town,Baseline,50
+1st Qu.,26,cape_town,Walking,49.9627168972409
+1st Qu.,26,cape_town,Bicycling,49.9533905299559
+1st Qu.,26,cape_town,Driving,50.0704639458492
+1st Qu.,26,cape_town,Motorcycling,54.4469879356848
+1st Qu.,26,cape_town,Public Transport,49.3646789460181
+Median,37,cape_town,Baseline,50.3362411860807
+Median,37,cape_town,Walking,50.4490747852425
+Median,37,cape_town,Bicycling,50.3911634597122
+Median,37,cape_town,Driving,50.3942662150386
+Median,37,cape_town,Motorcycling,55.4012405008999
+Median,37,cape_town,Public Transport,53.7776419249474
+Mean,38.56,cape_town,Baseline,54.2491141528612
+Mean,38.56,cape_town,Walking,55.5440237970829
+Mean,38.56,cape_town,Bicycling,54.5808779475028
+Mean,38.56,cape_town,Driving,54.0759005409562
+Mean,38.56,cape_town,Motorcycling,57.6753111982984
+Mean,38.56,cape_town,Public Transport,54.2916398354594
+3rd Qu.,50,cape_town,Baseline,54.6722901620531
+3rd Qu.,50,cape_town,Walking,56.0553847536118
+3rd Qu.,50,cape_town,Bicycling,54.724415990359
+3rd Qu.,50,cape_town,Driving,54.6454950127393
+3rd Qu.,50,cape_town,Motorcycling,58.4664738192222
+3rd Qu.,50,cape_town,Public Transport,57.4193492227968
+Max.,69,cape_town,Baseline,302.97903135503
+Max.,69,cape_town,Walking,426.188582883158
+Max.,69,cape_town,Bicycling,302.765751290098
+Max.,69,cape_town,Driving,303.301344575229
+Max.,69,cape_town,Motorcycling,222.721936928408
+Max.,69,cape_town,Public Transport,208.951709115035
+Min.,15,delhi,Baseline,138.036269557447
+Min.,15,delhi,Walking,137.6142596594
+Min.,15,delhi,Bicycling,137.981020892629
+Min.,15,delhi,Driving,140.875343189172
+Min.,15,delhi,Motorcycling,141.496846878274
+Min.,15,delhi,Public Transport,140.52747472685
+1st Qu.,22,delhi,Baseline,150
+1st Qu.,22,delhi,Walking,149.441338932842
+1st Qu.,22,delhi,Bicycling,149.926835322714
+1st Qu.,22,delhi,Driving,153.770205396123
+1st Qu.,22,delhi,Motorcycling,152.274047401249
+1st Qu.,22,delhi,Public Transport,147.281704576236
+Median,32,delhi,Baseline,150
+Median,32,delhi,Walking,150.267374401053
+Median,32,delhi,Bicycling,149.926835322714
+Median,32,delhi,Driving,153.770205396123
+Median,32,delhi,Motorcycling,152.932350490149
+Median,32,delhi,Public Transport,148.275550610955
+Mean,34.223061760841,delhi,Baseline,156.50683767349
+Mean,34.223061760841,delhi,Walking,157.634991845364
+Mean,34.223061760841,delhi,Bicycling,156.400272109065
+Mean,34.223061760841,delhi,Driving,158.558463714301
+Mean,34.223061760841,delhi,Motorcycling,158.100051994277
+Mean,34.223061760841,delhi,Public Transport,154.014684686705
+3rd Qu.,45,delhi,Baseline,161.029204263802
+3rd Qu.,45,delhi,Walking,161.808471640697
+3rd Qu.,45,delhi,Bicycling,160.441597671771
+3rd Qu.,45,delhi,Driving,160.181495252801
+3rd Qu.,45,delhi,Motorcycling,160.610851049238
+3rd Qu.,45,delhi,Public Transport,158.23002913226
+Max.,69,delhi,Baseline,548.652615849351
+Max.,69,delhi,Walking,547.250774360601
+Max.,69,delhi,Bicycling,548.469161025926
+Max.,69,delhi,Driving,558.050995689046
+Max.,69,delhi,Motorcycling,554.334244161979
+Max.,69,delhi,Public Transport,469.946387171109
+Min.,15,mexico_city,Baseline,19.9166666666667
+Min.,15,mexico_city,Walking,19.6634337920041
+Min.,15,mexico_city,Bicycling,19.666996122328
+Min.,15,mexico_city,Driving,26.3901143939328
+Min.,15,mexico_city,Motorcycling,15.9497241190793
+Min.,15,mexico_city,Public Transport,17.6452108800148
+1st Qu.,25,mexico_city,Baseline,20.5156386896877
+1st Qu.,25,mexico_city,Walking,20.2282480784303
+1st Qu.,25,mexico_city,Bicycling,20.2599447707625
+1st Qu.,25,mexico_city,Driving,26.6313671108793
+1st Qu.,25,mexico_city,Motorcycling,16.2769450669559
+1st Qu.,25,mexico_city,Public Transport,18.1886622846242
+Median,37,mexico_city,Baseline,21.1484786215248
+Median,37,mexico_city,Walking,20.8946960332992
+Median,37,mexico_city,Bicycling,20.88699192578
+Median,37,mexico_city,Driving,27.4599813565828
+Median,37,mexico_city,Motorcycling,16.7782443569635
+Median,37,mexico_city,Public Transport,18.825580104409
+Mean,37.9425534794806,mexico_city,Baseline,21.2923359035209
+Mean,37.9425534794806,mexico_city,Walking,21.5038081740788
+Mean,37.9425534794806,mexico_city,Bicycling,21.0923525905333
+Mean,37.9425534794806,mexico_city,Driving,27.6571416451546
+Mean,37.9425534794806,mexico_city,Motorcycling,16.8856356292921
+Mean,37.9425534794806,mexico_city,Public Transport,19.069201771843
+3rd Qu.,49,mexico_city,Baseline,21.6842776399737
+3rd Qu.,49,mexico_city,Walking,21.7583725494746
+3rd Qu.,49,mexico_city,Bicycling,21.4690663682509
+3rd Qu.,49,mexico_city,Driving,28.1100152537715
+3rd Qu.,49,mexico_city,Motorcycling,17.2652422862261
+3rd Qu.,49,mexico_city,Public Transport,19.7094444559378
+Max.,69,mexico_city,Baseline,69.5013142100224
+Max.,69,mexico_city,Walking,341.044345507406
+Max.,69,mexico_city,Bicycling,118.407761102472
+Max.,69,mexico_city,Driving,87.822890725185
+Max.,69,mexico_city,Motorcycling,57.694171449069
+Max.,69,mexico_city,Public Transport,62.8027589710503
+Min.,15,santiago,Baseline,26.9983093776536
+Min.,15,santiago,Walking,26.716497523784
+Min.,15,santiago,Bicycling,26.8757743636359
+Min.,15,santiago,Driving,33.7847204237646
+Min.,15,santiago,Motorcycling,25.1301749279138
+Min.,15,santiago,Public Transport,23.7818386140017
+1st Qu.,26,santiago,Baseline,29.1549971540422
+1st Qu.,26,santiago,Walking,28.8921516102925
+1st Qu.,26,santiago,Bicycling,29.0214787736748
+1st Qu.,26,santiago,Driving,34.8008653961202
+1st Qu.,26,santiago,Motorcycling,27.2294341721131
+1st Qu.,26,santiago,Public Transport,26.385040372334
+Median,38,santiago,Baseline,30.2003927109869
+Median,38,santiago,Walking,30.0492283666201
+Median,38,santiago,Bicycling,30.1032185573578
+Median,38,santiago,Driving,35.2931447742813
+Median,38,santiago,Motorcycling,27.6733780131071
+Median,38,santiago,Public Transport,27.1128484641139
+Mean,38.9207298889137,santiago,Baseline,30.2690650417481
+Mean,38.9207298889137,santiago,Walking,30.8722232481867
+Mean,38.9207298889137,santiago,Bicycling,30.2542205467117
+Mean,38.9207298889137,santiago,Driving,35.8420653751585
+Mean,38.9207298889137,santiago,Motorcycling,28.0120339307838
+Mean,38.9207298889137,santiago,Public Transport,27.4110054923326
+3rd Qu.,51,santiago,Baseline,30.7520536857381
+3rd Qu.,51,santiago,Walking,30.5659914192085
+3rd Qu.,51,santiago,Bicycling,30.6356034265611
+3rd Qu.,51,santiago,Driving,36.5364635714159
+3rd Qu.,51,santiago,Motorcycling,28.4885724161425
+3rd Qu.,51,santiago,Public Transport,28.335636432976
+Max.,69,santiago,Baseline,84.7749390441818
+Max.,69,santiago,Walking,528.033168176659
+Max.,69,santiago,Bicycling,161.704112064267
+Max.,69,santiago,Driving,98.5864974232622
+Max.,69,santiago,Motorcycling,77.4493367545636
+Max.,69,santiago,Public Transport,76.0047736716075
+Min.,15,sao_paulo,Baseline,18
+Min.,15,sao_paulo,Walking,17.971143153034
+Min.,15,sao_paulo,Bicycling,17.9772497128349
+Min.,15,sao_paulo,Driving,18.11888164006
+Min.,15,sao_paulo,Motorcycling,20.1682967786555
+Min.,15,sao_paulo,Public Transport,17.8223700896859
+1st Qu.,26,sao_paulo,Baseline,18
+1st Qu.,26,sao_paulo,Walking,17.971143153034
+1st Qu.,26,sao_paulo,Bicycling,17.9772497128349
+1st Qu.,26,sao_paulo,Driving,18.11888164006
+1st Qu.,26,sao_paulo,Motorcycling,20.1682967786555
+1st Qu.,26,sao_paulo,Public Transport,17.8223700896859
+Median,37,sao_paulo,Baseline,19.4212209487636
+Median,37,sao_paulo,Walking,20.5869963996818
+Median,37,sao_paulo,Bicycling,19.6675032979537
+Median,37,sao_paulo,Driving,19.2173521507327
+Median,37,sao_paulo,Motorcycling,21.2816891692119
+Median,37,sao_paulo,Public Transport,20.294628783561
+Mean,38.5993289680178,sao_paulo,Baseline,20.3005457317407
+Mean,38.5993289680178,sao_paulo,Walking,21.2571747968374
+Mean,38.5993289680178,sao_paulo,Bicycling,20.4541571239534
+Mean,38.5993289680178,sao_paulo,Driving,20.1571951474857
+Mean,38.5993289680178,sao_paulo,Motorcycling,22.1407872866809
+Mean,38.5993289680178,sao_paulo,Public Transport,20.7722209145342
+3rd Qu.,50,sao_paulo,Baseline,21.8030437200104
+3rd Qu.,50,sao_paulo,Walking,22.9707416849995
+3rd Qu.,50,sao_paulo,Bicycling,21.77657104168
+3rd Qu.,50,sao_paulo,Driving,21.1505645751539
+3rd Qu.,50,sao_paulo,Motorcycling,23.2701464473862
+3rd Qu.,50,sao_paulo,Public Transport,22.4338548854999
+Max.,69,sao_paulo,Baseline,40.8182623200624
+Max.,69,sao_paulo,Walking,159.612659165508
+Max.,69,sao_paulo,Bicycling,89.4446660100726
+Max.,69,sao_paulo,Driving,41.0537185100841
+Max.,69,sao_paulo,Motorcycling,45.0788673430259
+Max.,69,sao_paulo,Public Transport,46.9587334855865
+Min.,15,vizag,Baseline,47.4
+Min.,15,vizag,Walking,47.1276292976735
+Min.,15,vizag,Bicycling,47.3214179301286
+Min.,15,vizag,Driving,73.1125873338057
+Min.,15,vizag,Motorcycling,48.8001374933444
+Min.,15,vizag,Public Transport,46.298963112985
+1st Qu.,24,vizag,Baseline,48.1441623981308
+1st Qu.,24,vizag,Walking,48.6343365595309
+1st Qu.,24,vizag,Bicycling,48.0649665752622
+1st Qu.,24,vizag,Driving,73.1579434347928
+1st Qu.,24,vizag,Motorcycling,49.5550645829959
+1st Qu.,24,vizag,Public Transport,47.9235998102147
+Median,34,vizag,Baseline,53.2694306635324
+Median,34,vizag,Walking,56.0319974835976
+Median,34,vizag,Bicycling,53.1839263626508
+Median,34,vizag,Driving,78.39260883466
+Median,34,vizag,Motorcycling,54.7921311231772
+Median,34,vizag,Public Transport,53.9949803110797
+Mean,35.27854968903,vizag,Baseline,60.761025931731
+Mean,35.27854968903,vizag,Walking,65.5582972210985
+Mean,35.27854968903,vizag,Bicycling,60.9783163285927
+Mean,35.27854968903,vizag,Driving,84.5196555384216
+Mean,35.27854968903,vizag,Motorcycling,62.0757965946955
+Mean,35.27854968903,vizag,Public Transport,58.8087435625718
+3rd Qu.,45,vizag,Baseline,63.2960843663154
+3rd Qu.,45,vizag,Walking,72.6135671791411
+3rd Qu.,45,vizag,Bicycling,64.1476452107167
+3rd Qu.,45,vizag,Driving,85.1672977212683
+3rd Qu.,45,vizag,Motorcycling,64.0860558082131
+3rd Qu.,45,vizag,Public Transport,62.4086639401764
+Max.,69,vizag,Baseline,258.699503887167
+Max.,69,vizag,Walking,559.236867834013
+Max.,69,vizag,Bicycling,258.371721500928
+Max.,69,vizag,Driving,231.565067903422
+Max.,69,vizag,Motorcycling,264.511908167323
+Max.,69,vizag,Public Transport,202.567986749287

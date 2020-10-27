@@ -4,8 +4,12 @@
 \alias{injuries_function_2}
 \title{Predict injuries}
 \usage{
-injuries_function_2(true_distances, injuries_list, reg_model,
-  constant_mode = F)
+injuries_function_2(
+  true_distances,
+  injuries_list,
+  reg_model,
+  constant_mode = F
+)
 }
 \arguments{
 \item{true_distances}{data frame to set up results}

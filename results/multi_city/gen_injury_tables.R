@@ -51,14 +51,14 @@ scen <- 'Baseline'
 temp <- whw %>% filter(scenario == scen) %>% dplyr::select(cas_mode)
 cas_mode <- unique(temp$cas_mode)
 cm <- cas_mode[1]
-cm <- 'bus'
+cm <- 'pedestrian'
 
 temp <- whw %>% filter(scenario == scen) %>% dplyr::select(str_mode)
 str_mode <- unique(temp$str_mode)
 sm <- str_mode[1]
 sm <- 'unknown'
 
-cn <- 'delhi'
+cn <- 'sao_paulo'
 
 whw_cas <- get_summary_table(mode = 'casualty', scen = scen, mode_name = cm ) %>% janitor::adorn_totals(where = c('row', 'col'))
 View(whw_cas)

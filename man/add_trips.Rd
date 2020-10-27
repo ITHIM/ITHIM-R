@@ -4,9 +4,16 @@
 \alias{add_trips}
 \title{Add trips to trip set}
 \usage{
-add_trips(trip_ids = 0, new_mode = "walking", distance = 1,
-  participant_id = 0, age = 20, sex = "male", nTrips = 3,
-  speed = 4.8)
+add_trips(
+  trip_ids = 0,
+  new_mode = "pedestrian",
+  distance = 1,
+  participant_id = 0,
+  age = 20,
+  sex = "male",
+  nTrips = 3,
+  speed = 4.8
+)
 }
 \arguments{
 \item{trip_ids}{ids for new trips}

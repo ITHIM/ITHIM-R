@@ -14,5 +14,5 @@ list of baseline scenario and five mode scenarios
 }
 \description{
 Creates five scenarios where, in each one, the mode share is elevated to the maximum observed across the cities.
-The scenario-modes are walking, cycling, car, motorcycle and bus
+The scenario-modes are pedestrian, cycle, car, motorcycle and bus
 }
