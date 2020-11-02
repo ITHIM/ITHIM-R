@@ -2296,9 +2296,9 @@ trip$year <- 2011
 trip$gdppc2014 <- 23162
 trip$population2014 <- 1878000
   
-write.csv(trip, "data/local/vizag/visakhapatnam_trip.csv")
+write.csv(trip, "data/local/vizag/vizag_trip.csv")
 
-trip <- read_csv('data/local/vizag/visakhapatnam_trip.csv')
+trip <- read_csv('data/local/vizag/vizag_trip.csv')
 
 # Standardized travel modes
 trip <- standardize_modes(trip, mode = c('trip'))

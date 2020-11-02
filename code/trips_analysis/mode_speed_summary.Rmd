@@ -1,0 +1,91 @@
+---
+title: "mode_speed_summary"
+output: html_document
+---
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+```
+
+
+Summary table for mode speeds
+```{r}
+summary <- read.csv("../../data/analysis/mode_speed/speed_df.csv")
+print(summary)
+```
+
+Boxplots for mode_speeds
+```{r}
+bangalore <- read.csv("../../data/local/bangalore/bangalore_trip.csv")
+delhi <- read.csv("../../data/local/delhi/delhi_trip.csv")
+vizag <- read.csv("../../data/local/vizag/vizag_trip.csv")
+sao_paulo <- read.csv("../../data/local/sao_paulo/sao_paulo_trip.csv")
+
+bangalore <- bangalore %>% 
+  filter(stage_distance > 0 & stage_duration > 0 & !is.na(stage_mode)) %>%
+  mutate(speed = stage_distance / ( stage_duration / 60),
+         city = "Bangalore",
+         id = paste0("Bangalore",stage_id)) %>% 
+  select(id, city, speed, stage_mode) %>% 
+  rename(mode = stage_mode)
+  
+delhi <- delhi %>% 
+  filter(stage_distance > 0 & stage_duration > 0 & !is.na(stage_mode)) %>%
+  mutate(speed = stage_distance / ( stage_duration / 60),
+         city = "Delhi",
+         id = paste0("Delhi", stage_id)) %>% 
+  select(id, city, speed, stage_mode) %>% 
+  rename(mode = stage_mode)
+
+vizag <- vizag%>% 
+  filter(trip_distance > 0 & trip_duration > 0 & !is.na(trip_mode)) %>%
+  mutate(speed = trip_distance / ( trip_duration / 60),
+         city = "Vizag",
+         id = paste0("Vizag", trip_id)) %>% 
+  select(id, city, speed, trip_mode) %>% 
+  rename(mode = trip_mode)
+
+sao_paulo <- sao_paulo%>% 
+  filter(trip_distance > 0 & trip_duration > 0 & !is.na(trip_mode)) %>%
+  mutate(speed = trip_distance / ( trip_duration / 60),
+         city = "Sao_Paulo",
+         id = paste0("Sao_Paulo", trip_id)) %>% 
+  select(id, city, speed, trip_mode) %>% 
+  rename(mode = trip_mode)
+
+trip <- rbind(bangalore, delhi, vizag, sao_paulo)
+trip_walk <- filter(trip, mode=="walk")
+trip_bicycle <- trip[trip$mode=="bicycle",]
+trip_bus <- trip[trip$mode == "bus",]
+trip_car <- trip[trip$mode == "car",]
+
+```
+
+
+
+```{r}
+boxplot(speed~mode, data = droplevels(trip), ylim=c(0,40))
+```
+
+## Walking
+```{r}
+boxplot(speed~mode+city, data = droplevels(trip_walk), ylim=c(0, 10))
+```
+
+## Cycling
+```{r}
+boxplot(speed~mode+city, data = droplevels(trip_bicycle), ylim=c(0, 20))
+```
+
+## Bus
+```{r}
+boxplot(speed~mode+city, data = droplevels(trip_bus), ylim=c(0, 40))
+```
+
+
+## Car
+```{r}
+boxplot(speed~mode+city, data = droplevels(trip_car), ylim=c(0, 40))
+```
+
+
