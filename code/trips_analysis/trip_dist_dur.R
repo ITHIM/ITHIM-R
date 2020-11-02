@@ -20,7 +20,7 @@ l <- list()
 # List to save all stage and trip speed data
 speed_df <- list()
 for (city in cities){
-  trip_set <- read.csv(paste0('inst/extdata/local/',city,'/trips_', city, '.csv'), stringsAsFactors = F)
+  trip_set <- read.csv(paste0('data/local/',city,'/',city,'_trip.csv'), stringsAsFactors = F)
   l[[city]] <- trip_set
   
   # Check if distance column exists
