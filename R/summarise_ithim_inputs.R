@@ -31,7 +31,7 @@ summarise_ithim_inputs <- function(ithim_object){
   par(mar=c(8,7,2,2)); barplot(injury_rates,col=rainbow(length(injury_rates)),ylab='',las=2)
   mtext(2,line=4.5,cex=1.25,text = paste0(CITY,' injury rates'))
   
-  emissions <- unlist(EMISSION_INVENTORY)
+  emissions <- unlist(PM_EMISSION_INVENTORY)
   emissions <- emissions[emissions>0]
   par(mar=c(2,5,4,5)); pie(emissions,main=paste0(CITY,' emissions'),cex=1.25)
 
