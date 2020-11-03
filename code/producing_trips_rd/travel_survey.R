@@ -98,8 +98,7 @@ rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_i
 rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id,  sep = "_"))))
 
 # Reorder and select columns
-rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration, trip_distance, 
-                            stage_id, stage_mode, stage_duration, stage_distance)
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration, stage_id, stage_mode, stage_duration)
 
 write_csv(rd1, 'inst/extdata/local/buenos_aires/trips_buenos_aires.csv')
 
