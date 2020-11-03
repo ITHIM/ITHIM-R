@@ -2401,7 +2401,8 @@ trip$age <- as.integer(trip$age)
 # Source functions
 source("code/producing_trips_rd/used_functions.R")
 
-rd <- expand_using_weights(trip, normalize_by = 10)
+# Use unexpanded trip dataset due to file size
+rd <- trip
 
 # Remove extra columns
 rd$X1 <- NULL
