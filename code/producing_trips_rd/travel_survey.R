@@ -2414,11 +2414,7 @@ rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, part
 # Reorder and select columns
 rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration, stage_id, stage_mode, stage_duration)
 
-# write
-
-rd2 <- slice_sample(rd1, prop = 0.1)
-
-write_csv(rd2, 'inst/extdata/local/mexico_city/trips_mexico_city.csv')
+write_csv(rd1, 'inst/extdata/local/mexico_city/trips_mexico_city.csv')
 
 ## Message from Ralph: I just shared a dropbox folder with the US (2017) and German (2008) data as requested. 
 ###I followed the codebook you provided. Two items to note: weights are trip weights not not hh weights. 
