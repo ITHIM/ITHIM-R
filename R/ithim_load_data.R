@@ -60,6 +60,14 @@ ithim_load_data <- function(setup_call_summary_filename,speeds=list(
   ## if either trip or stage labels are missing, we copy over from the other.
   filename <- paste0(local_path,"/trips_",CITY,".csv")
   trip_set <- read_csv(filename,col_types = cols())
+
+  # Disable temporary hack   
+  # ### TEMPORARY HACK TO REMOVE ALL DIST COLUMNS
+  # if ('trip_distance' %in% colnames(trip_set))
+  #   trip_set <- trip_set %>% dplyr::select(-c('trip_distance'))
+  # if ('stage_distance' %in% colnames(trip_set))
+  #   trip_set <- trip_set %>% dplyr::select(-c('stage_distance'))
+  
   cat(paste0('\n  Trips read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
   ## copy over as required
