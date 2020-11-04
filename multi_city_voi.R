@@ -3,7 +3,6 @@ library(earth)
 library(RColorBrewer)
 library(plotrix)
 rm(list=ls())
-#cities <- c('accra','mexico_city','buenos_aires','sao_paulo','delhi','bangalore','bogota','belo_horizonte','santiago')
 cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
 
@@ -67,7 +66,7 @@ day_to_week_scalar <- 7
 #################################################
 ## with uncertainty
 ## comparison across cities
-setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","EMISSION_INVENTORY",                        
+setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","PM_EMISSION_INVENTORY",                        
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO",
                         "FLEET_TO_MOTORCYCLE_RATIO","DISTANCE_SCALAR_CAR_TAXI",
                         "DISTANCE_SCALAR_WALKING",
@@ -114,7 +113,7 @@ normVariables <- c("MMET_CYCLING",
 save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
      background_pa_scalar,background_pa_confidence,mmet_cycling,mmet_walking,PM_emission_inventories,
      sin_exponent_sum,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
-     bus_to_passenger_ratio,truck_to_car_ratio,emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
+     bus_to_passenger_ratio,truck_to_car_ratio,PM_emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
      distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,add_motorcycle_fleet,fleet_to_motorcycle_ratio,
      betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
@@ -164,7 +163,7 @@ print(system.time(
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                               TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
                                               FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
-                                              EMISSION_INVENTORY_CONFIDENCE = emission_confidence[[city]],
+                                              PM_EMISSION_INVENTORY_CONFIDENCE = PM_emission_confidence[[city]],
                                               DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
                                               DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
                                               DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
@@ -195,13 +194,13 @@ print(system.time(
     }
     
     ## rename city-specific parameters according to city
-    for(i in 1:length(multi_city_ithim[[ci]]$parameters$EMISSION_INVENTORY[[1]])){
-      extract_vals <- sapply(multi_city_ithim[[ci]]$parameters$EMISSION_INVENTORY,function(x)x[[i]])
+    for(i in 1:length(multi_city_ithim[[ci]]$parameters$PM_EMISSION_INVENTORY[[1]])){
+      extract_vals <- sapply(multi_city_ithim[[ci]]$parameters$PM_EMISSION_INVENTORY,function(x)x[[i]])
       if(sum(extract_vals)!=0)
-        multi_city_ithim[[ci]]$parameters[[paste0('EMISSION_INVENTORY_',names(multi_city_ithim[[ci]]$parameters$EMISSION_INVENTORY[[1]])[i],'_',city)]] <- extract_vals
+        multi_city_ithim[[ci]]$parameters[[paste0('PM_EMISSION_INVENTORY_',names(multi_city_ithim[[ci]]$parameters$PM_EMISSION_INVENTORY[[1]])[i],'_',city)]] <- extract_vals
     }
     for(param in setting_parameters) names(multi_city_ithim[[ci]]$parameters)[which(names(multi_city_ithim[[ci]]$parameters)==param)] <- paste0(param,'_',city)
-    multi_city_ithim[[ci]]$parameters <- multi_city_ithim[[ci]]$parameters[-which(names(multi_city_ithim[[ci]]$parameters)==paste0('EMISSION_INVENTORY_',city))]
+    multi_city_ithim[[ci]]$parameters <- multi_city_ithim[[ci]]$parameters[-which(names(multi_city_ithim[[ci]]$parameters)==paste0('PM_EMISSION_INVENTORY_',city))]
     parameter_names_city <- names(multi_city_ithim[[ci]]$parameters)[sapply(names(multi_city_ithim[[ci]]$parameters),function(x)grepl(x,pattern=city))]
     ## add to parameter names
     parameter_names <- c(parameter_names,parameter_names_city)
@@ -405,11 +404,11 @@ if(any(ap_dr_quantile)&&NSAMPLES>=1024){
 
 # x2 <- evppi(parameter=c(38:40),input=inp$mat,he=m,method="GP")
 #fit <- fit.gp(parameter = parameter, inputs = inputs, x = x, n.sim = n.sim)
-if("EMISSION_INVENTORY_car_accra"%in%colnames(parameter_samples)&&NSAMPLES>=1024){
+if("PM_EMISSION_INVENTORY_car_accra"%in%colnames(parameter_samples)&&NSAMPLES>=1024){
  sources <- list()
  for(ci in 1:length(cities)){
    city <- cities[ci]
-   emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
+   emission_names <- sapply(colnames(parameter_samples),function(x)grepl('PM_EMISSION_INVENTORY_',x)&grepl(city,x))
    sources[[ci]] <- parameter_samples[,emission_names]
  }
  evppi_for_emissions <- mclapply(1:length(sources),
@@ -419,9 +418,9 @@ if("EMISSION_INVENTORY_car_accra"%in%colnames(parameter_samples)&&NSAMPLES>=1024
                                  nscen=NSCEN,
                                  mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
 
- names(evppi_for_emissions) <- paste0('EMISSION_INVENTORY_',cities)
+ names(evppi_for_emissions) <- paste0('PM_EMISSION_INVENTORY_',cities)
  ## get rows to remove
- keep_names <- sapply(rownames(evppi),function(x)!grepl('EMISSION_INVENTORY_',x))
+ keep_names <- sapply(rownames(evppi),function(x)!grepl('PM_EMISSION_INVENTORY_',x))
  evppi <- evppi[keep_names,]
 
  evppi <- rbind(evppi,do.call(rbind,evppi_for_emissions))
