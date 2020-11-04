@@ -42,23 +42,6 @@ get_all_distances <- function(ithim_object){
     dist <- dist %>% filter(stage_mode != 'walk_to_pt')
   }
   
-  # browser()
-  
-  if (any(names(INJURY_TABLE) %in% 'whw')){
-    if (any(unique(INJURY_TABLE$whw$strike_mode) %in% 'unknown')){
-      
-      temp <- dist[1,] %>% as.data.frame()
-      temp[1,] <- c('unknown', rep(1, ncol(dist) - 1))
-      
-      # dist <- plyr::rbind.fill(dist, temp)
-      
-      # dist_and_dir$dur <- dist_and_dir$dur %>% 
-      #   rbind(c('unknown', rep(1, ncol(dist_and_dir$dur) - 1)))
-      
-    }
-    
-  }
-  
   ## for injury_function
   # get average total distances by sex and age cat
   journeys <- trip_scen_sets %>% 
