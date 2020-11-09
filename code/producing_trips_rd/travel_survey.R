@@ -1016,8 +1016,12 @@ trip <- setdiff(trip_0, no_trip) %>%
            participant_wt = FE_PESS,
            age = IDADE, 
            trip_id = N_VIAG,
-           trip_duration = DURACAO) %>% 
-    select(cluster_id, household_id, participant_id, participant_wt, age, sex, trip_id, trip_purpose, trip_mode, trip_duration,trip_distance, stage_id, stage_mode)
+           trip_duration = DURACAO,
+           walk_to_pt = ANDA_O,
+           walk_from_pt = ANDA_D) %>% 
+  select(cluster_id, household_id, participant_id, participant_wt, age, sex, trip_id, trip_purpose, trip_mode, trip_duration,walk_to_pt, walk_from_pt, trip_distance, stage_id, stage_mode)
+
+
 
 trip$year <- 2012
 trip$gdppc2014 <- 20650
@@ -2169,8 +2173,6 @@ for(i in 2:nrow(person)){
         person$household_id[i] = person$household_id[i-1]
     }
 }
-
-
 
 
 stage <- stage_0 %>% 

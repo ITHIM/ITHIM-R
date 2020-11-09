@@ -5,10 +5,17 @@ output: html_document
 
 ```{r message=FALSE, warning=FALSE}
 library(dplyr)
+library(reshape2)
+library(ggplot2)
+library(wesanderson)
 ```
 
+## Notes
 
-Summary table for mode speeds
+Bangalore had a beautiful variable called transfer time = walk time plus wait time, but when closely examined, what was recoreded there seemd to just be the travel time. So in our data processing, we had used both the variables on transfer time and start and stop time to come up with trip duration. Are there any concerns here?
+
+
+## Summary table for mode speeds
 ```{r}
 summary <- read.csv("../../data/analysis/mode_speed/speed_df.csv")
 print(summary)
@@ -25,38 +32,52 @@ bangalore <- bangalore %>%
   filter(stage_distance > 0 & stage_duration > 0 & !is.na(stage_mode)) %>%
   mutate(speed = stage_distance / ( stage_duration / 60),
          city = "Bangalore",
-         id = paste0("Bangalore",stage_id)) %>% 
-  select(id, city, speed, stage_mode) %>% 
+         id = paste0("Bangalore",stage_id),
+         age_group = ifelse(age<=50, "<50", "50+")) %>% 
+  select(id, city, speed, sex, age_group ,stage_mode) %>% 
   rename(mode = stage_mode)
   
 delhi <- delhi %>% 
   filter(stage_distance > 0 & stage_duration > 0 & !is.na(stage_mode)) %>%
   mutate(speed = stage_distance / ( stage_duration / 60),
          city = "Delhi",
-         id = paste0("Delhi", stage_id)) %>% 
-  select(id, city, speed, stage_mode) %>% 
+         id = paste0("Delhi",stage_id),
+         age_group = ifelse(age<=50, "<50", "50+")) %>% 
+  select(id, city, speed, sex, age_group ,stage_mode) %>% 
   rename(mode = stage_mode)
 
 vizag <- vizag%>% 
   filter(trip_distance > 0 & trip_duration > 0 & !is.na(trip_mode)) %>%
   mutate(speed = trip_distance / ( trip_duration / 60),
          city = "Vizag",
-         id = paste0("Vizag", trip_id)) %>% 
-  select(id, city, speed, trip_mode) %>% 
+         id = paste0("Vizag", trip_id),
+          age_group = ifelse(age<=50, "<50", "50+")) %>% 
+  select(id, city, sex, age_group, speed, trip_mode) %>% 
   rename(mode = trip_mode)
 
-sao_paulo <- sao_paulo%>% 
+sao_paulo_1 <- sao_paulo%>% 
   filter(trip_distance > 0 & trip_duration > 0 & !is.na(trip_mode)) %>%
   mutate(speed = trip_distance / ( trip_duration / 60),
-         city = "Sao_Paulo",
-         id = paste0("Sao_Paulo", trip_id)) %>% 
-  select(id, city, speed, trip_mode) %>% 
+         city = "Sao_Paulo_1",
+         id = paste0("Sao_Paulo_1", trip_id),
+          age_group = ifelse(age<=50, "<50", "50+")) %>% 
+  select(id, city,sex, age_group, speed, trip_mode) %>% 
   rename(mode = trip_mode)
 
-trip <- rbind(bangalore, delhi, vizag, sao_paulo)
+sao_paulo_2 <- sao_paulo%>% 
+  filter(trip_distance > 0 & trip_duration > 0 & !is.na(trip_mode)) %>%
+  mutate(trip_duration = (trip_duration - (walk_to_pt + walk_from_pt)),
+         speed = trip_distance / ( trip_duration / 60),
+         city = "Sao_Paulo_2",
+         id = paste0("Sao_Paulo_2", trip_id),
+         age_group = ifelse(age<=50, "<50", "50+")) %>% 
+  select(id, city,sex, age_group,  speed, trip_mode) %>% 
+  rename(mode = trip_mode)
+
+trip <- rbind(bangalore, delhi, vizag, sao_paulo_1, sao_paulo_2)
 trip_walk <- filter(trip, mode=="walk")
 trip_bicycle <- trip[trip$mode=="bicycle",]
-trip_motorcylce <- trip[trip$mode=="motorcycle",]
+trip_motorcylce <- trip[trip$mode=="motcycle",]
 trip_bus <- trip[trip$mode == "bus",]
 trip_car <- trip[trip$mode == "car",]
 
@@ -72,20 +93,40 @@ boxplot(speed~mode, data = droplevels(trip), ylim=c(0,40))
 ```{r}
 boxplot(speed~mode+city, data = droplevels(trip_walk), ylim=c(0, 10))
 ```
+## Walking by sex and age
+```{r}
+trip_walk %>% 
+  filter(!is.na(sex) & !is.na(age_group)) %>% 
+  ggplot(aes(x = city, y = speed,  fill = sex))+
+  geom_boxplot(aes(col = age_group)) + 
+  ylim(0, 8)+
+  scale_fill_manual(values= c("grey80", "bisque2"))
+  
+```
+
 
 ## Cycling
 ```{r}
 boxplot(speed~mode+city, data = droplevels(trip_bicycle), ylim=c(0, 20))
 ```
 
+## Cycling by sex and age
+```{r}
+trip_bicycle %>% 
+  filter(!is.na(sex) & !is.na(age_group)) %>% 
+  ggplot(aes(x = city, y = speed,  fill = sex))+
+  geom_boxplot(aes(col = age_group)) + 
+  ylim(0, 15)+
+  scale_fill_manual(values= c("grey80", "bisque2"))
+  
+
+#trip_bicycle %>% filter(city=="Delhi") %>% View
+```
+
+
 ## Motorcycling
 ```{r}
 boxplot(speed~mode+city, data = droplevels(trip_bicycle), ylim=c(0, 20))
-```
-
-## Bus
-```{r}
-boxplot(speed~mode+city, data = droplevels(trip_bus), ylim=c(0, 40))
 ```
 
 
@@ -94,4 +135,22 @@ boxplot(speed~mode+city, data = droplevels(trip_bus), ylim=c(0, 40))
 boxplot(speed~mode+city, data = droplevels(trip_car), ylim=c(0, 40))
 ```
 
+## Bus
+```{r}
+boxplot(speed~mode+city, data = droplevels(trip_bus), ylim=c(0, 40))
+```
+
+
+## Walk to/from PT
+```{r}
+walk_pt <- sao_paulo %>% 
+  select(walk_to_pt, walk_from_pt) %>% 
+  mutate(walk_to_from_pt = (walk_to_pt + walk_from_pt)) %>% 
+  filter(walk_to_from_pt > 0)
+
+
+walk_pt <- melt(walk_pt)
+
+boxplot(value~variable, data = droplevels(walk_pt), ylim=c(0, 20))
+```
 
