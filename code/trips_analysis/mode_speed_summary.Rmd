@@ -56,6 +56,7 @@ sao_paulo <- sao_paulo%>%
 trip <- rbind(bangalore, delhi, vizag, sao_paulo)
 trip_walk <- filter(trip, mode=="walk")
 trip_bicycle <- trip[trip$mode=="bicycle",]
+trip_motorcylce <- trip[trip$mode=="motorcycle",]
 trip_bus <- trip[trip$mode == "bus",]
 trip_car <- trip[trip$mode == "car",]
 
@@ -73,6 +74,11 @@ boxplot(speed~mode+city, data = droplevels(trip_walk), ylim=c(0, 10))
 ```
 
 ## Cycling
+```{r}
+boxplot(speed~mode+city, data = droplevels(trip_bicycle), ylim=c(0, 20))
+```
+
+## Motorcycling
 ```{r}
 boxplot(speed~mode+city, data = droplevels(trip_bicycle), ylim=c(0, 20))
 ```
