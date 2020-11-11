@@ -44,7 +44,7 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   vent_rates$vent_rate[vent_rates$stage_mode=='pedestrian'] <- BASE_LEVEL_INHALATION_RATE + MMET_WALKING/2.0
   
   ## Keep only distinct modes
-  vent_rates <- vent_rates %>% distinct()
+  vent_rates <- distinct_at(vent_rates, vars(stage_mode), .keep_all = T)
   
   ##RJ rewriting exposure ratio as function of ambient PM2.5, as in Goel et al 2015
   ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE (10), CLOSED_WINDOW_PM_RATIO (0.5), CLOSED_WINDOW_RATIO (0.5), ROAD_RATIO_MAX (3.216), ROAD_RATIO_SLOPE (0.379)
