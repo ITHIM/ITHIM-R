@@ -14,8 +14,6 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   # concentration contributed by non-transport share (remains constant across the scenarios)
   non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
   
-  # browser()
-  
   ## adding in travel not covered in the synthetic trip set, based on distances travelled relative to car, set in VEHICLE_INVENTORY
   emission_dist <- dist
   
