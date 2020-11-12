@@ -68,9 +68,19 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
       # apply strike distance sums
       strike_distance_sums <- sapply(mode_names,function(x)sum(strike_dist_summary[[x]]))
       old_length <- length(strike_distance_sums)
-      for(str_mode in strike_modes[!strike_modes%in%names(strike_distance_sums)]){
-        strike_distance_sums <- c(strike_distance_sums,mean(strike_distance_sums))
-        names(strike_distance_sums)[(old_length+1):length(strike_distance_sums)] <- strike_modes[!strike_modes%in%names(strike_distance_sums)]
+      
+      # Add mean distance to the missing strike modes
+      # Exist in strike_mode for injuries but not available in trip dataset like other or unknown modes
+      missing_strike_dist_modes <- strike_modes[!strike_modes%in%names(strike_distance_sums)]
+      if (length(missing_strike_dist_modes) > 0){
+        for(i in 1:length(missing_strike_dist_modes)){
+          
+          str_mode <- missing_strike_dist_modes[i]
+          strike_distance_sums <- c(strike_distance_sums, mean(strike_distance_sums))
+          names(strike_distance_sums)[(old_length+1):length(strike_distance_sums)] <- str_mode #strike_modes[!strike_modes%in%names(strike_distance_sums)][1]
+          
+          old_length <- length(strike_distance_sums)
+        }
       }
     }
     for(type in INJURY_TABLE_TYPES){
