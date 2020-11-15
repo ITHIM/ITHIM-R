@@ -1,28 +1,54 @@
 ---
-title: "mode_speed_summary"
+title: "mode speeds used in the ithim-global model"
 output: html_document
 ---
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, include = FALSE}
+rm(list = ls())
 library(dplyr)
+library(magrittr)
 library(reshape2)
 library(ggplot2)
 library(wesanderson)
+library(kableExtra)
 ```
 
-## Notes
+We previously used the following default mode speeds from the literature to calculate trip distances [ref]:
+ default_speeds <- list(
+    bus=15,
+    bus_driver=15,
+    minibus=15,
+    minibus_driver=15,
+    car=21,
+    taxi=21,
+    pedestrian=4.8,
+    walk_to_pt=4.8,
+    cycle=14.5,
+    motorcycle=25,
+    truck=21,
+    van=15,
+    subway=28,
+    rail=35,
+    auto_rickshaw=22,
+    shared_auto=22,
+    shared_taxi=21,
+    cycle_rickshaw=10
+  )
 
-Bangalore had a beautiful variable called transfer time = walk time plus wait time, but when closely examined, what was recoreded there seemd to just be the travel time. So in our data processing, we had used both the variables on transfer time and start and stop time to come up with trip duration. Are there any concerns here?
+We later doubted these estimates and wanted to generated default speeds from the datasets we had [please I might not have gotten the exact reason why we needed these new speeds, kinly edit].
 
+From the 11 cities we are working on, we selected cities with both trip duration and trip distances (4 in total: Sao Paulo, Vizag, Delhi and Bangalore) to calculate the default speeds.
 
-## Summary table for mode speeds
-```{r}
-summary <- read.csv("../../data/analysis/mode_speed/speed_df.csv")
-print(summary)
-```
+- Delhi had stage distances and stage duration
+- Bangalore had stage distances and stage duration
+- Sao Paulo had only trip level infomation (trip distance and trip duration). In addition, it had walk to PT
+- Vizag had only trip level data (not stages)
 
-Boxplots for mode_speeds
-```{r}
+NB: Bangalore initialy had variable called transfer time = walk time plus wait time, but when we examined closely it matched the travel time. So in our data processing, we had used both variables to come up with trip duration.
+
+## 1 First we explored the walk to PT time in the Sao Paulo data
+
+```{r echo = FALSE, message=FALSE, warning=FALSE }
 bangalore <- read.csv("../../data/local/bangalore/bangalore_trip.csv")
 delhi <- read.csv("../../data/local/delhi/delhi_trip.csv")
 vizag <- read.csv("../../data/local/vizag/vizag_trip.csv")
@@ -46,13 +72,23 @@ delhi <- delhi %>%
   select(id, city, speed, sex, age_group ,stage_mode) %>% 
   rename(mode = stage_mode)
 
-vizag <- vizag%>% 
+vizag_1 <- vizag%>% 
   filter(trip_distance > 0 & trip_duration > 0 & !is.na(trip_mode)) %>%
   mutate(speed = trip_distance / ( trip_duration / 60),
-         city = "Vizag",
-         id = paste0("Vizag", trip_id),
+         city = "Vizag_1",
+         id = paste0("Vizag_1", trip_id),
           age_group = ifelse(age<=50, "<50", "50+")) %>% 
   select(id, city, sex, age_group, speed, trip_mode) %>% 
+  rename(mode = trip_mode)
+
+vizag_2 <- vizag %>% 
+  filter(trip_distance > 0 & trip_duration > 0 & !is.na(trip_mode)) %>%
+  mutate(trip_duration = ifelse(trip_mode == "bus", abs(trip_duration - 10), trip_duration),
+         speed = trip_distance / ( trip_duration / 60),
+         city = "Vizag_2",
+         id = paste0("Vizag_2", trip_id),
+         age_group = ifelse(age<=50, "<50", "50+")) %>% 
+  select(id, city,sex, age_group,  speed, trip_mode) %>% 
   rename(mode = trip_mode)
 
 sao_paulo_1 <- sao_paulo%>% 
@@ -74,27 +110,79 @@ sao_paulo_2 <- sao_paulo%>%
   select(id, city,sex, age_group,  speed, trip_mode) %>% 
   rename(mode = trip_mode)
 
-trip <- rbind(bangalore, delhi, vizag, sao_paulo_1, sao_paulo_2)
+trip <- rbind(bangalore, delhi, vizag_1, vizag_2, sao_paulo_1, sao_paulo_2)
 trip_walk <- filter(trip, mode=="walk")
 trip_bicycle <- trip[trip$mode=="bicycle",]
-trip_motorcylce <- trip[trip$mode=="motcycle",]
+trip_motorcycle <- trip[trip$mode=="motorcycle",]
 trip_bus <- trip[trip$mode == "bus",]
 trip_car <- trip[trip$mode == "car",]
 
+trip_2 <- rbind(bangalore, delhi, vizag_2, sao_paulo_2)
+trip_2_walk <- filter(trip_2, mode=="walk")
+trip_2_bicycle <- trip[trip_2$mode=="bicycle",]
+trip_2_motorcycle <- trip[trip_2$mode=="motorcycle",]
+trip_2_bus <- trip[trip_2$mode == "bus",]
+trip_2_car <- trip[trip_2$mode == "car",]
+
 ```
 
 
+### 1.1 Walk to/from PT box plots (Sao Paulo)
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+walk_pt <- sao_paulo %>% 
+  select(walk_to_pt, walk_from_pt) %>% 
+  mutate(walk_to_from_pt = (walk_to_pt + walk_from_pt)) %>% 
+  filter(walk_to_from_pt > 0)
 
-```{r}
-boxplot(speed~mode, data = droplevels(trip), ylim=c(0,40))
+walk_pt <- melt(walk_pt)
+
+#View(walk_pt)
+
+boxplot(value~variable, data = droplevels(walk_pt), ylim=c(0, 20))
 ```
 
-## Walking
-```{r}
+### 1.2 Walk to/from PT (Sao Paulo) - histogram shows skewedness
+```{r echo = FALSE, message=FALSE, warning=FALSE}
+walk_pt <- sao_paulo %>% 
+  select(walk_to_pt, walk_from_pt) %>% 
+  mutate(walk_to_from_pt = (walk_to_pt + walk_from_pt)) %>% 
+  filter(walk_to_from_pt > 0)
+
+hist(walk_pt$walk_to_from_pt)
+
+```
+
+### 1.3 Walk to/from PT overall (Sao Paulo)
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+walk_pt <- sao_paulo %>% 
+  select(walk_to_pt, walk_from_pt) %>% 
+  mutate(walk_to_from_pt = (walk_to_pt + walk_from_pt)) %>% 
+  filter(walk_to_from_pt > 0) 
+
+summary(walk_pt$walk_to_from_pt) 
+```
+
+### 1.4 Walk to mode by mode (Sao Paulo) since all modes apart from walking had some walking component. 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+sao_paulo %>% 
+  mutate(walk_to_from_pt = (walk_to_pt + walk_from_pt)) %>% 
+  filter(walk_to_from_pt>0) %>% 
+  group_by(trip_mode) %>% 
+  summarise(median_walk_time = median(walk_to_from_pt)) %>% 
+  kable()
+```
+We applied the median walk time for bus to the Vizag dataset where we had only trip level data. It did not seem logical to apply walk to to all other modes because of the small value and because they are not likely to be captures as separate stage in trip survey.
+
+
+## 2. We looked at the speeds for the different modes.
+
+### 2.1 Walking speed did not vary much by city (Bangalore stood out though). 
+We agreed to set the same default waking speeds for all cities.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 boxplot(speed~mode+city, data = droplevels(trip_walk), ylim=c(0, 10))
 ```
-## Walking by sex and age
-```{r}
+Walking speeds by sex and age only showed slight variations, and mostly so in Vizag. The variation by age was least pronounced, so our default walking speeds was split by sex.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 trip_walk %>% 
   filter(!is.na(sex) & !is.na(age_group)) %>% 
   ggplot(aes(x = city, y = speed,  fill = sex))+
@@ -105,13 +193,13 @@ trip_walk %>%
 ```
 
 
-## Cycling
-```{r}
+### 2.2 Cycling speeds did not seem to vary much across the cities
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 boxplot(speed~mode+city, data = droplevels(trip_bicycle), ylim=c(0, 20))
 ```
 
-## Cycling by sex and age
-```{r}
+Cycling speed by sex and age showed variation in sex but not much by age, so we split default cycling speeds by sex.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 trip_bicycle %>% 
   filter(!is.na(sex) & !is.na(age_group)) %>% 
   ggplot(aes(x = city, y = speed,  fill = sex))+
@@ -124,33 +212,70 @@ trip_bicycle %>%
 ```
 
 
-## Motorcycling
-```{r}
-boxplot(speed~mode+city, data = droplevels(trip_bicycle), ylim=c(0, 20))
+### 2.3 Motorcycle speed
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+boxplot(speed~mode+city, data = droplevels(trip_motorcycle), ylim=c(0, 30))
 ```
 
-
-## Car
-```{r}
+## 2.4 Car speeds
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 boxplot(speed~mode+city, data = droplevels(trip_car), ylim=c(0, 40))
 ```
 
-## Bus
-```{r}
+## 2.5 Bus speeds
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 boxplot(speed~mode+city, data = droplevels(trip_bus), ylim=c(0, 40))
 ```
 
 
-## Walk to/from PT
-```{r}
-walk_pt <- sao_paulo %>% 
-  select(walk_to_pt, walk_from_pt) %>% 
-  mutate(walk_to_from_pt = (walk_to_pt + walk_from_pt)) %>% 
-  filter(walk_to_from_pt > 0)
+## 3. Conclusions on default speeds
+- Walking: use median speeds for all cities split by sex 
+- Cycling: Use median speeds split by sex
+- Cycled Rickshaw should be 2/3 the speed of bicycle
+- Motorcycle Rickshaw should be 2/3 the speed of motorcycle
+- Van should be the same as bus
+- Others:  use same median speeds for both sex and age
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+a <- trip_2 %>% 
+  filter(!is.na(sex)) %>% 
+  filter(mode == "bicycle" | mode == "walk") %>% 
+  group_by(mode, sex) %>% 
+  summarise(mode_speed = median(speed))
 
-walk_pt <- melt(walk_pt)
+b <-  trip_2 %>% 
+  filter(!(mode == "bicycle" | mode == "walk")) %>% 
+  group_by(mode) %>% 
+  summarise(mode_speed = median(speed), sex = "All")
 
-boxplot(value~variable, data = droplevels(walk_pt), ylim=c(0, 20))
+kable(rbind(a, b))
 ```
+
+### Adjsted speeds
+
+default_speeds <- list(
+    bus=10.8,
+    bus_driver=10.8,
+    minibus=10.8,
+    minibus_driver=10.8,
+    car=11.3,
+    taxi=11.3,
+    pedestrian_male=4,
+    pedestrian_female=3,
+    walk_to_pt=10,
+    cycle_male=8,
+    cycle_female=6,
+    motorcycle=12,
+    truck=10.8,
+    van=10.8,
+    subway=12.9,
+    rail=13.5,
+    auto_rickshaw=8,
+    shared_auto=11.3,
+    shared_taxi=11.3,
+    cycle_rickshaw=5.3
+  )
+
+
+
 
