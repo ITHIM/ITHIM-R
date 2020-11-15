@@ -51,7 +51,7 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   ############################
   ## (2) PA PATHWAY
   # Calculate total mMETs
-  mmets_pp <- total_mmet(trip_scen_sets)#3
+  mmets_pp <- total_mmet(trip_scen_sets)
   trip_scen_sets <- NULL
   
   ############################

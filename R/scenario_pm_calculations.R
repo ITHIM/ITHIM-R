@@ -14,8 +14,6 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   # concentration contributed by non-transport share (remains constant across the scenarios)
   non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
   
-  # browser()
-  
   ## adding in travel not covered in the synthetic trip set, based on distances travelled relative to car, set in VEHICLE_INVENTORY
   emission_dist <- dist
   
@@ -38,8 +36,13 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   vent_rates <- data.frame(stage_mode=VEHICLE_INVENTORY$stage_mode,stringsAsFactors = F) 
   vent_rates$vent_rate <- BASE_LEVEL_INHALATION_RATE # L / min
   vent_rates$vent_rate[vent_rates$stage_mode=='cycle'] <- BASE_LEVEL_INHALATION_RATE + MMET_CYCLING/2.0
-  vent_rates$stage_mode[vent_rates$stage_mode=='walk_to_pt'] <- 'pedestrian'
+  # Remove walk_to_pt if pedestrian already exists
+  if (any(vent_rates$stage_mode == 'pedestrian'))
+    vent_rates <- vent_rates %>% filter(stage_mode != 'walk_to_pt')
   vent_rates$vent_rate[vent_rates$stage_mode=='pedestrian'] <- BASE_LEVEL_INHALATION_RATE + MMET_WALKING/2.0
+  
+  ## Keep only distinct modes
+  vent_rates <- distinct_at(vent_rates, vars(stage_mode), .keep_all = T)
   
   ##RJ rewriting exposure ratio as function of ambient PM2.5, as in Goel et al 2015
   ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE (10), CLOSED_WINDOW_PM_RATIO (0.5), CLOSED_WINDOW_RATIO (0.5), ROAD_RATIO_MAX (3.216), ROAD_RATIO_SLOPE (0.379)
