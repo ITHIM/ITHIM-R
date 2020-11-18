@@ -191,24 +191,24 @@ run_ithim_setup <- function(seed = 1,
   
   ## default speeds that can be edited by input. 
   default_speeds <- list(
-    bus=15,
-    bus_driver=15,
-    minibus=15,
-    minibus_driver=15,
-    car=21,
-    taxi=21,
-    pedestrian=4.8,
-    walk_to_pt=4.8,
-    cycle=14.5,
-    motorcycle=25,
-    truck=21,
-    van=15,
-    subway=28,
-    rail=35,
-    auto_rickshaw=22,
-    shared_auto=22,
-    shared_taxi=21,
-    cycle_rickshaw=10
+    bus=10.8,
+    bus_driver=10.8,
+    minibus=10.8,
+    minibus_driver=10.8,
+    car=11.3,
+    taxi=11.3,
+    pedestrian=3.5,
+    walk_to_pt=3.5,
+    cycle=7,
+    motorcycle=12,
+    truck=10.8,
+    van=10.8,
+    subway=12.9,
+    rail=13.5,
+    auto_rickshaw=8,
+    shared_auto=11.3,
+    shared_taxi=11.3,
+    cycle_rickshaw=5.3
   )
   if(!is.null(speeds)){
     for(m in names(speeds))
