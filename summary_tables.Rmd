@@ -440,6 +440,11 @@ Case study specific duration tables for baseline and five scenarios (per day in 
 
 ```{r trip_dur = "asis"}
 
+trip_dur <- list()
+
+l <- list()
+
+
 for(city in cities){
   count_people <- nrow(io[[city]]$synth_pop)
   td <- io[[city]]$dur %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
@@ -449,6 +454,20 @@ for(city in cities){
   x[!is.na(x)]
   td <- td[order(x),]
   row.names(td) <- NULL
+  
+  l[[city]] <- td
+  
+  td1 <- td
+  
+  if (length(trip_dur) == 0){
+    trip_dur <- td1 %>% dplyr::select(stage_mode)
+  }
+  
+  td1 <- td1 %>% dplyr::select(stage_mode, Baseline)
+  
+  names(td1)[2] <- city
+
+  trip_dur <- inner_join(trip_dur, td1, by = 'stage_mode')
   
   print(kable(td, caption = paste("Duration table (mins) per day for ", city, "( ", count_people, " ) per person (everyone)")))
   
@@ -468,3 +487,11 @@ for(city in cities){
 
 ```
 
+### Baseline average duration (mins) per day for all case studies
+```{r}
+
+trip_dur <- trip_dur %>% janitor::adorn_totals('row')
+
+kable(trip_dur, caption = "Avg. duration per person (mins) per day across all case studies")
+
+```
