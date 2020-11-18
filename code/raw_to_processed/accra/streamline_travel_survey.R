@@ -30,10 +30,10 @@ raw_trip_set$trip_duration <- NULL
 # Convert participant_id to integer
 raw_trip_set$participant_id <- as.integer(as.factor(raw_trip_set$participant_id))
 
-## Add walk to bus stages to all bus trips
-walk_to_bus <- raw_trip_set[raw_trip_set$stage_mode %in% c('bus', 'train'),]
-walk_to_bus$stage_mode <- "walk_to_pt"
-walk_to_bus$stage_duration <- 10.55
+# ## Add walk to bus stages to all bus trips
+# walk_to_bus <- raw_trip_set[raw_trip_set$stage_mode %in% c('bus', 'train'),]
+# walk_to_bus$stage_mode <- "pedestrian"
+# walk_to_bus$stage_duration <- 10.55
 
 # Add walk to bus stage
 raw_trip_set <- rbind(raw_trip_set, walk_to_bus)
@@ -45,26 +45,30 @@ raw_trip_set <- subset(raw_trip_set, is.na(trip_mode) | trip_mode !='other')
 raw_trip_set$stage_mode[!is.na(raw_trip_set$stage_mode) & raw_trip_set$stage_mode == 'other'][1:14] <- 'motorcycle'
 raw_trip_set <- subset(raw_trip_set, is.na(stage_mode) | stage_mode !='other')
 
-## default speeds from ITHIM-R model
+source("code/producing_trips_rd/used_functions.R")
+
+# Standardized travel modes
+raw_trip_set <- standardize_modes(raw_trip_set, mode = c('stage', 'trip'))
+
 default_speeds <- list(
-  bus=15,
-  bus_driver=15,
-  minibus=15,
-  minibus_driver=15,
-  car=21,
-  taxi=21,
-  walking=4.8,
-  walk_to_pt=4.8,
-  bicycle=14.5,
-  motorcycle=25,
-  truck=21,
-  van=15,
-  subway=28,
-  train=35,
-  auto_rickshaw=22,
-  shared_auto=22,
-  shared_taxi=21,
-  cycle_rickshaw=10
+  bus=10.8,
+  bus_driver=10.8,
+  minibus=10.8,
+  minibus_driver=10.8,
+  car=11.3,
+  taxi=11.3,
+  pedestrian=3.5,
+  walk_to_pt=3.5,
+  cycle=7,
+  motorcycle=12,
+  truck=10.8,
+  van=10.8,
+  subway=12.9,
+  rail=13.5,
+  auto_rickshaw=8,
+  shared_auto=11.3,
+  shared_taxi=11.3,
+  cycle_rickshaw=5.3
 )
 
 # Create travel modes with all default speeds
