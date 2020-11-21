@@ -513,7 +513,7 @@ van
 <li>Cycling: Use median speeds split by sex</li>
 <li>Cycled Rickshaw should be 2/3 the speed of bicycle</li>
 <li>Motorcycle Rickshaw should be 2/3 the speed of motorcycle</li>
-<li>Van should be the same as bus</li>
+<li>Van should be the same as car</li>
 <li>Others: use same median speeds for both sex and age</li>
 </ul>
 <table>
@@ -678,7 +678,122 @@ All
 </table>
 <div id="adjsted-speeds" class="section level3">
 <h3>Adjsted speeds</h3>
-<p>default_speeds &lt;- list( bus=10.8, bus_driver=10.8, minibus=10.8, minibus_driver=10.8, car=11.3, taxi=11.3, pedestrian_male=4, pedestrian_female=3, walk_to_pt=10, cycle_male=8, cycle_female=6, motorcycle=12, truck=10.8, van=10.8, subway=12.9, rail=13.5, auto_rickshaw=8, shared_auto=11.3, shared_taxi=11.3, cycle_rickshaw=5.3 )</p>
+<p>default_speeds &lt;- list( bus=10.8, bus_driver=10.8, minibus=10.8, minibus_driver=10.8, car=11.3, taxi=11.3, pedestrian_male=4, pedestrian_female=3, walk_to_pt=10, cycle_male=8, cycle_female=6, motorcycle=12, truck=10.8, van=11.3, subway=12.9, rail=13.5, auto_rickshaw=8, shared_auto=11.3, shared_taxi=11.3, cycle_rickshaw=5.3 )</p>
+</div>
+<div id="use-mean-of-median-speeds-instead-of-pooled-medians-to-get-default-speeds." class="section level3">
+<h3>Use mean of median speeds instead of pooled medians to get default speeds.</h3>
+<p>Current work stream does not account for males and females, so we can keep that differentiation for later.</p>
+<pre class="r"><code>trip_2 %&gt;% 
+  group_by(city, mode) %&gt;% 
+  summarise(median_speed = median(speed)) %&gt;% 
+  group_by(mode) %&gt;% 
+  summarise(mean_median = mean(median_speed)) %&gt;% 
+  kable()</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;city&#39; (override with `.groups` argument)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+mode
+</th>
+<th style="text-align:right;">
+mean_median
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+bicycle
+</td>
+<td style="text-align:right;">
+6.717500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bus
+</td>
+<td style="text-align:right;">
+10.889957
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+car
+</td>
+<td style="text-align:right;">
+13.572292
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+metro
+</td>
+<td style="text-align:right;">
+16.380700
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+motorcycle
+</td>
+<td style="text-align:right;">
+13.668542
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+other
+</td>
+<td style="text-align:right;">
+14.692825
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rickshaw
+</td>
+<td style="text-align:right;">
+7.333333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+taxi
+</td>
+<td style="text-align:right;">
+8.742857
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+train
+</td>
+<td style="text-align:right;">
+20.107762
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+van
+</td>
+<td style="text-align:right;">
+6.990000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+walk
+</td>
+<td style="text-align:right;">
+3.097000
+</td>
+</tr>
+</tbody>
+</table>
+<p>default_speeds &lt;- list( bus=11, bus_driver=11, minibus=11, minibus_driver=11, car=14, taxi=9, pedestrian=3, walk_to_pt=10, cycle=7, motorcycle=14, truck=11, van=14, subway=16, rail=20, auto_rickshaw=9, shared_auto=14, shared_taxi=9, cycle_rickshaw=5 )</p>
 </div>
 </div>
 
