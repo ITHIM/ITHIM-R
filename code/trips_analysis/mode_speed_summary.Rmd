@@ -233,7 +233,7 @@ boxplot(speed~mode+city, data = droplevels(trip_bus), ylim=c(0, 40))
 - Cycling: Use median speeds split by sex
 - Cycled Rickshaw should be 2/3 the speed of bicycle
 - Motorcycle Rickshaw should be 2/3 the speed of motorcycle
-- Van should be the same as bus
+- Van should be the same as car
 - Others:  use same median speeds for both sex and age
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
@@ -267,7 +267,7 @@ default_speeds <- list(
     cycle_female=6,
     motorcycle=12,
     truck=10.8,
-    van=10.8,
+    van=11.3,
     subway=12.9,
     rail=13.5,
     auto_rickshaw=8,
