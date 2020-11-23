@@ -85,17 +85,18 @@ trip <- read_csv('data/local/buenos_aires/buenos_aires_trip.csv')
 trip <- standardize_modes(trip, mode = c('stage', 'trip'))
 
 # Expand by household IDs
-rd <- expand_using_weights(trip, normalize_by = 20)
+# rd <- expand_using_weights(trip, normalize_by = 20)
+rd <- trip
 
-# Reduce filesize by slicing it to 10%
-rd <- slice_sample(rd, prop = 0.1)
+# # Reduce filesize by slicing it to 10%
+# rd <- slice_sample(rd, prop = 0.1)
 
 # Remove extra columns
 rd$X1 <- NULL
 
-rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, sep = "_"))))
+rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_"))))
 
-rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id,  sep = "_"))))
+rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id,  sep = "_"))))
 
 # Reorder and select columns
 rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration,  
