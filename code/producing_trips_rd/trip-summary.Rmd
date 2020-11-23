@@ -36,7 +36,7 @@ trip <- read_csv("../../data/local/belo_horizonte/belo_horizonte_trip.csv")
 quality_check(trip)
 trip_summary$Belo_Horizonte <- value
 
-trip <- read_csv("../../data/local/mexico/mexico_city_trip.csv")
+trip <- read_csv("../../data/local/mexico_city/mexico_city_trip.csv")
 quality_check(trip)
 trip_summary$Mexico <- value
 
@@ -48,7 +48,7 @@ trip <- read_csv("../../data/local/santiago/santiago_trip.csv")
 quality_check(trip)
 trip_summary$Santiago <- value
 
-trip <- read_csv("../../data/local/vizag/visakhapatnam_trip.csv")
+trip <- read_csv("../../data/local/vizag/vizag_trip.csv")
 quality_check(trip)
 trip_summary$Visakhapatnam <- value
 
