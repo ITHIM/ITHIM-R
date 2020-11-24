@@ -190,25 +190,24 @@ run_ithim_setup <- function(seed = 1,
   SUBWAY_PM_RATIO <<- 0.8
   
   ## default speeds that can be edited by input. 
-  default_speeds <- list(
-    bus=10.8,
-    bus_driver=10.8,
-    minibus=10.8,
-    minibus_driver=10.8,
-    car=11.3,
-    taxi=11.3,
-    pedestrian=3.5,
-    walk_to_pt=3.5,
-    cycle=7,
-    motorcycle=12,
-    truck=10.8,
-    van=10.8,
-    subway=12.9,
-    rail=13.5,
-    auto_rickshaw=8,
-    shared_auto=11.3,
-    shared_taxi=11.3,
-    cycle_rickshaw=5.3
+  default_speeds <- list( bus = 11, 
+                          bus_driver = 11, 
+                          minibus = 11, 
+                          minibus_driver = 11, 
+                          car = 14, 
+                          taxi = 9, 
+                          pedestrian = 3, 
+                          walk_to_pt = 3, 
+                          cycle = 7, 
+                          motorcycle = 14, 
+                          truck = 11, 
+                          van = 14, 
+                          subway = 16, 
+                          rail = 20, 
+                          auto_rickshaw = 9, 
+                          shared_auto = 14, 
+                          shared_taxi = 9, 
+                          cycle_rickshaw = 5 
   )
   if(!is.null(speeds)){
     for(m in names(speeds))
@@ -246,7 +245,7 @@ run_ithim_setup <- function(seed = 1,
       }
   }
   names(default_PM_emission_inventory) <- tolower(names(default_PM_emission_inventory))
-    
+  
   PM_EMISSION_INVENTORY <<- default_PM_emission_inventory
   cat('\n  PM 2.5 EMISSION INVENTORY \n\n',file=setup_call_summary_filename,append=T)
   for(i in 1:length(default_PM_emission_inventory)) {
