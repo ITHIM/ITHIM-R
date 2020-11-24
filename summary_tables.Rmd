@@ -95,11 +95,11 @@ kable(scen_prop, headings = "Scenario Proportions")
 
 |accra|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
-| pedestrian | 98.5|0.0|0.0 |
-| cycle | 0.5|1.5|0.4 |
-| car | 0.8|29.8|14.4 |
-| motorcycle | 0.0|0.1|1.0 |
-| bus | 0.0|60.0|74.0 |
+| pedestrian | 95.6|37.9|2.5 |
+| cycle | 0.6|0.9|0.3 |
+| car | 3.2|18.1|10.0 |
+| motorcycle | 0.0|0.1|1.1 |
+| bus | 0.0|29.7|80.5 |
 
 |bangalore|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
@@ -111,35 +111,35 @@ kable(scen_prop, headings = "Scenario Proportions")
 
 |belo_horizonte|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
-| pedestrian | 91.7|36.7|0.6 |
-| cycle | 0.4|3.7|1.0 |
-| car | 7.5|47.2|49.9 |
-| motorcycle | 0.2|6.7|7.2 |
-| bus | 0.1|4.8|37.5 |
+| pedestrian | 89.2|8.7|0.3 |
+| cycle | 1.6|2.7|0.2 |
+| car | 7.3|65.6|47.1 |
+| motorcycle | 1.3|10.1|5.3 |
+| bus | 0.4|11.1|43.1 |
 
 |bogota|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
-| pedestrian | 90.0|26.8|2.3 |
-| cycle | 4.5|14.8|4.1 |
-| car | 1.5|15.0|21.0 |
-| motorcycle | 0.4|5.5|6.9 |
-| bus | 3.1|33.5|61.0 |
+| pedestrian | 80.8|11.1|1.0 |
+| cycle | 7.9|11.7|2.1 |
+| car | 3.2|18.9|17.7 |
+| motorcycle | 1.4|8.0|6.4 |
+| bus | 4.9|43.2|70.1 |
 
 |buenos_aires|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
-| pedestrian | 96.6|34.2|0.1 |
-| cycle | 2.3|8.3|1.0 |
-| car | 0.5|24.4|21.8 |
-| motorcycle | 0.0|1.9|1.2 |
-| bus | 0.6|27.8|48.2 |
+| pedestrian | 79.7|3.0|0.1 |
+| cycle | 8.0|3.9|0.3 |
+| car | 6.2|35.0|21.8 |
+| motorcycle | 0.6|2.8|1.3 |
+| bus | 3.3|49.2|50.5 |
 
 |cape_town|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
-| pedestrian | 88.5|23.3|2.0 |
-| cycle | 0.0|0.4|0.3 |
-| car | 9.4|46.1|47.3 |
-| motorcycle | 0.0|0.3|0.6 |
-| bus | 2.0|27.5|36.5 |
+| pedestrian | 84.1|5.3|1.9 |
+| cycle | 0.2|0.5|0.1 |
+| car | 8.0|55.6|48.3 |
+| motorcycle | 0.0|0.7|0.4 |
+| bus | 6.9|34.8|33.3 |
 
 |delhi|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
@@ -151,19 +151,19 @@ kable(scen_prop, headings = "Scenario Proportions")
 
 |mexico_city|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
-| pedestrian | 96.0|37.7|0.3 |
-| cycle | 0.8|6.4|0.7 |
-| car | 2.3|21.8|16.7 |
-| motorcycle | 0.0|2.7|1.1 |
-| bus | 0.4|24.3|58.0 |
+| pedestrian | 90.2|7.4|0.1 |
+| cycle | 3.3|4.6|0.3 |
+| car | 2.1|33.1|30.2 |
+| motorcycle | 0.6|4.5|1.1 |
+| bus | 1.6|37.0|49.1 |
 
 |santiago|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
-| pedestrian | 88.5|23.7|0.2 |
-| cycle | 3.5|8.8|1.9 |
-| car | 7.2|49.5|32.3 |
-| motorcycle | 0.1|1.6|1.0 |
-| bus | 0.3|10.3|29.8 |
+| pedestrian | 83.9|4.0|0.1 |
+| cycle | 6.4|6.3|0.4 |
+| car | 7.5|54.7|29.8 |
+| motorcycle | 0.2|1.8|0.9 |
+| bus | 0.6|21.2|30.3 |
 
 |sao_paulo|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
@@ -175,11 +175,11 @@ kable(scen_prop, headings = "Scenario Proportions")
 
 |vizag|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
-| pedestrian | 84.1|23.1|0.1 |
-| cycle | 4.0|9.0|2.4 |
-| car | 0.6|2.9|2.8 |
-| motorcycle | 9.9|30.1|29.2 |
-| bus | 1.3|34.8|65.4 |
+| pedestrian | 86.2|19.7|0.1 |
+| cycle | 2.6|6.6|2.1 |
+| car | 0.6|2.4|2.8 |
+| motorcycle | 6.9|24.3|24.6 |
+| bus | 0.8|26.9|55.5 |
 
 
 ## Trip proportion
