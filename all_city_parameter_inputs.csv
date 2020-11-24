@@ -1,6 +1,6 @@
 parameter,detail,accra,sao_paulo,delhi,bangalore,vizag,belo_horizonte,bogota,santiago,mexico_city,buenos_aires,cape_town
-speeds,subway,,,32,32,32,,,,,,32
-,cycle,,,15,15,15,,,,,,15
+speeds,subway,,,,,,,,,,,
+,cycle,,,,,,,,,,,
 PM_emission_inventories,motorcycle,,4,1409,817,101,30.6,6.67,0.00565,0.00282,0.017,0.0491
 ,car,,4,2214,1107,104,5.06,267.38,0.708,0.861,0.66,0.0885
 ,bus_driver,,32,644,1255,62,34.17,65.18,0.0728,0.0596,0.081,0.209
