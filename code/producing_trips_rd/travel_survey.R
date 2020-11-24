@@ -1744,21 +1744,21 @@ write.csv(trip, "data/local/bogota/bogota_trip.csv")
 trip <- read_csv('data/local/bogota/bogota_trip.csv')
 
 # Standardized travel modes
-trip <- standardize_modes(trip, mode = c('stage', 'trip'))
+rd <- standardize_modes(trip, mode = c('stage', 'trip'))
 
-rd <- trip
+# rd <- trip
 
 # Remove extra columns
 rd$X1 <- NULL
 
 rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_"))))
 
-rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id,  sep = "_"))))
+rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id, sep = "_"))))
 
 # Reorder and select columns
 rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_duration, stage_id, stage_mode)
 # 
-write_csv(rd1, 'inst/extdata/local/bogota/trips_bogota.csv')
+write_csv(rd, 'inst/extdata/local/bogota/trips_bogota.csv')
 
 #quality_check(trip)
 #trip %>% filter(!is.na(trip_id) & is.na(trip_mode)) %>% View()
