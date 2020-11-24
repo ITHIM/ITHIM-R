@@ -1,17 +1,15 @@
 library(ithimr)
 rm(list=ls())
-cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
-            'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
-
+# options(warn=2)  # treat warnings as errors
+cities <- c('bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
+             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
 # cities <- c('bogota')
-
 min_age <- 15
 max_age <- 69
 
 all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F)
 
-#all_inputs$cape_town <- all_inputs$accra
-#all_inputs$vizag <- all_inputs$sao_paulo
+# all_inputs$cape_town_lng <- all_inputs$cape_town
 
 parameter_names <- all_inputs$parameter
 parameter_starts <- which(parameter_names!='')
