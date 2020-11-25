@@ -1989,7 +1989,7 @@ rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_i
 rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id, sep = "_"))))
 
 # Reorder and select columns
-rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_distance, stage_mode, stage_duration, stage_distance)
+rd1 <- rd %>% dplyr::select(participant_id, age, sex, trip_id, trip_mode, trip_mode, trip_duration)
 
 # Write as accra trip dataset
 write_csv(rd1, 'inst/extdata/local/accra/trips_accra.csv')
