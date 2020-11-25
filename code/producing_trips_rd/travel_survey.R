@@ -1875,6 +1875,9 @@ source("code/producing_trips_rd/used_functions.R")
 # read data
 time_use_0 <- haven::read_spss("V://Studies//MOVED//HealthImpact//Data//TIGTHAT//Accra//Accra data and microdata//Time Use Survey//Data//GTUS 2009 24 Hours Individual Diary.sav")
 
+time_use_0 <- as_factor(time_use_0)
+
+time_use_0 %>% mutate_if(is.factor, as.character) -> time_use_0
 #lookup
 trip_mode <- data.frame(distinct(time_use_0, ActLoc2), 
                         trip_mode = c(NA, "walk","bus","taxi",  "bicycle",  "car", 
@@ -1883,7 +1886,7 @@ trip_mode <- data.frame(distinct(time_use_0, ActLoc2),
 
 dat <- 
     time_use_0 %>% 
-    filter(region == "Greater Accra", URBRUR == "Urban") %>% 
+    dplyr::filter(region == "Greater Accra" & URBRUR == "Urban") %>% 
     rename(sex = B102,
            age = B105,
            cluster_id = EANum,
@@ -1898,8 +1901,6 @@ dat <-
         Same = "notSame")
 
 dat$ActCode1 <- ifelse(grepl("Work", dat$ActCode1), "work", ifelse(grepl("Learning",dat$ActCode1), "school", "other"))
-
-
 
 levels(dat$ActLoc2) <- c(levels(dat$ActLoc2), "missing")
 dat$ActLoc2[which(is.na(dat$ActLoc2))] <- "missing"
