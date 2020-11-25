@@ -6,6 +6,7 @@ output:
     toc: true
     toc_depth: 5
     toc_float: true
+    number_sections: true
 ---
 
 ```{r setup, include=FALSE}
@@ -32,6 +33,7 @@ library(summarytools)
 library(knitr)
 library(summarytools)
 library(tidyverse)
+library(gt)
 })
 
 st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
@@ -65,7 +67,7 @@ plot_mmets <- F
 
 ```
 
-## Scenario definition
+## Scenario definition 
 Table displays highest propensity for each distance category, for a given mode.
 
 Table displays highest propensity (%) for each distance category, for a given mode.
@@ -257,7 +259,7 @@ trip_dist <- list()
 for(city in cities){
   
   count_people <- nrow(io[[city]]$synth_pop)
-  td <- io[[city]]$dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  td <- io[[city]]$dist %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   colnames(td)[3:7] <- rownames(scen_prop)
   
   x <- match(td$stage_mode, trip_order$mode)
@@ -282,7 +284,7 @@ for(city in cities){
   
   
   count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
-  td <- io[[city]]$dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  td <- io[[city]]$dist %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   colnames(td)[3:7] <- rownames(scen_prop)
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
@@ -313,13 +315,11 @@ Case study specific distance tables for baseline and five scenarios
 
 bl_td <- list()
 
-require(gt)
-
 for(city in cities){
   
   print(city)
   count_people <- round(sum(io[[city]]$demographic$population))
-  td <- io[[city]]$true_dist %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, list(~round((.) * 365, 3)))
+  td <- io[[city]]$true_dist %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, list(~round((.) * 365, 3)))
   colnames(td)[3:7] <- rownames(scen_prop)
   
   # 
@@ -383,7 +383,7 @@ print(kable(td, caption = paste("Distance table (km)")))
 
 for (city in cities){
   
-  df <- io[[city]]$trip_scen_sets %>% filter(scenario == 'Baseline') %>% distinct(trip_id, .keep_all = T) %>% group_by(trip_distance_cat) %>% summarise(sum_dist = sum(trip_distance), n_vals = dplyr::n(), prop = round(n_vals / nrow(.) * 100, 1))
+  df <- io[[city]]$trip_scen_sets %>% dplyr::filter(scenario == 'Baseline') %>% distinct(trip_id, .keep_all = T) %>% group_by(trip_distance_cat) %>% summarise(sum_dist = sum(trip_distance), n_vals = dplyr::n(), prop = round(n_vals / nrow(.) * 100, 1))
   print(kable(df, caption = paste("Distance by mode by for  ", city)))
 }
 
@@ -445,7 +445,7 @@ l <- list()
 
 for(city in cities){
   count_people <- nrow(io[[city]]$synth_pop)
-  td <- io[[city]]$dur %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  td <- io[[city]]$dur %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   colnames(td)[3:7] <- rownames(scen_prop)
   
   x <- match(td$stage_mode, trip_order$mode)
@@ -471,7 +471,7 @@ for(city in cities){
   
   
   count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
-  td <- io[[city]]$dur %>% filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  td <- io[[city]]$dur %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   colnames(td)[3:7] <- rownames(scen_prop)
   
   x <- match(td$stage_mode, trip_order$mode)
