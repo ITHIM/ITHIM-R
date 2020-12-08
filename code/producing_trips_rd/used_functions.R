@@ -41,6 +41,7 @@ trip_summary <- data.frame(row.names =       c("Year of survey",
                                                "Trip per capita (adults)",
                                                "Trip duration (mins)",
                                                "travel time per capita",
+                                               "travel time per capita (adults)",
                                                "Mean trip duration",
                                                "Median trip duration",
                                                "1st Quart of trip duration",
@@ -233,6 +234,16 @@ quality_check <- function(trip){
              count(trip, cluster_id, household_id, participant_id) %>% 
              nrow
         
+         travel_time_per_adult <-
+             trip %>% 
+             filter(age>17) %>% 
+             count(cluster_id, household_id, participant_id, trip_id, trip_duration) %$% 
+             sum(trip_duration, na.rm = T) / 
+             trip %>% 
+             filter(age>17) %>% 
+             count(cluster_id, household_id, participant_id) %>% 
+             nrow
+         
         average_trip_duration <-
             trip %>% 
             count(cluster_id, household_id, participant_id, trip_id, trip_duration) %$% 
@@ -284,6 +295,7 @@ quality_check <- function(trip){
                    round(trip_per_capita_adult,1),
                    "",
                    round(travel_time_per_person),
+                   round(travel_time_per_adult),
                    round(average_trip_duration[["Mean"]],1),
                    round(average_trip_duration[["Median"]],1),
                    round(average_trip_duration[["1st Qu."]],1),
