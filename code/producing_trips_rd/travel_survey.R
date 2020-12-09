@@ -40,7 +40,7 @@ stage <- stage_0 %>%
            average_mode_time = ifelse(DURAMINU == 99 & n > 1 & "walk" %in% levels(as.factor(stage_mode)) & 
                                           stage_mode == "walk", 1,
                                       ifelse(DURAMINU == 99 & n > 1 & "walk" %in% levels(as.factor(stage_mode)) & 
-                                                 stage_mode != "walk",6,average_mode_time))) %>% 
+                                                 stage_mode != "walk",5,average_mode_time))) %>% 
     
     left_join(group_by(.,IDV) %>% summarise(sum_average =sum(average_mode_time))) %>% 
     mutate(stage_duration = ifelse(is.na(stage_duration), 
@@ -70,11 +70,17 @@ trip <- person %>%
            trip_mode, trip_duration, stage_id,
            stage_mode, stage_duration)
 
-
-trip$year <- 2012
-trip$gdppc2014 <- 23606 
-trip$population2014 <- 13381800    
-
+trip$meta_data <- NA
+trip$meta_data[1] <- 13381800
+trip$meta_data[2] <- 23606 
+trip$meta_data[3] <- "Travel Survey"
+trip$meta_data[4] <- 2012
+trip$meta_data[5] <- "1 day"
+trip$meta_data[6] <- "Yes" #Stage level data available
+trip$meta_data[7] <- "All purpose"#Overall trip purpose
+trip$meta_data[8] <- "Yes" # Short walks to PT
+trip$meta_data[9] <- "No" # Distance available
+trip$meta_data[10] <- "" # missing modes
 
 #
 write.csv(trip, "data/local/buenos_aires/buenos_aires_trip.csv")
@@ -1023,10 +1029,18 @@ trip <- setdiff(trip_0, no_trip) %>%
            walk_from_pt = ANDA_D) %>% 
   select(cluster_id, household_id, participant_id, participant_wt, age, sex, trip_id, trip_purpose, trip_mode, trip_duration,walk_to_pt, walk_from_pt, walk_pt, trip_distance, stage_id, stage_mode)
 
+trip$meta_data <- NA
+trip$meta_data[1] <- 20847500
+trip$meta_data[2] <- 20650 
+trip$meta_data[3] <- "Travel Survey"
+trip$meta_data[4] <- 2012
+trip$meta_data[5] <- "1 day"
+trip$meta_data[6] <- "Yes" #Stage level data available
+trip$meta_data[7] <- "All purpose"#Overall trip purpose
+trip$meta_data[8] <- "Yes" # Short walks to PT
+trip$meta_data[9] <- "Yes" # Distance available
+trip$meta_data[10] <- "" # missing modes
 
-trip$year <- 2012
-trip$gdppc2014 <- 20650
-trip$population2014 <- 20847500
 
 trip <- 
   trip %>% 
@@ -1101,11 +1115,20 @@ trip <- trip_0 %>%
 trip <- person %>% 
     left_join(trip) %>%
     rename(age= IDADE, trip_id = Viagem)
-#quality_check(trip)
 
-trip$year <- 2012
-trip$gdppc2014 <- 15134
-trip$population2014 <-5595800 
+trip$meta_data <- NA
+trip$meta_data[1] <- 5595800
+trip$meta_data[2] <- 15134 
+trip$meta_data[3] <- "Travel Survey"
+trip$meta_data[4] <- 2012
+trip$meta_data[5] <- "1 day"
+trip$meta_data[6] <- "No" #Stage level data available
+trip$meta_data[7] <- "All purpose"#Overall trip purpose
+trip$meta_data[8] <- "No" # Short walks to PT
+trip$meta_data[9] <- "No" # Distance available
+trip$meta_data[10] <- "rickshaw" # missing modes
+
+#quality_check(trip)
 
 write.csv(trip, "data/local/belo_horizonte/belo_horizonte_trip.csv")
 
@@ -1277,10 +1300,20 @@ trip_2 <-
 santiago <- bind_rows(trip_2, trip_1, .id =NULL)
 
 
+
 trip <- santiago
-trip$year <- 2012
-trip$gdppc2014 <- 23929
-trip$population2014 <- 7164400
+trip$meta_data <- NA
+trip$meta_data[1] <- 7164400
+trip$meta_data[2] <- 23929 
+trip$meta_data[3] <- "Travel Survey"
+trip$meta_data[4] <- 2012
+trip$meta_data[5] <- "1 day"
+trip$meta_data[6] <- "Yes" #Stage level data available
+trip$meta_data[7] <- "All purpose"#Overall trip purpose
+trip$meta_data[8] <- "Yes" # Short walks to PT
+trip$meta_data[9] <- "No" # Distance available
+trip$meta_data[10] <- "train" # missing modes
+
     
 #quality_check(santiago)
 write.csv(trip, "data/local/santiago/santiago_trip.csv")
@@ -1739,9 +1772,17 @@ trip <-
     select(-trip_mode) %>% 
     left_join(trip_3) 
 
-trip$year <- "2015"
-trip$gdppc2014 <- 17497
-trip$population2014 <- 9135800
+trip$meta_data <- NA
+trip$meta_data[1] <- 9135800
+trip$meta_data[2] <- 17497 
+trip$meta_data[3] <- "Travel Survey"
+trip$meta_data[4] <- 2015
+trip$meta_data[5] <- "1 day"
+trip$meta_data[6] <- "Yes, but no stage duration" #Stage level data available
+trip$meta_data[7] <- "All purpose"#Overall trip purpose
+trip$meta_data[8] <- "Yes" # Short walks to PT
+trip$meta_data[9] <- "No" # Distance available
+trip$meta_data[10] <- "rickshaw" # missing modes
 
 write.csv(trip, "data/local/bogota/bogota_trip.csv")
 
@@ -1956,9 +1997,18 @@ trip <- bind_rows(trip, no_trip) %>%
 trip$trip_mode[which(!is.na(trip$trip_id) & is.na(trip$trip_mode))] <- "other"
 
 
-trip$year <- 2009
-trip$gdppc2014 <- 4000
-trip$population2014 <- 2242000
+trip$meta_data <- NA
+trip$meta_data[1] <- 2242000
+trip$meta_data[2] <- 4000
+trip$meta_data[3] <- "Time use"
+trip$meta_data[4] <- 2009
+trip$meta_data[5] <- "1 day"
+trip$meta_data[6] <- "implied" #Stage level data available
+trip$meta_data[7] <- "All purpose"#Overall trip purpose
+trip$meta_data[8] <- "??" # Short walks to PT
+trip$meta_data[9] <- "No" # Distance available
+trip$meta_data[10] <- "rickshaw, motorcycle" # missing modes
+
   
 write.csv(trip, "data/local/accra/accra_trip.csv")
 
@@ -2074,9 +2124,17 @@ trip <- person %>%
 #replace NA trip modes with other
 trip$trip_mode[which(!is.na(trip$trip_id) & is.na(trip$trip_mode) )] <- "other"
 
-trip$year <- 2014
-trip$gdppc2014 <- 12747
-trip$population2014 <- 23036600 
+trip$meta_data <- NA
+trip$meta_data[1] <- 23036600
+trip$meta_data[2] <- 12747
+trip$meta_data[3] <- "Travel Survey"
+trip$meta_data[4] <- 2014
+trip$meta_data[5] <- "1 day"
+trip$meta_data[6] <- "Yes, but no stage duration" #Stage level data available
+trip$meta_data[7] <- "All purpose"#Overall trip purpose
+trip$meta_data[8] <- "Yes" # Short walks to PT
+trip$meta_data[9] <- "No" # Distance available
+trip$meta_data[10] <- "rickshaw" # missing modes
   
 write.csv(trip, "data/local/delhi/delhi_trip.csv")
 
@@ -2246,9 +2304,19 @@ trip <-
     left_join(stage) %>% 
     select(-mode_speed)
 
-trip$year <- 2011
-trip$gdppc2014 <- 5051
-trip$population2014 <- 8971800
+
+trip$meta_data <- NA
+trip$meta_data[1] <- 8971800
+trip$meta_data[2] <- 5051
+trip$meta_data[3] <- "Travel Survey"
+trip$meta_data[4] <- 2011
+trip$meta_data[5] <- "1 day"
+trip$meta_data[6] <- "Yes" #Stage level data available
+trip$meta_data[7] <- "Mainly commute"#Overall trip purpose
+trip$meta_data[8] <- "Yes" # Short walks to PT
+trip$meta_data[9] <- "Yes" # Distance available
+trip$meta_data[10] <- "" # missing modes
+
 
 write_csv(trip, "data/local/bangalore/bangalore_trip.csv")
 
@@ -2300,9 +2368,18 @@ trip %<>%
          trip_wkly_frequency = wk_freq) %>% 
   select(cluster_id, household_id, participant_id,age, sex, trip_id,trip_mode, trip_duration, trip_distance,trip_wkly_frequency, trip_purpose) 
 
-trip$year <- 2011
-trip$gdppc2014 <- 23162
-trip$population2014 <- 1878000
+trip$meta_data <- NA
+trip$meta_data[1] <- 1878000
+trip$meta_data[2] <- 23162
+trip$meta_data[3] <- "Travel Survey"
+trip$meta_data[4] <- 2011
+trip$meta_data[5] <- "7 days"
+trip$meta_data[6] <- "No" #Stage level data available
+trip$meta_data[7] <- "All purpose"#Overall trip purpose
+trip$meta_data[8] <- "No" # Short walks to PT
+trip$meta_data[9] <- "Yes" # Distance available
+trip$meta_data[10] <- "" # missing modes
+
   
 write.csv(trip, "data/local/vizag/vizag_trip.csv")
 
@@ -2335,13 +2412,13 @@ rm(list =ls())
 source("code/producing_trips_rd/used_functions.R")
 
 #data
-person_0 <- read_csv('V://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//tsdem_eod2017//conjunto_de_datos//tsdem.csv')
-trip_0 <- read_csv('V://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//tviaje_eod2017//conjunto_de_datos//tviaje.csv')
-stage_0 <- read_csv('V://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//ttransporte_eod2017//conjunto_de_datos//ttransporte.csv')
+person_0 <- read_csv('J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//tsdem_eod2017//conjunto_de_datos//tsdem.csv')
+trip_0 <- read_csv('J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//tviaje_eod2017//conjunto_de_datos//tviaje.csv')
+stage_0 <- read_csv('J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//ttransporte_eod2017//conjunto_de_datos//ttransporte.csv')
 
 #lookups
-trip_purpose <- read_excel("V://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//lookup.xlsx",'trip_purpose')
-stage_mode <- read_excel("V://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//lookup.xlsx",'stage_mode')
+trip_purpose <- read_excel("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//lookup.xlsx",'trip_purpose')
+stage_mode <- read_excel("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//lookup.xlsx",'stage_mode')
 sex <- bind_cols(sex=c("Male", "Female"), sexo = 1:2)
 
 
@@ -2379,16 +2456,29 @@ stage <- stage_0 %>%
 #bind all datasets and retain only useful ones  
 mexico_city <- person %>% 
     left_join(trip) %>% 
-    left_join(stage) %>% 
+    left_join(stage) %>%
     rename(household_id = id_hog, participant_id = id_soc,participant_wt = factor,
-           trip_id = id_via, age = edad, stage_id = id_tra) 
+           trip_id = id_via, age = edad, stage_id = id_tra) %>% 
+  group_by(household_id, participant_id, trip_id, trip_mode) %>% 
+  mutate(trip_duration = sum(stage_duration, na.rm =T)) %>% 
+  ungroup()
 
 trip <- mexico_city
-trip$year <- 2017
-trip$gdppc2014 <- 19239
-trip$population2014 <-20976700 
+trip$meta_data <- NA
+trip$meta_data[1] <- 20976700
+trip$meta_data[2] <- 19239
+trip$meta_data[3] <- "Travel Survey"
+trip$meta_data[4] <- 2017
+trip$meta_data[5] <- "1 day"
+trip$meta_data[6] <- "Yes" #Stage level data available
+trip$meta_data[7] <- "All purpose"#Overall trip purpose
+trip$meta_data[8] <- "Yes" # Short walks to PT
+trip$meta_data[9] <- "No" # Distance available
+trip$meta_data[10] <- "" # missing modes
 
-#quality_check(mexico_city)
+
+
+#quality_check(trip)
 write.csv(trip, "data/local/mexico_city/mexico_city_trip.csv")
 
 ## Expand trip dataset using participant weight
@@ -2562,9 +2652,18 @@ trip <- trip[which(!is.na(trip$participant_id)),]
 
 
 ##add year of survey to trips
-trip$year <- 2013
-trip$gdppc2014 <- 14086
-trip$population2014 <-4178700 
+trip$meta_data <- NA
+trip$meta_data[1] <- 4178700
+trip$meta_data[2] <- 14086
+trip$meta_data[3] <- "Travel Survey"
+trip$meta_data[4] <- 2013
+trip$meta_data[5] <- "1 day"
+trip$meta_data[6] <- "Yes" #Stage level data available
+trip$meta_data[7] <- "All purpose"#Overall trip purpose
+trip$meta_data[8] <- "Yes" # Short walks to PT
+trip$meta_data[9] <- "No" # Distance available
+trip$meta_data[10] <- "rickshaw" # missing modes
+
 
 write.csv(trip, "data/local/cape_town/cape_town_trip.csv")
 
