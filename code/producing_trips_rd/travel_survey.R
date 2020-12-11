@@ -87,6 +87,10 @@ write.csv(trip, "data/local/buenos_aires/buenos_aires_trip.csv")
 
 trip <- read_csv('data/local/buenos_aires/buenos_aires_trip.csv')
 
+# Load helpful functions
+source("code/producing_trips_rd/used_functions.R")
+
+
 # Standardized travel modes
 trip <- standardize_modes(trip, mode = c('stage', 'trip'))
 
@@ -1320,6 +1324,9 @@ write.csv(trip, "data/local/santiago/santiago_trip.csv")
 
 trip <- read_csv("data/local/santiago/santiago_trip.csv")
 
+# Load helpful functions
+source("code/producing_trips_rd/used_functions.R")
+
 # Standardized travel modes
 trip <- standardize_modes(trip, mode = c('stage', 'trip'))
 
@@ -1788,6 +1795,9 @@ write.csv(trip, "data/local/bogota/bogota_trip.csv")
 
 trip <- read_csv('data/local/bogota/bogota_trip.csv')
 
+# Load helpful functions
+source("code/producing_trips_rd/used_functions.R")
+
 # Standardized travel modes
 rd <- standardize_modes(trip, mode = c('stage', 'trip'))
 
@@ -2019,6 +2029,10 @@ source("code/raw_to_processed/accra/streamline_travel_survey.R")
 # Reread already stored trip data
 trip <- read_csv("data/local/accra/accra_trip_with_mbike.csv")
 
+# Load helpful functions
+source("code/producing_trips_rd/used_functions.R")
+
+
 # Standardized travel modes
 trip <- standardize_modes(trip, mode = c('trip'))
 
@@ -2141,6 +2155,9 @@ write.csv(trip, "data/local/delhi/delhi_trip.csv")
 
 # Reread already stored trip data
 trip <- read_csv("data/local/delhi/delhi_trip.csv")
+
+# Load helpful functions
+source("code/producing_trips_rd/used_functions.R")
 
 # Standardized travel modes
 trip <- standardize_modes(trip, mode = c('stage', 'trip'))
@@ -2342,6 +2359,8 @@ write_csv(trip, "data/local/bangalore/bangalore_trip.csv")
 # Read trip dataset
 trip <- read_csv("data/local/bangalore/bangalore_trip.csv")
 
+# Load helpful functions
+source("code/producing_trips_rd/used_functions.R")
 
 # Standardized travel modes
 trip <- standardize_modes(trip, mode = c('stage', 'trip'))
@@ -2403,6 +2422,9 @@ trip$meta_data[10] <- "" # missing modes
 write.csv(trip, "data/local/vizag/vizag_trip.csv")
 
 trip <- read_csv('data/local/vizag/vizag_trip.csv')
+
+# Load helpful functions
+source("code/producing_trips_rd/used_functions.R")
 
 # Standardized travel modes
 trip <- standardize_modes(trip, mode = c('trip'))
@@ -2502,6 +2524,9 @@ write.csv(trip, "data/local/mexico_city/mexico_city_trip.csv")
 
 ## Expand trip dataset using participant weight
 trip <- read_csv("data/local/mexico_city/mexico_city_trip.csv")
+
+# Load helpful functions
+source("code/producing_trips_rd/used_functions.R")
 
 # Standardized travel modes
 trip <- standardize_modes(trip, mode = c('stage', 'trip'))
