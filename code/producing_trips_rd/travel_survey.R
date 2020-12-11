@@ -1996,6 +1996,8 @@ trip <- bind_rows(trip, no_trip) %>%
 
 trip$trip_mode[which(!is.na(trip$trip_id) & is.na(trip$trip_mode))] <- "other"
 
+# Make all trips with missing mode and duration as NA
+trip <- trip %>% mutate(trip_mode = replace(trip_mode, !is.na(trip$trip_mode) & is.na(trip$trip_duration), NA)) %>%  as.data.frame()
 
 trip$meta_data <- NA
 trip$meta_data[1] <- 2242000
