@@ -2336,7 +2336,7 @@ trip$meta_data[8] <- "Yes" # Short walks to PT
 trip$meta_data[9] <- "Yes" # Distance available
 trip$meta_data[10] <- "" # missing modes
 
-
+# Save to data folder
 write_csv(trip, "data/local/bangalore/bangalore_trip.csv")
 
 # Read trip dataset
