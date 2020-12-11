@@ -2305,6 +2305,25 @@ trip <-
     left_join(stage) %>% 
     dplyr::select(-mode_speed)
 
+
+# Copy stage_duration from a single trip_duration
+trip[is.na(trip$stage_mode) & (!is.na(trip$trip_duration)),]$stage_duration <- trip[is.na(trip$stage_mode) & (!is.na(trip$trip_duration)),]$trip_duration
+
+# Copy stage_mode from a single trip_mode
+trip[is.na(trip$stage_mode) & (!is.na(trip$trip_duration)),]$stage_mode <- trip[is.na(trip$stage_mode) & (!is.na(trip$trip_duration)),]$trip_mode
+
+## Populate missing stage_distance when stage_duration is given
+# Calculate temp speed column
+trip <- trip %>% left_join(trip %>% group_by(stage_mode) %>% summarise(speed = ((median(stage_distance, na.rm = T) * 60) / median(stage_duration, na.rm = T))))
+
+# Calculate distance - where missing, from speed and duration
+trip[!is.na(trip$trip_duration) & is.na(trip$stage_distance) & !is.na(trip$stage_duration),]$stage_distance <- 
+  (trip[!is.na(trip$trip_duration) & is.na(trip$stage_distance) & !is.na(trip$stage_duration),]$speed * 
+     trip[!is.na(trip$trip_duration) & is.na(trip$stage_distance) & !is.na(trip$stage_duration),]$stage_duration) / 60
+
+# Remove temp speed column
+trip$speed <- NULL
+
 trip$meta_data <- NA
 trip$meta_data[1] <- 8971800
 trip$meta_data[2] <- 5051
