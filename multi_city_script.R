@@ -1,9 +1,9 @@
 library(ithimr)
 rm(list=ls())
 # options(warn=2)  # treat warnings as errors
-cities <- c('bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
+cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
              'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
-# cities <- c('bogota')
+# cities <- c('santiago')
 min_age <- 15
 max_age <- 69
 
