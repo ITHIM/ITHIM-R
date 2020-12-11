@@ -2011,7 +2011,6 @@ trip$meta_data[8] <- "??" # Short walks to PT
 trip$meta_data[9] <- "No" # Distance available
 trip$meta_data[10] <- "rickshaw, motorcycle" # missing modes
 
-  
 write.csv(trip, "data/local/accra/accra_trip.csv")
 
 # Source processing code
@@ -2021,7 +2020,7 @@ source("code/raw_to_processed/accra/streamline_travel_survey.R")
 trip <- read_csv("data/local/accra/accra_trip_with_mbike.csv")
 
 # Standardized travel modes
-trip <- standardize_modes(trip, mode = c('stage', 'trip'))
+trip <- standardize_modes(trip, mode = c('trip'))
 
 # Save it in a local var
 rd <- trip
@@ -2176,8 +2175,8 @@ rm(list =ls())
 
 source("code/producing_trips_rd/used_functions.R")
 
-person_0 <- read_excel("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//India//Bangalore//HH information-urban bmr.xlsx",sheet = 1, range = cell_cols("A:AM"),col_types = c("text"))
-stage_0 <- read_excel("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//India//Bangalore//COMPILED DATA final.xlsx",sheet = 1, range = cell_cols("A:AA"), col_types = c("text"))
+person_0 <- read_excel("V://Studies//MOVED//HealthImpact//Data//TIGTHAT//India//Bangalore//HH information-urban bmr.xlsx",sheet = 1, range = cell_cols("A:AM"),col_types = c("text"))
+stage_0 <- read_excel("V://Studies//MOVED//HealthImpact//Data//TIGTHAT//India//Bangalore//COMPILED DATA final.xlsx",sheet = 1, range = cell_cols("A:AA"), col_types = c("text"))
 
 #lookup
 trip_purpose <-  bind_cols(distinct(stage_0, `Purpose of travel`),
@@ -2199,7 +2198,7 @@ person <- person_0 %>%
            age = `Age(Years)`,
            sex = `Sex:\r\n1. Male,\r\n2. Female`,
            id = ...38) %>% 
-    select(household_id, cluster_id, person, age, sex, id) %>% 
+    dplyr::select(household_id, cluster_id, person, age, sex, id) %>% 
     bind_rows(
         person_0 %>% 
             filter(!is.na(...39)) %>% 
@@ -2210,7 +2209,7 @@ person <- person_0 %>%
                age = `Sex:\r\n1. Male,\r\n2. Female`, 
                sex = `Marital Status:\r\n1. Unmarried,\r\n2. Married,\r\n3. Others.`, 
                id = ...39) %>% 
-            select(household_id, cluster_id, person, age, sex, id) %>% 
+            dplyr::select(household_id, cluster_id, person, age, sex, id) %>% 
             bind_rows(
                 person_0 %>% 
                     filter(!is.na(...39)) %>% 
@@ -2221,9 +2220,9 @@ person <- person_0 %>%
                            age = `Sex:\r\n1. Male,\r\n2. Female`, 
                            sex = `Marital Status:\r\n1. Unmarried,\r\n2. Married,\r\n3. Others.`, 
                            id = ...39) %>% 
-                    select(household_id, cluster_id, person, age, sex, id)  ) ) %>% 
+                    dplyr::select(household_id, cluster_id, person, age, sex, id)  ) ) %>% 
     rename(participant_id = id) %>% 
-    select(cluster_id, household_id, participant_id, age, sex) %>% 
+    dplyr::select(cluster_id, household_id, participant_id, age, sex) %>% 
     mutate(participant_wt =1, sex = ifelse(sex==1,"Male", "Female"))
 
 #add omitted cluster_id and household_id
@@ -2288,7 +2287,7 @@ stage <- stage_0 %>%
     rename(hh = `House hold serial.No`, ward =`Ward No.`, person = `No. of Person`, participant_id = ID ,
            trip_id = Trips, stage_id = Stage, age = AGE, stage_mode = mode ) %>%
            {.[-1,]} %>% 
-    select(participant_id, trip_id, stage_id, age, trip_purpose, 
+    dplyr::select(participant_id, trip_id, stage_id, age, trip_purpose, 
            stage_mode, stage_distance, stage_duration, mode_speed) %>% 
            {.[!duplicated(.),]}
 
@@ -2304,8 +2303,7 @@ trip <-
     person %>%
     left_join(trip) %>% 
     left_join(stage) %>% 
-    select(-mode_speed)
-
+    dplyr::select(-mode_speed)
 
 trip$meta_data <- NA
 trip$meta_data[1] <- 8971800
