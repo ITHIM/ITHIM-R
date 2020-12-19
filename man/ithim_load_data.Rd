@@ -6,10 +6,10 @@
 \usage{
 ithim_load_data(
   setup_call_summary_filename,
-  speeds = list(bus = 15, bus_driver = 15, minibus = 15, minibus_driver = 15, car = 21,
-    taxi = 21, pedestrian = 4.8, walk_to_pt = 4.8, cycle = 14.5, motorcycle = 25, truck =
-    21, van = 15, subway = 28, rail = 35, auto_rickshaw = 22, shared_auto = 22,
-    cycle_rickshaw = 10)
+  speeds = list(bus = 11, bus_driver = 11, minibus = 11, minibus_driver = 11, car = 14,
+    taxi = 9, pedestrian = 3, walk_to_pt = 3, cycle = 7, motorcycle = 14, truck = 11, van
+    = 14, subway = 16, rail = 20, auto_rickshaw = 9, shared_auto = 14, shared_taxi = 9,
+    cycle_rickshaw = 5)
 )
 }
 \arguments{

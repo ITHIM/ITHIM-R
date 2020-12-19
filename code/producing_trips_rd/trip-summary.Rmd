@@ -68,6 +68,8 @@ trip <- read_csv("../../data/local/cape_town/cape_town_trip.csv")
 quality_check(trip)
 trip_summary$Cape_Town <- value
 
+
+
 ```
 
 

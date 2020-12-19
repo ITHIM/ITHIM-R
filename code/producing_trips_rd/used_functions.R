@@ -19,9 +19,17 @@ mode_speed <- data.frame(mode = c("bicycle","bus","car","metro", "motorcycle",
 
 
 ## trip_summary
-trip_summary <- data.frame(row.names =       c("Year of survey",
-                                               "Population_2014",
-                                               "GDP_capita_2014 ($)",
+trip_summary <- data.frame(row.names =       c("Meta Data",
+                                               "Population in 2014",
+                                               "GDP/capita in 2014 ($)",
+                                               "Type of survey",
+                                               "Year of survey",
+                                               "Diary type",
+                                               "Trip stages captured",
+                                               "Commute only?",
+                                               "Short walks to PT",
+                                               "Trip distance captured",
+                                               "Missing modes",
                                                "",
                                                "Number of households",
                                                "Number of individuals",
@@ -41,6 +49,7 @@ trip_summary <- data.frame(row.names =       c("Year of survey",
                                                "Trip per capita (adults)",
                                                "Trip duration (mins)",
                                                "travel time per capita",
+                                               "travel time per capita (adults)",
                                                "Mean trip duration",
                                                "Median trip duration",
                                                "1st Quart of trip duration",
@@ -82,10 +91,6 @@ trip_summary <- data.frame(row.names =       c("Year of survey",
 quality_check <- function(trip){
         trip$trip_mode <- factor(trip$trip_mode, levels = c("bicycle","bus","car","metro", "motorcycle",
                                                             "other", "rickshaw", "taxi", "train", "truck", "van", "walk" ))
-        
-        year <- trip[1, "year"]
-        population2014 <- trip[1, "population2014"]
-        gdppc2014 <- trip[1, "gdppc2014"]
         
         total_household <-
             trip %>% 
@@ -233,6 +238,16 @@ quality_check <- function(trip){
              count(trip, cluster_id, household_id, participant_id) %>% 
              nrow
         
+         travel_time_per_adult <-
+             trip %>% 
+             filter(age>17) %>% 
+             count(cluster_id, household_id, participant_id, trip_id, trip_duration) %$% 
+             sum(trip_duration, na.rm = T) / 
+             trip %>% 
+             filter(age>17) %>% 
+             count(cluster_id, household_id, participant_id) %>% 
+             nrow
+         
         average_trip_duration <-
             trip %>% 
             count(cluster_id, household_id, participant_id, trip_id, trip_duration) %$% 
@@ -262,9 +277,17 @@ quality_check <- function(trip){
             summarise(share = round(n()*100/nrow(.),1))
         
         
-        value <<- c(year,
-                    population2014,
-                    gdppc2014,
+        value <<- c("",
+                    trip$meta_data[1],
+                    trip$meta_data[2],
+                    trip$meta_data[3],
+                    trip$meta_data[4],
+                    trip$meta_data[5],
+                    trip$meta_data[6],
+                    trip$meta_data[7],
+                    trip$meta_data[8],
+                    trip$meta_data[9],
+                    trip$meta_data[10],
                     "",
                    total_household, 
                    total_participant,
@@ -284,6 +307,7 @@ quality_check <- function(trip){
                    round(trip_per_capita_adult,1),
                    "",
                    round(travel_time_per_person),
+                   round(travel_time_per_adult),
                    round(average_trip_duration[["Mean"]],1),
                    round(average_trip_duration[["Median"]],1),
                    round(average_trip_duration[["1st Qu."]],1),

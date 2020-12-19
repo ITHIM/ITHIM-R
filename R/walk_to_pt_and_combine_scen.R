@@ -14,19 +14,46 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
   SYNTHETIC_TRIPS <- NULL
   
   ## pt = public transport
-  pt_modes <- c('bus','minibus','subway','rail')
+  pt_modes <- c('bus')#,'minibus','subway','rail')
   
   ##!! this function and add_walk_trips need some attention
   
   if(ADD_WALK_TO_BUS_TRIPS)
     for(i in 1:length(rd_list)){
+      
+      
+      rd_list[[i]] <- rd_list[[i]] %>% mutate(id = row_number())
+      
+      if (!any(names(rd_list[[i]]) %in% 'trip_mode')){
+        print(CITY)
+        break
+      }
       # separate out bus trips
-      pt_trips <- subset(rd_list[[i]],stage_mode%in%pt_modes)
-      not_pt_trips <- subset(rd_list[[i]],!stage_mode%in%pt_modes)
+      pt_trips <- rd_list[[i]] %>% dplyr::filter(stage_mode %in% pt_modes)
+      
+      # further separate out bus trips WITHOUT pedestrian component
+      pt_trips_wo_walk <- rd_list[[i]] %>% filter(trip_id %in% pt_trips$trip_id) %>% group_by(trip_id) %>% 
+        mutate(ped = if(any(stage_mode == 'pedestrian')) 1 else 0) %>% 
+        ungroup() %>% 
+        filter(ped == 0) %>% dplyr::select(-ped)
+      
+      nrpt <- pt_trips %>% distinct(trip_id) %>% nrow
+      nrptwp <- pt_trips_wo_walk %>% distinct(trip_id) %>% nrow
+      
+      print(CITY)
+      print(paste(nrpt, " - ", round(nrptwp /  nrpt * 100,1)))
+      
+      # separate bus trips WITH pedestrian component
+      pt_trips_w_walk <- pt_trips %>% filter(trip_id %in% setdiff(pt_trips$trip_id, pt_trips_wo_walk$trip_id))
+      
+      not_pt_trips <- subset(rd_list[[i]], !id %in% pt_trips$id)
       # divide bus trips into bus and pedestrian
-      pt_walk_trips <- add_walk_trips(pt_trips)
+      pt_walk_trips <- add_walk_trips(pt_trips_wo_walk)
+      
       # recombine all trips
-      rd_list[[i]] <- rbind(not_pt_trips,pt_walk_trips[[1]],pt_walk_trips[[2]])
+      rd_list[[i]] <- rbind(not_pt_trips, pt_trips_w_walk, pt_walk_trips[[1]],pt_walk_trips[[2]])
+      
+      rd_list[[i]]$id <- NULL
     }
   
   trip_df <- do.call('rbind',rd_list)
