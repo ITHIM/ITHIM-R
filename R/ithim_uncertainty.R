@@ -20,7 +20,7 @@ ithim_uncertainty <- function(ithim_object,seed=1){
   parameters <- NULL
   
   ## Re-do set up if any distance parameter has changed
-  if(RECALCULATE_EMISSION_INVENTORY) set_vehicle_inventory() # sets vehicle inventory
+  if(RECALCULATE_PM_EMISSION_INVENTORY) set_vehicle_inventory() # sets vehicle inventory
   if(RECALCULATE_TRIPS){
     #set_vehicle_inventory()
     ithim_object$trip_scen_sets <- get_synthetic_from_trips()#5

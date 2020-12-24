@@ -91,7 +91,7 @@ create_all_scenarios <- function(trip_set){
     mbike_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = source_modes[1],combined_modes = T, 
                                    target_modes = target_modes,source_distance_cats = DIST_CAT,source_trips = target_new_trips[1])
     car_trips <- create_scenario(rdr, scen_name = 'Scenario 4', source_modes = c(source_modes[2], source_modes[3]),combined_modes = T, 
-                                 target_modes = target_modes,source_distance_cats = DIST_CAT[1],source_trips = target_new_trips[2])
+                                 target_modes = target_modes,source_distance_cats = DIST_CAT[1],source_trips = target_new_trips[2]) # todo: source_modes has 2 elements, so source_trips should too, otherwise it'll return an error?
     car_mbike_trips <- rbind(mbike_trips, car_trips)
     # Update selected rows for mode and duration
     rdr$trip_mode[match(car_mbike_trips$trip_id,rdr$trip_id)] <- car_mbike_trips$trip_mode
