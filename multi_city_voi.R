@@ -121,8 +121,8 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
 
 parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
-numcores <- 10
-nsamples <- 128
+numcores <- parallel::detectCores() - 1
+nsamples <- 4
 print(system.time(
   for(ci in 1:length(cities)){
     city <- cities[ci]
@@ -186,8 +186,12 @@ print(system.time(
 
     if(!parameters_only){
       if(Sys.info()[['sysname']] == "Windows"){
-        multi_city_ithim[[ci]]$outcomes <- list()
-        for(i in 1:nsamples) multi_city_ithim[[ci]]$outcomes[[i]] <- run_ithim(ithim_object = multi_city_ithim[[ci]],seed=i)
+        # multi_city_ithim[[ci]]$outcomes <- list()
+        require(parallelsugar)
+        multi_city_ithim[[ci]]$outcomes <- parallelsugar::mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
+        
+        
+        # for(i in 1:nsamples) multi_city_ithim[[ci]]$outcomes[[i]] <- run_ithim(ithim_object = multi_city_ithim[[ci]],seed=i)
       }else{
         multi_city_ithim[[ci]]$outcomes <- mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
       }
@@ -366,7 +370,7 @@ means <- apply(comb_out,2,mean)
 ## calculate EVPPI ##################################################################
 
 
-numcores <- 8
+numcores <- parallel::detectCores() - 1 
 
 evppi <- mclapply(1:ncol(parameter_samples), 
          FUN = ithimr:::compute_evppi,
