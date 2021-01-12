@@ -26,7 +26,7 @@ package.check <- lapply(packages, FUN = function(x) {
 rm(list = ls())
 
 #Create ITHIM object according to parameters####
-#If you want just to test the code, change NSAMPLES in the function below to 5.
+#If you just want to test the code, change the NSAMPLES parameter (line 33) in the function below to 5.
 ithim_object <- run_ithim_setup(seed = 1,
                                 CITY = 'accra',
                                 REFERENCE_SCENARIO = 'Scenario 1',
