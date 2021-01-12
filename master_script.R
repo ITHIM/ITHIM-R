@@ -5,19 +5,17 @@
 #August 2020.
 #R version 4.0.2
 
+#Install and call devtools####
+package.check <- if (!require(devtools)) {
+    install.packages("devtools", dependencies = TRUE)
+    library(devtools)
+  }
 
 #Build ITHIM package####
-package.check <- lapply("devtools", FUN = function(x) {
-  if (!require(x, character.only = TRUE)) {
-    install.packages(x, dependencies = TRUE)
-    library(x, character.only = TRUE)
-  }
-}
-)
 install(dependencies = TRUE, upgrade = "never")
 
 #Call packages and clean global environment####
-packages = c("tidyverse", "earth", "ggpubr", "ithimr")
+packages <- c("tidyverse", "earth", "ggpubr", "ithimr")
 package.check <- lapply(packages, FUN = function(x) {
   if (!require(x, character.only = TRUE)) {
     install.packages(x, dependencies = TRUE)
@@ -28,6 +26,7 @@ package.check <- lapply(packages, FUN = function(x) {
 rm(list = ls())
 
 #Create ITHIM object according to parameters####
+#If you want only to test the code, change NSAMPLES in the function below to 5.
 ithim_object <- run_ithim_setup(seed = 1,
                                 CITY = 'accra',
                                 REFERENCE_SCENARIO = 'Scenario 1',
@@ -120,20 +119,20 @@ outcome_deaths <- as_tibble(outcome_deaths)
 outcome_ylls <- as_tibble(outcome_ylls)
 compute_aggregated_outcomes <- function(label_scenario){
     #Deaths
-    r1 <- select(outcome_deaths, starts_with(label_scenario) & !contains("inj") & !contains("_ac") & !contains("_neo")) %>%
+    r1 <- dplyr::select(outcome_deaths, starts_with(label_scenario) & !contains("inj") & !contains("_ac") & !contains("_neo")) %>%
       mutate(ncd = rowSums(.)) %>% 
       summarise(lower_bound = quantile(ncd, probs = 0.025),
                 mean = mean(ncd),
                 upper_bound = quantile(ncd, probs = 0.975)) %>%
       gather %>% rename(ncd_deaths = value)
     
-    r2 <- select(outcome_deaths, starts_with(label_scenario) & contains("inj")) %>% mutate(inj = rowSums(.)) %>% 
+    r2 <- dplyr::select(outcome_deaths, starts_with(label_scenario) & contains("inj")) %>% mutate(inj = rowSums(.)) %>% 
       summarise(lower_bound = quantile(inj, probs = 0.025),
                 mean = mean(inj),
                 upper_bound = quantile(inj, probs = 0.975)) %>% gather %>% 
       rename(inj_deaths = value)
     
-    r3 <- select(outcome_deaths, starts_with(label_scenario) & !contains("_ac") & !contains("_neo")) %>%
+    r3 <- dplyr::select(outcome_deaths, starts_with(label_scenario) & !contains("_ac") & !contains("_neo")) %>%
       mutate(total = rowSums(.)) %>% 
       summarise(lower_bound = quantile(total, probs = 0.025),
                 mean = mean(total),
@@ -141,20 +140,20 @@ compute_aggregated_outcomes <- function(label_scenario){
       gather %>% rename(total_deaths = value)
     
     #YLLs
-    r4 <- select(outcome_ylls, starts_with(label_scenario) & !contains("inj") & !contains("_ac") & !contains("_neo")) %>%
+    r4 <- dplyr::select(outcome_ylls, starts_with(label_scenario) & !contains("inj") & !contains("_ac") & !contains("_neo")) %>%
       mutate(ncd = rowSums(.)) %>% 
       summarise(lower_bound = quantile(ncd, probs = 0.025),
                 mean = mean(ncd),
                 upper_bound = quantile(ncd, probs = 0.975)) %>%
       gather %>% rename(ncd_ylls = value)
     
-    r5 <- select(outcome_ylls, starts_with(label_scenario) & contains("inj")) %>% mutate(inj = rowSums(.)) %>% 
+    r5 <- dplyr::select(outcome_ylls, starts_with(label_scenario) & contains("inj")) %>% mutate(inj = rowSums(.)) %>% 
       summarise(lower_bound = quantile(inj, probs = 0.025),
                 mean = mean(inj),
                 upper_bound = quantile(inj, probs = 0.975)) %>% gather %>% 
       rename(inj_ylls = value)
     
-    r6 <- select(outcome_ylls, starts_with(label_scenario) & !contains("_ac") & !contains("_neo")) %>%
+    r6 <- dplyr::select(outcome_ylls, starts_with(label_scenario) & !contains("_ac") & !contains("_neo")) %>%
       mutate(total = rowSums(.)) %>% 
       summarise(lower_bound = quantile(total, probs = 0.025),
                 mean = mean(total),
@@ -176,7 +175,7 @@ rAllScen_long <- rAllScen %>% gather(outputs, values, -scenario, -key) %>% sprea
 
 #Generate distributions of uncertain parameters####
 parameter_samples.m <- as_tibble(parameter_samples) %>%
-select("Walk-to-bus time" = BUS_WALK_TIME,
+dplyr::select("Walk-to-bus time" = BUS_WALK_TIME,
        "Cycling mMETs" = MMET_CYCLING,
        "Walking mMETs" = MMET_WALKING,
        "Scalar for non-travel PA" = BACKGROUND_PA_SCALAR,
@@ -476,7 +475,7 @@ pa_list <- list()
 position <- 0
 for(i in ithim_object$outcomes) {
   position <- position + 1
-  dat <- i$mmets %>% select("Baseline" = base_mmet,
+  dat <- i$mmets %>% dplyr::select("Baseline" = base_mmet,
                             "Scenario 1" = scen1_mmet,
                             "Scenario 2" = scen2_mmet,
                             "Scenario 3" = scen3_mmet,
@@ -532,7 +531,7 @@ ap_list <- list()
 position <- 0
 for(i in ithim_object$outcomes) {
   position <- position + 1
-  dat <- i$pm_conc_pp %>% select("Baseline" = pm_conc_base,
+  dat <- i$pm_conc_pp %>% dplyr::select("Baseline" = pm_conc_base,
                             "Scenario 1" = pm_conc_scen1,
                             "Scenario 2" = pm_conc_scen2,
                             "Scenario 3" = pm_conc_scen3,
