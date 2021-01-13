@@ -40,8 +40,8 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
       nrpt <- pt_trips %>% distinct(trip_id) %>% nrow
       nrptwp <- pt_trips_wo_walk %>% distinct(trip_id) %>% nrow
       
-      print(CITY)
-      print(paste(nrpt, " - ", round(nrptwp /  nrpt * 100,1)))
+      # print(CITY)
+      # print(paste(nrpt, " - ", round(nrptwp /  nrpt * 100,1)))
       
       # separate bus trips WITH pedestrian component
       pt_trips_w_walk <- pt_trips %>% filter(trip_id %in% setdiff(pt_trips$trip_id, pt_trips_wo_walk$trip_id))
