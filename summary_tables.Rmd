@@ -94,7 +94,6 @@ kable(scen_prop, headings = "Scenario Proportions")
 
 ## Case study specific propensities
 
-
 |accra|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
 | pedestrian | 95.5|27.9|2.6 |
