@@ -1,12 +1,12 @@
-,No other/fixed or stationary object,Pedestrian,Pedal cycle,2/3 Wheeled,Car/pick-up/van,Bus,Railway train/railway vehicle,non-motor vehicle,unspecified,Non-collision,Unknown,Trucks
-Pedestrian,0,0,8.057783228,248.3340214,329.4776129,187.9692241,0,0,0,0,0,40.99182914
-Pedal Cycle,0,2.342555995,1.505928854,8.031620553,47.01844532,51.0342556,0,0,0,0,0,16.56521739
-Motorcycle,0,9,4.666666667,107.9435897,140.55,95.67307692,0,0,0,0,0,56.16666667
-3Wheeled,0,0,0,0,0,0,0,0,0,0,0,0
-Car,0,0,0,0.833333333,49.48888889,7.233333333,0,0,0,0,0,2.444444444
-Pick-up truck/van,0,0.6,0,0.5,8.9,1,0,0,0,0,0,0
-Heavy transport,0,0,0,0,0.5,0,0,0,0,0,0,2.5
-Bus,0,1.02173913,0,0,1,22.97826087,0,0,0,0,0,0
-Other,0,0,0,0,0,0,0,0,0,0,0,0
-Unknown,0,0,0,0,0,0,0,0,0,0,0,0
-Railway,0,0,0,0,0,0,0,0,0,0,0,0
+,No other/fixed or stationary object,Pedestrian,Pedal cycle,2/3 Wheeled,Car/pick-up/van,Bus,Railway train/railway vehicle,non-motor vehicle,unspecified,Non-collision,Unknown,Trucks,n_years
+Pedestrian,0,0,8.057783228,248.3340214,329.4776129,187.9692241,0,0,0,0,0,40.99182914,3
+Pedal Cycle,0,2.342555995,1.505928854,8.031620553,47.01844532,51.0342556,0,0,0,0,0,16.56521739,3
+Motorcycle,0,9,4.666666667,107.9435897,140.55,95.67307692,0,0,0,0,0,56.16666667,3
+3Wheeled,0,0,0,0,0,0,0,0,0,0,0,0,3
+Car,0,0,0,0.833333333,49.48888889,7.233333333,0,0,0,0,0,2.444444444,3
+Pick-up truck/van,0,0.6,0,0.5,8.9,1,0,0,0,0,0,0,3
+Heavy transport,0,0,0,0,0.5,0,0,0,0,0,0,2.5,3
+Bus,0,1.02173913,0,0,1,22.97826087,0,0,0,0,0,0,3
+Other,0,0,0,0,0,0,0,0,0,0,0,0,3
+Unknown,0,0,0,0,0,0,0,0,0,0,0,0,3
+Railway,0,0,0,0,0,0,0,0,0,0,0,0,3
