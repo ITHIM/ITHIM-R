@@ -3,7 +3,7 @@ library(tidyverse)
 library(reshape2)
 
 # Specify cities
-cities <- c('accra', 'bangalore', 'bogota','buenos_aires', 'cape_town', 'delhi', 'mexico_city', 'santiago', 'vizag')
+cities <- c('accra', 'bangalore', 'bogota','buenos_aires', 'delhi', 'mexico_city', 'santiago', 'vizag')
 
 # Read lookup table for standardized modes
 smodes <- read_csv('data/global/modes/standardized_modes.csv')
@@ -24,6 +24,15 @@ for (city in cities){
   
   # Read whw matrix
   whw <- read_csv(path)
+  
+  # Check if n_years exist
+  weight <- 1
+  
+  if (any(names(whw) == 'n_years')){
+    weight <- unique(whw$n_years)
+    # remove n_years column
+    whw$n_years <- NULL
+  }
   
   # Format to long form
   whw_lng <- reshape2::melt(whw)
@@ -69,6 +78,9 @@ for (city in cities){
   
   # Recode strike mode to standard mode
   whw_lng$strike_mode <- smodes$inj_str_lng[match(tolower(whw_lng$strike_mode), smodes$original)]  
+  
+  # Add weight column
+  whw_lng$weight <- weight
   
   # Save whw_lng in list
   temp[[city]] <- whw_lng
