@@ -5,4 +5,4 @@ Neoplasms,neo,0,1,,total_cancer
 "Tracheal, bronchus, and lung cancer",lc,1,1,neo_lung,lung_cancer
 Chronic respiratory diseases,copd,1,0,resp_copd,
 Stroke,stk,1,1,cvd_stroke,stroke
-Diabetes mellitus,db,0,1,,diabetes
+Diabetes mellitus,db,1,1,t2d,diabetes
