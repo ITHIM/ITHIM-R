@@ -4,7 +4,8 @@ library(ithimr)
 global_path <- file.path(find.package('ithimr',lib.loc=.libPaths()), 'extdata/global/')
 global_path <- paste0(global_path, "/")
 
-DR_AP <- read.csv(paste0(global_path,"dose_response/drap/dose_response.csv"))
+##reading GBD 2017 IER functions that were provided by Rick Burnett: this include Diabetes in addition to previous five disease end-points
+DR_AP <- read.csv(paste0(global_path,"dose_response/drap/dose_response_2017.csv"))
 
 DISEASE_INVENTORY <- read.csv(paste0(global_path,"dose_response/disease_outcomes_lookup.csv"))
 nsamples <- 100
