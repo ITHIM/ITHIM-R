@@ -5,7 +5,7 @@ Neoplasms,neo,0,1,,total_cancer
 "Tracheal, bronchus, and lung cancer",lc,1,1,neo_lung,lung_cancer
 Chronic obstructive pulmonary disease,copd,1,0,resp_copd,
 Stroke,stroke,1,1,cvd_stroke,stroke
-Diabetes mellitus type 2,t2d,0,1,,diabetes
+Diabetes mellitus type 2,t2d,1,1,t2d,diabetes
 Lower respiratory infections,lri,1,0,lri, 
 Breast cancer,breast,0,1,,breast_cancer
 Colon and rectum cancer,colon,0,1,,colon_cancer
