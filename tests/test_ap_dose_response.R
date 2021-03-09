@@ -48,6 +48,9 @@ for ( j in c(1:nrow(DISEASE_INVENTORY))[DISEASE_INVENTORY$air_pollution == 1]){
   }
 }
 
+# Save dr AP
+write_rds(dr_ap_list, "inst/extdata/global/dose_response/drap/dr_ap_list.Rds")
+
 
 ######## plot curves
 pm <- 1:300
