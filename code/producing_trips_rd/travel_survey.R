@@ -2452,57 +2452,150 @@ rm(list =ls())
 
 source("code/producing_trips_rd/used_functions.R")
 
+# #data
+# person_0 <- read_csv('J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//tsdem_eod2017//conjunto_de_datos//tsdem.csv')
+# trip_0 <- read_csv('J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//tviaje_eod2017//conjunto_de_datos//tviaje.csv')
+# stage_0 <- read_csv('J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//ttransporte_eod2017//conjunto_de_datos//ttransporte.csv')
+# 
+# #lookups
+# trip_purpose <- read_excel("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//lookup.xlsx",'trip_purpose')
+# stage_mode <- read_excel("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//lookup.xlsx",'stage_mode')
+# sex <- bind_cols(sex=c("Male", "Female"), sexo = 1:2)
+
+# It takes too long to read these datasets, so I'm doing it local
 #data
-person_0 <- read_csv('J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//tsdem_eod2017//conjunto_de_datos//tsdem.csv')
-trip_0 <- read_csv('J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//tviaje_eod2017//conjunto_de_datos//tviaje.csv')
-stage_0 <- read_csv('J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//ttransporte_eod2017//conjunto_de_datos//ttransporte.csv')
+route <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Mexico/MexicoCity/Encuesta2017/Microdatos/CSV/"
+person_0 <- read_csv(paste0(route, "tsdem_eod2017/conjunto_de_datos/tsdem.csv"))
+trip_0 <- read_csv(paste0(route, "tviaje_eod2017/conjunto_de_datos/tviaje.csv"))
+stage_0 <- read_csv(paste0(route, "ttransporte_eod2017/conjunto_de_datos/ttransporte.csv"))
 
 #lookups
-trip_purpose <- read_excel("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//lookup.xlsx",'trip_purpose')
-stage_mode <- read_excel("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Mexico//Travel surveys//Mexico City 2017//Databases//eod_2017_csv//lookup.xlsx",'stage_mode')
-sex <- bind_cols(sex=c("Male", "Female"), sexo = 1:2)
+trip_purpose <- read_excel(paste0(route, "lookup.xlsx"),'trip_purpose')
+stage_mode <- read_excel(paste0(route, "lookup.xlsx"),'stage_mode')
+sex <- bind_cols(sex = c("Male", "Female"), sexo = 1:2)
 
-
+main_mode <- read_excel("C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Mexico/Hierarchy.xlsx", sheet = "MexicoCity")
+purpose <- read_excel("C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Mexico/Hierarchy.xlsx", sheet = "MexicoCity_purpose")
 
 ##selecting relevant variables
 person <- person_0 %>% 
+  filter(ent == "09") %>%  # Filtering people that live only in the city 
     left_join(sex) %>%
     mutate(cluster_id = 1) %>% # select the appropriate cluster number
     select(cluster_id,id_hog, id_soc, sex, edad, factor) 
     ## all ind id's sex and age
+    
 trip <- trip_0 %>% 
-    mutate(trip_duration = (as.numeric(p5_10_1) - as.numeric(p5_9_1))*60 + 
+    mutate(trip_duration_d = (as.numeric(p5_10_1) - as.numeric(p5_9_1))*60 + 
                (as.numeric(p5_10_2) - as.numeric(p5_9_2)),
-           trip_duration = ifelse(trip_duration < (-450), 1440 + trip_duration, trip_duration),
-           trip_duration = ifelse(trip_duration < 0, 0 - trip_duration, trip_duration),
-           trip_duration = ifelse(trip_duration == 0, NA, trip_duration),
-           p5_13 = as.numeric(p5_13)) %>% 
-    left_join(trip_purpose) %>% 
-    select(id_soc,id_via, trip_duration, trip_purpose)
+           trip_duration_d = ifelse(trip_duration_d < (-450), 1440 + trip_duration_d, trip_duration_d),
+           trip_duration_d = ifelse(trip_duration_d < 0, 0 - trip_duration_d, trip_duration_d),
+           trip_duration_d = ifelse(trip_duration_d == 0, NA, trip_duration_d),
+           # Defining hierarchy
+           auto = ifelse(p5_14_01 == 1, 
+                         main_mode$Hierarchy[main_mode$Code == "01"], 99),
+           colectivo = ifelse(p5_14_02 == 1, 
+                              main_mode$Hierarchy[main_mode$Code == "02"], 99),
+           taxi_app = ifelse(p5_14_03 == 1, 
+                             main_mode$Hierarchy[main_mode$Code == "03"], 99),
+           taxi = ifelse(p5_14_04 == 1, 
+                         main_mode$Hierarchy[main_mode$Code == "04"], 99),
+           metro = ifelse(p5_14_05 == 1, 
+                          main_mode$Hierarchy[main_mode$Code == "05"], 99),
+           autobus_m1 = ifelse(p5_14_06 == 1, 
+                               main_mode$Hierarchy[main_mode$Code == "06"], 99),
+           bicicleta = ifelse(p5_14_07 == 1, 
+                              main_mode$Hierarchy[main_mode$Code == "07"], 99),
+           autobus = ifelse(p5_14_08 == 1, 
+                            main_mode$Hierarchy[main_mode$Code == "08"], 99),
+           moto = ifelse(p5_14_09 == 1, 
+                         main_mode$Hierarchy[main_mode$Code == "09"], 99),
+           trolebus = ifelse(p5_14_10 == 1, 
+                             main_mode$Hierarchy[main_mode$Code == "10"], 99),
+           metrobus = ifelse(p5_14_11 == 1, 
+                             main_mode$Hierarchy[main_mode$Code == "11"], 99),
+           tren_ligero = ifelse(p5_14_12 == 1, 
+                                main_mode$Hierarchy[main_mode$Code == "12"], 99),
+           tren_sub = ifelse(p5_14_13 == 1, 
+                             main_mode$Hierarchy[main_mode$Code == "13"], 99),
+           camina = ifelse(p5_14_14 == 1, 
+                           main_mode$Hierarchy[main_mode$Code == "14"], 99),
+           mexicable = ifelse(p5_14_15 == 1, 
+                              main_mode$Hierarchy[main_mode$Code == "15"], 99),
+           bicitaxi = ifelse(p5_14_16 == 1, 
+                             main_mode$Hierarchy[main_mode$Code == "16"], 99),
+           mototaxi = ifelse(p5_14_17 == 1, 
+                             main_mode$Hierarchy[main_mode$Code == "17"], 99),
+           escolar = ifelse(p5_14_18 == 1, 
+                            main_mode$Hierarchy[main_mode$Code == "18"], 99),
+           personal = ifelse(p5_14_19 == 1, 
+                             main_mode$Hierarchy[main_mode$Code == "19"], 99),
+           otro = ifelse(p5_14_20 == 1, 
+                         main_mode$Hierarchy[main_mode$Code == "20"], 99),
+           trip_purpose = purpose$ITHIM[
+             match(p5_13, purpose$Code)]) %>% 
+  # Now compute the main mode by looking at the hierarchy
+  rowwise() %>% mutate(
+    main_modes = min(auto, colectivo, taxi_app, taxi, metro, autobus_m1,
+                     bicicleta, autobus, moto, trolebus, metrobus,
+                     tren_ligero,tren_sub, camina, mexicable, bicitaxi,
+                     mototaxi, escolar, personal, otro, na.rm = T),
+    trip_mode = main_mode$ITHIM[match(main_modes, main_mode$Hierarchy)],
+    trip_id_paste = paste(id_soc, id_via, sep = "-")) %>% 
+  #left_join(trip_purpose) %>% 
+  select(id_soc,id_via, trip_duration_d, trip_purpose, trip_mode)
+# Variable p5_3 indicates whether the trip was made during the week (=1) or saturday (=2)
     
 stage <- stage_0 %>% 
-    mutate(p5_14 = as.numeric(p5_14), # make mode code as numeric for binding
+    mutate(#p5_14 = as.numeric(p5_14), # make mode code as numeric for binding
+      stage_mode = main_mode$ITHIM[match(p5_14, main_mode$Code)],
            stage_duration = as.numeric(p5_16_1_1)*60 + as.numeric(p5_16_1_2),
            stage_duration = ifelse(p5_16_1_1 == "99", NA,stage_duration)) %>%
-    left_join(stage_mode) %>%
-    mutate(mode = stage_mode) %>% 
-    left_join(mode_speed) %>% 
-    left_join(group_by(.,id_via) %>% 
-                  summarise(trip_mode = ifelse(is.na(stage_mode[which.is.max(stage_duration)]), 
-                                               stage_mode[which.is.max(mode_speed)],
-                                               stage_mode[which.is.max(stage_duration)] ))) %>% 
-    select(id_via, id_tra, stage_mode,trip_mode, stage_duration)
-
+    #left_join(stage_mode) %>%
+    #mutate(mode = stage_mode) %>% 
+    #left_join(mode_speed) %>% 
+    #left_join(group_by(.,id_via) %>% 
+    #              summarise(trip_mode = ifelse(is.na(stage_mode[which.is.max(stage_duration)]), 
+    #                                           stage_mode[which.is.max(mode_speed)],
+    #                                           stage_mode[which.is.max(stage_duration)] ))) %>% 
+    select(id_via, id_tra, p5_3, stage_mode, stage_duration)
+# Variable p5_3 indicates whether the trip was made during the week (=1) or saturday (=2)
 
 #bind all datasets and retain only useful ones  
 mexico_city <- person %>% 
     left_join(trip) %>% 
     left_join(stage) %>%
-    rename(household_id = id_hog, participant_id = id_soc,participant_wt = factor,
-           trip_id = id_via, age = edad, stage_id = id_tra) %>% 
+    rename(household_id = id_hog, 
+           participant_id = id_soc,
+           participant_wt = factor,
+           trip_id = id_via, 
+           age = edad, stage_id = id_tra) %>% 
   group_by(household_id, participant_id, trip_id, trip_mode) %>% 
   mutate(trip_duration = sum(stage_duration, na.rm =T)) %>% 
   ungroup()
+# There are differences between the duration computed from the trip dataset and
+# the duration computed from the stage dataset
+
+# Replacing IDs from trips made on Saturdays
+# View(mexico_city %>% group_by(p5_3) %>%
+#   summarise(participant_id_min = min(participant_id),
+#             participant_id_max = max(participant_id),
+#             household_id_min = min(household_id),
+#             household_id_max = max(household_id),
+#             trip_id_min = min(trip_id),
+#             trip_id_max = max(trip_id),
+#             stage_id_min = min(stage_id),
+#             stage_id_max = max(stage_id)))
+
+mexico_city <- mexico_city %>% 
+  mutate(participant_id = ifelse(p5_3 == 2, participant_id + 100000,
+                                  participant_id),
+         household_id = ifelse(p5_3 == 2, household_id + 100000,
+                                household_id),
+         trip_id = ifelse(p5_3 == 2, trip_id + 1000000,
+                           trip_id),
+         stage_id = ifelse(p5_3 == 2,stage_id + 1000000,
+                            stage_id))
 
 trip <- mexico_city
 trip$meta_data <- NA
@@ -2520,7 +2613,7 @@ trip$meta_data[10] <- "" # missing modes
 
 
 #quality_check(trip)
-write.csv(trip, "data/local/mexico_city/mexico_city_trip.csv")
+write.csv(trip, "data/local/mexico_city/mexico_city_trip.csv", row.names = F)
 
 ## Expand trip dataset using participant weight
 trip <- read_csv("data/local/mexico_city/mexico_city_trip.csv")
@@ -2541,7 +2634,7 @@ source("code/producing_trips_rd/used_functions.R")
 rd <- trip
 
 # Remove extra columns
-rd$X1 <- NULL
+#rd$X1 <- NULL
 
 rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_"))))
 
