@@ -1,5 +1,5 @@
 number,exhaustive_list,trav_lng,trav_shrt,inj_vic_lng,inj_vic_shrt,inj_str_lng,inj_str_shrt,original
-1,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,walk; pedestrian
+1,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,walk; pedestrian;walk_to_pt
 2,cycle,cycle,cycle,cycle,cycle,cycle,other,bike; bicycle; cycle; pedal cycle; pedal.cycle
 3,motorcycle,motorcycle,motorcycle,motorcycle,motorcycle,motorcycle,motorcycle,motorbike; motorcycle; 3wheeled; x2.3.wheeled; 2/3 wheeled; mc
 4,car,car,car,car,car,car,car,picku; pick-up truck/van; pickup; pickup/light goods; car; van; car.pick.up.van; car/pick-up/van
