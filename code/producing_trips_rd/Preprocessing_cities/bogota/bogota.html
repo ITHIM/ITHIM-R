@@ -11,7 +11,7 @@
 
 <meta name="author" content="Daniel" />
 
-<meta name="date" content="2021-02-04" />
+<meta name="date" content="2021-03-15" />
 
 <title>Preprocessing of Bogota’s travel dataset</title>
 
@@ -1707,7 +1707,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Preprocessing of Bogota’s travel dataset</h1>
 <h4 class="author">Daniel</h4>
-<h4 class="date">2021-02-04</h4>
+<h4 class="date">2021-03-15</h4>
 
 </div>
 
@@ -1715,8 +1715,8 @@ div.tocify {
 <div id="understanding-phase" class="section level1">
 <h1><strong>Understanding phase</strong></h1>
 <pre><code>##           used (Mb) gc trigger  (Mb) max used (Mb)
-## Ncells  996309 53.3    2042824 109.1  1290733 69.0
-## Vcells 1677440 12.8    8388608  64.0  2189006 16.8</code></pre>
+## Ncells  996708 53.3    2046685 109.4  1282727 68.6
+## Vcells 1680383 12.9    8388608  64.0  2229708 17.1</code></pre>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
 <p>Documentation is located in “…/Colombia/Bogota/Encuesta de Movilidad 2019/”. These files were sent by the team from Mobility Secretariat of Bogota, but can also be found here: <a href="https://www.simur.gov.co/portal-simur/datos-del-sector/encuestas-de-movilidad/" class="uri">https://www.simur.gov.co/portal-simur/datos-del-sector/encuestas-de-movilidad/</a>.</p>
@@ -1809,7 +1809,7 @@ Formularios/190220_Módulo D_DPR (viajes).pdf
 <h2>Replicate main results from raw datasets</h2>
 <p>To create this report I have to set the full route of each file, regardless the location of the working directory.</p>
 <p>Loading standardize_modes function:</p>
-<pre class="r"><code>external_route &lt;- &quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/code/producing_trips_rd/&quot;
+<pre class="r"><code>#external_route &lt;- &quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/WorldBank/ITHIM-R/code/producing_trips_rd/&quot;
 #external_route &lt;- &quot;CAMBRIDGE_ROUTE V DRIVE&quot;
 #source(paste0(external_route, &quot;used_functions.R&quot;)) </code></pre>
 <p>It didn’t work with knitr so I had to paste this function here.</p>
@@ -1840,17 +1840,17 @@ Formularios/190220_Módulo D_DPR (viajes).pdf
 }</code></pre>
 <div id="importing-datasets" class="section level3">
 <h3>Importing datasets</h3>
-<pre class="r"><code>route &lt;- &quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/Data/Colombia/Bogota/Encuesta de Movilidad 2019/BD EODH2019 FINAL v14022020/Archivos XLSX/&quot;</code></pre>
+<pre class="r"><code>route &lt;- &quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Colombia/Bogota/Encuesta de Movilidad 2019/BD EODH2019 FINAL v14022020/Archivos XLSX/&quot;</code></pre>
 <pre class="r"><code># Households (hh)
-hh &lt;- read_excel(paste0(route, &quot;HogaresEODH2019.xlsx&quot;)) 
+hh &lt;- read_excel(paste0(route, &quot;HogaresEODH2019.xlsx&quot;), guess_max = 100000) 
 # People
-people &lt;- read_excel(paste0(route, &quot;PersonasEODH2019.xlsx&quot;))
+people &lt;- read_excel(paste0(route, &quot;PersonasEODH2019.xlsx&quot;), guess_max = 100000)
 # Vehicles
 #vehicles &lt;- read_excel(paste0(route, &quot;VehículosEODH2019.xlsx&quot;))
 # Trips
-trips &lt;- read_excel(paste0(route, &quot;ViajesEODH2019.xlsx&quot;))</code></pre>
+trips &lt;- read_excel(paste0(route, &quot;ViajesEODH2019.xlsx&quot;), guess_max = 100000)</code></pre>
 <pre class="r"><code># Stages: there&#39;s information about walk_to_pt stages
-stages &lt;- read_excel(paste0(route, &quot;EtapasEODH2019.xlsx&quot;), col_types = &quot;text&quot;)</code></pre>
+stages &lt;- read_excel(paste0(route, &quot;EtapasEODH2019.xlsx&quot;), guess_max = 100000)</code></pre>
 </div>
 <div id="number-of-rows" class="section level3">
 <h3>Number of rows</h3>
@@ -3900,11 +3900,14 @@ people_bogota &lt;- people %&gt;%
 <div id="classification-and-translation-of-trip-modes-and-purpose" class="section level2">
 <h2>Classification and translation of trip modes and purpose</h2>
 <p>As it was mentioned before, there is already a table with all trip modes collected in the survey in <strong>File1</strong> (page 111, Tabla 4.4). So I copied it and pasted it in an excel file to make the classification and translation. This is the result:</p>
-<pre class="r"><code>main_mode &lt;- read_excel(&quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/Data/Colombia/Hierarchy.xlsx&quot;, sheet = &quot;Bogota&quot;)
+<pre class="r"><code>main_mode &lt;- read_excel(&quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Colombia/Hierarchy.xlsx&quot;, sheet = &quot;Bogota&quot;)
 main_mode %&gt;% kbl() %&gt;% kable_classic()</code></pre>
 <table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
+<th style="text-align:right;">
+IDMode
+</th>
 <th style="text-align:left;">
 SurveyTripMode
 </th>
@@ -3927,6 +3930,9 @@ LambedStageMode2015
 </thead>
 <tbody>
 <tr>
+<td style="text-align:right;">
+1
+</td>
 <td style="text-align:left;">
 <ol style="list-style-type: decimal">
 <li>TransMilenio
@@ -3948,6 +3954,9 @@ bus
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+3
+</td>
 <td style="text-align:left;">
 <ol start="3" style="list-style-type: decimal">
 <li>Bus dual
@@ -3969,6 +3978,9 @@ bus
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+4
+</td>
 <td style="text-align:left;">
 <ol start="4" style="list-style-type: decimal">
 <li>SITP - Urbano (Azul)
@@ -3990,6 +4002,9 @@ bus
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+5
+</td>
 <td style="text-align:left;">
 <ol start="5" style="list-style-type: decimal">
 <li>SITP - Complementario (Naranja)
@@ -4011,6 +4026,9 @@ bus
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+6
+</td>
 <td style="text-align:left;">
 <ol start="6" style="list-style-type: decimal">
 <li>SITP - Especial (Vinotinto)
@@ -4032,6 +4050,9 @@ bus
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+2
+</td>
 <td style="text-align:left;">
 <ol start="2" style="list-style-type: decimal">
 <li>Alimentador
@@ -4053,6 +4074,9 @@ bus
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+7
+</td>
 <td style="text-align:left;">
 <ol start="7" style="list-style-type: decimal">
 <li>SITP - Provisional
@@ -4074,6 +4098,9 @@ bus
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+8
+</td>
 <td style="text-align:left;">
 <ol start="8" style="list-style-type: decimal">
 <li>Bus intermunicipal
@@ -4095,6 +4122,9 @@ bus
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+16
+</td>
 <td style="text-align:left;">
 <ol start="16" style="list-style-type: decimal">
 <li>Taxi
@@ -4116,6 +4146,9 @@ taxi
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+17
+</td>
 <td style="text-align:left;">
 <ol start="17" style="list-style-type: decimal">
 <li>Taxi solicitado por App
@@ -4137,6 +4170,9 @@ taxi
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+24
+</td>
 <td style="text-align:left;">
 <ol start="24" style="list-style-type: decimal">
 <li>Cable
@@ -4158,6 +4194,9 @@ NA
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+34
+</td>
 <td style="text-align:left;">
 <ol start="34" style="list-style-type: decimal">
 <li>Vehículo privado como conductor
@@ -4179,6 +4218,9 @@ car
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+35
+</td>
 <td style="text-align:left;">
 <ol start="35" style="list-style-type: decimal">
 <li>Vehículo privado como pasajero
@@ -4200,6 +4242,9 @@ car
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+32
+</td>
 <td style="text-align:left;">
 <ol start="32" style="list-style-type: decimal">
 <li>Motocicleta como conductor
@@ -4221,6 +4266,9 @@ motorcycle
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+33
+</td>
 <td style="text-align:left;">
 <ol start="33" style="list-style-type: decimal">
 <li>Motocicleta como pasajero
@@ -4242,6 +4290,9 @@ motorcycle
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+19
+</td>
 <td style="text-align:left;">
 <ol start="19" style="list-style-type: decimal">
 <li>Bus/buseta informal/pirata/Chana
@@ -4263,6 +4314,9 @@ NA
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+18
+</td>
 <td style="text-align:left;">
 <ol start="18" style="list-style-type: decimal">
 <li>Taxi colectivo
@@ -4284,6 +4338,9 @@ taxi
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+15
+</td>
 <td style="text-align:left;">
 <ol start="15" style="list-style-type: decimal">
 <li>Automóvil informal/pirata
@@ -4305,6 +4362,9 @@ car
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+14
+</td>
 <td style="text-align:left;">
 <ol start="14" style="list-style-type: decimal">
 <li>Transporte individual en automóvil/camioneta por app móvil placa blanca/placa amarilla
@@ -4326,6 +4386,9 @@ NA
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+10
+</td>
 <td style="text-align:left;">
 <ol start="10" style="list-style-type: decimal">
 <li>Campero/jeep
@@ -4347,6 +4410,9 @@ car
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+20
+</td>
 <td style="text-align:left;">
 <ol start="20" style="list-style-type: decimal">
 <li>Mototaxi (2 ruedas)
@@ -4368,6 +4434,9 @@ motorcycle
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+11
+</td>
 <td style="text-align:left;">
 <ol start="11" style="list-style-type: decimal">
 <li>Transporte escolar
@@ -4389,6 +4458,9 @@ van
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+23
+</td>
 <td style="text-align:left;">
 <ol start="23" style="list-style-type: decimal">
 <li>Bicitaxi
@@ -4410,6 +4482,9 @@ rickshaw
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+30
+</td>
 <td style="text-align:left;">
 <ol start="30" style="list-style-type: decimal">
 <li>Bicicleta
@@ -4431,6 +4506,9 @@ bicycle
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+36
+</td>
 <td style="text-align:left;">
 <ol start="36" style="list-style-type: decimal">
 <li>Bicicleta como pasajero
@@ -4452,6 +4530,9 @@ NA
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+13
+</td>
 <td style="text-align:left;">
 <ol start="13" style="list-style-type: decimal">
 <li>Bicicleta pública
@@ -4473,6 +4554,9 @@ bicycle
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+31
+</td>
 <td style="text-align:left;">
 <ol start="31" style="list-style-type: decimal">
 <li>Bicicleta con motor
@@ -4494,6 +4578,9 @@ bicycle
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+37
+</td>
 <td style="text-align:left;">
 <ol start="37" style="list-style-type: decimal">
 <li>Patineta
@@ -4515,6 +4602,9 @@ NA
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+40
+</td>
 <td style="text-align:left;">
 <ol start="40" style="list-style-type: decimal">
 <li>A pie (Viajes totalmente a pie)
@@ -4536,6 +4626,9 @@ walk
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+25
+</td>
 <td style="text-align:left;">
 <ol start="25" style="list-style-type: decimal">
 <li>Tren
@@ -4557,6 +4650,9 @@ train
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+12
+</td>
 <td style="text-align:left;">
 <ol start="12" style="list-style-type: decimal">
 <li>Bus privado/de empresa
@@ -4578,6 +4674,9 @@ bus
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+9
+</td>
 <td style="text-align:left;">
 <ol start="9" style="list-style-type: decimal">
 <li>Bus escalera/Chiva
@@ -4599,6 +4698,9 @@ NA
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+21
+</td>
 <td style="text-align:left;">
 <ol start="21" style="list-style-type: decimal">
 <li>Motocarro de pasajeros/carga
@@ -4620,6 +4722,9 @@ NA
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+39
+</td>
 <td style="text-align:left;">
 <ol start="39" style="list-style-type: decimal">
 <li>Camión/Volqueta/Tractomula
@@ -4641,6 +4746,9 @@ truck
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+22
+</td>
 <td style="text-align:left;">
 <ol start="22" style="list-style-type: decimal">
 <li>Vehículo de tracción animal
@@ -4662,6 +4770,9 @@ other
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+38
+</td>
 <td style="text-align:left;">
 <ol start="38" style="list-style-type: decimal">
 <li>Vehículo de tracción humana
@@ -4683,6 +4794,9 @@ NA
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+99
+</td>
 <td style="text-align:left;">
 <ol start="99" style="list-style-type: decimal">
 <li>Otro
@@ -4745,7 +4859,7 @@ other
 <p>The first two columns of this table have been defined in the documentation, so I created the new classification (in Spanish) and its equivalence to Ithim, taking into account travel modes defined in standardized_modes file (…/ITHIM-R/data/global/modes/standardized_modes.csv).</p>
 <p><strong>Note</strong>: Definition and pictures of modes are in <strong>File3</strong>.</p>
 <p>Now with respect to trip purpose, I only had to translate them. This is the result:</p>
-<pre class="r"><code>purpose &lt;- read_excel(&quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/Data/Colombia/Hierarchy.xlsx&quot;, sheet = &quot;Bogota_purpose&quot;)
+<pre class="r"><code>purpose &lt;- read_excel(&quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Colombia/Hierarchy.xlsx&quot;, sheet = &quot;Bogota_purpose&quot;)
 purpose %&gt;% kbl() %&gt;% kable_classic()</code></pre>
 <table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
 <thead>
@@ -5150,22 +5264,22 @@ p31_hora_llegada
 <th style="text-align:left;">
 id_hogar
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 id_persona
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 id_viaje
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 id_etapa
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 p18_id_medio_transporte
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 p19_camino_minutos
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 p21_tiempo_arrancar_vehic
 </th>
 </tr>
@@ -5175,22 +5289,22 @@ p21_tiempo_arrancar_vehic
 <td style="text-align:left;">
 1117
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 4
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 20
 </td>
 </tr>
@@ -5198,22 +5312,22 @@ p21_tiempo_arrancar_vehic
 <td style="text-align:left;">
 1117
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 12
 </td>
 </tr>
@@ -5290,22 +5404,22 @@ p31_hora_llegada
 <th style="text-align:left;">
 id_hogar
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 id_persona
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 id_viaje
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 id_etapa
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 p18_id_medio_transporte
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 p19_camino_minutos
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 p21_tiempo_arrancar_vehic
 </th>
 </tr>
@@ -5315,22 +5429,22 @@ p21_tiempo_arrancar_vehic
 <td style="text-align:left;">
 12801
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 5
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 5
 </td>
 </tr>
@@ -5338,22 +5452,22 @@ p21_tiempo_arrancar_vehic
 <td style="text-align:left;">
 12801
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 2
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 0
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8
 </td>
 </tr>
@@ -5361,8 +5475,21 @@ p21_tiempo_arrancar_vehic
 </table>
 <p>In this case, the person started her trip at 11:00, then she had to walk for 5 minutes,to take the Transmilenio, where she had to wait 5 minutes for it. Then she took another Transmilenio, waiting 8 minutes for it. Finally she had to walk 8 minutes to get to her destination, at 13:00.</p>
 <p>The total number of minutes here is 5+5+8+8=26 minutes and the time spent in the trip was of 120 minutes. Hence is not possible to assign a specific duration to each stage.</p>
-<p><strong>For this reason I conclude that even though there’s information at stage</strong> <strong>level, it’s not enough to get the duration for each stage. Therefore,</strong> <strong>I will continue working at trip level</strong>.</p>
+<p><strong>For this reason I conclude that even though there’s information at stage</strong> <strong>level, it’s not enough to get the duration for each stage. </strong></p>
 <p><strong>ToDo: since the proportion of trips with more than one stage is relatively</strong> <strong>small, we could compute the difference between the trip duration and the</strong> <strong>time spent walking to the PT, and then split this duration equally in the</strong> <strong>remaining modes. In this way, we used all information provided for trips</strong> <strong>with only one stage and have a rough estimate of duration for trips with</strong> <strong>more than one stage.</strong></p>
+<p>Only 10% of trips have more than 1 stage.</p>
+<pre class="r"><code>#names(stages_bogota)
+n_stages &lt;- stages_bogota %&gt;% count(id_hogar, id_persona, id_viaje)
+table(n_stages$n, useNA = &quot;always&quot;)</code></pre>
+<pre><code>## 
+##     1     2     3     4     5     6  &lt;NA&gt; 
+## 95183  8833  2093   254    27    13     0</code></pre>
+<pre class="r"><code>table(n_stages$n, useNA = &quot;always&quot;) / nrow(n_stages)</code></pre>
+<pre><code>## 
+##            1            2            3            4            5            6 
+## 0.8945518453 0.0830145767 0.0196704980 0.0023871507 0.0002537522 0.0001221770 
+##         &lt;NA&gt; 
+## 0.0000000000</code></pre>
 </div>
 <div id="row-for-each-trip-translate-trip_mode-and-create-duration-sex-and-age" class="section level2">
 <h2>Row for each trip, translate trip_mode and create duration, sex and age</h2>
@@ -5376,31 +5503,193 @@ duration_bogota &lt;- duration_bogota %&gt;%
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>sum(sort(unique(trips_bogota$trip_id_paste)) == sort(unique(duration_bogota$trip_id_paste)))</code></pre>
 <pre><code>## [1] 106403</code></pre>
-<p>The next step consists in join both datasets and create trips variables.</p>
+<p>The next step consists in joining trip and duration datasets, and create trips variables.</p>
+<p>Note: in the beginning I got the trip_mode from “modo_principal” but there’s a problem with “informal modes” because there are multiple of them and don’t correspond to the same mode. There could be an informal mototaxi and an informal bus, and they are classified as informal in the survey but we need them to be motorycle and bus respectively. Thus, I will compute trip_mode using the hierarchy at stage level.</p>
 <pre class="r"><code>trips_bogota_v2 &lt;- trips_bogota %&gt;% 
   left_join(duration_bogota, by = c(&quot;id_hogar&quot;, &quot;id_persona&quot;, &quot;id_viaje&quot;)) %&gt;% 
   mutate(trip_id = id_viaje,
          trip_duration = duracion,
-         trip_mode = main_mode$ITHIM[
-           match(modo_principal.y, main_mode$TripMode)],
+         # trip_mode = main_mode$ITHIM[
+         #   match(modo_principal.y, main_mode$TripMode)],
          trip_purpose = purpose$ITHIM[
            match(p17_Id_motivo_viaje, purpose$Code)])</code></pre>
-<p>And doing the same but filtering out walking trips shorter than 15 minutes</p>
-<pre class="r"><code>trips_bogota_longer_15 &lt;- trips_bogota %&gt;% 
-  inner_join(duration_bogota_longer_15, 
-            by = c(&quot;id_hogar&quot;, &quot;id_persona&quot;, &quot;id_viaje&quot;)) %&gt;% 
-  mutate(trip_id = id_viaje,
-         trip_duration = duracion,
+<p>Now each stage need to be in a single row. The original stage dataset has walking stages in the same row as the regular stages, so I need to create one for each walking stage.</p>
+<p>As I said before, most of the trips consists on only one stage (without counting walking stages), and the processing is different when there’s only one, than when there’s more than one. So I have to merge trip information and then filter those trips with only one stage and more than one in different datasets.</p>
+<p>Before I do that I need to translate stage mode, merge information about the number of stages per trip, and merge the walking duration at the end of the trip.Then I have to make sure that the total walking duration is less that the total duration of the trip.</p>
+<pre class="r"><code>stages_bogota_v2 &lt;- stages_bogota %&gt;% 
+  # Translate stage modes and merge mode hierarchy
+  mutate(
+    household_id = id_hogar,
+    participant_id = id_persona,
+    trip_id = id_viaje,
+    stage_id = id_etapa,
+    trip_id_paste = paste0(household_id, participant_id, trip_id),
+    stage_id_paste = paste0(household_id, participant_id, trip_id, 
+                            stage_id),
+    stage_mode = main_mode$ITHIM[
+    match(p18_id_medio_transporte, main_mode$IDMode)],
+    hierarchy = main_mode$Hierarchy[
+      match(p18_id_medio_transporte, main_mode$IDMode)]) %&gt;% 
+  # Merge number of stages per trip
+  left_join(n_stages, by = c(&quot;id_hogar&quot;, &quot;id_persona&quot;, &quot;id_viaje&quot;)) %&gt;% 
+  # Merge trip duration and walking duration at the end of the trip
+  left_join(trips_bogota_v2[, c(&quot;id_hogar&quot;, &quot;id_persona&quot;, &quot;id_viaje&quot;,
+                                &quot;trip_duration&quot;, &quot;p30_camino_minutos&quot;,
+                                &quot;trip_purpose&quot;)], 
+            by = c(&quot;id_hogar&quot;, &quot;id_persona&quot;, &quot;id_viaje&quot;))</code></pre>
+<p>Now I’m going to compute stage duration. The processing is different in trips with only one main stage (i.e. without counting walking stages) and with more than one. In the first case, I will subtract the walking duration from the trip duration and assign this value to the stage. In the second case, I will subtract the walking duration from the trip duration and then this value will be split equally in the number of stages so every stage will have the same duration. This is solution is proposed under the assumption that other stages are not as important as walking stages, so the estimation of duration is not sensible for the analysis.</p>
+<p><strong>Trips with one stage:</strong></p>
+<pre class="r"><code>stages_bogota_v2_1 &lt;- stages_bogota_v2 %&gt;% filter(n == 1) %&gt;% 
+  # Compute walking duration
+  mutate(walking_duration = ifelse(is.na(p19_camino_minutos) &amp; 
+                                     is.na(p30_camino_minutos), 0,
+                                   ifelse(is.na(p19_camino_minutos) &amp; 
+                                            !is.na(p30_camino_minutos), 
+                                          p30_camino_minutos,
+                                          ifelse(!is.na(p19_camino_minutos) &amp; 
+                                                   is.na(p30_camino_minutos),
+                                                 p19_camino_minutos,
+                                                 p19_camino_minutos +
+                                                   p30_camino_minutos))),
+         # Create a variable to see which trips need adjustment because the
+         # walking duration is equal to or larger than trip duration
+         need_adjustment = ifelse(p18_id_medio_transporte != 40 &amp;
+                                    walking_duration &gt;= trip_duration, 1, 0),
+          stage_duration = ifelse(p18_id_medio_transporte != 40,
+            ifelse(need_adjustment == 0, trip_duration - walking_duration,
+                                 trip_duration), trip_duration),
+          # Since all these trips has only one stage, without counting walking
+          # stages, then the trip mode will be the same as stage_mode
+          trip_mode = stage_mode)
+
+#View(stages_bogota_v2_1)
+#length(unique(stages_bogota_v2_1$stage_id_paste))
+#table(stages_bogota_v2_1$stage_mode, stages_bogota_v2_1$need_adjustment)
+#table(stages_bogota_v2_1$need_adjustment)</code></pre>
+<p>In only 1% of trips the walking duration is the same or larger than the trip duration. Since this proportion is small, then I will assume that these trips didn’t have the walking component</p>
+<pre class="r"><code>#sum(is.na(stages_bogota_v2$walking_duration))
+table(stages_bogota_v2_1$need_adjustment, useNA = &quot;always&quot;) / nrow(stages_bogota_v2_1)</code></pre>
+<pre><code>## 
+##          0          1       &lt;NA&gt; 
+## 0.98768688 0.01231312 0.00000000</code></pre>
+<pre class="r"><code>#View(stages_bogota_v2_1[stages_bogota_v2_1$need_adjustment == 1, ])
+#table(stages_bogota_v2_1[stages_bogota_v2_1$need_adjustment == 1, &quot;stage_mode&quot;])</code></pre>
+<p>In trips when the adjustment is needed or in walking stages, there will be a single stage, meaning, no walking component for these other modes</p>
+<pre class="r"><code>stages_bogota_v2_1_adjust &lt;- stages_bogota_v2_1 %&gt;% 
+  filter(need_adjustment == 1 | stage_mode == &quot;walk&quot;) %&gt;% 
+  select(household_id, participant_id, trip_id, trip_mode, trip_duration,
+         trip_purpose, stage_id, stage_mode, stage_duration, stage_id_paste, 
+         trip_id_paste)
+
+#View(stages_bogota_v2_1_adjust)
+#length(unique(stages_bogota_v2_1_adjust$stage_id_paste))
+#nrow(stages_bogota_v2_1_adjust)</code></pre>
+<p>In trips when the adjustment is NOT needed, there will be multiple stages, adding walking stages</p>
+<pre class="r"><code>stages_bogota_v2_1_noadjust &lt;- stages_bogota_v2_1 %&gt;% 
+  filter(need_adjustment == 0 &amp; stage_mode != &quot;walk&quot;) %&gt;% 
+  # I use pivot_longer the put walking stages in a new row
+  pivot_longer(c(&quot;p19_camino_minutos&quot;, &quot;stage_duration&quot;,
+                 &quot;p30_camino_minutos&quot;), names_to = &quot;variable&quot;,
+               values_to = &quot;stage_duration&quot;) %&gt;% 
+  # Assign &quot;walk_to_pt&quot; to walking stages
+  mutate(stage_mode = ifelse(variable %in% c(&quot;p19_camino_minutos&quot;,
+                                             &quot;p30_camino_minutos&quot;), 
+                             &quot;walk_to_pt&quot;, stage_mode)) %&gt;% 
+  # Filter out walking stages without duration
+  filter(!is.na(stage_duration) &amp; stage_duration &gt; 0) %&gt;% 
+  # Reassign stage_id
+  # from https://stackoverflow.com/questions/54581440/r-count-consecutive-occurrences-of-values-in-a-single-column-and-by-group
+  group_by(id_hogar, id_persona, id_viaje, 
+           grp = with(rle(stage_id_paste), rep(seq_along(lengths), lengths))) %&gt;%
+  mutate(stage_id = seq_along(grp)) %&gt;% 
+  ungroup() %&gt;% 
+  select(household_id, participant_id, trip_id, trip_mode, trip_duration,
+         trip_purpose, stage_id, stage_mode, stage_duration, stage_id_paste, 
+         trip_id_paste)
+                                      
+# length(unique(stages_bogota_v2_1_noadjust$stage_id_paste))
+# View(stages_bogota_v2_1_noadjust)
+# sum(is.na(stages_bogota_v2_1_noadjust$stage_duration))</code></pre>
+<p>Append both datasets into one with trips with only one stage.</p>
+<p>In this dataset <em>stage_id_paste</em> let me know the original stage_id so I can trace back the original trip if I wanted to.</p>
+<pre class="r"><code># names(stages_bogota_v2_1_adjust)
+# names(stages_bogota_v2_1_noadjust)
+stages_bogota_v2_1_ready &lt;- stages_bogota_v2_1_adjust %&gt;% 
+  bind_rows(stages_bogota_v2_1_noadjust)
+
+#View(stages_bogota_v2_1_ready)
+#table(stages_bogota_v2_1_ready$stage_mode)</code></pre>
+<p><strong>Trips with more than one stage</strong></p>
+<p>In this dataset <em>stage_id_paste</em> and <em>trip_id_paste</em> let me know the original stage_id and trip_id so I can trace back the original trip if I wanted to.</p>
+<pre class="r"><code>stages_bogota_v2_2 &lt;- stages_bogota_v2 %&gt;% filter(n &gt; 1) %&gt;% 
+  mutate(
+         # To avoid double counting the last walking stage, I set it up to zero
+         p30_camino_minutos_ok = ifelse(id_etapa != n, 
+                                        0, p30_camino_minutos)) %&gt;% 
+  # I compute the walking duration and the beginning and end of a stage, and also
+  # the trip main mode.
+  group_by(id_hogar, id_persona, id_viaje) %&gt;% 
+  mutate(p19_camino_minutos_sum = sum(p19_camino_minutos, na.rm = T),
+         p30_camino_minutos_sum = sum(p30_camino_minutos_ok, na.rm = T),
+         # I compute total walking duration
+         walking_duration = p19_camino_minutos_sum + p30_camino_minutos_sum,
+         stage_duration = (trip_duration - walking_duration) / n,
+         # trip main mode
+         #main_mode = min(hierarchy),
          trip_mode = main_mode$ITHIM[
-           match(modo_principal.y, main_mode$TripMode)],
-         trip_purpose = purpose$ITHIM[
-           match(p17_Id_motivo_viaje, purpose$Code)])</code></pre>
+           match(min(hierarchy), main_mode$Hierarchy)]) %&gt;% 
+  ungroup() %&gt;% 
+  # I use pivot_longer the put walking stages in a new row
+  pivot_longer(c(&quot;p19_camino_minutos&quot;, &quot;stage_duration&quot;,
+                 &quot;p30_camino_minutos_ok&quot;), names_to = &quot;variable&quot;,
+               values_to = &quot;stage_duration&quot;) %&gt;% 
+  # Assign &quot;walk_to_pt&quot; to walking stages
+  mutate(stage_mode = ifelse(variable %in% c(&quot;p19_camino_minutos&quot;,
+                                             &quot;p30_camino_minutos_ok&quot;), 
+                             &quot;walk_to_pt&quot;, stage_mode)) %&gt;% 
+  # Filter out walking stages without duration
+  filter(!is.na(stage_duration) &amp; stage_duration &gt; 0) %&gt;% 
+  # Reassign stage_id
+  # from https://stackoverflow.com/questions/54581440/r-count-consecutive-occurrences-of-values-in-a-single-column-and-by-group
+  group_by(id_hogar, id_persona, 
+           grp = with(rle(trip_id_paste), rep(seq_along(lengths), lengths))) %&gt;%
+  mutate(stage_id = seq_along(grp)) %&gt;% 
+  ungroup() %&gt;% 
+  select(household_id, participant_id, trip_id, trip_mode, trip_duration,
+         trip_purpose, stage_id, stage_mode, stage_duration, stage_id_paste, 
+         trip_id_paste)
+
+#unique(stages_bogota_v2_2$id_etapa)
+#sum(is.na(stages_bogota_v2_2$stage_duration))
+#View(stages_bogota_v2_2)</code></pre>
+<p>I merge all stages again to create a unique dataset</p>
+<pre class="r"><code>stages_bogota_ready &lt;- stages_bogota_v2_1_ready %&gt;% 
+  bind_rows(stages_bogota_v2_2) %&gt;% 
+  arrange(household_id, participant_id, trip_id, stage_id)
+
+#View(stages_bogota_ready)</code></pre>
+<p>Checking the number of stages before and after the preprocessing. There are 8 stages that don’t appear anymore although the number of trips is the same.</p>
+<pre class="r"><code>length(unique(stages_bogota_v2_1_ready$stage_id_paste)) + 
+  length(unique(stages_bogota_v2_2$stage_id_paste)) </code></pre>
+<pre><code>## [1] 120349</code></pre>
+<pre class="r"><code>length(unique(stages_bogota_v2$stage_id_paste))</code></pre>
+<pre><code>## [1] 120357</code></pre>
+<pre class="r"><code>length(unique(stages_bogota_ready$stage_id_paste))</code></pre>
+<pre><code>## [1] 120349</code></pre>
+<pre class="r"><code>length(unique(stages_bogota_v2_1_ready$trip_id_paste)) + 
+  length(unique(stages_bogota_v2_2$trip_id_paste)) </code></pre>
+<pre><code>## [1] 106403</code></pre>
+<pre class="r"><code>length(unique(stages_bogota_v2$trip_id_paste))</code></pre>
+<pre><code>## [1] 106403</code></pre>
+<pre class="r"><code>length(unique(stages_bogota_ready$trip_id_paste))</code></pre>
+<pre><code>## [1] 106403</code></pre>
 </div>
 <div id="create-variables-for-quick-report" class="section level2">
 <h2>Create variables for quick report</h2>
 <p>I need to create some variables to run the report that Lambed developed in the function <em>quality_check</em>.</p>
 <pre class="r"><code>report &lt;- people_bogota %&gt;% 
-left_join(trips_bogota_v2, by = c(&quot;id_hogar&quot;, &quot;id_persona&quot;)) %&gt;% 
+left_join(stages_bogota_ready, by = c(&quot;id_hogar&quot; = &quot;household_id&quot;, 
+                                      &quot;id_persona&quot; = &quot;participant_id&quot;)) %&gt;% 
   mutate(cluster_id = 1,
          household_id = id_hogar,
          participant_id = id_persona,
@@ -5409,7 +5698,9 @@ left_join(trips_bogota_v2, by = c(&quot;id_hogar&quot;, &quot;id_persona&quot;))
          participant_wt = f_exp,
          meta_data = NA) %&gt;% 
   select(cluster_id, household_id, participant_id, sex, age, participant_wt,
-         trip_id, trip_mode, trip_duration, trip_purpose) #%&gt;% 
+         trip_id, trip_mode, trip_duration, trip_purpose,
+         stage_id, stage_mode, stage_duration, stage_id_paste, 
+         trip_id_paste) #%&gt;% 
   #arrange(cluster_id, household_id, participant_id, trip_id)
 
 report$meta_data[1] &lt;- 9135800</code></pre>
@@ -5433,40 +5724,13 @@ report$meta_data[10] &lt;- &quot;Truck, van&quot; # missing modes#&#39; </code><
 <pre class="r"><code>sum(is.na(report$trip_mode))</code></pre>
 <pre><code>## [1] 10319</code></pre>
 <p>Export dataset to make the report</p>
-<pre class="r"><code>write_csv(report, &#39;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/bogota_wb2/bogota_trips_wb2.csv&#39;)</code></pre>
-<p>Doing the same but filtering out walking trips shorter than 15 minutes</p>
-<pre class="r"><code>report_longer_15 &lt;- people_bogota %&gt;% 
-  left_join(trips_bogota_longer_15, by = c(&quot;id_hogar&quot;, &quot;id_persona&quot;)) %&gt;% 
-  mutate(cluster_id = 1,
-         household_id = id_hogar,
-         participant_id = id_persona,
-         age = p4_edad,
-         sex = ifelse(Sexo == &quot;Hombre&quot;, &quot;Male&quot;, &quot;Female&quot;),
-         participant_wt = f_exp,
-         meta_data = NA) %&gt;% 
-  select(cluster_id, household_id, participant_id, sex, age, participant_wt,
-         trip_id, trip_mode, trip_duration, trip_purpose) #%&gt;% 
-  #arrange(cluster_id, household_id, participant_id, trip_id)
-
-report_longer_15$meta_data[1] &lt;- 9135800</code></pre>
-<pre><code>## Warning: Unknown or uninitialised column: `meta_data`.</code></pre>
-<pre class="r"><code>report_longer_15$meta_data[2] &lt;- 17497 
-report_longer_15$meta_data[3] &lt;- &quot;Travel Survey&quot;
-report_longer_15$meta_data[4] &lt;- 2019
-report_longer_15$meta_data[5] &lt;- &quot;1 day&quot;
-report_longer_15$meta_data[6] &lt;- &quot;Yes, but no stage duration&quot; #Stage level data available
-report_longer_15$meta_data[7] &lt;- &quot;All purpose&quot;#Overall trip purpose
-report_longer_15$meta_data[8] &lt;- &quot;Yes, but not here (yet)&quot; # Short walks to PT
-report_longer_15$meta_data[9] &lt;- &quot;No&quot; # Distance available
-report_longer_15$meta_data[10] &lt;- &quot;Truck, van&quot; # missing modes#&#39; </code></pre>
-<p>Export dataset to make the report</p>
-<pre class="r"><code>write_csv(report_longer_15, &#39;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/bogota_wb2/bogota_trips_longer15_wb2.csv&#39;)</code></pre>
+<pre class="r"><code>write_csv(report, &#39;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/bogota/bogota_trips.csv&#39;)</code></pre>
 </div>
 <div id="standardize-trip-modes" class="section level2">
 <h2>Standardize trip modes</h2>
 <p>There’s already a function that standardize these modes so the package can use these trips. I made sure to use translate trip modes so that the function works perfectly (take a look at the <em>original</em> variable of <em>smodes</em> dataframe in this function).</p>
 <pre class="r"><code>#trips_export &lt;- standardize_modes(duration_bogota, mode = c(&#39;trip&#39;))
-trips_export &lt;- standardize_modes(report, mode = c(&#39;trip&#39;))</code></pre>
+trips_export &lt;- standardize_modes(report, mode = c(&#39;trip&#39;, &#39;stage&#39;))</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   number = col_double(),
@@ -5479,19 +5743,41 @@ trips_export &lt;- standardize_modes(report, mode = c(&#39;trip&#39;))</code></p
 ##   inj_str_shrt = col_character(),
 ##   original = col_character()
 ## )</code></pre>
-<pre class="r"><code>unique(report$trip_mode)</code></pre>
-<pre><code>##  [1] &quot;car&quot;        &quot;bus&quot;        &quot;walk&quot;       &quot;taxi&quot;       NA          
-##  [6] &quot;van&quot;        &quot;train&quot;      &quot;other&quot;      &quot;rickshaw&quot;   &quot;motorcycle&quot;
-## [11] &quot;bicycle&quot;</code></pre>
-<pre class="r"><code>unique(trips_export$trip_mode)</code></pre>
-<pre><code>##  [1] &quot;car&quot;           &quot;bus&quot;           &quot;pedestrian&quot;    &quot;taxi&quot;         
-##  [5] NA              &quot;rail&quot;          &quot;other&quot;         &quot;auto_rickshaw&quot;
-##  [9] &quot;motorcycle&quot;    &quot;cycle&quot;</code></pre>
+<pre class="r"><code>table(report$trip_mode, useNA = &quot;always&quot;)</code></pre>
+<pre><code>## 
+##    bicycle        bus        car motorcycle      other   rickshaw       taxi 
+##       7581     113326      33804       8233        349        332      10315 
+##      train      truck        van       walk       &lt;NA&gt; 
+##         16        166       5495      37687      10319</code></pre>
+<pre class="r"><code>table(trips_export$trip_mode, useNA = &quot;always&quot;)</code></pre>
+<pre><code>## 
+## auto_rickshaw           bus           car         cycle    motorcycle 
+##           332        113326         39299          7581          8233 
+##         other    pedestrian          rail          taxi         truck 
+##           349         37687            16         10315           166 
+##          &lt;NA&gt; 
+##         10319</code></pre>
+<pre class="r"><code>table(report$stage_mode, useNA = &quot;always&quot;)</code></pre>
+<pre><code>## 
+##    bicycle        bus        car motorcycle      other   rickshaw       taxi 
+##       5169      44969      18352       4673        336        471       5431 
+##      train      truck        van       walk walk_to_pt       &lt;NA&gt; 
+##         15        100       2930      37707      97151      10319</code></pre>
+<pre class="r"><code>table(trips_export$stage_mode, useNA = &quot;always&quot;)</code></pre>
+<pre><code>## 
+## auto_rickshaw           bus           car         cycle    motorcycle 
+##           471         44969         21282          5169          4673 
+##         other    pedestrian          rail          taxi         truck 
+##           336        134858            15          5431           100 
+##          &lt;NA&gt; 
+##         10319</code></pre>
 <p><em>standardize_modes</em> function transforms walk to pedestrian, van to car, bicycle to cycle, train to rail, and rickshaw to auto_rickshaw.</p>
 </div>
 <div id="creating-again-ids" class="section level2">
 <h2>Creating again IDs</h2>
 <pre class="r"><code>trips_export &lt;- trips_export %&gt;% mutate(
+  participant_id2 = participant_id,
+  trip_id2 = trip_id,
   participant_id = as.integer(as.factor(paste(cluster_id, household_id,
                                                participant_id, sep = &quot;_&quot;))),
   trip_id = as.integer(as.factor(paste(cluster_id, household_id,
@@ -5504,7 +5790,8 @@ trips_export &lt;- standardize_modes(report, mode = c(&#39;trip&#39;))</code></p
 <h2>Variables to export</h2>
 <p>Now I filter the columns I need</p>
 <pre class="r"><code>trips_export &lt;- trips_export %&gt;% 
-  select(participant_id, age, sex, trip_id, trip_mode, trip_duration)</code></pre>
+  select(participant_id, age, sex, trip_id, trip_mode, trip_duration, 
+         stage_id, stage_mode, stage_duration)</code></pre>
 </div>
 <div id="export-dataset" class="section level2">
 <h2>Export dataset</h2>
@@ -5513,9 +5800,8 @@ trips_export &lt;- standardize_modes(report, mode = c(&#39;trip&#39;))</code></p
 <li>In …/inst/exdata folder so the dataset is installed with the package</li>
 <li>In Data/Colombia/Bogota/Cleaned, to have a copy</li>
 </ol>
-<p>In this case I called it bogota_wb2, because Lady made the preprocessing of this dataset before, and I don’t want to lose it. Lady’s datset are bogota_Wb.</p>
-<pre class="r"><code>write_csv(trips_export, &#39;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/inst/extdata/local/bogota_wb2/trips_bogota_wb2.csv&#39;)
-write_csv(trips_export, &#39;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/Data/Colombia/Bogota/Cleaned/trips_bogota_wb2.csv&#39;)</code></pre>
+<pre class="r"><code>write_csv(trips_export, &#39;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/inst/extdata/local/bogota/trips_bogota.csv&#39;)
+write_csv(trips_export, &#39;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Colombia/Bogota/Cleaned/trips_bogota.csv&#39;)</code></pre>
 </div>
 </div>
 

@@ -405,14 +405,15 @@ length(unique(trips_bogota$trip_id_paste)) == length(unique(duration_bogota$trip
 
 sum(sort(unique(trips_bogota$trip_id_paste)) == sort(unique(duration_bogota$trip_id_paste)))
 
-#' The next step consists in join trip and duration datasets, and create trips
+#' The next step consists in joining trip and duration datasets, and create trips
 #' variables. 
 #' 
 #' Note: in the beginning I got the trip_mode from "modo_principal" but there's
 #' a problem with "informal modes" because there are multiple of them and don't
 #' correspond to the same mode. There could be an informal mototaxi and an 
 #' informal bus, and they are classified as informal in the survey but we need
-#' them to be motorycle and bus respectively.
+#' them to be motorycle and bus respectively. Thus, I will compute trip_mode
+#' using the hierarchy at stage level.
 trips_bogota_v2 <- trips_bogota %>% 
   left_join(duration_bogota, by = c("id_hogar", "id_persona", "id_viaje")) %>% 
   mutate(trip_id = id_viaje,
@@ -444,6 +445,7 @@ stages_bogota_v2 <- stages_bogota %>%
     participant_id = id_persona,
     trip_id = id_viaje,
     stage_id = id_etapa,
+    trip_id_paste = paste0(household_id, participant_id, trip_id),
     stage_id_paste = paste0(household_id, participant_id, trip_id, 
                             stage_id),
     stage_mode = main_mode$ITHIM[
@@ -454,10 +456,11 @@ stages_bogota_v2 <- stages_bogota %>%
   left_join(n_stages, by = c("id_hogar", "id_persona", "id_viaje")) %>% 
   # Merge trip duration and walking duration at the end of the trip
   left_join(trips_bogota_v2[, c("id_hogar", "id_persona", "id_viaje",
-                                "trip_duration", "p30_camino_minutos")], 
-            by = c("id_hogar", "id_persona", "id_viaje")) %>% 
+                                "trip_duration", "p30_camino_minutos",
+                                "trip_purpose")], 
+            by = c("id_hogar", "id_persona", "id_viaje"))
   
-#' Now I going to compute stage duration. The processing is different in trips
+#' Now I'm going to compute stage duration. The processing is different in trips
 #' with only one main stage (i.e. without counting walking stages) and with more
 #' than one. In the first case, I will subtract the walking duration from the 
 #' trip duration and assign this value to the stage. In the second case, I will
@@ -484,13 +487,14 @@ stages_bogota_v2_1 <- stages_bogota_v2 %>% filter(n == 1) %>%
          # walking duration is equal to or larger than trip duration
          need_adjustment = ifelse(p18_id_medio_transporte != 40 &
                                     walking_duration >= trip_duration, 1, 0),
-          stage_duration = ifelse(need_adjustment == 0,
-                                 trip_duration - walking_duration,
-                                 trip_duration),
+          stage_duration = ifelse(p18_id_medio_transporte != 40,
+            ifelse(need_adjustment == 0, trip_duration - walking_duration,
+                                 trip_duration), trip_duration),
           # Since all these trips has only one stage, without counting walking
           # stages, then the trip mode will be the same as stage_mode
           trip_mode = stage_mode)
 
+#View(stages_bogota_v2_1)
 #length(unique(stages_bogota_v2_1$stage_id_paste))
 #table(stages_bogota_v2_1$stage_mode, stages_bogota_v2_1$need_adjustment)
 #table(stages_bogota_v2_1$need_adjustment)
@@ -508,8 +512,9 @@ table(stages_bogota_v2_1$need_adjustment, useNA = "always") / nrow(stages_bogota
 #' a single stage, meaning, no walking component for these other modes
 stages_bogota_v2_1_adjust <- stages_bogota_v2_1 %>% 
   filter(need_adjustment == 1 | stage_mode == "walk") %>% 
-  select(household_id, participant_id, trip_id, stage_id, trip_mode, 
-         trip_duration, stage_mode, stage_duration, stage_id_paste)
+  select(household_id, participant_id, trip_id, trip_mode, trip_duration,
+         trip_purpose, stage_id, stage_mode, stage_duration, stage_id_paste, 
+         trip_id_paste)
 
 #View(stages_bogota_v2_1_adjust)
 #length(unique(stages_bogota_v2_1_adjust$stage_id_paste))
@@ -535,32 +540,97 @@ stages_bogota_v2_1_noadjust <- stages_bogota_v2_1 %>%
            grp = with(rle(stage_id_paste), rep(seq_along(lengths), lengths))) %>%
   mutate(stage_id = seq_along(grp)) %>% 
   ungroup() %>% 
-  select(household_id, participant_id, trip_id, stage_id, trip_mode, 
-         trip_duration, stage_mode, stage_duration, stage_id_paste, stage_id)
+  select(household_id, participant_id, trip_id, trip_mode, trip_duration,
+         trip_purpose, stage_id, stage_mode, stage_duration, stage_id_paste, 
+         trip_id_paste)
                                       
 # length(unique(stages_bogota_v2_1_noadjust$stage_id_paste))
 # View(stages_bogota_v2_1_noadjust)
 # sum(is.na(stages_bogota_v2_1_noadjust$stage_duration))
 
-#' Append both datasets into one with trips with only one stage
-names(stages_bogota_v2_1_adjust)
-names(stages_bogota_v2_1_noadjust)
-
+#' Append both datasets into one with trips with only one stage.
+#' 
+#' In this dataset *stage_id_paste* let me know the original stage_id so I can
+#' trace back the original trip if I wanted to.
+# names(stages_bogota_v2_1_adjust)
+# names(stages_bogota_v2_1_noadjust)
 stages_bogota_v2_1_ready <- stages_bogota_v2_1_adjust %>% 
   bind_rows(stages_bogota_v2_1_noadjust)
 
-table(stages_bogota_v2_1_ready$stage_mode)
+#View(stages_bogota_v2_1_ready)
+#table(stages_bogota_v2_1_ready$stage_mode)
 
-#' **Trips with more than one stage:** 
-stages_bogota_v2_2 <- stages_bogota_v2 %>% filter(n > 1)
-unique(stages_bogota_v2_2$id_etapa)
-View(stages_bogota_v2_2)
+#' **Trips with more than one stage** 
+#' 
+#' In this dataset *stage_id_paste* and *trip_id_paste* let me know the original
+#' stage_id and trip_id so I can trace back the original trip if I wanted to.
+stages_bogota_v2_2 <- stages_bogota_v2 %>% filter(n > 1) %>% 
+  mutate(
+         # To avoid double counting the last walking stage, I set it up to zero
+         p30_camino_minutos_ok = ifelse(id_etapa != n, 
+                                        0, p30_camino_minutos)) %>% 
+  # I compute the walking duration and the beginning and end of a stage, and also
+  # the trip main mode.
+  group_by(id_hogar, id_persona, id_viaje) %>% 
+  mutate(p19_camino_minutos_sum = sum(p19_camino_minutos, na.rm = T),
+         p30_camino_minutos_sum = sum(p30_camino_minutos_ok, na.rm = T),
+         # I compute total walking duration
+         walking_duration = p19_camino_minutos_sum + p30_camino_minutos_sum,
+         stage_duration = (trip_duration - walking_duration) / n,
+         # trip main mode
+         #main_mode = min(hierarchy),
+         trip_mode = main_mode$ITHIM[
+           match(min(hierarchy), main_mode$Hierarchy)]) %>% 
+  ungroup() %>% 
+  # I use pivot_longer the put walking stages in a new row
+  pivot_longer(c("p19_camino_minutos", "stage_duration",
+                 "p30_camino_minutos_ok"), names_to = "variable",
+               values_to = "stage_duration") %>% 
+  # Assign "walk_to_pt" to walking stages
+  mutate(stage_mode = ifelse(variable %in% c("p19_camino_minutos",
+                                             "p30_camino_minutos_ok"), 
+                             "walk_to_pt", stage_mode)) %>% 
+  # Filter out walking stages without duration
+  filter(!is.na(stage_duration) & stage_duration > 0) %>% 
+  # Reassign stage_id
+  # from https://stackoverflow.com/questions/54581440/r-count-consecutive-occurrences-of-values-in-a-single-column-and-by-group
+  group_by(id_hogar, id_persona, 
+           grp = with(rle(trip_id_paste), rep(seq_along(lengths), lengths))) %>%
+  mutate(stage_id = seq_along(grp)) %>% 
+  ungroup() %>% 
+  select(household_id, participant_id, trip_id, trip_mode, trip_duration,
+         trip_purpose, stage_id, stage_mode, stage_duration, stage_id_paste, 
+         trip_id_paste)
+
+#unique(stages_bogota_v2_2$id_etapa)
+#sum(is.na(stages_bogota_v2_2$stage_duration))
+#View(stages_bogota_v2_2)
+
+#' I merge all stages again to create a unique dataset
+stages_bogota_ready <- stages_bogota_v2_1_ready %>% 
+  bind_rows(stages_bogota_v2_2) %>% 
+  arrange(household_id, participant_id, trip_id, stage_id)
+
+#View(stages_bogota_ready)
+#' Checking the number of stages before and after the preprocessing. There are
+#' 8 stages that don't appear anymore although the number of trips is the same.
+length(unique(stages_bogota_v2_1_ready$stage_id_paste)) + 
+  length(unique(stages_bogota_v2_2$stage_id_paste)) 
+length(unique(stages_bogota_v2$stage_id_paste))
+length(unique(stages_bogota_ready$stage_id_paste))
+
+length(unique(stages_bogota_v2_1_ready$trip_id_paste)) + 
+  length(unique(stages_bogota_v2_2$trip_id_paste)) 
+length(unique(stages_bogota_v2$trip_id_paste))
+length(unique(stages_bogota_ready$trip_id_paste))
+
 
 #' ## Create variables for quick report
 #' I need to create some variables to run the report that Lambed developed in 
 #' the function *quality_check*.
 report <- people_bogota %>% 
-left_join(trips_bogota_v2, by = c("id_hogar", "id_persona")) %>% 
+left_join(stages_bogota_ready, by = c("id_hogar" = "household_id", 
+                                      "id_persona" = "participant_id")) %>% 
   mutate(cluster_id = 1,
          household_id = id_hogar,
          participant_id = id_persona,
@@ -569,7 +639,9 @@ left_join(trips_bogota_v2, by = c("id_hogar", "id_persona")) %>%
          participant_wt = f_exp,
          meta_data = NA) %>% 
   select(cluster_id, household_id, participant_id, sex, age, participant_wt,
-         trip_id, trip_mode, trip_duration, trip_purpose) #%>% 
+         trip_id, trip_mode, trip_duration, trip_purpose,
+         stage_id, stage_mode, stage_duration, stage_id_paste, 
+         trip_id_paste) #%>% 
   #arrange(cluster_id, household_id, participant_id, trip_id)
 
 report$meta_data[1] <- 9135800
@@ -592,35 +664,7 @@ sum(is.na(report$trip_duration))
 sum(is.na(report$trip_mode))
 
 #' Export dataset to make the report
-# write_csv(report, 'C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/bogota_wb2/bogota_trips_wb2.csv')
-
-#' Doing the same but filtering out walking trips shorter than 15 minutes
-report_longer_15 <- people_bogota %>% 
-  left_join(trips_bogota_longer_15, by = c("id_hogar", "id_persona")) %>% 
-  mutate(cluster_id = 1,
-         household_id = id_hogar,
-         participant_id = id_persona,
-         age = p4_edad,
-         sex = ifelse(Sexo == "Hombre", "Male", "Female"),
-         participant_wt = f_exp,
-         meta_data = NA) %>% 
-  select(cluster_id, household_id, participant_id, sex, age, participant_wt,
-         trip_id, trip_mode, trip_duration, trip_purpose) #%>% 
-  #arrange(cluster_id, household_id, participant_id, trip_id)
-
-report_longer_15$meta_data[1] <- 9135800
-report_longer_15$meta_data[2] <- 17497 
-report_longer_15$meta_data[3] <- "Travel Survey"
-report_longer_15$meta_data[4] <- 2019
-report_longer_15$meta_data[5] <- "1 day"
-report_longer_15$meta_data[6] <- "Yes, but no stage duration" #Stage level data available
-report_longer_15$meta_data[7] <- "All purpose"#Overall trip purpose
-report_longer_15$meta_data[8] <- "Yes, but not here (yet)" # Short walks to PT
-report_longer_15$meta_data[9] <- "No" # Distance available
-report_longer_15$meta_data[10] <- "Truck, van" # missing modes#' 
-
-#' Export dataset to make the report
-# write_csv(report_longer_15, 'C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/bogota_wb2/bogota_trips_longer15_wb2.csv')
+write_csv(report, 'C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/bogota/bogota_trips.csv')
 
 #' ## Standardize trip modes
 #' There's already a function that standardize these modes so the package can use
@@ -629,15 +673,19 @@ report_longer_15$meta_data[10] <- "Truck, van" # missing modes#'
 #' in this function).
 
 #trips_export <- standardize_modes(duration_bogota, mode = c('trip'))
-trips_export <- standardize_modes(report, mode = c('trip'))
-unique(report$trip_mode)
-unique(trips_export$trip_mode)
+trips_export <- standardize_modes(report, mode = c('trip', 'stage'))
+table(report$trip_mode, useNA = "always")
+table(trips_export$trip_mode, useNA = "always")
+table(report$stage_mode, useNA = "always")
+table(trips_export$stage_mode, useNA = "always")
 
 #' *standardize_modes* function transforms walk to pedestrian, van to car, 
 #' bicycle to cycle, train to rail, and rickshaw to auto_rickshaw.
 #'
 #' ## Creating again IDs
 trips_export <- trips_export %>% mutate(
+  participant_id2 = participant_id,
+  trip_id2 = trip_id,
   participant_id = as.integer(as.factor(paste(cluster_id, household_id,
                                                participant_id, sep = "_"))),
   trip_id = as.integer(as.factor(paste(cluster_id, household_id,
@@ -647,7 +695,8 @@ trips_export <- trips_export %>% mutate(
 #' ## Variables to export
 #' Now I filter the columns I need
 trips_export <- trips_export %>% 
-  select(participant_id, age, sex, trip_id, trip_mode, trip_duration)
+  select(participant_id, age, sex, trip_id, trip_mode, trip_duration, 
+         stage_id, stage_mode, stage_duration)
 
 #' ## Export dataset
 #' I'm exporting this dataset to two different locations:
@@ -655,10 +704,8 @@ trips_export <- trips_export %>%
 #' 1. In .../inst/exdata folder so the dataset is installed with the package
 #' 2. In Data/Colombia/Bogota/Cleaned, to have a copy 
 #' 
-#' In this case I called it bogota_wb2, because Lady made the preprocessing of
-#' this dataset before, and I don't want to lose it. Lady's datset are bogota_Wb.
-# write_csv(trips_export, 'C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/inst/extdata/local/bogota_wb2/trips_bogota_wb2.csv')
-# write_csv(trips_export, 'C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/Data/Colombia/Bogota/Cleaned/trips_bogota_wb2.csv')
+write_csv(trips_export, 'C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/inst/extdata/local/bogota/trips_bogota.csv')
+write_csv(trips_export, 'C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Colombia/Bogota/Cleaned/trips_bogota.csv')
 
 
 
