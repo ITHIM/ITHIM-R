@@ -2543,7 +2543,7 @@ trip <- trip_0 %>%
     trip_mode = main_mode$ITHIM[match(main_modes, main_mode$Hierarchy)],
     trip_id_paste = paste(id_soc, id_via, sep = "-")) %>% 
   #left_join(trip_purpose) %>% 
-  select(id_soc,id_via, trip_duration_d, trip_purpose, trip_mode)
+  select(id_soc,id_via, trip_duration_d, trip_purpose, trip_mode, trip_id_paste)
 # Variable p5_3 indicates whether the trip was made during the week (=1) or saturday (=2)
     
 stage <- stage_0 %>% 
@@ -2587,7 +2587,7 @@ mexico_city <- person %>%
 #             stage_id_min = min(stage_id),
 #             stage_id_max = max(stage_id)))
 
-mexico_city <- mexico_city %>% 
+mexico_city_v2 <- mexico_city %>% 
   mutate(participant_id = ifelse(p5_3 == 2, participant_id + 100000,
                                   participant_id),
          household_id = ifelse(p5_3 == 2, household_id + 100000,
@@ -2596,8 +2596,21 @@ mexico_city <- mexico_city %>%
                            trip_id),
          stage_id = ifelse(p5_3 == 2,stage_id + 1000000,
                             stage_id))
+# 
+# total_participant <- 
+#   mexico_city %>% 
+#   count(cluster_id, household_id, participant_id) %>%
+#   nrow
+# 
+# people_with_trip <- 
+#   mexico_city %>% 
+#   filter(!is.na(trip_id)) %>% 
+#   count(cluster_id, household_id, participant_id) %>% 
+#   nrow
+# 
+# proportion_people_with_trips <- round(people_with_trip*100/total_participant)
 
-trip <- mexico_city
+trip <- mexico_city_v2
 trip$meta_data <- NA
 trip$meta_data[1] <- 20976700
 trip$meta_data[2] <- 19239

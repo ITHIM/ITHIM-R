@@ -43,7 +43,7 @@ data.frame(
                  "Trip", "Trip", "Stage", "Stage", "Trip",
                  "Trip"),
   # If not, what is missing?
-  Missing = c("N/A", 
+  Stage_missing = c("N/A", 
               "There's no stage duration", 
               "N/A", 
               "N/A", 
