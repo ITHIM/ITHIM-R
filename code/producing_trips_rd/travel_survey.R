@@ -2588,27 +2588,28 @@ mexico_city <- person %>%
 #             stage_id_max = max(stage_id)))
 
 mexico_city_v2 <- mexico_city %>% 
-  mutate(participant_id = ifelse(p5_3 == 2, participant_id + 100000,
-                                  participant_id),
-         household_id = ifelse(p5_3 == 2, household_id + 100000,
-                                household_id),
-         trip_id = ifelse(p5_3 == 2, trip_id + 1000000,
-                           trip_id),
-         stage_id = ifelse(p5_3 == 2,stage_id + 1000000,
-                            stage_id))
-# 
-# total_participant <- 
-#   mexico_city %>% 
-#   count(cluster_id, household_id, participant_id) %>%
-#   nrow
-# 
-# people_with_trip <- 
-#   mexico_city %>% 
-#   filter(!is.na(trip_id)) %>% 
-#   count(cluster_id, household_id, participant_id) %>% 
-#   nrow
-# 
-# proportion_people_with_trips <- round(people_with_trip*100/total_participant)
+  mutate(
+    participant_id = ifelse(!is.na(p5_3) & p5_3 == 2, 
+                             participant_id + 1000000, participant_id),
+    household_id = ifelse(!is.na(p5_3) & p5_3 == 2, 
+                          household_id + 1000000, household_id),
+    trip_id = ifelse(!is.na(p5_3) & p5_3 == 2, 
+                     trip_id + 10000000, trip_id),
+    stage_id = ifelse(!is.na(p5_3) & p5_3 == 2, 
+                      stage_id + 10000000, stage_id))
+
+total_participant <-
+  mexico_city_v2 %>%
+  count(cluster_id, household_id, participant_id) %>%
+  nrow
+
+people_with_trip <-
+  mexico_city_v2 %>%
+  filter(!is.na(trip_id)) %>%
+  count(cluster_id, household_id, participant_id) %>%
+  nrow
+
+proportion_people_with_trips <- round(people_with_trip*100/total_participant)
 
 trip <- mexico_city_v2
 trip$meta_data <- NA
