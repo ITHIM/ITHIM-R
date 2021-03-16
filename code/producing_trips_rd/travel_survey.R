@@ -2598,18 +2598,18 @@ mexico_city_v2 <- mexico_city %>%
     stage_id = ifelse(!is.na(p5_3) & p5_3 == 2, 
                       stage_id + 10000000, stage_id))
 
-total_participant <-
-  mexico_city_v2 %>%
-  count(cluster_id, household_id, participant_id) %>%
-  nrow
-
-people_with_trip <-
-  mexico_city_v2 %>%
-  filter(!is.na(trip_id)) %>%
-  count(cluster_id, household_id, participant_id) %>%
-  nrow
-
-proportion_people_with_trips <- round(people_with_trip*100/total_participant)
+# total_participant <-
+#   mexico_city_v2 %>%
+#   count(cluster_id, household_id, participant_id) %>%
+#   nrow
+# 
+# people_with_trip <-
+#   mexico_city_v2 %>%
+#   filter(!is.na(trip_id)) %>%
+#   count(cluster_id, household_id, participant_id) %>%
+#   nrow
+# 
+# proportion_people_with_trips <- round(people_with_trip*100/total_participant)
 
 trip <- mexico_city_v2
 trip$meta_data <- NA
