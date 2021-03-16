@@ -22,6 +22,75 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
                                             # much better results. Your mileage may vary
 
 ```
+```{r,  comment=NA, message=FALSE, warning=FALSE, prompt=FALSE, cache=FALSE, echo=F}
+data.frame(
+  Ciudad = c("Buenos Aires", "Sao Paulo", "Belo Horizonte", "Mexico", "Bogota",
+             "Santiago", "Visakhapatnam", "Delhi", "Bangalore", "Accra",
+             "Cape Town"),
+  Study_area = c("BA and 27 municipalities.",
+                 "Metropolitan region of SP.",
+                 "Metropolitan region of BH.",
+                 "Metropolitan area of Mexico city.",
+                 "Bogota and surrounding municipalities.",
+                 "Metropolitan region of Santiago.",
+                 "There's not a report with survey details.",
+                 "There's not a report with survey details.",
+                 "Not sure",
+                 "The whole country but filtered only Greater Accra",
+                 "Cape Town, Malmesbury and Paarl"),
+  # Is there information at stage level?
+  Trip_Stage = c("Stage", "Trip", "Stage", "Stage", "Trip", 
+                 "Trip", "Trip", "Stage", "Stage", "Trip",
+                 "Trip"),
+  # If not, what is missing?
+  Missing = c("N/A", 
+              "There's no stage duration", 
+              "N/A", 
+              "N/A", 
+              "There's no stage duration",
+              "There's no stage duration",
+              "There's no stage mode, duration",
+              "N/A",
+              "N/A",
+              "Not sure, because it asks about modes and duration but don't know if people answered with this level of detail.",
+              "Looks like the survey capture up to 5 stage modes, but duration was not asked."),
+  # Is there information about short walks to pt
+  Walk_to_from_pt = c("Yes, in blocks (not minutes)",
+                      "No, walking trips are only considered when it is a unique mode. It never appears combined with other modes",
+                      "Yes",
+                      "Yes",
+                      "Yes",
+                      "Yes",
+                      "No",
+                      "Not sure",
+                      "Yes",
+                      "Not sure, because it asks about modes and duration but don't know if people answered with this level of detail.",
+                      "No"),
+  # Is the data ok?
+  OK = c("--", "--", "--", "--", "--", 
+         "--", "--", "--", "--", "--", "--"),
+  ToDo = c("Need to check if injuries dataset covers the same area that travel survey does. \n There's information about walking stages (blocks not minutes) but is not used",
+           "Need to check if injuries dataset covers the same area that travel survey does. \n Travel survey from 2012, there is one from 2017.",
+           "Need to check if injuries dataset covers the same area that travel survey does. \n According to the documentation, it looks like there's information at stage level (including stage duration).",
+           "Need to check if injuries dataset covers the same area that travel survey does. Trip mode is defined in terms of speed and duration, while in other surveys there's a hierarchy (check this). There's information on weekdays and weekends, decide what to do with this.",
+           "Need to check if injuries dataset covers the same area that travel survey does (The one that I got it's from only Bogota). Need to update travel survey.",
+           "Need to check if injuries dataset covers the same area that travel survey does. There's information about trips on working days in regular season and and working days in summer season, decide what to do with this.",
+           "Need to find a report to check the details of this survey",
+           "Need to find a report to check the details of this survey",
+           "There's a report called Comprehensive Traffic and Transportation Study for Bangalore Metropolitan region but I'm not sure if it corresponds to the data. Trip mode is defined in terms of speed and duration, while in other surveys there's a hierarchy (check this)",
+           "Need to check if injuries dataset covers the same area that time use survey does. Need to check if stages were captured.",
+           "Need to check if injuries dataset covers the same area that time use survey does.")
+  ) %>% kbl() %>% kable_classic()
+
+# (If short walk is not explicitly recorded, we have to find a way to remove; if they are missing, what should we do?)
+
+# Sao Paulo:
+# 1) Walking trips: Page 60, Pesquisa de Mobilidade da RMSP –2012 –Manual da Pesquisa Domiciliar
+# Belo horizonte:
+# 1) Study area: page 35, codebook and protocol.pdf
+# Cape town:
+# 1) Main mode Hierarchy: page 45, Final Draft HH Survey Report.pdf
+```
 
 ```{r,  comment=NA, message=FALSE, warning=FALSE, prompt=FALSE, cache=FALSE, echo=F}
 trip <- read_csv("../../data/local/buenos_aires/buenos_aires_trip.csv")
@@ -40,7 +109,7 @@ trip <- read_csv("../../data/local/mexico_city/mexico_city_trip.csv")
 quality_check(trip)
 trip_summary$Mexico <- value
 
-trip <- read_csv("../../data/local/bogota/bogota_trip.csv")
+trip <- read_csv("../../data/local/bogota/bogota_trips.csv")
 quality_check(trip)
 trip_summary$Bogota <- value
 
