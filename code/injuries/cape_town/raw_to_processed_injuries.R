@@ -95,6 +95,8 @@ whw3 <- whw3 %>% bind_cols(imputed)
 
 # Third try: Adding imputations from the first imputed dataset using hotdeck
 imp2 <- hot.deck(as.data.frame(whw2))
+# Save object with imputation
+saveRDS(imp2, file = "code/injuries/cape_town/imputed_hotdeck.RDS") 
 
 imputed2 <- imp2$data[[1]] %>% select(cas_age, cas_mode, strike_mode) %>% 
   rename(cas_age_imp3 = cas_age,
