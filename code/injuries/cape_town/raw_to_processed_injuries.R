@@ -1,6 +1,7 @@
 # Load libraries
 library(tidyverse)
 library(mice)
+library(hot.deck)
 
 # Set filepath
 file_path <- file.path('data/local/cape_town/injuries_cape_town.csv')
@@ -48,6 +49,7 @@ imp1
 saveRDS(imp1, file = "code/injuries/cape_town/imputed.RDS") 
 # imp1 <- readRDS("code/injuries/cape_town/imputed.RDS")
 
+# First try: computing the mode from 100 imputed values in each variable
 # Create the function to get the mode, from here https://www.tutorialspoint.com/r/r_mean_median_mode.htm
 getmode <- function(v) {
   uniqv <- unique(v)
@@ -66,27 +68,72 @@ cas_mode$impute <- apply(cas_mode[2:ncol(cas_mode)], 1, getmode)
 strike_mode <- imp1$imp$strike_mode %>% rownames_to_column("id") 
 strike_mode$impute <- apply(strike_mode[2:ncol(strike_mode)], 1, getmode)
 
+# Create a dataset with the imputations using different methods
 whw3 <- whw2
-whw3[cas_age$id, "cas_age"] <- cas_age$impute
-whw3[cas_mode$id, "cas_mode"] <- cas_mode$impute
-whw3[strike_mode$id, "strike_mode"] <- strike_mode$impute
-
+# Create copies of original values
+whw3$cas_age_imp1 <- whw3$cas_age
+whw3$cas_mode_imp1 <- whw3$cas_mode
+whw3$strike_mode_imp1 <- whw3$strike_mode
+whw3[cas_age$id, "cas_age_imp1"] <- cas_age$impute
+whw3[cas_mode$id, "cas_mode_imp1"] <- cas_mode$impute
+whw3[strike_mode$id, "strike_mode_imp1"] <- strike_mode$impute
 
 # Check these values were indeed imputed
 # summary(whw2$cas_age); summary(whw3$cas_age)
 # table(whw2$cas_mode, useNA = "always");table(whw3$cas_mode, useNA = "always")
 # table(whw2$strike_mode, useNA = "always");table(whw3$strike_mode,useNA = "always")
 
+
+# Second try: Adding imputations from the first imputed dataset using mice
+names(imputed)
+imputed <- complete(imp1) %>% select(cas_age, cas_mode, strike_mode) %>% 
+  rename(cas_age_imp2 = cas_age,
+         cas_mode_imp2 = cas_mode,
+         strike_mode_imp2 = strike_mode)
+
+whw3 <- whw3 %>% bind_cols(imputed)
+
+# Third try: Adding imputations from the first imputed dataset using hotdeck
+imp2 <- hot.deck(as.data.frame(whw2))
+
+imputed2 <- imp2$data[[1]] %>% select(cas_age, cas_mode, strike_mode) %>% 
+  rename(cas_age_imp3 = cas_age,
+         cas_mode_imp3 = cas_mode,
+         strike_mode_imp3 = strike_mode)
+
+whw3 <- whw3 %>% bind_cols(imputed2)
+
 # Recode cas mode
 whw <- whw3
-whw$cas_mode <- smodes$exhaustive_list[match(tolower(whw$cas_mode), smodes$original)]
+whw$cas_mode <- smodes$exhaustive_list[match(tolower(whw$cas_mode),
+                                             smodes$original)]
+whw$cas_mode_imp1 <- smodes$exhaustive_list[match(tolower(whw$cas_mode_imp1),
+                                             smodes$original)]
+whw$cas_mode_imp2 <- smodes$exhaustive_list[match(tolower(whw$cas_mode_imp2),
+                                                  smodes$original)]
+whw$cas_mode_imp3 <- smodes$exhaustive_list[match(tolower(whw$cas_mode_imp3),
+                                                  smodes$original)]
 
 # Recode strike mode
-whw$strike_mode <- smodes$exhaustive_list[match(tolower(whw$strike_mode), smodes$original)]
+whw$strike_mode <- smodes$exhaustive_list[match(tolower(whw$strike_mode),
+                                                smodes$original)]
+whw$strike_mode_imp1 <- smodes$exhaustive_list[
+  match(tolower(whw$strike_mode_imp1), smodes$original)]
+whw$strike_mode_imp2 <- smodes$exhaustive_list[
+  match(tolower(whw$strike_mode_imp2), smodes$original)]
+whw$strike_mode_imp3 <- smodes$exhaustive_list[
+  match(tolower(whw$strike_mode_imp3), smodes$original)]
 
 # Check if all modes are correctly recoded
 unique(whw$cas_mode) %in% smodes$exhaustive_list
+unique(whw$cas_mode_imp1) %in% smodes$exhaustive_list
+unique(whw$cas_mode_imp2) %in% smodes$exhaustive_list
+unique(whw$cas_mode_imp3) %in% smodes$exhaustive_list
 unique(whw$strike_mode) %in% smodes$exhaustive_list
+unique(whw$strike_mode_imp1) %in% smodes$exhaustive_list
+unique(whw$strike_mode_imp2) %in% smodes$exhaustive_list
+unique(whw$strike_mode_imp3) %in% smodes$exhaustive_list
 
 # Save file
 write_csv(whw, 'inst/extdata/local/cape_town/injuries_cape_town.csv')
+
