@@ -38,6 +38,46 @@ data.frame(
                  "Not sure",
                  "The whole country but filtered only Greater Accra",
                  "Cape Town, Malmesbury and Paarl"),
+  year = c("2010",
+           "2017",
+           "2012",
+           "2017",
+           "2019",
+           "2012",
+           "",
+           "",
+           "",
+           "",
+           ""),
+  # Definition of a trip
+  Trip_definition = c(
+    # BA: Pag 23- Report.pdf
+    "Moving from a origin to a destiny with a specific reason/motive",
+                      "Moving for a specific reason between two specific points (origin and destination), using one or more modes of transport. Walking trips where the reason for the trip is work or school, regardless of the distance travelled; or the distance covered is more than 500 mts for other reasons.",
+    # Belo Horizonte: pag 16, "Codebook and protocol.pdf"
+    "Moving from one part to another with a specific reason/motive, using one or more modes of transport",
+                      "Moving from one part to another with a specific reason/motive, using one or multiples modes of transport",
+                      "Moving from one part to another with a specific reason/motive, a definite hour of start and end, a mode of transport, and a duration greater than 3 minutes. Or moving from one part to another with reason/motive work or study of any duration",
+                      "Any movement carried out on public roads with a purpose
+determined, between two places (origin and destination) at a certain time of day; It can be carried out in several modes of transport and consist of one or more stages",
+"",
+"",
+"",
+"",
+""),
+  Reference_period = c(
+    # BA: page 4, report.pdf
+    "Trips made in working days",
+    "Trips made the day before the survey (from 4am yesterday to 3:59am today).",
+    "",
+                       "Trips made during the week (Tuesday, Wednesday, Thursday) and in Saturdays (weekends)",
+                       "Trips made the day of reference, i.e., the day before the survey (from 4am yesterday to 4am today). Surveys made from Monday to Sunday (according to the dataset).",
+                       "Trips made in working days (regular season), in weekends (regular season) and in working days(summer season)",
+                       "",
+                       "",
+                       "",
+                       "",
+                       ""),
   # Is there information at stage level?
   Trip_Stage = c("Stage", "Trip", "Stage", "Stage", "Trip", 
                  "Trip", "Trip", "Stage", "Stage", "Trip",
@@ -56,7 +96,7 @@ data.frame(
               "Looks like the survey capture up to 5 stage modes, but duration was not asked."),
   # Is there information about short walks to pt
   Walk_to_from_pt = c("Yes, in blocks (not minutes)",
-                      "No, walking trips are only considered when it is a unique mode. It never appears combined with other modes",
+                      "Yes",
                       "Yes",
                       "Yes",
                       "Yes",
@@ -66,9 +106,17 @@ data.frame(
                       "Yes",
                       "Not sure, because it asks about modes and duration but don't know if people answered with this level of detail.",
                       "No"),
-  # Is the data ok?
-  OK = c("--", "--", "--", "--", "--", 
-         "--", "--", "--", "--", "--", "--"),
+Walking_in_trip_duration = c("Not sure, yet.",
+                             "",
+                             "",
+                             "",
+                             "",
+                             "",
+                             "",
+                             "",
+                             "",
+                             "",
+                             ""),
   ToDo = c("Need to check if injuries dataset covers the same area that travel survey does. \n There's information about walking stages (blocks not minutes) but is not used",
            "Need to check if injuries dataset covers the same area that travel survey does. \n Travel survey from 2012, there is one from 2017.",
            "Need to check if injuries dataset covers the same area that travel survey does. \n According to the documentation, it looks like there's information at stage level (including stage duration).",
@@ -79,7 +127,10 @@ data.frame(
            "Need to find a report to check the details of this survey",
            "There's a report called Comprehensive Traffic and Transportation Study for Bangalore Metropolitan region but I'm not sure if it corresponds to the data. Trip mode is defined in terms of speed and duration, while in other surveys there's a hierarchy (check this)",
            "Need to check if injuries dataset covers the same area that time use survey does. Need to check if stages were captured.",
-           "Need to check if injuries dataset covers the same area that time use survey does.")
+           "Need to check if injuries dataset covers the same area that time use survey does."),
+           # Is the data ok?
+  OK = c("--", "--", "--", "--", "--", 
+         "--", "--", "--", "--", "--", "--")
   ) %>% kbl() %>% kable_classic()
 
 # (If short walk is not explicitly recorded, we have to find a way to remove; if they are missing, what should we do?)
