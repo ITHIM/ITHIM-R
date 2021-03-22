@@ -34,11 +34,12 @@ gen_ap_rr <- function(pm_conc_pp){
       }else{
         i <- which(pm_rr_pp$ap_age==age)
       }
+      
       # get parameters
-      alpha <- DR_AP_LIST[[cause]][[as.character(age)]]$alpha
-      beta <- DR_AP_LIST[[cause]][[as.character(age)]]$beta
-      gamma <- DR_AP_LIST[[cause]][[as.character(age)]]$gamma
-      tmrel <- DR_AP_LIST[[cause]][[as.character(age)]]$tmrel
+      alpha <- DR_AP_LIST[[cause]][[age]]$alpha
+      beta <- DR_AP_LIST[[cause]][[age]]$beta
+      gamma <- DR_AP_LIST[[cause]][[age]]$gamma
+      tmrel <- DR_AP_LIST[[cause]][[age]]$tmrel
       # calculate AP and apply to all in age group
       for(x in 1: length(SCEN_SHORT_NAME)) 
         pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]][i] <- ap_dose_response_curve(pm_rr_pp[[pm_indices[x]]][i],alpha,beta,gamma,tmrel)
