@@ -207,7 +207,8 @@ quality_check <- function(trip){
          trip_distribution_number <-
              trip %>% 
              filter(!is.na(trip_id)) %>% 
-             count(cluster_id, household_id, participant_id, trip_id) %>% 
+             count(cluster_id, household_id, participant_id, trip_id, 
+                   name = "nn") %>% 
              count(cluster_id, household_id,participant_id) %>% 
              group_by(n) %>%
              summarise(number_of_trips = round(n()*100/nrow(.),1))
