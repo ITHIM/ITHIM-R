@@ -1248,16 +1248,30 @@ rm(list =ls())
 
 source("code/producing_trips_rd/used_functions.R")
 
-person_0 <- read.csv("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//Persona.csv")
-trip_0 <- read.csv("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//Viaje.csv")
-stage_0 <- read.csv("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//stages.csv")
+# person_0 <- read.csv("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//Persona.csv")
+# trip_0 <- read.csv("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//Viaje.csv")
+# stage_0 <- read.csv("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//stages.csv")
+# 
+# age <- read.csv('J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//EdadPersonas.csv')
+# trip_purpose <- read.csv("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//lookup_trip_purpose.csv")
+# trip_mode <- read.csv("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//lookup_trip_mode.csv")
+# stage_mode <- read.csv("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//lookup_stage_mode.csv")
+# sex <- bind_cols(sex= c("Male", "Female"), Sexo = c(1,2))
 
-age <- read.csv('J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//EdadPersonas.csv')
-trip_purpose <- read.csv("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//lookup_trip_purpose.csv")
-trip_mode <- read.csv("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//lookup_trip_mode.csv")
-stage_mode <- read.csv("J://Studies//MOVED//HealthImpact//Data//TIGTHAT//Chile//Travel Surveys//Santiago//lookup_stage_mode.csv")
-sex <- bind_cols(sex= c("Male", "Female"), Sexo = c(1,2))
+# It takes too long to read these datasets, so I'm doing it local
+#data
+route <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Chile/Santiago/Trips/CSV/"
+person_0 <- read_xlsx(paste0(route, "Persona.xlsx"), guess_max = 100000)
+trip_0 <- read_xlsx(paste0(route, "Viaje.xlsx"), guess_max = 100000)
+stage_0 <- read_xlsx(paste0(route, "Etapa.xlsx"), guess_max = 100000)
 
+age <- read_xlsx(paste0(route, "EdadPersonas.xlsx"), guess_max = 100000)
+
+#lookups
+trip_purpose <- read_csv(paste0(route, "lookup_trip_purpose.csv"))
+trip_mode <- read_csv(paste0(route, "lookup_trip_mode.csv"))
+stage_mode <- read_csv(paste0(route, "lookup_stage_mode.csv"))
+sex <- bind_cols(sex = c("Male", "Female"), Sexo = c(1,2))
 
 person <- person_0 %>% 
     mutate(cluster_id = 1,
@@ -1268,9 +1282,19 @@ person <- person_0 %>%
     select(cluster_id, household_id, participant_wt, Persona, sex, age)
 
 trip <- trip_0 %>% 
+  mutate(workday = ifelse(!is.na(FactorLaboralNormal), 1, 0),
+         saturday = ifelse(!is.na(FactorSabadoNormal), 1, 0),
+         sunday = ifelse(!is.na(FactorDomingoNormal), 1, 0),
+         workday_summer = ifelse(!is.na(FactorLaboralEstival), 1, 0),
+         weekend_summer = ifelse(!is.na(FactorFindesemanaEstival), 1, 0),
+         regular_season = ifelse(workday == 1, 1,
+                                 ifelse(saturday == 1, 2,
+                                        ifelse(sunday == 1, 3, 0)))) %>% 
     left_join(trip_purpose) %>% 
     left_join(trip_mode) %>% 
-    select(Persona, Viaje, TiempoViaje, trip_purpose, trip_mode)
+  # Filtering trips only in regular season
+  filter(regular_season %in% c(1,2,3)) %>% 
+    select(Persona, Viaje, TiempoViaje, trip_purpose, trip_mode, regular_season)
 
 stage <- stage_0 %>% 
     left_join(stage_mode) %>% 
@@ -1301,9 +1325,26 @@ trip_2 <-
             filter(trip_mode == "other")
     )
 #bind rows  
-santiago <- bind_rows(trip_2, trip_1, .id =NULL)
+santiago <- bind_rows(trip_2, trip_1, .id = NULL)
 
+# Replacing IDs from trips made on Saturdays
+# View(santiago %>% group_by(regular_season) %>%
+#        summarise(participant_id_min = min(participant_id, na.rm = T),
+#                  participant_id_max = max(participant_id, na.rm = T),
+#                  household_id_min = min(household_id, na.rm = T),
+#                  household_id_max = max(household_id, na.rm = T),
+#                  trip_id_min = min(trip_id, na.rm = T),
+#                  trip_id_max = max(trip_id, na.rm = T),
+#                  stage_id_min = min(stage_id, na.rm = T),
+#                  stage_id_max = max(stage_id, na.rm = T)))
 
+# There are no people with trips collected in weekdays and weekends, so I don't
+# have to modify any id as in mexico city.
+aux <- person_0 %>% 
+  mutate(multiple_days = ifelse(!is.na(Factor_LaboralNormal) & 
+                                  !is.na(Factor_SábadoNormal) & 
+                                  !is.na(Factor_DomingoNormal), 1, 0))
+sum(aux$multiple_days)
 
 trip <- santiago
 trip$meta_data <- NA
