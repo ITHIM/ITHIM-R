@@ -168,8 +168,8 @@ sum(trips[trips$MODOPRIN == 16, "FE_VIA"], na.rm = T) #OK
 #' Since the survey was conducted in 39 municipalities and we are only interested
 #' in Sao Paulo, then these trips are the only ones used. 
 #' 
-#' **To Do**: Check if injuries are from the whole Metropolitan area or just from
-#' Sao Paulo.
+#' According to the documentation subregion "Central" corresponds to the
+#' municipality of Sao Paulo, which is the city.
 trips_saopaulo <- trips %>% filter(subregion == "Central") %>% 
   # Create variables that I'll need later
   mutate(cluster_id = 1,
