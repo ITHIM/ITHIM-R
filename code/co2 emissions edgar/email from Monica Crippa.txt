@@ -1,0 +1,44 @@
+From: Monica.CRIPPA@ec.europa.eu <Monica.CRIPPA@ec.europa.eu> 
+Sent: 13 July 2020 14:30
+To: Rahul Goel <rg574@medschl.cam.ac.uk>; James Woodcock <jw745@medschl.cam.ac.uk>; JRC-EDGAR@ec.europa.eu
+Cc: christian.brand@ouce.ox.ac.uk
+Subject: Re: JRC-EDGAR --> FW: Estimating city specific PM2.5, NOx and GHG emissions using EDGAR?
+ 
+Dear Rahul,
+please find in attachment the CO2 emission maps for 2012.
+ 
+Please let me know if everything is fine.
+ 
+best regards
+ 
+monica
+ 
+ 
+ 
+Monica Crippa
+European Commission
+Joint Research Centre
+ 
+Directorate C -  Energy, Transport and Climate  -  Air and Climate Unit
+ 
+Via E. Fermi 2479, Bld. 100/ Office 2105 TP-124
+ 
+I – 21027 Ispra (VA) /Italy
+ 
+Tel : +39 0332 78 5833
+ 
+Email : monica.crippa@ec.europa.eu
+EU Science Hub : https://ec.europa.eu/jrc
+ 
+ 
+From: Rahul Goel <rg574@medschl.cam.ac.uk>
+Sent: 10 July 2020 10:25
+To: CRIPPA Monica (JRC-ISPRA); James Woodcock; JRC EDGAR
+Cc: christian.brand@ouce.ox.ac.uk
+Subject: RE: JRC-EDGAR --> FW: Estimating city specific PM2.5, NOx and GHG emissions using EDGAR? 
+ 
+Thanks Monica!
+ 
+1.	PM2.5 data that we have from you is for 2012, so I guess, same year for CO2
+2.	Great news on the PM2.5 emissions: If you could answer this without too much of your time, how much is the percentage increment in PM2.5 transport emissions with the new additions? I just wanted to get a sense of how much error we may be introducing if we left brake and wear out. If there is something I can read, please let me know.
+-Rahul
