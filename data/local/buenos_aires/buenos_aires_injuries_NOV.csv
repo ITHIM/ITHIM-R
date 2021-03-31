@@ -1,8 +1,8 @@
-mode,deaths
-cycle,14
-car,75
-motorcycle,187
-bus,4
-truck,3
-pedestrian,246
-other,1
+mode,deaths,BA city,total
+cycle,14,4,18
+car,75,26,101
+motorcycle,187,58,245
+bus,4,,4
+truck,3,,3
+pedestrian,246,50,296
+other,1,,1

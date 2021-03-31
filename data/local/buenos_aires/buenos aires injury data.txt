@@ -13,3 +13,31 @@ Vehicle		Vehículo	73 (car)
 
 
 Used Bogota city injury data to apportion victims to their respective striking vehicles
+
+To this we add, data of road deaths from Buenos Aires Autonomous city for year 2017,which along with 24 municipalities make up Greater Buenos Aires
+Source: https://www.buenosaires.gob.ar/movilidad/plan-de-seguridad-vial/informesestadisticosymapas
+Bicycle		4
+Pedestrian	48
+Motorcycle	56
+Automobile	25
+Sin datos	5
+
+We apportion Sin datos among the other four vehicle types
+Bicycle		4
+Pedestrian	50
+Motorcycle	58
+Automobile	26
+
+We assume all automobile as car and add this data to above data
+
+mode		deaths
+cycle		18
+car		101
+motorcycle	245
+bus		4
+truck		3
+pedestrian	296
+other		1
+
+
+
