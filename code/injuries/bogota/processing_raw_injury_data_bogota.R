@@ -1,11 +1,10 @@
-setwd('code/injuries/bogota')
-
-icd_codes<- read.csv('icd_code_look_up_table_row_column.csv')
+path <- file.path('code/injuries/bogota/')
+icd_codes<- read.csv(paste0(path,'/icd_code_look_up_table_row_column.csv'))
 
 #### Selecting dead road users from Victim file
 year<-2017
-vic<-paste('victims_bogota_',year,'.csv',sep="")
-strike<-paste('striking_bogota_',year,'.csv',sep="")
+vic<-paste(path, '/victims_bogota_',year,'.csv',sep="")
+strike<-paste(path,'/striking_bogota_',year,'.csv',sep="")
 vic<-read.csv(vic)
 strike<-read.csv(strike)
 vic$id<- seq(1, nrow(vic))
@@ -24,8 +23,8 @@ victim_all<- rbind(vic, vic_strike)
 
 #reading the victim and striking files agains to get other parties involved in the death of victims
 year<-2017
-vic<-paste('victims_bogota_',year,'.csv',sep="")
-strike<-paste('striking_bogota_',year,'.csv',sep="")
+vic<-paste(path, '/victims_bogota_',year,'.csv',sep="")
+strike<-paste(path,'/striking_bogota_',year,'.csv',sep="")
 vic<-read.csv(vic)
 strike<-read.csv(strike)
 vic$id<- seq(1, nrow(vic))
@@ -56,7 +55,7 @@ vic$vic_vehicl_eng<- "NA"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Buseta")]<-"Bus"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Pasajero")]<-"Unknown"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="PEATON")]<-"Pedestrian"
-vic$vic_vehicl_eng[which(vic$victim_vehicle=="Peatón")]<-"Pedestrian"
+vic$vic_vehicl_eng[which(vic$victim_vehicle=="Peat?n")]<-"Pedestrian"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Peaton")]<-"Pedestrian"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Automovil")]<-"Car"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Motocicleta")]<-"MC"
@@ -78,7 +77,7 @@ vic$vic_vehicl_eng[which(vic$victim_vehicle=="SIN INFORMATION")]<-"Unknown"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Motocarro")]<-"Car"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="AUTOMOVIL")]<-"Car"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Camion, Furgon Volqueta")]<-"Truck"
-vic$vic_vehicl_eng[which(vic$victim_vehicle=="Acompañante")]<-"Unknown"
+vic$vic_vehicl_eng[which(vic$victim_vehicle=="Acompa?ante")]<-"Unknown"
 
 vic$strike_vehicle_eng<- "NA"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Buseta")]<-"Bus"
@@ -86,7 +85,7 @@ vic$strike_vehicle_eng[which(vic$strike_vehicle=="BUSETA")]<-"Bus"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="PEATON")]<-"Pedestrian"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Automovil")]<-"Car"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="AUTOMOVIL")]<-"Car"
-vic$strike_vehicle_eng[which(vic$strike_vehicle=="Automóvil")]<-"Car"
+vic$strike_vehicle_eng[which(vic$strike_vehicle=="Autom?vil")]<-"Car"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Motocicleta")]<-"MC"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="MOTOCICLETA")]<-"MC"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Bus")]<-"Bus"
@@ -99,15 +98,15 @@ vic$strike_vehicle_eng[which(vic$strike_vehicle=="CAMIONETA")]<-"Van"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Campero")]<-"Van"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Microbus")]<-"Bus"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Camion, Furgon")]<-"Truck"
-vic$strike_vehicle_eng[which(vic$strike_vehicle=="Camión, Furgón")]<-"Truck"
+vic$strike_vehicle_eng[which(vic$strike_vehicle=="Cami?n, Furg?n")]<-"Truck"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Volqueta")]<-"Van"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Bicicleta")]<-"Cycle"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tractocamion")]<-"Bus"
-vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tractocamión")]<-"Bus"
+vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tractocami?n")]<-"Bus"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="No identificado")]<-"Unknown"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Motocarro")]<-"Car"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Otro")]<-"Other"
-vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tracción animal")]<-"NMV"
+vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tracci?n animal")]<-"NMV"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="M. Industrial")]<-"Other"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="NOV")]<-"NOV"
 
@@ -137,7 +136,7 @@ vic<- vic[which(!duplicated(vic$victim_id)),]
 vic$combo<- paste(vic$vic_vehicl_eng, "-", vic$strike_vehicle_eng)
 unique(vic$combo)
 
-lookup<- read.csv('victim-striking-vehicle-pairs-bogota.csv') ## lookup table for unique victim-striking vehicle pairs and their corresponding ICD codes
+lookup<- read.csv(paste0(path,'/victim-striking-vehicle-pairs-bogota.csv')) ## lookup table for unique victim-striking vehicle pairs and their corresponding ICD codes
 
 vic<- vic %>% left_join(lookup,by="combo")
 
@@ -161,13 +160,10 @@ vic1<- vic
 ### in 2016 data there is a column which says heavy load for vans, could that be 
 ###WHW_matrix in 2015 code is the sum of 2016 and 2015
 
-setwd('V:/Studies/MOVED/HealthImpact/Data/TIGTHAT/Colombia/Bogota/Injuries')
-setwd('C:/Users/goelr/Dropbox/sneha')
-
 #### Selecting dead road users from Victim file
 year<-2016
-vic<-paste('victims_bogota_',year,'.csv',sep="")
-strike<-paste('striking_bogota_',year,'.csv',sep="")
+vic<-paste(path, '/victims_bogota_',year,'.csv',sep="")
+strike<-paste(path,'/striking_bogota_',year,'.csv',sep="")
 vic<-read.csv(vic)
 strike<-read.csv(strike)
 vic$id<- seq(1, nrow(vic))
@@ -186,8 +182,8 @@ victim_all<- rbind(vic, vic_strike)
 
 #reading the victim and striking files agains to get other parties involved in the death of victims
 year<-2016
-vic<-paste('victims_bogota_',year,'.csv',sep="")
-strike<-paste('striking_bogota_',year,'.csv',sep="")
+vic<-paste(path, '/victims_bogota_',year,'.csv',sep="")
+strike<-paste(path,'/striking_bogota_',year,'.csv',sep="")
 vic<-read.csv(vic)
 strike<-read.csv(strike)
 vic$id<- seq(1, nrow(vic))
@@ -218,7 +214,7 @@ vic$vic_vehicl_eng<- "NA"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Buseta")]<-"Bus"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Pasajero")]<-"Unknown"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="PEATON")]<-"Pedestrian"
-vic$vic_vehicl_eng[which(vic$victim_vehicle=="Peatón")]<-"Pedestrian"
+vic$vic_vehicl_eng[which(vic$victim_vehicle=="Peat?n")]<-"Pedestrian"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Peaton")]<-"Pedestrian"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Automovil")]<-"Car"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Motocicleta")]<-"MC"
@@ -234,13 +230,13 @@ vic$vic_vehicl_eng[which(vic$victim_vehicle=="Tractocamion")]<-"Bus"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="SIN INFORMATION")]<-"Unknown"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Motocarro")]<-"Car"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Camion, Furgon Volqueta")]<-"Truck"
-vic$vic_vehicl_eng[which(vic$victim_vehicle=="Acompañante")]<-"Unknown"
+vic$vic_vehicl_eng[which(vic$victim_vehicle=="Acompa?ante")]<-"Unknown"
 
 vic$strike_vehicle_eng<- "NA"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Buseta")]<-"Bus"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="PEATON")]<-"Pedestrian"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Automovil")]<-"Car"
-vic$strike_vehicle_eng[which(vic$strike_vehicle=="Automóvil")]<-"Car"
+vic$strike_vehicle_eng[which(vic$strike_vehicle=="Autom?vil")]<-"Car"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Motocicleta")]<-"MC"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Bus")]<-"Bus"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Bus Articulado")]<-"Bus"
@@ -250,15 +246,15 @@ vic$strike_vehicle_eng[which(vic$strike_vehicle=="Camioneta")]<-"Van"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Campero")]<-"Van"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Microbus")]<-"Bus"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Camion, Furgon")]<-"Truck"
-vic$strike_vehicle_eng[which(vic$strike_vehicle=="Camión, Furgón")]<-"Truck"
+vic$strike_vehicle_eng[which(vic$strike_vehicle=="Cami?n, Furg?n")]<-"Truck"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Volqueta")]<-"Van"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Bicicleta")]<-"Cycle"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tractocamion")]<-"Bus"
-vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tractocamión")]<-"Bus"
+vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tractocami?n")]<-"Bus"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="No identificado")]<-"Unknown"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Motocarro")]<-"Car"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Otro")]<-"Other"
-vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tracción animal")]<-"NMV"
+vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tracci?n animal")]<-"NMV"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="M. Industrial")]<-"Other"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="NOV")]<-"NOV"
 
@@ -293,7 +289,6 @@ vic$combo<- paste(vic$vic_vehicl_eng, "-", vic$strike_vehicle_eng)
 unique(vic$combo)
 
 #write.csv(lookup_icd_code,'victim-striking-vehicle-pairs-bogota_2.csv')
-lookup<- read.csv('victim-striking-vehicle-pairs-bogota.csv') ## lookup table for unique victim-striking vehicle pairs and their corresponding ICD codes
 
 vic<- vic %>% left_join(lookup,by="combo")
 
@@ -313,8 +308,8 @@ vic2<- vic
 ####Bogota 2015####
 #### Selecting dead road users from Victim file
 year<-2015
-vic<-paste('victims_bogota_',year,'.csv',sep="")
-strike<-paste('striking_bogota_',year,'.csv',sep="")
+vic<-paste(path, '/victims_bogota_',year,'.csv',sep="")
+strike<-paste(path,'/striking_bogota_',year,'.csv',sep="")
 vic<-read.csv(vic)
 strike<-read.csv(strike)
 vic$id<- seq(1, nrow(vic))
@@ -331,10 +326,10 @@ names(vic_strike)<- c("accident_id", "vic_age", "vic_sex", "victim_vehicle", 'vi
 ### this is all the fatal victims
 victim_all<- rbind(vic, vic_strike)
 
-#reading the victim and striking files agains to get other parties involved in the death of victims
+#re-reading the victim and striking files agains to get other parties involved in the death of victims
 year<-2015
-vic<-paste('victims_bogota_',year,'.csv',sep="")
-strike<-paste('striking_bogota_',year,'.csv',sep="")
+vic<-paste(path, '/victims_bogota_',year,'.csv',sep="")
+strike<-paste(path,'/striking_bogota_',year,'.csv',sep="")
 vic<-read.csv(vic)
 strike<-read.csv(strike)
 vic$id<- seq(1, nrow(vic))
@@ -365,7 +360,7 @@ vic$vic_vehicl_eng<- "NA"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Buseta")]<-"Bus"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Pasajero")]<-"Unknown"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="PEATON")]<-"Pedestrian"
-vic$vic_vehicl_eng[which(vic$victim_vehicle=="Peatón")]<-"Pedestrian"
+vic$vic_vehicl_eng[which(vic$victim_vehicle=="Peat?n")]<-"Pedestrian"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Peaton")]<-"Pedestrian"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Automovil")]<-"Car"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Motocicleta")]<-"MC"
@@ -381,13 +376,13 @@ vic$vic_vehicl_eng[which(vic$victim_vehicle=="Tractocamion")]<-"Bus"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="SIN INFORMATION")]<-"Unknown"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Motocarro")]<-"Car"
 vic$vic_vehicl_eng[which(vic$victim_vehicle=="Camion, Furgon Volqueta")]<-"Truck"
-vic$vic_vehicl_eng[which(vic$victim_vehicle=="Acompañante")]<-"Unknown"
+vic$vic_vehicl_eng[which(vic$victim_vehicle=="Acompa?ante")]<-"Unknown"
 
 vic$strike_vehicle_eng<- "NA"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Buseta")]<-"Bus"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="PEATON")]<-"Pedestrian"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Automovil")]<-"Car"
-vic$strike_vehicle_eng[which(vic$strike_vehicle=="Automóvil")]<-"Car"
+vic$strike_vehicle_eng[which(vic$strike_vehicle=="Autom?vil")]<-"Car"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Motocicleta")]<-"MC"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Bus")]<-"Bus"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Bus Articulado")]<-"Bus"
@@ -397,15 +392,15 @@ vic$strike_vehicle_eng[which(vic$strike_vehicle=="Camioneta")]<-"Van"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Campero")]<-"Van"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Microbus")]<-"Bus"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Camion, Furgon")]<-"Truck"
-vic$strike_vehicle_eng[which(vic$strike_vehicle=="Camión, Furgón")]<-"Truck"
+vic$strike_vehicle_eng[which(vic$strike_vehicle=="Cami?n, Furg?n")]<-"Truck"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Volqueta")]<-"Van"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Bicicleta")]<-"Cycle"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tractocamion")]<-"Bus"
-vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tractocamión")]<-"Bus"
+vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tractocami?n")]<-"Bus"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="No identificado")]<-"Unknown"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Motocarro")]<-"Car"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="Otro")]<-"Other"
-vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tracción animal")]<-"NMV"
+vic$strike_vehicle_eng[which(vic$strike_vehicle=="Tracci?n animal")]<-"NMV"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="M. Industrial")]<-"Other"
 vic$strike_vehicle_eng[which(vic$strike_vehicle=="NOV")]<-"NOV"
 
@@ -436,8 +431,6 @@ vic<- vic[which(!duplicated(vic$victim_id)),]
 vic$combo<- paste(vic$vic_vehicl_eng, "-", vic$strike_vehicle_eng)
 unique(vic$combo)
 
-lookup<- read.csv('victim-striking-vehicle-pairs-bogota.csv') ## lookup table for unique victim-striking vehicle pairs and their corresponding ICD codes
-
 vic<- vic %>% left_join(lookup,by="combo")
 
 names(vic)[18] <-"ICD"
@@ -452,4 +445,16 @@ vic$cas_type<- vict_list[vic$row]
 vic$strk_type<- strik_list[vic$column]
 vic$year<- 2015
 vic<- rbind(vic, vic2, vic1)
+
+##adding weight variable to reflect 
+vic$weight<-3
+vic<- subset(vic, select=c("vic_age", "vic_sex", "cas_type", "strk_type", "year", "weight"))
+names(vic)[1:2]<-c("cas_age", "cas_sex")
+vic$cas_sex[which(vic$cas_sex=="FEMENINO")]<-"female"
+vic$cas_sex[which(vic$cas_sex=="MASCULINO")]<-"male"
+vic$cas_sex[which(vic$cas_sex=="NO APLICA")]<-"NA"
+
+injury_file<- 'bogota_injuries.csv'
+
+write.csv(vic,paste0('inst/extdata/local/bogota/',injury_file))
 
