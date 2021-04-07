@@ -20,6 +20,7 @@ Bicycle		4
 Pedestrian	48
 Motorcycle	56
 Automobile	25
+Freight		2
 Sin datos	5
 
 We apportion Sin datos among the other four vehicle types
