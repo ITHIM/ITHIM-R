@@ -1,13 +1,13 @@
 ###Delhi, India######
-setwd('code/injuries/delhi')
-delhi1316<-read.csv('delhi_2013-2016.csv')
-delhi1012<-read.csv('delhi_2010-2012.csv')
-delhi0609<-read.csv('delhi_2006-2009.csv')
-delhi2005<-read.csv('delhi_2005.csv')
-delhi2004<-read.csv('delhi_2004.csv')
-delhi2003<-read.csv('delhi_2003.csv')
-delhi2002<-read.csv('delhi_2002.csv')
-delhi2001<-read.csv('delhi_2001.csv')
+path<- 'code/injuries/delhi'
+delhi1316<-read.csv(paste0(path,'/delhi_2013-2016.csv'))
+delhi1012<-read.csv(paste0(path,'/delhi_2010-2012.csv'))
+delhi0609<-read.csv(paste0(path,'/delhi_2006-2009.csv'))
+delhi2005<-read.csv(paste0(path,'/delhi_2005.csv'))
+delhi2004<-read.csv(paste0(path,'/delhi_2004.csv'))
+delhi2003<-read.csv(paste0(path,'/delhi_2003.csv'))
+delhi2002<-read.csv(paste0(path,'/delhi_2002.csv'))
+delhi2001<-read.csv(paste0(path,'/delhi_2001.csv'))
 
 str(delhi2002)
 
@@ -262,12 +262,12 @@ delhi$strik_vehicl_eng[5109]<- "Fixed object"
 
 
 delhi$combo<- paste(delhi$vic_vehicl_eng, "-", delhi$strik_vehicl_eng)
-x<-unique(delhi$combo)
-write.csv(x,'victim-striking-vehicle-unique-pairs.csv')
-lookup<- read.csv('victim-striking-vehicle-unique-pairs_new.csv') ## lookup table for unique victim-striking vehicle pairs and their corresponding ICD codes
+#x<-unique(delhi$combo)
+#write.csv(x,'victim-striking-vehicle-unique-pairs.csv')
+lookup<- read.csv(paste0(path,'/victim-striking-vehicle-unique-pairs_new.csv')) ## lookup table for unique victim-striking vehicle pairs and their corresponding ICD codes
 
 delhi<- delhi %>% left_join(lookup,by="combo")
-icd_codes<- read.csv('icd_code_look_up_table_row_column.csv')
+icd_codes<- read.csv(paste0(path,'/icd_code_look_up_table_row_column.csv'))
 
 delhi<- delhi %>% left_join(icd_codes,by="ICD")
 
@@ -278,3 +278,9 @@ delhi$cas_type<- vict_list[delhi$row]
 delhi$strk_type<- strik_list[delhi$column]
 
 delhi<- subset(delhi, select=c("year", "cas_type", "strk_type"))
+
+##selecting only three years (2012-14)
+delhi<- delhi[which(delhi$year %in% c(2012, 2013, 2014)),]
+
+injury_file <- 'injuries_delhi.csv'
+write.csv(injuries,paste0('inst/extdata/local/delhi/',injury_file))
