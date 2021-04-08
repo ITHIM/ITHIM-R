@@ -591,4 +591,7 @@ summ_rtf <- all_rtf %>%
 
 write.csv(summ_rtf, "table 7 - road traffic fatalities.csv", row.names = FALSE)
 
+#Sensitivity analysis (uncomment next line to run the analysis)
+source("./sensitivity_analysis_script.R")
+
 ###END OF CODE###
