@@ -123,20 +123,28 @@ stage_0 <- read_sav(paste0(route, "ENMODO_ETAPAS_pub_20121115.sav"))
 # stage_mode <- read_excel(paste0(route, "lookup.xlsx"), sheet = 'stage_mode',
 #                          range = cell_cols("A:C"))
 
+#' ### Number of people per partido
+#' Compare this with what is mentioned in page 9 (Cuadro 2.1.1) of **File1**. 
+names(person_0)
+#sum(person_0$wt1) # Same as total in cuadro 2.1.1
+#person_0 %>% group_by(PARTIDO) %>% summarise(total = sum(wt1)) %>% 
+#    kbl() %>% kable_classic()
+print(person_0 %>% group_by(PARTIDO) %>% summarise(total = sum(wt1)), n = 50)
 
 #' # **Preprocessing phase**
 #' ## Filtering people from Buenos Aires metropolitan area
-#' Since the survey was conducted in the whole metropolitan area, there's no 
-#' need to filter households. This goes in hand with the jurisdiction of injuries
-#' dataset.
+#' Since the survey was conducted in the Autonomous City of Buenos Aires and 27
+#' municipalities, and the jurisdiction of injuries is 
+#' Greater BA (24 municipalities) + Autonomous BA then I have to filter out
+#' "partidos" Escobar (252), Pilar (638) and Presidente Peron (648)
 #keep relevant variables
-person <- person_0[,c("PARTIDO","IDH","IDP", "EDAD", "SEXO","wt1")]
+person <- person_0[,c("PARTIDO","IDH","IDP", "EDAD", "SEXO","wt1")] %>% 
+  filter(!PARTIDO %in% c(252, 638, 648))
+#sum(person$wt1)
 
 #' ## Classification and translation of trip modes and purpose
-#' Even though there's enough information at stage level, I still need to define
-#' the main mode for each trip. So I made a hierarchy to get it and translate it.
-#' This is going to be different from Lambed's code because he defined the main
-#' mode based on stage duration.
+#' In the lookup file there's already a hierarchy defined by Lambed. The column
+#' is called "rank"
 #+ warning=FALSE, message=FALSE, cache=TRUE
 trip_purpose <- read_excel(paste0(route, "lookup.xlsx"), sheet = 'trip_purpose',
                            range = cell_cols("A:B"))

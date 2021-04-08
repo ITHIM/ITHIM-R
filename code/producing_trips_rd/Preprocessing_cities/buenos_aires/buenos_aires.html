@@ -11,7 +11,7 @@
 
 <meta name="author" content="Lambed and Daniel" />
 
-<meta name="date" content="2021-04-06" />
+<meta name="date" content="2021-04-08" />
 
 <title>Preprocessing of Buenos Aires’ travel dataset. Most of it comes from Lambed’s code</title>
 
@@ -1707,7 +1707,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Preprocessing of Buenos Aires’ travel dataset. Most of it comes from Lambed’s code</h1>
 <h4 class="author">Lambed and Daniel</h4>
-<h4 class="date">2021-04-06</h4>
+<h4 class="date">2021-04-08</h4>
 
 </div>
 
@@ -1715,8 +1715,8 @@ div.tocify {
 <div id="understanding-phase" class="section level1">
 <h1><strong>Understanding phase</strong></h1>
 <pre><code>##           used (Mb) gc trigger  (Mb) max used (Mb)
-## Ncells  996419 53.3    2030707 108.5  1313032 70.2
-## Vcells 1674718 12.8    8388608  64.0  2278206 17.4</code></pre>
+## Ncells  996453 53.3    2030898 108.5  1312844 70.2
+## Vcells 1674870 12.8    8388608  64.0  2278207 17.4</code></pre>
 <p>This file is based on the script “travel_survey.R”. It has the same code but I added some comments.</p>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
@@ -1834,19 +1834,88 @@ stage_0 &lt;- read_sav(paste0(route, &quot;ENMODO_ETAPAS_pub_20121115.sav&quot;)
 #                          range = cell_cols(&quot;A:C&quot;))</code></pre>
 </div>
 </div>
+<div id="number-of-people-per-partido" class="section level3">
+<h3>Number of people per partido</h3>
+<p>Compare this with what is mentioned in page 9 (Cuadro 2.1.1) of <strong>File1</strong>.</p>
+<pre class="r"><code>names(person_0)</code></pre>
+<pre><code>##  [1] &quot;PARTIDO&quot;  &quot;fraccion&quot; &quot;LOCALIDA&quot; &quot;EDAD&quot;     &quot;SEXO&quot;     &quot;RELACION&quot;
+##  [7] &quot;NIVELEST&quot; &quot;NIVELEC&quot;  &quot;AMBITOES&quot; &quot;LICENCIA&quot; &quot;LICENCI2&quot; &quot;OCUPPRI&quot; 
+## [13] &quot;OCUPSEC&quot;  &quot;TIPOCOBE&quot; &quot;TIPORELA&quot; &quot;TIPOREND&quot; &quot;TIPOREDE&quot; &quot;AMBITOTR&quot;
+## [19] &quot;EMPLACAR&quot; &quot;VIAJE&quot;    &quot;ORDEN&quot;    &quot;ESPSH&quot;    &quot;DESCTRAB&quot; &quot;CDNINGUN&quot;
+## [25] &quot;CDMOTORA&quot; &quot;CDMENTAL&quot; &quot;CDVISUAL&quot; &quot;CDAUDITI&quot; &quot;CDHABLA&quot;  &quot;CDOTRAS&quot; 
+## [31] &quot;wt1&quot;      &quot;IDH&quot;      &quot;IDP&quot;</code></pre>
+<pre class="r"><code>#sum(person_0$wt1) # Same as total in cuadro 2.1.1
+#person_0 %&gt;% group_by(PARTIDO) %&gt;% summarise(total = sum(wt1)) %&gt;% 
+#    kbl() %&gt;% kable_classic()
+print(person_0 %&gt;% group_by(PARTIDO) %&gt;% summarise(total = sum(wt1)), n = 50)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 48 x 2
+##                      PARTIDO    total
+##                    &lt;dbl+lbl&gt;    &lt;dbl&gt;
+##  1  28 [Alte. Brown]          538506.
+##  2  35 [Avellaneda]           343198.
+##  3  91 [Berazategui]          322860.
+##  4 252 [Escobar]              196399.
+##  5 260 [E. Echeverria]        269975.
+##  6 270 [Ezeiza]               132401.
+##  7 274 [Florencio Varela]     368283.
+##  8 371 [General San Martin]   498445.
+##  9 408 [Hurlingham]           189267.
+## 10 410 [Ituzaingo]            166693.
+## 11 412 [Jose C. Paz]          254118.
+## 12 427 [La Matanza]          1398891.
+## 13 434 [Lanus]                505512.
+## 14 490 [Lomas de Zamora]      659863.
+## 15 515 [Malvinas Argentinas]  330268.
+## 16 539 [Merlo]                498018.
+## 17 560 [Moreno]               401905.
+## 18 568 [Moron]                328367.
+## 19 638 [Pilar]                266564.
+## 20 648 [Pte. Peron]            71379.
+## 21 658 [Quilmes]              520552.
+## 22 749 [San Fernando]         168777.
+## 23 756 [San Isidro]           300420.
+## 24 760 [San Miguel]           285348.
+## 25 805 [Tigre]                312480.
+## 26 840 [Tres de Febrero]      373773.
+## 27 861 [Vicente Lopez]        294682.
+## 28 901 [Cap. Fed. DE 01]      251954.
+## 29 902 [Cap. Fed. DE 02]      229776.
+## 30 903 [Cap. Fed. DE 03]      154312.
+## 31 904 [Cap. Fed. DE 04]      101194.
+## 32 905 [Cap. Fed. DE 05]      110992.
+## 33 906 [Cap. Fed. DE 06]      158034.
+## 34 907 [Cap. Fed. DE 07]      174821.
+## 35 908 [Cap. Fed. DE 08]      141503.
+## 36 909 [Cap. Fed. DE 09]      267301.
+## 37 910 [Cap. Fed. DE 10]      222355.
+## 38 911 [Cap. Fed. DE 11]      105436.
+## 39 912 [Cap. Fed. DE 12]      121206.
+## 40 913 [Cap. Fed. DE 13]      114448.
+## 41 914 [Cap. Fed. DE 14]      107821.
+## 42 915 [Cap. Fed. DE 15]      105985.
+## 43 916 [Cap. Fed. DE 16]       84882.
+## 44 917 [Cap. Fed. DE 17]      129862.
+## 45 918 [Cap. Fed. DE 18]      104452.
+## 46 919 [Cap. Fed. DE 19]      114581.
+## 47 920 [Cap. Fed. DE 20]      103957.
+## 48 921 [Cap. Fed. DE 21]       84066.</code></pre>
+</div>
 </div>
 </div>
 <div id="preprocessing-phase" class="section level1">
 <h1><strong>Preprocessing phase</strong></h1>
 <div id="filtering-people-from-buenos-aires-metropolitan-area" class="section level2">
 <h2>Filtering people from Buenos Aires metropolitan area</h2>
-<p>Since the survey was conducted in the whole metropolitan area, there’s no need to filter households. This goes in hand with the jurisdiction of injuries dataset.</p>
+<p>Since the survey was conducted in the Autonomous City of Buenos Aires and 27 municipalities, and the jurisdiction of injuries is Greater BA (24 municipalities) + Autonomous BA then I have to filter out “partidos” Escobar (252), Pilar (638) and Presidente Peron (648)</p>
 <pre class="r"><code>#keep relevant variables
-person &lt;- person_0[,c(&quot;PARTIDO&quot;,&quot;IDH&quot;,&quot;IDP&quot;, &quot;EDAD&quot;, &quot;SEXO&quot;,&quot;wt1&quot;)]</code></pre>
+person &lt;- person_0[,c(&quot;PARTIDO&quot;,&quot;IDH&quot;,&quot;IDP&quot;, &quot;EDAD&quot;, &quot;SEXO&quot;,&quot;wt1&quot;)] %&gt;% 
+  filter(!PARTIDO %in% c(252, 638, 648))
+#sum(person$wt1)</code></pre>
 </div>
 <div id="classification-and-translation-of-trip-modes-and-purpose" class="section level2">
 <h2>Classification and translation of trip modes and purpose</h2>
-<p>Even though there’s enough information at stage level, I still need to define the main mode for each trip. So I made a hierarchy to get it and translate it. This is going to be different from Lambed’s code because he defined the main mode based on stage duration.</p>
+<p>In the lookup file there’s already a hierarchy defined by Lambed. The column is called “rank”</p>
 <pre class="r"><code>trip_purpose &lt;- read_excel(paste0(route, &quot;lookup.xlsx&quot;), sheet = &#39;trip_purpose&#39;,
                            range = cell_cols(&quot;A:B&quot;))
 stage_mode &lt;- read_excel(paste0(route, &quot;lookup.xlsx&quot;), sheet = &#39;stage_mode&#39;,
