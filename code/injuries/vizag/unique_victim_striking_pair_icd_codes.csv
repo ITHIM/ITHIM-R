@@ -1,0 +1,144 @@
+victim_striking_pair,ICD
+2-Axle Heavy Goods Vehicle - 2-Axle Heavy Goods Vehicle,V641
+2-Axle Heavy Goods Vehicle - Bus,V64
+Ambulance - 2-Axle Heavy Goods Vehicle,V541
+Bicycle - 2-Axle Heavy Goods Vehicle,V141
+Bicycle - Bicycle,V11
+Bicycle - Bus,V14
+Bicycle - Car/Van/Jeep/Taxi,V13
+Bicycle - Light Goods Vehicle,V141
+Bicycle - Motorcycle/Scooter/Moped,V12
+Bicycle - Multi-Axle Heavy Goods Vehicle,V141
+Bicycle - NA,V199
+Bicycle - Others,V19
+Bicycle - Tractor with Trailer,V19
+Bicycle - Tractor without Trailer,V19
+Bicycle - Unknown,V199
+Bus - 2-Axle Heavy Goods Vehicle,V741
+Bus - Bus,V74
+Bus - NA,V799
+Car/Van/Jeep/Taxi - 2-Axle Heavy Goods Vehicle,V441
+Car/Van/Jeep/Taxi - Bus,V44
+Car/Van/Jeep/Taxi - Car/Van/Jeep/Taxi,V43
+Car/Van/Jeep/Taxi - Multi-Axle Heavy Goods Vehicle,V441
+Car/Van/Jeep/Taxi - Others,V49
+Car/Van/Jeep/Taxi - Three Wheeler Passenger,V42
+Car/Van/Jeep/Taxi - Unknown,V499
+Cycle Rickshaw - Motorcycle/Scooter/Moped,V89
+Cycle Rickshaw - Cycle Rickshaw,V89
+Cycle Rickshaw - Multi-Axle Heavy Goods Vehicle,V89
+Cycle Rickshaw - Car/Van/Jeep/Taxi,V89
+Cycle Rickshaw - 2-Axle Heavy Goods Vehicle,V89
+Cycle Rickshaw - Bus,V89
+Cycle Rickshaw - Light Goods Vehicle,V89
+Cycle Rickshaw - Tractor without Trailer,V89
+Cycle Rickshaw - Unknown,V89
+Light Goods Vehicle - 2-Axle Heavy Goods Vehicle,V641
+Light Goods Vehicle - Car/Van/Jeep/Taxi,V63
+Light Goods Vehicle - Light Goods Vehicle,V641
+Mini Bus - Mini Bus,V74
+Mini Bus - Light Goods Vehicle,V741
+Motorcycle/Scooter/Moped - 2-Axle Heavy Goods Vehicle,V241
+Motorcycle/Scooter/Moped - Bicycle,V21
+Motorcycle/Scooter/Moped - Bus,V24
+Motorcycle/Scooter/Moped - Car/Van/Jeep/Taxi,V23
+Motorcycle/Scooter/Moped - Light Goods Vehicle,V241
+Motorcycle/Scooter/Moped - Mini Bus,V24
+Motorcycle/Scooter/Moped - Motorcycle/Scooter/Moped,V22
+Motorcycle/Scooter/Moped - Multi-Axle Heavy Goods Vehicle,V241
+Motorcycle/Scooter/Moped - NA,V299
+Motorcycle/Scooter/Moped - Others,V29
+Motorcycle/Scooter/Moped - Three Wheeler Passenger,V22
+Motorcycle/Scooter/Moped - Tractor with Trailer,V29
+Motorcycle/Scooter/Moped - Tractor without Trailer,V29
+Motorcycle/Scooter/Moped - Unknown,V299
+Multi-Axle Heavy Goods Vehicle - Multi-Axle Heavy Goods Vehicle,V641
+NA - 2-Axle Heavy Goods Vehicle,V89
+NA - Bus,V89
+NA - Car/Van/Jeep/Taxi,V89
+NA - Light Goods Vehicle,V89
+NA - Mini Bus,V89
+NA - Motorcycle/Scooter/Moped,V89
+NA - Multi-Axle Heavy Goods Vehicle,V89
+NA - NA,V89
+NA - Others,V89
+NA - Three Wheeler Goods,V89
+NA - Three Wheeler Passenger,V89
+NA - Tractor with Trailer,V89
+NA - Tractor without Trailer,V89
+NA - Unknown,V89
+Pedestrian - NA,V099
+Pedestrian - 2-Axle Heavy Goods Vehicle,V041
+Pedestrian - Bus,V04
+Pedestrian - Car/Van/Jeep/Taxi,V03
+Pedestrian - Light Goods Vehicle,V041
+Pedestrian - Mini Bus,V04
+Pedestrian - Motorcycle/Scooter/Moped,V02
+Pedestrian - Multi-Axle Heavy Goods Vehicle,V041
+Pedestrian - Pedestrian,V00
+Pedestrian - Others,V09
+Pedestrian - Three Wheeler Goods,V03
+Pedestrian - Three Wheeler Passenger,V02
+Pedestrian - Tractor with Trailer,V09
+Pedestrian - Tractor without Trailer,V09
+Pedestrian - Unknown,V09
+Thela - Car/Van/Jeep/Taxi,V89
+Thela - Motorcycle/Scooter/Moped,V89
+Thela - Multi-Axle Heavy Goods Vehicle,V89
+Three Wheeler Goods - Unknown,V399
+Three Wheeler Passenger - Tractor with Trailer,V39
+Three Wheeler Passenger - 2-Axle Heavy Goods Vehicle,V341
+Three Wheeler Passenger - Bus,V34
+Three Wheeler Passenger - Car/Van/Jeep/Taxi,V33
+Three Wheeler Passenger - Light Goods Vehicle,V341
+Three Wheeler Passenger - Multi-Axle Heavy Goods Vehicle,V341
+Three Wheeler Passenger - NA,V39
+Three Wheeler Passenger - Three Wheeler Passenger,V32
+Three Wheeler Passenger - Tractor without Trailer,V39
+Three Wheeler Passenger - Unknown,V399
+Tractor with Trailer - Multi-Axle Heavy Goods Vehicle,V89
+Tractor with Trailer - 2-Axle Heavy Goods Vehicle,V89
+Tractor with Trailer - Tractor with Trailer,V89
+Tractor without Trailer - Bus,V89
+Tractor without Trailer - Car/Van/Jeep/Taxi,V89
+Tractor without Trailer - Multi-Axle Heavy Goods Vehicle,V89
+Tractor without Trailer - Tractor without Trailer,V89
+Thela - 2-Axle Heavy Goods Vehicle,V89
+Light Goods Vehicle - Bus,V64
+Unknown - Unknown,V89
+2-Axle Heavy Goods Vehicle - Animal Drawn Vehicle,V66
+Unknown - Car/Van/Jeep/Taxi,V89
+Tractor with Trailer - Car/Van/Jeep/Taxi,V89
+Motorcycle/Scooter/Moped - Three Wheeler Goods,V23
+Three Wheeler Passenger - Motorcycle/Scooter/Moped,V32
+2-Axle Heavy Goods Vehicle - Light Goods Vehicle,V641
+Unknown - Motorcycle/Scooter/Moped,V89
+Thela - Light Goods Vehicle,V89
+Bicycle - Mini Bus,V14
+Others - Car/Van/Jeep/Taxi,V89
+Animal Drawn Vehicle - Bus,V89
+Unknown - Bus,V89
+Multi-Axle Heavy Goods Vehicle - 2-Axle Heavy Goods Vehicle,V641
+Unknown - 2-Axle Heavy Goods Vehicle,V89
+Bicycle - Three Wheeler Passenger,V12
+Thela - Three Wheeler Passenger,V89
+Thela - Bus,V89
+Unknown - Multi-Axle Heavy Goods Vehicle,V89
+Motorcycle/Scooter/Moped - Animal Drawn Vehicle,V26
+Fire Fighting Vehicle - Fire Fighting Vehicle,V641
+Car/Van/Jeep/Taxi - Tractor without Trailer,V49
+Thela - Tractor with Trailer,V89
+Car/Van/Jeep/Taxi - Tractor with Trailer,V49
+Three Wheeler Passenger - Three Wheeler Goods,V33
+Motorcycle/Scooter/Moped - Fire Fighting Vehicle,V241
+Motorcycle/Scooter/Moped - Ambulance,V23
+Cycle Rickshaw - Tractor with Trailer,V89
+Pedestrian - Bicycle,V01
+Three Wheeler Passenger - Others,V39
+Car/Van/Jeep/Taxi - Light Goods Vehicle,V441
+2-Axle Heavy Goods Vehicle - Motorcycle/Scooter/Moped,V62
+2-Axle Heavy Goods Vehicle - Multi-Axle Heavy Goods Vehicle,V641
+Three Wheeler Goods - Three Wheeler Goods,V53
+2-Axle Heavy Goods Vehicle - NA,V69
+Pedestrian - Cycle Rickshaw,V06
+Pedestrian - Ambulance,V03
