@@ -11,7 +11,7 @@
 
 <meta name="author" content="Lambed and Daniel" />
 
-<meta name="date" content="2021-04-06" />
+<meta name="date" content="2021-04-12" />
 
 <title>Preprocessing of Santiago’s travel dataset. Most of it comes from Lambed’s code</title>
 
@@ -1707,7 +1707,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Preprocessing of Santiago’s travel dataset. Most of it comes from Lambed’s code</h1>
 <h4 class="author">Lambed and Daniel</h4>
-<h4 class="date">2021-04-06</h4>
+<h4 class="date">2021-04-12</h4>
 
 </div>
 
@@ -1715,8 +1715,8 @@ div.tocify {
 <div id="understanding-phase" class="section level1">
 <h1><strong>Understanding phase</strong></h1>
 <pre><code>##           used (Mb) gc trigger  (Mb) max used (Mb)
-## Ncells  996460 53.3    2030352 108.5  1313975 70.2
-## Vcells 1675311 12.8    8388608  64.0  2279098 17.4</code></pre>
+## Ncells  996474 53.3    2030428 108.5  1313904 70.2
+## Vcells 1675416 12.8    8388608  64.0  2279216 17.4</code></pre>
 <p>This file is based on the script “travel_survey.R”. It has the same code but I added some comments.</p>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
@@ -1745,7 +1745,7 @@ File
 File1
 </td>
 <td style="text-align:left;">
-Technical report and final results
+Technical report and final results Vol. II
 </td>
 <td style="text-align:left;">
 Encuesta Origen Destino Santiago 2021 Informe Final Volumen II
@@ -1766,6 +1766,20 @@ Informe ejecutivo Origen Destino de Viajes 2012
 </td>
 <td style="text-align:left;">
 Actualizacion_recolecc_STU_Santiago_IX Etapa_EOD Stgo 2012_Inf_Ejec.pdf
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+File3
+</td>
+<td style="text-align:left;">
+Technical report and final results Vol. I
+</td>
+<td style="text-align:left;">
+Encuesta Origen Destino Santiago 2021 Informe Final Volumen I
+</td>
+<td style="text-align:left;">
+Actualizacion_recolecc_STU_Santiago_IX Etapa_EOD Stgo 2012_Inf_Final vol I.pdf
 </td>
 </tr>
 </tbody>
@@ -1860,6 +1874,7 @@ expand_using_weights &lt;- function(trip, normalize_by = 10){
 <div id="importing-from-local-directory" class="section level4">
 <h4>Importing from local directory</h4>
 <pre class="r"><code>route &lt;- &quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Chile/Santiago/Trips/CSV/&quot;
+hh_0 &lt;- read_xlsx(paste0(route, &quot;Hogar.xlsx&quot;), guess_max = 100000)
 person_0 &lt;- read_xlsx(paste0(route, &quot;Persona.xlsx&quot;), guess_max = 100000)
 trip_0 &lt;- read_xlsx(paste0(route, &quot;Viaje.xlsx&quot;), guess_max = 100000)
 stage_0 &lt;- read_xlsx(paste0(route, &quot;Etapa.xlsx&quot;), guess_max = 100000)
@@ -1876,8 +1891,13 @@ sex &lt;- bind_cols(sex = c(&quot;Male&quot;, &quot;Female&quot;), Sexo = c(1,2)
 <h1><strong>Preprocessing phase</strong></h1>
 <div id="filtering-people-from-santiago-city" class="section level2">
 <h2>Filtering people from Santiago city</h2>
-<p>Since the survey was conducted in 45 comunas (page 3 of <strong>File2</strong>) and injuries information is at city level then I should filter only households located within the city. For now I will analyze all of them because there’s no a single variable that determines which comunas are from Santiago. Lambed’s code is the same (at metropolitan level)</p>
+<p>Since the survey was conducted in 45 comunas (page 3 of <strong>File2</strong>) and injuries information is at city level then I should filter only households located within the city. To identify comunas that don’t belong to Santiago I took as reference “Tabla 2” page 14 of <strong>File 3</strong>.</p>
 <pre class="r"><code>person &lt;- person_0 %&gt;% 
+  left_join(hh_0[, c(&quot;Hogar&quot;, &quot;Comuna&quot;)], by = &quot;Hogar&quot;) %&gt;% 
+  filter(!Comuna %in% c(&quot;COLINA&quot;, &quot;LAMPA&quot;, &quot;SAN BERNARDO&quot;, &quot;CALERA DE TANGO&quot;,
+                        &quot;BUIN&quot;, &quot;PUENTE ALTO&quot;, &quot;PIRQUE&quot;, &quot;MELIPILLA&quot;,
+                        &quot;TALAGANTE&quot;, &quot;EL MONTE&quot;, &quot;ISLA DE MAIPO&quot;, 
+                        &quot;PADRE HURTADO&quot;, &quot;PEÑAFLOR&quot;)) %&gt;% 
   mutate(cluster_id = 1,
          household_id = Hogar,
          participant_wt = Factor) %&gt;% 

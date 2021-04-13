@@ -35,13 +35,16 @@ options(scipen = 50)
 #' From now on: 
 #+ warning=FALSE, message=FALSE, echo=FALSE
 data.frame(
-  Reference = c("File1", "File2"),
-  Description = c("Technical report and final results",
-                  "Report with only final results"),
+  Reference = c("File1", "File2", "File3"),
+  Description = c("Technical report and final results Vol. II",
+                  "Report with only final results",
+                  "Technical report and final results Vol. I"),
   Title = c("Encuesta Origen Destino Santiago 2021 Informe Final Volumen II",
-            "Informe ejecutivo Origen Destino de Viajes 2012 "),
+            "Informe ejecutivo Origen Destino de Viajes 2012 ",
+            "Encuesta Origen Destino Santiago 2021 Informe Final Volumen I"),
   File = c("Actualizacion_recolecc_STU_Santiago_IX Etapa_EOD Stgo 2012_Inf_Final vol 2.pdf",
-           "Actualizacion_recolecc_STU_Santiago_IX Etapa_EOD Stgo 2012_Inf_Ejec.pdf")
+           "Actualizacion_recolecc_STU_Santiago_IX Etapa_EOD Stgo 2012_Inf_Ejec.pdf",
+           "Actualizacion_recolecc_STU_Santiago_IX Etapa_EOD Stgo 2012_Inf_Final vol I.pdf")
 ) %>% kbl() %>% kable_classic()
 
 #' ## Definition of a trip (pendiente)
@@ -140,6 +143,7 @@ expand_using_weights <- function(trip, normalize_by = 10){
 
 #' #### Importing from local directory
 route <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Chile/Santiago/Trips/CSV/"
+hh_0 <- read_xlsx(paste0(route, "Hogar.xlsx"), guess_max = 100000)
 person_0 <- read_xlsx(paste0(route, "Persona.xlsx"), guess_max = 100000)
 trip_0 <- read_xlsx(paste0(route, "Viaje.xlsx"), guess_max = 100000)
 stage_0 <- read_xlsx(paste0(route, "Etapa.xlsx"), guess_max = 100000)
@@ -153,10 +157,14 @@ sex <- bind_cols(sex = c("Male", "Female"), Sexo = c(1,2))
 #' ## Filtering people from Santiago city
 #' Since the survey was conducted in 45 comunas (page 3 of **File2**) and 
 #' injuries information is at city level then I should filter only households
-#' located within the city. For now I will analyze all of 
-#' them because there's no a single variable that determines which comunas are
-#' from Santiago. Lambed's code is the same (at metropolitan level)
+#' located within the city. To identify comunas that don't belong to Santiago
+#' I took as reference "Tabla 2" page 14 of **File 3**.
 person <- person_0 %>% 
+  left_join(hh_0[, c("Hogar", "Comuna")], by = "Hogar") %>% 
+  filter(!Comuna %in% c("COLINA", "LAMPA", "SAN BERNARDO", "CALERA DE TANGO",
+                        "BUIN", "PUENTE ALTO", "PIRQUE", "MELIPILLA",
+                        "TALAGANTE", "EL MONTE", "ISLA DE MAIPO", 
+                        "PADRE HURTADO", "PEÑAFLOR")) %>% 
   mutate(cluster_id = 1,
          household_id = Hogar,
          participant_wt = Factor) %>% 
