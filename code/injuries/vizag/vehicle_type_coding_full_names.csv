@@ -1,0 +1,21 @@
+code,name
+1,Multi-Axle Heavy Goods Vehicle
+2,2-Axle Heavy Goods Vehicle
+3,Light Goods Vehicle
+4,Mini Bus
+5,Bus
+6,Car/Van/Jeep/Taxi
+7,Ambulance
+8,Fire Fighting Vehicle
+9,Three Wheeler Passenger
+10,Three Wheeler Goods
+11,Thela
+12,Electric Cycle
+13,Tractor without Trailer
+14,Tractor with Trailer
+15,Cycle Rickshaw
+16,Motorcycle/Scooter/Moped
+17,Animal Drawn Vehicle
+18,Bicycle
+98,Others
+99,Unknown
