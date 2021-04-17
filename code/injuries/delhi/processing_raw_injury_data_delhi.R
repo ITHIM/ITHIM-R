@@ -1,4 +1,7 @@
 ###Delhi, India######
+library(dplyr)
+library(mice)
+
 path<- 'code/injuries/delhi'
 delhi1316<-read.csv(paste0(path,'/delhi_2013-2016.csv'))
 delhi1012<-read.csv(paste0(path,'/delhi_2010-2012.csv'))
@@ -281,6 +284,48 @@ delhi<- subset(delhi, select=c("year", "cas_type", "strk_type"))
 
 ##selecting only three years (2012-14)
 delhi<- delhi[which(delhi$year %in% c(2012, 2013, 2014)),]
+
+# Multiple imputation using MICE
+# https://stats.idre.ucla.edu/r/faq/how-do-i-perform-multiple-imputation-using-predictive-mean-matching-in-r/
+
+# Multiple questions:
+# 1) what happens with weight variable, shouldn't it be here. My understanding 
+# is that year is not processed by the package
+# 2) Shouldn't the names of the variables be "cas_mode" and "strike_mode". Do 
+# the package work with different name variables?
+# 3) shouldn't the modes be similar to what is in standardized file? 
+
+#unique(delhi$cas_type)
+#unique(delhi$strk_type)
+# Transforming "unknown" and "unspecified" to NA
+delhi2 <- delhi %>% 
+  mutate(cas_mode = factor(ifelse(cas_type == "Unknown", NA, cas_type)),
+         strike_mode = factor(ifelse(strk_type %in% c("Unknown", "unspecified"),
+                                     NA, strk_type)))
+#table(delhi2$cas_type, delhi2$cas_mode, useNA = "always")
+#table(delhi2$strk_type, delhi2$strike_mode, useNA = "always")
+
+# There are 38 missing values in cas_mode and 3019 in strike mode.
+md.pattern(delhi2)
+
+# In 38 rows both types are missing 
+md.pairs(delhi2)
+
+# imputation
+imp1 <- mice(delhi2[,c("year","cas_mode", "strike_mode")], m = 5, seed = 12345)
+imp1
+
+# Adding imputed rows to
+names(imputed)
+imputed <- complete(imp1) %>% select(cas_age, cas_mode, strike_mode) %>% 
+  rename(cas_age_imp2 = cas_age,
+         cas_mode_imp2 = cas_mode,
+         strike_mode_imp2 = strike_mode)
+
+
+
+#names(imp1$imp$cas_age)
+
 
 injury_file <- 'injuries_delhi.csv'
 write.csv(injuries,paste0('inst/extdata/local/delhi/',injury_file))
