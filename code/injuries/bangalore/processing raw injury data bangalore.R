@@ -1,28 +1,34 @@
 #####Bangalore, India######
-path<- 'code/injuries/bangalore'
-bangalore<-read.csv(paste0(path,'/bengaluru_city_2011.csv'))
+library(tidyverse)
+library(mice)
+
+path <- 'code/injuries/bangalore'
+bangalore <- read.csv(paste0(path, '/bengaluru_city_2011.csv'))
 head(bangalore)
-bangalore<-subset(bangalore, select=c('Accident_Index', 'Accident_Severity', 'Number_of_Casualties','vic_Vehicle_Type','vic_Age','vic_sex','strik_Vehicle_Type'))
+bangalore <- subset(bangalore, select = c('Accident_Index', 'Accident_Severity',
+                                          'Number_of_Casualties',
+                                          'vic_Vehicle_Type','vic_Age',
+                                          'vic_sex','strik_Vehicle_Type'))
 unique(bangalore$vic_Vehicle_Type)
-bangalore$vic_vehicl_eng<- 'NA'
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="2W")]<-"MC"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="PED")]<-"Pedestrian"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="CAR")]<-"Car"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="2W PILLION")]<-"MC"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="2W-ACTIVA")]<-"MC"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="CYCLIST")]<-"Cycle"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="2WPILLION RIDER")]<-"MC"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="3W")]<-"3W"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="TEMPO")]<-"3W"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="TRACTOR")]<-"Other"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="TANG VEHICLE/ TROLL PULLED BY HORSE")]<-"Other"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="BUS PASSENGER")]<-"Bus"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="BUS(KSRTC)")]<-"Bus"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="LORRY")]<-"Truck"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="BUS")]<-"Bus"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="2W (PILLION RIDER)")]<-"MC"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="LCV")]<-"Truck"
-bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="")]<-"Unknown"
+bangalore$vic_vehicl_eng <- 'NA'
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "2W")] <- "MC"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "PED")] <- "Pedestrian"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "CAR")] <- "Car"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "2W PILLION")] <- "MC"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "2W-ACTIVA")] <- "MC"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "CYCLIST")] <- "Cycle"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "2WPILLION RIDER")] <- "MC"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "3W")] <- "3W"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "TEMPO")] <- "3W"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "TRACTOR")] <- "Other"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "TANG VEHICLE/ TROLL PULLED BY HORSE")] <- "Other"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "BUS PASSENGER")] <- "Bus"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "BUS(KSRTC)")] <- "Bus"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "LORRY")] <- "Truck"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "BUS")] <- "Bus"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "2W (PILLION RIDER)")] <- "MC"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "LCV")] <- "Truck"
+bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type == "")] <- "Unknown"
 bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="BUS(BMTC)")]<-"Bus"
 bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="JEEP")]<-"Pick-up truck/van"
 bangalore$vic_vehicl_eng[which(bangalore$vic_Vehicle_Type=="TRACTOR PASSENGER")]<-"Other"
