@@ -1,796 +1,779 @@
-cas_mode,strike_mode
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-motorcycle,NA
-car,NA
-car,NA
-car,NA
-car,NA
-car,NA
-car,NA
-car,NA
-car,NA
-car,NA
-car,NA
-truck,NA
-truck,NA
-truck,NA
-bus,NA
-bus,NA
-bus,NA
-bus,NA
-bus,NA
-bus,NA
-other,NA
-motorcycle,pedestrian
-motorcycle,pedestrian
-motorcycle,pedestrian
-motorcycle,pedestrian
-other,pedestrian
-motorcycle,cycle
-motorcycle,cycle
-other,cycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-pedestrian,motorcycle
-cycle,motorcycle
-cycle,motorcycle
-cycle,motorcycle
-cycle,motorcycle
-cycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-motorcycle,motorcycle
-car,motorcycle
-car,motorcycle
-car,motorcycle
-car,motorcycle
-other,motorcycle
-other,motorcycle
-other,motorcycle
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-pedestrian,car
-cycle,car
-cycle,car
-cycle,car
-cycle,car
-cycle,car
-cycle,car
-cycle,car
-cycle,car
-cycle,car
-cycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-motorcycle,car
-car,car
-car,car
-other,car
-other,car
-other,car
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-pedestrian,bus
-cycle,bus
-cycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-motorcycle,bus
-car,bus
-car,bus
-car,bus
-car,bus
-car,bus
-bus,bus
-bus,bus
-bus,bus
-bus,bus
-bus,bus
-bus,bus
-bus,bus
-bus,bus
-other,bus
-other,bus
-other,bus
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-pedestrian,truck
-cycle,truck
-cycle,truck
-cycle,truck
-cycle,truck
-cycle,truck
-cycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-motorcycle,truck
-car,truck
-car,truck
-car,truck
-car,truck
-car,truck
-car,truck
-car,truck
-car,truck
-truck,truck
-truck,truck
-truck,truck
-truck,truck
-truck,truck
-truck,truck
-truck,truck
-truck,truck
-bus,truck
-bus,truck
-bus,truck
-bus,truck
-other,truck
-other,truck
-other,truck
-other,truck
+"","vic_age","vic_sex","cas_type","strk_type","cas_age_original","cas_gender_original","cas_mode","strike_mode_original","cas_age","cas_gender","strike_mode","cas_age_2nd","cas_gender_2nd","strike_mode_2nd","cas_age_3rd","cas_gender_3rd","strike_mode_3rd","cas_age_4th","cas_gender_4th","strike_mode_4th","cas_age_5th","cas_gender_5th","strike_mode_5th"
+"1","23","M","Motorcycle","2/3 Wheeled",23,"M","motorcycle","2/3 Wheeled",23,"M","motorcycle",23,"M","motorcycle",23,"M","motorcycle",23,"M","motorcycle",23,"M","motorcycle"
+"2","27","M","Motorcycle","2/3 Wheeled",27,"M","motorcycle","2/3 Wheeled",27,"M","motorcycle",27,"M","motorcycle",27,"M","motorcycle",27,"M","motorcycle",27,"M","motorcycle"
+"3","47","M","Pedestrian","Bus",47,"M","pedestrian","Bus",47,"M","bus",47,"M","bus",47,"M","bus",47,"M","bus",47,"M","bus"
+"4","22","M","Car","2/3 Wheeled",22,"M","car","2/3 Wheeled",22,"M","motorcycle",22,"M","motorcycle",22,"M","motorcycle",22,"M","motorcycle",22,"M","motorcycle"
+"5","24","M","Motorcycle","2/3 Wheeled",24,"M","motorcycle","2/3 Wheeled",24,"M","motorcycle",24,"M","motorcycle",24,"M","motorcycle",24,"M","motorcycle",24,"M","motorcycle"
+"6","_","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,51,"M","car",25,"M","car",35,"M","car",32,"M","car",46,"M","motorcycle"
+"7","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",28,"M","car",26,"M","car",25,"M","car",65,"M","car",46,"M","car"
+"8","73","_","Pedestrian","Unknown",73,NA,"pedestrian",NA,73,"M","motorcycle",73,"M","bus",73,"M","motorcycle",73,"M","motorcycle",73,"M","motorcycle"
+"9","28","M","Motorcycle","Unknown",28,"M","motorcycle",NA,28,"M","car",28,"M","NOV",28,"M","NOV",28,"M","bus",28,"M","NOV"
+"10","35","M","Pedestrian","Car/pick-up/van",35,"M","pedestrian","Car/pick-up/van",35,"M","car",35,"M","car",35,"M","car",35,"M","car",35,"M","car"
+"11","56","F","Motorcycle","2/3 Wheeled",56,"F","motorcycle","2/3 Wheeled",56,"F","motorcycle",56,"F","motorcycle",56,"F","motorcycle",56,"F","motorcycle",56,"F","motorcycle"
+"12","26","M","Motorcycle","2/3 Wheeled",26,"M","motorcycle","2/3 Wheeled",26,"M","motorcycle",26,"M","motorcycle",26,"M","motorcycle",26,"M","motorcycle",26,"M","motorcycle"
+"13","45","M","Pedestrian","Car/pick-up/van",45,"M","pedestrian","Car/pick-up/van",45,"M","car",45,"M","car",45,"M","car",45,"M","car",45,"M","car"
+"14","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",95,"M","motorcycle",40,"M","motorcycle",63,"M","motorcycle",33,"M","motorcycle",74,"M","motorcycle"
+"15","63","M","Pedal Cycle","Car/pick-up/van",63,"M","cycle","Car/pick-up/van",63,"M","car",63,"M","car",63,"M","car",63,"M","car",63,"M","car"
+"16","21","M","Motorcycle","Bus",21,"M","motorcycle","Bus",21,"M","bus",21,"M","bus",21,"M","bus",21,"M","bus",21,"M","bus"
+"17","45","F","Motorcycle","Car/pick-up/van",45,"F","motorcycle","Car/pick-up/van",45,"F","car",45,"F","car",45,"F","car",45,"F","car",45,"F","car"
+"18","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,25,"M","motorcycle",35,"M","bus",43,"M","car",62,"M","motorcycle",28,"M","car"
+"19","25","M","Motorcycle","Bus",25,"M","motorcycle","Bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus"
+"20","","M","3Wheeled","No other/fixed or stationary object",NA,"M","motorcycle","No other/fixed or stationary object",22,"M","NOV",21,"M","NOV",30,"M","NOV",46,"M","NOV",45,"M","NOV"
+"21","56","F","Motorcycle","2/3 Wheeled",56,"F","motorcycle","2/3 Wheeled",56,"F","motorcycle",56,"F","motorcycle",56,"F","motorcycle",56,"F","motorcycle",56,"F","motorcycle"
+"22","40","M","Pedestrian","Unknown",40,"M","pedestrian",NA,40,"M","motorcycle",40,"M","motorcycle",40,"M","motorcycle",40,"M","motorcycle",40,"M","bus"
+"23","53","M","Motorcycle","Car/pick-up/van",53,"M","motorcycle","Car/pick-up/van",53,"M","car",53,"M","car",53,"M","car",53,"M","car",53,"M","car"
+"24","27","M","3Wheeled","Unknown",27,"M","motorcycle",NA,27,"M","NOV",27,"M","NOV",27,"M","car",27,"M","car",27,"M","NOV"
+"25","27","M","3Wheeled","Bus",27,"M","motorcycle","Bus",27,"M","bus",27,"M","bus",27,"M","bus",27,"M","bus",27,"M","bus"
+"26","25","M","Motorcycle","Car/pick-up/van",25,"M","motorcycle","Car/pick-up/van",25,"M","car",25,"M","car",25,"M","car",25,"M","car",25,"M","car"
+"27","26","M","Motorcycle","Car/pick-up/van",26,"M","motorcycle","Car/pick-up/van",26,"M","car",26,"M","car",26,"M","car",26,"M","car",26,"M","car"
+"28","22","M","Car","2/3 Wheeled",22,"M","car","2/3 Wheeled",22,"M","motorcycle",22,"M","motorcycle",22,"M","motorcycle",22,"M","motorcycle",22,"M","motorcycle"
+"29","68","M","Pedestrian","2/3 Wheeled",68,"M","pedestrian","2/3 Wheeled",68,"M","motorcycle",68,"M","motorcycle",68,"M","motorcycle",68,"M","motorcycle",68,"M","motorcycle"
+"30","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",95,"M","motorcycle",40,"M","motorcycle",44,"M","motorcycle",33,"M","motorcycle",50,"M","motorcycle"
+"31","47","M","Pedestrian","Unknown",47,"M","pedestrian",NA,47,"M","motorcycle",47,"M","car",47,"M","car",47,"M","car",47,"M","motorcycle"
+"32","21","M","3Wheeled","Unknown",21,"M","motorcycle",NA,21,"M","car",21,"M","car",21,"M","NOV",21,"M","NOV",21,"M","car"
+"33","26","M","3Wheeled","Unknown",26,"M","motorcycle",NA,26,"M","NOV",26,"M","bus",26,"M","NOV",26,"M","car",26,"M","NOV"
+"34","26","M","3Wheeled","Unknown",26,"M","motorcycle",NA,26,"M","bus",26,"M","car",26,"M","car",26,"M","car",26,"M","car"
+"35","25","M","3Wheeled","Unknown",25,"M","motorcycle",NA,25,"M","car",25,"M","bus",25,"M","car",25,"M","NOV",25,"M","car"
+"36","30","F","Motorcycle","Unknown",30,"F","motorcycle",NA,30,"F","NOV",30,"F","bus",30,"F","NOV",30,"F","car",30,"F","bus"
+"37","11","F","Motorcycle","Unknown",11,"F","motorcycle",NA,11,"F","car",11,"F","bus",11,"F","bus",11,"F","bus",11,"F","bus"
+"38","30","","Pedestrian","Car/pick-up/van",30,NA,"pedestrian","Car/pick-up/van",30,"M","car",30,"M","car",30,"F","car",30,"M","car",30,"F","car"
+"39","65","M","Car","2/3 Wheeled",65,"M","car","2/3 Wheeled",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle"
+"40","25","M","Motorcycle","2/3 Wheeled",25,"M","motorcycle","2/3 Wheeled",25,"M","motorcycle",25,"M","motorcycle",25,"M","motorcycle",25,"M","motorcycle",25,"M","motorcycle"
+"41","70","M","Pedestrian","Car/pick-up/van",70,"M","pedestrian","Car/pick-up/van",70,"M","car",70,"M","car",70,"M","car",70,"M","car",70,"M","car"
+"42","","M","Car","Car/pick-up/van",NA,"M","car","Car/pick-up/van",23,"M","car",21,"M","car",78,"M","car",26,"M","car",28,"M","car"
+"43","35","M","Pedestrian","2/3 Wheeled",35,"M","pedestrian","2/3 Wheeled",35,"M","motorcycle",35,"M","motorcycle",35,"M","motorcycle",35,"M","motorcycle",35,"M","motorcycle"
+"44","58","M","Pedestrian","Car/pick-up/van",58,"M","pedestrian","Car/pick-up/van",58,"M","car",58,"M","car",58,"M","car",58,"M","car",58,"M","car"
+"45","50","M","Pedestrian","2/3 Wheeled",50,"M","pedestrian","2/3 Wheeled",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle"
+"46","80","M","Pedestrian","2/3 Wheeled",80,"M","pedestrian","2/3 Wheeled",80,"M","motorcycle",80,"M","motorcycle",80,"M","motorcycle",80,"M","motorcycle",80,"M","motorcycle"
+"47","19","M","Pedestrian","Car/pick-up/van",19,"M","pedestrian","Car/pick-up/van",19,"M","car",19,"M","car",19,"M","car",19,"M","car",19,"M","car"
+"48","","M","Pedestrian","Car/pick-up/van",NA,"M","pedestrian","Car/pick-up/van",30,"M","car",55,"M","car",55,"M","car",52,"M","car",3,"M","car"
+"49","56","M","Motorcycle","Bus",56,"M","motorcycle","Bus",56,"M","bus",56,"M","bus",56,"M","bus",56,"M","bus",56,"M","bus"
+"50","22","M","Pedestrian","Unknown",22,"M","pedestrian",NA,22,"M","motorcycle",22,"M","motorcycle",22,"M","car",22,"M","bus",22,"M","motorcycle"
+"51","51","F","Motorcycle","Unknown",51,"F","motorcycle",NA,51,"F","car",51,"F","bus",51,"F","bus",51,"F","NOV",51,"F","bus"
+"52","48","M","Pedestrian","Bus",48,"M","pedestrian","Bus",48,"M","bus",48,"M","bus",48,"M","bus",48,"M","bus",48,"M","bus"
+"53","35","M","Pedestrian","Unknown",35,"M","pedestrian",NA,35,"M","car",35,"M","car",35,"M","bus",35,"M","car",35,"M","motorcycle"
+"54",".",".","Pedestrian","2/3 Wheeled",NA,NA,"pedestrian","2/3 Wheeled",9,"F","motorcycle",65,"M","motorcycle",77,"M","motorcycle",67,"F","motorcycle",73,"M","motorcycle"
+"55","38","M","Other","unspecified",38,"M","other",NA,38,"M","NOV",38,"M","NOV",38,"M","bus",38,"M","bus",38,"M","NOV"
+"56",".","M/F","Pedestrian","2/3 Wheeled",NA,NA,"pedestrian","2/3 Wheeled",24,"F","motorcycle",40,"M","motorcycle",63,"F","motorcycle",74,"M","motorcycle",77,"M","motorcycle"
+"57","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,9,"M","car",47,"M","bus",26,"M","car",74,"M","bus",65,"M","motorcycle"
+"58","5","M","Pedestrian","Car/pick-up/van",5,"M","pedestrian","Car/pick-up/van",5,"M","car",5,"M","car",5,"M","car",5,"M","car",5,"M","car"
+"59","40","M","Pedestrian","Unknown",40,"M","pedestrian",NA,40,"M","motorcycle",40,"M","car",40,"M","motorcycle",40,"M","bus",40,"M","motorcycle"
+"60","25","M","Pedestrian","Bus",25,"M","pedestrian","Bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus"
+"61","64","M","Motorcycle","Car/pick-up/van",64,"M","motorcycle","Car/pick-up/van",64,"M","car",64,"M","car",64,"M","car",64,"M","car",64,"M","car"
+"62","55","F","Pedestrian","Bus",55,"F","pedestrian","Bus",55,"F","bus",55,"F","bus",55,"F","bus",55,"F","bus",55,"F","bus"
+"63","47","M","Pedestrian","Car/pick-up/van",47,"M","pedestrian","Car/pick-up/van",47,"M","car",47,"M","car",47,"M","car",47,"M","car",47,"M","car"
+"64","85","M","Pedestrian","2/3 Wheeled",85,"M","pedestrian","2/3 Wheeled",85,"M","motorcycle",85,"M","motorcycle",85,"M","motorcycle",85,"M","motorcycle",85,"M","motorcycle"
+"65","67","F","Pedestrian","2/3 Wheeled",67,"F","pedestrian","2/3 Wheeled",67,"F","motorcycle",67,"F","motorcycle",67,"F","motorcycle",67,"F","motorcycle",67,"F","motorcycle"
+"66","49","M","Pedestrian","2/3 Wheeled",49,"M","pedestrian","2/3 Wheeled",49,"M","motorcycle",49,"M","motorcycle",49,"M","motorcycle",49,"M","motorcycle",49,"M","motorcycle"
+"67","62","M","Pedal Cycle","Unknown",62,"M","cycle",NA,62,"M","bus",62,"M","motorcycle",62,"M","car",62,"M","car",62,"M","car"
+"68","40","M","Pedestrian","Unknown",40,"M","pedestrian",NA,40,"M","motorcycle",40,"M","car",40,"M","bus",40,"M","motorcycle",40,"M","bus"
+"69","80","M","Pedestrian","2/3 Wheeled",80,"M","pedestrian","2/3 Wheeled",80,"M","motorcycle",80,"M","motorcycle",80,"M","motorcycle",80,"M","motorcycle",80,"M","motorcycle"
+"70","42","F","Other","unspecified",42,"F","other",NA,42,"F","NOV",42,"F","car",42,"F","car",42,"F","car",42,"F","car"
+"71","60","M","Pedestrian","2/3 Wheeled",60,"M","pedestrian","2/3 Wheeled",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle"
+"72","25","M","Pedestrian","Bus",25,"M","pedestrian","Bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus"
+"73","45","F","Pedestrian","Unknown",45,"F","pedestrian",NA,45,"F","motorcycle",45,"F","motorcycle",45,"F","car",45,"F","bus",45,"F","motorcycle"
+"74",".","M/F","Pedestrian","Unknown",NA,NA,"pedestrian",NA,63,"F","motorcycle",47,"M","motorcycle",40,"M","motorcycle",28,"M","car",65,"M","car"
+"75","25","M","Pedestrian","Bus",25,"M","pedestrian","Bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus"
+"76",".","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",30,"M","car",32,"M","car",23,"M","car",22,"M","car",21,"M","car"
+"77","30","M","Pedestrian","Bus",30,"M","pedestrian","Bus",30,"M","bus",30,"M","bus",30,"M","bus",30,"M","bus",30,"M","bus"
+"78","43","F","Pedestrian","2/3 Wheeled",43,"F","pedestrian","2/3 Wheeled",43,"F","motorcycle",43,"F","motorcycle",43,"F","motorcycle",43,"F","motorcycle",43,"F","motorcycle"
+"79","52","M","Pedestrian","2/3 Wheeled",52,"M","pedestrian","2/3 Wheeled",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle"
+"80","55","F","Pedestrian","2/3 Wheeled",55,"F","pedestrian","2/3 Wheeled",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle"
+"81","47","F","Motorcycle","2/3 Wheeled",47,"F","motorcycle","2/3 Wheeled",47,"F","motorcycle",47,"F","motorcycle",47,"F","motorcycle",47,"F","motorcycle",47,"F","motorcycle"
+"82","52","M","Motorcycle","2/3 Wheeled",52,"M","motorcycle","2/3 Wheeled",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle"
+"83","75","M","Pedestrian","Car/pick-up/van",75,"M","pedestrian","Car/pick-up/van",75,"M","car",75,"M","car",75,"M","car",75,"M","car",75,"M","car"
+"84","34","M","Pedestrian","Unknown",34,"M","pedestrian",NA,34,"M","motorcycle",34,"M","car",34,"M","bus",34,"M","bus",34,"M","car"
+"85","28","M","Motorcycle","2/3 Wheeled",28,"M","motorcycle","2/3 Wheeled",28,"M","motorcycle",28,"M","motorcycle",28,"M","motorcycle",28,"M","motorcycle",28,"M","motorcycle"
+"86","45","F","Motorcycle","Unknown",45,"F","motorcycle",NA,45,"F","bus",45,"F","bus",45,"F","bus",45,"F","bus",45,"F","bus"
+"87","30","M","Car","No other/fixed or stationary object",30,"M","car","No other/fixed or stationary object",30,"M","NOV",30,"M","NOV",30,"M","NOV",30,"M","NOV",30,"M","NOV"
+"88","21","M","Car","No other/fixed or stationary object",21,"M","car","No other/fixed or stationary object",21,"M","NOV",21,"M","NOV",21,"M","NOV",21,"M","NOV",21,"M","NOV"
+"89","21","M","Car","No other/fixed or stationary object",21,"M","car","No other/fixed or stationary object",21,"M","NOV",21,"M","NOV",21,"M","NOV",21,"M","NOV",21,"M","NOV"
+"90","20","M","Car","No other/fixed or stationary object",20,"M","car","No other/fixed or stationary object",20,"M","NOV",20,"M","NOV",20,"M","NOV",20,"M","NOV",20,"M","NOV"
+"91","21","M","Car","No other/fixed or stationary object",21,"M","car","No other/fixed or stationary object",21,"M","NOV",21,"M","NOV",21,"M","NOV",21,"M","NOV",21,"M","NOV"
+"92",".","M","3Wheeled","Unknown",NA,"M","motorcycle",NA,11,"M","NOV",21,"M","NOV",22,"M","car",46,"M","car",55,"M","car"
+"93","62","M","Motorcycle","Car/pick-up/van",62,"M","motorcycle","Car/pick-up/van",62,"M","car",62,"M","car",62,"M","car",62,"M","car",62,"M","car"
+"94","72","F","Pedestrian","Car/pick-up/van",72,"F","pedestrian","Car/pick-up/van",72,"F","car",72,"F","car",72,"F","car",72,"F","car",72,"F","car"
+"95","25","M","Pedestrian","Car/pick-up/van",25,"M","pedestrian","Car/pick-up/van",25,"M","car",25,"M","car",25,"M","car",25,"M","car",25,"M","car"
+"96","32","F","Pedestrian","Unknown",32,"F","pedestrian",NA,32,"F","bus",32,"F","bus",32,"F","motorcycle",32,"F","car",32,"F","car"
+"97","45","M","Pedestrian","Car/pick-up/van",45,"M","pedestrian","Car/pick-up/van",45,"M","car",45,"M","car",45,"M","car",45,"M","car",45,"M","car"
+"98","37","M","Motorcycle","Unknown",37,"M","motorcycle",NA,37,"M","car",37,"M","bus",37,"M","bus",37,"M","bus",37,"M","car"
+"99","19","M","Pedal Cycle","Car/pick-up/van",19,"M","cycle","Car/pick-up/van",19,"M","car",19,"M","car",19,"M","car",19,"M","car",19,"M","car"
+"100","37","M","Car","Unknown",37,"M","car",NA,37,"M","NOV",37,"M","motorcycle",37,"M","motorcycle",37,"M","NOV",37,"M","NOV"
+"101","40","M","Motorcycle","Car/pick-up/van",40,"M","motorcycle","Car/pick-up/van",40,"M","car",40,"M","car",40,"M","car",40,"M","car",40,"M","car"
+"102","30","M","Motorcycle","No other/fixed or stationary object",30,"M","motorcycle","No other/fixed or stationary object",30,"M","NOV",30,"M","NOV",30,"M","NOV",30,"M","NOV",30,"M","NOV"
+"103","22","M","Motorcycle","No other/fixed or stationary object",22,"M","motorcycle","No other/fixed or stationary object",22,"M","NOV",22,"M","NOV",22,"M","NOV",22,"M","NOV",22,"M","NOV"
+"104","","F","Motorcycle","Car/pick-up/van",NA,"F","motorcycle","Car/pick-up/van",21,"F","car",20,"F","car",10,"F","car",19,"F","car",64,"F","car"
+"105","74","F","Bus","Bus",74,"F","bus","Bus",74,"F","bus",74,"F","bus",74,"F","bus",74,"F","bus",74,"F","bus"
+"106","56","F","Pedestrian","2/3 Wheeled",56,"F","pedestrian","2/3 Wheeled",56,"F","motorcycle",56,"F","motorcycle",56,"F","motorcycle",56,"F","motorcycle",56,"F","motorcycle"
+"107","59","M","Pedestrian","Car/pick-up/van",59,"M","pedestrian","Car/pick-up/van",59,"M","car",59,"M","car",59,"M","car",59,"M","car",59,"M","car"
+"108","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,51,"M","bus",25,"M","bus",25,"M","NOV",42,"M","bus",28,"M","pedestrian"
+"109","20","M","Motorcycle","Bus",20,"M","motorcycle","Bus",20,"M","bus",20,"M","bus",20,"M","bus",20,"M","bus",20,"M","bus"
+"110","60","M","Motorcycle","Unknown",60,"M","motorcycle",NA,60,"M","bus",60,"M","bus",60,"M","car",60,"M","bus",60,"M","car"
+"111","30","M","Pedestrian","Unknown",30,"M","pedestrian",NA,30,"M","bus",30,"M","car",30,"M","car",30,"M","motorcycle",30,"M","motorcycle"
+"112","28","M","Bus","Unknown",28,"M","bus",NA,28,"M","bus",28,"M","NOV",28,"M","NOV",28,"M","NOV",28,"M","bus"
+"113","32","M","Bus","Unknown",32,"M","bus",NA,32,"M","NOV",32,"M","bus",32,"M","bus",32,"M","bus",32,"M","NOV"
+"114","19","M","Bus","Unknown",19,"M","bus",NA,19,"M","bus",19,"M","NOV",19,"M","NOV",19,"M","NOV",19,"M","bus"
+"115","32","M","Heavy transport","No other/fixed or stationary object",32,"M","truck","No other/fixed or stationary object",32,"M","NOV",32,"M","NOV",32,"M","NOV",32,"M","NOV",32,"M","NOV"
+"116","","M","Heavy transport","No other/fixed or stationary object",NA,"M","truck","No other/fixed or stationary object",22,"M","NOV",56,"M","NOV",58,"M","NOV",20,"M","NOV",70,"M","NOV"
+"117","33","F","Bus","No other/fixed or stationary object",33,"F","bus","No other/fixed or stationary object",33,"F","NOV",33,"F","NOV",33,"F","NOV",33,"F","NOV",33,"F","NOV"
+"118","27","F","Bus","No other/fixed or stationary object",27,"F","bus","No other/fixed or stationary object",27,"F","NOV",27,"F","NOV",27,"F","NOV",27,"F","NOV",27,"F","NOV"
+"119","33","F","Bus","No other/fixed or stationary object",33,"F","bus","No other/fixed or stationary object",33,"F","NOV",33,"F","NOV",33,"F","NOV",33,"F","NOV",33,"F","NOV"
+"120","45","M","Motorcycle","2/3 Wheeled",45,"M","motorcycle","2/3 Wheeled",45,"M","motorcycle",45,"M","motorcycle",45,"M","motorcycle",45,"M","motorcycle",45,"M","motorcycle"
+"121","42","M","Pedestrian","2/3 Wheeled",42,"M","pedestrian","2/3 Wheeled",42,"M","motorcycle",42,"M","motorcycle",42,"M","motorcycle",42,"M","motorcycle",42,"M","motorcycle"
+"122","18","M","Pedal Cycle","Unknown",18,"M","cycle",NA,18,"M","car",18,"M","motorcycle",18,"M","car",18,"M","car",18,"M","motorcycle"
+"123","","","Pedestrian","Car/pick-up/van",NA,NA,"pedestrian","Car/pick-up/van",26,"M","car",62,"M","car",40,"M","car",25,"M","car",65,"M","car"
+"124","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",55,"M","motorcycle",58,"M","motorcycle",44,"M","motorcycle",50,"M","motorcycle",73,"M","motorcycle"
+"125","50+","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",55,"M","motorcycle",65,"M","motorcycle",63,"M","motorcycle",27,"M","motorcycle",77,"M","motorcycle"
+"126","33","M","Motorcycle","2/3 Wheeled",33,"M","motorcycle","2/3 Wheeled",33,"M","motorcycle",33,"M","motorcycle",33,"M","motorcycle",33,"M","motorcycle",33,"M","motorcycle"
+"127","","","Pedestrian","2/3 Wheeled",NA,NA,"pedestrian","2/3 Wheeled",24,"M","motorcycle",65,"M","motorcycle",40,"M","motorcycle",50,"M","motorcycle",28,"M","motorcycle"
+"128","","","Motorcycle","Pedestrian",NA,NA,"motorcycle","Pedestrian",50,"M","pedestrian",56,"M","pedestrian",10,"M","pedestrian",20,"F","pedestrian",26,"M","pedestrian"
+"129","30","M","Other","unspecified",30,"M","other",NA,30,"M","bus",30,"M","bus",30,"M","bus",30,"M","NOV",30,"M","bus"
+"130","25","M","Pedestrian","Bus",25,"M","pedestrian","Bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus"
+"131","52","M","Motorcycle","2/3 Wheeled",52,"M","motorcycle","2/3 Wheeled",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle"
+"132","","F","Motorcycle","2/3 Wheeled",NA,"F","motorcycle","2/3 Wheeled",50,"F","motorcycle",73,"F","motorcycle",5,"F","motorcycle",56,"F","motorcycle",32,"F","motorcycle"
+"133","26","M","Motorcycle","Unknown",26,"M","motorcycle",NA,26,"M","bus",26,"M","bus",26,"M","bus",26,"M","bus",26,"M","car"
+"134","26","M","Car","No other/fixed or stationary object",26,"M","car","No other/fixed or stationary object",26,"M","NOV",26,"M","NOV",26,"M","NOV",26,"M","NOV",26,"M","NOV"
+"135","75","M","Pedestrian","2/3 Wheeled",75,"M","pedestrian","2/3 Wheeled",75,"M","motorcycle",75,"M","motorcycle",75,"M","motorcycle",75,"M","motorcycle",75,"M","motorcycle"
+"136","16","M","Motorcycle","Bus",16,"M","motorcycle","Bus",16,"M","bus",16,"M","bus",16,"M","bus",16,"M","bus",16,"M","bus"
+"137","16","M","Motorcycle","Bus",16,"M","motorcycle","Bus",16,"M","bus",16,"M","bus",16,"M","bus",16,"M","bus",16,"M","bus"
+"138","23","M","Motorcycle","Unknown",23,"M","motorcycle",NA,23,"M","NOV",23,"M","NOV",23,"M","car",23,"M","car",23,"M","bus"
+"139","68","F","Pedestrian","Bus",68,"F","pedestrian","Bus",68,"F","bus",68,"F","bus",68,"F","bus",68,"F","bus",68,"F","bus"
+"140","86","M","Pedestrian","Car/pick-up/van",86,"M","pedestrian","Car/pick-up/van",86,"M","car",86,"M","car",86,"M","car",86,"M","car",86,"M","car"
+"141","59","M","Motorcycle","Unknown",59,"M","motorcycle",NA,59,"M","car",59,"M","bus",59,"M","bus",59,"M","motorcycle",59,"M","motorcycle"
+"142",".",".","Pedestrian","2/3 Wheeled",NA,NA,"pedestrian","2/3 Wheeled",9,"M","motorcycle",65,"M","motorcycle",18,"M","motorcycle",74,"F","motorcycle",50,"M","motorcycle"
+"143","27","M","Motorcycle","No other/fixed or stationary object",27,"M","motorcycle","No other/fixed or stationary object",27,"M","NOV",27,"M","NOV",27,"M","NOV",27,"M","NOV",27,"M","NOV"
+"144","22","F","Motorcycle","Car/pick-up/van",22,"F","motorcycle","Car/pick-up/van",22,"F","car",22,"F","car",22,"F","car",22,"F","car",22,"F","car"
+"145","55","F","Pedestrian","2/3 Wheeled",55,"F","pedestrian","2/3 Wheeled",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle"
+"146","25","M","Motorcycle","Unknown",25,"M","motorcycle",NA,25,"M","NOV",25,"M","bus",25,"M","car",25,"M","car",25,"M","car"
+"147","65","M","Pedestrian","2/3 Wheeled",65,"M","pedestrian","2/3 Wheeled",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle"
+"148","45","M","Heavy transport","Unknown",45,"M","truck",NA,45,"M","NOV",45,"M","NOV",45,"M","NOV",45,"M","NOV",45,"M","NOV"
+"149","","M","Motorcycle","unspecified",NA,"M","motorcycle",NA,28,"M","motorcycle",22,"M","bus",38,"M","motorcycle",68,"M","car",30,"M","bus"
+"150","23","F","Motorcycle","unspecified",23,"F","motorcycle",NA,23,"F","bus",23,"F","NOV",23,"F","NOV",23,"F","NOV",23,"F","bus"
+"151","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,51,"M","bus",30,"M","bus",45,"M","car",35,"M","bus",45,"M","bus"
+"152","55","F","Pedestrian","2/3 Wheeled",55,"F","pedestrian","2/3 Wheeled",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle"
+"153","40","M","Pedestrian","Unknown",40,"M","pedestrian",NA,40,"M","motorcycle",40,"M","motorcycle",40,"M","car",40,"M","car",40,"M","motorcycle"
+"154","22","M","Motorcycle","Bus",22,"M","motorcycle","Bus",22,"M","bus",22,"M","bus",22,"M","bus",22,"M","bus",22,"M","bus"
+"155","","F","Motorcycle","2/3 Wheeled",NA,"F","motorcycle","2/3 Wheeled",77,"F","motorcycle",73,"F","motorcycle",30,"F","motorcycle",47,"F","motorcycle",55,"F","motorcycle"
+"156","31","M","Motorcycle","No other/fixed or stationary object",31,"M","motorcycle","No other/fixed or stationary object",31,"M","NOV",31,"M","NOV",31,"M","NOV",31,"M","NOV",31,"M","NOV"
+"157","","M","Pedestrian","Car/pick-up/van",NA,"M","pedestrian","Car/pick-up/van",23,"M","car",55,"M","car",55,"M","car",45,"M","car",67,"M","car"
+"158","73","M","Pedestrian","2/3 Wheeled",73,"M","pedestrian","2/3 Wheeled",73,"M","motorcycle",73,"M","motorcycle",73,"M","motorcycle",73,"M","motorcycle",73,"M","motorcycle"
+"159","30","M","Pedestrian","2/3 Wheeled",30,"M","pedestrian","2/3 Wheeled",30,"M","motorcycle",30,"M","motorcycle",30,"M","motorcycle",30,"M","motorcycle",30,"M","motorcycle"
+"160","21","M","Pedestrian","unspecified",21,"M","pedestrian",NA,21,"M","car",21,"M","car",21,"M","car",21,"M","car",21,"M","car"
+"161","38","M","Pedestrian","Bus",38,"M","pedestrian","Bus",38,"M","bus",38,"M","bus",38,"M","bus",38,"M","bus",38,"M","bus"
+"162","80","F","Pedestrian","Unknown",80,"F","pedestrian",NA,80,"F","motorcycle",80,"F","motorcycle",80,"F","car",80,"F","bus",80,"F","motorcycle"
+"163","23","M","Pedestrian","unspecified",23,"M","pedestrian",NA,23,"M","bus",23,"M","bus",23,"M","car",23,"M","car",23,"M","motorcycle"
+"164","29","M","Motorcycle","Unknown",29,"M","motorcycle",NA,29,"M","bus",29,"M","bus",29,"M","car",29,"M","car",29,"M","motorcycle"
+"165","23","M","Motorcycle","Bus",23,"M","motorcycle","Bus",23,"M","bus",23,"M","bus",23,"M","bus",23,"M","bus",23,"M","bus"
+"166","28","M","Pedestrian","Car/pick-up/van",28,"M","pedestrian","Car/pick-up/van",28,"M","car",28,"M","car",28,"M","car",28,"M","car",28,"M","car"
+"167","22","M","Motorcycle","Unknown",22,"M","motorcycle",NA,22,"M","bus",22,"M","car",22,"M","NOV",22,"M","NOV",22,"M","car"
+"168","28","M","Pedestrian","Car/pick-up/van",28,"M","pedestrian","Car/pick-up/van",28,"M","car",28,"M","car",28,"M","car",28,"M","car",28,"M","car"
+"169","21","M","Motorcycle","No other/fixed or stationary object",21,"M","motorcycle","No other/fixed or stationary object",21,"M","NOV",21,"M","NOV",21,"M","NOV",21,"M","NOV",21,"M","NOV"
+"170","","M","Pedestrian","Car/pick-up/van",NA,"M","pedestrian","Car/pick-up/van",23,"M","car",20,"M","car",46,"M","car",45,"M","car",10,"M","car"
+"171","","M","Motorcycle","2/3 Wheeled",NA,"M","motorcycle","2/3 Wheeled",45,"M","motorcycle",52,"M","motorcycle",24,"M","motorcycle",68,"M","motorcycle",30,"M","motorcycle"
+"172","60","M","Pedestrian","2/3 Wheeled",60,"M","pedestrian","2/3 Wheeled",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle"
+"173","","M","Motorcycle","unspecified",NA,"M","motorcycle",NA,33,"M","bus",32,"M","motorcycle",32,"M","motorcycle",30,"M","car",28,"M","motorcycle"
+"174","","","Car","Bus",NA,NA,"car","Bus",46,"M","bus",43,"M","bus",27,"M","bus",21,"M","bus",48,"M","bus"
+"175","60","F","Pedestrian","Car/pick-up/van",60,"F","pedestrian","Car/pick-up/van",60,"F","car",60,"F","car",60,"F","car",60,"F","car",60,"F","car"
+"176","18","M","Other","unspecified",18,"M","other",NA,18,"M","car",18,"M","NOV",18,"M","NOV",18,"M","car",18,"M","NOV"
+"177","38","M","Motorcycle","unspecified",38,"M","motorcycle",NA,38,"M","bus",38,"M","car",38,"M","bus",38,"M","NOV",38,"M","bus"
+"178","20","M","Motorcycle","Car/pick-up/van",20,"M","motorcycle","Car/pick-up/van",20,"M","car",20,"M","car",20,"M","car",20,"M","car",20,"M","car"
+"179","19","M","Pedestrian","2/3 Wheeled",19,"M","pedestrian","2/3 Wheeled",19,"M","motorcycle",19,"M","motorcycle",19,"M","motorcycle",19,"M","motorcycle",19,"M","motorcycle"
+"180","48","M","Motorcycle","Unknown",48,"M","motorcycle",NA,48,"M","car",48,"M","bus",48,"M","motorcycle",48,"M","car",48,"M","motorcycle"
+"181","45","M","Motorcycle","Unknown",45,"M","motorcycle",NA,45,"M","NOV",45,"M","car",45,"M","NOV",45,"M","motorcycle",45,"M","motorcycle"
+"182","26","M","Motorcycle","No other/fixed or stationary object",26,"M","motorcycle","No other/fixed or stationary object",26,"M","NOV",26,"M","NOV",26,"M","NOV",26,"M","NOV",26,"M","NOV"
+"183","10","M","Pedestrian","unspecified",10,"M","pedestrian",NA,10,"M","car",10,"M","car",10,"M","motorcycle",10,"M","bus",10,"M","car"
+"184","23","F","Motorcycle","Unknown",23,"F","motorcycle",NA,23,"F","car",23,"F","NOV",23,"F","bus",23,"F","bus",23,"F","NOV"
+"185","","M","Motorcycle","Bus",NA,"M","motorcycle","Bus",21,"M","bus",32,"M","bus",25,"M","bus",30,"M","bus",55,"M","bus"
+"186","40","M","Motorcycle","unspecified",40,"M","motorcycle",NA,40,"M","bus",40,"M","car",40,"M","bus",40,"M","NOV",40,"M","motorcycle"
+"187","20","M","Motorcycle","Car/pick-up/van",20,"M","motorcycle","Car/pick-up/van",20,"M","car",20,"M","car",20,"M","car",20,"M","car",20,"M","car"
+"188","49","M","Pedestrian","Unknown",49,"M","pedestrian",NA,49,"M","bus",49,"M","car",49,"M","bus",49,"M","car",49,"M","car"
+"189","25","M","Pedestrian","Car/pick-up/van",25,"M","pedestrian","Car/pick-up/van",25,"M","car",25,"M","car",25,"M","car",25,"M","car",25,"M","car"
+"190","29","M","Pedestrian","Car/pick-up/van",29,"M","pedestrian","Car/pick-up/van",29,"M","car",29,"M","car",29,"M","car",29,"M","car",29,"M","car"
+"191","34","M","Motorcycle","Bus",34,"M","motorcycle","Bus",34,"M","bus",34,"M","bus",34,"M","bus",34,"M","bus",34,"M","bus"
+"192","33","M","Pedestrian","2/3 Wheeled",33,"M","pedestrian","2/3 Wheeled",33,"M","motorcycle",33,"M","motorcycle",33,"M","motorcycle",33,"M","motorcycle",33,"M","motorcycle"
+"193","","M","Bus","Unknown",NA,"M","bus",NA,19,"M","bus",56,"M","bus",42,"M","bus",54,"M","NOV",55,"M","bus"
+"194","65","M","Pedestrian","Car/pick-up/van",65,"M","pedestrian","Car/pick-up/van",65,"M","car",65,"M","car",65,"M","car",65,"M","car",65,"M","car"
+"195","27","M","Pedestrian","2/3 Wheeled",27,"M","pedestrian","2/3 Wheeled",27,"M","motorcycle",27,"M","motorcycle",27,"M","motorcycle",27,"M","motorcycle",27,"M","motorcycle"
+"196","65","M","Pedestrian","Unknown",65,"M","pedestrian",NA,65,"M","motorcycle",65,"M","car",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle"
+"197","30","M","3Wheeled","Bus",30,"M","motorcycle","Bus",30,"M","bus",30,"M","bus",30,"M","bus",30,"M","bus",30,"M","bus"
+"198","50","M","Motorcycle","2/3 Wheeled",50,"M","motorcycle","2/3 Wheeled",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle"
+"199","40","F","Pedestrian","Bus",40,"F","pedestrian","Bus",40,"F","bus",40,"F","bus",40,"F","bus",40,"F","bus",40,"F","bus"
+"200","20","F","Pedestrian","Bus",20,"F","pedestrian","Bus",20,"F","bus",20,"F","bus",20,"F","bus",20,"F","bus",20,"F","bus"
+"201","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,22,"M","car",62,"M","motorcycle",44,"M","motorcycle",45,"M","motorcycle",65,"M","car"
+"202","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",24,"M","motorcycle",58,"M","motorcycle",40,"M","motorcycle",74,"M","motorcycle",73,"M","motorcycle"
+"203","26","M","Motorcycle","Car/pick-up/van",26,"M","motorcycle","Car/pick-up/van",26,"M","car",26,"M","car",26,"M","car",26,"M","car",26,"M","car"
+"204","64","M","Pedestrian","2/3 Wheeled",64,"M","pedestrian","2/3 Wheeled",64,"M","motorcycle",64,"M","motorcycle",64,"M","motorcycle",64,"M","motorcycle",64,"M","motorcycle"
+"205","32","F","Pedestrian","Car/pick-up/van",32,"F","pedestrian","Car/pick-up/van",32,"F","car",32,"F","car",32,"F","car",32,"F","car",32,"F","car"
+"206","","","Pedestrian","Car/pick-up/van",NA,NA,"pedestrian","Car/pick-up/van",20,"M","car",56,"M","car",86,"M","car",60,"M","car",3,"M","car"
+"207","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,26,"M","bus",26,"M","motorcycle",38,"M","car",22,"M","car",21,"M","NOV"
+"208","28","M","Motorcycle","Bus",28,"M","motorcycle","Bus",28,"M","bus",28,"M","bus",28,"M","bus",28,"M","bus",28,"M","bus"
+"209","THREE GOT INJURWD","","3Wheeled","Unknown",NA,NA,"motorcycle",NA,19,"M","NOV",25,"M","car",25,"M","bus",22,"M","NOV",30,"M","bus"
+"210","24","F","Pedestrian","2/3 Wheeled",24,"F","pedestrian","2/3 Wheeled",24,"F","motorcycle",24,"F","motorcycle",24,"F","motorcycle",24,"F","motorcycle",24,"F","motorcycle"
+"211","42","M","Bus","Bus",42,"M","bus","Bus",42,"M","bus",42,"M","bus",42,"M","bus",42,"M","bus",42,"M","bus"
+"212","","M","Pedal Cycle","Car/pick-up/van",NA,"M","cycle","Car/pick-up/van",46,"M","car",21,"M","car",35,"M","car",54,"M","car",40,"M","car"
+"213","","","Pedestrian","Unknown",NA,NA,"pedestrian",NA,45,"M","car",75,"M","motorcycle",45,"M","car",74,"F","car",50,"M","motorcycle"
+"214","83","F","Pedestrian","2/3 Wheeled",83,"F","pedestrian","2/3 Wheeled",83,"F","motorcycle",83,"F","motorcycle",83,"F","motorcycle",83,"F","motorcycle",83,"F","motorcycle"
+"215","36","M","Motorcycle","2/3 Wheeled",36,"M","motorcycle","2/3 Wheeled",36,"M","motorcycle",36,"M","motorcycle",36,"M","motorcycle",36,"M","motorcycle",36,"M","motorcycle"
+"216","73","M","Pedestrian","Unknown",73,"M","pedestrian",NA,73,"M","motorcycle",73,"M","motorcycle",73,"M","car",73,"M","motorcycle",73,"M","motorcycle"
+"217","","M","Car","Unknown",NA,"M","car",NA,25,"M","NOV",21,"M","motorcycle",35,"M","NOV",20,"M","NOV",46,"M","motorcycle"
+"218","","M","Car","Unknown",NA,"M","car",NA,18,"M","NOV",32,"M","motorcycle",18,"M","NOV",21,"M","motorcycle",9,"M","NOV"
+"219","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,33,"M","car",33,"M","bus",25,"M","bus",66,"M","car",21,"M","bus"
+"220","22","M","Motorcycle","Bus",22,"M","motorcycle","Bus",22,"M","bus",22,"M","bus",22,"M","bus",22,"M","bus",22,"M","bus"
+"221","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",51,"M","car",45,"M","car",25,"M","car",22,"M","car",28,"M","car"
+"222","22","M","Pedestrian","Bus",22,"M","pedestrian","Bus",22,"M","bus",22,"M","bus",22,"M","bus",22,"M","bus",22,"M","bus"
+"223","58","M","Motorcycle","Car/pick-up/van",58,"M","motorcycle","Car/pick-up/van",58,"M","car",58,"M","car",58,"M","car",58,"M","car",58,"M","car"
+"224","55","M","Pedestrian","Unknown",55,"M","pedestrian",NA,55,"M","car",55,"M","bus",55,"M","motorcycle",55,"M","motorcycle",55,"M","car"
+"225","25","M","Motorcycle","No other/fixed or stationary object",25,"M","motorcycle","No other/fixed or stationary object",25,"M","NOV",25,"M","NOV",25,"M","NOV",25,"M","NOV",25,"M","NOV"
+"226","25","M","Motorcycle","No other/fixed or stationary object",25,"M","motorcycle","No other/fixed or stationary object",25,"M","NOV",25,"M","NOV",25,"M","NOV",25,"M","NOV",25,"M","NOV"
+"227","50","M","Motorcycle","No other/fixed or stationary object",50,"M","motorcycle","No other/fixed or stationary object",50,"M","NOV",50,"M","NOV",50,"M","NOV",50,"M","NOV",50,"M","NOV"
+"228","20","M","Pedestrian","Unknown",20,"M","pedestrian",NA,20,"M","motorcycle",20,"M","motorcycle",20,"M","bus",20,"M","car",20,"M","car"
+"229","28","M","Motorcycle","Car/pick-up/van",28,"M","motorcycle","Car/pick-up/van",28,"M","car",28,"M","car",28,"M","car",28,"M","car",28,"M","car"
+"230","25","M","Motorcycle","Unknown",25,"M","motorcycle",NA,25,"M","NOV",25,"M","bus",25,"M","motorcycle",25,"M","pedestrian",25,"M","NOV"
+"231","45","M","Motorcycle","Unknown",45,"M","motorcycle",NA,45,"M","car",45,"M","bus",45,"M","bus",45,"M","motorcycle",45,"M","cycle"
+"232","55","F","Pedestrian","Car/pick-up/van",55,"F","pedestrian","Car/pick-up/van",55,"F","car",55,"F","car",55,"F","car",55,"F","car",55,"F","car"
+"233","10","F","Pedestrian","Car/pick-up/van",10,"F","pedestrian","Car/pick-up/van",10,"F","car",10,"F","car",10,"F","car",10,"F","car",10,"F","car"
+"234","20","M","Pick-up truck/van","Bus",20,"M","car","Bus",20,"M","bus",20,"M","bus",20,"M","bus",20,"M","bus",20,"M","bus"
+"235","54","M","Pick-up truck/van","Bus",54,"M","car","Bus",54,"M","bus",54,"M","bus",54,"M","bus",54,"M","bus",54,"M","bus"
+"236","70","M","Pedestrian","Unknown",70,"M","pedestrian",NA,70,"M","car",70,"M","motorcycle",70,"M","motorcycle",70,"M","motorcycle",70,"M","motorcycle"
+"237","32","M","Pedestrian","Unknown",32,"M","pedestrian",NA,32,"M","motorcycle",32,"M","motorcycle",32,"M","motorcycle",32,"M","bus",32,"M","car"
+"238","44","M","Pedestrian","Unknown",44,"M","pedestrian",NA,44,"M","motorcycle",44,"M","car",44,"M","motorcycle",44,"M","car",44,"M","car"
+"239","40","M","Motorcycle","No other/fixed or stationary object",40,"M","motorcycle","No other/fixed or stationary object",40,"M","NOV",40,"M","NOV",40,"M","NOV",40,"M","NOV",40,"M","NOV"
+"240","33","M","Motorcycle","Unknown",33,"M","motorcycle",NA,33,"M","car",33,"M","NOV",33,"M","car",33,"M","car",33,"M","bus"
+"241","45","M","Motorcycle","Car/pick-up/van",45,"M","motorcycle","Car/pick-up/van",45,"M","car",45,"M","car",45,"M","car",45,"M","car",45,"M","car"
+"242","35","M","Pedestrian","Car/pick-up/van",35,"M","pedestrian","Car/pick-up/van",35,"M","car",35,"M","car",35,"M","car",35,"M","car",35,"M","car"
+"243","45","M","Motorcycle","Car/pick-up/van",45,"M","motorcycle","Car/pick-up/van",45,"M","car",45,"M","car",45,"M","car",45,"M","car",45,"M","car"
+"244","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,33,"M","car",33,"M","bus",23,"M","motorcycle",32,"M","NOV",55,"M","car"
+"245","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",95,"M","motorcycle",40,"M","motorcycle",40,"M","motorcycle",74,"M","motorcycle",74,"M","motorcycle"
+"246","","","Other","Unknown",NA,NA,"other",NA,21,"M","NOV",62,"M","car",20,"M","bus",20,"M","bus",62,"M","bus"
+"247","","","Motorcycle","Unknown",NA,NA,"motorcycle",NA,53,"M","motorcycle",35,"M","car",18,"M","car",56,"M","motorcycle",25,"M","bus"
+"248","74","F","Bus","Bus",74,"F","bus","Bus",74,"F","bus",74,"F","bus",74,"F","bus",74,"F","bus",74,"F","bus"
+"249","","M","Motorcycle","2/3 Wheeled",NA,"M","motorcycle","2/3 Wheeled",45,"M","motorcycle",52,"M","motorcycle",26,"M","motorcycle",68,"M","motorcycle",19,"M","motorcycle"
+"250","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,45,"M","motorcycle",32,"M","car",23,"M","car",22,"M","car",28,"M","bus"
+"251","38","M","Pedestrian","Car/pick-up/van",38,"M","pedestrian","Car/pick-up/van",38,"M","car",38,"M","car",38,"M","car",38,"M","car",38,"M","car"
+"252","45","M","Pedestrian","Unknown",45,"M","pedestrian",NA,45,"M","bus",45,"M","motorcycle",45,"M","car",45,"M","car",45,"M","car"
+"253","18","F","Motorcycle","Bus",18,"F","motorcycle","Bus",18,"F","bus",18,"F","bus",18,"F","bus",18,"F","bus",18,"F","bus"
+"254","63","M","Pedestrian","2/3 Wheeled",63,"M","pedestrian","2/3 Wheeled",63,"M","motorcycle",63,"M","motorcycle",63,"M","motorcycle",63,"M","motorcycle",63,"M","motorcycle"
+"255","38","M","Motorcycle","Bus",38,"M","motorcycle","Bus",38,"M","bus",38,"M","bus",38,"M","bus",38,"M","bus",38,"M","bus"
+"256","22","M","Pedestrian","Unknown",22,"M","pedestrian",NA,22,"M","car",22,"M","car",22,"M","motorcycle",22,"M","car",22,"M","car"
+"257","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",24,"M","motorcycle",73,"M","motorcycle",40,"M","motorcycle",33,"M","motorcycle",73,"M","motorcycle"
+"258","28","F","Motorcycle","Unknown",28,"F","motorcycle",NA,28,"F","car",28,"F","bus",28,"F","bus",28,"F","bus",28,"F","bus"
+"259","60","M","Pedestrian","2/3 Wheeled",60,"M","pedestrian","2/3 Wheeled",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle"
+"260","","","Pedestrian","Car/pick-up/van",NA,NA,"pedestrian","Car/pick-up/van",20,"M","car",16,"M","car",62,"M","car",45,"M","car",3,"M","car"
+"261","63","F","Pedestrian","Unknown",63,"F","pedestrian",NA,63,"F","car",63,"F","car",63,"F","motorcycle",63,"F","motorcycle",63,"F","motorcycle"
+"262","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,63,"M","motorcycle",62,"M","motorcycle",60,"M","motorcycle",27,"M","motorcycle",74,"M","motorcycle"
+"263","","","Other","unspecified",NA,NA,"other",NA,25,"M","bus",30,"F","NOV",25,"F","car",28,"F","bus",48,"M","bus"
+"264","74","","Pedestrian","Unknown",74,NA,"pedestrian",NA,74,"M","motorcycle",74,"M","motorcycle",74,"M","motorcycle",74,"M","motorcycle",74,"M","motorcycle"
+"265","85","M","Pedestrian","2/3 Wheeled",85,"M","pedestrian","2/3 Wheeled",85,"M","motorcycle",85,"M","motorcycle",85,"M","motorcycle",85,"M","motorcycle",85,"M","motorcycle"
+"266","67","F","Pedestrian","2/3 Wheeled",67,"F","pedestrian","2/3 Wheeled",67,"F","motorcycle",67,"F","motorcycle",67,"F","motorcycle",67,"F","motorcycle",67,"F","motorcycle"
+"267","65","M","Pedestrian","2/3 Wheeled",65,"M","pedestrian","2/3 Wheeled",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle"
+"268","66","F","Pedestrian","Bus",66,"F","pedestrian","Bus",66,"F","bus",66,"F","bus",66,"F","bus",66,"F","bus",66,"F","bus"
+"269","50","F","Pedestrian","2/3 Wheeled",50,"F","pedestrian","2/3 Wheeled",50,"F","motorcycle",50,"F","motorcycle",50,"F","motorcycle",50,"F","motorcycle",50,"F","motorcycle"
+"270","35","M","Pedestrian","2/3 Wheeled",35,"M","pedestrian","2/3 Wheeled",35,"M","motorcycle",35,"M","motorcycle",35,"M","motorcycle",35,"M","motorcycle",35,"M","motorcycle"
+"271","","F","Pedestrian","Bus",NA,"F","pedestrian","Bus",27,"F","bus",46,"F","bus",22,"F","bus",60,"F","bus",26,"F","bus"
+"272","","","Motorcycle","Unknown",NA,NA,"motorcycle",NA,23,"M","bus",30,"F","NOV",25,"M","car",32,"M","NOV",21,"M","NOV"
+"273","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",30,"M","car",19,"M","car",43,"M","car",62,"M","car",21,"M","car"
+"274","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",13,"M","car",35,"M","car",18,"M","car",22,"M","car",28,"M","car"
+"275","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",51,"M","car",19,"M","car",18,"M","car",18,"M","car",46,"M","car"
+"276","","M","Motorcycle","2/3 Wheeled",NA,"M","motorcycle","2/3 Wheeled",33,"M","motorcycle",52,"M","motorcycle",55,"M","motorcycle",30,"M","motorcycle",19,"M","motorcycle"
+"277","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,21,"M","car",26,"M","car",43,"M","bus",30,"M","motorcycle",32,"M","car"
+"278","","F","Motorcycle","Unknown",NA,"F","motorcycle",NA,77,"F","motorcycle",54,"F","bus",62,"F","NOV",45,"F","bus",46,"F","motorcycle"
+"279","35","M","Heavy transport","No other/fixed or stationary object",35,"M","truck","No other/fixed or stationary object",35,"M","NOV",35,"M","NOV",35,"M","NOV",35,"M","NOV",35,"M","NOV"
+"280","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",46,"M","motorcycle",73,"M","motorcycle",60,"M","motorcycle",74,"M","motorcycle",74,"M","motorcycle"
+"281","","M","Motorcycle","unspecified",NA,"M","motorcycle",NA,20,"M","NOV",28,"M","car",26,"M","car",30,"M","NOV",45,"M","car"
+"282","","M","Motorcycle","Bus",NA,"M","motorcycle","Bus",53,"M","bus",25,"M","bus",20,"M","bus",19,"M","bus",21,"M","bus"
+"283","55","M","Pedestrian","Car/pick-up/van",55,"M","pedestrian","Car/pick-up/van",55,"M","car",55,"M","car",55,"M","car",55,"M","car",55,"M","car"
+"284","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,28,"M","motorcycle",52,"M","bus",25,"M","motorcycle",19,"M","NOV",30,"M","motorcycle"
+"285","65","M","Pedestrian","Unknown",65,"M","pedestrian",NA,65,"M","motorcycle",65,"M","motorcycle",65,"M","bus",65,"M","motorcycle",65,"M","motorcycle"
+"286","","","Motorcycle","2/3 Wheeled",NA,NA,"motorcycle","2/3 Wheeled",33,"M","motorcycle",33,"M","motorcycle",46,"M","motorcycle",66,"M","motorcycle",46,"M","motorcycle"
+"287","3","F","Pedestrian","Unknown",3,"F","pedestrian",NA,3,"F","car",3,"F","car",3,"F","car",3,"F","bus",3,"F","bus"
+"288","","","Motorcycle","Unknown",NA,NA,"motorcycle",NA,25,"M","NOV",33,"M","cycle",38,"M","motorcycle",66,"M","car",21,"M","bus"
+"289","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,21,"M","NOV",32,"M","bus",19,"M","NOV",19,"M","bus",55,"M","pedestrian"
+"290","25","M","Motorcycle","Unknown",25,"M","motorcycle",NA,25,"M","motorcycle",25,"M","car",25,"M","motorcycle",25,"M","car",25,"M","NOV"
+"291","","M","Motorcycle","No other/fixed or stationary object",NA,"M","motorcycle","No other/fixed or stationary object",21,"M","NOV",27,"M","NOV",19,"M","NOV",30,"M","NOV",21,"M","NOV"
+"292","","","Car","Unknown",NA,NA,"car",NA,28,"M","NOV",32,"M","bus",63,"M","NOV",20,"M","NOV",21,"M","bus"
+"293","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,45,"M","car",26,"M","bus",46,"M","car",28,"M","car",19,"M","bus"
+"294","45","M","Pedestrian","Unknown",45,"M","pedestrian",NA,45,"M","motorcycle",45,"M","car",45,"M","car",45,"M","motorcycle",45,"M","motorcycle"
+"295","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,55,"M","motorcycle",62,"M","car",63,"M","motorcycle",40,"M","car",64,"M","car"
+"296","30","M","Pedestrian","Car/pick-up/van",30,"M","pedestrian","Car/pick-up/van",30,"M","car",30,"M","car",30,"M","car",30,"M","car",30,"M","car"
+"297","52","M","Bus","Bus",52,"M","bus","Bus",52,"M","bus",52,"M","bus",52,"M","bus",52,"M","bus",52,"M","bus"
+"298","40","M","Pedestrian","Unknown",40,"M","pedestrian",NA,40,"M","motorcycle",40,"M","car",40,"M","motorcycle",40,"M","bus",40,"M","motorcycle"
+"299","","M","Pedestrian","Bus",NA,"M","pedestrian","Bus",45,"M","bus",63,"M","bus",28,"M","bus",22,"M","bus",45,"M","bus"
+"300","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,26,"M","bus",22,"M","motorcycle",55,"M","motorcycle",30,"M","motorcycle",25,"M","bus"
+"301","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,95,"M","motorcycle",65,"M","bus",46,"M","motorcycle",40,"M","bus",74,"M","car"
+"302","","M","3Wheeled","Unknown",NA,"M","motorcycle",NA,11,"M","NOV",25,"M","NOV",47,"M","car",66,"M","car",20,"M","car"
+"303","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",13,"M","car",32,"M","car",18,"M","car",18,"M","car",43,"M","car"
+"304","","","Pedestrian","Car/pick-up/van",NA,NA,"pedestrian","Car/pick-up/van",23,"M","car",20,"F","car",18,"M","car",45,"M","car",3,"M","car"
+"305","","","Motorcycle","2/3 Wheeled",NA,NA,"motorcycle","2/3 Wheeled",33,"M","motorcycle",27,"M","motorcycle",33,"M","motorcycle",65,"M","motorcycle",55,"M","motorcycle"
+"306","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,63,"M","motorcycle",58,"M","motorcycle",28,"M","car",50,"M","car",3,"M","car"
+"307","7","M","Pedestrian","2/3 Wheeled",7,"M","pedestrian","2/3 Wheeled",7,"M","motorcycle",7,"M","motorcycle",7,"M","motorcycle",7,"M","motorcycle",7,"M","motorcycle"
+"308","","","Pedestrian","2/3 Wheeled",NA,NA,"pedestrian","2/3 Wheeled",67,"F","motorcycle",40,"M","motorcycle",60,"M","motorcycle",33,"M","motorcycle",74,"M","motorcycle"
+"309","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,46,"M","car",47,"M","car",54,"M","car",27,"M","car",38,"M","motorcycle"
+"310","","M","Motorcycle","2/3 Wheeled",NA,"M","motorcycle","2/3 Wheeled",33,"M","motorcycle",52,"M","motorcycle",26,"M","motorcycle",40,"M","motorcycle",30,"M","motorcycle"
+"311","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",13,"M","car",35,"M","car",25,"M","car",22,"M","car",46,"M","car"
+"312","","","Pedestrian","Car/pick-up/van",NA,NA,"pedestrian","Car/pick-up/van",19,"M","car",47,"M","car",70,"M","car",28,"M","car",3,"F","car"
+"313","","F","Pedestrian","2/3 Wheeled",NA,"F","pedestrian","2/3 Wheeled",52,"F","motorcycle",83,"F","motorcycle",9,"F","motorcycle",55,"F","motorcycle",65,"F","motorcycle"
+"314","40","M","Motorcycle","Car/pick-up/van",40,"M","motorcycle","Car/pick-up/van",40,"M","car",40,"M","car",40,"M","car",40,"M","car",40,"M","car"
+"315","48","M","Motorcycle","Car/pick-up/van",48,"M","motorcycle","Car/pick-up/van",48,"M","car",48,"M","car",48,"M","car",48,"M","car",48,"M","car"
+"316","30","M","Pedestrian","Unknown",30,"M","pedestrian",NA,30,"M","motorcycle",30,"M","bus",30,"M","motorcycle",30,"M","motorcycle",30,"M","bus"
+"317","","M","Pedal Cycle","2/3 Wheeled",NA,"M","cycle","2/3 Wheeled",27,"M","motorcycle",27,"M","motorcycle",20,"M","motorcycle",22,"M","motorcycle",22,"M","motorcycle"
+"318","38","M","Motorcycle","Bus",38,"M","motorcycle","Bus",38,"M","bus",38,"M","bus",38,"M","bus",38,"M","bus",38,"M","bus"
+"319","52","F","Pedestrian","2/3 Wheeled",52,"F","pedestrian","2/3 Wheeled",52,"F","motorcycle",52,"F","motorcycle",52,"F","motorcycle",52,"F","motorcycle",52,"F","motorcycle"
+"320","50","M","Pedestrian","2/3 Wheeled",50,"M","pedestrian","2/3 Wheeled",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle"
+"321","45","M","Pedestrian","Unknown",45,"M","pedestrian",NA,45,"M","car",45,"M","motorcycle",45,"M","car",45,"M","motorcycle",45,"M","car"
+"322","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,95,"M","car",65,"M","car",46,"M","bus",25,"M","motorcycle",74,"M","motorcycle"
+"323","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,24,"M","car",62,"M","motorcycle",55,"M","motorcycle",18,"M","bus",55,"M","motorcycle"
+"324","25","M","Pedestrian","Car/pick-up/van",25,"M","pedestrian","Car/pick-up/van",25,"M","car",25,"M","car",25,"M","car",25,"M","car",25,"M","car"
+"325","","M","Pedal Cycle","Unknown",NA,"M","cycle",NA,33,"M","car",27,"M","car",11,"M","car",54,"M","car",40,"M","car"
+"326","","M","Pedestrian","Bus",NA,"M","pedestrian","Bus",22,"M","bus",47,"M","bus",28,"M","bus",22,"M","bus",45,"M","bus"
+"327","","M","3Wheeled","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",22,"M","car",25,"M","car",30,"M","car",68,"M","car",46,"M","car"
+"328","55","M","Pedestrian","2/3 Wheeled",55,"M","pedestrian","2/3 Wheeled",55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle"
+"329","","F","Motorcycle","Bus",NA,"F","motorcycle","Bus",24,"F","bus",64,"F","bus",21,"F","bus",54,"F","bus",30,"F","bus"
+"330","","","Motorcycle","Car/pick-up/van",NA,NA,"motorcycle","Car/pick-up/van",30,"M","car",32,"M","car",25,"M","car",22,"M","car",46,"M","car"
+"331","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,23,"M","bus",32,"M","car",70,"M","motorcycle",22,"M","NOV",55,"M","car"
+"332","","","Motorcycle","Car/pick-up/van",NA,NA,"motorcycle","Car/pick-up/van",30,"F","car",19,"M","car",10,"M","car",22,"F","car",28,"F","car"
+"333","75","M","Pedestrian","2/3 Wheeled",75,"M","pedestrian","2/3 Wheeled",75,"M","motorcycle",75,"M","motorcycle",75,"M","motorcycle",75,"M","motorcycle",75,"M","motorcycle"
+"334","","M","Motorcycle","Bus",NA,"M","motorcycle","Bus",20,"M","bus",35,"M","bus",38,"M","bus",35,"M","bus",25,"M","bus"
+"335","","M","Pedestrian","Bus",NA,"M","pedestrian","Bus",65,"M","bus",24,"M","bus",54,"M","bus",18,"M","bus",38,"M","bus"
+"336","","","Motorcycle","Bus",NA,NA,"motorcycle","Bus",21,"M","bus",35,"F","bus",18,"M","bus",25,"M","bus",30,"M","bus"
+"337","","M","Pedestrian","Bus",NA,"M","pedestrian","Bus",22,"M","bus",62,"M","bus",54,"M","bus",22,"M","bus",64,"M","bus"
+"338","","M","Pedestrian","Bus",NA,"M","pedestrian","Bus",48,"M","bus",62,"M","bus",28,"M","bus",22,"M","bus",45,"M","bus"
+"339","60","M","Pedestrian","Car/pick-up/van",60,"M","pedestrian","Car/pick-up/van",60,"M","car",60,"M","car",60,"M","car",60,"M","car",60,"M","car"
+"340","35","M","Pedestrian","2/3 Wheeled",35,"M","pedestrian","2/3 Wheeled",35,"M","motorcycle",35,"M","motorcycle",35,"M","motorcycle",35,"M","motorcycle",35,"M","motorcycle"
+"341","30","M","Motorcycle","Unknown",30,"M","motorcycle",NA,30,"M","car",30,"M","car",30,"M","NOV",30,"M","motorcycle",30,"M","car"
+"342","25","M","Motorcycle","No other/fixed or stationary object",25,"M","motorcycle","No other/fixed or stationary object",25,"M","NOV",25,"M","NOV",25,"M","NOV",25,"M","NOV",25,"M","NOV"
+"343","24","M","Motorcycle","No other/fixed or stationary object",24,"M","motorcycle","No other/fixed or stationary object",24,"M","NOV",24,"M","NOV",24,"M","NOV",24,"M","NOV",24,"M","NOV"
+"344","95","F","Pedestrian","2/3 Wheeled",95,"F","pedestrian","2/3 Wheeled",95,"F","motorcycle",95,"F","motorcycle",95,"F","motorcycle",95,"F","motorcycle",95,"F","motorcycle"
+"345","65","M","Pedestrian","2/3 Wheeled",65,"M","pedestrian","2/3 Wheeled",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle"
+"346","32","M","Pedestrian","2/3 Wheeled",32,"M","pedestrian","2/3 Wheeled",32,"M","motorcycle",32,"M","motorcycle",32,"M","motorcycle",32,"M","motorcycle",32,"M","motorcycle"
+"347","9","F","Pedestrian","2/3 Wheeled",9,"F","pedestrian","2/3 Wheeled",9,"F","motorcycle",9,"F","motorcycle",9,"F","motorcycle",9,"F","motorcycle",9,"F","motorcycle"
+"348","","","Motorcycle","Bus",NA,NA,"motorcycle","Bus",20,"F","bus",30,"M","bus",38,"M","bus",35,"M","bus",30,"M","bus"
+"349","","","Motorcycle","Unknown",NA,NA,"motorcycle",NA,50,"M","motorcycle",35,"F","car",43,"M","bus",30,"M","car",55,"M","motorcycle"
+"350","","","Pedestrian","Car/pick-up/van",NA,NA,"pedestrian","Car/pick-up/van",23,"M","car",20,"M","car",62,"M","car",42,"M","car",67,"M","car"
+"351","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,23,"M","car",58,"M","motorcycle",63,"M","motorcycle",50,"M","car",50,"M","motorcycle"
+"352","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",95,"M","motorcycle",58,"M","motorcycle",63,"M","motorcycle",33,"M","motorcycle",74,"M","motorcycle"
+"353","","","Pedestrian","Unknown",NA,NA,"pedestrian",NA,9,"M","car",62,"M","motorcycle",18,"M","bus",67,"M","motorcycle",28,"M","bus"
+"354","","","Pedestrian","Car/pick-up/van",NA,NA,"pedestrian","Car/pick-up/van",63,"M","car",20,"F","car",26,"M","car",52,"F","car",3,"M","car"
+"355","","M","Car","Unknown",NA,"M","car",NA,25,"M","NOV",32,"M","NOV",18,"M","NOV",35,"M","motorcycle",46,"M","NOV"
+"356","22","M","Pedestrian","2/3 Wheeled",22,"M","pedestrian","2/3 Wheeled",22,"M","motorcycle",22,"M","motorcycle",22,"M","motorcycle",22,"M","motorcycle",22,"M","motorcycle"
+"357","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,45,"M","motorcycle",30,"M","NOV",18,"M","bus",30,"M","motorcycle",43,"M","NOV"
+"358","45","F","Motorcycle","Unknown",45,"F","motorcycle",NA,45,"F","bus",45,"F","motorcycle",45,"F","bus",45,"F","pedestrian",45,"F","bus"
+"359","21","F","Motorcycle","Unknown",21,"F","motorcycle",NA,21,"F","car",21,"F","bus",21,"F","bus",21,"F","bus",21,"F","car"
+"360","","M","Pedestrian","Bus",NA,"M","pedestrian","Bus",22,"M","bus",47,"M","bus",63,"M","bus",65,"M","bus",28,"M","bus"
+"361","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",95,"M","motorcycle",47,"M","motorcycle",18,"M","motorcycle",74,"M","motorcycle",73,"M","motorcycle"
+"362","67","F","Pedestrian","Bus",67,"F","pedestrian","Bus",67,"F","bus",67,"F","bus",67,"F","bus",67,"F","bus",67,"F","bus"
+"363","36","M","Pedestrian","Car/pick-up/van",36,"M","pedestrian","Car/pick-up/van",36,"M","car",36,"M","car",36,"M","car",36,"M","car",36,"M","car"
+"364","","M","Motorcycle","2/3 Wheeled",NA,"M","motorcycle","2/3 Wheeled",33,"M","motorcycle",33,"M","motorcycle",70,"M","motorcycle",68,"M","motorcycle",55,"M","motorcycle"
+"365","13","M","Pedal Cycle","Unknown",13,"M","cycle",NA,13,"M","car",13,"M","car",13,"M","car",13,"M","car",13,"M","motorcycle"
+"366","52","M","Pedestrian","2/3 Wheeled",52,"M","pedestrian","2/3 Wheeled",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle"
+"367","50","M","Motorcycle","Unknown",50,"M","motorcycle",NA,50,"M","car",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle"
+"368","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,25,"M","bus",30,"M","car",70,"M","bus",32,"M","motorcycle",43,"M","bus"
+"369","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",24,"M","motorcycle",47,"M","motorcycle",44,"M","motorcycle",50,"M","motorcycle",74,"M","motorcycle"
+"370","","","Motorcycle","Bus",NA,NA,"motorcycle","Bus",53,"M","bus",30,"M","bus",26,"M","bus",30,"M","bus",21,"M","bus"
+"371","","","Pedestrian","Bus",NA,NA,"pedestrian","Bus",45,"F","bus",63,"M","bus",45,"M","bus",60,"M","bus",50,"M","bus"
+"372","","","Pedestrian","Unknown",NA,NA,"pedestrian",NA,63,"M","car",20,"F","bus",20,"F","motorcycle",52,"M","motorcycle",22,"F","car"
+"373","","","Pedestrian","Car/pick-up/van",NA,NA,"pedestrian","Car/pick-up/van",30,"M","car",33,"M","car",55,"M","car",52,"F","car",67,"M","car"
+"374","","F","Pedestrian","2/3 Wheeled",NA,"F","pedestrian","2/3 Wheeled",53,"F","motorcycle",55,"F","motorcycle",74,"F","motorcycle",67,"F","motorcycle",35,"F","motorcycle"
+"375","","","Motorcycle","Bus",NA,NA,"motorcycle","Bus",47,"M","bus",25,"M","bus",25,"M","bus",54,"M","bus",25,"M","bus"
+"376","19","M","Pedestrian","Unknown",19,"M","pedestrian",NA,19,"M","bus",19,"M","motorcycle",19,"M","motorcycle",19,"M","bus",19,"M","car"
+"377","46","M","Pedal Cycle","Car/pick-up/van",46,"M","cycle","Car/pick-up/van",46,"M","car",46,"M","car",46,"M","car",46,"M","car",46,"M","car"
+"378","22","M","Pedal Cycle","Bus",22,"M","cycle","Bus",22,"M","bus",22,"M","bus",22,"M","bus",22,"M","bus",22,"M","bus"
+"379","70","M","Motorcycle","2/3 Wheeled",70,"M","motorcycle","2/3 Wheeled",70,"M","motorcycle",70,"M","motorcycle",70,"M","motorcycle",70,"M","motorcycle",70,"M","motorcycle"
+"380","12","M","Motorcycle","Unknown",12,"M","motorcycle",NA,12,"M","bus",12,"M","bus",12,"M","bus",12,"M","bus",12,"M","NOV"
+"381","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",46,"M","motorcycle",73,"M","motorcycle",40,"M","motorcycle",27,"M","motorcycle",50,"M","motorcycle"
+"382","","","Motorcycle","Bus",NA,NA,"motorcycle","Bus",25,"M","bus",32,"M","bus",20,"M","bus",32,"M","bus",30,"M","bus"
+"383","","","Motorcycle","Bus",NA,NA,"motorcycle","Bus",21,"M","bus",32,"M","bus",18,"M","bus",19,"M","bus",55,"M","bus"
+"384","","","Motorcycle","Unknown",NA,NA,"motorcycle",NA,33,"F","car",21,"M","motorcycle",20,"M","bus",65,"F","motorcycle",19,"M","car"
+"385","","","Motorcycle","Unknown",NA,NA,"motorcycle",NA,23,"F","bus",32,"M","car",25,"M","bus",18,"F","NOV",32,"M","NOV"
+"386","","F","Pedestrian","2/3 Wheeled",NA,"F","pedestrian","2/3 Wheeled",67,"F","motorcycle",83,"F","motorcycle",74,"F","motorcycle",67,"F","motorcycle",73,"F","motorcycle"
+"387","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,27,"M","NOV",52,"M","car",25,"M","car",18,"M","bus",32,"M","motorcycle"
+"388","60","F","Pedestrian","Unknown",60,"F","pedestrian",NA,60,"F","bus",60,"F","motorcycle",60,"F","car",60,"F","motorcycle",60,"F","motorcycle"
+"389","","M","3Wheeled","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",23,"M","car",40,"M","car",28,"M","car",40,"M","car",32,"M","car"
+"390","35","M","Pedestrian","Unknown",35,"M","pedestrian",NA,35,"M","car",35,"M","car",35,"M","car",35,"M","motorcycle",35,"M","motorcycle"
+"391","70","F","Pedestrian","Unknown",70,"F","pedestrian",NA,70,"F","motorcycle",70,"F","motorcycle",70,"F","motorcycle",70,"F","bus",70,"F","motorcycle"
+"392","64","M","Pedal Cycle","Unknown",64,"M","cycle",NA,64,"M","motorcycle",64,"M","car",64,"M","motorcycle",64,"M","motorcycle",64,"M","motorcycle"
+"393","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,20,"M","car",65,"M","motorcycle",24,"M","car",74,"M","motorcycle",73,"M","motorcycle"
+"394","","M","Pedestrian","Car/pick-up/van",NA,"M","pedestrian","Car/pick-up/van",23,"M","car",55,"M","car",46,"M","car",25,"M","car",3,"M","car"
+"395","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,53,"M","motorcycle",26,"M","bus",32,"M","motorcycle",27,"M","bus",19,"M","car"
+"396","30","M","Motorcycle","Unknown",30,"M","motorcycle",NA,30,"M","car",30,"M","motorcycle",30,"M","NOV",30,"M","car",30,"M","bus"
+"397","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,45,"M","bus",24,"M","motorcycle",18,"M","motorcycle",74,"M","motorcycle",77,"M","motorcycle"
+"398","","F","Pedestrian","2/3 Wheeled",NA,"F","pedestrian","2/3 Wheeled",55,"F","motorcycle",63,"F","motorcycle",77,"F","motorcycle",24,"F","motorcycle",73,"F","motorcycle"
+"399","","M","Pedal Cycle","2/3 Wheeled",NA,"M","cycle","2/3 Wheeled",33,"M","motorcycle",11,"M","motorcycle",28,"M","motorcycle",25,"M","motorcycle",22,"M","motorcycle"
+"400","50","M","Pedestrian","Unknown",50,"M","pedestrian",NA,50,"M","motorcycle",50,"M","car",50,"M","car",50,"M","motorcycle",50,"M","motorcycle"
+"401","55","F","Pedestrian","2/3 Wheeled",55,"F","pedestrian","2/3 Wheeled",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle"
+"402","","","Pedestrian","Unknown",NA,NA,"pedestrian",NA,63,"F","motorcycle",55,"F","motorcycle",40,"M","car",58,"M","motorcycle",60,"M","motorcycle"
+"403","","F","Motorcycle","Unknown",NA,"F","motorcycle",NA,46,"F","bus",16,"F","NOV",28,"F","bus",21,"F","bus",28,"F","car"
+"404","21","M","Pedestrian","Car/pick-up/van",21,"M","pedestrian","Car/pick-up/van",21,"M","car",21,"M","car",21,"M","car",21,"M","car",21,"M","car"
+"405","30","M","Motorcycle","Unknown",30,"M","motorcycle",NA,30,"M","bus",30,"M","motorcycle",30,"M","NOV",30,"M","bus",30,"M","bus"
+"406","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,20,"M","car",22,"M","bus",46,"M","car",68,"M","motorcycle",28,"M","pedestrian"
+"407","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,23,"M","bus",33,"M","car",26,"M","bus",30,"M","bus",26,"M","NOV"
+"408","","F","Pedestrian","Unknown",NA,"F","pedestrian",NA,52,"F","motorcycle",47,"F","motorcycle",9,"F","car",24,"F","bus",22,"F","motorcycle"
+"409","","M","Motorcycle","No other/fixed or stationary object",NA,"M","motorcycle","No other/fixed or stationary object",26,"M","NOV",23,"M","NOV",45,"M","NOV",25,"M","NOV",26,"M","NOV"
+"410","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,53,"M","motorcycle",52,"M","bus",26,"M","motorcycle",40,"M","motorcycle",21,"M","NOV"
+"411","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,45,"M","NOV",45,"M","bus",35,"M","bus",62,"M","car",55,"M","motorcycle"
+"412","50","F","Pedestrian","Unknown",50,"F","pedestrian",NA,50,"F","car",50,"F","car",50,"F","car",50,"F","car",50,"F","car"
+"413","55","F","Pedestrian","2/3 Wheeled",55,"F","pedestrian","2/3 Wheeled",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle",55,"F","motorcycle"
+"414","","M","Motorcycle","2/3 Wheeled",NA,"M","motorcycle","2/3 Wheeled",33,"M","motorcycle",33,"M","motorcycle",26,"M","motorcycle",66,"M","motorcycle",28,"M","motorcycle"
+"415","45","M","Bus","Bus",45,"M","bus","Bus",45,"M","bus",45,"M","bus",45,"M","bus",45,"M","bus",45,"M","bus"
+"416","25","M","Other","unspecified",25,"M","other",NA,25,"M","NOV",25,"M","car",25,"M","car",25,"M","car",25,"M","car"
+"417","","F","Pedestrian","Car/pick-up/van",NA,"F","pedestrian","Car/pick-up/van",60,"F","car",56,"F","car",59,"F","car",50,"F","car",47,"F","car"
+"418","","M","Motorcycle","Bus",NA,"M","motorcycle","Bus",23,"M","bus",32,"M","bus",25,"M","bus",30,"M","bus",25,"M","bus"
+"419","65","M","Pedestrian","Unknown",65,"M","pedestrian",NA,65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle"
+"420","","F","Pedestrian","2/3 Wheeled",NA,"F","pedestrian","2/3 Wheeled",52,"F","motorcycle",63,"F","motorcycle",77,"F","motorcycle",67,"F","motorcycle",28,"F","motorcycle"
+"421","26","M","Other","unspecified",26,"M","other",NA,26,"M","bus",26,"M","NOV",26,"M","NOV",26,"M","NOV",26,"M","car"
+"422","28","M","Other","unspecified",28,"M","other",NA,28,"M","car",28,"M","bus",28,"M","car",28,"M","car",28,"M","bus"
+"423","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,24,"M","car",16,"M","car",44,"M","car",27,"M","bus",50,"M","car"
+"424","","","Motorcycle","Unknown",NA,NA,"motorcycle",NA,30,"F","car",42,"M","NOV",35,"M","car",25,"M","bus",21,"M","car"
+"425","","M","3Wheeled","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",11,"M","car",25,"M","car",23,"M","car",30,"M","car",55,"M","car"
+"426","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",9,"M","motorcycle",73,"M","motorcycle",18,"M","motorcycle",50,"M","motorcycle",74,"M","motorcycle"
+"427","15","M","3Wheeled","No other/fixed or stationary object",15,"M","motorcycle","No other/fixed or stationary object",15,"M","NOV",15,"M","NOV",15,"M","NOV",15,"M","NOV",15,"M","NOV"
+"428","13","M","Pedestrian","Car/pick-up/van",13,"M","pedestrian","Car/pick-up/van",13,"M","car",13,"M","car",13,"M","car",13,"M","car",13,"M","car"
+"429","60","M","Pedestrian","Unknown",60,"M","pedestrian",NA,60,"M","motorcycle",60,"M","bus",60,"M","car",60,"M","car",60,"M","motorcycle"
+"430","23","M","Motorcycle","Bus",23,"M","motorcycle","Bus",23,"M","bus",23,"M","bus",23,"M","bus",23,"M","bus",23,"M","bus"
+"431","19","M","Heavy transport","Unknown",19,"M","truck",NA,19,"M","NOV",19,"M","NOV",19,"M","NOV",19,"M","NOV",19,"M","NOV"
+"432","34","M","Car","Unknown",34,"M","car",NA,34,"M","motorcycle",34,"M","motorcycle",34,"M","motorcycle",34,"M","NOV",34,"M","motorcycle"
+"433","37","M","Pedestrian","Unknown",37,"M","pedestrian",NA,37,"M","motorcycle",37,"M","bus",37,"M","car",37,"M","car",37,"M","car"
+"434","22","M","Motorcycle","Bus",22,"M","motorcycle","Bus",22,"M","bus",22,"M","bus",22,"M","bus",22,"M","bus",22,"M","bus"
+"435","32","M","Motorcycle","Bus",32,"M","motorcycle","Bus",32,"M","bus",32,"M","bus",32,"M","bus",32,"M","bus",32,"M","bus"
+"436","","M","Bus","Bus",NA,"M","bus","Bus",9,"M","bus",32,"M","bus",27,"M","bus",30,"M","bus",28,"M","bus"
+"437","7","F","Pedestrian","2/3 Wheeled",7,"F","pedestrian","2/3 Wheeled",7,"F","motorcycle",7,"F","motorcycle",7,"F","motorcycle",7,"F","motorcycle",7,"F","motorcycle"
+"438","28","M","Motorcycle","Unknown",28,"M","motorcycle",NA,28,"M","bus",28,"M","car",28,"M","motorcycle",28,"M","car",28,"M","bus"
+"439","26","F","Pedestrian","2/3 Wheeled",26,"F","pedestrian","2/3 Wheeled",26,"F","motorcycle",26,"F","motorcycle",26,"F","motorcycle",26,"F","motorcycle",26,"F","motorcycle"
+"440","32","M","Motorcycle","Unknown",32,"M","motorcycle",NA,32,"M","car",32,"M","car",32,"M","NOV",32,"M","NOV",32,"M","motorcycle"
+"441","42","F","Pedestrian","Car/pick-up/van",42,"F","pedestrian","Car/pick-up/van",42,"F","car",42,"F","car",42,"F","car",42,"F","car",42,"F","car"
+"442","50","M","Pedestrian","2/3 Wheeled",50,"M","pedestrian","2/3 Wheeled",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle"
+"443","9","M","Pedestrian","2/3 Wheeled",9,"M","pedestrian","2/3 Wheeled",9,"M","motorcycle",9,"M","motorcycle",9,"M","motorcycle",9,"M","motorcycle",9,"M","motorcycle"
+"444","48","M","Motorcycle","Car/pick-up/van",48,"M","motorcycle","Car/pick-up/van",48,"M","car",48,"M","car",48,"M","car",48,"M","car",48,"M","car"
+"445","35","M","Motorcycle","Unknown",35,"M","motorcycle",NA,35,"M","bus",35,"M","bus",35,"M","car",35,"M","NOV",35,"M","motorcycle"
+"446","","F","Motorcycle","Unknown",NA,"F","motorcycle",NA,18,"F","NOV",20,"F","car",25,"F","NOV",32,"F","bus",30,"F","NOV"
+"447","21","M","Pedestrian","2/3 Wheeled",21,"M","pedestrian","2/3 Wheeled",21,"M","motorcycle",21,"M","motorcycle",21,"M","motorcycle",21,"M","motorcycle",21,"M","motorcycle"
+"448","60","M","Pedestrian","Car/pick-up/van",60,"M","pedestrian","Car/pick-up/van",60,"M","car",60,"M","car",60,"M","car",60,"M","car",60,"M","car"
+"449","1","M","Pedestrian","2/3 Wheeled",1,"M","pedestrian","2/3 Wheeled",1,"M","motorcycle",1,"M","motorcycle",1,"M","motorcycle",1,"M","motorcycle",1,"M","motorcycle"
+"450","50","M","Pedestrian","Unknown",50,"M","pedestrian",NA,50,"M","motorcycle",50,"M","motorcycle",50,"M","car",50,"M","car",50,"M","motorcycle"
+"451","","M","Motorcycle","No other/fixed or stationary object",NA,"M","motorcycle","No other/fixed or stationary object",21,"M","NOV",30,"M","NOV",45,"M","NOV",30,"M","NOV",20,"M","NOV"
+"452","","M","Motorcycle","2/3 Wheeled",NA,"M","motorcycle","2/3 Wheeled",27,"M","motorcycle",27,"M","motorcycle",55,"M","motorcycle",40,"M","motorcycle",28,"M","motorcycle"
+"453","84","M","Pedestrian","Car/pick-up/van",84,"M","pedestrian","Car/pick-up/van",84,"M","car",84,"M","car",84,"M","car",84,"M","car",84,"M","car"
+"454","23","F","Motorcycle","Bus",23,"F","motorcycle","Bus",23,"F","bus",23,"F","bus",23,"F","bus",23,"F","bus",23,"F","bus"
+"455","","M","Pedal Cycle","Car/pick-up/van",NA,"M","cycle","Car/pick-up/van",22,"M","car",30,"M","car",35,"M","car",23,"M","car",25,"M","car"
+"456","","M","3Wheeled","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",23,"M","car",15,"M","car",23,"M","car",68,"M","car",46,"M","car"
+"457","22","M","Motorcycle","2/3 Wheeled",22,"M","motorcycle","2/3 Wheeled",22,"M","motorcycle",22,"M","motorcycle",22,"M","motorcycle",22,"M","motorcycle",22,"M","motorcycle"
+"458","60","M","Pedestrian","2/3 Wheeled",60,"M","pedestrian","2/3 Wheeled",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle"
+"459","29","M","Motorcycle","2/3 Wheeled",29,"M","motorcycle","2/3 Wheeled",29,"M","motorcycle",29,"M","motorcycle",29,"M","motorcycle",29,"M","motorcycle",29,"M","motorcycle"
+"460","48","M","Pedestrian","Bus",48,"M","pedestrian","Bus",48,"M","bus",48,"M","bus",48,"M","bus",48,"M","bus",48,"M","bus"
+"461","22","M","Pedestrian","Unknown",22,"M","pedestrian",NA,22,"M","car",22,"M","bus",22,"M","bus",22,"M","car",22,"M","car"
+"462","10","M","Pedal Cycle","unspecified",10,"M","cycle",NA,10,"M","car",10,"M","motorcycle",10,"M","car",10,"M","motorcycle",10,"M","car"
+"463","26","M","Heavy transport","Unknown",26,"M","truck",NA,26,"M","NOV",26,"M","NOV",26,"M","NOV",26,"M","NOV",26,"M","NOV"
+"464","22","M","Motorcycle","Unknown",22,"M","motorcycle",NA,22,"M","car",22,"M","motorcycle",22,"M","NOV",22,"M","car",22,"M","motorcycle"
+"465","16","M","Pedestrian","Car/pick-up/van",16,"M","pedestrian","Car/pick-up/van",16,"M","car",16,"M","car",16,"M","car",16,"M","car",16,"M","car"
+"466","24","M","Motorcycle","Unknown",24,"M","motorcycle",NA,24,"M","bus",24,"M","car",24,"M","bus",24,"M","motorcycle",24,"M","car"
+"467","19","M","Motorcycle","Unknown",19,"M","motorcycle",NA,19,"M","bus",19,"M","car",19,"M","bus",19,"M","bus",19,"M","NOV"
+"468","16","M","Pedal Cycle","unspecified",16,"M","cycle",NA,16,"M","car",16,"M","car",16,"M","car",16,"M","car",16,"M","motorcycle"
+"469","75","M","Motorcycle","Bus",75,"M","motorcycle","Bus",75,"M","bus",75,"M","bus",75,"M","bus",75,"M","bus",75,"M","bus"
+"470","40","M","Pedestrian","Unknown",40,"M","pedestrian",NA,40,"M","bus",40,"M","bus",40,"M","motorcycle",40,"M","motorcycle",40,"M","car"
+"471","45","M","Pedestrian","Unknown",45,"M","pedestrian",NA,45,"M","car",45,"M","bus",45,"M","motorcycle",45,"M","bus",45,"M","motorcycle"
+"472","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",24,"M","motorcycle",40,"M","motorcycle",60,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle"
+"473","32","M","Motorcycle","Bus",32,"M","motorcycle","Bus",32,"M","bus",32,"M","bus",32,"M","bus",32,"M","bus",32,"M","bus"
+"474","75","M","Pedestrian","Unknown",75,"M","pedestrian",NA,75,"M","motorcycle",75,"M","motorcycle",75,"M","motorcycle",75,"M","motorcycle",75,"M","car"
+"475","50","M","Pedestrian","Unknown",50,"M","pedestrian",NA,50,"M","motorcycle",50,"M","bus",50,"M","car",50,"M","motorcycle",50,"M","motorcycle"
+"476","","M","Motorcycle","Bus",NA,"M","motorcycle","Bus",25,"M","bus",25,"M","bus",20,"M","bus",19,"M","bus",25,"M","bus"
+"477","64","F","Pedestrian","Car/pick-up/van",64,"F","pedestrian","Car/pick-up/van",64,"F","car",64,"F","car",64,"F","car",64,"F","car",64,"F","car"
+"478","10","F","Pedestrian","Car/pick-up/van",10,"F","pedestrian","Car/pick-up/van",10,"F","car",10,"F","car",10,"F","car",10,"F","car",10,"F","car"
+"479","60","M","Pedestrian","Unknown",60,"M","pedestrian",NA,60,"M","motorcycle",60,"M","car",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle"
+"480","2","M","Pedestrian","unspecified",2,"M","pedestrian",NA,2,"M","motorcycle",2,"M","car",2,"M","motorcycle",2,"M","car",2,"M","car"
+"481","54","M","Motorcycle","Car/pick-up/van",54,"M","motorcycle","Car/pick-up/van",54,"M","car",54,"M","car",54,"M","car",54,"M","car",54,"M","car"
+"482","25","M","Motorcycle","Bus",25,"M","motorcycle","Bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus"
+"483","19","F","Pedestrian","Unknown",19,"F","pedestrian",NA,19,"F","motorcycle",19,"F","bus",19,"F","motorcycle",19,"F","bus",19,"F","motorcycle"
+"484","27","M","Pedal Cycle","Car/pick-up/van",27,"M","cycle","Car/pick-up/van",27,"M","car",27,"M","car",27,"M","car",27,"M","car",27,"M","car"
+"485","60","M","Pedestrian","2/3 Wheeled",60,"M","pedestrian","2/3 Wheeled",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle"
+"486","45","M","Pedestrian","Car/pick-up/van",45,"M","pedestrian","Car/pick-up/van",45,"M","car",45,"M","car",45,"M","car",45,"M","car",45,"M","car"
+"487","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,95,"M","motorcycle",63,"M","motorcycle",18,"M","motorcycle",18,"M","car",77,"M","motorcycle"
+"488","38","M","Pedestrian","2/3 Wheeled",38,"M","pedestrian","2/3 Wheeled",38,"M","motorcycle",38,"M","motorcycle",38,"M","motorcycle",38,"M","motorcycle",38,"M","motorcycle"
+"489","45","M","Pedestrian","2/3 Wheeled",45,"M","pedestrian","2/3 Wheeled",45,"M","motorcycle",45,"M","motorcycle",45,"M","motorcycle",45,"M","motorcycle",45,"M","motorcycle"
+"490","55","M","Motorcycle","Unknown",55,"M","motorcycle",NA,55,"M","motorcycle",55,"M","motorcycle",55,"M","bus",55,"M","car",55,"M","motorcycle"
+"491","21","M","Motorcycle","2/3 Wheeled",21,"M","motorcycle","2/3 Wheeled",21,"M","motorcycle",21,"M","motorcycle",21,"M","motorcycle",21,"M","motorcycle",21,"M","motorcycle"
+"492","10","F","Pedestrian","Unknown",10,"F","pedestrian",NA,10,"F","car",10,"F","car",10,"F","car",10,"F","bus",10,"F","bus"
+"493","30","M","Pedestrian","Car/pick-up/van",30,"M","pedestrian","Car/pick-up/van",30,"M","car",30,"M","car",30,"M","car",30,"M","car",30,"M","car"
+"494","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,30,"M","bus",27,"M","bus",32,"M","motorcycle",32,"M","car",55,"M","car"
+"495","56","M","Pedestrian","2/3 Wheeled",56,"M","pedestrian","2/3 Wheeled",56,"M","motorcycle",56,"M","motorcycle",56,"M","motorcycle",56,"M","motorcycle",56,"M","motorcycle"
+"496","30","M","Pedestrian","2/3 Wheeled",30,"M","pedestrian","2/3 Wheeled",30,"M","motorcycle",30,"M","motorcycle",30,"M","motorcycle",30,"M","motorcycle",30,"M","motorcycle"
+"497","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,46,"M","motorcycle",40,"M","motorcycle",26,"M","bus",33,"M","motorcycle",67,"M","motorcycle"
+"498","20","M","Motorcycle","Pedestrian",20,"M","motorcycle","Pedestrian",20,"M","pedestrian",20,"M","pedestrian",20,"M","pedestrian",20,"M","pedestrian",20,"M","pedestrian"
+"499","38","M","Motorcycle","Bus",38,"M","motorcycle","Bus",38,"M","bus",38,"M","bus",38,"M","bus",38,"M","bus",38,"M","bus"
+"500","55","M","Pedestrian","Unknown",55,"M","pedestrian",NA,55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle",55,"M","car"
+"501","46","F","Pedestrian","Unknown",46,"F","pedestrian",NA,46,"F","motorcycle",46,"F","motorcycle",46,"F","motorcycle",46,"F","car",46,"F","motorcycle"
+"502","63","M","Pedestrian","Bus",63,"M","pedestrian","Bus",63,"M","bus",63,"M","bus",63,"M","bus",63,"M","bus",63,"M","bus"
+"503","45","M","Pedestrian","2/3 Wheeled",45,"M","pedestrian","2/3 Wheeled",45,"M","motorcycle",45,"M","motorcycle",45,"M","motorcycle",45,"M","motorcycle",45,"M","motorcycle"
+"504","26","F","Pedestrian","Car/pick-up/van",26,"F","pedestrian","Car/pick-up/van",26,"F","car",26,"F","car",26,"F","car",26,"F","car",26,"F","car"
+"505","11","M","Motorcycle","Car/pick-up/van",11,"M","motorcycle","Car/pick-up/van",11,"M","car",11,"M","car",11,"M","car",11,"M","car",11,"M","car"
+"506","35","M","Pedestrian","2/3 Wheeled",35,"M","pedestrian","2/3 Wheeled",35,"M","motorcycle",35,"M","motorcycle",35,"M","motorcycle",35,"M","motorcycle",35,"M","motorcycle"
+"507","26","M","Pedestrian","Car/pick-up/van",26,"M","pedestrian","Car/pick-up/van",26,"M","car",26,"M","car",26,"M","car",26,"M","car",26,"M","car"
+"508","24","M","Motorcycle","Bus",24,"M","motorcycle","Bus",24,"M","bus",24,"M","bus",24,"M","bus",24,"M","bus",24,"M","bus"
+"509","44","M","Motorcycle","Car/pick-up/van",44,"M","motorcycle","Car/pick-up/van",44,"M","car",44,"M","car",44,"M","car",44,"M","car",44,"M","car"
+"510","29","F","Pedestrian","Unknown",29,"F","pedestrian",NA,29,"F","car",29,"F","bus",29,"F","car",29,"F","motorcycle",29,"F","motorcycle"
+"511","27","F","Motorcycle","Unknown",27,"F","motorcycle",NA,27,"F","motorcycle",27,"F","bus",27,"F","NOV",27,"F","bus",27,"F","motorcycle"
+"512","60","F","Pedestrian","Car/pick-up/van",60,"F","pedestrian","Car/pick-up/van",60,"F","car",60,"F","car",60,"F","car",60,"F","car",60,"F","car"
+"513","25","M","Pedestrian","Unknown",25,"M","pedestrian",NA,25,"M","car",25,"M","car",25,"M","motorcycle",25,"M","bus",25,"M","bus"
+"514","","F","Motorcycle","No other/fixed or stationary object",NA,"F","motorcycle","No other/fixed or stationary object",18,"F","NOV",21,"F","NOV",25,"F","NOV",40,"F","NOV",15,"F","NOV"
+"515","71","M","Pedestrian","2/3 Wheeled",71,"M","pedestrian","2/3 Wheeled",71,"M","motorcycle",71,"M","motorcycle",71,"M","motorcycle",71,"M","motorcycle",71,"M","motorcycle"
+"516","32","M","Motorcycle","Unknown",32,"M","motorcycle",NA,32,"M","motorcycle",32,"M","NOV",32,"M","motorcycle",32,"M","motorcycle",32,"M","motorcycle"
+"517","50","M","Motorcycle","Unknown",50,"M","motorcycle",NA,50,"M","motorcycle",50,"M","motorcycle",50,"M","bus",50,"M","bus",50,"M","motorcycle"
+"518","46","F","Motorcycle","Unknown",46,"F","motorcycle",NA,46,"F","bus",46,"F","motorcycle",46,"F","bus",46,"F","motorcycle",46,"F","car"
+"519","65","M","Pedestrian","2/3 Wheeled",65,"M","pedestrian","2/3 Wheeled",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle"
+"520","55","M","Motorcycle","2/3 Wheeled",55,"M","motorcycle","2/3 Wheeled",55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle"
+"521","1","M","Pedestrian","Car/pick-up/van",1,"M","pedestrian","Car/pick-up/van",1,"M","car",1,"M","car",1,"M","car",1,"M","car",1,"M","car"
+"522","","","Motorcycle","No other/fixed or stationary object",NA,NA,"motorcycle","No other/fixed or stationary object",26,"M","NOV",23,"M","NOV",26,"F","NOV",28,"M","NOV",28,"M","NOV"
+"523","","F","Pedestrian","unspecified",NA,"F","pedestrian",NA,32,"F","bus",55,"F","motorcycle",74,"F","motorcycle",24,"F","car",28,"F","car"
+"524","48","M","Pedestrian","Car/pick-up/van",48,"M","pedestrian","Car/pick-up/van",48,"M","car",48,"M","car",48,"M","car",48,"M","car",48,"M","car"
+"525","45","F","Motorcycle","Bus",45,"F","motorcycle","Bus",45,"F","bus",45,"F","bus",45,"F","bus",45,"F","bus",45,"F","bus"
+"526","55","M","Motorcycle","2/3 Wheeled",55,"M","motorcycle","2/3 Wheeled",55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle"
+"527","52","M","Pedestrian","Unknown",52,"M","pedestrian",NA,52,"M","car",52,"M","motorcycle",52,"M","motorcycle",52,"M","car",52,"M","motorcycle"
+"528","","","Motorcycle","Bus",NA,NA,"motorcycle","Bus",25,"M","bus",30,"F","bus",25,"M","bus",25,"M","bus",27,"M","bus"
+"529","45","M","Motorcycle","Car/pick-up/van",45,"M","motorcycle","Car/pick-up/van",45,"M","car",45,"M","car",45,"M","car",45,"M","car",45,"M","car"
+"530","65","M","Motorcycle","Unknown",65,"M","motorcycle",NA,65,"M","car",65,"M","bus",65,"M","bus",65,"M","NOV",65,"M","motorcycle"
+"531","25","F","Motorcycle","Unknown",25,"F","motorcycle",NA,25,"F","motorcycle",25,"F","bus",25,"F","bus",25,"F","bus",25,"F","NOV"
+"532","32","M","Pedestrian","Unknown",32,"M","pedestrian",NA,32,"M","bus",32,"M","car",32,"M","motorcycle",32,"M","car",32,"M","motorcycle"
+"533","35","F","Pedestrian","Unknown",35,"F","pedestrian",NA,35,"F","motorcycle",35,"F","car",35,"F","motorcycle",35,"F","bus",35,"F","car"
+"534","24","M","Pedestrian","Unknown",24,"M","pedestrian",NA,24,"M","car",24,"M","car",24,"M","car",24,"M","car",24,"M","car"
+"535","50","M","Pedestrian","2/3 Wheeled",50,"M","pedestrian","2/3 Wheeled",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle"
+"536","","","Motorcycle","Pedestrian",NA,NA,"motorcycle","Pedestrian",74,"M","pedestrian",56,"M","pedestrian",37,"M","pedestrian",21,"F","pedestrian",26,"M","pedestrian"
+"537","23","M","Motorcycle","Unknown",23,"M","motorcycle",NA,23,"M","NOV",23,"M","motorcycle",23,"M","NOV",23,"M","motorcycle",23,"M","NOV"
+"538","21","M","Motorcycle","No other/fixed or stationary object",21,"M","motorcycle","No other/fixed or stationary object",21,"M","NOV",21,"M","NOV",21,"M","NOV",21,"M","NOV",21,"M","NOV"
+"539","","","Pedestrian","Unknown",NA,NA,"pedestrian",NA,32,"M","motorcycle",73,"M","motorcycle",40,"F","car",33,"M","bus",45,"M","motorcycle"
+"540","26","M","Motorcycle","Car/pick-up/van",26,"M","motorcycle","Car/pick-up/van",26,"M","car",26,"M","car",26,"M","car",26,"M","car",26,"M","car"
+"541","65","M","Pedestrian","Unknown",65,"M","pedestrian",NA,65,"M","car",65,"M","motorcycle",65,"M","bus",65,"M","motorcycle",65,"M","motorcycle"
+"542","4","M","Pedestrian","2/3 Wheeled",4,"M","pedestrian","2/3 Wheeled",4,"M","motorcycle",4,"M","motorcycle",4,"M","motorcycle",4,"M","motorcycle",4,"M","motorcycle"
+"543","20","M","Other","unspecified",20,"M","other",NA,20,"M","NOV",20,"M","NOV",20,"M","bus",20,"M","car",20,"M","car"
+"544","65","M","Pedestrian","Unknown",65,"M","pedestrian",NA,65,"M","motorcycle",65,"M","motorcycle",65,"M","motorcycle",65,"M","car",65,"M","motorcycle"
+"545","48","M","Pedestrian","2/3 Wheeled",48,"M","pedestrian","2/3 Wheeled",48,"M","motorcycle",48,"M","motorcycle",48,"M","motorcycle",48,"M","motorcycle",48,"M","motorcycle"
+"546","22","M","Pedal Cycle","unspecified",22,"M","cycle",NA,22,"M","bus",22,"M","car",22,"M","car",22,"M","car",22,"M","motorcycle"
+"547","18","M","Motorcycle","Bus",18,"M","motorcycle","Bus",18,"M","bus",18,"M","bus",18,"M","bus",18,"M","bus",18,"M","bus"
+"548","43","F","Motorcycle","Bus",43,"F","motorcycle","Bus",43,"F","bus",43,"F","bus",43,"F","bus",43,"F","bus",43,"F","bus"
+"549","21","M","Motorcycle","Unknown",21,"M","motorcycle",NA,21,"M","bus",21,"M","car",21,"M","bus",21,"M","bus",21,"M","motorcycle"
+"550","62","M","Motorcycle","Car/pick-up/van",62,"M","motorcycle","Car/pick-up/van",62,"M","car",62,"M","car",62,"M","car",62,"M","car",62,"M","car"
+"551","74","M","Pedestrian","2/3 Wheeled",74,"M","pedestrian","2/3 Wheeled",74,"M","motorcycle",74,"M","motorcycle",74,"M","motorcycle",74,"M","motorcycle",74,"M","motorcycle"
+"552","30","M","Pedestrian","Car/pick-up/van",30,"M","pedestrian","Car/pick-up/van",30,"M","car",30,"M","car",30,"M","car",30,"M","car",30,"M","car"
+"553","21","M","Motorcycle","Bus",21,"M","motorcycle","Bus",21,"M","bus",21,"M","bus",21,"M","bus",21,"M","bus",21,"M","bus"
+"554","25","M","Motorcycle","Bus",25,"M","motorcycle","Bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus"
+"555","42","F","Motorcycle","Unknown",42,"F","motorcycle",NA,42,"F","car",42,"F","bus",42,"F","car",42,"F","car",42,"F","motorcycle"
+"556","","M","Motorcycle","No other/fixed or stationary object",NA,"M","motorcycle","No other/fixed or stationary object",34,"M","NOV",23,"M","NOV",45,"M","NOV",27,"M","NOV",21,"M","NOV"
+"557","","","Pedal Cycle","Unknown",NA,NA,"cycle",NA,63,"M","car",21,"M","car",28,"M","motorcycle",22,"M","car",25,"M","car"
+"558","","F","Pedestrian","2/3 Wheeled",NA,"F","pedestrian","2/3 Wheeled",55,"F","motorcycle",67,"F","motorcycle",9,"F","motorcycle",67,"F","motorcycle",50,"F","motorcycle"
+"559","28","","Pedestrian","Unknown",28,NA,"pedestrian",NA,28,"M","car",28,"M","motorcycle",28,"M","car",28,"M","car",28,"F","car"
+"560","30","M","Motorcycle","Bus",30,"M","motorcycle","Bus",30,"M","bus",30,"M","bus",30,"M","bus",30,"M","bus",30,"M","bus"
+"561","20","M","Pedestrian","2/3 Wheeled",20,"M","pedestrian","2/3 Wheeled",20,"M","motorcycle",20,"M","motorcycle",20,"M","motorcycle",20,"M","motorcycle",20,"M","motorcycle"
+"562","48","M","Pedestrian","Bus",48,"M","pedestrian","Bus",48,"M","bus",48,"M","bus",48,"M","bus",48,"M","bus",48,"M","bus"
+"563","22","M","Motorcycle","Bus",22,"M","motorcycle","Bus",22,"M","bus",22,"M","bus",22,"M","bus",22,"M","bus",22,"M","bus"
+"564","","F","Pedestrian","2/3 Wheeled",NA,"F","pedestrian","2/3 Wheeled",7,"F","motorcycle",55,"F","motorcycle",77,"F","motorcycle",67,"F","motorcycle",50,"F","motorcycle"
+"565","27","F","Motorcycle","Bus",27,"F","motorcycle","Bus",27,"F","bus",27,"F","bus",27,"F","bus",27,"F","bus",27,"F","bus"
+"566","52","M","Pedestrian","2/3 Wheeled",52,"M","pedestrian","2/3 Wheeled",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle",52,"M","motorcycle"
+"567","38","M","Motorcycle","Unknown",38,"M","motorcycle",NA,38,"M","motorcycle",38,"M","bus",38,"M","motorcycle",38,"M","motorcycle",38,"M","car"
+"568","22","M","Pedestrian","Unknown",22,"M","pedestrian",NA,22,"M","bus",22,"M","motorcycle",22,"M","motorcycle",22,"M","car",22,"M","car"
+"569","29","M","Motorcycle","Unknown",29,"M","motorcycle",NA,29,"M","motorcycle",29,"M","motorcycle",29,"M","NOV",29,"M","NOV",29,"M","car"
+"570","5","M","Pedestrian","Bus",5,"M","pedestrian","Bus",5,"M","bus",5,"M","bus",5,"M","bus",5,"M","bus",5,"M","bus"
+"571","77","M","Pedestrian","2/3 Wheeled",77,"M","pedestrian","2/3 Wheeled",77,"M","motorcycle",77,"M","motorcycle",77,"M","motorcycle",77,"M","motorcycle",77,"M","motorcycle"
+"572","32","M","Motorcycle","Pedal cycle",32,"M","motorcycle","Pedal cycle",32,"M","cycle",32,"M","cycle",32,"M","cycle",32,"M","cycle",32,"M","cycle"
+"573","55","F","Pedestrian","Unknown",55,"F","pedestrian",NA,55,"F","motorcycle",55,"F","car",55,"F","bus",55,"F","car",55,"F","motorcycle"
+"574","56","M","Pedestrian","2/3 Wheeled",56,"M","pedestrian","2/3 Wheeled",56,"M","motorcycle",56,"M","motorcycle",56,"M","motorcycle",56,"M","motorcycle",56,"M","motorcycle"
+"575","52","M","Motorcycle","Unknown",52,"M","motorcycle",NA,52,"M","bus",52,"M","motorcycle",52,"M","car",52,"M","bus",52,"M","bus"
+"576","73","M","Pedestrian","2/3 Wheeled",73,"M","pedestrian","2/3 Wheeled",73,"M","motorcycle",73,"M","motorcycle",73,"M","motorcycle",73,"M","motorcycle",73,"M","motorcycle"
+"577","75","M","Pedestrian","Unknown",75,"M","pedestrian",NA,75,"M","motorcycle",75,"M","car",75,"M","car",75,"M","motorcycle",75,"M","car"
+"578","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,48,"M","motorcycle",62,"M","car",63,"M","car",50,"M","car",74,"M","motorcycle"
+"579","20","M","Motorcycle","Unknown",20,"M","motorcycle",NA,20,"M","NOV",20,"M","bus",20,"M","car",20,"M","motorcycle",20,"M","NOV"
+"580","30","M","Motorcycle","2/3 Wheeled",30,"M","motorcycle","2/3 Wheeled",30,"M","motorcycle",30,"M","motorcycle",30,"M","motorcycle",30,"M","motorcycle",30,"M","motorcycle"
+"581","","","Motorcycle","Unknown",NA,NA,"motorcycle",NA,20,"M","bus",58,"M","motorcycle",32,"M","car",65,"M","bus",43,"M","motorcycle"
+"582","20","F","Motorcycle","Bus",20,"F","motorcycle","Bus",20,"F","bus",20,"F","bus",20,"F","bus",20,"F","bus",20,"F","bus"
+"583","","","Pedestrian","Unknown",NA,NA,"pedestrian",NA,22,"M","car",40,"M","car",60,"M","motorcycle",45,"F","bus",74,"F","motorcycle"
+"584","53","F","Pedestrian","Unknown",53,"F","pedestrian",NA,53,"F","motorcycle",53,"F","motorcycle",53,"F","motorcycle",53,"F","motorcycle",53,"F","bus"
+"585","55","F","Pedestrian","Car/pick-up/van",55,"F","pedestrian","Car/pick-up/van",55,"F","car",55,"F","car",55,"F","car",55,"F","car",55,"F","car"
+"586","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,13,"M","car",30,"M","motorcycle",26,"M","bus",19,"M","bus",19,"M","NOV"
+"587","","M","Motorcycle","No other/fixed or stationary object",NA,"M","motorcycle","No other/fixed or stationary object",21,"M","NOV",23,"M","NOV",19,"M","NOV",28,"M","NOV",21,"M","NOV"
+"588","","","Motorcycle","2/3 Wheeled",NA,NA,"motorcycle","2/3 Wheeled",33,"M","motorcycle",27,"M","motorcycle",26,"M","motorcycle",40,"M","motorcycle",28,"F","motorcycle"
+"589","","M","Pedestrian","Car/pick-up/van",NA,"M","pedestrian","Car/pick-up/van",54,"M","car",62,"M","car",24,"M","car",52,"M","car",55,"M","car"
+"590","","M","Pedestrian","Car/pick-up/van",NA,"M","pedestrian","Car/pick-up/van",23,"M","car",16,"M","car",46,"M","car",28,"M","car",10,"M","car"
+"591","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",55,"M","motorcycle",58,"M","motorcycle",18,"M","motorcycle",33,"M","motorcycle",77,"M","motorcycle"
+"592","75","M","Pedestrian","Unknown",75,"M","pedestrian",NA,75,"M","motorcycle",75,"M","bus",75,"M","motorcycle",75,"M","motorcycle",75,"M","motorcycle"
+"593","40","M","Pedestrian","Car/pick-up/van",40,"M","pedestrian","Car/pick-up/van",40,"M","car",40,"M","car",40,"M","car",40,"M","car",40,"M","car"
+"594","","M","Motorcycle","Bus",NA,"M","motorcycle","Bus",23,"M","bus",30,"M","bus",20,"M","bus",19,"M","bus",25,"M","bus"
+"595","","F","Pedestrian","Car/pick-up/van",NA,"F","pedestrian","Car/pick-up/van",32,"F","car",33,"F","car",62,"F","car",60,"F","car",60,"F","car"
+"596","54","M","Pedestrian","Car/pick-up/van",54,"M","pedestrian","Car/pick-up/van",54,"M","car",54,"M","car",54,"M","car",54,"M","car",54,"M","car"
+"597","","M","Motorcycle","Bus",NA,"M","motorcycle","Bus",20,"M","bus",35,"M","bus",38,"M","bus",30,"M","bus",21,"M","bus"
+"598","62","M","Pedestrian","2/3 Wheeled",62,"M","pedestrian","2/3 Wheeled",62,"M","motorcycle",62,"M","motorcycle",62,"M","motorcycle",62,"M","motorcycle",62,"M","motorcycle"
+"599","50","M","Motorcycle","2/3 Wheeled",50,"M","motorcycle","2/3 Wheeled",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle"
+"600","55","M","Pedestrian","Unknown",55,"M","pedestrian",NA,55,"M","car",55,"M","car",55,"M","car",55,"M","car",55,"M","car"
+"601","","","Other","Unknown",NA,NA,"other",NA,63,"M","bus",15,"M","bus",37,"M","bus",20,"M","NOV",25,"F","NOV"
+"602","18","M","Motorcycle","Unknown",18,"M","motorcycle",NA,18,"M","car",18,"M","car",18,"M","bus",18,"M","bus",18,"M","bus"
+"603","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",28,"M","car",26,"M","car",18,"M","car",18,"M","car",45,"M","car"
+"604","27","M","Pedestrian","Car/pick-up/van",27,"M","pedestrian","Car/pick-up/van",27,"M","car",27,"M","car",27,"M","car",27,"M","car",27,"M","car"
+"605","","","Motorcycle","Unknown",NA,NA,"motorcycle",NA,53,"M","motorcycle",28,"M","bus",43,"M","motorcycle",32,"M","bus",46,"M","bus"
+"606","25","M","Motorcycle","No other/fixed or stationary object",25,"M","motorcycle","No other/fixed or stationary object",25,"M","NOV",25,"M","NOV",25,"M","NOV",25,"M","NOV",25,"M","NOV"
+"607","","","Pedestrian","2/3 Wheeled",NA,NA,"pedestrian","2/3 Wheeled",55,"M","motorcycle",47,"F","motorcycle",63,"M","motorcycle",33,"M","motorcycle",74,"M","motorcycle"
+"608","","","Pedestrian","Car/pick-up/van",NA,NA,"pedestrian","Car/pick-up/van",63,"M","car",20,"F","car",62,"M","car",42,"M","car",28,"M","car"
+"609","","","Pedestrian","Car/pick-up/van",NA,NA,"pedestrian","Car/pick-up/van",23,"M","car",55,"F","car",70,"F","car",50,"M","car",10,"M","car"
+"610","28","M","Pedestrian","Car/pick-up/van",28,"M","pedestrian","Car/pick-up/van",28,"M","car",28,"M","car",28,"M","car",28,"M","car",28,"M","car"
+"611","60","M","Pedestrian","2/3 Wheeled",60,"M","pedestrian","2/3 Wheeled",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle",60,"M","motorcycle"
+"612","","M","Motorcycle","Bus",NA,"M","motorcycle","Bus",23,"M","bus",32,"M","bus",25,"M","bus",30,"M","bus",30,"M","bus"
+"613","53","M","Pedestrian","2/3 Wheeled",53,"M","pedestrian","2/3 Wheeled",53,"M","motorcycle",53,"M","motorcycle",53,"M","motorcycle",53,"M","motorcycle",53,"M","motorcycle"
+"614","","M","Motorcycle","2/3 Wheeled",NA,"M","motorcycle","2/3 Wheeled",33,"M","motorcycle",52,"M","motorcycle",24,"M","motorcycle",68,"M","motorcycle",19,"M","motorcycle"
+"615","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",95,"M","motorcycle",73,"M","motorcycle",18,"M","motorcycle",50,"M","motorcycle",74,"M","motorcycle"
+"616","50","F","Bus","Bus",50,"F","bus","Bus",50,"F","bus",50,"F","bus",50,"F","bus",50,"F","bus",50,"F","bus"
+"617","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",28,"M","car",32,"M","car",25,"M","car",65,"M","car",28,"M","car"
+"618","46","M","Pedestrian","Unknown",46,"M","pedestrian",NA,46,"M","car",46,"M","motorcycle",46,"M","cycle",46,"M","car",46,"M","bus"
+"619","20","M","Motorcycle","Car/pick-up/van",20,"M","motorcycle","Car/pick-up/van",20,"M","car",20,"M","car",20,"M","car",20,"M","car",20,"M","car"
+"620","","M","Motorcycle","Bus",NA,"M","motorcycle","Bus",53,"M","bus",35,"M","bus",26,"M","bus",30,"M","bus",25,"M","bus"
+"621","24","F","Pedestrian","2/3 Wheeled",24,"F","pedestrian","2/3 Wheeled",24,"F","motorcycle",24,"F","motorcycle",24,"F","motorcycle",24,"F","motorcycle",24,"F","motorcycle"
+"622","28","M","Pedal Cycle","Unknown",28,"M","cycle",NA,28,"M","motorcycle",28,"M","car",28,"M","motorcycle",28,"M","car",28,"M","car"
+"623","","F","Bus","No other/fixed or stationary object",NA,"F","bus","No other/fixed or stationary object",52,"F","NOV",58,"F","NOV",74,"F","NOV",48,"F","NOV",28,"F","NOV"
+"624","","F","Bus","No other/fixed or stationary object",NA,"F","bus","No other/fixed or stationary object",42,"F","NOV",40,"F","NOV",74,"F","NOV",70,"F","NOV",60,"F","NOV"
+"625","","F","Bus","No other/fixed or stationary object",NA,"F","bus","No other/fixed or stationary object",52,"F","NOV",40,"F","NOV",9,"F","NOV",48,"F","NOV",60,"F","NOV"
+"626","","","Other","Unknown",NA,NA,"other",NA,21,"M","car",62,"F","car",37,"M","bus",21,"M","NOV",25,"M","bus"
+"627","","M","Pedestrian","Car/pick-up/van",NA,"M","pedestrian","Car/pick-up/van",63,"M","car",62,"M","car",55,"M","car",42,"M","car",55,"M","car"
+"628","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",55,"M","motorcycle",58,"M","motorcycle",44,"M","motorcycle",50,"M","motorcycle",74,"M","motorcycle"
+"629","","M","Car","No other/fixed or stationary object",NA,"M","car","No other/fixed or stationary object",25,"M","NOV",19,"M","NOV",62,"M","NOV",20,"M","NOV",45,"M","NOV"
+"630","","M","Car","No other/fixed or stationary object",NA,"M","car","No other/fixed or stationary object",28,"M","NOV",35,"M","NOV",18,"M","NOV",28,"M","NOV",45,"M","NOV"
+"631","","","Pedestrian","Unknown",NA,NA,"pedestrian",NA,55,"M","motorcycle",40,"F","car",77,"M","car",52,"M","car",65,"M","motorcycle"
+"632","","M","Motorcycle","Bus",NA,"M","motorcycle","Bus",20,"M","bus",35,"M","bus",18,"M","bus",32,"M","bus",25,"M","bus"
+"633","75","M","Motorcycle","2/3 Wheeled",75,"M","motorcycle","2/3 Wheeled",75,"M","motorcycle",75,"M","motorcycle",75,"M","motorcycle",75,"M","motorcycle",75,"M","motorcycle"
+"634","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,20,"M","motorcycle",40,"M","motorcycle",18,"M","car",52,"M","motorcycle",77,"M","car"
+"635","","M","Motorcycle","No other/fixed or stationary object",NA,"M","motorcycle","No other/fixed or stationary object",34,"M","NOV",28,"M","NOV",26,"M","NOV",25,"M","NOV",21,"M","NOV"
+"636","","M","Heavy transport","Unknown",NA,"M","truck",NA,22,"M","NOV",33,"M","NOV",26,"M","NOV",20,"M","NOV",1,"M","NOV"
+"637","","F","Pedestrian","Bus",NA,"F","pedestrian","Bus",27,"F","bus",46,"F","bus",28,"F","bus",32,"F","bus",50,"F","bus"
+"638","","F","Pedestrian","Unknown",NA,"F","pedestrian",NA,32,"F","motorcycle",24,"F","car",9,"F","car",67,"F","motorcycle",35,"F","motorcycle"
+"639","","M","Pedestrian","Car/pick-up/van",NA,"M","pedestrian","Car/pick-up/van",23,"M","car",62,"M","car",24,"M","car",42,"M","car",3,"M","car"
+"640","","M","Pedestrian","Car/pick-up/van",NA,"M","pedestrian","Car/pick-up/van",54,"M","car",62,"M","car",26,"M","car",45,"M","car",55,"M","car"
+"641","","M","Heavy transport","Unknown",NA,"M","truck",NA,45,"M","NOV",33,"M","NOV",58,"M","NOV",34,"M","NOV",30,"M","NOV"
+"642","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",95,"M","motorcycle",40,"M","motorcycle",18,"M","motorcycle",33,"M","motorcycle",73,"M","motorcycle"
+"643","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,27,"M","motorcycle",27,"M","motorcycle",45,"M","motorcycle",25,"M","NOV",55,"M","car"
+"644","","M","Heavy transport","Unknown",NA,"M","truck",NA,22,"M","NOV",46,"M","NOV",58,"M","NOV",20,"M","NOV",70,"M","NOV"
+"645","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",23,"M","car",45,"M","car",18,"M","car",18,"M","car",21,"M","car"
+"646","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",30,"M","car",35,"M","car",43,"M","car",18,"M","car",21,"M","car"
+"647","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",95,"M","motorcycle",65,"M","motorcycle",60,"M","motorcycle",33,"M","motorcycle",73,"M","motorcycle"
+"648","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,9,"M","car",40,"M","motorcycle",60,"M","car",25,"M","car",10,"M","car"
+"649","","M","Car","No other/fixed or stationary object",NA,"M","car","No other/fixed or stationary object",18,"M","NOV",32,"M","NOV",27,"M","NOV",21,"M","NOV",45,"M","NOV"
+"650","","M","Pedestrian","Bus",NA,"M","pedestrian","Bus",22,"M","bus",63,"M","bus",48,"M","bus",22,"M","bus",64,"M","bus"
+"651","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",51,"M","car",32,"M","car",25,"M","car",22,"M","car",28,"M","car"
+"652","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,30,"M","motorcycle",20,"M","motorcycle",26,"M","bus",28,"M","car",50,"M","car"
+"653","","M","Motorcycle","unspecified",NA,"M","motorcycle",NA,27,"M","NOV",32,"M","motorcycle",25,"M","NOV",35,"M","car",21,"M","car"
+"654","","M","Motorcycle","No other/fixed or stationary object",NA,"M","motorcycle","No other/fixed or stationary object",26,"M","NOV",27,"M","NOV",32,"M","NOV",30,"M","NOV",28,"M","NOV"
+"655","","M","Car","Unknown",NA,"M","car",NA,25,"M","bus",42,"M","motorcycle",35,"M","NOV",21,"M","NOV",19,"M","bus"
+"656","","M","Motorcycle","No other/fixed or stationary object",NA,"M","motorcycle","No other/fixed or stationary object",21,"M","NOV",27,"M","NOV",35,"M","NOV",28,"M","NOV",21,"M","NOV"
+"657","48","","Pedestrian","Bus",48,NA,"pedestrian","Bus",48,"M","bus",48,"M","bus",48,"M","bus",48,"M","bus",48,"F","bus"
+"658","61","M","Pedestrian","Bus",61,"M","pedestrian","Bus",61,"M","bus",61,"M","bus",61,"M","bus",61,"M","bus",61,"M","bus"
+"659","77","F","Bus","Bus",77,"F","bus","Bus",77,"F","bus",77,"F","bus",77,"F","bus",77,"F","bus",77,"F","bus"
+"660","60","","Pedestrian","Bus",60,NA,"pedestrian","Bus",60,"M","bus",60,"M","bus",60,"M","bus",60,"M","bus",60,"F","bus"
+"661","35","","Pedestrian","Bus",35,NA,"pedestrian","Bus",35,"M","bus",35,"M","bus",35,"M","bus",35,"F","bus",35,"M","bus"
+"662","","M","Motorcycle","Bus",NA,"M","motorcycle","Bus",53,"M","bus",25,"M","bus",26,"M","bus",19,"M","bus",21,"M","bus"
+"663","72","F","Pedestrian","Bus",72,"F","pedestrian","Bus",72,"F","bus",72,"F","bus",72,"F","bus",72,"F","bus",72,"F","bus"
+"664","32","M","Pedestrian","Unknown",32,"M","pedestrian",NA,32,"M","motorcycle",32,"M","motorcycle",32,"M","bus",32,"M","car",32,"M","car"
+"665","66","M","Motorcycle","2/3 Wheeled",66,"M","motorcycle","2/3 Wheeled",66,"M","motorcycle",66,"M","motorcycle",66,"M","motorcycle",66,"M","motorcycle",66,"M","motorcycle"
+"666","18","M","Motorcycle","Bus",18,"M","motorcycle","Bus",18,"M","bus",18,"M","bus",18,"M","bus",18,"M","bus",18,"M","bus"
+"667","25","M","Motorcycle","Bus",25,"M","motorcycle","Bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus"
+"668","62","M","3Wheeled","No other/fixed or stationary object",62,"M","motorcycle","No other/fixed or stationary object",62,"M","NOV",62,"M","NOV",62,"M","NOV",62,"M","NOV",62,"M","NOV"
+"669","50","M","Pedestrian","Unknown",50,"M","pedestrian",NA,50,"M","car",50,"M","motorcycle",50,"M","car",50,"M","motorcycle",50,"M","bus"
+"670","","","Pedestrian","Bus",NA,NA,"pedestrian","Bus",22,"M","bus",42,"M","bus",22,"M","bus",22,"M","bus",45,"F","bus"
+"671","58","M","Pedestrian","Unknown",58,"M","pedestrian",NA,58,"M","car",58,"M","motorcycle",58,"M","car",58,"M","motorcycle",58,"M","car"
+"672","33","","Pedestrian","Car/pick-up/van",33,NA,"pedestrian","Car/pick-up/van",33,"M","car",33,"F","car",33,"M","car",33,"F","car",33,"M","car"
+"673","","F","Motorcycle","Car/pick-up/van",NA,"F","motorcycle","Car/pick-up/van",21,"F","car",20,"F","car",10,"F","car",70,"F","car",45,"F","car"
+"674","","M","Motorcycle","Bus",NA,"M","motorcycle","Bus",21,"M","bus",35,"M","bus",25,"M","bus",35,"M","bus",55,"M","bus"
+"675","27","M","Motorcycle","Unknown",27,"M","motorcycle",NA,27,"M","bus",27,"M","NOV",27,"M","bus",27,"M","motorcycle",27,"M","NOV"
+"676","40","M","Pedestrian","Car/pick-up/van",40,"M","pedestrian","Car/pick-up/van",40,"M","car",40,"M","car",40,"M","car",40,"M","car",40,"M","car"
+"677","23","M","Motorcycle","Car/pick-up/van",23,"M","motorcycle","Car/pick-up/van",23,"M","car",23,"M","car",23,"M","car",23,"M","car",23,"M","car"
+"678","","M","Pedestrian","Bus",NA,"M","pedestrian","Bus",22,"M","bus",24,"M","bus",54,"M","bus",22,"M","bus",45,"M","bus"
+"679","","M","Motorcycle","2/3 Wheeled",NA,"M","motorcycle","2/3 Wheeled",45,"M","motorcycle",27,"M","motorcycle",26,"M","motorcycle",65,"M","motorcycle",28,"M","motorcycle"
+"680","35","M","Pedestrian","Unknown",35,"M","pedestrian",NA,35,"M","car",35,"M","motorcycle",35,"M","motorcycle",35,"M","bus",35,"M","car"
+"681","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,25,"M","bus",32,"M","motorcycle",18,"M","car",18,"M","NOV",26,"M","NOV"
+"682","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,24,"M","motorcycle",20,"M","car",24,"M","bus",33,"M","bus",24,"M","motorcycle"
+"683","10","M","Pedestrian","2/3 Wheeled",10,"M","pedestrian","2/3 Wheeled",10,"M","motorcycle",10,"M","motorcycle",10,"M","motorcycle",10,"M","motorcycle",10,"M","motorcycle"
+"684","33","F","Pedestrian","Unknown",33,"F","pedestrian",NA,33,"F","motorcycle",33,"F","car",33,"F","motorcycle",33,"F","car",33,"F","car"
+"685","50","M","Pedestrian","2/3 Wheeled",50,"M","pedestrian","2/3 Wheeled",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle"
+"686","24","M","Pedestrian","Bus",24,"M","pedestrian","Bus",24,"M","bus",24,"M","bus",24,"M","bus",24,"M","bus",24,"M","bus"
+"687","12","M","Pedestrian","Unknown",12,"M","pedestrian",NA,12,"M","bus",12,"M","car",12,"M","bus",12,"M","bus",12,"M","car"
+"688","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",13,"M","car",35,"M","car",23,"M","car",18,"M","car",28,"M","car"
+"689","25","M","Pedal Cycle","Car/pick-up/van",25,"M","cycle","Car/pick-up/van",25,"M","car",25,"M","car",25,"M","car",25,"M","car",25,"M","car"
+"690","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,23,"M","bus",25,"M","NOV",26,"M","car",30,"M","bus",21,"M","bus"
+"691","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,45,"M","car",35,"M","motorcycle",32,"M","NOV",32,"M","motorcycle",43,"M","bus"
+"692","25","M","Car","Bus",25,"M","car","Bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus",25,"M","bus"
+"693","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,46,"M","motorcycle",47,"M","motorcycle",26,"M","car",52,"M","motorcycle",77,"M","motorcycle"
+"694","","M","Motorcycle","unspecified",NA,"M","motorcycle",NA,23,"M","bus",45,"M","car",26,"M","cycle",66,"M","motorcycle",55,"M","motorcycle"
+"695","62","M","Pedestrian","Car/pick-up/van",62,"M","pedestrian","Car/pick-up/van",62,"M","car",62,"M","car",62,"M","car",62,"M","car",62,"M","car"
+"696","45","M","Pedestrian","Unknown",45,"M","pedestrian",NA,45,"M","motorcycle",45,"M","motorcycle",45,"M","car",45,"M","car",45,"M","car"
+"697","30","F","Pedestrian","unspecified",30,"F","pedestrian",NA,30,"F","motorcycle",30,"F","bus",30,"F","car",30,"F","car",30,"F","motorcycle"
+"698","65","M","Pedestrian","Unknown",65,"M","pedestrian",NA,65,"M","bus",65,"M","motorcycle",65,"M","bus",65,"M","motorcycle",65,"M","car"
+"699","25","M","Motorcycle","Unknown",25,"M","motorcycle",NA,25,"M","bus",25,"M","car",25,"M","car",25,"M","NOV",25,"M","bus"
+"700","55","M","Pedestrian","2/3 Wheeled",55,"M","pedestrian","2/3 Wheeled",55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle",55,"M","motorcycle"
+"701","25","F","Motorcycle","Unknown",25,"F","motorcycle",NA,25,"F","NOV",25,"F","car",25,"F","car",25,"F","bus",25,"F","car"
+"702","","","Motorcycle","Unknown",NA,NA,"motorcycle",NA,23,"F","bus",73,"M","motorcycle",26,"M","NOV",32,"M","motorcycle",32,"M","cycle"
+"703","50","M","Pedestrian","2/3 Wheeled",50,"M","pedestrian","2/3 Wheeled",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle",50,"M","motorcycle"
+"704","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,45,"M","bus",35,"M","motorcycle",26,"M","bus",35,"M","bus",19,"M","car"
+"705","24","M","Motorcycle","Unknown",24,"M","motorcycle",NA,24,"M","bus",24,"M","motorcycle",24,"M","motorcycle",24,"M","car",24,"M","bus"
+"706","10","F","Pedestrian","Car/pick-up/van",10,"F","pedestrian","Car/pick-up/van",10,"F","car",10,"F","car",10,"F","car",10,"F","car",10,"F","car"
+"707","55","M","Motorcycle","Unknown",55,"M","motorcycle",NA,55,"M","bus",55,"M","NOV",55,"M","NOV",55,"M","car",55,"M","motorcycle"
+"708","46","M","Pedal Cycle","2/3 Wheeled",46,"M","cycle","2/3 Wheeled",46,"M","motorcycle",46,"M","motorcycle",46,"M","motorcycle",46,"M","motorcycle",46,"M","motorcycle"
+"709","27","M","Motorcycle","No other/fixed or stationary object",27,"M","motorcycle","No other/fixed or stationary object",27,"M","NOV",27,"M","NOV",27,"M","NOV",27,"M","NOV",27,"M","NOV"
+"710","23","M","Motorcycle","Unknown",23,"M","motorcycle",NA,23,"M","NOV",23,"M","motorcycle",23,"M","car",23,"M","NOV",23,"M","NOV"
+"711","","M","Motorcycle","No other/fixed or stationary object",NA,"M","motorcycle","No other/fixed or stationary object",21,"M","NOV",28,"M","NOV",19,"M","NOV",27,"M","NOV",20,"M","NOV"
+"712","","M","Heavy transport","Unknown",NA,"M","truck",NA,45,"M","NOV",56,"M","NOV",20,"M","NOV",20,"M","NOV",30,"M","NOV"
+"713","","F","Heavy transport","Unknown",NA,"F","truck",NA,45,"F","NOV",80,"F","NOV",22,"F","NOV",26,"F","NOV",55,"F","NOV"
+"714","32","M","Pedestrian","2/3 Wheeled",32,"M","pedestrian","2/3 Wheeled",32,"M","motorcycle",32,"M","motorcycle",32,"M","motorcycle",32,"M","motorcycle",32,"M","motorcycle"
+"715","","F","Pedestrian","Car/pick-up/van",NA,"F","pedestrian","Car/pick-up/van",32,"F","car",56,"F","car",40,"F","car",60,"F","car",28,"F","car"
+"716","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,20,"M","motorcycle",58,"M","car",18,"M","car",27,"M","motorcycle",77,"M","car"
+"717","","M","Motorcycle","unspecified",NA,"M","motorcycle",NA,45,"M","car",77,"M","pedestrian",55,"M","NOV",18,"M","bus",30,"M","motorcycle"
+"718","","","Pedestrian","2/3 Wheeled",NA,NA,"pedestrian","2/3 Wheeled",55,"M","motorcycle",40,"M","motorcycle",60,"F","motorcycle",33,"F","motorcycle",50,"M","motorcycle"
+"719","","M","Pedestrian","Car/pick-up/van",NA,"M","pedestrian","Car/pick-up/van",30,"M","car",16,"M","car",24,"M","car",28,"M","car",65,"M","car"
+"720","","","Pedestrian","Car/pick-up/van",NA,NA,"pedestrian","Car/pick-up/van",55,"M","car",20,"F","car",86,"F","car",25,"M","car",28,"M","car"
+"721","","M","Motorcycle","2/3 Wheeled",NA,"M","motorcycle","2/3 Wheeled",45,"M","motorcycle",33,"M","motorcycle",70,"M","motorcycle",65,"M","motorcycle",30,"M","motorcycle"
+"722","82","M","Pedestrian","Car/pick-up/van",82,"M","pedestrian","Car/pick-up/van",82,"M","car",82,"M","car",82,"M","car",82,"M","car",82,"M","car"
+"723","58","F","Pedestrian","Unknown",58,"F","pedestrian",NA,58,"F","motorcycle",58,"F","motorcycle",58,"F","car",58,"F","car",58,"F","motorcycle"
+"724","18","M","Pedestrian","Car/pick-up/van",18,"M","pedestrian","Car/pick-up/van",18,"M","car",18,"M","car",18,"M","car",18,"M","car",18,"M","car"
+"725","","M","Pedestrian","Car/pick-up/van",NA,"M","pedestrian","Car/pick-up/van",30,"M","car",20,"M","car",26,"M","car",42,"M","car",3,"M","car"
+"726","68","M","Motorcycle","Unknown",68,"M","motorcycle",NA,68,"M","car",68,"M","pedestrian",68,"M","motorcycle",68,"M","motorcycle",68,"M","NOV"
+"727","55","M","Pedestrian","Unknown",55,"M","pedestrian",NA,55,"M","car",55,"M","motorcycle",55,"M","motorcycle",55,"M","car",55,"M","bus"
+"728","30","M","Pedestrian","2/3 Wheeled",30,"M","pedestrian","2/3 Wheeled",30,"M","motorcycle",30,"M","motorcycle",30,"M","motorcycle",30,"M","motorcycle",30,"M","motorcycle"
+"729","","M","Car","Unknown",NA,"M","car",NA,25,"M","bus",32,"M","motorcycle",62,"M","motorcycle",34,"M","NOV",21,"M","NOV"
+"730","46","M","Motorcycle","Unknown",46,"M","motorcycle",NA,46,"M","NOV",46,"M","car",46,"M","bus",46,"M","bus",46,"M","bus"
+"731","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,21,"M","car",25,"M","NOV",43,"M","car",66,"M","bus",45,"M","bus"
+"732","35","M","Motorcycle","Car/pick-up/van",35,"M","motorcycle","Car/pick-up/van",35,"M","car",35,"M","car",35,"M","car",35,"M","car",35,"M","car"
+"733","25","","Pedestrian","Unknown",25,NA,"pedestrian",NA,25,"M","motorcycle",25,"M","car",25,"M","car",25,"M","bus",25,"M","car"
+"734","26","M","Motorcycle","unspecified",26,"M","motorcycle",NA,26,"M","car",26,"M","bus",26,"M","NOV",26,"M","bus",26,"M","bus"
+"735","65","F","Pedestrian","Bus",65,"F","pedestrian","Bus",65,"F","bus",65,"F","bus",65,"F","bus",65,"F","bus",65,"F","bus"
+"736","36","M","Motorcycle","Unknown",36,"M","motorcycle",NA,36,"M","car",36,"M","car",36,"M","bus",36,"M","bus",36,"M","NOV"
+"737","27","M","Pedestrian","Car/pick-up/van",27,"M","pedestrian","Car/pick-up/van",27,"M","car",27,"M","car",27,"M","car",27,"M","car",27,"M","car"
+"738","18","M","Pedestrian","Unknown",18,"M","pedestrian",NA,18,"M","motorcycle",18,"M","car",18,"M","motorcycle",18,"M","bus",18,"M","bus"
+"739","45","M","Motorcycle","No other/fixed or stationary object",45,"M","motorcycle","No other/fixed or stationary object",45,"M","NOV",45,"M","NOV",45,"M","NOV",45,"M","NOV",45,"M","NOV"
+"740","23","M","Motorcycle","Unknown",23,"M","motorcycle",NA,23,"M","car",23,"M","car",23,"M","bus",23,"M","bus",23,"M","NOV"
+"741","40","M","Motorcycle","No other/fixed or stationary object",40,"M","motorcycle","No other/fixed or stationary object",40,"M","NOV",40,"M","NOV",40,"M","NOV",40,"M","NOV",40,"M","NOV"
+"742","53","M","Motorcycle","Car/pick-up/van",53,"M","motorcycle","Car/pick-up/van",53,"M","car",53,"M","car",53,"M","car",53,"M","car",53,"M","car"
+"743","35","M","Pedestrian","Unknown",35,"M","pedestrian",NA,35,"M","car",35,"M","bus",35,"M","car",35,"M","motorcycle",35,"M","motorcycle"
+"744","","M","Motorcycle","Car/pick-up/van",NA,"M","motorcycle","Car/pick-up/van",30,"M","car",32,"M","car",25,"M","car",62,"M","car",21,"M","car"
+"745","38","M","Pedestrian","Car/pick-up/van",38,"M","pedestrian","Car/pick-up/van",38,"M","car",38,"M","car",38,"M","car",38,"M","car",38,"M","car"
+"746","12","F","Pedestrian","Car/pick-up/van",12,"F","pedestrian","Car/pick-up/van",12,"F","car",12,"F","car",12,"F","car",12,"F","car",12,"F","car"
+"747","25","F","Motorcycle","Unknown",25,"F","motorcycle",NA,25,"F","bus",25,"F","car",25,"F","bus",25,"F","pedestrian",25,"F","bus"
+"748","60","F","Pedestrian","Unknown",60,"F","pedestrian",NA,60,"F","motorcycle",60,"F","motorcycle",60,"F","car",60,"F","car",60,"F","motorcycle"
+"749","62","M","Pedestrian","Unknown",62,"M","pedestrian",NA,62,"M","car",62,"M","bus",62,"M","car",62,"M","motorcycle",62,"M","car"
+"750","58","M","Pedestrian","2/3 Wheeled",58,"M","pedestrian","2/3 Wheeled",58,"M","motorcycle",58,"M","motorcycle",58,"M","motorcycle",58,"M","motorcycle",58,"M","motorcycle"
+"751","5","M","Pedestrian","Car/pick-up/van",5,"M","pedestrian","Car/pick-up/van",5,"M","car",5,"M","car",5,"M","car",5,"M","car",5,"M","car"
+"752","21","F","Motorcycle","Unknown",21,"F","motorcycle",NA,21,"F","car",21,"F","NOV",21,"F","bus",21,"F","bus",21,"F","bus"
+"753","38","M","Pedestrian","Unknown",38,"M","pedestrian",NA,38,"M","motorcycle",38,"M","car",38,"M","motorcycle",38,"M","car",38,"M","car"
+"754","19","M","Motorcycle","Bus",19,"M","motorcycle","Bus",19,"M","bus",19,"M","bus",19,"M","bus",19,"M","bus",19,"M","bus"
+"755","19","M","Motorcycle","Bus",19,"M","motorcycle","Bus",19,"M","bus",19,"M","bus",19,"M","bus",19,"M","bus",19,"M","bus"
+"756","78","M","Motorcycle","Unknown",78,"M","motorcycle",NA,78,"M","bus",78,"M","motorcycle",78,"M","car",78,"M","car",78,"M","bus"
+"757","","M","Pedestrian","unspecified",NA,"M","pedestrian",NA,55,"M","motorcycle",62,"M","motorcycle",70,"M","car",18,"M","car",74,"M","motorcycle"
+"758","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,20,"M","NOV",35,"M","motorcycle",35,"M","bus",42,"M","bus",30,"M","motorcycle"
+"759","","M","Pedestrian","Unknown",NA,"M","pedestrian",NA,54,"M","car",63,"M","car",18,"M","motorcycle",45,"M","motorcycle",10,"M","bus"
+"760","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,26,"M","bus",22,"M","pedestrian",26,"M","bus",18,"M","bus",19,"M","pedestrian"
+"761","","","Pedestrian","Car/pick-up/van",NA,NA,"pedestrian","Car/pick-up/van",63,"F","car",55,"M","car",62,"M","car",52,"M","car",47,"F","car"
+"762","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",55,"M","motorcycle",40,"M","motorcycle",44,"M","motorcycle",33,"M","motorcycle",77,"M","motorcycle"
+"763","","","Motorcycle","Bus",NA,NA,"motorcycle","Bus",20,"M","bus",25,"M","bus",18,"M","bus",32,"F","bus",55,"M","bus"
+"764","","","Motorcycle","Bus",NA,NA,"motorcycle","Bus",23,"M","bus",25,"M","bus",26,"M","bus",32,"M","bus",30,"F","bus"
+"765","48","M","Motorcycle","2/3 Wheeled",48,"M","motorcycle","2/3 Wheeled",48,"M","motorcycle",48,"M","motorcycle",48,"M","motorcycle",48,"M","motorcycle",48,"M","motorcycle"
+"766","","M","Motorcycle","No other/fixed or stationary object",NA,"M","motorcycle","No other/fixed or stationary object",21,"M","NOV",23,"M","NOV",32,"M","NOV",25,"M","NOV",28,"M","NOV"
+"767","","F","Motorcycle","2/3 Wheeled",NA,"F","motorcycle","2/3 Wheeled",50,"F","motorcycle",47,"F","motorcycle",45,"F","motorcycle",56,"F","motorcycle",30,"F","motorcycle"
+"768","","F","3Wheeled","Bus",NA,"F","motorcycle","Bus",33,"F","bus",45,"F","bus",26,"F","bus",18,"F","bus",22,"F","bus"
+"769","27","M","Pedestrian","Bus",27,"M","pedestrian","Bus",27,"M","bus",27,"M","bus",27,"M","bus",27,"M","bus",27,"M","bus"
+"770","45","M","Pedestrian","Unknown",45,"M","pedestrian",NA,45,"M","car",45,"M","bus",45,"M","motorcycle",45,"M","motorcycle",45,"M","car"
+"771","48","F","Pedestrian","Unknown",48,"F","pedestrian",NA,48,"F","bus",48,"F","motorcycle",48,"F","motorcycle",48,"F","car",48,"F","motorcycle"
+"772","","","Pedestrian","Unknown",NA,NA,"pedestrian",NA,53,"M","motorcycle",20,"F","car",18,"M","bus",27,"M","motorcycle",65,"M","motorcycle"
+"773","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,20,"M","car",33,"M","car",25,"M","car",42,"M","car",46,"M","motorcycle"
+"774","","M","Motorcycle","Unknown",NA,"M","motorcycle",NA,33,"M","car",35,"M","bus",46,"M","NOV",30,"M","bus",21,"M","bus"
+"775","35","M","Pedestrian","Unknown",35,"M","pedestrian",NA,35,"M","car",35,"M","motorcycle",35,"M","car",35,"M","motorcycle",35,"M","car"
+"776","","M","Pedestrian","2/3 Wheeled",NA,"M","pedestrian","2/3 Wheeled",95,"M","motorcycle",73,"M","motorcycle",60,"M","motorcycle",33,"M","motorcycle",73,"M","motorcycle"
+"777","40","M","Pedestrian","Unknown",40,"M","pedestrian",NA,40,"M","car",40,"M","motorcycle",40,"M","bus",40,"M","car",40,"M","car"
+"778","","","Motorcycle","Unknown",NA,NA,"motorcycle",NA,77,"M","bus",54,"M","motorcycle",25,"F","NOV",40,"M","bus",20,"M","car"

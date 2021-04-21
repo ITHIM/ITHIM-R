@@ -1,4 +1,7 @@
 ###Delhi, India######
+library(tidyverse)
+library(mice)
+
 path<- 'code/injuries/delhi'
 delhi1316<-read.csv(paste0(path,'/delhi_2013-2016.csv'))
 delhi1012<-read.csv(paste0(path,'/delhi_2010-2012.csv'))
@@ -282,5 +285,108 @@ delhi<- subset(delhi, select=c("year", "cas_type", "strk_type"))
 ##selecting only three years (2012-14)
 delhi<- delhi[which(delhi$year %in% c(2012, 2013, 2014)),]
 
+# Multiple imputation using MICE
+# https://stats.idre.ucla.edu/r/faq/how-do-i-perform-multiple-imputation-using-predictive-mean-matching-in-r/
+
+# Multiple questions:
+# 1) what happens with weight variable, shouldn't it be here. My understanding 
+# is that year is not processed by the package
+# 2) Shouldn't the names of the variables be "cas_mode" and "strike_mode". Do 
+# the package work with different name variables?
+# 3) shouldn't the modes be similar to what is in standardized file? 
+
+# Read lookup table
+smodes <- read_csv('data/global/modes/standardized_modes.csv')
+# Separate rows 
+smodes <- smodes %>% separate_rows(original, sep = ';')
+# Trim
+smodes <- smodes %>% mutate(across(where(is.character), str_trim))
+
+
+#unique(delhi$cas_type)
+#unique(delhi$strk_type)
+# Transforming "unknown" and "unspecified" to NA
+delhi2 <- delhi %>% 
+  mutate(cas_mode = factor(ifelse(cas_type == "Unknown", NA, cas_type)),
+         strike_mode = factor(ifelse(strk_type %in% c("Unknown", "unspecified"),
+                                     NA, strk_type)))
+#table(delhi2$cas_type, delhi2$cas_mode, useNA = "always")
+#table(delhi2$strk_type, delhi2$strike_mode, useNA = "always")
+
+# There are 38 missing values in cas_mode and 3019 in strike mode.
+md.pattern(delhi2)
+
+# In 38 rows both types are missing 
+md.pairs(delhi2)
+
+# Imputation using mice. I imputed the dataset 5 times (this is why is multiple
+# imputation). The idea is to make a sensitivity analysis in the results.
+imp1 <- mice(delhi2[,c("year","cas_mode", "strike_mode")], m = 5, seed = 12345)
+imp1
+
+# Adding imputed rows to delhi's dataset. The original columns (with missing
+# values) are kept in the dataset with sufix "_original". And the first run of
+# imputation is saved in cas_mode and strike_mode. From second to fifth
+# imputation are also saved with the sufix "_2nd", to "5th".
+delhi3 <- delhi2 %>% 
+  rename(cas_mode_original = cas_mode,
+         strike_mode_original = strike_mode) %>% 
+  bind_cols(complete(imp1) %>% select(cas_mode, strike_mode)) %>%
+  bind_cols(complete(imp1, action = 2) %>% select(cas_mode, strike_mode) %>% 
+              rename(cas_mode_2nd = cas_mode, strike_mode_2nd = strike_mode)) %>%
+  bind_cols(complete(imp1, action = 3) %>% select(cas_mode, strike_mode) %>% 
+              rename(cas_mode_3rd = cas_mode, strike_mode_3rd = strike_mode)) %>%   bind_cols(complete(imp1, action = 4) %>% select(cas_mode, strike_mode) %>% 
+              rename(cas_mode_4th = cas_mode, strike_mode_4th = strike_mode)) %>%
+  bind_cols(complete(imp1, action = 5) %>% select(cas_mode, strike_mode) %>% 
+              rename(cas_mode_5th = cas_mode, strike_mode_5th = strike_mode))
+ 
+# Comparing imputations 
+# table(delhi3$cas_mode_original, delhi3$cas_mode, useNA = "always")
+# table(delhi3$strike_mode_original, delhi3$strike_mode, useNA = "always")
+# table(delhi3$strike_mode_original, delhi3$strike_mode_2nd, useNA = "always")
+
+# Recode cas_mode and strike_mode
+whw <- delhi3 %>% 
+  mutate(cas_mode = smodes$exhaustive_list[match(tolower(cas_mode),
+                                                 smodes$original)],
+         strike_mode = smodes$exhaustive_list[match(tolower(strike_mode),
+                                                    smodes$original)],
+         cas_mode_2nd = smodes$exhaustive_list[match(tolower(cas_mode_2nd),
+                                                 smodes$original)],
+         strike_mode_2nd = smodes$exhaustive_list[match(tolower(strike_mode_2nd),
+                                                    smodes$original)],
+         cas_mode_3rd = smodes$exhaustive_list[match(tolower(cas_mode_3rd),
+                                                     smodes$original)],
+         strike_mode_3rd = smodes$exhaustive_list[match(tolower(strike_mode_3rd),
+                                                        smodes$original)],
+         cas_mode_4th = smodes$exhaustive_list[match(tolower(cas_mode_4th),
+                                                     smodes$original)],
+         strike_mode_4th = smodes$exhaustive_list[match(tolower(strike_mode_4th),
+                                                        smodes$original)],
+         cas_mode_5th = smodes$exhaustive_list[match(tolower(cas_mode_5th),
+                                                     smodes$original)],
+         strike_mode_5th = smodes$exhaustive_list[match(tolower(strike_mode_5th),
+                                                        smodes$original)],
+         weight = 3) # Weight is 3 because these injuries are from 2012-2014
+
+# Comparing frequencies after recoding
+table(delhi3$cas_mode, useNA = "always")
+table(whw$cas_mode, useNA = "always")
+table(delhi3$strike_mode, useNA = "always")
+table(whw$strike_mode, useNA = "always")
+
+# Check if all modes are correctly recoded
+unique(whw$cas_mode) %in% smodes$exhaustive_list
+unique(whw$cas_mode_2nd) %in% smodes$exhaustive_list
+unique(whw$cas_mode_3rd) %in% smodes$exhaustive_list
+unique(whw$cas_mode_4th) %in% smodes$exhaustive_list
+unique(whw$cas_mode_5th) %in% smodes$exhaustive_list
+unique(whw$strike_mode) %in% smodes$exhaustive_list
+unique(whw$strike_mode_2nd) %in% smodes$exhaustive_list
+unique(whw$strike_mode_3rd) %in% smodes$exhaustive_list
+unique(whw$strike_mode_4th) %in% smodes$exhaustive_list
+unique(whw$strike_mode_5th) %in% smodes$exhaustive_list
+
 injury_file <- 'injuries_delhi.csv'
-write.csv(injuries,paste0('inst/extdata/local/delhi/',injury_file))
+write.csv(whw,paste0('inst/extdata/local/delhi/',injury_file))
+
