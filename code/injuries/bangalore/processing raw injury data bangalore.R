@@ -2,6 +2,8 @@
 library(tidyverse)
 library(mice)
 
+rm(list = ls());gc()
+
 path <- 'code/injuries/bangalore'
 bangalore <- read.csv(paste0(path, '/bengaluru_city_2011.csv'))
 head(bangalore)
@@ -151,10 +153,15 @@ unique(bangalore$strk_type)
 # Transforming "unknown" and "unspecified" to NA
 bangalore2 <- bangalore %>% 
   mutate(cas_age = as.numeric(vic_age),
-         cas_gender = factor(ifelse(vic_sex %in% c("M", "F"), vic_sex, NA)),
+         cas_gender = factor(ifelse(vic_sex == "M", "male", 
+                                    ifelse(vic_sex == "F", "female", NA))),
          cas_mode = factor(ifelse(cas_type == "Unknown", NA, cas_type)),
          strike_mode = factor(ifelse(strk_type %in% c("Unknown", "unspecified"),
                                      NA, strk_type)))
+
+# table(bangalore2$vic_sex, bangalore2$cas_gender, useNA = "always")
+# table(bangalore2$cas_type, bangalore2$cas_mode, useNA = "always")
+# table(bangalore2$strk_type, bangalore2$strike_mode, useNA = "always")
 
 # There are 75 missing values in cas_gender, 275 in cas_age and 298 in strike mode
 md.pattern(bangalore2)
@@ -199,11 +206,11 @@ bangalore3 <- bangalore2 %>%
 # View(table(bangalore3$cas_age_original, bangalore3$cas_age, useNA = "always"))
 # table(bangalore3$cas_gender_original, bangalore3$cas_gender, useNA = "always")
 # table(bangalore3$strike_mode_original, bangalore3$strike_mode, useNA = "always")
-# table(bangalore3$strike_mode_original, bangalore3$strike_mode_2nd, 
+# table(bangalore3$strike_mode_original, bangalore3$strike_mode_2nd,
 #       useNA = "always")
 
 # Recode cas_mode and strike_mode
-whw <- bangalore3 %>% 
+bangalore4 <- bangalore3 %>% 
   mutate(cas_mode = smodes$exhaustive_list[match(tolower(cas_mode),
                                                  smodes$original)],
          strike_mode = smodes$exhaustive_list[match(tolower(strike_mode),
@@ -218,18 +225,18 @@ whw <- bangalore3 %>%
                                                         smodes$original)])
 
 # Comparing frequencies after recoding
-table(bangalore3$cas_mode, useNA = "always")
-table(whw$cas_mode, useNA = "always")
-table(bangalore3$strike_mode, useNA = "always")
-table(whw$strike_mode, useNA = "always")
+# table(bangalore3$cas_mode, useNA = "always")
+# table(bangalore4$cas_mode, useNA = "always")
+# table(bangalore3$strike_mode, useNA = "always")
+# table(bangalore4$strike_mode, useNA = "always")
 
 # Check if all modes are correctly recoded
-unique(whw$cas_mode) %in% smodes$exhaustive_list
-unique(whw$strike_mode) %in% smodes$exhaustive_list
-unique(whw$strike_mode_2nd) %in% smodes$exhaustive_list
-unique(whw$strike_mode_3rd) %in% smodes$exhaustive_list
-unique(whw$strike_mode_4th) %in% smodes$exhaustive_list
-unique(whw$strike_mode_5th) %in% smodes$exhaustive_list
+unique(bangalore4$cas_mode) %in% smodes$exhaustive_list
+unique(bangalore4$strike_mode) %in% smodes$exhaustive_list
+unique(bangalore4$strike_mode_2nd) %in% smodes$exhaustive_list
+unique(bangalore4$strike_mode_3rd) %in% smodes$exhaustive_list
+unique(bangalore4$strike_mode_4th) %in% smodes$exhaustive_list
+unique(bangalore4$strike_mode_5th) %in% smodes$exhaustive_list
 
 injury_file <- 'injuries_bangalore.csv'
-write.csv(whw, paste0('inst/extdata/local/bangalore/', injury_file))
+write.csv(bangalore4, paste0('inst/extdata/local/bangalore/', injury_file))
