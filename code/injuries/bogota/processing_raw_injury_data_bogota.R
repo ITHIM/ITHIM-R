@@ -1,6 +1,8 @@
 library(tidyverse)
 library(mice)
 
+rm(list = ls());gc()
+
 path <- file.path('code/injuries/bogota/')
 icd_codes <- read.csv(paste0(path,'/icd_code_look_up_table_row_column.csv'))
 
