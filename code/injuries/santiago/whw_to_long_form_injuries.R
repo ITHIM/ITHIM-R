@@ -95,7 +95,7 @@ injuries3 <- injuries2 %>%
 # table(injuries3$strike_mode_original, injuries3$strike_mode_2nd, useNA = "always")
 
 # Recode cas_mode and strike_mode
-whw <- injuries3 %>% 
+injuries4 <- injuries3 %>% 
   mutate(cas_mode = smodes$exhaustive_list[match(tolower(cas_mode),
                                                  smodes$original)],
          strike_mode = smodes$exhaustive_list[match(tolower(strike_mode),
@@ -119,24 +119,24 @@ whw <- injuries3 %>%
 
 # Comparing frequencies after recoding
 table(injuries3$cas_mode, useNA = "always")
-table(whw$cas_mode, useNA = "always")
+table(injuries4$cas_mode, useNA = "always")
 table(injuries3$strike_mode, useNA = "always")
-table(whw$strike_mode, useNA = "always")
+table(injuries4$strike_mode, useNA = "always")
 
 # Check if all modes are correctly recoded
-unique(whw$cas_mode) %in% smodes$exhaustive_list
-unique(whw$cas_mode_2nd) %in% smodes$exhaustive_list
-unique(whw$cas_mode_3rd) %in% smodes$exhaustive_list
-unique(whw$cas_mode_4th) %in% smodes$exhaustive_list
-unique(whw$cas_mode_5th) %in% smodes$exhaustive_list
-unique(whw$strike_mode) %in% smodes$exhaustive_list
-unique(whw$strike_mode_2nd) %in% smodes$exhaustive_list
-unique(whw$strike_mode_3rd) %in% smodes$exhaustive_list
-unique(whw$strike_mode_4th) %in% smodes$exhaustive_list
-unique(whw$strike_mode_5th) %in% smodes$exhaustive_list
+unique(injuries4$cas_mode) %in% smodes$exhaustive_list
+unique(injuries4$cas_mode_2nd) %in% smodes$exhaustive_list
+unique(injuries4$cas_mode_3rd) %in% smodes$exhaustive_list
+unique(injuries4$cas_mode_4th) %in% smodes$exhaustive_list
+unique(injuries4$cas_mode_5th) %in% smodes$exhaustive_list
+unique(injuries4$strike_mode) %in% smodes$exhaustive_list
+unique(injuries4$strike_mode_2nd) %in% smodes$exhaustive_list
+unique(injuries4$strike_mode_3rd) %in% smodes$exhaustive_list
+unique(injuries4$strike_mode_4th) %in% smodes$exhaustive_list
+unique(injuries4$strike_mode_5th) %in% smodes$exhaustive_list
 
 injury_file <- 'injuries_santiago.csv'
-write.csv(whw, paste0('inst/extdata/local/santiago/', injury_file))
+write.csv(injuries4, paste0('inst/extdata/local/santiago/', injury_file))
 
 
 
