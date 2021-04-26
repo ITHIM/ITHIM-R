@@ -2,7 +2,7 @@
 require(tidyverse)
 
 #Read raw sp injuries
-rd <- read_csv("inst/extdata/local/sao_paulo/sao_paulo_processed_2009_2013.csv")
+rd <- read_csv("data/local/sao_paulo/sao_paulo_processed_2009_2013.csv")
 
 # Convert to the required structure
 # Make sure that we have the all required variables
@@ -43,6 +43,8 @@ rd$cas_gender[rd$cas_gender=='no'] <- 'Female'
 # 5. sample with replacement to replace NA for casualty age and casualty gender
 rd$cas_gender[is.na(rd$cas_gender)] <- sample(rd$cas_gender[!is.na(rd$cas_gender)],sum(is.na(rd$cas_gender)),replace=T)
 rd$cas_age[is.na(rd$cas_age)] <- sample(rd$cas_age[!is.na(rd$cas_age)],sum(is.na(rd$cas_age)),replace=T)
+
+##impute NA in strike mode
 
 # 6. save
 write.csv(rd,"inst/extdata/local/sao_paulo/injuries_sao_paulo.csv")

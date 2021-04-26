@@ -47,7 +47,7 @@ imp1
 
 # Save object with imputation
 saveRDS(imp1, file = "code/injuries/cape_town/imputed.RDS") 
-# imp1 <- readRDS("code/injuries/cape_town/imputed.RDS")
+#imp1 <- readRDS("code/injuries/cape_town/imputed.RDS")
 
 # First try: computing the mode from 100 imputed values in each variable
 # Create the function to get the mode, from here https://www.tutorialspoint.com/r/r_mean_median_mode.htm
