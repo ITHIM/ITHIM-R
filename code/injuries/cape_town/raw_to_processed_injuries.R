@@ -1,14 +1,13 @@
 # Load libraries
 library(tidyverse)
 library(mice)
-library(hot.deck)
 
 # Set filepath
 file_path <- file.path('data/local/cape_town/injuries_cape_town.csv')
 
 # Read
 whw <- read_csv(file_path)
-
+unique(whw$year)
 # Remove unused columns
 whw$X1 <- whw$year <- NULL
 
@@ -16,13 +15,13 @@ whw$X1 <- whw$year <- NULL
 whw <- whw %>% rename(cas_gender = cas_sex)
 
 # Add weight column
-whw$weight <- 4
+#whw$weight <- 4
+whw$weight <- 5 # Weight is 5 because there's data from 2012 to 2016
 
 # Read lookup table
 smodes <- read_csv('data/global/modes/standardized_modes.csv')
 # Separate rows 
 smodes <- smodes %>% separate_rows(original, sep = ';')
-
 # Trim
 smodes <- smodes %>% 
   mutate(across(where(is.character), str_trim))
@@ -34,6 +33,11 @@ whw2 <- whw %>% mutate(
   strike_mode = factor(ifelse(strike_mode == "unknown", NA, strike_mode))
 )
 
+table(whw$cas_mode, useNA = "always")
+table(whw2$cas_mode, useNA = "always")
+table(whw$strike_mode, useNA = "always")
+table(whw2$strike_mode, useNA = "always")
+
 # There are 2 age missing, 47 cas_mode and 141 strike mode missing.
 md.pattern(whw2)
 
@@ -41,101 +45,73 @@ md.pattern(whw2)
 md.pairs(whw2)
 
 # imputation
-imp1 <- mice(whw2, m = 100, seed = 12345)
+imp1 <- mice(whw2, m = 5, seed = 12345)
 imp1
-#names(imp1$imp$cas_age)
+# Adding imputed rows to Cape Town's dataset. The original columns (with missing
+# values) are kept in the dataset with sufix "_original". And the first run of
+# imputation is saved in cas_mode and strike_mode. From second to fifth
+# imputation are also saved with the sufix "_2nd", to "5th".
+whw3 <- whw2 %>% 
+  rename(cas_mode_original = cas_mode,
+         strike_mode_original = strike_mode) %>% 
+  bind_cols(complete(imp1) %>% select(cas_mode, strike_mode)) %>%
+  bind_cols(complete(imp1, action = 2) %>% select(cas_mode, strike_mode) %>% 
+              rename(cas_mode_2nd = cas_mode, strike_mode_2nd = strike_mode)) %>%
+  bind_cols(complete(imp1, action = 3) %>% select(cas_mode, strike_mode) %>% 
+              rename(cas_mode_3rd = cas_mode, strike_mode_3rd = strike_mode)) %>%   bind_cols(complete(imp1, action = 4) %>% select(cas_mode, strike_mode) %>% 
+                                                                                                rename(cas_mode_4th = cas_mode, strike_mode_4th = strike_mode)) %>%
+  bind_cols(complete(imp1, action = 5) %>% select(cas_mode, strike_mode) %>% 
+              rename(cas_mode_5th = cas_mode, strike_mode_5th = strike_mode))
 
-# Save object with imputation
-saveRDS(imp1, file = "code/injuries/cape_town/imputed.RDS") 
-#imp1 <- readRDS("code/injuries/cape_town/imputed.RDS")
+# Comparing imputations 
+table(whw3$cas_mode_original, whw3$cas_mode, useNA = "always")
+table(whw3$strike_mode_original, whw3$strike_mode, useNA = "always")
+table(whw3$strike_mode_original, whw3$strike_mode_2nd, useNA = "always")
 
-# First try: computing the mode from 100 imputed values in each variable
-# Create the function to get the mode, from here https://www.tutorialspoint.com/r/r_mean_median_mode.htm
-getmode <- function(v) {
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}
+# Recode cas_mode and strike_mode
+whw4 <- whw3 %>% 
+  mutate(cas_mode = smodes$exhaustive_list[match(tolower(cas_mode),
+                                                 smodes$original)],
+         strike_mode = smodes$exhaustive_list[match(tolower(strike_mode),
+                                                    smodes$original)],
+         cas_mode_2nd = smodes$exhaustive_list[match(tolower(cas_mode_2nd),
+                                                     smodes$original)],
+         strike_mode_2nd = smodes$exhaustive_list[match(tolower(strike_mode_2nd),
+                                                        smodes$original)],
+         cas_mode_3rd = smodes$exhaustive_list[match(tolower(cas_mode_3rd),
+                                                     smodes$original)],
+         strike_mode_3rd = smodes$exhaustive_list[match(tolower(strike_mode_3rd),
+                                                        smodes$original)],
+         cas_mode_4th = smodes$exhaustive_list[match(tolower(cas_mode_4th),
+                                                     smodes$original)],
+         strike_mode_4th = smodes$exhaustive_list[match(tolower(strike_mode_4th),
+                                                        smodes$original)],
+         cas_mode_5th = smodes$exhaustive_list[match(tolower(cas_mode_5th),
+                                                     smodes$original)],
+         strike_mode_5th = smodes$exhaustive_list[match(tolower(strike_mode_5th),
+                                                        smodes$original)],
+         weight = 3) # Weight is 3 because these injuries are from 2012-2014
 
-# Impute mode in age
-cas_age <- imp1$imp$cas_age %>% rownames_to_column("id") 
-cas_age$impute <- apply(cas_age[2:ncol(cas_age)], 1, getmode)
-
-# Impute mode in cas_mode
-cas_mode <- imp1$imp$cas_mode %>% rownames_to_column("id") 
-cas_mode$impute <- apply(cas_mode[2:ncol(cas_mode)], 1, getmode)
-
-# Impute mode in strike_mode
-strike_mode <- imp1$imp$strike_mode %>% rownames_to_column("id") 
-strike_mode$impute <- apply(strike_mode[2:ncol(strike_mode)], 1, getmode)
-
-# Create a dataset with the imputations using different methods
-whw3 <- whw2
-# Create copies of original values
-whw3$cas_age_imp1 <- whw3$cas_age
-whw3$cas_mode_imp1 <- whw3$cas_mode
-whw3$strike_mode_imp1 <- whw3$strike_mode
-whw3[cas_age$id, "cas_age_imp1"] <- cas_age$impute
-whw3[cas_mode$id, "cas_mode_imp1"] <- cas_mode$impute
-whw3[strike_mode$id, "strike_mode_imp1"] <- strike_mode$impute
-
-# Check these values were indeed imputed
-# summary(whw2$cas_age); summary(whw3$cas_age)
-# table(whw2$cas_mode, useNA = "always");table(whw3$cas_mode, useNA = "always")
-# table(whw2$strike_mode, useNA = "always");table(whw3$strike_mode,useNA = "always")
-
-
-# Second try: Adding imputations from the first imputed dataset using mice
-names(imputed)
-imputed <- complete(imp1) %>% select(cas_age, cas_mode, strike_mode) %>% 
-  rename(cas_age_imp2 = cas_age,
-         cas_mode_imp2 = cas_mode,
-         strike_mode_imp2 = strike_mode)
-
-whw3 <- whw3 %>% bind_cols(imputed)
-
-# Third try: Adding imputations from the first imputed dataset using hotdeck
-imp2 <- hot.deck(as.data.frame(whw2))
-# Save object with imputation
-saveRDS(imp2, file = "code/injuries/cape_town/imputed_hotdeck.RDS") 
-
-imputed2 <- imp2$data[[1]] %>% select(cas_age, cas_mode, strike_mode) %>% 
-  rename(cas_age_imp3 = cas_age,
-         cas_mode_imp3 = cas_mode,
-         strike_mode_imp3 = strike_mode)
-
-whw3 <- whw3 %>% bind_cols(imputed2)
-
-# Recode cas mode
-whw <- whw3
-whw$cas_mode <- smodes$exhaustive_list[match(tolower(whw$cas_mode),
-                                             smodes$original)]
-whw$cas_mode_imp1 <- smodes$exhaustive_list[match(tolower(whw$cas_mode_imp1),
-                                             smodes$original)]
-whw$cas_mode_imp2 <- smodes$exhaustive_list[match(tolower(whw$cas_mode_imp2),
-                                                  smodes$original)]
-whw$cas_mode_imp3 <- smodes$exhaustive_list[match(tolower(whw$cas_mode_imp3),
-                                                  smodes$original)]
-
-# Recode strike mode
-whw$strike_mode <- smodes$exhaustive_list[match(tolower(whw$strike_mode),
-                                                smodes$original)]
-whw$strike_mode_imp1 <- smodes$exhaustive_list[
-  match(tolower(whw$strike_mode_imp1), smodes$original)]
-whw$strike_mode_imp2 <- smodes$exhaustive_list[
-  match(tolower(whw$strike_mode_imp2), smodes$original)]
-whw$strike_mode_imp3 <- smodes$exhaustive_list[
-  match(tolower(whw$strike_mode_imp3), smodes$original)]
+# Comparing frequencies after recoding
+table(whw3$cas_mode, useNA = "always")
+table(whw4$cas_mode, useNA = "always")
+table(whw3$strike_mode, useNA = "always")
+table(whw4$strike_mode, useNA = "always")
 
 # Check if all modes are correctly recoded
-unique(whw$cas_mode) %in% smodes$exhaustive_list
-unique(whw$cas_mode_imp1) %in% smodes$exhaustive_list
-unique(whw$cas_mode_imp2) %in% smodes$exhaustive_list
-unique(whw$cas_mode_imp3) %in% smodes$exhaustive_list
-unique(whw$strike_mode) %in% smodes$exhaustive_list
-unique(whw$strike_mode_imp1) %in% smodes$exhaustive_list
-unique(whw$strike_mode_imp2) %in% smodes$exhaustive_list
-unique(whw$strike_mode_imp3) %in% smodes$exhaustive_list
+unique(whw4$cas_mode) %in% smodes$exhaustive_list
+unique(whw4$cas_mode_2nd) %in% smodes$exhaustive_list
+unique(whw4$cas_mode_3rd) %in% smodes$exhaustive_list
+unique(whw4$cas_mode_4th) %in% smodes$exhaustive_list
+unique(whw4$cas_mode_5th) %in% smodes$exhaustive_list
+unique(whw4$strike_mode) %in% smodes$exhaustive_list
+unique(whw4$strike_mode_2nd) %in% smodes$exhaustive_list
+unique(whw4$strike_mode_3rd) %in% smodes$exhaustive_list
+unique(whw4$strike_mode_4th) %in% smodes$exhaustive_list
+unique(whw4$strike_mode_5th) %in% smodes$exhaustive_list
 
 # Save file
-write_csv(whw, 'inst/extdata/local/cape_town/injuries_cape_town.csv')
+injury_file <- 'injuries_cape_town.csv'
+write.csv(whw,paste0('inst/extdata/local/cape_town/',injury_file))
+
 
