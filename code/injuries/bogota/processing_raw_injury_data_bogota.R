@@ -552,7 +552,7 @@ vic3 <- vic2 %>%
 # table(vic3$strike_mode_original, vic3$strike_mode_2nd, useNA = "always")
 
 # Recode cas_mode and strike_mode
-whw <- vic3 %>% 
+vic4 <- vic3 %>% 
   mutate(cas_mode = smodes$exhaustive_list[match(tolower(cas_mode),
                                                  smodes$original)],
          strike_mode = smodes$exhaustive_list[match(tolower(strike_mode),
@@ -568,19 +568,19 @@ whw <- vic3 %>%
 
 # Comparing frequencies after recoding
 table(vic3$cas_mode, useNA = "always")
-table(whw$cas_mode, useNA = "always")
+table(vic4$cas_mode, useNA = "always")
 table(vic3$strike_mode, useNA = "always")
-table(whw$strike_mode, useNA = "always")
+table(vic4$strike_mode, useNA = "always")
 
 # Check if all modes are correctly recoded
-unique(whw$cas_mode) %in% smodes$exhaustive_list
-unique(whw$strike_mode) %in% smodes$exhaustive_list
-unique(whw$strike_mode_2nd) %in% smodes$exhaustive_list
-unique(whw$strike_mode_3rd) %in% smodes$exhaustive_list
-unique(whw$strike_mode_4th) %in% smodes$exhaustive_list
-unique(whw$strike_mode_5th) %in% smodes$exhaustive_list
+unique(vic4$cas_mode) %in% smodes$exhaustive_list
+unique(vic4$strike_mode) %in% smodes$exhaustive_list
+unique(vic4$strike_mode_2nd) %in% smodes$exhaustive_list
+unique(vic4$strike_mode_3rd) %in% smodes$exhaustive_list
+unique(vic4$strike_mode_4th) %in% smodes$exhaustive_list
+unique(vic4$strike_mode_5th) %in% smodes$exhaustive_list
 
 
-injury_file <- 'bogota_injuries.csv'
-write.csv(whw, paste0('inst/extdata/local/bogota/', injury_file))
+injury_file <- 'injuries_bogota.csv'
+write.csv(vic4, paste0('inst/extdata/local/bogota/', injury_file))
 
