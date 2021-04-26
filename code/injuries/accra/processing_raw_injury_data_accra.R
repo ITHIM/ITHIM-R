@@ -1,6 +1,7 @@
 # Load libraries
 library(tidyverse)
 library(reshape2)
+library(mice)
 
 # Specify cities
 cities <- c('accra')
@@ -9,7 +10,6 @@ cities <- c('accra')
 smodes <- read_csv('data/global/modes/standardized_modes.csv')
 # Separate rows 
 smodes <- smodes %>% separate_rows(original, sep = ';')
-
 # Trim
 smodes <- smodes %>% mutate(across(where(is.character), str_trim))
 
@@ -17,7 +17,8 @@ smodes <- smodes %>% mutate(across(where(is.character), str_trim))
 temp <- list()
 
 # Loop
-for (city in cities){
+#for (city in cities){
+city = cities # Because it's only accra 
   
   # Specify path 
   path <- file.path(paste0('data/local/',city, '/', city, '_injuries.csv'))
@@ -73,6 +74,12 @@ for (city in cities){
     break
   }
   
+  # Check if there are unknown or unspecified modes
+  sum(is.na(whw_lng$cas_mode))
+  sum(is.na(whw_lng$strike_mode))
+  
+  # Since there are no unknown or unspecified modes, there's no need to impute
+  
   # Recode cas mode to standard mode
   whw_lng$cas_mode <- smodes$inj_vic_lng[match(tolower(whw_lng$cas_mode), smodes$original)]
   
@@ -90,4 +97,4 @@ for (city in cities){
   
   # Write file to the right folder
   write_csv(whw_lng, paste0('inst/extdata/local/',city, '/', injury_file))
-}
+#}
