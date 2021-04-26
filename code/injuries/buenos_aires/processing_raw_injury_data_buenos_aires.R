@@ -5,7 +5,7 @@ vic<- read.csv('data/local/buenos_aires/buenos_aires_injuries_NOV.csv')
 ##selecting total
 vic<-vic[,-c(2,3)]
 ##reading bogota's imputed injury data using which we will assign striking vehicles
-bogota<- read.csv('inst/extdata/local/bogota/bogota_injuries.csv')
+bogota<- read.csv('inst/extdata/local/bogota/injuries_bogota.csv')
 
 ##checking to see if the victim mode names are the same as in bogota dataset
 unique(vic$mode)
@@ -32,7 +32,7 @@ names(whw)[1]<-"cas_type"
 ##and create 5 different iterations of striking vehicle type to retain variability
 for (i  in 1: nrow(whw))
 {
-    
+  
   whw$strike_type[i]<- as.character(sample(bogota[which(bogota$cas_mode==whw$cas_type[i]), "strike_mode"],1))
   whw$strike_type2[i]<- as.character(sample(bogota[which(bogota$cas_mode==whw$cas_type[i]), "strike_mode"],1))
   whw$strike_type3[i]<- as.character(sample(bogota[which(bogota$cas_mode==whw$cas_type[i]), "strike_mode"],1))
@@ -41,4 +41,4 @@ for (i  in 1: nrow(whw))
   
 }
 
-write.csv(whw, 'inst/extdata/local/buenos_aires/buenoes_aires_injuries.csv')
+write.csv(whw, 'inst/extdata/local/buenos_aires/injuries_buenos_aires.csv')
