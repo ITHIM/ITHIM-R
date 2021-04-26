@@ -198,6 +198,6 @@ unique(whw$strike_mode_3rd) %in% smodes$exhaustive_list
 unique(whw$strike_mode_4th) %in% smodes$exhaustive_list
 unique(whw$strike_mode_5th) %in% smodes$exhaustive_list
 
-injury_file <- 'vizag_injuries.csv'
+injury_file <- 'injuries_vizag.csv'
 write.csv(whw, paste0('inst/extdata/local/vizag/', injury_file))
 
