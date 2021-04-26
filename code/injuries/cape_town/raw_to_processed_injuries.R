@@ -112,6 +112,6 @@ unique(whw4$strike_mode_5th) %in% smodes$exhaustive_list
 
 # Save file
 injury_file <- 'injuries_cape_town.csv'
-write.csv(whw,paste0('inst/extdata/local/cape_town/',injury_file))
+write.csv(whw4,paste0('inst/extdata/local/cape_town/',injury_file))
 
 
