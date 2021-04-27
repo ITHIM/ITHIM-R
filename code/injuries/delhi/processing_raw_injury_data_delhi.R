@@ -2,7 +2,7 @@
 library(tidyverse)
 library(mice)
 
-path<- 'code/injuries/delhi'
+path<- 'data/local/delhi'
 delhi1316<-read.csv(paste0(path,'/delhi_2013-2016.csv'))
 delhi1012<-read.csv(paste0(path,'/delhi_2010-2012.csv'))
 delhi0609<-read.csv(paste0(path,'/delhi_2006-2009.csv'))

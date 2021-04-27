@@ -4,7 +4,7 @@ library(mice)
 
 rm(list = ls());gc()
 
-path <- 'code/injuries/bangalore'
+path <- 'data/local/bangalore'
 bangalore <- read.csv(paste0(path, '/bengaluru_city_2011.csv'))
 head(bangalore)
 bangalore <- subset(bangalore, select = c('Accident_Index', 'Accident_Severity',

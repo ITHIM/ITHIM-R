@@ -2,7 +2,7 @@
 library(tidyverse)
 library(mice)
 
-path <- file.path('code/injuries/vizag/')
+path <- file.path('data/local/vizag/')
 icd_codes <- read.csv(paste0(path, '/icd_code_look_up_table_row_column.csv'))
 hier <- read.csv(paste0(path,'/striking_vehicle_hierarchy_lookup.csv'))
 accident <- read.csv(paste0(path,'/accident.csv'))
