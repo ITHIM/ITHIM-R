@@ -113,17 +113,19 @@ smodes <- smodes %>% separate_rows(original, sep = ';')
 # Trim
 smodes <- smodes %>% mutate(across(where(is.character), str_trim))
 
+#unique(victim$year)
 #unique(victim$cas_type)
 #unique(victim$strk_type)
 # Transforming "unknown" and "unspecified" to NA
 victim2 <- victim %>% 
-  mutate(cas_mode = factor(ifelse(cas_type == "Unknown", NA, cas_type)),
+  mutate(year = as.numeric(year),
+         cas_mode = factor(ifelse(cas_type == "Unknown", NA, cas_type)),
          strike_mode = factor(ifelse(strk_type %in% c("Unknown", "unspecified"),
                                      NA, strk_type)))
 #table(victim2$cas_type, victim2$cas_mode, useNA = "always")
 #table(victim2$strk_type, victim2$strike_mode, useNA = "always")
 
-# There are 486 missing values in strike mode.
+# There are 486 missing values in strike mode and 1 in year
 md.pattern(victim2)
 # 486/1208 # 40% missing values
 
@@ -140,17 +142,18 @@ imp1
 # imputation is saved in cas_mode and strike_mode. From second to fifth
 # imputation are also saved with the suffix "_2nd", to "5th".
 victim3 <- victim2 %>% 
-  rename(cas_mode_original = cas_mode,
+  rename(year_original = year,
+         cas_mode_original = cas_mode,
          strike_mode_original = strike_mode) %>% 
-  bind_cols(complete(imp1) %>% select(cas_mode, strike_mode)) %>%
-  bind_cols(complete(imp1, action = 2) %>% select(cas_mode, strike_mode) %>% 
-              rename(cas_mode_2nd = cas_mode, strike_mode_2nd = strike_mode)) %>%
-  bind_cols(complete(imp1, action = 3) %>% select(cas_mode, strike_mode) %>% 
-              rename(cas_mode_3rd = cas_mode, strike_mode_3rd = strike_mode)) %>% 
-  bind_cols(complete(imp1, action = 4) %>% select(cas_mode, strike_mode) %>% 
-              rename(cas_mode_4th = cas_mode, strike_mode_4th = strike_mode)) %>%
-  bind_cols(complete(imp1, action = 5) %>% select(cas_mode, strike_mode) %>% 
-              rename(cas_mode_5th = cas_mode, strike_mode_5th = strike_mode))
+  bind_cols(complete(imp1) %>% select(year, strike_mode)) %>%
+  bind_cols(complete(imp1, action = 2) %>% select(year, strike_mode) %>% 
+              rename(year_2nd = year, strike_mode_2nd = strike_mode)) %>%
+  bind_cols(complete(imp1, action = 3) %>% select(year, strike_mode) %>% 
+              rename(year_3rd = year, strike_mode_3rd = strike_mode)) %>% 
+  bind_cols(complete(imp1, action = 4) %>% select(year, strike_mode) %>% 
+              rename(year_4th = year, strike_mode_4th = strike_mode)) %>%
+  bind_cols(complete(imp1, action = 5) %>% select(year, strike_mode) %>% 
+              rename(year_5th = year, strike_mode_5th = strike_mode))
 
 # Comparing imputations 
 # table(victim3$strike_mode_original, victim3$strike_mode, useNA = "always")
