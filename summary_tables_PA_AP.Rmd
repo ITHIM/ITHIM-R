@@ -34,8 +34,8 @@ library(ggplot2)  #loading ggplot package for plotting graphs
 library(knitr)     
 library(tidyr)
 library(dplyr)
-library(plotly)
-library(htmltools)
+#library(plotly)
+#library(htmltools)
 
 ```
 
@@ -362,4 +362,98 @@ for (x in 1: length(cities))
 <!-- } -->
 <!-- ``` -->
 
+
+
+# **2nd option**
+
+# PM 2.5 summary and CO2
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+# I have to keep the first chunk of code to run this part
+# high<- c(70, 25, 150,60)
+# low<- c(40,15,100,40)
+# l <- htmltools::tagList()
+for (x in 1:length(cities)) {
+  # print(cities[x])
+  cat("\n \n")
+  cat( paste0('## **', cities[x], '** \n' )) 
+  # Emission inventory
+  modes <- names(unlist(io[[cities[x]]]$PM_emission_inventory))
+  emissions <- as.data.frame(unlist(io[[cities[x]]]$PM_emission_inventory))
+  city_emissions <- cbind(as.data.frame(modes),                           as.data.frame(emissions$`unlist(io[[cities[x]]]$PM_emission_inventory)`))
+  names(city_emissions)[2] <- "emissions"
+  select <- c("car", "motorcycle", "bus_driver", "truck", "big_truck")
+  city_emissions$modes <- as.character(city_emissions$modes)
+  city_emissions$modes[!(city_emissions$modes %in% select)] <- "other"
+  summary <- city_emissions %>% group_by(modes) %>% summarise(sum(emissions))
+  names(summary)[2] <- cities[x]
+  summary[[cities[x]]] <- round(summary[[cities[x]]]*100/sum(summary[[cities[x]]]), digits = 1)
+  summary <- as.data.frame(summary)
+  summary[nrow(summary)+1,1] <- "Transport share"
+  summary[nrow(summary),2] <- as.character(round(pm_trans_share[[cities[x]]] * 100))
+  summary[nrow(summary)+1,1] <- "PM2.5 Conc"
+  summary[nrow(summary),2] <- as.character(pm_conc_base[[cities[x]]])
+  io[[cities[x]]]$summary_emission <- summary
+  
+   
+  # PM 2.5 table and plot
+  names(io[[cities[x]]]$outcomes$pm_conc_pp)[6:11] <- c("Baseline","Walking",
+                                                        "Bicycling", "Driving",
+                                                        "Motorcycling", 
+                                                        "Public Transport")
+  data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc,
+                      Baseline:`Public Transport`, factor_key = TRUE)
+  
+  summary2 <- as.data.frame(data_long %>% group_by(scenario) %>%
+                             summarise('mean' = mean(pm_conc),
+                                       '5th' = quantile(pm_conc, 0.05),
+                                       '50th' = quantile(pm_conc, 0.5),
+                                       '95th' = quantile(pm_conc, 0.9)))
+  summary2 <- cbind(summary2$scenario, round(summary2[,2:5], digits = 1))
+  summary2$change_PM <- round(io[[cities[x]]]$outcomes$scenario_pm - io[[cities[x]]]$outcomes$scenario_pm[1], digits = 2)
+  names(summary2)[1] <- "Scenario"
+  
+  # Plot
+  y <- ggplot(data_long, aes(x = scenario, y = pm_conc, fill = scenario)) +
+    geom_boxplot(outlier.shape = 8) + ggtitle(cities[x]) +
+    labs(y = "Daily PM2.5 Concentration", x = "Scenarios")
+  
+  # CO2
+  td <- round(colSums(io[[cities[x]]]$outcomes$co2_conc, na.rm = T), 1) %>%
+    as.data.frame() %>% tibble::rownames_to_column()
+  #names(td) <- c('Scenario', cities[x])
+  names(td) <- c('Scenario', 'CO2')
+  td$Scenario <- c("Baseline","Walking", "Bicycling", "Driving", "Motorcycling",
+                   "Public Transport")
+  
+  cat("\n \n")
+  cat( paste('#### Boxplot of Individual-level PM2.5 concentrations \n' ))
+  print(y)
+  
+  cat("\n \n")
+  cat( paste('#### Emission inventory \n' )) 
+  print(kable(summary))
+  
+  cat("\n \n")
+  cat( paste('#### Descriptive table of Individual-level PM2.5 concentrations and CO2 emissions\n' ))
+  print(kable(cbind(summary2, td), caption = cities[x]))
+  
+}
+```
+
+# Boxplots of Individual-level Physical activity (MMETs)
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+limit = 100
+for (x in 1:length(cities)) {
+  names(io[[cities[x]]]$outcomes$mmets)[5:10] <- c("Baseline","Walking",
+                                                   "Bicycling", "Driving",
+                                                   "Motorcycling", 
+                                                   "Public Transport")
+  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:`Public Transport`, factor_key = TRUE)
+  y <- ggplot(data_long, aes(x = scenario, y = mmet, fill = scenario)) + geom_boxplot(outlier.shape = NA) + ggtitle(cities[x]) + 
+    labs(y = "Weekly MMET", x = "Scenarios") + ylim(0, limit)
+  print(y)
+  
+}
+```
 
