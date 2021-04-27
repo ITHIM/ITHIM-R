@@ -143,16 +143,15 @@ imp1
 # imputation are also saved with the suffix "_2nd", to "5th".
 victim3 <- victim2 %>% 
   rename(year_original = year,
-         cas_mode_original = cas_mode,
          strike_mode_original = strike_mode) %>% 
-  bind_cols(complete(imp1) %>% select(year, strike_mode)) %>%
-  bind_cols(complete(imp1, action = 2) %>% select(year, strike_mode) %>% 
+  bind_cols(complete(imp1) %>% dplyr::select(year, strike_mode)) %>%
+  bind_cols(complete(imp1, action = 2) %>% dplyr::select(year, strike_mode) %>% 
               rename(year_2nd = year, strike_mode_2nd = strike_mode)) %>%
-  bind_cols(complete(imp1, action = 3) %>% select(year, strike_mode) %>% 
+  bind_cols(complete(imp1, action = 3) %>% dplyr::select(year, strike_mode) %>% 
               rename(year_3rd = year, strike_mode_3rd = strike_mode)) %>% 
-  bind_cols(complete(imp1, action = 4) %>% select(year, strike_mode) %>% 
+  bind_cols(complete(imp1, action = 4) %>% dplyr::select(year, strike_mode) %>% 
               rename(year_4th = year, strike_mode_4th = strike_mode)) %>%
-  bind_cols(complete(imp1, action = 5) %>% select(year, strike_mode) %>% 
+  bind_cols(complete(imp1, action = 5) %>% dplyr::select(year, strike_mode) %>% 
               rename(year_5th = year, strike_mode_5th = strike_mode))
 
 # Comparing imputations 
@@ -160,47 +159,35 @@ victim3 <- victim2 %>%
 # table(victim3$strike_mode_original, victim3$strike_mode_2nd, useNA = "always")
 
 # Recode cas_mode and strike_mode
-whw <- victim3 %>% 
+victim4 <- victim3 %>% 
   mutate(cas_mode = smodes$exhaustive_list[match(tolower(cas_mode),
                                                  smodes$original)],
          strike_mode = smodes$exhaustive_list[match(tolower(strike_mode),
                                                     smodes$original)],
-         cas_mode_2nd = smodes$exhaustive_list[match(tolower(cas_mode_2nd),
-                                                     smodes$original)],
          strike_mode_2nd = smodes$exhaustive_list[match(tolower(strike_mode_2nd),
                                                         smodes$original)],
-         cas_mode_3rd = smodes$exhaustive_list[match(tolower(cas_mode_3rd),
-                                                     smodes$original)],
          strike_mode_3rd = smodes$exhaustive_list[match(tolower(strike_mode_3rd),
                                                         smodes$original)],
-         cas_mode_4th = smodes$exhaustive_list[match(tolower(cas_mode_4th),
-                                                     smodes$original)],
          strike_mode_4th = smodes$exhaustive_list[match(tolower(strike_mode_4th),
                                                         smodes$original)],
-         cas_mode_5th = smodes$exhaustive_list[match(tolower(cas_mode_5th),
-                                                     smodes$original)],
          strike_mode_5th = smodes$exhaustive_list[match(tolower(strike_mode_5th),
                                                         smodes$original)],
          weight = 6) # Weight is 6 because these injuries are from 2007-2012
 
 # Comparing frequencies after recoding
 table(victim3$cas_mode, useNA = "always")
-table(whw$cas_mode, useNA = "always")
+table(victim4$cas_mode, useNA = "always")
 table(victim3$strike_mode, useNA = "always")
-table(whw$strike_mode, useNA = "always")
+table(victim4$strike_mode, useNA = "always")
 
 # Check if all modes are correctly recoded
-unique(whw$cas_mode) %in% smodes$exhaustive_list
-unique(whw$cas_mode_2nd) %in% smodes$exhaustive_list
-unique(whw$cas_mode_3rd) %in% smodes$exhaustive_list
-unique(whw$cas_mode_4th) %in% smodes$exhaustive_list
-unique(whw$cas_mode_5th) %in% smodes$exhaustive_list
-unique(whw$strike_mode) %in% smodes$exhaustive_list
-unique(whw$strike_mode_2nd) %in% smodes$exhaustive_list
-unique(whw$strike_mode_3rd) %in% smodes$exhaustive_list
-unique(whw$strike_mode_4th) %in% smodes$exhaustive_list
-unique(whw$strike_mode_5th) %in% smodes$exhaustive_list
+unique(victim4$cas_mode) %in% smodes$exhaustive_list
+unique(victim4$strike_mode) %in% smodes$exhaustive_list
+unique(victim4$strike_mode_2nd) %in% smodes$exhaustive_list
+unique(victim4$strike_mode_3rd) %in% smodes$exhaustive_list
+unique(victim4$strike_mode_4th) %in% smodes$exhaustive_list
+unique(victim4$strike_mode_5th) %in% smodes$exhaustive_list
 
 injury_file <- 'injuries_vizag.csv'
-write.csv(whw, paste0('inst/extdata/local/vizag/', injury_file))
+write.csv(victim4, paste0('inst/extdata/local/vizag/', injury_file))
 
