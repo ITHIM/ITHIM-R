@@ -178,7 +178,7 @@ whw <- victim3 %>%
                                                      smodes$original)],
          strike_mode_5th = smodes$exhaustive_list[match(tolower(strike_mode_5th),
                                                         smodes$original)],
-         weight = 6) # Weight is 6 because these injuries are from 2007-2012
+         weight = 5) # Weight is 6 because these injuries are from 2007-2011 (2012 is just for one data point)
 
 # Comparing frequencies after recoding
 table(victim3$cas_mode, useNA = "always")
