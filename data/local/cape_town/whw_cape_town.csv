@@ -1,9 +1,0 @@
-"","car","truck","bus","motorcycle","other","pedestrian","unknown","bicycle"
-"pedestrian",1488,117,336,32,23,0,62,3
-"motorcycle",180,8,33,1,5,9,7,0
-"car",760,45,125,9,22,16,59,2
-"bus",80,6,7,3,3,3,6,1
-"bicycle",27,4,9,0,0,0,1,0
-"truck",24,3,5,1,1,0,3,0
-"unknown",32,2,7,1,0,1,2,0
-"other",13,0,0,0,0,0,0,0
