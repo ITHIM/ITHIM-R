@@ -52,4 +52,12 @@ for (i  in 1: nrow(whw))
   }
 
 }
-write.csv(whw, 'inst/extdata/local/mexico_city/mexico_city_injuries.csv')
+
+whw <- whw %>% rename(cas_mode = cas_type,
+                      strike_mode = strike_type,
+                      strike_mode_2nd = strike_type2,
+                      strike_mode_3rd = strike_type3,
+                      strike_mode_4th = strike_type4,
+                      strike_mode_5th = strike_type5)
+
+write.csv(whw, 'inst/extdata/local/mexico_city/injuries_mexico_city.csv')
