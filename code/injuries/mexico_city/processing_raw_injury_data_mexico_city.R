@@ -1,9 +1,9 @@
 ##code to convert victim counts of mexico city injury data to long-form injury dataset with striking vehicles using Bogota imputed dataset
 ##reading victim counts of mexico city using GBD-reported and police-reported data
-vic<- read.csv('code/injuries/mexico_city/NOV.csv')
+vic<- read.csv('data/local//mexico_city/injuries_nov.csv')
 
 ##reading bogota's imputed injury data using which we will assign striking vehicles
-bogota<- read.csv('inst/extdata/local/bogota/bogota_injuries.csv')
+bogota<- read.csv('inst/extdata/local/bogota/injuries_bogota.csv')
 
 ##checking to see if the victim mode names are the same as in bogota dataset
 unique(vic$mode)

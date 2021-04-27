@@ -3,7 +3,7 @@ library(mice)
 
 rm(list = ls());gc()
 
-path <- file.path('code/injuries/bogota/')
+path <- file.path('data/local//bogota/')
 icd_codes <- read.csv(paste0(path,'/icd_code_look_up_table_row_column.csv'))
 
 #### Selecting dead road users from Victim file

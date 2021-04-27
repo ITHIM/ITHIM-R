@@ -4,7 +4,7 @@ library(tidyverse)
 library(mice)
 ##reading WHW file for Belo Horizonte metropolitan area for 2010-2015 period, WHW matric creates by Rahul Goel for WHW paper
 whw_file <- '/injuries_whw_2010_2015.csv'
-path <- file.path('code/injuries/belo_horizonte/')
+path <- file.path('data/local/belo_horizonte/')
 whw <- read.csv(paste0(path,whw_file))
 injuries <- data.frame(cas_mode = character(), strike_mode = character(),
                        weight = numeric(), stringsAsFactors = F)
