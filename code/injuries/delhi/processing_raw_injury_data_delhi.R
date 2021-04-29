@@ -291,6 +291,7 @@ delhi<- delhi[which(delhi$year %in% c(2012, 2013, 2014)),]
 # Multiple questions:
 # 1) what happens with weight variable, shouldn't it be here. My understanding 
 # is that year is not processed by the package
+# AA: You were right. We don't need the weight variable when year info is present.
 # 2) Shouldn't the names of the variables be "cas_mode" and "strike_mode". Do 
 # the package work with different name variables?
 # 3) shouldn't the modes be similar to what is in standardized file? 
@@ -366,8 +367,7 @@ whw <- delhi3 %>%
          cas_mode_5th = smodes$exhaustive_list[match(tolower(cas_mode_5th),
                                                      smodes$original)],
          strike_mode_5th = smodes$exhaustive_list[match(tolower(strike_mode_5th),
-                                                        smodes$original)],
-         weight = 3) # Weight is 3 because these injuries are from 2012-2014
+                                                        smodes$original)])
 
 # Comparing frequencies after recoding
 table(delhi3$cas_mode, useNA = "always")
