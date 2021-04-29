@@ -44,7 +44,7 @@ table(aux2_predict)
 # Predict from injuries_list instead of injuries_for model
 new_data = injuries_list$Baseline$whw %>% 
   mutate(injury_reporting_rate = 1,
-         weight = 6)
+         weight = 10) # set weight to 10 years
 aux_pred_list <- predict(aux, newdata = new_data, 
                          type = "response")
 sum(aux_pred_list) # Same number of trips. 835 in total
