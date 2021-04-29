@@ -87,6 +87,10 @@ victim <- victim[!duplicated(victim$victim_uniqueID),]
 ##adding year
 accident <- subset(accident, select = c("Accident.ID", "Date.of.Accident"))
 accident$year <- substr(accident$Date.of.Accident, 7, 10)
+
+## AA: rename one entry from 2012 to 2011 - otherwise it will mess up with weights
+accident$year[accident$year == 2012] <- 2011
+
 accident <- accident[, -2]
 victim <- victim %>% left_join(accident, by = "Accident.ID")
 
