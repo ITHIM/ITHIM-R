@@ -468,9 +468,8 @@ vic$strk_type<- strik_list[vic$column]
 vic$year<- 2015
 vic<- rbind(vic, vic2, vic1)
 
-##adding weight variable to reflect 
-vic$weight<-3
-vic<- subset(vic, select=c("vic_age", "vic_sex", "cas_type", "strk_type", "year", "weight"))
+
+vic<- subset(vic, select=c("vic_age", "vic_sex", "cas_type", "strk_type", "year"))
 names(vic)[1:2] <- c("cas_age", "cas_sex")
 vic$cas_sex[which(vic$cas_sex == "FEMENINO")] <- "female"
 vic$cas_sex[which(vic$cas_sex == "MASCULINO")] <- "male"
