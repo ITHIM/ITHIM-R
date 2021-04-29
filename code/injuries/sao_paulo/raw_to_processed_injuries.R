@@ -117,8 +117,7 @@ rd4 <- rd3 %>%
          cas_mode_5th = smodes$exhaustive_list[match(tolower(cas_mode_5th),
                                                      smodes$original)],
          strike_mode_5th = smodes$exhaustive_list[match(tolower(strike_mode_5th),
-                                                        smodes$original)],
-         weight = 3) # Weight is 3 because these injuries are from 2012-2014
+                                                        smodes$original)])
 
 # Comparing frequencies after recoding
 table(rd3$cas_mode, useNA = "always")
