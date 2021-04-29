@@ -27,7 +27,6 @@ whw$cas_type <- vict_list[whw$row]
 whw$strk_type <- strik_list[whw$column]
 
 whw<- subset(whw, select=c("year","cas_age", "cas_gender", "cas_type", "strk_type"))
-whw$weight<- 10
 
 
 # Multiple imputation using MICE
@@ -83,7 +82,7 @@ accra3 <- accra2 %>%
               rename(cas_age_4th = cas_age, strike_mode_4th = strike_mode)) %>%
   bind_cols(complete(imp1, action = 5) %>% select(cas_age, strike_mode) %>% 
               rename(cas_age_5th = cas_age, strike_mode_5th = strike_mode)) %>% 
-  select(year, cas_gender, cas_type, cas_mode, weight, strk_type, 
+  select(year, cas_gender, cas_type, cas_mode, strk_type, 
          cas_age_original, strike_mode_original, cas_age, strike_mode, 
          cas_age_2nd, strike_mode_2nd, cas_age_3rd, strike_mode_3rd,
          cas_age_4th, strike_mode_4th, cas_age_5th, strike_mode_5th)
@@ -109,6 +108,7 @@ accra4 <- accra3 %>%
          strike_mode_5th = smodes$exhaustive_list[match(tolower(strike_mode_5th),
                                                         smodes$original)]) 
 # Weight is 10 because these injuries are from 2007-2016
+# AA: this is already captured by the year var, hence removing the weight column altogether
 
 # Comparing frequencies after recoding
 table(accra3$cas_mode, useNA = "always")
