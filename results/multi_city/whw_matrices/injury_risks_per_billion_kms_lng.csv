@@ -70,10 +70,10 @@ pedestrian,146.4979,Bicycling,sao_paulo
 rail,0,Bicycling,sao_paulo
 truck,0,Bicycling,sao_paulo
 bus,1.5103,Bicycling,vizag
-car,53.4897,Bicycling,vizag
-cycle,104.7826,Bicycling,vizag
-motorcycle,112.2636,Bicycling,vizag
-pedestrian,241.2674,Bicycling,vizag
+car,62.4046,Bicycling,vizag
+cycle,130.9783,Bicycling,vizag
+motorcycle,125.6864,Bicycling,vizag
+pedestrian,291.2863,Bicycling,vizag
 rail,0,Bicycling,vizag
 truck,0,Bicycling,vizag
 bus,0.3232,Baseline,accra
@@ -148,9 +148,9 @@ rail,0,Baseline,sao_paulo
 truck,0,Baseline,sao_paulo
 bus,1.4787,Baseline,vizag
 car,62.1138,Baseline,vizag
-cycle,120.507,Baseline,vizag
-motorcycle,112.0514,Baseline,vizag
-pedestrian,244.0572,Baseline,vizag
+cycle,140.5914,Baseline,vizag
+motorcycle,125.1638,Baseline,vizag
+pedestrian,291.7465,Baseline,vizag
 rail,0,Baseline,vizag
 truck,0,Baseline,vizag
 bus,0.3078,Public Transport,accra
@@ -225,9 +225,9 @@ rail,0,Public Transport,sao_paulo
 truck,0,Public Transport,sao_paulo
 bus,1.172,Public Transport,vizag
 car,62.7718,Public Transport,vizag
-cycle,125.0538,Public Transport,vizag
-motorcycle,121.329,Public Transport,vizag
-pedestrian,186.0043,Public Transport,vizag
+cycle,140.6855,Public Transport,vizag
+motorcycle,137.3872,Public Transport,vizag
+pedestrian,222.1423,Public Transport,vizag
 rail,0,Public Transport,vizag
 truck,0,Public Transport,vizag
 bus,0.3328,Driving,accra
@@ -301,10 +301,10 @@ pedestrian,147.2803,Driving,sao_paulo
 rail,0,Driving,sao_paulo
 truck,0,Driving,sao_paulo
 bus,1.918,Driving,vizag
-car,42.2692,Driving,vizag
-cycle,463.0927,Driving,vizag
-motorcycle,276.8267,Driving,vizag
-pedestrian,812.7178,Driving,vizag
+car,45.4796,Driving,vizag
+cycle,507.1967,Driving,vizag
+motorcycle,320.6576,Driving,vizag
+pedestrian,979.6544,Driving,vizag
 rail,0,Driving,vizag
 truck,0,Driving,vizag
 bus,0.4081,Motorcycling,accra
@@ -380,8 +380,8 @@ truck,0,Motorcycling,sao_paulo
 bus,1.7772,Motorcycling,vizag
 car,68.1191,Motorcycling,vizag
 cycle,132.7614,Motorcycling,vizag
-motorcycle,92.1087,Motorcycling,vizag
-pedestrian,280.6882,Motorcycling,vizag
+motorcycle,102.1752,Motorcycling,vizag
+pedestrian,336.8258,Motorcycling,vizag
 rail,0,Motorcycling,vizag
 truck,0,Motorcycling,vizag
 bus,0.3232,Walking,accra
@@ -455,9 +455,9 @@ pedestrian,124.1771,Walking,sao_paulo
 rail,0,Walking,sao_paulo
 truck,0,Walking,sao_paulo
 bus,1.5307,Walking,vizag
-car,56.1041,Walking,vizag
-cycle,121.0841,Walking,vizag
-motorcycle,112.7471,Walking,vizag
-pedestrian,226.1454,Walking,vizag
+car,65.4547,Walking,vizag
+cycle,132.0917,Walking,vizag
+motorcycle,125.4153,Walking,vizag
+pedestrian,273.341,Walking,vizag
 rail,0,Walking,vizag
 truck,0,Walking,vizag

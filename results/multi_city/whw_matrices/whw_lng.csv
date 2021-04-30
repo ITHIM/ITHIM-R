@@ -96,7 +96,7 @@ motorcycle,0,bus,vizag,Baseline
 other,0,bus,vizag,Baseline
 pedestrian,0,bus,vizag,Baseline
 rail,0,bus,vizag,Baseline
-truck,0.17,bus,vizag,Baseline
+truck,0.2,bus,vizag,Baseline
 NOV,2.8,bus,vizag,Baseline
 bus,2.3,car,accra,Baseline
 car,0,car,accra,Baseline
@@ -195,7 +195,7 @@ motorcycle,0,car,vizag,Baseline
 other,0,car,vizag,Baseline
 pedestrian,0,car,vizag,Baseline
 rail,0,car,vizag,Baseline
-truck,2.5,car,vizag,Baseline
+truck,3,car,vizag,Baseline
 NOV,4.2,car,vizag,Baseline
 bus,0.4,cycle,accra,Baseline
 car,1.5,cycle,accra,Baseline
@@ -287,14 +287,14 @@ pedestrian,0,cycle,sao_paulo,Baseline
 rail,0,cycle,sao_paulo,Baseline
 truck,4.2,cycle,sao_paulo,Baseline
 NOV,10.2,cycle,sao_paulo,Baseline
-bus,1.83,cycle,vizag,Baseline
-car,2.5,cycle,vizag,Baseline
+bus,2.4,cycle,vizag,Baseline
+car,2.8,cycle,vizag,Baseline
 cycle,0,cycle,vizag,Baseline
-motorcycle,2.33,cycle,vizag,Baseline
+motorcycle,2.8,cycle,vizag,Baseline
 other,0,cycle,vizag,Baseline
 pedestrian,0,cycle,vizag,Baseline
 rail,0,cycle,vizag,Baseline
-truck,5.17,cycle,vizag,Baseline
+truck,6.2,cycle,vizag,Baseline
 NOV,0,cycle,vizag,Baseline
 bus,1.4,motorcycle,accra,Baseline
 car,2.3,motorcycle,accra,Baseline
@@ -386,14 +386,14 @@ pedestrian,0,motorcycle,sao_paulo,Baseline
 rail,0,motorcycle,sao_paulo,Baseline
 truck,62.2,motorcycle,sao_paulo,Baseline
 NOV,170.8,motorcycle,sao_paulo,Baseline
-bus,8.33,motorcycle,vizag,Baseline
-car,11,motorcycle,vizag,Baseline
+bus,10,motorcycle,vizag,Baseline
+car,13.2,motorcycle,vizag,Baseline
 cycle,0,motorcycle,vizag,Baseline
 motorcycle,0,motorcycle,vizag,Baseline
 other,0,motorcycle,vizag,Baseline
 pedestrian,0,motorcycle,vizag,Baseline
 rail,0,motorcycle,vizag,Baseline
-truck,35.17,motorcycle,vizag,Baseline
+truck,42.2,motorcycle,vizag,Baseline
 NOV,39.6,motorcycle,vizag,Baseline
 bus,18.3,pedestrian,accra,Baseline
 car,38.2,pedestrian,accra,Baseline
@@ -485,14 +485,14 @@ pedestrian,0,pedestrian,sao_paulo,Baseline
 rail,0,pedestrian,sao_paulo,Baseline
 truck,36,pedestrian,sao_paulo,Baseline
 NOV,2.6,pedestrian,sao_paulo,Baseline
-bus,11.5,pedestrian,vizag,Baseline
-car,18.83,pedestrian,vizag,Baseline
+bus,14,pedestrian,vizag,Baseline
+car,22.6,pedestrian,vizag,Baseline
 cycle,0,pedestrian,vizag,Baseline
-motorcycle,33.83,pedestrian,vizag,Baseline
+motorcycle,40.4,pedestrian,vizag,Baseline
 other,0,pedestrian,vizag,Baseline
 pedestrian,0,pedestrian,vizag,Baseline
 rail,0,pedestrian,vizag,Baseline
-truck,22.33,pedestrian,vizag,Baseline
+truck,26.8,pedestrian,vizag,Baseline
 NOV,0.2,pedestrian,vizag,Baseline
 bus,0,rail,belo_horizonte,Baseline
 car,0,rail,belo_horizonte,Baseline
@@ -609,7 +609,7 @@ motorcycle,0,bus,vizag,Walking
 other,0,bus,vizag,Walking
 pedestrian,0,bus,vizag,Walking
 rail,0,bus,vizag,Walking
-truck,0.16,bus,vizag,Walking
+truck,0.19,bus,vizag,Walking
 NOV,2.71,bus,vizag,Walking
 bus,2.3,car,accra,Walking
 car,0,car,accra,Walking
@@ -708,7 +708,7 @@ motorcycle,0,car,vizag,Walking
 other,0,car,vizag,Walking
 pedestrian,0,car,vizag,Walking
 rail,0,car,vizag,Walking
-truck,2.38,car,vizag,Walking
+truck,2.85,car,vizag,Walking
 NOV,4.01,car,vizag,Walking
 bus,0.4,cycle,accra,Walking
 car,1.5,cycle,accra,Walking
@@ -800,14 +800,14 @@ pedestrian,0,cycle,sao_paulo,Walking
 rail,0,cycle,sao_paulo,Walking
 truck,2.91,cycle,sao_paulo,Walking
 NOV,6.82,cycle,sao_paulo,Walking
-bus,1.64,cycle,vizag,Walking
-car,2.2,cycle,vizag,Walking
+bus,2.15,cycle,vizag,Walking
+car,2.47,cycle,vizag,Walking
 cycle,0,cycle,vizag,Walking
-motorcycle,2.05,cycle,vizag,Walking
+motorcycle,2.47,cycle,vizag,Walking
 other,0,cycle,vizag,Walking
 pedestrian,0,cycle,vizag,Walking
 rail,0,cycle,vizag,Walking
-truck,4.75,cycle,vizag,Walking
+truck,5.7,cycle,vizag,Walking
 NOV,0,cycle,vizag,Walking
 bus,1.4,motorcycle,accra,Walking
 car,2.3,motorcycle,accra,Walking
@@ -899,14 +899,14 @@ pedestrian,0,motorcycle,sao_paulo,Walking
 rail,0,motorcycle,sao_paulo,Walking
 truck,57.72,motorcycle,sao_paulo,Walking
 NOV,155.34,motorcycle,sao_paulo,Walking
-bus,7.69,motorcycle,vizag,Walking
-car,9.99,motorcycle,vizag,Walking
+bus,9.22,motorcycle,vizag,Walking
+car,11.99,motorcycle,vizag,Walking
 cycle,0,motorcycle,vizag,Walking
 motorcycle,0,motorcycle,vizag,Walking
 other,0,motorcycle,vizag,Walking
 pedestrian,0,motorcycle,vizag,Walking
 rail,0,motorcycle,vizag,Walking
-truck,33.34,motorcycle,vizag,Walking
+truck,40,motorcycle,vizag,Walking
 NOV,37.69,motorcycle,vizag,Walking
 bus,18.3,pedestrian,accra,Walking
 car,38.2,pedestrian,accra,Walking
@@ -998,14 +998,14 @@ pedestrian,0,pedestrian,sao_paulo,Walking
 rail,0,pedestrian,sao_paulo,Walking
 truck,68.69,pedestrian,sao_paulo,Walking
 NOV,4.17,pedestrian,sao_paulo,Walking
-bus,15.32,pedestrian,vizag,Walking
-car,24.7,pedestrian,vizag,Walking
+bus,18.65,pedestrian,vizag,Walking
+car,29.64,pedestrian,vizag,Walking
 cycle,0,pedestrian,vizag,Walking
-motorcycle,44.31,pedestrian,vizag,Walking
+motorcycle,52.91,pedestrian,vizag,Walking
 other,0,pedestrian,vizag,Walking
 pedestrian,0,pedestrian,vizag,Walking
 rail,0,pedestrian,vizag,Walking
-truck,30.57,pedestrian,vizag,Walking
+truck,36.68,pedestrian,vizag,Walking
 NOV,0.27,pedestrian,vizag,Walking
 bus,0,rail,belo_horizonte,Walking
 car,0,rail,belo_horizonte,Walking
@@ -1122,7 +1122,7 @@ motorcycle,0,bus,vizag,Bicycling
 other,0,bus,vizag,Bicycling
 pedestrian,0,bus,vizag,Bicycling
 rail,0,bus,vizag,Bicycling
-truck,0.16,bus,vizag,Bicycling
+truck,0.2,bus,vizag,Bicycling
 NOV,2.75,bus,vizag,Bicycling
 bus,2.2,car,accra,Bicycling
 car,0,car,accra,Bicycling
@@ -1221,7 +1221,7 @@ motorcycle,0,car,vizag,Bicycling
 other,0,car,vizag,Bicycling
 pedestrian,0,car,vizag,Bicycling
 rail,0,car,vizag,Bicycling
-truck,2.49,car,vizag,Bicycling
+truck,2.98,car,vizag,Bicycling
 NOV,4.19,car,vizag,Bicycling
 bus,2.97,cycle,accra,Bicycling
 car,11.17,cycle,accra,Bicycling
@@ -1313,14 +1313,14 @@ pedestrian,0,cycle,sao_paulo,Bicycling
 rail,0,cycle,sao_paulo,Bicycling
 truck,27,cycle,sao_paulo,Bicycling
 NOV,62.22,cycle,sao_paulo,Bicycling
-bus,3.21,cycle,vizag,Bicycling
-car,4.43,cycle,vizag,Bicycling
+bus,4.2,cycle,vizag,Bicycling
+car,4.96,cycle,vizag,Bicycling
 cycle,0,cycle,vizag,Bicycling
-motorcycle,4.06,cycle,vizag,Bicycling
+motorcycle,4.87,cycle,vizag,Bicycling
 other,0,cycle,vizag,Bicycling
 pedestrian,0,cycle,vizag,Bicycling
 rail,0,cycle,vizag,Bicycling
-truck,9.16,cycle,vizag,Bicycling
+truck,11,cycle,vizag,Bicycling
 NOV,0,cycle,vizag,Bicycling
 bus,1.36,motorcycle,accra,Bicycling
 car,2.25,motorcycle,accra,Bicycling
@@ -1412,14 +1412,14 @@ pedestrian,0,motorcycle,sao_paulo,Bicycling
 rail,0,motorcycle,sao_paulo,Bicycling
 truck,60.73,motorcycle,sao_paulo,Bicycling
 NOV,167.05,motorcycle,sao_paulo,Bicycling
-bus,8.03,motorcycle,vizag,Bicycling
-car,10.74,motorcycle,vizag,Bicycling
+bus,9.63,motorcycle,vizag,Bicycling
+car,12.89,motorcycle,vizag,Bicycling
 cycle,0,motorcycle,vizag,Bicycling
 motorcycle,0,motorcycle,vizag,Bicycling
 other,0,motorcycle,vizag,Bicycling
 pedestrian,0,motorcycle,vizag,Bicycling
 rail,0,motorcycle,vizag,Bicycling
-truck,34.36,motorcycle,vizag,Bicycling
+truck,41.23,motorcycle,vizag,Bicycling
 NOV,38.78,motorcycle,vizag,Bicycling
 bus,17.14,pedestrian,accra,Bicycling
 car,35.88,pedestrian,accra,Bicycling
@@ -1511,14 +1511,14 @@ pedestrian,0,pedestrian,sao_paulo,Bicycling
 rail,0,pedestrian,sao_paulo,Bicycling
 truck,34.83,pedestrian,sao_paulo,Bicycling
 NOV,2.52,pedestrian,sao_paulo,Bicycling
-bus,10.86,pedestrian,vizag,Bicycling
-car,18.04,pedestrian,vizag,Bicycling
+bus,13.23,pedestrian,vizag,Bicycling
+car,21.65,pedestrian,vizag,Bicycling
 cycle,0,pedestrian,vizag,Bicycling
-motorcycle,31.77,pedestrian,vizag,Bicycling
+motorcycle,37.93,pedestrian,vizag,Bicycling
 other,0,pedestrian,vizag,Bicycling
 pedestrian,0,pedestrian,vizag,Bicycling
 rail,0,pedestrian,vizag,Bicycling
-truck,21.4,pedestrian,vizag,Bicycling
+truck,25.68,pedestrian,vizag,Bicycling
 NOV,0.19,pedestrian,vizag,Bicycling
 bus,0,rail,belo_horizonte,Bicycling
 car,0,rail,belo_horizonte,Bicycling
@@ -1635,7 +1635,7 @@ motorcycle,0,bus,vizag,Driving
 other,0,bus,vizag,Driving
 pedestrian,0,bus,vizag,Driving
 rail,0,bus,vizag,Driving
-truck,0.09,bus,vizag,Driving
+truck,0.11,bus,vizag,Driving
 NOV,1.6,bus,vizag,Driving
 bus,2.38,car,accra,Driving
 car,0,car,accra,Driving
@@ -1734,7 +1734,7 @@ motorcycle,0,car,vizag,Driving
 other,0,car,vizag,Driving
 pedestrian,0,car,vizag,Driving
 rail,0,car,vizag,Driving
-truck,28.78,car,vizag,Driving
+truck,34.54,car,vizag,Driving
 NOV,50.19,car,vizag,Driving
 bus,0.38,cycle,accra,Driving
 car,1.59,cycle,accra,Driving
@@ -1826,14 +1826,14 @@ pedestrian,0,cycle,sao_paulo,Driving
 rail,0,cycle,sao_paulo,Driving
 truck,4.2,cycle,sao_paulo,Driving
 NOV,10.2,cycle,sao_paulo,Driving
-bus,0.55,cycle,vizag,Driving
-car,15.64,cycle,vizag,Driving
+bus,0.72,cycle,vizag,Driving
+car,17.51,cycle,vizag,Driving
 cycle,0,cycle,vizag,Driving
-motorcycle,0.7,cycle,vizag,Driving
+motorcycle,0.84,cycle,vizag,Driving
 other,0,cycle,vizag,Driving
 pedestrian,0,cycle,vizag,Driving
 rail,0,cycle,vizag,Driving
-truck,2.61,cycle,vizag,Driving
+truck,3.13,cycle,vizag,Driving
 NOV,0,cycle,vizag,Driving
 bus,1.32,motorcycle,accra,Driving
 car,2.45,motorcycle,accra,Driving
@@ -1925,14 +1925,14 @@ pedestrian,0,motorcycle,sao_paulo,Driving
 rail,0,motorcycle,sao_paulo,Driving
 truck,62.2,motorcycle,sao_paulo,Driving
 NOV,170.8,motorcycle,sao_paulo,Driving
-bus,2.72,motorcycle,vizag,Driving
-car,75.22,motorcycle,vizag,Driving
+bus,3.27,motorcycle,vizag,Driving
+car,90.26,motorcycle,vizag,Driving
 cycle,0,motorcycle,vizag,Driving
 motorcycle,0,motorcycle,vizag,Driving
 other,0,motorcycle,vizag,Driving
 pedestrian,0,motorcycle,vizag,Driving
 rail,0,motorcycle,vizag,Driving
-truck,19.38,motorcycle,vizag,Driving
+truck,23.26,motorcycle,vizag,Driving
 NOV,22.66,motorcycle,vizag,Driving
 bus,14.82,pedestrian,accra,Driving
 car,34.99,pedestrian,accra,Driving
@@ -2024,14 +2024,14 @@ pedestrian,0,pedestrian,sao_paulo,Driving
 rail,0,pedestrian,sao_paulo,Driving
 truck,36,pedestrian,sao_paulo,Driving
 NOV,2.6,pedestrian,sao_paulo,Driving
-bus,4.47,pedestrian,vizag,Driving
-car,153.18,pedestrian,vizag,Driving
+bus,5.44,pedestrian,vizag,Driving
+car,183.81,pedestrian,vizag,Driving
 cycle,0,pedestrian,vizag,Driving
-motorcycle,13.26,pedestrian,vizag,Driving
+motorcycle,15.83,pedestrian,vizag,Driving
 other,0,pedestrian,vizag,Driving
 pedestrian,0,pedestrian,vizag,Driving
 rail,0,pedestrian,vizag,Driving
-truck,14.64,pedestrian,vizag,Driving
+truck,17.57,pedestrian,vizag,Driving
 NOV,0.14,pedestrian,vizag,Driving
 bus,0,rail,belo_horizonte,Driving
 car,0,rail,belo_horizonte,Driving
@@ -2148,7 +2148,7 @@ motorcycle,0,bus,vizag,Motorcycling
 other,0,bus,vizag,Motorcycling
 pedestrian,0,bus,vizag,Motorcycling
 rail,0,bus,vizag,Motorcycling
-truck,0.1,bus,vizag,Motorcycling
+truck,0.12,bus,vizag,Motorcycling
 NOV,1.7,bus,vizag,Motorcycling
 bus,0.46,car,accra,Motorcycling
 car,0,car,accra,Motorcycling
@@ -2247,7 +2247,7 @@ motorcycle,0,car,vizag,Motorcycling
 other,0,car,vizag,Motorcycling
 pedestrian,0,car,vizag,Motorcycling
 rail,0,car,vizag,Motorcycling
-truck,1.67,car,vizag,Motorcycling
+truck,2.01,car,vizag,Motorcycling
 NOV,2.89,car,vizag,Motorcycling
 bus,0.09,cycle,accra,Motorcycling
 car,0.37,cycle,accra,Motorcycling
@@ -2339,14 +2339,14 @@ pedestrian,0,cycle,sao_paulo,Motorcycling
 rail,0,cycle,sao_paulo,Motorcycling
 truck,3.41,cycle,sao_paulo,Motorcycling
 NOV,8.81,cycle,sao_paulo,Motorcycling
-bus,0.82,cycle,vizag,Motorcycling
-car,1.26,cycle,vizag,Motorcycling
+bus,1.07,cycle,vizag,Motorcycling
+car,1.42,cycle,vizag,Motorcycling
 cycle,0,cycle,vizag,Motorcycling
-motorcycle,2.89,cycle,vizag,Motorcycling
+motorcycle,3.47,cycle,vizag,Motorcycling
 other,0,cycle,vizag,Motorcycling
 pedestrian,0,cycle,vizag,Motorcycling
 rail,0,cycle,vizag,Motorcycling
-truck,3.69,cycle,vizag,Motorcycling
+truck,4.43,cycle,vizag,Motorcycling
 NOV,0,cycle,vizag,Motorcycling
 bus,12.6,motorcycle,accra,Motorcycling
 car,21.51,motorcycle,accra,Motorcycling
@@ -2438,14 +2438,14 @@ pedestrian,0,motorcycle,sao_paulo,Motorcycling
 rail,0,motorcycle,sao_paulo,Motorcycling
 truck,440.9,motorcycle,sao_paulo,Motorcycling
 NOV,1696.55,motorcycle,sao_paulo,Motorcycling
-bus,10.73,motorcycle,vizag,Motorcycling
-car,16.03,motorcycle,vizag,Motorcycling
+bus,12.87,motorcycle,vizag,Motorcycling
+car,19.24,motorcycle,vizag,Motorcycling
 cycle,0,motorcycle,vizag,Motorcycling
 motorcycle,0,motorcycle,vizag,Motorcycling
 other,0,motorcycle,vizag,Motorcycling
 pedestrian,0,motorcycle,vizag,Motorcycling
 rail,0,motorcycle,vizag,Motorcycling
-truck,72.4,motorcycle,vizag,Motorcycling
+truck,86.87,motorcycle,vizag,Motorcycling
 NOV,83.8,motorcycle,vizag,Motorcycling
 bus,4.76,pedestrian,accra,Motorcycling
 car,10.32,pedestrian,accra,Motorcycling
@@ -2537,14 +2537,14 @@ pedestrian,0,pedestrian,sao_paulo,Motorcycling
 rail,0,pedestrian,sao_paulo,Motorcycling
 truck,26.83,pedestrian,sao_paulo,Motorcycling
 NOV,2.01,pedestrian,sao_paulo,Motorcycling
-bus,6.37,pedestrian,vizag,Motorcycling
-car,11.81,pedestrian,vizag,Motorcycling
+bus,7.76,pedestrian,vizag,Motorcycling
+car,14.17,pedestrian,vizag,Motorcycling
 cycle,0,pedestrian,vizag,Motorcycling
-motorcycle,51.98,pedestrian,vizag,Motorcycling
+motorcycle,62.07,pedestrian,vizag,Motorcycling
 other,0,pedestrian,vizag,Motorcycling
 pedestrian,0,pedestrian,vizag,Motorcycling
 rail,0,pedestrian,vizag,Motorcycling
-truck,19.78,pedestrian,vizag,Motorcycling
+truck,23.74,pedestrian,vizag,Motorcycling
 NOV,0.18,pedestrian,vizag,Motorcycling
 bus,0,rail,belo_horizonte,Motorcycling
 car,0,rail,belo_horizonte,Motorcycling
@@ -2661,7 +2661,7 @@ motorcycle,0,bus,vizag,Public Transport
 other,0,bus,vizag,Public Transport
 pedestrian,0,bus,vizag,Public Transport
 rail,0,bus,vizag,Public Transport
-truck,0.22,bus,vizag,Public Transport
+truck,0.26,bus,vizag,Public Transport
 NOV,3.38,bus,vizag,Public Transport
 bus,2.4,car,accra,Public Transport
 car,0,car,accra,Public Transport
@@ -2760,7 +2760,7 @@ motorcycle,0,car,vizag,Public Transport
 other,0,car,vizag,Public Transport
 pedestrian,0,car,vizag,Public Transport
 rail,0,car,vizag,Public Transport
-truck,2.06,car,vizag,Public Transport
+truck,2.47,car,vizag,Public Transport
 NOV,3.17,car,vizag,Public Transport
 bus,0.4,cycle,accra,Public Transport
 car,1.41,cycle,accra,Public Transport
@@ -2852,14 +2852,14 @@ pedestrian,0,cycle,sao_paulo,Public Transport
 rail,0,cycle,sao_paulo,Public Transport
 truck,4.18,cycle,sao_paulo,Public Transport
 NOV,9.99,cycle,sao_paulo,Public Transport
-bus,1.54,cycle,vizag,Public Transport
-car,1.32,cycle,vizag,Public Transport
+bus,2.02,cycle,vizag,Public Transport
+car,1.47,cycle,vizag,Public Transport
 cycle,0,cycle,vizag,Public Transport
-motorcycle,1.13,cycle,vizag,Public Transport
+motorcycle,1.35,cycle,vizag,Public Transport
 other,0,cycle,vizag,Public Transport
 pedestrian,0,cycle,vizag,Public Transport
 rail,0,cycle,vizag,Public Transport
-truck,3.94,cycle,vizag,Public Transport
+truck,4.72,cycle,vizag,Public Transport
 NOV,0,cycle,vizag,Public Transport
 bus,1.47,motorcycle,accra,Public Transport
 car,2.29,motorcycle,accra,Public Transport
@@ -2951,14 +2951,14 @@ pedestrian,0,motorcycle,sao_paulo,Public Transport
 rail,0,motorcycle,sao_paulo,Public Transport
 truck,62.84,motorcycle,sao_paulo,Public Transport
 NOV,170.46,motorcycle,sao_paulo,Public Transport
-bus,7.1,motorcycle,vizag,Public Transport
-car,5.85,motorcycle,vizag,Public Transport
+bus,8.52,motorcycle,vizag,Public Transport
+car,7.02,motorcycle,vizag,Public Transport
 cycle,0,motorcycle,vizag,Public Transport
 motorcycle,0,motorcycle,vizag,Public Transport
 other,0,motorcycle,vizag,Public Transport
 pedestrian,0,motorcycle,vizag,Public Transport
 rail,0,motorcycle,vizag,Public Transport
-truck,27.09,motorcycle,vizag,Public Transport
+truck,32.5,motorcycle,vizag,Public Transport
 NOV,27.95,motorcycle,vizag,Public Transport
 bus,25.64,pedestrian,accra,Public Transport
 car,50.77,pedestrian,accra,Public Transport
@@ -3050,14 +3050,14 @@ pedestrian,0,pedestrian,sao_paulo,Public Transport
 rail,0,pedestrian,sao_paulo,Public Transport
 truck,40.91,pedestrian,sao_paulo,Public Transport
 NOV,2.79,pedestrian,sao_paulo,Public Transport
-bus,31.94,pedestrian,vizag,Public Transport
-car,32.67,pedestrian,vizag,Public Transport
+bus,38.88,pedestrian,vizag,Public Transport
+car,39.2,pedestrian,vizag,Public Transport
 cycle,0,pedestrian,vizag,Public Transport
-motorcycle,53.9,pedestrian,vizag,Public Transport
+motorcycle,64.36,pedestrian,vizag,Public Transport
 other,0,pedestrian,vizag,Public Transport
 pedestrian,0,pedestrian,vizag,Public Transport
 rail,0,pedestrian,vizag,Public Transport
-truck,56.09,pedestrian,vizag,Public Transport
+truck,67.3,pedestrian,vizag,Public Transport
 NOV,0.46,pedestrian,vizag,Public Transport
 bus,0,rail,belo_horizonte,Public Transport
 car,0,rail,belo_horizonte,Public Transport
