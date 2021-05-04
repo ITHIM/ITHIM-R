@@ -99,12 +99,15 @@ route <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/G
 
 #+ warning=FALSE, message=FALSE, cache=TRUE
 time_use_0 <- haven::read_spss(paste0(route, "GTUS 2009 24 Hours Individual Diary.sav"))
+time_use_0 <- as_factor(time_use_0)
 
 #lookup
 trip_mode <- data.frame(
   distinct(time_use_0, ActLoc2), 
+  #ActLoc2 = factor(unique(time_use_0$ActLoc2)),
   trip_mode = c(NA, "walk","bus","taxi",  "bicycle",  "car", 
-                "other","train","other","other","other" ))
+                "other","train","other","other","other" )) %>% 
+  mutate(ActLoc2 = factor(ActLoc2))
 
 
 #' # **Preprocessing phase**
@@ -114,9 +117,9 @@ trip_mode <- data.frame(
 #'  in hand with the jurisdiction of injuries dataset, which is the metropolitan
 #'  area. 
 #keep relevant variables
-time_use_0 <- as_factor(time_use_0)
+#time_use_0 <- as_factor(time_use_0)
 
-time_use_0 %>% mutate_if(is.factor, as.character) -> time_use_0
+#time_use_0 %>% mutate_if(is.factor, as.character) -> time_use_0
 
 dat <- time_use_0 %>% 
   dplyr::filter(region == "Greater Accra" & URBRUR == "Urban") %>% 
@@ -139,8 +142,11 @@ dat <- time_use_0 %>%
 dat$ActCode1 <- ifelse(grepl("Work", dat$ActCode1), "work", 
                        ifelse(grepl("Learning",dat$ActCode1), "school", "other"))
 
+dat$ActLoc22 <- dat$ActLoc2
+#dat$ActLoc2 <- factor(dat$ActLoc2)
 levels(dat$ActLoc2) <- c(levels(dat$ActLoc2), "missing")
-dat$ActLoc2[which(is.na(dat$ActLoc2))] <- "missing"
+#dat$ActLoc2[which(is.na(dat$ActLoc2))] <- "missing"
+dat$ActLoc2[which(dat$ActLoc2 == "")] <- "missing"
 
 #' ## Row for each stage, translate trip_mode and create duration
 #' First I create trip duration and then translate the trip mode 
@@ -184,6 +190,7 @@ no_trip <- dat %>%
   mutate(trip_id = NA,
          trip_duration = NA,
          trip_purpose = NA)
+
 #join datasets
 trip <- bind_rows(trip, no_trip) %>% 
   select(cluster_id, household_id, participant_id, participant_wt, age, sex, 
