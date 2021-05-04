@@ -86,9 +86,14 @@ trip_summary <- data.frame(row.names =       c("Meta Data",
                                                "Return home",
                                                "Other"))
 
+## trip_summary2 for dataset filtered in age range
+trip_summary2 <- trip_summary
 
 ## function_quality_check
-quality_check <- function(trip){
+quality_check <- function(trip, min_age = NA, max_age = NA){
+        if (!is.na(min_age) & !is.na(max_age))
+            trip <- trip %>% filter(age >= min_age & age <= max_age)
+        
         trip$trip_mode <- factor(trip$trip_mode, levels = c("bicycle","bus","car","metro", "motorcycle",
                                                             "other", "rickshaw", "taxi", "train", "truck", "van", "walk" ))
         
