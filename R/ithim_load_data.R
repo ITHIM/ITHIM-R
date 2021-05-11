@@ -141,8 +141,24 @@ ithim_load_data <- function(setup_call_summary_filename, speeds =
   GBD_DATA <- subset(GBD_DATA,cause_name%in%disease_names)
   GBD_DATA$min_age <- as.numeric(sapply(GBD_DATA$age_name,function(x)str_split(x,' to ')[[1]][1]))
   GBD_DATA$max_age <- as.numeric(sapply(GBD_DATA$age_name,function(x)str_split(x,' to ')[[1]][2]))
+  # Compute number of deaths in road injuries in all age ranges
+  deaths_injuries <- as.numeric(GBD_DATA %>% 
+    filter(cause_name == "Road injuries" & measure_name.x == "Deaths") %>% 
+  summarise(sum(val)))
+  # Filter GBD datasets in only age-ranges considered (usually 15-69)
   GBD_DATA <- subset(GBD_DATA,max_age>=AGE_LOWER_BOUNDS[1])
   GBD_DATA <- subset(GBD_DATA,min_age<=MAX_AGE)
+  # Compute number of deaths in road injuries in only age-ranges considered
+  # (usually 15-69)
+  deaths_injuries_agerange <- as.numeric(GBD_DATA %>% 
+                                  filter(cause_name == "Road injuries" &
+                                           measure_name.x == "Deaths") %>% 
+                                  summarise(sum(val)))
+  # Compute proportion of injuries in the age range. This proportion is 
+  # going to be applied to injuries datasets where there's no cas_age or
+  # cas_gender
+  PROPORTION_INJURIES_AGERANGE <<- deaths_injuries_agerange/deaths_injuries
+  
   names(GBD_DATA)[c(1,3,4,5)] <- c('measure','sex','age','cause')
   GBD_DATA$sex <- tolower(GBD_DATA$sex)
   
