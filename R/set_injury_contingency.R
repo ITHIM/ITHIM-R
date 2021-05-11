@@ -33,7 +33,6 @@ set_injury_contingency <- function(injuries){
   
   if(ADD_BUS_DRIVERS) mode_names <- c(mode_names,'bus_driver')
   if(ADD_TRUCK_DRIVERS) mode_names <- c(mode_names,'truck')
-  if(CITY=='accra') mode_names <- c(mode_names,'motorcycle')
   injury_list <- list()
   injury_table_types <- c()
   if(length(unique(injuries$strike_mode))==1&&!'nov'%in%injuries$strike_mode||length(unique(injuries$strike_mode))>1){
