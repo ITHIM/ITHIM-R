@@ -79,7 +79,8 @@ get_scenario_settings <- function(cities = c('accra', 'bangalore', 'belo_horizon
     }
     
     ## assign distance categories
-    trip_set <- subset(trip_set,!duplicated(trip_id)&trip_mode!='other')
+    # AA: DON'T REMOVE 'OTHER' MODE
+    trip_set <- subset(trip_set,!duplicated(trip_id))
     trip_set$trip_distance_cat <- sapply(trip_set$trip_distance,function(x)last(distances[which(min_distances<=x)]))
     ## get distance profiles
     mode_proportions_by_distance[[city]] <- sapply(distances,function(y) sapply(modes,function(x)sum(trip_set$trip_mode==x&trip_set$trip_distance_cat==y)/sum(trip_set$trip_distance_cat==y)))
