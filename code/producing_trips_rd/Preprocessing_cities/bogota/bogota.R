@@ -127,9 +127,9 @@ nrow(stages)
 #' As before, I'll verify that the number of surveys per UTAM is the same to
 #' what is mentioned in page 20 (Tabla 2.1) of **File1**. The SQL code for this
 #' output is in page 214 (Paragraph 6.26).
-#View(hogar %>% group_by(Utam) %>% summarise(n()))
-#print(hh %>% group_by(Utam) %>% summarise(n()), n = 50) 
-hh %>% group_by(Utam) %>% summarise(n()) %>% 
+#View(hogar %>% group_by(Utam) %>% summarise(dplyr::n()))
+#print(hh %>% group_by(Utam) %>% summarise(dplyr::n()), n = 50) 
+hh %>% group_by(Utam) %>% summarise(dplyr::n()) %>% 
   kbl() %>% kable_classic(full_width = F)
 #' Results are the same.
 #' 
@@ -139,7 +139,7 @@ hh %>% group_by(Utam) %>% summarise(n()) %>%
 # First compute number of people per household
 people_per_hh <- hh %>% 
   inner_join(people, by = c("Id_Hogar" = "id_hogar")) %>% 
-  group_by(Id_Hogar) %>% summarise(cantidad = n())
+  group_by(Id_Hogar) %>% summarise(cantidad = dplyr::n())
 
 # Then compute the average by strata
 hh %>% inner_join(people_per_hh, by = "Id_Hogar") %>% 
@@ -315,7 +315,7 @@ purpose %>% kbl() %>% kable_classic()
 #' trip made by this person says:
 trips_bogota %>% filter(id_hogar == "1117", id_persona == "2", 
                         id_viaje == "1") %>% 
-  select(id_hogar, id_persona, id_viaje, hora_inicio_viaje, p30_camino_minutos,
+  dplyr::select(id_hogar, id_persona, id_viaje, hora_inicio_viaje, p30_camino_minutos,
          p31_hora_llegada) %>% 
   mutate(hora_inicio_viaje = format(ISOdatetime(1900,1,1,0,0,0, tz = "GMT") + 
                                       as.difftime(hora_inicio_viaje*24, 
@@ -327,7 +327,7 @@ trips_bogota %>% filter(id_hogar == "1117", id_persona == "2",
 
 stages_bogota %>% filter(id_hogar == "1117", id_persona == "2", 
                         id_viaje == "1") %>% 
-  select(id_hogar, id_persona, id_viaje, id_etapa, p18_id_medio_transporte,
+  dplyr::select(id_hogar, id_persona, id_viaje, id_etapa, p18_id_medio_transporte,
          p19_camino_minutos, p21_tiempo_arrancar_vehic) %>% 
   kbl() %>% kable_classic()
   
@@ -348,7 +348,7 @@ stages_bogota %>% filter(id_hogar == "1117", id_persona == "2",
 #' In this example, the person selected has ID_Hogar = 12801 and ID_persona = 2.
 trips_bogota %>% filter(id_hogar == "12801", id_persona == "2", 
                         id_viaje == "1") %>% 
-  select(id_hogar, id_persona, id_viaje, hora_inicio_viaje, p30_camino_minutos,
+  dplyr::select(id_hogar, id_persona, id_viaje, hora_inicio_viaje, p30_camino_minutos,
          p31_hora_llegada) %>% 
   mutate(hora_inicio_viaje = format(ISOdatetime(1900,1,1,0,0,0, tz = "GMT") + 
                                       as.difftime(hora_inicio_viaje*24, 
@@ -360,8 +360,9 @@ trips_bogota %>% filter(id_hogar == "12801", id_persona == "2",
 
 stages_bogota %>% filter(id_hogar == "12801", id_persona == "2", 
                          id_viaje == "1") %>% 
-  select(id_hogar, id_persona, id_viaje, id_etapa, p18_id_medio_transporte,
-         p19_camino_minutos, p21_tiempo_arrancar_vehic) %>% 
+  dplyr::select(id_hogar, id_persona, id_viaje, id_etapa,
+                p18_id_medio_transporte,
+                p19_camino_minutos, p21_tiempo_arrancar_vehic) %>% 
   kbl() %>% kable_classic()
 
 #' In this case, the person started her trip at 11:00, then she had to walk for 
@@ -404,6 +405,8 @@ duration_bogota <- duration_bogota %>%
 length(unique(trips_bogota$trip_id_paste)) == length(unique(duration_bogota$trip_id_paste))
 
 sum(sort(unique(trips_bogota$trip_id_paste)) == sort(unique(duration_bogota$trip_id_paste)))
+identical(sort(unique(trips_bogota$trip_id_paste)), 
+          sort(unique(duration_bogota$trip_id_paste)))
 
 #' The next step consists in joining trip and duration datasets, and create trips
 #' variables. 
@@ -512,9 +515,9 @@ table(stages_bogota_v2_1$need_adjustment, useNA = "always") / nrow(stages_bogota
 #' a single stage, meaning, no walking component for these other modes
 stages_bogota_v2_1_adjust <- stages_bogota_v2_1 %>% 
   filter(need_adjustment == 1 | stage_mode == "walk") %>% 
-  select(household_id, participant_id, trip_id, trip_mode, trip_duration,
-         trip_purpose, stage_id, stage_mode, stage_duration, stage_id_paste, 
-         trip_id_paste)
+  dplyr::select(household_id, participant_id, trip_id, trip_mode, 
+                trip_duration, trip_purpose, stage_id, stage_mode,
+                stage_duration, stage_id_paste, trip_id_paste)
 
 #View(stages_bogota_v2_1_adjust)
 #length(unique(stages_bogota_v2_1_adjust$stage_id_paste))
@@ -540,7 +543,8 @@ stages_bogota_v2_1_noadjust <- stages_bogota_v2_1 %>%
            grp = with(rle(stage_id_paste), rep(seq_along(lengths), lengths))) %>%
   mutate(stage_id = seq_along(grp)) %>% 
   ungroup() %>% 
-  select(household_id, participant_id, trip_id, trip_mode, trip_duration,
+  dplyr::select(household_id, participant_id, trip_id, trip_mode, 
+                trip_duration,
          trip_purpose, stage_id, stage_mode, stage_duration, stage_id_paste, 
          trip_id_paste)
                                       
@@ -566,8 +570,8 @@ stages_bogota_v2_1_ready <- stages_bogota_v2_1_adjust %>%
 #' stage_id and trip_id so I can trace back the original trip if I wanted to.
 stages_bogota_v2_2 <- stages_bogota_v2 %>% filter(n > 1) %>% 
   mutate(
-         # To avoid double counting the last walking stage, I set it up to zero
-         p30_camino_minutos_ok = ifelse(id_etapa != n, 
+    # To avoid double counting the last walking stage, I set it up to zero
+    p30_camino_minutos_ok = ifelse(id_etapa != n, 
                                         0, p30_camino_minutos)) %>% 
   # I compute the walking duration and the beginning and end of a stage, and also
   # the trip main mode.
@@ -594,14 +598,28 @@ stages_bogota_v2_2 <- stages_bogota_v2 %>% filter(n > 1) %>%
   filter(!is.na(stage_duration) & stage_duration > 0) %>% 
   # Reassign stage_id
   # from https://stackoverflow.com/questions/54581440/r-count-consecutive-occurrences-of-values-in-a-single-column-and-by-group
-  group_by(id_hogar, id_persona, 
-           grp = with(rle(trip_id_paste), rep(seq_along(lengths), lengths))) %>%
-  mutate(stage_id = seq_along(grp)) %>% 
+  # group_by(id_hogar, id_persona, 
+  #          grp = with(rle(id_viaje), rep(seq_along(lengths), lengths))) %>%
+  group_by(trip_id_paste) %>%
+  mutate(stage_id = seq_len(dplyr::n()),
+         #stage_id2 = seq_len(dplyr::n()),
+         # Recreate stage_id_paste
+         stage_id_paste = paste0(household_id, participant_id, trip_id, 
+                                 stage_id)#,
+         #stage_id_paste2 = paste0(household_id, participant_id, trip_id, 
+        #                         stage_id2)
+        ) %>% 
   ungroup() %>% 
-  select(household_id, participant_id, trip_id, trip_mode, trip_duration,
+  dplyr::select(household_id, participant_id, trip_id, trip_mode, 
+                trip_duration,
          trip_purpose, stage_id, stage_mode, stage_duration, stage_id_paste, 
-         trip_id_paste)
+         trip_id_paste#, stage_id_paste2, stage_id2
+         )
+         
 
+# length(unique(stages_bogota_v2_2$trip_id_paste))
+# length(unique(stages_bogota_v2_2$stage_id_paste))
+# length(unique(stages_bogota_v2_2$stage_id_paste2))
 #unique(stages_bogota_v2_2$id_etapa)
 #sum(is.na(stages_bogota_v2_2$stage_duration))
 #View(stages_bogota_v2_2)
@@ -609,7 +627,7 @@ stages_bogota_v2_2 <- stages_bogota_v2 %>% filter(n > 1) %>%
 #' I merge all stages again to create a unique dataset
 stages_bogota_ready <- stages_bogota_v2_1_ready %>% 
   bind_rows(stages_bogota_v2_2) %>% 
-  arrange(household_id, participant_id, trip_id, stage_id)
+  arrange(household_id, participant_id, trip_id, stage_id) 
 
 #View(stages_bogota_ready)
 #' Checking the number of stages before and after the preprocessing. There are
@@ -634,11 +652,15 @@ left_join(stages_bogota_ready, by = c("id_hogar" = "household_id",
   mutate(cluster_id = 1,
          household_id = id_hogar,
          participant_id = id_persona,
+         #trip_id_paste = paste(household_id, participant_id, trip_id, sep = "-"),
+         #stage_id_paste = paste(household_id, participant_id, trip_id, stage_id,
+         #                      sep = "-"),
          age = p4_edad,
          sex = ifelse(Sexo == "Hombre", "Male", "Female"),
          participant_wt = f_exp,
          meta_data = NA) %>% 
-  select(cluster_id, household_id, participant_id, sex, age, participant_wt,
+  dplyr::select(cluster_id, household_id, participant_id, sex, age,
+                participant_wt,
          trip_id, trip_mode, trip_duration, trip_purpose,
          stage_id, stage_mode, stage_duration, stage_id_paste, 
          trip_id_paste) #%>% 
@@ -681,7 +703,10 @@ table(trips_export$stage_mode, useNA = "always")
 
 #' *standardize_modes* function transforms walk to pedestrian, van to car, 
 #' bicycle to cycle, train to rail, and rickshaw to auto_rickshaw.
-#'
+
+# Checking the number of missing values
+sapply(trips_export, function(x) sum(is.na(x)))
+
 #' ## Creating again IDs
 trips_export <- trips_export %>% mutate(
   participant_id2 = participant_id,
@@ -689,7 +714,10 @@ trips_export <- trips_export %>% mutate(
   participant_id = as.integer(as.factor(paste(cluster_id, household_id,
                                                participant_id, sep = "_"))),
   trip_id = as.integer(as.factor(paste(cluster_id, household_id,
-                                        participant_id, trip_id, sep = "_"))))
+                                        participant_id, trip_id, sep = "_"))),
+  trip_id = ifelse(is.na(trip_mode), NA, trip_id))
+
+sapply(trips_export, function(x) sum(is.na(x)))
 
 #' # **Exporting phase**
 #' ## Variables to export

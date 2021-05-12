@@ -201,7 +201,7 @@ trip <- trip_0 %>%
   rename(household_id = Unique_Input,
          participant_id = Person_ID, 
          trip_id = Trip_no) %>% 
-  select(household_id, participant_id,trip_id, trip_mode, trip_purpose,
+  dplyr::select(household_id, participant_id,trip_id, trip_mode, trip_purpose,
          trip_duration)
 
 ##remove rows indicating no trips for individuals with trips
@@ -255,6 +255,8 @@ write.csv(trip, "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank
 # Load helpful functions
 #source("code/producing_trips_rd/used_functions.R")
 
+# Checking the number of missing values
+sapply(trip, function(x) sum(is.na(x)))
 
 # Standardized travel modes
 trip <- standardize_modes(trip, mode = c('trip'))
@@ -269,6 +271,14 @@ rd$X1 <- NULL
 rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, sep = "_"))))
 
 rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, pid, trip_id,  sep = "_"))))
+
+# New id for duplicated trip
+#View(rd[duplicated(rd$trip_id),])
+#View(rd[rd$trip_id == 7194,]) 
+rd[duplicated(rd$trip_id), "trip_id"] <- 99999
+
+# Checking the number of missing values
+#sapply(rd, function(x) sum(is.na(x)))
 
 #' # **Exporting phase**
 #' ## Variables to export

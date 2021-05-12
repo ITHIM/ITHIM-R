@@ -7193,7 +7193,7 @@ participant_id,age,sex,trip_id,trip_mode,trip_duration
 2896,46,Male,7192,rail,  15
 2896,46,Male,7193,rail,  10
 2896,46,Male,7194,pedestrian,  10
-2896,46,Male,7194,rail,  10
+2896,46,Male,99999,rail,  10
 2896,46,Male,7195,pedestrian,  10
 2896,46,Male,7196,rail,   5
 2897,41,Female,7197,pedestrian,  15

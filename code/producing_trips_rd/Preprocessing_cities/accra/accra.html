@@ -11,7 +11,7 @@
 
 <meta name="author" content="Lambed and Daniel" />
 
-<meta name="date" content="2021-05-04" />
+<meta name="date" content="2021-05-12" />
 
 <title>Preprocessing of Accra’s time user survey dataset. Most of it comes from Lambed’s code</title>
 
@@ -245,7 +245,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Preprocessing of Accra’s time user survey dataset. Most of it comes from Lambed’s code</h1>
 <h4 class="author">Lambed and Daniel</h4>
-<h4 class="date">2021-05-04</h4>
+<h4 class="date">2021-05-12</h4>
 
 </div>
 
@@ -253,8 +253,8 @@ div.tocify {
 <div id="understanding-phase" class="section level1">
 <h1><strong>Understanding phase</strong></h1>
 <pre><code>##           used (Mb) gc trigger (Mb) max used (Mb)
-## Ncells 1012194 54.1    2058470  110  1347650 72.0
-## Vcells 1710773 13.1    8388608   64  2318803 17.7</code></pre>
+## Ncells 1012210 54.1    2058521  110  1347638 72.0
+## Vcells 1710980 13.1    8388608   64  2318999 17.7</code></pre>
 <p>This file is based on the script “travel_survey.R”. It has the same code but I added some comments. The processing of this dataset is totally different because the survey is about time use not travel.</p>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
@@ -493,6 +493,33 @@ trip &lt;- read_csv(&quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/
 ##   trip_purpose = col_character(),
 ##   meta_data = col_character()
 ## )</code></pre>
+<pre class="r"><code># Checking the number of missing values
+sapply(trip, function(x) sum(is.na(x)))</code></pre>
+<pre><code>##             X1     cluster_id   household_id participant_id participant_wt 
+##              0              0              0              0              0 
+##            age            sex        trip_id      trip_mode  trip_duration 
+##              0              0          24752           1197           1197 
+##   trip_purpose      meta_data 
+##           1186          27457</code></pre>
+<pre class="r"><code># There&#39;s a discrepancy between the number of missing values in trip_id and
+# trip_mode, trip_duration and trip purpose.
+min(trip$trip_id, na.rm = T); max(trip$trip_id, na.rm = T)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre><code>## [1] 2830</code></pre>
+<pre class="r"><code>trip &lt;- trip %&gt;% #arrange(trip_id) %&gt;% 
+  mutate(trip_id2 = 1:dplyr::n(),
+         trip_id2 = ifelse(!is.na(trip_id) &amp; !is.na(trip_mode), trip_id,
+                           ifelse(is.na(trip_id) &amp; !is.na(trip_mode), trip_id2,
+                                  NA)))
+
+# Checking the number of missing values
+sapply(trip, function(x) sum(is.na(x)))</code></pre>
+<pre><code>##             X1     cluster_id   household_id participant_id participant_wt 
+##              0              0              0              0              0 
+##            age            sex        trip_id      trip_mode  trip_duration 
+##              0              0          24752           1197           1197 
+##   trip_purpose      meta_data       trip_id2 
+##           1186          27457           1197</code></pre>
 <pre class="r"><code># Load helpful functions
 #source(&quot;code/producing_trips_rd/used_functions.R&quot;)
 
@@ -526,14 +553,17 @@ rd &lt;- trip
 </div>
 <div id="creating-again-ids" class="section level2">
 <h2>Creating again IDs</h2>
-<pre class="r"><code># Arrange df
-rd &lt;- rd %&gt;% arrange(cluster_id, household_id, participant_id, trip_id)
+<pre class="r"><code># Arrange df and Create participant_id as a combination of cluster_id, household_id,
+rd &lt;- rd %&gt;% arrange(cluster_id, household_id, participant_id, trip_id) %&gt;% 
+  mutate(participant_id = as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = &quot;_&quot;)))),
+         trip_id = as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id2, sep = &quot;_&quot;)))),
+         trip_id = ifelse(is.na(trip_mode), NA, trip_id))
 
-# Create participant_id as a combination of cluster_id, household_id, participant_id
-rd$participant_id &lt;- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = &quot;_&quot;))))
-
-# Create trip_id as a combination of cluster_id, household_id, participant_id and trip_id
-rd$trip_id &lt;- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id, sep = &quot;_&quot;))))</code></pre>
+# #  participant_id
+# rd$participant_id &lt;- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = &quot;_&quot;))))
+# 
+# # Create trip_id as a combination of cluster_id, household_id, participant_id and trip_id
+# rd$trip_id &lt;- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id2, sep = &quot;_&quot;))))</code></pre>
 </div>
 </div>
 <div id="exporting-phase" class="section level1">

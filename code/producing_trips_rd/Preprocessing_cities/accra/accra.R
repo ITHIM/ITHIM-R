@@ -232,6 +232,21 @@ write.csv(trip, "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank
 ## Expand trip dataset using participant weight
 trip <- read_csv("C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/accra/accra_trip_with_mbike.csv")
 
+# Checking the number of missing values
+sapply(trip, function(x) sum(is.na(x)))
+
+# There's a discrepancy between the number of missing values in trip_id and
+# trip_mode, trip_duration and trip purpose.
+min(trip$trip_id, na.rm = T); max(trip$trip_id, na.rm = T)
+trip <- trip %>% #arrange(trip_id) %>% 
+  mutate(trip_id2 = 1:dplyr::n(),
+         trip_id2 = ifelse(!is.na(trip_id) & !is.na(trip_mode), trip_id,
+                           ifelse(is.na(trip_id) & !is.na(trip_mode), trip_id2,
+                                  NA)))
+
+# Checking the number of missing values
+sapply(trip, function(x) sum(is.na(x)))
+
 # Load helpful functions
 #source("code/producing_trips_rd/used_functions.R")
 
@@ -253,14 +268,17 @@ rd <- trip
 # exp <- rd %>% filter(w > 0) %>% uncount(w, .id = "pid")
 
 #' ## Creating again IDs
-# Arrange df
-rd <- rd %>% arrange(cluster_id, household_id, participant_id, trip_id)
+# Arrange df and Create participant_id as a combination of cluster_id, household_id,
+rd <- rd %>% arrange(cluster_id, household_id, participant_id, trip_id) %>% 
+  mutate(participant_id = as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_")))),
+         trip_id = as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id2, sep = "_")))),
+         trip_id = ifelse(is.na(trip_mode), NA, trip_id))
 
-# Create participant_id as a combination of cluster_id, household_id, participant_id
-rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_"))))
-
-# Create trip_id as a combination of cluster_id, household_id, participant_id and trip_id
-rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id, sep = "_"))))
+# #  participant_id
+# rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_"))))
+# 
+# # Create trip_id as a combination of cluster_id, household_id, participant_id and trip_id
+# rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id2, sep = "_"))))
 
 #' # **Exporting phase**
 #' ## Variables to export

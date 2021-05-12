@@ -341,13 +341,20 @@ trip <- standardize_modes(trip, mode = c('stage', 'trip'))
 rd <- trip
 
 # Arrange df
-rd <- rd %>% arrange(cluster_id, household_id, participant_id, trip_id)
+rd <- rd %>% arrange(cluster_id, household_id, participant_id, trip_id) %>% 
+  mutate(
+    participant_id = as.integer(as.factor(with(rd, 
+                                               paste(cluster_id, household_id,
+                                                     participant_id, 
+                                                     sep = "_")))),
+    trip_id = as.integer(as.factor(with(rd, paste(cluster_id, household_id,
+                                                  participant_id, trip_id, 
+                                                  sep = "_")))),
+    trip_id = ifelse(is.na(trip_mode), NA, trip_id))
 
-#' ## Creating again IDs
-rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_"))))
-
-# Create trip_id as a combination of cluster_id, household_id, participant_id, and trip_id
-rd$trip_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id, sep = "_"))))
+# Checking the number of missing values
+sapply(trip, function(x) sum(is.na(x)))
+sapply(rd, function(x) sum(is.na(x)))
 
 #' # **Exporting phase**
 #' ## Variables to export
