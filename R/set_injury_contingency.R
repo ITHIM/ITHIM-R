@@ -28,10 +28,11 @@ set_injury_contingency <- function(injuries){
   
   ##!! need to work out of logic of how we know which modes there are distances for!
   mode_names <- c(intersect(unique(TRIP_SET$stage_mode),MODE_SPEEDS$stage_mode),"pedestrian")
-  mode_names <- mode_names[mode_names!='other']
+  
+  ##AA: delete code to remove 'other' from modes
+  
   if(ADD_BUS_DRIVERS) mode_names <- c(mode_names,'bus_driver')
   if(ADD_TRUCK_DRIVERS) mode_names <- c(mode_names,'truck')
-  if(CITY=='accra') mode_names <- c(mode_names,'motorcycle')
   injury_list <- list()
   injury_table_types <- c()
   if(length(unique(injuries$strike_mode))==1&&!'nov'%in%injuries$strike_mode||length(unique(injuries$strike_mode))>1){
