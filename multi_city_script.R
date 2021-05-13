@@ -93,7 +93,7 @@ for(city in cities){
                                   ADD_WALK_TO_BUS_TRIPS = as.logical(add_walk_to_bus_trips[[city]]),
                                   CITY = city,
                                   AGE_RANGE = c(min_age,max_age),
-                                  ADD_TRUCK_DRIVERS = F,
+                                  ADD_TRUCK_DRIVERS = T,
                                   MAX_MODE_SHARE_SCENARIO = T,
                                   ADD_BUS_DRIVERS = F,
                                   ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]),
