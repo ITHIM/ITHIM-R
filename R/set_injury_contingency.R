@@ -54,7 +54,7 @@ set_injury_contingency <- function(injuries){
     if (sum(names(injury_summary) %in% c('age_cat','cas_gender')) == 0) {
       # If age nor gender exists, then each count is multiplied by the 
       # proportion of deaths found in the GBD dataset
-      injury_summary$count <- round(injury_summary$count * PROPORTION_INJURIES_AGERANGE)
+      injury_summary$count <- injury_summary$count * PROPORTION_INJURIES_AGERANGE
     }
     #injury_summary <- plyr::count(injury_list[[type]][,keep_names],names(injury_list[[type]])[keep_names])
     # make contingency table without prior knowledge of column names
