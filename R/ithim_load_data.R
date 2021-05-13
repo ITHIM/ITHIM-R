@@ -117,7 +117,7 @@ ithim_load_data <- function(setup_call_summary_filename, speeds =
   # min_age (=number, e.g. 15)
   # max_age (=number, e.g. 49)
   filename <- paste0(local_path,"/gbd_",CITY,".csv")
-  GBD_DATA <- read_csv(filename,col_types = cols())
+  GBD_DATA <- read_csv(filename,col_types = readr::cols())
   cat(paste0('\n  GBD read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   filename <- paste0(local_path,"/population_",CITY,".csv")
   demographic <- read_csv(filename,col_types = cols())
