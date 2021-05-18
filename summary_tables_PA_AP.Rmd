@@ -268,23 +268,46 @@ for (x in 1: length(cities))
   
 }
 ```
+# Descriptive tables of Individual-level Physical activity (MMETs)
 
-<!-- # Descriptive tables of Individual-level Physical activity (MMETs) -->
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+for (x in 1:length(cities)) {
+  names(io[[cities[x]]]$outcomes$mmets)[5:10] <- c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
+  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, baseline:bus_scen, factor_key = TRUE)
+  summary <- as.data.frame(data_long %>% group_by(scenario) %>% 
+                             summarise('mean' = mean(mmet),
+                                       '5th' = quantile(mmet, 0.05),
+                                       '50th' = quantile(mmet, 0.5),
+                                       '95th' = quantile(mmet, 0.9)))
+  summary <- cbind(summary$scenario ,round(summary[,2:5], digits = 1))
+  names(summary)[1] <- "Scenario"
+  print(kable(summary, caption = cities[x]))
 
-<!-- ```{r, message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- for (x in 1: length(cities)) -->
-<!-- { -->
-<!--   names(io[[cities[x]]]$outcomes$mmets)[5:10]<-c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen") -->
-<!--   data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, baseline:bus_scen, factor_key=TRUE) -->
-<!--   summary<- as.data.frame(data_long %>% group_by(scenario) %>% summarise('mean'=mean(mmet),'5th'=quantile(mmet, 0.05),'50th'=quantile(mmet, 0.5),'95th'=quantile(mmet, 0.9))) -->
-<!--   summary<- cbind(summary$scenario ,round(summary[,2:5], digits=1)) -->
-<!--   names(summary)[1]<-"Scenario" -->
-<!--   print(kable(summary, caption= cities[x])) -->
+}
+```
 
+# Descriptive table for Physical Activity (MMETs)
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
+cl <- list()
+for (city in cities)
+{
+  
+  td <- round(colMeans(io[[city]]$outcomes$mmets[,5:10], na.rm = T), 1) %>% as.data.frame() %>% tibble::rownames_to_column()
+  names(td) <- c('Scenario', city)
+  
+  if (length(cl) == 0)
+    cl <- td
+  else
+    cl <- left_join(cl, td)
+  
+}
 
-<!-- } -->
-<!-- ``` -->
+cl$Scenario <- c("Baseline","Walking", "Bicycling", "Driving", "Motorcycling", "Public Transport")
+
+print(kable(cl))
+
+```
 
 <!-- # Descriptive tables of injury outcomes -->
 
