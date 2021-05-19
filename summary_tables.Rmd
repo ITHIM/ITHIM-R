@@ -96,19 +96,19 @@ kable(scen_prop, headings = "Scenario Proportions")
 
 |accra|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
-| pedestrian | 95.5|27.9|2.6 |
-| cycle | 0.6|0.7|0.4 |
-| car | 0.9|12.4|17.2 |
-| motorcycle | 0.0|0.0|1.3 |
-| bus | 2.4|48.3|71.8 |
+| pedestrian | 95.8|23.8|1.7 |
+| cycle | 0.6|0.5|0.2 |
+| car | 0.8|16.3|20.6 |
+| motorcycle | 0.0|0.0|3.1 |
+| bus | 2.4|47.1|62.9 |
 
 |bangalore|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
-| pedestrian | 74.8|23.0|1.0 |
-| cycle | 2.3|9.8|1.1 |
-| car | 1.0|4.4|6.4 |
-| motorcycle | 5.1|33.9|62.9 |
-| bus | 15.1|24.3|24.9 |
+| pedestrian | 65.5|21.2|1.3 |
+| cycle | 2.0|8.7|1.0 |
+| car | 1.1|4.0|5.8 |
+| motorcycle | 5.8|31.7|54.0 |
+| bus | 23.9|30.6|34.6 |
 
 |belo_horizonte|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
