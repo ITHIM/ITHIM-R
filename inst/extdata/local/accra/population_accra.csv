@@ -1,7 +1,7 @@
 age,sex,population
 0-4,Male,89420
-05-Sep,Male,74890
-Oct-14,Male,70666
+5-9,Male,74890
+10-14,Male,70666
 15-19,Male,75309
 20-24,Male,98253
 25-29,Male,92053
@@ -20,8 +20,8 @@ Oct-14,Male,70666
 90-94,Male,787
 95-150,Male,376
 0-4,Female,87740
-05-Sep,Female,75482
-Oct-14,Female,79379
+5-9,Female,75482
+10-14,Female,79379
 15-19,Female,88278
 20-24,Female,108762
 25-29,Female,98870
