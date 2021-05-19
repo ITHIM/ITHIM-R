@@ -7,7 +7,8 @@ library(plotly)
 library(ithimr)
 
 # Read accra travel survey 
-raw_trip_set <- read_csv("data/local/accra/accra_trip.csv")
+# raw_trip_set <- read_csv("data/local/accra/accra_trip.csv")
+raw_trip_set <- read_csv("C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/accra/accra_trip.csv")
 
 # Remove already added motorcycle trips
 
@@ -42,7 +43,8 @@ raw_trip_set[raw_trip_set$age > 49 & raw_trip_set$age < 70,]$age_cat <- '50-69'
 
 raw_trip_set <- arrange(raw_trip_set, trip_id)
 
-pop_weights <- read_csv("data/local/accra/census_weights.csv")
+# pop_weights <- read_csv("data/local/accra/census_weights.csv")
+pop_weights <- read_csv("C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/accra/census_weights.csv")
 
 backup <- raw_trip_set
 
@@ -78,4 +80,5 @@ raw_trip_set$age_cat <- NULL
 
 #####
 # Write streamlined travel survey data as a csv in the inst folder
-write_csv(raw_trip_set, "data/local/accra/accra_trip_with_mbike.csv")
+# write_csv(raw_trip_set, "data/local/accra/accra_trip_with_mbike.csv")
+write_csv(raw_trip_set, "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/accra/accra_trip_with_mbike.csv")

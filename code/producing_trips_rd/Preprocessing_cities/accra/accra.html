@@ -11,7 +11,7 @@
 
 <meta name="author" content="Lambed and Daniel" />
 
-<meta name="date" content="2021-05-12" />
+<meta name="date" content="2021-05-18" />
 
 <title>Preprocessing of Accra’s time user survey dataset. Most of it comes from Lambed’s code</title>
 
@@ -245,7 +245,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Preprocessing of Accra’s time user survey dataset. Most of it comes from Lambed’s code</h1>
 <h4 class="author">Lambed and Daniel</h4>
-<h4 class="date">2021-05-12</h4>
+<h4 class="date">2021-05-18</h4>
 
 </div>
 
@@ -253,8 +253,8 @@ div.tocify {
 <div id="understanding-phase" class="section level1">
 <h1><strong>Understanding phase</strong></h1>
 <pre><code>##           used (Mb) gc trigger (Mb) max used (Mb)
-## Ncells 1012210 54.1    2058521  110  1347638 72.0
-## Vcells 1710980 13.1    8388608   64  2318999 17.7</code></pre>
+## Ncells 1012278 54.1    2058638  110  1347792 72.0
+## Vcells 1711367 13.1    8388608   64  2319363 17.7</code></pre>
 <p>This file is based on the script “travel_survey.R”. It has the same code but I added some comments. The processing of this dataset is totally different because the survey is about time use not travel.</p>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
@@ -345,7 +345,9 @@ Ghana Time Use Survey (GTUS) 2009 Report.pdf
 </div>
 <div id="importing-from-local-directory" class="section level4">
 <h4>Importing from local directory</h4>
-<pre class="r"><code>route &lt;- &quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Ghana/Accra/Trips/&quot;</code></pre>
+<pre class="r"><code>route &lt;- &quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Ghana/Accra/Trips/&quot;
+
+people &lt;- haven::read_spss(paste0(route, &quot;GTUS 2009 Individual Characteristics.sav&quot;))</code></pre>
 <pre class="r"><code>time_use_0 &lt;- haven::read_spss(paste0(route, &quot;GTUS 2009 24 Hours Individual Diary.sav&quot;))
 time_use_0 &lt;- as_factor(time_use_0)
 
@@ -365,13 +367,42 @@ trip_mode &lt;- data.frame(
 <div id="filtering-people-from-accra" class="section level2">
 <h2>Filtering people from Accra</h2>
 <p>Since the survey was conducted in the whole country, I need to filter only the households that are located in the urban area of Greater Accra. This goes in hand with the jurisdiction of injuries dataset, which is the metropolitan area.</p>
-<pre class="r"><code>#keep relevant variables
+<pre class="r"><code># Adding hh id in people dataset
+people2 &lt;- people %&gt;% 
+  mutate(EANum2 = sprintf(&quot;%03d&quot;, people$EANum),
+         HHNum2 = sprintf(&quot;%02d&quot;, people$HHNum),
+         concat = paste(EANum2, HHNum2, sep = &quot;-&quot;)) %&gt;% 
+  dplyr::select(EANum2, HHNum2, concat, URBRUR, region, district, Adj_hh_wt, 
+                B04, B05) %&gt;% distinct(concat, .keep_all = T)
+
+# Merging people information to time_use_0 dataset
+time_use_0_v2 &lt;- time_use_0 %&gt;% 
+  mutate(concat = paste(EANum, HHNum, sep = &quot;-&quot;)) %&gt;% 
+  left_join(people2, by = &quot;concat&quot;) 
+
+# Checking that region and urbrural variables are the same in both datasets
+all(time_use_0_v2$region.x == time_use_0_v2$region.y) #ok</code></pre>
+<pre><code>## Warning: Métodos incompatibles (&quot;Ops.factor&quot;, &quot;==.vctrs_vctr&quot;) para &quot;==&quot;</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>all(time_use_0_v2$Adj_hh_wt.x == time_use_0_v2$Adj_hh_wt.y) #ok</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>all(time_use_0_v2$URBRUR.x == time_use_0_v2$URBRUR.y) #ok</code></pre>
+<pre><code>## Warning: Métodos incompatibles (&quot;Ops.factor&quot;, &quot;==.vctrs_vctr&quot;) para &quot;==&quot;</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code># Since both are ok, then I can assume that district is also ok
+
+#keep relevant variables
 #time_use_0 &lt;- as_factor(time_use_0)
 
 #time_use_0 %&gt;% mutate_if(is.factor, as.character) -&gt; time_use_0
 
 dat &lt;- time_use_0 %&gt;% 
-  dplyr::filter(region == &quot;Greater Accra&quot; &amp; URBRUR == &quot;Urban&quot;) %&gt;% 
+  # Paste district variable
+  mutate(concat = paste(EANum, HHNum, sep = &quot;-&quot;)) %&gt;% 
+  left_join(people2 %&gt;% dplyr::select(concat, district), by = &quot;concat&quot;) %&gt;% 
+  # filter dataset
+  dplyr::filter(region == &quot;Greater Accra&quot; &amp; URBRUR == &quot;Urban&quot; &amp; 
+                  district == 1) %&gt;% 
   rename(sex = B102,
          age = B105,
          cluster_id = EANum,
@@ -383,10 +414,9 @@ dat &lt;- time_use_0 %&gt;%
     end = substr(Diary_hour, 6,7),
     Duration = ActDur,
     Duplicate = &quot;notDuplicate&quot;,
-    Same = &quot;notSame&quot;)</code></pre>
-</div>
-<div id="classification-and-translation-of-trip-modes-and-purpose" class="section level2">
-<h2>Classification and translation of trip modes and purpose</h2>
+    Same = &quot;notSame&quot;)
+
+ #&#39; ## Classification and translation of trip modes and purpose</code></pre>
 <p>The process to translate the purpose and mode is different to other surveys. In this case we define the purpose in this way:</p>
 <pre class="r"><code>dat$ActCode1 &lt;- ifelse(grepl(&quot;Work&quot;, dat$ActCode1), &quot;work&quot;, 
                        ifelse(grepl(&quot;Learning&quot;,dat$ActCode1), &quot;school&quot;, &quot;other&quot;))
@@ -443,7 +473,8 @@ no_trip &lt;- dat %&gt;%
 
 #join datasets
 trip &lt;- bind_rows(trip, no_trip) %&gt;% 
-  select(cluster_id, household_id, participant_id, participant_wt, age, sex, 
+  dplyr::select(cluster_id, household_id, participant_id, participant_wt, age, 
+                sex, 
          trip_id, trip_mode, trip_duration, trip_purpose) %&gt;% 
   {.[!duplicated(.),]}
 
@@ -471,7 +502,168 @@ write.csv(trip, &quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/Worl
 <h2>Create motorcycle trips</h2>
 <p>The following code has as an input accra_trip.csv and as output accra_trip_with_mbike.csv</p>
 <pre class="r"><code># Source processing code
-#source(&quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/code/raw_to_processed/accra/streamline_travel_survey.R&quot;)</code></pre>
+source(&quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/code/raw_to_processed/accra/streamline_travel_survey.R&quot;)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plotly&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     last_plot</code></pre>
+<pre><code>## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter</code></pre>
+<pre><code>## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     layout</code></pre>
+<pre><code>## Loading required package: ReIns</code></pre>
+<pre><code>## Loading required package: truncnorm</code></pre>
+<pre><code>## Loading required package: distr</code></pre>
+<pre><code>## Loading required package: startupmsg</code></pre>
+<pre><code>## Utilities for Start-Up Messages (version 0.9.6)</code></pre>
+<pre><code>## For more information see ?&quot;startupmsg&quot;, NEWS(&quot;startupmsg&quot;)</code></pre>
+<pre><code>## Loading required package: sfsmisc</code></pre>
+<pre><code>## 
+## Attaching package: &#39;sfsmisc&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     last</code></pre>
+<pre><code>## Object Oriented Implementation of Distributions (version 2.8.0)</code></pre>
+<pre><code>## Attention: Arithmetics on distribution objects are understood as operations on corresponding random variables (r.v.s); see distrARITH().
+## Some functions from package &#39;stats&#39; are intentionally masked ---see distrMASK().
+## Note that global options are controlled by distroptions() ---c.f. ?&quot;distroptions&quot;.</code></pre>
+<pre><code>## For more information see ?&quot;distr&quot;, NEWS(&quot;distr&quot;), as well as
+##   http://distr.r-forge.r-project.org/
+## Package &quot;distrDoc&quot; provides a vignette to this package as well as to several extension packages; try vignette(&quot;distr&quot;).</code></pre>
+<pre><code>## 
+## Attaching package: &#39;distr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     location, n</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     df, qqplot, sd</code></pre>
+<pre><code>## Loading required package: pracma</code></pre>
+<pre><code>## 
+## Attaching package: &#39;pracma&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:distr&#39;:
+## 
+##     Norm, size</code></pre>
+<pre><code>## The following object is masked from &#39;package:sfsmisc&#39;:
+## 
+##     primes</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     cross</code></pre>
+<pre><code>## Loading required package: data.table</code></pre>
+<pre><code>## Warning: package &#39;data.table&#39; was built under R version 4.0.5</code></pre>
+<pre><code>## 
+## Attaching package: &#39;data.table&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:sfsmisc&#39;:
+## 
+##     last</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     between, first, last</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     transpose</code></pre>
+<pre><code>## Loading required package: mgcv</code></pre>
+<pre><code>## Loading required package: nlme</code></pre>
+<pre><code>## 
+## Attaching package: &#39;nlme&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     collapse</code></pre>
+<pre><code>## This is mgcv 1.8-33. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;mgcv&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:pracma&#39;:
+## 
+##     magic</code></pre>
+<pre><code>## The following object is masked from &#39;package:nnet&#39;:
+## 
+##     multinom</code></pre>
+<pre><code>## Loading required package: parallel</code></pre>
+<pre><code>## Loading required package: splines</code></pre>
+<pre><code>## Loading required package: BMS</code></pre>
+<pre><code>## Loading required package: MASS</code></pre>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:plotly&#39;:
+## 
+##     select</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     select</code></pre>
+<pre><code>## Warning: Missing column names filled in: &#39;X1&#39; [1]</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   X1 = col_double(),
+##   cluster_id = col_character(),
+##   household_id = col_character(),
+##   participant_id = col_character(),
+##   participant_wt = col_double(),
+##   age = col_double(),
+##   sex = col_character(),
+##   trip_id = col_double(),
+##   trip_mode = col_character(),
+##   trip_duration = col_double(),
+##   trip_purpose = col_character(),
+##   meta_data = col_character()
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   sex = col_character(),
+##   age = col_character(),
+##   `census population` = col_double(),
+##   `census %` = col_double(),
+##   `sample size` = col_double(),
+##   `sample %` = col_double(),
+##   `expected sample size` = col_double(),
+##   weights = col_double(),
+##   rweights = col_double()
+## )</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 7 x 2
+##   trip_mode      p
+##   &lt;chr&gt;      &lt;dbl&gt;
+## 1 bus         30.6
+## 2 car          5.6
+## 3 motorcycle   1.3
+## 4 taxi         4.3
+## 5 train        0.2
+## 6 walk        57.9
+## 7 &lt;NA&gt;         6.9</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 6 x 2
+##   trip_mode      p
+##   &lt;chr&gt;      &lt;dbl&gt;
+## 1 bus         49.4
+## 2 car          4.6
+## 3 motorcycle   1.1
+## 4 taxi        10.3
+## 5 walk        33.3
+## 6 &lt;NA&gt;        11.5</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 8 x 2
+##   trip_mode      p
+##   &lt;chr&gt;      &lt;dbl&gt;
+## 1 bicycle      1  
+## 2 bus         23.2
+## 3 car         11.8
+## 4 motorcycle   0.5
+## 5 taxi         7.4
+## 6 train        0.3
+## 7 walk        55.5
+## 8 &lt;NA&gt;         1.3</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 5 x 2
+##   trip_mode     p
+##   &lt;chr&gt;     &lt;dbl&gt;
+## 1 bus        32.3
+## 2 car        23.3
+## 3 taxi        1.5
+## 4 walk       42.1
+## 5 &lt;NA&gt;        3.8</code></pre>
 </div>
 <div id="standardize-trip-modes" class="section level2">
 <h2>Standardize trip modes</h2>
@@ -498,14 +690,14 @@ sapply(trip, function(x) sum(is.na(x)))</code></pre>
 <pre><code>##             X1     cluster_id   household_id participant_id participant_wt 
 ##              0              0              0              0              0 
 ##            age            sex        trip_id      trip_mode  trip_duration 
-##              0              0          24752           1197           1197 
+##              0              0          16459            798            798 
 ##   trip_purpose      meta_data 
-##           1186          27457</code></pre>
+##            787          18216</code></pre>
 <pre class="r"><code># There&#39;s a discrepancy between the number of missing values in trip_id and
 # trip_mode, trip_duration and trip purpose.
 min(trip$trip_id, na.rm = T); max(trip$trip_id, na.rm = T)</code></pre>
 <pre><code>## [1] 1</code></pre>
-<pre><code>## [1] 2830</code></pre>
+<pre><code>## [1] 1877</code></pre>
 <pre class="r"><code>trip &lt;- trip %&gt;% #arrange(trip_id) %&gt;% 
   mutate(trip_id2 = 1:dplyr::n(),
          trip_id2 = ifelse(!is.na(trip_id) &amp; !is.na(trip_mode), trip_id,
@@ -517,11 +709,37 @@ sapply(trip, function(x) sum(is.na(x)))</code></pre>
 <pre><code>##             X1     cluster_id   household_id participant_id participant_wt 
 ##              0              0              0              0              0 
 ##            age            sex        trip_id      trip_mode  trip_duration 
-##              0              0          24752           1197           1197 
+##              0              0          16459            798            798 
 ##   trip_purpose      meta_data       trip_id2 
-##           1186          27457           1197</code></pre>
+##            787          18216            798</code></pre>
 <pre class="r"><code># Load helpful functions
 #source(&quot;code/producing_trips_rd/used_functions.R&quot;)
+
+# Defining standardized_modes function again 
+standardize_modes &lt;- function(trip, mode){
+  # Read lookup table
+  smodes &lt;- read_csv(&#39;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/global/modes/standardized_modes.csv&#39;)
+  # Separate rows 
+  smodes &lt;- smodes %&gt;% separate_rows(original, sep = &#39;;&#39;)
+  
+  smodes &lt;- smodes %&gt;% 
+    mutate(across(where(is.character), str_trim))
+  
+  if (length(mode) == 1) {
+    if (mode == &#39;stage&#39;)
+      trip$stage_mode &lt;- smodes$exhaustive_list[match(trip$stage_mode, smodes$original)]
+    else
+      trip$trip_mode &lt;- smodes$exhaustive_list[match(trip$trip_mode, smodes$original)]
+  }else if (length(mode) == 2) {
+    if (all(mode %in% c(&#39;stage&#39;, &#39;trip&#39;))) {
+      trip$trip_mode &lt;- smodes$exhaustive_list[match(trip$trip_mode, smodes$original)]
+      trip$stage_mode &lt;- smodes$exhaustive_list[match(trip$stage_mode, smodes$original)]
+    }
+  }
+  
+  return(trip)
+  
+}
 
 # Standardized travel modes
 trip &lt;- standardize_modes(trip, mode = c(&#39;trip&#39;))</code></pre>

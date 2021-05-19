@@ -97,6 +97,8 @@ standardize_modes <- function(trip, mode){
 #' #### Importing from local directory
 route <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/Ghana/Accra/Trips/"
 
+people <- haven::read_spss(paste0(route, "GTUS 2009 Individual Characteristics.sav"))
+
 #+ warning=FALSE, message=FALSE, cache=TRUE
 time_use_0 <- haven::read_spss(paste0(route, "GTUS 2009 24 Hours Individual Diary.sav"))
 time_use_0 <- as_factor(time_use_0)
@@ -116,13 +118,39 @@ trip_mode <- data.frame(
 #' the households that are located in the urban area of Greater Accra. This goes
 #'  in hand with the jurisdiction of injuries dataset, which is the metropolitan
 #'  area. 
+#'  
+# Adding hh id in people dataset
+people2 <- people %>% 
+  mutate(EANum2 = sprintf("%03d", people$EANum),
+         HHNum2 = sprintf("%02d", people$HHNum),
+         concat = paste(EANum2, HHNum2, sep = "-")) %>% 
+  dplyr::select(EANum2, HHNum2, concat, URBRUR, region, district, Adj_hh_wt, 
+                B04, B05) %>% distinct(concat, .keep_all = T)
+
+# Merging people information to time_use_0 dataset
+time_use_0_v2 <- time_use_0 %>% 
+  mutate(concat = paste(EANum, HHNum, sep = "-")) %>% 
+  left_join(people2, by = "concat") 
+
+# Checking that region and urbrural variables are the same in both datasets
+all(time_use_0_v2$region.x == time_use_0_v2$region.y) #ok
+all(time_use_0_v2$Adj_hh_wt.x == time_use_0_v2$Adj_hh_wt.y) #ok
+all(time_use_0_v2$URBRUR.x == time_use_0_v2$URBRUR.y) #ok
+
+# Since both are ok, then I can assume that district is also ok
+
 #keep relevant variables
 #time_use_0 <- as_factor(time_use_0)
 
 #time_use_0 %>% mutate_if(is.factor, as.character) -> time_use_0
 
 dat <- time_use_0 %>% 
-  dplyr::filter(region == "Greater Accra" & URBRUR == "Urban") %>% 
+  # Paste district variable
+  mutate(concat = paste(EANum, HHNum, sep = "-")) %>% 
+  left_join(people2 %>% dplyr::select(concat, district), by = "concat") %>% 
+  # filter dataset
+  dplyr::filter(region == "Greater Accra" & URBRUR == "Urban" & 
+                  district == 1) %>% 
   rename(sex = B102,
          age = B105,
          cluster_id = EANum,
@@ -136,7 +164,7 @@ dat <- time_use_0 %>%
     Duplicate = "notDuplicate",
     Same = "notSame")
 
-#' ## Classification and translation of trip modes and purpose
+ #' ## Classification and translation of trip modes and purpose
 #' The process to translate the purpose and mode is different to other surveys.
 #' In this case we define the purpose in this way:
 dat$ActCode1 <- ifelse(grepl("Work", dat$ActCode1), "work", 
@@ -193,7 +221,8 @@ no_trip <- dat %>%
 
 #join datasets
 trip <- bind_rows(trip, no_trip) %>% 
-  select(cluster_id, household_id, participant_id, participant_wt, age, sex, 
+  dplyr::select(cluster_id, household_id, participant_id, participant_wt, age, 
+                sex, 
          trip_id, trip_mode, trip_duration, trip_purpose) %>% 
   {.[!duplicated(.),]}
 
@@ -222,7 +251,7 @@ write.csv(trip, "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank
 #' ## Create motorcycle trips
 #' The following code has as an input accra_trip.csv and as output accra_trip_with_mbike.csv
 # Source processing code
-#source("C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/code/raw_to_processed/accra/streamline_travel_survey.R")
+source("C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/code/raw_to_processed/accra/streamline_travel_survey.R")
 
 #' ## Standardize trip modes
 #' There's already a function that standardize these modes so the package can use
@@ -249,6 +278,32 @@ sapply(trip, function(x) sum(is.na(x)))
 
 # Load helpful functions
 #source("code/producing_trips_rd/used_functions.R")
+
+# Defining standardized_modes function again 
+standardize_modes <- function(trip, mode){
+  # Read lookup table
+  smodes <- read_csv('C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/global/modes/standardized_modes.csv')
+  # Separate rows 
+  smodes <- smodes %>% separate_rows(original, sep = ';')
+  
+  smodes <- smodes %>% 
+    mutate(across(where(is.character), str_trim))
+  
+  if (length(mode) == 1) {
+    if (mode == 'stage')
+      trip$stage_mode <- smodes$exhaustive_list[match(trip$stage_mode, smodes$original)]
+    else
+      trip$trip_mode <- smodes$exhaustive_list[match(trip$trip_mode, smodes$original)]
+  }else if (length(mode) == 2) {
+    if (all(mode %in% c('stage', 'trip'))) {
+      trip$trip_mode <- smodes$exhaustive_list[match(trip$trip_mode, smodes$original)]
+      trip$stage_mode <- smodes$exhaustive_list[match(trip$stage_mode, smodes$original)]
+    }
+  }
+  
+  return(trip)
+  
+}
 
 # Standardized travel modes
 trip <- standardize_modes(trip, mode = c('trip'))
