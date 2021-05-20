@@ -39,13 +39,13 @@ pedestrian,142.404,Bicycling,buenos_aires
 truck,1.0562,Bicycling,buenos_aires
 other,0,Bicycling,buenos_aires
 rail,0,Bicycling,buenos_aires
-bus,10.2184,Bicycling,cape_town
-car,52.0893,Bicycling,cape_town
-cycle,104.0929,Bicycling,cape_town
-motorcycle,933.1223,Bicycling,cape_town
-pedestrian,659.3517,Bicycling,cape_town
-truck,5.1504,Bicycling,cape_town
-other,0,Bicycling,cape_town
+bus,5.2473,Bicycling,cape_town
+car,30.2016,Bicycling,cape_town
+cycle,68.3595,Bicycling,cape_town
+motorcycle,691.7976,Bicycling,cape_town
+pedestrian,392.6196,Bicycling,cape_town
+truck,2.9431,Bicycling,cape_town
+other,25.01,Bicycling,cape_town
 rail,0,Bicycling,cape_town
 bus,0.6779,Bicycling,delhi
 car,9.38,Bicycling,delhi
@@ -127,13 +127,13 @@ pedestrian,141.3279,Baseline,buenos_aires
 truck,1.0562,Baseline,buenos_aires
 other,0,Baseline,buenos_aires
 rail,0,Baseline,buenos_aires
-bus,8.2554,Baseline,cape_town
-car,52.2365,Baseline,cape_town
-cycle,263.4034,Baseline,cape_town
-motorcycle,958.5435,Baseline,cape_town
-pedestrian,656.1454,Baseline,cape_town
-truck,5.1504,Baseline,cape_town
-other,0,Baseline,cape_town
+bus,5.1597,Baseline,cape_town
+car,30.1992,Baseline,cape_town
+cycle,158.042,Baseline,cape_town
+motorcycle,560.3793,Baseline,cape_town
+pedestrian,380.9127,Baseline,cape_town
+truck,2.9431,Baseline,cape_town
+other,25.01,Baseline,cape_town
 rail,0,Baseline,cape_town
 bus,0.6756,Baseline,delhi
 car,9.3596,Baseline,delhi
@@ -215,12 +215,12 @@ pedestrian,88.7298,Public Transport,buenos_aires
 truck,1.0562,Public Transport,buenos_aires
 other,0,Public Transport,buenos_aires
 rail,0,Public Transport,buenos_aires
-bus,5.8226,Public Transport,cape_town
-car,67.743,Public Transport,cape_town
-cycle,186.1648,Public Transport,cape_town
-motorcycle,948.5305,Public Transport,cape_town
-pedestrian,510.6642,Public Transport,cape_town
-truck,3.6789,Public Transport,cape_town
+bus,4.2346,Public Transport,cape_town
+car,38.4713,Public Transport,cape_town
+cycle,93.0824,Public Transport,cape_town
+motorcycle,556.03510000000006,Public Transport,cape_town
+pedestrian,297.5211,Public Transport,cape_town
+truck,2.2073,Public Transport,cape_town
 other,0,Public Transport,cape_town
 rail,0,Public Transport,cape_town
 bus,0.4478,Public Transport,delhi
@@ -303,13 +303,13 @@ pedestrian,165.9712,Driving,buenos_aires
 truck,1.0562,Driving,buenos_aires
 other,0,Driving,buenos_aires
 rail,0,Driving,buenos_aires
-bus,8.6203,Driving,cape_town
-car,51.3551,Driving,cape_town
-cycle,334.5935,Driving,cape_town
-motorcycle,994.1247,Driving,cape_town
-pedestrian,670.4649,Driving,cape_town
-truck,5.8862,Driving,cape_town
-other,0,Driving,cape_town
+bus,5.3877,Driving,cape_town
+car,29.8394,Driving,cape_town
+cycle,133.8374,Driving,cape_town
+motorcycle,590.2615,Driving,cape_town
+pedestrian,388.0346,Driving,cape_town
+truck,2.9431,Driving,cape_town
+other,25.3948,Driving,cape_town
 rail,0,Driving,cape_town
 bus,0.7082,Driving,delhi
 car,7.967,Driving,delhi
@@ -391,12 +391,12 @@ pedestrian,414.0656,Motorcycling,buenos_aires
 truck,1.0562,Motorcycling,buenos_aires
 other,0,Motorcycling,buenos_aires
 rail,0,Motorcycling,buenos_aires
-bus,5.2288,Motorcycling,cape_town
-car,75.5609,Motorcycling,cape_town
+bus,3.8028,Motorcycling,cape_town
+car,38.4673,Motorcycling,cape_town
 cycle,97.0977,Motorcycling,cape_town
-motorcycle,185.1346,Motorcycling,cape_town
-pedestrian,956.4073,Motorcycling,cape_town
-truck,2.2073,Motorcycling,cape_town
+motorcycle,115.6337,Motorcycling,cape_town
+pedestrian,542.2566,Motorcycling,cape_town
+truck,1.4716,Motorcycling,cape_town
 other,0,Motorcycling,cape_town
 rail,0,Motorcycling,cape_town
 bus,0.7078,Motorcycling,delhi
@@ -479,13 +479,13 @@ pedestrian,113.3472,Walking,buenos_aires
 truck,1.0562,Walking,buenos_aires
 other,0,Walking,buenos_aires
 rail,0,Walking,buenos_aires
-bus,8.1975,Walking,cape_town
-car,52.597,Walking,cape_town
-cycle,341.0457,Walking,cape_town
-motorcycle,937.0334,Walking,cape_town
-pedestrian,631.7612,Walking,cape_town
-truck,5.1504,Walking,cape_town
-other,0,Walking,cape_town
+bus,5.1917,Walking,cape_town
+car,30.4688,Walking,cape_town
+cycle,136.4183,Walking,cape_town
+motorcycle,555.8673,Walking,cape_town
+pedestrian,364.2521,Walking,cape_town
+truck,2.9431,Walking,cape_town
+other,25.01,Walking,cape_town
 rail,0,Walking,cape_town
 bus,0.6923,Walking,delhi
 car,9.3153,Walking,delhi

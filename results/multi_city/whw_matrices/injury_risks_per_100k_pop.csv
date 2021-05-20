@@ -39,13 +39,13 @@ pedestrian,2.57,Bicycling,buenos_aires
 truck,0.02,Bicycling,buenos_aires
 other,0,Bicycling,buenos_aires
 rail,0,Bicycling,buenos_aires
-bus,1.38,Bicycling,cape_town
-car,11.46,Bicycling,cape_town
-cycle,2.5,Bicycling,cape_town
-motorcycle,2.16,Bicycling,cape_town
-pedestrian,19.74,Bicycling,cape_town
-truck,0.26,Bicycling,cape_town
-other,0,Bicycling,cape_town
+bus,0.71,Bicycling,cape_town
+car,6.64,Bicycling,cape_town
+cycle,1.64,Bicycling,cape_town
+motorcycle,1.6,Bicycling,cape_town
+pedestrian,11.76,Bicycling,cape_town
+truck,0.15,Bicycling,cape_town
+other,0.04,Bicycling,cape_town
 rail,0,Bicycling,cape_town
 bus,0.05,Bicycling,delhi
 car,0.78,Bicycling,delhi
@@ -127,13 +127,13 @@ pedestrian,2.62,Baseline,buenos_aires
 truck,0.02,Baseline,buenos_aires
 other,0,Baseline,buenos_aires
 rail,0,Baseline,buenos_aires
-bus,1.19,Baseline,cape_town
-car,11.94,Baseline,cape_town
-cycle,0.19,Baseline,cape_town
-motorcycle,2.43,Baseline,cape_town
-pedestrian,21.09,Baseline,cape_town
-truck,0.26,Baseline,cape_town
-other,0,Baseline,cape_town
+bus,0.75,Baseline,cape_town
+car,6.9,Baseline,cape_town
+cycle,0.11,Baseline,cape_town
+motorcycle,1.42,Baseline,cape_town
+pedestrian,12.24,Baseline,cape_town
+truck,0.15,Baseline,cape_town
+other,0.04,Baseline,cape_town
 rail,0,Baseline,cape_town
 bus,0.05,Baseline,delhi
 car,0.78,Baseline,delhi
@@ -215,12 +215,12 @@ pedestrian,13.37,Public Transport,buenos_aires
 truck,0.02,Public Transport,buenos_aires
 other,0,Public Transport,buenos_aires
 rail,0,Public Transport,buenos_aires
-bus,1.64,Public Transport,cape_town
-car,9.07,Public Transport,cape_town
-cycle,0.07,Public Transport,cape_town
-motorcycle,1.08,Public Transport,cape_town
-pedestrian,91.03,Public Transport,cape_town
-truck,0.19,Public Transport,cape_town
+bus,1.19,Public Transport,cape_town
+car,5.15,Public Transport,cape_town
+cycle,0.04,Public Transport,cape_town
+motorcycle,0.63,Public Transport,cape_town
+pedestrian,53.04,Public Transport,cape_town
+truck,0.11,Public Transport,cape_town
 other,0,Public Transport,cape_town
 rail,0,Public Transport,cape_town
 bus,0.08,Public Transport,delhi
@@ -303,13 +303,13 @@ pedestrian,2.4,Driving,buenos_aires
 truck,0.02,Driving,buenos_aires
 other,0,Driving,buenos_aires
 rail,0,Driving,buenos_aires
-bus,1.19,Driving,cape_town
-car,12.2,Driving,cape_town
-cycle,0.19,Driving,cape_town
-motorcycle,2.39,Driving,cape_town
-pedestrian,20.38,Driving,cape_town
-truck,0.3,Driving,cape_town
-other,0,Driving,cape_town
+bus,0.75,Driving,cape_town
+car,7.09,Driving,cape_town
+cycle,0.07,Driving,cape_town
+motorcycle,1.42,Driving,cape_town
+pedestrian,11.79,Driving,cape_town
+truck,0.15,Driving,cape_town
+other,0.04,Driving,cape_town
 rail,0,Driving,cape_town
 bus,0.03,Driving,delhi
 car,1.27,Driving,delhi
@@ -391,12 +391,12 @@ pedestrian,5.49,Motorcycling,buenos_aires
 truck,0.02,Motorcycling,buenos_aires
 other,0,Motorcycling,buenos_aires
 rail,0,Motorcycling,buenos_aires
-bus,0.41,Motorcycling,cape_town
-car,8.21,Motorcycling,cape_town
+bus,0.3,Motorcycling,cape_town
+car,4.18,Motorcycling,cape_town
 cycle,0.04,Motorcycling,cape_town
-motorcycle,45.83,Motorcycling,cape_town
-pedestrian,20.34,Motorcycling,cape_town
-truck,0.11,Motorcycling,cape_town
+motorcycle,28.63,Motorcycling,cape_town
+pedestrian,11.53,Motorcycling,cape_town
+truck,0.07,Motorcycling,cape_town
 other,0,Motorcycling,cape_town
 rail,0,Motorcycling,cape_town
 bus,0.03,Motorcycling,delhi
@@ -479,13 +479,13 @@ pedestrian,5.49,Walking,buenos_aires
 truck,0.02,Walking,buenos_aires
 other,0,Walking,buenos_aires
 rail,0,Walking,buenos_aires
-bus,1.12,Walking,cape_town
-car,11.53,Walking,cape_town
-cycle,0.19,Walking,cape_town
-motorcycle,2.2,Walking,cape_town
-pedestrian,32.17,Walking,cape_town
-truck,0.26,Walking,cape_town
-other,0,Walking,cape_town
+bus,0.71,Walking,cape_town
+car,6.68,Walking,cape_town
+cycle,0.07,Walking,cape_town
+motorcycle,1.31,Walking,cape_town
+pedestrian,18.55,Walking,cape_town
+truck,0.15,Walking,cape_town
+other,0.04,Walking,cape_town
 rail,0,Walking,cape_town
 bus,0.05,Walking,delhi
 car,0.75,Walking,delhi

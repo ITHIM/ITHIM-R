@@ -45,14 +45,14 @@ rail,0,bus,buenos_aires,Baseline
 truck,0,bus,buenos_aires,Baseline
 NOV,3.12,bus,buenos_aires,Baseline
 bus,0,bus,cape_town,Baseline
-car,24,bus,cape_town,Baseline
-cycle,0.33,bus,cape_town,Baseline
+car,15,bus,cape_town,Baseline
+cycle,0,bus,cape_town,Baseline
 motorcycle,0,bus,cape_town,Baseline
-other,0.67,bus,cape_town,Baseline
-pedestrian,0,bus,cape_town,Baseline
+other,0.2,bus,cape_town,Baseline
+pedestrian,0.6,bus,cape_town,Baseline
 rail,0,bus,cape_town,Baseline
-truck,0.67,bus,cape_town,Baseline
-NOV,6,bus,cape_town,Baseline
+truck,1.2,bus,cape_town,Baseline
+NOV,3,bus,cape_town,Baseline
 bus,0,bus,delhi,Baseline
 car,0.84,bus,delhi,Baseline
 cycle,0,bus,delhi,Baseline
@@ -143,15 +143,15 @@ pedestrian,0,car,buenos_aires,Baseline
 rail,0,car,buenos_aires,Baseline
 truck,3.91,car,buenos_aires,Baseline
 NOV,63.27,car,buenos_aires,Baseline
-bus,47.67,car,cape_town,Baseline
+bus,29.2,car,cape_town,Baseline
 car,0,car,cape_town,Baseline
 cycle,0,car,cape_town,Baseline
-motorcycle,3,car,cape_town,Baseline
-other,5.67,car,cape_town,Baseline
-pedestrian,8,car,cape_town,Baseline
+motorcycle,1,car,cape_town,Baseline
+other,3.4,car,cape_town,Baseline
+pedestrian,3.2,car,cape_town,Baseline
 rail,0,car,cape_town,Baseline
-truck,15,car,cape_town,Baseline
-NOV,240.33,car,cape_town,Baseline
+truck,7,car,cape_town,Baseline
+NOV,141.8,car,cape_town,Baseline
 bus,5.3,car,delhi,Baseline
 car,0,car,delhi,Baseline
 cycle,0,car,delhi,Baseline
@@ -242,14 +242,14 @@ pedestrian,0,cycle,buenos_aires,Baseline
 rail,0,cycle,buenos_aires,Baseline
 truck,1.56,cycle,buenos_aires,Baseline
 NOV,3.12,cycle,buenos_aires,Baseline
-bus,0.67,cycle,cape_town,Baseline
-car,4.33,cycle,cape_town,Baseline
+bus,0,cycle,cape_town,Baseline
+car,2.6,cycle,cape_town,Baseline
 cycle,0,cycle,cape_town,Baseline
 motorcycle,0,cycle,cape_town,Baseline
-other,0,cycle,cape_town,Baseline
-pedestrian,0,cycle,cape_town,Baseline
+other,0.2,cycle,cape_town,Baseline
+pedestrian,0.2,cycle,cape_town,Baseline
 rail,0,cycle,cape_town,Baseline
-truck,0,cycle,cape_town,Baseline
+truck,0.2,cycle,cape_town,Baseline
 NOV,0,cycle,cape_town,Baseline
 bus,14.24,cycle,delhi,Baseline
 car,30.15,cycle,delhi,Baseline
@@ -341,15 +341,15 @@ pedestrian,3.12,motorcycle,buenos_aires,Baseline
 rail,0,motorcycle,buenos_aires,Baseline
 truck,25,motorcycle,buenos_aires,Baseline
 NOV,52.34,motorcycle,buenos_aires,Baseline
-bus,9,motorcycle,cape_town,Baseline
-car,50.33,motorcycle,cape_town,Baseline
-cycle,0,motorcycle,cape_town,Baseline
+bus,6.4,motorcycle,cape_town,Baseline
+car,25.8,motorcycle,cape_town,Baseline
+cycle,0.4,motorcycle,cape_town,Baseline
 motorcycle,0,motorcycle,cape_town,Baseline
-other,2.33,motorcycle,cape_town,Baseline
-pedestrian,1.67,motorcycle,cape_town,Baseline
+other,1,motorcycle,cape_town,Baseline
+pedestrian,0.6,motorcycle,cape_town,Baseline
 rail,0,motorcycle,cape_town,Baseline
-truck,2,motorcycle,cape_town,Baseline
-NOV,0,motorcycle,cape_town,Baseline
+truck,3.2,motorcycle,cape_town,Baseline
+NOV,1.2,motorcycle,cape_town,Baseline
 bus,69.52,motorcycle,delhi,Baseline
 car,197.11,motorcycle,delhi,Baseline
 cycle,0,motorcycle,delhi,Baseline
@@ -413,11 +413,11 @@ pedestrian,1.57,other,belo_horizonte,Baseline
 rail,0.14,other,belo_horizonte,Baseline
 truck,0,other,belo_horizonte,Baseline
 NOV,48.35,other,belo_horizonte,Baseline
-bus,0.33,other,cape_town,Baseline
-car,0,other,cape_town,Baseline
+bus,0,other,cape_town,Baseline
+car,0.8,other,cape_town,Baseline
 cycle,0,other,cape_town,Baseline
 motorcycle,0,other,cape_town,Baseline
-other,0.33,other,cape_town,Baseline
+other,0,other,cape_town,Baseline
 pedestrian,0,other,cape_town,Baseline
 rail,0,other,cape_town,Baseline
 truck,0,other,cape_town,Baseline
@@ -503,14 +503,14 @@ pedestrian,0,pedestrian,buenos_aires,Baseline
 rail,0,pedestrian,buenos_aires,Baseline
 truck,10.16,pedestrian,buenos_aires,Baseline
 NOV,0,pedestrian,buenos_aires,Baseline
-bus,84.67,pedestrian,cape_town,Baseline
-car,426.33,pedestrian,cape_town,Baseline
-cycle,0.67,pedestrian,cape_town,Baseline
-motorcycle,11,pedestrian,cape_town,Baseline
-other,6.33,pedestrian,cape_town,Baseline
+bus,51.6,pedestrian,cape_town,Baseline
+car,244.6,pedestrian,cape_town,Baseline
+cycle,0.8,pedestrian,cape_town,Baseline
+motorcycle,6.2,pedestrian,cape_town,Baseline
+other,3.6,pedestrian,cape_town,Baseline
 pedestrian,0,pedestrian,cape_town,Baseline
 rail,0,pedestrian,cape_town,Baseline
-truck,35.67,pedestrian,cape_town,Baseline
+truck,20.2,pedestrian,cape_town,Baseline
 NOV,0,pedestrian,cape_town,Baseline
 bus,84.31,pedestrian,delhi,Baseline
 car,311.01,pedestrian,delhi,Baseline
@@ -611,14 +611,14 @@ pedestrian,0,truck,buenos_aires,Baseline
 rail,0,truck,buenos_aires,Baseline
 truck,2.34,truck,buenos_aires,Baseline
 NOV,0,truck,buenos_aires,Baseline
-bus,0.67,truck,cape_town,Baseline
-car,6.33,truck,cape_town,Baseline
+bus,0.8,truck,cape_town,Baseline
+car,3.2,truck,cape_town,Baseline
 cycle,0,truck,cape_town,Baseline
 motorcycle,0,truck,cape_town,Baseline
-other,0.33,truck,cape_town,Baseline
+other,0,truck,cape_town,Baseline
 pedestrian,0,truck,cape_town,Baseline
 rail,0,truck,cape_town,Baseline
-truck,0,truck,cape_town,Baseline
+truck,0.2,truck,cape_town,Baseline
 NOV,0,truck,cape_town,Baseline
 bus,0,truck,delhi,Baseline
 car,13.68,truck,delhi,Baseline
@@ -711,14 +711,14 @@ rail,0,bus,buenos_aires,Walking
 truck,0,bus,buenos_aires,Walking
 NOV,2.93,bus,buenos_aires,Walking
 bus,0,bus,cape_town,Walking
-car,22.16,bus,cape_town,Walking
-cycle,0.26,bus,cape_town,Walking
+car,13.85,bus,cape_town,Walking
+cycle,0,bus,cape_town,Walking
 motorcycle,0,bus,cape_town,Walking
-other,0.64,bus,cape_town,Walking
-pedestrian,0,bus,cape_town,Walking
+other,0.19,bus,cape_town,Walking
+pedestrian,0.82,bus,cape_town,Walking
 rail,0,bus,cape_town,Walking
-truck,0.64,bus,cape_town,Walking
-NOV,5.73,bus,cape_town,Walking
+truck,1.14,bus,cape_town,Walking
+NOV,2.86,bus,cape_town,Walking
 bus,0,bus,delhi,Walking
 car,0.8,bus,delhi,Walking
 cycle,0,bus,delhi,Walking
@@ -809,15 +809,15 @@ pedestrian,0,car,buenos_aires,Walking
 rail,0,car,buenos_aires,Walking
 truck,3.63,car,buenos_aires,Walking
 NOV,58.8,car,buenos_aires,Walking
-bus,43.73,car,cape_town,Walking
+bus,26.8,car,cape_town,Walking
 car,0,car,cape_town,Walking
 cycle,0,car,cape_town,Walking
-motorcycle,2.76,car,cape_town,Walking
-other,5.46,car,cape_town,Walking
-pedestrian,11.07,car,cape_town,Walking
+motorcycle,0.92,car,cape_town,Walking
+other,3.28,car,cape_town,Walking
+pedestrian,4.43,car,cape_town,Walking
 rail,0,car,cape_town,Walking
-truck,14.45,car,cape_town,Walking
-NOV,232.27,car,cape_town,Walking
+truck,6.75,car,cape_town,Walking
+NOV,136.94,car,cape_town,Walking
 bus,5.06,car,delhi,Walking
 car,0,car,delhi,Walking
 cycle,0,car,delhi,Walking
@@ -908,14 +908,14 @@ pedestrian,0,cycle,buenos_aires,Walking
 rail,0,cycle,buenos_aires,Walking
 truck,1.03,cycle,buenos_aires,Walking
 NOV,2.07,cycle,buenos_aires,Walking
-bus,0.53,cycle,cape_town,Walking
-car,3.52,cycle,cape_town,Walking
+bus,0,cycle,cape_town,Walking
+car,2.1,cycle,cape_town,Walking
 cycle,0,cycle,cape_town,Walking
 motorcycle,0,cycle,cape_town,Walking
-other,0,cycle,cape_town,Walking
-pedestrian,0,cycle,cape_town,Walking
+other,0.17,cycle,cape_town,Walking
+pedestrian,0.24,cycle,cape_town,Walking
 rail,0,cycle,cape_town,Walking
-truck,0,cycle,cape_town,Walking
+truck,0.17,cycle,cape_town,Walking
 NOV,0,cycle,cape_town,Walking
 bus,12.92,cycle,delhi,Walking
 car,27.17,cycle,delhi,Walking
@@ -1007,15 +1007,15 @@ pedestrian,6.63,motorcycle,buenos_aires,Walking
 rail,0,motorcycle,buenos_aires,Walking
 truck,23.79,motorcycle,buenos_aires,Walking
 NOV,49.81,motorcycle,buenos_aires,Walking
-bus,7.98,motorcycle,cape_town,Walking
-car,45.36,motorcycle,cape_town,Walking
-cycle,0,motorcycle,cape_town,Walking
+bus,5.66,motorcycle,cape_town,Walking
+car,23.2,motorcycle,cape_town,Walking
+cycle,0.31,motorcycle,cape_town,Walking
 motorcycle,0,motorcycle,cape_town,Walking
-other,2.17,motorcycle,cape_town,Walking
-pedestrian,2.23,motorcycle,cape_town,Walking
+other,0.93,motorcycle,cape_town,Walking
+pedestrian,0.8,motorcycle,cape_town,Walking
 rail,0,motorcycle,cape_town,Walking
-truck,1.86,motorcycle,cape_town,Walking
-NOV,0,motorcycle,cape_town,Walking
+truck,2.97,motorcycle,cape_town,Walking
+NOV,1.15,motorcycle,cape_town,Walking
 bus,65.5,motorcycle,delhi,Walking
 car,184.37,motorcycle,delhi,Walking
 cycle,0,motorcycle,delhi,Walking
@@ -1079,11 +1079,11 @@ pedestrian,2.39,other,belo_horizonte,Walking
 rail,0.14,other,belo_horizonte,Walking
 truck,0,other,belo_horizonte,Walking
 NOV,47.56,other,belo_horizonte,Walking
-bus,0.32,other,cape_town,Walking
-car,0,other,cape_town,Walking
+bus,0,other,cape_town,Walking
+car,0.77,other,cape_town,Walking
 cycle,0,other,cape_town,Walking
 motorcycle,0,other,cape_town,Walking
-other,0.33,other,cape_town,Walking
+other,0,other,cape_town,Walking
 pedestrian,0,other,cape_town,Walking
 rail,0,other,cape_town,Walking
 truck,0,other,cape_town,Walking
@@ -1169,14 +1169,14 @@ pedestrian,0,pedestrian,buenos_aires,Walking
 rail,0,pedestrian,buenos_aires,Walking
 truck,22.63,pedestrian,buenos_aires,Walking
 NOV,0,pedestrian,buenos_aires,Walking
-bus,127.16,pedestrian,cape_town,Walking
-car,651.12,pedestrian,cape_town,Walking
-cycle,0.86,pedestrian,cape_town,Walking
-motorcycle,16.55,pedestrian,cape_town,Walking
-other,9.99,pedestrian,cape_town,Walking
+bus,77.23,pedestrian,cape_town,Walking
+car,372.25,pedestrian,cape_town,Walking
+cycle,1.03,pedestrian,cape_town,Walking
+motorcycle,9.3,pedestrian,cape_town,Walking
+other,5.66,pedestrian,cape_town,Walking
 pedestrian,0,pedestrian,cape_town,Walking
 rail,0,pedestrian,cape_town,Walking
-truck,56.26,pedestrian,cape_town,Walking
+truck,31.75,pedestrian,cape_town,Walking
 NOV,0,pedestrian,cape_town,Walking
 bus,119.75,pedestrian,delhi,Walking
 car,438.56,pedestrian,delhi,Walking
@@ -1277,14 +1277,14 @@ pedestrian,0,truck,buenos_aires,Walking
 rail,0,truck,buenos_aires,Walking
 truck,2.34,truck,buenos_aires,Walking
 NOV,0,truck,buenos_aires,Walking
-bus,0.63,truck,cape_town,Walking
-car,6.13,truck,cape_town,Walking
+bus,0.76,truck,cape_town,Walking
+car,3.1,truck,cape_town,Walking
 cycle,0,truck,cape_town,Walking
 motorcycle,0,truck,cape_town,Walking
-other,0.33,truck,cape_town,Walking
+other,0,truck,cape_town,Walking
 pedestrian,0,truck,cape_town,Walking
 rail,0,truck,cape_town,Walking
-truck,0,truck,cape_town,Walking
+truck,0.2,truck,cape_town,Walking
 NOV,0,truck,cape_town,Walking
 bus,0,truck,delhi,Walking
 car,13.32,truck,delhi,Walking
@@ -1377,14 +1377,14 @@ rail,0,bus,buenos_aires,Bicycling
 truck,0,bus,buenos_aires,Bicycling
 NOV,3,bus,buenos_aires,Bicycling
 bus,0,bus,cape_town,Bicycling
-car,21.88,bus,cape_town,Bicycling
-cycle,7.07,bus,cape_town,Bicycling
+car,13.67,bus,cape_town,Bicycling
+cycle,0,bus,cape_town,Bicycling
 motorcycle,0,bus,cape_town,Bicycling
-other,0.63,bus,cape_town,Bicycling
-pedestrian,0,bus,cape_town,Bicycling
+other,0.19,bus,cape_town,Bicycling
+pedestrian,0.53,bus,cape_town,Bicycling
 rail,0,bus,cape_town,Bicycling
-truck,0.63,bus,cape_town,Bicycling
-NOV,5.67,bus,cape_town,Bicycling
+truck,1.13,bus,cape_town,Bicycling
+NOV,2.84,bus,cape_town,Bicycling
 bus,0,bus,delhi,Bicycling
 car,0.83,bus,delhi,Bicycling
 cycle,0,bus,delhi,Bicycling
@@ -1475,15 +1475,15 @@ pedestrian,0,car,buenos_aires,Bicycling
 rail,0,car,buenos_aires,Bicycling
 truck,3.75,car,buenos_aires,Bicycling
 NOV,60.77,car,buenos_aires,Bicycling
-bus,43.55,car,cape_town,Bicycling
+bus,26.68,car,cape_town,Bicycling
 car,0,car,cape_town,Bicycling
 cycle,0,car,cape_town,Bicycling
-motorcycle,2.74,car,cape_town,Bicycling
-other,5.49,car,cape_town,Bicycling
-pedestrian,7.28,car,cape_town,Bicycling
+motorcycle,0.91,car,cape_town,Bicycling
+other,3.29,car,cape_town,Bicycling
+pedestrian,2.91,car,cape_town,Bicycling
 rail,0,car,cape_town,Bicycling
-truck,14.52,car,cape_town,Bicycling
-NOV,232.82,car,cape_town,Bicycling
+truck,6.78,car,cape_town,Bicycling
+NOV,137.36,car,cape_town,Bicycling
 bus,5.28,car,delhi,Bicycling
 car,0,car,delhi,Bicycling
 cycle,0,car,delhi,Bicycling
@@ -1574,14 +1574,14 @@ pedestrian,0,cycle,buenos_aires,Bicycling
 rail,0,cycle,buenos_aires,Bicycling
 truck,4.99,cycle,buenos_aires,Bicycling
 NOV,9.98,cycle,buenos_aires,Bicycling
-bus,8.7,cycle,cape_town,Bicycling
-car,58.03,cycle,cape_town,Bicycling
+bus,0,cycle,cape_town,Bicycling
+car,35.49,cycle,cape_town,Bicycling
 cycle,0,cycle,cape_town,Bicycling
 motorcycle,0,cycle,cape_town,Bicycling
-other,0,cycle,cape_town,Bicycling
-pedestrian,0,cycle,cape_town,Bicycling
+other,2.82,cycle,cape_town,Bicycling
+pedestrian,2.65,cycle,cape_town,Bicycling
 rail,0,cycle,cape_town,Bicycling
-truck,0,cycle,cape_town,Bicycling
+truck,2.82,cycle,cape_town,Bicycling
 NOV,0,cycle,cape_town,Bicycling
 bus,16.14,cycle,delhi,Bicycling
 car,34.23,cycle,delhi,Bicycling
@@ -1673,15 +1673,15 @@ pedestrian,2.99,motorcycle,buenos_aires,Bicycling
 rail,0,motorcycle,buenos_aires,Bicycling
 truck,24.44,motorcycle,buenos_aires,Bicycling
 NOV,51.18,motorcycle,buenos_aires,Bicycling
-bus,7.87,motorcycle,cape_town,Bicycling
-car,45.15,motorcycle,cape_town,Bicycling
-cycle,0,motorcycle,cape_town,Bicycling
+bus,5.57,motorcycle,cape_town,Bicycling
+car,23.02,motorcycle,cape_town,Bicycling
+cycle,8.3,motorcycle,cape_town,Bicycling
 motorcycle,0,motorcycle,cape_town,Bicycling
-other,2.16,motorcycle,cape_town,Bicycling
-pedestrian,1.45,motorcycle,cape_town,Bicycling
+other,0.92,motorcycle,cape_town,Bicycling
+pedestrian,0.52,motorcycle,cape_town,Bicycling
 rail,0,motorcycle,cape_town,Bicycling
-truck,1.85,motorcycle,cape_town,Bicycling
-NOV,0,motorcycle,cape_town,Bicycling
+truck,2.95,motorcycle,cape_town,Bicycling
+NOV,1.15,motorcycle,cape_town,Bicycling
 bus,69,motorcycle,delhi,Bicycling
 car,195.98,motorcycle,delhi,Bicycling
 cycle,0,motorcycle,delhi,Bicycling
@@ -1745,11 +1745,11 @@ pedestrian,1.46,other,belo_horizonte,Bicycling
 rail,0.14,other,belo_horizonte,Bicycling
 truck,0,other,belo_horizonte,Bicycling
 NOV,47.01,other,belo_horizonte,Bicycling
-bus,0.31,other,cape_town,Bicycling
-car,0,other,cape_town,Bicycling
+bus,0,other,cape_town,Bicycling
+car,0.77,other,cape_town,Bicycling
 cycle,0,other,cape_town,Bicycling
 motorcycle,0,other,cape_town,Bicycling
-other,0.33,other,cape_town,Bicycling
+other,0,other,cape_town,Bicycling
 pedestrian,0,other,cape_town,Bicycling
 rail,0,other,cape_town,Bicycling
 truck,0,other,cape_town,Bicycling
@@ -1835,14 +1835,14 @@ pedestrian,0,pedestrian,buenos_aires,Bicycling
 rail,0,pedestrian,buenos_aires,Bicycling
 truck,9.95,pedestrian,buenos_aires,Bicycling
 NOV,0,pedestrian,buenos_aires,Bicycling
-bus,75.45,pedestrian,cape_town,Bicycling
-car,389.72,pedestrian,cape_town,Bicycling
-cycle,14.18,pedestrian,cape_town,Bicycling
-motorcycle,9.81,pedestrian,cape_town,Bicycling
-other,5.98,pedestrian,cape_town,Bicycling
+bus,45.96,pedestrian,cape_town,Bicycling
+car,223.51,pedestrian,cape_town,Bicycling
+cycle,17.01,pedestrian,cape_town,Bicycling
+motorcycle,5.53,pedestrian,cape_town,Bicycling
+other,3.4,pedestrian,cape_town,Bicycling
 pedestrian,0,pedestrian,cape_town,Bicycling
 rail,0,pedestrian,cape_town,Bicycling
-truck,33.68,pedestrian,cape_town,Bicycling
+truck,19.07,pedestrian,cape_town,Bicycling
 NOV,0,pedestrian,cape_town,Bicycling
 bus,82.01,pedestrian,delhi,Bicycling
 car,303,pedestrian,delhi,Bicycling
@@ -1943,14 +1943,14 @@ pedestrian,0,truck,buenos_aires,Bicycling
 rail,0,truck,buenos_aires,Bicycling
 truck,2.34,truck,buenos_aires,Bicycling
 NOV,0,truck,buenos_aires,Bicycling
-bus,0.63,truck,cape_town,Bicycling
-car,6.13,truck,cape_town,Bicycling
+bus,0.75,truck,cape_town,Bicycling
+car,3.1,truck,cape_town,Bicycling
 cycle,0,truck,cape_town,Bicycling
 motorcycle,0,truck,cape_town,Bicycling
-other,0.33,truck,cape_town,Bicycling
+other,0,truck,cape_town,Bicycling
 pedestrian,0,truck,cape_town,Bicycling
 rail,0,truck,cape_town,Bicycling
-truck,0,truck,cape_town,Bicycling
+truck,0.2,truck,cape_town,Bicycling
 NOV,0,truck,cape_town,Bicycling
 bus,0,truck,delhi,Bicycling
 car,13.66,truck,delhi,Bicycling
@@ -2043,14 +2043,14 @@ rail,0,bus,buenos_aires,Driving
 truck,0,bus,buenos_aires,Driving
 NOV,2.26,bus,buenos_aires,Driving
 bus,0,bus,cape_town,Driving
-car,23.98,bus,cape_town,Driving
-cycle,0.27,bus,cape_town,Driving
+car,14.99,bus,cape_town,Driving
+cycle,0,bus,cape_town,Driving
 motorcycle,0,bus,cape_town,Driving
-other,0.63,bus,cape_town,Driving
-pedestrian,0,bus,cape_town,Driving
+other,0.19,bus,cape_town,Driving
+pedestrian,0.55,bus,cape_town,Driving
 rail,0,bus,cape_town,Driving
-truck,0.64,bus,cape_town,Driving
-NOV,5.78,bus,cape_town,Driving
+truck,1.16,bus,cape_town,Driving
+NOV,2.89,bus,cape_town,Driving
 bus,0,bus,delhi,Driving
 car,0.95,bus,delhi,Driving
 cycle,0,bus,delhi,Driving
@@ -2141,15 +2141,15 @@ pedestrian,0,car,buenos_aires,Driving
 rail,0,car,buenos_aires,Driving
 truck,6.72,car,buenos_aires,Driving
 NOV,108.85,car,buenos_aires,Driving
-bus,47.09,car,cape_town,Driving
+bus,28.84,car,cape_town,Driving
 car,0,car,cape_town,Driving
 cycle,0,car,cape_town,Driving
-motorcycle,2.94,car,cape_town,Driving
-other,5.7,car,cape_town,Driving
-pedestrian,7.81,car,cape_town,Driving
+motorcycle,0.98,car,cape_town,Driving
+other,3.42,car,cape_town,Driving
+pedestrian,3.12,car,cape_town,Driving
 rail,0,car,cape_town,Driving
-truck,15.36,car,cape_town,Driving
-NOV,248.48,car,cape_town,Driving
+truck,7.17,car,cape_town,Driving
+NOV,146.61,car,cape_town,Driving
 bus,6.03,car,delhi,Driving
 car,0,car,delhi,Driving
 cycle,0,car,delhi,Driving
@@ -2240,14 +2240,14 @@ pedestrian,0,cycle,buenos_aires,Driving
 rail,0,cycle,buenos_aires,Driving
 truck,1.15,cycle,buenos_aires,Driving
 NOV,2.3,cycle,buenos_aires,Driving
-bus,0.52,cycle,cape_town,Driving
-car,3.64,cycle,cape_town,Driving
+bus,0,cycle,cape_town,Driving
+car,2.17,cycle,cape_town,Driving
 cycle,0,cycle,cape_town,Driving
 motorcycle,0,cycle,cape_town,Driving
-other,0,cycle,cape_town,Driving
-pedestrian,0,cycle,cape_town,Driving
+other,0.16,cycle,cape_town,Driving
+pedestrian,0.15,cycle,cape_town,Driving
 rail,0,cycle,cape_town,Driving
-truck,0,cycle,cape_town,Driving
+truck,0.16,cycle,cape_town,Driving
 NOV,0,cycle,cape_town,Driving
 bus,6.73,cycle,delhi,Driving
 car,34.51,cycle,delhi,Driving
@@ -2339,15 +2339,15 @@ pedestrian,1.8,motorcycle,buenos_aires,Driving
 rail,0,motorcycle,buenos_aires,Driving
 truck,17.7,motorcycle,buenos_aires,Driving
 NOV,37.05,motorcycle,buenos_aires,Driving
-bus,8.33,motorcycle,cape_town,Driving
-car,50.03,motorcycle,cape_town,Driving
-cycle,0,motorcycle,cape_town,Driving
+bus,5.93,motorcycle,cape_town,Driving
+car,25.66,motorcycle,cape_town,Driving
+cycle,0.32,motorcycle,cape_town,Driving
 motorcycle,0,motorcycle,cape_town,Driving
-other,2.2,motorcycle,cape_town,Driving
-pedestrian,1.53,motorcycle,cape_town,Driving
+other,0.94,motorcycle,cape_town,Driving
+pedestrian,0.55,motorcycle,cape_town,Driving
 rail,0,motorcycle,cape_town,Driving
-truck,1.92,motorcycle,cape_town,Driving
-NOV,0,motorcycle,cape_town,Driving
+truck,3.07,motorcycle,cape_town,Driving
+NOV,1.15,motorcycle,cape_town,Driving
 bus,32.89,motorcycle,delhi,Driving
 car,225.69,motorcycle,delhi,Driving
 cycle,0,motorcycle,delhi,Driving
@@ -2411,11 +2411,11 @@ pedestrian,1.28,other,belo_horizonte,Driving
 rail,0.11,other,belo_horizonte,Driving
 truck,0,other,belo_horizonte,Driving
 NOV,42.45,other,belo_horizonte,Driving
-bus,0.32,other,cape_town,Driving
-car,0,other,cape_town,Driving
+bus,0,other,cape_town,Driving
+car,0.83,other,cape_town,Driving
 cycle,0,other,cape_town,Driving
 motorcycle,0,other,cape_town,Driving
-other,0.33,other,cape_town,Driving
+other,0,other,cape_town,Driving
 pedestrian,0,other,cape_town,Driving
 rail,0,other,cape_town,Driving
 truck,0,other,cape_town,Driving
@@ -2501,14 +2501,14 @@ pedestrian,0,pedestrian,buenos_aires,Driving
 rail,0,pedestrian,buenos_aires,Driving
 truck,8.24,pedestrian,buenos_aires,Driving
 NOV,0,pedestrian,buenos_aires,Driving
-bus,77.3,pedestrian,cape_town,Driving
-car,417.81,pedestrian,cape_town,Driving
-cycle,0.52,pedestrian,cape_town,Driving
-motorcycle,9.96,pedestrian,cape_town,Driving
-other,5.89,pedestrian,cape_town,Driving
+bus,47.11,pedestrian,cape_town,Driving
+car,239.71,pedestrian,cape_town,Driving
+cycle,0.63,pedestrian,cape_town,Driving
+motorcycle,5.62,pedestrian,cape_town,Driving
+other,3.35,pedestrian,cape_town,Driving
 pedestrian,0,pedestrian,cape_town,Driving
 rail,0,pedestrian,cape_town,Driving
-truck,33.76,pedestrian,cape_town,Driving
+truck,19.12,pedestrian,cape_town,Driving
 NOV,0,pedestrian,cape_town,Driving
 bus,43.97,pedestrian,delhi,Driving
 car,392.5,pedestrian,delhi,Driving
@@ -2609,14 +2609,14 @@ pedestrian,0,truck,buenos_aires,Driving
 rail,0,truck,buenos_aires,Driving
 truck,2.34,truck,buenos_aires,Driving
 NOV,0,truck,buenos_aires,Driving
-bus,0.64,truck,cape_town,Driving
-car,6.56,truck,cape_town,Driving
+bus,0.77,truck,cape_town,Driving
+car,3.31,truck,cape_town,Driving
 cycle,0,truck,cape_town,Driving
 motorcycle,0,truck,cape_town,Driving
-other,0.33,truck,cape_town,Driving
+other,0,truck,cape_town,Driving
 pedestrian,0,truck,cape_town,Driving
 rail,0,truck,cape_town,Driving
-truck,0,truck,cape_town,Driving
+truck,0.2,truck,cape_town,Driving
 NOV,0,truck,cape_town,Driving
 bus,0,truck,delhi,Driving
 car,22.69,truck,delhi,Driving
@@ -2709,14 +2709,14 @@ rail,0,bus,buenos_aires,Motorcycling
 truck,0,bus,buenos_aires,Motorcycling
 NOV,1.78,bus,buenos_aires,Motorcycling
 bus,0,bus,cape_town,Motorcycling
-car,7.36,bus,cape_town,Motorcycling
-cycle,0.11,bus,cape_town,Motorcycling
+car,4.59,bus,cape_town,Motorcycling
+cycle,0,bus,cape_town,Motorcycling
 motorcycle,0,bus,cape_town,Motorcycling
-other,0.19,bus,cape_town,Motorcycling
-pedestrian,0,bus,cape_town,Motorcycling
+other,0.06,bus,cape_town,Motorcycling
+pedestrian,0.24,bus,cape_town,Motorcycling
 rail,0,bus,cape_town,Motorcycling
-truck,0.39,bus,cape_town,Motorcycling
-NOV,3.58,bus,cape_town,Motorcycling
+truck,0.7,bus,cape_town,Motorcycling
+NOV,1.8,bus,cape_town,Motorcycling
 bus,0,bus,delhi,Motorcycling
 car,0.43,bus,delhi,Motorcycling
 cycle,0,bus,delhi,Motorcycling
@@ -2807,15 +2807,15 @@ pedestrian,0,car,buenos_aires,Motorcycling
 rail,0,car,buenos_aires,Motorcycling
 truck,2.31,car,buenos_aires,Motorcycling
 NOV,37.39,car,buenos_aires,Motorcycling
-bus,15.23,car,cape_town,Motorcycling
+bus,9.32,car,cape_town,Motorcycling
 car,0,car,cape_town,Motorcycling
 cycle,0,car,cape_town,Motorcycling
-motorcycle,68.47,car,cape_town,Motorcycling
-other,1.49,car,cape_town,Motorcycling
-pedestrian,2.99,car,cape_town,Motorcycling
+motorcycle,22.79,car,cape_town,Motorcycling
+other,0.89,car,cape_town,Motorcycling
+pedestrian,1.19,car,cape_town,Motorcycling
 rail,0,car,cape_town,Motorcycling
-truck,8.07,car,cape_town,Motorcycling
-NOV,125.11,car,cape_town,Motorcycling
+truck,3.76,car,cape_town,Motorcycling
+NOV,74.13,car,cape_town,Motorcycling
 bus,2.72,car,delhi,Motorcycling
 car,0,car,delhi,Motorcycling
 cycle,0,car,delhi,Motorcycling
@@ -2906,14 +2906,14 @@ pedestrian,0,cycle,buenos_aires,Motorcycling
 rail,0,cycle,buenos_aires,Motorcycling
 truck,1.2,cycle,buenos_aires,Motorcycling
 NOV,2.4,cycle,buenos_aires,Motorcycling
-bus,0.25,cycle,cape_town,Motorcycling
-car,1.41,cycle,cape_town,Motorcycling
+bus,0,cycle,cape_town,Motorcycling
+car,0.86,cycle,cape_town,Motorcycling
 cycle,0,cycle,cape_town,Motorcycling
 motorcycle,0,cycle,cape_town,Motorcycling
-other,0,cycle,cape_town,Motorcycling
-pedestrian,0,cycle,cape_town,Motorcycling
+other,0.06,cycle,cape_town,Motorcycling
+pedestrian,0.09,cycle,cape_town,Motorcycling
 rail,0,cycle,cape_town,Motorcycling
-truck,0,cycle,cape_town,Motorcycling
+truck,0.13,cycle,cape_town,Motorcycling
 NOV,0,cycle,cape_town,Motorcycling
 bus,7.59,cycle,delhi,Motorcycling
 car,17.02,cycle,delhi,Motorcycling
@@ -3005,15 +3005,15 @@ pedestrian,18.79,motorcycle,buenos_aires,Motorcycling
 rail,0,motorcycle,buenos_aires,Motorcycling
 truck,199.13,motorcycle,buenos_aires,Motorcycling
 NOV,416.93,motorcycle,buenos_aires,Motorcycling
-bus,181.96,motorcycle,cape_town,Motorcycling
-car,899.88,motorcycle,cape_town,Motorcycling
-cycle,0,motorcycle,cape_town,Motorcycling
+bus,129.12,motorcycle,cape_town,Motorcycling
+car,460.3,motorcycle,cape_town,Motorcycling
+cycle,7.87,motorcycle,cape_town,Motorcycling
 motorcycle,0,motorcycle,cape_town,Motorcycling
-other,38.77,motorcycle,cape_town,Motorcycling
-pedestrian,39.37,motorcycle,cape_town,Motorcycling
+other,16.58,motorcycle,cape_town,Motorcycling
+pedestrian,14.14,motorcycle,cape_town,Motorcycling
 rail,0,motorcycle,cape_town,Motorcycling
-truck,68.05,motorcycle,cape_town,Motorcycling
-NOV,0,motorcycle,cape_town,Motorcycling
+truck,108.65,motorcycle,cape_town,Motorcycling
+NOV,30.12,motorcycle,cape_town,Motorcycling
 bus,82.29,motorcycle,delhi,Motorcycling
 car,246.93,motorcycle,delhi,Motorcycling
 cycle,0,motorcycle,delhi,Motorcycling
@@ -3077,11 +3077,11 @@ pedestrian,0.71,other,belo_horizonte,Motorcycling
 rail,0.04,other,belo_horizonte,Motorcycling
 truck,0,other,belo_horizonte,Motorcycling
 NOV,26.58,other,belo_horizonte,Motorcycling
-bus,0.1,other,cape_town,Motorcycling
-car,0,other,cape_town,Motorcycling
+bus,0,other,cape_town,Motorcycling
+car,0.23,other,cape_town,Motorcycling
 cycle,0,other,cape_town,Motorcycling
 motorcycle,0,other,cape_town,Motorcycling
-other,0.09,other,cape_town,Motorcycling
+other,0,other,cape_town,Motorcycling
 pedestrian,0,other,cape_town,Motorcycling
 rail,0,other,cape_town,Motorcycling
 truck,0,other,cape_town,Motorcycling
@@ -3167,14 +3167,14 @@ pedestrian,0,pedestrian,buenos_aires,Motorcycling
 rail,0,pedestrian,buenos_aires,Motorcycling
 truck,7.66,pedestrian,buenos_aires,Motorcycling
 NOV,0,pedestrian,buenos_aires,Motorcycling
-bus,35.19,pedestrian,cape_town,Motorcycling
-car,156.69,pedestrian,cape_town,Motorcycling
-cycle,0.27,pedestrian,cape_town,Motorcycling
-motorcycle,326.48,pedestrian,cape_town,Motorcycling
-other,2.16,pedestrian,cape_town,Motorcycling
+bus,21.38,pedestrian,cape_town,Motorcycling
+car,89.62,pedestrian,cape_town,Motorcycling
+cycle,0.32,pedestrian,cape_town,Motorcycling
+motorcycle,183.44,pedestrian,cape_town,Motorcycling
+other,1.23,pedestrian,cape_town,Motorcycling
 pedestrian,0,pedestrian,cape_town,Motorcycling
 rail,0,pedestrian,cape_town,Motorcycling
-truck,24.95,pedestrian,cape_town,Motorcycling
+truck,14.09,pedestrian,cape_town,Motorcycling
 NOV,0,pedestrian,cape_town,Motorcycling
 bus,53.5,pedestrian,delhi,Motorcycling
 car,208.85,pedestrian,delhi,Motorcycling
@@ -3275,14 +3275,14 @@ pedestrian,0,truck,buenos_aires,Motorcycling
 rail,0,truck,buenos_aires,Motorcycling
 truck,2.34,truck,buenos_aires,Motorcycling
 NOV,0,truck,buenos_aires,Motorcycling
-bus,0.4,truck,cape_town,Motorcycling
-car,3.33,truck,cape_town,Motorcycling
+bus,0.48,truck,cape_town,Motorcycling
+car,1.68,truck,cape_town,Motorcycling
 cycle,0,truck,cape_town,Motorcycling
 motorcycle,0,truck,cape_town,Motorcycling
-other,0.16,truck,cape_town,Motorcycling
+other,0,truck,cape_town,Motorcycling
 pedestrian,0,truck,cape_town,Motorcycling
 rail,0,truck,cape_town,Motorcycling
-truck,0,truck,cape_town,Motorcycling
+truck,0.2,truck,cape_town,Motorcycling
 NOV,0,truck,cape_town,Motorcycling
 bus,0,truck,delhi,Motorcycling
 car,10.09,truck,delhi,Motorcycling
@@ -3375,14 +3375,14 @@ rail,0,bus,buenos_aires,Public Transport
 truck,0,bus,buenos_aires,Public Transport
 NOV,3.95,bus,buenos_aires,Public Transport
 bus,0,bus,cape_town,Public Transport
-car,31.06,bus,cape_town,Public Transport
-cycle,0.46,bus,cape_town,Public Transport
+car,19.36,bus,cape_town,Public Transport
+cycle,0,bus,cape_town,Public Transport
 motorcycle,0,bus,cape_town,Public Transport
-other,1.02,bus,cape_town,Public Transport
-pedestrian,0,bus,cape_town,Public Transport
+other,0.31,bus,cape_town,Public Transport
+pedestrian,5,bus,cape_town,Public Transport
 rail,0,bus,cape_town,Public Transport
-truck,1.36,bus,cape_town,Public Transport
-NOV,11.11,bus,cape_town,Public Transport
+truck,2.44,bus,cape_town,Public Transport
+NOV,5.58,bus,cape_town,Public Transport
 bus,0,bus,delhi,Public Transport
 car,1.08,bus,delhi,Public Transport
 cycle,0,bus,delhi,Public Transport
@@ -3473,15 +3473,15 @@ pedestrian,0,car,buenos_aires,Public Transport
 rail,0,car,buenos_aires,Public Transport
 truck,2.98,car,buenos_aires,Public Transport
 NOV,48.35,car,buenos_aires,Public Transport
-bus,52.98,car,cape_town,Public Transport
+bus,32.48,car,cape_town,Public Transport
 car,0,car,cape_town,Public Transport
 cycle,0,car,cape_town,Public Transport
-motorcycle,0.88,car,cape_town,Public Transport
-other,2.73,car,cape_town,Public Transport
-pedestrian,21.05,car,cape_town,Public Transport
+motorcycle,0.29,car,cape_town,Public Transport
+other,1.64,car,cape_town,Public Transport
+pedestrian,8.43,car,cape_town,Public Transport
 rail,0,car,cape_town,Public Transport
-truck,9.65,car,cape_town,Public Transport
-NOV,154.86,car,cape_town,Public Transport
+truck,4.51,car,cape_town,Public Transport
+NOV,91.42,car,cape_town,Public Transport
 bus,6.83,car,delhi,Public Transport
 car,0,car,delhi,Public Transport
 cycle,0,car,delhi,Public Transport
@@ -3572,14 +3572,14 @@ pedestrian,0,cycle,buenos_aires,Public Transport
 rail,0,cycle,buenos_aires,Public Transport
 truck,1.38,cycle,buenos_aires,Public Transport
 NOV,2.75,cycle,buenos_aires,Public Transport
-bus,0.51,cycle,cape_town,Public Transport
-car,1.21,cycle,cape_town,Public Transport
+bus,0,cycle,cape_town,Public Transport
+car,0.73,cycle,cape_town,Public Transport
 cycle,0,cycle,cape_town,Public Transport
 motorcycle,0,cycle,cape_town,Public Transport
-other,0,cycle,cape_town,Public Transport
-pedestrian,0,cycle,cape_town,Public Transport
+other,0.07,cycle,cape_town,Public Transport
+pedestrian,0.36,cycle,cape_town,Public Transport
 rail,0,cycle,cape_town,Public Transport
-truck,0,cycle,cape_town,Public Transport
+truck,0.09,cycle,cape_town,Public Transport
 NOV,0,cycle,cape_town,Public Transport
 bus,21.39,cycle,delhi,Public Transport
 car,12.17,cycle,delhi,Public Transport
@@ -3671,15 +3671,15 @@ pedestrian,12.19,motorcycle,buenos_aires,Public Transport
 rail,0,motorcycle,buenos_aires,Public Transport
 truck,16.82,motorcycle,buenos_aires,Public Transport
 NOV,35.22,motorcycle,buenos_aires,Public Transport
-bus,7.86,motorcycle,cape_town,Public Transport
-car,16.14,motorcycle,cape_town,Public Transport
-cycle,0,motorcycle,cape_town,Public Transport
+bus,5.63,motorcycle,cape_town,Public Transport
+car,8.33,motorcycle,cape_town,Public Transport
+cycle,0.14,motorcycle,cape_town,Public Transport
 motorcycle,0,motorcycle,cape_town,Public Transport
-other,0.88,motorcycle,cape_town,Public Transport
-pedestrian,3.45,motorcycle,cape_town,Public Transport
+other,0.38,motorcycle,cape_town,Public Transport
+pedestrian,1.25,motorcycle,cape_town,Public Transport
 rail,0,motorcycle,cape_town,Public Transport
-truck,1.01,motorcycle,cape_town,Public Transport
-NOV,0,motorcycle,cape_town,Public Transport
+truck,1.63,motorcycle,cape_town,Public Transport
+NOV,0.46,motorcycle,cape_town,Public Transport
 bus,93.56,motorcycle,delhi,Public Transport
 car,71.29,motorcycle,delhi,Public Transport
 cycle,0,motorcycle,delhi,Public Transport
@@ -3743,11 +3743,11 @@ pedestrian,4.61,other,belo_horizonte,Public Transport
 rail,0.07,other,belo_horizonte,Public Transport
 truck,0,other,belo_horizonte,Public Transport
 NOV,33.26,other,belo_horizonte,Public Transport
-bus,0.39,other,cape_town,Public Transport
-car,0,other,cape_town,Public Transport
+bus,0,other,cape_town,Public Transport
+car,0.34,other,cape_town,Public Transport
 cycle,0,other,cape_town,Public Transport
 motorcycle,0,other,cape_town,Public Transport
-other,0.17,other,cape_town,Public Transport
+other,0,other,cape_town,Public Transport
 pedestrian,0,other,cape_town,Public Transport
 rail,0,other,cape_town,Public Transport
 truck,0,other,cape_town,Public Transport
@@ -3833,14 +3833,14 @@ pedestrian,0,pedestrian,buenos_aires,Public Transport
 rail,0,pedestrian,buenos_aires,Public Transport
 truck,58.87,pedestrian,buenos_aires,Public Transport
 NOV,0,pedestrian,buenos_aires,Public Transport
-bus,771.74,pedestrian,cape_town,Public Transport
-car,1426.44,pedestrian,cape_town,Public Transport
-cycle,2.37,pedestrian,cape_town,Public Transport
-motorcycle,26.33,pedestrian,cape_town,Public Transport
-other,25.07,pedestrian,cape_town,Public Transport
+bus,468.35,pedestrian,cape_town,Public Transport
+car,814.93,pedestrian,cape_town,Public Transport
+cycle,2.83,pedestrian,cape_town,Public Transport
+motorcycle,14.78,pedestrian,cape_town,Public Transport
+other,14.19,pedestrian,cape_town,Public Transport
 pedestrian,0,pedestrian,cape_town,Public Transport
 rail,0,pedestrian,cape_town,Public Transport
-truck,188.09,pedestrian,cape_town,Public Transport
+truck,106.08,pedestrian,cape_town,Public Transport
 NOV,0,pedestrian,cape_town,Public Transport
 bus,1053.36,pedestrian,delhi,Public Transport
 car,1044.21,pedestrian,delhi,Public Transport
@@ -3941,14 +3941,14 @@ pedestrian,0,truck,buenos_aires,Public Transport
 rail,0,truck,buenos_aires,Public Transport
 truck,2.34,truck,buenos_aires,Public Transport
 NOV,0,truck,buenos_aires,Public Transport
-bus,1.15,truck,cape_town,Public Transport
-car,4.02,truck,cape_town,Public Transport
+bus,1.38,truck,cape_town,Public Transport
+car,2.03,truck,cape_town,Public Transport
 cycle,0,truck,cape_town,Public Transport
 motorcycle,0,truck,cape_town,Public Transport
-other,0.25,truck,cape_town,Public Transport
+other,0,truck,cape_town,Public Transport
 pedestrian,0,truck,cape_town,Public Transport
 rail,0,truck,cape_town,Public Transport
-truck,0,truck,cape_town,Public Transport
+truck,0.2,truck,cape_town,Public Transport
 NOV,0,truck,cape_town,Public Transport
 bus,0,truck,delhi,Public Transport
 car,8.05,truck,delhi,Public Transport
