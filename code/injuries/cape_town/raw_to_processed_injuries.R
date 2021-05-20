@@ -8,6 +8,10 @@ library(nnet)
 
 rm(list=ls());gc()
 
+# Since there's randomness in the sample function a seed is set to replicate
+# results in the future
+set.seed(12345)
+
 # Lambed's code ----  
 # First the code that Lambed did to preprocess these injuries
 
@@ -135,6 +139,13 @@ all_fatality <- rbind(fatality_2012,fatality_2013,fatality_2014,fatality_2015,
 #rename age
 all_fatality <- all_fatality %>% rename(age = Age)
 
+#Filtering fatalities from cape town only
+all_fatality <- all_fatality %>% 
+  filter(towninjury %in% c("BELLVILLE", "CAPE TOEN", "CAPE TOWM", 
+                           "Cape Town", "CAPE TOWN", "ELSIES RIVER",
+                           "MITCHELL'S PLAIN", "PAROW CAPE TOWN",
+                           "PHILIPPI"))
+
 #change levels of factor variabless to lower cases for comparison 
 #all_fatality <- mutate_all(all_fatality, funs(tolower))
 all_fatality <- mutate_all(all_fatality, list(tolower))
@@ -250,7 +261,8 @@ cape_town_injury <-
 
 ##Export for ithimr
 # write.csv(cape_town_injury, file="V:/Studies/MOVED/HealthImpact/Clone/lambed/meelan_hia_africa/data/local/cape_town/injuries_cape_town.csv")
-write.csv(cape_town_injury, file="data/local/cape_town/injuries_cape_town.csv")
+write.csv(cape_town_injury, file="data/local/cape_town/injuries_cape_town.csv",
+          row.names = F)
 
 
 # Imputation ----  
@@ -261,14 +273,14 @@ file_path <- file.path('data/local/cape_town/injuries_cape_town.csv')
 whw <- read_csv(file_path)
 unique(whw$year)
 # Remove unused columns
-whw$X1 <- whw$year <- NULL
+#whw$X1 <- whw$year <- NULL
 
 # Rename column
 whw <- whw %>% rename(cas_gender = cas_sex)
 
 # Add weight column
 #whw$weight <- 4
-whw$weight <- 5 # Weight is 5 because there's data from 2012 to 2016
+#whw$weight <- 5 # Weight is 5 because there's data from 2012 to 2016
 
 # Read lookup table
 smodes <- read_csv('data/global/modes/standardized_modes.csv')
@@ -281,6 +293,7 @@ smodes <- smodes %>%
 # Multiple imputation using MICE
 # https://stats.idre.ucla.edu/r/faq/how-do-i-perform-multiple-imputation-using-predictive-mean-matching-in-r/
 whw2 <- whw %>% mutate(
+  cas_gender = factor(cas_gender),
   cas_mode = factor(ifelse(cas_mode == "unknown", NA, cas_mode)),
   strike_mode = factor(ifelse(strike_mode == "unknown", NA, strike_mode))
 )
@@ -290,19 +303,19 @@ table(whw2$cas_mode, useNA = "always")
 table(whw$strike_mode, useNA = "always")
 table(whw2$strike_mode, useNA = "always")
 
-# There are 2 age missing, 47 cas_mode and 141 strike mode missing.
+# There are 2 age missing, 40 cas_mode and 134 strike mode missing.
 md.pattern(whw2)
 
-# Out of the 47 and 151 cas and strike mode, in only 3 rows both modes are missing
+# Out of the 40 and 134 cas and strike mode, in only 5 rows both modes are missing
 md.pairs(whw2)
 
 # imputation
 imp1 <- mice(whw2, m = 5, seed = 12345)
 imp1
 # Adding imputed rows to Cape Town's dataset. The original columns (with missing
-# values) are kept in the dataset with sufix "_original". And the first run of
+# values) are kept in the dataset with suffix "_original". And the first run of
 # imputation is saved in cas_mode and strike_mode. From second to fifth
-# imputation are also saved with the sufix "_2nd", to "5th".
+# imputation are also saved with the suffix "_2nd", to "5th".
 whw3 <- whw2 %>% 
   rename(cas_mode_original = cas_mode,
          strike_mode_original = strike_mode) %>% 
