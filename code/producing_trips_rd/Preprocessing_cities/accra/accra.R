@@ -200,10 +200,6 @@ dat <- dat %>%
   #add modes
   left_join(trip_mode) 
 
-#' ## Create variables for quick report
-#' I need to create some variables to run the report that Lambed developed in 
-#' the function *quality_check*.
-
 trip <- 
   dat %>% 
   #filter trips only
@@ -231,19 +227,6 @@ trip$trip_mode[which(!is.na(trip$trip_id) & is.na(trip$trip_mode))] <- "other"
 # Make all trips with missing mode and duration as NA
 trip <- trip %>% mutate(trip_mode = replace(trip_mode, !is.na(trip$trip_mode) & is.na(trip$trip_duration), NA)) %>%  as.data.frame()
 
-trip$meta_data <- NA
-trip$meta_data[1] <- 2242000
-trip$meta_data[2] <- 4000
-trip$meta_data[3] <- "Time use"
-trip$meta_data[4] <- 2009
-trip$meta_data[5] <- "1 day"
-trip$meta_data[6] <- "implied" #Stage level data available
-trip$meta_data[7] <- "All purpose"#Overall trip purpose
-trip$meta_data[8] <- "??" # Short walks to PT
-trip$meta_data[9] <- "No" # Distance available
-trip$meta_data[10] <- "rickshaw, motorcycle" # missing modes
-
-
 #' Export dataset to make the report
 #quality_check(trip)
 write.csv(trip, "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/accra/accra_trip.csv")
@@ -266,15 +249,32 @@ sapply(trip, function(x) sum(is.na(x)))
 
 # There's a discrepancy between the number of missing values in trip_id and
 # trip_mode, trip_duration and trip purpose.
-min(trip$trip_id, na.rm = T); max(trip$trip_id, na.rm = T)
-trip <- trip %>% #arrange(trip_id) %>% 
-  mutate(trip_id2 = 1:dplyr::n(),
-         trip_id2 = ifelse(!is.na(trip_id) & !is.na(trip_mode), trip_id,
-                           ifelse(is.na(trip_id) & !is.na(trip_mode), trip_id2,
-                                  NA)))
+# min(trip$trip_id, na.rm = T); max(trip$trip_id, na.rm = T)
+# trip <- trip %>% #arrange(trip_id) %>% 
+#   mutate(participant_id2 = as.integer(as.factor(paste0(cluster_id, household_id,
+#                                                       participant_id))),
+#     trip_id2 = (1:dplyr::n()) + max(trip_id, na.rm = T),
+#          trip_id2 = ifelse(!is.na(trip_id) & !is.na(trip_mode), trip_id,
+#                            ifelse(is.na(trip_id) & !is.na(trip_mode), trip_id2,
+#                                   NA)))
+# 
+# # Checking the number of missing values
+# sapply(trip, function(x) sum(is.na(x)))
 
-# Checking the number of missing values
-sapply(trip, function(x) sum(is.na(x)))
+#' ## Create variables for quick report
+#' I need to create some variables to run the report that Lambed developed in 
+#' the function *quality_check*.
+trip$meta_data <- NA
+trip$meta_data[1] <- 2242000
+trip$meta_data[2] <- 4000
+trip$meta_data[3] <- "Time use"
+trip$meta_data[4] <- 2009
+trip$meta_data[5] <- "1 day"
+trip$meta_data[6] <- "implied" #Stage level data available
+trip$meta_data[7] <- "All purpose"#Overall trip purpose
+trip$meta_data[8] <- "??" # Short walks to PT
+trip$meta_data[9] <- "No" # Distance available
+trip$meta_data[10] <- "rickshaw, motorcycle" # missing modes
 
 # Load helpful functions
 #source("code/producing_trips_rd/used_functions.R")
@@ -325,9 +325,8 @@ rd <- trip
 #' ## Creating again IDs
 # Arrange df and Create participant_id as a combination of cluster_id, household_id,
 rd <- rd %>% arrange(cluster_id, household_id, participant_id, trip_id) %>% 
-  mutate(participant_id = as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_")))),
-         trip_id = as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id2, sep = "_")))),
-         trip_id = ifelse(is.na(trip_mode), NA, trip_id))
+  mutate(participant_id = as.integer(as.factor(participant_id)),
+         trip_id = as.integer(as.factor(trip_id)))
 
 # #  participant_id
 # rd$participant_id <- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = "_"))))

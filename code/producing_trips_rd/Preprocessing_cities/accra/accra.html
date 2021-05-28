@@ -11,7 +11,7 @@
 
 <meta name="author" content="Lambed and Daniel" />
 
-<meta name="date" content="2021-05-18" />
+<meta name="date" content="2021-05-28" />
 
 <title>Preprocessing of Accra’s time user survey dataset. Most of it comes from Lambed’s code</title>
 
@@ -245,7 +245,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Preprocessing of Accra’s time user survey dataset. Most of it comes from Lambed’s code</h1>
 <h4 class="author">Lambed and Daniel</h4>
-<h4 class="date">2021-05-18</h4>
+<h4 class="date">2021-05-28</h4>
 
 </div>
 
@@ -253,8 +253,8 @@ div.tocify {
 <div id="understanding-phase" class="section level1">
 <h1><strong>Understanding phase</strong></h1>
 <pre><code>##           used (Mb) gc trigger (Mb) max used (Mb)
-## Ncells 1012278 54.1    2058638  110  1347792 72.0
-## Vcells 1711367 13.1    8388608   64  2319363 17.7</code></pre>
+## Ncells 1012278 54.1    2058637  110  1347795 72.0
+## Vcells 1711401 13.1    8388608   64  2319398 17.7</code></pre>
 <p>This file is based on the script “travel_survey.R”. It has the same code but I added some comments. The processing of this dataset is totally different because the survey is about time use not travel.</p>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
@@ -452,10 +452,6 @@ dat &lt;- dat %&gt;%
   #add modes
   left_join(trip_mode) </code></pre>
 <pre><code>## Joining, by = &quot;ActLoc2&quot;</code></pre>
-</div>
-<div id="create-variables-for-quick-report" class="section level2">
-<h2>Create variables for quick report</h2>
-<p>I need to create some variables to run the report that Lambed developed in the function <em>quality_check</em>.</p>
 <pre class="r"><code>trip &lt;- 
   dat %&gt;% 
   #filter trips only
@@ -481,19 +477,7 @@ trip &lt;- bind_rows(trip, no_trip) %&gt;%
 trip$trip_mode[which(!is.na(trip$trip_id) &amp; is.na(trip$trip_mode))] &lt;- &quot;other&quot;
 
 # Make all trips with missing mode and duration as NA
-trip &lt;- trip %&gt;% mutate(trip_mode = replace(trip_mode, !is.na(trip$trip_mode) &amp; is.na(trip$trip_duration), NA)) %&gt;%  as.data.frame()
-
-trip$meta_data &lt;- NA
-trip$meta_data[1] &lt;- 2242000
-trip$meta_data[2] &lt;- 4000
-trip$meta_data[3] &lt;- &quot;Time use&quot;
-trip$meta_data[4] &lt;- 2009
-trip$meta_data[5] &lt;- &quot;1 day&quot;
-trip$meta_data[6] &lt;- &quot;implied&quot; #Stage level data available
-trip$meta_data[7] &lt;- &quot;All purpose&quot;#Overall trip purpose
-trip$meta_data[8] &lt;- &quot;??&quot; # Short walks to PT
-trip$meta_data[9] &lt;- &quot;No&quot; # Distance available
-trip$meta_data[10] &lt;- &quot;rickshaw, motorcycle&quot; # missing modes</code></pre>
+trip &lt;- trip %&gt;% mutate(trip_mode = replace(trip_mode, !is.na(trip$trip_mode) &amp; is.na(trip$trip_duration), NA)) %&gt;%  as.data.frame()</code></pre>
 <p>Export dataset to make the report</p>
 <pre class="r"><code>#quality_check(trip)
 write.csv(trip, &quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/accra/accra_trip.csv&quot;)</code></pre>
@@ -607,8 +591,7 @@ source(&quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITH
 ##   trip_id = col_double(),
 ##   trip_mode = col_character(),
 ##   trip_duration = col_double(),
-##   trip_purpose = col_character(),
-##   meta_data = col_character()
+##   trip_purpose = col_character()
 ## )</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
@@ -682,37 +665,46 @@ trip &lt;- read_csv(&quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/
 ##   trip_id = col_double(),
 ##   trip_mode = col_character(),
 ##   trip_duration = col_double(),
-##   trip_purpose = col_character(),
-##   meta_data = col_character()
+##   trip_purpose = col_character()
 ## )</code></pre>
 <pre class="r"><code># Checking the number of missing values
 sapply(trip, function(x) sum(is.na(x)))</code></pre>
 <pre><code>##             X1     cluster_id   household_id participant_id participant_wt 
 ##              0              0              0              0              0 
 ##            age            sex        trip_id      trip_mode  trip_duration 
-##              0              0          16459            798            798 
-##   trip_purpose      meta_data 
-##            787          18216</code></pre>
+##              0              0            787            798            798 
+##   trip_purpose 
+##            787</code></pre>
 <pre class="r"><code># There&#39;s a discrepancy between the number of missing values in trip_id and
 # trip_mode, trip_duration and trip purpose.
-min(trip$trip_id, na.rm = T); max(trip$trip_id, na.rm = T)</code></pre>
-<pre><code>## [1] 1</code></pre>
-<pre><code>## [1] 1877</code></pre>
-<pre class="r"><code>trip &lt;- trip %&gt;% #arrange(trip_id) %&gt;% 
-  mutate(trip_id2 = 1:dplyr::n(),
-         trip_id2 = ifelse(!is.na(trip_id) &amp; !is.na(trip_mode), trip_id,
-                           ifelse(is.na(trip_id) &amp; !is.na(trip_mode), trip_id2,
-                                  NA)))
+# min(trip$trip_id, na.rm = T); max(trip$trip_id, na.rm = T)
+# trip &lt;- trip %&gt;% #arrange(trip_id) %&gt;% 
+#   mutate(participant_id2 = as.integer(as.factor(paste0(cluster_id, household_id,
+#                                                       participant_id))),
+#     trip_id2 = (1:dplyr::n()) + max(trip_id, na.rm = T),
+#          trip_id2 = ifelse(!is.na(trip_id) &amp; !is.na(trip_mode), trip_id,
+#                            ifelse(is.na(trip_id) &amp; !is.na(trip_mode), trip_id2,
+#                                   NA)))
+# 
+# # Checking the number of missing values
+# sapply(trip, function(x) sum(is.na(x)))</code></pre>
+</div>
+<div id="create-variables-for-quick-report" class="section level2">
+<h2>Create variables for quick report</h2>
+<p>I need to create some variables to run the report that Lambed developed in the function <em>quality_check</em>.</p>
+<pre class="r"><code>trip$meta_data &lt;- NA
+trip$meta_data[1] &lt;- 2242000
+trip$meta_data[2] &lt;- 4000
+trip$meta_data[3] &lt;- &quot;Time use&quot;
+trip$meta_data[4] &lt;- 2009
+trip$meta_data[5] &lt;- &quot;1 day&quot;
+trip$meta_data[6] &lt;- &quot;implied&quot; #Stage level data available
+trip$meta_data[7] &lt;- &quot;All purpose&quot;#Overall trip purpose
+trip$meta_data[8] &lt;- &quot;??&quot; # Short walks to PT
+trip$meta_data[9] &lt;- &quot;No&quot; # Distance available
+trip$meta_data[10] &lt;- &quot;rickshaw, motorcycle&quot; # missing modes
 
-# Checking the number of missing values
-sapply(trip, function(x) sum(is.na(x)))</code></pre>
-<pre><code>##             X1     cluster_id   household_id participant_id participant_wt 
-##              0              0              0              0              0 
-##            age            sex        trip_id      trip_mode  trip_duration 
-##              0              0          16459            798            798 
-##   trip_purpose      meta_data       trip_id2 
-##            787          18216            798</code></pre>
-<pre class="r"><code># Load helpful functions
+# Load helpful functions
 #source(&quot;code/producing_trips_rd/used_functions.R&quot;)
 
 # Defining standardized_modes function again 
@@ -773,9 +765,8 @@ rd &lt;- trip
 <h2>Creating again IDs</h2>
 <pre class="r"><code># Arrange df and Create participant_id as a combination of cluster_id, household_id,
 rd &lt;- rd %&gt;% arrange(cluster_id, household_id, participant_id, trip_id) %&gt;% 
-  mutate(participant_id = as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = &quot;_&quot;)))),
-         trip_id = as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, trip_id2, sep = &quot;_&quot;)))),
-         trip_id = ifelse(is.na(trip_mode), NA, trip_id))
+  mutate(participant_id = as.integer(as.factor(participant_id)),
+         trip_id = as.integer(as.factor(trip_id)))
 
 # #  participant_id
 # rd$participant_id &lt;- as.integer(as.factor(with(rd, paste(cluster_id, household_id, participant_id, sep = &quot;_&quot;))))

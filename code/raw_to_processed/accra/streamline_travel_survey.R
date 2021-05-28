@@ -1,5 +1,5 @@
 # Clear workspace
-rm (list = ls())
+rm(list = ls())
 
 # Load libraries
 library(tidyverse)
@@ -20,7 +20,11 @@ raw_trip_set <- read_csv("C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/
 # raw_trip_set$trip_mode <- tolower(raw_trip_set$trip_mode)
 
 # Convert participant_id to integer
-raw_trip_set$participant_id <- as.integer(as.factor(raw_trip_set$participant_id))
+#raw_trip_set$participant_id <- as.integer(as.factor(raw_trip_set$participant_id))
+raw_trip_set <- raw_trip_set %>% 
+  mutate(participant_id = as.numeric(as.factor(paste0(cluster_id,
+                                                       household_id,
+                                                       participant_id))))
 
 # ## Add walk to bus stages to all bus trips
 # walk_to_bus <- raw_trip_set[raw_trip_set$stage_mode %in% c('bus', 'train'),]
@@ -48,21 +52,22 @@ pop_weights <- read_csv("C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/W
 
 backup <- raw_trip_set
 
-for (i in 1:nrow(pop_weights)){
+for (i in 1:nrow(pop_weights)) { # Loop for each combination of age-range and sex
   # i <- 1
   td <- raw_trip_set[raw_trip_set$age_cat == pop_weights$age[i] & raw_trip_set$sex == pop_weights$sex[i],]
   
   print(td %>% group_by(trip_mode) %>% summarise(p = round(dplyr::n() / length(unique(td$trip_id)) * 100, 1) ))
   
   n <- pop_weights$rweights[i]
-  for (j in 1:n){
-    last_id <- max(raw_trip_set$participant_id)
-    last_trip_id <- max(raw_trip_set$trip_id)
+  for (j in 1:n) {
+    last_id <- max(raw_trip_set$participant_id, na.rm = T)
+    last_trip_id <- max(raw_trip_set$trip_id, na.rm = T)
     
     # print(last_id)
     # print(last_trip_id)
     td1 <- td
-    td1$participant_id <- td1$participant_id - 1 + last_id
+    #td1$participant_id <- td1$participant_id - 1 + last_id
+    td1$participant_id <- td1$participant_id + last_id
     td1$trip_id <- td1$trip_id + last_trip_id
     raw_trip_set <- rbind(raw_trip_set, td1)
     
