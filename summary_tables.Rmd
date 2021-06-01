@@ -100,7 +100,7 @@ kable(scen_prop, headings = "Scenario Proportions")
 | cycle | 0.6|0.5|0.2 |
 | car | 0.8|16.3|20.6 |
 | motorcycle | 0.0|0.0|3.1 |
-| bus | 2.4|47.1|62.9 |
+| bus | 2.4|47.2|62.9 |
 
 |bangalore|0-1 km|2-5 km|6+ km|
 |---|---|---|---|
