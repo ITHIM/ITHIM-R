@@ -33,7 +33,7 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
       
       # further separate out bus trips WITHOUT pedestrian component
       pt_trips_wo_walk <- rd_list[[i]] %>% filter(trip_id %in% pt_trips$trip_id) %>% group_by(trip_id) %>% 
-        mutate(ped = if(any(stage_mode == 'pedestrian')) 1 else 0) %>% 
+        mutate(ped = if(any(stage_mode == 'walk_to_pt')) 1 else 0) %>% 
         ungroup() %>% 
         filter(ped == 0) %>% dplyr::select(-ped)
       
