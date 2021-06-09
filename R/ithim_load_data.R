@@ -79,7 +79,16 @@ ithim_load_data <- function(setup_call_summary_filename, speeds =
   
   # Rename short walk components of bus trips from 'pedestrian' to 'walk_to_pt'
   if('stage_mode' %in% colnames(trip_set) && 'trip_mode' %in% colnames(trip_set)){
-    trip_set[!is.na(trip_set$trip_mode) & !is.na(trip_set$stage_mode) & trip_set$trip_mode == 'bus' & trip_set$stage_mode == 'pedestrian',]$stage_mode <- 'walk_to_pt'
+    trip_set[!is.na(trip_set$trip_mode) & !is.na(trip_set$stage_mode) & trip_set$trip_mode != 'pedestrian' & trip_set$stage_mode == 'pedestrian',]$stage_mode <- 'walk_to_pt'
+    #table(trip_set$trip_mode, trip_set$stage_mode)
+    
+    # Remove walking component in trips that are not PT
+    trip_set <- trip_set %>%
+      mutate(
+        cond = ifelse(stage_mode == 'walk_to_pt' & 
+                             !trip_mode %in% c('bus', 'rail'), 1, 0)) %>% 
+      filter(cond == 0 | is.na(cond)) %>% dplyr::select(-cond)
+    #table(trip_set$trip_mode, trip_set$stage_mode)
   }
   
   ## use specified words for key modes
