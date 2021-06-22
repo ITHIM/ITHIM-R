@@ -20,8 +20,24 @@ add_walk_trips <- function(pt_trips){
   
   # Replace walk trips with duration greater than that of bus needs to be set to 0
   if (any(pt_trips$stage_duration >= 25)){
-    walk_trips$stage_duration[(pt_trips$stage_duration)  >= 25] <- BUS_WALK_TIME
-    pt_trips$stage_duration[(pt_trips$stage_duration)  >= 25] <- pt_trips$stage_duration[(pt_trips$stage_duration)  >= 25] - BUS_WALK_TIME
+    # Walk_to_pt for bus trips
+    walk_trips$stage_duration[(pt_trips$stage_duration >= 25) &
+                                (pt_trips$trip_mode == 'bus')] <- BUS_WALK_TIME
+    # Walk_to_pt for rail trips
+    walk_trips$stage_duration[(pt_trips$stage_duration >= 25) &
+                                (pt_trips$trip_mode == 'rail')] <- RAIL_WALK_TIME
+    
+    # Remove walk_to_pt duration from trip duration for bus trips
+    pt_trips$stage_duration[(pt_trips$stage_duration >= 25) &
+                              (pt_trips$trip_mode == 'bus')] <-
+      pt_trips$stage_duration[(pt_trips$stage_duration >= 25) & 
+                                (pt_trips$trip_mode == 'bus')] - BUS_WALK_TIME
+    # Remove walk_to_pt duration from trip duration for rail trips
+    pt_trips$stage_duration[(pt_trips$stage_duration >= 25) &
+                              (pt_trips$trip_mode == 'rail')] <-
+      pt_trips$stage_duration[(pt_trips$stage_duration >= 25) & 
+                                (pt_trips$trip_mode == 'rail')] - RAIL_WALK_TIME
+    
   }else{
     walk_trips$stage_duration <- 0
   }

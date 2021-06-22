@@ -114,7 +114,8 @@ for(city in cities){
                                   PM_CONC_BASE = pm_conc_base[[city]],  
                                   PM_TRANS_SHARE = pm_trans_share[[city]],  
                                   BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
-                                  BUS_WALK_TIME = bus_walk_time[[city]])
+                                  BUS_WALK_TIME = bus_walk_time[[city]],
+                                  RAIL_WALK_TIME = rail_walk_time[[city]])
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS
   ithim_objects[[city]]$demographic <- DEMOGRAPHIC
   ithim_objects[[city]]$synth_pop <- SYNTHETIC_POPULATION

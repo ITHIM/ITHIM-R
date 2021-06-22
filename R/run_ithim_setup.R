@@ -25,7 +25,8 @@
 #' @param REFERENCE_SCENARIO which scenario forms the reference for the health comparison
 #' @param PATH_TO_LOCAL_DATA path to CITY directory, if not using package
 #' @param NSAMPLES constant integer: number of samples to take
-#' @param BUS_WALK_TIME lognormal parameter: duration of walk to PT
+#' @param BUS_WALK_TIME lognormal parameter: duration of walk to Bus
+#' @param RAIL_WALK_TIME lognormal parameter: duration of walk to Rail
 #' @param MMET_CYCLING lognormal parameter: mMETs when cycling
 #' @param MMET_WALKING lognormal parameter: mMETs when walking
 #' @param PM_CONC_BASE lognormal parameter: background PM2.5 concentration
@@ -71,6 +72,7 @@ run_ithim_setup <- function(seed = 1,
                             PATH_TO_LOCAL_DATA = NULL,
                             NSAMPLES = 1,
                             BUS_WALK_TIME= 5,
+                            RAIL_WALK_TIME = 15,
                             MMET_CYCLING = 4.63,
                             MMET_WALKING = 2.53,
                             PM_CONC_BASE = 50,  
@@ -107,7 +109,7 @@ run_ithim_setup <- function(seed = 1,
   # AGE_RANGE = vector of length 2, specifying the minimum and maximum ages to be used in the model. Note that the actual 
   # maximum and minimum will coincide with boundaries in the population and GBD files.
   
-  # ADD_WALK_TO_BUS_TRIPS = logic. T: adds walk trips to all bus trips whose duration exceeds BUS_WALK_TIME. F: no trips added
+  # ADD_WALK_TO_BUS_TRIPS = logic. T: adds walk trips to all bus trips whose duration exceeds BUS_WALK_TIME for bus trips and RAIL_WALK_TIME for rail trips. F: no trips added
   # ADD_BUS_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
   # ADD_TRUCK_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
   # ADD_MOTORCYCLE_FLEET = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
@@ -122,6 +124,7 @@ run_ithim_setup <- function(seed = 1,
   # NSAMPLES = integer: number of samples to take for each parameter to be sampled
   
   # BUS_WALK_TIME = parameter. double: time taken to walk to bus. vector: samples from distribution.
+  # RAIL_WALK_TIME = parameter. double: time taken to walk to rail. vector: samples from distribution.
   # MMET_CYCLING = parameter. double: sets cycling (M)METs. vector: samples from distribution.
   # MMET_WALKING = parameter. double: sets walking (M)METs. vector: samples from distribution.
   # PM_CONC_BASE = parameter. double: sets background PM. vector: samples from distribution.
@@ -293,6 +296,7 @@ run_ithim_setup <- function(seed = 1,
   ## SET PARAMETERS
   ithim_object$parameters <- ithim_setup_parameters(NSAMPLES,
                                                     BUS_WALK_TIME,
+                                                    RAIL_WALK_TIME,
                                                     MMET_CYCLING,
                                                     MMET_WALKING,
                                                     PM_CONC_BASE,  
@@ -318,7 +322,8 @@ run_ithim_setup <- function(seed = 1,
   
   # programming flags: do we need to recompute elements given uncertain variables?
   RECALCULATE_PM_EMISSION_INVENTORY <<- any(c('PM_EMISSION_INVENTORY')%in%names(ithim_object$parameters))
-  RECALCULATE_TRIPS <<- any(c('BUS_WALK_TIME',"DISTANCE_SCALAR_PT",
+  RECALCULATE_TRIPS <<- any(c('BUS_WALK_TIME','RAIL_WALK_TIME',
+                              "DISTANCE_SCALAR_PT",
                               "DISTANCE_SCALAR_CAR_TAXI",
                               "DISTANCE_SCALAR_MOTORCYCLE",
                               "DISTANCE_SCALAR_WALKING",

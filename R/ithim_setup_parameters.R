@@ -7,7 +7,8 @@
 #' There are some exceptions, listed below.
 #' 
 #' @param NSAMPLES constant integer: number of samples to take
-#' @param BUS_WALK_TIME lognormal parameter: duration of walk to PT
+#' @param BUS_WALK_TIME lognormal parameter: duration of walk to Bus
+#' @param RAIL_WALK_TIME lognormal parameter: duration of walk to Rail
 #' @param MMET_CYCLING lognormal parameter: mMETs when cycling
 #' @param MMET_WALKING lognormal parameter: mMETs when walking
 #' @param PM_CONC_BASE lognormal parameter: background PM2.5 concentration
@@ -36,6 +37,7 @@
 #' @export
 ithim_setup_parameters <- function(NSAMPLES = 1,
                                    BUS_WALK_TIME= 5,
+                                   RAIL_WALK_TIME = 15,
                                    MMET_CYCLING = 4.63,
                                    MMET_WALKING = 2.53,
                                    PM_CONC_BASE = 50,  
@@ -66,6 +68,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   ## PARAMETERS
   ##RJ parameters are assigned to the environment and so are set for every function. They are over-written when sample_parameters is called.
   BUS_WALK_TIME <<- BUS_WALK_TIME
+  RAIL_WALK_TIME <<- RAIL_WALK_TIME
   MMET_CYCLING <<- MMET_CYCLING
   MMET_WALKING <<- MMET_WALKING
   PM_CONC_BASE <<- PM_CONC_BASE
@@ -89,6 +92,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   
   ##Variables with normal distribution
   normVariables <- c("BUS_WALK_TIME",
+                     "RAIL_WALK_TIME",
                  "MMET_CYCLING",
                  "MMET_WALKING",
                  "PM_CONC_BASE",
