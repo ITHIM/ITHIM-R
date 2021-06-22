@@ -83,9 +83,34 @@ get_scenario_settings <- function(cities = c('accra', 'bangalore', 'belo_horizon
     trip_set <- subset(trip_set,!duplicated(trip_id))
     trip_set$trip_distance_cat <- sapply(trip_set$trip_distance,function(x)last(distances[which(min_distances<=x)]))
     ## get distance profiles
-    mode_proportions_by_distance[[city]] <- sapply(distances,function(y) sapply(modes,function(x)sum(trip_set$trip_mode==x&trip_set$trip_distance_cat==y)/sum(trip_set$trip_distance_cat==y)))
-    ## get total mode shares
-    mode_proportions[[city]] <- sapply(modes,function(x)sum(trip_set$trip_mode==x)/nrow(trip_set))
+    if(!"rail" %in% unique(trip_set$trip_mode)){ # Conditional to sum rail propensity to bus
+      mode_proportions_by_distance[[city]] <- sapply(distances,function(y) sapply(modes,function(x)sum(trip_set$trip_mode==x&trip_set$trip_distance_cat==y)/sum(trip_set$trip_distance_cat==y)))
+      ## get total mode shares
+      mode_proportions[[city]] <- sapply(modes,function(x)sum(trip_set$trip_mode==x)/nrow(trip_set))
+    } else {
+      new_modes <- c(modes, "rail")
+      # Compute proportion in each distance band
+      mode_proportions_by_distance[[city]] <- sapply(distances,function(y) sapply(new_modes,function(x)sum(trip_set$trip_mode==x&trip_set$trip_distance_cat==y)/sum(trip_set$trip_distance_cat==y)))
+      ## Identify rows for bus and rail
+      row_bus <- which(rownames(mode_proportions_by_distance[[city]]) == "bus")
+      row_rail <- which(rownames(mode_proportions_by_distance[[city]]) == "rail")
+      ## Sum rail to bus
+      mode_proportions_by_distance[[city]][row_bus,] <- mode_proportions_by_distance[[city]][row_bus,] + mode_proportions_by_distance[[city]][row_rail,]
+      ## Delete rail proportion
+      mode_proportions_by_distance[[city]] <- mode_proportions_by_distance[[city]][-row_rail,]
+      
+      # get total mode shares
+      mode_proportions[[city]] <- sapply(new_modes,function(x)sum(trip_set$trip_mode==x)/nrow(trip_set))
+      ## Identify rows for bus and rail
+      col_bus <- which(names(mode_proportions[[city]]) == "bus")
+      col_rail <- which(names(mode_proportions[[city]]) == "rail")
+      ## Sum rail to bus
+      mode_proportions[[city]][col_bus] <- mode_proportions[[city]][col_bus] +
+        mode_proportions[[city]][col_rail]
+      ## Delete rail proportion
+      mode_proportions[[city]] <- mode_proportions[[city]][-col_rail]
+      new_modes <- NULL
+    } # End else
     
   }
   ## write as %
