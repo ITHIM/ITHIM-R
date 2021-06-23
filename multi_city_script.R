@@ -89,7 +89,7 @@ toplot <- matrix(0,nrow=5,ncol=length(cities)) #5 scenarios, 4 cities
 ithim_objects <- list()
 for(city in cities){
   print(city)
-  ithim_objects[[city]] <- run_ithim_setup(DIST_CAT = c("0-2 km", "2-5 km", "6+ km"),
+  ithim_objects[[city]] <- run_ithim_setup(DIST_CAT = c("0-2 km", "2-6 km", "6+ km"),
                                   ADD_WALK_TO_BUS_TRIPS = as.logical(add_walk_to_bus_trips[[city]]),
                                   CITY = city,
                                   AGE_RANGE = c(min_age,max_age),
