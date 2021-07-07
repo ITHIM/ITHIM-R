@@ -1,19 +1,19 @@
 mode,value,scenario,city
 bus,0.61,Bicycling,accra
-car,1.05,Bicycling,accra
-cycle,3.24,Bicycling,accra
-motorcycle,0.35,Bicycling,accra
+car,0.88,Bicycling,accra
+cycle,4.38,Bicycling,accra
+motorcycle,0.79,Bicycling,accra
 pedestrian,5.43,Bicycling,accra
 truck,0.18,Bicycling,accra
 other,0,Bicycling,accra
 rail,0,Bicycling,accra
-bus,0.18,Bicycling,bangalore
-car,0.38,Bicycling,bangalore
-cycle,0.65,Bicycling,bangalore
-motorcycle,4.45,Bicycling,bangalore
-pedestrian,4.28,Bicycling,bangalore
-truck,0.14,Bicycling,bangalore
-other,0.18,Bicycling,bangalore
+bus,0.22,Bicycling,bangalore
+car,0.31,Bicycling,bangalore
+cycle,0.55,Bicycling,bangalore
+motorcycle,3.97,Bicycling,bangalore
+pedestrian,4.51,Bicycling,bangalore
+truck,0.15,Bicycling,bangalore
+other,0.15,Bicycling,bangalore
 rail,0,Bicycling,bangalore
 bus,0.13,Bicycling,belo_horizonte
 car,2.21,Bicycling,belo_horizonte
@@ -23,11 +23,11 @@ pedestrian,3.99,Bicycling,belo_horizonte
 truck,0.18,Bicycling,belo_horizonte
 other,1.25,Bicycling,belo_horizonte
 rail,0,Bicycling,belo_horizonte
-bus,0.12,Bicycling,bogota
-car,0.37,Bicycling,bogota
-cycle,1,Bicycling,bogota
-motorcycle,2.73,Bicycling,bogota
-pedestrian,3.2,Bicycling,bogota
+bus,0.1,Bicycling,bogota
+car,0.33,Bicycling,bogota
+cycle,0.96,Bicycling,bogota
+motorcycle,2.26,Bicycling,bogota
+pedestrian,3.78,Bicycling,bogota
 truck,0.02,Bicycling,bogota
 other,0,Bicycling,bogota
 rail,0,Bicycling,bogota
@@ -39,13 +39,13 @@ pedestrian,2.55,Bicycling,buenos_aires
 truck,0.02,Bicycling,buenos_aires
 other,0,Bicycling,buenos_aires
 rail,0,Bicycling,buenos_aires
-bus,0.71,Bicycling,cape_town
-car,6.64,Bicycling,cape_town
-cycle,1.6,Bicycling,cape_town
-motorcycle,1.6,Bicycling,cape_town
-pedestrian,11.68,Bicycling,cape_town
-truck,0.15,Bicycling,cape_town
-other,0.04,Bicycling,cape_town
+bus,0.63,Bicycling,cape_town
+car,6.31,Bicycling,cape_town
+cycle,5.71,Bicycling,cape_town
+motorcycle,1.64,Bicycling,cape_town
+pedestrian,12.24,Bicycling,cape_town
+truck,0.19,Bicycling,cape_town
+other,0.07,Bicycling,cape_town
 rail,0,Bicycling,cape_town
 bus,0.05,Bicycling,delhi
 car,0.78,Bicycling,delhi
@@ -71,13 +71,13 @@ pedestrian,2.58,Bicycling,santiago
 truck,0.15,Bicycling,santiago
 other,0.05,Bicycling,santiago
 rail,0,Bicycling,santiago
-bus,0.1,Bicycling,sao_paulo
-car,1.83,Bicycling,sao_paulo
-cycle,3.17,Bicycling,sao_paulo
-motorcycle,4.74,Bicycling,sao_paulo
-pedestrian,4.26,Bicycling,sao_paulo
-truck,0.17,Bicycling,sao_paulo
-other,0.01,Bicycling,sao_paulo
+bus,0.11,Bicycling,sao_paulo
+car,1.75,Bicycling,sao_paulo
+cycle,4.02,Bicycling,sao_paulo
+motorcycle,4.13,Bicycling,sao_paulo
+pedestrian,5.05,Bicycling,sao_paulo
+truck,0.14,Bicycling,sao_paulo
+other,0,Bicycling,sao_paulo
 rail,0,Bicycling,sao_paulo
 bus,0.16,Bicycling,vizag
 car,0.39,Bicycling,vizag
@@ -88,20 +88,20 @@ truck,0.39,Bicycling,vizag
 other,0.16,Bicycling,vizag
 rail,0,Bicycling,vizag
 bus,0.53,Baseline,accra
-car,1.14,Baseline,accra
-cycle,0.09,Baseline,accra
-motorcycle,0.35,Baseline,accra
-pedestrian,5.95,Baseline,accra
+car,0.96,Baseline,accra
+cycle,0.35,Baseline,accra
+motorcycle,0.79,Baseline,accra
+pedestrian,5.78,Baseline,accra
 truck,0.18,Baseline,accra
 other,0,Baseline,accra
 rail,0,Baseline,accra
-bus,0.18,Baseline,bangalore
-car,0.38,Baseline,bangalore
-cycle,0.29,Baseline,bangalore
-motorcycle,4.62,Baseline,bangalore
-pedestrian,4.56,Baseline,bangalore
-truck,0.14,Baseline,bangalore
-other,0.18,Baseline,bangalore
+bus,0.23,Baseline,bangalore
+car,0.31,Baseline,bangalore
+cycle,0.26,Baseline,bangalore
+motorcycle,4.11,Baseline,bangalore
+pedestrian,4.8,Baseline,bangalore
+truck,0.15,Baseline,bangalore
+other,0.17,Baseline,bangalore
 rail,0,Baseline,bangalore
 bus,0.13,Baseline,belo_horizonte
 car,2.32,Baseline,belo_horizonte
@@ -111,11 +111,11 @@ pedestrian,4.12,Baseline,belo_horizonte
 truck,0.18,Baseline,belo_horizonte
 other,1.27,Baseline,belo_horizonte
 rail,0,Baseline,belo_horizonte
-bus,0.12,Baseline,bogota
-car,0.37,Baseline,bogota
-cycle,0.79,Baseline,bogota
-motorcycle,2.75,Baseline,bogota
-pedestrian,3.25,Baseline,bogota
+bus,0.1,Baseline,bogota
+car,0.35,Baseline,bogota
+cycle,0.7,Baseline,bogota
+motorcycle,2.26,Baseline,bogota
+pedestrian,3.83,Baseline,bogota
 truck,0.02,Baseline,bogota
 other,0,Baseline,bogota
 rail,0,Baseline,bogota
@@ -127,13 +127,13 @@ pedestrian,2.62,Baseline,buenos_aires
 truck,0.02,Baseline,buenos_aires
 other,0,Baseline,buenos_aires
 rail,0,Baseline,buenos_aires
-bus,0.75,Baseline,cape_town
-car,6.9,Baseline,cape_town
-cycle,0.11,Baseline,cape_town
-motorcycle,1.42,Baseline,cape_town
-pedestrian,12.24,Baseline,cape_town
-truck,0.15,Baseline,cape_town
-other,0.04,Baseline,cape_town
+bus,0.71,Baseline,cape_town
+car,6.57,Baseline,cape_town
+cycle,0.26,Baseline,cape_town
+motorcycle,1.53,Baseline,cape_town
+pedestrian,12.95,Baseline,cape_town
+truck,0.19,Baseline,cape_town
+other,0.07,Baseline,cape_town
 rail,0,Baseline,cape_town
 bus,0.05,Baseline,delhi
 car,0.78,Baseline,delhi
@@ -159,12 +159,12 @@ pedestrian,2.68,Baseline,santiago
 truck,0.15,Baseline,santiago
 other,0.05,Baseline,santiago
 rail,0,Baseline,santiago
-bus,0.11,Baseline,sao_paulo
-car,1.93,Baseline,sao_paulo
-cycle,0.45,Baseline,sao_paulo
-motorcycle,4.96,Baseline,sao_paulo
-pedestrian,4.58,Baseline,sao_paulo
-truck,0.17,Baseline,sao_paulo
+bus,0.12,Baseline,sao_paulo
+car,1.83,Baseline,sao_paulo
+cycle,0.47,Baseline,sao_paulo
+motorcycle,4.31,Baseline,sao_paulo
+pedestrian,5.42,Baseline,sao_paulo
+truck,0.16,Baseline,sao_paulo
 other,0.01,Baseline,sao_paulo
 rail,0,Baseline,sao_paulo
 bus,0.16,Baseline,vizag
@@ -175,21 +175,21 @@ pedestrian,6.76,Baseline,vizag
 truck,0.47,Baseline,vizag
 other,0.16,Baseline,vizag
 rail,0,Baseline,vizag
-bus,0.7,Public Transport,accra
-car,0.88,Public Transport,accra
-cycle,0.09,Public Transport,accra
-motorcycle,0.26,Public Transport,accra
-pedestrian,4.81,Public Transport,accra
+bus,0.53,Public Transport,accra
+car,0.79,Public Transport,accra
+cycle,0.26,Public Transport,accra
+motorcycle,0.61,Public Transport,accra
+pedestrian,4.55,Public Transport,accra
 truck,0.18,Public Transport,accra
 other,0,Public Transport,accra
 rail,0,Public Transport,accra
-bus,0.35,Public Transport,bangalore
-car,0.18,Public Transport,bangalore
+bus,0.42,Public Transport,bangalore
+car,0.17,Public Transport,bangalore
 cycle,0.12,Public Transport,bangalore
-motorcycle,2.51,Public Transport,bangalore
-pedestrian,3.79,Public Transport,bangalore
-truck,0.14,Public Transport,bangalore
-other,0.08,Public Transport,bangalore
+motorcycle,2.25,Public Transport,bangalore
+pedestrian,3.8,Public Transport,bangalore
+truck,0.15,Public Transport,bangalore
+other,0.05,Public Transport,bangalore
 rail,0,Public Transport,bangalore
 bus,0.2,Public Transport,belo_horizonte
 car,1.37,Public Transport,belo_horizonte
@@ -199,11 +199,11 @@ pedestrian,3.56,Public Transport,belo_horizonte
 truck,0.2,Public Transport,belo_horizonte
 other,0.66,Public Transport,belo_horizonte
 rail,0,Public Transport,belo_horizonte
-bus,0.16,Public Transport,bogota
+bus,0.14,Public Transport,bogota
 car,0.26,Public Transport,bogota
-cycle,0.52,Public Transport,bogota
-motorcycle,1.75,Public Transport,bogota
-pedestrian,2.64,Public Transport,bogota
+cycle,0.47,Public Transport,bogota
+motorcycle,1.42,Public Transport,bogota
+pedestrian,2.96,Public Transport,bogota
 truck,0.02,Public Transport,bogota
 other,0,Public Transport,bogota
 rail,0,Public Transport,bogota
@@ -215,13 +215,13 @@ pedestrian,2.44,Public Transport,buenos_aires
 truck,0.02,Public Transport,buenos_aires
 other,0,Public Transport,buenos_aires
 rail,0,Public Transport,buenos_aires
-bus,0.9,Public Transport,cape_town
-car,4.33,Public Transport,cape_town
-cycle,0.04,Public Transport,cape_town
-motorcycle,0.75,Public Transport,cape_town
-pedestrian,8.81,Public Transport,cape_town
-truck,0.11,Public Transport,cape_town
-other,0,Public Transport,cape_town
+bus,0.78,Public Transport,cape_town
+car,3.99,Public Transport,cape_town
+cycle,0.11,Public Transport,cape_town
+motorcycle,0.82,Public Transport,cape_town
+pedestrian,8.7,Public Transport,cape_town
+truck,0.15,Public Transport,cape_town
+other,0.04,Public Transport,cape_town
 rail,0,Public Transport,cape_town
 bus,0.08,Public Transport,delhi
 car,0.41,Public Transport,delhi
@@ -247,13 +247,13 @@ pedestrian,2.55,Public Transport,santiago
 truck,0.15,Public Transport,santiago
 other,0.05,Public Transport,santiago
 rail,0,Public Transport,santiago
-bus,0.12,Public Transport,sao_paulo
-car,1.42,Public Transport,sao_paulo
-cycle,0.34,Public Transport,sao_paulo
-motorcycle,3.23,Public Transport,sao_paulo
-pedestrian,4,Public Transport,sao_paulo
+bus,0.13,Public Transport,sao_paulo
+car,1.35,Public Transport,sao_paulo
+cycle,0.35,Public Transport,sao_paulo
+motorcycle,2.84,Public Transport,sao_paulo
+pedestrian,4.58,Public Transport,sao_paulo
 truck,0.14,Public Transport,sao_paulo
-other,0.01,Public Transport,sao_paulo
+other,0,Public Transport,sao_paulo
 rail,0,Public Transport,sao_paulo
 bus,0.23,Public Transport,vizag
 car,0.31,Public Transport,vizag
@@ -263,21 +263,21 @@ pedestrian,4.89,Public Transport,vizag
 truck,0.47,Public Transport,vizag
 other,0,Public Transport,vizag
 rail,0,Public Transport,vizag
-bus,0.44,Driving,accra
-car,1.49,Driving,accra
-cycle,0.09,Driving,accra
-motorcycle,0.44,Driving,accra
-pedestrian,6.04,Driving,accra
+bus,0.35,Driving,accra
+car,1.75,Driving,accra
+cycle,0.26,Driving,accra
+motorcycle,0.88,Driving,accra
+pedestrian,5.78,Driving,accra
 truck,0.18,Driving,accra
 other,0,Driving,accra
 rail,0,Driving,accra
-bus,0.11,Driving,bangalore
-car,1.74,Driving,bangalore
-cycle,0.49,Driving,bangalore
-motorcycle,4.66,Driving,bangalore
-pedestrian,6.88,Driving,bangalore
-truck,0.14,Driving,bangalore
-other,0.23,Driving,bangalore
+bus,0.14,Driving,bangalore
+car,1.59,Driving,bangalore
+cycle,0.43,Driving,bangalore
+motorcycle,4.17,Driving,bangalore
+pedestrian,6.85,Driving,bangalore
+truck,0.15,Driving,bangalore
+other,0.22,Driving,bangalore
 rail,0,Driving,bangalore
 bus,0.1,Driving,belo_horizonte
 car,2.72,Driving,belo_horizonte
@@ -288,10 +288,10 @@ truck,0.18,Driving,belo_horizonte
 other,1.09,Driving,belo_horizonte
 rail,0,Driving,belo_horizonte
 bus,0.09,Driving,bogota
-car,0.61,Driving,bogota
-cycle,0.58,Driving,bogota
-motorcycle,2.24,Driving,bogota
-pedestrian,2.69,Driving,bogota
+car,0.56,Driving,bogota
+cycle,0.51,Driving,bogota
+motorcycle,1.84,Driving,bogota
+pedestrian,3.17,Driving,bogota
 truck,0.02,Driving,bogota
 other,0,Driving,bogota
 rail,0,Driving,bogota
@@ -303,13 +303,13 @@ pedestrian,2.38,Driving,buenos_aires
 truck,0.02,Driving,buenos_aires
 other,0,Driving,buenos_aires
 rail,0,Driving,buenos_aires
-bus,0.75,Driving,cape_town
-car,7.09,Driving,cape_town
-cycle,0.07,Driving,cape_town
-motorcycle,1.42,Driving,cape_town
-pedestrian,11.83,Driving,cape_town
-truck,0.15,Driving,cape_town
-other,0.04,Driving,cape_town
+bus,0.67,Driving,cape_town
+car,6.76,Driving,cape_town
+cycle,0.15,Driving,cape_town
+motorcycle,1.49,Driving,cape_town
+pedestrian,12.61,Driving,cape_town
+truck,0.19,Driving,cape_town
+other,0.07,Driving,cape_town
 rail,0,Driving,cape_town
 bus,0.03,Driving,delhi
 car,1.25,Driving,delhi
@@ -335,11 +335,11 @@ pedestrian,2.66,Driving,santiago
 truck,0.18,Driving,santiago
 other,0.03,Driving,santiago
 rail,0,Driving,santiago
-bus,0.08,Driving,sao_paulo
-car,2.9,Driving,sao_paulo
-cycle,0.36,Driving,sao_paulo
-motorcycle,4.37,Driving,sao_paulo
-pedestrian,4.48,Driving,sao_paulo
+bus,0.11,Driving,sao_paulo
+car,2.48,Driving,sao_paulo
+cycle,0.4,Driving,sao_paulo
+motorcycle,3.68,Driving,sao_paulo
+pedestrian,5.29,Driving,sao_paulo
 truck,0.16,Driving,sao_paulo
 other,0,Driving,sao_paulo
 rail,0,Driving,sao_paulo
@@ -352,20 +352,20 @@ truck,0.39,Driving,vizag
 other,0.08,Driving,vizag
 rail,0,Driving,vizag
 bus,0.35,Motorcycling,accra
-car,0.88,Motorcycling,accra
-cycle,0.09,Motorcycling,accra
-motorcycle,5.86,Motorcycling,accra
-pedestrian,7,Motorcycling,accra
+car,0.79,Motorcycling,accra
+cycle,0.26,Motorcycling,accra
+motorcycle,8.05,Motorcycling,accra
+pedestrian,7.18,Motorcycling,accra
 truck,0.18,Motorcycling,accra
 other,0,Motorcycling,accra
 rail,0,Motorcycling,accra
-bus,0.18,Motorcycling,bangalore
-car,0.38,Motorcycling,bangalore
-cycle,0.29,Motorcycling,bangalore
-motorcycle,4.62,Motorcycling,bangalore
-pedestrian,4.51,Motorcycling,bangalore
-truck,0.14,Motorcycling,bangalore
-other,0.18,Motorcycling,bangalore
+bus,0.23,Motorcycling,bangalore
+car,0.31,Motorcycling,bangalore
+cycle,0.26,Motorcycling,bangalore
+motorcycle,4.11,Motorcycling,bangalore
+pedestrian,4.77,Motorcycling,bangalore
+truck,0.15,Motorcycling,bangalore
+other,0.17,Motorcycling,bangalore
 rail,0,Motorcycling,bangalore
 bus,0.05,Motorcycling,belo_horizonte
 car,1.27,Motorcycling,belo_horizonte
@@ -376,10 +376,10 @@ truck,0.15,Motorcycling,belo_horizonte
 other,0.69,Motorcycling,belo_horizonte
 rail,0,Motorcycling,belo_horizonte
 bus,0.07,Motorcycling,bogota
-car,0.21,Motorcycling,bogota
-cycle,0.44,Motorcycling,bogota
-motorcycle,6.28,Motorcycling,bogota
-pedestrian,3.08,Motorcycling,bogota
+car,0.19,Motorcycling,bogota
+cycle,0.4,Motorcycling,bogota
+motorcycle,6.1,Motorcycling,bogota
+pedestrian,4.11,Motorcycling,bogota
 truck,0.02,Motorcycling,bogota
 other,0,Motorcycling,bogota
 rail,0,Motorcycling,bogota
@@ -391,13 +391,13 @@ pedestrian,5.43,Motorcycling,buenos_aires
 truck,0.02,Motorcycling,buenos_aires
 other,0,Motorcycling,buenos_aires
 rail,0,Motorcycling,buenos_aires
-bus,0.3,Motorcycling,cape_town
-car,4.25,Motorcycling,cape_town
-cycle,0.04,Motorcycling,cape_town
-motorcycle,29.15,Motorcycling,cape_town
-pedestrian,11.31,Motorcycling,cape_town
-truck,0.07,Motorcycling,cape_town
-other,0,Motorcycling,cape_town
+bus,0.41,Motorcycling,cape_town
+car,3.88,Motorcycling,cape_town
+cycle,0.07,Motorcycling,cape_town
+motorcycle,38.44,Motorcycling,cape_town
+pedestrian,11.01,Motorcycling,cape_town
+truck,0.11,Motorcycling,cape_town
+other,0.04,Motorcycling,cape_town
 rail,0,Motorcycling,cape_town
 bus,0.03,Motorcycling,delhi
 car,0.58,Motorcycling,delhi
@@ -424,11 +424,11 @@ truck,0.15,Motorcycling,santiago
 other,0,Motorcycling,santiago
 rail,0,Motorcycling,santiago
 bus,0.14,Motorcycling,sao_paulo
-car,1.29,Motorcycling,sao_paulo
-cycle,0.41,Motorcycling,sao_paulo
-motorcycle,30.73,Motorcycling,sao_paulo
-pedestrian,7.37,Motorcycling,sao_paulo
-truck,0.3,Motorcycling,sao_paulo
+car,1.2,Motorcycling,sao_paulo
+cycle,0.42,Motorcycling,sao_paulo
+motorcycle,32.69,Motorcycling,sao_paulo
+pedestrian,9.34,Motorcycling,sao_paulo
+truck,0.28,Motorcycling,sao_paulo
 other,0,Motorcycling,sao_paulo
 rail,0,Motorcycling,sao_paulo
 bus,0.16,Motorcycling,vizag
@@ -440,20 +440,20 @@ truck,0.39,Motorcycling,vizag
 other,0.08,Motorcycling,vizag
 rail,0,Motorcycling,vizag
 bus,0.53,Walking,accra
-car,1.14,Walking,accra
-cycle,0.09,Walking,accra
-motorcycle,0.35,Walking,accra
-pedestrian,6.04,Walking,accra
+car,0.96,Walking,accra
+cycle,0.35,Walking,accra
+motorcycle,0.79,Walking,accra
+pedestrian,5.78,Walking,accra
 truck,0.18,Walking,accra
 other,0,Walking,accra
 rail,0,Walking,accra
-bus,0.18,Walking,bangalore
-car,0.38,Walking,bangalore
-cycle,0.28,Walking,bangalore
-motorcycle,4.51,Walking,bangalore
-pedestrian,5.26,Walking,bangalore
-truck,0.14,Walking,bangalore
-other,0.18,Walking,bangalore
+bus,0.23,Walking,bangalore
+car,0.31,Walking,bangalore
+cycle,0.25,Walking,bangalore
+motorcycle,4.03,Walking,bangalore
+pedestrian,5.56,Walking,bangalore
+truck,0.15,Walking,bangalore
+other,0.15,Walking,bangalore
 rail,0,Walking,bangalore
 bus,0.13,Walking,belo_horizonte
 car,2.21,Walking,belo_horizonte
@@ -463,11 +463,11 @@ pedestrian,6.03,Walking,belo_horizonte
 truck,0.18,Walking,belo_horizonte
 other,1.27,Walking,belo_horizonte
 rail,0,Walking,belo_horizonte
-bus,0.12,Walking,bogota
-car,0.37,Walking,bogota
-cycle,0.72,Walking,bogota
-motorcycle,2.71,Walking,bogota
-pedestrian,3.88,Walking,bogota
+bus,0.1,Walking,bogota
+car,0.33,Walking,bogota
+cycle,0.63,Walking,bogota
+motorcycle,2.22,Walking,bogota
+pedestrian,4.51,Walking,bogota
 truck,0.02,Walking,bogota
 other,0,Walking,bogota
 rail,0,Walking,bogota
@@ -479,13 +479,13 @@ pedestrian,5.43,Walking,buenos_aires
 truck,0.02,Walking,buenos_aires
 other,0,Walking,buenos_aires
 rail,0,Walking,buenos_aires
-bus,0.71,Walking,cape_town
-car,6.68,Walking,cape_town
-cycle,0.07,Walking,cape_town
-motorcycle,1.31,Walking,cape_town
-pedestrian,17.88,Walking,cape_town
-truck,0.15,Walking,cape_town
-other,0.04,Walking,cape_town
+bus,0.67,Walking,cape_town
+car,6.38,Walking,cape_town
+cycle,0.19,Walking,cape_town
+motorcycle,1.42,Walking,cape_town
+pedestrian,17.62,Walking,cape_town
+truck,0.19,Walking,cape_town
+other,0.07,Walking,cape_town
 rail,0,Walking,cape_town
 bus,0.05,Walking,delhi
 car,0.75,Walking,delhi
@@ -511,13 +511,13 @@ pedestrian,4.52,Walking,santiago
 truck,0.15,Walking,santiago
 other,0.05,Walking,santiago
 rail,0,Walking,santiago
-bus,0.1,Walking,sao_paulo
-car,1.75,Walking,sao_paulo
-cycle,0.29,Walking,sao_paulo
-motorcycle,4.47,Walking,sao_paulo
-pedestrian,8.14,Walking,sao_paulo
-truck,0.16,Walking,sao_paulo
-other,0.01,Walking,sao_paulo
+bus,0.11,Walking,sao_paulo
+car,1.64,Walking,sao_paulo
+cycle,0.31,Walking,sao_paulo
+motorcycle,3.85,Walking,sao_paulo
+pedestrian,9.18,Walking,sao_paulo
+truck,0.14,Walking,sao_paulo
+other,0,Walking,sao_paulo
 rail,0,Walking,sao_paulo
 bus,0.16,Walking,vizag
 car,0.39,Walking,vizag
