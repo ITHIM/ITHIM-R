@@ -1,4 +1,4 @@
-"","cas_age","cas_gender","cas_mode_original","strike_mode_original","year","cas_mode","strike_mode","cas_mode_2nd","strike_mode_2nd","cas_mode_3rd","strike_mode_3rd","cas_mode_4th","strike_mode_4th","cas_mode_5th","strike_mode_5th"
+"","cas_age_notnow","cas_gender_notnow","cas_mode_original","strike_mode_original","year","cas_mode","strike_mode","cas_mode_2nd","strike_mode_2nd","cas_mode_3rd","strike_mode_3rd","cas_mode_4th","strike_mode_4th","cas_mode_5th","strike_mode_5th"
 "1",20,"Female","pedestrian","car",2012,"pedestrian","car","pedestrian","car","pedestrian","car","pedestrian","car","pedestrian","car"
 "2",15,"Female","pedestrian","car",2012,"pedestrian","car","pedestrian","car","pedestrian","car","pedestrian","car","pedestrian","car"
 "3",5,"Male","pedestrian","truck",2012,"pedestrian","truck","pedestrian","truck","pedestrian","truck","pedestrian","truck","pedestrian","truck"

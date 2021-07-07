@@ -49,7 +49,7 @@ names(strike) <- c("accident_id", "strike_age", "strike_sex", "strike_vehicle", 
 strike_all <- rbind(vic, strike)
 victim_all <- victim_all %>% left_join(strike_all, by = 'accident_id')
 ##accidents with more than one row
-x <- victim_all %>% group_by(accident_id) %>% summarise('n' = n())
+x <- victim_all %>% group_by(accident_id) %>% summarise('n' = dplyr::n())
 victim_all <- victim_all %>% left_join(x, by = "accident_id")
 
 victim_all <- victim_all[which(!(victim_all$victim_id == victim_all$strike_id &
@@ -220,7 +220,7 @@ strike_all <- rbind(vic, strike)
 victim_all <- victim_all %>% left_join(strike_all, by = 'accident_id')
 
 ##accidents with more than one row
-x <- victim_all %>% group_by(accident_id) %>% summarise('n'=n())
+x <- victim_all %>% group_by(accident_id) %>% summarise('n'= dplyr::n())
 victim_all <- victim_all %>% left_join(x, by="accident_id")
 
 victim_all<- victim_all[which(!(victim_all$victim_id == victim_all$strike_id & victim_all$n>1)),]
@@ -365,7 +365,7 @@ names(strike)<- c("accident_id", "strike_age", "strike_sex", "strike_vehicle", '
 strike_all<- rbind(vic, strike)
 victim_all<- victim_all %>% left_join(strike_all, by ='accident_id')
 ##accidents with more than one row
-x<- victim_all %>% group_by(accident_id) %>% summarise('n'=n())
+x <- victim_all %>% group_by(accident_id) %>% summarise('n' = dplyr::n())
 victim_all <- victim_all %>% left_join(x, by="accident_id")
 
 victim_all<- victim_all[which(!(victim_all$victim_id == victim_all$strike_id & victim_all$n>1)),]
@@ -526,23 +526,27 @@ vic3 <- vic2 %>%
          cas_gender_original = cas_gender, 
          #cas_mode_original = cas_mode, # cas_modes doesn't have missing values
          strike_mode_original = strike_mode) %>% 
-  bind_cols(complete(imp1) %>% select(cas_age, cas_gender, strike_mode)) %>%
+  bind_cols(complete(imp1) %>% 
+              dplyr::select(cas_age, cas_gender, strike_mode)) %>%
   bind_cols(complete(imp1, action = 2) %>% 
-              select(cas_age, cas_gender, strike_mode) %>% 
+              dplyr::select(cas_age, cas_gender, strike_mode) %>% 
               rename(cas_age_2nd = cas_age, cas_gender_2nd = cas_gender,
                      strike_mode_2nd = strike_mode)) %>%
   bind_cols(complete(imp1, action = 3) %>% 
-              select(cas_age, cas_gender, strike_mode) %>% 
+              dplyr::select(cas_age, cas_gender, strike_mode) %>% 
               rename(cas_age_3rd = cas_age, cas_gender_3rd = cas_gender,
                      strike_mode_3rd = strike_mode)) %>%   
   bind_cols(complete(imp1, action = 4) %>% 
-              select(cas_age, cas_gender, strike_mode) %>% 
+              dplyr::select(cas_age, cas_gender, strike_mode) %>% 
               rename(cas_age_4th = cas_age, cas_gender_4th = cas_gender,
                      strike_mode_4th = strike_mode)) %>%
   bind_cols(complete(imp1, action = 5) %>% 
-              select(cas_age, cas_gender, strike_mode) %>% 
+              dplyr::select(cas_age, cas_gender, strike_mode) %>% 
               rename(cas_age_5th = cas_age, cas_gender_5th = cas_gender,
-                     strike_mode_5th = strike_mode))
+                     strike_mode_5th = strike_mode)) %>% 
+  # To avoid using age and sex in the model I renamed these variables
+  rename(cas_gender_notnow = cas_gender,
+         cas_age_notnow = cas_age)
 
 # Comparing imputations 
 # View(table(vic3$cas_age_original, vic3$cas_age, useNA = "always"))

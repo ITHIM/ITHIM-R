@@ -56,7 +56,7 @@ fatal_crash %<>%
 
 fatal_crash %>% 
   group_by(strike_mode) %>% 
-  summarise(count=n()) %>% 
+  summarise(count = dplyr::n()) %>% 
   mutate(proportion = round(count*100/sum(count),2))
 
 # Victim modes for those killed in fatal crashes
@@ -66,7 +66,7 @@ killed <- all_injury %>%
 
 killed %>% 
   group_by(mode1) %>% 
-  summarise(count=n()) %>% 
+  summarise(count = dplyr::n()) %>% 
   mutate(proportion = round(count*100/sum(count),2))
 
 # In the hospital file (explored below), the victime modes for drivers and passengers are not differentiated (i.e., they are simply entered as driver or passenger). Since we are keeping the hospital file as the more accurate dataset, we are interested in using the victime modes distribution in the crash file to predict cause of vehicle types for drivers and passengers in the hospital file
@@ -77,7 +77,7 @@ killed %<>%
 
 killed %>% 
   group_by(mode1) %>% 
-  summarise(count=n()) %>% 
+  summarise(count = dplyr::n()) %>% 
   mutate(proportion = round(count*100/sum(count),2))
 
 # Cleaning hospital data
@@ -166,7 +166,7 @@ all_fatality$vehicletype[all_fatality$allegedcoddescr == "railway pedestrian"] <
 # Exploring victim mode in hospital data. driver, passenger are not specified
 all_fatality %>% 
   group_by(allegedcoddescr) %>% 
-  summarise(count=n()) %>% 
+  summarise(count = dplyr::n()) %>% 
   mutate(proportion = round(count*100/sum(count),2))
 
 # We consider that the reported victim mode for pedestrian, bicycle and motorcycle are correct; the rest are unknow and will be determined
@@ -186,13 +186,13 @@ all_fatality <- bind_rows(known_victim_mode, unknown_victim_mode)
 
 all_fatality %>% 
   group_by(allegedcoddescr) %>% 
-  summarise(count=n()) %>% 
+  summarise(count = dplyr::n()) %>% 
   mutate(proportion = round(count*100/sum(count),2))
 
 # We now explore the strike modes in hospital data. Just about half cases have this reported. Taking a closer look, apart from pedestrians, where this seems to represent the strike mode, the rest seem to be a further specification of the victim mode.
 all_fatality %>% 
   group_by(vehicletype) %>% 
-  summarise(count=n()) %>% 
+  summarise(count = dplyr::n()) %>% 
   mutate(proportion = round(count*100/sum(count),2))
 
 # We consider that the strike mode for pedestrian is accurate and the rest are unkown. We use the strike modes of the casuality file to impute unknown strike modes for the hospital file.
@@ -207,7 +207,7 @@ unknown_strike_mode <- setdiff(all_fatality, known_strike_mode) %>% sample_frac(
 
 known_strike_mode %>% 
   group_by(vehicletype) %>%
-  summarise(count_pedestrian=n()) %>% 
+  summarise(count_pedestrian = dplyr::n()) %>% 
   mutate(proportion = round(count_pedestrian*100/sum(count_pedestrian),2))
 
 # We impute the strike modes in the hospital file based only on the distribution of the strike modes in the casualty file (other variable like age, and sex are poorly reported)
@@ -326,7 +326,10 @@ whw3 <- whw2 %>%
               rename(cas_mode_3rd = cas_mode, strike_mode_3rd = strike_mode)) %>%   bind_cols(complete(imp1, action = 4) %>% dplyr::select(cas_mode, strike_mode) %>% 
                                                                                                 rename(cas_mode_4th = cas_mode, strike_mode_4th = strike_mode)) %>%
   bind_cols(complete(imp1, action = 5) %>% dplyr::select(cas_mode, strike_mode) %>% 
-              rename(cas_mode_5th = cas_mode, strike_mode_5th = strike_mode))
+              rename(cas_mode_5th = cas_mode, strike_mode_5th = strike_mode)) %>% 
+  # To avoid using age and sex in the model I renamed these variables
+  rename(cas_gender_notnow = cas_gender,
+         cas_age_notnow = cas_age)
 
 # Comparing imputations 
 table(whw3$cas_mode_original, whw3$cas_mode, useNA = "always")

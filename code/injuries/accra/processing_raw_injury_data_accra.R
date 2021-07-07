@@ -71,21 +71,30 @@ imp1
 # imputation is saved in cas_mode and strike_mode. From second to fifth
 # imputation are also saved with the sufix "_2nd", to "5th".
 accra3 <- accra2 %>% 
-  rename(cas_age_original = cas_age,
-         strike_mode_original = strike_mode) %>% 
-  bind_cols(complete(imp1) %>% select(cas_age, strike_mode)) %>%
-  bind_cols(complete(imp1, action = 2) %>% select(cas_age, strike_mode) %>% 
+  rename(
+    cas_age_original = cas_age, 
+    strike_mode_original = strike_mode) %>% 
+  bind_cols(complete(imp1) %>% dplyr::select(cas_age, strike_mode)) %>%
+  bind_cols(complete(imp1, action = 2) %>% 
+              dplyr::select(cas_age, strike_mode) %>% 
               rename(cas_age_2nd = cas_age, strike_mode_2nd = strike_mode)) %>%
-  bind_cols(complete(imp1, action = 3) %>% select(cas_age, strike_mode) %>% 
+  bind_cols(complete(imp1, action = 3) %>% 
+              dplyr::select(cas_age, strike_mode) %>% 
               rename(cas_age_3rd = cas_age, strike_mode_3rd = strike_mode)) %>%  
-  bind_cols(complete(imp1, action = 4) %>% select(cas_age, strike_mode) %>% 
+  bind_cols(complete(imp1, action = 4) %>% 
+              dplyr::select(cas_age, strike_mode) %>% 
               rename(cas_age_4th = cas_age, strike_mode_4th = strike_mode)) %>%
-  bind_cols(complete(imp1, action = 5) %>% select(cas_age, strike_mode) %>% 
+  bind_cols(complete(imp1, action = 5) %>% 
+              dplyr::select(cas_age, strike_mode) %>% 
               rename(cas_age_5th = cas_age, strike_mode_5th = strike_mode)) %>% 
-  select(year, cas_gender, cas_type, cas_mode, strk_type, 
-         cas_age_original, strike_mode_original, cas_age, strike_mode, 
+  dplyr::select(year, cas_type, cas_mode, strk_type, 
+         cas_age_original, strike_mode_original, strike_mode, 
          cas_age_2nd, strike_mode_2nd, cas_age_3rd, strike_mode_3rd,
-         cas_age_4th, strike_mode_4th, cas_age_5th, strike_mode_5th)
+         cas_age_4th, strike_mode_4th, cas_age_5th, strike_mode_5th,
+         cas_gender, cas_age) %>% 
+  # To avoid using age and sex in the model I renamed these variables
+  rename(cas_gender_notnow = cas_gender,
+         cas_age_notnow = cas_age)
 
 # Comparing imputations 
 table(accra3$cas_age_original, useNA = "always")

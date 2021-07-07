@@ -2,6 +2,8 @@
 require(tidyverse)
 library(mice)
 
+rm(list=ls());gc()
+
 #Read raw sp injuries
 rd <- read_csv("data/local/sao_paulo/sao_paulo_processed_2009_2013.csv")
 
@@ -81,15 +83,22 @@ imp1
 rd3 <- rd2 %>% 
   rename(cas_mode_original = cas_mode,
          strike_mode_original = strike_mode) %>% 
-  bind_cols(complete(imp1) %>% select(cas_mode, strike_mode)) %>%
-  bind_cols(complete(imp1, action = 2) %>% select(cas_mode, strike_mode) %>% 
+  bind_cols(complete(imp1) %>% dplyr::select(cas_mode, strike_mode)) %>%
+  bind_cols(complete(imp1, action = 2) %>% 
+              dplyr::select(cas_mode, strike_mode) %>% 
               rename(cas_mode_2nd = cas_mode, strike_mode_2nd = strike_mode)) %>%
-  bind_cols(complete(imp1, action = 3) %>% select(cas_mode, strike_mode) %>% 
+  bind_cols(complete(imp1, action = 3) %>% 
+              dplyr::select(cas_mode, strike_mode) %>% 
               rename(cas_mode_3rd = cas_mode, strike_mode_3rd = strike_mode)) %>%  
-  bind_cols(complete(imp1, action = 4) %>% select(cas_mode, strike_mode) %>% 
+  bind_cols(complete(imp1, action = 4) %>% 
+              dplyr::select(cas_mode, strike_mode) %>% 
               rename(cas_mode_4th = cas_mode, strike_mode_4th = strike_mode)) %>%
-  bind_cols(complete(imp1, action = 5) %>% select(cas_mode, strike_mode) %>% 
-              rename(cas_mode_5th = cas_mode, strike_mode_5th = strike_mode))
+  bind_cols(complete(imp1, action = 5) %>% 
+              dplyr::select(cas_mode, strike_mode) %>% 
+              rename(cas_mode_5th = cas_mode, strike_mode_5th = strike_mode)) %>%
+  # To avoid using age and sex in the model I renamed these variables
+  rename(cas_gender_notnow = cas_gender,
+         cas_age_notnow = cas_age)
 
 # Comparing imputations 
 table(rd3$cas_mode_original, rd3$cas_mode, useNA = "always")
