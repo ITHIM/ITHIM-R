@@ -326,10 +326,10 @@ whw3 <- whw2 %>%
               rename(cas_mode_3rd = cas_mode, strike_mode_3rd = strike_mode)) %>%   bind_cols(complete(imp1, action = 4) %>% dplyr::select(cas_mode, strike_mode) %>% 
                                                                                                 rename(cas_mode_4th = cas_mode, strike_mode_4th = strike_mode)) %>%
   bind_cols(complete(imp1, action = 5) %>% dplyr::select(cas_mode, strike_mode) %>% 
-              rename(cas_mode_5th = cas_mode, strike_mode_5th = strike_mode)) %>% 
+              rename(cas_mode_5th = cas_mode, strike_mode_5th = strike_mode)) #%>% 
   # To avoid using age and sex in the model I renamed these variables
-  rename(cas_gender_notnow = cas_gender,
-         cas_age_notnow = cas_age)
+  #rename(cas_gender_notnow = cas_gender,
+  #       cas_age_notnow = cas_age)
 
 # Comparing imputations 
 table(whw3$cas_mode_original, whw3$cas_mode, useNA = "always")

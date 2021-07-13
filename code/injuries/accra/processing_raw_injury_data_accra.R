@@ -91,10 +91,10 @@ accra3 <- accra2 %>%
          cas_age_original, strike_mode_original, strike_mode, 
          cas_age_2nd, strike_mode_2nd, cas_age_3rd, strike_mode_3rd,
          cas_age_4th, strike_mode_4th, cas_age_5th, strike_mode_5th,
-         cas_gender, cas_age) %>% 
+         cas_gender, cas_age) #%>% 
   # To avoid using age and sex in the model I renamed these variables
-  rename(cas_gender_notnow = cas_gender,
-         cas_age_notnow = cas_age)
+  #rename(cas_gender_notnow = cas_gender,
+  #       cas_age_notnow = cas_age)
 
 # Comparing imputations 
 table(accra3$cas_age_original, useNA = "always")

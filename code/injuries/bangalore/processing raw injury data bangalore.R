@@ -201,10 +201,10 @@ bangalore3 <- bangalore2 %>%
   bind_cols(complete(imp1, action = 5) %>% 
               dplyr::select(cas_age, cas_gender, strike_mode) %>% 
               rename(cas_age_5th = cas_age, cas_gender_5th = cas_gender,
-                     strike_mode_5th = strike_mode)) %>% 
+                     strike_mode_5th = strike_mode)) #%>% 
   # To avoid using age and sex in the model I renamed these variables
-  rename(cas_gender_notnow = cas_gender,
-         cas_age_notnow = cas_age)
+  #rename(cas_gender_notnow = cas_gender,
+  #       cas_age_notnow = cas_age)
 
 # Comparing imputations 
 # View(table(bangalore3$cas_age_original, bangalore3$cas_age, useNA = "always"))

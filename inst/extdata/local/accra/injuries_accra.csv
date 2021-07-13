@@ -1,4 +1,4 @@
-"","year","cas_type","cas_mode","strk_type","cas_age_original","strike_mode_original","strike_mode","cas_age_2nd","strike_mode_2nd","cas_age_3rd","strike_mode_3rd","cas_age_4th","strike_mode_4th","cas_age_5th","strike_mode_5th","cas_gender_notnow","cas_age_notnow"
+"","year","cas_type","cas_mode","strk_type","cas_age_original","strike_mode_original","strike_mode","cas_age_2nd","strike_mode_2nd","cas_age_3rd","strike_mode_3rd","cas_age_4th","strike_mode_4th","cas_age_5th","strike_mode_5th","cas_gender","cas_age"
 "1","2007","Bus","bus","No other/fixed or stationary object",27,"No other/fixed or stationary object","NOV",27,"NOV",27,"NOV",27,"NOV",27,"NOV","male",27
 "2","2007","Pedestrian","pedestrian","Car/pick-up/van",30,"Car/pick-up/van","car",30,"car",30,"car",30,"car",30,"car","male",30
 "3","2007","Heavy transport","truck","No other/fixed or stationary object",25,"No other/fixed or stationary object","NOV",25,"NOV",25,"NOV",25,"NOV",25,"NOV","male",25
