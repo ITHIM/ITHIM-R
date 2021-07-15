@@ -76,9 +76,9 @@ In scenario generation, trips are sampled without replacement to increase the sh
 
 Distance categories are: 
 
-0-1 km = \{trip distance < 2\}
+0-2 km = \{trip distance < 2\}
 
-2-5 km = \{2 <= trip distance < 6\}
+2-6 km = \{2 <= trip distance < 6\}
 
 6+ km = \{6 <= trip distance\}
 
