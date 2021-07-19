@@ -1,10 +1,4 @@
 base
-methods
-datasets
-utils
-grDevices
-graphics
-stats
 haven
 kableExtra
 readxl
@@ -19,3 +13,4 @@ stringr
 forcats
 proto
 gsubfn
+nnet

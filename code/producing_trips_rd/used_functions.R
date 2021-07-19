@@ -216,7 +216,7 @@ quality_check <- function(trip, min_age = NA, max_age = NA){
                    name = "nn") %>% 
              count(cluster_id, household_id,participant_id) %>% 
              group_by(n) %>%
-             summarise(number_of_trips = round(n()*100/nrow(.),1))
+             summarise(number_of_trips = round(dplyr::n()*100/nrow(.),1))
              
         trip_per_capita <- 
             trip %>% 
@@ -273,14 +273,14 @@ quality_check <- function(trip, min_age = NA, max_age = NA){
             filter(!is.na(trip_id)) %>% 
             count(cluster_id,household_id,participant_id, trip_id, trip_mode, trip_duration) %>% 
             group_by(trip_mode, .drop = F) %>% 
-            summarise(mode_share = round(n()*100/nrow(.),1))
+            summarise(mode_share = round(dplyr::n()*100/nrow(.),1))
         
         trip_purpose <- 
             trip %>%
             filter(!is.na(trip_id)) %>% 
             count(cluster_id,household_id,participant_id, trip_id, trip_mode, trip_purpose) %>% 
             group_by(trip_purpose) %>%
-            summarise(share = round(n()*100/nrow(.),1))
+            summarise(share = round(dplyr::n()*100/nrow(.),1))
         
         
         value <<- c("",
