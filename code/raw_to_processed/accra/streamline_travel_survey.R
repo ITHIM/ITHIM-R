@@ -34,8 +34,11 @@ raw_trip_set <- raw_trip_set %>%
 # Add walk to bus stage
 # raw_trip_set <- rbind(raw_trip_set, walk_to_bus)
 
-# Redefine motorcycle mode for a select 14 rows
-raw_trip_set$trip_mode[!is.na(raw_trip_set$trip_mode) & raw_trip_set$trip_mode == 'other'][1:14] <- 'motorcycle'
+# Redefine motorcycle mode for selected 14 rows
+raw_trip_set$trip_mode[!is.na(raw_trip_set$trip_mode) & raw_trip_set$trip_mode == 'other'][1:17] <- 'motorcycle'
+# Redefine bicycle mode for selected 10 rows
+raw_trip_set$trip_mode[!is.na(raw_trip_set$trip_mode) & raw_trip_set$trip_mode == 'other'][1:12] <- 'bicycle'
+# Remove trips with trip_mode = "other"
 raw_trip_set <- subset(raw_trip_set, is.na(trip_mode) | trip_mode !='other')
 
 ## Apply census weights to accra trip set at person level
@@ -81,6 +84,7 @@ for (i in 1:nrow(pop_weights)) { # Loop for each combination of age-range and se
   
 }
 
+table(raw_trip_set$trip_mode) / length(unique(raw_trip_set$trip_id)) * 100
 raw_trip_set$age_cat <- NULL
 
 #####

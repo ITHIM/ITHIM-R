@@ -143,7 +143,7 @@ all(time_use_0_v2$URBRUR.x == time_use_0_v2$URBRUR.y) #ok
 #time_use_0 <- as_factor(time_use_0)
 
 #time_use_0 %>% mutate_if(is.factor, as.character) -> time_use_0
-
+# Create some variables and filter trips in the urban area of Greater Accra
 dat <- time_use_0 %>% 
   # Paste district variable
   mutate(concat = paste(EANum, HHNum, sep = "-")) %>% 
