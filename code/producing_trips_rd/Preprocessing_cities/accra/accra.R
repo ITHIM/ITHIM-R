@@ -276,6 +276,9 @@ trip$meta_data[8] <- "??" # Short walks to PT
 trip$meta_data[9] <- "No" # Distance available
 trip$meta_data[10] <- "rickshaw, motorcycle" # missing modes
 
+write_csv(trip, "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/accra/accra_trip.csv")
+
+
 # Load helpful functions
 #source("code/producing_trips_rd/used_functions.R")
 

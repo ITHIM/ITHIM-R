@@ -11,7 +11,7 @@
 
 <meta name="author" content="Lambed and Daniel" />
 
-<meta name="date" content="2021-07-19" />
+<meta name="date" content="2021-07-20" />
 
 <title>Preprocessing of Accra’s time user survey dataset. Most of it comes from Lambed’s code</title>
 
@@ -245,7 +245,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Preprocessing of Accra’s time user survey dataset. Most of it comes from Lambed’s code</h1>
 <h4 class="author">Lambed and Daniel</h4>
-<h4 class="date">2021-07-19</h4>
+<h4 class="date">2021-07-20</h4>
 
 </div>
 
@@ -253,8 +253,8 @@ div.tocify {
 <div id="understanding-phase" class="section level1">
 <h1><strong>Understanding phase</strong></h1>
 <pre><code>##           used (Mb) gc trigger  (Mb) max used (Mb)
-## Ncells 1037761 55.5    2164122 115.6  1279992 68.4
-## Vcells 1756297 13.4    8388608  64.0  2174886 16.6</code></pre>
+## Ncells 1037762 55.5    2164125 115.6  1279992 68.4
+## Vcells 1756322 13.4    8388608  64.0  2174785 16.6</code></pre>
 <p>This file is based on the script “travel_survey.R”. It has the same code but I added some comments. The processing of this dataset is totally different because the survey is about time use not travel.</p>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
@@ -703,6 +703,9 @@ trip$meta_data[7] &lt;- &quot;All purpose&quot;#Overall trip purpose
 trip$meta_data[8] &lt;- &quot;??&quot; # Short walks to PT
 trip$meta_data[9] &lt;- &quot;No&quot; # Distance available
 trip$meta_data[10] &lt;- &quot;rickshaw, motorcycle&quot; # missing modes
+
+write_csv(trip, &quot;C:/Users/danie/Documents/Daniel_Gil/Consultorias/2020/WorldBank/ITHIM-R/data/local/accra/accra_trip.csv&quot;)
+
 
 # Load helpful functions
 #source(&quot;code/producing_trips_rd/used_functions.R&quot;)

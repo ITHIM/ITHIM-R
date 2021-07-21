@@ -197,8 +197,8 @@ person_1 <- person_0 %>%
     ),
     age = floor(as.numeric(age)), # round numbers to the lowest integer
     sex = case_when(
-      sex %in% c("1", "F") ~ "female",
-      sex %in% c("2", "M") ~ "male",
+      sex %in% c("1", "F") ~ "Female",
+      sex %in% c("2", "M") ~ "Male",
       sex %in% c("0", "10", "11", "12", "20", "21", "22", "23", "3", "30",
                  "35", "4", "5", "6", "8") ~ as.character(NA),
       TRUE ~ sex
@@ -227,7 +227,7 @@ person_2 <- person_0 %>%
          id = ...39) %>% 
   dplyr::select(household_id, cluster_id, person, age, sex, id) %>%
   mutate(age = as.numeric(age),
-         sex = ifelse(sex == "1", "male", "female"),
+         sex = ifelse(sex == "1", "Male", "Female"),
          participant_wt = 1,
          concat_id = paste(cluster_id, household_id, person, sep = "-"))
 
@@ -259,7 +259,7 @@ person_3 <- person_0 %>%
       TRUE ~ as.numeric(age)
     ),
     age = floor(as.numeric(age)), # round numbers to the lowest integer
-    sex = ifelse(sex == "1", "male", "female"),
+    sex = ifelse(sex == "1", "Male", "Female"),
     participant_wt = 1,
     concat_id = paste(cluster_id, household_id, person, sep = "-")
   )

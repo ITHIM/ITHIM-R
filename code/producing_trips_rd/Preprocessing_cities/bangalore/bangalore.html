@@ -11,7 +11,7 @@
 
 <meta name="author" content="Lambed and Daniel" />
 
-<meta name="date" content="2021-07-13" />
+<meta name="date" content="2021-07-20" />
 
 <title>Preprocessing of Bangalore’s travel dataset. Most of it comes from Lambed’s code</title>
 
@@ -245,7 +245,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Preprocessing of Bangalore’s travel dataset. Most of it comes from Lambed’s code</h1>
 <h4 class="author">Lambed and Daniel</h4>
-<h4 class="date">2021-07-13</h4>
+<h4 class="date">2021-07-20</h4>
 
 </div>
 
@@ -253,8 +253,8 @@ div.tocify {
 <div id="understanding-phase" class="section level1">
 <h1><strong>Understanding phase</strong></h1>
 <pre><code>##           used (Mb) gc trigger  (Mb) max used (Mb)
-## Ncells 1045438 55.9    2183821 116.7  1280578 68.4
-## Vcells 1767477 13.5    8388608  64.0  2177793 16.7</code></pre>
+## Ncells 1045438 55.9    2183818 116.7  1280578 68.4
+## Vcells 1767477 13.5    8388608  64.0  2178248 16.7</code></pre>
 <p>This file is based on the script “travel_survey.R”. It has the same code but I added some comments.</p>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
@@ -429,8 +429,8 @@ stage_0 &lt;- read_excel(paste0(route, &quot;COMPILED DATA final.xlsx&quot;),
     ),
     age = floor(as.numeric(age)), # round numbers to the lowest integer
     sex = case_when(
-      sex %in% c(&quot;1&quot;, &quot;F&quot;) ~ &quot;female&quot;,
-      sex %in% c(&quot;2&quot;, &quot;M&quot;) ~ &quot;male&quot;,
+      sex %in% c(&quot;1&quot;, &quot;F&quot;) ~ &quot;Female&quot;,
+      sex %in% c(&quot;2&quot;, &quot;M&quot;) ~ &quot;Male&quot;,
       sex %in% c(&quot;0&quot;, &quot;10&quot;, &quot;11&quot;, &quot;12&quot;, &quot;20&quot;, &quot;21&quot;, &quot;22&quot;, &quot;23&quot;, &quot;3&quot;, &quot;30&quot;,
                  &quot;35&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;8&quot;) ~ as.character(NA),
       TRUE ~ sex
@@ -457,7 +457,7 @@ stage_0 &lt;- read_excel(paste0(route, &quot;COMPILED DATA final.xlsx&quot;),
          id = ...39) %&gt;% 
   dplyr::select(household_id, cluster_id, person, age, sex, id) %&gt;%
   mutate(age = as.numeric(age),
-         sex = ifelse(sex == &quot;1&quot;, &quot;male&quot;, &quot;female&quot;),
+         sex = ifelse(sex == &quot;1&quot;, &quot;Male&quot;, &quot;Female&quot;),
          participant_wt = 1,
          concat_id = paste(cluster_id, household_id, person, sep = &quot;-&quot;))
 
@@ -484,7 +484,7 @@ stage_0 &lt;- read_excel(paste0(route, &quot;COMPILED DATA final.xlsx&quot;),
       TRUE ~ as.numeric(age)
     ),
     age = floor(as.numeric(age)), # round numbers to the lowest integer
-    sex = ifelse(sex == &quot;1&quot;, &quot;male&quot;, &quot;female&quot;),
+    sex = ifelse(sex == &quot;1&quot;, &quot;Male&quot;, &quot;Female&quot;),
     participant_wt = 1,
     concat_id = paste(cluster_id, household_id, person, sep = &quot;-&quot;)
   )</code></pre>
