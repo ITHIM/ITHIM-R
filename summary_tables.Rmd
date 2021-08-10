@@ -87,7 +87,8 @@ Distance categories are:
 
 scen_prop <- round(io$scen_prop, round_to)
 
-rownames(scen_prop) <- paste(rownames(io$scen_prop), "scen", sep = "_")
+#rownames(scen_prop) <- paste(rownames(io$scen_prop), "scen", sep = "_")
+rownames(scen_prop) <- paste0(substr(toupper(rownames(io$scen_prop)),1,3),"_SC")
 
 kable(scen_prop, headings = "Scenario Proportions")
 
@@ -120,7 +121,7 @@ for(city in cities){
   u_trips <- df %>% dplyr::filter(scenario == "Baseline") %>% summarise(uid <- n_distinct(trip_id)) %>% as.numeric()
   td <- df %>% distinct(trip_id, scenario, .keep_all = T) %>% group_by(trip_mode, scenario) %>% summarise(p = round(dplyr::n() / u_trips * 100, 1)) %>% spread(key = trip_mode, value = p) %>% mutate(row_sums = rowSums(.[sapply(., is.numeric)], na.rm = TRUE))
   td <- as.data.frame(t(td))
-  names(td) <- lapply(append('baseline', rownames(scen_prop)), as.character)
+  names(td) <- lapply(append('BASELINE', rownames(scen_prop)), as.character)
   td <- td[-1, ]
   x <- match(row.names(td), trip_order$mode)
   x[!is.na(x)]
@@ -134,7 +135,7 @@ for(city in cities){
     trip_prop <- td1 %>% dplyr::select(stage_mode)
   }
   
-  td1 <- td1 %>% dplyr::select(stage_mode, baseline)
+  td1 <- td1 %>% dplyr::select(stage_mode, BASELINE)
   
   names(td1)[2] <- city
   
@@ -175,7 +176,8 @@ for(city in cities){
   
   count_people <- nrow(io[[city]]$synth_pop)
   td <- io[[city]]$dist %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
-  colnames(td)[3:7] <- rownames(scen_prop)
+  #colnames(td)[3:7] <- rownames(scen_prop)
+  colnames(td)[2:7] <- c("BASELINE", rownames(scen_prop))
   
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
@@ -191,7 +193,7 @@ for(city in cities){
     trip_dist <- td1 %>% dplyr::select(stage_mode)
   }
   
-  td1 <- td1 %>% dplyr::select(stage_mode, Baseline)
+  td1 <- td1 %>% dplyr::select(stage_mode, BASELINE)
   
   names(td1)[2] <- city
   
@@ -200,7 +202,8 @@ for(city in cities){
   
   count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
   td <- io[[city]]$dist %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
-  colnames(td)[3:7] <- rownames(scen_prop)
+  #colnames(td)[3:7] <- rownames(scen_prop)
+  colnames(td)[2:7] <- c("BASELINE", rownames(scen_prop))
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
   td <- td[order(x),]
@@ -235,7 +238,8 @@ for(city in cities){
   print(city)
   count_people <- round(sum(io[[city]]$demographic$population))
   td <- io[[city]]$true_dist %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, list(~round((.) * 365, 3)))
-  colnames(td)[3:7] <- rownames(scen_prop)
+  #colnames(td)[3:7] <- rownames(scen_prop)
+  colnames(td)[2:7] <- c("BASELINE", rownames(scen_prop))
   
   # 
   
@@ -250,7 +254,7 @@ for(city in cities){
   
   td <- td %>% ungroup() %>% janitor::adorn_totals(c('row', 'col'))
   
-  td1 <- td %>% dplyr::select(stage_mode, Baseline)
+  td1 <- td %>% dplyr::select(stage_mode, BASELINE)
   
   names(td1)[2] <- city
   
@@ -314,7 +318,7 @@ for (city in cities){
   
   df <- io[[city]]$true_dist
   
-  names(df)[-1] <- lapply(append('baseline', rownames(scen_prop)), as.character)
+  names(df)[-1] <- lapply(append('BASELINE', rownames(scen_prop)), as.character)
   
   print(kable(df, caption = paste("True distance by mode per day for  ", city)))
 }
@@ -362,8 +366,8 @@ l <- list()
 for(city in cities){
   count_people <- nrow(io[[city]]$synth_pop)
   td <- io[[city]]$dur %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
-  colnames(td)[3:7] <- rownames(scen_prop)
-  
+  #colnames(td)[3:7] <- rownames(scen_prop)
+  colnames(td)[2:7] <- c("BASELINE", rownames(scen_prop))
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
   td <- td[order(x),]
@@ -377,7 +381,7 @@ for(city in cities){
     trip_dur <- td1 %>% dplyr::select(stage_mode)
   }
   
-  td1 <- td1 %>% dplyr::select(stage_mode, Baseline)
+  td1 <- td1 %>% dplyr::select(stage_mode, BASELINE)
   
   names(td1)[2] <- city
 
@@ -388,8 +392,8 @@ for(city in cities){
   
   count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
   td <- io[[city]]$dur %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
-  colnames(td)[3:7] <- rownames(scen_prop)
-  
+  #colnames(td)[3:7] <- rownames(scen_prop)
+  colnames(td)[2:7] <- c("BASELINE", rownames(scen_prop))
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
   td <- td[order(x),]
@@ -482,8 +486,8 @@ yll_totals <- lapply(io[-2], function(x) {
     xx <- x$outcomes$hb$ylls
     rowSums(xx[,seq(2 + y, ncol(xx), by = 5)])
   })
-  rownames(temp) <- apply(x$outcomes$hb$deaths[,1:2], 1,
-                          function(z)paste0(z[1], '_', z[2]))
+  rownames(temp) <- apply(x$outcomes$hb$deaths[,c('sex','age_cat')], 1,
+                          function(z)paste0(z[2], '_', z[1]))
   colnames(temp) <- scen_names
   temp
 })
