@@ -353,7 +353,7 @@ for (city in cities){
 
 ## Duration tables
 
-Case study specific duration tables for baseline and five scenarios (per day in km)
+Case study specific duration tables for baseline and five scenarios (per day in minutes)
 
 
 ```{r trip_dur = "asis"}
