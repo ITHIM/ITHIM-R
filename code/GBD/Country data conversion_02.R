@@ -1,8 +1,8 @@
 
 library(dplyr)
 
-result_folder <- "V:\\Studies\\MOVED\\HealthImpact\\Research\\TIGTHAT\\Case cities data\\GBD 2017 data extraction\\"
-country_results <- "V:\\Studies\\MOVED\\HealthImpact\\Research\\TIGTHAT\\Case cities data\\"
+result_folder <- "V:\\Studies\\MOVED\\HealthImpact\\Projects\\TIGTHAT\\Case cities data\\GBD 2017 data extraction\\"
+country_results <- "V:\\Studies\\MOVED\\HealthImpact\\Projects\\TIGTHAT\\Case cities data\\"
 
 #Select causes (health outcomes) to be extracted
 causes <- read.csv((paste0(result_folder, "Causes to be extracted.csv")))
