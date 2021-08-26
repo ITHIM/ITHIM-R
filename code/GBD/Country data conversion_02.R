@@ -1,14 +1,22 @@
+# Modified in August 2021 by Daniel Gil
+
+rm(list = ls())
 
 library(dplyr)
 
-result_folder <- "V:\\Studies\\MOVED\\HealthImpact\\Projects\\TIGTHAT\\Case cities data\\GBD 2017 data extraction\\"
-country_results <- "V:\\Studies\\MOVED\\HealthImpact\\Projects\\TIGTHAT\\Case cities data\\"
+#result_folder <- "V:/Studies/MOVED/HealthImpact/Projects/TIGTHAT/Case cities data/GBD 2019 data extraction/"
+#country_results <- "V:/Studies/MOVED/HealthImpact/Projects/TIGTHAT/Case cities data/GBD 2019 Countries/"
+
+# I am running this locally because it is faster
+# If we want to run from v-drive just uncomment lines 4-5
+result_folder <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/GBD 2019 data extraction/"
+country_results <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/GBD 2019 Countries/"
 
 #Select causes (health outcomes) to be extracted
 causes <- read.csv((paste0(result_folder, "Causes to be extracted.csv")))
 causes <- unlist(causes[,2])
 
-data_read <- read.csv(paste0(result_folder, "GBD2017_countries_extracted.csv"))
+data_read <- read.csv(paste0(result_folder, "GBD2019_countries_extracted.csv"))
 
 #Keep only causes defined in "Causes to be extracted.csv" file
 data_read <- subset(data_read, cause_id %in% causes)
@@ -28,10 +36,15 @@ data_read <- subset(data_read, age_name %in% age_groups)
 
 #########
 #Read and select population data
-popdata_read <- read.csv(paste0(result_folder, "GBD2017_population_extracted.csv"))
+popdata_read <- read.csv(paste0(result_folder, "GBD2019_population_extracted.csv"))
 # Keep only year 2017 population estimates
-popdata_read <- subset(popdata_read, year_id %in% 2017)
-popdata_read <- subset(popdata_read, sex_name %in% c("Male", "Female"))
+popdata_read <- subset(popdata_read, year_id %in% 2019)
+popdata_read <- subset(popdata_read, sex_name %in% c("male", "female"))
+
+#Transform to upper case sex_name
+popdata_read$sex_name <- ifelse(popdata_read$sex_name == 'female', 'Female',
+                                'Male')
+
 #Chanage names of age groups
 popdata_read$age_group_name <- gsub('Under 5', '0 to 4', popdata_read$age_group_name)
 popdata_read$age_group_name <- gsub('95 plus', '95 to 99', popdata_read$age_group_name)
@@ -42,23 +55,31 @@ names(popdata_read)[names(popdata_read) == 'age_group_name'] <- 'age_name'
 #val to population, not to mix with the val of GBD data
 names(popdata_read)[names(popdata_read) == 'val'] <- 'population'
 # Change factor for "sex_name" to remove error message in join command
-popdata_read$sex_name <- factor(popdata_read$sex_name)
+#popdata_read$sex_name <- factor(popdata_read$sex_name)
+
+# Delete duplicates (in case they exist)
+popdata_read <- popdata_read %>% distinct() 
 
 ############
 #Combine burden and population data for one dataframe
 #This works but gives error if burden data wont include all the countries.
 #(due to differences in factors)
 
-join_data <- left_join (data_read, popdata_read, by=c("age_name", "sex_name", "location_name"))
+join_data <- left_join(data_read, popdata_read, 
+                       by = c("age_name", "sex_name", "location_name"))
 rm(popdata_read, data_read)
 
 #Defines measures that are extracted
-measures <- read.csv((paste0(result_folder, "Measure_extracted.csv")))
-measures <- unlist(measures[,1])
+#measures <- read.csv((paste0(result_folder, "Measure_extracted.csv")))
+#measures <- unlist(measures[,1])
+measures <- c("Deaths", "YLLs (Years of Life Lost)")
 
 #Columns to be extracted for further analyses, and measures needed
 col_extracted <- c("measure_name.x", "location_name", "sex_name", "age_name", "cause_name", "val", "population")
 join_data <- subset(join_data, measure_name.x %in% measures, select = col_extracted)
+
+# Delete duplicates (in case they exist)
+join_data <- join_data %>% distinct() 
 
 ############
 #Save each country as separate csv-file
@@ -68,7 +89,9 @@ cname <- cname$Country_or_location
 
 for (i in 1:length(cname)) {
     a <- subset(join_data, location_name %in% cname[i])
-    write.csv(a, file =paste0(country_results,cname[i], "_GBD_results.csv"), row.names=FALSE)
+    write.csv(a, 
+              file = paste0(country_results,cname[i], "_GBD_results.csv"), 
+              row.names = FALSE)
     rm(a)
 }
 
