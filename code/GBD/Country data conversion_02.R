@@ -37,7 +37,7 @@ data_read <- subset(data_read, age_name %in% age_groups)
 #########
 #Read and select population data
 popdata_read <- read.csv(paste0(result_folder, "GBD2019_population_extracted.csv"))
-# Keep only year 2017 population estimates
+# Keep only year 2019 population estimates
 popdata_read <- subset(popdata_read, year_id %in% 2019)
 popdata_read <- subset(popdata_read, sex_name %in% c("male", "female"))
 
