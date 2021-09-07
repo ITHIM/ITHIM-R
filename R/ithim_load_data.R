@@ -134,6 +134,28 @@ ithim_load_data <- function(setup_call_summary_filename, speeds =
   filename <- paste0(local_path,"/gbd_",CITY,".csv")
   GBD_DATA <- read_csv(filename,col_types = readr::cols())
   cat(paste0('\n  GBD read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
+  
+  ## Dan: Adding together causes related to "Head and neck cancer"
+  head_neck_causes <- c("Esophageal cancer", "Larynx cancer",
+                        "Lip and oral cavity cancer", "Nasopharynx cancer",
+                        "Other pharynx cancer")
+  head_neck <- GBD_DATA %>% filter(cause_name %in% head_neck_causes)
+  GBD_DATA <- GBD_DATA %>% filter(!cause_name %in% head_neck_causes)
+  # Adding causes by measure, sex and age
+  add_causes <- head_neck %>% 
+    group_by(measure_name.x, sex_name, age_name) %>% 
+    summarise(val = sum(val)) %>% 
+    mutate(cause_name = "Head and neck cancer",
+           location_name = unique(GBD_DATA$location_name)) %>% 
+    left_join(GBD_DATA %>% 
+                dplyr::select(sex_name, age_name, population) %>% distinct(),
+              by = c("sex_name", "age_name")) %>% 
+    dplyr::select(measure_name.x, location_name, sex_name, age_name, cause_name,
+                  val, population)
+  # Appending head and neck to GBD dataset
+  GBD_DATA <- GBD_DATA %>% bind_rows(add_causes)
+  
+  ## Importing demographic data
   filename <- paste0(local_path,"/population_",CITY,".csv")
   demographic <- read_csv(filename,col_types = cols())
   demographic <- demographic[!apply(demographic,1,anyNA),]
@@ -156,6 +178,9 @@ ithim_load_data <- function(setup_call_summary_filename, speeds =
   GBD_DATA <- subset(GBD_DATA,cause_name%in%disease_names)
   GBD_DATA$min_age <- as.numeric(sapply(GBD_DATA$age_name,function(x)str_split(x,' to ')[[1]][1]))
   GBD_DATA$max_age <- as.numeric(sapply(GBD_DATA$age_name,function(x)str_split(x,' to ')[[1]][2]))
+  
+  ## Dan: compute proportion of injuries in the age range, so it can be used 
+  ## when estimating injuries health results.
   # Compute number of deaths in road injuries in all age ranges
   deaths_injuries <- as.numeric(GBD_DATA %>% 
     filter(cause_name == "Road injuries" & measure_name.x == "Deaths") %>% 
