@@ -1,12 +1,12 @@
 GBD_name,acronym,air_pollution,physical_activity,ap_acronym,pa_acronym
-All causes,ac,0,1,,all_cause
-Ischemic heart disease,ihd,1,1,cvd_ihd,coronary_heart_disease
-Neoplasms,neo,0,1,,total_cancer
-"Tracheal, bronchus, and lung cancer",lc,1,1,neo_lung,lung_cancer
-Chronic obstructive pulmonary disease,copd,1,0,resp_copd,
+All causes,all_cause,0,1,,all_cause
+Ischemic heart disease,IHD,1,1,cvd_ihd,coronary_heart_disease
+Neoplasms,total_cancer,0,1,,total_cancer
+"Tracheal, bronchus, and lung cancer",lung_cancer,1,1,neo_lung,lung_cancer
+Chronic obstructive pulmonary disease,COPD,1,0,resp_copd,
 Stroke,stroke,1,1,cvd_stroke,stroke
-Diabetes mellitus type 2,t2d,1,1,t2d,diabetes
-Lower respiratory infections,lri,1,0,lri, 
-Breast cancer,breast,0,1,,breast_cancer
-Colon and rectum cancer,colon,0,1,,colon_cancer
-Uterine cancer,endo,0,1,,endometrial_cancer
+Diabetes mellitus type 2,T2D,1,1,t2d,diabetes
+Lower respiratory infections,LRI,1,0,lri, 
+Breast cancer,breast_cancer,0,1,,breast_cancer
+Colon and rectum cancer,colon_cancer,0,1,,colon_cancer
+Uterine cancer,endo_cancer,0,1,,endometrial_cancer
