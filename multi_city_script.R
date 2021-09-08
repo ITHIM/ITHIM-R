@@ -1,8 +1,19 @@
+rm(list = ls())
+
 library(ithimr)
-rm(list=ls())
+
+# Check if drpa package is installed, if not then install it
+if (!require("drpa",character.only = TRUE)) {
+  print('Installing "drpa" package...')
+  remotes::install_github("meta-analyses/drpa")
+  library(drpa)
+  print("")
+}
+
 # options(warn=2)  # treat warnings as errors
-cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
-             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
+cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires',
+            'cape_town', 'delhi', 'mexico_city', 'santiago', 'sao_paulo',
+            'vizag')
 
 # Set seeds
 set.seed(12345)
