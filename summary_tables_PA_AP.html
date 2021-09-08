@@ -240,7 +240,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">AP/PA Tables ITHIM Global</h1>
-<h4 class="date">06 septiembre, 2021</h4>
+<h4 class="date">08 septiembre, 2021</h4>
 
 </div>
 
@@ -3548,6 +3548,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

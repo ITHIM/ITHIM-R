@@ -595,12 +595,14 @@ disease_totals <- lapply(io[-2],function(x){
     colSums(xx[, seq(y + 2, ncol(xx), by = 5)])
   })
   colnames(xxx) <- scen_names
+  rownames(xxx) <- gsub("scen1_deaths_", "", rownames(xxx))
   #rownames(xxx) <- sapply(rownames(xxx), function(y) gsub('scen1_', '', y))
-  rownames(xxx) <- c("PA_AllCauses", "PA_AP_IschemicHeartDisease", "PA_Neoplasms",
-                     "PA_AP_LungCancer", "AP_COPD", "PA_AP_Stroke",
-                     "PA_AP_T2Diabetes", "AP_LowerRespiratoryInfections",
-                     "PA_BreastCancer", "PA_ColonCancer", "PA_UterineCancer",
-                     "Injuries")
+  # rownames(xxx) <- c("PA_AllCauses", "PA_AP_IschemicHeartDisease",
+  #                    "PA_Neoplasms",
+  #                    "PA_AP_LungCancer", "AP_COPD", "PA_AP_Stroke",
+  #                    "PA_AP_T2Diabetes", "AP_LowerRespiratoryInfections",
+  #                    "PA_BreastCancer", "PA_ColonCancer", "PA_UterineCancer",
+  #                    "Injuries")
   xxx
 })
 sum_and_round_and_print(disease_totals,"Change in deaths due to disease in ")
@@ -630,12 +632,14 @@ disease_totals <- lapply(io[-2],function(x){
     colSums(xx[,seq(y + 2, ncol(xx), by = 5)])
   })
   colnames(xxx) <- scen_names
+  rownames(xxx) <- gsub("scen1_deaths_", "", rownames(xxx))
   #rownames(xxx) <- sapply(rownames(xxx), function(y) gsub('scen1_','',y))
-  rownames(xxx) <- c("PA_AllCauses", "PA_AP_IschemicHeartDisease", "PA_Neoplasms",
-                     "PA_AP_LungCancer", "AP_COPD", "PA_AP_Stroke",
-                     "PA_AP_T2Diabetes", "AP_LowerRespiratoryInfections",
-                     "PA_BreastCancer", "PA_ColonCancer", "PA_UterineCancer",
-                     "Injuries")
+  # rownames(xxx) <- c("PA_AllCauses", "PA_AP_IschemicHeartDisease",
+  #                    "PA_Neoplasms",
+  #                    "PA_AP_LungCancer", "AP_COPD", "PA_AP_Stroke",
+  #                    "PA_AP_T2Diabetes", "AP_LowerRespiratoryInfections",
+  #                    "PA_BreastCancer", "PA_ColonCancer", "PA_UterineCancer",
+  #                    "Injuries")
   xxx
 })
 sum_and_round_and_print(disease_totals,"Change in YLL due to disease in ")
