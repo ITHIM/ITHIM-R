@@ -632,7 +632,7 @@ disease_totals <- lapply(io[-2],function(x){
     colSums(xx[,seq(y + 2, ncol(xx), by = 5)])
   })
   colnames(xxx) <- scen_names
-  rownames(xxx) <- gsub("scen1_deaths_", "", rownames(xxx))
+  rownames(xxx) <- gsub("scen1_ylls_", "", rownames(xxx))
   #rownames(xxx) <- sapply(rownames(xxx), function(y) gsub('scen1_','',y))
   # rownames(xxx) <- c("PA_AllCauses", "PA_AP_IschemicHeartDisease",
   #                    "PA_Neoplasms",
