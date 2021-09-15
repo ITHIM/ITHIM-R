@@ -5,7 +5,7 @@ Neoplasms,total_cancer,0,1,,all-cause-cancer,deaths
 "Tracheal, bronchus, and lung cancer",lung_cancer,1,1,neo_lung,lung-cancer,deaths
 Chronic obstructive pulmonary disease,COPD,1,0,resp_copd,,
 Stroke,stroke,1,1,cvd_stroke,stroke,deaths
-Diabetes mellitus type 2,T2D,1,1,t2d,diabetes,deaths
+Diabetes mellitus type 2,T2D,1,1,t2d,diabetes,cases
 Lower respiratory infections,LRI,1,0,lri, ,
 Breast cancer,breast_cancer,0,1,,breast-cancer,deaths
 Colon and rectum cancer,colon_cancer,0,1,,colon-cancer,cases
