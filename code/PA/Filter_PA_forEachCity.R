@@ -27,10 +27,10 @@ View(cities)
 
 # Exporting to corresponding path
 for (i in 1:nrow(cities)) {
-for (i in 1:1) {
   #print(cities$pa_cities[i])
   temp <- pa %>% filter(city == cities$pa_cities[i]) %>% 
     dplyr::select(id, age, sex, work_ltpa_marg_met)
-  write_csv(temp, paste0("inst/extdata/local/pa_", cities$cities[i],".csv"))
+  write_csv(temp, paste0("inst/extdata/local/", cities$cities[i], "/pa_",
+                         cities$cities[i],".csv"))
 }
 
