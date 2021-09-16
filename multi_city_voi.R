@@ -3,9 +3,10 @@ library(earth)
 library(RColorBrewer)
 library(plotrix)
 rm(list=ls())
-#cities <- c('accra','mexico_city','buenos_aires','sao_paulo','delhi','bangalore','bogota','belo_horizonte','santiago')
+
 cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
+#cities <- c('accra' )
 
 min_age <- 15
 max_age <- 69
@@ -14,14 +15,15 @@ all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F)
 
 parameter_names <- all_inputs$parameter
 parameter_starts <- which(parameter_names!='')
-parameter_stops <- c(parameter_starts[-1] - 1, nrow(all_inputs))
+parameter_stops <- c(parameter_starts[-1] - 1, nrow(all_inputs)) 
 parameter_names <- parameter_names[parameter_names!='']
 parameter_list <- list()
 compute_mode <- 'sample'
+
 for(i in 1:length(parameter_names)){
   parameter_list[[parameter_names[i]]] <- list()
-  parameter_index <- which(all_inputs$parameter==parameter_names[i])
-  if(all_inputs[parameter_index,2]=='')  {
+  parameter_index <- which(all_inputs$parameter==parameter_names[i]) 
+  if(all_inputs[parameter_index,2]=='')  { 
     parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
       city_index <- which(colnames(all_inputs)==x)
       val <- all_inputs[parameter_index,city_index]
@@ -52,11 +54,9 @@ for(i in 1:length(parameter_names)){
   }
 }
 
-list2env(parameter_list, environment())
+list2env(parameter_list, environment()) 
 
-###changed the bangalore transport emissions-- MC emissions from 1757 to 817 and car emissions from 4173 to 1107
-##this is done based on ratio of car/MC ownership in bangalore to that of delhi from Census data (0.50 and 0.58 respectively)==
-###1757=0.58*1409 and 1107=  0.50*2214
+
 ##################################################################
 
 # constant parameters for DAY_TO_WEEK_TRAVEL_SCALAR
@@ -83,7 +83,11 @@ mmet_walking <- c((2.53),(1.1))
 # lnorm parameters for SIN_EXPONENT_SUM
 sin_exponent_sum <- c((1.7),(1.03))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
+
 casualty_exponent_fraction <- c(15,15)
+
+
+
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
 pa_dr_quantile <- c(T,rep(F,length(cities)-1))
 # logical for AP dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
@@ -111,6 +115,7 @@ normVariables <- c("MMET_CYCLING",
                    "DISTANCE_SCALAR_CYCLING",
                    "DISTANCE_SCALAR_MOTORCYCLE")
 
+
 save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
      background_pa_scalar,background_pa_confidence,mmet_cycling,mmet_walking,PM_emission_inventories,
      sin_exponent_sum,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
@@ -122,55 +127,61 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
 parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 numcores <- parallel::detectCores() - 1
-nsamples <- 4
+nsamples <- 1
 print(system.time(
   for(ci in 1:length(cities)){
     city <- cities[ci]
     print(city)
-    multi_city_ithim[[ci]] <- run_ithim_setup(CITY=city,  
-                                              NSAMPLES = nsamples,
+    multi_city_ithim[[ci]] <- run_ithim_setup(NSAMPLES = nsamples,
                                               seed=ci,
                                               
-                                              DIST_CAT = c('0-1 km','2-5 km','6+ km'),
+                                              # from multi city script
+                                              DIST_CAT = c('0-2 km','2-6 km','6+ km'), # adjusted
+                                              ADD_WALK_TO_BUS_TRIPS = as.logical(add_walk_to_bus_trips[[city]]),# originally = F,
+                                              CITY=city,
                                               AGE_RANGE = c(min_age,max_age),
-                                              TEST_WALK_SCENARIO = test_walk_scenario,
-                                              TEST_CYCLE_SCENARIO = test_cycle_scenario,
-                                              REFERENCE_SCENARIO='Baseline',
-                                              MAX_MODE_SHARE_SCENARIO=T,
+                                              ADD_TRUCK_DRIVERS = T,# originally set to F
                                               ADD_BUS_DRIVERS = F,
-                                              ADD_TRUCK_DRIVERS = F,
-                                              ADD_MOTORCYCLE_FLEET = add_motorcycle_fleet[[city]],
-                                              ADD_WALK_TO_BUS_TRIPS = F,#add_walk_to_bus_trips[[city]],
-                                              
-                                              speeds = speeds[[city]],
+                                              ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]), #ADD_MOTORCYCLE_FLEET = add_motorcycle_fleet[[city]],
                                               PM_emission_inventory = PM_emission_inventories[[city]],
+                                              CO2_emission_inventory = CO2_emission_inventories[[city]], # added
+                                              speeds = speeds[[city]],
                                               
+                                              FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
                                               MMET_CYCLING = mmet_cycling, 
-                                              MMET_WALKING = mmet_walking, 
+                                              MMET_WALKING = mmet_walking,
                                               DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
                                               SIN_EXPONENT_SUM= sin_exponent_sum,
                                               CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
-                                              
                                               PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile[ci],  
                                               AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile[ci],
-                                              
                                               INJURY_REPORTING_RATE = injury_reporting_rate[[city]],  
                                               CHRONIC_DISEASE_SCALAR = chronic_disease_scalar[[city]],  
                                               PM_CONC_BASE = pm_conc_base[[city]],  
                                               PM_TRANS_SHARE = pm_trans_share[[city]],  
                                               BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
+                                              BUS_WALK_TIME = 10.55, # manual to read in constant values
+                                              RAIL_WALK_TIME = 15, #  manual to read in constant values
+                                              
+                                              
+                                              #additional in VoI script
+                                              TEST_WALK_SCENARIO = test_walk_scenario,
+                                              TEST_CYCLE_SCENARIO = test_cycle_scenario,
+                                              REFERENCE_SCENARIO='Baseline',
+                                              MAX_MODE_SHARE_SCENARIO=T,
+
                                               BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
                                               #BUS_WALK_TIME = bus_walk_time[[city]],## not random; use mean
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                               TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
-                                              FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
+
                                               PM_EMISSION_INVENTORY_CONFIDENCE = PM_emission_confidence[[city]],
                                               DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
                                               DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
                                               DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
                                               DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
                                               DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]])
-    
+                                              
     # for first city, store model parameters. For subsequent cities, copy parameters over.
     if(ci==1){
       model_parameters <- names(multi_city_ithim[[ci]]$parameters)[!names(multi_city_ithim[[ci]]$parameters)%in%setting_parameters]
@@ -300,7 +311,11 @@ for(ci in 1:length(cities)){
     case_age <- case[[age]]
     for(k in 1:NSCEN){
       scen_case <- case_age[,seq(k,ncol(case_age),by=NSCEN)]
-      y <- rowSums(scen_case)
+      if(nsamples==1){ # if only one sample, then scen_case gives a 1 dimensional vector
+        y <- sum(scen_case)
+      }else{
+        y <- rowSums(scen_case)
+      }
       yll_per_hundred_thousand_results[[city]][[age]][k,] <- quantile(y,c(0.5,0.05,0.95))
       combined_yll[[age]][,k] <- combined_yll[[age]][,k] + y*population/100000
     }
@@ -326,7 +341,11 @@ for(i in 1:length(outcome_pp)){
   rownames(outcome_pp_quantile) <- SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)]
   for(k in 1:NSCEN){
     scen_case <- outcome_pp[[i]][,seq(k,ncol(outcome_pp[[i]]),by=NSCEN)]
+    if (nsamples==1){
+      y <- sum(scen_case)*100000
+    }else{
     y <- rowSums(scen_case)*100000
+    }
     outcome_pp_quantile[k,] <- quantile(y,c(0.5,0.05,0.95))
   }
   #write.csv(outcome_pp_quantile,paste0('results/multi_city/yll_per_hundred_thousand/',cities[i],'.csv'))
@@ -337,149 +356,159 @@ saveRDS(outcome,'results/multi_city/outcome.Rds',version=2)
 
 ## plot results #####################################################################
 
-sp_index <- which(cities=='sao_paulo')
-scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
-ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
-means <- sapply(scen_out,function(x)apply(x,2,mean))
-yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
-cols <- rainbow(length(outcome)-1)
-{pdf('results/multi_city/city_yll.pdf',height=6,width=6); par(mar=c(5,5,1,1))
-  plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
-  axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
-  for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
-  abline(v=0,col='grey',lty=2,lwd=2)
-  text(y=4.2,x=ninefive[[sp_index]][1,4],'90%',col='navyblue',adj=c(-0,-0.3*sp_index))
-  legend(col=rev(cols),lty=1,bty='n',x=ninefive[[sp_index]][1,4],legend=rev(names(outcome)[-length(outcome)]),y=4,lwd=2)
-  dev.off()
+# plots only work if more than one sample was selected
+if(nsamples > 1){
+  sp_index <- which(cities==city)
+ # if only one sample, then scen_case gives a 1 dimensional vector
+  scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)sum(x[,seq(y,ncol(x),by=NSCEN)])))
+  means <- sapply(scen_out,function(x)apply(x))
+
+  scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+  means <- sapply(scen_out,function(x)apply(x,2,mean))
+
+  
+  ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
+  
+  yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
+  cols <- rainbow(length(outcome)-1)
+  
+  {pdf('results/multi_city/city_yll_.pdf',height=6,width=6); par(mar=c(5,5,1,1))
+    plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
+    axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+    for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
+    abline(v=0,col='grey',lty=2,lwd=2)
+    text(y=4.2,x=ninefive[[sp_index]][1,4],'90%',col='navyblue',adj=c(-0,-0.3*sp_index))
+    legend(col=rev(cols),lty=1,bty='n',x=ninefive[[sp_index]][1,4],legend=rev(names(outcome)[-length(outcome)]),y=4,lwd=2)
+    dev.off()
+  }
+  
+  comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
+  ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
+  means <- apply(comb_out,2,mean)
+  {pdf('results/multi_city/combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
+    plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL pp relative to baseline',col='navyblue',yaxt='n',xlim=range(ninefive))
+    axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+    for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
+    abline(v=0,col='grey',lty=2,lwd=2)
+    text(y=4,x=ninefive[1,4],'90%',col='navyblue',adj=c(-0,-0.7))
+    dev.off()
+  }
+
 }
-
-comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
-ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
-means <- apply(comb_out,2,mean)
-{pdf('results/multi_city/combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
-  plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL pp relative to baseline',col='navyblue',yaxt='n',xlim=range(ninefive))
-  axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
-  for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
-  abline(v=0,col='grey',lty=2,lwd=2)
-  text(y=4,x=ninefive[1,4],'90%',col='navyblue',adj=c(-0,-0.7))
-  dev.off()
-}
-
-
 
 ## calculate EVPPI ##################################################################
 
-
-numcores <- parallel::detectCores() - 1 
-
-evppi <- mclapply(1:ncol(parameter_samples), 
-         FUN = ithimr:::compute_evppi,
-         as.data.frame(parameter_samples),
-         outcome, 
-         nscen=NSCEN,
-         all=T,
-         mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
-evppi <- do.call(rbind,evppi)
-colnames(evppi) <- apply(expand.grid(SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)],names(outcome)),1,function(x)paste0(x,collapse='_'))
-rownames(evppi) <- colnames(parameter_samples)
-
-## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
-
-if(any(ap_dr_quantile)&&NSAMPLES>=1024){
-  AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
-  diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-  sources <- list()
-  for(di in diseases){
-    col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
-    sources[[di]] <- parameter_samples[,col_names]
-  }
-  evppi_for_AP <- mclapply(1:length(sources), 
-                           FUN = ithimr:::compute_evppi,
-                           sources,
-                           outcome, 
-                           nscen=NSCEN,
-                           all=T,
-                           mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
-  names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
-  evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
-  ## get rows to remove
-  keep_names <- sapply(rownames(evppi),function(x)!any(c('ALPHA','BETA','GAMMA','TMREL')%in%strsplit(x,'_')[[1]]))
-  evppi <- evppi[keep_names,]
-}
-
-# x2 <- evppi(parameter=c(38:40),input=inp$mat,he=m,method="GP")
-#fit <- fit.gp(parameter = parameter, inputs = inputs, x = x, n.sim = n.sim)
-if("EMISSION_INVENTORY_car_accra"%in%colnames(parameter_samples)&&NSAMPLES>=1024){
- sources <- list()
- for(ci in 1:length(cities)){
-   city <- cities[ci]
-   emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
-   sources[[ci]] <- parameter_samples[,emission_names]
- }
- evppi_for_emissions <- mclapply(1:length(sources),
-                                 FUN = ithimr:::compute_evppi,
-                                 sources,
-                                 outcome,
-                                 nscen=NSCEN,
-                                 mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
-
- names(evppi_for_emissions) <- paste0('EMISSION_INVENTORY_',cities)
- ## get rows to remove
- keep_names <- sapply(rownames(evppi),function(x)!grepl('EMISSION_INVENTORY_',x))
- evppi <- evppi[keep_names,]
-
- evppi <- rbind(evppi,do.call(rbind,evppi_for_emissions))
-}
-
-if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%colnames(parameter_samples))==2&&NSAMPLES>=1024){
-  sources <- list()
-  for(ci in 1:length(cities)){
-    city <- cities[ci]
-    pa_names <- sapply(colnames(parameter_samples),function(x)(grepl('BACKGROUND_PA_SCALAR_',x)||grepl('BACKGROUND_PA_ZEROS_',x))&grepl(city,x))
-    sources[[ci]] <- parameter_samples[,pa_names]
-  }
-  evppi_for_pa <- mclapply(1:length(sources), 
-                           FUN = ithimr:::compute_evppi,
-                           sources, 
-                           outcome, 
-                           nscen=NSCEN,
-                           mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
+  numcores <- parallel::detectCores() - 1
   
-  names(evppi_for_pa) <- paste0('BACKGROUND_PA_',cities)
-  ## get rows to remove
-  keep_names <- sapply(rownames(evppi),function(x)!grepl('BACKGROUND_PA_',x))
-  evppi <- evppi[keep_names,]
+  evppi <- mclapply(1:ncol(parameter_samples),
+           FUN = ithimr:::compute_evppi,
+           as.data.frame(parameter_samples),
+           outcome,
+           nscen=NSCEN,
+           all=T,
+           mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+  evppi <- do.call(rbind,evppi)
+  colnames(evppi) <- apply(expand.grid(SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)],names(outcome)),1,function(x)paste0(x,collapse='_'))
+  rownames(evppi) <- colnames(parameter_samples)
   
-  evppi <- rbind(evppi,do.call(rbind,evppi_for_pa))
+  ## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
+  
+  if(any(ap_dr_quantile)&&NSAMPLES>=1024){
+    AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
+    diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
+    sources <- list()
+    for(di in diseases){
+      col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
+      sources[[di]] <- parameter_samples[,col_names]
+    }
+    evppi_for_AP <- mclapply(1:length(sources),
+                             FUN = ithimr:::compute_evppi,
+                             sources,
+                             outcome,
+                             nscen=NSCEN,
+                             all=T,
+                             mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+    names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
+    evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
+    ## get rows to remove
+    keep_names <- sapply(rownames(evppi),function(x)!any(c('ALPHA','BETA','GAMMA','TMREL')%in%strsplit(x,'_')[[1]]))
+    evppi <- evppi[keep_names,]
+  }
+  
+  # x2 <- evppi(parameter=c(38:40),input=inp$mat,he=m,method="GP")
+  #fit <- fit.gp(parameter = parameter, inputs = inputs, x = x, n.sim = n.sim)
+  if("EMISSION_INVENTORY_car_accra"%in%colnames(parameter_samples)&&NSAMPLES>=1024){
+   sources <- list()
+   for(ci in 1:length(cities)){
+     city <- cities[ci]
+     emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
+     sources[[ci]] <- parameter_samples[,emission_names]
+   }
+   evppi_for_emissions <- mclapply(1:length(sources),
+                                   FUN = ithimr:::compute_evppi,
+                                   sources,
+                                   outcome,
+                                   nscen=NSCEN,
+                                   mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+  
+   names(evppi_for_emissions) <- paste0('EMISSION_INVENTORY_',cities)
+   ## get rows to remove
+   keep_names <- sapply(rownames(evppi),function(x)!grepl('EMISSION_INVENTORY_',x))
+   evppi <- evppi[keep_names,]
+  
+   evppi <- rbind(evppi,do.call(rbind,evppi_for_emissions))
+  }
+  
+  if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%colnames(parameter_samples))==2&&NSAMPLES>=1024){
+    sources <- list()
+    for(ci in 1:length(cities)){
+      city <- cities[ci]
+      pa_names <- sapply(colnames(parameter_samples),function(x)(grepl('BACKGROUND_PA_SCALAR_',x)||grepl('BACKGROUND_PA_ZEROS_',x))&grepl(city,x))
+      sources[[ci]] <- parameter_samples[,pa_names]
+    }
+    evppi_for_pa <- mclapply(1:length(sources),
+                             FUN = ithimr:::compute_evppi,
+                             sources,
+                             outcome,
+                             nscen=NSCEN,
+                             mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+  
+    names(evppi_for_pa) <- paste0('BACKGROUND_PA_',cities)
+    ## get rows to remove
+    keep_names <- sapply(rownames(evppi),function(x)!grepl('BACKGROUND_PA_',x))
+    evppi <- evppi[keep_names,]
+  
+    evppi <- rbind(evppi,do.call(rbind,evppi_for_pa))
+  }
+  
+  saveRDS(evppi,'results/multi_city/evppi.Rds',version=2)
+  write.csv(evppi,'results/multi_city/evppi.csv')
+  
+  
+  
+  #parameter_names <- c('walk-to-bus time','cycling MMETs','walking MMETs','background PM2.5','motorcycle distance','non-travel PA','non-communicable disease burden',
+  #                     'injury linearity','traffic PM2.5 share','injury reporting rate','casualty exponent fraction','day-to-week scalar',
+  #                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
+  #                     'COPD (AP)','stroke (AP)')
+  evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
+  {pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome)); par(mar=c(10,22,3.5,5.5))
+    labs <- rownames(evppi)
+    get.pal=colorRampPalette(brewer.pal(9,"Reds"))
+    redCol=rev(get.pal(12))
+    bkT <- seq(max(evppi)+1e-10, 0,length=13)
+    cex.lab <- 1.5
+    maxval <- round(bkT[1],digits=1)
+    col.labels<- c(0,maxval/2,maxval)
+    cellcolors <- vector()
+    for(ii in 1:length(unlist(evppi)))
+      cellcolors[ii] <- redCol[tail(which(unlist(evppi[ii])<bkT),n=1)]
+    color2D.matplot(evppi,cellcolors=cellcolors,main="",xlab="",ylab="",cex.lab=2,axes=F,border='white')
+    fullaxis(side=1,las=2,at=NSCEN*0:(length(outcome)-1)+NSCEN/2,labels=names(outcome),line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=1)
+    fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.8)
+    mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
+    color.legend(NSCEN*length(outcome)+0.5,0,NSCEN*length(outcome)+0.8,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
+    for(i in seq(0,NSCEN*length(outcome),by=NSCEN)) abline(v=i)
+    for(i in seq(0,length(labs),by=NSCEN)) abline(h=i)
+    dev.off()}
 }
-
-saveRDS(evppi,'results/multi_city/evppi.Rds',version=2)
-write.csv(evppi,'results/multi_city/evppi.csv')
-
-
-
-#parameter_names <- c('walk-to-bus time','cycling MMETs','walking MMETs','background PM2.5','motorcycle distance','non-travel PA','non-communicable disease burden',
-#                     'injury linearity','traffic PM2.5 share','injury reporting rate','casualty exponent fraction','day-to-week scalar',
-#                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
-#                     'COPD (AP)','stroke (AP)')
-evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
-{pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome)); par(mar=c(10,22,3.5,5.5))
-  labs <- rownames(evppi)
-  get.pal=colorRampPalette(brewer.pal(9,"Reds"))
-  redCol=rev(get.pal(12))
-  bkT <- seq(max(evppi)+1e-10, 0,length=13)
-  cex.lab <- 1.5
-  maxval <- round(bkT[1],digits=1)
-  col.labels<- c(0,maxval/2,maxval)
-  cellcolors <- vector()
-  for(ii in 1:length(unlist(evppi)))
-    cellcolors[ii] <- redCol[tail(which(unlist(evppi[ii])<bkT),n=1)]
-  color2D.matplot(evppi,cellcolors=cellcolors,main="",xlab="",ylab="",cex.lab=2,axes=F,border='white')
-  fullaxis(side=1,las=2,at=NSCEN*0:(length(outcome)-1)+NSCEN/2,labels=names(outcome),line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=1)
-  fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.8)
-  mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
-  color.legend(NSCEN*length(outcome)+0.5,0,NSCEN*length(outcome)+0.8,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
-  for(i in seq(0,NSCEN*length(outcome),by=NSCEN)) abline(v=i)
-  for(i in seq(0,length(labs),by=NSCEN)) abline(h=i)
-  dev.off()}
-
