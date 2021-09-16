@@ -22,7 +22,7 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
     for(i in 1:length(rd_list)){
       
       
-      rd_list[[i]] <- rd_list[[i]] %>% mutate(id = row_number())
+      rd_list[[i]] <- rd_list[[i]] %>% dplyr::mutate(id = row_number())
       
       if (!any(names(rd_list[[i]]) %in% 'trip_mode')){
         print(CITY)
@@ -32,8 +32,8 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
       pt_trips <- rd_list[[i]] %>% dplyr::filter(stage_mode %in% pt_modes)
       
       # further separate out bus trips WITHOUT pedestrian component
-      pt_trips_wo_walk <- rd_list[[i]] %>% filter(trip_id %in% pt_trips$trip_id) %>% group_by(trip_id) %>% 
-        mutate(ped = if(any(stage_mode == 'walk_to_pt')) 1 else 0) %>% 
+      pt_trips_wo_walk <- rd_list[[i]] %>% dplyr::filter(trip_id %in% pt_trips$trip_id) %>% group_by(trip_id) %>% 
+        dplyr::mutate(ped = if(any(stage_mode == 'walk_to_pt')) 1 else 0) %>% 
         ungroup() %>% 
         filter(ped == 0) %>% dplyr::select(-ped)
       
