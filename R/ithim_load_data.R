@@ -31,23 +31,37 @@ ithim_load_data <- function(setup_call_summary_filename, speeds =
   ## this function requires path specification, so that it may differ for different case studies
   
   ## these datasets are all global, saved in global folder.
-  global_path <- file.path(find.package('ithimr',lib.loc=.libPaths()), 'extdata/global/')
+  global_path <- paste0(file.path(find.package('ithimr',lib.loc = .libPaths()),
+                                  'extdata/global'), "/")
   
-  global_path <- paste0(global_path, "/")
+  ## Check if DRPA package is installed
+  if (!require("drpa", character.only = TRUE))
+    stop('Please install "drpa" package and run it again. You can do this by using "remotes::install_github("meta-analyses/drpa")"')
   
   ## DATA FILES FOR MODEL  
   DISEASE_INVENTORY <<- read.csv(paste0(global_path,"dose_response/disease_outcomes_lookup.csv"))
   # DR_AP$cause_code matches DISEASE_INVENTORY$ap_acronym
   DR_AP <<- read.csv(paste0(global_path,"dose_response/drap/dose_response.csv"))
   #INJ_DIST_EXP <<- read_csv('code/injuries/data/sin_coefficients_pairs.csv') ## injury distance exponent
+  cat(paste0('\n  Dose--response for AP read from ', global_path,
+             'dose_response/drap/ \n\n'), 
+      file = setup_call_summary_filename, append = T)
+  
   # root of list_of_files matches DISEASE_INVENTORY$pa_acronym
-  list_of_files <- list.files(path = paste0(global_path,"dose_response/drpa/extdata/"), recursive = TRUE, pattern = "\\.csv$", full.names = TRUE)
-  for (i in 1:length(list_of_files)){
-    assign(stringr::str_sub(basename(list_of_files[[i]]), end = -5),
-           readr::read_csv(list_of_files[[i]],col_types = cols()),
-           pos = 1)
-  }
-  cat(paste0('\n  Dose--response read from ',global_path,'dose_response/drpa/extdata/ \n\n'),file=setup_call_summary_filename,append=T)
+  # list_of_files <- list.files(path = paste0(global_path,
+  #                                           "dose_response/drpa/extdata/"),
+  #                             recursive = TRUE, pattern = "\\.csv$", 
+  #                             full.names = TRUE)
+  
+  # list_of_files <- list.files(path = pa_path, recursive = TRUE, 
+  #                             pattern = "\\.csv$", full.names = TRUE)
+  # for (i in 1:length(list_of_files)) {
+  #   assign(stringr::str_sub(basename(list_of_files[[i]]), end = -5),
+  #          readr::read_csv(list_of_files[[i]], col_types = cols()),
+  #          pos = 1)
+  # }
+  # cat(paste0('\n  Dose--response for PA read from ', pa_path, 
+  #            '\n\n'), file = setup_call_summary_filename, append = T)
   
   ## these datasets are all local, saved in local folder.
   local_path <- PATH_TO_LOCAL_DATA
