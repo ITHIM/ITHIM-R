@@ -35,6 +35,7 @@ library(summarytools)
 library(tidyverse)
 library(gt)
 library(pracma)
+library(data.table)
 })
 
 st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
@@ -654,4 +655,100 @@ disease_rates <- lapply(cities, function(x)
                                                length = 5) * 100000))
 names(disease_rates) <- cities
 round_and_print(disease_rates,"Change in YLL due to disease per 100,000 in ")
+```
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+# Export all health results
+health <- list()
+measure <- c("ylls", "deaths")
+pathway <- c("hb", "pathway_hb")
+for (k in measure) { # loop for ylls or deaths
+  for (j in pathway) { # loop for hb or pathway_hb
+    for (i in names(io[-2])) { # loop for cities
+      # Temporal datset
+      temp <- io[[i]]$outcomes[[j]][[k]]
+      # Population by age, and age-sex
+      pop_by_age <- io[[i]]$demographic %>% group_by(age) %>% 
+        summarize(pop_age = sum(population))
+      pop_by_age_sex <- io[[i]]$demographic %>% group_by(age, sex) %>% 
+        summarize(pop_age_sex = sum(population))
+      
+      # Long format and adding new variables
+      health[[k]][[j]][[i]] <- gather(temp, key = "cause", "measure", 
+                                      -sex, -age_cat) %>% 
+        mutate(city = i,
+               scenario = case_when(
+                 grepl("scen1", cause) ~ scen_names[1],
+                 grepl("scen2", cause) ~ scen_names[2],
+                 grepl("scen3", cause) ~ scen_names[3],
+                 grepl("scen4", cause) ~ scen_names[4],
+                 grepl("scen5", cause) ~ scen_names[5],
+               ),
+               level1 = case_when(
+                 grepl("all_cause", cause) ~ "L1: All Cause",
+                 grepl("inj", cause) ~ "L1: RTI"
+               ),
+               level2 = case_when(
+                 grepl("total_cancer", cause) ~ "L2: Cancer",
+                 grepl("CVD", cause) ~ "L2: CVD",
+                 grepl("COPD", cause) ~ "L2: Respiratory",
+                 grepl("LRI", cause) ~ "L2: Respiratory",
+                 grepl("T2D", cause) ~ "L2: Other",
+                 grepl("total_dementia", cause) ~ "L2: Other",
+                 grepl("Parkinson", cause) ~ "L2: Other",
+                 grepl("inj", cause) ~ "L2: RTI"
+               ),
+               level3 = case_when(
+                 grepl("IHD", cause) ~ "L3: IHD",
+                 grepl("lung_cancer", cause) ~ "L3: lung_cancer",
+                 grepl("COPD", cause) ~ "L3: COPD",
+                 grepl("stroke", cause) ~ "L3: stroke",
+                 grepl("T2D", cause) ~ "L3: T2D",
+                 grepl("LRI", cause) ~ "L3: LRI",
+                 grepl("breast_cancer", cause) ~ "L3: breast_cancer",
+                 grepl("colon_cancer", cause) ~ "L3: colon_cancer",
+                 grepl("endo_cancer", cause) ~ "L3: endo_cancer",
+                 grepl("liver_cancer", cause) ~ "L3: liver_cancer",
+                 grepl("CVD", cause) ~ "L3: CVD",
+                 grepl("total_dementia", cause) ~ "L3: total_dementia",
+                 grepl("myeloma", cause) ~ "L3: myeloma",
+                 grepl("Parkinson", cause) ~ "L3: Parkinson",
+                 grepl("head_neck_cancer", cause) ~ "L3: head_neck_cancer",
+                 grepl("stomach_cancer", cause) ~ "L3: stomach_cancer",
+                 grepl("inj", cause) ~ "L3: RTI"
+               ),
+               dose = case_when(
+                 grepl("_pa_ap_", cause) ~ "PA and AP",
+                 grepl("_pa_", cause) ~ "PA",
+                 grepl("_ap_", cause) ~ "AP",
+                 grepl("_inj", cause) ~ "RTI"
+               )
+        ) %>% # End mutate 
+        left_join(pop_by_age, by = c("age_cat" = "age")) %>% 
+        left_join(pop_by_age_sex, by = c("age_cat" = "age", "sex" = "sex")) %>% 
+        mutate(measure_100k = measure / pop_age * 100000,
+               measeure_100k_sex = measure / pop_age_sex * 100000)
+      
+    } # Loop for each city
+  } # Loop for each pathway
+} # Loop for each measure
+
+# Export ylls HB
+write.csv(rbindlist(health$ylls$hb, use.names = T),
+            "results/multi_city/health_impacts/ylls_hb_lng.csv", 
+            row.names = F)
+# Export ylls PATHWAY_HB
+write.csv(rbindlist(health$ylls$pathway_hb, use.names = T),
+            "results/multi_city/health_impacts/ylls_pathway_hb_lng.csv", 
+            row.names = F)
+# Export deaths HB
+write.csv(rbindlist(health$deaths$hb, use.names = T),
+            "results/multi_city/health_impacts/deaths_hb_lng.csv", 
+            row.names = F)
+# Export deaths PATHWAY_HB
+write.csv(rbindlist(health$deaths$pathway_hb, use.names = T),
+            "results/multi_city/health_impacts/deaths_pathway_hb_lng.csv", 
+            row.names = F)
+
+
 ```
