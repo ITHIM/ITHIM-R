@@ -36,11 +36,11 @@ gen_ap_rr <- function(pm_conc_pp){
       }
       
       # get parameters
-      agechar <- as.character(age)
-      alpha <- DR_AP_LIST[[cause]][[agechar]]$alpha
-      beta <- DR_AP_LIST[[cause]][[agechar]]$beta
-      gamma <- DR_AP_LIST[[cause]][[agechar]]$gamma
-      tmrel <- DR_AP_LIST[[cause]][[agechar]]$tmrel
+      #agechar <- as.character(age)
+      alpha <- DR_AP_LIST[[cause]][[age]]$alpha
+      beta <- DR_AP_LIST[[cause]][[age]]$beta
+      gamma <- DR_AP_LIST[[cause]][[age]]$gamma
+      tmrel <- DR_AP_LIST[[cause]][[age]]$tmrel
       # calculate AP and apply to all in age group
       for(x in 1: length(SCEN_SHORT_NAME)) 
         pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]][i] <- ap_dose_response_curve(pm_rr_pp[[pm_indices[x]]][i],alpha,beta,gamma,tmrel)
