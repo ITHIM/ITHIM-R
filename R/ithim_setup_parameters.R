@@ -206,7 +206,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
         mod <- gam(log(tmrel)~ns(log(gamma),df=8)+ns(log(beta),df=8)+ns(log(alpha),df=8),data=dr_ap_age)
         pred_val <- predict(mod, newdata=data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val)),se.fit=T)
         tmrel_val <- qnorm(quant4,pred_val$fit,sqrt(mod$sig2))
-        dr_ap_list[[disease]][[as.character(age)]] <- data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val),tmrel=exp(tmrel_val))
+        dr_ap_list[[disease]][[age]] <- data.frame(alpha=exp(alpha_val),beta=exp(beta_val),gamma=exp(gamma_val),tmrel=exp(tmrel_val))
       }
       if(AP_DOSE_RESPONSE_QUANTILE){ 
         # turn list inside out, so it's indexed first by sample
