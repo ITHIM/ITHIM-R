@@ -1,0 +1,1 @@
+pandoc -f latex -t markdown input-tex.tex -o output-md.Rmd
