@@ -6,7 +6,7 @@ rm(list=ls())
 
 cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
-#cities <- c('accra' )
+cities <- c('accra' )
 
 min_age <- 15
 max_age <- 69
@@ -359,16 +359,9 @@ saveRDS(outcome,'results/multi_city/outcome.Rds',version=2)
 # plots only work if more than one sample was selected
 if(nsamples > 1){
   sp_index <- which(cities==city)
- # if only one sample, then scen_case gives a 1 dimensional vector
-  scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)sum(x[,seq(y,ncol(x),by=NSCEN)])))
-  means <- sapply(scen_out,function(x)apply(x))
-
   scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
   means <- sapply(scen_out,function(x)apply(x,2,mean))
-
-  
-  ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
-  
+  ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95))) 
   yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
   cols <- rainbow(length(outcome)-1)
   
