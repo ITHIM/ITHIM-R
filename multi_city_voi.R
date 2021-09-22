@@ -127,7 +127,7 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
 parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 numcores <- parallel::detectCores() - 1
-nsamples <- 1
+nsamples <- 8
 print(system.time(
   for(ci in 1:length(cities)){
     city <- cities[ci]
@@ -431,7 +431,9 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
   
   # x2 <- evppi(parameter=c(38:40),input=inp$mat,he=m,method="GP")
   #fit <- fit.gp(parameter = parameter, inputs = inputs, x = x, n.sim = n.sim)
-  if("EMISSION_INVENTORY_car_accra"%in%colnames(parameter_samples)&&NSAMPLES>=1024){
+  
+  
+  if(paste("EMISSION_INVENTORY_car_", city[1],sep="")%in%colnames(parameter_samples)&&NSAMPLES>=1024){
    sources <- list()
    for(ci in 1:length(cities)){
      city <- cities[ci]
@@ -453,7 +455,11 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
    evppi <- rbind(evppi,do.call(rbind,evppi_for_emissions))
   }
   
-  if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%colnames(parameter_samples))==2&&NSAMPLES>=1024){
+  background_pa_city1 <- paste("BACKGROUND_PA_SCALAR_", city[1],sep="")
+  background_pa_0_city1 <- paste("BACKGROUND_PA_ZEROS_", city[1],sep="")
+  
+  if(sum(c(background_pa_city1,background_pa_0_city1)%in%colnames(parameter_samples))==2&&NSAMPLES>=1024){
+  #if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%colnames(parameter_samples))==2&&NSAMPLES>=1024){
     sources <- list()
     for(ci in 1:length(cities)){
       city <- cities[ci]
