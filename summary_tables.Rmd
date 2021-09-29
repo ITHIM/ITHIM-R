@@ -709,7 +709,6 @@ for (k in measure) { # loop for ylls or deaths
                  grepl("colon_cancer", cause) ~ "L3: colon_cancer",
                  grepl("endo_cancer", cause) ~ "L3: endo_cancer",
                  grepl("liver_cancer", cause) ~ "L3: liver_cancer",
-                 grepl("CVD", cause) ~ "L3: CVD",
                  grepl("total_dementia", cause) ~ "L3: total_dementia",
                  grepl("myeloma", cause) ~ "L3: myeloma",
                  grepl("Parkinson", cause) ~ "L3: Parkinson",
