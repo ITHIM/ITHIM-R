@@ -2,11 +2,19 @@ library(ithimr)
 library(earth)
 library(RColorBrewer)
 library(plotrix)
+library(foreach)
+library(future)
+plan(multisession)
+library(foreach)
+library(doRNG)
+library(future.apply)
+
 rm(list=ls())
 
-cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
-            'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
+# cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
+#             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
 cities <- c('accra' )
+#cities <- c('accra', 'bangalore', 'belo_horizonte')
 
 min_age <- 15
 max_age <- 69
@@ -19,6 +27,8 @@ parameter_stops <- c(parameter_starts[-1] - 1, nrow(all_inputs))
 parameter_names <- parameter_names[parameter_names!='']
 parameter_list <- list()
 compute_mode <- 'sample'
+
+
 
 for(i in 1:length(parameter_names)){
   parameter_list[[parameter_names[i]]] <- list()
@@ -83,7 +93,6 @@ mmet_walking <- c((2.53),(1.1))
 # lnorm parameters for SIN_EXPONENT_SUM
 sin_exponent_sum <- c((1.7),(1.03))
 # beta parameters for CASUALTY_EXPONENT_FRACTION
-
 casualty_exponent_fraction <- c(15,15)
 
 
@@ -127,7 +136,8 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
 parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 numcores <- parallel::detectCores() - 1
-nsamples <- 8
+nsamples <- 4
+
 print(system.time(
   for(ci in 1:length(cities)){
     city <- cities[ci]
@@ -169,19 +179,20 @@ print(system.time(
                                               TEST_CYCLE_SCENARIO = test_cycle_scenario,
                                               REFERENCE_SCENARIO='Baseline',
                                               MAX_MODE_SHARE_SCENARIO=T,
-
+                                              
                                               BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
                                               #BUS_WALK_TIME = bus_walk_time[[city]],## not random; use mean
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                               TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
-
+                                              
                                               PM_EMISSION_INVENTORY_CONFIDENCE = PM_emission_confidence[[city]],
                                               DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
                                               DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
                                               DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
                                               DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
                                               DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]])
-                                              
+    
+        
     # for first city, store model parameters. For subsequent cities, copy parameters over.
     if(ci==1){
       model_parameters <- names(multi_city_ithim[[ci]]$parameters)[!names(multi_city_ithim[[ci]]$parameters)%in%setting_parameters]
@@ -194,21 +205,37 @@ print(system.time(
       proportion_quantile <- pbeta(multi_city_ithim[[1]]$parameters$PM_TRANS_SHARE,pm_trans_share[[1]][1],pm_trans_share[[1]][2])
       multi_city_ithim[[ci]]$parameters$PM_TRANS_SHARE <- qbeta(proportion_quantile,pm_trans_share[[city]][1],pm_trans_share[[city]][2])
     }
-
+    
+    # if(!parameters_only){
+    #   if(Sys.info()[['sysname']] == "Windows"){
+    #     # multi_city_ithim[[ci]]$outcomes <- list()
+    #     require(parallelsugar)
+    #     multi_city_ithim[[ci]]$outcomes <- parallelsugar::mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
+    #     
+    #     
+    #     # for(i in 1:nsamples) multi_city_ithim[[ci]]$outcomes[[i]] <- run_ithim(ithim_object = multi_city_ithim[[ci]],seed=i)
+    #   }else{
+    #     multi_city_ithim[[ci]]$outcomes <- mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
+    #   }
+    #   multi_city_ithim[[ci]]$DEMOGRAPHIC <- DEMOGRAPHIC
+    # }
+    
+    
     if(!parameters_only){
-      if(Sys.info()[['sysname']] == "Windows"){
-        # multi_city_ithim[[ci]]$outcomes <- list()
-        require(parallelsugar)
-        multi_city_ithim[[ci]]$outcomes <- parallelsugar::mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
-        
-        
-        # for(i in 1:nsamples) multi_city_ithim[[ci]]$outcomes[[i]] <- run_ithim(ithim_object = multi_city_ithim[[ci]],seed=i)
-      }else{
-        multi_city_ithim[[ci]]$outcomes <- mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
+      
+      multi_city_ithim[[ci]]$outcomes <- list()
+      doFuture::registerDoFuture()
+      run_ithm_fn <- function(nsamples, ithim_object,seed, FUN=run_ithim){
+        foreach(i=1:nsamples, .export = ls(globalenv()) ) %dopar% {   #%dorng%
+          FUN(ithim_object, seed=i)
+        }
       }
+      multi_city_ithim[[ci]]$outcomes <- run_ithm_fn(nsamples,ithim_object = multi_city_ithim[[ci]])
+      
       multi_city_ithim[[ci]]$DEMOGRAPHIC <- DEMOGRAPHIC
     }
-
+    
+    
     ## rename city-specific parameters according to city
     for(i in 1:length(multi_city_ithim[[ci]]$parameters$PM_EMISSION_INVENTORY[[1]])){
       extract_vals <- sapply(multi_city_ithim[[ci]]$parameters$PM_EMISSION_INVENTORY,function(x)x[[i]])
@@ -230,7 +257,8 @@ print(system.time(
       multi_city_ithim[[ci]]$outcome <- 0
     }
   }
-))
+)) 
+
 
 saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 
@@ -247,20 +275,20 @@ city_populations <- matrix(0,nrow=length(cities),ncol=length(outcome_age_groups)
 for(ci in 1:length(cities)){
   city <- cities[ci]
   multi_city_ithim[[ci]] <- readRDS(paste0('results/multi_city/',city,'.Rds'))
-  
-  DEMOGRAPHIC <- multi_city_ithim[[ci]]$DEMOGRAPHIC 
+
+  DEMOGRAPHIC <- multi_city_ithim[[ci]]$DEMOGRAPHIC
   age_pops[[city]] <- list()
   min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
   max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
   age_pops[[city]]$min_pop_ages <- min_pop_ages
   age_pops[[city]]$max_pop_ages <- max_pop_ages
-  
+
   ## get outcomes
   min_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
   max_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
   keep_rows <- which(min_ages>=min_age&max_ages<=max_age)
   keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('ac|neo|age|sex',as.character(x))))
-  
+
   #for(i in 1:length(multi_city_ithim[[ci]]$outcomes)) print(length(multi_city_ithim[[ci]]$outcomes[[i]]))
   outcome_pp[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
   outcome_pp[[city]] <- outcome_pp[[city]]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
@@ -279,7 +307,7 @@ for(ci in 1:length(cities)){
   ## omit ac (all cause) and neoplasms (neo) and age and gender columns
   outcome[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
   colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
-  
+
   multi_city_ithim[[ci]] <- 0
 }
 
@@ -361,10 +389,10 @@ if(nsamples > 1){
   sp_index <- which(cities==city)
   scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
   means <- sapply(scen_out,function(x)apply(x,2,mean))
-  ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95))) 
+  ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
   yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
   cols <- rainbow(length(outcome)-1)
-  
+
   {pdf('results/multi_city/city_yll_.pdf',height=6,width=6); par(mar=c(5,5,1,1))
     plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
     axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
@@ -374,7 +402,7 @@ if(nsamples > 1){
     legend(col=rev(cols),lty=1,bty='n',x=ninefive[[sp_index]][1,4],legend=rev(names(outcome)[-length(outcome)]),y=4,lwd=2)
     dev.off()
   }
-  
+
   comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
   ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
   means <- apply(comb_out,2,mean)
@@ -392,21 +420,28 @@ if(nsamples > 1){
 ## calculate EVPPI ##################################################################
 
 if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
-  numcores <- parallel::detectCores() - 1
+  #numcores <- parallel::detectCores() - 1
   
-  evppi <- mclapply(1:ncol(parameter_samples),
-           FUN = ithimr:::compute_evppi,
-           as.data.frame(parameter_samples),
-           outcome,
-           nscen=NSCEN,
-           all=T,
-           mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+  evppi <- future_lapply(1:ncol(parameter_samples),
+                    FUN = ithimr:::compute_evppi,
+                    as.data.frame(parameter_samples),
+                    outcome,
+                    nscen=NSCEN,
+                    all=T)
+
+  # evppi <- mclapply(1:ncol(parameter_samples),
+  #          FUN = ithimr:::compute_evppi,
+  #          as.data.frame(parameter_samples),
+  #          outcome,
+  #          nscen=NSCEN,
+  #          all=T,
+  #          mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
   evppi <- do.call(rbind,evppi)
   colnames(evppi) <- apply(expand.grid(SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)],names(outcome)),1,function(x)paste0(x,collapse='_'))
   rownames(evppi) <- colnames(parameter_samples)
-  
+
   ## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
-  
+
   if(any(ap_dr_quantile)&&NSAMPLES>=1024){
     AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
     diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
@@ -415,24 +450,24 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
       col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
       sources[[di]] <- parameter_samples[,col_names]
     }
-    evppi_for_AP <- mclapply(1:length(sources),
+    evppi_for_AP <- future_lapply(1:length(sources),
                              FUN = ithimr:::compute_evppi,
                              sources,
                              outcome,
                              nscen=NSCEN,
-                             all=T,
-                             mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
+                             all=T)
+    
     names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
     evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
     ## get rows to remove
     keep_names <- sapply(rownames(evppi),function(x)!any(c('ALPHA','BETA','GAMMA','TMREL')%in%strsplit(x,'_')[[1]]))
     evppi <- evppi[keep_names,]
   }
-  
+
   # x2 <- evppi(parameter=c(38:40),input=inp$mat,he=m,method="GP")
   #fit <- fit.gp(parameter = parameter, inputs = inputs, x = x, n.sim = n.sim)
-  
-  
+
+
   if(paste("EMISSION_INVENTORY_car_", city[1],sep="")%in%colnames(parameter_samples)&&NSAMPLES>=1024){
    sources <- list()
    for(ci in 1:length(cities)){
@@ -440,24 +475,23 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
      emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
      sources[[ci]] <- parameter_samples[,emission_names]
    }
-   evppi_for_emissions <- mclapply(1:length(sources),
+   evppi_for_emissions <- future_lapply(1:length(sources),
                                    FUN = ithimr:::compute_evppi,
                                    sources,
                                    outcome,
-                                   nscen=NSCEN,
-                                   mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
-  
+                                   nscen=NSCEN)
+
    names(evppi_for_emissions) <- paste0('EMISSION_INVENTORY_',cities)
    ## get rows to remove
    keep_names <- sapply(rownames(evppi),function(x)!grepl('EMISSION_INVENTORY_',x))
    evppi <- evppi[keep_names,]
-  
+
    evppi <- rbind(evppi,do.call(rbind,evppi_for_emissions))
   }
-  
+
   background_pa_city1 <- paste("BACKGROUND_PA_SCALAR_", city[1],sep="")
   background_pa_0_city1 <- paste("BACKGROUND_PA_ZEROS_", city[1],sep="")
-  
+
   if(sum(c(background_pa_city1,background_pa_0_city1)%in%colnames(parameter_samples))==2&&NSAMPLES>=1024){
   #if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%colnames(parameter_samples))==2&&NSAMPLES>=1024){
     sources <- list()
@@ -466,26 +500,25 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
       pa_names <- sapply(colnames(parameter_samples),function(x)(grepl('BACKGROUND_PA_SCALAR_',x)||grepl('BACKGROUND_PA_ZEROS_',x))&grepl(city,x))
       sources[[ci]] <- parameter_samples[,pa_names]
     }
-    evppi_for_pa <- mclapply(1:length(sources),
+    evppi_for_pa <- future_lapply(1:length(sources),
                              FUN = ithimr:::compute_evppi,
                              sources,
                              outcome,
-                             nscen=NSCEN,
-                             mc.cores = ifelse(Sys.info()[['sysname']] == "Windows",  1,  numcores))
-  
+                             nscen=NSCEN)
+
     names(evppi_for_pa) <- paste0('BACKGROUND_PA_',cities)
     ## get rows to remove
     keep_names <- sapply(rownames(evppi),function(x)!grepl('BACKGROUND_PA_',x))
     evppi <- evppi[keep_names,]
-  
+
     evppi <- rbind(evppi,do.call(rbind,evppi_for_pa))
   }
-  
+
   saveRDS(evppi,'results/multi_city/evppi.Rds',version=2)
   write.csv(evppi,'results/multi_city/evppi.csv')
-  
-  
-  
+
+
+
   #parameter_names <- c('walk-to-bus time','cycling MMETs','walking MMETs','background PM2.5','motorcycle distance','non-travel PA','non-communicable disease burden',
   #                     'injury linearity','traffic PM2.5 share','injury reporting rate','casualty exponent fraction','day-to-week scalar',
   #                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
