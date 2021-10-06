@@ -40,8 +40,19 @@ ithim_load_data <- function(setup_call_summary_filename, speeds =
   
   ## DATA FILES FOR MODEL  
   DISEASE_INVENTORY <<- read.csv(paste0(global_path,"dose_response/disease_outcomes_lookup.csv"))
+  
+  # DR for AP
   # DR_AP$cause_code matches DISEASE_INVENTORY$ap_acronym
-  DR_AP <<- read.csv(paste0(global_path,"dose_response/drap/dose_response.csv"))
+  #DR_AP <<- read.csv(paste0(global_path,"dose_response/drap/dose_response.csv"))
+  list_of_files <- list.files(path = paste0(global_path,
+                                            "dose_response/drap/extdata/"),
+                              recursive = TRUE, pattern = "\\.csv$",
+                              full.names = TRUE)
+  for (i in 1:length(list_of_files)) {
+    assign(stringr::str_sub(basename(list_of_files[[i]]), end = -5),
+           read.csv(list_of_files[[i]]),
+           pos = 1)
+  }
   #INJ_DIST_EXP <<- read_csv('code/injuries/data/sin_coefficients_pairs.csv') ## injury distance exponent
   cat(paste0('\n  Dose--response for AP read from ', global_path,
              'dose_response/drap/ \n\n'), 
