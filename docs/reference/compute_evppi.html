@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Combine health and PIF — combine_health_and_pif • ithimr</title>
+<title>Compute evppi, designed to be run in parallel — compute_evppi • ithimr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Combine health and PIF — combine_health_and_pif" />
-<meta property="og:description" content="Applies PIF calculated from RRs to the current observed health burden from GBD to generate scenario health burden" />
+<meta property="og:title" content="Compute evppi, designed to be run in parallel — compute_evppi" />
+<meta property="og:description" content="Creates a list of EVPPI values one parameter (set) at a time across one or more outcomes" />
 
 
 
@@ -103,33 +103,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Combine health and PIF</h1>
+    <h1>Compute evppi, designed to be run in parallel</h1>
     
-    <div class="hidden name"><code>combine_health_and_pif.Rd</code></div>
+    <div class="hidden name"><code>compute_evppi.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Applies PIF calculated from RRs to the current observed health burden from GBD to generate scenario health burden</p>
+    <p>Creates a list of EVPPI values one parameter (set) at a time across one or more outcomes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>combine_health_and_pif</span><span class='op'>(</span><span class='va'>pif_values</span>, hc <span class='op'>=</span> <span class='va'>DISEASE_BURDEN</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>compute_evppi</span><span class='op'>(</span><span class='va'>jj</span>, <span class='va'>sources</span>, <span class='va'>outcome</span>, nscen <span class='op'>=</span> <span class='fl'>1</span>, all <span class='op'>=</span> <span class='cn'>F</span>, multi_city_outcome <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>pif_values</th>
-      <td><p>vector of values of PIFs</p></td>
+      <th>jj</th>
+      <td><p>index for input and (potentially) outcome</p></td>
     </tr>
     <tr>
-      <th>hc</th>
-      <td><p>data frame of current burden of disease</p></td>
+      <th>sources</th>
+      <td><p>list of inputs</p></td>
+    </tr>
+    <tr>
+      <th>outcome</th>
+      <td><p>list of outcomes</p></td>
+    </tr>
+    <tr>
+      <th>nscen</th>
+      <td><p>number of scenarios (which constitute columns of outcome)</p></td>
+    </tr>
+    <tr>
+      <th>all</th>
+      <td><p>whether or not to compute EVPPI for source against all outcomes. Default=F, so sources[[jj]] relates to outcome[[jj]]</p></td>
+    </tr>
+    <tr>
+      <th>multi_city_outcome</th>
+      <td><p>whether the last outcome corresponds to all cities combine</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>estimated scenario burden of disease</p>
+    <p>list of EVPPI vectors</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
