@@ -58,7 +58,6 @@ city_emissions$total<- rowSums(city_emissions[,2:7])
 city_emissions[,2:7]<-round(city_emissions[,2:7]*100/city_emissions$total,2 )
 
 
-
 all_modes<- all_modes@data
 #all_modes$unique<- paste0(all_modes$lat, all_modes$lon)
 
