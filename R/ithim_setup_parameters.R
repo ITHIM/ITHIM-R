@@ -175,7 +175,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   global_path <- paste0(global_path, "/")
   DR_AP_LIST <<- readRDS(paste0(global_path,"dose_response/drap/dr_ap_list.Rds"))
   
-  parameters$DR_AP_LIST <- DR_AP_LIST
+  if(AP_DOSE_RESPONSE_QUANTILE)
+    parameters$DR_AP_LIST <- DR_AP_LIST
   
   parameters
 }
