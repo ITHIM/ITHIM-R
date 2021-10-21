@@ -204,25 +204,11 @@ following variables
 -   ltpa_marg_met
 -   work_marg_met
 
-**Montreal Synthetic Population Dataset Example**
-
-```{r}
-
-
-```
-
 #### Who Hit Who Matrix
 
 **Description** TEXT HERE
 
 **Who Hit Who Matrix Dataset Format** A matrix
-
-**Montreal Who Hit Who Matrix Dataset Example**
-
-```{r}
-
-
-```
 
 ### Air Pollution
 
@@ -230,12 +216,6 @@ following variables
 
 **Air Pollution Dataset Format** A matrix
 
-**Montreal Air Pollution Dataset Example**
-
-```{r}
-
-
-```
 
 **We are currently working on developing a separate package to create a
 synthetic population**

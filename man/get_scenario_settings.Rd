@@ -8,7 +8,7 @@ get_scenario_settings(
   cities = c("accra", "bangalore", "belo_horizonte", "bogota", "buenos_aires",
     "cape_town", "delhi", "mexico_city", "santiago", "sao_paulo", "vizag"),
   modes = c("pedestrian", "cycle", "car", "motorcycle", "bus"),
-  distances = c("0-1 km", "2-5 km", "6+ km"),
+  distances = c("0-2 km", "2-6 km", "6+ km"),
   speeds = list(bus = 11, bus_driver = 11, minibus = 11, minibus_driver = 11, car = 14,
     taxi = 9, pedestrian = 3, walk_to_pt = 3, cycle = 7, motorcycle = 14, truck = 11, van
     = 14, subway = 16, rail = 20, auto_rickshaw = 9, shared_auto = 14, shared_taxi = 9,

@@ -24,6 +24,7 @@ run_ithim_setup(
   PATH_TO_LOCAL_DATA = NULL,
   NSAMPLES = 1,
   BUS_WALK_TIME = 5,
+  RAIL_WALK_TIME = 15,
   MMET_CYCLING = 4.63,
   MMET_WALKING = 2.53,
   PM_CONC_BASE = 50,
@@ -83,7 +84,9 @@ run_ithim_setup(
 
 \item{NSAMPLES}{constant integer: number of samples to take}
 
-\item{BUS_WALK_TIME}{lognormal parameter: duration of walk to PT}
+\item{BUS_WALK_TIME}{lognormal parameter: duration of walk to Bus}
+
+\item{RAIL_WALK_TIME}{lognormal parameter: duration of walk to Rail}
 
 \item{MMET_CYCLING}{lognormal parameter: mMETs when cycling}
 

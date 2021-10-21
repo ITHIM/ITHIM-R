@@ -1,4 +1,5 @@
 rm(list=ls())
+require(ithimr)
 
 global_path <- file.path(find.package('ithimr',lib.loc=.libPaths()), 'extdata/global/')
 global_path <- paste0(global_path, "/")
@@ -19,11 +20,15 @@ cause_indices <- which(DISEASE_INVENTORY$physical_activity == 1)
 ############# median dose-response curves
 PA_DOSE_RESPONSE_QUANTILE <<- 0.5
 #pdf('results/dose_response/PA_dose_response.pdf',width=11,height=11);par(mar=c(5,5,2,1))
-for ( j in 1:length(cause_indices)){
+for (j in 1:length(cause_indices)){
   cause <- as.character(DISEASE_INVENTORY$pa_acronym[cause_indices[j]])
+  outcome <- ifelse(DISEASE_INVENTORY$outcome[cause_indices[j]] == "deaths", "fatal",
+                    "fatal-and-non-fatal")
   # get name of disease
   print(cause)
-  return_vector <- PA_dose_response(cause = cause,dose = doses_vector)
+  print(outcome)
+  return_vector <- drpa::dose_response(cause = cause, outcome_type = outcome,
+                                       dose = doses_vector)
   
   if(j==1){
     plot(doses_vector,return_vector$rr,type='l',ylim=0:1,main='',ylab='Relative risk',xlab='Dose',
@@ -40,6 +45,8 @@ nsamples <- 10
 parameters <- ithim_setup_parameters(NSAMPLES=nsamples,
                                      PA_DOSE_RESPONSE_QUANTILE=T)
 #pdf('results/dose_response/PA_dose_response_sample.pdf',width=11,height=11);
+
+ls_dr <- list()
 par(mar=c(5,5,2,1),mfrow=c(3,3))
 for ( j in 1:length(cause_indices)){
   cause <- as.character(DISEASE_INVENTORY$pa_acronym[cause_indices[j]])
@@ -48,7 +55,13 @@ for ( j in 1:length(cause_indices)){
   for(seed in 1:nsamples){
     for(i in 1:length(parameters))
       assign(names(parameters)[i],parameters[[i]][[seed]],pos=1)
-    return_vector <- PA_dose_response(cause = cause,dose = doses_vector)
+    
+    outcome <- ifelse(DISEASE_INVENTORY$outcome[cause_indices[j]] == "deaths", "fatal",
+                      "fatal-and-non-fatal")
+    return_vector <- drpa::dose_response(cause = cause, outcome_type = outcome,
+                                         dose = doses_vector, quantile = parameters[[i]][[seed]])
+    
+    ls_dr[[cause]][[seed]] <- return_vector
     
     if(seed==1){
       plot(doses_vector,return_vector$rr,type='l',ylim=0:1,main=cause,ylab='Relative risk',xlab='Dose',
