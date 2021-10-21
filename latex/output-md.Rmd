@@ -432,7 +432,9 @@ knitr::include_graphics("DR_transform.pdf")
 
 ### Physical activity
 
-Each disease's PA dose--response relationship is defined by a truncated normal. For each dose, there is a mean value, an upper bound, and a lower bound. For each person's dose, we get the response by mapping the uniform random variable onto the truncated normal defined by the mean and bounds for that dosage.
+Each disease's PA dose--response relationship is defined by a truncated normal. For each dose, there is a mean value, an upper bound, and a lower bound. For each person's dose, we get the response by mapping the uniform random variable onto the truncated normal defined by the mean and bounds for that dosage. We use an R package called {drpa}, whose description can be seen here: <https://meta-analyses.github.io/drpa/drpa.html>
+
+The relationships comes out of our work @Leandro2018, where we look at the association of `physical activity` with various diseases.
 
 ### Air pollution
 
