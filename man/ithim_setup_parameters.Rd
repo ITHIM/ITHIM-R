@@ -7,6 +7,7 @@
 ithim_setup_parameters(
   NSAMPLES = 1,
   BUS_WALK_TIME = 5,
+  RAIL_WALK_TIME = 15,
   MMET_CYCLING = 4.63,
   MMET_WALKING = 2.53,
   PM_CONC_BASE = 50,
@@ -23,7 +24,7 @@ ithim_setup_parameters(
   BUS_TO_PASSENGER_RATIO = 0.022,
   TRUCK_TO_CAR_RATIO = 0.21,
   FLEET_TO_MOTORCYCLE_RATIO = 0,
-  EMISSION_INVENTORY_CONFIDENCE = 1,
+  PM_EMISSION_INVENTORY_CONFIDENCE = 1,
   DISTANCE_SCALAR_CAR_TAXI = 1,
   DISTANCE_SCALAR_WALKING = 1,
   DISTANCE_SCALAR_PT = 1,
@@ -34,7 +35,9 @@ ithim_setup_parameters(
 \arguments{
 \item{NSAMPLES}{constant integer: number of samples to take}
 
-\item{BUS_WALK_TIME}{lognormal parameter: duration of walk to PT}
+\item{BUS_WALK_TIME}{lognormal parameter: duration of walk to Bus}
+
+\item{RAIL_WALK_TIME}{lognormal parameter: duration of walk to Rail}
 
 \item{MMET_CYCLING}{lognormal parameter: mMETs when cycling}
 
@@ -68,7 +71,7 @@ ithim_setup_parameters(
 
 \item{FLEET_TO_MOTORCYCLE_RATIO}{beta parameter: amount of motorcycle that's fleet}
 
-\item{EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of emission inventory}
+\item{PM_EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of emission inventory}
 
 \item{DISTANCE_SCALAR_CAR_TAXI}{lognormal parameter: scalar for car distance travelled}
 
