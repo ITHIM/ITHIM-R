@@ -1,0 +1,1693 @@
+measure_name.x,location_name,sex_name,age_name,cause_name,val,population
+Deaths,Chile,Male,0 to 4,Lower respiratory infections,31.6038102296618,590407.136649282
+Deaths,Chile,Female,0 to 4,Lower respiratory infections,26.0850758592518,568206.116349197
+Deaths,Chile,Male,5 to 9,Lower respiratory infections,2.07025557077627,639392.78288771
+Deaths,Chile,Female,5 to 9,Lower respiratory infections,2.27811586942568,612179.930150842
+Deaths,Chile,Male,10 to 14,Lower respiratory infections,1.67995264585781,622813.363638568
+Deaths,Chile,Female,10 to 14,Lower respiratory infections,1.79495314918338,595787.082300343
+Deaths,Chile,Male,15 to 19,Lower respiratory infections,3.20863507208721,631165.491286203
+Deaths,Chile,Female,15 to 19,Lower respiratory infections,2.62055674547093,604097.035448217
+Deaths,Chile,Male,20 to 24,Lower respiratory infections,3.51367156557623,693981.390967853
+Deaths,Chile,Female,20 to 24,Lower respiratory infections,2.79936478734758,671917.624413281
+Deaths,Chile,Male,25 to 29,Lower respiratory infections,7.44558290832524,760855.645330287
+Deaths,Chile,Female,25 to 29,Lower respiratory infections,3.66582078721387,747462.164073602
+Deaths,Chile,Male,30 to 34,Lower respiratory infections,12.38842108702,707006.831461527
+Deaths,Chile,Female,30 to 34,Lower respiratory infections,3.8292476466771,703051.246864735
+Deaths,Chile,Male,35 to 39,Lower respiratory infections,17.8255804692346,636967.313396475
+Deaths,Chile,Female,35 to 39,Lower respiratory infections,5.7429657486466,648579.523068178
+Deaths,Chile,Male,40 to 44,Lower respiratory infections,25.2936356620668,577889.287360149
+Deaths,Chile,Female,40 to 44,Lower respiratory infections,7.52693071115476,598580.59014909
+Deaths,Chile,Male,45 to 49,Lower respiratory infections,37.3700422425322,590505.794230193
+Deaths,Chile,Female,45 to 49,Lower respiratory infections,11.4400460895934,624047.525234926
+Deaths,Chile,Male,50 to 54,Lower respiratory infections,57.3156843209226,569155.685438781
+Deaths,Chile,Female,50 to 54,Lower respiratory infections,18.7015929777572,613554.995746927
+Deaths,Chile,Male,55 to 59,Lower respiratory infections,76.9152891280752,532715.173320798
+Deaths,Chile,Female,55 to 59,Lower respiratory infections,29.0313234585254,584846.07022548
+Deaths,Chile,Male,60 to 64,Lower respiratory infections,100.136829267221,434747.421498363
+Deaths,Chile,Female,60 to 64,Lower respiratory infections,46.4653515154866,489706.718624578
+Deaths,Chile,Male,65 to 69,Lower respiratory infections,127.118402325834,327756.661684093
+Deaths,Chile,Female,65 to 69,Lower respiratory infections,61.396977761902,379051.502711552
+Deaths,Chile,Male,70 to 74,Lower respiratory infections,182.163568539792,252649.601937286
+Deaths,Chile,Female,70 to 74,Lower respiratory infections,114.325826738262,303751.379552535
+Deaths,Chile,Male,75 to 79,Lower respiratory infections,258.857588786616,171750.872291174
+Deaths,Chile,Female,75 to 79,Lower respiratory infections,217.398927727079,226470.38309385
+Deaths,Chile,Male,80 to 84,Lower respiratory infections,355.078317269624,104150.483703845
+Deaths,Chile,Female,80 to 84,Lower respiratory infections,365.262046452134,152689.170484331
+Deaths,Chile,Male,85 to 89,Lower respiratory infections,445.085259412181,57601.3726369416
+Deaths,Chile,Female,85 to 89,Lower respiratory infections,580.737337173257,95940.7040670701
+Deaths,Chile,Male,90 to 94,Lower respiratory infections,304.439923178331,21999.6600551365
+Deaths,Chile,Female,90 to 94,Lower respiratory infections,587.286630839929,38420.6086156547
+Deaths,Chile,Male,95 to 99,Lower respiratory infections,215.133773205611,6721.02852953177
+Deaths,Chile,Female,95 to 99,Lower respiratory infections,349.623804199378,9785.66839768234
+Deaths,Chile,Male,0 to 4,All causes,855.386478744782,590407.136649282
+Deaths,Chile,Female,0 to 4,All causes,703.225661800113,568206.116349197
+Deaths,Chile,Male,5 to 9,All causes,92.139252506407,639392.78288771
+Deaths,Chile,Female,5 to 9,All causes,75.1124729695108,612179.930150842
+Deaths,Chile,Male,10 to 14,All causes,109.742496892628,622813.363638568
+Deaths,Chile,Female,10 to 14,All causes,84.962108650877,595787.082300343
+Deaths,Chile,Male,15 to 19,All causes,364.804462051692,631165.491286203
+Deaths,Chile,Female,15 to 19,All causes,147.10906943014,604097.035448217
+Deaths,Chile,Male,20 to 24,All causes,649.813561730911,693981.390967853
+Deaths,Chile,Female,20 to 24,All causes,191.026651562305,671917.624413281
+Deaths,Chile,Male,25 to 29,All causes,860.78984876388,760855.645330287
+Deaths,Chile,Female,25 to 29,All causes,253.384953853676,747462.164073602
+Deaths,Chile,Male,30 to 34,All causes,911.41551887973,707006.831461527
+Deaths,Chile,Female,30 to 34,All causes,304.736012011661,703051.246864735
+Deaths,Chile,Male,35 to 39,All causes,995.547564490137,636967.313396475
+Deaths,Chile,Female,35 to 39,All causes,437.512071744734,648579.523068178
+Deaths,Chile,Male,40 to 44,All causes,1212.97006011662,577889.287360149
+Deaths,Chile,Female,40 to 44,All causes,596.612902925441,598580.59014909
+Deaths,Chile,Male,45 to 49,All causes,1819.26044178787,590505.794230193
+Deaths,Chile,Female,45 to 49,All causes,1009.08551983491,624047.525234926
+Deaths,Chile,Male,50 to 54,All causes,2635.41935316066,569155.685438781
+Deaths,Chile,Female,50 to 54,All causes,1535.49405814781,613554.995746927
+Deaths,Chile,Male,55 to 59,All causes,3814.56029695675,532715.173320798
+Deaths,Chile,Female,55 to 59,All causes,2365.23796571887,584846.07022548
+Deaths,Chile,Male,60 to 64,All causes,4937.40600258354,434747.421498363
+Deaths,Chile,Female,60 to 64,All causes,3163.01771573584,489706.718624578
+Deaths,Chile,Male,65 to 69,All causes,5979.95395344876,327756.661684093
+Deaths,Chile,Female,65 to 69,All causes,4067.21339910384,379051.502711552
+Deaths,Chile,Male,70 to 74,All causes,7018.47498026817,252649.601937286
+Deaths,Chile,Female,70 to 74,All causes,5070.49362127621,303751.379552535
+Deaths,Chile,Male,75 to 79,All causes,7659.87837124674,171750.872291174
+Deaths,Chile,Female,75 to 79,All causes,6544.54111426078,226470.38309385
+Deaths,Chile,Male,80 to 84,All causes,7540.07112964658,104150.483703845
+Deaths,Chile,Female,80 to 84,All causes,7945.34186714255,152689.170484331
+Deaths,Chile,Male,85 to 89,All causes,6693.12247844613,57601.3726369416
+Deaths,Chile,Female,85 to 89,All causes,9241.07406914508,95940.7040670701
+Deaths,Chile,Male,90 to 94,All causes,3645.51299668098,21999.6600551365
+Deaths,Chile,Female,90 to 94,All causes,6779.2105205162,38420.6086156547
+Deaths,Chile,Male,95 to 99,All causes,1744.21119093971,6721.02852953177
+Deaths,Chile,Female,95 to 99,All causes,3030.64664396221,9785.66839768234
+Deaths,Chile,Female,90 to 94,Lip and oral cavity cancer,8.40155562658797,38420.6086156547
+Deaths,Chile,Male,95 to 99,Lip and oral cavity cancer,2.07870172038945,6721.02852953177
+Deaths,Chile,Female,95 to 99,Lip and oral cavity cancer,2.77595775524998,9785.66839768234
+Deaths,Chile,Male,5 to 9,Nasopharynx cancer,0.0654521778745526,639392.78288771
+Deaths,Chile,Female,5 to 9,Nasopharynx cancer,0.0623557726520021,612179.930150842
+Deaths,Chile,Male,10 to 14,Nasopharynx cancer,0.0680896200495582,622813.363638568
+Deaths,Chile,Female,10 to 14,Nasopharynx cancer,0.065444624452458,595787.082300343
+Deaths,Chile,Male,15 to 19,Nasopharynx cancer,0.185585289565259,631165.491286203
+Deaths,Chile,Female,15 to 19,Nasopharynx cancer,0.0609951401890012,604097.035448217
+Deaths,Chile,Male,20 to 24,Nasopharynx cancer,0.241668781304012,693981.390967853
+Deaths,Chile,Female,20 to 24,Nasopharynx cancer,0.0687487146068542,671917.624413281
+Deaths,Chile,Male,25 to 29,Nasopharynx cancer,0.124818896672343,760855.645330287
+Deaths,Chile,Female,25 to 29,Nasopharynx cancer,0.114849793623929,747462.164073602
+Deaths,Chile,Male,30 to 34,Nasopharynx cancer,0.206720140936654,707006.831461527
+Deaths,Chile,Female,30 to 34,Nasopharynx cancer,0.0785298438061346,703051.246864735
+Deaths,Chile,Male,35 to 39,Nasopharynx cancer,0.311876719818631,636967.313396475
+Deaths,Chile,Female,35 to 39,Nasopharynx cancer,0.131909997929869,648579.523068178
+Deaths,Chile,Male,40 to 44,Nasopharynx cancer,0.613170371460407,577889.287360149
+Deaths,Chile,Female,40 to 44,Nasopharynx cancer,0.163452808849197,598580.59014909
+Deaths,Chile,Male,45 to 49,Nasopharynx cancer,1.10218491296753,590505.794230193
+Deaths,Chile,Female,45 to 49,Nasopharynx cancer,0.399803921820701,624047.525234926
+Deaths,Chile,Male,50 to 54,Nasopharynx cancer,1.86260732703779,569155.685438781
+Deaths,Chile,Female,50 to 54,Nasopharynx cancer,0.582568923974358,613554.995746927
+Deaths,Chile,Male,55 to 59,Nasopharynx cancer,2.46624832277268,532715.173320798
+Deaths,Chile,Female,55 to 59,Nasopharynx cancer,0.786298450650504,584846.07022548
+Deaths,Chile,Male,60 to 64,Nasopharynx cancer,2.7532773148379,434747.421498363
+Deaths,Chile,Female,60 to 64,Nasopharynx cancer,0.605469652541066,489706.718624578
+Deaths,Chile,Male,65 to 69,Nasopharynx cancer,2.61832850921863,327756.661684093
+Deaths,Chile,Female,65 to 69,Nasopharynx cancer,0.854961600275295,379051.502711552
+Deaths,Chile,Male,70 to 74,Nasopharynx cancer,1.95299766347191,252649.601937286
+Deaths,Chile,Female,70 to 74,Nasopharynx cancer,0.806614081253639,303751.379552535
+Deaths,Chile,Male,75 to 79,Nasopharynx cancer,1.47213375810911,171750.872291174
+Deaths,Chile,Female,75 to 79,Nasopharynx cancer,0.786282805295825,226470.38309385
+Deaths,Chile,Male,80 to 84,Nasopharynx cancer,1.2352921209355,104150.483703845
+Deaths,Chile,Female,80 to 84,Nasopharynx cancer,0.785768582166166,152689.170484331
+Deaths,Chile,Male,85 to 89,Nasopharynx cancer,1.04569898215421,57601.3726369416
+Deaths,Chile,Female,85 to 89,Nasopharynx cancer,0.714752262886466,95940.7040670701
+Deaths,Chile,Male,90 to 94,Nasopharynx cancer,0.314134410606927,21999.6600551365
+Deaths,Chile,Female,90 to 94,Nasopharynx cancer,0.517214131142593,38420.6086156547
+Deaths,Chile,Male,95 to 99,Nasopharynx cancer,0.11410372903261,6721.02852953177
+Deaths,Chile,Female,95 to 99,Nasopharynx cancer,0.221954021468474,9785.66839768234
+Deaths,Chile,Male,20 to 24,Other pharynx cancer,0.073537718382744,693981.390967853
+Deaths,Chile,Female,20 to 24,Other pharynx cancer,0.069002105656203,671917.624413281
+Deaths,Chile,Male,25 to 29,Other pharynx cancer,0.0930350908654397,760855.645330287
+Deaths,Chile,Female,25 to 29,Other pharynx cancer,0.0798154736169363,747462.164073602
+Deaths,Chile,Male,30 to 34,Other pharynx cancer,0.119515439844527,707006.831461527
+Deaths,Chile,Female,30 to 34,Other pharynx cancer,0.116591319456573,703051.246864735
+Deaths,Chile,Male,35 to 39,Other pharynx cancer,0.26151940672727497,636967.313396475
+Deaths,Chile,Female,35 to 39,Other pharynx cancer,0.213077369723913,648579.523068178
+Deaths,Chile,Male,40 to 44,Other pharynx cancer,0.732604919320571,577889.287360149
+Deaths,Chile,Female,40 to 44,Other pharynx cancer,0.394334492153208,598580.59014909
+Deaths,Chile,Male,45 to 49,Other pharynx cancer,2.19674950317248,590505.794230193
+Deaths,Chile,Female,45 to 49,Other pharynx cancer,0.684750306173682,624047.525234926
+Deaths,Chile,Male,50 to 54,Other pharynx cancer,5.05184529093959,569155.685438781
+Deaths,Chile,Female,50 to 54,Other pharynx cancer,1.16711666338695,613554.995746927
+Deaths,Chile,Male,55 to 59,Other pharynx cancer,8.66174435062503,532715.173320798
+Deaths,Chile,Female,55 to 59,Other pharynx cancer,1.9021807633486,584846.07022548
+Deaths,Chile,Male,60 to 64,Other pharynx cancer,11.5057082366202,434747.421498363
+Deaths,Chile,Female,60 to 64,Other pharynx cancer,2.06231658119748,489706.718624578
+Deaths,Chile,Male,65 to 69,Other pharynx cancer,10.9857998283873,327756.661684093
+Deaths,Chile,Female,65 to 69,Other pharynx cancer,2.49978991217866,379051.502711552
+Deaths,Chile,Male,70 to 74,Other pharynx cancer,10.5836419533182,252649.601937286
+Deaths,Chile,Female,70 to 74,Other pharynx cancer,2.4009625633153,303751.379552535
+Deaths,Chile,Male,75 to 79,Other pharynx cancer,8.30098955968197,171750.872291174
+Deaths,Chile,Female,75 to 79,Other pharynx cancer,3.33119106070324,226470.38309385
+Deaths,Chile,Male,80 to 84,Other pharynx cancer,4.87507905081486,104150.483703845
+Deaths,Chile,Female,80 to 84,Other pharynx cancer,2.75035821909804,152689.170484331
+Deaths,Chile,Male,85 to 89,Other pharynx cancer,3.58945227271696,57601.3726369416
+Deaths,Chile,Female,85 to 89,Other pharynx cancer,2.42163722829533,95940.7040670701
+Deaths,Chile,Male,90 to 94,Other pharynx cancer,1.18137302638427,21999.6600551365
+Deaths,Chile,Female,90 to 94,Other pharynx cancer,1.59346233756312,38420.6086156547
+Deaths,Chile,Male,95 to 99,Other pharynx cancer,0.365377465450788,6721.02852953177
+Deaths,Chile,Female,95 to 99,Other pharynx cancer,0.613113362979393,9785.66839768234
+Deaths,Chile,Male,0 to 4,Chronic obstructive pulmonary disease,1.02667806837885,590407.136649282
+Deaths,Chile,Female,0 to 4,Chronic obstructive pulmonary disease,1.15794416576882,568206.116349197
+Deaths,Chile,Male,5 to 9,Chronic obstructive pulmonary disease,0.356430829410859,639392.78288771
+Deaths,Chile,Female,5 to 9,Chronic obstructive pulmonary disease,0.568198592465226,612179.930150842
+Deaths,Chile,Male,10 to 14,Chronic obstructive pulmonary disease,0.326894324372338,622813.363638568
+Deaths,Chile,Female,10 to 14,Chronic obstructive pulmonary disease,0.376603110147195,595787.082300343
+Deaths,Chile,Male,15 to 19,Chronic obstructive pulmonary disease,1.04382703679397,631165.491286203
+Deaths,Chile,Female,15 to 19,Chronic obstructive pulmonary disease,0.69001523454942,604097.035448217
+Deaths,Chile,Male,20 to 24,Chronic obstructive pulmonary disease,0.674960863369296,693981.390967853
+Deaths,Chile,Female,20 to 24,Chronic obstructive pulmonary disease,0.771073762483905,671917.624413281
+Deaths,Chile,Male,25 to 29,Chronic obstructive pulmonary disease,1.48278597991546,760855.645330287
+Deaths,Chile,Female,25 to 29,Chronic obstructive pulmonary disease,0.867696528550808,747462.164073602
+Deaths,Chile,Male,30 to 34,Chronic obstructive pulmonary disease,1.59496526216431,707006.831461527
+Deaths,Chile,Female,30 to 34,Chronic obstructive pulmonary disease,1.2278007863663,703051.246864735
+Deaths,Chile,Male,35 to 39,Chronic obstructive pulmonary disease,2.33072248214231,636967.313396475
+Deaths,Chile,Female,35 to 39,Chronic obstructive pulmonary disease,1.91912862981891,648579.523068178
+Deaths,Chile,Male,40 to 44,Chronic obstructive pulmonary disease,4.5098755727974,577889.287360149
+Deaths,Chile,Female,40 to 44,Chronic obstructive pulmonary disease,3.32507762122519,598580.59014909
+Deaths,Chile,Male,45 to 49,Chronic obstructive pulmonary disease,9.47929772230554,590505.794230193
+Deaths,Chile,Female,45 to 49,Chronic obstructive pulmonary disease,7.07044205833088,624047.525234926
+Deaths,Chile,Male,50 to 54,Chronic obstructive pulmonary disease,25.4168964607308,569155.685438781
+Deaths,Chile,Female,50 to 54,Chronic obstructive pulmonary disease,16.921235559922,613554.995746927
+Deaths,Chile,Male,55 to 59,Chronic obstructive pulmonary disease,54.7617776808676,532715.173320798
+Deaths,Chile,Female,55 to 59,Chronic obstructive pulmonary disease,37.5383882686987,584846.07022548
+Deaths,Chile,Male,60 to 64,Chronic obstructive pulmonary disease,102.901359792367,434747.421498363
+Deaths,Chile,Female,60 to 64,Chronic obstructive pulmonary disease,72.3310444932509,489706.718624578
+Deaths,Chile,Male,65 to 69,Chronic obstructive pulmonary disease,179.31987785148,327756.661684093
+Deaths,Chile,Female,65 to 69,Chronic obstructive pulmonary disease,118.556655870315,379051.502711552
+Deaths,Chile,Male,70 to 74,Chronic obstructive pulmonary disease,266.392625259886,252649.601937286
+Deaths,Chile,Female,70 to 74,Chronic obstructive pulmonary disease,179.750102556907,303751.379552535
+Deaths,Chile,Male,75 to 79,Chronic obstructive pulmonary disease,375.512505176316,171750.872291174
+Deaths,Chile,Female,75 to 79,Chronic obstructive pulmonary disease,259.302791828131,226470.38309385
+Deaths,Chile,Male,80 to 84,Chronic obstructive pulmonary disease,439.851927024539,104150.483703845
+Deaths,Chile,Female,80 to 84,Chronic obstructive pulmonary disease,371.632403511877,152689.170484331
+Deaths,Chile,Male,85 to 89,Chronic obstructive pulmonary disease,448.419471345387,57601.3726369416
+Deaths,Chile,Female,85 to 89,Chronic obstructive pulmonary disease,470.046626225919,95940.7040670701
+Deaths,Chile,Male,90 to 94,Chronic obstructive pulmonary disease,269.819062356476,21999.6600551365
+Deaths,Chile,Female,90 to 94,Chronic obstructive pulmonary disease,367.776339394467,38420.6086156547
+Deaths,Chile,Male,95 to 99,Chronic obstructive pulmonary disease,145.452558624814,6721.02852953177
+Deaths,Chile,Female,95 to 99,Chronic obstructive pulmonary disease,167.462525477013,9785.66839768234
+Deaths,Chile,Male,0 to 4,Asthma,0.104106354921401,590407.136649282
+Deaths,Chile,Female,0 to 4,Asthma,0.142970601013494,568206.116349197
+Deaths,Chile,Male,5 to 9,Asthma,0.0884482079860314,639392.78288771
+Deaths,Chile,Female,5 to 9,Asthma,0.150546778444717,612179.930150842
+Deaths,Chile,Male,10 to 14,Asthma,0.20517525363619,622813.363638568
+Deaths,Chile,Female,10 to 14,Asthma,0.398221301913638,595787.082300343
+Deaths,Chile,Male,15 to 19,Asthma,0.252899512173784,631165.491286203
+Deaths,Chile,Female,15 to 19,Asthma,0.530462107038246,604097.035448217
+Deaths,Chile,Male,20 to 24,Asthma,0.430433536691044,693981.390967853
+Deaths,Chile,Female,20 to 24,Asthma,0.659779999577317,671917.624413281
+Deaths,Chile,Male,25 to 29,Asthma,0.74916284485828,760855.645330287
+Deaths,Chile,Female,25 to 29,Asthma,0.706156650454379,747462.164073602
+Deaths,Chile,Male,30 to 34,Asthma,0.932824492952055,707006.831461527
+Deaths,Chile,Female,30 to 34,Asthma,1.03117764355723,703051.246864735
+Deaths,Chile,Male,35 to 39,Asthma,0.888456974751832,636967.313396475
+Deaths,Chile,Female,35 to 39,Asthma,1.45629964580965,648579.523068178
+Deaths,Chile,Male,40 to 44,Asthma,1.05928436602705,577889.287360149
+Deaths,Chile,Female,40 to 44,Asthma,1.88772510038122,598580.59014909
+Deaths,Chile,Male,45 to 49,Asthma,2.02337660102889,590505.794230193
+Deaths,Chile,Female,45 to 49,Asthma,3.27232812381792,624047.525234926
+Deaths,Chile,Male,50 to 54,Asthma,2.20160775241304,569155.685438781
+Deaths,Chile,Female,50 to 54,Asthma,4.1311668503627,613554.995746927
+Deaths,Chile,Male,55 to 59,Asthma,3.92617062959344,532715.173320798
+Deaths,Chile,Female,55 to 59,Asthma,6.5651194969545,584846.07022548
+Deaths,Chile,Male,60 to 64,Asthma,6.26439468056313,434747.421498363
+Deaths,Chile,Female,60 to 64,Asthma,10.0518265905508,489706.718624578
+Deaths,Chile,Male,65 to 69,Asthma,6.27882541974983,327756.661684093
+Deaths,Chile,Female,65 to 69,Asthma,12.137463537327,379051.502711552
+Deaths,Chile,Male,70 to 74,Asthma,10.3767793061363,252649.601937286
+Deaths,Chile,Female,70 to 74,Asthma,14.8729840828204,303751.379552535
+Deaths,Chile,Male,75 to 79,Asthma,13.6299493574542,171750.872291174
+Deaths,Chile,Female,75 to 79,Asthma,21.5503065765003,226470.38309385
+Deaths,Chile,Male,80 to 84,Asthma,16.5646118688666,104150.483703845
+Deaths,Chile,Female,80 to 84,Asthma,27.7463395003991,152689.170484331
+Deaths,Chile,Male,85 to 89,Asthma,13.6956161281735,57601.3726369416
+Deaths,Chile,Female,85 to 89,Asthma,34.2660773145705,95940.7040670701
+Deaths,Chile,Male,90 to 94,Asthma,7.29654061421414,21999.6600551365
+Deaths,Chile,Female,90 to 94,Asthma,26.4499587624549,38420.6086156547
+Deaths,Chile,Male,95 to 99,Asthma,4.52456820899589,6721.02852953177
+Deaths,Chile,Female,95 to 99,Asthma,10.2500666223995,9785.66839768234
+Deaths,Chile,Male,0 to 4,Road injuries,17.3865470519379,590407.136649282
+Deaths,Chile,Female,0 to 4,Road injuries,14.3358383799595,568206.116349197
+Deaths,Chile,Male,5 to 9,Road injuries,17.3400679905248,639392.78288771
+Deaths,Chile,Female,5 to 9,Road injuries,12.3898469131153,612179.930150842
+Deaths,Chile,Male,10 to 14,Road injuries,18.7324272951732,622813.363638568
+Deaths,Chile,Female,10 to 14,Road injuries,12.8308035420482,595787.082300343
+Deaths,Chile,Male,15 to 19,Road injuries,71.1211359927588,631165.491286203
+Deaths,Chile,Female,15 to 19,Road injuries,26.9511476625802,604097.035448217
+Deaths,Chile,Male,20 to 24,Road injuries,143.417359160205,693981.390967853
+Deaths,Chile,Female,20 to 24,Road injuries,32.3107609975732,671917.624413281
+Deaths,Chile,Male,25 to 29,Road injuries,174.593129739865,760855.645330287
+Deaths,Chile,Female,25 to 29,Road injuries,31.5619124664432,747462.164073602
+Deaths,Chile,Male,30 to 34,Road injuries,153.466860547016,707006.831461527
+Deaths,Chile,Female,30 to 34,Road injuries,24.9051124387656,703051.246864735
+Deaths,Chile,Male,35 to 39,Road injuries,127.667376272502,636967.313396475
+Deaths,Chile,Female,35 to 39,Road injuries,27.4229175246934,648579.523068178
+Deaths,Chile,Male,40 to 44,Road injuries,124.531299764973,577889.287360149
+Deaths,Chile,Female,40 to 44,Road injuries,25.722979071531,598580.59014909
+Deaths,Chile,Male,45 to 49,Road injuries,137.431475911602,590505.794230193
+Deaths,Chile,Female,45 to 49,Road injuries,27.6274891360052,624047.525234926
+Deaths,Chile,Male,50 to 54,Road injuries,147.071977577804,569155.685438781
+Deaths,Chile,Female,50 to 54,Road injuries,29.1548637525868,613554.995746927
+Deaths,Chile,Male,55 to 59,Road injuries,147.80545081612,532715.173320798
+Deaths,Chile,Female,55 to 59,Road injuries,38.3343582685308,584846.07022548
+Deaths,Chile,Male,60 to 64,Road injuries,144.606132308866,434747.421498363
+Deaths,Chile,Female,60 to 64,Road injuries,34.8747872157361,489706.718624578
+Deaths,Chile,Male,65 to 69,Road injuries,119.05740062209,327756.661684093
+Deaths,Chile,Female,65 to 69,Road injuries,37.0681162952084,379051.502711552
+Deaths,Chile,Male,70 to 74,Road injuries,96.4355635945503,252649.601937286
+Deaths,Chile,Female,70 to 74,Road injuries,32.7600357433866,303751.379552535
+Deaths,Chile,Male,75 to 79,Road injuries,74.9243039450191,171750.872291174
+Deaths,Chile,Female,75 to 79,Road injuries,34.0499986266705,226470.38309385
+Deaths,Chile,Male,80 to 84,Road injuries,47.9025253489129,104150.483703845
+Deaths,Chile,Female,80 to 84,Road injuries,24.807060310976,152689.170484331
+Deaths,Chile,Male,85 to 89,Road injuries,28.0654432519115,57601.3726369416
+Deaths,Chile,Female,85 to 89,Road injuries,19.0357618646806,95940.7040670701
+Deaths,Chile,Male,90 to 94,Road injuries,7.90207559626545,21999.6600551365
+Deaths,Chile,Female,90 to 94,Road injuries,8.08354073225292,38420.6086156547
+Deaths,Chile,Male,95 to 99,Road injuries,2.91378487603502,6721.02852953177
+Deaths,Chile,Female,95 to 99,Road injuries,2.30327827720371,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,0 to 4,Lower respiratory infections,2782.88449558058,590407.136649282
+YLLs (Years of Life Lost),Chile,Female,0 to 4,Lower respiratory infections,2295.10067042879,568206.116349197
+YLLs (Years of Life Lost),Chile,Male,5 to 9,Lower respiratory infections,169.052551703668,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,Lower respiratory infections,186.253041057199,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,Lower respiratory infections,128.176175461417,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,Lower respiratory infections,137.093441282416,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Lower respiratory infections,228.837522506499,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Lower respiratory infections,187.338043370324,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Lower respiratory infections,233.692313037205,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Lower respiratory infections,186.350732302643,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Lower respiratory infections,458.821080039418,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Lower respiratory infections,225.82719430321,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Lower respiratory infections,701.991384928205,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Lower respiratory infections,216.606172559924,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Lower respiratory infections,921.514227614115,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Lower respiratory infections,296.49253097346,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Lower respiratory infections,1182.18919078256,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Lower respiratory infections,351.504128268449,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Lower respiratory infections,1565.43375042153,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Lower respiratory infections,479.004767359012,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Lower respiratory infections,2127.77451058574,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Lower respiratory infections,693.920635513182,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Lower respiratory infections,2494.74689657936,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Lower respiratory infections,941.360129577471,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Lower respiratory infections,2784.97548702626,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Lower respiratory infections,1291.43057257264,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Lower respiratory infections,2969.68319988286,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Lower respiratory infections,1433.24991210506,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Lower respiratory infections,3478.49075231161,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Lower respiratory infections,2179.27290375003,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Lower respiratory infections,3907.15086745623,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Lower respiratory infections,3269.61832056637,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Lower respiratory infections,4112.50555532224,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Lower respiratory infections,4209.09492266963,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Lower respiratory infections,3931.18108446231,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Lower respiratory infections,5099.00652845182,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Lower respiratory infections,2081.71654725319,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Lower respiratory infections,4001.84246294809,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Lower respiratory infections,1088.290682731,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Lower respiratory infections,1817.25967107752,9785.66839768234
+Deaths,Chile,Male,20 to 24,Multiple myeloma,0.119574792444769,693981.390967853
+Deaths,Chile,Female,20 to 24,Multiple myeloma,0.0923656819506545,671917.624413281
+Deaths,Chile,Male,25 to 29,Multiple myeloma,0.282406067279861,760855.645330287
+Deaths,Chile,Female,25 to 29,Multiple myeloma,0.152271324037951,747462.164073602
+Deaths,Chile,Male,30 to 34,Multiple myeloma,0.557870410754007,707006.831461527
+Deaths,Chile,Female,30 to 34,Multiple myeloma,0.385267242732942,703051.246864735
+Deaths,Chile,Male,35 to 39,Multiple myeloma,1.32507449539628,636967.313396475
+Deaths,Chile,Female,35 to 39,Multiple myeloma,0.902291388666942,648579.523068178
+Deaths,Chile,Male,40 to 44,Multiple myeloma,3.02339406085275,577889.287360149
+Deaths,Chile,Female,40 to 44,Multiple myeloma,1.94417755592732,598580.59014909
+Deaths,Chile,Male,45 to 49,Multiple myeloma,8.31152568375794,590505.794230193
+Deaths,Chile,Female,45 to 49,Multiple myeloma,5.20443036227789,624047.525234926
+Deaths,Chile,Male,50 to 54,Multiple myeloma,14.6759635243633,569155.685438781
+Deaths,Chile,Female,50 to 54,Multiple myeloma,12.2457498452939,613554.995746927
+Deaths,Chile,Male,55 to 59,Multiple myeloma,32.2669377713914,532715.173320798
+Deaths,Chile,Female,55 to 59,Multiple myeloma,24.7082472324873,584846.07022548
+Deaths,Chile,Male,60 to 64,Multiple myeloma,44.7351829872892,434747.421498363
+Deaths,Chile,Female,60 to 64,Multiple myeloma,35.5444807459242,489706.718624578
+Deaths,Chile,Male,65 to 69,Multiple myeloma,51.1919847703319,327756.661684093
+Deaths,Chile,Female,65 to 69,Multiple myeloma,46.6979340111401,379051.502711552
+Deaths,Chile,Male,70 to 74,Multiple myeloma,55.7848577105955,252649.601937286
+Deaths,Chile,Female,70 to 74,Multiple myeloma,50.6473402759047,303751.379552535
+Deaths,Chile,Male,75 to 79,Multiple myeloma,47.938569845469,171750.872291174
+Deaths,Chile,Female,75 to 79,Multiple myeloma,49.8467713950583,226470.38309385
+Deaths,Chile,Male,80 to 84,Multiple myeloma,39.655678799426,104150.483703845
+Deaths,Chile,Female,80 to 84,Multiple myeloma,41.5212782468535,152689.170484331
+Deaths,Chile,Male,85 to 89,Multiple myeloma,22.1038422008566,57601.3726369416
+Deaths,Chile,Female,85 to 89,Multiple myeloma,30.58421463698,95940.7040670701
+Deaths,Chile,Male,90 to 94,Multiple myeloma,6.52644936840371,21999.6600551365
+Deaths,Chile,Female,90 to 94,Multiple myeloma,11.4759296048414,38420.6086156547
+Deaths,Chile,Male,95 to 99,Multiple myeloma,1.9814041051255,6721.02852953177
+Deaths,Chile,Female,95 to 99,Multiple myeloma,2.78947940819256,9785.66839768234
+Deaths,Chile,Male,0 to 4,Cardiovascular diseases,4.30755198413628,590407.136649282
+Deaths,Chile,Female,0 to 4,Cardiovascular diseases,3.9445664704636,568206.116349197
+Deaths,Chile,Male,5 to 9,Cardiovascular diseases,1.50772602728927,639392.78288771
+Deaths,Chile,Female,5 to 9,Cardiovascular diseases,1.77154319920479,612179.930150842
+Deaths,Chile,Male,10 to 14,Cardiovascular diseases,3.43885537035515,622813.363638568
+Deaths,Chile,Female,10 to 14,Cardiovascular diseases,2.6223233630024,595787.082300343
+Deaths,Chile,Male,15 to 19,Cardiovascular diseases,14.1745629207192,631165.491286203
+Deaths,Chile,Female,15 to 19,Cardiovascular diseases,7.65528953519362,604097.035448217
+Deaths,Chile,Male,20 to 24,Cardiovascular diseases,23.6079324099033,693981.390967853
+Deaths,Chile,Female,20 to 24,Cardiovascular diseases,12.0623887072586,671917.624413281
+Deaths,Chile,Male,25 to 29,Cardiovascular diseases,42.1376634783342,760855.645330287
+Deaths,Chile,Female,25 to 29,Cardiovascular diseases,18.0251566147732,747462.164073602
+Deaths,Chile,Male,30 to 34,Cardiovascular diseases,65.8538172951123,707006.831461527
+Deaths,Chile,Female,30 to 34,Cardiovascular diseases,27.1771957456401,703051.246864735
+Deaths,Chile,Male,35 to 39,Cardiovascular diseases,117.686715027645,636967.313396475
+Deaths,Chile,Female,35 to 39,Cardiovascular diseases,49.3341808510817,648579.523068178
+Deaths,Chile,Male,40 to 44,Cardiovascular diseases,194.020009684543,577889.287360149
+Deaths,Chile,Female,40 to 44,Cardiovascular diseases,86.846270336797,598580.59014909
+Deaths,Chile,Male,45 to 49,Cardiovascular diseases,343.118938087421,590505.794230193
+Deaths,Chile,Female,45 to 49,Cardiovascular diseases,159.08417559072,624047.525234926
+Deaths,Chile,Male,50 to 54,Cardiovascular diseases,605.877365157373,569155.685438781
+Deaths,Chile,Female,50 to 54,Cardiovascular diseases,263.070641611937,613554.995746927
+Deaths,Chile,Male,55 to 59,Cardiovascular diseases,939.80531349823,532715.173320798
+Deaths,Chile,Female,55 to 59,Cardiovascular diseases,430.806082718315,584846.07022548
+Deaths,Chile,Male,60 to 64,Cardiovascular diseases,1266.80281711675,434747.421498363
+Deaths,Chile,Female,60 to 64,Cardiovascular diseases,631.148289852958,489706.718624578
+Deaths,Chile,Male,65 to 69,Cardiovascular diseases,1596.41472891557,327756.661684093
+Deaths,Chile,Female,65 to 69,Cardiovascular diseases,891.259044733809,379051.502711552
+Deaths,Chile,Male,70 to 74,Cardiovascular diseases,1954.85744067888,252649.601937286
+Deaths,Chile,Female,70 to 74,Cardiovascular diseases,1272.32662690576,303751.379552535
+Deaths,Chile,Male,75 to 79,Cardiovascular diseases,2190.0967643483,171750.872291174
+Deaths,Chile,Female,75 to 79,Cardiovascular diseases,1843.92328490981,226470.38309385
+Deaths,Chile,Male,80 to 84,Cardiovascular diseases,2209.29865695262,104150.483703845
+Deaths,Chile,Female,80 to 84,Cardiovascular diseases,2473.13088406331,152689.170484331
+Deaths,Chile,Male,85 to 89,Cardiovascular diseases,1996.22503411065,57601.3726369416
+Deaths,Chile,Female,85 to 89,Cardiovascular diseases,3100.88787182975,95940.7040670701
+Deaths,Chile,Male,90 to 94,Cardiovascular diseases,1112.76665343358,21999.6600551365
+Deaths,Chile,Female,90 to 94,Cardiovascular diseases,2465.42564780744,38420.6086156547
+Deaths,Chile,Male,95 to 99,Cardiovascular diseases,541.61289858565,6721.02852953177
+Deaths,Chile,Female,95 to 99,Cardiovascular diseases,1150.83442279002,9785.66839768234
+Deaths,Chile,Male,15 to 19,Ischemic heart disease,1.90138085400479,631165.491286203
+Deaths,Chile,Female,15 to 19,Ischemic heart disease,0.344533089798253,604097.035448217
+Deaths,Chile,Male,20 to 24,Ischemic heart disease,5.3614294342919004,693981.390967853
+Deaths,Chile,Female,20 to 24,Ischemic heart disease,0.934963903660567,671917.624413281
+Deaths,Chile,Male,25 to 29,Ischemic heart disease,13.0007092965708,760855.645330287
+Deaths,Chile,Female,25 to 29,Ischemic heart disease,1.44992196495907,747462.164073602
+Deaths,Chile,Male,30 to 34,Ischemic heart disease,25.1312746596602,707006.831461527
+Deaths,Chile,Female,30 to 34,Ischemic heart disease,3.37531300543794,703051.246864735
+Deaths,Chile,Male,35 to 39,Ischemic heart disease,51.9389857372625,636967.313396475
+Deaths,Chile,Female,35 to 39,Ischemic heart disease,7.57684972848293,648579.523068178
+Deaths,Chile,Male,40 to 44,Ischemic heart disease,95.929802512991,577889.287360149
+Deaths,Chile,Female,40 to 44,Ischemic heart disease,18.6475416020216,598580.59014909
+Deaths,Chile,Male,45 to 49,Ischemic heart disease,178.47195818094,590505.794230193
+Deaths,Chile,Female,45 to 49,Ischemic heart disease,47.03994674952,624047.525234926
+Deaths,Chile,Male,50 to 54,Ischemic heart disease,329.383386264743,569155.685438781
+Deaths,Chile,Female,50 to 54,Ischemic heart disease,90.2641730553647,613554.995746927
+Deaths,Chile,Male,55 to 59,Ischemic heart disease,507.673919314347,532715.173320798
+Deaths,Chile,Female,55 to 59,Ischemic heart disease,153.950311405049,584846.07022548
+Deaths,Chile,Male,60 to 64,Ischemic heart disease,651.156019657629,434747.421498363
+Deaths,Chile,Female,60 to 64,Ischemic heart disease,240.822000381426,489706.718624578
+Deaths,Chile,Male,65 to 69,Ischemic heart disease,788.82581180798,327756.661684093
+Deaths,Chile,Female,65 to 69,Ischemic heart disease,342.644153555708,379051.502711552
+Deaths,Chile,Male,70 to 74,Ischemic heart disease,901.083606939807,252649.601937286
+Deaths,Chile,Female,70 to 74,Ischemic heart disease,469.63135996436,303751.379552535
+Deaths,Chile,Male,75 to 79,Ischemic heart disease,910.202889212927,171750.872291174
+Deaths,Chile,Female,75 to 79,Ischemic heart disease,640.740915794854,226470.38309385
+Deaths,Chile,Male,80 to 84,Ischemic heart disease,866.799849384698,104150.483703845
+Deaths,Chile,Female,80 to 84,Ischemic heart disease,814.072314511415,152689.170484331
+Deaths,Chile,Male,85 to 89,Ischemic heart disease,771.314552485736,57601.3726369416
+Deaths,Chile,Female,85 to 89,Ischemic heart disease,1049.40007834474,95940.7040670701
+Deaths,Chile,Male,90 to 94,Ischemic heart disease,445.620888576769,21999.6600551365
+Deaths,Chile,Female,90 to 94,Ischemic heart disease,865.314878705444,38420.6086156547
+Deaths,Chile,Male,95 to 99,Neoplasms,241.840049568531,6721.02852953177
+Deaths,Chile,Female,95 to 99,Neoplasms,278.691537348764,9785.66839768234
+Deaths,Chile,Male,20 to 24,Esophageal cancer,0.0936739084306383,693981.390967853
+Deaths,Chile,Female,20 to 24,Esophageal cancer,0.0717609510431893,671917.624413281
+Deaths,Chile,Male,25 to 29,Esophageal cancer,0.275081227944734,760855.645330287
+Deaths,Chile,Female,25 to 29,Esophageal cancer,0.122065321576823,747462.164073602
+Deaths,Chile,Male,30 to 34,Esophageal cancer,0.685531007970475,707006.831461527
+Deaths,Chile,Female,30 to 34,Esophageal cancer,0.334899386990866,703051.246864735
+Deaths,Chile,Male,35 to 39,Esophageal cancer,1.35097512964917,636967.313396475
+Deaths,Chile,Female,35 to 39,Esophageal cancer,0.744351587785253,648579.523068178
+Deaths,Chile,Male,40 to 44,Esophageal cancer,3.53057856164247,577889.287360149
+Deaths,Chile,Female,40 to 44,Esophageal cancer,1.46376225704418,598580.59014909
+Deaths,Chile,Male,45 to 49,Esophageal cancer,9.02065918969999,590505.794230193
+Deaths,Chile,Female,45 to 49,Esophageal cancer,3.49636054884491,624047.525234926
+Deaths,Chile,Male,50 to 54,Esophageal cancer,17.9956537644851,569155.685438781
+Deaths,Chile,Female,50 to 54,Esophageal cancer,7.42507946688025,613554.995746927
+Deaths,Chile,Male,55 to 59,Esophageal cancer,33.6627065723409,532715.173320798
+Deaths,Chile,Female,55 to 59,Esophageal cancer,15.2794080363341,584846.07022548
+Deaths,Chile,Male,60 to 64,Esophageal cancer,56.0801860406215,434747.421498363
+Deaths,Chile,Female,60 to 64,Esophageal cancer,22.919933048774,489706.718624578
+Deaths,Chile,Male,65 to 69,Esophageal cancer,72.3939252589797,327756.661684093
+Deaths,Chile,Female,65 to 69,Esophageal cancer,32.1726322751068,379051.502711552
+Deaths,Chile,Male,70 to 74,Esophageal cancer,97.1695719620575,252649.601937286
+Deaths,Chile,Female,70 to 74,Esophageal cancer,45.4480873615866,303751.379552535
+Deaths,Chile,Male,75 to 79,Esophageal cancer,106.27475757813,171750.872291174
+Deaths,Chile,Female,75 to 79,Esophageal cancer,60.6610179005268,226470.38309385
+Deaths,Chile,Male,80 to 84,Esophageal cancer,94.7180844030804,104150.483703845
+Deaths,Chile,Female,80 to 84,Esophageal cancer,68.2619583479584,152689.170484331
+Deaths,Chile,Male,85 to 89,Esophageal cancer,68.7679710479064,57601.3726369416
+Deaths,Chile,Female,85 to 89,Esophageal cancer,66.1260474827316,95940.7040670701
+Deaths,Chile,Male,90 to 94,Esophageal cancer,27.5823263959562,21999.6600551365
+Deaths,Chile,Female,90 to 94,Esophageal cancer,31.3629853386414,38420.6086156547
+Deaths,Chile,Male,95 to 99,Esophageal cancer,8.71163505667964,6721.02852953177
+Deaths,Chile,Female,95 to 99,Esophageal cancer,9.3505939298459,9785.66839768234
+Deaths,Chile,Male,15 to 19,Stomach cancer,0.372159083699983,631165.491286203
+Deaths,Chile,Female,15 to 19,Stomach cancer,0.215029294289498,604097.035448217
+Deaths,Chile,Male,20 to 24,Stomach cancer,1.27937108130832,693981.390967853
+Deaths,Chile,Female,20 to 24,Stomach cancer,0.910338678354264,671917.624413281
+Deaths,Chile,Male,25 to 29,Stomach cancer,4.0112962143059,760855.645330287
+Deaths,Chile,Female,25 to 29,Stomach cancer,3.537009670904,747462.164073602
+Deaths,Chile,Male,30 to 34,Stomach cancer,9.40729699248719,707006.831461527
+Deaths,Chile,Female,30 to 34,Stomach cancer,6.74279999892395,703051.246864735
+Deaths,Chile,Male,35 to 39,Stomach cancer,18.085099139072,636967.313396475
+Deaths,Chile,Female,35 to 39,Stomach cancer,13.5224523307782,648579.523068178
+Deaths,Chile,Male,40 to 44,Stomach cancer,32.0692529971016,577889.287360149
+Deaths,Chile,Female,40 to 44,Stomach cancer,19.0512791556619,598580.59014909
+Deaths,Chile,Male,45 to 49,Stomach cancer,67.1965651496702,590505.794230193
+Deaths,Chile,Female,45 to 49,Stomach cancer,33.1414455520272,624047.525234926
+Deaths,Chile,Male,50 to 54,Stomach cancer,123.25972541539,569155.685438781
+Deaths,Chile,Female,50 to 54,Stomach cancer,49.8845951081627,613554.995746927
+Deaths,Chile,Male,55 to 59,Stomach cancer,213.109214432425,532715.173320798
+Deaths,Chile,Female,55 to 59,Stomach cancer,82.7671429773655,584846.07022548
+Deaths,Chile,Male,60 to 64,Stomach cancer,315.724890860569,434747.421498363
+Deaths,Chile,Female,60 to 64,Stomach cancer,111.42280664612,489706.718624578
+Deaths,Chile,Male,65 to 69,Stomach cancer,377.622242461492,327756.661684093
+Deaths,Chile,Female,65 to 69,Stomach cancer,151.433292754718,379051.502711552
+Deaths,Chile,Male,70 to 74,Stomach cancer,443.020065673466,252649.601937286
+Deaths,Chile,Female,70 to 74,Stomach cancer,188.303333918314,303751.379552535
+Deaths,Chile,Male,75 to 79,Stomach cancer,439.762379016431,171750.872291174
+Deaths,Chile,Female,75 to 79,Stomach cancer,237.03109653942,226470.38309385
+Deaths,Chile,Male,80 to 84,Stomach cancer,357.080268109453,104150.483703845
+Deaths,Chile,Female,80 to 84,Stomach cancer,242.438351055217,152689.170484331
+Deaths,Chile,Male,85 to 89,Stomach cancer,231.857893862319,57601.3726369416
+Deaths,Chile,Female,85 to 89,Stomach cancer,213.781612556418,95940.7040670701
+Deaths,Chile,Male,90 to 94,Stomach cancer,82.7119294031927,21999.6600551365
+Deaths,Chile,Female,90 to 94,Stomach cancer,109.947121370414,38420.6086156547
+Deaths,Chile,Male,95 to 99,Stomach cancer,23.9653230268817,6721.02852953177
+Deaths,Chile,Female,95 to 99,Stomach cancer,32.65931055336,9785.66839768234
+Deaths,Chile,Male,0 to 4,Liver cancer,0.890437694453175,590407.136649282
+Deaths,Chile,Female,0 to 4,Liver cancer,0.620223807447759,568206.116349197
+Deaths,Chile,Male,5 to 9,Liver cancer,0.364430935887896,639392.78288771
+Deaths,Chile,Female,5 to 9,Liver cancer,0.357187620679891,612179.930150842
+Deaths,Chile,Male,10 to 14,Liver cancer,0.458167862755274,622813.363638568
+Deaths,Chile,Female,10 to 14,Liver cancer,0.343281419241479,595787.082300343
+Deaths,Chile,Male,15 to 19,Liver cancer,0.286808253480677,631165.491286203
+Deaths,Chile,Female,15 to 19,Liver cancer,0.149565842999706,604097.035448217
+Deaths,Chile,Male,20 to 24,Liver cancer,0.444840017417104,693981.390967853
+Deaths,Chile,Female,20 to 24,Liver cancer,0.279785324396592,671917.624413281
+Deaths,Chile,Male,25 to 29,Liver cancer,0.840789403610465,760855.645330287
+Deaths,Chile,Female,25 to 29,Liver cancer,0.512449115152318,747462.164073602
+Deaths,Chile,Male,30 to 34,Liver cancer,1.40815770146027,707006.831461527
+Deaths,Chile,Female,30 to 34,Liver cancer,0.996399889595563,703051.246864735
+Deaths,Chile,Male,35 to 39,Liver cancer,2.18561770259357,636967.313396475
+Deaths,Chile,Female,35 to 39,Liver cancer,1.88147036706138,648579.523068178
+Deaths,Chile,Male,40 to 44,Liver cancer,3.91363499320604,577889.287360149
+Deaths,Chile,Female,40 to 44,Liver cancer,2.54915411727018,598580.59014909
+Deaths,Chile,Male,45 to 49,Liver cancer,8.11370187341235,590505.794230193
+Deaths,Chile,Female,45 to 49,Liver cancer,6.22021431000902,624047.525234926
+Deaths,Chile,Male,50 to 54,Liver cancer,18.0958151645265,569155.685438781
+Deaths,Chile,Female,50 to 54,Liver cancer,12.38040721496,613554.995746927
+Deaths,Chile,Male,55 to 59,Liver cancer,40.211071937695,532715.173320798
+Deaths,Chile,Female,55 to 59,Liver cancer,23.7405139727424,584846.07022548
+Deaths,Chile,Male,60 to 64,Liver cancer,54.8945297675724,434747.421498363
+Deaths,Chile,Female,60 to 64,Liver cancer,28.8526863134531,489706.718624578
+Deaths,Chile,Male,65 to 69,Liver cancer,67.0117756947863,327756.661684093
+Deaths,Chile,Female,65 to 69,Liver cancer,49.4389453600944,379051.502711552
+Deaths,Chile,Male,70 to 74,Liver cancer,80.2233528449003,252649.601937286
+Deaths,Chile,Female,70 to 74,Liver cancer,53.6775655978126,303751.379552535
+Deaths,Chile,Male,75 to 79,Liver cancer,60.1759212078285,171750.872291174
+Deaths,Chile,Female,75 to 79,Liver cancer,51.1891434778447,226470.38309385
+Deaths,Chile,Male,80 to 84,Liver cancer,40.6346517707872,104150.483703845
+Deaths,Chile,Female,80 to 84,Liver cancer,40.7274610402526,152689.170484331
+Deaths,Chile,Male,85 to 89,Liver cancer,23.2860898739072,57601.3726369416
+Deaths,Chile,Female,85 to 89,Liver cancer,26.3503677859072,95940.7040670701
+Deaths,Chile,Male,90 to 94,Liver cancer,7.37672946705605,21999.6600551365
+Deaths,Chile,Female,90 to 94,Liver cancer,10.2610638320841,38420.6086156547
+Deaths,Chile,Male,95 to 99,Liver cancer,2.04059383198927,6721.02852953177
+Deaths,Chile,Female,95 to 99,Liver cancer,3.18230108405297,9785.66839768234
+Deaths,Chile,Male,20 to 24,Larynx cancer,0.0752602972724339,693981.390967853
+Deaths,Chile,Female,20 to 24,Larynx cancer,0.0686684069858529,671917.624413281
+Deaths,Chile,Male,25 to 29,Larynx cancer,0.0809409769169948,760855.645330287
+Deaths,Chile,Female,25 to 29,Larynx cancer,0.0766393364571432,747462.164073602
+Deaths,Chile,Male,30 to 34,Larynx cancer,0.173398923124113,707006.831461527
+Deaths,Chile,Female,30 to 34,Larynx cancer,0.0713769283052624,703051.246864735
+Deaths,Chile,Male,35 to 39,Larynx cancer,0.35608466490776,636967.313396475
+Deaths,Chile,Female,35 to 39,Larynx cancer,0.126174749259573,648579.523068178
+Deaths,Chile,Male,40 to 44,Larynx cancer,0.950607586367914,577889.287360149
+Deaths,Chile,Female,40 to 44,Larynx cancer,0.329065642409136,598580.59014909
+Deaths,Chile,Male,45 to 49,Larynx cancer,2.84342445227869,590505.794230193
+Deaths,Chile,Female,45 to 49,Larynx cancer,0.466770466804905,624047.525234926
+Deaths,Chile,Male,50 to 54,Larynx cancer,6.99855255860469,569155.685438781
+Deaths,Chile,Female,50 to 54,Larynx cancer,1.07690342026301,613554.995746927
+Deaths,Chile,Male,55 to 59,Larynx cancer,13.8012591914958,532715.173320798
+Deaths,Chile,Female,55 to 59,Larynx cancer,1.87834146860272,584846.07022548
+Deaths,Chile,Male,60 to 64,Larynx cancer,17.9429814115122,434747.421498363
+Deaths,Chile,Female,60 to 64,Larynx cancer,2.62686472868785,489706.718624578
+Deaths,Chile,Male,65 to 69,Larynx cancer,24.3581599873604,327756.661684093
+Deaths,Chile,Female,65 to 69,Larynx cancer,3.29811340735786,379051.502711552
+Deaths,Chile,Male,70 to 74,Larynx cancer,28.2079959808161,252649.601937286
+Deaths,Chile,Female,70 to 74,Larynx cancer,3.63538214072956,303751.379552535
+Deaths,Chile,Male,75 to 79,Larynx cancer,23.412934066784,171750.872291174
+Deaths,Chile,Female,75 to 79,Larynx cancer,4.07485246405139,226470.38309385
+Deaths,Chile,Male,80 to 84,Larynx cancer,18.125478665422,104150.483703845
+Deaths,Chile,Female,80 to 84,Larynx cancer,3.35110861525716,152689.170484331
+Deaths,Chile,Male,85 to 89,Larynx cancer,11.3593165316028,57601.3726369416
+Deaths,Chile,Female,85 to 89,Larynx cancer,2.7131757577779,95940.7040670701
+Deaths,Chile,Male,90 to 94,Larynx cancer,3.580498793481,21999.6600551365
+Deaths,Chile,Female,90 to 94,Larynx cancer,1.49568638370885,38420.6086156547
+Deaths,Chile,Male,95 to 99,Larynx cancer,1.11114513886525,6721.02852953177
+Deaths,Chile,Female,95 to 99,Larynx cancer,0.418641257206707,9785.66839768234
+Deaths,Chile,Male,10 to 14,"Tracheal, bronchus, and lung cancer",0.0677934696972732,622813.363638568
+Deaths,Chile,Female,10 to 14,"Tracheal, bronchus, and lung cancer",0.119061848370419,595787.082300343
+Deaths,Chile,Male,15 to 19,"Tracheal, bronchus, and lung cancer",0.516908455868367,631165.491286203
+Deaths,Chile,Female,15 to 19,"Tracheal, bronchus, and lung cancer",0.418753865338329,604097.035448217
+Deaths,Chile,Male,20 to 24,"Tracheal, bronchus, and lung cancer",1.05386227016629,693981.390967853
+Deaths,Chile,Female,20 to 24,"Tracheal, bronchus, and lung cancer",0.750476469366939,671917.624413281
+Deaths,Chile,Male,25 to 29,"Tracheal, bronchus, and lung cancer",2.08902300814357,760855.645330287
+Deaths,Chile,Female,25 to 29,"Tracheal, bronchus, and lung cancer",1.57594107887297,747462.164073602
+Deaths,Chile,Male,30 to 34,"Tracheal, bronchus, and lung cancer",4.35720697431337,707006.831461527
+Deaths,Chile,Female,30 to 34,"Tracheal, bronchus, and lung cancer",3.36231559160164,703051.246864735
+Deaths,Chile,Male,35 to 39,"Tracheal, bronchus, and lung cancer",8.46795325834186,636967.313396475
+Deaths,Chile,Female,35 to 39,"Tracheal, bronchus, and lung cancer",7.18611707988516,648579.523068178
+Deaths,Chile,Male,40 to 44,"Tracheal, bronchus, and lung cancer",16.1756622586765,577889.287360149
+Deaths,Chile,Female,40 to 44,"Tracheal, bronchus, and lung cancer",15.2452187588336,598580.59014909
+Deaths,Chile,Male,45 to 49,"Tracheal, bronchus, and lung cancer",39.9608721138496,590505.794230193
+Deaths,Chile,Female,45 to 49,"Tracheal, bronchus, and lung cancer",34.3291362737266,624047.525234926
+Deaths,Chile,Male,50 to 54,"Tracheal, bronchus, and lung cancer",92.3016647332086,569155.685438781
+Deaths,Chile,Female,50 to 54,"Tracheal, bronchus, and lung cancer",64.1064706959779,613554.995746927
+Deaths,Chile,Male,55 to 59,"Tracheal, bronchus, and lung cancer",191.241401304683,532715.173320798
+Deaths,Chile,Female,55 to 59,"Tracheal, bronchus, and lung cancer",121.341128442917,584846.07022548
+Deaths,Chile,Male,60 to 64,"Tracheal, bronchus, and lung cancer",310.332347050545,434747.421498363
+Deaths,Chile,Female,60 to 64,"Tracheal, bronchus, and lung cancer",184.044762976375,489706.718624578
+Deaths,Chile,Male,65 to 69,"Tracheal, bronchus, and lung cancer",409.540570050015,327756.661684093
+Deaths,Chile,Female,65 to 69,"Tracheal, bronchus, and lung cancer",235.279490036729,379051.502711552
+Deaths,Chile,Male,70 to 74,"Tracheal, bronchus, and lung cancer",422.297517895711,252649.601937286
+Deaths,Chile,Female,70 to 74,"Tracheal, bronchus, and lung cancer",263.765200871795,303751.379552535
+Deaths,Chile,Male,75 to 79,"Tracheal, bronchus, and lung cancer",345.663713440811,171750.872291174
+Deaths,Chile,Female,75 to 79,"Tracheal, bronchus, and lung cancer",260.658664215712,226470.38309385
+Deaths,Chile,Male,80 to 84,"Tracheal, bronchus, and lung cancer",265.219630601429,104150.483703845
+Deaths,Chile,Female,80 to 84,"Tracheal, bronchus, and lung cancer",226.953955217137,152689.170484331
+Deaths,Chile,Male,85 to 89,"Tracheal, bronchus, and lung cancer",151.877635101957,57601.3726369416
+Deaths,Chile,Female,85 to 89,"Tracheal, bronchus, and lung cancer",167.596081290512,95940.7040670701
+Deaths,Chile,Male,90 to 94,"Tracheal, bronchus, and lung cancer",51.2794017542838,21999.6600551365
+Deaths,Chile,Female,90 to 94,"Tracheal, bronchus, and lung cancer",72.8182112448124,38420.6086156547
+Deaths,Chile,Male,95 to 99,"Tracheal, bronchus, and lung cancer",15.0908345717246,6721.02852953177
+Deaths,Chile,Female,95 to 99,"Tracheal, bronchus, and lung cancer",17.5287517303089,9785.66839768234
+Deaths,Chile,Male,15 to 19,Breast cancer,0.0628705675704518,631165.491286203
+Deaths,Chile,Female,15 to 19,Breast cancer,0.287395789710407,604097.035448217
+Deaths,Chile,Male,20 to 24,Breast cancer,0.0723289990918163,693981.390967853
+Deaths,Chile,Female,20 to 24,Breast cancer,0.669601946170637,671917.624413281
+Deaths,Chile,Male,25 to 29,Breast cancer,0.0809409769169948,760855.645330287
+Deaths,Chile,Female,25 to 29,Breast cancer,4.98469178557547,747462.164073602
+Deaths,Chile,Male,30 to 34,Breast cancer,0.0747935648131162,707006.831461527
+Deaths,Chile,Female,30 to 34,Breast cancer,16.2635363429587,703051.246864735
+Deaths,Chile,Male,35 to 39,Breast cancer,0.0711908140291583,636967.313396475
+Deaths,Chile,Female,35 to 39,Breast cancer,39.4394748543569,648579.523068178
+Deaths,Chile,Male,40 to 44,Breast cancer,0.194567372939786,577889.287360149
+Deaths,Chile,Female,40 to 44,Breast cancer,63.535956428777,598580.59014909
+Deaths,Chile,Male,45 to 49,Breast cancer,0.374212306747405,590505.794230193
+Deaths,Chile,Female,45 to 49,Breast cancer,112.342447524146,624047.525234926
+Deaths,Chile,Male,50 to 54,Breast cancer,0.582518898186919,569155.685438781
+Deaths,Chile,Female,50 to 54,Breast cancer,147.740117774744,613554.995746927
+Deaths,Chile,Male,55 to 59,Breast cancer,0.950363034689069,532715.173320798
+Deaths,Chile,Female,55 to 59,Breast cancer,191.612234007724,584846.07022548
+Deaths,Chile,Male,60 to 64,Breast cancer,1.519840392295,434747.421498363
+Deaths,Chile,Female,60 to 64,Breast cancer,185.45380168307,489706.718624578
+Deaths,Chile,Male,65 to 69,Breast cancer,1.6832453922944,327756.661684093
+Deaths,Chile,Female,65 to 69,Breast cancer,196.644353153959,379051.502711552
+Deaths,Chile,Male,70 to 74,Breast cancer,2.6084255710823,252649.601937286
+Deaths,Chile,Female,70 to 74,Breast cancer,189.451545760035,303751.379552535
+Deaths,Chile,Male,75 to 79,Breast cancer,1.92083308650303,171750.872291174
+Deaths,Chile,Female,75 to 79,Breast cancer,187.034601011673,226470.38309385
+Deaths,Chile,Male,80 to 84,Breast cancer,1.89049992555049,104150.483703845
+Deaths,Chile,Female,80 to 84,Breast cancer,170.526582079896,152689.170484331
+Deaths,Chile,Male,85 to 89,Breast cancer,2.02189002059955,57601.3726369416
+Deaths,Chile,Female,85 to 89,Breast cancer,164.657134913946,95940.7040670701
+Deaths,Chile,Male,90 to 94,Breast cancer,1.12061143717109,21999.6600551365
+Deaths,Chile,Female,90 to 94,Breast cancer,100.729076132997,38420.6086156547
+Deaths,Chile,Male,95 to 99,Breast cancer,0.356079502170963,6721.02852953177
+Deaths,Chile,Female,95 to 99,Breast cancer,44.1969507584534,9785.66839768234
+Deaths,Chile,Female,20 to 24,Uterine cancer,0.0713398066566196,671917.624413281
+Deaths,Chile,Female,25 to 29,Uterine cancer,0.196932894489272,747462.164073602
+Deaths,Chile,Female,30 to 34,Uterine cancer,0.38608782351699,703051.246864735
+Deaths,Chile,Female,35 to 39,Uterine cancer,0.719585546935867,648579.523068178
+Deaths,Chile,Female,40 to 44,Uterine cancer,1.63815522678379,598580.59014909
+Deaths,Chile,Female,45 to 49,Uterine cancer,4.38840712379572,624047.525234926
+Deaths,Chile,Female,50 to 54,Uterine cancer,9.57937142854417,613554.995746927
+Deaths,Chile,Female,55 to 59,Uterine cancer,19.8447836233563,584846.07022548
+Deaths,Chile,Female,60 to 64,Uterine cancer,35.4752324451704,489706.718624578
+Deaths,Chile,Female,65 to 69,Uterine cancer,46.0970991892263,379051.502711552
+Deaths,Chile,Female,70 to 74,Uterine cancer,46.236677248075,303751.379552535
+Deaths,Chile,Female,75 to 79,Uterine cancer,36.17911730623,226470.38309385
+Deaths,Chile,Female,80 to 84,Uterine cancer,29.1491133819408,152689.170484331
+Deaths,Chile,Female,85 to 89,Uterine cancer,21.3344542418199,95940.7040670701
+Deaths,Chile,Female,90 to 94,Uterine cancer,11.9133675142244,38420.6086156547
+Deaths,Chile,Female,95 to 99,Uterine cancer,3.61992722817663,9785.66839768234
+Deaths,Chile,Male,5 to 9,Colon and rectum cancer,0.10836466170475,639392.78288771
+Deaths,Chile,Female,5 to 9,Colon and rectum cancer,0.104795011792975,612179.930150842
+Deaths,Chile,Male,10 to 14,Colon and rectum cancer,0.128815155352259,622813.363638568
+Deaths,Chile,Female,10 to 14,Colon and rectum cancer,0.21608402830647,595787.082300343
+Deaths,Chile,Male,15 to 19,Colon and rectum cancer,0.614670238604215,631165.491286203
+Deaths,Chile,Female,15 to 19,Colon and rectum cancer,0.656277149735839,604097.035448217
+Deaths,Chile,Male,20 to 24,Colon and rectum cancer,1.83726342782332,693981.390967853
+Deaths,Chile,Female,20 to 24,Colon and rectum cancer,1.4923303678717,671917.624413281
+Deaths,Chile,Male,25 to 29,Colon and rectum cancer,4.97784141141967,760855.645330287
+Deaths,Chile,Female,25 to 29,Colon and rectum cancer,3.64134138275068,747462.164073602
+Deaths,Chile,Male,30 to 34,Colon and rectum cancer,9.27785297797338,707006.831461527
+Deaths,Chile,Female,30 to 34,Colon and rectum cancer,7.68908768535391,703051.246864735
+Deaths,Chile,Male,35 to 39,Colon and rectum cancer,14.5497207912441,636967.313396475
+Deaths,Chile,Female,35 to 39,Colon and rectum cancer,14.2249368957061,648579.523068178
+Deaths,Chile,Male,40 to 44,Colon and rectum cancer,21.7445458315824,577889.287360149
+Deaths,Chile,Female,40 to 44,Colon and rectum cancer,18.1839436802393,598580.59014909
+Deaths,Chile,Male,45 to 49,Colon and rectum cancer,44.0206201223988,590505.794230193
+Deaths,Chile,Female,45 to 49,Colon and rectum cancer,41.3683289189167,624047.525234926
+Deaths,Chile,Male,50 to 54,Colon and rectum cancer,70.4788178791849,569155.685438781
+Deaths,Chile,Female,50 to 54,Colon and rectum cancer,68.9523720980806,613554.995746927
+Deaths,Chile,Male,55 to 59,Colon and rectum cancer,124.362802805331,532715.173320798
+Deaths,Chile,Female,55 to 59,Colon and rectum cancer,105.652232301771,584846.07022548
+Deaths,Chile,Male,60 to 64,Colon and rectum cancer,169.175728161233,434747.421498363
+Deaths,Chile,Female,60 to 64,Colon and rectum cancer,140.641251336845,489706.718624578
+Deaths,Chile,Male,65 to 69,Colon and rectum cancer,218.371044836132,327756.661684093
+Deaths,Chile,Female,65 to 69,Colon and rectum cancer,182.123724805534,379051.502711552
+Deaths,Chile,Male,70 to 74,Colon and rectum cancer,262.182732404384,252649.601937286
+Deaths,Chile,Female,70 to 74,Colon and rectum cancer,214.798004234849,303751.379552535
+Deaths,Chile,Male,75 to 79,Colon and rectum cancer,254.031492852687,171750.872291174
+Deaths,Chile,Female,75 to 79,Colon and rectum cancer,263.956343047947,226470.38309385
+Deaths,Chile,Male,80 to 84,Colon and rectum cancer,221.213517317919,104150.483703845
+Deaths,Chile,Female,80 to 84,Colon and rectum cancer,289.494953950369,152689.170484331
+Deaths,Chile,Male,85 to 89,Colon and rectum cancer,165.25305577108,57601.3726369416
+Deaths,Chile,Female,85 to 89,Colon and rectum cancer,284.133445201959,95940.7040670701
+Deaths,Chile,Male,90 to 94,Colon and rectum cancer,71.0419411795799,21999.6600551365
+Deaths,Chile,Female,90 to 94,Colon and rectum cancer,159.90160940701,38420.6086156547
+Deaths,Chile,Male,95 to 99,Colon and rectum cancer,23.7696409727793,6721.02852953177
+Deaths,Chile,Female,95 to 99,Colon and rectum cancer,49.261258482554,9785.66839768234
+Deaths,Chile,Male,5 to 9,Lip and oral cavity cancer,0.0634695618391369,639392.78288771
+Deaths,Chile,Female,5 to 9,Lip and oral cavity cancer,0.0611548017770808,612179.930150842
+Deaths,Chile,Male,10 to 14,Lip and oral cavity cancer,0.0638175353977754,622813.363638568
+Deaths,Chile,Female,10 to 14,Lip and oral cavity cancer,0.0596981976868706,595787.082300343
+Deaths,Chile,Male,15 to 19,Lip and oral cavity cancer,0.143894950225057,631165.491286203
+Deaths,Chile,Female,15 to 19,Lip and oral cavity cancer,0.0609038531654434,604097.035448217
+Deaths,Chile,Male,20 to 24,Lip and oral cavity cancer,0.156169323243292,693981.390967853
+Deaths,Chile,Female,20 to 24,Lip and oral cavity cancer,0.110837810803841,671917.624413281
+Deaths,Chile,Male,25 to 29,Lip and oral cavity cancer,0.393973532309815,760855.645330287
+Deaths,Chile,Female,25 to 29,Lip and oral cavity cancer,0.396348890292367,747462.164073602
+Deaths,Chile,Male,30 to 34,Lip and oral cavity cancer,0.774059430550675,707006.831461527
+Deaths,Chile,Female,30 to 34,Lip and oral cavity cancer,0.528552673402852,703051.246864735
+Deaths,Chile,Male,35 to 39,Lip and oral cavity cancer,1.06734447401639,636967.313396475
+Deaths,Chile,Female,35 to 39,Lip and oral cavity cancer,0.785880970204059,648579.523068178
+Deaths,Chile,Male,40 to 44,Lip and oral cavity cancer,1.92072766689901,577889.287360149
+Deaths,Chile,Female,40 to 44,Lip and oral cavity cancer,1.00562442090023,598580.59014909
+Deaths,Chile,Male,45 to 49,Lip and oral cavity cancer,4.6168482870303,590505.794230193
+Deaths,Chile,Female,45 to 49,Lip and oral cavity cancer,2.14186866880271,624047.525234926
+Deaths,Chile,Male,50 to 54,Lip and oral cavity cancer,9.60883649960994,569155.685438781
+Deaths,Chile,Female,50 to 54,Lip and oral cavity cancer,3.25547195871063,613554.995746927
+Deaths,Chile,Male,55 to 59,Lip and oral cavity cancer,13.6334112505118,532715.173320798
+Deaths,Chile,Female,55 to 59,Lip and oral cavity cancer,5.29098660074141,584846.07022548
+Deaths,Chile,Male,60 to 64,Lip and oral cavity cancer,19.8204309504945,434747.421498363
+Deaths,Chile,Female,60 to 64,Lip and oral cavity cancer,5.78476149277441,489706.718624578
+Deaths,Chile,Male,65 to 69,Lip and oral cavity cancer,19.7249347144738,327756.661684093
+Deaths,Chile,Female,65 to 69,Lip and oral cavity cancer,6.8611626754762,379051.502711552
+Deaths,Chile,Male,70 to 74,Lip and oral cavity cancer,18.3876255171583,252649.601937286
+Deaths,Chile,Female,70 to 74,Lip and oral cavity cancer,7.98941518554334,303751.379552535
+Deaths,Chile,Male,75 to 79,Lip and oral cavity cancer,15.0380051495854,171750.872291174
+Deaths,Chile,Female,75 to 79,Lip and oral cavity cancer,10.5780865876501,226470.38309385
+Deaths,Chile,Male,80 to 84,Lip and oral cavity cancer,11.5001453651615,104150.483703845
+Deaths,Chile,Female,80 to 84,Lip and oral cavity cancer,11.5672568071223,152689.170484331
+Deaths,Chile,Male,85 to 89,Lip and oral cavity cancer,8.38780328951626,57601.3726369416
+Deaths,Chile,Female,85 to 89,Lip and oral cavity cancer,11.3771782558062,95940.7040670701
+Deaths,Chile,Male,90 to 94,Lip and oral cavity cancer,4.34014939524094,21999.6600551365
+Deaths,Chile,Male,95 to 99,Ischemic heart disease,232.76287705225,6721.02852953177
+Deaths,Chile,Female,95 to 99,Ischemic heart disease,463.616665749142,9785.66839768234
+Deaths,Chile,Male,0 to 4,Stroke,0.687590003839177,590407.136649282
+Deaths,Chile,Female,0 to 4,Stroke,0.529788577937074,568206.116349197
+Deaths,Chile,Male,5 to 9,Stroke,0.539252980624613,639392.78288771
+Deaths,Chile,Female,5 to 9,Stroke,0.535186732169011,612179.930150842
+Deaths,Chile,Male,10 to 14,Stroke,1.4075200211698,622813.363638568
+Deaths,Chile,Female,10 to 14,Stroke,0.983943246895467,595787.082300343
+Deaths,Chile,Male,15 to 19,Stroke,4.84335402881833,631165.491286203
+Deaths,Chile,Female,15 to 19,Stroke,3.47274125603569,604097.035448217
+Deaths,Chile,Male,20 to 24,Stroke,7.61971676721722,693981.390967853
+Deaths,Chile,Female,20 to 24,Stroke,5.19653114036187,671917.624413281
+Deaths,Chile,Male,25 to 29,Stroke,11.3852209326811,760855.645330287
+Deaths,Chile,Female,25 to 29,Stroke,8.12361450137497,747462.164073602
+Deaths,Chile,Male,30 to 34,Stroke,17.2677454815945,707006.831461527
+Deaths,Chile,Female,30 to 34,Stroke,12.0909968081396,703051.246864735
+Deaths,Chile,Male,35 to 39,Stroke,31.3107563139125,636967.313396475
+Deaths,Chile,Female,35 to 39,Stroke,25.4532609871228,648579.523068178
+Deaths,Chile,Male,40 to 44,Stroke,50.1831612891071,577889.287360149
+Deaths,Chile,Female,40 to 44,Stroke,44.3378848036036,598580.59014909
+Deaths,Chile,Male,45 to 49,Stroke,87.1788423267024,590505.794230193
+Deaths,Chile,Female,45 to 49,Stroke,71.9505284353367,624047.525234926
+Deaths,Chile,Male,50 to 54,Stroke,157.430234726976,569155.685438781
+Deaths,Chile,Female,50 to 54,Stroke,109.522881170167,613554.995746927
+Deaths,Chile,Male,55 to 59,Stroke,243.955087524328,532715.173320798
+Deaths,Chile,Female,55 to 59,Stroke,173.71324798638,584846.07022548
+Deaths,Chile,Male,60 to 64,Stroke,362.881718196432,434747.421498363
+Deaths,Chile,Female,60 to 64,Stroke,235.121784885873,489706.718624578
+Deaths,Chile,Male,65 to 69,Stroke,486.586461297454,327756.661684093
+Deaths,Chile,Female,65 to 69,Stroke,330.162336377996,379051.502711552
+Deaths,Chile,Male,70 to 74,Stroke,659.861799874581,252649.601937286
+Deaths,Chile,Female,70 to 74,Stroke,478.456985649521,303751.379552535
+Deaths,Chile,Male,75 to 79,Stroke,808.23401083933,171750.872291174
+Deaths,Chile,Female,75 to 79,Stroke,736.238494714615,226470.38309385
+Deaths,Chile,Male,80 to 84,Stroke,831.78913034889,104150.483703845
+Deaths,Chile,Female,80 to 84,Stroke,972.202196099496,152689.170484331
+Deaths,Chile,Male,85 to 89,Stroke,730.477427437693,57601.3726369416
+Deaths,Chile,Female,85 to 89,Stroke,1147.3893078915,95940.7040670701
+Deaths,Chile,Male,90 to 94,Stroke,355.626729676912,21999.6600551365
+Deaths,Chile,Female,90 to 94,Stroke,832.373362538127,38420.6086156547
+Deaths,Chile,Male,95 to 99,Stroke,162.994611818807,6721.02852953177
+Deaths,Chile,Female,95 to 99,Stroke,345.501657222188,9785.66839768234
+Deaths,Chile,Male,0 to 4,Neoplasms,25.7003845683345,590407.136649282
+Deaths,Chile,Female,0 to 4,Neoplasms,19.306317581474,568206.116349197
+Deaths,Chile,Male,5 to 9,Neoplasms,27.8758876072276,639392.78288771
+Deaths,Chile,Female,5 to 9,Neoplasms,21.4805298066555,612179.930150842
+Deaths,Chile,Male,10 to 14,Neoplasms,28.4653964140836,622813.363638568
+Deaths,Chile,Female,10 to 14,Neoplasms,22.9359430424845,595787.082300343
+Deaths,Chile,Male,15 to 19,Neoplasms,42.7125177377502,631165.491286203
+Deaths,Chile,Female,15 to 19,Neoplasms,26.780962687743,604097.035448217
+Deaths,Chile,Male,20 to 24,Neoplasms,59.199056935553,693981.390967853
+Deaths,Chile,Female,20 to 24,Neoplasms,35.7795692542336,671917.624413281
+Deaths,Chile,Male,25 to 29,Neoplasms,83.9026736755028,760855.645330287
+Deaths,Chile,Female,25 to 29,Neoplasms,61.8683672750829,747462.164073602
+Deaths,Chile,Male,30 to 34,Neoplasms,98.1983947933602,707006.831461527
+Deaths,Chile,Female,30 to 34,Neoplasms,100.626760378374,703051.246864735
+Deaths,Chile,Male,35 to 39,Neoplasms,129.536868039174,636967.313396475
+Deaths,Chile,Female,35 to 39,Neoplasms,178.469103504645,648579.523068178
+Deaths,Chile,Male,40 to 44,Neoplasms,191.191148520959,577889.287360149
+Deaths,Chile,Female,40 to 44,Neoplasms,266.02398268105,598580.59014909
+Deaths,Chile,Male,45 to 49,Neoplasms,358.399827455098,590505.794230193
+Deaths,Chile,Female,45 to 49,Neoplasms,493.730664614656,624047.525234926
+Deaths,Chile,Male,50 to 54,Neoplasms,641.961317241091,569155.685438781
+Deaths,Chile,Female,50 to 54,Neoplasms,762.289677369894,613554.995746927
+Deaths,Chile,Male,55 to 59,Neoplasms,1146.16140972901,532715.173320798
+Deaths,Chile,Female,55 to 59,Neoplasms,1158.88290230069,584846.07022548
+Deaths,Chile,Male,60 to 64,Neoplasms,1678.77922482232,434747.421498363
+Deaths,Chile,Female,60 to 64,Neoplasms,1453.70891939318,489706.718624578
+Deaths,Chile,Male,65 to 69,Neoplasms,2131.71984714712,327756.661684093
+Deaths,Chile,Female,65 to 69,Neoplasms,1767.65788141075,379051.502711552
+Deaths,Chile,Male,70 to 74,Neoplasms,2499.24449450761,252649.601937286
+Deaths,Chile,Female,70 to 74,Neoplasms,1932.8631830313,303751.379552535
+Deaths,Chile,Male,75 to 79,Neoplasms,2521.0825386115,171750.872291174
+Deaths,Chile,Female,75 to 79,Neoplasms,2086.86355961285,226470.38309385
+Deaths,Chile,Male,80 to 84,Neoplasms,2194.96882610869,104150.483703845
+Deaths,Chile,Female,80 to 84,Neoplasms,1957.06221352637,152689.170484331
+Deaths,Chile,Male,85 to 89,Neoplasms,1631.04680552149,57601.3726369416
+Deaths,Chile,Female,85 to 89,Neoplasms,1712.92633857219,95940.7040670701
+Deaths,Chile,Male,90 to 94,Neoplasms,691.325691376005,21999.6600551365
+Deaths,Chile,Female,90 to 94,Neoplasms,886.973348782202,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,0 to 4,Neoplasms,2224.76518978249,590407.136649282
+YLLs (Years of Life Lost),Chile,Female,0 to 4,Neoplasms,1671.61700800583,568206.116349197
+YLLs (Years of Life Lost),Chile,Male,5 to 9,Neoplasms,2276.28414458967,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,Neoplasms,1756.19425407804,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,Neoplasms,2171.83838743702,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,Neoplasms,1751.78241403248,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Neoplasms,3046.22573758865,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Neoplasms,1914.51421846385,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Neoplasms,3937.29587034462,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Neoplasms,2381.80781659296,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Neoplasms,5170.35614645356,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Neoplasms,3811.30464603844,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Neoplasms,5564.42396286833,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Neoplasms,5692.07829678458,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Neoplasms,6696.55987386737,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Neoplasms,9213.83802630662,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Neoplasms,8936.00715114882,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Neoplasms,12423.1950205448,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Neoplasms,15013.3944832663,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Neoplasms,20672.9361306409,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Neoplasms,23832.0268490455,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Neoplasms,28284.6781017417,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Neoplasms,37175.7377800292,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Neoplasms,37577.555175306,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Neoplasms,46689.7047117663,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Neoplasms,40403.5282397502,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Neoplasms,49800.2846252194,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Neoplasms,41264.1728553594,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Neoplasms,47724.135685294,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Neoplasms,36844.1364616559,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Neoplasms,38052.7759446316,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Neoplasms,31385.8370801092,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Neoplasms,25422.0577605045,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Neoplasms,22552.1942570124,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Neoplasms,14406.0945945659,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Neoplasms,15039.8846846159,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Neoplasms,4727.18596251807,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Neoplasms,6043.9441735348,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,0 to 4,All causes,75537.6918714582,590407.136649282
+YLLs (Years of Life Lost),Chile,Female,0 to 4,All causes,62098.2046770142,568206.116349197
+YLLs (Years of Life Lost),Chile,Male,5 to 9,All causes,7523.89027140069,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,All causes,6141.00744376311,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,All causes,8373.07740308413,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,All causes,6489.1653906724,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,All causes,26017.5892302148,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,All causes,10516.5153461003,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,All causes,43218.7332964165,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,All causes,12716.4407328588,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,All causes,53044.6753410267,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,All causes,15609.3864181817,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,All causes,51645.4710288947,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,All causes,17237.7728717285,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,All causes,51465.9955409371,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,All causes,22587.4691162154,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,All causes,56692.5258579287,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,All causes,27861.5422944876,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,All causes,76208.9504180485,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,All causes,42251.2960951757,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,All causes,97836.7124251994,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,All causes,56974.3451225737,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,All causes,123725.238122704,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,All causes,76694.4270064555,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,All causes,137317.656124274,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,All causes,87911.0486946106,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,All causes,139701.006830707,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,All causes,94944.9542839765,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,All causes,134020.762273661,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,All causes,96653.4830557798,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,All causes,115616.855442073,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,All causes,98428.0453938117,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,All causes,87328.8592968364,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,All causes,91558.0976362039,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,All causes,59116.4859469999,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,All causes,81138.7420651064,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,All causes,24927.495215442,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,All causes,46194.3642195057,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,All causes,8823.38816230699,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,All causes,15752.5656354286,9785.66839768234
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Lip and oral cavity cancer,57.2492209012401,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Lip and oral cavity cancer,10.5154652417807,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Lip and oral cavity cancer,14.4287546117823,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,5 to 9,Nasopharynx cancer,5.34468199986851,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,Nasopharynx cancer,5.09805161351806,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,Nasopharynx cancer,5.19506731817254,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,Nasopharynx cancer,4.99847518789259,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Nasopharynx cancer,13.235808037883,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Nasopharynx cancer,4.36041319763624,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Nasopharynx cancer,16.073254269158,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Nasopharynx cancer,4.57652870742563,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Nasopharynx cancer,7.69174713191325,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Nasopharynx cancer,7.07514310324673,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Nasopharynx cancer,11.7138218833004,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Nasopharynx cancer,4.44213863089691,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Nasopharynx cancer,16.1228317400668,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Nasopharynx cancer,6.81012752969101,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Nasopharynx cancer,28.6587264453936,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Nasopharynx cancer,7.63316938767889,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Nasopharynx cancer,46.1706050736286,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Nasopharynx cancer,16.7401409977843,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Nasopharynx cancer,69.1470134337124,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Nasopharynx cancer,21.61615849705,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Nasopharynx cancer,79.9927481152166,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Nasopharynx cancer,25.4962545007074,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Nasopharynx cancer,76.5733235905345,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Nasopharynx cancer,16.8280663882604,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Nasopharynx cancer,61.1682183172049,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Nasopharynx cancer,19.9582077671605,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Nasopharynx cancer,37.29332031717,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Nasopharynx cancer,15.3756352454259,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Nasopharynx cancer,22.2201277427067,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Nasopharynx cancer,11.8254707703479,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Nasopharynx cancer,14.3071132837872,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Nasopharynx cancer,9.05479937407715,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Nasopharynx cancer,9.23605527649979,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Nasopharynx cancer,6.27568820083718,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Nasopharynx cancer,2.14800606239483,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Nasopharynx cancer,3.5243599355957,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Nasopharynx cancer,0.577213067575267,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Nasopharynx cancer,1.15366312935065,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Other pharynx cancer,4.89095215179104,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Other pharynx cancer,4.59339667969509,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Other pharynx cancer,5.73312545142929,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Other pharynx cancer,4.91690824924199,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Other pharynx cancer,6.77235690871601,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Other pharynx cancer,6.59513350699963,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Other pharynx cancer,13.5195515519015,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Other pharynx cancer,11.0005616275003,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Other pharynx cancer,34.2409303393969,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Other pharynx cancer,18.4152355361898,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Other pharynx cancer,92.0219942800605,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Other pharynx cancer,28.6710961248751,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Other pharynx cancer,187.543562793335,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Other pharynx cancer,43.3057407322861,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Other pharynx cancer,280.943620997169,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Other pharynx cancer,61.679486724873,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Other pharynx cancer,319.993309498091,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Other pharynx cancer,57.3188106065275,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Other pharynx cancer,256.645336872737,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Other pharynx cancer,58.3550494261364,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Other pharynx cancer,202.0991406542,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Other pharynx cancer,45.7670222593731,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Other pharynx cancer,125.2936748383,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Other pharynx cancer,50.1001703884006,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Other pharynx cancer,56.4630074662865,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Other pharynx cancer,31.6937358479299,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Other pharynx cancer,31.70355921632,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Other pharynx cancer,21.2625282485254,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Other pharynx cancer,8.07805938139769,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Other pharynx cancer,10.8580459876102,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Other pharynx cancer,1.8483238842742,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Other pharynx cancer,3.18681444157556,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Multiple myeloma,7.95285196861566,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Multiple myeloma,6.1486850691747,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Multiple myeloma,17.402782078237,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Multiple myeloma,9.38043834555824,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Multiple myeloma,31.6117945543514,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Multiple myeloma,21.7931224514857,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Multiple myeloma,68.5012755833524,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Multiple myeloma,46.5826663800779,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Multiple myeloma,141.309214142616,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Multiple myeloma,90.792178541321,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Multiple myeloma,348.170407151468,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Multiple myeloma,217.914065677308,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Multiple myeloma,544.827152905984,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Multiple myeloma,454.377256797771,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Multiple myeloma,1046.57791422012,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Multiple myeloma,801.181484186728,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Multiple myeloma,1244.16150320446,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Multiple myeloma,987.902332046427,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Multiple myeloma,1195.92422780331,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Multiple myeloma,1090.11570694097,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Multiple myeloma,1065.23556395382,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Multiple myeloma,965.436939834936,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Multiple myeloma,723.576332586236,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Multiple myeloma,749.681328598686,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Multiple myeloma,459.290785809595,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Multiple myeloma,478.470191877672,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Multiple myeloma,195.230474423502,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Multiple myeloma,268.536393510733,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Multiple myeloma,44.62692508649,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Multiple myeloma,78.1983787520858,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Multiple myeloma,10.0232687513556,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Multiple myeloma,14.4990368817071,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,0 to 4,Cardiovascular diseases,377.260262473544,590407.136649282
+YLLs (Years of Life Lost),Chile,Female,0 to 4,Cardiovascular diseases,344.927050756601,568206.116349197
+YLLs (Years of Life Lost),Chile,Male,5 to 9,Cardiovascular diseases,123.117616868778,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,Cardiovascular diseases,144.836929782362,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,Cardiovascular diseases,262.376044005698,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,Cardiovascular diseases,200.285636509696,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Cardiovascular diseases,1010.91953073986,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Cardiovascular diseases,547.260411527083,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Cardiovascular diseases,1570.15026246244,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Cardiovascular diseases,802.980368645207,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Cardiovascular diseases,2596.66012795975,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Cardiovascular diseases,1110.41176900629,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Cardiovascular diseases,3731.61455209503,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Cardiovascular diseases,1537.31199821544,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Cardiovascular diseases,6083.95235635206,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Cardiovascular diseases,2546.97951968226,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Cardiovascular diseases,9068.22416947288,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Cardiovascular diseases,4055.68002676864,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Cardiovascular diseases,14373.2769314217,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Cardiovascular diseases,6660.99401370867,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Cardiovascular diseases,22492.4543673661,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Cardiovascular diseases,9761.20841841291,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Cardiovascular diseases,30482.5791571093,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Cardiovascular diseases,13969.1761014561,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Cardiovascular diseases,35231.9403198921,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Cardiovascular diseases,17541.7632872397,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Cardiovascular diseases,37294.7261274905,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Cardiovascular diseases,20805.534638550602,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Cardiovascular diseases,37328.833553256,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Cardiovascular diseases,24253.0233267705,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Cardiovascular diseases,33056.9349453779,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Cardiovascular diseases,27732.08413258,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Cardiovascular diseases,25588.0253966182,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Cardiovascular diseases,28499.1083752591,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Cardiovascular diseases,17631.5030176242,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Cardiovascular diseases,27226.5041187456,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Cardiovascular diseases,7608.93883923148,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Cardiovascular diseases,16799.7099346983,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Cardiovascular diseases,2739.84071582453,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Cardiovascular diseases,5981.75799103041,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Ischemic heart disease,135.605101295833,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Ischemic heart disease,24.6299398136246,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Ischemic heart disease,356.585646182885,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Ischemic heart disease,62.2395512407548,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Ischemic heart disease,801.146069310625,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Ischemic heart disease,89.3201900232996,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Ischemic heart disease,1424.06672968441,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Ischemic heart disease,190.928793005614,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Ischemic heart disease,2685.04660520539,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Ischemic heart disease,391.170599151298,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Ischemic heart disease,4483.6249371158,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Ischemic heart disease,870.831432718565,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Ischemic heart disease,7476.20313156306,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Ischemic heart disease,1969.60384362707,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Ischemic heart disease,12227.9543864523,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Ischemic heart disease,3349.24262361752,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Ischemic heart disease,16466.4002312311,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Ischemic heart disease,4991.94207593697,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Ischemic heart disease,18109.7560832167,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Ischemic heart disease,6693.2646304638,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Ischemic heart disease,18428.1954311822,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Ischemic heart disease,7998.67877652714,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Ischemic heart disease,17206.5743931395,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Ischemic heart disease,8952.08831390925,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Ischemic heart disease,13738.4421481304,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Ischemic heart disease,9636.56195972296,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Ischemic heart disease,10039.2477449988,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Ischemic heart disease,9380.95725788727,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Ischemic heart disease,6812.57605095034,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Ischemic heart disease,9213.97249311232,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Ischemic heart disease,3047.09174758443,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Ischemic heart disease,5896.36072674034,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Ischemic heart disease,1177.47049478616,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Ischemic heart disease,2409.76689626341,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,0 to 4,Stroke,60.150093542747,590407.136649282
+YLLs (Years of Life Lost),Chile,Female,0 to 4,Stroke,46.3040118109382,568206.116349197
+YLLs (Years of Life Lost),Chile,Male,5 to 9,Stroke,44.0342215112199,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,Stroke,43.7555252293082,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,Stroke,107.390249150027,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,Stroke,75.1508003453252,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Stroke,345.424490998812,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Stroke,248.258906494396,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Stroke,506.783062328521,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Stroke,345.927543211497,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Stroke,701.594412303057,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Stroke,500.442650345894,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Stroke,978.47889412743,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Stroke,683.942325672785,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Stroke,1618.64616248694,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Stroke,1314.07744741966,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Stroke,2345.49084314725,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Stroke,2070.5583916245,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Stroke,3651.92795917078,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Stroke,3012.63175555538,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Stroke,5844.40445257513,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Stroke,4063.83495754763,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Stroke,7912.6816580335,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Stroke,5632.76854627033,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Stroke,10092.3575997213,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Stroke,6534.83620323548,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Stroke,11367.4150474422,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Stroke,7707.30346743221,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Stroke,12600.3414791802,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Stroke,9120.32192710972,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Stroke,12199.3418518692,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Stroke,11072.818508319,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Stroke,9633.75473253405,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Stroke,11203.165965799,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Stroke,6451.88530656418,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Stroke,10074.3403206898,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Stroke,2431.7245914568002,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Stroke,5671.89323289714,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Stroke,824.535891016191,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Stroke,1795.83375164662,9785.66839768234
+Deaths,Chile,Male,15 to 19,Diabetes mellitus type 2,0.160278612332939,631165.491286203
+Deaths,Chile,Female,15 to 19,Diabetes mellitus type 2,0.289557310690187,604097.035448217
+Deaths,Chile,Male,20 to 24,Diabetes mellitus type 2,0.232402515230563,693981.390967853
+Deaths,Chile,Female,20 to 24,Diabetes mellitus type 2,0.660355726743635,671917.624413281
+Deaths,Chile,Male,25 to 29,Diabetes mellitus type 2,0.604480441446303,760855.645330287
+Deaths,Chile,Female,25 to 29,Diabetes mellitus type 2,1.01606804876316,747462.164073602
+Deaths,Chile,Male,30 to 34,Diabetes mellitus type 2,2.38029078972139,707006.831461527
+Deaths,Chile,Female,30 to 34,Diabetes mellitus type 2,1.82839769396446,703051.246864735
+Deaths,Chile,Male,35 to 39,Diabetes mellitus type 2,4.30274795372553,636967.313396475
+Deaths,Chile,Female,35 to 39,Diabetes mellitus type 2,3.35906522985884,648579.523068178
+Deaths,Chile,Male,40 to 44,Diabetes mellitus type 2,7.92372580563389,577889.287360149
+Deaths,Chile,Female,40 to 44,Diabetes mellitus type 2,6.92767992697484,598580.59014909
+Deaths,Chile,Male,45 to 49,Diabetes mellitus type 2,22.5461102128057,590505.794230193
+Deaths,Chile,Female,45 to 49,Diabetes mellitus type 2,19.6819601420979,624047.525234926
+Deaths,Chile,Male,50 to 54,Diabetes mellitus type 2,51.580980834856,569155.685438781
+Deaths,Chile,Female,50 to 54,Diabetes mellitus type 2,38.3892345033442,613554.995746927
+Deaths,Chile,Male,55 to 59,Diabetes mellitus type 2,91.3491639250897,532715.173320798
+Deaths,Chile,Female,55 to 59,Diabetes mellitus type 2,74.8121869033808,584846.07022548
+Deaths,Chile,Male,60 to 64,Diabetes mellitus type 2,152.023727253476,434747.421498363
+Deaths,Chile,Female,60 to 64,Diabetes mellitus type 2,120.375275102687,489706.718624578
+Deaths,Chile,Male,65 to 69,Diabetes mellitus type 2,220.843090847556,327756.661684093
+Deaths,Chile,Female,65 to 69,Diabetes mellitus type 2,165.682734881353,379051.502711552
+Deaths,Chile,Male,70 to 74,Diabetes mellitus type 2,265.311409967672,252649.601937286
+Deaths,Chile,Female,70 to 74,Diabetes mellitus type 2,221.110744866731,303751.379552535
+Deaths,Chile,Male,75 to 79,Diabetes mellitus type 2,307.071314572043,171750.872291174
+Deaths,Chile,Female,75 to 79,Diabetes mellitus type 2,294.439256122648,226470.38309385
+Deaths,Chile,Male,80 to 84,Diabetes mellitus type 2,276.118071515636,104150.483703845
+Deaths,Chile,Female,80 to 84,Diabetes mellitus type 2,329.445104485043,152689.170484331
+Deaths,Chile,Male,85 to 89,Diabetes mellitus type 2,218.059414533258,57601.3726369416
+Deaths,Chile,Female,85 to 89,Diabetes mellitus type 2,360.351570883406,95940.7040670701
+Deaths,Chile,Male,90 to 94,Diabetes mellitus type 2,109.201428125874,21999.6600551365
+Deaths,Chile,Female,90 to 94,Diabetes mellitus type 2,232.89109147158,38420.6086156547
+Deaths,Chile,Male,95 to 99,Diabetes mellitus type 2,38.9662100770287,6721.02852953177
+Deaths,Chile,Female,95 to 99,Diabetes mellitus type 2,84.6502132339284,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,0 to 4,Chronic obstructive pulmonary disease,88.3100174849564,590407.136649282
+YLLs (Years of Life Lost),Chile,Female,0 to 4,Chronic obstructive pulmonary disease,99.6009096474769,568206.116349197
+YLLs (Years of Life Lost),Chile,Male,5 to 9,Chronic obstructive pulmonary disease,29.1053636412468,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,Chronic obstructive pulmonary disease,46.4544921491408,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,Chronic obstructive pulmonary disease,24.9412174690765,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,Chronic obstructive pulmonary disease,28.7638796540337,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Chronic obstructive pulmonary disease,74.4449860014306,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Chronic obstructive pulmonary disease,49.3277255528285,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Chronic obstructive pulmonary disease,44.8912661375884,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Chronic obstructive pulmonary disease,51.3295591012907,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Chronic obstructive pulmonary disease,91.3741036999811,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Chronic obstructive pulmonary disease,53.4530965705477,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Chronic obstructive pulmonary disease,90.3789002193521,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Chronic obstructive pulmonary disease,69.4520839443878,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Chronic obstructive pulmonary disease,120.489424264255,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Chronic obstructive pulmonary disease,99.0790002278405,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Chronic obstructive pulmonary disease,210.785283111008,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Chronic obstructive pulmonary disease,155.279562882329,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Chronic obstructive pulmonary disease,397.08846162079,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Chronic obstructive pulmonary disease,296.0456126446,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Chronic obstructive pulmonary disease,943.571119635015,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Chronic obstructive pulmonary disease,627.860661248201,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Chronic obstructive pulmonary disease,1776.19789861319,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Chronic obstructive pulmonary disease,1217.20741030752,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Chronic obstructive pulmonary disease,2861.86178152956,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Chronic obstructive pulmonary disease,2010.32638639488,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Chronic obstructive pulmonary disease,4189.19069872832,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Chronic obstructive pulmonary disease,2767.58437955294,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Chronic obstructive pulmonary disease,5086.88038381346,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Chronic obstructive pulmonary disease,3426.38701266838,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Chronic obstructive pulmonary disease,5667.91963572583,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Chronic obstructive pulmonary disease,3899.84057234917,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Chronic obstructive pulmonary disease,5094.35075427051,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Chronic obstructive pulmonary disease,4282.5036926642,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Chronic obstructive pulmonary disease,3960.63025314681,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Chronic obstructive pulmonary disease,4127.11679167902,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Chronic obstructive pulmonary disease,1844.98406453348,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Chronic obstructive pulmonary disease,2506.07266463985,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Chronic obstructive pulmonary disease,735.796439452959,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Chronic obstructive pulmonary disease,870.429559746515,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,0 to 4,Asthma,8.95473888706026,590407.136649282
+YLLs (Years of Life Lost),Chile,Female,0 to 4,Asthma,12.2976585009483,568206.116349197
+YLLs (Years of Life Lost),Chile,Male,5 to 9,Asthma,7.22248763134531,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,Asthma,12.3083271061896,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,Asthma,15.6543575054073,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,Asthma,30.4150159552308,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Asthma,18.0366094955463,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Asthma,37.9216108891341,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Asthma,28.6278916286868,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Asthma,43.920851843095,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Asthma,46.1658556268223,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Asthma,43.5016833520294,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Asthma,52.858613143887,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Asthma,58.3298504587751,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Asthma,45.92982227254,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Asthma,75.1844929501124,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Asthma,49.5094712445864,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Asthma,88.15587538711,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Asthma,84.7593909717021,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Asthma,137.015249711066,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Asthma,81.7319886065181,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Asthma,153.28651038573,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Asthma,127.345318527107,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Asthma,212.878401812226,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Asthma,174.223467570256,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Asthma,279.37453921788,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Asthma,146.683108211462,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Asthma,283.336724089486,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Asthma,198.149010499258,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Asthma,283.508041308992,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Asthma,205.728055742885,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Asthma,324.110509343468,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Asthma,191.850797469965,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Asthma,319.734770825968,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Asthma,120.965468805322,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Asthma,300.863989186393,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Asthma,49.892698617642,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Asthma,180.233232906111,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Asthma,22.8882957420406,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Asthma,53.277358334909,9785.66839768234
+Deaths,Chile,Male,40 to 44,Alzheimer's disease and other dementias,0.696095654117586,577889.287360149
+Deaths,Chile,Female,40 to 44,Alzheimer's disease and other dementias,0.801518357122856,598580.59014909
+Deaths,Chile,Male,45 to 49,Alzheimer's disease and other dementias,3.88718817564319,590505.794230193
+Deaths,Chile,Female,45 to 49,Alzheimer's disease and other dementias,4.54528030277331,624047.525234926
+Deaths,Chile,Male,50 to 54,Alzheimer's disease and other dementias,7.15152655111224,569155.685438781
+Deaths,Chile,Female,50 to 54,Alzheimer's disease and other dementias,7.8203805468235,613554.995746927
+Deaths,Chile,Male,55 to 59,Alzheimer's disease and other dementias,14.0046190531473,532715.173320798
+Deaths,Chile,Female,55 to 59,Alzheimer's disease and other dementias,14.6716465605131,584846.07022548
+Deaths,Chile,Male,60 to 64,Alzheimer's disease and other dementias,26.5291624258236,434747.421498363
+Deaths,Chile,Female,60 to 64,Alzheimer's disease and other dementias,27.8314009481082,489706.718624578
+Deaths,Chile,Male,65 to 69,Alzheimer's disease and other dementias,50.2183174113873,327756.661684093
+Deaths,Chile,Female,65 to 69,Alzheimer's disease and other dementias,56.0724047724287,379051.502711552
+Deaths,Chile,Male,70 to 74,Alzheimer's disease and other dementias,101.053115637497,252649.601937286
+Deaths,Chile,Female,70 to 74,Alzheimer's disease and other dementias,124.00703361233,303751.379552535
+Deaths,Chile,Male,75 to 79,Alzheimer's disease and other dementias,175.884506781111,171750.872291174
+Deaths,Chile,Female,75 to 79,Alzheimer's disease and other dementias,252.134701963515,226470.38309385
+Deaths,Chile,Male,80 to 84,Alzheimer's disease and other dementias,346.748430798873,104150.483703845
+Deaths,Chile,Female,80 to 84,Alzheimer's disease and other dementias,570.131825015689,152689.170484331
+Deaths,Chile,Male,85 to 89,Alzheimer's disease and other dementias,458.945710183301,57601.3726369416
+Deaths,Chile,Female,85 to 89,Alzheimer's disease and other dementias,864.056867198206,95940.7040670701
+Deaths,Chile,Male,90 to 94,Alzheimer's disease and other dementias,366.214108996304,21999.6600551365
+Deaths,Chile,Female,90 to 94,Alzheimer's disease and other dementias,748.476503136511,38420.6086156547
+Deaths,Chile,Male,95 to 99,Alzheimer's disease and other dementias,209.79120275917,6721.02852953177
+Deaths,Chile,Female,95 to 99,Alzheimer's disease and other dementias,372.287863567888,9785.66839768234
+Deaths,Chile,Male,20 to 24,Parkinson's disease,0.00790257370529694,693981.390967853
+Deaths,Chile,Female,20 to 24,Parkinson's disease,0.00822011584509131,671917.624413281
+Deaths,Chile,Male,25 to 29,Parkinson's disease,0.0524101062502226,760855.645330287
+Deaths,Chile,Female,25 to 29,Parkinson's disease,0.0247288197358235,747462.164073602
+Deaths,Chile,Male,30 to 34,Parkinson's disease,0.0992408691804691,707006.831461527
+Deaths,Chile,Female,30 to 34,Parkinson's disease,0.0107373259320318,703051.246864735
+Deaths,Chile,Male,35 to 39,Parkinson's disease,0.177906795448902,636967.313396475
+Deaths,Chile,Female,35 to 39,Parkinson's disease,0.0133392774568018,648579.523068178
+Deaths,Chile,Male,40 to 44,Parkinson's disease,0.431738870667653,577889.287360149
+Deaths,Chile,Female,40 to 44,Parkinson's disease,0.203874061525233,598580.59014909
+Deaths,Chile,Male,45 to 49,Parkinson's disease,1.44152737804398,590505.794230193
+Deaths,Chile,Female,45 to 49,Parkinson's disease,0.856017622086925,624047.525234926
+Deaths,Chile,Male,50 to 54,Parkinson's disease,3.30858367055816,569155.685438781
+Deaths,Chile,Female,50 to 54,Parkinson's disease,1.87052876427609,613554.995746927
+Deaths,Chile,Male,55 to 59,Parkinson's disease,6.80899177025182,532715.173320798
+Deaths,Chile,Female,55 to 59,Parkinson's disease,3.90846536925904,584846.07022548
+Deaths,Chile,Male,60 to 64,Parkinson's disease,16.3975487906116,434747.421498363
+Deaths,Chile,Female,60 to 64,Parkinson's disease,8.37650655430981,489706.718624578
+Deaths,Chile,Male,65 to 69,Parkinson's disease,36.7387100443216,327756.661684093
+Deaths,Chile,Female,65 to 69,Parkinson's disease,19.3115580106782,379051.502711552
+Deaths,Chile,Male,70 to 74,Parkinson's disease,89.5016450755942,252649.601937286
+Deaths,Chile,Female,70 to 74,Parkinson's disease,42.2715073530207,303751.379552535
+Deaths,Chile,Male,75 to 79,Parkinson's disease,174.205482769683,171750.872291174
+Deaths,Chile,Female,75 to 79,Parkinson's disease,90.7480407846621,226470.38309385
+Deaths,Chile,Male,80 to 84,Parkinson's disease,223.230448249549,104150.483703845
+Deaths,Chile,Female,80 to 84,Parkinson's disease,129.808933849712,152689.170484331
+Deaths,Chile,Male,85 to 89,Parkinson's disease,190.041074887944,57601.3726369416
+Deaths,Chile,Female,85 to 89,Parkinson's disease,123.145235044039,95940.7040670701
+Deaths,Chile,Male,90 to 94,Parkinson's disease,76.9244799835467,21999.6600551365
+Deaths,Chile,Female,90 to 94,Parkinson's disease,59.8371405635164,38420.6086156547
+Deaths,Chile,Male,95 to 99,Parkinson's disease,18.9638104117662,6721.02852953177
+Deaths,Chile,Female,95 to 99,Parkinson's disease,15.7399331011079,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,0 to 4,Road injuries,1502.37301479202,590407.136649282
+YLLs (Years of Life Lost),Chile,Female,0 to 4,Road injuries,1240.0646692666,568206.116349197
+YLLs (Years of Life Lost),Chile,Male,5 to 9,Road injuries,1415.95210847042,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,Road injuries,1012.96281579507,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,Road injuries,1429.23724292141,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,Road injuries,979.980459544733,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Road injuries,5072.30775478738,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Road injuries,1926.68038134207,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Road injuries,9538.60762633327,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Road injuries,2150.89294555945,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Road injuries,10758.997561512,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Road injuries,1944.32258227155,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Road injuries,8696.21828473851,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Road injuries,1408.78877009086,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Road injuries,6599.91431080316,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Road injuries,1415.76505579698,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Road injuries,5820.41895689363,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Road injuries,1201.25103870113,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Road injuries,5757.0143851057,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Road injuries,1156.78721070398,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Road injuries,5459.86685527989,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Road injuries,1081.78814540329,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Road injuries,4794.06882430133,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Road injuries,1243.01727127552,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Road injuries,4021.74241686017,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Road injuries,969.289265085103,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Road injuries,2781.36568726596,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Road injuries,865.317420476918,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Road injuries,1841.47806746729,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Road injuries,624.470080456032,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Road injuries,1130.89425164062,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Road injuries,512.102338723515,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Road injuries,554.805495098086,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Road injuries,285.864005350393,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Road injuries,247.8858540152,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Road injuries,167.138339157799,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Road injuries,54.0332600095804,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Road injuries,55.082228769681,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Road injuries,14.7398750313403,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Road injuries,11.971881416988,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Alzheimer's disease and other dementias,32.5345382942584,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Alzheimer's disease and other dementias,37.4305307466297,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Alzheimer's disease and other dementias,162.834591539894,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Alzheimer's disease and other dementias,190.314874342328,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Alzheimer's disease and other dementias,265.491655338729,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Alzheimer's disease and other dementias,290.174395596192,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Alzheimer's disease and other dementias,454.239726804361,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Alzheimer's disease and other dementias,475.737977534867,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Alzheimer's disease and other dementias,737.821115247173,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Alzheimer's disease and other dementias,773.529541683005,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Alzheimer's disease and other dementias,1173.17784690781,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Alzheimer's disease and other dementias,1308.95317882359,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Alzheimer's disease and other dementias,1929.65218597221,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Alzheimer's disease and other dementias,2363.81556062979,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Alzheimer's disease and other dementias,2654.76977693867,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Alzheimer's disease and other dementias,3792.0345302962,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Alzheimer's disease and other dementias,4016.02908035866,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Alzheimer's disease and other dementias,6569.91054295145,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Alzheimer's disease and other dementias,4053.60244248597,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Alzheimer's disease and other dementias,7586.61674526165,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Alzheimer's disease and other dementias,2504.11957333411,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Alzheimer's disease and other dementias,5100.20983874053,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Alzheimer's disease and other dementias,1061.26438392138,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Alzheimer's disease and other dementias,1935.061950495,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Parkinson's disease,0.525595717662068,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Parkinson's disease,0.547204356598606,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Parkinson's disease,3.22968152403755,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Parkinson's disease,1.52338052063238,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Parkinson's disease,5.62349590057682,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Parkinson's disease,0.607370242999053,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Parkinson's disease,9.19709983516942,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Parkinson's disease,0.688667895234518,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Parkinson's disease,20.1788715929605,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Parkinson's disease,9.52082289887067,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Parkinson's disease,60.3856852797013,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Parkinson's disease,35.8422089134724,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Parkinson's disease,122.827112399738,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Parkinson's disease,69.4057725668572,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Parkinson's disease,220.849603248383,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Parkinson's disease,126.734610349783,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Parkinson's disease,456.043713020968,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Parkinson's disease,232.811682313117,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Parkinson's disease,858.273294879328,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Parkinson's disease,450.808652646602,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Parkinson's disease,1709.07194675494,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Parkinson's disease,805.777252641356,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Parkinson's disease,2629.42688414004,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Parkinson's disease,1364.82483978727,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Parkinson's disease,2585.447812197,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Parkinson's disease,1495.85244262595,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Parkinson's disease,1678.52307635854,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Parkinson's disease,1081.24330440623,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Parkinson's disease,525.998565492984,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Parkinson's disease,407.737546529882,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Parkinson's disease,95.931651607661,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Parkinson's disease,81.8123517521988,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Diabetes mellitus type 2,11.4309542010929,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Diabetes mellitus type 2,20.6998379722262,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Diabetes mellitus type 2,15.4569601416312,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Diabetes mellitus type 2,43.9591773873524,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Diabetes mellitus type 2,37.2500544849188,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Diabetes mellitus type 2,62.5932935602437,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Diabetes mellitus type 2,134.879466581831,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Diabetes mellitus type 2,103.425597649895,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Diabetes mellitus type 2,222.435587106905,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Diabetes mellitus type 2,173.418716965272,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Diabetes mellitus type 2,370.34387318995,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Diabetes mellitus type 2,323.51939815858,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Diabetes mellitus type 2,944.45817424524,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Diabetes mellitus type 2,824.100940258535,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Diabetes mellitus type 2,1914.88067449199,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Diabetes mellitus type 2,1424.42849842302,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Diabetes mellitus type 2,2962.90953061051,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Diabetes mellitus type 2,2425.8353243162,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Diabetes mellitus type 2,4228.03834458824,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Diabetes mellitus type 2,3345.63939320765,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Diabetes mellitus type 2,5159.23740938103,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Diabetes mellitus type 2,3867.69469544439,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Diabetes mellitus type 2,5066.23411834241,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Diabetes mellitus type 2,4214.80140370405,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Diabetes mellitus type 2,4634.88035535281,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Diabetes mellitus type 2,4428.28304710461,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Diabetes mellitus type 2,3197.99054970362,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Diabetes mellitus type 2,3796.35861446687,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Diabetes mellitus type 2,1925.99289141636,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Diabetes mellitus type 2,3163.96913864034,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Diabetes mellitus type 2,746.703709355992,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Diabetes mellitus type 2,1586.94819556912,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Diabetes mellitus type 2,197.117183119546,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Diabetes mellitus type 2,439.991261494328,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Neoplasms,1223.38891162892,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Neoplasms,1448.57096516715,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Esophageal cancer,6.2301987888846,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Esophageal cancer,4.77705007867272,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Esophageal cancer,16.9514016106177,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Esophageal cancer,7.51964449259499,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Esophageal cancer,38.8456977944218,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Esophageal cancer,18.9440018254513,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Esophageal cancer,69.840239159291,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Esophageal cancer,38.4286962269577,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Esophageal cancer,165.014309075461,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Esophageal cancer,68.3570097692101,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Esophageal cancer,377.876060587765,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Esophageal cancer,146.395683914784,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Esophageal cancer,668.066583083961,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Esophageal cancer,275.506790706089,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Esophageal cancer,1091.84966609135,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Esophageal cancer,495.445050911954,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Esophageal cancer,1559.68532830436,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Esophageal cancer,637.023099903582,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Esophageal cancer,1691.23446866572,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Esophageal cancer,751.037332151852,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Esophageal cancer,1855.49426916425,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Esophageal cancer,866.329053898915,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Esophageal cancer,1604.09247882772,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Esophageal cancer,912.32453418887,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Esophageal cancer,1097.02178182107,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Esophageal cancer,786.616252864719,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Esophageal cancer,607.387778596434,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Esophageal cancer,580.601807792101,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Esophageal cancer,188.60399342752,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Esophageal cancer,213.711192971465,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Esophageal cancer,44.0692836009345,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Esophageal cancer,48.6021176053589,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Stomach cancer,26.5421155035852,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Stomach cancer,15.3719881582862,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Stomach cancer,85.0902486598288,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Stomach cancer,60.6002762203329,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Stomach cancer,247.189143424614,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Stomach cancer,217.891985606489,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Stomach cancer,533.065626184293,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Stomach cancer,381.414897877231,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Stomach cancer,934.930348732828,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Stomach cancer,698.124678432088,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Stomach cancer,1498.87207818455,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Stomach cancer,889.685786808902,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Stomach cancer,2814.86893472039,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Stomach cancer,1387.66140383219,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Stomach cancer,4575.86618790357,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Stomach cancer,1850.96264157522,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Stomach cancer,6912.19596733851,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Stomach cancer,2683.7801090687,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Stomach cancer,8780.84604960176,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Stomach cancer,3096.81976551259,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Stomach cancer,8821.84175400137,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Stomach cancer,3535.05598226951,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Stomach cancer,8459.65641695805,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Stomach cancer,3589.42825957835,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Stomach cancer,6637.69591883606,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Stomach cancer,3564.88058102179,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Stomach cancer,4135.69208502529,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Stomach cancer,2793.73683195041,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Stomach cancer,2047.86689147737,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Stomach cancer,1877.05141087376,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Stomach cancer,565.572314880021,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Stomach cancer,749.193044544125,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Stomach cancer,121.232651527323,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Stomach cancer,169.75516895861,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,0 to 4,Liver cancer,76.9822444148378,590407.136649282
+YLLs (Years of Life Lost),Chile,Female,0 to 4,Liver cancer,53.7696539617157,568206.116349197
+YLLs (Years of Life Lost),Chile,Male,5 to 9,Liver cancer,29.7586348764195,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,Liver cancer,29.2027642107539,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,Liver cancer,34.9570593624179,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,Liver cancer,26.2188632129684,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Liver cancer,20.454956293375,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Liver cancer,10.6921448776194,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Liver cancer,29.5860585321,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Liver cancer,18.6250110469664,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Liver cancer,51.8121827397695,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Liver cancer,31.5686315876792,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Liver cancer,79.7934271124457,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Liver cancer,56.3626033985325,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Liver cancer,112.988062999764,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Liver cancer,97.1348142226087,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Liver cancer,182.917831483405,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Liver cancer,119.044299754889,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Liver cancer,339.88355354445,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Liver cancer,260.445830825752,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Liver cancer,671.784952261223,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Liver cancer,459.37370430074,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Liver cancer,1304.24585361244,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Liver cancer,769.80208434327,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Liver cancer,1526.71021135044,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Liver cancer,801.914544725281,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Liver cancer,1565.49910031934,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Liver cancer,1154.10182512096,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Liver cancer,1531.89901376717,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Liver cancer,1023.19893574343,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Liver cancer,908.284759389296,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Liver cancer,769.870224656192,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Liver cancer,470.629219015517,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Liver cancer,469.322644229934,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Liver cancer,205.672585437433,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Liver cancer,231.362250654399,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Liver cancer,50.4410184967284,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Liver cancer,69.9201357598198,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Liver cancer,10.322690024452,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Liver cancer,16.5408286043871,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Larynx cancer,5.00551990168108,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Larynx cancer,4.57118271463087,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Larynx cancer,4.98784674158636,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Larynx cancer,4.72124725402367,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Larynx cancer,9.8256710305474,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Larynx cancer,4.03752503777165,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Larynx cancer,18.4082131582779,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Larynx cancer,6.51403340891048,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Larynx cancer,44.4300704056328,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Larynx cancer,15.3672109146299,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Larynx cancer,119.111254289802,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Larynx cancer,19.5440889932539,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Larynx cancer,259.812683415135,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Larynx cancer,39.9583878584039,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Larynx cancer,447.643751030299,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Larynx cancer,60.9064816077249,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Larynx cancer,499.024821945172,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Larynx cancer,73.009528820836593,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Larynx cancer,569.044427643994,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Larynx cancer,76.9910983165915,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Larynx cancer,538.643670340033,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Larynx cancer,69.2974633999935,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Larynx cancer,353.390704431457,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Larynx cancer,61.28462734091,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Larynx cancer,209.9287060883,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Larynx cancer,38.6164793051986,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Larynx cancer,100.33028355159,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Larynx cancer,23.8223031587503,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Larynx cancer,24.482937415023,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Larynx cancer,10.1917887574232,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Larynx cancer,5.62091615728399,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Larynx cancer,2.17599563940758,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,10 to 14,"Tracheal, bronchus, and lung cancer",5.17247178870269,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,"Tracheal, bronchus, and lung cancer",9.09360699802768,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,"Tracheal, bronchus, and lung cancer",36.86553557698,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,"Tracheal, bronchus, and lung cancer",29.9358256301163,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,"Tracheal, bronchus, and lung cancer",70.0917848869611,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,"Tracheal, bronchus, and lung cancer",49.9584192365804,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,"Tracheal, bronchus, and lung cancer",128.732404786185,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,"Tracheal, bronchus, and lung cancer",97.0834017501286,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,"Tracheal, bronchus, and lung cancer",246.901662191792,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,"Tracheal, bronchus, and lung cancer",190.19357806941,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,"Tracheal, bronchus, and lung cancer",437.760746125557,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,"Tracheal, bronchus, and lung cancer",370.99821488381,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,"Tracheal, bronchus, and lung cancer",756.027853466531,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,"Tracheal, bronchus, and lung cancer",711.944554258223,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,"Tracheal, bronchus, and lung cancer",1673.96379959403,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,"Tracheal, bronchus, and lung cancer",1437.39105643905,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,"Tracheal, bronchus, and lung cancer",3426.58614009184,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,"Tracheal, bronchus, and lung cancer",2378.66383568332,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,"Tracheal, bronchus, and lung cancer",6202.91359248362,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,"Tracheal, bronchus, and lung cancer",3934.56745288534,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,"Tracheal, bronchus, and lung cancer",8630.87023717062,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,"Tracheal, bronchus, and lung cancer",5115.2315839117,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,"Tracheal, bronchus, and lung cancer",9567.50343219829,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,"Tracheal, bronchus, and lung cancer",5492.36005920335,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,"Tracheal, bronchus, and lung cancer",8063.95056102283,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,"Tracheal, bronchus, and lung cancer",5027.87840343436,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,"Tracheal, bronchus, and lung cancer",5217.3872288199,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,"Tracheal, bronchus, and lung cancer",3920.23250916841,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,"Tracheal, bronchus, and lung cancer",3071.76516047492,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,"Tracheal, bronchus, and lung cancer",2615.30249272538,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,"Tracheal, bronchus, and lung cancer",1341.44744998793,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,"Tracheal, bronchus, and lung cancer",1471.5318922026,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,"Tracheal, bronchus, and lung cancer",350.641197286753,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,"Tracheal, bronchus, and lung cancer",496.192139464587,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,"Tracheal, bronchus, and lung cancer",76.3395463870124,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,"Tracheal, bronchus, and lung cancer",91.1101967921361,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Breast cancer,4.48388320833283,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Breast cancer,20.5453154221018,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Breast cancer,4.81056091384012,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Breast cancer,44.5746883665004,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Breast cancer,4.98784674158636,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Breast cancer,307.074193132697,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Breast cancer,4.23818643054429,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Breast cancer,919.967232360764,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Breast cancer,3.68029238186804,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Breast cancer,2036.1447780858,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Breast cancer,9.09380716325147,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Breast cancer,2967.09931780058,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Breast cancer,15.6757803751893,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Breast cancer,4703.87684799598,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Breast cancer,21.6252999188943,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Breast cancer,5481.88149207261,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Breast cancer,30.8250187744387,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Breast cancer,6213.15516985739,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Breast cancer,42.2693455315894,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Breast cancer,5154.39357460829,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Breast cancer,39.3232252082911,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Breast cancer,4590.46213914387,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Breast cancer,49.8089947393674,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Breast cancer,3611.31541338968,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Breast cancer,28.9927164018958,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Breast cancer,2812.94744385907,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Breast cancer,21.8957088282557,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Breast cancer,1965.06200900003,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Breast cancer,17.8581870231817,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Breast cancer,1445.72727141857,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Breast cancer,7.66258034572477,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Breast cancer,686.380164224148,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Breast cancer,1.80128855990355,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Breast cancer,229.725022247439,9785.66839768234
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Uterine cancer,4.74901494541781,671917.624413281
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Uterine cancer,12.1317450060954,747462.164073602
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Uterine cancer,21.8395396277326,703051.246864735
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Uterine cancer,37.1500979460335,648579.523068178
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Uterine cancer,76.5010795310881,598580.59014909
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Uterine cancer,183.746456696758,624047.525234926
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Uterine cancer,355.441566791567,613554.995746927
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Uterine cancer,643.480415552103,584846.07022548
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Uterine cancer,985.977685621176,489706.718624578
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Uterine cancer,1076.0898299827,379051.502711552
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Uterine cancer,881.36111289054,303751.379552535
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Uterine cancer,544.123680843873,226470.38309385
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Uterine cancer,335.899626933525,152689.170484331
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Uterine cancer,187.321383518245,95940.7040670701
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Uterine cancer,81.1791338191108,38420.6086156547
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Uterine cancer,18.8155030778436,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,5 to 9,Colon and rectum cancer,8.848821775576,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,Colon and rectum cancer,8.56777738833245,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,Colon and rectum cancer,9.82827343093953,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,Colon and rectum cancer,16.5038864998667,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Colon and rectum cancer,43.837834905036,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Colon and rectum cancer,46.9158614300761,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Colon and rectum cancer,122.195353804015,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Colon and rectum cancer,99.3428431147277,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Colon and rectum cancer,306.750807931873,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Colon and rectum cancer,224.319178622952,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Colon and rectum cancer,525.730665386551,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Colon and rectum cancer,434.942841956807,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Colon and rectum cancer,752.164830765814,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Colon and rectum cancer,734.391902674948,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Colon and rectum cancer,1016.30969086523,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Colon and rectum cancer,849.181627556727,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Colon and rectum cancer,1844.02693491359,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Colon and rectum cancer,1732.12822873697,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Colon and rectum cancer,2616.43970575087,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Colon and rectum cancer,2558.47049624858,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Colon and rectum cancer,4033.70669038106,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Colon and rectum cancer,3425.84447559993,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Colon and rectum cancer,4705.06465380044,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Colon and rectum cancer,3908.89998283428,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Colon and rectum cancer,5101.48657728163,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Colon and rectum cancer,4251.49285982854,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Colon and rectum cancer,5006.49069072896,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Colon and rectum cancer,4094.46827338733,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Colon and rectum cancer,3834.30662517203,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Colon and rectum cancer,3969.82866512901,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Colon and rectum cancer,2562.08778355654,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Colon and rectum cancer,3335.99330301801,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Colon and rectum cancer,1459.58481719849,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Colon and rectum cancer,2494.75657805701,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Colon and rectum cancer,485.774608528892,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Colon and rectum cancer,1089.58899592782,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Colon and rectum cancer,120.242760665074,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Colon and rectum cancer,256.048064552894,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,5 to 9,Lip and oral cavity cancer,5.18278590135448,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,Lip and oral cavity cancer,4.99986324624612,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,Lip and oral cavity cancer,4.86911796878875,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,Lip and oral cavity cancer,4.55957937563688,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Lip and oral cavity cancer,10.2624833210709,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Lip and oral cavity cancer,4.35388728194753,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Lip and oral cavity cancer,10.3867335614775,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Lip and oral cavity cancer,7.37835501234839,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Lip and oral cavity cancer,24.2779328129184,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Lip and oral cavity cancer,24.4164576108325,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Lip and oral cavity cancer,43.862171607836,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Lip and oral cavity cancer,29.8982416771754,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Lip and oral cavity cancer,55.1776207382963,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Lip and oral cavity cancer,40.5727368223624,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Lip and oral cavity cancer,89.7721275257544,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Lip and oral cavity cancer,46.9621880416873,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Lip and oral cavity cancer,193.400105950838,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Lip and oral cavity cancer,89.6819204554326,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Lip and oral cavity cancer,356.716274480431,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Lip and oral cavity cancer,120.793943765679,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Lip and oral cavity cancer,442.19960416933,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Lip and oral cavity cancer,171.563788305488,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Lip and oral cavity cancer,551.239885897731,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Lip and oral cavity cancer,160.778248805885,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Lip and oral cavity cancer,460.805093272122,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Lip and oral cavity cancer,160.166854461472,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Lip and oral cavity cancer,351.119523135783,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Lip and oral cavity cancer,152.293812582915,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Lip and oral cavity cancer,226.981001949485,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Lip and oral cavity cancer,159.091427290467,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Lip and oral cavity cancer,133.194310666194,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Lip and oral cavity cancer,133.29521194164,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Lip and oral cavity cancer,74.0846229674862,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Lip and oral cavity cancer,99.894224959069,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Lip and oral cavity cancer,29.6773193190291,21999.6600551365

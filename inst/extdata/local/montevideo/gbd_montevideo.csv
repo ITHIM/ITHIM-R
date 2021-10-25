@@ -1,0 +1,1693 @@
+"measure_name.x","location_name","sex_name","age_name","cause_name","val","population"
+"Deaths","Uruguay","Male","80 to 84","Esophageal cancer",29.8751423456448,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Esophageal cancer",18.7080604609099,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Esophageal cancer",21.2458760981941,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Esophageal cancer",16.6989205972897,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Esophageal cancer",8.20823577297318,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Esophageal cancer",9.66440044558449,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Esophageal cancer",3.42744433061495,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Esophageal cancer",2.98869673668629,4618.58578407081
+"Deaths","Uruguay","Male","15 to 19","Stomach cancer",0.120420239085031,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Stomach cancer",0.0948725650844159,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Stomach cancer",0.232883766273033,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Stomach cancer",0.181785974712288,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Stomach cancer",0.631662877149518,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Stomach cancer",0.417110138500237,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Stomach cancer",1.26369712618209,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Stomach cancer",1.19533260096458,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Stomach cancer",2.55014326639034,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Stomach cancer",1.99367419520914,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Stomach cancer",5.04630711561392,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Stomach cancer",3.13902298958063,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Stomach cancer",9.1437591622792,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Stomach cancer",4.51384668580083,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Stomach cancer",16.8758366148882,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Stomach cancer",6.58835919820813,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Stomach cancer",30.2030028530234,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Stomach cancer",11.7529559581077,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Stomach cancer",38.8495545992579,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Stomach cancer",15.6104231089918,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Stomach cancer",45.8259638265622,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Stomach cancer",20.1299969336146,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Stomach cancer",54.7393986096257,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Stomach cancer",25.1697824662914,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Stomach cancer",49.7748055886436,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Stomach cancer",33.6849251839971,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Stomach cancer",48.9098149171595,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Stomach cancer",40.5272467477211,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Stomach cancer",32.7201914261578,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Stomach cancer",43.4463359956593,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Stomach cancer",14.0114450474177,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Stomach cancer",22.8492385607543,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Stomach cancer",4.65981261995071,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Stomach cancer",9.16888800429147,4618.58578407081
+"Deaths","Uruguay","Male","0 to 4","Liver cancer",0.0909884068189776,118029.249016733
+"Deaths","Uruguay","Female","0 to 4","Liver cancer",0.0624992712270922,112305.573420272
+"Deaths","Uruguay","Male","5 to 9","Liver cancer",0.0529736381571223,120162.41347932
+"Deaths","Uruguay","Female","5 to 9","Liver cancer",0.0439344424103762,114211.23099485
+"Deaths","Uruguay","Male","10 to 14","Liver cancer",0.0722006243666845,121070.392061191
+"Deaths","Uruguay","Female","10 to 14","Liver cancer",0.0447133299053288,115638.849662264
+"Deaths","Uruguay","Male","15 to 19","Liver cancer",0.082680816480346,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Liver cancer",0.0273334627939527,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Liver cancer",0.107585896760284,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Liver cancer",0.0460567080738096,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Liver cancer",0.161454397019814,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Liver cancer",0.0636271562704846,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Liver cancer",0.349400143895916,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Liver cancer",0.105520807211656,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Liver cancer",0.485249024351109,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Liver cancer",0.20583742791549,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Liver cancer",1.04485173606886,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Liver cancer",0.422365334005437,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Liver cancer",1.89127903076735,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Liver cancer",0.706194272521815,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Liver cancer",3.76959274081775,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Liver cancer",1.35416419892354,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Liver cancer",7.04151599558524,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Liver cancer",2.28251665939812,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Liver cancer",10.1922852117699,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Liver cancer",3.55228057337589,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Liver cancer",11.9367917342136,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Liver cancer",4.62485547587621,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Liver cancer",15.3640052774883,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Liver cancer",6.32166561632922,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Liver cancer",13.0455923371414,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Liver cancer",7.42080370392761,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Liver cancer",9.64248267165223,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Liver cancer",8.15841001041453,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Liver cancer",5.1128694175328,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Liver cancer",6.17192887629738,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Liver cancer",1.8526204450901,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Liver cancer",2.90991927765484,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Liver cancer",0.648343048383634,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Liver cancer",0.913345656832142,4618.58578407081
+"Deaths","Uruguay","Male","20 to 24","Larynx cancer",0.0713669966765604,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Larynx cancer",0.033178397801522,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Larynx cancer",0.065910907275481,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Larynx cancer",0.012261591561894,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Larynx cancer",0.14248151173622,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Larynx cancer",0.0134264418289092,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Larynx cancer",0.426419797147447,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Larynx cancer",0.0781875572528302,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Larynx cancer",1.4986771835143,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Larynx cancer",0.210638054274718,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Larynx cancer",3.93889288969726,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Larynx cancer",0.275685228683967,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Larynx cancer",7.90654837525337,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Larynx cancer",0.689989483177299,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Larynx cancer",13.2648609891712,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Larynx cancer",0.933513344677782,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Larynx cancer",20.1904669042499,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Larynx cancer",1.65754546995811,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Larynx cancer",20.0543862556129,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Larynx cancer",1.67811142380881,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Larynx cancer",20.8334465610943,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Larynx cancer",1.94007535413898,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Larynx cancer",15.9245096065999,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Larynx cancer",1.92300368840454,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Larynx cancer",10.2094855747711,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Larynx cancer",1.9013667190687,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Larynx cancer",6.02838039858966,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Larynx cancer",1.50512441711541,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Larynx cancer",1.93150133502372,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Larynx cancer",0.922879655011849,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Larynx cancer",0.79006053106453,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Larynx cancer",0.365488683863023,4618.58578407081
+"Deaths","Uruguay","Male","40 to 44","Alzheimer's disease and other dementias",0.134649990929487,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Alzheimer's disease and other dementias",0.155926238452957,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Alzheimer's disease and other dementias",0.65960748672294,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Alzheimer's disease and other dementias",0.766997427231343,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Alzheimer's disease and other dementias",1.15335614191788,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Alzheimer's disease and other dementias",1.2695447828292,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Alzheimer's disease and other dementias",2.32262932753191,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Alzheimer's disease and other dementias",2.50082215675003,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Alzheimer's disease and other dementias",4.69680681279471,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Alzheimer's disease and other dementias",5.2817777618681,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Alzheimer's disease and other dementias",9.62485524434922,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Alzheimer's disease and other dementias",11.8949427729645,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Alzheimer's disease and other dementias",20.4224962954872,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Alzheimer's disease and other dementias",28.8000004815557,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Alzheimer's disease and other dementias",38.9801073131077,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Alzheimer's disease and other dementias",65.182122684831,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Alzheimer's disease and other dementias",86.5017493711857,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Alzheimer's disease and other dementias",177.730024305159,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Alzheimer's disease and other dementias",115.081152515339,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Alzheimer's disease and other dementias",294.819395033117,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Alzheimer's disease and other dementias",95.0829344659811,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Alzheimer's disease and other dementias",288.854281006048,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Alzheimer's disease and other dementias",62.3093344538429,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Alzheimer's disease and other dementias",182.583560353366,4618.58578407081
+"Deaths","Uruguay","Male","20 to 24","Parkinson's disease",0.00349805223076903,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Parkinson's disease",0.00390911575433234,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Parkinson's disease",0.0111107598641528,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Parkinson's disease",0.00252131075310779,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Parkinson's disease",0.0103246683347283,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Parkinson's disease",0.00497712495631906,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Parkinson's disease",0.0461652374545837,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Parkinson's disease",0.00955712118719042,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Parkinson's disease",0.093423707693518,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Parkinson's disease",0.0889149353480281,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Parkinson's disease",0.304077982348345,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Parkinson's disease",0.214182675749033,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Parkinson's disease",0.728109042522233,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Parkinson's disease",0.520433255174907,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Parkinson's disease",1.67195135984531,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Parkinson's disease",1.25704418171951,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Parkinson's disease",4.12495638071191,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Parkinson's disease",2.58967296189879,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Parkinson's disease",8.83169305100067,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Parkinson's disease",5.51965981995211,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Parkinson's disease",21.4823110069722,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Parkinson's disease",12.4951027167492,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Parkinson's disease",42.1088741051341,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Parkinson's disease",25.6915832942503,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Parkinson's disease",56.0321884293009,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Parkinson's disease",40.9158106455399,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Parkinson's disease",41.4003451319681,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Parkinson's disease",38.2808810629224,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Parkinson's disease",14.6121964543035,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Parkinson's disease",18.8243037167931,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Parkinson's disease",4.78278193238559,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Parkinson's disease",6.42890129708012,4618.58578407081
+"Deaths","Uruguay","Male","0 to 4","All causes",218.999457923237,118029.249016733
+"Deaths","Uruguay","Female","0 to 4","All causes",169.090060794213,112305.573420272
+"Deaths","Uruguay","Male","5 to 9","All causes",19.4069003486623,120162.41347932
+"Deaths","Uruguay","Female","5 to 9","All causes",14.9076479642933,114211.23099485
+"Deaths","Uruguay","Male","10 to 14","All causes",26.9060924865082,121070.392061191
+"Deaths","Uruguay","Female","10 to 14","All causes",16.1320681930926,115638.849662264
+"Deaths","Uruguay","Male","15 to 19","All causes",111.502835387474,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","All causes",40.6824680975777,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","All causes",187.241994259768,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","All causes",57.3390748935004,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","All causes",180.27932965481,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","All causes",52.1599784720256,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","All causes",177.867309161921,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","All causes",85.425223936263,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","All causes",220.023046519183,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","All causes",121.253490773727,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","All causes",292.170071828579,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","All causes",178.617353726571,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","All causes",401.320866262188,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","All causes",237.151236525084,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","All causes",601.288281380993,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","All causes",353.125168460521,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","All causes",992.692127843803,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","All causes",560.660773389872,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","All causes",1387.32690889783,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","All causes",786.380816673988,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","All causes",1733.89880675067,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","All causes",997.703781834658,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","All causes",2085.62491667483,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","All causes",1410.07755642079,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","All causes",2275.26699201236,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","All causes",1925.42165266277,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","All causes",2388.13483099192,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","All causes",2760.80605204505,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","All causes",1998.67496457055,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","All causes",3276.58780025787,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","All causes",1078.60482613669,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","All causes",2501.00889756847,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","All causes",560.446357487195,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","All causes",1365.07123625458,4618.58578407081
+"Deaths","Uruguay","Male","10 to 14","Tracheal, bronchus, and lung cancer",0.0327655508171747,121070.392061191
+"Deaths","Uruguay","Female","10 to 14","Tracheal, bronchus, and lung cancer",0.0259857662844908,115638.849662264
+"Deaths","Uruguay","Male","15 to 19","Tracheal, bronchus, and lung cancer",0.310473940683347,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Tracheal, bronchus, and lung cancer",0.110264371693834,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Tracheal, bronchus, and lung cancer",0.400931795623814,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Tracheal, bronchus, and lung cancer",0.317782653802318,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Tracheal, bronchus, and lung cancer",0.691118795243112,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Tracheal, bronchus, and lung cancer",0.413665581494283,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Tracheal, bronchus, and lung cancer",2.08325216032494,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Tracheal, bronchus, and lung cancer",1.17380684362254,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Tracheal, bronchus, and lung cancer",5.95553871018334,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Tracheal, bronchus, and lung cancer",2.45363664447258,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Tracheal, bronchus, and lung cancer",13.0157127234599,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Tracheal, bronchus, and lung cancer",6.30221910320211,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Tracheal, bronchus, and lung cancer",31.4160479891389,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Tracheal, bronchus, and lung cancer",13.4128179213691,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Tracheal, bronchus, and lung cancer",69.140283849988,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Tracheal, bronchus, and lung cancer",27.9056482809897,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Tracheal, bronchus, and lung cancer",136.435220643731,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Tracheal, bronchus, and lung cancer",46.3848136346721,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Tracheal, bronchus, and lung cancer",191.540430973164,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Tracheal, bronchus, and lung cancer",56.9706223921531,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Tracheal, bronchus, and lung cancer",223.654566728183,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Tracheal, bronchus, and lung cancer",65.0561124858503,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Tracheal, bronchus, and lung cancer",221.549390597905,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Tracheal, bronchus, and lung cancer",69.6490985456502,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Tracheal, bronchus, and lung cancer",174.982454420649,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Tracheal, bronchus, and lung cancer",59.2366761638361,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Tracheal, bronchus, and lung cancer",118.098854521141,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Tracheal, bronchus, and lung cancer",50.9211089330297,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Tracheal, bronchus, and lung cancer",67.5677306413536,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Tracheal, bronchus, and lung cancer",37.3856059766162,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Tracheal, bronchus, and lung cancer",24.2560828146811,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Tracheal, bronchus, and lung cancer",19.0484531213378,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Tracheal, bronchus, and lung cancer",9.27710384215,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Tracheal, bronchus, and lung cancer",6.38212218682115,4618.58578407081
+"Deaths","Uruguay","Male","15 to 19","Breast cancer",0.0121257838998247,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Breast cancer",0.144350975441689,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Breast cancer",0.0248571260560653,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Breast cancer",0.383516813834107,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Breast cancer",0.0117886694239207,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Breast cancer",1.33743498255161,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Breast cancer",0.0452928662892881,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Breast cancer",6.32084339040039,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Breast cancer",0.0411203726193548,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Breast cancer",13.7731701353839,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Breast cancer",0.117664383553506,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Breast cancer",26.6612315118903,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Breast cancer",0.309753620770822,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Breast cancer",40.0230839071717,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Breast cancer",0.452706229235726,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Breast cancer",55.2316730112106,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Breast cancer",0.770920331260134,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Breast cancer",72.7747383878194,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Breast cancer",1.07173441746451,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Breast cancer",89.9697572048935,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Breast cancer",1.09258825748659,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Breast cancer",88.1193341228529,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Breast cancer",1.5078428290865,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Breast cancer",106.732698339036,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Breast cancer",1.28954552878917,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Breast cancer",104.00244001984,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Breast cancer",1.22901643195396,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Breast cancer",110.782301126438,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Breast cancer",1.02249725518877,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Breast cancer",112.546449387099,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Breast cancer",0.571458642591944,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Breast cancer",69.3257479292992,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Breast cancer",0.232348782545569,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Breast cancer",27.8254485558717,4618.58578407081
+"Deaths","Uruguay","Female","20 to 24","Uterine cancer",0.0195445450444143,127801.113291052
+"Deaths","Uruguay","Female","25 to 29","Uterine cancer",0.0732454823577871,120705.803006562
+"Deaths","Uruguay","Female","30 to 34","Uterine cancer",0.176170042584008,118883.50856415
+"Deaths","Uruguay","Female","35 to 39","Uterine cancer",0.335835989392289,119294.268175702
+"Deaths","Uruguay","Female","40 to 44","Uterine cancer",0.784970250108093,119472.718108918
+"Deaths","Uruguay","Female","45 to 49","Uterine cancer",1.15172884758714,108060.762903478
+"Deaths","Uruguay","Female","50 to 54","Uterine cancer",1.97392795122785,102931.210335944
+"Deaths","Uruguay","Female","55 to 59","Uterine cancer",4.23652707407967,102801.900206946
+"Deaths","Uruguay","Female","60 to 64","Uterine cancer",8.32263028693686,94635.2800708547
+"Deaths","Uruguay","Female","65 to 69","Uterine cancer",9.49594560910579,81380.6630439584
+"Deaths","Uruguay","Female","70 to 74","Uterine cancer",12.4152947793276,70506.4298520815
+"Deaths","Uruguay","Female","75 to 79","Uterine cancer",11.4313673546559,58752.4203097684
+"Deaths","Uruguay","Female","80 to 84","Uterine cancer",13.5050082028248,47261.4624724484
+"Deaths","Uruguay","Female","85 to 89","Uterine cancer",10.0026705438494,31666.8143961731
+"Deaths","Uruguay","Female","90 to 94","Uterine cancer",5.25068115985558,14386.6333381075
+"Deaths","Uruguay","Female","95 to 99","Uterine cancer",1.90753818600073,4618.58578407081
+"Deaths","Uruguay","Male","5 to 9","Colon and rectum cancer",0.0292151028238922,120162.41347932
+"Deaths","Uruguay","Female","5 to 9","Colon and rectum cancer",0.0236755513961301,114211.23099485
+"Deaths","Uruguay","Male","10 to 14","Colon and rectum cancer",0.0427013889586796,121070.392061191
+"Deaths","Uruguay","Female","10 to 14","Colon and rectum cancer",0.0557843897786128,115638.849662264
+"Deaths","Uruguay","Male","15 to 19","Colon and rectum cancer",0.228562656250599,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Colon and rectum cancer",0.235786446430453,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Colon and rectum cancer",0.723476858884534,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Colon and rectum cancer",0.560954744263982,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Colon and rectum cancer",1.31363108652529,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Colon and rectum cancer",0.845413138719282,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Colon and rectum cancer",2.36192247264226,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Colon and rectum cancer",2.21651908964173,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Colon and rectum cancer",4.62279003206331,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Colon and rectum cancer",3.7838944658217,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Colon and rectum cancer",7.53732783275469,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Colon and rectum cancer",6.78839535871271,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Colon and rectum cancer",12.5375409726628,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Colon and rectum cancer",11.6908229672086,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Colon and rectum cancer",23.7952722865572,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Colon and rectum cancer",19.2455397490419,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Colon and rectum cancer",43.3392677800981,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Colon and rectum cancer",30.9227833310109,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Colon and rectum cancer",65.3316587361551,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Colon and rectum cancer",48.8331974310657,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Colon and rectum cancer",85.6156792248633,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Colon and rectum cancer",64.8595048169007,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Colon and rectum cancer",111.81569472507,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Colon and rectum cancer",89.2444021765918,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Colon and rectum cancer",115.208683980428,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Colon and rectum cancer",115.408630717682,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Colon and rectum cancer",110.47380258097,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Colon and rectum cancer",137.331732134464,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Colon and rectum cancer",81.1235936379851,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Colon and rectum cancer",145.914303214762,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Colon and rectum cancer",35.756291099465,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Colon and rectum cancer",87.8511461672427,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Colon and rectum cancer",13.8692341165266,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Colon and rectum cancer",38.070682046267,4618.58578407081
+"Deaths","Uruguay","Male","5 to 9","Lip and oral cavity cancer",0.0117889005538502,120162.41347932
+"Deaths","Uruguay","Female","5 to 9","Lip and oral cavity cancer",0.0118219711059739,114211.23099485
+"Deaths","Uruguay","Male","10 to 14","Lip and oral cavity cancer",0.0154351752321827,121070.392061191
+"Deaths","Uruguay","Female","10 to 14","Lip and oral cavity cancer",0.0208850043068844,115638.849662264
+"Deaths","Uruguay","Male","15 to 19","Lip and oral cavity cancer",0.0591430212883163,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Lip and oral cavity cancer",0.0498451331254747,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Lip and oral cavity cancer",0.152451403771143,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Lip and oral cavity cancer",0.143835626275983,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Lip and oral cavity cancer",0.139723714718368,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Lip and oral cavity cancer",0.121233899319405,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Lip and oral cavity cancer",0.210999222363831,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Lip and oral cavity cancer",0.238335764861736,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Lip and oral cavity cancer",0.59147998348437,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Lip and oral cavity cancer",0.391670100260746,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Lip and oral cavity cancer",1.43932844883686,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Lip and oral cavity cancer",0.548445005274202,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Lip and oral cavity cancer",3.72302520659544,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Lip and oral cavity cancer",0.7927541771203,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Lip and oral cavity cancer",6.44093155536811,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Lip and oral cavity cancer",1.39312539018485,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Lip and oral cavity cancer",11.1628991428778,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Lip and oral cavity cancer",2.36457323148343,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Lip and oral cavity cancer",13.2603151170743,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Lip and oral cavity cancer",3.26493040114271,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Lip and oral cavity cancer",11.4861516316557,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Lip and oral cavity cancer",3.3797161441115,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Lip and oral cavity cancer",10.6160073644941,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Lip and oral cavity cancer",3.92006534886277,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Lip and oral cavity cancer",8.05941721831172,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Lip and oral cavity cancer",4.41857046490225,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Lip and oral cavity cancer",5.66970883409709,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Lip and oral cavity cancer",5.68881808236251,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Lip and oral cavity cancer",3.52042300237213,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Lip and oral cavity cancer",5.70841299902903,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Lip and oral cavity cancer",1.94422634600317,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Lip and oral cavity cancer",3.8495922445544,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Lip and oral cavity cancer",0.885485007606761,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Lip and oral cavity cancer",2.30389039210051,4618.58578407081
+"Deaths","Uruguay","Male","5 to 9","Nasopharynx cancer",0.0281300585339545,120162.41347932
+"Deaths","Uruguay","Female","5 to 9","Nasopharynx cancer",0.0102774229436022,114211.23099485
+"Deaths","Uruguay","Male","10 to 14","Nasopharynx cancer",0.0430261536073273,121070.392061191
+"Deaths","Uruguay","Female","10 to 14","Nasopharynx cancer",0.010652201912985,115638.849662264
+"Deaths","Uruguay","Male","15 to 19","Nasopharynx cancer",0.0997879470032556,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Nasopharynx cancer",0.0217700558882821,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Nasopharynx cancer",0.128701176527722,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Nasopharynx cancer",0.0443912019073041,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Nasopharynx cancer",0.0385715807846666,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Nasopharynx cancer",0.0564472016745123,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Nasopharynx cancer",0.132017012636759,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Nasopharynx cancer",0.0423866173560909,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Nasopharynx cancer",0.194030581584709,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Nasopharynx cancer",0.0917651558514295,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Nasopharynx cancer",0.501627644453806,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Nasopharynx cancer",0.107393392868442,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Nasopharynx cancer",0.792680890023172,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Nasopharynx cancer",0.165472050432497,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Nasopharynx cancer",1.25349124862244,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Nasopharynx cancer",0.290249072623381,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Nasopharynx cancer",1.82368350062023,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Nasopharynx cancer",0.346243476039667,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Nasopharynx cancer",1.85680996186063,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Nasopharynx cancer",0.374931905861285,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Nasopharynx cancer",1.67911426108135,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Nasopharynx cancer",0.39162166738477,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Nasopharynx cancer",1.47879275421979,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Nasopharynx cancer",0.458037203233208,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Nasopharynx cancer",0.733327831065972,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Nasopharynx cancer",0.263262085112925,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Nasopharynx cancer",0.589262419593474,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Nasopharynx cancer",0.520679165694469,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Nasopharynx cancer",0.584424171236996,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Nasopharynx cancer",0.527086889307663,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Nasopharynx cancer",0.202283496196029,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Nasopharynx cancer",0.294055934311677,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Nasopharynx cancer",0.122523614676681,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Nasopharynx cancer",0.15979513324501,4618.58578407081
+"Deaths","Uruguay","Male","20 to 24","Other pharynx cancer",0.0176241322918711,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Other pharynx cancer",0.0124486608368396,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Other pharynx cancer",0.0146343218211997,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Other pharynx cancer",0.0114152902297772,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Other pharynx cancer",0.0325259198835671,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Other pharynx cancer",0.0316619284181421,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Other pharynx cancer",0.287151997690185,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Other pharynx cancer",0.0463478520896312,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Other pharynx cancer",0.911142556411146,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Other pharynx cancer",0.100836259979488,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Other pharynx cancer",2.04093196483803,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Other pharynx cancer",0.148854486735205,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Other pharynx cancer",4.13836665879411,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Other pharynx cancer",0.282202170346166,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Other pharynx cancer",6.50107369530787,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Other pharynx cancer",0.455639199935752,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Other pharynx cancer",8.05517073596216,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Other pharynx cancer",0.529537580573451,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Other pharynx cancer",7.02796062612042,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Other pharynx cancer",0.54255969997811,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Other pharynx cancer",5.40895365093567,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Other pharynx cancer",0.591288166088923,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Other pharynx cancer",3.41657027337387,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Other pharynx cancer",0.566215586604917,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Other pharynx cancer",2.21390535990729,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Other pharynx cancer",0.591715713143894,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Other pharynx cancer",1.58733217121417,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Other pharynx cancer",0.660034091499397,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Other pharynx cancer",0.451561419416181,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Other pharynx cancer",0.457448343336551,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Other pharynx cancer",0.246074067193661,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Other pharynx cancer",0.418054550717359,4618.58578407081
+"Deaths","Uruguay","Male","20 to 24","Multiple myeloma",0.0700805922081276,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Multiple myeloma",0.0185441749698458,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Multiple myeloma",0.0905791422670539,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Multiple myeloma",0.0480771541273136,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Multiple myeloma",0.12004468402498,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Multiple myeloma",0.0433351584384648,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Multiple myeloma",0.487931899504479,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Multiple myeloma",0.134099031074762,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Multiple myeloma",1.11923064953489,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Multiple myeloma",0.548491494039984,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Multiple myeloma",2.0114329748841,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Multiple myeloma",1.31321174535772,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Multiple myeloma",3.36263819098894,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Multiple myeloma",2.17261487380563,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Multiple myeloma",6.45329721847328,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Multiple myeloma",4.40533081076097,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Multiple myeloma",9.53990877078343,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Multiple myeloma",6.45110166106592,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Multiple myeloma",12.5863542029072,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Multiple myeloma",9.49387578204654,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Multiple myeloma",12.9083721941676,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Multiple myeloma",12.9206999024296,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Multiple myeloma",11.5199019768937,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Multiple myeloma",13.9810158110446,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Multiple myeloma",10.7020826599025,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Multiple myeloma",13.7535954194532,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Multiple myeloma",6.53337965599668,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Multiple myeloma",12.5772680334486,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Multiple myeloma",2.19351188011724,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Multiple myeloma",4.43325410581696,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Multiple myeloma",0.776046279234766,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Multiple myeloma",0.950732442863703,4618.58578407081
+"Deaths","Uruguay","Male","0 to 4","Neoplasms",5.60028061197576,118029.249016733
+"Deaths","Uruguay","Female","0 to 4","Neoplasms",4.26348222054403,112305.573420272
+"Deaths","Uruguay","Male","5 to 9","Neoplasms",5.17814894230669,120162.41347932
+"Deaths","Uruguay","Female","5 to 9","Neoplasms",3.59639255172944,114211.23099485
+"Deaths","Uruguay","Male","10 to 14","Neoplasms",5.28559646175728,121070.392061191
+"Deaths","Uruguay","Female","10 to 14","Neoplasms",3.68366763950617,115638.849662264
+"Deaths","Uruguay","Male","15 to 19","Neoplasms",9.46595005632232,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Neoplasms",6.03329810635437,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Neoplasms",13.9287102153834,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Neoplasms",8.84102190329289,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Neoplasms",16.2626028767492,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Neoplasms",12.1937675772473,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Neoplasms",22.3544770977642,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Neoplasms",28.8923856505536,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Neoplasms",37.0643872337953,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Neoplasms",49.1170745714112,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Neoplasms",66.8393234724335,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Neoplasms",83.8929634890263,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Neoplasms",119.650367955129,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Neoplasms",126.019810857657,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Neoplasms",228.712649794005,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Neoplasms",193.736445785799,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Neoplasms",418.468555638174,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Neoplasms",296.044870043739,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Neoplasms",594.65655821117,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Neoplasms",389.01465822487,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Neoplasms",726.429928652008,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Neoplasms",456.653745297052,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Neoplasms",828.910594128027,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Neoplasms",569.533197440829,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Neoplasms",809.242533540462,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Neoplasms",622.32062643977,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Neoplasms",724.559597090263,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Neoplasms",668.665909429591,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Neoplasms",513.248903694961,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Neoplasms",624.717193068622,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Neoplasms",217.203456647739,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Neoplasms",350.956506832066,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Neoplasms",83.9024226382293,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Neoplasms",138.515232306931,4618.58578407081
+"Deaths","Uruguay","Male","20 to 24","Esophageal cancer",0.069711263072075,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Esophageal cancer",0.0123903753794181,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Esophageal cancer",0.112223958154963,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Esophageal cancer",0.0312933419550373,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Esophageal cancer",0.23287958822813,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Esophageal cancer",0.0658744029547654,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Esophageal cancer",0.774380742451922,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Esophageal cancer",0.305256255286023,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Esophageal cancer",2.62136637247233,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Esophageal cancer",0.83476345305669,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Esophageal cancer",6.41181043284132,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Esophageal cancer",1.56081807814794,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Esophageal cancer",13.1966523414775,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Esophageal cancer",2.90908731448211,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Esophageal cancer",22.1889437296905,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Esophageal cancer",5.30339527176725,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Esophageal cancer",29.0246097524055,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Esophageal cancer",6.69554766095737,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Esophageal cancer",33.2560489031317,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Esophageal cancer",8.78293119561411,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Esophageal cancer",35.4413712103518,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Esophageal cancer",12.2936832721893,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Esophageal cancer",33.6128196601701,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Esophageal cancer",17.7704618754791,58752.4203097684
+"Deaths","Uruguay","Male","35 to 39","Stroke",7.12758798299642,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Stroke",7.56563434211228,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Stroke",12.2219713278968,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Stroke",13.5125527874257,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Stroke",20.2068007067513,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Stroke",17.3404936451125,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Stroke",33.4520931615267,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Stroke",25.5181598489085,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Stroke",57.5291342451353,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Stroke",42.9912487085947,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Stroke",86.8838289381151,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Stroke",58.550808825281,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Stroke",127.936430962067,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Stroke",92.1131820444555,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Stroke",176.451945675805,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Stroke",145.977334966608,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Stroke",210.298391289836,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Stroke",250.450213875215,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Stroke",251.798139368778,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Stroke",408.913841526078,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Stroke",208.399106875192,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Stroke",492.497400728842,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Stroke",113.525464015808,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Stroke",382.858182108727,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Stroke",60.4264958533488,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Stroke",198.901974790941,4618.58578407081
+"Deaths","Uruguay","Male","0 to 4","Chronic obstructive pulmonary disease",0.236839866320531,118029.249016733
+"Deaths","Uruguay","Female","0 to 4","Chronic obstructive pulmonary disease",0.0947789368498959,112305.573420272
+"Deaths","Uruguay","Male","5 to 9","Chronic obstructive pulmonary disease",0.0793379267243471,120162.41347932
+"Deaths","Uruguay","Female","5 to 9","Chronic obstructive pulmonary disease",0.121839561061274,114211.23099485
+"Deaths","Uruguay","Male","10 to 14","Chronic obstructive pulmonary disease",0.0781638140242874,121070.392061191
+"Deaths","Uruguay","Female","10 to 14","Chronic obstructive pulmonary disease",0.0681210140039704,115638.849662264
+"Deaths","Uruguay","Male","15 to 19","Chronic obstructive pulmonary disease",0.635680616990219,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Chronic obstructive pulmonary disease",0.396366550554114,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Chronic obstructive pulmonary disease",0.834544892997337,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Chronic obstructive pulmonary disease",0.674432591912062,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Chronic obstructive pulmonary disease",0.983774896538758,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Chronic obstructive pulmonary disease",0.594127266210769,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Chronic obstructive pulmonary disease",1.36912939375286,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Chronic obstructive pulmonary disease",1.05083770807553,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Chronic obstructive pulmonary disease",2.32264466059261,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Chronic obstructive pulmonary disease",1.80549636286442,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Chronic obstructive pulmonary disease",3.9803935965753,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Chronic obstructive pulmonary disease",2.72025922521335,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Chronic obstructive pulmonary disease",9.43582149220155,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Chronic obstructive pulmonary disease",4.69166759649755,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Chronic obstructive pulmonary disease",19.3642968528291,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Chronic obstructive pulmonary disease",10.7046013590151,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Chronic obstructive pulmonary disease",43.539539117416,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Chronic obstructive pulmonary disease",21.3487430415405,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Chronic obstructive pulmonary disease",78.5835371842255,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Chronic obstructive pulmonary disease",33.35111979113,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Chronic obstructive pulmonary disease",125.699932759219,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Chronic obstructive pulmonary disease",41.5100940147426,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Chronic obstructive pulmonary disease",161.369578304175,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Chronic obstructive pulmonary disease",62.8952099267732,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Chronic obstructive pulmonary disease",194.703473418675,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Chronic obstructive pulmonary disease",79.8751388357958,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Chronic obstructive pulmonary disease",216.41419863037,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Chronic obstructive pulmonary disease",116.136494960967,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Chronic obstructive pulmonary disease",174.640973755027,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Chronic obstructive pulmonary disease",128.968395544902,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Chronic obstructive pulmonary disease",98.2853394314129,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Chronic obstructive pulmonary disease",111.088174695344,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Chronic obstructive pulmonary disease",57.1926498831541,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Chronic obstructive pulmonary disease",70.8707116305278,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Lower respiratory infections",309.579992929997,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Lower respiratory infections",678.919847481909,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","0 to 4","Cardiovascular diseases",148.047405810672,118029.249016733
+"YLLs (Years of Life Lost)","Uruguay","Female","0 to 4","Cardiovascular diseases",109.256497602394,112305.573420272
+"YLLs (Years of Life Lost)","Uruguay","Male","5 to 9","Cardiovascular diseases",28.5793984179089,120162.41347932
+"YLLs (Years of Life Lost)","Uruguay","Female","5 to 9","Cardiovascular diseases",32.1129437986324,114211.23099485
+"YLLs (Years of Life Lost)","Uruguay","Male","10 to 14","Cardiovascular diseases",59.4950557564137,121070.392061191
+"YLLs (Years of Life Lost)","Uruguay","Female","10 to 14","Cardiovascular diseases",34.9281888440275,115638.849662264
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Cardiovascular diseases",224.128959624889,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Cardiovascular diseases",150.64088621023,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Cardiovascular diseases",327.591085272469,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Cardiovascular diseases",241.754840085767,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Cardiovascular diseases",406.40001372046,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Cardiovascular diseases",194.619475352457,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Cardiovascular diseases",620.868225122659,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Cardiovascular diseases",392.162895971464,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Cardiovascular diseases",1129.59318548119,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Cardiovascular diseases",711.924468931354,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Cardiovascular diseases",2025.47833420823,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Cardiovascular diseases",1160.98582203475,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Cardiovascular diseases",3350.54420967848,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Cardiovascular diseases",1441.38918325081,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Cardiovascular diseases",5113.05640788309,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Cardiovascular diseases",2055.50694208555,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Cardiovascular diseases",7560.43104606248,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Cardiovascular diseases",3365.61452118251,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Cardiovascular diseases",9663.69209073719,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Cardiovascular diseases",4574.27144624726,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Cardiovascular diseases",10695.2860885659,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Cardiovascular diseases",5577.13895077766,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Cardiovascular diseases",11166.4497117327,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Cardiovascular diseases",7380.53865778935,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Cardiovascular diseases",10177.6292044645,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Cardiovascular diseases",9304.92568349181,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Cardiovascular diseases",8656.30739464675,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Cardiovascular diseases",11574.6897526941,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Cardiovascular diseases",5574.55530701702,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Cardiovascular diseases",11129.7773552247,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Cardiovascular diseases",2408.01757219469,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Cardiovascular diseases",6862.90603836728,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Cardiovascular diseases",940.993157250187,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Cardiovascular diseases",2872.71628020217,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Ischemic heart disease",24.9626555002911,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Ischemic heart disease",10.8512812894244,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Ischemic heart disease",60.5678561485717,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Ischemic heart disease",28.8747586422331,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Ischemic heart disease",96.1898805431037,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Ischemic heart disease",18.4470171723667,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Ischemic heart disease",204.579812696506,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Ischemic heart disease",47.3349322963558,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Ischemic heart disease",419.043307537214,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Ischemic heart disease",106.867270234,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Ischemic heart disease",932.730533187219,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Ischemic heart disease",248.573345757616,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Ischemic heart disease",1730.5270134,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Ischemic heart disease",361.909075955003,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Ischemic heart disease",2801.29126561519,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Ischemic heart disease",634.441461144562,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Ischemic heart disease",4134.59582646187,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Ischemic heart disease",1245.4599794588,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Ischemic heart disease",5224.4455262291,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Ischemic heart disease",1896.67266766116,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Ischemic heart disease",5440.26297127267,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Ischemic heart disease",2219.5983012658,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Ischemic heart disease",5467.15188059255,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Ischemic heart disease",2880.05345204772,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Ischemic heart disease",4742.88989614188,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Ischemic heart disease",3335.60398360946,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Ischemic heart disease",3767.47795933645,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Ischemic heart disease",4003.14988056004,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Ischemic heart disease",2398.49717188122,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Ischemic heart disease",3931.50136036127,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Ischemic heart disease",1055.89931580149,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Ischemic heart disease",2421.24366282046,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Ischemic heart disease",418.636320092828,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Ischemic heart disease",1054.05760476199,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","0 to 4","Stroke",32.2884722595204,118029.249016733
+"YLLs (Years of Life Lost)","Uruguay","Female","0 to 4","Stroke",23.8596159630793,112305.573420272
+"YLLs (Years of Life Lost)","Uruguay","Male","5 to 9","Stroke",9.69512582569426,120162.41347932
+"YLLs (Years of Life Lost)","Uruguay","Female","5 to 9","Stroke",14.3519801202911,114211.23099485
+"YLLs (Years of Life Lost)","Uruguay","Male","10 to 14","Stroke",23.7484674825262,121070.392061191
+"YLLs (Years of Life Lost)","Uruguay","Female","10 to 14","Stroke",17.8763395051306,115638.849662264
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Stroke",93.7038226021395,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Stroke",86.0393755801198,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Stroke",138.920592150321,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Stroke",124.019931040168,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Stroke",163.871906019218,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Stroke",92.6860436733211,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Stroke",200.00742796431,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Stroke",214.119469362304,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Stroke",368.468995791677,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Stroke",390.740933838937,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Stroke",571.237863426762,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Stroke",631.425845079331,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Stroke",846.076475199872,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Stroke",726.228103194134,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Stroke",1240.60483314143,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Stroke",946.848630517308,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Stroke",1865.4207530307,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Stroke",1394.0200663892,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Stroke",2418.77069367292,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Stroke",1630.53935747828,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Stroke",2991.04156161861,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Stroke",2150.2884161646,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Stroke",3375.33205364641,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Stroke",2783.83402940032,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Stroke",3182.33448140651,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Stroke",3770.57205622842,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Stroke",2924.49765642475,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Stroke",4717.4296096087,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Stroke",1846.60198552218,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Stroke",4333.58715078971,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Stroke",778.965387542412,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Stroke",2611.43851219859,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Stroke",310.015526289716,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Stroke",1027.15108715774,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","0 to 4","Chronic obstructive pulmonary disease",20.3718510992708,118029.249016733
+"YLLs (Years of Life Lost)","Uruguay","Female","0 to 4","Chronic obstructive pulmonary disease",8.15243826493363,112305.573420272
+"YLLs (Years of Life Lost)","Uruguay","Male","5 to 9","Chronic obstructive pulmonary disease",6.47935274626585,120162.41347932
+"YLLs (Years of Life Lost)","Uruguay","Female","5 to 9","Chronic obstructive pulmonary disease",9.96129699691592,114211.23099485
+"YLLs (Years of Life Lost)","Uruguay","Male","10 to 14","Chronic obstructive pulmonary disease",5.96526001990956,121070.392061191
+"YLLs (Years of Life Lost)","Uruguay","Female","10 to 14","Chronic obstructive pulmonary disease",5.20289024685724,115638.849662264
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Chronic obstructive pulmonary disease",45.3110612027973,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Chronic obstructive pulmonary disease",28.2921613463604,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Chronic obstructive pulmonary disease",55.529937275261,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Chronic obstructive pulmonary disease",44.93638751574,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Chronic obstructive pulmonary disease",60.6818866470706,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Chronic obstructive pulmonary disease",36.5767453777038,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Chronic obstructive pulmonary disease",77.5954203478479,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Chronic obstructive pulmonary disease",59.4211665947671,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Chronic obstructive pulmonary disease",120.071831833028,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Chronic obstructive pulmonary disease",93.248140600922,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Chronic obstructive pulmonary disease",186.038035330306,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Chronic obstructive pulmonary disease",127.114543575627,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Chronic obstructive pulmonary disease",395.086124943557,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Chronic obstructive pulmonary disease",196.489265481905,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Chronic obstructive pulmonary disease",718.144606079078,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Chronic obstructive pulmonary disease",397.19310471561,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Chronic obstructive pulmonary disease",1411.79875054156,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Chronic obstructive pulmonary disease",692.247308139822,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Chronic obstructive pulmonary disease",2187.697746168,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Chronic obstructive pulmonary disease",928.771344520346,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Chronic obstructive pulmonary disease",2938.75419494048,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Chronic obstructive pulmonary disease",969.010866118239,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Chronic obstructive pulmonary disease",3086.82291967592,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Chronic obstructive pulmonary disease",1199.43158107716,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Chronic obstructive pulmonary disease",2946.34482608051,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Chronic obstructive pulmonary disease",1202.53427546153,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Chronic obstructive pulmonary disease",2513.53253958966,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Chronic obstructive pulmonary disease",1339.80727588088,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Chronic obstructive pulmonary disease",1547.4748127529,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Chronic obstructive pulmonary disease",1134.81975938197,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Chronic obstructive pulmonary disease",674.393874393389,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Chronic obstructive pulmonary disease",757.721660933136,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Chronic obstructive pulmonary disease",293.42441925576,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Chronic obstructive pulmonary disease",365.983940458366,4618.58578407081
+"Deaths","Uruguay","Male","0 to 4","Asthma",0.179597712873138,118029.249016733
+"Deaths","Uruguay","Female","0 to 4","Asthma",0.127223434152469,112305.573420272
+"Deaths","Uruguay","Male","5 to 9","Asthma",0.0876570686180809,120162.41347932
+"Deaths","Uruguay","Female","5 to 9","Asthma",0.103014399479202,114211.23099485
+"Deaths","Uruguay","Male","10 to 14","Asthma",0.198964901187065,121070.392061191
+"Deaths","Uruguay","Female","10 to 14","Asthma",0.261552748564651,115638.849662264
+"Deaths","Uruguay","Male","15 to 19","Asthma",0.219974278322597,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Asthma",0.510887377824964,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Asthma",0.187876142527169,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Asthma",0.832233078397287,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Asthma",0.48681795431572,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Asthma",0.434848992016029,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Asthma",0.637147436463442,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Asthma",0.602317590500593,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Asthma",0.780262968306122,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Asthma",0.725517828147221,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Asthma",0.827023836041859,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Asthma",1.26754694554109,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Asthma",1.41574529760887,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Asthma",2.07802056531504,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Asthma",1.87456106915917,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Asthma",2.40383781769709,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Asthma",2.71701280702479,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Asthma",4.01880564533342,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Asthma",3.28055602359724,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Asthma",5.17978130509423,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Asthma",3.66339198029698,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Asthma",5.85318875730085,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Asthma",4.22395661110291,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Asthma",8.68605872358531,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Asthma",4.03114486026858,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Asthma",10.863724863705,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Asthma",3.95694069422227,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Asthma",14.8348239057353,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Asthma",3.44283039942669,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Asthma",14.2773315920212,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Asthma",2.11266987297202,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Asthma",9.42128444066269,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Asthma",1.17520134030692,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Asthma",4.85582654785178,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","0 to 4","Neoplasms",484.006337369793,118029.249016733
+"YLLs (Years of Life Lost)","Uruguay","Female","0 to 4","Neoplasms",368.462318292016,112305.573420272
+"YLLs (Years of Life Lost)","Uruguay","Male","5 to 9","Neoplasms",422.887954792147,120162.41347932
+"YLLs (Years of Life Lost)","Uruguay","Female","5 to 9","Neoplasms",294.03203699377,114211.23099485
+"YLLs (Years of Life Lost)","Uruguay","Male","10 to 14","Neoplasms",403.383044293349,121070.392061191
+"YLLs (Years of Life Lost)","Uruguay","Female","10 to 14","Neoplasms",281.348108428528,115638.849662264
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Neoplasms",674.729149954943,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Neoplasms",430.649466351385,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Neoplasms",926.805029993747,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Neoplasms",589.063445399618,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Neoplasms",1003.12116910612,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Neoplasms",750.694939002599,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Neoplasms",1266.94018474229,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Neoplasms",1633.76251905342,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Neoplasms",1916.08684119378,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Neoplasms",2536.74057159252,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Neoplasms",3123.97659174133,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Neoplasms",3920.22042027188,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Neoplasms",5009.86588846894,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Neoplasms",5277.76948436734,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Neoplasms",8482.04079083934,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Neoplasms",7188.57039299489,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Neoplasms",13569.1235131744,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Neoplasms",9599.45341876174,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Neoplasms",16554.7245486392,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Neoplasms",10833.3893860358,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Neoplasms",16983.2946867654,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Neoplasms",10660.1165752425,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Neoplasms",15856.1498840478,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Neoplasms",10861.1785265954,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Neoplasms",12245.8398398173,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Neoplasms",9369.14657712167,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Neoplasms",8415.36338966798,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Neoplasms",7714.05621366799,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Neoplasms",4547.84312102547,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Neoplasms",5497.0166274038,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Neoplasms",1490.36144665832,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Neoplasms",2393.84028049234,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Neoplasms",430.457754398004,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Neoplasms",715.30748551648,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Esophageal cancer",4.6385306509615,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Esophageal cancer",0.8255513096372,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Esophageal cancer",6.92227615464138,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Esophageal cancer",1.92653773998105,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Esophageal cancer",13.1984526966173,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Esophageal cancer",3.72496517989872,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Esophageal cancer",40.0325180429015,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Esophageal cancer",15.7655140146961,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Esophageal cancer",122.519001697539,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Esophageal cancer",39.0075233806416,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Esophageal cancer",268.468128596708,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Esophageal cancer",65.3678018355597,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Esophageal cancer",489.411248410412,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Esophageal cancer",107.941378064942,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Esophageal cancer",719.491378834631,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Esophageal cancer",171.966147783913,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Esophageal cancer",808.020046105656,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Esophageal cancer",186.459490485274,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Esophageal cancer",777.497259353597,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Esophageal cancer",205.02858321391,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Esophageal cancer",677.954532115338,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Esophageal cancer",234.444435142062,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Esophageal cancer",508.645046525505,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Esophageal cancer",267.53743164036,58752.4203097684
+"Deaths","Uruguay","Male","95 to 99","Lower respiratory infections",60.3416041220539,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Lower respiratory infections",131.468972848567,4618.58578407081
+"Deaths","Uruguay","Male","0 to 4","Cardiovascular diseases",1.68955569831378,118029.249016733
+"Deaths","Uruguay","Female","0 to 4","Cardiovascular diseases",1.25106764300052,112305.573420272
+"Deaths","Uruguay","Male","5 to 9","Cardiovascular diseases",0.349947025003807,120162.41347932
+"Deaths","Uruguay","Female","5 to 9","Cardiovascular diseases",0.392782885403588,114211.23099485
+"Deaths","Uruguay","Male","10 to 14","Cardiovascular diseases",0.779573808683603,121070.392061191
+"Deaths","Uruguay","Female","10 to 14","Cardiovascular diseases",0.457311903285783,115638.849662264
+"Deaths","Uruguay","Male","15 to 19","Cardiovascular diseases",3.14436324283063,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Cardiovascular diseases",2.11044351502841,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Cardiovascular diseases",4.92328067741923,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Cardiovascular diseases",3.62840344807912,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Cardiovascular diseases",6.58855802846888,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Cardiovascular diseases",3.16126368402951,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Cardiovascular diseases",10.9548853895238,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Cardiovascular diseases",6.93523170969194,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Cardiovascular diseases",21.8506167587093,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Cardiovascular diseases",13.7844790363255,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Cardiovascular diseases",43.3363047355891,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Cardiovascular diseases",24.8451695918883,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Cardiovascular diseases",80.0208741037724,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Cardiovascular diseases",34.41673471787,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Cardiovascular diseases",137.870202281524,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Cardiovascular diseases",55.3971913018689,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Cardiovascular diseases",233.161902961235,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Cardiovascular diseases",103.794754771499,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Cardiovascular diseases",347.126154917669,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Cardiovascular diseases",164.25687103829,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Cardiovascular diseases",457.471653970898,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Cardiovascular diseases",238.911213769418,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Cardiovascular diseases",583.747538497047,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Cardiovascular diseases",387.017096746317,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Cardiovascular diseases",672.56885200118,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Cardiovascular diseases",618.054924497201,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Cardiovascular diseases",745.304784562865,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Cardiovascular diseases",1003.31138838959,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Cardiovascular diseases",629.118974374002,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Cardiovascular diseases",1264.86124021758,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Cardiovascular diseases",350.941539397651,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Cardiovascular diseases",1006.15799206399,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Cardiovascular diseases",183.413133513418,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Cardiovascular diseases",556.285193376378,4618.58578407081
+"Deaths","Uruguay","Male","15 to 19","Ischemic heart disease",0.350207561441084,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Ischemic heart disease",0.152023908004994,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Ischemic heart disease",0.910258457127897,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Ischemic heart disease",0.433369912191879,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Ischemic heart disease",1.55943058148037,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Ischemic heart disease",0.299640543990067,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Ischemic heart disease",3.60970059412802,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Ischemic heart disease",0.837097866244068,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Ischemic heart disease",8.10588700072332,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Ischemic heart disease",2.06919372840373,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Ischemic heart disease",19.9563204106998,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Ischemic heart disease",5.31948522898173,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Ischemic heart disease",41.3300871758224,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Ischemic heart disease",8.64147504634455,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Ischemic heart disease",75.5349760750508,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Ischemic heart disease",17.0985922125871,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Ischemic heart disease",127.509956112291,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Ischemic heart disease",38.4096908104086,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Ischemic heart disease",187.665508179326,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Ischemic heart disease",68.107352489861,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Ischemic heart disease",232.697478019353,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Ischemic heart disease",95.0822507590581,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Ischemic heart disease",285.805832227241,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Ischemic heart disease",151.022842256825,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Ischemic heart disease",313.424663890963,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Ischemic heart disease",221.558617270833,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Ischemic heart disease",324.37842382597,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Ischemic heart disease",346.999008216307,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Ischemic heart disease",270.683489123064,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Ischemic heart disease",446.801721891525,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Ischemic heart disease",153.885476424729,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Ischemic heart disease",354.974066155313,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Ischemic heart disease",81.5982546516403,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Ischemic heart disease",204.112269121683,4618.58578407081
+"Deaths","Uruguay","Male","0 to 4","Stroke",0.368025030907305,118029.249016733
+"Deaths","Uruguay","Female","0 to 4","Stroke",0.272928726992357,112305.573420272
+"Deaths","Uruguay","Male","5 to 9","Stroke",0.118714200702462,120162.41347932
+"Deaths","Uruguay","Female","5 to 9","Stroke",0.175543301114081,114211.23099485
+"Deaths","Uruguay","Male","10 to 14","Stroke",0.311180198259682,121070.392061191
+"Deaths","Uruguay","Female","10 to 14","Stroke",0.234053442604196,115638.849662264
+"Deaths","Uruguay","Male","15 to 19","Stroke",1.31459520445733,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Stroke",1.20539148964344,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Stroke",2.0878012185846,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Stroke",1.86136643740839,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Stroke",2.65669174604425,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Stroke",1.50552776565762,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Stroke",3.52902332853254,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Stroke",3.78661048466941,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Multiple myeloma",4.66310551078151,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Multiple myeloma",1.23556934020966,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Multiple myeloma",5.58716558328207,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Multiple myeloma",2.9598133682953,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Multiple myeloma",6.80353351549208,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Multiple myeloma",2.45045038752793,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Multiple myeloma",25.2242101330832,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Multiple myeloma",6.92578814408045,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Multiple myeloma",52.3112767792821,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Multiple myeloma",25.6303683390829,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Multiple myeloma",84.2204635057413,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Multiple myeloma",54.9979311109292,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Multiple myeloma",124.706850830032,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Multiple myeloma",80.6146458084981,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Multiple myeloma",209.252489452043,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Multiple myeloma",142.84580545472,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Multiple myeloma",265.582813707714,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Multiple myeloma",179.652089672238,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Multiple myeloma",294.257923619196,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Multiple myeloma",221.624860476407,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Multiple myeloma",246.922992322359,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Multiple myeloma",246.401840945246,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Multiple myeloma",174.324592112386,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Multiple myeloma",210.486654090374,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Multiple myeloma",124.298836108197,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Multiple myeloma",158.668187968808,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Multiple myeloma",57.8915717338415,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Multiple myeloma",110.669999600262,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Multiple myeloma",15.0509830247114,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Multiple myeloma",30.2387961059826,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Multiple myeloma",3.98147190705928,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Multiple myeloma",4.90968409594725,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","0 to 4","Lower respiratory infections",1233.30232912485,118029.249016733
+"YLLs (Years of Life Lost)","Uruguay","Female","0 to 4","Lower respiratory infections",870.400393627476,112305.573420272
+"YLLs (Years of Life Lost)","Uruguay","Male","5 to 9","Lower respiratory infections",41.570571311444,120162.41347932
+"YLLs (Years of Life Lost)","Uruguay","Female","5 to 9","Lower respiratory infections",47.7372449997887,114211.23099485
+"YLLs (Years of Life Lost)","Uruguay","Male","10 to 14","Lower respiratory infections",38.6652595779239,121070.392061191
+"YLLs (Years of Life Lost)","Uruguay","Female","10 to 14","Lower respiratory infections",33.5569761192646,115638.849662264
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Lower respiratory infections",93.7618147358516,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Lower respiratory infections",87.8897270385818,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Lower respiratory infections",108.864629097245,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Lower respiratory infections",101.224863081382,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Lower respiratory infections",150.675130025662,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Lower respiratory infections",93.6936653822517,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Lower respiratory infections",171.178049977994,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Lower respiratory infections",113.468280264238,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Lower respiratory infections",240.290383716547,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Lower respiratory infections",138.388643886832,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Lower respiratory infections",275.389118397303,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Lower respiratory infections",175.823849402158,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Lower respiratory infections",324.878990414179,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Lower respiratory infections",197.15128179322,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Lower respiratory infections",420.164799699969,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Lower respiratory infections",291.591630536378,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Lower respiratory infections",620.659093263626,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Lower respiratory infections",352.105308006234,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Lower respiratory infections",835.505456032817,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Lower respiratory infections",554.312152218369,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Lower respiratory infections",994.829464347503,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Lower respiratory infections",544.015523296919,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Lower respiratory infections",1067.15895507818,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Lower respiratory infections",791.57459135402,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Lower respiratory infections",1166.76463610906,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Lower respiratory infections",1165.20520181409,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Lower respiratory infections",1274.13011870237,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Lower respiratory infections",1715.49423134929,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Lower respiratory infections",1155.32794780775,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Lower respiratory infections",2003.51516213553,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Lower respiratory infections",640.681204184199,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Lower respiratory infections",1408.96960313952,14386.6333381075
+"Deaths","Uruguay","Male","0 to 4","Lower respiratory infections",14.0338580633208,118029.249016733
+"Deaths","Uruguay","Female","0 to 4","Lower respiratory infections",9.91196834598928,112305.573420272
+"Deaths","Uruguay","Male","5 to 9","Lower respiratory infections",0.509020433020467,120162.41347932
+"Deaths","Uruguay","Female","5 to 9","Lower respiratory infections",0.583888320853149,114211.23099485
+"Deaths","Uruguay","Male","10 to 14","Lower respiratory infections",0.506637455662068,121070.392061191
+"Deaths","Uruguay","Female","10 to 14","Lower respiratory infections",0.439358727878629,115638.849662264
+"Deaths","Uruguay","Male","15 to 19","Lower respiratory infections",1.31540879112602,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Lower respiratory infections",1.23131447997015,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Lower respiratory infections",1.63609801665723,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Lower respiratory infections",1.51924421494735,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Lower respiratory infections",2.44274558096843,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Lower respiratory infections",1.52189487336827,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Lower respiratory infections",3.02034448347011,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Lower respiratory infections",2.00663760752627,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Lower respiratory infections",4.64812744347145,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Lower respiratory infections",2.67951930825894,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Lower respiratory infections",5.89211276870852,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Lower respiratory infections",3.76264143263974,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Lower respiratory infections",7.75906812863347,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Lower respiratory infections",4.70747487466375,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Lower respiratory infections",11.3294674075763,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Lower respiratory infections",7.85857591045555,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Lower respiratory infections",19.1409794486401,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Lower respiratory infections",10.858844311561,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Lower respiratory infections",30.0119036950071,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Lower respiratory infections",19.9047172367934,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Lower respiratory infections",42.5520436485172,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Lower respiratory infections",23.3043160888343,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Lower respiratory infections",55.787777610051,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Lower respiratory infections",41.5082034535058,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Lower respiratory infections",77.1033740862964,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Lower respiratory infections",77.3956544659584,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Lower respiratory infections",109.702120122466,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Lower respiratory infections",148.701601149073,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Lower respiratory infections",130.385060970786,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Lower respiratory infections",227.692665530624,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Lower respiratory infections",93.3720960576796,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Lower respiratory infections",206.566433934643,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","0 to 4","All causes",19331.7101101623,118029.249016733
+"YLLs (Years of Life Lost)","Uruguay","Female","0 to 4","All causes",14920.0001099478,112305.573420272
+"YLLs (Years of Life Lost)","Uruguay","Male","5 to 9","All causes",1584.9185662174,120162.41347932
+"YLLs (Years of Life Lost)","Uruguay","Female","5 to 9","All causes",1218.81191629632,114211.23099485
+"YLLs (Years of Life Lost)","Uruguay","Male","10 to 14","All causes",2053.40335301301,121070.392061191
+"YLLs (Years of Life Lost)","Uruguay","Female","10 to 14","All causes",1232.12171002894,115638.849662264
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","All causes",7947.87769752782,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","All causes",2903.86499510555,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","All causes",12458.929751755,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","All causes",3820.41277380072,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","All causes",11120.1148610444,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","All causes",3211.16764030314,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","All causes",10080.6313001058,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","All causes",4830.49516010241,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","All causes",11374.3486850465,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","All causes",6262.3568723689,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","All causes",13655.620939615,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","All causes",8346.58079024021,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","All causes",16803.6567925286,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","All causes",9932.00633133638,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","All causes",22299.3863011985,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","All causes",13102.6721416333,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","All causes",32188.7078772895,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","All causes",18179.801518222,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","All causes",38621.9819130674,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","All causes",21899.3536943115,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","All causes",40537.0335535613,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","All causes",23290.378610602,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","All causes",39895.7155511912,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","All causes",26890.6257711567,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","All causes",34430.4136549851,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","All causes",28987.561909628,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","All causes",27736.879763966,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","All causes",31850.0057804321,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","All causes",17710.0430675061,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","All causes",28831.3781323888,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","All causes",7400.94597877785,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","All causes",17059.1390224144,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","All causes",2875.34582338218,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","All causes",7049.37397348813,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","10 to 14","Tracheal, bronchus, and lung cancer",2.50058205014503,121070.392061191
+"YLLs (Years of Life Lost)","Uruguay","Female","10 to 14","Tracheal, bronchus, and lung cancer",1.98471928134847,115638.849662264
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Tracheal, bronchus, and lung cancer",22.1304588376229,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Tracheal, bronchus, and lung cancer",7.87053647780278,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Tracheal, bronchus, and lung cancer",26.6776750411667,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Tracheal, bronchus, and lung cancer",21.1733606120018,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Tracheal, bronchus, and lung cancer",42.6300696837818,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Tracheal, bronchus, and lung cancer",25.466834306959,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Tracheal, bronchus, and lung cancer",118.06833437991,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Tracheal, bronchus, and lung cancer",66.3746375572197,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Tracheal, bronchus, and lung cancer",307.878538037656,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Tracheal, bronchus, and lung cancer",126.722523242509,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Tracheal, bronchus, and lung cancer",608.336227246347,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Tracheal, bronchus, and lung cancer",294.495354483837,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Tracheal, bronchus, and lung cancer",1315.41749399646,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Tracheal, bronchus, and lung cancer",561.735179913388,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Tracheal, bronchus, and lung cancer",2564.13761300046,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Tracheal, bronchus, and lung cancer",1035.436137049,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Tracheal, bronchus, and lung cancer",4424.00351357032,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Tracheal, bronchus, and lung cancer",1504.05868461154,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Tracheal, bronchus, and lung cancer",5332.32002725571,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Tracheal, bronchus, and lung cancer",1586.53388218148,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Tracheal, bronchus, and lung cancer",5228.84763549598,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Tracheal, bronchus, and lung cancer",1518.66868535181,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Tracheal, bronchus, and lung cancer",4237.996677718,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Tracheal, bronchus, and lung cancer",1328.23037694715,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Tracheal, bronchus, and lung cancer",2647.91706169787,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Tracheal, bronchus, and lung cancer",891.818586980715,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Tracheal, bronchus, and lung cancer",1371.65359577057,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Tracheal, bronchus, and lung cancer",587.45076013639,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Tracheal, bronchus, and lung cancer",598.710366039501,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Tracheal, bronchus, and lung cancer",328.963729443015,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Tracheal, bronchus, and lung cancer",166.43533777909,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Tracheal, bronchus, and lung cancer",129.927650507269,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Tracheal, bronchus, and lung cancer",47.5957804511526,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Tracheal, bronchus, and lung cancer",32.9579620788432,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Breast cancer",0.864321046972091,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Breast cancer",10.3035967136768,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Breast cancer",1.65397291663849,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Breast cancer",25.5531247628353,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Breast cancer",0.727156897598226,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Breast cancer",82.3376094620606,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Breast cancer",2.56697359249785,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Breast cancer",357.421403166298,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Breast cancer",2.12576574877487,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Breast cancer",711.340400191736,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Breast cancer",5.49946888756923,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Breast cancer",1245.84827923238,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Breast cancer",12.9696558819731,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Breast cancer",1676.1857479229,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Breast cancer",16.7890700671911,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Breast cancer",2049.36540336318,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Breast cancer",24.9976086679518,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Breast cancer",2359.76969002446,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Breast cancer",29.8361597554613,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Breast cancer",2505.50305023287,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Breast cancer",25.5437553111653,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Breast cancer",2057.05610422905,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Breast cancer",28.8433783678839,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Breast cancer",2035.42637460736,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Breast cancer",19.5140113837271,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Breast cancer",1565.77504187625,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Breast cancer",14.2743535912026,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Breast cancer",1278.03868317116,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Breast cancer",9.06023778092941,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Breast cancer",990.31963662986,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Breast cancer",3.92111590866618,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Breast cancer",472.864200086836,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Breast cancer",1.19205539037802,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Breast cancer",143.693594620445,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Uterine cancer",1.30222243181443,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Uterine cancer",4.50927185240047,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Uterine cancer",9.96179464149868,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Uterine cancer",17.3448599519851,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Uterine cancer",36.6807450327128,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Uterine cancer",48.2349507168113,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Uterine cancer",73.2423884961232,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Uterine cancer",137.372231104502,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Uterine cancer",231.770944122839,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Uterine cancer",221.673178480955,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Uterine cancer",236.763605114686,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Uterine cancer",172.101247769039,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Uterine cancer",155.800364537065,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Uterine cancer",88.0155803426763,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Uterine cancer",35.8143867282649,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Uterine cancer",9.85073136455751,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","5 to 9","Colon and rectum cancer",2.38593273771968,120162.41347932
+"YLLs (Years of Life Lost)","Uruguay","Female","5 to 9","Colon and rectum cancer",1.93565371516722,114211.23099485
+"YLLs (Years of Life Lost)","Uruguay","Male","10 to 14","Colon and rectum cancer",3.25885950589195,121070.392061191
+"YLLs (Years of Life Lost)","Uruguay","Female","10 to 14","Colon and rectum cancer",4.26065380484665,115638.849662264
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Colon and rectum cancer",16.2918551065467,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Colon and rectum cancer",16.830149204996,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Colon and rectum cancer",48.1395607726631,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Colon and rectum cancer",37.3755362201206,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Colon and rectum cancer",81.0283053257958,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Colon and rectum cancer",52.0468641527229,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Colon and rectum cancer",133.861976764183,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Colon and rectum cancer",125.336337927279,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Colon and rectum cancer",238.980536604201,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Colon and rectum cancer",195.426105765292,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Colon and rectum cancer",352.284171809687,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Colon and rectum cancer",317.213804344692,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Colon and rectum cancer",524.957841063892,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Colon and rectum cancer",489.617214020165,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Colon and rectum cancer",882.47182805801,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Colon and rectum cancer",714.103723107063,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Colon and rectum cancer",1405.30481814066,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Colon and rectum cancer",1002.69198422741,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Colon and rectum cancer",1818.77690533882,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Colon and rectum cancer",1359.92058795402,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Colon and rectum cancer",2001.61949932542,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Colon and rectum cancer",1514.07907956806,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Colon and rectum cancer",2138.91151531814,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Colon and rectum cancer",1701.91902578243,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Colon and rectum cancer",1743.39216453197,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Colon and rectum cancer",1737.49725064516,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Colon and rectum cancer",1283.09278835138,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Colon and rectum cancer",1584.32587435086,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Colon and rectum cancer",718.827404449064,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Colon and rectum cancer",1283.93032855025,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Colon and rectum cancer",245.345072093215,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Colon and rectum cancer",599.224143985444,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Colon and rectum cancer",71.1555064239589,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Colon and rectum cancer",196.60107695643,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","5 to 9","Lip and oral cavity cancer",0.962773396441723,120162.41347932
+"YLLs (Years of Life Lost)","Uruguay","Female","5 to 9","Lip and oral cavity cancer",0.966534713764617,114211.23099485
+"YLLs (Years of Life Lost)","Uruguay","Male","10 to 14","Lip and oral cavity cancer",1.1779726317376,121070.392061191
+"YLLs (Years of Life Lost)","Uruguay","Female","10 to 14","Lip and oral cavity cancer",1.59513751817504,115638.849662264
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Lip and oral cavity cancer",4.21569100219156,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Lip and oral cavity cancer",3.5578848587129,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Lip and oral cavity cancer",10.1439922045801,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Lip and oral cavity cancer",9.5835425488297,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Lip and oral cavity cancer",8.61853524447357,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Lip and oral cavity cancer",7.46362222160486,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Lip and oral cavity cancer",11.9583827701722,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Lip and oral cavity cancer",13.4770470078359,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Lip and oral cavity cancer",30.577249423688,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Lip and oral cavity cancer",20.2285140693102,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Lip and oral cavity cancer",67.2722006806092,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Lip and oral cavity cancer",25.6281959732329,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Lip and oral cavity cancer",155.886332012178,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Lip and oral cavity cancer",33.2009211578342,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Lip and oral cavity cancer",238.868485118082,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Lip and oral cavity cancer",51.691770709393,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Lip and oral cavity cancer",361.964489790211,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Lip and oral cavity cancer",76.6728725531453,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Lip and oral cavity cancer",369.155710401443,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Lip and oral cavity cancer",90.9226981710269,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Lip and oral cavity cancer",268.536152329605,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Lip and oral cavity cancer",78.896031092489,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Lip and oral cavity cancer",203.072569145588,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Lip and oral cavity cancer",74.7568882397636,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Lip and oral cavity cancer",121.958903996211,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Lip and oral cavity cancer",66.5223561427566,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Lip and oral cavity cancer",65.8505668051955,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Lip and oral cavity cancer",65.6289813161117,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Lip and oral cavity cancer",31.1940881299054,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Lip and oral cavity cancer",50.2295142824792,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Lip and oral cavity cancer",13.3404874599204,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Lip and oral cavity cancer",26.2576951818557,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Lip and oral cavity cancer",4.54294257474555,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Lip and oral cavity cancer",11.897536580145,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","5 to 9","Nasopharynx cancer",2.29731957387618,120162.41347932
+"YLLs (Years of Life Lost)","Uruguay","Female","5 to 9","Nasopharynx cancer",0.840256328998538,114211.23099485
+"YLLs (Years of Life Lost)","Uruguay","Male","10 to 14","Nasopharynx cancer",3.28364470347527,121070.392061191
+"YLLs (Years of Life Lost)","Uruguay","Female","10 to 14","Nasopharynx cancer",0.813585033208598,115638.849662264
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Nasopharynx cancer",7.11284511925835,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Nasopharynx cancer",1.55392005922173,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Nasopharynx cancer",8.56367143314303,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Nasopharynx cancer",2.95771627160059,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Nasopharynx cancer",2.37919904361094,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Nasopharynx cancer",3.47510548724772,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Nasopharynx cancer",7.48206534412159,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Nasopharynx cancer",2.39681373436581,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Nasopharynx cancer",10.0306378146365,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Nasopharynx cancer",4.73937822922225,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Nasopharynx cancer",23.4453752316978,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Nasopharynx cancer",5.01836809925324,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Nasopharynx cancer",33.1902443698089,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Nasopharynx cancer",6.93004800074462,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Nasopharynx cancer",46.486995412592,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Nasopharynx cancer",10.7696612353545,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Nasopharynx cancer",59.1341603459699,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Nasopharynx cancer",11.2271768779572,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Nasopharynx cancer",51.6919842778496,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Nasopharynx cancer",10.4412089456431,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Nasopharynx cancer",39.2562189193004,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Nasopharynx cancer",9.14200895253109,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Nasopharynx cancer",28.287682319972,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Nasopharynx cancer",8.73491459056731,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Nasopharynx cancer",11.0970627433852,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Nasopharynx cancer",3.96345703296465,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Nasopharynx cancer",6.84396067993332,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Nasopharynx cancer",6.00680892626818,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Nasopharynx cancer",5.17851948204226,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Nasopharynx cancer",4.63794726118977,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Nasopharynx cancer",1.38798676908145,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Nasopharynx cancer",2.00572699627972,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Nasopharynx cancer",0.628602111548794,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Nasopharynx cancer",0.825199171640413,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Other pharynx cancer",1.17269540429819,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Other pharynx cancer",0.829434778396919,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Other pharynx cancer",0.902684405787544,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Other pharynx cancer",0.702768898000765,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Other pharynx cancer",1.8434067934571,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Other pharynx cancer",1.79037039572126,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Other pharynx cancer",14.8446583165144,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Other pharynx cancer",2.39371904430095,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Other pharynx cancer",42.585530045673,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Other pharynx cancer",4.71196092062169,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Other pharynx cancer",85.4556120977614,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Other pharynx cancer",6.23409654684855,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Other pharynx cancer",153.475528524357,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Other pharynx cancer",10.4710817748368,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Other pharynx cancer",210.801673749067,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Other pharynx cancer",14.7744065786342,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Other pharynx cancer",224.248990252889,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Other pharynx cancer",14.7467111678229,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Other pharynx cancer",164.307556245477,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Other pharynx cancer",12.6655035907632,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Other pharynx cancer",103.467346674854,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Other pharynx cancer",11.276052671578,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Other pharynx cancer",51.7011534059775,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Other pharynx cancer",8.52447532633055,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Other pharynx cancer",25.7132997599817,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Other pharynx cancer",6.82632120066723,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Other pharynx cancer",14.0651789875605,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Other pharynx cancer",5.80777736851402,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Other pharynx cancer",3.09843011102555,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Other pharynx cancer",3.12021076459915,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Other pharynx cancer",1.26247237027341,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Other pharynx cancer",2.15887844608837,4618.58578407081
+"Deaths","Uruguay","Male","0 to 4","Road injuries",2.59532071456842,118029.249016733
+"Deaths","Uruguay","Female","0 to 4","Road injuries",2.41752761284648,112305.573420272
+"Deaths","Uruguay","Male","5 to 9","Road injuries",3.09604300840222,120162.41347932
+"Deaths","Uruguay","Female","5 to 9","Road injuries",2.20377878380476,114211.23099485
+"Deaths","Uruguay","Male","10 to 14","Road injuries",4.21858851093219,121070.392061191
+"Deaths","Uruguay","Female","10 to 14","Road injuries",2.1841423982418,115638.849662264
+"Deaths","Uruguay","Male","15 to 19","Road injuries",24.1757457841332,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Road injuries",7.99649747972124,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Road injuries",43.6311176311442,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Road injuries",9.78394844802264,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Road injuries",35.0314116946112,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Road injuries",6.09986475537703,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Road injuries",26.7671868781568,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Road injuries",6.80546935481048,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Road injuries",29.5222081674154,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Road injuries",7.6655185319818,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Road injuries",30.026756002331,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Road injuries",8.00630639998343,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Road injuries",28.2741470394304,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Road injuries",6.23352245771078,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Road injuries",27.0454835630604,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Road injuries",6.4848185583573,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Road injuries",27.7306476126852,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Road injuries",8.07383367453266,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Road injuries",26.4355731494792,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Road injuries",9.15796237969217,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Road injuries",22.0847158710351,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Road injuries",9.42106778484368,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Road injuries",21.9742637058569,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Road injuries",10.0627990857995,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Road injuries",17.2251225426263,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Road injuries",14.1755476924927,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Road injuries",14.1691002235153,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Road injuries",13.8086559898274,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Road injuries",9.9698912293396,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Road injuries",15.2314223638172,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Road injuries",4.67632752252315,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Road injuries",8.79213783288225,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Road injuries",2.43563750527127,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Road injuries",4.69467603099932,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","0 to 4","Road injuries",224.445502307332,118029.249016733
+"YLLs (Years of Life Lost)","Uruguay","Female","0 to 4","Road injuries",208.922284004127,112305.573420272
+"YLLs (Years of Life Lost)","Uruguay","Male","5 to 9","Road injuries",252.846974924693,120162.41347932
+"YLLs (Years of Life Lost)","Uruguay","Female","5 to 9","Road injuries",180.175427338755,114211.23099485
+"YLLs (Years of Life Lost)","Uruguay","Male","10 to 14","Road injuries",321.951758609096,121070.392061191
+"YLLs (Years of Life Lost)","Uruguay","Female","10 to 14","Road injuries",166.818614603965,115638.849662264
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Road injuries",1723.23753087627,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Road injuries",570.780245168922,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Road injuries",2903.17902084951,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Road injuries",651.889164561153,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Road injuries",2160.8318742615,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Road injuries",375.530989208471,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Road injuries",1517.0305500832,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Road injuries",384.82529241205,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Road injuries",1526.18507452325,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Road injuries",395.8996343339,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Road injuries",1403.40862240919,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Road injuries",374.125368026533,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Road injuries",1183.8633445032,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Road injuries",261.062878792802,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Road injuries",1003.00921263633,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Road injuries",240.618508837991,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Road injuries",899.184843131172,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Road injuries",261.79947066151,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Road injuries",735.943505090581,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Road injuries",255.033506692498,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Road injuries",516.321289800478,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Road injuries",219.925231937748,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Road injuries",420.343546553639,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Road injuries",191.900766872302,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Road injuries",260.65868158879,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Road injuries",213.4153658087,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Road injuries",164.566348668007,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Road injuries",159.303393576024,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Road injuries",88.3421297508941,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Road injuries",134.024456060899,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Road injuries",32.0870503585898,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Road injuries",59.9703190745093,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Road injuries",12.495932990723,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Road injuries",24.2438095155301,4618.58578407081
+"Deaths","Uruguay","Male","15 to 19","Diabetes mellitus type 2",0.0526912689787303,127527.996124232
+"Deaths","Uruguay","Female","15 to 19","Diabetes mellitus type 2",0.147898521445827,122782.131557762
+"Deaths","Uruguay","Male","20 to 24","Diabetes mellitus type 2",0.109856270020353,128493.764576698
+"Deaths","Uruguay","Female","20 to 24","Diabetes mellitus type 2",0.344951898422815,127801.113291052
+"Deaths","Uruguay","Male","25 to 29","Diabetes mellitus type 2",0.203320975301735,117231.077181266
+"Deaths","Uruguay","Female","25 to 29","Diabetes mellitus type 2",0.29771426617407,120705.803006562
+"Deaths","Uruguay","Male","30 to 34","Diabetes mellitus type 2",0.681765240261108,112612.381347271
+"Deaths","Uruguay","Female","30 to 34","Diabetes mellitus type 2",0.685594317143495,118883.50856415
+"Deaths","Uruguay","Male","35 to 39","Diabetes mellitus type 2",1.05434244290877,112392.061430964
+"Deaths","Uruguay","Female","35 to 39","Diabetes mellitus type 2",0.897453088920773,119294.268175702
+"Deaths","Uruguay","Male","40 to 44","Diabetes mellitus type 2",2.12298797014182,112158.115163309
+"Deaths","Uruguay","Female","40 to 44","Diabetes mellitus type 2",1.52891757242206,119472.718108918
+"Deaths","Uruguay","Male","45 to 49","Diabetes mellitus type 2",5.66230857999707,100769.354237191
+"Deaths","Uruguay","Female","45 to 49","Diabetes mellitus type 2",3.27383331309027,108060.762903478
+"Deaths","Uruguay","Male","50 to 54","Diabetes mellitus type 2",10.1624033833637,94256.7693479547
+"Deaths","Uruguay","Female","50 to 54","Diabetes mellitus type 2",7.47471497633395,102931.210335944
+"Deaths","Uruguay","Male","55 to 59","Diabetes mellitus type 2",21.9676562369406,92303.4384002349
+"Deaths","Uruguay","Female","55 to 59","Diabetes mellitus type 2",15.3056064966801,102801.900206946
+"Deaths","Uruguay","Male","60 to 64","Diabetes mellitus type 2",39.908726594809,82335.9834836636
+"Deaths","Uruguay","Female","60 to 64","Diabetes mellitus type 2",25.0792236010962,94635.2800708547
+"Deaths","Uruguay","Male","65 to 69","Diabetes mellitus type 2",48.7216704091711,66852.1610093238
+"Deaths","Uruguay","Female","65 to 69","Diabetes mellitus type 2",35.5141351954185,81380.6630439584
+"Deaths","Uruguay","Male","70 to 74","Diabetes mellitus type 2",62.52908716007,53427.8177533377
+"Deaths","Uruguay","Female","70 to 74","Diabetes mellitus type 2",55.6169871848147,70506.4298520815
+"Deaths","Uruguay","Male","75 to 79","Diabetes mellitus type 2",67.3747740285641,39683.6817901943
+"Deaths","Uruguay","Female","75 to 79","Diabetes mellitus type 2",76.4366242910249,58752.4203097684
+"Deaths","Uruguay","Male","80 to 84","Diabetes mellitus type 2",66.9850380630099,26622.5491647632
+"Deaths","Uruguay","Female","80 to 84","Diabetes mellitus type 2",93.0204194138055,47261.4624724484
+"Deaths","Uruguay","Male","85 to 89","Diabetes mellitus type 2",46.9113173765006,14449.8176987259
+"Deaths","Uruguay","Female","85 to 89","Diabetes mellitus type 2",79.5416001342612,31666.8143961731
+"Deaths","Uruguay","Male","90 to 94","Diabetes mellitus type 2",20.1142760100139,5683.46563785627
+"Deaths","Uruguay","Female","90 to 94","Diabetes mellitus type 2",48.4653223236277,14386.6333381075
+"Deaths","Uruguay","Male","95 to 99","Diabetes mellitus type 2",8.00205789951608,1976.85031659564
+"Deaths","Uruguay","Female","95 to 99","Diabetes mellitus type 2",20.2172199637851,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Diabetes mellitus type 2",3.75581266714169,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Diabetes mellitus type 2",10.5568162242344,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Diabetes mellitus type 2",7.30974670711192,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Diabetes mellitus type 2",22.9836048371739,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Diabetes mellitus type 2",12.5413856560484,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Diabetes mellitus type 2",18.3284281474061,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Diabetes mellitus type 2",38.6390509458024,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Diabetes mellitus type 2",38.76794087454,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Diabetes mellitus type 2",54.5054655355956,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Diabetes mellitus type 2",46.3505956254867,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Diabetes mellitus type 2",99.2254915028694,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Diabetes mellitus type 2",71.4445364551401,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Diabetes mellitus type 2",237.085828399212,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Diabetes mellitus type 2",137.109692826389,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Diabetes mellitus type 2",376.883045639541,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Diabetes mellitus type 2",277.348511050719,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Diabetes mellitus type 2",712.315983501844,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Diabetes mellitus type 2",496.29455355558,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Diabetes mellitus type 2",1111.02445056933,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Diabetes mellitus type 2",698.413257767479,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Diabetes mellitus type 2",1139.06992753708,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Diabetes mellitus type 2",829.041314455477,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Diabetes mellitus type 2",1196.11280775792,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Diabetes mellitus type 2",1060.63356734952,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Diabetes mellitus type 2",1019.5468698216,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Diabetes mellitus type 2",1150.76683371397,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Diabetes mellitus type 2",777.994576615548,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Diabetes mellitus type 2",1073.12894863923,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Diabetes mellitus type 2",415.676118337623,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Diabetes mellitus type 2",699.903097528981,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Diabetes mellitus type 2",138.015950369459,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Diabetes mellitus type 2",330.577261076,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Diabetes mellitus type 2",41.0542123299671,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Diabetes mellitus type 2",104.403887829347,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","0 to 4","Asthma",15.4481503526502,118029.249016733
+"YLLs (Years of Life Lost)","Uruguay","Female","0 to 4","Asthma",10.9431612893428,112305.573420272
+"YLLs (Years of Life Lost)","Uruguay","Male","5 to 9","Asthma",7.15875863826776,120162.41347932
+"YLLs (Years of Life Lost)","Uruguay","Female","5 to 9","Asthma",8.42219899048393,114211.23099485
+"YLLs (Years of Life Lost)","Uruguay","Male","10 to 14","Asthma",15.1844863922283,121070.392061191
+"YLLs (Years of Life Lost)","Uruguay","Female","10 to 14","Asthma",19.976658663161,115638.849662264
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Asthma",15.6796789483826,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Asthma",36.4665184361199,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Asthma",12.5011254608264,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Asthma",55.450386832957,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Asthma",30.0282432754488,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Asthma",26.7709660257857,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Asthma",36.1103365259127,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Asthma",34.0589356596651,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Asthma",40.336606587117,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Asthma",37.4706866427667,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Asthma",38.6539385856058,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Asthma",59.2309916458418,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Asthma",59.2784977971058,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Asthma",87.0284874486548,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Asthma",69.5200001742284,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Asthma",89.1941487610659,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Asthma",88.1009621121287,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Asthma",130.312467788194,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Asthma",91.3278439245698,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Asthma",144.248003580773,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Asthma",85.6468918756802,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Asthma",136.636729978285,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Asthma",80.7996539117917,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Asthma",165.645891957252,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Asthma",61.0011860276046,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Asthma",163.555290146605,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Asthma",45.9577017362965,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Asthma",171.14176738325,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Asthma",30.506548452748,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Asthma",125.629212749516,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Asthma",14.4962781752618,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Asthma",64.2616670413404,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Asthma",6.0293197026655,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Asthma",25.0760080331919,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Esophageal cancer",346.98343678876,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Esophageal cancer",215.825314269823,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Esophageal cancer",188.257414224809,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Esophageal cancer",146.937278502137,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Esophageal cancer",56.3215628789963,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Esophageal cancer",65.9199377218513,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Esophageal cancer",17.5843550578055,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Esophageal cancer",15.4339498413664,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Stomach cancer",8.58350668150275,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Stomach cancer",6.77188807925132,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Stomach cancer",15.4958960771081,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Stomach cancer",12.1121148392885,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Stomach cancer",38.9626684368637,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Stomach cancer",25.6788944020111,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Stomach cancer",71.6200456625118,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Stomach cancer",67.5918432239656,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Stomach cancer",131.832638296908,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Stomach cancer",102.966926708371,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Stomach cancer",235.857343924454,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Stomach cancer",146.682886283622,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Stomach cancer",382.857218931889,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Stomach cancer",189.042041352855,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Stomach cancer",625.857532042695,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Stomach cancer",244.460373362161,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Stomach cancer",979.352619592735,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Stomach cancer",381.097477676084,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Stomach cancer",1081.53801778075,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Stomach cancer",434.723444078355,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Stomach cancer",1071.37084703511,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Stomach cancer",469.914275710183,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Stomach cancer",1047.10461546207,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Stomach cancer",479.995726448176,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Stomach cancer",753.215843252629,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Stomach cancer",507.132478146762,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Stomach cancer",568.06074683464,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Stomach cancer",467.542094173465,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Stomach cancer",289.930083483488,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Stomach cancer",382.293354525426,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Stomach cancer",96.1408157721442,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Stomach cancer",155.852439206905,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Stomach cancer",23.906967322604,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Stomach cancer",47.3491190398401,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","0 to 4","Liver cancer",7.87182260227307,118029.249016733
+"YLLs (Years of Life Lost)","Uruguay","Female","0 to 4","Liver cancer",5.4148321102448,112305.573420272
+"YLLs (Years of Life Lost)","Uruguay","Male","5 to 9","Liver cancer",4.32623969448538,120162.41347932
+"YLLs (Years of Life Lost)","Uruguay","Female","5 to 9","Liver cancer",3.59196984486476,114211.23099485
+"YLLs (Years of Life Lost)","Uruguay","Male","10 to 14","Liver cancer",5.51016481633387,121070.392061191
+"YLLs (Years of Life Lost)","Uruguay","Female","10 to 14","Liver cancer",3.41507758612322,115638.849662264
+"YLLs (Years of Life Lost)","Uruguay","Male","15 to 19","Liver cancer",5.89345566894304,127527.996124232
+"YLLs (Years of Life Lost)","Uruguay","Female","15 to 19","Liver cancer",1.95102926430133,122782.131557762
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Liver cancer",7.15867792006286,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Liver cancer",3.06868633948502,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Liver cancer",9.95894228760845,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Liver cancer",3.91713093535632,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Liver cancer",19.8022562066885,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Liver cancer",5.96682952691247,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Liver cancer",25.0855157646721,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Liver cancer",10.6308480116484,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Liver cancer",48.8349102854941,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Liver cancer",19.7366398601433,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Liver cancer",79.1895124415434,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Liver cancer",29.5757512742224,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Liver cancer",139.799173422484,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Liver cancer",50.2461198157739,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Liver cancer",228.325877719481,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Liver cancer",74.0121331817124,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Liver cancer",283.7444098987,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Liver cancer",98.9249064172441,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Liver cancer",279.071722737087,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Liver cancer",107.962540599374,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Liver cancer",293.896557994202,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Liver cancer",120.556166265488,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Liver cancer",197.412058505194,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Liver cancer",111.721506034437,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Liver cancer",111.992161840652,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Liver cancer",94.1193988611981,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Liver cancer",45.3045838808996,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Liver cancer",54.308086975339,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Liver cancer",12.711925165773,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Liver cancer",19.8482770492258,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Liver cancer",3.32629599850927,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Liver cancer",4.7166147312111,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Larynx cancer",4.7487018160757,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Larynx cancer",2.21062469198548,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Larynx cancer",4.0655623742466,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Larynx cancer",0.754870442733885,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Larynx cancer",8.07514092197228,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Larynx cancer",0.759217936851215,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Larynx cancer",22.0442700694038,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Larynx cancer",4.03813847643959,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Larynx cancer",70.0460776178628,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Larynx cancer",9.84287081194953,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Larynx cancer",164.92490130768,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Larynx cancer",11.5458282101576,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Larynx cancer",293.222372676133,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Larynx cancer",25.6019870196759,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Larynx cancer",430.122012089199,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Larynx cancer",30.2697961518566,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Larynx cancer",562.085145606984,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Larynx cancer",46.1597914666134,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Larynx cancer",468.85396389615,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Larynx cancer",39.1738020070577,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Larynx cancer",398.52096669305,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Larynx cancer",36.9978516986106,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Larynx cancer",240.97719297685,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Larynx cancer",28.9511590320902,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Larynx cancer",118.577590412579,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Larynx cancer",21.9350942628516,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Larynx cancer",53.416827837873,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Larynx cancer",13.2439030636476,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Larynx cancer",13.2531736295386,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Larynx cancer",6.29487258166541,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Larynx cancer",4.05337142059561,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Larynx cancer",1.88742268330084,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Alzheimer's disease and other dementias",6.29335244416986,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Alzheimer's disease and other dementias",7.28625141629928,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Alzheimer's disease and other dementias",27.6183442139623,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Alzheimer's disease and other dementias",32.1222162490166,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Alzheimer's disease and other dementias",42.7733833302338,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Alzheimer's disease and other dementias",47.1063253040027,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Alzheimer's disease and other dementias",75.3128133427828,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Alzheimer's disease and other dementias",81.0908353141953,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Alzheimer's disease and other dementias",130.75504166285,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Alzheimer's disease and other dementias",147.088429536107,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Alzheimer's disease and other dementias",225.020675064377,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Alzheimer's disease and other dementias",277.675323856495,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Alzheimer's disease and other dementias",390.659939155804,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Alzheimer's disease and other dementias",549.225134200732,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Alzheimer's disease and other dementias",589.865375719703,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Alzheimer's disease and other dementias",981.328330921415,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Alzheimer's disease and other dementias",1004.67050291493,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Alzheimer's disease and other dementias",2050.38028559903,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Alzheimer's disease and other dementias",1019.72166732113,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Alzheimer's disease and other dementias",2594.17722860744,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Alzheimer's disease and other dementias",652.420278895749,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Alzheimer's disease and other dementias",1970.24702378807,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Alzheimer's disease and other dementias",319.675348382783,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Alzheimer's disease and other dementias",942.881048371734,4618.58578407081
+"YLLs (Years of Life Lost)","Uruguay","Male","20 to 24","Parkinson's disease",0.232757545567786,128493.764576698
+"YLLs (Years of Life Lost)","Uruguay","Female","20 to 24","Parkinson's disease",0.260458261488446,127801.113291052
+"YLLs (Years of Life Lost)","Uruguay","Male","25 to 29","Parkinson's disease",0.685341609154161,117231.077181266
+"YLLs (Years of Life Lost)","Uruguay","Female","25 to 29","Parkinson's disease",0.155221526900559,120705.803006562
+"YLLs (Years of Life Lost)","Uruguay","Male","30 to 34","Parkinson's disease",0.585150668038299,112612.381347271
+"YLLs (Years of Life Lost)","Uruguay","Female","30 to 34","Parkinson's disease",0.281438864364724,118883.50856415
+"YLLs (Years of Life Lost)","Uruguay","Male","35 to 39","Parkinson's disease",2.38656593590355,112392.061430964
+"YLLs (Years of Life Lost)","Uruguay","Female","35 to 39","Parkinson's disease",0.493594890874949,119294.268175702
+"YLLs (Years of Life Lost)","Uruguay","Male","40 to 44","Parkinson's disease",4.36649356674896,112158.115163309
+"YLLs (Years of Life Lost)","Uruguay","Female","40 to 44","Parkinson's disease",4.15489131295364,119472.718108918
+"YLLs (Years of Life Lost)","Uruguay","Male","45 to 49","Parkinson's disease",12.7320119213736,100769.354237191
+"YLLs (Years of Life Lost)","Uruguay","Female","45 to 49","Parkinson's disease",8.97007210576768,108060.762903478
+"YLLs (Years of Life Lost)","Uruguay","Male","50 to 54","Parkinson's disease",27.0026629677675,94256.7693479547
+"YLLs (Years of Life Lost)","Uruguay","Female","50 to 54","Parkinson's disease",19.3106210579328,102931.210335944
+"YLLs (Years of Life Lost)","Uruguay","Male","55 to 59","Parkinson's disease",54.2141439400692,92303.4384002349
+"YLLs (Years of Life Lost)","Uruguay","Female","55 to 59","Parkinson's disease",40.7605004807516,102801.900206946
+"YLLs (Years of Life Lost)","Uruguay","Male","60 to 64","Parkinson's disease",114.835219951594,82335.9834836636
+"YLLs (Years of Life Lost)","Uruguay","Female","60 to 64","Parkinson's disease",72.1179394801133,94635.2800708547
+"YLLs (Years of Life Lost)","Uruguay","Male","65 to 69","Parkinson's disease",206.477238550086,66852.1610093238
+"YLLs (Years of Life Lost)","Uruguay","Female","65 to 69","Parkinson's disease",128.850836640125,81380.6630439584
+"YLLs (Years of Life Lost)","Uruguay","Male","70 to 74","Parkinson's disease",410.933031373067,53427.8177533377
+"YLLs (Years of Life Lost)","Uruguay","Female","70 to 74","Parkinson's disease",238.285567767733,70506.4298520815
+"YLLs (Years of Life Lost)","Uruguay","Male","75 to 79","Parkinson's disease",637.211351052547,39683.6817901943
+"YLLs (Years of Life Lost)","Uruguay","Female","75 to 79","Parkinson's disease",386.791308941867,58752.4203097684
+"YLLs (Years of Life Lost)","Uruguay","Male","80 to 84","Parkinson's disease",650.783219274887,26622.5491647632
+"YLLs (Years of Life Lost)","Uruguay","Female","80 to 84","Parkinson's disease",472.024756902498,47261.4624724484
+"YLLs (Years of Life Lost)","Uruguay","Male","85 to 89","Parkinson's disease",366.843988289166,14449.8176987259
+"YLLs (Years of Life Lost)","Uruguay","Female","85 to 89","Parkinson's disease",336.84144129428,31666.8143961731
+"YLLs (Years of Life Lost)","Uruguay","Male","90 to 94","Parkinson's disease",100.262926670685,5683.46563785627
+"YLLs (Years of Life Lost)","Uruguay","Female","90 to 94","Parkinson's disease",128.398749167639,14386.6333381075
+"YLLs (Years of Life Lost)","Uruguay","Male","95 to 99","Parkinson's disease",24.5378560672453,1976.85031659564
+"YLLs (Years of Life Lost)","Uruguay","Female","95 to 99","Parkinson's disease",33.1995344111907,4618.58578407081
