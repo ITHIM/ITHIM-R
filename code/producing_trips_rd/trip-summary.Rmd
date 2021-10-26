@@ -10,9 +10,10 @@ output:
     number_sections: true
 ---
 
+Note: in order to create the markdown properly from this file, Rstudio options need to be changed. Tools > Global Options > R Markdown > Evaluate chunks in directory > Current. By default this option is set to *Document*, but here you need to change it to *Current* so everything works as expected.
 
 ```{r, include = FALSE}
-source("used_functions.R")
+source("code/producing_trips_rd/used_functions.R")
 knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis')
 ```
 
@@ -43,117 +44,262 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 ```
 
 ```{r,  comment=NA, message=FALSE, warning=FALSE, prompt=FALSE, cache=FALSE, echo=F}
-trip <- read_csv("../../data/local/buenos_aires/buenos_aires_trip.csv",
+trip <- read_csv("data/local/buenos_aires/buenos_aires_trip.csv",
                  guess_max = 100000)
 quality_check(trip)
 trip_summary$Buenos_Aires <- value
 
-trip <- read_csv("../../data/local/sao_paulo/sao_paulo_trip.csv",
+trip <- read_csv("data/local/sao_paulo/sao_paulo_trip.csv",
                  guess_max = 100000)
 quality_check(trip)
 trip_summary$Sao_Paulo <- value
 
-trip <- read_csv("../../data/local/belo_horizonte/belo_horizonte_trip.csv",
+trip <- read_csv("data/local/belo_horizonte/belo_horizonte_trip.csv",
                  guess_max = 100000)
 quality_check(trip)
 trip_summary$Belo_Horizonte <- value
 
-trip <- read_csv("../../data/local/mexico_city/mexico_city_trip.csv",
+trip <- read_csv("data/local/mexico_city/mexico_city_trip.csv",
                  guess_max = 100000)
 quality_check(trip)
 trip_summary$Mexico <- value
 
-trip <- read_csv("../../data/local/bogota/bogota_trips.csv",
+trip <- read_csv("data/local/bogota/bogota_trips.csv",
                  guess_max = 100000)
 quality_check(trip)
 trip_summary$Bogota <- value
 
-trip <- read_csv("../../data/local/santiago/santiago_trip.csv",
+trip <- read_csv("data/local/santiago/santiago_trip.csv",
                  guess_max = 100000)
 quality_check(trip)
 trip_summary$Santiago <- value
 
-trip <- read_csv("../../data/local/vizag/vizag_trip.csv",
+trip <- read_csv("data/local/vizag/vizag_trip.csv",
                  guess_max = 100000)
 quality_check(trip)
 trip_summary$Visakhapatnam <- value
 
-trip <- read_csv("../../data/local/delhi/delhi_trip.csv",
+trip <- read_csv("data/local/delhi/delhi_trip.csv",
                  guess_max = 100000)
 quality_check(trip)
 trip_summary$Delhi <- value
 
-trip <- read_csv("../../data/local/bangalore/bangalore_trip.csv",
+trip <- read_csv("data/local/bangalore/bangalore_trip.csv",
                  guess_max = 100000)
 quality_check(trip)
 trip_summary$Bangalore <- value
 
-trip <- read_csv("../../data/local/accra/accra_trip.csv",
+trip <- read_csv("data/local/accra/accra_trip.csv",
                  guess_max = 100000)
 quality_check(trip)
 trip_summary$Accra <- value
 
-trip <- read_csv("../../data/local/cape_town/cape_town_trip.csv",
+trip <- read_csv("data/local/cape_town/cape_town_trip.csv",
                  guess_max = 100000)
 quality_check(trip)
 trip_summary$Cape_Town <- value
+
+###
+trip <- read_csv("data/local/antofagasta/antofagasta_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$Antofagasta <- value
+
+trip <- read_csv("data/local/arica/arica_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$Arica <- value
+
+trip <- read_csv("data/local/cali/cali_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$Cali <- value
+
+trip <- read_csv("data/local/copiapo/copiapo_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$Copiapo <- value
+
+trip <- read_csv("data/local/coquimbo_laserena/coquimbo_laserena_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$Coquimbo <- value
+
+trip <- read_csv("data/local/gran_valparaiso/gran_valparaiso_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$Gran_Valparaiso <- value
+
+trip <- read_csv("data/local/iquique_altohospicio/iquique_altohospicio_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$Iquique <- value
+
+trip <- read_csv("data/local/medellin/medellin_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$Medellin <- value
+
+trip <- read_csv("data/local/montevideo/montevideo_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$Montevideo <- value
+
+trip <- read_csv("data/local/osorno/osorno_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$Osorno <- value
+
+trip <- read_csv("data/local/puerto_montt/puerto_montt_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$Puerto_montt <- value
+
+trip <- read_csv("data/local/san_antonio/san_antonio_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$San_antonio <- value
+
+trip <- read_csv("data/local/temuco_padrelascasas/temuco_padrelascasas_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$Temuco <- value
+
+trip <- read_csv("data/local/valdivia/valdivia_trips.csv",
+                 guess_max = 100000)
+quality_check(trip)
+trip_summary$Valdivia <- value
+
+
+
 ```
 
 ```{r,  comment=NA, message=FALSE, warning=FALSE, prompt=FALSE, cache=FALSE, echo=F}
-trip <- read_csv("../../data/local/buenos_aires/buenos_aires_trip.csv",
+trip <- read_csv("data/local/buenos_aires/buenos_aires_trip.csv",
                  guess_max = 100000)
 quality_check(trip, 15, 69)
 trip_summary2$Buenos_Aires <- value
 
-trip <- read_csv("../../data/local/sao_paulo/sao_paulo_trip.csv",
+trip <- read_csv("data/local/sao_paulo/sao_paulo_trip.csv",
                  guess_max = 100000)
 quality_check(trip, 15, 69)
 trip_summary2$Sao_Paulo <- value
 
-trip <- read_csv("../../data/local/belo_horizonte/belo_horizonte_trip.csv",
+trip <- read_csv("data/local/belo_horizonte/belo_horizonte_trip.csv",
                  guess_max = 100000)
 quality_check(trip, 15, 69)
 trip_summary2$Belo_Horizonte <- value
 
-trip <- read_csv("../../data/local/mexico_city/mexico_city_trip.csv",
+trip <- read_csv("data/local/mexico_city/mexico_city_trip.csv",
                  guess_max = 100000)
 quality_check(trip, 15, 69)
 trip_summary2$Mexico <- value
 
-trip <- read_csv("../../data/local/bogota/bogota_trips.csv",
+trip <- read_csv("data/local/bogota/bogota_trips.csv",
                  guess_max = 100000)
 quality_check(trip, 15, 69)
 trip_summary2$Bogota <- value
 
-trip <- read_csv("../../data/local/santiago/santiago_trip.csv",
+trip <- read_csv("data/local/santiago/santiago_trip.csv",
                  guess_max = 100000)
 quality_check(trip, 15, 69)
 trip_summary2$Santiago <- value
 
-trip <- read_csv("../../data/local/vizag/vizag_trip.csv",
+trip <- read_csv("data/local/vizag/vizag_trip.csv",
                  guess_max = 100000)
 quality_check(trip, 15, 69)
 trip_summary2$Visakhapatnam <- value
 
-trip <- read_csv("../../data/local/delhi/delhi_trip.csv",
+trip <- read_csv("data/local/delhi/delhi_trip.csv",
                  guess_max = 100000)
 quality_check(trip, 15, 69)
 trip_summary2$Delhi <- value
 
-trip <- read_csv("../../data/local/bangalore/bangalore_trip.csv",
+trip <- read_csv("data/local/bangalore/bangalore_trip.csv",
                  guess_max = 100000)
 quality_check(trip, 15, 69)
 trip_summary2$Bangalore <- value
 
-trip <- read_csv("../../data/local/accra/accra_trip.csv",
+trip <- read_csv("data/local/accra/accra_trip.csv",
                  guess_max = 100000)
 quality_check(trip, 15, 69)
 trip_summary2$Accra <- value
 
-trip <- read_csv("../../data/local/cape_town/cape_town_trip.csv",
+trip <- read_csv("data/local/cape_town/cape_town_trip.csv",
                  guess_max = 100000)
 quality_check(trip, 15, 69)
 trip_summary2$Cape_Town <- value
+
+###
+trip <- read_csv("data/local/antofagasta/antofagasta_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$Antofagasta <- value
+
+trip <- read_csv("data/local/arica/arica_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$Arica <- value
+
+trip <- read_csv("data/local/cali/cali_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$Cali <- value
+
+trip <- read_csv("data/local/copiapo/copiapo_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$Copiapo <- value
+
+trip <- read_csv("data/local/coquimbo_laserena/coquimbo_laserena_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$Coquimbo <- value
+
+trip <- read_csv("data/local/gran_valparaiso/gran_valparaiso_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$Gran_Valparaiso <- value
+
+trip <- read_csv("data/local/iquique_altohospicio/iquique_altohospicio_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$Iquique <- value
+
+trip <- read_csv("data/local/medellin/medellin_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$Medellin <- value
+
+trip <- read_csv("data/local/montevideo/montevideo_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$Montevideo <- value
+
+trip <- read_csv("data/local/osorno/osorno_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$Osorno <- value
+
+trip <- read_csv("data/local/puerto_montt/puerto_montt_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$Puerto_montt <- value
+
+trip <- read_csv("data/local/san_antonio/san_antonio_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$San_antonio <- value
+
+trip <- read_csv("data/local/temuco_padrelascasas/temuco_padrelascasas_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$Temuco <- value
+
+trip <- read_csv("data/local/valdivia/valdivia_trips.csv",
+                 guess_max = 100000)
+quality_check(trip, 15, 69)
+trip_summary2$Valdivia <- value
 ```
 
 ## summary table (all rows)
