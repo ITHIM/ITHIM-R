@@ -53,7 +53,7 @@ io <- readRDS("results/multi_city/io.rds")
 # Assumes that multi_city_script.R has been run till 
 # Get names of cities from the io object
 cities <- names(io)[!names(io) %in% 'scen_prop']
-
+LATAM <- TRUE
 #cities <- c('accra','sao_paulo','buenos_aires')
 
 # cities <- c('sao_paulo')
