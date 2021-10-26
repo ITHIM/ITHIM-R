@@ -35,8 +35,18 @@ get_scenario_settings <- function(cities = c('accra', 'bangalore', 'belo_horizon
                                                  cycle_rickshaw = 5 
                                   )){
   
+  if (LATAM)
+    cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota',
+                'buenos_aires',
+                'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
+                'iquique_altohospicio', 'medellin', 'mexico_city', 
+                'montevideo', 
+                'osorno', 'puerto_montt', 'san_antonio',
+                'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
+  
   min_distances <- as.numeric(sapply(distances,function(x)strsplit(x, "[^0-9.]+")[[1]][1]))
   mode_proportions <- mode_proportions_by_distance <- list()
+  
   for(city in cities){
     tripset_path <- file.path(find.package('ithimr',lib.loc=.libPaths()), paste0('extdata/local/',city,'/trips_',city,'.csv')) 
     trip_set <- read_csv(tripset_path,col_types = cols())

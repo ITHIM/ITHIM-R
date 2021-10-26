@@ -94,7 +94,8 @@ run_ithim_setup <- function(seed = 1,
                             DISTANCE_SCALAR_WALKING = 1,
                             DISTANCE_SCALAR_PT = 1,
                             DISTANCE_SCALAR_CYCLING = 1,
-                            DISTANCE_SCALAR_MOTORCYCLE = 1){
+                            DISTANCE_SCALAR_MOTORCYCLE = 1,
+                            LATAM = FALSE){
   
   ## SUMMARY OF INPUTS
   # seed = double. sets seed to allow some reproducibility.
@@ -157,6 +158,7 @@ run_ithim_setup <- function(seed = 1,
   ithim_object <- list()
   
   ## SET GLOBAL VALUES
+  LATAM <<- LATAM
   ## PROGRAMMING VARIABLES
   NSAMPLES <<- NSAMPLES
   

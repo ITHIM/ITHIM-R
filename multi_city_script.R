@@ -11,10 +11,14 @@ if (!require("drpa",character.only = TRUE)) {
 }
 
 # options(warn=2)  # treat warnings as errors
-cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires',
-            'cape_town', 'delhi', 'mexico_city', 'santiago', 'sao_paulo',
-            'vizag')
-
+# cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires',
+#             'cape_town', 'delhi', 'mexico_city', 'santiago', 'sao_paulo',
+#             'vizag')
+cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
+            'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
+            'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
+            'osorno', 'puerto_montt', 'san_antonio',
+            'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
 # Set seeds
 set.seed(12345)
 
@@ -100,33 +104,36 @@ toplot <- matrix(0,nrow=5,ncol=length(cities)) #5 scenarios, 4 cities
 ithim_objects <- list()
 for(city in cities){
   print(city)
-  ithim_objects[[city]] <- run_ithim_setup(DIST_CAT = c("0-2 km", "2-6 km", "6+ km"),
-                                  ADD_WALK_TO_BUS_TRIPS = as.logical(add_walk_to_bus_trips[[city]]),
-                                  CITY = city,
-                                  AGE_RANGE = c(min_age,max_age),
-                                  ADD_TRUCK_DRIVERS = T,
-                                  MAX_MODE_SHARE_SCENARIO = T,
-                                  ADD_BUS_DRIVERS = F,
-                                  ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]),
-                                  PM_emission_inventory = PM_emission_inventories[[city]],
-                                  CO2_emission_inventory = CO2_emission_inventories[[city]],
-                                  speeds = speeds[[city]],
-                                  
-                                  FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
-                                  MMET_CYCLING = mmet_cycling, 
-                                  MMET_WALKING = mmet_walking, 
-                                  DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
-                                  SIN_EXPONENT_SUM= sin_exponent_sum,
-                                  CASUALTY_EXPONENT_FRACTION = cas_exponent,
-                                  PA_DOSE_RESPONSE_QUANTILE = F,  
-                                  AP_DOSE_RESPONSE_QUANTILE = F,
-                                  INJURY_REPORTING_RATE = injury_reporting_rate[[city]],  
-                                  CHRONIC_DISEASE_SCALAR = chronic_disease_scalar[[city]],  
-                                  PM_CONC_BASE = pm_conc_base[[city]],  
-                                  PM_TRANS_SHARE = pm_trans_share[[city]],  
-                                  BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
-                                  BUS_WALK_TIME = bus_walk_time[[city]],
-                                  RAIL_WALK_TIME = rail_walk_time[[city]])
+  ithim_objects[[city]] <- 
+    run_ithim_setup(
+      LATAM = FALSE,
+      DIST_CAT = c("0-2 km", "2-6 km", "6+ km"),
+      ADD_WALK_TO_BUS_TRIPS = as.logical(add_walk_to_bus_trips[[city]]),
+      CITY = city,
+      AGE_RANGE = c(min_age,max_age),
+      ADD_TRUCK_DRIVERS = T,
+      MAX_MODE_SHARE_SCENARIO = T,
+      ADD_BUS_DRIVERS = F,
+      ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]),
+      PM_emission_inventory = PM_emission_inventories[[city]],
+      CO2_emission_inventory = CO2_emission_inventories[[city]],
+      speeds = speeds[[city]],
+      FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
+      MMET_CYCLING = mmet_cycling, 
+      MMET_WALKING = mmet_walking, 
+      DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
+      SIN_EXPONENT_SUM= sin_exponent_sum,
+      CASUALTY_EXPONENT_FRACTION = cas_exponent,
+      PA_DOSE_RESPONSE_QUANTILE = F,  
+      AP_DOSE_RESPONSE_QUANTILE = F,
+      INJURY_REPORTING_RATE = injury_reporting_rate[[city]],  
+      CHRONIC_DISEASE_SCALAR = chronic_disease_scalar[[city]],  
+      PM_CONC_BASE = pm_conc_base[[city]],  
+      PM_TRANS_SHARE = pm_trans_share[[city]],  
+      BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
+      BUS_WALK_TIME = bus_walk_time[[city]],
+      RAIL_WALK_TIME = rail_walk_time[[city]])
+  
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS
   ithim_objects[[city]]$demographic <- DEMOGRAPHIC
   ithim_objects[[city]]$synth_pop <- SYNTHETIC_POPULATION
