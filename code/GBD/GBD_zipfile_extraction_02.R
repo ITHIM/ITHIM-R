@@ -14,11 +14,11 @@ rm(list = ls())
 #gbdfile_name <- "IHME-GBD_2019_DATA-b1e8e391-"
 
 # I am running this locally because it is faster
-# If we want to run from v-drive just uncomment lines 9-12
+# If we want to run from v-drive just uncomment the lines above
 data_folder <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/CountriesAndTerritoriesAndSubregions/"
 temp_folder <- paste0(data_folder,"temp")
 result_folder <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/GBD 2019 data extraction/"
-gbdfile_name <- "IHME-GBD_2019_DATA-b1e8e391-"
+gbdfile_name <- "IHME-GBD_2019_DATA-b1e8e391-" # This name will change if data from another year is downloaded
 
 #Next two lines defines countries that will be extracted
 # Dan: In the file "countries to be extracted I added Uruguay, Canada, USA, Peru
