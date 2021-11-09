@@ -1,21 +1,42 @@
-# Modified in August 2021 by Daniel Gil
+#' ---
+#' title: "Preprocessing of GBD and population data"
+#' author: "Created by Marko in February-March 2019, modified by Daniel in November 2021"
+#' output:
+#'   html_document:
+#'     toc: true
+#'     toc_float: true
+#' ---
+#' 
+#' This script preprocess the GBD data and merge the population data to it. The
+#' result is a dataframe for each place in the right format for ITHIM-R package
 
 rm(list = ls())
-
 library(dplyr)
 
+#' Defining folders for the data
+#' result_folder is the path where the extracted information is 
+#' country_results is the path where the GBD for each file is going to be exported
+#' 
+#' I ran everything local because it is faster, but if someone wants to run this
+#' script from V-drive or other laptop, then only the path needs to be changed.
+#' V-Drive folder
 #result_folder <- "V:/Studies/MOVED/HealthImpact/Projects/TIGTHAT/Case cities data/GBD 2019 data extraction/"
 #country_results <- "V:/Studies/MOVED/HealthImpact/Projects/TIGTHAT/Case cities data/GBD 2019 Countries/"
 
-# I am running this locally because it is faster
-# If we want to run from v-drive just uncomment lines 4-5
+#' Local folder
 result_folder <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/GBD 2019 data extraction/"
 country_results <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/GBD 2019 Countries/"
 
-#Select causes (health outcomes) to be extracted
+#' The following files can be imported from the result_folder or the ithim package.
+#' Just make sure that both files have the same information.
+#' 
+#' Select causes (health outcomes) to be extracted
+#' 
+# From the result_folder:
 causes <- read.csv((paste0(result_folder, "Causes to be extracted.csv")))
 causes <- unlist(causes[,2])
 
+# From the result_folder:
 data_read <- read.csv(paste0(result_folder, "GBD2019_countries_extracted.csv"))
 
 #Keep only causes defined in "Causes to be extracted.csv" file
@@ -36,7 +57,9 @@ data_read <- subset(data_read, age_name %in% age_groups)
 
 #########
 #Read and select population data
+# From the result_folder:
 popdata_read <- read.csv(paste0(result_folder, "GBD2019_population_extracted.csv"))
+
 # Keep only year 2019 population estimates
 popdata_read <- subset(popdata_read, year_id %in% 2019)
 popdata_read <- subset(popdata_read, sex_name %in% c("male", "female"))
@@ -87,8 +110,10 @@ join_data <- join_data %>% distinct()
 cname <- read.csv((paste0(result_folder, "Countries to be extracted.csv")))
 cname <- cname$Country_or_location
 
-for (i in 1:length(cname)) {
+for (i in 1:length(cname)) { # Loop for each place (country or regior or city)
+    # Filter rows for the place of the iteration
     a <- subset(join_data, location_name %in% cname[i])
+    # Exports the dataset
     write.csv(a, 
               file = paste0(country_results,cname[i], "_GBD_results.csv"), 
               row.names = FALSE)
