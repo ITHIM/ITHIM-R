@@ -106,7 +106,7 @@ for(city in cities){
   print(city)
   ithim_objects[[city]] <- 
     run_ithim_setup(
-      LATAM = FALSE,
+      LATAM = TRUE,
       DIST_CAT = c("0-2 km", "2-6 km", "6+ km"),
       ADD_WALK_TO_BUS_TRIPS = as.logical(add_walk_to_bus_trips[[city]]),
       CITY = city,
