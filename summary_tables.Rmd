@@ -95,6 +95,43 @@ kable(scen_prop, headings = "Scenario Proportions")
 
 ```
 
+
+```{r}
+
+dat <- list()
+
+for (city in cities){
+  
+dat[[city]] <- io[[city]]$trip_scen_sets %>% mutate(scenario = case_when(
+  scenario == "Scenario 1" ~ "PED_SC", 
+  scenario == "Scenario 2" ~ "CYC_SC",
+  scenario == "Scenario 3" ~ "CAR_SC",
+  scenario == "Scenario 4" ~ "MOT_SC",
+  scenario == "Scenario 5" ~ "BUS_SC",
+  scenario == "Baseline" ~ "Baseline")) %>% group_by(scenario, trip_mode, trip_distance_cat) %>% summarise(n = dplyr::n()) %>% mutate(city = city) %>% filter(!(trip_mode %in% "truck"))
+
+td <- dat[[city]]
+
+for (i in 1:nrow(td)){
+    val <- td %>% filter(scenario == "Baseline", trip_mode == td$trip_mode[i] & 
+                           trip_distance_cat == td$trip_distance_cat[i] &
+                           city == td$city[i])
+    
+    if (nrow(val) > 0){
+      td$diff[i] <- val$n - td$n[i]
+      td$prop[i] <- round(td$n[i] / val$n, 2)
+      
+    }
+}
+
+dat[[city]] <- td
+
+}
+
+write_csv(bind_rows(dat), "results/multi_city/scen_prop.csv")
+
+```
+
 ## Case study specific propensities
 ```{r message=F, error=F, warning=FALSE}
 get_scen_settings <- ithimr::get_scenario_settings()
