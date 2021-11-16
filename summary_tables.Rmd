@@ -96,7 +96,7 @@ kable(scen_prop, headings = "Scenario Proportions")
 ```
 
 
-```{r}
+```{r message=FALSE, warning=FALSE, results='hide'}
 
 dat <- list()
 
