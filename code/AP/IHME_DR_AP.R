@@ -40,8 +40,17 @@ list_of_files <- list_of_files[index]
 for (i in 1:length(list_of_files)) {
   temp_df <- read_csv(list_of_files[i])
   cause <- unique(temp_df$cause)
-  temp_df <- temp_df %>%dplyr::select(exposure_spline, mean, lower, upper) %>% 
+  temp_df <- temp_df %>% dplyr::select(exposure_spline, mean, lower, upper) %>% 
     rename(dose = exposure_spline, RR = mean,	lb = lower,	ub = upper)
   write_csv(temp_df, paste0("inst/extdata/global/dose_response/drap/extdata/",
                             cause,".csv"))
 }
+
+# All cause mortality
+# This file was sent by Haneen
+all_cause_file <- read_csv("data/global/dose_response/drap/GBD 2019/HEI_ALL-CAUSE_PM_RISK.CSV")
+#names(all_cause_file)
+all_cause_file <- all_cause_file %>% 
+  dplyr::select(exposure_spline, mean, lower, upper) %>% 
+  rename(dose = exposure_spline, RR = mean,	lb = lower,	ub = upper)
+write_csv(all_cause_file, "inst/extdata/global/dose_response/drap/extdata/all_cause_ap.csv")
