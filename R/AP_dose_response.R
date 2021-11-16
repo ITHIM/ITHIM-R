@@ -14,8 +14,8 @@ AP_dose_response <- function(cause, dose, confidence_intervals = F) {
   if (sum(is.na(dose)) > 0 || class(dose) != "numeric") {
     stop('Please provide dose in numeric')
   }
-  if (!cause %in% c('cvd_ihd', 'neo_lung', 'resp_copd', 'cvd_stroke', 't2_dm',
-                    'lri',
+  if (!cause %in% c('all_cause_ap', 'cvd_ihd', 'neo_lung', 'resp_copd', 
+                    'cvd_stroke', 't2_dm', 'lri',
                     'cvd_ihd_25', 'cvd_ihd_30', 'cvd_ihd_35', 'cvd_ihd_40',
                     'cvd_ihd_45', 'cvd_ihd_50', 'cvd_ihd_55', 'cvd_ihd_60',
                     'cvd_ihd_65', 'cvd_ihd_70', 'cvd_ihd_75', 'cvd_ihd_80',

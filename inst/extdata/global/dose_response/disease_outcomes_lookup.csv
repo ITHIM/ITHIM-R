@@ -1,5 +1,5 @@
 GBD_name,acronym,air_pollution,physical_activity,ap_acronym,pa_acronym,outcome
-All causes,all_cause,0,1,,all-cause-mortality,deaths
+All causes,all_cause,1,1,all_cause_ap,all-cause-mortality,deaths
 Ischemic heart disease,IHD,1,1,cvd_ihd,coronary-heart-disease,deaths
 Neoplasms,total_cancer,0,1,,all-cause-cancer,deaths
 "Tracheal, bronchus, and lung cancer",lung_cancer,1,1,neo_lung,lung-cancer,deaths
