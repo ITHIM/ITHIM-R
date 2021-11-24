@@ -61,8 +61,14 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
       
   }
   
-  injuries$Deaths <- rowSums(injuries[,match(unique(injuries_list[[1]]$whw$cas_mode),colnames(injuries))]) +
-    rowSums(injuries[,match(unique(injuries_list[[1]]$nov$cas_mode),colnames(injuries))])
+  # This piece of code is duplicating the sum of deaths for most of modes (bus, car, cycle, motorcycle), because it looks for casualty modes in both nov and whw. I fixed it by getting unique values in casualty modes from both nov and whw
+  
+  # injuries$Deaths <- rowSums(injuries[,match(unique(injuries_list[[1]]$whw$cas_mode),colnames(injuries))]) +
+  #   rowSums(injuries[,match(unique(injuries_list[[1]]$nov$cas_mode),colnames(injuries))])
+  cas_names <- unique(c(unique(injuries_list[[1]]$whw$cas_mode), 
+                     unique(injuries_list[[1]]$nov$cas_mode)))
+  injuries$Deaths <- rowSums(injuries[,match(cas_names, colnames(injuries))])
+  
   list(injuries,whw_temp)
   ##TODO add in uncaptured fatalities as constant
 }
