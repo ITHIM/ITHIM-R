@@ -20,8 +20,17 @@ gen_pa_rr <- function(mmets_pp){
     pa_n <- as.character(DISEASE_INVENTORY$acronym[j])
     ##RJ apply PA DR function to all doses as one long vector
     #return_vector <- PA_dose_response(cause = pa_dn,dose = doses_vector)
+    
+    # Set quantile to the default value
+    quant <- 0.5
+    # Check if quantile for the the specific cause has been declared. 
+    # If yes, then use it instead
+    if (exists(paste0('PA_DOSE_RESPONSE_QUANTILE_',pa_dn)))
+      quant <- get(paste0('PA_DOSE_RESPONSE_QUANTILE_',pa_dn))
+    
+    # Add quantile as the parameter
     return_vector <- drpa::dose_response(cause = pa_dn, outcome_type = outcome,
-                                         dose = doses_vector)
+                                         dose = doses_vector, quantile = quant)
     ##RJ take segments of returned vector corresponding to scenario
     for (i in 1:length(SCEN_SHORT_NAME)) {
       scen <- SCEN_SHORT_NAME[i]

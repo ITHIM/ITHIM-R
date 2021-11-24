@@ -10,7 +10,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis')
+knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis', warning = F, message = F)
 
 ```
 
@@ -96,7 +96,7 @@ kable(scen_prop, headings = "Scenario Proportions")
 ```
 
 
-```{r message=FALSE, warning=FALSE, results='hide'}
+```{r warning=FALSE, echo=F, message=FALSE}
 
 dat <- list()
 
@@ -108,7 +108,7 @@ dat[[city]] <- io[[city]]$trip_scen_sets %>% mutate(scenario = case_when(
   scenario == "Scenario 3" ~ "CAR_SC",
   scenario == "Scenario 4" ~ "MOT_SC",
   scenario == "Scenario 5" ~ "BUS_SC",
-  scenario == "Baseline" ~ "Baseline")) %>% group_by(scenario, trip_mode, trip_distance_cat) %>% summarise(n = dplyr::n()) %>% mutate(city = city) %>% filter(!(trip_mode %in% "truck"))
+  scenario == "Baseline" ~ "Baseline")) %>% group_by(scenario, trip_mode, trip_distance_cat) %>% summarise(n = dplyr::n(), dist = sum(trip_distance, na.rm = T)) %>% mutate(city = city)
 
 td <- dat[[city]]
 
@@ -119,7 +119,8 @@ for (i in 1:nrow(td)){
     
     if (nrow(val) > 0){
       td$diff[i] <- val$n - td$n[i]
-      td$prop[i] <- round(td$n[i] / val$n, 2)
+      td$trip_prop[i] <- round(td$n[i] / val$n, 2)
+      td$dist_prop[i] <- round(td$dist[i] / val$dist, 2)
       
     }
 }
@@ -154,7 +155,6 @@ suppressWarnings({
 trip_prop <- list()
 
 for(city in cities){
-  print(city)
   df <- io[[city]]$trip_scen_sets
   u_trips <- df %>% dplyr::filter(scenario == "Baseline") %>% summarise(uid <- n_distinct(trip_id)) %>% as.numeric()
   td <- df %>% distinct(trip_id, scenario, .keep_all = T) %>% group_by(trip_mode, scenario) %>% summarise(p = round(dplyr::n() / u_trips * 100, 1)) %>% spread(key = trip_mode, value = p) %>% mutate(row_sums = rowSums(.[sapply(., is.numeric)], na.rm = TRUE))
@@ -273,7 +273,6 @@ bl_td <- list()
 
 for(city in cities){
   
-  print(city)
   count_people <- round(sum(io[[city]]$demographic$population))
   td <- io[[city]]$true_dist %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, list(~round((.) * 365, 3)))
   #colnames(td)[3:7] <- rownames(scen_prop)
