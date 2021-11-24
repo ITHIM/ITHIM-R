@@ -32,7 +32,8 @@ get_scenario_settings <- function(cities = c('accra', 'bangalore', 'belo_horizon
                                                  auto_rickshaw = 9, 
                                                  shared_auto = 14, 
                                                  shared_taxi = 9, 
-                                                 cycle_rickshaw = 5 
+                                                 cycle_rickshaw = 5,
+                                                 other = 21
                                   )){
   
   if (LATAM)
