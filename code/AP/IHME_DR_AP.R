@@ -47,9 +47,17 @@ for (i in 1:length(list_of_files)) {
 }
 
 # All cause mortality
-# This file was sent by Haneen
-all_cause_file <- read_csv("data/global/dose_response/drap/GBD 2019/HEI_ALL-CAUSE_PM_RISK.CSV")
+# This file was sent by Haneen and it is the version that was already publish
+# at the moment of writing the Latam paper. Once the paper of the latest version
+# is published, then we can use the file "HEI_ALL-CAUSE_PM_RISK.CSV" instead of
+# "WHO_ALL-CAUSE_PM_RISK.CSV"
 #names(all_cause_file)
+all_cause_file <- read_csv("data/global/dose_response/drap/GBD 2019/WHO_ALL-CAUSE_PM_RISK.CSV") # Useful for latam paper only because it's already published
+
+# This file was sent by Haneen and it is the latest version of it
+# We need to use this file once the paper that made this DR is published.
+#all_cause_file <- read_csv("data/global/dose_response/drap/GBD 2019/HEI_ALL-CAUSE_PM_RISK.CSV")
+
 all_cause_file <- all_cause_file %>% 
   dplyr::select(exposure_spline, mean, lower, upper) %>% 
   rename(dose = exposure_spline, RR = mean,	lb = lower,	ub = upper)
