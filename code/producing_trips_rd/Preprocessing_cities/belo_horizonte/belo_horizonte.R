@@ -168,7 +168,7 @@ trip <- person %>%
   rename(age= IDADE, trip_id = Viagem)
 
 trip$meta_data <- NA
-trip$meta_data[1] <- 5595800
+trip$meta_data[1] <- '5,314,932 (2010)'
 trip$meta_data[2] <- 15134 
 trip$meta_data[3] <- "Travel Survey"
 trip$meta_data[4] <- 2012

@@ -286,7 +286,7 @@ mexico_city_v2 <- mexico_city %>%
 
 trip <- mexico_city_v2
 trip$meta_data <- NA
-trip$meta_data[1] <- 20976700
+trip$meta_data[1] <- "9,200,318 (2020)"
 trip$meta_data[2] <- 19239
 trip$meta_data[3] <- "Travel Survey"
 trip$meta_data[4] <- 2017

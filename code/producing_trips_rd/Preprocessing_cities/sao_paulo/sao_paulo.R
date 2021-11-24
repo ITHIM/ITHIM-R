@@ -316,7 +316,7 @@ report <- trips_saopaulo_ready %>%
   #arrange(cluster_id, household_id, participant_id, trip_id)
 
 report$meta_data <- NA
-report$meta_data[1] <- 20847500
+report$meta_data[1] <- '11,253,503 (2010)'
 report$meta_data[2] <- 20650 
 report$meta_data[3] <- "Travel Survey"
 report$meta_data[4] <- 2012

@@ -218,7 +218,7 @@ trip <- person %>%
          stage_mode, stage_duration)
 
 trip$meta_data <- NA
-trip$meta_data[1] <- 13381800
+trip$meta_data[1] <- "12,806,866 (2010)"
 trip$meta_data[2] <- 23606 
 trip$meta_data[3] <- "Travel Survey"
 trip$meta_data[4] <- 2012
