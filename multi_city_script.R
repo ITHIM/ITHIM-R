@@ -100,7 +100,7 @@ cas_exponent <- 0.5
 
 #################################################
 ## without uncertainty
-toplot <- matrix(0,nrow=5,ncol=length(cities)) #5 scenarios, 4 cities
+toplot <- matrix(0,nrow = 3, ncol = length(cities)) #3 scenarios, 20 cities
 ithim_objects <- list()
 for(city in cities){
   print(city)
@@ -112,7 +112,7 @@ for(city in cities){
       CITY = city,
       AGE_RANGE = c(min_age,max_age),
       ADD_TRUCK_DRIVERS = T,
-      MAX_MODE_SHARE_SCENARIO = T,
+      #MAX_MODE_SHARE_SCENARIO = T,
       ADD_BUS_DRIVERS = F,
       ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]),
       PM_emission_inventory = PM_emission_inventories[[city]],
@@ -145,18 +145,19 @@ for(city in cities){
   ## store results to plot
   min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
   max_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  sub_outcome <- subset(ithim_objects[[city]]$outcome$hb$ylls,min_ages>=min_age&max_ages<=max_age)
+  sub_outcome <- subset(ithim_objects[[city]]$outcome$hb$ylls,
+                        min_ages >= min_age & max_ages <= max_age)
   result_mat <- colSums(sub_outcome[,3:ncol(sub_outcome)])
   columns <- length(result_mat)
   nDiseases <- columns/NSCEN
-  if(city==cities[1]){
+  if (city == cities[1]) {
     disease_list <- list()
-    for(i in 1:nDiseases) disease_list[[i]] <- toplot
+    for (i in 1:nDiseases) disease_list[[i]] <- toplot
   }
   min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
   max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  for(i in 1:nDiseases)
-    disease_list[[i]][,which(cities==city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
+  for (i in 1:nDiseases)
+    disease_list[[i]][,which(cities == city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(subset(DEMOGRAPHIC,min_pop_ages >= min_age & max_pop_ages <= max_age)$population)
 }
 
 {x11(width = 10, height = 5);

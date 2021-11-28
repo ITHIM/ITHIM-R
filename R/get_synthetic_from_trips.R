@@ -62,12 +62,14 @@ get_synthetic_from_trips <- function(){
   
   # create scenarios: either the pedestrian test case, or the 5 hard-coded Accra scenarios
   trip_set <- ithim_setup_baseline_scenario(trip_set)
-  if(TEST_WALK_SCENARIO){
+  if (TEST_WALK_SCENARIO) {
     SYNTHETIC_TRIPS <- create_walk_scenario(trip_set)
-  }else if(TEST_CYCLE_SCENARIO){
+  }else if (TEST_CYCLE_SCENARIO) {
     SYNTHETIC_TRIPS <- create_cycle_scenarios(trip_set)
-  }else if(MAX_MODE_SHARE_SCENARIO){
+  }else if (MAX_MODE_SHARE_SCENARIO) {
     SYNTHETIC_TRIPS <- create_max_mode_share_scenarios(trip_set)
+  }else if (LATAM) {
+    SYNTHETIC_TRIPS <- create_latam_scenarios(trip_set)
   }else{
     SYNTHETIC_TRIPS <- create_all_scenarios(trip_set)
   }
