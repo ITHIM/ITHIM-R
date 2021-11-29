@@ -73,13 +73,13 @@ round_and_print <- function(data,text=''){
 ```{r preprocessing}
 
 
-collapse_ages <- function(data,ages=c('15-49','50-69'),age_lab='age_cat'){
+collapse_ages <- function(data, ages = c('15-49', '50-69'), age_lab = 'age_cat'){
   target_min_age <- as.numeric(sapply(ages,function(x)strsplit(x,'-')[[1]][1]))
   target_max_age <- as.numeric(sapply(ages,function(x)strsplit(x,'-')[[1]][2]))
   min_ages <- as.numeric(sapply(data[[age_lab]],function(x)strsplit(x,'-')[[1]][1]))
   max_ages <- as.numeric(sapply(data[[age_lab]],function(x)strsplit(x,'-')[[1]][2]))
   genders <- unique(data$sex)
-  if(ncol(data)>3) {
+  if (ncol(data) > 3) {
     reformatted <- do.call(rbind,lapply(1:length(ages),
                                         function(x) t(sapply(genders,
                                                              function(y) 
@@ -101,8 +101,8 @@ collapse_ages <- function(data,ages=c('15-49','50-69'),age_lab='age_cat'){
 
 scen_prop <- io$scen_prop
 io <- io[-2]
-for(i in 1:length(io)) {
-  io[[i]]$demographic$age[io[[i]]$demographic$age=='5-9'] <- '05-9'
+for (i in 1:length(io)) {
+  io[[i]]$demographic$age[io[[i]]$demographic$age == '5-9'] <- '05-9'
   io[[i]]$outcomes$hb$deaths$age_cat[io[[i]]$outcomes$hb$deaths$age_cat=='5-9'] <- '05-9'
   io[[i]]$outcomes$hb$ylls$age_cat[io[[i]]$outcomes$hb$ylls$age_cat=='5-9'] <- '05-9'
   io[[i]]$outcomes$pathway_hb$deaths$age_cat[io[[i]]$outcomes$pathway_hb$deaths$age_cat=='5-9'] <- '05-9'
@@ -112,9 +112,9 @@ for(i in 1:length(io)) {
   io[[i]]$outcomes$pathway_hb$deaths <- io[[i]]$outcomes$pathway_hb$deaths[,!sapply(names(io[[i]]$outcomes$pathway_hb$deaths),function(x)grepl('ac|neo',as.character(x)))]
   io[[i]]$outcomes$pathway_hb$ylls <- io[[i]]$outcomes$pathway_hb$ylls[,!sapply(names(io[[i]]$outcomes$pathway_hb$ylls),function(x)grepl('ac|neo',as.character(x)))]
 }
-for(city in cities)
-  for(type in c('hb','pathway_hb'))
-    for(out in c('deaths','ylls'))
+for (city in cities)
+  for (type in c('hb','pathway_hb'))
+    for (out in c('deaths','ylls'))
       io[[city]]$outcomes[[type]][[out]] <- collapse_ages(io[[city]]$outcomes[[type]][[out]])
 for(city in cities) io[[city]]$demographic <- collapse_ages(io[[city]]$demographic,age_lab='age')
 pop_by_age <- lapply(io,function(x)sapply(unique(x$demographic$age),function(y)sum(subset(x$demographic,age==y)$population)))
@@ -136,13 +136,13 @@ Who hit whom matrix for all scenarios for each case study
 
 ```{r whw, results = 'asis', fig.width=7, fig.height=4, echo=FALSE}
 
-scen_names_w_baseline <- c('bl', 'w_sc', 'bi_sc', 'car_sc', 'mc_sc', 'bus_sc')
+#scen_names_w_baseline <- c('bl', 'w_sc', 'bi_sc', 'car_sc', 'mc_sc', 'bus_sc')
+scen_names_w_baseline <- c('bl', 'bi_sc', 'car_sc', 'bus_sc')
 scen_lt <- data.frame("scen_name" = names(io[[1]]$outcomes$whw), "val" = scen_names_w_baseline, stringsAsFactors = FALSE)
 
 all_whw <- list()
 
-for(city in cities){
-  {
+for (city in cities) {
     cat('\n')
     
     cat('###', stringr::str_to_title(stringr::str_replace(city, '_', ' ')), '\n')
@@ -217,8 +217,6 @@ for(city in cities){
       
       all_whw[[var]][[city]] <- td
     }
-    
-  }
 }
 
 ```
@@ -500,8 +498,8 @@ injury_risks_lng[injury_risks_lng$scenario == 'bl',]$scenario <- 'Baseline'
 injury_risks_lng[injury_risks_lng$scenario == 'bisc',]$scenario <- 'Bicycling'
 injury_risks_lng[injury_risks_lng$scenario == 'bssc',]$scenario <- 'Public Transport'
 injury_risks_lng[injury_risks_lng$scenario == 'csc',]$scenario <- 'Driving'
-injury_risks_lng[injury_risks_lng$scenario == 'mcsc',]$scenario <- 'Motorcycling'
-injury_risks_lng[injury_risks_lng$scenario == 'wsc',]$scenario <- 'Walking'
+#injury_risks_lng[injury_risks_lng$scenario == 'mcsc',]$scenario <- 'Motorcycling'
+#injury_risks_lng[injury_risks_lng$scenario == 'wsc',]$scenario <- 'Walking'
 
 rd <- rename(injury_risks_lng, mode = stage_mode)
 rd <- rd %>% filter(mode != 'Total')
@@ -636,8 +634,8 @@ injury_risks_per_100k[injury_risks_per_100k$scenario == 'bl',]$scenario <- 'Base
 injury_risks_per_100k[injury_risks_per_100k$scenario == 'bisc',]$scenario <- 'Bicycling'
 injury_risks_per_100k[injury_risks_per_100k$scenario == 'bssc',]$scenario <- 'Public Transport'
 injury_risks_per_100k[injury_risks_per_100k$scenario == 'csc',]$scenario <- 'Driving'
-injury_risks_per_100k[injury_risks_per_100k$scenario == 'mcsc',]$scenario <- 'Motorcycling'
-injury_risks_per_100k[injury_risks_per_100k$scenario == 'wsc',]$scenario <- 'Walking'
+#injury_risks_per_100k[injury_risks_per_100k$scenario == 'mcsc',]$scenario <- 'Motorcycling'
+#injury_risks_per_100k[injury_risks_per_100k$scenario == 'wsc',]$scenario <- 'Walking'
 
 readr::write_csv(injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'), 'results/multi_city/whw_matrices/injury_risks_per_100k_pop.csv')
 

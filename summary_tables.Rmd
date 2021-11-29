@@ -54,6 +54,7 @@ io <- readRDS("results/multi_city/io.rds")
 # Get names of cities from the io object
 cities <- names(io)[!names(io) %in% 'scen_prop']
 LATAM <- TRUE
+NSCEN <- 3
 #cities <- c('accra','sao_paulo','buenos_aires')
 
 # cities <- c('sao_paulo')
@@ -100,24 +101,31 @@ kable(scen_prop, headings = "Scenario Proportions")
 
 dat <- list()
 
-for (city in cities){
+for (city in cities) {
   
-dat[[city]] <- io[[city]]$trip_scen_sets %>% mutate(scenario = case_when(
-  scenario == "Scenario 1" ~ "PED_SC", 
-  scenario == "Scenario 2" ~ "CYC_SC",
-  scenario == "Scenario 3" ~ "CAR_SC",
-  scenario == "Scenario 4" ~ "MOT_SC",
-  scenario == "Scenario 5" ~ "BUS_SC",
-  scenario == "Baseline" ~ "Baseline")) %>% group_by(scenario, trip_mode, trip_distance_cat) %>% summarise(n = dplyr::n(), dist = sum(trip_distance, na.rm = T)) %>% mutate(city = city)
+dat[[city]] <- io[[city]]$trip_scen_sets %>% 
+  mutate(scenario = case_when(
+    # scenario == "Scenario 1" ~ "PED_SC", 
+    # scenario == "Scenario 2" ~ "CYC_SC",
+    # scenario == "Scenario 3" ~ "CAR_SC",
+    # scenario == "Scenario 4" ~ "MOT_SC",
+    # scenario == "Scenario 5" ~ "BUS_SC",
+    scenario == "Scenario 1" ~ "CYC_SC", 
+    scenario == "Scenario 2" ~ "CAR_SC",
+    scenario == "Scenario 3" ~ "BUS_SC",
+    scenario == "Baseline" ~ "Baseline")) %>% 
+  group_by(scenario, trip_mode, trip_distance_cat) %>% 
+  summarise(n = dplyr::n(), dist = sum(trip_distance, na.rm = T)) %>% 
+  mutate(city = city)
 
 td <- dat[[city]]
 
-for (i in 1:nrow(td)){
+for (i in 1:nrow(td)) {
     val <- td %>% filter(scenario == "Baseline", trip_mode == td$trip_mode[i] & 
                            trip_distance_cat == td$trip_distance_cat[i] &
                            city == td$city[i])
     
-    if (nrow(val) > 0){
+    if (nrow(val) > 0) {
       td$diff[i] <- val$n - td$n[i]
       td$trip_prop[i] <- round(td$n[i] / val$n, 2)
       td$dist_prop[i] <- round(td$dist[i] / val$dist, 2)
@@ -154,10 +162,15 @@ suppressWarnings({
 
 trip_prop <- list()
 
-for(city in cities){
+for (city in cities) { # Loop for each city
   df <- io[[city]]$trip_scen_sets
-  u_trips <- df %>% dplyr::filter(scenario == "Baseline") %>% summarise(uid <- n_distinct(trip_id)) %>% as.numeric()
-  td <- df %>% distinct(trip_id, scenario, .keep_all = T) %>% group_by(trip_mode, scenario) %>% summarise(p = round(dplyr::n() / u_trips * 100, 1)) %>% spread(key = trip_mode, value = p) %>% mutate(row_sums = rowSums(.[sapply(., is.numeric)], na.rm = TRUE))
+  u_trips <- df %>% dplyr::filter(scenario == "Baseline") %>% 
+    summarise(uid = n_distinct(trip_id)) %>% as.numeric()
+  td <- df %>% distinct(trip_id, scenario, .keep_all = T) %>% 
+    group_by(trip_mode, scenario) %>% 
+    summarise(p = round(dplyr::n() / u_trips * 100, 1)) %>% 
+    spread(key = trip_mode, value = p) %>% 
+    mutate(row_sums = rowSums(.[sapply(., is.numeric)], na.rm = TRUE))
   td <- as.data.frame(t(td))
   names(td) <- lapply(append('BASELINE', rownames(scen_prop)), as.character)
   td <- td[-1, ]
@@ -181,7 +194,7 @@ for(city in cities){
   
   print(kable(td, caption = paste("Trip proportion (%) by mode for ", city)))
   cat("\n")
-}
+} # End loop city
 
 ```
 
@@ -189,7 +202,9 @@ for(city in cities){
 ### Baseline trip proportion (%)
 ```{r}
 
-trip_prop <- trip_prop %>% dplyr::filter(stage_mode != "row_sums") %>% mutate_at(2:ncol(trip_prop), ~ as.numeric(as.character(.x))) %>% janitor::adorn_totals('row')
+trip_prop <- trip_prop %>% dplyr::filter(stage_mode != "row_sums") %>%
+  mutate_at(2:ncol(trip_prop), ~ as.numeric(as.character(.x))) %>%
+  janitor::adorn_totals('row')
 
 kable(trip_prop, caption = 'Trip prop (%) for all case studies - only selected modes')
 
@@ -210,12 +225,14 @@ Case study specific distance tables for baseline and five scenarios
 
 trip_dist <- list()
 
-for(city in cities){
+for (city in cities) {
   
   count_people <- nrow(io[[city]]$synth_pop)
-  td <- io[[city]]$dist %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  td <- io[[city]]$dist %>% dplyr::filter(stage_mode != 'bus_driver') %>%
+    mutate_if(is.numeric, round, digits = round_to) %>% 
+    mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   #colnames(td)[3:7] <- rownames(scen_prop)
-  colnames(td)[2:7] <- c("BASELINE", rownames(scen_prop))
+  colnames(td)[2:ncol(td)] <- c("BASELINE", rownames(scen_prop))
   
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
@@ -239,9 +256,11 @@ for(city in cities){
   
   
   count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
-  td <- io[[city]]$dist %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  td <- io[[city]]$dist %>% dplyr::filter(stage_mode != 'bus_driver') %>%
+    mutate_if(is.numeric, round, digits = round_to) %>% 
+    mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   #colnames(td)[3:7] <- rownames(scen_prop)
-  colnames(td)[2:7] <- c("BASELINE", rownames(scen_prop))
+  colnames(td)[2:ncol(td)] <- c("BASELINE", rownames(scen_prop))
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
   td <- td[order(x),]
@@ -271,12 +290,13 @@ Case study specific distance tables for baseline and five scenarios
 
 bl_td <- list()
 
-for(city in cities){
+for (city in cities) {
   
   count_people <- round(sum(io[[city]]$demographic$population))
-  td <- io[[city]]$true_dist %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, list(~round((.) * 365, 3)))
+  td <- io[[city]]$true_dist %>% dplyr::filter(stage_mode != 'bus_driver') %>%
+    mutate_if(is.numeric, list(~round((.) * 365, 3)))
   #colnames(td)[3:7] <- rownames(scen_prop)
-  colnames(td)[2:7] <- c("BASELINE", rownames(scen_prop))
+  colnames(td)[2:ncol(td)] <- c("BASELINE", rownames(scen_prop))
   
   # 
   
@@ -404,7 +424,7 @@ for(city in cities){
   count_people <- nrow(io[[city]]$synth_pop)
   td <- io[[city]]$dur %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   #colnames(td)[3:7] <- rownames(scen_prop)
-  colnames(td)[2:7] <- c("BASELINE", rownames(scen_prop))
+  colnames(td)[2:ncol(td)] <- c("BASELINE", rownames(scen_prop))
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
   td <- td[order(x),]
@@ -430,7 +450,7 @@ for(city in cities){
   count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
   td <- io[[city]]$dur %>% dplyr::filter(stage_mode != 'bus_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   #colnames(td)[3:7] <- rownames(scen_prop)
-  colnames(td)[2:7] <- c("BASELINE", rownames(scen_prop))
+  colnames(td)[2:ncol(td)] <- c("BASELINE", rownames(scen_prop))
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
   td <- td[order(x),]
@@ -479,9 +499,9 @@ scen_names <- rownames(scen_prop)
 
 #yll_totals <- lapply(io,function(x){
 yll_totals <- lapply(io[-2],function(x){
-  temp <- sapply(1:5,function(y){
+  temp <- sapply(1:NSCEN,function(y){
     xx <- x$outcomes$hb$ylls
-    xxx <- rowSums(xx[,seq(2 + y, ncol(xx), by = 5)])
+    xxx <- rowSums(xx[,seq(2 + y, ncol(xx), by = NSCEN)])
     sapply(sort(unique(xx$age_cat)),function(z)
       sum(xxx[xx$age_cat == z]))
   })
@@ -503,9 +523,9 @@ pop_by_age <- lapply(io[-2], function(x)
   )
 
 yll_rates <- lapply(cities, function(x)
-  rbind(yll_totals[[x]] / t(repmat(pop_by_age[[x]],5,1))*100000,
+  rbind(yll_totals[[x]] / t(repmat(pop_by_age[[x]],NSCEN,1))*100000,
         Total = colSums(yll_totals[[x]])/rep(sum(pop_by_age[[x]]), 
-                                             length = 5)*100000
+                                             length = NSCEN)*100000
         )
   )
 
@@ -519,9 +539,9 @@ YLLs per 100,000 people by gender by age group scenario
 ```{r scen_prop = "asis"}
 #yll_totals <- lapply(io,function(x){
 yll_totals <- lapply(io[-2], function(x) {
-  temp <- sapply(1:5,function(y){
+  temp <- sapply(1:NSCEN,function(y){
     xx <- x$outcomes$hb$ylls
-    rowSums(xx[,seq(2 + y, ncol(xx), by = 5)])
+    rowSums(xx[,seq(2 + y, ncol(xx), by = NSCEN)])
   })
   rownames(temp) <- apply(x$outcomes$hb$deaths[,c('sex','age_cat')], 1,
                           function(z)paste0(z[2], '_', z[1]))
@@ -533,9 +553,9 @@ yll_rates <- lapply(cities, function(x)
   rbind(yll_totals[[x]][match(apply(io[[x]]$demographic[,c('sex','age')], 1,
                                     function(z) paste0(z[2],'_',z[1])), 
                               rownames(yll_totals[[x]])),] /
-          t(repmat(io[[x]]$demographic$population,5,1)) * 100000,
+          t(repmat(io[[x]]$demographic$population,NSCEN,1)) * 100000,
         Total = colSums(yll_totals[[x]])/rep(sum(pop_by_age[[x]]),
-                                             length = 5) * 100000))
+                                             length = NSCEN) * 100000))
 names(yll_rates) <- cities
 round_and_print(yll_rates,"Change in YLLs per 100,000 in ")
 ```
@@ -545,7 +565,7 @@ round_and_print(yll_rates,"Change in YLLs per 100,000 in ")
 injury_totals <- lapply(io[-2], function(x) {
   xx <- x$outcomes$hb$ylls
   injury_col <- grep("inj", names(xx))[1] # Dan: This line is mine (not sure is ok)
-  xxx <- sapply(1:5, function(y)
+  xxx <- sapply(1:NSCEN, function(y)
     sapply(sort(unique(xx$age_cat)), function(z)
       sum(xx[xx$age_cat == z, injury_col - 1 + y])))
   colnames(xxx) <- scen_names
@@ -558,8 +578,8 @@ sum_and_round_and_print(injury_totals, "Change in YLLs due to injury in ")
 ```{r}
 pa_totals <- lapply(io[-2],function(x){
   xx <- x$outcomes$pathway_hb$ylls
-  xxx <- sapply(1:5, function(y){
-    xxx <- rowSums(xx[, pa_cols[seq(y, length(pa_cols), by = 5)]])
+  xxx <- sapply(1:NSCEN, function(y){
+    xxx <- rowSums(xx[, pa_cols[seq(y, length(pa_cols), by = NSCEN)]])
     sapply(sort(unique(xx$age_cat)), function(z) sum(xxx[xx$age_cat == z]))
   })
   colnames(xxx) <- scen_names
@@ -573,8 +593,8 @@ sum_and_round_and_print(pa_totals,"Change in YLLs due to PA in ")
 ```{r}
 ap_totals <- lapply(io[-2],function(x){
   xx <- x$outcomes$pathway_hb$ylls
-  xxx <- sapply(1:5,function(y) {
-    xxx <- rowSums(xx[, ap_cols[seq(y, length(ap_cols), by = 5)]])
+  xxx <- sapply(1:NSCEN,function(y) {
+    xxx <- rowSums(xx[, ap_cols[seq(y, length(ap_cols), by = NSCEN)]])
     sapply(sort(unique(xx$age_cat)), function(z) sum(xxx[xx$age_cat == z]))
   })
   colnames(xxx) <- scen_names
@@ -589,9 +609,9 @@ YLLs per 100,000 people by age group by scenario
 ```{r scen_prop = "asis"}
 injury_rates <- lapply(cities, function(x)
   rbind(
-    injury_totals[[x]]/t(repmat(pop_by_age[[x]],5,1)) * 100000,
+    injury_totals[[x]]/t(repmat(pop_by_age[[x]],NSCEN,1)) * 100000,
     Total = colSums(injury_totals[[x]])/rep(sum(pop_by_age[[x]]),
-                                            length = 5) * 100000)
+                                            length = NSCEN) * 100000)
   )
 
 names(injury_rates) <- cities
@@ -602,9 +622,9 @@ round_and_print(injury_rates,"Change in YLLs due to injury per 100,000 in ")
 ```{r}
 pa_rates <- lapply(cities, function(x)
   rbind(
-    pa_totals[[x]] / t(repmat(pop_by_age[[x]], 5, 1)) * 100000,
+    pa_totals[[x]] / t(repmat(pop_by_age[[x]], NSCEN, 1)) * 100000,
     Total = colSums(pa_totals[[x]])/rep(sum(pop_by_age[[x]]),
-                                        length = 5) * 100000))
+                                        length = NSCEN) * 100000))
 
 names(pa_rates) <- cities
 round_and_print(pa_rates,"Change in YLLs due to PA per 100,000 in ")
@@ -614,9 +634,9 @@ round_and_print(pa_rates,"Change in YLLs due to PA per 100,000 in ")
 ```{r}
 ap_rates <- lapply(cities, function(x)
   rbind(
-    ap_totals[[x]] / t(repmat(pop_by_age[[x]], 5 ,1)) * 100000,
+    ap_totals[[x]] / t(repmat(pop_by_age[[x]], NSCEN ,1)) * 100000,
     Total = colSums(ap_totals[[x]]) / rep(sum(pop_by_age[[x]]),
-                                          length = 5) * 100000))
+                                          length = NSCEN) * 100000))
 names(ap_rates) <- cities
 round_and_print(ap_rates,"Change in YLLs due to AP per 100,000 in ")
 ```
@@ -628,8 +648,8 @@ Change in deaths total (for the city based on real population size) by scenario
 ```{r}
 disease_totals <- lapply(io[-2],function(x){
   xx <- x$outcomes$hb$deaths
-  xxx <- sapply(1:5,function(y){
-    colSums(xx[, seq(y + 2, ncol(xx), by = 5)])
+  xxx <- sapply(1:NSCEN,function(y){
+    colSums(xx[, seq(y + 2, ncol(xx), by = NSCEN)])
   })
   colnames(xxx) <- scen_names
   rownames(xxx) <- gsub("scen1_deaths_", "", rownames(xxx))
@@ -653,7 +673,7 @@ disease_rates <- lapply(cities, function(x)
   rbind(
     disease_totals[[x]] / sum(pop_by_age[[x]]) * 100000,
     Total = colSums(disease_totals[[x]]) / rep(sum(pop_by_age[[x]]), 
-                                               length = 5)*100000))
+                                               length = NSCEN)*100000))
 
 names(disease_rates) <- cities
 round_and_print(disease_rates,"Change in deaths due to disease per 100,000 in ")
@@ -665,8 +685,8 @@ Change in YLL total (for the city based on real population size) by scenario
 ```{r}
 disease_totals <- lapply(io[-2],function(x){
   xx <- x$outcomes$hb$ylls
-  xxx <- sapply(1:5,function(y) {
-    colSums(xx[,seq(y + 2, ncol(xx), by = 5)])
+  xxx <- sapply(1:NSCEN,function(y) {
+    colSums(xx[,seq(y + 2, ncol(xx), by = NSCEN)])
   })
   colnames(xxx) <- scen_names
   rownames(xxx) <- gsub("scen1_ylls_", "", rownames(xxx))
@@ -688,7 +708,7 @@ disease_rates <- lapply(cities, function(x)
   rbind(
     disease_totals[[x]] / sum(pop_by_age[[x]]) * 100000,
     Total = colSums(disease_totals[[x]]) / rep(sum(pop_by_age[[x]]),
-                                               length = 5) * 100000))
+                                               length = NSCEN) * 100000))
 names(disease_rates) <- cities
 round_and_print(disease_rates,"Change in YLL due to disease per 100,000 in ")
 ```
