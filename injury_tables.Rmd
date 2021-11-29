@@ -641,3 +641,15 @@ readr::write_csv(injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 
 
 
 ```
+
+### True distances in a single file
+```{r }
+true_distances <- list()
+for (city in cities) { # Loop for each city
+  true_distances[[city]] <- io[[city]]$true_dist %>% 
+    pivot_longer(!stage_mode, names_to = "scenario", values_to = "distance") %>% 
+    mutate(city = city)
+}
+true_distances_df <- bind_rows(true_distances)
+readr::write_csv(true_distances_df, 'results/multi_city/whw_matrices/distances.csv')
+```

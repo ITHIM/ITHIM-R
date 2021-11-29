@@ -1,0 +1,629 @@
+stage_mode,scenario,distance,city
+bus,Baseline,1122654.7135663403,antofagasta
+bus,Scenario 1,1072071.5060646087,antofagasta
+bus,Scenario 2,1013694.5357739686,antofagasta
+bus,Scenario 3,1258197.4828411003,antofagasta
+car,Baseline,1349517.203065697,antofagasta
+car,Scenario 1,1271683.7110848916,antofagasta
+car,Scenario 2,1509669.965247848,antofagasta
+car,Scenario 3,1237772.431085881,antofagasta
+cycle,Baseline,6511.965464529534,antofagasta
+cycle,Scenario 1,164504.65137775798,antofagasta
+cycle,Scenario 2,5586.312946472742,antofagasta
+cycle,Scenario 3,5424.323755812804,antofagasta
+pedestrian,Baseline,152258.79750816268,antofagasta
+pedestrian,Scenario 1,143596.2767720392,antofagasta
+pedestrian,Scenario 2,138645.0606300089,antofagasta
+pedestrian,Scenario 3,156284.59254526565,antofagasta
+taxi,Baseline,245185.64885821706,antofagasta
+taxi,Scenario 1,224272.18316364894,antofagasta
+taxi,Scenario 2,208386.99418323935,antofagasta
+taxi,Scenario 3,218937.44934797665,antofagasta
+truck,Baseline,355133.20035618875,antofagasta
+truck,Scenario 1,355133.20035618875,antofagasta
+truck,Scenario 2,355133.20035618875,antofagasta
+truck,Scenario 3,355133.20035618875,antofagasta
+bus,Baseline,314311.2621533442,arica
+bus,Scenario 1,294017.3097553018,arica
+bus,Scenario 2,272108.64332789555,arica
+bus,Scenario 3,404097.79419249593,arica
+car,Baseline,668719.4854159869,arica
+car,Scenario 1,611570.5718760196,arica
+car,Scenario 2,773935.4022185971,arica
+car,Scenario 3,606132.6886786297,arica
+cycle,Baseline,28804.58662316476,arica
+cycle,Scenario 1,135850.2792822186,arica
+cycle,Scenario 2,23997.429690048943,arica
+cycle,Scenario 3,26839.959543230016,arica
+pedestrian,Baseline,122095.30228384992,arica
+pedestrian,Scenario 1,114875.34342577487,arica
+pedestrian,Scenario 2,112232.86825448614,arica
+pedestrian,Scenario 3,123741.55262642741,arica
+taxi,Baseline,261245.60104404567,arica
+taxi,Scenario 1,238862.73318107665,arica
+taxi,Scenario 2,212901.8940293638,arica
+taxi,Scenario 3,234506.70381729197,arica
+truck,Baseline,188195.07993474713,arica
+truck,Scenario 1,188195.07993474713,arica
+truck,Scenario 2,188195.07993474713,arica
+truck,Scenario 3,188195.07993474713,arica
+bus,Baseline,15608794.704014393,belo_horizonte
+bus,Scenario 1,15241598.824950272,belo_horizonte
+bus,Scenario 2,14920406.573923383,belo_horizonte
+bus,Scenario 3,16761819.786030842,belo_horizonte
+car,Baseline,15165788.04441553,belo_horizonte
+car,Scenario 1,14599943.31954023,belo_horizonte
+car,Scenario 2,16686700.99568888,belo_horizonte
+car,Scenario 3,14384926.70746042,belo_horizonte
+cycle,Baseline,230875.8984059857,belo_horizonte
+cycle,Scenario 1,1536488.7099141802,belo_horizonte
+cycle,Scenario 2,191772.56018217307,belo_horizonte
+cycle,Scenario 3,213896.41680763394,belo_horizonte
+motorcycle,Baseline,4535827.206066239,belo_horizonte
+motorcycle,Scenario 1,4421666.4360225545,belo_horizonte
+motorcycle,Scenario 2,4164574.6633237293,belo_horizonte
+motorcycle,Scenario 3,4310325.287929486,belo_horizonte
+other,Baseline,3536925.251626545,belo_horizonte
+other,Scenario 1,3464727.448731295,belo_horizonte
+other,Scenario 2,3417898.415940143,belo_horizonte
+other,Scenario 3,3405606.7080351333,belo_horizonte
+pedestrian,Baseline,2376816.1956029832,belo_horizonte
+pedestrian,Scenario 1,2252906.4652532763,belo_horizonte
+pedestrian,Scenario 2,2181423.3086741334,belo_horizonte
+pedestrian,Scenario 3,2390819.767137048,belo_horizonte
+rail,Baseline,2568095.4958871645,belo_horizonte
+rail,Scenario 1,2514386.1332837623,belo_horizonte
+rail,Scenario 2,2479797.4951048736,belo_horizonte
+rail,Scenario 3,2568095.4958871645,belo_horizonte
+taxi,Baseline,135501.0118087183,belo_horizonte
+taxi,Scenario 1,126906.47013198251,belo_horizonte
+taxi,Scenario 2,116049.79499024073,belo_horizonte
+taxi,Scenario 3,123133.63853982714,belo_horizonte
+truck,Baseline,3885129.4287573197,belo_horizonte
+truck,Scenario 1,3885129.4287573197,belo_horizonte
+truck,Scenario 2,3885129.4287573197,belo_horizonte
+truck,Scenario 3,3885129.4287573197,belo_horizonte
+auto_rickshaw,Baseline,353320.5545804331,bogota
+auto_rickshaw,Scenario 1,340274.2967732295,bogota
+auto_rickshaw,Scenario 2,340509.7531883458,bogota
+auto_rickshaw,Scenario 3,348294.60796038504,bogota
+bus,Baseline,55897041.63660466,bogota
+bus,Scenario 1,54574246.26372513,bogota
+bus,Scenario 2,54178026.002321064,bogota
+bus,Scenario 3,58924620.22804105,bogota
+car,Baseline,28808918.418251216,bogota
+car,Scenario 1,27965054.13219797,bogota
+car,Scenario 2,31937653.68791103,bogota
+car,Scenario 3,27198542.41499418,bogota
+cycle,Baseline,2975103.3283297536,bogota
+cycle,Scenario 1,6184699.303056771,bogota
+cycle,Scenario 2,2768820.0863219653,bogota
+cycle,Scenario 3,2754435.0553900693,bogota
+motorcycle,Baseline,12954551.93034595,bogota
+motorcycle,Scenario 1,12548918.466637256,bogota
+motorcycle,Scenario 2,12430716.058899269,bogota
+motorcycle,Scenario 3,12359277.02106192,bogota
+other,Baseline,666070.0786103061,bogota
+other,Scenario 1,650071.7397702279,bogota
+other,Scenario 2,645411.5518850752,bogota
+other,Scenario 3,649916.0426747872,bogota
+pedestrian,Baseline,8402672.68120682,bogota
+pedestrian,Scenario 1,7965601.594709356,bogota
+pedestrian,Scenario 2,7913851.479832652,bogota
+pedestrian,Scenario 3,8295684.36806822,bogota
+rail,Baseline,39324.91959272388,bogota
+rail,Scenario 1,38979.74788469998,bogota
+rail,Scenario 2,39324.91959272388,bogota
+rail,Scenario 3,39324.91959272388,bogota
+taxi,Baseline,4684951.284231958,bogota
+taxi,Scenario 1,4463373.97694407,bogota
+taxi,Scenario 2,4401675.397064067,bogota
+taxi,Scenario 3,4358616.089417354,bogota
+truck,Baseline,8032540.949505783,bogota
+truck,Scenario 1,8032540.949505783,bogota
+truck,Scenario 2,8032540.949505783,bogota
+truck,Scenario 3,8032540.949505783,bogota
+bus,Baseline,63775502.02155045,buenos_aires
+bus,Scenario 1,61693951.06099018,buenos_aires
+bus,Scenario 2,60835289.68419968,buenos_aires
+bus,Scenario 3,66577500.41633928,buenos_aires
+car,Baseline,23359793.903533444,buenos_aires
+car,Scenario 1,22490157.16210322,buenos_aires
+car,Scenario 2,26763248.89849835,buenos_aires
+car,Scenario 3,21132130.96814833,buenos_aires
+cycle,Baseline,1872554.318234088,buenos_aires
+cycle,Scenario 1,5203511.956015639,buenos_aires
+cycle,Scenario 2,1729801.9105707798,buenos_aires
+cycle,Scenario 3,1741412.4656800192,buenos_aires
+motorcycle,Baseline,3856519.033492508,buenos_aires
+motorcycle,Scenario 1,3692920.180695929,buenos_aires
+motorcycle,Scenario 2,3676492.1697785812,buenos_aires
+motorcycle,Scenario 3,3573486.2055906584,buenos_aires
+other,Baseline,575933.4922192582,buenos_aires
+other,Scenario 1,555739.1067610249,buenos_aires
+other,Scenario 2,560832.3091978806,buenos_aires
+other,Scenario 3,542211.3015624977,buenos_aires
+pedestrian,Baseline,4590931.25022421,buenos_aires
+pedestrian,Scenario 1,4353375.205150908,buenos_aires
+pedestrian,Scenario 2,4322401.397363258,buenos_aires
+pedestrian,Scenario 3,4634196.869498005,buenos_aires
+rail,Baseline,31399031.79772335,buenos_aires
+rail,Scenario 1,30769365.993018657,buenos_aires
+rail,Scenario 2,30448841.355841182,buenos_aires
+rail,Scenario 3,31399031.79772335,buenos_aires
+taxi,Baseline,1720186.7878302727,buenos_aires
+taxi,Scenario 1,1635649.359612425,buenos_aires
+taxi,Scenario 2,1593265.480735025,buenos_aires
+taxi,Scenario 3,1559517.3374543823,buenos_aires
+truck,Baseline,5187669.9877863275,buenos_aires
+truck,Scenario 1,5187669.9877863275,buenos_aires
+truck,Scenario 2,5187669.9877863275,buenos_aires
+truck,Scenario 3,5187669.9877863275,buenos_aires
+auto_rickshaw,Baseline,27902.714334778688,cali
+auto_rickshaw,Scenario 1,27902.714334778688,cali
+auto_rickshaw,Scenario 2,26471.80590735414,cali
+auto_rickshaw,Scenario 3,26829.533014210276,cali
+bus,Baseline,7636132.652202379,cali
+bus,Scenario 1,7434274.854602241,cali
+bus,Scenario 2,7405244.902406302,cali
+bus,Scenario 3,8221716.254271669,cali
+car,Baseline,5832494.043060147,cali
+car,Scenario 1,5671787.127677843,cali
+car,Scenario 2,6470337.373567167,cali
+car,Scenario 3,5573467.81973125,cali
+cycle,Baseline,616212.7647791181,cali
+cycle,Scenario 1,1276467.9824410768,cali
+cycle,Scenario 2,569008.6856566351,cali
+cycle,Scenario 3,577307.9545356975,cali
+motorcycle,Baseline,4596936.413944104,cali
+motorcycle,Scenario 1,4418056.961533508,cali
+motorcycle,Scenario 2,4377959.727600567,cali
+motorcycle,Scenario 3,4396625.133087194,cali
+other,Baseline,27234.95706864723,cali
+other,Scenario 1,26757.98759283905,cali
+other,Scenario 2,26638.745223887003,cali
+other,Scenario 3,26281.018117030868,cali
+pedestrian,Baseline,1157667.2645107973,cali
+pedestrian,Scenario 1,1100780.4779010862,cali
+pedestrian,Scenario 2,1096403.260883098,cali
+pedestrian,Scenario 3,1145125.0114519384,cali
+taxi,Baseline,1006715.6241145408,cali
+taxi,Scenario 1,945268.327931138,cali
+taxi,Scenario 2,929231.9327695016,cali
+taxi,Scenario 3,933943.709805521,cali
+truck,Baseline,1493768.4617696304,cali
+truck,Scenario 1,1493768.4617696304,cali
+truck,Scenario 2,1493768.4617696304,cali
+truck,Scenario 3,1493768.4617696304,cali
+bus,Baseline,234992.94849176763,copiapo
+bus,Scenario 1,222623.60672219633,copiapo
+bus,Scenario 2,212429.50798035107,copiapo
+bus,Scenario 3,295584.21860185615,copiapo
+car,Baseline,582809.3031769054,copiapo
+car,Scenario 1,542550.1851278219,copiapo
+car,Scenario 2,651486.7473171663,copiapo
+car,Scenario 3,542306.0100035595,copiapo
+cycle,Baseline,9308.43217614166,copiapo
+cycle,Scenario 1,84266.7921870146,copiapo
+cycle,Scenario 2,7879.114375582479,copiapo
+cycle,Scenario 3,8727.771819664491,copiapo
+pedestrian,Baseline,69429.23977982294,copiapo
+pedestrian,Scenario 1,64496.1791029823,copiapo
+pedestrian,Scenario 2,62978.16702819198,copiapo
+pedestrian,Scenario 3,70297.35891717148,copiapo
+taxi,Baseline,235295.934088032,copiapo
+taxi,Scenario 1,217775.73083391582,copiapo
+taxi,Scenario 2,197062.32101137776,copiapo
+taxi,Scenario 3,215854.65964721187,copiapo
+truck,Baseline,159573.1230195713,copiapo
+truck,Scenario 1,159573.1230195713,copiapo
+truck,Scenario 2,159573.1230195713,copiapo
+truck,Scenario 3,159573.1230195713,copiapo
+bus,Baseline,1055348.1852740576,coquimbo_laserena
+bus,Scenario 1,1006515.7784046379,coquimbo_laserena
+bus,Scenario 2,967058.6272643849,coquimbo_laserena
+bus,Scenario 3,1218107.7883004714,coquimbo_laserena
+car,Baseline,1733763.589125744,coquimbo_laserena
+car,Scenario 1,1628582.1951153274,coquimbo_laserena
+car,Scenario 2,1920704.6135119048,coquimbo_laserena
+car,Scenario 3,1618206.9771465773,coquimbo_laserena
+cycle,Baseline,25569.766145833335,coquimbo_laserena
+cycle,Scenario 1,237500.09079241072,coquimbo_laserena
+cycle,Scenario 2,22165.016666666666,coquimbo_laserena
+cycle,Scenario 3,23452.77291666667,coquimbo_laserena
+pedestrian,Baseline,245288.0893861607,coquimbo_laserena
+pedestrian,Scenario 1,231626.5843638393,coquimbo_laserena
+pedestrian,Scenario 2,221896.39430245533,coquimbo_laserena
+pedestrian,Scenario 3,248097.84391183036,coquimbo_laserena
+taxi,Baseline,603950.0857180059,coquimbo_laserena
+taxi,Scenario 1,558785.6936476935,coquimbo_laserena
+taxi,Scenario 2,530703.1304036459,coquimbo_laserena
+taxi,Scenario 3,558832.6256733631,coquimbo_laserena
+truck,Baseline,445362.9732142857,coquimbo_laserena
+truck,Scenario 1,445362.9732142857,coquimbo_laserena
+truck,Scenario 2,445362.9732142857,coquimbo_laserena
+truck,Scenario 3,445362.9732142857,coquimbo_laserena
+bus,Baseline,3679007.756459411,gran_valparaiso
+bus,Scenario 1,3525165.3812759914,gran_valparaiso
+bus,Scenario 2,3426907.8732366366,gran_valparaiso
+bus,Scenario 3,3993964.854436894,gran_valparaiso
+car,Baseline,3233617.7126578083,gran_valparaiso
+car,Scenario 1,3088550.703971329,gran_valparaiso
+car,Scenario 2,3608723.572348785,gran_valparaiso
+car,Scenario 3,2971814.5965608414,gran_valparaiso
+cycle,Baseline,40865.455563444564,gran_valparaiso
+cycle,Scenario 1,415726.9861040673,gran_valparaiso
+cycle,Scenario 2,35932.082199005985,gran_valparaiso
+cycle,Scenario 3,36311.25882949589,gran_valparaiso
+motorcycle,Baseline,28984.20921391622,gran_valparaiso
+motorcycle,Scenario 1,27532.737381073133,gran_valparaiso
+motorcycle,Scenario 2,25371.838304087636,gran_valparaiso
+motorcycle,Scenario 3,25975.25917841566,gran_valparaiso
+other,Baseline,26024.563789430973,gran_valparaiso
+other,Scenario 1,25731.00768840653,gran_valparaiso
+other,Scenario 2,25571.998133684956,gran_valparaiso
+other,Scenario 3,24764.718855867734,gran_valparaiso
+pedestrian,Baseline,483962.0923257937,gran_valparaiso
+pedestrian,Scenario 1,455208.79643777263,gran_valparaiso
+pedestrian,Scenario 2,445116.0581073131,gran_valparaiso
+pedestrian,Scenario 3,493467.19424688106,gran_valparaiso
+rail,Baseline,505716.4923825946,gran_valparaiso
+rail,Scenario 1,497733.0090002367,gran_valparaiso
+rail,Scenario 2,485726.71978902526,gran_valparaiso
+rail,Scenario 3,505716.4923825946,gran_valparaiso
+taxi,Baseline,596304.458980965,gran_valparaiso
+taxi,Scenario 1,556665.9397802346,gran_valparaiso
+taxi,Scenario 2,537776.2162545221,gran_valparaiso
+taxi,Scenario 3,545807.5675315278,gran_valparaiso
+truck,Baseline,861517.2621969775,gran_valparaiso
+truck,Scenario 1,861517.2621969775,gran_valparaiso
+truck,Scenario 2,861517.2621969775,gran_valparaiso
+truck,Scenario 3,861517.2621969775,gran_valparaiso
+bus,Baseline,506502.0829617744,iquique_altohospicio
+bus,Scenario 1,484055.0759774203,iquique_altohospicio
+bus,Scenario 2,454140.5577459017,iquique_altohospicio
+bus,Scenario 3,608924.5792086812,iquique_altohospicio
+car,Baseline,1026030.2791490103,iquique_altohospicio
+car,Scenario 1,966656.0097243272,iquique_altohospicio
+car,Scenario 2,1139667.0697356686,iquique_altohospicio
+car,Scenario 3,955150.1490995205,iquique_altohospicio
+cycle,Baseline,6744.0324853077645,iquique_altohospicio
+cycle,Scenario 1,121462.9561256315,iquique_altohospicio
+cycle,Scenario 2,6182.352582740488,iquique_altohospicio
+cycle,Scenario 3,6306.309526755335,iquique_altohospicio
+pedestrian,Baseline,126040.38908792145,iquique_altohospicio
+pedestrian,Scenario 1,118107.8917329106,iquique_altohospicio
+pedestrian,Scenario 2,115462.04736429013,iquique_altohospicio
+pedestrian,Scenario 3,127789.59311552737,iquique_altohospicio
+taxi,Baseline,348963.7732503351,iquique_altohospicio
+taxi,Scenario 1,323140.8855918136,iquique_altohospicio
+taxi,Scenario 2,295953.7244871894,iquique_altohospicio
+taxi,Scenario 3,317003.0800358284,iquique_altohospicio
+truck,Baseline,273989.1166099598,iquique_altohospicio
+truck,Scenario 1,273989.1166099598,iquique_altohospicio
+truck,Scenario 2,273989.1166099598,iquique_altohospicio
+truck,Scenario 3,273989.1166099598,iquique_altohospicio
+auto_rickshaw,Baseline,3587.729946929492,medellin
+auto_rickshaw,Scenario 1,3449.74033358605,medellin
+auto_rickshaw,Scenario 2,3587.729946929492,medellin
+auto_rickshaw,Scenario 3,2966.776686884003,medellin
+bus,Baseline,7217110.065463398,medellin
+bus,Scenario 1,6949578.639566296,medellin
+bus,Scenario 2,6898956.766606772,medellin
+bus,Scenario 3,7820035.442490944,medellin
+car,Baseline,3840848.894339146,medellin
+car,Scenario 1,3693598.6447224333,medellin
+car,Scenario 2,4669841.428332912,medellin
+car,Scenario 3,3547722.15836745,medellin
+cycle,Baseline,144835.43138320275,medellin
+cycle,Scenario 1,949385.4052000673,medellin
+cycle,Scenario 2,135433.73906073626,medellin
+cycle,Scenario 3,132439.36445118356,medellin
+motorcycle,Baseline,3611494.824783085,medellin
+motorcycle,Scenario 1,3488306.897297616,medellin
+motorcycle,Scenario 2,3444239.1476674243,medellin
+motorcycle,Scenario 3,3377289.653709039,medellin
+pedestrian,Baseline,1491500.2928450848,medellin
+pedestrian,Scenario 1,1412179.493424185,medellin
+pedestrian,Scenario 2,1405170.7709797826,medellin
+pedestrian,Scenario 3,1490177.432418499,medellin
+rail,Baseline,8621844.022656053,medellin
+rail,Scenario 1,8470599.74034201,medellin
+rail,Scenario 2,8426427.731892848,medellin
+rail,Scenario 3,8621844.022656053,medellin
+taxi,Baseline,650593.4289916604,medellin
+taxi,Scenario 1,614716.1295223654,medellin
+taxi,Scenario 2,598157.3759211524,medellin
+taxi,Scenario 3,589339.8396285065,medellin
+truck,Baseline,1035106.0862269396,medellin
+truck,Scenario 1,1035106.0862269396,medellin
+truck,Scenario 2,1035106.0862269396,medellin
+truck,Scenario 3,1035106.0862269396,medellin
+auto_rickshaw,Baseline,154875.13546439263,mexico_city
+auto_rickshaw,Scenario 1,149379.47483634617,mexico_city
+auto_rickshaw,Scenario 2,150592.52852583816,mexico_city
+auto_rickshaw,Scenario 3,152470.1246713128,mexico_city
+bus,Baseline,51578934.581393234,mexico_city
+bus,Scenario 1,50115192.329861715,mexico_city
+bus,Scenario 2,49453027.75211866,mexico_city
+bus,Scenario 3,54603515.59366576,mexico_city
+car,Baseline,36328899.26651002,mexico_city
+car,Scenario 1,35252598.33497927,mexico_city
+car,Scenario 2,39866582.53369733,mexico_city
+car,Scenario 3,33879100.42155554,mexico_city
+cycle,Baseline,643826.0774376739,mexico_city
+cycle,Scenario 1,4160603.507018329,mexico_city
+cycle,Scenario 2,584230.5663233837,mexico_city
+cycle,Scenario 3,582023.6290312934,mexico_city
+motorcycle,Baseline,2711989.968848479,mexico_city
+motorcycle,Scenario 1,2622611.938600197,mexico_city
+motorcycle,Scenario 2,2608585.0530389985,mexico_city
+motorcycle,Scenario 3,2524244.418691621,mexico_city
+other,Baseline,242070.43089274704,mexico_city
+other,Scenario 1,235744.971219135,mexico_city
+other,Scenario 2,225826.059746506,mexico_city
+other,Scenario 3,225333.8060754078,mexico_city
+pedestrian,Baseline,6433600.597152127,mexico_city
+pedestrian,Scenario 1,6142481.600259762,mexico_city
+pedestrian,Scenario 2,6068825.507648454,mexico_city
+pedestrian,Scenario 3,6519266.976118701,mexico_city
+rail,Baseline,33737847.70321926,mexico_city
+rail,Scenario 1,33022324.1753666,mexico_city
+rail,Scenario 2,32698850.223697357,mexico_city
+rail,Scenario 3,33737847.70321926,mexico_city
+taxi,Baseline,4471394.425648468,mexico_city
+taxi,Scenario 1,4230853.84884354,mexico_city
+taxi,Scenario 2,4137668.646660706,mexico_city
+taxi,Scenario 3,4116950.6858718493,mexico_city
+truck,Baseline,8625128.181076856,mexico_city
+truck,Scenario 1,8625128.181076856,mexico_city
+truck,Scenario 2,8625128.181076856,mexico_city
+truck,Scenario 3,8625128.181076856,mexico_city
+bus,Baseline,6866437.659732326,montevideo
+bus,Scenario 1,6596506.544471927,montevideo
+bus,Scenario 2,6372404.234187481,montevideo
+bus,Scenario 3,7300176.2394682625,montevideo
+car,Baseline,4226534.217282354,montevideo
+car,Scenario 1,4010006.976467282,montevideo
+car,Scenario 2,4840338.262513968,montevideo
+car,Scenario 3,3821258.9639616534,montevideo
+cycle,Baseline,110094.03467598735,montevideo
+cycle,Scenario 1,669531.6998080863,montevideo
+cycle,Scenario 2,96096.74909371023,montevideo
+cycle,Scenario 3,102557.03474706889,montevideo
+motorcycle,Baseline,476123.0526525339,montevideo
+motorcycle,Scenario 1,461910.4242151449,montevideo
+motorcycle,Scenario 2,438976.4101457216,montevideo
+motorcycle,Scenario 3,438438.05300794175,montevideo
+other,Baseline,39569.24962682185,montevideo
+other,Scenario 1,29878.82114678385,montevideo
+other,Scenario 2,39569.24962682185,montevideo
+other,Scenario 3,39569.24962682185,montevideo
+pedestrian,Baseline,857256.8337519336,montevideo
+pedestrian,Scenario 1,815448.40297276,montevideo
+pedestrian,Scenario 2,791398.8360056942,montevideo
+pedestrian,Scenario 3,876438.1140302182,montevideo
+taxi,Baseline,62641.6983888171,montevideo
+taxi,Scenario 1,55373.8770287886,montevideo
+taxi,Scenario 2,59873.004537377674,montevideo
+taxi,Scenario 3,60219.0912688076,montevideo
+truck,Baseline,1039183.0922402659,montevideo
+truck,Scenario 1,1039183.0922402659,montevideo
+truck,Scenario 2,1039183.0922402659,montevideo
+truck,Scenario 3,1039183.0922402659,montevideo
+bus,Baseline,407289.2388759358,osorno
+bus,Scenario 1,382623.3613871658,osorno
+bus,Scenario 2,368791.0266228164,osorno
+bus,Scenario 3,468239.4559921568,osorno
+car,Baseline,500530.0556509804,osorno
+car,Scenario 1,473977.2022606061,osorno
+car,Scenario 2,574223.4676224599,osorno
+car,Scenario 3,459377.75480249553,osorno
+cycle,Baseline,15093.413725490198,osorno
+cycle,Scenario 1,86580.89697326203,osorno
+cycle,Scenario 2,12499.368648841355,osorno
+cycle,Scenario 3,13692.398288770053,osorno
+pedestrian,Baseline,84551.17843850267,osorno
+pedestrian,Scenario 1,78703.18731764705,osorno
+pedestrian,Scenario 2,77393.00059893048,osorno
+pedestrian,Scenario 3,84646.44336149734,osorno
+taxi,Baseline,202617.90621818183,osorno
+taxi,Scenario 1,187520.36579037432,osorno
+taxi,Scenario 2,177174.92941604278,osorno
+taxi,Scenario 3,184612.27866737967,osorno
+truck,Baseline,142420.75037433155,osorno
+truck,Scenario 1,142420.75037433155,osorno
+truck,Scenario 2,142420.75037433155,osorno
+truck,Scenario 3,142420.75037433155,osorno
+bus,Baseline,764247.5894662553,puerto_montt
+bus,Scenario 1,739287.7248998119,puerto_montt
+bus,Scenario 2,711212.5222335709,puerto_montt
+bus,Scenario 3,864965.8382315496,puerto_montt
+car,Baseline,1105266.8675809484,puerto_montt
+car,Scenario 1,1048493.2045529665,puerto_montt
+car,Scenario 2,1218946.4386938326,puerto_montt
+car,Scenario 3,1032576.7540263148,puerto_montt
+cycle,Baseline,5238.957069901054,puerto_montt
+cycle,Scenario 1,117029.0347590169,puerto_montt
+cycle,Scenario 2,4916.303840834131,puerto_montt
+cycle,Scenario 3,5139.167411426747,puerto_montt
+motorcycle,Baseline,4603.62957761464,puerto_montt
+motorcycle,Scenario 1,4470.576699648899,puerto_montt
+motorcycle,Scenario 2,4404.050260666028,puerto_montt
+motorcycle,Scenario 3,4470.576699648899,puerto_montt
+other,Baseline,17386.684828173213,puerto_montt
+other,Scenario 1,17237.000340461753,puerto_montt
+other,Scenario 2,17202.073959995745,puerto_montt
+other,Scenario 3,17386.684828173213,puerto_montt
+pedestrian,Baseline,124962.59772103417,puerto_montt
+pedestrian,Scenario 1,117718.43874241941,puerto_montt
+pedestrian,Scenario 2,113612.52196616662,puerto_montt
+pedestrian,Scenario 3,128254.15960580914,puerto_montt
+taxi,Baseline,362399.2124428131,puerto_montt
+taxi,Scenario 1,339387.2420097883,puerto_montt
+taxi,Scenario 2,311503.39789339295,puerto_montt
+taxi,Scenario 3,332789.48242366203,puerto_montt
+truck,Baseline,300851.5646345356,puerto_montt
+truck,Scenario 1,300851.5646345356,puerto_montt
+truck,Scenario 2,300851.5646345356,puerto_montt
+truck,Scenario 3,300851.5646345356,puerto_montt
+bus,Baseline,164616.32636210747,san_antonio
+bus,Scenario 1,158472.76277443732,san_antonio
+bus,Scenario 2,149980.38410020273,san_antonio
+bus,Scenario 3,195996.8479017785,san_antonio
+car,Baseline,314221.7549714908,san_antonio
+car,Scenario 1,295825.81413936696,san_antonio
+car,Scenario 2,350024.1940068422,san_antonio
+car,Scenario 3,294612.7052617665,san_antonio
+cycle,Baseline,1793.7690130624092,san_antonio
+cycle,Scenario 1,37963.29062478402,san_antonio
+cycle,Scenario 2,1702.7466134494439,san_antonio
+cycle,Scenario 3,1707.4546686018384,san_antonio
+motorcycle,Baseline,4057.6746986085195,san_antonio
+motorcycle,Scenario 1,3461.321045971848,san_antonio
+motorcycle,Scenario 2,3822.2719409887804,san_antonio
+motorcycle,Scenario 3,3837.96545816343,san_antonio
+other,Baseline,8611.032873730042,san_antonio
+other,Scenario 1,8422.710667634254,san_antonio
+other,Scenario 2,8611.032873730042,san_antonio
+other,Scenario 3,8611.032873730042,san_antonio
+pedestrian,Baseline,29347.224615902967,san_antonio
+pedestrian,Scenario 1,27370.816691893015,san_antonio
+pedestrian,Scenario 2,26668.40849212109,san_antonio
+pedestrian,Scenario 3,30040.216705370105,san_antonio
+taxi,Baseline,150728.49406391828,san_antonio
+taxi,Scenario 1,141488.5210701039,san_antonio
+taxi,Scenario 2,130668.32299335362,san_antonio
+taxi,Scenario 3,139567.37674585896,san_antonio
+truck,Baseline,82754.15799295044,san_antonio
+truck,Scenario 1,82754.15799295044,san_antonio
+truck,Scenario 2,82754.15799295044,san_antonio
+truck,Scenario 3,82754.15799295044,san_antonio
+bus,Baseline,14644040.496324848,santiago
+bus,Scenario 1,14287079.260674935,santiago
+bus,Scenario 2,14088072.590641404,santiago
+bus,Scenario 3,15398913.60426195,santiago
+car,Baseline,8637821.74741441,santiago
+car,Scenario 1,8299158.30288691,santiago
+car,Scenario 2,9671753.875686781,santiago
+car,Scenario 3,8029858.723655261,santiago
+cycle,Baseline,381528.13990595157,santiago
+cycle,Scenario 1,1337307.983883603,santiago
+cycle,Scenario 2,328727.2530976422,santiago
+cycle,Scenario 3,346673.13923025597,santiago
+motorcycle,Baseline,813069.5030258495,santiago
+motorcycle,Scenario 1,794199.7691232427,santiago
+motorcycle,Scenario 2,772353.1014852636,santiago
+motorcycle,Scenario 3,734135.7531683791,santiago
+other,Baseline,72598.84632463797,santiago
+other,Scenario 1,69969.68522190268,santiago
+other,Scenario 2,67701.3893685624,santiago
+other,Scenario 3,69849.39680543765,santiago
+pedestrian,Baseline,1456840.3835596913,santiago
+pedestrian,Scenario 1,1398376.162629385,santiago
+pedestrian,Scenario 2,1372658.9901622937,santiago
+pedestrian,Scenario 3,1480646.5658676564,santiago
+rail,Baseline,10575869.681134999,santiago
+rail,Scenario 1,10392654.875376385,santiago
+rail,Scenario 2,10292034.024147674,santiago
+rail,Scenario 3,10559978.51754486,santiago
+taxi,Baseline,899416.04700519,santiago
+taxi,Scenario 1,860485.1510749896,santiago
+taxi,Scenario 2,824973.5965833026,santiago
+taxi,Scenario 3,860980.2156461551,santiago
+truck,Baseline,2256119.719755229,santiago
+truck,Scenario 1,2256119.719755229,santiago
+truck,Scenario 2,2256119.719755229,santiago
+truck,Scenario 3,2256119.719755229,santiago
+bus,Baseline,34045526.10633633,sao_paulo
+bus,Scenario 1,33039320.353285085,sao_paulo
+bus,Scenario 2,32314691.2883885,sao_paulo
+bus,Scenario 3,36750509.91800385,sao_paulo
+car,Baseline,33161646.6079029,sao_paulo
+car,Scenario 1,31855006.420186598,sao_paulo
+car,Scenario 2,36869821.89096583,sao_paulo
+car,Scenario 3,30849236.887346026,sao_paulo
+cycle,Baseline,390093.6472370204,sao_paulo
+cycle,Scenario 1,3844731.094150914,sao_paulo
+cycle,Scenario 2,341955.68303608726,sao_paulo
+cycle,Scenario 3,356489.79568993126,sao_paulo
+motorcycle,Baseline,4098404.850133889,sao_paulo
+motorcycle,Scenario 1,3999364.7751287003,sao_paulo
+motorcycle,Scenario 2,3860075.406049727,sao_paulo
+motorcycle,Scenario 3,3872210.8395206654,sao_paulo
+other,Baseline,399928.28508452297,sao_paulo
+other,Scenario 1,384109.45071262197,sao_paulo
+other,Scenario 2,376535.17832268623,sao_paulo
+other,Scenario 3,368290.6163407209,sao_paulo
+pedestrian,Baseline,6197487.992341043,sao_paulo
+pedestrian,Scenario 1,5884577.659650377,sao_paulo
+pedestrian,Scenario 2,5735093.505062152,sao_paulo
+pedestrian,Scenario 3,6271438.649138281,sao_paulo
+rail,Baseline,26140804.671361104,sao_paulo
+rail,Scenario 1,25529106.901288662,sao_paulo
+rail,Scenario 2,25153367.02688668,sao_paulo
+rail,Scenario 3,26140804.671361104,sao_paulo
+taxi,Baseline,1549441.420935864,sao_paulo
+taxi,Scenario 1,1447116.9269297295,sao_paulo
+taxi,Scenario 2,1331793.602621019,sao_paulo
+taxi,Scenario 3,1374352.203932105,sao_paulo
+truck,Baseline,8723723.284610594,sao_paulo
+truck,Scenario 1,8723723.284610594,sao_paulo
+truck,Scenario 2,8723723.284610594,sao_paulo
+truck,Scenario 3,8723723.284610594,sao_paulo
+bus,Baseline,1197111.2061068043,temuco_padrelascasas
+bus,Scenario 1,1132948.4205641688,temuco_padrelascasas
+bus,Scenario 2,1089456.7788845822,temuco_padrelascasas
+bus,Scenario 3,1343362.0341171406,temuco_padrelascasas
+car,Baseline,1172262.582105943,temuco_padrelascasas
+car,Scenario 1,1095007.467377261,temuco_padrelascasas
+car,Scenario 2,1338698.9731912145,temuco_padrelascasas
+car,Scenario 3,1065036.5802971576,temuco_padrelascasas
+cycle,Baseline,57733.52558139535,temuco_padrelascasas
+cycle,Scenario 1,229861.76434108528,temuco_padrelascasas
+cycle,Scenario 2,50810.708268733855,temuco_padrelascasas
+cycle,Scenario 3,50932.45581395349,temuco_padrelascasas
+pedestrian,Baseline,210610.05891472867,temuco_padrelascasas
+pedestrian,Scenario 1,197107.5064728682,temuco_padrelascasas
+pedestrian,Scenario 2,192534.95655038758,temuco_padrelascasas
+pedestrian,Scenario 3,213010.5846511628,temuco_padrelascasas
+rail,Baseline,5120.293927648578,temuco_padrelascasas
+rail,Scenario 1,5120.293927648578,temuco_padrelascasas
+rail,Scenario 2,5120.293927648578,temuco_padrelascasas
+rail,Scenario 3,5120.293927648578,temuco_padrelascasas
+taxi,Baseline,283354.18719638244,temuco_padrelascasas
+taxi,Scenario 1,266146.4011498708,temuco_padrelascasas
+taxi,Scenario 2,249570.14301033592,temuco_padrelascasas
+taxi,Scenario 3,253459.16742894056,temuco_padrelascasas
+truck,Baseline,325731.6589147287,temuco_padrelascasas
+truck,Scenario 1,325731.6589147287,temuco_padrelascasas
+truck,Scenario 2,325731.6589147287,temuco_padrelascasas
+truck,Scenario 3,325731.6589147287,temuco_padrelascasas
+bus,Baseline,342253.86699784815,valdivia
+bus,Scenario 1,316193.7610113644,valdivia
+bus,Scenario 2,302025.62865224265,valdivia
+bus,Scenario 3,413218.0342571112,valdivia
+car,Baseline,572327.6966411136,valdivia
+car,Scenario 1,534119.2752168651,valdivia
+car,Scenario 2,656376.295550064,valdivia
+car,Scenario 3,524515.6749209871,valdivia
+cycle,Baseline,25959.217100396745,valdivia
+cycle,Scenario 1,109817.28473202878,valdivia
+cycle,Scenario 2,21607.68870620671,valdivia
+cycle,Scenario 3,22432.431662295745,valdivia
+other,Baseline,1710.0439614013853,valdivia
+other,Scenario 1,1710.0439614013853,valdivia
+other,Scenario 2,1710.0439614013853,valdivia
+other,Scenario 3,1580.2767130656982,valdivia
+pedestrian,Baseline,73606.51680704055,valdivia
+pedestrian,Scenario 1,68193.61590932016,valdivia
+pedestrian,Scenario 2,65929.42460157353,valdivia
+pedestrian,Scenario 3,74211.6647417793,valdivia
+taxi,Baseline,181177.96302787305,valdivia
+taxi,Scenario 1,165616.10982365007,valdivia
+taxi,Scenario 2,149197.75158445968,valdivia
+taxi,Scenario 3,161816.68957618854,valdivia
+truck,Baseline,166893.04014524914,valdivia
+truck,Scenario 1,166893.04014524914,valdivia
+truck,Scenario 2,166893.04014524914,valdivia
+truck,Scenario 3,166893.04014524914,valdivia
