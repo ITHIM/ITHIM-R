@@ -11,7 +11,7 @@ Breast cancer,breast_cancer,0,1,,breast-cancer,deaths
 Colon and rectum cancer,colon_cancer,0,1,,colon-cancer,cases
 Uterine cancer,endo_cancer,0,1,,endometrial-cancer,cases
 Liver cancer,liver_cancer,0,1,,liver-cancer,cases
-Cardiovascular diseases,CVD,0,1,,all-cause-cvd,deaths
+Cardiovascular diseases,CVD,1,1,cvd,all-cause-cvd,deaths
 Alzheimer's disease and other dementias,total_dementia,0,1,,alzheimer's-disease,cases
 Myeloma,myeloma,0,1,,myeloma,cases
 Parkinson's disease,Parkinson,0,1,,parkinson's-disease,cases
