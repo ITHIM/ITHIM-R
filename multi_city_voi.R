@@ -8,25 +8,51 @@ plan(multisession)
 library(foreach)
 library(doRNG)
 library(future.apply)
+library(voi) #install_github("chjackson/voi")
+
 
 rm(list=ls())
 
-cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
-            'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
 
+# cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
+#             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
+cities <- c('accra' )
+#cities <- c('accra', 'bangalore', 'belo_horizonte')
+
+#cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
+ #           'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
+
+
+# number of times input values are sampled from each input parameter distribution
+nsamples <- 10
+
+# define min and max age to be considered
 min_age <- 15
 max_age <- 69
+# set age ranges for outcome statistics
+outcome_age_min <- c(15,50)
+outcome_age_max <- c(49,69)
+outcome_age_groups <- c('15-49','50-69')
 
-all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F)
+all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F) # read in parameter list
 
+outcome_voi_list <- c('pa_total_cancer', 'pa_CVD','ap_COPD', 'ap_LRI','inj' ) # list of outcome parameters to be included in VoI analysis
+
+compute_mode <- 'sample' # sample from the given input parameter distributions
+
+
+# constant parameters for DAY_TO_WEEK_TRAVEL_SCALAR
+day_to_week_scalar <- 7
+
+
+
+
+# get input parameters into correct format
 parameter_names <- all_inputs$parameter
 parameter_starts <- which(parameter_names!='')
 parameter_stops <- c(parameter_starts[-1] - 1, nrow(all_inputs)) 
 parameter_names <- parameter_names[parameter_names!='']
 parameter_list <- list()
-compute_mode <- 'sample'
-
-
 
 for(i in 1:length(parameter_names)){
   parameter_list[[parameter_names[i]]] <- list()
@@ -39,13 +65,26 @@ for(i in 1:length(parameter_names)){
     })
     names(parameter_list[[parameter_names[i]]]) <- cities
   }else if(all_inputs[parameter_index,2]=='constant'){
-    indices <- 0
-    if(compute_mode=='sample') indices <- 1:2
-    parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
-      city_index <- which(colnames(all_inputs)==x)
-      val <- all_inputs[parameter_index+indices,city_index]
-      ifelse(val=='',0,as.numeric(val))
-    })
+    if (compute_mode != 'sample'){
+      indices <- 0
+      parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
+        city_index <- which(colnames(all_inputs)==x)
+        val <- all_inputs[parameter_index+indices,city_index]
+        ifelse(val=='',0,as.numeric(val))
+      })
+    }
+    if(compute_mode=='sample'){ # if sampling from distribution, check that distribution parameters exist
+      parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
+        indices <- 1:2
+        city_index <- which(colnames(all_inputs)==x)  
+        val <- all_inputs[parameter_index+indices,city_index] 
+        if (val[1] == '' & val[2]==''){  # if no distribution parameters given in input file, read in constant value instead
+          indices <-0
+          city_index <- which(colnames(all_inputs)==x) 
+          val <- all_inputs[parameter_index+indices,city_index]} 
+        val <- as.numeric(val)
+      })
+    }
     names(parameter_list[[parameter_names[i]]]) <- cities
   }else{
     parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
@@ -65,14 +104,9 @@ for(i in 1:length(parameter_names)){
 list2env(parameter_list, environment()) 
 
 
-##################################################################
-
-# constant parameters for DAY_TO_WEEK_TRAVEL_SCALAR
-day_to_week_scalar <- 7
+################################### Start running the the actual analysis
 
 
-
-#################################################
 ## with uncertainty
 ## comparison across cities
 setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","PM_EMISSION_INVENTORY",
@@ -96,9 +130,9 @@ casualty_exponent_fraction <- c(15,15)
 
 
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
-pa_dr_quantile <- c(T,rep(F,length(cities)-1))
+pa_dr_quantile <-  c(rep(T, length(cities)))
 # logical for AP dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
-ap_dr_quantile <- c(T,rep(F,length(cities)-1))
+ap_dr_quantile <-  c(rep(T, length(cities)))
 # logical for walk scenario
 test_walk_scenario <- F
 # logical for cycle scenario
@@ -134,7 +168,7 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
 parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 numcores <- parallel::detectCores() - 1
-nsamples <- 4
+
 
 print(system.time(
   for(ci in 1:length(cities)){
@@ -168,8 +202,8 @@ print(system.time(
                                               PM_CONC_BASE = pm_conc_base[[city]],  
                                               PM_TRANS_SHARE = pm_trans_share[[city]],  
                                               BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
-                                              BUS_WALK_TIME = 10.55, # manual to read in constant values
-                                              RAIL_WALK_TIME = 15, #  manual to read in constant values
+                                              BUS_WALK_TIME = bus_walk_time[[city]],
+                                              RAIL_WALK_TIME = rail_walk_time[[city]], 
                                               
                                               
                                               #additional in VoI script
@@ -179,7 +213,6 @@ print(system.time(
                                               MAX_MODE_SHARE_SCENARIO=T,
                                               
                                               BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
-                                              #BUS_WALK_TIME = bus_walk_time[[city]],## not random; use mean
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                               TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
                                               
@@ -264,9 +297,7 @@ saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 ## set age groups to summarise results across all cities
 parameter_samples <- readRDS('diagnostic/parameter_samples.Rds')
 
-outcome_age_min <- c(15,50)
-outcome_age_max <- c(49,69)
-outcome_age_groups <- c('15-49','50-69')
+
 age_pops <- list()
 age_populations <- rep(0,length(outcome_age_groups))
 city_populations <- matrix(0,nrow=length(cities),ncol=length(outcome_age_groups))
@@ -380,7 +411,7 @@ outcomes_pp <- do.call(cbind,outcome_pp)
 outcome$combined <- outcomes_pp
 saveRDS(outcome,'results/multi_city/outcome.Rds',version=2)
 
-## plot results #####################################################################
+######################################################### plot results #######################################################
 
 # plots only work if more than one sample was selected
 if(nsamples > 1){
@@ -415,123 +446,132 @@ if(nsamples > 1){
   
 }
 
-## calculate EVPPI ##################################################################
+################################################ calculate EVPPI ################################################
 
 if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
-  #numcores <- parallel::detectCores() - 1
   
-  evppi <- future_lapply(1:ncol(parameter_samples),
-                         FUN = ithimr:::compute_evppi,
-                         as.data.frame(parameter_samples),
-                         outcome,
-                         nscen=NSCEN,
-                         all=T)
+  # first extract input parameters of interest
+  # create list with global parameters
+  general_inputs <- sapply(colnames(parameter_samples),function(x)!grepl(paste(cities, collapse = "|"),x))
+  general_parsampl <- parameter_samples[,general_inputs]
   
-  evppi <- do.call(rbind,evppi)
-  colnames(evppi) <- apply(expand.grid(SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)],names(outcome)),1,function(x)paste0(x,collapse='_'))
-  rownames(evppi) <- colnames(parameter_samples)
+  # remove alpha, beta, gamma and tmrel dose response parameters as they are not independent of each other
+  general_noDRpara <- sapply(colnames(general_parsampl), function(x)!grepl(paste(c('ALPHA','BETA','GAMMA','TMREL'),
+                                                                                 collapse = "|"),x))
+  general_noDRpara_parsampl <- general_parsampl[,general_noDRpara]
   
-  ## add four-dimensional EVPPI if AP_DOSE_RESPONSE is uncertain.
+  evppi_df <- data.frame()
   
-  if(any(ap_dr_quantile)&&NSAMPLES>=1024){
-    AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
-    diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-    sources <- list()
-    for(di in diseases){
-      col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
-      sources[[di]] <- parameter_samples[,col_names]
-    }
-    evppi_for_AP <- future_lapply(1:length(sources),
-                                  FUN = ithimr:::compute_evppi,
-                                  sources,
-                                  outcome,
-                                  nscen=NSCEN,
-                                  all=T)
+  for (city in cities){
     
-    names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
-    evppi <- rbind(evppi,do.call(rbind,evppi_for_AP))
-    ## get rows to remove
-    keep_names <- sapply(rownames(evppi),function(x)!any(c('ALPHA','BETA','GAMMA','TMREL')%in%strsplit(x,'_')[[1]]))
-    evppi <- evppi[keep_names,]
-  }
-  
-  # x2 <- evppi(parameter=c(38:40),input=inp$mat,he=m,method="GP")
-  #fit <- fit.gp(parameter = parameter, inputs = inputs, x = x, n.sim = n.sim)
-  
-  
-  if(paste("EMISSION_INVENTORY_car_", city[1],sep="")%in%colnames(parameter_samples)&&NSAMPLES>=1024){
-    sources <- list()
-    for(ci in 1:length(cities)){
-      city <- cities[ci]
-      emission_names <- sapply(colnames(parameter_samples),function(x)grepl('EMISSION_INVENTORY_',x)&grepl(city,x))
-      sources[[ci]] <- parameter_samples[,emission_names]
-    }
-    evppi_for_emissions <- future_lapply(1:length(sources),
+    # extract city specific input parameters
+    city_inputs <- sapply(colnames(parameter_samples),function(x)grepl(city,x))
+    city_parsampl <- parameter_samples[,city_inputs]
+    
+    # extract the required outcomes for each city
+    city_out <- as.data.frame(outcome[[city]])
+    city_outputs <- sapply(colnames(city_out),function(x)grepl(paste(outcome_voi_list, collapse = "|"),x))
+    city_outcomes <- city_out[,city_outputs]
+    
+    
+    param_no <- ncol(city_parsampl) + ncol(general_noDRpara_parsampl)
+    
+    evppi_city <- future_lapply(1:param_no, # calculate the evppi for each city
+                                FUN = ithimr::compute_evppi,
+                                global_para = as.data.frame(general_noDRpara_parsampl),
+                                city_para = as.data.frame(city_parsampl),
+                                city_outcomes = city_outcomes)
+    
+    evppi_city2 <- do.call(rbind,evppi_city)
+    
+    evppi_city3 <- as.data.frame(evppi_city2) # turn into dataframe
+    
+    evppi_outcome_names <- strsplit(colnames(city_outcomes),paste("_",city,sep="")) # add column names without city part
+    colnames(evppi_city3) <- evppi_outcome_names
+    evppi_outcome_names <- colnames(evppi_city3)
+    
+    evppi_city3$parameters <-  c(colnames(general_noDRpara_parsampl), colnames(city_parsampl)) # add parameter name column
+    evppi_city3$city <- city # add city name column
+    
+    
+    
+    # look at dose response input parameters separately, as alpha, beta, gammy and trmel are dependent on each other
+    if(any(ap_dr_quantile)&&NSAMPLES>=1024){
+      AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
+      diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
+      sources <- list()
+      for(di in diseases){
+        col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
+        sources[[di]] <- parameter_samples[,col_names]
+      }
+      evppi_for_AP_city <- future_lapply(1:length(sources),
                                          FUN = ithimr:::compute_evppi,
-                                         sources,
-                                         outcome,
-                                         nscen=NSCEN)
-    
-    names(evppi_for_emissions) <- paste0('EMISSION_INVENTORY_',cities)
-    ## get rows to remove
-    keep_names <- sapply(rownames(evppi),function(x)!grepl('EMISSION_INVENTORY_',x))
-    evppi <- evppi[keep_names,]
-    
-    evppi <- rbind(evppi,do.call(rbind,evppi_for_emissions))
-  }
-  
-  background_pa_city1 <- paste("BACKGROUND_PA_SCALAR_", city[1],sep="")
-  background_pa_0_city1 <- paste("BACKGROUND_PA_ZEROS_", city[1],sep="")
-  
-  if(sum(c(background_pa_city1,background_pa_0_city1)%in%colnames(parameter_samples))==2&&NSAMPLES>=1024){
-    #if(sum(c("BACKGROUND_PA_SCALAR_accra","BACKGROUND_PA_ZEROS_accra")%in%colnames(parameter_samples))==2&&NSAMPLES>=1024){
-    sources <- list()
-    for(ci in 1:length(cities)){
-      city <- cities[ci]
-      pa_names <- sapply(colnames(parameter_samples),function(x)(grepl('BACKGROUND_PA_SCALAR_',x)||grepl('BACKGROUND_PA_ZEROS_',x))&grepl(city,x))
-      sources[[ci]] <- parameter_samples[,pa_names]
+                                         global_para = sources,
+                                         city_para = data.frame(),
+                                         city_outcomes = city_outcomes)
+      
+      names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
+      
+      evppi_for_AP_city2 <- do.call(rbind,evppi_for_AP_city)
+      evppi_for_AP_city3 <- as.data.frame(evppi_for_AP_city2) # turn into dataframe
+      colnames(evppi_for_AP_city3) <- evppi_outcome_names
+      
+      evppi_for_AP_city3$parameters <-  c(paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)) # add parameter name column
+      evppi_for_AP_city3$city <- city # add city name column
+      
+      evppi_city3 <- rbind(evppi_city3, evppi_for_AP_city3)
     }
-    evppi_for_pa <- future_lapply(1:length(sources),
-                                  FUN = ithimr:::compute_evppi,
-                                  sources,
-                                  outcome,
-                                  nscen=NSCEN)
     
-    names(evppi_for_pa) <- paste0('BACKGROUND_PA_',cities)
-    ## get rows to remove
-    keep_names <- sapply(rownames(evppi),function(x)!grepl('BACKGROUND_PA_',x))
-    evppi <- evppi[keep_names,]
-    
-    evppi <- rbind(evppi,do.call(rbind,evppi_for_pa))
-  }
-  
-  saveRDS(evppi,'results/multi_city/evppi.Rds',version=2)
-  write.csv(evppi,'results/multi_city/evppi.csv')
+    evppi_df <- rbind(evppi_df, evppi_city3) # add to total evppi dataframe
+  } # end of city loop
   
   
+  evppi_df <- evppi_df %>% relocate(city,parameters) # change order of columns
   
-  #parameter_names <- c('walk-to-bus time','cycling MMETs','walking MMETs','background PM2.5','motorcycle distance','non-travel PA','non-communicable disease burden',
-  #                     'injury linearity','traffic PM2.5 share','injury reporting rate','casualty exponent fraction','day-to-week scalar',
-  #                     'all-cause mortality (PA)','IHD (PA)','cancer (PA)','lung cancer (PA)','stroke (PA)','diabetes (PA)','IHD (AP)','lung cancer (AP)',
-  #                     'COPD (AP)','stroke (AP)')
-  evppi <- apply(evppi,2,function(x){x[is.na(x)]<-0;x})
-  {pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome)); par(mar=c(10,22,3.5,5.5))
-    labs <- rownames(evppi)
-    get.pal=colorRampPalette(brewer.pal(9,"Reds"))
-    redCol=rev(get.pal(12))
-    bkT <- seq(max(evppi)+1e-10, 0,length=13)
-    cex.lab <- 1.5
-    maxval <- round(bkT[1],digits=1)
-    col.labels<- c(0,maxval/2,maxval)
-    cellcolors <- vector()
-    for(ii in 1:length(unlist(evppi)))
-      cellcolors[ii] <- redCol[tail(which(unlist(evppi[ii])<bkT),n=1)]
-    color2D.matplot(evppi,cellcolors=cellcolors,main="",xlab="",ylab="",cex.lab=2,axes=F,border='white')
-    fullaxis(side=1,las=2,at=NSCEN*0:(length(outcome)-1)+NSCEN/2,labels=names(outcome),line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=1)
-    fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.8)
-    mtext(3,text='By how much (%) could we reduce uncertainty in\n the outcome if we knew this parameter perfectly?',line=1)
-    color.legend(NSCEN*length(outcome)+0.5,0,NSCEN*length(outcome)+0.8,length(labs),col.labels,rev(redCol),gradient="y",cex=1,align="rb")
-    for(i in seq(0,NSCEN*length(outcome),by=NSCEN)) abline(v=i)
-    for(i in seq(0,length(labs),by=NSCEN)) abline(h=i)
+  saveRDS(evppi_df,'results/multi_city/evppi.Rds',version=2) # save evppi dataframe
+  
+  write.csv(evppi_df,'results/multi_city/evppi.csv',row.names = FALSE) # save as csv file
+  
+  
+  # create output plots
+  
+  {pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome))
+    for ( city_name in cities){
+      
+      evppi_city_df <- evppi_df %>% filter(city == city_name) # does not work for some reason
+      
+      par_city <- par(mar=c(10,15,4,3.5))
+      
+      labs <- evppi_city_df$parameters # y axis label
+      labs <- str_replace(labs,'DOSE_RESPONSE','DR') # replace DOSE_RESPONSE with DR
+      labs <- str_replace(labs,'EMISSION_INVENTORY','EMISSION_INV') # replace EMISSION_INVENTORY with EMISSION_INV
+      evppi_dummy <- evppi_city_df[,evppi_outcome_names]
+      get.pal=colorRampPalette(brewer.pal(9,"Reds"))
+      redCol=rev(get.pal(12))
+      bkT <- seq(max(evppi_dummy)+1e-10, 0,length=13)
+      cex.lab <- 1.0
+      maxval <- round(bkT[1],digits=1)
+      col.labels<- c(0,maxval/2,maxval)
+      cellcolors <- vector()
+      title <- paste(city_name, 
+                     ': By how much (%) could we reduce uncertainty\n in the outcome if we knew this parameter perfectly?')
+      for(ii in 1:length(unlist(evppi_dummy))) # determine the cellcolors
+        cellcolors[ii] <- redCol[tail(which(unlist(evppi_dummy)[ii]<bkT),n=1)]
+      color2D.matplot(evppi_dummy,cellcolors=cellcolors,xlab="",ylab="",axes=F,border='white')
+      title(title, adj = 0, cex.main = 0.75 )
+      fullaxis(side=1,at=(ncol(evppi_dummy)-1):0+0.5,labels=rev(colnames(evppi_dummy)),
+               las = 2, line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.65)  # x-axis labels
+      fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,
+               line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.6) # y-axis labels
+      color.legend(ncol(evppi_dummy)+0.5,0,ncol(evppi_dummy)+1.2,length(labs),col.labels,rev(redCol),
+                   gradient="y",cex=0.7,align="rb")
+      for(i in seq(0,ncol(evppi_dummy),by=NSCEN)) abline(v=i, lwd=2) # add vertical lines
+      for(i in c(0,length(labs))) abline(h=i, lwd = 2) # add horizontal lines at top and bottom
+      par(par_city)
+      
+    }
     dev.off()}
-}
+  
+} # end of nsamples >1 condition
+
+
