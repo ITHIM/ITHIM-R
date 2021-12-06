@@ -4,24 +4,20 @@
 \alias{compute_evppi}
 \title{Compute evppi, designed to be run in parallel}
 \usage{
-compute_evppi(jj, sources, outcome, nscen = 1, all = F, multi_city_outcome = T)
+compute_evppi(p, global_para, city_para, city_outcomes)
 }
 \arguments{
-\item{jj}{index for input and (potentially) outcome}
+\item{p}{input parameter index}
 
-\item{sources}{list of inputs}
+\item{global_para}{list of global input parameters that are the same across all cities}
 
-\item{outcome}{list of outcomes}
+\item{city_para}{list of city specific input parameters}
 
-\item{nscen}{number of scenarios (which constitute columns of outcome)}
-
-\item{all}{whether or not to compute EVPPI for source against all outcomes. Default=F, so sources[[jj]] relates to outcome[[jj]]}
-
-\item{multi_city_outcome}{whether the last outcome corresponds to all cities combine}
+\item{city_outcome}{list of outcomes for a specific city}
 }
 \value{
-list of EVPPI vectors
+list of EVPPI vectors for specific city
 }
 \description{
-Creates a list of EVPPI values one parameter (set) at a time across one or more outcomes
+Creates a list of EVPPI values one parameter (set) at a time across some pre-defined outcomes
 }
