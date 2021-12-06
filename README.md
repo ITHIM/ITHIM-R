@@ -19,7 +19,7 @@ the prototype.
 
 To cite package 'ithimr' in publications use:
 
-> Rob Johnson and Ali Abbas (2021). ithimr: Integrated Transport and
+> Rob Johnson, Ali Abbas, Daniel Gil et al. (2021). ithimr: Integrated Transport and
 Health Impact Model. R package version 0.1.1.
 
 A BibTeX entry for LaTeX users is
