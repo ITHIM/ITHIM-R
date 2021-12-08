@@ -399,19 +399,19 @@ for (city in cities){
   for (cs in names(io[[city]]$outcomes$whw)){
     if (length(names(io[[city]]$outcomes$whw$Baseline)) == 2){
       # td1: Number of fatalities in nov
-      td1 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td1 <- io[[city]]$outcomes$whw[[cs]]$nov %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
       # td2: Number of fatalities in whw
-      td2 <- colSums(round(io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td2 <- colSums(io[[city]]$outcomes$whw[[cs]]$whw) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
       # td3: Number of fatalities: sum of nov and whw
       td3 <- full_join(td2, td1, by = 'mode') %>% mutate(count = rowSums(.[2:3], na.rm = T)) %>% dplyr::select(-c('count.x', 'count.y'))
       #td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
       
     }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'whw'){
-      td3 <- colSums(round(io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td3 <- colSums(io[[city]]$outcomes$whw[[cs]]$whw) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
       #td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
     }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'nov'){
       
-      td3 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td3 <- io[[city]]$outcomes$whw[[cs]]$nov %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
       #td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
       
     }
@@ -568,15 +568,15 @@ for (city in cities){
   
   for (cs in names(io[[city]]$outcomes$whw)){
     if (length(names(io[[city]]$outcomes$whw$Baseline)) == 2){
-      td1 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
-      td2 <- colSums(round(io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td1 <- (io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td2 <- colSums((io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
       td3 <- full_join(td2, td1, by = 'mode') %>% mutate(count = rowSums(.[2:3], na.rm = T)) %>% dplyr::select(-c('count.x', 'count.y'))
       
     }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'whw'){
-      td3 <- colSums(round(io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td3 <- colSums((io[[city]]$outcomes$whw[[cs]]$whw)) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
     }else if(length(names(io[[city]]$outcomes$whw$Baseline)) == 1 && names(io[[city]]$outcomes$whw$Baseline) == 'nov'){
       
-      td3 <- round(io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+      td3 <- (io[[city]]$outcomes$whw[[cs]]$nov) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
       
     }
     
@@ -595,7 +595,7 @@ for (city in cities){
     td5 <- td4
     
     td4[, 2] <- round(td4[, 2] / sum(io[[city]]$demographic$population) * 100000, 2)
-    
+  
     el <- inner_join(el, td4, by = 'stage_mode')
   }
   
