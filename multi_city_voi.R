@@ -5,7 +5,6 @@ library(plotrix)
 library(foreach)
 library(future)
 plan(multisession)
-library(foreach)
 library(doRNG)
 library(future.apply)
 library(voi) #install_github("chjackson/voi")
@@ -17,14 +16,10 @@ rm(list=ls())
 # cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
 #             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
 cities <- c('accra' )
-#cities <- c('accra', 'bangalore', 'belo_horizonte')
-
-#cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
- #           'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
 
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 10
+nsamples <- 300
 
 # define min and max age to be considered
 min_age <- 15
@@ -480,7 +475,8 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
                                 FUN = ithimr::compute_evppi,
                                 global_para = as.data.frame(general_noDRpara_parsampl),
                                 city_para = as.data.frame(city_parsampl),
-                                city_outcomes = city_outcomes)
+                                city_outcomes = city_outcomes,
+                                nsamples = NSAMPLES)
     
     evppi_city2 <- do.call(rbind,evppi_city)
     
@@ -496,7 +492,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
     
     
     # look at dose response input parameters separately, as alpha, beta, gammy and trmel are dependent on each other
-    if(any(ap_dr_quantile)&&NSAMPLES>=1024){
+    if(any(ap_dr_quantile)&&NSAMPLES>=300){
       AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
       diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
       sources <- list()
@@ -508,9 +504,10 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
                                          FUN = ithimr:::compute_evppi,
                                          global_para = sources,
                                          city_para = data.frame(),
-                                         city_outcomes = city_outcomes)
+                                         city_outcomes = city_outcomes,
+                                         nsamples = NSAMPLES)
       
-      names(evppi_for_AP) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
+      #names(evppi_for_AP_city) <- paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)
       
       evppi_for_AP_city2 <- do.call(rbind,evppi_for_AP_city)
       evppi_for_AP_city3 <- as.data.frame(evppi_for_AP_city2) # turn into dataframe
@@ -558,7 +555,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
       for(ii in 1:length(unlist(evppi_dummy))) # determine the cellcolors
         cellcolors[ii] <- redCol[tail(which(unlist(evppi_dummy)[ii]<bkT),n=1)]
       color2D.matplot(evppi_dummy,cellcolors=cellcolors,xlab="",ylab="",axes=F,border='white')
-      title(title, adj = 0, cex.main = 0.75 )
+      title(title, adj = 0, cex.main = 0.65 )
       fullaxis(side=1,at=(ncol(evppi_dummy)-1):0+0.5,labels=rev(colnames(evppi_dummy)),
                las = 2, line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.65)  # x-axis labels
       fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,

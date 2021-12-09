@@ -1,7 +1,7 @@
 #' Compute evppi, designed to be run in parallel
 #' 
 #' Creates a list of EVPPI values one parameter (set) at a time across some pre-defined outcomes
-#' 
+#' Uses Chris Jackson's VoI Github package https://github.com/chjackson/voi
 #' @param p input parameter index
 #' @param global_para list of global input parameters that are the same across all cities
 #' @param city_para list of city specific input parameters
@@ -12,7 +12,7 @@
 #' @export
 
 
-compute_evppi <- function(p, global_para,city_para,city_outcomes){
+compute_evppi <- function(p, global_para,city_para,city_outcomes, nsamples){
   
   ncol_gen <- ncol(global_para)
   
@@ -33,7 +33,7 @@ compute_evppi <- function(p, global_para,city_para,city_outcomes){
     vary <- var(y) #commpute outcome variance
     
     # model outcome as a function of input(s)
-    if (nrow(city_para) >= 8){ # use Chris Jackson's VoI R package if sample size large enough
+    if (nsamples >= 8){ # use Chris Jackson's VoI R package if sample size large enough
       if(is.vector(sourcesj)){ # if only one parameter is considered at a time
         evppi_jj <- evppivar(y,sourcesj) # uses Chris Jackson's VoI package
       }
