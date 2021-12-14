@@ -6,20 +6,20 @@ library(foreach)
 library(future)
 plan(multisession)
 library(doRNG)
-library(future.apply)
+library(future.apply) 
 library(voi) #install_github("chjackson/voi")
 
 
 rm(list=ls())
 
 
-# cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
-#             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
-cities <- c('accra' )
+ cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
+             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
+#cities <- c('accra' )
 
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 300
+nsamples <- 1000
 
 # define min and max age to be considered
 min_age <- 15
@@ -532,7 +532,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
   
   # create output plots
   
-  {pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome))
+  {pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome_voi_list))
     for ( city_name in cities){
       
       evppi_city_df <- evppi_df %>% filter(city == city_name) # does not work for some reason
@@ -551,11 +551,12 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
       col.labels<- c(0,maxval/2,maxval)
       cellcolors <- vector()
       title <- paste(city_name, 
-                     ': By how much (%) could we reduce uncertainty\n in the outcome if we knew this parameter perfectly?')
+                    # ': By how much (%) could we\n reduce uncertainty in the outcome\n if we knew this parameter perfectly?')
+                    ': By how much (%) could we reduce uncertainty\n in the outcome if we knew this parameter perfectly?')
       for(ii in 1:length(unlist(evppi_dummy))) # determine the cellcolors
         cellcolors[ii] <- redCol[tail(which(unlist(evppi_dummy)[ii]<bkT),n=1)]
       color2D.matplot(evppi_dummy,cellcolors=cellcolors,xlab="",ylab="",axes=F,border='white')
-      title(title, adj = 0, cex.main = 0.65 )
+      title(title, adj = 0, cex.main = 0.8 )
       fullaxis(side=1,at=(ncol(evppi_dummy)-1):0+0.5,labels=rev(colnames(evppi_dummy)),
                las = 2, line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.65)  # x-axis labels
       fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,

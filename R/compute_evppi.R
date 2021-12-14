@@ -42,7 +42,7 @@ compute_evppi <- function(p, global_para,city_para,city_outcomes, nsamples){
       }
       
       # compute evppi as percentage, i.e. percentage of variance we can reduce if we knew a certain input parameter
-      voi[o] <- (vary - evppi_jj$evppi) / vary * 100
+      voi[o] <- evppi_jj$evppi / vary * 100
     } 
     else { # calculate EVPPI directly if sample size too small to use C Jackson's VoI package
       model <- earth(y ~ sourcesj, degree=4)
@@ -52,3 +52,7 @@ compute_evppi <- function(p, global_para,city_para,city_outcomes, nsamples){
   }  
   voi   # return evppi list
 }
+
+
+
+
