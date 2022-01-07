@@ -184,6 +184,7 @@ ithim_load_data <- function(setup_call_summary_filename, speeds =
   filename <- paste0(local_path,"/population_",CITY,".csv")
   demographic <- read_csv(filename,col_types = cols())
   demographic <- demographic[!apply(demographic,1,anyNA),]
+  demographic$age <- gsub("\\s","",demographic$age)
   demographic$sex <- tolower(demographic$sex)
   cat(paste0('\n  Population read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   age_category <- demographic$age
