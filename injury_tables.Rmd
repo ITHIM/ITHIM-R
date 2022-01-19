@@ -17,6 +17,8 @@ library(purrr)
 library(flextable)
 library(ggplot2)
 library(tidyverse)
+library(writexl)
+
 knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, message = F, warning = F, results='asis')
 
 smodes <- read_csv('data/global/modes/standardized_modes.csv')
