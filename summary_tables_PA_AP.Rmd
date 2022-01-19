@@ -32,8 +32,7 @@ These are the summary tables of the following items
 #library(INLA)     #loading the INLA package
 library(ggplot2)  #loading ggplot package for plotting graphs
 library(knitr)     
-library(tidyr)
-library(dplyr)
+library(tidyverse)
 #library(plotly)
 #library(htmltools)
 
@@ -489,6 +488,12 @@ for (x in 1:length(cities)) {
   print(kable(cbind(summary2, td), caption = cities[x]))
   
 }
+
+output_file <- "results/multi_city/AP/desc_stats.xlsx"
+writexl::write_xlsx(list(PM_2.5_emission_inventory = sl,
+                         CO2_emissions = cl,
+                         summary_stats_PM2.5_CO2 = bind_rows(l)), path = output_file)
+
 
 write_csv(bind_rows(l), "results/multi_city/AP/desc_stats.csv")
 
