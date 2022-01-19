@@ -11,9 +11,6 @@ if (!require("drpa",character.only = TRUE)) {
 }
 
 # options(warn=2)  # treat warnings as errors
-# cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires',
-#             'cape_town', 'delhi', 'mexico_city', 'santiago', 'sao_paulo',
-#             'vizag')
 cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
             'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
             'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
@@ -26,8 +23,6 @@ min_age <- 15
 max_age <- 69
 
 all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F)
-
-# all_inputs$cape_town_lng <- all_inputs$cape_town
 
 parameter_names <- all_inputs$parameter
 parameter_starts <- which(parameter_names!='')
