@@ -650,6 +650,25 @@ for (city in cities) { # Loop for each city
     pivot_longer(!stage_mode, names_to = "scenario", values_to = "distance") %>% 
     mutate(city = city)
 }
-true_distances_df <- bind_rows(true_distances)
+true_distances_df <- bind_rows(true_distances) %>% 
+  mutate(scenario = case_when(
+    scenario == "Scenario 1" ~ "Bicycling", 
+    scenario == "Scenario 2" ~ "Driving",
+    scenario == "Scenario 3" ~ "Public Transport",
+    scenario == "Baseline" ~ "Baseline"))
 readr::write_csv(true_distances_df, 'results/multi_city/whw_matrices/distances.csv')
 ```
+
+### Write all injury tables in a single excel sheet
+```{r}
+
+# Export injury datasets in a single excel sheet
+path_inj_wb <- "results/multi_city/inj/inj_data.xlsx"
+writexl::write_xlsx(list(whw = whw_list %>% filter(str_mode != 'Total'),
+                         injury_risks_per_billion_kms = rd,
+                         injury_risks_per_100k  = injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'),
+                         true_distances = true_distances_df),
+                    path = path_inj_wb)
+
+```
+
