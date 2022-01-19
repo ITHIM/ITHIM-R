@@ -410,6 +410,8 @@ print(kable(cl))
 
 # PM 2.5 summary and CO2
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
+
+l <- list()
 # I have to keep the first chunk of code to run this part
 # high<- c(70, 25, 150,60)
 # low<- c(40,15,100,40)
@@ -482,9 +484,15 @@ for (x in 1:length(cities)) {
   
   cat("\n \n")
   cat( paste('#### Descriptive table of Individual-level PM2.5 concentrations and CO2 emissions\n' ))
+  l[[cities[x]]] <- left_join(summary2, td, by = "Scenario")
+  l[[cities[x]]]$city <- cities[x]
   print(kable(cbind(summary2, td), caption = cities[x]))
   
 }
+
+write_csv(bind_rows(l), "results/multi_city/AP/desc_stats.csv")
+
+
 ```
 
 # Boxplots of Individual-level Physical activity (MMETs)
