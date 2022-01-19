@@ -1,155 +1,155 @@
 mode,value,scenario,city
-bus,2.9549,Bicycling,antofagasta
-car,17.1812,Bicycling,antofagasta
-cycle,37.5744,Bicycling,antofagasta
-pedestrian,69.7153,Bicycling,antofagasta
-truck,15.3479,Bicycling,antofagasta
+bus,2.9429,Bicycling,antofagasta
+car,17.1959,Bicycling,antofagasta
+cycle,37.5663,Bicycling,antofagasta
+pedestrian,69.7097,Bicycling,antofagasta
+truck,15.3477,Bicycling,antofagasta
 motorcycle,0,Bicycling,antofagasta
 other,0,Bicycling,antofagasta
 rail,0,Bicycling,antofagasta
 auto_rickshaw,0,Bicycling,antofagasta
-bus,3.5294,Bicycling,arica
-car,33.2417,Bicycling,arica
-cycle,57.5359,Bicycling,arica
-pedestrian,176.2281,Bicycling,arica
-truck,28.9048,Bicycling,arica
+bus,3.5494,Bicycling,arica
+car,33.3726,Bicycling,arica
+cycle,57.52,Bicycling,arica
+pedestrian,176.1742,Bicycling,arica
+truck,28.9038,Bicycling,arica
 motorcycle,0,Bicycling,arica
 other,0,Bicycling,arica
 rail,0,Bicycling,arica
 auto_rickshaw,0,Bicycling,arica
-bus,0.8759,Bicycling,belo_horizonte
-car,16.5223,Bicycling,belo_horizonte
-cycle,133.8386,Bicycling,belo_horizonte
-pedestrian,191.0235,Bicycling,belo_horizonte
-truck,4.9032,Bicycling,belo_horizonte
-motorcycle,76.179,Bicycling,belo_horizonte
+bus,0.8424,Bicycling,belo_horizonte
+car,16.5218,Bicycling,belo_horizonte
+cycle,133.836,Bicycling,belo_horizonte
+pedestrian,191.0164,Bicycling,belo_horizonte
+truck,4.903,Bicycling,belo_horizonte
+motorcycle,76.1762,Bicycling,belo_horizonte
 other,39.4487,Bicycling,belo_horizonte
-rail,0.1526,Bicycling,belo_horizonte
+rail,0.1487,Bicycling,belo_horizonte
 auto_rickshaw,0,Bicycling,belo_horizonte
-bus,0.3765,Bicycling,bogota
-car,2.029,Bicycling,bogota
-cycle,32.3722,Bicycling,bogota
-pedestrian,59.9102,Bicycling,bogota
+bus,0.3933,Bicycling,bogota
+car,2.0369,Bicycling,bogota
+cycle,32.5565,Bicycling,bogota
+pedestrian,59.9046,Bicycling,bogota
 truck,0.2274,Bicycling,bogota
-motorcycle,33.2731,Bicycling,bogota
+motorcycle,33.2822,Bicycling,bogota
 other,0,Bicycling,bogota
 rail,0,Bicycling,bogota
 auto_rickshaw,0,Bicycling,bogota
-bus,0.1391,Bicycling,buenos_aires
-car,9.5494,Bicycling,buenos_aires
-cycle,17.9542,Bicycling,buenos_aires
-pedestrian,142.1669,Bicycling,buenos_aires
+bus,0.2385,Bicycling,buenos_aires
+car,9.8835,Bicycling,buenos_aires
+cycle,25.3476,Bicycling,buenos_aires
+pedestrian,142.9211,Bicycling,buenos_aires
 truck,1.2765,Bicycling,buenos_aires
-motorcycle,138.324,Bicycling,buenos_aires
+motorcycle,138.9538,Bicycling,buenos_aires
 other,0,Bicycling,buenos_aires
 rail,0,Bicycling,buenos_aires
 auto_rickshaw,0,Bicycling,buenos_aires
-bus,0.09,Bicycling,cali
-car,4.4424,Bicycling,cali
-cycle,103.2385,Bicycling,cali
-pedestrian,178.3879,Bicycling,cali
+bus,0.0867,Bicycling,cali
+car,4.4423,Bicycling,cali
+cycle,103.2342,Bicycling,cali
+pedestrian,178.3784,Bicycling,cali
 truck,0,Bicycling,cali
-motorcycle,80.694,Bicycling,cali
+motorcycle,80.6915,Bicycling,cali
 other,24.4865,Bicycling,cali
 rail,0,Bicycling,cali
 auto_rickshaw,0,Bicycling,cali
-bus,7.089,Bicycling,copiapo
-car,21.0199,Bicycling,copiapo
-cycle,131.8884,Bicycling,copiapo
-pedestrian,83.7611,Bicycling,copiapo
-truck,13.5782,Bicycling,copiapo
+bus,7.0735,Bicycling,copiapo
+car,21.0493,Bicycling,copiapo
+cycle,131.8674,Bicycling,copiapo
+pedestrian,83.7528,Bicycling,copiapo
+truck,13.5774,Bicycling,copiapo
 motorcycle,0,Bicycling,copiapo
 other,0,Bicycling,copiapo
 rail,0,Bicycling,copiapo
 auto_rickshaw,0,Bicycling,copiapo
-bus,3.122,Bicycling,coquimbo_laserena
-car,19.4668,Bicycling,coquimbo_laserena
-cycle,43.4165,Bicycling,coquimbo_laserena
-pedestrian,85.0782,Bicycling,coquimbo_laserena
+bus,3.1451,Bicycling,coquimbo_laserena
+car,19.5172,Bicycling,coquimbo_laserena
+cycle,43.3957,Bicycling,coquimbo_laserena
+pedestrian,85.073,Bicycling,coquimbo_laserena
 truck,4.9213,Bicycling,coquimbo_laserena
 motorcycle,0,Bicycling,coquimbo_laserena
 other,0,Bicycling,coquimbo_laserena
 rail,0,Bicycling,coquimbo_laserena
 auto_rickshaw,0,Bicycling,coquimbo_laserena
-bus,0.2939,Bicycling,gran_valparaiso
-car,10.8687,Bicycling,gran_valparaiso
-cycle,16.2748,Bicycling,gran_valparaiso
-pedestrian,79.3317,Bicycling,gran_valparaiso
+bus,0.2965,Bicycling,gran_valparaiso
+car,10.9328,Bicycling,gran_valparaiso
+cycle,16.2689,Bicycling,gran_valparaiso
+pedestrian,79.3132,Bicycling,gran_valparaiso
 truck,6.3602,Bicycling,gran_valparaiso
-motorcycle,574.4366,Bicycling,gran_valparaiso
-other,20.3444,Bicycling,gran_valparaiso
+motorcycle,585.5479,Bicycling,gran_valparaiso
+other,20.34,Bicycling,gran_valparaiso
 rail,0,Bicycling,gran_valparaiso
 auto_rickshaw,0,Bicycling,gran_valparaiso
-bus,3.3013,Bicycling,iquique_altohospicio
-car,22.4538,Bicycling,iquique_altohospicio
-cycle,126.3236,Bicycling,iquique_altohospicio
-pedestrian,59.6372,Bicycling,iquique_altohospicio
+bus,3.3454,Bicycling,iquique_altohospicio
+car,22.4752,Bicycling,iquique_altohospicio
+cycle,126.3734,Bicycling,iquique_altohospicio
+pedestrian,59.6219,Bicycling,iquique_altohospicio
 truck,7.9995,Bicycling,iquique_altohospicio
 motorcycle,0,Bicycling,iquique_altohospicio
 other,0,Bicycling,iquique_altohospicio
 rail,0,Bicycling,iquique_altohospicio
 auto_rickshaw,0,Bicycling,iquique_altohospicio
-bus,0.9488,Bicycling,medellin
-car,2.8627,Bicycling,medellin
-cycle,136.6385,Bicycling,medellin
-pedestrian,128.2995,Bicycling,medellin
-truck,2.6468,Bicycling,medellin
-motorcycle,86.6076,Bicycling,medellin
+bus,0.8986,Bicycling,medellin
+car,2.8626,Bicycling,medellin
+cycle,136.631,Bicycling,medellin
+pedestrian,128.2883,Bicycling,medellin
+truck,2.6462,Bicycling,medellin
+motorcycle,86.6025,Bicycling,medellin
 other,0,Bicycling,medellin
 rail,0,Bicycling,medellin
 auto_rickshaw,124.6845,Bicycling,medellin
-bus,0.5744,Bicycling,mexico_city
-car,21.2576,Bicycling,mexico_city
-cycle,100.0061,Bicycling,mexico_city
-pedestrian,212.051,Bicycling,mexico_city
-truck,2.94,Bicycling,mexico_city
-motorcycle,103.0822,Bicycling,mexico_city
-other,631.8933,Bicycling,mexico_city
+bus,0.7552,Bicycling,mexico_city
+car,22.3653,Bicycling,mexico_city
+cycle,112.0183,Bicycling,mexico_city
+pedestrian,221.5129,Bicycling,mexico_city
+truck,3.0657,Bicycling,mexico_city
+motorcycle,113.2301,Bicycling,mexico_city
+other,684.6044,Bicycling,mexico_city
 rail,0,Bicycling,mexico_city
 auto_rickshaw,0,Bicycling,mexico_city
-bus,0.1334,Bicycling,montevideo
-car,8.8406,Bicycling,montevideo
-cycle,61.7705,Bicycling,montevideo
-pedestrian,57.3572,Bicycling,montevideo
+bus,0.1266,Bicycling,montevideo
+car,8.8403,Bicycling,montevideo
+cycle,61.7649,Bicycling,montevideo
+pedestrian,57.3503,Bicycling,montevideo
 truck,2.6364,Bicycling,montevideo
-motorcycle,254.943,Bicycling,montevideo
+motorcycle,254.9293,Bicycling,montevideo
 other,0,Bicycling,montevideo
 rail,0,Bicycling,montevideo
 auto_rickshaw,0,Bicycling,montevideo
 bus,0,Bicycling,osorno
-car,37.0503,Bicycling,osorno
-cycle,14.8038,Bicycling,osorno
-pedestrian,154.9148,Bicycling,osorno
+car,37.254,Bicycling,osorno
+cycle,14.8042,Bicycling,osorno
+pedestrian,154.8759,Bicycling,osorno
 truck,26.9316,Bicycling,osorno
 motorcycle,0,Bicycling,osorno
 other,0,Bicycling,osorno
 rail,0,Bicycling,osorno
 auto_rickshaw,0,Bicycling,osorno
-bus,1.4436,Bicycling,puerto_montt
-car,14.9106,Bicycling,puerto_montt
+bus,1.4607,Bicycling,puerto_montt
+car,14.9639,Bicycling,puerto_montt
 cycle,0,Bicycling,puerto_montt
-pedestrian,233.3229,Bicycling,puerto_montt
+pedestrian,233.2872,Bicycling,puerto_montt
 truck,10.9279,Bicycling,puerto_montt
-motorcycle,358.4842,Bicycling,puerto_montt
+motorcycle,358.489,Bicycling,puerto_montt
 other,0,Bicycling,puerto_montt
 rail,0,Bicycling,puerto_montt
 auto_rickshaw,0,Bicycling,puerto_montt
 bus,0,Bicycling,san_antonio
-car,27.482,Bicycling,san_antonio
-cycle,209.7314,Bicycling,san_antonio
-pedestrian,206.2807,Bicycling,san_antonio
+car,27.938,Bicycling,san_antonio
+cycle,209.246,Bicycling,san_antonio
+pedestrian,206.4382,Bicycling,san_antonio
 truck,33.9994,Bicycling,san_antonio
-motorcycle,127.1171,Bicycling,san_antonio
-other,73.4085,Bicycling,san_antonio
+motorcycle,131.0284,Bicycling,san_antonio
+other,73.4079,Bicycling,san_antonio
 rail,0,Bicycling,san_antonio
 auto_rickshaw,0,Bicycling,san_antonio
-bus,0.8518,Bicycling,santiago
-car,19.7586,Bicycling,santiago
-cycle,140.7492,Bicycling,santiago
-pedestrian,195.8694,Bicycling,santiago
-truck,7.865,Bicycling,santiago
-motorcycle,126.2081,Bicycling,santiago
-other,80.4339,Bicycling,santiago
+bus,0.9173,Bicycling,santiago
+car,19.8553,Bicycling,santiago
+cycle,140.8118,Bicycling,santiago
+pedestrian,195.783,Bicycling,santiago
+truck,7.8631,Bicycling,santiago
+motorcycle,126.1849,Bicycling,santiago
+other,81.1191,Bicycling,santiago
 rail,0,Bicycling,santiago
 auto_rickshaw,0,Bicycling,santiago
 bus,0.7503,Bicycling,sao_paulo
@@ -162,25 +162,25 @@ other,9.582,Bicycling,sao_paulo
 rail,0,Bicycling,sao_paulo
 auto_rickshaw,0,Bicycling,sao_paulo
 bus,0,Bicycling,temuco_padrelascasas
-car,16.438,Bicycling,temuco_padrelascasas
-cycle,47.7312,Bicycling,temuco_padrelascasas
-pedestrian,101.426,Bicycling,temuco_padrelascasas
+car,16.4684,Bicycling,temuco_padrelascasas
+cycle,47.7291,Bicycling,temuco_padrelascasas
+pedestrian,101.4079,Bicycling,temuco_padrelascasas
 truck,1.6822,Bicycling,temuco_padrelascasas
 motorcycle,0,Bicycling,temuco_padrelascasas
 other,0,Bicycling,temuco_padrelascasas
 rail,0,Bicycling,temuco_padrelascasas
 auto_rickshaw,0,Bicycling,temuco_padrelascasas
-bus,3.1373,Bicycling,valdivia
-car,13.7222,Bicycling,valdivia
-cycle,50.8545,Bicycling,valdivia
-pedestrian,67.6354,Bicycling,valdivia
+bus,3.1494,Bicycling,valdivia
+car,13.7511,Bicycling,valdivia
+cycle,50.8627,Bicycling,valdivia
+pedestrian,67.6379,Bicycling,valdivia
 truck,0,Bicycling,valdivia
 motorcycle,0,Bicycling,valdivia
 other,0,Bicycling,valdivia
 rail,0,Bicycling,valdivia
 auto_rickshaw,0,Bicycling,valdivia
-bus,2.9285,Baseline,antofagasta
-car,17.0533,Baseline,antofagasta
+bus,2.9164,Baseline,antofagasta
+car,17.0693,Baseline,antofagasta
 cycle,84.1444,Baseline,antofagasta
 pedestrian,71.9755,Baseline,antofagasta
 truck,15.4293,Baseline,antofagasta
@@ -188,8 +188,8 @@ motorcycle,0,Baseline,antofagasta
 other,0,Baseline,antofagasta
 rail,0,Baseline,antofagasta
 auto_rickshaw,0,Baseline,antofagasta
-bus,3.4866,Baseline,arica
-car,32.7758,Baseline,arica
+bus,3.5062,Baseline,arica
+car,32.9033,Baseline,arica
 cycle,95.1142,Baseline,arica
 pedestrian,184.0018,Baseline,arica
 truck,29.1158,Baseline,arica
@@ -197,34 +197,34 @@ motorcycle,0,Baseline,arica
 other,0,Baseline,arica
 rail,0,Baseline,arica
 auto_rickshaw,0,Baseline,arica
-bus,0.8771,Baseline,belo_horizonte
+bus,0.8436,Baseline,belo_horizonte
 car,16.5077,Baseline,belo_horizonte
 cycle,172.8192,Baseline,belo_horizonte
 pedestrian,187.2911,Baseline,belo_horizonte
 truck,4.9336,Baseline,belo_horizonte
 motorcycle,77.0132,Baseline,belo_horizonte
 other,38.9303,Baseline,belo_horizonte
-rail,0.1523,Baseline,belo_horizonte
+rail,0.1484,Baseline,belo_horizonte
 auto_rickshaw,0,Baseline,belo_horizonte
-bus,0.3758,Baseline,bogota
-car,2.0288,Baseline,bogota
-cycle,41.7468,Baseline,bogota
+bus,0.3926,Baseline,bogota
+car,2.0367,Baseline,bogota
+cycle,42.0468,Baseline,bogota
 pedestrian,60.4287,Baseline,bogota
 truck,0.2274,Baseline,bogota
-motorcycle,33.415,Baseline,bogota
+motorcycle,33.427,Baseline,bogota
 other,0,Baseline,bogota
 rail,0,Baseline,bogota
 auto_rickshaw,0,Baseline,bogota
-bus,0.1384,Baseline,buenos_aires
-car,9.5439,Baseline,buenos_aires
-cycle,21.2184,Baseline,buenos_aires
+bus,0.2371,Baseline,buenos_aires
+car,9.8978,Baseline,buenos_aires
+cycle,31.0595,Baseline,buenos_aires
 pedestrian,142.8004,Baseline,buenos_aires
 truck,1.2765,Baseline,buenos_aires
-motorcycle,140.2311,Baseline,buenos_aires
+motorcycle,141.3061,Baseline,buenos_aires
 other,0,Baseline,buenos_aires
 rail,0,Baseline,buenos_aires
 auto_rickshaw,0,Baseline,buenos_aires
-bus,0.0897,Baseline,cali
+bus,0.0864,Baseline,cali
 car,4.4625,Baseline,cali
 cycle,114.4863,Baseline,cali
 pedestrian,180.4526,Baseline,cali
@@ -233,8 +233,8 @@ motorcycle,80.1606,Baseline,cali
 other,25.149,Baseline,cali
 rail,0,Baseline,cali
 auto_rickshaw,0,Baseline,cali
-bus,6.9953,Baseline,copiapo
-car,20.6839,Baseline,copiapo
+bus,6.98,Baseline,copiapo
+car,20.7134,Baseline,copiapo
 cycle,235.46190000000001,Baseline,copiapo
 pedestrian,86.8135,Baseline,copiapo
 truck,13.7353,Baseline,copiapo
@@ -242,8 +242,8 @@ motorcycle,0,Baseline,copiapo
 other,0,Baseline,copiapo
 rail,0,Baseline,copiapo
 auto_rickshaw,0,Baseline,copiapo
-bus,3.1152,Baseline,coquimbo_laserena
-car,19.2787,Baseline,coquimbo_laserena
+bus,3.1381,Baseline,coquimbo_laserena
+car,19.3279,Baseline,coquimbo_laserena
 cycle,107.1471,Baseline,coquimbo_laserena
 pedestrian,87.1215,Baseline,coquimbo_laserena
 truck,4.9213,Baseline,coquimbo_laserena
@@ -251,17 +251,17 @@ motorcycle,0,Baseline,coquimbo_laserena
 other,0,Baseline,coquimbo_laserena
 rail,0,Baseline,coquimbo_laserena
 auto_rickshaw,0,Baseline,coquimbo_laserena
-bus,0.2979,Baseline,gran_valparaiso
-car,10.845,Baseline,gran_valparaiso
+bus,0.3006,Baseline,gran_valparaiso
+car,10.9109,Baseline,gran_valparaiso
 cycle,26.817,Baseline,gran_valparaiso
 pedestrian,81.5189,Baseline,gran_valparaiso
 truck,6.3602,Baseline,gran_valparaiso
-motorcycle,472.6239,Baseline,gran_valparaiso
+motorcycle,481.9047,Baseline,gran_valparaiso
 other,21.0549,Baseline,gran_valparaiso
 rail,0,Baseline,gran_valparaiso
 auto_rickshaw,0,Baseline,gran_valparaiso
-bus,3.2455,Baseline,iquique_altohospicio
-car,16.5554,Baseline,iquique_altohospicio
+bus,3.2886,Baseline,iquique_altohospicio
+car,16.5761,Baseline,iquique_altohospicio
 cycle,243.7467,Baseline,iquique_altohospicio
 pedestrian,60.8633,Baseline,iquique_altohospicio
 truck,7.9995,Baseline,iquique_altohospicio
@@ -269,7 +269,7 @@ motorcycle,0,Baseline,iquique_altohospicio
 other,0,Baseline,iquique_altohospicio
 rail,0,Baseline,iquique_altohospicio
 auto_rickshaw,0,Baseline,iquique_altohospicio
-bus,0.949,Baseline,medellin
+bus,0.8988,Baseline,medellin
 car,2.8533,Baseline,medellin
 cycle,170.2452,Baseline,medellin
 pedestrian,128.5825,Baseline,medellin
@@ -278,16 +278,16 @@ motorcycle,85.7232,Baseline,medellin
 other,0,Baseline,medellin
 rail,0,Baseline,medellin
 auto_rickshaw,127.273,Baseline,medellin
-bus,0.5736,Baseline,mexico_city
-car,21.289,Baseline,mexico_city
-cycle,134.568,Baseline,mexico_city
-pedestrian,209.5526,Baseline,mexico_city
-truck,2.94,Baseline,mexico_city
-motorcycle,101.2935,Baseline,mexico_city
-other,541.2231,Baseline,mexico_city
+bus,0.7539,Baseline,mexico_city
+car,22.405,Baseline,mexico_city
+cycle,151.6224,Baseline,mexico_city
+pedestrian,218.5153,Baseline,mexico_city
+truck,3.0657,Baseline,mexico_city
+motorcycle,111.0675,Baseline,mexico_city
+other,579.4053,Baseline,mexico_city
 rail,0,Baseline,mexico_city
 auto_rickshaw,0,Baseline,mexico_city
-bus,0.133,Baseline,montevideo
+bus,0.1262,Baseline,montevideo
 car,8.859,Baseline,montevideo
 cycle,91.2462,Baseline,montevideo
 pedestrian,58.5919,Baseline,montevideo
@@ -297,7 +297,7 @@ other,0,Baseline,montevideo
 rail,0,Baseline,montevideo
 auto_rickshaw,0,Baseline,montevideo
 bus,0,Baseline,osorno
-car,37.2208,Baseline,osorno
+car,37.4321,Baseline,osorno
 cycle,36.3036,Baseline,osorno
 pedestrian,162.0158,Baseline,osorno
 truck,26.9316,Baseline,osorno
@@ -305,8 +305,8 @@ motorcycle,0,Baseline,osorno
 other,0,Baseline,osorno
 rail,0,Baseline,osorno
 auto_rickshaw,0,Baseline,osorno
-bus,1.4339,Baseline,puerto_montt
-car,14.8727,Baseline,puerto_montt
+bus,1.451,Baseline,puerto_montt
+car,14.9273,Baseline,puerto_montt
 cycle,0,Baseline,puerto_montt
 pedestrian,236.7832,Baseline,puerto_montt
 truck,10.9279,Baseline,puerto_montt
@@ -315,21 +315,21 @@ other,0,Baseline,puerto_montt
 rail,0,Baseline,puerto_montt
 auto_rickshaw,0,Baseline,puerto_montt
 bus,0,Baseline,san_antonio
-car,27.4002,Baseline,san_antonio
-cycle,366.9047,Baseline,san_antonio
-pedestrian,211.9953,Baseline,san_antonio
+car,27.8842,Baseline,san_antonio
+cycle,367.9515,Baseline,san_antonio
+pedestrian,212.3244,Baseline,san_antonio
 truck,33.9994,Baseline,san_antonio
-motorcycle,129.63,Baseline,san_antonio
+motorcycle,134.7111,Baseline,san_antonio
 other,74.058,Baseline,san_antonio
 rail,0,Baseline,san_antonio
 auto_rickshaw,0,Baseline,san_antonio
-bus,0.8548,Baseline,santiago
-car,19.7213,Baseline,santiago
-cycle,176.8845,Baseline,santiago
+bus,0.9205,Baseline,santiago
+car,19.8226,Baseline,santiago
+cycle,177.0396,Baseline,santiago
 pedestrian,199.1177,Baseline,santiago
 truck,7.9606,Baseline,santiago
 motorcycle,126.5112,Baseline,santiago
-other,82.4627,Baseline,santiago
+other,83.2068,Baseline,santiago
 rail,0,Baseline,santiago
 auto_rickshaw,0,Baseline,santiago
 bus,0.7564,Baseline,sao_paulo
@@ -342,7 +342,7 @@ other,9.5908,Baseline,sao_paulo
 rail,0,Baseline,sao_paulo
 auto_rickshaw,0,Baseline,sao_paulo
 bus,0,Baseline,temuco_padrelascasas
-car,16.3599,Baseline,temuco_padrelascasas
+car,16.391,Baseline,temuco_padrelascasas
 cycle,85.4184,Baseline,temuco_padrelascasas
 pedestrian,104.0682,Baseline,temuco_padrelascasas
 truck,1.6822,Baseline,temuco_padrelascasas
@@ -350,346 +350,346 @@ motorcycle,0,Baseline,temuco_padrelascasas
 other,0,Baseline,temuco_padrelascasas
 rail,0,Baseline,temuco_padrelascasas
 auto_rickshaw,0,Baseline,temuco_padrelascasas
-bus,3.0805,Baseline,valdivia
-car,13.8885,Baseline,valdivia
+bus,3.0944,Baseline,valdivia
+car,13.9139,Baseline,valdivia
 cycle,83.7004,Baseline,valdivia
-pedestrian,67.1927,Baseline,valdivia
+pedestrian,67.1914,Baseline,valdivia
 truck,0,Baseline,valdivia
 motorcycle,0,Baseline,valdivia
 other,0,Baseline,valdivia
 rail,0,Baseline,valdivia
 auto_rickshaw,0,Baseline,valdivia
-bus,2.8351,Public Transport,antofagasta
-car,17.4281,Public Transport,antofagasta
-cycle,95.2261,Public Transport,antofagasta
-pedestrian,68.7975,Public Transport,antofagasta
-truck,15.3151,Public Transport,antofagasta
+bus,2.8217,Public Transport,antofagasta
+car,17.4455,Public Transport,antofagasta
+cycle,95.5196,Public Transport,antofagasta
+pedestrian,68.8113,Public Transport,antofagasta
+truck,15.3149,Public Transport,antofagasta
 motorcycle,0,Public Transport,antofagasta
 other,0,Public Transport,antofagasta
 rail,0,Public Transport,antofagasta
 auto_rickshaw,0,Public Transport,antofagasta
-bus,3.5026,Public Transport,arica
-car,33.6617,Public Transport,arica
-cycle,92.8825,Public Transport,arica
-pedestrian,180.3321,Public Transport,arica
-truck,28.874,Public Transport,arica
+bus,3.526,Public Transport,arica
+car,33.8097,Public Transport,arica
+cycle,92.9227,Public Transport,arica
+pedestrian,180.4551,Public Transport,arica
+truck,28.8729,Public Transport,arica
 motorcycle,0,Public Transport,arica
 other,0,Public Transport,arica
 rail,0,Public Transport,arica
 auto_rickshaw,0,Public Transport,arica
-bus,0.8622,Public Transport,belo_horizonte
-car,16.8712,Public Transport,belo_horizonte
-cycle,174.1149,Public Transport,belo_horizonte
-pedestrian,184.8811,Public Transport,belo_horizonte
-truck,5.0235,Public Transport,belo_horizonte
-motorcycle,77.8645,Public Transport,belo_horizonte
+bus,0.8292,Public Transport,belo_horizonte
+car,16.8722,Public Transport,belo_horizonte
+cycle,174.1216,Public Transport,belo_horizonte
+pedestrian,184.8955,Public Transport,belo_horizonte
+truck,5.0239,Public Transport,belo_horizonte
+motorcycle,77.8702,Public Transport,belo_horizonte
 other,39.1314,Public Transport,belo_horizonte
-rail,0.1523,Public Transport,belo_horizonte
+rail,0.1484,Public Transport,belo_horizonte
 auto_rickshaw,0,Public Transport,belo_horizonte
-bus,0.3711,Public Transport,bogota
-car,2.054,Public Transport,bogota
-cycle,42.0963,Public Transport,bogota
-pedestrian,59.6398,Public Transport,bogota
+bus,0.3879,Public Transport,bogota
+car,2.0623,Public Transport,bogota
+cycle,42.4194,Public Transport,bogota
+pedestrian,59.653,Public Transport,bogota
 truck,0.2274,Public Transport,bogota
-motorcycle,33.457,Public Transport,bogota
+motorcycle,33.4776,Public Transport,bogota
 other,0,Public Transport,bogota
 rail,0,Public Transport,bogota
 auto_rickshaw,0,Public Transport,bogota
-bus,0.1372,Public Transport,buenos_aires
-car,9.7451,Public Transport,buenos_aires
-cycle,21.1427,Public Transport,buenos_aires
-pedestrian,136.3815,Public Transport,buenos_aires
+bus,0.2333,Public Transport,buenos_aires
+car,10.1288,Public Transport,buenos_aires
+cycle,31.3192,Public Transport,buenos_aires
+pedestrian,136.9739,Public Transport,buenos_aires
 truck,1.2765,Public Transport,buenos_aires
-motorcycle,139.5098,Public Transport,buenos_aires
+motorcycle,141.3637,Public Transport,buenos_aires
 other,0,Public Transport,buenos_aires
 rail,0,Public Transport,buenos_aires
 auto_rickshaw,0,Public Transport,buenos_aires
-bus,0.0879,Public Transport,cali
-car,4.502,Public Transport,cali
-cycle,113.6439,Public Transport,cali
-pedestrian,176.0583,Public Transport,cali
+bus,0.0847,Public Transport,cali
+car,4.5023,Public Transport,cali
+cycle,113.6505,Public Transport,cali
+pedestrian,176.0751,Public Transport,cali
 truck,0,Public Transport,cali
-motorcycle,80.3535,Public Transport,cali
+motorcycle,80.3567,Public Transport,cali
 other,24.2108,Public Transport,cali
 rail,0,Public Transport,cali
 auto_rickshaw,0,Public Transport,cali
-bus,6.5866,Public Transport,copiapo
-car,20.8218,Public Transport,copiapo
-cycle,224.6793,Public Transport,copiapo
-pedestrian,87.1052,Public Transport,copiapo
-truck,14.4547,Public Transport,copiapo
+bus,6.5677,Public Transport,copiapo
+car,20.8499,Public Transport,copiapo
+cycle,224.6416,Public Transport,copiapo
+pedestrian,87.1449,Public Transport,copiapo
+truck,14.4639,Public Transport,copiapo
 motorcycle,0,Public Transport,copiapo
 other,0,Public Transport,copiapo
 rail,0,Public Transport,copiapo
 auto_rickshaw,0,Public Transport,copiapo
-bus,3.0271,Public Transport,coquimbo_laserena
-car,19.5655,Public Transport,coquimbo_laserena
-cycle,102.696,Public Transport,coquimbo_laserena
-pedestrian,86.6094,Public Transport,coquimbo_laserena
+bus,3.0472,Public Transport,coquimbo_laserena
+car,19.6186,Public Transport,coquimbo_laserena
+cycle,102.6847,Public Transport,coquimbo_laserena
+pedestrian,86.6265,Public Transport,coquimbo_laserena
 truck,4.9213,Public Transport,coquimbo_laserena
 motorcycle,0,Public Transport,coquimbo_laserena
 other,0,Public Transport,coquimbo_laserena
 rail,0,Public Transport,coquimbo_laserena
 auto_rickshaw,0,Public Transport,coquimbo_laserena
-bus,0.2846,Public Transport,gran_valparaiso
-car,11.056,Public Transport,gran_valparaiso
-cycle,29.3809,Public Transport,gran_valparaiso
-pedestrian,79.8068,Public Transport,gran_valparaiso
+bus,0.2869,Public Transport,gran_valparaiso
+car,11.1255,Public Transport,gran_valparaiso
+cycle,29.4672,Public Transport,gran_valparaiso
+pedestrian,79.8487,Public Transport,gran_valparaiso
 truck,6.3602,Public Transport,gran_valparaiso
-motorcycle,472.4279,Public Transport,gran_valparaiso
-other,19.6873,Public Transport,gran_valparaiso
+motorcycle,482.0921,Public Transport,gran_valparaiso
+other,19.6749,Public Transport,gran_valparaiso
 rail,0,Public Transport,gran_valparaiso
 auto_rickshaw,0,Public Transport,gran_valparaiso
-bus,3.1315,Public Transport,iquique_altohospicio
-car,16.6464,Public Transport,iquique_altohospicio
-cycle,255.4286,Public Transport,iquique_altohospicio
-pedestrian,60.5591,Public Transport,iquique_altohospicio
+bus,3.1722,Public Transport,iquique_altohospicio
+car,16.662,Public Transport,iquique_altohospicio
+cycle,255.9086,Public Transport,iquique_altohospicio
+pedestrian,60.6048,Public Transport,iquique_altohospicio
 truck,7.9995,Public Transport,iquique_altohospicio
 motorcycle,0,Public Transport,iquique_altohospicio
 other,0,Public Transport,iquique_altohospicio
 rail,0,Public Transport,iquique_altohospicio
 auto_rickshaw,0,Public Transport,iquique_altohospicio
-bus,0.9262,Public Transport,medellin
+bus,0.8772,Public Transport,medellin
 car,2.8798,Public Transport,medellin
-cycle,170.6799,Public Transport,medellin
-pedestrian,123.6679,Public Transport,medellin
-truck,2.6468,Public Transport,medellin
-motorcycle,85.9115,Public Transport,medellin
+cycle,170.6726,Public Transport,medellin
+pedestrian,123.6615,Public Transport,medellin
+truck,2.6476,Public Transport,medellin
+motorcycle,85.908,Public Transport,medellin
 other,0,Public Transport,medellin
 rail,0,Public Transport,medellin
-auto_rickshaw,122.0469,Public Transport,medellin
-bus,0.5685,Public Transport,mexico_city
-car,21.6334,Public Transport,mexico_city
-cycle,135.0837,Public Transport,mexico_city
-pedestrian,202.5837,Public Transport,mexico_city
-truck,2.94,Public Transport,mexico_city
-motorcycle,102.3072,Public Transport,mexico_city
-other,539.7878,Public Transport,mexico_city
+auto_rickshaw,122.047,Public Transport,medellin
+bus,0.7451,Public Transport,mexico_city
+car,22.7826,Public Transport,mexico_city
+cycle,152.8834,Public Transport,mexico_city
+pedestrian,211.4091,Public Transport,mexico_city
+truck,3.0657,Public Transport,mexico_city
+motorcycle,112.6397,Public Transport,mexico_city
+other,579.561,Public Transport,mexico_city
 rail,0,Public Transport,mexico_city
 auto_rickshaw,0,Public Transport,mexico_city
-bus,0.1331,Public Transport,montevideo
-car,9.0255,Public Transport,montevideo
-cycle,91.054,Public Transport,montevideo
-pedestrian,56.3366,Public Transport,montevideo
+bus,0.1263,Public Transport,montevideo
+car,9.0256,Public Transport,montevideo
+cycle,91.0552,Public Transport,montevideo
+pedestrian,56.3401,Public Transport,montevideo
 truck,2.6364,Public Transport,montevideo
-motorcycle,252.2139,Public Transport,montevideo
+motorcycle,252.2204,Public Transport,montevideo
 other,0,Public Transport,montevideo
 rail,0,Public Transport,montevideo
 auto_rickshaw,0,Public Transport,montevideo
 bus,0,Public Transport,osorno
-car,38.3878,Public Transport,osorno
-cycle,34.2266,Public Transport,osorno
-pedestrian,157.9273,Public Transport,osorno
+car,38.6435,Public Transport,osorno
+cycle,34.1921,Public Transport,osorno
+pedestrian,157.9962,Public Transport,osorno
 truck,26.9316,Public Transport,osorno
 motorcycle,0,Public Transport,osorno
 other,0,Public Transport,osorno
 rail,0,Public Transport,osorno
 auto_rickshaw,0,Public Transport,osorno
-bus,1.4305,Public Transport,puerto_montt
-car,15.3162,Public Transport,puerto_montt
+bus,1.4478,Public Transport,puerto_montt
+car,15.3841,Public Transport,puerto_montt
 cycle,0,Public Transport,puerto_montt
-pedestrian,230.0947,Public Transport,puerto_montt
+pedestrian,230.1299,Public Transport,puerto_montt
 truck,10.9279,Public Transport,puerto_montt
-motorcycle,358.8308,Public Transport,puerto_montt
+motorcycle,358.8285,Public Transport,puerto_montt
 other,0,Public Transport,puerto_montt
 rail,0,Public Transport,puerto_montt
 auto_rickshaw,0,Public Transport,puerto_montt
 bus,0,Public Transport,san_antonio
-car,28.9088,Public Transport,san_antonio
-cycle,353.2033,Public Transport,san_antonio
-pedestrian,206.3531,Public Transport,san_antonio
+car,29.5211,Public Transport,san_antonio
+cycle,353.689,Public Transport,san_antonio
+pedestrian,206.5567,Public Transport,san_antonio
 truck,33.9994,Public Transport,san_antonio
-motorcycle,138.2226,Public Transport,san_antonio
+motorcycle,144.0022,Public Transport,san_antonio
 other,74.058,Public Transport,san_antonio
 rail,0,Public Transport,san_antonio
 auto_rickshaw,0,Public Transport,san_antonio
-bus,0.8366,Public Transport,santiago
-car,20.1117,Public Transport,santiago
-cycle,178.6737,Public Transport,santiago
-pedestrian,195.501,Public Transport,santiago
-truck,7.915,Public Transport,santiago
-motorcycle,126.4456,Public Transport,santiago
-other,80.8423,Public Transport,santiago
+bus,0.8999,Public Transport,santiago
+car,20.225,Public Transport,santiago
+cycle,179.115,Public Transport,santiago
+pedestrian,195.7927,Public Transport,santiago
+truck,7.9216,Public Transport,santiago
+motorcycle,126.4863,Public Transport,santiago
+other,81.6579,Public Transport,santiago
 rail,0,Public Transport,santiago
 auto_rickshaw,0,Public Transport,santiago
-bus,0.7232,Public Transport,sao_paulo
-car,13.4276,Public Transport,sao_paulo
-cycle,260.9337,Public Transport,sao_paulo
-pedestrian,164.02,Public Transport,sao_paulo
-truck,4.0947,Public Transport,sao_paulo
-motorcycle,277.3659,Public Transport,sao_paulo
-other,9.7217,Public Transport,sao_paulo
+bus,0.7226,Public Transport,sao_paulo
+car,13.4313,Public Transport,sao_paulo
+cycle,261.0889,Public Transport,sao_paulo
+pedestrian,164.106,Public Transport,sao_paulo
+truck,4.0952,Public Transport,sao_paulo
+motorcycle,277.4594,Public Transport,sao_paulo
+other,9.731,Public Transport,sao_paulo
 rail,0,Public Transport,sao_paulo
 auto_rickshaw,0,Public Transport,sao_paulo
 bus,0,Public Transport,temuco_padrelascasas
-car,16.7947,Public Transport,temuco_padrelascasas
-cycle,82.7064,Public Transport,temuco_padrelascasas
-pedestrian,102.6674,Public Transport,temuco_padrelascasas
+car,16.8272,Public Transport,temuco_padrelascasas
+cycle,82.69,Public Transport,temuco_padrelascasas
+pedestrian,102.6612,Public Transport,temuco_padrelascasas
 truck,1.6822,Public Transport,temuco_padrelascasas
 motorcycle,0,Public Transport,temuco_padrelascasas
 other,0,Public Transport,temuco_padrelascasas
 rail,0,Public Transport,temuco_padrelascasas
 auto_rickshaw,0,Public Transport,temuco_padrelascasas
-bus,2.9527,Public Transport,valdivia
-car,14.5605,Public Transport,valdivia
-cycle,86.0101,Public Transport,valdivia
-pedestrian,65.3874,Public Transport,valdivia
+bus,2.9611,Public Transport,valdivia
+car,14.6007,Public Transport,valdivia
+cycle,86.0085,Public Transport,valdivia
+pedestrian,65.3848,Public Transport,valdivia
 truck,0,Public Transport,valdivia
 motorcycle,0,Public Transport,valdivia
 other,0,Public Transport,valdivia
 rail,0,Public Transport,valdivia
 auto_rickshaw,0,Public Transport,valdivia
-bus,3.0033,Driving,antofagasta
-car,16.0217,Driving,antofagasta
-cycle,79.454,Driving,antofagasta
-pedestrian,76.8658,Driving,antofagasta
-truck,15.5322,Driving,antofagasta
+bus,2.992,Driving,antofagasta
+car,16.0356,Driving,antofagasta
+cycle,79.4193,Driving,antofagasta
+pedestrian,76.8656,Driving,antofagasta
+truck,15.5324,Driving,antofagasta
 motorcycle,0,Driving,antofagasta
 other,0,Driving,antofagasta
 rail,0,Driving,antofagasta
 auto_rickshaw,0,Driving,antofagasta
-bus,3.5647,Driving,arica
-car,29.3965,Driving,arica
-cycle,98.1881,Driving,arica
-pedestrian,189.6102,Driving,arica
-truck,29.2717,Driving,arica
+bus,3.5858,Driving,arica
+car,29.4987,Driving,arica
+cycle,98.1847,Driving,arica
+pedestrian,189.5978,Driving,arica
+truck,29.2724,Driving,arica
 motorcycle,0,Driving,arica
 other,0,Driving,arica
 rail,0,Driving,arica
 auto_rickshaw,0,Driving,arica
-bus,0.8865,Driving,belo_horizonte
-car,16.1123,Driving,belo_horizonte
-cycle,179.7161,Driving,belo_horizonte
-pedestrian,189.3877,Driving,belo_horizonte
-truck,4.8769,Driving,belo_horizonte
-motorcycle,79.209,Driving,belo_horizonte
+bus,0.8526,Driving,belo_horizonte
+car,16.1109,Driving,belo_horizonte
+cycle,179.7067,Driving,belo_horizonte
+pedestrian,189.3673,Driving,belo_horizonte
+truck,4.8763,Driving,belo_horizonte
+motorcycle,79.201,Driving,belo_horizonte
 other,39.0396,Driving,belo_horizonte
-rail,0.153,Driving,belo_horizonte
+rail,0.149,Driving,belo_horizonte
 auto_rickshaw,0,Driving,belo_horizonte
-bus,0.3771,Driving,bogota
-car,1.9725,Driving,bogota
-cycle,42.9607,Driving,bogota
-pedestrian,62.0497,Driving,bogota
+bus,0.3939,Driving,bogota
+car,1.9808,Driving,bogota
+cycle,43.292,Driving,bogota
+pedestrian,62.0767,Driving,bogota
 truck,0.2274,Driving,bogota
-motorcycle,34.3723,Driving,bogota
+motorcycle,34.3979,Driving,bogota
 other,0,Driving,bogota
 rail,0,Driving,bogota
 auto_rickshaw,0,Driving,bogota
-bus,0.1393,Driving,buenos_aires
-car,9.2729,Driving,buenos_aires
-cycle,21.8964,Driving,buenos_aires
-pedestrian,147.5444,Driving,buenos_aires
+bus,0.2391,Driving,buenos_aires
+car,9.622,Driving,buenos_aires
+cycle,32.0499,Driving,buenos_aires
+pedestrian,147.5893,Driving,buenos_aires
 truck,1.2765,Driving,buenos_aires
-motorcycle,144.4803,Driving,buenos_aires
+motorcycle,145.5499,Driving,buenos_aires
 other,0,Driving,buenos_aires
 rail,0,Driving,buenos_aires
 auto_rickshaw,0,Driving,buenos_aires
-bus,0.0902,Driving,cali
-car,4.2924,Driving,cali
-cycle,115.7767,Driving,cali
-pedestrian,180.753,Driving,cali
+bus,0.0869,Driving,cali
+car,4.2922,Driving,cali
+cycle,115.77,Driving,cali
+pedestrian,180.7404,Driving,cali
 truck,0,Driving,cali
-motorcycle,82.3564,Driving,cali
+motorcycle,82.3527,Driving,cali
 other,27.1207,Driving,cali
 rail,0,Driving,cali
 auto_rickshaw,0,Driving,cali
-bus,7.1261,Driving,copiapo
-car,19.1485,Driving,copiapo
-cycle,250.679,Driving,copiapo
-pedestrian,88.6473,Driving,copiapo
-truck,13.451,Driving,copiapo
+bus,7.111,Driving,copiapo
+car,19.1737,Driving,copiapo
+cycle,250.7025,Driving,copiapo
+pedestrian,88.6374,Driving,copiapo
+truck,13.4483,Driving,copiapo
 motorcycle,0,Driving,copiapo
 other,0,Driving,copiapo
 rail,0,Driving,copiapo
 auto_rickshaw,0,Driving,copiapo
-bus,3.1832,Driving,coquimbo_laserena
-car,18.0963,Driving,coquimbo_laserena
-cycle,111.2712,Driving,coquimbo_laserena
-pedestrian,88.0196,Driving,coquimbo_laserena
+bus,3.207,Driving,coquimbo_laserena
+car,18.1427,Driving,coquimbo_laserena
+cycle,111.2918,Driving,coquimbo_laserena
+pedestrian,88.0094,Driving,coquimbo_laserena
 truck,4.9213,Driving,coquimbo_laserena
 motorcycle,0,Driving,coquimbo_laserena
 other,0,Driving,coquimbo_laserena
 rail,0,Driving,coquimbo_laserena
 auto_rickshaw,0,Driving,coquimbo_laserena
-bus,0.3129,Driving,gran_valparaiso
-car,10.3601,Driving,gran_valparaiso
-cycle,25.747,Driving,gran_valparaiso
-pedestrian,84.7774,Driving,gran_valparaiso
+bus,0.3159,Driving,gran_valparaiso
+car,10.4245,Driving,gran_valparaiso
+cycle,25.7358,Driving,gran_valparaiso
+pedestrian,84.8016,Driving,gran_valparaiso
 truck,6.3602,Driving,gran_valparaiso
-motorcycle,490.4164,Driving,gran_valparaiso
-other,22.5721,Driving,gran_valparaiso
+motorcycle,500.2263,Driving,gran_valparaiso
+other,22.589,Driving,gran_valparaiso
 rail,0,Driving,gran_valparaiso
 auto_rickshaw,0,Driving,gran_valparaiso
-bus,3.3422,Driving,iquique_altohospicio
-car,15.5201,Driving,iquique_altohospicio
-cycle,237.9339,Driving,iquique_altohospicio
-pedestrian,61.6007,Driving,iquique_altohospicio
+bus,3.3857,Driving,iquique_altohospicio
+car,15.5562,Driving,iquique_altohospicio
+cycle,237.9487,Driving,iquique_altohospicio
+pedestrian,61.6306,Driving,iquique_altohospicio
 truck,7.9995,Driving,iquique_altohospicio
 motorcycle,0,Driving,iquique_altohospicio
 other,0,Driving,iquique_altohospicio
 rail,0,Driving,iquique_altohospicio
 auto_rickshaw,0,Driving,iquique_altohospicio
-bus,0.9617,Driving,medellin
-car,2.7095,Driving,medellin
-cycle,171.4143,Driving,medellin
-pedestrian,132.1858,Driving,medellin
-truck,2.6468,Driving,medellin
-motorcycle,88.4641,Driving,medellin
+bus,0.9108,Driving,medellin
+car,2.7094,Driving,medellin
+cycle,171.4056,Driving,medellin
+pedestrian,132.1753,Driving,medellin
+truck,2.6461,Driving,medellin
+motorcycle,88.4594,Driving,medellin
 other,0,Driving,medellin
 rail,0,Driving,medellin
 auto_rickshaw,122.3479,Driving,medellin
-bus,0.5752,Driving,mexico_city
-car,20.6121,Driving,mexico_city
-cycle,138.0342,Driving,mexico_city
-pedestrian,213.2593,Driving,mexico_city
-truck,2.94,Driving,mexico_city
-motorcycle,102.0257,Driving,mexico_city
-other,553.7778,Driving,mexico_city
+bus,0.7564,Driving,mexico_city
+car,21.7291,Driving,mexico_city
+cycle,155.6961,Driving,mexico_city
+pedestrian,222.4808,Driving,mexico_city
+truck,3.0657,Driving,mexico_city
+motorcycle,111.8664,Driving,mexico_city
+other,592.9563,Driving,mexico_city
 rail,0,Driving,mexico_city
 auto_rickshaw,0,Driving,mexico_city
-bus,0.134,Driving,montevideo
-car,8.5113,Driving,montevideo
-cycle,96.1214,Driving,montevideo
-pedestrian,61.2661,Driving,montevideo
+bus,0.1271,Driving,montevideo
+car,8.5108,Driving,montevideo
+cycle,96.1073,Driving,montevideo
+pedestrian,61.2548,Driving,montevideo
 truck,2.6364,Driving,montevideo
-motorcycle,271.1193,Driving,montevideo
+motorcycle,271.0972,Driving,montevideo
 other,0,Driving,montevideo
 rail,0,Driving,montevideo
 auto_rickshaw,0,Driving,montevideo
 bus,0,Driving,osorno
-car,33.7287,Driving,osorno
-cycle,40.4943,Driving,osorno
-pedestrian,169.0515,Driving,osorno
+car,33.8972,Driving,osorno
+cycle,40.5173,Driving,osorno
+pedestrian,169.0699,Driving,osorno
 truck,26.9316,Driving,osorno
 motorcycle,0,Driving,osorno
 other,0,Driving,osorno
 rail,0,Driving,osorno
 auto_rickshaw,0,Driving,osorno
-bus,1.4577,Driving,puerto_montt
-car,13.7191,Driving,puerto_montt
+bus,1.4747,Driving,puerto_montt
+car,13.7674,Driving,puerto_montt
 cycle,0,Driving,puerto_montt
-pedestrian,243.1858,Driving,puerto_montt
+pedestrian,243.2721,Driving,puerto_montt
 truck,10.9279,Driving,puerto_montt
-motorcycle,357.7441,Driving,puerto_montt
+motorcycle,357.7377,Driving,puerto_montt
 other,0,Driving,puerto_montt
 rail,0,Driving,puerto_montt
 auto_rickshaw,0,Driving,puerto_montt
 bus,0,Driving,san_antonio
-car,24.861,Driving,san_antonio
-cycle,388.201,Driving,san_antonio
-pedestrian,217.3043,Driving,san_antonio
+car,25.2578,Driving,san_antonio
+cycle,390.0676,Driving,san_antonio
+pedestrian,217.7135,Driving,san_antonio
 truck,33.9994,Driving,san_antonio
-motorcycle,131.2522,Driving,san_antonio
+motorcycle,136.2864,Driving,san_antonio
 other,74.058,Driving,san_antonio
 rail,0,Driving,san_antonio
 auto_rickshaw,0,Driving,san_antonio
-bus,0.8763,Driving,santiago
-car,19.0467,Driving,santiago
-cycle,183.6636,Driving,santiago
-pedestrian,206.7523,Driving,santiago
-truck,8.0487,Driving,santiago
-motorcycle,131.097,Driving,santiago
-other,86.6567,Driving,santiago
+bus,0.9445,Driving,santiago
+car,19.15,Driving,santiago
+cycle,183.8004,Driving,santiago
+pedestrian,206.7749,Driving,santiago
+truck,8.0485,Driving,santiago
+motorcycle,131.1418,Driving,santiago
+other,87.4689,Driving,santiago
 rail,0,Driving,santiago
 auto_rickshaw,0,Driving,santiago
 bus,0.7735,Driving,sao_paulo
@@ -702,17 +702,17 @@ other,9.779,Driving,sao_paulo
 rail,0,Driving,sao_paulo
 auto_rickshaw,0,Driving,sao_paulo
 bus,0,Driving,temuco_padrelascasas
-car,15.1929,Driving,temuco_padrelascasas
-cycle,92.8477,Driving,temuco_padrelascasas
-pedestrian,107.3692,Driving,temuco_padrelascasas
+car,15.2198,Driving,temuco_padrelascasas
+cycle,92.8637,Driving,temuco_padrelascasas
+pedestrian,107.3691,Driving,temuco_padrelascasas
 truck,1.6822,Driving,temuco_padrelascasas
 motorcycle,0,Driving,temuco_padrelascasas
 other,0,Driving,temuco_padrelascasas
 rail,0,Driving,temuco_padrelascasas
 auto_rickshaw,0,Driving,temuco_padrelascasas
-bus,3.1949,Driving,valdivia
-car,12.4339,Driving,valdivia
-cycle,85.9558,Driving,valdivia
+bus,3.21,Driving,valdivia
+car,12.4511,Driving,valdivia
+cycle,85.9547,Driving,valdivia
 pedestrian,68.9589,Driving,valdivia
 truck,0,Driving,valdivia
 motorcycle,0,Driving,valdivia

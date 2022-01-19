@@ -37,8 +37,8 @@ rail,0,Bicycling,bogota
 auto_rickshaw,0,Bicycling,bogota
 bus,0.04,Bicycling,buenos_aires
 car,0.89,Bicycling,buenos_aires
-cycle,0.39,Bicycling,buenos_aires
-pedestrian,2.56,Bicycling,buenos_aires
+cycle,0.48,Bicycling,buenos_aires
+pedestrian,2.57,Bicycling,buenos_aires
 truck,0.03,Bicycling,buenos_aires
 motorcycle,2.11,Bicycling,buenos_aires
 other,0,Bicycling,buenos_aires
@@ -98,13 +98,13 @@ motorcycle,6.06,Bicycling,medellin
 other,0,Bicycling,medellin
 rail,0,Bicycling,medellin
 auto_rickshaw,0.01,Bicycling,medellin
-bus,0.15,Bicycling,mexico_city
-car,3.97,Bicycling,mexico_city
-cycle,2.21,Bicycling,mexico_city
-pedestrian,6.91,Bicycling,mexico_city
-truck,0.13,Bicycling,mexico_city
-motorcycle,1.43,Bicycling,mexico_city
-other,0.79,Bicycling,mexico_city
+bus,0.16,Bicycling,mexico_city
+car,4.14,Bicycling,mexico_city
+cycle,2.44,Bicycling,mexico_city
+pedestrian,7.22,Bicycling,mexico_city
+truck,0.14,Bicycling,mexico_city
+motorcycle,1.5,Bicycling,mexico_city
+other,0.83,Bicycling,mexico_city
 rail,0,Bicycling,mexico_city
 auto_rickshaw,0,Bicycling,mexico_city
 bus,0.03,Bicycling,montevideo
@@ -112,7 +112,7 @@ car,1.33,Bicycling,montevideo
 cycle,1.55,Bicycling,montevideo
 pedestrian,1.76,Bicycling,montevideo
 truck,0.1,Bicycling,montevideo
-motorcycle,4.43,Bicycling,montevideo
+motorcycle,4.42,Bicycling,montevideo
 other,0,Bicycling,montevideo
 rail,0,Bicycling,montevideo
 auto_rickshaw,0,Bicycling,montevideo
@@ -136,10 +136,10 @@ rail,0,Bicycling,puerto_montt
 auto_rickshaw,0,Bicycling,puerto_montt
 bus,0,Bicycling,san_antonio
 car,4.57,Bicycling,san_antonio
-cycle,4.48,Bicycling,san_antonio
+cycle,4.47,Bicycling,san_antonio
 pedestrian,3.18,Bicycling,san_antonio
 truck,1.58,Bicycling,san_antonio
-motorcycle,0.25,Bicycling,san_antonio
+motorcycle,0.24,Bicycling,san_antonio
 other,0.35,Bicycling,san_antonio
 rail,0,Bicycling,san_antonio
 auto_rickshaw,0,Bicycling,san_antonio
@@ -171,7 +171,7 @@ other,0,Bicycling,temuco_padrelascasas
 rail,0,Bicycling,temuco_padrelascasas
 auto_rickshaw,0,Bicycling,temuco_padrelascasas
 bus,0.3,Bicycling,valdivia
-car,2.18,Bicycling,valdivia
+car,2.19,Bicycling,valdivia
 cycle,1.66,Bicycling,valdivia
 pedestrian,1.37,Bicycling,valdivia
 truck,0,Bicycling,valdivia
@@ -279,12 +279,12 @@ other,0,Baseline,medellin
 rail,0,Baseline,medellin
 auto_rickshaw,0.01,Baseline,medellin
 bus,0.16,Baseline,mexico_city
-car,4.1,Baseline,mexico_city
-cycle,0.46,Baseline,mexico_city
-pedestrian,7.15,Baseline,mexico_city
-truck,0.13,Baseline,mexico_city
-motorcycle,1.46,Baseline,mexico_city
-other,0.69,Baseline,mexico_city
+car,4.28,Baseline,mexico_city
+cycle,0.48,Baseline,mexico_city
+pedestrian,7.46,Baseline,mexico_city
+truck,0.14,Baseline,mexico_city
+motorcycle,1.52,Baseline,mexico_city
+other,0.72,Baseline,mexico_city
 rail,0,Baseline,mexico_city
 auto_rickshaw,0,Baseline,mexico_city
 bus,0.03,Baseline,montevideo
@@ -315,9 +315,9 @@ other,0,Baseline,puerto_montt
 rail,0,Baseline,puerto_montt
 auto_rickshaw,0,Baseline,puerto_montt
 bus,0,Baseline,san_antonio
-car,4.84,Baseline,san_antonio
+car,4.85,Baseline,san_antonio
 cycle,0.37,Baseline,san_antonio
-pedestrian,3.5,Baseline,san_antonio
+pedestrian,3.51,Baseline,san_antonio
 truck,1.58,Baseline,san_antonio
 motorcycle,0.3,Baseline,san_antonio
 other,0.36,Baseline,san_antonio
@@ -398,9 +398,9 @@ auto_rickshaw,0,Public Transport,bogota
 bus,0.04,Public Transport,buenos_aires
 car,0.85,Public Transport,buenos_aires
 cycle,0.15,Public Transport,buenos_aires
-pedestrian,2.61,Public Transport,buenos_aires
+pedestrian,2.62,Public Transport,buenos_aires
 truck,0.03,Public Transport,buenos_aires
-motorcycle,2.06,Public Transport,buenos_aires
+motorcycle,2.07,Public Transport,buenos_aires
 other,0,Public Transport,buenos_aires
 rail,0,Public Transport,buenos_aires
 auto_rickshaw,0,Public Transport,buenos_aires
@@ -440,7 +440,7 @@ motorcycle,0.65,Public Transport,gran_valparaiso
 other,0.03,Public Transport,gran_valparaiso
 rail,0,Public Transport,gran_valparaiso
 auto_rickshaw,0,Public Transport,gran_valparaiso
-bus,0.32,Public Transport,iquique_altohospicio
+bus,0.33,Public Transport,iquique_altohospicio
 car,2.7,Public Transport,iquique_altohospicio
 cycle,0.27,Public Transport,iquique_altohospicio
 pedestrian,1.32,Public Transport,iquique_altohospicio
@@ -458,13 +458,13 @@ motorcycle,5.82,Public Transport,medellin
 other,0,Public Transport,medellin
 rail,0,Public Transport,medellin
 auto_rickshaw,0.01,Public Transport,medellin
-bus,0.16,Public Transport,mexico_city
-car,3.89,Public Transport,mexico_city
-cycle,0.42,Public Transport,mexico_city
-pedestrian,7,Public Transport,mexico_city
-truck,0.13,Public Transport,mexico_city
-motorcycle,1.37,Public Transport,mexico_city
-other,0.65,Public Transport,mexico_city
+bus,0.17,Public Transport,mexico_city
+car,4.05,Public Transport,mexico_city
+cycle,0.43,Public Transport,mexico_city
+pedestrian,7.31,Public Transport,mexico_city
+truck,0.14,Public Transport,mexico_city
+motorcycle,1.43,Public Transport,mexico_city
+other,0.67,Public Transport,mexico_city
 rail,0,Public Transport,mexico_city
 auto_rickshaw,0,Public Transport,mexico_city
 bus,0.04,Public Transport,montevideo
@@ -495,7 +495,7 @@ other,0,Public Transport,puerto_montt
 rail,0,Public Transport,puerto_montt
 auto_rickshaw,0,Public Transport,puerto_montt
 bus,0,Public Transport,san_antonio
-car,4.79,Public Transport,san_antonio
+car,4.81,Public Transport,san_antonio
 cycle,0.34,Public Transport,san_antonio
 pedestrian,3.49,Public Transport,san_antonio
 truck,1.58,Public Transport,san_antonio
@@ -575,18 +575,18 @@ motorcycle,2.73,Driving,bogota
 other,0,Driving,bogota
 rail,0,Driving,bogota
 auto_rickshaw,0,Driving,bogota
-bus,0.04,Driving,buenos_aires
+bus,0.03,Driving,buenos_aires
 car,1.03,Driving,buenos_aires
-cycle,0.16,Driving,buenos_aires
+cycle,0.15,Driving,buenos_aires
 pedestrian,2.64,Driving,buenos_aires
 truck,0.03,Driving,buenos_aires
-motorcycle,2.2,Driving,buenos_aires
+motorcycle,2.19,Driving,buenos_aires
 other,0,Driving,buenos_aires
 rail,0,Driving,buenos_aires
 auto_rickshaw,0,Driving,buenos_aires
 bus,0.02,Driving,cali
 car,0.64,Driving,cali
-cycle,1.52,Driving,cali
+cycle,1.51,Driving,cali
 pedestrian,4.56,Driving,cali
 truck,0,Driving,cali
 motorcycle,8.29,Driving,cali
@@ -603,7 +603,7 @@ other,0,Driving,copiapo
 rail,0,Driving,copiapo
 auto_rickshaw,0,Driving,copiapo
 bus,0.35,Driving,coquimbo_laserena
-car,3.98,Driving,coquimbo_laserena
+car,3.99,Driving,coquimbo_laserena
 cycle,0.28,Driving,coquimbo_laserena
 pedestrian,2.24,Driving,coquimbo_laserena
 truck,0.25,Driving,coquimbo_laserena
@@ -638,13 +638,13 @@ motorcycle,6.11,Driving,medellin
 other,0,Driving,medellin
 rail,0,Driving,medellin
 auto_rickshaw,0.01,Driving,medellin
-bus,0.15,Driving,mexico_city
-car,4.36,Driving,mexico_city
-cycle,0.43,Driving,mexico_city
-pedestrian,6.86,Driving,mexico_city
-truck,0.13,Driving,mexico_city
-motorcycle,1.41,Driving,mexico_city
-other,0.66,Driving,mexico_city
+bus,0.16,Driving,mexico_city
+car,4.56,Driving,mexico_city
+cycle,0.44,Driving,mexico_city
+pedestrian,7.16,Driving,mexico_city
+truck,0.14,Driving,mexico_city
+motorcycle,1.47,Driving,mexico_city
+other,0.69,Driving,mexico_city
 rail,0,Driving,mexico_city
 auto_rickshaw,0,Driving,mexico_city
 bus,0.03,Driving,montevideo
@@ -668,7 +668,7 @@ auto_rickshaw,0,Driving,osorno
 bus,0.21,Driving,puerto_montt
 car,3.42,Driving,puerto_montt
 cycle,0,Driving,puerto_montt
-pedestrian,5.64,Driving,puerto_montt
+pedestrian,5.65,Driving,puerto_montt
 truck,0.67,Driving,puerto_montt
 motorcycle,0.32,Driving,puerto_montt
 other,0,Driving,puerto_montt
@@ -677,7 +677,7 @@ auto_rickshaw,0,Driving,puerto_montt
 bus,0,Driving,san_antonio
 car,4.9,Driving,san_antonio
 cycle,0.37,Driving,san_antonio
-pedestrian,3.26,Driving,san_antonio
+pedestrian,3.27,Driving,san_antonio
 truck,1.58,Driving,san_antonio
 motorcycle,0.28,Driving,san_antonio
 other,0.36,Driving,san_antonio
