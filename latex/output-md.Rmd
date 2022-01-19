@@ -434,7 +434,7 @@ knitr::include_graphics("DR_transform.pdf")
 
 Each disease's PA dose--response relationship is defined by a truncated normal. For each dose, there is a mean value, an upper bound, and a lower bound. For each person's dose, we get the response by mapping the uniform random variable onto the truncated normal defined by the mean and bounds for that dosage. We use an R package called {drpa}, whose description can be seen here: <https://meta-analyses.github.io/drpa/drpa.html>
 
-The relationships comes out of our work @Leandro2018, where we look at the association of `physical activity` with various diseases.
+The relationships comes out of our work on meta-analyses \@Leandro2018, where we look at the association of `physical activity` with various diseases.
 
 ### Air pollution
 
@@ -728,9 +728,22 @@ We estimate smoothed probabilities for any mode that has zero or one probability
 
 ### Resample probabilities
 
-We resample the adjusted probability parameters of Table [6](#calculations){reference-type="ref" reference="calculations"}. We describe each parameter with a Beta distribution as follows: $$\begin{aligned}
+We resample the adjusted probability parameters of Table [6](#calculations){reference-type="ref" reference="calculations"}. We describe each parameter with a Beta distribution as follows:
+
+\$$\hat{B}_{g,m} \tilda L_m{B}_{a,g,m}.$$
+
+Ba,g,m∼Beta(αa,g,m,βa,g,m);
+
+
 \label{pitilde}
-\tilde{B}_{a,g,m} & \sim \text{Beta}(\alpha_{a,g,m},\beta_{a,g,m}); \\
+
+\$$\hat{B}_{a,g,m} & \sim \text{Beta}(\alpha_{a,g,m},\beta_{a,g,m}); \\$$
+
+${\hat{B}}_{a,g,m} \sim Beta({\alpha}_{a,g,m}, {\beta}_{a,g,m})$
+${\alpha}_{a,g,m} + {\beta}_{a,g,m} = 200$
+$\hat{B}_{a,g,m} & = \frac{1}{1+\frac{\beta_{a,g,m}}{\alpha_{a,g,m}}}$
+
+
 \alpha_{a,g,m}+\beta_{a,g,m} & = 200; \\
 \hat{B}_{a,g,m} & = \frac{1}{1+\frac{\beta_{a,g,m}}{\alpha_{a,g,m}}}.\end{aligned}$$ Here, $\tilde{B}_{a,g,m}$ is the new, variable parameter that we resample for each simulation. We sample via a quantile, $\nu_m\sim\mathcal{U}(0,1)$, which we use to calculate $\tilde{B}_{a,g,m}$. We set $\alpha_{a,g,m}$ and $\beta_{a,g,m}$ to sum to 200, making the distributions concentrated, and we constrain their relative values to enforce the distribution's mean to equal $\hat{B}_{a,g,m}$ (the right-most column in Table [6](#calculations){reference-type="ref" reference="calculations"}).
 
