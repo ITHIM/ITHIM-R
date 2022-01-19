@@ -36,6 +36,7 @@ library(tidyverse)
 library(gt)
 library(pracma)
 library(data.table)
+library(writexl)
 })
 
 st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
@@ -788,21 +789,49 @@ for (k in measure) { # loop for ylls or deaths
   } # Loop for each pathway
 } # Loop for each measure
 
+# # Export deaths HB
+# path_deaths_wb <- "results/multi_city/health_impacts/Deaths.xlsx"
+# deaths_wb <- readWorkbook(path_deaths_wb)
+# wb <-  loadWorkbook(path_deaths_wb)
+# removeTable(wb = wb, sheet = "Deaths", table = "Tabla1")
+# writeDataTable(wb, sheet = "Deaths", x = rbindlist(health$deaths$hb, use.names = T), tableName = "Tabla1", startCol = 1)
+# removeTable(wb = wb, sheet = "Deaths_Pathway", table = "Tabla2")
+# writeDataTable(wb, sheet = "Deaths_Pathway", x = rbindlist(health$deaths$pathway_hb, use.names = T), tableName = "Tabla2", startCol = 1)
+# saveWorkbook(wb, path_deaths_wb, overwrite =TRUE)
+# 
+# # Export ylls HB
+# path_ylls_wb <- "results/multi_city/health_impacts/YLLs.xlsx"
+# ylls_wb <- readWorkbook(path_ylls_wb)
+# wb <-  loadWorkbook(path_ylls_wb)
+# removeTable(wb = wb, sheet = "YLLs", table = "Tabla1")
+# writeDataTable(wb, sheet = "YLLs", x = rbindlist(health$ylls$hb, use.names = T), tableName = "Tabla1", startCol = 1)
+# removeTable(wb = wb, sheet = "YLLs_Pathway", table = "Tabla2")
+# writeDataTable(wb, sheet = "YLLs_Pathway", x = rbindlist(health$ylls$pathway_hb, use.names = T), tableName = "Tabla2", startCol = 1)
+# saveWorkbook(wb, path_ylls_wb, overwrite =TRUE)
+
+
+# # Export ylls HB
+output_file <- "results/multi_city/health_impacts/data.xlsx"
+writexl::write_xlsx(list(ylls_hb_lng = rbindlist(health$ylls$hb, use.names = T),
+                         ylls_pathway_hb_lng = rbindlist(health$ylls$pathway_hb, use.names = T),
+                         Deaths = rbindlist(health$deaths$hb, use.names = T),
+                         Deaths_Pathway = rbindlist(health$deaths$pathway_hb, use.names = T)), path = output_file)
+ 
 # Export ylls HB
 write.csv(rbindlist(health$ylls$hb, use.names = T),
-            "results/multi_city/health_impacts/ylls_hb_lng.csv", 
+            "results/multi_city/health_impacts/ylls_hb_lng.csv",
             row.names = F)
 # Export ylls PATHWAY_HB
 write.csv(rbindlist(health$ylls$pathway_hb, use.names = T),
-            "results/multi_city/health_impacts/ylls_pathway_hb_lng.csv", 
+            "results/multi_city/health_impacts/ylls_pathway_hb_lng.csv",
             row.names = F)
 # Export deaths HB
 write.csv(rbindlist(health$deaths$hb, use.names = T),
-            "results/multi_city/health_impacts/deaths_hb_lng.csv", 
+            "results/multi_city/health_impacts/deaths_hb_lng.csv",
             row.names = F)
 # Export deaths PATHWAY_HB
 write.csv(rbindlist(health$deaths$pathway_hb, use.names = T),
-            "results/multi_city/health_impacts/deaths_pathway_hb_lng.csv", 
+            "results/multi_city/health_impacts/deaths_pathway_hb_lng.csv",
             row.names = F)
 
 
