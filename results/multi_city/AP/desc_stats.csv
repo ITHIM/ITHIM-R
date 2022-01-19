@@ -1,0 +1,81 @@
+Scenario,mean,5th,50th,95th,change_PM,CO2,city
+Baseline,11,10.5,10.8,11.8,0,49359.6,antofagasta
+Bicycling,11.2,10.5,10.8,12.4,-0.01,48175.6,antofagasta
+Driving,11,10.5,10.8,11.7,0.01,51795.7,antofagasta
+Public Transport,11,10.5,10.8,11.8,-0.01,47659.8,antofagasta
+Baseline,13.3,12.6,12.9,14.7,0,46063.6,arica
+Bicycling,13.6,12.5,13.1,15.2,-0.02,44019.4,arica
+Driving,13.3,12.6,12.9,14.5,0.03,49827.1,arica
+Public Transport,13.3,12.5,12.9,14.6,-0.02,43825,arica
+Baseline,17.8,17,17.3,19,0,603663,belo_horizonte
+Bicycling,17.9,17,17.3,19.3,-0.02,590996.1,belo_horizonte
+Driving,17.7,17,17.2,18.8,-0.04,619340.5,belo_horizonte
+Public Transport,17.7,17,17.2,18.9,-0.04,584340.5,belo_horizonte
+Baseline,26.6,24,25.8,29.5,0,1588919,bogota
+Bicycling,26.7,23.8,25.8,30,-0.19,1557546.7,bogota
+Driving,27.2,24.7,26.5,30,0.67,1700730,bogota
+Public Transport,26.2,23.6,25.4,28.9,-0.36,1529556.4,bogota
+Baseline,14.6,14,14.1,15.6,0,3068375.8,buenos_aires
+Bicycling,14.6,13.9,14.1,15.9,-0.12,2974963.3,buenos_aires
+Driving,15,14.4,14.6,16,0.45,3387858.1,buenos_aires
+Public Transport,14.3,13.7,13.9,15.2,-0.3,2833907.6,buenos_aires
+Baseline,25.6,24,24.6,27.4,0,510729.4,cali
+Bicycling,25.7,23.9,24.6,27.8,-0.18,501207.6,cali
+Driving,26.3,24.7,25.3,27.8,0.69,546299.1,cali
+Public Transport,25.3,23.8,24.4,26.9,-0.29,495545.5,cali
+Baseline,16.4,15.6,15.9,17.7,0,5221.6,copiapo
+Bicycling,16.7,15.6,16,18.5,-0.01,5099.2,copiapo
+Driving,16.3,15.6,15.9,17.5,0.02,5430.3,copiapo
+Public Transport,16.4,15.6,15.9,17.7,-0.01,5098.4,copiapo
+Baseline,14.7,13.9,14.3,15.8,0,32421.5,coquimbo_laserena
+Bicycling,15,13.9,14.4,16.6,-0.02,31205.3,coquimbo_laserena
+Driving,14.7,13.9,14.3,15.7,0.04,34583.1,coquimbo_laserena
+Public Transport,14.7,13.9,14.3,15.8,-0.02,31085.3,coquimbo_laserena
+Baseline,15.9,15.1,15.6,17,0,1162644.8,gran_valparaiso
+Bicycling,16.1,15.1,15.7,17.8,-0.01,1142583.1,gran_valparaiso
+Driving,15.9,15.1,15.6,16.9,0,1205820.8,gran_valparaiso
+Public Transport,15.9,15.1,15.7,17,-0.02,1125612.3,gran_valparaiso
+Baseline,12.2,11.7,11.9,13.1,0,49359.6,iquique_altohospicio
+Bicycling,12.4,11.7,12,13.8,-0.01,48172.5,iquique_altohospicio
+Driving,12.2,11.7,11.9,13.1,0.01,51633.8,iquique_altohospicio
+Public Transport,12.2,11.7,11.9,13.1,-0.01,47941,iquique_altohospicio
+Baseline,22.3,21.1,22.2,23.5,0,500938.5,medellin
+Bicycling,22.3,20.9,22,24.1,-0.18,489700.7,medellin
+Driving,23.2,22.1,23,24.5,0.99,562221.3,medellin
+Public Transport,21.9,20.7,21.8,23.1,-0.36,478593.3,medellin
+Baseline,52.2,50,51.8,54.8,0,3339017.7,mexico_city
+Bicycling,52.7,49.9,51.9,56,-0.08,3266418.3,mexico_city
+Driving,52.2,50.2,51.7,54.8,0.16,3572273.3,mexico_city
+Public Transport,52,49.8,51.6,54.6,-0.19,3173179.4,mexico_city
+Baseline,16.6,15.6,16.3,17.9,0,303325.4,montevideo
+Bicycling,16.7,15.4,16.4,18.5,-0.16,291941.7,montevideo
+Driving,17,16,16.7,18.2,0.43,334487,montevideo
+Public Transport,16.3,15.3,16.1,17.6,-0.3,281859.9,montevideo
+Baseline,39.7,38.1,38.8,42.4,0,27102.6,osorno
+Bicycling,40.3,38.1,39.1,44.2,-0.01,26737.8,osorno
+Driving,39.6,38.1,38.7,42.1,0.03,28121.2,osorno
+Public Transport,39.7,38.1,38.8,42.3,-0.02,26533.8,osorno
+Baseline,27.5,26.3,26.9,29.3,0,81850.7,puerto_montt
+Bicycling,28,26.3,27.1,30.6,-0.03,79674.6,puerto_montt
+Driving,27.4,26.3,26.9,29.1,0.03,85890.7,puerto_montt
+Public Transport,27.5,26.3,26.9,29.3,-0.03,79091.5,puerto_montt
+Baseline,22.6,21.9,22.2,23.8,0,60645.9,san_antonio
+Bicycling,22.9,21.8,22.2,24.8,-0.03,59128.2,san_antonio
+Driving,22.5,21.9,22.1,23.6,0.01,63001.7,san_antonio
+Public Transport,22.6,21.8,22.1,23.8,-0.02,59209.5,san_antonio
+Baseline,32.8,32,32.5,33.7,0,424592.3,santiago
+Bicycling,33,32,32.6,34.1,-0.02,417563.9,santiago
+Driving,32.7,32,32.4,33.6,0.03,443987.1,santiago
+Public Transport,32.7,31.9,32.5,33.6,-0.05,411303.3,santiago
+Baseline,29.2,28,28.7,31,0,2813320.3,sao_paulo
+Bicycling,29.5,28,28.8,31.6,-0.04,2752308.5,sao_paulo
+Driving,29.1,28,28.6,30.8,-0.05,2909318,sao_paulo
+Public Transport,29.1,27.9,28.6,30.9,-0.08,2698275.7,sao_paulo
+Baseline,33.5,31.9,32.7,36.2,0,8996.1,temuco_padrelascasas
+Bicycling,34.1,31.9,33.1,37.6,-0.01,8888.5,temuco_padrelascasas
+Driving,33.4,31.9,32.7,35.8,0.02,9227.9,temuco_padrelascasas
+Public Transport,33.5,31.9,32.8,36,-0.01,8846.8,temuco_padrelascasas
+Baseline,35.8,34.4,34.9,38.1,0,8710.4,valdivia
+Bicycling,36.4,34.4,35.2,40,-0.01,8601.6,valdivia
+Driving,35.7,34.5,34.9,37.8,0.02,8950.1,valdivia
+Public Transport,35.8,34.4,35,38,-0.01,8552.4,valdivia
