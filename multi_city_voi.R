@@ -31,6 +31,11 @@ outcome_age_groups <- c('15-49','50-69')
 
 all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F) # read in parameter list
 
+# list of potential values for the outcome_voi_list
+# ylls_pa_all_cause, ylls_pa_total_cancer, ylls_pa_breast_cancer, ylls_pa_colon_cancer, ylls_pa_endo_cancer 
+# ylls_pa_liver_cancer, ylls_pa_myeloma, ylls_pa_head_neck_cancer, ylls_pa_CVD, ylls_pa_total_dementia    
+# ylls_pa_Parkinson, ylls_pa_ap_IHD, ylls_pa_ap_lung_cancer, ylls_pa_ap_stroke , ylls_pa_ap_T2D  
+# ylls_ap_COPD, ylls_ap_LRI, yll_inj     
 outcome_voi_list <- c('pa_total_cancer', 'pa_CVD','ap_COPD', 'ap_LRI','inj' ) # list of outcome parameters to be included in VoI analysis
 
 compute_mode <- 'sample' # sample from the given input parameter distributions
