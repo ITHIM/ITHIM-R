@@ -8,18 +8,34 @@ plan(multisession)
 library(doRNG)
 library(future.apply) 
 library(voi) #install_github("chjackson/voi")
+library(readxl)
 
 
 rm(list=ls())
 
+# cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
+#              'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
 
- cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
-             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
-#cities <- c('accra' )
+cities <- c('accra' )
 
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 1000
+nsamples <- 5
+
+# list of potential values for the outcome_voi_list
+# ylls_pa_all_cause, ylls_pa_total_cancer, ylls_pa_breast_cancer, ylls_pa_colon_cancer, ylls_pa_endo_cancer 
+# ylls_pa_liver_cancer, ylls_pa_myeloma, ylls_pa_head_neck_cancer, ylls_pa_CVD, ylls_pa_total_dementia    
+# ylls_pa_Parkinson, ylls_pa_ap_IHD, ylls_pa_ap_lung_cancer, ylls_pa_ap_stroke , ylls_pa_ap_T2D  
+# ylls_ap_COPD, ylls_ap_LRI, yll_inj     
+outcome_voi_list <- c('pa_total_cancer', 'pa_CVD','ap_COPD', 'ap_LRI','inj' ) # list of outcome parameters to be included in VoI analysis
+
+
+input_parameter_file <- "InputParameters_v2.0.xlsx"
+output_version <- "v0.1"
+
+author <- "AKS"
+comment <- "Test run"
+
 
 # define min and max age to be considered
 min_age <- 15
@@ -29,14 +45,13 @@ outcome_age_min <- c(15,50)
 outcome_age_max <- c(49,69)
 outcome_age_groups <- c('15-49','50-69')
 
-all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F) # read in parameter list
 
-# list of potential values for the outcome_voi_list
-# ylls_pa_all_cause, ylls_pa_total_cancer, ylls_pa_breast_cancer, ylls_pa_colon_cancer, ylls_pa_endo_cancer 
-# ylls_pa_liver_cancer, ylls_pa_myeloma, ylls_pa_head_neck_cancer, ylls_pa_CVD, ylls_pa_total_dementia    
-# ylls_pa_Parkinson, ylls_pa_ap_IHD, ylls_pa_ap_lung_cancer, ylls_pa_ap_stroke , ylls_pa_ap_T2D  
-# ylls_ap_COPD, ylls_ap_LRI, yll_inj     
-outcome_voi_list <- c('pa_total_cancer', 'pa_CVD','ap_COPD', 'ap_LRI','inj' ) # list of outcome parameters to be included in VoI analysis
+all_inputs <- read_excel(input_parameter_file, sheet = "all_city_parameter_inputs")
+all_inputs[is.na(all_inputs)] <- ""
+all_inputs <- as.data.frame(all_inputs)
+
+#all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F) # read in parameter list
+
 
 compute_mode <- 'sample' # sample from the given input parameter distributions
 
@@ -483,6 +498,13 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
                                 city_outcomes = city_outcomes,
                                 nsamples = NSAMPLES)
     
+    # evppi_city <- future_lapply(1:param_no, # calculate the evppi for each city
+    #                             FUN = compute_evppi,
+    #                             global_para = as.data.frame(general_noDRpara_parsampl),
+    #                             city_para = as.data.frame(city_parsampl),
+    #                             city_outcomes = city_outcomes,
+    #                             nsamples = NSAMPLES)
+    # 
     evppi_city2 <- do.call(rbind,evppi_city)
     
     evppi_city3 <- as.data.frame(evppi_city2) # turn into dataframe
@@ -532,12 +554,31 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
   
   saveRDS(evppi_df,'results/multi_city/evppi.Rds',version=2) # save evppi dataframe
   
-  write.csv(evppi_df,'results/multi_city/evppi.csv',row.names = FALSE) # save as csv file
+  evppi_csv <- paste0('results/multi_city/evppi_',output_version,".csv")
+  #write.csv(evppi_df,'results/multi_city/evppi.csv',row.names = FALSE) # save as csv file
   
+  write.csv(evppi_df,evppi_csv,row.names = FALSE) # save as csv file
+  
+  
+  # add to output control document
+  timestamp <- Sys.time()
+  input_version <- input_parameter_file
+
+  cat("",
+      paste(timestamp, "by", author, sep = " "),
+      paste("Cities:", cities, sep = " "),
+      paste("Input parameter file:", input_version, sep = " "),
+      paste("Output version:", output_version, sep = " "),
+      paste("Number of samples:", nsamples, sep = " "),
+      paste("Comments:", comment, sep=" "),
+      file="OutputVersionControl.txt",sep="\n",append=TRUE)
+
   
   # create output plots
   
-  {pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome_voi_list))
+  output_pdf <- paste0('results/multi_city/evppi_',output_version,".pdf")
+  #{pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome_voi_list))
+  {pdf(output_pdf,height=15,width=4+length(outcome_voi_list))
     for ( city_name in cities){
       
       evppi_city_df <- evppi_df %>% filter(city == city_name) # does not work for some reason
