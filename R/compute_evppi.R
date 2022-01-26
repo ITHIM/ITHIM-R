@@ -14,8 +14,8 @@
 
 compute_evppi <- function(p, global_para,city_para,city_outcomes, nsamples){
   
-  ncol_gen <- ncol(global_para)
-  
+  ncol_gen <- ncol(global_para) 
+
   if (is.null(ncol_gen)) ncol_gen <- length(global_para) # in case of DR functions were several parameters are considered at the same time
   
   voi <- rep(0,length(city_outcomes)) # create empty output list
@@ -29,8 +29,9 @@ compute_evppi <- function(p, global_para,city_para,city_outcomes, nsamples){
   
   for(o in 1:length(city_outcomes)){ # loop through all outcomes
     
-    y <- city_outcomes[[o]]  # extract one outcome     
-    vary <- var(y) #commpute outcome variance
+    y <- as.numeric(city_outcomes[[o]])
+    # extract one outcome     
+    vary <- var(y) #compute outcome variance
     
     # model outcome as a function of input(s)
     if (nsamples >= 8){ # use Chris Jackson's VoI R package if sample size large enough
