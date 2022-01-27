@@ -9,7 +9,7 @@
 #' @return data frame of relative risks
 #' 
 #' @export
-AP_dose_response <- function(cause, dose, confidence_intervals = F) {
+AP_dose_response <- function(cause, dose, quantile, confidence_intervals = F) {
   # Check there are NAs in dose or the classes is not numeric
   if (sum(is.na(dose)) > 0 || class(dose) != "numeric") {
     stop('Please provide dose in numeric')
@@ -38,7 +38,7 @@ AP_dose_response <- function(cause, dose, confidence_intervals = F) {
   lookup_df <- setDT(lookup_table)
   rr <- approx(x = lookup_df$dose, y = lookup_df$RR, 
                xout = dose, yleft = 1, yright = min(lookup_df$RR))$y
-  if (confidence_intervals) {
+  if (confidence_intervals || quantile != 0.5) {
     lb <-
       approx(
         x = lookup_df$dose,
@@ -55,7 +55,18 @@ AP_dose_response <- function(cause, dose, confidence_intervals = F) {
         yleft = 1,
         yright = min(lookup_df$ub)
       )$y
-    return(data.frame(rr = rr, lb = lb, ub = ub))
   }
-  return(rr)
+  
+  if (quantile != 0.5){
+    rr <- qnorm(quantile, mean = rr, sd = (ub-lb)/1.96)
+    rr[rr<0] <- 0
+  }
+  
+  if (confidence_intervals) {
+    return(data.frame (rr = rr, lb = lb, ub = ub))
+  }else{
+    return(data.frame(rr = rr))
+  }
+
+  #return(rr)
 }
