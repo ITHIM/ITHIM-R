@@ -13,12 +13,11 @@ tp <- io$san_antonio$trip_scen_sets %>% mutate(scenario = case_when(
 write_csv(tp, "results/multi_city/scen_distr/san_antonio_trips.csv")
 
 tp %>% rpivotTable(
-    io$san_antonio$trip_scen_sets,
-    rows = c("sex", "age_cat"),
-    cols = c("trip_mode","stage_mode", "scenario"),
-    aggregatorName = "Sum",
+    rows = c("age_cat", "sex", "trip_distance_cat"),
+    cols = c("trip_mode","scenario"),
+    aggregatorName = "Count Unique Values",
     inclusions = list( Survived = list("Yes")),
     exclusions= list(trip_mode = list("truck"), scenario = list("CYC_SC", "CAR_SC")),
-    vals = "stage_distance",
+    vals = "trip_id",
     rendererName = "Table Barchart", subtotals = FALSE
   ) %>% saveWidget(file = "results/multi_city/scen_distr/san_antonio.html", selfcontained = T)
