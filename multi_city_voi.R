@@ -20,7 +20,7 @@ cities <- c('accra' )
 
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 5
+nsamples <- 10
 
 # list of potential values for the outcome_voi_list
 # ylls_pa_all_cause, ylls_pa_total_cancer, ylls_pa_breast_cancer, ylls_pa_colon_cancer, ylls_pa_endo_cancer 
@@ -30,11 +30,19 @@ nsamples <- 5
 #outcome_voi_list <- c('pa_total_cancer', 'pa_CVD','ap_COPD', 'ap_LRI','inj' ) # list of outcome parameters to be included in VoI analysis
 outcome_voi_list <- c('pa_total_cancer', 'pa_CVD')
 
+# flag whether to run VOI analysis split by age and gender as well
+voi_age_gender <- T   # set to T if want to include split and to F otherwise
+
+# add total across all outputs in VOI list for each scenario - only makes sense if results are independent of each other
+# i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
+voi_add_sum <- T
+
 input_parameter_file <- "InputParameters_v2.0.xlsx"
 output_version <- "v0.1"
 
 author <- "AKS"
 comment <- "Test run"
+
 
 
 # keep record when code started:
@@ -507,6 +515,16 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
     city_outputs <- sapply(colnames(city_out),function(x)grepl(paste(outcome_voi_list, collapse = "|"),x))
     city_outcomes <- city_out[,city_outputs]
     
+    if(voi_add_sum){
+      # add total result for each scenario - only makes sense if results are independent of each other
+      # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
+      for (n in 1:NSCEN){
+        scen_outputs <- sapply(colnames(city_outcomes), function(x)grepl(paste0("scen",n),x))
+        city_outcomes[paste0('scen',n,"_ylls_sum_",city)] <- rowSums(city_outcomes[,scen_outputs])
+      }
+    }
+   
+    
     
     param_no <- ncol(city_parsampl) + ncol(general_noDRpara_parsampl)
     
@@ -641,202 +659,217 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
   
   ##### run EVPPI for different age groups and gender
   
- 
-  evppi_agesex_df <- data.frame()
-  
-  for (city in cities){
+  if(voi_age_gender){
+    evppi_agesex_df <- data.frame()
     
-    # extract city specific input parameters
-    city_inputs <- sapply(colnames(parameter_samples),function(x)grepl(city,x))
-    city_parsampl <- parameter_samples[,city_inputs]
-    
-    param_no <- ncol(city_parsampl) + ncol(general_noDRpara_parsampl)
-    
-    # extract the required outcomes for each city - loop through age and gender categories
-    
-    age_gender_cat <- unique(voi_data_all_df$age_sex)
-    city_agesex_out <- voi_data_all_df %>% filter(city == city_name)
-    
- 
-    k <- 1
+    for (city in cities){
       
-    for(age_gender in age_gender_cat){
+      # extract city specific input parameters
+      city_inputs <- sapply(colnames(parameter_samples),function(x)grepl(city,x))
+      city_parsampl <- parameter_samples[,city_inputs]
       
+      param_no <- ncol(city_parsampl) + ncol(general_noDRpara_parsampl)
       
-      city_agesex_out2 <- city_agesex_out %>% filter(age_sex == age_gender)
-      city_agesex_outputs <- sapply(colnames(city_agesex_out2),function(x)grepl(paste(outcome_voi_list, collapse = "|"),x))
-      city_agesex_outcomes <- city_agesex_out2[,city_agesex_outputs]
-      
-      
-      evppi_agesex_city <- future_lapply(1:param_no, # calculate the evppi for each city
-                                  FUN = ithimr::compute_evppi,
-                                  global_para = as.data.frame(general_noDRpara_parsampl),
-                                  city_para = as.data.frame(city_parsampl),
-                                  city_outcomes = city_agesex_outcomes,
-                                  nsamples = NSAMPLES)
-  
-       
-      evppi_agesex_city2 <- do.call(rbind,evppi_agesex_city)
-      
-      evppi_agesex_city3 <- as.data.frame(evppi_agesex_city2) # turn into dataframe
-      
-      evppi_agesex_outcome_names <- strsplit(colnames(city_agesex_outcomes),paste("_",city,sep="")) # add column names without city part
-      colnames(evppi_agesex_city3) <- paste(evppi_agesex_outcome_names, age_gender, sep = "_")
-      evppi_agesex_outcome_names <- colnames(evppi_agesex_city3)
-      
-      if(k == 1){
-        evppi_agesex_city_df <- evppi_agesex_city3
-      } else{
-        evppi_agesex_city_df <- cbind(evppi_agesex_city_df, evppi_agesex_city3)
-      }
-      k <- k + 1
-    }
-    
-
-    
-    evppi_agesex_city_df$parameters <-  c(colnames(general_noDRpara_parsampl), colnames(city_parsampl)) # add parameter name column
-    evppi_agesex_city_df$city <- city # add city name column
-    
-    #evppi_agesex_df <- rbind(evppi_agesex_df, evppi_agesex_city_df)
-    
-    
-    # look at dose response input parameters separately, as alpha, beta, gammy and trmel are dependent on each other
-    if(any(ap_dr_quantile)&&NSAMPLES>=300){
-      AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
-      diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-      sources <- list()
-      for(di in diseases){
-        col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
-        sources[[di]] <- parameter_samples[,col_names]
-      }
+      # extract the required outcomes for each city - loop through age and gender categories
+      age_gender_cat <- unique(voi_data_all_df$age_sex)
+      city_agesex_out <- voi_data_all_df %>% filter(city == city_name)
       
       k <- 1
       
       for(age_gender in age_gender_cat){
         
+        city_agesex_out2 <- city_agesex_out %>% filter(age_sex == age_gender)
+        city_agesex_outputs <- sapply(colnames(city_agesex_out2),function(x)grepl(paste(outcome_voi_list, collapse = "|"),x))
+        city_agesex_outcomes <- city_agesex_out2[,city_agesex_outputs]
         
-        city_agesex_out <- city_agesex_out %>% filter(age_sex == age_gender)
-        city_agesex_outputs <- sapply(colnames(city_agesex_out),function(x)grepl(paste(outcome_voi_list, collapse = "|"),x))
-        city_agesex_outcomes <- city_agesex_out[,city_agesex_outputs]
+        if(voi_add_sum){
+          # add total result for each scenario - only makes sense if results are independent of each other
+          # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
+          for (n in 1:NSCEN){
+            scen_outputs <- sapply(colnames(city_agesex_outcomes), function(x)grepl(paste0("scen",n),x))
+            city_agesex_outcomes[paste0('scen',n,"_ylls_sum_",city)] <- rowSums(sapply(city_agesex_outcomes[,scen_outputs], unlist))
+          }
+        }
         
-        
-        evppi_agesex_for_AP_city <- future_lapply(1:length(sources),
-                                           FUN = ithimr:::compute_evppi,
-                                           global_para = sources,
-                                           city_para = data.frame(),
+        evppi_agesex_city <- future_lapply(1:param_no, # calculate the evppi for each city
+                                           FUN = ithimr::compute_evppi,
+                                           global_para = as.data.frame(general_noDRpara_parsampl),
+                                           city_para = as.data.frame(city_parsampl),
                                            city_outcomes = city_agesex_outcomes,
                                            nsamples = NSAMPLES)
- 
-        evppi_agesex_for_AP_city2 <- do.call(rbind,evppi_agesex_for_AP_city)
         
-        evppi_agesex_for_AP_city3 <- as.data.frame(evppi_agesex_for_AP_city2) # turn into dataframe
-        colnames(evppi_agesex_for_AP_city3) <- evppi_agesex_outcome_names
+        
+        evppi_agesex_city2 <- do.call(rbind,evppi_agesex_city)
+        evppi_agesex_city3 <- as.data.frame(evppi_agesex_city2) # turn into dataframe
+        
+        evppi_agesex_outcome_names <- strsplit(colnames(city_agesex_outcomes),paste("_",city,sep="")) # add column names without city part
+        colnames(evppi_agesex_city3) <- paste(evppi_agesex_outcome_names, age_gender, sep = "_")
+        evppi_agesex_outcome_names <- colnames(evppi_agesex_city3)
         
         if(k == 1){
-          evppi_agesex_ap_city_df <- evppi_agesex_for_AP_city3
+          evppi_agesex_city_df <- evppi_agesex_city3
         } else{
-          evppi_agesex_ap_city_df <- cbind(evppi_agesex_ap_city_df, evppi_agesex_for_AP_city3)
+          evppi_agesex_city_df <- cbind(evppi_agesex_city_df, evppi_agesex_city3)
         }
         k <- k + 1
-        }
-      evppi_agesex_for_AP_city3$parameters <-  c(paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)) # add parameter name column
-      evppi_agesex_for_AP_city3$city <- city # add city name column
+      }
       
-      evppi_agesex_city_df <- rbind(evppi_agesex_city_df, evppi_agesex_for_AP_city3)
+      evppi_agesex_city_df$parameters <-  c(colnames(general_noDRpara_parsampl), colnames(city_parsampl)) # add parameter name column
+      evppi_agesex_city_df$city <- city # add city name column
+
+      # look at dose response input parameters separately, as alpha, beta, gammy and trmel are dependent on each other
+      if(any(ap_dr_quantile)&&NSAMPLES>=300){
+        AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
+        diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
+        sources <- list()
+        for(di in diseases){
+          col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
+          sources[[di]] <- parameter_samples[,col_names]
+        }
+        
+        k <- 1
+        
+        for(age_gender in age_gender_cat){
+          
+          city_agesex_out <- city_agesex_out %>% filter(age_sex == age_gender)
+          city_agesex_outputs <- sapply(colnames(city_agesex_out),function(x)grepl(paste(outcome_voi_list, collapse = "|"),x))
+          city_agesex_outcomes <- city_agesex_out[,city_agesex_outputs]
+          
+          evppi_agesex_for_AP_city <- future_lapply(1:length(sources),
+                                                    FUN = ithimr:::compute_evppi,
+                                                    global_para = sources,
+                                                    city_para = data.frame(),
+                                                    city_outcomes = city_agesex_outcomes,
+                                                    nsamples = NSAMPLES)
+          
+          evppi_agesex_for_AP_city2 <- do.call(rbind,evppi_agesex_for_AP_city)
+          
+          evppi_agesex_for_AP_city3 <- as.data.frame(evppi_agesex_for_AP_city2) # turn into dataframe
+          colnames(evppi_agesex_for_AP_city3) <- evppi_agesex_outcome_names
+          
+          if(k == 1){
+            evppi_agesex_ap_city_df <- evppi_agesex_for_AP_city3
+          } else{
+            evppi_agesex_ap_city_df <- cbind(evppi_agesex_ap_city_df, evppi_agesex_for_AP_city3)
+          }
+          k <- k + 1
+        }
+        evppi_agesex_for_AP_city3$parameters <-  c(paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)) # add parameter name column
+        evppi_agesex_for_AP_city3$city <- city # add city name column
+        
+        evppi_agesex_city_df <- rbind(evppi_agesex_city_df, evppi_agesex_for_AP_city3)
+        
+      }
+      
+      evppi_agesex_df <- rbind(evppi_agesex_df, evppi_agesex_city_df) # add to total evppi dataframe
+    } # end of city loop
+    
+    
+    # merge with evppi_df data
+    evppi_agesex_df <- evppi_agesex_df %>% left_join(evppi_df, by=c("parameters", "city"))
+    
+    
+    # change order of columns such that ordered by scenario and demographic group
+    age_cat <- unique(voi_data_all_df$age_cat)
+    gender_cat <- unique(voi_data_all_df$sex)
+    
+    
+    column_list <- c("city", "parameters")
+    for(o in outcome_voi_list){
+      for(s in 1:NSCEN){
+        for(a in age_cat){
+          for (g in gender_cat){
+            list_element <- paste0("scen",s,"_ylls_",o, "_", g, " ", a)
+            column_list <-c(column_list,list_element)
+          }
+        }
+        list_element <-paste0("scen",s,"_ylls_",o) 
+        column_list <-c(column_list,list_element)
+      }
+    }
+    
+    if(voi_add_sum){
+      for(s in 1:NSCEN){
+        for(a in age_cat){
+          for (g in gender_cat){
+            list_element <- paste0("scen",s,"_ylls_sum_", g, " ", a)
+            column_list <-c(column_list,list_element)
+          }
+        }
+        list_element <-paste0("scen",s,"_ylls_sum") 
+        column_list <-c(column_list,list_element)
+      }
       
     }
     
-    evppi_agesex_df <- rbind(evppi_agesex_df, evppi_agesex_city_df) # add to total evppi dataframe
-  } # end of city loop
-  
-  
-  # merge with evppi_df data
-  evppi_agesex_df <- evppi_agesex_df %>% left_join(evppi_df, by=c("parameters", "city"))
-  
-  
-  # change order of columns such that ordered by scenario and demographic group
-  age_cat <- unique(voi_data_all_df$age_cat)
-  gender_cat <- unique(voi_data_all_df$sex)
-  
-  
-  column_list <- c("city", "parameters")
-  for(o in outcome_voi_list){
-    for(s in 1:NSCEN){
-      for(a in age_cat){
-        for (g in gender_cat){
-          list_element <- paste0("scen",s,"_ylls_",o, "_", g, " ", a)
-          column_list <-c(column_list,list_element)
+    evppi_agesex_df <- evppi_agesex_df[ ,column_list]
+    
+    
+    saveRDS(evppi_agesex_df,'results/multi_city/evppi_agesex.Rds',version=2) # save dataframe
+    
+    evppi_agesex_csv <- paste0('results/multi_city/evppi_agesex_',output_version,".csv")
+    #write.csv(evppi_df,'results/multi_city/evppi.csv',row.names = FALSE) # save as csv file
+    
+    write.csv(evppi_agesex_df,evppi_agesex_csv,row.names = FALSE) # save as csv file
+    
+    
+    
+    # create output plots
+    
+    output_pdf <- paste0('results/multi_city/evppi_agesex_',output_version,".pdf")
+    #{pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome_voi_list))
+    {pdf(output_pdf,height=15,width=4+length(age_gender_cat)+1)
+      for ( city_name in cities){
+        
+        evppi_agesex_city_df <- evppi_agesex_df %>% filter(city == city_name) 
+        
+        if (voi_add_sum){outcome_list <- c(outcome_voi_list, 'sum') 
+          }else{ outcome_list <- outcome_voi_list}
+        
+        # loop through each outcome in outcome_voi_list separately and create one page per outcome and city
+        for (out in outcome_list){
+          
+          outcome_cols <- sapply(colnames(evppi_agesex_city_df),function(x) grepl(paste(out, collapse = "|"),x))
+          evppi_agesex_city_outcome_df <- evppi_agesex_city_df[,outcome_cols]
+          #evppi_agesex_city_outcome_df$parameters <- evppi_agesex_city_df$parameters
+          
+          par_city <- par(mar=c(14,12.5,4,3.5))
+          
+          labs <- evppi_agesex_city_df$parameters # y axis label
+          labs <- str_replace(labs,'DOSE_RESPONSE_QUANTILE','DR_QUANT') # replace DOSE_RESPONSE with DR
+          labs <- str_replace(labs,'EMISSION_INVENTORY','EMISSION_INV') # replace EMISSION_INVENTORY with EMISSION_INV
+          evppi_dummy <- evppi_agesex_city_outcome_df
+          get.pal=colorRampPalette(brewer.pal(9,"Reds"))
+          redCol=rev(get.pal(12))
+          bkT <- seq(max(evppi_dummy)+1e-10, 0,length=13)
+          cex.lab <- 1.0
+          maxval <- round(bkT[1],digits=1)
+          col.labels<- c(0,maxval/2,maxval)
+          cellcolors <- vector()
+          title <- paste(city_name, "- ", out, ", No of samples: ", nsamples, 
+                         # ': By how much (%) could we\n reduce uncertainty in the outcome\n if we knew this parameter perfectly?')
+                         '- \nBy how much (%) could we reduce uncertainty in the outcome if we knew this parameter perfectly?')
+          for(ii in 1:length(unlist(evppi_dummy))) # determine the cellcolors
+            cellcolors[ii] <- redCol[tail(which(unlist(evppi_dummy)[ii]<bkT),n=1)]
+          color2D.matplot(evppi_dummy,cellcolors=cellcolors,xlab="",ylab="",axes=F,border='white')
+          title(title, adj = 0, cex.main = 0.7 )
+          fullaxis(side=1,at=(ncol(evppi_dummy)-1):0+0.5,labels=rev(colnames(evppi_dummy)),
+                   las = 2, line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.6)  # x-axis labels
+          fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,
+                   line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.5) # y-axis labels
+          color.legend(ncol(evppi_dummy)+0.5,0,ncol(evppi_dummy)+1.2,length(labs),col.labels,rev(redCol),
+                       gradient="y",cex=0.7,align="rb")
+          for(i in seq(0,ncol(evppi_dummy),by=NSCEN)) abline(v=i, lwd=2) # add vertical lines
+          for(i in c(0,length(labs))) abline(h=i, lwd = 2) # add horizontal lines at top and bottom
+          par(par_city)
+          
         }
+        
       }
-      list_element <-paste0("scen",s,"_ylls_",o) 
-      column_list <-c(column_list,list_element)
-    }
-  }
-  
-  evppi_agesex_df <- evppi_agesex_df[ ,column_list]
-  
+      dev.off()}
+    
+  } # end of age / gender VOI analysis
  
-  saveRDS(evppi_agesex_df,'results/multi_city/evppi_agesex.Rds',version=2) # save dataframe
-  
-  evppi_agesex_csv <- paste0('results/multi_city/evppi_agesex_',output_version,".csv")
-  #write.csv(evppi_df,'results/multi_city/evppi.csv',row.names = FALSE) # save as csv file
-  
-  write.csv(evppi_agesex_df,evppi_agesex_csv,row.names = FALSE) # save as csv file
-  
-  
-
-  # create output plots
-  
-  output_pdf <- paste0('results/multi_city/evppi_agesex_',output_version,".pdf")
-  #{pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome_voi_list))
-  {pdf(output_pdf,height=15,width=4+length(age_gender_cat)+1)
-    for ( city_name in cities){
-      
-      evppi_agesex_city_df <- evppi_agesex_df %>% filter(city == city_name) 
-      
-      # loop through each outcome in outcome_voi_list separately and create one page per outcome and city
-      for (out in outcome_voi_list){
-        
-        outcome_cols <- sapply(colnames(evppi_agesex_city_df),function(x) grepl(paste(out, collapse = "|"),x))
-        evppi_agesex_city_outcome_df <- evppi_agesex_city_df[,outcome_cols]
-        #evppi_agesex_city_outcome_df$parameters <- evppi_agesex_city_df$parameters
-        
-        par_city <- par(mar=c(14,12.5,4,3.5))
-        
-        labs <- evppi_agesex_city_df$parameters # y axis label
-        labs <- str_replace(labs,'DOSE_RESPONSE_QUANTILE','DR_QUANT') # replace DOSE_RESPONSE with DR
-        labs <- str_replace(labs,'EMISSION_INVENTORY','EMISSION_INV') # replace EMISSION_INVENTORY with EMISSION_INV
-        evppi_dummy <- evppi_agesex_city_outcome_df
-        get.pal=colorRampPalette(brewer.pal(9,"Reds"))
-        redCol=rev(get.pal(12))
-        bkT <- seq(max(evppi_dummy)+1e-10, 0,length=13)
-        cex.lab <- 1.0
-        maxval <- round(bkT[1],digits=1)
-        col.labels<- c(0,maxval/2,maxval)
-        cellcolors <- vector()
-        title <- paste(city_name, "- ", out, " No of samples: ", nsamples, 
-                       # ': By how much (%) could we\n reduce uncertainty in the outcome\n if we knew this parameter perfectly?')
-                       '- \nBy how much (%) could we reduce uncertainty in the outcome if we knew this parameter perfectly?')
-        for(ii in 1:length(unlist(evppi_dummy))) # determine the cellcolors
-          cellcolors[ii] <- redCol[tail(which(unlist(evppi_dummy)[ii]<bkT),n=1)]
-        color2D.matplot(evppi_dummy,cellcolors=cellcolors,xlab="",ylab="",axes=F,border='white')
-        title(title, adj = 0, cex.main = 0.7 )
-        fullaxis(side=1,at=(ncol(evppi_dummy)-1):0+0.5,labels=rev(colnames(evppi_dummy)),
-                 las = 2, line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.6)  # x-axis labels
-        fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,
-                 line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.5) # y-axis labels
-        color.legend(ncol(evppi_dummy)+0.5,0,ncol(evppi_dummy)+1.2,length(labs),col.labels,rev(redCol),
-                     gradient="y",cex=0.7,align="rb")
-        for(i in seq(0,ncol(evppi_dummy),by=NSCEN)) abline(v=i, lwd=2) # add vertical lines
-        for(i in c(0,length(labs))) abline(h=i, lwd = 2) # add horizontal lines at top and bottom
-        par(par_city)
-        
-      }
-      
-    }
-    dev.off()}
-  
-  
   
 } # end of nsamples >1 condition  
 
