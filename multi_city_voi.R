@@ -729,14 +729,22 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
         
         if(k == 1){
           evppi_agesex_city_df <- evppi_agesex_city3
-        } else{
+        } else if(length(age_gender_cat)*NSCEN < 100){
           evppi_agesex_city_df <- cbind(evppi_agesex_city_df, evppi_agesex_city3)
+        } else{ # if too many age / gender categories then add new results to end of dataframe rather than as 
+          # new columns as csv files becomes too large otherwise
+          colnames(evppi_agesex_city_df) <- strsplit(colnames(city_agesex_outcomes),paste("_",city,sep=""))
+          colnames(evppi_agesex_city3) <- strsplit(colnames(city_agesex_outcomes),paste("_",city,sep=""))
+          evppi_agesex_city_df <- rbind(evppi_agesex_city_df, evppi_agesex_city3)
         }
         k <- k + 1
       }
       
       evppi_agesex_city_df$parameters <-  c(colnames(general_noDRpara_parsampl), colnames(city_parsampl)) # add parameter name column
       evppi_agesex_city_df$city <- city # add city name column
+      
+      if(length(age_gender_cat)*NSCEN >= 100){
+      }
       
       # look at dose response input parameters separately, as alpha, beta, gammy and trmel are dependent on each other
       if(any(ap_dr_quantile)&&NSAMPLES>=300){
@@ -825,6 +833,42 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
     
     evppi_agesex_df <- evppi_agesex_df[ ,column_list]
     
+    # re-arrange dataframe if too many columns to write as csv file
+    if(length(age_gender_cat)*NSCEN >= 100){
+      
+      evppi_agesex_df_rearranged <- data.frame()
+      k <- 1
+      
+      for (ag in age_gender_cat){
+        
+        ag_colnames <- sapply(colnames(evppi_agesex_df),function(x)grepl(paste0("_",ag),x))
+        ag_columns_df <- evppi_agesex_df[,ag_colnames]
+        
+        
+        AP_names <- sapply(colnames(ag_columns_df),function(x)length(strsplit(x,ag)[[1]])>1)
+        diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
+        
+        
+        ag_columns_df$parameters <- evppi_agesex_df$parameters
+        ag_columns_df$city <- evppi_agesex_city_df$city
+        ag_columns_df$age_gender <- ag
+        
+        if (k == 1){
+          evppi_agesex_df_rearranged <- ag_columns_df
+        }else{
+          evppi_agesex_df_rearranged <- rbind(evppi_agesex_df_rearranged, ag_columns)
+        }
+        
+        
+      }
+        
+      
+      
+      
+      
+      
+    }
+    
     
     saveRDS(evppi_agesex_df,'results/multi_city/evppi_agesex.Rds',version=2) # save dataframe
     
@@ -878,11 +922,8 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
           color.legend(ncol(evppi_dummy)+0.5,0,ncol(evppi_dummy)+1.2,length(labs),col.labels,rev(redCol),
                        gradient="y",cex=0.7,align="rb")
           for(i in seq(0,ncol(evppi_dummy),by=length(age_gender_cat)+1)) abline(v=i, lwd=2) # add vertical lines
-          
           for(j in 1:NSCEN){
-            for(i in seq(0 + (j-1)*(length(age_gender_cat)+1),j*(length(age_gender_cat)+1),by = 2)) abline(v=i, lwd=1, lty=5) # add vertical dashed
-            #abline(v = length(age_gender_cat), lwd = 2, lty = 5)}
-          
+            for(i in seq(0 + (j-1)*(length(age_gender_cat)+1),j*(length(age_gender_cat)+1),by = 2)) abline(v=i, lwd=1, lty=5)} # add vertical dashed
           for(i in c(0,length(labs))) abline(h=i, lwd = 2) # add horizontal lines at top and bottom
           par(par_city)
         }
