@@ -1,46 +1,59 @@
 #' Compute evppi, designed to be run in parallel
 #' 
-#' Creates a list of EVPPI values one parameter (set) at a time across one or more outcomes
-#' 
-#' @param jj index for input and (potentially) outcome
-#' @param sources list of inputs
-#' @param outcome list of outcomes
-#' @param nscen number of scenarios (which constitute columns of outcome)
-#' @param all whether or not to compute EVPPI for source against all outcomes. Default=F, so sources[[jj]] relates to outcome[[jj]]
-#' @param multi_city_outcome whether the last outcome corresponds to all cities combine
-#' 
-#' @return list of EVPPI vectors
+#' Creates a list of EVPPI values one parameter (set) at a time across some pre-defined outcomes
+#' Uses Chris Jackson's VoI Github package https://github.com/chjackson/voi
+#' @param p input parameter index
+#' @param global_para list of global input parameters that are the same across all cities
+#' @param city_para list of city specific input parameters
+#' @param city_outcome list of outcomes for a specific city
+#
+#' @return list of EVPPI vectors for specific city
 #' 
 #' @export
-compute_evppi <- function(jj,sources,outcome,nscen=1,all=F,multi_city_outcome=T){
-  # initialise vector
-  voi <- rep(0,length(outcome)*nscen)
-  # extract one source
-  sourcesj <- sources[[jj]]
-  max_degree <- ifelse(is.vector(sourcesj),1,ncol(sourcesj))
-  # compute number of cities in outcome
-  ncities <- length(outcome) - as.numeric(multi_city_outcome)
-  # if computing for all outcomes, include all indices
-  indices <- jj
-  if(all==T) indices <- 1:ncities
-  # if there is a multi-city outcome, include in indices
-  if(multi_city_outcome==T) indices <- c(indices,length(outcome))
-  # loop over included indices
-  for(j in indices){
-    # extract one outcome
-    case <- outcome[[j]]
-    # loop over all scenarios
-    for(k in 1:nscen){
-      # extract scenario values and sum
-      scen_case <- case[,seq(k,ncol(case),by=nscen)]
-      y <- rowSums(scen_case)
-      # compute outcome variance
-      vary <- var(y)
-      # model outcome as a function of input(s)
-      model <- earth(y ~ sourcesj, degree=min(4,max_degree))
-      # compute evppi as percentage
-      voi[(j-1)*nscen + k] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100
-    }
+
+
+compute_evppi <- function(p, global_para,city_para,city_outcomes, nsamples){
+  
+  ncol_gen <- ncol(global_para) 
+
+  if (is.null(ncol_gen)) ncol_gen <- length(global_para) # in case of DR functions were several parameters are considered at the same time
+  
+  voi <- rep(0,length(city_outcomes)) # create empty output list
+  
+  if(p <= ncol_gen){# first loop through general parameters
+    sourcesj <- global_para[[p]]  # look at each parameter at a time
+  } else {
+    p2 <- p - ncol_gen
+    sourcesj <- city_para[[p2]] # then loop through city specific parameters
   }
-  voi
+  
+  for(o in 1:length(city_outcomes)){ # loop through all outcomes
+    
+    y <- as.numeric(city_outcomes[[o]])
+    # extract one outcome     
+    vary <- var(y) #compute outcome variance
+    
+    # model outcome as a function of input(s)
+    if (nsamples >= 8){ # use Chris Jackson's VoI R package if sample size large enough
+      if(is.vector(sourcesj)){ # if only one parameter is considered at a time
+        evppi_jj <- evppivar(y,sourcesj) # uses Chris Jackson's VoI package
+      }
+      else { # if several input parameters are considered together, e.g. dose response alpha, beta, gamma, trml parameters
+        evppi_jj <- evppivar(y,sourcesj, par= c(colnames(sourcesj)))
+      }
+      
+      # compute evppi as percentage, i.e. percentage of variance we can reduce if we knew a certain input parameter
+      voi[o] <- evppi_jj$evppi / vary * 100
+    } 
+    else { # calculate EVPPI directly if sample size too small to use C Jackson's VoI package
+      model <- earth(y ~ sourcesj, degree=4)
+      voi[o] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100 # compute evppi as percentage
+    }
+    
+  }  
+  voi   # return evppi list
 }
+
+
+
+
