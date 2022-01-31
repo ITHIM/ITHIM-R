@@ -1,0 +1,14 @@
+
+2022-01-31 14:28:49 by AKS
+Cities: antofagasta
+Input parameter file: InputParameters_v2.0.xlsx
+Output version: v0.1
+Number of samples: 10
+Comments: Test run
+
+2022-01-31 14:40:17 by AKS
+Cities: antofagasta
+Input parameter file: InputParameters_v2.0.xlsx
+Output version: v0.1
+Number of samples: 10
+Comments: Test run
