@@ -251,7 +251,7 @@ print(system.time(
                                               TEST_WALK_SCENARIO = test_walk_scenario,
                                               TEST_CYCLE_SCENARIO = test_cycle_scenario,
                                               REFERENCE_SCENARIO='Baseline',
-                                              MAX_MODE_SHARE_SCENARIO=T,
+                                              MAX_MODE_SHARE_SCENARIO=F,
                                               
                                               BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
@@ -481,23 +481,23 @@ if(nsamples > 1){
   
   {pdf('results/multi_city/city_yll_.pdf',height=6,width=6); par(mar=c(5,5,1,1))
     plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
-    axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+    axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
     for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
     abline(v=0,col='grey',lty=2,lwd=2)
-    text(y=4.2,x=ninefive[[sp_index]][1,4],'90%',col='navyblue',adj=c(-0,-0.3*sp_index))
-    legend(col=rev(cols),lty=1,bty='n',x=ninefive[[sp_index]][1,4],legend=rev(names(outcome)[-length(outcome)]),y=4,lwd=2)
+    text(y=(NSCEN-1)+0.2,x=ninefive[[sp_index]][1,(NSCEN-1)],'90%',col='navyblue',adj=c(-0,-0.3*sp_index))
+    legend(col=rev(cols),lty=1,bty='n',x=ninefive[[sp_index]][1,(NSCEN-1)],legend=rev(names(outcome)[-length(outcome)]),y=4,lwd=2)
     dev.off()
-  }
+  } 
   
   comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
   ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
   means <- apply(comb_out,2,mean)
   {pdf('results/multi_city/combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
     plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL pp relative to baseline',col='navyblue',yaxt='n',xlim=range(ninefive))
-    axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
-    for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
-    abline(v=0,col='grey',lty=2,lwd=2)
-    text(y=4,x=ninefive[1,4],'90%',col='navyblue',adj=c(-0,-0.7))
+     axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+     for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
+     abline(v=0,col='grey',lty=2,lwd=2)
+     text(y=(NSCEN-1),x=ninefive[1,(NSCEN-1)],'90%',col='navyblue',adj=c(-0,-0.7))
     dev.off()
   }
   
