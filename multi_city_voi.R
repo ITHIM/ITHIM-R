@@ -1,3 +1,4 @@
+
 library(ithimr)
 library(earth)
 library(RColorBrewer)
@@ -251,7 +252,7 @@ print(system.time(
                                               TEST_WALK_SCENARIO = test_walk_scenario,
                                               TEST_CYCLE_SCENARIO = test_cycle_scenario,
                                               REFERENCE_SCENARIO='Baseline',
-                                              MAX_MODE_SHARE_SCENARIO=T,
+                                              MAX_MODE_SHARE_SCENARIO=F,
                                               
                                               BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
@@ -481,13 +482,13 @@ if(nsamples > 1){
   
   {pdf('results/multi_city/city_yll_.pdf',height=6,width=6); par(mar=c(5,5,1,1))
     plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
-    axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+    axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
     for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
     abline(v=0,col='grey',lty=2,lwd=2)
-    text(y=4.2,x=ninefive[[sp_index]][1,4],'90%',col='navyblue',adj=c(-0,-0.3*sp_index))
-    legend(col=rev(cols),lty=1,bty='n',x=ninefive[[sp_index]][1,4],legend=rev(names(outcome)[-length(outcome)]),y=4,lwd=2)
+    text(y=(NSCEN-1)+0.2,x=ninefive[[sp_index]][1,(NSCEN-1)],'90%',col='navyblue',adj=c(-0,-0.3*sp_index))
+    legend(col=rev(cols),lty=1,bty='n',x=ninefive[[sp_index]][1,(NSCEN-1)],legend=rev(names(outcome)[-length(outcome)]),y=4,lwd=2)
     dev.off()
-  }
+  } 
   
   comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
   ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
@@ -497,7 +498,7 @@ if(nsamples > 1){
     axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
     for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
     abline(v=0,col='grey',lty=2,lwd=2)
-    text(y=4,x=ninefive[1,4],'90%',col='navyblue',adj=c(-0,-0.7))
+    text(y=(NSCEN-1),x=ninefive[1,(NSCEN-1)],'90%',col='navyblue',adj=c(-0,-0.7))
     dev.off()
   }
   
@@ -672,7 +673,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
     }
     dev.off()}
   
-
+  
   
   ##### run EVPPI for different age groups and gender
   
@@ -729,14 +730,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
         
         if(k == 1){
           evppi_agesex_city_df <- evppi_agesex_city3
-        } else if(length(age_gender_cat)*NSCEN < 100){
-          evppi_agesex_city_df <- cbind(evppi_agesex_city_df, evppi_agesex_city3)
-        } else{ # if too many age / gender categories then add new results to end of dataframe rather than as 
-          # new columns as csv files becomes too large otherwise
-          colnames(evppi_agesex_city_df) <- strsplit(colnames(city_agesex_outcomes),paste("_",city,sep=""))
-          colnames(evppi_agesex_city3) <- strsplit(colnames(city_agesex_outcomes),paste("_",city,sep=""))
-          evppi_agesex_city_df <- rbind(evppi_agesex_city_df, evppi_agesex_city3)
-        }
+        }else{evppi_agesex_city_df <- cbind(evppi_agesex_city_df, evppi_agesex_city3)}
         k <- k + 1
       }
       
@@ -833,49 +827,37 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
     
     evppi_agesex_df <- evppi_agesex_df[ ,column_list]
     
-    # re-arrange dataframe if too many columns to write as csv file
-    if(length(age_gender_cat)*NSCEN >= 100){
+    # re-arrange dataframe to write as csv file
+    evppi_agesex_df_rearranged <- data.frame()
+    k <- 1
+    
+    for (ag in age_gender_cat){
+      ag_colnames <- sapply(colnames(evppi_agesex_df),function(x)grepl(paste0("_",ag),x))
+      ag_columns_df <- evppi_agesex_df[,ag_colnames]
+      new_col_names <- sapply(colnames(ag_columns_df),function(x)strsplit(x,paste0('_',ag))[[1]])
+      colnames(ag_columns_df) = new_col_names
       
-      evppi_agesex_df_rearranged <- data.frame()
-      k <- 1
-      
-      for (ag in age_gender_cat){
-        
-        ag_colnames <- sapply(colnames(evppi_agesex_df),function(x)grepl(paste0("_",ag),x))
-        ag_columns_df <- evppi_agesex_df[,ag_colnames]
-        
-        
-        AP_names <- sapply(colnames(ag_columns_df),function(x)length(strsplit(x,ag)[[1]])>1)
-        diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-        
-        
-        ag_columns_df$parameters <- evppi_agesex_df$parameters
-        ag_columns_df$city <- evppi_agesex_city_df$city
-        ag_columns_df$age_gender <- ag
-        
-        if (k == 1){
-          evppi_agesex_df_rearranged <- ag_columns_df
-        }else{
-          evppi_agesex_df_rearranged <- rbind(evppi_agesex_df_rearranged, ag_columns)
-        }
-        
-        
+      ag_columns_df$parameters <- evppi_agesex_df$parameters
+      ag_columns_df$city <- evppi_agesex_city_df$city
+      ag_columns_df$gender <- strsplit(ag, " ")[[1]][1]
+      ag_columns_df$age <- strsplit(ag, " ")[[1]][2]
+      ag_columns_df$age_gender <- ag
+      if (k == 1){
+        evppi_agesex_df_rearranged <- ag_columns_df
+      }else{
+        evppi_agesex_df_rearranged <- rbind(evppi_agesex_df_rearranged, ag_columns_df)
       }
-        
-      
-      
-      
-      
-      
+      k <- k +1
     }
     
+    evppi_agesex_df_rearranged <- evppi_agesex_df_rearranged %>% relocate(city,age_gender, gender, age,parameters)
     
-    saveRDS(evppi_agesex_df,'results/multi_city/evppi_agesex.Rds',version=2) # save dataframe
+    saveRDS(evppi_agesex_df_rearr,'results/multi_city/evppi_agesex.Rds',version=2) 
     
     evppi_agesex_csv <- paste0('results/multi_city/evppi_agesex_',output_version,".csv")
     #write.csv(evppi_df,'results/multi_city/evppi.csv',row.names = FALSE) # save as csv file
     
-    write.csv(evppi_agesex_df,evppi_agesex_csv,row.names = FALSE) # save as csv file
+    write.csv(evppi_agesex_df_rearranged,evppi_agesex_csv,row.names = FALSE) # save as csv file
     
     # create output plots
     output_pdf <- paste0('results/multi_city/evppi_agesex_',output_version,".pdf")
@@ -939,5 +921,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
 endtime <- Sys.time()  
 runtime <- round(as.numeric(difftime(endtime, starttime, units = "mins")),2)
 
-print(paste0("The code took ", runtime, " minutes to run"))  
+cat(paste("Runtime in minutes:", runtime, sep=" "),
+    file="OutputVersionControl.txt",sep="\n",append=TRUE)
 
+print(paste0("The code took ", runtime, " minutes to run"))  
