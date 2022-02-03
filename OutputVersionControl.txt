@@ -12,3 +12,25 @@ Input parameter file: InputParameters_v2.0.xlsx
 Output version: v0.1
 Number of samples: 10
 Comments: Test run
+
+2022-02-01 14:52:01 by AKS
+Cities: antofagasta
+Input parameter file: InputParameters_v2.0.xlsx
+Output version: v0.1
+Number of samples: 10
+Comments: Test run
+
+2022-02-03 07:11:53 by AKS
+Cities: antofagasta
+Input parameter file: InputParameters_v2.0.xlsx
+Output version: v0.1
+Number of samples: 10
+Comments: Test run
+
+2022-02-03 07:14:09 by AKS
+Cities: antofagasta
+Input parameter file: InputParameters_v2.0.xlsx
+Output version: v0.1
+Number of samples: 10
+Comments: Test run
+Runtime in minutes: 0.91

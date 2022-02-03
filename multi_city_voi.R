@@ -852,7 +852,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
     
     evppi_agesex_df_rearranged <- evppi_agesex_df_rearranged %>% relocate(city,age_gender, gender, age,parameters)
     
-    saveRDS(evppi_agesex_df_rearr,'results/multi_city/evppi_agesex.Rds',version=2) 
+    saveRDS(evppi_agesex_df_rearranged,'results/multi_city/evppi_agesex.Rds',version=2) 
     
     evppi_agesex_csv <- paste0('results/multi_city/evppi_agesex_',output_version,".csv")
     #write.csv(evppi_df,'results/multi_city/evppi.csv',row.names = FALSE) # save as csv file
