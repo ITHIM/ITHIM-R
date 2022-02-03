@@ -367,7 +367,7 @@ for(ci in 1:length(cities)){
   outcome[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
   colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
   
- 
+  
   for(row in keep_rows){
     
     voi_data_all[[city]]$outcomes <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) rbind(x$hb$ylls[row,])))
@@ -466,13 +466,13 @@ if(nsamples > 1){
   
   {pdf('results/multi_city/city_yll_.pdf',height=6,width=6); par(mar=c(5,5,1,1))
     plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
-    axis(2,las=2,at=1:NSCEN+0.25,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+    axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
     for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
     abline(v=0,col='grey',lty=2,lwd=2)
-    text(y=4.2,x=ninefive[[sp_index]][1,4],'90%',col='navyblue',adj=c(-0,-0.3*sp_index))
-    legend(col=rev(cols),lty=1,bty='n',x=ninefive[[sp_index]][1,4],legend=rev(names(outcome)[-length(outcome)]),y=4,lwd=2)
+    text(y=(NSCEN-1)+0.2,x=ninefive[[sp_index]][1,(NSCEN-1)],'90%',col='navyblue',adj=c(-0,-0.3*sp_index))
+    legend(col=rev(cols),lty=1,bty='n',x=ninefive[[sp_index]][1,(NSCEN-1)],legend=rev(names(outcome)[-length(outcome)]),y=4,lwd=2)
     dev.off()
-  }
+  } 
   
   comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
   ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
@@ -482,7 +482,7 @@ if(nsamples > 1){
     axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
     for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
     abline(v=0,col='grey',lty=2,lwd=2)
-    text(y=4,x=ninefive[1,4],'90%',col='navyblue',adj=c(-0,-0.7))
+    text(y=(NSCEN-1),x=ninefive[1,(NSCEN-1)],'90%',col='navyblue',adj=c(-0,-0.7))
     dev.off()
   }
   
@@ -520,10 +520,14 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
       # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
       for (n in 1:NSCEN){
         scen_outputs <- sapply(colnames(city_outcomes), function(x)grepl(paste0("scen",n),x))
-        city_outcomes[paste0('scen',n,"_ylls_sum_",city)] <- rowSums(city_outcomes[,scen_outputs])
+        if (length(outcome_voi_list) == 1){
+          city_outcomes[paste0('scen',n,"_ylls_sum_",city)] <- city_outcomes[,scen_outputs]
+        } else{
+          city_outcomes[paste0('scen',n,"_ylls_sum_",city)] <- rowSums(city_outcomes[,scen_outputs])
+        }
       }
     }
-   
+    
     
     
     param_no <- ncol(city_parsampl) + ncol(general_noDRpara_parsampl)
@@ -600,7 +604,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
   # add to output control document
   timestamp <- Sys.time()
   input_version <- input_parameter_file
-
+  
   cat("",
       paste(timestamp, "by", author, sep = " "),
       paste("Cities:", cities, sep = " "),
@@ -609,7 +613,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
       paste("Number of samples:", nsamples, sep = " "),
       paste("Comments:", comment, sep=" "),
       file="OutputVersionControl.txt",sep="\n",append=TRUE)
-
+  
   
   # create output plots
   
@@ -634,8 +638,8 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
       col.labels<- c(0,maxval/2,maxval)
       cellcolors <- vector()
       title <- paste(city_name,  " - No of samples: ", nsamples, 
-                    # ': By how much (%) could we\n reduce uncertainty in the outcome\n if we knew this parameter perfectly?')
-                    '- By how much (%) could we reduce\n uncertainty in the outcome if we knew this parameter perfectly?')
+                     # ': By how much (%) could we\n reduce uncertainty in the outcome\n if we knew this parameter perfectly?')
+                     '- By how much (%) could we reduce\n uncertainty in the outcome if we knew this parameter perfectly?')
       for(ii in 1:length(unlist(evppi_dummy))) # determine the cellcolors
         cellcolors[ii] <- redCol[tail(which(unlist(evppi_dummy)[ii]<bkT),n=1)]
       color2D.matplot(evppi_dummy,cellcolors=cellcolors,xlab="",ylab="",axes=F,border='white')
@@ -653,8 +657,6 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
     }
     dev.off()}
   
-  
-
   
   
   ##### run EVPPI for different age groups and gender
@@ -687,7 +689,11 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
           # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
           for (n in 1:NSCEN){
             scen_outputs <- sapply(colnames(city_agesex_outcomes), function(x)grepl(paste0("scen",n),x))
-            city_agesex_outcomes[paste0('scen',n,"_ylls_sum_",city)] <- rowSums(sapply(city_agesex_outcomes[,scen_outputs], unlist))
+            if (length(outcome_voi_list) == 1){
+              city_agesex_outcomes[paste0('scen',n,"_ylls_sum_",city)] <- sapply(city_agesex_outcomes[,scen_outputs], unlist)
+            } else{
+              city_agesex_outcomes[paste0('scen',n,"_ylls_sum_",city)] <- rowSums(sapply(city_agesex_outcomes[,scen_outputs], unlist))
+            }
           }
         }
         
@@ -708,15 +714,16 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
         
         if(k == 1){
           evppi_agesex_city_df <- evppi_agesex_city3
-        } else{
-          evppi_agesex_city_df <- cbind(evppi_agesex_city_df, evppi_agesex_city3)
-        }
+        }else{evppi_agesex_city_df <- cbind(evppi_agesex_city_df, evppi_agesex_city3)}
         k <- k + 1
       }
       
       evppi_agesex_city_df$parameters <-  c(colnames(general_noDRpara_parsampl), colnames(city_parsampl)) # add parameter name column
       evppi_agesex_city_df$city <- city # add city name column
-
+      
+      if(length(age_gender_cat)*NSCEN >= 100){
+      }
+      
       # look at dose response input parameters separately, as alpha, beta, gammy and trmel are dependent on each other
       if(any(ap_dr_quantile)&&NSAMPLES>=300){
         AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
@@ -804,18 +811,39 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
     
     evppi_agesex_df <- evppi_agesex_df[ ,column_list]
     
+    # re-arrange dataframe to write as csv file
+    evppi_agesex_df_rearranged <- data.frame()
+    k <- 1
     
-    saveRDS(evppi_agesex_df,'results/multi_city/evppi_agesex.Rds',version=2) # save dataframe
+    for (ag in age_gender_cat){
+      ag_colnames <- sapply(colnames(evppi_agesex_df),function(x)grepl(paste0("_",ag),x))
+      ag_columns_df <- evppi_agesex_df[,ag_colnames]
+      new_col_names <- sapply(colnames(ag_columns_df),function(x)strsplit(x,paste0('_',ag))[[1]])
+      colnames(ag_columns_df) = new_col_names
+      
+      ag_columns_df$parameters <- evppi_agesex_df$parameters
+      ag_columns_df$city <- evppi_agesex_city_df$city
+      ag_columns_df$gender <- strsplit(ag, " ")[[1]][1]
+      ag_columns_df$age <- strsplit(ag, " ")[[1]][2]
+      ag_columns_df$age_gender <- ag
+      if (k == 1){
+        evppi_agesex_df_rearranged <- ag_columns_df
+      }else{
+        evppi_agesex_df_rearranged <- rbind(evppi_agesex_df_rearranged, ag_columns_df)
+      }
+      k <- k +1
+    }
+    
+    evppi_agesex_df_rearranged <- evppi_agesex_df_rearranged %>% relocate(city,age_gender, gender, age,parameters)
+    
+    saveRDS(evppi_agesex_df_rearranged,'results/multi_city/evppi_agesex.Rds',version=2) 
     
     evppi_agesex_csv <- paste0('results/multi_city/evppi_agesex_',output_version,".csv")
     #write.csv(evppi_df,'results/multi_city/evppi.csv',row.names = FALSE) # save as csv file
     
-    write.csv(evppi_agesex_df,evppi_agesex_csv,row.names = FALSE) # save as csv file
-    
-    
+    write.csv(evppi_agesex_df_rearranged,evppi_agesex_csv,row.names = FALSE) # save as csv file
     
     # create output plots
-    
     output_pdf <- paste0('results/multi_city/evppi_agesex_',output_version,".pdf")
     #{pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome_voi_list))
     {pdf(output_pdf,height=15,width=4+length(age_gender_cat)+1)
@@ -824,7 +852,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
         evppi_agesex_city_df <- evppi_agesex_df %>% filter(city == city_name) 
         
         if (voi_add_sum){outcome_list <- c(outcome_voi_list, 'sum') 
-          }else{ outcome_list <- outcome_voi_list}
+        }else{ outcome_list <- outcome_voi_list}
         
         # loop through each outcome in outcome_voi_list separately and create one page per outcome and city
         for (out in outcome_list){
@@ -859,54 +887,25 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
                    line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.5) # y-axis labels
           color.legend(ncol(evppi_dummy)+0.5,0,ncol(evppi_dummy)+1.2,length(labs),col.labels,rev(redCol),
                        gradient="y",cex=0.7,align="rb")
-          for(i in seq(0,ncol(evppi_dummy),by=NSCEN)) abline(v=i, lwd=2) # add vertical lines
+          for(i in seq(0,ncol(evppi_dummy),by=length(age_gender_cat)+1)) abline(v=i, lwd=2) # add vertical lines
+          for(j in 1:NSCEN){
+            for(i in seq(0 + (j-1)*(length(age_gender_cat)+1),j*(length(age_gender_cat)+1),by = 2)) abline(v=i, lwd=1, lty=5)} # add vertical dashed
           for(i in c(0,length(labs))) abline(h=i, lwd = 2) # add horizontal lines at top and bottom
           par(par_city)
-          
         }
-        
       }
       dev.off()}
     
   } # end of age / gender VOI analysis
- 
+  
   
 } # end of nsamples >1 condition  
 
 # record time it took to run code
 endtime <- Sys.time()  
 runtime <- round(as.numeric(difftime(endtime, starttime, units = "mins")),2)
-  
+
+cat(paste("Runtime in minutes:", runtime, sep=" "),
+    file="OutputVersionControl.txt",sep="\n",append=TRUE)
+
 print(paste0("The code took ", runtime, " minutes to run"))  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-
-
