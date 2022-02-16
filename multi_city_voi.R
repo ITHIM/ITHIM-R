@@ -34,7 +34,7 @@ cities <- c('antofagasta')
 
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 10
+nsamples <- 2
 
 # list of potential values for the outcome_voi_list
 # pa_all_cause, pa_total_cancer, pa_breast_cancer, pa_colon_cancer, pa_endo_cancer 
@@ -51,38 +51,45 @@ voi_age_gender <- T   # set to T if want to include split and to F otherwise
 # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
 voi_add_sum <- T
 
-input_parameter_file <- "InputParameters_v2.0.xlsx"
-output_version <- "v0.1"
+input_parameter_file <- "InputParameters_v3.0.xlsx"
+output_version <- "v0.2"
 
 author <- "AKS"
-comment <- "Test run"
+comment <- "Added global parameters to Excel file"
+
+# scenario definition
+max_mode_share_scenario <- F
+latam <- T
+test_walk_scenario <- F
+test_cycle_scenario <- F
+reference_scenario <- 'Baseline'
 
 
 
+
+compute_mode <- 'sample' # sample from the given input parameter distributions
+
+
+
+
+############################### No need to change the following ##################################
 # keep record when code started:
 starttime <- Sys.time()
 
 # define min and max age to be considered
-min_age <- 15
-max_age <- 69
-# set age ranges for outcome statistics
-outcome_age_min <- c(15,50)
-outcome_age_max <- c(49,69)
-outcome_age_groups <- c('15-49','50-69')
-
+# min_age <- 15
+# max_age <- 69
+# # set age ranges for outcome statistics
+# outcome_age_min <- c(15,50)
+# outcome_age_max <- c(49,69)
+# outcome_age_groups <- c('15-49','50-69')
+# 
 
 all_inputs <- read_excel(input_parameter_file, sheet = "all_city_parameter_inputs")
 all_inputs[is.na(all_inputs)] <- ""
 all_inputs <- as.data.frame(all_inputs)
 
 #all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F) # read in parameter list
-
-
-compute_mode <- 'sample' # sample from the given input parameter distributions
-
-
-# constant parameters for DAY_TO_WEEK_TRAVEL_SCALAR
-day_to_week_scalar <- 7
 
 
 
@@ -144,6 +151,74 @@ for(i in 1:length(parameter_names)){
 list2env(parameter_list, environment()) 
 
 
+
+# read in global parameters
+
+
+# constant parameters for DAY_TO_WEEK_TRAVEL_SCALAR
+#day_to_week_scalar <- 7
+
+
+
+
+all_global_inputs <- read_excel(input_parameter_file, sheet = "all_global_parameter_inputs")
+all_global_inputs[is.na(all_global_inputs)] <- ""
+all_global_inputs <- as.data.frame(all_global_inputs)
+
+
+# get input parameters into correct format
+global_parameter_names <- all_global_inputs$parameter
+global_parameter_starts <- which(global_parameter_names!='')
+global_parameter_stops <- c(global_parameter_starts[-1] - 1, nrow(all_global_inputs)) 
+global_parameter_names <- global_parameter_names[global_parameter_names!='']
+global_parameter_list <- list()
+
+for(i in 1:length(global_parameter_names)){
+  global_parameter_list[[global_parameter_names[i]]] <- list()
+  global_parameter_index <- which(all_global_inputs$parameter==global_parameter_names[i]) 
+  if(all_global_inputs[global_parameter_index,2]=='')  { 
+    
+    global_parameter_list[[global_parameter_names[i]]] <- all_global_inputs[global_parameter_index,'global']
+    
+  }else if(all_global_inputs[global_parameter_index,2]=='constant'){
+    if (compute_mode != 'sample'){
+      global_parameter_list[[global_parameter_names[i]]] <- ifelse(all_global_inputs[global_parameter_index,'global']=='',
+                                                                   0,as.numeric(all_global_inputs[global_parameter_index,'global']))
+    }
+    else if(compute_mode=='sample'){ # if sampling from distribution, check that distribution parameters exist
+      indices <- 1:2
+      val <- all_global_inputs[global_parameter_index+indices,'global'] 
+      if (val[1] == '' & val[2]==''){  # if no distribution parameters given in input file, read in constant value instead
+        val <- all_global_inputs[global_parameter_index,'global']} 
+      val <- as.numeric(val)
+      global_parameter_list[[global_parameter_names[i]]] <- val
+    }
+  }
+}
+
+list2env(global_parameter_list, environment()) 
+
+dist_cat <- unlist(strsplit(gsub(" ", "", dist_cat, fixed = TRUE), "\\,"))
+
+outcome_age_min <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_min, fixed = TRUE), "\\,")))
+outcome_age_max <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_max, fixed = TRUE), "\\,")))
+outcome_age_groups <- unlist(strsplit(gsub(" ", "", outcome_age_groups, fixed = TRUE), "\\,"))
+
+min_age <- as.numeric(min_age)
+max_age <- as.numeric(max_age)
+
+
+
+
+# define min and max age to be considered
+# min_age <- 15
+# max_age <- 69
+# # set age ranges for outcome statistics
+# outcome_age_min <- c(15,50)
+# outcome_age_max <- c(49,69)
+# outcome_age_groups <- c('15-49','50-69')
+
+
 ################################### Start running the the actual analysis
 
 
@@ -158,25 +233,26 @@ setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZER
                         "DISTANCE_SCALAR_MOTORCYCLE")
 
 
-# lnorm parameters for MMET_CYCLING
-mmet_cycling <- c((4.63),(1.2))
-# lnorm parameters for MMET_WALKING
-mmet_walking <- c((2.53),(1.1))
-# lnorm parameters for SIN_EXPONENT_SUM
-sin_exponent_sum <- c((1.7),(1.03))
-# beta parameters for CASUALTY_EXPONENT_FRACTION
-casualty_exponent_fraction <- c(15,15)
-
+# # lnorm parameters for MMET_CYCLING
+#mmet_cycling <- c((4.63),(1.2))
+# # lnorm parameters for MMET_WALKING
+#mmet_walking <- c((2.53),(1.1))
+# # lnorm parameters for SIN_EXPONENT_SUM
+#sin_exponent_sum <- c((1.7),(1.03))
+# # beta parameters for CASUALTY_EXPONENT_FRACTION
+#casualty_exponent_fraction <- c(15,15)
+# 
 
 
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
-pa_dr_quantile <-  c(rep(T, length(cities)))
+pa_dr_quantile <-  c(rep(as.logical(pa_dr_quantile_city1), length(cities)))
 # logical for AP dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
-ap_dr_quantile <-  c(rep(T, length(cities)))
+ap_dr_quantile <-  c(rep(as.logical(ap_dr_quantile_city1), length(cities)))
 # logical for walk scenario
-test_walk_scenario <- F
-# logical for cycle scenario
-test_cycle_scenario <- F
+# test_walk_scenario <- F
+# # logical for cycle scenario
+# test_cycle_scenario <- F
+
 
 betaVariables <- c("PM_TRANS_SHARE",
                    "INJURY_REPORTING_RATE",
@@ -190,7 +266,7 @@ normVariables <- c("MMET_CYCLING",
                    "BACKGROUND_PA_SCALAR",
                    "CHRONIC_DISEASE_SCALAR",
                    "SIN_EXPONENT_SUM",
-                   "DISTANCE_SCALAR_CAR_TAXI",
+                   "DISTANCE_SCALAR_CAR_TAXI", 
                    "DISTANCE_SCALAR_WALKING",
                    "DISTANCE_SCALAR_PT",
                    "DISTANCE_SCALAR_CYCLING",
@@ -207,7 +283,7 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
 
 parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
-numcores <- parallel::detectCores() - 1
+#numcores <- parallel::detectCores() - 1
 
 
 print(system.time(
@@ -220,12 +296,12 @@ print(system.time(
                                               LATAM = TRUE,
                                               
                                               # from multi city script
-                                              DIST_CAT = c('0-2 km','2-6 km','6+ km'), # adjusted
+                                              DIST_CAT = as.character(dist_cat), 
                                               ADD_WALK_TO_BUS_TRIPS = as.logical(add_walk_to_bus_trips[[city]]),# originally = F,
                                               CITY=city,
-                                              AGE_RANGE = c(min_age,max_age),
-                                              ADD_TRUCK_DRIVERS = T,# originally set to F
-                                              ADD_BUS_DRIVERS = F,
+                                              AGE_RANGE =  c(min_age,max_age),
+                                              ADD_TRUCK_DRIVERS = as.logical(add_truck_drivers),
+                                              ADD_BUS_DRIVERS = as.logical(add_bus_drivers),
                                               ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]), #ADD_MOTORCYCLE_FLEET = add_motorcycle_fleet[[city]],
                                               PM_emission_inventory = PM_emission_inventories[[city]],
                                               CO2_emission_inventory = CO2_emission_inventories[[city]], # added
@@ -234,7 +310,7 @@ print(system.time(
                                               FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
                                               MMET_CYCLING = mmet_cycling, 
                                               MMET_WALKING = mmet_walking,
-                                              DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
+                                              DAY_TO_WEEK_TRAVEL_SCALAR = as.numeric(day_to_week_scalar),
                                               SIN_EXPONENT_SUM= sin_exponent_sum,
                                               CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
                                               PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile[ci],  
@@ -249,10 +325,10 @@ print(system.time(
                                               
                                               
                                               #additional in VoI script
-                                              TEST_WALK_SCENARIO = test_walk_scenario,
-                                              TEST_CYCLE_SCENARIO = test_cycle_scenario,
-                                              REFERENCE_SCENARIO='Baseline',
-                                              MAX_MODE_SHARE_SCENARIO=F,
+                                              TEST_WALK_SCENARIO = as.logical(test_walk_scenario),
+                                              TEST_CYCLE_SCENARIO = as.logical(test_cycle_scenario),
+                                              REFERENCE_SCENARIO= reference_scenario,
+                                              MAX_MODE_SHARE_SCENARIO= as.logical(max_mode_share_scenario),
                                               
                                               BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
@@ -448,7 +524,8 @@ saveRDS(yll_per_hundred_thousand_results,'results/multi_city/yll_per_hundred_tho
 for(i in 1:length(yll_per_hundred_thousand_results))
   for(j in 1:length(yll_per_hundred_thousand_results[[i]]))
     write.csv(yll_per_hundred_thousand_results[[i]][[j]],
-              paste0('results/multi_city/yll_per_hundred_thousand/',names(yll_per_hundred_thousand_results)[i],names(yll_per_hundred_thousand_results[[i]])[j],'.csv'))
+              paste0('results/multi_city/yll_per_hundred_thousand/',names(yll_per_hundred_thousand_results)[i],
+                     names(yll_per_hundred_thousand_results[[i]])[j],'_',output_version,'.csv'))
 
 for(i in 1:length(outcome_pp)){
   outcome_pp_quantile <- matrix(0,nrow=NSCEN,ncol=3)#(median=numeric(),'5%'=numeric(),'95%'=numeric())
@@ -480,7 +557,7 @@ if(nsamples > 1){
   yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
   cols <- rainbow(length(outcome)-1)
   
-  {pdf('results/multi_city/city_yll_.pdf',height=6,width=6); par(mar=c(5,5,1,1))
+  {pdf(paste0('results/multi_city/city_yll_',output_version,'.pdf'),height=6,width=6); par(mar=c(5,5,1,1))
     plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
     axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
     for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
@@ -493,7 +570,7 @@ if(nsamples > 1){
   comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
   ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
   means <- apply(comb_out,2,mean)
-  {pdf('results/multi_city/combined_yll_pp.pdf',height=3,width=6); par(mar=c(5,5,1,1))
+  {pdf(paste0('results/multi_city/combined_yll_pp','_',output_version,'.pdf'),height=3,width=6); par(mar=c(5,5,1,1))
     plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL pp relative to baseline',col='navyblue',yaxt='n',xlim=range(ninefive))
     axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
     for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
