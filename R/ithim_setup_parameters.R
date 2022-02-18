@@ -26,6 +26,7 @@
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
 #' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: amount of motorcycle that's fleet
 #' @param PM_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
+#' @param CO2_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
 #' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar for car distance travelled
 #' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar for walking distance travelled
 #' @param DISTANCE_SCALAR_PT lognormal parameter: scalar for PT distance travelled
@@ -55,6 +56,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    TRUCK_TO_CAR_RATIO = 0.21,
                                    FLEET_TO_MOTORCYCLE_RATIO = 0,
                                    PM_EMISSION_INVENTORY_CONFIDENCE = 1,
+                                   CO2_EMISSION_INVENTORY_CONFIDENCE = 1,
                                    DISTANCE_SCALAR_CAR_TAXI = 1,
                                    DISTANCE_SCALAR_WALKING = 1,
                                    DISTANCE_SCALAR_PT = 1,
@@ -151,6 +153,16 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
       samples <- lapply(PM_EMISSION_INVENTORY,function(x) rgamma(1,shape=x/total*dirichlet_pointiness(PM_EMISSION_INVENTORY_CONFIDENCE),scale=1))
       new_total <- sum(unlist(samples))
       parameters$PM_EMISSION_INVENTORY[[n]] <- lapply(samples,function(x)x/new_total)
+    }
+  }
+  
+  if(CO2_EMISSION_INVENTORY_CONFIDENCE<1){
+    total <- sum(unlist(CO2_EMISSION_INVENTORY))
+    parameters$CO2_EMISSION_INVENTORY <- list()
+    for(n in 1:NSAMPLES){
+      samples <- lapply(CO2_EMISSION_INVENTORY,function(x) rgamma(1,shape=x/total*dirichlet_pointiness(CO2_EMISSION_INVENTORY_CONFIDENCE),scale=1))
+      new_total <- sum(unlist(samples))
+      parameters$CO2_EMISSION_INVENTORY[[n]] <- lapply(samples,function(x)x/new_total)
     }
   }
   

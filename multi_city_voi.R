@@ -16,11 +16,11 @@ rm(list=ls())
 # cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
 #              'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
 
-cities <- c('accra' )
+cities <- c('delhi' )
 
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 10
+nsamples <- 2
 
 # list of potential values for the outcome_voi_list
 # ylls_pa_all_cause, ylls_pa_total_cancer, ylls_pa_breast_cancer, ylls_pa_colon_cancer, ylls_pa_endo_cancer 
@@ -37,24 +37,34 @@ voi_age_gender <- T   # set to T if want to include split and to F otherwise
 # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
 voi_add_sum <- T
 
-input_parameter_file <- "InputParameters_v2.0.xlsx"
-output_version <- "v0.1"
+input_parameter_file <- "InputParameters_v3.0.xlsx"
+output_version <- "v0.2"
 
 author <- "AKS"
-comment <- "Test run"
+comment <- "Updated CO2 functions"
 
+# scenario definition
+max_mode_share_scenario <- T
+latam <- F
+test_walk_scenario <- F
+test_cycle_scenario <- F
+reference_scenario <- 'Baseline'
+
+
+compute_mode <- 'sample'
 
 
 # keep record when code started:
 starttime <- Sys.time()
 
 # define min and max age to be considered
-min_age <- 15
-max_age <- 69
-# set age ranges for outcome statistics
-outcome_age_min <- c(15,50)
-outcome_age_max <- c(49,69)
-outcome_age_groups <- c('15-49','50-69')
+# min_age <- 15
+# max_age <- 69
+# # set age ranges for outcome statistics
+# outcome_age_min <- c(15,50)
+# outcome_age_max <- c(49,69)
+# outcome_age_groups <- c('15-49','50-69')
+# day_to_week_scalar <- 7 # constant parameters for DAY_TO_WEEK_TRAVEL_SCALAR
 
 
 all_inputs <- read_excel(input_parameter_file, sheet = "all_city_parameter_inputs")
@@ -62,16 +72,6 @@ all_inputs[is.na(all_inputs)] <- ""
 all_inputs <- as.data.frame(all_inputs)
 
 #all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F) # read in parameter list
-
-
-compute_mode <- 'sample' # sample from the given input parameter distributions
-
-
-# constant parameters for DAY_TO_WEEK_TRAVEL_SCALAR
-day_to_week_scalar <- 7
-
-
-
 
 # get input parameters into correct format
 parameter_names <- all_inputs$parameter
@@ -130,12 +130,63 @@ for(i in 1:length(parameter_names)){
 list2env(parameter_list, environment()) 
 
 
+# read in global parameters
+
+all_global_inputs <- read_excel(input_parameter_file, sheet = "all_global_parameter_inputs")
+all_global_inputs[is.na(all_global_inputs)] <- ""
+all_global_inputs <- as.data.frame(all_global_inputs)
+
+
+# get input parameters into correct format
+global_parameter_names <- all_global_inputs$parameter
+global_parameter_starts <- which(global_parameter_names!='')
+global_parameter_stops <- c(global_parameter_starts[-1] - 1, nrow(all_global_inputs)) 
+global_parameter_names <- global_parameter_names[global_parameter_names!='']
+global_parameter_list <- list()
+
+for(i in 1:length(global_parameter_names)){
+  global_parameter_list[[global_parameter_names[i]]] <- list()
+  global_parameter_index <- which(all_global_inputs$parameter==global_parameter_names[i]) 
+  if(all_global_inputs[global_parameter_index,2]=='')  { 
+    
+    global_parameter_list[[global_parameter_names[i]]] <- all_global_inputs[global_parameter_index,'global']
+    
+  }else if(all_global_inputs[global_parameter_index,2]=='constant'){
+    if (compute_mode != 'sample'){
+      global_parameter_list[[global_parameter_names[i]]] <- ifelse(all_global_inputs[global_parameter_index,'global']=='',
+                                                                   0,as.numeric(all_global_inputs[global_parameter_index,'global']))
+    }
+    else if(compute_mode=='sample'){ # if sampling from distribution, check that distribution parameters exist
+      indices <- 1:2
+      val <- all_global_inputs[global_parameter_index+indices,'global'] 
+      if (val[1] == '' & val[2]==''){  # if no distribution parameters given in input file, read in constant value instead
+        val <- all_global_inputs[global_parameter_index,'global']} 
+      val <- as.numeric(val)
+      global_parameter_list[[global_parameter_names[i]]] <- val
+    }
+  }
+}
+
+list2env(global_parameter_list, environment()) 
+
+dist_cat <- unlist(strsplit(gsub(" ", "", dist_cat, fixed = TRUE), "\\,"))
+
+outcome_age_min <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_min, fixed = TRUE), "\\,")))
+outcome_age_max <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_max, fixed = TRUE), "\\,")))
+outcome_age_groups <- unlist(strsplit(gsub(" ", "", outcome_age_groups, fixed = TRUE), "\\,"))
+
+min_age <- as.numeric(min_age)
+max_age <- as.numeric(max_age)
+
+
+
+
 ################################### Start running the the actual analysis
 
 
 ## with uncertainty
 ## comparison across cities
-setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","PM_EMISSION_INVENTORY",
+setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","PM_EMISSION_INVENTORY","CO2_EMISSION_INVENTORY",
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO",
                         "FLEET_TO_MOTORCYCLE_RATIO","DISTANCE_SCALAR_CAR_TAXI",
                         "DISTANCE_SCALAR_WALKING",
@@ -145,24 +196,24 @@ setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZER
 
 
 # lnorm parameters for MMET_CYCLING
-mmet_cycling <- c((4.63),(1.2))
-# lnorm parameters for MMET_WALKING
-mmet_walking <- c((2.53),(1.1))
-# lnorm parameters for SIN_EXPONENT_SUM
-sin_exponent_sum <- c((1.7),(1.03))
-# beta parameters for CASUALTY_EXPONENT_FRACTION
-casualty_exponent_fraction <- c(15,15)
-
+# mmet_cycling <- c((4.63),(1.2))
+# # lnorm parameters for MMET_WALKING
+# mmet_walking <- c((2.53),(1.1))
+# # lnorm parameters for SIN_EXPONENT_SUM
+# sin_exponent_sum <- c((1.7),(1.03))
+# # beta parameters for CASUALTY_EXPONENT_FRACTION
+# casualty_exponent_fraction <- c(15,15)
+# 
 
 
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
-pa_dr_quantile <-  c(rep(T, length(cities)))
+pa_dr_quantile <-  c(rep(as.logical(pa_dr_quantile_city1), length(cities)))
 # logical for AP dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
-ap_dr_quantile <-  c(rep(T, length(cities)))
+ap_dr_quantile <-  c(rep(as.logical(ap_dr_quantile_city1), length(cities)))
 # logical for walk scenario
-test_walk_scenario <- F
-# logical for cycle scenario
-test_cycle_scenario <- F
+# test_walk_scenario <- F
+# # logical for cycle scenario
+# test_cycle_scenario <- F
 
 betaVariables <- c("PM_TRANS_SHARE",
                    "INJURY_REPORTING_RATE",
@@ -186,14 +237,14 @@ normVariables <- c("MMET_CYCLING",
 save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
      background_pa_scalar,background_pa_confidence,mmet_cycling,mmet_walking,PM_emission_inventories,
      sin_exponent_sum,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
-     bus_to_passenger_ratio,truck_to_car_ratio,PM_emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
+     bus_to_passenger_ratio,truck_to_car_ratio,PM_emission_confidence,CO2_emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
      distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,add_motorcycle_fleet,fleet_to_motorcycle_ratio,
      betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
 
 parameters_only <- F
 multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
-numcores <- parallel::detectCores() - 1
+#numcores <- parallel::detectCores() - 1
 
 
 print(system.time(
@@ -202,23 +253,23 @@ print(system.time(
     print(city)
     multi_city_ithim[[ci]] <- run_ithim_setup(NSAMPLES = nsamples,
                                               seed=ci,
-                                              
+                                            
                                               # from multi city script
-                                              DIST_CAT = c('0-2 km','2-6 km','6+ km'), # adjusted
+                                              DIST_CAT = as.character(dist_cat), 
                                               ADD_WALK_TO_BUS_TRIPS = as.logical(add_walk_to_bus_trips[[city]]),# originally = F,
                                               CITY=city,
-                                              AGE_RANGE = c(min_age,max_age),
-                                              ADD_TRUCK_DRIVERS = T,# originally set to F
-                                              ADD_BUS_DRIVERS = F,
+                                              AGE_RANGE =  c(min_age,max_age),
+                                              ADD_TRUCK_DRIVERS = as.logical(add_truck_drivers),
+                                              ADD_BUS_DRIVERS = as.logical(add_bus_drivers),
                                               ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]), #ADD_MOTORCYCLE_FLEET = add_motorcycle_fleet[[city]],
                                               PM_emission_inventory = PM_emission_inventories[[city]],
-                                              CO2_emission_inventory = CO2_emission_inventories[[city]], # added
+                                              CO2_emission_inventory = CO2_emission_inventories[[city]] , # added
                                               speeds = speeds[[city]],
                                               
                                               FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
                                               MMET_CYCLING = mmet_cycling, 
                                               MMET_WALKING = mmet_walking,
-                                              DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
+                                              DAY_TO_WEEK_TRAVEL_SCALAR = as.numeric(day_to_week_scalar),
                                               SIN_EXPONENT_SUM= sin_exponent_sum,
                                               CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
                                               PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile[ci],  
@@ -233,16 +284,17 @@ print(system.time(
                                               
                                               
                                               #additional in VoI script
-                                              TEST_WALK_SCENARIO = test_walk_scenario,
-                                              TEST_CYCLE_SCENARIO = test_cycle_scenario,
-                                              REFERENCE_SCENARIO='Baseline',
-                                              MAX_MODE_SHARE_SCENARIO=T,
+                                              TEST_WALK_SCENARIO = as.logical(test_walk_scenario),
+                                              TEST_CYCLE_SCENARIO = as.logical(test_cycle_scenario),
+                                              REFERENCE_SCENARIO= reference_scenario,
+                                              MAX_MODE_SHARE_SCENARIO= as.logical(max_mode_share_scenario),
                                               
                                               BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                               TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
                                               
                                               PM_EMISSION_INVENTORY_CONFIDENCE = PM_emission_confidence[[city]],
+                                              CO2_EMISSION_INVENTORY_CONFIDENCE = CO2_emission_confidence[[city]],
                                               DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
                                               DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
                                               DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
@@ -250,12 +302,13 @@ print(system.time(
                                               DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]])
     
     
+    
     # for first city, store model parameters. For subsequent cities, copy parameters over.
     if(ci==1){
       model_parameters <- names(multi_city_ithim[[ci]]$parameters)[!names(multi_city_ithim[[ci]]$parameters)%in%setting_parameters]
       parameter_names <- model_parameters[model_parameters!="DR_AP_LIST"]
       parameter_samples <- sapply(parameter_names,function(x)multi_city_ithim[[ci]]$parameters[[x]])
-    }else{
+    }else{ 
       for(param in model_parameters) multi_city_ithim[[ci]]$parameters[[param]] <- multi_city_ithim[[1]]$parameters[[param]]
       background_quantile <- plnorm(multi_city_ithim[[1]]$parameters$PM_CONC_BASE,log(pm_conc_base[[1]][1]),log(pm_conc_base[[1]][2]))
       multi_city_ithim[[ci]]$parameters$PM_CONC_BASE <- qlnorm(background_quantile,log(pm_conc_base[[city]][1]),log(pm_conc_base[[city]][2]))
@@ -287,7 +340,7 @@ print(system.time(
           FUN(ithim_object, seed=i)
         }
       }
-      multi_city_ithim[[ci]]$outcomes <- run_ithm_fn(nsamples,ithim_object = multi_city_ithim[[ci]])
+      multi_city_ithim[[ci]]$outcomes <- run_ithm_fn(nsamples,ithim_object = multi_city_ithim[[ci]], seed)
       
       multi_city_ithim[[ci]]$DEMOGRAPHIC <- DEMOGRAPHIC
     }
@@ -299,8 +352,14 @@ print(system.time(
       if(sum(extract_vals)!=0)
         multi_city_ithim[[ci]]$parameters[[paste0('PM_EMISSION_INVENTORY_',names(multi_city_ithim[[ci]]$parameters$PM_EMISSION_INVENTORY[[1]])[i],'_',city)]] <- extract_vals
     }
+    for(i in 1:length(multi_city_ithim[[ci]]$parameters$CO2_EMISSION_INVENTORY[[1]])){
+      extract_vals <- sapply(multi_city_ithim[[ci]]$parameters$CO2_EMISSION_INVENTORY,function(x)x[[i]])
+      if(sum(extract_vals)!=0)
+        multi_city_ithim[[ci]]$parameters[[paste0('CO2_EMISSION_INVENTORY_',names(multi_city_ithim[[ci]]$parameters$CO2_EMISSION_INVENTORY[[1]])[i],'_',city)]] <- extract_vals
+    }
     for(param in setting_parameters) names(multi_city_ithim[[ci]]$parameters)[which(names(multi_city_ithim[[ci]]$parameters)==param)] <- paste0(param,'_',city)
     multi_city_ithim[[ci]]$parameters <- multi_city_ithim[[ci]]$parameters[-which(names(multi_city_ithim[[ci]]$parameters)==paste0('PM_EMISSION_INVENTORY_',city))]
+    multi_city_ithim[[ci]]$parameters <- multi_city_ithim[[ci]]$parameters[-which(names(multi_city_ithim[[ci]]$parameters)==paste0('CO2_EMISSION_INVENTORY_',city))]
     parameter_names_city <- names(multi_city_ithim[[ci]]$parameters)[sapply(names(multi_city_ithim[[ci]]$parameters),function(x)grepl(x,pattern=city))]
     ## add to parameter names
     parameter_names <- c(parameter_names,parameter_names_city)
@@ -316,6 +375,7 @@ print(system.time(
   }
 )) 
 
+print('finished ithim-run')
 
 saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 
@@ -454,6 +514,7 @@ outcome$combined <- outcomes_pp
 saveRDS(outcome,'results/multi_city/outcome.Rds',version=2)
 
 ######################################################### plot results #######################################################
+print('plot results')
 
 # plots only work if more than one sample was selected
 if(nsamples > 1){
@@ -489,7 +550,7 @@ if(nsamples > 1){
 }
 
 ################################################ calculate EVPPI ################################################
-
+print('start EVPPI analysis')
 if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
   
   # first extract input parameters of interest
@@ -869,7 +930,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
           evppi_dummy <- evppi_agesex_city_outcome_df
           get.pal=colorRampPalette(brewer.pal(9,"Reds"))
           redCol=rev(get.pal(12))
-          bkT <- seq(max(evppi_dummy)+1e-10, 0,length=13)
+          bkT <- seq(max(evppi_dummy[!is.na(evppi_dummy)])+1e-10, 0,length=13)
           cex.lab <- 1.0
           maxval <- round(bkT[1],digits=1)
           col.labels<- c(0,maxval/2,maxval)
