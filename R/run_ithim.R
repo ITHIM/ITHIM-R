@@ -44,7 +44,7 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
                                       %>% dplyr::mutate_at(-c(1), as.integer)), 
                                       trip_scen_sets=trip_scen_sets)#3
   
-  # Calculated PM2.5 concentrations
+  # Calculated CO2 concentrations
   co2_conc <- scenario_co2_calculations(dist = (true_dist %>% dplyr::filter(stage_mode != 'unknown')
                                               %>% dplyr::mutate_at(-c(1), as.integer)))
   

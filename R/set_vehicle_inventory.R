@@ -31,7 +31,8 @@ set_vehicle_inventory <- function(){
   
   ##!! this is the only part that currently changes with uncertainty
   #vehicle_inventory$distance_ratio_to_car[vehicle_inventory$stage_mode%in%c('motorbike')] <- MOTORCYCLE_TO_CAR_RATIO#DISTANCE_RATIOS$motorbike
-  
+
+  # add big truck and other modes to vehicle inventory
   vehicle_inventory <- rbind(vehicle_inventory,data.frame(stage_mode='big_truck',
                                                           speed=21,
                                                           PM_emission_inventory=PM_EMISSION_INVENTORY[['big_truck']]))#,

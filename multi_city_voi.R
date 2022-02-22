@@ -1,4 +1,3 @@
-
 library(ithimr)
 library(earth)
 library(RColorBrewer)
@@ -34,7 +33,7 @@ cities <- c('antofagasta')
 
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 2
+nsamples <- 8
 
 # list of potential values for the outcome_voi_list
 # pa_all_cause, pa_total_cancer, pa_breast_cancer, pa_colon_cancer, pa_endo_cancer 
@@ -52,10 +51,10 @@ voi_age_gender <- T   # set to T if want to include split and to F otherwise
 voi_add_sum <- T
 
 input_parameter_file <- "InputParameters_v3.0.xlsx"
-output_version <- "v0.2"
+output_version <- "v0.3"
 
 author <- "AKS"
-comment <- "Added global parameters to Excel file"
+comment <- "Added CO2 emission sampling"
 
 # scenario definition
 max_mode_share_scenario <- F
@@ -224,7 +223,7 @@ max_age <- as.numeric(max_age)
 
 ## with uncertainty
 ## comparison across cities
-setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","PM_EMISSION_INVENTORY",
+setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","PM_EMISSION_INVENTORY","CO2_EMISSION_INVENTORY",
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO",
                         "FLEET_TO_MOTORCYCLE_RATIO","DISTANCE_SCALAR_CAR_TAXI",
                         "DISTANCE_SCALAR_WALKING",
@@ -274,17 +273,17 @@ normVariables <- c("MMET_CYCLING",
 
 
 save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
-     background_pa_scalar,background_pa_confidence,mmet_cycling,mmet_walking,PM_emission_inventories,
+     background_pa_scalar,background_pa_confidence,mmet_cycling,mmet_walking,PM_emission_inventories,CO2_emission_inventories,
      sin_exponent_sum,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
-     bus_to_passenger_ratio,truck_to_car_ratio,PM_emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
+     bus_to_passenger_ratio,truck_to_car_ratio,PM_emission_confidence,CO2_emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
      distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,add_motorcycle_fleet,fleet_to_motorcycle_ratio,
      betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
 
-parameters_only <- F
-multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
+#parameters_only <- F
 #numcores <- parallel::detectCores() - 1
 
+multi_city_ithim <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 
 print(system.time(
   for(ci in 1:length(cities)){
@@ -335,6 +334,7 @@ print(system.time(
                                               TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
                                               
                                               PM_EMISSION_INVENTORY_CONFIDENCE = PM_emission_confidence[[city]],
+                                              CO2_EMISSION_INVENTORY_CONFIDENCE = CO2_emission_confidence[[city]],
                                               DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
                                               DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
                                               DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
@@ -370,7 +370,7 @@ print(system.time(
     # }
     
     
-    if(!parameters_only){
+   # if(!parameters_only){
       
       multi_city_ithim[[ci]]$outcomes <- list()
       doFuture::registerDoFuture()
@@ -379,10 +379,10 @@ print(system.time(
           FUN(ithim_object, seed=i)
         }
       }
-      multi_city_ithim[[ci]]$outcomes <- run_ithm_fn(nsamples,ithim_object = multi_city_ithim[[ci]])
+      multi_city_ithim[[ci]]$outcomes <- run_ithm_fn(nsamples,ithim_object = multi_city_ithim[[ci]], seed)
       
       multi_city_ithim[[ci]]$DEMOGRAPHIC <- DEMOGRAPHIC
-    }
+   # }
     
     
     ## rename city-specific parameters according to city
@@ -391,8 +391,14 @@ print(system.time(
       if(sum(extract_vals)!=0)
         multi_city_ithim[[ci]]$parameters[[paste0('PM_EMISSION_INVENTORY_',names(multi_city_ithim[[ci]]$parameters$PM_EMISSION_INVENTORY[[1]])[i],'_',city)]] <- extract_vals
     }
+    for(i in 1:length(multi_city_ithim[[ci]]$parameters$CO2_EMISSION_INVENTORY[[1]])){
+      extract_vals <- sapply(multi_city_ithim[[ci]]$parameters$CO2_EMISSION_INVENTORY,function(x)x[[i]])
+      if(sum(extract_vals)!=0)
+        multi_city_ithim[[ci]]$parameters[[paste0('CO2_EMISSION_INVENTORY_',names(multi_city_ithim[[ci]]$parameters$CO2_EMISSION_INVENTORY[[1]])[i],'_',city)]] <- extract_vals
+    }
     for(param in setting_parameters) names(multi_city_ithim[[ci]]$parameters)[which(names(multi_city_ithim[[ci]]$parameters)==param)] <- paste0(param,'_',city)
     multi_city_ithim[[ci]]$parameters <- multi_city_ithim[[ci]]$parameters[-which(names(multi_city_ithim[[ci]]$parameters)==paste0('PM_EMISSION_INVENTORY_',city))]
+    multi_city_ithim[[ci]]$parameters <- multi_city_ithim[[ci]]$parameters[-which(names(multi_city_ithim[[ci]]$parameters)==paste0('CO2_EMISSION_INVENTORY_',city))]
     parameter_names_city <- names(multi_city_ithim[[ci]]$parameters)[sapply(names(multi_city_ithim[[ci]]$parameters),function(x)grepl(x,pattern=city))]
     ## add to parameter names
     parameter_names <- c(parameter_names,parameter_names_city)
@@ -410,6 +416,8 @@ print(system.time(
 
 
 saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
+
+print('finished ithim-run')
 
 ## re-read and extract results #########################################
 ## set age groups to summarise results across all cities
@@ -547,6 +555,7 @@ outcome$combined <- outcomes_pp
 saveRDS(outcome,'results/multi_city/outcome.Rds',version=2)
 
 ######################################################### plot results #######################################################
+print('plot results')
 
 # plots only work if more than one sample was selected
 if(nsamples > 1){
@@ -582,6 +591,7 @@ if(nsamples > 1){
 }
 
 ################################################ calculate EVPPI ################################################
+print('start EVPPI analysis')
 
 if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
   
@@ -962,7 +972,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
           evppi_dummy <- evppi_agesex_city_outcome_df
           get.pal=colorRampPalette(brewer.pal(9,"Reds"))
           redCol=rev(get.pal(12))
-          bkT <- seq(max(evppi_dummy)+1e-10, 0,length=13)
+          bkT <- seq(max(evppi_dummy[!is.na(evppi_dummy)])+1e-10, 0,length=13)
           cex.lab <- 1.0
           maxval <- round(bkT[1],digits=1)
           col.labels<- c(0,maxval/2,maxval)
