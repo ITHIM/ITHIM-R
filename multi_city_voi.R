@@ -19,7 +19,7 @@ if (!require("drpa",character.only = TRUE)) {
 
 rm(list=ls())
 
-cities <- c('antofagasta')
+cities <- c('antofagasta', 'valdivia')
 # , 'arica', 'belo_horizonte')
 # , 'bogota', 'buenos_aires',
 #             'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
@@ -33,7 +33,7 @@ cities <- c('antofagasta')
 
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 8
+nsamples <- 2
 
 # list of potential values for the outcome_voi_list
 # pa_all_cause, pa_total_cancer, pa_breast_cancer, pa_colon_cancer, pa_endo_cancer 
@@ -51,7 +51,7 @@ voi_age_gender <- T   # set to T if want to include split and to F otherwise
 voi_add_sum <- T
 
 input_parameter_file <- "InputParameters_v3.0.xlsx"
-output_version <- "v0.3"
+output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 
 author <- "AKS"
 comment <- "Added CO2 emission sampling"
@@ -469,14 +469,14 @@ for(ci in 1:length(cities)){
   
   
   for(row in keep_rows){
-    
     voi_data_all[[city]]$outcomes <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) rbind(x$hb$ylls[row,])))
     voi_dummy <- data.frame(voi_data_all[[city]])
     colnames(voi_dummy)<-colnames(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls)
+    voi_dummy$city <- city
     voi_data_all_df <- rbind(voi_data_all_df, voi_dummy)
   }
   
-  voi_data_all_df$city <- city
+  #voi_data_all_df$city <- city
   
   multi_city_ithim[[ci]] <- 0
 }
@@ -708,13 +708,17 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
   timestamp <- Sys.time()
   input_version <- input_parameter_file
   
+  global_path <- paste0(file.path(find.package('ithimr',lib.loc = .libPaths()),
+                                  'extdata/global'), "/")
+  
   cat("",
       paste(timestamp, "by", author, sep = " "),
       paste("Cities:", cities, sep = " "),
       paste("Input parameter file:", input_version, sep = " "),
-      paste("Output version:", output_version, sep = " "),
+      paste("Version number of outputs:", output_version, sep = " "),
       paste("Number of samples:", nsamples, sep = " "),
       paste("Comments:", comment, sep=" "),
+      paste("Path of other input files:", global_path, sep=" "),
       file="OutputVersionControl.txt",sep="\n",append=TRUE)
   
   

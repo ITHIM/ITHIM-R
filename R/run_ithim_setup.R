@@ -60,7 +60,7 @@ run_ithim_setup <- function(seed = 1,
                             speeds = NULL,
                             PM_emission_inventory = NULL,
                             CO2_emission_inventory = NULL,
-                            setup_call_summary_filename = 'setup_call_summary.txt',
+                            #setup_call_summary_filename = 'setup_call_summary.txt',
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             AGE_RANGE = c(0,150),
                             ADD_WALK_TO_BUS_TRIPS = T,
@@ -226,12 +226,12 @@ run_ithim_setup <- function(seed = 1,
   
   TRAVEL_MODES <<- tolower(names(default_speeds))
   MODE_SPEEDS <<- data.frame(stage_mode = TRAVEL_MODES, speed = unlist(default_speeds), stringsAsFactors = F)
-  cat('\n  SPEEDS \n\n',file=setup_call_summary_filename,append=F)
-  #print(MODE_SPEEDS)
-  for(i in 1:nrow(MODE_SPEEDS)) {
-    cat(paste0(MODE_SPEEDS[i,]),file=setup_call_summary_filename,append=T); 
-    cat('\n',file=setup_call_summary_filename,append=T)
-  }
+  # cat('\n  SPEEDS \n\n',file=setup_call_summary_filename,append=F)
+  # #print(MODE_SPEEDS)
+  # for(i in 1:nrow(MODE_SPEEDS)) {
+  #   cat(paste0(MODE_SPEEDS[i,]),file=setup_call_summary_filename,append=T); 
+  #   cat('\n',file=setup_call_summary_filename,append=T)
+  # }
   
   ## default PM2.5 emission contributions that can be edited by input. 
   default_PM_emission_inventory <- list(
@@ -257,11 +257,11 @@ run_ithim_setup <- function(seed = 1,
   names(default_PM_emission_inventory) <- tolower(names(default_PM_emission_inventory))
   
   PM_EMISSION_INVENTORY <<- default_PM_emission_inventory
-  cat('\n  PM 2.5 EMISSION INVENTORY \n\n',file=setup_call_summary_filename,append=T)
-  for(i in 1:length(default_PM_emission_inventory)) {
-    cat(paste(names(PM_EMISSION_INVENTORY)[i],PM_EMISSION_INVENTORY[[i]]),file=setup_call_summary_filename,append=T); 
-    cat('\n',file=setup_call_summary_filename,append=T)
-  }
+  # cat('\n  PM 2.5 EMISSION INVENTORY \n\n',file=setup_call_summary_filename,append=T)
+  # for(i in 1:length(default_PM_emission_inventory)) {
+  #   cat(paste(names(PM_EMISSION_INVENTORY)[i],PM_EMISSION_INVENTORY[[i]]),file=setup_call_summary_filename,append=T); 
+  #   cat('\n',file=setup_call_summary_filename,append=T)
+  # }
   
   ## default C02 emission contributions that can be edited by input. 
   default_CO2_emission_inventory <- list(
@@ -289,20 +289,16 @@ run_ithim_setup <- function(seed = 1,
   names(default_CO2_emission_inventory) <- tolower(names(default_CO2_emission_inventory))
   
   CO2_EMISSION_INVENTORY <<- default_CO2_emission_inventory
-  cat('\n  CO2 EMISSION INVENTORY \n\n',file=setup_call_summary_filename,append=T)
-  for(i in 1:length(default_CO2_emission_inventory)) {
-    cat(paste(names(CO2_EMISSION_INVENTORY)[i],CO2_EMISSION_INVENTORY[[i]]),file=setup_call_summary_filename,append=T); 
-    cat('\n',file=setup_call_summary_filename,append=T)
-  }
+  # cat('\n  CO2 EMISSION INVENTORY \n\n',file=setup_call_summary_filename,append=T)
+  # for(i in 1:length(default_CO2_emission_inventory)) {
+  #   cat(paste(names(CO2_EMISSION_INVENTORY)[i],CO2_EMISSION_INVENTORY[[i]]),file=setup_call_summary_filename,append=T); 
+  #   cat('\n',file=setup_call_summary_filename,append=T)
+  # }
   
   ## LOAD DATA
-  ithim_load_data(setup_call_summary_filename,speeds=default_speeds)  
+  #ithim_load_data(setup_call_summary_filename,speeds=default_speeds)  
+  ithim_load_data(speeds=default_speeds)  
   
-  if(any(!unique(TRIP_SET$stage_mode)%in%MODE_SPEEDS$stage_mode)){
-    cat("\n  The following modes do not have speeds, and won't be included in the model:\n",file=setup_call_summary_filename,append=T)
-    cat(unique(TRIP_SET$stage_mode)[!unique(TRIP_SET$stage_mode)%in%MODE_SPEEDS$stage_mode],file=setup_call_summary_filename,append=T)
-    cat("\n\n  To include a mode, or change a speed, supply e.g. 'speeds=list(car=15,hoverboard=30)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
-  }
   ## SET PARAMETERS - create nsamples samples from the given distributions for each of the input parameters
   ithim_object$parameters <- ithim_setup_parameters(NSAMPLES,
                                                     BUS_WALK_TIME,
@@ -364,18 +360,18 @@ run_ithim_setup <- function(seed = 1,
   casualty_modes <- unique(INJURY_TABLE[[1]]$cas_mode)
   match_modes <- c(TRIP_SET$stage_mode,'pedestrian')
   if(ADD_TRUCK_DRIVERS) match_modes <- c(match_modes,'truck')
-  if(!all(casualty_modes%in%match_modes)){
-    cat('\n  The following casualty modes do not have distance data and will not be included in injury module:\n',file=setup_call_summary_filename,append=T)
-    cat(casualty_modes[!casualty_modes%in%match_modes],file=setup_call_summary_filename,append=T)
-    cat('\n\n',file=setup_call_summary_filename,append=T)
-  }
+  # if(!all(casualty_modes%in%match_modes)){
+  #   cat('\n  The following casualty modes do not have distance data and will not be included in injury module:\n',file=setup_call_summary_filename,append=T)
+  #   cat(casualty_modes[!casualty_modes%in%match_modes],file=setup_call_summary_filename,append=T)
+  #   cat('\n\n',file=setup_call_summary_filename,append=T)
+  # }
   
-  cat('\n  Emissions will be calculated for the following modes:\n',file=setup_call_summary_filename,append=T)
-  cat(names(PM_EMISSION_INVENTORY)[unlist(PM_EMISSION_INVENTORY)>0],file=setup_call_summary_filename,append=T)
-  cat(names(CO2_EMISSION_INVENTORY)[unlist(CO2_EMISSION_INVENTORY)>0],file=setup_call_summary_filename,append=T)
-  cat("\n  To edit an emission contribution, supply e.g. 'PM_emission_inventory=list(car=4)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
-  cat("  To exclude a mode from the emission inventory, supply e.g. 'PM_emission_inventory=list(other=0)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
-  cat('\n\n',file=setup_call_summary_filename,append=T)
+  # cat('\n  Emissions will be calculated for the following modes:\n',file=setup_call_summary_filename,append=T)
+  # cat(names(PM_EMISSION_INVENTORY)[unlist(PM_EMISSION_INVENTORY)>0],file=setup_call_summary_filename,append=T)
+  # cat(names(CO2_EMISSION_INVENTORY)[unlist(CO2_EMISSION_INVENTORY)>0],file=setup_call_summary_filename,append=T)
+  # cat("\n  To edit an emission contribution, supply e.g. 'PM_emission_inventory=list(car=4)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
+  # cat("  To exclude a mode from the emission inventory, supply e.g. 'PM_emission_inventory=list(other=0)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
+  # cat('\n\n',file=setup_call_summary_filename,append=T)
   
   return(ithim_object)
 }
