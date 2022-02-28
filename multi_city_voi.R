@@ -559,23 +559,51 @@ print('plot results')
 
 # plots only work if more than one sample was selected
 if(nsamples > 1){
-  sp_index <- which(cities==city)
-  scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
-  means <- sapply(scen_out,function(x)apply(x,2,mean))
-  ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
-  yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
-  cols <- rainbow(length(outcome)-1)
   
-  {pdf(paste0('results/multi_city/city_yll_',output_version,'.pdf'),height=6,width=6); par(mar=c(5,5,1,1))
+  {pdf(paste0('results/multi_city/city_yll_',output_version,'.pdf'),height=6,width=6)
+
+    # one plot for all cities - might be difficult to read
+    par <- par(mar=c(5,5,1,1))
+    sp_index <- which(cities==city)
+    scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+    means <- sapply(scen_out,function(x)apply(x,2,mean))
+    ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
+    yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
+    cols <- rainbow(length(outcome)-1)
+
     plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
     axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
     for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
     abline(v=0,col='grey',lty=2,lwd=2)
     text(y=(NSCEN-1)+0.2,x=ninefive[[sp_index]][1,(NSCEN-1)],'90%',col='navyblue',adj=c(-0,-0.3*sp_index))
-    legend(col=rev(cols),lty=1,bty='n',x=ninefive[[sp_index]][1,(NSCEN-1)],legend=rev(names(outcome)[-length(outcome)]),y=4,lwd=2)
+    legend(col=rev(cols),lty=1,bty='n',x= mean(means),legend=rev(names(outcome)[-length(outcome)]),y=NSCEN-1,lwd=2)
+    par(par)
+    
+    for(city in cities){ # one plot per city
+      sp_index <- which(cities==city)
+      scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+      scen_out_city <- scen_out[[city]]
+      means <- colMeans(scen_out_city) #sapply(scen_out_city,function(x)apply(x,2,mean))
+      ninefive <- apply(scen_out_city,2,quantile,probs = c(0.05,0.95))
+      yvals <- rep(1,each=NSCEN)/10 + rep(1:NSCEN) #rep(1:length(scen_out_city),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out_city))
+      cols <- rainbow(length(outcome)-1)
+      col_city <- cols[sp_index]
+
+      par_city <- par(mar=c(5,5,1,1))
+      xlab <- paste0(city,': Change in YLL relative to baseline')
+      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
+      axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+      #for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
+      for(j in 1:NSCEN) lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
+      abline(v=0,col='grey',lty=2,lwd=2)
+      text(y=(NSCEN-1)+0.2,x=ninefive[1,(NSCEN-1)],'90%',col='navyblue',adj=c(-0,-0.3*sp_index))
+      legend(col=col_city, lty=1,bty='n',x= mean(means),legend=city,y=NSCEN-1,lwd=2)
+      par(par_city)
+    }
     dev.off()
   } 
   
+  # plotting the output as sums across all cities
   comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
   ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
   means <- apply(comb_out,2,mean)
