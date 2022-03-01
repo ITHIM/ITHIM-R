@@ -602,7 +602,8 @@ if(nsamples > 1){
     }
     dev.off()
   } 
-  
+
+    
   # plotting the output as sums across all cities
   comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
   ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
