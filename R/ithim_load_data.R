@@ -3,12 +3,13 @@
 #' Loads and processes data from file. Local data for the setting and global data for the model.
 #' Writes objects to the global environment.
 #' 
-#' @param setup_call_summary_filename name of file to write to
+#' #@param setup_call_summary_filename name of file to write to - parameter has been removed
 #' @param speeds named list of mode speeds
 #' 
 #' 
 #' @export
-ithim_load_data <- function(setup_call_summary_filename, speeds = 
+#ithim_load_data <- function(setup_call_summary_filename, speeds = 
+ithim_load_data <- function(speeds = 
   list( bus = 11, 
         bus_driver = 11, 
         minibus = 11, 
@@ -43,9 +44,9 @@ ithim_load_data <- function(setup_call_summary_filename, speeds =
   # DR_AP$cause_code matches DISEASE_INVENTORY$ap_acronym
   DR_AP <<- read.csv(paste0(global_path,"dose_response/drap/dose_response.csv"))
   #INJ_DIST_EXP <<- read_csv('code/injuries/data/sin_coefficients_pairs.csv') ## injury distance exponent
-  cat(paste0('\n  Dose--response for AP read from ', global_path,
-             'dose_response/drap/ \n\n'), 
-      file = setup_call_summary_filename, append = T)
+  # cat(paste0('\n  Dose--response for AP read from ', global_path,
+  #            'dose_response/drap/ \n\n'), 
+  #     file = setup_call_summary_filename, append = T)
   
   # root of list_of_files matches DISEASE_INVENTORY$pa_acronym
   # list_of_files <- list.files(path = paste0(global_path,
@@ -75,7 +76,7 @@ ithim_load_data <- function(setup_call_summary_filename, speeds =
   ## if either trip or stage labels are missing, we copy over from the other.
   filename <- paste0(local_path,"/trips_",CITY,".csv")
   trip_set <- read_csv(filename,col_types = cols())
-  cat(paste0('\n  Trips read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
+ # cat(paste0('\n  Trips read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
   ## copy over as required
   mode_cols <- c('trip_mode','stage_mode')
@@ -147,7 +148,7 @@ ithim_load_data <- function(setup_call_summary_filename, speeds =
   # max_age (=number, e.g. 49)
   filename <- paste0(local_path,"/gbd_",CITY,".csv")
   GBD_DATA <- read_csv(filename,col_types = readr::cols())
-  cat(paste0('\n  GBD read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
+  #cat(paste0('\n  GBD read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   
   ## Dan: Adding together causes related to "Head and neck cancer"
   head_neck_causes <- c("Esophageal cancer", "Larynx cancer",
@@ -174,7 +175,7 @@ ithim_load_data <- function(setup_call_summary_filename, speeds =
   demographic <- read_csv(filename,col_types = cols())
   demographic <- demographic[!apply(demographic,1,anyNA),]
   demographic$sex <- tolower(demographic$sex)
-  cat(paste0('\n  Population read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
+  #cat(paste0('\n  Population read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   age_category <- demographic$age
   max_age <- max(as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][2])))
   max_age <- min(max_age,max(trip_set$age),AGE_RANGE[2])
@@ -250,12 +251,12 @@ ithim_load_data <- function(setup_call_summary_filename, speeds =
   pa_set <- read_csv(filename,col_types = cols())
   pa_set$sex <- tolower(pa_set$sex)
   PA_SET <<- pa_set
-  cat(paste0('\n  Physical activity survey read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
+  #cat(paste0('\n  Physical activity survey read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   
   ## injury data
   filename <- paste0(local_path,"/injuries_",CITY,".csv")
   injuries <- read_csv(filename,col_types = cols())
-  cat(paste0('\n  Injuries read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
+  #cat(paste0('\n  Injuries read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
   if('cas_age'%in%colnames(injuries)) injuries <- assign_age_groups(injuries,age_label='cas_age')
   injuries$cas_mode <- tolower(injuries$cas_mode)
   injuries$strike_mode <- tolower(injuries$strike_mode)
