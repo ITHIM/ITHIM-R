@@ -870,7 +870,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
           evppi_agesex_for_AP_city3 <- as.data.frame(evppi_agesex_for_AP_city2) # turn into dataframe
           
           
-          evppi_agesex_AP_outcome_names <- strsplit(colnam  es(city_agesex_outcomes),paste("_",city,sep="")) # add column names without city part
+          evppi_agesex_AP_outcome_names <- strsplit(colnames(city_agesex_outcomes),paste("_",city,sep="")) # add column names without city part
           colnames(evppi_agesex_for_AP_city3) <- paste(evppi_agesex_AP_outcome_names, age_gender, sep = "_")
           #evppi_agesex_AP_outcome_names <- colnames(evppi_agesex_for_AP_city3)
           
