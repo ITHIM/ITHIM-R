@@ -13,24 +13,23 @@ library(readxl)
 
 rm(list=ls())
 
-#cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
-#               'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
+cities <- c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
+             'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag')
 
-cities <- c('accra', 'delhi')
-
+#cities <- c('accra', 'delhi')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 400 
+nsamples <- 301         
 
 # list of potential values for the outcome_voi_list
 #"pa_all_cause","pa_ap_IHD", "pa_total_cancer", "pa_ap_lung_cancer", "ap_COPD", "pa_ap_stroke",  "pa_ap_T2D",
 #"ap_LRI", "pa_breast_cancer", "pa_colon_cancer", "pa_endo_cancer", "pa_liver_cancer", "pa_CVD", "pa_total_dementia",
 #"pa_myeloma", "pa_Parkinson", "pa_head_neck_cancer", "pa_stomach_cancer", "inj"      
 
-outcome_voi_list <- c('pa_total_cancer', 'inj' ) # list of outcome parameters to be included in VoI analysis
-# outcome_voi_list <- c("pa_all_cause","pa_ap_IHD", "pa_total_cancer", "pa_ap_lung_cancer", "ap_COPD", "pa_ap_stroke",  "pa_ap_T2D",
-#                       "ap_LRI", "pa_breast_cancer", "pa_colon_cancer", "pa_endo_cancer", "pa_liver_cancer", "pa_CVD", "pa_total_dementia",
-#                       "pa_myeloma", "pa_Parkinson", "pa_head_neck_cancer", "pa_stomach_cancer", "inj" )
+#outcome_voi_list <- c('pa_total_cancer', 'inj' ) # list of outcome parameters to be included in VoI analysis
+outcome_voi_list <- c("pa_all_cause","pa_ap_IHD", "pa_total_cancer", "pa_ap_lung_cancer", "ap_COPD", "pa_ap_stroke",  "pa_ap_T2D",
+                      "ap_LRI", "pa_breast_cancer", "pa_colon_cancer", "pa_endo_cancer", "pa_liver_cancer", "pa_CVD", "pa_total_dementia",
+                      "pa_myeloma", "pa_Parkinson", "pa_head_neck_cancer", "pa_stomach_cancer", "inj" )
 
 # flag whether to run VOI analysis split by age and gender as well
 voi_age_gender <- T   # set to T if want to include split and to F otherwise
@@ -408,7 +407,8 @@ for(ci in 1:length(cities)){
   min_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
   max_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
   keep_rows <- which(min_ages>=min_age&max_ages<=max_age)
-  keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('ac|neo|age|sex',as.character(x))))
+  #keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('ac|neo|age|sex',as.character(x))))
+  keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('age|sex',as.character(x))))
   
   #for(i in 1:length(multi_city_ithim[[ci]]$outcomes)) print(length(multi_city_ithim[[ci]]$outcomes[[i]]))
   outcome_pp[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
@@ -768,6 +768,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
     evppi_agesex_df <- data.frame()
     
     for (city in cities){
+      print(city)
       
       # extract city specific input parameters
       city_inputs <- sapply(colnames(parameter_samples),function(x)grepl(city,x))
