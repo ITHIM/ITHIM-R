@@ -802,6 +802,11 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
           }
         }
         
+        # replace NA with 0s, note that the evppi analysis returns NA for all outcomes that are all 0
+        city_agesex_outcomes_na_cols <- names(which(colSums(is.na(city_agesex_outcomes))>0)) # record colnames
+        city_agesex_outcomes[is.na(city_agesex_outcomes)] <- 0 # replace NAs with 0
+        
+        # calculate evppi
         evppi_agesex_city <- future_lapply(1:param_no, # calculate the evppi for each city
                                            FUN = ithimr::compute_evppi,
                                            global_para = as.data.frame(general_noDRpara_parsampl),
@@ -817,6 +822,14 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
         colnames(evppi_agesex_city3) <- paste(evppi_agesex_outcome_names, age_gender, sep = "_")
         evppi_agesex_outcome_names <- colnames(evppi_agesex_city3)
         
+        # replace columns for which the outcomes where originally NA by NA again
+        if (length(city_agesex_outcomes_na_cols)>0){
+          city_agesex_outcomes_na_cols2 <- strsplit(city_agesex_outcomes_na_cols,paste("_",city,sep=""))
+          city_agesex_outcomes_na_cols3 <- paste(city_agesex_outcomes_na_cols2,age_gender, sep = "_")
+          
+          evppi_agesex_city3[,city_agesex_outcomes_na_cols3] <- NaN
+        }
+        
         if(k == 1){
           evppi_agesex_city_df <- evppi_agesex_city3
         }else{evppi_agesex_city_df <- cbind(evppi_agesex_city_df, evppi_agesex_city3)}
@@ -825,7 +838,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
       
       evppi_agesex_city_df$parameters <-  c(colnames(general_noDRpara_parsampl), colnames(city_parsampl)) # add parameter name column
       evppi_agesex_city_df$city <- city # add city name column
-
+      
       
       # look at dose response input parameters separately, as alpha, beta, gammy and trmel are dependent on each other
       if(any(ap_dr_quantile)&&NSAMPLES>=300){
@@ -859,6 +872,10 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
             }
           }
           
+          # replace NA with 0s, note that the evppi analysis returns NA for all outcomes that are all 0
+          city_agesex_outcomes_na_cols <- names(which(colSums(is.na(city_agesex_outcomes))>0)) # record colnames
+          city_agesex_outcomes[is.na(city_agesex_outcomes)] <- 0 # replace NAs with 0
+          
           evppi_agesex_for_AP_city <- future_lapply(1:length(sources),
                                                     FUN = ithimr:::compute_evppi,
                                                     global_para = sources,
@@ -875,6 +892,13 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
           colnames(evppi_agesex_for_AP_city3) <- paste(evppi_agesex_AP_outcome_names, age_gender, sep = "_")
           #evppi_agesex_AP_outcome_names <- colnames(evppi_agesex_for_AP_city3)
           
+          # replace columns for which the outcomes where originally NA by NA again
+          if (length(city_agesex_outcomes_na_cols)>0){
+            city_agesex_outcomes_na_cols2 <- strsplit(city_agesex_outcomes_na_cols,paste("_",city,sep=""))
+            city_agesex_outcomes_na_cols3 <- paste(city_agesex_outcomes_na_cols2,age_gender, sep = "_")
+            evppi_agesex_for_AP_city3[,city_agesex_outcomes_na_cols3] <- NaN
+          }          
+          
           if(k == 1){
             evppi_agesex_ap_city_df <- evppi_agesex_for_AP_city3
           } else{
@@ -883,12 +907,11 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
           k <- k + 1
         }
         
-        
         evppi_agesex_ap_city_df$parameters <-  c(paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)) # add parameter name column
         evppi_agesex_ap_city_df$city <- city # add city name column
         
         evppi_agesex_city_df <- rbind(evppi_agesex_city_df, evppi_agesex_ap_city_df)
-         
+        
       }
       
       # change structure of evppi_agesex_city_df to make it more flexible when different age categories are used for different cities
@@ -898,9 +921,9 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
       k <- 1
       
       for (ag in age_gender_cat){
-        ag_colnames <- sapply(colnames(evppi_agesex_city_df),function(x)grepl(paste0("_",ag),x))
-        ag_columns_df <- evppi_agesex_city_df[,ag_colnames]
-        new_col_names <- sapply(colnames(ag_columns_df),function(x)strsplit(x,paste0('_',ag))[[1]])
+        ag_colnames <- sapply(colnames(evppi_agesex_city_df),function(x)grepl(paste0("_",ag),x)) # find column names depending on age and gender
+        ag_columns_df <- evppi_agesex_city_df[,ag_colnames] # only keep those columns that are dependent on age and gender
+        new_col_names <- sapply(colnames(ag_columns_df),function(x)strsplit(x,paste0('_',ag))[[1]]) # remove age and gender part from those columns
         colnames(ag_columns_df) = new_col_names
         
         ag_columns_df$parameters <- evppi_agesex_city_df$parameters
@@ -915,9 +938,6 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
         }
         k <- k +1
       }
-      
-      
-      
       
       evppi_agesex_df <- rbind(evppi_agesex_df, evppi_agesex_city_df_rearranged) # add to total evppi dataframe
     } # end of city loop

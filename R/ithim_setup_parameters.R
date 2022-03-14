@@ -162,7 +162,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     for(n in 1:NSAMPLES){
       samples <- lapply(CO2_EMISSION_INVENTORY,function(x) rgamma(1,shape=x/total*dirichlet_pointiness(CO2_EMISSION_INVENTORY_CONFIDENCE),scale=1))
       new_total <- sum(unlist(samples))
-      parameters$PM_EMISSION_INVENTORY[[n]] <- lapply(samples,function(x)x/new_total*total) # assuming total CO2 emissions stay the same
+      parameters$CO2_EMISSION_INVENTORY[[n]] <- lapply(samples,function(x)x/new_total*total) # assuming total CO2 emissions stay the same
     }
   }
   
