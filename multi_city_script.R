@@ -1,8 +1,6 @@
-rm(list = ls())
-
+rm(list=ls())
 library(ithimr)
 
-# Check if drpa package is installed, if not then install it
 if (!require("drpa",character.only = TRUE)) {
   print('Installing "drpa" package...')
   remotes::install_github("meta-analyses/drpa")
@@ -10,30 +8,56 @@ if (!require("drpa",character.only = TRUE)) {
   print("")
 }
 
-# options(warn=2)  # treat warnings as errors
 cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
             'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
             'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
             'osorno', 'puerto_montt', 'san_antonio',
             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
-# Set seeds
-set.seed(12345)
 
-min_age <- 15
-max_age <- 69
 
-all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F)
+# number of times input values are sampled from each input parameter distribution
+nsamples <- 1
+input_parameter_file <- "InputParameters_v3.0.xlsx"
+output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
+author <- "AA"
+comment <- "Added CO2 emission sampling"
 
+# scenario definition
+max_mode_share_scenario <- F
+latam <- T
+test_walk_scenario <- F
+test_cycle_scenario <- F
+reference_scenario <- 'Baseline'
+
+compute_mode <- 'constant' # constant parameters from the given parameters
+############################### No need to change the following ##################################
+# keep record when code started:
+starttime <- Sys.time()
+
+# define min and max age to be considered
+# min_age <- 15
+# max_age <- 69
+# # set age ranges for outcome statistics
+# outcome_age_min <- c(15,50)
+# outcome_age_max <- c(49,69)
+# outcome_age_groups <- c('15-49','50-69')
+# 
+
+all_inputs <- read_excel(input_parameter_file, sheet = "all_city_parameter_inputs")
+all_inputs[is.na(all_inputs)] <- ""
+all_inputs <- as.data.frame(all_inputs)
+
+# get input parameters into correct format
 parameter_names <- all_inputs$parameter
 parameter_starts <- which(parameter_names!='')
-parameter_stops <- c(parameter_starts[-1] - 1, nrow(all_inputs))
+parameter_stops <- c(parameter_starts[-1] - 1, nrow(all_inputs)) 
 parameter_names <- parameter_names[parameter_names!='']
 parameter_list <- list()
-compute_mode <- 'constant'
+
 for(i in 1:length(parameter_names)){
   parameter_list[[parameter_names[i]]] <- list()
-  parameter_index <- which(all_inputs$parameter==parameter_names[i])
-  if(all_inputs[parameter_index,2]=='')  {
+  parameter_index <- which(all_inputs$parameter==parameter_names[i]) 
+  if(all_inputs[parameter_index,2]=='')  { 
     parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
       city_index <- which(colnames(all_inputs)==x)
       val <- all_inputs[parameter_index,city_index]
@@ -41,13 +65,26 @@ for(i in 1:length(parameter_names)){
     })
     names(parameter_list[[parameter_names[i]]]) <- cities
   }else if(all_inputs[parameter_index,2]=='constant'){
-    indices <- 0
-    if(compute_mode=='sample') indices <- 1:2
-    parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
-      city_index <- which(colnames(all_inputs)==x)
-      val <- all_inputs[parameter_index+indices,city_index]
-      ifelse(val=='',0,as.numeric(val))
-    })
+    if (compute_mode != 'sample'){
+      indices <- 0
+      parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
+        city_index <- which(colnames(all_inputs)==x)
+        val <- all_inputs[parameter_index+indices,city_index]
+        ifelse(val=='',0,as.numeric(val))
+      })
+    }
+    if(compute_mode=='sample'){ # if sampling from distribution, check that distribution parameters exist
+      parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
+        indices <- 1:2
+        city_index <- which(colnames(all_inputs)==x)  
+        val <- all_inputs[parameter_index+indices,city_index] 
+        if (val[1] == '' & val[2]==''){  # if no distribution parameters given in input file, read in constant value instead
+          indices <-0
+          city_index <- which(colnames(all_inputs)==x) 
+          val <- all_inputs[parameter_index+indices,city_index]} 
+        val <- as.numeric(val)
+      })
+    }
     names(parameter_list[[parameter_names[i]]]) <- cities
   }else{
     parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
@@ -64,70 +101,97 @@ for(i in 1:length(parameter_names)){
   }
 }
 
-for(i in 1:length(parameter_list)) assign(names(parameter_list)[i],parameter_list[[i]])
+list2env(parameter_list, environment()) 
 
+# read in global parameters
 
-###changed the bangalore transport emissions-- MC emissions from 1757 to 817 and car emissions from 4173 to 1107
-##this is done based on ratio of car/MC ownership in bangalore to that of delhi from Census data (0.50 and 0.58 respectively)==
-###1757=0.58*1409 and 1107=  0.50*2214
-#################################################################
-## run diagnostics
-#for(city in cities){
-#  ithim_object <- run_ithim_setup(ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F,CITY=city,MAX_MODE_SHARE_SCENARIO=T,DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),PM_emission_inventory = PM_emission_inventories[[city]])
-#  summarise_ithim_inputs(ithim_object)
-#}
+all_global_inputs <- read_excel(input_parameter_file, sheet = "all_global_parameter_inputs")
+all_global_inputs[is.na(all_global_inputs)] <- ""
+all_global_inputs <- as.data.frame(all_global_inputs)
 
+# get input parameters into correct format
+global_parameter_names <- all_global_inputs$parameter
+global_parameter_starts <- which(global_parameter_names!='')
+global_parameter_stops <- c(global_parameter_starts[-1] - 1, nrow(all_global_inputs)) 
+global_parameter_names <- global_parameter_names[global_parameter_names!='']
+global_parameter_list <- list()
 
-##################################################################
+for(i in 1:length(global_parameter_names)){
+  global_parameter_list[[global_parameter_names[i]]] <- list()
+  global_parameter_index <- which(all_global_inputs$parameter==global_parameter_names[i]) 
+  if(all_global_inputs[global_parameter_index,2]=='')  { 
+    
+    global_parameter_list[[global_parameter_names[i]]] <- all_global_inputs[global_parameter_index,'global']
+    
+  }else if(all_global_inputs[global_parameter_index,2]=='constant'){
+    if (compute_mode != 'sample'){
+      global_parameter_list[[global_parameter_names[i]]] <- ifelse(all_global_inputs[global_parameter_index,'global']=='',
+                                                                   0,as.numeric(all_global_inputs[global_parameter_index,'global']))
+    }
+    else if(compute_mode=='sample'){ # if sampling from distribution, check that distribution parameters exist
+      indices <- 1:2
+      val <- all_global_inputs[global_parameter_index+indices,'global'] 
+      if (val[1] == '' & val[2]==''){  # if no distribution parameters given in input file, read in constant value instead
+        val <- all_global_inputs[global_parameter_index,'global']} 
+      val <- as.numeric(val)
+      global_parameter_list[[global_parameter_names[i]]] <- val
+    }
+  }
+}
 
-# constant parameters for DAY_TO_WEEK_TRAVEL_SCALAR
-day_to_week_scalar <- 7
+list2env(global_parameter_list, environment()) 
 
-# constant parameters for MMET_CYCLING
-mmet_cycling <- 4.63
-# constant parameters for MMET_WALKING
-mmet_walking <- 2.53
-# constant parameters for SIN_EXPONENT_SUM
-sin_exponent_sum <- 1.7
-# constant parameters for CASUALTY_EXPONENT_FRACTION
-cas_exponent <- 0.5
-# add mc fleet to sp
+dist_cat <- unlist(strsplit(gsub(" ", "", dist_cat, fixed = TRUE), "\\,"))
 
-#################################################
-## without uncertainty
-toplot <- matrix(0,nrow = 3, ncol = length(cities)) #3 scenarios, 20 cities
+outcome_age_min <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_min, fixed = TRUE), "\\,")))
+outcome_age_max <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_max, fixed = TRUE), "\\,")))
+outcome_age_groups <- unlist(strsplit(gsub(" ", "", outcome_age_groups, fixed = TRUE), "\\,"))
+
+min_age <- as.numeric(min_age)
+max_age <- as.numeric(max_age)
+
+day_to_week_scalar <- as.numeric(day_to_week_scalar)
+
+################################### Start running the the actual analysis
+
+# logical for PA dose response: set F - use quantile 0.5
+pa_dr_quantile <-  F
+# logical for AP dose response: set F - use quantile 0.5
+ap_dr_quantile <-  F
+
+ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
+
+toplot <- matrix(0, nrow = 3, ncol = length(cities)) #3 scenarios, 20 cities
 ithim_objects <- list()
-for(city in cities){
+print(system.time(for(city in cities[1]){
   print(city)
-  ithim_objects[[city]] <- 
-    run_ithim_setup(
-      LATAM = TRUE,
-      DIST_CAT = c("0-2 km", "2-6 km", "6+ km"),
-      ADD_WALK_TO_BUS_TRIPS = as.logical(add_walk_to_bus_trips[[city]]),
-      CITY = city,
-      AGE_RANGE = c(min_age,max_age),
-      ADD_TRUCK_DRIVERS = T,
-      #MAX_MODE_SHARE_SCENARIO = T,
-      ADD_BUS_DRIVERS = F,
-      ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]),
-      PM_emission_inventory = PM_emission_inventories[[city]],
-      CO2_emission_inventory = CO2_emission_inventories[[city]],
-      speeds = speeds[[city]],
-      FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
-      MMET_CYCLING = mmet_cycling, 
-      MMET_WALKING = mmet_walking, 
-      DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
-      SIN_EXPONENT_SUM= sin_exponent_sum,
-      CASUALTY_EXPONENT_FRACTION = cas_exponent,
-      PA_DOSE_RESPONSE_QUANTILE = F,  
-      AP_DOSE_RESPONSE_QUANTILE = F,
-      INJURY_REPORTING_RATE = injury_reporting_rate[[city]],  
-      CHRONIC_DISEASE_SCALAR = chronic_disease_scalar[[city]],  
-      PM_CONC_BASE = pm_conc_base[[city]],  
-      PM_TRANS_SHARE = pm_trans_share[[city]],  
-      BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
-      BUS_WALK_TIME = bus_walk_time[[city]],
-      RAIL_WALK_TIME = rail_walk_time[[city]])
+  ithim_objects[[city]] <- run_ithim_setup(
+    LATAM = latam,
+    DIST_CAT = dist_cat,
+    ADD_WALK_TO_BUS_TRIPS = as.logical(add_walk_to_bus_trips[[city]]),
+    CITY = city,
+    AGE_RANGE = c(min_age,max_age),
+    ADD_TRUCK_DRIVERS = T,
+    ADD_BUS_DRIVERS = F,
+    ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]),
+    PM_emission_inventory = PM_emission_inventories[[city]],
+    CO2_emission_inventory = CO2_emission_inventories[[city]],
+    speeds = speeds[[city]],
+    FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
+    MMET_CYCLING = mmet_cycling, 
+    MMET_WALKING = mmet_walking, 
+    DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
+    SIN_EXPONENT_SUM= sin_exponent_sum,
+    CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
+    PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile,  
+    AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile,
+    INJURY_REPORTING_RATE = injury_reporting_rate[[city]],  
+    CHRONIC_DISEASE_SCALAR = chronic_disease_scalar[[city]],  
+    PM_CONC_BASE = pm_conc_base[[city]],  
+    PM_TRANS_SHARE = pm_trans_share[[city]],  
+    BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
+    BUS_WALK_TIME = bus_walk_time[[city]],
+    RAIL_WALK_TIME = rail_walk_time[[city]])
   
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS
   ithim_objects[[city]]$demographic <- DEMOGRAPHIC
@@ -153,7 +217,8 @@ for(city in cities){
   max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
   for (i in 1:nDiseases)
     disease_list[[i]][,which(cities == city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(subset(DEMOGRAPHIC,min_pop_ages >= min_age & max_pop_ages <= max_age)$population)
-}
+}))
+
 
 {x11(width = 10, height = 5);
   layout.matrix <- matrix(c(2:6,1,7:12), nrow = 2, ncol = 6,byrow = T)
@@ -178,8 +243,5 @@ for(city in cities){
   }
 }
 
-## Save the ithim_object in the results folder
-##########
 
-# saveRDS(ithim_objects, paste("results/multi_city/io", CAS_EXPONENT, STR_EXPONENT, ".rds", sep = "_"),version = 2)
 saveRDS(ithim_objects, "results/multi_city/io.rds", version = 2)
