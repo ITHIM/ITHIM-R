@@ -67,7 +67,10 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
   #   rowSums(injuries[,match(unique(injuries_list[[1]]$nov$cas_mode),colnames(injuries))])
   cas_names <- unique(c(unique(injuries_list[[1]]$whw$cas_mode), 
                      unique(injuries_list[[1]]$nov$cas_mode)))
-  injuries$Deaths <- rowSums(injuries[,match(cas_names, colnames(injuries))])
+  
+  # Assume injuries as tibble and use dplyr instead
+  # Also remove NAs
+  injuries <- injuries %>% ungroup() %>% mutate(Deaths = rowSums(select_(., cas_names %>% as.character()), na.rm = T))
   
   list(injuries,whw_temp)
   ##TODO add in uncaptured fatalities as constant
