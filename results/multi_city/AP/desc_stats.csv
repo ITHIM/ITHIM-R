@@ -8,17 +8,17 @@ Bicycling,13.6,12.5,13.1,15.2,-0.02,44019.4,arica
 Driving,13.3,12.6,12.9,14.5,0.03,49827.1,arica
 Public Transport,13.3,12.5,12.9,14.6,-0.02,43825,arica
 Baseline,17.8,17,17.3,19,0,603663,belo_horizonte
-Bicycling,17.9,17,17.3,19.3,-0.02,590996.1,belo_horizonte
-Driving,17.7,17,17.2,18.8,-0.04,619340.5,belo_horizonte
-Public Transport,17.7,17,17.2,18.9,-0.04,584340.5,belo_horizonte
+Bicycling,17.9,17,17.3,19.3,-0.02,590753.2,belo_horizonte
+Driving,17.7,17,17.2,18.8,-0.04,618495,belo_horizonte
+Public Transport,17.7,17,17.2,18.9,-0.04,584184.9,belo_horizonte
 Baseline,26.6,24,25.8,29.5,0,1588919,bogota
-Bicycling,26.7,23.8,25.8,30,-0.19,1557546.7,bogota
-Driving,27.2,24.7,26.5,30,0.67,1700730,bogota
-Public Transport,26.2,23.6,25.4,28.9,-0.36,1529556.4,bogota
+Bicycling,26.7,23.8,25.8,30,-0.19,1557555.1,bogota
+Driving,27.2,24.7,26.5,30,0.71,1705761.5,bogota
+Public Transport,26.2,23.6,25.4,28.9,-0.36,1529658.2,bogota
 Baseline,14.6,14,14.1,15.6,0,3068375.8,buenos_aires
-Bicycling,14.6,13.9,14.1,15.9,-0.12,2974963.3,buenos_aires
-Driving,15,14.4,14.6,16,0.45,3387858.1,buenos_aires
-Public Transport,14.3,13.7,13.9,15.2,-0.3,2833907.6,buenos_aires
+Bicycling,14.6,13.9,14.1,15.9,-0.12,2974870.9,buenos_aires
+Driving,15,14.4,14.6,16,0.44,3382965.8,buenos_aires
+Public Transport,14.3,13.7,13.9,15.2,-0.3,2833013.9,buenos_aires
 Baseline,25.6,24,24.6,27.4,0,510729.4,cali
 Bicycling,25.7,23.9,24.6,27.8,-0.18,501207.6,cali
 Driving,26.3,24.7,25.3,27.8,0.69,546299.1,cali
@@ -44,9 +44,9 @@ Bicycling,22.3,20.9,22,24.1,-0.18,489700.7,medellin
 Driving,23.2,22.1,23,24.5,0.99,562221.3,medellin
 Public Transport,21.9,20.7,21.8,23.1,-0.36,478593.3,medellin
 Baseline,52.2,50,51.8,54.8,0,3339017.7,mexico_city
-Bicycling,52.7,49.9,51.9,56,-0.08,3266418.3,mexico_city
-Driving,52.2,50.2,51.7,54.8,0.16,3572273.3,mexico_city
-Public Transport,52,49.8,51.6,54.6,-0.19,3173179.4,mexico_city
+Bicycling,52.7,49.9,51.9,56,-0.08,3266339.1,mexico_city
+Driving,52.2,50.2,51.7,54.8,0.15,3571737.7,mexico_city
+Public Transport,52,49.8,51.6,54.6,-0.19,3173104.6,mexico_city
 Baseline,16.6,15.6,16.3,17.9,0,303325.4,montevideo
 Bicycling,16.7,15.4,16.4,18.5,-0.16,291941.7,montevideo
 Driving,17,16,16.7,18.2,0.43,334487,montevideo
@@ -64,13 +64,13 @@ Bicycling,22.9,21.8,22.2,24.8,-0.03,59128.2,san_antonio
 Driving,22.5,21.9,22.1,23.6,0.01,63001.7,san_antonio
 Public Transport,22.6,21.8,22.1,23.8,-0.02,59209.5,san_antonio
 Baseline,32.8,32,32.5,33.7,0,424592.3,santiago
-Bicycling,33,32,32.6,34.1,-0.02,417563.9,santiago
-Driving,32.7,32,32.4,33.6,0.03,443987.1,santiago
-Public Transport,32.7,31.9,32.5,33.6,-0.05,411303.3,santiago
+Bicycling,33,32,32.6,34.1,-0.02,417537.9,santiago
+Driving,32.7,32,32.4,33.6,0.03,443886.7,santiago
+Public Transport,32.7,31.9,32.5,33.6,-0.05,411348.3,santiago
 Baseline,29.2,28,28.7,31,0,2813320.3,sao_paulo
-Bicycling,29.5,28,28.8,31.6,-0.04,2752308.5,sao_paulo
-Driving,29.1,28,28.6,30.8,-0.05,2909318,sao_paulo
-Public Transport,29.1,27.9,28.6,30.9,-0.08,2698275.7,sao_paulo
+Bicycling,29.5,28,28.8,31.6,-0.04,2751286.6,sao_paulo
+Driving,29.1,28,28.6,30.8,-0.05,2907856.4,sao_paulo
+Public Transport,29.1,27.9,28.6,30.9,-0.08,2697179.9,sao_paulo
 Baseline,33.5,31.9,32.7,36.2,0,8996.1,temuco_padrelascasas
 Bicycling,34.1,31.9,33.1,37.6,-0.01,8888.5,temuco_padrelascasas
 Driving,33.4,31.9,32.7,35.8,0.02,9227.9,temuco_padrelascasas

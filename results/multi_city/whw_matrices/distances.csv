@@ -50,19 +50,19 @@ truck,Public Transport,188195.07993474713,arica
 bus,Baseline,16230096.183054494,belo_horizonte
 bus,Bicycling,15845861.37724696,belo_horizonte
 bus,Driving,15507547.61986399,belo_horizonte
-bus,Public Transport,17433274.616486974,belo_horizonte
+bus,Public Transport,17410940.288389567,belo_horizonte
 car,Baseline,15165788.04441553,belo_horizonte
 car,Bicycling,14599943.31954023,belo_horizonte
-car,Driving,16686700.99568888,belo_horizonte
+car,Driving,16647615.921518419,belo_horizonte
 car,Public Transport,14384926.70746042,belo_horizonte
 cycle,Baseline,230875.8984059857,belo_horizonte
-cycle,Bicycling,1536488.7099141802,belo_horizonte
+cycle,Bicycling,1530905.1278898285,belo_horizonte
 cycle,Driving,191772.56018217307,belo_horizonte
 cycle,Public Transport,213896.41680763394,belo_horizonte
-motorcycle,Baseline,4535827.206066239,belo_horizonte
-motorcycle,Bicycling,4421666.4360225545,belo_horizonte
-motorcycle,Driving,4164574.6633237293,belo_horizonte
-motorcycle,Public Transport,4310325.287929486,belo_horizonte
+motorcycle,Baseline,3977469.0036310693,belo_horizonte
+motorcycle,Bicycling,3868891.815611736,belo_horizonte
+motorcycle,Driving,3645301.535059021,belo_horizonte
+motorcycle,Public Transport,3774301.4135917216,belo_horizonte
 other,Baseline,3536925.251626545,belo_horizonte
 other,Bicycling,3464727.448731295,belo_horizonte
 other,Driving,3417898.415940143,belo_horizonte
@@ -90,19 +90,19 @@ auto_rickshaw,Public Transport,322731.2323560043,bogota
 bus,Baseline,53498645.77391441,bogota
 bus,Bicycling,52211893.72388918,bogota
 bus,Driving,51861083.80038218,bogota
-bus,Public Transport,56472089.237247266,bogota
+bus,Public Transport,56576824.19551052,bogota
 car,Baseline,28696886.61226408,bogota
 car,Bicycling,27853022.32621083,bogota
-car,Driving,31837335.24274381,bogota
+car,Driving,31976981.85376148,bogota
 car,Public Transport,27088070.04547365,bogota
 cycle,Baseline,2953873.049325303,bogota
-cycle,Bicycling,6163469.02405232,bogota
+cycle,Bicycling,6268203.982315575,bogota
 cycle,Driving,2747589.807317515,bogota
 cycle,Public Transport,2733204.776385619,bogota
-motorcycle,Baseline,12949921.205331594,bogota
-motorcycle,Bicycling,12544287.741622895,bogota
-motorcycle,Driving,12426085.333884908,bogota
-motorcycle,Public Transport,12354646.296047557,bogota
+motorcycle,Baseline,16441086.48077341,bogota
+motorcycle,Bicycling,15930718.05880146,bogota
+motorcycle,Driving,15777603.998309055,bogota
+motorcycle,Public Transport,15741076.613226121,bogota
 other,Baseline,635892.5791070458,bogota
 other,Bicycling,621240.040101431,bogota
 other,Driving,615234.0523818149,bogota
@@ -126,19 +126,19 @@ truck,Public Transport,8032540.949505783,bogota
 bus,Baseline,37246677.01083063,buenos_aires
 bus,Bicycling,35613166.958445586,buenos_aires
 bus,Driving,35042459.02704498,buenos_aires
-bus,Public Transport,40151761.82294142,buenos_aires
+bus,Public Transport,40077796.84487753,buenos_aires
 car,Baseline,22524652.092136066,buenos_aires
 car,Bicycling,21666904.896521825,buenos_aires
-car,Driving,25950323.830775224,buenos_aires
+car,Driving,25905944.84393689,buenos_aires
 car,Public Transport,20296989.15675096,buenos_aires
 cycle,Baseline,1279240.516004909,buenos_aires
-cycle,Bicycling,4612858.29773437,buenos_aires
+cycle,Bicycling,4553686.315283258,buenos_aires
 cycle,Driving,1160792.7406071562,buenos_aires
 cycle,Public Transport,1148098.6634508404,buenos_aires
-motorcycle,Baseline,3827181.538640623,buenos_aires
-motorcycle,Bicycling,3664620.7907993267,buenos_aires
-motorcycle,Driving,3647154.674926696,buenos_aires
-motorcycle,Public Transport,3544148.710738773,buenos_aires
+motorcycle,Baseline,2347881.977362816,buenos_aires
+motorcycle,Bicycling,2244493.2119726334,buenos_aires
+motorcycle,Driving,2212234.100487224,buenos_aires
+motorcycle,Public Transport,2138814.1275248574,buenos_aires
 other,Baseline,495205.2603717013,buenos_aires
 other,Bicycling,477492.5945721907,buenos_aires
 other,Driving,482261.38921052055,buenos_aires
@@ -346,19 +346,19 @@ auto_rickshaw,Public Transport,59207.56834016289,mexico_city
 bus,Baseline,40920421.8130126,mexico_city
 bus,Bicycling,39694951.6106834,mexico_city
 bus,Driving,39130885.16116726,mexico_city
-bus,Public Transport,44036443.8086267,mexico_city
+bus,Public Transport,44017034.949594826,mexico_city
 car,Baseline,35995705.12148704,mexico_city
 car,Bicycling,34923822.752670676,mexico_city
-car,Driving,39546569.94575869,mexico_city
+car,Driving,39540100.3260814,mexico_city
 car,Public Transport,33545906.27653256,mexico_city
 cycle,Baseline,595848.4561808317,mexico_city
-cycle,Bicycling,4112625.885761487,mexico_city
+cycle,Bicycling,4106156.266084196,mexico_city
 cycle,Driving,536252.9450665413,mexico_city
 cycle,Public Transport,534046.007774451,mexico_city
-motorcycle,Baseline,2579120.9165472775,mexico_city
-motorcycle,Bicycling,2492561.624582307,mexico_city
-motorcycle,Driving,2480374.8301249756,mexico_city
-motorcycle,Public Transport,2391375.3663904187,mexico_city
+motorcycle,Baseline,2255639.9326827377,mexico_city
+motorcycle,Bicycling,2175550.2603950584,mexico_city
+motorcycle,Driving,2163363.4659377267,mexico_city
+motorcycle,Public Transport,2087303.2415577515,mexico_city
 other,Baseline,235789.50845604387,mexico_city
 other,Bicycling,229464.04878243187,mexico_city
 other,Driving,219545.13730980287,mexico_city
@@ -502,19 +502,19 @@ truck,Public Transport,82754.15799295044,san_antonio
 bus,Baseline,13598136.602032155,santiago
 bus,Bicycling,13253220.614714118,santiago
 bus,Driving,13048425.903383967,santiago
-bus,Public Transport,14388141.005772974,santiago
+bus,Public Transport,14375768.482936572,santiago
 car,Baseline,8593656.505133174,santiago
 car,Bicycling,8254993.060605677,santiago
-car,Driving,9631606.430173188,santiago
+car,Driving,9627482.255894387,santiago
 car,Public Transport,7985810.496636302,santiago
 cycle,Baseline,381193.99177762854,santiago
-cycle,Bicycling,1336973.8357552798,santiago
+cycle,Bicycling,1335942.7921855797,santiago
 cycle,Driving,328393.1049693192,santiago
 cycle,Public Transport,346338.9911019329,santiago
-motorcycle,Baseline,813069.5030258495,santiago
-motorcycle,Bicycling,794199.7691232427,santiago
-motorcycle,Driving,772353.1014852636,santiago
-motorcycle,Public Transport,734135.7531683791,santiago
+motorcycle,Baseline,709965.1460558379,santiago
+motorcycle,Bicycling,692126.455722931,santiago
+motorcycle,Driving,673372.9187940522,santiago
+motorcycle,Public Transport,643403.9190347687,santiago
 other,Baseline,71949.65710557322,santiago
 other,Bicycling,69320.49600283793,santiago
 other,Driving,67052.20014949766,santiago
@@ -538,19 +538,19 @@ truck,Public Transport,2256119.719755229,santiago
 bus,Baseline,34045526.10633633,sao_paulo
 bus,Bicycling,33039320.353285085,sao_paulo
 bus,Driving,32314691.2883885,sao_paulo
-bus,Public Transport,36850218.846266225,sao_paulo
+bus,Public Transport,36830301.66981735,sao_paulo
 car,Baseline,33161646.6079029,sao_paulo
 car,Bicycling,31855006.420186598,sao_paulo
-car,Driving,36869821.89096583,sao_paulo
+car,Driving,36844925.420404725,sao_paulo
 car,Public Transport,30849236.887346026,sao_paulo
 cycle,Baseline,390093.6472370204,sao_paulo
-cycle,Bicycling,3844731.094150914,sao_paulo
+cycle,Bicycling,3839751.8000386935,sao_paulo
 cycle,Driving,341955.68303608726,sao_paulo
 cycle,Public Transport,356489.79568993126,sao_paulo
-motorcycle,Baseline,4098404.850133889,sao_paulo
-motorcycle,Bicycling,3999364.7751287003,sao_paulo
-motorcycle,Driving,3860075.406049727,sao_paulo
-motorcycle,Public Transport,3872210.8395206654,sao_paulo
+motorcycle,Baseline,3600475.4389118226,sao_paulo
+motorcycle,Bicycling,3506414.658018855,sao_paulo
+motorcycle,Driving,3387042.465388764,sao_paulo
+motorcycle,Public Transport,3394198.604747482,sao_paulo
 other,Baseline,399928.28508452297,sao_paulo
 other,Bicycling,384109.45071262197,sao_paulo
 other,Driving,376535.17832268623,sao_paulo
