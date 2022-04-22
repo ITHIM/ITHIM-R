@@ -836,3 +836,38 @@ write.csv(rbindlist(health$deaths$pathway_hb, use.names = T),
 
 
 ```
+
+## PA dist
+```{r}
+
+### pa distr
+cities <- names(io)[!names(io) %in% 'scen_prop']
+
+l <- list()
+
+for (city in cities){
+  
+  # city <- "antofagasta"
+  
+  td <- io[[city]]$outcomes$mmets %>% dplyr::select(ends_with("mmet")) %>%
+    rename("Baseline" = base_mmet, "CYC_SC" = scen1_mmet,
+           "CAR_SC" = scen2_mmet,  "BUS_SC" = scen3_mmet) %>% 
+    summarise(across(, ~ quantile(.x, c(0.05,0.10,0.25, 0.375, 0.50,0.75,0.90), na.rm = T)), 
+              prob = c(0.05,0.10,0.25, 0.375, 0.50,0.75,0.90)) %>%
+    pivot_longer(cols = -c(prob)) %>% mutate(city = city)
+  
+  td1 <- io[[city]]$outcomes$mmets %>% dplyr::select(ends_with("mmet")) %>%
+    rename("Baseline" = base_mmet, "CYC_SC" = scen1_mmet,
+           "CAR_SC" = scen2_mmet,  "BUS_SC" = scen3_mmet) %>% 
+    summarise(across(, ~ mean(.x))) %>%  t() %>% as.data.frame() %>% 
+    tibble::rownames_to_column("name") %>% 
+    rename(value = V1) %>% 
+    mutate(prob = "mean") %>% mutate(city = city)
+  
+  l[[city]] <- plyr::rbind.fill(td, td1)
+  
+  
+}
+
+write_csv(data.table::rbindlist(l), "results/multi_city/PA/pa_distr.csv")
+```
