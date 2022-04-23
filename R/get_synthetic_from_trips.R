@@ -51,8 +51,8 @@ get_synthetic_from_trips <- function(){
   if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',distance_ratio=TRUCK_TO_CAR_RATIO*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car')
   ## because we have the fraction of total MC travel that is fleet, we need to adjust the parameter to compute fleet travel from non-fleet motorcycle travel
   if(ADD_MOTORCYCLE_FLEET) 
-    #raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='motorcycle',distance_ratio=FLEET_TO_MOTORCYCLE_RATIO/(1-FLEET_TO_MOTORCYCLE_RATIO),reference_mode='motorcycle')
-    raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='motorcycle',distance_ratio=(1-FLEET_TO_MOTORCYCLE_RATIO)/FLEET_TO_MOTORCYCLE_RATIO,reference_mode='motorcycle')
+    raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='motorcycle',distance_ratio=FLEET_TO_MOTORCYCLE_RATIO/(1-FLEET_TO_MOTORCYCLE_RATIO),reference_mode='motorcycle')
+    #raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='motorcycle',distance_ratio=(1-FLEET_TO_MOTORCYCLE_RATIO)/FLEET_TO_MOTORCYCLE_RATIO,reference_mode='motorcycle')
   
   # create synthetic population
   synth_pop <- create_synth_pop(raw_trip_set)
