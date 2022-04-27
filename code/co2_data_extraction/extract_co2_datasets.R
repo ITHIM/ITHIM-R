@@ -1,24 +1,26 @@
 library(tidyverse)
 library(tibble)
 
+# Load ithim object
 io <- read_rds(file.choose())
 
+# Init cities
 cities <- names(io)[!names(io) %in% 'scen_prop']
 
+# Loop all cities
 for (city in cities){
   
+  # Create dir if it does not already exist
   if (!file.exists(city))
     dir.create(city)
   
+  # Write trips
   write_csv(io[[city]]$trip_scen_sets, paste0(city, "/", paste0(city, "_trips"), ".csv"))
   
-  vehicle_inventory <- data.frame(t(sapply(io[[city]]$PM_emission_inventory,c))) %>% 
-    tibble::rowid_to_column() %>% 
-    tidyr::pivot_longer(cols = -("rowid")) %>% 
-    dplyr::rename(stage_mode = name, CO2_emission_inventory = value) %>% 
-    dplyr::distinct(stage_mode, .keep_all = T) %>% 
-    dplyr::select(-rowid)
+  # Read vehicle inventory and remove all duplicates
+  vehicle_inventory <- io[[city]]$vehicle_inventory %>% dplyr::distinct(stage_mode, .keep_all = T)
   
+  # Write vehicle inventory with PM2.5 and CO2 entries
   write_csv(vehicle_inventory, paste0(city, "/", paste0(city, "_vehicle_inventory"), ".csv"))
   
   # Total distance by mode
@@ -27,6 +29,9 @@ for (city in cities){
   # Rename columns
   names(dist)[2:5] <- c("Baseline", "Bicycling", "Driving", "Public Transport")
   
+  # Write passenger dist
+  # Note if you like to calculate vehicle distance for bus, you need to divide it by 31.
+  # In case you have better bus to passenger ratio - for all studied countries, please use that insteat
   write_csv(dist, paste0(city, "/", paste0(city, "_distance"), ".csv"))
   
   # Combine CO2 emission inventory with distance by mode, to calculate emission factors
