@@ -1,7 +1,7 @@
 library(tidyverse)
 library(tibble)
 
-io <- read_rds("results/multi_city/io.rds")
+io <- read_rds(file.choose())
 
 cities <- names(io)[!names(io) %in% 'scen_prop']
 
