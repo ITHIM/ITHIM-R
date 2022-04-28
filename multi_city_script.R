@@ -1,5 +1,6 @@
 rm(list=ls())
 library(ithimr)
+library(readxl)
 
 if (!require("drpa",character.only = TRUE)) {
   print('Installing "drpa" package...')
@@ -163,7 +164,7 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 
 toplot <- matrix(0, nrow = 3, ncol = length(cities)) #3 scenarios, 20 cities
 ithim_objects <- list()
-print(system.time(for(city in cities[1]){
+print(system.time(for(city in cities){
   print(city)
   ithim_objects[[city]] <- run_ithim_setup(
     LATAM = latam,
@@ -200,6 +201,7 @@ print(system.time(for(city in cities[1]){
   ithim_objects[[city]]$disease_burden <- DISEASE_BURDEN
   ithim_objects[[city]]$PM_emission_inventory <- PM_EMISSION_INVENTORY
   ithim_objects[[city]]$injury_table <- INJURY_TABLE
+  ithim_objects[[city]]$vehicle_inventory <- VEHICLE_INVENTORY
   
   ## store results to plot
   min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
