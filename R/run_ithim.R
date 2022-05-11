@@ -73,13 +73,14 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   ############################
   ## (3) COMBINE (1) AND (2)
   # Physical activity and air pollution combined
-  RR_PA_AP_calculations <- combined_rr_ap_pa(ind_pa=RR_PA_calculations,ind_ap=RR_AP_calculations)
+  RR_PA_AP_calculations <- combined_rr_ap_pa(ind_pa = RR_PA_calculations, ind_ap = RR_AP_calculations, conf_int = TRUE)
   
   RR_PA_calculations <- NULL
   RR_AP_calculations <- NULL
-  hb_AP_PA <- health_burden(ind_ap_pa=RR_PA_AP_calculations)
+  hb_AP_PA <- health_burden(ind_ap_pa=RR_PA_AP_calculations, conf_int = TRUE)
+  
   if(constant_mode) {
-    pathway_hb_AP_PA <- health_burden(RR_PA_AP_calculations,combined_AP_PA=F)
+    pathway_hb_AP_PA <- health_burden(RR_PA_AP_calculations, conf_int = TRUE, combined_AP_PA = FALSE)
   }
   RR_PA_AP_calculations <- NULL
   
