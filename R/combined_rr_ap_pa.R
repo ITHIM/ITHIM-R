@@ -4,11 +4,12 @@
 #' 
 #' @param ind_pa data frame of individual RRs for diseases affected by PA
 #' @param ind_ap data frame of individual RRs for diseases affected by AP
+#' @param conf_int logic: whether to include confidence interval from dose response relationships or not
 #' 
 #' @return combined RR for diseases after accounted for AP and PA exposures
 #' 
 #' @export
-combined_rr_ap_pa <- function(ind_pa,ind_ap){
+combined_rr_ap_pa <- function(ind_pa, ind_ap, conf_int = FALSE){
   
   # Replace NaNs with 1
   ind_ap[is.na(ind_ap)] <- 1
@@ -24,6 +25,20 @@ combined_rr_ap_pa <- function(ind_pa,ind_ap){
     ac <- as.character(DISEASE_INVENTORY$acronym[j])
     for (scen in SCEN_SHORT_NAME){
       ind_ap_pa[[paste('RR_pa_ap', scen, ac, sep = '_')]] <- ind_ap_pa[[paste('RR_pa', scen, ac, sep = '_')]] * ind_ap_pa[[paste('RR_ap', scen, ac, sep = '_')]]
+      
+      if (conf_int){
+        column_pa_lb <- ifelse(paste('RR_pa', scen, ac, 'lb', sep = '_') %in% colnames(ind_ap_pa), paste('RR_pa', scen, ac, 'lb', sep = '_'), paste('RR_pa', scen, ac, sep = '_'))
+        column_pa_ub <- ifelse(paste('RR_pa', scen, ac, 'ub', sep = '_') %in% colnames(ind_ap_pa), paste('RR_pa', scen, ac, 'ub', sep = '_'), paste('RR_pa', scen, ac, sep = '_'))
+        
+        column_ap_lb <- ifelse(paste('RR_ap', scen, ac, 'lb', sep = '_') %in% colnames(ind_ap_pa), paste('RR_ap', scen, ac, 'lb', sep = '_'), paste('RR_ap', scen, ac, sep = '_'))
+        column_ap_ub <- ifelse(paste('RR_ap', scen, ac, 'ub', sep = '_') %in% colnames(ind_ap_pa), paste('RR_ap', scen, ac, 'ub', sep = '_'), paste('RR_ap', scen, ac, sep = '_'))
+        
+        
+        ind_ap_pa[[paste('RR_pa_ap', scen, ac, 'lb', sep = '_')]] <- ind_ap_pa[[column_pa_lb]] * ind_ap_pa[[column_ap_lb]]
+        
+        ind_ap_pa[[paste('RR_pa_ap', scen, ac, 'ub', sep = '_')]] <- ind_ap_pa[[column_pa_ub]] * ind_ap_pa[[column_ap_ub]]
+        
+      }
     }
   }
   
