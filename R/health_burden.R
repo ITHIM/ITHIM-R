@@ -3,12 +3,13 @@
 #' Compute health burden for populations in scenarios given relative risks
 #' 
 #' @param ind_ap_pa data.frame of all individuals' relative risks for diseases
+#' @param conf_int logic: whether to include confidence interval from dose response relationships or not
 #' @param combined_AP_PA=T logic: whether to combine the two exposure pathways (AP and PA) or to compute independently
 #' 
 #' @return list of data.frames: one for deaths per disease per demographic group, and likewise for YLLs
 #' 
 #' @export
-health_burden <- function(ind_ap_pa,combined_AP_PA=T){
+health_burden <- function(ind_ap_pa, conf_int = F, combined_AP_PA = T){
   
   demographic <- DEMOGRAPHIC
   demographic$dem_index <- 1:nrow(demographic)
@@ -31,6 +32,7 @@ health_burden <- function(ind_ap_pa,combined_AP_PA=T){
   # set up reference (scen1)
   reference_scenario <- SCEN_SHORT_NAME[which(SCEN==REFERENCE_SCENARIO)]
   scen_names <- SCEN_SHORT_NAME[SCEN_SHORT_NAME!=reference_scenario]
+  
   ### iterating over all all disease outcomes
   for ( j in 1:nrow(DISEASE_INVENTORY)){
     # Disease acronym and full name
@@ -81,6 +83,59 @@ health_burden <- function(ind_ap_pa,combined_AP_PA=T){
         death_dfs <- combine_health_and_pif(pif_values=pif_scen,hc=gbd_deaths_disease)
         deaths[[deaths_name]] <- death_dfs[,V1]
       }
+      
+      
+      if (conf_int){
+        
+        for (conf_cols in c('lb', 'ub')){
+          
+          base_var <- paste0('RR_', middle_bit, reference_scenario, '_', ac, '_', conf_cols)
+          scen_vars <- paste0('RR_', middle_bit, scen_names, '_', ac, '_', conf_cols)
+          # subset gbd data
+          gbd_deaths_disease <- subset(gbd_deaths,cause==gbd_dn)
+          gbd_ylls_disease <- subset(gbd_ylls,cause==gbd_dn)
+          
+          if (!base_var %in% colnames(ind_ap_pa)){
+            
+            ind_ap_pa[[base_var]] <- ind_ap_pa[[paste0('RR_', middle_bit, reference_scenario, '_', ac)]]
+            
+            for (index in 1:length(scen_vars)){
+              ind_ap_pa[[scen_vars[[index]]]] <- 
+                ind_ap_pa[[paste0('RR_', middle_bit, scen_names[index], '_', ac)]]
+            }
+          }
+            
+          # set up pif tables
+          pif_table <- setDT(ind_ap_pa[,colnames(ind_ap_pa)%in%c(base_var,'dem_index')])
+          setnames(pif_table,base_var,'outcome')
+          pif_ref <- pif_table[,.(sum(outcome)),by='dem_index']
+          ## sort pif_ref
+          setorder(pif_ref,dem_index)
+          for (index in 1:length(scen_vars)){
+            # set up naming conventions
+            scen <- scen_names[index]
+            scen_var <- scen_vars[index]
+            yll_name <- paste0(scen, '_ylls_',middle_bit,ac, '_', conf_cols)
+            deaths_name <- paste0(scen, '_deaths_',middle_bit,ac, '_', conf_cols)
+            # Calculate PIFs for selected scenario
+            pif_table <- setDT(ind_ap_pa[,colnames(ind_ap_pa)%in%c(scen_var,'dem_index')])
+            setnames(pif_table,scen_var,'outcome')
+            pif_temp <- pif_table[,.(sum(outcome)),by='dem_index']
+            ## sort pif_temp
+            setorder(pif_temp,dem_index)
+            pif_scen <- (pif_ref[,2] - pif_temp[,2]) / pif_ref[,2]
+            # Calculate ylls 
+            yll_dfs <- combine_health_and_pif(pif_values=pif_scen, hc = gbd_ylls_disease)
+            ylls[[yll_name]] <- yll_dfs[,V1]
+            # Calculate deaths 
+            death_dfs <- combine_health_and_pif(pif_values=pif_scen,hc=gbd_deaths_disease)
+            deaths[[deaths_name]] <- death_dfs[,V1]
+          }
+          
+        }
+      }
+      
+      
     }
   }
   deaths <- deaths[,-which(colnames(deaths)=='dem_index')]
