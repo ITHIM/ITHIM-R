@@ -75,13 +75,13 @@ health_burden <- function(ind_ap_pa, conf_int = F, combined_AP_PA = T){
         pif_temp <- pif_table[,.(sum(outcome)),by='dem_index']
         ## sort pif_temp
         setorder(pif_temp,dem_index)
-        pif_scen <- (pif_ref[,2] - pif_temp[,2]) / pif_ref[,2]
+        pif_scen <- ((pif_ref[,2] - pif_temp[,2]) / pif_ref[,2]) %>% pull()
         # Calculate ylls 
         yll_dfs <- combine_health_and_pif(pif_values=pif_scen, hc = gbd_ylls_disease)
-        ylls[[yll_name]] <- yll_dfs[,V1]
+        ylls[[yll_name]] <- yll_dfs
         # Calculate deaths 
         death_dfs <- combine_health_and_pif(pif_values=pif_scen,hc=gbd_deaths_disease)
-        deaths[[deaths_name]] <- death_dfs[,V1]
+        deaths[[deaths_name]] <- death_dfs
       }
       
       
@@ -123,13 +123,13 @@ health_burden <- function(ind_ap_pa, conf_int = F, combined_AP_PA = T){
             pif_temp <- pif_table[,.(sum(outcome)),by='dem_index']
             ## sort pif_temp
             setorder(pif_temp,dem_index)
-            pif_scen <- (pif_ref[,2] - pif_temp[,2]) / pif_ref[,2]
+            pif_scen <- ((pif_ref[,2] - pif_temp[,2]) / pif_ref[,2]) %>% pull()
             # Calculate ylls 
             yll_dfs <- combine_health_and_pif(pif_values=pif_scen, hc = gbd_ylls_disease)
-            ylls[[yll_name]] <- yll_dfs[,V1]
+            ylls[[yll_name]] <- yll_dfs
             # Calculate deaths 
             death_dfs <- combine_health_and_pif(pif_values=pif_scen,hc=gbd_deaths_disease)
-            deaths[[deaths_name]] <- death_dfs[,V1]
+            deaths[[deaths_name]] <- death_dfs
           }
           
         }
