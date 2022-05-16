@@ -241,7 +241,7 @@ print(kable(sl))
 # Descriptive table for CO2 Emissions
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
-cl <- list()
+co2_conc <- list()
 td <- NA
 for (city in cities) {
   
@@ -249,17 +249,17 @@ for (city in cities) {
     as.data.frame() %>% tibble::rownames_to_column()
   names(td) <- c('Scenario', city)
   
-  if (length(cl) == 0)
-    cl <- td
+  if (length(co2_conc) == 0)
+    co2_conc <- td
   else
-    cl <- left_join(cl, td)
+    co2_conc <- left_join(co2_conc, td)
   
 }
 
 #cl$Scenario <- c("Baseline","Walking", "Bicycling", "Driving", "Motorcycling", "Public Transport")
-cl$Scenario <- c("Baseline", "Bicycling", "Driving", "Public Transport")
+co2_conc$Scenario <- c("Baseline", "Bicycling", "Driving", "Public Transport")
 
-print(kable(cl))
+print(kable(co2_conc))
 
 ```
 
@@ -491,7 +491,7 @@ for (x in 1:length(cities)) {
 
 output_file <- "results/multi_city/AP/desc_stats.xlsx"
 writexl::write_xlsx(list(PM_2.5_emission_inventory = sl,
-                         CO2_emissions = cl,
+                         CO2_conc = co2_conc,
                          summary_stats_PM2.5_CO2 = bind_rows(l)), path = output_file)
 
 
