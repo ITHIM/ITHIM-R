@@ -11,7 +11,7 @@ Authors@R: c(person(given = "Rob",
              email = "aa797@medschl.cam.ac.uk")
              )
 Description: Modelling the impact of transport choices on population health.
-Depends: R (>= 3.1.0),
+Depends: R (>= 4.1.0),
     dplyr,
     tidyr,
     readr,
