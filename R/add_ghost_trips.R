@@ -10,7 +10,11 @@
 #' @return data frame of trips
 #' 
 #' @export
-add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',distance_ratio=BUS_TO_PASSENGER_RATIO*DISTANCE_SCALAR_PT,reference_mode='bus'){
+#add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',distance_ratio=BUS_TO_PASSENGER_RATIO*DISTANCE_SCALAR_PT,reference_mode='bus'){
+
+# multiply bus_to_passenger_ratio by 1/ratio of people in survey
+add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',
+                            distance_ratio=BUS_TO_PASSENGER_RATIO*1/population_in_model_ratio*DISTANCE_SCALAR_PT,reference_mode='bus'){
   
   ## values for new ghost journeys
   age_range <- AGE_LOWER_BOUNDS[1]:MAX_AGE
