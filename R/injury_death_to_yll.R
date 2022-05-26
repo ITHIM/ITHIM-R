@@ -38,9 +38,8 @@ injury_death_to_yll <- function(injuries){
       k<-k+1
     }
   
-  
-  # if (colnames(injuries) %in% c('Deaths_lb', 'Deaths_ub'))
-    {
+  if (any(colnames(injuries) %in% c('Deaths_lb', 'Deaths_ub')))
+  {
     
     # injuries is a tibble, GBD_INJ_YLL is a data.frame, returns a tibble
     joined_injury_lb <- dplyr::left_join(injuries, GBD_INJ_YLL[,c('sex_age','sex','yll_dth_ratio')], by=c("sex_age",'sex'))
@@ -107,9 +106,7 @@ injury_death_to_yll <- function(injuries){
     
     ref_injuries <- left_join(ref_injuries, ref_injuries_ub)
     ref_injuries <- left_join(ref_injuries, ref_injuries_lb)
-    }
-  
-  
+  }
   
   list(deaths_yll_injuries=deaths_yll_injuries,ref_injuries=ref_injuries)
 }
