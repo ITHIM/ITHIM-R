@@ -8,6 +8,7 @@
 #' 
 #' @export
 injury_death_to_yll <- function(injuries){
+  
   # injuries is a tibble, GBD_INJ_YLL is a data.frame, returns a tibble
   joined_injury <- dplyr::left_join(injuries, GBD_INJ_YLL[,c('sex_age','sex','yll_dth_ratio')], by=c("sex_age",'sex'))
   
@@ -36,6 +37,79 @@ injury_death_to_yll <- function(injuries){
       names(deaths_yll_injuries)[2+k] <- paste0(SCEN_SHORT_NAME[j],"_",metric[i],"_inj")
       k<-k+1
     }
+  
+  
+  # if (colnames(injuries) %in% c('Deaths_lb', 'Deaths_ub'))
+    {
+    
+    # injuries is a tibble, GBD_INJ_YLL is a data.frame, returns a tibble
+    joined_injury_lb <- dplyr::left_join(injuries, GBD_INJ_YLL[,c('sex_age','sex','yll_dth_ratio')], by=c("sex_age",'sex'))
+    
+    joined_injury_lb$YLL_lb <- joined_injury_lb$Deaths_lb * joined_injury_lb$yll_dth_ratio
+    death_and_yll_lb <- dplyr::select(joined_injury_lb, c('age_cat','sex','scenario','Deaths_lb','YLL_lb'))
+    
+    x_deaths_lb <- dplyr::select(death_and_yll_lb, -YLL_lb)
+    x_deaths_lb <- spread(x_deaths_lb,scenario, Deaths_lb)
+    x_yll_lb <- dplyr::select(death_and_yll_lb, -Deaths_lb)
+    x_yll_lb <- spread(x_yll_lb,scenario, YLL_lb)
+    
+    ref_scen_lb <- REFERENCE_SCENARIO
+    ref_scen_index_lb <- which(SCEN==ref_scen_lb)
+    calc_scen <- SCEN[SCEN!=ref_scen_lb]
+    calc_scen_index <- which(colnames(x_deaths_lb)%in%calc_scen)
+    
+    ref_injuries_lb <- as.data.frame(cbind(x_deaths_lb[,1:2],deaths_lb=x_deaths_lb[[ref_scen_lb]],ylls_lb=x_yll_lb[[ref_scen_lb]]))
+    deaths_lb <- t(repmat(unlist(ref_injuries_lb$deaths_lb),NSCEN,1)) - x_deaths_lb[,calc_scen_index,drop=F]
+    ylls_lb <- t(repmat(unlist(ref_injuries_lb$ylls_lb),NSCEN,1)) - x_yll_lb[,calc_scen_index,drop=F]
+    deaths_yll_injuries_lb <- as.data.frame(cbind(as.data.frame(x_deaths_lb[,1:2]),deaths_lb, ylls_lb))
+    
+    metric <- c("deaths", "yll")
+    k <- 1
+    for  (i in 1: 2)
+      for (j in c(1:(NSCEN+1))[-ref_scen_index_lb]){
+        
+        names(deaths_yll_injuries_lb)[2+k] <- paste0(SCEN_SHORT_NAME[j], "_", metric[i], "_inj_lb")
+        k<-k+1
+      }
+    
+    # injuries is a tibble, GBD_INJ_YLL is a data.frame, returns a tibble
+    joined_injury_ub <- dplyr::left_join(injuries, GBD_INJ_YLL[,c('sex_age','sex','yll_dth_ratio')], by=c("sex_age",'sex'))
+    
+    joined_injury_ub$YLL_ub <- joined_injury_ub$Deaths_ub * joined_injury_ub$yll_dth_ratio
+    death_and_yll_ub <- dplyr::select(joined_injury_ub, c('age_cat','sex','scenario','Deaths_ub','YLL_ub'))
+    
+    x_deaths_ub <- dplyr::select(death_and_yll_ub, -YLL_ub)
+    x_deaths_ub <- spread(x_deaths_ub,scenario, Deaths_ub)
+    x_yll_ub <- dplyr::select(death_and_yll_ub, -Deaths_ub)
+    x_yll_ub <- spread(x_yll_ub,scenario, YLL_ub)
+    
+    ref_scen_ub <- REFERENCE_SCENARIO
+    ref_scen_index_ub <- which(SCEN==ref_scen_ub)
+    calc_scen <- SCEN[SCEN!=ref_scen_ub]
+    calc_scen_index <- which(colnames(x_deaths_ub)%in%calc_scen)
+    
+    ref_injuries_ub <- as.data.frame(cbind(x_deaths_ub[,1:2],deaths_ub=x_deaths_ub[[ref_scen_ub]],ylls_ub=x_yll_ub[[ref_scen_ub]]))
+    deaths_ub <- t(repmat(unlist(ref_injuries_ub$deaths_ub),NSCEN,1)) - x_deaths_ub[,calc_scen_index,drop=F]
+    ylls_ub <- t(repmat(unlist(ref_injuries_ub$ylls_ub),NSCEN,1)) - x_yll_ub[,calc_scen_index,drop=F]
+    deaths_yll_injuries_ub <- as.data.frame(cbind(as.data.frame(x_deaths_ub[,1:2]),deaths_ub, ylls_ub))
+    
+    metric <- c("deaths", "yll")
+    k <- 1
+    for  (i in 1: 2)
+      for (j in c(1:(NSCEN+1))[-ref_scen_index_ub]){
+        
+        names(deaths_yll_injuries_ub)[2+k] <- paste0(SCEN_SHORT_NAME[j], "_", metric[i], "_inj_ub")
+        k<-k+1
+      }
+    
+    deaths_yll_injuries <- left_join(deaths_yll_injuries, deaths_yll_injuries_ub)
+    deaths_yll_injuries <- left_join(deaths_yll_injuries, deaths_yll_injuries_lb)
+    
+    ref_injuries <- left_join(ref_injuries, ref_injuries_ub)
+    ref_injuries <- left_join(ref_injuries, ref_injuries_lb)
+    }
+  
+  
   
   list(deaths_yll_injuries=deaths_yll_injuries,ref_injuries=ref_injuries)
 }
