@@ -38,6 +38,8 @@ injury_death_to_yll <- function(injuries){
       k<-k+1
     }
   
+  # Repeat the above logic for lower and upper interval
+  
   if (any(colnames(injuries) %in% c('Deaths_lb', 'Deaths_ub')))
   {
     
@@ -100,6 +102,8 @@ injury_death_to_yll <- function(injuries){
         names(deaths_yll_injuries_ub)[2+k] <- paste0(SCEN_SHORT_NAME[j], "_", metric[i], "_inj_ub")
         k<-k+1
       }
+    
+    # Combine lower and upper datasets
     
     deaths_yll_injuries <- left_join(deaths_yll_injuries, deaths_yll_injuries_ub)
     deaths_yll_injuries <- left_join(deaths_yll_injuries, deaths_yll_injuries_lb)
