@@ -89,7 +89,8 @@ distances_for_injury_function <- function(journeys, dist){
     if(length(test)==1&&test == 'try-error')
       test <- try(glm('offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)-log(injury_reporting_rate)+log(weight))',data=injuries_for_model[[1]][[type]],family='poisson'))
     #
-    reg_model[[type]] <- trim_glm_object(test)
+    # reg_model[[type]] <- trim_glm_object(test)
+    reg_model[[type]] <- test
     test <- NULL
     
     # reg_model[[type]] <- tryCatch({
