@@ -31,11 +31,22 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
       injuries_list[[scen]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
       injuries_list[[scen]][[type]]$weight <- 1
       
-      pred_val <- predict(reg_model[[type]],newdata = remove_missing_levels(reg_model[[type]],injuries_list[[scen]][[type]]),type='response', se.fit = TRUE) %>% as.data.frame()
-      injuries_list[[scen]][[type]]$pred <- pred_val$fit
+      ## Use link type and use linkinv function to account for positive confidence interval for the poisson distr.
+      # Ref: https://fromthebottomoftheheap.net/2018/12/10/confidence-intervals-for-glms/
       
-      injuries_list[[scen]][[type]]$pred_ub <- pred_val$fit + (1.96 * pred_val$se.fit)
-      injuries_list[[scen]][[type]]$pred_lb <- pred_val$fit - (1.96 * pred_val$se.fit)
+      ## grad the inverse link function
+      ilink <- family(reg_model[[type]])$linkinv
+      ## add fit and se.fit on the **link** scale
+      injuries_list[[scen]][[type]] <- bind_cols(injuries_list[[scen]][[type]], setNames(as_tibble(predict(reg_model[[type]], newdata = remove_missing_levels(reg_model[[type]], 
+                                                                                                                    injuries_list[[scen]][[type]]),
+                                                                 type='link', se.fit = TRUE)[1:2]),
+                                         c('fit_link','se_link')))
+      
+      ## create the interval and back-transform
+      injuries_list[[scen]][[type]] <- mutate(injuries_list[[scen]][[type]],
+                      pred  = ilink(fit_link),
+                      pred_ub = ilink(fit_link + (2 * se_link)),
+                      pred_lb = ilink(fit_link - (2 * se_link)))
       
       if(constant_mode){
         whw_temp[[scen]][[type]] <- sapply(unique(injuries_list[[scen]][[type]]$cas_mode),function(x)
