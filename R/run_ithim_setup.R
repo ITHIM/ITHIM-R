@@ -17,6 +17,7 @@
 #' @param AGE_RANGE vector of minimum and maximum ages to include
 #' @param ADD_WALK_TO_BUS_TRIPS logic: whether or not to add short walks to all PT trips
 #' @param ADD_BUS_DRIVERS logic: whether or not to add bus drivers
+#' @param ADD_CAR_DRIVERS logic: whether or not to find and add distance travelled by individual cars, denoted by car drivers
 #' @param ADD_TRUCK_DRIVERS logic: whether or not to add truck drivers
 #' @param ADD_MOTORCYCLE_FLEET logic: whether or not to add motorcycle fleet
 #' @param TEST_WALK_SCENARIO logic: whether or not to run the walk scenario
@@ -41,6 +42,7 @@
 #' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.
 #' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to SIN_EXPONENT_SUM
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
+#' @param CAR_OCCUPANCY_RATIO beta parameter: number of people per car (including driver)
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
 #' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: fraction of total motorcycles that's fleet
 #' @param PM_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
@@ -65,6 +67,7 @@ run_ithim_setup <- function(seed = 1,
                             AGE_RANGE = c(0,150),
                             ADD_WALK_TO_BUS_TRIPS = T,
                             ADD_BUS_DRIVERS = T,
+                            ADD_CAR_DRIVERS = T,
                             ADD_TRUCK_DRIVERS = T,
                             ADD_MOTORCYCLE_FLEET = F,
                             TEST_WALK_SCENARIO = F,
@@ -89,6 +92,7 @@ run_ithim_setup <- function(seed = 1,
                             SIN_EXPONENT_SUM = 2,
                             CASUALTY_EXPONENT_FRACTION = 0.5,
                             BUS_TO_PASSENGER_RATIO = 0.022,
+                            CAR_OCCUPANCY_RATIO = 0.6,
                             TRUCK_TO_CAR_RATIO = 0.21,
                             FLEET_TO_MOTORCYCLE_RATIO = 0.01,
                             PM_EMISSION_INVENTORY_CONFIDENCE = 1,
@@ -115,6 +119,7 @@ run_ithim_setup <- function(seed = 1,
   
   # ADD_WALK_TO_BUS_TRIPS = logic. T: adds walk trips to all bus trips whose duration exceeds BUS_WALK_TIME for bus trips and RAIL_WALK_TIME for rail trips. F: no trips added
   # ADD_BUS_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
+  # ADD_CAR_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
   # ADD_TRUCK_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
   # ADD_MOTORCYCLE_FLEET = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
   
@@ -146,6 +151,7 @@ run_ithim_setup <- function(seed = 1,
   
   # DAY_TO_WEEK_TRAVEL_SCALAR = parameter. double: sets scalar for extrapolation from day to week. vector: samples from distribution.
   # BUS_TO_PASSENGER_RATIO = parameter. double: sets bus distance relative to bus passenger distance. vector: samples from distribution.
+  # CAR_OCCUPANCY_RATIO = parameter. double: sets car distance relative to people in car distance. vector: samples from distribution.
   # TRUCK_TO_CAR_RATIO = parameter. double: sets truck distance relative to car. vector: samples from distribution.
   # FLEET_TO_MOTORCYCLE_RATIO = parameter. double: sets fleet distance relative to motorcycle. vector: samples from distribution.
   # PM_EMISSION_INVENTORY_CONFIDENCE = parameter. double between 0 and 1. 1 = use emission data as they are.
@@ -169,6 +175,7 @@ run_ithim_setup <- function(seed = 1,
   ## MODEL FLAGS
   ADD_WALK_TO_BUS_TRIPS <<- ADD_WALK_TO_BUS_TRIPS
   ADD_BUS_DRIVERS <<- ADD_BUS_DRIVERS
+  ADD_CAR_DRIVERS <<- ADD_CAR_DRIVERS
   ADD_TRUCK_DRIVERS <<- ADD_TRUCK_DRIVERS
   ADD_MOTORCYCLE_FLEET <<- ADD_MOTORCYCLE_FLEET
   TEST_WALK_SCENARIO <<- TEST_WALK_SCENARIO
@@ -186,6 +193,7 @@ run_ithim_setup <- function(seed = 1,
   AGE_RANGE <<- AGE_RANGE
   
   #BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
+  #CAR_OCCUPANCY_RATIO <<- CAR_OCCUPANCY_RATIO
   #TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
@@ -204,6 +212,7 @@ run_ithim_setup <- function(seed = 1,
                           minibus = 11, 
                           minibus_driver = 11, 
                           car = 14, 
+                          car_driver = 14,
                           taxi = 9, 
                           pedestrian = 3, 
                           walk_to_pt = 3, 
@@ -317,6 +326,7 @@ run_ithim_setup <- function(seed = 1,
                                                     SIN_EXPONENT_SUM,
                                                     CASUALTY_EXPONENT_FRACTION,
                                                     BUS_TO_PASSENGER_RATIO,
+                                                    CAR_OCCUPANCY_RATIO,
                                                     TRUCK_TO_CAR_RATIO,
                                                     FLEET_TO_MOTORCYCLE_RATIO,
                                                     PM_EMISSION_INVENTORY_CONFIDENCE,
@@ -337,6 +347,7 @@ run_ithim_setup <- function(seed = 1,
                               "DISTANCE_SCALAR_WALKING",
                               "DISTANCE_SCALAR_CYCLING",
                               'BUS_TO_PASSENGER_RATIO',
+                              'CAR_OCCUPANCY_RATIO',
                               'TRUCK_TO_CAR_RATIO',
                               'BACKGROUND_PA_ZEROS')%in%names(ithim_object$parameters))
   RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('SIN_EXPONENT_SUM',

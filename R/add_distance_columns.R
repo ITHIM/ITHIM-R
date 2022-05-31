@@ -53,6 +53,7 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
   ##TODO precalculate and save distances (for uncertainty use case)
   injuries_list <- list()
   if(!'bus_driver'%in%mode_names) bus_base <- dist[which(dist$stage_mode=='bus_driver'),2]
+  if(!'car_driver'%in%mode_names) car_base <- dist[which(dist$stage_mode=='car_driver'),2]
   for(i in 1:length(scenarios)){
     scen <- scenarios[i]
     injuries_list[[scen]] <- list()

@@ -14,10 +14,10 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
             'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
             'osorno', 'puerto_montt', 'san_antonio',
             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
-
+cities <- c('osorno')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 1
+
 input_parameter_file <- "InputParameters_v4.0.xlsx"
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
@@ -168,16 +168,18 @@ print(system.time(for(city in cities){
   print(city)
   ithim_objects[[city]] <- run_ithim_setup(
     LATAM = latam,
-    DIST_CAT = dist_cat,
+    DIST_CAT = as.character(dist_cat),
     ADD_WALK_TO_BUS_TRIPS = as.logical(add_walk_to_bus_trips[[city]]),
     CITY = city,
     AGE_RANGE = c(min_age,max_age),
-    ADD_TRUCK_DRIVERS = T,
-    ADD_BUS_DRIVERS = F,
+    ADD_TRUCK_DRIVERS = as.logical(add_truck_drivers),
+    ADD_BUS_DRIVERS = as.logical(add_bus_drivers),
+    ADD_CAR_DRIVERS = as.logical(add_car_drivers),
     ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]),
     PM_emission_inventory = PM_emission_inventories[[city]],
     CO2_emission_inventory = CO2_emission_inventories[[city]],
     speeds = speeds[[city]],
+    
     FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
     MMET_CYCLING = mmet_cycling, 
     MMET_WALKING = mmet_walking, 
@@ -192,7 +194,13 @@ print(system.time(for(city in cities){
     PM_TRANS_SHARE = pm_trans_share[[city]],  
     BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
     BUS_WALK_TIME = bus_walk_time[[city]],
-    RAIL_WALK_TIME = rail_walk_time[[city]])
+    RAIL_WALK_TIME = rail_walk_time[[city]],
+    
+    BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
+    TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
+    CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]]
+    
+    )
   
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS
   ithim_objects[[city]]$demographic <- DEMOGRAPHIC

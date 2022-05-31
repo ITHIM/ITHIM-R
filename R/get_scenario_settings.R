@@ -20,6 +20,7 @@ get_scenario_settings <- function(cities = c('accra', 'bangalore', 'belo_horizon
                                                  minibus = 11, 
                                                  minibus_driver = 11, 
                                                  car = 14, 
+                                                 car_driver = 14,
                                                  taxi = 9, 
                                                  pedestrian = 3, 
                                                  walk_to_pt = 3, 

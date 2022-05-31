@@ -12,9 +12,8 @@
 #' @export
 #add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',distance_ratio=BUS_TO_PASSENGER_RATIO*DISTANCE_SCALAR_PT,reference_mode='bus'){
 
-# multiply bus_to_passenger_ratio by 1/ratio of people in survey
 add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',
-                            distance_ratio=BUS_TO_PASSENGER_RATIO*1/population_in_model_ratio*DISTANCE_SCALAR_PT,reference_mode='bus'){
+                            distance_ratio=BUS_TO_PASSENGER_RATIO*DISTANCE_SCALAR_PT,reference_mode='bus'){ 
   
   ## values for new ghost journeys
   age_range <- AGE_LOWER_BOUNDS[1]:MAX_AGE
@@ -37,9 +36,16 @@ add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',
                            sex = new_gender,
                            nTrips=nTrips,
                            speed=speed)
+    if(trip_mode == 'car_driver'){
+      age_category <- AGE_CATEGORY
+      age_lower_bounds <- AGE_LOWER_BOUNDS
+      for(j in 2:length(age_lower_bounds)-1){
+        new_trips$age_cat[new_trips[['age']] >= age_lower_bounds[j] & new_trips[['age']] < age_lower_bounds[j+1]] <- age_category[j]
+      }
+      new_trips$age_cat[new_trips[['age']] >= age_lower_bounds[length(age_lower_bounds)]] <- age_category[length(age_lower_bounds)]
+    }
     raw_trip_set <- rbind(raw_trip_set, new_trips)
   }
-  
   return(raw_trip_set)
   
 }

@@ -82,5 +82,29 @@ dist_dur_tbls <- function(trip_scen_sets){
     dur[nrow(dur),1] <- 'bus_driver'
   }
   
+  
+  ## car travel is linear with regards to number of people in car
+  car_passenger_row <- which(dist$stage_mode=='car')
+  if('car_driver'%in%dist$stage_mode){
+    car_driver_row <- which(dist$stage_mode=='car_driver')
+    base_col <- which(colnames(dist)=='Baseline')
+    dist[car_driver_row,colnames(dist)%in%SCEN] <- as.numeric(dist[car_driver_row,base_col] / dist[car_passenger_row,base_col]) * dist[car_passenger_row,colnames(dist)%in%SCEN] 
+    dur[car_driver_row,colnames(dur)%in%SCEN] <- as.numeric(dur[car_driver_row,base_col] / dur[car_passenger_row,base_col]) * dur[car_passenger_row,colnames(dur)%in%SCEN] 
+  }else{
+    dist <- rbind(dist,dist[car_passenger_row,])
+    dist[nrow(dist),1] <- 'car_driver'
+    dur <- rbind(dur,dur[car_passenger_row,])
+    dur[nrow(dur),1] <- 'car_driver'
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   return(list(dist=dist,dur=dur))
 }

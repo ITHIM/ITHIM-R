@@ -19,15 +19,16 @@ if (!require("drpa",character.only = TRUE)) {
 
 rm(list=ls())
 
-cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
-            'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
-            'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
-            'osorno', 'puerto_montt', 'san_antonio',
-            'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
+# cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
+#             'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
+#             'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
+#             'osorno', 'puerto_montt', 'san_antonio',
+#             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
 
+cities <- c('osorno')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 10 
+nsamples <- 2 
 
 # list of potential values for the outcome_voi_list
 # 'pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
@@ -36,14 +37,13 @@ nsamples <- 10
 # 'pa_head_neck_cancer', 'pa_stomach_cancer', 'inj'
 
 
-outcome_voi_list <- c('pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
-                      'pa_ap_stroke', 'pa_ap_T2D', 'ap_LRI', 'pa_breast_cancer', 'pa_colon_cancer', 'pa_endo_cancer',
-                      'pa_liver_cancer', 'pa_ap_CVD', 'pa_total_dementia', 'pa_myeloma', 'pa_Parkinson',
-                      'pa_head_neck_cancer', 'pa_stomach_cancer', 'inj')
+# outcome_voi_list <- c('pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
+#                       'pa_ap_stroke', 'pa_ap_T2D', 'ap_LRI', 'pa_breast_cancer', 'pa_colon_cancer', 'pa_endo_cancer',
+#                       'pa_liver_cancer', 'pa_ap_CVD', 'pa_total_dementia', 'pa_myeloma', 'pa_Parkinson',
+#                       'pa_head_neck_cancer', 'pa_stomach_cancer', 'inj')
 
+outcome_voi_list <- c('pa_ap_all_cause')
 
-#outcome_voi_list <- c('pa_total_cancer', 'pa_ap_CVD','ap_COPD', 'ap_LRI','inj' ) # list of outcome parameters to be included in VoI analysis
-# outcome_voi_list <- c('pa_total_cancer','inj')
 
 # flag whether to run VOI analysis split by age and gender as well
 voi_age_gender <- T   # set to T if want to include split and to F otherwise
@@ -52,7 +52,7 @@ voi_age_gender <- T   # set to T if want to include split and to F otherwise
 # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
 voi_add_sum <- T
 
-input_parameter_file <- "InputParameters_v3.0.xlsx"
+input_parameter_file <- "InputParameters_v4.0.xlsx"
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 
 author <- "AKS"
@@ -77,22 +77,11 @@ compute_mode <- 'sample' # sample from the given input parameter distributions
 # keep record when code started:
 starttime <- Sys.time()
 
-# define min and max age to be considered
-# min_age <- 15
-# max_age <- 69
-# # set age ranges for outcome statistics
-# outcome_age_min <- c(15,50)
-# outcome_age_max <- c(49,69)
-# outcome_age_groups <- c('15-49','50-69')
-# 
-
 all_inputs <- read_excel(input_parameter_file, sheet = "all_city_parameter_inputs")
 all_inputs[is.na(all_inputs)] <- ""
 all_inputs <- as.data.frame(all_inputs)
 
 #all_inputs <- read.csv('all_city_parameter_inputs.csv',stringsAsFactors = F) # read in parameter list
-
-
 
 
 # get input parameters into correct format
@@ -156,12 +145,6 @@ list2env(parameter_list, environment())
 # read in global parameters
 
 
-# constant parameters for DAY_TO_WEEK_TRAVEL_SCALAR
-#day_to_week_scalar <- 7
-
-
-
-
 all_global_inputs <- read_excel(input_parameter_file, sheet = "all_global_parameter_inputs")
 all_global_inputs[is.na(all_global_inputs)] <- ""
 all_global_inputs <- as.data.frame(all_global_inputs)
@@ -211,27 +194,15 @@ max_age <- as.numeric(max_age)
 
 
 
-# define min and max age to be considered
-# min_age <- 15
-# max_age <- 69
-# # set age ranges for outcome statistics
-# outcome_age_min <- c(15,50)
-# outcome_age_max <- c(49,69)
-# outcome_age_groups <- c('15-49','50-69')
-
-
 ################################### Start running the the actual analysis
 
 
 ## with uncertainty
 ## comparison across cities
 setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","PM_EMISSION_INVENTORY","CO2_EMISSION_INVENTORY",
-                        "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO","TRUCK_TO_CAR_RATIO",
-                        "FLEET_TO_MOTORCYCLE_RATIO","DISTANCE_SCALAR_CAR_TAXI",
-                        "DISTANCE_SCALAR_WALKING",
-                        "DISTANCE_SCALAR_PT",
-                        "DISTANCE_SCALAR_CYCLING",
-                        "DISTANCE_SCALAR_MOTORCYCLE")
+                        "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO", "CAR_OCCUPANCY_RATIO",
+                        "TRUCK_TO_CAR_RATIO", "FLEET_TO_MOTORCYCLE_RATIO","DISTANCE_SCALAR_CAR_TAXI",
+                        "DISTANCE_SCALAR_WALKING", "DISTANCE_SCALAR_PT", "DISTANCE_SCALAR_CYCLING", "DISTANCE_SCALAR_MOTORCYCLE")
 
 
 # # lnorm parameters for MMET_CYCLING
@@ -249,16 +220,13 @@ setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZER
 pa_dr_quantile <-  c(rep(as.logical(pa_dr_quantile_city1), length(cities)))
 # logical for AP dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
 ap_dr_quantile <-  c(rep(as.logical(ap_dr_quantile_city1), length(cities)))
-# logical for walk scenario
-# test_walk_scenario <- F
-# # logical for cycle scenario
-# test_cycle_scenario <- F
 
 
 betaVariables <- c("PM_TRANS_SHARE",
                    "INJURY_REPORTING_RATE",
                    "CASUALTY_EXPONENT_FRACTION",
                    "BUS_TO_PASSENGER_RATIO",
+                   "CAR_OCCUPANCY_RATIO",
                    "TRUCK_TO_CAR_RATIO",
                    "FLEET_TO_MOTORCYCLE_RATIO")
 normVariables <- c("MMET_CYCLING",
@@ -277,7 +245,8 @@ normVariables <- c("MMET_CYCLING",
 save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
      background_pa_scalar,background_pa_confidence,mmet_cycling,mmet_walking,PM_emission_inventories,CO2_emission_inventories,
      sin_exponent_sum,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
-     bus_to_passenger_ratio,truck_to_car_ratio,PM_emission_confidence,CO2_emission_confidence,distance_scalar_car_taxi,distance_scalar_motorcycle,
+     bus_to_passenger_ratio,car_occupancy_ratio,truck_to_car_ratio,PM_emission_confidence,CO2_emission_confidence,
+     distance_scalar_car_taxi,distance_scalar_motorcycle,
      distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,add_motorcycle_fleet,fleet_to_motorcycle_ratio,
      betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
@@ -303,6 +272,7 @@ print(system.time(
                                               AGE_RANGE =  c(min_age,max_age),
                                               ADD_TRUCK_DRIVERS = as.logical(add_truck_drivers),
                                               ADD_BUS_DRIVERS = as.logical(add_bus_drivers),
+                                              ADD_CAR_DRIVERS = as.logical(add_car_drivers),
                                               ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]), #ADD_MOTORCYCLE_FLEET = add_motorcycle_fleet[[city]],
                                               PM_emission_inventory = PM_emission_inventories[[city]],
                                               CO2_emission_inventory = CO2_emission_inventories[[city]], # added
@@ -333,6 +303,7 @@ print(system.time(
                                               
                                               BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
+                                              CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]],
                                               TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
                                               
                                               PM_EMISSION_INVENTORY_CONFIDENCE = PM_emission_confidence[[city]],
@@ -571,10 +542,15 @@ if(nsamples > 1){
     scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
     means <- sapply(scen_out,function(x)apply(x,2,mean))
     ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
+    
+    unlist_ninefive <- unlist(ninefive)
+    
+    unlist_ninefive[sapply(unlist_ninefive, is.infinite)] <- NA
     yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
     cols <- rainbow(length(outcome)-1)
 
-    plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
+    plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',
+         col=rep(cols,each=NSCEN),yaxt='n',xlim=range(na.omit(unlist_ninefive)))
     axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
     for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
     abline(v=0,col='grey',lty=2,lwd=2)
@@ -594,7 +570,7 @@ if(nsamples > 1){
 
       par_city <- par(mar=c(5,5,1,1))
       xlab <- paste0(city,': Change in YLL relative to baseline')
-      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
+      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),yaxt='n',xlim=range(na.omit(unlist_ninefive)))
       axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
       #for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
       for(j in 1:NSCEN) lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)

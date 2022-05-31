@@ -23,6 +23,7 @@
 #' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.
 #' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to SIN_EXPONENT_SUM
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
+#' @param CAR_OCCUPANCY_RATIO beta parameter: number of people per car (including driver)
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
 #' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: amount of motorcycle that's fleet
 #' @param PM_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
@@ -53,6 +54,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    SIN_EXPONENT_SUM= 2,
                                    CASUALTY_EXPONENT_FRACTION = 0.5,
                                    BUS_TO_PASSENGER_RATIO = 0.022,
+                                   CAR_OCCUPANCY_RATIO = 0.6,
                                    TRUCK_TO_CAR_RATIO = 0.21,
                                    FLEET_TO_MOTORCYCLE_RATIO = 0,
                                    PM_EMISSION_INVENTORY_CONFIDENCE = 1,
@@ -83,6 +85,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   SIN_EXPONENT_SUM <<- SIN_EXPONENT_SUM
   CASUALTY_EXPONENT_FRACTION <<- CASUALTY_EXPONENT_FRACTION
   BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
+  CAR_OCCUPANCY_RATIO <<- CAR_OCCUPANCY_RATIO
   TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
   FLEET_TO_MOTORCYCLE_RATIO <<- FLEET_TO_MOTORCYCLE_RATIO
   DISTANCE_SCALAR_CAR_TAXI <<- DISTANCE_SCALAR_CAR_TAXI
@@ -123,6 +126,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                      "INJURY_REPORTING_RATE",
                      "CASUALTY_EXPONENT_FRACTION",
                      "BUS_TO_PASSENGER_RATIO",
+                     "CAR_OCCUPANCY_RATIO",
                      "TRUCK_TO_CAR_RATIO",
                      "FLEET_TO_MOTORCYCLE_RATIO")
   for (i in 1:length(betaVariables)) {
