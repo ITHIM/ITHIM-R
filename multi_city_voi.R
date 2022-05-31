@@ -542,15 +542,11 @@ if(nsamples > 1){
     scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
     means <- sapply(scen_out,function(x)apply(x,2,mean))
     ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
-    
-    unlist_ninefive <- unlist(ninefive)
-    
-    unlist_ninefive[sapply(unlist_ninefive, is.infinite)] <- NA
     yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
     cols <- rainbow(length(outcome)-1)
 
     plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',
-         col=rep(cols,each=NSCEN),yaxt='n',xlim=range(na.omit(unlist_ninefive)))
+         col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
     axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
     for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
     abline(v=0,col='grey',lty=2,lwd=2)
@@ -570,7 +566,8 @@ if(nsamples > 1){
 
       par_city <- par(mar=c(5,5,1,1))
       xlab <- paste0(city,': Change in YLL relative to baseline')
-      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),yaxt='n',xlim=range(na.omit(unlist_ninefive)))
+      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
+           yaxt='n',xlim=range(unlist(ninefive)))
       axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
       #for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
       for(j in 1:NSCEN) lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
