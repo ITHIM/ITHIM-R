@@ -42,11 +42,16 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
                                                                  type='link', se.fit = TRUE)[1:2]),
                                          c('fit_link','se_link')))
       
+      
+      pred_val <- predict(reg_model[[type]],newdata = remove_missing_levels(reg_model[[type]],injuries_list[[scen]][[type]]), type='response', se.fit = TRUE) %>% as.data.frame()
+      injuries_list[[scen]][[type]]$pred_ub_am <- pred_val$fit + (2 * pred_val$se.fit)
+      
       ## create the interval and back-transform
       injuries_list[[scen]][[type]] <- mutate(injuries_list[[scen]][[type]],
-                      pred  = ilink(fit_link),
-                      pred_ub = ilink(fit_link + (2 * se_link)),
-                      pred_lb = ilink(fit_link - (2 * se_link)))
+                                              pred  = ilink(fit_link),
+                                              pred_ub = ifelse(is.infinite(ilink(fit_link + (2 * se_link))), pred_ub_am, 
+                                                               ilink(fit_link + (2 * se_link))),
+                                              pred_lb = ilink(fit_link - (2 * se_link)))
       
       if(constant_mode){
         whw_temp[[scen]][[type]] <- sapply(unique(injuries_list[[scen]][[type]]$cas_mode),function(x)
