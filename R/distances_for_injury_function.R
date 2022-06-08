@@ -73,7 +73,7 @@ distances_for_injury_function <- function(journeys, dist){
 
   ## catch for when regression fails: if fail, run simpler model: no interactions.
   for(type in INJURY_TABLE_TYPES){
-    injuries_for_model[[1]][[type]]$injury_reporting_rate <- 1
+    injuries_for_model[[1]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
     test <- 'try-error'
     # try 1: add age cat and gender
     if(any(c('age_cat','cas_gender')%in%names(injuries_for_model[[1]][[type]]))){

@@ -45,7 +45,7 @@ set_injury_contingency <- function(injuries){
   }
   injury_table <- list()
   for(type in c(injury_table_types)){
-    keep_names <- names(injury_list[[type]])%in%c('year','cas_mode','strike_mode','age_cat','cas_gender')
+    keep_names <- names(injury_list[[type]])%in%c('cas_mode','strike_mode','age_cat','cas_gender')
     # summarise list of injuries by group
     setDT(injury_list[[type]])
     injury_summary <- as.data.frame(injury_list[[type]][,.(count=.N,weight=mean(weight)),by=c(names(injury_list[[type]])[keep_names])])
