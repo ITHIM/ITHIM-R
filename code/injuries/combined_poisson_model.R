@@ -1,3 +1,4 @@
+io <- read_rds("results/multi_city/io.rds")
 cities <- names(io)[!names(io) %in% 'scen_prop']
 injd <- list()
 
