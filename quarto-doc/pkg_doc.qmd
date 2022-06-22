@@ -1,0 +1,477 @@
+---
+title: "Package Documentation"
+format:
+  html:
+    light: flatly
+    dark: darkly
+    toc: true
+    
+reference-location: margin
+citation-location: margin
+    
+number-sections: true
+crossref:
+  chapters: true
+
+---
+
+```{r, echo=FALSE}
+library(knitr)
+
+io <- readRDS("../results/multi_city/io.rds")
+cities <- names(io)[!names(io) %in% 'scen_prop']
+scen_def <- io$scen_prop
+```
+
+# Introduction
+
+## Overview
+
+The remainder of the document presents a current working version of the ITHIM, and is a comprehensive record of all the calculations of which it is composed. The equations for the ITHIM are described in Section [2](#equations){reference-type="ref" reference="equations"} (tabulated in Section [7](#tableequations){reference-type="ref" reference="tableequations"}). The method is concretised through the example application to Accra in Section [3](#example){reference-type="ref" reference="example"} and particular columns in Tables [1](#indices){reference-type="ref" reference="indices"} and [3](#inputs){reference-type="ref" reference="inputs"}, with results presented in Section [19](#results){reference-type="ref" reference="results"}.
+
+The ITHIM as described here is implemented in the ITHIM-R R package (<https://github.com/ITHIM/ITHIM-R>). In the Latin America settings, we have a list of 20 cities, which are (Antofagasta, Arica, Belo Horizonte, Bogota, Buenos Aires, Cali, Copiapo, Coquimbo Laserena, Gran Valparaiso, Iquique Altohospicio, Medellin, Mexico City, Montevideo, Osorno, Puerto Montt, San Antonio, Santiago, Sao Paulo, Temuco Padrelascasas, Valdivia), and reference will be made to those where relevant.
+
+# Method: ITHIM {#equations}
+
+In the ITHIM, we combine many information inputs and compute the health burden through three pathways (depicted in Figure [1](#workflow){reference-type="ref" reference="workflow"}). Each pathway has its own set of definitions and outputs, and we refer to them as "modules".
+
+![ITHIM workflow. Inputs to the model have a bold, black outline. The graph depicts parent--child relationships, where a child (at the head of an arrow) depends upon all its parents (at the source(s) of the arrow(s)). To aid visualisation, an arrow connected to the outside of a grey box indicates that the arrow connects to each item within the box. \*AT: active travel. MET: metabolic equivalent task. pp: per person. AP: air pollution. PA: physical activity. DR: dose--response relationship. GBD: global burden of disease. BOD: Burden of Disease](figures/flowchart.png "Flowchart: Model descrption"){fig-alt="A flowchart of model."}
+
+To describe the model, we use lower-case letters to denote indices, or dimensions, of objects. They take one of a set of possible values, detailed in Table [1](#indices){reference-type="ref" reference="indices"}. The set of input items are denoted by capital letters, and variable parameters are denoted by Greek letters. These are presented in Table [3](#inputs){reference-type="ref" reference="inputs"}. The equations of the ITHIM are presented below, and summarised in Table [4](#calculationstab){reference-type="ref" reference="calculationstab"}. These use letter modifiers to show how the inputs are modified in the course of output generation.
+
+We calculate the ITHIM by combining the modules' outputs in terms of the health burden ($\hat{U}_{a,g,h,o,s}$). Other outputs of the model include: MMETs per person ($M_{i,s}$), PM2.5 in each scenario ($\bar{P}_s$), PM2.5 per person ($\check{W}_{i,s}$), and injuries burden ($\check{I}_{a,g,m,o,s}$).
+
+To assess uncertainty, we sample from the ITHIM output by sampling uncertain parameters multiple times and calculating the ITHIM. We specify parametric distributions or sampling strategies for all the uncertain parameters. Evaluating the ITHIM with uncertain parameters allows assessment of their impact on the outcome (AKA sensitivity analysis). We use EVPPI to calculate the expected reduction in uncertainty in the outcome were we to learn a parameter perfectly. This means we can implement models that are basic in their parametrisation, and learn at the end for which parameters it would be worthwhile spending dedicated time learning better.
+
++---------------+----------------------+----------------------+
+| Label         | Name                 | Levels               |
++===============+======================+======================+
+| *a*           | Age group            | 15--49\              |
+|               |                      | 50--69               |
++---------------+----------------------+----------------------+
+| *g*           |                      | Male\                |
+|               |                      | Female               |
++---------------+----------------------+----------------------+
+| *h*           | Disease              |                      |
++---------------+----------------------+----------------------+
+| *i*           | Individual index     |                      |
++---------------+----------------------+----------------------+
+| *j*           | Trip index           |                      |
++---------------+----------------------+----------------------+
+| *m*           | Transport mode       | walk\                |
+|               |                      | cycling (cyc.)\      |
+|               |                      | bus\                 |
+|               |                      | car\                 |
+|               |                      | motorbike (mot.)\    |
+|               |                      | goods vehicles (GV)\ |
+|               |                      | subway (sub.)        |
++---------------+----------------------+----------------------+
+| *o*           | Outcome              | Death\               |
+|               |                      | YLL                  |
++---------------+----------------------+----------------------+
+| *s*           | Scenario             | 3                    |
++---------------+----------------------+----------------------+
+| *w*           | AP RR hyperparameter | 1, 2, 3, 4           |
++---------------+----------------------+----------------------+
+| *x*           | PA RR hyperparameter | 1, 2, 3              |
++---------------+----------------------+----------------------+
+| *z*           | PA dose              |                      |
++---------------+----------------------+----------------------+
+
+| Abbreviation | Meaning                                       |
+|:-------------|:----------------------------------------------|
+| AP           | Air pollution                                 |
+| CDF          | Cumulative distribution function              |
+| COPD         | Chronic obstructive pulmonary disease         |
+| DR           | Dose response                                 |
+| EVPPI        | Expected value of perfect partial information |
+| GAM          | Generalised additive model                    |
+| GBD          | Global burden of disease                      |
+| IHD          | Ischemic heart disease                        |
+| ITHIM        | Integrated transport and health impact model  |
+| LRI          | Lower respiratory infection                   |
+| MMET         | Marginal metabolic equivalent task            |
+| PA           | Physical activity                             |
+| PAF          | Population attributable fraction              |
+| PIF          | Potential impact fraction                     |
+| PM2.5        | Particulate matter (diameter $< 2.5 \mu$m)    |
+| PT           | Public transport                              |
+| RR           | Relative risk                                 |
+| VOI          | Value of information                          |
+| YLL          | Years of life lost                            |
+
+: Indices used in the ITHIM variables. The "Label" is the subscript used to refer to the index in this document. The "Name" is descriptive. The "Levels" are the levels used in the Accra model.
+
+```{r}
+
+```
+
+{#inputs}
+
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| \[\[inputs\]\]{label= "inputs"}           |                                                                 | *ITHIM-R reference*                |                               |                    |
++:==========================================+=================================================================+:===================================+===============================+====================+
+| **Name**                                  | **Description**                                                 | **Value in Accra model**           | **Label**                     | **Model/ Setting** |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| *Global values*                           |                                                                 |                                    |                               |                    |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $U_ { a,g,h,o}$                           | Background burden of disease                                    | Constant                           | GBD_DATA                      | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $N_{a,g}$                                 | Population by age and gender in GBD_DATA                        | Constant                           | GBD_DATA                      | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\bar { N}_{a,g}$                         | Population by age and gender                                    | Constant                           | DEMOGRAPHIC                   | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\rho_h$                                  | Chronic disease scalar                                          | 1 or Lnorm(0,0.18)                 | CHRONIC_DISEASE_SCALAR        | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| *Travel values*                           |                                                                 |                                    |                               |                    |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $Z _ {m=walk}$                            | Walk speed                                                      | 4.8                                | MODE_SPEEDS                   | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $Z _ {m=cyc.}$                            | Cycle speed                                                     | 14.5                               | MODE_SPEEDS                   | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $Z _ {m=bus}$                             | Bus speed                                                       | 15                                 | MODE_SPEEDS                   | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $Z _ {m=car}$                             | Car speed                                                       | 21                                 | MODE_SPEEDS                   | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $Z _ {m=mot.}$                            | Motorbike speed                                                 | 25                                 | MODE_SPEEDS                   | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| \$\\epsilon \$                            | Walk time to bus                                                | 5 or Lnorm(log (5),0.18)           | BUS_WALK_TIME                 | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\mu_{m=HGV}$                             | Truck distance relative to car                                  | 0.21 or Beta(3,10)                 | TRUCK_TO\_ CAR_RATIO          | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\mu_{m=bus}$                             | Bus driver distance relative to bus passenger distance          | 1/45 or Bet a(20,600) \|           | BUS_TO_PASSENGER_RATIO        | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\mu_ {m=mot.}$                           | Motorcycle fleet distance relative to total motorcycle distance | 37/68 or Beta(37/3+ 1,31/3+1) \|   | FLEET_TO_MOTORCYCLE_RATIO     | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $T_j$                                     | Trip-level data                                                 | Constant                           | SYNTHETIC_TRIPS               | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| *Injury model values*                     |                                                                 |                                    |                               |                    |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $I _ {a,g,m_{\                            | Fatalities table                                                | Constant                           | INJURY_TABLE                  | Setting            |
+| text{vi c} },m_{\text{str}}}$             |                                                                 |                                    |                               |                    |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\sigma$                                  | Injury reporting rate                                           | 1 or Beta(8,3)                     | INJURY_REPORTING_RATE         | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\omega$                                  | Sum of distance exponents                                       | 1.9 or Lnorm(l og(1.9),l og(1.03)) | SIN_EXPONENT_SUM              | Model              |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\psi$                                    | Casualty fraction of $\omega$                                   | 0.5 or Beta(20,20) \|              | CASUALTY_EXPONENT_FRACTION    | Model              |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| *Pollution model values*                  |                                                                 |                                    |                               |                    |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\eta$                                    | Background PM2.5 concentration                                  | 50 or Lnorm(log( 50),0.18) \|      | PM_CONC_BASE                  | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\zeta$                                   | Fraction of measured PM2.5 concentration due to road transport  | 0.225 or Beta(5,20) \|             | PM_TRANS_SHARE                | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\                                        | Vehicle emission inventory                                      | Constant or Dirichlet              | EMISSION_INVENTORY            | Setting            |
+| g amma_{m}$                               |                                                                 |                                    |                               |                    |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $P$                                       | Vehicle emission confidence                                     | 1                                  | EMISSION_INVENTORY_CONFIDENCE | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| *Pollution & health model values*         |                                                                 |                                    |                               |                    |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $C_1$                                     | Base-level inhalation rate                                      | 1                                  | BASE_LEVEL_INHALATION_RATE    | Model              |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $C_2$                                     | Exposure ratio window closed                                    | 0.5                                | CLOSED_WINDOW_PM\_ RATIO      | Model              |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $C_3$                                     | Proportion of travel with closed windows                        | 0.5                                | C LOSED_WIN DOW_RATIO         | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $C_4$                                     | Parameter for on-road PM2.5 level                               | 3.216                              | ROAD\_ RATIO_MAX              | Model              |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $C_5$                                     | Parameter for on-road PM2.5 level                               | 0.379                              | ROAD_RA TIO_SLOPE             | Model              |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $C_6$                                     | Exposure ratio for underground                                  | 0.8                                | SUBWAY \_PM_RATIO             | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| \$ H \_{a,h,w}\$                          | AP dose- -res ponse--curve parameters                           | Constant                           | DR_AP                         | Model              |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\                                        | Quantiles for AP RR functions                                   | 0.5 or Unif(0,1)                   | AP_DOSE_R ESPONSE\_ QUANTILE  | Model              |
+| xi_{h,w}$                                 |                                                                 |                                    |                               |                    |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| *Physical activity model values*          |                                                                 |                                    |                               |                    |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\chi$                                    | Day-to-week travel scalar                                       | 7 or 7 $\times$Beta(20,3)          | DAY_TO_WEEK_TRAVEL_SCALAR     | Model              |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $Y_i$                                     | Individual n on-transport MMETs                                 | Constant                           | PA_SET\$ work_ltpa \_marg_met | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\theta$                                  | Background PA scalar                                            | 1 or Lnorm(0,0.18)                 | BACKGROUND\_ PA_SCALAR        | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\                                        | Confidence in PA survey                                         | 1                                  | BACKGROUND_PA_C ONFIDENCE     | Setting            |
+| tilde{Y}$                                 |                                                                 |                                    |                               |                    |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\tilde {\theta}$                         | Background PA zeros quantile                                    | 0.5 or Unif(0,1)                   | BACKGROUND \_PA_ZEROS         | Setting            |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\lambda_{m=\text{cyc.}}$                 | Cycling MET surplus                                             | 4.63 or Lnorm(log (4.63),1)        | MMET_CYCLING                  | Model              |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\lambda_{m=\text{walk}}$                 | Walking MET surplus                                             | 2.53 or Lnorm(log (2.53),1)        | MMET_WALKING                  | Model              |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| $\lambda_{m\not\in\text{wal               | In-vehicle MET surplus                                          | 0                                  |                               | Model              |
+| k,cyc.}}$                                 |                                                                 |                                    |                               |                    |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| *Physical activity & health model values* |                                                                 |                                    |                               |                    |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| \$\\G\_{h,x,z}\$                          | Look-up table for relative risk truncated normal distribution   | Constant                           |                               | Model              |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+| \$\phi\_{h}\$                             | Quantiles for PA RR functions                                   | 0.5 or Unif(0,1)                   | PA_DOSE_RESPONSE_QUANTILE     | Model              |
++-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
+
+
+## Data module {#data}
+
+Input data for the ITHIM are listed as Roman capital letters in Table [3](#inputs){reference-type="ref" reference="inputs"}. They include (vehicle) mode speeds, injury/fatality records, disease dose--response relationships, measures of air pollution, surveys of travel and physical activity, population numbers by demographic group, MMETs associated with active travel, and current burden of disease (see Figure [1](#workflow){reference-type="ref" reference="workflow"}).
+
+### Synthetic {#synth}
+
+We create a "synthetic population" by matching individuals surveyed for travel to the individuals surveyed for physical activity, based on age and gender. Then each person in the synthetic population has a set of trips taken and an amount of non-travel physical activity. This population is assumed to be representative of the population of the city or setting under study.
+
+#### Alternatively/additionally
+
+we could create a synthetic population as described in Appendix [8.3](#synthpop){reference-type="ref" reference="synthpop"}, which allows uncertainty in the propensity to travel. This method operates with person-level, rather than trip-level, information.
+
+### Scenarios
+
+From the synthetic population we create "scenarios" of different pictures of travel by changing certain trips (e.g. swapping the mode of travel for particular trips and/or particular people). For the purposes of illustration, we have created three scenarios mentioned in the table @tbl-scen-specs, where each mode such as `cycle` has propensities in three different distance categories: `0-2 km`, `2-6 km` and `6+ km`. What the scenario does that in each of those distance categories, it increases the current mode share by the propensities. So for instance, if in a city the baseline mode share of `cycle` is `10` percent for short trips (`0-2 km`), then in the `cycle` scenario, it increases upto 15.6 (10 + 5.6).
+
+
+```{r}
+#| label: tbl-scen-specs
+#| tbl-cap: Scenario propensities.
+#| warning: false
+
+kable(scen_def |> tibble::rownames_to_column("Scenarios"))
+```
+
+
+
+### Distances
+
+For the ITHIM, we process the travel data into distance data of various formats. First, we augment PT trips with a walk component: we take the set $\{T_j:m(j)=\text{bus}\}$, which has $J$ entries. We add $J$ journeys with mode "walk" and duration $\epsilon$ to the set $T$. (This step would not be necessary for a travel survey which already includes all stages for each trip.)
+
+Then we summarise the total distances and durations. The distance set is labelled $\hat{T}_{m,s}$, representing the total distance travelled per mode per scenario, and the duration set is constructed analogously. We make an assumption that the distance for bus drivers scales linearly with bus passengers, where the distance in the baseline is defined based on the bus driver distance relative to car.
+
+Distance and duration summaries include all person travel in the synthetic population and, in addition, some trips that are attributed to no-one in the synthetic population. These trips are used to represent "fleet" travel, which is uncaptured in travel surveys, and unchanged in scenarios. It's important to include these trips because for modes such as motorcycle, where a considerable component of travel comes from fleet, attributing all the harms associated with the mode to only those surveyed dramatically overestimates the contribution of the individuals. In scenarios, then, we would be predicting emissions and injury rates that are far too high per person.
+
+## AP module
+
+### Background PM2.5 {#dir}
+
+We use the total distance by mode ($\hat{T}_{m,s}$) to calculate the total PM2.5 in the scenario ($\bar{P}_s$). First we calculate the emission inventory in terms of fractions. If the confidence $P$ is 1 then we use $\dot{P}_{m}=\gamma_m$ directly. If $P<1$, we sample the emission inventory fractions as follows: $$\tilde{\gamma}_m \sim \text{Dir}(f(P,\gamma_m)),$$ $$\dot{P}_m=\tilde{\gamma}_m$$ where we choose some mapping function such as $f(P,\gamma_m)=\frac{\gamma_m}{\sum_m\gamma_m}10^{5P}$ (Figure [5](#emission_dist){reference-type="ref" reference="emission_dist"}).
+
+Then we multiply vehicle distance by vehicle emission factor (where the emission factor is the emission inventory (fraction) divided by distance at baseline). $$\tilde{P}_{m,s}=\dot{P}_m\frac{\hat{T}_{m,s}}{\hat{T}_{m,s=\text{baseline}}}.$$
+
+For the baseline, $\tilde{P}_{m,s}$ is equal to the emission inventory fraction. For each scenario, it is scaled. We take the sum over modes to get a scalar for emissions in scenarios. $$\hat{P}_{s}=\sum_{m} \tilde{P}_{m,s}.$$ Then the background PM2.5 in each scenario is the sum of the transport component and the non-transport component: $$\bar{P}_s=\eta(\zeta\hat{P}_s + 1-\zeta).$$
+
+### PM2.5 per person
+
+Dose--response relationships are based on background concentrations in cities, and not on personal exposures. In our person-level model, we expect that individuals will have different exposures based on their different travel behaviours. While we can neither estimate individual exposures nor map them via any dose--response relationship to a relative risk, we aim to capture interpersonal differences via assumptions about the mechanistic relationships between behaviours and exposures, and anchor those to the background air pollution in their locality, for which dose--response estimates of relative risk exist.
+
+Therefore, when we write "individual exposure", it should not be read as an aetiologically relevant exposure, but rather it should be read as a unit- and scale-agnostic metric that maps an individual to a particular dose with reference to city-level measurements of air pollution. New research is required to elicit dose--response relationships between individual health exposures and health outcomes \[citation from JPO?\]. Our approximations act as assumptions for now and placeholders until more detailed data are available. \[Perhaps we should use words other than "individual exposure". How about "individual PM2.5 reference values"?\]
+
+Individual exposures to PM2.5 are calculated using the background PM2.5 ($\bar{P}_s$) and the trip sets. There are three major components to daily exposure: one, a person's total inhalation off road; two, a person's inhalation on road in a vehicle, and, three, a person's inhalation on road while undertaking active transport. Each category has an amount of background PM2.5 and a ventilation rate which together inform overall exposure.
+
+The ratio of exposure off road to that on road is a function of total PM2.5, defined as $$K_s=C_4-C_5\log(\bar{P_s})$$ as in @Goel2015. This defines the exposure of a person in an open vehicle (i.e. pedestrian, cyclist or motorist): $$\tilde{K}_{m\in\{\text{walk,cyc.,mot.}\},s}=K_s$$ and it is used to calculate in-vehicle exposure, assuming an exposure of $C_2$ with the window closed, and a proportion $C_3$ of vehicles having closed windows: $$\tilde{K}_{m\not\in\{\text{walk,cyc.,mot.,sub.}\},s}=C_2C_3+K_s(1-C_3).$$ The exposure in a subway is constant and not dependent on the road ratio $K_s$: $$\tilde{K}_{m=\text{sub.},s}=C_6.$$
+
+Ventilation rates are calculated for each mode, assuming a base-level inhalation rate of $C_1$: $$V_m=C_1+\frac{1}{2}\lambda_m,$$ where $\lambda_m$ is the MMETs for mode $m$.[^1] Then the air inhaled during travel per person is $$\tilde{V}_{i,m,s} = \smashoperator{\sum_{\substack{j:i(j)=i,\\m(j)=m,\\s(j)=s}}}T_j\cdot V_{m(j)}/Z_{m(j)}$$ and the rate of inhalation during travel is $$\bar{V}_{i,s} = \sum_{m}\tilde{V}_{i,m,s}\cdot \tilde{K}_{m,s}.$$ The air inhaled when not travelling is $$\hat{V}_{i,s} = C_1\left(24-\smashoperator{\sum_{\substack{j:i(j)=i,\\s(j)=s}}}T_j/Z_{m(j)}\right).$$ Together, the PM2.5 exposure is calculated as the total PM2.5 inhaled per hour as follows: $$\check{W}_{i,s} = \frac{\bar{P}_s(\bar{V}_{i,s}+\hat{V}_{i,s})}{24}.$$
+
+[^1]: Ainsworth compendium 2011 sites.google.com/site/ compendiumofphysicalactivities for walking and cycling
+
+### AP--disease dose--response relative risk
+
+We use each person's exposure to PM2.5 ($\check{W}_{i,s}$) to calculate their relative risk of five diseases (IHD, lung cancer, COPD, stroke, LRI), using curves parametrised by four disease-specific variables [@Burnett2014]. Of the five diseases, two (IHD and stroke) have parameters specific to age groups starting at age 25.[^2] The other three (lung cancer, LRI and COPD) have one set of parameters for all ages.
+
+[^2]: For any person of age lower than 25, we set the relative risk to 1.
+
+The curves are in the form of samples of the set of four parameters. We model the densities of these samples (using a quantile for parameter 3, kernel density estimation for parameter 2, and GAMs for parameters 1 and 4)[^3] in order to draw either the median or random samples via their quantiles ($\xi_{h,w}$) as follows:
+
+[^3]: The four parameters refer, in numerical order, to $\alpha, \beta, \gamma$ and tmrel in @Burnett2014.
+
+$$\begin{aligned}
+\tilde{H}_{a,h,w=3}=&\text{CDF}_{H_{a,h,w=3}}^{-1}(\xi_{h,w=3})\\
+\tilde{H}_{a,h,w=2}=&\text{CDF}_{H_{a,h,w=2}|\tilde{H}_{a,h,w=3}}^{-1}(\xi_{h,w=2})\\
+\tilde{H}_{a,h,w=1}=&\text{CDF}_{H_{a,h,w=1}|\tilde{H}_{a,h,w=2},\tilde{H}_{a,h,w=3}}^{-1}(\xi_{h,w=1})\\
+\tilde{H}_{a,h,w=4}=&\text{CDF}_{H_{a,h,w=4}|\tilde{H}_{a,h,w=3},\tilde{H}_{a,h,w=2},\tilde{H}_{a,h,w=1}}^{-1}(\xi_{h,w=4}).\end{aligned}$$
+
+From these parameters, the relative risk of mortality is defined $$\check{H}_{h,i,s} = 1 + \tilde{H}_{a=a(i),h,w=1}\times
+\left\{1 - \exp\left(-\tilde{H}_{a=a(i),h,w=2}  (\check{W}_{i,s} - \tilde{H}_{a=a(i),h,w=4}) ^ {\tilde{H}_{a=a(i),h,w=3} }\right)\right\}.$$ For $h\not\in\{\text{IHD, lung cancer, COPD, stroke, LRI}\}$, $\check{H}_{h,i,s} \equiv 1$.
+
+## PA module
+
+### Individual-level MMETs {#beta}
+
+Using trip sets and the synthetic population, we calculate total MMETs per person ($M_{i,s}$) as the sum of walking MMETs per day and cycling MMETs per day, which are scaled up to a week via the scalar $\chi$, and work/leisure MMETs per week as follows: $$M_{i,s}=\smashoperator{\sum_{\substack{j:i(j)=i,\\s(j)=s}}}
+\chi\lambda_{m(j)}\frac{T_j}{Z_{m(j)}}+\theta Y_i.$$
+
+Here, $\lambda_m$ is the MMETs for mode $m$, $T_j$ the distance of trip $j$, $Z_m$ the speed of mode $m$, $\theta$ the scalar for background PA, and $\check{Y}_i$ the amount of work and leisure (background) PA of person $i$.
+
+We calculate $\check{Y}_i$ according to the confidence in the PA survey, $\tilde{Y}$. First, we calculate the raw probability that a person in demographic group completes no non-travel PA: $$\dot{Y}_{a,g}=\text{Prob}(Y_i=0)|_{a(i)=a,g(i)=g}.$$ Then, we set the probability to use, $\bar{Y}_{a,g}$, as $\dot{Y}_{a,g}$ if our confidence $\tilde{Y}$ is 1. If $\tilde{Y}<1$, we map the confidence to parametrise a Beta distribution somehow, e.g. (Figure [4](#prob_zero_PA){reference-type="ref" reference="prob_zero_PA"}) $$\begin{aligned}
+\hat{Y} &= 500^{\tilde{Y}+0.2},\\
+\beta & = \hat{Y}\dot{Y}_{a,g}\left(\frac{1}{\dot{Y}_{a,g}} -1\right),\\
+\alpha & = \hat{Y} - \beta,\\
+\bar{Y}_{a,g} & = \text{CDF}_{\text{Beta}(\alpha,\beta)}^{-1}(\tilde{\theta}).\end{aligned}$$
+
+Finally, for each person in the population, we sample non-travel MMETs as zero with probability $\bar{Y}_{a,g}$ and from the raw non-zero density of their demographic group with probability $1-\bar{Y}_{a,g}$.
+
+### PA--disease dose--response relative risk
+
+We use each person's MMETs per week (${M}_{i,s}$) to calculate their relative risk of six diseases, using curves found from meta analysis. Each disease (except type 2 diabetes) has a threshold beyond which there is no further change in relative risk. (Total cancer, breast cancer, colon & rectum cancer, endometrial cancer, & coronary heart disease: 35; lung cancer: 10; stroke: 32; all cause: 16.08.) For all individual cancers, we estimate the burden in terms of . For all other diseases, we use mortality.
+
+The interpolation of the dose--response curve can be described as follows: $$\tilde{G}_{h,x}(m) = {G}_{h,x,z=\lfloor{m}\rfloor}+({G}_{h,x,z=\lceil{m}\rceil}-{G}_{h,x,z=\lfloor{m}\rfloor})\frac{m-\lfloor{m}\rfloor}{\lceil{m}\rceil-\lfloor{m}\rfloor}$$ where we interpolate the mean, the lower bound, and the upper bound. These define the normal from which we sample, truncated at 0: $$F_S(v_x) = \mathcal{N}\left.\left(v_{x=2},\frac{v_{x=3}-v_{x=1}}{1.96}\right)\right|_{F_S(v_x)>0}.$$
+
+Then the relative risk for each person for each disease is calculated for the quantile $\phi_h$ as $$W_{h,i,s}=\text{CDF}_{F_S\left(\tilde{G}_{h,x}(M_{i,s})\right)}^{-1}\left(\phi_{h}\right).$$ See Figure [2](#cancer){reference-type="ref" reference="cancer"} for an example. For $h\not\in$ {diabetes, total cancer, breast cancer, colon & rectum cancer, endometrial cancer, IHD, lung cancer, stroke, all cause}, $W_{h,i,s} \equiv 1$.
+
+\[Example of the dose--response workflow for PA and total cancer. Top left: results of the meta-analysis: mean, lower bound and upper bound of the relationship between PA dose and relative risk of disease. Top right: examples of 500 samples from the normal distribution defined by the mean of the top-left panel and the standard deviation defined by (upper bound minus lower bound) divided by 1.96 and truncated at 0. Bottom left: relative risks of individuals with PA doses 5, 25 and 45 are found by mapping their doses onto the median curve. This is used in the "constant" ITHIM use case. Bottom right: relative risks of individuals with PA doses 5, 25 and 45 for three different samples from the distribution shown in the top-right panel. For each sample, each individual is mapped onto the response curve it defines.\]
+
+
+## Injury module
+
+### Processing
+
+For the injury module, we require distance per travel mode per demographic group per scenario. It requires matching of mode names in the travel survey to mode names in the injury records, for example "taxi", "shared auto", "shared taxi" and "car" combine to form "car". Some work is required to separate drivers from passengers; we currently assume all travellers are drivers, with the exception of "bus".[^4]
+
+[^4]: This is a problem for the examples of Delhi and Bangalore, whose trip sets have car travellers under the age at which driving is permitted and who therefore should not contribute to striking distance.
+
+### Modelling
+
+We model injuries via regression by predicting the number of fatalities of each demographic group on each mode, which we calculate as a sum over all the ways in which they might have been injured (i.e., all the modes with which they might have collided).
+
+The predictive covariates include the distances travelled by the parties and their demographic details. These requirements lead to a natural separation of the (training) dataset into two groups: a set for which we have distance data for the other party, and a set for which we do not have distance data for the other party. The former equates to a "who hit whom" ("whw") matrix (albeit in a higher dimension), and will account for changes in injuries resulting of a change in strike-mode travel. The latter corresponds to causes of injury that will not change across scenarios, including "no other vehicle" and modes of transport that we do not consider to change, which might include trucks and buses if they are not somehow explicitly included in the trip set. We label this group "noov": no or other vehicle.
+
+[Note on recategorization]{.ul}: for some of the modes (like for car, bus, motorcycle and cycle), if both strike and victim modes are same, we explicitly make the strike mode as 'noov'
+
+We model the number of injuries as a Poisson-distributed variable with an offset depending on the distance(s) and the reporting rate. We write the model as follows: $$\begin{aligned}
+\tilde{I}_{a,g,m_{\text{cas}},m_{\text{str}},s,y} \sim &
+\text{Poisson}(\bar{I}_{a,g,m_{\text{cas}},m_{\text{str}},s}); \\
+% 'count~
+\log\left(\bar{I}_{a,g,m_{\text{cas}},m_{\text{str}},s}|m_{\text{str}}\in\{m_{\text{whw}}\}\right) = &
+% cas_mode*strike_mode-log(injury_reporting_rate)+log(weight)
+{\kappa_0} +\sum_{i=1}^n\kappa_iX_i-\log(\sigma)+\nonumber\\
+% +log(cas_distance)
+ & \log(\bar{T}_{a,g,m_{\text{cas}},s})
+ % +(CAS_EXPONENT-1)*log(cas_distance_sum)
+ +(E_{m_{\text{cas}}}-1)\log(\hat{T}_{m_{\text{cas}},s})
+ %+log(strike_distance)+(STR_EXPONENT-1)*log(strike_distance_sum)
+ +E_{m_{\text{str}}}\log(\hat{T}_{m_{\text{str}},s});\\
+\log\left(\bar{I}_{a,g,m_{\text{cas}},m_{\text{str}},s}|m_{\text{str}}\in\{m_{\text{noov}}\}\right) =&
+{\kappa'_0}
++\sum_{i=1}^n\kappa'_iX'_i 
+-\log(\sigma)
+% +log(cas_distance)
++ \log(\bar{T}_{a,g,m_{\text{cas}},s})
+ % +(CAS_EXPONENT-1)*log(cas_distance_sum)
+ +(E_{m_{\text{cas}}}-1)\log(\hat{T}_{m_{\text{cas}},s}).\end{aligned}$$ We choose this form of equation to enable (a) linearity in injuries with respect to total travel combined across modes and (b) linearity in injuries as subdivided by travellers of each mode.[^5] Note that this methodology is under development. See <https://github.com/robj411/safety_in_numbers_power_law>.
+
+[^5]: Note that the assymmetry in the offset term for the whw expression arises due to the absence of demographic information for striking vehicles. Were we to have that, the offset would read $\log(\bar{T}_{a,g,m_{\text{cas}},s})+(E_{m_{\text{cas}}}-1)\log(\hat{T}_{m_{\text{cas}},s})+\log(\bar{T}_{a,g,m_{\text{str}},s})+(E_{m_{\text{str}}}-1)\log(\hat{T}_{m_{\text{str}},s})$. For our case, the latter two terms simplify to $\log(\hat{T}_{m_{\text{str}},s})+(E_{m_{\text{str}}}-1)\log(\hat{T}_{m_{\text{str}},s})=E_{m_{\text{str}}}\log(\hat{T}_{m_{\text{str}},s})$.
+
+In general, one makes the best model that one can with the data available. We use, for Accra, the covariates `casualty mode*strike mode, casualty age,` and `casualty gender`, to form the model matrix $X$. We also have another covariate, `year`, but our travel data are for one year only, so we model instead many observations of the same quantities.
+
+We fit the coefficients $\kappa$ of the model using data for ten years, assuming the same travel each year, which corresponds to the scenario $s=\text{baseline}$. To incorporate the injury reporting rate ($\sigma$), we set it as an offset, whose value is 1 in fitting the model, and as specified in making predictions.
+
+### Prediction
+
+We predict the number of injuries in each scenario based on the training model built from the baseline scenario. For Accra, we predict for the year 2016, using scenario-specific travel data. The number of fatalities is taken as the sum of fatalities over the strike modes: $$\check{I}_{a,g,m,o=\text{death},s}=\sum_{m_{\text{str}}}\tilde{I}_{a,g,m_{\text{cas}},m_{\text{str}},s}.$$ We extrapolate injury deaths to injury YLLs via the ratio in the GBD: $$R_{a,g}=U_{a,g,h=\text{road injuries},o=\text{YLL}}/U_{a,g,h=\text{road injuries},o=\text{death}},$$ $$\check{I}_{a,g,m,o=\text{YLL},s}=\check{I}_{a,g,m,o=\text{death},s}\cdot R_{a,g}.$$
+
+## Health module
+
+### PA and AP relative risks combined
+
+We combine the relative risks of disease as a function of AP and disease as a function of PA through multiplication: $$\tilde{W}_{h,i,s}=W_{h,i,s}\cdot\check{H}_{h,i,s}.$$ Not all diseases have a dose--response relationship for both AP and PA. Just stroke, lung cancer, and IHD have both. For the other diseases, only one of $W_{h,i,s}$ and $\check{H}_{h,i,s}$ is different from one.
+
+### Total disease burden
+
+We calculate the total health burden relative to the reference scenario (which, for our Accra example, is the baseline) using the injury and health outputs combined with GBD data, via population attributable fractions (PAF). The PAF is defined: $$\hat{W}_{a,g,h,s}=\smashoperator{\sum_{\substack{i:a(i)=a,\\g(i)=g}}}\tilde{W}_{h,i,s}.$$
+
+We then calculate the PAF relative to the reference scenario ("ref") as: $$\bar{W}_{a,g,h,s}= \frac{\hat{W}_{a,g,h,s=\text{ref}}-\hat{W}_{a,g,h,s}}{\hat{W}_{a,g,h,s=\text{ref}}}.$$
+
+We estimate the background burden of disease using GBD data and scaling based on the ratio of populations between country and city. For country populations $N_{a,g}$, city populations $\bar{N}_{a,g}$ and country burden $U_{a,g,h,o}$, we estimate city burden as $$\bar{U}_{a,g,h,o}=U_{a,g,h,o}\frac{\bar{N}_{a,g}}{N_{a,g}}.$$
+
+If we are scaling the background burden of non-communicable diseases ("Neoplasms", "Ischemic heart disease", "Tracheal, bronchus, and lung cancer", "Breast cancer", "Colon and rectum cancer", "Uterine cancer"), we do so here. (Otherwise set $\rho\equiv 1$.) $$\tilde{U}_{a,g,h,o}=\rho_h\cdot  \bar{U}_{a,g,h,o}.$$
+
+We combine the burden with the PAF: $$\hat{U}_{a,g,h,o,s}=\bar{W}_{a,g,h,s}\cdot\tilde{U}_{a,g,h,o}.$$
+
+### Injury burden
+
+And, finally, for the injuries, we sum over modes to compute the burden, $$\bar{U}_{a,g,o,s}=\sum_m\check{I}_{a,g,m,o,s},$$ and subtract from the values for the reference scenario: $$\hat{U}_{a,g,h=\text{road injury},o,s}=\bar{U}_{a,g,o,s=\text{ref}}-\bar{U}_{a,g,o,s}.$$
+
+# Example: Accra {#example}
+
+Here we show the ITHIM as evaluated for the city of Accra, with a simple scenario of every person in the synthetic population gaining a single, 1 km walk. We define XX uncertain univariate parameters (Section [3.1](#uni){reference-type="ref" reference="uni"}), two confidences, and two uncertain parameter sets (Section [3.3](#dr){reference-type="ref" reference="dr"}).
+
+## Parametric distributions for uncertain variables {#uni}
+
+The XX uncertain univariate parameters are shown in Figure [3](#distributions){reference-type="ref" reference="distributions"}. Most of the parameters are self explanatory. Cycling and walking MMETs are the number of MMETs per hour when undertaking cycling and walking, and determine also the ventilation rates. Motorcycle distance is the total distance travelled by motorcycles relative to the total distance travelled by cars in the baseline scenario. Non-travel PA, injury reporting rate and NCD burden all act as scalars for the corresponding datasets. Note that the non-travel PA scalar does not affect the $\approx$\<40% of the population whose non-travel PA is 0.
+
+(){#distributions width="95%"}
+
+## Confidences
+
+For physical activity propensity and emission inventories, we use "confidences", values between 0 and 1 that represent how confident we are about the data source. We map these values to Beta (Figure [4](#prob_zero_PA){reference-type="ref" reference="prob_zero_PA"}) and Dirichlet (Figure [5](#emission_dist){reference-type="ref" reference="emission_dist"}) distributions, respectively. The Beta-distributed propensity towards non-travel physical activity is described in Section [2.3.1](#beta){reference-type="ref" reference="beta"}. The Dirichlet-distributed emissions inventory is described in Section [2.2.1](#dir){reference-type="ref" reference="dir"}.
+
+\[Distributions of a Beta-distributed propensity to non-travel PA with varying confidence values in the raw input data. The sampled value gives the fraction of the population that engages in non-travel PA.\]
+
+
+(){#emission_dist width="65%"}
+
+## Dose--response relationships {#dr}
+
+For the dose--response relationships between physical activity (PA) and disease and air pollution (AP) and disease, we assume that there is uncertainty, but no variability, in the relationship. This means that we sample a relationship from the distribution of relationships, and apply that relationship to all individuals precisely. This means that, given fixed doses, responses between individuals will be perfectly correlated.
+
+We achieve this by use of the probability integral transform: we sample a random variable uniformly distributed on the space (0,1) and map it, via a cumulative distribution function, to the distribution describing the dose--response relationship. See Figure [6](#cdf){reference-type="ref" reference="cdf"} for an illustration.
+
+(){#cdf width="80%"}
+
+### Physical activity
+
+Each disease's PA dose--response relationship is defined by a truncated normal. For each dose, there is a mean value, an upper bound, and a lower bound. For each person's dose, we get the response by mapping the uniform random variable onto the truncated normal defined by the mean and bounds for that dosage. We use an R package called {drpa}, whose description can be seen here: <https://meta-analyses.github.io/drpa/drpa.html>
+
+The relationships comes out of our work on meta-analyses \@Leandro2018, where we look at the association of `physical activity` with various diseases.
+
+### Air pollution
+
+For the AP relationship, there are four parameters per disease. We sample the first from an empirical distribution using the probability integral transform. We sample the second via the same method, conditioned on the value of the first, constructing their joint density with e.g. kde2d. The third parameter is sampled conditioned on the first and second, constructing their joint density using a GAM. The final parameter is sampled conditioned on the first, second, and third, constructing their joint density using a GAM.
+
+As before, there is perfect correlation between individuals, i.e. if person A's dose is greater than person B's, then person A's response is strictly greater than person B's response.
+
+The empirical distributions come from @Burnett2014. There are four parameters per disease: IHD, lung cancer, COPD, stroke, and LRI. In addition, for stroke and IHD, there is a set of four parameters for each age group from 25 to 95 in five-year increments. In addition to our assumption that there is perfect correlation between individuals for diseases, we assume perfect correlation between ages for diseases. I.e., our four quantiles per disease will be applied to all age groups.
+
+# Results {#results}
+
+## Health burdens in scenarios
+
+***YLLs in the scenario minus YLLs in the baseline for Accra***
+
+## Value of information
+
+We calculate value of information following @Jackson2017. The "value of information" we implement is the expected value of perfect partial information (EVPPI). It is the expected amount by which variation in the outcome diminishes should a parameter, or set of parameters, be known perfectly. With reference to information theory, it is the mutual information between the parameter, or parameter set, and the outcome, where the outcome is described only by its second moment (its variance).
+
+The objective of learning the value of information formulated in this way is to identify the parameter or parameters that most drive variability (variance) in the outcome. The results guide future research, identifying which area or areas offer the greatest benefit in terms of prediction accuracy given further research. For example, for our model of Accra, learning better the dose--response relationship between physical activity and stroke (incidence) would likely increase precision of our estimate of total years of life lost (YLL) more so than learning any other parameter (Figure [8](#evppi){reference-type="ref" reference="evppi"}).
+
+\[EVPPI for Accra's "walking" scenario for all causes of YLLs excluding "all cause" and "neoplasm".\]
+
+
+# ITHIM with parameters
+
+::: appendix
+\[ITHIM-R workflow, with variable parameters in purple. Fixed inputs to the model have a bold, black outline, which is solid for inputs we consider "global" and dashed for inputs we consider "local". There are four global inputs, which will be embedded in ITHIM-R. There are seven local inputs, which users should provide. The graph depicts parent--child relationships, where a child (at the head of an arrow) depends upon all its parents (at the source(s) of the arrow(s)). To aid visualisation, an arrow connected to the outside of a grey box indicates that the arrow connects to each item within the box. *AT: active travel. MET: metabolic equivalent task. pp: per person. AP: air pollution. PA: physical activity. DR: dose--response relationship. GBD: global burden of disease.* NB: $\rho$ only impacts the NCD burden of GBD, not all of it. Missing parameter: motorcycle distance. $\lambda$ is a 2D parameter. $\xi$ is 4D.\]
+
+(){#ithim_with_parameters width="\\textwidth"}
+
+# Dose--response relationships {#doseresponse-relationships}
+
+\[1000 samples from PA dose--response curves\]
+
+
+(){#PADR width="90%"}
+
++:----------------------------------------------------------------------------------:+:---------------------------------------------------------------------------------:+
+| ![100 samples from AP dose--response curves](cvd_ihdDR-sim.pdf){#APDR width="40%"} | \[100 samples from AP dose--response curves\] (cvd_strokeDR-sim.pdf){width="40%"} |
++------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------+
+
++:-----------------------------------------------------------------:+:------------------------------------------------------------:+:------------------------------------------------------------------:+
+| ![100 samples from AP dose--response curv es](neo_lungDR-sim.pdf) | ![100 samples from AP dose--response c urves](lriDR-sim.pdf) | ![100 samples from AP dose--response curve s](resp_copdDR-sim.pdf) |
++-------------------------------------------------------------------+--------------------------------------------------------------+--------------------------------------------------------------------+
+
+::: landscape
+# Tabulated ITHIM equations {#tableequations}
+
+::: center
+::: ThreePartTable
+::: TableNotes
+CDF: cumulative distribution function. We use generative distributions to generate random numbers so that samples are correlated. For $t=\text{CDF}_{F}^{-1}(q)$, $t$ is the $q$-th quantile of function $F$ with CDF CDF$_F$. (I'd like to find an improved notation for this.)

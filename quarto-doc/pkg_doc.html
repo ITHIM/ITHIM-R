@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.315">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Package Documentation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="pkg_doc_files/libs/clipboard/clipboard.min.js"></script>
+<script src="pkg_doc_files/libs/quarto-html/quarto.js"></script>
+<script src="pkg_doc_files/libs/quarto-html/popper.min.js"></script>
+<script src="pkg_doc_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="pkg_doc_files/libs/quarto-html/anchor.min.js"></script>
+<link href="pkg_doc_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link id="quarto-text-highlighting-styles" href="pkg_doc_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<script src="pkg_doc_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="pkg_doc_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="pkg_doc_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"> <span class="header-section-number">1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"> <span class="header-section-number">1.1</span> Overview</a></li>
+  </ul></li>
+  <li><a href="#equations" id="toc-equations" class="nav-link" data-scroll-target="#equations"> <span class="header-section-number">2</span> Method: ITHIM</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"> <span class="header-section-number">2.1</span> Data module</a>
+  <ul class="collapse">
+  <li><a href="#synth" id="toc-synth" class="nav-link" data-scroll-target="#synth"> <span class="header-section-number">2.1.1</span> Synthetic</a></li>
+  <li><a href="#scenarios" id="toc-scenarios" class="nav-link" data-scroll-target="#scenarios"> <span class="header-section-number">2.1.2</span> Scenarios</a></li>
+  <li><a href="#distances" id="toc-distances" class="nav-link" data-scroll-target="#distances"> <span class="header-section-number">2.1.3</span> Distances</a></li>
+  </ul></li>
+  <li><a href="#ap-module" id="toc-ap-module" class="nav-link" data-scroll-target="#ap-module"> <span class="header-section-number">2.2</span> AP module</a>
+  <ul class="collapse">
+  <li><a href="#dir" id="toc-dir" class="nav-link" data-scroll-target="#dir"> <span class="header-section-number">2.2.1</span> Background PM2.5</a></li>
+  <li><a href="#pm2.5-per-person" id="toc-pm2.5-per-person" class="nav-link" data-scroll-target="#pm2.5-per-person"> <span class="header-section-number">2.2.2</span> PM2.5 per person</a></li>
+  <li><a href="#apdisease-doseresponse-relative-risk" id="toc-apdisease-doseresponse-relative-risk" class="nav-link" data-scroll-target="#apdisease-doseresponse-relative-risk"> <span class="header-section-number">2.2.3</span> AP–disease dose–response relative risk</a></li>
+  </ul></li>
+  <li><a href="#pa-module" id="toc-pa-module" class="nav-link" data-scroll-target="#pa-module"> <span class="header-section-number">2.3</span> PA module</a>
+  <ul class="collapse">
+  <li><a href="#beta" id="toc-beta" class="nav-link" data-scroll-target="#beta"> <span class="header-section-number">2.3.1</span> Individual-level MMETs</a></li>
+  <li><a href="#padisease-doseresponse-relative-risk" id="toc-padisease-doseresponse-relative-risk" class="nav-link" data-scroll-target="#padisease-doseresponse-relative-risk"> <span class="header-section-number">2.3.2</span> PA–disease dose–response relative risk</a></li>
+  </ul></li>
+  <li><a href="#injury-module" id="toc-injury-module" class="nav-link" data-scroll-target="#injury-module"> <span class="header-section-number">2.4</span> Injury module</a>
+  <ul class="collapse">
+  <li><a href="#processing" id="toc-processing" class="nav-link" data-scroll-target="#processing"> <span class="header-section-number">2.4.1</span> Processing</a></li>
+  <li><a href="#modelling" id="toc-modelling" class="nav-link" data-scroll-target="#modelling"> <span class="header-section-number">2.4.2</span> Modelling</a></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction"> <span class="header-section-number">2.4.3</span> Prediction</a></li>
+  </ul></li>
+  <li><a href="#health-module" id="toc-health-module" class="nav-link" data-scroll-target="#health-module"> <span class="header-section-number">2.5</span> Health module</a>
+  <ul class="collapse">
+  <li><a href="#pa-and-ap-relative-risks-combined" id="toc-pa-and-ap-relative-risks-combined" class="nav-link" data-scroll-target="#pa-and-ap-relative-risks-combined"> <span class="header-section-number">2.5.1</span> PA and AP relative risks combined</a></li>
+  <li><a href="#total-disease-burden" id="toc-total-disease-burden" class="nav-link" data-scroll-target="#total-disease-burden"> <span class="header-section-number">2.5.2</span> Total disease burden</a></li>
+  <li><a href="#injury-burden" id="toc-injury-burden" class="nav-link" data-scroll-target="#injury-burden"> <span class="header-section-number">2.5.3</span> Injury burden</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"> <span class="header-section-number">3</span> Example: Accra</a>
+  <ul class="collapse">
+  <li><a href="#uni" id="toc-uni" class="nav-link" data-scroll-target="#uni"> <span class="header-section-number">3.1</span> Parametric distributions for uncertain variables</a></li>
+  <li><a href="#confidences" id="toc-confidences" class="nav-link" data-scroll-target="#confidences"> <span class="header-section-number">3.2</span> Confidences</a></li>
+  <li><a href="#dr" id="toc-dr" class="nav-link" data-scroll-target="#dr"> <span class="header-section-number">3.3</span> Dose–response relationships</a>
+  <ul class="collapse">
+  <li><a href="#physical-activity" id="toc-physical-activity" class="nav-link" data-scroll-target="#physical-activity"> <span class="header-section-number">3.3.1</span> Physical activity</a></li>
+  <li><a href="#air-pollution" id="toc-air-pollution" class="nav-link" data-scroll-target="#air-pollution"> <span class="header-section-number">3.3.2</span> Air pollution</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"> <span class="header-section-number">4</span> Results</a>
+  <ul class="collapse">
+  <li><a href="#health-burdens-in-scenarios" id="toc-health-burdens-in-scenarios" class="nav-link" data-scroll-target="#health-burdens-in-scenarios"> <span class="header-section-number">4.1</span> Health burdens in scenarios</a></li>
+  <li><a href="#value-of-information" id="toc-value-of-information" class="nav-link" data-scroll-target="#value-of-information"> <span class="header-section-number">4.2</span> Value of information</a></li>
+  </ul></li>
+  <li><a href="#ithim-with-parameters" id="toc-ithim-with-parameters" class="nav-link" data-scroll-target="#ithim-with-parameters"> <span class="header-section-number">5</span> ITHIM with parameters</a></li>
+  <li><a href="#doseresponse-relationships" id="toc-doseresponse-relationships" class="nav-link" data-scroll-target="#doseresponse-relationships"> <span class="header-section-number">6</span> Dose–response relationships</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Package Documentation</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<section id="overview" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">1.1</span> Overview</h2>
+<p>The remainder of the document presents a current working version of the ITHIM, and is a comprehensive record of all the calculations of which it is composed. The equations for the ITHIM are described in Section <a href="#equations" data-reference-type="ref" data-reference="equations">2</a> (tabulated in Section <a href="#tableequations" data-reference-type="ref" data-reference="tableequations">7</a>). The method is concretised through the example application to Accra in Section <a href="#example" data-reference-type="ref" data-reference="example">3</a> and particular columns in Tables <a href="#indices" data-reference-type="ref" data-reference="indices">1</a> and <a href="#inputs" data-reference-type="ref" data-reference="inputs">3</a>, with results presented in Section <a href="#results" data-reference-type="ref" data-reference="results">19</a>.</p>
+<p>The ITHIM as described here is implemented in the ITHIM-R R package (<a href="https://github.com/ITHIM/ITHIM-R" class="uri">https://github.com/ITHIM/ITHIM-R</a>). In the Latin America settings, we have a list of 20 cities, which are (Antofagasta, Arica, Belo Horizonte, Bogota, Buenos Aires, Cali, Copiapo, Coquimbo Laserena, Gran Valparaiso, Iquique Altohospicio, Medellin, Mexico City, Montevideo, Osorno, Puerto Montt, San Antonio, Santiago, Sao Paulo, Temuco Padrelascasas, Valdivia), and reference will be made to those where relevant.</p>
+</section>
+</section>
+<section id="equations" class="level1 page-columns page-full" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Method: ITHIM</h1>
+<p>In the ITHIM, we combine many information inputs and compute the health burden through three pathways (depicted in Figure <a href="#workflow" data-reference-type="ref" data-reference="workflow">1</a>). Each pathway has its own set of definitions and outputs, and we refer to them as “modules”.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<figure class="figure">
+<img src="figures/flowchart.png" title="Flowchart: Model descrption" class="img-fluid figure-img" alt="A flowchart of model.">
+</figure>
+<p></p><figcaption aria-hidden="true" class="figure-caption">ITHIM workflow. Inputs to the model have a bold, black outline. The graph depicts parent–child relationships, where a child (at the head of an arrow) depends upon all its parents (at the source(s) of the arrow(s)). To aid visualisation, an arrow connected to the outside of a grey box indicates that the arrow connects to each item within the box. *AT: active travel. MET: metabolic equivalent task. pp: per person. AP: air pollution. PA: physical activity. DR: dose–response relationship. GBD: global burden of disease. BOD: Burden of Disease</figcaption><p></p>
+</figure>
+</div>
+<p>To describe the model, we use lower-case letters to denote indices, or dimensions, of objects. They take one of a set of possible values, detailed in Table <a href="#indices" data-reference-type="ref" data-reference="indices">1</a>. The set of input items are denoted by capital letters, and variable parameters are denoted by Greek letters. These are presented in Table <a href="#inputs" data-reference-type="ref" data-reference="inputs">3</a>. The equations of the ITHIM are presented below, and summarised in Table <a href="#calculationstab" data-reference-type="ref" data-reference="calculationstab">4</a>. These use letter modifiers to show how the inputs are modified in the course of output generation.</p>
+<p>We calculate the ITHIM by combining the modules’ outputs in terms of the health burden (<span class="math inline">\(\hat{U}_{a,g,h,o,s}\)</span>). Other outputs of the model include: MMETs per person (<span class="math inline">\(M_{i,s}\)</span>), PM2.5 in each scenario (<span class="math inline">\(\bar{P}_s\)</span>), PM2.5 per person (<span class="math inline">\(\check{W}_{i,s}\)</span>), and injuries burden (<span class="math inline">\(\check{I}_{a,g,m,o,s}\)</span>).</p>
+<p>To assess uncertainty, we sample from the ITHIM output by sampling uncertain parameters multiple times and calculating the ITHIM. We specify parametric distributions or sampling strategies for all the uncertain parameters. Evaluating the ITHIM with uncertain parameters allows assessment of their impact on the outcome (AKA sensitivity analysis). We use EVPPI to calculate the expected reduction in uncertainty in the outcome were we to learn a parameter perfectly. This means we can implement models that are basic in their parametrisation, and learn at the end for which parameters it would be worthwhile spending dedicated time learning better.</p>
+<table class="table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 31%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Label</th>
+<th>Name</th>
+<th>Levels</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>a</em></td>
+<td>Age group</td>
+<td>15–49<br>
+50–69</td>
+</tr>
+<tr class="even">
+<td><em>g</em></td>
+<td></td>
+<td>Male<br>
+Female</td>
+</tr>
+<tr class="odd">
+<td><em>h</em></td>
+<td>Disease</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><em>i</em></td>
+<td>Individual index</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><em>j</em></td>
+<td>Trip index</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><em>m</em></td>
+<td>Transport mode</td>
+<td>walk<br>
+cycling (cyc.)<br>
+bus<br>
+car<br>
+motorbike (mot.)<br>
+goods vehicles (GV)<br>
+subway (sub.)</td>
+</tr>
+<tr class="odd">
+<td><em>o</em></td>
+<td>Outcome</td>
+<td>Death<br>
+YLL</td>
+</tr>
+<tr class="even">
+<td><em>s</em></td>
+<td>Scenario</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td><em>w</em></td>
+<td>AP RR hyperparameter</td>
+<td>1, 2, 3, 4</td>
+</tr>
+<tr class="even">
+<td><em>x</em></td>
+<td>PA RR hyperparameter</td>
+<td>1, 2, 3</td>
+</tr>
+<tr class="odd">
+<td><em>z</em></td>
+<td>PA dose</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<caption>Indices used in the ITHIM variables. The “Label” is the subscript used to refer to the index in this document. The “Name” is descriptive. The “Levels” are the levels used in the Accra model.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Abbreviation</th>
+<th style="text-align: left;">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">AP</td>
+<td style="text-align: left;">Air pollution</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CDF</td>
+<td style="text-align: left;">Cumulative distribution function</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COPD</td>
+<td style="text-align: left;">Chronic obstructive pulmonary disease</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DR</td>
+<td style="text-align: left;">Dose response</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">EVPPI</td>
+<td style="text-align: left;">Expected value of perfect partial information</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GAM</td>
+<td style="text-align: left;">Generalised additive model</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GBD</td>
+<td style="text-align: left;">Global burden of disease</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IHD</td>
+<td style="text-align: left;">Ischemic heart disease</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ITHIM</td>
+<td style="text-align: left;">Integrated transport and health impact model</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LRI</td>
+<td style="text-align: left;">Lower respiratory infection</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MMET</td>
+<td style="text-align: left;">Marginal metabolic equivalent task</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PA</td>
+<td style="text-align: left;">Physical activity</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PAF</td>
+<td style="text-align: left;">Population attributable fraction</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PIF</td>
+<td style="text-align: left;">Potential impact fraction</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PM2.5</td>
+<td style="text-align: left;">Particulate matter (diameter <span class="math inline">\(&lt; 2.5 \mu\)</span>m)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PT</td>
+<td style="text-align: left;">Public transport</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">RR</td>
+<td style="text-align: left;">Relative risk</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">VOI</td>
+<td style="text-align: left;">Value of information</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">YLL</td>
+<td style="text-align: left;">Years of life lost</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+
+</div>
+<p>{#inputs}</p>
+<table class="table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 32%">
+<col style="width: 18%">
+<col style="width: 15%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">[[inputs]]{label= “inputs”}</th>
+<th></th>
+<th style="text-align: left;"><em>ITHIM-R reference</em></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Name</strong></td>
+<td><strong>Description</strong></td>
+<td style="text-align: left;"><strong>Value in Accra model</strong></td>
+<td><strong>Label</strong></td>
+<td><strong>Model/ Setting</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>Global values</em></td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(U_ { a,g,h,o}\)</span></td>
+<td>Background burden of disease</td>
+<td style="text-align: left;">Constant</td>
+<td>GBD_DATA</td>
+<td>Setting</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(N_{a,g}\)</span></td>
+<td>Population by age and gender in GBD_DATA</td>
+<td style="text-align: left;">Constant</td>
+<td>GBD_DATA</td>
+<td>Setting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\bar { N}_{a,g}\)</span></td>
+<td>Population by age and gender</td>
+<td style="text-align: left;">Constant</td>
+<td>DEMOGRAPHIC</td>
+<td>Setting</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\rho_h\)</span></td>
+<td>Chronic disease scalar</td>
+<td style="text-align: left;">1 or Lnorm(0,0.18)</td>
+<td>CHRONIC_DISEASE_SCALAR</td>
+<td>Setting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><em>Travel values</em></td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(Z _ {m=walk}\)</span></td>
+<td>Walk speed</td>
+<td style="text-align: left;">4.8</td>
+<td>MODE_SPEEDS</td>
+<td>Setting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(Z _ {m=cyc.}\)</span></td>
+<td>Cycle speed</td>
+<td style="text-align: left;">14.5</td>
+<td>MODE_SPEEDS</td>
+<td>Setting</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(Z _ {m=bus}\)</span></td>
+<td>Bus speed</td>
+<td style="text-align: left;">15</td>
+<td>MODE_SPEEDS</td>
+<td>Setting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(Z _ {m=car}\)</span></td>
+<td>Car speed</td>
+<td style="text-align: left;">21</td>
+<td>MODE_SPEEDS</td>
+<td>Setting</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(Z _ {m=mot.}\)</span></td>
+<td>Motorbike speed</td>
+<td style="text-align: left;">25</td>
+<td>MODE_SPEEDS</td>
+<td>Setting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">$\epsilon $</td>
+<td>Walk time to bus</td>
+<td style="text-align: left;">5 or Lnorm(log (5),0.18)</td>
+<td>BUS_WALK_TIME</td>
+<td>Setting</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\mu_{m=HGV}\)</span></td>
+<td>Truck distance relative to car</td>
+<td style="text-align: left;">0.21 or Beta(3,10)</td>
+<td>TRUCK_TO_ CAR_RATIO</td>
+<td>Setting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\mu_{m=bus}\)</span></td>
+<td>Bus driver distance relative to bus passenger distance</td>
+<td style="text-align: left;">1/45 or Bet a(20,600) |</td>
+<td>BUS_TO_PASSENGER_RATIO</td>
+<td>Setting</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\mu_ {m=mot.}\)</span></td>
+<td>Motorcycle fleet distance relative to total motorcycle distance</td>
+<td style="text-align: left;">37/68 or Beta(37/3+ 1,31/3+1) |</td>
+<td>FLEET_TO_MOTORCYCLE_RATIO</td>
+<td>Setting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(T_j\)</span></td>
+<td>Trip-level data</td>
+<td style="text-align: left;">Constant</td>
+<td>SYNTHETIC_TRIPS</td>
+<td>Setting</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>Injury model values</em></td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(I _ {a,g,m_{\
+text{vi c} },m_{\text{str}}}\)</span></td>
+<td>Fatalities table</td>
+<td style="text-align: left;">Constant</td>
+<td>INJURY_TABLE</td>
+<td>Setting</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\sigma\)</span></td>
+<td>Injury reporting rate</td>
+<td style="text-align: left;">1 or Beta(8,3)</td>
+<td>INJURY_REPORTING_RATE</td>
+<td>Setting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\omega\)</span></td>
+<td>Sum of distance exponents</td>
+<td style="text-align: left;">1.9 or Lnorm(l og(1.9),l og(1.03))</td>
+<td>SIN_EXPONENT_SUM</td>
+<td>Model</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\psi\)</span></td>
+<td>Casualty fraction of <span class="math inline">\(\omega\)</span></td>
+<td style="text-align: left;">0.5 or Beta(20,20) |</td>
+<td>CASUALTY_EXPONENT_FRACTION</td>
+<td>Model</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><em>Pollution model values</em></td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\eta\)</span></td>
+<td>Background PM2.5 concentration</td>
+<td style="text-align: left;">50 or Lnorm(log( 50),0.18) |</td>
+<td>PM_CONC_BASE</td>
+<td>Setting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\zeta\)</span></td>
+<td>Fraction of measured PM2.5 concentration due to road transport</td>
+<td style="text-align: left;">0.225 or Beta(5,20) |</td>
+<td>PM_TRANS_SHARE</td>
+<td>Setting</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\
+g amma_{m}\)</span></td>
+<td>Vehicle emission inventory</td>
+<td style="text-align: left;">Constant or Dirichlet</td>
+<td>EMISSION_INVENTORY</td>
+<td>Setting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(P\)</span></td>
+<td>Vehicle emission confidence</td>
+<td style="text-align: left;">1</td>
+<td>EMISSION_INVENTORY_CONFIDENCE</td>
+<td>Setting</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>Pollution &amp; health model values</em></td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(C_1\)</span></td>
+<td>Base-level inhalation rate</td>
+<td style="text-align: left;">1</td>
+<td>BASE_LEVEL_INHALATION_RATE</td>
+<td>Model</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(C_2\)</span></td>
+<td>Exposure ratio window closed</td>
+<td style="text-align: left;">0.5</td>
+<td>CLOSED_WINDOW_PM_ RATIO</td>
+<td>Model</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(C_3\)</span></td>
+<td>Proportion of travel with closed windows</td>
+<td style="text-align: left;">0.5</td>
+<td>C LOSED_WIN DOW_RATIO</td>
+<td>Setting</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(C_4\)</span></td>
+<td>Parameter for on-road PM2.5 level</td>
+<td style="text-align: left;">3.216</td>
+<td>ROAD_ RATIO_MAX</td>
+<td>Model</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(C_5\)</span></td>
+<td>Parameter for on-road PM2.5 level</td>
+<td style="text-align: left;">0.379</td>
+<td>ROAD_RA TIO_SLOPE</td>
+<td>Model</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(C_6\)</span></td>
+<td>Exposure ratio for underground</td>
+<td style="text-align: left;">0.8</td>
+<td>SUBWAY _PM_RATIO</td>
+<td>Setting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">$ H _{a,h,w}$</td>
+<td>AP dose- -res ponse–curve parameters</td>
+<td style="text-align: left;">Constant</td>
+<td>DR_AP</td>
+<td>Model</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\
+xi_{h,w}\)</span></td>
+<td>Quantiles for AP RR functions</td>
+<td style="text-align: left;">0.5 or Unif(0,1)</td>
+<td>AP_DOSE_R ESPONSE_ QUANTILE</td>
+<td>Model</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><em>Physical activity model values</em></td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\chi\)</span></td>
+<td>Day-to-week travel scalar</td>
+<td style="text-align: left;">7 or 7 <span class="math inline">\(\times\)</span>Beta(20,3)</td>
+<td>DAY_TO_WEEK_TRAVEL_SCALAR</td>
+<td>Model</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(Y_i\)</span></td>
+<td>Individual n on-transport MMETs</td>
+<td style="text-align: left;">Constant</td>
+<td>PA_SET$ work_ltpa _marg_met</td>
+<td>Setting</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\theta\)</span></td>
+<td>Background PA scalar</td>
+<td style="text-align: left;">1 or Lnorm(0,0.18)</td>
+<td>BACKGROUND_ PA_SCALAR</td>
+<td>Setting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\
+tilde{Y}\)</span></td>
+<td>Confidence in PA survey</td>
+<td style="text-align: left;">1</td>
+<td>BACKGROUND_PA_C ONFIDENCE</td>
+<td>Setting</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\tilde {\theta}\)</span></td>
+<td>Background PA zeros quantile</td>
+<td style="text-align: left;">0.5 or Unif(0,1)</td>
+<td>BACKGROUND _PA_ZEROS</td>
+<td>Setting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\lambda_{m=\text{cyc.}}\)</span></td>
+<td>Cycling MET surplus</td>
+<td style="text-align: left;">4.63 or Lnorm(log (4.63),1)</td>
+<td>MMET_CYCLING</td>
+<td>Model</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\lambda_{m=\text{walk}}\)</span></td>
+<td>Walking MET surplus</td>
+<td style="text-align: left;">2.53 or Lnorm(log (2.53),1)</td>
+<td>MMET_WALKING</td>
+<td>Model</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\lambda_{m\not\in\text{wal
+k,cyc.}}\)</span></td>
+<td>In-vehicle MET surplus</td>
+<td style="text-align: left;">0</td>
+<td></td>
+<td>Model</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>Physical activity &amp; health model values</em></td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">$\G_{h,x,z}$</td>
+<td>Look-up table for relative risk truncated normal distribution</td>
+<td style="text-align: left;">Constant</td>
+<td></td>
+<td>Model</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$_{h}$</td>
+<td>Quantiles for PA RR functions</td>
+<td style="text-align: left;">0.5 or Unif(0,1)</td>
+<td>PA_DOSE_RESPONSE_QUANTILE</td>
+<td>Model</td>
+</tr>
+</tbody>
+</table>
+<section id="data" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="data"><span class="header-section-number">2.1</span> Data module</h2>
+<p>Input data for the ITHIM are listed as Roman capital letters in Table <a href="#inputs" data-reference-type="ref" data-reference="inputs">3</a>. They include (vehicle) mode speeds, injury/fatality records, disease dose–response relationships, measures of air pollution, surveys of travel and physical activity, population numbers by demographic group, MMETs associated with active travel, and current burden of disease (see Figure <a href="#workflow" data-reference-type="ref" data-reference="workflow">1</a>).</p>
+<section id="synth" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="synth"><span class="header-section-number">2.1.1</span> Synthetic</h3>
+<p>We create a “synthetic population” by matching individuals surveyed for travel to the individuals surveyed for physical activity, based on age and gender. Then each person in the synthetic population has a set of trips taken and an amount of non-travel physical activity. This population is assumed to be representative of the population of the city or setting under study.</p>
+<section id="alternativelyadditionally" class="level4" data-number="2.1.1.1">
+<h4 data-number="2.1.1.1" class="anchored" data-anchor-id="alternativelyadditionally"><span class="header-section-number">2.1.1.1</span> Alternatively/additionally</h4>
+<p>we could create a synthetic population as described in Appendix <a href="#synthpop" data-reference-type="ref" data-reference="synthpop">8.3</a>, which allows uncertainty in the propensity to travel. This method operates with person-level, rather than trip-level, information.</p>
+</section>
+</section>
+<section id="scenarios" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="scenarios"><span class="header-section-number">2.1.2</span> Scenarios</h3>
+<p>From the synthetic population we create “scenarios” of different pictures of travel by changing certain trips (e.g.&nbsp;swapping the mode of travel for particular trips and/or particular people). For the purposes of illustration, we have created three scenarios mentioned in the table <a href="#tbl-scen-specs">Table&nbsp;2.1</a>, where each mode such as <code>cycle</code> has propensities in three different distance categories: <code>0-2 km</code>, <code>2-6 km</code> and <code>6+ km</code>. What the scenario does that in each of those distance categories, it increases the current mode share by the propensities. So for instance, if in a city the baseline mode share of <code>cycle</code> is <code>10</code> percent for short trips (<code>0-2 km</code>), then in the <code>cycle</code> scenario, it increases upto 15.6 (10 + 5.6).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(scen_def <span class="sc">|&gt;</span> tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="st">"Scenarios"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="tbl-scen-specs" class="anchored">
+<table class="table table-sm table-striped">
+<caption>Table 2.1: Scenario propensities.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Scenarios</th>
+<th style="text-align: right;">0-2km</th>
+<th style="text-align: right;">2-6km</th>
+<th style="text-align: right;">6+km</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">cycle</td>
+<td style="text-align: right;">5.6</td>
+<td style="text-align: right;">10.2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">car</td>
+<td style="text-align: right;">5.6</td>
+<td style="text-align: right;">10.2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bus</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">10.2</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="distances" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="distances"><span class="header-section-number">2.1.3</span> Distances</h3>
+<p>For the ITHIM, we process the travel data into distance data of various formats. First, we augment PT trips with a walk component: we take the set <span class="math inline">\(\{T_j:m(j)=\text{bus}\}\)</span>, which has <span class="math inline">\(J\)</span> entries. We add <span class="math inline">\(J\)</span> journeys with mode “walk” and duration <span class="math inline">\(\epsilon\)</span> to the set <span class="math inline">\(T\)</span>. (This step would not be necessary for a travel survey which already includes all stages for each trip.)</p>
+<p>Then we summarise the total distances and durations. The distance set is labelled <span class="math inline">\(\hat{T}_{m,s}\)</span>, representing the total distance travelled per mode per scenario, and the duration set is constructed analogously. We make an assumption that the distance for bus drivers scales linearly with bus passengers, where the distance in the baseline is defined based on the bus driver distance relative to car.</p>
+<p>Distance and duration summaries include all person travel in the synthetic population and, in addition, some trips that are attributed to no-one in the synthetic population. These trips are used to represent “fleet” travel, which is uncaptured in travel surveys, and unchanged in scenarios. It’s important to include these trips because for modes such as motorcycle, where a considerable component of travel comes from fleet, attributing all the harms associated with the mode to only those surveyed dramatically overestimates the contribution of the individuals. In scenarios, then, we would be predicting emissions and injury rates that are far too high per person.</p>
+</section>
+</section>
+<section id="ap-module" class="level2 page-columns page-full" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="ap-module"><span class="header-section-number">2.2</span> AP module</h2>
+<section id="dir" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="dir"><span class="header-section-number">2.2.1</span> Background PM2.5</h3>
+<p>We use the total distance by mode (<span class="math inline">\(\hat{T}_{m,s}\)</span>) to calculate the total PM2.5 in the scenario (<span class="math inline">\(\bar{P}_s\)</span>). First we calculate the emission inventory in terms of fractions. If the confidence <span class="math inline">\(P\)</span> is 1 then we use <span class="math inline">\(\dot{P}_{m}=\gamma_m\)</span> directly. If <span class="math inline">\(P&lt;1\)</span>, we sample the emission inventory fractions as follows: <span class="math display">\[\tilde{\gamma}_m \sim \text{Dir}(f(P,\gamma_m)),\]</span> <span class="math display">\[\dot{P}_m=\tilde{\gamma}_m\]</span> where we choose some mapping function such as <span class="math inline">\(f(P,\gamma_m)=\frac{\gamma_m}{\sum_m\gamma_m}10^{5P}\)</span> (Figure <a href="#emission_dist" data-reference-type="ref" data-reference="emission_dist">5</a>).</p>
+<p>Then we multiply vehicle distance by vehicle emission factor (where the emission factor is the emission inventory (fraction) divided by distance at baseline). <span class="math display">\[\tilde{P}_{m,s}=\dot{P}_m\frac{\hat{T}_{m,s}}{\hat{T}_{m,s=\text{baseline}}}.\]</span></p>
+<p>For the baseline, <span class="math inline">\(\tilde{P}_{m,s}\)</span> is equal to the emission inventory fraction. For each scenario, it is scaled. We take the sum over modes to get a scalar for emissions in scenarios. <span class="math display">\[\hat{P}_{s}=\sum_{m} \tilde{P}_{m,s}.\]</span> Then the background PM2.5 in each scenario is the sum of the transport component and the non-transport component: <span class="math display">\[\bar{P}_s=\eta(\zeta\hat{P}_s + 1-\zeta).\]</span></p>
+</section>
+<section id="pm2.5-per-person" class="level3 page-columns page-full" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="pm2.5-per-person"><span class="header-section-number">2.2.2</span> PM2.5 per person</h3>
+<p>Dose–response relationships are based on background concentrations in cities, and not on personal exposures. In our person-level model, we expect that individuals will have different exposures based on their different travel behaviours. While we can neither estimate individual exposures nor map them via any dose–response relationship to a relative risk, we aim to capture interpersonal differences via assumptions about the mechanistic relationships between behaviours and exposures, and anchor those to the background air pollution in their locality, for which dose–response estimates of relative risk exist.</p>
+<p>Therefore, when we write “individual exposure”, it should not be read as an aetiologically relevant exposure, but rather it should be read as a unit- and scale-agnostic metric that maps an individual to a particular dose with reference to city-level measurements of air pollution. New research is required to elicit dose–response relationships between individual health exposures and health outcomes [citation from JPO?]. Our approximations act as assumptions for now and placeholders until more detailed data are available. [Perhaps we should use words other than “individual exposure”. How about “individual PM2.5 reference values”?]</p>
+<p>Individual exposures to PM2.5 are calculated using the background PM2.5 (<span class="math inline">\(\bar{P}_s\)</span>) and the trip sets. There are three major components to daily exposure: one, a person’s total inhalation off road; two, a person’s inhalation on road in a vehicle, and, three, a person’s inhalation on road while undertaking active transport. Each category has an amount of background PM2.5 and a ventilation rate which together inform overall exposure.</p>
+<p>The ratio of exposure off road to that on road is a function of total PM2.5, defined as <span class="math display">\[K_s=C_4-C_5\log(\bar{P_s})\]</span> as in <span class="citation" data-cites="Goel2015">@Goel2015</span>. This defines the exposure of a person in an open vehicle (i.e.&nbsp;pedestrian, cyclist or motorist): <span class="math display">\[\tilde{K}_{m\in\{\text{walk,cyc.,mot.}\},s}=K_s\]</span> and it is used to calculate in-vehicle exposure, assuming an exposure of <span class="math inline">\(C_2\)</span> with the window closed, and a proportion <span class="math inline">\(C_3\)</span> of vehicles having closed windows: <span class="math display">\[\tilde{K}_{m\not\in\{\text{walk,cyc.,mot.,sub.}\},s}=C_2C_3+K_s(1-C_3).\]</span> The exposure in a subway is constant and not dependent on the road ratio <span class="math inline">\(K_s\)</span>: <span class="math display">\[\tilde{K}_{m=\text{sub.},s}=C_6.\]</span></p>
+<div class="page-columns page-full"><p>Ventilation rates are calculated for each mode, assuming a base-level inhalation rate of <span class="math inline">\(C_1\)</span>: <span class="math display">\[V_m=C_1+\frac{1}{2}\lambda_m,\]</span> where <span class="math inline">\(\lambda_m\)</span> is the MMETs for mode <span class="math inline">\(m\)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Then the air inhaled during travel per person is <span class="math display">\[\tilde{V}_{i,m,s} = \smashoperator{\sum_{\substack{j:i(j)=i,\\m(j)=m,\\s(j)=s}}}T_j\cdot V_{m(j)}/Z_{m(j)}\]</span> and the rate of inhalation during travel is <span class="math display">\[\bar{V}_{i,s} = \sum_{m}\tilde{V}_{i,m,s}\cdot \tilde{K}_{m,s}.\]</span> The air inhaled when not travelling is <span class="math display">\[\hat{V}_{i,s} = C_1\left(24-\smashoperator{\sum_{\substack{j:i(j)=i,\\s(j)=s}}}T_j/Z_{m(j)}\right).\]</span> Together, the PM2.5 exposure is calculated as the total PM2.5 inhaled per hour as follows: <span class="math display">\[\check{W}_{i,s} = \frac{\bar{P}_s(\bar{V}_{i,s}+\hat{V}_{i,s})}{24}.\]</span></p><div class="no-row-height column-margin column-container"><li id="fn1" role="doc-endnote"><p><sup>1</sup>&nbsp;Ainsworth compendium 2011 sites.google.com/site/ compendiumofphysicalactivities for walking and cycling</p></li></div></div>
+</section>
+<section id="apdisease-doseresponse-relative-risk" class="level3 page-columns page-full" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="apdisease-doseresponse-relative-risk"><span class="header-section-number">2.2.3</span> AP–disease dose–response relative risk</h3>
+<div class="page-columns page-full"><p>We use each person’s exposure to PM2.5 (<span class="math inline">\(\check{W}_{i,s}\)</span>) to calculate their relative risk of five diseases (IHD, lung cancer, COPD, stroke, LRI), using curves parametrised by four disease-specific variables <span class="citation" data-cites="Burnett2014">[@Burnett2014]</span>. Of the five diseases, two (IHD and stroke) have parameters specific to age groups starting at age 25.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> The other three (lung cancer, LRI and COPD) have one set of parameters for all ages.</p><div class="no-row-height column-margin column-container"><li id="fn2" role="doc-endnote"><p><sup>2</sup>&nbsp;For any person of age lower than 25, we set the relative risk to 1.</p></li></div></div>
+<div class="page-columns page-full"><p>The curves are in the form of samples of the set of four parameters. We model the densities of these samples (using a quantile for parameter 3, kernel density estimation for parameter 2, and GAMs for parameters 1 and 4)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> in order to draw either the median or random samples via their quantiles (<span class="math inline">\(\xi_{h,w}\)</span>) as follows:</p><div class="no-row-height column-margin column-container"><li id="fn3" role="doc-endnote"><p><sup>3</sup>&nbsp;The four parameters refer, in numerical order, to <span class="math inline">\(\alpha, \beta, \gamma\)</span> and tmrel in <span class="citation" data-cites="Burnett2014">@Burnett2014</span>.</p></li></div></div>
+<p><span class="math display">\[\begin{aligned}
+\tilde{H}_{a,h,w=3}=&amp;\text{CDF}_{H_{a,h,w=3}}^{-1}(\xi_{h,w=3})\\
+\tilde{H}_{a,h,w=2}=&amp;\text{CDF}_{H_{a,h,w=2}|\tilde{H}_{a,h,w=3}}^{-1}(\xi_{h,w=2})\\
+\tilde{H}_{a,h,w=1}=&amp;\text{CDF}_{H_{a,h,w=1}|\tilde{H}_{a,h,w=2},\tilde{H}_{a,h,w=3}}^{-1}(\xi_{h,w=1})\\
+\tilde{H}_{a,h,w=4}=&amp;\text{CDF}_{H_{a,h,w=4}|\tilde{H}_{a,h,w=3},\tilde{H}_{a,h,w=2},\tilde{H}_{a,h,w=1}}^{-1}(\xi_{h,w=4}).\end{aligned}\]</span></p>
+<p>From these parameters, the relative risk of mortality is defined <span class="math display">\[\check{H}_{h,i,s} = 1 + \tilde{H}_{a=a(i),h,w=1}\times
+\left\{1 - \exp\left(-\tilde{H}_{a=a(i),h,w=2}  (\check{W}_{i,s} - \tilde{H}_{a=a(i),h,w=4}) ^ {\tilde{H}_{a=a(i),h,w=3} }\right)\right\}.\]</span> For <span class="math inline">\(h\not\in\{\text{IHD, lung cancer, COPD, stroke, LRI}\}\)</span>, <span class="math inline">\(\check{H}_{h,i,s} \equiv 1\)</span>.</p>
+</section>
+</section>
+<section id="pa-module" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="pa-module"><span class="header-section-number">2.3</span> PA module</h2>
+<section id="beta" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="beta"><span class="header-section-number">2.3.1</span> Individual-level MMETs</h3>
+<p>Using trip sets and the synthetic population, we calculate total MMETs per person (<span class="math inline">\(M_{i,s}\)</span>) as the sum of walking MMETs per day and cycling MMETs per day, which are scaled up to a week via the scalar <span class="math inline">\(\chi\)</span>, and work/leisure MMETs per week as follows: <span class="math display">\[M_{i,s}=\smashoperator{\sum_{\substack{j:i(j)=i,\\s(j)=s}}}
+\chi\lambda_{m(j)}\frac{T_j}{Z_{m(j)}}+\theta Y_i.\]</span></p>
+<p>Here, <span class="math inline">\(\lambda_m\)</span> is the MMETs for mode <span class="math inline">\(m\)</span>, <span class="math inline">\(T_j\)</span> the distance of trip <span class="math inline">\(j\)</span>, <span class="math inline">\(Z_m\)</span> the speed of mode <span class="math inline">\(m\)</span>, <span class="math inline">\(\theta\)</span> the scalar for background PA, and <span class="math inline">\(\check{Y}_i\)</span> the amount of work and leisure (background) PA of person <span class="math inline">\(i\)</span>.</p>
+<p>We calculate <span class="math inline">\(\check{Y}_i\)</span> according to the confidence in the PA survey, <span class="math inline">\(\tilde{Y}\)</span>. First, we calculate the raw probability that a person in demographic group completes no non-travel PA: <span class="math display">\[\dot{Y}_{a,g}=\text{Prob}(Y_i=0)|_{a(i)=a,g(i)=g}.\]</span> Then, we set the probability to use, <span class="math inline">\(\bar{Y}_{a,g}\)</span>, as <span class="math inline">\(\dot{Y}_{a,g}\)</span> if our confidence <span class="math inline">\(\tilde{Y}\)</span> is 1. If <span class="math inline">\(\tilde{Y}&lt;1\)</span>, we map the confidence to parametrise a Beta distribution somehow, e.g.&nbsp;(Figure <a href="#prob_zero_PA" data-reference-type="ref" data-reference="prob_zero_PA">4</a>) <span class="math display">\[\begin{aligned}
+\hat{Y} &amp;= 500^{\tilde{Y}+0.2},\\
+\beta &amp; = \hat{Y}\dot{Y}_{a,g}\left(\frac{1}{\dot{Y}_{a,g}} -1\right),\\
+\alpha &amp; = \hat{Y} - \beta,\\
+\bar{Y}_{a,g} &amp; = \text{CDF}_{\text{Beta}(\alpha,\beta)}^{-1}(\tilde{\theta}).\end{aligned}\]</span></p>
+<p>Finally, for each person in the population, we sample non-travel MMETs as zero with probability <span class="math inline">\(\bar{Y}_{a,g}\)</span> and from the raw non-zero density of their demographic group with probability <span class="math inline">\(1-\bar{Y}_{a,g}\)</span>.</p>
+</section>
+<section id="padisease-doseresponse-relative-risk" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="padisease-doseresponse-relative-risk"><span class="header-section-number">2.3.2</span> PA–disease dose–response relative risk</h3>
+<p>We use each person’s MMETs per week (<span class="math inline">\({M}_{i,s}\)</span>) to calculate their relative risk of six diseases, using curves found from meta analysis. Each disease (except type 2 diabetes) has a threshold beyond which there is no further change in relative risk. (Total cancer, breast cancer, colon &amp; rectum cancer, endometrial cancer, &amp; coronary heart disease: 35; lung cancer: 10; stroke: 32; all cause: 16.08.) For all individual cancers, we estimate the burden in terms of . For all other diseases, we use mortality.</p>
+<p>The interpolation of the dose–response curve can be described as follows: <span class="math display">\[\tilde{G}_{h,x}(m) = {G}_{h,x,z=\lfloor{m}\rfloor}+({G}_{h,x,z=\lceil{m}\rceil}-{G}_{h,x,z=\lfloor{m}\rfloor})\frac{m-\lfloor{m}\rfloor}{\lceil{m}\rceil-\lfloor{m}\rfloor}\]</span> where we interpolate the mean, the lower bound, and the upper bound. These define the normal from which we sample, truncated at 0: <span class="math display">\[F_S(v_x) = \mathcal{N}\left.\left(v_{x=2},\frac{v_{x=3}-v_{x=1}}{1.96}\right)\right|_{F_S(v_x)&gt;0}.\]</span></p>
+<p>Then the relative risk for each person for each disease is calculated for the quantile <span class="math inline">\(\phi_h\)</span> as <span class="math display">\[W_{h,i,s}=\text{CDF}_{F_S\left(\tilde{G}_{h,x}(M_{i,s})\right)}^{-1}\left(\phi_{h}\right).\]</span> See Figure <a href="#cancer" data-reference-type="ref" data-reference="cancer">2</a> for an example. For <span class="math inline">\(h\not\in\)</span> {diabetes, total cancer, breast cancer, colon &amp; rectum cancer, endometrial cancer, IHD, lung cancer, stroke, all cause}, <span class="math inline">\(W_{h,i,s} \equiv 1\)</span>.</p>
+<p>[Example of the dose–response workflow for PA and total cancer. Top left: results of the meta-analysis: mean, lower bound and upper bound of the relationship between PA dose and relative risk of disease. Top right: examples of 500 samples from the normal distribution defined by the mean of the top-left panel and the standard deviation defined by (upper bound minus lower bound) divided by 1.96 and truncated at 0. Bottom left: relative risks of individuals with PA doses 5, 25 and 45 are found by mapping their doses onto the median curve. This is used in the “constant” ITHIM use case. Bottom right: relative risks of individuals with PA doses 5, 25 and 45 for three different samples from the distribution shown in the top-right panel. For each sample, each individual is mapped onto the response curve it defines.]</p>
+</section>
+</section>
+<section id="injury-module" class="level2 page-columns page-full" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="injury-module"><span class="header-section-number">2.4</span> Injury module</h2>
+<section id="processing" class="level3 page-columns page-full" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="processing"><span class="header-section-number">2.4.1</span> Processing</h3>
+<div class="page-columns page-full"><p>For the injury module, we require distance per travel mode per demographic group per scenario. It requires matching of mode names in the travel survey to mode names in the injury records, for example “taxi”, “shared auto”, “shared taxi” and “car” combine to form “car”. Some work is required to separate drivers from passengers; we currently assume all travellers are drivers, with the exception of “bus”.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn4" role="doc-endnote"><p><sup>4</sup>&nbsp;This is a problem for the examples of Delhi and Bangalore, whose trip sets have car travellers under the age at which driving is permitted and who therefore should not contribute to striking distance.</p></li></div></div>
+</section>
+<section id="modelling" class="level3 page-columns page-full" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="modelling"><span class="header-section-number">2.4.2</span> Modelling</h3>
+<p>We model injuries via regression by predicting the number of fatalities of each demographic group on each mode, which we calculate as a sum over all the ways in which they might have been injured (i.e., all the modes with which they might have collided).</p>
+<p>The predictive covariates include the distances travelled by the parties and their demographic details. These requirements lead to a natural separation of the (training) dataset into two groups: a set for which we have distance data for the other party, and a set for which we do not have distance data for the other party. The former equates to a “who hit whom” (“whw”) matrix (albeit in a higher dimension), and will account for changes in injuries resulting of a change in strike-mode travel. The latter corresponds to causes of injury that will not change across scenarios, including “no other vehicle” and modes of transport that we do not consider to change, which might include trucks and buses if they are not somehow explicitly included in the trip set. We label this group “noov”: no or other vehicle.</p>
+<p><u>Note on recategorization</u>: for some of the modes (like for car, bus, motorcycle and cycle), if both strike and victim modes are same, we explicitly make the strike mode as ‘noov’</p>
+<div class="page-columns page-full"><p>We model the number of injuries as a Poisson-distributed variable with an offset depending on the distance(s) and the reporting rate. We write the model as follows: <span class="math display">\[\begin{aligned}
+\tilde{I}_{a,g,m_{\text{cas}},m_{\text{str}},s,y} \sim &amp;
+\text{Poisson}(\bar{I}_{a,g,m_{\text{cas}},m_{\text{str}},s}); \\
+% 'count~
+\log\left(\bar{I}_{a,g,m_{\text{cas}},m_{\text{str}},s}|m_{\text{str}}\in\{m_{\text{whw}}\}\right) = &amp;
+% cas_mode*strike_mode-log(injury_reporting_rate)+log(weight)
+{\kappa_0} +\sum_{i=1}^n\kappa_iX_i-\log(\sigma)+\nonumber\\
+% +log(cas_distance)
+&amp; \log(\bar{T}_{a,g,m_{\text{cas}},s})
+% +(CAS_EXPONENT-1)*log(cas_distance_sum)
++(E_{m_{\text{cas}}}-1)\log(\hat{T}_{m_{\text{cas}},s})
+%+log(strike_distance)+(STR_EXPONENT-1)*log(strike_distance_sum)
++E_{m_{\text{str}}}\log(\hat{T}_{m_{\text{str}},s});\\
+\log\left(\bar{I}_{a,g,m_{\text{cas}},m_{\text{str}},s}|m_{\text{str}}\in\{m_{\text{noov}}\}\right) =&amp;
+{\kappa'_0}
++\sum_{i=1}^n\kappa'_iX'_i
+-\log(\sigma)
+% +log(cas_distance)
++ \log(\bar{T}_{a,g,m_{\text{cas}},s})
+% +(CAS_EXPONENT-1)*log(cas_distance_sum)
++(E_{m_{\text{cas}}}-1)\log(\hat{T}_{m_{\text{cas}},s}).\end{aligned}\]</span> We choose this form of equation to enable (a) linearity in injuries with respect to total travel combined across modes and (b) linearity in injuries as subdivided by travellers of each mode.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> Note that this methodology is under development. See <a href="https://github.com/robj411/safety_in_numbers_power_law" class="uri">https://github.com/robj411/safety_in_numbers_power_law</a>.</p><div class="no-row-height column-margin column-container"><li id="fn5" role="doc-endnote"><p><sup>5</sup>&nbsp;Note that the assymmetry in the offset term for the whw expression arises due to the absence of demographic information for striking vehicles. Were we to have that, the offset would read <span class="math inline">\(\log(\bar{T}_{a,g,m_{\text{cas}},s})+(E_{m_{\text{cas}}}-1)\log(\hat{T}_{m_{\text{cas}},s})+\log(\bar{T}_{a,g,m_{\text{str}},s})+(E_{m_{\text{str}}}-1)\log(\hat{T}_{m_{\text{str}},s})\)</span>. For our case, the latter two terms simplify to <span class="math inline">\(\log(\hat{T}_{m_{\text{str}},s})+(E_{m_{\text{str}}}-1)\log(\hat{T}_{m_{\text{str}},s})=E_{m_{\text{str}}}\log(\hat{T}_{m_{\text{str}},s})\)</span>.</p></li></div></div>
+<p>In general, one makes the best model that one can with the data available. We use, for Accra, the covariates <code>casualty mode*strike mode, casualty age,</code> and <code>casualty gender</code>, to form the model matrix <span class="math inline">\(X\)</span>. We also have another covariate, <code>year</code>, but our travel data are for one year only, so we model instead many observations of the same quantities.</p>
+<p>We fit the coefficients <span class="math inline">\(\kappa\)</span> of the model using data for ten years, assuming the same travel each year, which corresponds to the scenario <span class="math inline">\(s=\text{baseline}\)</span>. To incorporate the injury reporting rate (<span class="math inline">\(\sigma\)</span>), we set it as an offset, whose value is 1 in fitting the model, and as specified in making predictions.</p>
+</section>
+<section id="prediction" class="level3" data-number="2.4.3">
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="prediction"><span class="header-section-number">2.4.3</span> Prediction</h3>
+<p>We predict the number of injuries in each scenario based on the training model built from the baseline scenario. For Accra, we predict for the year 2016, using scenario-specific travel data. The number of fatalities is taken as the sum of fatalities over the strike modes: <span class="math display">\[\check{I}_{a,g,m,o=\text{death},s}=\sum_{m_{\text{str}}}\tilde{I}_{a,g,m_{\text{cas}},m_{\text{str}},s}.\]</span> We extrapolate injury deaths to injury YLLs via the ratio in the GBD: <span class="math display">\[R_{a,g}=U_{a,g,h=\text{road injuries},o=\text{YLL}}/U_{a,g,h=\text{road injuries},o=\text{death}},\]</span> <span class="math display">\[\check{I}_{a,g,m,o=\text{YLL},s}=\check{I}_{a,g,m,o=\text{death},s}\cdot R_{a,g}.\]</span></p>
+</section>
+</section>
+<section id="health-module" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="health-module"><span class="header-section-number">2.5</span> Health module</h2>
+<section id="pa-and-ap-relative-risks-combined" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="pa-and-ap-relative-risks-combined"><span class="header-section-number">2.5.1</span> PA and AP relative risks combined</h3>
+<p>We combine the relative risks of disease as a function of AP and disease as a function of PA through multiplication: <span class="math display">\[\tilde{W}_{h,i,s}=W_{h,i,s}\cdot\check{H}_{h,i,s}.\]</span> Not all diseases have a dose–response relationship for both AP and PA. Just stroke, lung cancer, and IHD have both. For the other diseases, only one of <span class="math inline">\(W_{h,i,s}\)</span> and <span class="math inline">\(\check{H}_{h,i,s}\)</span> is different from one.</p>
+</section>
+<section id="total-disease-burden" class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="total-disease-burden"><span class="header-section-number">2.5.2</span> Total disease burden</h3>
+<p>We calculate the total health burden relative to the reference scenario (which, for our Accra example, is the baseline) using the injury and health outputs combined with GBD data, via population attributable fractions (PAF). The PAF is defined: <span class="math display">\[\hat{W}_{a,g,h,s}=\smashoperator{\sum_{\substack{i:a(i)=a,\\g(i)=g}}}\tilde{W}_{h,i,s}.\]</span></p>
+<p>We then calculate the PAF relative to the reference scenario (“ref”) as: <span class="math display">\[\bar{W}_{a,g,h,s}= \frac{\hat{W}_{a,g,h,s=\text{ref}}-\hat{W}_{a,g,h,s}}{\hat{W}_{a,g,h,s=\text{ref}}}.\]</span></p>
+<p>We estimate the background burden of disease using GBD data and scaling based on the ratio of populations between country and city. For country populations <span class="math inline">\(N_{a,g}\)</span>, city populations <span class="math inline">\(\bar{N}_{a,g}\)</span> and country burden <span class="math inline">\(U_{a,g,h,o}\)</span>, we estimate city burden as <span class="math display">\[\bar{U}_{a,g,h,o}=U_{a,g,h,o}\frac{\bar{N}_{a,g}}{N_{a,g}}.\]</span></p>
+<p>If we are scaling the background burden of non-communicable diseases (“Neoplasms”, “Ischemic heart disease”, “Tracheal, bronchus, and lung cancer”, “Breast cancer”, “Colon and rectum cancer”, “Uterine cancer”), we do so here. (Otherwise set <span class="math inline">\(\rho\equiv 1\)</span>.) <span class="math display">\[\tilde{U}_{a,g,h,o}=\rho_h\cdot  \bar{U}_{a,g,h,o}.\]</span></p>
+<p>We combine the burden with the PAF: <span class="math display">\[\hat{U}_{a,g,h,o,s}=\bar{W}_{a,g,h,s}\cdot\tilde{U}_{a,g,h,o}.\]</span></p>
+</section>
+<section id="injury-burden" class="level3" data-number="2.5.3">
+<h3 data-number="2.5.3" class="anchored" data-anchor-id="injury-burden"><span class="header-section-number">2.5.3</span> Injury burden</h3>
+<p>And, finally, for the injuries, we sum over modes to compute the burden, <span class="math display">\[\bar{U}_{a,g,o,s}=\sum_m\check{I}_{a,g,m,o,s},\]</span> and subtract from the values for the reference scenario: <span class="math display">\[\hat{U}_{a,g,h=\text{road injury},o,s}=\bar{U}_{a,g,o,s=\text{ref}}-\bar{U}_{a,g,o,s}.\]</span></p>
+</section>
+</section>
+</section>
+<section id="example" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Example: Accra</h1>
+<p>Here we show the ITHIM as evaluated for the city of Accra, with a simple scenario of every person in the synthetic population gaining a single, 1 km walk. We define XX uncertain univariate parameters (Section <a href="#uni" data-reference-type="ref" data-reference="uni">3.1</a>), two confidences, and two uncertain parameter sets (Section <a href="#dr" data-reference-type="ref" data-reference="dr">3.3</a>).</p>
+<section id="uni" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="uni"><span class="header-section-number">3.1</span> Parametric distributions for uncertain variables</h2>
+<p>The XX uncertain univariate parameters are shown in Figure <a href="#distributions" data-reference-type="ref" data-reference="distributions">3</a>. Most of the parameters are self explanatory. Cycling and walking MMETs are the number of MMETs per hour when undertaking cycling and walking, and determine also the ventilation rates. Motorcycle distance is the total distance travelled by motorcycles relative to the total distance travelled by cars in the baseline scenario. Non-travel PA, injury reporting rate and NCD burden all act as scalars for the corresponding datasets. Note that the non-travel PA scalar does not affect the <span class="math inline">\(\approx\)</span>&lt;40% of the population whose non-travel PA is 0.</p>
+<p>(){#distributions width=“95%”}</p>
+</section>
+<section id="confidences" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="confidences"><span class="header-section-number">3.2</span> Confidences</h2>
+<p>For physical activity propensity and emission inventories, we use “confidences”, values between 0 and 1 that represent how confident we are about the data source. We map these values to Beta (Figure <a href="#prob_zero_PA" data-reference-type="ref" data-reference="prob_zero_PA">4</a>) and Dirichlet (Figure <a href="#emission_dist" data-reference-type="ref" data-reference="emission_dist">5</a>) distributions, respectively. The Beta-distributed propensity towards non-travel physical activity is described in Section <a href="#beta" data-reference-type="ref" data-reference="beta">2.3.1</a>. The Dirichlet-distributed emissions inventory is described in Section <a href="#dir" data-reference-type="ref" data-reference="dir">2.2.1</a>.</p>
+<p>[Distributions of a Beta-distributed propensity to non-travel PA with varying confidence values in the raw input data. The sampled value gives the fraction of the population that engages in non-travel PA.]</p>
+<p>(){#emission_dist width=“65%”}</p>
+</section>
+<section id="dr" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="dr"><span class="header-section-number">3.3</span> Dose–response relationships</h2>
+<p>For the dose–response relationships between physical activity (PA) and disease and air pollution (AP) and disease, we assume that there is uncertainty, but no variability, in the relationship. This means that we sample a relationship from the distribution of relationships, and apply that relationship to all individuals precisely. This means that, given fixed doses, responses between individuals will be perfectly correlated.</p>
+<p>We achieve this by use of the probability integral transform: we sample a random variable uniformly distributed on the space (0,1) and map it, via a cumulative distribution function, to the distribution describing the dose–response relationship. See Figure <a href="#cdf" data-reference-type="ref" data-reference="cdf">6</a> for an illustration.</p>
+<p>(){#cdf width=“80%”}</p>
+<section id="physical-activity" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="physical-activity"><span class="header-section-number">3.3.1</span> Physical activity</h3>
+<p>Each disease’s PA dose–response relationship is defined by a truncated normal. For each dose, there is a mean value, an upper bound, and a lower bound. For each person’s dose, we get the response by mapping the uniform random variable onto the truncated normal defined by the mean and bounds for that dosage. We use an R package called {drpa}, whose description can be seen here: <a href="https://meta-analyses.github.io/drpa/drpa.html" class="uri">https://meta-analyses.github.io/drpa/drpa.html</a></p>
+<p>The relationships comes out of our work on meta-analyses @Leandro2018, where we look at the association of <code>physical activity</code> with various diseases.</p>
+</section>
+<section id="air-pollution" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="air-pollution"><span class="header-section-number">3.3.2</span> Air pollution</h3>
+<p>For the AP relationship, there are four parameters per disease. We sample the first from an empirical distribution using the probability integral transform. We sample the second via the same method, conditioned on the value of the first, constructing their joint density with e.g.&nbsp;kde2d. The third parameter is sampled conditioned on the first and second, constructing their joint density using a GAM. The final parameter is sampled conditioned on the first, second, and third, constructing their joint density using a GAM.</p>
+<p>As before, there is perfect correlation between individuals, i.e.&nbsp;if person A’s dose is greater than person B’s, then person A’s response is strictly greater than person B’s response.</p>
+<p>The empirical distributions come from <span class="citation" data-cites="Burnett2014">@Burnett2014</span>. There are four parameters per disease: IHD, lung cancer, COPD, stroke, and LRI. In addition, for stroke and IHD, there is a set of four parameters for each age group from 25 to 95 in five-year increments. In addition to our assumption that there is perfect correlation between individuals for diseases, we assume perfect correlation between ages for diseases. I.e., our four quantiles per disease will be applied to all age groups.</p>
+</section>
+</section>
+</section>
+<section id="results" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Results</h1>
+<section id="health-burdens-in-scenarios" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="health-burdens-in-scenarios"><span class="header-section-number">4.1</span> Health burdens in scenarios</h2>
+<p><strong><em>YLLs in the scenario minus YLLs in the baseline for Accra</em></strong></p>
+</section>
+<section id="value-of-information" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="value-of-information"><span class="header-section-number">4.2</span> Value of information</h2>
+<p>We calculate value of information following <span class="citation" data-cites="Jackson2017">@Jackson2017</span>. The “value of information” we implement is the expected value of perfect partial information (EVPPI). It is the expected amount by which variation in the outcome diminishes should a parameter, or set of parameters, be known perfectly. With reference to information theory, it is the mutual information between the parameter, or parameter set, and the outcome, where the outcome is described only by its second moment (its variance).</p>
+<p>The objective of learning the value of information formulated in this way is to identify the parameter or parameters that most drive variability (variance) in the outcome. The results guide future research, identifying which area or areas offer the greatest benefit in terms of prediction accuracy given further research. For example, for our model of Accra, learning better the dose–response relationship between physical activity and stroke (incidence) would likely increase precision of our estimate of total years of life lost (YLL) more so than learning any other parameter (Figure <a href="#evppi" data-reference-type="ref" data-reference="evppi">8</a>).</p>
+<p>[EVPPI for Accra’s “walking” scenario for all causes of YLLs excluding “all cause” and “neoplasm”.]</p>
+</section>
+</section>
+<section id="ithim-with-parameters" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> ITHIM with parameters</h1>
+<p>::: appendix [ITHIM-R workflow, with variable parameters in purple. Fixed inputs to the model have a bold, black outline, which is solid for inputs we consider “global” and dashed for inputs we consider “local”. There are four global inputs, which will be embedded in ITHIM-R. There are seven local inputs, which users should provide. The graph depicts parent–child relationships, where a child (at the head of an arrow) depends upon all its parents (at the source(s) of the arrow(s)). To aid visualisation, an arrow connected to the outside of a grey box indicates that the arrow connects to each item within the box. <em>AT: active travel. MET: metabolic equivalent task. pp: per person. AP: air pollution. PA: physical activity. DR: dose–response relationship. GBD: global burden of disease.</em> NB: <span class="math inline">\(\rho\)</span> only impacts the NCD burden of GBD, not all of it. Missing parameter: motorcycle distance. <span class="math inline">\(\lambda\)</span> is a 2D parameter. <span class="math inline">\(\xi\)</span> is 4D.]</p>
+<p>(){#ithim_with_parameters width=“\textwidth”}</p>
+</section>
+<section id="doseresponse-relationships" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Dose–response relationships</h1>
+<p>[1000 samples from PA dose–response curves]</p>
+<p>(){#PADR width=“90%”}</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><embed src="cvd_ihdDR-sim.pdf" title="fig:" id="APDR" class="img-fluid" style="width:40.0%"></td>
+<td style="text-align: center;">[100 samples from AP dose–response curves] (cvd_strokeDR-sim.pdf){width=“40%”}</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 31%">
+<col style="width: 34%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><embed src="neo_lungDR-sim.pdf" title="fig:" class="img-fluid"></td>
+<td style="text-align: center;"><embed src="lriDR-sim.pdf" title="fig:" class="img-fluid"></td>
+<td style="text-align: center;"><embed src="resp_copdDR-sim.pdf" title="fig:" class="img-fluid"></td>
+</tr>
+</tbody>
+</table>
+<p>::: landscape # Tabulated ITHIM equations {#tableequations}</p>
+<p>::: center ::: ThreePartTable ::: TableNotes CDF: cumulative distribution function. We use generative distributions to generate random numbers so that samples are correlated. For <span class="math inline">\(t=\text{CDF}_{F}^{-1}(q)\)</span>, <span class="math inline">\(t\)</span> is the <span class="math inline">\(q\)</span>-th quantile of function <span class="math inline">\(F\)</span> with CDF CDF<span class="math inline">\(_F\)</span>. (I’d like to find an improved notation for this.)</p>
+</section>
+
+
+</main>
+<!-- /main column -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
