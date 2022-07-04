@@ -206,7 +206,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To assess uncertainty, we sample from the ITHIM output by sampling uncertain parameters multiple times and calculating the ITHIM. We specify parametric distributions or sampling strategies for all the uncertain parameters. Evaluating the ITHIM with uncertain parameters allows assessment of their impact on the outcome (AKA sensitivity analysis). We use EVPPI to calculate the expected reduction in uncertainty in the outcome were we to learn a parameter perfectly. This means we can implement models that are basic in their parametrisation, and learn at the end for which parameters it would be worthwhile spending dedicated time learning better.</p>
 <table class="table">
 <colgroup>
-<col style="width: 22%">
+<col style="width: 11%">
 <col style="width: 31%">
 <col style="width: 31%">
 </colgroup>
@@ -221,8 +221,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tr class="odd">
 <td><em>a</em></td>
 <td>Age group</td>
-<td>15–49<br>
-50–69</td>
+<td>15–69<br>
+(five years age group)</td>
 </tr>
 <tr class="even">
 <td><em>g</em></td>
@@ -377,7 +377,7 @@ YLL</td>
 <p>{#inputs}</p>
 <table class="table">
 <colgroup>
-<col style="width: 21%">
+<col style="width: 24%">
 <col style="width: 32%">
 <col style="width: 18%">
 <col style="width: 15%">
@@ -520,8 +520,7 @@ YLL</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">\(I _ {a,g,m_{\
-text{vi c} },m_{\text{str}}}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(I _ {a,g,m_{\  text{vi c} },m_{\text{str}}}\)</span></td>
 <td>Fatalities table</td>
 <td style="text-align: left;">Constant</td>
 <td>INJURY_TABLE</td>
@@ -570,8 +569,7 @@ text{vi c} },m_{\text{str}}}\)</span></td>
 <td>Setting</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">\(\
-g amma_{m}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\  g amma_{m}\)</span></td>
 <td>Vehicle emission inventory</td>
 <td style="text-align: left;">Constant or Dirichlet</td>
 <td>EMISSION_INVENTORY</td>
@@ -641,8 +639,7 @@ g amma_{m}\)</span></td>
 <td>Model</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">\(\
-xi_{h,w}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\  xi_{h,w}\)</span></td>
 <td>Quantiles for AP RR functions</td>
 <td style="text-align: left;">0.5 or Unif(0,1)</td>
 <td>AP_DOSE_R ESPONSE_ QUANTILE</td>
@@ -677,8 +674,7 @@ xi_{h,w}\)</span></td>
 <td>Setting</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">\(\
-tilde{Y}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\  tilde{Y}\)</span></td>
 <td>Confidence in PA survey</td>
 <td style="text-align: left;">1</td>
 <td>BACKGROUND_PA_C ONFIDENCE</td>
@@ -706,8 +702,8 @@ tilde{Y}\)</span></td>
 <td>Model</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">\(\lambda_{m\not\in\text{wal
-k,cyc.}}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\lambda_{m\not\in\text{wal                    
+  k,cyc.}}\)</span></td>
 <td>In-vehicle MET surplus</td>
 <td style="text-align: left;">0</td>
 <td></td>
@@ -964,11 +960,11 @@ k,cyc.}}\)</span></td>
 <table class="table">
 <colgroup>
 <col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 49%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><embed src="cvd_ihdDR-sim.pdf" title="fig:" id="APDR" class="img-fluid" style="width:40.0%"></td>
+<td style="text-align: center;"><embed src="cvd_ihdDR-sim.pdf" id="APDR" class="img-fluid" style="width:40.0%"></td>
 <td style="text-align: center;">[100 samples from AP dose–response curves] (cvd_strokeDR-sim.pdf){width=“40%”}</td>
 </tr>
 </tbody>
@@ -981,9 +977,9 @@ k,cyc.}}\)</span></td>
 </colgroup>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><embed src="neo_lungDR-sim.pdf" title="fig:" class="img-fluid"></td>
-<td style="text-align: center;"><embed src="lriDR-sim.pdf" title="fig:" class="img-fluid"></td>
-<td style="text-align: center;"><embed src="resp_copdDR-sim.pdf" title="fig:" class="img-fluid"></td>
+<td style="text-align: center;"><embed src="neo_lungDR-sim.pdf" class="img-fluid"></td>
+<td style="text-align: center;"><embed src="lriDR-sim.pdf" class="img-fluid"></td>
+<td style="text-align: center;"><embed src="resp_copdDR-sim.pdf" class="img-fluid"></td>
 </tr>
 </tbody>
 </table>
