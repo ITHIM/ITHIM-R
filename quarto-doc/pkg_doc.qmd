@@ -12,7 +12,6 @@ citation-location: margin
 number-sections: true
 crossref:
   chapters: true
-
 ---
 
 ```{r, echo=FALSE}
@@ -43,40 +42,42 @@ We calculate the ITHIM by combining the modules' outputs in terms of the health 
 
 To assess uncertainty, we sample from the ITHIM output by sampling uncertain parameters multiple times and calculating the ITHIM. We specify parametric distributions or sampling strategies for all the uncertain parameters. Evaluating the ITHIM with uncertain parameters allows assessment of their impact on the outcome (AKA sensitivity analysis). We use EVPPI to calculate the expected reduction in uncertainty in the outcome were we to learn a parameter perfectly. This means we can implement models that are basic in their parametrisation, and learn at the end for which parameters it would be worthwhile spending dedicated time learning better.
 
-+---------------+----------------------+----------------------+
-| Label         | Name                 | Levels               |
-+===============+======================+======================+
-| *a*           | Age group            | 15--49\              |
-|               |                      | 50--69               |
-+---------------+----------------------+----------------------+
-| *g*           |                      | Male\                |
-|               |                      | Female               |
-+---------------+----------------------+----------------------+
-| *h*           | Disease              |                      |
-+---------------+----------------------+----------------------+
-| *i*           | Individual index     |                      |
-+---------------+----------------------+----------------------+
-| *j*           | Trip index           |                      |
-+---------------+----------------------+----------------------+
-| *m*           | Transport mode       | walk\                |
-|               |                      | cycling (cyc.)\      |
-|               |                      | bus\                 |
-|               |                      | car\                 |
-|               |                      | motorbike (mot.)\    |
-|               |                      | goods vehicles (GV)\ |
-|               |                      | subway (sub.)        |
-+---------------+----------------------+----------------------+
-| *o*           | Outcome              | Death\               |
-|               |                      | YLL                  |
-+---------------+----------------------+----------------------+
-| *s*           | Scenario             | 3                    |
-+---------------+----------------------+----------------------+
-| *w*           | AP RR hyperparameter | 1, 2, 3, 4           |
-+---------------+----------------------+----------------------+
-| *x*           | PA RR hyperparameter | 1, 2, 3              |
-+---------------+----------------------+----------------------+
-| *z*           | PA dose              |                      |
-+---------------+----------------------+----------------------+
++-------+----------------------+----------------------+
+| Label | Name                 | Levels               |
++=======+======================+======================+
+| *a*   | Age group            | 15--69\              |
+|       |                      | (five years age      |
+|                              |             group)   |
+|                              |                      |       
++-------+----------------------+----------------------+
+| *g*   |                      | Male\                |
+|       |                      | Female               |
++-------+----------------------+----------------------+
+| *h*   | Disease              |                      |
++-------+----------------------+----------------------+
+| *i*   | Individual index     |                      |
++-------+----------------------+----------------------+
+| *j*   | Trip index           |                      |
++-------+----------------------+----------------------+
+| *m*   | Transport mode       | walk\                |
+|       |                      | cycling (cyc.)\      |
+|       |                      | bus\                 |
+|       |                      | car\                 |
+|       |                      | motorbike (mot.)\    |
+|       |                      | goods vehicles (GV)\ |
+|       |                      | subway (sub.)        |
++-------+----------------------+----------------------+
+| *o*   | Outcome              | Death\               |
+|       |                      | YLL                  |
++-------+----------------------+----------------------+
+| *s*   | Scenario             | 3                    |
++-------+----------------------+----------------------+
+| *w*   | AP RR hyperparameter | 1, 2, 3, 4           |
++-------+----------------------+----------------------+
+| *x*   | PA RR hyperparameter | 1, 2, 3              |
++-------+----------------------+----------------------+
+| *z*   | PA dose              |                      |
++-------+----------------------+----------------------+
 
 | Abbreviation | Meaning                                       |
 |:-------------|:----------------------------------------------|
@@ -108,111 +109,57 @@ To assess uncertainty, we sample from the ITHIM output by sampling uncertain par
 
 {#inputs}
 
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| \[\[inputs\]\]{label= "inputs"}           |                                                                 | *ITHIM-R reference*                |                               |                    |
-+:==========================================+=================================================================+:===================================+===============================+====================+
-| **Name**                                  | **Description**                                                 | **Value in Accra model**           | **Label**                     | **Model/ Setting** |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| *Global values*                           |                                                                 |                                    |                               |                    |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $U_ { a,g,h,o}$                           | Background burden of disease                                    | Constant                           | GBD_DATA                      | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $N_{a,g}$                                 | Population by age and gender in GBD_DATA                        | Constant                           | GBD_DATA                      | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\bar { N}_{a,g}$                         | Population by age and gender                                    | Constant                           | DEMOGRAPHIC                   | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\rho_h$                                  | Chronic disease scalar                                          | 1 or Lnorm(0,0.18)                 | CHRONIC_DISEASE_SCALAR        | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| *Travel values*                           |                                                                 |                                    |                               |                    |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $Z _ {m=walk}$                            | Walk speed                                                      | 4.8                                | MODE_SPEEDS                   | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $Z _ {m=cyc.}$                            | Cycle speed                                                     | 14.5                               | MODE_SPEEDS                   | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $Z _ {m=bus}$                             | Bus speed                                                       | 15                                 | MODE_SPEEDS                   | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $Z _ {m=car}$                             | Car speed                                                       | 21                                 | MODE_SPEEDS                   | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $Z _ {m=mot.}$                            | Motorbike speed                                                 | 25                                 | MODE_SPEEDS                   | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| \$\\epsilon \$                            | Walk time to bus                                                | 5 or Lnorm(log (5),0.18)           | BUS_WALK_TIME                 | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\mu_{m=HGV}$                             | Truck distance relative to car                                  | 0.21 or Beta(3,10)                 | TRUCK_TO\_ CAR_RATIO          | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\mu_{m=bus}$                             | Bus driver distance relative to bus passenger distance          | 1/45 or Bet a(20,600) \|           | BUS_TO_PASSENGER_RATIO        | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\mu_ {m=mot.}$                           | Motorcycle fleet distance relative to total motorcycle distance | 37/68 or Beta(37/3+ 1,31/3+1) \|   | FLEET_TO_MOTORCYCLE_RATIO     | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $T_j$                                     | Trip-level data                                                 | Constant                           | SYNTHETIC_TRIPS               | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| *Injury model values*                     |                                                                 |                                    |                               |                    |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $I _ {a,g,m_{\                            | Fatalities table                                                | Constant                           | INJURY_TABLE                  | Setting            |
-| text{vi c} },m_{\text{str}}}$             |                                                                 |                                    |                               |                    |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\sigma$                                  | Injury reporting rate                                           | 1 or Beta(8,3)                     | INJURY_REPORTING_RATE         | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\omega$                                  | Sum of distance exponents                                       | 1.9 or Lnorm(l og(1.9),l og(1.03)) | SIN_EXPONENT_SUM              | Model              |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\psi$                                    | Casualty fraction of $\omega$                                   | 0.5 or Beta(20,20) \|              | CASUALTY_EXPONENT_FRACTION    | Model              |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| *Pollution model values*                  |                                                                 |                                    |                               |                    |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\eta$                                    | Background PM2.5 concentration                                  | 50 or Lnorm(log( 50),0.18) \|      | PM_CONC_BASE                  | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\zeta$                                   | Fraction of measured PM2.5 concentration due to road transport  | 0.225 or Beta(5,20) \|             | PM_TRANS_SHARE                | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\                                        | Vehicle emission inventory                                      | Constant or Dirichlet              | EMISSION_INVENTORY            | Setting            |
-| g amma_{m}$                               |                                                                 |                                    |                               |                    |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $P$                                       | Vehicle emission confidence                                     | 1                                  | EMISSION_INVENTORY_CONFIDENCE | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| *Pollution & health model values*         |                                                                 |                                    |                               |                    |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $C_1$                                     | Base-level inhalation rate                                      | 1                                  | BASE_LEVEL_INHALATION_RATE    | Model              |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $C_2$                                     | Exposure ratio window closed                                    | 0.5                                | CLOSED_WINDOW_PM\_ RATIO      | Model              |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $C_3$                                     | Proportion of travel with closed windows                        | 0.5                                | C LOSED_WIN DOW_RATIO         | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $C_4$                                     | Parameter for on-road PM2.5 level                               | 3.216                              | ROAD\_ RATIO_MAX              | Model              |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $C_5$                                     | Parameter for on-road PM2.5 level                               | 0.379                              | ROAD_RA TIO_SLOPE             | Model              |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $C_6$                                     | Exposure ratio for underground                                  | 0.8                                | SUBWAY \_PM_RATIO             | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| \$ H \_{a,h,w}\$                          | AP dose- -res ponse--curve parameters                           | Constant                           | DR_AP                         | Model              |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\                                        | Quantiles for AP RR functions                                   | 0.5 or Unif(0,1)                   | AP_DOSE_R ESPONSE\_ QUANTILE  | Model              |
-| xi_{h,w}$                                 |                                                                 |                                    |                               |                    |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| *Physical activity model values*          |                                                                 |                                    |                               |                    |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\chi$                                    | Day-to-week travel scalar                                       | 7 or 7 $\times$Beta(20,3)          | DAY_TO_WEEK_TRAVEL_SCALAR     | Model              |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $Y_i$                                     | Individual n on-transport MMETs                                 | Constant                           | PA_SET\$ work_ltpa \_marg_met | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\theta$                                  | Background PA scalar                                            | 1 or Lnorm(0,0.18)                 | BACKGROUND\_ PA_SCALAR        | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\                                        | Confidence in PA survey                                         | 1                                  | BACKGROUND_PA_C ONFIDENCE     | Setting            |
-| tilde{Y}$                                 |                                                                 |                                    |                               |                    |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\tilde {\theta}$                         | Background PA zeros quantile                                    | 0.5 or Unif(0,1)                   | BACKGROUND \_PA_ZEROS         | Setting            |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\lambda_{m=\text{cyc.}}$                 | Cycling MET surplus                                             | 4.63 or Lnorm(log (4.63),1)        | MMET_CYCLING                  | Model              |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\lambda_{m=\text{walk}}$                 | Walking MET surplus                                             | 2.53 or Lnorm(log (2.53),1)        | MMET_WALKING                  | Model              |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| $\lambda_{m\not\in\text{wal               | In-vehicle MET surplus                                          | 0                                  |                               | Model              |
-| k,cyc.}}$                                 |                                                                 |                                    |                               |                    |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| *Physical activity & health model values* |                                                                 |                                    |                               |                    |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| \$\\G\_{h,x,z}\$                          | Look-up table for relative risk truncated normal distribution   | Constant                           |                               | Model              |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-| \$\phi\_{h}\$                             | Quantiles for PA RR functions                                   | 0.5 or Unif(0,1)                   | PA_DOSE_RESPONSE_QUANTILE     | Model              |
-+-------------------------------------------+-----------------------------------------------------------------+------------------------------------+-------------------------------+--------------------+
-
+| \[\[inputs\]\]{label= "inputs"}                |                                                                 | *ITHIM-R reference*                |                               |                    |
+|:-----------------------------------------------|-----------------------------------------------------------------|:-----------------------------------|-------------------------------|--------------------|
+| **Name**                                       | **Description**                                                 | **Value in Accra model**           | **Label**                     | **Model/ Setting** |
+| *Global values*                                |                                                                 |                                    |                               |                    |
+| $U_ { a,g,h,o}$                                | Background burden of disease                                    | Constant                           | GBD_DATA                      | Setting            |
+| $N_{a,g}$                                      | Population by age and gender in GBD_DATA                        | Constant                           | GBD_DATA                      | Setting            |
+| $\bar { N}_{a,g}$                              | Population by age and gender                                    | Constant                           | DEMOGRAPHIC                   | Setting            |
+| $\rho_h$                                       | Chronic disease scalar                                          | 1 or Lnorm(0,0.18)                 | CHRONIC_DISEASE_SCALAR        | Setting            |
+| *Travel values*                                |                                                                 |                                    |                               |                    |
+| $Z _ {m=walk}$                                 | Walk speed                                                      | 4.8                                | MODE_SPEEDS                   | Setting            |
+| $Z _ {m=cyc.}$                                 | Cycle speed                                                     | 14.5                               | MODE_SPEEDS                   | Setting            |
+| $Z _ {m=bus}$                                  | Bus speed                                                       | 15                                 | MODE_SPEEDS                   | Setting            |
+| $Z _ {m=car}$                                  | Car speed                                                       | 21                                 | MODE_SPEEDS                   | Setting            |
+| $Z _ {m=mot.}$                                 | Motorbike speed                                                 | 25                                 | MODE_SPEEDS                   | Setting            |
+| \$\\epsilon \$                                 | Walk time to bus                                                | 5 or Lnorm(log (5),0.18)           | BUS_WALK_TIME                 | Setting            |
+| $\mu_{m=HGV}$                                  | Truck distance relative to car                                  | 0.21 or Beta(3,10)                 | TRUCK_TO\_ CAR_RATIO          | Setting            |
+| $\mu_{m=bus}$                                  | Bus driver distance relative to bus passenger distance          | 1/45 or Bet a(20,600) \|           | BUS_TO_PASSENGER_RATIO        | Setting            |
+| $\mu_ {m=mot.}$                                | Motorcycle fleet distance relative to total motorcycle distance | 37/68 or Beta(37/3+ 1,31/3+1) \|   | FLEET_TO_MOTORCYCLE_RATIO     | Setting            |
+| $T_j$                                          | Trip-level data                                                 | Constant                           | SYNTHETIC_TRIPS               | Setting            |
+| *Injury model values*                          |                                                                 |                                    |                               |                    |
+| $I _ {a,g,m_{\   text{vi c} },m_{\text{str}}}$ | Fatalities table                                                | Constant                           | INJURY_TABLE                  | Setting            |
+| $\sigma$                                       | Injury reporting rate                                           | 1 or Beta(8,3)                     | INJURY_REPORTING_RATE         | Setting            |
+| $\omega$                                       | Sum of distance exponents                                       | 1.9 or Lnorm(l og(1.9),l og(1.03)) | SIN_EXPONENT_SUM              | Model              |
+| $\psi$                                         | Casualty fraction of $\omega$                                   | 0.5 or Beta(20,20) \|              | CASUALTY_EXPONENT_FRACTION    | Model              |
+| *Pollution model values*                       |                                                                 |                                    |                               |                    |
+| $\eta$                                         | Background PM2.5 concentration                                  | 50 or Lnorm(log( 50),0.18) \|      | PM_CONC_BASE                  | Setting            |
+| $\zeta$                                        | Fraction of measured PM2.5 concentration due to road transport  | 0.225 or Beta(5,20) \|             | PM_TRANS_SHARE                | Setting            |
+| $\   g amma_{m}$                               | Vehicle emission inventory                                      | Constant or Dirichlet              | EMISSION_INVENTORY            | Setting            |
+| $P$                                            | Vehicle emission confidence                                     | 1                                  | EMISSION_INVENTORY_CONFIDENCE | Setting            |
+| *Pollution & health model values*              |                                                                 |                                    |                               |                    |
+| $C_1$                                          | Base-level inhalation rate                                      | 1                                  | BASE_LEVEL_INHALATION_RATE    | Model              |
+| $C_2$                                          | Exposure ratio window closed                                    | 0.5                                | CLOSED_WINDOW_PM\_ RATIO      | Model              |
+| $C_3$                                          | Proportion of travel with closed windows                        | 0.5                                | C LOSED_WIN DOW_RATIO         | Setting            |
+| $C_4$                                          | Parameter for on-road PM2.5 level                               | 3.216                              | ROAD\_ RATIO_MAX              | Model              |
+| $C_5$                                          | Parameter for on-road PM2.5 level                               | 0.379                              | ROAD_RA TIO_SLOPE             | Model              |
+| $C_6$                                          | Exposure ratio for underground                                  | 0.8                                | SUBWAY \_PM_RATIO             | Setting            |
+| \$ H \_{a,h,w}\$                               | AP dose- -res ponse--curve parameters                           | Constant                           | DR_AP                         | Model              |
+| $\   xi_{h,w}$                                 | Quantiles for AP RR functions                                   | 0.5 or Unif(0,1)                   | AP_DOSE_R ESPONSE\_ QUANTILE  | Model              |
+| *Physical activity model values*               |                                                                 |                                    |                               |                    |
+| $\chi$                                         | Day-to-week travel scalar                                       | 7 or 7 $\times$Beta(20,3)          | DAY_TO_WEEK_TRAVEL_SCALAR     | Model              |
+| $Y_i$                                          | Individual n on-transport MMETs                                 | Constant                           | PA_SET\$ work_ltpa \_marg_met | Setting            |
+| $\theta$                                       | Background PA scalar                                            | 1 or Lnorm(0,0.18)                 | BACKGROUND\_ PA_SCALAR        | Setting            |
+| $\   tilde{Y}$                                 | Confidence in PA survey                                         | 1                                  | BACKGROUND_PA_C ONFIDENCE     | Setting            |
+| $\tilde {\theta}$                              | Background PA zeros quantile                                    | 0.5 or Unif(0,1)                   | BACKGROUND \_PA_ZEROS         | Setting            |
+| $\lambda_{m=\text{cyc.}}$                      | Cycling MET surplus                                             | 4.63 or Lnorm(log (4.63),1)        | MMET_CYCLING                  | Model              |
+| $\lambda_{m=\text{walk}}$                      | Walking MET surplus                                             | 2.53 or Lnorm(log (2.53),1)        | MMET_WALKING                  | Model              |
+| $\lambda_{m\not\in\text{wal                    
+  k,cyc.}}$                                      | In-vehicle MET surplus                                          | 0                                  |                               | Model              |
+| *Physical activity & health model values*      |                                                                 |                                    |                               |                    |
+| \$\\G\_{h,x,z}\$                               | Look-up table for relative risk truncated normal distribution   | Constant                           |                               | Model              |
+| \$\phi\_{h}\$                                  | Quantiles for PA RR functions                                   | 0.5 or Unif(0,1)                   | PA_DOSE_RESPONSE_QUANTILE     | Model              |
 
 ## Data module {#data}
 
@@ -230,7 +177,6 @@ we could create a synthetic population as described in Appendix [8.3](#synthpop)
 
 From the synthetic population we create "scenarios" of different pictures of travel by changing certain trips (e.g. swapping the mode of travel for particular trips and/or particular people). For the purposes of illustration, we have created three scenarios mentioned in the table @tbl-scen-specs, where each mode such as `cycle` has propensities in three different distance categories: `0-2 km`, `2-6 km` and `6+ km`. What the scenario does that in each of those distance categories, it increases the current mode share by the propensities. So for instance, if in a city the baseline mode share of `cycle` is `10` percent for short trips (`0-2 km`), then in the `cycle` scenario, it increases upto 15.6 (10 + 5.6).
 
-
 ```{r}
 #| label: tbl-scen-specs
 #| tbl-cap: Scenario propensities.
@@ -238,8 +184,6 @@ From the synthetic population we create "scenarios" of different pictures of tra
 
 kable(scen_def |> tibble::rownames_to_column("Scenarios"))
 ```
-
-
 
 ### Distances
 
@@ -319,7 +263,6 @@ Then the relative risk for each person for each disease is calculated for the qu
 
 \[Example of the dose--response workflow for PA and total cancer. Top left: results of the meta-analysis: mean, lower bound and upper bound of the relationship between PA dose and relative risk of disease. Top right: examples of 500 samples from the normal distribution defined by the mean of the top-left panel and the standard deviation defined by (upper bound minus lower bound) divided by 1.96 and truncated at 0. Bottom left: relative risks of individuals with PA doses 5, 25 and 45 are found by mapping their doses onto the median curve. This is used in the "constant" ITHIM use case. Bottom right: relative risks of individuals with PA doses 5, 25 and 45 for three different samples from the distribution shown in the top-right panel. For each sample, each individual is mapped onto the response curve it defines.\]
 
-
 ## Injury module
 
 ### Processing
@@ -334,7 +277,7 @@ We model injuries via regression by predicting the number of fatalities of each 
 
 The predictive covariates include the distances travelled by the parties and their demographic details. These requirements lead to a natural separation of the (training) dataset into two groups: a set for which we have distance data for the other party, and a set for which we do not have distance data for the other party. The former equates to a "who hit whom" ("whw") matrix (albeit in a higher dimension), and will account for changes in injuries resulting of a change in strike-mode travel. The latter corresponds to causes of injury that will not change across scenarios, including "no other vehicle" and modes of transport that we do not consider to change, which might include trucks and buses if they are not somehow explicitly included in the trip set. We label this group "noov": no or other vehicle.
 
-[Note on recategorization]{.ul}: for some of the modes (like for car, bus, motorcycle and cycle), if both strike and victim modes are same, we explicitly make the strike mode as 'noov'
+[Note on recategorization]{.underline}: for some of the modes (like for car, bus, motorcycle and cycle), if both strike and victim modes are same, we explicitly make the strike mode as 'noov'
 
 We model the number of injuries as a Poisson-distributed variable with an offset depending on the distance(s) and the reporting rate. We write the model as follows: $$\begin{aligned}
 \tilde{I}_{a,g,m_{\text{cas}},m_{\text{str}},s,y} \sim &
@@ -406,7 +349,6 @@ For physical activity propensity and emission inventories, we use "confidences",
 
 \[Distributions of a Beta-distributed propensity to non-travel PA with varying confidence values in the raw input data. The sampled value gives the fraction of the population that engages in non-travel PA.\]
 
-
 (){#emission_dist width="65%"}
 
 ## Dose--response relationships {#dr}
@@ -445,11 +387,9 @@ The objective of learning the value of information formulated in this way is to 
 
 \[EVPPI for Accra's "walking" scenario for all causes of YLLs excluding "all cause" and "neoplasm".\]
 
-
 # ITHIM with parameters
 
-::: appendix
-\[ITHIM-R workflow, with variable parameters in purple. Fixed inputs to the model have a bold, black outline, which is solid for inputs we consider "global" and dashed for inputs we consider "local". There are four global inputs, which will be embedded in ITHIM-R. There are seven local inputs, which users should provide. The graph depicts parent--child relationships, where a child (at the head of an arrow) depends upon all its parents (at the source(s) of the arrow(s)). To aid visualisation, an arrow connected to the outside of a grey box indicates that the arrow connects to each item within the box. *AT: active travel. MET: metabolic equivalent task. pp: per person. AP: air pollution. PA: physical activity. DR: dose--response relationship. GBD: global burden of disease.* NB: $\rho$ only impacts the NCD burden of GBD, not all of it. Missing parameter: motorcycle distance. $\lambda$ is a 2D parameter. $\xi$ is 4D.\]
+::: appendix \[ITHIM-R workflow, with variable parameters in purple. Fixed inputs to the model have a bold, black outline, which is solid for inputs we consider "global" and dashed for inputs we consider "local". There are four global inputs, which will be embedded in ITHIM-R. There are seven local inputs, which users should provide. The graph depicts parent--child relationships, where a child (at the head of an arrow) depends upon all its parents (at the source(s) of the arrow(s)). To aid visualisation, an arrow connected to the outside of a grey box indicates that the arrow connects to each item within the box. *AT: active travel. MET: metabolic equivalent task. pp: per person. AP: air pollution. PA: physical activity. DR: dose--response relationship. GBD: global burden of disease.* NB: $\rho$ only impacts the NCD burden of GBD, not all of it. Missing parameter: motorcycle distance. $\lambda$ is a 2D parameter. $\xi$ is 4D.\]
 
 (){#ithim_with_parameters width="\\textwidth"}
 
@@ -457,21 +397,16 @@ The objective of learning the value of information formulated in this way is to 
 
 \[1000 samples from PA dose--response curves\]
 
-
 (){#PADR width="90%"}
 
-+:----------------------------------------------------------------------------------:+:---------------------------------------------------------------------------------:+
+|                                                                                    |                                                                                   |
+|:----------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|
 | ![100 samples from AP dose--response curves](cvd_ihdDR-sim.pdf){#APDR width="40%"} | \[100 samples from AP dose--response curves\] (cvd_strokeDR-sim.pdf){width="40%"} |
-+------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------+
 
-+:-----------------------------------------------------------------:+:------------------------------------------------------------:+:------------------------------------------------------------------:+
+|                                                                   |                                                              |                                                                    |
+|:-----------------------------------------------------------------:|:------------------------------------------------------------:|:------------------------------------------------------------------:|
 | ![100 samples from AP dose--response curv es](neo_lungDR-sim.pdf) | ![100 samples from AP dose--response c urves](lriDR-sim.pdf) | ![100 samples from AP dose--response curve s](resp_copdDR-sim.pdf) |
-+-------------------------------------------------------------------+--------------------------------------------------------------+--------------------------------------------------------------------+
 
-::: landscape
-# Tabulated ITHIM equations {#tableequations}
+::: landscape \# Tabulated ITHIM equations {#tableequations}
 
-::: center
-::: ThreePartTable
-::: TableNotes
-CDF: cumulative distribution function. We use generative distributions to generate random numbers so that samples are correlated. For $t=\text{CDF}_{F}^{-1}(q)$, $t$ is the $q$-th quantile of function $F$ with CDF CDF$_F$. (I'd like to find an improved notation for this.)
+::: center ::: ThreePartTable ::: TableNotes CDF: cumulative distribution function. We use generative distributions to generate random numbers so that samples are correlated. For $t=\text{CDF}_{F}^{-1}(q)$, $t$ is the $q$-th quantile of function $F$ with CDF CDF$_F$. (I'd like to find an improved notation for this.)
