@@ -280,7 +280,13 @@ ithim_load_data <- function(speeds =
   nov_words <- c('no.other.fixed.or.stationary.object','no other vehicle','none')
   injuries$strike_mode[injuries$strike_mode%in%nov_words] <- 'nov'
   ## add weight column if missing
-  if(!'weight'%in%colnames(injuries)) injuries$weight <- 1
+  if(!'weight'%in%colnames(injuries)) 
+    injuries$weight <- 1
+  
+  ## Set weight as the unique number of years
+  if('year'%in% colnames(injuries)){
+    injuries$weight <- length(unique(injuries$year))
+  }
   
   ## AA - Hard-coded
   ## INJURIES - Make all incidents of car, bus, motorcycle and cycle with themselves, as NOV
