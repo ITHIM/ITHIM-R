@@ -29,7 +29,9 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
     whw_temp[[scen]] <- list()
     for(type in INJURY_TABLE_TYPES){
       injuries_list[[scen]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
-      injuries_list[[scen]][[type]]$weight <- 1
+      
+      # Set weight from the INJURY_TABLE
+      injuries_list[[scen]][[type]]$weight <- unique(INJURY_TABLE[[type]]$weight)
       
       ## Use link type and use linkinv function to account for positive confidence interval for the poisson distr.
       # Ref: https://fromthebottomoftheheap.net/2018/12/10/confidence-intervals-for-glms/
