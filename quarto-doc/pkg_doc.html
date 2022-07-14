@@ -206,9 +206,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To assess uncertainty, we sample from the ITHIM output by sampling uncertain parameters multiple times and calculating the ITHIM. We specify parametric distributions or sampling strategies for all the uncertain parameters. Evaluating the ITHIM with uncertain parameters allows assessment of their impact on the outcome (AKA sensitivity analysis). We use EVPPI to calculate the expected reduction in uncertainty in the outcome were we to learn a parameter perfectly. This means we can implement models that are basic in their parametrisation, and learn at the end for which parameters it would be worthwhile spending dedicated time learning better.</p>
 <table class="table">
 <colgroup>
-<col style="width: 11%">
+<col style="width: 19%">
 <col style="width: 31%">
-<col style="width: 31%">
+<col style="width: 44%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -221,8 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tr class="odd">
 <td><em>a</em></td>
 <td>Age group</td>
-<td>15–69<br>
-(five years age group)</td>
+<td>15–69 (five years age group)</td>
 </tr>
 <tr class="even">
 <td><em>g</em></td>
@@ -379,7 +378,7 @@ YLL</td>
 <colgroup>
 <col style="width: 24%">
 <col style="width: 32%">
-<col style="width: 18%">
+<col style="width: 17%">
 <col style="width: 15%">
 <col style="width: 10%">
 </colgroup>
@@ -702,7 +701,7 @@ YLL</td>
 <td>Model</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="math inline">\(\lambda_{m\not\in\text{wal                    
+<td style="text-align: left;"><span class="math inline">\(\lambda_{m\not\in\text{wal
   k,cyc.}}\)</span></td>
 <td>In-vehicle MET surplus</td>
 <td style="text-align: left;">0</td>
@@ -811,6 +810,7 @@ YLL</td>
 <section id="apdisease-doseresponse-relative-risk" class="level3 page-columns page-full" data-number="2.2.3">
 <h3 data-number="2.2.3" class="anchored" data-anchor-id="apdisease-doseresponse-relative-risk"><span class="header-section-number">2.2.3</span> AP–disease dose–response relative risk</h3>
 <div class="page-columns page-full"><p>We use each person’s exposure to PM2.5 (<span class="math inline">\(\check{W}_{i,s}\)</span>) to calculate their relative risk of five diseases (IHD, lung cancer, COPD, stroke, LRI), using curves parametrised by four disease-specific variables <span class="citation" data-cites="Burnett2014">[@Burnett2014]</span>. Of the five diseases, two (IHD and stroke) have parameters specific to age groups starting at age 25.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> The other three (lung cancer, LRI and COPD) have one set of parameters for all ages.</p><div class="no-row-height column-margin column-container"><li id="fn2" role="doc-endnote"><p><sup>2</sup>&nbsp;For any person of age lower than 25, we set the relative risk to 1.</p></li></div></div>
+<p><img src="images/ap-levels.png" class="img-fluid"></p>
 <div class="page-columns page-full"><p>The curves are in the form of samples of the set of four parameters. We model the densities of these samples (using a quantile for parameter 3, kernel density estimation for parameter 2, and GAMs for parameters 1 and 4)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> in order to draw either the median or random samples via their quantiles (<span class="math inline">\(\xi_{h,w}\)</span>) as follows:</p><div class="no-row-height column-margin column-container"><li id="fn3" role="doc-endnote"><p><sup>3</sup>&nbsp;The four parameters refer, in numerical order, to <span class="math inline">\(\alpha, \beta, \gamma\)</span> and tmrel in <span class="citation" data-cites="Burnett2014">@Burnett2014</span>.</p></li></div></div>
 <p><span class="math display">\[\begin{aligned}
 \tilde{H}_{a,h,w=3}=&amp;\text{CDF}_{H_{a,h,w=3}}^{-1}(\xi_{h,w=3})\\
@@ -960,11 +960,11 @@ YLL</td>
 <table class="table">
 <colgroup>
 <col style="width: 50%">
-<col style="width: 49%">
+<col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><embed src="cvd_ihdDR-sim.pdf" id="APDR" class="img-fluid" style="width:40.0%"></td>
+<td style="text-align: center;"><embed src="cvd_ihdDR-sim.pdf" title="fig:" id="APDR" class="img-fluid" style="width:40.0%"></td>
 <td style="text-align: center;">[100 samples from AP dose–response curves] (cvd_strokeDR-sim.pdf){width=“40%”}</td>
 </tr>
 </tbody>
@@ -977,9 +977,9 @@ YLL</td>
 </colgroup>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><embed src="neo_lungDR-sim.pdf" class="img-fluid"></td>
-<td style="text-align: center;"><embed src="lriDR-sim.pdf" class="img-fluid"></td>
-<td style="text-align: center;"><embed src="resp_copdDR-sim.pdf" class="img-fluid"></td>
+<td style="text-align: center;"><embed src="neo_lungDR-sim.pdf" title="fig:" class="img-fluid"></td>
+<td style="text-align: center;"><embed src="lriDR-sim.pdf" title="fig:" class="img-fluid"></td>
+<td style="text-align: center;"><embed src="resp_copdDR-sim.pdf" title="fig:" class="img-fluid"></td>
 </tr>
 </tbody>
 </table>
