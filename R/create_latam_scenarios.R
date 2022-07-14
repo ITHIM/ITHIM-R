@@ -29,8 +29,9 @@ create_latam_scenarios <- function(trip_set){
   SCENARIO_PROPORTIONS <<- scenario_proportions
   # Baseline scenario
   rd_list[[1]] <- rdr
-  rdr_not_changeable <-  rdr %>% filter(trip_mode %in% c('bus_driver', 'truck', 'car_driver'))
-  rdr_changeable <-  rdr %>% filter(!trip_mode %in% c('bus_driver', 'truck', 'car_driver')) # Trips that can be reassigned to another mode
+  modes_not_changeable <- c('bus_driver', 'truck', 'car_driver')
+  rdr_not_changeable <-  rdr %>% filter(trip_mode %in% modes_not_changeable)
+  rdr_changeable <-  rdr %>% filter(!trip_mode %in% modes_not_changeable) # Trips that can be reassigned to another mode
   rdr <- NULL
   
   # Split trips by distance band in a new list
