@@ -198,6 +198,7 @@ ithim_load_data <- function(speeds =
                                 as.numeric(sapply(age_category,function(x)strsplit(x,'-')[[1]][2]))>=min_age,]
 
   population_in_model_ratio <<- sum(DEMOGRAPHIC$population)/sum(demographic$population)
+  population_in_model <<- sum(DEMOGRAPHIC$population)
   
   # get age-category details from population data
   AGE_CATEGORY <<- unique(DEMOGRAPHIC$age)
