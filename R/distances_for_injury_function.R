@@ -62,8 +62,8 @@ distances_for_injury_function <- function(journeys, dist){
   ##RJ linearity in group rates
   CAS_EXPONENT <<- SIN_EXPONENT_SUM  * CASUALTY_EXPONENT_FRACTION
   STR_EXPONENT <<- SIN_EXPONENT_SUM - CAS_EXPONENT
-  forms <- list(whw='count~cas_mode*strike_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+log(strike_distance)+(STR_EXPONENT-1)*log(strike_distance_sum)-log(injury_reporting_rate)+log(weight))',
-                nov='count~cas_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)-log(injury_reporting_rate)+log(weight))')
+  forms <- list(whw='count~cas_mode*strike_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+log(strike_distance)+(STR_EXPONENT-1)*log(strike_distance_sum)+log(injury_reporting_rate)+log(weight))',
+                nov='count~cas_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+log(injury_reporting_rate)+log(weight))')
   if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
     for(type in INJURY_TABLE_TYPES)
       forms[[type]] <- paste0(c(forms[[type]],'age_cat'),collapse='+')
@@ -76,14 +76,14 @@ distances_for_injury_function <- function(journeys, dist){
     injuries_for_model[[1]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
     test <- 'try-error'
     # try 1: add age cat and gender
-    if(any(c('age_cat','cas_gender')%in%names(injuries_for_model[[1]][[type]]))){
-      new_form <- forms[[type]]
-      if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
-        new_form <- paste0(c(new_form,'age_cat'),collapse='+')
-      if('cas_gender'%in%names(injuries_for_model[[1]][[1]]))
-        new_form <- paste0(c(new_form,'cas_gender'),collapse='+')
-      test <- try(glm(as.formula(new_form),data=injuries_for_model[[1]][[type]],family='poisson'))
-    }
+    # if(any(c('age_cat','cas_gender')%in%names(injuries_for_model[[1]][[type]]))){
+    #   new_form <- forms[[type]]
+    #   if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
+    #     new_form <- paste0(c(new_form,'age_cat'),collapse='+')
+    #   if('cas_gender'%in%names(injuries_for_model[[1]][[1]]))
+    #     new_form <- paste0(c(new_form,'cas_gender'),collapse='+')
+    #   test <- try(glm(as.formula(new_form),data=injuries_for_model[[1]][[type]],family='poisson'))
+    # }
     if(length(test)==1&&test == 'try-error')
       test <- try(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson'))
     if(length(test)==1&&test == 'try-error')
