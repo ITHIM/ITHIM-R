@@ -27,7 +27,6 @@ add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',
   ## add new travel
   new_mode <- trip_mode
   total_new_distance <- total_ref_distance*distance_ratio
-  #browser()
   # distance_range <- c(floor(total_new_distance/nPeople/nTrips),ceiling(total_new_distance/nPeople/nTrips))
   distance_range <- c(total_new_distance/nPeople/nTrips, total_new_distance/nPeople/nTrips)
   speed <- MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode==new_mode]
@@ -76,7 +75,6 @@ add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',
     raw_trip_set <- plyr::rbind.fill(raw_trip_set, new_trips)
   }
   
-  # browser()
   return(raw_trip_set)
   
 }

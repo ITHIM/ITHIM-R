@@ -106,7 +106,6 @@ create_latam_scenarios <- function(trip_set){
 
     print(bus_dr_dist/bus_dist)
     
-    # browser()
     rdr_scen$scenario <- paste0('Scenario ',i)
     rd_list[[i + 1]] <- rdr_scen
   } # End loop for scenarios

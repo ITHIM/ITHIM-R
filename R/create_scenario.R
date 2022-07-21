@@ -47,7 +47,6 @@ create_scenario <- function(rdr, scen_name, source_modes, combined_modes = F, ta
                                              candidate_trips$w),]
     }
     else{
-      # browser()
       sample_trips <- candidate_trips[sample(1:nrow(candidate_trips),source_trips),]
     }
     

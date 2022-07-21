@@ -105,8 +105,6 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
       }else{
         if(!'bus_driver'%in%mode_names){
           
-          # browser()
-          
           if (length(bus_base) > 0){
             injuries_list[[scen]][[type]]$strike_distance[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(dist$stage_mode=='bus_driver'),i+1]/bus_base
             injuries_list[[scen]][[type]]$strike_distance_sum[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(dist$stage_mode=='bus_driver'),i+1]/bus_base
