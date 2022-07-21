@@ -87,11 +87,31 @@ create_latam_scenarios <- function(trip_set){
           rbind(rdr_copy[[j]][!rdr_copy[[j]]$trip_id %in% change_trip_ids,],
                 change_trips)
       }
-    } # End loop for distance bands
+      
+    } 
+    # End loop for distance bands
     rdr_scen <- do.call(rbind,rdr_copy)
     rdr_scen <- rbind(rdr_scen,rdr_not_changeable)
+    
+    # Remove bus_driver from the dataset, to recalculate them
+    rdr_scen <-  filter(rdr_scen, !trip_mode %in% 'bus_driver')
+    rdr_scen <- add_ghost_trips(rdr_scen,
+                          trip_mode = 'bus_driver',
+                          distance_ratio = BUS_TO_PASSENGER_RATIO * DISTANCE_SCALAR_PT,
+                          reference_mode = 'bus',
+                          scenario = paste0('Scenario ',i))
+    print(paste("Scenario name: ", paste0('Scenario ',i)))
+    bus_dr_dist <- sum(rdr_scen[rdr_scen$stage_mode=='bus_driver',]$stage_distance,na.rm=T)
+    bus_dist <- sum(rdr_scen[rdr_scen$stage_mode=='bus',]$stage_distance,na.rm=T)
+
+    print(bus_dr_dist/bus_dist)
+    
+    # browser()
     rdr_scen$scenario <- paste0('Scenario ',i)
     rd_list[[i + 1]] <- rdr_scen
   } # End loop for scenarios
+  
+  
+  
   return(rd_list)
 }
