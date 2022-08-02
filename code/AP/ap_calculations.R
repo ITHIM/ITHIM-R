@@ -5,19 +5,82 @@ library(here)
 library(data.table)
 library(stringi)
 
-# Import dist and trip dataset
-# 
 
-# Static local and global parameters read from 
-# 
+## Concentration contributed by non-transport share (remains constant across the scenarios)
+# non_transport_pm_conc <- PM_CONC_BASE * (1 - PM_TRANS_SHARE)  
+
+## Calculate mode specific travel pm 2.5 concentration by:
+# emission_factors = PM_emission_inventory (vehicle specific) / baseline_distance_by_mode
+# Multiply mode specific distance by emission factors
+# mode specific travel emissions = mode_specific_distance * emission_factors
+# For the modes that don't have any distance but there is an entry of them in PM 2.5 inventory use their emission factors instead
+# mode specific travel emissions = emission_factors
+
+
+## Calculate travel PM 2.5 concentration for baseline + scenarios by:
+# Calculate baseline travel concentration by: baseline_sum = sum(mode specific travel emissions)
+# Calculate conc_pm for baseline + scenarios
+# conc_pm = non_transport_pm_conc + PM_TRANS_SHARE * PM_CONC_BASE 
+#           * sum(mode specific travel emissions) / baseline_sum
+
+## Calculate ventilation rate for all travel modes:
+# Set vent_rate for all modes as BASE_LEVEL_INHALATION_RATE (which is set to 1)
+# vent_rate = BASE_LEVEL_INHALATION_RATE 
+# For cycle and pedestrian modes, calculate vent rate as:
+# vent_rate for cycle: = BASE_LEVEL_INHALATION_RATE + MMET_CYCLING / 2.0
+# vent_rate for pedestrian = BASE_LEVEL_INHALATION_RATE + MMET_WALKING / 2.0
+
+## Calculate vehicle ratio index - vehicle_ratio_index
+## Exposure ratio as function of ambient PM2.5, as in Goel et al 2015
+# on_road_off_road_ratio = ROAD_RATIO_MAX - ROAD_RATIO_SLOPE * log(conc_pm)
+# Averaging over windows open and windows closed
+# in_vehicle_ratio = ((1 - CLOSED_WINDOW_RATIO) * on_road_off_road_ratio) + (CLOSED_WINDOW_RATIO * CLOSED_WINDOW_PM_RATIO)
+# subway ratio is a constant
+# subway_ratio = SUBWAY_PM_RATIO
+
+## Assign rates according to the order of the ratio_by_mode array: 1 is open vehicle, 
+# 2 is closed vehicle, 3 is subway
+# open vehicles experience the on_road_off_road_ratio, and closed vehicles experience the in_vehicle_ratio
+# open vehicles are: pedestrian, cycle, motorcycle, auto_rickshaw, shared_auto, cycle_rickshaw
+# All other modes except subway and rail are closed vehicles
+# ratio_by_mode = combine(on_road_off_road_ratio, in_vehicle_ratio, subway_ratio)
+
+## Calculate on road air for each stage of a trip
+# litres of air inhaled are the product of the ventilation rate and the time (hours/60) 
+# spent travelling by that mode
+# On road air = (stage_duration * mode_specific_ventilation_rate) / 60
+# trip_set[[on_road_air]] = trip_set[[stage_duration]] * trip_set[[vent_rate]] / (60) # L
+
+## Calculate PM dose in mg as:
+# pm dose in mg as the product of the air inhaled, the background pm, and the exposure ratio
+# trip_se[[pm_dose]] = trip_set[[on_road_air]] * scen_pm * scen_ratio # mg
+
+
+## Computer individual-level PM2.5 for each scenario (and baseline)
+# Initialize to background. This means persons who undertake zero travel get the background concentration conc_pm
+# synth_pop[[individual_without_any_travel]] = pm_conc
+# Using trip dataset, calculate individual person's on_road_dur (duration) by summing all stage durations, and
+# on_road_pm by summing pm_dose
+# Calculate (for each individual) non-travel air inhalation by:
+# non_transport_air_inhaled = (24 - individual_data[[on_road_pm]] / 60) * BASE_LEVEL_INHALATION_RATE
+# Concentration of pm inhaled = total pm inhaled / total air inhaled
+# pm_conc = (non_transport_air_inhaled * conc_pm) + individual_data[[on_road_pm]]) / 24
+# synth_pop[[individual_with_travel]] = pm_conc
+
+# Static local and global parameters 
+# read from the input parameters v6.0 excel sheet
+# City specific params
 PM_CONC_BASE <- 10.49221667
 PM_TRANS_SHARE <- 0.31
+
+# Global params
 MMET_CYCLING <- 4.63
 MMET_WALKING <- 2.53
 
 # Five fixed parameters: BASE_LEVEL_INHALATION_RATE (10), CLOSED_WINDOW_PM_RATIO (0.5), 
 # CLOSED_WINDOW_RATIO (0.5), ROAD_RATIO_MAX (3.216), ROAD_RATIO_SLOPE (0.379)
-BASE_LEVEL_INHALATION_RATE <- 1 # NOTE: the above comment says 10, but it is actually 1
+# NOTE: the above comment says 10, but it is actually 1 in the code.
+BASE_LEVEL_INHALATION_RATE <- 1 
 CLOSED_WINDOW_PM_RATIO <- 0.5
 CLOSED_WINDOW_RATIO <- 0.5
 ROAD_RATIO_MAX <- 3.216
@@ -141,7 +204,7 @@ scen_index <- match(trip_set$scenario, SCEN)
 scen_pm <- as.numeric(conc_pm[scen_index])
 
 # ordered ratios based on scenario and open/closed mode
-scen_ratio <- ratio_by_mode[cbind(trip_set$vehicle_ratio_index,scen_index)]
+scen_ratio <- ratio_by_mode[cbind(trip_set$vehicle_ratio_index, scen_index)]
 
 # pm dose in mg as the product of the air inhaled, the background pm, and the exposure ratio
 trip_set$pm_dose <- trip_set$on_road_air * scen_pm * scen_ratio # mg
@@ -174,27 +237,19 @@ for (i in 1:length(SCEN)){
     match(individual_data$participant_id,synth_pop$participant_id)] <- pm_conc
 }
 
-# from model
-# Min.   :10.49   Min.   :10.40   Min.   :10.69   Min.   :10.35  
-# 1st Qu.:10.58   1st Qu.:10.50   1st Qu.:10.79   1st Qu.:10.44  
-# Median :10.78   Median :10.76   Median :10.97   Median :10.65  
-# Mean   :11.01   Mean   :11.13   Mean   :11.18   Mean   :10.86  
-# 3rd Qu.:11.17   3rd Qu.:11.40   3rd Qu.:11.33   3rd Qu.:11.05  
-# Max.   :17.95   Max.   :33.69   Max.   :18.27   Max.   :17.72 
+# io$antofagasta$outcomes$pm_conc_pp |> 
+#   dplyr::select(contains("pm_conc")) |> 
+#   summary() |>
+#   print()names
 
-summary(synth_pop |> dplyr::select(contains("pm_conc"))) |> print()
-
-# pm_conc_baseline pm_conc_scenario_1 pm_conc_scenario_2 pm_conc_scenario_3
-# Min.   :10.49    Min.   :10.40      Min.   :10.69      Min.   :10.35     
-# 1st Qu.:10.58    1st Qu.:10.50      1st Qu.:10.79      1st Qu.:10.44     
-# Median :10.78    Median :10.76      Median :10.97      Median :10.65     
-# Mean   :11.01    Mean   :11.13      Mean   :11.18      Mean   :10.86     
-# 3rd Qu.:11.17    3rd Qu.:11.40      3rd Qu.:11.33      3rd Qu.:11.05     
-# Max.   :17.95    Max.   :33.69      Max.   :18.27      Max.   :17.72   
-
-synth_pop$participant_id <- as.integer(synth_pop$participant_id)
-
-list(scenario_pm=conc_pm, pm_conc_pp=as.data.frame(synth_pop))
-
+summary(synth_pop |> dplyr::select(contains("pm_conc")) |> setNames(SCEN_QN)) |> 
+  print()
+# Baseline       Bicycling        Driving      Public Transport
+# Min.   :10.49   Min.   :10.39   Min.   :10.68   Min.   :10.38   
+# 1st Qu.:10.58   1st Qu.:10.49   1st Qu.:10.77   1st Qu.:10.47   
+# Median :10.78   Median :10.75   Median :10.95   Median :10.69   
+# Mean   :11.01   Mean   :11.12   Mean   :11.16   Mean   :10.89   
+# 3rd Qu.:11.17   3rd Qu.:11.39   3rd Qu.:11.31   3rd Qu.:11.08   
+# Max.   :17.95   Max.   :33.66   Max.   :18.24   Max.   :17.77 
 # Write it as a CSV
-write_csv(co2, "CO2_antofagasta.csv")
+write_csv(synth_pop, here(abs_path, "AP_PM25_antofagasta.csv"))
