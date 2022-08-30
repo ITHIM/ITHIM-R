@@ -56,7 +56,7 @@ distances_for_injury_function <- function(journeys, dist){
     scenario_injury_table[[type]] <- expand.grid(age_cat=unique(DEMOGRAPHIC$age),
                                                  cas_gender=unique(DEMOGRAPHIC$sex),
                                        cas_mode=unique(injuries_for_model[[1]][[type]]$cas_mode),
-                                       strike_mode=unique(injuries_for_model[[1]][[type]]$strike_mode))
+                                       strike_mode=unique(injuries_for_model[[1]][[type]]$strike_mode)) 
   injuries_list <- add_distance_columns(injury_table=scenario_injury_table,mode_names,true_distances_0,dist)
   for (n in 1:(NSCEN+1))
     for(type in INJURY_TABLE_TYPES) 

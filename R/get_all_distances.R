@@ -78,8 +78,6 @@ get_all_distances <- function(ithim_object){
   #   dist <- dist %>% filter(stage_mode != 'walk_to_pt')
   # }
   
-  # browser()
-
   # Add true_dist to the ithim_object
   ithim_object$true_dist <- dist
   

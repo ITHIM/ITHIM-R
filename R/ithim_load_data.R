@@ -298,7 +298,8 @@ ithim_load_data <- function(speeds =
   same_cas_str_modes <- injuries %>% filter((cas_mode == 'car' & strike_mode == 'car') | 
                                               (cas_mode == 'bus' & (strike_mode %in% c('bus', 'bus_driver'))) | 
                                               (cas_mode == 'motorcycle' & strike_mode == 'motorcycle') | 
-                                              (cas_mode == 'cycle' & strike_mode == 'cycle'))
+                                              (cas_mode == 'cycle' & strike_mode == 'cycle') |
+                                              (cas_mode == 'truck' & strike_mode == 'truck'))
   
   # Filter all those with similar casualty and strike mode
   injuries <- injuries %>% filter(!( (cas_mode == 'car' & strike_mode == 'car') | 

@@ -15,10 +15,9 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
             'osorno', 'puerto_montt', 'san_antonio',
             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
 cities <- c('osorno')
-
 # number of times input values are sampled from each input parameter distribution
 
-input_parameter_file <- "InputParameters_v4.0.xlsx"
+input_parameter_file <- "InputParameters_v6.0.xlsx"
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
 comment <- "Added CO2 emission sampling"
