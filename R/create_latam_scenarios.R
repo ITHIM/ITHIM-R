@@ -90,6 +90,36 @@ create_latam_scenarios <- function(trip_set){
     } # End loop for distance bands
     rdr_scen <- do.call(rbind,rdr_copy)
     rdr_scen <- rbind(rdr_scen,rdr_not_changeable)
+    
+    # Remove bus_driver from the dataset, to recalculate them
+    rdr_scen <-  filter(rdr_scen, !trip_mode %in% 'bus_driver')
+    rdr_scen <- add_ghost_trips(rdr_scen,
+                                trip_mode = 'bus_driver',
+                                distance_ratio = BUS_TO_PASSENGER_RATIO * DISTANCE_SCALAR_PT,
+                                reference_mode = 'bus',
+                                scenario = paste0('Scenario ',i))
+    print(paste("Scenario name: ", paste0('Scenario ',i)))
+    bus_dr_dist <- sum(rdr_scen[rdr_scen$stage_mode=='bus_driver',]$stage_distance,na.rm=T)
+    bus_dist <- sum(rdr_scen[rdr_scen$stage_mode=='bus',]$stage_distance,na.rm=T)
+    
+    #print(bus_dr_dist/bus_dist)
+    
+    
+    # Remove car_driver from the dataset, to recalculate them
+    rdr_scen <-  filter(rdr_scen, !trip_mode %in% 'car_driver')
+    rdr_scen <- add_ghost_trips(rdr_scen,
+                                trip_mode='car_driver',
+                                distance_ratio=car_driver_scalar*DISTANCE_SCALAR_CAR_TAXI,
+                                reference_mode='car',
+                                scenario = paste0('Scenario ',i))
+    print(paste("Scenario name: ", paste0('Scenario ',i)))
+    car_dr_dist <- sum(rdr_scen[rdr_scen$stage_mode=='car_driver',]$stage_distance,na.rm=T)
+    car_dist <- sum(rdr_scen[rdr_scen$stage_mode=='car',]$stage_distance,na.rm=T)
+    
+    #print(car_dr_dist/car_dist)
+    
+
+    # browser()
     rdr_scen$scenario <- paste0('Scenario ',i)
     rd_list[[i + 1]] <- rdr_scen
   } # End loop for scenarios
