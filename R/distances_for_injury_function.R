@@ -23,10 +23,11 @@ distances_for_injury_function <- function(journeys, dist){
   distances$car <- rowSums(distances[,colnames(distances)%in%c('car','taxi','shared_auto','shared_taxi')])
   distances <- distances[, -which(names(distances) %in% c('taxi','shared_auto','shared_taxi',"walk_to_pt"))]
   ## bus distance increases linearly with bus passenger distance
-  if('bus_driver'%in%colnames(distances)){
-    passenger <- sapply(SCEN,function(x)sum(subset(distances,scenario==x)$bus))
-    distances$bus_driver <- distances$bus_driver * passenger[match(distances$scenario,SCEN)] / passenger[[1]]
-  }
+  # NOT needed any longer as Latam scenario definition re-calculates bus driver distances
+  # if('bus_driver'%in%colnames(distances)){
+  #   passenger <- sapply(SCEN,function(x)sum(subset(distances,scenario==x)$bus))
+  #   distances$bus_driver <- distances$bus_driver * passenger[match(distances$scenario,SCEN)] / passenger[[1]]
+  # }
   true_distances_0 <- distances
   true_distances_0$sex_age <-  paste0(true_distances_0$sex,"_",true_distances_0$age_cat)
   #if(ADD_BUS_DRIVERS) true_distances_0$bus <- true_distances_0$bus + true_distances_0$bus_driver
@@ -40,6 +41,13 @@ distances_for_injury_function <- function(journeys, dist){
   ## we include truck and bus travel via the flags used in run_ithim_setup, if they are missing from the survey, as in accra
   injury_table <- INJURY_TABLE
   
+  # add injury_reporting rate
+  for(type in INJURY_TABLE_TYPES) 
+    INJURY_TABLE[[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE 
+  
+  INJURY_TABLE <<- INJURY_TABLE
+
+    
   ## add distance columns
   injuries_for_model <- add_distance_columns(injury_table,mode_names,true_distances_0,dist,scenarios=SCEN[1])
   
@@ -53,6 +61,8 @@ distances_for_injury_function <- function(journeys, dist){
   for (n in 1:(NSCEN+1))
     for(type in INJURY_TABLE_TYPES) 
       injuries_list[[n]][[type]]$injury_gen_age <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_gender),as.character(injuries_list[[n]][[type]]$age_cat)),1,function(x)paste(x,collapse='_'))
+
+  
   
   # run regression model on baseline data
   reg_model <- list()
@@ -62,8 +72,10 @@ distances_for_injury_function <- function(journeys, dist){
   ##RJ linearity in group rates
   CAS_EXPONENT <<- SIN_EXPONENT_SUM  * CASUALTY_EXPONENT_FRACTION
   STR_EXPONENT <<- SIN_EXPONENT_SUM - CAS_EXPONENT
-  forms <- list(whw='count~cas_mode*strike_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+log(strike_distance)+(STR_EXPONENT-1)*log(strike_distance_sum)+log(injury_reporting_rate)+log(weight))',
+
+  forms <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+log(strike_distance)+(STR_EXPONENT-1)*log(strike_distance_sum)+log(injury_reporting_rate)+log(weight))',
                 nov='count~cas_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+log(injury_reporting_rate)+log(weight))')
+  
   if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
     for(type in INJURY_TABLE_TYPES)
       forms[[type]] <- paste0(c(forms[[type]],'age_cat'),collapse='+')
@@ -71,47 +83,64 @@ distances_for_injury_function <- function(journeys, dist){
     for(type in INJURY_TABLE_TYPES)
       forms[[type]] <- paste0(c(forms[[type]],'cas_gender'),collapse='+')
 
-  ## catch for when regression fails: if fail, run simpler model: no interactions.
+  max_std <- list() # store largest standard errors
+  max_std_def <- 10
+  
+  
+  # try most sophisticated model first and then successively simplify model
   for(type in INJURY_TABLE_TYPES){
+
     injuries_for_model[[1]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
     test <- 'try-error'
-    # try 1: add age cat and gender
-    # if(any(c('age_cat','cas_gender')%in%names(injuries_for_model[[1]][[type]]))){
-    #   new_form <- forms[[type]]
-    #   if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
-    #     new_form <- paste0(c(new_form,'age_cat'),collapse='+')
-    #   if('cas_gender'%in%names(injuries_for_model[[1]][[1]]))
-    #     new_form <- paste0(c(new_form,'cas_gender'),collapse='+')
-    #   test <- try(glm(as.formula(new_form),data=injuries_for_model[[1]][[type]],family='poisson'))
-    # }
-    if(length(test)==1&&test == 'try-error')
-      test <- try(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson'))
-    if(length(test)==1&&test == 'try-error')
-      test <- try(glm('offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)-log(injury_reporting_rate)+log(weight))',data=injuries_for_model[[1]][[type]],family='poisson'))
-    #
-    # reg_model[[type]] <- trim_glm_object(test)
+    
+
+    # try poisson distribution
+    #if (length(test) == 1 | max_std[[type]] > max_std_def | aic > 100000 | aic < 0 | theta > 100000){
+      
+    test <- try(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family = 'poisson'))
+    
+    if (length(test) != 1){
+      max_std[[type]] <- max(summary(test)$coefficients[,2])
+    } else {
+      max_std[[type]] <- 1000
+    }
+
+
+    # if either standard errors are high or if no model could be built, try different regression models
+
+    if (length(test) == 1 | max_std[[type]] > max_std_def ){
+
+      # first remove age and gender if possible and fit model without age and gender categories
+      if ('age_cat'%in%names(injuries_for_model[[1]][[1]])){
+
+        injuries_df <- injuries_for_model$Baseline[[type]] #%>% dplyr::select(-c(age_cat, cas_gender))
+        setDT(injuries_df)
+        injuries_for_model$Baseline[[type]] <- as.data.frame(injuries_df[,.(count=sum(count),weight=mean(weight),strike_distance_sum=mean(strike_distance_sum),
+                                                                            cas_distance_sum=mean(cas_distance_sum)),by=c('cas_mode','strike_mode')])
+        injuries_for_model$Baseline[[type]]$strike_distance <- injuries_for_model$Baseline[[type]]$strike_distance_sum
+        injuries_for_model$Baseline[[type]]$cas_distance <- injuries_for_model$Baseline[[type]]$cas_distance_sum
+        injuries_for_model[[1]][[type]]$injury_reporting_rate <- as.numeric(INJURY_REPORTING_RATE)
+
+        # try model without age and gender categories
+        forms_no_agecat <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)
+                                            +log(strike_distance)+(STR_EXPONENT-1)*log(strike_distance_sum)+
+                                            log(injury_reporting_rate)+log(weight))',
+                                nov='count~cas_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+log(injury_reporting_rate)+log(weight))')
+  
+        ### re-run regression model
+        test <- try(glm(as.formula(forms_no_agecat[[type]]),data=injuries_for_model[[1]][[type]], family = 'poisson'))
+
+      }  
+    }
+
+
+
     reg_model[[type]] <- test
     test <- NULL
-    
-    # reg_model[[type]] <- tryCatch({
-    #   suppressWarnings(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family='poisson',control=glm.control(maxit=100)))
-    # }, error = function(e){
-    #   temp_form <- gsub('*','+',forms[[type]],fixed=T)
-    #   suppressWarnings(glm(as.formula(temp_form),data=injuries_for_model[[1]][[type]],family='poisson',control=glm.control(maxit=100)))
-    # }
-    # )
-    # reg_model[[type]] <- trim_glm_object(reg_model[[type]])
   }
-  ##
-  ## For predictive uncertainty, we could sample a number from the predicted distribution
-  # if('year'%in%colnames(injuries_list[[1]][[1]])){
-  #   print('year')
-  #   # the injury burden at baseline is the prediction for the most recent year
-  #   most_recent_year <- max(injuries_list[[1]][[1]]$year)
-  #   for(scen in SCEN)
-  #     for(type in INJURY_TABLE_TYPES)
-  #       injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],year==most_recent_year)
-  # }
+    
+
+
   return(list(true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model))
 }
 
