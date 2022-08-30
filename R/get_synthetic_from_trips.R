@@ -59,7 +59,7 @@ get_synthetic_from_trips <- function(){
   synth_pop <- create_synth_pop(raw_trip_set)
   # add car drivers
   if(ADD_CAR_DRIVERS){
-    car_driver_scalar = min(1, CAR_OCCUPANCY_RATIO*1/population_in_model_ratio)
+    car_driver_scalar <<- min(1, CAR_OCCUPANCY_RATIO*1/population_in_model_ratio)
     synth_pop$trip_set<- add_ghost_trips(synth_pop$trip_set,trip_mode='car_driver',
                                     distance_ratio=car_driver_scalar*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car')  }   
   raw_trip_set <- NULL
