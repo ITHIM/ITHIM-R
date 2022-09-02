@@ -113,7 +113,7 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
       }
       
       # omit any rows with zero travel
-      injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],strike_distance>0&cas_distance>0)
+      #injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],strike_distance>0&cas_distance>0)
     }
   }
   

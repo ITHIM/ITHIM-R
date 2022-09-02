@@ -51,6 +51,46 @@ distances_for_injury_function <- function(journeys, dist){
   ## add distance columns
   injuries_for_model <- add_distance_columns(injury_table,mode_names,true_distances_0,dist,scenarios=SCEN[1])
   
+  zero_dist <- list()
+  zero_dist_pos_inj <- list()
+  
+  zero_dist_flag <- F # flag to highlight if some age and gender categories have at least one fatality but zero distance for a strike and casualty mode combination
+  
+  # finds cas and strike mode combinations for which there exist zero distances
+  for(type in INJURY_TABLE_TYPES){ 
+    zero_dist[[type]] <- subset(injuries_for_model$Baseline[[type]],strike_distance == 0 | cas_distance == 0)
+    zero_dist_pos_inj[[type]] <- subset(zero_dist[[type]], count > 0)
+    if (nrow(zero_dist_pos_inj[[type]])>0){
+      zero_dist_flag <- T
+    }
+  }
+  
+  # zero_dist_inj[[city]] <<- list()
+  # zero_dist_inj[[city]][['zero_dist']] <<- zero_dist
+  # zero_dist_inj[[city]][['zero_dist_pos_inj']] <<- zero_dist_pos_inj
+  
+  # if there exists at least one age and gender category where there exists at least one fatality with zero distance for a strike and casualty mode combination,
+  # aggregate by age and gender
+  
+  if (zero_dist_flag == T ){
+    for(type in INJURY_TABLE_TYPES){ 
+      injuries_df <- injuries_for_model$Baseline[[type]] #%>% dplyr::select(-c(age_cat, cas_gender))
+      setDT(injuries_df)
+      injuries_for_model$Baseline[[type]] <- as.data.frame(injuries_df[,.(count=sum(count),weight=mean(weight),strike_distance_sum=mean(strike_distance_sum),
+                                                                          cas_distance_sum=mean(cas_distance_sum)),by=c('cas_mode','strike_mode')])
+      injuries_for_model$Baseline[[type]]$strike_distance <- injuries_for_model$Baseline[[type]]$strike_distance_sum
+      injuries_for_model$Baseline[[type]]$cas_distance <- injuries_for_model$Baseline[[type]]$cas_distance_sum
+      injuries_for_model[[1]][[type]]$injury_reporting_rate <- as.numeric(INJURY_REPORTING_RATE)
+    }
+  }
+  
+  
+  for(type in INJURY_TABLE_TYPES){ 
+    injuries_for_model$Baseline[[type]] <- subset(injuries_for_model$Baseline[[type]],strike_distance>0&cas_distance>0)
+  }
+  
+  
+  
   scenario_injury_table <- list()
   for(type in INJURY_TABLE_TYPES) 
     scenario_injury_table[[type]] <- expand.grid(age_cat=unique(DEMOGRAPHIC$age),
@@ -58,10 +98,15 @@ distances_for_injury_function <- function(journeys, dist){
                                        cas_mode=unique(injuries_for_model[[1]][[type]]$cas_mode),
                                        strike_mode=unique(injuries_for_model[[1]][[type]]$strike_mode)) 
   injuries_list <- add_distance_columns(injury_table=scenario_injury_table,mode_names,true_distances_0,dist)
-  for (n in 1:(NSCEN+1))
-    for(type in INJURY_TABLE_TYPES) 
+  
+  
+  for (n in 1:(NSCEN+1)){
+    for(type in INJURY_TABLE_TYPES){ 
+      # remove zero distances
+      injuries_list[[n]][[type]] <- subset(injuries_list[[n]][[type]],strike_distance>0&cas_distance>0)
       injuries_list[[n]][[type]]$injury_gen_age <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_gender),as.character(injuries_list[[n]][[type]]$age_cat)),1,function(x)paste(x,collapse='_'))
-
+    }
+  }
   
   
   # run regression model on baseline data
