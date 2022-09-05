@@ -273,13 +273,14 @@ ithim_load_data <- function(speeds =
   filename <- paste0(local_path,"/injuries_",CITY,".csv")
   injuries <- read_csv(filename,col_types = cols())
   #cat(paste0('\n  Injuries read from ',filename,' \n\n'),file=setup_call_summary_filename,append=T)
+  # remove injury data outside age range and assign age category, call column age_cat
   if('cas_age'%in%colnames(injuries)) injuries <- assign_age_groups(injuries,age_label='cas_age')
   injuries$cas_mode <- tolower(injuries$cas_mode)
   injuries$strike_mode <- tolower(injuries$strike_mode)
   if('cas_gender'%in%colnames(injuries)) injuries$cas_gender <- tolower(injuries$cas_gender)
   #injuries$strike_mode[is.na(injuries$strike_mode)] <- 'listed_na'
   nov_words <- c('no.other.fixed.or.stationary.object','no other vehicle','none')
-  injuries$strike_mode[injuries$strike_mode%in%nov_words] <- 'nov'
+  injuries$strike_mode[injuries$strike_mode%in%nov_words] <- 'nov' # ensure all nov occurances are labelled as 'nov'
   ## add weight column if missing
   if(!'weight'%in%colnames(injuries)) 
     injuries$weight <- 1
@@ -302,6 +303,7 @@ ithim_load_data <- function(speeds =
                                               (cas_mode == 'truck' & strike_mode == 'truck'))
   
   # Filter all those with similar casualty and strike mode
+  # create dataset with where casuality = strike mode removed
   injuries <- injuries %>% filter(!( (cas_mode == 'car' & strike_mode == 'car') | 
                                        (cas_mode == 'bus' & (strike_mode %in% c('bus', 'bus_driver'))) | 
                                        (cas_mode == 'motorcycle' & strike_mode == 'motorcycle') |

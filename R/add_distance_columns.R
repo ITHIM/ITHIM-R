@@ -15,10 +15,10 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
   
   injury_temp <- injury_table
   
-  by_age <- 'age_cat'%in%names(injury_table[[1]])
+  by_age <- 'age_cat'%in%names(injury_table[[1]]) # gives FALSE if no age categories given
   by_gender <- 'cas_gender'%in%names(injury_table[[1]])
-  for(type in INJURY_TABLE_TYPES){
-    if(!by_age) injury_temp[[type]]$age_cat <- 1
+  for(type in INJURY_TABLE_TYPES){  # type is either whw or nov
+    if(!by_age) injury_temp[[type]]$age_cat <- 1 # add dummy age_cat and cas_gender columns if they don't exist
     if(!by_gender) injury_temp[[type]]$cas_gender <- 1
   }
   u_gen <- unique(injury_temp[[1]]$cas_gender)
