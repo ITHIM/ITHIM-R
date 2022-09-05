@@ -3,6 +3,8 @@
 #' Creates three scenarios where, in each one, the mode share is elevated to the
 #' certain values in each distance band. The scenario-modes are cycle, car, and bus.
 #' 
+#' Motorcycle trips were added as well
+#' 
 #' @param trip_set data frame, baseline scenario
 #' 
 #' @return list of baseline scenario and three mode scenarios
@@ -21,11 +23,11 @@ create_latam_scenarios <- function(trip_set){
   # in the function "create_max_mode_share_scenarios" and the median was computed
   # by hand across cities. All of this is computed in the file "TablesAndFigures.xlsx"
   # in dropbox.
-  scenario_proportions <- data.frame(c(5.6, 5.6, 0),
-                                     c(10.2, 10.2, 10.2),
-                                     c(2,2,2))
+  scenario_proportions <- data.frame(c(5.6, 5.6, 0, 5.6),
+                                     c(10.2, 10.2, 10.2, 10.2),
+                                     c(2,2,2, 2))
   colnames(scenario_proportions) <- target_distances <- DIST_CAT
-  rownames(scenario_proportions) <- modes <- c("cycle", "car", "bus")
+  rownames(scenario_proportions) <- modes <- c("cycle", "car", "bus", 'motorcycle')
   SCENARIO_PROPORTIONS <<- scenario_proportions
   # Baseline scenario
   rd_list[[1]] <- rdr
@@ -98,7 +100,7 @@ create_latam_scenarios <- function(trip_set){
                                 distance_ratio = BUS_TO_PASSENGER_RATIO * DISTANCE_SCALAR_PT,
                                 reference_mode = 'bus',
                                 scenario = paste0('Scenario ',i))
-    print(paste("Scenario name: ", paste0('Scenario ',i)))
+    #print(paste("Scenario name: ", paste0('Scenario ',i)))
     bus_dr_dist <- sum(rdr_scen[rdr_scen$stage_mode=='bus_driver',]$stage_distance,na.rm=T)
     bus_dist <- sum(rdr_scen[rdr_scen$stage_mode=='bus',]$stage_distance,na.rm=T)
     
@@ -112,7 +114,7 @@ create_latam_scenarios <- function(trip_set){
                                 distance_ratio=car_driver_scalar*DISTANCE_SCALAR_CAR_TAXI,
                                 reference_mode='car',
                                 scenario = paste0('Scenario ',i))
-    print(paste("Scenario name: ", paste0('Scenario ',i)))
+    #print(paste("Scenario name: ", paste0('Scenario ',i)))
     car_dr_dist <- sum(rdr_scen[rdr_scen$stage_mode=='car_driver',]$stage_distance,na.rm=T)
     car_dist <- sum(rdr_scen[rdr_scen$stage_mode=='car',]$stage_distance,na.rm=T)
     
