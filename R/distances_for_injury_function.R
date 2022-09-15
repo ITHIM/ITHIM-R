@@ -89,7 +89,7 @@ distances_for_injury_function <- function(journeys, dist){
     injuries_for_model$Baseline[[type]] <- subset(injuries_for_model$Baseline[[type]],strike_distance>0&cas_distance>0)
   }
   
-  
+
   
   scenario_injury_table <- list()
   for(type in INJURY_TABLE_TYPES) 
@@ -97,6 +97,8 @@ distances_for_injury_function <- function(journeys, dist){
                                                  cas_gender=unique(DEMOGRAPHIC$sex),
                                        cas_mode=unique(injuries_for_model[[1]][[type]]$cas_mode),
                                        strike_mode=unique(injuries_for_model[[1]][[type]]$strike_mode)) 
+  
+  
   injuries_list <- add_distance_columns(injury_table=scenario_injury_table,mode_names,true_distances_0,dist)
   
   
@@ -105,10 +107,26 @@ distances_for_injury_function <- function(journeys, dist){
       # remove zero distances
       injuries_list[[n]][[type]] <- subset(injuries_list[[n]][[type]],strike_distance>0&cas_distance>0)
       injuries_list[[n]][[type]]$injury_gen_age <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_gender),as.character(injuries_list[[n]][[type]]$age_cat)),1,function(x)paste(x,collapse='_'))
+      # remove strike and cas mode pairs where cas mode = strike mode
+      injuries_list[[n]][[type]]$cas_strike_mode <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_mode),as.character(injuries_list[[n]][[type]]$strike_mode)),1,function(x)paste(x,collapse='_'))
+      injuries_list[[n]][[type]] <- injuries_list[[n]][[type]] %>% filter(cas_strike_mode != 'car_car' & cas_strike_mode != 'bus_bus' & cas_strike_mode != 'motorcycle_motorcycle'
+                                                                          & cas_strike_mode != 'cycle_cycle'& cas_strike_mode != 'truck_truck' )
     }
   }
   
   
+  # injuries_list <<- injuries_list
+  # medellin_injurycounts <- injuries_for_model$Baseline$whw
+  # medellin_injurycounts$count <- medellin_injurycounts$count / medellin_injurycounts$weight / medellin_injurycounts$injury_reporting_rate
+  # medellin_injurycounts <- medellin_injurycounts %>% dplyr::select(-c(weight, injury_reporting_rate))
+  # 
+  # medellin_baseline_distances <- injuries_list$Baseline$whw
+  # 
+  # write.csv(medellin_injurycounts,"code/injuries/medellin_injurycounts.csv", row.names = F )
+  # write.csv(medellin_baseline_distances,"code/injuries/medellin_baselineDistances.csv", row.names = F )
+  #sort(unique(injuries_list$Baseline$whw$cas_strike_mode))
+
+
   # run regression model on baseline data
   reg_model <- list()
   ## Injury regression. This needs a lot of work to make it generalisable to different settings, data qualities, etc.
@@ -136,6 +154,15 @@ distances_for_injury_function <- function(journeys, dist){
   for(type in INJURY_TABLE_TYPES){
 
     injuries_for_model[[1]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
+    
+    # remove strike and cas mode pairs where cas mode = strike mode
+    injuries_for_model[[1]][[type]]$cas_strike_mode <- apply(cbind(as.character(injuries_for_model[[1]][[type]]$cas_mode),
+                                                                   as.character(injuries_for_model[[1]][[type]]$strike_mode)),1,function(x)paste(x,collapse='_'))
+    injuries_for_model[[1]][[type]] <- injuries_for_model[[1]][[type]] %>% filter(cas_strike_mode != 'car_car' & cas_strike_mode != 'bus_bus' & cas_strike_mode != 'motorcycle_motorcycle'
+                                                                        & cas_strike_mode != 'cycle_cycle'& cas_strike_mode != 'truck_truck' )
+    
+    
+    
     test <- 'try-error'
     
 
