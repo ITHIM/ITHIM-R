@@ -27,6 +27,7 @@
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
 #' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: amount of motorcycle that's fleet
 #' @param PM_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
+#' @param PROPORTION_MOTORCYCLE_TRIPS beta parameter: proportion of trips that are to be added as motorcycle trips
 #' @param CO2_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
 #' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar for car distance travelled
 #' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar for walking distance travelled
@@ -57,6 +58,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    CAR_OCCUPANCY_RATIO = 0.6,
                                    TRUCK_TO_CAR_RATIO = 0.21,
                                    FLEET_TO_MOTORCYCLE_RATIO = 0,
+                                   PROPORTION_MOTORCYCLE_TRIPS = 0,
                                    PM_EMISSION_INVENTORY_CONFIDENCE = 1,
                                    CO2_EMISSION_INVENTORY_CONFIDENCE = 1,
                                    DISTANCE_SCALAR_CAR_TAXI = 1,
@@ -88,6 +90,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   CAR_OCCUPANCY_RATIO <<- CAR_OCCUPANCY_RATIO
   TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
   FLEET_TO_MOTORCYCLE_RATIO <<- FLEET_TO_MOTORCYCLE_RATIO
+  PROPORTION_MOTORCYCLE_TRIPS <<- PROPORTION_MOTORCYCLE_TRIPS
   DISTANCE_SCALAR_CAR_TAXI <<- DISTANCE_SCALAR_CAR_TAXI
   DISTANCE_SCALAR_WALKING <<- DISTANCE_SCALAR_WALKING
   DISTANCE_SCALAR_PT <<- DISTANCE_SCALAR_PT
@@ -128,7 +131,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                      "BUS_TO_PASSENGER_RATIO",
                      "CAR_OCCUPANCY_RATIO",
                      "TRUCK_TO_CAR_RATIO",
-                     "FLEET_TO_MOTORCYCLE_RATIO")
+                     "FLEET_TO_MOTORCYCLE_RATIO",
+                     "PROPORTION_MOTORCYCLE_TRIPS")
   for (i in 1:length(betaVariables)) {
     name <- betaVariables[i]
     val <- get(betaVariables[i])

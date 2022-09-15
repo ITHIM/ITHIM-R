@@ -114,18 +114,7 @@ distances_for_injury_function <- function(journeys, dist){
     }
   }
   
-  
-  # injuries_list <<- injuries_list
-  # medellin_injurycounts <- injuries_for_model$Baseline$whw
-  # medellin_injurycounts$count <- medellin_injurycounts$count / medellin_injurycounts$weight / medellin_injurycounts$injury_reporting_rate
-  # medellin_injurycounts <- medellin_injurycounts %>% dplyr::select(-c(weight, injury_reporting_rate))
-  # 
-  # medellin_baseline_distances <- injuries_list$Baseline$whw
-  # 
-  # write.csv(medellin_injurycounts,"code/injuries/medellin_injurycounts.csv", row.names = F )
-  # write.csv(medellin_baseline_distances,"code/injuries/medellin_baselineDistances.csv", row.names = F )
-  #sort(unique(injuries_list$Baseline$whw$cas_strike_mode))
-
+ 
 
   # run regression model on baseline data
   reg_model <- list()

@@ -228,7 +228,8 @@ betaVariables <- c("PM_TRANS_SHARE",
                    "BUS_TO_PASSENGER_RATIO",
                    "CAR_OCCUPANCY_RATIO",
                    "TRUCK_TO_CAR_RATIO",
-                   "FLEET_TO_MOTORCYCLE_RATIO")
+                   "FLEET_TO_MOTORCYCLE_RATIO",
+                   "PROPORTION_MOTORCYCLE_TRIPS")
 normVariables <- c("MMET_CYCLING",
                    "MMET_WALKING",
                    "PM_CONC_BASE",
@@ -247,7 +248,8 @@ save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_c
      sin_exponent_sum,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
      bus_to_passenger_ratio,car_occupancy_ratio,truck_to_car_ratio,PM_emission_confidence,CO2_emission_confidence,
      distance_scalar_car_taxi,distance_scalar_motorcycle,
-     distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,add_motorcycle_fleet,fleet_to_motorcycle_ratio,
+     distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,add_motorcycle_fleet,add_personal_motorcycle_trips, 
+     fleet_to_motorcycle_ratio, proportion_motorcycle_trips,
      betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
 
@@ -274,11 +276,13 @@ print(system.time(
                                               ADD_BUS_DRIVERS = as.logical(add_bus_drivers),
                                               ADD_CAR_DRIVERS = as.logical(add_car_drivers),
                                               ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]), #ADD_MOTORCYCLE_FLEET = add_motorcycle_fleet[[city]],
+                                              ADD_PERSONAL_MOTORCYCLE_TRIPS = as.character(add_motorcycle_fleet[[city]]),
                                               PM_emission_inventory = PM_emission_inventories[[city]],
                                               CO2_emission_inventory = CO2_emission_inventories[[city]], # added
                                               speeds = speeds[[city]],
                                               
                                               FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
+                                              PROPORTION_MOTORCYCLE_TRIPS = proportion_motorcycle_trips[[city]],
                                               MMET_CYCLING = mmet_cycling, 
                                               MMET_WALKING = mmet_walking,
                                               DAY_TO_WEEK_TRAVEL_SCALAR = as.numeric(day_to_week_scalar),

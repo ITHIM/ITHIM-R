@@ -19,7 +19,8 @@
 #' @param ADD_BUS_DRIVERS logic: whether or not to add bus drivers
 #' @param ADD_CAR_DRIVERS logic: whether or not to find and add distance travelled by individual cars, denoted by car drivers
 #' @param ADD_TRUCK_DRIVERS logic: whether or not to add truck drivers
-#' @param ADD_MOTORCYCLE_FLEET logic: whether or not to add motorcycle fleet
+#' @param ADD_MOTORCYCLE_FLEET logic: whether or not to add additional commercial motorcycle fleet as ghost trips
+#' @param ADD_PERSONAL_MOTORCYCLE_TRIPS character: if 'no' does not add motorcycle trips otherwise set to geographic region which defines the set-up of the motorcycle trips to be added 
 #' @param TEST_WALK_SCENARIO logic: whether or not to run the walk scenario
 #' @param TEST_CYCLE_SCENARIO logic: whether or not to run the cycle scenario
 #' @param MAX_MODE_SHARE_SCENARIO logic: whether or not to run the max mode share scenario
@@ -45,6 +46,7 @@
 #' @param CAR_OCCUPANCY_RATIO beta parameter: number of people per car (including driver)
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
 #' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: fraction of total motorcycles that's fleet
+#' @param PROPORTION_MOTORCYCLE_TRIPS beta parameter: proportion of trips that are to be added as motorcycle trips
 #' @param PM_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
 #' @param CO2_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
 #' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar for car distance travelled
@@ -70,6 +72,7 @@ run_ithim_setup <- function(seed = 1,
                             ADD_CAR_DRIVERS = T,
                             ADD_TRUCK_DRIVERS = T,
                             ADD_MOTORCYCLE_FLEET = F,
+                            ADD_PERSONAL_MOTORCYCLE_TRIPS = 'no',
                             TEST_WALK_SCENARIO = F,
                             TEST_CYCLE_SCENARIO = F,
                             MAX_MODE_SHARE_SCENARIO = F,
@@ -95,6 +98,8 @@ run_ithim_setup <- function(seed = 1,
                             CAR_OCCUPANCY_RATIO = 0.6,
                             TRUCK_TO_CAR_RATIO = 0.21,
                             FLEET_TO_MOTORCYCLE_RATIO = 0.01,
+                            PROPORTION_MOTORCYCLE_TRIPS = 0,
+                            
                             PM_EMISSION_INVENTORY_CONFIDENCE = 1,
                             CO2_EMISSION_INVENTORY_CONFIDENCE = 1,
                             DISTANCE_SCALAR_CAR_TAXI = 1,
@@ -122,6 +127,8 @@ run_ithim_setup <- function(seed = 1,
   # ADD_CAR_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
   # ADD_TRUCK_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
   # ADD_MOTORCYCLE_FLEET = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
+  # ADD_PERSONAL_MOTORCYCLE_TRIPS = character: if 'no' does not add motorcycle trips otherwise set to geographic region which defines the set-up of the motorcycle trips to be added 
+  
   
   # TEST_WALK_SCENARIO = logic. T: run `scenario 0', one simple scenario where everyone takes one (extra) ten-minute walk trip. F: 5 Accra scenarios.
   # TEST_CYCLE_SCENARIO = logic. F: 5 Accra scenarios.
@@ -154,6 +161,7 @@ run_ithim_setup <- function(seed = 1,
   # CAR_OCCUPANCY_RATIO = parameter. double: sets car distance relative to people in car distance. vector: samples from distribution.
   # TRUCK_TO_CAR_RATIO = parameter. double: sets truck distance relative to car. vector: samples from distribution.
   # FLEET_TO_MOTORCYCLE_RATIO = parameter. double: sets fleet distance relative to motorcycle. vector: samples from distribution.
+  # PROPORTION_MOTORCYCLE_TRIPS = parameter. double: defines proportion of trips to be added as motorcycle trips
   # PM_EMISSION_INVENTORY_CONFIDENCE = parameter. double between 0 and 1. 1 = use emission data as they are.
   # CO2_EMISSION_INVENTORY_CONFIDENCE = parameter. double between 0 and 1. 1 = use emission data as they are.
   # DISTANCE_SCALAR_CAR_TAXI = double: sets scalar. vector: samples from distribution.
@@ -178,6 +186,7 @@ run_ithim_setup <- function(seed = 1,
   ADD_CAR_DRIVERS <<- ADD_CAR_DRIVERS
   ADD_TRUCK_DRIVERS <<- ADD_TRUCK_DRIVERS
   ADD_MOTORCYCLE_FLEET <<- ADD_MOTORCYCLE_FLEET
+  ADD_PERSONAL_MOTORCYCLE_TRIPS <<- ADD_PERSONAL_MOTORCYCLE_TRIPS
   TEST_WALK_SCENARIO <<- TEST_WALK_SCENARIO
   TEST_CYCLE_SCENARIO <<- TEST_CYCLE_SCENARIO
   MAX_MODE_SHARE_SCENARIO <<- MAX_MODE_SHARE_SCENARIO
@@ -329,6 +338,7 @@ run_ithim_setup <- function(seed = 1,
                                                     CAR_OCCUPANCY_RATIO,
                                                     TRUCK_TO_CAR_RATIO,
                                                     FLEET_TO_MOTORCYCLE_RATIO,
+                                                    PROPORTION_MOTORCYCLE_TRIPS,
                                                     PM_EMISSION_INVENTORY_CONFIDENCE,
                                                     CO2_EMISSION_INVENTORY_CONFIDENCE,
                                                     DISTANCE_SCALAR_CAR_TAXI,

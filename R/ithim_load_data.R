@@ -296,26 +296,26 @@ ithim_load_data <- function(speeds =
   
   # Get all injuries with same casualty and strike mode for car, bus, motorcycle and cycle
   # Treat bus_driver same as bus for strike mode
-  same_cas_str_modes <- injuries %>% filter((cas_mode == 'car' & strike_mode == 'car') | 
-                                              (cas_mode == 'bus' & (strike_mode %in% c('bus', 'bus_driver'))) | 
-                                              (cas_mode == 'motorcycle' & strike_mode == 'motorcycle') | 
+  same_cas_str_modes <- injuries %>% filter((cas_mode == 'car' & strike_mode == 'car') |
+                                              (cas_mode == 'bus' & (strike_mode %in% c('bus', 'bus_driver'))) |
+                                              (cas_mode == 'motorcycle' & strike_mode == 'motorcycle') |
                                               (cas_mode == 'cycle' & strike_mode == 'cycle') |
                                               (cas_mode == 'truck' & strike_mode == 'truck'))
-  
+
   # Filter all those with similar casualty and strike mode
   # create dataset with where casuality = strike mode removed
-  injuries <- injuries %>% filter(!( (cas_mode == 'car' & strike_mode == 'car') | 
-                                       (cas_mode == 'bus' & (strike_mode %in% c('bus', 'bus_driver'))) | 
+  injuries <- injuries %>% filter(!( (cas_mode == 'car' & strike_mode == 'car') |
+                                       (cas_mode == 'bus' & (strike_mode %in% c('bus', 'bus_driver'))) |
                                        (cas_mode == 'motorcycle' & strike_mode == 'motorcycle') |
                                        (cas_mode == 'cycle' & strike_mode == 'cycle') |
                                        (cas_mode == 'truck' & strike_mode == 'truck')))
-  
+
   # Mutate strike mode as NOV
   same_cas_str_modes <- same_cas_str_modes %>% mutate(strike_mode = 'nov')
-  
+
   # Re-add with NOV
   injuries <- plyr::rbind.fill(injuries, same_cas_str_modes)
-  
+
   # Call function to set tables for WHW and NOV
   set_injury_contingency(injuries)
   
