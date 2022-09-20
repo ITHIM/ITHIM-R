@@ -12,9 +12,12 @@ create_synth_pop <- function(raw_trip_set){
   #Leandro Garcia & Ali Abbas.
   #5 July 2018.
   
-  # Last Updated by Ali Abbas
+  # Updated by Ali Abbas
   # Added 32 new motorcyle trips 
   # Multiplied baseline dataset by 4
+  
+  # Updated by Anna Schroeder - Sep 22
+  # changed beta distribution set-up to allow sampling from a distribution
   
   #Notes:
   ##trip_mode = '99': persons who did not travel.
@@ -41,9 +44,9 @@ create_synth_pop <- function(raw_trip_set){
   unique_ages <- unique(trip_set$age_cat)
   unique_genders <- unique(trip_set$sex)
   
-  if(BACKGROUND_PA_CONFIDENCE < 1){
-    pointiness <- beta_pointiness(BACKGROUND_PA_CONFIDENCE)
-  }
+  # if(BACKGROUND_PA_CONFIDENCE < 1){
+  #   pointiness <- beta_pointiness(BACKGROUND_PA_CONFIDENCE)
+  # }
   
   # get population from trip_set: all the unique ids, and their demographic information
   # match only for "real" people (i.e. not `ghost drivers', whose id is 0)
@@ -58,9 +61,15 @@ create_synth_pop <- function(raw_trip_set){
       raw_zero <- 1
       if(nrow(matching_people)>0) raw_zero <- sum(matching_people$work_ltpa_marg_met==0)/length(matching_people$work_ltpa_marg_met)
       if(BACKGROUND_PA_CONFIDENCE < 1){
-        beta <- ifelse(raw_zero==0,0,(1/raw_zero - 1)*pointiness*raw_zero)
-        alpha <- pointiness - beta
-        raw_zero <- qbeta(BACKGROUND_PA_ZEROS,alpha,beta)
+        mean <- raw_zero
+        std <- 1/(BACKGROUND_PA_CONFIDENCE^2 + 0.07) / 100
+        if (raw_zero == 0){
+          mean <- 0.001
+          std <- 1/(BACKGROUND_PA_CONFIDENCE^2+0.2) / 200
+        }
+        alpha <- abs((mean*(1-mean)/std^2-1)*mean)
+        beta <- abs((mean*(1-mean)/std^2-1)*(1-mean))
+        raw_zero <- rbeta(1,alpha,beta)
       }
       zeros[[age_group]][[gender]] <- raw_zero
       densities[[age_group]][[gender]] <- matching_people$work_ltpa_marg_met[matching_people$work_ltpa_marg_met>0]
