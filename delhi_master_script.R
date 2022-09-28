@@ -7,7 +7,7 @@ require(ithimr)
 
 io <- run_ithim_setup(CITY = 'delhi',
                                 TEST_WALK_SCENARIO = T,
-                                ADD_WALK_TO_BUS_TRIPS = F,
+                                ADD_WALK_TO_PT_TRIPS = F,
                                 ADD_TRUCK_DRIVERS = F,
                                 ADD_BUS_DRIVERS = F,
                                 speeds = list(subway = 32,

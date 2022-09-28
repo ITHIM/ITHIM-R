@@ -14,11 +14,11 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
   SYNTHETIC_TRIPS <- NULL
   
   ## pt = public transport
-  pt_modes <- c('bus', 'rail')#,'minibus','subway','rail')
+  pt_modes <- c('bus', 'rail','minibus','subway')
   
   ##!! this function and add_walk_trips need some attention
   
-  if(ADD_WALK_TO_BUS_TRIPS)
+  if(ADD_WALK_TO_PT_TRIPS)
     for(i in 1:length(rd_list)){
       
       

@@ -4,7 +4,7 @@
   #require(tidyverse)
   
   ithim_object <- run_ithim_setup(CITY = 'sao_paulo',
-                                  ADD_WALK_TO_BUS_TRIPS = F,
+                                  ADD_WALK_TO_PT_TRIPS = F,
                                   ADD_BUS_DRIVERS = F,
                                   ADD_TRUCK_DRIVERS = F,
                                   TEST_WALK_SCENARIO = F,

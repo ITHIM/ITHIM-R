@@ -5,8 +5,8 @@ library(earth)
 ## Use case 0: basic ITHIM, walk scenario:
 
 ## 
-ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F,CITY='accra',ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F)
-#ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F)
+ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_PT_TRIPS=F,CITY='accra',ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F)
+#ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_PT_TRIPS=F)
 ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
 print(names(ithim_object$outcome))
 ##
@@ -21,8 +21,8 @@ barplot(result_mat, names.arg = sapply(names(result_mat) ,function(x)paste0( las
 
 
 ## 
-ithim_object <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),ADD_WALK_TO_BUS_TRIPS=F,CITY='accra',ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F,MAX_MODE_SHARE_SCENARIO = T)
-#ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_BUS_TRIPS=F)
+ithim_object <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),ADD_WALK_TO_PT_TRIPS=F,CITY='accra',ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F,MAX_MODE_SHARE_SCENARIO = T)
+#ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_PT_TRIPS=F)
 ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
 ##
 
@@ -126,7 +126,7 @@ for(i in 1:nDiseases){
 
 ithim_object <- run_ithim_setup(NSAMPLES = 1024,
                                 TEST_WALK_SCENARIO=T,
-                                ADD_WALK_TO_BUS_TRIPS = F,# = c(log(5), log(1.2)),
+                                ADD_WALK_TO_PT_TRIPS = F,# = c(log(5), log(1.2)),
                                 MMET_WALKING = c((2.53),(1.2)), 
                                 MMET_CYCLING = c((4.63),(1.2)), 
                                 PM_CONC_BASE = c((50), (1.3)),  

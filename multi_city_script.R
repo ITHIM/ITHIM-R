@@ -18,7 +18,7 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
             'accra', 'bangalore', 'cape_town','delhi', 'vizag')
 
 # cities <- c('osorno', 'puerto_montt',  'temuco_padrelascasas', 'valdivia')
-#cities <- c('valdivia')
+cities <- c('valdivia')
 #cities <- c('accra', 'bangalore', 'cape_town','delhi', 'vizag')
 #cities <- c('san_antonio')
 #cities <- c('mexico_city')
@@ -28,7 +28,7 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 
 # number of times input values are sampled from each input parameter distribution
 
-input_parameter_file <- "InputParameters_v10.0.xlsx"
+input_parameter_file <- "InputParameters_v11.0.xlsx"
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
 comment <- "Added CO2 emission sampling"
@@ -179,7 +179,7 @@ print(system.time(for(city in cities){
   ithim_objects[[city]] <- run_ithim_setup(
     LATAM = latam,
     DIST_CAT = as.character(dist_cat),
-    ADD_WALK_TO_BUS_TRIPS = as.logical(add_walk_to_bus_trips[[city]]),
+    ADD_WALK_TO_PT_TRIPS = as.logical(add_walk_to_pt_trips[[city]]),
     CITY = city,
     AGE_RANGE = c(min_age,max_age),
     ADD_TRUCK_DRIVERS = as.logical(add_truck_drivers),

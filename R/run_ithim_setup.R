@@ -15,7 +15,7 @@
 #' @param setup_call_summary_filename name to write setup call summary to
 #' @param DIST_CAT vector string of distance categories in the form '0-6'. (The unit is assumed to be the same as in the trip set.)
 #' @param AGE_RANGE vector of minimum and maximum ages to include
-#' @param ADD_WALK_TO_BUS_TRIPS logic: whether or not to add short walks to all PT trips
+#' @param ADD_WALK_TO_PT_TRIPS logic: whether or not to add short walks to all PT trips
 #' @param ADD_BUS_DRIVERS logic: whether or not to add bus drivers
 #' @param ADD_CAR_DRIVERS logic: whether or not to find and add distance travelled by individual cars, denoted by car drivers
 #' @param ADD_TRUCK_DRIVERS logic: whether or not to add truck drivers
@@ -67,7 +67,7 @@ run_ithim_setup <- function(seed = 1,
                             #setup_call_summary_filename = 'setup_call_summary.txt',
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             AGE_RANGE = c(0,150),
-                            ADD_WALK_TO_BUS_TRIPS = T,
+                            ADD_WALK_TO_PT_TRIPS = T,
                             ADD_BUS_DRIVERS = T,
                             ADD_CAR_DRIVERS = T,
                             ADD_TRUCK_DRIVERS = T,
@@ -122,7 +122,7 @@ run_ithim_setup <- function(seed = 1,
   # AGE_RANGE = vector of length 2, specifying the minimum and maximum ages to be used in the model. Note that the actual 
   # maximum and minimum will coincide with boundaries in the population and GBD files.
   
-  # ADD_WALK_TO_BUS_TRIPS = logic. T: adds walk trips to all bus trips whose duration exceeds BUS_WALK_TIME for bus trips and RAIL_WALK_TIME for rail trips. F: no trips added
+  # ADD_WALK_TO_PT_TRIPS = logic. T: adds walk trips to all bus trips whose duration exceeds BUS_WALK_TIME for bus trips and RAIL_WALK_TIME for rail trips. F: no trips added
   # ADD_BUS_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
   # ADD_CAR_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
   # ADD_TRUCK_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
@@ -181,7 +181,7 @@ run_ithim_setup <- function(seed = 1,
   NSAMPLES <<- NSAMPLES
   
   ## MODEL FLAGS
-  ADD_WALK_TO_BUS_TRIPS <<- ADD_WALK_TO_BUS_TRIPS
+  ADD_WALK_TO_PT_TRIPS <<- ADD_WALK_TO_PT_TRIPS
   ADD_BUS_DRIVERS <<- ADD_BUS_DRIVERS
   ADD_CAR_DRIVERS <<- ADD_CAR_DRIVERS
   ADD_TRUCK_DRIVERS <<- ADD_TRUCK_DRIVERS
