@@ -85,6 +85,8 @@ add_walk_trips <- function(pt_trips){
   pt_trips$trip_distance[(pt_trips$stage_mode == 'rail')] <- (pt_trips$trip_duration[(pt_trips$stage_mode == 'rail')] / 60
                                                                ) * VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$stage_mode=='rail']
 
+  # drop trip duration column again
+  pt_trips <- pt_trips %>% dplyr::select(-c(trip_duration))
   
   # Recategorise trip_distance_cat for both bus and walk trips
   pt_trips$trip_distance_cat[pt_trips$trip_distance > 0 & pt_trips$trip_distance < DIST_LOWER_BOUNDS[2]] <- DIST_CAT[1]
