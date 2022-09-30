@@ -1,4 +1,4 @@
-rm(list=ls())
+#rm(list=ls())
 library(ithimr)
 library(readxl)
 library(truncnorm)
@@ -18,17 +18,16 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
             'accra', 'bangalore', 'cape_town','delhi', 'vizag')
 
 # cities <- c('osorno', 'puerto_montt',  'temuco_padrelascasas', 'valdivia')
-cities <- c('valdivia')
+# cities <- c('valdivia')
 #cities <- c('accra', 'bangalore', 'cape_town','delhi', 'vizag')
 #cities <- c('san_antonio')
-#cities <- c('mexico_city')
-#cities <- c('medellin')
+#cities <- c('accra')
+#cities <- c('bangalore')
 
-#zero_dist_inj <- list()
 
 # number of times input values are sampled from each input parameter distribution
 
-input_parameter_file <- "InputParameters_v11.0.xlsx"
+input_parameter_file <- "InputParameters_v12.0_IN_PROGRESS.xlsx"
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
 comment <- "Added CO2 emission sampling"
@@ -196,8 +195,16 @@ print(system.time(for(city in cities){
     MMET_CYCLING = mmet_cycling, 
     MMET_WALKING = mmet_walking, 
     DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
-    SIN_EXPONENT_SUM= sin_exponent_sum,
+    SIN_EXPONENT_SUM = sin_exponent_sum,
     CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
+    SIN_EXPONENT_SUM_NOV = sin_exponent_sum_nov,
+    SIN_EXPONENT_SUM_CYCLE = sin_exponent_sum_cycle,
+    CASUALTY_EXPONENT_FRACTION_CYCLE = casualty_exponent_fraction_cycle,
+    SIN_EXPONENT_SUM_PED = sin_exponent_sum_ped,
+    CASUALTY_EXPONENT_FRACTION_PED = casualty_exponent_fraction_ped,
+    SIN_EXPONENT_SUM_VEH = sin_exponent_sum_veh,
+    CASUALTY_EXPONENT_FRACTION_VEH = casualty_exponent_fraction_veh,
+    CALL_INDIVIDUAL_SIN = as.logical(call_individual_sin),
     PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile,  
     AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile,
     INJURY_REPORTING_RATE = injury_reporting_rate[[city]],  

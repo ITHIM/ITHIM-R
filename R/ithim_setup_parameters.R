@@ -22,6 +22,14 @@
 #' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week
 #' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.
 #' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to SIN_EXPONENT_SUM
+#' @param SIN_EXPONENT_SUM_NOV lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers.
+#' @param SIN_EXPONENT_SUM_CYCLE lognormal parameter: linearity of injuries with respect to two modes where victim mode = cycle. SIN_EXPONENT_SUM=2 means no safety in numbers.
+#' @param CASUALTY_EXPONENT_FRACTION_CYCLE beta parameter: casualty contribution to SIN_EXPONENT_SUM  where victim mode = cycle.
+#' @param SIN_EXPONENT_SUM_PED lognormal parameter: linearity of injuries with respect to two modes  where victim mode = pedestrian. SIN_EXPONENT_SUM=2 means no safety in numbers.
+#' @param CASUALTY_EXPONENT_FRACTION_PED beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = pedestrian
+#' @param SIN_EXPONENT_SUM_VEH lognormal parameter: linearity of injuries with respect to two modes where victim mode = a vehicle. SIN_EXPONENT_SUM=2 means no safety in numbers.
+#' @param CASUALTY_EXPONENT_FRACTION_VEH beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = a vehicle.
+#' @param CALL_INDIVIDUAL_SIN logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param CAR_OCCUPANCY_RATIO beta parameter: number of people per car (including driver)
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
@@ -54,6 +62,14 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    DAY_TO_WEEK_TRAVEL_SCALAR = 7,
                                    SIN_EXPONENT_SUM= 2,
                                    CASUALTY_EXPONENT_FRACTION = 0.5,
+                                   SIN_EXPONENT_SUM_NOV= 1,
+                                   SIN_EXPONENT_SUM_CYCLE= 2,
+                                   CASUALTY_EXPONENT_FRACTION_CYCLE = 0.5,
+                                   SIN_EXPONENT_SUM_PED= 2,
+                                   CASUALTY_EXPONENT_FRACTION_PED = 0.5,
+                                   SIN_EXPONENT_SUM_VEH= 2,
+                                   CASUALTY_EXPONENT_FRACTION_VEH = 0.5,
+                                   CALL_INDIVIDUAL_SIN = F,
                                    BUS_TO_PASSENGER_RATIO = 0.022,
                                    CAR_OCCUPANCY_RATIO = 0.6,
                                    TRUCK_TO_CAR_RATIO = 0.21,
@@ -86,9 +102,15 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   CHRONIC_DISEASE_SCALAR <<- CHRONIC_DISEASE_SCALAR
   SIN_EXPONENT_SUM <<- SIN_EXPONENT_SUM
   CASUALTY_EXPONENT_FRACTION <<- CASUALTY_EXPONENT_FRACTION
+  SIN_EXPONENT_SUM_NOV <<- SIN_EXPONENT_SUM_NOV
+  SIN_EXPONENT_SUM_CYCLE <<- SIN_EXPONENT_SUM_CYCLE
+  SIN_EXPONENT_SUM_PED <<- SIN_EXPONENT_SUM_PED
+  CASUALTY_EXPONENT_FRACTION_PED <<- CASUALTY_EXPONENT_FRACTION_PED
+  SIN_EXPONENT_SUM_VEH <<- SIN_EXPONENT_SUM_VEH
+  CASUALTY_EXPONENT_FRACTION_VEH <<- CASUALTY_EXPONENT_FRACTION_VEH
   BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
   CAR_OCCUPANCY_RATIO <<- CAR_OCCUPANCY_RATIO
-  TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
+  #TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
   FLEET_TO_MOTORCYCLE_RATIO <<- FLEET_TO_MOTORCYCLE_RATIO
   PROPORTION_MOTORCYCLE_TRIPS <<- PROPORTION_MOTORCYCLE_TRIPS
   DISTANCE_SCALAR_CAR_TAXI <<- DISTANCE_SCALAR_CAR_TAXI
@@ -105,8 +127,12 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                  "MMET_WALKING",
                  "PM_CONC_BASE",
                  "BACKGROUND_PA_SCALAR",
-                 "CHRONIC_DISEASE_SCALAR",
                  "SIN_EXPONENT_SUM",
+                 "SIN_EXPONENT_SUM_NOV",
+                 "SIN_EXPONENT_SUM_CYCLE",
+                 "SIN_EXPONENT_SUM_PED",
+                 "SIN_EXPONENT_SUM_VEH",
+                 "CHRONIC_DISEASE_SCALAR",
                  "DISTANCE_SCALAR_CAR_TAXI",
                  "DISTANCE_SCALAR_WALKING",
                  "DISTANCE_SCALAR_PT",
@@ -132,7 +158,11 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                      "CAR_OCCUPANCY_RATIO",
                      "TRUCK_TO_CAR_RATIO",
                      "FLEET_TO_MOTORCYCLE_RATIO",
-                     "PROPORTION_MOTORCYCLE_TRIPS")
+                     "PROPORTION_MOTORCYCLE_TRIPS",
+                     "CASUALTY_EXPONENT_FRACTION",
+                     "CASUALTY_EXPONENT_FRACTION_CYCLE",
+                     "CASUALTY_EXPONENT_FRACTION_PED",
+                     "CASUALTY_EXPONENT_FRACTION_VEH")
   for (i in 1:length(betaVariables)) {
     name <- betaVariables[i]
     val <- get(betaVariables[i])

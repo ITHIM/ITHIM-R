@@ -42,6 +42,14 @@
 #' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week
 #' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.
 #' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to SIN_EXPONENT_SUM
+#' @param SIN_EXPONENT_SUM_NOV lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers.
+#' @param SIN_EXPONENT_SUM_CYCLE lognormal parameter: linearity of injuries with respect to two modes where victim mode = cycle. SIN_EXPONENT_SUM=2 means no safety in numbers.
+#' @param CASUALTY_EXPONENT_FRACTION_CYCLE beta parameter: casualty contribution to SIN_EXPONENT_SUM  where victim mode = cycle.
+#' @param SIN_EXPONENT_SUM_PED lognormal parameter: linearity of injuries with respect to two modes  where victim mode = pedestrian. SIN_EXPONENT_SUM=2 means no safety in numbers.
+#' @param CASUALTY_EXPONENT_FRACTION_PED beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = pedestrian
+#' @param SIN_EXPONENT_SUM_VEH lognormal parameter: linearity of injuries with respect to two modes where victim mode = a vehicle. SIN_EXPONENT_SUM=2 means no safety in numbers.
+#' @param CASUALTY_EXPONENT_FRACTION_VEH beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = a vehicle.
+#' @param CALL_INDIVIDUAL_SIN logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param CAR_OCCUPANCY_RATIO beta parameter: number of people per car (including driver)
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
@@ -94,6 +102,14 @@ run_ithim_setup <- function(seed = 1,
                             DAY_TO_WEEK_TRAVEL_SCALAR = 7,
                             SIN_EXPONENT_SUM = 2,
                             CASUALTY_EXPONENT_FRACTION = 0.5,
+                            SIN_EXPONENT_SUM_NOV= 1,
+                            SIN_EXPONENT_SUM_CYCLE= 2,
+                            CASUALTY_EXPONENT_FRACTION_CYCLE = 0.5,
+                            SIN_EXPONENT_SUM_PED= 2,
+                            CASUALTY_EXPONENT_FRACTION_PED = 0.5,
+                            SIN_EXPONENT_SUM_VEH= 2,
+                            CASUALTY_EXPONENT_FRACTION_VEH = 0.5,
+                            CALL_INDIVIDUAL_SIN = F,
                             BUS_TO_PASSENGER_RATIO = 0.022,
                             CAR_OCCUPANCY_RATIO = 0.6,
                             TRUCK_TO_CAR_RATIO = 0.21,
@@ -155,6 +171,13 @@ run_ithim_setup <- function(seed = 1,
   # INJURY_REPORTING_RATE = parameter. double: sets scalar for injury counts (inverse). vector: samples from distribution.
   # SIN_EXPONENT_SUM = parameter. double: sets scalar. vector: samples from distribution.
   # CASUALTY_EXPONENT_FRACTION = parameter. double: sets scalar. vector: samples from distribution.
+  # SIN_EXPONENT_SUM_NOV = parameter. double: sets scalar. vector: samples from distribution.
+  # SIN_EXPONENT_SUM_CYCLE = parameter. double: sets scalar. vector: samples from distribution.
+  # SIN_EXPONENT_SUM_PED = parameter. double: sets scalar. vector: samples from distribution.
+  # CASUALTY_EXPONENT_FRACTION_PED = parameter. double: sets scalar. vector: samples from distribution.
+  # SIN_EXPONENT_SUM_VEH = parameter. double: sets scalar. vector: samples from distribution.
+  # CASUALTY_EXPONENT_FRACTION_VEH = parameter. double: sets scalar. vector: samples from distribution.
+  
   
   # DAY_TO_WEEK_TRAVEL_SCALAR = parameter. double: sets scalar for extrapolation from day to week. vector: samples from distribution.
   # BUS_TO_PASSENGER_RATIO = parameter. double: sets bus distance relative to bus passenger distance. vector: samples from distribution.
@@ -177,6 +200,7 @@ run_ithim_setup <- function(seed = 1,
   
   ## SET GLOBAL VALUES
   LATAM <<- LATAM
+  
   ## PROGRAMMING VARIABLES
   NSAMPLES <<- NSAMPLES
   
@@ -190,6 +214,7 @@ run_ithim_setup <- function(seed = 1,
   TEST_WALK_SCENARIO <<- TEST_WALK_SCENARIO
   TEST_CYCLE_SCENARIO <<- TEST_CYCLE_SCENARIO
   MAX_MODE_SHARE_SCENARIO <<- MAX_MODE_SHARE_SCENARIO
+  CALL_INDIVIDUAL_SIN <<- CALL_INDIVIDUAL_SIN
   
   ## MODEL VARIABLES
   CITY <<- CITY
@@ -203,7 +228,7 @@ run_ithim_setup <- function(seed = 1,
   
   #BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
   #CAR_OCCUPANCY_RATIO <<- CAR_OCCUPANCY_RATIO
-  #TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
+  TRUCK_CAR <<- TRUCK_TO_CAR_RATIO
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
   
@@ -216,31 +241,45 @@ run_ithim_setup <- function(seed = 1,
   SUBWAY_PM_RATIO <<- 0.8
   
   ## default speeds that can be edited by input. 
-  default_speeds <- list( bus = 11, 
-                          bus_driver = 11, 
-                          minibus = 11, 
-                          minibus_driver = 11, 
-                          car = 14, 
-                          car_driver = 14,
-                          taxi = 9, 
-                          pedestrian = 3, 
-                          walk_to_pt = 3, 
-                          cycle = 7, 
-                          motorcycle = 14, 
-                          truck = 11, 
-                          van = 14, 
-                          subway = 16, 
-                          rail = 20, 
-                          auto_rickshaw = 9, 
-                          shared_auto = 14, 
-                          shared_taxi = 9, 
-                          cycle_rickshaw = 5,
-                          other = 21
+  default_speeds <- list( bus = 10, 
+                          bus_driver = 10, 
+                          minibus = 10, 
+                          minibus_driver = 10, 
+                          car = 14.4, 
+                          car_driver = 14.4,
+                          taxi = 12.6, 
+                          pedestrian = 2.5, 
+                          walk_to_pt = 2.5, 
+                          cycle = 7.2, 
+                          motorcycle = 15.2, 
+                          truck = 10, 
+                          van = 14.4, 
+                          subway = 18.1, 
+                          rail = 21.9, 
+                          auto_rickshaw = 4, 
+                          shared_auto = 14.4, 
+                          shared_taxi = 12.6, 
+                          cycle_rickshaw = 4,
+                          other = 9.1
   )
   if(!is.null(speeds)){
     for(m in names(speeds))
       default_speeds[[m]] <- speeds[[m]]
   }
+  
+  # ensure bus, bus_driver, minibus and minibus_driver have the same speed values
+  default_speeds[['bus_driver']] <- default_speeds[['minibus']] <- default_speeds[['minibus_driver']] <- default_speeds[['bus']]
+  
+  # ensure car and car_driver and shared_auto have the same speed
+  default_speeds[['car_driver']] <- default_speeds[['shared_auto']] <- default_speeds[['car']]
+  
+  # walk to pt has the same speed as pedestrians
+  default_speeds[['walk_to_pt']] <- default_speeds[['pedestrian']]
+  
+  # shared_taxi as the same speed as taxi
+  default_speeds[['shared_taxi']] <- default_speeds[['taxi']]
+  
+
   
   TRAVEL_MODES <<- tolower(names(default_speeds))
   MODE_SPEEDS <<- data.frame(stage_mode = TRAVEL_MODES, speed = unlist(default_speeds), stringsAsFactors = F)
@@ -334,6 +373,13 @@ run_ithim_setup <- function(seed = 1,
                                                     DAY_TO_WEEK_TRAVEL_SCALAR,
                                                     SIN_EXPONENT_SUM,
                                                     CASUALTY_EXPONENT_FRACTION,
+                                                    SIN_EXPONENT_SUM_NOV,
+                                                    SIN_EXPONENT_SUM_CYCLE,
+                                                    CASUALTY_EXPONENT_FRACTION_CYCLE,
+                                                    SIN_EXPONENT_SUM_PED,
+                                                    CASUALTY_EXPONENT_FRACTION_PED,
+                                                    SIN_EXPONENT_SUM_VEH,
+                                                    CASUALTY_EXPONENT_FRACTION_VEH,
                                                     BUS_TO_PASSENGER_RATIO,
                                                     CAR_OCCUPANCY_RATIO,
                                                     TRUCK_TO_CAR_RATIO,
@@ -361,7 +407,14 @@ run_ithim_setup <- function(seed = 1,
                               'TRUCK_TO_CAR_RATIO',
                               'BACKGROUND_PA_ZEROS')%in%names(ithim_object$parameters))
   RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('SIN_EXPONENT_SUM',
-                                                     'CASUALTY_EXPONENT_FRACTION')%in%names(ithim_object$parameters))
+                                                     'CASUALTY_EXPONENT_FRACTION',
+                                                     'SIN_EXPONENT_SUM_NOV',
+                                                     'SIN_EXPONENT_SUM_CYCLE',
+                                                     'CASUALTY_EXPONENT_FRACTION_CYCLE',
+                                                     'SIN_EXPONENT_SUM_PED',
+                                                     'CASUALTY_EXPONENT_FRACTION_PED',
+                                                     'SIN_EXPONENT_SUM_VEH',
+                                                     'CASUALTY_EXPONENT_FRACTION_VEH')%in%names(ithim_object$parameters))
   
   ## complete TRIP_SET to contain distances and durations for trips and stages
   complete_trip_distance_duration() 

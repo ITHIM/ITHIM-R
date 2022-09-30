@@ -114,7 +114,56 @@ distances_for_injury_function <- function(journeys, dist){
     }
   }
   
- 
+  ## determine safety in number coefficients and add as columns to injuries_list and injuries_for_model
+  if (CALL_INDIVIDUAL_SIN == F){
+    CAS_EXPONENT <<- SIN_EXPONENT_SUM  * CASUALTY_EXPONENT_FRACTION
+    STR_EXPONENT <<- SIN_EXPONENT_SUM - CAS_EXPONENT
+    
+    for(type in INJURY_TABLE_TYPES){
+      injuries_for_model$Baseline[[type]]$cas_exponent_col <- CAS_EXPONENT
+      injuries_for_model$Baseline[[type]]$str_exponent_col <- STR_EXPONENT
+      
+        for (n in 1:(NSCEN+1)){
+          injuries_list[[n]][[type]]$cas_exponent_col <- CAS_EXPONENT
+          injuries_list[[n]][[type]]$str_exponent_col <- STR_EXPONENT
+      }
+    }
+  }
+  
+  
+  if (CALL_INDIVIDUAL_SIN == T){ # assign coefficients depending on strike and victim modes
+
+    injuries_for_model$Baseline$whw$cas_exponent_col <- SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH
+    injuries_for_model$Baseline$whw$str_exponent_col <- SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH
+    
+    injuries_for_model$Baseline$whw$cas_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE
+    injuries_for_model$Baseline$whw$str_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE - SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE
+    
+    injuries_for_model$Baseline$whw$cas_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED
+    injuries_for_model$Baseline$whw$str_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED - SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED
+    
+    
+    for (n in 1:(NSCEN+1)){
+      injuries_list[[n]]$whw$cas_exponent_col <- SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH
+      injuries_list[[n]]$whw$str_exponent_col <- SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH
+      
+      injuries_list[[n]]$whw$cas_exponent_col[injuries_list[[n]]$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE
+      injuries_list[[n]]$whw$str_exponent_col[injuries_list[[n]]$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE - SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE
+      
+      injuries_list[[n]]$whw$cas_exponent_col[injuries_list[[n]]$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED
+      injuries_list[[n]]$whw$str_exponent_col[injuries_list[[n]]$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED - SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED
+    }
+    
+    injuries_for_model$Baseline$nov$cas_exponent_col <- SIN_EXPONENT_SUM_NOV
+    injuries_for_model$Baseline$nov$str_exponent_col <- 1
+    
+    for (n in 1:(NSCEN+1)){
+      injuries_list[[n]]$nov$cas_exponent_col <- SIN_EXPONENT_SUM_NOV 
+      injuries_list[[n]]$nov$str_exponent_col <- 1
+    }
+
+  }
+  
 
   # run regression model on baseline data
   reg_model <- list()
@@ -122,11 +171,12 @@ distances_for_injury_function <- function(journeys, dist){
   ##TODO write formulae without prior knowledge of column names
   ##TODO use all ages with ns(age,...).
   ##RJ linearity in group rates
-  CAS_EXPONENT <<- SIN_EXPONENT_SUM  * CASUALTY_EXPONENT_FRACTION
-  STR_EXPONENT <<- SIN_EXPONENT_SUM - CAS_EXPONENT
+  # CAS_EXPONENT <<- SIN_EXPONENT_SUM  * CASUALTY_EXPONENT_FRACTION
+  # STR_EXPONENT <<- SIN_EXPONENT_SUM - CAS_EXPONENT
 
-  forms <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+log(strike_distance)+(STR_EXPONENT-1)*log(strike_distance_sum)+log(injury_reporting_rate)+log(weight))',
-                nov='count~cas_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+log(injury_reporting_rate)+log(weight))')
+  forms <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+(cas_exponent_col-1)*log(cas_distance_sum)+log(strike_distance)+
+                    (str_exponent_col-1)*log(strike_distance_sum)+log(injury_reporting_rate)+log(weight))',
+                nov='count~cas_mode+offset(log(cas_distance)+(cas_exponent_col-1)*log(cas_distance_sum)+log(injury_reporting_rate)+log(weight))')
   
   if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
     for(type in INJURY_TABLE_TYPES)
@@ -167,7 +217,7 @@ distances_for_injury_function <- function(journeys, dist){
     }
 
 
-    # if either standard errors are high or if no model could be built, try different regression models
+    # if either standard errors are high or if no model could be built, try building model without age and gender categories if not already done
 
     if (length(test) == 1 | max_std[[type]] > max_std_def ){
 
@@ -177,16 +227,19 @@ distances_for_injury_function <- function(journeys, dist){
         injuries_df <- injuries_for_model$Baseline[[type]] #%>% dplyr::select(-c(age_cat, cas_gender))
         setDT(injuries_df)
         injuries_for_model$Baseline[[type]] <- as.data.frame(injuries_df[,.(count=sum(count),weight=mean(weight),strike_distance_sum=mean(strike_distance_sum),
-                                                                            cas_distance_sum=mean(cas_distance_sum)),by=c('cas_mode','strike_mode')])
+                                                                            cas_distance_sum=mean(cas_distance_sum),
+                                                                            cas_exponent_col = mean(cas_exponent_col),
+                                                                            str_exponent_col = mean(str_exponent_col)
+                                                                            ),by=c('cas_mode','strike_mode')])
         injuries_for_model$Baseline[[type]]$strike_distance <- injuries_for_model$Baseline[[type]]$strike_distance_sum
         injuries_for_model$Baseline[[type]]$cas_distance <- injuries_for_model$Baseline[[type]]$cas_distance_sum
         injuries_for_model[[1]][[type]]$injury_reporting_rate <- as.numeric(INJURY_REPORTING_RATE)
 
         # try model without age and gender categories
-        forms_no_agecat <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)
-                                            +log(strike_distance)+(STR_EXPONENT-1)*log(strike_distance_sum)+
+        forms_no_agecat <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+(cas_exponent_col-1)*log(cas_distance_sum)
+                                            +log(strike_distance)+(str_exponent_col-1)*log(strike_distance_sum)+
                                             log(injury_reporting_rate)+log(weight))',
-                                nov='count~cas_mode+offset(log(cas_distance)+(CAS_EXPONENT-1)*log(cas_distance_sum)+log(injury_reporting_rate)+log(weight))')
+                                nov='count~cas_mode+offset(log(cas_distance)+(cas_exponent_col-1)*log(cas_distance_sum)+log(injury_reporting_rate)+log(weight))')
   
         ### re-run regression model
         test <- try(glm(as.formula(forms_no_agecat[[type]]),data=injuries_for_model[[1]][[type]], family = 'poisson'))
@@ -194,7 +247,20 @@ distances_for_injury_function <- function(journeys, dist){
       }  
     }
 
-
+    
+    if (length(test) != 1){
+      max_std[[type]] <- max(summary(test)$coefficients[,2])
+    } else {
+      max_std[[type]] <- 0
+    }
+    
+    if (max_std[[type]]  > max_std_def){
+      print(paste0("!! The ", type, " injury model for ", city, " has large standard errors!!!"))
+    }
+    
+    
+    
+    
 
     reg_model[[type]] <- test
     test <- NULL

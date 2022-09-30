@@ -205,17 +205,6 @@ setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZER
                         "DISTANCE_SCALAR_WALKING", "DISTANCE_SCALAR_PT", "DISTANCE_SCALAR_CYCLING", "DISTANCE_SCALAR_MOTORCYCLE")
 
 
-# # lnorm parameters for MMET_CYCLING
-#mmet_cycling <- c((4.63),(1.2))
-# # lnorm parameters for MMET_WALKING
-#mmet_walking <- c((2.53),(1.1))
-# # lnorm parameters for SIN_EXPONENT_SUM
-#sin_exponent_sum <- c((1.7),(1.03))
-# # beta parameters for CASUALTY_EXPONENT_FRACTION
-#casualty_exponent_fraction <- c(15,15)
-# 
-
-
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
 pa_dr_quantile <-  c(rep(as.logical(pa_dr_quantile_city1), length(cities)))
 # logical for AP dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
@@ -229,13 +218,21 @@ betaVariables <- c("PM_TRANS_SHARE",
                    "CAR_OCCUPANCY_RATIO",
                    "TRUCK_TO_CAR_RATIO",
                    "FLEET_TO_MOTORCYCLE_RATIO",
-                   "PROPORTION_MOTORCYCLE_TRIPS")
+                   "PROPORTION_MOTORCYCLE_TRIPS",
+                   "CHRONIC_DISEASE_SCALAR",
+                   "SIN_EXPONENT_SUM",
+                   "SIN_EXPONENT_SUM_NOV",
+                   "SIN_EXPONENT_SUM_CYCLE",
+                   "SIN_EXPONENT_SUM_PED",
+                   "SIN_EXPONENT_SUM_VEH")
 normVariables <- c("MMET_CYCLING",
                    "MMET_WALKING",
                    "PM_CONC_BASE",
                    "BACKGROUND_PA_SCALAR",
-                   "CHRONIC_DISEASE_SCALAR",
-                    "SIN_EXPONENT_SUM",
+                   "CASUALTY_EXPONENT_FRACTION",
+                   "CASUALTY_EXPONENT_FRACTION_CYCLE",
+                   "CASUALTY_EXPONENT_FRACTION_PED",
+                   "CASUALTY_EXPONENT_FRACTION_VEH",
                    "DISTANCE_SCALAR_CAR_TAXI", 
                    "DISTANCE_SCALAR_WALKING",
                    "DISTANCE_SCALAR_PT",
@@ -245,7 +242,9 @@ normVariables <- c("MMET_CYCLING",
 
 save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
      background_pa_scalar,background_pa_confidence,mmet_cycling,mmet_walking,PM_emission_inventories,CO2_emission_inventories,
-     sin_exponent_sum,casualty_exponent_fraction,pa_dr_quantile,ap_dr_quantile,
+     sin_exponent_sum,casualty_exponent_fraction, sin_exponent_sum_nov,
+     sin_exponent_sum_cycle,casualty_exponent_fraction_cycle, sin_exponent_sum_ped,casualty_exponent_fraction_ped,
+     sin_exponent_sum_veh,casualty_exponent_fraction_veh, pa_dr_quantile,ap_dr_quantile,
      bus_to_passenger_ratio,car_occupancy_ratio,truck_to_car_ratio,PM_emission_confidence,CO2_emission_confidence,
      distance_scalar_car_taxi,distance_scalar_motorcycle,
      distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,add_motorcycle_fleet,add_personal_motorcycle_trips, 
@@ -286,7 +285,16 @@ print(system.time(
                                               MMET_CYCLING = mmet_cycling, 
                                               MMET_WALKING = mmet_walking,
                                               DAY_TO_WEEK_TRAVEL_SCALAR = as.numeric(day_to_week_scalar),
-                                              SIN_EXPONENT_SUM= sin_exponent_sum,
+                                              SIN_EXPONENT_SUM = sin_exponent_sum,
+                                              CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
+                                              SIN_EXPONENT_SUM_NOV = sin_exponent_sum_nov,
+                                              SIN_EXPONENT_SUM_CYCLE = sin_exponent_sum_cycle,
+                                              CASUALTY_EXPONENT_FRACTION_CYCLE = casualty_exponent_fraction_cycle,
+                                              SIN_EXPONENT_SUM_PED = sin_exponent_sum_ped,
+                                              CASUALTY_EXPONENT_FRACTION_PED = casualty_exponent_fraction_ped,
+                                              SIN_EXPONENT_SUM_VEH = sin_exponent_sum_veh,
+                                              CASUALTY_EXPONENT_FRACTION_VEH = casualty_exponent_fraction_veh,
+                                              CALL_INDIVIDUAL_SIN = as.logical(call_individual_sin),
                                               CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
                                               PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile[ci],  
                                               AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile[ci],
