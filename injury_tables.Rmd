@@ -147,7 +147,7 @@ Who hit whom matrix for all scenarios for each case study
 ```{r whw, results = 'asis', fig.width=7, fig.height=4, echo=FALSE}
 
 #scen_names_w_baseline <- c('bl', 'w_sc', 'bi_sc', 'car_sc', 'mc_sc', 'bus_sc')
-scen_names_w_baseline <- c('bl', 'bi_sc', 'car_sc', 'bus_sc')
+scen_names_w_baseline <- c('bl', 'bi_sc', 'car_sc', 'bus_sc', 'mc_sc')
 scen_lt <- data.frame("scen_name" = names(io[[1]]$outcomes$whw), "val" = scen_names_w_baseline, stringsAsFactors = FALSE)
 
 all_whw <- list()
@@ -632,7 +632,7 @@ injury_risks_per_100k[injury_risks_per_100k$scenario == 'bl',]$scenario <- 'Base
 injury_risks_per_100k[injury_risks_per_100k$scenario == 'bisc',]$scenario <- 'Bicycling'
 injury_risks_per_100k[injury_risks_per_100k$scenario == 'bssc',]$scenario <- 'Public Transport'
 injury_risks_per_100k[injury_risks_per_100k$scenario == 'csc',]$scenario <- 'Driving'
-#injury_risks_per_100k[injury_risks_per_100k$scenario == 'mcsc',]$scenario <- 'Motorcycling'
+injury_risks_per_100k[injury_risks_per_100k$scenario == 'mcsc',]$scenario <- 'Motorcycling'
 #injury_risks_per_100k[injury_risks_per_100k$scenario == 'wsc',]$scenario <- 'Walking'
 readr::write_csv(injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'), 'results/multi_city/whw_matrices/injury_risks_per_100k_pop.csv')
 ```
@@ -650,6 +650,7 @@ true_distances_df <- bind_rows(true_distances) %>%
     scenario == "Scenario 1" ~ "Bicycling", 
     scenario == "Scenario 2" ~ "Driving",
     scenario == "Scenario 3" ~ "Public Transport",
+    scenario == "Scenario 4" ~ "Motorcycling",
     scenario == "Baseline" ~ "Baseline"))
 readr::write_csv(true_distances_df, 'results/multi_city/whw_matrices/distances.csv')
 ```
