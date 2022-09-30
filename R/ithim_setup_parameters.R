@@ -47,7 +47,7 @@
 #' 
 #' @export
 ithim_setup_parameters <- function(NSAMPLES = 1,
-                                   BUS_WALK_TIME= 5,
+                                   BUS_WALK_TIME = 5,
                                    RAIL_WALK_TIME = 15,
                                    MMET_CYCLING = 4.63,
                                    MMET_WALKING = 2.53,
@@ -69,7 +69,6 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    CASUALTY_EXPONENT_FRACTION_PED = 0.5,
                                    SIN_EXPONENT_SUM_VEH= 2,
                                    CASUALTY_EXPONENT_FRACTION_VEH = 0.5,
-                                   CALL_INDIVIDUAL_SIN = F,
                                    BUS_TO_PASSENGER_RATIO = 0.022,
                                    CAR_OCCUPANCY_RATIO = 0.6,
                                    TRUCK_TO_CAR_RATIO = 0.21,
@@ -110,7 +109,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   CASUALTY_EXPONENT_FRACTION_VEH <<- CASUALTY_EXPONENT_FRACTION_VEH
   BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
   CAR_OCCUPANCY_RATIO <<- CAR_OCCUPANCY_RATIO
-  #TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
+  TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
   FLEET_TO_MOTORCYCLE_RATIO <<- FLEET_TO_MOTORCYCLE_RATIO
   PROPORTION_MOTORCYCLE_TRIPS <<- PROPORTION_MOTORCYCLE_TRIPS
   DISTANCE_SCALAR_CAR_TAXI <<- DISTANCE_SCALAR_CAR_TAXI

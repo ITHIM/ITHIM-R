@@ -228,7 +228,7 @@ run_ithim_setup <- function(seed = 1,
   
   #BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
   #CAR_OCCUPANCY_RATIO <<- CAR_OCCUPANCY_RATIO
-  TRUCK_CAR <<- TRUCK_TO_CAR_RATIO
+  #TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
   DIST_CAT <<- DIST_CAT
   DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
   

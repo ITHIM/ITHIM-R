@@ -49,10 +49,7 @@ get_synthetic_from_trips <- function(){
   ## add bus and truck trips
   if(ADD_BUS_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set)
 
-  #if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',distance_ratio=TRUCK_TO_CAR_RATIO*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car')
-  if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',distance_ratio=TRUCK_CAR*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car')
-  
-  
+  if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',distance_ratio=TRUCK_TO_CAR_RATIO*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car')
   
   ## because we have the fraction of total MC travel that is fleet, we need to adjust the parameter to compute fleet travel from non-fleet motorcycle travel
   
