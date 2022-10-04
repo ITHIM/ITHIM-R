@@ -27,7 +27,7 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 
 # number of times input values are sampled from each input parameter distribution
 
-input_parameter_file <- "InputParameters_v12.0_IN_PROGRESS.xlsx"
+input_parameter_file <- "InputParameters_v12.0_IN_PROGRESS.xlsx" #"InputParameters_v12.0.xlsx"
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
 comment <- "Added CO2 emission sampling"
