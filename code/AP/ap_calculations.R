@@ -22,50 +22,52 @@ library(stringi)
 # Calculate conc_pm for baseline + scenarios
 # conc_pm = non_transport_pm_conc + PM_TRANS_SHARE * PM_CONC_BASE 
 #           * sum(mode specific travel emissions) / baseline_sum
+#           
+# Use a constant ventilation rate value measured m3/hour - 
+# these values come from HEAT, pages 43 and 44: 
+# https://cdn.who.int/media/docs/default-source/air-pollution-documents/heat.pdf?sfvrsn=ba0969b9_1&download=true – table 11
+# at rest 0.61 m3/h
+#	in a car or in transit (assume this is equal to the ventilation rate at rest) 0.61 m3/h
+#	cycling 2.55 m3/h
+#	walking 1.37 m3/h
+#	sleep 0.27 m3/h – assume sleep is 8 hours a day/ 480 minutes a day
 
-## Calculate ventilation rate for all travel modes:
-# Set vent_rate for all modes as BASE_LEVEL_INHALATION_RATE (which is set to 1)
-# vent_rate = BASE_LEVEL_INHALATION_RATE 
-# For cycle and pedestrian modes, calculate vent rate as:
-# vent_rate for cycle: = BASE_LEVEL_INHALATION_RATE + MMET_CYCLING / 2.0
-# vent_rate for pedestrian = BASE_LEVEL_INHALATION_RATE + MMET_WALKING / 2.0
+#	Use a constant mode specific exposure factor which is the ratio between that mode’s PM2.5 and the 
+#	background’s PM2.5 - this comes from Audrey’s paper and is the approach used by HEAT as well: 
+#	“Mode-specific PM2.5 concentrations are derived from the background concentrations using conversion factors - below. 
+# Exposure ratios
+# Cycling 2.0 
+# Walking 1.6 
+# Using a car 2.5
+# Using public transit 1.9 
+# Suggest we also just stick to the above and disregard the percentage of time that we just might be open and cars transit
 
-## Calculate vehicle ratio index - vehicle_ratio_index
-## Exposure ratio as function of ambient PM2.5, as in Goel et al 2015
-# on_road_off_road_ratio = ROAD_RATIO_MAX - ROAD_RATIO_SLOPE * log(conc_pm)
-# Averaging over windows open and windows closed
-# in_vehicle_ratio = ((1 - CLOSED_WINDOW_RATIO) * on_road_off_road_ratio) + (CLOSED_WINDOW_RATIO * CLOSED_WINDOW_PM_RATIO)
-# subway ratio is a constant
-# subway_ratio = SUBWAY_PM_RATIO
-
-## Assign rates according to the order of the ratio_by_mode array: 1 is open vehicle, 
-# 2 is closed vehicle, 3 is subway
-# open vehicles experience the on_road_off_road_ratio, and closed vehicles experience the in_vehicle_ratio
-# open vehicles are: pedestrian, cycle, motorcycle, auto_rickshaw, shared_auto, cycle_rickshaw
-# All other modes except subway and rail are closed vehicles
-# ratio_by_mode = combine(on_road_off_road_ratio, in_vehicle_ratio, subway_ratio)
-
-## Calculate on road air for each stage of a trip
-# litres of air inhaled are the product of the ventilation rate and the time (hours/60) 
-# spent travelling by that mode
-# On road air = (stage_duration * mode_specific_ventilation_rate) / 60
-# trip_set[[on_road_air]] = trip_set[[stage_duration]] * trip_set[[vent_rate]] / (60) # L
-
-## Calculate PM dose in mg as:
-# pm dose in mg as the product of the air inhaled, the background pm, and the exposure ratio
-# trip_se[[pm_dose]] = trip_set[[on_road_air]] * scen_pm * scen_ratio # mg
+# 
+# ## Calculate on road air for each stage of a trip
+# m3 of air inhaled are the product of the ventilation rate and the time by activity (hours/60) 
+# Calculation should be as follows:
+#   For any agent, total air inhaled in m3 during the day (implicit assumption that this day presents average day across the year)=  
+#   total_air_inhaled (m3) = Air inhaled cycling (2.55 m3/h * duration of cycling in minutes/60) + 
+#   Air inhaled walking (1.37 m3/h * duration of walking in minutes/60) + 
+#   air inhaled in transit (0.61 m3/h * duration of transit in minutes/60) + 
+#   air inhaled in car (0.61 m3/h * duration of car trips in minutes/60) + 
+#   air inhaled during sleep (0.27 m3/h * 8 hours) + 
+#   air inhaled at rest (0.61 m3/h * (16 hours - hours in and all transportation activities combined: cycling + walking + transit + car)) #note that the 16 is the 24 hours/day minus the 8 hours/day sleep
+#   
+## Calculate PM dose in µg as:
+# pm dose in µg as the product of the air inhaled in m3, pm concentration (µg/m3), and the exposure ratio
+# total_pm_inhaled (µg)= Air inhaled cycling (2.55 m3/h * duration of cycling in minutes/60) *2 * conc_pm  (µg/m3) +  
+# Air inhaled walking (1.37 m3/h * duration of walking in minutes/60) *1.6 * conc_pm  (µg/m3) + 
+# air inhaled in transit (0.61 m3/h * duration of transit in minutes/60) * 1.9 * conc_pm  (µg/m3) + 
+# air inhaled in car (0.61 m3/h * duration of car trips in minutes/60) * 2.5 * conc_pm  (µg/m3)+ 
+# air inhaled in sleep (0.27 m3/h * 8 hours) * conc_pm  (µg/m3) + 
+# air inhaled at rest (0.61 m3/h * (16 hours – hours in all transportation activities combined: cycling + walking + transit + car)) * conc_pm  (µg/m3)
+#  
 
 
-## Computer individual-level PM2.5 for each scenario (and baseline)
-# Initialize to background. This means persons who undertake zero travel get the background concentration conc_pm
-# synth_pop[[individual_without_any_travel]] = pm_conc
-# Using trip dataset, calculate individual person's on_road_dur (duration) by summing all stage durations, and
-# on_road_pm by summing pm_dose
-# Calculate (for each individual) non-travel air inhalation by:
-# non_transport_air_inhaled = (24 - individual_data[[on_road_pm]] / 60) * BASE_LEVEL_INHALATION_RATE
-# Concentration of pm inhaled = total pm inhaled / total air inhaled
-# pm_conc = (non_transport_air_inhaled * conc_pm) + individual_data[[on_road_pm]]) / 24
-# synth_pop[[individual_with_travel]] = pm_conc
+#  # Concentration of pm inhaled in µg/m3= 
+# total_pm_inhaled/ total_air_inhaled 
+# this would be the exposure value which we use in association with the ERFs and for presenting statistics
 
 # Static local and global parameters 
 # read from the input parameters v6.0 excel sheet
@@ -87,6 +89,18 @@ ROAD_RATIO_MAX <- 3.216
 ROAD_RATIO_SLOPE <- 0.379
 
 SUBWAY_PM_RATIO <- 0.8
+
+vent_rate <- data.frame(
+  activity = c("rest", "car", "transit", "cycling", "walking", "sleep"), 
+  rate = c(0.61, 0.61, 0.61, 2.55, 1.37, 0.27)
+)
+
+exp_fac <- data.frame(
+  activity = c("car", "transit", "cycling", "walking"), 
+  rate = c(2.5, 1.9, 2.0, 1.6)
+)
+
+
 
 # dir_path
 abs_path <- "code/AP"
@@ -151,6 +165,37 @@ conc_pm <- c()
 ## in this sum, the non-transport pm is constant; the transport emissions scale the transport contribution (PM_TRANS_SHARE) to the base level (PM_CONC_BASE)
 for(i in 1:length(SCEN))
   conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE * PM_CONC_BASE * sum(ap[[SCEN[i]]], na.rm = T) / baseline_sum
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
 vent_rates <- data.frame(stage_mode = vehicle_inventory$stage_mode, stringsAsFactors = F) 
