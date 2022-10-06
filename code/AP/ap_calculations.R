@@ -92,13 +92,13 @@ ROAD_RATIO_SLOPE <- 0.379
 SUBWAY_PM_RATIO <- 0.8
 
 vent_rates <- data.frame(
-  stage_mode = c("rest", "car", "bus", "rail", "cycle", "pedestrian", "sleep"), 
-  v_rate = c(0.61, 0.61, 0.61, 0.61, 2.55, 1.37, 0.27)
+  stage_mode = c("rest", "car", "taxi", "bus", "rail", "cycle", "pedestrian", "sleep"), 
+  v_rate = c(0.61, 0.61, 0.61, 0.61, 0.61, 2.55, 1.37, 0.27)
 )
 
 exp_facs <- data.frame(
-  stage_mode = c("car", "bus", "rail", "cycle", "pedestrian"), 
-  e_rate = c(2.5, 1.9, 1.9, 2.0, 1.6)
+  stage_mode = c("car", "taxi", "bus", "rail", "cycle", "pedestrian"), 
+  e_rate = c(2.5, 2.5, 1.9, 1.9, 2.0, 1.6)
 )
 
 
