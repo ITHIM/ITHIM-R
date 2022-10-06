@@ -232,3 +232,5 @@ td <- trip_set |> filter(participant_id != 0) |>
 td <- td |> mutate(conc_pm_inhaled = total_pm_inhaled / total_air_inhaled) 
 
 td |> group_by(scenario) |> summarise(as_tibble(rbind(summary(conc_pm_inhaled)))) |> print()
+
+td |> write_csv("code/AP/AP_PM25_antofagasta.csv")
