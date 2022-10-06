@@ -161,7 +161,7 @@ ap[(is.na(ap$Baseline) & !is.na(ap$PM_emission_inventory)),SCEN] <-
   ap[(is.na(ap$Baseline) & !is.na(ap$PM_emission_inventory)),2]
 
 # Scenario travel pm2.5 calculated as relative to the baseline
-baseline_sum <- sum(ap[[SCEN[1]]], na.rm = T)
+baseline_sum <- PM_CONC_BASE#sum(ap[[SCEN[1]]], na.rm = T)
 conc_pm <- c()
 ## in this sum, the non-transport pm is constant; the transport emissions scale the transport contribution (PM_TRANS_SHARE) to the base level (PM_CONC_BASE)
 for(i in 1:length(SCEN))
