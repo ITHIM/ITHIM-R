@@ -92,12 +92,12 @@ ROAD_RATIO_SLOPE <- 0.379
 SUBWAY_PM_RATIO <- 0.8
 
 vent_rates <- data.frame(
-  stage_mode = c("rest", "car_driver", "bus_driver", "rail", "cycle", "pedestrian", "sleep"), 
+  stage_mode = c("rest", "car", "bus", "rail", "cycle", "pedestrian", "sleep"), 
   v_rate = c(0.61, 0.61, 0.61, 0.61, 2.55, 1.37, 0.27)
 )
 
 exp_facs <- data.frame(
-  stage_mode = c("car_driver", "bus_driver", "rail", "cycle", "pedestrian"), 
+  stage_mode = c("car", "bus", "rail", "cycle", "pedestrian"), 
   e_rate = c(2.5, 1.9, 1.9, 2.0, 1.6)
 )
 
@@ -174,6 +174,24 @@ trip_set <- trips
 # Rename short walks as pedestrian 
 trip_set$stage_mode[trip_set$stage_mode=='walk_to_pt'] <- 'pedestrian'
 
+# Reweight bus duration by multiplying it with baseline's bus_driver and bus ratio
+bus_ratio <- trip_set |> 
+  filter(stage_mode %in% c("bus", "bus_driver") & scenario == "Baseline") |> 
+  summarise(sum(stage_duration[stage_mode == "bus_driver"]) / sum(stage_duration[stage_mode == "bus"])) |> 
+  pull()
+
+trip_set[trip_set$stage_mode == "bus",]$stage_duration <- trip_set[trip_set$stage_mode == "bus",]$stage_duration * bus_ratio
+
+
+# Reweight bus duration by multiplying it with baseline's bus_driver and bus ratio
+car_ratio <- trip_set |> 
+  filter(stage_mode %in% c("car", "car_driver") & scenario == "Baseline") |> 
+  summarise(sum(stage_duration[stage_mode == "car_driver"]) / sum(stage_duration[stage_mode == "car"])) |> 
+  pull()
+
+trip_set[trip_set$stage_mode == "car",]$stage_duration <- trip_set[trip_set$stage_mode == "car",]$stage_duration * car_ratio
+trip_set[trip_set$stage_mode == "taxi",]$stage_duration <- trip_set[trip_set$stage_mode == "taxi",]$stage_duration * car_ratio
+
 # Rename scenarios
 trip_set <- trip_set |> mutate(scenario = case_when(
   scenario == "Scenario 1" ~ "Bicycling", 
@@ -199,7 +217,7 @@ trip_set$pm_inhaled <- trip_set$stage_duration / 60 * trip_set$v_rate * trip_set
 
 trip_set <- trip_set |> group_by(participant_id, scenario) |> mutate(total_travel_time_hrs = sum(stage_duration) / 60) |> ungroup()
 
-td <- trip_set |> #filter(participant_id != 0) |> 
+td <- trip_set |> filter(participant_id != 0) |> 
   # slice_head(prop = 0.08) |> 
   group_by(participant_id, scenario) |> 
   summarise(total_air_inhaled = sum(air_inhaled, na.rm = T) + 
