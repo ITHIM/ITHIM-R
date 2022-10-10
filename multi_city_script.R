@@ -17,18 +17,7 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia',
             'accra', 'bangalore', 'cape_town','delhi', 'vizag')
 
-# cities <- c('osorno', 'puerto_montt',  'temuco_padrelascasas', 'valdivia')
-cities <- c('valdivia')
-#cities <- c('accra', 'bangalore', 'cape_town','delhi', 'vizag')
-#cities <- c('san_antonio')
-# cities <- c('accra')
-#cities <- c('bangalore')
-
-
 # number of times input values are sampled from each input parameter distribution
-
-input_parameter_file <- "InputParameters_v12.0.xlsx"
-
 
 input_parameter_file <- "InputParameters_v12.0.xlsx"
 
