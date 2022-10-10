@@ -93,9 +93,17 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
   
   names(synth_pop)[-1] <- paste0("pm_conc_", SCEN_SHORT_NAME)
   
+  id_wo_travel <- SYNTHETIC_POPULATION |> filter(!participant_id %in% trip_set$participant_id)
+  
+  id_wo_travel <- cbind(id_wo_travel |> dplyr::select(-work_ltpa_marg_met), conc_pm_df |> pivot_wider(names_from = "scenario", values_from = "conc_pm"))
+  
+  names(id_wo_travel)[-(1:4)] <- paste0("pm_conc_", SCEN_SHORT_NAME)  
+  
   synth_pop$participant_id <- as.integer(synth_pop$participant_id)
   
   synth_pop <- left_join(trip_set |> filter(participant_id != 0) |> dplyr::select(participant_id, age, sex, age_cat) |> distinct(), synth_pop)
+  
+  synth_pop <- plyr::rbind.fill(synth_pop, id_wo_travel)
   
   list(scenario_pm=conc_pm, pm_conc_pp=as.data.frame(synth_pop))
   
