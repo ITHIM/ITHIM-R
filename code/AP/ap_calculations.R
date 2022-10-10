@@ -174,23 +174,23 @@ trip_set <- trips
 # Rename short walks as pedestrian 
 trip_set$stage_mode[trip_set$stage_mode=='walk_to_pt'] <- 'pedestrian'
 
-# Reweight bus duration by multiplying it with baseline's bus_driver and bus ratio
-bus_ratio <- trip_set |> 
-  filter(stage_mode %in% c("bus", "bus_driver") & scenario == "Baseline") |> 
-  summarise(sum(stage_duration[stage_mode == "bus_driver"]) / sum(stage_duration[stage_mode == "bus"])) |> 
-  pull()
-
-trip_set[trip_set$stage_mode == "bus",]$stage_duration <- trip_set[trip_set$stage_mode == "bus",]$stage_duration * bus_ratio
-
-
-# Reweight bus duration by multiplying it with baseline's bus_driver and bus ratio
-car_ratio <- trip_set |> 
-  filter(stage_mode %in% c("car", "car_driver") & scenario == "Baseline") |> 
-  summarise(sum(stage_duration[stage_mode == "car_driver"]) / sum(stage_duration[stage_mode == "car"])) |> 
-  pull()
-
-trip_set[trip_set$stage_mode == "car",]$stage_duration <- trip_set[trip_set$stage_mode == "car",]$stage_duration * car_ratio
-trip_set[trip_set$stage_mode == "taxi",]$stage_duration <- trip_set[trip_set$stage_mode == "taxi",]$stage_duration * car_ratio
+# # Reweight bus duration by multiplying it with baseline's bus_driver and bus ratio
+# bus_ratio <- trip_set |> 
+#   filter(stage_mode %in% c("bus", "bus_driver") & scenario == "Baseline") |> 
+#   summarise(sum(stage_duration[stage_mode == "bus_driver"]) / sum(stage_duration[stage_mode == "bus"])) |> 
+#   pull()
+# 
+# trip_set[trip_set$stage_mode == "bus",]$stage_duration <- trip_set[trip_set$stage_mode == "bus",]$stage_duration * bus_ratio
+# 
+# 
+# # Reweight bus duration by multiplying it with baseline's bus_driver and bus ratio
+# car_ratio <- trip_set |> 
+#   filter(stage_mode %in% c("car", "car_driver") & scenario == "Baseline") |> 
+#   summarise(sum(stage_duration[stage_mode == "car_driver"]) / sum(stage_duration[stage_mode == "car"])) |> 
+#   pull()
+# 
+# trip_set[trip_set$stage_mode == "car",]$stage_duration <- trip_set[trip_set$stage_mode == "car",]$stage_duration * car_ratio
+# trip_set[trip_set$stage_mode == "taxi",]$stage_duration <- trip_set[trip_set$stage_mode == "taxi",]$stage_duration * car_ratio
 
 # Rename scenarios
 trip_set <- trip_set |> mutate(scenario = case_when(
@@ -217,15 +217,18 @@ trip_set$pm_inhaled <- trip_set$stage_duration / 60 * trip_set$v_rate * trip_set
 
 trip_set <- trip_set |> group_by(participant_id, scenario) |> mutate(total_travel_time_hrs = sum(stage_duration) / 60) |> ungroup()
 
+sleep_rate <- filter(vent_rates, stage_mode == "sleep") |> dplyr::select(v_rate) |> pull()
+
+rest_rate <- filter(vent_rates, stage_mode == "rest") |> dplyr::select(v_rate) |> pull()
+
 td <- trip_set |> filter(participant_id != 0) |> 
-  # slice_head(prop = 0.08) |> 
   group_by(participant_id, scenario) |> 
   summarise(total_air_inhaled = sum(air_inhaled, na.rm = T) + 
-              8 * filter(vent_rates, stage_mode == "sleep") |> dplyr::select(v_rate) |> pull() + 
-              ((16 - total_travel_time_hrs) * filter(vent_rates, stage_mode == "rest") |> dplyr::select(v_rate) |> pull()),
+              8 * sleep_rate + 
+              ((16 - total_travel_time_hrs) * rest_rate),
             total_pm_inhaled = sum(pm_inhaled, na.rm = T) +
-              8 * (filter(vent_rates, stage_mode == "sleep") |> dplyr::select(v_rate) |> pull()) * conc_pm + 
-              ((16 - total_travel_time_hrs) * (filter(vent_rates, stage_mode == "rest") |> dplyr::select(v_rate) |> pull()) * conc_pm)) |> 
+              8 * (sleep_rate) * conc_pm + 
+              ((16 - total_travel_time_hrs) * (rest_rate) * conc_pm)) |> 
             # .groups = "keep") |> 
   distinct(participant_id, scenario, .keep_all = T)
 
@@ -233,4 +236,8 @@ td <- td |> mutate(conc_pm_inhaled = total_pm_inhaled / total_air_inhaled)
 
 td |> group_by(scenario) |> summarise(as_tibble(rbind(summary(conc_pm_inhaled)))) |> print()
 
-td |> write_csv("code/AP/AP_PM25_antofagasta.csv")
+td1 <- td |> 
+  dplyr::select(-c(total_air_inhaled, total_pm_inhaled)) |> 
+  pivot_wider(names_from = "scenario", values_from = "conc_pm_inhaled")
+
+# td |> write_csv("code/AP/AP_PM25_antofagasta.csv")
