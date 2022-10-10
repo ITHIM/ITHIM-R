@@ -61,6 +61,7 @@ comment <- "Added CO2 emission sampling"
 # scenario definition
 max_mode_share_scenario <- F
 latam <- T
+global <- F
 test_walk_scenario <- F
 test_cycle_scenario <- F
 reference_scenario <- 'Baseline'
@@ -264,7 +265,8 @@ print(system.time(
     multi_city_ithim[[ci]] <- run_ithim_setup(NSAMPLES = nsamples,
                                               seed=ci,
                                               
-                                              LATAM = TRUE,
+                                              LATAM = latam,
+                                              GLOBAL = global
                                               
                                               # from multi city script
                                               DIST_CAT = as.character(dist_cat), 

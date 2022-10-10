@@ -1,4 +1,4 @@
-#rm(list=ls())
+rm(list=ls())
 library(ithimr)
 library(readxl)
 library(truncnorm)
@@ -18,7 +18,7 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
             'accra', 'bangalore', 'cape_town','delhi', 'vizag')
 
 # cities <- c('osorno', 'puerto_montt',  'temuco_padrelascasas', 'valdivia')
-# cities <- c('valdivia')
+cities <- c('valdivia')
 #cities <- c('accra', 'bangalore', 'cape_town','delhi', 'vizag')
 #cities <- c('san_antonio')
 #cities <- c('accra')
@@ -27,14 +27,18 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 
 # number of times input values are sampled from each input parameter distribution
 
-input_parameter_file <- "InputParameters_v12.0_IN_PROGRESS.xlsx" #"InputParameters_v12.0.xlsx"
+
+input_parameter_file <- "InputParameters_v12.0.xlsx"
+
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
 comment <- "Added CO2 emission sampling"
 
 # scenario definition
 max_mode_share_scenario <- F
-latam <- T
+latam <- F
+global <- T
+africa_india <- F
 test_walk_scenario <- F
 test_cycle_scenario <- F
 reference_scenario <- 'Baseline'
@@ -177,6 +181,7 @@ print(system.time(for(city in cities){
   print(city)
   ithim_objects[[city]] <- run_ithim_setup(
     LATAM = latam,
+    GLOBAL = global,
     DIST_CAT = as.character(dist_cat),
     ADD_WALK_TO_PT_TRIPS = as.logical(add_walk_to_pt_trips[[city]]),
     CITY = city,
@@ -218,7 +223,7 @@ print(system.time(for(city in cities){
     BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
     TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
     CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]]
-    )
+  )
   
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS
   ithim_objects[[city]]$demographic <- DEMOGRAPHIC
