@@ -11,6 +11,18 @@
 #' @export
 scenario_pm_calculations <- function(dist,trip_scen_sets){
   
+  
+  vent_rates <- data.frame(
+    stage_mode = c("rest", "car", "taxi", "bus", "rail", "cycle", "pedestrian", "sleep"), 
+    v_rate = c(0.61, 0.61, 0.61, 0.61, 0.61, 2.55, 1.37, 0.27)
+  )
+  
+  exp_facs <- data.frame(
+    stage_mode = c("car", "taxi", "bus", "rail", "cycle", "pedestrian"), 
+    e_rate = c(2.5, 2.5, 1.9, 1.9, 2.0, 1.6)
+  )
+  
+  
   # concentration contributed by non-transport share (remains constant across the scenarios)
   non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
   
@@ -26,90 +38,64 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
     trans_emissions[nrow(trans_emissions)+1,] <- VEHICLE_INVENTORY$PM_emission_inventory[mode_type]
   
   ## scenario travel pm2.5 calculated as relative to the baseline
-  baseline_sum <- sum(trans_emissions[[SCEN[1]]], na.rm = T)
+  baseline_sum <- PM_CONC_BASE# <- sum(trans_emissions[[SCEN[1]]], na.rm = T)
   conc_pm <- c()
   ## in this sum, the non-transport pm is constant; the transport emissions scale the transport contribution (PM_TRANS_SHARE) to the base level (PM_CONC_BASE)
   for(i in 1:length(SCEN_SHORT_NAME))
     conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN[i]]], na.rm = T)/baseline_sum
   
-  ##RJ rewriting ventilation as a function of MMET_CYCLING and MMET_WALKING, loosely following de Sa's SP model.
-  vent_rates <- data.frame(stage_mode=VEHICLE_INVENTORY$stage_mode,stringsAsFactors = F) 
-  vent_rates$vent_rate <- BASE_LEVEL_INHALATION_RATE # L / min
-  vent_rates$vent_rate[vent_rates$stage_mode=='cycle'] <- BASE_LEVEL_INHALATION_RATE + MMET_CYCLING/2.0
-  # Remove walk_to_pt if pedestrian already exists
-  if (any(vent_rates$stage_mode == 'pedestrian'))
-    vent_rates <- vent_rates %>% filter(stage_mode != 'walk_to_pt')
-  vent_rates$vent_rate[vent_rates$stage_mode=='pedestrian'] <- BASE_LEVEL_INHALATION_RATE + MMET_WALKING/2.0
-  
-  ## Keep only distinct modes
-  vent_rates <- distinct_at(vent_rates, vars(stage_mode), .keep_all = T)
-  
-  ##RJ rewriting exposure ratio as function of ambient PM2.5, as in Goel et al 2015
-  ##!! five fixed parameters: BASE_LEVEL_INHALATION_RATE (10), CLOSED_WINDOW_PM_RATIO (0.5), CLOSED_WINDOW_RATIO (0.5), ROAD_RATIO_MAX (3.216), ROAD_RATIO_SLOPE (0.379)
-  ##RJ question for RG: should this function account for PM_TRANS_SHARE?
-  on_road_off_road_ratio <- ROAD_RATIO_MAX - ROAD_RATIO_SLOPE*log(conc_pm)
-  ##RJ question for RG: why is 'in car' twice better than 'away from road'?
-  # averaging over windows open and windows closed
-  in_vehicle_ratio <- (1-CLOSED_WINDOW_RATIO)*on_road_off_road_ratio + CLOSED_WINDOW_RATIO*CLOSED_WINDOW_PM_RATIO 
-  # subway ratio is a constant
-  subway_ratio <- rep(SUBWAY_PM_RATIO,length(conc_pm))
-  # open vehicles experience the ``on_road_off_road_ratio'', and closed vehicles experience the ``in_vehicle_ratio''
-  ratio_by_mode <- rbind(on_road_off_road_ratio,in_vehicle_ratio,subway_ratio)
-  # assign rates according to the order of the ratio_by_mode array: 1 is open vehicle, 2 is closed vehicle, 3 is subway
-  open_vehicles <- c('pedestrian','cycle','motorcycle','auto_rickshaw','shared_auto','cycle_rickshaw')
-  rail_vehicles <- c('subway','rail')
-  vent_rates$vehicle_ratio_index <- sapply(vent_rates$stage_mode,function(x) ifelse(x%in%rail_vehicles,3,ifelse(x%in%open_vehicles,1,2)))
-  
+  # Copy trips dataset
   trip_set <- trip_scen_sets
+  
+  # Rename short walks as pedestrian 
   trip_set$stage_mode[trip_set$stage_mode=='walk_to_pt'] <- 'pedestrian'
+  
   # trip set is a data.table, vent_rates is a data.frame, returns a data.table
-  trip_set <- dplyr::left_join(trip_set,vent_rates,'stage_mode')
+  trip_set <- dplyr::left_join(trip_set, vent_rates, 'stage_mode')
+  
+  trip_set <- dplyr::left_join(trip_set, exp_facs, 'stage_mode')
+  
+  conc_pm_df <- data.frame(scenario = unique(trip_set$scenario),
+                           conc_pm = conc_pm)
+  
+  trip_set <- left_join(trip_set, conc_pm_df)
+  
+  
   # litres of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode
-  trip_set$on_road_air <- trip_set$stage_duration*trip_set$vent_rate / (60) # L
-  # get indices for quick matching of values
-  scen_index <- match(trip_set$scenario,SCEN)
-  # ordered pm values
-  scen_pm <- as.numeric(conc_pm[scen_index])
-  # ordered ratios based on scenario and open/closed mode
-  scen_ratio <- ratio_by_mode[cbind(trip_set$vehicle_ratio_index,scen_index)]
-  # pm dose in mg as the product of the air inhaled, the background pm, and the exposure ratio
-  trip_set$pm_dose <- trip_set$on_road_air * scen_pm * scen_ratio # mg
+  trip_set$air_inhaled <- trip_set$stage_duration / 60 * trip_set$v_rate
   
-  # prepare individual-level dataset
-  synth_pop <- setDT(SYNTHETIC_POPULATION)
-  # take subset
-  trip_set <- setDT(trip_set)[trip_set$participant_id%in%synth_pop$participant_id,]
-  # compute individual-level pm scenario by scenario
-  for (i in 1:length(SCEN)){
-    # initialise to background. This means persons who undertake zero travel get this value.
-    synth_pop[[paste0('pm_conc_',SCEN_SHORT_NAME[i])]] <- conc_pm[i]
-    # take trips from this scenario, and exclude trips by individuals not in the synthetic population (which might be truck trips)
-    scen_trips <- trip_set[trip_set$scenario == SCEN[i],]
-    # summarise individual-level time on road, pm inhaled, and air inhaled
-    individual_data <- scen_trips[,.(on_road_dur = sum(stage_duration,na.rm=TRUE), 
-                                            on_road_pm = sum(pm_dose,na.rm=TRUE)),by='participant_id']#, 
-                                            #air_inhaled = sum(on_road_air,na.rm=TRUE)),by='participant_id']
-    
-    # calculate non-travel air inhalation
-    non_transport_air_inhaled <- (24-individual_data$on_road_dur/60)*BASE_LEVEL_INHALATION_RATE
-    # concentration of pm inhaled = total pm inhaled / total air inhaled
-    pm_conc <- ((non_transport_air_inhaled * as.numeric(conc_pm[i])) + individual_data$on_road_pm)/24#/(non_transport_air_inhaled+individual_data$air_inhaled)
-    # match individual ids to set per person pm exposure
-    synth_pop[[paste0('pm_conc_',SCEN_SHORT_NAME[i])]][match(individual_data$participant_id,synth_pop$participant_id)] <- pm_conc
-  }
+  trip_set$pm_inhaled <- trip_set$stage_duration / 60 * trip_set$v_rate * trip_set$e_rate * trip_set$conc_pm
   
-  #####PM normalise
-  ##currently not normalising
-  ## calculating means of individual-level concentrations
-  #mean_conc <- mean(synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[1])]])
+  trip_set <- trip_set |> group_by(participant_id, scenario) |> mutate(total_travel_time_hrs = sum(stage_duration) / 60) |> ungroup()
   
-  ## Rahul made changes here/./-- no normalisation
-  ###Lines which are normalising the concentrations
-  #normalise <- as.numeric(conc_pm[1])/as.numeric(mean_conc)
-  #for (i in 1: length(SCEN_SHORT_NAME))
-    #synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]] <- normalise*synth_pop[[paste0("pm_conc_", SCEN_SHORT_NAME[i])]]
+  
+  sleep_rate <- filter(vent_rates, stage_mode == "sleep") |> dplyr::select(v_rate) |> pull()
+  
+  rest_rate <- filter(vent_rates, stage_mode == "rest") |> dplyr::select(v_rate) |> pull()
+  
+  synth_pop <- trip_set |> filter(participant_id != 0) |> 
+    group_by(participant_id, scenario) |> 
+    summarise(total_air_inhaled = sum(air_inhaled, na.rm = T) + 
+                8 * sleep_rate + 
+                ((16 - total_travel_time_hrs) * rest_rate),
+              total_pm_inhaled = sum(pm_inhaled, na.rm = T) +
+                8 * (sleep_rate) * conc_pm + 
+                ((16 - total_travel_time_hrs) * (rest_rate) * conc_pm)) |> 
+    distinct(participant_id, scenario, .keep_all = T)
+  
+  synth_pop <- synth_pop |> mutate(conc_pm_inhaled = total_pm_inhaled / total_air_inhaled) 
+  
+  synth_pop |> group_by(scenario) |> summarise(as_tibble(rbind(summary(conc_pm_inhaled)))) |> print()
+  
+  synth_pop <- synth_pop |> 
+    dplyr::select(-c(total_air_inhaled, total_pm_inhaled)) |> 
+    pivot_wider(names_from = "scenario", values_from = "conc_pm_inhaled")
+  
+  names(synth_pop)[-1] <- paste0("pm_conc_", SCEN_SHORT_NAME)
   
   synth_pop$participant_id <- as.integer(synth_pop$participant_id)
+  
+  synth_pop <- left_join(trip_set |> filter(participant_id != 0) |> dplyr::select(participant_id, age, sex, age_cat) |> distinct(), synth_pop)
   
   list(scenario_pm=conc_pm, pm_conc_pp=as.data.frame(synth_pop))
   

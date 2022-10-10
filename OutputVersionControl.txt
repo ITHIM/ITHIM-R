@@ -34,3 +34,11 @@ Output version: v0.1
 Number of samples: 10
 Comments: Test run
 Runtime in minutes: 0.91
+
+2022-05-31 15:29:22 by AKS
+Cities: osorno
+Input parameter file: InputParameters_v4.0.xlsx
+Version number of outputs: v0.3
+Number of samples: 2
+Comments: Added CO2 emission sampling
+Path of other input files: C:/Users/aks85/AppData/Local/R/win-library/4.2/ithimr/extdata/global/
