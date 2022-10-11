@@ -38,11 +38,12 @@ scenario_pm_calculations <- function(dist,trip_scen_sets){
     trans_emissions[nrow(trans_emissions)+1,] <- VEHICLE_INVENTORY$PM_emission_inventory[mode_type]
   
   ## scenario travel pm2.5 calculated as relative to the baseline
-  baseline_sum <- PM_CONC_BASE# <- sum(trans_emissions[[SCEN[1]]], na.rm = T)
+  baseline_sum <- sum(trans_emissions[[SCEN[1]]], na.rm = T)
   conc_pm <- c()
   ## in this sum, the non-transport pm is constant; the transport emissions scale the transport contribution (PM_TRANS_SHARE) to the base level (PM_CONC_BASE)
-  for(i in 1:length(SCEN_SHORT_NAME))
+  for(i in 1:length(SCEN_SHORT_NAME)){
     conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN[i]]], na.rm = T)/baseline_sum
+  }
   
   # Copy trips dataset
   trip_set <- trip_scen_sets

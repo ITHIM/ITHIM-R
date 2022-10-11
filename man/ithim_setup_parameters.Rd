@@ -21,10 +21,20 @@ ithim_setup_parameters(
   DAY_TO_WEEK_TRAVEL_SCALAR = 7,
   SIN_EXPONENT_SUM = 2,
   CASUALTY_EXPONENT_FRACTION = 0.5,
+  SIN_EXPONENT_SUM_NOV = 1,
+  SIN_EXPONENT_SUM_CYCLE = 2,
+  CASUALTY_EXPONENT_FRACTION_CYCLE = 0.5,
+  SIN_EXPONENT_SUM_PED = 2,
+  CASUALTY_EXPONENT_FRACTION_PED = 0.5,
+  SIN_EXPONENT_SUM_VEH = 2,
+  CASUALTY_EXPONENT_FRACTION_VEH = 0.5,
   BUS_TO_PASSENGER_RATIO = 0.022,
+  CAR_OCCUPANCY_RATIO = 0.6,
   TRUCK_TO_CAR_RATIO = 0.21,
   FLEET_TO_MOTORCYCLE_RATIO = 0,
+  PROPORTION_MOTORCYCLE_TRIPS = 0,
   PM_EMISSION_INVENTORY_CONFIDENCE = 1,
+  CO2_EMISSION_INVENTORY_CONFIDENCE = 1,
   DISTANCE_SCALAR_CAR_TAXI = 1,
   DISTANCE_SCALAR_WALKING = 1,
   DISTANCE_SCALAR_PT = 1,
@@ -65,13 +75,33 @@ ithim_setup_parameters(
 
 \item{CASUALTY_EXPONENT_FRACTION}{beta parameter: casualty contribution to SIN_EXPONENT_SUM}
 
+\item{SIN_EXPONENT_SUM_NOV}{lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers.}
+
+\item{SIN_EXPONENT_SUM_CYCLE}{lognormal parameter: linearity of injuries with respect to two modes where victim mode = cycle. SIN_EXPONENT_SUM=2 means no safety in numbers.}
+
+\item{CASUALTY_EXPONENT_FRACTION_CYCLE}{beta parameter: casualty contribution to SIN_EXPONENT_SUM  where victim mode = cycle.}
+
+\item{SIN_EXPONENT_SUM_PED}{lognormal parameter: linearity of injuries with respect to two modes  where victim mode = pedestrian. SIN_EXPONENT_SUM=2 means no safety in numbers.}
+
+\item{CASUALTY_EXPONENT_FRACTION_PED}{beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = pedestrian}
+
+\item{SIN_EXPONENT_SUM_VEH}{lognormal parameter: linearity of injuries with respect to two modes where victim mode = a vehicle. SIN_EXPONENT_SUM=2 means no safety in numbers.}
+
+\item{CASUALTY_EXPONENT_FRACTION_VEH}{beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = a vehicle.}
+
 \item{BUS_TO_PASSENGER_RATIO}{beta parameter: number of buses per passenger}
+
+\item{CAR_OCCUPANCY_RATIO}{beta parameter: number of people per car (including driver)}
 
 \item{TRUCK_TO_CAR_RATIO}{beta parameter: number of trucks per car}
 
 \item{FLEET_TO_MOTORCYCLE_RATIO}{beta parameter: amount of motorcycle that's fleet}
 
+\item{PROPORTION_MOTORCYCLE_TRIPS}{beta parameter: proportion of trips that are to be added as motorcycle trips}
+
 \item{PM_EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of emission inventory}
+
+\item{CO2_EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of emission inventory}
 
 \item{DISTANCE_SCALAR_CAR_TAXI}{lognormal parameter: scalar for car distance travelled}
 
@@ -82,6 +112,8 @@ ithim_setup_parameters(
 \item{DISTANCE_SCALAR_CYCLING}{lognormal parameter: scalar for cycling distance travelled}
 
 \item{DISTANCE_SCALAR_MOTORCYCLE}{lognormal parameter: scalar for motorcycle distance travelled}
+
+\item{CALL_INDIVIDUAL_SIN}{logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.}
 }
 \value{
 list of samples of uncertain parameters

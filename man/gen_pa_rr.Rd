@@ -4,7 +4,7 @@
 \alias{gen_pa_rr}
 \title{Get RR for diseases given mMETs}
 \usage{
-gen_pa_rr(mmets_pp)
+gen_pa_rr(mmets_pp, conf_int = F)
 }
 \arguments{
 \item{mmets_pp}{individual mMETs}
