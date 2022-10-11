@@ -4,10 +4,12 @@
 \alias{health_burden}
 \title{Compute health burden}
 \usage{
-health_burden(ind_ap_pa, combined_AP_PA = T)
+health_burden(ind_ap_pa, conf_int = F, combined_AP_PA = T)
 }
 \arguments{
 \item{ind_ap_pa}{data.frame of all individuals' relative risks for diseases}
+
+\item{conf_int}{logic: whether to include confidence interval from dose response relationships or not}
 
 \item{combined_AP_PA=T}{logic: whether to combine the two exposure pathways (AP and PA) or to compute independently}
 }

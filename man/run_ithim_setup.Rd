@@ -10,13 +10,14 @@ run_ithim_setup(
   speeds = NULL,
   PM_emission_inventory = NULL,
   CO2_emission_inventory = NULL,
-  setup_call_summary_filename = "setup_call_summary.txt",
   DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
   AGE_RANGE = c(0, 150),
-  ADD_WALK_TO_BUS_TRIPS = T,
+  ADD_WALK_TO_PT_TRIPS = T,
   ADD_BUS_DRIVERS = T,
+  ADD_CAR_DRIVERS = T,
   ADD_TRUCK_DRIVERS = T,
   ADD_MOTORCYCLE_FLEET = F,
+  ADD_PERSONAL_MOTORCYCLE_TRIPS = "no",
   TEST_WALK_SCENARIO = F,
   TEST_CYCLE_SCENARIO = F,
   MAX_MODE_SHARE_SCENARIO = F,
@@ -38,15 +39,28 @@ run_ithim_setup(
   DAY_TO_WEEK_TRAVEL_SCALAR = 7,
   SIN_EXPONENT_SUM = 2,
   CASUALTY_EXPONENT_FRACTION = 0.5,
+  SIN_EXPONENT_SUM_NOV = 1,
+  SIN_EXPONENT_SUM_CYCLE = 2,
+  CASUALTY_EXPONENT_FRACTION_CYCLE = 0.5,
+  SIN_EXPONENT_SUM_PED = 2,
+  CASUALTY_EXPONENT_FRACTION_PED = 0.5,
+  SIN_EXPONENT_SUM_VEH = 2,
+  CASUALTY_EXPONENT_FRACTION_VEH = 0.5,
+  CALL_INDIVIDUAL_SIN = F,
   BUS_TO_PASSENGER_RATIO = 0.022,
+  CAR_OCCUPANCY_RATIO = 0.6,
   TRUCK_TO_CAR_RATIO = 0.21,
   FLEET_TO_MOTORCYCLE_RATIO = 0.01,
+  PROPORTION_MOTORCYCLE_TRIPS = 0,
   PM_EMISSION_INVENTORY_CONFIDENCE = 1,
+  CO2_EMISSION_INVENTORY_CONFIDENCE = 1,
   DISTANCE_SCALAR_CAR_TAXI = 1,
   DISTANCE_SCALAR_WALKING = 1,
   DISTANCE_SCALAR_PT = 1,
   DISTANCE_SCALAR_CYCLING = 1,
-  DISTANCE_SCALAR_MOTORCYCLE = 1
+  DISTANCE_SCALAR_MOTORCYCLE = 1,
+  LATAM = FALSE,
+  GLOBAL = FALSE
 )
 }
 \arguments{
@@ -58,19 +72,23 @@ run_ithim_setup(
 
 \item{PM_emission_inventory}{named list of mode emissions}
 
-\item{setup_call_summary_filename}{name to write setup call summary to}
+\item{CO2_emission_inventory}{named list of mode emissions}
 
 \item{DIST_CAT}{vector string of distance categories in the form '0-6'. (The unit is assumed to be the same as in the trip set.)}
 
 \item{AGE_RANGE}{vector of minimum and maximum ages to include}
 
-\item{ADD_WALK_TO_BUS_TRIPS}{logic: whether or not to add short walks to all PT trips}
+\item{ADD_WALK_TO_PT_TRIPS}{logic: whether or not to add short walks to all PT trips}
 
 \item{ADD_BUS_DRIVERS}{logic: whether or not to add bus drivers}
 
+\item{ADD_CAR_DRIVERS}{logic: whether or not to find and add distance travelled by individual cars, denoted by car drivers}
+
 \item{ADD_TRUCK_DRIVERS}{logic: whether or not to add truck drivers}
 
-\item{ADD_MOTORCYCLE_FLEET}{logic: whether or not to add motorcycle fleet}
+\item{ADD_MOTORCYCLE_FLEET}{logic: whether or not to add additional commercial motorcycle fleet as ghost trips}
+
+\item{ADD_PERSONAL_MOTORCYCLE_TRIPS}{character: if 'no' does not add motorcycle trips otherwise set to geographic region which defines the set-up of the motorcycle trips to be added}
 
 \item{TEST_WALK_SCENARIO}{logic: whether or not to run the walk scenario}
 
@@ -114,13 +132,35 @@ run_ithim_setup(
 
 \item{CASUALTY_EXPONENT_FRACTION}{beta parameter: casualty contribution to SIN_EXPONENT_SUM}
 
+\item{SIN_EXPONENT_SUM_NOV}{lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers.}
+
+\item{SIN_EXPONENT_SUM_CYCLE}{lognormal parameter: linearity of injuries with respect to two modes where victim mode = cycle. SIN_EXPONENT_SUM=2 means no safety in numbers.}
+
+\item{CASUALTY_EXPONENT_FRACTION_CYCLE}{beta parameter: casualty contribution to SIN_EXPONENT_SUM  where victim mode = cycle.}
+
+\item{SIN_EXPONENT_SUM_PED}{lognormal parameter: linearity of injuries with respect to two modes  where victim mode = pedestrian. SIN_EXPONENT_SUM=2 means no safety in numbers.}
+
+\item{CASUALTY_EXPONENT_FRACTION_PED}{beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = pedestrian}
+
+\item{SIN_EXPONENT_SUM_VEH}{lognormal parameter: linearity of injuries with respect to two modes where victim mode = a vehicle. SIN_EXPONENT_SUM=2 means no safety in numbers.}
+
+\item{CASUALTY_EXPONENT_FRACTION_VEH}{beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = a vehicle.}
+
+\item{CALL_INDIVIDUAL_SIN}{logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.}
+
 \item{BUS_TO_PASSENGER_RATIO}{beta parameter: number of buses per passenger}
+
+\item{CAR_OCCUPANCY_RATIO}{beta parameter: number of people per car (including driver)}
 
 \item{TRUCK_TO_CAR_RATIO}{beta parameter: number of trucks per car}
 
 \item{FLEET_TO_MOTORCYCLE_RATIO}{beta parameter: fraction of total motorcycles that's fleet}
 
+\item{PROPORTION_MOTORCYCLE_TRIPS}{beta parameter: proportion of trips that are to be added as motorcycle trips}
+
 \item{PM_EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of emission inventory}
+
+\item{CO2_EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of emission inventory}
 
 \item{DISTANCE_SCALAR_CAR_TAXI}{lognormal parameter: scalar for car distance travelled}
 
@@ -131,6 +171,8 @@ run_ithim_setup(
 \item{DISTANCE_SCALAR_CYCLING}{lognormal parameter: scalar for cycling distance travelled}
 
 \item{DISTANCE_SCALAR_MOTORCYCLE}{lognormal parameter: scalar for motorcycle distance travelled}
+
+\item{setup_call_summary_filename}{name to write setup call summary to}
 }
 \value{
 ithim_object list of objects for onward use.
