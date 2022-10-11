@@ -834,7 +834,6 @@ write.csv(rbindlist(health$deaths$pathway_hb, use.names = T),
             "results/multi_city/health_impacts/deaths_pathway_hb_lng.csv",
             row.names = F)
 
-
 ```
 
 ## PA dist
