@@ -39,8 +39,8 @@ comment <- "Added CO2 emission sampling"
 # scenario definition
 max_mode_share_scenario <- F
 latam <- F
-global <- T
-africa_india <- F
+global <- F
+africa_india <- T
 test_walk_scenario <- F
 test_cycle_scenario <- F
 reference_scenario <- 'Baseline'
@@ -184,6 +184,7 @@ print(system.time(for(city in cities){
   ithim_objects[[city]] <- run_ithim_setup(
     LATAM = latam,
     GLOBAL = global,
+    AFRICA_INDIA = africa_india,
     DIST_CAT = as.character(dist_cat),
     ADD_WALK_TO_PT_TRIPS = as.logical(add_walk_to_pt_trips[[city]]),
     CITY = city,

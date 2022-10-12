@@ -124,7 +124,8 @@ run_ithim_setup <- function(seed = 1,
                             DISTANCE_SCALAR_CYCLING = 1,
                             DISTANCE_SCALAR_MOTORCYCLE = 1,
                             LATAM = FALSE,
-                            GLOBAL = FALSE){
+                            GLOBAL = FALSE,
+                            AFRICA_INDIA = FALSE){
   
   ## SUMMARY OF INPUTS
   # seed = double. sets seed to allow some reproducibility.
@@ -202,6 +203,7 @@ run_ithim_setup <- function(seed = 1,
   ## SET GLOBAL VALUES
   LATAM <<- LATAM
   GLOBAL <<- GLOBAL
+  AFRICA_INDIA <<- AFRICA_INDIA
   
   ## PROGRAMMING VARIABLES
   NSAMPLES <<- NSAMPLES
