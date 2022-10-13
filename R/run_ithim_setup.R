@@ -21,9 +21,6 @@
 #' @param ADD_TRUCK_DRIVERS logic: whether or not to add truck drivers
 #' @param ADD_MOTORCYCLE_FLEET logic: whether or not to add additional commercial motorcycle fleet as ghost trips
 #' @param ADD_PERSONAL_MOTORCYCLE_TRIPS character: if 'no' does not add motorcycle trips otherwise set to geographic region which defines the set-up of the motorcycle trips to be added 
-#' @param TEST_WALK_SCENARIO logic: whether or not to run the walk scenario
-#' @param TEST_CYCLE_SCENARIO logic: whether or not to run the cycle scenario
-#' @param MAX_MODE_SHARE_SCENARIO logic: whether or not to run the max mode share scenario
 #' @param REFERENCE_SCENARIO which scenario forms the reference for the health comparison
 #' @param PATH_TO_LOCAL_DATA path to CITY directory, if not using package
 #' @param NSAMPLES constant integer: number of samples to take
@@ -62,6 +59,7 @@
 #' @param DISTANCE_SCALAR_PT lognormal parameter: scalar for PT distance travelled
 #' @param DISTANCE_SCALAR_CYCLING lognormal parameter: scalar for cycling distance travelled
 #' @param DISTANCE_SCALAR_MOTORCYCLE lognormal parameter: scalar for motorcycle distance travelled
+#' @param SCENARIO_NAME name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO, MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA)
 #' @param CO2_emission_inventory named list of mode emissions
 #' 
 #' @return ithim_object list of objects for onward use.
@@ -81,9 +79,6 @@ run_ithim_setup <- function(seed = 1,
                             ADD_TRUCK_DRIVERS = T,
                             ADD_MOTORCYCLE_FLEET = F,
                             ADD_PERSONAL_MOTORCYCLE_TRIPS = 'no',
-                            TEST_WALK_SCENARIO = F,
-                            TEST_CYCLE_SCENARIO = F,
-                            MAX_MODE_SHARE_SCENARIO = F,
                             REFERENCE_SCENARIO = 'Baseline',
                             PATH_TO_LOCAL_DATA = NULL,
                             NSAMPLES = 1,
@@ -123,9 +118,7 @@ run_ithim_setup <- function(seed = 1,
                             DISTANCE_SCALAR_PT = 1,
                             DISTANCE_SCALAR_CYCLING = 1,
                             DISTANCE_SCALAR_MOTORCYCLE = 1,
-                            LATAM = FALSE,
-                            GLOBAL = FALSE,
-                            AFRICA_INDIA = FALSE){
+                            SCENARIO_NAME = "GLOBAL"){
   
   ## SUMMARY OF INPUTS
   # seed = double. sets seed to allow some reproducibility.
@@ -201,9 +194,26 @@ run_ithim_setup <- function(seed = 1,
   ithim_object <- list()
   
   ## SET GLOBAL VALUES
-  LATAM <<- LATAM
-  GLOBAL <<- GLOBAL
-  AFRICA_INDIA <<- AFRICA_INDIA
+  
+  if (!SCENARIO_NAME %in% c("TEST_WALK_SCENARIO",
+                            "TEST_CYCLE_SCENARIO",
+                            "MAX_MODE_SHARE_SCENARIO",
+                            "LATAM",
+                            "GLOBAL",
+                            "AFRICA_INDIA")){
+    stop("Unsupported scenario. Please select one from \n
+        TEST_WALK_SCENARIO \n
+        TEST_CYCLE_SCENARIO \n
+         MAX_MODE_SHARE_SCENARIO \n
+         LATAM \n
+         GLOBAL \n
+         AFRICA_INDIA")
+  }
+  
+  SCENARIO_NAME <<- SCENARIO_NAME
+  
+  #IF (SCENARIO_NAME == "MAX_MODE_SHARE_SCENARIO")
+  
   
   ## PROGRAMMING VARIABLES
   NSAMPLES <<- NSAMPLES
@@ -215,9 +225,6 @@ run_ithim_setup <- function(seed = 1,
   ADD_TRUCK_DRIVERS <<- ADD_TRUCK_DRIVERS
   ADD_MOTORCYCLE_FLEET <<- ADD_MOTORCYCLE_FLEET
   ADD_PERSONAL_MOTORCYCLE_TRIPS <<- ADD_PERSONAL_MOTORCYCLE_TRIPS
-  TEST_WALK_SCENARIO <<- TEST_WALK_SCENARIO
-  TEST_CYCLE_SCENARIO <<- TEST_CYCLE_SCENARIO
-  MAX_MODE_SHARE_SCENARIO <<- MAX_MODE_SHARE_SCENARIO
   CALL_INDIVIDUAL_SIN <<- CALL_INDIVIDUAL_SIN
   
   ## MODEL VARIABLES

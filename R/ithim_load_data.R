@@ -143,7 +143,7 @@ ithim_load_data <- function(speeds =
   trip_set$trip_id[is.na(trip_set$stage_mode)] <- 0
   TRIP_SET <<- trip_set
   
-  if(MAX_MODE_SHARE_SCENARIO&&
+  if(SCENARIO_NAME == "MAX_MODE_SHARE_SCENARIO" &&
      (!exists('SCENARIO_PROPORTIONS')||
       exists('SCENARIO_PROPORTIONS')&&!isTRUE(base::all.equal(DIST_CAT,colnames(SCENARIO_PROPORTIONS)))
      )){
