@@ -14,7 +14,7 @@ if (!require("drpa",character.only = TRUE)) {
 cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
             'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
             'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
-            'osorno', 'puerto_montt', 'san_antonio',
+            'osornso', 'puerto_montt', 'san_antonio',
             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia',
             'accra', 'bangalore', 'cape_town','delhi', 'vizag')
 # latam
@@ -23,7 +23,7 @@ cities = c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
            'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
            'osorno', 'puerto_montt', 'san_antonio',
            'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
-
+cities <- 'port_louis'
 
 #African & Indian cities
 cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
