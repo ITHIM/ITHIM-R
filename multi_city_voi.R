@@ -59,11 +59,7 @@ author <- "AKS"
 comment <- "Added CO2 emission sampling"
 
 # scenario definition
-max_mode_share_scenario <- F
-latam <- T
-global <- F
-test_walk_scenario <- F
-test_cycle_scenario <- F
+scenario_name <- "GLOBAL"
 reference_scenario <- 'Baseline'
 
 
@@ -264,10 +260,6 @@ print(system.time(
     print(city)
     multi_city_ithim[[ci]] <- run_ithim_setup(NSAMPLES = nsamples,
                                               seed=ci,
-                                              
-                                              LATAM = latam,
-                                              GLOBAL = global
-                                              
                                               # from multi city script
                                               DIST_CAT = as.character(dist_cat), 
                                               ADD_WALK_TO_PT_TRIPS = as.logical(add_walk_to_pt_trips[[city]]),# originally = F,
@@ -310,11 +302,8 @@ print(system.time(
                                               
                                               
                                               #additional in VoI script
-                                              TEST_WALK_SCENARIO = as.logical(test_walk_scenario),
-                                              TEST_CYCLE_SCENARIO = as.logical(test_cycle_scenario),
                                               REFERENCE_SCENARIO= reference_scenario,
-                                              MAX_MODE_SHARE_SCENARIO= as.logical(max_mode_share_scenario),
-                                              
+
                                               BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                               CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]],
@@ -326,7 +315,8 @@ print(system.time(
                                               DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
                                               DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
                                               DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
-                                              DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]])
+                                              DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]],
+                                              SCENARIO_NAME = scenario_name)
     
     
     # for first city, store model parameters. For subsequent cities, copy parameters over.
