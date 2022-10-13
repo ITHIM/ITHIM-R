@@ -17,16 +17,16 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
             'osorno', 'puerto_montt', 'san_antonio',
             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia',
             'accra', 'bangalore', 'cape_town','delhi', 'vizag')
-# latam
-cities = c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
-           'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
-           'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
-           'osorno', 'puerto_montt', 'san_antonio',
-           'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
-
-
-#African & Indian cities
-cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
+# # latam
+# cities = c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
+#            'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
+#            'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
+#            'osorno', 'puerto_montt', 'san_antonio',
+#            'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
+# 
+# 
+# #African & Indian cities
+# cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
 
 # number of times input values are sampled from each input parameter distribution
 
@@ -37,12 +37,7 @@ author <- "AA"
 comment <- "Added CO2 emission sampling"
 
 # scenario definition
-max_mode_share_scenario <- F
-latam <- F
-global <- F
-africa_india <- T
-test_walk_scenario <- F
-test_cycle_scenario <- F
+scenario_name <- "GLOBAL"
 reference_scenario <- 'Baseline'
 
 compute_mode <- 'constant' # constant parameters from the given parameters
@@ -182,9 +177,6 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 print(system.time(for(city in cities){
   print(city)
   ithim_objects[[city]] <- run_ithim_setup(
-    LATAM = latam,
-    GLOBAL = global,
-    AFRICA_INDIA = africa_india,
     DIST_CAT = as.character(dist_cat),
     ADD_WALK_TO_PT_TRIPS = as.logical(add_walk_to_pt_trips[[city]]),
     CITY = city,
@@ -225,7 +217,8 @@ print(system.time(for(city in cities){
     
     BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
     TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
-    CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]]
+    CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]],
+    SCENARIO_NAME = scenario_name
   )
   
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS
