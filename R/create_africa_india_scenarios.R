@@ -23,9 +23,9 @@ create_africa_india_scenarios <- function(trip_set){
   # in the function "create_max_mode_share_scenarios" and the median was computed
   # by hand across cities. All of this is computed in the file "TablesAndFigures.xlsx"
   # in dropbox.
-  scenario_proportions <- data.frame(c(5.6, 5.6, 0, 5.6),
-                                     c(10.2, 10.2, 10.2, 10.2),
-                                     c(2,2,2, 2))
+  scenario_proportions <- data.frame(c(3.3, 1.0, 0.4, 1.1),
+                                     c(8.8, 7.2, 5.2, 6.5),
+                                     c(2.9,6.7,9.5,7.5))
   colnames(scenario_proportions) <- target_distances <- DIST_CAT
   rownames(scenario_proportions) <- modes <- c("cycle", "car", "bus", 'motorcycle')
   SCENARIO_PROPORTIONS <<- scenario_proportions
