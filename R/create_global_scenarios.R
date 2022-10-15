@@ -5,8 +5,9 @@
 #' 
 #' Based on create_latam_scenarios
 #' 
-#' Assume that each of the three distance categories gets approximately 5% of trips more, however, split those 15% for 
-#' each mode by the distance band distribution for the median mode shares across all cities
+#' Add 5% of trips overall in such a way that the average mean mode share for each mode across the
+#' three distance bands is preserved.
+#' 
 #' https://www.dropbox.com/home/ITHIM%20Global/Methods%20and%20Processes/ScenarioDefn/GlobalScenario
 #' 
 #' @param trip_set data frame, baseline scenario
@@ -20,21 +21,55 @@ create_global_scenarios <- function(trip_set){
   trip_set <- NULL
   
   rd_list <- list()
+  
+  # global modal split across the three distance categories for each mode
+                              # cycle, car, bus, motorcycle
+  global_modeshares <- data.frame(c(38.5, 9.4, 2.1, 10.7), # distance category 0-2km
+                                  c(50, 45.7, 33.5, 37.2), # distance category 2-6km
+                                  c(11.5, 44.9, 64.4, 52.6))
+  
+  percentage_change <- 0.05
+  
 
-  scenario_proportions <- data.frame(c(4.3, 2.3, 1.0, 1.1), # distance category 0-2km
-                                     c(8.9, 6.9, 6.1, 6.5), # distance category 2-6km
-                                     c(2.5, 5.7, 7.9, 7.5))
+  rdr_baseline <- rdr %>% dplyr::select(c('trip_id', 'trip_distance_cat','scenario','trip_mode')) %>% filter() 
+  rdr_baseline <- rdr_baseline %>% distinct()
+  
+  no_trips <- nrow(rdr_baseline)
+  prop_0_2 <- nrow(rdr_baseline %>% filter(trip_distance_cat == "0-2km")) / no_trips
+  prop_2_6 <- nrow(rdr_baseline %>% filter(trip_distance_cat == "2-6km")) / no_trips
+  prop_6 <- nrow(rdr_baseline %>% filter(trip_distance_cat == "6+km")) / no_trips
+  
+  # initialise the proportions to be added in each scenario
+  scenario_proportions <- data.frame(c(0, 0, 0, 0), # distance category 0-2km
+                                     c(0, 0, 0, 0), # distance category 2-6km
+                                     c(0, 0,0, 0))
+  # add the correct values
+  for (r in 1:3){
+    for (c in 1:4){
+      if (r == 1){
+        percentage_trips <- prop_0_2
+      } else if (r == 2){
+        percentage_trips <- prop_2_6
+      } else {
+        percentage_trips <- prop_6
+      }
+      scenario_proportions[c,r] <- percentage_change * global_modeshares[c,r] / percentage_trips
+    }
+  }
+  
   
   colnames(scenario_proportions) <- target_distances <- DIST_CAT
   rownames(scenario_proportions) <- modes <- c("cycle", "car", "bus", 'motorcycle')
   SCENARIO_PROPORTIONS <<- scenario_proportions
+  
+  #print(scenario_proportions)
   
   # Baseline scenario
   rd_list[[1]] <- rdr
   modes_not_changeable <- c('bus_driver', 'truck', 'car_driver')
   rdr_not_changeable <-  rdr %>% filter(trip_mode %in% modes_not_changeable)
   rdr_changeable <-  rdr %>% filter(!trip_mode %in% modes_not_changeable) # Trips that can be reassigned to another mode
-  rdr <- NULL
+
   
   # Split trips by distance band in a new list
   rdr_changeable_by_distance <- list()
@@ -44,6 +79,16 @@ create_global_scenarios <- function(trip_set){
       filter(trip_distance_cat == target_distance)
   }
   rdr_changeable <- NULL
+  
+  # split all trips by distance band
+  rdr_all_by_distance <- list()
+  for (j in 1:ncol(SCENARIO_PROPORTIONS)) {
+    target_distance <- target_distances[j]
+    rdr_all_by_distance[[j]] <- rdr %>% 
+      filter(trip_distance_cat == target_distance)
+  }
+  
+  rdr <- NULL
   
   ###############################################################
   # Creation of scenarios
@@ -69,8 +114,11 @@ create_global_scenarios <- function(trip_set){
           nrow()
       } # End else
       target_percent <- SCENARIO_PROPORTIONS[i,j]
-      n_trips_to_change <- round(length(unique(rdr_copy[[j]]$trip_id)) * 
-                                   target_percent / 100) # These trips will be reassigned
+      # n_trips_to_change <- round(length(unique(rdr_copy[[j]]$trip_id)) * 
+      #                              target_percent / 100) # These trips will be reassigned
+      n_trips_to_change <- round(length(unique(rdr_all_by_distance[[j]]$trip_id)) * 
+                                 target_percent / 100) # These trips will be reassigned
+      #print(n_trips_to_change)
       if (length(potential_trip_ids) > 0 & n_trips_to_change > 0) {
         if (length(potential_trip_ids) == 1) {
           change_trip_ids <- potential_trip_ids
@@ -125,5 +173,31 @@ create_global_scenarios <- function(trip_set){
     rdr_scen$scenario <- paste0('Scenario ',i)
     rd_list[[i + 1]] <- rdr_scen
   } # End loop for scenarios
+  
+  
+  # check scenario defn:
+  # bicycle
+  # baseline_all <- rd_list[[1]] %>% dplyr::select(c('trip_id', 'trip_mode',"trip_distance_cat")) %>% distinct() 
+  # base_count_all <- nrow(baseline_all)
+  # baseline_bike <- baseline_all %>% filter(trip_mode == 'cycle')
+  # base_count_bike <- nrow(baseline_bike)
+  # base_prop_bike <- base_count_bike / base_count_all * 100
+  # 
+  # bike_all <- rd_list[[2]] %>% dplyr::select(c('trip_id', 'trip_mode',"trip_distance_cat")) %>% distinct() 
+  # bike_bike <- bike_all %>% filter(trip_mode == 'cycle')
+  # bike_count_bike <- nrow(bike_bike)
+  # bike_prop_bike <- bike_count_bike / base_count_all * 100
+  
+  # bus
+  # base_count_all <- nrow(baseline_all)
+  # baseline_bus <- baseline_all %>% filter(trip_mode == 'bus')
+  # base_count_bus <- nrow(baseline_bus)
+  # base_prop_bus <- base_count_bus / base_count_all * 100
+  # 
+  # bus_all <- rd_list[[4]] %>% dplyr::select(c('trip_id', 'trip_mode',"trip_distance_cat")) %>% distinct() 
+  # bus_bus <- bus_all %>% filter(trip_mode == 'bus')
+  # bus_count_bus <- nrow(bus_bus)
+  # bus_prop_bus <- bus_count_bus / base_count_all * 100
+
   return(rd_list)
 }
