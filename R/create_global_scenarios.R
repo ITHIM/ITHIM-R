@@ -24,9 +24,9 @@ create_global_scenarios <- function(trip_set){
   
   # global modal split across the three distance categories for each mode
                               # cycle, car, bus, motorcycle
-  global_modeshares <- data.frame(c(38.5, 9.4, 2.1, 10.7), # distance category 0-2km
-                                  c(50, 45.7, 33.5, 37.2), # distance category 2-6km
-                                  c(11.5, 44.9, 64.4, 52.6))
+  global_modeshares <- data.frame(c(2.1, 9.4, 38.5, 10.7), # distance category 0-2km
+                                  c(33.5, 45.7, 50.0, 37.2), # distance category 2-6km
+                                  c(64.4, 44.9,11.5, 52.6))
   
   percentage_change <- 0.05
   
@@ -59,7 +59,7 @@ create_global_scenarios <- function(trip_set){
   
   
   colnames(scenario_proportions) <- target_distances <- DIST_CAT
-  rownames(scenario_proportions) <- modes <- c("cycle", "car", "bus", 'motorcycle')
+  rownames(scenario_proportions) <- modes <- c("bus", "car", "cycle", 'motorcycle')
   SCENARIO_PROPORTIONS <<- scenario_proportions
   
   #print(scenario_proportions)

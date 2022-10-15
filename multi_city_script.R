@@ -38,7 +38,7 @@ author <- "AA"
 comment <- "Added CO2 emission sampling"
 
 # scenario definition
-scenario_name <- "GLOBAL" #select either LATAM, AFRICAN_INDIA, GLOBAL
+scenario_name <- "AFRICA_INDIA" #select either LATAM, AFRICAN_INDIA, GLOBAL
 reference_scenario <- 'Baseline'
 
 compute_mode <- 'constant' # constant parameters from the given parameters
