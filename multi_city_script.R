@@ -27,8 +27,6 @@ cities = c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 
 #African & Indian cities
 cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
-cities <- c('accra', 'bangalore', 'delhi', 'vizag')
-cities <- 'port_louis'
 
 # number of times input values are sampled from each input parameter distribution
 
@@ -275,4 +273,4 @@ print(system.time(for(city in cities){
 # }
 
 
-#saveRDS(ithim_objects, "results/multi_city/io.rds", version = 2)
+saveRDS(ithim_objects, "results/multi_city/io.rds", version = 2)
