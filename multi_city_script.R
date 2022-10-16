@@ -24,14 +24,15 @@ cities = c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
            'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
            'osorno', 'puerto_montt', 'san_antonio',
            'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
-cities <- 'port_louis'
 
 #African & Indian cities
 cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
+cities <- c('accra', 'bangalore', 'delhi', 'vizag')
+cities <- 'port_louis'
 
 # number of times input values are sampled from each input parameter distribution
 
-input_parameter_file <- "InputParameters_v14.0.xlsx"
+input_parameter_file <- "InputParameters_v15.0.xlsx"
 
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
@@ -274,4 +275,4 @@ print(system.time(for(city in cities){
 # }
 
 
-saveRDS(ithim_objects, "results/multi_city/io.rds", version = 2)
+#saveRDS(ithim_objects, "results/multi_city/io.rds", version = 2)
