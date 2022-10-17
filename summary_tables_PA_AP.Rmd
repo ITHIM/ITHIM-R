@@ -224,6 +224,7 @@ for (x in 1:length(cities)) {
                                        '50th' = quantile(pm_conc, 0.5),
                                        '95th' = quantile(pm_conc, 0.9)))
   summary <- cbind(summary$scenario ,round(summary[,2:5], digits = 1))
+  summary$scenario_PM <- round(io[[cities[x]]]$outcomes$scenario_pm, digits=2)
   summary$change_PM <- round(io[[cities[x]]]$outcomes$scenario_pm - io[[cities[x]]]$outcomes$scenario_pm[1], digits=2)
   names(summary)[1] <- "Scenario"
   print(kable(summary, caption = cities[x]))
