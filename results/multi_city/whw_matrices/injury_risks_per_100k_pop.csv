@@ -1,721 +1,3781 @@
-mode,value,scenario,city
-bus,0.43,Bicycling,antofagasta
-car,2.98,Bicycling,antofagasta
-cycle,0.84,Bicycling,antofagasta
-pedestrian,1.37,Bicycling,antofagasta
-truck,0.74,Bicycling,antofagasta
-motorcycle,0,Bicycling,antofagasta
-other,0,Bicycling,antofagasta
-rail,0,Bicycling,antofagasta
-auto_rickshaw,0,Bicycling,antofagasta
-bus,0.24,Bicycling,arica
-car,4.73,Bicycling,arica
-cycle,1.82,Bicycling,arica
-pedestrian,4.71,Bicycling,arica
-truck,1.27,Bicycling,arica
-motorcycle,0,Bicycling,arica
-other,0,Bicycling,arica
-rail,0,Bicycling,arica
-auto_rickshaw,0,Bicycling,arica
-bus,0.12,Bicycling,belo_horizonte
-car,2.24,Bicycling,belo_horizonte
-cycle,1.9,Bicycling,belo_horizonte
-pedestrian,3.99,Bicycling,belo_horizonte
-truck,0.18,Bicycling,belo_horizonte
-motorcycle,3.12,Bicycling,belo_horizonte
-other,1.27,Bicycling,belo_horizonte
-rail,0,Bicycling,belo_horizonte
-auto_rickshaw,0,Bicycling,belo_horizonte
-bus,0.13,Bicycling,bogota
-car,0.36,Bicycling,bogota
-cycle,1.29,Bicycling,bogota
-pedestrian,3.05,Bicycling,bogota
-truck,0.01,Bicycling,bogota
-motorcycle,2.67,Bicycling,bogota
-other,0,Bicycling,bogota
-rail,0,Bicycling,bogota
-auto_rickshaw,0,Bicycling,bogota
-bus,0.04,Bicycling,buenos_aires
-car,0.89,Bicycling,buenos_aires
-cycle,0.48,Bicycling,buenos_aires
-pedestrian,2.57,Bicycling,buenos_aires
-truck,0.03,Bicycling,buenos_aires
-motorcycle,2.1,Bicycling,buenos_aires
-other,0,Bicycling,buenos_aires
-rail,0,Bicycling,buenos_aires
-auto_rickshaw,0,Bicycling,buenos_aires
-bus,0.02,Bicycling,cali
-car,0.58,Bicycling,cali
-cycle,3.03,Bicycling,cali
-pedestrian,4.52,Bicycling,cali
-truck,0,Bicycling,cali
-motorcycle,8.2,Bicycling,cali
-other,0.02,Bicycling,cali
-rail,0,Bicycling,cali
-auto_rickshaw,0,Bicycling,cali
-bus,0.53,Bicycling,copiapo
-car,3.8,Bicycling,copiapo
-cycle,3.7,Bicycling,copiapo
-pedestrian,1.8,Bicycling,copiapo
-truck,0.72,Bicycling,copiapo
-motorcycle,0,Bicycling,copiapo
-other,0,Bicycling,copiapo
-rail,0,Bicycling,copiapo
-auto_rickshaw,0,Bicycling,copiapo
-bus,0.36,Bicycling,coquimbo_laserena
-car,3.63,Bicycling,coquimbo_laserena
-cycle,1.18,Bicycling,coquimbo_laserena
-pedestrian,2.26,Bicycling,coquimbo_laserena
-truck,0.25,Bicycling,coquimbo_laserena
-motorcycle,0,Bicycling,coquimbo_laserena
-other,0,Bicycling,coquimbo_laserena
-rail,0,Bicycling,coquimbo_laserena
-auto_rickshaw,0,Bicycling,coquimbo_laserena
-bus,0.05,Bicycling,gran_valparaiso
-car,1.78,Bicycling,gran_valparaiso
-cycle,0.36,Bicycling,gran_valparaiso
-pedestrian,1.91,Bicycling,gran_valparaiso
-truck,0.29,Bicycling,gran_valparaiso
-motorcycle,0.84,Bicycling,gran_valparaiso
-other,0.03,Bicycling,gran_valparaiso
-rail,0,Bicycling,gran_valparaiso
-auto_rickshaw,0,Bicycling,gran_valparaiso
-bus,0.27,Bicycling,iquique_altohospicio
-car,3.69,Bicycling,iquique_altohospicio
-cycle,2.61,Bicycling,iquique_altohospicio
-pedestrian,1.2,Bicycling,iquique_altohospicio
-truck,0.37,Bicycling,iquique_altohospicio
-motorcycle,0,Bicycling,iquique_altohospicio
-other,0,Bicycling,iquique_altohospicio
-rail,0,Bicycling,iquique_altohospicio
-auto_rickshaw,0,Bicycling,iquique_altohospicio
-bus,0.13,Bicycling,medellin
-car,0.21,Bicycling,medellin
-cycle,2.6,Bicycling,medellin
-pedestrian,3.63,Bicycling,medellin
-truck,0.05,Bicycling,medellin
-motorcycle,6.06,Bicycling,medellin
-other,0,Bicycling,medellin
-rail,0,Bicycling,medellin
-auto_rickshaw,0.01,Bicycling,medellin
-bus,0.15,Bicycling,mexico_city
-car,3.97,Bicycling,mexico_city
-cycle,2.34,Bicycling,mexico_city
-pedestrian,6.92,Bicycling,mexico_city
-truck,0.13,Bicycling,mexico_city
-motorcycle,1.43,Bicycling,mexico_city
-other,0.8,Bicycling,mexico_city
-rail,0,Bicycling,mexico_city
-auto_rickshaw,0,Bicycling,mexico_city
-bus,0.03,Bicycling,montevideo
-car,1.33,Bicycling,montevideo
-cycle,1.55,Bicycling,montevideo
-pedestrian,1.76,Bicycling,montevideo
-truck,0.1,Bicycling,montevideo
-motorcycle,4.42,Bicycling,montevideo
-other,0,Bicycling,montevideo
-rail,0,Bicycling,montevideo
-auto_rickshaw,0,Bicycling,montevideo
-bus,0,Bicycling,osorno
-car,5.54,Bicycling,osorno
-cycle,0.4,Bicycling,osorno
-pedestrian,3.84,Bicycling,osorno
-truck,1.21,Bicycling,osorno
-motorcycle,0,Bicycling,osorno
-other,0,Bicycling,osorno
-rail,0,Bicycling,osorno
-auto_rickshaw,0,Bicycling,osorno
-bus,0.22,Bicycling,puerto_montt
-car,3.19,Bicycling,puerto_montt
-cycle,0,Bicycling,puerto_montt
-pedestrian,5.61,Bicycling,puerto_montt
-truck,0.67,Bicycling,puerto_montt
-motorcycle,0.33,Bicycling,puerto_montt
-other,0,Bicycling,puerto_montt
-rail,0,Bicycling,puerto_montt
-auto_rickshaw,0,Bicycling,puerto_montt
-bus,0,Bicycling,san_antonio
-car,4.57,Bicycling,san_antonio
-cycle,4.47,Bicycling,san_antonio
-pedestrian,3.18,Bicycling,san_antonio
-truck,1.58,Bicycling,san_antonio
-motorcycle,0.24,Bicycling,san_antonio
-other,0.35,Bicycling,san_antonio
-rail,0,Bicycling,san_antonio
-auto_rickshaw,0,Bicycling,san_antonio
-bus,0.11,Bicycling,santiago
-car,1.54,Bicycling,santiago
-cycle,1.77,Bicycling,santiago
-pedestrian,2.58,Bicycling,santiago
-truck,0.17,Bicycling,santiago
-motorcycle,0.94,Bicycling,santiago
-other,0.05,Bicycling,santiago
-rail,0,Bicycling,santiago
-auto_rickshaw,0,Bicycling,santiago
-bus,0.11,Bicycling,sao_paulo
-car,1.85,Bicycling,sao_paulo
-cycle,2.43,Bicycling,sao_paulo
-pedestrian,4.32,Bicycling,sao_paulo
-truck,0.16,Bicycling,sao_paulo
-motorcycle,4.8,Bicycling,sao_paulo
-other,0.02,Bicycling,sao_paulo
-rail,0,Bicycling,sao_paulo
-auto_rickshaw,0,Bicycling,sao_paulo
-bus,0,Bicycling,temuco_padrelascasas
-car,2.53,Bicycling,temuco_padrelascasas
-cycle,1.54,Bicycling,temuco_padrelascasas
-pedestrian,2.81,Bicycling,temuco_padrelascasas
-truck,0.08,Bicycling,temuco_padrelascasas
-motorcycle,0,Bicycling,temuco_padrelascasas
-other,0,Bicycling,temuco_padrelascasas
-rail,0,Bicycling,temuco_padrelascasas
-auto_rickshaw,0,Bicycling,temuco_padrelascasas
-bus,0.3,Bicycling,valdivia
-car,2.19,Bicycling,valdivia
-cycle,1.66,Bicycling,valdivia
-pedestrian,1.37,Bicycling,valdivia
-truck,0,Bicycling,valdivia
-motorcycle,0,Bicycling,valdivia
-other,0,Bicycling,valdivia
-rail,0,Bicycling,valdivia
-auto_rickshaw,0,Bicycling,valdivia
-bus,0.45,Baseline,antofagasta
-car,3.14,Baseline,antofagasta
-cycle,0.07,Baseline,antofagasta
-pedestrian,1.5,Baseline,antofagasta
-truck,0.75,Baseline,antofagasta
-motorcycle,0,Baseline,antofagasta
-other,0,Baseline,antofagasta
-rail,0,Baseline,antofagasta
-auto_rickshaw,0,Baseline,antofagasta
-bus,0.26,Baseline,arica
-car,5.1,Baseline,arica
-cycle,0.64,Baseline,arica
-pedestrian,5.23,Baseline,arica
-truck,1.28,Baseline,arica
-motorcycle,0,Baseline,arica
-other,0,Baseline,arica
-rail,0,Baseline,arica
-auto_rickshaw,0,Baseline,arica
-bus,0.13,Baseline,belo_horizonte
-car,2.33,Baseline,belo_horizonte
-cycle,0.37,Baseline,belo_horizonte
-pedestrian,4.13,Baseline,belo_horizonte
-truck,0.18,Baseline,belo_horizonte
-motorcycle,3.24,Baseline,belo_horizonte
-other,1.28,Baseline,belo_horizonte
-rail,0,Baseline,belo_horizonte
-auto_rickshaw,0,Baseline,belo_horizonte
-bus,0.13,Baseline,bogota
-car,0.37,Baseline,bogota
-cycle,0.79,Baseline,bogota
-pedestrian,3.24,Baseline,bogota
-truck,0.01,Baseline,bogota
-motorcycle,2.76,Baseline,bogota
-other,0,Baseline,bogota
-rail,0,Baseline,bogota
-auto_rickshaw,0,Baseline,bogota
-bus,0.04,Baseline,buenos_aires
-car,0.92,Baseline,buenos_aires
-cycle,0.16,Baseline,buenos_aires
-pedestrian,2.71,Baseline,buenos_aires
-truck,0.03,Baseline,buenos_aires
-motorcycle,2.24,Baseline,buenos_aires
-other,0,Baseline,buenos_aires
-rail,0,Baseline,buenos_aires
-auto_rickshaw,0,Baseline,buenos_aires
-bus,0.02,Baseline,cali
-car,0.6,Baseline,cali
-cycle,1.62,Baseline,cali
-pedestrian,4.8,Baseline,cali
-truck,0,Baseline,cali
-motorcycle,8.47,Baseline,cali
-other,0.02,Baseline,cali
-rail,0,Baseline,cali
-auto_rickshaw,0,Baseline,cali
-bus,0.55,Baseline,copiapo
-car,4.02,Baseline,copiapo
-cycle,0.73,Baseline,copiapo
-pedestrian,2.01,Baseline,copiapo
-truck,0.73,Baseline,copiapo
-motorcycle,0,Baseline,copiapo
-other,0,Baseline,copiapo
-rail,0,Baseline,copiapo
-auto_rickshaw,0,Baseline,copiapo
-bus,0.38,Baseline,coquimbo_laserena
-car,3.83,Baseline,coquimbo_laserena
-cycle,0.31,Baseline,coquimbo_laserena
-pedestrian,2.45,Baseline,coquimbo_laserena
-truck,0.25,Baseline,coquimbo_laserena
-motorcycle,0,Baseline,coquimbo_laserena
-other,0,Baseline,coquimbo_laserena
-rail,0,Baseline,coquimbo_laserena
-auto_rickshaw,0,Baseline,coquimbo_laserena
-bus,0.06,Baseline,gran_valparaiso
-car,1.86,Baseline,gran_valparaiso
-cycle,0.06,Baseline,gran_valparaiso
-pedestrian,2.09,Baseline,gran_valparaiso
-truck,0.29,Baseline,gran_valparaiso
-motorcycle,0.73,Baseline,gran_valparaiso
-other,0.03,Baseline,gran_valparaiso
-rail,0,Baseline,gran_valparaiso
-auto_rickshaw,0,Baseline,gran_valparaiso
-bus,0.28,Baseline,iquique_altohospicio
-car,2.89,Baseline,iquique_altohospicio
-cycle,0.28,Baseline,iquique_altohospicio
-pedestrian,1.3,Baseline,iquique_altohospicio
-truck,0.37,Baseline,iquique_altohospicio
-motorcycle,0,Baseline,iquique_altohospicio
-other,0,Baseline,iquique_altohospicio
-rail,0,Baseline,iquique_altohospicio
-auto_rickshaw,0,Baseline,iquique_altohospicio
-bus,0.14,Baseline,medellin
-car,0.22,Baseline,medellin
-cycle,0.49,Baseline,medellin
-pedestrian,3.85,Baseline,medellin
-truck,0.05,Baseline,medellin
-motorcycle,6.21,Baseline,medellin
-other,0,Baseline,medellin
-rail,0,Baseline,medellin
-auto_rickshaw,0.01,Baseline,medellin
-bus,0.16,Baseline,mexico_city
-car,4.1,Baseline,mexico_city
-cycle,0.46,Baseline,mexico_city
-pedestrian,7.15,Baseline,mexico_city
-truck,0.13,Baseline,mexico_city
-motorcycle,1.46,Baseline,mexico_city
-other,0.69,Baseline,mexico_city
-rail,0,Baseline,mexico_city
-auto_rickshaw,0,Baseline,mexico_city
-bus,0.03,Baseline,montevideo
-car,1.41,Baseline,montevideo
-cycle,0.38,Baseline,montevideo
-pedestrian,1.89,Baseline,montevideo
-truck,0.1,Baseline,montevideo
-motorcycle,4.63,Baseline,montevideo
-other,0,Baseline,montevideo
-rail,0,Baseline,montevideo
-auto_rickshaw,0,Baseline,montevideo
-bus,0,Baseline,osorno
-car,5.87,Baseline,osorno
-cycle,0.17,Baseline,osorno
-pedestrian,4.32,Baseline,osorno
-truck,1.21,Baseline,osorno
-motorcycle,0,Baseline,osorno
-other,0,Baseline,osorno
-rail,0,Baseline,osorno
-auto_rickshaw,0,Baseline,osorno
-bus,0.22,Baseline,puerto_montt
-car,3.36,Baseline,puerto_montt
-cycle,0,Baseline,puerto_montt
-pedestrian,6.05,Baseline,puerto_montt
-truck,0.67,Baseline,puerto_montt
-motorcycle,0.34,Baseline,puerto_montt
-other,0,Baseline,puerto_montt
-rail,0,Baseline,puerto_montt
-auto_rickshaw,0,Baseline,puerto_montt
-bus,0,Baseline,san_antonio
-car,4.85,Baseline,san_antonio
-cycle,0.37,Baseline,san_antonio
-pedestrian,3.51,Baseline,san_antonio
-truck,1.58,Baseline,san_antonio
-motorcycle,0.3,Baseline,san_antonio
-other,0.36,Baseline,san_antonio
-rail,0,Baseline,san_antonio
-auto_rickshaw,0,Baseline,san_antonio
-bus,0.12,Baseline,santiago
-car,1.6,Baseline,santiago
-cycle,0.64,Baseline,santiago
-pedestrian,2.73,Baseline,santiago
-truck,0.17,Baseline,santiago
-motorcycle,0.97,Baseline,santiago
-other,0.06,Baseline,santiago
-rail,0,Baseline,santiago
-auto_rickshaw,0,Baseline,santiago
-bus,0.11,Baseline,sao_paulo
-car,1.93,Baseline,sao_paulo
-cycle,0.44,Baseline,sao_paulo
-pedestrian,4.58,Baseline,sao_paulo
-truck,0.16,Baseline,sao_paulo
-motorcycle,4.96,Baseline,sao_paulo
-other,0.02,Baseline,sao_paulo
-rail,0,Baseline,sao_paulo
-auto_rickshaw,0,Baseline,sao_paulo
-bus,0,Baseline,temuco_padrelascasas
-car,2.69,Baseline,temuco_padrelascasas
-cycle,0.69,Baseline,temuco_padrelascasas
-pedestrian,3.08,Baseline,temuco_padrelascasas
-truck,0.08,Baseline,temuco_padrelascasas
-motorcycle,0,Baseline,temuco_padrelascasas
-other,0,Baseline,temuco_padrelascasas
-rail,0,Baseline,temuco_padrelascasas
-auto_rickshaw,0,Baseline,temuco_padrelascasas
-bus,0.31,Baseline,valdivia
-car,2.37,Baseline,valdivia
-cycle,0.65,Baseline,valdivia
-pedestrian,1.47,Baseline,valdivia
-truck,0,Baseline,valdivia
-motorcycle,0,Baseline,valdivia
-other,0,Baseline,valdivia
-rail,0,Baseline,valdivia
-auto_rickshaw,0,Baseline,valdivia
-bus,0.49,Public Transport,antofagasta
-car,2.95,Public Transport,antofagasta
-cycle,0.07,Public Transport,antofagasta
-pedestrian,1.47,Public Transport,antofagasta
-truck,0.74,Public Transport,antofagasta
-motorcycle,0,Public Transport,antofagasta
-other,0,Public Transport,antofagasta
-rail,0,Public Transport,antofagasta
-auto_rickshaw,0,Public Transport,antofagasta
-bus,0.33,Public Transport,arica
-car,4.75,Public Transport,arica
-cycle,0.58,Public Transport,arica
-pedestrian,5.2,Public Transport,arica
-truck,1.27,Public Transport,arica
-motorcycle,0,Public Transport,arica
-other,0,Public Transport,arica
-rail,0,Public Transport,arica
-auto_rickshaw,0,Public Transport,arica
-bus,0.13,Public Transport,belo_horizonte
-car,2.25,Public Transport,belo_horizonte
-cycle,0.35,Public Transport,belo_horizonte
-pedestrian,4.1,Public Transport,belo_horizonte
-truck,0.18,Public Transport,belo_horizonte
-motorcycle,3.11,Public Transport,belo_horizonte
-other,1.24,Public Transport,belo_horizonte
-rail,0,Public Transport,belo_horizonte
-auto_rickshaw,0,Public Transport,belo_horizonte
-bus,0.14,Public Transport,bogota
-car,0.36,Public Transport,bogota
-cycle,0.74,Public Transport,bogota
-pedestrian,3.16,Public Transport,bogota
-truck,0.01,Public Transport,bogota
-motorcycle,2.65,Public Transport,bogota
-other,0,Public Transport,bogota
-rail,0,Public Transport,bogota
-auto_rickshaw,0,Public Transport,bogota
-bus,0.04,Public Transport,buenos_aires
-car,0.85,Public Transport,buenos_aires
-cycle,0.15,Public Transport,buenos_aires
-pedestrian,2.61,Public Transport,buenos_aires
-truck,0.03,Public Transport,buenos_aires
-motorcycle,2.04,Public Transport,buenos_aires
-other,0,Public Transport,buenos_aires
-rail,0,Public Transport,buenos_aires
-auto_rickshaw,0,Public Transport,buenos_aires
-bus,0.02,Public Transport,cali
-car,0.58,Public Transport,cali
-cycle,1.51,Public Transport,cali
-pedestrian,4.64,Public Transport,cali
-truck,0,Public Transport,cali
-motorcycle,8.12,Public Transport,cali
-other,0.01,Public Transport,cali
-rail,0,Public Transport,cali
-auto_rickshaw,0,Public Transport,cali
-bus,0.65,Public Transport,copiapo
-car,3.76,Public Transport,copiapo
-cycle,0.65,Public Transport,copiapo
-pedestrian,2.04,Public Transport,copiapo
-truck,0.77,Public Transport,copiapo
-motorcycle,0,Public Transport,copiapo
-other,0,Public Transport,copiapo
-rail,0,Public Transport,copiapo
-auto_rickshaw,0,Public Transport,copiapo
-bus,0.42,Public Transport,coquimbo_laserena
-car,3.63,Public Transport,coquimbo_laserena
-cycle,0.28,Public Transport,coquimbo_laserena
-pedestrian,2.46,Public Transport,coquimbo_laserena
-truck,0.25,Public Transport,coquimbo_laserena
-motorcycle,0,Public Transport,coquimbo_laserena
-other,0,Public Transport,coquimbo_laserena
-rail,0,Public Transport,coquimbo_laserena
-auto_rickshaw,0,Public Transport,coquimbo_laserena
-bus,0.06,Public Transport,gran_valparaiso
-car,1.74,Public Transport,gran_valparaiso
-cycle,0.06,Public Transport,gran_valparaiso
-pedestrian,2.09,Public Transport,gran_valparaiso
-truck,0.29,Public Transport,gran_valparaiso
-motorcycle,0.65,Public Transport,gran_valparaiso
-other,0.03,Public Transport,gran_valparaiso
-rail,0,Public Transport,gran_valparaiso
-auto_rickshaw,0,Public Transport,gran_valparaiso
-bus,0.33,Public Transport,iquique_altohospicio
-car,2.7,Public Transport,iquique_altohospicio
-cycle,0.27,Public Transport,iquique_altohospicio
-pedestrian,1.32,Public Transport,iquique_altohospicio
-truck,0.37,Public Transport,iquique_altohospicio
-motorcycle,0,Public Transport,iquique_altohospicio
-other,0,Public Transport,iquique_altohospicio
-rail,0,Public Transport,iquique_altohospicio
-auto_rickshaw,0,Public Transport,iquique_altohospicio
-bus,0.15,Public Transport,medellin
-car,0.2,Public Transport,medellin
-cycle,0.45,Public Transport,medellin
-pedestrian,3.7,Public Transport,medellin
-truck,0.05,Public Transport,medellin
-motorcycle,5.82,Public Transport,medellin
-other,0,Public Transport,medellin
-rail,0,Public Transport,medellin
-auto_rickshaw,0.01,Public Transport,medellin
-bus,0.17,Public Transport,mexico_city
-car,3.89,Public Transport,mexico_city
-cycle,0.42,Public Transport,mexico_city
-pedestrian,7.01,Public Transport,mexico_city
-truck,0.13,Public Transport,mexico_city
-motorcycle,1.37,Public Transport,mexico_city
-other,0.65,Public Transport,mexico_city
-rail,0,Public Transport,mexico_city
-auto_rickshaw,0,Public Transport,mexico_city
-bus,0.04,Public Transport,montevideo
-car,1.3,Public Transport,montevideo
-cycle,0.35,Public Transport,montevideo
-pedestrian,1.86,Public Transport,montevideo
-truck,0.1,Public Transport,montevideo
-motorcycle,4.16,Public Transport,montevideo
-other,0,Public Transport,montevideo
-rail,0,Public Transport,montevideo
-auto_rickshaw,0,Public Transport,montevideo
-bus,0,Public Transport,osorno
-car,5.56,Public Transport,osorno
-cycle,0.15,Public Transport,osorno
-pedestrian,4.22,Public Transport,osorno
-truck,1.21,Public Transport,osorno
-motorcycle,0,Public Transport,osorno
-other,0,Public Transport,osorno
-rail,0,Public Transport,osorno
-auto_rickshaw,0,Public Transport,osorno
-bus,0.25,Public Transport,puerto_montt
-car,3.23,Public Transport,puerto_montt
-cycle,0,Public Transport,puerto_montt
-pedestrian,6.03,Public Transport,puerto_montt
-truck,0.67,Public Transport,puerto_montt
-motorcycle,0.33,Public Transport,puerto_montt
-other,0,Public Transport,puerto_montt
-rail,0,Public Transport,puerto_montt
-auto_rickshaw,0,Public Transport,puerto_montt
-bus,0,Public Transport,san_antonio
-car,4.81,Public Transport,san_antonio
-cycle,0.34,Public Transport,san_antonio
-pedestrian,3.49,Public Transport,san_antonio
-truck,1.58,Public Transport,san_antonio
-motorcycle,0.3,Public Transport,san_antonio
-other,0.36,Public Transport,san_antonio
-rail,0,Public Transport,san_antonio
-auto_rickshaw,0,Public Transport,san_antonio
-bus,0.12,Public Transport,santiago
-car,1.52,Public Transport,santiago
-cycle,0.58,Public Transport,santiago
-pedestrian,2.73,Public Transport,santiago
-truck,0.17,Public Transport,santiago
-motorcycle,0.88,Public Transport,santiago
-other,0.05,Public Transport,santiago
-rail,0,Public Transport,santiago
-auto_rickshaw,0,Public Transport,santiago
-bus,0.12,Public Transport,sao_paulo
-car,1.82,Public Transport,sao_paulo
-cycle,0.41,Public Transport,sao_paulo
-pedestrian,4.52,Public Transport,sao_paulo
-truck,0.16,Public Transport,sao_paulo
-motorcycle,4.71,Public Transport,sao_paulo
-other,0.02,Public Transport,sao_paulo
-rail,0,Public Transport,sao_paulo
-auto_rickshaw,0,Public Transport,sao_paulo
-bus,0,Public Transport,temuco_padrelascasas
-car,2.51,Public Transport,temuco_padrelascasas
-cycle,0.59,Public Transport,temuco_padrelascasas
-pedestrian,3.07,Public Transport,temuco_padrelascasas
-truck,0.08,Public Transport,temuco_padrelascasas
-motorcycle,0,Public Transport,temuco_padrelascasas
-other,0,Public Transport,temuco_padrelascasas
-rail,0,Public Transport,temuco_padrelascasas
-auto_rickshaw,0,Public Transport,temuco_padrelascasas
-bus,0.36,Public Transport,valdivia
-car,2.28,Public Transport,valdivia
-cycle,0.57,Public Transport,valdivia
-pedestrian,1.45,Public Transport,valdivia
-truck,0,Public Transport,valdivia
-motorcycle,0,Public Transport,valdivia
-other,0,Public Transport,valdivia
-rail,0,Public Transport,valdivia
-auto_rickshaw,0,Public Transport,valdivia
-bus,0.42,Driving,antofagasta
-car,3.3,Driving,antofagasta
-cycle,0.06,Driving,antofagasta
-pedestrian,1.46,Driving,antofagasta
-truck,0.75,Driving,antofagasta
-motorcycle,0,Driving,antofagasta
-other,0,Driving,antofagasta
-rail,0,Driving,antofagasta
-auto_rickshaw,0,Driving,antofagasta
-bus,0.23,Driving,arica
-car,5.3,Driving,arica
-cycle,0.55,Driving,arica
-pedestrian,4.96,Driving,arica
-truck,1.28,Driving,arica
-motorcycle,0,Driving,arica
-other,0,Driving,arica
-rail,0,Driving,arica
-auto_rickshaw,0,Driving,arica
-bus,0.12,Driving,belo_horizonte
-car,2.49,Driving,belo_horizonte
-cycle,0.32,Driving,belo_horizonte
-pedestrian,3.83,Driving,belo_horizonte
-truck,0.18,Driving,belo_horizonte
-motorcycle,3.06,Driving,belo_horizonte
-other,1.24,Driving,belo_horizonte
-rail,0,Driving,belo_horizonte
-auto_rickshaw,0,Driving,belo_horizonte
-bus,0.13,Driving,bogota
-car,0.4,Driving,bogota
-cycle,0.76,Driving,bogota
-pedestrian,3.14,Driving,bogota
-truck,0.01,Driving,bogota
-motorcycle,2.73,Driving,bogota
-other,0,Driving,bogota
-rail,0,Driving,bogota
-auto_rickshaw,0,Driving,bogota
-bus,0.03,Driving,buenos_aires
-car,1.03,Driving,buenos_aires
-cycle,0.15,Driving,buenos_aires
-pedestrian,2.63,Driving,buenos_aires
-truck,0.03,Driving,buenos_aires
-motorcycle,2.17,Driving,buenos_aires
-other,0,Driving,buenos_aires
-rail,0,Driving,buenos_aires
-auto_rickshaw,0,Driving,buenos_aires
-bus,0.02,Driving,cali
-car,0.64,Driving,cali
-cycle,1.51,Driving,cali
-pedestrian,4.56,Driving,cali
-truck,0,Driving,cali
-motorcycle,8.29,Driving,cali
-other,0.02,Driving,cali
-rail,0,Driving,cali
-auto_rickshaw,0,Driving,cali
-bus,0.5,Driving,copiapo
-car,4.16,Driving,copiapo
-cycle,0.66,Driving,copiapo
-pedestrian,1.86,Driving,copiapo
-truck,0.72,Driving,copiapo
-motorcycle,0,Driving,copiapo
-other,0,Driving,copiapo
-rail,0,Driving,copiapo
-auto_rickshaw,0,Driving,copiapo
-bus,0.35,Driving,coquimbo_laserena
-car,3.99,Driving,coquimbo_laserena
-cycle,0.28,Driving,coquimbo_laserena
-pedestrian,2.24,Driving,coquimbo_laserena
-truck,0.25,Driving,coquimbo_laserena
-motorcycle,0,Driving,coquimbo_laserena
-other,0,Driving,coquimbo_laserena
-rail,0,Driving,coquimbo_laserena
-auto_rickshaw,0,Driving,coquimbo_laserena
-bus,0.06,Driving,gran_valparaiso
-car,1.98,Driving,gran_valparaiso
-cycle,0.05,Driving,gran_valparaiso
-pedestrian,2,Driving,gran_valparaiso
-truck,0.29,Driving,gran_valparaiso
-motorcycle,0.66,Driving,gran_valparaiso
-other,0.03,Driving,gran_valparaiso
-rail,0,Driving,gran_valparaiso
-auto_rickshaw,0,Driving,gran_valparaiso
-bus,0.26,Driving,iquique_altohospicio
-car,3.01,Driving,iquique_altohospicio
-cycle,0.25,Driving,iquique_altohospicio
-pedestrian,1.21,Driving,iquique_altohospicio
-truck,0.37,Driving,iquique_altohospicio
-motorcycle,0,Driving,iquique_altohospicio
-other,0,Driving,iquique_altohospicio
-rail,0,Driving,iquique_altohospicio
-auto_rickshaw,0,Driving,iquique_altohospicio
-bus,0.13,Driving,medellin
-car,0.25,Driving,medellin
-cycle,0.47,Driving,medellin
-pedestrian,3.72,Driving,medellin
-truck,0.05,Driving,medellin
-motorcycle,6.11,Driving,medellin
-other,0,Driving,medellin
-rail,0,Driving,medellin
-auto_rickshaw,0.01,Driving,medellin
-bus,0.15,Driving,mexico_city
-car,4.37,Driving,mexico_city
-cycle,0.42,Driving,mexico_city
-pedestrian,6.86,Driving,mexico_city
-truck,0.13,Driving,mexico_city
-motorcycle,1.41,Driving,mexico_city
-other,0.66,Driving,mexico_city
-rail,0,Driving,mexico_city
-auto_rickshaw,0,Driving,mexico_city
-bus,0.03,Driving,montevideo
-car,1.55,Driving,montevideo
-cycle,0.35,Driving,montevideo
-pedestrian,1.82,Driving,montevideo
-truck,0.1,Driving,montevideo
-motorcycle,4.47,Driving,montevideo
-other,0,Driving,montevideo
-rail,0,Driving,montevideo
-auto_rickshaw,0,Driving,montevideo
-bus,0,Driving,osorno
-car,6.11,Driving,osorno
-cycle,0.16,Driving,osorno
-pedestrian,4.13,Driving,osorno
-truck,1.21,Driving,osorno
-motorcycle,0,Driving,osorno
-other,0,Driving,osorno
-rail,0,Driving,osorno
-auto_rickshaw,0,Driving,osorno
-bus,0.21,Driving,puerto_montt
-car,3.42,Driving,puerto_montt
-cycle,0,Driving,puerto_montt
-pedestrian,5.65,Driving,puerto_montt
-truck,0.67,Driving,puerto_montt
-motorcycle,0.32,Driving,puerto_montt
-other,0,Driving,puerto_montt
-rail,0,Driving,puerto_montt
-auto_rickshaw,0,Driving,puerto_montt
-bus,0,Driving,san_antonio
-car,4.9,Driving,san_antonio
-cycle,0.37,Driving,san_antonio
-pedestrian,3.27,Driving,san_antonio
-truck,1.58,Driving,san_antonio
-motorcycle,0.28,Driving,san_antonio
-other,0.36,Driving,san_antonio
-rail,0,Driving,san_antonio
-auto_rickshaw,0,Driving,san_antonio
-bus,0.12,Driving,santiago
-car,1.74,Driving,santiago
-cycle,0.57,Driving,santiago
-pedestrian,2.67,Driving,santiago
-truck,0.17,Driving,santiago
-motorcycle,0.95,Driving,santiago
-other,0.06,Driving,santiago
-rail,0,Driving,santiago
-auto_rickshaw,0,Driving,santiago
-bus,0.11,Driving,sao_paulo
-car,2.16,Driving,sao_paulo
-cycle,0.4,Driving,sao_paulo
-pedestrian,4.39,Driving,sao_paulo
-truck,0.16,Driving,sao_paulo
-motorcycle,4.83,Driving,sao_paulo
-other,0.02,Driving,sao_paulo
-rail,0,Driving,sao_paulo
-auto_rickshaw,0,Driving,sao_paulo
-bus,0,Driving,temuco_padrelascasas
-car,2.86,Driving,temuco_padrelascasas
-cycle,0.66,Driving,temuco_padrelascasas
-pedestrian,2.9,Driving,temuco_padrelascasas
-truck,0.08,Driving,temuco_padrelascasas
-motorcycle,0,Driving,temuco_padrelascasas
-other,0,Driving,temuco_padrelascasas
-rail,0,Driving,temuco_padrelascasas
-auto_rickshaw,0,Driving,temuco_padrelascasas
-bus,0.29,Driving,valdivia
-car,2.43,Driving,valdivia
-cycle,0.55,Driving,valdivia
-pedestrian,1.35,Driving,valdivia
-truck,0,Driving,valdivia
-motorcycle,0,Driving,valdivia
-other,0,Driving,valdivia
-rail,0,Driving,valdivia
-auto_rickshaw,0,Driving,valdivia
+mode,measure,value,scenario,city
+bus,mean,2.45,Bicycling,accra
+car,mean,5.25,Bicycling,accra
+cycle,mean,4.15,Bicycling,accra
+motorcycle,mean,5.55,Bicycling,accra
+pedestrian,mean,26.05,Bicycling,accra
+truck,mean,1.19,Bicycling,accra
+bus,ub,3.56,Bicycling,accra
+car,ub,6.95,Bicycling,accra
+cycle,ub,5.65,Bicycling,accra
+motorcycle,ub,7.27,Bicycling,accra
+pedestrian,ub,30.63,Bicycling,accra
+truck,ub,1.96,Bicycling,accra
+bus,lb,1.71,Bicycling,accra
+car,lb,4.04,Bicycling,accra
+cycle,lb,3.05,Bicycling,accra
+motorcycle,lb,4.32,Bicycling,accra
+pedestrian,lb,22.73,Bicycling,accra
+truck,lb,0.76,Bicycling,accra
+other,mean,0,Bicycling,accra
+rail,mean,0,Bicycling,accra
+other,ub,0,Bicycling,accra
+rail,ub,0,Bicycling,accra
+other,lb,0,Bicycling,accra
+rail,lb,0,Bicycling,accra
+auto_rickshaw,mean,0,Bicycling,accra
+auto_rickshaw,ub,0,Bicycling,accra
+auto_rickshaw,lb,0,Bicycling,accra
+bus,mean,0.58,Bicycling,antofagasta
+car,mean,4.11,Bicycling,antofagasta
+cycle,mean,0.25,Bicycling,antofagasta
+motorcycle,mean,0.85,Bicycling,antofagasta
+pedestrian,mean,1.9,Bicycling,antofagasta
+truck,mean,1,Bicycling,antofagasta
+bus,ub,1.93,Bicycling,antofagasta
+car,ub,12.1,Bicycling,antofagasta
+cycle,ub,2.58,Bicycling,antofagasta
+motorcycle,ub,3.5,Bicycling,antofagasta
+pedestrian,ub,6.96,Bicycling,antofagasta
+truck,ub,3.74,Bicycling,antofagasta
+bus,lb,0.18,Bicycling,antofagasta
+car,lb,1.5,Bicycling,antofagasta
+cycle,lb,0.03,Bicycling,antofagasta
+motorcycle,lb,0.23,Bicycling,antofagasta
+pedestrian,lb,0.58,Bicycling,antofagasta
+truck,lb,0.31,Bicycling,antofagasta
+other,mean,0,Bicycling,antofagasta
+rail,mean,0,Bicycling,antofagasta
+other,ub,0,Bicycling,antofagasta
+rail,ub,0,Bicycling,antofagasta
+other,lb,0,Bicycling,antofagasta
+rail,lb,0,Bicycling,antofagasta
+auto_rickshaw,mean,0,Bicycling,antofagasta
+auto_rickshaw,ub,0,Bicycling,antofagasta
+auto_rickshaw,lb,0,Bicycling,antofagasta
+bus,mean,0.33,Bicycling,arica
+car,mean,6.58,Bicycling,arica
+cycle,mean,1.44,Bicycling,arica
+motorcycle,mean,1.46,Bicycling,arica
+pedestrian,mean,6.69,Bicycling,arica
+truck,mean,1.88,Bicycling,arica
+bus,ub,2.47,Bicycling,arica
+car,ub,10.82,Bicycling,arica
+cycle,ub,3.88,Bicycling,arica
+motorcycle,ub,3.92,Bicycling,arica
+pedestrian,ub,12.19,Bicycling,arica
+truck,ub,4.51,Bicycling,arica
+bus,lb,0.04,Bicycling,arica
+car,lb,4.17,Bicycling,arica
+cycle,lb,0.54,Bicycling,arica
+motorcycle,lb,0.55,Bicycling,arica
+pedestrian,lb,4.02,Bicycling,arica
+truck,lb,0.93,Bicycling,arica
+other,mean,0,Bicycling,arica
+rail,mean,0,Bicycling,arica
+other,ub,0,Bicycling,arica
+rail,ub,0,Bicycling,arica
+other,lb,0,Bicycling,arica
+rail,lb,0,Bicycling,arica
+auto_rickshaw,mean,0,Bicycling,arica
+auto_rickshaw,ub,0,Bicycling,arica
+auto_rickshaw,lb,0,Bicycling,arica
+bus,mean,0.36,Bicycling,bangalore
+car,mean,0.75,Bicycling,bangalore
+cycle,mean,0.84,Bicycling,bangalore
+motorcycle,mean,8.96,Bicycling,bangalore
+pedestrian,mean,8.72,Bicycling,bangalore
+truck,mean,0.31,Bicycling,bangalore
+bus,ub,0.81,Bicycling,bangalore
+car,ub,1.35,Bicycling,bangalore
+cycle,ub,1.36,Bicycling,bangalore
+motorcycle,ub,11.16,Bicycling,bangalore
+pedestrian,ub,10.8,Bicycling,bangalore
+truck,ub,0.57,Bicycling,bangalore
+bus,lb,0.17,Bicycling,bangalore
+car,lb,0.42,Bicycling,bangalore
+cycle,lb,0.51,Bicycling,bangalore
+motorcycle,lb,7.32,Bicycling,bangalore
+pedestrian,lb,7.15,Bicycling,bangalore
+truck,lb,0.16,Bicycling,bangalore
+other,mean,0.35,Bicycling,bangalore
+rail,mean,0,Bicycling,bangalore
+other,ub,0.81,Bicycling,bangalore
+rail,ub,0,Bicycling,bangalore
+other,lb,0.17,Bicycling,bangalore
+rail,lb,0,Bicycling,bangalore
+auto_rickshaw,mean,0,Bicycling,bangalore
+auto_rickshaw,ub,0,Bicycling,bangalore
+auto_rickshaw,lb,0,Bicycling,bangalore
+bus,mean,0.13,Bicycling,belo_horizonte
+car,mean,2.41,Bicycling,belo_horizonte
+cycle,mean,1.19,Bicycling,belo_horizonte
+motorcycle,mean,3.4,Bicycling,belo_horizonte
+pedestrian,mean,4.25,Bicycling,belo_horizonte
+truck,mean,0.19,Bicycling,belo_horizonte
+bus,ub,0.22,Bicycling,belo_horizonte
+car,ub,2.74,Bicycling,belo_horizonte
+cycle,ub,1.61,Bicycling,belo_horizonte
+motorcycle,ub,3.88,Bicycling,belo_horizonte
+pedestrian,ub,4.79,Bicycling,belo_horizonte
+truck,ub,0.29,Bicycling,belo_horizonte
+bus,lb,0.08,Bicycling,belo_horizonte
+car,lb,2.13,Bicycling,belo_horizonte
+cycle,lb,0.88,Bicycling,belo_horizonte
+motorcycle,lb,3,Bicycling,belo_horizonte
+pedestrian,lb,3.8,Bicycling,belo_horizonte
+truck,lb,0.12,Bicycling,belo_horizonte
+other,mean,1.33,Bicycling,belo_horizonte
+rail,mean,0,Bicycling,belo_horizonte
+other,ub,1.53,Bicycling,belo_horizonte
+rail,ub,0.03,Bicycling,belo_horizonte
+other,lb,1.16,Bicycling,belo_horizonte
+rail,lb,0,Bicycling,belo_horizonte
+auto_rickshaw,mean,0,Bicycling,belo_horizonte
+auto_rickshaw,ub,0,Bicycling,belo_horizonte
+auto_rickshaw,lb,0,Bicycling,belo_horizonte
+bus,mean,0.14,Bicycling,bogota
+car,mean,0.4,Bicycling,bogota
+cycle,mean,1.46,Bicycling,bogota
+motorcycle,mean,3.81,Bicycling,bogota
+pedestrian,mean,3.18,Bicycling,bogota
+truck,mean,0.03,Bicycling,bogota
+bus,ub,0.25,Bicycling,bogota
+car,ub,0.63,Bicycling,bogota
+cycle,ub,1.9,Bicycling,bogota
+motorcycle,ub,4.82,Bicycling,bogota
+pedestrian,ub,3.97,Bicycling,bogota
+truck,ub,0.09,Bicycling,bogota
+bus,lb,0.08,Bicycling,bogota
+car,lb,0.26,Bicycling,bogota
+cycle,lb,1.13,Bicycling,bogota
+motorcycle,lb,3.03,Bicycling,bogota
+pedestrian,lb,2.56,Bicycling,bogota
+truck,lb,0.01,Bicycling,bogota
+other,mean,0,Bicycling,bogota
+rail,mean,0,Bicycling,bogota
+other,ub,0,Bicycling,bogota
+rail,ub,0,Bicycling,bogota
+other,lb,0,Bicycling,bogota
+rail,lb,0,Bicycling,bogota
+auto_rickshaw,mean,0,Bicycling,bogota
+auto_rickshaw,ub,0,Bicycling,bogota
+auto_rickshaw,lb,0,Bicycling,bogota
+bus,mean,0.04,Bicycling,buenos_aires
+car,mean,0.99,Bicycling,buenos_aires
+cycle,mean,0.3,Bicycling,buenos_aires
+motorcycle,mean,2.43,Bicycling,buenos_aires
+pedestrian,mean,2.89,Bicycling,buenos_aires
+truck,mean,0.03,Bicycling,buenos_aires
+bus,ub,0.12,Bicycling,buenos_aires
+car,ub,1.37,Bicycling,buenos_aires
+cycle,ub,0.66,Bicycling,buenos_aires
+motorcycle,ub,3.18,Bicycling,buenos_aires
+pedestrian,ub,3.69,Bicycling,buenos_aires
+truck,ub,0.11,Bicycling,buenos_aires
+bus,lb,0.01,Bicycling,buenos_aires
+car,lb,0.74,Bicycling,buenos_aires
+cycle,lb,0.14,Bicycling,buenos_aires
+motorcycle,lb,1.89,Bicycling,buenos_aires
+pedestrian,lb,2.3,Bicycling,buenos_aires
+truck,lb,0.01,Bicycling,buenos_aires
+other,mean,0,Bicycling,buenos_aires
+rail,mean,0,Bicycling,buenos_aires
+other,ub,0,Bicycling,buenos_aires
+rail,ub,0,Bicycling,buenos_aires
+other,lb,0,Bicycling,buenos_aires
+rail,lb,0,Bicycling,buenos_aires
+auto_rickshaw,mean,0,Bicycling,buenos_aires
+auto_rickshaw,ub,0,Bicycling,buenos_aires
+auto_rickshaw,lb,0,Bicycling,buenos_aires
+bus,mean,0.02,Bicycling,cali
+car,mean,0.73,Bicycling,cali
+cycle,mean,2.83,Bicycling,cali
+motorcycle,mean,10.32,Bicycling,cali
+pedestrian,mean,5.82,Bicycling,cali
+truck,mean,0,Bicycling,cali
+bus,ub,0.15,Bicycling,cali
+car,ub,1.33,Bicycling,cali
+cycle,ub,4.22,Bicycling,cali
+motorcycle,ub,14.83,Bicycling,cali
+pedestrian,ub,7.95,Bicycling,cali
+truck,ub,0,Bicycling,cali
+bus,lb,0,Bicycling,cali
+car,lb,0.41,Bicycling,cali
+cycle,lb,1.96,Bicycling,cali
+motorcycle,lb,7.34,Bicycling,cali
+pedestrian,lb,4.29,Bicycling,cali
+truck,lb,0,Bicycling,cali
+other,mean,0.02,Bicycling,cali
+rail,mean,0,Bicycling,cali
+other,ub,0.14,Bicycling,cali
+rail,ub,0,Bicycling,cali
+other,lb,0,Bicycling,cali
+rail,lb,0,Bicycling,cali
+auto_rickshaw,mean,0,Bicycling,cali
+auto_rickshaw,ub,0,Bicycling,cali
+auto_rickshaw,lb,0,Bicycling,cali
+bus,mean,0.77,Bicycling,cape_town
+car,mean,7.07,Bicycling,cape_town
+cycle,mean,0.99,Bicycling,cape_town
+motorcycle,mean,1.8,Bicycling,cape_town
+pedestrian,mean,12.29,Bicycling,cape_town
+truck,mean,0.24,Bicycling,cape_town
+bus,ub,1.03,Bicycling,cape_town
+car,ub,7.98,Bicycling,cape_town
+cycle,ub,1.38,Bicycling,cape_town
+motorcycle,ub,2.19,Bicycling,cape_town
+pedestrian,ub,13.48,Bicycling,cape_town
+truck,ub,0.4,Bicycling,cape_town
+bus,lb,0.58,Bicycling,cape_town
+car,lb,6.34,Bicycling,cape_town
+cycle,lb,0.71,Bicycling,cape_town
+motorcycle,lb,1.51,Bicycling,cape_town
+pedestrian,lb,11.31,Bicycling,cape_town
+truck,lb,0.16,Bicycling,cape_town
+other,mean,0.08,Bicycling,cape_town
+rail,mean,0,Bicycling,cape_town
+other,ub,0.14,Bicycling,cape_town
+rail,ub,0,Bicycling,cape_town
+other,lb,0.04,Bicycling,cape_town
+rail,lb,0,Bicycling,cape_town
+auto_rickshaw,mean,0,Bicycling,cape_town
+auto_rickshaw,ub,0,Bicycling,cape_town
+auto_rickshaw,lb,0,Bicycling,cape_town
+bus,mean,0.71,Bicycling,copiapo
+car,mean,5.22,Bicycling,copiapo
+cycle,mean,2.59,Bicycling,copiapo
+motorcycle,mean,2.55,Bicycling,copiapo
+pedestrian,mean,2.58,Bicycling,copiapo
+truck,mean,0.97,Bicycling,copiapo
+bus,ub,2.26,Bicycling,copiapo
+car,ub,9.89,Bicycling,copiapo
+cycle,ub,8.21,Bicycling,copiapo
+motorcycle,ub,6.75,Bicycling,copiapo
+pedestrian,ub,6.58,Bicycling,copiapo
+truck,ub,4.43,Bicycling,copiapo
+bus,lb,0.22,Bicycling,copiapo
+car,lb,3.25,Bicycling,copiapo
+cycle,lb,0.88,Bicycling,copiapo
+motorcycle,lb,0.97,Bicycling,copiapo
+pedestrian,lb,1.11,Bicycling,copiapo
+truck,lb,0.26,Bicycling,copiapo
+other,mean,0,Bicycling,copiapo
+rail,mean,0,Bicycling,copiapo
+other,ub,0,Bicycling,copiapo
+rail,ub,0,Bicycling,copiapo
+other,lb,0,Bicycling,copiapo
+rail,lb,0,Bicycling,copiapo
+auto_rickshaw,mean,0,Bicycling,copiapo
+auto_rickshaw,ub,0,Bicycling,copiapo
+auto_rickshaw,lb,0,Bicycling,copiapo
+bus,mean,0.49,Bicycling,coquimbo_laserena
+car,mean,4.99,Bicycling,coquimbo_laserena
+cycle,mean,1.02,Bicycling,coquimbo_laserena
+motorcycle,mean,1.89,Bicycling,coquimbo_laserena
+pedestrian,mean,3.13,Bicycling,coquimbo_laserena
+truck,mean,0.34,Bicycling,coquimbo_laserena
+bus,ub,1.6,Bicycling,coquimbo_laserena
+car,ub,7.62,Bicycling,coquimbo_laserena
+cycle,ub,2.49,Bicycling,coquimbo_laserena
+motorcycle,ub,3.67,Bicycling,coquimbo_laserena
+pedestrian,ub,5.04,Bicycling,coquimbo_laserena
+truck,ub,0.92,Bicycling,coquimbo_laserena
+bus,lb,0.16,Bicycling,coquimbo_laserena
+car,lb,3.35,Bicycling,coquimbo_laserena
+cycle,lb,0.42,Bicycling,coquimbo_laserena
+motorcycle,lb,0.98,Bicycling,coquimbo_laserena
+pedestrian,lb,1.99,Bicycling,coquimbo_laserena
+truck,lb,0.12,Bicycling,coquimbo_laserena
+other,mean,0,Bicycling,coquimbo_laserena
+rail,mean,0,Bicycling,coquimbo_laserena
+other,ub,0,Bicycling,coquimbo_laserena
+rail,ub,0,Bicycling,coquimbo_laserena
+other,lb,0,Bicycling,coquimbo_laserena
+rail,lb,0,Bicycling,coquimbo_laserena
+auto_rickshaw,mean,0,Bicycling,coquimbo_laserena
+auto_rickshaw,ub,0,Bicycling,coquimbo_laserena
+auto_rickshaw,lb,0,Bicycling,coquimbo_laserena
+bus,mean,0.09,Bicycling,delhi
+car,mean,1.54,Bicycling,delhi
+cycle,mean,1.67,Bicycling,delhi
+motorcycle,mean,9.29,Bicycling,delhi
+pedestrian,mean,10.63,Bicycling,delhi
+truck,mean,0.62,Bicycling,delhi
+bus,ub,0.18,Bicycling,delhi
+car,ub,1.82,Bicycling,delhi
+cycle,ub,1.94,Bicycling,delhi
+motorcycle,ub,10.06,Bicycling,delhi
+pedestrian,ub,11.48,Bicycling,delhi
+truck,ub,0.82,Bicycling,delhi
+bus,lb,0.05,Bicycling,delhi
+car,lb,1.3,Bicycling,delhi
+cycle,lb,1.45,Bicycling,delhi
+motorcycle,lb,8.58,Bicycling,delhi
+pedestrian,lb,9.86,Bicycling,delhi
+truck,lb,0.48,Bicycling,delhi
+other,mean,0,Bicycling,delhi
+rail,mean,0,Bicycling,delhi
+other,ub,0,Bicycling,delhi
+rail,ub,0,Bicycling,delhi
+other,lb,0,Bicycling,delhi
+rail,lb,0,Bicycling,delhi
+auto_rickshaw,mean,0,Bicycling,delhi
+auto_rickshaw,ub,0,Bicycling,delhi
+auto_rickshaw,lb,0,Bicycling,delhi
+bus,mean,0.08,Bicycling,gran_valparaiso
+car,mean,2.44,Bicycling,gran_valparaiso
+cycle,mean,0.16,Bicycling,gran_valparaiso
+motorcycle,mean,1,Bicycling,gran_valparaiso
+pedestrian,mean,2.71,Bicycling,gran_valparaiso
+truck,mean,0.47,Bicycling,gran_valparaiso
+bus,ub,0.59,Bicycling,gran_valparaiso
+car,ub,4.07,Bicycling,gran_valparaiso
+cycle,ub,0.69,Bicycling,gran_valparaiso
+motorcycle,ub,1.94,Bicycling,gran_valparaiso
+pedestrian,ub,4.55,Bicycling,gran_valparaiso
+truck,ub,0.83,Bicycling,gran_valparaiso
+bus,lb,0.01,Bicycling,gran_valparaiso
+car,lb,1.64,Bicycling,gran_valparaiso
+cycle,lb,0.04,Bicycling,gran_valparaiso
+motorcycle,lb,0.54,Bicycling,gran_valparaiso
+pedestrian,lb,1.84,Bicycling,gran_valparaiso
+truck,lb,0.26,Bicycling,gran_valparaiso
+other,mean,0.04,Bicycling,gran_valparaiso
+rail,mean,0,Bicycling,gran_valparaiso
+other,ub,0.31,Bicycling,gran_valparaiso
+rail,ub,0,Bicycling,gran_valparaiso
+other,lb,0,Bicycling,gran_valparaiso
+rail,lb,0,Bicycling,gran_valparaiso
+auto_rickshaw,mean,0,Bicycling,gran_valparaiso
+auto_rickshaw,ub,0,Bicycling,gran_valparaiso
+auto_rickshaw,lb,0,Bicycling,gran_valparaiso
+bus,mean,0.41,Bicycling,iquique_altohospicio
+car,mean,3.92,Bicycling,iquique_altohospicio
+cycle,mean,1.08,Bicycling,iquique_altohospicio
+motorcycle,mean,1.4,Bicycling,iquique_altohospicio
+pedestrian,mean,1.84,Bicycling,iquique_altohospicio
+truck,mean,0.62,Bicycling,iquique_altohospicio
+bus,ub,2.03,Bicycling,iquique_altohospicio
+car,ub,8.56,Bicycling,iquique_altohospicio
+cycle,ub,4.21,Bicycling,iquique_altohospicio
+motorcycle,ub,4.28,Bicycling,iquique_altohospicio
+pedestrian,ub,5.55,Bicycling,iquique_altohospicio
+truck,ub,1.53,Bicycling,iquique_altohospicio
+bus,lb,0.1,Bicycling,iquique_altohospicio
+car,lb,2.28,Bicycling,iquique_altohospicio
+cycle,lb,0.29,Bicycling,iquique_altohospicio
+motorcycle,lb,0.53,Bicycling,iquique_altohospicio
+pedestrian,lb,0.77,Bicycling,iquique_altohospicio
+truck,lb,0.26,Bicycling,iquique_altohospicio
+other,mean,0,Bicycling,iquique_altohospicio
+rail,mean,0,Bicycling,iquique_altohospicio
+other,ub,0,Bicycling,iquique_altohospicio
+rail,ub,0,Bicycling,iquique_altohospicio
+other,lb,0,Bicycling,iquique_altohospicio
+rail,lb,0,Bicycling,iquique_altohospicio
+auto_rickshaw,mean,0,Bicycling,iquique_altohospicio
+auto_rickshaw,ub,0,Bicycling,iquique_altohospicio
+auto_rickshaw,lb,0,Bicycling,iquique_altohospicio
+bus,mean,36.43,Bicycling,kisumu
+car,mean,9.62,Bicycling,kisumu
+cycle,mean,0,Bicycling,kisumu
+motorcycle,mean,145.5,Bicycling,kisumu
+pedestrian,mean,72.97,Bicycling,kisumu
+truck,mean,13.95,Bicycling,kisumu
+bus,ub,79.06,Bicycling,kisumu
+car,ub,37.33,Bicycling,kisumu
+cycle,ub,0,Bicycling,kisumu
+motorcycle,ub,224,Bicycling,kisumu
+pedestrian,ub,127.78,Bicycling,kisumu
+truck,ub,29.71,Bicycling,kisumu
+bus,lb,19.48,Bicycling,kisumu
+car,lb,2.88,Bicycling,kisumu
+cycle,lb,0,Bicycling,kisumu
+motorcycle,lb,98.41,Bicycling,kisumu
+pedestrian,lb,44.04,Bicycling,kisumu
+truck,lb,6.55,Bicycling,kisumu
+other,mean,0,Bicycling,kisumu
+rail,mean,0,Bicycling,kisumu
+other,ub,0,Bicycling,kisumu
+rail,ub,0,Bicycling,kisumu
+other,lb,0,Bicycling,kisumu
+rail,lb,0,Bicycling,kisumu
+auto_rickshaw,mean,0,Bicycling,kisumu
+auto_rickshaw,ub,0,Bicycling,kisumu
+auto_rickshaw,lb,0,Bicycling,kisumu
+bus,mean,0.17,Bicycling,medellin
+car,mean,0.27,Bicycling,medellin
+cycle,mean,1.52,Bicycling,medellin
+motorcycle,mean,7.72,Bicycling,medellin
+pedestrian,mean,4.67,Bicycling,medellin
+truck,mean,0.07,Bicycling,medellin
+bus,ub,0.35,Bicycling,medellin
+car,ub,0.48,Bicycling,medellin
+cycle,ub,2.31,Bicycling,medellin
+motorcycle,ub,9.03,Bicycling,medellin
+pedestrian,ub,5.6,Bicycling,medellin
+truck,ub,0.22,Bicycling,medellin
+bus,lb,0.09,Bicycling,medellin
+car,lb,0.16,Bicycling,medellin
+cycle,lb,1,Bicycling,medellin
+motorcycle,lb,6.68,Bicycling,medellin
+pedestrian,lb,3.94,Bicycling,medellin
+truck,lb,0.02,Bicycling,medellin
+other,mean,0,Bicycling,medellin
+rail,mean,0,Bicycling,medellin
+other,ub,0,Bicycling,medellin
+rail,ub,0,Bicycling,medellin
+other,lb,0,Bicycling,medellin
+rail,lb,0,Bicycling,medellin
+auto_rickshaw,mean,0.01,Bicycling,medellin
+auto_rickshaw,ub,0.09,Bicycling,medellin
+auto_rickshaw,lb,0,Bicycling,medellin
+bus,mean,0.16,Bicycling,mexico_city
+car,mean,4.21,Bicycling,mexico_city
+cycle,mean,1.09,Bicycling,mexico_city
+motorcycle,mean,1.52,Bicycling,mexico_city
+pedestrian,mean,7.29,Bicycling,mexico_city
+truck,mean,0.14,Bicycling,mexico_city
+bus,ub,0.39,Bicycling,mexico_city
+car,ub,5.06,Bicycling,mexico_city
+cycle,ub,1.92,Bicycling,mexico_city
+motorcycle,ub,2.1,Bicycling,mexico_city
+pedestrian,ub,8.76,Bicycling,mexico_city
+truck,ub,0.27,Bicycling,mexico_city
+bus,lb,0.08,Bicycling,mexico_city
+car,lb,3.54,Bicycling,mexico_city
+cycle,lb,0.64,Bicycling,mexico_city
+motorcycle,lb,1.11,Bicycling,mexico_city
+pedestrian,lb,6.15,Bicycling,mexico_city
+truck,lb,0.07,Bicycling,mexico_city
+other,mean,0.71,Bicycling,mexico_city
+rail,mean,0,Bicycling,mexico_city
+other,ub,1.09,Bicycling,mexico_city
+rail,ub,0,Bicycling,mexico_city
+other,lb,0.49,Bicycling,mexico_city
+rail,lb,0,Bicycling,mexico_city
+auto_rickshaw,mean,0,Bicycling,mexico_city
+auto_rickshaw,ub,0,Bicycling,mexico_city
+auto_rickshaw,lb,0,Bicycling,mexico_city
+bus,mean,0.03,Bicycling,montevideo
+car,mean,1.41,Bicycling,montevideo
+cycle,mean,0.95,Bicycling,montevideo
+motorcycle,mean,4.65,Bicycling,montevideo
+pedestrian,mean,1.86,Bicycling,montevideo
+truck,mean,0.11,Bicycling,montevideo
+bus,ub,0.25,Bicycling,montevideo
+car,ub,2.39,Bicycling,montevideo
+cycle,ub,2.32,Bicycling,montevideo
+motorcycle,ub,6.66,Bicycling,montevideo
+pedestrian,ub,2.85,Bicycling,montevideo
+truck,ub,0.34,Bicycling,montevideo
+bus,lb,0,Bicycling,montevideo
+car,lb,0.86,Bicycling,montevideo
+cycle,lb,0.41,Bicycling,montevideo
+motorcycle,lb,3.35,Bicycling,montevideo
+pedestrian,lb,1.24,Bicycling,montevideo
+truck,lb,0.03,Bicycling,montevideo
+other,mean,0,Bicycling,montevideo
+rail,mean,0,Bicycling,montevideo
+other,ub,0,Bicycling,montevideo
+rail,ub,0,Bicycling,montevideo
+other,lb,0,Bicycling,montevideo
+rail,lb,0,Bicycling,montevideo
+auto_rickshaw,mean,0,Bicycling,montevideo
+auto_rickshaw,ub,0,Bicycling,montevideo
+auto_rickshaw,lb,0,Bicycling,montevideo
+bus,mean,4.71,Bicycling,nairobi
+car,mean,9.72,Bicycling,nairobi
+cycle,mean,0,Bicycling,nairobi
+motorcycle,mean,22.39,Bicycling,nairobi
+pedestrian,mean,61.99,Bicycling,nairobi
+truck,mean,1.68,Bicycling,nairobi
+bus,ub,8.64,Bicycling,nairobi
+car,ub,17.95,Bicycling,nairobi
+cycle,ub,0,Bicycling,nairobi
+motorcycle,ub,32.79,Bicycling,nairobi
+pedestrian,ub,85.13,Bicycling,nairobi
+truck,ub,6.41,Bicycling,nairobi
+bus,lb,2.91,Bicycling,nairobi
+car,lb,5.93,Bicycling,nairobi
+cycle,lb,0,Bicycling,nairobi
+motorcycle,lb,15.95,Bicycling,nairobi
+pedestrian,lb,45.64,Bicycling,nairobi
+truck,lb,0.47,Bicycling,nairobi
+other,mean,0,Bicycling,nairobi
+rail,mean,0,Bicycling,nairobi
+other,ub,0,Bicycling,nairobi
+rail,ub,0,Bicycling,nairobi
+other,lb,0,Bicycling,nairobi
+rail,lb,0,Bicycling,nairobi
+auto_rickshaw,mean,0,Bicycling,nairobi
+auto_rickshaw,ub,0,Bicycling,nairobi
+auto_rickshaw,lb,0,Bicycling,nairobi
+bus,mean,0,Bicycling,osorno
+car,mean,7.64,Bicycling,osorno
+cycle,mean,0.4,Bicycling,osorno
+motorcycle,mean,1.1,Bicycling,osorno
+pedestrian,mean,5.54,Bicycling,osorno
+truck,mean,1.62,Bicycling,osorno
+bus,ub,0,Bicycling,osorno
+car,ub,13.46,Bicycling,osorno
+cycle,ub,3.18,Bicycling,osorno
+motorcycle,ub,4.18,Bicycling,osorno
+pedestrian,ub,10.79,Bicycling,osorno
+truck,ub,3.45,Bicycling,osorno
+bus,lb,0,Bicycling,osorno
+car,lb,4.54,Bicycling,osorno
+cycle,lb,0.05,Bicycling,osorno
+motorcycle,lb,0.29,Bicycling,osorno
+pedestrian,lb,2.91,Bicycling,osorno
+truck,lb,0.76,Bicycling,osorno
+other,mean,0,Bicycling,osorno
+rail,mean,0,Bicycling,osorno
+other,ub,0,Bicycling,osorno
+rail,ub,0,Bicycling,osorno
+other,lb,0,Bicycling,osorno
+rail,lb,0,Bicycling,osorno
+auto_rickshaw,mean,0,Bicycling,osorno
+auto_rickshaw,ub,0,Bicycling,osorno
+auto_rickshaw,lb,0,Bicycling,osorno
+bus,mean,2.34,Bicycling,port_louis
+car,mean,0,Bicycling,port_louis
+cycle,mean,0,Bicycling,port_louis
+motorcycle,mean,46.22,Bicycling,port_louis
+pedestrian,mean,33.63,Bicycling,port_louis
+truck,mean,4.05,Bicycling,port_louis
+bus,ub,8.24,Bicycling,port_louis
+car,ub,0,Bicycling,port_louis
+cycle,ub,0,Bicycling,port_louis
+motorcycle,ub,80.44,Bicycling,port_louis
+pedestrian,ub,60.5,Bicycling,port_louis
+truck,ub,15.31,Bicycling,port_louis
+bus,lb,0.66,Bicycling,port_louis
+car,lb,0,Bicycling,port_louis
+cycle,lb,0,Bicycling,port_louis
+motorcycle,lb,26.97,Bicycling,port_louis
+pedestrian,lb,18.87,Bicycling,port_louis
+truck,lb,1.09,Bicycling,port_louis
+other,mean,0,Bicycling,port_louis
+rail,mean,0,Bicycling,port_louis
+other,ub,0,Bicycling,port_louis
+rail,ub,0,Bicycling,port_louis
+other,lb,0,Bicycling,port_louis
+rail,lb,0,Bicycling,port_louis
+auto_rickshaw,mean,0,Bicycling,port_louis
+auto_rickshaw,ub,0,Bicycling,port_louis
+auto_rickshaw,lb,0,Bicycling,port_louis
+bus,mean,0.29,Bicycling,puerto_montt
+car,mean,4.39,Bicycling,puerto_montt
+cycle,mean,0.85,Bicycling,puerto_montt
+motorcycle,mean,0.57,Bicycling,puerto_montt
+pedestrian,mean,7.74,Bicycling,puerto_montt
+truck,mean,1.05,Bicycling,puerto_montt
+bus,ub,2.22,Bicycling,puerto_montt
+car,ub,7.81,Bicycling,puerto_montt
+cycle,ub,3.7,Bicycling,puerto_montt
+motorcycle,ub,2.54,Bicycling,puerto_montt
+pedestrian,ub,13.27,Bicycling,puerto_montt
+truck,ub,2.24,Bicycling,puerto_montt
+bus,lb,0.04,Bicycling,puerto_montt
+car,lb,2.55,Bicycling,puerto_montt
+cycle,lb,0.2,Bicycling,puerto_montt
+motorcycle,lb,0.14,Bicycling,puerto_montt
+pedestrian,lb,4.86,Bicycling,puerto_montt
+truck,lb,0.49,Bicycling,puerto_montt
+other,mean,0,Bicycling,puerto_montt
+rail,mean,0,Bicycling,puerto_montt
+other,ub,0,Bicycling,puerto_montt
+rail,ub,0,Bicycling,puerto_montt
+other,lb,0,Bicycling,puerto_montt
+rail,lb,0,Bicycling,puerto_montt
+auto_rickshaw,mean,0,Bicycling,puerto_montt
+auto_rickshaw,ub,0,Bicycling,puerto_montt
+auto_rickshaw,lb,0,Bicycling,puerto_montt
+bus,mean,0,Bicycling,san_antonio
+car,mean,5.45,Bicycling,san_antonio
+cycle,mean,1.29,Bicycling,san_antonio
+motorcycle,mean,0.37,Bicycling,san_antonio
+pedestrian,mean,3.63,Bicycling,san_antonio
+truck,mean,2.39,Bicycling,san_antonio
+bus,ub,0,Bicycling,san_antonio
+car,ub,34.77,Bicycling,san_antonio
+cycle,ub,19.64,Bicycling,san_antonio
+motorcycle,ub,4.39,Bicycling,san_antonio
+pedestrian,ub,26.73,Bicycling,san_antonio
+truck,ub,12.01,Bicycling,san_antonio
+bus,lb,0,Bicycling,san_antonio
+car,lb,0.96,Bicycling,san_antonio
+cycle,lb,0.09,Bicycling,san_antonio
+motorcycle,lb,0.03,Bicycling,san_antonio
+pedestrian,lb,0.58,Bicycling,san_antonio
+truck,lb,0.5,Bicycling,san_antonio
+other,mean,0.41,Bicycling,san_antonio
+rail,mean,0,Bicycling,san_antonio
+other,ub,5.31,Bicycling,san_antonio
+rail,ub,0,Bicycling,san_antonio
+other,lb,0.03,Bicycling,san_antonio
+rail,lb,0,Bicycling,san_antonio
+auto_rickshaw,mean,0,Bicycling,san_antonio
+auto_rickshaw,ub,0,Bicycling,san_antonio
+auto_rickshaw,lb,0,Bicycling,san_antonio
+bus,mean,0.16,Bicycling,santiago
+car,mean,2.1,Bicycling,santiago
+cycle,mean,1.29,Bicycling,santiago
+motorcycle,mean,1.28,Bicycling,santiago
+pedestrian,mean,3.53,Bicycling,santiago
+truck,mean,0.23,Bicycling,santiago
+bus,ub,0.3,Bicycling,santiago
+car,ub,2.57,Bicycling,santiago
+cycle,ub,1.78,Bicycling,santiago
+motorcycle,ub,1.67,Bicycling,santiago
+pedestrian,ub,4.29,Bicycling,santiago
+truck,ub,0.4,Bicycling,santiago
+bus,lb,0.08,Bicycling,santiago
+car,lb,1.74,Bicycling,santiago
+cycle,lb,0.96,Bicycling,santiago
+motorcycle,lb,0.99,Bicycling,santiago
+pedestrian,lb,2.98,Bicycling,santiago
+truck,lb,0.13,Bicycling,santiago
+other,mean,0.07,Bicycling,santiago
+rail,mean,0,Bicycling,santiago
+other,ub,0.15,Bicycling,santiago
+rail,ub,0,Bicycling,santiago
+other,lb,0.04,Bicycling,santiago
+rail,lb,0,Bicycling,santiago
+auto_rickshaw,mean,0,Bicycling,santiago
+auto_rickshaw,ub,0,Bicycling,santiago
+auto_rickshaw,lb,0,Bicycling,santiago
+bus,mean,0.12,Bicycling,sao_paulo
+car,mean,1.98,Bicycling,sao_paulo
+cycle,mean,1.47,Bicycling,sao_paulo
+motorcycle,mean,5.15,Bicycling,sao_paulo
+pedestrian,mean,4.67,Bicycling,sao_paulo
+truck,mean,0.18,Bicycling,sao_paulo
+bus,ub,0.18,Bicycling,sao_paulo
+car,ub,2.2,Bicycling,sao_paulo
+cycle,ub,1.85,Bicycling,sao_paulo
+motorcycle,ub,5.58,Bicycling,sao_paulo
+pedestrian,ub,5.09,Bicycling,sao_paulo
+truck,ub,0.25,Bicycling,sao_paulo
+bus,lb,0.08,Bicycling,sao_paulo
+car,lb,1.79,Bicycling,sao_paulo
+cycle,lb,1.17,Bicycling,sao_paulo
+motorcycle,lb,4.77,Bicycling,sao_paulo
+pedestrian,lb,4.31,Bicycling,sao_paulo
+truck,lb,0.13,Bicycling,sao_paulo
+other,mean,0.02,Bicycling,sao_paulo
+rail,mean,0,Bicycling,sao_paulo
+other,ub,0.04,Bicycling,sao_paulo
+rail,ub,0,Bicycling,sao_paulo
+other,lb,0.01,Bicycling,sao_paulo
+rail,lb,0,Bicycling,sao_paulo
+auto_rickshaw,mean,0,Bicycling,sao_paulo
+auto_rickshaw,ub,0,Bicycling,sao_paulo
+auto_rickshaw,lb,0,Bicycling,sao_paulo
+bus,mean,0,Bicycling,temuco_padrelascasas
+car,mean,3.51,Bicycling,temuco_padrelascasas
+cycle,mean,1.01,Bicycling,temuco_padrelascasas
+motorcycle,mean,0.8,Bicycling,temuco_padrelascasas
+pedestrian,mean,3.9,Bicycling,temuco_padrelascasas
+truck,mean,0.21,Bicycling,temuco_padrelascasas
+bus,ub,0,Bicycling,temuco_padrelascasas
+car,ub,11.63,Bicycling,temuco_padrelascasas
+cycle,ub,3.3,Bicycling,temuco_padrelascasas
+motorcycle,ub,3.29,Bicycling,temuco_padrelascasas
+pedestrian,ub,11.92,Bicycling,temuco_padrelascasas
+truck,ub,1.21,Bicycling,temuco_padrelascasas
+bus,lb,0,Bicycling,temuco_padrelascasas
+car,lb,1.12,Bicycling,temuco_padrelascasas
+cycle,lb,0.33,Bicycling,temuco_padrelascasas
+motorcycle,lb,0.2,Bicycling,temuco_padrelascasas
+pedestrian,lb,1.41,Bicycling,temuco_padrelascasas
+truck,lb,0.04,Bicycling,temuco_padrelascasas
+other,mean,0,Bicycling,temuco_padrelascasas
+rail,mean,0,Bicycling,temuco_padrelascasas
+other,ub,0,Bicycling,temuco_padrelascasas
+rail,ub,0,Bicycling,temuco_padrelascasas
+other,lb,0,Bicycling,temuco_padrelascasas
+rail,lb,0,Bicycling,temuco_padrelascasas
+auto_rickshaw,mean,0,Bicycling,temuco_padrelascasas
+auto_rickshaw,ub,0,Bicycling,temuco_padrelascasas
+auto_rickshaw,lb,0,Bicycling,temuco_padrelascasas
+bus,mean,0.4,Bicycling,valdivia
+car,mean,2.98,Bicycling,valdivia
+cycle,mean,1.25,Bicycling,valdivia
+motorcycle,mean,0.59,Bicycling,valdivia
+pedestrian,mean,1.81,Bicycling,valdivia
+truck,mean,0,Bicycling,valdivia
+bus,ub,3.11,Bicycling,valdivia
+car,ub,18.14,Bicycling,valdivia
+cycle,ub,10.77,Bicycling,valdivia
+motorcycle,ub,5.44,Bicycling,valdivia
+pedestrian,ub,9.8,Bicycling,valdivia
+truck,ub,0,Bicycling,valdivia
+bus,lb,0.06,Bicycling,valdivia
+car,lb,0.55,Bicycling,valdivia
+cycle,lb,0.17,Bicycling,valdivia
+motorcycle,lb,0.08,Bicycling,valdivia
+pedestrian,lb,0.36,Bicycling,valdivia
+truck,lb,0,Bicycling,valdivia
+other,mean,0,Bicycling,valdivia
+rail,mean,0,Bicycling,valdivia
+other,ub,0,Bicycling,valdivia
+rail,ub,0,Bicycling,valdivia
+other,lb,0,Bicycling,valdivia
+rail,lb,0,Bicycling,valdivia
+auto_rickshaw,mean,0,Bicycling,valdivia
+auto_rickshaw,ub,0,Bicycling,valdivia
+auto_rickshaw,lb,0,Bicycling,valdivia
+bus,mean,0.38,Bicycling,vizag
+car,mean,0.89,Bicycling,vizag
+cycle,mean,2.63,Bicycling,vizag
+motorcycle,mean,13.18,Bicycling,vizag
+pedestrian,mean,12.83,Bicycling,vizag
+truck,mean,0.83,Bicycling,vizag
+bus,ub,0.85,Bicycling,vizag
+car,ub,1.5,Bicycling,vizag
+cycle,ub,3.51,Bicycling,vizag
+motorcycle,ub,15.44,Bicycling,vizag
+pedestrian,ub,15.25,Bicycling,vizag
+truck,ub,1.4,Bicycling,vizag
+bus,lb,0.2,Bicycling,vizag
+car,lb,0.53,Bicycling,vizag
+cycle,lb,1.97,Bicycling,vizag
+motorcycle,lb,11.26,Bicycling,vizag
+pedestrian,lb,10.92,Bicycling,vizag
+truck,lb,0.52,Bicycling,vizag
+other,mean,0.23,Bicycling,vizag
+rail,mean,0,Bicycling,vizag
+other,ub,0.48,Bicycling,vizag
+rail,ub,0,Bicycling,vizag
+other,lb,0.11,Bicycling,vizag
+rail,lb,0,Bicycling,vizag
+auto_rickshaw,mean,0,Bicycling,vizag
+auto_rickshaw,ub,0,Bicycling,vizag
+auto_rickshaw,lb,0,Bicycling,vizag
+bus,mean,2.5,Baseline,accra
+car,mean,5.41,Baseline,accra
+cycle,mean,1.99,Baseline,accra
+motorcycle,mean,5.6,Baseline,accra
+pedestrian,mean,27.27,Baseline,accra
+truck,mean,1.19,Baseline,accra
+bus,ub,3.61,Baseline,accra
+car,ub,7.07,Baseline,accra
+cycle,ub,2.71,Baseline,accra
+motorcycle,ub,7.26,Baseline,accra
+pedestrian,ub,31.65,Baseline,accra
+truck,ub,1.97,Baseline,accra
+bus,lb,1.75,Baseline,accra
+car,lb,4.17,Baseline,accra
+cycle,lb,1.46,Baseline,accra
+motorcycle,lb,4.37,Baseline,accra
+pedestrian,lb,23.85,Baseline,accra
+truck,lb,0.76,Baseline,accra
+other,mean,0,Baseline,accra
+rail,mean,0,Baseline,accra
+other,ub,0,Baseline,accra
+rail,ub,0,Baseline,accra
+other,lb,0,Baseline,accra
+rail,lb,0,Baseline,accra
+auto_rickshaw,mean,0,Baseline,accra
+auto_rickshaw,ub,0,Baseline,accra
+auto_rickshaw,lb,0,Baseline,accra
+bus,mean,0.6,Baseline,antofagasta
+car,mean,4.21,Baseline,antofagasta
+cycle,mean,0.1,Baseline,antofagasta
+motorcycle,mean,0.9,Baseline,antofagasta
+pedestrian,mean,2.01,Baseline,antofagasta
+truck,mean,1,Baseline,antofagasta
+bus,ub,1.99,Baseline,antofagasta
+car,ub,12.41,Baseline,antofagasta
+cycle,ub,0.95,Baseline,antofagasta
+motorcycle,ub,3.69,Baseline,antofagasta
+pedestrian,ub,7.34,Baseline,antofagasta
+truck,ub,3.76,Baseline,antofagasta
+bus,lb,0.19,Baseline,antofagasta
+car,lb,1.54,Baseline,antofagasta
+cycle,lb,0.01,Baseline,antofagasta
+motorcycle,lb,0.24,Baseline,antofagasta
+pedestrian,lb,0.62,Baseline,antofagasta
+truck,lb,0.31,Baseline,antofagasta
+other,mean,0,Baseline,antofagasta
+rail,mean,0,Baseline,antofagasta
+other,ub,0,Baseline,antofagasta
+rail,ub,0,Baseline,antofagasta
+other,lb,0,Baseline,antofagasta
+rail,lb,0,Baseline,antofagasta
+auto_rickshaw,mean,0,Baseline,antofagasta
+auto_rickshaw,ub,0,Baseline,antofagasta
+auto_rickshaw,lb,0,Baseline,antofagasta
+bus,mean,0.34,Baseline,arica
+car,mean,6.84,Baseline,arica
+cycle,mean,0.86,Baseline,arica
+motorcycle,mean,1.54,Baseline,arica
+pedestrian,mean,7.01,Baseline,arica
+truck,mean,1.88,Baseline,arica
+bus,ub,2.58,Baseline,arica
+car,ub,11.24,Baseline,arica
+cycle,ub,2.31,Baseline,arica
+motorcycle,ub,4.14,Baseline,arica
+pedestrian,ub,12.76,Baseline,arica
+truck,ub,4.54,Baseline,arica
+bus,lb,0.05,Baseline,arica
+car,lb,4.34,Baseline,arica
+cycle,lb,0.32,Baseline,arica
+motorcycle,lb,0.58,Baseline,arica
+pedestrian,lb,4.23,Baseline,arica
+truck,lb,0.93,Baseline,arica
+other,mean,0,Baseline,arica
+rail,mean,0,Baseline,arica
+other,ub,0,Baseline,arica
+rail,ub,0,Baseline,arica
+other,lb,0,Baseline,arica
+rail,lb,0,Baseline,arica
+auto_rickshaw,mean,0,Baseline,arica
+auto_rickshaw,ub,0,Baseline,arica
+auto_rickshaw,lb,0,Baseline,arica
+bus,mean,0.37,Baseline,bangalore
+car,mean,0.76,Baseline,bangalore
+cycle,mean,0.58,Baseline,bangalore
+motorcycle,mean,9.16,Baseline,bangalore
+pedestrian,mean,9.04,Baseline,bangalore
+truck,mean,0.31,Baseline,bangalore
+bus,ub,0.83,Baseline,bangalore
+car,ub,1.37,Baseline,bangalore
+cycle,ub,0.95,Baseline,bangalore
+motorcycle,ub,11.35,Baseline,bangalore
+pedestrian,ub,11.12,Baseline,bangalore
+truck,ub,0.57,Baseline,bangalore
+bus,lb,0.17,Baseline,bangalore
+car,lb,0.43,Baseline,bangalore
+cycle,lb,0.36,Baseline,bangalore
+motorcycle,lb,7.49,Baseline,bangalore
+pedestrian,lb,7.42,Baseline,bangalore
+truck,lb,0.16,Baseline,bangalore
+other,mean,0.37,Baseline,bangalore
+rail,mean,0,Baseline,bangalore
+other,ub,0.84,Baseline,bangalore
+rail,ub,0,Baseline,bangalore
+other,lb,0.17,Baseline,bangalore
+rail,lb,0,Baseline,bangalore
+auto_rickshaw,mean,0,Baseline,bangalore
+auto_rickshaw,ub,0,Baseline,bangalore
+auto_rickshaw,lb,0,Baseline,bangalore
+bus,mean,0.13,Baseline,belo_horizonte
+car,mean,2.47,Baseline,belo_horizonte
+cycle,mean,0.39,Baseline,belo_horizonte
+motorcycle,mean,3.44,Baseline,belo_horizonte
+pedestrian,mean,4.39,Baseline,belo_horizonte
+truck,mean,0.19,Baseline,belo_horizonte
+bus,ub,0.22,Baseline,belo_horizonte
+car,ub,2.8,Baseline,belo_horizonte
+cycle,ub,0.54,Baseline,belo_horizonte
+motorcycle,ub,3.91,Baseline,belo_horizonte
+pedestrian,ub,4.91,Baseline,belo_horizonte
+truck,ub,0.29,Baseline,belo_horizonte
+bus,lb,0.08,Baseline,belo_horizonte
+car,lb,2.18,Baseline,belo_horizonte
+cycle,lb,0.29,Baseline,belo_horizonte
+motorcycle,lb,3.05,Baseline,belo_horizonte
+pedestrian,lb,3.94,Baseline,belo_horizonte
+truck,lb,0.12,Baseline,belo_horizonte
+other,mean,1.36,Baseline,belo_horizonte
+rail,mean,0,Baseline,belo_horizonte
+other,ub,1.56,Baseline,belo_horizonte
+rail,ub,0.03,Baseline,belo_horizonte
+other,lb,1.19,Baseline,belo_horizonte
+rail,lb,0,Baseline,belo_horizonte
+auto_rickshaw,mean,0,Baseline,belo_horizonte
+auto_rickshaw,ub,0,Baseline,belo_horizonte
+auto_rickshaw,lb,0,Baseline,belo_horizonte
+bus,mean,0.14,Baseline,bogota
+car,mean,0.41,Baseline,bogota
+cycle,mean,1.24,Baseline,bogota
+motorcycle,mean,3.85,Baseline,bogota
+pedestrian,mean,3.29,Baseline,bogota
+truck,mean,0.03,Baseline,bogota
+bus,ub,0.26,Baseline,bogota
+car,ub,0.64,Baseline,bogota
+cycle,ub,1.59,Baseline,bogota
+motorcycle,ub,4.87,Baseline,bogota
+pedestrian,ub,4.11,Baseline,bogota
+truck,ub,0.1,Baseline,bogota
+bus,lb,0.08,Baseline,bogota
+car,lb,0.26,Baseline,bogota
+cycle,lb,0.98,Baseline,bogota
+motorcycle,lb,3.07,Baseline,bogota
+pedestrian,lb,2.66,Baseline,bogota
+truck,lb,0.01,Baseline,bogota
+other,mean,0,Baseline,bogota
+rail,mean,0,Baseline,bogota
+other,ub,0,Baseline,bogota
+rail,ub,0,Baseline,bogota
+other,lb,0,Baseline,bogota
+rail,lb,0,Baseline,bogota
+auto_rickshaw,mean,0,Baseline,bogota
+auto_rickshaw,ub,0,Baseline,bogota
+auto_rickshaw,lb,0,Baseline,bogota
+bus,mean,0.04,Baseline,buenos_aires
+car,mean,1.02,Baseline,buenos_aires
+cycle,mean,0.18,Baseline,buenos_aires
+motorcycle,mean,2.47,Baseline,buenos_aires
+pedestrian,mean,3,Baseline,buenos_aires
+truck,mean,0.03,Baseline,buenos_aires
+bus,ub,0.12,Baseline,buenos_aires
+car,ub,1.4,Baseline,buenos_aires
+cycle,ub,0.39,Baseline,buenos_aires
+motorcycle,ub,3.22,Baseline,buenos_aires
+pedestrian,ub,3.8,Baseline,buenos_aires
+truck,ub,0.11,Baseline,buenos_aires
+bus,lb,0.01,Baseline,buenos_aires
+car,lb,0.76,Baseline,buenos_aires
+cycle,lb,0.09,Baseline,buenos_aires
+motorcycle,lb,1.93,Baseline,buenos_aires
+pedestrian,lb,2.4,Baseline,buenos_aires
+truck,lb,0.01,Baseline,buenos_aires
+other,mean,0,Baseline,buenos_aires
+rail,mean,0,Baseline,buenos_aires
+other,ub,0,Baseline,buenos_aires
+rail,ub,0,Baseline,buenos_aires
+other,lb,0,Baseline,buenos_aires
+rail,lb,0,Baseline,buenos_aires
+auto_rickshaw,mean,0,Baseline,buenos_aires
+auto_rickshaw,ub,0,Baseline,buenos_aires
+auto_rickshaw,lb,0,Baseline,buenos_aires
+bus,mean,0.02,Baseline,cali
+car,mean,0.75,Baseline,cali
+cycle,mean,2.04,Baseline,cali
+motorcycle,mean,10.64,Baseline,cali
+pedestrian,mean,6.03,Baseline,cali
+truck,mean,0,Baseline,cali
+bus,ub,0.15,Baseline,cali
+car,ub,1.36,Baseline,cali
+cycle,ub,3,Baseline,cali
+motorcycle,ub,15.23,Baseline,cali
+pedestrian,ub,8.22,Baseline,cali
+truck,ub,0,Baseline,cali
+bus,lb,0,Baseline,cali
+car,lb,0.42,Baseline,cali
+cycle,lb,1.42,Baseline,cali
+motorcycle,lb,7.59,Baseline,cali
+pedestrian,lb,4.46,Baseline,cali
+truck,lb,0,Baseline,cali
+other,mean,0.02,Baseline,cali
+rail,mean,0,Baseline,cali
+other,ub,0.15,Baseline,cali
+rail,ub,0,Baseline,cali
+other,lb,0,Baseline,cali
+rail,lb,0,Baseline,cali
+auto_rickshaw,mean,0,Baseline,cali
+auto_rickshaw,ub,0,Baseline,cali
+auto_rickshaw,lb,0,Baseline,cali
+bus,mean,0.77,Baseline,cape_town
+car,mean,7.14,Baseline,cape_town
+cycle,mean,0.29,Baseline,cape_town
+motorcycle,mean,1.81,Baseline,cape_town
+pedestrian,mean,12.58,Baseline,cape_town
+truck,mean,0.24,Baseline,cape_town
+bus,ub,1.02,Baseline,cape_town
+car,ub,7.96,Baseline,cape_town
+cycle,ub,0.41,Baseline,cape_town
+motorcycle,ub,2.17,Baseline,cape_town
+pedestrian,ub,13.65,Baseline,cape_town
+truck,ub,0.39,Baseline,cape_town
+bus,lb,0.59,Baseline,cape_town
+car,lb,6.44,Baseline,cape_town
+cycle,lb,0.21,Baseline,cape_town
+motorcycle,lb,1.53,Baseline,cape_town
+pedestrian,lb,11.64,Baseline,cape_town
+truck,lb,0.16,Baseline,cape_town
+other,mean,0.08,Baseline,cape_town
+rail,mean,0,Baseline,cape_town
+other,ub,0.15,Baseline,cape_town
+rail,ub,0,Baseline,cape_town
+other,lb,0.04,Baseline,cape_town
+rail,lb,0,Baseline,cape_town
+auto_rickshaw,mean,0,Baseline,cape_town
+auto_rickshaw,ub,0,Baseline,cape_town
+auto_rickshaw,lb,0,Baseline,cape_town
+bus,mean,0.73,Baseline,copiapo
+car,mean,5.38,Baseline,copiapo
+cycle,mean,1.22,Baseline,copiapo
+motorcycle,mean,2.69,Baseline,copiapo
+pedestrian,mean,2.69,Baseline,copiapo
+truck,mean,0.98,Baseline,copiapo
+bus,ub,2.33,Baseline,copiapo
+car,ub,10.21,Baseline,copiapo
+cycle,ub,3.88,Baseline,copiapo
+motorcycle,ub,7.14,Baseline,copiapo
+pedestrian,ub,6.9,Baseline,copiapo
+truck,ub,4.48,Baseline,copiapo
+bus,lb,0.23,Baseline,copiapo
+car,lb,3.35,Baseline,copiapo
+cycle,lb,0.41,Baseline,copiapo
+motorcycle,lb,1.02,Baseline,copiapo
+pedestrian,lb,1.16,Baseline,copiapo
+truck,lb,0.26,Baseline,copiapo
+other,mean,0,Baseline,copiapo
+rail,mean,0,Baseline,copiapo
+other,ub,0,Baseline,copiapo
+rail,ub,0,Baseline,copiapo
+other,lb,0,Baseline,copiapo
+rail,lb,0,Baseline,copiapo
+auto_rickshaw,mean,0,Baseline,copiapo
+auto_rickshaw,ub,0,Baseline,copiapo
+auto_rickshaw,lb,0,Baseline,copiapo
+bus,mean,0.51,Baseline,coquimbo_laserena
+car,mean,5.14,Baseline,coquimbo_laserena
+cycle,mean,0.51,Baseline,coquimbo_laserena
+motorcycle,mean,1.94,Baseline,coquimbo_laserena
+pedestrian,mean,3.28,Baseline,coquimbo_laserena
+truck,mean,0.34,Baseline,coquimbo_laserena
+bus,ub,1.64,Baseline,coquimbo_laserena
+car,ub,7.83,Baseline,coquimbo_laserena
+cycle,ub,1.23,Baseline,coquimbo_laserena
+motorcycle,ub,3.75,Baseline,coquimbo_laserena
+pedestrian,ub,5.27,Baseline,coquimbo_laserena
+truck,ub,0.92,Baseline,coquimbo_laserena
+bus,lb,0.16,Baseline,coquimbo_laserena
+car,lb,3.45,Baseline,coquimbo_laserena
+cycle,lb,0.21,Baseline,coquimbo_laserena
+motorcycle,lb,1.01,Baseline,coquimbo_laserena
+pedestrian,lb,2.09,Baseline,coquimbo_laserena
+truck,lb,0.12,Baseline,coquimbo_laserena
+other,mean,0,Baseline,coquimbo_laserena
+rail,mean,0,Baseline,coquimbo_laserena
+other,ub,0,Baseline,coquimbo_laserena
+rail,ub,0,Baseline,coquimbo_laserena
+other,lb,0,Baseline,coquimbo_laserena
+rail,lb,0,Baseline,coquimbo_laserena
+auto_rickshaw,mean,0,Baseline,coquimbo_laserena
+auto_rickshaw,ub,0,Baseline,coquimbo_laserena
+auto_rickshaw,lb,0,Baseline,coquimbo_laserena
+bus,mean,0.09,Baseline,delhi
+car,mean,1.56,Baseline,delhi
+cycle,mean,1.29,Baseline,delhi
+motorcycle,mean,9.59,Baseline,delhi
+pedestrian,mean,10.99,Baseline,delhi
+truck,mean,0.63,Baseline,delhi
+bus,ub,0.19,Baseline,delhi
+car,ub,1.86,Baseline,delhi
+cycle,ub,1.49,Baseline,delhi
+motorcycle,ub,10.38,Baseline,delhi
+pedestrian,ub,11.87,Baseline,delhi
+truck,ub,0.82,Baseline,delhi
+bus,lb,0.05,Baseline,delhi
+car,lb,1.32,Baseline,delhi
+cycle,lb,1.11,Baseline,delhi
+motorcycle,lb,8.85,Baseline,delhi
+pedestrian,lb,10.2,Baseline,delhi
+truck,lb,0.48,Baseline,delhi
+other,mean,0,Baseline,delhi
+rail,mean,0,Baseline,delhi
+other,ub,0,Baseline,delhi
+rail,ub,0,Baseline,delhi
+other,lb,0,Baseline,delhi
+rail,lb,0,Baseline,delhi
+auto_rickshaw,mean,0,Baseline,delhi
+auto_rickshaw,ub,0,Baseline,delhi
+auto_rickshaw,lb,0,Baseline,delhi
+bus,mean,0.08,Baseline,gran_valparaiso
+car,mean,2.49,Baseline,gran_valparaiso
+cycle,mean,0.08,Baseline,gran_valparaiso
+motorcycle,mean,1.01,Baseline,gran_valparaiso
+pedestrian,mean,2.8,Baseline,gran_valparaiso
+truck,mean,0.47,Baseline,gran_valparaiso
+bus,ub,0.59,Baseline,gran_valparaiso
+car,ub,3.97,Baseline,gran_valparaiso
+cycle,ub,0.33,Baseline,gran_valparaiso
+motorcycle,ub,1.91,Baseline,gran_valparaiso
+pedestrian,ub,4.47,Baseline,gran_valparaiso
+truck,ub,0.83,Baseline,gran_valparaiso
+bus,lb,0.01,Baseline,gran_valparaiso
+car,lb,1.69,Baseline,gran_valparaiso
+cycle,lb,0.02,Baseline,gran_valparaiso
+motorcycle,lb,0.55,Baseline,gran_valparaiso
+pedestrian,lb,1.93,Baseline,gran_valparaiso
+truck,lb,0.26,Baseline,gran_valparaiso
+other,mean,0.04,Baseline,gran_valparaiso
+rail,mean,0,Baseline,gran_valparaiso
+other,ub,0.3,Baseline,gran_valparaiso
+rail,ub,0,Baseline,gran_valparaiso
+other,lb,0.01,Baseline,gran_valparaiso
+rail,lb,0,Baseline,gran_valparaiso
+auto_rickshaw,mean,0,Baseline,gran_valparaiso
+auto_rickshaw,ub,0,Baseline,gran_valparaiso
+auto_rickshaw,lb,0,Baseline,gran_valparaiso
+bus,mean,0.37,Baseline,iquique_altohospicio
+car,mean,3.87,Baseline,iquique_altohospicio
+cycle,mean,0.37,Baseline,iquique_altohospicio
+motorcycle,mean,1.37,Baseline,iquique_altohospicio
+pedestrian,mean,1.75,Baseline,iquique_altohospicio
+truck,mean,0.62,Baseline,iquique_altohospicio
+bus,ub,1.58,Baseline,iquique_altohospicio
+car,ub,7.48,Baseline,iquique_altohospicio
+cycle,ub,1.46,Baseline,iquique_altohospicio
+motorcycle,ub,3.74,Baseline,iquique_altohospicio
+pedestrian,ub,4.4,Baseline,iquique_altohospicio
+truck,ub,1.53,Baseline,iquique_altohospicio
+bus,lb,0.1,Baseline,iquique_altohospicio
+car,lb,2.33,Baseline,iquique_altohospicio
+cycle,lb,0.1,Baseline,iquique_altohospicio
+motorcycle,lb,0.54,Baseline,iquique_altohospicio
+pedestrian,lb,0.78,Baseline,iquique_altohospicio
+truck,lb,0.26,Baseline,iquique_altohospicio
+other,mean,0,Baseline,iquique_altohospicio
+rail,mean,0,Baseline,iquique_altohospicio
+other,ub,0,Baseline,iquique_altohospicio
+rail,ub,0,Baseline,iquique_altohospicio
+other,lb,0,Baseline,iquique_altohospicio
+rail,lb,0,Baseline,iquique_altohospicio
+auto_rickshaw,mean,0,Baseline,iquique_altohospicio
+auto_rickshaw,ub,0,Baseline,iquique_altohospicio
+auto_rickshaw,lb,0,Baseline,iquique_altohospicio
+bus,mean,37.87,Baseline,kisumu
+car,mean,9.97,Baseline,kisumu
+cycle,mean,0,Baseline,kisumu
+motorcycle,mean,151.47,Baseline,kisumu
+pedestrian,mean,75.74,Baseline,kisumu
+truck,mean,13.95,Baseline,kisumu
+bus,ub,82.31,Baseline,kisumu
+car,ub,38.77,Baseline,kisumu
+cycle,ub,0,Baseline,kisumu
+motorcycle,ub,233.24,Baseline,kisumu
+pedestrian,ub,132.78,Baseline,kisumu
+truck,ub,29.71,Baseline,kisumu
+bus,lb,20.23,Baseline,kisumu
+car,lb,2.98,Baseline,kisumu
+cycle,lb,0,Baseline,kisumu
+motorcycle,lb,102.39,Baseline,kisumu
+pedestrian,lb,45.66,Baseline,kisumu
+truck,lb,6.55,Baseline,kisumu
+other,mean,0,Baseline,kisumu
+rail,mean,0,Baseline,kisumu
+other,ub,0,Baseline,kisumu
+rail,ub,0,Baseline,kisumu
+other,lb,0,Baseline,kisumu
+rail,lb,0,Baseline,kisumu
+auto_rickshaw,mean,0,Baseline,kisumu
+auto_rickshaw,ub,0,Baseline,kisumu
+auto_rickshaw,lb,0,Baseline,kisumu
+bus,mean,0.17,Baseline,medellin
+car,mean,0.28,Baseline,medellin
+cycle,mean,0.62,Baseline,medellin
+motorcycle,mean,7.79,Baseline,medellin
+pedestrian,mean,4.83,Baseline,medellin
+truck,mean,0.07,Baseline,medellin
+bus,ub,0.36,Baseline,medellin
+car,ub,0.49,Baseline,medellin
+cycle,ub,0.93,Baseline,medellin
+motorcycle,ub,9.05,Baseline,medellin
+pedestrian,ub,5.75,Baseline,medellin
+truck,ub,0.22,Baseline,medellin
+bus,lb,0.09,Baseline,medellin
+car,lb,0.16,Baseline,medellin
+cycle,lb,0.42,Baseline,medellin
+motorcycle,lb,6.77,Baseline,medellin
+pedestrian,lb,4.09,Baseline,medellin
+truck,lb,0.02,Baseline,medellin
+other,mean,0,Baseline,medellin
+rail,mean,0,Baseline,medellin
+other,ub,0,Baseline,medellin
+rail,ub,0,Baseline,medellin
+other,lb,0,Baseline,medellin
+rail,lb,0,Baseline,medellin
+auto_rickshaw,mean,0.01,Baseline,medellin
+auto_rickshaw,ub,0.09,Baseline,medellin
+auto_rickshaw,lb,0,Baseline,medellin
+bus,mean,0.16,Baseline,mexico_city
+car,mean,4.28,Baseline,mexico_city
+cycle,mean,0.48,Baseline,mexico_city
+motorcycle,mean,1.52,Baseline,mexico_city
+pedestrian,mean,7.46,Baseline,mexico_city
+truck,mean,0.14,Baseline,mexico_city
+bus,ub,0.4,Baseline,mexico_city
+car,ub,5.11,Baseline,mexico_city
+cycle,ub,0.8,Baseline,mexico_city
+motorcycle,ub,2.08,Baseline,mexico_city
+pedestrian,ub,8.84,Baseline,mexico_city
+truck,ub,0.27,Baseline,mexico_city
+bus,lb,0.08,Baseline,mexico_city
+car,lb,3.61,Baseline,mexico_city
+cycle,lb,0.3,Baseline,mexico_city
+motorcycle,lb,1.12,Baseline,mexico_city
+pedestrian,lb,6.34,Baseline,mexico_city
+truck,lb,0.07,Baseline,mexico_city
+other,mean,0.72,Baseline,mexico_city
+rail,mean,0,Baseline,mexico_city
+other,ub,1.1,Baseline,mexico_city
+rail,ub,0,Baseline,mexico_city
+other,lb,0.5,Baseline,mexico_city
+rail,lb,0,Baseline,mexico_city
+auto_rickshaw,mean,0,Baseline,mexico_city
+auto_rickshaw,ub,0,Baseline,mexico_city
+auto_rickshaw,lb,0,Baseline,mexico_city
+bus,mean,0.04,Baseline,montevideo
+car,mean,1.45,Baseline,montevideo
+cycle,mean,0.46,Baseline,montevideo
+motorcycle,mean,4.81,Baseline,montevideo
+pedestrian,mean,1.95,Baseline,montevideo
+truck,mean,0.11,Baseline,montevideo
+bus,ub,0.26,Baseline,montevideo
+car,ub,2.45,Baseline,montevideo
+cycle,ub,1.07,Baseline,montevideo
+motorcycle,ub,6.9,Baseline,montevideo
+pedestrian,ub,3,Baseline,montevideo
+truck,ub,0.34,Baseline,montevideo
+bus,lb,0,Baseline,montevideo
+car,lb,0.88,Baseline,montevideo
+cycle,lb,0.21,Baseline,montevideo
+motorcycle,lb,3.47,Baseline,montevideo
+pedestrian,lb,1.3,Baseline,montevideo
+truck,lb,0.03,Baseline,montevideo
+other,mean,0,Baseline,montevideo
+rail,mean,0,Baseline,montevideo
+other,ub,0,Baseline,montevideo
+rail,ub,0,Baseline,montevideo
+other,lb,0,Baseline,montevideo
+rail,lb,0,Baseline,montevideo
+auto_rickshaw,mean,0,Baseline,montevideo
+auto_rickshaw,ub,0,Baseline,montevideo
+auto_rickshaw,lb,0,Baseline,montevideo
+bus,mean,4.76,Baseline,nairobi
+car,mean,9.8,Baseline,nairobi
+cycle,mean,0,Baseline,nairobi
+motorcycle,mean,22.53,Baseline,nairobi
+pedestrian,mean,63.97,Baseline,nairobi
+truck,mean,1.68,Baseline,nairobi
+bus,ub,8.75,Baseline,nairobi
+car,ub,18.12,Baseline,nairobi
+cycle,ub,0,Baseline,nairobi
+motorcycle,ub,33,Baseline,nairobi
+pedestrian,ub,87.83,Baseline,nairobi
+truck,ub,6.41,Baseline,nairobi
+bus,lb,2.94,Baseline,nairobi
+car,lb,5.97,Baseline,nairobi
+cycle,lb,0,Baseline,nairobi
+motorcycle,lb,16.05,Baseline,nairobi
+pedestrian,lb,47.11,Baseline,nairobi
+truck,lb,0.47,Baseline,nairobi
+other,mean,0,Baseline,nairobi
+rail,mean,0,Baseline,nairobi
+other,ub,0,Baseline,nairobi
+rail,ub,0,Baseline,nairobi
+other,lb,0,Baseline,nairobi
+rail,lb,0,Baseline,nairobi
+auto_rickshaw,mean,0,Baseline,nairobi
+auto_rickshaw,ub,0,Baseline,nairobi
+auto_rickshaw,lb,0,Baseline,nairobi
+bus,mean,0,Baseline,osorno
+car,mean,7.87,Baseline,osorno
+cycle,mean,0.23,Baseline,osorno
+motorcycle,mean,1.16,Baseline,osorno
+pedestrian,mean,5.79,Baseline,osorno
+truck,mean,1.62,Baseline,osorno
+bus,ub,0,Baseline,osorno
+car,ub,13.86,Baseline,osorno
+cycle,ub,1.84,Baseline,osorno
+motorcycle,ub,4.41,Baseline,osorno
+pedestrian,ub,11.27,Baseline,osorno
+truck,ub,3.45,Baseline,osorno
+bus,lb,0,Baseline,osorno
+car,lb,4.68,Baseline,osorno
+cycle,lb,0.03,Baseline,osorno
+motorcycle,lb,0.31,Baseline,osorno
+pedestrian,lb,3.05,Baseline,osorno
+truck,lb,0.76,Baseline,osorno
+other,mean,0,Baseline,osorno
+rail,mean,0,Baseline,osorno
+other,ub,0,Baseline,osorno
+rail,ub,0,Baseline,osorno
+other,lb,0,Baseline,osorno
+rail,lb,0,Baseline,osorno
+auto_rickshaw,mean,0,Baseline,osorno
+auto_rickshaw,ub,0,Baseline,osorno
+auto_rickshaw,lb,0,Baseline,osorno
+bus,mean,2.47,Baseline,port_louis
+car,mean,0,Baseline,port_louis
+cycle,mean,0,Baseline,port_louis
+motorcycle,mean,50.14,Baseline,port_louis
+pedestrian,mean,36.17,Baseline,port_louis
+truck,mean,4.11,Baseline,port_louis
+bus,ub,8.69,Baseline,port_louis
+car,ub,0,Baseline,port_louis
+cycle,ub,0,Baseline,port_louis
+motorcycle,ub,87.33,Baseline,port_louis
+pedestrian,ub,64.93,Baseline,port_louis
+truck,ub,15.57,Baseline,port_louis
+bus,lb,0.7,Baseline,port_louis
+car,lb,0,Baseline,port_louis
+cycle,lb,0,Baseline,port_louis
+motorcycle,lb,29.23,Baseline,port_louis
+pedestrian,lb,20.34,Baseline,port_louis
+truck,lb,1.11,Baseline,port_louis
+other,mean,0,Baseline,port_louis
+rail,mean,0,Baseline,port_louis
+other,ub,0,Baseline,port_louis
+rail,ub,0,Baseline,port_louis
+other,lb,0,Baseline,port_louis
+rail,lb,0,Baseline,port_louis
+auto_rickshaw,mean,0,Baseline,port_louis
+auto_rickshaw,ub,0,Baseline,port_louis
+auto_rickshaw,lb,0,Baseline,port_louis
+bus,mean,0.3,Baseline,puerto_montt
+car,mean,4.5,Baseline,puerto_montt
+cycle,mean,0.3,Baseline,puerto_montt
+motorcycle,mean,0.6,Baseline,puerto_montt
+pedestrian,mean,8.1,Baseline,puerto_montt
+truck,mean,1.05,Baseline,puerto_montt
+bus,ub,2.27,Baseline,puerto_montt
+car,ub,8.01,Baseline,puerto_montt
+cycle,ub,1.31,Baseline,puerto_montt
+motorcycle,ub,2.66,Baseline,puerto_montt
+pedestrian,ub,13.88,Baseline,puerto_montt
+truck,ub,2.24,Baseline,puerto_montt
+bus,lb,0.04,Baseline,puerto_montt
+car,lb,2.62,Baseline,puerto_montt
+cycle,lb,0.07,Baseline,puerto_montt
+motorcycle,lb,0.15,Baseline,puerto_montt
+pedestrian,lb,5.09,Baseline,puerto_montt
+truck,lb,0.49,Baseline,puerto_montt
+other,mean,0,Baseline,puerto_montt
+rail,mean,0,Baseline,puerto_montt
+other,ub,0,Baseline,puerto_montt
+rail,ub,0,Baseline,puerto_montt
+other,lb,0,Baseline,puerto_montt
+rail,lb,0,Baseline,puerto_montt
+auto_rickshaw,mean,0,Baseline,puerto_montt
+auto_rickshaw,ub,0,Baseline,puerto_montt
+auto_rickshaw,lb,0,Baseline,puerto_montt
+bus,mean,0,Baseline,san_antonio
+car,mean,5.63,Baseline,san_antonio
+cycle,mean,0.45,Baseline,san_antonio
+motorcycle,mean,0.39,Baseline,san_antonio
+pedestrian,mean,3.76,Baseline,san_antonio
+truck,mean,2.39,Baseline,san_antonio
+bus,ub,0,Baseline,san_antonio
+car,ub,35.94,Baseline,san_antonio
+cycle,ub,7.08,Baseline,san_antonio
+motorcycle,ub,4.68,Baseline,san_antonio
+pedestrian,ub,27.76,Baseline,san_antonio
+truck,ub,12.01,Baseline,san_antonio
+bus,lb,0,Baseline,san_antonio
+car,lb,0.99,Baseline,san_antonio
+cycle,lb,0.03,Baseline,san_antonio
+motorcycle,lb,0.03,Baseline,san_antonio
+pedestrian,lb,0.6,Baseline,san_antonio
+truck,lb,0.5,Baseline,san_antonio
+other,mean,0.41,Baseline,san_antonio
+rail,mean,0,Baseline,san_antonio
+other,ub,5.42,Baseline,san_antonio
+rail,ub,0,Baseline,san_antonio
+other,lb,0.04,Baseline,san_antonio
+rail,lb,0,Baseline,san_antonio
+auto_rickshaw,mean,0,Baseline,san_antonio
+auto_rickshaw,ub,0,Baseline,san_antonio
+auto_rickshaw,lb,0,Baseline,san_antonio
+bus,mean,0.16,Baseline,santiago
+car,mean,2.15,Baseline,santiago
+cycle,mean,0.85,Baseline,santiago
+motorcycle,mean,1.3,Baseline,santiago
+pedestrian,mean,3.66,Baseline,santiago
+truck,mean,0.23,Baseline,santiago
+bus,ub,0.31,Baseline,santiago
+car,ub,2.63,Baseline,santiago
+cycle,ub,1.15,Baseline,santiago
+motorcycle,ub,1.69,Baseline,santiago
+pedestrian,ub,4.43,Baseline,santiago
+truck,ub,0.4,Baseline,santiago
+bus,lb,0.08,Baseline,santiago
+car,lb,1.79,Baseline,santiago
+cycle,lb,0.64,Baseline,santiago
+motorcycle,lb,1.01,Baseline,santiago
+pedestrian,lb,3.09,Baseline,santiago
+truck,lb,0.13,Baseline,santiago
+other,mean,0.08,Baseline,santiago
+rail,mean,0,Baseline,santiago
+other,ub,0.15,Baseline,santiago
+rail,ub,0,Baseline,santiago
+other,lb,0.04,Baseline,santiago
+rail,lb,0,Baseline,santiago
+auto_rickshaw,mean,0,Baseline,santiago
+auto_rickshaw,ub,0,Baseline,santiago
+auto_rickshaw,lb,0,Baseline,santiago
+bus,mean,0.12,Baseline,sao_paulo
+car,mean,2.04,Baseline,sao_paulo
+cycle,mean,0.47,Baseline,sao_paulo
+motorcycle,mean,5.27,Baseline,sao_paulo
+pedestrian,mean,4.86,Baseline,sao_paulo
+truck,mean,0.18,Baseline,sao_paulo
+bus,ub,0.18,Baseline,sao_paulo
+car,ub,2.26,Baseline,sao_paulo
+cycle,ub,0.58,Baseline,sao_paulo
+motorcycle,ub,5.69,Baseline,sao_paulo
+pedestrian,ub,5.27,Baseline,sao_paulo
+truck,ub,0.25,Baseline,sao_paulo
+bus,lb,0.08,Baseline,sao_paulo
+car,lb,1.85,Baseline,sao_paulo
+cycle,lb,0.38,Baseline,sao_paulo
+motorcycle,lb,4.89,Baseline,sao_paulo
+pedestrian,lb,4.49,Baseline,sao_paulo
+truck,lb,0.13,Baseline,sao_paulo
+other,mean,0.02,Baseline,sao_paulo
+rail,mean,0,Baseline,sao_paulo
+other,ub,0.04,Baseline,sao_paulo
+rail,ub,0,Baseline,sao_paulo
+other,lb,0.01,Baseline,sao_paulo
+rail,lb,0,Baseline,sao_paulo
+auto_rickshaw,mean,0,Baseline,sao_paulo
+auto_rickshaw,ub,0,Baseline,sao_paulo
+auto_rickshaw,lb,0,Baseline,sao_paulo
+bus,mean,0,Baseline,temuco_padrelascasas
+car,mean,3.61,Baseline,temuco_padrelascasas
+cycle,mean,0.93,Baseline,temuco_padrelascasas
+motorcycle,mean,0.82,Baseline,temuco_padrelascasas
+pedestrian,mean,4.12,Baseline,temuco_padrelascasas
+truck,mean,0.21,Baseline,temuco_padrelascasas
+bus,ub,0,Baseline,temuco_padrelascasas
+car,ub,11.96,Baseline,temuco_padrelascasas
+cycle,ub,2.98,Baseline,temuco_padrelascasas
+motorcycle,ub,3.4,Baseline,temuco_padrelascasas
+pedestrian,ub,12.57,Baseline,temuco_padrelascasas
+truck,ub,1.21,Baseline,temuco_padrelascasas
+bus,lb,0,Baseline,temuco_padrelascasas
+car,lb,1.16,Baseline,temuco_padrelascasas
+cycle,lb,0.3,Baseline,temuco_padrelascasas
+motorcycle,lb,0.21,Baseline,temuco_padrelascasas
+pedestrian,lb,1.49,Baseline,temuco_padrelascasas
+truck,lb,0.04,Baseline,temuco_padrelascasas
+other,mean,0,Baseline,temuco_padrelascasas
+rail,mean,0,Baseline,temuco_padrelascasas
+other,ub,0,Baseline,temuco_padrelascasas
+rail,ub,0,Baseline,temuco_padrelascasas
+other,lb,0,Baseline,temuco_padrelascasas
+rail,lb,0,Baseline,temuco_padrelascasas
+auto_rickshaw,mean,0,Baseline,temuco_padrelascasas
+auto_rickshaw,ub,0,Baseline,temuco_padrelascasas
+auto_rickshaw,lb,0,Baseline,temuco_padrelascasas
+bus,mean,0.42,Baseline,valdivia
+car,mean,3.06,Baseline,valdivia
+cycle,mean,0.91,Baseline,valdivia
+motorcycle,mean,0.64,Baseline,valdivia
+pedestrian,mean,1.88,Baseline,valdivia
+truck,mean,0,Baseline,valdivia
+bus,ub,3.24,Baseline,valdivia
+car,ub,18.67,Baseline,valdivia
+cycle,ub,7.05,Baseline,valdivia
+motorcycle,ub,5.92,Baseline,valdivia
+pedestrian,ub,10.2,Baseline,valdivia
+truck,ub,0,Baseline,valdivia
+bus,lb,0.07,Baseline,valdivia
+car,lb,0.56,Baseline,valdivia
+cycle,lb,0.13,Baseline,valdivia
+motorcycle,lb,0.09,Baseline,valdivia
+pedestrian,lb,0.37,Baseline,valdivia
+truck,lb,0,Baseline,valdivia
+other,mean,0,Baseline,valdivia
+rail,mean,0,Baseline,valdivia
+other,ub,0,Baseline,valdivia
+rail,ub,0,Baseline,valdivia
+other,lb,0,Baseline,valdivia
+rail,lb,0,Baseline,valdivia
+auto_rickshaw,mean,0,Baseline,valdivia
+auto_rickshaw,ub,0,Baseline,valdivia
+auto_rickshaw,lb,0,Baseline,valdivia
+bus,mean,0.39,Baseline,vizag
+car,mean,0.94,Baseline,vizag
+cycle,mean,1.85,Baseline,vizag
+motorcycle,mean,13.65,Baseline,vizag
+pedestrian,mean,13.52,Baseline,vizag
+truck,mean,0.83,Baseline,vizag
+bus,ub,0.88,Baseline,vizag
+car,ub,1.57,Baseline,vizag
+cycle,ub,2.46,Baseline,vizag
+motorcycle,ub,15.98,Baseline,vizag
+pedestrian,ub,16.06,Baseline,vizag
+truck,ub,1.41,Baseline,vizag
+bus,lb,0.21,Baseline,vizag
+car,lb,0.56,Baseline,vizag
+cycle,lb,1.38,Baseline,vizag
+motorcycle,lb,11.66,Baseline,vizag
+pedestrian,lb,11.5,Baseline,vizag
+truck,lb,0.52,Baseline,vizag
+other,mean,0.23,Baseline,vizag
+rail,mean,0,Baseline,vizag
+other,ub,0.49,Baseline,vizag
+rail,ub,0,Baseline,vizag
+other,lb,0.11,Baseline,vizag
+rail,lb,0,Baseline,vizag
+auto_rickshaw,mean,0,Baseline,vizag
+auto_rickshaw,ub,0,Baseline,vizag
+auto_rickshaw,lb,0,Baseline,vizag
+bus,mean,2.67,Public Transport,accra
+car,mean,4.34,Public Transport,accra
+cycle,mean,1.64,Public Transport,accra
+motorcycle,mean,4.38,Public Transport,accra
+pedestrian,mean,24.49,Public Transport,accra
+truck,mean,1.18,Public Transport,accra
+bus,ub,3.84,Public Transport,accra
+car,ub,5.68,Public Transport,accra
+cycle,ub,2.24,Public Transport,accra
+motorcycle,ub,5.68,Public Transport,accra
+pedestrian,ub,28.51,Public Transport,accra
+truck,ub,1.93,Public Transport,accra
+bus,lb,1.87,Public Transport,accra
+car,lb,3.34,Public Transport,accra
+cycle,lb,1.21,Public Transport,accra
+motorcycle,lb,3.41,Public Transport,accra
+pedestrian,lb,21.37,Public Transport,accra
+truck,lb,0.75,Public Transport,accra
+other,mean,0,Public Transport,accra
+rail,mean,0,Public Transport,accra
+other,ub,0,Public Transport,accra
+rail,ub,0,Public Transport,accra
+other,lb,0,Public Transport,accra
+rail,lb,0,Public Transport,accra
+auto_rickshaw,mean,0,Public Transport,accra
+auto_rickshaw,ub,0,Public Transport,accra
+auto_rickshaw,lb,0,Public Transport,accra
+bus,mean,0.68,Public Transport,antofagasta
+car,mean,3.73,Public Transport,antofagasta
+cycle,mean,0.09,Public Transport,antofagasta
+motorcycle,mean,0.86,Public Transport,antofagasta
+pedestrian,mean,2.01,Public Transport,antofagasta
+truck,mean,1,Public Transport,antofagasta
+bus,ub,2.26,Public Transport,antofagasta
+car,ub,11.06,Public Transport,antofagasta
+cycle,ub,0.84,Public Transport,antofagasta
+motorcycle,ub,3.48,Public Transport,antofagasta
+pedestrian,ub,7.37,Public Transport,antofagasta
+truck,ub,3.69,Public Transport,antofagasta
+bus,lb,0.21,Public Transport,antofagasta
+car,lb,1.36,Public Transport,antofagasta
+cycle,lb,0.01,Public Transport,antofagasta
+motorcycle,lb,0.23,Public Transport,antofagasta
+pedestrian,lb,0.62,Public Transport,antofagasta
+truck,lb,0.31,Public Transport,antofagasta
+other,mean,0,Public Transport,antofagasta
+rail,mean,0,Public Transport,antofagasta
+other,ub,0,Public Transport,antofagasta
+rail,ub,0,Public Transport,antofagasta
+other,lb,0,Public Transport,antofagasta
+rail,lb,0,Public Transport,antofagasta
+auto_rickshaw,mean,0,Public Transport,antofagasta
+auto_rickshaw,ub,0,Public Transport,antofagasta
+auto_rickshaw,lb,0,Public Transport,antofagasta
+bus,mean,0.41,Public Transport,arica
+car,mean,6.05,Public Transport,arica
+cycle,mean,0.78,Public Transport,arica
+motorcycle,mean,1.48,Public Transport,arica
+pedestrian,mean,6.84,Public Transport,arica
+truck,mean,1.87,Public Transport,arica
+bus,ub,3.09,Public Transport,arica
+car,ub,10.04,Public Transport,arica
+cycle,ub,2.12,Public Transport,arica
+motorcycle,ub,3.98,Public Transport,arica
+pedestrian,ub,12.71,Public Transport,arica
+truck,ub,4.48,Public Transport,arica
+bus,lb,0.05,Public Transport,arica
+car,lb,3.81,Public Transport,arica
+cycle,lb,0.29,Public Transport,arica
+motorcycle,lb,0.56,Public Transport,arica
+pedestrian,lb,4.06,Public Transport,arica
+truck,lb,0.93,Public Transport,arica
+other,mean,0,Public Transport,arica
+rail,mean,0,Public Transport,arica
+other,ub,0,Public Transport,arica
+rail,ub,0,Public Transport,arica
+other,lb,0,Public Transport,arica
+rail,lb,0,Public Transport,arica
+auto_rickshaw,mean,0,Public Transport,arica
+auto_rickshaw,ub,0,Public Transport,arica
+auto_rickshaw,lb,0,Public Transport,arica
+bus,mean,0.43,Public Transport,bangalore
+car,mean,0.71,Public Transport,bangalore
+cycle,mean,0.55,Public Transport,bangalore
+motorcycle,mean,8.55,Public Transport,bangalore
+pedestrian,mean,9.11,Public Transport,bangalore
+truck,mean,0.31,Public Transport,bangalore
+bus,ub,0.96,Public Transport,bangalore
+car,ub,1.27,Public Transport,bangalore
+cycle,ub,0.9,Public Transport,bangalore
+motorcycle,ub,10.6,Public Transport,bangalore
+pedestrian,ub,11.22,Public Transport,bangalore
+truck,ub,0.57,Public Transport,bangalore
+bus,lb,0.2,Public Transport,bangalore
+car,lb,0.4,Public Transport,bangalore
+cycle,lb,0.34,Public Transport,bangalore
+motorcycle,lb,6.99,Public Transport,bangalore
+pedestrian,lb,7.47,Public Transport,bangalore
+truck,lb,0.16,Public Transport,bangalore
+other,mean,0.34,Public Transport,bangalore
+rail,mean,0,Public Transport,bangalore
+other,ub,0.78,Public Transport,bangalore
+rail,ub,0,Public Transport,bangalore
+other,lb,0.16,Public Transport,bangalore
+rail,lb,0,Public Transport,bangalore
+auto_rickshaw,mean,0,Public Transport,bangalore
+auto_rickshaw,ub,0,Public Transport,bangalore
+auto_rickshaw,lb,0,Public Transport,bangalore
+bus,mean,0.16,Public Transport,belo_horizonte
+car,mean,2.24,Public Transport,belo_horizonte
+cycle,mean,0.37,Public Transport,belo_horizonte
+motorcycle,mean,3.22,Public Transport,belo_horizonte
+pedestrian,mean,4.47,Public Transport,belo_horizonte
+truck,mean,0.19,Public Transport,belo_horizonte
+bus,ub,0.26,Public Transport,belo_horizonte
+car,ub,2.55,Public Transport,belo_horizonte
+cycle,ub,0.51,Public Transport,belo_horizonte
+motorcycle,ub,3.65,Public Transport,belo_horizonte
+pedestrian,ub,5,Public Transport,belo_horizonte
+truck,ub,0.29,Public Transport,belo_horizonte
+bus,lb,0.1,Public Transport,belo_horizonte
+car,lb,1.98,Public Transport,belo_horizonte
+cycle,lb,0.27,Public Transport,belo_horizonte
+motorcycle,lb,2.85,Public Transport,belo_horizonte
+pedestrian,lb,4.02,Public Transport,belo_horizonte
+truck,lb,0.12,Public Transport,belo_horizonte
+other,mean,1.2,Public Transport,belo_horizonte
+rail,mean,0,Public Transport,belo_horizonte
+other,ub,1.38,Public Transport,belo_horizonte
+rail,ub,0.03,Public Transport,belo_horizonte
+other,lb,1.05,Public Transport,belo_horizonte
+rail,lb,0,Public Transport,belo_horizonte
+auto_rickshaw,mean,0,Public Transport,belo_horizonte
+auto_rickshaw,ub,0,Public Transport,belo_horizonte
+auto_rickshaw,lb,0,Public Transport,belo_horizonte
+bus,mean,0.16,Public Transport,bogota
+car,mean,0.36,Public Transport,bogota
+cycle,mean,1.14,Public Transport,bogota
+motorcycle,mean,3.43,Public Transport,bogota
+pedestrian,mean,3.22,Public Transport,bogota
+truck,mean,0.03,Public Transport,bogota
+bus,ub,0.29,Public Transport,bogota
+car,ub,0.57,Public Transport,bogota
+cycle,ub,1.46,Public Transport,bogota
+motorcycle,ub,4.33,Public Transport,bogota
+pedestrian,ub,4.02,Public Transport,bogota
+truck,ub,0.09,Public Transport,bogota
+bus,lb,0.09,Public Transport,bogota
+car,lb,0.23,Public Transport,bogota
+cycle,lb,0.89,Public Transport,bogota
+motorcycle,lb,2.74,Public Transport,bogota
+pedestrian,lb,2.6,Public Transport,bogota
+truck,lb,0.01,Public Transport,bogota
+other,mean,0,Public Transport,bogota
+rail,mean,0,Public Transport,bogota
+other,ub,0,Public Transport,bogota
+rail,ub,0,Public Transport,bogota
+other,lb,0,Public Transport,bogota
+rail,lb,0,Public Transport,bogota
+auto_rickshaw,mean,0,Public Transport,bogota
+auto_rickshaw,ub,0,Public Transport,bogota
+auto_rickshaw,lb,0,Public Transport,bogota
+bus,mean,0.05,Public Transport,buenos_aires
+car,mean,0.84,Public Transport,buenos_aires
+cycle,mean,0.16,Public Transport,buenos_aires
+motorcycle,mean,2.04,Public Transport,buenos_aires
+pedestrian,mean,2.9,Public Transport,buenos_aires
+truck,mean,0.03,Public Transport,buenos_aires
+bus,ub,0.15,Public Transport,buenos_aires
+car,ub,1.16,Public Transport,buenos_aires
+cycle,ub,0.35,Public Transport,buenos_aires
+motorcycle,ub,2.65,Public Transport,buenos_aires
+pedestrian,ub,3.68,Public Transport,buenos_aires
+truck,ub,0.11,Public Transport,buenos_aires
+bus,lb,0.02,Public Transport,buenos_aires
+car,lb,0.62,Public Transport,buenos_aires
+cycle,lb,0.08,Public Transport,buenos_aires
+motorcycle,lb,1.59,Public Transport,buenos_aires
+pedestrian,lb,2.32,Public Transport,buenos_aires
+truck,lb,0.01,Public Transport,buenos_aires
+other,mean,0,Public Transport,buenos_aires
+rail,mean,0,Public Transport,buenos_aires
+other,ub,0,Public Transport,buenos_aires
+rail,ub,0,Public Transport,buenos_aires
+other,lb,0,Public Transport,buenos_aires
+rail,lb,0,Public Transport,buenos_aires
+auto_rickshaw,mean,0,Public Transport,buenos_aires
+auto_rickshaw,ub,0,Public Transport,buenos_aires
+auto_rickshaw,lb,0,Public Transport,buenos_aires
+bus,mean,0.02,Public Transport,cali
+car,mean,0.69,Public Transport,cali
+cycle,mean,1.87,Public Transport,cali
+motorcycle,mean,9.88,Public Transport,cali
+pedestrian,mean,5.77,Public Transport,cali
+truck,mean,0,Public Transport,cali
+bus,ub,0.19,Public Transport,cali
+car,ub,1.25,Public Transport,cali
+cycle,ub,2.75,Public Transport,cali
+motorcycle,ub,14.09,Public Transport,cali
+pedestrian,ub,7.87,Public Transport,cali
+truck,ub,0,Public Transport,cali
+bus,lb,0,Public Transport,cali
+car,lb,0.39,Public Transport,cali
+cycle,lb,1.3,Public Transport,cali
+motorcycle,lb,7.07,Public Transport,cali
+pedestrian,lb,4.26,Public Transport,cali
+truck,lb,0,Public Transport,cali
+other,mean,0.02,Public Transport,cali
+rail,mean,0,Public Transport,cali
+other,ub,0.12,Public Transport,cali
+rail,ub,0,Public Transport,cali
+other,lb,0,Public Transport,cali
+rail,lb,0,Public Transport,cali
+auto_rickshaw,mean,0,Public Transport,cali
+auto_rickshaw,ub,0,Public Transport,cali
+auto_rickshaw,lb,0,Public Transport,cali
+bus,mean,0.82,Public Transport,cape_town
+car,mean,6.38,Public Transport,cape_town
+cycle,mean,0.27,Public Transport,cape_town
+motorcycle,mean,1.7,Public Transport,cape_town
+pedestrian,mean,11.73,Public Transport,cape_town
+truck,mean,0.23,Public Transport,cape_town
+bus,ub,1.09,Public Transport,cape_town
+car,ub,7.13,Public Transport,cape_town
+cycle,ub,0.38,Public Transport,cape_town
+motorcycle,ub,2.04,Public Transport,cape_town
+pedestrian,ub,12.77,Public Transport,cape_town
+truck,ub,0.38,Public Transport,cape_town
+bus,lb,0.62,Public Transport,cape_town
+car,lb,5.74,Public Transport,cape_town
+cycle,lb,0.19,Public Transport,cape_town
+motorcycle,lb,1.44,Public Transport,cape_town
+pedestrian,lb,10.82,Public Transport,cape_town
+truck,lb,0.15,Public Transport,cape_town
+other,mean,0.07,Public Transport,cape_town
+rail,mean,0,Public Transport,cape_town
+other,ub,0.14,Public Transport,cape_town
+rail,ub,0,Public Transport,cape_town
+other,lb,0.04,Public Transport,cape_town
+rail,lb,0,Public Transport,cape_town
+auto_rickshaw,mean,0,Public Transport,cape_town
+auto_rickshaw,ub,0,Public Transport,cape_town
+auto_rickshaw,lb,0,Public Transport,cape_town
+bus,mean,0.96,Public Transport,copiapo
+car,mean,4.8,Public Transport,copiapo
+cycle,mean,1.19,Public Transport,copiapo
+motorcycle,mean,2.66,Public Transport,copiapo
+pedestrian,mean,2.74,Public Transport,copiapo
+truck,mean,0.98,Public Transport,copiapo
+bus,ub,3.04,Public Transport,copiapo
+car,ub,9.25,Public Transport,copiapo
+cycle,ub,3.83,Public Transport,copiapo
+motorcycle,ub,7.1,Public Transport,copiapo
+pedestrian,ub,7.15,Public Transport,copiapo
+truck,ub,4.48,Public Transport,copiapo
+bus,lb,0.3,Public Transport,copiapo
+car,lb,2.97,Public Transport,copiapo
+cycle,lb,0.4,Public Transport,copiapo
+motorcycle,lb,1,Public Transport,copiapo
+pedestrian,lb,1.16,Public Transport,copiapo
+truck,lb,0.26,Public Transport,copiapo
+other,mean,0,Public Transport,copiapo
+rail,mean,0,Public Transport,copiapo
+other,ub,0,Public Transport,copiapo
+rail,ub,0,Public Transport,copiapo
+other,lb,0,Public Transport,copiapo
+rail,lb,0,Public Transport,copiapo
+auto_rickshaw,mean,0,Public Transport,copiapo
+auto_rickshaw,ub,0,Public Transport,copiapo
+auto_rickshaw,lb,0,Public Transport,copiapo
+bus,mean,0.58,Public Transport,coquimbo_laserena
+car,mean,4.66,Public Transport,coquimbo_laserena
+cycle,mean,0.47,Public Transport,coquimbo_laserena
+motorcycle,mean,1.75,Public Transport,coquimbo_laserena
+pedestrian,mean,3.17,Public Transport,coquimbo_laserena
+truck,mean,0.34,Public Transport,coquimbo_laserena
+bus,ub,1.86,Public Transport,coquimbo_laserena
+car,ub,7.15,Public Transport,coquimbo_laserena
+cycle,ub,1.15,Public Transport,coquimbo_laserena
+motorcycle,ub,3.4,Public Transport,coquimbo_laserena
+pedestrian,ub,5.14,Public Transport,coquimbo_laserena
+truck,ub,0.92,Public Transport,coquimbo_laserena
+bus,lb,0.19,Public Transport,coquimbo_laserena
+car,lb,3.12,Public Transport,coquimbo_laserena
+cycle,lb,0.19,Public Transport,coquimbo_laserena
+motorcycle,lb,0.91,Public Transport,coquimbo_laserena
+pedestrian,lb,1.99,Public Transport,coquimbo_laserena
+truck,lb,0.12,Public Transport,coquimbo_laserena
+other,mean,0,Public Transport,coquimbo_laserena
+rail,mean,0,Public Transport,coquimbo_laserena
+other,ub,0,Public Transport,coquimbo_laserena
+rail,ub,0,Public Transport,coquimbo_laserena
+other,lb,0,Public Transport,coquimbo_laserena
+rail,lb,0,Public Transport,coquimbo_laserena
+auto_rickshaw,mean,0,Public Transport,coquimbo_laserena
+auto_rickshaw,ub,0,Public Transport,coquimbo_laserena
+auto_rickshaw,lb,0,Public Transport,coquimbo_laserena
+bus,mean,0.11,Public Transport,delhi
+car,mean,1.43,Public Transport,delhi
+cycle,mean,1.18,Public Transport,delhi
+motorcycle,mean,8.64,Public Transport,delhi
+pedestrian,mean,10.59,Public Transport,delhi
+truck,mean,0.62,Public Transport,delhi
+bus,ub,0.22,Public Transport,delhi
+car,ub,1.69,Public Transport,delhi
+cycle,ub,1.37,Public Transport,delhi
+motorcycle,ub,9.36,Public Transport,delhi
+pedestrian,ub,11.45,Public Transport,delhi
+truck,ub,0.81,Public Transport,delhi
+bus,lb,0.06,Public Transport,delhi
+car,lb,1.2,Public Transport,delhi
+cycle,lb,1.02,Public Transport,delhi
+motorcycle,lb,7.97,Public Transport,delhi
+pedestrian,lb,9.82,Public Transport,delhi
+truck,lb,0.48,Public Transport,delhi
+other,mean,0,Public Transport,delhi
+rail,mean,0,Public Transport,delhi
+other,ub,0,Public Transport,delhi
+rail,ub,0,Public Transport,delhi
+other,lb,0,Public Transport,delhi
+rail,lb,0,Public Transport,delhi
+auto_rickshaw,mean,0,Public Transport,delhi
+auto_rickshaw,ub,0,Public Transport,delhi
+auto_rickshaw,lb,0,Public Transport,delhi
+bus,mean,0.09,Public Transport,gran_valparaiso
+car,mean,2.23,Public Transport,gran_valparaiso
+cycle,mean,0.07,Public Transport,gran_valparaiso
+motorcycle,mean,0.85,Public Transport,gran_valparaiso
+pedestrian,mean,2.78,Public Transport,gran_valparaiso
+truck,mean,0.47,Public Transport,gran_valparaiso
+bus,ub,0.65,Public Transport,gran_valparaiso
+car,ub,3.55,Public Transport,gran_valparaiso
+cycle,ub,0.3,Public Transport,gran_valparaiso
+motorcycle,ub,1.6,Public Transport,gran_valparaiso
+pedestrian,ub,4.46,Public Transport,gran_valparaiso
+truck,ub,0.83,Public Transport,gran_valparaiso
+bus,lb,0.01,Public Transport,gran_valparaiso
+car,lb,1.5,Public Transport,gran_valparaiso
+cycle,lb,0.02,Public Transport,gran_valparaiso
+motorcycle,lb,0.46,Public Transport,gran_valparaiso
+pedestrian,lb,1.9,Public Transport,gran_valparaiso
+truck,lb,0.26,Public Transport,gran_valparaiso
+other,mean,0.04,Public Transport,gran_valparaiso
+rail,mean,0,Public Transport,gran_valparaiso
+other,ub,0.29,Public Transport,gran_valparaiso
+rail,ub,0,Public Transport,gran_valparaiso
+other,lb,0,Public Transport,gran_valparaiso
+rail,lb,0,Public Transport,gran_valparaiso
+auto_rickshaw,mean,0,Public Transport,gran_valparaiso
+auto_rickshaw,ub,0,Public Transport,gran_valparaiso
+auto_rickshaw,lb,0,Public Transport,gran_valparaiso
+bus,mean,0.41,Public Transport,iquique_altohospicio
+car,mean,3.5,Public Transport,iquique_altohospicio
+cycle,mean,0.36,Public Transport,iquique_altohospicio
+motorcycle,mean,1.31,Public Transport,iquique_altohospicio
+pedestrian,mean,1.76,Public Transport,iquique_altohospicio
+truck,mean,0.62,Public Transport,iquique_altohospicio
+bus,ub,1.74,Public Transport,iquique_altohospicio
+car,ub,6.83,Public Transport,iquique_altohospicio
+cycle,ub,1.4,Public Transport,iquique_altohospicio
+motorcycle,ub,3.58,Public Transport,iquique_altohospicio
+pedestrian,ub,4.48,Public Transport,iquique_altohospicio
+truck,ub,1.53,Public Transport,iquique_altohospicio
+bus,lb,0.11,Public Transport,iquique_altohospicio
+car,lb,2.09,Public Transport,iquique_altohospicio
+cycle,lb,0.1,Public Transport,iquique_altohospicio
+motorcycle,lb,0.51,Public Transport,iquique_altohospicio
+pedestrian,lb,0.78,Public Transport,iquique_altohospicio
+truck,lb,0.26,Public Transport,iquique_altohospicio
+other,mean,0,Public Transport,iquique_altohospicio
+rail,mean,0,Public Transport,iquique_altohospicio
+other,ub,0,Public Transport,iquique_altohospicio
+rail,ub,0,Public Transport,iquique_altohospicio
+other,lb,0,Public Transport,iquique_altohospicio
+rail,lb,0,Public Transport,iquique_altohospicio
+auto_rickshaw,mean,0,Public Transport,iquique_altohospicio
+auto_rickshaw,ub,0,Public Transport,iquique_altohospicio
+auto_rickshaw,lb,0,Public Transport,iquique_altohospicio
+bus,mean,41.43,Public Transport,kisumu
+car,mean,8.63,Public Transport,kisumu
+cycle,mean,0,Public Transport,kisumu
+motorcycle,mean,132.15,Public Transport,kisumu
+pedestrian,mean,73.79,Public Transport,kisumu
+truck,mean,13.95,Public Transport,kisumu
+bus,ub,91.01,Public Transport,kisumu
+car,ub,33.04,Public Transport,kisumu
+cycle,ub,0,Public Transport,kisumu
+motorcycle,ub,203.73,Public Transport,kisumu
+pedestrian,ub,128.79,Public Transport,kisumu
+truck,ub,29.71,Public Transport,kisumu
+bus,lb,22.1,Public Transport,kisumu
+car,lb,2.61,Public Transport,kisumu
+cycle,lb,0,Public Transport,kisumu
+motorcycle,lb,89.25,Public Transport,kisumu
+pedestrian,lb,44.56,Public Transport,kisumu
+truck,lb,6.55,Public Transport,kisumu
+other,mean,0,Public Transport,kisumu
+rail,mean,0,Public Transport,kisumu
+other,ub,0,Public Transport,kisumu
+rail,ub,0,Public Transport,kisumu
+other,lb,0,Public Transport,kisumu
+rail,lb,0,Public Transport,kisumu
+auto_rickshaw,mean,0,Public Transport,kisumu
+auto_rickshaw,ub,0,Public Transport,kisumu
+auto_rickshaw,lb,0,Public Transport,kisumu
+bus,mean,0.21,Public Transport,medellin
+car,mean,0.24,Public Transport,medellin
+cycle,mean,0.55,Public Transport,medellin
+motorcycle,mean,7.24,Public Transport,medellin
+pedestrian,mean,4.8,Public Transport,medellin
+truck,mean,0.07,Public Transport,medellin
+bus,ub,0.43,Public Transport,medellin
+car,ub,0.43,Public Transport,medellin
+cycle,ub,0.82,Public Transport,medellin
+motorcycle,ub,8.41,Public Transport,medellin
+pedestrian,ub,5.72,Public Transport,medellin
+truck,ub,0.22,Public Transport,medellin
+bus,lb,0.11,Public Transport,medellin
+car,lb,0.14,Public Transport,medellin
+cycle,lb,0.37,Public Transport,medellin
+motorcycle,lb,6.29,Public Transport,medellin
+pedestrian,lb,4.06,Public Transport,medellin
+truck,lb,0.02,Public Transport,medellin
+other,mean,0,Public Transport,medellin
+rail,mean,0,Public Transport,medellin
+other,ub,0,Public Transport,medellin
+rail,ub,0,Public Transport,medellin
+other,lb,0,Public Transport,medellin
+rail,lb,0,Public Transport,medellin
+auto_rickshaw,mean,0.01,Public Transport,medellin
+auto_rickshaw,ub,0.07,Public Transport,medellin
+auto_rickshaw,lb,0,Public Transport,medellin
+bus,mean,0.19,Public Transport,mexico_city
+car,mean,3.77,Public Transport,mexico_city
+cycle,mean,0.44,Public Transport,mexico_city
+motorcycle,mean,1.36,Public Transport,mexico_city
+pedestrian,mean,7.36,Public Transport,mexico_city
+truck,mean,0.14,Public Transport,mexico_city
+bus,ub,0.45,Public Transport,mexico_city
+car,ub,4.51,Public Transport,mexico_city
+cycle,ub,0.73,Public Transport,mexico_city
+motorcycle,ub,1.85,Public Transport,mexico_city
+pedestrian,ub,8.73,Public Transport,mexico_city
+truck,ub,0.27,Public Transport,mexico_city
+bus,lb,0.1,Public Transport,mexico_city
+car,lb,3.17,Public Transport,mexico_city
+cycle,lb,0.27,Public Transport,mexico_city
+motorcycle,lb,1,Public Transport,mexico_city
+pedestrian,lb,6.26,Public Transport,mexico_city
+truck,lb,0.07,Public Transport,mexico_city
+other,mean,0.65,Public Transport,mexico_city
+rail,mean,0,Public Transport,mexico_city
+other,ub,0.99,Public Transport,mexico_city
+rail,ub,0,Public Transport,mexico_city
+other,lb,0.45,Public Transport,mexico_city
+rail,lb,0,Public Transport,mexico_city
+auto_rickshaw,mean,0,Public Transport,mexico_city
+auto_rickshaw,ub,0,Public Transport,mexico_city
+auto_rickshaw,lb,0,Public Transport,mexico_city
+bus,mean,0.04,Public Transport,montevideo
+car,mean,1.26,Public Transport,montevideo
+cycle,mean,0.42,Public Transport,montevideo
+motorcycle,mean,4.08,Public Transport,montevideo
+pedestrian,mean,1.88,Public Transport,montevideo
+truck,mean,0.11,Public Transport,montevideo
+bus,ub,0.3,Public Transport,montevideo
+car,ub,2.14,Public Transport,montevideo
+cycle,ub,0.98,Public Transport,montevideo
+motorcycle,ub,5.88,Public Transport,montevideo
+pedestrian,ub,2.9,Public Transport,montevideo
+truck,ub,0.34,Public Transport,montevideo
+bus,lb,0.01,Public Transport,montevideo
+car,lb,0.77,Public Transport,montevideo
+cycle,lb,0.19,Public Transport,montevideo
+motorcycle,lb,2.93,Public Transport,montevideo
+pedestrian,lb,1.26,Public Transport,montevideo
+truck,lb,0.03,Public Transport,montevideo
+other,mean,0,Public Transport,montevideo
+rail,mean,0,Public Transport,montevideo
+other,ub,0,Public Transport,montevideo
+rail,ub,0,Public Transport,montevideo
+other,lb,0,Public Transport,montevideo
+rail,lb,0,Public Transport,montevideo
+auto_rickshaw,mean,0,Public Transport,montevideo
+auto_rickshaw,ub,0,Public Transport,montevideo
+auto_rickshaw,lb,0,Public Transport,montevideo
+bus,mean,5.09,Public Transport,nairobi
+car,mean,8.69,Public Transport,nairobi
+cycle,mean,0,Public Transport,nairobi
+motorcycle,mean,20.6,Public Transport,nairobi
+pedestrian,mean,61.36,Public Transport,nairobi
+truck,mean,1.68,Public Transport,nairobi
+bus,ub,9.37,Public Transport,nairobi
+car,ub,15.94,Public Transport,nairobi
+cycle,ub,0,Public Transport,nairobi
+motorcycle,ub,30.18,Public Transport,nairobi
+pedestrian,ub,84.25,Public Transport,nairobi
+truck,ub,6.41,Public Transport,nairobi
+bus,lb,3.14,Public Transport,nairobi
+car,lb,5.32,Public Transport,nairobi
+cycle,lb,0,Public Transport,nairobi
+motorcycle,lb,14.66,Public Transport,nairobi
+pedestrian,lb,45.18,Public Transport,nairobi
+truck,lb,0.47,Public Transport,nairobi
+other,mean,0,Public Transport,nairobi
+rail,mean,0,Public Transport,nairobi
+other,ub,0,Public Transport,nairobi
+rail,ub,0,Public Transport,nairobi
+other,lb,0,Public Transport,nairobi
+rail,lb,0,Public Transport,nairobi
+auto_rickshaw,mean,0,Public Transport,nairobi
+auto_rickshaw,ub,0,Public Transport,nairobi
+auto_rickshaw,lb,0,Public Transport,nairobi
+bus,mean,0,Public Transport,osorno
+car,mean,7.14,Public Transport,osorno
+cycle,mean,0.21,Public Transport,osorno
+motorcycle,mean,1.11,Public Transport,osorno
+pedestrian,mean,5.75,Public Transport,osorno
+truck,mean,1.62,Public Transport,osorno
+bus,ub,0,Public Transport,osorno
+car,ub,12.66,Public Transport,osorno
+cycle,ub,1.7,Public Transport,osorno
+motorcycle,ub,4.23,Public Transport,osorno
+pedestrian,ub,11.3,Public Transport,osorno
+truck,ub,3.45,Public Transport,osorno
+bus,lb,0,Public Transport,osorno
+car,lb,4.22,Public Transport,osorno
+cycle,lb,0.03,Public Transport,osorno
+motorcycle,lb,0.29,Public Transport,osorno
+pedestrian,lb,3,Public Transport,osorno
+truck,lb,0.76,Public Transport,osorno
+other,mean,0,Public Transport,osorno
+rail,mean,0,Public Transport,osorno
+other,ub,0,Public Transport,osorno
+rail,ub,0,Public Transport,osorno
+other,lb,0,Public Transport,osorno
+rail,lb,0,Public Transport,osorno
+auto_rickshaw,mean,0,Public Transport,osorno
+auto_rickshaw,ub,0,Public Transport,osorno
+auto_rickshaw,lb,0,Public Transport,osorno
+bus,mean,2.62,Public Transport,port_louis
+car,mean,0,Public Transport,port_louis
+cycle,mean,0,Public Transport,port_louis
+motorcycle,mean,43.7,Public Transport,port_louis
+pedestrian,mean,34.13,Public Transport,port_louis
+truck,mean,4,Public Transport,port_louis
+bus,ub,9.27,Public Transport,port_louis
+car,ub,0,Public Transport,port_louis
+cycle,ub,0,Public Transport,port_louis
+motorcycle,ub,76.2,Public Transport,port_louis
+pedestrian,ub,61.65,Public Transport,port_louis
+truck,ub,15.08,Public Transport,port_louis
+bus,lb,0.75,Public Transport,port_louis
+car,lb,0,Public Transport,port_louis
+cycle,lb,0,Public Transport,port_louis
+motorcycle,lb,25.46,Public Transport,port_louis
+pedestrian,lb,19.08,Public Transport,port_louis
+truck,lb,1.08,Public Transport,port_louis
+other,mean,0,Public Transport,port_louis
+rail,mean,0,Public Transport,port_louis
+other,ub,0,Public Transport,port_louis
+rail,ub,0,Public Transport,port_louis
+other,lb,0,Public Transport,port_louis
+rail,lb,0,Public Transport,port_louis
+auto_rickshaw,mean,0,Public Transport,port_louis
+auto_rickshaw,ub,0,Public Transport,port_louis
+auto_rickshaw,lb,0,Public Transport,port_louis
+bus,mean,0.32,Public Transport,puerto_montt
+car,mean,4.16,Public Transport,puerto_montt
+cycle,mean,0.29,Public Transport,puerto_montt
+motorcycle,mean,0.56,Public Transport,puerto_montt
+pedestrian,mean,8.06,Public Transport,puerto_montt
+truck,mean,1.05,Public Transport,puerto_montt
+bus,ub,2.45,Public Transport,puerto_montt
+car,ub,7.44,Public Transport,puerto_montt
+cycle,ub,1.26,Public Transport,puerto_montt
+motorcycle,ub,2.5,Public Transport,puerto_montt
+pedestrian,ub,13.95,Public Transport,puerto_montt
+truck,ub,2.24,Public Transport,puerto_montt
+bus,lb,0.04,Public Transport,puerto_montt
+car,lb,2.41,Public Transport,puerto_montt
+cycle,lb,0.07,Public Transport,puerto_montt
+motorcycle,lb,0.14,Public Transport,puerto_montt
+pedestrian,lb,5.02,Public Transport,puerto_montt
+truck,lb,0.49,Public Transport,puerto_montt
+other,mean,0,Public Transport,puerto_montt
+rail,mean,0,Public Transport,puerto_montt
+other,ub,0,Public Transport,puerto_montt
+rail,ub,0,Public Transport,puerto_montt
+other,lb,0,Public Transport,puerto_montt
+rail,lb,0,Public Transport,puerto_montt
+auto_rickshaw,mean,0,Public Transport,puerto_montt
+auto_rickshaw,ub,0,Public Transport,puerto_montt
+auto_rickshaw,lb,0,Public Transport,puerto_montt
+bus,mean,0,Public Transport,san_antonio
+car,mean,5.28,Public Transport,san_antonio
+cycle,mean,0.46,Public Transport,san_antonio
+motorcycle,mean,0.37,Public Transport,san_antonio
+pedestrian,mean,4.09,Public Transport,san_antonio
+truck,mean,2.39,Public Transport,san_antonio
+bus,ub,0,Public Transport,san_antonio
+car,ub,33.6,Public Transport,san_antonio
+cycle,ub,7.01,Public Transport,san_antonio
+motorcycle,ub,4.44,Public Transport,san_antonio
+pedestrian,ub,30.29,Public Transport,san_antonio
+truck,ub,12.01,Public Transport,san_antonio
+bus,lb,0,Public Transport,san_antonio
+car,lb,0.93,Public Transport,san_antonio
+cycle,lb,0.03,Public Transport,san_antonio
+motorcycle,lb,0.03,Public Transport,san_antonio
+pedestrian,lb,0.64,Public Transport,san_antonio
+truck,lb,0.5,Public Transport,san_antonio
+other,mean,0.36,Public Transport,san_antonio
+rail,mean,0,Public Transport,san_antonio
+other,ub,4.55,Public Transport,san_antonio
+rail,ub,0,Public Transport,san_antonio
+other,lb,0.03,Public Transport,san_antonio
+rail,lb,0,Public Transport,san_antonio
+auto_rickshaw,mean,0,Public Transport,san_antonio
+auto_rickshaw,ub,0,Public Transport,san_antonio
+auto_rickshaw,lb,0,Public Transport,san_antonio
+bus,mean,0.17,Public Transport,santiago
+car,mean,1.93,Public Transport,santiago
+cycle,mean,0.79,Public Transport,santiago
+motorcycle,mean,1.16,Public Transport,santiago
+pedestrian,mean,3.69,Public Transport,santiago
+truck,mean,0.23,Public Transport,santiago
+bus,ub,0.34,Public Transport,santiago
+car,ub,2.37,Public Transport,santiago
+cycle,ub,1.07,Public Transport,santiago
+motorcycle,ub,1.52,Public Transport,santiago
+pedestrian,ub,4.47,Public Transport,santiago
+truck,ub,0.4,Public Transport,santiago
+bus,lb,0.09,Public Transport,santiago
+car,lb,1.6,Public Transport,santiago
+cycle,lb,0.6,Public Transport,santiago
+motorcycle,lb,0.9,Public Transport,santiago
+pedestrian,lb,3.12,Public Transport,santiago
+truck,lb,0.13,Public Transport,santiago
+other,mean,0.07,Public Transport,santiago
+rail,mean,0,Public Transport,santiago
+other,ub,0.15,Public Transport,santiago
+rail,ub,0,Public Transport,santiago
+other,lb,0.04,Public Transport,santiago
+rail,lb,0,Public Transport,santiago
+auto_rickshaw,mean,0,Public Transport,santiago
+auto_rickshaw,ub,0,Public Transport,santiago
+auto_rickshaw,lb,0,Public Transport,santiago
+bus,mean,0.13,Public Transport,sao_paulo
+car,mean,1.77,Public Transport,sao_paulo
+cycle,mean,0.43,Public Transport,sao_paulo
+motorcycle,mean,4.49,Public Transport,sao_paulo
+pedestrian,mean,4.74,Public Transport,sao_paulo
+truck,mean,0.18,Public Transport,sao_paulo
+bus,ub,0.2,Public Transport,sao_paulo
+car,ub,1.96,Public Transport,sao_paulo
+cycle,ub,0.53,Public Transport,sao_paulo
+motorcycle,ub,4.85,Public Transport,sao_paulo
+pedestrian,ub,5.15,Public Transport,sao_paulo
+truck,ub,0.25,Public Transport,sao_paulo
+bus,lb,0.09,Public Transport,sao_paulo
+car,lb,1.6,Public Transport,sao_paulo
+cycle,lb,0.35,Public Transport,sao_paulo
+motorcycle,lb,4.17,Public Transport,sao_paulo
+pedestrian,lb,4.38,Public Transport,sao_paulo
+truck,lb,0.13,Public Transport,sao_paulo
+other,mean,0.02,Public Transport,sao_paulo
+rail,mean,0,Public Transport,sao_paulo
+other,ub,0.03,Public Transport,sao_paulo
+rail,ub,0,Public Transport,sao_paulo
+other,lb,0.01,Public Transport,sao_paulo
+rail,lb,0,Public Transport,sao_paulo
+auto_rickshaw,mean,0,Public Transport,sao_paulo
+auto_rickshaw,ub,0,Public Transport,sao_paulo
+auto_rickshaw,lb,0,Public Transport,sao_paulo
+bus,mean,0,Public Transport,temuco_padrelascasas
+car,mean,3.09,Public Transport,temuco_padrelascasas
+cycle,mean,0.83,Public Transport,temuco_padrelascasas
+motorcycle,mean,0.7,Public Transport,temuco_padrelascasas
+pedestrian,mean,4.13,Public Transport,temuco_padrelascasas
+truck,mean,0.21,Public Transport,temuco_padrelascasas
+bus,ub,0,Public Transport,temuco_padrelascasas
+car,ub,10.31,Public Transport,temuco_padrelascasas
+cycle,ub,2.67,Public Transport,temuco_padrelascasas
+motorcycle,ub,2.85,Public Transport,temuco_padrelascasas
+pedestrian,ub,12.72,Public Transport,temuco_padrelascasas
+truck,ub,1.21,Public Transport,temuco_padrelascasas
+bus,lb,0,Public Transport,temuco_padrelascasas
+car,lb,0.99,Public Transport,temuco_padrelascasas
+cycle,lb,0.27,Public Transport,temuco_padrelascasas
+motorcycle,lb,0.18,Public Transport,temuco_padrelascasas
+pedestrian,lb,1.48,Public Transport,temuco_padrelascasas
+truck,lb,0.04,Public Transport,temuco_padrelascasas
+other,mean,0,Public Transport,temuco_padrelascasas
+rail,mean,0,Public Transport,temuco_padrelascasas
+other,ub,0,Public Transport,temuco_padrelascasas
+rail,ub,0,Public Transport,temuco_padrelascasas
+other,lb,0,Public Transport,temuco_padrelascasas
+rail,lb,0,Public Transport,temuco_padrelascasas
+auto_rickshaw,mean,0,Public Transport,temuco_padrelascasas
+auto_rickshaw,ub,0,Public Transport,temuco_padrelascasas
+auto_rickshaw,lb,0,Public Transport,temuco_padrelascasas
+bus,mean,0.49,Public Transport,valdivia
+car,mean,2.71,Public Transport,valdivia
+cycle,mean,0.86,Public Transport,valdivia
+motorcycle,mean,0.63,Public Transport,valdivia
+pedestrian,mean,1.99,Public Transport,valdivia
+truck,mean,0,Public Transport,valdivia
+bus,ub,3.97,Public Transport,valdivia
+car,ub,16.59,Public Transport,valdivia
+cycle,ub,6.67,Public Transport,valdivia
+motorcycle,ub,5.69,Public Transport,valdivia
+pedestrian,ub,10.77,Public Transport,valdivia
+truck,ub,0,Public Transport,valdivia
+bus,lb,0.07,Public Transport,valdivia
+car,lb,0.5,Public Transport,valdivia
+cycle,lb,0.13,Public Transport,valdivia
+motorcycle,lb,0.08,Public Transport,valdivia
+pedestrian,lb,0.4,Public Transport,valdivia
+truck,lb,0,Public Transport,valdivia
+other,mean,0,Public Transport,valdivia
+rail,mean,0,Public Transport,valdivia
+other,ub,0,Public Transport,valdivia
+rail,ub,0,Public Transport,valdivia
+other,lb,0,Public Transport,valdivia
+rail,lb,0,Public Transport,valdivia
+auto_rickshaw,mean,0,Public Transport,valdivia
+auto_rickshaw,ub,0,Public Transport,valdivia
+auto_rickshaw,lb,0,Public Transport,valdivia
+bus,mean,0.44,Public Transport,vizag
+car,mean,0.74,Public Transport,vizag
+cycle,mean,1.53,Public Transport,vizag
+motorcycle,mean,10.93,Public Transport,vizag
+pedestrian,mean,12.36,Public Transport,vizag
+truck,mean,0.82,Public Transport,vizag
+bus,ub,0.98,Public Transport,vizag
+car,ub,1.24,Public Transport,vizag
+cycle,ub,2.04,Public Transport,vizag
+motorcycle,ub,12.81,Public Transport,vizag
+pedestrian,ub,14.72,Public Transport,vizag
+truck,ub,1.38,Public Transport,vizag
+bus,lb,0.24,Public Transport,vizag
+car,lb,0.44,Public Transport,vizag
+cycle,lb,1.14,Public Transport,vizag
+motorcycle,lb,9.34,Public Transport,vizag
+pedestrian,lb,10.51,Public Transport,vizag
+truck,lb,0.51,Public Transport,vizag
+other,mean,0.19,Public Transport,vizag
+rail,mean,0,Public Transport,vizag
+other,ub,0.39,Public Transport,vizag
+rail,ub,0,Public Transport,vizag
+other,lb,0.09,Public Transport,vizag
+rail,lb,0,Public Transport,vizag
+auto_rickshaw,mean,0,Public Transport,vizag
+auto_rickshaw,ub,0,Public Transport,vizag
+auto_rickshaw,lb,0,Public Transport,vizag
+bus,mean,2.41,Driving,accra
+car,mean,6.08,Driving,accra
+cycle,mean,2.01,Driving,accra
+motorcycle,mean,5.4,Driving,accra
+pedestrian,mean,27.86,Driving,accra
+truck,mean,1.2,Driving,accra
+bus,ub,3.49,Driving,accra
+car,ub,7.94,Driving,accra
+cycle,ub,2.73,Driving,accra
+motorcycle,ub,6.97,Driving,accra
+pedestrian,ub,32.19,Driving,accra
+truck,ub,1.99,Driving,accra
+bus,lb,1.68,Driving,accra
+car,lb,4.7,Driving,accra
+cycle,lb,1.48,Driving,accra
+motorcycle,lb,4.22,Driving,accra
+pedestrian,lb,24.45,Driving,accra
+truck,lb,0.76,Driving,accra
+other,mean,0,Driving,accra
+rail,mean,0,Driving,accra
+other,ub,0,Driving,accra
+rail,ub,0,Driving,accra
+other,lb,0,Driving,accra
+rail,lb,0,Driving,accra
+auto_rickshaw,mean,0,Driving,accra
+auto_rickshaw,ub,0,Driving,accra
+auto_rickshaw,lb,0,Driving,accra
+bus,mean,0.54,Driving,antofagasta
+car,mean,4.45,Driving,antofagasta
+cycle,mean,0.1,Driving,antofagasta
+motorcycle,mean,0.87,Driving,antofagasta
+pedestrian,mean,2.03,Driving,antofagasta
+truck,mean,1.01,Driving,antofagasta
+bus,ub,1.8,Driving,antofagasta
+car,ub,13.07,Driving,antofagasta
+cycle,ub,0.94,Driving,antofagasta
+motorcycle,ub,3.56,Driving,antofagasta
+pedestrian,ub,7.42,Driving,antofagasta
+truck,ub,3.79,Driving,antofagasta
+bus,lb,0.17,Driving,antofagasta
+car,lb,1.63,Driving,antofagasta
+cycle,lb,0.01,Driving,antofagasta
+motorcycle,lb,0.23,Driving,antofagasta
+pedestrian,lb,0.63,Driving,antofagasta
+truck,lb,0.31,Driving,antofagasta
+other,mean,0,Driving,antofagasta
+rail,mean,0,Driving,antofagasta
+other,ub,0,Driving,antofagasta
+rail,ub,0,Driving,antofagasta
+other,lb,0,Driving,antofagasta
+rail,lb,0,Driving,antofagasta
+auto_rickshaw,mean,0,Driving,antofagasta
+auto_rickshaw,ub,0,Driving,antofagasta
+auto_rickshaw,lb,0,Driving,antofagasta
+bus,mean,0.29,Driving,arica
+car,mean,7.21,Driving,arica
+cycle,mean,0.85,Driving,arica
+motorcycle,mean,1.45,Driving,arica
+pedestrian,mean,7,Driving,arica
+truck,mean,1.88,Driving,arica
+bus,ub,2.21,Driving,arica
+car,ub,11.79,Driving,arica
+cycle,ub,2.27,Driving,arica
+motorcycle,ub,3.91,Driving,arica
+pedestrian,ub,12.6,Driving,arica
+truck,ub,4.56,Driving,arica
+bus,lb,0.04,Driving,arica
+car,lb,4.59,Driving,arica
+cycle,lb,0.32,Driving,arica
+motorcycle,lb,0.55,Driving,arica
+pedestrian,lb,4.25,Driving,arica
+truck,lb,0.93,Driving,arica
+other,mean,0,Driving,arica
+rail,mean,0,Driving,arica
+other,ub,0,Driving,arica
+rail,ub,0,Driving,arica
+other,lb,0,Driving,arica
+rail,lb,0,Driving,arica
+auto_rickshaw,mean,0,Driving,arica
+auto_rickshaw,ub,0,Driving,arica
+auto_rickshaw,lb,0,Driving,arica
+bus,mean,0.36,Driving,bangalore
+car,mean,1.12,Driving,bangalore
+cycle,mean,0.62,Driving,bangalore
+motorcycle,mean,9.63,Driving,bangalore
+pedestrian,mean,9.87,Driving,bangalore
+truck,mean,0.31,Driving,bangalore
+bus,ub,0.82,Driving,bangalore
+car,ub,2.03,Driving,bangalore
+cycle,ub,1.01,Driving,bangalore
+motorcycle,ub,11.9,Driving,bangalore
+pedestrian,ub,12.11,Driving,bangalore
+truck,ub,0.57,Driving,bangalore
+bus,lb,0.16,Driving,bangalore
+car,lb,0.63,Driving,bangalore
+cycle,lb,0.38,Driving,bangalore
+motorcycle,lb,7.88,Driving,bangalore
+pedestrian,lb,8.11,Driving,bangalore
+truck,lb,0.16,Driving,bangalore
+other,mean,0.38,Driving,bangalore
+rail,mean,0,Driving,bangalore
+other,ub,0.86,Driving,bangalore
+rail,ub,0,Driving,bangalore
+other,lb,0.18,Driving,bangalore
+rail,lb,0,Driving,bangalore
+auto_rickshaw,mean,0,Driving,bangalore
+auto_rickshaw,ub,0,Driving,bangalore
+auto_rickshaw,lb,0,Driving,bangalore
+bus,mean,0.12,Driving,belo_horizonte
+car,mean,2.72,Driving,belo_horizonte
+cycle,mean,0.36,Driving,belo_horizonte
+motorcycle,mean,3.22,Driving,belo_horizonte
+pedestrian,mean,4.24,Driving,belo_horizonte
+truck,mean,0.19,Driving,belo_horizonte
+bus,ub,0.21,Driving,belo_horizonte
+car,ub,3.09,Driving,belo_horizonte
+cycle,ub,0.49,Driving,belo_horizonte
+motorcycle,ub,3.66,Driving,belo_horizonte
+pedestrian,ub,4.73,Driving,belo_horizonte
+truck,ub,0.29,Driving,belo_horizonte
+bus,lb,0.08,Driving,belo_horizonte
+car,lb,2.41,Driving,belo_horizonte
+cycle,lb,0.26,Driving,belo_horizonte
+motorcycle,lb,2.85,Driving,belo_horizonte
+pedestrian,lb,3.81,Driving,belo_horizonte
+truck,lb,0.12,Driving,belo_horizonte
+other,mean,1.23,Driving,belo_horizonte
+rail,mean,0,Driving,belo_horizonte
+other,ub,1.41,Driving,belo_horizonte
+rail,ub,0.03,Driving,belo_horizonte
+other,lb,1.07,Driving,belo_horizonte
+rail,lb,0,Driving,belo_horizonte
+auto_rickshaw,mean,0,Driving,belo_horizonte
+auto_rickshaw,ub,0,Driving,belo_horizonte
+auto_rickshaw,lb,0,Driving,belo_horizonte
+bus,mean,0.14,Driving,bogota
+car,mean,0.45,Driving,bogota
+cycle,mean,1.21,Driving,bogota
+motorcycle,mean,3.76,Driving,bogota
+pedestrian,mean,3.22,Driving,bogota
+truck,mean,0.03,Driving,bogota
+bus,ub,0.25,Driving,bogota
+car,ub,0.7,Driving,bogota
+cycle,ub,1.55,Driving,bogota
+motorcycle,ub,4.75,Driving,bogota
+pedestrian,ub,4.01,Driving,bogota
+truck,ub,0.1,Driving,bogota
+bus,lb,0.08,Driving,bogota
+car,lb,0.29,Driving,bogota
+cycle,lb,0.95,Driving,bogota
+motorcycle,lb,3,Driving,bogota
+pedestrian,lb,2.59,Driving,bogota
+truck,lb,0.01,Driving,bogota
+other,mean,0,Driving,bogota
+rail,mean,0,Driving,bogota
+other,ub,0,Driving,bogota
+rail,ub,0,Driving,bogota
+other,lb,0,Driving,bogota
+rail,lb,0,Driving,bogota
+auto_rickshaw,mean,0,Driving,bogota
+auto_rickshaw,ub,0,Driving,bogota
+auto_rickshaw,lb,0,Driving,bogota
+bus,mean,0.04,Driving,buenos_aires
+car,mean,1.2,Driving,buenos_aires
+cycle,mean,0.18,Driving,buenos_aires
+motorcycle,mean,2.39,Driving,buenos_aires
+pedestrian,mean,3,Driving,buenos_aires
+truck,mean,0.03,Driving,buenos_aires
+bus,ub,0.11,Driving,buenos_aires
+car,ub,1.64,Driving,buenos_aires
+cycle,ub,0.38,Driving,buenos_aires
+motorcycle,ub,3.1,Driving,buenos_aires
+pedestrian,ub,3.78,Driving,buenos_aires
+truck,ub,0.11,Driving,buenos_aires
+bus,lb,0.01,Driving,buenos_aires
+car,lb,0.9,Driving,buenos_aires
+cycle,lb,0.09,Driving,buenos_aires
+motorcycle,lb,1.87,Driving,buenos_aires
+pedestrian,lb,2.4,Driving,buenos_aires
+truck,lb,0.01,Driving,buenos_aires
+other,mean,0,Driving,buenos_aires
+rail,mean,0,Driving,buenos_aires
+other,ub,0,Driving,buenos_aires
+rail,ub,0,Driving,buenos_aires
+other,lb,0,Driving,buenos_aires
+rail,lb,0,Driving,buenos_aires
+auto_rickshaw,mean,0,Driving,buenos_aires
+auto_rickshaw,ub,0,Driving,buenos_aires
+auto_rickshaw,lb,0,Driving,buenos_aires
+bus,mean,0.02,Driving,cali
+car,mean,0.86,Driving,cali
+cycle,mean,1.98,Driving,cali
+motorcycle,mean,10.32,Driving,cali
+pedestrian,mean,5.96,Driving,cali
+truck,mean,0,Driving,cali
+bus,ub,0.14,Driving,cali
+car,ub,1.54,Driving,cali
+cycle,ub,2.92,Driving,cali
+motorcycle,ub,14.74,Driving,cali
+pedestrian,ub,8.1,Driving,cali
+truck,ub,0,Driving,cali
+bus,lb,0,Driving,cali
+car,lb,0.49,Driving,cali
+cycle,lb,1.38,Driving,cali
+motorcycle,lb,7.37,Driving,cali
+pedestrian,lb,4.41,Driving,cali
+truck,lb,0,Driving,cali
+other,mean,0.02,Driving,cali
+rail,mean,0,Driving,cali
+other,ub,0.13,Driving,cali
+rail,ub,0,Driving,cali
+other,lb,0,Driving,cali
+rail,lb,0,Driving,cali
+auto_rickshaw,mean,0,Driving,cali
+auto_rickshaw,ub,0,Driving,cali
+auto_rickshaw,lb,0,Driving,cali
+bus,mean,0.76,Driving,cape_town
+car,mean,7.74,Driving,cape_town
+cycle,mean,0.28,Driving,cape_town
+motorcycle,mean,1.72,Driving,cape_town
+pedestrian,mean,12.72,Driving,cape_town
+truck,mean,0.25,Driving,cape_town
+bus,ub,1,Driving,cape_town
+car,ub,8.61,Driving,cape_town
+cycle,ub,0.4,Driving,cape_town
+motorcycle,ub,2.06,Driving,cape_town
+pedestrian,ub,13.76,Driving,cape_town
+truck,ub,0.41,Driving,cape_town
+bus,lb,0.58,Driving,cape_town
+car,lb,6.99,Driving,cape_town
+cycle,lb,0.2,Driving,cape_town
+motorcycle,lb,1.46,Driving,cape_town
+pedestrian,lb,11.8,Driving,cape_town
+truck,lb,0.17,Driving,cape_town
+other,mean,0.07,Driving,cape_town
+rail,mean,0,Driving,cape_town
+other,ub,0.14,Driving,cape_town
+rail,ub,0,Driving,cape_town
+other,lb,0.04,Driving,cape_town
+rail,lb,0,Driving,cape_town
+auto_rickshaw,mean,0,Driving,cape_town
+auto_rickshaw,ub,0,Driving,cape_town
+auto_rickshaw,lb,0,Driving,cape_town
+bus,mean,0.64,Driving,copiapo
+car,mean,5.58,Driving,copiapo
+cycle,mean,1.19,Driving,copiapo
+motorcycle,mean,2.49,Driving,copiapo
+pedestrian,mean,2.64,Driving,copiapo
+truck,mean,0.98,Driving,copiapo
+bus,ub,2.02,Driving,copiapo
+car,ub,10.49,Driving,copiapo
+cycle,ub,3.73,Driving,copiapo
+motorcycle,ub,6.59,Driving,copiapo
+pedestrian,ub,6.65,Driving,copiapo
+truck,ub,4.44,Driving,copiapo
+bus,lb,0.2,Driving,copiapo
+car,lb,3.48,Driving,copiapo
+cycle,lb,0.41,Driving,copiapo
+motorcycle,lb,0.95,Driving,copiapo
+pedestrian,lb,1.14,Driving,copiapo
+truck,lb,0.26,Driving,copiapo
+other,mean,0,Driving,copiapo
+rail,mean,0,Driving,copiapo
+other,ub,0,Driving,copiapo
+rail,ub,0,Driving,copiapo
+other,lb,0,Driving,copiapo
+rail,lb,0,Driving,copiapo
+auto_rickshaw,mean,0,Driving,copiapo
+auto_rickshaw,ub,0,Driving,copiapo
+auto_rickshaw,lb,0,Driving,copiapo
+bus,mean,0.46,Driving,coquimbo_laserena
+car,mean,5.35,Driving,coquimbo_laserena
+cycle,mean,0.49,Driving,coquimbo_laserena
+motorcycle,mean,1.84,Driving,coquimbo_laserena
+pedestrian,mean,3.27,Driving,coquimbo_laserena
+truck,mean,0.34,Driving,coquimbo_laserena
+bus,ub,1.51,Driving,coquimbo_laserena
+car,ub,8.14,Driving,coquimbo_laserena
+cycle,ub,1.2,Driving,coquimbo_laserena
+motorcycle,ub,3.56,Driving,coquimbo_laserena
+pedestrian,ub,5.22,Driving,coquimbo_laserena
+truck,ub,0.92,Driving,coquimbo_laserena
+bus,lb,0.15,Driving,coquimbo_laserena
+car,lb,3.6,Driving,coquimbo_laserena
+cycle,lb,0.2,Driving,coquimbo_laserena
+motorcycle,lb,0.96,Driving,coquimbo_laserena
+pedestrian,lb,2.08,Driving,coquimbo_laserena
+truck,lb,0.12,Driving,coquimbo_laserena
+other,mean,0,Driving,coquimbo_laserena
+rail,mean,0,Driving,coquimbo_laserena
+other,ub,0,Driving,coquimbo_laserena
+rail,ub,0,Driving,coquimbo_laserena
+other,lb,0,Driving,coquimbo_laserena
+rail,lb,0,Driving,coquimbo_laserena
+auto_rickshaw,mean,0,Driving,coquimbo_laserena
+auto_rickshaw,ub,0,Driving,coquimbo_laserena
+auto_rickshaw,lb,0,Driving,coquimbo_laserena
+bus,mean,0.09,Driving,delhi
+car,mean,1.75,Driving,delhi
+cycle,mean,1.28,Driving,delhi
+motorcycle,mean,9.45,Driving,delhi
+pedestrian,mean,11.1,Driving,delhi
+truck,mean,0.64,Driving,delhi
+bus,ub,0.18,Driving,delhi
+car,ub,2.08,Driving,delhi
+cycle,ub,1.47,Driving,delhi
+motorcycle,ub,10.23,Driving,delhi
+pedestrian,ub,11.97,Driving,delhi
+truck,ub,0.83,Driving,delhi
+bus,lb,0.05,Driving,delhi
+car,lb,1.48,Driving,delhi
+cycle,lb,1.1,Driving,delhi
+motorcycle,lb,8.73,Driving,delhi
+pedestrian,lb,10.32,Driving,delhi
+truck,lb,0.49,Driving,delhi
+other,mean,0,Driving,delhi
+rail,mean,0,Driving,delhi
+other,ub,0,Driving,delhi
+rail,ub,0,Driving,delhi
+other,lb,0,Driving,delhi
+rail,lb,0,Driving,delhi
+auto_rickshaw,mean,0,Driving,delhi
+auto_rickshaw,ub,0,Driving,delhi
+auto_rickshaw,lb,0,Driving,delhi
+bus,mean,0.07,Driving,gran_valparaiso
+car,mean,2.67,Driving,gran_valparaiso
+cycle,mean,0.08,Driving,gran_valparaiso
+motorcycle,mean,0.91,Driving,gran_valparaiso
+pedestrian,mean,2.8,Driving,gran_valparaiso
+truck,mean,0.47,Driving,gran_valparaiso
+bus,ub,0.55,Driving,gran_valparaiso
+car,ub,4.21,Driving,gran_valparaiso
+cycle,ub,0.33,Driving,gran_valparaiso
+motorcycle,ub,1.7,Driving,gran_valparaiso
+pedestrian,ub,4.41,Driving,gran_valparaiso
+truck,ub,0.83,Driving,gran_valparaiso
+bus,lb,0.01,Driving,gran_valparaiso
+car,lb,1.82,Driving,gran_valparaiso
+cycle,lb,0.02,Driving,gran_valparaiso
+motorcycle,lb,0.49,Driving,gran_valparaiso
+pedestrian,lb,1.94,Driving,gran_valparaiso
+truck,lb,0.26,Driving,gran_valparaiso
+other,mean,0.04,Driving,gran_valparaiso
+rail,mean,0,Driving,gran_valparaiso
+other,ub,0.29,Driving,gran_valparaiso
+rail,ub,0,Driving,gran_valparaiso
+other,lb,0,Driving,gran_valparaiso
+rail,lb,0,Driving,gran_valparaiso
+auto_rickshaw,mean,0,Driving,gran_valparaiso
+auto_rickshaw,ub,0,Driving,gran_valparaiso
+auto_rickshaw,lb,0,Driving,gran_valparaiso
+bus,mean,0.35,Driving,iquique_altohospicio
+car,mean,4.01,Driving,iquique_altohospicio
+cycle,mean,0.36,Driving,iquique_altohospicio
+motorcycle,mean,1.27,Driving,iquique_altohospicio
+pedestrian,mean,1.72,Driving,iquique_altohospicio
+truck,mean,0.62,Driving,iquique_altohospicio
+bus,ub,1.45,Driving,iquique_altohospicio
+car,ub,7.67,Driving,iquique_altohospicio
+cycle,ub,1.38,Driving,iquique_altohospicio
+motorcycle,ub,3.45,Driving,iquique_altohospicio
+pedestrian,ub,4.27,Driving,iquique_altohospicio
+truck,ub,1.53,Driving,iquique_altohospicio
+bus,lb,0.09,Driving,iquique_altohospicio
+car,lb,2.42,Driving,iquique_altohospicio
+cycle,lb,0.1,Driving,iquique_altohospicio
+motorcycle,lb,0.5,Driving,iquique_altohospicio
+pedestrian,lb,0.78,Driving,iquique_altohospicio
+truck,lb,0.26,Driving,iquique_altohospicio
+other,mean,0,Driving,iquique_altohospicio
+rail,mean,0,Driving,iquique_altohospicio
+other,ub,0,Driving,iquique_altohospicio
+rail,ub,0,Driving,iquique_altohospicio
+other,lb,0,Driving,iquique_altohospicio
+rail,lb,0,Driving,iquique_altohospicio
+auto_rickshaw,mean,0,Driving,iquique_altohospicio
+auto_rickshaw,ub,0,Driving,iquique_altohospicio
+auto_rickshaw,lb,0,Driving,iquique_altohospicio
+bus,mean,37.81,Driving,kisumu
+car,mean,15.15,Driving,kisumu
+cycle,mean,0,Driving,kisumu
+motorcycle,mean,155.08,Driving,kisumu
+pedestrian,mean,83.28,Driving,kisumu
+truck,mean,13.95,Driving,kisumu
+bus,ub,80.31,Driving,kisumu
+car,ub,61.28,Driving,kisumu
+cycle,ub,0,Driving,kisumu
+motorcycle,ub,238.68,Driving,kisumu
+pedestrian,ub,144.28,Driving,kisumu
+truck,ub,29.71,Driving,kisumu
+bus,lb,20.32,Driving,kisumu
+car,lb,4.43,Driving,kisumu
+cycle,lb,0,Driving,kisumu
+motorcycle,lb,104.65,Driving,kisumu
+pedestrian,lb,50.5,Driving,kisumu
+truck,lb,6.55,Driving,kisumu
+other,mean,0,Driving,kisumu
+rail,mean,0,Driving,kisumu
+other,ub,0,Driving,kisumu
+rail,ub,0,Driving,kisumu
+other,lb,0,Driving,kisumu
+rail,lb,0,Driving,kisumu
+auto_rickshaw,mean,0,Driving,kisumu
+auto_rickshaw,ub,0,Driving,kisumu
+auto_rickshaw,lb,0,Driving,kisumu
+bus,mean,0.16,Driving,medellin
+car,mean,0.35,Driving,medellin
+cycle,mean,0.6,Driving,medellin
+motorcycle,mean,7.73,Driving,medellin
+pedestrian,mean,4.9,Driving,medellin
+truck,mean,0.07,Driving,medellin
+bus,ub,0.34,Driving,medellin
+car,ub,0.61,Driving,medellin
+cycle,ub,0.89,Driving,medellin
+motorcycle,ub,8.97,Driving,medellin
+pedestrian,ub,5.82,Driving,medellin
+truck,ub,0.22,Driving,medellin
+bus,lb,0.09,Driving,medellin
+car,lb,0.21,Driving,medellin
+cycle,lb,0.41,Driving,medellin
+motorcycle,lb,6.72,Driving,medellin
+pedestrian,lb,4.15,Driving,medellin
+truck,lb,0.02,Driving,medellin
+other,mean,0,Driving,medellin
+rail,mean,0,Driving,medellin
+other,ub,0,Driving,medellin
+rail,ub,0,Driving,medellin
+other,lb,0,Driving,medellin
+rail,lb,0,Driving,medellin
+auto_rickshaw,mean,0.01,Driving,medellin
+auto_rickshaw,ub,0.08,Driving,medellin
+auto_rickshaw,lb,0,Driving,medellin
+bus,mean,0.15,Driving,mexico_city
+car,mean,4.67,Driving,mexico_city
+cycle,mean,0.46,Driving,mexico_city
+motorcycle,mean,1.46,Driving,mexico_city
+pedestrian,mean,7.29,Driving,mexico_city
+truck,mean,0.14,Driving,mexico_city
+bus,ub,0.38,Driving,mexico_city
+car,ub,5.56,Driving,mexico_city
+cycle,ub,0.76,Driving,mexico_city
+motorcycle,ub,1.99,Driving,mexico_city
+pedestrian,ub,8.63,Driving,mexico_city
+truck,ub,0.27,Driving,mexico_city
+bus,lb,0.08,Driving,mexico_city
+car,lb,3.94,Driving,mexico_city
+cycle,lb,0.29,Driving,mexico_city
+motorcycle,lb,1.08,Driving,mexico_city
+pedestrian,lb,6.21,Driving,mexico_city
+truck,lb,0.07,Driving,mexico_city
+other,mean,0.7,Driving,mexico_city
+rail,mean,0,Driving,mexico_city
+other,ub,1.07,Driving,mexico_city
+rail,ub,0,Driving,mexico_city
+other,lb,0.49,Driving,mexico_city
+rail,lb,0,Driving,mexico_city
+auto_rickshaw,mean,0,Driving,mexico_city
+auto_rickshaw,ub,0,Driving,mexico_city
+auto_rickshaw,lb,0,Driving,mexico_city
+bus,mean,0.03,Driving,montevideo
+car,mean,1.62,Driving,montevideo
+cycle,mean,0.45,Driving,montevideo
+motorcycle,mean,4.72,Driving,montevideo
+pedestrian,mean,1.95,Driving,montevideo
+truck,mean,0.11,Driving,montevideo
+bus,ub,0.24,Driving,montevideo
+car,ub,2.73,Driving,montevideo
+cycle,ub,1.04,Driving,montevideo
+motorcycle,ub,6.73,Driving,montevideo
+pedestrian,ub,2.97,Driving,montevideo
+truck,ub,0.34,Driving,montevideo
+bus,lb,0,Driving,montevideo
+car,lb,0.99,Driving,montevideo
+cycle,lb,0.21,Driving,montevideo
+motorcycle,lb,3.41,Driving,montevideo
+pedestrian,lb,1.32,Driving,montevideo
+truck,lb,0.03,Driving,montevideo
+other,mean,0,Driving,montevideo
+rail,mean,0,Driving,montevideo
+other,ub,0,Driving,montevideo
+rail,ub,0,Driving,montevideo
+other,lb,0,Driving,montevideo
+rail,lb,0,Driving,montevideo
+auto_rickshaw,mean,0,Driving,montevideo
+auto_rickshaw,ub,0,Driving,montevideo
+auto_rickshaw,lb,0,Driving,montevideo
+bus,mean,4.79,Driving,nairobi
+car,mean,9.9,Driving,nairobi
+cycle,mean,0,Driving,nairobi
+motorcycle,mean,22.2,Driving,nairobi
+pedestrian,mean,64.02,Driving,nairobi
+truck,mean,1.68,Driving,nairobi
+bus,ub,8.73,Driving,nairobi
+car,ub,18.79,Driving,nairobi
+cycle,ub,0,Driving,nairobi
+motorcycle,ub,32.45,Driving,nairobi
+pedestrian,ub,87.8,Driving,nairobi
+truck,ub,6.41,Driving,nairobi
+bus,lb,2.97,Driving,nairobi
+car,lb,5.95,Driving,nairobi
+cycle,lb,0,Driving,nairobi
+motorcycle,lb,15.82,Driving,nairobi
+pedestrian,lb,47.19,Driving,nairobi
+truck,lb,0.47,Driving,nairobi
+other,mean,0,Driving,nairobi
+rail,mean,0,Driving,nairobi
+other,ub,0,Driving,nairobi
+rail,ub,0,Driving,nairobi
+other,lb,0,Driving,nairobi
+rail,lb,0,Driving,nairobi
+auto_rickshaw,mean,0,Driving,nairobi
+auto_rickshaw,ub,0,Driving,nairobi
+auto_rickshaw,lb,0,Driving,nairobi
+bus,mean,0,Driving,osorno
+car,mean,8.25,Driving,osorno
+cycle,mean,0.22,Driving,osorno
+motorcycle,mean,1.11,Driving,osorno
+pedestrian,mean,5.74,Driving,osorno
+truck,mean,1.62,Driving,osorno
+bus,ub,0,Driving,osorno
+car,ub,14.48,Driving,osorno
+cycle,ub,1.78,Driving,osorno
+motorcycle,ub,4.22,Driving,osorno
+pedestrian,ub,11.12,Driving,osorno
+truck,ub,3.45,Driving,osorno
+bus,lb,0,Driving,osorno
+car,lb,4.92,Driving,osorno
+cycle,lb,0.03,Driving,osorno
+motorcycle,lb,0.29,Driving,osorno
+pedestrian,lb,3.04,Driving,osorno
+truck,lb,0.76,Driving,osorno
+other,mean,0,Driving,osorno
+rail,mean,0,Driving,osorno
+other,ub,0,Driving,osorno
+rail,ub,0,Driving,osorno
+other,lb,0,Driving,osorno
+rail,lb,0,Driving,osorno
+auto_rickshaw,mean,0,Driving,osorno
+auto_rickshaw,ub,0,Driving,osorno
+auto_rickshaw,lb,0,Driving,osorno
+bus,mean,2.29,Driving,port_louis
+car,mean,0,Driving,port_louis
+cycle,mean,0,Driving,port_louis
+motorcycle,mean,46.49,Driving,port_louis
+pedestrian,mean,35.92,Driving,port_louis
+truck,mean,4.14,Driving,port_louis
+bus,ub,8.08,Driving,port_louis
+car,ub,0,Driving,port_louis
+cycle,ub,0,Driving,port_louis
+motorcycle,ub,80.93,Driving,port_louis
+pedestrian,ub,64.38,Driving,port_louis
+truck,ub,15.7,Driving,port_louis
+bus,lb,0.65,Driving,port_louis
+car,lb,0,Driving,port_louis
+cycle,lb,0,Driving,port_louis
+motorcycle,lb,27.1,Driving,port_louis
+pedestrian,lb,20.23,Driving,port_louis
+truck,lb,1.11,Driving,port_louis
+other,mean,0,Driving,port_louis
+rail,mean,0,Driving,port_louis
+other,ub,0,Driving,port_louis
+rail,ub,0,Driving,port_louis
+other,lb,0,Driving,port_louis
+rail,lb,0,Driving,port_louis
+auto_rickshaw,mean,0,Driving,port_louis
+auto_rickshaw,ub,0,Driving,port_louis
+auto_rickshaw,lb,0,Driving,port_louis
+bus,mean,0.28,Driving,puerto_montt
+car,mean,4.67,Driving,puerto_montt
+cycle,mean,0.28,Driving,puerto_montt
+motorcycle,mean,0.57,Driving,puerto_montt
+pedestrian,mean,7.95,Driving,puerto_montt
+truck,mean,1.05,Driving,puerto_montt
+bus,ub,2.12,Driving,puerto_montt
+car,ub,8.28,Driving,puerto_montt
+cycle,ub,1.24,Driving,puerto_montt
+motorcycle,ub,2.51,Driving,puerto_montt
+pedestrian,ub,13.52,Driving,puerto_montt
+truck,ub,2.24,Driving,puerto_montt
+bus,lb,0.04,Driving,puerto_montt
+car,lb,2.73,Driving,puerto_montt
+cycle,lb,0.07,Driving,puerto_montt
+motorcycle,lb,0.14,Driving,puerto_montt
+pedestrian,lb,5.03,Driving,puerto_montt
+truck,lb,0.49,Driving,puerto_montt
+other,mean,0,Driving,puerto_montt
+rail,mean,0,Driving,puerto_montt
+other,ub,0,Driving,puerto_montt
+rail,ub,0,Driving,puerto_montt
+other,lb,0,Driving,puerto_montt
+rail,lb,0,Driving,puerto_montt
+auto_rickshaw,mean,0,Driving,puerto_montt
+auto_rickshaw,ub,0,Driving,puerto_montt
+auto_rickshaw,lb,0,Driving,puerto_montt
+bus,mean,0,Driving,san_antonio
+car,mean,5.5,Driving,san_antonio
+cycle,mean,0.43,Driving,san_antonio
+motorcycle,mean,0.31,Driving,san_antonio
+pedestrian,mean,3.5,Driving,san_antonio
+truck,mean,2.39,Driving,san_antonio
+bus,ub,0,Driving,san_antonio
+car,ub,34.46,Driving,san_antonio
+cycle,ub,6.44,Driving,san_antonio
+motorcycle,ub,3.63,Driving,san_antonio
+pedestrian,ub,25.39,Driving,san_antonio
+truck,ub,12.01,Driving,san_antonio
+bus,lb,0,Driving,san_antonio
+car,lb,0.98,Driving,san_antonio
+cycle,lb,0.03,Driving,san_antonio
+motorcycle,lb,0.03,Driving,san_antonio
+pedestrian,lb,0.56,Driving,san_antonio
+truck,lb,0.5,Driving,san_antonio
+other,mean,0.19,Driving,san_antonio
+rail,mean,0,Driving,san_antonio
+other,ub,3.03,Driving,san_antonio
+rail,ub,0,Driving,san_antonio
+other,lb,0.01,Driving,san_antonio
+rail,lb,0,Driving,san_antonio
+auto_rickshaw,mean,0,Driving,san_antonio
+auto_rickshaw,ub,0,Driving,san_antonio
+auto_rickshaw,lb,0,Driving,san_antonio
+bus,mean,0.15,Driving,santiago
+car,mean,2.41,Driving,santiago
+cycle,mean,0.83,Driving,santiago
+motorcycle,mean,1.27,Driving,santiago
+pedestrian,mean,3.68,Driving,santiago
+truck,mean,0.23,Driving,santiago
+bus,ub,0.3,Driving,santiago
+car,ub,2.93,Driving,santiago
+cycle,ub,1.12,Driving,santiago
+motorcycle,ub,1.66,Driving,santiago
+pedestrian,ub,4.43,Driving,santiago
+truck,ub,0.41,Driving,santiago
+bus,lb,0.08,Driving,santiago
+car,lb,2,Driving,santiago
+cycle,lb,0.63,Driving,santiago
+motorcycle,lb,0.99,Driving,santiago
+pedestrian,lb,3.11,Driving,santiago
+truck,lb,0.13,Driving,santiago
+other,mean,0.07,Driving,santiago
+rail,mean,0,Driving,santiago
+other,ub,0.15,Driving,santiago
+rail,ub,0,Driving,santiago
+other,lb,0.04,Driving,santiago
+rail,lb,0,Driving,santiago
+auto_rickshaw,mean,0,Driving,santiago
+auto_rickshaw,ub,0,Driving,santiago
+auto_rickshaw,lb,0,Driving,santiago
+bus,mean,0.11,Driving,sao_paulo
+car,mean,2.33,Driving,sao_paulo
+cycle,mean,0.45,Driving,sao_paulo
+motorcycle,mean,5.03,Driving,sao_paulo
+pedestrian,mean,4.85,Driving,sao_paulo
+truck,mean,0.18,Driving,sao_paulo
+bus,ub,0.17,Driving,sao_paulo
+car,ub,2.58,Driving,sao_paulo
+cycle,ub,0.55,Driving,sao_paulo
+motorcycle,ub,5.43,Driving,sao_paulo
+pedestrian,ub,5.26,Driving,sao_paulo
+truck,ub,0.26,Driving,sao_paulo
+bus,lb,0.07,Driving,sao_paulo
+car,lb,2.11,Driving,sao_paulo
+cycle,lb,0.36,Driving,sao_paulo
+motorcycle,lb,4.67,Driving,sao_paulo
+pedestrian,lb,4.49,Driving,sao_paulo
+truck,lb,0.13,Driving,sao_paulo
+other,mean,0.02,Driving,sao_paulo
+rail,mean,0,Driving,sao_paulo
+other,ub,0.04,Driving,sao_paulo
+rail,ub,0,Driving,sao_paulo
+other,lb,0.01,Driving,sao_paulo
+rail,lb,0,Driving,sao_paulo
+auto_rickshaw,mean,0,Driving,sao_paulo
+auto_rickshaw,ub,0,Driving,sao_paulo
+auto_rickshaw,lb,0,Driving,sao_paulo
+bus,mean,0,Driving,temuco_padrelascasas
+car,mean,3.86,Driving,temuco_padrelascasas
+cycle,mean,0.9,Driving,temuco_padrelascasas
+motorcycle,mean,0.79,Driving,temuco_padrelascasas
+pedestrian,mean,4.17,Driving,temuco_padrelascasas
+truck,mean,0.21,Driving,temuco_padrelascasas
+bus,ub,0,Driving,temuco_padrelascasas
+car,ub,12.8,Driving,temuco_padrelascasas
+cycle,ub,2.89,Driving,temuco_padrelascasas
+motorcycle,ub,3.26,Driving,temuco_padrelascasas
+pedestrian,ub,12.61,Driving,temuco_padrelascasas
+truck,ub,1.21,Driving,temuco_padrelascasas
+bus,lb,0,Driving,temuco_padrelascasas
+car,lb,1.24,Driving,temuco_padrelascasas
+cycle,lb,0.3,Driving,temuco_padrelascasas
+motorcycle,lb,0.2,Driving,temuco_padrelascasas
+pedestrian,lb,1.52,Driving,temuco_padrelascasas
+truck,lb,0.04,Driving,temuco_padrelascasas
+other,mean,0,Driving,temuco_padrelascasas
+rail,mean,0,Driving,temuco_padrelascasas
+other,ub,0,Driving,temuco_padrelascasas
+rail,ub,0,Driving,temuco_padrelascasas
+other,lb,0,Driving,temuco_padrelascasas
+rail,lb,0,Driving,temuco_padrelascasas
+auto_rickshaw,mean,0,Driving,temuco_padrelascasas
+auto_rickshaw,ub,0,Driving,temuco_padrelascasas
+auto_rickshaw,lb,0,Driving,temuco_padrelascasas
+bus,mean,0.36,Driving,valdivia
+car,mean,3.18,Driving,valdivia
+cycle,mean,0.86,Driving,valdivia
+motorcycle,mean,0.62,Driving,valdivia
+pedestrian,mean,1.79,Driving,valdivia
+truck,mean,0,Driving,valdivia
+bus,ub,2.79,Driving,valdivia
+car,ub,19.24,Driving,valdivia
+cycle,ub,6.63,Driving,valdivia
+motorcycle,ub,5.73,Driving,valdivia
+pedestrian,ub,9.68,Driving,valdivia
+truck,ub,0,Driving,valdivia
+bus,lb,0.06,Driving,valdivia
+car,lb,0.59,Driving,valdivia
+cycle,lb,0.13,Driving,valdivia
+motorcycle,lb,0.08,Driving,valdivia
+pedestrian,lb,0.35,Driving,valdivia
+truck,lb,0,Driving,valdivia
+other,mean,0,Driving,valdivia
+rail,mean,0,Driving,valdivia
+other,ub,0,Driving,valdivia
+rail,ub,0,Driving,valdivia
+other,lb,0,Driving,valdivia
+rail,lb,0,Driving,valdivia
+auto_rickshaw,mean,0,Driving,valdivia
+auto_rickshaw,ub,0,Driving,valdivia
+auto_rickshaw,lb,0,Driving,valdivia
+bus,mean,0.36,Driving,vizag
+car,mean,2.68,Driving,vizag
+cycle,mean,2.32,Driving,vizag
+motorcycle,mean,15.36,Driving,vizag
+pedestrian,mean,17.14,Driving,vizag
+truck,mean,0.87,Driving,vizag
+bus,ub,0.87,Driving,vizag
+car,ub,4.45,Driving,vizag
+cycle,ub,3.1,Driving,vizag
+motorcycle,ub,18.06,Driving,vizag
+pedestrian,ub,20.39,Driving,vizag
+truck,ub,1.53,Driving,vizag
+bus,lb,0.19,Driving,vizag
+car,lb,1.62,Driving,vizag
+cycle,lb,1.73,Driving,vizag
+motorcycle,lb,13.07,Driving,vizag
+pedestrian,lb,14.53,Driving,vizag
+truck,lb,0.53,Driving,vizag
+other,mean,0.27,Driving,vizag
+rail,mean,0,Driving,vizag
+other,ub,0.56,Driving,vizag
+rail,ub,0,Driving,vizag
+other,lb,0.13,Driving,vizag
+rail,lb,0,Driving,vizag
+auto_rickshaw,mean,0,Driving,vizag
+auto_rickshaw,ub,0,Driving,vizag
+auto_rickshaw,lb,0,Driving,vizag
+bus,mean,2.41,Motorcycling,accra
+car,mean,5.32,Motorcycling,accra
+cycle,mean,1.98,Motorcycling,accra
+motorcycle,mean,10.57,Motorcycling,accra
+pedestrian,mean,27.28,Motorcycling,accra
+truck,mean,1.2,Motorcycling,accra
+bus,ub,3.49,Motorcycling,accra
+car,ub,7,Motorcycling,accra
+cycle,ub,2.71,Motorcycling,accra
+motorcycle,ub,13.83,Motorcycling,accra
+pedestrian,ub,31.99,Motorcycling,accra
+truck,ub,1.99,Motorcycling,accra
+bus,lb,1.67,Motorcycling,accra
+car,lb,4.08,Motorcycling,accra
+cycle,lb,1.45,Motorcycling,accra
+motorcycle,lb,8.17,Motorcycling,accra
+pedestrian,lb,23.62,Motorcycling,accra
+truck,lb,0.76,Motorcycling,accra
+other,mean,0,Motorcycling,accra
+rail,mean,0,Motorcycling,accra
+other,ub,0,Motorcycling,accra
+rail,ub,0,Motorcycling,accra
+other,lb,0,Motorcycling,accra
+rail,lb,0,Motorcycling,accra
+auto_rickshaw,mean,0,Motorcycling,accra
+auto_rickshaw,ub,0,Motorcycling,accra
+auto_rickshaw,lb,0,Motorcycling,accra
+bus,mean,0.57,Motorcycling,antofagasta
+car,mean,3.96,Motorcycling,antofagasta
+cycle,mean,0.09,Motorcycling,antofagasta
+motorcycle,mean,3.17,Motorcycling,antofagasta
+pedestrian,mean,1.89,Motorcycling,antofagasta
+truck,mean,1,Motorcycling,antofagasta
+bus,ub,1.87,Motorcycling,antofagasta
+car,ub,11.66,Motorcycling,antofagasta
+cycle,ub,0.88,Motorcycling,antofagasta
+motorcycle,ub,12.23,Motorcycling,antofagasta
+pedestrian,ub,6.93,Motorcycling,antofagasta
+truck,ub,3.72,Motorcycling,antofagasta
+bus,lb,0.17,Motorcycling,antofagasta
+car,lb,1.45,Motorcycling,antofagasta
+cycle,lb,0.01,Motorcycling,antofagasta
+motorcycle,lb,0.86,Motorcycling,antofagasta
+pedestrian,lb,0.58,Motorcycling,antofagasta
+truck,lb,0.31,Motorcycling,antofagasta
+other,mean,0,Motorcycling,antofagasta
+rail,mean,0,Motorcycling,antofagasta
+other,ub,0,Motorcycling,antofagasta
+rail,ub,0,Motorcycling,antofagasta
+other,lb,0,Motorcycling,antofagasta
+rail,lb,0,Motorcycling,antofagasta
+auto_rickshaw,mean,0,Motorcycling,antofagasta
+auto_rickshaw,ub,0,Motorcycling,antofagasta
+auto_rickshaw,lb,0,Motorcycling,antofagasta
+bus,mean,0.3,Motorcycling,arica
+car,mean,6.32,Motorcycling,arica
+cycle,mean,0.78,Motorcycling,arica
+motorcycle,mean,5.78,Motorcycling,arica
+pedestrian,mean,6.58,Motorcycling,arica
+truck,mean,1.87,Motorcycling,arica
+bus,ub,2.29,Motorcycling,arica
+car,ub,10.39,Motorcycling,arica
+cycle,ub,2.12,Motorcycling,arica
+motorcycle,ub,15.13,Motorcycling,arica
+pedestrian,ub,12.02,Motorcycling,arica
+truck,ub,4.47,Motorcycling,arica
+bus,lb,0.04,Motorcycling,arica
+car,lb,4.01,Motorcycling,arica
+cycle,lb,0.29,Motorcycling,arica
+motorcycle,lb,2.23,Motorcycling,arica
+pedestrian,lb,3.96,Motorcycling,arica
+truck,lb,0.93,Motorcycling,arica
+other,mean,0,Motorcycling,arica
+rail,mean,0,Motorcycling,arica
+other,ub,0,Motorcycling,arica
+rail,ub,0,Motorcycling,arica
+other,lb,0,Motorcycling,arica
+rail,lb,0,Motorcycling,arica
+auto_rickshaw,mean,0,Motorcycling,arica
+auto_rickshaw,ub,0,Motorcycling,arica
+auto_rickshaw,lb,0,Motorcycling,arica
+bus,mean,0.32,Motorcycling,bangalore
+car,mean,0.68,Motorcycling,bangalore
+cycle,mean,0.53,Motorcycling,bangalore
+motorcycle,mean,9.35,Motorcycling,bangalore
+pedestrian,mean,8.54,Motorcycling,bangalore
+truck,mean,0.31,Motorcycling,bangalore
+bus,ub,0.73,Motorcycling,bangalore
+car,ub,1.21,Motorcycling,bangalore
+cycle,ub,0.87,Motorcycling,bangalore
+motorcycle,ub,11.58,Motorcycling,bangalore
+pedestrian,ub,10.5,Motorcycling,bangalore
+truck,ub,0.57,Motorcycling,bangalore
+bus,lb,0.15,Motorcycling,bangalore
+car,lb,0.38,Motorcycling,bangalore
+cycle,lb,0.33,Motorcycling,bangalore
+motorcycle,lb,7.64,Motorcycling,bangalore
+pedestrian,lb,7.01,Motorcycling,bangalore
+truck,lb,0.16,Motorcycling,bangalore
+other,mean,0.33,Motorcycling,bangalore
+rail,mean,0,Motorcycling,bangalore
+other,ub,0.76,Motorcycling,bangalore
+rail,ub,0,Motorcycling,bangalore
+other,lb,0.16,Motorcycling,bangalore
+rail,lb,0,Motorcycling,bangalore
+auto_rickshaw,mean,0,Motorcycling,bangalore
+auto_rickshaw,ub,0,Motorcycling,bangalore
+auto_rickshaw,lb,0,Motorcycling,bangalore
+bus,mean,0.13,Motorcycling,belo_horizonte
+car,mean,2.38,Motorcycling,belo_horizonte
+cycle,mean,0.39,Motorcycling,belo_horizonte
+motorcycle,mean,4.38,Motorcycling,belo_horizonte
+pedestrian,mean,4.48,Motorcycling,belo_horizonte
+truck,mean,0.19,Motorcycling,belo_horizonte
+bus,ub,0.22,Motorcycling,belo_horizonte
+car,ub,2.7,Motorcycling,belo_horizonte
+cycle,ub,0.53,Motorcycling,belo_horizonte
+motorcycle,ub,4.97,Motorcycling,belo_horizonte
+pedestrian,ub,5.02,Motorcycling,belo_horizonte
+truck,ub,0.3,Motorcycling,belo_horizonte
+bus,lb,0.08,Motorcycling,belo_horizonte
+car,lb,2.1,Motorcycling,belo_horizonte
+cycle,lb,0.28,Motorcycling,belo_horizonte
+motorcycle,lb,3.88,Motorcycling,belo_horizonte
+pedestrian,lb,4.02,Motorcycling,belo_horizonte
+truck,lb,0.12,Motorcycling,belo_horizonte
+other,mean,1.29,Motorcycling,belo_horizonte
+rail,mean,0,Motorcycling,belo_horizonte
+other,ub,1.49,Motorcycling,belo_horizonte
+rail,ub,0.03,Motorcycling,belo_horizonte
+other,lb,1.13,Motorcycling,belo_horizonte
+rail,lb,0,Motorcycling,belo_horizonte
+auto_rickshaw,mean,0,Motorcycling,belo_horizonte
+auto_rickshaw,ub,0,Motorcycling,belo_horizonte
+auto_rickshaw,lb,0,Motorcycling,belo_horizonte
+bus,mean,0.14,Motorcycling,bogota
+car,mean,0.39,Motorcycling,bogota
+cycle,mean,1.23,Motorcycling,bogota
+motorcycle,mean,4.34,Motorcycling,bogota
+pedestrian,mean,3.3,Motorcycling,bogota
+truck,mean,0.03,Motorcycling,bogota
+bus,ub,0.25,Motorcycling,bogota
+car,ub,0.61,Motorcycling,bogota
+cycle,ub,1.58,Motorcycling,bogota
+motorcycle,ub,5.54,Motorcycling,bogota
+pedestrian,ub,4.12,Motorcycling,bogota
+truck,ub,0.1,Motorcycling,bogota
+bus,lb,0.08,Motorcycling,bogota
+car,lb,0.25,Motorcycling,bogota
+cycle,lb,0.97,Motorcycling,bogota
+motorcycle,lb,3.44,Motorcycling,bogota
+pedestrian,lb,2.66,Motorcycling,bogota
+truck,lb,0.01,Motorcycling,bogota
+other,mean,0,Motorcycling,bogota
+rail,mean,0,Motorcycling,bogota
+other,ub,0,Motorcycling,bogota
+rail,ub,0,Motorcycling,bogota
+other,lb,0,Motorcycling,bogota
+rail,lb,0,Motorcycling,bogota
+auto_rickshaw,mean,0,Motorcycling,bogota
+auto_rickshaw,ub,0,Motorcycling,bogota
+auto_rickshaw,lb,0,Motorcycling,bogota
+bus,mean,0.04,Motorcycling,buenos_aires
+car,mean,1,Motorcycling,buenos_aires
+cycle,mean,0.2,Motorcycling,buenos_aires
+motorcycle,mean,4,Motorcycling,buenos_aires
+pedestrian,mean,3.41,Motorcycling,buenos_aires
+truck,mean,0.03,Motorcycling,buenos_aires
+bus,ub,0.12,Motorcycling,buenos_aires
+car,ub,1.39,Motorcycling,buenos_aires
+cycle,ub,0.42,Motorcycling,buenos_aires
+motorcycle,ub,5.2,Motorcycling,buenos_aires
+pedestrian,ub,4.33,Motorcycling,buenos_aires
+truck,ub,0.11,Motorcycling,buenos_aires
+bus,lb,0.01,Motorcycling,buenos_aires
+car,lb,0.74,Motorcycling,buenos_aires
+cycle,lb,0.1,Motorcycling,buenos_aires
+motorcycle,lb,3.11,Motorcycling,buenos_aires
+pedestrian,lb,2.72,Motorcycling,buenos_aires
+truck,lb,0.01,Motorcycling,buenos_aires
+other,mean,0,Motorcycling,buenos_aires
+rail,mean,0,Motorcycling,buenos_aires
+other,ub,0,Motorcycling,buenos_aires
+rail,ub,0,Motorcycling,buenos_aires
+other,lb,0,Motorcycling,buenos_aires
+rail,lb,0,Motorcycling,buenos_aires
+auto_rickshaw,mean,0,Motorcycling,buenos_aires
+auto_rickshaw,ub,0,Motorcycling,buenos_aires
+auto_rickshaw,lb,0,Motorcycling,buenos_aires
+bus,mean,0.02,Motorcycling,cali
+car,mean,0.71,Motorcycling,cali
+cycle,mean,1.99,Motorcycling,cali
+motorcycle,mean,11.21,Motorcycling,cali
+pedestrian,mean,5.94,Motorcycling,cali
+truck,mean,0,Motorcycling,cali
+bus,ub,0.14,Motorcycling,cali
+car,ub,1.29,Motorcycling,cali
+cycle,ub,2.93,Motorcycling,cali
+motorcycle,ub,16.08,Motorcycling,cali
+pedestrian,ub,8.08,Motorcycling,cali
+truck,ub,0,Motorcycling,cali
+bus,lb,0,Motorcycling,cali
+car,lb,0.4,Motorcycling,cali
+cycle,lb,1.39,Motorcycling,cali
+motorcycle,lb,7.98,Motorcycling,cali
+pedestrian,lb,4.4,Motorcycling,cali
+truck,lb,0,Motorcycling,cali
+other,mean,0.02,Motorcycling,cali
+rail,mean,0,Motorcycling,cali
+other,ub,0.14,Motorcycling,cali
+rail,ub,0,Motorcycling,cali
+other,lb,0,Motorcycling,cali
+rail,lb,0,Motorcycling,cali
+auto_rickshaw,mean,0,Motorcycling,cali
+auto_rickshaw,ub,0,Motorcycling,cali
+auto_rickshaw,lb,0,Motorcycling,cali
+bus,mean,0.76,Motorcycling,cape_town
+car,mean,7.1,Motorcycling,cape_town
+cycle,mean,0.29,Motorcycling,cape_town
+motorcycle,mean,6.37,Motorcycling,cape_town
+pedestrian,mean,12.41,Motorcycling,cape_town
+truck,mean,0.24,Motorcycling,cape_town
+bus,ub,1.02,Motorcycling,cape_town
+car,ub,8.01,Motorcycling,cape_town
+cycle,ub,0.41,Motorcycling,cape_town
+motorcycle,ub,7.82,Motorcycling,cape_town
+pedestrian,ub,13.65,Motorcycling,cape_town
+truck,ub,0.41,Motorcycling,cape_town
+bus,lb,0.58,Motorcycling,cape_town
+car,lb,6.35,Motorcycling,cape_town
+cycle,lb,0.21,Motorcycling,cape_town
+motorcycle,lb,5.32,Motorcycling,cape_town
+pedestrian,lb,11.36,Motorcycling,cape_town
+truck,lb,0.16,Motorcycling,cape_town
+other,mean,0.08,Motorcycling,cape_town
+rail,mean,0,Motorcycling,cape_town
+other,ub,0.15,Motorcycling,cape_town
+rail,ub,0,Motorcycling,cape_town
+other,lb,0.04,Motorcycling,cape_town
+rail,lb,0,Motorcycling,cape_town
+auto_rickshaw,mean,0,Motorcycling,cape_town
+auto_rickshaw,ub,0,Motorcycling,cape_town
+auto_rickshaw,lb,0,Motorcycling,cape_town
+bus,mean,0.67,Motorcycling,copiapo
+car,mean,5.04,Motorcycling,copiapo
+cycle,mean,1.32,Motorcycling,copiapo
+motorcycle,mean,9.73,Motorcycling,copiapo
+pedestrian,mean,2.91,Motorcycling,copiapo
+truck,mean,1.02,Motorcycling,copiapo
+bus,ub,2.14,Motorcycling,copiapo
+car,ub,10.43,Motorcycling,copiapo
+cycle,ub,5.2,Motorcycling,copiapo
+motorcycle,ub,25.96,Motorcycling,copiapo
+pedestrian,ub,9.54,Motorcycling,copiapo
+truck,ub,5.19,Motorcycling,copiapo
+bus,lb,0.21,Motorcycling,copiapo
+car,lb,3.1,Motorcycling,copiapo
+cycle,lb,0.41,Motorcycling,copiapo
+motorcycle,lb,3.68,Motorcycling,copiapo
+pedestrian,lb,1.13,Motorcycling,copiapo
+truck,lb,0.26,Motorcycling,copiapo
+other,mean,0,Motorcycling,copiapo
+rail,mean,0,Motorcycling,copiapo
+other,ub,0,Motorcycling,copiapo
+rail,ub,0,Motorcycling,copiapo
+other,lb,0,Motorcycling,copiapo
+rail,lb,0,Motorcycling,copiapo
+auto_rickshaw,mean,0,Motorcycling,copiapo
+auto_rickshaw,ub,0,Motorcycling,copiapo
+auto_rickshaw,lb,0,Motorcycling,copiapo
+bus,mean,0.47,Motorcycling,coquimbo_laserena
+car,mean,4.78,Motorcycling,coquimbo_laserena
+cycle,mean,0.47,Motorcycling,coquimbo_laserena
+motorcycle,mean,7.69,Motorcycling,coquimbo_laserena
+pedestrian,mean,3.06,Motorcycling,coquimbo_laserena
+truck,mean,0.34,Motorcycling,coquimbo_laserena
+bus,ub,1.53,Motorcycling,coquimbo_laserena
+car,ub,7.3,Motorcycling,coquimbo_laserena
+cycle,ub,1.16,Motorcycling,coquimbo_laserena
+motorcycle,ub,15.08,Motorcycling,coquimbo_laserena
+pedestrian,ub,4.93,Motorcycling,coquimbo_laserena
+truck,ub,0.92,Motorcycling,coquimbo_laserena
+bus,lb,0.15,Motorcycling,coquimbo_laserena
+car,lb,3.21,Motorcycling,coquimbo_laserena
+cycle,lb,0.19,Motorcycling,coquimbo_laserena
+motorcycle,lb,3.95,Motorcycling,coquimbo_laserena
+pedestrian,lb,1.94,Motorcycling,coquimbo_laserena
+truck,lb,0.12,Motorcycling,coquimbo_laserena
+other,mean,0,Motorcycling,coquimbo_laserena
+rail,mean,0,Motorcycling,coquimbo_laserena
+other,ub,0,Motorcycling,coquimbo_laserena
+rail,ub,0,Motorcycling,coquimbo_laserena
+other,lb,0,Motorcycling,coquimbo_laserena
+rail,lb,0,Motorcycling,coquimbo_laserena
+auto_rickshaw,mean,0,Motorcycling,coquimbo_laserena
+auto_rickshaw,ub,0,Motorcycling,coquimbo_laserena
+auto_rickshaw,lb,0,Motorcycling,coquimbo_laserena
+bus,mean,0.09,Motorcycling,delhi
+car,mean,1.43,Motorcycling,delhi
+cycle,mean,1.21,Motorcycling,delhi
+motorcycle,mean,10.94,Motorcycling,delhi
+pedestrian,mean,10.43,Motorcycling,delhi
+truck,mean,0.62,Motorcycling,delhi
+bus,ub,0.17,Motorcycling,delhi
+car,ub,1.7,Motorcycling,delhi
+cycle,ub,1.4,Motorcycling,delhi
+motorcycle,ub,11.85,Motorcycling,delhi
+pedestrian,ub,11.28,Motorcycling,delhi
+truck,ub,0.82,Motorcycling,delhi
+bus,lb,0.04,Motorcycling,delhi
+car,lb,1.21,Motorcycling,delhi
+cycle,lb,1.04,Motorcycling,delhi
+motorcycle,lb,10.09,Motorcycling,delhi
+pedestrian,lb,9.66,Motorcycling,delhi
+truck,lb,0.48,Motorcycling,delhi
+other,mean,0,Motorcycling,delhi
+rail,mean,0,Motorcycling,delhi
+other,ub,0,Motorcycling,delhi
+rail,ub,0,Motorcycling,delhi
+other,lb,0,Motorcycling,delhi
+rail,lb,0,Motorcycling,delhi
+auto_rickshaw,mean,0,Motorcycling,delhi
+auto_rickshaw,ub,0,Motorcycling,delhi
+auto_rickshaw,lb,0,Motorcycling,delhi
+bus,mean,0.07,Motorcycling,gran_valparaiso
+car,mean,2.36,Motorcycling,gran_valparaiso
+cycle,mean,0.07,Motorcycling,gran_valparaiso
+motorcycle,mean,4.02,Motorcycling,gran_valparaiso
+pedestrian,mean,2.67,Motorcycling,gran_valparaiso
+truck,mean,0.47,Motorcycling,gran_valparaiso
+bus,ub,0.57,Motorcycling,gran_valparaiso
+car,ub,4.01,Motorcycling,gran_valparaiso
+cycle,ub,0.33,Motorcycling,gran_valparaiso
+motorcycle,ub,7.59,Motorcycling,gran_valparaiso
+pedestrian,ub,4.63,Motorcycling,gran_valparaiso
+truck,ub,0.83,Motorcycling,gran_valparaiso
+bus,lb,0.01,Motorcycling,gran_valparaiso
+car,lb,1.58,Motorcycling,gran_valparaiso
+cycle,lb,0.02,Motorcycling,gran_valparaiso
+motorcycle,lb,2.18,Motorcycling,gran_valparaiso
+pedestrian,lb,1.8,Motorcycling,gran_valparaiso
+truck,lb,0.26,Motorcycling,gran_valparaiso
+other,mean,0.04,Motorcycling,gran_valparaiso
+rail,mean,0,Motorcycling,gran_valparaiso
+other,ub,0.29,Motorcycling,gran_valparaiso
+rail,ub,0,Motorcycling,gran_valparaiso
+other,lb,0,Motorcycling,gran_valparaiso
+rail,lb,0,Motorcycling,gran_valparaiso
+auto_rickshaw,mean,0,Motorcycling,gran_valparaiso
+auto_rickshaw,ub,0,Motorcycling,gran_valparaiso
+auto_rickshaw,lb,0,Motorcycling,gran_valparaiso
+bus,mean,0.38,Motorcycling,iquique_altohospicio
+car,mean,3.71,Motorcycling,iquique_altohospicio
+cycle,mean,0.38,Motorcycling,iquique_altohospicio
+motorcycle,mean,5.74,Motorcycling,iquique_altohospicio
+pedestrian,mean,1.78,Motorcycling,iquique_altohospicio
+truck,mean,0.62,Motorcycling,iquique_altohospicio
+bus,ub,1.79,Motorcycling,iquique_altohospicio
+car,ub,7.82,Motorcycling,iquique_altohospicio
+cycle,ub,1.68,Motorcycling,iquique_altohospicio
+motorcycle,ub,14.8,Motorcycling,iquique_altohospicio
+pedestrian,ub,5.24,Motorcycling,iquique_altohospicio
+truck,ub,1.53,Motorcycling,iquique_altohospicio
+bus,lb,0.09,Motorcycling,iquique_altohospicio
+car,lb,2.18,Motorcycling,iquique_altohospicio
+cycle,lb,0.1,Motorcycling,iquique_altohospicio
+motorcycle,lb,2.33,Motorcycling,iquique_altohospicio
+pedestrian,lb,0.75,Motorcycling,iquique_altohospicio
+truck,lb,0.26,Motorcycling,iquique_altohospicio
+other,mean,0,Motorcycling,iquique_altohospicio
+rail,mean,0,Motorcycling,iquique_altohospicio
+other,ub,0,Motorcycling,iquique_altohospicio
+rail,ub,0,Motorcycling,iquique_altohospicio
+other,lb,0,Motorcycling,iquique_altohospicio
+rail,lb,0,Motorcycling,iquique_altohospicio
+auto_rickshaw,mean,0,Motorcycling,iquique_altohospicio
+auto_rickshaw,ub,0,Motorcycling,iquique_altohospicio
+auto_rickshaw,lb,0,Motorcycling,iquique_altohospicio
+bus,mean,33.12,Motorcycling,kisumu
+car,mean,8.82,Motorcycling,kisumu
+cycle,mean,0,Motorcycling,kisumu
+motorcycle,mean,163.27,Motorcycling,kisumu
+pedestrian,mean,70.75,Motorcycling,kisumu
+truck,mean,13.95,Motorcycling,kisumu
+bus,ub,71.93,Motorcycling,kisumu
+car,ub,34.12,Motorcycling,kisumu
+cycle,ub,0,Motorcycling,kisumu
+motorcycle,ub,250.93,Motorcycling,kisumu
+pedestrian,ub,125.1,Motorcycling,kisumu
+truck,ub,29.71,Motorcycling,kisumu
+bus,lb,17.68,Motorcycling,kisumu
+car,lb,2.65,Motorcycling,kisumu
+cycle,lb,0,Motorcycling,kisumu
+motorcycle,lb,110.67,Motorcycling,kisumu
+pedestrian,lb,42.51,Motorcycling,kisumu
+truck,lb,6.55,Motorcycling,kisumu
+other,mean,0,Motorcycling,kisumu
+rail,mean,0,Motorcycling,kisumu
+other,ub,0,Motorcycling,kisumu
+rail,ub,0,Motorcycling,kisumu
+other,lb,0,Motorcycling,kisumu
+rail,lb,0,Motorcycling,kisumu
+auto_rickshaw,mean,0,Motorcycling,kisumu
+auto_rickshaw,ub,0,Motorcycling,kisumu
+auto_rickshaw,lb,0,Motorcycling,kisumu
+bus,mean,0.16,Motorcycling,medellin
+car,mean,0.26,Motorcycling,medellin
+cycle,mean,0.61,Motorcycling,medellin
+motorcycle,mean,8.52,Motorcycling,medellin
+pedestrian,mean,4.82,Motorcycling,medellin
+truck,mean,0.07,Motorcycling,medellin
+bus,ub,0.34,Motorcycling,medellin
+car,ub,0.46,Motorcycling,medellin
+cycle,ub,0.91,Motorcycling,medellin
+motorcycle,ub,9.88,Motorcycling,medellin
+pedestrian,ub,5.73,Motorcycling,medellin
+truck,ub,0.22,Motorcycling,medellin
+bus,lb,0.09,Motorcycling,medellin
+car,lb,0.15,Motorcycling,medellin
+cycle,lb,0.41,Motorcycling,medellin
+motorcycle,lb,7.41,Motorcycling,medellin
+pedestrian,lb,4.09,Motorcycling,medellin
+truck,lb,0.02,Motorcycling,medellin
+other,mean,0,Motorcycling,medellin
+rail,mean,0,Motorcycling,medellin
+other,ub,0,Motorcycling,medellin
+rail,ub,0,Motorcycling,medellin
+other,lb,0,Motorcycling,medellin
+rail,lb,0,Motorcycling,medellin
+auto_rickshaw,mean,0.01,Motorcycling,medellin
+auto_rickshaw,ub,0.09,Motorcycling,medellin
+auto_rickshaw,lb,0,Motorcycling,medellin
+bus,mean,0.16,Motorcycling,mexico_city
+car,mean,4.48,Motorcycling,mexico_city
+cycle,mean,0.57,Motorcycling,mexico_city
+motorcycle,mean,3.11,Motorcycling,mexico_city
+pedestrian,mean,9.28,Motorcycling,mexico_city
+truck,mean,0.14,Motorcycling,mexico_city
+bus,ub,0.42,Motorcycling,mexico_city
+car,ub,5.4,Motorcycling,mexico_city
+cycle,ub,0.93,Motorcycling,mexico_city
+motorcycle,ub,4.3,Motorcycling,mexico_city
+pedestrian,ub,11,Motorcycling,mexico_city
+truck,ub,0.27,Motorcycling,mexico_city
+bus,lb,0.08,Motorcycling,mexico_city
+car,lb,3.75,Motorcycling,mexico_city
+cycle,lb,0.36,Motorcycling,mexico_city
+motorcycle,lb,2.28,Motorcycling,mexico_city
+pedestrian,lb,7.88,Motorcycling,mexico_city
+truck,lb,0.07,Motorcycling,mexico_city
+other,mean,0.88,Motorcycling,mexico_city
+rail,mean,0,Motorcycling,mexico_city
+other,ub,1.31,Motorcycling,mexico_city
+rail,ub,0,Motorcycling,mexico_city
+other,lb,0.61,Motorcycling,mexico_city
+rail,lb,0,Motorcycling,mexico_city
+auto_rickshaw,mean,0,Motorcycling,mexico_city
+auto_rickshaw,ub,0,Motorcycling,mexico_city
+auto_rickshaw,lb,0,Motorcycling,mexico_city
+bus,mean,0.03,Motorcycling,montevideo
+car,mean,1.38,Motorcycling,montevideo
+cycle,mean,0.45,Motorcycling,montevideo
+motorcycle,mean,6.41,Motorcycling,montevideo
+pedestrian,mean,1.91,Motorcycling,montevideo
+truck,mean,0.11,Motorcycling,montevideo
+bus,ub,0.24,Motorcycling,montevideo
+car,ub,2.35,Motorcycling,montevideo
+cycle,ub,1.04,Motorcycling,montevideo
+motorcycle,ub,9.18,Motorcycling,montevideo
+pedestrian,ub,2.99,Motorcycling,montevideo
+truck,ub,0.34,Motorcycling,montevideo
+bus,lb,0,Motorcycling,montevideo
+car,lb,0.84,Motorcycling,montevideo
+cycle,lb,0.2,Motorcycling,montevideo
+motorcycle,lb,4.61,Motorcycling,montevideo
+pedestrian,lb,1.27,Motorcycling,montevideo
+truck,lb,0.03,Motorcycling,montevideo
+other,mean,0,Motorcycling,montevideo
+rail,mean,0,Motorcycling,montevideo
+other,ub,0,Motorcycling,montevideo
+rail,ub,0,Motorcycling,montevideo
+other,lb,0,Motorcycling,montevideo
+rail,lb,0,Motorcycling,montevideo
+auto_rickshaw,mean,0,Motorcycling,montevideo
+auto_rickshaw,ub,0,Motorcycling,montevideo
+auto_rickshaw,lb,0,Motorcycling,montevideo
+bus,mean,4.63,Motorcycling,nairobi
+car,mean,9.39,Motorcycling,nairobi
+cycle,mean,0,Motorcycling,nairobi
+motorcycle,mean,36.9,Motorcycling,nairobi
+pedestrian,mean,61.9,Motorcycling,nairobi
+truck,mean,1.68,Motorcycling,nairobi
+bus,ub,8.51,Motorcycling,nairobi
+car,ub,17.37,Motorcycling,nairobi
+cycle,ub,0,Motorcycling,nairobi
+motorcycle,ub,54.18,Motorcycling,nairobi
+pedestrian,ub,85.33,Motorcycling,nairobi
+truck,ub,6.41,Motorcycling,nairobi
+bus,lb,2.86,Motorcycling,nairobi
+car,lb,5.71,Motorcycling,nairobi
+cycle,lb,0,Motorcycling,nairobi
+motorcycle,lb,26.22,Motorcycling,nairobi
+pedestrian,lb,45.44,Motorcycling,nairobi
+truck,lb,0.47,Motorcycling,nairobi
+other,mean,0,Motorcycling,nairobi
+rail,mean,0,Motorcycling,nairobi
+other,ub,0,Motorcycling,nairobi
+rail,ub,0,Motorcycling,nairobi
+other,lb,0,Motorcycling,nairobi
+rail,lb,0,Motorcycling,nairobi
+auto_rickshaw,mean,0,Motorcycling,nairobi
+auto_rickshaw,ub,0,Motorcycling,nairobi
+auto_rickshaw,lb,0,Motorcycling,nairobi
+bus,mean,0,Motorcycling,osorno
+car,mean,7.36,Motorcycling,osorno
+cycle,mean,0.22,Motorcycling,osorno
+motorcycle,mean,4.29,Motorcycling,osorno
+pedestrian,mean,5.43,Motorcycling,osorno
+truck,mean,1.62,Motorcycling,osorno
+bus,ub,0,Motorcycling,osorno
+car,ub,12.96,Motorcycling,osorno
+cycle,ub,1.73,Motorcycling,osorno
+motorcycle,ub,16.66,Motorcycling,osorno
+pedestrian,ub,10.59,Motorcycling,osorno
+truck,ub,3.45,Motorcycling,osorno
+bus,lb,0,Motorcycling,osorno
+car,lb,4.37,Motorcycling,osorno
+cycle,lb,0.03,Motorcycling,osorno
+motorcycle,lb,1.11,Motorcycling,osorno
+pedestrian,lb,2.85,Motorcycling,osorno
+truck,lb,0.76,Motorcycling,osorno
+other,mean,0,Motorcycling,osorno
+rail,mean,0,Motorcycling,osorno
+other,ub,0,Motorcycling,osorno
+rail,ub,0,Motorcycling,osorno
+other,lb,0,Motorcycling,osorno
+rail,lb,0,Motorcycling,osorno
+auto_rickshaw,mean,0,Motorcycling,osorno
+auto_rickshaw,ub,0,Motorcycling,osorno
+auto_rickshaw,lb,0,Motorcycling,osorno
+bus,mean,2.42,Motorcycling,port_louis
+car,mean,0,Motorcycling,port_louis
+cycle,mean,0,Motorcycling,port_louis
+motorcycle,mean,63.88,Motorcycling,port_louis
+pedestrian,mean,36.86,Motorcycling,port_louis
+truck,mean,4.18,Motorcycling,port_louis
+bus,ub,8.49,Motorcycling,port_louis
+car,ub,0,Motorcycling,port_louis
+cycle,ub,0,Motorcycling,port_louis
+motorcycle,ub,111.13,Motorcycling,port_louis
+pedestrian,ub,65.85,Motorcycling,port_louis
+truck,ub,15.87,Motorcycling,port_louis
+bus,lb,0.69,Motorcycling,port_louis
+car,lb,0,Motorcycling,port_louis
+cycle,lb,0,Motorcycling,port_louis
+motorcycle,lb,37.29,Motorcycling,port_louis
+pedestrian,lb,20.83,Motorcycling,port_louis
+truck,lb,1.12,Motorcycling,port_louis
+other,mean,0,Motorcycling,port_louis
+rail,mean,0,Motorcycling,port_louis
+other,ub,0,Motorcycling,port_louis
+rail,ub,0,Motorcycling,port_louis
+other,lb,0,Motorcycling,port_louis
+rail,lb,0,Motorcycling,port_louis
+auto_rickshaw,mean,0,Motorcycling,port_louis
+auto_rickshaw,ub,0,Motorcycling,port_louis
+auto_rickshaw,lb,0,Motorcycling,port_louis
+bus,mean,0.28,Motorcycling,puerto_montt
+car,mean,4.28,Motorcycling,puerto_montt
+cycle,mean,0.29,Motorcycling,puerto_montt
+motorcycle,mean,3.49,Motorcycling,puerto_montt
+pedestrian,mean,7.67,Motorcycling,puerto_montt
+truck,mean,1.05,Motorcycling,puerto_montt
+bus,ub,2.12,Motorcycling,puerto_montt
+car,ub,7.61,Motorcycling,puerto_montt
+cycle,ub,1.26,Motorcycling,puerto_montt
+motorcycle,ub,17.94,Motorcycling,puerto_montt
+pedestrian,ub,13.17,Motorcycling,puerto_montt
+truck,ub,2.24,Motorcycling,puerto_montt
+bus,lb,0.04,Motorcycling,puerto_montt
+car,lb,2.49,Motorcycling,puerto_montt
+cycle,lb,0.07,Motorcycling,puerto_montt
+motorcycle,lb,0.78,Motorcycling,puerto_montt
+pedestrian,lb,4.81,Motorcycling,puerto_montt
+truck,lb,0.49,Motorcycling,puerto_montt
+other,mean,0,Motorcycling,puerto_montt
+rail,mean,0,Motorcycling,puerto_montt
+other,ub,0,Motorcycling,puerto_montt
+rail,ub,0,Motorcycling,puerto_montt
+other,lb,0,Motorcycling,puerto_montt
+rail,lb,0,Motorcycling,puerto_montt
+auto_rickshaw,mean,0,Motorcycling,puerto_montt
+auto_rickshaw,ub,0,Motorcycling,puerto_montt
+auto_rickshaw,lb,0,Motorcycling,puerto_montt
+bus,mean,0,Motorcycling,san_antonio
+car,mean,5.53,Motorcycling,san_antonio
+cycle,mean,0.48,Motorcycling,san_antonio
+motorcycle,mean,1.93,Motorcycling,san_antonio
+pedestrian,mean,3.9,Motorcycling,san_antonio
+truck,mean,2.39,Motorcycling,san_antonio
+bus,ub,0,Motorcycling,san_antonio
+car,ub,38.12,Motorcycling,san_antonio
+cycle,ub,8.1,Motorcycling,san_antonio
+motorcycle,ub,24.87,Motorcycling,san_antonio
+pedestrian,ub,31.32,Motorcycling,san_antonio
+truck,ub,12.01,Motorcycling,san_antonio
+bus,lb,0,Motorcycling,san_antonio
+car,lb,0.93,Motorcycling,san_antonio
+cycle,lb,0.03,Motorcycling,san_antonio
+motorcycle,lb,0.16,Motorcycling,san_antonio
+pedestrian,lb,0.59,Motorcycling,san_antonio
+truck,lb,0.5,Motorcycling,san_antonio
+other,mean,0.46,Motorcycling,san_antonio
+rail,mean,0,Motorcycling,san_antonio
+other,ub,6.16,Motorcycling,san_antonio
+rail,ub,0,Motorcycling,san_antonio
+other,lb,0.04,Motorcycling,san_antonio
+rail,lb,0,Motorcycling,san_antonio
+auto_rickshaw,mean,0,Motorcycling,san_antonio
+auto_rickshaw,ub,0,Motorcycling,san_antonio
+auto_rickshaw,lb,0,Motorcycling,san_antonio
+bus,mean,0.15,Motorcycling,santiago
+car,mean,2.07,Motorcycling,santiago
+cycle,mean,0.82,Motorcycling,santiago
+motorcycle,mean,2.42,Motorcycling,santiago
+pedestrian,mean,3.55,Motorcycling,santiago
+truck,mean,0.23,Motorcycling,santiago
+bus,ub,0.3,Motorcycling,santiago
+car,ub,2.54,Motorcycling,santiago
+cycle,ub,1.12,Motorcycling,santiago
+motorcycle,ub,3.16,Motorcycling,santiago
+pedestrian,ub,4.33,Motorcycling,santiago
+truck,ub,0.4,Motorcycling,santiago
+bus,lb,0.08,Motorcycling,santiago
+car,lb,1.72,Motorcycling,santiago
+cycle,lb,0.61,Motorcycling,santiago
+motorcycle,lb,1.87,Motorcycling,santiago
+pedestrian,lb,2.98,Motorcycling,santiago
+truck,lb,0.13,Motorcycling,santiago
+other,mean,0.07,Motorcycling,santiago
+rail,mean,0,Motorcycling,santiago
+other,ub,0.15,Motorcycling,santiago
+rail,ub,0,Motorcycling,santiago
+other,lb,0.04,Motorcycling,santiago
+rail,lb,0,Motorcycling,santiago
+auto_rickshaw,mean,0,Motorcycling,santiago
+auto_rickshaw,ub,0,Motorcycling,santiago
+auto_rickshaw,lb,0,Motorcycling,santiago
+bus,mean,0.12,Motorcycling,sao_paulo
+car,mean,2.03,Motorcycling,sao_paulo
+cycle,mean,0.5,Motorcycling,sao_paulo
+motorcycle,mean,9.87,Motorcycling,sao_paulo
+pedestrian,mean,5.3,Motorcycling,sao_paulo
+truck,mean,0.19,Motorcycling,sao_paulo
+bus,ub,0.18,Motorcycling,sao_paulo
+car,ub,2.25,Motorcycling,sao_paulo
+cycle,ub,0.61,Motorcycling,sao_paulo
+motorcycle,ub,10.64,Motorcycling,sao_paulo
+pedestrian,ub,5.77,Motorcycling,sao_paulo
+truck,ub,0.26,Motorcycling,sao_paulo
+bus,lb,0.08,Motorcycling,sao_paulo
+car,lb,1.83,Motorcycling,sao_paulo
+cycle,lb,0.4,Motorcycling,sao_paulo
+motorcycle,lb,9.17,Motorcycling,sao_paulo
+pedestrian,lb,4.88,Motorcycling,sao_paulo
+truck,lb,0.14,Motorcycling,sao_paulo
+other,mean,0.02,Motorcycling,sao_paulo
+rail,mean,0,Motorcycling,sao_paulo
+other,ub,0.04,Motorcycling,sao_paulo
+rail,ub,0,Motorcycling,sao_paulo
+other,lb,0.01,Motorcycling,sao_paulo
+rail,lb,0,Motorcycling,sao_paulo
+auto_rickshaw,mean,0,Motorcycling,sao_paulo
+auto_rickshaw,ub,0,Motorcycling,sao_paulo
+auto_rickshaw,lb,0,Motorcycling,sao_paulo
+bus,mean,0,Motorcycling,temuco_padrelascasas
+car,mean,3.38,Motorcycling,temuco_padrelascasas
+cycle,mean,0.88,Motorcycling,temuco_padrelascasas
+motorcycle,mean,2.6,Motorcycling,temuco_padrelascasas
+pedestrian,mean,3.9,Motorcycling,temuco_padrelascasas
+truck,mean,0.21,Motorcycling,temuco_padrelascasas
+bus,ub,0,Motorcycling,temuco_padrelascasas
+car,ub,11.21,Motorcycling,temuco_padrelascasas
+cycle,ub,2.81,Motorcycling,temuco_padrelascasas
+motorcycle,ub,11.09,Motorcycling,temuco_padrelascasas
+pedestrian,ub,11.91,Motorcycling,temuco_padrelascasas
+truck,ub,1.21,Motorcycling,temuco_padrelascasas
+bus,lb,0,Motorcycling,temuco_padrelascasas
+car,lb,1.08,Motorcycling,temuco_padrelascasas
+cycle,lb,0.29,Motorcycling,temuco_padrelascasas
+motorcycle,lb,0.64,Motorcycling,temuco_padrelascasas
+pedestrian,lb,1.41,Motorcycling,temuco_padrelascasas
+truck,lb,0.04,Motorcycling,temuco_padrelascasas
+other,mean,0,Motorcycling,temuco_padrelascasas
+rail,mean,0,Motorcycling,temuco_padrelascasas
+other,ub,0,Motorcycling,temuco_padrelascasas
+rail,ub,0,Motorcycling,temuco_padrelascasas
+other,lb,0,Motorcycling,temuco_padrelascasas
+rail,lb,0,Motorcycling,temuco_padrelascasas
+auto_rickshaw,mean,0,Motorcycling,temuco_padrelascasas
+auto_rickshaw,ub,0,Motorcycling,temuco_padrelascasas
+auto_rickshaw,lb,0,Motorcycling,temuco_padrelascasas
+bus,mean,0.38,Motorcycling,valdivia
+car,mean,2.88,Motorcycling,valdivia
+cycle,mean,0.86,Motorcycling,valdivia
+motorcycle,mean,1.96,Motorcycling,valdivia
+pedestrian,mean,1.81,Motorcycling,valdivia
+truck,mean,0,Motorcycling,valdivia
+bus,ub,2.97,Motorcycling,valdivia
+car,ub,17.57,Motorcycling,valdivia
+cycle,ub,6.65,Motorcycling,valdivia
+motorcycle,ub,19.36,Motorcycling,valdivia
+pedestrian,ub,9.78,Motorcycling,valdivia
+truck,ub,0,Motorcycling,valdivia
+bus,lb,0.06,Motorcycling,valdivia
+car,lb,0.53,Motorcycling,valdivia
+cycle,lb,0.13,Motorcycling,valdivia
+motorcycle,lb,0.25,Motorcycling,valdivia
+pedestrian,lb,0.36,Motorcycling,valdivia
+truck,lb,0,Motorcycling,valdivia
+other,mean,0,Motorcycling,valdivia
+rail,mean,0,Motorcycling,valdivia
+other,ub,0,Motorcycling,valdivia
+rail,ub,0,Motorcycling,valdivia
+other,lb,0,Motorcycling,valdivia
+rail,lb,0,Motorcycling,valdivia
+auto_rickshaw,mean,0,Motorcycling,valdivia
+auto_rickshaw,ub,0,Motorcycling,valdivia
+auto_rickshaw,lb,0,Motorcycling,valdivia
+bus,mean,0.35,Motorcycling,vizag
+car,mean,0.82,Motorcycling,vizag
+cycle,mean,1.82,Motorcycling,vizag
+motorcycle,mean,17.45,Motorcycling,vizag
+pedestrian,mean,13.61,Motorcycling,vizag
+truck,mean,0.83,Motorcycling,vizag
+bus,ub,0.8,Motorcycling,vizag
+car,ub,1.38,Motorcycling,vizag
+cycle,ub,2.42,Motorcycling,vizag
+motorcycle,ub,20.42,Motorcycling,vizag
+pedestrian,ub,16.14,Motorcycling,vizag
+truck,ub,1.42,Motorcycling,vizag
+bus,lb,0.18,Motorcycling,vizag
+car,lb,0.49,Motorcycling,vizag
+cycle,lb,1.36,Motorcycling,vizag
+motorcycle,lb,14.92,Motorcycling,vizag
+pedestrian,lb,11.61,Motorcycling,vizag
+truck,lb,0.52,Motorcycling,vizag
+other,mean,0.19,Motorcycling,vizag
+rail,mean,0,Motorcycling,vizag
+other,ub,0.41,Motorcycling,vizag
+rail,ub,0,Motorcycling,vizag
+other,lb,0.09,Motorcycling,vizag
+rail,lb,0,Motorcycling,vizag
+auto_rickshaw,mean,0,Motorcycling,vizag
+auto_rickshaw,ub,0,Motorcycling,vizag
+auto_rickshaw,lb,0,Motorcycling,vizag
