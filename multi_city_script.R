@@ -14,20 +14,20 @@ if (!require("drpa",character.only = TRUE)) {
 cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
             'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
             'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
-            'osornso', 'puerto_montt', 'san_antonio',
+            'osorno', 'puerto_montt', 'san_antonio',
             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia',
             'accra', 'bangalore', 'cape_town','delhi', 'vizag', 'kisumu', 'nairobi', 'port_louis')
 
-# latam
-cities = c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
-           'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
-           'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
-           'osorno', 'puerto_montt', 'san_antonio',
-           'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
-
-#African & Indian cities
-cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
-
+# # latam
+# cities = c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
+#            'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
+#            'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
+#            'osorno', 'puerto_montt', 'san_antonio',
+#            'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
+# 
+# #African & Indian cities
+# cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
+# 
 # number of times input values are sampled from each input parameter distribution
 
 input_parameter_file <- "InputParameters_v15.0.xlsx"
@@ -37,7 +37,7 @@ author <- "AA"
 comment <- "Added CO2 emission sampling"
 
 # scenario definition
-scenario_name <- "AFRICA_INDIA" #select either LATAM, AFRICAN_INDIA, GLOBAL
+scenario_name <- "GLOBAL"
 reference_scenario <- 'Baseline'
 
 compute_mode <- 'constant' # constant parameters from the given parameters
