@@ -230,7 +230,7 @@ run_ithim_setup <- function(seed = 1,
   ## MODEL VARIABLES
   CITY <<- CITY
   if(is.null(PATH_TO_LOCAL_DATA)){
-    PATH_TO_LOCAL_DATA <<- file.path(find.package('ithimr',lib.loc=.libPaths()), 'extdata/local/',CITY,'/') 
+    PATH_TO_LOCAL_DATA <<- file.path(find.package('ithimr',lib.loc=.libPaths()), 'extdata/local',CITY) 
   }else{
     PATH_TO_LOCAL_DATA <<- PATH_TO_LOCAL_DATA
   }
