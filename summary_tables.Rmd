@@ -58,7 +58,7 @@ io <- readRDS("results/multi_city/io.rds")
 cities <- names(io)[!names(io) %in% 'scen_prop']
 LATAM <- F
 AFRICA_INDIA = T
-NSCEN <- 4
+NSCEN <- nrow(io$scen_prop)
 #cities <- c('accra','sao_paulo','buenos_aires')
 
 # cities <- c('sao_paulo')
@@ -109,11 +109,6 @@ for (city in cities) {
   
 dat[[city]] <- io[[city]]$trip_scen_sets %>% 
   mutate(scenario = case_when(
-    # scenario == "Scenario 1" ~ "PED_SC", 
-    # scenario == "Scenario 2" ~ "CYC_SC",
-    # scenario == "Scenario 3" ~ "CAR_SC",
-    # scenario == "Scenario 4" ~ "MOT_SC",
-    # scenario == "Scenario 5" ~ "BUS_SC",
     scenario == "Scenario 1" ~ "CYC_SC", 
     scenario == "Scenario 2" ~ "CAR_SC",
     scenario == "Scenario 3" ~ "BUS_SC",
