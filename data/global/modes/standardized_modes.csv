@@ -1,0 +1,13 @@
+number,exhaustive_list,trav_lng,trav_shrt,inj_vic_lng,inj_vic_shrt,inj_str_lng,inj_str_shrt,original
+1,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,pedestrian,walk; pedestrian;walk_to_pt
+2,cycle,cycle,cycle,cycle,cycle,cycle,other,bike; bicycle; cycle; pedal cycle; pedal.cycle
+3,motorcycle,motorcycle,motorcycle,motorcycle,motorcycle,motorcycle,motorcycle,motorbike; motorcycle; 3wheeled; x2.3.wheeled; 2/3 wheeled; mc
+4,car,car,car,car,car,car,car,picku; pick-up truck/van; pickup; pickup/light goods; car; van; car.pick.up.van; car/pick-up/van
+5,bus,bus,public transport,bus,bus,bus,bus,bus_driver; mini; bus; minibus
+6,truck,truck,truck,truck,truck,truck,truck,truck; heavy transport; trucks
+7,taxi,taxi,taxi,car,car,car,car,taxi
+8,auto_rickshaw,auto_rickshaw,taxi,auto_rickshaw,other,auto_rickshaw,other,auto_rickshaw; auto-rickshaw; rickshaw
+9,rail,rail,public transport,rail,other,rail,other,metro; train; railway.train.railway.vehicle; subway; railway train/railway vehicle;monorail;railway
+10,other,other,other,other,other,other,other,tract; other; others; non.motor.vehicle; cart
+11,unknown,NA,NA,unknown,unknown,unknown,unknown/NOV,unk; ?; unspecified; listed_na; unknown; NA
+12,NOV,NA,NA,NA,NOV,NOV,unknown/NOV,NOV; nov; no other vehicle; no.other.fixed.or.stationary.object; non-motor vehicle; nmv; none;no other/fixed or stationary object
