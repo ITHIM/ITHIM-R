@@ -30,6 +30,8 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 # 
 # number of times input values are sampled from each input parameter distribution
 
+cities <- 'sao_paulo'
+
 input_parameter_file <- "InputParameters_v15.0.xlsx"
 
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
