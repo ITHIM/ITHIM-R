@@ -1,1 +1,0 @@
-Mexico city data only reported total number of victims that was reliable. We used Bogota's data on road injuries and divided the victims into striking vehicles using the proportions from Bogota. Bogota and Mexico city have quite similar mode shares.
