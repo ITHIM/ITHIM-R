@@ -1,0 +1,56 @@
+stage_mode,scenario,distance,city
+bus,Baseline,25069614.64558881,sao_paulo
+bus,Bicycling,24192293.99997025,sao_paulo
+bus,Driving,22157059.38328778,sao_paulo
+bus,Public Transport,31138122.004501086,sao_paulo
+bus,Motorcycling,23146467.147186905,sao_paulo
+bus_driver,Baseline,1170331.0607765191,sao_paulo
+bus_driver,Bicycling,1051838.8695639237,sao_paulo
+bus_driver,Driving,963362.2670988656,sao_paulo
+bus_driver,Public Transport,1405999.703629502,sao_paulo
+bus_driver,Motorcycling,1006379.9959640449,sao_paulo
+car,Baseline,32687908.799218576,sao_paulo
+car,Bicycling,31470234.872310292,sao_paulo
+car,Driving,39595988.59842835,sao_paulo
+car,Public Transport,26721837.330969233,sao_paulo
+car,Motorcycling,30286973.13427854,sao_paulo
+car_driver,Baseline,29336223.141221784,sao_paulo
+car_driver,Bicycling,28243404.562570978,sao_paulo
+car_driver,Driving,35535976.4418009,sao_paulo
+car_driver,Public Transport,23981888.456060667,sao_paulo
+car_driver,Motorcycling,27181469.686449472,sao_paulo
+cycle,Baseline,401239.18001522106,sao_paulo
+cycle,Bicycling,3470910.900206392,sao_paulo
+cycle,Driving,350025.2249579115,sao_paulo
+cycle,Public Transport,360033.606123475,sao_paulo
+cycle,Motorcycling,383321.38166370697,sao_paulo
+motorcycle,Baseline,4444074.618707761,sao_paulo
+motorcycle,Bicycling,4330962.034163332,sao_paulo
+motorcycle,Driving,4040988.046294257,sao_paulo
+motorcycle,Public Transport,3554853.475209963,sao_paulo
+motorcycle,Motorcycling,11462390.324213095,sao_paulo
+other,Baseline,173302.25686995994,sao_paulo
+other,Bicycling,159476.41688502725,sao_paulo
+other,Driving,163455.7027630436,sao_paulo
+other,Public Transport,141148.465140295,sao_paulo
+other,Motorcycling,145447.25572384553,sao_paulo
+pedestrian,Baseline,5164573.3269508695,sao_paulo
+pedestrian,Bicycling,4922016.270654121,sao_paulo
+pedestrian,Driving,4780609.105649854,sao_paulo
+pedestrian,Public Transport,5483880.536444519,sao_paulo
+pedestrian,Motorcycling,4912281.112293689,sao_paulo
+rail,Baseline,28624181.11514041,sao_paulo
+rail,Bicycling,28147358.803985834,sao_paulo
+rail,Driving,25785662.370541498,sao_paulo
+rail,Public Transport,28624181.11514041,sao_paulo
+rail,Motorcycling,26389094.007010583,sao_paulo
+taxi,Baseline,2162331.5829949393,sao_paulo
+taxi,Bicycling,2034244.9872974227,sao_paulo
+taxi,Driving,1853437.0935638475,sao_paulo
+taxi,Public Transport,1846625.1851489483,sao_paulo
+taxi,Motorcycling,2001251.1631161845,sao_paulo
+truck,Baseline,12287150.08884937,sao_paulo
+truck,Bicycling,12287150.08884937,sao_paulo
+truck,Driving,12287150.08884937,sao_paulo
+truck,Public Transport,12287150.08884937,sao_paulo
+truck,Motorcycling,12287150.08884937,sao_paulo

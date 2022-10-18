@@ -1,0 +1,106 @@
+mode,measure,value,scenario,city
+bus,mean,0.11,Bicycling,sao_paulo
+car,mean,1.93,Bicycling,sao_paulo
+cycle,mean,1.42,Bicycling,sao_paulo
+motorcycle,mean,5,Bicycling,sao_paulo
+other,mean,0.02,Bicycling,sao_paulo
+pedestrian,mean,4.53,Bicycling,sao_paulo
+truck,mean,0.18,Bicycling,sao_paulo
+bus,ub,0.17,Bicycling,sao_paulo
+car,ub,2.14,Bicycling,sao_paulo
+cycle,ub,1.79,Bicycling,sao_paulo
+motorcycle,ub,5.41,Bicycling,sao_paulo
+other,ub,0.04,Bicycling,sao_paulo
+pedestrian,ub,4.94,Bicycling,sao_paulo
+truck,ub,0.24,Bicycling,sao_paulo
+bus,lb,0.07,Bicycling,sao_paulo
+car,lb,1.74,Bicycling,sao_paulo
+cycle,lb,1.13,Bicycling,sao_paulo
+motorcycle,lb,4.63,Bicycling,sao_paulo
+other,lb,0.01,Bicycling,sao_paulo
+pedestrian,lb,4.18,Bicycling,sao_paulo
+truck,lb,0.13,Bicycling,sao_paulo
+bus,mean,0.12,Baseline,sao_paulo
+car,mean,1.98,Baseline,sao_paulo
+cycle,mean,0.45,Baseline,sao_paulo
+motorcycle,mean,5.11,Baseline,sao_paulo
+other,mean,0.02,Baseline,sao_paulo
+pedestrian,mean,4.71,Baseline,sao_paulo
+truck,mean,0.18,Baseline,sao_paulo
+bus,ub,0.18,Baseline,sao_paulo
+car,ub,2.2,Baseline,sao_paulo
+cycle,ub,0.56,Baseline,sao_paulo
+motorcycle,ub,5.52,Baseline,sao_paulo
+other,ub,0.04,Baseline,sao_paulo
+pedestrian,ub,5.11,Baseline,sao_paulo
+truck,ub,0.25,Baseline,sao_paulo
+bus,lb,0.08,Baseline,sao_paulo
+car,lb,1.8,Baseline,sao_paulo
+cycle,lb,0.37,Baseline,sao_paulo
+motorcycle,lb,4.74,Baseline,sao_paulo
+other,lb,0.01,Baseline,sao_paulo
+pedestrian,lb,4.36,Baseline,sao_paulo
+truck,lb,0.13,Baseline,sao_paulo
+bus,mean,0.13,Public Transport,sao_paulo
+car,mean,1.72,Public Transport,sao_paulo
+cycle,mean,0.41,Public Transport,sao_paulo
+motorcycle,mean,4.36,Public Transport,sao_paulo
+other,mean,0.01,Public Transport,sao_paulo
+pedestrian,mean,4.6,Public Transport,sao_paulo
+truck,mean,0.17,Public Transport,sao_paulo
+bus,ub,0.19,Public Transport,sao_paulo
+car,ub,1.9,Public Transport,sao_paulo
+cycle,ub,0.51,Public Transport,sao_paulo
+motorcycle,ub,4.71,Public Transport,sao_paulo
+other,ub,0.03,Public Transport,sao_paulo
+pedestrian,ub,5,Public Transport,sao_paulo
+truck,ub,0.24,Public Transport,sao_paulo
+bus,lb,0.09,Public Transport,sao_paulo
+car,lb,1.55,Public Transport,sao_paulo
+cycle,lb,0.34,Public Transport,sao_paulo
+motorcycle,lb,4.04,Public Transport,sao_paulo
+other,lb,0.01,Public Transport,sao_paulo
+pedestrian,lb,4.25,Public Transport,sao_paulo
+truck,lb,0.13,Public Transport,sao_paulo
+bus,mean,0.11,Driving,sao_paulo
+car,mean,2.26,Driving,sao_paulo
+cycle,mean,0.43,Driving,sao_paulo
+motorcycle,mean,4.88,Driving,sao_paulo
+other,mean,0.02,Driving,sao_paulo
+pedestrian,mean,4.71,Driving,sao_paulo
+truck,mean,0.18,Driving,sao_paulo
+bus,ub,0.17,Driving,sao_paulo
+car,ub,2.5,Driving,sao_paulo
+cycle,ub,0.54,Driving,sao_paulo
+motorcycle,ub,5.26,Driving,sao_paulo
+other,ub,0.04,Driving,sao_paulo
+pedestrian,ub,5.1,Driving,sao_paulo
+truck,ub,0.25,Driving,sao_paulo
+bus,lb,0.07,Driving,sao_paulo
+car,lb,2.05,Driving,sao_paulo
+cycle,lb,0.35,Driving,sao_paulo
+motorcycle,lb,4.53,Driving,sao_paulo
+other,lb,0.01,Driving,sao_paulo
+pedestrian,lb,4.36,Driving,sao_paulo
+truck,lb,0.13,Driving,sao_paulo
+bus,mean,0.12,Motorcycling,sao_paulo
+car,mean,1.97,Motorcycling,sao_paulo
+cycle,mean,0.48,Motorcycling,sao_paulo
+motorcycle,mean,9.58,Motorcycling,sao_paulo
+other,mean,0.02,Motorcycling,sao_paulo
+pedestrian,mean,5.14,Motorcycling,sao_paulo
+truck,mean,0.18,Motorcycling,sao_paulo
+bus,ub,0.18,Motorcycling,sao_paulo
+car,ub,2.19,Motorcycling,sao_paulo
+cycle,ub,0.59,Motorcycling,sao_paulo
+motorcycle,ub,10.33,Motorcycling,sao_paulo
+other,ub,0.04,Motorcycling,sao_paulo
+pedestrian,ub,5.6,Motorcycling,sao_paulo
+truck,ub,0.26,Motorcycling,sao_paulo
+bus,lb,0.08,Motorcycling,sao_paulo
+car,lb,1.78,Motorcycling,sao_paulo
+cycle,lb,0.39,Motorcycling,sao_paulo
+motorcycle,lb,8.9,Motorcycling,sao_paulo
+other,lb,0.01,Motorcycling,sao_paulo
+pedestrian,lb,4.74,Motorcycling,sao_paulo
+truck,lb,0.13,Motorcycling,sao_paulo

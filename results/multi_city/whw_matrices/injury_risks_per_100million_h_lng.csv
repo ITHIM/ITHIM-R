@@ -1,0 +1,106 @@
+mode,measure,value,scenario,city
+pedestrian,mean,167.1347,Bicycling,sao_paulo
+other,mean,68.0331,Bicycling,sao_paulo
+car,mean,61.3151,Bicycling,sao_paulo
+motorcycle,mean,1273.3377,Bicycling,sao_paulo
+cycle,mean,214.299,Bicycling,sao_paulo
+truck,mean,8.392,Bicycling,sao_paulo
+bus,mean,2.754,Bicycling,sao_paulo
+pedestrian,ub,182.0701,Bicycling,sao_paulo
+other,ub,145.811,Bicycling,sao_paulo
+car,ub,67.9927,Bicycling,sao_paulo
+motorcycle,ub,1379.2128,Bicycling,sao_paulo
+cycle,ub,270.1961,Bicycling,sao_paulo
+truck,ub,11.7269,Bicycling,sao_paulo
+bus,ub,4.1806,Bicycling,sao_paulo
+pedestrian,lb,154.2261,Bicycling,sao_paulo
+other,lb,31.7818,Bicycling,sao_paulo
+car,lb,55.4661,Bicycling,sao_paulo
+motorcycle,lb,1180.0108,Bicycling,sao_paulo
+cycle,lb,170.3895,Bicycling,sao_paulo
+truck,lb,6.0392,Bicycling,sao_paulo
+bus,lb,1.8178,Bicycling,sao_paulo
+pedestrian,mean,165.7016,Baseline,sao_paulo
+other,mean,66.1872,Baseline,sao_paulo
+car,mean,60.8164,Baseline,sao_paulo
+motorcycle,mean,1269.3434,Baseline,sao_paulo
+cycle,mean,591.3154,Baseline,sao_paulo
+truck,mean,8.4281,Baseline,sao_paulo
+bus,mean,2.7345,Baseline,sao_paulo
+pedestrian,ub,179.792,Baseline,sao_paulo
+other,ub,141.599,Baseline,sao_paulo
+car,ub,67.3266,Baseline,sao_paulo
+motorcycle,ub,1370.3811,Baseline,sao_paulo
+cycle,ub,731.4846,Baseline,sao_paulo
+truck,ub,11.7701,Baseline,sao_paulo
+bus,ub,4.1446,Baseline,sao_paulo
+pedestrian,lb,153.1846,Baseline,sao_paulo
+other,lb,30.9567,Baseline,sao_paulo
+car,lb,55.0561,Baseline,sao_paulo
+motorcycle,lb,1178.0354,Baseline,sao_paulo
+cycle,lb,479.0399,Baseline,sao_paulo
+truck,lb,6.0657,Baseline,sao_paulo
+bus,lb,1.8065,Baseline,sao_paulo
+pedestrian,mean,152.4087,Public Transport,sao_paulo
+other,mean,69.9283,Public Transport,sao_paulo
+car,mean,64.3242,Public Transport,sao_paulo
+motorcycle,mean,1352.9592,Public Transport,sao_paulo
+cycle,mean,600.9998,Public Transport,sao_paulo
+truck,mean,8.3054,Public Transport,sao_paulo
+bus,mean,2.4316,Public Transport,sao_paulo
+pedestrian,ub,165.4331,Public Transport,sao_paulo
+other,ub,149.5906,Public Transport,sao_paulo
+car,ub,71.262,Public Transport,sao_paulo
+motorcycle,ub,1461.1166,Public Transport,sao_paulo
+cycle,ub,743.5073,Public Transport,sao_paulo
+truck,ub,11.5802,Public Transport,sao_paulo
+bus,ub,3.679,Public Transport,sao_paulo
+pedestrian,lb,140.8431,Public Transport,sao_paulo
+other,lb,32.7082,Public Transport,sao_paulo
+car,lb,58.1884,Public Transport,sao_paulo
+motorcycle,lb,1255.1344,Public Transport,sao_paulo
+cycle,lb,486.8434,Public Transport,sao_paulo
+truck,lb,5.9862,Public Transport,sao_paulo
+bus,lb,1.6092,Public Transport,sao_paulo
+pedestrian,mean,178.8669,Driving,sao_paulo
+other,mean,69.1857,Driving,sao_paulo
+car,mean,57.2292,Driving,sao_paulo
+motorcycle,mean,1332.5559,Driving,sao_paulo
+cycle,mean,648.7172,Driving,sao_paulo
+truck,mean,8.4864,Driving,sao_paulo
+bus,mean,2.9004,Driving,sao_paulo
+pedestrian,ub,193.7339,Driving,sao_paulo
+other,ub,147.982,Driving,sao_paulo
+car,ub,63.2586,Driving,sao_paulo
+motorcycle,ub,1438.0431,Driving,sao_paulo
+cycle,ub,800.779,Driving,sao_paulo
+truck,ub,11.8584,Driving,sao_paulo
+bus,ub,4.3994,Driving,sao_paulo
+pedestrian,lb,165.6142,Driving,sao_paulo
+other,lb,32.3649,Driving,sao_paulo
+car,lb,51.8808,Driving,sao_paulo
+motorcycle,lb,1237.0658,Driving,sao_paulo
+cycle,lb,526.6323,Driving,sao_paulo
+truck,lb,6.1041,Driving,sao_paulo
+bus,lb,1.9146,Driving,sao_paulo
+pedestrian,mean,190.1146,mcsc,sao_paulo
+other,mean,79.8106,mcsc,sao_paulo
+car,mean,65.1395,mcsc,sao_paulo
+motorcycle,mean,922.3471,mcsc,sao_paulo
+cycle,mean,656.6907,mcsc,sao_paulo
+truck,mean,8.77,mcsc,sao_paulo
+bus,mean,3.0002,mcsc,sao_paulo
+pedestrian,ub,207.0611,mcsc,sao_paulo
+other,ub,170.7579,mcsc,sao_paulo
+car,ub,72.3673,mcsc,sao_paulo
+motorcycle,ub,994.7056,mcsc,sao_paulo
+cycle,ub,811.5289,mcsc,sao_paulo
+truck,ub,12.2985,mcsc,sao_paulo
+bus,ub,4.5572,mcsc,sao_paulo
+pedestrian,lb,175.0304,mcsc,sao_paulo
+other,lb,37.3222,mcsc,sao_paulo
+car,lb,58.7668,mcsc,sao_paulo
+motorcycle,lb,856.6674,mcsc,sao_paulo
+cycle,lb,532.4277,mcsc,sao_paulo
+truck,lb,6.2868,mcsc,sao_paulo
+bus,lb,1.9776,mcsc,sao_paulo
