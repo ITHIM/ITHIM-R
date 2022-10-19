@@ -26,11 +26,10 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 #            'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
 # 
 # #African & Indian cities
-# cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
-# 
-# number of times input values are sampled from each input parameter distribution
- cities <-  'kisumu'
+ cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
  
+# number of times input values are sampled from each input parameter distribution
+
 input_parameter_file <- "InputParameters_v15.0.xlsx"
 
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
