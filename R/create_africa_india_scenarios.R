@@ -24,9 +24,9 @@ create_africa_india_scenarios <- function(trip_set){
   
   # global modal split across the three distance categories for each mode
   # cycle, car, bus, motorcycle
-  global_modeshares <- data.frame(c(1.7, 8.0, 36.8, 11.1), # distance category 0-2km
-                                  c(25.8, 33.8, 47.2, 37.2), # distance category 2-6km
-                                  c(72.7, 58.2, 16.0, 53.1))
+  global_modeshares <- data.frame(c(36.8, 8.0, 1.7, 11.1), # distance category 0-2km
+                                  c(47.2, 33.8, 25.8, 37.2), # distance category 2-6km
+                                  c(16.0, 58.2, 72.7, 53.1))
   
   percentage_change <- 0.05
   
@@ -59,7 +59,7 @@ create_africa_india_scenarios <- function(trip_set){
   
   
   colnames(scenario_proportions) <- target_distances <- DIST_CAT
-  rownames(scenario_proportions) <- modes <- c("bus", "car", "cycle", 'motorcycle')
+  rownames(scenario_proportions) <- modes <- c("cycle", "car", "bus", 'motorcycle')
   SCENARIO_PROPORTIONS <<- scenario_proportions
   
   #print(scenario_proportions)
