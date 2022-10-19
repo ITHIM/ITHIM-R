@@ -80,29 +80,29 @@ rail,lb,0,Bicycling,arica
 auto_rickshaw,mean,0,Bicycling,arica
 auto_rickshaw,ub,0,Bicycling,arica
 auto_rickshaw,lb,0,Bicycling,arica
-pedestrian,mean,464.1623,Bicycling,bangalore
-car,mean,224.4635,Bicycling,bangalore
-cycle,mean,111.2077,Bicycling,bangalore
+pedestrian,mean,464.218,Bicycling,bangalore
+car,mean,224.475,Bicycling,bangalore
+cycle,mean,111.221,Bicycling,bangalore
 motorcycle,mean,257.9599,Bicycling,bangalore
 truck,mean,196.4549,Bicycling,bangalore
-bus,mean,20.4823,Bicycling,bangalore
-pedestrian,ub,574.9552,Bicycling,bangalore
-car,ub,404.2553,Bicycling,bangalore
-cycle,ub,181.3679,Bicycling,bangalore
+bus,mean,20.4827,Bicycling,bangalore
+pedestrian,ub,575.0233,Bicycling,bangalore
+car,ub,404.2735,Bicycling,bangalore
+cycle,ub,181.3896,Bicycling,bangalore
 motorcycle,ub,321.5279,Bicycling,bangalore
 truck,ub,369.7727,Bicycling,bangalore
-bus,ub,46.5002,Bicycling,bangalore
-pedestrian,lb,380.5949,Bicycling,bangalore
-car,lb,125.9477,Bicycling,bangalore
-cycle,lb,68.3617,Bicycling,bangalore
-motorcycle,lb,210.6974,Bicycling,bangalore
+bus,ub,46.5014,Bicycling,bangalore
+pedestrian,lb,380.6408,Bicycling,bangalore
+car,lb,125.9544,Bicycling,bangalore
+cycle,lb,68.37,Bicycling,bangalore
+motorcycle,lb,210.6975,Bicycling,bangalore
 truck,lb,104.3737,Bicycling,bangalore
-bus,lb,9.4781,Bicycling,bangalore
-other,mean,2888.0087,Bicycling,bangalore
+bus,lb,9.4782,Bicycling,bangalore
+other,mean,2888.1622,Bicycling,bangalore
 rail,mean,0,Bicycling,bangalore
-other,ub,6652.7536,Bicycling,bangalore
+other,ub,6653.0402,Bicycling,bangalore
 rail,ub,0,Bicycling,bangalore
-other,lb,1367.8937,Bicycling,bangalore
+other,lb,1367.9722,Bicycling,bangalore
 rail,lb,0,Bicycling,bangalore
 auto_rickshaw,mean,0,Bicycling,bangalore
 auto_rickshaw,ub,0,Bicycling,bangalore
@@ -134,21 +134,21 @@ rail,lb,0.0385,Bicycling,belo_horizonte
 auto_rickshaw,mean,0,Bicycling,belo_horizonte
 auto_rickshaw,ub,0,Bicycling,belo_horizonte
 auto_rickshaw,lb,0,Bicycling,belo_horizonte
-pedestrian,mean,46.5044,Bicycling,bogota
+pedestrian,mean,46.5049,Bicycling,bogota
 car,mean,7.7529,Bicycling,bogota
-cycle,mean,72.7686,Bicycling,bogota
+cycle,mean,72.7693,Bicycling,bogota
 motorcycle,mean,161.8375,Bicycling,bogota
 truck,mean,0.8672,Bicycling,bogota
 bus,mean,1.1771,Bicycling,bogota
-pedestrian,ub,58.0713,Bicycling,bogota
+pedestrian,ub,58.072,Bicycling,bogota
 car,ub,12.1055,Bicycling,bogota
-cycle,ub,94.7476,Bicycling,bogota
-motorcycle,ub,205.0457,Bicycling,bogota
+cycle,ub,94.7485,Bicycling,bogota
+motorcycle,ub,205.0458,Bicycling,bogota
 truck,ub,2.6785,Bicycling,bogota
 bus,ub,2.1013,Bicycling,bogota
-pedestrian,lb,37.4452,Bicycling,bogota
+pedestrian,lb,37.4456,Bicycling,bogota
 car,lb,5.0187,Bicycling,bogota
-cycle,lb,56.4134,Bicycling,bogota
+cycle,lb,56.4139,Bicycling,bogota
 motorcycle,lb,128.9458,Bicycling,bogota
 truck,lb,0.2936,Bicycling,bogota
 bus,lb,0.6724,Bicycling,bogota
@@ -188,29 +188,29 @@ rail,lb,0,Bicycling,buenos_aires
 auto_rickshaw,mean,0,Bicycling,buenos_aires
 auto_rickshaw,ub,0,Bicycling,buenos_aires
 auto_rickshaw,lb,0,Bicycling,buenos_aires
-pedestrian,mean,78.3445,Bicycling,cali
+pedestrian,mean,78.3436,Bicycling,cali
 car,mean,8.9147,Bicycling,cali
-cycle,mean,79.1759,Bicycling,cali
+cycle,mean,79.175,Bicycling,cali
 motorcycle,mean,77.8517,Bicycling,cali
 truck,mean,0,Bicycling,cali
 bus,mean,0.1584,Bicycling,cali
-pedestrian,ub,107.0385,Bicycling,cali
-car,ub,16.1285,Bicycling,cali
-cycle,ub,118.0887,Bicycling,cali
+pedestrian,ub,107.0374,Bicycling,cali
+car,ub,16.1284,Bicycling,cali
+cycle,ub,118.0875,Bicycling,cali
 motorcycle,ub,111.8807,Bicycling,cali
 truck,ub,0,Bicycling,cali
 bus,ub,1.2105,Bicycling,cali
-pedestrian,lb,57.8165,Bicycling,cali
-car,lb,4.9976,Bicycling,cali
-cycle,lb,54.9937,Bicycling,cali
+pedestrian,lb,57.8159,Bicycling,cali
+car,lb,4.9975,Bicycling,cali
+cycle,lb,54.9931,Bicycling,cali
 motorcycle,lb,55.3385,Bicycling,cali
 truck,lb,0,Bicycling,cali
 bus,lb,0.0208,Bicycling,cali
-other,mean,75.5949,Bicycling,cali
+other,mean,75.5943,Bicycling,cali
 rail,mean,0,Bicycling,cali
-other,ub,571.9529,Bicycling,cali
+other,ub,571.9479,Bicycling,cali
 rail,ub,0,Bicycling,cali
-other,lb,10.0076,Bicycling,cali
+other,lb,10.0075,Bicycling,cali
 rail,lb,0,Bicycling,cali
 auto_rickshaw,mean,0,Bicycling,cali
 auto_rickshaw,ub,0,Bicycling,cali
@@ -296,24 +296,24 @@ rail,lb,0,Bicycling,coquimbo_laserena
 auto_rickshaw,mean,0,Bicycling,coquimbo_laserena
 auto_rickshaw,ub,0,Bicycling,coquimbo_laserena
 auto_rickshaw,lb,0,Bicycling,coquimbo_laserena
-pedestrian,mean,4921.3537,Bicycling,delhi
-car,mean,1169.4872,Bicycling,delhi
-cycle,mean,2022.0394,Bicycling,delhi
-motorcycle,mean,5880.7285,Bicycling,delhi
-truck,mean,897.0918,Bicycling,delhi
-bus,mean,60.3511,Bicycling,delhi
-pedestrian,ub,5314.7273,Bicycling,delhi
-car,ub,1387.6277,Bicycling,delhi
-cycle,ub,2337.7016,Bicycling,delhi
-motorcycle,ub,6369.1261,Bicycling,delhi
-truck,ub,1172.8368,Bicycling,delhi
-bus,ub,120.2953,Bicycling,delhi
-pedestrian,lb,4567.1493,Bicycling,delhi
-car,lb,986.6617,Bicycling,delhi
-cycle,lb,1749.1421,Bicycling,delhi
-motorcycle,lb,5431.1874,Bicycling,delhi
-truck,lb,686.8898,Bicycling,delhi
-bus,lb,30.2777,Bicycling,delhi
+pedestrian,mean,4921.4722,Bicycling,delhi
+car,mean,1169.4802,Bicycling,delhi
+cycle,mean,2022.0881,Bicycling,delhi
+motorcycle,mean,5880.7291,Bicycling,delhi
+truck,mean,897.0907,Bicycling,delhi
+bus,mean,60.3506,Bicycling,delhi
+pedestrian,ub,5314.8304,Bicycling,delhi
+car,ub,1387.6304,Bicycling,delhi
+cycle,ub,2337.7533,Bicycling,delhi
+motorcycle,ub,6369.1237,Bicycling,delhi
+truck,ub,1172.8444,Bicycling,delhi
+bus,ub,120.2949,Bicycling,delhi
+pedestrian,lb,4567.2813,Bicycling,delhi
+car,lb,986.6486,Bicycling,delhi
+cycle,lb,1749.1879,Bicycling,delhi
+motorcycle,lb,5431.1906,Bicycling,delhi
+truck,lb,686.8841,Bicycling,delhi
+bus,lb,30.2773,Bicycling,delhi
 other,mean,0,Bicycling,delhi
 rail,mean,0,Bicycling,delhi
 other,ub,0,Bicycling,delhi
@@ -377,48 +377,48 @@ rail,lb,0,Bicycling,iquique_altohospicio
 auto_rickshaw,mean,0,Bicycling,iquique_altohospicio
 auto_rickshaw,ub,0,Bicycling,iquique_altohospicio
 auto_rickshaw,lb,0,Bicycling,iquique_altohospicio
-pedestrian,mean,664.0222,Bicycling,kisumu
-car,mean,629.757,Bicycling,kisumu
-cycle,mean,0,Bicycling,kisumu
-motorcycle,mean,3655.6676,Bicycling,kisumu
+pedestrian,mean,663.6432,Bicycling,kisumu
+car,mean,625.1404,Bicycling,kisumu
+cycle,mean,283.7267,Bicycling,kisumu
+motorcycle,mean,3611.6706,Bicycling,kisumu
 truck,mean,2247.101,Bicycling,kisumu
-bus,mean,859.8419,Bicycling,kisumu
-pedestrian,ub,1162.796,Bicycling,kisumu
-car,ub,2444.9365,Bicycling,kisumu
-cycle,ub,0,Bicycling,kisumu
-motorcycle,ub,5627.8665,Bicycling,kisumu
+bus,mean,852.4392,Bicycling,kisumu
+pedestrian,ub,1116.1393,Bicycling,kisumu
+car,ub,2397.9866,Bicycling,kisumu
+cycle,ub,973.4245,Bicycling,kisumu
+motorcycle,ub,5377.5764,Bicycling,kisumu
 truck,ub,4785.4014,Bicycling,kisumu
-bus,ub,1865.8044,Bicycling,kisumu
-pedestrian,lb,400.779,Bicycling,kisumu
-car,lb,188.7808,Bicycling,kisumu
-cycle,lb,0,Bicycling,kisumu
-motorcycle,lb,2472.5015,Bicycling,kisumu
+bus,ub,1806.7297,Bicycling,kisumu
+pedestrian,lb,412.7792,Bicycling,kisumu
+car,lb,190.3972,Bicycling,kisumu
+cycle,lb,84.036,Bicycling,kisumu
+motorcycle,lb,2503.4684,Bicycling,kisumu
 truck,lb,1055.1807,Bicycling,kisumu
-bus,lb,459.6866,Bicycling,kisumu
+bus,lb,466.3654,Bicycling,kisumu
 other,mean,0,Bicycling,kisumu
 rail,mean,0,Bicycling,kisumu
 other,ub,0,Bicycling,kisumu
 rail,ub,0,Bicycling,kisumu
 other,lb,0,Bicycling,kisumu
 rail,lb,0,Bicycling,kisumu
-auto_rickshaw,mean,0,Bicycling,kisumu
-auto_rickshaw,ub,0,Bicycling,kisumu
-auto_rickshaw,lb,0,Bicycling,kisumu
-pedestrian,mean,76.3351,Bicycling,medellin
+auto_rickshaw,mean,414.6474,Bicycling,kisumu
+auto_rickshaw,ub,1809.6847,Bicycling,kisumu
+auto_rickshaw,lb,96.2148,Bicycling,kisumu
+pedestrian,mean,76.335,Bicycling,medellin
 car,mean,7.7524,Bicycling,medellin
 cycle,mean,111.6146,Bicycling,medellin
 motorcycle,mean,114.9336,Bicycling,medellin
 truck,mean,2.9171,Bicycling,medellin
 bus,mean,2.4409,Bicycling,medellin
-pedestrian,ub,91.593,Bicycling,medellin
+pedestrian,ub,91.5929,Bicycling,medellin
 car,ub,13.7057,Bicycling,medellin
-cycle,ub,170.0614,Bicycling,medellin
+cycle,ub,170.0613,Bicycling,medellin
 motorcycle,ub,134.4496,Bicycling,medellin
 truck,ub,9.3401,Bicycling,medellin
 bus,ub,5.0487,Bicycling,medellin
 pedestrian,lb,64.3913,Bicycling,medellin
 car,lb,4.5947,Bicycling,medellin
-cycle,lb,73.7035,Bicycling,medellin
+cycle,lb,73.7034,Bicycling,medellin
 motorcycle,lb,99.5171,Bicycling,medellin
 truck,lb,0.9492,Bicycling,medellin
 bus,lb,1.292,Bicycling,medellin
@@ -428,32 +428,32 @@ other,ub,0,Bicycling,medellin
 rail,ub,0,Bicycling,medellin
 other,lb,0,Bicycling,medellin
 rail,lb,0,Bicycling,medellin
-auto_rickshaw,mean,220.0674,Bicycling,medellin
-auto_rickshaw,ub,1641.2455,Bicycling,medellin
+auto_rickshaw,mean,220.0673,Bicycling,medellin
+auto_rickshaw,ub,1641.2443,Bicycling,medellin
 auto_rickshaw,lb,29.5359,Bicycling,medellin
-pedestrian,mean,79.1118,Bicycling,mexico_city
-car,mean,37.14,Bicycling,mexico_city
-cycle,mean,52.1207,Bicycling,mexico_city
-motorcycle,mean,185.8882,Bicycling,mexico_city
+pedestrian,mean,79.1162,Bicycling,mexico_city
+car,mean,37.1405,Bicycling,mexico_city
+cycle,mean,52.1226,Bicycling,mexico_city
+motorcycle,mean,185.8887,Bicycling,mexico_city
 truck,mean,2.0676,Bicycling,mexico_city
 bus,mean,1.052,Bicycling,mexico_city
-pedestrian,ub,95.0532,Bicycling,mexico_city
-car,ub,44.626,Bicycling,mexico_city
-cycle,ub,91.9592,Bicycling,mexico_city
-motorcycle,ub,257.4999,Bicycling,mexico_city
+pedestrian,ub,95.059,Bicycling,mexico_city
+car,ub,44.6264,Bicycling,mexico_city
+cycle,ub,91.9622,Bicycling,mexico_city
+motorcycle,ub,257.5011,Bicycling,mexico_city
 truck,ub,3.9899,Bicycling,mexico_city
 bus,ub,2.5902,Bicycling,mexico_city
-pedestrian,lb,66.7494,Bicycling,mexico_city
-car,lb,31.2117,Bicycling,mexico_city
-cycle,lb,30.8362,Bicycling,mexico_city
+pedestrian,lb,66.753,Bicycling,mexico_city
+car,lb,31.2123,Bicycling,mexico_city
+cycle,lb,30.8374,Bicycling,mexico_city
 motorcycle,lb,136.217,Bicycling,mexico_city
 truck,lb,1.0714,Bicycling,mexico_city
 bus,lb,0.5264,Bicycling,mexico_city
-other,mean,1465.289,Bicycling,mexico_city
+other,mean,1465.3543,Bicycling,mexico_city
 rail,mean,0,Bicycling,mexico_city
-other,ub,2243.2188,Bicycling,mexico_city
+other,ub,2243.2943,Bicycling,mexico_city
 rail,ub,0,Bicycling,mexico_city
-other,lb,1004.7187,Bicycling,mexico_city
+other,lb,1004.7701,Bicycling,mexico_city
 rail,lb,0,Bicycling,mexico_city
 auto_rickshaw,mean,0,Bicycling,mexico_city
 auto_rickshaw,ub,0,Bicycling,mexico_city
@@ -485,33 +485,33 @@ rail,lb,0,Bicycling,montevideo
 auto_rickshaw,mean,0,Bicycling,montevideo
 auto_rickshaw,ub,0,Bicycling,montevideo
 auto_rickshaw,lb,0,Bicycling,montevideo
-pedestrian,mean,890.7138,Bicycling,nairobi
-car,mean,347.9789,Bicycling,nairobi
-cycle,mean,0,Bicycling,nairobi
-motorcycle,mean,2926.408,Bicycling,nairobi
+pedestrian,mean,879.9079,Bicycling,nairobi
+car,mean,348.0652,Bicycling,nairobi
+cycle,mean,192.9829,Bicycling,nairobi
+motorcycle,mean,2917.5158,Bicycling,nairobi
 truck,mean,146.2277,Bicycling,nairobi
-bus,mean,62.5831,Bicycling,nairobi
-pedestrian,ub,1223.3175,Bicycling,nairobi
-car,ub,642.7604,Bicycling,nairobi
-cycle,ub,0,Bicycling,nairobi
-motorcycle,ub,4284.3081,Bicycling,nairobi
+bus,mean,62.2564,Bicycling,nairobi
+pedestrian,ub,1200.3754,Bicycling,nairobi
+car,ub,644.5342,Bicycling,nairobi
+cycle,ub,399.2845,Bicycling,nairobi
+motorcycle,ub,4279.1033,Bicycling,nairobi
 truck,ub,557.982,Bicycling,nairobi
-bus,ub,114.9171,Bicycling,nairobi
-pedestrian,lb,655.841,Bicycling,nairobi
-car,lb,212.3008,Bicycling,nairobi
-cycle,lb,0,Bicycling,nairobi
-motorcycle,lb,2084.0097,Bicycling,nairobi
+bus,ub,114.7706,Bicycling,nairobi
+pedestrian,lb,654.6384,Bicycling,nairobi
+car,lb,213.8545,Bicycling,nairobi
+cycle,lb,93.4533,Bicycling,nairobi
+motorcycle,lb,2093.8937,Bicycling,nairobi
 truck,lb,41.2587,Bicycling,nairobi
-bus,lb,38.6606,Bicycling,nairobi
+bus,lb,38.6725,Bicycling,nairobi
 other,mean,0,Bicycling,nairobi
 rail,mean,0,Bicycling,nairobi
 other,ub,0,Bicycling,nairobi
 rail,ub,0,Bicycling,nairobi
 other,lb,0,Bicycling,nairobi
 rail,lb,0,Bicycling,nairobi
-auto_rickshaw,mean,0,Bicycling,nairobi
-auto_rickshaw,ub,0,Bicycling,nairobi
-auto_rickshaw,lb,0,Bicycling,nairobi
+auto_rickshaw,mean,859.0066,Bicycling,nairobi
+auto_rickshaw,ub,3657.1667,Bicycling,nairobi
+auto_rickshaw,lb,202.8742,Bicycling,nairobi
 pedestrian,mean,27.0856,Bicycling,osorno
 car,mean,29.2967,Bicycling,osorno
 cycle,mean,6.215,Bicycling,osorno
@@ -539,24 +539,24 @@ rail,lb,0,Bicycling,osorno
 auto_rickshaw,mean,0,Bicycling,osorno
 auto_rickshaw,ub,0,Bicycling,osorno
 auto_rickshaw,lb,0,Bicycling,osorno
-pedestrian,mean,923.6916,Bicycling,port_louis
+pedestrian,mean,924.3752,Bicycling,port_louis
 car,mean,0,Bicycling,port_louis
-cycle,mean,0,Bicycling,port_louis
-motorcycle,mean,3526.7876,Bicycling,port_louis
-truck,mean,773.2812,Bicycling,port_louis
-bus,mean,100.3191,Bicycling,port_louis
-pedestrian,ub,1661.8799,Bicycling,port_louis
+cycle,mean,3029.7125,Bicycling,port_louis
+motorcycle,mean,3525.4385,Bicycling,port_louis
+truck,mean,773.4576,Bicycling,port_louis
+bus,mean,100.3641,Bicycling,port_louis
+pedestrian,ub,1651.5409,Bicycling,port_louis
 car,ub,0,Bicycling,port_louis
-cycle,ub,0,Bicycling,port_louis
-motorcycle,ub,6137.776,Bicycling,port_louis
-truck,ub,2922.9534,Bicycling,port_louis
-bus,ub,353.7438,Bicycling,port_louis
-pedestrian,lb,518.4331,Bicycling,port_louis
+cycle,ub,8385.2602,Bicycling,port_louis
+motorcycle,ub,6071.7897,Bicycling,port_louis
+truck,ub,2909.5637,Bicycling,port_louis
+bus,ub,352.9558,Bicycling,port_louis
+pedestrian,lb,521.9813,Bicycling,port_louis
 car,lb,0,Bicycling,port_louis
-cycle,lb,0,Bicycling,port_louis
-motorcycle,lb,2057.8881,Bicycling,port_louis
-truck,lb,208.6912,Bicycling,port_louis
-bus,lb,28.5503,Bicycling,port_louis
+cycle,lb,1114.2023,Bicycling,port_louis
+motorcycle,lb,2075.3467,Bicycling,port_louis
+truck,lb,209.8058,Bicycling,port_louis
+bus,lb,28.6292,Bicycling,port_louis
 other,mean,0,Bicycling,port_louis
 rail,mean,0,Bicycling,port_louis
 other,ub,0,Bicycling,port_louis
@@ -728,29 +728,29 @@ rail,lb,0,Bicycling,valdivia
 auto_rickshaw,mean,0,Bicycling,valdivia
 auto_rickshaw,ub,0,Bicycling,valdivia
 auto_rickshaw,lb,0,Bicycling,valdivia
-pedestrian,mean,407.673,Bicycling,vizag
-car,mean,582.0204,Bicycling,vizag
-cycle,mean,259.475,Bicycling,vizag
-motorcycle,mean,912.389,Bicycling,vizag
-truck,mean,887.5305,Bicycling,vizag
-bus,mean,9.7382,Bicycling,vizag
-pedestrian,ub,484.3424,Bicycling,vizag
-car,ub,976.5552,Bicycling,vizag
-cycle,ub,346.3786,Bicycling,vizag
-motorcycle,ub,1068.5267,Bicycling,vizag
-truck,ub,1500.2515,Bicycling,vizag
-bus,ub,22.0059,Bicycling,vizag
-pedestrian,lb,347.0115,Bicycling,vizag
-car,lb,347.7047,Bicycling,vizag
-cycle,lb,194.4004,Bicycling,vizag
-motorcycle,lb,779.4888,Bicycling,vizag
-truck,lb,552.5014,Bicycling,vizag
-bus,lb,5.1524,Bicycling,vizag
-other,mean,211.1442,Bicycling,vizag
+pedestrian,mean,408.0247,Bicycling,vizag
+car,mean,582.0987,Bicycling,vizag
+cycle,mean,259.6993,Bicycling,vizag
+motorcycle,mean,912.3902,Bicycling,vizag
+truck,mean,887.6356,Bicycling,vizag
+bus,mean,9.7385,Bicycling,vizag
+pedestrian,ub,484.752,Bicycling,vizag
+car,ub,976.7264,Bicycling,vizag
+cycle,ub,346.6767,Bicycling,vizag
+motorcycle,ub,1068.5212,Bicycling,vizag
+truck,ub,1500.5977,Bicycling,vizag
+bus,ub,22.008,Bicycling,vizag
+pedestrian,lb,347.3136,Bicycling,vizag
+car,lb,347.738,Bicycling,vizag
+cycle,lb,194.5692,Bicycling,vizag
+motorcycle,lb,779.4949,Bicycling,vizag
+truck,lb,552.533,Bicycling,vizag
+bus,lb,5.1525,Bicycling,vizag
+other,mean,211.2154,Bicycling,vizag
 rail,mean,0,Bicycling,vizag
-other,ub,440.9234,Bicycling,vizag
+other,ub,441.0869,Bicycling,vizag
 rail,ub,0,Bicycling,vizag
-other,lb,101.1135,Bicycling,vizag
+other,lb,101.144,Bicycling,vizag
 rail,lb,0,Bicycling,vizag
 auto_rickshaw,mean,0,Bicycling,vizag
 auto_rickshaw,ub,0,Bicycling,vizag
@@ -842,23 +842,23 @@ cycle,mean,200.735,Baseline,bangalore
 motorcycle,mean,256.2143,Baseline,bangalore
 truck,mean,196.4549,Baseline,bangalore
 bus,mean,20.3527,Baseline,bangalore
-pedestrian,ub,563.9721,Baseline,bangalore
-car,ub,402.9898,Baseline,bangalore
+pedestrian,ub,563.9722,Baseline,bangalore
+car,ub,402.9889,Baseline,bangalore
 cycle,ub,327.4166,Baseline,bangalore
 motorcycle,ub,317.5548,Baseline,bangalore
 truck,ub,369.7727,Baseline,bangalore
 bus,ub,46.1478,Baseline,bangalore
-pedestrian,lb,376.1034,Baseline,bangalore
-car,lb,126.0431,Baseline,bangalore
+pedestrian,lb,376.1035,Baseline,bangalore
+car,lb,126.043,Baseline,bangalore
 cycle,lb,123.3873,Baseline,bangalore
 motorcycle,lb,209.4477,Baseline,bangalore
 truck,lb,104.3737,Baseline,bangalore
 bus,lb,9.4211,Baseline,bangalore
 other,mean,2867.648,Baseline,bangalore
 rail,mean,0,Baseline,bangalore
-other,ub,6592.796,Baseline,bangalore
+other,ub,6592.7914,Baseline,bangalore
 rail,ub,0,Baseline,bangalore
-other,lb,1358.7591,Baseline,bangalore
+other,lb,1358.7579,Baseline,bangalore
 rail,lb,0,Baseline,bangalore
 auto_rickshaw,mean,0,Baseline,bangalore
 auto_rickshaw,ub,0,Baseline,bangalore
@@ -898,13 +898,13 @@ truck,mean,0.8685,Baseline,bogota
 bus,mean,1.1707,Baseline,bogota
 pedestrian,ub,56.6032,Baseline,bogota
 car,ub,12.0203,Baseline,bogota
-cycle,ub,145.9789,Baseline,bogota
+cycle,ub,145.9788,Baseline,bogota
 motorcycle,ub,203.4982,Baseline,bogota
 truck,ub,2.6838,Baseline,bogota
 bus,ub,2.0889,Baseline,bogota
 pedestrian,lb,36.5888,Baseline,bogota
 car,lb,4.9859,Baseline,bogota
-cycle,lb,89.331,Baseline,bogota
+cycle,lb,89.3311,Baseline,bogota
 motorcycle,lb,128.3208,Baseline,bogota
 truck,lb,0.294,Baseline,bogota
 bus,lb,0.669,Baseline,bogota
@@ -964,7 +964,7 @@ truck,lb,0,Baseline,cali
 bus,lb,0.0207,Baseline,cali
 other,mean,75.3016,Baseline,cali
 rail,mean,0,Baseline,cali
-other,ub,569.5451,Baseline,cali
+other,ub,569.5448,Baseline,cali
 rail,ub,0,Baseline,cali
 other,lb,9.9717,Baseline,cali
 rail,lb,0,Baseline,cali
@@ -1058,18 +1058,18 @@ cycle,mean,3162.9941,Baseline,delhi
 motorcycle,mean,5744.8206,Baseline,delhi
 truck,mean,902.158,Baseline,delhi
 bus,mean,59.6557,Baseline,delhi
-pedestrian,ub,5241.0495,Baseline,delhi
-car,ub,1367.1205,Baseline,delhi
-cycle,ub,3657.0175,Baseline,delhi
-motorcycle,ub,6222.2349,Baseline,delhi
-truck,ub,1179.742,Baseline,delhi
-bus,ub,118.9097,Baseline,delhi
-pedestrian,lb,4502.7539,Baseline,delhi
-car,lb,971.8922,Baseline,delhi
-cycle,lb,2735.9301,Baseline,delhi
-motorcycle,lb,5305.4138,Baseline,delhi
-truck,lb,690.6069,Baseline,delhi
-bus,lb,29.9287,Baseline,delhi
+pedestrian,ub,5241.0225,Baseline,delhi
+car,ub,1367.1315,Baseline,delhi
+cycle,ub,3657.0091,Baseline,delhi
+motorcycle,ub,6222.232,Baseline,delhi
+truck,ub,1179.751,Baseline,delhi
+bus,ub,118.9102,Baseline,delhi
+pedestrian,lb,4502.7779,Baseline,delhi
+car,lb,971.8849,Baseline,delhi
+cycle,lb,2735.9366,Baseline,delhi
+motorcycle,lb,5305.4163,Baseline,delhi
+truck,lb,690.602,Baseline,delhi
+bus,lb,29.9286,Baseline,delhi
 other,mean,0,Baseline,delhi
 rail,mean,0,Baseline,delhi
 other,ub,0,Baseline,delhi
@@ -1133,33 +1133,33 @@ rail,lb,0,Baseline,iquique_altohospicio
 auto_rickshaw,mean,0,Baseline,iquique_altohospicio
 auto_rickshaw,ub,0,Baseline,iquique_altohospicio
 auto_rickshaw,lb,0,Baseline,iquique_altohospicio
-pedestrian,mean,656.324,Baseline,kisumu
+pedestrian,mean,656.2279,Baseline,kisumu
 car,mean,604.1235,Baseline,kisumu
-cycle,mean,0,Baseline,kisumu
-motorcycle,mean,3584.1293,Baseline,kisumu
+cycle,mean,481.9569,Baseline,kisumu
+motorcycle,mean,3569.3802,Baseline,kisumu
 truck,mean,2247.101,Baseline,kisumu
-bus,mean,841.0865,Baseline,kisumu
-pedestrian,ub,1150.625,Baseline,kisumu
-car,ub,2350.3696,Baseline,kisumu
-cycle,ub,0,Baseline,kisumu
-motorcycle,ub,5518.9324,Baseline,kisumu
+bus,mean,835.2314,Baseline,kisumu
+pedestrian,ub,1105.9554,Baseline,kisumu
+car,ub,2323.514,Baseline,kisumu
+cycle,ub,1655.1242,Baseline,kisumu
+motorcycle,ub,5321.7007,Baseline,kisumu
 truck,ub,4785.4014,Baseline,kisumu
-bus,ub,1828.1664,Baseline,kisumu
-pedestrian,lb,395.6953,Baseline,kisumu
-car,lb,180.8094,Baseline,kisumu
-cycle,lb,0,Baseline,kisumu
-motorcycle,lb,2422.7668,Baseline,kisumu
+bus,ub,1774.4144,Baseline,kisumu
+pedestrian,lb,407.5716,Baseline,kisumu
+car,lb,183.653,Baseline,kisumu
+cycle,lb,142.6462,Baseline,kisumu
+motorcycle,lb,2471.7484,Baseline,kisumu
 truck,lb,1055.1807,Baseline,kisumu
-bus,lb,449.2569,Baseline,kisumu
+bus,lb,456.4355,Baseline,kisumu
 other,mean,0,Baseline,kisumu
 rail,mean,0,Baseline,kisumu
 other,ub,0,Baseline,kisumu
 rail,ub,0,Baseline,kisumu
 other,lb,0,Baseline,kisumu
 rail,lb,0,Baseline,kisumu
-auto_rickshaw,mean,0,Baseline,kisumu
-auto_rickshaw,ub,0,Baseline,kisumu
-auto_rickshaw,lb,0,Baseline,kisumu
+auto_rickshaw,mean,407.0517,Baseline,kisumu
+auto_rickshaw,ub,1777.6698,Baseline,kisumu
+auto_rickshaw,lb,94.4078,Baseline,kisumu
 pedestrian,mean,74.2437,Baseline,medellin
 car,mean,7.6894,Baseline,medellin
 cycle,mean,229.4034,Baseline,medellin
@@ -1185,7 +1185,7 @@ rail,ub,0,Baseline,medellin
 other,lb,0,Baseline,medellin
 rail,lb,0,Baseline,medellin
 auto_rickshaw,mean,220.4985,Baseline,medellin
-auto_rickshaw,ub,1641.6326,Baseline,medellin
+auto_rickshaw,ub,1641.6325,Baseline,medellin
 auto_rickshaw,lb,29.6364,Baseline,medellin
 pedestrian,mean,76.8268,Baseline,mexico_city
 car,mean,36.8203,Baseline,mexico_city
@@ -1193,23 +1193,23 @@ cycle,mean,124.7819,Baseline,mexico_city
 motorcycle,mean,182.2453,Baseline,mexico_city
 truck,mean,2.0676,Baseline,mexico_city
 bus,mean,1.0437,Baseline,mexico_city
-pedestrian,ub,91.0478,Baseline,mexico_city
-car,ub,44.0002,Baseline,mexico_city
-cycle,ub,207.3361,Baseline,mexico_city
-motorcycle,ub,249.4503,Baseline,mexico_city
+pedestrian,ub,91.0481,Baseline,mexico_city
+car,ub,44,Baseline,mexico_city
+cycle,ub,207.3363,Baseline,mexico_city
+motorcycle,ub,249.4507,Baseline,mexico_city
 truck,ub,3.9899,Baseline,mexico_city
 bus,ub,2.5549,Baseline,mexico_city
-pedestrian,lb,65.3314,Baseline,mexico_city
-car,lb,31.0356,Baseline,mexico_city
+pedestrian,lb,65.3313,Baseline,mexico_city
+car,lb,31.0357,Baseline,mexico_city
 cycle,lb,77.4316,Baseline,mexico_city
-motorcycle,lb,134.5908,Baseline,mexico_city
+motorcycle,lb,134.5907,Baseline,mexico_city
 truck,lb,1.0714,Baseline,mexico_city
 bus,lb,0.5229,Baseline,mexico_city
 other,mean,1430.5517,Baseline,mexico_city
 rail,mean,0,Baseline,mexico_city
-other,ub,2171.6051,Baseline,mexico_city
+other,ub,2171.5969,Baseline,mexico_city
 rail,ub,0,Baseline,mexico_city
-other,lb,987.1088,Baseline,mexico_city
+other,lb,987.1108,Baseline,mexico_city
 rail,lb,0,Baseline,mexico_city
 auto_rickshaw,mean,0,Baseline,mexico_city
 auto_rickshaw,ub,0,Baseline,mexico_city
@@ -1241,33 +1241,33 @@ rail,lb,0,Baseline,montevideo
 auto_rickshaw,mean,0,Baseline,montevideo
 auto_rickshaw,ub,0,Baseline,montevideo
 auto_rickshaw,lb,0,Baseline,montevideo
-pedestrian,mean,863.6074,Baseline,nairobi
+pedestrian,mean,863.5797,Baseline,nairobi
 car,mean,344.7815,Baseline,nairobi
-cycle,mean,0,Baseline,nairobi
+cycle,mean,443.626,Baseline,nairobi
 motorcycle,mean,2879.0036,Baseline,nairobi
 truck,mean,146.2204,Baseline,nairobi
 bus,mean,61.7371,Baseline,nairobi
-pedestrian,ub,1185.7652,Baseline,nairobi
-car,ub,637.4701,Baseline,nairobi
-cycle,ub,0,Baseline,nairobi
-motorcycle,ub,4216.1247,Baseline,nairobi
+pedestrian,ub,1169.5562,Baseline,nairobi
+car,ub,635.0863,Baseline,nairobi
+cycle,ub,917.0176,Baseline,nairobi
+motorcycle,ub,4193.5041,Baseline,nairobi
 truck,ub,558.0067,Baseline,nairobi
-bus,ub,113.4984,Baseline,nairobi
-pedestrian,lb,635.9808,Baseline,nairobi
-car,lb,210.212,Baseline,nairobi
-cycle,lb,0,Baseline,nairobi
-motorcycle,lb,2050.159,Baseline,nairobi
+bus,ub,113.1253,Baseline,nairobi
+pedestrian,lb,643.3278,Baseline,nairobi
+car,lb,212.0715,Baseline,nairobi
+cycle,lb,215.0365,Baseline,nairobi
+motorcycle,lb,2068.9504,Baseline,nairobi
 truck,lb,41.2546,Baseline,nairobi
-bus,lb,38.13,Baseline,nairobi
+bus,lb,38.4041,Baseline,nairobi
 other,mean,0,Baseline,nairobi
 rail,mean,0,Baseline,nairobi
 other,ub,0,Baseline,nairobi
 rail,ub,0,Baseline,nairobi
 other,lb,0,Baseline,nairobi
 rail,lb,0,Baseline,nairobi
-auto_rickshaw,mean,0,Baseline,nairobi
-auto_rickshaw,ub,0,Baseline,nairobi
-auto_rickshaw,lb,0,Baseline,nairobi
+auto_rickshaw,mean,868.0113,Baseline,nairobi
+auto_rickshaw,ub,3685.0508,Baseline,nairobi
+auto_rickshaw,lb,205.1959,Baseline,nairobi
 pedestrian,mean,26.8171,Baseline,osorno
 car,mean,29.0315,Baseline,osorno
 cycle,mean,14.0557,Baseline,osorno
@@ -1297,22 +1297,22 @@ auto_rickshaw,ub,0,Baseline,osorno
 auto_rickshaw,lb,0,Baseline,osorno
 pedestrian,mean,945.5054,Baseline,port_louis
 car,mean,0,Baseline,port_louis
-cycle,mean,0,Baseline,port_louis
+cycle,mean,6031.5694,Baseline,port_louis
 motorcycle,mean,3476.165,Baseline,port_louis
 truck,mean,784.4321,Baseline,port_louis
 bus,mean,102.2671,Baseline,port_louis
-pedestrian,ub,1697.5059,Baseline,port_louis
+pedestrian,ub,1685.9323,Baseline,port_louis
 car,ub,0,Baseline,port_louis
-cycle,ub,0,Baseline,port_louis
-motorcycle,ub,6054.5032,Baseline,port_louis
-truck,ub,2972.0117,Baseline,port_louis
-bus,ub,360.2303,Baseline,port_louis
-pedestrian,lb,531.6606,Baseline,port_louis
+cycle,ub,17639.8043,Baseline,port_louis
+motorcycle,ub,5990.501,Baseline,port_louis
+truck,ub,2957.7713,Baseline,port_louis
+bus,ub,359.2849,Baseline,port_louis
+pedestrian,lb,534.8413,Baseline,port_louis
 car,lb,0,Baseline,port_louis
-cycle,lb,0,Baseline,port_louis
-motorcycle,lb,2026.2508,Baseline,port_louis
-truck,lb,211.2265,Baseline,port_louis
-bus,lb,29.1332,Baseline,port_louis
+cycle,lb,2114.6724,Baseline,port_louis
+motorcycle,lb,2044.6268,Baseline,port_louis
+truck,lb,212.3047,Baseline,port_louis
+bus,lb,29.1993,Baseline,port_louis
 other,mean,0,Baseline,port_louis
 rail,mean,0,Baseline,port_louis
 other,ub,0,Baseline,port_louis
@@ -1490,23 +1490,23 @@ cycle,mean,543.919,Baseline,vizag
 motorcycle,mean,898.6535,Baseline,vizag
 truck,mean,890.5355,Baseline,vizag
 bus,mean,9.6498,Baseline,vizag
-pedestrian,ub,482.9982,Baseline,vizag
-car,ub,979.2076,Baseline,vizag
-cycle,ub,726.1761,Baseline,vizag
-motorcycle,ub,1052.686,Baseline,vizag
-truck,ub,1509.2483,Baseline,vizag
-bus,ub,21.8137,Baseline,vizag
-pedestrian,lb,345.9111,Baseline,vizag
-car,lb,348.7383,Baseline,vizag
-cycle,lb,407.4588,Baseline,vizag
-motorcycle,lb,767.5777,Baseline,vizag
-truck,lb,553.5051,Baseline,vizag
+pedestrian,ub,482.999,Baseline,vizag
+car,ub,979.237,Baseline,vizag
+cycle,ub,726.1768,Baseline,vizag
+motorcycle,ub,1052.6792,Baseline,vizag
+truck,ub,1509.2819,Baseline,vizag
+bus,ub,21.8138,Baseline,vizag
+pedestrian,lb,345.9105,Baseline,vizag
+car,lb,348.7285,Baseline,vizag
+cycle,lb,407.4584,Baseline,vizag
+motorcycle,lb,767.5828,Baseline,vizag
+truck,lb,553.5014,Baseline,vizag
 bus,lb,5.1052,Baseline,vizag
 other,mean,204.366,Baseline,vizag
 rail,mean,0,Baseline,vizag
-other,ub,426.7963,Baseline,vizag
+other,ub,426.8094,Baseline,vizag
 rail,ub,0,Baseline,vizag
-other,lb,97.8611,Baseline,vizag
+other,lb,97.858,Baseline,vizag
 rail,lb,0,Baseline,vizag
 auto_rickshaw,mean,0,Baseline,vizag
 auto_rickshaw,ub,0,Baseline,vizag
@@ -1592,29 +1592,29 @@ rail,lb,0,Public Transport,arica
 auto_rickshaw,mean,0,Public Transport,arica
 auto_rickshaw,ub,0,Public Transport,arica
 auto_rickshaw,lb,0,Public Transport,arica
-pedestrian,mean,437.7824,Public Transport,bangalore
-car,mean,234.9603,Public Transport,bangalore
-cycle,mean,209.1551,Public Transport,bangalore
-motorcycle,mean,270.2377,Public Transport,bangalore
+pedestrian,mean,437.7517,Public Transport,bangalore
+car,mean,234.9486,Public Transport,bangalore
+cycle,mean,209.1405,Public Transport,bangalore
+motorcycle,mean,270.2378,Public Transport,bangalore
 truck,mean,196.4549,Public Transport,bangalore
-bus,mean,18.9581,Public Transport,bangalore
-pedestrian,ub,539.0754,Public Transport,bangalore
-car,ub,421.4011,Public Transport,bangalore
-cycle,ub,341.3071,Public Transport,bangalore
+bus,mean,18.9579,Public Transport,bangalore
+pedestrian,ub,539.038,Public Transport,bangalore
+car,ub,421.3803,Public Transport,bangalore
+cycle,ub,341.2833,Public Transport,bangalore
 motorcycle,ub,334.9684,Public Transport,bangalore
 truck,ub,369.7727,Public Transport,bangalore
-bus,ub,42.5552,Public Transport,bangalore
-pedestrian,lb,359.1162,Public Transport,bangalore
-car,lb,132.0485,Public Transport,bangalore
-cycle,lb,128.5216,Public Transport,bangalore
-motorcycle,lb,220.8511,Public Transport,bangalore
+bus,ub,42.5544,Public Transport,bangalore
+pedestrian,lb,359.0912,Public Transport,bangalore
+car,lb,132.0416,Public Transport,bangalore
+cycle,lb,128.5126,Public Transport,bangalore
+motorcycle,lb,220.8512,Public Transport,bangalore
 truck,lb,104.3737,Public Transport,bangalore
-bus,lb,8.8438,Public Transport,bangalore
-other,mean,3040.5226,Public Transport,bangalore
+bus,lb,8.8437,Public Transport,bangalore
+other,mean,3040.3808,Public Transport,bangalore
 rail,mean,0,Public Transport,bangalore
-other,ub,6974.1854,Public Transport,bangalore
+other,ub,6973.9079,Public Transport,bangalore
 rail,ub,0,Public Transport,bangalore
-other,lb,1442.5951,Public Transport,bangalore
+other,lb,1442.52,Public Transport,bangalore
 rail,lb,0,Public Transport,bangalore
 auto_rickshaw,mean,0,Public Transport,bangalore
 auto_rickshaw,ub,0,Public Transport,bangalore
@@ -1646,22 +1646,22 @@ rail,lb,0.0384,Public Transport,belo_horizonte
 auto_rickshaw,mean,0,Public Transport,belo_horizonte
 auto_rickshaw,ub,0,Public Transport,belo_horizonte
 auto_rickshaw,lb,0,Public Transport,belo_horizonte
-pedestrian,mean,44.12,Public Transport,bogota
-car,mean,8.0945,Public Transport,bogota
-cycle,mean,119.182,Public Transport,bogota
+pedestrian,mean,44.1084,Public Transport,bogota
+car,mean,8.0936,Public Transport,bogota
+cycle,mean,119.1537,Public Transport,bogota
 motorcycle,mean,171.7581,Public Transport,bogota
-truck,mean,0.8598,Public Transport,bogota
+truck,mean,0.8597,Public Transport,bogota
 bus,mean,1.1048,Public Transport,bogota
-pedestrian,ub,55.0066,Public Transport,bogota
-car,ub,12.6312,Public Transport,bogota
-cycle,ub,152.7846,Public Transport,bogota
+pedestrian,ub,54.9922,Public Transport,bogota
+car,ub,12.6298,Public Transport,bogota
+cycle,ub,152.7491,Public Transport,bogota
 motorcycle,ub,217.1222,Public Transport,bogota
-truck,ub,2.6476,Public Transport,bogota
-bus,ub,1.9678,Public Transport,bogota
-pedestrian,lb,35.572,Public Transport,bogota
-car,lb,5.2417,Public Transport,bogota
-cycle,lb,93.6279,Public Transport,bogota
-motorcycle,lb,137.0868,Public Transport,bogota
+truck,ub,2.6472,Public Transport,bogota
+bus,ub,1.9676,Public Transport,bogota
+pedestrian,lb,35.5627,Public Transport,bogota
+car,lb,5.2411,Public Transport,bogota
+cycle,lb,93.6054,Public Transport,bogota
+motorcycle,lb,137.08690000000001,Public Transport,bogota
 truck,lb,0.2919,Public Transport,bogota
 bus,lb,0.6322,Public Transport,bogota
 other,mean,0,Public Transport,bogota
@@ -1700,29 +1700,29 @@ rail,lb,0,Public Transport,buenos_aires
 auto_rickshaw,mean,0,Public Transport,buenos_aires
 auto_rickshaw,ub,0,Public Transport,buenos_aires
 auto_rickshaw,lb,0,Public Transport,buenos_aires
-pedestrian,mean,73.3445,Public Transport,cali
-car,mean,9.2346,Public Transport,cali
-cycle,mean,117.291,Public Transport,cali
+pedestrian,mean,73.3412,Public Transport,cali
+car,mean,9.2344,Public Transport,cali
+cycle,mean,117.2858,Public Transport,cali
 motorcycle,mean,82.9317,Public Transport,cali
 truck,mean,0,Public Transport,cali
 bus,mean,0.1352,Public Transport,cali
-pedestrian,ub,100.119,Public Transport,cali
-car,ub,16.6803,Public Transport,cali
-cycle,ub,173.1839,Public Transport,cali
-motorcycle,ub,118.2745,Public Transport,cali
+pedestrian,ub,100.1146,Public Transport,cali
+car,ub,16.68,Public Transport,cali
+cycle,ub,173.1767,Public Transport,cali
+motorcycle,ub,118.2746,Public Transport,cali
 truck,ub,0,Public Transport,cali
 bus,ub,1.0359,Public Transport,cali
-pedestrian,lb,54.1068,Public Transport,cali
+pedestrian,lb,54.1043,Public Transport,cali
 car,lb,5.1835,Public Transport,cali
-cycle,lb,81.6126,Public Transport,cali
+cycle,lb,81.6088,Public Transport,cali
 motorcycle,lb,59.3134,Public Transport,cali
 truck,lb,0,Public Transport,cali
 bus,lb,0.0177,Public Transport,cali
-other,mean,79.5644,Public Transport,cali
+other,mean,79.5616,Public Transport,cali
 rail,mean,0,Public Transport,cali
-other,ub,603.4303,Public Transport,cali
+other,ub,603.409,Public Transport,cali
 rail,ub,0,Public Transport,cali
-other,lb,10.5057,Public Transport,cali
+other,lb,10.5053,Public Transport,cali
 rail,lb,0,Public Transport,cali
 auto_rickshaw,mean,0,Public Transport,cali
 auto_rickshaw,ub,0,Public Transport,cali
@@ -1808,24 +1808,24 @@ rail,lb,0,Public Transport,coquimbo_laserena
 auto_rickshaw,mean,0,Public Transport,coquimbo_laserena
 auto_rickshaw,ub,0,Public Transport,coquimbo_laserena
 auto_rickshaw,lb,0,Public Transport,coquimbo_laserena
-pedestrian,mean,4564.1402,Public Transport,delhi
-car,mean,1187.5389,Public Transport,delhi
-cycle,mean,3260.7946,Public Transport,delhi
-motorcycle,mean,6051.8683,Public Transport,delhi
-truck,mean,891.4002,Public Transport,delhi
-bus,mean,51.9167,Public Transport,delhi
-pedestrian,ub,4933.3994,Public Transport,delhi
-car,ub,1410.291,Public Transport,delhi
-cycle,ub,3771.4136,Public Transport,delhi
-motorcycle,ub,6558.0876,Public Transport,delhi
-truck,ub,1165.1904,Public Transport,delhi
-bus,ub,103.4757,Public Transport,delhi
-pedestrian,lb,4232.0375,Public Transport,delhi
-car,lb,1001.0275,Public Transport,delhi
-cycle,lb,2819.535,Public Transport,delhi
-motorcycle,lb,5586.1688,Public Transport,delhi
-truck,lb,682.6538,Public Transport,delhi
-bus,lb,26.0482,Public Transport,delhi
+pedestrian,mean,4564.9087,Public Transport,delhi
+car,mean,1187.4783,Public Transport,delhi
+cycle,mean,3261.3447,Public Transport,delhi
+motorcycle,mean,6051.8877,Public Transport,delhi
+truck,mean,891.4009,Public Transport,delhi
+bus,mean,51.9178,Public Transport,delhi
+pedestrian,ub,4934.2225,Public Transport,delhi
+car,ub,1410.2289,Public Transport,delhi
+cycle,ub,3772.0495,Public Transport,delhi
+motorcycle,ub,6558.1054,Public Transport,delhi
+truck,ub,1165.2004,Public Transport,delhi
+bus,ub,103.4782,Public Transport,delhi
+pedestrian,lb,4232.7563,Public Transport,delhi
+car,lb,1000.97,Public Transport,delhi
+cycle,lb,2820.011,Public Transport,delhi
+motorcycle,lb,5586.1897,Public Transport,delhi
+truck,lb,682.6494,Public Transport,delhi
+bus,lb,26.0486,Public Transport,delhi
 other,mean,0,Public Transport,delhi
 rail,mean,0,Public Transport,delhi
 other,ub,0,Public Transport,delhi
@@ -1889,48 +1889,48 @@ rail,lb,0,Public Transport,iquique_altohospicio
 auto_rickshaw,mean,0,Public Transport,iquique_altohospicio
 auto_rickshaw,ub,0,Public Transport,iquique_altohospicio
 auto_rickshaw,lb,0,Public Transport,iquique_altohospicio
-pedestrian,mean,645.8461,Public Transport,kisumu
-car,mean,689.2562,Public Transport,kisumu
-cycle,mean,0,Public Transport,kisumu
-motorcycle,mean,3963.3438,Public Transport,kisumu
+pedestrian,mean,643.3838,Public Transport,kisumu
+car,mean,693.7063,Public Transport,kisumu
+cycle,mean,487.9941,Public Transport,kisumu
+motorcycle,mean,3892.2279,Public Transport,kisumu
 truck,mean,2247.101,Public Transport,kisumu
-bus,mean,730.2992,Public Transport,kisumu
-pedestrian,ub,1127.2838,Public Transport,kisumu
-car,ub,2638.0764,Public Transport,kisumu
-cycle,ub,0,Public Transport,kisumu
-motorcycle,ub,6109.9571,Public Transport,kisumu
+bus,mean,725.9405,Public Transport,kisumu
+pedestrian,ub,1080.474,Public Transport,kisumu
+car,ub,2622.1646,Public Transport,kisumu
+cycle,ub,1672.6289,Public Transport,kisumu
+motorcycle,ub,5811.1548,Public Transport,kisumu
 truck,ub,4785.4014,Public Transport,kisumu
-bus,ub,1604.1309,Public Transport,kisumu
-pedestrian,lb,390.0149,Public Transport,kisumu
-car,lb,208.4107,Public Transport,kisumu
-cycle,lb,0,Public Transport,kisumu
-motorcycle,lb,2676.6132,Public Transport,kisumu
+bus,ub,1559.6694,Public Transport,kisumu
+pedestrian,lb,400.0739,Public Transport,kisumu
+car,lb,213.0997,Public Transport,kisumu
+cycle,lb,144.5957,Public Transport,kisumu
+motorcycle,lb,2693.0113,Public Transport,kisumu
 truck,lb,1055.1807,Public Transport,kisumu
-bus,lb,389.5594,Public Transport,kisumu
+bus,lb,396.1529,Public Transport,kisumu
 other,mean,0,Public Transport,kisumu
 rail,mean,0,Public Transport,kisumu
 other,ub,0,Public Transport,kisumu
 rail,ub,0,Public Transport,kisumu
 other,lb,0,Public Transport,kisumu
 rail,lb,0,Public Transport,kisumu
-auto_rickshaw,mean,0,Public Transport,kisumu
-auto_rickshaw,ub,0,Public Transport,kisumu
-auto_rickshaw,lb,0,Public Transport,kisumu
-pedestrian,mean,71.1555,Public Transport,medellin
-car,mean,8.0152,Public Transport,medellin
-cycle,mean,247.9602,Public Transport,medellin
+auto_rickshaw,mean,405.1689,Public Transport,kisumu
+auto_rickshaw,ub,1767.7986,Public Transport,kisumu
+auto_rickshaw,lb,94.0289,Public Transport,kisumu
+pedestrian,mean,71.156,Public Transport,medellin
+car,mean,8.0153,Public Transport,medellin
+cycle,mean,247.9614,Public Transport,medellin
 motorcycle,mean,119.8428,Public Transport,medellin
 truck,mean,2.9008,Public Transport,medellin
 bus,mean,2.2072,Public Transport,medellin
-pedestrian,ub,84.7599,Public Transport,medellin
+pedestrian,ub,84.7604,Public Transport,medellin
 car,ub,14.2092,Public Transport,medellin
-cycle,ub,369.975,Public Transport,medellin
+cycle,ub,369.9767,Public Transport,medellin
 motorcycle,ub,139.2042,Public Transport,medellin
 truck,ub,9.2601,Public Transport,medellin
 bus,ub,4.476,Public Transport,medellin
-pedestrian,lb,60.1973,Public Transport,medellin
+pedestrian,lb,60.1978,Public Transport,medellin
 car,lb,4.7391,Public Transport,medellin
-cycle,lb,167.2059,Public Transport,medellin
+cycle,lb,167.2068,Public Transport,medellin
 motorcycle,lb,104.0623,Public Transport,medellin
 truck,lb,0.9458,Public Transport,medellin
 bus,lb,1.1803,Public Transport,medellin
@@ -1940,32 +1940,32 @@ other,ub,0,Public Transport,medellin
 rail,ub,0,Public Transport,medellin
 other,lb,0,Public Transport,medellin
 rail,lb,0,Public Transport,medellin
-auto_rickshaw,mean,258.3298,Public Transport,medellin
-auto_rickshaw,ub,1923.2222,Public Transport,medellin
-auto_rickshaw,lb,34.7219,Public Transport,medellin
-pedestrian,mean,72.4333,Public Transport,mexico_city
-car,mean,38.6773,Public Transport,mexico_city
-cycle,mean,128.8978,Public Transport,mexico_city
-motorcycle,mean,195.5351,Public Transport,mexico_city
+auto_rickshaw,mean,258.3309,Public Transport,medellin
+auto_rickshaw,ub,1923.2302,Public Transport,medellin
+auto_rickshaw,lb,34.722,Public Transport,medellin
+pedestrian,mean,72.4149,Public Transport,mexico_city
+car,mean,38.673,Public Transport,mexico_city
+cycle,mean,128.8704,Public Transport,mexico_city
+motorcycle,mean,195.5356,Public Transport,mexico_city
 truck,mean,2.0676,Public Transport,mexico_city
 bus,mean,0.992,Public Transport,mexico_city
-pedestrian,ub,85.8846,Public Transport,mexico_city
-car,ub,46.2775,Public Transport,mexico_city
-cycle,ub,214.0531,Public Transport,mexico_city
-motorcycle,ub,267.3681,Public Transport,mexico_city
+pedestrian,ub,85.8631,Public Transport,mexico_city
+car,ub,46.2716,Public Transport,mexico_city
+cycle,ub,214.0118,Public Transport,mexico_city
+motorcycle,ub,267.3691,Public Transport,mexico_city
 truck,ub,3.9899,Public Transport,mexico_city
-bus,ub,2.3647,Public Transport,mexico_city
-pedestrian,lb,61.5733,Public Transport,mexico_city
-car,lb,32.5649,Public Transport,mexico_city
-cycle,lb,80.0218,Public Transport,mexico_city
-motorcycle,lb,144.5482,Public Transport,mexico_city
+bus,ub,2.3645,Public Transport,mexico_city
+pedestrian,lb,61.5577,Public Transport,mexico_city
+car,lb,32.5617,Public Transport,mexico_city
+cycle,lb,80.0038,Public Transport,mexico_city
+motorcycle,lb,144.5484,Public Transport,mexico_city
 truck,lb,1.0714,Public Transport,mexico_city
 bus,lb,0.5005,Public Transport,mexico_city
-other,mean,1496.6483,Public Transport,mexico_city
+other,mean,1496.2267,Public Transport,mexico_city
 rail,mean,0,Public Transport,mexico_city
-other,ub,2271.6161,Public Transport,mexico_city
+other,ub,2271.0243,Public Transport,mexico_city
 rail,ub,0,Public Transport,mexico_city
-other,lb,1032.7391,Public Transport,mexico_city
+other,lb,1032.4364,Public Transport,mexico_city
 rail,lb,0,Public Transport,mexico_city
 auto_rickshaw,mean,0,Public Transport,mexico_city
 auto_rickshaw,ub,0,Public Transport,mexico_city
@@ -1997,33 +1997,33 @@ rail,lb,0,Public Transport,montevideo
 auto_rickshaw,mean,0,Public Transport,montevideo
 auto_rickshaw,ub,0,Public Transport,montevideo
 auto_rickshaw,lb,0,Public Transport,montevideo
-pedestrian,mean,853.8569,Public Transport,nairobi
-car,mean,369.0662,Public Transport,nairobi
-cycle,mean,0,Public Transport,nairobi
-motorcycle,mean,3018.0283,Public Transport,nairobi
+pedestrian,mean,859.5693,Public Transport,nairobi
+car,mean,379.7207,Public Transport,nairobi
+cycle,mean,509.8364,Public Transport,nairobi
+motorcycle,mean,3002.944,Public Transport,nairobi
 truck,mean,146.2204,Public Transport,nairobi
-bus,mean,60.692,Public Transport,nairobi
-pedestrian,ub,1172.4354,Public Transport,nairobi
-car,ub,677.1919,Public Transport,nairobi
-cycle,ub,0,Public Transport,nairobi
-motorcycle,ub,4421.528,Public Transport,nairobi
+bus,mean,60.5292,Public Transport,nairobi
+pedestrian,ub,1162.6721,Public Transport,nairobi
+car,ub,690.38,Public Transport,nairobi
+cycle,ub,1053.3294,Public Transport,nairobi
+motorcycle,ub,4366.5171,Public Transport,nairobi
 truck,ub,558.0067,Public Transport,nairobi
-bus,ub,111.6597,Public Transport,nairobi
-pedestrian,lb,628.7317,Public Transport,nairobi
-car,lb,226.0001,Public Transport,nairobi
-cycle,lb,0,Public Transport,nairobi
-motorcycle,lb,2148.0285,Public Transport,nairobi
+bus,ub,110.8047,Public Transport,nairobi
+pedestrian,lb,640.5432,Public Transport,nairobi
+car,lb,235.2659,Public Transport,nairobi
+cycle,lb,247.1914,Public Transport,nairobi
+motorcycle,lb,2158.4723,Public Transport,nairobi
 truck,lb,41.2546,Public Transport,nairobi
-bus,lb,37.4718,Public Transport,nairobi
+bus,lb,37.6679,Public Transport,nairobi
 other,mean,0,Public Transport,nairobi
 rail,mean,0,Public Transport,nairobi
 other,ub,0,Public Transport,nairobi
 rail,ub,0,Public Transport,nairobi
 other,lb,0,Public Transport,nairobi
 rail,lb,0,Public Transport,nairobi
-auto_rickshaw,mean,0,Public Transport,nairobi
-auto_rickshaw,ub,0,Public Transport,nairobi
-auto_rickshaw,lb,0,Public Transport,nairobi
+auto_rickshaw,mean,1119.8229,Public Transport,nairobi
+auto_rickshaw,ub,4748.8286,Public Transport,nairobi
+auto_rickshaw,lb,264.9279,Public Transport,nairobi
 pedestrian,mean,25.0813,Public Transport,osorno
 car,mean,30.3737,Public Transport,osorno
 cycle,mean,14.6697,Public Transport,osorno
@@ -2051,24 +2051,24 @@ rail,lb,0,Public Transport,osorno
 auto_rickshaw,mean,0,Public Transport,osorno
 auto_rickshaw,ub,0,Public Transport,osorno
 auto_rickshaw,lb,0,Public Transport,osorno
-pedestrian,mean,869.8754,Public Transport,port_louis
+pedestrian,mean,871.1284,Public Transport,port_louis
 car,mean,0,Public Transport,port_louis
-cycle,mean,0,Public Transport,port_louis
-motorcycle,mean,3544.425,Public Transport,port_louis
-truck,mean,763.1509,Public Transport,port_louis
-bus,mean,84.2381,Public Transport,port_louis
-pedestrian,ub,1571.2677,Public Transport,port_louis
+cycle,mean,6443.9526,Public Transport,port_louis
+motorcycle,mean,3544.2754,Public Transport,port_louis
+truck,mean,763.505,Public Transport,port_louis
+bus,mean,84.1155,Public Transport,port_louis
+pedestrian,ub,1562.2826,Public Transport,port_louis
 car,ub,0,Public Transport,port_louis
-cycle,ub,0,Public Transport,port_louis
-motorcycle,ub,6179.9719,Public Transport,port_louis
-truck,ub,2879.2,Public Transport,port_louis
-bus,ub,297.6463,Public Transport,port_louis
-pedestrian,lb,486.2948,Public Transport,port_louis
+cycle,ub,19035.4232,Public Transport,port_louis
+motorcycle,ub,6114.7627,Public Transport,port_louis
+truck,ub,2866.641,Public Transport,port_louis
+bus,ub,296.4638,Public Transport,port_louis
+pedestrian,lb,490.0447,Public Transport,port_louis
 car,lb,0,Public Transport,port_louis
-cycle,lb,0,Public Transport,port_louis
-motorcycle,lb,2064.7117,Public Transport,port_louis
-truck,lb,206.3455,Public Transport,port_louis
-bus,lb,23.929,Public Transport,port_louis
+cycle,lb,2236.9037,Public Transport,port_louis
+motorcycle,lb,2083.2275,Public Transport,port_louis
+truck,lb,207.498,Public Transport,port_louis
+bus,lb,23.9452,Public Transport,port_louis
 other,mean,0,Public Transport,port_louis
 rail,mean,0,Public Transport,port_louis
 other,ub,0,Public Transport,port_louis
@@ -2240,29 +2240,29 @@ rail,lb,0,Public Transport,valdivia
 auto_rickshaw,mean,0,Public Transport,valdivia
 auto_rickshaw,ub,0,Public Transport,valdivia
 auto_rickshaw,lb,0,Public Transport,valdivia
-pedestrian,mean,363.0236,Public Transport,vizag
-car,mean,615.1025,Public Transport,vizag
-cycle,mean,544.5293,Public Transport,vizag
-motorcycle,mean,926.1953,Public Transport,vizag
-truck,mean,878.6112,Public Transport,vizag
-bus,mean,9.1748,Public Transport,vizag
-pedestrian,ub,432.2009,Public Transport,vizag
-car,ub,1033.2907,Public Transport,vizag
-cycle,ub,727.3415,Public Transport,vizag
-motorcycle,ub,1084.9371,Public Transport,vizag
-truck,ub,1473.6411,Public Transport,vizag
-bus,ub,20.2569,Public Transport,vizag
-pedestrian,lb,308.6684,Public Transport,vizag
-car,lb,367.0409,Public Transport,vizag
-cycle,lb,407.7264,Public Transport,vizag
-motorcycle,lb,791.1451,Public Transport,vizag
-truck,lb,549.5118,Public Transport,vizag
-bus,lb,4.8843,Public Transport,vizag
-other,mean,219.5355,Public Transport,vizag
+pedestrian,mean,361.1544,Public Transport,vizag
+car,mean,613.467,Public Transport,vizag
+cycle,mean,541.7197,Public Transport,vizag
+motorcycle,mean,926.199,Public Transport,vizag
+truck,mean,877.9054,Public Transport,vizag
+bus,mean,9.1721,Public Transport,vizag
+pedestrian,ub,430.0247,Public Transport,vizag
+car,ub,1030.4269,Public Transport,vizag
+cycle,ub,723.6083,Public Transport,vizag
+motorcycle,ub,1084.9344,Public Transport,vizag
+truck,ub,1471.5638,Public Transport,vizag
+bus,ub,20.2333,Public Transport,vizag
+pedestrian,lb,307.063,Public Transport,vizag
+car,lb,366.1066,Public Transport,vizag
+cycle,lb,405.6119,Public Transport,vizag
+motorcycle,lb,791.1536,Public Transport,vizag
+truck,lb,549.2722,Public Transport,vizag
+bus,lb,4.884,Public Transport,vizag
+other,mean,218.5096,Public Transport,vizag
 rail,mean,0,Public Transport,vizag
-other,ub,458.4402,Public Transport,vizag
+other,ub,456.3146,Public Transport,vizag
 rail,ub,0,Public Transport,vizag
-other,lb,105.1337,Public Transport,vizag
+other,lb,104.6384,Public Transport,vizag
 rail,lb,0,Public Transport,vizag
 auto_rickshaw,mean,0,Public Transport,vizag
 auto_rickshaw,ub,0,Public Transport,vizag
@@ -2348,29 +2348,29 @@ rail,lb,0,Driving,arica
 auto_rickshaw,mean,0,Driving,arica
 auto_rickshaw,ub,0,Driving,arica
 auto_rickshaw,lb,0,Driving,arica
-pedestrian,mean,516.2667,Driving,bangalore
-car,mean,159.107,Driving,bangalore
-cycle,mean,234.6369,Driving,bangalore
-motorcycle,mean,287.6491,Driving,bangalore
+pedestrian,mean,516.2624,Driving,bangalore
+car,mean,159.1056,Driving,bangalore
+cycle,mean,234.6349,Driving,bangalore
+motorcycle,mean,287.6489,Driving,bangalore
 truck,mean,196.4549,Driving,bangalore
-bus,mean,21.2938,Driving,bangalore
-pedestrian,ub,633.7641,Driving,bangalore
-car,ub,286.648,Driving,bangalore
-cycle,ub,382.3826,Driving,bangalore
-motorcycle,ub,355.4293,Driving,bangalore
+bus,mean,21.2935,Driving,bangalore
+pedestrian,ub,633.7587,Driving,bangalore
+car,ub,286.645,Driving,bangalore
+cycle,ub,382.3794,Driving,bangalore
+motorcycle,ub,355.429,Driving,bangalore
 truck,ub,369.7727,Driving,bangalore
-bus,ub,48.9027,Driving,bangalore
-pedestrian,lb,424.2507,Driving,bangalore
-car,lb,88.9781,Driving,bangalore
-cycle,lb,144.3077,Driving,bangalore
-motorcycle,lb,235.5311,Driving,bangalore
+bus,ub,48.9016,Driving,bangalore
+pedestrian,lb,424.2475,Driving,bangalore
+car,lb,88.9773,Driving,bangalore
+cycle,lb,144.3065,Driving,bangalore
+motorcycle,lb,235.5309,Driving,bangalore
 truck,lb,104.3737,Driving,bangalore
-bus,lb,9.7563,Driving,bangalore
-other,mean,3166.5215,Driving,bangalore
+bus,lb,9.7562,Driving,bangalore
+other,mean,3166.4119,Driving,bangalore
 rail,mean,0,Driving,bangalore
-other,ub,7181.8371,Driving,bangalore
+other,ub,7181.6253,Driving,bangalore
 rail,ub,0,Driving,bangalore
-other,lb,1512.8357,Driving,bangalore
+other,lb,1512.7765,Driving,bangalore
 rail,lb,0,Driving,bangalore
 auto_rickshaw,mean,0,Driving,bangalore
 auto_rickshaw,ub,0,Driving,bangalore
@@ -2402,23 +2402,23 @@ rail,lb,0.0391,Driving,belo_horizonte
 auto_rickshaw,mean,0,Driving,belo_horizonte
 auto_rickshaw,ub,0,Driving,belo_horizonte
 auto_rickshaw,lb,0,Driving,belo_horizonte
-pedestrian,mean,47.473,Driving,bogota
-car,mean,7.2209,Driving,bogota
-cycle,mean,119.7674,Driving,bogota
+pedestrian,mean,47.4722,Driving,bogota
+car,mean,7.2208,Driving,bogota
+cycle,mean,119.7655,Driving,bogota
 motorcycle,mean,167.4582,Driving,bogota
 truck,mean,0.8697,Driving,bogota
 bus,mean,1.1992,Driving,bogota
-pedestrian,ub,59.1474,Driving,bogota
-car,ub,11.236,Driving,bogota
-cycle,ub,153.464,Driving,bogota
-motorcycle,ub,211.4792,Driving,bogota
-truck,ub,2.6887,Driving,bogota
-bus,ub,2.1434,Driving,bogota
-pedestrian,lb,38.293,Driving,bogota
+pedestrian,ub,59.1464,Driving,bogota
+car,ub,11.235900000000001,Driving,bogota
+cycle,ub,153.4617,Driving,bogota
+motorcycle,ub,211.4791,Driving,bogota
+truck,ub,2.6886,Driving,bogota
+bus,ub,2.1433,Driving,bogota
+pedestrian,lb,38.2923,Driving,bogota
 car,lb,4.6899,Driving,bogota
-cycle,lb,94.1244,Driving,bogota
-motorcycle,lb,133.7811,Driving,bogota
-truck,lb,0.2943,Driving,bogota
+cycle,lb,94.123,Driving,bogota
+motorcycle,lb,133.781,Driving,bogota
+truck,lb,0.2942,Driving,bogota
 bus,lb,0.6842,Driving,bogota
 other,mean,0,Driving,bogota
 rail,mean,0,Driving,bogota
@@ -2456,29 +2456,29 @@ rail,lb,0,Driving,buenos_aires
 auto_rickshaw,mean,0,Driving,buenos_aires
 auto_rickshaw,ub,0,Driving,buenos_aires
 auto_rickshaw,lb,0,Driving,buenos_aires
-pedestrian,mean,81.1554,Driving,cali
+pedestrian,mean,81.1544,Driving,cali
 car,mean,8.0338,Driving,cali
-cycle,mean,123.3539,Driving,cali
-motorcycle,mean,80.979,Driving,cali
+cycle,mean,123.3524,Driving,cali
+motorcycle,mean,80.9791,Driving,cali
 truck,mean,0,Driving,cali
 bus,mean,0.1604,Driving,cali
-pedestrian,ub,110.4397,Driving,cali
+pedestrian,ub,110.4384,Driving,cali
 car,ub,14.4291,Driving,cali
-cycle,ub,181.483,Driving,cali
-motorcycle,ub,115.6524,Driving,cali
+cycle,ub,181.4809,Driving,cali
+motorcycle,ub,115.6525,Driving,cali
 truck,ub,0,Driving,cali
 bus,ub,1.2259,Driving,cali
-pedestrian,lb,60.0369,Driving,cali
+pedestrian,lb,60.0361,Driving,cali
 car,lb,4.5363,Driving,cali
-cycle,lb,86.0361,Driving,cali
+cycle,lb,86.035,Driving,cali
 motorcycle,lb,57.81,Driving,cali
 truck,lb,0,Driving,cali
 bus,lb,0.021,Driving,cali
-other,mean,81.2849,Driving,cali
+other,mean,81.2839,Driving,cali
 rail,mean,0,Driving,cali
-other,ub,615.8427,Driving,cali
+other,ub,615.8349,Driving,cali
 rail,ub,0,Driving,cali
-other,lb,10.7437,Driving,cali
+other,lb,10.7436,Driving,cali
 rail,lb,0,Driving,cali
 auto_rickshaw,mean,0,Driving,cali
 auto_rickshaw,ub,0,Driving,cali
@@ -2564,24 +2564,24 @@ rail,lb,0,Driving,coquimbo_laserena
 auto_rickshaw,mean,0,Driving,coquimbo_laserena
 auto_rickshaw,ub,0,Driving,coquimbo_laserena
 auto_rickshaw,lb,0,Driving,coquimbo_laserena
-pedestrian,mean,5119.7765,Driving,delhi
-car,mean,1024.2574,Driving,delhi
-cycle,mean,3515.5396,Driving,delhi
-motorcycle,mean,6176.9909,Driving,delhi
-truck,mean,915.7887,Driving,delhi
-bus,mean,62.3986,Driving,delhi
-pedestrian,ub,5521.9609,Driving,delhi
-car,ub,1214.1203,Driving,delhi
-cycle,ub,4062.0294,Driving,delhi
-motorcycle,ub,6685.5595,Driving,delhi
-truck,ub,1198.1376,Driving,delhi
-bus,ub,124.3762,Driving,delhi
-pedestrian,lb,4756.7926,Driving,delhi
-car,lb,864.9611,Driving,delhi
-cycle,lb,3042.8102,Driving,delhi
-motorcycle,lb,5708.5662,Driving,delhi
-truck,lb,700.7062,Driving,delhi
-bus,lb,31.3049,Driving,delhi
+pedestrian,mean,5120.5165,Driving,delhi
+car,mean,1024.2914,Driving,delhi
+cycle,mean,3516.0485,Driving,delhi
+motorcycle,mean,6176.974,Driving,delhi
+truck,mean,915.7574,Driving,delhi
+bus,mean,62.3964,Driving,delhi
+pedestrian,ub,5522.7489,Driving,delhi
+car,ub,1214.1725,Driving,delhi
+cycle,ub,4062.6164,Driving,delhi
+motorcycle,ub,6685.5384,Driving,delhi
+truck,ub,1198.1054,Driving,delhi
+bus,ub,124.3726,Driving,delhi
+pedestrian,lb,4757.4888,Driving,delhi
+car,lb,864.9818,Driving,delhi
+cycle,lb,3043.2518,Driving,delhi
+motorcycle,lb,5708.553,Driving,delhi
+truck,lb,700.6776,Driving,delhi
+bus,lb,31.3037,Driving,delhi
 other,mean,0,Driving,delhi
 rail,mean,0,Driving,delhi
 other,ub,0,Driving,delhi
@@ -2645,48 +2645,48 @@ rail,lb,0,Driving,iquique_altohospicio
 auto_rickshaw,mean,0,Driving,iquique_altohospicio
 auto_rickshaw,ub,0,Driving,iquique_altohospicio
 auto_rickshaw,lb,0,Driving,iquique_altohospicio
-pedestrian,mean,763.1712,Driving,kisumu
-car,mean,521.2457,Driving,kisumu
-cycle,mean,0,Driving,kisumu
-motorcycle,mean,4201.6849,Driving,kisumu
+pedestrian,mean,757.1877,Driving,kisumu
+car,mean,520.9759,Driving,kisumu
+cycle,mean,582.6561,Driving,kisumu
+motorcycle,mean,4213.8561,Driving,kisumu
 truck,mean,2247.101,Driving,kisumu
-bus,mean,1008.5369,Driving,kisumu
-pedestrian,ub,1322.1041,Driving,kisumu
-car,ub,2107.8913,Driving,kisumu
-cycle,ub,0,Driving,kisumu
-motorcycle,ub,6466.6505,Driving,kisumu
+bus,mean,978.6681,Driving,kisumu
+pedestrian,ub,1261.3185,Driving,kisumu
+car,ub,2077.736,Driving,kisumu
+cycle,ub,1988.5233,Driving,kisumu
+motorcycle,ub,6274.288,Driving,kisumu
 truck,ub,4785.4014,Driving,kisumu
-bus,ub,2142.2265,Driving,kisumu
-pedestrian,lb,462.7916,Driving,kisumu
-car,lb,152.3172,Driving,kisumu
-cycle,lb,0,Driving,kisumu
-motorcycle,lb,2835.2354,Driving,kisumu
+bus,ub,2033.5593,Driving,kisumu
+pedestrian,lb,472.3056,Driving,kisumu
+car,lb,154.9424,Driving,kisumu
+cycle,lb,173.0742,Driving,kisumu
+motorcycle,lb,2911.8434,Driving,kisumu
 truck,lb,1055.1807,Driving,kisumu
-bus,lb,542.1228,Driving,kisumu
+bus,lb,537.6549,Driving,kisumu
 other,mean,0,Driving,kisumu
 rail,mean,0,Driving,kisumu
 other,ub,0,Driving,kisumu
 rail,ub,0,Driving,kisumu
 other,lb,0,Driving,kisumu
 rail,lb,0,Driving,kisumu
-auto_rickshaw,mean,0,Driving,kisumu
-auto_rickshaw,ub,0,Driving,kisumu
-auto_rickshaw,lb,0,Driving,kisumu
-pedestrian,mean,79.4886,Driving,medellin
+auto_rickshaw,mean,453.9793,Driving,kisumu
+auto_rickshaw,ub,1976.3142,Driving,kisumu
+auto_rickshaw,lb,105.4701,Driving,kisumu
+pedestrian,mean,79.4892,Driving,medellin
 car,mean,6.5629,Driving,medellin
-cycle,mean,250.7962,Driving,medellin
+cycle,mean,250.7976,Driving,medellin
 motorcycle,mean,121.8939,Driving,medellin
 truck,mean,2.9552,Driving,medellin
 bus,mean,2.4748,Driving,medellin
-pedestrian,ub,94.5123,Driving,medellin
+pedestrian,ub,94.5131,Driving,medellin
 car,ub,11.4573,Driving,medellin
-cycle,ub,373.6919,Driving,medellin
-motorcycle,ub,141.4892,Driving,medellin
-truck,ub,9.4852,Driving,medellin
+cycle,ub,373.6939,Driving,medellin
+motorcycle,ub,141.4893,Driving,medellin
+truck,ub,9.4853,Driving,medellin
 bus,ub,5.1517,Driving,medellin
-pedestrian,lb,67.3625,Driving,medellin
+pedestrian,lb,67.363,Driving,medellin
 car,lb,3.9215,Driving,medellin
-cycle,lb,169.3468,Driving,medellin
+cycle,lb,169.3478,Driving,medellin
 motorcycle,lb,105.9119,Driving,medellin
 truck,lb,0.959,Driving,medellin
 bus,lb,1.3049,Driving,medellin
@@ -2696,32 +2696,32 @@ other,ub,0,Driving,medellin
 rail,ub,0,Driving,medellin
 other,lb,0,Driving,medellin
 rail,lb,0,Driving,medellin
-auto_rickshaw,mean,248.6873,Driving,medellin
-auto_rickshaw,ub,1851.1831,Driving,medellin
-auto_rickshaw,lb,33.4302,Driving,medellin
-pedestrian,mean,79.9861,Driving,mexico_city
-car,mean,34.3793,Driving,mexico_city
-cycle,mean,132.2421,Driving,mexico_city
-motorcycle,mean,190.9846,Driving,mexico_city
+auto_rickshaw,mean,248.6885,Driving,medellin
+auto_rickshaw,ub,1851.1916,Driving,medellin
+auto_rickshaw,lb,33.4303,Driving,medellin
+pedestrian,mean,79.9855,Driving,mexico_city
+car,mean,34.3791,Driving,mexico_city
+cycle,mean,132.2414,Driving,mexico_city
+motorcycle,mean,190.9843,Driving,mexico_city
 truck,mean,2.0676,Driving,mexico_city
 bus,mean,1.0643,Driving,mexico_city
-pedestrian,ub,94.6401,Driving,mexico_city
-car,ub,40.9921,Driving,mexico_city
-cycle,ub,218.9239,Driving,mexico_city
+pedestrian,ub,94.6396,Driving,mexico_city
+car,ub,40.9916,Driving,mexico_city
+cycle,ub,218.9229,Driving,mexico_city
 motorcycle,ub,260.8872,Driving,mexico_city
 truck,ub,3.9899,Driving,mexico_city
-bus,ub,2.6246,Driving,mexico_city
-pedestrian,lb,68.1017,Driving,mexico_city
-car,lb,29.0333,Driving,mexico_city
-cycle,lb,82.2926,Driving,mexico_city
-motorcycle,lb,141.2805,Driving,mexico_city
+bus,ub,2.6245,Driving,mexico_city
+pedestrian,lb,68.1011,Driving,mexico_city
+car,lb,29.0332,Driving,mexico_city
+cycle,lb,82.2921,Driving,mexico_city
+motorcycle,lb,141.2801,Driving,mexico_city
 truck,lb,1.0714,Driving,mexico_city
 bus,lb,0.5322,Driving,mexico_city
-other,mean,1474.3171,Driving,mexico_city
+other,mean,1474.274,Driving,mexico_city
 rail,mean,0,Driving,mexico_city
-other,ub,2235.1245,Driving,mexico_city
+other,ub,2235.0578,Driving,mexico_city
 rail,ub,0,Driving,mexico_city
-other,lb,1018.1063,Driving,mexico_city
+other,lb,1018.0766,Driving,mexico_city
 rail,lb,0,Driving,mexico_city
 auto_rickshaw,mean,0,Driving,mexico_city
 auto_rickshaw,ub,0,Driving,mexico_city
@@ -2753,33 +2753,33 @@ rail,lb,0,Driving,montevideo
 auto_rickshaw,mean,0,Driving,montevideo
 auto_rickshaw,ub,0,Driving,montevideo
 auto_rickshaw,lb,0,Driving,montevideo
-pedestrian,mean,919.6127,Driving,nairobi
-car,mean,292.42380000000003,Driving,nairobi
-cycle,mean,0,Driving,nairobi
-motorcycle,mean,3018.1779,Driving,nairobi
+pedestrian,mean,923.8258,Driving,nairobi
+car,mean,293.3163,Driving,nairobi
+cycle,mean,481.8106,Driving,nairobi
+motorcycle,mean,3032.4159,Driving,nairobi
 truck,mean,146.2204,Driving,nairobi
-bus,mean,66.5573,Driving,nairobi
-pedestrian,ub,1261.0797,Driving,nairobi
-car,ub,555.228,Driving,nairobi
-cycle,ub,0,Driving,nairobi
-motorcycle,ub,4411.6021,Driving,nairobi
+bus,mean,65.8909,Driving,nairobi
+pedestrian,ub,1248.4035,Driving,nairobi
+car,ub,554.4187,Driving,nairobi
+cycle,ub,994.9363,Driving,nairobi
+motorcycle,ub,4401.0564,Driving,nairobi
 truck,ub,558.0067,Driving,nairobi
-bus,ub,121.2916,Driving,nairobi
-pedestrian,lb,677.8617,Driving,nairobi
-car,lb,175.7397,Driving,nairobi
-cycle,lb,0,Driving,nairobi
-motorcycle,lb,2150.8676,Driving,nairobi
+bus,ub,119.6148,Driving,nairobi
+pedestrian,lb,688.9558,Driving,nairobi
+car,lb,177.9179,Driving,nairobi
+cycle,lb,233.6918,Driving,nairobi
+motorcycle,lb,2181.4825,Driving,nairobi
 truck,lb,41.2546,Driving,nairobi
-bus,lb,41.1988,Driving,nairobi
+bus,lb,41.0929,Driving,nairobi
 other,mean,0,Driving,nairobi
 rail,mean,0,Driving,nairobi
 other,ub,0,Driving,nairobi
 rail,ub,0,Driving,nairobi
 other,lb,0,Driving,nairobi
 rail,lb,0,Driving,nairobi
-auto_rickshaw,mean,0,Driving,nairobi
-auto_rickshaw,ub,0,Driving,nairobi
-auto_rickshaw,lb,0,Driving,nairobi
+auto_rickshaw,mean,1208.1953,Driving,nairobi
+auto_rickshaw,ub,5121.5836,Driving,nairobi
+auto_rickshaw,lb,285.9276,Driving,nairobi
 pedestrian,mean,28.1791,Driving,osorno
 car,mean,25.8063,Driving,osorno
 cycle,mean,15.3432,Driving,osorno
@@ -2807,24 +2807,24 @@ rail,lb,0,Driving,osorno
 auto_rickshaw,mean,0,Driving,osorno
 auto_rickshaw,ub,0,Driving,osorno
 auto_rickshaw,lb,0,Driving,osorno
-pedestrian,mean,1009.0887,Driving,port_louis
+pedestrian,mean,1012.6161,Driving,port_louis
 car,mean,0,Driving,port_louis
-cycle,mean,0,Driving,port_louis
-motorcycle,mean,3787.0399,Driving,port_louis
-truck,mean,790.0969,Driving,port_louis
-bus,mean,115.7085,Driving,port_louis
-pedestrian,ub,1808.5274,Driving,port_louis
+cycle,mean,6727.0722,Driving,port_louis
+motorcycle,mean,3784.5198,Driving,port_louis
+truck,mean,791.0098,Driving,port_louis
+bus,mean,116.2238,Driving,port_louis
+pedestrian,ub,1801.1808,Driving,port_louis
 car,ub,0,Driving,port_louis
-cycle,ub,0,Driving,port_louis
-motorcycle,ub,6592.4556,Driving,port_louis
-truck,ub,2996.8525,Driving,port_louis
-bus,ub,407.4659,Driving,port_louis
-pedestrian,lb,568.3987,Driving,port_louis
+cycle,ub,19996.7823,Driving,port_louis
+motorcycle,ub,6521.0015,Driving,port_louis
+truck,ub,2986.2875,Driving,port_louis
+bus,ub,408.017,Driving,port_louis
+pedestrian,lb,574.2392,Driving,port_louis
 car,lb,0,Driving,port_louis
-cycle,lb,0,Driving,port_louis
-motorcycle,lb,2207.8414,Driving,port_louis
-truck,lb,212.5197,Driving,port_louis
-bus,lb,32.9678,Driving,port_louis
+cycle,lb,2320.3243,Driving,port_louis
+motorcycle,lb,2225.6393,Driving,port_louis
+truck,lb,213.8231,Driving,port_louis
+bus,lb,33.2057,Driving,port_louis
 other,mean,0,Driving,port_louis
 rail,mean,0,Driving,port_louis
 other,ub,0,Driving,port_louis
@@ -2996,29 +2996,29 @@ rail,lb,0,Driving,valdivia
 auto_rickshaw,mean,0,Driving,valdivia
 auto_rickshaw,ub,0,Driving,valdivia
 auto_rickshaw,lb,0,Driving,valdivia
-pedestrian,mean,538.0973,Driving,vizag
-car,mean,327.4648,Driving,vizag
-cycle,mean,730.1029,Driving,vizag
-motorcycle,mean,1110.3718,Driving,vizag
-truck,mean,934.7255,Driving,vizag
-bus,mean,10.0745,Driving,vizag
-pedestrian,ub,640.1163,Driving,vizag
-car,ub,543.8194,Driving,vizag
-cycle,ub,976.9613,Driving,vizag
-motorcycle,ub,1305.4602,Driving,vizag
-truck,ub,1641.5649,Driving,vizag
-bus,ub,24.041,Driving,vizag
-pedestrian,lb,456.1979,Driving,vizag
-car,lb,197.5995,Driving,vizag
-cycle,lb,545.6828,Driving,vizag
-motorcycle,lb,944.9288,Driving,vizag
-truck,lb,568.2633,Driving,vizag
-bus,lb,5.25,Driving,vizag
-other,mean,263.0557,Driving,vizag
+pedestrian,mean,537.2917,Driving,vizag
+car,mean,327.2357,Driving,vizag
+cycle,mean,729.0083,Driving,vizag
+motorcycle,mean,1110.3367,Driving,vizag
+truck,mean,932.9648,Driving,vizag
+bus,mean,10.0696,Driving,vizag
+pedestrian,ub,639.1748,Driving,vizag
+car,ub,543.4264,Driving,vizag
+cycle,ub,975.5035,Driving,vizag
+motorcycle,ub,1305.41,Driving,vizag
+truck,ub,1636.3986,Driving,vizag
+bus,ub,23.9978,Driving,vizag
+pedestrian,lb,455.5084,Driving,vizag
+car,lb,197.4659,Driving,vizag
+cycle,lb,544.8607,Driving,vizag
+motorcycle,lb,944.9055,Driving,vizag
+truck,lb,567.6635,Driving,vizag
+bus,lb,5.2494,Driving,vizag
+other,mean,261.7695,Driving,vizag
 rail,mean,0,Driving,vizag
-other,ub,549.686,Driving,vizag
+other,ub,547.0245,Driving,vizag
 rail,ub,0,Driving,vizag
-other,lb,125.8904,Driving,vizag
+other,lb,125.2687,Driving,vizag
 rail,lb,0,Driving,vizag
 auto_rickshaw,mean,0,Driving,vizag
 auto_rickshaw,ub,0,Driving,vizag
@@ -3104,29 +3104,29 @@ rail,lb,0,mcsc,arica
 auto_rickshaw,mean,0,mcsc,arica
 auto_rickshaw,ub,0,mcsc,arica
 auto_rickshaw,lb,0,mcsc,arica
-pedestrian,mean,460.0393,mcsc,bangalore
-car,mean,239.139,mcsc,bangalore
-cycle,mean,211.005,mcsc,bangalore
+pedestrian,mean,460.2063,mcsc,bangalore
+car,mean,239.1802,mcsc,bangalore
+cycle,mean,211.0817,mcsc,bangalore
 motorcycle,mean,236.7486,mcsc,bangalore
 truck,mean,196.4549,mcsc,bangalore
-bus,mean,21.2574,mcsc,bangalore
-pedestrian,ub,565.8251,mcsc,bangalore
-car,ub,428.6958,mcsc,bangalore
-cycle,ub,344.1313,mcsc,bangalore
-motorcycle,ub,293.3962,mcsc,bangalore
+bus,mean,21.2588,mcsc,bangalore
+pedestrian,ub,566.0286,mcsc,bangalore
+car,ub,428.7656,mcsc,bangalore
+cycle,ub,344.2559,mcsc,bangalore
+motorcycle,ub,293.3963,mcsc,bangalore
 truck,ub,369.7727,mcsc,bangalore
-bus,ub,48.36,mcsc,bangalore
-pedestrian,lb,377.6654,mcsc,bangalore
-car,lb,134.4417,mcsc,bangalore
-cycle,lb,129.7094,mcsc,bangalore
-motorcycle,lb,193.4999,mcsc,bangalore
+bus,ub,48.3644,mcsc,bangalore
+pedestrian,lb,377.8024,mcsc,bangalore
+car,lb,134.4656,mcsc,bangalore
+cycle,lb,129.7566,mcsc,bangalore
+motorcycle,lb,193.5,mcsc,bangalore
 truck,lb,104.3737,mcsc,bangalore
-bus,lb,9.8138,mcsc,bangalore
-other,mean,2954.7488,mcsc,bangalore
+bus,lb,9.8143,mcsc,bangalore
+other,mean,2955.2963,mcsc,bangalore
 rail,mean,0,mcsc,bangalore
-other,ub,6781.0171,mcsc,bangalore
+other,ub,6782.0675,mcsc,bangalore
 rail,ub,0,mcsc,bangalore
-other,lb,1401.4459,mcsc,bangalore
+other,lb,1401.7286,mcsc,bangalore
 rail,lb,0,mcsc,bangalore
 auto_rickshaw,mean,0,mcsc,bangalore
 auto_rickshaw,ub,0,mcsc,bangalore
@@ -3158,24 +3158,24 @@ rail,lb,0.0389,mcsc,belo_horizonte
 auto_rickshaw,mean,0,mcsc,belo_horizonte
 auto_rickshaw,ub,0,mcsc,belo_horizonte
 auto_rickshaw,lb,0,mcsc,belo_horizonte
-pedestrian,mean,48.1177,mcsc,bogota
-car,mean,7.9743,mcsc,bogota
-cycle,mean,122.2373,mcsc,bogota
+pedestrian,mean,48.1492,mcsc,bogota
+car,mean,7.9763,mcsc,bogota
+cycle,mean,122.3096,mcsc,bogota
 motorcycle,mean,129.2364,mcsc,bogota
-truck,mean,0.8769,mcsc,bogota
-bus,mean,1.2022,mcsc,bogota
-pedestrian,ub,60.0056,mcsc,bogota
-car,ub,12.4446,mcsc,bogota
-cycle,ub,156.6395,mcsc,bogota
+truck,mean,0.8771,mcsc,bogota
+bus,mean,1.2024,mcsc,bogota
+pedestrian,ub,60.0449,mcsc,bogota
+car,ub,12.4476,mcsc,bogota
+cycle,ub,156.7303,mcsc,bogota
 motorcycle,ub,164.9792,mcsc,bogota
-truck,ub,2.719,mcsc,bogota
-bus,ub,2.1518,mcsc,bogota
-pedestrian,lb,38.7734,mcsc,bogota
-car,lb,5.1631,mcsc,bogota
-cycle,lb,96.041,mcsc,bogota
+truck,ub,2.7198,mcsc,bogota
+bus,ub,2.1522,mcsc,bogota
+pedestrian,lb,38.7988,mcsc,bogota
+car,lb,5.1644,mcsc,bogota
+cycle,lb,96.0985,mcsc,bogota
 motorcycle,lb,102.3093,mcsc,bogota
 truck,lb,0.296,mcsc,bogota
-bus,lb,0.685,mcsc,bogota
+bus,lb,0.6851,mcsc,bogota
 other,mean,0,mcsc,bogota
 rail,mean,0,mcsc,bogota
 other,ub,0,mcsc,bogota
@@ -3212,29 +3212,29 @@ rail,lb,0,mcsc,buenos_aires
 auto_rickshaw,mean,0,mcsc,buenos_aires
 auto_rickshaw,ub,0,mcsc,buenos_aires
 auto_rickshaw,lb,0,mcsc,buenos_aires
-pedestrian,mean,81.0213,mcsc,cali
-car,mean,9.1804,mcsc,cali
-cycle,mean,119.7108,mcsc,cali
+pedestrian,mean,81.0258,mcsc,cali
+car,mean,9.1805,mcsc,cali
+cycle,mean,119.7173,mcsc,cali
 motorcycle,mean,74.6408,mcsc,cali
 truck,mean,0,mcsc,cali
 bus,mean,0.1615,mcsc,cali
-pedestrian,ub,110.2224,mcsc,cali
-car,ub,16.6015,mcsc,cali
-cycle,ub,176.2106,mcsc,cali
-motorcycle,ub,107.0309,mcsc,cali
+pedestrian,ub,110.2284,mcsc,cali
+car,ub,16.6018,mcsc,cali
+cycle,ub,176.2197,mcsc,cali
+motorcycle,ub,107.031,mcsc,cali
 truck,ub,0,mcsc,cali
 bus,ub,1.2335,mcsc,cali
-pedestrian,lb,59.9747,mcsc,cali
-car,lb,5.1474,mcsc,cali
-cycle,lb,83.5033,mcsc,cali
+pedestrian,lb,59.9781,mcsc,cali
+car,lb,5.1475,mcsc,cali
+cycle,lb,83.508,mcsc,cali
 motorcycle,lb,53.1429,mcsc,cali
 truck,lb,0,mcsc,cali
 bus,lb,0.0212,mcsc,cali
-other,mean,78.1597,mcsc,cali
+other,mean,78.163,mcsc,cali
 rail,mean,0,mcsc,cali
-other,ub,590.9216,mcsc,cali
+other,ub,590.9458,mcsc,cali
 rail,ub,0,mcsc,cali
-other,lb,10.3538,mcsc,cali
+other,lb,10.3542,mcsc,cali
 rail,lb,0,mcsc,cali
 auto_rickshaw,mean,0,mcsc,cali
 auto_rickshaw,ub,0,mcsc,cali
@@ -3320,24 +3320,24 @@ rail,lb,0,mcsc,coquimbo_laserena
 auto_rickshaw,mean,0,mcsc,coquimbo_laserena
 auto_rickshaw,ub,0,mcsc,coquimbo_laserena
 auto_rickshaw,lb,0,mcsc,coquimbo_laserena
-pedestrian,mean,4858.3039,mcsc,delhi
-car,mean,1214.0323,mcsc,delhi
-cycle,mean,3264.528,mcsc,delhi
-motorcycle,mean,4930.1464,mcsc,delhi
-truck,mean,895.2657,mcsc,delhi
-bus,mean,62.5073,mcsc,delhi
-pedestrian,ub,5254.0998,mcsc,delhi
-car,ub,1442.0908,mcsc,delhi
-cycle,ub,3777.1134,mcsc,delhi
-motorcycle,ub,5343.4564,mcsc,delhi
-truck,ub,1170.5112,mcsc,delhi
-bus,ub,124.6044,mcsc,delhi
-pedestrian,lb,4502.2245,mcsc,delhi
-car,lb,1023.1296,mcsc,delhi
-cycle,lb,2821.7482,mcsc,delhi
-motorcycle,lb,4550.0159,mcsc,delhi
-truck,lb,685.4619,mcsc,delhi
-bus,lb,31.3566,mcsc,delhi
+pedestrian,mean,4874.4416,mcsc,delhi
+car,mean,1215.8127,mcsc,delhi
+cycle,mean,3275.3902,mcsc,delhi
+motorcycle,mean,4930.1522,mcsc,delhi
+truck,mean,896.56,mcsc,delhi
+bus,mean,62.6005,mcsc,delhi
+pedestrian,ub,5271.9392,mcsc,delhi
+car,ub,1444.3215,mcsc,delhi
+cycle,ub,3789.8575,mcsc,delhi
+motorcycle,ub,5343.4601,mcsc,delhi
+truck,ub,1172.29,mcsc,delhi
+bus,ub,124.7917,mcsc,delhi
+pedestrian,lb,4516.8247,mcsc,delhi
+car,lb,1024.5504,mcsc,delhi
+cycle,lb,2831.0068,mcsc,delhi
+motorcycle,lb,4550.0236,mcsc,delhi
+truck,lb,686.4035,mcsc,delhi
+bus,lb,31.4031,mcsc,delhi
 other,mean,0,mcsc,delhi
 rail,mean,0,mcsc,delhi
 other,ub,0,mcsc,delhi
@@ -3401,48 +3401,48 @@ rail,lb,0,mcsc,iquique_altohospicio
 auto_rickshaw,mean,0,mcsc,iquique_altohospicio
 auto_rickshaw,ub,0,mcsc,iquique_altohospicio
 auto_rickshaw,lb,0,mcsc,iquique_altohospicio
-pedestrian,mean,653.5915,mcsc,kisumu
-car,mean,667.8202,mcsc,kisumu
-cycle,mean,0,mcsc,kisumu
-motorcycle,mean,2969.3124,mcsc,kisumu
+pedestrian,mean,649.1414,mcsc,kisumu
+car,mean,652.4601,mcsc,kisumu
+cycle,mean,478.5,mcsc,kisumu
+motorcycle,mean,2907.6519,mcsc,kisumu
 truck,mean,2247.101,mcsc,kisumu
-bus,mean,928.6541,mcsc,kisumu
-pedestrian,ub,1155.6626,mcsc,kisumu
-car,ub,2583.0673,mcsc,kisumu
-cycle,ub,0,mcsc,kisumu
-motorcycle,ub,4563.5523,mcsc,kisumu
+bus,mean,930.1088,mcsc,kisumu
+pedestrian,ub,1103.2952,mcsc,kisumu
+car,ub,2488.8583,mcsc,kisumu
+cycle,ub,1650.9214,mcsc,kisumu
+motorcycle,ub,4318.6331,mcsc,kisumu
 truck,ub,4785.4014,mcsc,kisumu
-bus,ub,2016.681,mcsc,kisumu
-pedestrian,lb,392.7584,mcsc,kisumu
-car,lb,200.5319,mcsc,kisumu
-cycle,lb,0,mcsc,kisumu
-motorcycle,lb,2012.5815,mcsc,kisumu
+bus,ub,1971.3885,mcsc,kisumu
+pedestrian,lb,402.0732,mcsc,kisumu
+car,lb,199.2678,mcsc,kisumu
+cycle,lb,141.2238,mcsc,kisumu
+motorcycle,lb,2021.1175,mcsc,kisumu
 truck,lb,1055.1807,mcsc,kisumu
-bus,lb,495.6819,mcsc,kisumu
+bus,lb,508.1604,mcsc,kisumu
 other,mean,0,mcsc,kisumu
 rail,mean,0,mcsc,kisumu
 other,ub,0,mcsc,kisumu
 rail,ub,0,mcsc,kisumu
 other,lb,0,mcsc,kisumu
 rail,lb,0,mcsc,kisumu
-auto_rickshaw,mean,0,mcsc,kisumu
-auto_rickshaw,ub,0,mcsc,kisumu
-auto_rickshaw,lb,0,mcsc,kisumu
-pedestrian,mean,78.2933,mcsc,medellin
+auto_rickshaw,mean,406.8811,mcsc,kisumu
+auto_rickshaw,ub,1780.2306,mcsc,kisumu
+auto_rickshaw,lb,94.2655,mcsc,kisumu
+pedestrian,mean,78.2941,mcsc,medellin
 car,mean,7.8723,mcsc,medellin
-cycle,mean,242.3849,mcsc,medellin
+cycle,mean,242.3865,mcsc,medellin
 motorcycle,mean,108.0499,mcsc,medellin
-truck,mean,2.9351,mcsc,medellin
+truck,mean,2.9352,mcsc,medellin
 bus,mean,2.4719,mcsc,medellin
-pedestrian,ub,93.0715,mcsc,medellin
+pedestrian,ub,93.0724,mcsc,medellin
 car,ub,13.954,mcsc,medellin
-cycle,ub,361.4421,mcsc,medellin
+cycle,ub,361.4445,mcsc,medellin
 motorcycle,ub,125.3058,mcsc,medellin
-truck,ub,9.4021,mcsc,medellin
+truck,ub,9.4022,mcsc,medellin
 bus,ub,5.1338,mcsc,medellin
-pedestrian,lb,66.3649,mcsc,medellin
+pedestrian,lb,66.3656,mcsc,medellin
 car,lb,4.6549,mcsc,medellin
-cycle,lb,163.5376,mcsc,medellin
+cycle,lb,163.5388,mcsc,medellin
 motorcycle,lb,93.9818,mcsc,medellin
 truck,lb,0.9542,mcsc,medellin
 bus,lb,1.305,mcsc,medellin
@@ -3452,32 +3452,32 @@ other,ub,0,mcsc,medellin
 rail,ub,0,mcsc,medellin
 other,lb,0,mcsc,medellin
 rail,lb,0,mcsc,medellin
-auto_rickshaw,mean,229.1213,mcsc,medellin
-auto_rickshaw,ub,1705.6385,mcsc,medellin
-auto_rickshaw,lb,30.7983,mcsc,medellin
-pedestrian,mean,100.1414,mcsc,mexico_city
-car,mean,40.8742,mcsc,mexico_city
-cycle,mean,158.8862,mcsc,mexico_city
+auto_rickshaw,mean,229.123,mcsc,medellin
+auto_rickshaw,ub,1705.6508,mcsc,medellin
+auto_rickshaw,lb,30.7985,mcsc,medellin
+pedestrian,mean,100.3422,mcsc,mexico_city
+car,mean,40.906,mcsc,mexico_city
+cycle,mean,159.163,mcsc,mexico_city
 motorcycle,mean,114.5878,mcsc,mexico_city
 truck,mean,2.0676,mcsc,mexico_city
-bus,mean,1.0845,mcsc,mexico_city
-pedestrian,ub,118.6978,mcsc,mexico_city
-car,ub,49.2436,mcsc,mexico_city
-cycle,ub,259.3228,mcsc,mexico_city
-motorcycle,ub,158.1297,mcsc,mexico_city
+bus,mean,1.0848,mcsc,mexico_city
+pedestrian,ub,118.9365,mcsc,mexico_city
+car,ub,49.2847,mcsc,mexico_city
+cycle,ub,259.743,mcsc,mexico_city
+motorcycle,ub,158.13,mcsc,mexico_city
 truck,ub,3.9899,mcsc,mexico_city
-bus,ub,2.857,mcsc,mexico_city
-pedestrian,lb,84.9847,mcsc,mexico_city
-car,lb,34.1736,mcsc,mexico_city
-cycle,lb,99.8461,mcsc,mexico_city
-motorcycle,lb,83.8937,mcsc,mexico_city
+bus,ub,2.8593,mcsc,mexico_city
+pedestrian,lb,85.1537,mcsc,mexico_city
+car,lb,34.1981,mcsc,mexico_city
+cycle,lb,100.0285,mcsc,mexico_city
+motorcycle,lb,83.8936,mcsc,mexico_city
 truck,lb,1.0714,mcsc,mexico_city
 bus,lb,0.5324,mcsc,mexico_city
-other,mean,1794.0447,mcsc,mexico_city
+other,mean,1797.3472,mcsc,mexico_city
 rail,mean,0,mcsc,mexico_city
-other,ub,2675.9025,mcsc,mexico_city
+other,ub,2680.4583,mcsc,mexico_city
 rail,ub,0,mcsc,mexico_city
-other,lb,1249.3334,mcsc,mexico_city
+other,lb,1251.7251,mcsc,mexico_city
 rail,lb,0,mcsc,mexico_city
 auto_rickshaw,mean,0,mcsc,mexico_city
 auto_rickshaw,ub,0,mcsc,mexico_city
@@ -3509,33 +3509,33 @@ rail,lb,0,mcsc,montevideo
 auto_rickshaw,mean,0,mcsc,montevideo
 auto_rickshaw,ub,0,mcsc,montevideo
 auto_rickshaw,lb,0,mcsc,montevideo
-pedestrian,mean,878.5203,mcsc,nairobi
-car,mean,351.2001,mcsc,nairobi
-cycle,mean,0,mcsc,nairobi
-motorcycle,mean,2652.3572,mcsc,nairobi
-truck,mean,146.1895,mcsc,nairobi
-bus,mean,63.8258,mcsc,nairobi
-pedestrian,ub,1211.0749,mcsc,nairobi
-car,ub,649.9831,mcsc,nairobi
-cycle,ub,0,mcsc,nairobi
-motorcycle,ub,3894.0908,mcsc,nairobi
-truck,ub,558.0085,mcsc,nairobi
-bus,ub,117.2638,mcsc,nairobi
-pedestrian,lb,644.9982,mcsc,nairobi
-car,lb,213.7649,mcsc,nairobi
-cycle,lb,0,mcsc,nairobi
-motorcycle,lb,1884.5083,mcsc,nairobi
-truck,lb,41.238,mcsc,nairobi
-bus,lb,39.3581,mcsc,nairobi
+pedestrian,mean,885.3376,mcsc,nairobi
+car,mean,348.4299,mcsc,nairobi
+cycle,mean,473.1386,mcsc,nairobi
+motorcycle,mean,2660.1666,mcsc,nairobi
+truck,mean,146.2277,mcsc,nairobi
+bus,mean,63.6442,mcsc,nairobi
+pedestrian,ub,1203.3206,mcsc,nairobi
+car,ub,642.8388,mcsc,nairobi
+cycle,ub,979.7186,mcsc,nairobi
+motorcycle,ub,3882.4132,mcsc,nairobi
+truck,ub,557.982,mcsc,nairobi
+bus,ub,116.5681,mcsc,nairobi
+pedestrian,lb,657.6375,mcsc,nairobi
+car,lb,213.8127,mcsc,nairobi
+cycle,lb,229.0058,mcsc,nairobi
+motorcycle,lb,1907.7538,mcsc,nairobi
+truck,lb,41.2587,mcsc,nairobi
+bus,lb,39.5258,mcsc,nairobi
 other,mean,0,mcsc,nairobi
 rail,mean,0,mcsc,nairobi
 other,ub,0,mcsc,nairobi
 rail,ub,0,mcsc,nairobi
 other,lb,0,mcsc,nairobi
 rail,lb,0,mcsc,nairobi
-auto_rickshaw,mean,0,mcsc,nairobi
-auto_rickshaw,ub,0,mcsc,nairobi
-auto_rickshaw,lb,0,mcsc,nairobi
+auto_rickshaw,mean,860.906,mcsc,nairobi
+auto_rickshaw,ub,3656.7985,mcsc,nairobi
+auto_rickshaw,lb,203.4045,mcsc,nairobi
 pedestrian,mean,26.2136,mcsc,osorno
 car,mean,29.68,mcsc,osorno
 cycle,mean,13.8271,mcsc,osorno
@@ -3563,24 +3563,24 @@ rail,lb,0,mcsc,osorno
 auto_rickshaw,mean,0,mcsc,osorno
 auto_rickshaw,ub,0,mcsc,osorno
 auto_rickshaw,lb,0,mcsc,osorno
-pedestrian,mean,1046.5832,mcsc,port_louis
+pedestrian,mean,1038.0416,mcsc,port_louis
 car,mean,0,mcsc,port_louis
-cycle,mean,0,mcsc,port_louis
-motorcycle,mean,2972.9483,mcsc,port_louis
-truck,mean,797.5439,mcsc,port_louis
-bus,mean,119.2262,mcsc,port_louis
-pedestrian,ub,1869.6337,mcsc,port_louis
+cycle,mean,7141.726,mcsc,port_louis
+motorcycle,mean,2975.7222,mcsc,port_louis
+truck,mean,795.4258,mcsc,port_louis
+bus,mean,118.5198,mcsc,port_louis
+pedestrian,ub,1844.827,mcsc,port_louis
 car,ub,0,mcsc,port_louis
-cycle,ub,0,mcsc,port_louis
-motorcycle,ub,5171.3872,mcsc,port_louis
-truck,ub,3028.2727,mcsc,port_louis
-bus,ub,418.8969,mcsc,port_louis
-pedestrian,lb,591.2657,mcsc,port_louis
+cycle,ub,21422.8563,mcsc,port_louis
+motorcycle,ub,5118.2741,mcsc,port_louis
+truck,ub,3005.2305,mcsc,port_louis
+bus,ub,415.5813,mcsc,port_louis
+pedestrian,lb,588.9562,mcsc,port_louis
 car,lb,0,mcsc,port_louis
-cycle,lb,0,mcsc,port_louis
-motorcycle,lb,1735.5624,mcsc,port_louis
-truck,lb,214.2797,mcsc,port_louis
-bus,lb,34.0469,mcsc,port_louis
+cycle,lb,2440.5563,mcsc,port_louis
+motorcycle,lb,1753.8336,mcsc,port_louis
+truck,lb,214.85,mcsc,port_louis
+bus,lb,33.9012,mcsc,port_louis
 other,mean,0,mcsc,port_louis
 rail,mean,0,mcsc,port_louis
 other,ub,0,mcsc,port_louis
@@ -3752,29 +3752,29 @@ rail,lb,0,mcsc,valdivia
 auto_rickshaw,mean,0,mcsc,valdivia
 auto_rickshaw,ub,0,mcsc,valdivia
 auto_rickshaw,lb,0,mcsc,valdivia
-pedestrian,mean,433.078,mcsc,vizag
-car,mean,595.9188,mcsc,vizag
-cycle,mean,604.2355,mcsc,vizag
-motorcycle,mean,749.77,mcsc,vizag
-truck,mean,892.8035,mcsc,vizag
-bus,mean,9.9869,mcsc,vizag
-pedestrian,ub,513.4596,mcsc,vizag
-car,ub,1002.2243,mcsc,vizag
-cycle,ub,805.9667,mcsc,vizag
-motorcycle,ub,877.4689,mcsc,vizag
-truck,ub,1515.9457,mcsc,vizag
-bus,ub,22.8428,mcsc,vizag
-pedestrian,lb,369.1627,mcsc,vizag
-car,lb,355.1856,mcsc,vizag
-cycle,lb,453.0511,mcsc,vizag
-motorcycle,lb,640.9773,mcsc,vizag
-truck,lb,554.2729,mcsc,vizag
-bus,lb,5.2667,mcsc,vizag
-other,mean,222.773,mcsc,vizag
+pedestrian,mean,453.3761,mcsc,vizag
+car,mean,604.7875,mcsc,vizag
+cycle,mean,632.6072,mcsc,vizag
+motorcycle,mean,749.7732,mcsc,vizag
+truck,mean,898.4389,mcsc,vizag
+bus,mean,10.0088,mcsc,vizag
+pedestrian,ub,537.079,mcsc,vizag
+car,ub,1018.0225,mcsc,vizag
+cycle,ub,843.6546,mcsc,vizag
+motorcycle,ub,877.4673,mcsc,vizag
+truck,ub,1532.7967,mcsc,vizag
+bus,ub,23.037,mcsc,vizag
+pedestrian,lb,386.6065,mcsc,vizag
+car,lb,360.1638,mcsc,vizag
+cycle,lb,474.4094,mcsc,vizag
+motorcycle,lb,640.9839,mcsc,vizag
+truck,lb,556.1577,mcsc,vizag
+bus,lb,5.2691,mcsc,vizag
+other,mean,229.1198,mcsc,vizag
 rail,mean,0,mcsc,vizag
-other,ub,465.203,mcsc,vizag
+other,ub,478.4855,mcsc,vizag
 rail,ub,0,mcsc,vizag
-other,lb,106.6831,mcsc,vizag
+other,lb,109.7156,mcsc,vizag
 rail,lb,0,mcsc,vizag
 auto_rickshaw,mean,0,mcsc,vizag
 auto_rickshaw,ub,0,mcsc,vizag

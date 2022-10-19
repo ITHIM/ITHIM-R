@@ -1289,106 +1289,116 @@ truck,Bicycling,111518.17463656332,vizag
 truck,Driving,111518.17463656332,vizag
 truck,Public Transport,111518.17463656332,vizag
 truck,Motorcycling,111518.17463656332,vizag
-bus,Baseline,342273.49596364604,kisumu
-bus,Bicycling,322108.8101790965,kisumu
-bus,Driving,284981.47768511093,kisumu
-bus,Public Transport,431301.30636371736,kisumu
-bus,Motorcycling,271148.40092755953,kisumu
+auto_rickshaw,Baseline,25414.941815913746,kisumu
+auto_rickshaw,Bicycling,24067.05672280139,kisumu
+auto_rickshaw,Driving,23766.62450325225,kisumu
+auto_rickshaw,Public Transport,24704.46021562862,kisumu
+auto_rickshaw,Motorcycling,23222.59859217678,kisumu
+bus,Baseline,344672.8938251805,kisumu
+bus,Bicycling,323698.86800053465,kisumu
+bus,Driving,298868.14505479817,kisumu
+bus,Public Transport,431075.47471219813,kisumu
+bus,Motorcycling,261826.07035284684,kisumu
 bus_driver,Baseline,18971.07669607057,kisumu
-bus_driver,Bicycling,17338.998962844158,kisumu
-bus_driver,Driving,15264.189695268646,kisumu
-bus_driver,Public Transport,24751.75799073332,kisumu
-bus_driver,Motorcycling,14604.659775461107,kisumu
+bus_driver,Bicycling,17412.07707030206,kisumu
+bus_driver,Driving,16003.496549051057,kisumu
+bus_driver,Public Transport,24804.714244297425,kisumu
+bus_driver,Motorcycling,14061.445843357391,kisumu
 car,Baseline,156752.54049719326,kisumu
-car,Bicycling,145105.7171210906,kisumu
-car,Driving,276248.440849149,kisumu
-car,Public Transport,119025.96752205295,kisumu
-car,Motorcycling,125511.64955894146,kisumu
+car,Bicycling,145562.4552927025,kisumu
+car,Driving,271995.7009845852,kisumu
+car,Public Transport,116590.03060678965,kisumu
+car,Motorcycling,124171.88425554665,kisumu
 car_driver,Baseline,146443.812258075,kisumu
-car_driver,Bicycling,135423.79294099577,kisumu
-car_driver,Driving,259508.7302761742,kisumu
-car_driver,Public Transport,110747.59282314386,kisumu
-car_driver,Motorcycling,116884.23103108602,kisumu
-cycle,Baseline,47330.2542635659,kisumu
-cycle,Bicycling,109150.27327808963,kisumu
-cycle,Driving,42854.22018176958,kisumu
-cycle,Public Transport,44224.43469660519,kisumu
-cycle,Motorcycling,44632.45412991179,kisumu
-motorcycle,Baseline,407227.7538091419,kisumu
-motorcycle,Bicycling,383690.5133654103,kisumu
-motorcycle,Driving,354916.00855386263,kisumu
-motorcycle,Public Transport,322472.37376369955,kisumu
-motorcycle,Motorcycling,526698.2798182303,kisumu
+car_driver,Bicycling,135855.9505612734,kisumu
+car_driver,Driving,255484.86265625592,kisumu
+car_driver,Public Transport,108442.75218166327,kisumu
+car_driver,Motorcycling,115616.56867827168,kisumu
+cycle,Baseline,47799.172119754076,kisumu
+cycle,Bicycling,107724.74269580326,kisumu
+cycle,Driving,42214.78674151297,kisumu
+cycle,Public Transport,45022.20403635391,kisumu
+cycle,Motorcycling,44565.465864742044,kisumu
+motorcycle,Baseline,408887.23583266506,kisumu
+motorcycle,Bicycling,389399.74051055865,kisumu
+motorcycle,Driving,350820.5896150762,kisumu
+motorcycle,Public Transport,329292.9971264368,kisumu
+motorcycle,Motorcycling,542926.6945424573,kisumu
 other,Baseline,7989.365595206272,kisumu
-other,Bicycling,7712.277771095072,kisumu
-other,Driving,7527.5525550209395,kisumu
-other,Public Transport,7342.827338946805,kisumu
-other,Motorcycling,2539.9717210193353,kisumu
-pedestrian,Baseline,146209.09504633342,kisumu
-pedestrian,Bicycling,139238.56006593604,kisumu
-pedestrian,Driving,138265.40326828836,kisumu
-pedestrian,Public Transport,144758.79910540854,kisumu
-pedestrian,Motorcycling,137150.86063218387,kisumu
+other,Bicycling,7389.008642965338,kisumu
+other,Driving,5403.2125701684035,kisumu
+other,Public Transport,7481.371251002405,kisumu
+other,Motorcycling,3001.7847612046685,kisumu
+pedestrian,Baseline,146230.51099171344,kisumu
+pedestrian,Bicycling,139023.588633164,kisumu
+pedestrian,Driving,139443.78775104694,kisumu
+pedestrian,Public Transport,145042.89024815112,kisumu
+pedestrian,Motorcycling,136578.92294395439,kisumu
 truck,Baseline,47199.32265437049,kisumu
 truck,Bicycling,47199.32265437049,kisumu
 truck,Driving,47199.32265437049,kisumu
 truck,Public Transport,47199.32265437049,kisumu
 truck,Motorcycling,47199.32265437049,kisumu
+auto_rickshaw,Baseline,42586.651844805325,nairobi
+auto_rickshaw,Bicycling,40132.55562048425,nairobi
+auto_rickshaw,Driving,30183.914040452084,nairobi
+auto_rickshaw,Public Transport,32593.92470385722,nairobi
+auto_rickshaw,Motorcycling,41352.256139158795,nairobi
 bus,Baseline,30203247.028432425,nairobi
-bus,Bicycling,29473163.688327786,nairobi
-bus,Driving,28209944.84295441,nairobi
-bus,Public Transport,32866100.50721977,nairobi
-bus,Motorcycling,28430518.129885167,nairobi
+bus,Bicycling,29469083.569665015,nairobi
+bus,Driving,28218149.165840864,nairobi
+bus,Public Transport,32880126.695804853,nairobi
+bus,Motorcycling,28344249.300006796,nairobi
 bus_driver,Baseline,1568945.5974913368,nairobi
-bus_driver,Bicycling,1486401.9975103624,nairobi
-bus_driver,Driving,1422682.9320404977,nairobi
-bus_driver,Public Transport,1692094.2951988631,nairobi
-bus_driver,Motorcycling,1433572.0655867364,nairobi
+bus_driver,Bicycling,1486221.2467106064,nairobi
+bus_driver,Driving,1423046.637918054,nairobi
+bus_driver,Public Transport,1692958.390561799,nairobi
+bus_driver,Motorcycling,1429421.4100265,nairobi
 car,Baseline,13923487.597132567,nairobi
-car,Bicycling,13686637.921111641,nairobi
-car,Driving,16579533.163175464,nairobi
-car,Public Transport,11532231.666100428,nairobi
-car,Motorcycling,13094127.982401306,nairobi
+car,Bicycling,13638254.018006388,nairobi
+car,Driving,16588992.087649655,nairobi
+car,Public Transport,11514046.3722226,nairobi
+car,Motorcycling,13178000.762043893,nairobi
 car_driver,Baseline,11670377.852500416,nairobi
-car_driver,Bicycling,11471041.981029192,nairobi
-car_driver,Driving,13910611.276764281,nairobi
-car_driver,Public Transport,9666908.570086759,nairobi
-car_driver,Motorcycling,10975624.163659347,nairobi
+car_driver,Bicycling,11430321.437717948,nairobi
+car_driver,Driving,13931558.085023258,nairobi
+car_driver,Public Transport,9651603.582281852,nairobi
+car_driver,Motorcycling,11046908.30382949,nairobi
 cycle,Baseline,557704.3883671944,nairobi
-cycle,Bicycling,1929518.461185477,nairobi
-cycle,Driving,521598.31397703337,nairobi
-cycle,Public Transport,464992.45376095676,nairobi
-cycle,Motorcycling,511767.233892777,nairobi
+cycle,Bicycling,2001386.742590655,nairobi
+cycle,Driving,520540.2605150506,nairobi
+cycle,Public Transport,471186.47506964736,nairobi
+cycle,Motorcycling,512406.4745260583,nairobi
 motorcycle,Baseline,3877269.9756064415,nairobi
-motorcycle,Bicycling,3790972.4901134744,nairobi
-motorcycle,Driving,3641963.2942175716,nairobi
-motorcycle,Public Transport,3386267.040905076,nairobi
-motorcycle,Motorcycling,6855474.8192190435,nairobi
+motorcycle,Bicycling,3765182.4369776445,nairobi
+motorcycle,Driving,3592973.214649725,nairobi
+motorcycle,Public Transport,3429250.462798125,nairobi
+motorcycle,Motorcycling,6879640.319435121,nairobi
 other,Baseline,140011.3329129578,nairobi
-other,Bicycling,138005.43989128218,nairobi
-other,Driving,127173.61757423387,nairobi
-other,Public Transport,117879.64657380353,nairobi
-other,Motorcycling,128042.83788362665,nairobi
-pedestrian,Baseline,4836924.098245113,nairobi
-pedestrian,Bicycling,4544578.048624493,nairobi
-pedestrian,Driving,4546383.352344002,nairobi
-pedestrian,Public Transport,4692858.363246585,nairobi
-pedestrian,Motorcycling,4601084.716328509,nairobi
+other,Bicycling,136333.86237321916,nairobi
+other,Driving,122259.17967112862,nairobi
+other,Public Transport,116843.26851260444,nairobi
+other,Motorcycling,129045.78439446444,nairobi
+pedestrian,Baseline,4837079.132467668,nairobi
+pedestrian,Bicycling,4555228.018002763,nairobi
+pedestrian,Driving,4558036.635612783,nairobi
+pedestrian,Public Transport,4679361.201392494,nairobi
+pedestrian,Motorcycling,4581724.5422522705,nairobi
 rail,Baseline,367578.7940830333,nairobi
-rail,Bicycling,367578.7940830333,nairobi
-rail,Driving,345782.8927661888,nairobi
+rail,Bicycling,363492.06258612487,nairobi
+rail,Driving,353350.9140567598,nairobi
 rail,Public Transport,367578.7940830333,nairobi
-rail,Motorcycling,341998.88212090323,nairobi
+rail,Motorcycling,333447.018062558,nairobi
 taxi,Baseline,953658.8537337772,nairobi
-taxi,Bicycling,932321.4422504588,nairobi
-taxi,Driving,884003.6674865801,nairobi
-taxi,Public Transport,797287.3691649113,nairobi
-taxi,Motorcycling,897934.7047360195,nairobi
+taxi,Bicycling,936685.9127811374,nairobi
+taxi,Driving,882019.8172453626,nairobi
+taxi,Public Transport,773833.8507576272,nairobi
+taxi,Motorcycling,902431.4319494461,nairobi
 truck,Baseline,4501775.010151526,nairobi
 truck,Bicycling,4501201.897859618,nairobi
 truck,Driving,4501775.010151526,nairobi
 truck,Public Transport,4501775.010151526,nairobi
-truck,Motorcycling,4498556.764204661,nairobi
+truck,Motorcycling,4501201.897859618,nairobi
 bus,Baseline,263087.740685155,port_louis
 bus,Bicycling,254106.7976835237,port_louis
 bus,Driving,216243.73314845024,port_louis
