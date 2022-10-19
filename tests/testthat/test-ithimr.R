@@ -56,7 +56,7 @@ test_that("accra uncertain parallel", {
   parameter_samples <- sapply(parameter_names,function(x)ithim_object$parameters[[x]])
   ## omit all-cause mortality
   outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
-  NSCEN <- 5
+  NSCEN <- nrow(ithim_objects$scen_prop)
   evppi <- matrix(0, ncol = NSCEN, nrow = ncol(parameter_samples))
   for(j in 1:(NSCEN)){
     y <- rowSums(outcome[,seq(NSCEN+j,ncol(outcome),by=NSCEN)])
@@ -101,7 +101,7 @@ test_that("accra evppi", {
     parameter_samples <- sapply(parameter_names,function(x)ithim_object$parameters[[x]])
     ## omit all-cause mortality
     outcome <- t(sapply(ithim_object$outcomes, function(x) colSums(x$hb$deaths[,3:ncol(x$hb$deaths)])))
-    NSCEN <- 5
+    NSCEN <- nrow(ithim_objects$scen_prop)
     evppi <- matrix(0, ncol = NSCEN, nrow = ncol(parameter_samples))
     for(j in 1:(NSCEN)){
       y <- rowSums(outcome[,seq(NSCEN+j,ncol(outcome),by=NSCEN)])

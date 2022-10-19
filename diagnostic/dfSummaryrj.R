@@ -25,10 +25,10 @@ dfSummaryrj <- function (x, distributions, round.digits = st_options("round.digi
       }
     }
   }
-  errmsg <- c(errmsg, summarytools:::check_arguments(match.call(), list(...)))
-  if (length(errmsg) > 0) {
-    stop(paste(errmsg, collapse = "\n  "))
-  }
+  # errmsg <- c(errmsg, summarytools:::check_arguments(match.call(), list(...)))
+  # if (length(errmsg) > 0) {
+  #   stop(paste(errmsg, collapse = "\n  "))
+  # }
   if (isTRUE(labels.col) && length(label(x, all = TRUE)) == 0) {
     labels.col <- FALSE
   }

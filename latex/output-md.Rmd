@@ -390,7 +390,7 @@ Here we show the ITHIM as evaluated for the city of Accra, with a simple scenari
 
 ## Parametric distributions for uncertain variables {#uni}
 
-The XX uncertain univariate parameters are shown in Figure [3](#distributions){reference-type="ref" reference="distributions"}. Most of the parameters are self explanatory. Cycling and walking MMETs are the number of MMETs per hour when undertaking cycling and walking, and determine also the ventilation rates. Motorcycle distance is the total distance travelled by motorcycles relative to the total distance travelled by cars in the baseline scenario. Non-travel PA, injury reporting rate and NCD burden all act as scalars for the corresponding datasets. Note that the non-travel PA scalar does not affect the $\approx$<!-- -->40% of the population whose non-travel PA is 0.
+The XX uncertain univariate parameters are shown in Figure [3](#distributions){reference-type="ref" reference="distributions"}. Most of the parameters are self explanatory. Cycling and walking MMETs are the number of MMETs per hour when undertaking cycling and walking, and determine also the ventilation rates. Motorcycle distance is the total distance travelled by motorcycles relative to the total distance travelled by cars in the baseline scenario. Non-travel PA, injury reporting rate and NCD burden all act as scalars for the corresponding datasets. Note that the non-travel PA scalar does not affect the $\approx$\<40% of the population whose non-travel PA is 0.
 
 ```{r out.height = "460px", out.width='800px', fig.align='center', fg.cap = 'Distributions of univariate uncertain parameters (1024 samples).', echo=F}
 knitr::include_graphics("uncertain_parameters.pdf")
@@ -730,22 +730,17 @@ We estimate smoothed probabilities for any mode that has zero or one probability
 
 We resample the adjusted probability parameters of Table [6](#calculations){reference-type="ref" reference="calculations"}. We describe each parameter with a Beta distribution as follows:
 
-\$$\hat{B}_{g,m} \tilda L_m{B}_{a,g,m}.$$
+\$$\hat{B}_{g,m} \tilda L_m{B}_{a,g,m}.$\$
 
 Ba,g,m∼Beta(αa,g,m,βa,g,m);
 
-
 \label{pitilde}
 
-\$$\hat{B}_{a,g,m} & \sim \text{Beta}(\alpha_{a,g,m},\beta_{a,g,m}); \\$$
+\$$\hat{B}_{a,g,m} & \sim \text{Beta}(\alpha_{a,g,m},\beta_{a,g,m}); \\$\$
 
-${\hat{B}}_{a,g,m} \sim Beta({\alpha}_{a,g,m}, {\beta}_{a,g,m})$
-${\alpha}_{a,g,m} + {\beta}_{a,g,m} = 200$
-$\hat{B}_{a,g,m} & = \frac{1}{1+\frac{\beta_{a,g,m}}{\alpha_{a,g,m}}}$
+${\hat{B}}_{a,g,m} \sim Beta({\alpha}_{a,g,m}, {\beta}_{a,g,m})$ ${\alpha}_{a,g,m} + {\beta}_{a,g,m} = 200$ $\hat{B}_{a,g,m} & = \frac{1}{1+\frac{\beta_{a,g,m}}{\alpha_{a,g,m}}}$
 
-
-\alpha_{a,g,m}+\beta_{a,g,m} & = 200; \\
-\hat{B}_{a,g,m} & = \frac{1}{1+\frac{\beta_{a,g,m}}{\alpha_{a,g,m}}}.\end{aligned}$$ Here, $\tilde{B}_{a,g,m}$ is the new, variable parameter that we resample for each simulation. We sample via a quantile, $\nu_m\sim\mathcal{U}(0,1)$, which we use to calculate $\tilde{B}_{a,g,m}$. We set $\alpha_{a,g,m}$ and $\beta_{a,g,m}$ to sum to 200, making the distributions concentrated, and we constrain their relative values to enforce the distribution's mean to equal $\hat{B}_{a,g,m}$ (the right-most column in Table [6](#calculations){reference-type="ref" reference="calculations"}).
+\alpha*{a,g,m}+\*\beta{a,g,m} & = 200; \\ \hat{B}\_{a,g,m} & = \frac{1}{1+\frac{\beta_{a,g,m}}{\alpha_{a,g,m}}}.\\end{aligned}\$\$ Here, $\tilde{B}_{a,g,m}$ is the new, variable parameter that we resample for each simulation. We sample via a quantile, $\nu_m\sim\mathcal{U}(0,1)$, which we use to calculate $\tilde{B}_{a,g,m}$. We set $\alpha_{a,g,m}$ and $\beta_{a,g,m}$ to sum to 200, making the distributions concentrated, and we constrain their relative values to enforce the distribution's mean to equal $\hat{B}_{a,g,m}$ (the right-most column in Table [6](#calculations){reference-type="ref" reference="calculations"}).
 
 ### Inform individual travel
 

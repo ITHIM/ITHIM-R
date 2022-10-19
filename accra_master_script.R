@@ -21,8 +21,7 @@ barplot(result_mat, names.arg = sapply(names(result_mat) ,function(x)paste0( las
 
 
 ## 
-ithim_object <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),ADD_WALK_TO_PT_TRIPS=F,CITY='accra',ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F,MAX_MODE_SHARE_SCENARIO = T)
-#ithim_object <- run_ithim_setup(TEST_WALK_SCENARIO=T,ADD_WALK_TO_PT_TRIPS=F)
+ithim_object <- run_ithim_setup(DIST_CAT = c("0-1 km", "2-5 km", "6+ km"),ADD_WALK_TO_PT_TRIPS=F,CITY='accra',ADD_TRUCK_DRIVERS = F,ADD_BUS_DRIVERS = F,SCENARIO_NAME = "MAX_MODE_SHARE_SCENARIO")
 ithim_object$outcomes <- run_ithim(ithim_object, seed = 1)
 ##
 

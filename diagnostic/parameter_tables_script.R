@@ -1,8 +1,8 @@
 # load samples and settings
-setwd('diagnostic')
-parameter_samples <- readRDS('parameter_samples.Rds')
-load('parameter_settings.Rdata')
-source('dfSummaryrj.R')
+# setwd('diagnostic')
+parameter_samples <- readRDS('diagnostic/parameter_samples.Rds')
+load('diagnostic/parameter_settings.Rdata')
+source('diagnostic/dfSummaryrj.R')
 library(summarytools)
 library(ithimr)
 align_numbers_dfs <<- summarytools:::align_numbers_dfs
@@ -25,13 +25,13 @@ for(city in cities){
 # remove zeros from emission inventory
 PM_emission_inventory1 <- PM_emission_inventories
 tmp <- run_ithim_setup()
-PM_emission_inventory1$accra <- EMISSION_INVENTORY
+PM_emission_inventory1$accra <- PM_EMISSION_INVENTORY
 for(i in 1:length(PM_emission_inventory1))
   for(j in length(PM_emission_inventory1[[i]]):1)
     if(PM_emission_inventory1[[i]][[j]] == 0) PM_emission_inventory1[[i]][[j]] <- NULL
 
 PM_emission_inventory2 <- lapply(PM_emission_inventory1,function(x)sapply(x,function(y)y/sum(unlist(x))))
-PM_emission_inventory <- lapply(cities,function(x)formatC(signif(PM_emission_inventory2[[x]]*dirichlet_pointiness(emission_confidence[[x]]),digits=2), digits=2,format="fg"))
+PM_emission_inventory <- lapply(cities,function(x)formatC(signif(PM_emission_inventory2[[x]]*dirichlet_pointiness(PM_emission_confidence[[x]]),digits=2), digits=2,format="fg"))
 names(PM_emission_inventory) <- cities
 
 ## remove DOSE_RESPOSE parameters
@@ -40,8 +40,8 @@ parameter_samples_to_plot <- parameter_samples_to_plot[,!sapply(colnames(paramet
 # get distribution descriptions
 distributions <- sapply(colnames(parameter_samples_to_plot),
                         function(x){
-                          if(grepl('EMISSION_INVENTORY',x)){ city <- cities[sapply(cities,function(y)grepl(y,x))]; 
-                          paste0('Dir(',paste(PM_emission_inventory[[city]],collapse=', '),');\\\nConfidence=',emission_confidence[[city]])}
+                          if(grepl('PM_EMISSION_INVENTORY',x)){ city <- cities[sapply(cities,function(y)grepl(y,x))]; 
+                          paste0('Dir(',paste(PM_emission_inventory[[city]],collapse=', '),');\\\nConfidence=',PM_emission_confidence[[city]])}
                           else if(grepl('DOSE_RESPONSE',x)) 'Uniform(0,1)' 
                           else if(x%in%normVariables) paste0('Lnorm(',sprintf('%.1f',get(tolower(x))[1]),', ',
                                                              sprintf('%.2f',get(tolower(x))[2]),')') 
@@ -60,7 +60,7 @@ distributions <- sapply(colnames(parameter_samples_to_plot),
 # save table for all
 x <- dfSummaryrj(parameter_samples_to_plot,style='grid',na.col=F,valid.col=F,distributions=distributions,col.widths=c(5,100,100,20000))
 #x <- dfSummary(parameter_samples_to_plot,plain.ascii = FALSE, style = "grid",graph.magnif = 0.75, valid.col = FALSE)
-summarytools::view(x,file='parameter_table_all.html')
+summarytools::view(x,file='diagnostic/parameter_table_all.html')
 if(file.exists('dr_curves.html')){
   file.copy('dr_curves.html', 'dr_curves_plus_all_parameters.html')
   summarytools::view(x,file='dr_curves_plus_all_parameters.html',append=T)
@@ -68,7 +68,7 @@ if(file.exists('dr_curves.html')){
 
 # city allocations
 city_allocations <- sapply(colnames(parameter_samples_to_plot), function(x) sapply(cities,function(y)grepl(y,x)))
-global_columns <- apply(city_allocations,2,function(x)all(x==F))
+global_columns <- apply(city_allocations,2,function(x)all(x==FALSE))
 
 # save table for global
 x <- dfSummaryrj(parameter_samples_to_plot[,global_columns],style='grid',na.col=F,valid.col=F,distributions=distributions)
@@ -83,11 +83,6 @@ for(i in 1:length(cities)){
   x <- dfSummaryrj(city_parameters[,city_columns==i],style='grid',na.col=F,valid.col=F,distributions=city_distributions[city_columns==i])
   summarytools::view(x,file=paste0('parameter_table_',cities[i],'.html'),title = city)
 }
-
-setwd('..')
-
-
-
 
 ## to append:
 ## iconv -s -t utf-8 parameter_table_all.html dr_curves.html | pandoc -s -f html -t html -o parameter_table_all_plus_dr.html

@@ -164,6 +164,9 @@ distances_for_injury_function <- function(journeys, dist){
 
   }
   
+  # # save injuries_for_model as part of ithim_object
+  # ithim_object$inj_distances <- list()
+  # ithim_object$inj_distances$injuries_for_model <- injuries_for_model
 
   # run regression model on baseline data
   reg_model <- list()
@@ -268,7 +271,7 @@ distances_for_injury_function <- function(journeys, dist){
     
 
 
-  return(list(true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model))
+  return(list(true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model, injuries_for_model = injuries_for_model))
 }
 
   ## old code:
