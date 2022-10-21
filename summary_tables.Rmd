@@ -148,7 +148,7 @@ get_scen_settings <- ithimr::get_scenario_settings()
 ```
 
 ## Trip proportion
-Case study specific trip proportions by mode, for baseline and five scenarios
+Case study specific trip proportions by mode, for baseline and four scenarios
 
 
 ```{r load_tidyverse, echo = F, message = F}
@@ -218,7 +218,7 @@ suppressWarnings({
 ```
 
 ## Distance tables
-Case study specific distance tables for baseline and five scenarios
+Case study specific distance tables for baseline and four scenarios
 
 
 ```{r trip_dist = "asis"}
@@ -283,7 +283,7 @@ kable(trip_dist, caption = "Avg. distance per person (km) per day across all cas
 ```
 
 ## Distance tables scaled by using total population (per year in km)
-Case study specific distance tables for baseline and five scenarios
+Case study specific distance tables for baseline and four scenarios
 
 
 ```{r trip_tot_dist = "asis", message=F}
@@ -410,7 +410,7 @@ for (city in cities){
 
 ## Duration tables
 
-Case study specific duration tables for baseline and five scenarios (per day in minutes)
+Case study specific duration tables for baseline and four scenarios (per day in minutes)
 
 
 ```{r trip_dur = "asis"}
