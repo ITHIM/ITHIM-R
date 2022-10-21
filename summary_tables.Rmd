@@ -798,30 +798,39 @@ for (k in measure) { # loop for ylls or deaths
 # removeTable(wb = wb, sheet = "YLLs_Pathway", table = "Tabla2")
 # writeDataTable(wb, sheet = "YLLs_Pathway", x = rbindlist(health$ylls$pathway_hb, use.names = T), tableName = "Tabla2", startCol = 1)
 # saveWorkbook(wb, path_ylls_wb, overwrite =TRUE)
-# # Export ylls HB
+# 
+
+# Remove CIs
+ylls <-  rbindlist(health$ylls$hb, use.names = T) |> filter(!str_detect(cause, "_lb") & !str_detect(cause, "_ub"))
+ylls_pathway <- rbindlist(health$ylls$pathway_hb, use.names = T) |> filter(!str_detect(cause, "_lb") & !str_detect(cause, "_ub"))
+deaths <- rbindlist(health$deaths$hb, use.names = T)|> filter(!str_detect(cause, "_lb") & !str_detect(cause, "_ub"))
+deaths_pathway <- rbindlist(health$deaths$pathway_hb, use.names = T) |> filter(!str_detect(cause, "_lb") & !str_detect(cause, "_ub"))
+
+
+# Export ylls HB
 output_file <- "results/multi_city/health_impacts/data.xlsx"
-writexl::write_xlsx(list(ylls_hb_lng = rbindlist(health$ylls$hb, use.names = T),
-                         ylls_pathway_hb_lng = rbindlist(health$ylls$pathway_hb, use.names = T),
-                         Deaths = rbindlist(health$deaths$hb, use.names = T),
-                         Deaths_Pathway = rbindlist(health$deaths$pathway_hb, use.names = T)), path = output_file)
+writexl::write_xlsx(list(ylls = ylls,
+                         ylls_pathway = ylls_pathway,
+                         deaths = deaths,
+                         deaths_pathway = deaths_pathway), 
+                    path = output_file)
  
 # Export ylls HB
-write.csv(rbindlist(health$ylls$hb, use.names = T),
-            "results/multi_city/health_impacts/ylls_hb_lng.csv",
+write.csv(ylls,
+            "results/multi_city/health_impacts/ylls.csv",
             row.names = F)
 # Export ylls PATHWAY_HB
-write.csv(rbindlist(health$ylls$pathway_hb, use.names = T),
-            "results/multi_city/health_impacts/ylls_pathway_hb_lng.csv",
+write.csv(ylls_pathway,
+            "results/multi_city/health_impacts/ylls_pathway.csv",
             row.names = F)
 # Export deaths HB
-write.csv(rbindlist(health$deaths$hb, use.names = T),
-            "results/multi_city/health_impacts/deaths_hb_lng.csv",
+write.csv(deaths,
+            "results/multi_city/health_impacts/deaths.csv",
             row.names = F)
 # Export deaths PATHWAY_HB
-write.csv(rbindlist(health$deaths$pathway_hb, use.names = T),
-            "results/multi_city/health_impacts/deaths_pathway_hb_lng.csv",
+write.csv(deaths_pathway,
+            "results/multi_city/health_impacts/deaths_pathway",
             row.names = F)
-
 
 
 ```
