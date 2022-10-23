@@ -829,7 +829,7 @@ write.csv(deaths,
             row.names = F)
 # Export deaths PATHWAY_HB
 write.csv(deaths_pathway,
-            "results/multi_city/health_impacts/deaths_pathway",
+            "results/multi_city/health_impacts/deaths_pathway.csv",
             row.names = F)
 
 

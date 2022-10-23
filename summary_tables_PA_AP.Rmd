@@ -51,7 +51,7 @@ cities <- names(io)[!names(io) %in% 'scen_prop']
 
 scen_names <- c("Baseline", "Bicycling", "Driving", "Public Transport", "Motorcycling")
 
-input_parameter_file <- "InputParameters_v15.0.xlsx"
+input_parameter_file <- "InputParameters_v17.0.xlsx"
 # scenario definition
 scenario_name <- "GLOBAL"
 reference_scenario <- 'Baseline'
