@@ -1,0 +1,5 @@
+AKS, 19/10/2022
+
+- set mode tricycle to auto_rickshaw
+- set mode rickshaw to auto_rickshaw
+- set mode bicycle to cycle
