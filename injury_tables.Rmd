@@ -215,7 +215,7 @@ for (city in cities) {
       }else if(var == "bi_sc"){
         qualified_scen_name <- 'Bicycling'
       }else if(var == "car_sc"){
-        qualified_scen_name <- 'Driving'
+        qualified_scen_name <- 'Car'
       }else if(var == "mc_sc"){
         qualified_scen_name <- 'Motorcycling'
       }else if(var == "bus_sc"){
@@ -245,6 +245,8 @@ for (city in cities) {
       names(td)[2:ncol(td)] <- paste(names(td)[2:ncol(td)], city, sep = "_") # add 'city_' at beginning of column names
       td$measure <- ifelse(is.na(pref), "mean", pref)
       
+      
+      
       city_df[[var]][[city]][[unique(td$measure)]] <- td   # save all data in one list called city_df
       
       if (length(city_df[[var]][[city]]) == 3) # if for each fatality sum we have mean, lb and ub
@@ -252,7 +254,127 @@ for (city in cities) {
     }
     
   }
+  # create df with location information
+  cityname <- city
+  if (city == cities[[1]]){
+    location <- data.frame(city = cityname, country = io[[city]]$location$country, continent = io[[city]]$location$continent)
+  } else {
+    dummy_row <- data.frame(city = cityname, country = io[[city]]$location$country, continent = io[[city]]$location$continent)
+    location <- rbind(location, dummy_row)
+  }
+  
+  # create dataframe with original fatality counts adjusted by weight and injury_reporting_rate 
+  
+  # Baseline - whw
+  injury_data_count <- as.data.frame(io[[city]]$injury_table$whw)
+  injury_data_count <- injury_data_count %>% rename(value = count, str_mode = strike_mode) # rename columns
+  
+  # recalculate value based on weight and injury reporting rate
+  injury_data_count$value <- injury_data_count$value / injury_data_count$weight / injury_data_count$injury_reporting_rate
+  injury_data_count <- injury_data_count[c('str_mode', 'value', 'cas_mode')] # re order columns and drop column weight
+  
+  # aggregate as age and gender column has been removed
+  injury_data_count2 <- injury_data_count %>% group_by(cas_mode, str_mode) %>% summarise(value = sum(value))
+ 
+  
+  # Baseline - nov
+  injury_data_count_nov <- as.data.frame(io[[city]]$injury_table$nov)
+  
+  if( length(injury_data_count_nov) > 0){
+    injury_data_count_nov <- injury_data_count_nov %>% rename(value = count, str_mode = strike_mode) # rename columns
+    
+    # recalculate value based on weight and injury reporting rate
+    injury_data_count_nov$value <- injury_data_count_nov$value / injury_data_count_nov$weight / injury_data_count_nov$injury_reporting_rate
+    injury_data_count_nov <- injury_data_count_nov[c('str_mode', 'value', 'cas_mode')] # re order columns and drop column weight
+
+    # aggregate as age and gender column has been removed
+    injury_data_count_nov2 <- injury_data_count_nov %>% group_by(cas_mode, str_mode) %>% summarise(value = sum(value))
+  
+    city_baseline_count <- rbind(injury_data_count2, injury_data_count_nov2)
+  } else {
+    city_baseline_count <- injury_data_count2
+  }
+
+  city_baseline_count$city <- city
+  city_baseline_count$scenario <- 'Baseline'
+  city_baseline_count$country <- io[[city]]$location$country
+  city_baseline_count$continent <- io[[city]]$location$continent
+  
+  if (city == cities[[1]]){
+    baseline_counts <- city_baseline_count
+  } else {
+    baseline_counts <- rbind(baseline_counts, city_baseline_count)
+  }
+  
+  baseline_counts$measure <- 'mean'
+  
+  
+  ###### create casualty distance df
+  dummy_distances <- io[[city]]$true_dist
+  
+  dummy_distances2 <- pivot_longer(dummy_distances, cols = -c(stage_mode), names_to = 'scenario', values_to = 'mode_distance')
+  
+  baseline_pred <- dummy_distances2 %>% filter(scenario == 'Baseline')
+  baseline_pred$scenario <- 'Baseline_predicted'
+  
+  dummy_distances3 <- rbind(dummy_distances2, baseline_pred)
+  
+  dummy_distances3$city <- city
+  
+  if (city == cities[1]){
+    true_distances <- dummy_distances3
+  } else {
+    true_distances <- rbind(true_distances,dummy_distances3)
+  }
+  
+  
+  
+  
+  ####### create population df
+  pop_df <- data.frame(model_population = sum(io[[city]]$demographic$population))
+  pop_df$city <- city
+  
+  if (city == cities[1]){
+    all_pop_df <- pop_df
+  } else {
+    all_pop_df <- rbind(all_pop_df, pop_df)
+  }
+  
+  ####### create duration df based on true distances and speed
+  speed_city <- io[[city]]$vehicle_inventory %>% dplyr::select(-c( "PM_emission_inventory",  "CO2_emission_inventory"))
+  speed_city$city <- cityname
+  
+  if (city == cities[1]){
+    speed_df <- speed_city
+  } else {
+    speed_df <- rbind(speed_df, speed_city)
+  }
+  
+  
+  # dummy_dur <- io[[city]]$dur
+  # 
+  # dummy_dur2 <- pivot_longer(dummy_dur, cols = -c(stage_mode), names_to = 'scenario', values_to = 'mode_duration')
+  # 
+  # baseline_pred <- dummy_dur2 %>% filter(scenario == 'Baseline')
+  # baseline_pred$scenario <- 'Baseline_predicted'
+  # 
+  # dummy_dur3 <- rbind(dummy_dur2, baseline_pred)
+  # 
+  # dummy_dur3$city <- city
+  # 
+  # if (city == cities[1]){
+  #   duration <- dummy_dur3
+  # } else {
+  #   duration <- rbind(duration,dummy_dur3)
+  # }
 }
+
+# calculate duration
+duration <- left_join(true_distances, speed_df, by = c('city','stage_mode' ))
+duration$mode_duration <- duration$mode_distance / duration$speed
+duration <- duration %>% dplyr::select(-c(mode_distance, speed))
+
+true_distances <- true_distances %>% rename(cas_mode = stage_mode)
 
 ```
 
@@ -314,7 +436,7 @@ for (cs in names(all_whw)){ # loop through scenarios
   }else if(cs == "bi_sc"){
     qualified_scen_name <- 'Bicycling'
   }else if(cs == "car_sc"){
-    qualified_scen_name <- 'Driving'
+    qualified_scen_name <- 'Car'
   }else if(cs == "mc_sc"){
     qualified_scen_name <- 'Motorcycling'
   }
@@ -348,6 +470,27 @@ for (cs in names(all_whw)){ # loop through scenarios
   st[[cs]] <- format(td, scientific = F)
   
 }
+
+# add country and continent information
+whw_list <- left_join(whw_list, location, by = 'city')
+
+# add original counts and rename Baseline to Baseline predicted
+whw_list$scenario <- ifelse(whw_list$scenario == 'Baseline', 'Baseline_predicted',whw_list$scenario)
+
+whw_list <- rbind(whw_list, baseline_counts)
+
+# replace capital with lower letters
+whw_list$str_mode <- tolower(whw_list$str_mode)
+
+# update true distances scenarios
+true_distances[true_distances$scenario == 'Scenario 1',]$scenario <- 'Bicycling'
+true_distances[true_distances$scenario == 'Scenario 3',]$scenario <- 'Public Transport'
+true_distances[true_distances$scenario == 'Scenario 2',]$scenario <- 'Car'
+true_distances[true_distances$scenario == 'Scenario 4',]$scenario <- 'Motorcycling'
+
+# add mode distances
+whw_list <- left_join(whw_list, true_distances, by = c('city', 'cas_mode','scenario'))
+
 # Remove total from whw long form, and write as csv
 readr::write_csv(whw_list %>% filter(str_mode != 'Total'), paste0('results/multi_city/whw_matrices/whw_lng.csv')) # table containing all the fatality counts
 ```
@@ -470,6 +613,8 @@ for (city in cities){
       
       el <- full_join(el, td4, by = c('stage_mode'))
       
+
+      
       # City's population
       pop <- sum(io[[city]]$demographic$population)
       # Compute distance travelled per capita
@@ -533,12 +678,35 @@ names(injury_risks_lng)[6] <- 'city'
 injury_risks_lng <- injury_risks_lng %>% dplyr::select(-variable)
 cols <- c("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02")
 injury_risks_lng$scenario <- as.character(injury_risks_lng$scenario)
-injury_risks_lng[injury_risks_lng$scenario == 'bl',]$scenario <- 'Baseline'
+injury_risks_lng[injury_risks_lng$scenario == 'bl',]$scenario <- 'Baseline_predicted'
 injury_risks_lng[injury_risks_lng$scenario == 'bisc',]$scenario <- 'Bicycling'
 injury_risks_lng[injury_risks_lng$scenario == 'bssc',]$scenario <- 'Public Transport'
-injury_risks_lng[injury_risks_lng$scenario == 'csc',]$scenario <- 'Driving'
+injury_risks_lng[injury_risks_lng$scenario == 'csc',]$scenario <- 'Car'
+injury_risks_lng[injury_risks_lng$scenario == 'mcsc',]$scenario <- 'Motorcycling'
 rd <- rename(injury_risks_lng, mode = stage_mode)
 rd <- rd %>% filter(mode != 'Total')
+
+# add country and continent information
+rd <- left_join(rd, location, by = 'city')
+
+
+# aggregate baseline counts by cas_mode
+baseline_counts_agg <- baseline_counts %>% group_by(city,cas_mode, country, continent, measure, scenario) %>% summarise(value = sum(value)) %>% rename(mode = cas_mode)
+
+# get true_distances into correct format
+true_distances <- true_distances  %>% rename(mode = cas_mode)
+
+
+# add distance information
+rd <- left_join(rd, true_distances, by = c('mode', 'city','scenario'))
+
+
+# add counts but first divide by distance
+baseline_counts_km <- left_join(baseline_counts_agg, true_distances, by = c('mode', 'city', 'scenario'))
+baseline_counts_km$value <- round((baseline_counts_km$value /(baseline_counts_km$mode_distance * 365))*1000000000,4)
+
+rd <- rbind(rd, baseline_counts_km )
+
 readr::write_csv(rd, 'results/multi_city/whw_matrices/injury_risks_per_billion_kms_lng.csv')
 ```
 
@@ -633,27 +801,49 @@ names(injury_risks_per_100k)[5] <- 'scenario'
 names(injury_risks_per_100k)[6] <- 'city'
 injury_risks_per_100k <- injury_risks_per_100k %>% dplyr::select(-variable)
 injury_risks_per_100k$scenario <- as.character(injury_risks_per_100k$scenario)
-injury_risks_per_100k[injury_risks_per_100k$scenario == 'bl',]$scenario <- 'Baseline'
+injury_risks_per_100k[injury_risks_per_100k$scenario == 'bl',]$scenario <- 'Baseline_predicted'
 injury_risks_per_100k[injury_risks_per_100k$scenario == 'bisc',]$scenario <- 'Bicycling'
 injury_risks_per_100k[injury_risks_per_100k$scenario == 'bssc',]$scenario <- 'Public Transport'
-injury_risks_per_100k[injury_risks_per_100k$scenario == 'csc',]$scenario <- 'Driving'
+injury_risks_per_100k[injury_risks_per_100k$scenario == 'csc',]$scenario <- 'Car'
 injury_risks_per_100k[injury_risks_per_100k$scenario == 'mcsc',]$scenario <- 'Motorcycling'
 #injury_risks_per_100k[injury_risks_per_100k$scenario == 'wsc',]$scenario <- 'Walking'
+
+
+
+# add distance, population and location information
+injury_risks_per_100k <- left_join(injury_risks_per_100k, true_distances, by = c('mode', 'city','scenario'))
+injury_risks_per_100k <- left_join(injury_risks_per_100k, all_pop_df, by = c('city'))
+injury_risks_per_100k <- left_join(injury_risks_per_100k, location, by = 'city')
+
+# add counts but first divide by population
+baseline_counts_pop <- left_join(baseline_counts_agg, pop_df, by = c('city'))
+baseline_counts_pop$value <- round(baseline_counts_pop$value /baseline_counts_pop$model_population *  100000, 2)
+baseline_counts_pop <- left_join(baseline_counts_pop, true_distances, by = c('city', 'mode','scenario'))
+
+injury_risks_per_100k <- rbind(injury_risks_per_100k, baseline_counts_pop)
+
+
+
+
+
+# add country and continent information
+injury_risks_per_100k <- left_join(injury_risks_per_100k, location, by = 'city')
+
 readr::write_csv(injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'), 'results/multi_city/whw_matrices/injury_risks_per_100k_pop.csv')
 ```
 
 ### True distances in a single file
 ```{r }
-true_distances <- list()
+true_distances_city <- list()
 for (city in cities) { # Loop for each city
-  true_distances[[city]] <- io[[city]]$true_dist %>% 
+  true_distances_city[[city]] <- io[[city]]$true_dist %>% 
     pivot_longer(!stage_mode, names_to = "scenario", values_to = "distance") %>% 
     mutate(city = city)
 }
-true_distances_df <- bind_rows(true_distances) %>% 
+true_distances_df <- bind_rows(true_distances_city) %>% 
   mutate(scenario = case_when(
     scenario == "Scenario 1" ~ "Bicycling", 
-    scenario == "Scenario 2" ~ "Driving",
+    scenario == "Scenario 2" ~ "Car",
     scenario == "Scenario 3" ~ "Public Transport",
     scenario == "Scenario 4" ~ "Motorcycling",
     scenario == "Baseline" ~ "Baseline"))
@@ -791,12 +981,39 @@ names(injury_risks_lng_hours)[6] <- 'city'
 injury_risks_lng_hours <- injury_risks_lng_hours %>% dplyr::select(-variable)
 cols <- c("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02")
 injury_risks_lng_hours$scenario <- as.character(injury_risks_lng_hours$scenario)
-injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'bl',]$scenario <- 'Baseline'
+injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'bl',]$scenario <- 'Baseline_predicted'
 injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'bisc',]$scenario <- 'Bicycling'
 injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'bssc',]$scenario <- 'Public Transport'
-injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'csc',]$scenario <- 'Driving'
+injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'csc',]$scenario <- 'Car'
 rd_hours <- rename(injury_risks_lng_hours, mode = stage_mode)
 rd_hours <- rd_hours %>% filter(mode != 'Total')
+
+# add country and continent information
+rd_hours <- left_join(rd_hours, location, by = 'city')
+
+# add distance information
+rd_hours <- left_join(rd_hours, true_distances, by = c('city','mode','scenario'))
+
+
+# get true_distances into correct format
+duration <- duration  %>% rename(mode = stage_mode)
+duration[duration$scenario == 'Scenario 1',]$scenario <- 'Bicycling'
+duration[duration$scenario == 'Scenario 3',]$scenario <- 'Public Transport'
+duration[duration$scenario == 'Scenario 2',]$scenario <- 'Car'
+duration[duration$scenario == 'Scenario 4',]$scenario <- 'Motorcycling'
+
+# add duration information
+rd_hours <- left_join(rd_hours, duration, by = c('mode', 'city','scenario'))
+
+
+# add counts but first divide by duration
+baseline_counts_dur <- left_join(baseline_counts_agg, duration, by = c('mode', 'city', 'scenario'))
+baseline_counts_dur$value <- round((baseline_counts_dur$value /(baseline_counts_dur$mode_duration * 365))*100000000,4)
+baseline_counts_dur <- left_join(baseline_counts_dur,true_distances, by = c('city', 'mode','scenario'))
+
+rd_hours <- rbind(rd_hours, baseline_counts_dur )
+
+
 readr::write_csv(rd_hours, 'results/multi_city/whw_matrices/injury_risks_per_100million_h_lng.csv')
 ```
 
