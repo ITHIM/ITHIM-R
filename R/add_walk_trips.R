@@ -25,23 +25,23 @@ add_walk_trips <- function(pt_trips){
   # Replace walk trips with duration greater than that of bus needs to be set to 0
  # if (any(pt_trips$stage_duration >= 25)){
     # Walk_to_pt for bus trips
-  walk_trips$stage_duration_new <- ifelse(((walk_trips$stage_duration > BUS_WALK_TIME) & 
+  walk_trips$stage_duration_new <- ifelse(((walk_trips$stage_duration > BUS_WALK_TIME + 1) & 
                               (walk_trips$trip_mode == 'bus' | walk_trips$trip_mode == 'minibus')&
                               (walk_trips$stage_mode == 'bus' | walk_trips$stage_mode == 'minibus')), BUS_WALK_TIME,0)
   # Walk_to_pt for rail trips
-  walk_trips$stage_duration_new <- ifelse(((walk_trips$stage_duration > RAIL_WALK_TIME) &
+  walk_trips$stage_duration_new <- ifelse(((walk_trips$stage_duration > RAIL_WALK_TIME + 1) &
                               (walk_trips$trip_mode == 'rail' | walk_trips$trip_mode == 'subway')&
                               (walk_trips$stage_mode == 'rail' | walk_trips$stage_mode == 'subway')), RAIL_WALK_TIME,
                               walk_trips$stage_duration_new)
   
   # Remove walk_to_pt duration from trip duration for bus trips
-  pt_trips$stage_duration <- ifelse(((pt_trips$stage_duration > BUS_WALK_TIME) & 
+  pt_trips$stage_duration <- ifelse(((pt_trips$stage_duration > BUS_WALK_TIME + 1) & 
                                       (pt_trips$trip_mode == 'bus' | pt_trips$trip_mode == 'minibus') &
                                        (pt_trips$stage_mode == 'bus' | pt_trips$stage_mode == 'minibus')),
                                     pt_trips$stage_duration - BUS_WALK_TIME, pt_trips$stage_duration)
 
   # Remove walk_to_pt duration from trip duration for rail trips
-  pt_trips$stage_duration <- ifelse(((pt_trips$stage_duration > RAIL_WALK_TIME) &
+  pt_trips$stage_duration <- ifelse(((pt_trips$stage_duration > RAIL_WALK_TIME + 1) &
                             (pt_trips$trip_mode == 'rail' | pt_trips$trip_mode == 'subway') &
                               (pt_trips$stage_mode == 'rail' | pt_trips$stage_mode == 'subway')), 
                             pt_trips$stage_duration - RAIL_WALK_TIME, pt_trips$stage_duration)
