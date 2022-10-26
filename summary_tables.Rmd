@@ -57,7 +57,8 @@ io <- readRDS("results/multi_city/io.rds")
 # Get names of cities from the io object
 cities <- names(io)[!names(io) %in% 'scen_prop']
 LATAM <- F
-AFRICA_INDIA = T
+AFRICA_INDIA = F
+GLOBAL <- T
 NSCEN <- nrow(io$scen_prop)
 #cities <- c('accra','sao_paulo','buenos_aires')
 
@@ -143,7 +144,7 @@ write_csv(bind_rows(dat), "results/multi_city/scen_prop.csv")
 
 ## Case study specific propensities
 ```{r message=F, error=F, warning=FALSE}
-get_scen_settings <- ithimr::get_scenario_settings()
+get_scen_settings <- ithimr::get_scenario_settings(cities = cities)
 
 ```
 
