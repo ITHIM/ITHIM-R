@@ -37,18 +37,6 @@ get_scenario_settings <- function(cities = c('accra', 'bangalore', 'belo_horizon
                                                  other = 9.1
                                   )){
   
-  if (LATAM)
-    cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota',
-                'buenos_aires',
-                'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
-                'iquique_altohospicio', 'medellin', 'mexico_city', 
-                'montevideo', 
-                'osorno', 'puerto_montt', 'san_antonio',
-                'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
-  
-  if (AFRICA_INDIA)
-    cities <- c('accra', 'cape_town','nairobi','kisumu','port_louis','bangalore', 'delhi', 'vizag')
-  
   min_distances <- as.numeric(sapply(distances,function(x)strsplit(x, "[^0-9.]+")[[1]][1]))
   mode_proportions <- mode_proportions_by_distance <- list()
   
