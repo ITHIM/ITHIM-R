@@ -23,6 +23,8 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
   # both tibbles, return tibble
   injuries <- dplyr::left_join(injuries,demographic,by=c('age_cat','sex'))
   injuries$bus_driver <- 0
+  injuries_lb <- injuries_ub <- injuries
+  
   colnames(demographic)[which(colnames(demographic)=='sex')] <- 'cas_gender'
   whw_temp <- list()
   for(scen in SCEN){
@@ -43,30 +45,17 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
                                                                                                                                                               injuries_list[[scen]][[type]]),
                                                                                                            type='link', se.fit = TRUE)[1:2]),
                                                                                          c('fit_link','se_link')))
-
-
-
-      pred_val <- predict(reg_model[[type]],newdata = remove_missing_levels(reg_model[[type]],injuries_list[[scen]][[type]]), type='response', se.fit = TRUE) %>% as.data.frame()
-      injuries_list[[scen]][[type]]$pred_ub_am <- pred_val$fit + (2 * pred_val$se.fit)
-
+      
       ## create the interval and back-transform
       injuries_list[[scen]][[type]] <- mutate(injuries_list[[scen]][[type]],
                                               pred  = ilink(fit_link),
-                                              pred_ub = ifelse(is.infinite(ilink(fit_link + (2 * se_link))), pred_ub_am,
-                                                               ilink(fit_link + (2 * se_link))),
+                                              pred_ub = ilink(fit_link + (2 * se_link)),
                                               pred_lb = ilink(fit_link - (2 * se_link)))
-   
-      # pred_val <- predict(reg_model[[type]],newdata = remove_missing_levels(reg_model[[type]],injuries_list[[scen]][[type]]), type='response', se.fit = TRUE) %>% as.data.frame()
-      # injuries_list[[scen]][[type]] <- mutate(injuries_list[[scen]][[type]],
-      #                                         pred  = pred_val$fit,
-      #                                         pred_ub = pred_val$fit + (2 * pred_val$se.fit),
-      #                                         pred_lb = pred_val$fit - (2 * pred_val$se.fit))
-      # 
-      
       
       if(constant_mode){
         whw_temp[[scen]][[type]] <- sapply(unique(injuries_list[[scen]][[type]]$cas_mode),function(x)
-          sapply(unique(injuries_list[[scen]][[type]]$strike_mode),function(y)sum(subset(injuries_list[[scen]][[type]], cas_mode == x & strike_mode == y)$pred, na.rm = T)))
+          sapply(unique(injuries_list[[scen]][[type]]$strike_mode),function(y)sum(subset(injuries_list[[scen]][[type]], 
+                                                                                         cas_mode == x & strike_mode == y)$pred, na.rm = T)))
         if(type=='whw'){
           colnames(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$cas_mode)
           rownames(whw_temp[[scen]][[type]]) <- unique(injuries_list[[scen]][[type]]$strike_mode)
@@ -97,36 +86,35 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
     }
     
     for(injured_mode in cas_modes)
-      for(index in unique(injuries$dem_index))
-        injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] <- 0
-    
-    
-    injuries_lb <- injuries_ub <- injuries
+      for(index in unique(injuries$dem_index)){
+        injuries[injuries$scenario == scen & injuries$dem_index == index, match(injured_mode, colnames(injuries))] <- 0
+        injuries_lb[injuries_lb$scenario == scen & injuries_lb$dem_index == index, match(injured_mode, colnames(injuries_lb))] <- 0
+        injuries_ub[injuries_ub$scenario == scen & injuries_ub$dem_index == index, match(injured_mode, colnames(injuries_ub))] <- 0
+      }
     
     for(injured_mode in cas_modes)
       for(index in unique(injuries$dem_index))
         for(type in INJURY_TABLE_TYPES)
-          injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] <- 
-      injuries[injuries$scenario==scen&injuries$dem_index==index,match(injured_mode,colnames(injuries))] + 
-      sum(injuries_list[[scen]][[type]][injuries_list[[scen]][[type]]$cas_mode==injured_mode&
-                                          injuries_list[[scen]][[type]]$dem_index==index,]$pred) 
-    if(constant_mode){
+          injuries[injuries$scenario == scen & injuries$dem_index == index, match(injured_mode, colnames(injuries))] <- 
+            injuries[injuries$scenario == scen & injuries$dem_index == index, match(injured_mode, colnames(injuries))] + 
+            sum(injuries_list[[scen]][[type]][injuries_list[[scen]][[type]]$cas_mode==injured_mode &
+                                                injuries_list[[scen]][[type]]$dem_index==index,]$pred, na.rm = T) |> as.numeric()
+    
+    if(constant_mode)
       for(injured_mode in cas_modes)
-        for(index in unique(injuries_lb$dem_index))
-          for(type in INJURY_TABLE_TYPES)
-            injuries_lb[injuries_lb$scenario==scen&injuries_lb$dem_index==index,match(injured_mode,colnames(injuries_lb))] <- 
-              injuries_lb[injuries_lb$scenario==scen&injuries_lb$dem_index==index,match(injured_mode,colnames(injuries_lb))] + 
-              sum(injuries_list[[scen]][[type]][injuries_list[[scen]][[type]]$cas_mode==injured_mode&
-                                                  injuries_list[[scen]][[type]]$dem_index==index,]$pred_lb)
-      
-      for(injured_mode in cas_modes)
-        for(index in unique(injuries_ub$dem_index))
-          for(type in INJURY_TABLE_TYPES)
+        for(index in unique(injuries$dem_index))
+          for(type in INJURY_TABLE_TYPES){
+            injuries_lb[injuries_lb$scenario == scen & injuries_lb$dem_index == index, match(injured_mode, colnames(injuries_lb))] <- 
+              injuries_lb[injuries_lb$scenario == scen & injuries_lb$dem_index == index, match(injured_mode, colnames(injuries_lb))] + 
+              sum(injuries_list[[scen]][[type]][injuries_list[[scen]][[type]]$cas_mode==injured_mode & 
+                                                  injuries_list[[scen]][[type]]$dem_index==index,]$pred_lb, na.rm = T) |> as.numeric()
+            
             injuries_ub[injuries_ub$scenario==scen&injuries_ub$dem_index==index,match(injured_mode,colnames(injuries_ub))] <- 
               injuries_ub[injuries_ub$scenario==scen&injuries_ub$dem_index==index,match(injured_mode,colnames(injuries_ub))] + 
               sum(injuries_list[[scen]][[type]][injuries_list[[scen]][[type]]$cas_mode==injured_mode&
-                                                  injuries_list[[scen]][[type]]$dem_index==index,]$pred_ub)
-    }
+                                                  injuries_list[[scen]][[type]]$dem_index==index,]$pred_ub, na.rm = T) |> as.numeric()
+          }
+    
     
   }
   
@@ -142,11 +130,13 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
   injuries <- injuries %>% ungroup() %>% mutate(Deaths = rowSums(dplyr::select(., cas_names %>% as.character()), na.rm = T))
   
   if(constant_mode){
+    
     injuries_lb <- injuries_lb %>% ungroup() %>% mutate(Deaths_lb = rowSums(dplyr::select(., cas_names %>% as.character()), na.rm = T))
     injuries_ub <- injuries_ub %>% ungroup() %>% mutate(Deaths_ub = rowSums(dplyr::select(., cas_names %>% as.character()), na.rm = T))
     
     injuries <- dplyr::left_join(injuries, injuries_lb %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_lb), by = c('age_cat', 'sex', 'dem_index', 'scenario'))
     injuries <- dplyr::left_join(injuries, injuries_ub %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_ub), by = c('age_cat', 'sex', 'dem_index', 'scenario'))
+  
   }
   list(injuries, whw_temp)
   ##TODO add in uncaptured fatalities as constant
