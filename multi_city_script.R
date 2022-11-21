@@ -26,11 +26,11 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 #            'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
 # 
 # #African & Indian cities
- cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
+# cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
  
 # number of times input values are sampled from each input parameter distribution
 
-input_parameter_file <- "InputParameters_v15.0.xlsx"
+input_parameter_file <- "InputParameters_v18.0.xlsx"
 
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
@@ -229,6 +229,8 @@ print(system.time(for(city in cities){
   ithim_objects[[city]]$PM_emission_inventory <- PM_EMISSION_INVENTORY
   ithim_objects[[city]]$injury_table <- INJURY_TABLE
   ithim_objects[[city]]$vehicle_inventory <- VEHICLE_INVENTORY
+  ithim_objects[[city]]$location$country <- country[[CITY]]
+  ithim_objects[[city]]$location$continent <- continent[[CITY]]
   
   ## store results to plot
   # min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
