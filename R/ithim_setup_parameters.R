@@ -30,6 +30,7 @@
 #' @param SIN_EXPONENT_SUM_VEH lognormal parameter: linearity of injuries with respect to two modes where victim mode = a vehicle. SIN_EXPONENT_SUM=2 means no safety in numbers.
 #' @param CASUALTY_EXPONENT_FRACTION_VEH beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = a vehicle.
 #' @param CALL_INDIVIDUAL_SIN logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.
+#' @param SIN_THRESHOLD scalar: number below which no safety in number coefficient is applied, i.e. SIN = 1
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param CAR_OCCUPANCY_RATIO beta parameter: number of people per car (including driver)
 #' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car

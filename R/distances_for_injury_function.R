@@ -9,7 +9,7 @@
 #' @return list of distances, injury table, and injury regression model
 #' 
 #' @export
-distances_for_injury_function <- function(journeys, dist){
+distances_for_injury_function <- function(journeys, dist, mode_share_scen){
   
   ##!! RJ need to scale distances up for representativeness of survey population of total population
   ##!! AA have added total distance by taking demographic into the calculations, and then scaling distance accordingly
@@ -134,24 +134,28 @@ distances_for_injury_function <- function(journeys, dist){
   if (CALL_INDIVIDUAL_SIN == T){ # assign coefficients depending on strike and victim modes
 
     injuries_for_model$Baseline$whw$cas_exponent_col <- SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH
-    injuries_for_model$Baseline$whw$str_exponent_col <- SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH
+    injuries_for_model$Baseline$whw$str_exponent_col <- SIN_EXPONENT_SUM_VEH - (SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH)
+    
     
     injuries_for_model$Baseline$whw$cas_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE
-    injuries_for_model$Baseline$whw$str_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE - SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE
+    injuries_for_model$Baseline$whw$str_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE - (SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE)
     
     injuries_for_model$Baseline$whw$cas_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED
-    injuries_for_model$Baseline$whw$str_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED - SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED
+    injuries_for_model$Baseline$whw$str_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED - (SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED)
+    
+    injuries_for_model$Baseline$nov$cas_exponent_col <- SIN_EXPONENT_SUM_NOV
+    injuries_for_model$Baseline$nov$str_exponent_col <- 1
     
     
     for (n in 1:(NSCEN+1)){
       injuries_list[[n]]$whw$cas_exponent_col <- SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH
-      injuries_list[[n]]$whw$str_exponent_col <- SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH
+      injuries_list[[n]]$whw$str_exponent_col <- SIN_EXPONENT_SUM_VEH - (SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH)
       
       injuries_list[[n]]$whw$cas_exponent_col[injuries_list[[n]]$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE
-      injuries_list[[n]]$whw$str_exponent_col[injuries_list[[n]]$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE - SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE
+      injuries_list[[n]]$whw$str_exponent_col[injuries_list[[n]]$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE - (SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE)
       
       injuries_list[[n]]$whw$cas_exponent_col[injuries_list[[n]]$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED
-      injuries_list[[n]]$whw$str_exponent_col[injuries_list[[n]]$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED - SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED
+      injuries_list[[n]]$whw$str_exponent_col[injuries_list[[n]]$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED - (SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED)
     }
     
     injuries_for_model$Baseline$nov$cas_exponent_col <- SIN_EXPONENT_SUM_NOV
@@ -163,6 +167,77 @@ distances_for_injury_function <- function(journeys, dist){
     }
 
   }
+  
+  
+  # check whether any mode share is below the SIN_THRESHOLD, in which cas set the cas_exponent_col and the str_exponent_col to 1
+  
+  if (min(mode_share_scen$share) < SIN_THRESHOLD){
+    
+    # whw
+    # merge injury data with mode share
+    mode_share_baseline <- mode_share_scen %>% filter(scenario == 'Baseline') %>% dplyr::select(-scenario)
+    injuries_for_model$Baseline$whw <- left_join(injuries_for_model$Baseline$whw, mode_share_baseline %>% rename(cas_mode = trip_mode, cas_share = share), 
+                                                 by = c('cas_mode')) 
+    injuries_for_model$Baseline$whw <- left_join(injuries_for_model$Baseline$whw, mode_share_baseline %>% rename(strike_mode = trip_mode, strike_share = share), 
+                                                 by = c('strike_mode')) 
+    
+    # update cas and strike exponents if below threshold
+    injuries_for_model$Baseline$whw$cas_exponent_col <- ifelse(injuries_for_model$Baseline$whw$cas_share < SIN_THRESHOLD, 1, injuries_for_model$Baseline$whw$cas_exponent_col)
+    injuries_for_model$Baseline$whw$str_exponent_col <- ifelse(injuries_for_model$Baseline$whw$strike_share < SIN_THRESHOLD, 1, injuries_for_model$Baseline$whw$str_exponent_col)
+    
+    # delete newly added columns
+    injuries_for_model$Baseline$whw <- injuries_for_model$Baseline$whw %>% dplyr::select(-c(cas_share, strike_share))
+    
+    
+    # nov
+    # merge injury data with mode share
+    injuries_for_model$Baseline$nov <- left_join(injuries_for_model$Baseline$nov, mode_share_baseline %>% rename(cas_mode = trip_mode, cas_share = share), 
+                                                 by = c('cas_mode')) 
+
+    injuries_for_model$Baseline$nov$cas_exponent_col <- ifelse(injuries_for_model$Baseline$nov$cas_share < SIN_THRESHOLD, 1, injuries_for_model$Baseline$nov$cas_exponent_col)
+    injuries_for_model$Baseline$nov <- injuries_for_model$Baseline$nov %>% dplyr::select(-c(cas_share))
+    
+    
+    scen_list <- sort(unique(mode_share_scen$scenario)) # create scenario list
+
+    for (n in 1:(NSCEN+1)){
+      # whw
+      # merge injury data with mode share
+      mode_share_scenario <- mode_share_scen %>% filter(scenario == scen_list[n]) %>% dplyr::select(-scenario)
+      injuries_list[[scen_list[n]]]$whw <- left_join(injuries_list[[scen_list[n]]]$whw, mode_share_scenario %>% rename(cas_mode = trip_mode, cas_share = share), 
+                                                   by = c('cas_mode')) 
+      injuries_list[[scen_list[n]]]$whw <- left_join(injuries_list[[scen_list[n]]]$whw, mode_share_scenario %>% rename(strike_mode = trip_mode, strike_share = share), 
+                                                   by = c('strike_mode')) 
+      
+      # update cas and strike exponents if below threshold
+      injuries_list[[scen_list[n]]]$whw$cas_exponent_col <- ifelse(injuries_list[[scen_list[n]]]$whw$cas_share < SIN_THRESHOLD, 1,
+                                                                   injuries_list[[scen_list[n]]]$whw$cas_exponent_col)
+      injuries_list[[scen_list[n]]]$whw$str_exponent_col <- ifelse(injuries_list[[scen_list[n]]]$whw$strike_share < SIN_THRESHOLD, 1,
+                                                                   injuries_list[[scen_list[n]]]$whw$str_exponent_col)
+      
+      # delete newly added columns
+      injuries_list[[scen_list[n]]]$whw <- injuries_list[[scen_list[n]]]$whw %>% dplyr::select(-c(cas_share, strike_share))
+      
+      
+      # nov
+      # merge injury data with mode share
+      injuries_list[[scen_list[n]]]$nov <- left_join(injuries_list[[scen_list[n]]]$nov, mode_share_scenario %>% rename(cas_mode = trip_mode, cas_share = share), 
+                                                   by = c('cas_mode')) 
+      
+      injuries_list[[scen_list[n]]]$nov$cas_exponent_col <- ifelse(injuries_list[[scen_list[n]]]$nov$cas_share < SIN_THRESHOLD, 1, 
+                                                                            injuries_list[[scen_list[n]]]$nov$cas_exponent_col)
+      injuries_list[[scen_list[n]]]$nov <- injuries_list[[scen_list[n]]]$nov %>% dplyr::select(-c(cas_share))
+      
+    }
+
+  }
+  
+
+  
+  
+  
+  
+  
   
   # # save injuries_for_model as part of ithim_object
   # ithim_object$inj_distances <- list()
@@ -260,9 +335,6 @@ distances_for_injury_function <- function(journeys, dist){
     if (max_std[[type]]  > max_std_def){
       print(paste0("!! The ", type, " injury model for ", city, " has large standard errors!!!"))
     }
-    
-    
-    
     
 
     reg_model[[type]] <- test

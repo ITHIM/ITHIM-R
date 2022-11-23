@@ -289,6 +289,7 @@ print(system.time(
                                               SIN_EXPONENT_SUM_VEH = sin_exponent_sum_veh,
                                               CASUALTY_EXPONENT_FRACTION_VEH = casualty_exponent_fraction_veh,
                                               CALL_INDIVIDUAL_SIN = as.logical(call_individual_sin),
+                                              SIN_THRESHOLD = sin_threshold,
                                               CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
                                               PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile[ci],  
                                               AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile[ci],
