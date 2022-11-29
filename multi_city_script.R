@@ -28,8 +28,6 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 # #African & Indian cities
 # cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
 
-cities <- 'san_antonio'
- 
 # number of times input values are sampled from each input parameter distribution
 
 input_parameter_file <- "InputParameters_v19.0.xlsx"
