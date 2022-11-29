@@ -801,19 +801,19 @@ for (k in measure) { # loop for ylls or deaths
 # 
 
 # Remove CIs
-ylls <-  rbindlist(health$ylls$hb, use.names = T) |> filter(!str_detect(cause, "_lb") & !str_detect(cause, "_ub"))
-ylls_pathway <- rbindlist(health$ylls$pathway_hb, use.names = T) |> filter(!str_detect(cause, "_lb") & !str_detect(cause, "_ub"))
-deaths <- rbindlist(health$deaths$hb, use.names = T)|> filter(!str_detect(cause, "_lb") & !str_detect(cause, "_ub"))
-deaths_pathway <- rbindlist(health$deaths$pathway_hb, use.names = T) |> filter(!str_detect(cause, "_lb") & !str_detect(cause, "_ub"))
+ylls <-  rbindlist(health$ylls$hb, use.names = T) #|> filter(!str_detect(cause, "_lb") & !str_detect(cause, "_ub"))
+ylls_pathway <- rbindlist(health$ylls$pathway_hb, use.names = T) #|> filter(!str_detect(cause, "_lb") & !str_detect(cause, "_ub"))
+deaths <- rbindlist(health$deaths$hb, use.names = T) #|> filter(!str_detect(cause, "_lb") & !str_detect(cause, "_ub"))
+deaths_pathway <- rbindlist(health$deaths$pathway_hb, use.names = T) #|> filter(!str_detect(cause, "_lb") & !str_detect(cause, "_ub"))
 
 
-# Export ylls HB
-output_file <- "results/multi_city/health_impacts/data.xlsx"
-writexl::write_xlsx(list(ylls = ylls,
-                         ylls_pathway = ylls_pathway,
-                         deaths = deaths,
-                         deaths_pathway = deaths_pathway), 
-                    path = output_file)
+# # Export ylls HB
+# output_file <- "results/multi_city/health_impacts/data.xlsx"
+# writexl::write_xlsx(list(ylls = ylls,
+#                          ylls_pathway = ylls_pathway,
+#                          deaths = deaths,
+#                          deaths_pathway = deaths_pathway), 
+#                     path = output_file)
  
 # Export ylls HB
 write.csv(ylls,
