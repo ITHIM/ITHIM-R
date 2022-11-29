@@ -14,3 +14,6 @@ rmarkdown::render("summary_tables_PA_AP.Rmd")
 
 # Knit summary document for dist/dur and scenario settings
 rmarkdown::render("injury_tables.Rmd")
+
+# Render pivot tables for health burden
+quarto::quarto_render("results/multi_city/health_impacts/health_pathway_tbls.qmd")
