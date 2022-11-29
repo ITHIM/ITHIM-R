@@ -1016,18 +1016,3 @@ rd_hours <- rbind(rd_hours, baseline_counts_dur )
 
 readr::write_csv(rd_hours, 'results/multi_city/whw_matrices/injury_risks_per_100million_h_lng.csv')
 ```
-
-
-
-
-### Write all injury tables in a single excel sheet
-```{r}
-# Export injury datasets in a single excel sheet
-path_inj_wb <- "results/multi_city/inj/inj_data.xlsx"
- writexl::write_xlsx(list(whw = whw_list %>% filter(str_mode != 'Total'),
-                          injury_risks_per_billion_kms = rd,
-                          injury_risks_per_100k  = injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'),
-                          injury_risks_per_100million_h = rd_hours,
-                          true_distances = true_distances_df),
-                     path = path_inj_wb)
-```
