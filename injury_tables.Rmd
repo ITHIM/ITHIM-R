@@ -491,6 +491,13 @@ true_distances[true_distances$scenario == 'Scenario 4',]$scenario <- 'Motorcycli
 # add mode distances
 whw_list <- left_join(whw_list, true_distances, by = c('city', 'cas_mode','scenario'))
 
+# combine active travel modes
+active_travel <- whw_list %>% filter(cas_mode == 'cycle' | cas_mode == 'pedestrian')
+active_travel <- active_travel %>% group_by(str_mode, measure, city, scenario, country, continent) %>% summarise(
+                                  value = sum(value), mode_distance = sum(mode_distance), cas_mode ='active_travel')
+
+
+
 # Remove total from whw long form, and write as csv
 readr::write_csv(whw_list %>% filter(str_mode != 'Total'), paste0('results/multi_city/whw_matrices/whw_lng.csv')) # table containing all the fatality counts
 ```
@@ -602,9 +609,24 @@ for (city in cities){
       
       names(td4)[2] <- var
       
-      td5 <- td4
+      
       
       td4[, 2] <- as.numeric(td4[,2])
+
+      
+      # add active travel mode
+      # filter out pedestrian and cycle trips, calculate sum of counts and distances and add to existing data
+      active_travel <- td4 %>% filter(stage_mode == 'pedestrian' | stage_mode == 'cycle')
+      active_travel <- active_travel %>% group_by() %>% summarise(stage_mode = 'active_travel', 
+                                                                  x = sum(active_travel[,2]),
+                                                                  y = sum(active_travel[,3]))
+      colnames(active_travel) <- colnames(td4)
+      
+      td4 <- rbind(td4, active_travel)
+
+
+      td5 <- td4 # save copy for risk per population
+      
       # Compute risk per bn km travelled
       td4[, 2] <- round((td4[,3] / ( td4[,2] * 365)) * 
                           1000000000, 4)
@@ -701,11 +723,24 @@ true_distances <- true_distances  %>% rename(mode = cas_mode)
 rd <- left_join(rd, true_distances, by = c('mode', 'city','scenario'))
 
 
-# add counts but first divide by distance
+# add baseline counts 
+
+# merge baseline count with distance
 baseline_counts_km <- left_join(baseline_counts_agg, true_distances, by = c('mode', 'city', 'scenario'))
+
+# add active travel 
+active_travel <- baseline_counts_km %>% filter(mode == 'cycle' | mode == 'pedestrian')
+active_travel <- active_travel %>% group_by(city, scenario, country, continent, measure, ) %>% summarise(
+                                   value = sum(value), mode_distance = sum(mode_distance), mode ='active_travel')
+
+baseline_counts_km <- rbind(baseline_counts_km, active_travel)
+
+
+# calculate value per distance
 baseline_counts_km$value <- round((baseline_counts_km$value /(baseline_counts_km$mode_distance * 365))*1000000000,4)
 
 rd <- rbind(rd, baseline_counts_km )
+
 
 readr::write_csv(rd, 'results/multi_city/whw_matrices/injury_risks_per_billion_kms_lng.csv')
 ```
@@ -760,11 +795,22 @@ for (city in cities){
       
       names(td4)[2] <- var
       
+      
+       # add active travel mode
+      # filter out pedestrian and cycle trips, calculate sum of counts and distances and add to existing data
+      active_travel <- td4 %>% filter(stage_mode == 'pedestrian' | stage_mode == 'cycle')
+      active_travel <- active_travel %>% group_by() %>% summarise(stage_mode = 'active_travel', 
+                                                                  x = sum(active_travel[,2]))
+      colnames(active_travel) <- colnames(td4)
+      
+      td4 <- rbind(td4, active_travel)
+
+      
       td5 <- td4
       
       td4[, 2] <- round(td4[, 2] / sum(io[[city]]$demographic$population) * 100000, 2)
       
-      el <- inner_join(el, td4, by = 'stage_mode')
+      el <- full_join(el, td4, by = 'stage_mode')
     }
     
     el <- el %>% ungroup() %>% janitor::adorn_totals(c('row', 'col'))
@@ -817,6 +863,18 @@ injury_risks_per_100k <- left_join(injury_risks_per_100k, location, by = 'city')
 
 # add counts but first divide by population
 baseline_counts_pop <- left_join(baseline_counts_agg, pop_df, by = c('city'))
+
+
+# add active travel 
+active_travel <- baseline_counts_pop %>% filter(mode == 'cycle' | mode == 'pedestrian')
+active_travel <- active_travel %>% group_by(city, scenario, country, continent, measure ) %>% summarise(
+                                   value = sum(value), model_population = sum(model_population), 
+                                   mode ='active_travel')
+
+baseline_counts_pop <- rbind(baseline_counts_pop, active_travel)
+
+
+
 baseline_counts_pop$value <- round(baseline_counts_pop$value /baseline_counts_pop$model_population *  100000, 2)
 baseline_counts_pop <- left_join(baseline_counts_pop, true_distances, by = c('city', 'mode','scenario'))
 
@@ -909,9 +967,20 @@ for (city in cities){
       
       names(td4)[2] <- var
       
-      td5 <- td4
+
       
       td4[, 2] <- as.numeric(td4[,2])
+      
+      # add active travel mode
+      # filter out pedestrian and cycle trips, calculate sum of counts and distances and add to existing data
+      active_travel <- td4 %>% filter(stage_mode == 'pedestrian' | stage_mode == 'cycle')
+      active_travel <- active_travel %>% group_by() %>% summarise(stage_mode = 'active_travel', 
+                                                                  x = sum(active_travel[,2]),
+                                                                  y = sum(active_travel[,3]))
+      colnames(active_travel) <- colnames(td4)
+      
+      td4 <- rbind(td4, active_travel)
+
       # Compute risk per 100 million hours travelled
       td4[, 2] <- round((td4[,3] / ( td4[,2] * 365)) * 
                           100000000, 4)
@@ -919,15 +988,6 @@ for (city in cities){
       names(td4)[3] <- paste(names(td4)[2], names(td4)[3], sep = "_")
       
       el <- full_join(el, td4, by = c('stage_mode'))
-      
-      # City's population
-      pop <- sum(io[[city]]$demographic$population)
-      # Compute travel time travelled per capita
-      td6 <- td5
-      td6[[paste0(var,"_risk")]] <- unlist(td4[2])
-      td6[[paste0(var,"_percapita")]] <- td6[[var]] * 365 / pop
-      names(td6)[3] <- paste(names(td6)[2], names(td6)[3], sep = "_")
-      dd <- full_join(dd, td6, by = 'stage_mode')
     }
     
     print(kable(el, caption = paste(city, ifelse(is.na(pref), "mean", pref))))
@@ -935,15 +995,14 @@ for (city in cities){
     td <- el %>% dplyr::select(-contains('count'))
     names(td)[2:ncol(td)] <- paste(names(td)[2:ncol(td)], city, sep = "_")
     td$measure <- ifelse(is.na(pref), "mean", pref)
-    dd$measure <- ifelse(is.na(pref), "mean", pref)
+ 
       
     city_df[["td"]][[city]][[unique(td$measure)]] <- td
-    city_df[["dd"]][[city]][[unique(td$measure)]] <- dd
+ 
       
     if (length(city_df[["td"]][[city]]) == 3){
       overall_el[[city]] <- data.table::rbindlist(city_df[["td"]][[city]])
-      overall_dd[[city]] <- data.table::rbindlist(city_df[["dd"]][[city]])
-    }
+         }
     
     
     cat("\n")
@@ -1008,6 +1067,16 @@ rd_hours <- left_join(rd_hours, duration, by = c('mode', 'city','scenario'))
 
 # add counts but first divide by duration
 baseline_counts_dur <- left_join(baseline_counts_agg, duration, by = c('mode', 'city', 'scenario'))
+
+# add active travel 
+active_travel <- baseline_counts_dur %>% filter(mode == 'cycle' | mode == 'pedestrian')
+active_travel <- active_travel %>% group_by(city, scenario, country, continent, measure ) %>% summarise(
+                                   value = sum(value), mode_duration = sum(mode_duration), 
+                                   mode ='active_travel')
+
+baseline_counts_dur <- rbind(baseline_counts_dur, active_travel)
+
+
 baseline_counts_dur$value <- round((baseline_counts_dur$value /(baseline_counts_dur$mode_duration * 365))*100000000,4)
 baseline_counts_dur <- left_join(baseline_counts_dur,true_distances, by = c('city', 'mode','scenario'))
 
@@ -1015,4 +1084,19 @@ rd_hours <- rbind(rd_hours, baseline_counts_dur )
 
 
 readr::write_csv(rd_hours, 'results/multi_city/whw_matrices/injury_risks_per_100million_h_lng.csv')
+```
+
+
+
+
+### Write all injury tables in a single excel sheet
+```{r}
+# Export injury datasets in a single excel sheet
+path_inj_wb <- "results/multi_city/inj/inj_data.xlsx"
+ writexl::write_xlsx(list(whw = whw_list %>% filter(str_mode != 'Total'),
+                          injury_risks_per_billion_kms = rd,
+                          injury_risks_per_100k  = injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'),
+                          injury_risks_per_100million_h = rd_hours,
+                          true_distances = true_distances_df),
+                     path = path_inj_wb)
 ```
