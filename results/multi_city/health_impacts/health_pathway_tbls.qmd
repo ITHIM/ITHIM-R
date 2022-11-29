@@ -1,0 +1,116 @@
+---
+title: "Health Burden (per 100k population) by pathway"
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    page-layout: custom
+execute:
+  warning: false
+  echo: false
+---
+
+```{r}
+#| message: false
+
+library(tidyverse)
+library(rpivotTable)
+library(htmlwidgets)
+
+rel_path <- ""
+
+deaths_pathway <- read_csv(paste0(rel_path, "deaths_pathway.csv"))
+
+ylls_pathway <- read_csv(paste0(rel_path, "ylls_pathway.csv"))
+
+
+plot_pivottable <- function(data, colname = "level1"){
+  data |> filter(!str_detect(cause, "lb|ub")) |>   filter((!is.na(!!rlang::sym(colname)))) |>
+    group_by(city, scenario, dose, !!rlang::sym(colname)) |>
+    summarise(measure_100k = sum(measure_100k)) |> rpivotTable(
+      rows = c("city"),
+      cols = c("scenario"),
+      aggregatorName = "Sum",
+      vals = "measure_100k",
+      rendererName = "Horizontal Stacked Bar Chart", 
+      subtotals = FALSE,
+      height = "100%", 
+      overflow = "scroll"
+    )
+}
+
+# shared_deaths_pathway <- SharedData$new(deaths_pathway |> pivot_longer(cols = -c(select(deaths_pathway, -contains("lev")) |> names())))
+
+```
+
+::: {.panel-tabset}
+
+<!-- ## Reactable -->
+<!-- ```{r} -->
+
+<!-- data <- shared_deaths_pathway -->
+
+<!-- htmltools::browsable( -->
+<!--   tagList( -->
+<!--     div( -->
+<!--       div(tags$label("Filter Type", `for` = "cars-type-filter")), -->
+<!--       tags$select( -->
+<!--         id = "cars-type-filter", -->
+<!--         onchange = "Reactable.setFilter('cars-filter-table', 'level1', this.value)", -->
+<!--         tags$option("Level", value = "level1"), -->
+<!--         lapply(data$name |> unique() |> as.character(), tags$option) -->
+<!--       ) -->
+<!--     ), -->
+
+<!--     tags$hr("aria-hidden" = "true"), -->
+
+<!--     data$data() |> filter(!str_detect(cause, "lb|ub")) |> filter(!is.na(level1)) |>  group_by(city, scenario, dose, level1) |> -->
+<!--       summarise(measure_100k = sum(measure_100k)) |> rpivotTable( -->
+<!--         rows = c("city"), -->
+<!--         cols = c("scenario"), -->
+<!--         aggregatorName = "Sum", -->
+<!--         vals = "measure_100k", -->
+<!--         rendererName = "Horizontal Stacked Bar Chart", -->
+<!--         subtotals = FALSE, -->
+<!--         height = "80%", -->
+<!--         overflow = "scroll" -->
+<!--       ) -->
+<!--   ) -->
+<!-- ) -->
+<!-- ``` -->
+
+
+## Deaths - Level 1
+```{r}
+plot_pivottable(deaths_pathway, "level1")
+```
+
+## Deaths - Level 2
+```{r}
+plot_pivottable(deaths_pathway, "level2")
+```
+
+## Deaths - Level 3
+```{r}
+plot_pivottable(deaths_pathway, "level3")
+```
+
+## YLLs - Level 1
+```{r}
+plot_pivottable(ylls_pathway, "level1")
+```
+
+## YLLs - Level 2
+```{r}
+plot_pivottable(ylls_pathway, "level2")
+```
+
+## YLLs - Level 3
+```{r}
+plot_pivottable(ylls_pathway, "level3")
+```
+
+
+
+
+:::
