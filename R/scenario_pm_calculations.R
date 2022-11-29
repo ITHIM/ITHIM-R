@@ -101,9 +101,6 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
     distinct(participant_id, scenario, .keep_all = T) |> 
     mutate(conc_pm_inhaled = total_pm_inhaled / total_air_inhaled)
   
-  # Print summary
-  synth_pop |> group_by(scenario) |> summarise(as_tibble(rbind(summary(conc_pm_inhaled)))) |> print()
-  
   # Change to wide format
   synth_pop <- synth_pop |> 
     dplyr::select(-c(total_air_inhaled, total_pm_inhaled)) |> 
