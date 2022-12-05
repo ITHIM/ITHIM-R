@@ -17,7 +17,7 @@ Motorcycling,17.8,16.9,17.4,19.3,16.9,-0.1,631201.2,belo_horizonte
 Baseline,26.8,24,26.3,29.9,24,0,1588919,bogota
 Bicycling,26.8,23.8,26.3,30,23.85,-0.15,1550837,bogota
 Driving,26.7,24,26.2,29.7,23.96,-0.04,1756205.4,bogota
-Public Transport,26.8,24,26.3,29.8,24.01,0.01,1433623.7,bogota
+Public Transport,26.8,24,26.4,29.8,24.01,0.01,1433623.7,bogota
 Motorcycling,26.5,23.8,26,29.4,23.78,-0.22,1513636.8,bogota
 Baseline,14.7,14,14.5,15.7,14,0,3068375.8,buenos_aires
 Bicycling,14.6,13.9,14.4,15.7,13.89,-0.11,2964297.1,buenos_aires
@@ -38,7 +38,7 @@ Baseline,14.9,13.9,14.7,15.9,13.88,0,32421.5,coquimbo_laserena
 Bicycling,14.9,13.7,14.6,15.9,13.73,-0.15,31585.7,coquimbo_laserena
 Driving,15.4,14.3,15.1,16.3,14.29,0.41,35052.2,coquimbo_laserena
 Public Transport,14.4,13.4,14.2,15.3,13.42,-0.46,29247.4,coquimbo_laserena
-Motorcycling,14.8,13.7,14.5,15.7,13.73,-0.15,42631.1,coquimbo_laserena
+Motorcycling,14.7,13.7,14.5,15.7,13.73,-0.15,42631.1,coquimbo_laserena
 Baseline,16.2,15.1,16.1,17.4,15.09,0,1162644.8,gran_valparaiso
 Bicycling,16.1,14.9,16,17.4,14.95,-0.14,1142880.7,gran_valparaiso
 Driving,16.5,15.4,16.4,17.7,15.37,0.28,1223128.4,gran_valparaiso
@@ -53,7 +53,7 @@ Baseline,22.5,21.1,22.3,23.9,21.09,0,500938.5,medellin
 Bicycling,22.4,20.9,22.3,24,20.95,-0.14,487813,medellin
 Driving,22.6,21.2,22.4,24.2,21.17,0.08,634328.2,medellin
 Public Transport,22.7,21.3,22.6,24.2,21.28,0.19,466646.9,medellin
-Motorcycling,22.2,20.9,22.1,23.6,20.89,-0.2,475516.7,medellin
+Motorcycling,22.2,20.9,22,23.6,20.89,-0.2,475516.7,medellin
 Baseline,54.5,50,53.8,58.8,50,0,3339017.7,mexico_city
 Bicycling,54.6,49.8,53.9,59.1,49.79,-0.21,3264384.2,mexico_city
 Driving,55.8,51.3,55.2,60.4,51.25,1.25,3710629.8,mexico_city
@@ -66,15 +66,15 @@ Public Transport,16.7,15.5,16.6,17.9,15.52,-0.06,262130.9,montevideo
 Motorcycling,16.5,15.4,16.4,17.7,15.43,-0.15,283197.6,montevideo
 Baseline,40.8,38.1,40.5,43.5,38.1,0,27102.6,osorno
 Bicycling,40.6,37.7,40.1,43.7,37.67,-0.43,26655.9,osorno
-Driving,41.1,38.5,40.9,43.9,38.45,0.36,28101.8,osorno
+Driving,41.1,38.5,40.9,43.8,38.45,0.36,28101.8,osorno
 Public Transport,40.1,37.6,39.9,42.7,37.56,-0.53,26165,osorno
-Motorcycling,40.2,37.7,40,42.9,37.65,-0.45,29922.4,osorno
+Motorcycling,40.2,37.7,40,42.8,37.65,-0.45,29922.4,osorno
 Baseline,28.5,26.3,28.2,30.6,26.32,0,81850.7,puerto_montt
 Bicycling,28.4,26.1,28.1,30.9,26.07,-0.25,80097.3,puerto_montt
 Driving,29.1,26.9,28.9,31.3,26.9,0.58,86847.6,puerto_montt
 Public Transport,27.9,25.8,27.6,29.9,25.76,-0.55,77037.7,puerto_montt
 Motorcycling,28.8,26.6,28.5,30.9,26.62,0.3,132726.4,puerto_montt
-Baseline,23.3,21.9,23,24.9,21.86,0,60645.9,san_antonio
+Baseline,23.3,21.9,22.9,24.9,21.86,0,60645.9,san_antonio
 Bicycling,23.2,21.6,22.7,25,21.62,-0.24,59392.8,san_antonio
 Driving,23.7,22.3,23.4,25.4,22.26,0.4,63873.9,san_antonio
 Public Transport,23,21.6,22.6,24.6,21.56,-0.3,57382.6,san_antonio
@@ -97,13 +97,13 @@ Motorcycling,33.8,31.5,33.5,36.1,31.53,-0.37,9690.5,temuco_padrelascasas
 Baseline,36.8,34.4,36.4,39.1,34.45,0,8710.4,valdivia
 Bicycling,36.6,34,36.1,39.4,34.03,-0.42,8574.7,valdivia
 Driving,36.8,34.5,36.5,39.1,34.53,0.08,8865.9,valdivia
-Public Transport,36.5,34.2,36.1,38.6,34.2,-0.25,8430.1,valdivia
+Public Transport,36.4,34.2,36.1,38.6,34.2,-0.25,8430.1,valdivia
 Motorcycling,36.3,34,35.9,38.5,34.03,-0.42,9306.4,valdivia
-Baseline,60.4,55,59.3,65.4,55,0,399560,accra
+Baseline,60.4,55,59.2,65.4,55,0,399560,accra
 Bicycling,60.5,54.6,59.3,66.2,54.63,-0.37,388200.1,accra
 Driving,63.5,57.8,62.3,68.8,57.85,2.85,487932.1,accra
 Public Transport,58.2,53.2,57.3,63.2,53.21,-1.79,343146.4,accra
-Motorcycling,59.6,54.4,58.5,64.7,54.43,-0.57,384853.7,accra
+Motorcycling,59.7,54.4,58.6,64.7,54.43,-0.57,384853.7,accra
 Baseline,33.3,32.4,32.4,34.9,32.38,0,2197162,bangalore
 Bicycling,33.1,32,32,35.2,32.04,-0.34,2117283.2,bangalore
 Driving,36.6,35.6,35.6,38.4,35.63,3.25,2628058.3,bangalore
@@ -114,15 +114,15 @@ Bicycling,15.9,14.7,15.4,17.1,14.72,-0.14,1749135.7,cape_town
 Driving,15.9,14.8,15.4,17,14.78,-0.08,1817428.1,cape_town
 Public Transport,15.9,14.8,15.4,17,14.83,-0.03,1735620.8,cape_town
 Motorcycling,16.1,15.1,15.6,17.3,15.06,0.2,1801108.2,cape_town
-Baseline,109.7,105,107.4,118,105,0,4033709,delhi
+Baseline,109.7,105,107.4,118.1,105,0,4033709,delhi
 Bicycling,108.6,103.5,105.8,118,103.49,-1.51,3887490.3,delhi
-Driving,111.5,106.7,109.1,120.1,106.69,1.69,4021362.4,delhi
-Public Transport,108.4,103.8,106.1,116.6,103.78,-1.22,3877753.2,delhi
+Driving,111.5,106.7,109.1,120.2,106.69,1.69,4021362.4,delhi
+Public Transport,108.4,103.8,106.1,116.8,103.78,-1.22,3877753.2,delhi
 Motorcycling,108.2,103.7,106,116.4,103.67,-1.33,4230178.7,delhi
 Baseline,34.2,32.8,33.6,36.2,32.75,0,225068,vizag
 Bicycling,34.1,32.5,33.3,36.5,32.5,-0.25,216696.6,vizag
 Driving,39.4,37.7,38.7,41.7,37.71,4.96,329309,vizag
-Public Transport,33.7,32.2,33.1,35.6,32.23,-0.52,205882.4,vizag
+Public Transport,33.7,32.2,33.1,35.7,32.23,-0.52,205882.4,vizag
 Motorcycling,34,32.6,33.4,35.9,32.58,-0.17,236087.9,vizag
 Baseline,11.2,10.8,11.1,11.9,10.79,0,7014.4,kisumu
 Bicycling,11.2,10.7,11.1,12,10.73,-0.06,6835.1,kisumu
