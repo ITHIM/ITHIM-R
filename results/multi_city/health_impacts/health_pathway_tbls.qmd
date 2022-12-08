@@ -19,22 +19,22 @@ library(htmlwidgets)
 
 rel_path <- ""
 
-deaths_pathway <- read_csv(paste0(rel_path, "deaths_pathway.csv"))
+deaths_pathway <- read_csv(paste0(rel_path, "deaths.csv"))
 
-ylls_pathway <- read_csv(paste0(rel_path, "ylls_pathway.csv"))
+ylls_pathway <- read_csv(paste0(rel_path, "ylls.csv"))
 
 
 plot_pivottable <- function(data, colname = "level1"){
   data |> filter(!str_detect(cause, "lb|ub")) |>   filter((!is.na(!!rlang::sym(colname)))) |>
     group_by(city, scenario, dose, !!rlang::sym(colname)) |>
-    summarise(measure_100k = sum(measure_100k)) |> rpivotTable(
+    summarise(metric_100k = sum(metric_100k)) |> rpivotTable(
       cols = c("city"),
       rows = c("dose","scenario"),
       aggregatorName = "Sum",
-      vals = "measure_100k",
+      vals = "metric_100k",
       rendererName = "Stacked Bar Chart", 
       inclusions = list(scenario = list("BUS_SC")),
-      exclusions= list(city = list("buenos_aires", "santiago")),
+      # exclusions= list(city = list("buenos_aires", "santiago")),
       subtotals = FALSE,
       height = "100%", 
       overflow = "scroll"
