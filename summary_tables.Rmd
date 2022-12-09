@@ -773,8 +773,8 @@ for (k in measure) { # loop for ylls or deaths
         ) %>% # End mutate 
         left_join(pop_by_age, by = c("age_cat" = "age")) %>% 
         left_join(pop_by_age_sex, by = c("age_cat" = "age", "sex" = "sex")) %>% 
-        mutate(measure_100k = measure / pop_age * 100000,
-               measeure_100k_sex = measure / pop_age_sex * 100000)
+        mutate(metric_100k = measure / pop_age * 100000,
+               metric_100k_sex = measure / pop_age_sex * 100000)
       
     } # Loop for each city
   } # Loop for each pathway
