@@ -19,9 +19,9 @@ library(htmlwidgets)
 
 rel_path <- ""
 
-deaths_pathway <- read_csv(paste0(rel_path, "deaths.csv"))
+deaths_pathway <- read_csv(paste0(rel_path, "deaths_pathway.csv"))
 
-ylls_pathway <- read_csv(paste0(rel_path, "ylls.csv"))
+ylls_pathway <- read_csv(paste0(rel_path, "ylls_pathway.csv"))
 
 
 plot_pivottable <- function(data, colname = "level1"){
