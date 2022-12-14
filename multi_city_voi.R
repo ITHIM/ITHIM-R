@@ -30,6 +30,9 @@ cities <- c('osorno')
 # number of times input values are sampled from each input parameter distribution
 nsamples <- 2 
 
+
+voi_analysis <- F # set to T if want to run VoI analysis and to F otherwise
+
 # list of potential values for the outcome_voi_list
 # 'pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
 # 'pa_ap_stroke', 'pa_ap_T2D', 'ap_LRI', 'pa_breast_cancer', 'pa_colon_cancer', 'pa_endo_cancer',
@@ -46,13 +49,14 @@ outcome_voi_list <- c('pa_ap_all_cause')
 
 
 # flag whether to run VOI analysis split by age and gender as well
-voi_age_gender <- T   # set to T if want to include split and to F otherwise
+voi_age_gender <- F   # set to T if want to include split and to F otherwise
 
 # add total across all outputs in VOI list for each scenario - only makes sense if results are independent of each other
 # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
-voi_add_sum <- T
+voi_add_sum <- F
 
-input_parameter_file <- "InputParameters_v4.0.xlsx"
+
+input_parameter_file <- "InputParameters_v23.0.xlsx"
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 
 author <- "AKS"
@@ -95,7 +99,7 @@ for(i in 1:length(parameter_names)){
     parameter_list[[parameter_names[i]]] <- lapply(cities,function(x) {
       city_index <- which(colnames(all_inputs)==x)
       val <- all_inputs[parameter_index,city_index]
-      ifelse(val%in%c('T','F'),val,as.numeric(val))
+      ifelse(val%in%c('T','F'),val,ifelse(is.numeric(val), as.numeric(val), as.character(val)))
     })
     names(parameter_list[[parameter_names[i]]]) <- cities
   }else if(all_inputs[parameter_index,2]=='constant'){
@@ -136,7 +140,6 @@ for(i in 1:length(parameter_names)){
 }
 
 list2env(parameter_list, environment()) 
-
 
 
 # read in global parameters
@@ -290,7 +293,6 @@ print(system.time(
                                               CASUALTY_EXPONENT_FRACTION_VEH = casualty_exponent_fraction_veh,
                                               CALL_INDIVIDUAL_SIN = as.logical(call_individual_sin),
                                               SIN_THRESHOLD = sin_threshold,
-                                              CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
                                               PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile[ci],  
                                               AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile[ci],
                                               INJURY_REPORTING_RATE = injury_reporting_rate[[city]],  
@@ -305,13 +307,13 @@ print(system.time(
                                               #additional in VoI script
                                               REFERENCE_SCENARIO= reference_scenario,
 
-                                              BACKGROUND_PA_CONFIDENCE = background_pa_confidence[[city]],
+                                              BACKGROUND_PA_CONFIDENCE = as.numeric(background_pa_confidence[[city]]),
                                               BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                               CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]],
                                               TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
                                               
-                                              PM_EMISSION_INVENTORY_CONFIDENCE = PM_emission_confidence[[city]],
-                                              CO2_EMISSION_INVENTORY_CONFIDENCE = CO2_emission_confidence[[city]],
+                                              PM_EMISSION_INVENTORY_CONFIDENCE = as.numeric(PM_emission_confidence[[city]]),
+                                              CO2_EMISSION_INVENTORY_CONFIDENCE = as.numeric(CO2_emission_confidence[[city]]),
                                               DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
                                               DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
                                               DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
@@ -353,11 +355,13 @@ print(system.time(
       multi_city_ithim[[ci]]$outcomes <- list()
       doFuture::registerDoFuture()
       run_ithm_fn <- function(nsamples, ithim_object,seed, FUN=run_ithim){
-        foreach(i=1:nsamples, .export = ls(globalenv()) ) %dopar% {   #%dorng%
+        foreach(i=1:nsamples, .export = ls(globalenv()) ) %dorng% {   #%dopar%
           FUN(ithim_object, seed=i)
         }
       }
       multi_city_ithim[[ci]]$outcomes <- run_ithm_fn(nsamples,ithim_object = multi_city_ithim[[ci]], seed)
+      
+      #multi_city_ithim[[ci]]$outcomes <- run_ithim(ithim_object=multi_city_ithim[[ci]], seed = 1)
       
       multi_city_ithim[[ci]]$DEMOGRAPHIC <- DEMOGRAPHIC
    # }
@@ -457,7 +461,7 @@ for(ci in 1:length(cities)){
   
   #voi_data_all_df$city <- city
   
-  multi_city_ithim[[ci]] <- 0
+  #multi_city_ithim[[ci]] <- 0
 }
 
 voi_data_all_df$age_sex <- paste(voi_data_all_df$sex, voi_data_all_df$age_cat, sep = )
@@ -600,9 +604,15 @@ if(nsamples > 1){
   
 }
 
+
+
+
 ################################################ calculate EVPPI ################################################
+
+if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if more than one sample was selected
+
 print('start EVPPI analysis')
-if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
+
   
   # first extract input parameters of interest
   # create list with global parameters
@@ -1043,7 +1053,7 @@ if (nsamples > 1){ # only run EVPPI part if more than one sample was selected
   } # end of age / gender VOI analysis
   
   
-} # end of nsamples >1 condition  
+} # end of nsamples >1 condition  and end of Voi analysis
 
 # record time it took to run code
 endtime <- Sys.time()  
