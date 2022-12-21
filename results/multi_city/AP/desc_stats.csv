@@ -1,19 +1,19 @@
 Scenario,mean,5th,50th,95th,scenario_PM,change_PM,CO2,city
 Baseline,11.2,10.5,11.1,11.9,10.49,0,49359.6,antofagasta
-Bicycling,11.2,10.4,11,12,10.39,-0.1,48409.4,antofagasta
-Driving,11.4,10.7,11.3,12.1,10.68,0.19,51988,antofagasta
-Public Transport,10.9,10.2,10.8,11.6,10.23,-0.26,46125,antofagasta
-Motorcycling,11.1,10.4,11,11.8,10.4,-0.1,58156.5,antofagasta
+Bicycling,11.2,10.4,11,12,10.39,-0.1,48414.1,antofagasta
+Driving,11.4,10.7,11.3,12.1,10.68,0.19,51977.2,antofagasta
+Public Transport,10.9,10.2,10.8,11.6,10.23,-0.26,46124.8,antofagasta
+Motorcycling,11.1,10.4,11,11.8,10.41,-0.08,60203.8,antofagasta
 Baseline,13.4,12.6,13.3,14.2,12.56,0,46063.6,arica
-Bicycling,13.3,12.4,13.1,14.4,12.36,-0.2,44488.6,arica
-Driving,13.8,13,13.7,14.7,12.97,0.41,50433.2,arica
-Public Transport,13,12.2,12.9,13.8,12.19,-0.37,42304.9,arica
-Motorcycling,13.2,12.4,13,14,12.37,-0.19,54774.5,arica
+Bicycling,13.3,12.4,13.1,14.4,12.36,-0.2,44487.2,arica
+Driving,13.8,13,13.7,14.7,12.97,0.41,50418.8,arica
+Public Transport,13,12.2,12.9,13.8,12.19,-0.37,42308.8,arica
+Motorcycling,13.2,12.4,13.1,14,12.4,-0.17,56929,arica
 Baseline,17.9,17,17.5,19.5,17,0,603663,belo_horizonte
-Bicycling,17.9,16.9,17.5,19.6,16.92,-0.08,588061,belo_horizonte
-Driving,18.2,17.3,17.8,19.8,17.3,0.3,622456.7,belo_horizonte
-Public Transport,17.6,16.7,17.3,19.2,16.74,-0.26,564328.1,belo_horizonte
-Motorcycling,17.8,16.9,17.4,19.3,16.9,-0.1,631201.2,belo_horizonte
+Bicycling,17.9,16.9,17.5,19.6,16.92,-0.08,587390.8,belo_horizonte
+Driving,18.2,17.3,17.8,19.8,17.29,0.29,620064.1,belo_horizonte
+Public Transport,17.6,16.7,17.3,19.2,16.74,-0.26,563626.8,belo_horizonte
+Motorcycling,17.8,16.9,17.4,19.3,16.92,-0.08,648651.4,belo_horizonte
 Baseline,26.8,24,26.3,29.9,24,0,1588919,bogota
 Bicycling,26.8,23.8,26.3,30,23.85,-0.15,1550837,bogota
 Driving,26.7,24,26.2,29.7,23.96,-0.04,1756205.4,bogota
@@ -25,117 +25,117 @@ Driving,14.8,14.1,14.6,15.9,14.12,0.12,3606770.2,buenos_aires
 Public Transport,14.5,13.8,14.3,15.5,13.82,-0.18,2533020.5,buenos_aires
 Motorcycling,14.5,13.8,14.3,15.5,13.85,-0.15,2941384,buenos_aires
 Baseline,25.9,24.1,25.1,28.2,24.05,0,510729.4,cali
-Bicycling,25.8,23.9,25,28.3,23.9,-0.15,499058.9,cali
-Driving,25.9,24.1,25.1,28.1,24.07,0.02,592904.4,cali
-Public Transport,26.1,24.3,25.3,28.4,24.27,0.22,480621.6,cali
-Motorcycling,25.5,23.8,24.8,27.7,23.79,-0.26,479622.9,cali
+Bicycling,25.8,23.9,25,28.3,23.9,-0.15,499054.8,cali
+Driving,25.9,24,25.1,28.1,24.04,-0.01,578540.6,cali
+Public Transport,26,24.2,25.2,28.3,24.18,0.13,478203.9,cali
+Motorcycling,25.5,23.8,24.8,27.7,23.79,-0.26,480003,cali
 Baseline,16.7,15.6,16.5,17.8,15.6,0,5221.6,copiapo
 Bicycling,16.7,15.4,16.4,18.1,15.44,-0.16,5126.4,copiapo
-Driving,16.9,15.8,16.8,18,15.82,0.22,5450.6,copiapo
-Public Transport,16.4,15.4,16.3,17.5,15.36,-0.24,4980.4,copiapo
-Motorcycling,16.5,15.4,16.3,17.6,15.42,-0.19,5953.3,copiapo
+Driving,16.9,15.8,16.8,18,15.82,0.22,5449.8,copiapo
+Public Transport,16.4,15.4,16.3,17.5,15.36,-0.24,4980.2,copiapo
+Motorcycling,16.5,15.4,16.3,17.6,15.44,-0.16,6131.2,copiapo
 Baseline,14.9,13.9,14.7,15.9,13.88,0,32421.5,coquimbo_laserena
-Bicycling,14.9,13.7,14.6,15.9,13.73,-0.15,31585.7,coquimbo_laserena
-Driving,15.4,14.3,15.1,16.3,14.29,0.41,35052.2,coquimbo_laserena
-Public Transport,14.4,13.4,14.2,15.3,13.42,-0.46,29247.4,coquimbo_laserena
-Motorcycling,14.7,13.7,14.5,15.7,13.73,-0.15,42631.1,coquimbo_laserena
+Bicycling,14.9,13.7,14.6,15.9,13.73,-0.16,31542.1,coquimbo_laserena
+Driving,15.4,14.3,15.1,16.4,14.3,0.42,35065.2,coquimbo_laserena
+Public Transport,14.4,13.4,14.2,15.3,13.4,-0.48,29255.8,coquimbo_laserena
+Motorcycling,14.8,13.8,14.6,15.7,13.78,-0.11,45077.8,coquimbo_laserena
 Baseline,16.2,15.1,16.1,17.4,15.09,0,1162644.8,gran_valparaiso
-Bicycling,16.1,14.9,16,17.4,14.95,-0.14,1142880.7,gran_valparaiso
-Driving,16.5,15.4,16.4,17.7,15.37,0.28,1223128.4,gran_valparaiso
-Public Transport,15.8,14.7,15.7,17,14.74,-0.35,1084665.1,gran_valparaiso
-Motorcycling,16,15,15.9,17.1,14.97,-0.12,1367110.9,gran_valparaiso
+Bicycling,16.1,14.9,16,17.4,14.95,-0.14,1142859,gran_valparaiso
+Driving,16.5,15.4,16.4,17.7,15.37,0.28,1222888.1,gran_valparaiso
+Public Transport,15.8,14.7,15.7,17,14.74,-0.35,1084843.3,gran_valparaiso
+Motorcycling,16,15,15.9,17.1,14.99,-0.1,1406225.4,gran_valparaiso
 Baseline,12.4,11.7,12.3,13.2,11.69,0,49359.6,iquique_altohospicio
-Bicycling,12.4,11.6,12.2,13.3,11.56,-0.12,48338.1,iquique_altohospicio
-Driving,12.6,11.9,12.5,13.4,11.89,0.2,51905,iquique_altohospicio
-Public Transport,12.2,11.5,12,12.9,11.46,-0.23,46630.2,iquique_altohospicio
-Motorcycling,12.2,11.6,12.1,13,11.55,-0.13,58506.3,iquique_altohospicio
+Bicycling,12.4,11.6,12.2,13.3,11.56,-0.12,48335.4,iquique_altohospicio
+Driving,12.6,11.9,12.5,13.4,11.89,0.2,51895.2,iquique_altohospicio
+Public Transport,12.2,11.5,12,12.9,11.46,-0.23,46635.5,iquique_altohospicio
+Motorcycling,12.3,11.6,12.2,13,11.57,-0.11,60683.8,iquique_altohospicio
 Baseline,22.5,21.1,22.3,23.9,21.09,0,500938.5,medellin
-Bicycling,22.4,20.9,22.3,24,20.95,-0.14,487813,medellin
-Driving,22.6,21.2,22.4,24.2,21.17,0.08,634328.2,medellin
-Public Transport,22.7,21.3,22.6,24.2,21.28,0.19,466646.9,medellin
-Motorcycling,22.2,20.9,22,23.6,20.89,-0.2,475516.7,medellin
+Bicycling,22.4,20.9,22.3,24,20.95,-0.14,487784.7,medellin
+Driving,22.5,21.1,22.4,24.1,21.13,0.04,610751.9,medellin
+Public Transport,22.6,21.2,22.5,24.1,21.21,0.12,464144.9,medellin
+Motorcycling,22.2,20.9,22,23.6,20.89,-0.2,476418.3,medellin
 Baseline,54.5,50,53.8,58.8,50,0,3339017.7,mexico_city
-Bicycling,54.6,49.8,53.9,59.1,49.79,-0.21,3264384.2,mexico_city
-Driving,55.8,51.3,55.2,60.4,51.25,1.25,3710629.8,mexico_city
-Public Transport,53.1,48.7,52.5,57.3,48.73,-1.27,2968718.8,mexico_city
-Motorcycling,54.6,50.2,54,58.9,50.19,0.19,3273917.1,mexico_city
+Bicycling,54.6,49.8,53.9,59.1,49.79,-0.21,3264287.9,mexico_city
+Driving,55.8,51.2,55.2,60.4,51.24,1.24,3707770.6,mexico_city
+Public Transport,53.1,48.7,52.5,57.3,48.73,-1.27,2968397.2,mexico_city
+Motorcycling,54.7,50.3,54.1,59,50.33,0.33,3292816,mexico_city
 Baseline,16.7,15.6,16.6,18,15.57,0,303325.4,montevideo
-Bicycling,16.7,15.5,16.5,18,15.47,-0.1,293981.3,montevideo
-Driving,16.7,15.5,16.6,17.9,15.55,-0.03,342033.7,montevideo
-Public Transport,16.7,15.5,16.6,17.9,15.52,-0.06,262130.9,montevideo
-Motorcycling,16.5,15.4,16.4,17.7,15.43,-0.15,283197.6,montevideo
+Bicycling,16.7,15.5,16.5,18,15.47,-0.1,293964.3,montevideo
+Driving,16.7,15.5,16.6,17.9,15.54,-0.03,341094.4,montevideo
+Public Transport,16.7,15.5,16.6,17.9,15.51,-0.06,262014.5,montevideo
+Motorcycling,16.5,15.4,16.4,17.7,15.43,-0.14,284404.7,montevideo
 Baseline,40.8,38.1,40.5,43.5,38.1,0,27102.6,osorno
-Bicycling,40.6,37.7,40.1,43.7,37.67,-0.43,26655.9,osorno
-Driving,41.1,38.5,40.9,43.8,38.45,0.36,28101.8,osorno
-Public Transport,40.1,37.6,39.9,42.7,37.56,-0.53,26165,osorno
-Motorcycling,40.2,37.7,40,42.8,37.65,-0.45,29922.4,osorno
+Bicycling,40.6,37.7,40.1,43.7,37.67,-0.43,26651.9,osorno
+Driving,41.1,38.5,40.9,43.8,38.45,0.35,28101.3,osorno
+Public Transport,40.1,37.6,39.9,42.7,37.56,-0.53,26164.4,osorno
+Motorcycling,40.3,37.7,40,42.9,37.69,-0.4,30612,osorno
 Baseline,28.5,26.3,28.2,30.6,26.32,0,81850.7,puerto_montt
-Bicycling,28.4,26.1,28.1,30.9,26.07,-0.25,80097.3,puerto_montt
-Driving,29.1,26.9,28.9,31.3,26.9,0.58,86847.6,puerto_montt
-Public Transport,27.9,25.8,27.6,29.9,25.76,-0.55,77037.7,puerto_montt
-Motorcycling,28.8,26.6,28.5,30.9,26.62,0.3,132726.4,puerto_montt
+Bicycling,28.4,26.1,28.1,30.8,26.06,-0.25,79985.6,puerto_montt
+Driving,29.1,26.9,28.9,31.3,26.91,0.59,87167.1,puerto_montt
+Public Transport,27.9,25.8,27.6,29.9,25.76,-0.55,76880,puerto_montt
+Motorcycling,28.9,26.7,28.6,31,26.73,0.41,141011.4,puerto_montt
 Baseline,23.3,21.9,22.9,24.9,21.86,0,60645.9,san_antonio
-Bicycling,23.2,21.6,22.7,25,21.62,-0.24,59392.8,san_antonio
-Driving,23.7,22.3,23.4,25.4,22.26,0.4,63873.9,san_antonio
-Public Transport,23,21.6,22.6,24.6,21.56,-0.3,57382.6,san_antonio
-Motorcycling,22.8,21.5,22.5,24.4,21.5,-0.36,68182,san_antonio
+Bicycling,23.2,21.6,22.7,25,21.62,-0.24,59397,san_antonio
+Driving,23.7,22.3,23.4,25.3,22.26,0.4,63834.8,san_antonio
+Public Transport,23,21.6,22.6,24.6,21.56,-0.3,57355.5,san_antonio
+Motorcycling,22.8,21.5,22.6,24.4,21.53,-0.33,69908,san_antonio
 Baseline,33.4,32,33.1,34.9,32,0,424592.3,santiago
-Bicycling,33.2,31.7,32.9,34.8,31.74,-0.26,417539.7,santiago
-Driving,34.4,33,34.1,36,32.97,0.97,456914.8,santiago
-Public Transport,32.5,31.2,32.3,34,31.21,-0.79,396212.3,santiago
-Motorcycling,33,31.7,32.7,34.5,31.68,-0.32,436490.2,santiago
+Bicycling,33.2,31.7,32.9,34.8,31.74,-0.26,417495.2,santiago
+Driving,34.4,33,34.1,36,32.95,0.95,456489.4,santiago
+Public Transport,32.5,31.2,32.3,34,31.2,-0.8,396086.4,santiago
+Motorcycling,33,31.7,32.8,34.6,31.73,-0.27,449972,santiago
 Baseline,29.8,28,29.5,32.3,28,0,2813320.3,sao_paulo
 Bicycling,29.7,27.7,29.3,32.3,27.69,-0.31,2722312.2,sao_paulo
 Driving,31.2,29.3,30.9,33.9,29.32,1.32,2957194.8,sao_paulo
 Public Transport,28.5,26.8,28.2,30.9,26.76,-1.24,2542699.8,sao_paulo
 Motorcycling,29.9,28.1,29.6,32.3,28.13,0.13,3500739.2,sao_paulo
 Baseline,34.3,31.9,33.9,36.7,31.9,0,8996.1,temuco_padrelascasas
-Bicycling,34.1,31.6,33.7,36.9,31.56,-0.34,8888.6,temuco_padrelascasas
-Driving,34.5,32.1,34.1,36.8,32.06,0.16,9222.2,temuco_padrelascasas
-Public Transport,33.7,31.4,33.4,35.9,31.42,-0.47,8667.6,temuco_padrelascasas
-Motorcycling,33.8,31.5,33.5,36.1,31.53,-0.37,9690.5,temuco_padrelascasas
+Bicycling,34.1,31.6,33.7,36.9,31.56,-0.34,8888,temuco_padrelascasas
+Driving,34.5,32.1,34.1,36.8,32.07,0.18,9232.1,temuco_padrelascasas
+Public Transport,33.7,31.4,33.4,35.9,31.42,-0.48,8677.3,temuco_padrelascasas
+Motorcycling,33.9,31.6,33.5,36.2,31.57,-0.33,9850.3,temuco_padrelascasas
 Baseline,36.8,34.4,36.4,39.1,34.45,0,8710.4,valdivia
-Bicycling,36.6,34,36.1,39.4,34.03,-0.42,8574.7,valdivia
-Driving,36.8,34.5,36.5,39.1,34.53,0.08,8865.9,valdivia
-Public Transport,36.4,34.2,36.1,38.6,34.2,-0.25,8430.1,valdivia
-Motorcycling,36.3,34,35.9,38.5,34.03,-0.42,9306.4,valdivia
+Bicycling,36.6,34,36.1,39.4,34.03,-0.42,8574.1,valdivia
+Driving,36.8,34.5,36.5,39.1,34.53,0.08,8865.6,valdivia
+Public Transport,36.4,34.2,36.1,38.6,34.2,-0.25,8431,valdivia
+Motorcycling,36.3,34.1,36,38.5,34.06,-0.39,9456.5,valdivia
 Baseline,60.4,55,59.2,65.4,55,0,399560,accra
 Bicycling,60.5,54.6,59.3,66.2,54.63,-0.37,388200.1,accra
 Driving,63.5,57.8,62.3,68.8,57.85,2.85,487932.1,accra
 Public Transport,58.2,53.2,57.3,63.2,53.21,-1.79,343146.4,accra
 Motorcycling,59.7,54.4,58.6,64.7,54.43,-0.57,384853.7,accra
 Baseline,33.3,32.4,32.4,34.9,32.38,0,2197162,bangalore
-Bicycling,33.1,32,32,35.2,32.04,-0.34,2117283.2,bangalore
-Driving,36.6,35.6,35.6,38.4,35.63,3.25,2628058.3,bangalore
-Public Transport,32.9,32,32,34.5,32.03,-0.35,2108705.5,bangalore
-Motorcycling,32.4,31.6,31.6,34,31.56,-0.82,2093151.2,bangalore
+Bicycling,33.1,32,32,35.2,32.04,-0.34,2117441.3,bangalore
+Driving,37.1,36.1,36.1,38.9,36.09,3.71,2694343.8,bangalore
+Public Transport,33,32.1,32.1,34.5,32.09,-0.29,2119750.7,bangalore
+Motorcycling,32.4,31.5,31.5,34,31.55,-0.83,2084559.9,bangalore
 Baseline,15.9,14.9,15.4,17.1,14.86,0,1796974,cape_town
-Bicycling,15.9,14.7,15.4,17.1,14.72,-0.14,1749135.7,cape_town
-Driving,15.9,14.8,15.4,17,14.78,-0.08,1817428.1,cape_town
-Public Transport,15.9,14.8,15.4,17,14.83,-0.03,1735620.8,cape_town
-Motorcycling,16.1,15.1,15.6,17.3,15.06,0.2,1801108.2,cape_town
+Bicycling,15.9,14.7,15.4,17.1,14.71,-0.15,1748485.7,cape_town
+Driving,15.8,14.8,15.3,17,14.77,-0.09,1818676.7,cape_town
+Public Transport,15.9,14.8,15.4,17,14.83,-0.03,1736083.1,cape_town
+Motorcycling,15.9,14.9,15.5,17.1,14.88,0.02,1764447.9,cape_town
 Baseline,109.7,105,107.4,118.1,105,0,4033709,delhi
-Bicycling,108.6,103.5,105.8,118,103.49,-1.51,3887490.3,delhi
-Driving,111.5,106.7,109.1,120.2,106.69,1.69,4021362.4,delhi
-Public Transport,108.4,103.8,106.1,116.8,103.78,-1.22,3877753.2,delhi
-Motorcycling,108.2,103.7,106,116.4,103.67,-1.33,4230178.7,delhi
+Bicycling,108.5,103.4,105.7,117.6,103.41,-1.59,3885930.4,delhi
+Driving,111.8,107,109.4,120.4,107.04,2.04,4040523.4,delhi
+Public Transport,108.5,103.9,106.2,116.8,103.87,-1.13,3909321.5,delhi
+Motorcycling,107.8,103.2,105.6,115.9,103.25,-1.75,4119062.6,delhi
 Baseline,34.2,32.8,33.6,36.2,32.75,0,225068,vizag
-Bicycling,34.1,32.5,33.3,36.5,32.5,-0.25,216696.6,vizag
-Driving,39.4,37.7,38.7,41.7,37.71,4.96,329309,vizag
-Public Transport,33.7,32.2,33.1,35.7,32.23,-0.52,205882.4,vizag
-Motorcycling,34,32.6,33.4,35.9,32.58,-0.17,236087.9,vizag
+Bicycling,34.1,32.5,33.4,36.5,32.53,-0.22,217618.6,vizag
+Driving,39.7,38,39,42,37.98,5.23,335537.3,vizag
+Public Transport,33.6,32.2,33.1,35.7,32.23,-0.52,206331.1,vizag
+Motorcycling,34,32.6,33.5,36,32.65,-0.1,232812,vizag
 Baseline,11.2,10.8,11.1,11.9,10.79,0,7014.4,kisumu
-Bicycling,11.2,10.7,11.1,12,10.73,-0.06,6835.1,kisumu
-Driving,12,11.5,11.8,12.6,11.49,0.7,8978.8,kisumu
-Public Transport,11,10.6,10.9,11.6,10.56,-0.23,6360.9,kisumu
-Motorcycling,11,10.6,10.9,11.6,10.58,-0.21,6432.6,kisumu
+Bicycling,11.2,10.7,11.1,12,10.73,-0.06,6834.4,kisumu
+Driving,12.1,11.6,12,12.8,11.64,0.85,9399.7,kisumu
+Public Transport,11,10.6,10.9,11.6,10.59,-0.2,6445.5,kisumu
+Motorcycling,10.9,10.5,10.8,11.5,10.52,-0.27,6259,kisumu
 Baseline,6.6,5.9,6.5,7.2,5.91,0,501257,nairobi
-Bicycling,6.6,5.9,6.5,7.2,5.89,-0.02,494736.8,nairobi
-Driving,6.8,6.1,6.7,7.4,6.08,0.17,565927.3,nairobi
-Public Transport,6.4,5.8,6.3,7,5.76,-0.15,445130.4,nairobi
-Motorcycling,6.5,5.9,6.4,7.1,5.85,-0.06,482002.2,nairobi
+Bicycling,6.6,5.9,6.5,7.2,5.89,-0.02,494683.9,nairobi
+Driving,6.8,6.1,6.7,7.4,6.1,0.19,570903.9,nairobi
+Public Transport,6.4,5.8,6.3,7,5.76,-0.15,445449,nairobi
+Motorcycling,6.5,5.9,6.4,7.1,5.85,-0.06,480470.6,nairobi
 Baseline,14.7,14,14.5,15.5,14,0,413011,port_louis
-Bicycling,14.7,13.9,14.5,15.7,13.93,-0.07,403826.3,port_louis
-Driving,15.3,14.6,15.1,16.2,14.6,0.6,488705.3,port_louis
-Public Transport,14.3,13.6,14.1,15,13.62,-0.38,364011,port_louis
-Motorcycling,14.3,13.7,14.2,15.1,13.7,-0.3,376302.1,port_louis
+Bicycling,14.7,13.9,14.5,15.7,13.92,-0.08,403289.8,port_louis
+Driving,15.4,14.7,15.2,16.3,14.7,0.7,500335.8,port_louis
+Public Transport,14.4,13.7,14.2,15.1,13.71,-0.29,375481,port_louis
+Motorcycling,14.4,13.8,14.2,15.2,13.75,-0.25,383645.5,port_louis

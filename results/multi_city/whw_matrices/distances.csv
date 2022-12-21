@@ -2,33 +2,33 @@ stage_mode,scenario,distance,city
 bus,Baseline,1261744.769089981,antofagasta
 bus,Bicycling,1218931.0996183949,antofagasta
 bus,Car,1104557.198424967,antofagasta
-bus,Public Transport,1500180.4250781843,antofagasta
+bus,Public Transport,1499858.8104858818,antofagasta
 bus,Motorcycling,1156843.2550167711,antofagasta
 bus_driver,Baseline,105212.61491338939,antofagasta
 bus_driver,Bicycling,84322.96772819341,antofagasta
 bus_driver,Car,76397.357092995,antofagasta
-bus_driver,Public Transport,106177.73729776006,antofagasta
+bus_driver,Public Transport,106156.29632493989,antofagasta
 bus_driver,Motorcycling,80058.77467356958,antofagasta
 car,Baseline,1514116.2027320014,antofagasta
 car,Bicycling,1465029.6228282535,antofagasta
-car,Car,1733122.111513214,antofagasta
+car,Car,1732800.4969209116,antofagasta
 car,Public Transport,1280876.9834816004,antofagasta
 car,Motorcycling,1392127.42357688,antofagasta
 car_driver,Baseline,1355811.1364774108,antofagasta
 car_driver,Bicycling,1311802.3088762842,antofagasta
-car_driver,Car,1552162.0189809317,antofagasta
+car_driver,Car,1551873.6737514536,antofagasta
 car_driver,Public Transport,1146699.3057094135,antofagasta
 car_driver,Motorcycling,1247280.2602776815,antofagasta
 cycle,Baseline,6581.7806154294885,antofagasta
-cycle,Bicycling,126419.35528953327,antofagasta
+cycle,Bicycling,125840.44902338902,antofagasta
 cycle,Car,6067.213545282193,antofagasta
 cycle,Public Transport,5950.266483885081,antofagasta
 cycle,Motorcycling,6394.665317194108,antofagasta
-motorcycle,Baseline,39868.70790513535,antofagasta
-motorcycle,Bicycling,36865.60059625447,antofagasta
-motorcycle,Car,37064.68319056985,antofagasta
-motorcycle,Public Transport,37873.56703189987,antofagasta
-motorcycle,Motorcycling,296507.214964588,antofagasta
+motorcycle,Baseline,33436.41605908838,antofagasta
+motorcycle,Bicycling,31012.21501635172,antofagasta
+motorcycle,Car,30954.005936825215,antofagasta
+motorcycle,Public Transport,31762.889778155244,antofagasta
+motorcycle,Motorcycling,290074.92311854096,antofagasta
 pedestrian,Baseline,123133.88579796802,antofagasta
 pedestrian,Bicycling,115207.4738588304,antofagasta
 pedestrian,Car,117086.74816489233,antofagasta
@@ -47,33 +47,33 @@ truck,Motorcycling,570333.6661980458,antofagasta
 bus,Baseline,348675.55018248176,arica
 bus,Bicycling,330509.71669708035,arica
 bus,Car,270655.42568430654,arica
-bus,Public Transport,509351.3637183565,arica
+bus,Public Transport,509167.84994516976,arica
 bus,Motorcycling,298403.8331660584,arica
 bus_driver,Baseline,32513.3559580292,arica
 bus_driver,Bicycling,22842.72866788321,arica
 bus_driver,Car,18725.397965328466,arica
-bus_driver,Public Transport,37021.32207027486,arica
+bus_driver,Public Transport,37009.08781872908,arica
 bus_driver,Motorcycling,20646.560739051092,arica
 car,Baseline,745139.4284671533,arica
 car,Bicycling,705810.4138686132,arica
-car,Car,896048.6888875155,arica
+car,Car,895635.7828978455,arica
 car,Public Transport,626484.9832116788,arica
 car,Motorcycling,674809.6160583941,arica
 car_driver,Baseline,693253.9007589307,arica
 car_driver,Bicycling,656470.4739691595,arica
-car_driver,Car,834930.5244300166,arica
+car_driver,Car,834544.3439625647,arica
 car_driver,Public Transport,582279.4167834873,arica
 car_driver,Motorcycling,628011.248126843,arica
 cycle,Baseline,28999.070145985403,arica
-cycle,Bicycling,111766.10924769893,arica
+cycle,Bicycling,111490.83858791894,arica
 cycle,Car,26798.07547445255,arica
 cycle,Public Transport,26184.542846715332,arica
 cycle,Motorcycling,26609.296204379563,arica
-motorcycle,Baseline,28436.431348510054,arica
-motorcycle,Bicycling,26617.979007745435,arica
-motorcycle,Car,25792.550453695243,arica
-motorcycle,Public Transport,27618.16480168644,arica
-motorcycle,Motorcycling,194220.2053539845,arica
+motorcycle,Baseline,23848.58701884379,arica
+motorcycle,Bicycling,22305.40533785915,arica
+motorcycle,Car,21617.612113698942,arica
+motorcycle,Public Transport,23213.83424520683,arica
+motorcycle,Motorcycling,189632.36102431823,arica
 pedestrian,Baseline,99313.21053832119,arica
 pedestrian,Bicycling,94306.20985401461,arica
 pedestrian,Car,94382.18635948905,arica
@@ -92,21 +92,21 @@ truck,Motorcycling,302626.0412408759,arica
 bus,Baseline,10297155.606428571,belo_horizonte
 bus,Bicycling,10068294.233107166,belo_horizonte
 bus,Car,9153771.59634585,belo_horizonte
-bus,Public Transport,12754442.88131242,belo_horizonte
+bus,Public Transport,12610325.520201297,belo_horizonte
 bus,Motorcycling,9533833.500821171,belo_horizonte
 bus_driver,Baseline,550631.7024344229,belo_horizonte
 bus_driver,Bicycling,507032.0151907199,belo_horizonte
 bus_driver,Car,460632.8229247303,belo_horizonte
-bus_driver,Public Transport,643512.5723969835,belo_horizonte
+bus_driver,Public Transport,637246.6001747606,belo_horizonte
 bus_driver,Motorcycling,480943.01745731576,belo_horizonte
 car,Baseline,14949133.929495305,belo_horizonte
 car,Bicycling,14454551.71404034,belo_horizonte
-car,Car,17399220.094208393,belo_horizonte
+car,Car,17303141.853467643,belo_horizonte
 car,Public Transport,12988004.065800725,belo_horizonte
 car,Motorcycling,13885196.464167675,belo_horizonte
 car_driver,Baseline,13388678.950634893,belo_horizonte
 car_driver,Bicycling,12945723.356775694,belo_horizonte
-car_driver,Car,15583014.570039123,belo_horizonte
+car_driver,Car,15496965.38983333,belo_horizonte
 car_driver,Public Transport,11632260.267830601,belo_horizonte
 car_driver,Motorcycling,12435799.859845664,belo_horizonte
 cycle,Baseline,237472.3526461567,belo_horizonte
@@ -114,11 +114,11 @@ cycle,Bicycling,1294523.8350021688,belo_horizonte
 cycle,Car,203419.80791895158,belo_horizonte
 cycle,Public Transport,215004.43604424203,belo_horizonte
 cycle,Motorcycling,223263.96279951668,belo_horizonte
-motorcycle,Baseline,4922927.665896047,belo_horizonte
-motorcycle,Bicycling,4833298.128652809,belo_horizonte
-motorcycle,Car,4427799.384631576,belo_horizonte
-motorcycle,Public Transport,4328223.128168873,belo_horizonte
-motorcycle,Motorcycling,7256643.870057833,belo_horizonte
+motorcycle,Baseline,3721949.656636688,belo_horizonte
+motorcycle,Bicycling,3632320.1193934493,belo_horizonte
+motorcycle,Car,3322899.616112965,belo_horizonte
+motorcycle,Public Transport,3271362.4800206367,belo_horizonte
+motorcycle,Motorcycling,6055665.860798475,belo_horizonte
 other,Baseline,1532667.6090381695,belo_horizonte
 other,Bicycling,1487911.5463023204,belo_horizonte
 other,Car,1348752.2446074602,belo_horizonte
@@ -152,33 +152,33 @@ auto_rickshaw,Motorcycling,138786.14725981318,bogota
 bus,Baseline,38671360.09008505,bogota
 bus,Bicycling,37751588.55952595,bogota
 bus,Car,35759997.29938541,bogota
-bus,Public Transport,45723546.12340597,bogota
+bus,Public Transport,45723546.12141174,bogota
 bus,Motorcycling,36162330.98320321,bogota
 bus_driver,Baseline,1666025.3202420403,bogota
 bus_driver,Bicycling,1496186.7375482298,bogota
 bus_driver,Car,1417076.612657607,bogota
-bus_driver,Public Transport,1855129.7798960246,bogota
+bus_driver,Public Transport,1855129.7798184277,bogota
 bus_driver,Motorcycling,1433340.8411593095,bogota
 car,Baseline,28286931.08923174,bogota
 car,Bicycling,27544180.00620343,bogota
-car,Car,33331666.10032501,bogota
+car,Car,33331666.09980021,bogota
 car,Public Transport,23867448.448118202,bogota
 car,Motorcycling,26280900.371977486,bogota
 car_driver,Baseline,23395622.915778648,bogota
 car_driver,Bicycling,22781633.397927087,bogota
-car_driver,Car,27588773.91212648,bogota
+car_driver,Car,27588773.91169087,bogota
 car_driver,Public Transport,19730485.680904984,bogota
 car_driver,Motorcycling,21735373.90842628,bogota
 cycle,Baseline,3038269.4221631694,bogota
-cycle,Bicycling,5578090.467167009,bogota
+cycle,Bicycling,5578090.46706205,bogota
 cycle,Car,2802251.856470101,bogota
 cycle,Public Transport,2653723.484302533,bogota
 cycle,Motorcycling,2804266.673040081,bogota
-motorcycle,Baseline,14056673.37010368,bogota
-motorcycle,Bicycling,13806732.120016653,bogota
-motorcycle,Car,13173723.893902503,bogota
-motorcycle,Public Transport,11712011.15773444,bogota
-motorcycle,Motorcycling,19717320.066754624,bogota
+motorcycle,Baseline,14056673.359607734,bogota
+motorcycle,Bicycling,13806732.109625662,bogota
+motorcycle,Car,13173723.883931354,bogota
+motorcycle,Public Transport,11712011.149232723,bogota
+motorcycle,Motorcycling,19717320.056258675,bogota
 other,Baseline,275553.45094638655,bogota
 other,Bicycling,270445.48495381273,bogota
 other,Car,259040.4364345227,bogota
@@ -207,33 +207,33 @@ truck,Motorcycling,11072851.802621298,bogota
 bus,Baseline,21222460.697608855,buenos_aires
 bus,Bicycling,20411288.729628958,buenos_aires
 bus,Car,19157269.946736038,buenos_aires
-bus,Public Transport,26973761.93369782,buenos_aires
+bus,Public Transport,26973761.933173496,buenos_aires
 bus,Motorcycling,19529773.147840116,buenos_aires
 bus_driver,Baseline,1440341.217182535,buenos_aires
 bus_driver,Bicycling,1144368.1571287226,buenos_aires
 bus_driver,Car,1077547.9505242524,buenos_aires
-bus_driver,Public Transport,1492195.8550961455,buenos_aires
+bus_driver,Public Transport,1492195.8550733486,buenos_aires
 bus_driver,Motorcycling,1100488.941661048,buenos_aires
 car,Baseline,22202871.347962696,buenos_aires
 car,Bicycling,21497099.473723844,buenos_aires
-car,Car,28184136.82451049,buenos_aires
+car,Car,28184136.824323233,buenos_aires
 car,Public Transport,17192898.327081285,buenos_aires
 car,Motorcycling,20420288.126367867,buenos_aires
 car_driver,Baseline,20676096.29006474,buenos_aires
 car_driver,Bicycling,20013586.980334226,buenos_aires
-car_driver,Car,26495254.598552126,buenos_aires
+car_driver,Car,26495254.598372232,buenos_aires
 car_driver,Public Transport,15863324.1808384,buenos_aires
 car_driver,Motorcycling,19027671.63300726,buenos_aires
 cycle,Baseline,1535088.6192058907,buenos_aires
-cycle,Bicycling,4087779.3872727305,buenos_aires
+cycle,Bicycling,4087779.387254005,buenos_aires
 cycle,Car,1408838.1874379949,buenos_aires
 cycle,Public Transport,1367227.0479366828,buenos_aires
 cycle,Motorcycling,1447778.8019418416,buenos_aires
-motorcycle,Baseline,5030044.133248801,buenos_aires
-motorcycle,Bicycling,4934602.943661793,buenos_aires
-motorcycle,Car,4556741.97890447,buenos_aires
-motorcycle,Public Transport,3657284.037281383,buenos_aires
-motorcycle,Motorcycling,11401297.15830432,buenos_aires
+motorcycle,Baseline,5030044.131376207,buenos_aires
+motorcycle,Bicycling,4934602.941807924,buenos_aires
+motorcycle,Car,4556741.977219134,buenos_aires
+motorcycle,Public Transport,3657284.035933115,buenos_aires
+motorcycle,Motorcycling,11401297.156431727,buenos_aires
 other,Baseline,214588.94616107055,buenos_aires
 other,Bicycling,200861.63016644988,buenos_aires
 other,Car,201304.44681143764,buenos_aires
@@ -267,33 +267,33 @@ auto_rickshaw,Motorcycling,11310.990426308332,cali
 bus,Baseline,4915783.694672219,cali
 bus,Bicycling,4826970.274814322,cali
 bus,Car,4543641.207487227,cali
-bus,Public Transport,7235372.654623725,cali
+bus,Public Transport,6663217.10076857,cali
 bus,Motorcycling,4463621.7419933025,cali
 bus_driver,Baseline,252993.8762739294,cali
 bus_driver,Bicycling,222301.00981432444,cali
 bus_driver,Car,209567.07812721079,cali
-bus_driver,Public Transport,325312.08097145543,cali
+bus_driver,Public Transport,303049.21895374503,cali
 bus_driver,Motorcycling,206294.5611242235,cali
 car,Baseline,5749172.699587859,cali
 car,Bicycling,5615758.204739622,cali
-car,Car,7289210.2210912425,cali
+car,Car,7038892.166279611,cali
 car,Public Transport,5116029.789700769,cali
 car,Motorcycling,5288326.154831924,cali
 car_driver,Baseline,5043276.6951986635,cali
 car_driver,Bicycling,4926243.123965356,cali
-car_driver,Car,6394225.03990334,cali
+car_driver,Car,6174641.583607191,cali
 car_driver,Public Transport,4487872.457230177,cali
 car_driver,Motorcycling,4639013.897631799,cali
 cycle,Baseline,739455.3177349417,cali
-cycle,Bicycling,1481348.562640738,cali
+cycle,Bicycling,1374069.3962928962,cali
 cycle,Car,667099.0482548405,cali
 cycle,Public Transport,659629.7062636843,cali
 cycle,Motorcycling,690756.7342549264,cali
-motorcycle,Baseline,12431157.325320497,cali
-motorcycle,Bicycling,12045079.561750295,cali
-motorcycle,Car,11581900.954366636,cali
-motorcycle,Public Transport,10826789.545423085,cali
-motorcycle,Motorcycling,13648211.605007527,cali
+motorcycle,Baseline,8855185.11372577,cali
+motorcycle,Bicycling,8576386.51650341,cali
+motorcycle,Car,8256246.797583539,cali
+motorcycle,Public Transport,7822972.887683513,cali
+motorcycle,Motorcycling,10072239.3934128,cali
 other,Baseline,11801.814729747133,cali
 other,Bicycling,10975.067638346283,cali
 other,Car,9373.245148757138,cali
@@ -317,33 +317,33 @@ truck,Motorcycling,2080771.0253166184,cali
 bus,Baseline,263650.7850422471,copiapo
 bus,Bicycling,253422.81268554463,copiapo
 bus,Car,220345.8644572581,copiapo
-bus,Public Transport,379413.65436714725,copiapo
+bus,Public Transport,379383.49184850033,copiapo
 bus,Motorcycling,236742.05755690037,copiapo
 bus_driver,Baseline,22756.651302174512,copiapo
 bus_driver,Bicycling,17479.154878587196,copiapo
 bus_driver,Car,15195.61234870975,copiapo
-bus_driver,Public Transport,27522.680491594805,copiapo
+bus_driver,Public Transport,27520.669657018334,copiapo
 bus_driver,Motorcycling,16339.28069384182,copiapo
 car,Baseline,651906.2445510136,copiapo
 car,Bicycling,628554.2297226662,copiapo
-car,Car,753963.4087832028,copiapo
+car,Car,753571.2960407931,copiapo
 car,Public Transport,556803.7382253686,copiapo
 car,Motorcycling,590389.1456395423,copiapo
 car_driver,Baseline,605550.0304903614,copiapo
 car_driver,Bicycling,583818.518674233,copiapo
-car_driver,Car,700524.9817626629,copiapo
+car_driver,Car,700160.079515145,copiapo
 car_driver,Public Transport,517047.1216342767,copiapo
 car_driver,Motorcycling,548301.8841648573,copiapo
 cycle,Baseline,9384.167764329755,copiapo
-cycle,Bicycling,63152.26531521583,copiapo
+cycle,Bicycling,62941.127684687526,copiapo
 cycle,Car,8723.733692623888,copiapo
 cycle,Public Transport,9083.970459008906,copiapo
 cycle,Motorcycling,9068.960593742864,copiapo
-motorcycle,Baseline,18695.368220201766,copiapo
-motorcycle,Bicycling,17347.74497147753,copiapo
-motorcycle,Car,16449.95130570319,copiapo
-motorcycle,Public Transport,18376.874958329736,copiapo
-motorcycle,Motorcycling,139911.87135942685,copiapo
+motorcycle,Baseline,15679.116355511664,copiapo
+motorcycle,Bicycling,14542.63073731573,copiapo
+motorcycle,Car,13825.8121834228,copiapo
+motorcycle,Public Transport,15390.78561228653,copiapo
+motorcycle,Motorcycling,136895.61949473675,copiapo
 pedestrian,Baseline,56245.300677475825,copiapo
 pedestrian,Bicycling,53404.89214622821,copiapo
 pedestrian,Car,53962.55033493187,copiapo
@@ -360,45 +360,45 @@ truck,Car,255521.27523787777,copiapo
 truck,Public Transport,255521.27523787777,copiapo
 truck,Motorcycling,255521.27523787777,copiapo
 bus,Baseline,1181875.4183599178,coquimbo_laserena
-bus,Bicycling,1151739.5796275993,coquimbo_laserena
-bus,Car,1035788.0135026585,coquimbo_laserena
-bus,Public Transport,1514856.7503020386,coquimbo_laserena
-bus,Motorcycling,1094862.8002808949,coquimbo_laserena
+bus,Bicycling,1151472.615162231,coquimbo_laserena
+bus,Car,1029808.0094784098,coquimbo_laserena
+bus,Public Transport,1528965.5259811245,coquimbo_laserena
+bus,Motorcycling,1090720.4016599308,coquimbo_laserena
 bus_driver,Baseline,98303.8307039091,coquimbo_laserena
-bus_driver,Bicycling,79008.52902864364,coquimbo_laserena
-bus_driver,Car,71012.64666368098,coquimbo_laserena
-bus_driver,Public Transport,108028.8198359778,coquimbo_laserena
-bus_driver,Motorcycling,75098.09286536631,coquimbo_laserena
+bus_driver,Bicycling,78995.47743255895,coquimbo_laserena
+bus_driver,Car,70632.96386849057,coquimbo_laserena
+bus_driver,Public Transport,108969.4048812502,coquimbo_laserena
+bus_driver,Motorcycling,74826.67899224194,coquimbo_laserena
 car,Baseline,1941469.639846941,coquimbo_laserena
-car,Bicycling,1870531.020680167,coquimbo_laserena
-car,Car,2220856.5886391457,coquimbo_laserena
-car,Public Transport,1651056.1110795822,coquimbo_laserena
-car,Motorcycling,1748849.9864138612,coquimbo_laserena
+car,Bicycling,1868461.0192871578,coquimbo_laserena
+car,Car,2226662.9181935997,coquimbo_laserena
+car,Public Transport,1638072.054722903,coquimbo_laserena
+car,Motorcycling,1750350.463614085,coquimbo_laserena
 car_driver,Baseline,1806268.8712223908,coquimbo_laserena
-car_driver,Bicycling,1740210.734461829,coquimbo_laserena
-car_driver,Car,2067038.2829703772,coquimbo_laserena
-car_driver,Public Transport,1535207.6588511344,coquimbo_laserena
-car_driver,Motorcycling,1626484.8335857457,coquimbo_laserena
+car_driver,Bicycling,1738278.6719660466,coquimbo_laserena
+car_driver,Car,2072457.6955409194,coquimbo_laserena
+car_driver,Public Transport,1523088.8224027217,coquimbo_laserena
+car_driver,Motorcycling,1627885.3233313663,coquimbo_laserena
 cycle,Baseline,31935.658395889765,coquimbo_laserena
-cycle,Bicycling,186334.14362175402,coquimbo_laserena
-cycle,Car,28036.60815297304,coquimbo_laserena
+cycle,Bicycling,189336.57008067105,coquimbo_laserena
+cycle,Car,28188.91480308698,coquimbo_laserena
 cycle,Public Transport,30260.285244636485,coquimbo_laserena
 cycle,Motorcycling,30309.023372672946,coquimbo_laserena
-motorcycle,Baseline,48240.73175545632,coquimbo_laserena
-motorcycle,Bicycling,47110.96127904389,coquimbo_laserena
-motorcycle,Car,43704.72090060919,coquimbo_laserena
-motorcycle,Public Transport,41747.28916648925,coquimbo_laserena
-motorcycle,Motorcycling,415556.45513135375,coquimbo_laserena
+motorcycle,Baseline,40457.7239324716,coquimbo_laserena
+motorcycle,Bicycling,38951.43054996037,coquimbo_laserena
+motorcycle,Car,35511.21453525209,coquimbo_laserena
+motorcycle,Public Transport,38496.573268464424,coquimbo_laserena
+motorcycle,Motorcycling,409552.14939820534,coquimbo_laserena
 pedestrian,Baseline,280563.0533884733,coquimbo_laserena
-pedestrian,Bicycling,263722.72955576336,coquimbo_laserena
-pedestrian,Car,264168.3548556473,coquimbo_laserena
-pedestrian,Public Transport,292482.33224289527,coquimbo_laserena
-pedestrian,Motorcycling,267977.7324191711,coquimbo_laserena
+pedestrian,Bicycling,263825.75045842474,coquimbo_laserena
+pedestrian,Car,264257.0007486349,coquimbo_laserena
+pedestrian,Public Transport,292630.8740095232,coquimbo_laserena
+pedestrian,Motorcycling,267915.44071058516,coquimbo_laserena
 taxi,Baseline,921068.9219174299,coquimbo_laserena
-taxi,Bicycling,886134.260015263,coquimbo_laserena
-taxi,Car,815709.9581588845,coquimbo_laserena
-taxi,Public Transport,822726.8110951674,coquimbo_laserena
-taxi,Motorcycling,848709.4357230533,coquimbo_laserena
+taxi,Bicycling,885690.2775736274,coquimbo_laserena
+taxi,Car,815700.3063666752,coquimbo_laserena
+taxi,Public Transport,816921.2580811728,coquimbo_laserena
+taxi,Motorcycling,849582.9229180103,coquimbo_laserena
 truck,Baseline,713596.8373584419,coquimbo_laserena
 truck,Bicycling,713596.8373584419,coquimbo_laserena
 truck,Car,713596.8373584419,coquimbo_laserena
@@ -407,33 +407,33 @@ truck,Motorcycling,713596.8373584419,coquimbo_laserena
 bus,Baseline,2320027.529694019,gran_valparaiso
 bus,Bicycling,2226376.2702343035,gran_valparaiso
 bus,Car,2030799.4784812524,gran_valparaiso
-bus,Public Transport,2874140.351375719,gran_valparaiso
+bus,Public Transport,2871248.695586218,gran_valparaiso
 bus,Motorcycling,2143566.6860492947,gran_valparaiso
 bus_driver,Baseline,183076.26434540347,gran_valparaiso
 bus_driver,Bicycling,150566.67739770768,gran_valparaiso
 bus_driver,Car,137398.09694145227,gran_valparaiso
-bus_driver,Public Transport,199002.37301182144,gran_valparaiso
+bus_driver,Public Transport,198809.59595918798,gran_valparaiso
 bus_driver,Motorcycling,145012.955145417,gran_valparaiso
 car,Baseline,2938575.4741643844,gran_valparaiso
 car,Bicycling,2831983.23471346,gran_valparaiso
-car,Car,3465568.139207388,gran_valparaiso
+car,Car,3463709.2176284227,gran_valparaiso
 car,Public Transport,2419791.949344423,gran_valparaiso
 car,Motorcycling,2690959.5050640698,gran_valparaiso
 car_driver,Baseline,2666949.7546403557,gran_valparaiso
 car_driver,Bicycling,2569939.5244831447,gran_valparaiso
-car_driver,Car,3152058.394943585,gran_valparaiso
+car_driver,Car,3150358.8527420657,gran_valparaiso
 car_driver,Public Transport,2192645.45699723,gran_valparaiso
 car_driver,Motorcycling,2445140.84033765,gran_valparaiso
 cycle,Baseline,46119.585564458874,gran_valparaiso
-cycle,Bicycling,315015.31790474174,gran_valparaiso
+cycle,Bicycling,314808.7710626345,gran_valparaiso
 cycle,Car,42056.57109240288,gran_valparaiso
 cycle,Public Transport,39316.45204584644,gran_valparaiso
 cycle,Motorcycling,42516.70863170707,gran_valparaiso
-motorcycle,Baseline,74802.47778704157,gran_valparaiso
-motorcycle,Bicycling,72999.55027483456,gran_valparaiso
-motorcycle,Car,61575.99395240928,gran_valparaiso
-motorcycle,Public Transport,56736.842456898135,gran_valparaiso
-motorcycle,Motorcycling,633217.8915558484,gran_valparaiso
+motorcycle,Baseline,64475.13568167779,gran_valparaiso
+motorcycle,Bicycling,62878.75501157806,gran_valparaiso
+motorcycle,Car,53107.57342601098,gran_valparaiso
+motorcycle,Public Transport,49301.15614103623,gran_valparaiso
+motorcycle,Motorcycling,622890.5494504847,gran_valparaiso
 other,Baseline,10038.046033066234,gran_valparaiso
 other,Bicycling,9780.922341008216,gran_valparaiso
 other,Car,9010.337575819047,gran_valparaiso
@@ -462,33 +462,33 @@ truck,Motorcycling,1125311.0614285425,gran_valparaiso
 bus,Baseline,541207.6173024748,iquique_altohospicio
 bus,Bicycling,522478.80828452256,iquique_altohospicio
 bus,Car,459747.50049254525,iquique_altohospicio
-bus,Public Transport,712331.802515055,iquique_altohospicio
+bus,Public Transport,711941.4168446409,iquique_altohospicio
 bus,Motorcycling,490355.93445091037,iquique_altohospicio
 bus_driver,Baseline,47626.185400755625,iquique_altohospicio
 bus_driver,Bicycling,37383.350722188414,iquique_altohospicio
 bus_driver,Car,32895.54483226837,iquique_altohospicio
-bus_driver,Public Transport,53093.62973712111,iquique_altohospicio
+bus_driver,Public Transport,53067.60402576018,iquique_altohospicio
 bus_driver,Motorcycling,35068.20777063576,iquique_altohospicio
 car,Baseline,1152076.111912369,iquique_altohospicio
 car,Bicycling,1108996.7754754298,iquique_altohospicio
-car,Car,1319418.296359051,iquique_altohospicio
+car,Car,1318881.5160622317,iquique_altohospicio
 car,Public Transport,999295.1494294843,iquique_altohospicio
 car,Motorcycling,1042069.6381560932,iquique_altohospicio
 car_driver,Baseline,1063865.6405678594,iquique_altohospicio
 car_driver,Bicycling,1024060.7053875161,iquique_altohospicio
-car_driver,Car,1218644.8442422291,iquique_altohospicio
+car_driver,Car,1218148.361976478,iquique_altohospicio
 car_driver,Public Transport,922876.7373921478,iquique_altohospicio
 car_driver,Motorcycling,962601.1120884186,iquique_altohospicio
 cycle,Baseline,6823.798247375627,iquique_altohospicio
-cycle,Bicycling,99163.75780540008,iquique_altohospicio
+cycle,Bicycling,98968.56497019305,iquique_altohospicio
 cycle,Car,5792.977489730716,iquique_altohospicio
 cycle,Public Transport,6510.240602464628,iquique_altohospicio
 cycle,Motorcycling,6631.744189867641,iquique_altohospicio
-motorcycle,Baseline,30246.16388024781,iquique_altohospicio
-motorcycle,Bicycling,28774.855976338673,iquique_altohospicio
-motorcycle,Car,26895.671099598094,iquique_altohospicio
-motorcycle,Public Transport,28371.19552222415,iquique_altohospicio
-motorcycle,Motorcycling,237306.41343917573,iquique_altohospicio
+motorcycle,Baseline,25366.343000071785,iquique_altohospicio
+motorcycle,Bicycling,24090.227931369693,iquique_altohospicio
+motorcycle,Car,22552.630516241436,iquique_altohospicio
+motorcycle,Public Transport,23881.76031246221,iquique_altohospicio
+motorcycle,Motorcycling,232426.59255899972,iquique_altohospicio
 pedestrian,Baseline,103490.35394796896,iquique_altohospicio
 pedestrian,Bicycling,98002.41469838735,iquique_altohospicio
 pedestrian,Car,98651.12336769105,iquique_altohospicio
@@ -512,33 +512,33 @@ auto_rickshaw,Motorcycling,1533.2179260382445,medellin
 bus,Baseline,4296251.415602729,medellin
 bus,Bicycling,4148563.89223351,medellin
 bus,Car,3987662.483490523,medellin
-bus,Public Transport,5867983.660075544,medellin
+bus,Public Transport,5515624.251985587,medellin
 bus,Motorcycling,3960079.7396793026,medellin
 bus_driver,Baseline,235721.5892270114,medellin
 bus_driver,Bicycling,209732.39994158997,medellin
 bus_driver,Car,201859.58242200938,medellin
-bus_driver,Public Transport,289891.9160674029,medellin
+bus_driver,Public Transport,276181.4332623462,medellin
 bus_driver,Motorcycling,201006.67774965116,medellin
 car,Baseline,3785979.6244200156,medellin
 car,Bicycling,3673226.471495577,medellin
-car,Car,5638701.153563534,medellin
+car,Car,5325492.790816905,medellin
 car,Public Transport,3219992.2270229976,medellin
 car,Motorcycling,3511322.338228961,medellin
 car_driver,Baseline,3155440.2120119412,medellin
 car_driver,Bicycling,3061465.635267248,medellin
-car_driver,Car,4699598.552699075,medellin
+car_driver,Car,4438553.7609695,medellin
 car_driver,Public Transport,2683715.69936031,medellin
 car_driver,Motorcycling,2926525.9728070507,medellin
 cycle,Baseline,173802.51765984332,medellin
-cycle,Bicycling,872274.7009917519,medellin
+cycle,Bicycling,833123.6556484235,medellin
 cycle,Car,153646.83480414457,medellin
 cycle,Public Transport,142557.98947586556,medellin
 cycle,Motorcycling,161142.43060096033,medellin
-motorcycle,Baseline,9586694.22073193,medellin
-motorcycle,Bicycling,9443531.185229355,medellin
-motorcycle,Car,8921177.982444955,medellin
-motorcycle,Public Transport,8503012.073430795,medellin
-motorcycle,Motorcycling,11091167.223771019,medellin
+motorcycle,Baseline,5671589.686399075,medellin
+motorcycle,Bicycling,5567577.696239827,medellin
+motorcycle,Car,5319281.810858727,medellin
+motorcycle,Public Transport,4940266.947187896,medellin
+motorcycle,Motorcycling,7176062.689438163,medellin
 pedestrian,Baseline,1575632.1001352035,medellin
 pedestrian,Bicycling,1480115.689778873,medellin
 pedestrian,Car,1488919.4271101847,medellin
@@ -567,33 +567,33 @@ auto_rickshaw,Motorcycling,26319.162948051107,mexico_city
 bus,Baseline,28874521.607861925,mexico_city
 bus,Bicycling,28000819.160590645,mexico_city
 bus,Car,26498934.223142684,mexico_city
-bus,Public Transport,34847277.12374299,mexico_city
+bus,Public Transport,34761189.39566499,mexico_city
 bus,Motorcycling,27124031.33763088,mexico_city
 bus_driver,Baseline,1427115.2432048419,mexico_city
 bus_driver,Bicycling,1269261.231592322,mexico_city
 bus_driver,Car,1201328.4822193242,mexico_city
-bus_driver,Public Transport,1610937.584792923,mexico_city
+bus_driver,Public Transport,1607194.6400938788,mexico_city
 bus_driver,Motorcycling,1230537.3933358511,mexico_city
 car,Baseline,35481480.76260865,mexico_city
 car,Bicycling,34651185.94727435,mexico_city
-car,Car,41442665.81856293,mexico_city
+car,Car,41399621.954523936,mexico_city
 car,Public Transport,29785093.85509846,mexico_city
 car,Motorcycling,33477224.934682354,mexico_city
 car_driver,Baseline,33210233.760093905,mexico_city
 car_driver,Bicycling,32433075.12685556,mexico_city
-car_driver,Car,38839198.09153026,mexico_city
+car_driver,Car,38798672.062800355,mexico_city
 car_driver,Public Transport,27847054.951117516,mexico_city
 car_driver,Motorcycling,31329779.40244321,mexico_city
 cycle,Baseline,612872.6977859982,mexico_city
-cycle,Bicycling,3320326.755059538,mexico_city
+cycle,Bicycling,3315544.103499649,mexico_city
 cycle,Car,555371.8432454858,mexico_city
 cycle,Public Transport,547793.949588694,mexico_city
 cycle,Motorcycling,572645.7277838523,mexico_city
-motorcycle,Baseline,2803848.5200378597,mexico_city
-motorcycle,Bicycling,2743599.101764446,mexico_city
-motorcycle,Car,2563120.849450295,mexico_city
-motorcycle,Public Transport,2331639.109245015,mexico_city
-motorcycle,Motorcycling,9129700.54326641,mexico_city
+motorcycle,Baseline,2325583.3640489555,mexico_city
+motorcycle,Bicycling,2270116.597335431,mexico_city
+motorcycle,Car,2127899.557500392,mexico_city
+motorcycle,Public Transport,1939461.6813341132,mexico_city
+motorcycle,Motorcycling,8651435.387277506,mexico_city
 other,Baseline,102175.4536642857,mexico_city
 other,Bicycling,98229.22006764835,mexico_city
 other,Car,96277.43426174394,mexico_city
@@ -622,33 +622,33 @@ truck,Motorcycling,12141236.028461559,mexico_city
 bus,Baseline,4070519.8569169925,montevideo
 bus,Bicycling,3919328.4074245137,montevideo
 bus,Car,3571656.598764636,montevideo
-bus,Public Transport,4962655.244949267,montevideo
+bus,Public Transport,4890262.850466769,montevideo
 bus,Motorcycling,3735680.9442585367,montevideo
 bus_driver,Baseline,261200.08266971508,montevideo
 bus_driver,Bicycling,222246.36584986537,montevideo
 bus_driver,Car,203197.45120697826,montevideo
-bus_driver,Public Transport,280089.1926342999,montevideo
+bus_driver,Public Transport,276941.69722201733,montevideo
 bus_driver,Motorcycling,212994.11326631604,montevideo
 car,Baseline,4166155.1570354626,montevideo
 car,Bicycling,4035611.241940094,montevideo
-car,Car,4978602.51063459,montevideo
+car,Car,4961228.335958791,montevideo
 car,Public Transport,3387030.86377115,montevideo
 car,Motorcycling,3750431.1607520804,montevideo
 car_driver,Baseline,3921008.5703552025,montevideo
 car_driver,Bicycling,3798146.1731081214,montevideo
-car_driver,Car,4685649.568193456,montevideo
+car_driver,Car,4669297.731730617,montevideo
 car_driver,Public Transport,3187729.823858602,montevideo
 car_driver,Motorcycling,3529746.773593565,montevideo
 cycle,Baseline,132112.8416111848,montevideo
-cycle,Bicycling,568988.266591059,montevideo
+cycle,Bicycling,560301.1792531593,montevideo
 cycle,Car,120484.3274351392,montevideo
 cycle,Public Transport,119515.2845871354,montevideo
 cycle,Motorcycling,121776.3845658109,montevideo
-motorcycle,Baseline,1349728.757544549,montevideo
-motorcycle,Bicycling,1296877.3224123272,montevideo
-motorcycle,Car,1247563.662756944,montevideo
-motorcycle,Public Transport,1059065.959962227,montevideo
-motorcycle,Motorcycling,2225047.4732689983,montevideo
+motorcycle,Baseline,1060159.1796145549,montevideo
+motorcycle,Bicycling,1015994.8318202327,montevideo
+motorcycle,Car,975368.2595027498,montevideo
+motorcycle,Public Transport,841888.7765147315,montevideo
+motorcycle,Motorcycling,1935477.8953390038,montevideo
 other,Baseline,17146.67483828947,montevideo
 other,Bicycling,14697.149861390975,montevideo
 other,Car,13997.285582277118,montevideo
@@ -672,33 +672,33 @@ truck,Motorcycling,1442637.621720995,montevideo
 bus,Baseline,453102.9425455182,osorno
 bus,Bicycling,436850.9755672269,osorno
 bus,Car,397692.4025140056,osorno
-bus,Public Transport,552425.7825721345,osorno
+bus,Public Transport,552311.5444719472,osorno
 bus,Motorcycling,413175.10796568624,osorno
 bus_driver,Baseline,39218.98994024277,osorno
 bus_driver,Bicycling,29833.9993155929,osorno
 bus_driver,Car,27171.792415966385,osorno
-bus_driver,Public Transport,39151.97682833839,osorno
+bus_driver,Public Transport,39144.36095499257,osorno
 bus_driver,Motorcycling,28238.39635457516,osorno
 car,Baseline,558647.6099719888,osorno
 car,Bicycling,537490.8914845939,osorno
-car,Car,658594.630067066,osorno
+car,Car,658309.0348165979,osorno
 car,Public Transport,484578.0196078432,osorno
 car,Motorcycling,510728.0478991597,osorno
 car_driver,Baseline,512947.82013467635,osorno
 car_driver,Bicycling,493404.4120429629,osorno
-car_driver,Car,605378.1879485233,osorno
+car_driver,Car,605114.3708290452,osorno
 car_driver,Public Transport,444526.42328454566,osorno
 car_driver,Motorcycling,469476.09215871774,osorno
 cycle,Baseline,18847.51535364146,osorno
-cycle,Bicycling,73703.98652740275,osorno
+cycle,Bicycling,73618.3079522623,osorno
 cycle,Car,16708.4576302521,osorno
 cycle,Public Transport,16629.09967086835,osorno
 cycle,Motorcycling,17963.756260504204,osorno
-motorcycle,Baseline,17701.798818420037,osorno
-motorcycle,Bicycling,16522.151603342223,osorno
-motorcycle,Car,16425.883652964585,osorno
-motorcycle,Public Transport,16921.806181859705,osorno
-motorcycle,Motorcycling,132108.0510025937,osorno
+motorcycle,Baseline,14845.846313738519,osorno
+motorcycle,Bicycling,13751.87767380115,osorno
+motorcycle,Car,13855.526398751217,osorno
+motorcycle,Public Transport,14180.091777365447,osorno
+motorcycle,Motorcycling,129252.09849791217,osorno
 pedestrian,Baseline,96029.00772058824,osorno
 pedestrian,Bicycling,90842.77458333335,osorno
 pedestrian,Car,90686.73365196079,osorno
@@ -715,50 +715,50 @@ truck,Car,226990.67583193278,osorno
 truck,Public Transport,226990.67583193278,osorno
 truck,Motorcycling,226990.67583193278,osorno
 bus,Baseline,867190.110119871,puerto_montt
-bus,Bicycling,846097.189857077,puerto_montt
-bus,Car,770018.7422083908,puerto_montt
-bus,Public Transport,1020841.9642235073,puerto_montt
-bus,Motorcycling,801696.7316966343,puerto_montt
+bus,Bicycling,846770.5324573537,puerto_montt
+bus,Car,769005.6395804518,puerto_montt
+bus,Public Transport,1023408.6583521297,puerto_montt
+bus,Motorcycling,802635.7048639926,puerto_montt
 bus_driver,Baseline,68693.02558475488,puerto_montt
-bus_driver,Bicycling,58052.153348701395,puerto_montt
-bus_driver,Car,52861.64970185953,puerto_montt
-bus_driver,Public Transport,72811.53584449938,puerto_montt
-bus_driver,Motorcycling,55017.99334409099,puerto_montt
+bus_driver,Bicycling,58097.042855386506,puerto_montt
+bus_driver,Car,52808.935418779765,puerto_montt
+bus_driver,Public Transport,72986.35525943658,puerto_montt
+bus_driver,Motorcycling,55069.472136161065,puerto_montt
 car,Baseline,1258545.9055076782,puerto_montt
-car,Bicycling,1217185.4680143278,puerto_montt
-car,Car,1433267.9453042697,puerto_montt
-car,Public Transport,1113506.8639926233,puerto_montt
-car,Motorcycling,1180075.119594283,puerto_montt
+car,Bicycling,1215695.2757811113,puerto_montt
+car,Car,1435105.689062248,puerto_montt
+car,Public Transport,1113522.0700358194,puerto_montt
+car,Motorcycling,1180154.9513210624,puerto_montt
 car_driver,Baseline,1141709.1642504828,puerto_montt
-car_driver,Bicycling,1104007.3408213316,puerto_montt
-car_driver,Car,1301357.0190980982,puerto_montt
-car_driver,Public Transport,1009499.8196464,puerto_montt
-car_driver,Motorcycling,1070491.528669975,puerto_montt
+car_driver,Bicycling,1102648.9663007222,puerto_montt
+car_driver,Car,1303032.201829965,puerto_montt
+car_driver,Public Transport,1009513.6806108961,puerto_montt
+car_driver,Motorcycling,1070564.2987335792,puerto_montt
 cycle,Baseline,6660.9597031599105,puerto_montt
-cycle,Bicycling,98583.87344960653,puerto_montt
-cycle,Car,5582.518608362592,puerto_montt
+cycle,Bicycling,99168.32060440605,puerto_montt
+cycle,Car,5709.394031279923,puerto_montt
 cycle,Public Transport,6534.08428024258,puerto_montt
 cycle,Motorcycling,6660.9597031599105,puerto_montt
-motorcycle,Baseline,11260.096430887219,puerto_montt
-motorcycle,Bicycling,10461.701202900009,puerto_montt
-motorcycle,Car,10164.26928244967,puerto_montt
-motorcycle,Public Transport,10455.84837736257,puerto_montt
-motorcycle,Motorcycling,196840.15978656337,puerto_montt
+motorcycle,Baseline,9718.189442503479,puerto_montt
+motorcycle,Bicycling,8835.720918637895,puerto_montt
+motorcycle,Car,9553.021256589891,puerto_montt
+motorcycle,Public Transport,8539.721094806915,puerto_montt
+motorcycle,Motorcycling,194609.87047080437,puerto_montt
 other,Baseline,7534.23009220839,puerto_montt
 other,Bicycling,7534.23009220839,puerto_montt
 other,Car,7443.421502996773,puerto_montt
-other,Public Transport,7145.050424158599,puerto_montt
+other,Public Transport,7248.831668971876,puerto_montt
 other,Motorcycling,7330.991821115721,puerto_montt
 pedestrian,Baseline,145190.62675816577,puerto_montt
-pedestrian,Bicycling,136133.05209064792,puerto_montt
-pedestrian,Car,135033.70268645603,puerto_montt
-pedestrian,Public Transport,155866.4570539419,puerto_montt
-pedestrian,Motorcycling,139376.21599106287,puerto_montt
+pedestrian,Bicycling,136382.5262368337,puerto_montt
+pedestrian,Car,134724.35474518564,puerto_montt
+pedestrian,Public Transport,155678.5198638153,puerto_montt
+pedestrian,Motorcycling,139258.1315618683,puerto_montt
 taxi,Baseline,560240.811286307,puerto_montt
-taxi,Bicycling,540954.3927146505,puerto_montt
-taxi,Car,496019.7510086179,puerto_montt
-taxi,Public Transport,508713.2094015321,puerto_montt
-taxi,Motorcycling,525188.9096856049,puerto_montt
+taxi,Bicycling,541021.3943424831,puerto_montt
+taxi,Car,494284.4088477497,puerto_montt
+taxi,Public Transport,506549.05682253424,puerto_montt
+taxi,Motorcycling,524863.951790616,puerto_montt
 truck,Baseline,489829.9885689967,puerto_montt
 truck,Bicycling,489829.9885689967,puerto_montt
 truck,Car,489829.9885689967,puerto_montt
@@ -767,33 +767,33 @@ truck,Motorcycling,489829.9885689967,puerto_montt
 bus,Baseline,92111.27935592186,san_antonio
 bus,Bicycling,87909.79972826963,san_antonio
 bus,Car,75141.40842945839,san_antonio
-bus,Public Transport,152845.87076126115,san_antonio
+bus,Public Transport,152788.49106946235,san_antonio
 bus,Motorcycling,83423.12779148524,san_antonio
 bus_driver,Baseline,7886.871715429924,san_antonio
 bus_driver,Bicycling,6229.307485236636,san_antonio
 bus_driver,Car,5348.156103328189,san_antonio
-bus_driver,Public Transport,10972.239354641823,san_antonio
+bus_driver,Public Transport,10968.414041855234,san_antonio
 bus_driver,Motorcycling,5928.9226059621715,san_antonio
 car,Baseline,282639.706251987,san_antonio
 car,Bicycling,270511.0387614901,san_antonio
-car,Car,336250.7118546206,san_antonio
+car,Car,336006.8481644757,san_antonio
 car,Public Transport,236201.2437735849,san_antonio
 car,Motorcycling,245750.0763950515,san_antonio
 car_driver,Baseline,258475.1026057536,san_antonio
 car_driver,Bicycling,247172.01818548815,san_antonio
-car_driver,Car,309710.74759511824,san_antonio
+car_driver,Car,309483.34889052174,san_antonio
 car_driver,Public Transport,215172.03356433648,san_antonio
 car_driver,Motorcycling,225046.17691442632,san_antonio
 cycle,Baseline,2024.3964575990049,san_antonio
-cycle,Bicycling,28729.9124188063,san_antonio
+cycle,Bicycling,28615.153035208736,san_antonio
 cycle,Car,1829.572651530859,san_antonio
 cycle,Public Transport,1820.717023982307,san_antonio
 cycle,Motorcycling,2015.5408300504528,san_antonio
-motorcycle,Baseline,10226.449713100668,san_antonio
-motorcycle,Bicycling,9562.083572198859,san_antonio
-motorcycle,Car,7712.650468370203,san_antonio
-motorcycle,Public Transport,8841.007447128304,san_antonio
-motorcycle,Motorcycling,73695.56560460434,san_antonio
+motorcycle,Baseline,8791.95741813116,san_antonio
+motorcycle,Bicycling,8242.350660826913,san_antonio
+motorcycle,Car,6522.021863545512,san_antonio
+motorcycle,Public Transport,7463.894843957578,san_antonio
+motorcycle,Motorcycling,72261.07330963483,san_antonio
 other,Baseline,3321.398394153017,san_antonio
 other,Bicycling,3303.2387528509225,san_antonio
 other,Car,1505.4342639436036,san_antonio
@@ -817,33 +817,33 @@ truck,Motorcycling,108911.35913083144,san_antonio
 bus,Baseline,8327531.967294219,santiago
 bus,Bicycling,8168589.236428019,santiago
 bus,Car,7685623.388750935,santiago
-bus,Public Transport,9731446.723693764,santiago
+bus,Public Transport,9675838.962222569,santiago
 bus,Motorcycling,7858677.423787866,santiago
 bus_driver,Baseline,543586.2684025388,santiago
 bus_driver,Bicycling,482436.6415278968,santiago
 bus_driver,Car,453539.9222439278,santiago
-bus_driver,Public Transport,577291.2797889087,santiago
+bus_driver,Public Transport,574551.9811942686,santiago
 bus_driver,Motorcycling,465148.30466130766,santiago
 car,Baseline,8470889.983631272,santiago
 car,Bicycling,8174860.190710874,santiago
-car,Car,10214513.800380075,santiago
+car,Car,10194653.885568935,santiago
 car,Public Transport,7129558.27038806,santiago
 car,Motorcycling,7986977.539762578,santiago
 car_driver,Baseline,7571322.746875656,santiago
 car_driver,Bicycling,7307051.317618266,santiago
-car_driver,Car,9140689.826921482,santiago
+car_driver,Car,9122870.095877312,santiago
 car_driver,Public Transport,6371381.3101505125,santiago
 car_driver,Motorcycling,7137425.982245287,santiago
 cycle,Baseline,457432.7901331543,santiago
-cycle,Bicycling,1203019.136053768,santiago
+cycle,Bicycling,1199047.1530915394,santiago
 cycle,Car,402498.788739532,santiago
 cycle,Public Transport,402216.97016381397,santiago
 cycle,Motorcycling,428632.306419531,santiago
-motorcycle,Baseline,1067833.4572220652,santiago
-motorcycle,Bicycling,1051230.837946665,santiago
-motorcycle,Car,1010175.5224587943,santiago
-motorcycle,Public Transport,906689.3587684884,santiago
-motorcycle,Motorcycling,2862265.204568904,santiago
+motorcycle,Baseline,670635.1609992381,santiago
+motorcycle,Bicycling,658004.5246860661,santiago
+motorcycle,Car,632837.1410471085,santiago
+motorcycle,Public Transport,565098.8240168571,santiago
+motorcycle,Motorcycling,2465066.908346077,santiago
 other,Baseline,31178.184745748396,santiago
 other,Bicycling,29800.595976232406,santiago
 other,Car,28720.864237963116,santiago
@@ -872,33 +872,33 @@ truck,Motorcycling,3174478.279246431,santiago
 bus,Baseline,25069887.405574944,sao_paulo
 bus,Bicycling,24192293.99997025,sao_paulo
 bus,Car,22157332.14327391,sao_paulo
-bus,Public Transport,31202742.852589034,sao_paulo
+bus,Public Transport,31202742.853570197,sao_paulo
 bus,Motorcycling,23146739.907173038,sao_paulo
 bus_driver,Baseline,1170331.0607765191,sao_paulo
 bus_driver,Bicycling,1051838.8695639237,sao_paulo
 bus_driver,Car,963362.2670988656,sao_paulo
-bus_driver,Public Transport,1405999.703629502,sao_paulo
+bus_driver,Public Transport,1405999.7036721613,sao_paulo
 bus_driver,Motorcycling,1006379.9959640449,sao_paulo
 car,Baseline,32687908.799218576,sao_paulo
 car,Bicycling,31470234.872310292,sao_paulo
-car,Car,39595988.59842835,sao_paulo
+car,Car,39595988.59874054,sao_paulo
 car,Public Transport,26721837.330969233,sao_paulo
 car,Motorcycling,30286973.13427854,sao_paulo
 car_driver,Baseline,29336223.141221784,sao_paulo
 car_driver,Bicycling,28243404.562570978,sao_paulo
-car_driver,Car,35535976.4418009,sao_paulo
+car_driver,Car,35535976.44208109,sao_paulo
 car_driver,Public Transport,23981888.456060667,sao_paulo
 car_driver,Motorcycling,27181469.686449472,sao_paulo
 cycle,Baseline,401239.18001522106,sao_paulo
-cycle,Bicycling,3470910.900206392,sao_paulo
+cycle,Bicycling,3470910.900295589,sao_paulo
 cycle,Car,350025.2249579115,sao_paulo
 cycle,Public Transport,360033.606123475,sao_paulo
 cycle,Motorcycling,383321.38166370697,sao_paulo
-motorcycle,Baseline,4444074.618707761,sao_paulo
-motorcycle,Bicycling,4330962.034163332,sao_paulo
-motorcycle,Car,4040988.046294257,sao_paulo
-motorcycle,Public Transport,3554853.475209963,sao_paulo
-motorcycle,Motorcycling,11462390.324213095,sao_paulo
+motorcycle,Baseline,4444074.623167603,sao_paulo
+motorcycle,Bicycling,4330962.038533977,sao_paulo
+motorcycle,Car,4040988.050441911,sao_paulo
+motorcycle,Public Transport,3554853.4786886396,sao_paulo
+motorcycle,Motorcycling,11462390.328672938,sao_paulo
 other,Baseline,173302.25686995994,sao_paulo
 other,Bicycling,159476.41688502725,sao_paulo
 other,Car,163455.7027630436,sao_paulo
@@ -925,50 +925,50 @@ truck,Car,12287150.08884937,sao_paulo
 truck,Public Transport,12287150.08884937,sao_paulo
 truck,Motorcycling,12287150.08884937,sao_paulo
 bus,Baseline,1360720.3769925402,temuco_padrelascasas
-bus,Bicycling,1313135.2295249314,temuco_padrelascasas
-bus,Car,1201757.4836277976,temuco_padrelascasas
-bus,Public Transport,1637670.2821277983,temuco_padrelascasas
-bus,Motorcycling,1233561.2891244602,temuco_padrelascasas
+bus,Bicycling,1312036.7868865333,temuco_padrelascasas
+bus,Car,1190868.740400471,temuco_padrelascasas
+bus,Public Transport,1639105.239867304,temuco_padrelascasas
+bus,Motorcycling,1235191.7301138593,temuco_padrelascasas
 bus_driver,Baseline,109768.8229865201,temuco_padrelascasas
-bus_driver,Bicycling,89124.82046852505,temuco_padrelascasas
-bus_driver,Car,81556.75056144485,temuco_padrelascasas
-bus_driver,Public Transport,114500.55386937578,temuco_padrelascasas
-bus_driver,Motorcycling,83741.30334249443,temuco_padrelascasas
+bus_driver,Bicycling,89051.59095929851,temuco_padrelascasas
+bus_driver,Car,80830.83434628975,temuco_padrelascasas
+bus_driver,Public Transport,114599.78988985794,temuco_padrelascasas
+bus_driver,Motorcycling,83849.99940845442,temuco_padrelascasas
 car,Baseline,1312836.501803026,temuco_padrelascasas
-car,Bicycling,1267139.4038235026,temuco_padrelascasas
-car,Car,1553189.3007024026,temuco_padrelascasas
-car,Public Transport,1059546.7973301925,temuco_padrelascasas
-car,Motorcycling,1209133.6245718945,temuco_padrelascasas
+car,Bicycling,1268260.5160097855,temuco_padrelascasas
+car,Car,1563223.5278432826,temuco_padrelascasas
+car,Public Transport,1054011.894729848,temuco_padrelascasas
+car,Motorcycling,1210782.3189634865,temuco_padrelascasas
 car_driver,Baseline,1196248.9140140899,temuco_padrelascasas
-car_driver,Bicycling,1154508.4439276198,temuco_padrelascasas
-car_driver,Car,1415791.0568686377,temuco_padrelascasas
-car_driver,Public Transport,964889.9918896125,temuco_padrelascasas
-car_driver,Motorcycling,1101847.7271573583,temuco_padrelascasas
+car_driver,Bicycling,1155532.4859728299,temuco_padrelascasas
+car_driver,Car,1425300.6984166813,temuco_padrelascasas
+car_driver,Public Transport,959834.322128598,temuco_padrelascasas
+car_driver,Motorcycling,1103353.6713414905,temuco_padrelascasas
 cycle,Baseline,72067.25818972547,temuco_padrelascasas
-cycle,Bicycling,201601.34974347975,temuco_padrelascasas
-cycle,Car,63708.67203406723,temuco_padrelascasas
-cycle,Public Transport,62566.244584579144,temuco_padrelascasas
-cycle,Motorcycling,68236.4578889191,temuco_padrelascasas
-motorcycle,Baseline,40791.96438699657,temuco_padrelascasas
-motorcycle,Bicycling,39145.09480298048,temuco_padrelascasas
-motorcycle,Car,37652.215420271044,temuco_padrelascasas
-motorcycle,Public Transport,33167.4364327357,temuco_padrelascasas
-motorcycle,Motorcycling,314196.60403907596,temuco_padrelascasas
+cycle,Bicycling,201634.8948219463,temuco_padrelascasas
+cycle,Car,63839.68435625623,temuco_padrelascasas
+cycle,Public Transport,63195.103731086354,temuco_padrelascasas
+cycle,Motorcycling,67508.02937754826,temuco_padrelascasas
+motorcycle,Baseline,34210.71724612999,temuco_padrelascasas
+motorcycle,Bicycling,32354.922717741716,temuco_padrelascasas
+motorcycle,Car,31335.987797942722,temuco_padrelascasas
+motorcycle,Public Transport,32076.5429032743,temuco_padrelascasas
+motorcycle,Motorcycling,304525.05590699794,temuco_padrelascasas
 pedestrian,Baseline,240853.6419316843,temuco_padrelascasas
-pedestrian,Bicycling,227717.66936667572,temuco_padrelascasas
-pedestrian,Car,228645.0599619462,temuco_padrelascasas
-pedestrian,Public Transport,253604.23218265834,temuco_padrelascasas
-pedestrian,Motorcycling,232671.99601340946,temuco_padrelascasas
+pedestrian,Bicycling,227550.73905952706,temuco_padrelascasas
+pedestrian,Car,228838.78155295824,temuco_padrelascasas
+pedestrian,Public Transport,253525.91919905774,temuco_padrelascasas
+pedestrian,Motorcycling,232680.2394853674,temuco_padrelascasas
 rail,Baseline,5505.2261012956415,temuco_padrelascasas
 rail,Bicycling,5109.068391773127,temuco_padrelascasas
 rail,Car,4193.807476669384,temuco_padrelascasas
 rail,Public Transport,5505.2261012956415,temuco_padrelascasas
 rail,Motorcycling,4808.5349569629425,temuco_padrelascasas
 taxi,Baseline,433463.12969466334,temuco_padrelascasas
-taxi,Bicycling,413055.943807194,temuco_padrelascasas
-taxi,Car,378949.87398387236,temuco_padrelascasas
-taxi,Public Transport,373846.69378635497,temuco_padrelascasas
-taxi,Motorcycling,404554.3334130652,temuco_padrelascasas
+taxi,Bicycling,413375.58443236386,temuco_padrelascasas
+taxi,Car,378837.79220621544,temuco_padrelascasas
+taxi,Public Transport,371866.5823810818,temuco_padrelascasas
+taxi,Motorcycling,405085.68406269816,temuco_padrelascasas
 truck,Baseline,521807.53543897794,temuco_padrelascasas
 truck,Bicycling,521807.53543897794,temuco_padrelascasas
 truck,Car,521807.53543897794,temuco_padrelascasas
@@ -977,33 +977,33 @@ truck,Motorcycling,521807.53543897794,temuco_padrelascasas
 bus,Baseline,382974.53238448844,valdivia
 bus,Bicycling,366567.90919966996,valdivia
 bus,Car,321865.42451870185,valdivia
-bus,Public Transport,487729.30734616646,valdivia
+bus,Public Transport,487417.9768767396,valdivia
 bus,Motorcycling,345824.3862623762,valdivia
 bus_driver,Baseline,31529.874499449943,valdivia
 bus_driver,Bicycling,25214.472318481843,valdivia
 bus_driver,Car,22144.589797396406,valdivia
-bus_driver,Public Transport,35335.761435839035,valdivia
+bus_driver,Public Transport,35315.006071210584,valdivia
 bus_driver,Motorcycling,23789.516003850382,valdivia
 car,Baseline,641186.6693069307,valdivia
 car,Bicycling,611499.2257425742,valdivia
-car,Car,749195.2779383109,valdivia
+car,Car,749101.8787974827,valdivia
 car,Public Transport,550907.9848184818,valdivia
 car,Motorcycling,592125.9878987898,valdivia
 car_driver,Baseline,574527.2488361419,valdivia
 car_driver,Bicycling,547877.7848009967,valdivia
-car_driver,Car,671483.1057784316,valdivia
+car_driver,Car,671399.2643712381,valdivia
 car_driver,Public Transport,493486.9750180316,valdivia
 car_driver,Motorcycling,530487.0517780255,valdivia
 cycle,Baseline,32397.47011551155,valdivia
-cycle,Bicycling,96457.93464850464,valdivia
+cycle,Bicycling,96240.00331990581,valdivia
 cycle,Car,29370.779117161717,valdivia
 cycle,Public Transport,30007.787805280528,valdivia
 cycle,Motorcycling,30259.712145214522,valdivia
-motorcycle,Baseline,19296.92222404096,valdivia
-motorcycle,Bicycling,17552.207662169978,valdivia
-motorcycle,Car,18683.71362291379,valdivia
-motorcycle,Public Transport,18153.634271438845,valdivia
-motorcycle,Motorcycling,133880.6375554491,valdivia
+motorcycle,Baseline,16183.617529771867,valdivia
+motorcycle,Bicycling,14656.834296499717,valdivia
+motorcycle,Car,15663.80806947277,valdivia
+motorcycle,Public Transport,15351.660046596657,valdivia
+motorcycle,Motorcycling,130767.33286118001,valdivia
 other,Baseline,727.3725605060506,valdivia
 other,Bicycling,727.3725605060506,valdivia
 other,Car,618.2053465346535,valdivia
@@ -1075,375 +1075,375 @@ truck,Car,915484.5897735442,accra
 truck,Public Transport,915484.5897735442,accra
 truck,Motorcycling,915484.5897735442,accra
 auto_rickshaw,Baseline,167804.25275588402,bangalore
-auto_rickshaw,Bicycling,151095.7899225864,bangalore
-auto_rickshaw,Car,157641.6693563169,bangalore
-auto_rickshaw,Public Transport,155171.97239319072,bangalore
-auto_rickshaw,Motorcycling,150061.96328685922,bangalore
+auto_rickshaw,Bicycling,153023.23467971841,bangalore
+auto_rickshaw,Car,159077.53968371585,bangalore
+auto_rickshaw,Public Transport,153065.46615993607,bangalore
+auto_rickshaw,Motorcycling,151624.52805491097,bangalore
 bus,Baseline,8365882.026253826,bangalore
-bus,Bicycling,8102636.31746534,bangalore
-bus,Car,7806223.411829944,bangalore
-bus,Public Transport,10486683.404404772,bangalore
-bus,Motorcycling,7049336.746209757,bangalore
+bus,Bicycling,8091022.660405495,bangalore
+bus,Car,7810378.989483358,bangalore
+bus,Public Transport,11011183.041835198,bangalore
+bus,Motorcycling,7049944.879524891,bangalore
 bus_driver,Baseline,253222.89371694127,bangalore
-bus_driver,Bicycling,217397.10631534518,bangalore
-bus_driver,Car,209602.45988307922,bangalore
-bus_driver,Public Transport,286044.81534131855,bangalore
-bus_driver,Motorcycling,189530.02893100076,bangalore
+bus_driver,Bicycling,217090.87575730513,bangalore
+bus_driver,Car,209732.29391147225,bangalore
+bus_driver,Public Transport,298059.9080765303,bangalore
+bus_driver,Motorcycling,189451.20112804783,bangalore
 car,Baseline,1922683.1577374567,bangalore
-car,Bicycling,1883724.6172367062,bangalore
-car,Car,3990853.3425097987,bangalore
-car,Public Transport,1698940.7755445277,bangalore
-car,Motorcycling,1599168.9035304098,bangalore
+car,Bicycling,1880557.2562203847,bangalore
+car,Car,4252305.4085637005,bangalore
+car,Public Transport,1691497.4771561725,bangalore
+car,Motorcycling,1604711.7853089718,bangalore
 car_driver,Baseline,1110260.780157252,bangalore
-car_driver,Bicycling,1087478.7912745897,bangalore
-car_driver,Car,2319953.27296375,bangalore
-car_driver,Public Transport,979421.7805904831,bangalore
-car_driver,Motorcycling,924967.2705782662,bangalore
+car_driver,Bicycling,1085626.5970564873,bangalore
+car_driver,Car,2472843.9610036234,bangalore
+car_driver,Public Transport,975069.1241779419,bangalore
+car_driver,Motorcycling,928579.0493035663,bangalore
 cycle,Baseline,653426.5776670631,bangalore
-cycle,Bicycling,1696764.7633334147,bangalore
-cycle,Car,597364.2876781779,bangalore
-cycle,Public Transport,594640.3572041417,bangalore
-cycle,Motorcycling,569808.2468361836,bangalore
-motorcycle,Baseline,20225478.68622253,bangalore
-motorcycle,Bicycling,19646247.54036279,bangalore
-motorcycle,Car,18941778.93991771,bangalore
-motorcycle,Public Transport,17907635.568088837,bangalore
-motorcycle,Motorcycling,22323411.999378838,bangalore
+cycle,Bicycling,1754514.1215999753,bangalore
+cycle,Car,598947.9681863385,bangalore
+cycle,Public Transport,596224.0377123023,bangalore
+cycle,Motorcycling,576333.0105298052,bangalore
+motorcycle,Baseline,23547659.41189971,bangalore
+motorcycle,Bicycling,22922790.403599218,bangalore
+motorcycle,Car,21999040.395015124,bangalore
+motorcycle,Public Transport,20709004.731502995,bangalore
+motorcycle,Motorcycling,25642340.267607056,bangalore
 other,Baseline,44102.8274918589,bangalore
-other,Bicycling,42277.37175945244,bangalore
-other,Car,41348.63112366671,bangalore
-other,Public Transport,38818.61352962971,bangalore
-other,Motorcycling,38703.32158863561,bangalore
-pedestrian,Baseline,1507496.95903623,bangalore
-pedestrian,Bicycling,1430483.4205539846,bangalore
-pedestrian,Car,1458314.1771747947,bangalore
-pedestrian,Public Transport,1596309.7619338767,bangalore
-pedestrian,Motorcycling,1415258.0569201293,bangalore
-rail,Baseline,76158.49177943959,bangalore
-rail,Bicycling,75705.38318960475,bangalore
-rail,Car,74853.53904071524,bangalore
-rail,Public Transport,76158.49177943959,bangalore
-rail,Motorcycling,48102.00789686642,bangalore
+other,Bicycling,42021.16744613225,bangalore
+other,Car,40772.17141869625,bangalore
+other,Public Transport,39971.53293957062,bangalore
+other,Motorcycling,38338.230442154316,bangalore
+pedestrian,Baseline,1508172.6627197121,bangalore
+pedestrian,Bicycling,1429769.919695708,bangalore
+pedestrian,Car,1459880.9650908683,bangalore
+pedestrian,Public Transport,1596689.845255835,bangalore
+pedestrian,Motorcycling,1412967.4214331259,bangalore
+rail,Baseline,69198.74383957648,bangalore
+rail,Bicycling,68745.63524974162,bangalore
+rail,Car,67893.79110085215,bangalore
+rail,Public Transport,69198.74383957648,bangalore
+rail,Motorcycling,43752.16543445197,bangalore
 taxi,Baseline,505865.5626386912,bangalore
-taxi,Bicycling,484834.2854903185,bangalore
-taxi,Car,473938.5635941735,bangalore
-taxi,Public Transport,446825.9532944641,bangalore
-taxi,Motorcycling,419459.95411344897,bangalore
+taxi,Bicycling,485721.14657488844,bangalore
+taxi,Car,467857.2304428369,bangalore
+taxi,Public Transport,449613.2309888267,bangalore
+taxi,Motorcycling,419206.5652321433,bangalore
 truck,Baseline,700933.8255508647,bangalore
 truck,Bicycling,700933.8255508647,bangalore
 truck,Car,700933.8255508647,bangalore
 truck,Public Transport,700933.8255508647,bangalore
 truck,Motorcycling,700933.8255508647,bangalore
 bus,Baseline,9690430.101663718,cape_town
-bus,Bicycling,9528341.221699117,cape_town
-bus,Car,8707653.639292035,cape_town
-bus,Public Transport,12153314.832672568,cape_town
-bus,Motorcycling,8941824.174477875,cape_town
+bus,Bicycling,9476082.021663718,cape_town
+bus,Car,8483252.065274335,cape_town
+bus,Public Transport,12162272.296981614,cape_town
+bus,Motorcycling,9008025.484141594,cape_town
 bus_driver,Baseline,670847.8416159293,cape_town
-bus_driver,Bicycling,592278.8374247788,cape_town
-bus_driver,Car,540944.3691504425,cape_town
-bus_driver,Public Transport,752436.0554884957,cape_town
-bus_driver,Motorcycling,557945.2069115044,cape_town
+bus_driver,Bicycling,589836.5971327435,cape_town
+bus_driver,Car,528927.5984707965,cape_town
+bus_driver,Public Transport,753339.1812632399,cape_town
+bus_driver,Motorcycling,560003.3278566372,cape_town
 car,Baseline,17982357.536681417,cape_town
-car,Bicycling,17495213.587168142,cape_town
-car,Car,20254706.425722126,cape_town
-car,Public Transport,15098854.217123894,cape_town
-car,Motorcycling,16990760.55597345,cape_town
+car,Bicycling,17519280.32402655,cape_town
+car,Car,20442451.7473976,cape_town
+car,Public Transport,15125292.061061947,cape_town
+car,Motorcycling,16941085.86265487,cape_town
 car_driver,Baseline,17929301.526422255,cape_town
-car_driver,Bicycling,17443594.86978508,cape_town
-car_driver,Car,20194945.968300045,cape_town
-car_driver,Public Transport,15054305.833375474,cape_town
-car_driver,Motorcycling,16940630.201011382,cape_town
+car_driver,Bicycling,17467590.598988626,cape_town
+car_driver,Car,20382137.357172627,cape_town
+car_driver,Public Transport,15080665.673830593,cape_town
+car_driver,Motorcycling,16891102.070290774,cape_town
 cycle,Baseline,44576.813097345126,cape_town
-cycle,Bicycling,904861.8837345132,cape_town
-cycle,Car,36277.93831858407,cape_town
+cycle,Bicycling,933123.6708758208,cape_town
+cycle,Car,40783.041769911506,cape_town
 cycle,Public Transport,43154.148849557525,cape_town
-cycle,Motorcycling,42063.43959292036,cape_town
-motorcycle,Baseline,199054.4393362832,cape_town
-motorcycle,Bicycling,196090.55548672567,cape_town
-motorcycle,Car,164910.49738938053,cape_town
-motorcycle,Public Transport,193126.67163716815,cape_town
-motorcycle,Motorcycling,2613682.399060177,cape_town
+cycle,Motorcycling,38981.00038938053,cape_town
+motorcycle,Baseline,364598.7471695699,cape_town
+motorcycle,Bicycling,335126.11467958975,cape_town
+motorcycle,Car,301131.05122860486,cape_town
+motorcycle,Public Transport,312495.03770122834,cape_town
+motorcycle,Motorcycling,2858658.7940616054,cape_town
 other,Baseline,47469.56373451327,cape_town
 other,Bicycling,45311.8562920354,cape_town
-other,Car,37400.26233628319,cape_town
+other,Car,38119.49815044247,cape_town
 other,Public Transport,47469.56373451327,cape_town
-other,Motorcycling,47469.56373451327,cape_town
+other,Motorcycling,43873.38466371682,cape_town
 pedestrian,Baseline,1858774.0692566372,cape_town
-pedestrian,Bicycling,1785238.1350265488,cape_town
-pedestrian,Car,1693650.1722300886,cape_town
-pedestrian,Public Transport,1860892.2582477878,cape_town
-pedestrian,Motorcycling,1773746.169380531,cape_town
+pedestrian,Bicycling,1783720.6264955753,cape_town
+pedestrian,Car,1725754.9620884957,cape_town
+pedestrian,Public Transport,1864085.349115044,cape_town
+pedestrian,Motorcycling,1783214.790318584,cape_town
 rail,Baseline,4313159.171753983,cape_town
-rail,Bicycling,4260243.965426548,cape_town
-rail,Car,3654079.924943363,cape_town
+rail,Bicycling,4273594.879023009,cape_town
+rail,Car,3669547.4467929206,cape_town
 rail,Public Transport,4313159.171753983,cape_town
-rail,Motorcycling,3980363.2279592925,cape_town
+rail,Motorcycling,3920121.300755752,cape_town
 truck,Baseline,5730278.190451328,cape_town
 truck,Bicycling,5730278.190451328,cape_town
 truck,Car,5730278.190451328,cape_town
 truck,Public Transport,5730278.190451328,cape_town
 truck,Motorcycling,5730278.190451328,cape_town
 auto_rickshaw,Baseline,2061250.3592641263,delhi
-auto_rickshaw,Bicycling,1967222.2907687253,delhi
-auto_rickshaw,Car,1861561.8839027598,delhi
-auto_rickshaw,Public Transport,1718096.3773324573,delhi
-auto_rickshaw,Motorcycling,1913907.4065703023,delhi
+auto_rickshaw,Bicycling,1984283.0537122206,delhi
+auto_rickshaw,Car,1882887.8375821288,delhi
+auto_rickshaw,Public Transport,1799522.7459264125,delhi
+auto_rickshaw,Motorcycling,1898397.6220762157,delhi
 bus,Baseline,21024734.277240206,delhi
-bus,Bicycling,20323788.954291593,delhi
-bus,Car,19364062.87694282,delhi
-bus,Public Transport,27730389.603258602,delhi
-bus,Motorcycling,18003428.25780762,delhi
+bus,Bicycling,20406184.684408672,delhi
+bus,Car,19334943.256578434,delhi
+bus,Public Transport,28436609.829293773,delhi
+bus,Motorcycling,18647665.93119973,delhi
 bus_driver,Baseline,615013.6671595153,delhi
-bus_driver,Bicycling,549386.5451834514,delhi
-bus_driver,Car,519608.7462674752,delhi
-bus_driver,Public Transport,761225.698067312,delhi
-bus_driver,Motorcycling,490387.88145326864,delhi
+bus_driver,Bicycling,552527.9945890823,delhi
+bus_driver,Car,517924.92938605696,delhi
+bus_driver,Public Transport,778515.8233064823,delhi
+bus_driver,Motorcycling,506189.3719635926,delhi
 car,Baseline,27038788.925459925,delhi
-car,Bicycling,26521072.31904731,delhi
-car,Car,32611039.607450064,delhi
-car,Public Transport,23909689.903777923,delhi
-car,Motorcycling,23440518.922831804,delhi
+car,Bicycling,26303004.749060445,delhi
+car,Car,33196817.767470058,delhi
+car,Public Transport,23426947.861399475,delhi
+car,Motorcycling,23647962.290440213,delhi
 car_driver,Baseline,21141512.83725434,delhi
-car_driver,Bicycling,20735080.50569003,delhi
-car_driver,Car,25515996.50011199,delhi
-car_driver,Public Transport,18685020.24009736,delhi
-car_driver,Motorcycling,18321264.52093966,delhi
+car_driver,Bicycling,20598892.79962212,delhi
+car_driver,Car,26010866.191504337,delhi
+car_driver,Public Transport,18306044.616372395,delhi
+car_driver,Motorcycling,18479551.528439242,delhi
 cycle,Baseline,2971771.645220105,delhi
-cycle,Bicycling,5617118.549808476,delhi
-cycle,Car,2626678.940226675,delhi
-cycle,Public Transport,2587710.6066852827,delhi
-cycle,Motorcycling,2679993.824425098,delhi
-motorcycle,Baseline,24112170.140348222,delhi
-motorcycle,Bicycling,23137283.248741787,delhi
-motorcycle,Car,22201519.788521685,delhi
-motorcycle,Public Transport,20243448.270604465,delhi
-motorcycle,Motorcycling,32721193.974373195,delhi
+cycle,Bicycling,6008558.831942111,delhi
+cycle,Car,2674177.655239816,delhi
+cycle,Public Transport,2570455.971435611,delhi
+cycle,Motorcycling,2583057.671337056,delhi
+motorcycle,Baseline,31655750.846174683,delhi
+motorcycle,Bicycling,30440946.512049586,delhi
+motorcycle,Car,29148632.215365592,delhi
+motorcycle,Public Transport,27283017.5657374,delhi
+motorcycle,Motorcycling,39656729.08889347,delhi
 pedestrian,Baseline,5723707.604834907,delhi
-pedestrian,Bicycling,5471791.868912766,delhi
-pedestrian,Car,5368302.185653046,delhi
-pedestrian,Public Transport,5780512.1905445,delhi
-pedestrian,Motorcycling,5289374.184843387,delhi
+pedestrian,Bicycling,5407666.664925842,delhi
+pedestrian,Car,5363973.6632945705,delhi
+pedestrian,Public Transport,5731268.624775775,delhi
+pedestrian,Motorcycling,5302684.164900811,delhi
 rail,Baseline,5546221.388319579,delhi
-rail,Bicycling,5526834.15770197,delhi
-rail,Car,5119702.314492568,delhi
+rail,Bicycling,5463017.856892385,delhi
+rail,Car,5141247.990212125,delhi
 rail,Public Transport,5546221.388319579,delhi
-rail,Motorcycling,5118829.889114776,delhi
+rail,Motorcycling,5105840.444720792,delhi
 taxi,Baseline,3408953.695647175,delhi
-taxi,Bicycling,3380648.338945466,delhi
-taxi,Car,3240284.7892739815,delhi
-taxi,Public Transport,2982434.6220597895,delhi
-taxi,Motorcycling,3118145.2363830484,delhi
+taxi,Bicycling,3360485.6191031537,delhi
+taxi,Car,3133655.020877135,delhi
+taxi,Public Transport,3214112.0279402104,delhi
+taxi,Motorcycling,2939782.714701051,delhi
 truck,Baseline,8733501.486928383,delhi
 truck,Bicycling,8733501.486928383,delhi
 truck,Car,8733501.486928383,delhi
 truck,Public Transport,8733501.486928383,delhi
 truck,Motorcycling,8733501.486928383,delhi
 auto_rickshaw,Baseline,1061216.9709039812,vizag
-auto_rickshaw,Bicycling,1005677.9407001918,vizag
-auto_rickshaw,Car,985932.0465420935,vizag
-auto_rickshaw,Public Transport,829234.4535532249,vizag
-auto_rickshaw,Motorcycling,902488.081473645,vizag
+auto_rickshaw,Bicycling,1011433.280617683,vizag
+auto_rickshaw,Car,975978.6939789029,vizag
+auto_rickshaw,Public Transport,836301.6724224971,vizag
+auto_rickshaw,Motorcycling,948217.642612181,vizag
 bus,Baseline,4658916.51666363,vizag
-bus,Bicycling,4452959.9849691745,vizag
-bus,Car,4166191.032746193,vizag
-bus,Public Transport,5589859.675788164,vizag
-bus,Motorcycling,4035443.9288958847,vizag
+bus,Bicycling,4446984.587937191,vizag
+bus,Car,4206766.179164506,vizag
+bus,Public Transport,5726340.559498052,vizag
+bus,Motorcycling,3967293.933284652,vizag
 bus_driver,Baseline,144374.4237905752,vizag
-bus_driver,Bicycling,128793.42578417822,vizag
-bus_driver,Car,119252.01936029657,vizag
-bus_driver,Public Transport,159166.00118375607,vizag
-bus_driver,Motorcycling,114436.58088540222,vizag
+bus_driver,Bicycling,129011.04521310393,vizag
+bus_driver,Car,119739.60840831746,vizag
+bus_driver,Public Transport,162345.4519391412,vizag
+bus_driver,Motorcycling,113383.42281858734,vizag
 car,Baseline,308757.05910305324,vizag
-car,Bicycling,290458.46365950065,vizag
-car,Car,1290697.6081376632,vizag
-car,Public Transport,225643.1797063432,vizag
-car,Motorcycling,251965.3960936923,vizag
+car,Bicycling,295282.7927079858,vizag
+car,Car,1340208.0598141206,vizag
+car,Public Transport,218025.81805084023,vizag
+car,Motorcycling,286548.21800967574,vizag
 car_driver,Baseline,200165.5042268995,vizag
-car_driver,Bicycling,188302.62538538207,vizag
-car_driver,Car,836752.1645913154,vizag
-car_driver,Public Transport,146283.23307810142,vizag
-car_driver,Motorcycling,163347.78127288373,vizag
+car_driver,Bicycling,191430.21138892736,vizag
+car_driver,Car,868849.5182618982,vizag
+car_driver,Public Transport,141344.9393882931,vizag
+car_driver,Motorcycling,185767.63462461377,vizag
 cycle,Baseline,272820.0395594249,vizag
-cycle,Bicycling,675566.8777562118,vizag
-cycle,Car,250983.60281364972,vizag
-cycle,Public Transport,210526.94868775623,vizag
-cycle,Motorcycling,241165.6700132237,vizag
-motorcycle,Baseline,2298357.7556153205,vizag
-motorcycle,Bicycling,2204513.5527665587,vizag
-motorcycle,Car,2076269.3446815454,vizag
-motorcycle,Public Transport,1672125.9901812496,vizag
-motorcycle,Motorcycling,3505838.2267871653,vizag
+cycle,Bicycling,669264.1594622413,vizag
+cycle,Car,254707.6462896734,vizag
+cycle,Public Transport,221614.44176409944,vizag
+cycle,Motorcycling,237103.0771302888,vizag
+motorcycle,Baseline,3102804.729572272,vizag
+motorcycle,Bicycling,2994708.2177768643,vizag
+motorcycle,Car,2819368.4869493875,vizag
+motorcycle,Public Transport,2288229.69678358,vizag
+motorcycle,Motorcycling,4286327.751964043,vizag
 other,Baseline,340242.15394579887,vizag
-other,Bicycling,336856.65987668646,vizag
-other,Car,302324.6203717397,vizag
-other,Public Transport,235630.38721022487,vizag
-other,Motorcycling,223950.43267178698,vizag
+other,Bicycling,338041.58280087577,vizag
+other,Car,301647.5215579172,vizag
+other,Public Transport,278626.16188795265,vizag
+other,Motorcycling,219549.29038194084,vizag
 pedestrian,Baseline,933338.9604274435,vizag
-pedestrian,Bicycling,876313.6983273138,vizag
-pedestrian,Car,888170.8270553686,vizag
-pedestrian,Public Transport,939943.4951072703,vizag
-pedestrian,Motorcycling,874644.08550223,vizag
+pedestrian,Bicycling,875576.2248692588,vizag
+pedestrian,Car,886994.3678663521,vizag
+pedestrian,Public Transport,936862.1312553666,vizag
+pedestrian,Motorcycling,870264.3846748214,vizag
 truck,Baseline,111518.17463656332,vizag
 truck,Bicycling,111518.17463656332,vizag
 truck,Car,111518.17463656332,vizag
 truck,Public Transport,111518.17463656332,vizag
 truck,Motorcycling,111518.17463656332,vizag
 auto_rickshaw,Baseline,25414.941815913746,kisumu
-auto_rickshaw,Bicycling,23924.960402744367,kisumu
-auto_rickshaw,Car,24132.015040541744,kisumu
-auto_rickshaw,Public Transport,24237.57230686982,kisumu
-auto_rickshaw,Motorcycling,23169.81995901274,kisumu
+auto_rickshaw,Bicycling,23279.43712019959,kisumu
+auto_rickshaw,Car,23596.10891918382,kisumu
+auto_rickshaw,Public Transport,24075.17651251893,kisumu
+auto_rickshaw,Motorcycling,22662.333101666223,kisumu
 bus,Baseline,336390.7083132852,kisumu
-bus,Bicycling,319765.4388666132,kisumu
-bus,Car,288524.5479283614,kisumu
-bus,Public Transport,443238.00623273634,kisumu
-bus,Motorcycling,262520.9213579257,kisumu
+bus,Bicycling,318060.2830259289,kisumu
+bus,Car,284992.4394012296,kisumu
+bus,Public Transport,466541.5701380036,kisumu
+bus,Motorcycling,263860.6866613205,kisumu
 bus_driver,Baseline,18971.07669607057,kisumu
-bus_driver,Bicycling,17595.990307404438,kisumu
-bus_driver,Car,15899.969230152365,kisumu
-bus_driver,Public Transport,25304.25893232648,kisumu
-bus_driver,Motorcycling,14502.350425020048,kisumu
+bus_driver,Bicycling,17498.55283079391,kisumu
+bus_driver,Car,15747.72317294841,kisumu
+bus_driver,Public Transport,26463.34728530168,kisumu
+bus_driver,Motorcycling,14605.87774391874,kisumu
 car,Baseline,156752.54049719326,kisumu
-car,Bicycling,148698.72407110396,kisumu
-car,Car,268466.6373785975,kisumu
-car,Public Transport,113392.86340550655,kisumu
-car,Motorcycling,129926.7852178562,kisumu
+car,Bicycling,148759.62249398557,kisumu
+car,Car,291759.1391950563,kisumu
+car,Public Transport,116620.47981823042,kisumu
+car,Motorcycling,120335.28361400694,kisumu
 car_driver,Baseline,146443.812258075,kisumu
-car_driver,Bicycling,138823.4328871797,kisumu
-car_driver,Car,252145.7247769109,kisumu
-car_driver,Public Transport,105417.64883971993,kisumu
-car_driver,Motorcycling,121061.75469376965,kisumu
+car_driver,Bicycling,138881.05390321673,kisumu
+car_driver,Car,274184.6800930146,kisumu
+car_driver,Public Transport,108471.56268968174,kisumu
+car_driver,Motorcycling,111986.44466793972,kisumu
 cycle,Baseline,47799.172119754076,kisumu
-cycle,Bicycling,109314.69901986992,kisumu
-cycle,Car,44321.872173215714,kisumu
-cycle,Public Transport,44145.26674685913,kisumu
-cycle,Motorcycling,43846.86447473938,kisumu
-motorcycle,Baseline,408887.23583266506,kisumu
-motorcycle,Bicycling,381452.4963245121,kisumu
-motorcycle,Car,359376.8180299385,kisumu
-motorcycle,Public Transport,324025.2835471799,kisumu
-motorcycle,Motorcycling,529963.9577452552,kisumu
+cycle,Bicycling,110731.66524638563,kisumu
+cycle,Car,43889.493370756485,kisumu
+cycle,Public Transport,45296.246939321034,kisumu
+cycle,Motorcycling,43603.27078321305,kisumu
+motorcycle,Baseline,517746.31277370604,kisumu
+motorcycle,Bicycling,489930.8952017389,kisumu
+motorcycle,Car,450042.1136102812,kisumu
+motorcycle,Public Transport,405227.5743206351,kisumu
+motorcycle,Motorcycling,647862.8980762098,kisumu
 other,Baseline,7989.365595206272,kisumu
 other,Bicycling,7989.365595206272,kisumu
-other,Car,4664.31170587187,kisumu
+other,Car,3232.691281297336,kisumu
 other,Public Transport,4756.674313908937,kisumu
-other,Motorcycling,6188.2947384834715,kisumu
+other,Motorcycling,3001.7847612046685,kisumu
 pedestrian,Baseline,149067.15952953754,kisumu
-pedestrian,Bicycling,140646.9375924441,kisumu
-pedestrian,Car,140839.78259823576,kisumu
-pedestrian,Public Transport,146897.14572752384,kisumu
-pedestrian,Motorcycling,136818.45674062194,kisumu
+pedestrian,Bicycling,141089.46613205026,kisumu
+pedestrian,Car,140720.015699902,kisumu
+pedestrian,Public Transport,147761.9033324423,kisumu
+pedestrian,Motorcycling,139613.69435088657,kisumu
 truck,Baseline,47199.32265437049,kisumu
 truck,Bicycling,47199.32265437049,kisumu
 truck,Car,47199.32265437049,kisumu
 truck,Public Transport,47199.32265437049,kisumu
 truck,Motorcycling,47199.32265437049,kisumu
 auto_rickshaw,Baseline,42586.651844805325,nairobi
-auto_rickshaw,Bicycling,41190.609082466995,nairobi
-auto_rickshaw,Car,38545.47542751014,nairobi
+auto_rickshaw,Bicycling,40837.924595139404,nairobi
+auto_rickshaw,Car,37884.192013770924,nairobi
 auto_rickshaw,Public Transport,40338.288238092,nairobi
-auto_rickshaw,Motorcycling,34710.031627822704,nairobi
+auto_rickshaw,Motorcycling,35503.57172430975,nairobi
 bus,Baseline,30185339.473588362,nairobi
-bus,Bicycling,29371167.33459265,nairobi
-bus,Car,28149820.954977237,nairobi
-bus,Public Transport,32720916.101113,nairobi
-bus,Motorcycling,28367647.711462934,nairobi
+bus,Bicycling,29409257.259224027,nairobi
+bus,Car,28192187.179017466,nairobi
+bus,Public Transport,33223936.5098353,nairobi
+bus,Motorcycling,28327529.851029422,nairobi
 bus_driver,Baseline,1568945.5974913368,nairobi
-bus_driver,Bicycling,1482171.9879404767,nairobi
-bus_driver,Car,1420328.763087586,nairobi
-bus_driver,Public Transport,1692757.4706179248,nairobi
-bus_driver,Motorcycling,1431502.248501733,nairobi
+bus_driver,Bicycling,1483970.678825848,nairobi
+bus_driver,Car,1422447.0742895969,nairobi
+bus_driver,Public Transport,1718049.5648489716,nairobi
+bus_driver,Motorcycling,1429531.6239287902,nairobi
 car,Baseline,13923487.597132567,nairobi
-car,Bicycling,13703500.64816199,nairobi
-car,Car,16655134.389451202,nairobi
-car,Public Transport,11579733.857987361,nairobi
-car,Motorcycling,13110219.212135624,nairobi
+car,Bicycling,13699092.092070395,nairobi
+car,Car,16859399.37866691,nairobi
+car,Public Transport,11583205.595909491,nairobi
+car,Motorcycling,13083492.340830332,nairobi
 car_driver,Baseline,11670377.852500416,nairobi
-car_driver,Bicycling,11485233.87881193,nairobi
-car_driver,Car,13978180.478985416,nairobi
-car_driver,Public Transport,9697843.19695305,nairobi
-car_driver,Motorcycling,10990790.015211487,nairobi
+car_driver,Bicycling,11481523.578738011,nairobi
+car_driver,Car,14150092.63998316,nairobi
+car_driver,Public Transport,9700765.05826126,nairobi
+car_driver,Motorcycling,10968296.321013357,nairobi
 cycle,Baseline,557704.3883671944,nairobi
-cycle,Bicycling,2005262.598154515,nairobi
-cycle,Car,523163.3513895495,nairobi
-cycle,Public Transport,474404.7210165115,nairobi
-cycle,Motorcycling,522017.1268057348,nairobi
-motorcycle,Baseline,3877269.9756064415,nairobi
-motorcycle,Bicycling,3760718.773934905,nairobi
-motorcycle,Car,3592918.1076985803,nairobi
-motorcycle,Public Transport,3326861.7475708365,nairobi
-motorcycle,Motorcycling,6931701.693080111,nairobi
+cycle,Bicycling,1978812.1853948112,nairobi
+cycle,Car,519967.1482231433,nairobi
+cycle,Public Transport,476586.9562818509,nairobi
+cycle,Motorcycling,520165.5332472651,nairobi
+motorcycle,Baseline,6293728.686363367,nairobi
+motorcycle,Bicycling,6175441.42670025,nairobi
+motorcycle,Car,5764644.958115696,nairobi
+motorcycle,Public Transport,5236332.349123024,nairobi
+motorcycle,Motorcycling,9396642.764695002,nairobi
 other,Baseline,140011.3329129578,nairobi
-other,Bicycling,138206.02919344974,nairobi
-other,Car,127474.5015274852,nairobi
-other,Public Transport,116676.11076079815,nairobi
-other,Motorcycling,131385.99291975267,nairobi
+other,Bicycling,137804.85058911462,nairobi
+other,Car,126471.5550166474,nairobi
+other,Public Transport,119684.95029331159,nairobi
+other,Motorcycling,139142.11260356504,nairobi
 pedestrian,Baseline,4845950.984222328,nairobi
-pedestrian,Bicycling,4576463.297936627,nairobi
-pedestrian,Car,4568270.731199746,nairobi
-pedestrian,Public Transport,4740424.846576521,nairobi
-pedestrian,Motorcycling,4566698.346193744,nairobi
+pedestrian,Bicycling,4572444.16429979,nairobi
+pedestrian,Car,4570438.271278114,nairobi
+pedestrian,Public Transport,4740652.621974587,nairobi
+pedestrian,Motorcycling,4567778.442436185,nairobi
 rail,Baseline,366821.99195397616,nairobi
-rail,Bicycling,360010.7727924622,nairobi
-rail,Car,350399.38575343706,nairobi
+rail,Bicycling,363189.34173450206,nairobi
+rail,Car,354940.19852777966,nairobi
 rail,Public Transport,365308.3876958619,nairobi
 rail,Motorcycling,346312.65425652877,nairobi
 taxi,Baseline,953658.8537337772,nairobi
-taxi,Bicycling,938184.8218522797,nairobi
-taxi,Car,873334.9617449208,nairobi
-taxi,Public Transport,809851.7540259564,nairobi
-taxi,Motorcycling,880741.3359788,nairobi
+taxi,Bicycling,936597.7416593056,nairobi
+taxi,Car,874701.6141333152,nairobi
+taxi,Public Transport,802577.636474825,nairobi
+taxi,Motorcycling,889911.1326493172,nairobi
 truck,Baseline,4501775.010151526,nairobi
 truck,Bicycling,4501775.010151526,nairobi
-truck,Car,4501775.010151526,nairobi
+truck,Car,4501201.897859618,nairobi
 truck,Public Transport,4501775.010151526,nairobi
 truck,Motorcycling,4501775.010151526,nairobi
 bus,Baseline,262345.18629690044,port_louis
-bus,Bicycling,253946.39151712885,port_louis
-bus,Car,216566.34779771612,port_louis
-bus,Public Transport,343257.1806416531,port_louis
-bus,Motorcycling,221252.37063621532,port_louis
+bus,Bicycling,246592.94029363786,port_louis
+bus,Car,223415.15040783034,port_louis
+bus,Public Transport,347112.99897424434,port_louis
+bus,Motorcycling,204851.29070146818,port_louis
 bus_driver,Baseline,15207.9464274062,port_louis
-bus_driver,Bicycling,14625.798205546493,port_louis
-bus_driver,Car,12504.471712887438,port_louis
-bus_driver,Public Transport,20587.260337139753,port_louis
-bus_driver,Motorcycling,12828.888678629688,port_louis
+bus_driver,Bicycling,14258.125644371943,port_louis
+bus_driver,Car,12973.073996737357,port_louis
+bus_driver,Public Transport,20870.167077586608,port_louis
+bus_driver,Motorcycling,11882.672528548123,port_louis
 car,Baseline,190549.90946166395,port_louis
 car,Bicycling,181313.03752039152,port_louis
-car,Car,281699.06139206095,port_louis
-car,Public Transport,125441.22675367047,port_louis
-car,Motorcycling,152250.68433931484,port_louis
+car,Car,294168.48808933125,port_louis
+car,Public Transport,138057.44208809137,port_louis
+car,Motorcycling,162433.77243066885,port_louis
 car_driver,Baseline,105276.19307274254,port_louis
 car_driver,Bicycling,100172.94890629366,port_louis
-car_driver,Car,155634.84054809998,port_louis
-car_driver,Public Transport,69304.54516777374,port_louis
-car_driver,Motorcycling,84116.40018746676,port_louis
+car_driver,Car,162524.02656869133,port_louis
+car_driver,Public Transport,76274.82988292341,port_louis
+car_driver,Motorcycling,89742.41570755186,port_louis
 cycle,Baseline,5947.644371941272,port_louis
-cycle,Bicycling,53357.5792822186,port_louis
-cycle,Car,4866.254486133768,port_louis
-cycle,Public Transport,4866.254486133768,port_louis
-cycle,Motorcycling,4415.675367047308,port_louis
-motorcycle,Baseline,196722.84339314845,port_louis
-motorcycle,Bicycling,178744.7365415987,port_louis
-motorcycle,Car,167435.20065252855,port_louis
-motorcycle,Public Transport,168156.12724306688,port_louis
-motorcycle,Motorcycling,293074.68221859704,port_louis
+cycle,Bicycling,53231.266976302555,port_louis
+cycle,Car,5677.296900489397,port_louis
+cycle,Public Transport,5947.644371941272,port_louis
+cycle,Motorcycling,3334.285481239804,port_louis
+motorcycle,Baseline,255246.81325639115,port_louis
+motorcycle,Bicycling,239212.35449107282,port_louis
+motorcycle,Car,203704.66728233988,port_louis
+motorcycle,Public Transport,205328.29157959108,port_louis
+motorcycle,Motorcycling,360077.04917265,port_louis
 other,Baseline,6013.729309407287,port_louis
-other,Bicycling,5193.67531266993,port_louis
-other,Car,6013.729309407287,port_louis
-other,Public Transport,3006.8646547036433,port_louis
-other,Motorcycling,5467.026644915715,port_louis
+other,Bicycling,6013.729309407287,port_louis
+other,Car,5603.702311038607,port_louis
+other,Public Transport,3963.5943175638936,port_louis
+other,Motorcycling,3963.5943175638936,port_louis
 pedestrian,Baseline,71774.24980967917,port_louis
-pedestrian,Bicycling,68007.40837411636,port_louis
-pedestrian,Car,66325.24632952693,port_louis
-pedestrian,Public Transport,74267.45426862423,port_louis
-pedestrian,Motorcycling,65754.51277868406,port_louis
+pedestrian,Bicycling,68127.56280587275,port_louis
+pedestrian,Car,68740.35040783034,port_louis
+pedestrian,Public Transport,75216.67427949974,port_louis
+pedestrian,Motorcycling,65988.81392060903,port_louis
 taxi,Baseline,21375.473409461665,port_louis
-taxi,Bicycling,16509.21892332789,port_louis
-taxi,Car,17951.072104404568,port_louis
-taxi,Public Transport,12904.585970636215,port_louis
-taxi,Motorcycling,17230.14551386623,port_louis
+taxi,Bicycling,21375.473409461665,port_louis
+taxi,Car,16509.21892332789,port_louis
+taxi,Public Transport,13265.049265905382,port_louis
+taxi,Motorcycling,19753.388580750405,port_louis
 truck,Baseline,57164.97283849918,port_louis
 truck,Bicycling,57164.97283849918,port_louis
 truck,Car,57164.97283849918,port_louis
