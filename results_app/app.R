@@ -4,6 +4,7 @@ library(tidyverse)
 library(gridlayout)
 library(shinyWidgets)
 library(bslib)
+#library(shiny.semantic)
 
 options(scipen = 10000)
 rel_path <- "../results/multi_city/health_impacts/"
@@ -18,18 +19,25 @@ ylls_pathway$measures <- "Years of Life Lost (YLLs)"
 deaths_pathway$measures <- "Deaths"
 
 injury_risks_per_billion_kms_lng <- read_csv("../results/multi_city/whw_matrices/injury_risks_per_billion_kms_lng.csv")
+injury_risks_per_100k_pop <- read_csv("../results/multi_city/whw_matrices/injury_risks_per_100k_pop.csv")
+injury_risks_per_100million_h_lng <- read_csv("../results/multi_city/whw_matrices/injury_risks_per_100million_h_lng.csv")
 
-injury_risks_per_billion_kms_lng <- injury_risks_per_billion_kms_lng |> 
-  filter(scenario != "Baseline") |> 
-  mutate(scenario = case_when(
-    grepl("Baseline_predicted", scenario) ~ "Baseline",
-    grepl("Bicycling", scenario) ~ "CYC_SC",
-    grepl("Public Transport", scenario) ~ "BUS_SC",
-    grepl("Motorcycling", scenario) ~ "MOT_SC",
-    grepl("Car", scenario) ~ "CAR_SC"
-  )
-  )
+ren_scen <- function(df){
+  df |> 
+    filter(scenario != "Baseline") |> 
+    mutate(scenario = case_when(
+      grepl("Baseline_predicted", scenario) ~ "Baseline",
+      grepl("Bicycling", scenario) ~ "CYC_SC",
+      grepl("Public Transport", scenario) ~ "BUS_SC",
+      grepl("Motorcycling", scenario) ~ "MOT_SC",
+      grepl("Car", scenario) ~ "CAR_SC"
+      )
+    )
+}
 
+injury_risks_per_billion_kms_lng <- ren_scen(injury_risks_per_billion_kms_lng)
+injury_risks_per_100k_pop <- ren_scen(injury_risks_per_100k_pop)
+injury_risks_per_100million_h_lng <- ren_scen(injury_risks_per_100million_h_lng)
 
 colours = c("Baseline" = "brown" , 
             "BUS_SC" = "purple", 
@@ -82,185 +90,94 @@ dose_pathway <- ylls_pathway |> filter(!is.na(level1)) |> distinct(dose)  |> pul
 dose_pathway_level2 <- ylls_pathway |> filter(!is.na(level2)) |> distinct(dose) |> pull()
 dose_pathway_level3 <- ylls_pathway |> filter(!is.na(level3)) |> distinct(dose) |> pull()
 
+inj_modes <- injury_risks_per_billion_kms_lng$mode |> unique() |> sort()
 
-ui <- fluidPage(
-  theme = bs_theme(bootswatch = "minty"),
-  # tags$head(tags$script('
-  #                       var dimension = [0, 0];
-  #                       $(document).on("shiny:connected", function(e) {
-  #                       dimension[0] = window.innerWidth;
-  #                       dimension[1] = window.innerHeight;
-  #                       Shiny.onInputChange("dimension", dimension);
-  #                       });
-  #                       $(window).resize(function(e) {
-  #                       dimension[0] = window.innerWidth;
-  #                       dimension[1] = window.innerHeight;
-  #                       Shiny.onInputChange("dimension", dimension);
-  #                       });
-  #                       ')),
-  
-  mainPanel(width = 12,
-            tabsetPanel(
-              id = "main_tab",
-              tabPanel("Health Outcomes",
-                       div(
-                         plotlyOutput("in_pivot", width = "auto")
-                         
-                       ),
-              ),
-              tabPanel("Injury Risks", 
-                       div(
-                         plotlyOutput("in_inj_pivot", width = "auto")
-                       )
-              ),
-              
-              hr(),
-              div(style="display:inline-block",
-                  downloadButton("download_top_data", "Download data", icon = shiny::icon("file-download")),
-                  style="display:center-align"),
-              hr(),
-              uiOutput("conditional_inputs")
-              #,
-              # conditionalPanel(
-              #   condition = "input.main_tab == 'Health Outcomes'",
-              #   fluidRow(
-              #     column(width = 2, pickerInput(inputId = "in_scens",
-              #                                   label = "Scenario (5% increase)",
-              #                                   choices = scens,
-              #                                   selected = scens[1],
-              #                                   options = list(`actions-box` = TRUE),
-              #                                   multiple = TRUE)
-              #     ),
-              #     column(width = 2, pickerInput(inputId = "in_pathways",
-              #                                   label = "Pathway/Dose",
-              #                                   choices = dose_pathway,
-              #                                   selected = dose_pathway,
-              #                                   options = list(`actions-box` = TRUE),
-              #                                   multiple = TRUE)
-              #     ),
-              #     column(width = 1, radioButtons(inputId = "in_CIs",
-              #                                          label = "Conf. Interval",
-              #                                          choices = c("No", "Yes"),
-              #                                          selected = "No")
-              #     ),
-              #     column(
-              #       width = 2,
-              #       treeInput(
-              #         inputId = "in_cities",
-              #         label = "Select cities:",
-              #         choices = create_tree(cities),
-              #         selected = cities$city,
-              #         returnValue = "text",
-              #         closeDepth = 0
-              #       )
-              #     ),
-              #     column(width = 1, radioButtons(inputId = "in_measure",
-              #                                          label = "Health Outcome",
-              #                                          choices = c("Years of Life Lost (YLLs)", "Deaths"))
-              #     ),
-              #     column(width = 1, radioButtons(inputId = "in_pathway_interaction",
-              #                                          label = "Pathways Interaction",
-              #                                          choices = c("No", "Yes"))
-              #     ),
-              #     column(width = 2, radioButtons(inputId = "in_level",
-              #                                          label = "Disease/cause levels",
-              #                                          choices = level_choices)
-              #     ))
-              # )
-            )
-            
-  )
-  # )
-)
+inj_risk_types <- c("Billion kms", "Population by 100k", "100 Million hours")
 
-# ui <- fluidPage(
-#   mainPanel(
-#     tabsetPanel(
-#       id = "hidden_tabs",
-#       tabPanelBody("panel1", "Panel 1 content"),
-#       tabPanelBody("panel2", "Panel 2 content"),
-#       tabPanelBody("panel3", "Panel 3 content")
-#     )
-#   )
-# )
+# “cerulean”, “cosmo”, “cyborg”, “darkly”, “flatly”, “journal”, “litera”, “lumen”, “lux”, 
+# “materia”, “minty”, “morph”, “pulse”, “quartz”, “sandstone”, “simplex”, “sketchy”, “slate”, 
+# “solar”, “spacelab”, “superhero”, “united”, “vapor”, “yeti”, “zephyr”
 
-server <- function(input, output, session) {
-  
-  output$in_scens <- renderUI({
-    pickerInput(inputId = "in_scens",
+ui <- grid_page(
+  theme = bs_theme(bootswatch = "yeti"),
+  layout = c(
+    "area1 area2"
+  ),
+  row_sizes = c(
+    "1fr"
+  ),
+  col_sizes = c(
+    "0.15fr",
+    "0.85fr"
+  ),
+  gap_size = "1rem",
+  grid_card(
+    area = "area2",
+    tabsetPanel(
+      id = "main_tab",
+      tabPanel("Health Outcomes", plotlyOutput("in_pivot", width = "100%", height = "100%")),
+      tabPanel("Injury Risks", plotlyOutput("in_inj_pivot", width = "100%", height = "100%"))
+    )
+  ),
+  grid_card(
+    area = "area1",
+    conditionalPanel(
+      condition = "input.main_tab == 'Health Outcomes'",
+      radioButtons(inputId = "in_measure", 
+                   label = "Health Outcome",
+                   choices = c("Years of Life Lost (YLLs)", "Deaths")),
+      radioButtons(inputId = "in_int_pathway", 
+                   label = "Pathways Interaction",
+                   choices = c("No", "Yes")),
+      radioButtons(inputId = "in_level", 
+                   label = "Disease/cause levels",
+                   choices = level_choices),
+      radioButtons(inputId = "in_CIs", 
+                   label = "Conf. Interval",
+                   choices = c("No", "Yes"),
+                   selected = "No"),
+      pickerInput(inputId = "in_pathways", 
+                  label = "Pathway/Dose",
+                  choices = dose_pathway,
+                  selected = dose_pathway,
+                  options = list(`actions-box` = TRUE), 
+                  multiple = TRUE)
+    ),
+    pickerInput(inputId = "in_scens", 
                 label = "Scenario (5% increase)",
                 choices = scens,
                 selected = scens[1],
-                options = list(`actions-box` = TRUE),
-                multiple = TRUE)
-  })
-  
-  output$in_pathways <- renderUI({
-    pickerInput(inputId = "in_pathways",
-                label = "Pathway/Dose",
-                choices = dose_pathway,
-                selected = dose_pathway,
-                options = list(`actions-box` = TRUE),
-                multiple = TRUE)
-  })
-  
-  output$in_CIs <- renderUI({
-  radioButtons(inputId = "in_CIs",
-               label = "Conf. Interval",
-               choices = c("No", "Yes"),
-               selected = "No")
-  })
-  
-  output$in_cities <- renderUI({
+                options = list(`actions-box` = TRUE), 
+                multiple = TRUE),
     treeInput(
-    inputId = "in_cities",
-    label = "Select cities:",
-    choices = create_tree(cities),
-    selected = cities$city,
-    returnValue = "text",
-    closeDepth = 0
-  )
-  })
-  
-  
-  output$in_measure <- renderUI({
-    radioButtons(inputId = "in_measure",
-               label = "Health Outcome",
-               choices = c("Years of Life Lost (YLLs)", "Deaths")
-  )
-  })
-               
-  output$in_pathway_interaction <- renderUI({           
-   radioButtons(inputId = "in_pathway_interaction",
-                                              label = "Pathways Interaction",
-                                              choices = c("No", "Yes"))
-  })
-  
-  output$in_level <- renderUI({
-    radioButtons(inputId = "in_level",
-                                              label = "Disease/cause levels",
-                                              choices = level_choices)
-  })
-  
-  output$conditional_inputs <- renderUI({
-    browser()
-    if(input$main_tab == "Health Outcomes"){ 
-      fluidRow(width = 2, plotOutput("in_scens"),
-               width = 2, plotOutput("in_pathways"),
-               width = 1, plotOutput("in_CIs"),
-               width = 2, plotOutput("in_cities"),
-               width = 1, plotOutput("in_measure"),
-               width = 1, plotOutput("in_pathway_interaction"),
-               width = 2, plotOutput("in_level")
-      )
-    }else{
-      fluidRow(
-        column(12, div(id="col_left", plotOutput("plot_output_1")))
-      )
-    }
+      inputId = "in_cities",
+      label = "Select cities:",
+      choices = create_tree(cities),
+      selected = cities$city,
+      returnValue = "text",
+      closeDepth = 0
+    ),
     
-  })
-               
+    conditionalPanel(
+      condition = "input.main_tab == 'Injury Risks'",
+      pickerInput(inputId = "in_inj_modes", 
+                  label = "Select modes:",
+                  choices = inj_modes,
+                  selected = inj_modes[1],
+                  options = list(`actions-box` = TRUE), 
+                  multiple = TRUE),
+      radioButtons(inputId = "in_risk_type", 
+                   label = "Risk Type: ",
+                   choices = inj_risk_types,
+                   selected = inj_risk_types[1])
+    )
+    
+    
+  )
+  
+)
+server <- function(input, output, session) {
+  
   observeEvent(input$main_tab,{
     selected_scens <- input$in_scens[input$in_scens != "Baseline"]
     
@@ -278,71 +195,95 @@ server <- function(input, output, session) {
     }
   })
   
-  # observe({
-  #   browser()
-  #   
-  #   x <- input$in_level
-  #   # browser()
-  #   in_pathway_interaction <- input$in_pathway_interaction
-  #   updated_dose <- dose_pathway
-  # 
-  #   if (x == "level1"){
-  #     updated_dose <- dose_pathway
-  #     if (in_pathway_interaction == "Yes")
-  #       updated_dose <- dose
-  #   }
-  #   else if (x == "level2"){
-  #     updated_dose <- dose_pathway_level2
-  #     if (in_pathway_interaction == "Yes")
-  #       updated_dose <- dose_level2
-  #   }
-  #   else if (x == "level2"){
-  #     updated_dose <- dose_pathway_level3
-  #     if (in_pathway_interaction == "Yes")
-  #       updated_dose <- dose_level3
-  #   }
-  # 
-  #   # Can use character(0) to remove all choices
-  #   if (is.null(x))
-  #     x <- character(0)
-  # 
-  #   updatePickerInput(session, "in_pathways",
-  #                     choices = updated_dose,
-  #                     selected = updated_dose
-  #   )
-  # })
-
+  observe({
+    req(input$in_level)
+    req(input$in_int_pathway)
+    x <- input$in_level
+    in_int_pathway <- input$in_int_pathway
+    updated_dose <- dose_pathway
+    
+    if (x == "level1"){
+      updated_dose <- dose_pathway
+      if (in_int_pathway == "Yes")
+        updated_dose <- dose
+    }
+    else if (x == "level2"){
+      updated_dose <- dose_pathway_level2
+      if (in_int_pathway == "Yes")
+        updated_dose <- dose_level2
+    }
+    else if (x == "level2"){
+      updated_dose <- dose_pathway_level3
+      if (in_int_pathway == "Yes")
+        updated_dose <- dose_level3
+    }
+    
+    # Can use character(0) to remove all choices
+    if (is.null(x))
+      x <- character(0)
+    
+    updatePickerInput(session, "in_pathways",
+                      choices = updated_dose,
+                      selected = updated_dose
+    )
+  })
+  
   output$in_inj_pivot <- renderPlotly({
-
+    
     filtered_scens <- input$in_scens
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
-
-    local_df <- injury_risks_per_billion_kms_lng |>
+    filtered_modes <- input$in_inj_modes
+    
+    local_df <- injury_risks_per_billion_kms_lng
+    ylab <- "Distance: risk per Billion kilometeres"
+    if (input$in_risk_type == "Population by 100k"){
+      local_df <- injury_risks_per_100k_pop
+      ylab <- "Population: risk per 100K"
+    }
+    else if (input$in_risk_type == "100 Million hours"){
+      local_df <- injury_risks_per_100million_h_lng
+      ylab <- "Duration: risk per 100 Million hours"
+    }
+    
+    text_colour <- "black"
+    
+    local_df <- local_df |>
       as.data.frame() |>
       filter(measure == "mean" &
                city %in% filtered_cities &
-               scenario %in% filtered_scens) |>
+               scenario %in% filtered_scens &
+               mode %in% filtered_modes) |>
       mutate(scenario = case_when(
         scenario == "CYC_SC" ~ "Cycling Scenario",
         scenario == "CAR_SC" ~ "Car Scenario",
         scenario == "BUS_SC" ~ "Bus Scenario",
         scenario == "MOT_SC" ~ "Motorcycle Scenario",
         scenario == "Baseline" ~ "Baseline"))
-
-    gg <- ggplot(local_df) +
-      aes(x = city, y = value, fill = scenario) +
-      geom_col() +
-      scale_fill_hue(direction = 1) +
-      coord_flip() +
-      theme_minimal() +
-      scale_fill_manual(values = scen_colours) +
-      facet_wrap(vars(mode))
-
-    plotly::ggplotly(gg)
+    
+    
+    if(nrow(local_df) < 1)
+      plotly::ggplotly(ggplot(data.frame()))
+    else{
+      gg <- ggplot(local_df) +
+        aes(x = city, y = value, fill = scenario) +
+        geom_col(position = "dodge") +
+        {if(length(filtered_scens) == 1) geom_text(aes(label = round(value, 1)), position = position_stack(vjust = 0.9))} +
+        # geom_text(aes(label = round(value, 1)), position = position_dodge(width = 0.9), vjust = -20) + 
+        # geom_text(aes(label = round(value, 1)), hjust = -5, size = 3, colour = text_colour) +
+        scale_fill_hue(direction = 1) +
+        coord_flip() +
+        theme_minimal() +
+        scale_fill_manual(values = scen_colours) +
+        labs(y = ylab) + 
+        facet_wrap(vars(mode))
+      
+      plotly::ggplotly(gg)
+    }
   })
-
+  
   output$in_pivot <- renderPlotly({
-
+    # req(input$in_level, input$in_measure, input$in_pathway_interaction, input$in_CIs, input$in_scens, input$in_pathways)
+    
     in_col_lvl <- input$in_level
     in_measure <- input$in_measure
     in_CIs <- input$in_CIs
@@ -351,34 +292,32 @@ server <- function(input, output, session) {
     filtered_pathways <- input$in_pathways
     
     if (!is.null(in_col_lvl)){
-
-    text_colour <- "black"
-    #if (length(filtered_scens) == 1 && filtered_scens %in% c("BUS_SC"))
-    #  text_colour <- "white"
-
-    y_lab <- "Years of Life Lost (YLLs) per 100k"
-    if (in_measure == "Deaths")
-      y_lab <- "Deaths per 100k"
-
-    ld <- get_health_data()
-
-    if(nrow(ld) < 1)
-      plotly::ggplotly(ggplot(data.frame()))
-    else{
-      gg <- ggplot(ld) +
-        aes(x = city, y = metric_100k, fill = scenario) +
-        {if(in_CIs == "Yes") geom_boxplot()} +
-        {if(in_CIs == "No") geom_col(alpha = 0.7)}+
-        {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), hjust = -5, size = 3, colour = text_colour)}+
-        scale_fill_hue(direction = 1) +
-        coord_flip() +
-        theme_minimal() +
-        facet_grid(vars(), vars(dose))  +
-        scale_fill_manual(values = scen_colours) +
-        labs(y = y_lab)
-
-      plotly::ggplotly(gg) #|> style(text = ld$metric_100k, textposition = "auto", textfont = 12)
-    }
+      
+      text_colour <- "black"
+        y_lab <- "Years of Life Lost (YLLs) per 100k"
+        if (in_measure == "Deaths")
+          y_lab <- "Deaths per 100k"
+        
+        ld <- get_health_data()
+        
+        if(nrow(ld) < 1)
+          plotly::ggplotly(ggplot(data.frame()))
+        else{
+          gg <- ggplot(ld) +
+            aes(x = city, y = metric_100k, fill = scenario) +
+            {if(in_CIs == "Yes") geom_boxplot()} +
+            {if(in_CIs == "No") geom_col(alpha = 0.7)}+
+            # {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), hjust = -5, size = 3, colour = text_colour)}+
+            {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), position = position_stack(vjust = 0.9), size = 3, colour = text_colour)} +
+            scale_fill_hue(direction = 1) +
+            coord_flip() +
+            theme_minimal() +
+            facet_grid(vars(), vars(dose))  +
+            scale_fill_manual(values = scen_colours) +
+            labs(y = y_lab)
+          
+          plotly::ggplotly(gg) #|> style(text = ld$metric_100k, textposition = "auto", textfont = 12)
+        }
     }else{
       plotly::ggplotly(ggplot(data.frame()))
     }
@@ -388,28 +327,28 @@ server <- function(input, output, session) {
                   input$in_cities,
                   input$in_scens,
                   input$in_pathways,
-                  input$in_pathway_interaction)
-
-
+                  input$in_int_pathway)
+  
+  
   get_health_data <- reactive({
-
+    
     in_col_lvl <- input$in_level
     in_measure <- input$in_measure
-    in_pathway_interaction <- input$in_pathway_interaction
+    in_int_pathway <- input$in_int_pathway
     in_CIs <- input$in_CIs
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
-
+    
     local_dataset <- combined_health_dataset
-
-    if (in_pathway_interaction == "Yes")
+    
+    if (in_int_pathway == "Yes")
       local_dataset <- combined_health_dataset
     else
       local_dataset <- combined_health_dataset_pathway
-
+    
     if (in_CIs == "Yes"){
-
+      
       ld <- local_dataset |>
         filter(measures == in_measure) |>
         filter((!is.na(!!rlang::sym(in_col_lvl)))) |>
@@ -418,16 +357,16 @@ server <- function(input, output, session) {
         filter(dose %in% filtered_pathways) |>
         group_by(city, scenario, dose, cause) |>
         summarise(metric_100k = round(sum(metric_100k), 1))
-
+      
       if (length(filtered_pathways) > 1){
-
+        
         total_dose <- ld |>
           filter(str_detect(cause, "lb")) |>
           ungroup() |>
           group_by(city, scenario) |>
           summarise(metric_100k = round(sum(metric_100k, 1))) |>
           mutate(dose = "total", cause = "total_lb")
-
+        
         total_dose <- rbind(total_dose,
                             ld |>
                               filter(str_detect(cause, "ub")) |>
@@ -435,9 +374,9 @@ server <- function(input, output, session) {
                               group_by(city, scenario) |>
                               summarise(metric_100k = round(sum(metric_100k, 1))) |>
                               mutate(dose = "total", cause = "total_ub")
-
+                            
         )
-
+        
         total_dose <- rbind(total_dose,
                             ld |>
                               filter(!str_detect(cause, "lb|ub")) |>
@@ -445,12 +384,12 @@ server <- function(input, output, session) {
                               group_by(city, scenario) |>
                               summarise(metric_100k = round(sum(metric_100k, 1))) |>
                               mutate(dose = "total", cause = "total")
-
+                            
         )
         ld <- plyr::rbind.fill(ld, total_dose)
       }
     }else{
-
+      
       ld <- local_dataset |>
         filter(measures == in_measure) |>
         filter(!str_detect(cause, "lb|ub")) |>
@@ -460,35 +399,34 @@ server <- function(input, output, session) {
         filter(dose %in% filtered_pathways) |>
         group_by(city, scenario, dose) |>
         summarise(metric_100k = round(sum(metric_100k), 1))
-
+      
       if (length(filtered_pathways) > 1){
-
+        
         total_dose <- ld |>
           group_by(city, scenario) |>
           summarise(metric_100k = round(sum(metric_100k), 1)) |>
           mutate(dose = "total")
-
+        
         ld <- plyr::rbind.fill(ld, total_dose)
       }
-
-
+      
+      
     }
-
+    
     ld <- ld |>
       mutate(scenario = case_when(
         scenario == "CYC_SC" ~ "Cycling Scenario",
         scenario == "CAR_SC" ~ "Car Scenario",
         scenario == "BUS_SC" ~ "Bus Scenario",
         scenario == "MOT_SC" ~ "Motorcycle Scenario"))
-
+    
     if (is.null(ld) || nrow(ld) == 0)
       ld <- data.frame()
-
+    
     ld
-
+    
   })
-
-
+  
   output$download_top_data <- downloadHandler(
     filename = function() {
       measure <- 'YLLs'
@@ -497,14 +435,15 @@ server <- function(input, output, session) {
       paste("health-data-selected-cities-", measure, "-", Sys.Date(), ".csv", sep="")
     },
     content = function(file) {
-
+      
       data <- get_health_data()
       data$measure <- input$in_measure
       write_csv(data, file)
     }
-
+    
   )
 }
 
 # Run the application 
 shinyApp(ui = ui, server = server)
+# run_with_themer(shinyApp(ui = ui, server = server))
