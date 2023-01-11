@@ -25,7 +25,7 @@ rm(list=ls())
 #             'osorno', 'puerto_montt', 'san_antonio',
 #             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
 
-cities <- c('osorno')
+cities <- c('osorno', 'arica')
 
 # number of times input values are sampled from each input parameter distribution
 nsamples <- 2 
@@ -56,7 +56,7 @@ voi_age_gender <- F   # set to T if want to include split and to F otherwise
 voi_add_sum <- F
 
 
-input_parameter_file <- "InputParameters_v23.0.xlsx"
+input_parameter_file <- "InputParameters_v24.0.xlsx"
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 
 author <- "AKS"
@@ -201,7 +201,8 @@ max_age <- as.numeric(max_age)
 ## comparison across cities
 setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","PM_EMISSION_INVENTORY","CO2_EMISSION_INVENTORY",
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO", "CAR_OCCUPANCY_RATIO",
-                        "TRUCK_TO_CAR_RATIO", "FLEET_TO_MOTORCYCLE_RATIO","DISTANCE_SCALAR_CAR_TAXI",
+                        "TRUCK_TO_CAR_RATIO", "FLEET_TO_MOTORCYCLE_RATIO","BUS_WALK_TIME", 'RAIL_WALK_TIME',"PROPORTION_MOTORCYCLE_TRIPS" ,
+                        "DISTANCE_SCALAR_CAR_TAXI",
                         "DISTANCE_SCALAR_WALKING", "DISTANCE_SCALAR_PT", "DISTANCE_SCALAR_CYCLING", "DISTANCE_SCALAR_MOTORCYCLE")
 
 
@@ -272,7 +273,7 @@ print(system.time(
                                               ADD_BUS_DRIVERS = as.logical(add_bus_drivers),
                                               ADD_CAR_DRIVERS = as.logical(add_car_drivers),
                                               ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]), #ADD_MOTORCYCLE_FLEET = add_motorcycle_fleet[[city]],
-                                              ADD_PERSONAL_MOTORCYCLE_TRIPS = as.character(add_motorcycle_fleet[[city]]),
+                                              ADD_PERSONAL_MOTORCYCLE_TRIPS = as.character(add_personal_motorcycle_trips[[city]]),
                                               PM_emission_inventory = PM_emission_inventories[[city]],
                                               CO2_emission_inventory = CO2_emission_inventories[[city]], # added
                                               speeds = speeds[[city]],
@@ -329,10 +330,14 @@ print(system.time(
       parameter_samples <- sapply(parameter_names,function(x)multi_city_ithim[[ci]]$parameters[[x]])
     }else{
       for(param in model_parameters) multi_city_ithim[[ci]]$parameters[[param]] <- multi_city_ithim[[1]]$parameters[[param]]
-      background_quantile <- plnorm(multi_city_ithim[[1]]$parameters$PM_CONC_BASE,log(pm_conc_base[[1]][1]),log(pm_conc_base[[1]][2]))
-      multi_city_ithim[[ci]]$parameters$PM_CONC_BASE <- qlnorm(background_quantile,log(pm_conc_base[[city]][1]),log(pm_conc_base[[city]][2]))
-      proportion_quantile <- pbeta(multi_city_ithim[[1]]$parameters$PM_TRANS_SHARE,pm_trans_share[[1]][1],pm_trans_share[[1]][2])
-      multi_city_ithim[[ci]]$parameters$PM_TRANS_SHARE <- qbeta(proportion_quantile,pm_trans_share[[city]][1],pm_trans_share[[city]][2])
+      if (!is.null(multi_city_ithim[[1]]$parameters$PM_CONC_BASE)){
+        background_quantile <- plnorm(multi_city_ithim[[1]]$parameters$PM_CONC_BASE,log(pm_conc_base[[1]][1]),log(pm_conc_base[[1]][2]))
+        multi_city_ithim[[ci]]$parameters$PM_CONC_BASE <- qlnorm(background_quantile,log(pm_conc_base[[city]][1]),log(pm_conc_base[[city]][2]))
+      }
+      if (!is.null(multi_city_ithim[[1]]$parameters$PM_TRANS_SHARE)){
+        proportion_quantile <- pbeta(multi_city_ithim[[1]]$parameters$PM_TRANS_SHARE,pm_trans_share[[1]][1],pm_trans_share[[1]][2])
+        multi_city_ithim[[ci]]$parameters$PM_TRANS_SHARE <- qbeta(proportion_quantile,pm_trans_share[[city]][1],pm_trans_share[[city]][2])
+      }
     }
     
     # if(!parameters_only){
