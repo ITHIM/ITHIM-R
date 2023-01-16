@@ -65,7 +65,7 @@ comment <- "Added CO2 emission sampling"
 # scenario definition
 scenario_name <- "GLOBAL"
 reference_scenario <- 'Baseline'
-
+scenario_increase <- 0.05 # increase for each mode in each scenario
 
 
 
@@ -320,7 +320,8 @@ print(system.time(
                                               DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
                                               DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
                                               DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]],
-                                              SCENARIO_NAME = scenario_name)
+                                              SCENARIO_NAME = scenario_name,
+                                              SCENARIO_INCREASE = scenario_increase)
     
     
     # for first city, store model parameters. For subsequent cities, copy parameters over.

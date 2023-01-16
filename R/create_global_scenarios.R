@@ -28,7 +28,7 @@ create_global_scenarios <- function(trip_set){
                                   c(50, 45.7, 33.5, 37.2), # distance category 2-6km
                                   c(11.5, 44.9, 64.4, 52.6))
   
-  percentage_change <- 0.05
+  percentage_change <- SCENARIO_INCREASE
   
 
   rdr_baseline <- rdr %>% dplyr::select(c('trip_id', 'trip_distance_cat','scenario','trip_mode')) %>% filter() 

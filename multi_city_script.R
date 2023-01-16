@@ -28,17 +28,19 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 # #African & Indian cities
 # cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
 
+ cities <- 'bogota'
 # number of times input values are sampled from each input parameter distribution
 
-input_parameter_file <- "InputParameters_v20.0.xlsx"
+input_parameter_file <- "InputParameters_v24.0.xlsx"
 
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
 comment <- "Added CO2 emission sampling"
 
 # scenario definition
-scenario_name <- "GLOBAL"
+scenario_name <- "BOGOTA"
 reference_scenario <- 'Baseline'
+scenario_increase <- 0.01 # increase for each mode in each scenario
 
 compute_mode <- 'constant' # constant parameters from the given parameters
 ############################### No need to change the following ##################################
@@ -219,7 +221,8 @@ print(system.time(for(city in cities){
     BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
     TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
     CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]],
-    SCENARIO_NAME = scenario_name
+    SCENARIO_NAME = scenario_name,
+    SCENARIO_INCREASE = scenario_increase
   )
   
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS

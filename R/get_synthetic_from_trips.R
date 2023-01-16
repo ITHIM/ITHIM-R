@@ -90,6 +90,8 @@ get_synthetic_from_trips <- function(){
     SYNTHETIC_TRIPS <- create_global_scenarios(trip_set)
   }else if (SCENARIO_NAME == "AFRICA_INDIA") {
     SYNTHETIC_TRIPS <- create_africa_india_scenarios(trip_set)
+  }else if (SCENARIO_NAME == "BOGOTA") {
+    SYNTHETIC_TRIPS <- create_bogota_scenarios(trip_set)
   }else{
     SYNTHETIC_TRIPS <- create_all_scenarios(trip_set)
   }

@@ -60,7 +60,9 @@
 #' @param DISTANCE_SCALAR_PT lognormal parameter: scalar for PT distance travelled
 #' @param DISTANCE_SCALAR_CYCLING lognormal parameter: scalar for cycling distance travelled
 #' @param DISTANCE_SCALAR_MOTORCYCLE lognormal parameter: scalar for motorcycle distance travelled
-#' @param SCENARIO_NAME name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO, MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA)
+#' @param SCENARIO_NAME name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO, 
+#'                                              MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)
+#' @param SCENARIO_INCREASE increase of given mode in each scenario (currently used in GLOBAL and BOGOTA scenarios)
 #' @param CO2_emission_inventory named list of mode emissions
 #' 
 #' @return ithim_object list of objects for onward use.
@@ -120,7 +122,8 @@ run_ithim_setup <- function(seed = 1,
                             DISTANCE_SCALAR_PT = 1,
                             DISTANCE_SCALAR_CYCLING = 1,
                             DISTANCE_SCALAR_MOTORCYCLE = 1,
-                            SCENARIO_NAME = "GLOBAL"){
+                            SCENARIO_NAME = "GLOBAL",
+                            SCENARIO_INCREASE = 0.05){
   
   ## SUMMARY OF INPUTS
   # seed = double. sets seed to allow some reproducibility.
@@ -202,17 +205,21 @@ run_ithim_setup <- function(seed = 1,
                             "MAX_MODE_SHARE_SCENARIO",
                             "LATAM",
                             "GLOBAL",
-                            "AFRICA_INDIA")){
+                            "AFRICA_INDIA", 
+                            'BOGOTA')){
     stop("Unsupported scenario. Please select one from \n
         TEST_WALK_SCENARIO \n
         TEST_CYCLE_SCENARIO \n
          MAX_MODE_SHARE_SCENARIO \n
          LATAM \n
          GLOBAL \n
-         AFRICA_INDIA")
+         AFRICA_INDIA \n
+         BOGOTA"
+         )
   }
   
   SCENARIO_NAME <<- SCENARIO_NAME
+  SCENARIO_INCREASE <<- SCENARIO_INCREASE
   
   #IF (SCENARIO_NAME == "MAX_MODE_SHARE_SCENARIO")
   
