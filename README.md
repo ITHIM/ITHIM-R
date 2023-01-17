@@ -4,6 +4,14 @@ output:
   pdf_document: default
 ---
 
+<!-- badges: start -->
+
+[![DOI](https://zenodo.org/badge/117988409.svg)](https://zenodo.org/badge/latestdoi/117988409)
+
+
+<!-- badges: end -->
+
+
 # ITHIM-R
 
 Development of the ITHIM-R, also known as ITHIM version 3.0. Started in
