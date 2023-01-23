@@ -28,7 +28,7 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 # #African & Indian cities
 # cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
 
- cities <- 'bogota'
+cities <- 'bogota'
 # number of times input values are sampled from each input parameter distribution
 
 input_parameter_file <- "InputParameters_v24.0.xlsx"
@@ -38,9 +38,9 @@ author <- "AA"
 comment <- "Added CO2 emission sampling"
 
 # scenario definition
-scenario_name <- "BOGOTA"
+scenario_name <- "GLOBAL"
 reference_scenario <- 'Baseline'
-scenario_increase <- 0.01 # increase for each mode in each scenario
+scenario_increase <- 0.05 # increase for each mode in each scenario
 
 compute_mode <- 'constant' # constant parameters from the given parameters
 ############################### No need to change the following ##################################
@@ -235,6 +235,10 @@ print(system.time(for(city in cities){
   ithim_objects[[city]]$vehicle_inventory <- VEHICLE_INVENTORY
   ithim_objects[[city]]$location$country <- country[[CITY]]
   ithim_objects[[city]]$location$continent <- continent[[CITY]]
+  ithim_objects[[city]]$new_walk_trips_count <- list()
+  ithim_objects[[city]]$new_walk_trips_count$all <- count_new_walk_trips
+  ithim_objects[[city]]$new_walk_trips_count$bus <- count_new_walk_trips_bus
+  ithim_objects[[city]]$new_walk_trips_count$rail <- count_new_walk_trips_rail
   
   ## store results to plot
   # min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))

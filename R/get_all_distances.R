@@ -27,9 +27,7 @@ get_all_distances <- function(ithim_object){
   mode_share_scen$share <- mode_share_scen$count / mode_share_scen$total_count # calculate mode share
   mode_share_scen <- mode_share_scen %>% dplyr::select(-c(count, total_count)) # remove columns that aren't needed
   
-  
-  
-  
+
   # Use demographic
   pop <- DEMOGRAPHIC
   
