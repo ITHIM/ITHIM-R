@@ -9,6 +9,8 @@
 #' @export
 add_walk_trips <- function(pt_trips){
   
+  min_pt_time <- 3
+  
   # filter out stage modes that are PT
   walk_trips <- pt_trips[pt_trips$stage_mode %in% c('bus','minibus','rail','subway'),] 
 
@@ -26,22 +28,22 @@ add_walk_trips <- function(pt_trips){
   # add new stage_mode as walk to pt  
   walk_trips$stage_mode_new <- 'walk_to_pt'
 
-  # Replace walk trips with duration greater than that of (pt time + 3) with new pt time, else set time to 0
+  # Replace walk trips with duration greater than that of (pt time + min_pt_time) with new pt time, else set time to 0
   # Walk_to_pt for bus trips
-  walk_trips$stage_duration_new <- ifelse(((walk_trips$stage_duration > BUS_WALK_TIME + 3) & 
+  walk_trips$stage_duration_new <- ifelse(((walk_trips$stage_duration > BUS_WALK_TIME + min_pt_time) & 
                               (walk_trips$stage_mode == 'bus' | walk_trips$stage_mode == 'minibus')), BUS_WALK_TIME,0)
   # Walk_to_pt for rail trips
-  walk_trips$stage_duration_new <- ifelse(((walk_trips$stage_duration > RAIL_WALK_TIME + 3) &
+  walk_trips$stage_duration_new <- ifelse(((walk_trips$stage_duration > RAIL_WALK_TIME + min_pt_time) &
                               (walk_trips$stage_mode == 'rail' | walk_trips$stage_mode == 'subway')), RAIL_WALK_TIME,
                               walk_trips$stage_duration_new)
   
   # Remove walk_to_pt duration from trip duration for bus trips
-  pt_trips_to_change$stage_duration <- ifelse(((pt_trips_to_change$stage_duration > BUS_WALK_TIME + 3) & 
+  pt_trips_to_change$stage_duration <- ifelse(((pt_trips_to_change$stage_duration > BUS_WALK_TIME + min_pt_time) & 
                                        (pt_trips_to_change$stage_mode == 'bus' | pt_trips_to_change$stage_mode == 'minibus')),
                                       pt_trips_to_change$stage_duration - BUS_WALK_TIME, pt_trips_to_change$stage_duration)
 
   # Remove walk_to_pt duration from trip duration for rail trips
-  pt_trips_to_change$stage_duration <- ifelse(((pt_trips_to_change$stage_duration > RAIL_WALK_TIME + 3) &
+  pt_trips_to_change$stage_duration <- ifelse(((pt_trips_to_change$stage_duration > RAIL_WALK_TIME + min_pt_time) &
                               (pt_trips_to_change$stage_mode == 'rail' | pt_trips_to_change$stage_mode == 'subway')), 
                             pt_trips_to_change$stage_duration - RAIL_WALK_TIME, pt_trips_to_change$stage_duration)
   
