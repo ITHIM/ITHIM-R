@@ -119,6 +119,10 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
     CAS_EXPONENT <<- SIN_EXPONENT_SUM  * CASUALTY_EXPONENT_FRACTION
     STR_EXPONENT <<- SIN_EXPONENT_SUM - CAS_EXPONENT
     
+    # when running in sampling mode, ensure that cas_exponent and str_exponent are always below 1
+    if (CAS_EXPONENT > 1) CAS_EXPONENT <<- 1
+    if (STR_EXPONENT > 1) STR_EXPONENT <<- 1
+    
     for(type in INJURY_TABLE_TYPES){
       injuries_for_model$Baseline[[type]]$cas_exponent_col <- CAS_EXPONENT
       injuries_for_model$Baseline[[type]]$str_exponent_col <- STR_EXPONENT
@@ -146,6 +150,10 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
     injuries_for_model$Baseline$nov$cas_exponent_col <- SIN_EXPONENT_SUM_NOV
     injuries_for_model$Baseline$nov$str_exponent_col <- 1
     
+    # when running in sampling mode, ensure that cas_exponent and str_exponent are always below 1
+    injuries_for_model$Baseline$whw$cas_exponent_col <- ifelse(injuries_for_model$Baseline$whw$cas_exponent_col > 1, 1, injuries_for_model$Baseline$whw$cas_exponent_col)
+    injuries_for_model$Baseline$whw$str_exponent_col <- ifelse(injuries_for_model$Baseline$whw$str_exponent_col > 1, 1, injuries_for_model$Baseline$whw$str_exponent_col)
+    injuries_for_model$Baseline$nov$cas_exponent_col <- ifelse(injuries_for_model$Baseline$nov$cas_exponent_col > 1, 1, injuries_for_model$Baseline$nov$cas_exponent_col)
     
     for (n in 1:(NSCEN+1)){
       injuries_list[[n]]$whw$cas_exponent_col <- SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH
@@ -156,13 +164,22 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
       
       injuries_list[[n]]$whw$cas_exponent_col[injuries_list[[n]]$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED
       injuries_list[[n]]$whw$str_exponent_col[injuries_list[[n]]$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED - (SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED)
+      
+      # when running in sampling mode, ensure that cas_exponent and str_exponent are always below 1
+      injuries_list[[n]]$whw$cas_exponent_col <- ifelse(injuries_list[[n]]$whw$cas_exponent_col > 1, 1, injuries_list[[n]]$whw$cas_exponent_col)
+      injuries_list[[n]]$whw$str_exponent_col <- ifelse(injuries_list[[n]]$whw$str_exponent_col > 1, 1, injuries_list[[n]]$whw$str_exponent_col)
+      
     }
     
-    injuries_for_model$Baseline$nov$cas_exponent_col <- SIN_EXPONENT_SUM_NOV
+    # when running in sampling mode, ensure that cas_exponent and str_exponent are always below 1
+    injuries_for_model$Baseline$nov$cas_exponent_col <- min(SIN_EXPONENT_SUM_NOV, 1)
     injuries_for_model$Baseline$nov$str_exponent_col <- 1
     
+    
+    
     for (n in 1:(NSCEN+1)){
-      injuries_list[[n]]$nov$cas_exponent_col <- SIN_EXPONENT_SUM_NOV 
+      # when running in sampling mode, ensure that cas_exponent and str_exponent are always below 1
+      injuries_list[[n]]$nov$cas_exponent_col <- min(SIN_EXPONENT_SUM_NOV, 1) 
       injuries_list[[n]]$nov$str_exponent_col <- 1
     }
 
