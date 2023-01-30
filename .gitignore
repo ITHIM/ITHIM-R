@@ -13,3 +13,5 @@ code/producing_trips_rd/trip-summary_files/figure-html/
 results/multi_city/io.rds
 
 results/multi_city/whw_matrices/interactive_plots/
+
+/.quarto/
