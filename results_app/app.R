@@ -4,6 +4,7 @@ library(tidyverse)
 library(gridlayout)
 library(shinyWidgets)
 library(bslib)
+library(readxl)
 #library(shiny.semantic)
 
 options(scipen = 10000)
@@ -21,6 +22,14 @@ deaths_pathway$measures <- "Deaths"
 injury_risks_per_billion_kms_lng <- read_csv("../results/multi_city/whw_matrices/injury_risks_per_billion_kms_lng.csv")
 injury_risks_per_100k_pop <- read_csv("../results/multi_city/whw_matrices/injury_risks_per_100k_pop.csv")
 injury_risks_per_100million_h_lng <- read_csv("../results/multi_city/whw_matrices/injury_risks_per_100million_h_lng.csv")
+
+
+# Input params
+input_parameter_file_path <- "../InputParameters_v24.0.xlsx"
+city_input_params <- read_excel(input_parameter_file_path, sheet = "all_city_parameter_inputs")
+global_input_params <- read_excel(input_parameter_file_path, sheet = "all_global_parameter_inputs")
+
+# output$table <- DT::renderDataTable(DT::datatable({
 
 ren_scen <- function(df){
   df |> 
@@ -116,7 +125,8 @@ ui <- grid_page(
     tabsetPanel(
       id = "main_tab",
       tabPanel("Health Outcomes", plotlyOutput("in_pivot", width = "100%", height = "100%")),
-      tabPanel("Injury Risks", plotlyOutput("in_inj_pivot", width = "100%", height = "100%"))
+      tabPanel("Injury Risks", plotlyOutput("in_inj_pivot", width = "100%", height = "100%")),
+      tabPanel("Params", DT::dataTableOutput("input_params"))
     )
   ),
   grid_card(
@@ -170,8 +180,8 @@ ui <- grid_page(
                    label = "Risk Type: ",
                    choices = inj_risk_types,
                    selected = inj_risk_types[1])
-    )
-    
+    ),
+    downloadButton("download_top_data", "Download data", icon = shiny::icon("file-download"))
     
   )
   
@@ -234,32 +244,8 @@ server <- function(input, output, session) {
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_modes <- input$in_inj_modes
     
-    local_df <- injury_risks_per_billion_kms_lng
-    ylab <- "Distance: risk per Billion kilometeres"
-    if (input$in_risk_type == "Population by 100k"){
-      local_df <- injury_risks_per_100k_pop
-      ylab <- "Population: risk per 100K"
-    }
-    else if (input$in_risk_type == "100 Million hours"){
-      local_df <- injury_risks_per_100million_h_lng
-      ylab <- "Duration: risk per 100 Million hours"
-    }
-    
+    local_df <- get_inj_data()
     text_colour <- "black"
-    
-    local_df <- local_df |>
-      as.data.frame() |>
-      filter(measure == "mean" &
-               city %in% filtered_cities &
-               scenario %in% filtered_scens &
-               mode %in% filtered_modes) |>
-      mutate(scenario = case_when(
-        scenario == "CYC_SC" ~ "Cycling Scenario",
-        scenario == "CAR_SC" ~ "Car Scenario",
-        scenario == "BUS_SC" ~ "Bus Scenario",
-        scenario == "MOT_SC" ~ "Motorcycle Scenario",
-        scenario == "Baseline" ~ "Baseline"))
-    
     
     if(nrow(local_df) < 1)
       plotly::ggplotly(ggplot(data.frame()))
@@ -268,8 +254,6 @@ server <- function(input, output, session) {
         aes(x = city, y = value, fill = scenario) +
         geom_col(position = "dodge") +
         {if(length(filtered_scens) == 1) geom_text(aes(label = round(value, 1)), position = position_stack(vjust = 0.9))} +
-        # geom_text(aes(label = round(value, 1)), position = position_dodge(width = 0.9), vjust = -20) + 
-        # geom_text(aes(label = round(value, 1)), hjust = -5, size = 3, colour = text_colour) +
         scale_fill_hue(direction = 1) +
         coord_flip() +
         theme_minimal() +
@@ -282,7 +266,6 @@ server <- function(input, output, session) {
   })
   
   output$in_pivot <- renderPlotly({
-    # req(input$in_level, input$in_measure, input$in_pathway_interaction, input$in_CIs, input$in_scens, input$in_pathways)
     
     in_col_lvl <- input$in_level
     in_measure <- input$in_measure
@@ -303,10 +286,11 @@ server <- function(input, output, session) {
         if(nrow(ld) < 1)
           plotly::ggplotly(ggplot(data.frame()))
         else{
+          
           gg <- ggplot(ld) +
             aes(x = city, y = metric_100k, fill = scenario) +
-            {if(in_CIs == "Yes") geom_boxplot()} +
-            {if(in_CIs == "No") geom_col(alpha = 0.7)}+
+            {if(in_CIs == "Yes") geom_violin()} +# geom_boxplot(position = position_dodge(width = 1.5))} +
+            {if(in_CIs == "No") geom_col(width = 0.5, colour="black", alpha = 0.7)}+
             # {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), hjust = -5, size = 3, colour = text_colour)}+
             {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), position = position_stack(vjust = 0.9), size = 3, colour = text_colour)} +
             scale_fill_hue(direction = 1) +
@@ -315,7 +299,7 @@ server <- function(input, output, session) {
             facet_grid(vars(), vars(dose))  +
             scale_fill_manual(values = scen_colours) +
             labs(y = y_lab)
-          
+          browser()
           plotly::ggplotly(gg) #|> style(text = ld$metric_100k, textposition = "auto", textfont = 12)
         }
     }else{
@@ -328,6 +312,46 @@ server <- function(input, output, session) {
                   input$in_scens,
                   input$in_pathways,
                   input$in_int_pathway)
+  
+  
+  get_inj_data <- reactive({
+    
+    filtered_scens <- input$in_scens
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    filtered_modes <- input$in_inj_modes
+    
+    local_df <- injury_risks_per_billion_kms_lng
+    ylab <- "Distance: risk per Billion kilometeres"
+    if (input$in_risk_type == "Population by 100k"){
+      local_df <- injury_risks_per_100k_pop
+      ylab <- "Population: risk per 100K"
+    }
+    else if (input$in_risk_type == "100 Million hours"){
+      local_df <- injury_risks_per_100million_h_lng
+      ylab <- "Duration: risk per 100 Million hours"
+    }
+    
+    text_colour <- "black"
+      
+    local_df <- local_df |>
+      as.data.frame() |>
+      filter(measure == "mean" &
+               city %in% filtered_cities &
+               scenario %in% filtered_scens &
+               mode %in% filtered_modes) |>
+      mutate(scenario = case_when(
+        scenario == "CYC_SC" ~ "Cycling Scenario",
+        scenario == "CAR_SC" ~ "Car Scenario",
+        scenario == "BUS_SC" ~ "Bus Scenario",
+        scenario == "MOT_SC" ~ "Motorcycle Scenario",
+        scenario == "Baseline" ~ "Baseline"))
+    
+    if (is.null(local_df) || nrow(local_df) == 0)
+      local_df <- data.frame()
+    
+    local_df
+    
+  })
   
   
   get_health_data <- reactive({
@@ -429,19 +453,30 @@ server <- function(input, output, session) {
   
   output$download_top_data <- downloadHandler(
     filename = function() {
-      measure <- 'YLLs'
-      if (input$in_measure == "Deaths")
-        measure <- 'deaths'
-      paste("health-data-selected-cities-", measure, "-", Sys.Date(), ".csv", sep="")
+      # measure <- 'YLLs'
+      # if (input$in_measure == "Deaths")
+      #   measure <- 'deaths'
+      # paste("health-data-selected-cities-", measure, "-", Sys.Date(), ".csv", sep="")
+      
+      paste("output.csv")
     },
     content = function(file) {
       
-      data <- get_health_data()
-      data$measure <- input$in_measure
+      if(input$main_tab == "Health Outcomes")
+        data <- get_health_data()
+      else(input$main_tab == "Health Outcomes")
+        data <- get_inj_data()
+      
+      # data$measure <- input$in_measure
       write_csv(data, file)
     }
     
   )
+  
+  output$input_params <- DT::renderDataTable(DT::datatable({
+    data <- city_input_params
+    data
+  }))
 }
 
 # Run the application 

@@ -881,11 +881,8 @@ baseline_counts_pop <- left_join(baseline_counts_pop, true_distances, by = c('ci
 injury_risks_per_100k <- rbind(injury_risks_per_100k, baseline_counts_pop)
 
 
-
-
-
 # add country and continent information
-injury_risks_per_100k <- left_join(injury_risks_per_100k, location, by = 'city')
+# injury_risks_per_100k <- left_join(injury_risks_per_100k, location, by = 'city')
 
 readr::write_csv(injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'), 'results/multi_city/whw_matrices/injury_risks_per_100k_pop.csv')
 ```
