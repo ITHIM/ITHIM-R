@@ -114,6 +114,8 @@ ithim_setup_parameters(
 \item{DISTANCE_SCALAR_MOTORCYCLE}{lognormal parameter: scalar for motorcycle distance travelled}
 
 \item{CALL_INDIVIDUAL_SIN}{logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.}
+
+\item{SIN_THRESHOLD}{scalar: number below which no safety in number coefficient is applied, i.e. SIN = 1}
 }
 \value{
 list of samples of uncertain parameters

@@ -18,9 +18,6 @@ run_ithim_setup(
   ADD_TRUCK_DRIVERS = T,
   ADD_MOTORCYCLE_FLEET = F,
   ADD_PERSONAL_MOTORCYCLE_TRIPS = "no",
-  TEST_WALK_SCENARIO = F,
-  TEST_CYCLE_SCENARIO = F,
-  MAX_MODE_SHARE_SCENARIO = F,
   REFERENCE_SCENARIO = "Baseline",
   PATH_TO_LOCAL_DATA = NULL,
   NSAMPLES = 1,
@@ -47,6 +44,7 @@ run_ithim_setup(
   SIN_EXPONENT_SUM_VEH = 2,
   CASUALTY_EXPONENT_FRACTION_VEH = 0.5,
   CALL_INDIVIDUAL_SIN = F,
+  SIN_THRESHOLD = 0,
   BUS_TO_PASSENGER_RATIO = 0.022,
   CAR_OCCUPANCY_RATIO = 0.6,
   TRUCK_TO_CAR_RATIO = 0.21,
@@ -59,8 +57,8 @@ run_ithim_setup(
   DISTANCE_SCALAR_PT = 1,
   DISTANCE_SCALAR_CYCLING = 1,
   DISTANCE_SCALAR_MOTORCYCLE = 1,
-  LATAM = FALSE,
-  GLOBAL = FALSE
+  SCENARIO_NAME = "GLOBAL",
+  SCENARIO_INCREASE = 0.05
 )
 }
 \arguments{
@@ -89,12 +87,6 @@ run_ithim_setup(
 \item{ADD_MOTORCYCLE_FLEET}{logic: whether or not to add additional commercial motorcycle fleet as ghost trips}
 
 \item{ADD_PERSONAL_MOTORCYCLE_TRIPS}{character: if 'no' does not add motorcycle trips otherwise set to geographic region which defines the set-up of the motorcycle trips to be added}
-
-\item{TEST_WALK_SCENARIO}{logic: whether or not to run the walk scenario}
-
-\item{TEST_CYCLE_SCENARIO}{logic: whether or not to run the cycle scenario}
-
-\item{MAX_MODE_SHARE_SCENARIO}{logic: whether or not to run the max mode share scenario}
 
 \item{REFERENCE_SCENARIO}{which scenario forms the reference for the health comparison}
 
@@ -148,6 +140,8 @@ run_ithim_setup(
 
 \item{CALL_INDIVIDUAL_SIN}{logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.}
 
+\item{SIN_THRESHOLD}{scalar: number below which no safety in number coefficient is applied, i.e. SIN = 1}
+
 \item{BUS_TO_PASSENGER_RATIO}{beta parameter: number of buses per passenger}
 
 \item{CAR_OCCUPANCY_RATIO}{beta parameter: number of people per car (including driver)}
@@ -171,6 +165,11 @@ run_ithim_setup(
 \item{DISTANCE_SCALAR_CYCLING}{lognormal parameter: scalar for cycling distance travelled}
 
 \item{DISTANCE_SCALAR_MOTORCYCLE}{lognormal parameter: scalar for motorcycle distance travelled}
+
+\item{SCENARIO_NAME}{name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO, 
+MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)}
+
+\item{SCENARIO_INCREASE}{increase of given mode in each scenario (currently used in GLOBAL and BOGOTA scenarios)}
 
 \item{setup_call_summary_filename}{name to write setup call summary to}
 }

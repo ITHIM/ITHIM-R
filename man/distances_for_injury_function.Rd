@@ -4,7 +4,7 @@
 \alias{distances_for_injury_function}
 \title{Get distances and model for injuries module}
 \usage{
-distances_for_injury_function(journeys, dist)
+distances_for_injury_function(journeys, dist, mode_share_scen)
 }
 \arguments{
 \item{journeys}{df with sex and age_cat total distance (by total population) for scenarios}
