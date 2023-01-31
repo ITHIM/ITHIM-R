@@ -62,11 +62,9 @@ create_synth_pop <- function(raw_trip_set){
       if(nrow(matching_people)>0) raw_zero <- sum(matching_people$work_ltpa_marg_met==0)/length(matching_people$work_ltpa_marg_met)
       if(BACKGROUND_PA_CONFIDENCE < 1){
         mean <- raw_zero
-        std <- 1/(BACKGROUND_PA_CONFIDENCE^2 + 0.07) / 100
-        if (raw_zero == 0){
-          mean <- 0.001
-          std <- 1/(BACKGROUND_PA_CONFIDENCE^2+0.2) / 200
-        }
+        if (raw_zero == 0) mean <- 0.001
+        std <- (1-BACKGROUND_PA_CONFIDENCE)/5 #1/(BACKGROUND_PA_CONFIDENCE^2 + 0.07) / 100
+
         alpha <- abs((mean*(1-mean)/std^2-1)*mean)
         beta <- abs((mean*(1-mean)/std^2-1)*(1-mean))
         raw_zero <- rbeta(1,alpha,beta)
