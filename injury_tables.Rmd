@@ -23,6 +23,8 @@ knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, message = F
 
 smodes <- read_csv('data/global/modes/standardized_modes.csv')
 
+# NOTE: the following scenario order is assumed: 'bi_sc', 'car_sc', 'bus_sc','mc_sc','w_sc' and if there are less than 5 scenarios, the last scenarios can be missing but all of the scenarios in the middle need to exist. e.g. if you want the public transport and the walking scenario, you still need to create a car, motorcycling and bicycling scenario!
+
 ```
 
 ```{js echo=FALSE}
@@ -136,7 +138,7 @@ injury_col <- which(colnames(io[[1]]$outcomes$hb$deaths)=='scen1_deaths_inj') # 
 ap_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$deaths),function(x)grepl('ap',as.character(x))))
 pa_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$deaths),function(x)grepl('pa',as.character(x))))
 scen_names <- rownames(scen_prop)
-# scen_names <- c('Walking', 'Bicycling', 'Driving', 'Public Transport', 'Motorcycling')
+
 
 
 ```
@@ -149,8 +151,13 @@ Who hit whom matrix for all scenarios for each case study
 
 ```{r whw, results = 'asis', fig.width=7, fig.height=4, echo=FALSE}
 
-#scen_names_w_baseline <- c('bl', 'w_sc', 'bi_sc', 'car_sc', 'mc_sc', 'bus_sc')
-scen_names_w_baseline <- c('bl', 'bi_sc', 'car_sc', 'bus_sc', 'mc_sc')
+
+scen_names_w_baseline <- c('bl',  'bi_sc', 'car_sc', 'bus_sc','mc_sc','w_sc')
+if (NSCEN == 4){
+  scen_names_w_baseline <- c('bl', 'bi_sc', 'car_sc', 'bus_sc', 'mc_sc')
+} else if (NSCEN == 3){
+  scen_names_w_baseline <- c('bl', 'bi_sc', 'car_sc', 'bus_sc')
+}
 scen_lt <- data.frame("scen_name" = names(io[[1]]$outcomes$whw), "val" = scen_names_w_baseline, stringsAsFactors = FALSE)
 
 all_whw <- list()
@@ -488,6 +495,8 @@ true_distances[true_distances$scenario == 'Scenario 3',]$scenario <- 'Public Tra
 true_distances[true_distances$scenario == 'Scenario 2',]$scenario <- 'Car'
 true_distances[true_distances$scenario == 'Scenario 4',]$scenario <- 'Motorcycling'
 
+true_distances[true_distances$scenario == 'Scenario 5',]$scenario <- 'Walking'
+
 # add mode distances
 whw_list <- left_join(whw_list, true_distances, by = c('city', 'cas_mode','scenario'))
 
@@ -704,7 +713,13 @@ injury_risks_lng[injury_risks_lng$scenario == 'bl',]$scenario <- 'Baseline_predi
 injury_risks_lng[injury_risks_lng$scenario == 'bisc',]$scenario <- 'Bicycling'
 injury_risks_lng[injury_risks_lng$scenario == 'bssc',]$scenario <- 'Public Transport'
 injury_risks_lng[injury_risks_lng$scenario == 'csc',]$scenario <- 'Car'
-injury_risks_lng[injury_risks_lng$scenario == 'mcsc',]$scenario <- 'Motorcycling'
+if (NSCEN == 4){
+  injury_risks_lng[injury_risks_lng$scenario == 'mcsc',]$scenario <- 'Motorcycling'
+}
+if (NSCEN == 5){
+  injury_risks_lng[injury_risks_lng$scenario == 'mcsc',]$scenario <- 'Motorcycling'
+    injury_risks_lng[injury_risks_lng$scenario == 'wsc',]$scenario <- 'Walking'
+}
 rd <- rename(injury_risks_lng, mode = stage_mode)
 rd <- rd %>% filter(mode != 'Total')
 
@@ -851,8 +866,14 @@ injury_risks_per_100k[injury_risks_per_100k$scenario == 'bl',]$scenario <- 'Base
 injury_risks_per_100k[injury_risks_per_100k$scenario == 'bisc',]$scenario <- 'Bicycling'
 injury_risks_per_100k[injury_risks_per_100k$scenario == 'bssc',]$scenario <- 'Public Transport'
 injury_risks_per_100k[injury_risks_per_100k$scenario == 'csc',]$scenario <- 'Car'
-injury_risks_per_100k[injury_risks_per_100k$scenario == 'mcsc',]$scenario <- 'Motorcycling'
-#injury_risks_per_100k[injury_risks_per_100k$scenario == 'wsc',]$scenario <- 'Walking'
+if (NSCEN == 4){
+  injury_risks_per_100k[injury_risks_per_100k$scenario == 'mcsc',]$scenario <- 'Motorcycling'
+}
+if (NSCEN == 5){
+  injury_risks_per_100k[injury_risks_per_100k$scenario == 'mcsc',]$scenario <- 'Motorcycling'
+  injury_risks_per_100k[injury_risks_per_100k$scenario == 'wsc',]$scenario <- 'Walking'
+}
+
 
 
 
@@ -901,6 +922,7 @@ true_distances_df <- bind_rows(true_distances_city) %>%
     scenario == "Scenario 2" ~ "Car",
     scenario == "Scenario 3" ~ "Public Transport",
     scenario == "Scenario 4" ~ "Motorcycling",
+    scenario == "Scenario 5" ~ "Walking",
     scenario == "Baseline" ~ "Baseline"))
 readr::write_csv(true_distances_df, 'results/multi_city/whw_matrices/distances.csv')
 ```
@@ -1041,6 +1063,13 @@ injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'bl',]$scenario <- 'Ba
 injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'bisc',]$scenario <- 'Bicycling'
 injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'bssc',]$scenario <- 'Public Transport'
 injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'csc',]$scenario <- 'Car'
+if (NSCEN == 4){
+  injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'mcsc',]$scenario <- 'Motorcycling'
+}
+if (NSCEN == 5){
+  injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'mcsc',]$scenario <- 'Motorcycling'
+    injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'wsc',]$scenario <- 'Walking'
+}
 rd_hours <- rename(injury_risks_lng_hours, mode = stage_mode)
 rd_hours <- rd_hours %>% filter(mode != 'Total')
 
@@ -1057,6 +1086,7 @@ duration[duration$scenario == 'Scenario 1',]$scenario <- 'Bicycling'
 duration[duration$scenario == 'Scenario 3',]$scenario <- 'Public Transport'
 duration[duration$scenario == 'Scenario 2',]$scenario <- 'Car'
 duration[duration$scenario == 'Scenario 4',]$scenario <- 'Motorcycling'
+duration[duration$scenario == 'Scenario 5',]$scenario <- 'Walking'
 
 # add duration information
 rd_hours <- left_join(rd_hours, duration, by = c('mode', 'city','scenario'))
