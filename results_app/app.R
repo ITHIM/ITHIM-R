@@ -5,7 +5,7 @@ library(gridlayout)
 library(shinyWidgets)
 library(bslib)
 library(readxl)
-#library(shiny.semantic)
+library(ggridges)
 
 options(scipen = 10000)
 rel_path <- "../results/multi_city/health_impacts/"
@@ -116,23 +116,52 @@ ui <- grid_page(
     "1fr"
   ),
   col_sizes = c(
-    "0.15fr",
-    "0.85fr"
+    "0.20fr",
+    "0.80fr"
   ),
   gap_size = "1rem",
   grid_card(
     area = "area2",
     tabsetPanel(
       id = "main_tab",
-      tabPanel("Health Outcomes", plotlyOutput("in_pivot", width = "100%", height = "100%")),
+      tabPanel("Health Outcomes", 
+               # conditionalPanel(
+                 # condition = "input.in_int == 'Yes'", 
+               uiOutput("plot_health", width = "100%", height = "100%")
+               # ),
+               # conditionalPanel(
+                 # condition = "input.in_int == 'No'", 
+                 # #, width = "100%", height = "90%")
+               # )
+              ),
       tabPanel("Injury Risks", plotlyOutput("in_inj_pivot", width = "100%", height = "100%")),
       tabPanel("Params", DT::dataTableOutput("input_params"))
     )
   ),
   grid_card(
     area = "area1",
+    pickerInput(inputId = "in_scens", 
+                label = "Scenario (5% increase)",
+                choices = scens,
+                selected = scens[1],
+                options = list(`actions-box` = TRUE), 
+                multiple = TRUE),
+    br(),
+    treeInput(
+      inputId = "in_cities",
+      label = "Select cities:",
+      choices = create_tree(cities),
+      selected = cities$city,
+      returnValue = "text",
+      closeDepth = 0
+    ),
+    br(),
     conditionalPanel(
       condition = "input.main_tab == 'Health Outcomes'",
+      radioButtons(inputId = "in_int", 
+                   label = "Interactive",
+                   choices = c("No", "Yes"),
+                   selected = "No"),
       radioButtons(inputId = "in_measure", 
                    label = "Health Outcome",
                    choices = c("Years of Life Lost (YLLs)", "Deaths")),
@@ -153,21 +182,6 @@ ui <- grid_page(
                   options = list(`actions-box` = TRUE), 
                   multiple = TRUE)
     ),
-    pickerInput(inputId = "in_scens", 
-                label = "Scenario (5% increase)",
-                choices = scens,
-                selected = scens[1],
-                options = list(`actions-box` = TRUE), 
-                multiple = TRUE),
-    treeInput(
-      inputId = "in_cities",
-      label = "Select cities:",
-      choices = create_tree(cities),
-      selected = cities$city,
-      returnValue = "text",
-      closeDepth = 0
-    ),
-    
     conditionalPanel(
       condition = "input.main_tab == 'Injury Risks'",
       pickerInput(inputId = "in_inj_modes", 
@@ -246,10 +260,17 @@ server <- function(input, output, session) {
     
     local_df <- get_inj_data()
     text_colour <- "black"
+      
+    ylab <- "Distance: risk per Billion kilometeres"
+    if (input$in_risk_type == "Population by 100k")
+      ylab <- "Population: risk per 100K"
+    else if (input$in_risk_type == "100 Million hours")
+      ylab <- "Duration: risk per 100 Million hours"
     
     if(nrow(local_df) < 1)
       plotly::ggplotly(ggplot(data.frame()))
     else{
+      
       gg <- ggplot(local_df) +
         aes(x = city, y = value, fill = scenario) +
         geom_col(position = "dodge") +
@@ -265,7 +286,64 @@ server <- function(input, output, session) {
     }
   })
   
-  output$in_pivot <- renderPlotly({
+  output$in_pivot <- renderPlot({
+    
+    in_col_lvl <- input$in_level
+    in_measure <- input$in_measure
+    in_CIs <- input$in_CIs
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    filtered_scens <- input$in_scens
+    filtered_pathways <- input$in_pathways
+    
+    if (!is.null(in_col_lvl)){
+      
+      text_colour <- "black"
+        y_lab <- "Years of Life Lost (YLLs) per 100k"
+        if (in_measure == "Deaths")
+          y_lab <- "Deaths per 100k"
+        
+        ld <- get_health_data()
+        
+        if(nrow(ld) < 1)
+          ggplot(data.frame())#plotly::ggplotly(ggplot(data.frame()))
+        else{
+          
+          gg <- ggplot(ld) +
+            aes(x = city, y = metric_100k, fill = scenario) +
+            {if(in_CIs == "Yes") geom_violin()} +# geom_boxplot(position = position_dodge(width = 1.5))} +
+            {if(in_CIs == "No") geom_col(width = 0.5, alpha = 0.7)}+
+            # {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), hjust = -5, size = 3, colour = text_colour)}+
+            {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), position = position_stack(vjust = 0.9), size = 3, colour = text_colour)} +
+            scale_fill_hue(direction = 1) +
+            coord_flip() +
+            theme_minimal() +
+            facet_grid(vars(), vars(dose))  +
+            scale_fill_manual(values = scen_colours) +
+            labs(y = y_lab)
+          
+          gg <- ggplot(ld, aes(x = metric_100k, y = city, fill = scenario)) +
+            stat_density_ridges(quantile_lines = TRUE, alpha = 0.75,
+                                quantiles = c(0.05, 0.5, 0.95)) +
+            labs(y = y_lab)
+          
+          # browser()
+          
+          gg
+          # plotly::ggplotly(gg) #|> style(text = ld$metric_100k, textposition = "auto", textfont = 12)
+        }
+    }else{
+      ggplot(data.frame())#plotly::ggplotly(ggplot(data.frame()))
+    }
+  }, height = "100%", width = "100%") |> bindCache(input$in_level,
+                  input$in_measure,
+                  input$in_CIs,
+                  input$in_cities,
+                  input$in_scens,
+                  input$in_pathways,
+                  input$in_int_pathway)
+  
+  
+  output$in_pivot_int <- renderPlotly({
     
     in_col_lvl <- input$in_level
     in_measure <- input$in_measure
@@ -290,7 +368,7 @@ server <- function(input, output, session) {
           gg <- ggplot(ld) +
             aes(x = city, y = metric_100k, fill = scenario) +
             {if(in_CIs == "Yes") geom_violin()} +# geom_boxplot(position = position_dodge(width = 1.5))} +
-            {if(in_CIs == "No") geom_col(width = 0.5, colour="black", alpha = 0.7)}+
+            {if(in_CIs == "No") geom_col(width = 0.5, alpha = 0.7)}+
             # {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), hjust = -5, size = 3, colour = text_colour)}+
             {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), position = position_stack(vjust = 0.9), size = 3, colour = text_colour)} +
             scale_fill_hue(direction = 1) +
@@ -299,7 +377,7 @@ server <- function(input, output, session) {
             facet_grid(vars(), vars(dose))  +
             scale_fill_manual(values = scen_colours) +
             labs(y = y_lab)
-          browser()
+          
           plotly::ggplotly(gg) #|> style(text = ld$metric_100k, textposition = "auto", textfont = 12)
         }
     }else{
@@ -477,6 +555,23 @@ server <- function(input, output, session) {
     data <- city_input_params
     data
   }))
+  
+  is_interactive_plot <- reactive({
+    
+    if (input$in_int == 'Yes')
+      return(TRUE)
+    else
+      return(FALSE)
+  })
+  
+  output$plot_health <- renderUI({
+    
+  if (is_interactive_plot()){
+      plotly::plotlyOutput("in_pivot_int")
+    } else {
+      plotOutput("in_pivot")
+    }
+  })
 }
 
 # Run the application 
