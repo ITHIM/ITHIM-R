@@ -111,6 +111,7 @@ inj_risk_types <- c("Billion kms", "Population by 100k", "100 Million hours")
 
 ui <- grid_page(
   theme = bs_theme(bootswatch = "yeti"),
+  tags$head(HTML("<title>ITHIM Results</title>")), 
   # shinythemes::themeSelector(),
   layout = c(
     "area1 area2"
