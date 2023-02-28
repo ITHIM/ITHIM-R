@@ -252,6 +252,10 @@ server <- function(input, output, session) {
   
   output$in_inj_pivot <- renderPlotly({
     
+    req(input$in_scens)
+    req(input$in_cities)
+    req(input$in_inj_modes)
+    
     filtered_scens <- input$in_scens
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_modes <- input$in_inj_modes
@@ -342,6 +346,13 @@ server <- function(input, output, session) {
   
   
   output$in_pivot_int <- renderPlotly({
+    
+    req(input$in_scens)
+    req(input$in_cities)
+    req(input$in_level)
+    req(input$in_measure)
+    req(input$in_CIs)
+    req(input$in_pathways)
     
     in_col_lvl <- input$in_level
     in_measure <- input$in_measure
