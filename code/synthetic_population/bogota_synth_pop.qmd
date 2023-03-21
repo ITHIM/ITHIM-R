@@ -8,8 +8,8 @@ format:
     dark: darkly
     toc: true
     embed-resources: true
-reference-location: margin
-citation-location: margin
+# reference-location: margin
+# citation-location: margin
 execute:
   echo: false
   message: false
@@ -19,8 +19,10 @@ crossref:
   chapters: true
 ---
 
-## Load library
-Load all the require pacakges
+# Load library
+
+Load all the require packages
+
 ```{r}
 library(rsample)
 library(tidyverse)
@@ -28,39 +30,64 @@ library(summarytools)
 
 # Set seed
 set.seed(2023)
+st_options(plain.ascii = FALSE)
 
 ```
 
-
-## Read latest bogoto travel survey with weights
+# Read latest bogoto travel survey with weights
 
 Daniel has kindly added `participation weights` to each row in the travel dataset, which represents household weights
 
-```{r, echo=TRUE}
+```{r, results='asis'}
 bt <- read_csv("https://raw.githubusercontent.com/ITHIM/TravelSurveyPreprocessing/fc8bae5381440fcb96e6789d26d115305597e5f1/Data/ITHIM/bogota/trips_bogota.csv")
 
-view(dfSummary(bt |> filter(age != 9999)))
+raw_dataset_without_weights <- bt |> filter(age != 9999)
 
-# rts <- bt |> filter(!is.na(trip_mode)) |> group_by(trip_mode) |> summarise(n = n()) |> mutate(raw_trip_freq = round(n / sum(n) * 100, 1))
-# rss <- bt |> filter(!is.na(stage_mode)) |> group_by(stage_mode) |> summarise(n = n()) |> mutate(raw_stage_freq = round(n / sum(n) * 100, 1))
-# 
-# et <- bt %>% mutate(pw = round(participant_wt - 1))
-# exp1 <- et  |> filter(pw > 0) |> uncount(pw, .id = "pid")
-# exp2 <- et  |> filter(pw > 0) |> filter(pw == 0) %>% mutate(pid = 1)
-# 
-# view(dfSummary(exp1 |> filter(age != 9999)))
-# 
-# ets <- exp1 |> filter(!is.na(trip_mode)) |> group_by(trip_mode) |> summarise(n = n()) |> mutate(exp_trip_freq = round(n / sum(n) * 100, 1))
-# ess <- exp1 |> filter(!is.na(stage_mode)) |> group_by(stage_mode) |> summarise(n = n()) |> mutate(exp_stage_freq = round(n / sum(n) * 100, 1))
-# 
-# ts <- full_join(rts, ets)
-# ss <- left_join(rss, ess)
-# 
-# st <- rsample::training(rsample::initial_split(exp1, prop = 0.1, strata = trip_mode))
-# ss <- rsample::training(rsample::initial_split(exp1, prop = 0.1, strata = stage_mode))
-# 
-# view(dfSummary(st))
-# view(dfSummary(ss))
+print(dfSummary(raw_dataset_without_weights, 
+                varnumbers   = FALSE, 
+                valid.col    = FALSE, 
+                graph.magnif = 0.76),
+      method = 'render')
+
+# dfSummary(bt |> filter(age != 9999), plain.ascii = FALSE, style = "grid")
+
+# print(dfSummary(dfSummary(bt |> filter(age != 9999))), method = "render")
+
+rts <- bt |> filter(!is.na(trip_mode)) |> group_by(trip_mode) |> summarise(n = n()) |> mutate(raw_trip_freq = round(n / sum(n) * 100, 1))
+rss <- bt |> filter(!is.na(stage_mode)) |> group_by(stage_mode) |> summarise(n = n()) |> mutate(raw_stage_freq = round(n / sum(n) * 100, 1))
+
+et <- bt %>% mutate(pw = round(participant_wt - 1))
+exp1 <- et  |> filter(pw > 0) |> uncount(pw, .id = "pid")
+exp2 <- et  |> filter(pw > 0) |> filter(pw == 0) %>% mutate(pid = 1)
+
+
+print(dfSummary(exp1 |> filter(age != 9999),
+                varnumbers   = FALSE, 
+                valid.col    = FALSE, 
+                graph.magnif = 0.76),
+      method = 'render')
+
+
+ets <- exp1 |> filter(!is.na(trip_mode)) |> group_by(trip_mode) |> summarise(n = n()) |> mutate(exp_trip_freq = round(n / sum(n) * 100, 1))
+ess <- exp1 |> filter(!is.na(stage_mode)) |> group_by(stage_mode) |> summarise(n = n()) |> mutate(exp_stage_freq = round(n / sum(n) * 100, 1))
+
+ts <- full_join(rts, ets)
+ss <- left_join(rss, ess)
+
+st <- rsample::training(rsample::initial_split(exp1, prop = 0.1, strata = trip_mode))
+ss <- rsample::training(rsample::initial_split(exp1, prop = 0.1, strata = stage_mode))
+
+print(dfSummary(st,
+                varnumbers   = FALSE, 
+                valid.col    = FALSE, 
+                graph.magnif = 0.76),
+      method = 'render')
+
+print(dfSummary(ss,
+                varnumbers   = FALSE, 
+                valid.col    = FALSE, 
+                graph.magnif = 0.76),
+      method = 'render')
 # 
 # st |> filter(!is.na(trip_mode)) |> group_by(trip_mode) |> summarise(n = n()) |> mutate(exp_trip_freq = round(n / sum(n) * 100, 1))
 # 
