@@ -27,6 +27,7 @@ Load all the require packages
 library(rsample)
 library(tidyverse)
 library(summarytools)
+library(arrow)
 
 # Set seed
 set.seed(2023)
@@ -37,6 +38,8 @@ st_options(plain.ascii = FALSE)
 # Read latest bogoto travel survey with weights
 
 Daniel has kindly added `participation weights` to each row in the travel dataset, which represents household weights
+
+## Summary without weights
 
 ```{r, results='asis'}
 bt <- read_csv("https://raw.githubusercontent.com/ITHIM/TravelSurveyPreprocessing/fc8bae5381440fcb96e6789d26d115305597e5f1/Data/ITHIM/bogota/trips_bogota.csv")
@@ -53,41 +56,15 @@ print(dfSummary(raw_dataset_without_weights,
 
 # print(dfSummary(dfSummary(bt |> filter(age != 9999))), method = "render")
 
-rts <- bt |> filter(!is.na(trip_mode)) |> group_by(trip_mode) |> summarise(n = n()) |> mutate(raw_trip_freq = round(n / sum(n) * 100, 1))
-rss <- bt |> filter(!is.na(stage_mode)) |> group_by(stage_mode) |> summarise(n = n()) |> mutate(raw_stage_freq = round(n / sum(n) * 100, 1))
+# rts <- bt |> filter(!is.na(trip_mode)) |> group_by(trip_mode) |> summarise(n = n()) |> mutate(raw_trip_freq = round(n / sum(n) * 100, 1))
+# rss <- bt |> filter(!is.na(stage_mode)) |> group_by(stage_mode) |> summarise(n = n()) |> mutate(raw_stage_freq = round(n / sum(n) * 100, 1))
+# 
+# ets <- exp1 |> filter(!is.na(trip_mode)) |> group_by(trip_mode) |> summarise(n = n()) |> mutate(exp_trip_freq = round(n / sum(n) * 100, 1))
+# ess <- exp1 |> filter(!is.na(stage_mode)) |> group_by(stage_mode) |> summarise(n = n()) |> mutate(exp_stage_freq = round(n / sum(n) * 100, 1))
+# 
+# ts <- full_join(rts, ets)
+# ss <- left_join(rss, ess)
 
-et <- bt %>% mutate(pw = round(participant_wt - 1))
-exp1 <- et  |> filter(pw > 0) |> uncount(pw, .id = "pid")
-exp2 <- et  |> filter(pw > 0) |> filter(pw == 0) %>% mutate(pid = 1)
-
-
-print(dfSummary(exp1 |> filter(age != 9999),
-                varnumbers   = FALSE, 
-                valid.col    = FALSE, 
-                graph.magnif = 0.76),
-      method = 'render')
-
-
-ets <- exp1 |> filter(!is.na(trip_mode)) |> group_by(trip_mode) |> summarise(n = n()) |> mutate(exp_trip_freq = round(n / sum(n) * 100, 1))
-ess <- exp1 |> filter(!is.na(stage_mode)) |> group_by(stage_mode) |> summarise(n = n()) |> mutate(exp_stage_freq = round(n / sum(n) * 100, 1))
-
-ts <- full_join(rts, ets)
-ss <- left_join(rss, ess)
-
-st <- rsample::training(rsample::initial_split(exp1, prop = 0.1, strata = trip_mode))
-ss <- rsample::training(rsample::initial_split(exp1, prop = 0.1, strata = stage_mode))
-
-print(dfSummary(st,
-                varnumbers   = FALSE, 
-                valid.col    = FALSE, 
-                graph.magnif = 0.76),
-      method = 'render')
-
-print(dfSummary(ss,
-                varnumbers   = FALSE, 
-                valid.col    = FALSE, 
-                graph.magnif = 0.76),
-      method = 'render')
 # 
 # st |> filter(!is.na(trip_mode)) |> group_by(trip_mode) |> summarise(n = n()) |> mutate(exp_trip_freq = round(n / sum(n) * 100, 1))
 # 
@@ -95,3 +72,52 @@ print(dfSummary(ss,
 
 
 ```
+
+
+## Summary with weights - expanded travel survey
+
+```{r, results='asis'}
+
+exp1 <- read_parquet("../../data/local/bogota/exp_trips.parquet")
+# Remove undefined ages
+exp1 <- exp1 |> filter(age != 9999)
+
+# exp2 <- et  |> filter(pw > 0) |> filter(pw == 0) %>% mutate(pid = 1)
+
+
+print(dfSummary(exp1,
+                varnumbers   = FALSE, 
+                valid.col    = FALSE, 
+                graph.magnif = 0.76),
+      method = 'render')
+
+```
+
+
+## Summary of sampled travel survey - with trip_mode strata
+
+```{r, results='asis'}
+st <- rsample::training(rsample::initial_split(exp1, prop = 0.1, strata = trip_mode))
+
+print(dfSummary(st,
+                varnumbers   = FALSE, 
+                valid.col    = FALSE, 
+                graph.magnif = 0.76),
+      method = 'render')
+
+```
+
+
+## Summary of sampled travel survey - with stage_mode strata
+
+```{r, results='asis'}
+ss <- rsample::training(rsample::initial_split(exp1, prop = 0.1, strata = stage_mode))
+print(dfSummary(ss,
+                varnumbers   = FALSE, 
+                valid.col    = FALSE, 
+                graph.magnif = 0.76),
+      method = 'render')
+
+
+```
+
