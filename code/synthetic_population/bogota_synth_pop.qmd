@@ -36,6 +36,8 @@ st_options(plain.ascii = FALSE)
 
 In this section, we compare population in the Travel Survey with Census population by sex and five year age groups.
 
+**Takeaway**: We show the overall numbers and percentages for both of these sources. Overall, percentages of both sources are relatively similar and strengthen our confidence in the representativenesss of the household travel survey as a proxy for the overall census population.
+
 ## Distribution of `five year age groups`
 
 The table below compares the proportion of population in Census and Travel Survey for Bogota by five year age groups.
@@ -62,8 +64,6 @@ The table below compares the distribution of population in Census and Travel Sur
 |--------|----------------|-------------|------------------------------|-------------|
 | Female | 2,996,444      | 52.4        | 17,423                       | 52.8        |
 | Male   | 2,720,635      | 47.6        | 15,568                       | 47.2        |
-
-**Takeaway**: We show the overall numbers and percentages for both of these sources. Overall, percentages of both sources are relatively similar and strengthen our confidence in the representativenesss of the household travel survey as a proxy for the overall census population.
 
 # Compare Travel Survey distribution with and without household weights
 
