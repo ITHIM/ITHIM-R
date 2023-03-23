@@ -1,5 +1,5 @@
 ---
-title: "Synthetic Population for Bogota"
+title: "Travel Survey and Census population for Bogota"
 author: "Ali Abbas"
 editor: visual
 format:
@@ -19,15 +19,12 @@ crossref:
   chapters: true
 ---
 
-# Load library
-
-Load all the require packages
-
 ```{r}
 library(rsample)
 library(tidyverse)
 library(summarytools)
 library(arrow)
+library(knitr)
 
 # Set seed
 set.seed(2023)
@@ -35,89 +32,112 @@ st_options(plain.ascii = FALSE)
 
 ```
 
-# Read latest bogoto travel survey with weights
+# Compare Travel Survey and Census Population by age group
 
-Daniel has kindly added `participation weights` to each row in the travel dataset, which represents household weights
+In this section, we compare population in the Travel Survey with Census population by sex and five year age groups.
 
-## Summary without weights
+## Distribution of `five year age groups`
 
-```{r, results='asis'}
+The table below compares the proportion of population in Census and Travel Survey for Bogota by five year age groups.
+
+| Age Group (5-year band) | Population (N) | Percent (%) | Travel Survey Population (N) | Percent (%) |
+|:--------------|:--------------|:--------------|:--------------|:--------------|
+| 15-19                   | 562,016        | 9.8         | 3,775                        | 9.8         |
+| 20-24                   | 718,131        | 12.6        | 4,750                        | 12.3        |
+| 25-29                   | 724,454        | 12.7        | 4,296                        | 11.1        |
+| 30-34                   | 651,833        | 11.4        | 3,831                        | 9.9         |
+| 35-39                   | 599,112        | 10.5        | 3,662                        | 9.5         |
+| 40-44                   | 519,983        | 9.1         | 3,278                        | 8.5         |
+| 45-49                   | 470,334        | 8.2         | 3,100                        | 8           |
+| 50-54                   | 465,196        | 8.1         | 3,395                        | 8.8         |
+| 55-59                   | 423,099        | 7.4         | 3,253                        | 8.4         |
+| 60-64                   | 336,100        | 5.9         | 3,000                        | 7.8         |
+| 65-69                   | 246,821        | 4.3         | 2,307                        | 6           |
+
+## Distribution of `sex`
+
+The table below compares the distribution of population in Census and Travel Survey by `sex`
+
+| Sex    | Population (N) | Percent (%) | Travel Survey Population (N) | Percent (%) |
+|--------|----------------|-------------|------------------------------|-------------|
+| Female | 2,996,444      | 52.4        | 17,423                       | 52.8        |
+| Male   | 2,720,635      | 47.6        | 15,568                       | 47.2        |
+
+**Takeaway**: We show the overall numbers and percentages for both of these sources. Overall, percentages of both sources are relatively similar and strengthen our confidence in the representativenesss of the household travel survey as a proxy for the overall census population.
+
+# Compare Travel Survey distribution with and without household weights
+
+Daniel has kindly added `weights` to each row in the Travel Survey dataset, which represents household weights. In this section we compare distribution based on `trip_mode`, `stage_mode` and `sex` distribution with and without the household weights. In all the tables below, the column `raw_trip_freq` shows distribution [**without**]{.underline} and `weighted_trip_freq` [**with**]{.underline} `weights`.
+
+**Takeaway**: Similarly with Census, when we compare the distribution in Travel Survey with and without `weights`, they all are relatively similar across all three variables: `trip_mode`, `stage_mode` and `sex`.
+
+```{r}
+
+calc_freq <- function(x, y, mode = "trip_mode", round_to = 1){
+  
+  grx <- x |> filter(!is.na(across(mode))) |> group_by(across(all_of(mode))) |> summarise(n = n()) |> mutate(raw_trip_freq = round(n / sum(n) * 100, round_to))
+  
+  gry <- y |> filter(!is.na(across(mode))) |> group_by(across(all_of(mode))) |> summarise(n = n()) |> mutate(weighted_trip_freq = round(n / sum(n) * 100, round_to))
+  
+  return(left_join(grx, gry, by = mode) |> dplyr::select(-all_of(starts_with("n"))))
+  
+  
+}
+
 bt <- read_csv("https://raw.githubusercontent.com/ITHIM/TravelSurveyPreprocessing/fc8bae5381440fcb96e6789d26d115305597e5f1/Data/ITHIM/bogota/trips_bogota.csv")
 
 raw_dataset_without_weights <- bt |> filter(age != 9999)
-
-print(dfSummary(raw_dataset_without_weights, 
-                varnumbers   = FALSE, 
-                valid.col    = FALSE, 
-                graph.magnif = 0.76),
-      method = 'render')
-
-# dfSummary(bt |> filter(age != 9999), plain.ascii = FALSE, style = "grid")
-
-# print(dfSummary(dfSummary(bt |> filter(age != 9999))), method = "render")
-
-# rts <- bt |> filter(!is.na(trip_mode)) |> group_by(trip_mode) |> summarise(n = n()) |> mutate(raw_trip_freq = round(n / sum(n) * 100, 1))
-# rss <- bt |> filter(!is.na(stage_mode)) |> group_by(stage_mode) |> summarise(n = n()) |> mutate(raw_stage_freq = round(n / sum(n) * 100, 1))
-# 
-# ets <- exp1 |> filter(!is.na(trip_mode)) |> group_by(trip_mode) |> summarise(n = n()) |> mutate(exp_trip_freq = round(n / sum(n) * 100, 1))
-# ess <- exp1 |> filter(!is.na(stage_mode)) |> group_by(stage_mode) |> summarise(n = n()) |> mutate(exp_stage_freq = round(n / sum(n) * 100, 1))
-# 
-# ts <- full_join(rts, ets)
-# ss <- left_join(rss, ess)
-
-# 
-# st |> filter(!is.na(trip_mode)) |> group_by(trip_mode) |> summarise(n = n()) |> mutate(exp_trip_freq = round(n / sum(n) * 100, 1))
-# 
-# rd <- plyr::rbind.fill(exp1, exp2) %>% arrange(hh_id, person_id, trip_id)
-
-
-```
-
-
-## Summary with weights - expanded travel survey
-
-```{r, results='asis'}
 
 exp1 <- read_parquet("../../data/local/bogota/exp_trips.parquet")
 # Remove undefined ages
 exp1 <- exp1 |> filter(age != 9999)
 
-# exp2 <- et  |> filter(pw > 0) |> filter(pw == 0) %>% mutate(pid = 1)
-
-
-print(dfSummary(exp1,
-                varnumbers   = FALSE, 
-                valid.col    = FALSE, 
-                graph.magnif = 0.76),
-      method = 'render')
-
 ```
 
+## Distribution of `trip_mode`
 
-## Summary of sampled travel survey - with trip_mode strata
+Comparison of distribution of `trip_mode` with and without weights
 
 ```{r, results='asis'}
-st <- rsample::training(rsample::initial_split(exp1, prop = 0.1, strata = trip_mode))
 
-print(dfSummary(st,
-                varnumbers   = FALSE, 
-                valid.col    = FALSE, 
-                graph.magnif = 0.76),
-      method = 'render')
+kable(calc_freq(raw_dataset_without_weights, exp1, mode = "trip_mode", round_to = 2))
 
 ```
 
+## Distribution of `stage_mode`
 
-## Summary of sampled travel survey - with stage_mode strata
+Comparison of distribution of `stage_mode` with and without weights
 
 ```{r, results='asis'}
-ss <- rsample::training(rsample::initial_split(exp1, prop = 0.1, strata = stage_mode))
-print(dfSummary(ss,
-                varnumbers   = FALSE, 
-                valid.col    = FALSE, 
-                graph.magnif = 0.76),
-      method = 'render')
 
-
+kable(calc_freq(raw_dataset_without_weights, exp1, mode = "stage_mode", round_to = 2))
 ```
 
+## Distribution of `sex`
+
+Comparison of distribution of `sex` with and without weights
+
+```{r, results='asis'}
+
+kable(calc_freq(raw_dataset_without_weights, exp1, mode = "sex", round_to = 2))
+```
+
+<!-- ## Summary of sampled travel survey - with trip_mode strata -->
+
+<!-- ```{r, results='asis'} -->
+
+<!-- st <- rsample::training(rsample::initial_split(exp1, prop = 0.1, strata = trip_mode)) -->
+
+<!-- kable(calc_freq(raw_dataset_without_weights, st, mode = "trip_mode", round_to = 2)) -->
+
+<!-- ``` -->
+
+<!-- ## Summary of sampled travel survey - with stage_mode strata -->
+
+<!-- ```{r, results='asis'} -->
+
+<!-- ss <- rsample::training(rsample::initial_split(exp1, prop = 0.1, strata = stage_mode)) -->
+
+<!-- kable(calc_freq(raw_dataset_without_weights, ss, mode = "stage_mode", round_to = 2)) -->
+
+<!-- ``` -->
