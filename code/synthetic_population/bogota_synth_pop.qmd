@@ -61,13 +61,13 @@ The table below compares the proportion of population in Census and Travel Surve
 The table below compares the distribution of population in Census and Travel Survey by `sex`
 
 | Sex    | Population (N) | Percent (%) | Travel Survey Population (N) | Percent (%) |
-|--------|----------------|-------------|------------------------------|-------------|
+|-------------|-------------|-------------|---------------------|-------------|
 | Female | 2,996,444      | 52.4        | 17,423                       | 52.8        |
 | Male   | 2,720,635      | 47.6        | 15,568                       | 47.2        |
 
-# Compare Travel Survey distribution with and without household weights
+# Compare Travel Survey distribution with and without individual weights
 
-Daniel has kindly added `weights` to each row in the Travel Survey dataset, which represents household weights. In this section we compare distribution based on `trip_mode`, `stage_mode` and `sex` distribution with and without the household weights. In all the tables below, the column `raw_trip_freq` shows distribution [**without**]{.underline} and `weighted_trip_freq` [**with**]{.underline} `weights`.
+Daniel has kindly added `weights` to each row in the Travel Survey dataset, which represents individual weights. In this section we compare distribution based on `trip_mode`, `stage_mode` and `sex` distribution with and without the individual weights. In all the tables below, the column `raw_trip_freq` shows distribution [**without**]{.underline} and `weighted_trip_freq` [**with**]{.underline} `weights`.
 
 **Takeaway**: Similarly with Census, when we compare the distribution in Travel Survey with and without `weights`, they all are relatively similar across all three variables: `trip_mode`, `stage_mode` and `sex`.
 
