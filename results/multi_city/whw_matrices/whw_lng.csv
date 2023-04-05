@@ -3095,42 +3095,42 @@ nov,lb,47.36,motorcycle,belo_horizonte,Baseline_predicted,Brazil,Latin_America,3
 total,mean,131.27,motorcycle,belo_horizonte,Baseline_predicted,Brazil,Latin_America,3721949.656636688
 total,ub,148.87,motorcycle,belo_horizonte,Baseline_predicted,Brazil,Latin_America,3721949.656636688
 total,lb,116.31,motorcycle,belo_horizonte,Baseline_predicted,Brazil,Latin_America,3721949.656636688
-auto_rickshaw,mean,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-auto_rickshaw,ub,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-auto_rickshaw,lb,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-bus,mean,42.95,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-bus,ub,52.09,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-bus,lb,35.44,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-car,mean,56.49,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-car,ub,68.12,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-car,lb,46.88,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-cycle,mean,2.23,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-cycle,ub,3.67,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-cycle,lb,1.35,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-motorcycle,mean,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-motorcycle,ub,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-motorcycle,lb,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-other,mean,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-other,ub,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-other,lb,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-pedestrian,mean,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-pedestrian,ub,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-pedestrian,lb,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-rail,mean,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-rail,ub,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-rail,lb,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-truck,mean,40.61,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-truck,ub,49.35,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-truck,lb,33.44,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-unknown,mean,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-unknown,ub,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-unknown,lb,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-nov,mean,52.99,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-nov,ub,73.88,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-nov,lb,38.6,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-total,mean,195.27,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-total,ub,247.11,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
-total,lb,155.72,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607734
+auto_rickshaw,mean,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+auto_rickshaw,ub,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+auto_rickshaw,lb,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+bus,mean,42.95,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+bus,ub,52.09,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+bus,lb,35.44,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+car,mean,56.49,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+car,ub,68.12,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+car,lb,46.88,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+cycle,mean,2.23,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+cycle,ub,3.67,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+cycle,lb,1.35,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+motorcycle,mean,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+motorcycle,ub,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+motorcycle,lb,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+other,mean,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+other,ub,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+other,lb,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+pedestrian,mean,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+pedestrian,ub,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+pedestrian,lb,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+rail,mean,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+rail,ub,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+rail,lb,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+truck,mean,40.61,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+truck,ub,49.35,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+truck,lb,33.44,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+unknown,mean,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+unknown,ub,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+unknown,lb,0,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+nov,mean,52.99,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+nov,ub,73.88,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+nov,lb,38.6,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+total,mean,195.27,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+total,ub,247.11,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
+total,lb,155.72,motorcycle,bogota,Baseline_predicted,Colombia,Latin_America,14056673.359607723
 auto_rickshaw,mean,0,motorcycle,buenos_aires,Baseline_predicted,Argentina,Latin_America,5030044.131376207
 auto_rickshaw,ub,0,motorcycle,buenos_aires,Baseline_predicted,Argentina,Latin_America,5030044.131376207
 auto_rickshaw,lb,0,motorcycle,buenos_aires,Baseline_predicted,Argentina,Latin_America,5030044.131376207
@@ -9431,42 +9431,42 @@ nov,lb,46.34,motorcycle,belo_horizonte,Bicycling,Brazil,Latin_America,3632320.11
 total,mean,128.85,motorcycle,belo_horizonte,Bicycling,Brazil,Latin_America,3632320.1193934493
 total,ub,147.44,motorcycle,belo_horizonte,Bicycling,Brazil,Latin_America,3632320.1193934493
 total,lb,113.54,motorcycle,belo_horizonte,Bicycling,Brazil,Latin_America,3632320.1193934493
-auto_rickshaw,mean,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-auto_rickshaw,ub,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-auto_rickshaw,lb,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-bus,mean,41.64,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-bus,ub,50.5,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-bus,lb,34.35,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-car,mean,54.62,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-car,ub,65.87,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-car,lb,45.33,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-cycle,mean,3.49,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-cycle,ub,5.76,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-cycle,lb,2.12,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-motorcycle,mean,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-motorcycle,ub,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-motorcycle,lb,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-other,mean,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-other,ub,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-other,lb,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-pedestrian,mean,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-pedestrian,ub,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-pedestrian,lb,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-rail,mean,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-rail,ub,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-rail,lb,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-truck,mean,40.07,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-truck,ub,48.69,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-truck,lb,32.99,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-unknown,mean,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-unknown,ub,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-unknown,lb,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-nov,mean,52.13,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-nov,ub,72.7,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-nov,lb,37.97,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-total,mean,191.96,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-total,ub,243.53,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
-total,lb,152.77,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625662
+auto_rickshaw,mean,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+auto_rickshaw,ub,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+auto_rickshaw,lb,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+bus,mean,41.64,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+bus,ub,50.5,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+bus,lb,34.35,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+car,mean,54.62,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+car,ub,65.87,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+car,lb,45.33,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+cycle,mean,3.49,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+cycle,ub,5.76,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+cycle,lb,2.12,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+motorcycle,mean,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+motorcycle,ub,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+motorcycle,lb,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+other,mean,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+other,ub,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+other,lb,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+pedestrian,mean,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+pedestrian,ub,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+pedestrian,lb,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+rail,mean,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+rail,ub,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+rail,lb,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+truck,mean,40.07,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+truck,ub,48.69,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+truck,lb,32.99,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+unknown,mean,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+unknown,ub,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+unknown,lb,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+nov,mean,52.13,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+nov,ub,72.7,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+nov,lb,37.97,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+total,mean,191.96,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+total,ub,243.53,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
+total,lb,152.77,motorcycle,bogota,Bicycling,Colombia,Latin_America,13806732.109625656
 auto_rickshaw,mean,0,motorcycle,buenos_aires,Bicycling,Argentina,Latin_America,4934602.941807924
 auto_rickshaw,ub,0,motorcycle,buenos_aires,Bicycling,Argentina,Latin_America,4934602.941807924
 auto_rickshaw,lb,0,motorcycle,buenos_aires,Bicycling,Argentina,Latin_America,4934602.941807924
@@ -15767,42 +15767,42 @@ nov,lb,42.77,motorcycle,belo_horizonte,Car,Brazil,Latin_America,3322899.61611296
 total,mean,120.37,motorcycle,belo_horizonte,Car,Brazil,Latin_America,3322899.616112965
 total,ub,136.35,motorcycle,belo_horizonte,Car,Brazil,Latin_America,3322899.616112965
 total,lb,106.74,motorcycle,belo_horizonte,Car,Brazil,Latin_America,3322899.616112965
-auto_rickshaw,mean,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-auto_rickshaw,ub,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-auto_rickshaw,lb,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-bus,mean,38.59,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-bus,ub,46.79,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-bus,lb,31.85,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-car,mean,59.18,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-car,ub,71.35,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-car,lb,49.13,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-cycle,mean,2,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-cycle,ub,3.29,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-cycle,lb,1.21,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-motorcycle,mean,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-motorcycle,ub,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-motorcycle,lb,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-other,mean,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-other,ub,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-other,lb,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-pedestrian,mean,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-pedestrian,ub,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-pedestrian,lb,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-rail,mean,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-rail,ub,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-rail,lb,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-truck,mean,38.73,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-truck,ub,47.05,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-truck,lb,31.9,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-unknown,mean,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-unknown,ub,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-unknown,lb,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-nov,mean,50.2,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-nov,ub,69.91,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-nov,lb,36.61,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-total,mean,188.69,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-total,ub,238.38,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
-total,lb,150.69,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931354
+auto_rickshaw,mean,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+auto_rickshaw,ub,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+auto_rickshaw,lb,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+bus,mean,38.59,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+bus,ub,46.79,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+bus,lb,31.85,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+car,mean,59.18,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+car,ub,71.35,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+car,lb,49.13,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+cycle,mean,2,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+cycle,ub,3.29,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+cycle,lb,1.21,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+motorcycle,mean,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+motorcycle,ub,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+motorcycle,lb,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+other,mean,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+other,ub,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+other,lb,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+pedestrian,mean,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+pedestrian,ub,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+pedestrian,lb,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+rail,mean,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+rail,ub,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+rail,lb,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+truck,mean,38.73,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+truck,ub,47.05,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+truck,lb,31.9,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+unknown,mean,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+unknown,ub,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+unknown,lb,0,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+nov,mean,50.2,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+nov,ub,69.91,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+nov,lb,36.61,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+total,mean,188.69,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+total,ub,238.38,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
+total,lb,150.69,motorcycle,bogota,Car,Colombia,Latin_America,13173723.883931346
 auto_rickshaw,mean,0,motorcycle,buenos_aires,Car,Argentina,Latin_America,4556741.977219134
 auto_rickshaw,ub,0,motorcycle,buenos_aires,Car,Argentina,Latin_America,4556741.977219134
 auto_rickshaw,lb,0,motorcycle,buenos_aires,Car,Argentina,Latin_America,4556741.977219134
@@ -22103,42 +22103,42 @@ nov,lb,42.17,motorcycle,belo_horizonte,Public Transport,Brazil,Latin_America,327
 total,mean,120.27,motorcycle,belo_horizonte,Public Transport,Brazil,Latin_America,3271362.4800206367
 total,ub,136.31,motorcycle,belo_horizonte,Public Transport,Brazil,Latin_America,3271362.4800206367
 total,lb,106.6,motorcycle,belo_horizonte,Public Transport,Brazil,Latin_America,3271362.4800206367
-auto_rickshaw,mean,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-auto_rickshaw,ub,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-auto_rickshaw,lb,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-bus,mean,42.36,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-bus,ub,51.39,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-bus,lb,34.95,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-car,mean,43.2,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-car,ub,52.1,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-car,lb,35.84,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-cycle,mean,1.74,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-cycle,ub,2.87,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-cycle,lb,1.06,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-motorcycle,mean,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-motorcycle,ub,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-motorcycle,lb,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-other,mean,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-other,ub,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-other,lb,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-pedestrian,mean,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-pedestrian,ub,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-pedestrian,lb,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-rail,mean,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-rail,ub,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-rail,lb,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-truck,mean,35.25,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-truck,ub,42.84,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-truck,lb,29.02,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-unknown,mean,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-unknown,ub,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-unknown,lb,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-nov,mean,45.04,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-nov,ub,62.85,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-nov,lb,32.77,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-total,mean,167.59,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-total,ub,212.05,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
-total,lb,133.64,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232723
+auto_rickshaw,mean,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+auto_rickshaw,ub,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+auto_rickshaw,lb,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+bus,mean,42.36,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+bus,ub,51.39,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+bus,lb,34.95,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+car,mean,43.2,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+car,ub,52.1,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+car,lb,35.84,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+cycle,mean,1.74,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+cycle,ub,2.87,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+cycle,lb,1.06,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+motorcycle,mean,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+motorcycle,ub,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+motorcycle,lb,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+other,mean,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+other,ub,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+other,lb,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+pedestrian,mean,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+pedestrian,ub,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+pedestrian,lb,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+rail,mean,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+rail,ub,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+rail,lb,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+truck,mean,35.25,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+truck,ub,42.84,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+truck,lb,29.02,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+unknown,mean,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+unknown,ub,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+unknown,lb,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+nov,mean,45.04,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+nov,ub,62.85,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+nov,lb,32.77,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+total,mean,167.59,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+total,ub,212.05,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
+total,lb,133.64,motorcycle,bogota,Public Transport,Colombia,Latin_America,11712011.149232715
 auto_rickshaw,mean,0,motorcycle,buenos_aires,Public Transport,Argentina,Latin_America,3657284.035933115
 auto_rickshaw,ub,0,motorcycle,buenos_aires,Public Transport,Argentina,Latin_America,3657284.035933115
 auto_rickshaw,lb,0,motorcycle,buenos_aires,Public Transport,Argentina,Latin_America,3657284.035933115
@@ -28439,42 +28439,42 @@ nov,lb,73.4,motorcycle,belo_horizonte,Motorcycling,Brazil,Latin_America,6055665.
 total,mean,189.29,motorcycle,belo_horizonte,Motorcycling,Brazil,Latin_America,6055665.860798475
 total,ub,214.57,motorcycle,belo_horizonte,Motorcycling,Brazil,Latin_America,6055665.860798475
 total,lb,167.77,motorcycle,belo_horizonte,Motorcycling,Brazil,Latin_America,6055665.860798475
-auto_rickshaw,mean,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-auto_rickshaw,ub,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-auto_rickshaw,lb,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-bus,mean,49.25,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-bus,ub,59.89,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-bus,lb,40.53,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-car,mean,64.42,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-car,ub,77.89,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-car,lb,53.32,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-cycle,mean,2.53,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-cycle,ub,4.17,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-cycle,lb,1.53,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-motorcycle,mean,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-motorcycle,ub,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-motorcycle,lb,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-other,mean,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-other,ub,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-other,lb,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-pedestrian,mean,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-pedestrian,ub,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-pedestrian,lb,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-rail,mean,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-rail,ub,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-rail,lb,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-truck,mean,49,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-truck,ub,59.71,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-truck,lb,40.25,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-unknown,mean,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-unknown,ub,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-unknown,lb,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-nov,mean,67.85,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-nov,ub,95.53,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-nov,lb,49.01,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-total,mean,233.05,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-total,ub,297.19,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
-total,lb,184.65,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258675
+auto_rickshaw,mean,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+auto_rickshaw,ub,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+auto_rickshaw,lb,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+bus,mean,49.25,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+bus,ub,59.89,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+bus,lb,40.53,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+car,mean,64.42,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+car,ub,77.89,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+car,lb,53.32,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+cycle,mean,2.53,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+cycle,ub,4.17,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+cycle,lb,1.53,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+motorcycle,mean,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+motorcycle,ub,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+motorcycle,lb,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+other,mean,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+other,ub,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+other,lb,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+pedestrian,mean,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+pedestrian,ub,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+pedestrian,lb,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+rail,mean,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+rail,ub,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+rail,lb,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+truck,mean,49,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+truck,ub,59.71,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+truck,lb,40.25,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+unknown,mean,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+unknown,ub,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+unknown,lb,0,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+nov,mean,67.85,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+nov,ub,95.53,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+nov,lb,49.01,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+total,mean,233.05,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+total,ub,297.19,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
+total,lb,184.65,motorcycle,bogota,Motorcycling,Colombia,Latin_America,19717320.056258667
 auto_rickshaw,mean,0,motorcycle,buenos_aires,Motorcycling,Argentina,Latin_America,11401297.156431727
 auto_rickshaw,ub,0,motorcycle,buenos_aires,Motorcycling,Argentina,Latin_America,11401297.156431727
 auto_rickshaw,lb,0,motorcycle,buenos_aires,Motorcycling,Argentina,Latin_America,11401297.156431727
@@ -31798,11 +31798,11 @@ motorcycle,mean,4.453143388045835,cycle,bogota,Baseline,Colombia,Latin_America,3
 car,mean,16.921944874574173,cycle,bogota,Baseline,Colombia,Latin_America,3038269.4221631694
 bus,mean,17.144602043976466,cycle,bogota,Baseline,Colombia,Latin_America,3038269.4221631694
 cycle,mean,0,cycle,bogota,Baseline,Colombia,Latin_America,3038269.4221631694
-truck,mean,52.32443480953856,motorcycle,bogota,Baseline,Colombia,Latin_America,14056673.359607734
-motorcycle,mean,0,motorcycle,bogota,Baseline,Colombia,Latin_America,14056673.359607734
-car,mean,50.09786311551564,motorcycle,bogota,Baseline,Colombia,Latin_America,14056673.359607734
-bus,mean,37.62906162898731,motorcycle,bogota,Baseline,Colombia,Latin_America,14056673.359607734
-cycle,mean,2.2265716940229177,motorcycle,bogota,Baseline,Colombia,Latin_America,14056673.359607734
+truck,mean,52.32443480953856,motorcycle,bogota,Baseline,Colombia,Latin_America,14056673.359607723
+motorcycle,mean,0,motorcycle,bogota,Baseline,Colombia,Latin_America,14056673.359607723
+car,mean,50.09786311551564,motorcycle,bogota,Baseline,Colombia,Latin_America,14056673.359607723
+bus,mean,37.62906162898731,motorcycle,bogota,Baseline,Colombia,Latin_America,14056673.359607723
+cycle,mean,2.2265716940229177,motorcycle,bogota,Baseline,Colombia,Latin_America,14056673.359607723
 truck,mean,2.003914524620626,car,bogota,Baseline,Colombia,Latin_America,28286931.08923174
 motorcycle,mean,0.6679715082068753,car,bogota,Baseline,Colombia,Latin_America,28286931.08923174
 car,mean,0,car,bogota,Baseline,Colombia,Latin_America,28286931.08923174
@@ -31818,7 +31818,7 @@ motorcycle,mean,0.22265716940229177,bus,bogota,Baseline,Colombia,Latin_America,3
 car,mean,0.44531433880458354,bus,bogota,Baseline,Colombia,Latin_America,38671360.09008505
 bus,mean,0,bus,bogota,Baseline,Colombia,Latin_America,38671360.09008505
 cycle,mean,0.22265716940229177,bus,bogota,Baseline,Colombia,Latin_America,38671360.09008505
-nov,mean,52.99240631774544,motorcycle,bogota,Baseline,Colombia,Latin_America,14056673.359607734
+nov,mean,52.99240631774544,motorcycle,bogota,Baseline,Colombia,Latin_America,14056673.359607723
 nov,mean,8.460972437287086,cycle,bogota,Baseline,Colombia,Latin_America,3038269.4221631694
 nov,mean,14.695373180551258,car,bogota,Baseline,Colombia,Latin_America,28286931.08923174
 nov,mean,5.789086404459586,bus,bogota,Baseline,Colombia,Latin_America,38671360.09008505

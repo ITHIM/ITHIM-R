@@ -154,11 +154,11 @@ bus,Bicycling,37751588.55952595,bogota
 bus,Car,35759997.29938541,bogota
 bus,Public Transport,45723546.12141174,bogota
 bus,Motorcycling,36162330.98320321,bogota
-bus_driver,Baseline,1666025.3202420403,bogota
-bus_driver,Bicycling,1496186.7375482298,bogota
-bus_driver,Car,1417076.612657607,bogota
-bus_driver,Public Transport,1855129.7798184277,bogota
-bus_driver,Motorcycling,1433340.8411593095,bogota
+bus_driver,Baseline,1666025.3202420413,bogota
+bus_driver,Bicycling,1496186.7375482304,bogota
+bus_driver,Car,1417076.6126576078,bogota
+bus_driver,Public Transport,1855129.7798184287,bogota
+bus_driver,Motorcycling,1433340.8411593104,bogota
 car,Baseline,28286931.08923174,bogota
 car,Bicycling,27544180.00620343,bogota
 car,Car,33331666.09980021,bogota
@@ -174,11 +174,11 @@ cycle,Bicycling,5578090.46706205,bogota
 cycle,Car,2802251.856470101,bogota
 cycle,Public Transport,2653723.484302533,bogota
 cycle,Motorcycling,2804266.673040081,bogota
-motorcycle,Baseline,14056673.359607734,bogota
-motorcycle,Bicycling,13806732.109625662,bogota
-motorcycle,Car,13173723.883931354,bogota
-motorcycle,Public Transport,11712011.149232723,bogota
-motorcycle,Motorcycling,19717320.056258675,bogota
+motorcycle,Baseline,14056673.359607723,bogota
+motorcycle,Bicycling,13806732.109625656,bogota
+motorcycle,Car,13173723.883931346,bogota
+motorcycle,Public Transport,11712011.149232715,bogota
+motorcycle,Motorcycling,19717320.056258667,bogota
 other,Baseline,275553.45094638655,bogota
 other,Bicycling,270445.48495381273,bogota
 other,Car,259040.4364345227,bogota
