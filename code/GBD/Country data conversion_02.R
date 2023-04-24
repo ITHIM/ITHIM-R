@@ -20,12 +20,13 @@ library(dplyr)
 #' I ran everything local because it is faster, but if someone wants to run this
 #' script from V-drive or other laptop, then only the path needs to be changed.
 #' V-Drive folder
-#result_folder <- "V:/Studies/MOVED/HealthImpact/Projects/TIGTHAT/Case cities data/GBD 2019 data extraction/"
-#country_results <- "V:/Studies/MOVED/HealthImpact/Projects/TIGTHAT/Case cities data/GBD 2019 Countries/"
+result_folder <- "V:/HealthImpact/Projects/TIGTHAT/Case cities data/GBD 2019 data extraction/"
+country_results <- "V:/HealthImpact/Projects/TIGTHAT/Case cities data/GBD 2019 Countries/"
+
 
 #' Local folder
-result_folder <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/GBD 2019 data extraction/"
-country_results <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/GBD 2019 Countries/"
+# result_folder <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/GBD 2019 data extraction/"
+# country_results <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/GBD 2019 Countries/"
 
 #' The following files can be imported from the result_folder or the ithim package.
 #' Just make sure that both files have the same information.
@@ -33,12 +34,18 @@ country_results <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambri
 #' Select causes (health outcomes) to be extracted
 #' 
 # From the result_folder:
-causes <- read.csv((paste0(result_folder, "Causes to be extracted.csv")))
+# causes <- read.csv((paste0(result_folder, "Causes to be extracted.csv")))
+# causes <- unlist(causes[,2])
+# 
+# # From the result_folder:
+# data_read <- read.csv(paste0(result_folder, "GBD2019_countries_extracted.csv"))
+causes <- read.csv("code/GBD/Causes to be extracted.csv")
 causes <- unlist(causes[,2])
 
 # From the result_folder:
 data_read <- read.csv(paste0(result_folder, "GBD2019_countries_extracted.csv"))
 
+bd <- data_read
 #Keep only causes defined in "Causes to be extracted.csv" file
 data_read <- subset(data_read, cause_id %in% causes)
 
@@ -113,6 +120,16 @@ cname <- cname$Country_or_location
 for (i in 1:length(cname)) { # Loop for each place (country or regior or city)
     # Filter rows for the place of the iteration
     a <- subset(join_data, location_name %in% cname[i])
+    
+    # a1 <- filter(grepl("leukemia", cause_name, ignore.case = TRUE)) |> 
+    #   group_by(measure_name.x, location_name, sex_name, age_name) |> 
+    #   summarise(val = sum(val), population = first(population)) |> 
+    #   mutate(cause_name = "Myeloid Leukemia") 
+    # 
+    # a2 <- a |> filter(!grepl("leukemia", cause_name, ignore.case = TRUE))
+    # 
+    # a3 <- plyr::rbind.fill(a2, a1)
+    
     # Exports the dataset
     write.csv(a, 
               file = paste0(country_results,cname[i], "_GBD_results.csv"), 
