@@ -45,7 +45,7 @@ Liver cancer due to NASH
 Liver cancer due to other causes","C22-C22.9, D13.4",,"Meta-analysis possibly includes also ""Gallbladder and biliary tract cancer"" cause group ICD codes (C23-C24.9, D13.5)",Not an AP outcome
 Stomach cancer,414,Same as Gastric Cardia cancer,"C16-C16.9, D00.2, D13.1, D37.1",Ok,,Not an AP outcome
 Alzheimer's disease and other dementias,543,None,"F00-F03.9, G30-G31.1, G31.8-G31.9",,,Not an AP outcome
-Myeloma,486,,,,,
+Myeloma,486,,C90,,,
 Parkinson's disease,544,,,,,
 Lip and oral cavity cancer,444,,,,,
 Nasopharynx cancer,447,,,,,
@@ -53,3 +53,5 @@ Other pharynx cancer,450,,,,,
 Esophageal cancer,411,,,,,
 Larynx cancer,423,,,,,
 Asthma,515,,,,,
+Chronic myeloid leukemia,848,None,C92,,,
+Acute myeloid leukemia,847,None,C92,,,
