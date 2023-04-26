@@ -387,6 +387,86 @@ Deaths,Mexico City,Male,85 to 89,Other pharynx cancer,1.00500174231769,22133.487
 Deaths,Mexico City,Female,85 to 89,Other pharynx cancer,0.445920969975228,36169.7084747996
 Deaths,Mexico City,Male,90 to 94,Other pharynx cancer,0.377461754084547,8298.40650252516
 Deaths,Mexico City,Female,90 to 94,Other pharynx cancer,0.227536731649752,13809.5863969911
+Deaths,Mexico City,Male,0 to 4,Acute myeloid leukemia,2.74118973610537,292142.594916505
+Deaths,Mexico City,Female,0 to 4,Acute myeloid leukemia,0.916777454102518,280389.656515221
+Deaths,Mexico City,Male,5 to 9,Acute myeloid leukemia,1.64596845543303,302441.471641771
+Deaths,Mexico City,Female,5 to 9,Acute myeloid leukemia,1.17120715236521,289535.482851169
+Deaths,Mexico City,Male,10 to 14,Acute myeloid leukemia,2.2615766647098,313333.294922115
+Deaths,Mexico City,Female,10 to 14,Acute myeloid leukemia,1.84220547567945,302245.964396775
+Deaths,Mexico City,Male,15 to 19,Acute myeloid leukemia,3.25214508346669,323092.781441516
+Deaths,Mexico City,Female,15 to 19,Acute myeloid leukemia,2.15584716334258,317606.557978706
+Deaths,Mexico City,Male,20 to 24,Acute myeloid leukemia,3.2326575656976,339569.836822633
+Deaths,Mexico City,Female,20 to 24,Acute myeloid leukemia,2.63034936297891,337500.292928117
+Deaths,Mexico City,Male,25 to 29,Acute myeloid leukemia,3.25847960109563,342891.377352024
+Deaths,Mexico City,Female,25 to 29,Acute myeloid leukemia,2.7607855245117,346423.159524934
+Deaths,Mexico City,Male,30 to 34,Acute myeloid leukemia,3.21859126406794,334765.660654749
+Deaths,Mexico City,Female,30 to 34,Acute myeloid leukemia,2.66877397805605,350406.713197484
+Deaths,Mexico City,Male,35 to 39,Acute myeloid leukemia,3.80725422307785,317773.271853587
+Deaths,Mexico City,Female,35 to 39,Acute myeloid leukemia,3.89117415399899,344935.304247997
+Deaths,Mexico City,Male,40 to 44,Acute myeloid leukemia,4.07973348722999,302801.565337141
+Deaths,Mexico City,Female,40 to 44,Acute myeloid leukemia,4.3292437009827,338311.11345378
+Deaths,Mexico City,Male,45 to 49,Acute myeloid leukemia,4.74229920158534,291613.763308491
+Deaths,Mexico City,Female,45 to 49,Acute myeloid leukemia,4.82201317773813,334846.998056098
+Deaths,Mexico City,Male,50 to 54,Acute myeloid leukemia,4.98243033146317,260795.248761904
+Deaths,Mexico City,Female,50 to 54,Acute myeloid leukemia,4.99382761939043,306383.564693394
+Deaths,Mexico City,Male,55 to 59,Acute myeloid leukemia,5.43448499577194,224712.016828753
+Deaths,Mexico City,Female,55 to 59,Acute myeloid leukemia,5.88976783897408,271007.903492691
+Deaths,Mexico City,Male,60 to 64,Acute myeloid leukemia,6.51003272945724,186910.026245608
+Deaths,Mexico City,Female,60 to 64,Acute myeloid leukemia,6.64161786300571,231756.482108293
+Deaths,Mexico City,Male,65 to 69,Acute myeloid leukemia,7.34029034681397,139251.301011062
+Deaths,Mexico City,Female,65 to 69,Acute myeloid leukemia,7.0656773580334296,176322.910538162
+Deaths,Mexico City,Male,70 to 74,Acute myeloid leukemia,7.31475543082471,106530.517876874
+Deaths,Mexico City,Female,70 to 74,Acute myeloid leukemia,8.44358483310944,142958.310336043
+Deaths,Mexico City,Male,75 to 79,Acute myeloid leukemia,7.5255847757995,71258.9725447037
+Deaths,Mexico City,Female,75 to 79,Acute myeloid leukemia,7.45625943216563,99765.0637261245
+Deaths,Mexico City,Male,80 to 84,Acute myeloid leukemia,4.83610130353155,42799.3198473849
+Deaths,Mexico City,Female,80 to 84,Acute myeloid leukemia,5.10921929689542,65282.2925233245
+Deaths,Mexico City,Male,85 to 89,Acute myeloid leukemia,2.80104786990904,22133.4876493936
+Deaths,Mexico City,Female,85 to 89,Acute myeloid leukemia,2.73616437421411,36169.7084747996
+Deaths,Mexico City,Male,90 to 94,Acute myeloid leukemia,0.853063971454396,8298.40650252516
+Deaths,Mexico City,Female,90 to 94,Acute myeloid leukemia,0.758599514439892,13809.5863969911
+Deaths,Mexico City,Male,95 to 99,Acute myeloid leukemia,0.129150671070241,2173.86169701353
+Deaths,Mexico City,Female,95 to 99,Acute myeloid leukemia,0.179921129947126,3316.05538447147
+Deaths,Mexico City,Male,0 to 4,Chronic myeloid leukemia,0.0976853414710166,292142.594916505
+Deaths,Mexico City,Female,0 to 4,Chronic myeloid leukemia,0.0348148231989759,280389.656515221
+Deaths,Mexico City,Male,5 to 9,Chronic myeloid leukemia,0.0483432510519942,302441.471641771
+Deaths,Mexico City,Female,5 to 9,Chronic myeloid leukemia,0.0365826433050533,289535.482851169
+Deaths,Mexico City,Male,10 to 14,Chronic myeloid leukemia,0.0957705035748042,313333.294922115
+Deaths,Mexico City,Female,10 to 14,Chronic myeloid leukemia,0.0657472606715175,302245.964396775
+Deaths,Mexico City,Male,15 to 19,Chronic myeloid leukemia,0.185153665809404,323092.781441516
+Deaths,Mexico City,Female,15 to 19,Chronic myeloid leukemia,0.102133217832651,317606.557978706
+Deaths,Mexico City,Male,20 to 24,Chronic myeloid leukemia,0.512059181124022,339569.836822633
+Deaths,Mexico City,Female,20 to 24,Chronic myeloid leukemia,0.201173284846744,337500.292928117
+Deaths,Mexico City,Male,25 to 29,Chronic myeloid leukemia,0.539426910790798,342891.377352024
+Deaths,Mexico City,Female,25 to 29,Chronic myeloid leukemia,0.302503080405362,346423.159524934
+Deaths,Mexico City,Male,30 to 34,Chronic myeloid leukemia,1.0025534327959,334765.660654749
+Deaths,Mexico City,Female,30 to 34,Chronic myeloid leukemia,0.383912097516025,350406.713197484
+Deaths,Mexico City,Male,35 to 39,Chronic myeloid leukemia,0.935527074034701,317773.271853587
+Deaths,Mexico City,Female,35 to 39,Chronic myeloid leukemia,0.535161917152362,344935.304247997
+Deaths,Mexico City,Male,40 to 44,Chronic myeloid leukemia,1.16899190334707,302801.565337141
+Deaths,Mexico City,Female,40 to 44,Chronic myeloid leukemia,0.762054020901846,338311.11345378
+Deaths,Mexico City,Male,45 to 49,Chronic myeloid leukemia,1.26543842924492,291613.763308491
+Deaths,Mexico City,Female,45 to 49,Chronic myeloid leukemia,1.159174705918,334846.998056098
+Deaths,Mexico City,Male,50 to 54,Chronic myeloid leukemia,1.28793472199932,260795.248761904
+Deaths,Mexico City,Female,50 to 54,Chronic myeloid leukemia,1.13194392670831,306383.564693394
+Deaths,Mexico City,Male,55 to 59,Chronic myeloid leukemia,1.42987616740197,224712.016828753
+Deaths,Mexico City,Female,55 to 59,Chronic myeloid leukemia,1.3012056897696,271007.903492691
+Deaths,Mexico City,Male,60 to 64,Chronic myeloid leukemia,1.50281914439894,186910.026245608
+Deaths,Mexico City,Female,60 to 64,Chronic myeloid leukemia,1.28105832180613,231756.482108293
+Deaths,Mexico City,Male,65 to 69,Chronic myeloid leukemia,1.51665799437871,139251.301011062
+Deaths,Mexico City,Female,65 to 69,Chronic myeloid leukemia,1.39903247550142,176322.910538162
+Deaths,Mexico City,Male,70 to 74,Chronic myeloid leukemia,1.88042753489461,106530.517876874
+Deaths,Mexico City,Female,70 to 74,Chronic myeloid leukemia,1.44696125953766,142958.310336043
+Deaths,Mexico City,Male,75 to 79,Chronic myeloid leukemia,1.98074196110397,71258.9725447037
+Deaths,Mexico City,Female,75 to 79,Chronic myeloid leukemia,1.9223186766636,99765.0637261245
+Deaths,Mexico City,Male,80 to 84,Chronic myeloid leukemia,1.53415304473649,42799.3198473849
+Deaths,Mexico City,Female,80 to 84,Chronic myeloid leukemia,1.74432161984287,65282.2925233245
+Deaths,Mexico City,Male,85 to 89,Chronic myeloid leukemia,1.04791007475405,22133.4876493936
+Deaths,Mexico City,Female,85 to 89,Chronic myeloid leukemia,1.08591385305913,36169.7084747996
+Deaths,Mexico City,Male,90 to 94,Chronic myeloid leukemia,0.306467450604466,8298.40650252516
+Deaths,Mexico City,Female,90 to 94,Chronic myeloid leukemia,0.476166393685978,13809.5863969911
+Deaths,Mexico City,Male,95 to 99,Chronic myeloid leukemia,0.0593422360876938,2173.86169701353
+Deaths,Mexico City,Female,95 to 99,Chronic myeloid leukemia,0.152495729316157,3316.05538447147
 Deaths,Mexico City,Male,0 to 4,Neoplasms,25.58061962092,292142.594916505
 Deaths,Mexico City,Female,0 to 4,Neoplasms,9.09266562766521,280389.656515221
 Deaths,Mexico City,Male,5 to 9,Neoplasms,18.9746007279957,302441.471641771
@@ -967,6 +1047,86 @@ YLLs (Years of Life Lost),Mexico City,Male,90 to 94,Chronic obstructive pulmonar
 YLLs (Years of Life Lost),Mexico City,Female,90 to 94,Chronic obstructive pulmonary disease,1357.29657318085,13809.5863969911
 YLLs (Years of Life Lost),Mexico City,Male,95 to 99,Chronic obstructive pulmonary disease,275.808397991378,2173.86169701353
 YLLs (Years of Life Lost),Mexico City,Female,95 to 99,Chronic obstructive pulmonary disease,427.45635806565,3316.05538447147
+YLLs (Years of Life Lost),Mexico City,Male,0 to 4,Acute myeloid leukemia,237.171981651336,292142.594916505
+YLLs (Years of Life Lost),Mexico City,Female,0 to 4,Acute myeloid leukemia,79.9590652124585,280389.656515221
+YLLs (Years of Life Lost),Mexico City,Male,5 to 9,Acute myeloid leukemia,134.439004198913,302441.471641771
+YLLs (Years of Life Lost),Mexico City,Female,5 to 9,Acute myeloid leukemia,95.7666339464329,289535.482851169
+YLLs (Years of Life Lost),Mexico City,Male,10 to 14,Acute myeloid leukemia,172.6202030467,313333.294922115
+YLLs (Years of Life Lost),Mexico City,Female,10 to 14,Acute myeloid leukemia,140.739135394885,302245.964396775
+YLLs (Years of Life Lost),Mexico City,Male,15 to 19,Acute myeloid leukemia,231.618078379352,323092.781441516
+YLLs (Years of Life Lost),Mexico City,Female,15 to 19,Acute myeloid leukemia,153.967269741578,317606.557978706
+YLLs (Years of Life Lost),Mexico City,Male,20 to 24,Acute myeloid leukemia,214.93811695818,339569.836822633
+YLLs (Years of Life Lost),Mexico City,Female,20 to 24,Acute myeloid leukemia,175.047387615773,337500.292928117
+YLLs (Years of Life Lost),Mexico City,Male,25 to 29,Acute myeloid leukemia,200.765852036057,342891.377352024
+YLLs (Years of Life Lost),Mexico City,Female,25 to 29,Acute myeloid leukemia,170.128599964589,346423.159524934
+YLLs (Years of Life Lost),Mexico City,Male,30 to 34,Acute myeloid leukemia,182.318218207465,334765.660654749
+YLLs (Years of Life Lost),Mexico City,Female,30 to 34,Acute myeloid leukemia,151.041692186729,350406.713197484
+YLLs (Years of Life Lost),Mexico City,Male,35 to 39,Acute myeloid leukemia,196.745300713253,317773.271853587
+YLLs (Years of Life Lost),Mexico City,Female,35 to 39,Acute myeloid leukemia,200.851537394024,344935.304247997
+YLLs (Years of Life Lost),Mexico City,Male,40 to 44,Acute myeloid leukemia,190.840448736795,302801.565337141
+YLLs (Years of Life Lost),Mexico City,Female,40 to 44,Acute myeloid leukemia,202.173647077739,338311.11345378
+YLLs (Years of Life Lost),Mexico City,Male,45 to 49,Acute myeloid leukemia,198.837304280655,291613.763308491
+YLLs (Years of Life Lost),Mexico City,Female,45 to 49,Acute myeloid leukemia,201.809367308606,334846.998056098
+YLLs (Years of Life Lost),Mexico City,Male,50 to 54,Acute myeloid leukemia,185.107715676174,260795.248761904
+YLLs (Years of Life Lost),Mexico City,Female,50 to 54,Acute myeloid leukemia,185.342587563845,306383.564693394
+YLLs (Years of Life Lost),Mexico City,Male,55 to 59,Acute myeloid leukemia,176.419480309005,224712.016828753
+YLLs (Years of Life Lost),Mexico City,Female,55 to 59,Acute myeloid leukemia,191.03458108812,271007.903492691
+YLLs (Years of Life Lost),Mexico City,Male,60 to 64,Acute myeloid leukemia,181.352753412449,186910.026245608
+YLLs (Years of Life Lost),Mexico City,Female,60 to 64,Acute myeloid leukemia,184.775423840748,231756.482108293
+YLLs (Years of Life Lost),Mexico City,Male,65 to 69,Acute myeloid leukemia,171.73852585002,139251.301011062
+YLLs (Years of Life Lost),Mexico City,Female,65 to 69,Acute myeloid leukemia,165.18934036179,176322.910538162
+YLLs (Years of Life Lost),Mexico City,Male,70 to 74,Acute myeloid leukemia,139.862023085531,106530.517876874
+YLLs (Years of Life Lost),Mexico City,Female,70 to 74,Acute myeloid leukemia,161.163173026127,142958.310336043
+YLLs (Years of Life Lost),Mexico City,Male,75 to 79,Acute myeloid leukemia,113.70619077455,71258.9725447037
+YLLs (Years of Life Lost),Mexico City,Female,75 to 79,Acute myeloid leukemia,112.370565769471,99765.0637261245
+YLLs (Years of Life Lost),Mexico City,Male,80 to 84,Acute myeloid leukemia,56.1058301746615,42799.3198473849
+YLLs (Years of Life Lost),Mexico City,Female,80 to 84,Acute myeloid leukemia,59.0420320331835,65282.2925233245
+YLLs (Years of Life Lost),Mexico City,Male,85 to 89,Acute myeloid leukemia,24.7533291134023,22133.4876493936
+YLLs (Years of Life Lost),Mexico City,Female,85 to 89,Acute myeloid leukemia,24.1150284911474,36169.7084747996
+YLLs (Years of Life Lost),Mexico City,Male,90 to 94,Acute myeloid leukemia,5.83312913333615,8298.40650252516
+YLLs (Years of Life Lost),Mexico City,Female,90 to 94,Acute myeloid leukemia,5.18462251220409,13809.5863969911
+YLLs (Years of Life Lost),Mexico City,Male,95 to 99,Acute myeloid leukemia,0.666947888960784,2173.86169701353
+YLLs (Years of Life Lost),Mexico City,Female,95 to 99,Acute myeloid leukemia,0.948506017452887,3316.05538447147
+YLLs (Years of Life Lost),Mexico City,Male,0 to 4,Chronic myeloid leukemia,8.46891794225882,292142.594916505
+YLLs (Years of Life Lost),Mexico City,Female,0 to 4,Chronic myeloid leukemia,3.04673486112506,280389.656515221
+YLLs (Years of Life Lost),Mexico City,Male,5 to 9,Chronic myeloid leukemia,3.94856809662146,302441.471641771
+YLLs (Years of Life Lost),Mexico City,Female,5 to 9,Chronic myeloid leukemia,2.9912698220063,289535.482851169
+YLLs (Years of Life Lost),Mexico City,Male,10 to 14,Chronic myeloid leukemia,7.30991083828185,313333.294922115
+YLLs (Years of Life Lost),Mexico City,Female,10 to 14,Chronic myeloid leukemia,5.02289931478934,302245.964396775
+YLLs (Years of Life Lost),Mexico City,Male,15 to 19,Chronic myeloid leukemia,13.1866614738948,323092.781441516
+YLLs (Years of Life Lost),Mexico City,Female,15 to 19,Chronic myeloid leukemia,7.29419643794862,317606.557978706
+YLLs (Years of Life Lost),Mexico City,Male,20 to 24,Chronic myeloid leukemia,34.0466114721911,339569.836822633
+YLLs (Years of Life Lost),Mexico City,Female,20 to 24,Chronic myeloid leukemia,13.387901419538,337500.292928117
+YLLs (Years of Life Lost),Mexico City,Male,25 to 29,Chronic myeloid leukemia,33.2359003627578,342891.377352024
+YLLs (Years of Life Lost),Mexico City,Female,25 to 29,Chronic myeloid leukemia,18.6412255125984,346423.159524934
+YLLs (Years of Life Lost),Mexico City,Male,30 to 34,Chronic myeloid leukemia,56.789986838561,334765.660654749
+YLLs (Years of Life Lost),Mexico City,Female,30 to 34,Chronic myeloid leukemia,21.7278545641452,350406.713197484
+YLLs (Years of Life Lost),Mexico City,Male,35 to 39,Chronic myeloid leukemia,48.3446979691179,317773.271853587
+YLLs (Years of Life Lost),Mexico City,Female,35 to 39,Chronic myeloid leukemia,27.623562852955,344935.304247997
+YLLs (Years of Life Lost),Mexico City,Male,40 to 44,Chronic myeloid leukemia,54.6827237864273,302801.565337141
+YLLs (Years of Life Lost),Mexico City,Female,40 to 44,Chronic myeloid leukemia,35.5875647843549,338311.11345378
+YLLs (Years of Life Lost),Mexico City,Male,45 to 49,Chronic myeloid leukemia,53.0578850697762,291613.763308491
+YLLs (Years of Life Lost),Mexico City,Female,45 to 49,Chronic myeloid leukemia,48.5134124231454,334846.998056098
+YLLs (Years of Life Lost),Mexico City,Male,50 to 54,Chronic myeloid leukemia,47.8494707339563,260795.248761904
+YLLs (Years of Life Lost),Mexico City,Female,50 to 54,Chronic myeloid leukemia,42.0113452732489,306383.564693394
+YLLs (Years of Life Lost),Mexico City,Male,55 to 59,Chronic myeloid leukemia,46.4180157927651,224712.016828753
+YLLs (Years of Life Lost),Mexico City,Female,55 to 59,Chronic myeloid leukemia,42.2045979825773,271007.903492691
+YLLs (Years of Life Lost),Mexico City,Male,60 to 64,Chronic myeloid leukemia,41.8646727357406,186910.026245608
+YLLs (Years of Life Lost),Mexico City,Female,60 to 64,Chronic myeloid leukemia,35.6401255325041,231756.482108293
+YLLs (Years of Life Lost),Mexico City,Male,65 to 69,Chronic myeloid leukemia,35.4847827356452,139251.301011062
+YLLs (Years of Life Lost),Mexico City,Female,65 to 69,Chronic myeloid leukemia,32.7081523910857,176322.910538162
+YLLs (Years of Life Lost),Mexico City,Male,70 to 74,Chronic myeloid leukemia,35.9547768593608,106530.517876874
+YLLs (Years of Life Lost),Mexico City,Female,70 to 74,Chronic myeloid leukemia,27.618229986693,142958.310336043
+YLLs (Years of Life Lost),Mexico City,Male,75 to 79,Chronic myeloid leukemia,29.9275910130875,71258.9725447037
+YLLs (Years of Life Lost),Mexico City,Female,75 to 79,Chronic myeloid leukemia,28.9705634911325,99765.0637261245
+YLLs (Years of Life Lost),Mexico City,Male,80 to 84,Chronic myeloid leukemia,17.7984133887082,42799.3198473849
+YLLs (Years of Life Lost),Mexico City,Female,80 to 84,Chronic myeloid leukemia,20.1573443945765,65282.2925233245
+YLLs (Years of Life Lost),Mexico City,Male,85 to 89,Chronic myeloid leukemia,9.26055682242924,22133.4876493936
+YLLs (Years of Life Lost),Mexico City,Female,85 to 89,Chronic myeloid leukemia,9.57063974381071,36169.7084747996
+YLLs (Years of Life Lost),Mexico City,Male,90 to 94,Chronic myeloid leukemia,2.09558048910725,8298.40650252516
+YLLs (Years of Life Lost),Mexico City,Female,90 to 94,Chronic myeloid leukemia,3.25434297975018,13809.5863969911
+YLLs (Years of Life Lost),Mexico City,Male,95 to 99,Chronic myeloid leukemia,0.306449658812648,2173.86169701353
+YLLs (Years of Life Lost),Mexico City,Female,95 to 99,Chronic myeloid leukemia,0.803925125052009,3316.05538447147
 YLLs (Years of Life Lost),Mexico City,Male,0 to 4,Asthma,32.255945854856,292142.594916505
 YLLs (Years of Life Lost),Mexico City,Female,0 to 4,Asthma,12.8630192775317,280389.656515221
 YLLs (Years of Life Lost),Mexico City,Male,5 to 9,Asthma,4.78504558691159,302441.471641771

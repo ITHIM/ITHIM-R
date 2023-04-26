@@ -1358,6 +1358,86 @@ YLLs (Years of Life Lost),Chile,Male,90 to 94,Parkinson's disease,525.9985654929
 YLLs (Years of Life Lost),Chile,Female,90 to 94,Parkinson's disease,407.737546529882,38420.6086156547
 YLLs (Years of Life Lost),Chile,Male,95 to 99,Parkinson's disease,95.931651607661,6721.02852953177
 YLLs (Years of Life Lost),Chile,Female,95 to 99,Parkinson's disease,81.8123517521988,9785.66839768234
+Deaths,Chile,Male,0 to 4,Acute myeloid leukemia,3.22089928549689,590407.136649282
+Deaths,Chile,Female,0 to 4,Acute myeloid leukemia,2.43640787989356,568206.116349197
+Deaths,Chile,Male,5 to 9,Acute myeloid leukemia,2.46063476484369,639392.78288771
+Deaths,Chile,Female,5 to 9,Acute myeloid leukemia,2.26573747684938,612179.930150842
+Deaths,Chile,Male,10 to 14,Acute myeloid leukemia,3.15259366461597,622813.363638568
+Deaths,Chile,Female,10 to 14,Acute myeloid leukemia,2.5539194314155,595787.082300343
+Deaths,Chile,Male,15 to 19,Acute myeloid leukemia,3.78229603674397,631165.491286203
+Deaths,Chile,Female,15 to 19,Acute myeloid leukemia,3.58412603626978,604097.035448217
+Deaths,Chile,Male,20 to 24,Acute myeloid leukemia,4.4201834813519,693981.390967853
+Deaths,Chile,Female,20 to 24,Acute myeloid leukemia,3.66193296760452,671917.624413281
+Deaths,Chile,Male,25 to 29,Acute myeloid leukemia,4.84173615346101,760855.645330287
+Deaths,Chile,Female,25 to 29,Acute myeloid leukemia,4.20226576775801,747462.164073602
+Deaths,Chile,Male,30 to 34,Acute myeloid leukemia,4.84425604437255,707006.831461527
+Deaths,Chile,Female,30 to 34,Acute myeloid leukemia,3.46358444455138,703051.246864735
+Deaths,Chile,Male,35 to 39,Acute myeloid leukemia,5.04921315478022,636967.313396475
+Deaths,Chile,Female,35 to 39,Acute myeloid leukemia,4.72659418080943,648579.523068178
+Deaths,Chile,Male,40 to 44,Acute myeloid leukemia,5.65394112125455,577889.287360149
+Deaths,Chile,Female,40 to 44,Acute myeloid leukemia,4.92955401505366,598580.59014909
+Deaths,Chile,Male,45 to 49,Acute myeloid leukemia,6.71366852810824,590505.794230193
+Deaths,Chile,Female,45 to 49,Acute myeloid leukemia,7.21260091276825,624047.525234926
+Deaths,Chile,Male,50 to 54,Acute myeloid leukemia,8.33850071204575,569155.685438781
+Deaths,Chile,Female,50 to 54,Acute myeloid leukemia,9.88832567670368,613554.995746927
+Deaths,Chile,Male,55 to 59,Acute myeloid leukemia,11.4984982262973,532715.173320798
+Deaths,Chile,Female,55 to 59,Acute myeloid leukemia,10.6725910129435,584846.07022548
+Deaths,Chile,Male,60 to 64,Acute myeloid leukemia,14.9440485670032,434747.421498363
+Deaths,Chile,Female,60 to 64,Acute myeloid leukemia,15.7872304079862,489706.718624578
+Deaths,Chile,Male,65 to 69,Acute myeloid leukemia,17.9990124960149,327756.661684093
+Deaths,Chile,Female,65 to 69,Acute myeloid leukemia,15.7627263848885,379051.502711552
+Deaths,Chile,Male,70 to 74,Acute myeloid leukemia,18.0301474102994,252649.601937286
+Deaths,Chile,Female,70 to 74,Acute myeloid leukemia,17.7792571869123,303751.379552535
+Deaths,Chile,Male,75 to 79,Acute myeloid leukemia,17.2450732894385,171750.872291174
+Deaths,Chile,Female,75 to 79,Acute myeloid leukemia,15.3492180346815,226470.38309385
+Deaths,Chile,Male,80 to 84,Acute myeloid leukemia,12.6333391576554,104150.483703845
+Deaths,Chile,Female,80 to 84,Acute myeloid leukemia,13.5931595460875,152689.170484331
+Deaths,Chile,Male,85 to 89,Acute myeloid leukemia,6.87301273066364,57601.3726369416
+Deaths,Chile,Female,85 to 89,Acute myeloid leukemia,9.37989896378999,95940.7040670701
+Deaths,Chile,Male,90 to 94,Acute myeloid leukemia,1.8380414470887,21999.6600551365
+Deaths,Chile,Female,90 to 94,Acute myeloid leukemia,3.23350359024721,38420.6086156547
+Deaths,Chile,Male,95 to 99,Acute myeloid leukemia,0.272217775851598,6721.02852953177
+Deaths,Chile,Female,95 to 99,Acute myeloid leukemia,1.03066948593694,9785.66839768234
+Deaths,Chile,Male,0 to 4,Chronic myeloid leukemia,0.0872458753636059,590407.136649282
+Deaths,Chile,Female,0 to 4,Chronic myeloid leukemia,0.090369580760309,568206.116349197
+Deaths,Chile,Male,5 to 9,Chronic myeloid leukemia,0.107687097171332,639392.78288771
+Deaths,Chile,Female,5 to 9,Chronic myeloid leukemia,0.06554266241682,612179.930150842
+Deaths,Chile,Male,10 to 14,Chronic myeloid leukemia,0.0904990164055449,622813.363638568
+Deaths,Chile,Female,10 to 14,Chronic myeloid leukemia,0.119862904922575,595787.082300343
+Deaths,Chile,Male,15 to 19,Chronic myeloid leukemia,0.21215317541495,631165.491286203
+Deaths,Chile,Female,15 to 19,Chronic myeloid leukemia,0.13262898576631801,604097.035448217
+Deaths,Chile,Male,20 to 24,Chronic myeloid leukemia,0.462374524814735,693981.390967853
+Deaths,Chile,Female,20 to 24,Chronic myeloid leukemia,0.213020138261951,671917.624413281
+Deaths,Chile,Male,25 to 29,Chronic myeloid leukemia,1.02200727404053,760855.645330287
+Deaths,Chile,Female,25 to 29,Chronic myeloid leukemia,0.669906586815748,747462.164073602
+Deaths,Chile,Male,30 to 34,Chronic myeloid leukemia,1.0560178763797201,707006.831461527
+Deaths,Chile,Female,30 to 34,Chronic myeloid leukemia,0.574108165003892,703051.246864735
+Deaths,Chile,Male,35 to 39,Chronic myeloid leukemia,1.30402817738603,636967.313396475
+Deaths,Chile,Female,35 to 39,Chronic myeloid leukemia,1.00382238784152,648579.523068178
+Deaths,Chile,Male,40 to 44,Chronic myeloid leukemia,1.42546230218156,577889.287360149
+Deaths,Chile,Female,40 to 44,Chronic myeloid leukemia,1.02428632638743,598580.59014909
+Deaths,Chile,Male,45 to 49,Chronic myeloid leukemia,1.74653178544676,590505.794230193
+Deaths,Chile,Female,45 to 49,Chronic myeloid leukemia,1.39677651627084,624047.525234926
+Deaths,Chile,Male,50 to 54,Chronic myeloid leukemia,2.28061597724949,569155.685438781
+Deaths,Chile,Female,50 to 54,Chronic myeloid leukemia,2.00892329198318,613554.995746927
+Deaths,Chile,Male,55 to 59,Chronic myeloid leukemia,2.5684413957105,532715.173320798
+Deaths,Chile,Female,55 to 59,Chronic myeloid leukemia,2.2939933005772,584846.07022548
+Deaths,Chile,Male,60 to 64,Chronic myeloid leukemia,2.67215004030103,434747.421498363
+Deaths,Chile,Female,60 to 64,Chronic myeloid leukemia,2.75255077188232,489706.718624578
+Deaths,Chile,Male,65 to 69,Chronic myeloid leukemia,3.9887654148169,327756.661684093
+Deaths,Chile,Female,65 to 69,Chronic myeloid leukemia,4.11085415269304,379051.502711552
+Deaths,Chile,Male,70 to 74,Chronic myeloid leukemia,4.62470787560705,252649.601937286
+Deaths,Chile,Female,70 to 74,Chronic myeloid leukemia,3.30711108504334,303751.379552535
+Deaths,Chile,Male,75 to 79,Chronic myeloid leukemia,5.817101391113,171750.872291174
+Deaths,Chile,Female,75 to 79,Chronic myeloid leukemia,4.40758986238642,226470.38309385
+Deaths,Chile,Male,80 to 84,Chronic myeloid leukemia,5.23856353695767,104150.483703845
+Deaths,Chile,Female,80 to 84,Chronic myeloid leukemia,5.09752890909251,152689.170484331
+Deaths,Chile,Male,85 to 89,Chronic myeloid leukemia,4.10662678292223,57601.3726369416
+Deaths,Chile,Female,85 to 89,Chronic myeloid leukemia,5.22849309465393,95940.7040670701
+Deaths,Chile,Male,90 to 94,Chronic myeloid leukemia,1.01753142372251,21999.6600551365
+Deaths,Chile,Female,90 to 94,Chronic myeloid leukemia,1.90375239045778,38420.6086156547
+Deaths,Chile,Male,95 to 99,Chronic myeloid leukemia,0.703658460756892,6721.02852953177
+Deaths,Chile,Female,95 to 99,Chronic myeloid leukemia,0.241218944060142,9785.66839768234
 YLLs (Years of Life Lost),Chile,Male,15 to 19,Diabetes mellitus type 2,11.4309542010929,631165.491286203
 YLLs (Years of Life Lost),Chile,Female,15 to 19,Diabetes mellitus type 2,20.6998379722262,604097.035448217
 YLLs (Years of Life Lost),Chile,Male,20 to 24,Diabetes mellitus type 2,15.4569601416312,693981.390967853
@@ -1392,6 +1472,86 @@ YLLs (Years of Life Lost),Chile,Male,90 to 94,Diabetes mellitus type 2,746.70370
 YLLs (Years of Life Lost),Chile,Female,90 to 94,Diabetes mellitus type 2,1586.94819556912,38420.6086156547
 YLLs (Years of Life Lost),Chile,Male,95 to 99,Diabetes mellitus type 2,197.117183119546,6721.02852953177
 YLLs (Years of Life Lost),Chile,Female,95 to 99,Diabetes mellitus type 2,439.991261494328,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,0 to 4,Acute myeloid leukemia,278.991112340951,590407.136649282
+YLLs (Years of Life Lost),Chile,Female,0 to 4,Acute myeloid leukemia,211.4433308702,568206.116349197
+YLLs (Years of Life Lost),Chile,Male,5 to 9,Acute myeloid leukemia,200.930064712544,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,Acute myeloid leukemia,185.241014719259,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,Acute myeloid leukemia,240.534993477769,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,Acute myeloid leukemia,195.061137818595,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Acute myeloid leukemia,269.75060578379,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Acute myeloid leukemia,256.221568179304,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Acute myeloid leukemia,293.983909004475,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Acute myeloid leukemia,243.770977344784,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Acute myeloid leukemia,298.363558441197,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Acute myeloid leukemia,258.874053897892,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Acute myeloid leukemia,274.500356877514,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Acute myeloid leukemia,195.921977133913,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Acute myeloid leukemia,261.024978592807,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Acute myeloid leukemia,244.020238477458,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Acute myeloid leukemia,264.257308366797,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Acute myeloid leukemia,230.207856735782,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Acute myeloid leukemia,281.236056272953,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Acute myeloid leukemia,301.997928611207,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Acute myeloid leukemia,309.556615816507,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Acute myeloid leukemia,366.905281592885,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Acute myeloid leukemia,372.953714281854,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Acute myeloid leukemia,346.065919909741,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Acute myeloid leukemia,415.619400380368,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Acute myeloid leukemia,438.780969908869,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Acute myeloid leukemia,420.48487115885,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Acute myeloid leukemia,367.964792880999,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Acute myeloid leukemia,344.293326773742,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Acute myeloid leukemia,338.907266552691,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Acute myeloid leukemia,260.294099848541,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Acute myeloid leukemia,230.847893396999,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Acute myeloid leukemia,146.31892442105,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Acute myeloid leukemia,156.640689565793,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Acute myeloid leukemia,60.7053526682447,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Acute myeloid leukemia,82.3576563638695,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Acute myeloid leukemia,12.5682638958637,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Acute myeloid leukemia,22.0334863625957,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Acute myeloid leukemia,1.3770597926989,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Acute myeloid leukemia,5.35716981654742,9785.66839768234
+YLLs (Years of Life Lost),Chile,Male,0 to 4,Chronic myeloid leukemia,7.571775377824,590407.136649282
+YLLs (Years of Life Lost),Chile,Female,0 to 4,Chronic myeloid leukemia,7.80420738095347,568206.116349197
+YLLs (Years of Life Lost),Chile,Male,5 to 9,Chronic myeloid leukemia,8.79349333452017,639392.78288771
+YLLs (Years of Life Lost),Chile,Female,5 to 9,Chronic myeloid leukemia,5.35860372949144,612179.930150842
+YLLs (Years of Life Lost),Chile,Male,10 to 14,Chronic myeloid leukemia,6.90484808276231,622813.363638568
+YLLs (Years of Life Lost),Chile,Female,10 to 14,Chronic myeloid leukemia,9.15478943025268,595787.082300343
+YLLs (Years of Life Lost),Chile,Male,15 to 19,Chronic myeloid leukemia,15.1306103570897,631165.491286203
+YLLs (Years of Life Lost),Chile,Female,15 to 19,Chronic myeloid leukemia,9.48136487812919,604097.035448217
+YLLs (Years of Life Lost),Chile,Male,20 to 24,Chronic myeloid leukemia,30.7522687242721,693981.390967853
+YLLs (Years of Life Lost),Chile,Female,20 to 24,Chronic myeloid leukemia,14.1805237172885,671917.624413281
+YLLs (Years of Life Lost),Chile,Male,25 to 29,Chronic myeloid leukemia,62.9794184091481,760855.645330287
+YLLs (Years of Life Lost),Chile,Female,25 to 29,Chronic myeloid leukemia,41.2685545004016,747462.164073602
+YLLs (Years of Life Lost),Chile,Male,30 to 34,Chronic myeloid leukemia,59.8393811722672,707006.831461527
+YLLs (Years of Life Lost),Chile,Female,30 to 34,Chronic myeloid leukemia,32.4751449190823,703051.246864735
+YLLs (Years of Life Lost),Chile,Male,35 to 39,Chronic myeloid leukemia,67.413261562221,636967.313396475
+YLLs (Years of Life Lost),Chile,Female,35 to 39,Chronic myeloid leukemia,51.8244150226898,648579.523068178
+YLLs (Years of Life Lost),Chile,Male,40 to 44,Chronic myeloid leukemia,66.6241163596082,577889.287360149
+YLLs (Years of Life Lost),Chile,Female,40 to 44,Chronic myeloid leukemia,47.8336902610958,598580.59014909
+YLLs (Years of Life Lost),Chile,Male,45 to 49,Chronic myeloid leukemia,73.1623417864528,590505.794230193
+YLLs (Years of Life Lost),Chile,Female,45 to 49,Chronic myeloid leukemia,58.4842582791222,624047.525234926
+YLLs (Years of Life Lost),Chile,Male,50 to 54,Chronic myeloid leukemia,84.6650720883853,569155.685438781
+YLLs (Years of Life Lost),Chile,Female,50 to 54,Chronic myeloid leukemia,74.5408869248841,613554.995746927
+YLLs (Years of Life Lost),Chile,Male,55 to 59,Chronic myeloid leukemia,83.3073797632761,532715.173320798
+YLLs (Years of Life Lost),Chile,Female,55 to 59,Chronic myeloid leukemia,74.3842709674005,584846.07022548
+YLLs (Years of Life Lost),Chile,Male,60 to 64,Chronic myeloid leukemia,74.317036142971,434747.421498363
+YLLs (Years of Life Lost),Chile,Female,60 to 64,Chronic myeloid leukemia,76.5027725698467,489706.718624578
+YLLs (Years of Life Lost),Chile,Male,65 to 69,Chronic myeloid leukemia,93.1837517143515,327756.661684093
+YLLs (Years of Life Lost),Chile,Female,65 to 69,Chronic myeloid leukemia,95.9637032277516,379051.502711552
+YLLs (Years of Life Lost),Chile,Male,70 to 74,Chronic myeloid leukemia,88.3107621704705,252649.601937286
+YLLs (Years of Life Lost),Chile,Female,70 to 74,Chronic myeloid leukemia,63.0399777805786,303751.379552535
+YLLs (Years of Life Lost),Chile,Male,75 to 79,Chronic myeloid leukemia,87.8023041661861,171750.872291174
+YLLs (Years of Life Lost),Chile,Female,75 to 79,Chronic myeloid leukemia,66.2889036034845,226470.38309385
+YLLs (Years of Life Lost),Chile,Male,80 to 84,Chronic myeloid leukemia,60.6728729968833,104150.483703845
+YLLs (Years of Life Lost),Chile,Female,80 to 84,Chronic myeloid leukemia,58.7413427095131,152689.170484331
+YLLs (Years of Life Lost),Chile,Male,85 to 89,Chronic myeloid leukemia,36.271463025514,57601.3726369416
+YLLs (Years of Life Lost),Chile,Female,85 to 89,Chronic myeloid leukemia,45.907364168066,95940.7040670701
+YLLs (Years of Life Lost),Chile,Male,90 to 94,Chronic myeloid leukemia,6.95773399230715,21999.6600551365
+YLLs (Years of Life Lost),Chile,Female,90 to 94,Chronic myeloid leukemia,12.9724001109594,38420.6086156547
+YLLs (Years of Life Lost),Chile,Male,95 to 99,Chronic myeloid leukemia,3.55957567822079,6721.02852953177
+YLLs (Years of Life Lost),Chile,Female,95 to 99,Chronic myeloid leukemia,1.25379752086451,9785.66839768234
 YLLs (Years of Life Lost),Chile,Male,95 to 99,Neoplasms,1223.38891162892,6721.02852953177
 YLLs (Years of Life Lost),Chile,Female,95 to 99,Neoplasms,1448.57096516715,9785.66839768234
 YLLs (Years of Life Lost),Chile,Male,20 to 24,Esophageal cancer,6.2301987888846,693981.390967853

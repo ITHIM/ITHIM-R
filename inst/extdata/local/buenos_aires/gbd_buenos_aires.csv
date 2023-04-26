@@ -55,6 +55,86 @@ Deaths,Argentina,Male,90 to 94,Parkinson's disease,120.515518311576,42082.641300
 Deaths,Argentina,Female,90 to 94,Parkinson's disease,136.551266948527,103493.028314391
 Deaths,Argentina,Male,95 to 99,Parkinson's disease,36.1950552268003,13745.264580622
 Deaths,Argentina,Female,95 to 99,Parkinson's disease,43.7432469855874,32939.398559913
+Deaths,Argentina,Male,0 to 4,Acute myeloid leukemia,9.88559493271912,1764221.50195039
+Deaths,Argentina,Female,0 to 4,Acute myeloid leukemia,8.15670931914738,1700928.9574388
+Deaths,Argentina,Male,5 to 9,Acute myeloid leukemia,6.64215628552866,1847543.41072111
+Deaths,Argentina,Female,5 to 9,Acute myeloid leukemia,5.72001957099745,1784850.54991189
+Deaths,Argentina,Male,10 to 14,Acute myeloid leukemia,8.44043601368567,1766274.68609667
+Deaths,Argentina,Female,10 to 14,Acute myeloid leukemia,7.72770121138167,1711296.92355049
+Deaths,Argentina,Male,15 to 19,Acute myeloid leukemia,9.8045596548948,1808493.75379773
+Deaths,Argentina,Female,15 to 19,Acute myeloid leukemia,8.54453616856287,1768759.66248545
+Deaths,Argentina,Male,20 to 24,Acute myeloid leukemia,10.7424557762488,1798258.30491413
+Deaths,Argentina,Female,20 to 24,Acute myeloid leukemia,9.05973541339212,1792324.09266708
+Deaths,Argentina,Male,25 to 29,Acute myeloid leukemia,11.8461979485689,1764505.70838986
+Deaths,Argentina,Female,25 to 29,Acute myeloid leukemia,10.6268487193838,1802678.12841098
+Deaths,Argentina,Male,30 to 34,Acute myeloid leukemia,13.2741845605313,1674065.80207981
+Deaths,Argentina,Female,30 to 34,Acute myeloid leukemia,11.0685815743348,1732928.26958249
+Deaths,Argentina,Male,35 to 39,Acute myeloid leukemia,16.1565002683868,1605357.35509209
+Deaths,Argentina,Female,35 to 39,Acute myeloid leukemia,11.2125069246009,1670959.80965757
+Deaths,Argentina,Male,40 to 44,Acute myeloid leukemia,17.26849183281,1516791.78432042
+Deaths,Argentina,Female,40 to 44,Acute myeloid leukemia,15.2810776096801,1582251.43267303
+Deaths,Argentina,Male,45 to 49,Acute myeloid leukemia,18.4467042571161,1304621.98833791
+Deaths,Argentina,Female,45 to 49,Acute myeloid leukemia,18.2896856625153,1368913.8071071
+Deaths,Argentina,Male,50 to 54,Acute myeloid leukemia,20.3164234614933,1107585.97816592
+Deaths,Argentina,Female,50 to 54,Acute myeloid leukemia,19.7340192853835,1179687.09221063
+Deaths,Argentina,Male,55 to 59,Acute myeloid leukemia,31.0724281659238,1008979.09779761
+Deaths,Argentina,Female,55 to 59,Acute myeloid leukemia,24.967925158278,1097062.0649024
+Deaths,Argentina,Male,60 to 64,Acute myeloid leukemia,43.9415594019349,898079.155700326
+Deaths,Argentina,Female,60 to 64,Acute myeloid leukemia,31.561656955284,1006324.2838262
+Deaths,Argentina,Male,65 to 69,Acute myeloid leukemia,48.5183407972908,749891.635472294
+Deaths,Argentina,Female,65 to 69,Acute myeloid leukemia,34.6220942821096,881576.087217043
+Deaths,Argentina,Male,70 to 74,Acute myeloid leukemia,49.3714227569047,577374.542547827
+Deaths,Argentina,Female,70 to 74,Acute myeloid leukemia,39.1712816041952,730635.505236975
+Deaths,Argentina,Male,75 to 79,Acute myeloid leukemia,43.9196187066776,391480.194942626
+Deaths,Argentina,Female,75 to 79,Acute myeloid leukemia,34.8941758758644,552762.899987423
+Deaths,Argentina,Male,80 to 84,Acute myeloid leukemia,27.7865209719479,235421.004339561
+Deaths,Argentina,Female,80 to 84,Acute myeloid leukemia,30.8789662589537,388441.086384058
+Deaths,Argentina,Male,85 to 89,Acute myeloid leukemia,15.5294407668973,115340.206518592
+Deaths,Argentina,Female,85 to 89,Acute myeloid leukemia,19.6669594040828,236357.258359048
+Deaths,Argentina,Male,90 to 94,Acute myeloid leukemia,4.92884324916846,42082.6413005041
+Deaths,Argentina,Female,90 to 94,Acute myeloid leukemia,6.59332956584447,103493.028314391
+Deaths,Argentina,Male,95 to 99,Acute myeloid leukemia,1.42640244193628,13745.264580622
+Deaths,Argentina,Female,95 to 99,Acute myeloid leukemia,2.46190706289381,32939.398559913
+Deaths,Argentina,Male,0 to 4,Chronic myeloid leukemia,0.558216742234585,1764221.50195039
+Deaths,Argentina,Female,0 to 4,Chronic myeloid leukemia,0.206639558646787,1700928.9574388
+Deaths,Argentina,Male,5 to 9,Chronic myeloid leukemia,0.267055461747814,1847543.41072111
+Deaths,Argentina,Female,5 to 9,Chronic myeloid leukemia,0.237683481984565,1784850.54991189
+Deaths,Argentina,Male,10 to 14,Chronic myeloid leukemia,0.396863217057725,1766274.68609667
+Deaths,Argentina,Female,10 to 14,Chronic myeloid leukemia,0.346453188507367,1711296.92355049
+Deaths,Argentina,Male,15 to 19,Chronic myeloid leukemia,0.703146261769099,1808493.75379773
+Deaths,Argentina,Female,15 to 19,Chronic myeloid leukemia,0.350418897296431,1768759.66248545
+Deaths,Argentina,Male,20 to 24,Chronic myeloid leukemia,1.14507108831889,1798258.30491413
+Deaths,Argentina,Female,20 to 24,Chronic myeloid leukemia,0.78823636125457,1792324.09266708
+Deaths,Argentina,Male,25 to 29,Chronic myeloid leukemia,1.8777041865313,1764505.70838986
+Deaths,Argentina,Female,25 to 29,Chronic myeloid leukemia,1.35629367199865,1802678.12841098
+Deaths,Argentina,Male,30 to 34,Chronic myeloid leukemia,2.41449433248411,1674065.80207981
+Deaths,Argentina,Female,30 to 34,Chronic myeloid leukemia,1.6216487755228,1732928.26958249
+Deaths,Argentina,Male,35 to 39,Chronic myeloid leukemia,3.19310546724922,1605357.35509209
+Deaths,Argentina,Female,35 to 39,Chronic myeloid leukemia,2.34328189366904,1670959.80965757
+Deaths,Argentina,Male,40 to 44,Chronic myeloid leukemia,4.04300906341243,1516791.78432042
+Deaths,Argentina,Female,40 to 44,Chronic myeloid leukemia,1.9332618310933,1582251.43267303
+Deaths,Argentina,Male,45 to 49,Chronic myeloid leukemia,4.03963741917406,1304621.98833791
+Deaths,Argentina,Female,45 to 49,Chronic myeloid leukemia,3.10081301827174,1368913.8071071
+Deaths,Argentina,Male,50 to 54,Chronic myeloid leukemia,5.46057960328045,1107585.97816592
+Deaths,Argentina,Female,50 to 54,Chronic myeloid leukemia,3.55982625272933,1179687.09221063
+Deaths,Argentina,Male,55 to 59,Chronic myeloid leukemia,5.69760124694654,1008979.09779761
+Deaths,Argentina,Female,55 to 59,Chronic myeloid leukemia,4.64867375093415,1097062.0649024
+Deaths,Argentina,Male,60 to 64,Chronic myeloid leukemia,8.62022502982859,898079.155700326
+Deaths,Argentina,Female,60 to 64,Chronic myeloid leukemia,5.14801279409515,1006324.2838262
+Deaths,Argentina,Male,65 to 69,Chronic myeloid leukemia,11.1721174039483,749891.635472294
+Deaths,Argentina,Female,65 to 69,Chronic myeloid leukemia,7.68355266169765,881576.087217043
+Deaths,Argentina,Male,70 to 74,Chronic myeloid leukemia,12.6482934368258,577374.542547827
+Deaths,Argentina,Female,70 to 74,Chronic myeloid leukemia,8.13364990871774,730635.505236975
+Deaths,Argentina,Male,75 to 79,Chronic myeloid leukemia,10.8994485701595,391480.194942626
+Deaths,Argentina,Female,75 to 79,Chronic myeloid leukemia,9.34592452508736,552762.899987423
+Deaths,Argentina,Male,80 to 84,Chronic myeloid leukemia,10.8821617939901,235421.004339561
+Deaths,Argentina,Female,80 to 84,Chronic myeloid leukemia,10.4011442736051,388441.086384058
+Deaths,Argentina,Male,85 to 89,Chronic myeloid leukemia,8.70960837145111,115340.206518592
+Deaths,Argentina,Female,85 to 89,Chronic myeloid leukemia,9.94647217708235,236357.258359048
+Deaths,Argentina,Male,90 to 94,Chronic myeloid leukemia,2.4337876613249,42082.6413005041
+Deaths,Argentina,Female,90 to 94,Chronic myeloid leukemia,4.87351087578894,103493.028314391
+Deaths,Argentina,Male,95 to 99,Chronic myeloid leukemia,1.09823401404147,13745.264580622
+Deaths,Argentina,Female,95 to 99,Chronic myeloid leukemia,1.89397587755613,32939.398559913
 Deaths,Argentina,Male,0 to 4,Neoplasms,88.7616643943281,1764221.50195039
 Deaths,Argentina,Female,0 to 4,Neoplasms,63.8671235272802,1700928.9574388
 Deaths,Argentina,Male,5 to 9,Neoplasms,94.5747692410989,1847543.41072111
@@ -1567,6 +1647,86 @@ YLLs (Years of Life Lost),Argentina,Male,90 to 94,Lower respiratory infections,1
 YLLs (Years of Life Lost),Argentina,Female,90 to 94,Lower respiratory infections,22087.8767213037,103493.028314391
 YLLs (Years of Life Lost),Argentina,Male,95 to 99,Lower respiratory infections,3997.69741207347,13745.264580622
 YLLs (Years of Life Lost),Argentina,Female,95 to 99,Lower respiratory infections,9100.84217923949,32939.398559913
+YLLs (Years of Life Lost),Argentina,Male,0 to 4,Acute myeloid leukemia,855.545540508053,1764221.50195039
+YLLs (Years of Life Lost),Argentina,Female,0 to 4,Acute myeloid leukemia,706.215138898895,1700928.9574388
+YLLs (Years of Life Lost),Argentina,Male,5 to 9,Acute myeloid leukemia,542.516397451308,1847543.41072111
+YLLs (Years of Life Lost),Argentina,Female,5 to 9,Acute myeloid leukemia,467.711471293454,1784850.54991189
+YLLs (Years of Life Lost),Argentina,Male,10 to 14,Acute myeloid leukemia,644.236298163284,1766274.68609667
+YLLs (Years of Life Lost),Argentina,Female,10 to 14,Acute myeloid leukemia,590.296911418185,1711296.92355049
+YLLs (Years of Life Lost),Argentina,Male,15 to 19,Acute myeloid leukemia,699.351313559278,1808493.75379773
+YLLs (Years of Life Lost),Argentina,Female,15 to 19,Acute myeloid leukemia,610.491789639957,1768759.66248545
+YLLs (Years of Life Lost),Argentina,Male,20 to 24,Acute myeloid leukemia,715.220367223749,1798258.30491413
+YLLs (Years of Life Lost),Argentina,Female,20 to 24,Acute myeloid leukemia,603.276619356026,1792324.09266708
+YLLs (Years of Life Lost),Argentina,Male,25 to 29,Acute myeloid leukemia,730.705412023589,1764505.70838986
+YLLs (Years of Life Lost),Argentina,Female,25 to 29,Acute myeloid leukemia,654.545235214476,1802678.12841098
+YLLs (Years of Life Lost),Argentina,Male,30 to 34,Acute myeloid leukemia,752.183279691978,1674065.80207981
+YLLs (Years of Life Lost),Argentina,Female,30 to 34,Acute myeloid leukemia,626.32700922769,1732928.26958249
+YLLs (Years of Life Lost),Argentina,Male,35 to 39,Acute myeloid leukemia,835.229174806727,1605357.35509209
+YLLs (Years of Life Lost),Argentina,Female,35 to 39,Acute myeloid leukemia,579.090295443872,1670959.80965757
+YLLs (Years of Life Lost),Argentina,Male,40 to 44,Acute myeloid leukemia,806.936499735581,1516791.78432042
+YLLs (Years of Life Lost),Argentina,Female,40 to 44,Acute myeloid leukemia,713.91768131306,1582251.43267303
+YLLs (Years of Life Lost),Argentina,Male,45 to 49,Acute myeloid leukemia,772.025620387001,1304621.98833791
+YLLs (Years of Life Lost),Argentina,Female,45 to 49,Acute myeloid leukemia,765.629657067107,1368913.8071071
+YLLs (Years of Life Lost),Argentina,Male,50 to 54,Acute myeloid leukemia,753.646969118086,1107585.97816592
+YLLs (Years of Life Lost),Argentina,Female,50 to 54,Acute myeloid leukemia,732.414988291938,1179687.09221063
+YLLs (Years of Life Lost),Argentina,Male,55 to 59,Acute myeloid leukemia,1007.54431834112,1008979.09779761
+YLLs (Years of Life Lost),Argentina,Female,55 to 59,Acute myeloid leukemia,809.601715052882,1097062.0649024
+YLLs (Years of Life Lost),Argentina,Male,60 to 64,Acute myeloid leukemia,1223.29502986559,898079.155700326
+YLLs (Years of Life Lost),Argentina,Female,60 to 64,Acute myeloid leukemia,878.360613104407,1006324.2838262
+YLLs (Years of Life Lost),Argentina,Male,65 to 69,Acute myeloid leukemia,1134.74251208938,749891.635472294
+YLLs (Years of Life Lost),Argentina,Female,65 to 69,Acute myeloid leukemia,808.825865123746,881576.087217043
+YLLs (Years of Life Lost),Argentina,Male,70 to 74,Acute myeloid leukemia,944.421129091343,577374.542547827
+YLLs (Years of Life Lost),Argentina,Female,70 to 74,Acute myeloid leukemia,747.008751255292,730635.505236975
+YLLs (Years of Life Lost),Argentina,Male,75 to 79,Acute myeloid leukemia,664.272912521465,391480.194942626
+YLLs (Years of Life Lost),Argentina,Female,75 to 79,Acute myeloid leukemia,525.337960175225,552762.899987423
+YLLs (Years of Life Lost),Argentina,Male,80 to 84,Acute myeloid leukemia,322.725241998887,235421.004339561
+YLLs (Years of Life Lost),Argentina,Female,80 to 84,Acute myeloid leukemia,356.43544580776,388441.086384058
+YLLs (Years of Life Lost),Argentina,Male,85 to 89,Acute myeloid leukemia,137.75206962816,115340.206518592
+YLLs (Years of Life Lost),Argentina,Female,85 to 89,Acute myeloid leukemia,173.33362382511,236357.258359048
+YLLs (Years of Life Lost),Argentina,Male,90 to 94,Acute myeloid leukemia,33.9032721104161,42082.6413005041
+YLLs (Years of Life Lost),Argentina,Female,90 to 94,Acute myeloid leukemia,45.1065984993965,103493.028314391
+YLLs (Years of Life Lost),Argentina,Male,95 to 99,Acute myeloid leukemia,7.41089374790521,13745.264580622
+YLLs (Years of Life Lost),Argentina,Female,95 to 99,Acute myeloid leukemia,12.8571474323094,32939.398559913
+YLLs (Years of Life Lost),Argentina,Male,0 to 4,Chronic myeloid leukemia,48.5139472512154,1764221.50195039
+YLLs (Years of Life Lost),Argentina,Female,0 to 4,Chronic myeloid leukemia,17.8705005721581,1700928.9574388
+YLLs (Years of Life Lost),Argentina,Male,5 to 9,Chronic myeloid leukemia,21.8124899202953,1847543.41072111
+YLLs (Years of Life Lost),Argentina,Female,5 to 9,Chronic myeloid leukemia,19.4347745984664,1784850.54991189
+YLLs (Years of Life Lost),Argentina,Male,10 to 14,Chronic myeloid leukemia,30.2915263405682,1766274.68609667
+YLLs (Years of Life Lost),Argentina,Female,10 to 14,Chronic myeloid leukemia,26.4645644976114,1711296.92355049
+YLLs (Years of Life Lost),Argentina,Male,15 to 19,Chronic myeloid leukemia,50.1548543842066,1808493.75379773
+YLLs (Years of Life Lost),Argentina,Female,15 to 19,Chronic myeloid leukemia,25.0368019414844,1768759.66248545
+YLLs (Years of Life Lost),Argentina,Male,20 to 24,Chronic myeloid leukemia,76.2375178770075,1798258.30491413
+YLLs (Years of Life Lost),Argentina,Female,20 to 24,Chronic myeloid leukemia,52.4876881689315,1792324.09266708
+YLLs (Years of Life Lost),Argentina,Male,25 to 29,Chronic myeloid leukemia,115.821854170816,1764505.70838986
+YLLs (Years of Life Lost),Argentina,Female,25 to 29,Chronic myeloid leukemia,83.5389289902056,1802678.12841098
+YLLs (Years of Life Lost),Argentina,Male,30 to 34,Chronic myeloid leukemia,136.817614485006,1674065.80207981
+YLLs (Years of Life Lost),Argentina,Female,30 to 34,Chronic myeloid leukemia,91.7626545704865,1732928.26958249
+YLLs (Years of Life Lost),Argentina,Male,35 to 39,Chronic myeloid leukemia,165.071321151143,1605357.35509209
+YLLs (Years of Life Lost),Argentina,Female,35 to 39,Chronic myeloid leukemia,121.023051601048,1670959.80965757
+YLLs (Years of Life Lost),Argentina,Male,40 to 44,Chronic myeloid leukemia,188.925102065406,1516791.78432042
+YLLs (Years of Life Lost),Argentina,Female,40 to 44,Chronic myeloid leukemia,90.3201880835194,1582251.43267303
+YLLs (Years of Life Lost),Argentina,Male,45 to 49,Chronic myeloid leukemia,169.065625013927,1304621.98833791
+YLLs (Years of Life Lost),Argentina,Female,45 to 49,Chronic myeloid leukemia,129.80400273769,1368913.8071071
+YLLs (Years of Life Lost),Argentina,Male,50 to 54,Chronic myeloid leukemia,202.562684098428,1107585.97816592
+YLLs (Years of Life Lost),Argentina,Female,50 to 54,Chronic myeloid leukemia,132.120581494781,1179687.09221063
+YLLs (Years of Life Lost),Argentina,Male,55 to 59,Chronic myeloid leukemia,184.748540856869,1008979.09779761
+YLLs (Years of Life Lost),Argentina,Female,55 to 59,Chronic myeloid leukemia,150.736363459092,1097062.0649024
+YLLs (Years of Life Lost),Argentina,Male,60 to 64,Chronic myeloid leukemia,239.979613350907,898079.155700326
+YLLs (Years of Life Lost),Argentina,Female,60 to 64,Chronic myeloid leukemia,143.269147133091,1006324.2838262
+YLLs (Years of Life Lost),Argentina,Male,65 to 69,Chronic myeloid leukemia,261.292458892611,749891.635472294
+YLLs (Years of Life Lost),Argentina,Female,65 to 69,Chronic myeloid leukemia,179.499717093452,881576.087217043
+YLLs (Years of Life Lost),Argentina,Male,70 to 74,Chronic myeloid leukemia,241.947971147238,577374.542547827
+YLLs (Years of Life Lost),Argentina,Female,70 to 74,Chronic myeloid leukemia,155.111280832033,730635.505236975
+YLLs (Years of Life Lost),Argentina,Male,75 to 79,Chronic myeloid leukemia,164.851350257214,391480.194942626
+YLLs (Years of Life Lost),Argentina,Female,75 to 79,Chronic myeloid leukemia,140.704538872832,552762.899987423
+YLLs (Years of Life Lost),Argentina,Male,80 to 84,Chronic myeloid leukemia,126.390356748224,235421.004339561
+YLLs (Years of Life Lost),Argentina,Female,80 to 84,Chronic myeloid leukemia,120.060252826576,388441.086384058
+YLLs (Years of Life Lost),Argentina,Male,85 to 89,Chronic myeloid leukemia,77.2575520797615,115340.206518592
+YLLs (Years of Life Lost),Argentina,Female,85 to 89,Chronic myeloid leukemia,87.6626646400362,236357.258359048
+YLLs (Years of Life Lost),Argentina,Male,90 to 94,Chronic myeloid leukemia,16.7409189478266,42082.6413005041
+YLLs (Years of Life Lost),Argentina,Female,90 to 94,Chronic myeloid leukemia,33.3408934228664,103493.028314391
+YLLs (Years of Life Lost),Argentina,Male,95 to 99,Chronic myeloid leukemia,5.70589011145309,13745.264580622
+YLLs (Years of Life Lost),Argentina,Female,95 to 99,Chronic myeloid leukemia,9.89116423523867,32939.398559913
 Deaths,Argentina,Male,15 to 19,Diabetes mellitus type 2,0.928541216916443,1808493.75379773
 Deaths,Argentina,Female,15 to 19,Diabetes mellitus type 2,2.34719732810865,1768759.66248545
 Deaths,Argentina,Male,20 to 24,Diabetes mellitus type 2,1.55730964255463,1798258.30491413

@@ -39,6 +39,86 @@ Deaths,São Paulo,Male,90 to 94,Road injuries,18.6080736653192,36617.3496376561
 Deaths,São Paulo,Female,90 to 94,Road injuries,14.2784883117705,76126.0127743697
 Deaths,São Paulo,Male,95 to 99,Road injuries,4.52275204768552,8103.21812385412
 Deaths,São Paulo,Female,95 to 99,Road injuries,4.79318250830098,17816.9249113792
+YLLs (Years of Life Lost),São Paulo,Male,0 to 4,Acute myeloid leukemia,648.851719194615,1358366.18846701
+YLLs (Years of Life Lost),São Paulo,Female,0 to 4,Acute myeloid leukemia,1093.17098029717,1302884.39535986
+YLLs (Years of Life Lost),São Paulo,Male,5 to 9,Acute myeloid leukemia,567.631886946472,1477984.6758359
+YLLs (Years of Life Lost),São Paulo,Female,5 to 9,Acute myeloid leukemia,525.902805674191,1424035.31555947
+YLLs (Years of Life Lost),São Paulo,Male,10 to 14,Acute myeloid leukemia,677.815391728888,1555562.32967778
+YLLs (Years of Life Lost),São Paulo,Female,10 to 14,Acute myeloid leukemia,604.668289449698,1503949.58237095
+YLLs (Years of Life Lost),São Paulo,Male,15 to 19,Acute myeloid leukemia,791.918422612779,1625138.35883998
+YLLs (Years of Life Lost),São Paulo,Female,15 to 19,Acute myeloid leukemia,729.593775186579,1576556.348147
+YLLs (Years of Life Lost),São Paulo,Male,20 to 24,Acute myeloid leukemia,783.328379930336,1783247.80382666
+YLLs (Years of Life Lost),São Paulo,Female,20 to 24,Acute myeloid leukemia,759.718429980757,1733869.63695362
+YLLs (Years of Life Lost),São Paulo,Male,25 to 29,Acute myeloid leukemia,896.575354282324,1783374.9175665
+YLLs (Years of Life Lost),São Paulo,Female,25 to 29,Acute myeloid leukemia,757.968928736285,1763585.5933154
+YLLs (Years of Life Lost),São Paulo,Male,30 to 34,Acute myeloid leukemia,1062.88070478067,1870551.49627814
+YLLs (Years of Life Lost),São Paulo,Female,30 to 34,Acute myeloid leukemia,799.229825625164,1893121.70531789
+YLLs (Years of Life Lost),São Paulo,Male,35 to 39,Acute myeloid leukemia,951.790472815815,1889020.19484613
+YLLs (Years of Life Lost),São Paulo,Female,35 to 39,Acute myeloid leukemia,870.019537598032,1967782.90437324
+YLLs (Years of Life Lost),São Paulo,Male,40 to 44,Acute myeloid leukemia,879.619807425254,1695854.33799617
+YLLs (Years of Life Lost),São Paulo,Female,40 to 44,Acute myeloid leukemia,957.910039139892,1808098.58872917
+YLLs (Years of Life Lost),São Paulo,Male,45 to 49,Acute myeloid leukemia,901.417107545308,1495736.1739694
+YLLs (Years of Life Lost),São Paulo,Female,45 to 49,Acute myeloid leukemia,975.104472051524,1603988.7408897
+YLLs (Years of Life Lost),São Paulo,Male,50 to 54,Acute myeloid leukemia,992.772433900008,1368591.57243935
+YLLs (Years of Life Lost),São Paulo,Female,50 to 54,Acute myeloid leukemia,1059.30452214433,1510744.93444963
+YLLs (Years of Life Lost),São Paulo,Male,55 to 59,Acute myeloid leukemia,1018.03458012083,1203418.05574684
+YLLs (Years of Life Lost),São Paulo,Female,55 to 59,Acute myeloid leukemia,1190.74531726326,1384949.15757749
+YLLs (Years of Life Lost),São Paulo,Male,60 to 64,Acute myeloid leukemia,1216.49535490503,1002617.7517618
+YLLs (Years of Life Lost),São Paulo,Female,60 to 64,Acute myeloid leukemia,1102.96672252932,1195364.09762391
+YLLs (Years of Life Lost),São Paulo,Male,65 to 69,Acute myeloid leukemia,1164.10954152329,770679.589778418
+YLLs (Years of Life Lost),São Paulo,Female,65 to 69,Acute myeloid leukemia,1116.25950862249,945161.774810485
+YLLs (Years of Life Lost),São Paulo,Male,70 to 74,Acute myeloid leukemia,967.17337140976,540654.221843511
+YLLs (Years of Life Lost),São Paulo,Female,70 to 74,Acute myeloid leukemia,891.155621837848,700089.249808484
+YLLs (Years of Life Lost),São Paulo,Male,75 to 79,Acute myeloid leukemia,674.425672883629,349947.246632259
+YLLs (Years of Life Lost),São Paulo,Female,75 to 79,Acute myeloid leukemia,622.379198821834,481631.292310734
+YLLs (Years of Life Lost),São Paulo,Male,80 to 84,Acute myeloid leukemia,434.638421639163,206348.105266069
+YLLs (Years of Life Lost),São Paulo,Female,80 to 84,Acute myeloid leukemia,385.063041354676,323571.386361345
+YLLs (Years of Life Lost),São Paulo,Male,85 to 89,Acute myeloid leukemia,176.589255576354,100416.320413412
+YLLs (Years of Life Lost),São Paulo,Female,85 to 89,Acute myeloid leukemia,216.969088610547,183571.63190162
+YLLs (Years of Life Lost),São Paulo,Male,90 to 94,Acute myeloid leukemia,51.6830985303239,36617.3496376561
+YLLs (Years of Life Lost),São Paulo,Female,90 to 94,Acute myeloid leukemia,80.6200801264574,76126.0127743697
+YLLs (Years of Life Lost),São Paulo,Male,95 to 99,Acute myeloid leukemia,8.12385072531828,8103.21812385412
+YLLs (Years of Life Lost),São Paulo,Female,95 to 99,Acute myeloid leukemia,12.692880970841,17816.9249113792
+YLLs (Years of Life Lost),São Paulo,Male,0 to 4,Chronic myeloid leukemia,25.3175257698911,1358366.18846701
+YLLs (Years of Life Lost),São Paulo,Female,0 to 4,Chronic myeloid leukemia,28.3340051402875,1302884.39535986
+YLLs (Years of Life Lost),São Paulo,Male,5 to 9,Chronic myeloid leukemia,14.9773697606576,1477984.6758359
+YLLs (Years of Life Lost),São Paulo,Female,5 to 9,Chronic myeloid leukemia,11.1547065149102,1424035.31555947
+YLLs (Years of Life Lost),São Paulo,Male,10 to 14,Chronic myeloid leukemia,17.7583824065376,1555562.32967778
+YLLs (Years of Life Lost),São Paulo,Female,10 to 14,Chronic myeloid leukemia,15.6451658369927,1503949.58237095
+YLLs (Years of Life Lost),São Paulo,Male,15 to 19,Chronic myeloid leukemia,35.2495348958408,1625138.35883998
+YLLs (Years of Life Lost),São Paulo,Female,15 to 19,Chronic myeloid leukemia,33.5057043242083,1576556.348147
+YLLs (Years of Life Lost),São Paulo,Male,20 to 24,Chronic myeloid leukemia,65.8625978330977,1783247.80382666
+YLLs (Years of Life Lost),São Paulo,Female,20 to 24,Chronic myeloid leukemia,53.9249569778716,1733869.63695362
+YLLs (Years of Life Lost),São Paulo,Male,25 to 29,Chronic myeloid leukemia,113.13187906671,1783374.9175665
+YLLs (Years of Life Lost),São Paulo,Female,25 to 29,Chronic myeloid leukemia,59.7787397405689,1763585.5933154
+YLLs (Years of Life Lost),São Paulo,Male,30 to 34,Chronic myeloid leukemia,157.031234877235,1870551.49627814
+YLLs (Years of Life Lost),São Paulo,Female,30 to 34,Chronic myeloid leukemia,79.0952239805201,1893121.70531789
+YLLs (Years of Life Lost),São Paulo,Male,35 to 39,Chronic myeloid leukemia,154.621765397729,1889020.19484613
+YLLs (Years of Life Lost),São Paulo,Female,35 to 39,Chronic myeloid leukemia,100.11008961861,1967782.90437324
+YLLs (Years of Life Lost),São Paulo,Male,40 to 44,Chronic myeloid leukemia,149.747733001651,1695854.33799617
+YLLs (Years of Life Lost),São Paulo,Female,40 to 44,Chronic myeloid leukemia,83.8956781608247,1808098.58872917
+YLLs (Years of Life Lost),São Paulo,Male,45 to 49,Chronic myeloid leukemia,143.912612843843,1495736.1739694
+YLLs (Years of Life Lost),São Paulo,Female,45 to 49,Chronic myeloid leukemia,110.960869530552,1603988.7408897
+YLLs (Years of Life Lost),São Paulo,Male,50 to 54,Chronic myeloid leukemia,160.979818851883,1368591.57243935
+YLLs (Years of Life Lost),São Paulo,Female,50 to 54,Chronic myeloid leukemia,105.122670841977,1510744.93444963
+YLLs (Years of Life Lost),São Paulo,Male,55 to 59,Chronic myeloid leukemia,174.963341279866,1203418.05574684
+YLLs (Years of Life Lost),São Paulo,Female,55 to 59,Chronic myeloid leukemia,118.833305110412,1384949.15757749
+YLLs (Years of Life Lost),São Paulo,Male,60 to 64,Chronic myeloid leukemia,201.382060895487,1002617.7517618
+YLLs (Years of Life Lost),São Paulo,Female,60 to 64,Chronic myeloid leukemia,152.695212660784,1195364.09762391
+YLLs (Years of Life Lost),São Paulo,Male,65 to 69,Chronic myeloid leukemia,185.740422371866,770679.589778418
+YLLs (Years of Life Lost),São Paulo,Female,65 to 69,Chronic myeloid leukemia,175.148519424362,945161.774810485
+YLLs (Years of Life Lost),São Paulo,Male,70 to 74,Chronic myeloid leukemia,196.490540649436,540654.221843511
+YLLs (Years of Life Lost),São Paulo,Female,70 to 74,Chronic myeloid leukemia,165.751505970078,700089.249808484
+YLLs (Years of Life Lost),São Paulo,Male,75 to 79,Chronic myeloid leukemia,142.874481108553,349947.246632259
+YLLs (Years of Life Lost),São Paulo,Female,75 to 79,Chronic myeloid leukemia,138.301057880783,481631.292310734
+YLLs (Years of Life Lost),São Paulo,Male,80 to 84,Chronic myeloid leukemia,97.5856568616309,206348.105266069
+YLLs (Years of Life Lost),São Paulo,Female,80 to 84,Chronic myeloid leukemia,104.410505192525,323571.386361345
+YLLs (Years of Life Lost),São Paulo,Male,85 to 89,Chronic myeloid leukemia,53.9888935484185,100416.320413412
+YLLs (Years of Life Lost),São Paulo,Female,85 to 89,Chronic myeloid leukemia,69.6053453249725,183571.63190162
+YLLs (Years of Life Lost),São Paulo,Male,90 to 94,Chronic myeloid leukemia,19.4947526622616,36617.3496376561
+YLLs (Years of Life Lost),São Paulo,Female,90 to 94,Chronic myeloid leukemia,26.2447101916012,76126.0127743697
+YLLs (Years of Life Lost),São Paulo,Male,95 to 99,Chronic myeloid leukemia,2.68508687669772,8103.21812385412
+YLLs (Years of Life Lost),São Paulo,Female,95 to 99,Chronic myeloid leukemia,7.2148359222008,17816.9249113792
 YLLs (Years of Life Lost),São Paulo,Male,0 to 4,Road injuries,3810.74791124428,1358366.18846701
 YLLs (Years of Life Lost),São Paulo,Female,0 to 4,Road injuries,4188.06864350794,1302884.39535986
 YLLs (Years of Life Lost),São Paulo,Male,5 to 9,Road injuries,3781.76938269627,1477984.6758359
@@ -147,6 +227,86 @@ Deaths,São Paulo,Male,90 to 94,Diabetes mellitus type 2,162.122594564164,36617.
 Deaths,São Paulo,Female,90 to 94,Diabetes mellitus type 2,451.484852333037,76126.0127743697
 Deaths,São Paulo,Male,95 to 99,Diabetes mellitus type 2,51.0124302161373,8103.21812385412
 Deaths,São Paulo,Female,95 to 99,Diabetes mellitus type 2,160.088087069628,17816.9249113792
+Deaths,São Paulo,Male,0 to 4,Acute myeloid leukemia,7.45465603609826,1358366.18846701
+Deaths,São Paulo,Female,0 to 4,Acute myeloid leukemia,12.661321864532,1302884.39535986
+Deaths,São Paulo,Male,5 to 9,Acute myeloid leukemia,6.94965115056525,1477984.6758359
+Deaths,São Paulo,Female,5 to 9,Acute myeloid leukemia,6.43168817856821,1424035.31555947
+Deaths,São Paulo,Male,10 to 14,Acute myeloid leukemia,8.87805425642348,1555562.32967778
+Deaths,São Paulo,Female,10 to 14,Acute myeloid leukemia,7.91583994847338,1503949.58237095
+Deaths,São Paulo,Male,15 to 19,Acute myeloid leukemia,11.097675531783601,1625138.35883998
+Deaths,São Paulo,Female,15 to 19,Acute myeloid leukemia,10.2115057175734,1576556.348147
+Deaths,São Paulo,Male,20 to 24,Acute myeloid leukemia,11.7636713180522,1783247.80382666
+Deaths,São Paulo,Female,20 to 24,Acute myeloid leukemia,11.412506915901,1733869.63695362
+Deaths,São Paulo,Male,25 to 29,Acute myeloid leukemia,14.5399520040286,1783374.9175665
+Deaths,São Paulo,Female,25 to 29,Acute myeloid leukemia,12.3059808647672,1763585.5933154
+Deaths,São Paulo,Male,30 to 34,Acute myeloid leukemia,18.7605032801007,1870551.49627814
+Deaths,São Paulo,Female,30 to 34,Acute myeloid leukemia,14.1266245753892,1893121.70531789
+Deaths,São Paulo,Male,35 to 39,Acute myeloid leukemia,18.4112378893555,1889020.19484613
+Deaths,São Paulo,Female,35 to 39,Acute myeloid leukemia,16.8487796485485,1967782.90437324
+Deaths,São Paulo,Male,40 to 44,Acute myeloid leukemia,18.8160526129587,1695854.33799617
+Deaths,São Paulo,Female,40 to 44,Acute myeloid leukemia,20.5036211237491,1808098.58872917
+Deaths,São Paulo,Male,45 to 49,Acute myeloid leukemia,21.5186336553934,1495736.1739694
+Deaths,São Paulo,Female,45 to 49,Acute myeloid leukemia,23.2830330120262,1603988.7408897
+Deaths,São Paulo,Male,50 to 54,Acute myeloid leukemia,26.7354299556059,1368591.57243935
+Deaths,São Paulo,Female,50 to 54,Acute myeloid leukemia,28.5343974603008,1510744.93444963
+Deaths,São Paulo,Male,55 to 59,Acute myeloid leukemia,31.3598795391148,1203418.05574684
+Deaths,São Paulo,Female,55 to 59,Acute myeloid leukemia,36.7117483864929,1384949.15757749
+Deaths,São Paulo,Male,60 to 64,Acute myeloid leukemia,43.6542896479974,1002617.7517618
+Deaths,São Paulo,Female,60 to 64,Acute myeloid leukemia,39.6453345059849,1195364.09762391
+Deaths,São Paulo,Male,65 to 69,Acute myeloid leukemia,49.7739908915616,770679.589778418
+Deaths,São Paulo,Female,65 to 69,Acute myeloid leukemia,47.7819066096709,945161.774810485
+Deaths,São Paulo,Male,70 to 74,Acute myeloid leukemia,50.6051217869736,540654.221843511
+Deaths,São Paulo,Female,70 to 74,Acute myeloid leukemia,46.7299851005924,700089.249808484
+Deaths,São Paulo,Male,75 to 79,Acute myeloid leukemia,44.6365104809875,349947.246632259
+Deaths,São Paulo,Female,75 to 79,Acute myeloid leukemia,41.318668191316,481631.292310734
+Deaths,São Paulo,Male,80 to 84,Acute myeloid leukemia,37.4851104508317,206348.105266069
+Deaths,São Paulo,Female,80 to 84,Acute myeloid leukemia,33.340286332383,323571.386361345
+Deaths,São Paulo,Male,85 to 89,Acute myeloid leukemia,19.9825629883925,100416.320413412
+Deaths,São Paulo,Female,85 to 89,Acute myeloid leukemia,24.6711007064472,183571.63190162
+Deaths,São Paulo,Male,90 to 94,Acute myeloid leukemia,7.55837703598567,36617.3496376561
+Deaths,São Paulo,Female,90 to 94,Acute myeloid leukemia,11.831324114801,76126.0127743697
+Deaths,São Paulo,Male,95 to 99,Acute myeloid leukemia,1.57040874063751,8103.21812385412
+Deaths,São Paulo,Female,95 to 99,Acute myeloid leukemia,2.43988575709033,17816.9249113792
+Deaths,São Paulo,Male,0 to 4,Chronic myeloid leukemia,0.289809002566282,1358366.18846701
+Deaths,São Paulo,Female,0 to 4,Chronic myeloid leukemia,0.327221842897743,1302884.39535986
+Deaths,São Paulo,Male,5 to 9,Chronic myeloid leukemia,0.183371472574462,1477984.6758359
+Deaths,São Paulo,Female,5 to 9,Chronic myeloid leukemia,0.136419873127265,1424035.31555947
+Deaths,São Paulo,Male,10 to 14,Chronic myeloid leukemia,0.232600033040585,1555562.32967778
+Deaths,São Paulo,Female,10 to 14,Chronic myeloid leukemia,0.204814161572235,1503949.58237095
+Deaths,São Paulo,Male,15 to 19,Chronic myeloid leukemia,0.493974997613612,1625138.35883998
+Deaths,São Paulo,Female,15 to 19,Chronic myeloid leukemia,0.468950946285802,1576556.348147
+Deaths,São Paulo,Male,20 to 24,Chronic myeloid leukemia,0.989094705250586,1783247.80382666
+Deaths,São Paulo,Female,20 to 24,Chronic myeloid leukemia,0.810061886303337,1733869.63695362
+Deaths,São Paulo,Male,25 to 29,Chronic myeloid leukemia,1.83468359229241,1783374.9175665
+Deaths,São Paulo,Female,25 to 29,Chronic myeloid leukemia,0.970535861666281,1763585.5933154
+Deaths,São Paulo,Male,30 to 34,Chronic myeloid leukemia,2.77169863347981,1870551.49627814
+Deaths,São Paulo,Female,30 to 34,Chronic myeloid leukemia,1.39803157872034,1893121.70531789
+Deaths,São Paulo,Male,35 to 39,Chronic myeloid leukemia,2.99097142377114,1889020.19484613
+Deaths,São Paulo,Female,35 to 39,Chronic myeloid leukemia,1.93872984190351,1967782.90437324
+Deaths,São Paulo,Male,40 to 44,Chronic myeloid leukemia,3.20327168515904,1695854.33799617
+Deaths,São Paulo,Female,40 to 44,Chronic myeloid leukemia,1.79574816908076,1808098.58872917
+Deaths,São Paulo,Male,45 to 49,Chronic myeloid leukemia,3.43548260650407,1495736.1739694
+Deaths,São Paulo,Female,45 to 49,Chronic myeloid leukemia,2.64946542895811,1603988.7408897
+Deaths,São Paulo,Male,50 to 54,Chronic myeloid leukemia,4.33519759837948,1368591.57243935
+Deaths,São Paulo,Female,50 to 54,Chronic myeloid leukemia,2.83168060665056,1510744.93444963
+Deaths,São Paulo,Male,55 to 59,Chronic myeloid leukemia,5.38962959946451,1203418.05574684
+Deaths,São Paulo,Female,55 to 59,Chronic myeloid leukemia,3.66373760526347,1384949.15757749
+Deaths,São Paulo,Male,60 to 64,Chronic myeloid leukemia,7.22665383044444,1002617.7517618
+Deaths,São Paulo,Female,60 to 64,Chronic myeloid leukemia,5.48851806654427,1195364.09762391
+Deaths,São Paulo,Male,65 to 69,Chronic myeloid leukemia,7.94172864456941,770679.589778418
+Deaths,São Paulo,Female,65 to 69,Chronic myeloid leukemia,7.49729801476415,945161.774810485
+Deaths,São Paulo,Male,70 to 74,Chronic myeloid leukemia,10.2809155354013,540654.221843511
+Deaths,São Paulo,Female,70 to 74,Chronic myeloid leukemia,8.69159685982639,700089.249808484
+Deaths,São Paulo,Male,75 to 79,Chronic myeloid leukemia,9.45607281852091,349947.246632259
+Deaths,São Paulo,Female,75 to 79,Chronic myeloid leukemia,9.18156572697394,481631.292310734
+Deaths,São Paulo,Male,80 to 84,Chronic myeloid leukemia,8.41621205985347,206348.105266069
+Deaths,São Paulo,Female,80 to 84,Chronic myeloid leukemia,9.04027591684964,323571.386361345
+Deaths,São Paulo,Male,85 to 89,Chronic myeloid leukemia,6.10929845354275,100416.320413412
+Deaths,São Paulo,Female,85 to 89,Chronic myeloid leukemia,7.91467805490868,183571.63190162
+Deaths,São Paulo,Male,90 to 94,Chronic myeloid leukemia,2.85100342345389,36617.3496376561
+Deaths,São Paulo,Female,90 to 94,Chronic myeloid leukemia,3.85151778674497,76126.0127743697
+Deaths,São Paulo,Male,95 to 99,Chronic myeloid leukemia,0.51904989925476,8103.21812385412
+Deaths,São Paulo,Female,95 to 99,Chronic myeloid leukemia,1.38686996646082,17816.9249113792
 YLLs (Years of Life Lost),São Paulo,Male,0 to 4,Lower respiratory infections,42982.4539587346,1358366.18846701
 YLLs (Years of Life Lost),São Paulo,Female,0 to 4,Lower respiratory infections,24752.1178647184,1302884.39535986
 YLLs (Years of Life Lost),São Paulo,Male,5 to 9,Lower respiratory infections,1926.34431109185,1477984.6758359

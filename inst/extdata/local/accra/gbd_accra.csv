@@ -1133,6 +1133,44 @@ YLLs (Years of Life Lost),Ghana,Male,90 to 94,Other pharynx cancer,1.27734054413
 YLLs (Years of Life Lost),Ghana,Female,90 to 94,Other pharynx cancer,1.63226472640372,9514.65785232748
 YLLs (Years of Life Lost),Ghana,Male,95 to 99,Other pharynx cancer,0.234933212105855,710.548296483471
 YLLs (Years of Life Lost),Ghana,Female,95 to 99,Other pharynx cancer,0.536517938629085,2326.72708480402
+Deaths,Ghana,Male,0 to 4,Acute myeloid leukemia,30.955066888301,2022734.73570183
+Deaths,Ghana,Female,0 to 4,Acute myeloid leukemia,4.12661276588549,1947900.08400996
+Deaths,Ghana,Male,5 to 9,Acute myeloid leukemia,8.29821826914866,1917918.00922917
+Deaths,Ghana,Female,5 to 9,Acute myeloid leukemia,8.79977929709387,1853196.42968845
+Deaths,Ghana,Male,10 to 14,Acute myeloid leukemia,7.51911169839079,1814194.779233
+Deaths,Ghana,Female,10 to 14,Acute myeloid leukemia,9.95730208686629,1750736.54579304
+Deaths,Ghana,Male,15 to 19,Acute myeloid leukemia,15.9533059892035,1651412.07561128
+Deaths,Ghana,Female,15 to 19,Acute myeloid leukemia,8.64344834841805,1636420.21190487
+Deaths,Ghana,Male,20 to 24,Acute myeloid leukemia,9.91140996196906,1482346.32432818
+Deaths,Ghana,Female,20 to 24,Acute myeloid leukemia,8.24686622704342,1596771.8701029
+Deaths,Ghana,Male,25 to 29,Acute myeloid leukemia,2.81661044351099,1297590.68429796
+Deaths,Ghana,Female,25 to 29,Acute myeloid leukemia,2.38673300515104,1483468.96730346
+Deaths,Ghana,Male,30 to 34,Acute myeloid leukemia,1.85076216377703,1128502.76532544
+Deaths,Ghana,Female,30 to 34,Acute myeloid leukemia,2.02821386315255,1290143.28616515
+Deaths,Ghana,Male,35 to 39,Acute myeloid leukemia,8.23930225789747,959582.284994581
+Deaths,Ghana,Female,35 to 39,Acute myeloid leukemia,4.60835562343878,1087171.0759039
+Deaths,Ghana,Male,40 to 44,Acute myeloid leukemia,11.1740430323735,792396.842920279
+Deaths,Ghana,Female,40 to 44,Acute myeloid leukemia,1.59082388375771,873963.10698414
+Deaths,Ghana,Male,45 to 49,Acute myeloid leukemia,4.88399484857056,631541.063357312
+Deaths,Ghana,Female,45 to 49,Acute myeloid leukemia,5.60502449845116,697575.4676829
+Deaths,Ghana,Male,50 to 54,Acute myeloid leukemia,4.92018738924402,470717.464015649
+Deaths,Ghana,Female,50 to 54,Acute myeloid leukemia,2.39052268621018,556373.129508733
+Deaths,Ghana,Male,55 to 59,Acute myeloid leukemia,6.9804345796214,360120.407374624
+Deaths,Ghana,Female,55 to 59,Acute myeloid leukemia,5.68652780489883,438221.408578197
+Deaths,Ghana,Male,60 to 64,Acute myeloid leukemia,5.34932815126228,289750.900506011
+Deaths,Ghana,Female,60 to 64,Acute myeloid leukemia,1.69716541570475,350541.35981976
+Deaths,Ghana,Male,65 to 69,Acute myeloid leukemia,4.2724030378732,212836.606886402
+Deaths,Ghana,Female,65 to 69,Acute myeloid leukemia,5.44791003399942,260384.297106242
+Deaths,Ghana,Male,70 to 74,Acute myeloid leukemia,1.97149273537051,135310.25516635
+Deaths,Ghana,Female,70 to 74,Acute myeloid leukemia,15.1860841834977,175913.047035961
+Deaths,Ghana,Male,75 to 79,Acute myeloid leukemia,2.38615263357142,80253.8344573521
+Deaths,Ghana,Female,75 to 79,Acute myeloid leukemia,0.742233077761876,118081.476762378
+Deaths,Ghana,Male,80 to 84,Acute myeloid leukemia,0.612344620503446,42096.8834177428
+Deaths,Ghana,Female,80 to 84,Acute myeloid leukemia,1.55603600709011,67379.0381617774
+Deaths,Ghana,Male,85 to 89,Acute myeloid leukemia,0.422004311990062,16190.0899762587
+Deaths,Ghana,Female,85 to 89,Acute myeloid leukemia,0.528538868687436,29986.651300728
+Deaths,Ghana,Male,90 to 94,Acute myeloid leukemia,0.0957732945823122,3956.5520719945
+Deaths,Ghana,Female,90 to 94,Acute myeloid leukemia,0.111712262066811,9514.65785232748
 Deaths,Ghana,Male,10 to 14,Road injuries,180.533930520324,1814194.779233
 Deaths,Ghana,Female,10 to 14,Road injuries,79.4501404916807,1750736.54579304
 Deaths,Ghana,Male,15 to 19,Road injuries,448.118953619091,1651412.07561128
@@ -1657,6 +1695,90 @@ Deaths,Ghana,Male,90 to 94,Stroke,130.658979011276,3956.5520719945
 Deaths,Ghana,Female,90 to 94,Stroke,481.810409731714,9514.65785232748
 Deaths,Ghana,Male,95 to 99,Stroke,33.0619485476748,710.548296483471
 Deaths,Ghana,Female,95 to 99,Stroke,156.74929085786,2326.72708480402
+YLLs (Years of Life Lost),Ghana,Male,95 to 99,Acute myeloid leukemia,0.0716545302891776,710.548296483471
+YLLs (Years of Life Lost),Ghana,Female,95 to 99,Acute myeloid leukemia,0.100990339598661,2326.72708480402
+YLLs (Years of Life Lost),Ghana,Male,0 to 4,Chronic myeloid leukemia,46.3621189938408,2022734.73570183
+YLLs (Years of Life Lost),Ghana,Female,0 to 4,Chronic myeloid leukemia,29.0159926639335,1947900.08400996
+YLLs (Years of Life Lost),Ghana,Male,5 to 9,Chronic myeloid leukemia,26.3999142811998,1917918.00922917
+YLLs (Years of Life Lost),Ghana,Female,5 to 9,Chronic myeloid leukemia,13.7113763609716,1853196.42968845
+YLLs (Years of Life Lost),Ghana,Male,10 to 14,Chronic myeloid leukemia,70.9925257997669,1814194.779233
+YLLs (Years of Life Lost),Ghana,Female,10 to 14,Chronic myeloid leukemia,8.19404703832026,1750736.54579304
+YLLs (Years of Life Lost),Ghana,Male,15 to 19,Chronic myeloid leukemia,21.6874159401819,1651412.07561128
+YLLs (Years of Life Lost),Ghana,Female,15 to 19,Chronic myeloid leukemia,6.15497475594606,1636420.21190487
+YLLs (Years of Life Lost),Ghana,Male,20 to 24,Chronic myeloid leukemia,33.503057719345,1482346.32432818
+YLLs (Years of Life Lost),Ghana,Female,20 to 24,Chronic myeloid leukemia,12.060790573424,1596771.8701029
+YLLs (Years of Life Lost),Ghana,Male,25 to 29,Chronic myeloid leukemia,729.209186140075,1297590.68429796
+YLLs (Years of Life Lost),Ghana,Female,25 to 29,Chronic myeloid leukemia,32.5557917703983,1483468.96730346
+YLLs (Years of Life Lost),Ghana,Male,30 to 34,Chronic myeloid leukemia,216.278956362944,1128502.76532544
+YLLs (Years of Life Lost),Ghana,Female,30 to 34,Chronic myeloid leukemia,290.965534639617,1290143.28616515
+YLLs (Years of Life Lost),Ghana,Male,35 to 39,Chronic myeloid leukemia,34.5533742724785,959582.284994581
+YLLs (Years of Life Lost),Ghana,Female,35 to 39,Chronic myeloid leukemia,182.900120259335,1087171.0759039
+YLLs (Years of Life Lost),Ghana,Male,40 to 44,Chronic myeloid leukemia,59.4214336936167,792396.842920279
+YLLs (Years of Life Lost),Ghana,Female,40 to 44,Chronic myeloid leukemia,238.53122101388,873963.10698414
+YLLs (Years of Life Lost),Ghana,Male,45 to 49,Chronic myeloid leukemia,81.033643700869,631541.063357312
+YLLs (Years of Life Lost),Ghana,Female,45 to 49,Chronic myeloid leukemia,85.5602015525079,697575.4676829
+YLLs (Years of Life Lost),Ghana,Male,50 to 54,Chronic myeloid leukemia,83.4586811847929,470717.464015649
+YLLs (Years of Life Lost),Ghana,Female,50 to 54,Chronic myeloid leukemia,319.216595627784,556373.129508733
+YLLs (Years of Life Lost),Ghana,Male,55 to 59,Chronic myeloid leukemia,110.765797618109,360120.407374624
+YLLs (Years of Life Lost),Ghana,Female,55 to 59,Chronic myeloid leukemia,83.0225148325148,438221.408578197
+YLLs (Years of Life Lost),Ghana,Male,60 to 64,Chronic myeloid leukemia,72.1801663248889,289750.900506011
+YLLs (Years of Life Lost),Ghana,Female,60 to 64,Chronic myeloid leukemia,16.4726673936619,350541.35981976
+YLLs (Years of Life Lost),Ghana,Male,65 to 69,Chronic myeloid leukemia,61.9836879009894,212836.606886402
+YLLs (Years of Life Lost),Ghana,Female,65 to 69,Chronic myeloid leukemia,52.593443607865,260384.297106242
+YLLs (Years of Life Lost),Ghana,Male,70 to 74,Chronic myeloid leukemia,22.3014662387184,135310.25516635
+YLLs (Years of Life Lost),Ghana,Female,70 to 74,Chronic myeloid leukemia,10.6909287016825,175913.047035961
+YLLs (Years of Life Lost),Ghana,Male,75 to 79,Chronic myeloid leukemia,46.266483704662,80253.8344573521
+YLLs (Years of Life Lost),Ghana,Female,75 to 79,Chronic myeloid leukemia,4.04352878184664,118081.476762378
+YLLs (Years of Life Lost),Ghana,Male,80 to 84,Chronic myeloid leukemia,100.655850499085,42096.8834177428
+YLLs (Years of Life Lost),Ghana,Female,80 to 84,Chronic myeloid leukemia,8.93637092593799,67379.0381617774
+YLLs (Years of Life Lost),Ghana,Male,85 to 89,Chronic myeloid leukemia,5.24986545959537,16190.0899762587
+YLLs (Years of Life Lost),Ghana,Female,85 to 89,Chronic myeloid leukemia,3.19906137429629,29986.651300728
+YLLs (Years of Life Lost),Ghana,Male,90 to 94,Chronic myeloid leukemia,0.87643147952242,3956.5520719945
+YLLs (Years of Life Lost),Ghana,Female,90 to 94,Chronic myeloid leukemia,0.706326326914798,9514.65785232748
+YLLs (Years of Life Lost),Ghana,Male,95 to 99,Chronic myeloid leukemia,0.0834608513235726,710.548296483471
+YLLs (Years of Life Lost),Ghana,Female,95 to 99,Chronic myeloid leukemia,0.0619881000038364,2326.72708480402
+Deaths,Ghana,Male,95 to 99,Acute myeloid leukemia,0.0134603325834816,710.548296483471
+Deaths,Ghana,Female,95 to 99,Acute myeloid leukemia,0.0193627434193409,2326.72708480402
+Deaths,Ghana,Male,0 to 4,Chronic myeloid leukemia,0.527110548263054,2022734.73570183
+Deaths,Ghana,Female,0 to 4,Chronic myeloid leukemia,0.333942540102574,1947900.08400996
+Deaths,Ghana,Male,5 to 9,Chronic myeloid leukemia,0.323023281126649,1917918.00922917
+Deaths,Ghana,Female,5 to 9,Chronic myeloid leukemia,0.167646571564977,1853196.42968845
+Deaths,Ghana,Male,10 to 14,Chronic myeloid leukemia,0.928772629493996,1814194.779233
+Deaths,Ghana,Female,10 to 14,Chronic myeloid leukemia,0.107200110550274,1750736.54579304
+Deaths,Ghana,Male,15 to 19,Chronic myeloid leukemia,0.303709015568863,1651412.07561128
+Deaths,Ghana,Female,15 to 19,Chronic myeloid leukemia,0.0861340085765635,1636420.21190487
+Deaths,Ghana,Male,20 to 24,Chronic myeloid leukemia,0.503358651317728,1482346.32432818
+Deaths,Ghana,Female,20 to 24,Chronic myeloid leukemia,0.181258464756913,1596771.8701029
+Deaths,Ghana,Male,25 to 29,Chronic myeloid leukemia,11.8333435169366,1297590.68429796
+Deaths,Ghana,Female,25 to 29,Chronic myeloid leukemia,0.528643561675468,1483468.96730346
+Deaths,Ghana,Male,30 to 34,Chronic myeloid leukemia,3.81879053435506,1128502.76532544
+Deaths,Ghana,Female,30 to 34,Chronic myeloid leukemia,5.13751521734135,1290143.28616515
+Deaths,Ghana,Male,35 to 39,Chronic myeloid leukemia,0.668904179750047,959582.284994581
+Deaths,Ghana,Female,35 to 39,Chronic myeloid leukemia,3.53865770888365,1087171.0759039
+Deaths,Ghana,Male,40 to 44,Chronic myeloid leukemia,1.27082546139727,792396.842920279
+Deaths,Ghana,Female,40 to 44,Chronic myeloid leukemia,5.0971246460678,873963.10698414
+Deaths,Ghana,Male,45 to 49,Chronic myeloid leukemia,1.93354957746742,631541.063357312
+Deaths,Ghana,Female,45 to 49,Chronic myeloid leukemia,2.04015651936647,697575.4676829
+Deaths,Ghana,Male,50 to 54,Chronic myeloid leukemia,2.24583527113763,470717.464015649
+Deaths,Ghana,Female,50 to 54,Chronic myeloid leukemia,8.58779240046081,556373.129508733
+Deaths,Ghana,Male,55 to 59,Chronic myeloid leukemia,3.41108726277564,360120.407374624
+Deaths,Ghana,Female,55 to 59,Chronic myeloid leukemia,2.55818813879036,438221.408578197
+Deaths,Ghana,Male,60 to 64,Chronic myeloid leukemia,2.58850730141662,289750.900506011
+Deaths,Ghana,Female,60 to 64,Chronic myeloid leukemia,0.591514700326141,350541.35981976
+Deaths,Ghana,Male,65 to 69,Chronic myeloid leukemia,2.64626886352801,212836.606886402
+Deaths,Ghana,Female,65 to 69,Chronic myeloid leukemia,2.25043576098127,260384.297106242
+Deaths,Ghana,Male,70 to 74,Chronic myeloid leukemia,1.16330696833067,135310.25516635
+Deaths,Ghana,Female,70 to 74,Chronic myeloid leukemia,0.559378251053278,175913.047035961
+Deaths,Ghana,Male,75 to 79,Chronic myeloid leukemia,3.04498778669263,80253.8344573521
+Deaths,Ghana,Female,75 to 79,Chronic myeloid leukemia,0.267345301879132,118081.476762378
+Deaths,Ghana,Male,80 to 84,Chronic myeloid leukemia,8.61342899913802,42096.8834177428
+Deaths,Ghana,Female,80 to 84,Chronic myeloid leukemia,0.768129081726642,67379.0381617774
+Deaths,Ghana,Male,85 to 89,Chronic myeloid leukemia,0.588380028440726,16190.0899762587
+Deaths,Ghana,Female,85 to 89,Chronic myeloid leukemia,0.360259865090688,29986.651300728
+Deaths,Ghana,Male,90 to 94,Chronic myeloid leukemia,0.126977087563638,3956.5520719945
+Deaths,Ghana,Female,90 to 94,Chronic myeloid leukemia,0.102939136053998,9514.65785232748
+Deaths,Ghana,Male,95 to 99,Chronic myeloid leukemia,0.0156781547793563,710.548296483471
+Deaths,Ghana,Female,95 to 99,Chronic myeloid leukemia,0.0118848959236755,2326.72708480402
 Deaths,Ghana,Male,15 to 19,Diabetes mellitus type 2,19.7926244497348,1651412.07561128
 Deaths,Ghana,Female,15 to 19,Diabetes mellitus type 2,9.73503420522207,1636420.21190487
 Deaths,Ghana,Male,20 to 24,Diabetes mellitus type 2,0.560656424323124,1482346.32432818
@@ -1691,3 +1813,41 @@ Deaths,Ghana,Male,90 to 94,Diabetes mellitus type 2,46.844962125654,3956.5520719
 Deaths,Ghana,Female,90 to 94,Diabetes mellitus type 2,73.1631809276889,9514.65785232748
 Deaths,Ghana,Male,95 to 99,Diabetes mellitus type 2,12.4681371512926,710.548296483471
 Deaths,Ghana,Female,95 to 99,Diabetes mellitus type 2,24.1024477530133,2326.72708480402
+YLLs (Years of Life Lost),Ghana,Male,0 to 4,Acute myeloid leukemia,2672.23870971958,2022734.73570183
+YLLs (Years of Life Lost),Ghana,Female,0 to 4,Acute myeloid leukemia,357.69973308286,1947900.08400996
+YLLs (Years of Life Lost),Ghana,Male,5 to 9,Acute myeloid leukemia,678.193380452718,1917918.00922917
+YLLs (Years of Life Lost),Ghana,Female,5 to 9,Acute myeloid leukemia,719.711024863846,1853196.42968845
+YLLs (Years of Life Lost),Ghana,Male,10 to 14,Acute myeloid leukemia,574.737792962479,1814194.779233
+YLLs (Years of Life Lost),Ghana,Female,10 to 14,Acute myeloid leukemia,761.105574012287,1750736.54579304
+YLLs (Years of Life Lost),Ghana,Male,15 to 19,Acute myeloid leukemia,1139.20221288394,1651412.07561128
+YLLs (Years of Life Lost),Ghana,Female,15 to 19,Acute myeloid leukemia,617.644612946902,1636420.21190487
+YLLs (Years of Life Lost),Ghana,Male,20 to 24,Acute myeloid leukemia,659.693717723225,1482346.32432818
+YLLs (Years of Life Lost),Ghana,Female,20 to 24,Acute myeloid leukemia,548.739760015102,1596771.8701029
+YLLs (Years of Life Lost),Ghana,Male,25 to 29,Acute myeloid leukemia,173.568713377299,1297590.68429796
+YLLs (Years of Life Lost),Ghana,Female,25 to 29,Acute myeloid leukemia,146.98369252993,1483468.96730346
+YLLs (Years of Life Lost),Ghana,Male,30 to 34,Acute myeloid leukemia,104.818765432842,1128502.76532544
+YLLs (Years of Life Lost),Ghana,Female,30 to 34,Acute myeloid leukemia,114.86882395281,1290143.28616515
+YLLs (Years of Life Lost),Ghana,Male,35 to 39,Acute myeloid leukemia,425.615063083612,959582.284994581
+YLLs (Years of Life Lost),Ghana,Female,35 to 39,Acute myeloid leukemia,238.188846468182,1087171.0759039
+YLLs (Years of Life Lost),Ghana,Male,40 to 44,Acute myeloid leukemia,522.477458397597,792396.842920279
+YLLs (Years of Life Lost),Ghana,Female,40 to 44,Acute myeloid leukemia,74.4461220314687,873963.10698414
+YLLs (Years of Life Lost),Ghana,Male,45 to 49,Acute myeloid leukemia,204.68463959136,631541.063357312
+YLLs (Years of Life Lost),Ghana,Female,45 to 49,Acute myeloid leukemia,235.063840073969,697575.4676829
+YLLs (Years of Life Lost),Ghana,Male,50 to 54,Acute myeloid leukemia,182.841705251315,470717.464015649
+YLLs (Years of Life Lost),Ghana,Female,50 to 54,Acute myeloid leukemia,88.8580531618406,556373.129508733
+YLLs (Years of Life Lost),Ghana,Male,55 to 59,Acute myeloid leukemia,226.670660809668,360120.407374624
+YLLs (Years of Life Lost),Ghana,Female,55 to 59,Acute myeloid leukemia,184.548521615364,438221.408578197
+YLLs (Years of Life Lost),Ghana,Male,60 to 64,Acute myeloid leukemia,149.165271997963,289750.900506011
+YLLs (Years of Life Lost),Ghana,Female,60 to 64,Acute myeloid leukemia,47.2631388357988,350541.35981976
+YLLs (Years of Life Lost),Ghana,Male,65 to 69,Acute myeloid leukemia,100.072709971621,212836.606886402
+YLLs (Years of Life Lost),Ghana,Female,65 to 69,Acute myeloid leukemia,127.319497015519,260384.297106242
+YLLs (Years of Life Lost),Ghana,Male,70 to 74,Acute myeloid leukemia,37.7949929594563,135310.25516635
+YLLs (Years of Life Lost),Ghana,Female,70 to 74,Acute myeloid leukemia,290.238926804573,175913.047035961
+YLLs (Years of Life Lost),Ghana,Male,75 to 79,Acute myeloid leukemia,36.255939160229,80253.8344573521
+YLLs (Years of Life Lost),Ghana,Female,75 to 79,Acute myeloid leukemia,11.2260839882858,118081.476762378
+YLLs (Years of Life Lost),Ghana,Male,80 to 84,Acute myeloid leukemia,7.15581083694797,42096.8834177428
+YLLs (Years of Life Lost),Ghana,Female,80 to 84,Acute myeloid leukemia,18.1028361824494,67379.0381617774
+YLLs (Years of Life Lost),Ghana,Male,85 to 89,Acute myeloid leukemia,3.7653655022727,16190.0899762587
+YLLs (Years of Life Lost),Ghana,Female,85 to 89,Acute myeloid leukemia,4.69335733306457,29986.651300728
+YLLs (Years of Life Lost),Ghana,Male,90 to 94,Acute myeloid leukemia,0.661054146697483,3956.5520719945
+YLLs (Years of Life Lost),Ghana,Female,90 to 94,Acute myeloid leukemia,0.766523936004313,9514.65785232748

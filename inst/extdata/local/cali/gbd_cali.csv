@@ -33,6 +33,166 @@ Deaths,Colombia,Male,90 to 94,Diabetes mellitus type 2,162.010288154734,69682.40
 Deaths,Colombia,Female,90 to 94,Diabetes mellitus type 2,305.871120204412,98111.246832928
 Deaths,Colombia,Male,95 to 99,Diabetes mellitus type 2,90.4482989075892,27754.0417873467
 Deaths,Colombia,Female,95 to 99,Diabetes mellitus type 2,175.062928231779,37586.1717883914
+YLLs (Years of Life Lost),Colombia,Male,0 to 4,Acute myeloid leukemia,1221.97126829114,1956547.33966376
+YLLs (Years of Life Lost),Colombia,Female,0 to 4,Acute myeloid leukemia,871.436279321677,1864918.13745449
+YLLs (Years of Life Lost),Colombia,Male,5 to 9,Acute myeloid leukemia,1036.9904169239,1785387.31265843
+YLLs (Years of Life Lost),Colombia,Female,5 to 9,Acute myeloid leukemia,675.962468087038,1704327.56665671
+YLLs (Years of Life Lost),Colombia,Male,10 to 14,Acute myeloid leukemia,978.483809453898,1901026.99042333
+YLLs (Years of Life Lost),Colombia,Female,10 to 14,Acute myeloid leukemia,870.475552118774,1812475.14283623
+YLLs (Years of Life Lost),Colombia,Male,15 to 19,Acute myeloid leukemia,1025.47787876036,2036808.06060725
+YLLs (Years of Life Lost),Colombia,Female,15 to 19,Acute myeloid leukemia,818.662981171519,1949170.32618336
+YLLs (Years of Life Lost),Colombia,Male,20 to 24,Acute myeloid leukemia,991.697203230633,2080397.59703654
+YLLs (Years of Life Lost),Colombia,Female,20 to 24,Acute myeloid leukemia,753.787569159128,2042828.54210774
+YLLs (Years of Life Lost),Colombia,Male,25 to 29,Acute myeloid leukemia,1061.52441239969,1982292.78053509
+YLLs (Years of Life Lost),Colombia,Female,25 to 29,Acute myeloid leukemia,684.010837878245,2003087.47129901
+YLLs (Years of Life Lost),Colombia,Male,30 to 34,Acute myeloid leukemia,838.754561654182,1766435.3048984
+YLLs (Years of Life Lost),Colombia,Female,30 to 34,Acute myeloid leukemia,662.089875096237,1809495.50668215
+YLLs (Years of Life Lost),Colombia,Male,35 to 39,Acute myeloid leukemia,749.941393115107,1680995.09389204
+YLLs (Years of Life Lost),Colombia,Female,35 to 39,Acute myeloid leukemia,730.193972366848,1775984.0028642
+YLLs (Years of Life Lost),Colombia,Male,40 to 44,Acute myeloid leukemia,652.692528507519,1427105.31713037
+YLLs (Years of Life Lost),Colombia,Female,40 to 44,Acute myeloid leukemia,702.616705552411,1556033.52721896
+YLLs (Years of Life Lost),Colombia,Male,45 to 49,Acute myeloid leukemia,535.971960622859,1315484.89441525
+YLLs (Years of Life Lost),Colombia,Female,45 to 49,Acute myeloid leukemia,655.02977796049,1475629.76816814
+YLLs (Years of Life Lost),Colombia,Male,50 to 54,Acute myeloid leukemia,607.428668244125,1289204.51707403
+YLLs (Years of Life Lost),Colombia,Female,50 to 54,Acute myeloid leukemia,647.138258285831,1469892.77794569
+YLLs (Years of Life Lost),Colombia,Male,55 to 59,Acute myeloid leukemia,695.129240706566,1147336.14030784
+YLLs (Years of Life Lost),Colombia,Female,55 to 59,Acute myeloid leukemia,827.320063132404,1327021.44878757
+YLLs (Years of Life Lost),Colombia,Male,60 to 64,Acute myeloid leukemia,670.795591292293,918814.11118062
+YLLs (Years of Life Lost),Colombia,Female,60 to 64,Acute myeloid leukemia,797.281996378349,1082510.27618839
+YLLs (Years of Life Lost),Colombia,Male,65 to 69,Acute myeloid leukemia,602.715990543178,698728.036410051
+YLLs (Years of Life Lost),Colombia,Female,65 to 69,Acute myeloid leukemia,673.105465818452,823656.241482672
+YLLs (Years of Life Lost),Colombia,Male,70 to 74,Acute myeloid leukemia,567.478678985926,509661.026361374
+YLLs (Years of Life Lost),Colombia,Female,70 to 74,Acute myeloid leukemia,471.129467433194,610558.24035632
+YLLs (Years of Life Lost),Colombia,Male,75 to 79,Acute myeloid leukemia,375.818244163537,357798.913362147
+YLLs (Years of Life Lost),Colombia,Female,75 to 79,Acute myeloid leukemia,380.423265627479,445530.65377008
+YLLs (Years of Life Lost),Colombia,Male,80 to 84,Acute myeloid leukemia,235.583301187231,250611.537609054
+YLLs (Years of Life Lost),Colombia,Female,80 to 84,Acute myeloid leukemia,209.517581109754,333329.357533089
+YLLs (Years of Life Lost),Colombia,Male,85 to 89,Acute myeloid leukemia,96.6401028917447,147915.376658166
+YLLs (Years of Life Lost),Colombia,Female,85 to 89,Acute myeloid leukemia,110.953827092278,204545.798434794
+YLLs (Years of Life Lost),Colombia,Male,90 to 94,Acute myeloid leukemia,29.7042135083085,69682.4089267334
+YLLs (Years of Life Lost),Colombia,Female,90 to 94,Acute myeloid leukemia,36.770437742132,98111.246832928
+YLLs (Years of Life Lost),Colombia,Male,95 to 99,Acute myeloid leukemia,8.07946147582045,27754.0417873467
+YLLs (Years of Life Lost),Colombia,Female,95 to 99,Acute myeloid leukemia,12.0175838627888,37586.1717883914
+YLLs (Years of Life Lost),Colombia,Male,0 to 4,Chronic myeloid leukemia,56.3230211065567,1956547.33966376
+YLLs (Years of Life Lost),Colombia,Female,0 to 4,Chronic myeloid leukemia,29.5455491312128,1864918.13745449
+YLLs (Years of Life Lost),Colombia,Male,5 to 9,Chronic myeloid leukemia,47.9976165527279,1785387.31265843
+YLLs (Years of Life Lost),Colombia,Female,5 to 9,Chronic myeloid leukemia,24.8735453310401,1704327.56665671
+YLLs (Years of Life Lost),Colombia,Male,10 to 14,Chronic myeloid leukemia,49.112022529301,1901026.99042333
+YLLs (Years of Life Lost),Colombia,Female,10 to 14,Chronic myeloid leukemia,39.971533946563,1812475.14283623
+YLLs (Years of Life Lost),Colombia,Male,15 to 19,Chronic myeloid leukemia,72.8720783376841,2036808.06060725
+YLLs (Years of Life Lost),Colombia,Female,15 to 19,Chronic myeloid leukemia,50.9874483899642,1949170.32618336
+YLLs (Years of Life Lost),Colombia,Male,20 to 24,Chronic myeloid leukemia,177.565373376384,2080397.59703654
+YLLs (Years of Life Lost),Colombia,Female,20 to 24,Chronic myeloid leukemia,91.3684074398847,2042828.54210774
+YLLs (Years of Life Lost),Colombia,Male,25 to 29,Chronic myeloid leukemia,206.950861881327,1982292.78053509
+YLLs (Years of Life Lost),Colombia,Female,25 to 29,Chronic myeloid leukemia,98.2718032942816,2003087.47129901
+YLLs (Years of Life Lost),Colombia,Male,30 to 34,Chronic myeloid leukemia,252.152743685054,1766435.3048984
+YLLs (Years of Life Lost),Colombia,Female,30 to 34,Chronic myeloid leukemia,123.472121936485,1809495.50668215
+YLLs (Years of Life Lost),Colombia,Male,35 to 39,Chronic myeloid leukemia,275.063307914327,1680995.09389204
+YLLs (Years of Life Lost),Colombia,Female,35 to 39,Chronic myeloid leukemia,177.393657275634,1775984.0028642
+YLLs (Years of Life Lost),Colombia,Male,40 to 44,Chronic myeloid leukemia,235.099995795591,1427105.31713037
+YLLs (Years of Life Lost),Colombia,Female,40 to 44,Chronic myeloid leukemia,163.53976349895,1556033.52721896
+YLLs (Years of Life Lost),Colombia,Male,45 to 49,Chronic myeloid leukemia,218.223154824421,1315484.89441525
+YLLs (Years of Life Lost),Colombia,Female,45 to 49,Chronic myeloid leukemia,150.405008757109,1475629.76816814
+YLLs (Years of Life Lost),Colombia,Male,50 to 54,Chronic myeloid leukemia,284.039264881842,1289204.51707403
+YLLs (Years of Life Lost),Colombia,Female,50 to 54,Chronic myeloid leukemia,203.151876697733,1469892.77794569
+YLLs (Years of Life Lost),Colombia,Male,55 to 59,Chronic myeloid leukemia,227.307750292933,1147336.14030784
+YLLs (Years of Life Lost),Colombia,Female,55 to 59,Chronic myeloid leukemia,177.246396180887,1327021.44878757
+YLLs (Years of Life Lost),Colombia,Male,60 to 64,Chronic myeloid leukemia,245.497504956171,918814.11118062
+YLLs (Years of Life Lost),Colombia,Female,60 to 64,Chronic myeloid leukemia,167.573711558817,1082510.27618839
+YLLs (Years of Life Lost),Colombia,Male,65 to 69,Chronic myeloid leukemia,210.608759792501,698728.036410051
+YLLs (Years of Life Lost),Colombia,Female,65 to 69,Chronic myeloid leukemia,193.389432840496,823656.241482672
+YLLs (Years of Life Lost),Colombia,Male,70 to 74,Chronic myeloid leukemia,212.296682095553,509661.026361374
+YLLs (Years of Life Lost),Colombia,Female,70 to 74,Chronic myeloid leukemia,164.529909670065,610558.24035632
+YLLs (Years of Life Lost),Colombia,Male,75 to 79,Chronic myeloid leukemia,182.781586521834,357798.913362147
+YLLs (Years of Life Lost),Colombia,Female,75 to 79,Chronic myeloid leukemia,134.539573540472,445530.65377008
+YLLs (Years of Life Lost),Colombia,Male,80 to 84,Chronic myeloid leukemia,119.044203238576,250611.537609054
+YLLs (Years of Life Lost),Colombia,Female,80 to 84,Chronic myeloid leukemia,106.860166380705,333329.357533089
+YLLs (Years of Life Lost),Colombia,Male,85 to 89,Chronic myeloid leukemia,65.0970214159919,147915.376658166
+YLLs (Years of Life Lost),Colombia,Female,85 to 89,Chronic myeloid leukemia,65.521143024308,204545.798434794
+YLLs (Years of Life Lost),Colombia,Male,90 to 94,Chronic myeloid leukemia,17.1492485780137,69682.4089267334
+YLLs (Years of Life Lost),Colombia,Female,90 to 94,Chronic myeloid leukemia,24.209040837675,98111.246832928
+YLLs (Years of Life Lost),Colombia,Male,95 to 99,Chronic myeloid leukemia,5.23601850059183,27754.0417873467
+YLLs (Years of Life Lost),Colombia,Female,95 to 99,Chronic myeloid leukemia,8.14321353511436,37586.1717883914
+Deaths,Colombia,Male,0 to 4,Acute myeloid leukemia,14.1290663635472,1956547.33966376
+Deaths,Colombia,Female,0 to 4,Acute myeloid leukemia,10.0750443488137,1864918.13745449
+Deaths,Colombia,Male,5 to 9,Acute myeloid leukemia,12.6945692261391,1785387.31265843
+Deaths,Colombia,Female,5 to 9,Acute myeloid leukemia,8.26789628209249,1704327.56665671
+Deaths,Colombia,Male,10 to 14,Acute myeloid leukemia,12.8145500562138,1901026.99042333
+Deaths,Colombia,Female,10 to 14,Acute myeloid leukemia,11.3926080142047,1812475.14283623
+Deaths,Colombia,Male,15 to 19,Acute myeloid leukemia,14.4007210284076,2036808.06060725
+Deaths,Colombia,Female,15 to 19,Acute myeloid leukemia,11.454951705119,1949170.32618336
+Deaths,Colombia,Male,20 to 24,Acute myeloid leukemia,14.9128477286726,2080397.59703654
+Deaths,Colombia,Female,20 to 24,Acute myeloid leukemia,11.3234133945739,2042828.54210774
+Deaths,Colombia,Male,25 to 29,Acute myeloid leukemia,17.2066730641235,1982292.78053509
+Deaths,Colombia,Female,25 to 29,Acute myeloid leukemia,11.103450830669,2003087.47129901
+Deaths,Colombia,Male,30 to 34,Acute myeloid leukemia,14.7813215395866,1766435.3048984
+Deaths,Colombia,Female,30 to 34,Acute myeloid leukemia,11.6903770502151,1809495.50668215
+Deaths,Colombia,Male,35 to 39,Acute myeloid leukemia,14.4763072172191,1680995.09389204
+Deaths,Colombia,Female,35 to 39,Acute myeloid leukemia,14.1301168306502,1775984.0028642
+Deaths,Colombia,Male,40 to 44,Acute myeloid leukemia,13.9240012774346,1427105.31713037
+Deaths,Colombia,Female,40 to 44,Acute myeloid leukemia,15.0297580691318,1556033.52721896
+Deaths,Colombia,Male,45 to 49,Acute myeloid leukemia,12.780085481581,1315484.89441525
+Deaths,Colombia,Female,45 to 49,Acute myeloid leukemia,15.636874103365,1475629.76816814
+Deaths,Colombia,Male,50 to 54,Acute myeloid leukemia,16.3456300588103,1289204.51707403
+Deaths,Colombia,Female,50 to 54,Acute myeloid leukemia,17.4274778239222,1469892.77794569
+Deaths,Colombia,Male,55 to 59,Acute myeloid leukemia,21.4499555521811,1147336.14030784
+Deaths,Colombia,Female,55 to 59,Acute myeloid leukemia,25.5216927011656,1327021.44878757
+Deaths,Colombia,Male,60 to 64,Acute myeloid leukemia,24.1112583532328,918814.11118062
+Deaths,Colombia,Female,60 to 64,Acute myeloid leukemia,28.6577199442016,1082510.27618839
+Deaths,Colombia,Male,65 to 69,Acute myeloid leukemia,25.8189028693341,698728.036410051
+Deaths,Colombia,Female,65 to 69,Acute myeloid leukemia,28.834218629445,823656.241482672
+Deaths,Colombia,Male,70 to 74,Acute myeloid leukemia,29.7441172147613,509661.026361374
+Deaths,Colombia,Female,70 to 74,Acute myeloid leukemia,24.7265613304679,610558.24035632
+Deaths,Colombia,Male,75 to 79,Acute myeloid leukemia,24.911566605742,357798.913362147
+Deaths,Colombia,Female,75 to 79,Acute myeloid leukemia,25.2686029649338,445530.65377008
+Deaths,Colombia,Male,80 to 84,Acute myeloid leukemia,20.3177299238085,250611.537609054
+Deaths,Colombia,Female,80 to 84,Acute myeloid leukemia,18.15107446198,333329.357533089
+Deaths,Colombia,Male,85 to 89,Acute myeloid leukemia,10.9650795871897,147915.376658166
+Deaths,Colombia,Female,85 to 89,Acute myeloid leukemia,12.6231379410972,204545.798434794
+Deaths,Colombia,Male,90 to 94,Acute myeloid leukemia,4.3722678842325,69682.4089267334
+Deaths,Colombia,Female,90 to 94,Acute myeloid leukemia,5.41507296446395,98111.246832928
+Deaths,Colombia,Male,95 to 99,Acute myeloid leukemia,1.65894923307337,27754.0417873467
+Deaths,Colombia,Female,95 to 99,Acute myeloid leukemia,2.48242576786222,37586.1717883914
+Deaths,Colombia,Male,0 to 4,Chronic myeloid leukemia,0.649576545624814,1956547.33966376
+Deaths,Colombia,Female,0 to 4,Chronic myeloid leukemia,0.341953167261793,1864918.13745449
+Deaths,Colombia,Male,5 to 9,Chronic myeloid leukemia,0.587574442419368,1785387.31265843
+Deaths,Colombia,Female,5 to 9,Chronic myeloid leukemia,0.304235667916528,1704327.56665671
+Deaths,Colombia,Male,10 to 14,Chronic myeloid leukemia,0.64318741402055,1901026.99042333
+Deaths,Colombia,Female,10 to 14,Chronic myeloid leukemia,0.523139353967216,1812475.14283623
+Deaths,Colombia,Male,15 to 19,Chronic myeloid leukemia,1.02333798966958,2036808.06060725
+Deaths,Colombia,Female,15 to 19,Chronic myeloid leukemia,0.713430034467285,1949170.32618336
+Deaths,Colombia,Male,20 to 24,Chronic myeloid leukemia,2.67017529788381,2080397.59703654
+Deaths,Colombia,Female,20 to 24,Chronic myeloid leukemia,1.37253822028374,2042828.54210774
+Deaths,Colombia,Male,25 to 29,Chronic myeloid leukemia,3.35454915509733,1982292.78053509
+Deaths,Colombia,Female,25 to 29,Chronic myeloid leukemia,1.59523223243645,2003087.47129901
+Deaths,Colombia,Male,30 to 34,Chronic myeloid leukemia,4.44367274038681,1766435.3048984
+Deaths,Colombia,Female,30 to 34,Chronic myeloid leukemia,2.18012042612468,1809495.50668215
+Deaths,Colombia,Male,35 to 39,Chronic myeloid leukemia,5.30961617282161,1680995.09389204
+Deaths,Colombia,Female,35 to 39,Chronic myeloid leukemia,3.43277703895058,1775984.0028642
+Deaths,Colombia,Male,40 to 44,Chronic myeloid leukemia,5.01542839668797,1427105.31713037
+Deaths,Colombia,Female,40 to 44,Chronic myeloid leukemia,3.49829866077515,1556033.52721896
+Deaths,Colombia,Male,45 to 49,Chronic myeloid leukemia,5.2034635720036,1315484.89441525
+Deaths,Colombia,Female,45 to 49,Chronic myeloid leukemia,3.59046911389774,1475629.76816814
+Deaths,Colombia,Male,50 to 54,Chronic myeloid leukemia,7.64336783668082,1289204.51707403
+Deaths,Colombia,Female,50 to 54,Chronic myeloid leukemia,5.47089401794289,1469892.77794569
+Deaths,Colombia,Male,55 to 59,Chronic myeloid leukemia,7.01415054198227,1147336.14030784
+Deaths,Colombia,Female,55 to 59,Chronic myeloid leukemia,5.46780896209654,1327021.44878757
+Deaths,Colombia,Male,60 to 64,Chronic myeloid leukemia,8.82422878729543,918814.11118062
+Deaths,Colombia,Female,60 to 64,Chronic myeloid leukemia,6.02331485933125,1082510.27618839
+Deaths,Colombia,Male,65 to 69,Chronic myeloid leukemia,9.02197253405035,698728.036410051
+Deaths,Colombia,Female,65 to 69,Chronic myeloid leukemia,8.28433799800885,823656.241482672
+Deaths,Colombia,Male,70 to 74,Chronic myeloid leukemia,11.1274266864776,509661.026361374
+Deaths,Colombia,Female,70 to 74,Chronic myeloid leukemia,8.63511875900669,610558.24035632
+Deaths,Colombia,Male,75 to 79,Chronic myeloid leukemia,12.1158984100848,357798.913362147
+Deaths,Colombia,Female,75 to 79,Chronic myeloid leukemia,8.93643311025751,445530.65377008
+Deaths,Colombia,Male,80 to 84,Chronic myeloid leukemia,10.2668905572134,250611.537609054
+Deaths,Colombia,Female,80 to 84,Chronic myeloid leukemia,9.25758509964704,333329.357533089
+Deaths,Colombia,Male,85 to 89,Chronic myeloid leukemia,7.38610576103097,147915.376658166
+Deaths,Colombia,Female,85 to 89,Chronic myeloid leukemia,7.45429380967937,204545.798434794
+Deaths,Colombia,Male,90 to 94,Chronic myeloid leukemia,2.52425834386749,69682.4089267334
+Deaths,Colombia,Female,90 to 94,Chronic myeloid leukemia,3.56519341583711,98111.246832928
+Deaths,Colombia,Male,95 to 99,Chronic myeloid leukemia,1.07510740683774,27754.0417873467
+Deaths,Colombia,Female,95 to 99,Chronic myeloid leukemia,1.68211209038165,37586.1717883914
 YLLs (Years of Life Lost),Colombia,Male,15 to 19,Diabetes mellitus type 2,149.318688530453,2036808.06060725
 YLLs (Years of Life Lost),Colombia,Female,15 to 19,Diabetes mellitus type 2,320.919295788376,1949170.32618336
 YLLs (Years of Life Lost),Colombia,Male,20 to 24,Diabetes mellitus type 2,304.803341406467,2080397.59703654

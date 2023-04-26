@@ -1215,6 +1215,36 @@ YLLs (Years of Life Lost),Minas Gerais,Male,90 to 94,Road injuries,66.6313369651
 YLLs (Years of Life Lost),Minas Gerais,Female,90 to 94,Road injuries,52.603926034026,42327.0754878566
 YLLs (Years of Life Lost),Minas Gerais,Male,95 to 99,Road injuries,22.0053816485439,9795.58896314948
 YLLs (Years of Life Lost),Minas Gerais,Female,95 to 99,Road injuries,18.240434422166,15379.0743999426
+Deaths,Minas Gerais,Male,0 to 4,Acute myeloid leukemia,4.12633589392934,693140.164263548
+Deaths,Minas Gerais,Female,0 to 4,Acute myeloid leukemia,4.74199423629472,665424.538318693
+Deaths,Minas Gerais,Male,5 to 9,Acute myeloid leukemia,3.68435371536347,726684.848844061
+Deaths,Minas Gerais,Female,5 to 9,Acute myeloid leukemia,3.03696030818605,702487.424509226
+Deaths,Minas Gerais,Male,10 to 14,Acute myeloid leukemia,5.89445753776547,762528.615906464
+Deaths,Minas Gerais,Female,10 to 14,Acute myeloid leukemia,3.63260992569809,739325.37485452
+Deaths,Minas Gerais,Male,15 to 19,Acute myeloid leukemia,4.73002106727984,800715.114377185
+Deaths,Minas Gerais,Female,15 to 19,Acute myeloid leukemia,3.6787135147381,779602.173185047
+Deaths,Minas Gerais,Male,20 to 24,Acute myeloid leukemia,5.03776235227764,860269.389983816
+Deaths,Minas Gerais,Female,20 to 24,Acute myeloid leukemia,4.7898836697587,845637.073836493
+Deaths,Minas Gerais,Male,25 to 29,Acute myeloid leukemia,5.36239146841412,841709.84835883
+Deaths,Minas Gerais,Female,25 to 29,Acute myeloid leukemia,5.86354743808238,851571.075000534
+Deaths,Minas Gerais,Male,30 to 34,Acute myeloid leukemia,6.76215850838613,848737.152463628
+Deaths,Minas Gerais,Female,30 to 34,Acute myeloid leukemia,6.30377750687571,870248.435488008
+Deaths,Minas Gerais,Male,35 to 39,Acute myeloid leukemia,8.14092993852076,856947.915760632
+Deaths,Minas Gerais,Female,35 to 39,Acute myeloid leukemia,7.0525044429393,881048.658784198
+Deaths,Minas Gerais,Male,40 to 44,Acute myeloid leukemia,8.93014397214105,779831.619381794
+Deaths,Minas Gerais,Female,40 to 44,Acute myeloid leukemia,8.27318652200184,809053.899131463
+Deaths,Minas Gerais,Male,45 to 49,Acute myeloid leukemia,8.2969860318221,681441.96447377
+Deaths,Minas Gerais,Female,45 to 49,Acute myeloid leukemia,10.7962788006258,717973.702553291
+Deaths,Minas Gerais,Male,50 to 54,Acute myeloid leukemia,10.3268192970951,652646.039018269
+Deaths,Minas Gerais,Female,50 to 54,Acute myeloid leukemia,11.3702434541549,701427.089222322
+Deaths,Minas Gerais,Male,55 to 59,Acute myeloid leukemia,14.3704693710274,596774.819086114
+Deaths,Minas Gerais,Female,55 to 59,Acute myeloid leukemia,12.8386639171636,650177.593497233
+Deaths,Minas Gerais,Male,60 to 64,Acute myeloid leukemia,19.6681240779873,494065.290144739
+Deaths,Minas Gerais,Female,60 to 64,Acute myeloid leukemia,15.5466054622672,551116.120617873
+Deaths,Minas Gerais,Male,65 to 69,Acute myeloid leukemia,21.2178787497214,377326.708552202
+Deaths,Minas Gerais,Female,65 to 69,Acute myeloid leukemia,15.7349877970828,432223.134196856
+Deaths,Minas Gerais,Male,70 to 74,Acute myeloid leukemia,20.3956519473934,271770.231285514
+Deaths,Minas Gerais,Female,70 to 74,Acute myeloid leukemia,18.099205202481,319041.847139243
 Deaths,Minas Gerais,Male,0 to 4,Chronic obstructive pulmonary disease,0.60768650970506,693140.164263548
 Deaths,Minas Gerais,Female,0 to 4,Chronic obstructive pulmonary disease,0.815341561341825,665424.538318693
 Deaths,Minas Gerais,Male,5 to 9,Chronic obstructive pulmonary disease,0.360187996142885,726684.848844061
@@ -1407,6 +1437,56 @@ YLLs (Years of Life Lost),Minas Gerais,Male,90 to 94,Asthma,30.8482379691595,255
 YLLs (Years of Life Lost),Minas Gerais,Female,90 to 94,Asthma,131.211631429241,42327.0754878566
 YLLs (Years of Life Lost),Minas Gerais,Male,95 to 99,Asthma,15.7265051127127,9795.58896314948
 YLLs (Years of Life Lost),Minas Gerais,Female,95 to 99,Asthma,56.4375635368502,15379.0743999426
+Deaths,Minas Gerais,Male,75 to 79,Acute myeloid leukemia,14.919771201732,181207.473039146
+Deaths,Minas Gerais,Female,75 to 79,Acute myeloid leukemia,14.97569588907,229585.276567285
+Deaths,Minas Gerais,Male,80 to 84,Acute myeloid leukemia,10.9092848087444,114102.655098214
+Deaths,Minas Gerais,Female,80 to 84,Acute myeloid leukemia,12.216013515703,159430.97849478
+Deaths,Minas Gerais,Male,85 to 89,Acute myeloid leukemia,6.79435590521738,59815.8921293327
+Deaths,Minas Gerais,Female,85 to 89,Acute myeloid leukemia,7.4202679528461,92762.9664919828
+Deaths,Minas Gerais,Male,90 to 94,Acute myeloid leukemia,2.34100423984362,25566.2401773588
+Deaths,Minas Gerais,Female,90 to 94,Acute myeloid leukemia,3.80498446103308,42327.0754878566
+Deaths,Minas Gerais,Male,95 to 99,Acute myeloid leukemia,0.963652260688366,9795.58896314948
+Deaths,Minas Gerais,Female,95 to 99,Acute myeloid leukemia,1.52963919838196,15379.0743999426
+Deaths,Minas Gerais,Male,0 to 4,Chronic myeloid leukemia,0.166399844955303,693140.164263548
+Deaths,Minas Gerais,Female,0 to 4,Chronic myeloid leukemia,0.149363313492102,665424.538318693
+Deaths,Minas Gerais,Male,5 to 9,Chronic myeloid leukemia,0.0995115415097159,726684.848844061
+Deaths,Minas Gerais,Female,5 to 9,Chronic myeloid leukemia,0.0721922252888622,702487.424509226
+Deaths,Minas Gerais,Male,10 to 14,Chronic myeloid leukemia,0.15028146179055,762528.615906464
+Deaths,Minas Gerais,Female,10 to 14,Chronic myeloid leukemia,0.103916344311077,739325.37485452
+Deaths,Minas Gerais,Male,15 to 19,Chronic myeloid leukemia,0.242146666062257,800715.114377185
+Deaths,Minas Gerais,Female,15 to 19,Chronic myeloid leukemia,0.202048804854818,779602.173185047
+Deaths,Minas Gerais,Male,20 to 24,Chronic myeloid leukemia,0.517393078396106,860269.389983816
+Deaths,Minas Gerais,Female,20 to 24,Chronic myeloid leukemia,0.367549633493204,845637.073836493
+Deaths,Minas Gerais,Male,25 to 29,Chronic myeloid leukemia,0.874394415488615,841709.84835883
+Deaths,Minas Gerais,Female,25 to 29,Chronic myeloid leukemia,0.48239588960945,851571.075000534
+Deaths,Minas Gerais,Male,30 to 34,Chronic myeloid leukemia,1.32407438774334,848737.152463628
+Deaths,Minas Gerais,Female,30 to 34,Chronic myeloid leukemia,0.704872330705271,870248.435488008
+Deaths,Minas Gerais,Male,35 to 39,Chronic myeloid leukemia,1.63037222175781,856947.915760632
+Deaths,Minas Gerais,Female,35 to 39,Chronic myeloid leukemia,0.944954051968045,881048.658784198
+Deaths,Minas Gerais,Male,40 to 44,Chronic myeloid leukemia,1.66474750939264,779831.619381794
+Deaths,Minas Gerais,Female,40 to 44,Chronic myeloid leukemia,1.03428482716865,809053.899131463
+Deaths,Minas Gerais,Male,45 to 49,Chronic myeloid leukemia,1.77708161457411,681441.96447377
+Deaths,Minas Gerais,Female,45 to 49,Chronic myeloid leukemia,1.2191197623906,717973.702553291
+Deaths,Minas Gerais,Male,50 to 54,Chronic myeloid leukemia,1.93002764340012,652646.039018269
+Deaths,Minas Gerais,Female,50 to 54,Chronic myeloid leukemia,1.57246664564638,701427.089222322
+Deaths,Minas Gerais,Male,55 to 59,Chronic myeloid leukemia,3.04008449263806,596774.819086114
+Deaths,Minas Gerais,Female,55 to 59,Chronic myeloid leukemia,2.07365928328641,650177.593497233
+Deaths,Minas Gerais,Male,60 to 64,Chronic myeloid leukemia,3.42709846454098,494065.290144739
+Deaths,Minas Gerais,Female,60 to 64,Chronic myeloid leukemia,2.27989039518339,551116.120617873
+Deaths,Minas Gerais,Male,65 to 69,Chronic myeloid leukemia,3.12917702893841,377326.708552202
+Deaths,Minas Gerais,Female,65 to 69,Chronic myeloid leukemia,2.72845856936461,432223.134196856
+Deaths,Minas Gerais,Male,70 to 74,Chronic myeloid leukemia,4.26255363863439,271770.231285514
+Deaths,Minas Gerais,Female,70 to 74,Chronic myeloid leukemia,3.10994497052494,319041.847139243
+Deaths,Minas Gerais,Male,75 to 79,Chronic myeloid leukemia,3.92205280851946,181207.473039146
+Deaths,Minas Gerais,Female,75 to 79,Chronic myeloid leukemia,3.21799169424827,229585.276567285
+Deaths,Minas Gerais,Male,80 to 84,Chronic myeloid leukemia,3.19235236599887,114102.655098214
+Deaths,Minas Gerais,Female,80 to 84,Chronic myeloid leukemia,3.40901280312853,159430.97849478
+Deaths,Minas Gerais,Male,85 to 89,Chronic myeloid leukemia,2.54515789586313,59815.8921293327
+Deaths,Minas Gerais,Female,85 to 89,Chronic myeloid leukemia,3.09576479756963,92762.9664919828
+Deaths,Minas Gerais,Male,90 to 94,Chronic myeloid leukemia,0.992517103642968,25566.2401773588
+Deaths,Minas Gerais,Female,90 to 94,Chronic myeloid leukemia,1.5318239026021,42327.0754878566
+Deaths,Minas Gerais,Male,95 to 99,Chronic myeloid leukemia,0.339022631240168,9795.58896314948
+Deaths,Minas Gerais,Female,95 to 99,Chronic myeloid leukemia,0.758231587723446,15379.0743999426
 YLLs (Years of Life Lost),Minas Gerais,Male,20 to 24,Neoplasms,4467.9232779739305,860269.389983816
 YLLs (Years of Life Lost),Minas Gerais,Female,20 to 24,Neoplasms,3358.97908846686,845637.073836493
 YLLs (Years of Life Lost),Minas Gerais,Male,25 to 29,Neoplasms,4995.55918380904,841709.84835883
@@ -1623,6 +1703,56 @@ YLLs (Years of Life Lost),Minas Gerais,Male,90 to 94,Lower respiratory infection
 YLLs (Years of Life Lost),Minas Gerais,Female,90 to 94,Lower respiratory infections,4622.43731497975,42327.0754878566
 YLLs (Years of Life Lost),Minas Gerais,Male,95 to 99,Lower respiratory infections,1348.3508024002099,9795.58896314948
 YLLs (Years of Life Lost),Minas Gerais,Female,95 to 99,Lower respiratory infections,2574.70912796071,15379.0743999426
+YLLs (Years of Life Lost),Minas Gerais,Male,75 to 79,Acute myeloid leukemia,225.427046683764,181207.473039146
+YLLs (Years of Life Lost),Minas Gerais,Female,75 to 79,Acute myeloid leukemia,225.57749359399,229585.276567285
+YLLs (Years of Life Lost),Minas Gerais,Male,80 to 84,Acute myeloid leukemia,126.492740009509,114102.655098214
+YLLs (Years of Life Lost),Minas Gerais,Female,80 to 84,Acute myeloid leukemia,141.088629854314,159430.97849478
+YLLs (Years of Life Lost),Minas Gerais,Male,85 to 89,Acute myeloid leukemia,60.042860974345,59815.8921293327
+YLLs (Years of Life Lost),Minas Gerais,Female,85 to 89,Acute myeloid leukemia,65.3276908964024,92762.9664919828
+YLLs (Years of Life Lost),Minas Gerais,Male,90 to 94,Acute myeloid leukemia,15.9598250597808,25566.2401773588
+YLLs (Years of Life Lost),Minas Gerais,Female,90 to 94,Acute myeloid leukemia,25.8760197306748,42327.0754878566
+YLLs (Years of Life Lost),Minas Gerais,Male,95 to 99,Acute myeloid leukemia,4.71698638973532,9795.58896314948
+YLLs (Years of Life Lost),Minas Gerais,Female,95 to 99,Acute myeloid leukemia,7.60411025971101,15379.0743999426
+YLLs (Years of Life Lost),Minas Gerais,Male,0 to 4,Chronic myeloid leukemia,14.4777653601536,693140.164263548
+YLLs (Years of Life Lost),Minas Gerais,Female,0 to 4,Chronic myeloid leukemia,12.9339009075645,665424.538318693
+YLLs (Years of Life Lost),Minas Gerais,Male,5 to 9,Chronic myeloid leukemia,8.12887094320762,726684.848844061
+YLLs (Years of Life Lost),Minas Gerais,Female,5 to 9,Chronic myeloid leukemia,5.90297489138035,702487.424509226
+YLLs (Years of Life Lost),Minas Gerais,Male,10 to 14,Chronic myeloid leukemia,11.4780727102495,762528.615906464
+YLLs (Years of Life Lost),Minas Gerais,Female,10 to 14,Chronic myeloid leukemia,7.93890618870516,739325.37485452
+YLLs (Years of Life Lost),Minas Gerais,Male,15 to 19,Chronic myeloid leukemia,17.2793307282924,800715.114377185
+YLLs (Years of Life Lost),Minas Gerais,Female,15 to 19,Chronic myeloid leukemia,14.4380287635754,779602.173185047
+YLLs (Years of Life Lost),Minas Gerais,Male,20 to 24,Chronic myeloid leukemia,34.4576983958065,860269.389983816
+YLLs (Years of Life Lost),Minas Gerais,Female,20 to 24,Chronic myeloid leukemia,24.4637428072614,845637.073836493
+YLLs (Years of Life Lost),Minas Gerais,Male,25 to 29,Chronic myeloid leukemia,53.9350038227177,841709.84835883
+YLLs (Years of Life Lost),Minas Gerais,Female,25 to 29,Chronic myeloid leukemia,29.6981347751111,851571.075000534
+YLLs (Years of Life Lost),Minas Gerais,Male,30 to 34,Chronic myeloid leukemia,75.0419274887833,848737.152463628
+YLLs (Years of Life Lost),Minas Gerais,Female,30 to 34,Chronic myeloid leukemia,39.8650138603956,870248.435488008
+YLLs (Years of Life Lost),Minas Gerais,Male,35 to 39,Chronic myeloid leukemia,84.3000910560887,856947.915760632
+YLLs (Years of Life Lost),Minas Gerais,Female,35 to 39,Chronic myeloid leukemia,48.8131962938965,881048.658784198
+YLLs (Years of Life Lost),Minas Gerais,Male,40 to 44,Chronic myeloid leukemia,77.8404956076536,779831.619381794
+YLLs (Years of Life Lost),Minas Gerais,Female,40 to 44,Chronic myeloid leukemia,48.3208216390294,809053.899131463
+YLLs (Years of Life Lost),Minas Gerais,Male,45 to 49,Chronic myeloid leukemia,74.4932411588015,681441.96447377
+YLLs (Years of Life Lost),Minas Gerais,Female,45 to 49,Chronic myeloid leukemia,51.0690143047267,717973.702553291
+YLLs (Years of Life Lost),Minas Gerais,Male,50 to 54,Chronic myeloid leukemia,71.7227856550556,652646.039018269
+YLLs (Years of Life Lost),Minas Gerais,Female,50 to 54,Chronic myeloid leukemia,58.4204272590601,701427.089222322
+YLLs (Years of Life Lost),Minas Gerais,Male,55 to 59,Chronic myeloid leukemia,98.7184899454881,596774.819086114
+YLLs (Years of Life Lost),Minas Gerais,Female,55 to 59,Chronic myeloid leukemia,67.2784576916302,650177.593497233
+YLLs (Years of Life Lost),Minas Gerais,Male,60 to 64,Chronic myeloid leukemia,95.5328232439513,494065.290144739
+YLLs (Years of Life Lost),Minas Gerais,Female,60 to 64,Chronic myeloid leukemia,63.4493280299361,551116.120617873
+YLLs (Years of Life Lost),Minas Gerais,Male,65 to 69,Chronic myeloid leukemia,73.1849058364386,377326.708552202
+YLLs (Years of Life Lost),Minas Gerais,Female,65 to 69,Chronic myeloid leukemia,63.7170568995071,432223.134196856
+YLLs (Years of Life Lost),Minas Gerais,Male,70 to 74,Chronic myeloid leukemia,81.4666229012848,271770.231285514
+YLLs (Years of Life Lost),Minas Gerais,Female,70 to 74,Chronic myeloid leukemia,59.3076359456086,319041.847139243
+YLLs (Years of Life Lost),Minas Gerais,Male,75 to 79,Chronic myeloid leukemia,59.2594061670107,181207.473039146
+YLLs (Years of Life Lost),Minas Gerais,Female,75 to 79,Chronic myeloid leukemia,48.4723051383947,229585.276567285
+YLLs (Years of Life Lost),Minas Gerais,Male,80 to 84,Chronic myeloid leukemia,37.0152035564567,114102.655098214
+YLLs (Years of Life Lost),Minas Gerais,Female,80 to 84,Chronic myeloid leukemia,39.3723324659844,159430.97849478
+YLLs (Years of Life Lost),Minas Gerais,Male,85 to 89,Chronic myeloid leukemia,22.4919865592731,59815.8921293327
+YLLs (Years of Life Lost),Minas Gerais,Female,85 to 89,Chronic myeloid leukemia,27.2549680239003,92762.9664919828
+YLLs (Years of Life Lost),Minas Gerais,Male,90 to 94,Chronic myeloid leukemia,6.76649750281539,25566.2401773588
+YLLs (Years of Life Lost),Minas Gerais,Female,90 to 94,Chronic myeloid leukemia,10.4172581868808,42327.0754878566
+YLLs (Years of Life Lost),Minas Gerais,Male,95 to 99,Chronic myeloid leukemia,1.6594836152097,9795.58896314948
+YLLs (Years of Life Lost),Minas Gerais,Female,95 to 99,Chronic myeloid leukemia,3.76930494560004,15379.0743999426
 Deaths,Minas Gerais,Male,15 to 19,Diabetes mellitus type 2,0.823728881856642,800715.114377185
 Deaths,Minas Gerais,Female,15 to 19,Diabetes mellitus type 2,2.03127782118551,779602.173185047
 Deaths,Minas Gerais,Male,20 to 24,Diabetes mellitus type 2,1.9080799489516,860269.389983816
@@ -1657,6 +1787,36 @@ Deaths,Minas Gerais,Male,90 to 94,Diabetes mellitus type 2,71.5385305095695,2556
 Deaths,Minas Gerais,Female,90 to 94,Diabetes mellitus type 2,190.241443927393,42327.0754878566
 Deaths,Minas Gerais,Male,95 to 99,Diabetes mellitus type 2,38.5354089051768,9795.58896314948
 Deaths,Minas Gerais,Female,95 to 99,Diabetes mellitus type 2,106.486874342073,15379.0743999426
+YLLs (Years of Life Lost),Minas Gerais,Male,0 to 4,Acute myeloid leukemia,357.747350839149,693140.164263548
+YLLs (Years of Life Lost),Minas Gerais,Female,0 to 4,Acute myeloid leukemia,408.819220483371,665424.538318693
+YLLs (Years of Life Lost),Minas Gerais,Male,5 to 9,Acute myeloid leukemia,300.96645481462,726684.848844061
+YLLs (Years of Life Lost),Minas Gerais,Female,5 to 9,Acute myeloid leukemia,248.324530427056,702487.424509226
+YLLs (Years of Life Lost),Minas Gerais,Male,10 to 14,Acute myeloid leukemia,450.201983663465,762528.615906464
+YLLs (Years of Life Lost),Minas Gerais,Female,10 to 14,Acute myeloid leukemia,277.520823230136,739325.37485452
+YLLs (Years of Life Lost),Minas Gerais,Male,15 to 19,Acute myeloid leukemia,337.529315197367,800715.114377185
+YLLs (Years of Life Lost),Minas Gerais,Female,15 to 19,Acute myeloid leukemia,262.873970360315,779602.173185047
+YLLs (Years of Life Lost),Minas Gerais,Male,20 to 24,Acute myeloid leukemia,335.508345536148,860269.389983816
+YLLs (Years of Life Lost),Minas Gerais,Female,20 to 24,Acute myeloid leukemia,318.80995516173,845637.073836493
+YLLs (Years of Life Lost),Minas Gerais,Male,25 to 29,Acute myeloid leukemia,330.766756082502,841709.84835883
+YLLs (Years of Life Lost),Minas Gerais,Female,25 to 29,Acute myeloid leukemia,360.982391905142,851571.075000534
+YLLs (Years of Life Lost),Minas Gerais,Male,30 to 34,Acute myeloid leukemia,383.245392518185,848737.152463628
+YLLs (Years of Life Lost),Minas Gerais,Female,30 to 34,Acute myeloid leukemia,356.518715145207,870248.435488008
+YLLs (Years of Life Lost),Minas Gerais,Male,35 to 39,Acute myeloid leukemia,420.93524775503,856947.915760632
+YLLs (Years of Life Lost),Minas Gerais,Female,35 to 39,Acute myeloid leukemia,364.309019067961,881048.658784198
+YLLs (Years of Life Lost),Minas Gerais,Male,40 to 44,Acute myeloid leukemia,417.556914016808,779831.619381794
+YLLs (Years of Life Lost),Minas Gerais,Female,40 to 44,Acute myeloid leukemia,386.515551437059,809053.899131463
+YLLs (Years of Life Lost),Minas Gerais,Male,45 to 49,Acute myeloid leukemia,347.800222730826,681441.96447377
+YLLs (Years of Life Lost),Minas Gerais,Female,45 to 49,Acute myeloid leukemia,452.25689347026,717973.702553291
+YLLs (Years of Life Lost),Minas Gerais,Male,50 to 54,Acute myeloid leukemia,383.760434456373,652646.039018269
+YLLs (Years of Life Lost),Minas Gerais,Female,50 to 54,Acute myeloid leukemia,422.428343691965,701427.089222322
+YLLs (Years of Life Lost),Minas Gerais,Male,55 to 59,Acute myeloid leukemia,466.64197641582,596774.819086114
+YLLs (Years of Life Lost),Minas Gerais,Female,55 to 59,Acute myeloid leukemia,416.541673036575,650177.593497233
+YLLs (Years of Life Lost),Minas Gerais,Male,60 to 64,Acute myeloid leukemia,548.263039572203,494065.290144739
+YLLs (Years of Life Lost),Minas Gerais,Female,60 to 64,Acute myeloid leukemia,432.661882260372,551116.120617873
+YLLs (Years of Life Lost),Minas Gerais,Male,65 to 69,Acute myeloid leukemia,496.241805428994,377326.708552202
+YLLs (Years of Life Lost),Minas Gerais,Female,65 to 69,Acute myeloid leukemia,367.455501812238,432223.134196856
+YLLs (Years of Life Lost),Minas Gerais,Male,70 to 74,Acute myeloid leukemia,389.805038689548,271770.231285514
+YLLs (Years of Life Lost),Minas Gerais,Female,70 to 74,Acute myeloid leukemia,345.157577779397,319041.847139243
 YLLs (Years of Life Lost),Minas Gerais,Male,15 to 19,Diabetes mellitus type 2,58.7804243250986,800715.114377185
 YLLs (Years of Life Lost),Minas Gerais,Female,15 to 19,Diabetes mellitus type 2,145.151304558136,779602.173185047
 YLLs (Years of Life Lost),Minas Gerais,Male,20 to 24,Diabetes mellitus type 2,127.075614540256,860269.389983816
