@@ -869,6 +869,86 @@ Deaths,South Africa,Male,90 to 94,Parkinson's disease,35.7839936278124,15732.726
 Deaths,South Africa,Female,90 to 94,Parkinson's disease,73.2138732915038,45464.810394134
 Deaths,South Africa,Male,95 to 99,Parkinson's disease,6.49623596951948,2912.22291798307
 Deaths,South Africa,Female,95 to 99,Parkinson's disease,16.658852174485,8863.50774538578
+YLLs (Years of Life Lost),South Africa,Male,0 to 4,Acute myeloid leukemia,223.994977613796,2569142.62874758
+YLLs (Years of Life Lost),South Africa,Female,0 to 4,Acute myeloid leukemia,162.980262930891,2525384.52761565
+YLLs (Years of Life Lost),South Africa,Male,5 to 9,Acute myeloid leukemia,250.894575628726,2576518.70484654
+YLLs (Years of Life Lost),South Africa,Female,5 to 9,Acute myeloid leukemia,145.561152948392,2540136.8715384
+YLLs (Years of Life Lost),South Africa,Male,10 to 14,Acute myeloid leukemia,116.246648254015,2441436.97072177
+YLLs (Years of Life Lost),South Africa,Female,10 to 14,Acute myeloid leukemia,62.765047752899,2382753.01822981
+YLLs (Years of Life Lost),South Africa,Male,15 to 19,Acute myeloid leukemia,267.095729895204,2315418.94326642
+YLLs (Years of Life Lost),South Africa,Female,15 to 19,Acute myeloid leukemia,124.112565896003,2233544.63706808
+YLLs (Years of Life Lost),South Africa,Male,20 to 24,Acute myeloid leukemia,353.738913545893,2362554.74072866
+YLLs (Years of Life Lost),South Africa,Female,20 to 24,Acute myeloid leukemia,144.741781149013,2289864.29251827
+YLLs (Years of Life Lost),South Africa,Male,25 to 29,Acute myeloid leukemia,582.26482816026,2611284.97500173
+YLLs (Years of Life Lost),South Africa,Female,25 to 29,Acute myeloid leukemia,228.990516498986,2591451.59788864
+YLLs (Years of Life Lost),South Africa,Male,30 to 34,Acute myeloid leukemia,575.193914260856,2609569.43160755
+YLLs (Years of Life Lost),South Africa,Female,30 to 34,Acute myeloid leukemia,259.599871105249,2557494.52684184
+YLLs (Years of Life Lost),South Africa,Male,35 to 39,Acute myeloid leukemia,430.630427046395,2219103.12845686
+YLLs (Years of Life Lost),South Africa,Female,35 to 39,Acute myeloid leukemia,217.205339291369,2159669.37842728
+YLLs (Years of Life Lost),South Africa,Male,40 to 44,Acute myeloid leukemia,317.47634277423,1755171.32774892
+YLLs (Years of Life Lost),South Africa,Female,40 to 44,Acute myeloid leukemia,234.060536473089,1746979.12477878
+YLLs (Years of Life Lost),South Africa,Male,45 to 49,Acute myeloid leukemia,260.532790896685,1438121.13258991
+YLLs (Years of Life Lost),South Africa,Female,45 to 49,Acute myeloid leukemia,158.344040899768,1561470.2146922
+YLLs (Years of Life Lost),South Africa,Male,50 to 54,Acute myeloid leukemia,222.486679701996,1168280.19305653
+YLLs (Years of Life Lost),South Africa,Female,50 to 54,Acute myeloid leukemia,77.5874242423016,1369990.88377074
+YLLs (Years of Life Lost),South Africa,Male,55 to 59,Acute myeloid leukemia,259.789699220337,983195.922057338
+YLLs (Years of Life Lost),South Africa,Female,55 to 59,Acute myeloid leukemia,45.9029425575534,1223429.75412145
+YLLs (Years of Life Lost),South Africa,Male,60 to 64,Acute myeloid leukemia,173.623939291029,803800.151343379
+YLLs (Years of Life Lost),South Africa,Female,60 to 64,Acute myeloid leukemia,36.9737074503818,1046350.85988769
+YLLs (Years of Life Lost),South Africa,Male,65 to 69,Acute myeloid leukemia,127.235090203885,573924.645286596
+YLLs (Years of Life Lost),South Africa,Female,65 to 69,Acute myeloid leukemia,20.6364871676642,772361.257646775
+YLLs (Years of Life Lost),South Africa,Male,70 to 74,Acute myeloid leukemia,70.2785414407905,374650.653514359
+YLLs (Years of Life Lost),South Africa,Female,70 to 74,Acute myeloid leukemia,9.04575231832145,536277.822792808
+YLLs (Years of Life Lost),South Africa,Male,75 to 79,Acute myeloid leukemia,27.3198160854162,229148.469803079
+YLLs (Years of Life Lost),South Africa,Female,75 to 79,Acute myeloid leukemia,5.03158870303509,379962.069292116
+YLLs (Years of Life Lost),South Africa,Male,80 to 84,Acute myeloid leukemia,15.3979303406323,122667.275778451
+YLLs (Years of Life Lost),South Africa,Female,80 to 84,Acute myeloid leukemia,2.67137954731816,255651.407192207
+YLLs (Years of Life Lost),South Africa,Male,85 to 89,Acute myeloid leukemia,5.08801229149144,54856.5957549534
+YLLs (Years of Life Lost),South Africa,Female,85 to 89,Acute myeloid leukemia,0.815355292905732,133833.119951923
+YLLs (Years of Life Lost),South Africa,Male,90 to 94,Acute myeloid leukemia,1.32511844623586,15732.7264958261
+YLLs (Years of Life Lost),South Africa,Female,90 to 94,Acute myeloid leukemia,0.093740729627349,45464.810394134
+YLLs (Years of Life Lost),South Africa,Male,95 to 99,Acute myeloid leukemia,0.193529484490431,2912.22291798307
+YLLs (Years of Life Lost),South Africa,Female,95 to 99,Acute myeloid leukemia,0.00644349356888254,8863.50774538578
+YLLs (Years of Life Lost),South Africa,Male,0 to 4,Chronic myeloid leukemia,26.3818724959675,2569142.62874758
+YLLs (Years of Life Lost),South Africa,Female,0 to 4,Chronic myeloid leukemia,23.5279444937416,2525384.52761565
+YLLs (Years of Life Lost),South Africa,Male,5 to 9,Chronic myeloid leukemia,45.2636690624041,2576518.70484654
+YLLs (Years of Life Lost),South Africa,Female,5 to 9,Chronic myeloid leukemia,41.0243772377374,2540136.8715384
+YLLs (Years of Life Lost),South Africa,Male,10 to 14,Chronic myeloid leukemia,21.0538976490776,2441436.97072177
+YLLs (Years of Life Lost),South Africa,Female,10 to 14,Chronic myeloid leukemia,13.2347571583288,2382753.01822981
+YLLs (Years of Life Lost),South Africa,Male,15 to 19,Chronic myeloid leukemia,27.2360078586323,2315418.94326642
+YLLs (Years of Life Lost),South Africa,Female,15 to 19,Chronic myeloid leukemia,22.973594433648,2233544.63706808
+YLLs (Years of Life Lost),South Africa,Male,20 to 24,Chronic myeloid leukemia,39.7830467026507,2362554.74072866
+YLLs (Years of Life Lost),South Africa,Female,20 to 24,Chronic myeloid leukemia,23.6968383673154,2289864.29251827
+YLLs (Years of Life Lost),South Africa,Male,25 to 29,Chronic myeloid leukemia,69.0735586039766,2611284.97500173
+YLLs (Years of Life Lost),South Africa,Female,25 to 29,Chronic myeloid leukemia,30.9344364469378,2591451.59788864
+YLLs (Years of Life Lost),South Africa,Male,30 to 34,Chronic myeloid leukemia,76.2260024694571,2609569.43160755
+YLLs (Years of Life Lost),South Africa,Female,30 to 34,Chronic myeloid leukemia,31.0448180630522,2557494.52684184
+YLLs (Years of Life Lost),South Africa,Male,35 to 39,Chronic myeloid leukemia,66.2638132090699,2219103.12845686
+YLLs (Years of Life Lost),South Africa,Female,35 to 39,Chronic myeloid leukemia,24.0212456010679,2159669.37842728
+YLLs (Years of Life Lost),South Africa,Male,40 to 44,Chronic myeloid leukemia,51.5618686538448,1755171.32774892
+YLLs (Years of Life Lost),South Africa,Female,40 to 44,Chronic myeloid leukemia,19.9563596337493,1746979.12477878
+YLLs (Years of Life Lost),South Africa,Male,45 to 49,Chronic myeloid leukemia,39.5598481400375,1438121.13258991
+YLLs (Years of Life Lost),South Africa,Female,45 to 49,Chronic myeloid leukemia,15.0475584795467,1561470.2146922
+YLLs (Years of Life Lost),South Africa,Male,50 to 54,Chronic myeloid leukemia,44.9718234151379,1168280.19305653
+YLLs (Years of Life Lost),South Africa,Female,50 to 54,Chronic myeloid leukemia,11.5349442059461,1369990.88377074
+YLLs (Years of Life Lost),South Africa,Male,55 to 59,Chronic myeloid leukemia,61.7562205401622,983195.922057338
+YLLs (Years of Life Lost),South Africa,Female,55 to 59,Chronic myeloid leukemia,7.95928080469832,1223429.75412145
+YLLs (Years of Life Lost),South Africa,Male,60 to 64,Chronic myeloid leukemia,47.3648907812149,803800.151343379
+YLLs (Years of Life Lost),South Africa,Female,60 to 64,Chronic myeloid leukemia,5.96070139473784,1046350.85988769
+YLLs (Years of Life Lost),South Africa,Male,65 to 69,Chronic myeloid leukemia,54.9968185706661,573924.645286596
+YLLs (Years of Life Lost),South Africa,Female,65 to 69,Chronic myeloid leukemia,4.92876403797387,772361.257646775
+YLLs (Years of Life Lost),South Africa,Male,70 to 74,Chronic myeloid leukemia,28.3806406609612,374650.653514359
+YLLs (Years of Life Lost),South Africa,Female,70 to 74,Chronic myeloid leukemia,2.80601002788161,536277.822792808
+YLLs (Years of Life Lost),South Africa,Male,75 to 79,Chronic myeloid leukemia,22.2224975677441,229148.469803079
+YLLs (Years of Life Lost),South Africa,Female,75 to 79,Chronic myeloid leukemia,1.11581012839605,379962.069292116
+YLLs (Years of Life Lost),South Africa,Male,80 to 84,Chronic myeloid leukemia,10.4746335671769,122667.275778451
+YLLs (Years of Life Lost),South Africa,Female,80 to 84,Chronic myeloid leukemia,0.766139422113755,255651.407192207
+YLLs (Years of Life Lost),South Africa,Male,85 to 89,Chronic myeloid leukemia,2.93750307550564,54856.5957549534
+YLLs (Years of Life Lost),South Africa,Female,85 to 89,Chronic myeloid leukemia,0.259300499960183,133833.119951923
+YLLs (Years of Life Lost),South Africa,Male,90 to 94,Chronic myeloid leukemia,0.782398230093879,15732.7264958261
+YLLs (Years of Life Lost),South Africa,Female,90 to 94,Chronic myeloid leukemia,0.041866461496132,45464.810394134
+YLLs (Years of Life Lost),South Africa,Male,95 to 99,Chronic myeloid leukemia,0.113298042886914,2912.22291798307
+YLLs (Years of Life Lost),South Africa,Female,95 to 99,Chronic myeloid leukemia,0.00161512314242305,8863.50774538578
 Deaths,South Africa,Male,20 to 24,Multiple myeloma,0.398231655828694,2362554.74072866
 Deaths,South Africa,Female,20 to 24,Multiple myeloma,0.450910624047902,2289864.29251827
 Deaths,South Africa,Male,25 to 29,Multiple myeloma,1.08289595456838,2611284.97500173
@@ -933,6 +1013,86 @@ YLLs (Years of Life Lost),South Africa,Male,90 to 94,Multiple myeloma,24.6668175
 YLLs (Years of Life Lost),South Africa,Female,90 to 94,Multiple myeloma,51.568476595317,45464.810394134
 YLLs (Years of Life Lost),South Africa,Male,95 to 99,Multiple myeloma,3.45272447180612,2912.22291798307
 YLLs (Years of Life Lost),South Africa,Female,95 to 99,Multiple myeloma,4.11258454396241,8863.50774538578
+Deaths,South Africa,Male,0 to 4,Acute myeloid leukemia,2.58679812383316,2569142.62874758
+Deaths,South Africa,Female,0 to 4,Acute myeloid leukemia,1.87773088637226,2525384.52761565
+Deaths,South Africa,Male,5 to 9,Acute myeloid leukemia,3.06991523939423,2576518.70484654
+Deaths,South Africa,Female,5 to 9,Acute myeloid leukemia,1.77976714750701,2540136.8715384
+Deaths,South Africa,Male,10 to 14,Acute myeloid leukemia,1.52115268435811,2441436.97072177
+Deaths,South Africa,Female,10 to 14,Acute myeloid leukemia,0.821172214734754,2382753.01822981
+Deaths,South Africa,Male,15 to 19,Acute myeloid leukemia,3.74704983225292,2315418.94326642
+Deaths,South Africa,Female,15 to 19,Acute myeloid leukemia,1.73739119187616,2233544.63706808
+Deaths,South Africa,Male,20 to 24,Acute myeloid leukemia,5.32675613791034,2362554.74072866
+Deaths,South Africa,Female,20 to 24,Acute myeloid leukemia,2.17679839883253,2289864.29251827
+Deaths,South Africa,Male,25 to 29,Acute myeloid leukemia,9.4604097390839,2611284.97500173
+Deaths,South Africa,Female,25 to 29,Acute myeloid leukemia,3.71863102803289,2591451.59788864
+Deaths,South Africa,Male,30 to 34,Acute myeloid leukemia,10.1487836779121,2609569.43160755
+Deaths,South Africa,Female,30 to 34,Acute myeloid leukemia,4.57882242377797,2557494.52684184
+Deaths,South Africa,Male,35 to 39,Acute myeloid leukemia,8.31766281910829,2219103.12845686
+Deaths,South Africa,Female,35 to 39,Acute myeloid leukemia,4.1954008451576,2159669.37842728
+Deaths,South Africa,Male,40 to 44,Acute myeloid leukemia,6.77333130371332,1755171.32774892
+Deaths,South Africa,Female,40 to 44,Acute myeloid leukemia,4.99430156683945,1746979.12477878
+Deaths,South Africa,Male,45 to 49,Acute myeloid leukemia,6.20348264330027,1438121.13258991
+Deaths,South Africa,Female,45 to 49,Acute myeloid leukemia,3.77031383209922,1561470.2146922
+Deaths,South Africa,Male,50 to 54,Acute myeloid leukemia,5.9784542712107704,1168280.19305653
+Deaths,South Africa,Female,50 to 54,Acute myeloid leukemia,2.08516943644956,1369990.88377074
+Deaths,South Africa,Male,55 to 59,Acute myeloid leukemia,7.99003103396367,983195.922057338
+Deaths,South Africa,Female,55 to 59,Acute myeloid leukemia,1.41225775078908,1223429.75412145
+Deaths,South Africa,Male,60 to 64,Acute myeloid leukemia,6.22452487312907,803800.151343379
+Deaths,South Africa,Female,60 to 64,Acute myeloid leukemia,1.32717493954562,1046350.85988769
+Deaths,South Africa,Male,65 to 69,Acute myeloid leukemia,5.42573842365124,573924.645286596
+Deaths,South Africa,Female,65 to 69,Acute myeloid leukemia,0.882437802810493,772361.257646775
+Deaths,South Africa,Male,70 to 74,Acute myeloid leukemia,3.66402603759898,374650.653514359
+Deaths,South Africa,Female,70 to 74,Acute myeloid leukemia,0.472557780808185,536277.822792808
+Deaths,South Africa,Male,75 to 79,Acute myeloid leukemia,1.80623117159596,229148.469803079
+Deaths,South Africa,Female,75 to 79,Acute myeloid leukemia,0.334190155819615,379962.069292116
+Deaths,South Africa,Male,80 to 84,Acute myeloid leukemia,1.32551235077878,122667.275778451
+Deaths,South Africa,Female,80 to 84,Acute myeloid leukemia,0.23098424017123,255651.407192207
+Deaths,South Africa,Male,85 to 89,Acute myeloid leukemia,0.57271036606141,54856.5957549534
+Deaths,South Africa,Female,85 to 89,Acute myeloid leukemia,0.0921147638877143,133833.119951923
+Deaths,South Africa,Male,90 to 94,Acute myeloid leukemia,0.192264758966092,15732.7264958261
+Deaths,South Africa,Female,90 to 94,Acute myeloid leukemia,0.0136616244239776,45464.810394134
+Deaths,South Africa,Male,95 to 99,Acute myeloid leukemia,0.0362711590002019,2912.22291798307
+Deaths,South Africa,Female,95 to 99,Acute myeloid leukemia,0.00121434278372034,8863.50774538578
+Deaths,South Africa,Male,0 to 4,Chronic myeloid leukemia,0.304044717764255,2569142.62874758
+Deaths,South Africa,Female,0 to 4,Chronic myeloid leukemia,0.270609294427593,2525384.52761565
+Deaths,South Africa,Male,5 to 9,Chronic myeloid leukemia,0.553837885346128,2576518.70484654
+Deaths,South Africa,Female,5 to 9,Chronic myeloid leukemia,0.501602326794547,2540136.8715384
+Deaths,South Africa,Male,10 to 14,Chronic myeloid leukemia,0.275494418298125,2441436.97072177
+Deaths,South Africa,Female,10 to 14,Chronic myeloid leukemia,0.17315279899147001,2382753.01822981
+Deaths,South Africa,Male,15 to 19,Chronic myeloid leukemia,0.382076980861857,2315418.94326642
+Deaths,South Africa,Female,15 to 19,Chronic myeloid leukemia,0.321581510331437,2233544.63706808
+Deaths,South Africa,Male,20 to 24,Chronic myeloid leukemia,0.599088959214816,2362554.74072866
+Deaths,South Africa,Female,20 to 24,Chronic myeloid leukemia,0.35637570973301,2289864.29251827
+Deaths,South Africa,Male,25 to 29,Chronic myeloid leukemia,1.12237431815917,2611284.97500173
+Deaths,South Africa,Female,25 to 29,Chronic myeloid leukemia,0.502365858036969,2591451.59788864
+Deaths,South Africa,Male,30 to 34,Chronic myeloid leukemia,1.34498355976336,2609569.43160755
+Deaths,South Africa,Female,30 to 34,Chronic myeloid leukemia,0.547587114646809,2557494.52684184
+Deaths,South Africa,Male,35 to 39,Chronic myeloid leukemia,1.27985586455331,2219103.12845686
+Deaths,South Africa,Female,35 to 39,Chronic myeloid leukemia,0.463972701057164,2159669.37842728
+Deaths,South Africa,Male,40 to 44,Chronic myeloid leukemia,1.09996324538311,1755171.32774892
+Deaths,South Africa,Female,40 to 44,Chronic myeloid leukemia,0.425818666417057,1746979.12477878
+Deaths,South Africa,Male,45 to 49,Chronic myeloid leukemia,0.941836627424514,1438121.13258991
+Deaths,South Africa,Female,45 to 49,Chronic myeloid leukemia,0.358300732878692,1561470.2146922
+Deaths,South Africa,Male,50 to 54,Chronic myeloid leukemia,1.20833688080074,1168280.19305653
+Deaths,South Africa,Female,50 to 54,Chronic myeloid leukemia,0.310012565520646,1369990.88377074
+Deaths,South Africa,Male,55 to 59,Chronic myeloid leukemia,1.89913106439681,983195.922057338
+Deaths,South Africa,Female,55 to 59,Chronic myeloid leukemia,0.244880754143743,1223429.75412145
+Deaths,South Africa,Male,60 to 64,Chronic myeloid leukemia,1.69794437278713,803800.151343379
+Deaths,South Africa,Female,60 to 64,Chronic myeloid leukemia,0.213957349626508,1046350.85988769
+Deaths,South Africa,Male,65 to 69,Chronic myeloid leukemia,2.34505844847282,573924.645286596
+Deaths,South Africa,Female,65 to 69,Chronic myeloid leukemia,0.21075935258192,772361.257646775
+Deaths,South Africa,Male,70 to 74,Chronic myeloid leukemia,1.4795269348589,374650.653514359
+Deaths,South Africa,Female,70 to 74,Chronic myeloid leukemia,0.146575748496517,536277.822792808
+Deaths,South Africa,Male,75 to 79,Chronic myeloid leukemia,1.46915228750556,229148.469803079
+Deaths,South Africa,Female,75 to 79,Chronic myeloid leukemia,0.0741031939447685,379962.069292116
+Deaths,South Africa,Male,80 to 84,Chronic myeloid leukemia,0.901655239336124,122667.275778451
+Deaths,South Africa,Female,80 to 84,Chronic myeloid leukemia,0.0662380434990089,255651.407192207
+Deaths,South Africa,Male,85 to 89,Chronic myeloid leukemia,0.330613307490152,54856.5957549534
+Deaths,South Africa,Female,85 to 89,Chronic myeloid leukemia,0.0292888545977078,133833.119951923
+Deaths,South Africa,Male,90 to 94,Chronic myeloid leukemia,0.113504398523877,15732.7264958261
+Deaths,South Africa,Female,90 to 94,Chronic myeloid leukemia,0.0061002974340852,45464.810394134
+Deaths,South Africa,Male,95 to 99,Chronic myeloid leukemia,0.0212244083020871,2912.22291798307
+Deaths,South Africa,Female,95 to 99,Chronic myeloid leukemia,3.04170302479622e-4,8863.50774538578
 Deaths,South Africa,Male,0 to 4,All causes,21783.9515827584,2569142.62874758
 Deaths,South Africa,Female,0 to 4,All causes,16110.0322888051,2525384.52761565
 Deaths,South Africa,Male,5 to 9,All causes,2243.53977569369,2576518.70484654
