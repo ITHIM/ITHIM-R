@@ -48,7 +48,6 @@ create_synth_pop <- function(raw_trip_set){
   #   pointiness <- beta_pointiness(BACKGROUND_PA_CONFIDENCE)
   # }
   
-  # get population from trip_set: all the unique ids, and their demographic information
   # match only for "real" people (i.e. not `ghost drivers', whose id is 0)
   synthetic_population <- subset(trip_set,!duplicated(participant_id)&participant_id>0)[,names(trip_set)%in%c("participant_id","age","sex","age_cat")]
   ## get zeros and densities

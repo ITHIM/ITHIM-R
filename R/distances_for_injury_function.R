@@ -58,7 +58,7 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
   
   # finds cas and strike mode combinations for which there exist zero distances
   for(type in INJURY_TABLE_TYPES){ 
-    zero_dist[[type]] <- subset(injuries_for_model$Baseline[[type]],strike_distance == 0 | cas_distance == 0)
+    zero_dist[[type]] <- subset(injuries_for_model$baseline[[type]],strike_distance == 0 | cas_distance == 0)
     zero_dist_pos_inj[[type]] <- subset(zero_dist[[type]], count > 0)
     if (nrow(zero_dist_pos_inj[[type]])>0){
       zero_dist_flag <- T
@@ -74,19 +74,19 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
   
   if (zero_dist_flag == T ){
     for(type in INJURY_TABLE_TYPES){ 
-      injuries_df <- injuries_for_model$Baseline[[type]] #%>% dplyr::select(-c(age_cat, cas_gender))
+      injuries_df <- injuries_for_model$baseline[[type]] #%>% dplyr::select(-c(age_cat, cas_gender))
       setDT(injuries_df)
-      injuries_for_model$Baseline[[type]] <- as.data.frame(injuries_df[,.(count=sum(count),weight=mean(weight),strike_distance_sum=mean(strike_distance_sum),
+      injuries_for_model$baseline[[type]] <- as.data.frame(injuries_df[,.(count=sum(count),weight=mean(weight),strike_distance_sum=mean(strike_distance_sum),
                                                                           cas_distance_sum=mean(cas_distance_sum)),by=c('cas_mode','strike_mode')])
-      injuries_for_model$Baseline[[type]]$strike_distance <- injuries_for_model$Baseline[[type]]$strike_distance_sum
-      injuries_for_model$Baseline[[type]]$cas_distance <- injuries_for_model$Baseline[[type]]$cas_distance_sum
+      injuries_for_model$baseline[[type]]$strike_distance <- injuries_for_model$baseline[[type]]$strike_distance_sum
+      injuries_for_model$baseline[[type]]$cas_distance <- injuries_for_model$baseline[[type]]$cas_distance_sum
       injuries_for_model[[1]][[type]]$injury_reporting_rate <- as.numeric(INJURY_REPORTING_RATE)
     }
   }
   
   
   for(type in INJURY_TABLE_TYPES){ 
-    injuries_for_model$Baseline[[type]] <- subset(injuries_for_model$Baseline[[type]],strike_distance>0&cas_distance>0)
+    injuries_for_model$baseline[[type]] <- subset(injuries_for_model$baseline[[type]],strike_distance>0&cas_distance>0)
   }
   
 
@@ -124,8 +124,8 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
     if (STR_EXPONENT > 1) STR_EXPONENT <<- 1
     
     for(type in INJURY_TABLE_TYPES){
-      injuries_for_model$Baseline[[type]]$cas_exponent_col <- CAS_EXPONENT
-      injuries_for_model$Baseline[[type]]$str_exponent_col <- STR_EXPONENT
+      injuries_for_model$baseline[[type]]$cas_exponent_col <- CAS_EXPONENT
+      injuries_for_model$baseline[[type]]$str_exponent_col <- STR_EXPONENT
       
         for (n in 1:(NSCEN+1)){
           injuries_list[[n]][[type]]$cas_exponent_col <- CAS_EXPONENT
@@ -137,23 +137,23 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
   
   if (CALL_INDIVIDUAL_SIN == T){ # assign coefficients depending on strike and victim modes
 
-    injuries_for_model$Baseline$whw$cas_exponent_col <- SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH
-    injuries_for_model$Baseline$whw$str_exponent_col <- SIN_EXPONENT_SUM_VEH - (SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH)
+    injuries_for_model$baseline$whw$cas_exponent_col <- SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH
+    injuries_for_model$baseline$whw$str_exponent_col <- SIN_EXPONENT_SUM_VEH - (SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH)
     
     
-    injuries_for_model$Baseline$whw$cas_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE
-    injuries_for_model$Baseline$whw$str_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE - (SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE)
+    injuries_for_model$baseline$whw$cas_exponent_col[injuries_for_model$baseline$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE
+    injuries_for_model$baseline$whw$str_exponent_col[injuries_for_model$baseline$whw$cas_mode == 'cycle'] <- SIN_EXPONENT_SUM_CYCLE - (SIN_EXPONENT_SUM_CYCLE  * CASUALTY_EXPONENT_FRACTION_CYCLE)
     
-    injuries_for_model$Baseline$whw$cas_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED
-    injuries_for_model$Baseline$whw$str_exponent_col[injuries_for_model$Baseline$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED - (SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED)
+    injuries_for_model$baseline$whw$cas_exponent_col[injuries_for_model$baseline$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED
+    injuries_for_model$baseline$whw$str_exponent_col[injuries_for_model$baseline$whw$cas_mode == 'pedestrian'] <- SIN_EXPONENT_SUM_PED - (SIN_EXPONENT_SUM_PED  * CASUALTY_EXPONENT_FRACTION_PED)
     
-    injuries_for_model$Baseline$nov$cas_exponent_col <- SIN_EXPONENT_SUM_NOV
-    injuries_for_model$Baseline$nov$str_exponent_col <- 1
+    injuries_for_model$baseline$nov$cas_exponent_col <- SIN_EXPONENT_SUM_NOV
+    injuries_for_model$baseline$nov$str_exponent_col <- 1
     
     # when running in sampling mode, ensure that cas_exponent and str_exponent are always below 1
-    injuries_for_model$Baseline$whw$cas_exponent_col <- ifelse(injuries_for_model$Baseline$whw$cas_exponent_col > 1, 1, injuries_for_model$Baseline$whw$cas_exponent_col)
-    injuries_for_model$Baseline$whw$str_exponent_col <- ifelse(injuries_for_model$Baseline$whw$str_exponent_col > 1, 1, injuries_for_model$Baseline$whw$str_exponent_col)
-    injuries_for_model$Baseline$nov$cas_exponent_col <- ifelse(injuries_for_model$Baseline$nov$cas_exponent_col > 1, 1, injuries_for_model$Baseline$nov$cas_exponent_col)
+    injuries_for_model$baseline$whw$cas_exponent_col <- ifelse(injuries_for_model$baseline$whw$cas_exponent_col > 1, 1, injuries_for_model$baseline$whw$cas_exponent_col)
+    injuries_for_model$baseline$whw$str_exponent_col <- ifelse(injuries_for_model$baseline$whw$str_exponent_col > 1, 1, injuries_for_model$baseline$whw$str_exponent_col)
+    injuries_for_model$baseline$nov$cas_exponent_col <- ifelse(injuries_for_model$baseline$nov$cas_exponent_col > 1, 1, injuries_for_model$baseline$nov$cas_exponent_col)
     
     for (n in 1:(NSCEN+1)){
       injuries_list[[n]]$whw$cas_exponent_col <- SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH
@@ -172,8 +172,8 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
     }
     
     # when running in sampling mode, ensure that cas_exponent and str_exponent are always below 1
-    injuries_for_model$Baseline$nov$cas_exponent_col <- min(SIN_EXPONENT_SUM_NOV, 1)
-    injuries_for_model$Baseline$nov$str_exponent_col <- 1
+    injuries_for_model$baseline$nov$cas_exponent_col <- min(SIN_EXPONENT_SUM_NOV, 1)
+    injuries_for_model$baseline$nov$str_exponent_col <- 1
     
     
     
@@ -192,27 +192,27 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
     
     # whw
     # merge injury data with mode share
-    mode_share_baseline <- mode_share_scen %>% filter(scenario == 'Baseline') %>% dplyr::select(-scenario)
-    injuries_for_model$Baseline$whw <- left_join(injuries_for_model$Baseline$whw, mode_share_baseline %>% rename(cas_mode = trip_mode, cas_share = share), 
+    mode_share_baseline <- mode_share_scen %>% filter(scenario == 'baseline') %>% dplyr::select(-scenario)
+    injuries_for_model$baseline$whw <- left_join(injuries_for_model$baseline$whw, mode_share_baseline %>% rename(cas_mode = trip_mode, cas_share = share), 
                                                  by = c('cas_mode')) 
-    injuries_for_model$Baseline$whw <- left_join(injuries_for_model$Baseline$whw, mode_share_baseline %>% rename(strike_mode = trip_mode, strike_share = share), 
+    injuries_for_model$baseline$whw <- left_join(injuries_for_model$baseline$whw, mode_share_baseline %>% rename(strike_mode = trip_mode, strike_share = share), 
                                                  by = c('strike_mode')) 
     
     # update cas and strike exponents if below threshold
-    injuries_for_model$Baseline$whw$cas_exponent_col <- ifelse(injuries_for_model$Baseline$whw$cas_share < SIN_THRESHOLD, 1, injuries_for_model$Baseline$whw$cas_exponent_col)
-    injuries_for_model$Baseline$whw$str_exponent_col <- ifelse(injuries_for_model$Baseline$whw$strike_share < SIN_THRESHOLD, 1, injuries_for_model$Baseline$whw$str_exponent_col)
+    injuries_for_model$baseline$whw$cas_exponent_col <- ifelse(injuries_for_model$baseline$whw$cas_share < SIN_THRESHOLD, 1, injuries_for_model$baseline$whw$cas_exponent_col)
+    injuries_for_model$baseline$whw$str_exponent_col <- ifelse(injuries_for_model$baseline$whw$strike_share < SIN_THRESHOLD, 1, injuries_for_model$baseline$whw$str_exponent_col)
     
     # delete newly added columns
-    injuries_for_model$Baseline$whw <- injuries_for_model$Baseline$whw %>% dplyr::select(-c(cas_share, strike_share))
+    injuries_for_model$baseline$whw <- injuries_for_model$baseline$whw %>% dplyr::select(-c(cas_share, strike_share))
     
     
     # nov
     # merge injury data with mode share
-    injuries_for_model$Baseline$nov <- left_join(injuries_for_model$Baseline$nov, mode_share_baseline %>% rename(cas_mode = trip_mode, cas_share = share), 
+    injuries_for_model$baseline$nov <- left_join(injuries_for_model$baseline$nov, mode_share_baseline %>% rename(cas_mode = trip_mode, cas_share = share), 
                                                  by = c('cas_mode')) 
 
-    injuries_for_model$Baseline$nov$cas_exponent_col <- ifelse(injuries_for_model$Baseline$nov$cas_share < SIN_THRESHOLD, 1, injuries_for_model$Baseline$nov$cas_exponent_col)
-    injuries_for_model$Baseline$nov <- injuries_for_model$Baseline$nov %>% dplyr::select(-c(cas_share))
+    injuries_for_model$baseline$nov$cas_exponent_col <- ifelse(injuries_for_model$baseline$nov$cas_share < SIN_THRESHOLD, 1, injuries_for_model$baseline$nov$cas_exponent_col)
+    injuries_for_model$baseline$nov <- injuries_for_model$baseline$nov %>% dplyr::select(-c(cas_share))
     
     
     scen_list <- sort(unique(mode_share_scen$scenario)) # create scenario list
@@ -319,15 +319,15 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
       # first remove age and gender if possible and fit model without age and gender categories
       if ('age_cat'%in%names(injuries_for_model[[1]][[1]])){
 
-        injuries_df <- injuries_for_model$Baseline[[type]] #%>% dplyr::select(-c(age_cat, cas_gender))
+        injuries_df <- injuries_for_model$baseline[[type]] #%>% dplyr::select(-c(age_cat, cas_gender))
         setDT(injuries_df)
-        injuries_for_model$Baseline[[type]] <- as.data.frame(injuries_df[,.(count=sum(count),weight=mean(weight),strike_distance_sum=mean(strike_distance_sum),
+        injuries_for_model$baseline[[type]] <- as.data.frame(injuries_df[,.(count=sum(count),weight=mean(weight),strike_distance_sum=mean(strike_distance_sum),
                                                                             cas_distance_sum=mean(cas_distance_sum),
                                                                             cas_exponent_col = mean(cas_exponent_col),
                                                                             str_exponent_col = mean(str_exponent_col)
                                                                             ),by=c('cas_mode','strike_mode')])
-        injuries_for_model$Baseline[[type]]$strike_distance <- injuries_for_model$Baseline[[type]]$strike_distance_sum
-        injuries_for_model$Baseline[[type]]$cas_distance <- injuries_for_model$Baseline[[type]]$cas_distance_sum
+        injuries_for_model$baseline[[type]]$strike_distance <- injuries_for_model$baseline[[type]]$strike_distance_sum
+        injuries_for_model$baseline[[type]]$cas_distance <- injuries_for_model$baseline[[type]]$cas_distance_sum
         injuries_for_model[[1]][[type]]$injury_reporting_rate <- as.numeric(INJURY_REPORTING_RATE)
 
         # try model without age and gender categories

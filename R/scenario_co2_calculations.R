@@ -13,7 +13,7 @@ scenario_co2_calculations <- function(dist){
   emission_dist <- dist
   
   ## get emission factor by dividing inventory by baseline distance. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
-  ordered_efs <- (VEHICLE_INVENTORY$CO2_emission_inventory[match(emission_dist$stage_mode,VEHICLE_INVENTORY$stage_mode)] %>% as.numeric())/(emission_dist$Baseline %>% as.numeric())
+  ordered_efs <- (VEHICLE_INVENTORY$CO2_emission_inventory[match(emission_dist$stage_mode,VEHICLE_INVENTORY$stage_mode)] %>% as.numeric())/(emission_dist$baseline %>% as.numeric())
   ## get new emission by multiplying emission factor by scenario distance.
   trans_emissions <- emission_dist[,0:NSCEN+2]*t(repmat(ordered_efs,NSCEN+1,1))
   ## augment with travel emission contributions that aren't included in distance calculation

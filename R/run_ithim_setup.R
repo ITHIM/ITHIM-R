@@ -82,7 +82,7 @@ run_ithim_setup <- function(seed = 1,
                             ADD_TRUCK_DRIVERS = T,
                             ADD_MOTORCYCLE_FLEET = F,
                             ADD_PERSONAL_MOTORCYCLE_TRIPS = 'no',
-                            REFERENCE_SCENARIO = 'Baseline',
+                            REFERENCE_SCENARIO = 'baseline',
                             PATH_TO_LOCAL_DATA = NULL,
                             NSAMPLES = 1,
                             BUS_WALK_TIME= 5,
@@ -150,7 +150,7 @@ run_ithim_setup <- function(seed = 1,
   # TEST_CYCLE_SCENARIO = logic. F: 5 Accra scenarios.
   # MAX_MODE_SHARE_SCENARIO = logic. T: run scenarios where we take the maximum mode share across cities and distance categories. F: 5 Accra scenarios.
   
-  # REFERENCE_SCENARIO = string: at present, one of 'Baseline' or 'Scenario N' where N is an integer
+  # REFERENCE_SCENARIO = string: at present, one of 'baseline' or 'sc_' followed by name of the mode (e.g. cycle, car, bus etc)
   # PATH_TO_LOCAL_DATA = string: path to input files, if not one of the default case studies 
   
   # NSAMPLES = integer: number of samples to take for each parameter to be sampled

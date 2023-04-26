@@ -72,7 +72,7 @@ dist_dur_tbls <- function(trip_scen_sets){
   bus_passenger_row <- which(dist$stage_mode=='bus')
   if('bus_driver'%in%dist$stage_mode){
     bus_driver_row <- which(dist$stage_mode=='bus_driver')
-    base_col <- which(colnames(dist)=='Baseline')
+    base_col <- which(colnames(dist)=='baseline')
     dist[bus_driver_row,colnames(dist)%in%SCEN] <- as.numeric(dist[bus_driver_row,base_col] / dist[bus_passenger_row,base_col]) * dist[bus_passenger_row,colnames(dist)%in%SCEN] 
     dur[bus_driver_row,colnames(dur)%in%SCEN] <- as.numeric(dur[bus_driver_row,base_col] / dur[bus_passenger_row,base_col]) * dur[bus_passenger_row,colnames(dur)%in%SCEN] 
   }else{
@@ -87,7 +87,7 @@ dist_dur_tbls <- function(trip_scen_sets){
   car_passenger_row <- which(dist$stage_mode=='car')
   if('car_driver'%in%dist$stage_mode){
     car_driver_row <- which(dist$stage_mode=='car_driver')
-    base_col <- which(colnames(dist)=='Baseline')
+    base_col <- which(colnames(dist)=='baseline')
     dist[car_driver_row,colnames(dist)%in%SCEN] <- as.numeric(dist[car_driver_row,base_col] / dist[car_passenger_row,base_col]) * dist[car_passenger_row,colnames(dist)%in%SCEN] 
     dur[car_driver_row,colnames(dur)%in%SCEN] <- as.numeric(dur[car_driver_row,base_col] / dur[car_passenger_row,base_col]) * dur[car_passenger_row,colnames(dur)%in%SCEN] 
   }else{

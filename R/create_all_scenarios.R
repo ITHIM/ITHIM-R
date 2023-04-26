@@ -245,7 +245,7 @@ create_all_scenarios <- function(trip_set){
     
     rdr_full <- trip_set
     
-    rd_list[[1]] <- rdr_full # Baseline
+    rd_list[[1]] <- rdr_full # baseline
     
     # names(rdr)
     # cbind(table(trip_set$trip_mode, trip_set$sex),

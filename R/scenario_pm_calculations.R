@@ -2,8 +2,8 @@
 #' 
 #' Calculate total AP exposure per person based on population and personal travel
 #' 
-#' @param dist data frame of population travel from all scenarios
-#' @param trip_scen_sets data frame of all trips from all scenarios
+#' @param dist distance data frame of population travel from all scenarios
+#' @param trip_scen_sets trips data frame of all trips from all scenarios
 #' 
 #' @return background AP
 #' @return total AP exposure per person
@@ -23,7 +23,6 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
     e_rate = c(2.5, 2.5, 1.9, 1.9, 2.0, 1.6, 2.0)
   )
   
-  
   # concentration contributed by non-transport share (remains constant across the scenarios)
   non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
   
@@ -31,7 +30,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   emission_dist <- dist
   
   ## get emission factor by dividing inventory by baseline distance. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
-  ordered_efs <- (VEHICLE_INVENTORY$PM_emission_inventory[match(emission_dist$stage_mode,VEHICLE_INVENTORY$stage_mode)] %>% as.numeric())/(emission_dist$Baseline %>% as.numeric())
+  ordered_efs <- (VEHICLE_INVENTORY$PM_emission_inventory[match(emission_dist$stage_mode,VEHICLE_INVENTORY$stage_mode)] %>% as.numeric())/(emission_dist$baseline %>% as.numeric())
   ## get new emission by multiplying emission factor by scenario distance.
   trans_emissions <- emission_dist[,0:NSCEN+2]*t(repmat(ordered_efs,NSCEN+1,1))
   ## augment with travel emission contributions that aren't included in distance calculation
@@ -49,6 +48,8 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # Copy trips dataset
   trip_set <- trip_scen_sets
   
+  # Add people without trips to the
+  
   # Rename short walks as pedestrian 
   trip_set$stage_mode[trip_set$stage_mode=='walk_to_pt'] <- 'pedestrian'
   
@@ -64,17 +65,43 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # Join trip_set with conc df
   trip_set <- left_join(trip_set, conc_pm_df)
   
-  
   # litres of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode
   trip_set$air_inhaled <- trip_set$stage_duration / 60 * trip_set$v_rate
   
   # PM inhaled (micro grams) = duration * ventilation rate * exposure rates * concentration
   trip_set$pm_inhaled <- trip_set$stage_duration / 60 * trip_set$v_rate * trip_set$e_rate * trip_set$conc_pm
   
+  # Sleep (min/day)	499.4 (115.0)
+  # Leisure MVPA (min/day)	26.8 (55.3)
+  # Leisure sedentary screen time (min/day)	189.5 (155.0)
+  # Non-discretionary time (min/day)	482.2 (204.8)
+  # Travel (min/day)	79.2 (93.7)
+  # Other (min/day)	162.9 (153.1)
+  
+  lt_sed_time_hrs <- 189.5 / 60
+  nd_time_hrs <- 482.2 / 60
+  other_time_hrs <- 162.9 / 60
+  
+  # total_typical_time_rem_hrs <- lt_sed_time_hrs + nd_time_hrs + other_time_hrs
+  # 
+  # remaining_time_hrs = 24 - total_travel_time_hrs
+  # 
+  # lt_sed_time_prop_hrs <- lt_sed_time_hrs / total_typical_time_rem_hrs * remaining_time_hrs
+  # nd_time_prop_hrs <- nd_time_hrs / total_typical_time_rem_hrs * remaining_time_hrs
+  # other_time_prop_hrs <- other_time_hrs / total_typical_time_rem_hrs * remaining_time_hrs
+  # 
+  # 
+  # sedentary_time_hrs = 
+  
   # Calculate total_travel_time_hrs of stage_duration
   trip_set <- trip_set |> 
     group_by(participant_id, scenario) |> 
     mutate(total_travel_time_hrs = sum(stage_duration) / 60) |> 
+           # total_typical_time_rem_hrs <- lt_sed_time_hrs + nd_time_hrs + other_time_hrs,
+           # remaining_time_hrs = 24 - total_travel_time_hrs,
+           # lt_sed_time_prop_hrs <- lt_sed_time_hrs / total_typical_time_rem_hrs * remaining_time_hrs,
+           # nd_time_prop_hrs <- nd_time_hrs / total_typical_time_rem_hrs * remaining_time_hrs,
+           # other_time_prop_hrs <- other_time_hrs / total_typical_time_rem_hrs * remaining_time_hrs) |> 
     ungroup()
   
   # Get sleep ventilation rate
@@ -90,6 +117,8 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   #                               8 * sleep_ventilation_rate * conc_pm +
   #                               (16 - total_travel_time_hrs) * rest_ventilation_rate * conc_pm
   # Calculate conc_pm_inhaled (unit: µg/m3) = total_pm_inhaled / total_air_inhaled 
+  
+  
   synth_pop <- trip_set |> filter(participant_id != 0) |> 
     group_by(participant_id, scenario) |> 
     summarise(total_air_inhaled = sum(air_inhaled, na.rm = T) + 
@@ -108,7 +137,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   
   # Rename columns
   synth_pop <- synth_pop |> 
-    rename_at(vars(starts_with(c("Base", "Scen"))), 
+    rename_at(vars(starts_with(c("base", "sc"))), 
               ~ paste0("pm_conc_", SCEN_SHORT_NAME))
   
   # Get all participants without any travel (in the travel survey)
@@ -121,7 +150,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
                           pivot_wider(names_from = "scenario", values_from = "conc_pm"))
   # Rename columns
   id_wo_travel <- id_wo_travel |> 
-    rename_at(vars(starts_with(c("Base", "Scen"))), 
+    rename_at(vars(starts_with(c("base", "sc"))), 
               ~ paste0("pm_conc_", SCEN_SHORT_NAME))
   
   # Join demographics info from trip_set 

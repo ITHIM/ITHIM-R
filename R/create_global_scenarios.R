@@ -64,7 +64,7 @@ create_global_scenarios <- function(trip_set){
   
   #print(scenario_proportions)
   
-  # Baseline scenario
+  # baseline scenario
   rd_list[[1]] <- rdr
   modes_not_changeable <- c('bus_driver', 'truck', 'car_driver')
   rdr_not_changeable <-  rdr %>% filter(trip_mode %in% modes_not_changeable)
@@ -167,10 +167,7 @@ create_global_scenarios <- function(trip_set){
     car_dist <- sum(rdr_scen[rdr_scen$stage_mode=='car',]$stage_distance,na.rm=T)
     
     #print(car_dr_dist/car_dist)
-    
-    
-    # browser()
-    rdr_scen$scenario <- paste0('Scenario ',i)
+    rdr_scen$scenario <- paste0("sc_", rownames(SCENARIO_PROPORTIONS)[i])
     rd_list[[i + 1]] <- rdr_scen
   } # End loop for scenarios
   

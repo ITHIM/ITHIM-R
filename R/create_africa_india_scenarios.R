@@ -64,7 +64,7 @@ create_africa_india_scenarios <- function(trip_set){
   
   #print(scenario_proportions)
   
-  # Baseline scenario
+  # baseline scenario
   rd_list[[1]] <- rdr
   modes_not_changeable <- c('bus_driver', 'truck', 'car_driver')
   rdr_not_changeable <-  rdr %>% filter(trip_mode %in% modes_not_changeable)

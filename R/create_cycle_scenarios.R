@@ -11,7 +11,7 @@ create_cycle_scenarios <- function(trip_set){
   rdr <- trip_set
   rd_list <- list()
   target_distance <- '2-5 km'
-  # Baseline scenario
+  # baseline scenario
   rd_list[[1]] <- rdr
   print(c(sum(rdr$trip_distance_cat==target_distance),sum(rdr$trip_distance_cat==target_distance&rdr$trip_mode=='cycle')))
   ###############################################################

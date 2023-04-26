@@ -15,7 +15,7 @@ create_max_mode_share_scenarios <- function(trip_set){
   rd_list <- list()
   target_distances <- colnames(SCENARIO_PROPORTIONS)
   modes <- rownames(SCENARIO_PROPORTIONS)
-  # Baseline scenario
+  # baseline scenario
   rd_list[[1]] <- rdr
   rdr_not_changeable <-  rdr[rdr$trip_mode%in%c('bus_driver','truck', 'car_driver'),]
   rdr_changeable <-  rdr[!rdr$trip_mode%in%c('bus_driver','truck', 'car_driver'),]

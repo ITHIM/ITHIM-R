@@ -23,7 +23,7 @@ ithim_setup_baseline_scenario <- function(trip_set){
   }
   trip_set$trip_distance_cat[trip_set$trip_distance >= DIST_LOWER_BOUNDS[length(DIST_LOWER_BOUNDS)]] <- DIST_CAT[length(DIST_LOWER_BOUNDS)]
   
-  trip_set$scenario <- "Baseline"
+  trip_set$scenario <- "baseline"
   
   return(trip_set)
 }

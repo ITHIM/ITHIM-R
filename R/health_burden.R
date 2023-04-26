@@ -140,6 +140,7 @@ health_burden <- function(ind_ap_pa, conf_int = F, combined_AP_PA = T){
   }
   deaths <- deaths[,-which(colnames(deaths)=='dem_index')]
   ylls <- ylls[,-which(colnames(ylls)=='dem_index')]
+  
   list(deaths=deaths,ylls=ylls)
 }
 

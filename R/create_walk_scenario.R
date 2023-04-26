@@ -11,7 +11,7 @@ create_walk_scenario <- function(trip_set){
   rdr <- trip_set
   rd_list <- list()
   
-  # Baseline scenario
+  # baseline scenario
   rd_list[[1]] <- rdr
   ###############################################################
   
