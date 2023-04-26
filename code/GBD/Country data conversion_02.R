@@ -117,29 +117,33 @@ join_data <- join_data %>% distinct()
 cname <- read.csv((paste0(result_folder, "Countries to be extracted.csv")))
 cname <- cname$Country_or_location
 
+
+cities <- data.frame(
+  country_region = c('Ghana', 'São Paulo', 'India', 'India', 'India', 'Minas Gerais', 'Colombia', 'Chile', 'Mexico City', 'Argentina', 'South_Africa', 'Colombia', 'Colombia', 'Uruquay', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Kenya', 'Kenya', 'Mauritius'),
+  city = c('accra', 'sao_paulo', 'delhi', 'bangalore', 'vizag', 'belo_horizonte', 'bogota', 'santiago', 'mexico_city', 'buenos_aires', 'cape_town', 'medellin', 'cali', 'montevideo', 'antofagasta', 'arica', 'copiapo', 'coquimbo_laserena', 'iquique_altohospicio', 'osorno', 'puerto_montt', 'san_antonio', 'temuco_padrelascasas', 'valdivia', 'gran_valparaiso', 'nairobi', 'kisumu', 'port_louis'),
+  stringsAsFactors = FALSE
+)
+
 for (i in 1:length(cname)) { # Loop for each place (country or regior or city)
-    # Filter rows for the place of the iteration
-    a <- subset(join_data, location_name %in% cname[i])
-    
-    # a1 <- filter(grepl("leukemia", cause_name, ignore.case = TRUE)) |> 
-    #   group_by(measure_name.x, location_name, sex_name, age_name) |> 
-    #   summarise(val = sum(val), population = first(population)) |> 
-    #   mutate(cause_name = "Myeloid Leukemia") 
-    # 
-    # a2 <- a |> filter(!grepl("leukemia", cause_name, ignore.case = TRUE))
-    # 
-    # a3 <- plyr::rbind.fill(a2, a1)
-    
-    # Exports the dataset
-    write.csv(a, 
-              file = paste0(country_results,cname[i], "_GBD_results.csv"), 
-              row.names = FALSE)
-    rm(a)
+  
+  # Filter rows for the place of the iteration
+  a <- subset(join_data, location_name %in% cname[i])
+  
+  # Exports the dataset
+  write.csv(a,
+  file = paste0(country_results,cname[i], "_GBD_results.csv"),
+  row.names = FALSE)
+  
+  # Get specific country for a group of cities
+  mc <- cities |> filter(country_region == cname[i])
+  
+  # Update the GBD dataset in the relevant installation folder, 
+  # such as inst/extdata/local/accra/gbd_accra.csv
+  for (city in mc$city){
+    readr::write_csv(a, paste0("inst/extdata/local/", city, "/gbd_", city, ".csv"))
+  }
+  rm(a)
 }
 
 #In the end remove all
 rm(join_data, age_groups, causes, cname, col_extracted, country_results, i, measures, result_folder)
-
-
-
-
