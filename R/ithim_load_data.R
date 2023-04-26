@@ -43,7 +43,6 @@ ithim_load_data <- function(speeds =
   
   ## DATA FILES FOR MODEL  
   DISEASE_INVENTORY <<- read.csv(paste0(global_path,"dose_response/disease_outcomes_lookup.csv"))
-  
   # DR for AP
   # DR_AP$cause_code matches DISEASE_INVENTORY$ap_acronym
   #DR_AP <<- read.csv(paste0(global_path,"dose_response/drap/dose_response.csv"))
@@ -181,6 +180,24 @@ ithim_load_data <- function(speeds =
     dplyr::select(measure_name.x, location_name, sex_name, age_name, cause_name,
                   val, population)
   # Appending head and neck to GBD dataset
+  GBD_DATA <- GBD_DATA %>% bind_rows(add_causes)
+  
+  ## AA: Adding causes related to myeloid leukemia together
+  myeloid_leukemia_causes <- c("Chronic myeloid leukemia", "Acute myeloid leukemia")
+  myeloid_leukemia <- GBD_DATA %>% filter(cause_name %in% myeloid_leukemia_causes)
+  GBD_DATA <- GBD_DATA %>% filter(!cause_name %in% myeloid_leukemia_causes)
+  # Adding causes by measure, sex and age
+  add_causes <- myeloid_leukemia %>% 
+    group_by(measure_name.x, sex_name, age_name) %>% 
+    summarise(val = sum(val)) %>% 
+    mutate(cause_name = "Myeloid leukemia",
+           location_name = unique(GBD_DATA$location_name)) %>% 
+    left_join(GBD_DATA %>% 
+                dplyr::select(sex_name, age_name, population) %>% distinct(),
+              by = c("sex_name", "age_name")) %>% 
+    dplyr::select(measure_name.x, location_name, sex_name, age_name, cause_name,
+                  val, population)
+  # Appending myeloid leukemia to GBD dataset
   GBD_DATA <- GBD_DATA %>% bind_rows(add_causes)
   
   ## Importing demographic data
