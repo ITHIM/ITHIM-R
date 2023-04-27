@@ -1,1 +1,1853 @@
 measure_name.x,location_name,sex_name,age_name,cause_name,val,population
+YLLs (Years of Life Lost),Mauritius,Male,0 to 4,Asthma,36.4000151091677,32689.2505754862
+YLLs (Years of Life Lost),Mauritius,Female,0 to 4,Asthma,64.088570447153,31674.8738654869
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,Asthma,8.10031057799933,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,Asthma,5.87943265695955,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,Asthma,8.8373420146559,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,Asthma,15.9365846749498,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Asthma,24.9670993980472,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Asthma,18.8795781502961,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Asthma,19.1370291556033,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Asthma,31.3105837426453,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Asthma,29.2563339062224,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Asthma,39.0577234430268,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Asthma,20.0493467174021,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Asthma,36.2198634601562,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Asthma,55.2721550649898,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Asthma,41.7033485526936,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Asthma,55.9414308591145,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Asthma,58.2827373246382,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Asthma,56.2790849425635,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Asthma,80.8080862939608,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Asthma,77.9097354283253,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Asthma,80.6487042948487,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Asthma,112.608397012204,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Asthma,116.483955436849,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Asthma,197.700451150515,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Asthma,161.763232186678,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Asthma,186.988819115406,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Asthma,168.337071164739,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Asthma,167.511839936394,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Asthma,150.431478071721,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Asthma,159.398054689834,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Asthma,147.993997840671,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Asthma,102.403760085547,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Asthma,142.437716609523,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Asthma,68.186854371204,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Asthma,86.4871776644808,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Asthma,30.4810149119333,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Asthma,49.1087786645537,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Asthma,9.54273662407402,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Asthma,26.9223792467912,902.448199433069
+Deaths,Mauritius,Male,0 to 4,Neoplasms,1.89891618071573,32689.2505754862
+Deaths,Mauritius,Female,0 to 4,Neoplasms,1.50884224964296,31674.8738654869
+Deaths,Mauritius,Male,5 to 9,Neoplasms,1.38107391632357,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,Neoplasms,1.03123141142969,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,Neoplasms,1.50342632427062,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,Neoplasms,1.47042260174193,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,Neoplasms,3.69617206192579,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Neoplasms,2.04096834880806,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Neoplasms,3.20868667890411,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Neoplasms,3.04086883405092,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Neoplasms,5.23746410800305,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Neoplasms,5.35098588091166,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Neoplasms,4.92847357324308,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Neoplasms,7.61491414974348,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Neoplasms,9.98940065306687,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Neoplasms,15.194445802102,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Neoplasms,14.2798050353182,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Neoplasms,27.0642148361311,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Neoplasms,22.7580427570763,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Neoplasms,37.9008264337296,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Neoplasms,48.7419727377778,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Neoplasms,61.5041702803603,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Neoplasms,75.1650423486027,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Neoplasms,84.8529065863723,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Neoplasms,102.656031203861,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Neoplasms,97.8950410046808,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Neoplasms,125.84442440081,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Neoplasms,107.835345583346,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Neoplasms,112.773074818453,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Neoplasms,94.7813209512136,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Neoplasms,87.3899281167955,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Neoplasms,75.420921581359,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Neoplasms,65.3687864274584,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Neoplasms,59.0547882651508,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Neoplasms,42.7238171514889,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Neoplasms,45.615806198463,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Neoplasms,18.1521109818941,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Neoplasms,22.4097491100972,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Neoplasms,6.73876833941903,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Neoplasms,10.5773991213944,902.448199433069
+Deaths,Mauritius,Male,20 to 24,Esophageal cancer,0.0600320676837574,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Esophageal cancer,0.0598712975579167,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Esophageal cancer,0.0680585996705169,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Esophageal cancer,0.05412772819356,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Esophageal cancer,0.0381378851807616,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Esophageal cancer,0.0909920434653001,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Esophageal cancer,0.275478167595627,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Esophageal cancer,0.127049295885466,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Esophageal cancer,0.430984973516062,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Esophageal cancer,0.226657988796619,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Esophageal cancer,1.13538050270076,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Esophageal cancer,0.446958665491932,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Esophageal cancer,2.33650439543865,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Esophageal cancer,0.921708768520695,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Esophageal cancer,3.46274308291767,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Esophageal cancer,1.47508484956373,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Esophageal cancer,4.62029433438274,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Esophageal cancer,1.76804149698354,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Esophageal cancer,5.62249742071079,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Esophageal cancer,1.48160126596995,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Esophageal cancer,4.3848528397437,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Esophageal cancer,1.99061224351252,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Esophageal cancer,2.54323522344002,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Esophageal cancer,2.01240159306191,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Esophageal cancer,2.11205705786928,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Esophageal cancer,1.40749545723312,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Esophageal cancer,1.20716266478252,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Esophageal cancer,1.37427402793382,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Esophageal cancer,0.594726099702261,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Esophageal cancer,0.737065225481528,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Esophageal cancer,0.0510532976468573,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Esophageal cancer,0.195085464747664,902.448199433069
+Deaths,Mauritius,Male,15 to 19,Stomach cancer,0.0284478636431579,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Stomach cancer,0.017204205501802,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Stomach cancer,0.0641294929035602,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Stomach cancer,0.0351444803808101,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Stomach cancer,0.268958394437087,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Stomach cancer,0.178440724175804,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Stomach cancer,0.422437053960836,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Stomach cancer,0.399389185716292,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Stomach cancer,1.01335006697168,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Stomach cancer,0.51977099417525,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Stomach cancer,1.64885016554532,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Stomach cancer,1.1512037435607,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Stomach cancer,2.0479018754626,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Stomach cancer,1.31336018383585,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Stomach cancer,3.76603199360875,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Stomach cancer,2.59796273512502,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Stomach cancer,7.05825086633376,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Stomach cancer,3.96151823982143,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Stomach cancer,11.2262750900637,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Stomach cancer,5.19067640952538,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Stomach cancer,12.8813495321635,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Stomach cancer,7.3242188635619,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Stomach cancer,11.6943240051732,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Stomach cancer,7.50705603392134,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Stomach cancer,6.99768658391188,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Stomach cancer,5.96679406896425,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Stomach cancer,5.80158883845258,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Stomach cancer,4.88661405946185,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Stomach cancer,4.01917907851608,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Stomach cancer,4.80971302733648,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Stomach cancer,1.24973959559258,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Stomach cancer,2.1929616598033,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Stomach cancer,0.626426123327743,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Stomach cancer,1.68104770443822,902.448199433069
+Deaths,Mauritius,Male,0 to 4,Liver cancer,0.0205617332787152,32689.2505754862
+Deaths,Mauritius,Female,0 to 4,Liver cancer,0.0226682088670615,31674.8738654869
+Deaths,Mauritius,Male,5 to 9,Liver cancer,0.0132472479241944,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,Liver cancer,0.0126236513813966,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,Liver cancer,0.0206079784822419,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,Liver cancer,0.0226474898021288,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,Liver cancer,0.0277405018717903,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Liver cancer,0.0109249157261844,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Liver cancer,0.019514099464594,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Liver cancer,0.0290968321687901,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Liver cancer,0.0707583486497779,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Liver cancer,0.0483038108034714,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Liver cancer,0.094047484039517,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Liver cancer,0.0617074392776627,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Liver cancer,0.194163988996897,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Liver cancer,0.0863391755513582,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Liver cancer,0.372625699798515,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Liver cancer,0.313821718692396,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Liver cancer,0.457600710336607,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Liver cancer,0.33911086707008,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Liver cancer,1.17483025097197,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Liver cancer,0.684669768531427,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Liver cancer,2.3530003221336,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Liver cancer,1.01453042157083,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Liver cancer,3.25581451688266,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Liver cancer,1.39037232427955,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Liver cancer,3.81772747214938,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Liver cancer,1.83645396425433,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Liver cancer,3.68240437138985,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Liver cancer,1.89027789112682,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Liver cancer,2.71948987892368,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Liver cancer,1.68543289389848,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Liver cancer,1.76696258937785,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Liver cancer,1.53935805809866,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Liver cancer,0.908575629682248,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Liver cancer,0.91682938632539,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Liver cancer,0.364617900856708,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Liver cancer,0.44091740341195,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Liver cancer,0.0657489843563223,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Liver cancer,0.129302085923349,902.448199433069
+Deaths,Mauritius,Male,40 to 44,Alzheimer's disease and other dementias,0.0596947530924061,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Alzheimer's disease and other dementias,0.0632843667780433,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Alzheimer's disease and other dementias,0.310849245555751,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Alzheimer's disease and other dementias,0.349838573733293,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Alzheimer's disease and other dementias,0.780884002480519,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Alzheimer's disease and other dementias,0.946128914340716,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Alzheimer's disease and other dementias,1.84924255781227,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Alzheimer's disease and other dementias,2.44150474362631,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Alzheimer's disease and other dementias,3.84950323865665,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Alzheimer's disease and other dementias,5.20918427908131,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Alzheimer's disease and other dementias,6.82041947731781,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Alzheimer's disease and other dementias,9.65462204102341,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Alzheimer's disease and other dementias,8.7971667967139,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Alzheimer's disease and other dementias,14.438714242779,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Alzheimer's disease and other dementias,10.6057422149941,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Alzheimer's disease and other dementias,20.2037828992049,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Alzheimer's disease and other dementias,18.055378416033,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Alzheimer's disease and other dementias,39.9724502762714,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Alzheimer's disease and other dementias,22.5211600392532,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Alzheimer's disease and other dementias,51.4143939632616,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Alzheimer's disease and other dementias,18.8224188402673,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Alzheimer's disease and other dementias,44.6651281861731,2342.77597118663
+Deaths,Mauritius,Male,0 to 4,Acute myeloid leukemia,0.194187115231439,32689.2505754862
+Deaths,Mauritius,Female,0 to 4,Acute myeloid leukemia,0.178207778783279,31674.8738654869
+Deaths,Mauritius,Male,5 to 9,Acute myeloid leukemia,0.166380199116756,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,Acute myeloid leukemia,0.0874346552132461,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,Acute myeloid leukemia,0.13397778280032,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,Acute myeloid leukemia,0.141329278002489,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,Acute myeloid leukemia,0.628832925880138,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Acute myeloid leukemia,0.343427984400218,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Acute myeloid leukemia,0.15185114579886,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Acute myeloid leukemia,0.152665209036343,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Acute myeloid leukemia,0.11782590578503,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Acute myeloid leukemia,0.305495666800751,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Acute myeloid leukemia,0.166746211300349,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Acute myeloid leukemia,0.22074539131878,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Acute myeloid leukemia,0.30256192610609,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Acute myeloid leukemia,0.325219237604746,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Acute myeloid leukemia,0.253676393171763,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Acute myeloid leukemia,0.352420292889054,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Acute myeloid leukemia,0.199046003719478,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Acute myeloid leukemia,0.389779831955235,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Acute myeloid leukemia,0.467171716588408,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Acute myeloid leukemia,0.322733190740141,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Acute myeloid leukemia,0.771919377221507,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Acute myeloid leukemia,0.249183861710442,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Acute myeloid leukemia,0.57745457478901,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Acute myeloid leukemia,0.506471964902222,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Acute myeloid leukemia,0.492504578750525,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Acute myeloid leukemia,0.488905148269778,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Acute myeloid leukemia,0.355754149012299,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Acute myeloid leukemia,0.143517283668239,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Acute myeloid leukemia,0.231983453600305,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Acute myeloid leukemia,0.466056294607385,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Acute myeloid leukemia,0.261458621529005,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Acute myeloid leukemia,0.264073678564809,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Acute myeloid leukemia,0.115752490606159,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Acute myeloid leukemia,0.186549114123464,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Acute myeloid leukemia,0.0129489984645355,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Acute myeloid leukemia,0.00823049091157715,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Acute myeloid leukemia,0.00240841482861081,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Acute myeloid leukemia,0.00320139184455627,902.448199433069
+Deaths,Mauritius,Male,0 to 4,Chronic myeloid leukemia,0.00953560966936508,32689.2505754862
+Deaths,Mauritius,Female,0 to 4,Chronic myeloid leukemia,0.00632113987816047,31674.8738654869
+Deaths,Mauritius,Male,5 to 9,Chronic myeloid leukemia,0.00399526503245468,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,Chronic myeloid leukemia,0.0053692935321709,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,Chronic myeloid leukemia,0.027875037335958,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,Chronic myeloid leukemia,0.00532426689724286,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,Chronic myeloid leukemia,0.00636090395896448,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Chronic myeloid leukemia,0.00563549485020584,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Chronic myeloid leukemia,0.0540672164568294,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Chronic myeloid leukemia,0.00693255343701841,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Chronic myeloid leukemia,0.0149342920530458,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Chronic myeloid leukemia,0.0115932632277624,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Chronic myeloid leukemia,0.0135853657649314,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Chronic myeloid leukemia,0.00706580216242995,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Chronic myeloid leukemia,0.12728367802464,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Chronic myeloid leukemia,0.0115362053735472,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Chronic myeloid leukemia,0.0404938007188616,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Chronic myeloid leukemia,0.11968436381702,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Chronic myeloid leukemia,0.103636321446095,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Chronic myeloid leukemia,0.0228863723021706,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Chronic myeloid leukemia,0.191073100595272,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Chronic myeloid leukemia,0.153039881133429,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Chronic myeloid leukemia,0.161631603206933,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Chronic myeloid leukemia,0.293992971292301,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Chronic myeloid leukemia,0.248441391634701,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Chronic myeloid leukemia,0.152871803976174,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Chronic myeloid leukemia,0.379738549464231,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Chronic myeloid leukemia,0.283395181937102,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Chronic myeloid leukemia,0.163562306815227,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Chronic myeloid leukemia,0.266999534385776,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Chronic myeloid leukemia,0.211858117651239,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Chronic myeloid leukemia,0.139350004246776,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Chronic myeloid leukemia,0.0312341976189133,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Chronic myeloid leukemia,0.208864269893842,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Chronic myeloid leukemia,0.0123422785505357,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Chronic myeloid leukemia,0.29343909601624,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Chronic myeloid leukemia,0.00833427741485581,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Chronic myeloid leukemia,0.00503604611104694,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Chronic myeloid leukemia,0.00105295075254967,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Chronic myeloid leukemia,6.71752432590241e-4,902.448199433069
+Deaths,Mauritius,Male,95 to 99,Alzheimer's disease and other dementias,9.68458819655452,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Alzheimer's disease and other dementias,31.3433599816165,902.448199433069
+Deaths,Mauritius,Male,20 to 24,Parkinson's disease,6.55422254460709e-5,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Parkinson's disease,0.0275482801516087,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Parkinson's disease,2.63813174609471e-4,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Parkinson's disease,0.0325687978976983,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Parkinson's disease,0.0244156708427154,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Parkinson's disease,0.0248087880806987,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Parkinson's disease,0.0015260551766505,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Parkinson's disease,4.80965210836787e-4,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Parkinson's disease,0.131643299639492,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Parkinson's disease,0.0460999889219651,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Parkinson's disease,0.230374258352038,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Parkinson's disease,0.0969699285456898,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Parkinson's disease,0.422249427366253,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Parkinson's disease,0.326488623946746,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Parkinson's disease,0.61498999995368,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Parkinson's disease,0.770126943382937,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Parkinson's disease,1.44852150984946,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Parkinson's disease,1.03282784010832,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Parkinson's disease,2.60967216461682,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Parkinson's disease,2.03554906780458,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Parkinson's disease,4.63599307257646,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Parkinson's disease,4.1383924176033,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Parkinson's disease,6.5562783026781,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Parkinson's disease,6.21794096695586,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Parkinson's disease,6.55692361436275,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Parkinson's disease,7.66147237826093,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Parkinson's disease,4.46116642475338,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Parkinson's disease,6.36109539806667,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Parkinson's disease,1.99280459926035,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Parkinson's disease,3.04588761834198,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Parkinson's disease,0.662044492817668,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Parkinson's disease,1.30049896076601,902.448199433069
+Deaths,Mauritius,Male,0 to 4,Asthma,0.423180724741758,32689.2505754862
+Deaths,Mauritius,Female,0 to 4,Asthma,0.745083418458767,31674.8738654869
+Deaths,Mauritius,Male,5 to 9,Asthma,0.0991861181585061,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,Asthma,0.071913074616193,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,Asthma,0.115812305370775,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,Asthma,0.208629186966304,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,Asthma,0.34983182039196,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Asthma,0.264608766536228,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Asthma,0.287819875601093,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Asthma,0.470698867228803,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Asthma,0.475066699861835,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Asthma,0.634324484793591,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Asthma,0.35431623797819,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Asthma,0.639637925372443,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Asthma,1.07019479739128,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Asthma,0.807935025685693,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Asthma,1.19639985546822,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Asthma,1.2485592308006,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Asthma,1.34349459445878,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Asthma,1.9286091849249,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Asthma,2.09651565668182,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Asthma,2.17187515593577,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Asthma,3.46982341050449,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Asthma,3.59440449393696,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Asthma,7.09919773901554,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Asthma,5.81446141557518,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Asthma,7.99210437565774,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Asthma,7.20573141926922,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Asthma,8.75700215881846,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Asthma,7.88133494035083,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Asthma,10.5281330418979,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Asthma,9.79991878108446,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Asthma,8.80215322884109,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Asthma,12.3120446161157,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Asthma,7.70350875278036,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Asthma,9.80781759832376,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Asthma,4.45768558184875,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Asthma,7.18902624606724,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Asthma,1.85434113559139,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Asthma,5.33622619959084,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Larynx cancer,0.316208316014068,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Larynx cancer,0.363097308698324,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Larynx cancer,4.13654658046824,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Larynx cancer,0.330935831436361,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Larynx cancer,3.96167161469127,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Larynx cancer,0.260669858527134,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Larynx cancer,4.1995474980056,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Larynx cancer,2.91093631304311,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Larynx cancer,13.4247673249423,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Larynx cancer,1.49203210890047,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Larynx cancer,22.1910158358739,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Larynx cancer,1.95398885481314,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Larynx cancer,48.143886674809,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Larynx cancer,3.96848182815163,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Larynx cancer,69.9663335340637,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Larynx cancer,7.88611329861183,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Larynx cancer,89.5964926938057,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Larynx cancer,8.10702199854816,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Larynx cancer,79.6241055426512,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Larynx cancer,4.83123061408305,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Larynx cancer,46.005907869299,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Larynx cancer,5.45824100877916,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Larynx cancer,26.1742910775545,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Larynx cancer,3.04495330446046,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Larynx cancer,15.9679846692777,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Larynx cancer,2.34451415260417,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Larynx cancer,6.47151769821294,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Larynx cancer,0.877892791988815,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Larynx cancer,1.03743078596351,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Larynx cancer,0.179122506997532,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Larynx cancer,0.712886507757928,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Larynx cancer,0.0588839843168351,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,"Tracheal, bronchus, and lung cancer",0.390718494362732,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,"Tracheal, bronchus, and lung cancer",0.636367164221766,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,"Tracheal, bronchus, and lung cancer",10.3387462804714,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,"Tracheal, bronchus, and lung cancer",2.72724166286544,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,"Tracheal, bronchus, and lung cancer",13.1694938296179,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,"Tracheal, bronchus, and lung cancer",5.37951005528089,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,"Tracheal, bronchus, and lung cancer",26.5412397477895,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,"Tracheal, bronchus, and lung cancer",24.150340215029,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,"Tracheal, bronchus, and lung cancer",21.680841591855,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,"Tracheal, bronchus, and lung cancer",16.8685307853102,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,"Tracheal, bronchus, and lung cancer",63.538737072187,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,"Tracheal, bronchus, and lung cancer",36.8852190340192,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,"Tracheal, bronchus, and lung cancer",79.8643265678626,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,"Tracheal, bronchus, and lung cancer",85.4941791426888,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,"Tracheal, bronchus, and lung cancer",141.901731340672,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,"Tracheal, bronchus, and lung cancer",110.812454093481,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,"Tracheal, bronchus, and lung cancer",325.016711192119,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,"Tracheal, bronchus, and lung cancer",136.835575699125,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,"Tracheal, bronchus, and lung cancer",506.104363900951,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,"Tracheal, bronchus, and lung cancer",199.384512726787,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,"Tracheal, bronchus, and lung cancer",580.260653377926,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,"Tracheal, bronchus, and lung cancer",231.22998222909,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,"Tracheal, bronchus, and lung cancer",692.098940338497,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,"Tracheal, bronchus, and lung cancer",218.550547143649,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,"Tracheal, bronchus, and lung cancer",485.364344724807,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,"Tracheal, bronchus, and lung cancer",162.719242656748,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,"Tracheal, bronchus, and lung cancer",289.946327215024,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,"Tracheal, bronchus, and lung cancer",95.9698293816468,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,"Tracheal, bronchus, and lung cancer",133.232787973384,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,"Tracheal, bronchus, and lung cancer",66.0481155198645,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,"Tracheal, bronchus, and lung cancer",62.9293920855551,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,"Tracheal, bronchus, and lung cancer",43.9738948638106,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,"Tracheal, bronchus, and lung cancer",15.3902091970566,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,"Tracheal, bronchus, and lung cancer",12.061747255361,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,"Tracheal, bronchus, and lung cancer",2.5078421153499,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,"Tracheal, bronchus, and lung cancer",1.4384915060058,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Breast cancer,0.327789062089376,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Breast cancer,10.3303765031316,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Breast cancer,0.316208316014068,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Breast cancer,28.0527713341348,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Breast cancer,0.314471279032032,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Breast cancer,86.4425279663242,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Breast cancer,0.257699533240463,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Breast cancer,145.149478119538,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Breast cancer,0.576222339389432,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Breast cancer,332.358797822098,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Breast cancer,0.379699047874375,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Breast cancer,497.817263451986,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Breast cancer,2.20642522867026,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Breast cancer,655.274318056313,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Breast cancer,2.50901062977312,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Breast cancer,829.348834185507,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Breast cancer,3.6288721848516,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Breast cancer,1026.48983854766,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Breast cancer,4.06571681001066,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Breast cancer,729.122163300678,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Breast cancer,4.83384987998301,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Breast cancer,624.224601411407,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Breast cancer,2.12959187273777,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Breast cancer,370.594690269749,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Breast cancer,2.30090553348964,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Breast cancer,226.861074668803,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Breast cancer,1.08241806766925,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Breast cancer,128.290255942679,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Breast cancer,0.1967470971942,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Breast cancer,60.6749532388092,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Breast cancer,0.3916112675565,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Breast cancer,32.3939506877001,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Breast cancer,0.0604267206199253,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Breast cancer,11.5205064025141,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Uterine cancer,0.92561873874807,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Uterine cancer,1.6375758567756,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Uterine cancer,4.57319309437994,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Uterine cancer,10.8722055823131,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Uterine cancer,25.9588419021336,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Uterine cancer,54.5268906771053,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Uterine cancer,71.0935220886348,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Uterine cancer,107.401610999539,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Uterine cancer,144.144574849014,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Uterine cancer,128.387193446236,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Uterine cancer,91.5849977097077,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Uterine cancer,59.424258260849,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Uterine cancer,35.2903048275763,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Uterine cancer,15.2645623655916,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Uterine cancer,7.18779198911088,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Uterine cancer,1.61220843934362,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,Colon and rectum cancer,0.772201331589123,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,Colon and rectum cancer,0.42865344241897,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,Colon and rectum cancer,0.77239636121379,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,Colon and rectum cancer,0.961604577647478,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Colon and rectum cancer,11.7760153432427,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Colon and rectum cancer,2.89922278660486,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Colon and rectum cancer,7.01439124627859,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Colon and rectum cancer,13.427932542667,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Colon and rectum cancer,23.664019059105,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Colon and rectum cancer,13.5345756371761,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Colon and rectum cancer,39.8484800387591,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Colon and rectum cancer,31.7185792856195,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Colon and rectum cancer,82.9270200666552,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Colon and rectum cancer,55.3844875061732,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Colon and rectum cancer,104.442775588596,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Colon and rectum cancer,102.065409071275,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Colon and rectum cancer,173.258803843223,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Colon and rectum cancer,104.544417782262,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Colon and rectum cancer,323.249771451229,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Colon and rectum cancer,252.604932690997,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Colon and rectum cancer,381.363997109427,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Colon and rectum cancer,249.240991581808,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Colon and rectum cancer,450.541959358823,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Colon and rectum cancer,306.730877552813,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Colon and rectum cancer,463.54834762442,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Colon and rectum cancer,354.969518492715,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Colon and rectum cancer,322.86247497716,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Colon and rectum cancer,255.956098424057,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Colon and rectum cancer,176.930306151715,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Colon and rectum cancer,184.608252514883,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Colon and rectum cancer,129.645959094382,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Colon and rectum cancer,118.746494812477,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Colon and rectum cancer,53.7690977756148,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Colon and rectum cancer,77.0170559114418,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Colon and rectum cancer,15.0643628561577,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Colon and rectum cancer,28.0148524707276,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Colon and rectum cancer,8.19393356330279,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Colon and rectum cancer,15.3512560870531,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,Lip and oral cavity cancer,0.278799767099373,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,Lip and oral cavity cancer,0.28340996542657,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,Lip and oral cavity cancer,0.335868757135964,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,Lip and oral cavity cancer,0.421601007114321,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Lip and oral cavity cancer,0.557891204329623,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Lip and oral cavity cancer,2.17517284757609,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Lip and oral cavity cancer,2.34167417722726,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Lip and oral cavity cancer,3.20604923754792,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Lip and oral cavity cancer,11.7145767696593,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Lip and oral cavity cancer,3.1363383051243,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Lip and oral cavity cancer,12.0508788455655,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Lip and oral cavity cancer,4.89930623803799,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Lip and oral cavity cancer,20.5146908381253,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Lip and oral cavity cancer,13.9753915258907,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Lip and oral cavity cancer,40.6832572882361,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Lip and oral cavity cancer,22.2913880852867,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Lip and oral cavity cancer,75.2315958125797,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Lip and oral cavity cancer,23.3636627417037,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Lip and oral cavity cancer,120.373206564213,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Lip and oral cavity cancer,28.9601249881967,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Lip and oral cavity cancer,126.50587634436,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Lip and oral cavity cancer,33.3287936246881,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Lip and oral cavity cancer,132.268322538443,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Lip and oral cavity cancer,44.3199158160126,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Lip and oral cavity cancer,120.057750568201,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Lip and oral cavity cancer,39.6991438734772,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Lip and oral cavity cancer,65.5479635037729,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Lip and oral cavity cancer,31.9506177759482,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Lip and oral cavity cancer,39.5065263031988,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Lip and oral cavity cancer,26.3133468653177,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Lip and oral cavity cancer,22.5408825702261,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Lip and oral cavity cancer,15.2661519983336,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Lip and oral cavity cancer,6.85098330031527,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Lip and oral cavity cancer,8.04618429873998,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Lip and oral cavity cancer,2.37929302889006,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Lip and oral cavity cancer,4.41762456544953,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Lip and oral cavity cancer,0.481354093704263,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Lip and oral cavity cancer,1.34182622256323,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,Nasopharynx cancer,1.12472168463992,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,Nasopharynx cancer,0.266605383443418,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,Nasopharynx cancer,0.283774348071846,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,Nasopharynx cancer,0.307537592178376,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Nasopharynx cancer,4.64596041662493,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Nasopharynx cancer,0.341409998471635,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Nasopharynx cancer,8.87125519571934,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Nasopharynx cancer,1.23523877443999,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Nasopharynx cancer,4.85781562564968,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Nasopharynx cancer,1.69129995005362,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Nasopharynx cancer,4.58424845210213,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Nasopharynx cancer,1.23941061556689,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Nasopharynx cancer,10.3133806210999,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Nasopharynx cancer,0.969228025555848,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Nasopharynx cancer,14.6046943042815,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Nasopharynx cancer,2.48276359047336,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Nasopharynx cancer,29.6306927711797,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Nasopharynx cancer,5.93101234963627,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Nasopharynx cancer,42.0345908642542,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Nasopharynx cancer,6.5415313870115,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Nasopharynx cancer,44.6495733190515,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Nasopharynx cancer,8.69804868458477,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Nasopharynx cancer,36.0510352346852,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Nasopharynx cancer,6.80710990858902,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Nasopharynx cancer,35.5927451377287,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Nasopharynx cancer,5.04808773722399,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Nasopharynx cancer,26.1021861898344,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Nasopharynx cancer,4.98795589771344,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Nasopharynx cancer,8.8744158266807,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Nasopharynx cancer,1.9406963853357,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Nasopharynx cancer,6.13767302836498,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Nasopharynx cancer,1.22359878519107,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Nasopharynx cancer,1.83150373873764,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Nasopharynx cancer,0.679894900030649,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Nasopharynx cancer,0.582532636598933,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Nasopharynx cancer,0.264762056235071,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,0 to 4,Acute myeloid leukemia,16.7332170323456,32689.2505754862
+YLLs (Years of Life Lost),Mauritius,Female,0 to 4,Acute myeloid leukemia,15.3506257376882,31674.8738654869
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,Acute myeloid leukemia,13.5879023385241,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,Acute myeloid leukemia,7.14843816586037,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,Acute myeloid leukemia,10.2235033244619,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,Acute myeloid leukemia,10.7957378288588,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Acute myeloid leukemia,44.879091180509,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Acute myeloid leukemia,24.5032526902122,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Acute myeloid leukemia,10.096522341953,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Acute myeloid leukemia,10.1551908128926,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Acute myeloid leukemia,7.25614749139959,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Acute myeloid leukemia,18.8105071662644,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Acute myeloid leukemia,9.43550491292942,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Acute myeloid leukemia,12.4998340715483,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Acute myeloid leukemia,15.6263604880743,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Acute myeloid leukemia,16.7869083412509,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Acute myeloid leukemia,11.8614360778688,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Acute myeloid leukemia,16.4509771355854,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Acute myeloid leukemia,8.33805137512968,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Acute myeloid leukemia,16.3316459044608,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Acute myeloid leukemia,17.3608170885811,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Acute myeloid leukemia,11.9841205398016,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Acute myeloid leukemia,25.0515929509319,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Acute myeloid leukemia,8.07530757654629,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Acute myeloid leukemia,16.081117071483,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Acute myeloid leukemia,14.0904782401787,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Acute myeloid leukemia,11.5229788377122,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Acute myeloid leukemia,11.4215831743343,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Acute myeloid leukemia,6.80518640800437,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Acute myeloid leukemia,2.73932237044231,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Acute myeloid leukemia,3.51227621050768,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Acute myeloid leukemia,7.03817407047161,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Acute myeloid leukemia,3.04179503074605,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Acute myeloid leukemia,3.05506136179965,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Acute myeloid leukemia,1.02457185074498,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Acute myeloid leukemia,1.64502512557992,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Acute myeloid leukemia,0.0885433950073288,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Acute myeloid leukemia,0.0562231020784456,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Acute myeloid leukemia,0.0123940886333288,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Acute myeloid leukemia,0.0161516926256494,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,0 to 4,Chronic myeloid leukemia,0.831244857601561,32689.2505754862
+YLLs (Years of Life Lost),Mauritius,Female,0 to 4,Chronic myeloid leukemia,0.548846214664949,31674.8738654869
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,Chronic myeloid leukemia,0.326284445899833,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,Chronic myeloid leukemia,0.438979975565375,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,Chronic myeloid leukemia,2.12707309314411,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,Chronic myeloid leukemia,0.406705463764508,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Chronic myeloid leukemia,0.453970485666398,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Chronic myeloid leukemia,0.402087076829654,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Chronic myeloid leukemia,3.59490773712478,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Chronic myeloid leukemia,0.461148963918403,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Chronic myeloid leukemia,0.91970798013,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Chronic myeloid leukemia,0.713840439407759,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Chronic myeloid leukemia,0.768741816796442,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Chronic myeloid leukemia,0.400105089782901,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Chronic myeloid leukemia,6.57379685097453,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Chronic myeloid leukemia,0.595466687757702,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Chronic myeloid leukemia,1.89341476662952,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Chronic myeloid leukemia,5.58686537741664,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Chronic myeloid leukemia,4.3413329401219,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Chronic myeloid leukemia,0.958931421879303,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Chronic myeloid leukemia,7.10056930288249,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Chronic myeloid leukemia,5.68286261073369,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Chronic myeloid leukemia,5.24553373193105,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Chronic myeloid leukemia,9.5274375002937,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Chronic myeloid leukemia,6.91866560367894,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Chronic myeloid leukemia,4.25302282600971,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Chronic myeloid leukemia,8.88462657634769,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Chronic myeloid leukemia,6.62055135470595,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Chronic myeloid leukemia,3.1287674094346,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Chronic myeloid leukemia,5.09623495335496,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Chronic myeloid leukemia,3.2075745708633,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Chronic myeloid leukemia,2.10440154538839,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Chronic myeloid leukemia,0.36337691429315,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Chronic myeloid leukemia,2.41634518169735,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Chronic myeloid leukemia,0.10924647159393,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Chronic myeloid leukemia,2.5876010617488,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Chronic myeloid leukemia,0.0569885940804849,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Chronic myeloid leukemia,0.0344016095291325,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Chronic myeloid leukemia,0.00541865329784505,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Chronic myeloid leukemia,0.00338913177097624,902.448199433069
+Deaths,Mauritius,Male,0 to 4,Lower respiratory infections,4.73819052785113,32689.2505754862
+Deaths,Mauritius,Female,0 to 4,Lower respiratory infections,3.33840659627781,31674.8738654869
+Deaths,Mauritius,Male,5 to 9,Lower respiratory infections,0.31490592192404,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,Lower respiratory infections,0.216397272519634,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,Lower respiratory infections,0.250535919136274,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,Lower respiratory infections,0.343667936470713,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,Lower respiratory infections,0.951362354708178,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Lower respiratory infections,0.28312027620519,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Lower respiratory infections,1.0539551652568,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Lower respiratory infections,0.606076569690476,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Lower respiratory infections,1.51782183459442,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Lower respiratory infections,0.714148464372984,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Lower respiratory infections,1.80740222258495,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Lower respiratory infections,0.75005056524203,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Lower respiratory infections,3.1626094223017,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Lower respiratory infections,1.42741318970976,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Lower respiratory infections,4.35892871223627,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Lower respiratory infections,1.56176066015425,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Lower respiratory infections,4.86243876955552,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Lower respiratory infections,1.97376250627287,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Lower respiratory infections,7.30165205475715,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Lower respiratory infections,2.41253839019426,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Lower respiratory infections,7.52749060467352,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Lower respiratory infections,4.18287895096696,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Lower respiratory infections,12.387760025752,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Lower respiratory infections,5.29768330223927,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Lower respiratory infections,15.0622984866031,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Lower respiratory infections,7.94680997162626,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Lower respiratory infections,17.2577966623628,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Lower respiratory infections,9.6611059684638,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Lower respiratory infections,18.0294316188381,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Lower respiratory infections,13.7302001297471,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Lower respiratory infections,20.9993621193111,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Lower respiratory infections,17.2920179327094,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Lower respiratory infections,19.0613237481896,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Lower respiratory infections,23.323014985534,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Lower respiratory infections,14.0005601893798,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Lower respiratory infections,18.7340244637781,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Lower respiratory infections,7.0305114322785,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Lower respiratory infections,13.3610012542827,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,0 to 4,Chronic obstructive pulmonary disease,0.690795153197853,32689.2505754862
+YLLs (Years of Life Lost),Mauritius,Female,0 to 4,Chronic obstructive pulmonary disease,3.60307118430153,31674.8738654869
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,Chronic obstructive pulmonary disease,1.86654158052036,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,Chronic obstructive pulmonary disease,0.339273586309999,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,Chronic obstructive pulmonary disease,1.7060205573165,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,Chronic obstructive pulmonary disease,1.96692183003367,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Chronic obstructive pulmonary disease,6.63517236781615,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Chronic obstructive pulmonary disease,10.3874821112749,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Chronic obstructive pulmonary disease,23.1095269288665,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Chronic obstructive pulmonary disease,15.750086798998,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Chronic obstructive pulmonary disease,25.4059462636379,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Chronic obstructive pulmonary disease,24.4286024252467,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Chronic obstructive pulmonary disease,28.4198362158561,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Chronic obstructive pulmonary disease,14.8663203983959,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Chronic obstructive pulmonary disease,65.8014883928963,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Chronic obstructive pulmonary disease,28.0501754917701,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Chronic obstructive pulmonary disease,66.4581805337808,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Chronic obstructive pulmonary disease,41.057765640954,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Chronic obstructive pulmonary disease,112.204401010247,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Chronic obstructive pulmonary disease,47.0601076154191,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Chronic obstructive pulmonary disease,161.269326802846,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Chronic obstructive pulmonary disease,57.4741947584698,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Chronic obstructive pulmonary disease,200.443172216987,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Chronic obstructive pulmonary disease,80.7200400292985,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Chronic obstructive pulmonary disease,429.376733112332,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Chronic obstructive pulmonary disease,121.183205318708,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Chronic obstructive pulmonary disease,547.091460632031,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Chronic obstructive pulmonary disease,154.729735760632,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Chronic obstructive pulmonary disease,586.579845368153,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Chronic obstructive pulmonary disease,151.631071265219,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Chronic obstructive pulmonary disease,422.302260241658,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Chronic obstructive pulmonary disease,150.726861973427,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Chronic obstructive pulmonary disease,367.628886926195,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Chronic obstructive pulmonary disease,181.010766041204,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Chronic obstructive pulmonary disease,204.764074680201,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Chronic obstructive pulmonary disease,183.031450075872,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Chronic obstructive pulmonary disease,110.48491224433,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Chronic obstructive pulmonary disease,109.458317044994,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Chronic obstructive pulmonary disease,37.545076522698,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Chronic obstructive pulmonary disease,56.0163340508078,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,0 to 4,Road injuries,59.4156237812078,32689.2505754862
+YLLs (Years of Life Lost),Mauritius,Female,0 to 4,Road injuries,59.0714719683501,31674.8738654869
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,Road injuries,66.4077189552907,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,Road injuries,29.9179295182837,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,Road injuries,81.9185579839738,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,Road injuries,42.1070448706196,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Road injuries,611.019901390865,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Road injuries,72.1023385567319,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Road injuries,894.29212933641,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Road injuries,107.472412986796,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Road injuries,864.851072895164,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Road injuries,69.5110528925527,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Road injuries,565.431414650364,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Road injuries,65.0785123148543,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Road injuries,559.158265630162,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Road injuries,52.8773122497356,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Road injuries,537.244398426213,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Road injuries,68.7578351777126,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Road injuries,369.338775027861,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Road injuries,74.0879070655295,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Road injuries,419.098958926496,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Road injuries,64.4637471232519,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Road injuries,427.2485180279,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Road injuries,69.5657886512561,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Road injuries,300.635140161212,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Road injuries,65.9713314776758,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Road injuries,194.072678848144,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Road injuries,67.4572518366854,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Road injuries,91.3284123088382,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Road injuries,56.2393169681558,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Road injuries,52.2260852942276,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Road injuries,31.7386121561409,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Road injuries,28.1595840187302,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Road injuries,20.2156123037076,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Road injuries,12.93787512968,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Road injuries,11.0401192652958,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Road injuries,2.52643354160403,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Road injuries,3.69702023754956,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Road injuries,1.90062104215718,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Road injuries,1.70545034808083,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Diabetes mellitus type 2,8.49841613828808,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Diabetes mellitus type 2,21.1443059240733,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Diabetes mellitus type 2,17.183759025354,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Diabetes mellitus type 2,26.8124376636345,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Diabetes mellitus type 2,40.5570905481083,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Diabetes mellitus type 2,57.6225939728891,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Diabetes mellitus type 2,146.196392177989,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Diabetes mellitus type 2,93.0138352503116,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Diabetes mellitus type 2,361.635188550401,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Diabetes mellitus type 2,168.912891645531,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Diabetes mellitus type 2,612.260475985474,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Diabetes mellitus type 2,293.422950013498,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Diabetes mellitus type 2,1376.51438920786,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Diabetes mellitus type 2,733.091100659779,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Diabetes mellitus type 2,2498.82674945552,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Diabetes mellitus type 2,1174.62417664602,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Diabetes mellitus type 2,3512.39062087563,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Diabetes mellitus type 2,2082.16051631469,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Diabetes mellitus type 2,4166.08223627903,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Diabetes mellitus type 2,3007.84081879144,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Diabetes mellitus type 2,3951.55913358243,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Diabetes mellitus type 2,3243.96377863457,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Diabetes mellitus type 2,2562.43947531973,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Diabetes mellitus type 2,2928.69139269839,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Diabetes mellitus type 2,1554.21976219478,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Diabetes mellitus type 2,1948.33800493932,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Diabetes mellitus type 2,778.052118942067,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Diabetes mellitus type 2,1187.95580993931,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Diabetes mellitus type 2,380.804985425794,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Diabetes mellitus type 2,734.223689609946,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Diabetes mellitus type 2,147.739245527179,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Diabetes mellitus type 2,248.805948117705,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Diabetes mellitus type 2,35.5985664499496,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Diabetes mellitus type 2,78.5287197221165,902.448199433069
+Deaths,Mauritius,Male,0 to 4,All causes,93.3370944980531,32689.2505754862
+Deaths,Mauritius,Female,0 to 4,All causes,69.19274920288,31674.8738654869
+Deaths,Mauritius,Male,5 to 9,All causes,6.6628834056761,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,All causes,4.01459364331447,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,All causes,8.08557577338675,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,All causes,7.90085287317035,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,All causes,35.9230892868856,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,All causes,15.0523280705587,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,All causes,52.9625919664813,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,All causes,24.8213128708152,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,All causes,76.0586102585205,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,All causes,31.2172110071193,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,All causes,86.3953280076657,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,All causes,36.8222982748771,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,All causes,144.990892096086,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,All causes,54.5836633238916,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,All causes,198.534036194332,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,All causes,91.7877303381443,47674.807689723
+Deaths,Mauritius,Male,45 to 49,All causes,249.567724799576,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,All causes,127.729377386309,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,All causes,398.883218196269,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,All causes,198.835235730809,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,All causes,547.667543721618,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,All causes,312.340736909249,46317.348676626
+Deaths,Mauritius,Male,60 to 64,All causes,693.293763311308,37000.709311821
+Deaths,Mauritius,Female,60 to 64,All causes,437.145364463044,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,All causes,776.139287334102,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,All causes,549.779326709709,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,All causes,700.835986958066,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,All causes,588.656953568981,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,All causes,587.477538999682,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,All causes,574.854417631556,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,All causes,481.828021938032,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,All causes,594.649850463912,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,All causes,363.028469166186,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,All causes,572.335070178615,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,All causes,220.849210405741,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,All causes,373.030824586625,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,All causes,95.2622998663454,329.584510330435
+Deaths,Mauritius,Female,95 to 99,All causes,230.828527450381,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,0 to 4,All causes,8248.49933341156,32689.2505754862
+YLLs (Years of Life Lost),Mauritius,Female,0 to 4,All causes,6112.86689393862,31674.8738654869
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,All causes,544.142929807218,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,All causes,328.22310959307,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,All causes,616.989690914712,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,All causes,603.523469791098,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,All causes,2563.79005176171,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,All causes,1073.96896887429,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,All causes,3521.46169371434,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,All causes,1651.0976536221,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,All causes,4683.96563853805,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,All causes,1922.16006698122,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,All causes,4888.76799966472,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,All causes,2085.08370579906,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,All causes,7488.31809917315,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,All causes,2817.45618708288,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,All causes,9283.0820801124,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,All causes,4284.65069574032,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,All causes,10454.4098955424,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,All causes,5351.81862182655,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,All causes,14823.1118128906,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,All causes,7383.3912994605,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,All causes,17773.8048591746,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,All causes,10122.0339949552,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,All causes,19307.0393057527,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,All causes,12161.753606541,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,All causes,18159.0932733198,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,All causes,12843.6984755978,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,All causes,13406.22321884,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,All causes,11235.7279918669,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,All causes,8894.52826230996,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,All causes,8681.19474682527,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,All causes,5605.56035304698,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,All causes,6879.48829972611,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,All causes,3213.31099295522,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,All causes,5046.95814353346,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,All causes,1510.13523768408,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,All causes,2548.20160236611,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,All causes,490.235059978959,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,All causes,1164.57828520726,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Multiple myeloma,8.31306892766645,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Multiple myeloma,5.88910979558711,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Multiple myeloma,3.13367127467583,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Multiple myeloma,1.86198501620056,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Multiple myeloma,1.19530934932647,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Multiple myeloma,0.868815885123231,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Multiple myeloma,0.0970425842983951,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Multiple myeloma,0.1371438451057,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,0 to 4,Cardiovascular diseases,28.5680843553224,32689.2505754862
+YLLs (Years of Life Lost),Mauritius,Female,0 to 4,Cardiovascular diseases,21.1537919317828,31674.8738654869
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,Cardiovascular diseases,16.133860125268,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,Cardiovascular diseases,13.3744664475598,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,Cardiovascular diseases,20.3431200835104,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,Cardiovascular diseases,22.6510824643392,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Cardiovascular diseases,136.818711175932,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Cardiovascular diseases,90.708155479666,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Cardiovascular diseases,225.712151189334,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Cardiovascular diseases,141.211311610554,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Cardiovascular diseases,501.71898893243,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Cardiovascular diseases,214.082252604124,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Cardiovascular diseases,763.752819416506,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Cardiovascular diseases,271.552863511209,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Cardiovascular diseases,1494.64190217603,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Cardiovascular diseases,461.794798766025,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Cardiovascular diseases,2230.41613460441,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Cardiovascular diseases,756.763207276566,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Cardiovascular diseases,2747.76808975114,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Cardiovascular diseases,1091.72853260895,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Cardiovascular diseases,4130.63696884135,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Cardiovascular diseases,1588.69952867742,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Cardiovascular diseases,5118.68230127146,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Cardiovascular diseases,2087.0926669523,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Cardiovascular diseases,5507.62013239456,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Cardiovascular diseases,2827.04368728232,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Cardiovascular diseases,5425.92501250133,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Cardiovascular diseases,3242.22673508062,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Cardiovascular diseases,4413.30451643595,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Cardiovascular diseases,3316.38137681702,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Cardiovascular diseases,3145.39995061802,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Cardiovascular diseases,2959.81826216487,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Cardiovascular diseases,2086.94480192519,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Cardiovascular diseases,2809.75065712144,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Cardiovascular diseases,1247.67947012984,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Cardiovascular diseases,2190.23930088137,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Cardiovascular diseases,639.740665019313,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Cardiovascular diseases,1169.58347415973,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Cardiovascular diseases,192.767699077069,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Cardiovascular diseases,541.579860832986,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Ischemic heart disease,35.3579143566723,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Ischemic heart disease,11.7193307960561,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Ischemic heart disease,67.222448664232,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Ischemic heart disease,29.9386195562589,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Ischemic heart disease,234.816385374856,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Ischemic heart disease,37.6273670403688,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Ischemic heart disease,359.718822308535,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Ischemic heart disease,71.8683075809224,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Ischemic heart disease,742.135300875443,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Ischemic heart disease,137.232316099626,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Ischemic heart disease,1151.33519091187,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Ischemic heart disease,245.316321864782,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Ischemic heart disease,1575.94889530748,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Ischemic heart disease,406.157343510071,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Ischemic heart disease,2353.3863721439,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Ischemic heart disease,697.279561833142,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Ischemic heart disease,2961.98864039427,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Ischemic heart disease,992.169601746711,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Ischemic heart disease,3062.05814319801,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Ischemic heart disease,1428.34193036952,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Ischemic heart disease,2969.60762734527,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Ischemic heart disease,1688.33693483659,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Ischemic heart disease,2223.71211191431,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Ischemic heart disease,1665.84009154706,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Ischemic heart disease,1531.51390300472,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Ischemic heart disease,1376.40512693538,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Ischemic heart disease,1067.62103354886,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Ischemic heart disease,1272.91441312608,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Ischemic heart disease,637.761848258888,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Ischemic heart disease,1060.6095789983,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Ischemic heart disease,331.183703611414,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Ischemic heart disease,548.319006746419,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Ischemic heart disease,105.021244082352,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Ischemic heart disease,259.862200855814,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,0 to 4,Stroke,7.33963052130149,32689.2505754862
+YLLs (Years of Life Lost),Mauritius,Female,0 to 4,Stroke,3.57030795132247,31674.8738654869
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,Stroke,3.55712128418258,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,Stroke,3.53877968886801,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,Stroke,7.44256402589707,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,Stroke,7.82096503525836,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Stroke,35.0048983179564,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Stroke,23.308331189599,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Stroke,72.910999662009,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Stroke,50.0607122336179,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Stroke,110.24229187398,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Stroke,66.890118688965,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Stroke,216.097512324704,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Stroke,73.2096312317792,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Stroke,402.873263659718,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Stroke,174.215518713168,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Stroke,634.777042637489,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Stroke,287.87072651639,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Stroke,746.326059784969,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Stroke,410.785316251825,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Stroke,1152.31134917161,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Stroke,569.686568764283,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Stroke,1382.78454343358,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Stroke,657.492080219175,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Stroke,1674.1554407696,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Stroke,869.485137523438,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Stroke,1722.51746309838,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Stroke,993.068472523101,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Stroke,1508.6274885466,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Stroke,1017.52431329308,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Stroke,1133.09974247411,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Stroke,1027.09523732816,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Stroke,689.444439353967,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Stroke,941.393200076489,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Stroke,401.909019271633,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Stroke,648.144239270868,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Stroke,188.967245701326,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Stroke,317.820812257832,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Stroke,45.9604735828101,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Stroke,133.757293781821,902.448199433069
+Deaths,Mauritius,Male,20 to 24,Larynx cancer,0.00475575584063696,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Larynx cancer,0.00545852141572652,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Larynx cancer,0.0671695756244374,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Larynx cancer,0.00537462714850285,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Larynx cancer,0.0700114872772412,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Larynx cancer,0.00460339470077905,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Larynx cancer,0.0813128034989529,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Larynx cancer,0.056394689790348,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Larynx cancer,0.287110812873293,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Larynx cancer,0.0319629884890643,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Larynx cancer,0.529744039930153,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Larynx cancer,0.0466349473853972,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Larynx cancer,1.29553016233907,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Larynx cancer,0.106871488695394,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Larynx cancer,2.15588560431554,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Larynx cancer,0.24334579791629601,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Larynx cancer,3.21730787488863,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Larynx cancer,0.291400993715181,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Larynx cancer,3.40322039213748,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Larynx cancer,0.206802637046982,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Larynx cancer,2.40504691896901,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Larynx cancer,0.285965584642048,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Larynx cancer,1.72879411406914,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Larynx cancer,0.201631792581432,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Larynx cancer,1.37253405243471,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Larynx cancer,0.202655332710152,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Larynx cancer,0.731129096534625,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Larynx cancer,0.0995547849660678,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Larynx cancer,0.151718709830264,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Larynx cancer,0.0262217151206833,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Larynx cancer,0.138527848815265,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Larynx cancer,0.0116712663827898,902.448199433069
+Deaths,Mauritius,Male,10 to 14,"Tracheal, bronchus, and lung cancer",0.005120318927128,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,"Tracheal, bronchus, and lung cancer",0.00833081659537304,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,"Tracheal, bronchus, and lung cancer",0.144863541182954,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,"Tracheal, bronchus, and lung cancer",0.0382239500645685,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,"Tracheal, bronchus, and lung cancer",0.198068469507459,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,"Tracheal, bronchus, and lung cancer",0.0808713535997697,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,"Tracheal, bronchus, and lung cancer",0.430978782838624,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,"Tracheal, bronchus, and lung cancer",0.392218254523568,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,"Tracheal, bronchus, and lung cancer",0.383148355769595,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,"Tracheal, bronchus, and lung cancer",0.297895988687707,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,"Tracheal, bronchus, and lung cancer",1.2302546511442,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,"Tracheal, bronchus, and lung cancer",0.714591547727119,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,"Tracheal, bronchus, and lung cancer",1.70803047572191,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,"Tracheal, bronchus, and lung cancer",1.83149507810093,47674.807689723
+Deaths,Mauritius,Male,45 to 49,"Tracheal, bronchus, and lung cancer",3.38747883330192,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,"Tracheal, bronchus, and lung cancer",2.64470954046993,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,"Tracheal, bronchus, and lung cancer",8.74605233802109,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,"Tracheal, bronchus, and lung cancer",3.68499146895879,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,"Tracheal, bronchus, and lung cancer",15.5946875776207,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,"Tracheal, bronchus, and lung cancer",6.15250903765135,46317.348676626
+Deaths,Mauritius,Male,60 to 64,"Tracheal, bronchus, and lung cancer",20.8364983212104,37000.709311821
+Deaths,Mauritius,Female,60 to 64,"Tracheal, bronchus, and lung cancer",8.31139308742067,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,"Tracheal, bronchus, and lung cancer",29.5810572826473,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,"Tracheal, bronchus, and lung cancer",9.35513807716371,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,"Tracheal, bronchus, and lung cancer",25.3733504221703,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,"Tracheal, bronchus, and lung cancer",8.52510969816192,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,"Tracheal, bronchus, and lung cancer",19.150757604096,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,"Tracheal, bronchus, and lung cancer",6.35496403298194,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,"Tracheal, bronchus, and lung cancer",11.4520737702183,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,"Tracheal, bronchus, and lung cancer",5.70907316157137,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,"Tracheal, bronchus, and lung cancer",7.10953932702528,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,"Tracheal, bronchus, and lung cancer",4.98672695258092,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,"Tracheal, bronchus, and lung cancer",2.25073587075661,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,"Tracheal, bronchus, and lung cancer",1.76571724954764,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,"Tracheal, bronchus, and lung cancer",0.487322974452634,329.584510330435
+Deaths,Mauritius,Female,95 to 99,"Tracheal, bronchus, and lung cancer",0.285120270830146,902.448199433069
+Deaths,Mauritius,Male,15 to 19,Breast cancer,0.00459288612053464,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Breast cancer,0.144786507547342,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Breast cancer,0.00475575584063696,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Breast cancer,0.421723459330506,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Breast cancer,0.00510640988751169,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Breast cancer,1.40388653466908,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Breast cancer,0.00455411991390449,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Breast cancer,2.56332029399853,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Breast cancer,0.0111569767639802,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Breast cancer,6.43891493547513,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Breast cancer,0.00812049100321341,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Breast cancer,10.6644671830147,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Breast cancer,0.0526717939856566,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Breast cancer,15.6391287853484,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Breast cancer,0.0675163384804414,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Breast cancer,22.3344211704446,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Breast cancer,0.111817111288442,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Breast cancer,31.6749175868829,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Breast cancer,0.145995254017558,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Breast cancer,26.2077644495883,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Breast cancer,0.206603972151092,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Breast cancer,26.7201680054722,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Breast cancer,0.11132849256535,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Breast cancer,19.4160219561157,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Breast cancer,0.151973244720928,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Breast cancer,15.0223667093398,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Breast cancer,0.0930396469947147,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Breast cancer,11.0891650931841,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Breast cancer,0.0222277886155093,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Breast cancer,6.88066011890985,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Breast cancer,0.0572710556429895,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Breast cancer,4.74214525468895,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Breast cancer,0.0117420985351033,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Breast cancer,2.28345450207477,902.448199433069
+Deaths,Mauritius,Female,20 to 24,Uterine cancer,0.0139150293522334,46860.8143053081
+Deaths,Mauritius,Female,25 to 29,Uterine cancer,0.0265953662961137,48974.7746402158
+Deaths,Mauritius,Female,30 to 34,Uterine cancer,0.0807619759923895,42793.2173942058
+Deaths,Mauritius,Female,35 to 39,Uterine cancer,0.210631424124309,47239.9203158313
+Deaths,Mauritius,Female,40 to 44,Uterine cancer,0.556102083834365,47674.807689723
+Deaths,Mauritius,Female,45 to 49,Uterine cancer,1.30136805619564,42388.5541779769
+Deaths,Mauritius,Female,50 to 54,Uterine cancer,1.91455344164951,46570.3750409485
+Deaths,Mauritius,Female,55 to 59,Uterine cancer,3.31414598504173,46317.348676626
+Deaths,Mauritius,Female,60 to 64,Uterine cancer,5.18117162592837,39699.0998635909
+Deaths,Mauritius,Female,65 to 69,Uterine cancer,5.49566193142323,32336.0807007444
+Deaths,Mauritius,Female,70 to 74,Uterine cancer,4.79827793832708,21992.7036252487
+Deaths,Mauritius,Female,75 to 79,Uterine cancer,3.9349765063409,13714.6704748165
+Deaths,Mauritius,Female,80 to 84,Uterine cancer,3.05042665591561,9097.35306599952
+Deaths,Mauritius,Female,85 to 89,Uterine cancer,1.73103166784739,5261.19388985119
+Deaths,Mauritius,Female,90 to 94,Uterine cancer,1.05221971847341,2342.77597118663
+Deaths,Mauritius,Female,95 to 99,Uterine cancer,0.31955232612854,902.448199433069
+Deaths,Mauritius,Male,5 to 9,Colon and rectum cancer,0.00945539702208202,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,Colon and rectum cancer,0.00524298666006056,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,Colon and rectum cancer,0.0101221615168698,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,Colon and rectum cancer,0.0125885680846672,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,Colon and rectum cancer,0.165002142171648,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Colon and rectum cancer,0.0406343700780839,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Colon and rectum cancer,0.105496062084964,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Colon and rectum cancer,0.201865052693014,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Colon and rectum cancer,0.384258242195054,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Colon and rectum cancer,0.21981088402336,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Colon and rectum cancer,0.704210652620787,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Colon and rectum cancer,0.560145851249089,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Colon and rectum cancer,1.60565596427615,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Colon and rectum cancer,1.07298499734019,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Colon and rectum cancer,2.23368118583862,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Colon and rectum cancer,2.18649148085755,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Colon and rectum cancer,4.13603502337189,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Colon and rectum cancer,2.49511321966011,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Colon and rectum cancer,8.69850479071106,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Colon and rectum cancer,6.80266821860702,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Colon and rectum cancer,11.7510395334945,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Colon and rectum cancer,7.69095569304084,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Colon and rectum cancer,16.1784479529422,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Colon and rectum cancer,11.0252177110197,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Colon and rectum cancer,19.8125577502661,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Colon and rectum cancer,15.194603271805,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Colon and rectum cancer,16.8782540472961,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Colon and rectum cancer,13.4099310035605,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Colon and rectum cancer,11.6861263202592,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Colon and rectum cancer,12.2244544195062,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Colon and rectum cancer,11.1437665618479,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Colon and rectum cancer,10.2642205796272,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Colon and rectum cancer,6.07464179368972,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Colon and rectum cancer,8.73388699617082,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Colon and rectum cancer,2.2030825842791,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Colon and rectum cancer,4.10108976782862,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Colon and rectum cancer,1.5922422117785,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Colon and rectum cancer,3.04273906022346,902.448199433069
+Deaths,Mauritius,Male,5 to 9,Lip and oral cavity cancer,0.00341382794842322,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,Lip and oral cavity cancer,0.00346647086204287,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,Lip and oral cavity cancer,0.00440151971049946,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,Lip and oral cavity cancer,0.00551926759293003,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,Lip and oral cavity cancer,0.00781701119860804,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Lip and oral cavity cancer,0.0304863699611412,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Lip and oral cavity cancer,0.0352186520126872,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Lip and oral cavity cancer,0.0481972408051335,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Lip and oral cavity cancer,0.190222238510086,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Lip and oral cavity cancer,0.0509363066805053,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Lip and oral cavity cancer,0.212965645069406,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Lip and oral cavity cancer,0.0865210903213431,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Lip and oral cavity cancer,0.397211134236356,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Lip and oral cavity cancer,0.270750640015665,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Lip and oral cavity cancer,0.870078623162208,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Lip and oral cavity cancer,0.477536224941129,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Lip and oral cavity cancer,1.79592902780599,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Lip and oral cavity cancer,0.557609722289695,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Lip and oral cavity cancer,3.23918841232666,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Lip and oral cavity cancer,0.779898158620217,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Lip and oral cavity cancer,3.89804901723693,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Lip and oral cavity cancer,1.0284434893441,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Lip and oral cavity cancer,4.74960462074719,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Lip and oral cavity cancer,1.59304705383458,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Lip and oral cavity cancer,5.13139811346448,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Lip and oral cavity cancer,1.69933673164157,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Lip and oral cavity cancer,3.42664529341118,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Lip and oral cavity cancer,1.67394167411769,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Lip and oral cavity cancer,2.60937917813776,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Lip and oral cavity cancer,1.74242648959477,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Lip and oral cavity cancer,1.93750993255222,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Lip and oral cavity cancer,1.31957706844706,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Lip and oral cavity cancer,0.773999773208762,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Lip and oral cavity cancer,0.912453268745616,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Lip and oral cavity cancer,0.347958893774372,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Lip and oral cavity cancer,0.646695352845559,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Lip and oral cavity cancer,0.0935365537061273,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Lip and oral cavity cancer,0.265960455370723,902.448199433069
+Deaths,Mauritius,Male,5 to 9,Nasopharynx cancer,0.0137719136610786,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,Nasopharynx cancer,0.00326092906429511,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,Nasopharynx cancer,0.00371882873841325,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,Nasopharynx cancer,0.00402603940093905,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,Nasopharynx cancer,0.0650978619544412,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Nasopharynx cancer,0.00478506870543069,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Nasopharynx cancer,0.133423194692154,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Nasopharynx cancer,0.0185696152031202,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Nasopharynx cancer,0.0788816003130116,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Nasopharynx cancer,0.0274678827867201,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Nasopharynx cancer,0.0810137950328507,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Nasopharynx cancer,0.0218878250520706,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Nasopharynx cancer,0.199690536242694,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Nasopharynx cancer,0.018777227654353,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Nasopharynx cancer,0.31234549932777,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Nasopharynx cancer,0.0531868875944288,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Nasopharynx cancer,0.70734404457315,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Nasopharynx cancer,0.141552725946269,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Nasopharynx cancer,1.1311317819863,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Nasopharynx cancer,0.176163890361866,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Nasopharynx cancer,1.37579557903387,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Nasopharynx cancer,0.268400099937399,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Nasopharynx cancer,1.29455156191019,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Nasopharynx cancer,0.244676601598778,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Nasopharynx cancer,1.52127242421563,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Nasopharynx cancer,0.216085287475062,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Nasopharynx cancer,1.36454175956191,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Nasopharynx cancer,0.26132662925,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Nasopharynx cancer,0.58614912631288,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Nasopharynx cancer,0.128509718181337,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Nasopharynx cancer,0.52756596456089,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Nasopharynx cancer,0.105765545770412,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Nasopharynx cancer,0.206916790812889,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Nasopharynx cancer,0.0771014310514351,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Nasopharynx cancer,0.0851922858417284,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Nasopharynx cancer,0.0387584750221146,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Nasopharynx cancer,0.114796371008044,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Nasopharynx cancer,0.0536990876283857,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Other pharynx cancer,0.683527594949528,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Other pharynx cancer,0.376140010019656,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Other pharynx cancer,0.636349745687839,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Other pharynx cancer,0.330935831436361,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Other pharynx cancer,0.823726418856954,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Other pharynx cancer,1.31532826682288,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Other pharynx cancer,5.66184832331352,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Other pharynx cancer,1.71226612432436,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Other pharynx cancer,14.5374206393966,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Other pharynx cancer,1.07560788920677,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Other pharynx cancer,17.4830423752681,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Other pharynx cancer,2.98473774863294,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Other pharynx cancer,39.6930050536605,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Other pharynx cancer,5.73265886795308,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Other pharynx cancer,50.1612807628139,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Other pharynx cancer,6.90419872412159,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Other pharynx cancer,42.4908927273615,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Other pharynx cancer,5.50335484111854,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Other pharynx cancer,24.0988434206673,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Other pharynx cancer,6.40944150713455,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Other pharynx cancer,20.461458023715,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Other pharynx cancer,3.62511497760527,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Other pharynx cancer,7.69080236425288,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Other pharynx cancer,2.89533734487361,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Other pharynx cancer,4.0203856447946,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Other pharynx cancer,0.998949857770708,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Other pharynx cancer,0.83064028727019,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Other pharynx cancer,0.750808704999111,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Other pharynx cancer,1.83674375955295,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Other pharynx cancer,0.56176978587828,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Other pharynx cancer,0.127637382501247,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Other pharynx cancer,0.0789518828317655,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Multiple myeloma,0.361931785883915,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Multiple myeloma,0.20154953266783,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Multiple myeloma,0.353027764788879,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Multiple myeloma,0.336585386732818,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Multiple myeloma,1.13856644530277,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Multiple myeloma,4.73240011122769,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Multiple myeloma,3.42823920630332,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Multiple myeloma,9.3412343512028,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Multiple myeloma,10.9097935133118,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Multiple myeloma,5.5719980990994,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Multiple myeloma,9.26925044560309,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Multiple myeloma,9.74163099902868,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Multiple myeloma,29.0243016806991,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Multiple myeloma,21.8846474525886,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Multiple myeloma,32.311273926176,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Multiple myeloma,31.3197357577847,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Multiple myeloma,44.5237588588974,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Multiple myeloma,41.4663483475494,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Multiple myeloma,53.2979797072962,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Multiple myeloma,37.025232870072,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Multiple myeloma,32.3083892400698,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Multiple myeloma,24.295186876876,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Multiple myeloma,11.5814343180226,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Multiple myeloma,17.2805458256399,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,0 to 4,Neoplasms,164.033954223276,32689.2505754862
+YLLs (Years of Life Lost),Mauritius,Female,0 to 4,Neoplasms,130.346732719622,31674.8738654869
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,Neoplasms,112.789247740465,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,Neoplasms,84.3108943624138,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,Neoplasms,114.722633133674,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,Neoplasms,112.321361365441,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Neoplasms,263.791598943146,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Neoplasms,145.621106768309,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Neoplasms,213.34430222077,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Neoplasms,202.276625052233,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Neoplasms,322.54207421854,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Neoplasms,329.480150450438,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Neoplasms,278.882717939634,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Neoplasms,431.198870210712,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Neoplasms,515.920749426662,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Neoplasms,784.294837090746,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Neoplasms,667.69711013736,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Neoplasms,1263.35738447936,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Neoplasms,953.336043728521,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Neoplasms,1588.03207876899,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Neoplasms,1811.32642065036,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Neoplasms,2283.84749845516,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Neoplasms,2439.37916396729,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Neoplasms,2749.83024480591,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Neoplasms,2858.7939691815,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Neoplasms,2723.52280222295,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Neoplasms,2944.34346761505,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Neoplasms,2519.20106194842,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Neoplasms,2157.22514571957,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Neoplasms,1809.09634118995,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Neoplasms,1323.10111259673,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Neoplasms,1138.97308283793,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Neoplasms,760.496818036214,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Neoplasms,683.203274323472,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Neoplasms,378.165689399534,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Neoplasms,402.248746517193,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Neoplasms,124.121532432691,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Neoplasms,153.082680645098,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Neoplasms,34.6787816974226,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Neoplasms,53.3651947911601,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Esophageal cancer,3.99150832490616,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Esophageal cancer,3.98259993061924,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Esophageal cancer,4.19129591219433,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Esophageal cancer,3.33284602607027,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Esophageal cancer,2.15807124003339,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Esophageal cancer,5.15247651764046,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Esophageal cancer,14.2275705633035,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Esophageal cancer,6.55792966171897,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Esophageal cancer,20.1520553409215,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Esophageal cancer,10.5803935429587,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Esophageal cancer,47.5611707089653,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Esophageal cancer,18.727420097977,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Esophageal cancer,86.8280848252078,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Esophageal cancer,34.2260086705432,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Esophageal cancer,112.378614615365,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Esophageal cancer,47.8031112447096,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Esophageal cancer,128.667253390564,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Esophageal cancer,49.1884091665157,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Esophageal cancer,131.547850698784,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Esophageal cancer,34.6125054120661,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Esophageal cancer,83.8774221719382,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Esophageal cancer,37.9949265353672,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Esophageal cancer,38.5050935072458,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Esophageal cancer,30.3903903359912,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Esophageal cancer,24.5715540979634,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Esophageal cancer,16.2832774991852,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Esophageal cancer,10.6850822745119,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Esophageal cancer,12.1186064914082,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Esophageal cancer,4.06665180410106,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Esophageal cancer,5.03494795825972,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Esophageal cancer,0.262728450490337,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Esophageal cancer,0.984247044826523,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Stomach cancer,2.03029169400606,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Stomach cancer,1.22750333081105,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Stomach cancer,4.26394449954667,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Stomach cancer,2.337788069331,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Stomach cancer,16.5634354014318,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Stomach cancer,10.9872606574533,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Stomach cancer,23.9040327631274,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Stomach cancer,22.6156411311665,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Stomach cancer,52.3363056644521,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Stomach cancer,26.8291264130726,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Stomach cancer,77.0971653927476,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Stomach cancer,53.738183770477,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Stomach cancer,85.7867564771441,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Stomach cancer,55.0293568546874,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Stomach cancer,139.951521612317,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Stomach cancer,96.4707054277529,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Stomach cancer,229.06592691767,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Stomach cancer,128.381019689911,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Stomach cancer,312.632459559177,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Stomach cancer,144.409005964124,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Stomach cancer,301.380991090199,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Stomach cancer,171.105121787427,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Stomach cancer,223.699582961302,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Stomach cancer,143.287595781299,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Stomach cancer,105.946384260701,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Stomach cancer,90.1078599000702,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Stomach cancer,67.4953612010807,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Stomach cancer,56.5331080485744,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Stomach cancer,35.5753705634013,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Stomach cancer,42.4129528246439,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Stomach cancer,8.54554017995417,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Stomach cancer,14.9802859365059,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Stomach cancer,3.22368920940209,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Stomach cancer,8.48123788948525,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,0 to 4,Liver cancer,1.78137384735494,32689.2505754862
+YLLs (Years of Life Lost),Mauritius,Female,0 to 4,Liver cancer,1.97319147850905,31674.8738654869
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,Liver cancer,1.08187339601544,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,Liver cancer,1.03207808285176,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,Liver cancer,1.57254234336483,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,Liver cancer,1.72997673122784,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Liver cancer,1.97980808838,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Liver cancer,0.779482112168262,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Liver cancer,1.29748471893878,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Liver cancer,1.93550242776291,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Liver cancer,4.35755626599984,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Liver cancer,2.97424571939736,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Liver cancer,5.32177307528219,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Liver cancer,3.49421905183534,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Liver cancer,10.0279520457711,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Liver cancer,4.45658699932538,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Liver cancer,17.4232843027633,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Liver cancer,14.6491959260814,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Liver cancer,19.1689265837247,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Liver cancer,14.208633052054,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Liver cancer,43.6584929545847,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Liver cancer,25.423988828733,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Liver cancer,76.3634234648669,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Liver cancer,32.8779124928551,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Liver cancer,90.66883646762,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Liver cancer,38.6813334964945,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Liver cancer,89.3222007830578,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Liver cancer,42.9024152697052,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Liver cancer,70.4403539537967,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Liver cancer,36.0798391745352,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Liver cancer,41.1736244901196,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Liver cancer,25.4526550303312,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Liver cancer,20.5567442850129,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Liver cancer,17.808792420476,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Liver cancer,8.04216833322976,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Liver cancer,8.08477372547108,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Liver cancer,2.49320493092333,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Liver cancer,3.01193992515363,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Liver cancer,0.338354809139607,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Liver cancer,0.652356115431634,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Alzheimer's disease and other dementias,2.79121556853068,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Alzheimer's disease and other dementias,2.95411385755059,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Alzheimer's disease and other dementias,13.0214971962811,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Alzheimer's disease and other dementias,14.6581204093441,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Alzheimer's disease and other dementias,29.0188465035166,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Alzheimer's disease and other dementias,35.1328071638605,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Alzheimer's disease and other dementias,60.0146507431947,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Alzheimer's disease and other dementias,79.1219046813298,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Alzheimer's disease and other dementias,107.202046620739,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Alzheimer's disease and other dementias,144.923910541913,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Alzheimer's disease and other dementias,159.575266286536,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Alzheimer's disease and other dementias,225.546957418134,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Alzheimer's disease and other dementias,168.280145376112,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Alzheimer's disease and other dementias,275.592541293488,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Alzheimer's disease and other dementias,160.573073201509,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Alzheimer's disease and other dementias,305.108508504134,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Alzheimer's disease and other dementias,210.055266194525,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Alzheimer's disease and other dementias,462.440213803906,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Alzheimer's disease and other dementias,199.343845661615,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Alzheimer's disease and other dementias,453.381782505028,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Alzheimer's disease and other dementias,128.705001466455,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Alzheimer's disease and other dementias,305.110847984263,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Alzheimer's disease and other dementias,49.8384427215232,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Alzheimer's disease and other dementias,158.133818307493,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Parkinson's disease,0.00435787652491023,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Parkinson's disease,1.83249375068821,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Parkinson's disease,0.0162465740652417,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Parkinson's disease,2.00538231087527,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Parkinson's disease,1.38158570675978,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Parkinson's disease,1.40481181814172,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Parkinson's disease,0.0788158927394951,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Parkinson's disease,0.0248260803054344,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Parkinson's disease,6.1553957158965,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Parkinson's disease,2.15194720340563,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Parkinson's disease,9.65039420913889,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Parkinson's disease,4.06300789972877,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Parkinson's disease,15.6914359623403,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Parkinson's disease,12.1235718435982,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Parkinson's disease,19.9586635630112,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Parkinson's disease,24.9575229234922,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Parkinson's disease,40.3388335592657,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Parkinson's disease,28.7341436750732,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Parkinson's disease,61.0577006259235,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Parkinson's disease,47.5535859371635,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Parkinson's disease,88.6814591837947,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Parkinson's disease,78.989726097487,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Parkinson's disease,99.2633739802797,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Parkinson's disease,93.9005682183065,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Parkinson's disease,76.2828838862269,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Parkinson's disease,88.6353701153742,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Parkinson's disease,39.4875783350766,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Parkinson's disease,56.093333946925,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Parkinson's disease,13.6265121420771,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Parkinson's disease,20.8066872711848,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Parkinson's disease,3.40698704629815,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Parkinson's disease,6.56128974339301,902.448199433069
+Deaths,Mauritius,Male,0 to 4,Road injuries,0.687412014148614,32689.2505754862
+Deaths,Mauritius,Female,0 to 4,Road injuries,0.679753399204265,31674.8738654869
+Deaths,Mauritius,Male,5 to 9,Road injuries,0.813144606680398,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,Road injuries,0.365935018451753,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,Road injuries,1.07353286056372,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,Road injuries,0.551232194104896,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,Road injuries,8.56143523087832,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Road injuries,1.01055811300398,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Road injuries,13.4501048895187,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Road injuries,1.61565633739146,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Road injuries,14.0435211872151,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Road injuries,1.12890765069413,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Road injuries,9.99242192264122,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Road injuries,1.14927778922165,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Road injuries,10.8265774347339,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Road injuries,1.02441252593184,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Road injuries,11.4898584243758,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Road injuries,1.47296152757582,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Road injuries,8.81685706653493,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Road injuries,1.76822177843259,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Road injuries,11.277762968362,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Road injuries,1.73601314565024,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Road injuries,13.1648877818223,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Road injuries,2.14662682439475,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Road injuries,10.795465032481,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Road injuries,2.37129140056004,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Road injuries,8.29487620252096,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Road injuries,2.88753294597522,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Road injuries,4.77436761517058,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Road injuries,2.9464637290293,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Road injuries,3.44949739383617,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Road injuries,2.10167862138152,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Road injuries,2.42046750223062,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Road injuries,1.74739897935646,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Road injuries,1.4616752044505401,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Road injuries,1.2519714360182,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Road injuries,0.36947740764033,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Road injuries,0.54120620065775,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Road injuries,0.369327994733861,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Road injuries,0.338033601937871,902.448199433069
+Deaths,Mauritius,Male,15 to 19,Diabetes mellitus type 2,0.119077364202678,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Diabetes mellitus type 2,0.296350303237361,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Diabetes mellitus type 2,0.258442799288332,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Diabetes mellitus type 2,0.403077251438347,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Diabetes mellitus type 2,0.658569293898766,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Diabetes mellitus type 2,0.935830842461681,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Diabetes mellitus type 2,2.58361314274289,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Diabetes mellitus type 2,1.64261184131441,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Diabetes mellitus type 2,7.00208082867749,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Diabetes mellitus type 2,3.27241447477152,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Diabetes mellitus type 2,13.0942010908286,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Diabetes mellitus type 2,6.28583950557215,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Diabetes mellitus type 2,32.8601583160575,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Diabetes mellitus type 2,17.4963459099367,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Diabetes mellitus type 2,67.2422948783905,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Diabetes mellitus type 2,31.6327099006096,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Diabetes mellitus type 2,108.227943266344,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Diabetes mellitus type 2,64.2502831301695,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Diabetes mellitus type 2,149.599262015988,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Diabetes mellitus type 2,108.114644772134,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Diabetes mellitus type 2,168.893911366343,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Diabetes mellitus type 2,138.85908529205,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Diabetes mellitus type 2,133.956429740948,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Diabetes mellitus type 2,153.438616030708,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Diabetes mellitus type 2,102.655157646521,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Diabetes mellitus type 2,129.015733645235,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Diabetes mellitus type 2,66.8777588365052,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Diabetes mellitus type 2,102.68463495552,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Diabetes mellitus type 2,43.0219954473932,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Diabetes mellitus type 2,83.2624236161199,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Diabetes mellitus type 2,21.606075341077,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Diabetes mellitus type 2,36.4226629094905,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Diabetes mellitus type 2,6.91750058046171,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Diabetes mellitus type 2,15.5650066348214,902.448199433069
+Deaths,Mauritius,Male,95 to 99,Nasopharynx cancer,0.0223071893695361,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Nasopharynx cancer,0.0106435792940131,902.448199433069
+Deaths,Mauritius,Male,20 to 24,Other pharynx cancer,0.0102802177782482,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Other pharynx cancer,0.0056545952030444,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Other pharynx cancer,0.0103330982826096,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Other pharynx cancer,0.00537462714850285,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Other pharynx cancer,0.014557065123689,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Other pharynx cancer,0.0232285205795938,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Other pharynx cancer,0.109626277681847,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Other pharynx cancer,0.0331723907826916,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Other pharynx cancer,0.310906740938699,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Other pharynx cancer,0.0230421600020379,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Other pharynx cancer,0.417355274163359,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Other pharynx cancer,0.0712353540419845,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Other pharynx cancer,1.06812076948082,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Other pharynx cancer,0.154380897766728,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Other pharynx cancer,1.54562884216208,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Other pharynx cancer,0.213046361861144,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Other pharynx cancer,1.52579950032173,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Other pharynx cancer,0.19781407645821,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Other pharynx cancer,1.03001063305147,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Other pharynx cancer,0.274358545793695,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Other pharynx cancer,1.06966189467134,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Other pharynx cancer,0.189925311524015,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Other pharynx cancer,0.507972262568405,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Other pharynx cancer,0.191724470164995,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Other pharynx cancer,0.345573741188334,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Other pharynx cancer,0.0863473208563997,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Other pharynx cancer,0.093842790995506,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Other pharynx cancer,0.0851431972775448,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Other pharynx cancer,0.268613961778038,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Other pharynx cancer,0.082237389011703,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Other pharynx cancer,0.0248024500869258,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Other pharynx cancer,0.0156488808738591,902.448199433069
+Deaths,Mauritius,Male,20 to 24,Multiple myeloma,0.00544343433571498,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Multiple myeloma,0.00302993829489131,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Multiple myeloma,0.00573249320011974,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Multiple myeloma,0.0054663798400791,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Multiple myeloma,0.0201209837544347,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Multiple myeloma,0.0835735505327868,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Multiple myeloma,0.0663785184146467,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Multiple myeloma,0.180971329099368,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Multiple myeloma,0.233323945813727,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Multiple myeloma,0.119365870238442,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Multiple myeloma,0.22127559254138,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Multiple myeloma,0.232498997099501,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Multiple myeloma,0.781030798825161,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Multiple myeloma,0.589355061736882,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Multiple myeloma,0.995613272783899,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Multiple myeloma,0.966448971744709,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Multiple myeloma,1.59879740478141,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Multiple myeloma,1.49047765213659,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Multiple myeloma,2.27801329965886,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Multiple myeloma,1.58487896903318,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Multiple myeloma,1.68898290670479,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Multiple myeloma,1.27286195462219,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Multiple myeloma,0.764945855540107,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Multiple myeloma,1.14428928236939,13714.6704748165
+Deaths,Mauritius,Male,0 to 4,Chronic obstructive pulmonary disease,0.00803107341306392,32689.2505754862
+Deaths,Mauritius,Female,0 to 4,Chronic obstructive pulmonary disease,0.0418887264331066,31674.8738654869
+Deaths,Mauritius,Male,5 to 9,Chronic obstructive pulmonary disease,0.0228552981975887,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,Chronic obstructive pulmonary disease,0.00414975528271999,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,Chronic obstructive pulmonary disease,0.0223571944398094,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,Chronic obstructive pulmonary disease,0.0257493880022629,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,Chronic obstructive pulmonary disease,0.0929701280489598,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Chronic obstructive pulmonary disease,0.14558687736561,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Chronic obstructive pulmonary disease,0.347566025624147,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Chronic obstructive pulmonary disease,0.23677450653679,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Chronic obstructive pulmonary disease,0.412543796055271,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Chronic obstructive pulmonary disease,0.396737425575392,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Chronic obstructive pulmonary disease,0.502241274685446,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Chronic obstructive pulmonary disease,0.262537222096722,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Chronic obstructive pulmonary disease,1.27406666984269,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Chronic obstructive pulmonary disease,0.543426848033471,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Chronic obstructive pulmonary disease,1.42131790989651,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Chronic obstructive pulmonary disease,0.879558075687534,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Chronic obstructive pulmonary disease,2.67854401658445,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Chronic obstructive pulmonary disease,1.12316180166037,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Chronic obstructive pulmonary disease,4.33968446595161,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Chronic obstructive pulmonary disease,1.54778401952959,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Chronic obstructive pulmonary disease,6.17629262015789,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Chronic obstructive pulmonary disease,2.49081921663777,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Chronic obstructive pulmonary disease,15.4184288157048,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Chronic obstructive pulmonary disease,4.35584194267466,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Chronic obstructive pulmonary disease,23.3832807602452,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Chronic obstructive pulmonary disease,6.62326432764473,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Chronic obstructive pulmonary disease,30.6645845103174,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Chronic obstructive pulmonary disease,7.944183460297,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Chronic obstructive pulmonary disease,27.8927769123015,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Chronic obstructive pulmonary disease,9.98088454274716,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Chronic obstructive pulmonary disease,31.5996775056834,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Chronic obstructive pulmonary disease,15.6462254559029,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Chronic obstructive pulmonary disease,23.1335182726958,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Chronic obstructive pulmonary disease,20.7561297012713,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Chronic obstructive pulmonary disease,16.1578281348683,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Chronic obstructive pulmonary disease,16.0235855072239,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Chronic obstructive pulmonary disease,7.2957457150528,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Chronic obstructive pulmonary disease,11.1028756644003,902.448199433069
+YLLs (Years of Life Lost),Mauritius,Male,0 to 4,Lower respiratory infections,416.253441548575,32689.2505754862
+YLLs (Years of Life Lost),Mauritius,Female,0 to 4,Lower respiratory infections,293.427999600606,31674.8738654869
+YLLs (Years of Life Lost),Mauritius,Male,5 to 9,Lower respiratory infections,25.7176691435744,35091.6888892047
+YLLs (Years of Life Lost),Mauritius,Female,5 to 9,Lower respiratory infections,17.6920983801523,34415.6318561202
+YLLs (Years of Life Lost),Mauritius,Male,10 to 14,Lower respiratory infections,19.1177578002186,40905.1788670559
+YLLs (Years of Life Lost),Mauritius,Female,10 to 14,Lower respiratory infections,26.2518070902292,40117.6968991191
+YLLs (Years of Life Lost),Mauritius,Male,15 to 19,Lower respiratory infections,67.897649924887,47086.5820461315
+YLLs (Years of Life Lost),Mauritius,Female,15 to 19,Lower respiratory infections,20.2003563620311,46169.0020116391
+YLLs (Years of Life Lost),Mauritius,Male,20 to 24,Lower respiratory infections,70.0770601199628,47338.5283621514
+YLLs (Years of Life Lost),Mauritius,Female,20 to 24,Lower respiratory infections,40.3158208165487,46860.8143053081
+YLLs (Years of Life Lost),Mauritius,Male,25 to 29,Lower respiratory infections,93.4729847744835,49491.0659844468
+YLLs (Years of Life Lost),Mauritius,Female,25 to 29,Lower respiratory infections,43.97278346873,48974.7746402158
+YLLs (Years of Life Lost),Mauritius,Male,30 to 34,Lower respiratory infections,102.273703359425,43985.0860041602
+YLLs (Years of Life Lost),Mauritius,Female,30 to 34,Lower respiratory infections,42.4720423596849,42793.2173942058
+YLLs (Years of Life Lost),Mauritius,Male,35 to 39,Lower respiratory infections,163.338710695998,48744.9649375942
+YLLs (Years of Life Lost),Mauritius,Female,35 to 39,Lower respiratory infections,73.6790804788505,47239.9203158313
+YLLs (Years of Life Lost),Mauritius,Male,40 to 44,Lower respiratory infections,203.815395046118,48518.2489167625
+YLLs (Years of Life Lost),Mauritius,Female,40 to 44,Lower respiratory infections,72.9029781481477,47674.807689723
+YLLs (Years of Life Lost),Mauritius,Male,45 to 49,Lower respiratory infections,203.687908882186,42805.3992889624
+YLLs (Years of Life Lost),Mauritius,Female,45 to 49,Lower respiratory infections,82.6999955083661,42388.5541779769
+YLLs (Years of Life Lost),Mauritius,Male,50 to 54,Lower respiratory infections,271.340582629455,46159.8282898185
+YLLs (Years of Life Lost),Mauritius,Female,50 to 54,Lower respiratory infections,89.5853036022768,46570.3750409485
+YLLs (Years of Life Lost),Mauritius,Male,55 to 59,Lower respiratory infections,244.294464078639,44832.6820096649
+YLLs (Years of Life Lost),Mauritius,Female,55 to 59,Lower respiratory infections,135.554661737165,46317.348676626
+YLLs (Years of Life Lost),Mauritius,Male,60 to 64,Lower respiratory infections,344.977818039351,37000.709311821
+YLLs (Years of Life Lost),Mauritius,Female,60 to 64,Lower respiratory infections,147.38602818415,39699.0998635909
+YLLs (Years of Life Lost),Mauritius,Male,65 to 69,Lower respiratory infections,352.407986030823,28252.4787520397
+YLLs (Years of Life Lost),Mauritius,Female,65 to 69,Lower respiratory infections,185.649816498709,32336.0807007444
+YLLs (Years of Life Lost),Mauritius,Male,70 to 74,Lower respiratory infections,330.122708631444,17327.3339523151
+YLLs (Years of Life Lost),Mauritius,Female,70 to 74,Lower respiratory infections,184.402066609649,21992.7036252487
+YLLs (Years of Life Lost),Mauritius,Male,75 to 79,Lower respiratory infections,272.969225955763,9818.60052453178
+YLLs (Years of Life Lost),Mauritius,Female,75 to 79,Lower respiratory infections,207.347351926616,13714.6704748165
+YLLs (Years of Life Lost),Mauritius,Male,80 to 84,Lower respiratory infections,244.305408518615,5554.30953592863
+YLLs (Years of Life Lost),Mauritius,Female,80 to 84,Lower respiratory infections,200.05089542009,9097.35306599952
+YLLs (Years of Life Lost),Mauritius,Male,85 to 89,Lower respiratory infections,168.71944308119,2986.04353583111
+YLLs (Years of Life Lost),Mauritius,Female,85 to 89,Lower respiratory infections,205.666726619179,5261.19388985119
+YLLs (Years of Life Lost),Mauritius,Male,90 to 94,Lower respiratory infections,95.733823319795,1201.76428018648
+YLLs (Years of Life Lost),Mauritius,Female,90 to 94,Lower respiratory infections,127.973529292831,2342.77597118663
+YLLs (Years of Life Lost),Mauritius,Male,95 to 99,Lower respiratory infections,36.1801384023003,329.584510330435
+YLLs (Years of Life Lost),Mauritius,Female,95 to 99,Lower respiratory infections,67.4090507842852,902.448199433069
+Deaths,Mauritius,Male,80 to 84,Multiple myeloma,0.71455292698344,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Multiple myeloma,0.509043421071136,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Multiple myeloma,0.354031056505172,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Multiple myeloma,0.211152796320315,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Multiple myeloma,0.174807606234121,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Multiple myeloma,0.127185818320082,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Multiple myeloma,0.0188572799457379,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Multiple myeloma,0.0271829830735666,902.448199433069
+Deaths,Mauritius,Male,0 to 4,Cardiovascular diseases,0.327878391961437,32689.2505754862
+Deaths,Mauritius,Female,0 to 4,Cardiovascular diseases,0.241840760981316,31674.8738654869
+Deaths,Mauritius,Male,5 to 9,Cardiovascular diseases,0.19755476550294,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,Cardiovascular diseases,0.163587043123394,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,Cardiovascular diseases,0.266594144641984,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,Cardiovascular diseases,0.296530091912976,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,Cardiovascular diseases,1.91706445475607,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Cardiovascular diseases,1.27132994949224,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Cardiovascular diseases,3.39469845338808,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Cardiovascular diseases,2.12286059440185,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Cardiovascular diseases,8.14695324076311,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Cardiovascular diseases,3.47684408141834,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Cardiovascular diseases,13.4971991624053,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Cardiovascular diseases,4.79558710750885,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Cardiovascular diseases,28.9396710837675,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Cardiovascular diseases,8.94652840961015,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Cardiovascular diseases,47.7011313456587,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Cardiovascular diseases,16.2117246263242,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Cardiovascular diseases,65.5947334462619,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Cardiovascular diseases,26.0557794646296,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Cardiovascular diseases,111.15356803145,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Cardiovascular diseases,42.7837876225089,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Cardiovascular diseases,157.722906560529,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Cardiovascular diseases,64.4024770039962,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Cardiovascular diseases,197.772357947146,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Cardiovascular diseases,101.61602372583,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Cardiovascular diseases,231.90990370199,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Cardiovascular diseases,138.784730491728,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Cardiovascular diseases,230.71394351962,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Cardiovascular diseases,173.750286546911,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Cardiovascular diseases,207.751526293863,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Cardiovascular diseases,195.994290303677,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Cardiovascular diseases,179.384115498621,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Cardiovascular diseases,242.869489023575,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Cardiovascular diseases,140.958397442492,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Cardiovascular diseases,248.377483689664,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Cardiovascular diseases,93.5586543564355,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Cardiovascular diseases,171.215137524276,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Cardiovascular diseases,37.4585496900473,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Cardiovascular diseases,107.345365580651,902.448199433069
+Deaths,Mauritius,Male,15 to 19,Ischemic heart disease,0.495424932926937,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Ischemic heart disease,0.164253546445146,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Ischemic heart disease,1.01102196452865,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Ischemic heart disease,0.450073828944033,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Ischemic heart disease,3.81296732636046,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Ischemic heart disease,0.611094505977473,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Ischemic heart disease,6.35702607405555,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Ischemic heart disease,1.2691846619372,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Ischemic heart disease,14.3694295441067,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Ischemic heart disease,2.65865448892587,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Ischemic heart disease,24.623203855323,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Ischemic heart disease,5.25527750051033,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Ischemic heart disease,37.6210598333236,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Ischemic heart disease,9.6935692842507,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Ischemic heart disease,63.3285602665197,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Ischemic heart disease,18.7777865785737,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Ischemic heart disease,91.2683050179161,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Ischemic heart disease,30.6158806325858,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Ischemic heart disease,109.955015886006,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Ischemic heart disease,51.3407090728601,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Ischemic heart disease,126.924241913336,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Ischemic heart disease,72.2698952375082,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Ischemic heart disease,116.248808275394,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Ischemic heart disease,87.2759071893692,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Ischemic heart disease,101.155451098353,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Ischemic heart disease,91.1432804751766,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Ischemic heart disease,91.7677624315772,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Ischemic heart disease,110.028294611522,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Ischemic heart disease,72.0520696482889,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Ischemic heart disease,120.275231251098,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Ischemic heart disease,48.433847258606,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Ischemic heart disease,80.2683316081476,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Ischemic heart disease,20.4076902344339,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Ischemic heart disease,51.5067212960163,902.448199433069
+Deaths,Mauritius,Male,0 to 4,Stroke,0.0844509116920338,32689.2505754862
+Deaths,Mauritius,Female,0 to 4,Stroke,0.0406951857909608,31674.8738654869
+Deaths,Mauritius,Male,5 to 9,Stroke,0.0435559906746453,35091.6888892047
+Deaths,Mauritius,Female,5 to 9,Stroke,0.0432838579271073,34415.6318561202
+Deaths,Mauritius,Male,10 to 14,Stroke,0.0975339073987729,40905.1788670559
+Deaths,Mauritius,Female,10 to 14,Stroke,0.102385900735848,40117.6968991191
+Deaths,Mauritius,Male,15 to 19,Stroke,0.490478573660982,47086.5820461315
+Deaths,Mauritius,Female,15 to 19,Stroke,0.326680433058351,46169.0020116391
+Deaths,Mauritius,Male,20 to 24,Stroke,1.09657746152967,47338.5283621514
+Deaths,Mauritius,Female,20 to 24,Stroke,0.752573657990837,46860.8143053081
+Deaths,Mauritius,Male,25 to 29,Stroke,1.79012319020046,49491.0659844468
+Deaths,Mauritius,Female,25 to 29,Stroke,1.08634186365348,48974.7746402158
+Deaths,Mauritius,Male,30 to 34,Stroke,3.81892032107348,43985.0860041602
+Deaths,Mauritius,Female,30 to 34,Stroke,1.29287225750836,42793.2173942058
+Deaths,Mauritius,Male,35 to 39,Stroke,7.80054387728724,48744.9649375942
+Deaths,Mauritius,Female,35 to 39,Stroke,3.37514431025896,47239.9203158313
+Deaths,Mauritius,Male,40 to 44,Stroke,13.575755042424,48518.2489167625
+Deaths,Mauritius,Female,40 to 44,Stroke,6.16689725582556,47674.807689723
+Deaths,Mauritius,Male,45 to 49,Stroke,17.8162993952039,42805.3992889624
+Deaths,Mauritius,Female,45 to 49,Stroke,9.80402296712668,42388.5541779769
+Deaths,Mauritius,Male,50 to 54,Stroke,31.0081759568152,46159.8282898185
+Deaths,Mauritius,Female,50 to 54,Stroke,15.3416984958116,46570.3750409485
+Deaths,Mauritius,Male,55 to 59,Stroke,42.6079964531385,44832.6820096649
+Deaths,Mauritius,Female,55 to 59,Stroke,20.2885666013376,46317.348676626
+Deaths,Mauritius,Male,60 to 64,Stroke,60.1170126355637,37000.709311821
+Deaths,Mauritius,Female,60 to 64,Stroke,31.2530091987273,39699.0998635909
+Deaths,Mauritius,Male,65 to 69,Stroke,73.6222594436463,28252.4787520397
+Deaths,Mauritius,Female,65 to 69,Stroke,42.5086681408551,32336.0807007444
+Deaths,Mauritius,Male,70 to 74,Stroke,78.8663904537839,17327.3339523151
+Deaths,Mauritius,Female,70 to 74,Stroke,53.3096531777069,21992.7036252487
+Deaths,Mauritius,Male,75 to 79,Stroke,74.8404669161157,9818.60052453178
+Deaths,Mauritius,Female,75 to 79,Stroke,68.0125549219298,13714.6704748165
+Deaths,Mauritius,Male,80 to 84,Stroke,59.2614528304078,5554.30953592863
+Deaths,Mauritius,Female,80 to 84,Stroke,81.3722331173256,9097.35306599952
+Deaths,Mauritius,Male,85 to 89,Stroke,45.4062542748403,2986.04353583111
+Deaths,Mauritius,Female,85 to 89,Stroke,73.5008431057136,5261.19388985119
+Deaths,Mauritius,Male,90 to 94,Stroke,27.635450100275,1201.76428018648
+Deaths,Mauritius,Female,90 to 94,Stroke,46.5257378212324,2342.77597118663
+Deaths,Mauritius,Male,95 to 99,Stroke,8.93102263357667,329.584510330435
+Deaths,Mauritius,Female,95 to 99,Stroke,26.5117421057795,902.448199433069
