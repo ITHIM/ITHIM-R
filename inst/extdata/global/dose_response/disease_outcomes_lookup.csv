@@ -8,7 +8,7 @@ Stroke,stroke,1,1,cvd_stroke,stroke,deaths
 Diabetes mellitus type 2,T2D,1,1,t2_dm,diabetes,cases
 Lower respiratory infections,LRI,1,0,lri, ,
 Breast cancer,breast_cancer,0,1,,breast-cancer,deaths
-Colon and rectum cancer,colon_cancer,0,1,,colon-cancer,cases
+Colon cancer,colon_cancer,0,1,,colon-cancer,cases
 Uterine cancer,endo_cancer,0,1,,endometrial-cancer,cases
 Liver cancer,liver_cancer,0,1,,liver-cancer,cases
 Cardiovascular diseases,CVD,1,1,cvd,all-cause-cvd,deaths

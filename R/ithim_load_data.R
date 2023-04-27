@@ -200,6 +200,28 @@ ithim_load_data <- function(speeds =
   # Appending myeloid leukemia to GBD dataset
   GBD_DATA <- GBD_DATA %>% bind_rows(add_causes)
   
+  ## AA: Adjusting for Rectum cancer in the combined Colon and Rectum cancer burden
+  ## Source: https://www.cancer.org/cancer/colon-rectal-cancer/about/key-statistics.html
+  ## 106,970 new cases of colon cancer
+  ## 46,050 new cases of rectal cancer
+  ## So reducing the burden by a 3rd (46,050 / (106,970 + 46,050) = 0.3)
+  colon_cancer_causes <- c("Colon and rectum cancer")
+  colon_cancer <- GBD_DATA %>% filter(cause_name %in% colon_cancer_causes)
+  GBD_DATA <- GBD_DATA %>% filter(!cause_name %in% colon_cancer_causes)
+  # Adding causes by measure, sex and age
+  add_causes <- colon_cancer %>% 
+    group_by(measure_name.x, sex_name, age_name) %>% 
+    summarise(val = sum(val) * (2/3)) %>% 
+    mutate(cause_name = "Colon cancer",
+           location_name = unique(GBD_DATA$location_name)) %>% 
+    left_join(GBD_DATA %>% 
+                dplyr::select(sex_name, age_name, population) %>% distinct(),
+              by = c("sex_name", "age_name")) %>% 
+    dplyr::select(measure_name.x, location_name, sex_name, age_name, cause_name,
+                  val, population)
+  # Appending colon cancer to GBD dataset
+  GBD_DATA <- GBD_DATA %>% bind_rows(add_causes)
+  
   ## Importing demographic data
   filename <- paste0(local_path,"/population_",CITY,".csv")
   demographic <- read_csv(filename,col_types = cols())
