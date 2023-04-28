@@ -101,45 +101,45 @@ kable(scen_prop, headings = "Scenario Proportions")
 ```
 
 
-```{r warning=FALSE, echo=F, message=FALSE}
-
-dat <- list()
-
-for (city in cities) {
-  
-dat[[city]] <- io[[city]]$trip_scen_sets %>% 
-  mutate(scenario = case_when(
-    scenario == "Scenario 1" ~ "CYC_SC", 
-    scenario == "Scenario 2" ~ "CAR_SC",
-    scenario == "Scenario 3" ~ "BUS_SC",
-    scenario == "Scenario 4" ~ "MOT_SC",
-    scenario == "Baseline" ~ "Baseline")) %>% 
-  group_by(scenario, trip_mode, trip_distance_cat) %>% 
-  summarise(n = dplyr::n(), dist = sum(trip_distance, na.rm = T)) %>% 
-  mutate(city = city)
-
-td <- dat[[city]]
-
-for (i in 1:nrow(td)) {
-    val <- td %>% filter(scenario == "Baseline", trip_mode == td$trip_mode[i] & 
-                           trip_distance_cat == td$trip_distance_cat[i] &
-                           city == td$city[i])
-    
-    if (nrow(val) > 0) {
-      td$diff[i] <- val$n - td$n[i]
-      td$trip_prop[i] <- round(td$n[i] / val$n, 2)
-      td$dist_prop[i] <- round(td$dist[i] / val$dist, 2)
-      
-    }
-}
-
-dat[[city]] <- td
-
-}
-
-write_csv(bind_rows(dat), "results/multi_city/scen_prop.csv")
-
-```
+# ```{r warning=FALSE, echo=F, message=FALSE}
+# 
+# dat <- list()
+# 
+# for (city in cities) {
+#   
+# dat[[city]] <- io[[city]]$trip_scen_sets %>% 
+#   mutate(scenario = case_when(
+#     scenario == "Scenario 1" ~ "CYC_SC", 
+#     scenario == "Scenario 2" ~ "CAR_SC",
+#     scenario == "Scenario 3" ~ "BUS_SC",
+#     scenario == "Scenario 4" ~ "MOT_SC",
+#     scenario == "Baseline" ~ "Baseline")) %>% 
+#   group_by(scenario, trip_mode, trip_distance_cat) %>% 
+#   summarise(n = dplyr::n(), dist = sum(trip_distance, na.rm = T)) %>% 
+#   mutate(city = city)
+# 
+# td <- dat[[city]]
+# 
+# for (i in 1:nrow(td)) {
+#     val <- td %>% filter(scenario == "Baseline", trip_mode == td$trip_mode[i] & 
+#                            trip_distance_cat == td$trip_distance_cat[i] &
+#                            city == td$city[i])
+#     
+#     if (nrow(val) > 0) {
+#       td$diff[i] <- val$n - td$n[i]
+#       td$trip_prop[i] <- round(td$n[i] / val$n, 2)
+#       td$dist_prop[i] <- round(td$dist[i] / val$dist, 2)
+#       
+#     }
+# }
+# 
+# dat[[city]] <- td
+# 
+# }
+# 
+# write_csv(bind_rows(dat), "results/multi_city/scen_prop.csv")
+# 
+# ```
 
 ## Case study specific propensities
 ```{r message=F, error=F, warning=FALSE}
@@ -845,15 +845,17 @@ for (city in cities){
   # city <- "antofagasta"
   
   td <- io[[city]]$outcomes$mmets %>% dplyr::select(ends_with("mmet")) %>%
-    rename("Baseline" = base_mmet, "CYC_SC" = scen1_mmet,
-           "CAR_SC" = scen2_mmet,  "BUS_SC" = scen3_mmet) %>% 
+    rename("Baseline" = base_mmet, "CYC_SC" = sc_cycle_mmet,
+           "CAR_SC" = sc_car_mmet,  "BUS_SC" = sc_bus_mmet,
+           "MOT_SC" = sc_motorcycle_mmet) %>% 
     summarise(across(, ~ quantile(.x, c(0.05,0.10,0.25, 0.375, 0.50,0.75,0.90), na.rm = T)), 
               prob = c(0.05,0.10,0.25, 0.375, 0.50,0.75,0.90)) %>%
     pivot_longer(cols = -c(prob)) %>% mutate(city = city)
   
   td1 <- io[[city]]$outcomes$mmets %>% dplyr::select(ends_with("mmet")) %>%
-    rename("Baseline" = base_mmet, "CYC_SC" = scen1_mmet,
-           "CAR_SC" = scen2_mmet,  "BUS_SC" = scen3_mmet) %>% 
+     rename("Baseline" = base_mmet, "CYC_SC" = sc_cycle_mmet,
+           "CAR_SC" = sc_car_mmet,  "BUS_SC" = sc_bus_mmet,
+           "MOT_SC" = sc_motorcycle_mmet) %>% 
     summarise(across(, ~ mean(.x))) %>%  t() %>% as.data.frame() %>% 
     tibble::rownames_to_column("name") %>% 
     rename(value = V1) %>% 
@@ -863,5 +865,5 @@ for (city in cities){
   
   
 }
-write_csv(data.table::rbindlist(l), "results/multi_city/PA/pa_distr.csv")
+# write_csv(data.table::rbindlist(l), "results/multi_city/PA/pa_distr.csv")
 ```
