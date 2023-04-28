@@ -1,6 +1,7 @@
 #' ---
 #' title: "Preprocessing of GBD and population data"
-#' author: "Created by Marko in February-March 2019, modified by Daniel in November 2021"
+#' author: "Created by Marko in February-March 2019, modified by Daniel in November 2021. 
+#' Further modified by Ali in April 2023"
 #' output:
 #'   html_document:
 #'     toc: true
@@ -20,8 +21,8 @@ library(dplyr)
 #' I ran everything local because it is faster, but if someone wants to run this
 #' script from V-drive or other laptop, then only the path needs to be changed.
 #' V-Drive folder
-result_folder <- "V:/HealthImpact/Projects/TIGTHAT/Case cities data/GBD 2019 data extraction/"
-country_results <- "V:/HealthImpact/Projects/TIGTHAT/Case cities data/GBD 2019 Countries/"
+result_folder <- "GBD 2019 data extraction/"
+country_results <- "GBD 2019 Countries/"
 
 
 #' Local folder
@@ -37,15 +38,13 @@ country_results <- "V:/HealthImpact/Projects/TIGTHAT/Case cities data/GBD 2019 C
 # causes <- read.csv((paste0(result_folder, "Causes to be extracted.csv")))
 # causes <- unlist(causes[,2])
 # 
-# # From the result_folder:
-# data_read <- read.csv(paste0(result_folder, "GBD2019_countries_extracted.csv"))
+# Read from the local list of causes
 causes <- read.csv("code/GBD/Causes to be extracted.csv")
 causes <- unlist(causes[,2])
 
 # From the result_folder:
 data_read <- read.csv(paste0(result_folder, "GBD2019_countries_extracted.csv"))
 
-bd <- data_read
 #Keep only causes defined in "Causes to be extracted.csv" file
 data_read <- subset(data_read, cause_id %in% causes)
 
@@ -57,7 +56,7 @@ data_read$age_name <- gsub('Under 5', '0 to 4', data_read$age_name)
 data_read$age_name <- gsub('95 plus', '95 to 99', data_read$age_name)
 
 #Read age group data that defines what age groups are needed
-age_groups <- read.csv((paste0(result_folder, "Age_groups.csv")))
+age_groups <- read.csv("code/GBD/Age_groups.csv")
 age_groups <- unlist(age_groups["age_name"])
 
 data_read <- subset(data_read, age_name %in% age_groups)
@@ -114,12 +113,12 @@ join_data <- join_data %>% distinct()
 ############
 #Save each country as separate csv-file
 #First read the names of the countries
-cname <- read.csv((paste0(result_folder, "Countries to be extracted.csv")))
+cname <- read.csv("code/GBD/Countries to be extracted.csv")
 cname <- cname$Country_or_location
 
 
 cities <- data.frame(
-  country_region = c('Ghana', 'São Paulo', 'India', 'India', 'India', 'Minas Gerais', 'Colombia', 'Chile', 'Mexico City', 'Argentina', 'South_Africa', 'Colombia', 'Colombia', 'Uruquay', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Kenya', 'Kenya', 'Mauritius'),
+  country_region = c('Ghana', 'São Paulo', 'India', 'India', 'India', 'Minas Gerais', 'Colombia', 'Chile', 'Mexico City', 'Argentina', 'South Africa', 'Colombia', 'Colombia', 'Uruquay', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Kenya', 'Kenya', 'Mauritius'),
   city = c('accra', 'sao_paulo', 'delhi', 'bangalore', 'vizag', 'belo_horizonte', 'bogota', 'santiago', 'mexico_city', 'buenos_aires', 'cape_town', 'medellin', 'cali', 'montevideo', 'antofagasta', 'arica', 'copiapo', 'coquimbo_laserena', 'iquique_altohospicio', 'osorno', 'puerto_montt', 'san_antonio', 'temuco_padrelascasas', 'valdivia', 'gran_valparaiso', 'nairobi', 'kisumu', 'port_louis'),
   stringsAsFactors = FALSE
 )
