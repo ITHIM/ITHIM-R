@@ -9,7 +9,7 @@
 #'     
 #' This script extracts population data for selected countries
 
-rm(list = ls())
+# rm(list = ls())
 
 #' Defining folders for the data
 #' data_folder is the path where the downloaded zip files are.
@@ -26,9 +26,9 @@ rm(list = ls())
 #gbdfile_name <- "IHME_GBD_2019_POP_2010_2019_0.zip"
 
 #' Local folder
-data_folder <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/CountriesAndTerritoriesAndSubregions/"
+data_folder <- "Global_Burden_Disease_2019/"
 temp_folder <- paste0(data_folder,"temp")
-result_folder <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/GBD 2019 data extraction/"
+result_folder <- "GBD 2019 data extraction/"
 gbdfile_name <- "IHME_GBD_2019_POP_2010_2019_0.zip"
 
 #' Next two lines defines countries that will be extracted
@@ -38,7 +38,7 @@ gbdfile_name <- "IHME_GBD_2019_POP_2010_2019_0.zip"
 #' This file can be imported from the result_folder or the ithim package. Just 
 #' make sure that both files have the same information
 #' From the result_folder:
-countries <- read.csv((paste0(result_folder, "Countries to be extracted.csv")))
+countries <- read.csv("code/GBD/Countries to be extracted.csv")
 #' From the ithim package:
 #countries <- read.csv("code/GBD/Countries to be extracted.csv")
 
