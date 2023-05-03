@@ -25,10 +25,10 @@ rm(list=ls())
 #             'osorno', 'puerto_montt', 'san_antonio',
 #             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
 
-cities <- c('osorno', 'arica')
+cities <- c('osorno')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 2 
+nsamples <- 2
 
 
 voi_analysis <- F # set to T if want to run VoI analysis and to F otherwise
@@ -293,7 +293,6 @@ print(system.time(
                                               SIN_EXPONENT_SUM_VEH = sin_exponent_sum_veh,
                                               CASUALTY_EXPONENT_FRACTION_VEH = casualty_exponent_fraction_veh,
                                               CALL_INDIVIDUAL_SIN = as.logical(call_individual_sin),
-                                              SIN_THRESHOLD = sin_threshold,
                                               PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile[ci],  
                                               AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile[ci],
                                               INJURY_REPORTING_RATE = injury_reporting_rate[[city]],  
@@ -387,6 +386,7 @@ print(system.time(
     for(param in setting_parameters) names(multi_city_ithim[[ci]]$parameters)[which(names(multi_city_ithim[[ci]]$parameters)==param)] <- paste0(param,'_',city)
     multi_city_ithim[[ci]]$parameters <- multi_city_ithim[[ci]]$parameters[-which(names(multi_city_ithim[[ci]]$parameters)==paste0('PM_EMISSION_INVENTORY_',city))]
     multi_city_ithim[[ci]]$parameters <- multi_city_ithim[[ci]]$parameters[-which(names(multi_city_ithim[[ci]]$parameters)==paste0('CO2_EMISSION_INVENTORY_',city))]
+    
     parameter_names_city <- names(multi_city_ithim[[ci]]$parameters)[sapply(names(multi_city_ithim[[ci]]$parameters),function(x)grepl(x,pattern=city))]
     ## add to parameter names
     parameter_names <- c(parameter_names,parameter_names_city)

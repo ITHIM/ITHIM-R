@@ -28,10 +28,10 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 # #African & Indian cities
 # cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
 
-cities <- 'bogota'
+#cities <- 'bogota'
 # number of times input values are sampled from each input parameter distribution
 
-input_parameter_file <- "InputParameters_v24.0.xlsx"
+input_parameter_file <- "InputParameters_v27.0.xlsx"
 
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
@@ -207,7 +207,6 @@ print(system.time(for(city in cities){
     SIN_EXPONENT_SUM_VEH = sin_exponent_sum_veh,
     CASUALTY_EXPONENT_FRACTION_VEH = casualty_exponent_fraction_veh,
     CALL_INDIVIDUAL_SIN = as.logical(call_individual_sin),
-    SIN_THRESHOLD = sin_threshold,
     PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile,  
     AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile,
     INJURY_REPORTING_RATE = injury_reporting_rate[[city]],  
