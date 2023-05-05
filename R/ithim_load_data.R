@@ -200,6 +200,30 @@ ithim_load_data <- function(speeds =
   # Appending myeloid leukemia to GBD dataset
   GBD_DATA <- GBD_DATA %>% bind_rows(add_causes)
   
+  ## Dan: Adding together causes related to "Respiratory" causes at level 2
+  respiratory_causes <- c("Lower respiratory infections", 
+                          "Upper respiratory infections",
+                          "Chronic obstructive pulmonary disease",
+                          "Pneumoconiosis",
+                          "Asthma",
+                          "Interstitial lung disease and pulmonary sarcoidosis",
+                          "Other chronic respiratory diseases")
+  respiratory <- GBD_DATA %>% filter(cause_name %in% respiratory_causes)
+  GBD_DATA <- GBD_DATA %>% filter(!cause_name %in% respiratory_causes)
+  # Adding causes by measure, sex and age
+  add_causes <- respiratory %>% 
+    group_by(measure_name.x, sex_name, age_name) %>% 
+    summarise(val = sum(val)) %>% 
+    mutate(cause_name = "Respiratory",
+           location_name = unique(GBD_DATA$location_name)) %>% 
+    left_join(GBD_DATA %>% 
+                dplyr::select(sex_name, age_name, population) %>% distinct(),
+              by = c("sex_name", "age_name")) %>% 
+    dplyr::select(measure_name.x, location_name, sex_name, age_name, cause_name,
+                  val, population)
+  # Appending head and neck to GBD dataset
+  GBD_DATA <- GBD_DATA %>% bind_rows(add_causes)
+  
   ## AA: Adjusting for Rectum cancer in the combined Colon and Rectum cancer burden
   ## Source: https://www.cancer.org/cancer/colon-rectal-cancer/about/key-statistics.html
   ## 106,970 new cases of colon cancer
