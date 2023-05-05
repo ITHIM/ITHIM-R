@@ -65,11 +65,21 @@ write_csv(all_cause_file, "inst/extdata/global/dose_response/drap/extdata/all_ca
 
 
 # Circulatory (CVD) PM RISK
-# This file was sent by Haneen and it is the DR for CVD and AP. The purpose of
-# having this DR is to get health impact results at level 2 in AP, because 
+# This file was sent by Haneen and it is the ERF for CVD and AP. The purpose of
+# having this ERF is to get health impact results at level 2 in AP, because 
 # before this we only had "respiratory" which is the sum of COPD and LRI.
 cvd_file <- read_csv("data/global/dose_response/drap/GBD 2019/WHO_CIRCULATORY_PM_RISK.CSV") 
 cvd_file <- cvd_file %>% 
   dplyr::select(exposure_spline, mean, lower, upper) %>% 
   rename(dose = exposure_spline, RR = mean,	lb = lower,	ub = upper)
 write_csv(cvd_file, "inst/extdata/global/dose_response/drap/extdata/cvd.csv")
+
+# Respiratory PM RISK
+# This file was sent by Haneen and it is the ERF for Respiratory Causes and AP. 
+# The purpose of having this ERF is to get health impact results at level 2 in AP
+# for all of the causes related to Respiratory causes.
+resp_file <- read_csv("data/global/dose_response/drap/GBD 2019/WHO_RESPIRATORY_PM_RISK.csv") 
+resp_file <- resp_file %>% 
+  dplyr::select(exposure_spline, mean, lower, upper) %>% 
+  rename(dose = exposure_spline, RR = mean,	lb = lower,	ub = upper)
+write_csv(resp_file, "inst/extdata/global/dose_response/drap/extdata/respiratory.csv")
