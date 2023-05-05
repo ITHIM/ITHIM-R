@@ -26,10 +26,12 @@
 #gbdfile_name <- "IHME_GBD_2019_POP_2010_2019_0.zip"
 
 #' Local folder
-data_folder <- "Global_Burden_Disease_2019/"
+data_folder <- "/home/danielgils_server/consultorias/cambridge/data/GBD/2019/CountriesAndTerritoriesAndSubregions/"
 temp_folder <- paste0(data_folder,"temp")
-result_folder <- "GBD 2019 data extraction/"
+result_folder <- "/home/danielgils_server/consultorias/cambridge/data/GBD/2019/GBD_2019_data_extraction/"
 gbdfile_name <- "IHME_GBD_2019_POP_2010_2019_0.zip"
+os_sep <- '/'
+# os_sep <- '\\'
 
 #' Next two lines defines countries that will be extracted
 #' Dan: In the file "countries to be extracted I added Uruguay, Canada, USA, Peru
@@ -49,8 +51,8 @@ file_select <- paste0(data_folder,gbdfile_name) # Full path of the file
 unzip(file_select, exdir = temp_folder) # Extracts zip in temporal folder
   
 # Imports extracted csv file
-data_read <- read.csv((paste0(temp_folder,"\\", "IHME_GBD_2019_POP_2019_Y2020M10D15.CSV")))
-file.remove(paste0(temp_folder,"\\", "IHME_GBD_2019_POP_2019_Y2020M10D15.CSV"))
+data_read <- read.csv((paste0(temp_folder,os_sep, "IHME_GBD_2019_POP_2019_Y2020M10D15.CSV")))
+file.remove(paste0(temp_folder,os_sep, "IHME_GBD_2019_POP_2019_Y2020M10D15.CSV"))
 # Subset the data for only the countries selected
 data_read <- subset(data_read, location_id %in% countries)
   

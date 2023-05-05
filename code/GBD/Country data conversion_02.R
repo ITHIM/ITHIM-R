@@ -21,13 +21,12 @@ library(dplyr)
 #' I ran everything local because it is faster, but if someone wants to run this
 #' script from V-drive or other laptop, then only the path needs to be changed.
 #' V-Drive folder
-result_folder <- "GBD 2019 data extraction/"
-country_results <- "GBD 2019 Countries/"
-
+# result_folder <- "GBD 2019 data extraction/"
+# country_results <- "GBD 2019 Countries/"
 
 #' Local folder
-# result_folder <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/GBD 2019 data extraction/"
-# country_results <- "C:/Users/danie/Documents/Daniel_Gil/Consultorias/2021/Cambridge/Data/GBD/2019/GBD 2019 Countries/"
+result_folder <- "/home/danielgils_server/consultorias/cambridge/data/GBD/2019/GBD_2019_data_extraction/"
+country_results <- "/home/danielgils_server/consultorias/cambridge/data/GBD/2019/GBD_2019_Countries/"
 
 #' The following files can be imported from the result_folder or the ithim package.
 #' Just make sure that both files have the same information.
@@ -52,8 +51,32 @@ data_read <- subset(data_read, cause_id %in% causes)
 data_read <- subset(data_read, metric_name %in% "Number")
 
 #Change the names of age groups
-data_read$age_name <- gsub('Under 5', '0 to 4', data_read$age_name)
-data_read$age_name <- gsub('95 plus', '95 to 99', data_read$age_name)
+table(data_read$age_name)
+#data_read$age_name <- gsub('Under 5', '0 to 4', data_read$age_name)
+#data_read$age_name <- gsub('95 plus', '95 to 99', data_read$age_name)
+data_read <- data_read %>% 
+  mutate(age_name = case_when(
+    age_name == "<5 years" ~ "0 to 4",
+    age_name == "5-9 years" ~ "5 to 9",
+    age_name == "10-14 years" ~ "10 to 14",
+    age_name == "15-19 years" ~ "15 to 19",
+    age_name == "20-24 years" ~ "20 to 24",
+    age_name == "25-29 years" ~ "25 to 29",
+    age_name == "30-34 years" ~ "30 to 34",
+    age_name == "35-39 years" ~ "35 to 39",
+    age_name == "40-44 years" ~ "40 to 44",
+    age_name == "45-49 years" ~ "45 to 49",
+    age_name == "50-54 years" ~ "50 to 54",
+    age_name == "55-59 years" ~ "55 to 59",
+    age_name == "60-64 years" ~ "60 to 64", 
+    age_name == "65-69 years" ~ "65 to 69",
+    age_name == "70-74 years" ~ "70 to 74",
+    age_name == "75-79 years" ~ "75 to 79",
+    age_name == "80-84" ~ "80 to 84",
+    age_name == "85-89" ~ "85 to 89",
+    age_name == "90-94" ~ "90 to 94",
+    age_name == "95+ years" ~ "95 to 99",
+  ))
 
 #Read age group data that defines what age groups are needed
 age_groups <- read.csv("code/GBD/Age_groups.csv")
