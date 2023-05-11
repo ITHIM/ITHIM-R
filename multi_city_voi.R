@@ -56,7 +56,7 @@ voi_age_gender <- F   # set to T if want to include split and to F otherwise
 voi_add_sum <- F
 
 
-input_parameter_file <- "InputParameters_v28.0-INPROGRESS.xlsx"
+input_parameter_file <- "InputParameters_v28.0.xlsx"
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 
 author <- "AKS"
