@@ -146,6 +146,8 @@ create_bogota_scenarios <- function(trip_set){
     rdr_scen <- add_ghost_trips(rdr_scen,
                                 trip_mode = 'bus_driver',
                                 distance_ratio = BUS_TO_PASSENGER_RATIO * DISTANCE_SCALAR_PT,
+                                agerange_male = BUS_DRIVER_MALE_AGERANGE,
+                                agerange_female = BUS_DRIVER_FEMALE_AGERANGE,
                                 reference_mode = 'bus',
                                 scenario = paste0('Scenario ',i))
     #print(paste("Scenario name: ", paste0('Scenario ',i)))

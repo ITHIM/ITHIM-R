@@ -25,7 +25,7 @@ rm(list=ls())
 #             'osorno', 'puerto_montt', 'san_antonio',
 #             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
 
-cities <- c('osorno')
+cities <- c('bogota')
 
 # number of times input values are sampled from each input parameter distribution
 nsamples <- 2
@@ -56,7 +56,7 @@ voi_age_gender <- F   # set to T if want to include split and to F otherwise
 voi_add_sum <- F
 
 
-input_parameter_file <- "InputParameters_v24.0.xlsx"
+input_parameter_file <- "InputParameters_v28.0-INPROGRESS.xlsx"
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 
 author <- "AKS"
@@ -320,7 +320,18 @@ print(system.time(
                                               DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
                                               DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]],
                                               SCENARIO_NAME = scenario_name,
-                                              SCENARIO_INCREASE = scenario_increase)
+                                              SCENARIO_INCREASE = scenario_increase,
+                                              
+                                              BUS_DRIVER_PROP_MALE = as.numeric(bus_driver_prop_male[[city]]),
+                                              BUS_DRIVER_MALE_AGERANGE = bus_driver_male_agerange[[city]],
+                                              BUS_DRIVER_FEMALE_AGERANGE = bus_driver_female_agerange[[city]],
+                                              TRUCK_DRIVER_PROP_MALE = as.numeric(truck_driver_prop_male[[city]]),
+                                              TRUCK_DRIVER_MALE_AGERANGE = truck_driver_male_agerange[[city]],
+                                              TRUCK_DRIVER_FEMALE_AGERANGE = truck_driver_female_agerange[[city]],
+                                              COMMERCIAL_MBIKE_PROP_MALE = as.numeric(commerical_mbike_prop_male[[city]]),
+                                              COMMERCIAL_MBIKE_MALE_AGERANGE = commerical_mbike_male_agerange[[city]],
+                                              COMMERCIAL_MBIKE_FEMALE_AGERANGE = commerical_mbike_female_agerange[[city]]
+                                              )
     
     
     # for first city, store model parameters. For subsequent cities, copy parameters over.

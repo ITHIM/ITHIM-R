@@ -31,7 +31,7 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 #cities <- 'bogota'
 # number of times input values are sampled from each input parameter distribution
 
-input_parameter_file <- "InputParameters_v27.0.xlsx"
+input_parameter_file <- "InputParameters_v28.0-INPROGRESS.xlsx"
 
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
@@ -221,7 +221,17 @@ print(system.time(for(city in cities){
     TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
     CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]],
     SCENARIO_NAME = scenario_name,
-    SCENARIO_INCREASE = scenario_increase
+    SCENARIO_INCREASE = scenario_increase,
+    
+    BUS_DRIVER_PROP_MALE = as.numeric(bus_driver_prop_male[[city]]),
+    BUS_DRIVER_MALE_AGERANGE = bus_driver_male_agerange[[city]],
+    BUS_DRIVER_FEMALE_AGERANGE = bus_driver_female_agerange[[city]],
+    TRUCK_DRIVER_PROP_MALE = as.numeric(truck_driver_prop_male[[city]]),
+    TRUCK_DRIVER_MALE_AGERANGE = truck_driver_male_agerange[[city]],
+    TRUCK_DRIVER_FEMALE_AGERANGE = truck_driver_female_agerange[[city]],
+    COMMERCIAL_MBIKE_PROP_MALE = as.numeric(commerical_mbike_prop_male[[city]]),
+    COMMERCIAL_MBIKE_MALE_AGERANGE = commerical_mbike_male_agerange[[city]],
+    COMMERCIAL_MBIKE_FEMALE_AGERANGE = commerical_mbike_female_agerange[[city]]
   )
   
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS

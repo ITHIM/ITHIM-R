@@ -147,6 +147,8 @@ create_africa_india_scenarios <- function(trip_set){
                                 trip_mode = 'bus_driver',
                                 distance_ratio = BUS_TO_PASSENGER_RATIO * DISTANCE_SCALAR_PT,
                                 reference_mode = 'bus',
+                                agerange_male = BUS_DRIVER_MALE_AGERANGE,
+                                agerange_female = BUS_DRIVER_FEMALE_AGERANGE,
                                 scenario = paste0('Scenario ',i))
     #print(paste("Scenario name: ", paste0('Scenario ',i)))
     bus_dr_dist <- sum(rdr_scen[rdr_scen$stage_mode=='bus_driver',]$stage_distance,na.rm=T)

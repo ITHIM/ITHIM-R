@@ -63,6 +63,15 @@
 #'                                              MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)
 #' @param SCENARIO_INCREASE increase of given mode in each scenario (currently used in GLOBAL and BOGOTA scenarios)
 #' @param CO2_emission_inventory named list of mode emissions
+#' @param BUS_DRIVER_PROP_MALE scalar parameter: proportion of bus drivers that are male
+#' @param BUS_DRIVER_MALE_AGERANGE character parameter: age range of male bus drivers
+#' @param BUS_DRIVER_FEMALE_AGERANGE character parameter: age range of female bus drivers
+#' @param TRUCK_DRIVER_PROP_MALE scalar parameter: proportion of truck drivers that are male
+#' @param TRUCK_DRIVER_MALE_AGERANGE character parameter: age range of male truck drivers
+#' @param TRUCK_DRIVER_FEMALE_AGERANGE character parameter: age range of female truck drivers
+#' @param COMMERCIAL_MBIKE_PROP_MALE scalar parameter: proportion of commercial motorcycle drivers that are male
+#' @param COMMERCIAL_MBIKE_MALE_AGERANGE character parameter: age range of male commercial motorcycle drivers
+#' @param COMMERCIAL_MBIKE_FEMALE_AGERANGE character parameter: age range of female commercial motorcycle drivers
 #' 
 #' @return ithim_object list of objects for onward use.
 #' 
@@ -121,7 +130,18 @@ run_ithim_setup <- function(seed = 1,
                             DISTANCE_SCALAR_CYCLING = 1,
                             DISTANCE_SCALAR_MOTORCYCLE = 1,
                             SCENARIO_NAME = "GLOBAL",
-                            SCENARIO_INCREASE = 0.05){
+                            SCENARIO_INCREASE = 0.05,
+                            
+                            BUS_DRIVER_PROP_MALE = 1,
+                            BUS_DRIVER_MALE_AGERANGE = "25, 65", 
+                            BUS_DRIVER_FEMALE_AGERANGE = "25, 65",
+                            TRUCK_DRIVER_PROP_MALE = 1,
+                            TRUCK_DRIVER_MALE_AGERANGE = "25, 65",
+                            TRUCK_DRIVER_FEMALE_AGERANGE = "25, 65",
+                            COMMERCIAL_MBIKE_PROP_MALE = 1,
+                            COMMERCIAL_MBIKE_MALE_AGERANGE ="25, 65",
+                            COMMERCIAL_MBIKE_FEMALE_AGERANGE ="25, 65"
+                            ){
   
   ## SUMMARY OF INPUTS
   # seed = double. sets seed to allow some reproducibility.
@@ -234,7 +254,7 @@ run_ithim_setup <- function(seed = 1,
   ADD_PERSONAL_MOTORCYCLE_TRIPS <<- ADD_PERSONAL_MOTORCYCLE_TRIPS
   CALL_INDIVIDUAL_SIN <<- CALL_INDIVIDUAL_SIN
 
-  
+
   ## MODEL VARIABLES
   CITY <<- CITY
   if(is.null(PATH_TO_LOCAL_DATA)){
@@ -410,7 +430,16 @@ run_ithim_setup <- function(seed = 1,
                                                     DISTANCE_SCALAR_WALKING,
                                                     DISTANCE_SCALAR_PT,
                                                     DISTANCE_SCALAR_CYCLING,
-                                                    DISTANCE_SCALAR_MOTORCYCLE)
+                                                    DISTANCE_SCALAR_MOTORCYCLE,
+                                                    BUS_DRIVER_PROP_MALE,
+                                                    BUS_DRIVER_MALE_AGERANGE, 
+                                                    BUS_DRIVER_FEMALE_AGERANGE,
+                                                    TRUCK_DRIVER_PROP_MALE,
+                                                    TRUCK_DRIVER_MALE_AGERANGE,
+                                                    TRUCK_DRIVER_FEMALE_AGERANGE,
+                                                    COMMERCIAL_MBIKE_PROP_MALE,
+                                                    COMMERCIAL_MBIKE_MALE_AGERANGE,
+                                                    COMMERCIAL_MBIKE_FEMALE_AGERANGE)
   
   # programming flags: do we need to recompute elements given uncertain variables?
   RECALCULATE_PM_EMISSION_INVENTORY <<- any(c('PM_EMISSION_INVENTORY')%in%names(ithim_object$parameters))

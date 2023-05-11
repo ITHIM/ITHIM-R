@@ -47,9 +47,15 @@ get_synthetic_from_trips <- function(){
   #SURVEY_SCALAR <<- population/length(unique(TRIP_SET$participant_id))/survey_coverage
   
   ## add bus and truck trips
-  if(ADD_BUS_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set)
+  if(ADD_BUS_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,prop_male = BUS_DRIVER_PROP_MALE,
+                                                      agerange_male = BUS_DRIVER_MALE_AGERANGE,
+                                                      agerange_female = BUS_DRIVER_FEMALE_AGERANGE)
 
-  if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',distance_ratio=TRUCK_TO_CAR_RATIO*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car')
+  if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',
+                                                        distance_ratio=TRUCK_TO_CAR_RATIO*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car',
+                                                        prop_male = TRUCK_DRIVER_PROP_MALE,
+                                                        agerange_male = TRUCK_DRIVER_MALE_AGERANGE,
+                                                        agerange_female = TRUCK_DRIVER_FEMALE_AGERANGE)
   
   ## because we have the fraction of total MC travel that is fleet, we need to adjust the parameter to compute fleet travel from non-fleet motorcycle travel
   
@@ -61,7 +67,11 @@ get_synthetic_from_trips <- function(){
     
   
   if(ADD_MOTORCYCLE_FLEET) 
-    raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='motorcycle',distance_ratio=FLEET_TO_MOTORCYCLE_RATIO/(1-FLEET_TO_MOTORCYCLE_RATIO),reference_mode='motorcycle')
+    raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='motorcycle',
+                                    distance_ratio=FLEET_TO_MOTORCYCLE_RATIO/(1-FLEET_TO_MOTORCYCLE_RATIO),reference_mode='motorcycle',
+                                    prop_male = COMMERCIAL_MBIKE_PROP_MALE,
+                                    agerange_male = COMMERCIAL_MBIKE_MALE_AGERANGE,
+                                    agerange_female = COMMERCIAL_MBIKE_FEMALE_AGERANGE)
     #raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='motorcycle',distance_ratio=(1-FLEET_TO_MOTORCYCLE_RATIO)/FLEET_TO_MOTORCYCLE_RATIO,reference_mode='motorcycle')
 
   # create synthetic population
@@ -69,6 +79,8 @@ get_synthetic_from_trips <- function(){
   # add car drivers
   if(ADD_CAR_DRIVERS){
     car_driver_scalar <<- min(1, CAR_OCCUPANCY_RATIO*1/population_in_model_ratio)
+    # age ranges are not needed as car drivers are only used to calculate total vehicle km travelled for the CO2 model but are not
+    # needed for the injury model unlike truck, motorcycle and bus drivers 
     synth_pop$trip_set<- add_ghost_trips(synth_pop$trip_set,trip_mode='car_driver',
                                     distance_ratio=car_driver_scalar*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car')  }   
   raw_trip_set <- NULL
