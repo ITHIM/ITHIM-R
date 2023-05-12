@@ -164,7 +164,7 @@ trip_prop <- list()
 
 for (city in cities) { # Loop for each city
   df <- io[[city]]$trip_scen_sets
-  u_trips <- df %>% dplyr::filter(scenario == "Baseline") %>% 
+  u_trips <- df %>% dplyr::filter(scenario == "baseline") %>% 
     summarise(uid = n_distinct(trip_id)) %>% as.numeric()
   td <- df %>% distinct(trip_id, scenario, .keep_all = T) %>% 
     group_by(trip_mode, scenario) %>% 
