@@ -495,7 +495,7 @@ round_and_print <- function(data,text=''){
     cat("\n")
   }
 }
-scen_names <- rownames(scen_prop)
+scen_names <- rownames(io$scen_prop)
 #yll_totals <- lapply(io,function(x){
 yll_totals <- lapply(io[-2],function(x){
   temp <- sapply(1:NSCEN,function(y){
@@ -726,11 +726,10 @@ for (k in measure) { # loop for ylls or deaths
                                       -sex, -age_cat) %>% 
         mutate(city = i,
                scenario = case_when(
-                 grepl("scen1", cause) ~ scen_names[1],
-                 grepl("scen2", cause) ~ scen_names[2],
-                 grepl("scen3", cause) ~ scen_names[3],
-                 grepl("scen4", cause) ~ scen_names[4],
-                 grepl("scen5", cause) ~ scen_names[5],
+                 grepl("sc_cycle", cause) ~ scen_names[1],
+                 grepl("sc_car", cause) ~ scen_names[2],
+                 grepl("sc_bus", cause) ~ scen_names[3],
+                 grepl("sc_motorcycle", cause) ~ scen_names[4]
                ),
                level1 = case_when(
                  grepl("all_cause", cause) ~ "L1: All Cause",
@@ -739,8 +738,7 @@ for (k in measure) { # loop for ylls or deaths
                level2 = case_when(
                  grepl("total_cancer", cause) ~ "L2: Cancer",
                  grepl("CVD", cause) ~ "L2: CVD",
-                 grepl("COPD", cause) ~ "L2: Respiratory",
-                 grepl("LRI", cause) ~ "L2: Respiratory",
+                 grepl("respiratory", cause) ~ "L2: Respiratory",
                  grepl("T2D", cause) ~ "L2: Other",
                  grepl("total_dementia", cause) ~ "L2: Other",
                  grepl("Parkinson", cause) ~ "L2: Other",
@@ -759,6 +757,7 @@ for (k in measure) { # loop for ylls or deaths
                  grepl("liver_cancer", cause) ~ "L3: liver_cancer",
                  grepl("total_dementia", cause) ~ "L3: total_dementia",
                  grepl("myeloma", cause) ~ "L3: myeloma",
+                 grepl("myeloid_leukemia", cause) ~ "L3: Myeloid Leukemia",
                  grepl("Parkinson", cause) ~ "L3: Parkinson",
                  grepl("head_neck_cancer", cause) ~ "L3: head_neck_cancer",
                  grepl("stomach_cancer", cause) ~ "L3: stomach_cancer",
