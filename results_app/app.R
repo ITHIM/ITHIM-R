@@ -8,26 +8,31 @@ library(readxl)
 library(ggridges)
 
 options(scipen = 10000)
-rel_path <- "../results/multi_city/health_impacts/"
-ylls <- read_csv(paste0(rel_path, "ylls.csv"))
-deaths <- read_csv(paste0(rel_path, "deaths.csv"))
+
+github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/latam_paper/"
+rel_path_health <- paste0(github_path, "results/multi_city/health_impacts/")
+# 
+# rel_path <- "../results/multi_city/health_impacts/"
+ylls <- read_csv(paste0(rel_path_health, "ylls.csv"))
+deaths <- read_csv(paste0(rel_path_health, "deaths.csv"))
 ylls$measures <- "Years of Life Lost (YLLs)"
 deaths$measures <- "Deaths"
 
-ylls_pathway <- read_csv(paste0(rel_path, "ylls_pathway.csv"))
-deaths_pathway <- read_csv(paste0(rel_path, "deaths_pathway.csv"))
+ylls_pathway <- read_csv(paste0(rel_path_health, "ylls_pathway.csv"))
+deaths_pathway <- read_csv(paste0(rel_path_health, "deaths_pathway.csv"))
 ylls_pathway$measures <- "Years of Life Lost (YLLs)"
 deaths_pathway$measures <- "Deaths"
 
-injury_risks_per_billion_kms_lng <- read_csv("../results/multi_city/whw_matrices/injury_risks_per_billion_kms_lng.csv")
-injury_risks_per_100k_pop <- read_csv("../results/multi_city/whw_matrices/injury_risks_per_100k_pop.csv")
-injury_risks_per_100million_h_lng <- read_csv("../results/multi_city/whw_matrices/injury_risks_per_100million_h_lng.csv")
+rel_path_inj <- paste0(github_path, "results/multi_city/whw_matrices/")
 
+injury_risks_per_billion_kms_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_billion_kms_lng.csv"))
+injury_risks_per_100k_pop <- read_csv(paste0(rel_path_inj, "injury_risks_per_100k_pop.csv"))
+injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_100million_h_lng.csv"))
 
-# Input params  
-input_parameter_file_path <- "../InputParameters_v28.0.xlsx"
-city_input_params <- read_excel(input_parameter_file_path, sheet = "all_city_parameter_inputs")
-global_input_params <- read_excel(input_parameter_file_path, sheet = "all_global_parameter_inputs")
+# # Input params  
+# input_parameter_file_path <- paste0(github_path, "InputParameters_v28.0.xlsx")
+# city_input_params <- read_excel(input_parameter_file_path, sheet = "all_city_parameter_inputs")
+# global_input_params <- read_excel(input_parameter_file_path, sheet = "all_global_parameter_inputs")
 
 # output$table <- DT::renderDataTable(DT::datatable({
 
@@ -152,8 +157,8 @@ ui <- grid_page(
       tabPanel("Health Outcomes", 
                plotlyOutput("in_pivot_int", width = "100%", height = "100%")
               ),
-      tabPanel("Injury Risks", plotlyOutput("in_inj_pivot", width = "100%", height = "100%")),
-      tabPanel("Params", DT::dataTableOutput("input_params"))
+      tabPanel("Injury Risks", plotlyOutput("in_inj_pivot", width = "100%", height = "100%"))#,
+      # tabPanel("Params", DT::dataTableOutput("input_params"))
     )
   ),
   grid_card(
@@ -176,10 +181,6 @@ ui <- grid_page(
     br(),
     conditionalPanel(
       condition = "input.main_tab == 'Health Outcomes'",
-      # radioButtons(inputId = "in_int", 
-      #              label = "Interactive",
-      #              choices = c("No", "Yes"),
-      #              selected = "No"),
       radioButtons(inputId = "in_measure", 
                    label = "Health Outcome",
                    choices = c("Years of Life Lost (YLLs)", "Deaths")),
