@@ -24,8 +24,8 @@ injury_risks_per_100k_pop <- read_csv("../results/multi_city/whw_matrices/injury
 injury_risks_per_100million_h_lng <- read_csv("../results/multi_city/whw_matrices/injury_risks_per_100million_h_lng.csv")
 
 
-# Input params
-input_parameter_file_path <- "../InputParameters_v24.0.xlsx"
+# Input params  
+input_parameter_file_path <- "../InputParameters_v28.0.xlsx"
 city_input_params <- read_excel(input_parameter_file_path, sheet = "all_city_parameter_inputs")
 global_input_params <- read_excel(input_parameter_file_path, sheet = "all_global_parameter_inputs")
 
@@ -36,10 +36,10 @@ ren_scen <- function(df){
     filter(scenario != "Baseline") |> 
     mutate(scenario = case_when(
       grepl("Baseline_predicted", scenario) ~ "Baseline",
-      grepl("Bicycling", scenario) ~ "CYC_SC",
-      grepl("Public Transport", scenario) ~ "BUS_SC",
-      grepl("Motorcycling", scenario) ~ "MOT_SC",
-      grepl("Car", scenario) ~ "CAR_SC"
+      grepl("Bicycling|cycle", scenario) ~ "CYC_SC",
+      grepl("Public Transport|bus", scenario) ~ "BUS_SC",
+      grepl("Motorcycling|motorcycle", scenario) ~ "MOT_SC",
+      grepl("Car|car", scenario) ~ "CAR_SC"
       )
     )
 }
@@ -76,6 +76,27 @@ cities[cities$continent == 'Latin_America',]$continent <- "Big Latin American ci
 
 combined_health_dataset <- rbind(ylls, deaths)
 combined_health_dataset_pathway <- rbind(ylls_pathway, deaths_pathway)
+
+ren_scen_health <- function(df){
+  df[df$scenario == "motorcycle",]$scenario <- "MOT_SC"
+  df[df$scenario == "car",]$scenario <- "CAR_SC"
+  df[df$scenario == "bus",]$scenario <- "BUS_SC"
+  df[df$scenario == "cycle",]$scenario <- "CYC_SC"
+
+  df
+  
+  # df |> 
+  #   mutate(scenario = case_when(
+  #       grepl("cycle", scenario) ~ "CYC_SC",
+  #       grepl("bus", scenario) ~ "BUS_SC",
+  #       grepl("motorcycle", scenario) ~ "MOT_SC",
+  #       grepl("car", scenario) ~ "CAR_SC"
+  #     )
+  #   )
+}
+
+combined_health_dataset_pathway <- ren_scen_health(combined_health_dataset_pathway)
+combined_health_dataset <- ren_scen_health(combined_health_dataset)
 
 level_choices <- c("All-cause mortality" = "level1",
                    "CVD/Respiratory diseases" = "level2",
@@ -361,10 +382,19 @@ server <- function(input, output, session) {
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
     
+    m <- list(
+      l = 10,
+      r = 10,
+      b = 10,
+      t = 50,
+      pad = 50
+    )
+    
+    
     if (!is.null(in_col_lvl)){
       
       text_colour <- "black"
-        y_lab <- "Years of Life Lost (YLLs) per 100k"
+        y_lab <- "Years of Life Lost (YLLs) per 100k"#<---- harms      #      benefits ---->
         if (in_measure == "Deaths")
           y_lab <- "Deaths per 100k"
         
@@ -385,9 +415,16 @@ server <- function(input, output, session) {
             theme_minimal() +
             facet_grid(vars(), vars(dose))  +
             scale_fill_manual(values = scen_colours) +
-            labs(y = y_lab)
+            labs(title = y_lab,
+                 x = "", #expression(harmful %<->% benefits), 
+                 y = y_lab,
+                 subtitle = "subtitle",
+                 caption = "caption")
           
-          plotly::ggplotly(gg) |> plotly::layout(boxmode = "group") #|> style(text = ld$metric_100k, textposition = "auto", textfont = 12)
+          plotly::ggplotly(gg) |> plotly::layout(boxmode = "group",
+                                                 # title = list(text = expression(harmful %<->% benefits)),
+                                                 margin = m#list(l = 10, r = 10, b = 10, t = 50, pad = 20)
+                                                 )
         }
     }else{
       plotly::ggplotly(ggplot(data.frame()))
