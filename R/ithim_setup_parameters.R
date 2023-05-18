@@ -51,6 +51,7 @@
 #' @param COMMERCIAL_MBIKE_PROP_MALE scalar parameter: proportion of commercial motorcycle drivers that are male
 #' @param COMMERCIAL_MBIKE_MALE_AGERANGE character parameter: age range of male commercial motorcycle drivers
 #' @param COMMERCIAL_MBIKE_FEMALE_AGERANGE character parameter: age range of female commercial motorcycle drivers
+#' @param MINIMUM_PT_TIME minimum time that person spends on public transport
 #' 
 #' @return list of samples of uncertain parameters
 #' 
@@ -90,15 +91,16 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    DISTANCE_SCALAR_PT = 1,
                                    DISTANCE_SCALAR_CYCLING = 1,
                                    DISTANCE_SCALAR_MOTORCYCLE = 1,
-                                   BUS_DRIVER_PROP_MALE = 1,
-                                   BUS_DRIVER_MALE_AGERANGE = "25, 65", 
-                                   BUS_DRIVER_FEMALE_AGERANGE = "25, 65",
-                                   TRUCK_DRIVER_PROP_MALE = 1,
-                                   TRUCK_DRIVER_MALE_AGERANGE = "25, 65",
-                                   TRUCK_DRIVER_FEMALE_AGERANGE = "25, 65",
-                                   COMMERCIAL_MBIKE_PROP_MALE = 1,
-                                   COMMERCIAL_MBIKE_MALE_AGERANGE ="25, 65",
-                                   COMMERCIAL_MBIKE_FEMALE_AGERANGE ="25, 65"){
+                                   BUS_DRIVER_PROP_MALE = 0.99,
+                                   BUS_DRIVER_MALE_AGERANGE = "18, 65", 
+                                   BUS_DRIVER_FEMALE_AGERANGE = "18, 65",
+                                   TRUCK_DRIVER_PROP_MALE = 0.99,
+                                   TRUCK_DRIVER_MALE_AGERANGE = "18, 65",
+                                   TRUCK_DRIVER_FEMALE_AGERANGE = "18, 65",
+                                   COMMERCIAL_MBIKE_PROP_MALE = 0.99,
+                                   COMMERCIAL_MBIKE_MALE_AGERANGE ="18, 65",
+                                   COMMERCIAL_MBIKE_FEMALE_AGERANGE ="18, 65",
+                                   MINIMUM_PT_TIME = 3){
   
   if ((length(PM_CONC_BASE==1)&&PM_CONC_BASE == 50) |
       (length(PM_TRANS_SHARE==1)&&PM_TRANS_SHARE == 0.225))
@@ -144,6 +146,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   COMMERCIAL_MBIKE_PROP_MALE <<- COMMERCIAL_MBIKE_PROP_MALE
   COMMERCIAL_MBIKE_MALE_AGERANGE <<- COMMERCIAL_MBIKE_MALE_AGERANGE
   COMMERCIAL_MBIKE_FEMALE_AGERANGE <<- COMMERCIAL_MBIKE_FEMALE_AGERANGE
+  MINIMUM_PT_TIME <<- MINIMUM_PT_TIME
   parameters <- list()
   
   ##Variables with normal distribution

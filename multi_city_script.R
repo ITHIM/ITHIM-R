@@ -28,10 +28,10 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 # #African & Indian cities
 # cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
 
-#cities <- 'bogota'
+cities <- 'bogota'
 # number of times input values are sampled from each input parameter distribution
 
-input_parameter_file <- "InputParameters_v28.0.xlsx"
+input_parameter_file <- "InputParameters_v29.0.xlsx"
 
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
@@ -231,7 +231,8 @@ print(system.time(for(city in cities){
     TRUCK_DRIVER_FEMALE_AGERANGE = truck_driver_female_agerange[[city]],
     COMMERCIAL_MBIKE_PROP_MALE = as.numeric(commerical_mbike_prop_male[[city]]),
     COMMERCIAL_MBIKE_MALE_AGERANGE = commerical_mbike_male_agerange[[city]],
-    COMMERCIAL_MBIKE_FEMALE_AGERANGE = commerical_mbike_female_agerange[[city]]
+    COMMERCIAL_MBIKE_FEMALE_AGERANGE = commerical_mbike_female_agerange[[city]],
+    MINIMUM_PT_TIME = as.numeric(minimum_pt_time)
   )
   
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS

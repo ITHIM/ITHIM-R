@@ -330,7 +330,8 @@ print(system.time(
                                               TRUCK_DRIVER_FEMALE_AGERANGE = truck_driver_female_agerange[[city]],
                                               COMMERCIAL_MBIKE_PROP_MALE = as.numeric(commerical_mbike_prop_male[[city]]),
                                               COMMERCIAL_MBIKE_MALE_AGERANGE = commerical_mbike_male_agerange[[city]],
-                                              COMMERCIAL_MBIKE_FEMALE_AGERANGE = commerical_mbike_female_agerange[[city]]
+                                              COMMERCIAL_MBIKE_FEMALE_AGERANGE = commerical_mbike_female_agerange[[city]],
+                                              MINIMUM_PT_TIME = as.numeric(minimum_pt_time)
                                               )
     
     

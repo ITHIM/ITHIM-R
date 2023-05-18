@@ -9,7 +9,7 @@
 #' @export
 add_walk_trips <- function(pt_trips){
   
-  min_pt_time <- 3
+  min_pt_time <- MINIMUM_PT_TIME
   
   # filter out stage modes that are PT
   walk_trips <- pt_trips[pt_trips$stage_mode %in% c('bus','minibus','rail','subway'),] 

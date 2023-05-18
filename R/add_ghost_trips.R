@@ -16,8 +16,8 @@ add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',
                             distance_ratio=BUS_TO_PASSENGER_RATIO*DISTANCE_SCALAR_PT,
                             reference_mode='bus',
                             prop_male = 1,
-                            agerange_male = '25, 65',
-                            agerange_female = '25, 65',
+                            agerange_male = '18, 65',
+                            agerange_female = '18, 65',
                             scenario = NA){ 
   
   ## values for new ghost journeys
