@@ -51,12 +51,23 @@ get_synthetic_from_trips <- function(){
                                                       agerange_male = BUS_DRIVER_MALE_AGERANGE,
                                                       agerange_female = BUS_DRIVER_FEMALE_AGERANGE)
 
-  if(ADD_TRUCK_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',
-                                                        distance_ratio=TRUCK_TO_CAR_RATIO*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car',
-                                                        prop_male = TRUCK_DRIVER_PROP_MALE,
-                                                        agerange_male = TRUCK_DRIVER_MALE_AGERANGE,
-                                                        agerange_female = TRUCK_DRIVER_FEMALE_AGERANGE)
-  
+  if(ADD_TRUCK_DRIVERS){
+    if (ADD_CAR_DRIVERS){ # if know car occupancy ratio, convert km of people travelling by car into car vehicle km to get km travelled by truck
+      raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',
+                                      distance_ratio=CAR_OCCUPANCY_RATIO*TRUCK_TO_CAR_RATIO*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car',
+                                      prop_male = TRUCK_DRIVER_PROP_MALE,
+                                      agerange_male = TRUCK_DRIVER_MALE_AGERANGE,
+                                      agerange_female = TRUCK_DRIVER_FEMALE_AGERANGE)
+    } else {
+      raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',
+                                      distance_ratio=TRUCK_TO_CAR_RATIO*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car',
+                                      prop_male = TRUCK_DRIVER_PROP_MALE,
+                                      agerange_male = TRUCK_DRIVER_MALE_AGERANGE,
+                                      agerange_female = TRUCK_DRIVER_FEMALE_AGERANGE)
+    }
+  } 
+
+    
   ## because we have the fraction of total MC travel that is fleet, we need to adjust the parameter to compute fleet travel from non-fleet motorcycle travel
   
   if(ADD_PERSONAL_MOTORCYCLE_TRIPS != 'no'){
