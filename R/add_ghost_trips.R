@@ -21,7 +21,7 @@ add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',
                             scenario = NA){ 
   
   ## values for new ghost journeys
-  nPeople <- 1000
+  nPeople <- 100
   nTrips <- 1
   total_ref_distance <- sum(raw_trip_set[raw_trip_set$stage_mode==reference_mode,]$stage_distance,na.rm=T)
   
