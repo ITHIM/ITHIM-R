@@ -378,7 +378,7 @@ ithim_load_data <- function(speeds =
   same_cas_str_modes <- same_cas_str_modes %>% mutate(strike_mode = 'nov')
 
   # Re-add with NOV
-  injuries <- plyr::rbind.fill(injuries, same_cas_str_modes)
+  injuries <- dplyr::bind_rows(injuries, same_cas_str_modes)
 
   # Call function to set tables for WHW and NOV
   set_injury_contingency(injuries)

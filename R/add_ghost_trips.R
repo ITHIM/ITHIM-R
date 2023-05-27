@@ -73,7 +73,7 @@ add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',
       new_trips$trip_distance_cat[new_trips$trip_distance >= DIST_LOWER_BOUNDS[3]] <- DIST_CAT[3]
     }
     
-    raw_trip_set <- plyr::rbind.fill(raw_trip_set, new_trips)
+    raw_trip_set <- dplyr::bind_rows(raw_trip_set, new_trips)
   }
   
 
@@ -109,7 +109,7 @@ add_ghost_trips <- function(raw_trip_set,trip_mode='bus_driver',
       new_trips$trip_distance_cat[new_trips$trip_distance >= DIST_LOWER_BOUNDS[3]] <- DIST_CAT[3]
     }
     
-    raw_trip_set <- plyr::rbind.fill(raw_trip_set, new_trips)
+    raw_trip_set <- dplyr::bind_rows(raw_trip_set, new_trips)
   }
   
   

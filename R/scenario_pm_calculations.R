@@ -161,7 +161,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
                          synth_pop)
   
   # Combine people with and without trips
-  synth_pop <- plyr::rbind.fill(synth_pop, id_wo_travel)
+  synth_pop <- dplyr::bind_rows(synth_pop, id_wo_travel)
   
   # Convert data type to integer
   synth_pop$participant_id <- as.integer(synth_pop$participant_id)
