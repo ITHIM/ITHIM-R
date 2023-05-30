@@ -31,7 +31,7 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 cities <- 'bogota'
 # number of times input values are sampled from each input parameter distribution
 
-input_parameter_file <- "InputParameters_v29.0.xlsx"
+input_parameter_file <- "InputParameters_v30.0.xlsx"
 
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
