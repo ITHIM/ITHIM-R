@@ -69,8 +69,11 @@ create_latam_scenarios <- function(trip_set){
           nrow()
       } # End else
       target_percent <- SCENARIO_PROPORTIONS[i,j]
-      n_trips_to_change <- round(length(unique(rdr_copy[[j]]$trip_id)) * 
+      # n_trips_to_change <- round(length(unique(rdr_copy[[j]]$trip_id)) * 
+      #                              target_percent / 100) # These trips will be reassigned
+      n_trips_to_change <- round(length(unique(rdr_all_by_distance[[j]]$trip_id)) * 
                                    target_percent / 100) # These trips will be reassigned
+      #print(n_trips_to_change)
       if (length(potential_trip_ids) > 0 & n_trips_to_change > 0) {
         if (length(potential_trip_ids) == 1) {
           change_trip_ids <- potential_trip_ids
@@ -84,7 +87,7 @@ create_latam_scenarios <- function(trip_set){
         change_trips$stage_duration <- change_trips$stage_distance * 60 /
           MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode == mode_name]
         
-        # Replace trips reassigned in the trip dataset and save them in a new list
+        # Replace trips reassigned in the trip data set and save them in a new list
         rdr_copy[[j]] <- 
           rbind(rdr_copy[[j]][!rdr_copy[[j]]$trip_id %in% change_trip_ids,],
                 change_trips)
@@ -93,38 +96,29 @@ create_latam_scenarios <- function(trip_set){
     rdr_scen <- do.call(rbind,rdr_copy)
     rdr_scen <- rbind(rdr_scen,rdr_not_changeable)
     
-    # Remove bus_driver from the dataset, to recalculate them
-    rdr_scen <-  filter(rdr_scen, !trip_mode %in% 'bus_driver')
-    rdr_scen <- add_ghost_trips(rdr_scen,
-                                trip_mode = 'bus_driver',
-                                distance_ratio = BUS_TO_PASSENGER_RATIO * DISTANCE_SCALAR_PT,
-                                reference_mode = 'bus',
-                                agerange_male = BUS_DRIVER_MALE_AGERANGE,
-                                agerange_female = BUS_DRIVER_FEMALE_AGERANGE,
-                                scenario = paste0('Scenario ',i))
-    #print(paste("Scenario name: ", paste0('Scenario ',i)))
-    bus_dr_dist <- sum(rdr_scen[rdr_scen$stage_mode=='bus_driver',]$stage_distance,na.rm=T)
-    bus_dist <- sum(rdr_scen[rdr_scen$stage_mode=='bus',]$stage_distance,na.rm=T)
-    
-    #print(bus_dr_dist/bus_dist)
-    
-    
+    # Remove bus_driver from the data set, to recalculate them
+    if (ADD_BUS_DRIVERS){
+      rdr_scen <-  filter(rdr_scen, !trip_mode %in% 'bus_driver')
+      rdr_scen <- add_ghost_trips(rdr_scen,
+                                  trip_mode = 'bus_driver',
+                                  distance_ratio = BUS_TO_PASSENGER_RATIO * DISTANCE_SCALAR_PT,
+                                  reference_mode = 'bus',
+                                  agerange_male = BUS_DRIVER_MALE_AGERANGE,
+                                  agerange_female = BUS_DRIVER_FEMALE_AGERANGE,
+                                  scenario = paste0('Scenario ',i))
+    }
+
     # Remove car_driver from the dataset, to recalculate them
     rdr_scen <-  filter(rdr_scen, !trip_mode %in% 'car_driver')
-    rdr_scen <- add_ghost_trips(rdr_scen,
-                                trip_mode='car_driver',
-                                distance_ratio=car_driver_scalar*DISTANCE_SCALAR_CAR_TAXI,
-                                reference_mode='car',
-                                scenario = paste0('Scenario ',i))
-    #print(paste("Scenario name: ", paste0('Scenario ',i)))
-    car_dr_dist <- sum(rdr_scen[rdr_scen$stage_mode=='car_driver',]$stage_distance,na.rm=T)
-    car_dist <- sum(rdr_scen[rdr_scen$stage_mode=='car',]$stage_distance,na.rm=T)
+    if (ADD_CAR_DRIVERS){
+      rdr_scen <- add_ghost_trips(rdr_scen,
+                                  trip_mode='car_driver',
+                                  distance_ratio=car_driver_scalar*DISTANCE_SCALAR_CAR_TAXI,
+                                  reference_mode='car',
+                                  scenario = paste0('Scenario ',i))
+    }
     
-    #print(car_dr_dist/car_dist)
-    
-    
-    # browser()
-    rdr_scen$scenario <- paste0('Scenario ',i)
+    rdr_scen$scenario <- paste0("sc_", rownames(SCENARIO_PROPORTIONS)[i])
     rd_list[[i + 1]] <- rdr_scen
   } # End loop for scenarios
   return(rd_list)
