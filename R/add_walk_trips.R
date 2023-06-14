@@ -1,6 +1,18 @@
-#' Add pedestrian trips to trip set
+#' Addition of walk to public transport stages to trip set
 #' 
-#' Create data frame of walk-to-PT trips from PT trips and walk-to-bus time
+#' Add walk to public transport stages to those public transport trips that do not have a walking stage
+#' 
+#' Function to add additional walking stages to those public transport trips that do not have a walking stage 
+#' and have a longer duration than the MINIMUM_PT_TIME plus the BUS_WALK_TIME / RAIL_WALK_TIME parameters. The MINIMUM_PT_TIME is 
+#' a global input parameter that determines how many minutes a person travelling on public transport spends on 
+#' the public transport stage. The BUS_WALK_TIME / RAIL_WALK_TIME parameter is a city specific input parameter that determines 
+#' the duration of the walk to public transport walking stage. 
+#' 
+#' For PT trips that are long enough and do not have a walking stage, the BUS_WALK_TIME / RAIL_WALK_TIME duration is subtracted from 
+#' the total trip duration. Using the mode specific speeds, the distance travelled of the public transport stage of the trip is 
+#' re-calculated. Using the newly calculated public transport stage distance and the walk to pt stage distance, the total trip
+#' distance is also re-calculated. A complete set of pt trips stages and walk to put trip stages is returned.
+#' 
 #' 
 #' @param pt_trips data frame of PT trips
 #' 
@@ -61,9 +73,9 @@ add_walk_trips <- function(pt_trips){
                                                               ) * VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$stage_mode=='rail']
   
   # save the number of new non-zero walk trips for both rail and bus
-  count_new_walk_trips_bus <<- nrow(walk_trips %>% filter(stage_duration_new > 0 & (stage_mode == 'bus' | stage_mode == 'minibus')))
-  count_new_walk_trips_rail <<- nrow(walk_trips %>% filter(stage_duration_new > 0 & (stage_mode == 'rail' | stage_mode == 'subway')))
-  count_new_walk_trips <<- nrow(walk_trips %>% filter(stage_duration_new > 0))
+  #count_new_walk_trips_bus <<- nrow(walk_trips %>% filter(stage_duration_new > 0 & (stage_mode == 'bus' | stage_mode == 'minibus')))
+  #count_new_walk_trips_rail <<- nrow(walk_trips %>% filter(stage_duration_new > 0 & (stage_mode == 'rail' | stage_mode == 'subway')))
+  #count_new_walk_trips <<- nrow(walk_trips %>% filter(stage_duration_new > 0))
   
   # updated stage and distance duration
   walk_trips$stage_distance <- walk_trips$stage_distance_new
