@@ -73,9 +73,9 @@ add_walk_trips <- function(pt_trips){
                                                               ) * VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$stage_mode=='rail']
   
   # save the number of new non-zero walk trips for both rail and bus
-  #count_new_walk_trips_bus <<- nrow(walk_trips %>% filter(stage_duration_new > 0 & (stage_mode == 'bus' | stage_mode == 'minibus')))
-  #count_new_walk_trips_rail <<- nrow(walk_trips %>% filter(stage_duration_new > 0 & (stage_mode == 'rail' | stage_mode == 'subway')))
-  #count_new_walk_trips <<- nrow(walk_trips %>% filter(stage_duration_new > 0))
+  count_new_walk_trips_bus <<- nrow(walk_trips %>% filter(stage_duration_new > 0 & (stage_mode == 'bus' | stage_mode == 'minibus')))
+  count_new_walk_trips_rail <<- nrow(walk_trips %>% filter(stage_duration_new > 0 & (stage_mode == 'rail' | stage_mode == 'subway')))
+  count_new_walk_trips <<- nrow(walk_trips %>% filter(stage_duration_new > 0))
   
   # updated stage and distance duration
   walk_trips$stage_distance <- walk_trips$stage_distance_new
