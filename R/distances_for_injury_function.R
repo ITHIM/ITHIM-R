@@ -30,7 +30,10 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
   # }
   true_distances_0 <- distances
   true_distances_0$sex_age <-  paste0(true_distances_0$sex,"_",true_distances_0$age_cat)
-  #if(ADD_BUS_DRIVERS) true_distances_0$bus <- true_distances_0$bus + true_distances_0$bus_driver
+
+  # add bus driver distances to total distances by people travelling by bus
+  if(ADD_BUS_DRIVERS) true_distances_0$bus <- true_distances_0$bus + true_distances_0$bus_driver
+  
   true_distances <- true_distances_0#[,-c(which(names(true_distances_0) == 'sex'))]
   
   ## for injury_function_2

@@ -8,26 +8,31 @@ library(readxl)
 library(ggridges)
 
 options(scipen = 10000)
-rel_path <- "../results/multi_city/health_impacts/"
-ylls <- read_csv(paste0(rel_path, "ylls.csv"))
-deaths <- read_csv(paste0(rel_path, "deaths.csv"))
+
+github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/latam_paper/"
+rel_path_health <- paste0(github_path, "results/multi_city/health_impacts/")
+# 
+# rel_path <- "../results/multi_city/health_impacts/"
+ylls <- read_csv(paste0(rel_path_health, "ylls.csv"))
+deaths <- read_csv(paste0(rel_path_health, "deaths.csv"))
 ylls$measures <- "Years of Life Lost (YLLs)"
 deaths$measures <- "Deaths"
 
-ylls_pathway <- read_csv(paste0(rel_path, "ylls_pathway.csv"))
-deaths_pathway <- read_csv(paste0(rel_path, "deaths_pathway.csv"))
+ylls_pathway <- read_csv(paste0(rel_path_health, "ylls_pathway.csv"))
+deaths_pathway <- read_csv(paste0(rel_path_health, "deaths_pathway.csv"))
 ylls_pathway$measures <- "Years of Life Lost (YLLs)"
 deaths_pathway$measures <- "Deaths"
 
-injury_risks_per_billion_kms_lng <- read_csv("../results/multi_city/whw_matrices/injury_risks_per_billion_kms_lng.csv")
-injury_risks_per_100k_pop <- read_csv("../results/multi_city/whw_matrices/injury_risks_per_100k_pop.csv")
-injury_risks_per_100million_h_lng <- read_csv("../results/multi_city/whw_matrices/injury_risks_per_100million_h_lng.csv")
+rel_path_inj <- paste0(github_path, "results/multi_city/whw_matrices/")
 
+injury_risks_per_billion_kms_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_billion_kms_lng.csv"))
+injury_risks_per_100k_pop <- read_csv(paste0(rel_path_inj, "injury_risks_per_100k_pop.csv"))
+injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_100million_h_lng.csv"))
 
-# Input params
-input_parameter_file_path <- "../InputParameters_v24.0.xlsx"
-city_input_params <- read_excel(input_parameter_file_path, sheet = "all_city_parameter_inputs")
-global_input_params <- read_excel(input_parameter_file_path, sheet = "all_global_parameter_inputs")
+# # Input params  
+# input_parameter_file_path <- paste0(github_path, "InputParameters_v28.0.xlsx")
+# city_input_params <- read_excel(input_parameter_file_path, sheet = "all_city_parameter_inputs")
+# global_input_params <- read_excel(input_parameter_file_path, sheet = "all_global_parameter_inputs")
 
 # output$table <- DT::renderDataTable(DT::datatable({
 
@@ -36,10 +41,10 @@ ren_scen <- function(df){
     filter(scenario != "Baseline") |> 
     mutate(scenario = case_when(
       grepl("Baseline_predicted", scenario) ~ "Baseline",
-      grepl("Bicycling", scenario) ~ "CYC_SC",
-      grepl("Public Transport", scenario) ~ "BUS_SC",
-      grepl("Motorcycling", scenario) ~ "MOT_SC",
-      grepl("Car", scenario) ~ "CAR_SC"
+      grepl("Bicycling|cycle", scenario) ~ "CYC_SC",
+      grepl("Public Transport|bus", scenario) ~ "BUS_SC",
+      grepl("Motorcycling|motorcycle", scenario) ~ "MOT_SC",
+      grepl("Car|car", scenario) ~ "CAR_SC"
       )
     )
 }
@@ -76,6 +81,27 @@ cities[cities$continent == 'Latin_America',]$continent <- "Big Latin American ci
 
 combined_health_dataset <- rbind(ylls, deaths)
 combined_health_dataset_pathway <- rbind(ylls_pathway, deaths_pathway)
+
+ren_scen_health <- function(df){
+  df[df$scenario == "motorcycle",]$scenario <- "MOT_SC"
+  df[df$scenario == "car",]$scenario <- "CAR_SC"
+  df[df$scenario == "bus",]$scenario <- "BUS_SC"
+  df[df$scenario == "cycle",]$scenario <- "CYC_SC"
+
+  df
+  
+  # df |> 
+  #   mutate(scenario = case_when(
+  #       grepl("cycle", scenario) ~ "CYC_SC",
+  #       grepl("bus", scenario) ~ "BUS_SC",
+  #       grepl("motorcycle", scenario) ~ "MOT_SC",
+  #       grepl("car", scenario) ~ "CAR_SC"
+  #     )
+  #   )
+}
+
+combined_health_dataset_pathway <- ren_scen_health(combined_health_dataset_pathway)
+combined_health_dataset <- ren_scen_health(combined_health_dataset)
 
 level_choices <- c("All-cause mortality" = "level1",
                    "CVD/Respiratory diseases" = "level2",
@@ -131,8 +157,8 @@ ui <- grid_page(
       tabPanel("Health Outcomes", 
                plotlyOutput("in_pivot_int", width = "100%", height = "100%")
               ),
-      tabPanel("Injury Risks", plotlyOutput("in_inj_pivot", width = "100%", height = "100%")),
-      tabPanel("Params", DT::dataTableOutput("input_params"))
+      tabPanel("Injury Risks", plotlyOutput("in_inj_pivot", width = "100%", height = "100%"))#,
+      # tabPanel("Params", DT::dataTableOutput("input_params"))
     )
   ),
   grid_card(
@@ -155,10 +181,6 @@ ui <- grid_page(
     br(),
     conditionalPanel(
       condition = "input.main_tab == 'Health Outcomes'",
-      # radioButtons(inputId = "in_int", 
-      #              label = "Interactive",
-      #              choices = c("No", "Yes"),
-      #              selected = "No"),
       radioButtons(inputId = "in_measure", 
                    label = "Health Outcome",
                    choices = c("Years of Life Lost (YLLs)", "Deaths")),
@@ -361,10 +383,19 @@ server <- function(input, output, session) {
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
     
+    m <- list(
+      l = 10,
+      r = 10,
+      b = 10,
+      t = 50,
+      pad = 50
+    )
+    
+    
     if (!is.null(in_col_lvl)){
       
       text_colour <- "black"
-        y_lab <- "Years of Life Lost (YLLs) per 100k"
+        y_lab <- "Years of Life Lost (YLLs) per 100k"#<---- harms      #      benefits ---->
         if (in_measure == "Deaths")
           y_lab <- "Deaths per 100k"
         
@@ -385,9 +416,16 @@ server <- function(input, output, session) {
             theme_minimal() +
             facet_grid(vars(), vars(dose))  +
             scale_fill_manual(values = scen_colours) +
-            labs(y = y_lab)
+            labs(title = y_lab,
+                 x = "", #expression(harmful %<->% benefits), 
+                 y = y_lab,
+                 subtitle = "subtitle",
+                 caption = "caption")
           
-          plotly::ggplotly(gg) |> plotly::layout(boxmode = "group") #|> style(text = ld$metric_100k, textposition = "auto", textfont = 12)
+          plotly::ggplotly(gg) |> plotly::layout(boxmode = "group",
+                                                 # title = list(text = expression(harmful %<->% benefits)),
+                                                 margin = m#list(l = 10, r = 10, b = 10, t = 50, pad = 20)
+                                                 )
         }
     }else{
       plotly::ggplotly(ggplot(data.frame()))

@@ -142,62 +142,36 @@ create_africa_india_scenarios <- function(trip_set){
     rdr_scen <- rbind(rdr_scen,rdr_not_changeable)
     
     # Remove bus_driver from the dataset, to recalculate them
-    rdr_scen <-  filter(rdr_scen, !trip_mode %in% 'bus_driver')
-    rdr_scen <- add_ghost_trips(rdr_scen,
-                                trip_mode = 'bus_driver',
-                                distance_ratio = BUS_TO_PASSENGER_RATIO * DISTANCE_SCALAR_PT,
-                                reference_mode = 'bus',
-                                scenario = paste0('Scenario ',i))
-    #print(paste("Scenario name: ", paste0('Scenario ',i)))
-    bus_dr_dist <- sum(rdr_scen[rdr_scen$stage_mode=='bus_driver',]$stage_distance,na.rm=T)
-    bus_dist <- sum(rdr_scen[rdr_scen$stage_mode=='bus',]$stage_distance,na.rm=T)
+    if (ADD_BUS_DRIVERS){
+      rdr_scen <-  filter(rdr_scen, !trip_mode %in% 'bus_driver')
+      rdr_scen <- add_ghost_trips(rdr_scen,
+                                  trip_mode = 'bus_driver',
+                                  distance_ratio = BUS_TO_PASSENGER_RATIO * DISTANCE_SCALAR_PT,
+                                  reference_mode = 'bus',
+                                  agerange_male = BUS_DRIVER_MALE_AGERANGE,
+                                  agerange_female = BUS_DRIVER_FEMALE_AGERANGE,
+                                  scenario = paste0('Scenario ',i))
+    }
+    
     
     #print(bus_dr_dist/bus_dist)
     
     
     # Remove car_driver from the dataset, to recalculate them
     rdr_scen <-  filter(rdr_scen, !trip_mode %in% 'car_driver')
-    rdr_scen <- add_ghost_trips(rdr_scen,
-                                trip_mode='car_driver',
-                                distance_ratio=car_driver_scalar*DISTANCE_SCALAR_CAR_TAXI,
-                                reference_mode='car',
-                                scenario = paste0('Scenario ',i))
-    #print(paste("Scenario name: ", paste0('Scenario ',i)))
-    car_dr_dist <- sum(rdr_scen[rdr_scen$stage_mode=='car_driver',]$stage_distance,na.rm=T)
-    car_dist <- sum(rdr_scen[rdr_scen$stage_mode=='car',]$stage_distance,na.rm=T)
+    if (ADD_CAR_DRIVERS){
+      rdr_scen <- add_ghost_trips(rdr_scen,
+                                  trip_mode='car_driver',
+                                  distance_ratio=car_driver_scalar*DISTANCE_SCALAR_CAR_TAXI,
+                                  reference_mode='car',
+                                  scenario = paste0('Scenario ',i))
+     
+     }
     
     #print(car_dr_dist/car_dist)
-    
-    
-    # browser()
-    rdr_scen$scenario <- paste0('Scenario ',i)
+    rdr_scen$scenario <- paste0("sc_", rownames(SCENARIO_PROPORTIONS)[i])
     rd_list[[i + 1]] <- rdr_scen
   } # End loop for scenarios
-  
-  
-  # check scenario defn:
-  # bicycle
-  # baseline_all <- rd_list[[1]] %>% dplyr::select(c('trip_id', 'trip_mode',"trip_distance_cat")) %>% distinct() 
-  # base_count_all <- nrow(baseline_all)
-  # baseline_bike <- baseline_all %>% filter(trip_mode == 'cycle')
-  # base_count_bike <- nrow(baseline_bike)
-  # base_prop_bike <- base_count_bike / base_count_all * 100
-  # 
-  # bike_all <- rd_list[[2]] %>% dplyr::select(c('trip_id', 'trip_mode',"trip_distance_cat")) %>% distinct() 
-  # bike_bike <- bike_all %>% filter(trip_mode == 'cycle')
-  # bike_count_bike <- nrow(bike_bike)
-  # bike_prop_bike <- bike_count_bike / base_count_all * 100
-  
-  # bus
-  # base_count_all <- nrow(baseline_all)
-  # baseline_bus <- baseline_all %>% filter(trip_mode == 'bus')
-  # base_count_bus <- nrow(baseline_bus)
-  # base_prop_bus <- base_count_bus / base_count_all * 100
-  # 
-  # bus_all <- rd_list[[4]] %>% dplyr::select(c('trip_id', 'trip_mode',"trip_distance_cat")) %>% distinct() 
-  # bus_bus <- bus_all %>% filter(trip_mode == 'bus')
-  # bus_count_bus <- nrow(bus_bus)
-  # bus_prop_bus <- bus_count_bus / base_count_all * 100
   
   return(rd_list)
 }
