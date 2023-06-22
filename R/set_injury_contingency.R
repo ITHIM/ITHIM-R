@@ -1,53 +1,60 @@
-#' Create contingency table from itemised list of injuries
+#' Injury summary statistics
+#'
+#' Creates summarised injury tables for 'who hit who' and 'no other vehicle' fatality counts 
+#' for each casualty and strike mode combination (and age and sex combination where this information exists)
 #' 
-#' One of the inputs is a list of injury events. This function aggregates injuries by type into a long contingency table with prespecified column names.
-#' Write tables to global environment.
 #' 
-#' @param injuries data frame of injury events
+#' The function performs the following steps using the individual fatality injury input file:
+#' 
+#' - The data is split into a WHW (who hit who) matrix where both casualty and strike mode are given
+#'  and a NOV (no other vehicle) matrix where strike mode was set to NOV in ithim_load_data.R or 
+#'  no other vehicle was involved in the accident.
+#' 
+#' - If no age and gender information is given, then the counts are multiplied by the proportion of injuries 
+#' relevant for the proportion of the population in considered in the model (e.g. 15 - 65 year olds) based on the GBD data
+#' 
+#' - Data is aggregated by casualty and strike mode, and age and sex where such information exists
+#' 
+#' - Complete whw and nov matrices containing all casualty and strike (and age and sex) combinations are created with
+#' zero counts for those combinations with no fatalities
+#' 
+#' - a list of aggregated whw and nov matrices is returned
+#' 
+#' 
+#' @param injuries data frame of individual injury events
 #' 
 #' 
 #' @export
 set_injury_contingency <- function(injuries){
-  ##RJ previously (up to 14/5/19)
-  # ##!! need to work out of logic of how we know which modes there are distances for!
-  # mode_names <- c(intersect(unique(TRIP_SET$stage_mode),MODE_SPEEDS$stage_mode),"pedestrian")
-  # mode_names <- mode_names[mode_names!='other']
-  # if(ADD_BUS_DRIVERS) mode_names <- c(mode_names,'bus_driver')
-  # if(ADD_TRUCK_DRIVERS) mode_names <- c(mode_names,'truck')
-  # if(CITY=='accra') mode_names <- c(mode_names,'motorcycle')
-  # #mode_names <- c("bicycle","bus","bus_driver","motorcycle","truck","pedestrian","car")
-  # # strike mode bus -> bus_driver
-  # if('bus'%in%injuries$strike_mode) injuries$strike_mode[injuries$strike_mode=='bus'] <- 'bus_driver'
-  # # divide injuries into those for which we can write a WHW matrix, i.e. we know distances of both striker and casualty, 
-  # ## and those for which we don't know striker distance: no or other vehicle (noov)
-  # ## we can only model casualties for which we know distance travelled (i.e. no truck casualties for Accra)
-  # injury_list <- list()
-  # injury_list$whw <- subset(injuries,cas_mode%in%mode_names&strike_mode%in%mode_names)
-  # injury_list$noov <- subset(injuries,cas_mode%in%mode_names&!strike_mode%in%mode_names)
-  ##
+
+  # create list containing all modes in trip data set with speeds
+  #mode_names <- c(intersect(unique(TRIP_SET$stage_mode),MODE_SPEEDS$stage_mode),"pedestrian")
+  mode_names <- c(intersect(unique(TRIP_SET$stage_mode),MODE_SPEEDS$stage_mode)) # find the modes for which we have trips and speeds
   
-  ##!! need to work out of logic of how we know which modes there are distances for!
-  mode_names <- c(intersect(unique(TRIP_SET$stage_mode),MODE_SPEEDS$stage_mode),"pedestrian")
   
-  ##AA: delete code to remove 'other' from modes
-  
+  # add bus drivers, car drivers and motorcyclists if the corresponding flags are set to true
   if(ADD_BUS_DRIVERS) mode_names <- c(mode_names,'bus_driver')
   if(ADD_TRUCK_DRIVERS) mode_names <- c(mode_names,'truck')
   if(ADD_MOTORCYCLE_FLEET | ADD_PERSONAL_MOTORCYCLE_TRIPS != 'no') mode_names <- c(mode_names,'motorcycle')
+  
   injury_list <- list()
   injury_table_types <- c()
+  # check whether there are any whw injuries given and create a whw matrix
   if(length(unique(injuries$strike_mode))==1&&!'nov'%in%injuries$strike_mode||length(unique(injuries$strike_mode))>1){
     injury_list$whw <- subset(injuries,cas_mode%in%mode_names&strike_mode!='nov')
     injury_table_types <- c(injury_table_types,'whw')
   }
+  # check if there are any nov injuries and create a nov matrix
   if('nov'%in%injuries$strike_mode){
     injury_list$nov <- subset(injuries,cas_mode%in%mode_names&strike_mode=='nov')
     injury_table_types <- c(injury_table_types,'nov')
   }
+  
   injury_table <- list()
-  for(type in c(injury_table_types)){
-    keep_names <- names(injury_list[[type]])%in%c('cas_mode','strike_mode','age_cat','cas_gender')
-    # summarise list of injuries by group
+  for(type in c(injury_table_types)){ # loop through 'whw' and 'nov'
+    keep_names <- names(injury_list[[type]])%in%c('cas_mode','strike_mode','age_cat','cas_gender') # define column names to keep
+    
+    # summarise list of injuries by cas_mode, strike_mode, age_cat and cas_gender where this information exists
     setDT(injury_list[[type]])
     injury_summary <- as.data.frame(injury_list[[type]][,.(count=.N,weight=mean(weight)),by=c(names(injury_list[[type]])[keep_names])])
     # Conditional to restrict the number of injuries in dataset that don't have
@@ -57,16 +64,18 @@ set_injury_contingency <- function(injuries){
       # proportion of deaths found in the GBD dataset
       injury_summary$count <- injury_summary$count * PROPORTION_INJURIES_AGERANGE
     }
+    
     #injury_summary <- plyr::count(injury_list[[type]][,keep_names],names(injury_list[[type]])[keep_names])
     # make contingency table without prior knowledge of column names
     
+    # create matrices for all cas and strike mode combinations (and all age and gender combinations) with 0 counts
     injury_table[[type]] <- expand.grid(lapply(as.data.frame(injury_list[[type]])[,keep_names],unique))
     # match summary numbers to table indices
     injury_summary_index <- apply(injury_summary[,-c(ncol(injury_summary)-0:1)],1,function(x)which(apply(injury_table[[type]], 1, function(y) all(x==y))))
     # initialise all at 0
     injury_table[[type]]$count <- 0
     injury_table[[type]]$weight <- mean(injury_list[[type]]$weight)
-    # slot in non-zero counts
+    # slot in non-zero counts where accidents exist
     injury_table[[type]]$count[injury_summary_index] <- injury_summary[,ncol(injury_summary)-1]
     injury_table[[type]]$weight[injury_summary_index] <- injury_summary[,ncol(injury_summary)]
   }
