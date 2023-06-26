@@ -20,13 +20,13 @@ get_all_distances <- function(ithim_object){
   
   trip_scen_sets <- ithim_object$trip_scen_sets
   
-  # find modal share
-  mode_share_scen <- count(trip_scen_sets,scenario, trip_mode) %>% rename(count = n) # count by mode and scenario
-  count_scenario <- count(trip_scen_sets,scenario) %>% rename(total_count = n) # find total number of trips per scenario
-  mode_share_scen <- left_join(mode_share_scen, count_scenario, by = 'scenario') # merge data
-  mode_share_scen$share <- mode_share_scen$count / mode_share_scen$total_count # calculate mode share
-  mode_share_scen <- mode_share_scen %>% dplyr::select(-c(count, total_count)) # remove columns that aren't needed
-  
+  # # find modal share
+  # mode_share_scen <- count(trip_scen_sets,scenario, trip_mode) %>% rename(count = n) # count by mode and scenario
+  # count_scenario <- count(trip_scen_sets,scenario) %>% rename(total_count = n) # find total number of trips per scenario
+  # mode_share_scen <- left_join(mode_share_scen, count_scenario, by = 'scenario') # merge data
+  # mode_share_scen$share <- mode_share_scen$count / mode_share_scen$total_count # calculate mode share
+  # mode_share_scen <- mode_share_scen %>% dplyr::select(-c(count, total_count)) # remove columns that aren't needed
+
 
   # Use demographic
   pop <- DEMOGRAPHIC
@@ -119,6 +119,6 @@ get_all_distances <- function(ithim_object){
   #dist2 <- journeys %>% group_by(stage_mode, scenario) %>% summarise(total_dist = sum(tot_dist))
   
   # distances for injuries calculation
-  ithim_object$inj_distances <- distances_for_injury_function(journeys = journeys, dist = dist,  mode_share_scen =  mode_share_scen)
+  ithim_object$inj_distances <- distances_for_injury_function(journeys = journeys, dist = dist)
   return(ithim_object)
 }
