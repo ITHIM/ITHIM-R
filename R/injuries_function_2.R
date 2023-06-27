@@ -129,17 +129,28 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
   # Also remove NAs
   injuries <- injuries %>% ungroup() %>% mutate(Deaths = rowSums(dplyr::select(., cas_names %>% as.character()), na.rm = T))
   
+  # remove columns in injuries that still contain the original distances from the true_distances input
+  # i.e remove columns where the mode is not in cas_mode
+  to_keep <- c('age_cat', 'sex', 'scenario', 'sex_age', "dem_index", levels(cas_names), "Deaths")
+  injuries2 <- injuries %>% dplyr::select(c(to_keep))
+  
   if(constant_mode){
     
     injuries_lb <- injuries_lb %>% ungroup() %>% mutate(Deaths_lb = rowSums(dplyr::select(., cas_names %>% as.character()), na.rm = T))
     injuries_ub <- injuries_ub %>% ungroup() %>% mutate(Deaths_ub = rowSums(dplyr::select(., cas_names %>% as.character()), na.rm = T))
     
-    injuries <- dplyr::left_join(injuries, injuries_lb %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_lb), by = c('age_cat', 'sex', 'dem_index', 'scenario'))
-    injuries <- dplyr::left_join(injuries, injuries_ub %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_ub), by = c('age_cat', 'sex', 'dem_index', 'scenario'))
+    injuries2 <- dplyr::left_join(injuries2, injuries_lb %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_lb), by = c('age_cat', 'sex', 'dem_index', 'scenario'))
+    injuries2 <- dplyr::left_join(injuries2, injuries_ub %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_ub), by = c('age_cat', 'sex', 'dem_index', 'scenario'))
   
   }
-  list(injuries, whw_temp)
-  ##TODO add in uncaptured fatalities as constant
+  
+  
+
+  
+  
+  
+  list(injuries2, whw_temp)
+ 
 }
 
 
