@@ -182,15 +182,18 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
 
 # @title remove_missing_levels
 # @description Accounts for missing factor levels present only in test data
-# but not in train data by setting values to NA
+# but not in train data by setting values to NA, i.e. if the data for which the predictions
+# are made contains factor levels which do not appear in the baseline data used to 
+# parameterize the model, then we set the predictions for those factors to NA
+# Without this function, the entire model outputs would be NA if at least one factor level was unknown
 #
 # @import magrittr
 # @importFrom gdata unmatrix
 # @importFrom stringr str_split
 #
-# @param fit fitted model on training data
+# @param fit fitted model on training data, i.e. the baseline fatality counts in this case
 #
-# @param test_data data to make predictions for
+# @param test_data data to make predictions for, i.e. injuries_list with cas, strike mode, age, sex and distance information for all scenarios
 #
 # @return data.frame with matching factor levels to fitted model
 #
