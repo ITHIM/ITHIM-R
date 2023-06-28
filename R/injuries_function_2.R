@@ -155,26 +155,25 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
   
   # Create a total death count by summing across all casualty modes
   # Assume injuries as tibble and use dplyr instead
+  
   # Also remove NAs
-  injuries <- injuries %>% ungroup() %>% mutate(Deaths = rowSums(dplyr::select(., cas_names %>% as.character()), na.rm = T))
+  injuries <- injuries %>% ungroup() %>% mutate(Deaths = rowSums(dplyr::select(., cas_modes %>% as.character()), na.rm = T))
   
   # remove columns in injuries that still contain the original distances from the true_distances input
   # i.e remove columns where the mode is not in cas_mode
-  to_keep <- c('age_cat', 'sex', 'scenario', 'sex_age', 'dem_index', levels(cas_names), "Deaths")
+  to_keep <- c('age_cat', 'sex', 'scenario', 'sex_age', 'dem_index', levels(cas_modes), "Deaths")
   injuries2 <- injuries %>% dplyr::select(c(to_keep))
-  
   
   # add lower and upper confidence interval death predictions
   if(constant_mode){
     
-    injuries_lb <- injuries_lb %>% ungroup() %>% mutate(Deaths_lb = rowSums(dplyr::select(., cas_names %>% as.character()), na.rm = T))
-    injuries_ub <- injuries_ub %>% ungroup() %>% mutate(Deaths_ub = rowSums(dplyr::select(., cas_names %>% as.character()), na.rm = T))
+    injuries_lb <- injuries_lb %>% ungroup() %>% mutate(Deaths_lb = rowSums(dplyr::select(., cas_modes %>% as.character()), na.rm = T))
+    injuries_ub <- injuries_ub %>% ungroup() %>% mutate(Deaths_ub = rowSums(dplyr::select(., cas_modes %>% as.character()), na.rm = T))
     
     injuries2 <- dplyr::left_join(injuries2, injuries_lb %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_lb), by = c('age_cat', 'sex', 'dem_index', 'scenario'))
     injuries2 <- dplyr::left_join(injuries2, injuries_ub %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_ub), by = c('age_cat', 'sex', 'dem_index', 'scenario'))
   
   }
-  
 
     list(injuries2, whw_temp)
 }
