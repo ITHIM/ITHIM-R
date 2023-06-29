@@ -1,16 +1,28 @@
 #' Add distance columns to injury tables
 #' 
-#' Add distance columns to injury tables, matching on information in the injury contingency table
+#' Add strike and casualty distance columns to injury tables, matching on information in the injury contingency table
 #' 
-#' @param injury_table (list of) data frame(s) to be edited
-#' @param mode_names which modes to take distances for
+#' This function adds strike and casualty distance information for both individual age and sex categories and aggregated by mode to
+#' the injury_tables by:
+#' 
+#' - finding the casualty and strike mode distances for each age and sex category if such info exists in the 
+#'   injury_table if not then it finds the aggregated distances for each casualty and strike mode.
+#'
+#' - for strike modes that do not appear in the distance tables based on the trip data set, such as the ´unknown´ mode e.g.,
+#'   the average of all strike mode distances is used instead.  
+#' 
+#' 
+#' 
+#' @param injury_table (list of) data frame(s) to be edited, contains aggregated fatality counts split into whw and nov matrices
+#' @param mode_names which modes to take distances for - taken from the aggregated modes in the trip data
 #' @param true_distances_0 distances to add to injury table
 #' @param dist table used to access bus distance
 #' @param scenarios which scenarios to process
 #' 
-#' @return edited (list of) data frame(s)
+#' @return edited (list of) data frame(s), i.e. injury tables with strike and casualty distance information
 #' 
 #' @export
+
 add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,scenarios=SCEN){
   
   injury_temp <- injury_table
@@ -23,10 +35,11 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
   }
   u_gen <- unique(injury_temp[[1]]$cas_gender)
   u_age <- unique(injury_temp[[1]]$age_cat)
-  dem_index_table <- expand.grid(cas_gender=u_gen,age_cat=u_age)
+  dem_index_table <- expand.grid(cas_gender=u_gen,age_cat=u_age) # df with all age and gender category combinations in injury table
   
   if(!by_age) true_distances_0$age_cat <- 1
   if(!by_gender) true_distances_0$sex <- 1
+  # assign same index as in dem_index_table to true_distances
   true_distances_0$dem_index <- length(u_gen)*(match(true_distances_0$age_cat,u_age)-1) + match(true_distances_0$sex,u_gen)
   
   cas_mode_indices <- list()
@@ -34,11 +47,16 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
   # initialise tables and store indices
   for(type in INJURY_TABLE_TYPES){
     ##TODO make contingency table without prior knowledge of column names
+    # define a list (with two elements for whw and nov) with the same indices used for the true_distances 
+    # df for all age and gender categories
+    # define a list (with two elements for whw and nov) matching the indices of the mode_names with the cas modes in the injury table
     gen_index <- match(injury_temp[[type]]$cas_gen,u_gen)
     age_index <- match(injury_temp[[type]]$age_cat,u_age)
     dem_index[[type]] <- length(u_gen)*(age_index-1)+gen_index
     cas_mode_indices[[type]] <- match(injury_table[[type]]$cas_mode,mode_names)
   }
+  
+  # for whw matrices create a strike mode indices vector matching the strike mode in the injury table with the strike_modes vector
   if('whw'%in%INJURY_TABLE_TYPES){
     ## group 2W and 3W striking vehicles
     strike_distances <- true_distances_0
@@ -52,19 +70,21 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
   ## true distances should be the total for the whole population for a whole year. 
   ##TODO precalculate and save distances (for uncertainty use case)
   injuries_list <- list()
-  if(!'bus_driver'%in%mode_names) bus_base <- dist[which(dist$stage_mode=='bus_driver'),2]
-  if(!'car_driver'%in%mode_names) car_base <- dist[which(dist$stage_mode=='car_driver'),2]
+  
+  # if bus_driver is set to F then the dist df does not contain any distance information for bus drivers
+  # if(!'bus_driver'%in%mode_names) bus_base <- dist[which(dist$stage_mode=='bus_driver'),2]
+  # if(!'car_driver'%in%mode_names) car_base <- dist[which(dist$stage_mode=='car_driver'),2]
   for(i in 1:length(scenarios)){
     scen <- scenarios[i]
     injuries_list[[scen]] <- list()
-    true_scen_dist <- subset(true_distances_0,scenario==scen)
-    dist_summary <- as.data.frame(t(sapply(sort(unique(true_scen_dist$dem_index)),function(x)
+    true_scen_dist <- subset(true_distances_0,scenario==scen)    # filter out distance for specific scenario
+    dist_summary <- as.data.frame(t(sapply(sort(unique(true_scen_dist$dem_index)),function(x) # aggregate distances by age and gender categories if such info exists in injury table
       colSums(subset(true_scen_dist,dem_index==x)[,!colnames(true_scen_dist)%in%c('age_cat','sex','scenario','sex_age','dem_index')]))))
     # apply casualty distance sums
-    distance_sums <- sapply(mode_names,function(x)sum(dist_summary[[x]]))
-    if('whw'%in%INJURY_TABLE_TYPES){
+    distance_sums <- sapply(mode_names,function(x)sum(dist_summary[[x]])) # total distance for each mode
+    if('whw'%in%INJURY_TABLE_TYPES){ # find the strike distances 
       strike_true_scen_dist <- subset(strike_distances,scenario==scen)
-      strike_dist_summary <- as.data.frame(t(sapply(unique(strike_true_scen_dist$dem_index),function(x)
+      strike_dist_summary <- as.data.frame(t(sapply(unique(strike_true_scen_dist$dem_index),function(x)  # aggregate distances by age and gender categories if such info exists in injury table
         colSums(subset(strike_true_scen_dist,dem_index==x)[,!colnames(strike_true_scen_dist)%in%c('age_cat','sex','scenario','sex_age','dem_index')]))))
       # apply strike distance sums
       strike_distance_sums <- sapply(mode_names,function(x)sum(strike_dist_summary[[x]]))
@@ -84,6 +104,8 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
         }
       }
     }
+    
+    
     for(type in INJURY_TABLE_TYPES){
       injuries_list[[scen]][[type]] <- injury_table[[type]]
       ##TODO get distances without prior knowledge of column names
@@ -93,7 +115,8 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
       injuries_list[[scen]][[type]]$strike_distance <- 1
       injuries_list[[scen]][[type]]$strike_distance_sum <- 1
       
-      injuries_list[[scen]][[type]]$cas_distance_sum <- distance_sums[cas_mode_indices[[type]]]
+      # add the casualty distance sums, i.e. the mode distances summed across all age and sex categories
+      injuries_list[[scen]][[type]]$cas_distance_sum <- distance_sums[cas_mode_indices[[type]]] 
       
       # apply group-level casualty distances
       injuries_list[[scen]][[type]]$cas_distance <- as.numeric(as.data.frame(dist_summary)[cbind(dem_index[[type]],cas_mode_indices[[type]])])
@@ -102,18 +125,18 @@ add_distance_columns <- function(injury_table,mode_names,true_distances_0,dist,s
       if(type=='whw'){
         injuries_list[[scen]][[type]]$strike_distance <- strike_distance_sums[strike_mode_indices]
         injuries_list[[scen]][[type]]$strike_distance_sum <- injuries_list[[scen]][[type]]$strike_distance
-      }else{
-        if(!'bus_driver'%in%mode_names){
-          
-          if (length(bus_base) > 0){
-            injuries_list[[scen]][[type]]$strike_distance[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(dist$stage_mode=='bus_driver'),i+1]/bus_base
-            injuries_list[[scen]][[type]]$strike_distance_sum[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(dist$stage_mode=='bus_driver'),i+1]/bus_base
-          }
-        }
       }
+      # Following not needed as nov matrices do not contain any strike mode information plus there is no information for bus drivers anyway
+      # }else{
+      #   if(!'bus_driver'%in%mode_names){
+      #     
+      #     if (length(bus_base) > 0){
+      #       injuries_list[[scen]][[type]]$strike_distance[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(dist$stage_mode=='bus_driver'),i+1]/bus_base
+      #       injuries_list[[scen]][[type]]$strike_distance_sum[injuries_list[[scen]][[type]]$strike_mode=='bus_driver'] <- dist[which(dist$stage_mode=='bus_driver'),i+1]/bus_base
+      #     }
+      #   }
+      # }
       
-      # omit any rows with zero travel
-      #injuries_list[[scen]][[type]] <- subset(injuries_list[[scen]][[type]],strike_distance>0&cas_distance>0)
     }
   }
   
