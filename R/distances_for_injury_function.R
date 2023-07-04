@@ -1,59 +1,96 @@
 #' Get distances and model for injuries module
 #' 
-#' Computes exposures (distances) to parametrise the injury regression model, 
+#' Computes exposures (distances) to parameterise the injury regression model, 
 #' which is computed as a Poisson with various offsets and used later in prediction
 #' 
-#' @param journeys df with sex and age_cat total distance (by total population) for scenarios
-#' @param dist table of (total) distances per mode per scenario
+#' The function uses distance data and the individual injury tables to perform the following steps
+#' to parameterise the Poisson injury regression model:
+#'
+#'  - stage modes aggregated such that all walk related stages (walk and walk to pt) are of the same mode (walk), 
+#'    similarly for all car related journey
+#'
+#'  - bus drivers are added to bus journeys (where relevant)
+#'
+#'  - Takes Baseline injury tables (whw and nov) and adds distances for each strike and casualty
+#'    mode. Distances are added by age and gender category if there exists such information for 
+#'    the injury counts (injuries_for_model). If there exists a fatality for some casualty and 
+#'    strike mode and age and gender category are aggregated by strike and casualty mode. 
+#'    If, after the aggregation there still exist fatalities for which either casualty 
+#'    or strike mode distance is missing, these fatalities are removed as we cannot
+#'     predict injury counts on zero distances. However, this should not happen
+#'    as we should have total distances for all modes for the entire population (possibly inferred 
+#'    from other modes) that appear in the injury data. - This data is used to parameterise the
+#'    Poisson injury model.
+#'    
+#'  - A new list (injuries_list) is created containing all strike and casualty mode and age and sex combinations 
+#'    together with strike and casualty mode distances for the baseline and all scenarios. For 
+#'    the whw model, any strike mode and casualty pairs where strike mode equals casualty mode
+#'    are removed. Combinations which do not have either a zero strike or casualty mode distance 
+#'    are also removed. - This list will later be used to predict fatality counts using the 
+#'    Poisson injury model.
+#'
+#'  - The casualty and strike mode exponents are added to both the injuries_for_model and injuries_list
+#'  
+#'  -	The best possible regression model is being built using Baseline injury counts and distances 
+#'    (injuries_for_model) such that the standard errors are small wherever possible. Strike 
+#'    and casualty mode pairs where cas mode = strike mode are removed if they still exist
+#'    which they should not as they should have been removed by the ithim_load_data.R function.
+#'    Two different forms for whw and nov matrices are defined, taking into account age and sex
+#'    information where it exists. The standard errors of the newly built regression models 
+#'    are checked and if they are too large and if the data has not been aggregated by age 
+#'    and sex yet, then the data is aggregated and a new Poisson regression model is build. 
+#'    If the standard errors are still large, then a message is printed to the screen warning
+#'    that the standard errors are large. 
 #' 
-#' @return list of distances, injury table, and injury regression model
 #' 
-#' @export
-distances_for_injury_function <- function(journeys, dist, mode_share_scen){
-  
-  ##!! RJ need to scale distances up for representativeness of survey population of total population
-  ##!! AA have added total distance by taking demographic into the calculations, and then scaling distance accordingly
-  
+#' 
+#' @param journeys data frame with total distance (by total population) for each age and sex category and for each scenarios
+#' @param dist table of (total) distances per mode 
+#' 
+#' @return true_distances (mode distances by age and sex with all walking modes and all car modes combined and bus drivers added where relevant),
+#' @return injuries_list (list of all strike, casualty, age, sex and mode distance combinations for baseline and all scenarios), 
+#' @return reg_model (parameterised Poisson regression model), 
+#' @return injuries_for_model (baseline data containing injury counts for all casualty and strike mode combinations with associated distance data)
+#' 
+#' @export 
+#' 
+
+distances_for_injury_function <- function(journeys, dist){
+
   distances <- spread(journeys,stage_mode, tot_dist,fill=0) 
   
-  if('walk_to_pt'%in%names(distances)){
+  if('walk_to_pt'%in%names(distances)){ # add walk to pt to pedestrian distance to have one measure for walking
     distances$pedestrian <- distances$pedestrian + distances$walk_to_pt
   }
-  ## car is car, taxi, shared auto, shared taxi
+  ## add all car related distances to car distance 
   distances$car <- rowSums(distances[,colnames(distances)%in%c('car','taxi','shared_auto','shared_taxi')])
   distances <- distances[, -which(names(distances) %in% c('taxi','shared_auto','shared_taxi',"walk_to_pt"))]
-  ## bus distance increases linearly with bus passenger distance
-  # NOT needed any longer as Latam scenario definition re-calculates bus driver distances
-  # if('bus_driver'%in%colnames(distances)){
-  #   passenger <- sapply(SCEN,function(x)sum(subset(distances,scenario==x)$bus))
-  #   distances$bus_driver <- distances$bus_driver * passenger[match(distances$scenario,SCEN)] / passenger[[1]]
-  # }
-  true_distances_0 <- distances
-  true_distances_0$sex_age <-  paste0(true_distances_0$sex,"_",true_distances_0$age_cat)
 
-  # add bus driver distances to total distances by people travelling by bus
+  true_distances_0 <- distances
+  true_distances_0$sex_age <-  paste0(true_distances_0$sex,"_",true_distances_0$age_cat) # add one sex and age column
+
+  # add bus driver distances to total distances covered by people travelling by bus
   if(ADD_BUS_DRIVERS) true_distances_0$bus <- true_distances_0$bus + true_distances_0$bus_driver
   
-  true_distances <- true_distances_0#[,-c(which(names(true_distances_0) == 'sex'))]
+  true_distances <- true_distances_0
   
-  ## for injury_function_2
+  ## find mode names
   mode_names <- names(true_distances)[!names(true_distances)%in%c('age_cat','scenario','sex_age','sex')]
-  # divide injuries into those for which we can write a WHW (who hit whom) matrix, i.e. we know distances of both striker and casualty, 
-  ## and those for which we don't know striker distance: no or other vehicle (NOOV)
-  ## we can only model casualties for which we know distance travelled 
-  ## we include truck and bus travel via the flags used in run_ithim_setup, if they are missing from the survey, as in accra
+  
+  
   injury_table <- INJURY_TABLE
   
   # add injury_reporting rate
-  for(type in INJURY_TABLE_TYPES) 
-    INJURY_TABLE[[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE 
-  
+  for(type in INJURY_TABLE_TYPES)
+    INJURY_TABLE[[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
+
   INJURY_TABLE <<- INJURY_TABLE
 
     
-  ## add distance columns
+  ## add distance columns for baseline to injury data
   injuries_for_model <- add_distance_columns(injury_table,mode_names,true_distances_0,dist,scenarios=SCEN[1])
   
+  # determine whether there are any age and sex combinations for which we don't have any distance information
   zero_dist <- list()
   zero_dist_pos_inj <- list()
   
@@ -68,32 +105,28 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
     }
   }
   
-  # zero_dist_inj[[city]] <<- list()
-  # zero_dist_inj[[city]][['zero_dist']] <<- zero_dist
-  # zero_dist_inj[[city]][['zero_dist_pos_inj']] <<- zero_dist_pos_inj
   
-  # if there exists at least one age and gender category where there exists at least one fatality with zero distance for a strike and casualty mode combination,
-  # aggregate by age and gender
-  
+  # if there exists at least one age and sex category where there exists at least one fatality with 
+  # zero distance for a strike and casualty mode combination, aggregate by age and sex
   if (zero_dist_flag == T ){
     for(type in INJURY_TABLE_TYPES){ 
-      injuries_df <- injuries_for_model$baseline[[type]] #%>% dplyr::select(-c(age_cat, cas_gender))
+      injuries_df <- injuries_for_model$baseline[[type]] 
       setDT(injuries_df)
       injuries_for_model$baseline[[type]] <- as.data.frame(injuries_df[,.(count=sum(count),weight=mean(weight),strike_distance_sum=mean(strike_distance_sum),
                                                                           cas_distance_sum=mean(cas_distance_sum)),by=c('cas_mode','strike_mode')])
       injuries_for_model$baseline[[type]]$strike_distance <- injuries_for_model$baseline[[type]]$strike_distance_sum
       injuries_for_model$baseline[[type]]$cas_distance <- injuries_for_model$baseline[[type]]$cas_distance_sum
-      injuries_for_model[[1]][[type]]$injury_reporting_rate <- as.numeric(INJURY_REPORTING_RATE)
     }
   }
   
-  
-  for(type in INJURY_TABLE_TYPES){ 
+  # remove any injuries for which we don't have either casualty or strike mode distance
+  for(type in INJURY_TABLE_TYPES){
     injuries_for_model$baseline[[type]] <- subset(injuries_for_model$baseline[[type]],strike_distance>0&cas_distance>0)
   }
   
 
-  
+  # create list where each element contains all age, sex, casualty and strike mode combination for
+  # the baseline and all scenarios
   scenario_injury_table <- list()
   for(type in INJURY_TABLE_TYPES) 
     scenario_injury_table[[type]] <- expand.grid(age_cat=unique(DEMOGRAPHIC$age),
@@ -102,23 +135,30 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
                                        strike_mode=unique(injuries_for_model[[1]][[type]]$strike_mode)) 
   
   
+  # add distance information for the baseline and all scenarios
   injuries_list <- add_distance_columns(injury_table=scenario_injury_table,mode_names,true_distances_0,dist)
   
   
-  for (n in 1:(NSCEN+1)){
+  for (n in 1:(NSCEN+1)){ # loop through baseline and all scenarios
     for(type in INJURY_TABLE_TYPES){ 
       # remove zero distances
       injuries_list[[n]][[type]] <- subset(injuries_list[[n]][[type]],strike_distance>0&cas_distance>0)
-      injuries_list[[n]][[type]]$injury_gen_age <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_gender),as.character(injuries_list[[n]][[type]]$age_cat)),1,function(x)paste(x,collapse='_'))
-      # remove strike and cas mode pairs where cas mode = strike mode
-      injuries_list[[n]][[type]]$cas_strike_mode <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_mode),as.character(injuries_list[[n]][[type]]$strike_mode)),1,function(x)paste(x,collapse='_'))
-      injuries_list[[n]][[type]] <- injuries_list[[n]][[type]] %>% filter(cas_strike_mode != 'car_car' & cas_strike_mode != 'bus_bus' & cas_strike_mode != 'motorcycle_motorcycle'
-                                                                          & cas_strike_mode != 'cycle_cycle'& cas_strike_mode != 'truck_truck' )
+      injuries_list[[n]][[type]]$injury_gen_age <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_gender),
+                                                               as.character(injuries_list[[n]][[type]]$age_cat)),1,
+                                                                function(x)paste(x,collapse='_')) # create an age sex column
+      # remove strike and cas mode pairs where cas mode = strike mode as these are considered nov accidents
+      injuries_list[[n]][[type]]$cas_strike_mode <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_mode),
+                                                                as.character(injuries_list[[n]][[type]]$strike_mode)),1,
+                                                          function(x)paste(x,collapse='_'))
+      injuries_list[[n]][[type]] <- injuries_list[[n]][[type]] %>% filter(cas_strike_mode != 'car_car' & cas_strike_mode != 'bus_bus' 
+                                                                          & cas_strike_mode != 'motorcycle_motorcycle'
+                                                                          & cas_strike_mode != 'cycle_cycle'
+                                                                          & cas_strike_mode != 'truck_truck' )
     }
   }
   
   ## determine safety in number coefficients and add as columns to injuries_list and injuries_for_model
-  if (CALL_INDIVIDUAL_SIN == F){
+  if (CALL_INDIVIDUAL_SIN == F){ # if we have the same coefficients for all modes
     CAS_EXPONENT <<- SIN_EXPONENT_SUM  * CASUALTY_EXPONENT_FRACTION
     STR_EXPONENT <<- SIN_EXPONENT_SUM - CAS_EXPONENT
     
@@ -126,7 +166,7 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
     if (CAS_EXPONENT > 1) CAS_EXPONENT <<- 1
     if (STR_EXPONENT > 1) STR_EXPONENT <<- 1
     
-    for(type in INJURY_TABLE_TYPES){
+    for(type in INJURY_TABLE_TYPES){ # add the exponents to the the baseline table and also the scenario tables
       injuries_for_model$baseline[[type]]$cas_exponent_col <- CAS_EXPONENT
       injuries_for_model$baseline[[type]]$str_exponent_col <- STR_EXPONENT
       
@@ -158,7 +198,7 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
     injuries_for_model$baseline$whw$str_exponent_col <- ifelse(injuries_for_model$baseline$whw$str_exponent_col > 1, 1, injuries_for_model$baseline$whw$str_exponent_col)
     injuries_for_model$baseline$nov$cas_exponent_col <- ifelse(injuries_for_model$baseline$nov$cas_exponent_col > 1, 1, injuries_for_model$baseline$nov$cas_exponent_col)
     
-    for (n in 1:(NSCEN+1)){
+    for (n in 1:(NSCEN+1)){ # assign exponents to the scenario tables
       injuries_list[[n]]$whw$cas_exponent_col <- SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH
       injuries_list[[n]]$whw$str_exponent_col <- SIN_EXPONENT_SUM_VEH - (SIN_EXPONENT_SUM_VEH  * CASUALTY_EXPONENT_FRACTION_VEH)
       
@@ -179,7 +219,6 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
     injuries_for_model$baseline$nov$str_exponent_col <- 1
     
     
-    
     for (n in 1:(NSCEN+1)){
       # when running in sampling mode, ensure that cas_exponent and str_exponent are always below 1
       injuries_list[[n]]$nov$cas_exponent_col <- min(SIN_EXPONENT_SUM_NOV, 1) 
@@ -189,20 +228,17 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
   }
   
 
+  ########################### Build regression model
 
   # run regression model on baseline data
   reg_model <- list()
-  ## Injury regression. This needs a lot of work to make it generalisable to different settings, data qualities, etc.
-  ##TODO write formulae without prior knowledge of column names
-  ##TODO use all ages with ns(age,...).
-  ##RJ linearity in group rates
-  # CAS_EXPONENT <<- SIN_EXPONENT_SUM  * CASUALTY_EXPONENT_FRACTION
-  # STR_EXPONENT <<- SIN_EXPONENT_SUM - CAS_EXPONENT
 
+  # define form of regression models for both whw and nov matrices
   forms <- list(whw='count~cas_mode+strike_mode+offset(log(cas_distance)+(cas_exponent_col-1)*log(cas_distance_sum)+log(strike_distance)+
                     (str_exponent_col-1)*log(strike_distance_sum)+log(injury_reporting_rate)+log(weight))',
                 nov='count~cas_mode+offset(log(cas_distance)+(cas_exponent_col-1)*log(cas_distance_sum)+log(injury_reporting_rate)+log(weight))')
   
+  # add age and sex information if this information exists in the injuries_for_model data
   if('age_cat'%in%names(injuries_for_model[[1]][[1]]))
     for(type in INJURY_TABLE_TYPES)
       forms[[type]] <- paste0(c(forms[[type]],'age_cat'),collapse='+')
@@ -217,7 +253,7 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
   # try most sophisticated model first and then successively simplify model
   for(type in INJURY_TABLE_TYPES){
 
-    injuries_for_model[[1]][[type]]$injury_reporting_rate <- INJURY_REPORTING_RATE
+    injuries_for_model[[1]][[type]]$injury_reporting_rate <- as.numeric(INJURY_REPORTING_RATE)
     
     # remove strike and cas mode pairs where cas mode = strike mode
     injuries_for_model[[1]][[type]]$cas_strike_mode <- apply(cbind(as.character(injuries_for_model[[1]][[type]]$cas_mode),
@@ -287,24 +323,8 @@ distances_for_injury_function <- function(journeys, dist, mode_share_scen){
     reg_model[[type]] <- test
     test <- NULL
   }
-    
-
 
   return(list(true_distances=true_distances,injuries_list=injuries_list,reg_model=reg_model, injuries_for_model = injuries_for_model))
 }
 
-  ## old code:
-# get distances relative to baseline scenario
-# scen_dist <- sapply(1:(NSCEN+1),function(x)c(colSums(subset(distances,scenario == SCEN[x])[,colnames(distances)%in%unique(journeys$stage_mode)])))
-# colnames(scen_dist) <- SCEN_SHORT_NAME
-# for(i in 2:ncol(scen_dist)) scen_dist[,i] <- scen_dist[,i]/scen_dist[,1] 
-# if(CITY=='accra') scen_dist <- rbind(scen_dist,Tuktuk=1)
 
-  #for (i in 1: length(mode_names))
-  #for (n in 1:(NSCEN+1))
-  #  distances[[mode_names[i]]][which(distances$scenario == SCEN[n])] <- 
-  #    distances[[mode_names[i]]][which(distances$scenario == SCEN[n])]/ sum(distances[[mode_names[i]]][which(distances$scenario == SCEN[n])],na.rm=T)
-  #relative_distances <- distances
-  #relative_distances$sex_age <-  paste0(relative_distances$sex,"_",relative_distances$age_cat)
-  #relative_distances <- relative_distances[,-c(which(names(relative_distances) == 'sex'))]
-  

@@ -1,13 +1,19 @@
-#' Add walk to PT
+#' Add walk to PT stages 
 #' 
 #' Adds a short walk stage to any PT trip if required.
-#' Combines list of scenarios into one data frame
+#'
+#' The function is used to add a walk to PT stage to all public transport trips
+#' without such a walking stage if required. It also combines the list of scenarios 
+#' into one data frame and scales all distances of a certain mode by the 
+#' city specific DISTANCE_SCALAR_xx mode scalars.
 #' 
 #' @param trip_set list of data frames, trips from all scenarios
 #' 
 #' @return data frame, all trips from all scenarios
 #' 
 #' @export
+
+
 walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
   rd_list <- list()
   for(i in 1:length(SYNTHETIC_TRIPS)) rd_list[[i]] <- setDT(SYNTHETIC_TRIPS[[i]])
@@ -28,7 +34,7 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
         print(CITY)
         break
       }
-      # separate out bus trips
+      # separate out PT trips
       pt_trips <- rd_list[[i]] %>% dplyr::filter(stage_mode %in% pt_modes)
       
       # further separate out bus trips WITHOUT pedestrian component
@@ -37,17 +43,19 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
         ungroup() %>% 
         filter(ped == 0) %>% dplyr::select(-ped)
       
-      nrpt <- pt_trips %>% distinct(trip_id) %>% nrow
-      nrptwp <- pt_trips_wo_walk %>% distinct(trip_id) %>% nrow
+      # check number of pt trips with and without walking stages 
+      #nrpt <- pt_trips %>% distinct(trip_id) %>% nrow
+      #nrptwp <- pt_trips_wo_walk %>% distinct(trip_id) %>% nrow
       
       # print(CITY)
       # print(paste(nrpt, " - ", round(nrptwp /  nrpt * 100,1)))
       
-      # separate bus trips WITH pedestrian component
+      # separate pt trips WITH pedestrian component
       pt_trips_w_walk <- pt_trips %>% filter(trip_id %in% setdiff(pt_trips$trip_id, pt_trips_wo_walk$trip_id))
       
       not_pt_trips <- subset(rd_list[[i]], !id %in% pt_trips$id)
-      # divide bus trips into bus and pedestrian
+      
+      # add a walking stage component to those pt trips without such a walking stage
       pt_walk_trips <- add_walk_trips(pt_trips_wo_walk)
       
       # recombine all trips
@@ -59,7 +67,7 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
   trip_df <- do.call('rbind',rd_list)
   rd_list <- NULL
   
-  ## update all distances and durations
+  ## update all distances and duration
   trip_df <- scale_trip_distances(trip_df)
     
   return(trip_df)
@@ -71,9 +79,13 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
 #' 
 #' Applies mode-specific distance scalars to all trips
 #' 
+#' The function is used to multiply all trip stages belonging to a certain mode
+#' by a city specific scalar. Note that walk to pt stages are counted as
+#' public transport stages and are multiplied by the DISTANCE_SCALAR_PT 
+#' 
 #' @param trips data frame, all trips from all scenarios
 #' 
-#' @return data frame, all trips from all scenarios
+#' @return data frame, all trips from all scenarios with scaled distances
 #' 
 #' @export
 scale_trip_distances <- function(trips){
@@ -100,5 +112,5 @@ scale_trip_distances <- function(trips){
   #  trips$trip_distance[n_stages>1] <- sapply(trip_ids[n_stages>1],function(x)sum(stage_dist[trip_ids==x]))
   #}
   
-  trips
+  return(trips)
 }
