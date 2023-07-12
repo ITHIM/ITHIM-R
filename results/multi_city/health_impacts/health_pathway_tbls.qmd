@@ -5,6 +5,7 @@ format:
     code-fold: true
     code-summary: "Show the code"
     page-layout: custom
+    embed-resources: true
 execute:
   warning: false
   echo: false
