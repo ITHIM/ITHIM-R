@@ -75,7 +75,8 @@ create_latam_scenarios <- function(trip_set){
                                    target_percent / 100) # These trips will be reassigned
       #print(n_trips_to_change)
       if (length(potential_trip_ids) > 0 & n_trips_to_change > 0) {
-        if (length(potential_trip_ids) == 1) {
+        # if the number of trips that could be changed equals the number of trips that need to be changed
+        if (length(potential_trip_ids) == n_trips_to_change) { 
           change_trip_ids <- potential_trip_ids
         } else {
           change_trip_ids <- base::sample(potential_trip_ids,
