@@ -29,16 +29,16 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 # cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
 
 cities <- 'bogota'
-# number of times input values are sampled from each input parameter distribution
 
-input_parameter_file <- "InputParameters_v30.0.xlsx"
+
+input_parameter_file <- "InputParameters_v32.0.xlsx"
 
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
 comment <- "Added CO2 emission sampling"
 
 # scenario definition
-scenario_name <- "GLOBAL"
+scenario_name <- "BOGOTA"
 reference_scenario <- 'Baseline'
 scenario_increase <- 0.05 # increase for each mode in each scenario
 
@@ -47,14 +47,6 @@ compute_mode <- 'constant' # constant parameters from the given parameters
 # keep record when code started:
 starttime <- Sys.time()
 
-# define min and max age to be considered
-# min_age <- 15
-# max_age <- 69
-# # set age ranges for outcome statistics
-# outcome_age_min <- c(15,50)
-# outcome_age_max <- c(49,69)
-# outcome_age_groups <- c('15-49','50-69')
-# 
 
 all_inputs <- read_excel(input_parameter_file, sheet = "all_city_parameter_inputs")
 all_inputs[is.na(all_inputs)] <- ""
@@ -116,8 +108,8 @@ for(i in 1:length(parameter_names)){
 
 list2env(parameter_list, environment()) 
 
-# read in global parameters
 
+# read in global parameters
 all_global_inputs <- read_excel(input_parameter_file, sheet = "all_global_parameter_inputs")
 all_global_inputs[is.na(all_global_inputs)] <- ""
 all_global_inputs <- as.data.frame(all_global_inputs)
@@ -163,7 +155,7 @@ outcome_age_groups <- unlist(strsplit(gsub(" ", "", outcome_age_groups, fixed = 
 min_age <- as.numeric(min_age)
 max_age <- as.numeric(max_age)
 
-day_to_week_scalar <- as.numeric(day_to_week_scalar)
+
 
 ################################### Start running the the actual analysis
 
@@ -196,7 +188,7 @@ print(system.time(for(city in cities){
     PROPORTION_MOTORCYCLE_TRIPS = proportion_motorcycle_trips[[city]],
     MMET_CYCLING = mmet_cycling, 
     MMET_WALKING = mmet_walking, 
-    DAY_TO_WEEK_TRAVEL_SCALAR = day_to_week_scalar,
+    DAY_TO_WEEK_TRAVEL_SCALAR = as.numeric(day_to_week_scalar[[city]]),
     SIN_EXPONENT_SUM = sin_exponent_sum,
     CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
     SIN_EXPONENT_SUM_NOV = sin_exponent_sum_nov,

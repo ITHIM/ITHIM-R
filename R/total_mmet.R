@@ -13,7 +13,8 @@ total_mmet <- function(trip_scen_sets){
   rd_pa <- setDT(trip_scen_sets)[trip_scen_sets$stage_mode%in%c('pedestrian','walk_to_pt','cycle')&trip_scen_sets$participant_id>0,]
   rd_pa$stage_mode[rd_pa$stage_mode=='walk_to_pt'] <- 'pedestrian'
   # Convert baseline's trip duration from mins to hours
-  rd_pa$stage_duration_hrs <- rd_pa$stage_duration / 60 * DAY_TO_WEEK_TRAVEL_SCALAR
+  #rd_pa$stage_duration_hrs <- rd_pa$stage_duration / 60 * DAY_TO_WEEK_TRAVEL_SCALAR # day_to_week scalar has already been applied in the get_synthetic_from_trips.R function
+  rd_pa$stage_duration_hrs <- rd_pa$stage_duration / 60 * 7
   # Get total individual level pedestrian and cycling and sport mmets 
   for (i in 1:length(SCEN)){
     synth_pop[[paste0(SCEN_SHORT_NAME[i],'_mmet')]] <- synth_pop$work_ltpa_marg_met * BACKGROUND_PA_SCALAR

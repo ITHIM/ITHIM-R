@@ -36,7 +36,7 @@
 #' @param BACKGROUND_PA_CONFIDENCE beta parameter: confidence in accuracy of PA survey
 #' @param INJURY_REPORTING_RATE lognormal parameter: rate of injury reporting
 #' @param CHRONIC_DISEASE_SCALAR lognormal parameter: scalar for background disease rates
-#' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week
+#' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week  - CURRENTLY used as constant only (using as beta parameter would need some further considerations)
 #' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.
 #' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to SIN_EXPONENT_SUM
 #' @param SIN_EXPONENT_SUM_NOV lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers.
@@ -256,7 +256,8 @@ run_ithim_setup <- function(seed = 1,
   ADD_MOTORCYCLE_FLEET <<- ADD_MOTORCYCLE_FLEET
   ADD_PERSONAL_MOTORCYCLE_TRIPS <<- ADD_PERSONAL_MOTORCYCLE_TRIPS
   CALL_INDIVIDUAL_SIN <<- CALL_INDIVIDUAL_SIN
-
+  
+  DAY_TO_WEEK_TRAVEL_SCALAR <<- DAY_TO_WEEK_TRAVEL_SCALAR
 
   ## MODEL VARIABLES
   CITY <<- CITY

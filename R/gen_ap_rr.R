@@ -49,7 +49,7 @@ gen_ap_rr <- function(pm_conc_pp){
       cause_age <- ifelse(length(ages) != 1,
                           paste(cause, age, sep = "_"),
                           cause)
-      
+
       # get parameters
       #agechar <- as.character(age)
       #alpha <- DR_AP_LIST[[cause]][[age]]$alpha
@@ -74,7 +74,7 @@ gen_ap_rr <- function(pm_conc_pp){
         # pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]][i] <-
         # AP_dose_response(cause = cause_age, 
         #                  dose = pm_rr_pp[[pm_indices[x]]][i])
-      
+       
         return_vector <- AP_dose_response(cause = cause_age, 
                                           dose = pm_rr_pp[[pm_indices[x]]][i], quantile = quant)
         pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]][i] <- return_vector$rr

@@ -1,6 +1,26 @@
 #' Generate synthetic data from trip set
 #' 
 #' Sequence of functions to set up the synthetic population, the synthetic trips, and the scenarios.
+#' 
+#' This function performs the following steps:
+#' 
+#' - The columns from the TRIP_SET are put into the correct order
+#' - multiply the trip distances and stage distances and durations by the day_to_week scalar
+#'   and then divide by 7 to get the distances and durations of an 'average' day of the week
+#' - add bus_driver and truck trips if required
+#' - add personal motorcycle trips if needed
+#' - add commercial motorcycle if required
+#' - build the synthetic population by creating a data set that contains the (non-zero) participant 
+#'   ids and demographic information from the trip data set and adds work and leisure MMET
+#'   values by calling create_synth_pop.R (non travel entries in the trip data set are also removed)
+#' - adds car driver trips if required
+#' - create the required scenarios by calling the appropriate function
+#' - add walk to pt trips and combine the scenarios into one dataframe by calling the 
+#'   walk_to_pt_and_combine_scen.R function
+#' 
+#' 
+#' 
+#' 
 #' Also sets global variables for later use.
 #' 
 #' @return data frame of all trips from all scenarios
@@ -39,12 +59,13 @@ get_synthetic_from_trips <- function(){
   }
   TRIP_SET <- NULL
   
-  ##!! number trips
-  #raw_trip_set$trip_id[!is.na(raw_trip_set$trip_id)] <- 1:sum(!is.na(raw_trip_set$trip_id))
   
-  ## add motorcycle trip to accra, and replicate set four times
-  #if(CITY=='accra') raw_trip_set <- edit_accra_trips(raw_trip_set)
-  #SURVEY_SCALAR <<- population/length(unique(TRIP_SET$participant_id))/survey_coverage
+  # scale distances and durations by the day_to_week_scalar and then divide by 7 to get distances travelled on an "average" day
+  raw_trip_set$trip_distance <- raw_trip_set$trip_distance * DAY_TO_WEEK_TRAVEL_SCALAR / 7
+  raw_trip_set$stage_distance <- raw_trip_set$stage_distance * DAY_TO_WEEK_TRAVEL_SCALAR / 7
+  raw_trip_set$trip_distance <- raw_trip_set$trip_distance * DAY_TO_WEEK_TRAVEL_SCALAR / 7
+  
+  
   
   ## add bus and truck trips
   if(ADD_BUS_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,prop_male = BUS_DRIVER_PROP_MALE,
@@ -87,19 +108,23 @@ get_synthetic_from_trips <- function(){
 
   # create synthetic population
   synth_pop <- create_synth_pop(raw_trip_set)
-  # add car drivers
+  
+  
+  # add car drivers by assuming that only a certain percentage of car trips (population_in_model_ratio) are driven
+  # by people in the age range considered by the model. 
   if(ADD_CAR_DRIVERS){
     car_driver_scalar <<- min(1, CAR_OCCUPANCY_RATIO*1/population_in_model_ratio)
     # age ranges are not needed as car drivers are only used to calculate total vehicle km travelled for the CO2 model but are not
     # needed for the injury model unlike truck, motorcycle and bus drivers 
     synth_pop$trip_set<- add_ghost_trips(synth_pop$trip_set,trip_mode='car_driver',
                                     distance_ratio=car_driver_scalar*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car')  }   
+ 
   raw_trip_set <- NULL
-  SYNTHETIC_POPULATION <<- synth_pop$synthetic_population
-  trip_set <- synth_pop$trip_set
+  SYNTHETIC_POPULATION <<- synth_pop$synthetic_population # extract the population statistics and pa non-travel MMET values
+  trip_set <- synth_pop$trip_set # extract the trip characteristics
   synth_pop <- NULL
   
-  # create scenarios: either the pedestrian test case, or the 5 hard-coded Accra scenarios
+  # create scenarios by calling the appropriate function
   trip_set <- ithim_setup_baseline_scenario(trip_set)
   if (SCENARIO_NAME == "TEST_WALK_SCENARIO") {
     SYNTHETIC_TRIPS <- create_walk_scenario(trip_set)
@@ -121,17 +146,15 @@ get_synthetic_from_trips <- function(){
   
   #set_scenario_specific_variables()
   # some useful variables.
-  NSCEN <<- length(SYNTHETIC_TRIPS) - 1
-  SCEN <<- sapply(SYNTHETIC_TRIPS,function(x)x$scenario[1])
+  NSCEN <<- length(SYNTHETIC_TRIPS) - 1 # define number of scenarios
+  SCEN <<- sapply(SYNTHETIC_TRIPS,function(x)x$scenario[1]) 
   # SCEN_SHORT_NAME <<- c("base",paste0("scen", 1:NSCEN) )
-  SCEN_SHORT_NAME <<- c("base",paste0("sc_", rownames(SCENARIO_PROPORTIONS)))
+  SCEN_SHORT_NAME <<- c("base",paste0("sc_", rownames(SCENARIO_PROPORTIONS))) # define the scenario names
   
-  
-  # print(data.table::rbindlist(SYNTHETIC_TRIPS) %>% distinct(trip_id, scenario, .keep_all = T) %>% group_by(scenario) %>% summarise(sum(trip_distance)))
-  # print(data.table::rbindlist(SYNTHETIC_TRIPS) %>% group_by(scenario) %>% summarise(sum(stage_distance)))
-  
+
   # add walk-to-bus trips, as appropriate, and combines list of scenarios
   trip_scen_sets <- walk_to_pt_and_combine_scen(SYNTHETIC_TRIPS)
+  
   trip_scen_sets
   
 }
