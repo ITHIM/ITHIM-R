@@ -82,7 +82,7 @@ scenario_pm_calculations_v2 <- function(dist, trip_scen_sets){
     met = c(1.3, 2.5, 1.3, 1.3, 1.3, MMET_CYCLING + 1, MMET_WALKING + 1, 
             0.95, 2.8, 1.3, 1.3),
     compendium_code = c('07021', '16010', '16015', '16016', '16016', '01011', 
-                   '16060', '07030', '16030', '16016', '16016')
+                        '16060', '07030', '16030', '16016', '16016')
   )
   
   # Dan: Extract people from the synthetic population to calculate their 
@@ -112,7 +112,7 @@ scenario_pm_calculations_v2 <- function(dist, trip_scen_sets){
     mutate(
       # Draw sample from distribution
       ecf = runif(1, min = lower, max = upper),
-      ) %>% 
+    ) %>% 
     dplyr::select(participant_id, age, sex, body_mass, ecf)
   
   # Dan: For each person in the synthetic population, calculate the Resting 
@@ -139,7 +139,7 @@ scenario_pm_calculations_v2 <- function(dist, trip_scen_sets){
       sample = rnorm(1, mean, sd),
       # Check maximum and minimum values
       sample_check = ifelse(sample < lower, lower,
-                         ifelse(sample > upper, upper, sample)),
+                            ifelse(sample > upper, upper, sample)),
       # Transform [ml/(min*kg)] to [lt/(min*kg)]
       nvo2max = sample_check/1000
     ) %>% 
@@ -167,7 +167,7 @@ scenario_pm_calculations_v2 <- function(dist, trip_scen_sets){
   # Dan: Adding these new columns to the trip set
   trip_set <- trip_set %>% 
     left_join(people_for_vent_rates, by = 'participant_id')
-
+  
   # Dan: Adding MET values [dimensionless] for each mode
   trip_set <- trip_set %>% left_join(met_df %>% dplyr::select(stage_mode, met), 
                                      by = 'stage_mode')
@@ -187,8 +187,8 @@ scenario_pm_calculations_v2 <- function(dist, trip_scen_sets){
       # Ventilation rate for travel modes
       vo2 = ecf * met * rmr, 
       pct_vo2max = ifelse(stage_duration < 5, 100,
-                    ifelse(stage_duration > 540, 33,
-                           121.2 - (14 * log(stage_duration)))),
+                          ifelse(stage_duration > 540, 33,
+                                 121.2 - (14 * log(stage_duration)))),
       upper_vo2max = vo2max * (pct_vo2max / 100),
       adj_vo2 = ifelse(vo2 > upper_vo2max, upper_vo2max, vo2),
       # Draw sample from normal distribution taking into account the variance 
@@ -197,7 +197,7 @@ scenario_pm_calculations_v2 <- function(dist, trip_scen_sets){
       log_vent_rate = intercept_a + (slope_b * log(adj_vo2/body_mass)) + d_k + e_ijk,
       vent_rate = exp(log_vent_rate) * body_mass,
       v_rate_2 = vent_rate * 60 / 1000
-      )
+    )
   #----
   
   # Create df with scenarios and concentration
@@ -290,8 +290,8 @@ scenario_pm_calculations_v2 <- function(dist, trip_scen_sets){
       sleep_duration = 8 * 60, # In minutes
       vo2_sleep = ecf * sleep_met * rmr,
       pct_vo2max_sleep = ifelse(sleep_duration < 5, 100,
-                          ifelse(sleep_duration > 540, 33,
-                                 121.2 - (14 * log(sleep_duration)))),
+                                ifelse(sleep_duration > 540, 33,
+                                       121.2 - (14 * log(sleep_duration)))),
       upper_vo2max_sleep = vo2max * (pct_vo2max_sleep / 100),
       adj_vo2_sleep = ifelse(vo2_sleep > upper_vo2max_sleep, 
                              upper_vo2max_sleep, vo2_sleep),
@@ -309,8 +309,8 @@ scenario_pm_calculations_v2 <- function(dist, trip_scen_sets){
       rest_duration = (16 - total_travel_time_hrs) * 60, # In minutes
       vo2_rest = ecf * rest_met * rmr,
       pct_vo2max_rest = ifelse(rest_duration < 5, 100,
-                                ifelse(rest_duration > 540, 33,
-                                       121.2 - (14 * log(rest_duration)))),
+                               ifelse(rest_duration > 540, 33,
+                                      121.2 - (14 * log(rest_duration)))),
       upper_vo2max_rest = vo2max * (pct_vo2max_rest / 100),
       adj_vo2_rest = ifelse(vo2_rest > upper_vo2max_rest, 
                             upper_vo2max_rest, vo2_rest),
@@ -340,7 +340,7 @@ scenario_pm_calculations_v2 <- function(dist, trip_scen_sets){
     # Rename columns
     rename_at(vars(starts_with(c("base", "sc"))), 
               ~ paste0("pm_conc_", SCEN_SHORT_NAME))
-
+  
   # Get all participants without any travel (in the travel survey)
   id_wo_travel <- SYNTHETIC_POPULATION |> 
     filter(!participant_id %in% trip_set$participant_id)
@@ -373,6 +373,10 @@ scenario_pm_calculations_v2 <- function(dist, trip_scen_sets){
 
 ##### 
 # Delete this part later
+# I used it to compare the previous implementation with the new one
+# All variables are there, I didn't remove any variable from the trip set
+# because in the end we are using only few variables of it, and we are exporting
+# only synth_pop.
 
 # aux = trip_set %>% filter(stage_mode == 'other')
 # table(aux$trip_mode, useNA = 'always')
@@ -381,15 +385,15 @@ scenario_pm_calculations_v2 <- function(dist, trip_scen_sets){
 # table(aux$stage_mode, useNA = 'always')
 # 
 # baseline <- trip_set %>% filter(scenario == 'baseline')
-# View(baseline %>% group_by(stage_mode) %>% 
-#   summarise(
-#     avg_v_rate = mean(v_rate, na.rm = T),
-#     avg_v_rate_new = mean(v_rate_2, na.rm = T),
-#     median_v_rate = median(v_rate, na.rm = T),
-#     median_v_rate_new = median(v_rate_2, na.rm = T),
-#     ) #%>% 
-#     #filter(!is.na(avg_v_rate))
-#   )
+# View(baseline %>% group_by(stage_mode) %>%
+#        summarise(
+#          avg_v_rate = mean(v_rate, na.rm = T),
+#          avg_v_rate_new = mean(v_rate_2, na.rm = T),
+#          median_v_rate = median(v_rate, na.rm = T),
+#          median_v_rate_new = median(v_rate_2, na.rm = T),
+#        ) #%>%
+#      #filter(!is.na(avg_v_rate))
+# )
 
 # aux <- trip_set %>% filter(is.na(v_rate_2))
 # table(aux$stage_mode, useNA = 'always')
