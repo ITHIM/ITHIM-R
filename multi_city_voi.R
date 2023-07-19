@@ -282,7 +282,7 @@ print(system.time(
                                               PROPORTION_MOTORCYCLE_TRIPS = proportion_motorcycle_trips[[city]],
                                               MMET_CYCLING = mmet_cycling, 
                                               MMET_WALKING = mmet_walking,
-                                              DAY_TO_WEEK_TRAVEL_SCALAR = as.numeric(day_to_week_scalar),
+                                              DAY_TO_WEEK_TRAVEL_SCALAR = as.numeric(day_to_week_scalar[[city]]),
                                               SIN_EXPONENT_SUM = sin_exponent_sum,
                                               CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
                                               SIN_EXPONENT_SUM_NOV = sin_exponent_sum_nov,

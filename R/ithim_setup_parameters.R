@@ -19,7 +19,7 @@
 #' @param BACKGROUND_PA_CONFIDENCE beta parameter: confidence in accuracy of PA survey
 #' @param INJURY_REPORTING_RATE lognormal parameter: rate of injury reporting
 #' @param CHRONIC_DISEASE_SCALAR lognormal parameter: scalar for background disease rates
-#' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week
+#' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week - CURRENTLY used as constant only (using as beta parameter would need some further considerations)
 #' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.
 #' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to SIN_EXPONENT_SUM
 #' @param SIN_EXPONENT_SUM_NOV lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers.
@@ -203,12 +203,12 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     }
   }
   
-  if(length(DAY_TO_WEEK_TRAVEL_SCALAR) > 1 ){
-    parameters$DAY_TO_WEEK_TRAVEL_SCALAR <- 7*rbeta(NSAMPLES,DAY_TO_WEEK_TRAVEL_SCALAR[1],DAY_TO_WEEK_TRAVEL_SCALAR[2])
-  }else{
-    DAY_TO_WEEK_TRAVEL_SCALAR <<- DAY_TO_WEEK_TRAVEL_SCALAR
-  }
-  
+  # if(length(DAY_TO_WEEK_TRAVEL_SCALAR) > 1 ){
+  #   parameters$DAY_TO_WEEK_TRAVEL_SCALAR <- 7*rbeta(NSAMPLES,DAY_TO_WEEK_TRAVEL_SCALAR[1],DAY_TO_WEEK_TRAVEL_SCALAR[2])
+  # }else{
+  #   DAY_TO_WEEK_TRAVEL_SCALAR <<- DAY_TO_WEEK_TRAVEL_SCALAR
+  # }
+
   if(BACKGROUND_PA_CONFIDENCE<1){
     parameters$BACKGROUND_PA_ZEROS <- runif(NSAMPLES,0,1)
   }
