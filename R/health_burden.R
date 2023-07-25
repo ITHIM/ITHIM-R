@@ -30,6 +30,7 @@ health_burden <- function(ind_ap_pa, conf_int = F, combined_AP_PA = T){
   ind_ap_pa <- dplyr::left_join(ind_ap_pa, demographic, by=c('sex','age_cat'))
   pop_details <- deaths <- ylls <- demographic
   # set up reference (scen1)
+  if (REFERENCE_SCENARIO == 'Baseline') REFERENCE_SCENARIO <- 'baseline'
   reference_scenario <- SCEN_SHORT_NAME[which(SCEN==REFERENCE_SCENARIO)]
   scen_names <- SCEN_SHORT_NAME[SCEN_SHORT_NAME!=reference_scenario]
   

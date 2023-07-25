@@ -21,6 +21,8 @@ injury_death_to_yll <- function(injuries){
   x_yll <- spread(x_yll,scenario, YLL)
   
   ref_scen <- REFERENCE_SCENARIO
+  if (REFERENCE_SCENARIO == 'Baseline'){
+    ref_scen = 'baseline'} 
   ref_scen_index <- which(SCEN==ref_scen)
   calc_scen <- SCEN[SCEN!=ref_scen]
   calc_scen_index <- which(colnames(x_deaths)%in%calc_scen)
