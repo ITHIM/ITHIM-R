@@ -92,7 +92,7 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   # Injuries calculation
   for(i in 1:length(inj_distances))
     assign(names(inj_distances)[i],inj_distances[[i]])
-  inj_distances <- NULL
+  #inj_distances <- NULL
   
   #(injuries <- injuries_function(relative_distances,scen_dist))
   injuries0 <- injuries_function_2(true_distances,injuries_list,reg_model,constant_mode)

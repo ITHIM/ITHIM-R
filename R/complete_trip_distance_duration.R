@@ -10,9 +10,10 @@
 #' 
 #' - if there is no stage duration:
 #'  - calculate the stage duration if the stage distance is given using the mode speeds
-#'  - if the stage duration sum is 'na' (i.e. if not all stage distances exist or if there are no stage distances at all):
-#'      - if trip duration exists and its sum is not na, then find the trip ids with 'na' stage duration and replace those
+#'  - if the stage duration sum is 'NA' (i.e. if not all stage distances exist or if there are no stage distances at all):
+#'      - if trip duration exists and its sum is not NA, then find the trip ids with 'NA' stage duration and replace those
 #'        stage duration with the trip duration divided by the number of stages of that particular trip
+#'      - remove any remaining trips with 'NA' stage distance
 #'      - update the mode speed column
 #'      
 #' - if there is no stage distance:
@@ -41,7 +42,7 @@ complete_trip_distance_duration <- function(){
   if(na_stage){
     cat('NA in stage duration in trip set.\n')
 
-    ### The following code seems redundant as stage duration is already updated with stage distance (and speed) above
+    ### The following bit of code seems redundant as stage duration is already updated with stage distance (and speed) above
     # # if stage distance exists and the sum of stage distance is not 'na', then update stage duration by using stage distance and speed
     # if('stage_distance'%in%colnames(trip_set)&&!is.na(sum(trip_set$stage_distance[!is.na(trip_set$stage_mode)]))){
     #   cat('Populating stage duration from stage distance\n')
@@ -50,6 +51,7 @@ complete_trip_distance_duration <- function(){
     # else if trip duration exists, then find the trip ids with 'na' stage duration and update the corresponding trip id stage durations
     # with the trip duration divided by the number of stages for that trip
     #}else if('trip_duration'%in%colnames(trip_set)&&!is.na(sum(trip_set$trip_duration[!is.na(trip_set$stage_mode)]))){
+    
     if('trip_duration'%in%colnames(trip_set)&&!is.na(sum(trip_set$trip_duration[!is.na(trip_set$stage_mode)]))){
       cat('Populating stage duration from trip duration\n')
       na_stage_ids <- trip_set$trip_id[is.na(trip_set$stage_duration)&!is.na(trip_set$stage_mode)]
@@ -59,7 +61,9 @@ complete_trip_distance_duration <- function(){
       other_set <- subset(trip_set[!trip_set$trip_id%in%na_stage_ids,])
       trip_set <- rbind(other_set,as.data.frame(na_stage_set)[,colnames(na_stage_set)%in%colnames(other_set)])
     }
-    na_stage_ids <- trip_set$trip_id[is.na(trip_set$stage_duration)&!is.na(trip_set$stage_mode)]
+   
+     na_stage_ids <- trip_set$trip_id[is.na(trip_set$stage_duration)&!is.na(trip_set$stage_mode)]
+    # remove any stages with zero stage difference
     if(length(na_stage_ids)>0){
       cat(paste0("Removing ",length(unique(na_stage_ids))," trips (",length(na_stage_ids)," stages) with NA stage duration from trip set.\n"))
       trip_set <- subset(trip_set,!trip_id%in%na_stage_ids)
