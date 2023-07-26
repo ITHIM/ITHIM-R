@@ -1,7 +1,45 @@
+#' Main script to run ITHIM Global in constant mode
+#' 
+#' Script to run ITHIM Global using constant input parameters. Outputs the health impacts associated with transport in a given city.
+#' 
+#' The ITHIM Global main script works as follows:
+#' 
+#' - the following variables need to be defined before running the script:
+#'    - the names of the cities for which the model is to be run
+#'    - The input parameter file name containing the global and local input parameters needs to be defined
+#'    - author name, output version number and any comments that are to be written to the OutputVersionControl.txt file
+#'      documenting the key aspects of the model run (timestamp, author name, cities
+#'      for which model was run, input parameter file name, output version number,
+#'      number of samples which equals to 1 here as the model is run in constant mode, 
+#'      and any comments) need defining
+#'    - The scenarios need defining by:
+#'      - updating the character defining which scenario file is to be called
+#'      - giving the reference scenario against which all other scenarios are compared with
+#'      - giving the percentage increase in each mode for the BOGOTA, GLOBAL, LATAM, and AFRICA_INDIA scenarios
+#'      - the number of scenarios (not including the Baseline scenario) needs setting (for plotting)
+#'    - the name of the diseases considered in the output plot need defining. Note that not more than 6 diseases
+#'      can be plotted at the same time and if the script is run for many countries at once (roughly > 10), the plot gets overcrowded
+#'      
+#' - the remainder of the code does not need to be changed
+#' 
+#' - local and global input parameters from the input parameter spreadsheet are read in and put into the correct format needed
+#'   for the model run
+#'   
+#' - The run_ithim_setup.R script is called which prepares the input data needed for the health impact assessment by
+#' 
+#' - The run_ithim.R script is called which performs the health impact assessment
+#' 
+#' - output results are stored for plotting of the results
+#' 
+#' - an output plot is created    
+#'      
+
+
 rm(list=ls())
 library(ithimr)
 library(readxl)
 library(truncnorm)
+library(tidyverse)
 
 if (!require("drpa",character.only = TRUE)) {
   print('Installing "drpa" package...')
@@ -11,12 +49,12 @@ if (!require("drpa",character.only = TRUE)) {
 }
 
 # All cities
-cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
-            'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
-            'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
-            'osorno', 'puerto_montt', 'san_antonio',
-            'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia',
-            'accra', 'bangalore', 'cape_town','delhi', 'vizag', 'kisumu', 'nairobi', 'port_louis')
+# cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
+#             'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
+#             'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
+#             'osorno', 'puerto_montt', 'san_antonio',
+#             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia',
+#             'accra', 'bangalore', 'cape_town','delhi', 'vizag', 'kisumu', 'nairobi', 'port_louis')
 
 # # latam
 # cities = c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
@@ -26,28 +64,46 @@ cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 #            'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
 # 
 # #African & Indian cities
-# cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
+#cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
 
 cities <- 'bogota'
 
 
-input_parameter_file <- "InputParameters_v32.0.xlsx"
+input_parameter_file <- "InputParameters_v32.0.xlsx" # file containing the local and global input parameters
 
+
+# records the main aspects of an ithim run in the OutputVersionControl.txt document
+# text file records timestamp of run, author name, cities the script is run for, 
+# the input parameter file version used, the output version, 
+# the number of samples (which is 1 in constant mode), the path to any other input files,
+# any comments and the runtime of the code
+write_output_control = T # whether you want to save the model run specifics or not
 output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
 comment <- "Added CO2 emission sampling"
 
-# scenario definition
-scenario_name <- "BOGOTA"
-reference_scenario <- 'Baseline'
-scenario_increase <- 0.05 # increase for each mode in each scenario
 
-compute_mode <- 'constant' # constant parameters from the given parameters
+# scenario definition
+scenario_name <- "BOGOTA" # name of scenario to be called
+reference_scenario <- 'Baseline' # scenario the other scenarios are compared to
+scenario_increase <- 0.05 # increase for each mode in each scenario (used in GLOBAL, BOGOTA, LATAM and AFRICA_INDIA scenarios)
+n_scenarios <- 3 # number of scnenarios (not including the baseline scenario)
+
+# define which output results to plot, more than 6 cannot be plotted
+# potential outputs (in yll for all scenarios):  c('pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
+#                       'pa_ap_stroke', 'pa_ap_T2D', 'ap_LRI', 'pa_breast_cancer', 'pa_colon_cancer', 'pa_endo_cancer',
+#                       'pa_liver_cancer', 'pa_ap_CVD', 'pa_total_dementia', 'pa_myeloma', 'pa_Parkinson',
+#                       'pa_head_neck_cancer', 'pa_stomach_cancer', 'inj')
+outputs_to_plot <- c('pa_ap_all_cause','inj','pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD')
+
+
 ############################### No need to change the following ##################################
+compute_mode <- 'constant' # constant parameters from the given parameters
+
 # keep record when code started:
 starttime <- Sys.time()
 
-
+# read in local input parameters
 all_inputs <- read_excel(input_parameter_file, sheet = "all_city_parameter_inputs")
 all_inputs[is.na(all_inputs)] <- ""
 all_inputs <- as.data.frame(all_inputs)
@@ -106,6 +162,7 @@ for(i in 1:length(parameter_names)){
   }
 }
 
+# write input parameters to global environment
 list2env(parameter_list, environment()) 
 
 
@@ -144,8 +201,9 @@ for(i in 1:length(global_parameter_names)){
   }
 }
 
-list2env(global_parameter_list, environment()) 
+list2env(global_parameter_list, environment()) # write input parameters to global environment
 
+# update the format of some of the global parameters
 dist_cat <- unlist(strsplit(gsub(" ", "", dist_cat, fixed = TRUE), "\\,"))
 
 outcome_age_min <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_min, fixed = TRUE), "\\,")))
@@ -166,10 +224,13 @@ ap_dr_quantile <-  F
 
 ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 
-#toplot <- matrix(0, nrow = 3, ncol = length(cities)) #3 scenarios, 20 cities
+# define dimensions for output plots
+toplot <- matrix(0, n_scenarios, ncol = length(cities)) #3 scenarios, 20 cities
+
 #ithim_objects <- list()
 print(system.time(for(city in cities){
   print(city)
+  # run code to prepare the input data for the actual ITHIM Global health impact assessment
   ithim_objects[[city]] <- run_ithim_setup(
     DIST_CAT = as.character(dist_cat),
     ADD_WALK_TO_PT_TRIPS = as.logical(add_walk_to_pt_trips[[city]]),
@@ -227,10 +288,15 @@ print(system.time(for(city in cities){
     MINIMUM_PT_TIME = as.numeric(minimum_pt_time)
   )
   
+  # add additional information to the ithim_objects list storing the key input and output data
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS
   ithim_objects[[city]]$demographic <- DEMOGRAPHIC
   ithim_objects[[city]]$synth_pop <- SYNTHETIC_POPULATION
+  
+  # the the ITHIM-Global health impact assessment
   ithim_objects[[city]]$outcomes <- run_ithim(ithim_object=ithim_objects[[city]], seed = 1)
+  
+  # add further information to the ithim_objects list
   ithim_objects[[city]]$disease_burden <- DISEASE_BURDEN
   ithim_objects[[city]]$PM_emission_inventory <- PM_EMISSION_INVENTORY
   ithim_objects[[city]]$injury_table <- INJURY_TABLE
@@ -242,47 +308,100 @@ print(system.time(for(city in cities){
   ithim_objects[[city]]$new_walk_trips_count$bus <- count_new_walk_trips_bus
   ithim_objects[[city]]$new_walk_trips_count$rail <- count_new_walk_trips_rail
   
-  ## store results to plot
-  # min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-  # max_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  # sub_outcome <- subset(ithim_objects[[city]]$outcome$hb$ylls,
-  #                       min_ages >= min_age & max_ages <= max_age)
+  # store results to plot
+  min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+  max_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+  sub_outcome <- subset(ithim_objects[[city]]$outcome$hb$ylls,
+                        min_ages >= min_age & max_ages <= max_age)
   # result_mat <- colSums(sub_outcome[,3:ncol(sub_outcome)])
-  # columns <- length(result_mat)
-  # nDiseases <- columns/NSCEN
-  # if (city == cities[1]) {
-  #   disease_list <- list()
-  #   for (i in 1:nDiseases) disease_list[[i]] <- toplot
-  # }
-  # min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-  # max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  # for (i in 1:nDiseases)
-  #   disease_list[[i]][,which(cities == city)] <- result_mat[1:NSCEN + (i - 1) * NSCEN]/sum(subset(DEMOGRAPHIC,min_pop_ages >= min_age & max_pop_ages <= max_age)$population)
+  
+  # all results without upper and lower limit values
+  sub_outcome_noLimits <- sub_outcome %>% dplyr::select(-contains(c('lb','ub')))
+  #result_mat_noLimits <- colSums(sub_outcome_noLimits[,3:ncol(sub_outcome_noLimits)])
+  
+  # results for plotting without upper and lower limit values
+  sub_outcomes_plot <- sub_outcome_noLimits %>% dplyr::select(contains(outputs_to_plot))
+  # replace column names with 'yll_' with 'ylls_'
+  colnames(sub_outcomes_plot) <- sub("yll_", "ylls_", colnames(sub_outcomes_plot))
+  result_mat_plot <- colSums(sub_outcomes_plot)
+  
+  # find number of disease to plot and create a list with all the different disease outcomes for the different scenarios
+  columns <- length(result_mat_plot)
+  nDiseases <- columns/NSCEN
+  if (city == cities[1]) {
+    disease_list <- list()
+    for (i in 1:nDiseases) disease_list[[i]] <- toplot
+  }
+  min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+  max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+  for (i in 1:nDiseases)
+    disease_list[[i]][,which(cities == city)] <- result_mat_plot[1:NSCEN + (i - 1) * NSCEN]/sum(subset(DEMOGRAPHIC,min_pop_ages >= min_age & max_pop_ages <= max_age)$population)
 }))
 
 
-# {x11(width = 10, height = 5);
-#   layout.matrix <- matrix(c(2:6,1,7:12), nrow = 2, ncol = 6,byrow = T)
-#   graphics::layout(mat = layout.matrix, heights = c(2,3), 
-#                    widths = c(2.8,2,2,2,2,2.5))
-#   ylim <- range(result_mat)
-#   cols <- rainbow(length(cities))
-#   mar1 <- rep(7, nDiseases); mar1[1:6] <- 1
-#   mar2 <- rep(1, nDiseases); mar2[c(2,7)] <- 6; mar2[c(1,12)] <- 3
-#   for (i in 1:nDiseases) {
-#     ylim <- if (i %in% c(1,12)) range(disease_list[[i]]) else c(-11,4)*1e-4
-#     par(mar = c(mar1[i], mar2[i], 4, 1))
-#     barplot(t(disease_list[[i]]), ylim = ylim, las = 2, beside = T, 
-#             col = cols, 
-#             names.arg = if (i < 7) NULL else rownames(SCENARIO_PROPORTIONS), 
-#             main = paste0(last(strsplit(names(result_mat)[i * NSCEN], '_')[[1]])),
-#             yaxt='n')
-#     if (i %in% c(2,1,7,12)) {
-#       axis(2,cex.axis=1.5); if(i%in%c(2,7)) mtext(side=2,'YLL gain per person',line=3)}
-#     if (i == nDiseases - 1) legend(legend = cities, fill = cols, bty = 'n',
-#                                    y = -1e-5, x = 5, cex = 0.9)
-#   }
-# }
+# Create the output plots
+{x11(width = 10, height = 8);
+  #layout.matrix <- matrix(c(2:6,1,7:12), nrow = 2, ncol = 6,byrow = T)
+  layout.matrix <- matrix(c(1:6), nrow = 2, ncol = 3,byrow = T)
+  graphics::layout(mat = layout.matrix, heights = c(2,3),
+                   #widths = c(2.8,2,2,2,2,2.5))
+                   widths = c(2,2,2))
+  ylim <- range(result_mat_plot) # define y limit
+  cols <- rainbow(length(cities)) # define colours
+  mar1 <- rep(7, nDiseases); mar1[1:6] <- 2.5 # define bottom margin
+  mar2 <- rep(1, nDiseases); mar2[c(2,5)] <- 2; mar2[c(1,4)] <- 4.5 # define margin left of plots
+  
+  for (i in 1:nDiseases) {
+    #ylim <- if (i %in% c(1,4)) range(disease_list[[i]]) else c(-11,4)*1e-4
+    ylim <- range(disease_list[[i]])
+    par(mar = c(mar1[i], mar2[i], 6, 1)) # define margins
+    barplot(t(disease_list[[i]]), ylim = ylim, las = 2, beside = T,
+            col = cols,
+            main = paste0(last(strsplit(names(result_mat_plot)[i * NSCEN], 'ylls_')[[1]])),
+            yaxt='n') # create boxplot
+ 
+    # add y - axis text
+    axis(2,cex.axis=1.5); 
+    if(i%in%c(1,4)) mtext(side=2,'YLL gain per person',line=3)
+    
+    # add city legend
+    if (i == nDiseases - 1) legend(legend = cities, fill = cols, bty = 'n',
+                                   y = -1e-5, x = 5, cex = 0.9)
+    # add scenario names
+    scen_names_only <- c()
+    for (i in 1:NSCEN)
+      scen_names_only <- paste0(scen_names_only,"    ", SCEN_SHORT_NAME[i+1], "    ")
+    mtext(side = 1, scen_names_only, line = 1, cex = 0.8)
+  }
+}
 
 
 saveRDS(ithim_objects, "results/multi_city/io.rds", version = 2)
+
+
+# add to output control document
+
+if (write_output_control == TRUE){
+
+  timestamp <- Sys.time()
+  input_version <- input_parameter_file
+  global_path <- paste0(file.path(find.package('ithimr',lib.loc = .libPaths()),
+                                  'extdata/global'), "/")
+  cat("",
+      paste(timestamp, "by", author, sep = " "),
+      paste("Cities:", cities, sep = " "),
+      paste("Input parameter file:", input_version, sep = " "),
+      paste("Version number of outputs:", output_version, sep = " "),
+      paste("Number of samples:", '1', sep = " "),
+      paste("Comments:", comment, sep=" "),
+      paste("Path of other input files:", global_path, sep=" "),
+      file="OutputVersionControl.txt",sep="\n",append=TRUE)
+  
+  # record time it took to run code
+  endtime <- Sys.time()  
+  runtime <- round(as.numeric(difftime(endtime, starttime, units = "mins")),2)
+  
+  cat(paste("Runtime in minutes:", runtime, sep=" "),
+      file="OutputVersionControl.txt",sep="\n",append=TRUE)
+
+}
