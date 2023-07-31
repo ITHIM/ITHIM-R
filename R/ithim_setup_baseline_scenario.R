@@ -1,6 +1,7 @@
 #' Set up baseline scenario data frame
 #' 
-#' Create scenario by adding distance categories and scenario=baseline column to trip set data frame
+#' Set up baseline scenario by adding distance categories and scenario='baseline' column to trip set data frame
+#' 
 #' 
 #' @param trip_set data frame of trips 
 #' 
@@ -8,14 +9,8 @@
 #' 
 #' @export
 ithim_setup_baseline_scenario <- function(trip_set){
-  ##?? do we need any/all of rid, trip_id, row_id?
-  
-  ## SET UP TRAVEL DATA
-  # Create a row id
-  #trip_set$rid <- 1:nrow(trip_set)
-  
-  # Initialize distance categories
-  ## Distance categories are used in scenario generation. They correspond to e.g. ``long trips'' and ``short trips''
+
+  # Initialize distance categories as they are used in the scenario generation
   trip_set$trip_distance_cat <- 0
   ##!! assuming more than one distance category
   for(i in 2:length(DIST_LOWER_BOUNDS)-1){

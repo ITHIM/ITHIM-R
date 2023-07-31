@@ -14,7 +14,8 @@
 #'   ids and demographic information from the trip data set and adds work and leisure MMET
 #'   values by calling create_synth_pop.R (non travel entries in the trip data set are also removed)
 #' - adds car driver trips if required
-#' - create the required scenarios by calling the appropriate function
+#' - create the required scenarios by calling the appropriate function, first call the
+#'   ithim_setup_baseline_scenario. R function to get the baseline data into the correct format
 #' - add walk to pt trips and combine the scenarios into one dataframe by calling the 
 #'   walk_to_pt_and_combine_scen.R function
 #' 
