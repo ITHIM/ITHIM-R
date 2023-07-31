@@ -3,7 +3,6 @@
 #' Set NSCEN, SCEN and SCEN_SHORT_NAME
 #' Currently not called
 #'
-
 #' @export
 set_scenario_specific_variables <- function(){
   # some useful variables.

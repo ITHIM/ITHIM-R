@@ -39,6 +39,7 @@ set_injury_contingency <- function(injuries){
   
   injury_list <- list()
   injury_table_types <- c()
+  
   # check whether there are any whw injuries given and create a whw matrix
   if(length(unique(injuries$strike_mode))==1&&!'nov'%in%injuries$strike_mode||length(unique(injuries$strike_mode))>1){
     injury_list$whw <- subset(injuries,cas_mode%in%mode_names&strike_mode!='nov')

@@ -1,6 +1,6 @@
 #' Load data for model and setting
 #' 
-#' Loads and processes data from file. Local data for the setting and global data for the model.
+#' Loads and processes data from files. Local data for the setting and global data for the model.
 #' Writes objects to the global environment.
 #' 
 #' This function performs the following steps to load and process the input data:
