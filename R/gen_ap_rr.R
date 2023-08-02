@@ -41,7 +41,7 @@ gen_ap_rr <- function(pm_conc_pp){
                        function(x)
                          which(colnames(pm_rr_pp) == paste0("pm_conc_",x)))
   
-  ### iterating over all disease outcomes that are related to air pollution
+  ### iterate over all disease outcomes that are related to PM pollution levels
   for (j in c(1:nrow(DISEASE_INVENTORY))[DISEASE_INVENTORY$air_pollution == 1]) {
    
     # initialise columns to store results
