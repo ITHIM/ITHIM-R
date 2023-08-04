@@ -13,9 +13,9 @@ add_distance_columns(
 )
 }
 \arguments{
-\item{injury_table}{(list of) data frame(s) to be edited}
+\item{injury_table}{(list of) data frame(s) to be edited, contains aggregated fatality counts split into whw and nov matrices}
 
-\item{mode_names}{which modes to take distances for}
+\item{mode_names}{which modes to take distances for - taken from the aggregated modes in the trip data}
 
 \item{true_distances_0}{distances to add to injury table}
 
@@ -24,8 +24,18 @@ add_distance_columns(
 \item{scenarios}{which scenarios to process}
 }
 \value{
-edited (list of) data frame(s)
+edited (list of) data frame(s), i.e. injury tables with strike and casualty distance information
 }
 \description{
-Add distance columns to injury tables, matching on information in the injury contingency table
+Add strike and casualty distance columns to injury tables, matching on information in the injury contingency table
+}
+\details{
+This function adds strike and casualty distance information for both individual age and sex categories and aggregated by mode to
+the injury_tables by:
+
+- finding the casualty and strike mode distances for each age and sex category if such info exists in the 
+  injury_table if not then it finds the aggregated distances for each casualty and strike mode.
+
+- for strike modes that do not appear in the distance tables based on the trip data set, such as the ´unknown´ mode e.g.,
+  the average of all strike mode distances is used instead.
 }

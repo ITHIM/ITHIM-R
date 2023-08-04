@@ -2,7 +2,7 @@
 % Please edit documentation in R/walk_to_pt_and_combine_scen.R
 \name{walk_to_pt_and_combine_scen}
 \alias{walk_to_pt_and_combine_scen}
-\title{Add walk to PT}
+\title{Add walk to PT stages}
 \usage{
 walk_to_pt_and_combine_scen(SYNTHETIC_TRIPS)
 }
@@ -14,5 +14,10 @@ data frame, all trips from all scenarios
 }
 \description{
 Adds a short walk stage to any PT trip if required.
-Combines list of scenarios into one data frame
+}
+\details{
+The function is used to add a walk to PT stage to all public transport trips
+without such a walking stage if required. It also combines the list of scenarios 
+into one data frame and scales all distances of a certain mode by the 
+city specific DISTANCE_SCALAR_xx mode scalars.
 }

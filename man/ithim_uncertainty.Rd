@@ -2,7 +2,7 @@
 % Please edit documentation in R/ithim_uncertainty.R
 \name{ithim_uncertainty}
 \alias{ithim_uncertainty}
-\title{Sampling routine for calculating ITHIM with uncertainty}
+\title{Sampling routine for running ITHIM with uncertainty}
 \usage{
 ithim_uncertainty(ithim_object, seed = 1)
 }
@@ -16,4 +16,16 @@ list of ITHIM outcomes
 }
 \description{
 Sets sampled parameters to the global environment and runs the ITHIM routine (run_ithim)
+}
+\details{
+This function works by performing the following steps:
+- extract the ithim_object list entries
+- extract the the sampled parameters which had been stored in the ithim_object
+- call set_vehicle_inventory() to update emissions if any  
+  emission parameters have been sampled from a distribution 
+- call get_synthetic_from_trips() to to set synthetic trips and synthetic population if any 
+  relevant input parameters have been sampled from a distribution  
+- call get_all_distances() to recalculate the distances if any of the relevant input parameters have
+  been sampled from a distribution
+- run ITHIM-GLOBAL model by calling ithim_calculation_sequence.R
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PA_dose_response.R
 \name{PA_dose_response}
 \alias{PA_dose_response}
-\title{Calculate RR given PA}
+\title{Calculate RR given PA - CURRENTLY NOT USED}
 \usage{
 PA_dose_response(cause, dose, confidence_intervals = F)
 }

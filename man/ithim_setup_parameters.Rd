@@ -2,7 +2,7 @@
 % Please edit documentation in R/ithim_setup_parameters.R
 \name{ithim_setup_parameters}
 \alias{ithim_setup_parameters}
-\title{Routine to sample or set parameters for ITHIM}
+\title{Set parameters for ITHIM - Global run}
 \usage{
 ithim_setup_parameters(
   NSAMPLES = 1,
@@ -39,7 +39,17 @@ ithim_setup_parameters(
   DISTANCE_SCALAR_WALKING = 1,
   DISTANCE_SCALAR_PT = 1,
   DISTANCE_SCALAR_CYCLING = 1,
-  DISTANCE_SCALAR_MOTORCYCLE = 1
+  DISTANCE_SCALAR_MOTORCYCLE = 1,
+  BUS_DRIVER_PROP_MALE = 0.99,
+  BUS_DRIVER_MALE_AGERANGE = "18, 65",
+  BUS_DRIVER_FEMALE_AGERANGE = "18, 65",
+  TRUCK_DRIVER_PROP_MALE = 0.99,
+  TRUCK_DRIVER_MALE_AGERANGE = "18, 65",
+  TRUCK_DRIVER_FEMALE_AGERANGE = "18, 65",
+  COMMERCIAL_MBIKE_PROP_MALE = 0.99,
+  COMMERCIAL_MBIKE_MALE_AGERANGE = "18, 65",
+  COMMERCIAL_MBIKE_FEMALE_AGERANGE = "18, 65",
+  MINIMUM_PT_TIME = 3
 )
 }
 \arguments{
@@ -69,7 +79,7 @@ ithim_setup_parameters(
 
 \item{CHRONIC_DISEASE_SCALAR}{lognormal parameter: scalar for background disease rates}
 
-\item{DAY_TO_WEEK_TRAVEL_SCALAR}{beta parameter: rate of scaling travel from one day to one week}
+\item{DAY_TO_WEEK_TRAVEL_SCALAR}{beta parameter: rate of scaling travel from one day to one week - CURRENTLY used as constant only (using as beta parameter would need some further considerations)}
 
 \item{SIN_EXPONENT_SUM}{lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.}
 
@@ -113,17 +123,57 @@ ithim_setup_parameters(
 
 \item{DISTANCE_SCALAR_MOTORCYCLE}{lognormal parameter: scalar for motorcycle distance travelled}
 
-\item{CALL_INDIVIDUAL_SIN}{logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.}
+\item{BUS_DRIVER_PROP_MALE}{scalar parameter: proportion of bus drivers that are male}
 
-\item{SIN_THRESHOLD}{scalar: number below which no safety in number coefficient is applied, i.e. SIN = 1}
+\item{BUS_DRIVER_MALE_AGERANGE}{character parameter: age range of male bus drivers}
+
+\item{BUS_DRIVER_FEMALE_AGERANGE}{character parameter: age range of female bus drivers}
+
+\item{TRUCK_DRIVER_PROP_MALE}{scalar parameter: proportion of truck drivers that are male}
+
+\item{TRUCK_DRIVER_MALE_AGERANGE}{character parameter: age range of male truck drivers}
+
+\item{TRUCK_DRIVER_FEMALE_AGERANGE}{character parameter: age range of female truck drivers}
+
+\item{COMMERCIAL_MBIKE_PROP_MALE}{scalar parameter: proportion of commercial motorcycle drivers that are male}
+
+\item{COMMERCIAL_MBIKE_MALE_AGERANGE}{character parameter: age range of male commercial motorcycle drivers}
+
+\item{COMMERCIAL_MBIKE_FEMALE_AGERANGE}{character parameter: age range of female commercial motorcycle drivers}
+
+\item{MINIMUM_PT_TIME}{minimum time that person spends on public transport}
+
+\item{CALL_INDIVIDUAL_SIN}{logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.}
 }
 \value{
 list of samples of uncertain parameters
 }
 \description{
-Parameters have two options: to be set to a constant, and to be sampled from a prespecified distribution.
+Function to set parameters by either using the constant value or sampling from a pre-defined function
+}
+\details{
+For each input parameters there are two options: to be set to a constant, and to be sampled from a specified distribution.
 Each parameter is given as an argument of length 1 or 2. 
 If length 1, it's constant, and set to the global environment. 
 If length 2, a distribution is defined and sampled from NSAMPLE times.
 There are some exceptions, listed below.
+
+The function performs the following steps:
+- set all input parameters to the global environment (if sampling function is called, they are overwritten)
+- loop through all potential variables with a lognormal distribution and sample from this distribution
+  if required
+- loop through all potential variables with a beta distribution and sample from this distribution
+  if required
+- if BACKGROUND_PA_CONFIDENCE<1 then add BACKGROUND_PA_ZEROS parameters
+- if PM_EMISSION_INVENTORY_CONFIDENCE<1, then sample those PM inventory values by 
+  using a Dirichlet distribution which is parameterised by gamma random variables
+- if CO2_EMISSION_INVENTORY_CONFIDENCE<1, then sample those CO2 inventory values by 
+  using a Dirichlet distribution which is parameterised by gamma random variables
+- if PA_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to physical activity
+  levels and assign a quantile to them by sampling from a uniform distribution between 0 and 1
+- if AP_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to air pollution levels
+  and assign a quantile to them by sampling from a uniform distribution between 0 and 1
+   
+At the bottom of this function, the dirichlet_pointiness() function is defined which 
+parameterises the Dirichlet distributions for the PM and CO2 emission inventories.
 }

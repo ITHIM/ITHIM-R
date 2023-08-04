@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_ap_rr.R
 \name{ap_dose_response_curve}
 \alias{ap_dose_response_curve}
-\title{Computes RR as a DR relationship}
+\title{Computes RR as a DR relationship - CURRENTLY NOT USED}
 \usage{
 ap_dose_response_curve(pm, alpha, beta, gamma, tmrel)
 }

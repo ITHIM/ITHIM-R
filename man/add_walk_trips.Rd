@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_walk_trips.R
 \name{add_walk_trips}
 \alias{add_walk_trips}
-\title{Add pedestrian trips to trip set}
+\title{Addition of walk to public transport stages to trip set}
 \usage{
 add_walk_trips(pt_trips)
 }
@@ -13,5 +13,17 @@ add_walk_trips(pt_trips)
 list of data frames of PT trips and walk-to-PT trips
 }
 \description{
-Create data frame of walk-to-PT trips from PT trips and walk-to-bus time
+Add walk to public transport stages to those public transport trips that do not have a walking stage
+}
+\details{
+Function to add additional walking stages to those public transport trips that do not have a walking stage 
+and have a longer duration than the MINIMUM_PT_TIME plus the BUS_WALK_TIME / RAIL_WALK_TIME parameters. The MINIMUM_PT_TIME is 
+a global input parameter that determines how many minutes a person travelling on public transport spends on 
+the public transport stage. The BUS_WALK_TIME / RAIL_WALK_TIME parameter is a city specific input parameter that determines 
+the duration of the walk to public transport walking stage. 
+
+For PT trips that are long enough and do not have a walking stage, the BUS_WALK_TIME / RAIL_WALK_TIME duration is subtracted from 
+the total trip duration. Using the mode specific speeds, the distance travelled of the public transport stage of the trip is 
+re-calculated. Using the newly calculated public transport stage distance and the walk to pt stage distance, the total trip
+distance is also re-calculated. A complete set of pt trips stages and walk to put trip stages is returned.
 }

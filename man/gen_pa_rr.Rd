@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_pa_rr.R
 \name{gen_pa_rr}
 \alias{gen_pa_rr}
-\title{Get RR for diseases given mMETs}
+\title{Get relative risk for diseases given mMETs}
 \usage{
 gen_pa_rr(mmets_pp, conf_int = F)
 }
@@ -13,5 +13,20 @@ gen_pa_rr(mmets_pp, conf_int = F)
 data frame of relative risks per person per disease
 }
 \description{
-Computes the RR for individuals for each disease given mMETs (PA exposure)
+Computes the relative risks (RR) for individuals in the synthetic population for each disease given their mMETs (PA exposure)
+}
+\details{
+This function performs the following steps:
+- loop through all diseases that are related to physical activity levels:
+   - set the quantile of the value of the dose response curves to be extracted. If running in 
+     constant mode, the quantile is usually set to 0.5, i.e. to the median of the dose response curves. 
+     If running in sample mode, then the quantile can be set to be sampled from a distribution in the 
+     input parameters.
+   - create one vector containing all the mMET values for all scenarios
+   - assign the relative risk for the given disease and quantile to the 
+     given mMET values for all people in the synthetic population for all 
+     scenarios by calling the drpa::dose_response function
+   - extract the RR for each scenario from the vector containing all RR for all scenarios
+   - if confidence intervals are required, also extract the RR upper and lower
+     confidence values for each scenario
 }

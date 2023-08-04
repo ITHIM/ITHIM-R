@@ -2,16 +2,32 @@
 % Please edit documentation in R/gen_ap_rr.R
 \name{gen_ap_rr}
 \alias{gen_ap_rr}
-\title{Get RR for diseases given AP exposure}
+\title{Get relative risk for diseases given PM exposure}
 \usage{
 gen_ap_rr(pm_conc_pp)
 }
 \arguments{
-\item{pm_conc_pp}{individual AP exposures}
+\item{pm_conc_pp}{individual PM exposures for each person in the synthetic population}
 }
 \value{
-data frame of relative risks per person per disease
+data frame of relative risks per person for each disease and each scenario
 }
 \description{
-Computes the RR for individuals for each disease given AP exposure
+Computes the relative risk (RR) for individuals for each disease given PM exposure
+}
+\details{
+This function performs the following steps:
+- minimum ages for each age group corresponding to disease risks are assigned to the individuals in the 
+  synthetic population (with added PM exposure levels)
+- loop through all diseases that are related to PM pollution:
+   - depending on the disease (as some disease have different relative risks depending
+     on the age of the individual) loop through disease specific age groups (or just 
+     one age group for most disease)
+   - set the quantile of the value of the dose response curves to be extracted. If running in 
+     constant mode, the quantile is usually set to 0.5, i.e. to the median of the dose response curves. 
+     If running in sample mode, then the quantile can be set to be sampled from a distribution in the 
+     input parameters.
+   - loop through the scenarios:
+     - assign the relative risk for the given disease, age group, quantile and scenario to the 
+       relevant people in the synthetic population by calling the AP_dose_response.R function
 }

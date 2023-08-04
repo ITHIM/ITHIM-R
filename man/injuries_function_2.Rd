@@ -21,8 +21,27 @@ injuries_function_2(
 \item{constant_mode}{whether or not we are in constant (vs sampling) mode}
 }
 \value{
-list of injury prediction data frames and whw matrices
+injuries2 (data frame containing predicted fatality counts for each casualty mode by age and sex and for each scenario, plus confidence interval limits for constant mode)
+
+whw_temp (list containing the fatality predictions for each casualty and strike mode pair split into whw and nov matrices for each scenario. Upper and lower 95% confidence interval predictions are also included in the constant mode)
 }
 \description{
-Predict injuries based on regression model from baseline and scenario travel
+Predict injuries for baseline and scenarios based on regression model based on baseline fatality counts and distances
+}
+\details{
+This function uses the Poisson regression model built in the distances_for_injury_function.R to predict fatality
+counts for the Baseline and all the scenarios. It performs the following steps:
+
+- create an injuries data frame containing all the distances travelled by mode, age, sex and scenario
+
+- predict the fatalities for each strike and casualty combination, age and sex category and each scenario. If the sample
+  mode is set to constant (and not sample), we also predict an upper and lower 95% confidence interval.
+
+- create a whw_temp list containing the total predicted fatality counts for each casualty and strike mode pair for each 
+  scenario split into whw and nov matrices and, for the constant mode also giving the upper and lower 95% confidence 
+  interval limit predictions.
+
+- create an injuries2 data frame containing the total predicted fatality counts for each casualty mode by age and sex for each
+  scenario. This data frame also contains total death per age and sex category and, for the constant mode the 95% confidence 
+  upper and lower total death predictions.
 }

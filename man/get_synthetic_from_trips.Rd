@@ -11,5 +11,27 @@ data frame of all trips from all scenarios
 }
 \description{
 Sequence of functions to set up the synthetic population, the synthetic trips, and the scenarios.
+}
+\details{
+This function performs the following steps:
+
+- The columns from the TRIP_SET are put into the correct order
+- multiply the trip distances and stage distances and durations by the day_to_week scalar
+  and then divide by 7 to get the distances and durations of an 'average' day of the week
+- add bus_driver and truck trips if required
+- add personal motorcycle trips if needed
+- add commercial motorcycle if required
+- build the synthetic population by creating a data set that contains the (non-zero) participant 
+  ids and demographic information from the trip data set and adds work and leisure MMET
+  values by calling create_synth_pop.R (non travel entries in the trip data set are also removed)
+- adds car driver trips if required
+- create the required scenarios by calling the appropriate function, first call the
+  ithim_setup_baseline_scenario. R function to get the baseline data into the correct format
+- add walk to pt trips and combine the scenarios into one dataframe by calling the 
+  walk_to_pt_and_combine_scen.R function
+
+
+
+
 Also sets global variables for later use.
 }

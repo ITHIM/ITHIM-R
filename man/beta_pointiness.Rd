@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_synth_pop.R
 \name{beta_pointiness}
 \alias{beta_pointiness}
-\title{Parametrise confidence in PA data}
+\title{Parameterise confidence in PA data - CURRENTLY NOT IN USE}
 \usage{
 beta_pointiness(confidence)
 }

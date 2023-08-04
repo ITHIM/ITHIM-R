@@ -15,9 +15,44 @@ ithim_load_data(
 \item{speeds}{named list of mode speeds}
 }
 \description{
-Loads and processes data from file. Local data for the setting and global data for the model.
+Loads and processes data from files. Local data for the setting and global data for the model.
 Writes objects to the global environment.
 }
 \details{
-# @param setup_call_summary_filename name of file to write to - removed this parameter
+This function performs the following steps to load and process the input data:
+
+- find path of ithimr package where global and local data can be found
+- check whether drpa package is installed
+- read in Global Burden of Disease data for country
+- read in city specific trip data and set missing stage or trip information to known stage or trip information, 
+   e.g. if stage duration is missing but trip duration is known then set stage duration to trip duration
+   - ensure that stage modes and trip modes only consist of set keywords, replace all other mode names by those key
+     words, e.g. replace a 'train' by 'rail'
+   - remove trips where age or sex are 'NA'
+   - Rename pedestrian stage modes of non-pedestrian trips from 'pedestrian' to 'walk_to_pt'
+   - remove any walk_to_pt stages that do not belong to either a rail or a bus trip mode
+( - call get_scenario_settings() if using the max_mode_share_scenario)
+- read in the local Global Burden of Disease (GBD) data
+   - combine various head and neck cancers, combine myeloid leukemia diseases, combine respiratory diseases at level 2
+   - adjust for rectum cancer in the combined colon and rectum cancer burden
+- read in local demographic data
+   - find / re-define max and min ages based on the max and min ages in the trip data, the demographic data and the max and min ages considered in the model
+   - remove any population data outside these max and min ages
+   - find the proportion of the total population and the total population that is considered in the model
+   - get age-category details from population data, after any ages above and below the max and min ages have been removed
+- extract all diseases plus road injures from GBD data, update format of max and min ages for each entry
+- compute proportion of injuries in the age range considered in the model from the GBD data,
+  this proportion is applied to those injury datasets without age and sex information
+- remove ages outside age ranges considered in model from GBD_data 
+- create burden_of_disease dataframe from the GBD_data by changing layout of GBD_data
+   - add city specific population data
+   - add the country specific disease rate from the GBD data, ie. the proportion of the number of people 
+     in the country with that disease over the population of the country for each age and sex category
+   - using the country disease rate calculate city population affected by disease
+- using the burden_of_disease data (now called DISEASE_BURDEN), calculate the ratio of
+  YLL to death for each age and sex category for the Road_injuries data 
+- read in the city specific road injury data
+  - Set a 'weight' column to the unique number of years for which injury data exists (if such column does not already exist)
+  - where strike mode equals casualty mode, set the strike mode to 'nov' (no other vehicle)
+  - call set_injury_contingency.R function to set tables for WHW (who hit whom) and NOV (no other vehicle) fatalities
 }

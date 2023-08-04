@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_all_distances.R
 \name{get_all_distances}
 \alias{get_all_distances}
-\title{Sequence to get distance data}
+\title{Find population distances by mode}
 \usage{
 get_all_distances(ithim_object)
 }
@@ -10,8 +10,34 @@ get_all_distances(ithim_object)
 \item{ithim_object}{list containing synthetic trip set}
 }
 \value{
-ithim_object again, with additional distance objects
+ithim_object again, with additional total population distance for each mode and scenario, and also distances for injury pathway plus parameterised Poisson injury regression model
 }
 \description{
-Sequence of function calls to get distance data for modules from synthetic population
+Function to find the distances travelled by age, sex, scenario and mode for the entire population 
+rather than just the synthetic population.
+}
+\details{
+This function performs the following steps:
+
+- generate distance and duration matrices by age, sex, mode and scenario from the ithim_object$trip_scen_sets
+  for the synthetic population by calling the dist_dur_tbls.R function
+  
+- find the total mode distances for each scenario and scale this up to the distance travelled by the entire
+  population by using the demographic information for the city
+
+- in order to scale the distances by age, sex, mode and scenario up to the entire population, the proportion of 
+  the distances travelled by each age, sex, mode and scenario combination in the synthetic population to total 
+  distances by mode and scenario in the synthetic population is found. The total population distances by mode 
+  are then multiplied by these proportions to find the total population distances travelled by each mode 
+  and age and sex category.
+
+- the distances_for_injury_function is called which creates a list inj_distances that is added to ithim_object
+  containing the following matrices:
+  - true_distances (mode distances by age and sex with all walking modes and all car modes combined and 
+     bus drivers added where relevant)
+  - injuries_list (list of all strike, casualty, age, sex and mode distance combinations for baseline 
+     and all scenarios)
+  - reg_model (parameterised Poisson regression model)
+  - injuries_for_model (baseline data containing injury counts for all casualty and strike mode 
+     combinations with associated distance data)
 }

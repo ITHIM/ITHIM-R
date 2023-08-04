@@ -13,5 +13,5 @@ ithim_setup_baseline_scenario(trip_set)
 trip_set as baseline scenario
 }
 \description{
-Create scenario by adding distance categories and scenario=baseline column to trip set data frame
+Set up baseline scenario by adding distance categories and scenario='baseline' column to trip set data frame
 }
