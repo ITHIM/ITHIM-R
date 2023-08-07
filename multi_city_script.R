@@ -85,16 +85,19 @@ comment <- "Added CO2 emission sampling"
 
 # scenario definition
 scenario_name <- "BOGOTA" # name of scenario to be called
-reference_scenario <- 'Baseline' # scenario the other scenarios are compared to
+# scenario the other scenarios are compared to, the reference scenario name should always
+# be the name of the scenario corresponding to the actual baseline burden of disease and 
+# other input data for the city 
+reference_scenario <- 'Baseline' 
 scenario_increase <- 0.05 # increase for each mode in each scenario (used in GLOBAL, BOGOTA, LATAM and AFRICA_INDIA scenarios)
-n_scenarios <- 3 # number of scnenarios (not including the baseline scenario)
+n_scenarios <- 3 # number of scenarios (not including the baseline scenario)
 
 # define which output results to plot, more than 6 cannot be plotted
 # potential outputs (in yll for all scenarios):  c('pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
 #                       'pa_ap_stroke', 'pa_ap_T2D', 'ap_LRI', 'pa_breast_cancer', 'pa_colon_cancer', 'pa_endo_cancer',
 #                       'pa_liver_cancer', 'pa_ap_CVD', 'pa_total_dementia', 'pa_myeloma', 'pa_Parkinson',
 #                       'pa_head_neck_cancer', 'pa_stomach_cancer', 'inj')
-outputs_to_plot <- c('pa_ap_all_cause','inj','pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD')
+outputs_to_plot <- c('pa_ap_all_cause', 'ap_COPD', 'pa_total_dementia', 'pa_myeloma', 'ap_LRI','pa_stomach_cancer' )
 
 
 ############################### No need to change the following ##################################

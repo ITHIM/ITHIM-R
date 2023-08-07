@@ -1,3 +1,4 @@
+#' CURRENTLY NOT BEING CALLED
 #' @export
 error_handling <- function(code, function_name, variable_name) {
   output <-

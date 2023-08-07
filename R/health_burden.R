@@ -20,8 +20,8 @@
 #'        - find the sum of the relative risks (RR) for the specific disease for each age and sex category for the non-reference scenario
 #'        - calculate the PIF (potential impact fraction), i.e the proportional change in the sum of relative risks between the reference
 #'          and the on-reference scenario for each age and sex category
-#'        - calculate the health burden for the non-reference scenario by multiplying the current burden of disease by the PIF 
-#'          (combine_health_and_pif.R)
+#'        - calculate the health burden (deaths and ylls) for the non-reference scenario compared to the reference scenario by multiplying
+#'          the current burden of disease by the PIF (combine_health_and_pif.R)
 #'      - if confidence intervals are required, loop through the upper and lower confidence interval limits
 #'        and calculate the health burden for deaths and YLLs using the upper and lower confidence relative risks. If no upper and 
 #'        lower relative risk values exist, use the mean value instead
@@ -127,12 +127,14 @@ health_burden <- function(ind_ap_pa, conf_int = F, combined_AP_PA = T){
         # calculate PIF for this scenario and convert to vector
         pif_scen <- ((pif_ref[,2] - pif_temp[,2]) / pif_ref[,2]) %>% pull() 
         
-        # Calculate ylls by multiplying current burden of disease for particular disease by the PIF value, i.e the expected change
+        #Calculate the difference in ylls between the non-reference and the reference scenario
+        # by multiplying current burden of disease for particular disease by the PIF value, i.e the expected change
         # between the reference scenario and the given scenario for each age and sex category
         yll_dfs <- combine_health_and_pif(pif_values=pif_scen, hc = gbd_ylls_disease)
         ylls[[yll_name]] <- yll_dfs
        
-         # Calculate deaths by multiplying current burden of disease for particular disease by the PIF value, i.e the expected change
+        # Calculate the difference in deaths between the non-reference and the reference scenario
+        # by multiplying current burden of disease for particular disease by the PIF value, i.e the expected change
         # between the reference scenario and the given scenario  for each age and sex category
         death_dfs <- combine_health_and_pif(pif_values=pif_scen,hc=gbd_deaths_disease)
         deaths[[deaths_name]] <- death_dfs
@@ -199,9 +201,14 @@ health_burden <- function(ind_ap_pa, conf_int = F, combined_AP_PA = T){
 
 
 
-#' Join disease health burden and injury
+#' Join disease health burden and injury data
 #' 
 #' Join the two data frames for health burden: that from disease, and that from road-traffic injury
+#' 
+#' This function performs the following steps:
+#'  - extract the yll and deaths data from the combined AP and PA pathways
+#'  - extract the yll and deaths data from the injury data
+#'  - create one dataframe for yll and one for deaths containing all the AP, PA and injury data
 #' 
 #' @param ind_ap_pa list (deaths, YLLs) of data frames of all demographic groups' burdens for diseases
 #' @param inj list (deaths, YLLs) of data frames of all demographic groups' burdens for road-traffic injury
@@ -213,11 +220,11 @@ join_hb_and_injury <- function(ind_ap_pa,inj){
   
   deaths <- ind_ap_pa$deaths
   ylls <- ind_ap_pa$ylls
-  # Select deaths columns
+  # Select deaths columns from injury data
   inj_deaths <- dplyr::select(inj, c(age_cat, sex, contains("deaths")))
-  # Select yll columns
+  # Select yll columns from injury data
   inj_ylls <- dplyr::select(inj, c(age_cat, sex, contains("yll")))
-  # Join injuries data to global datasets
+  # Join injuries data to global deaths and yll datasets
   deaths <- dplyr::left_join(deaths, inj_deaths, by = c("age_cat", "sex"))
   ylls <- dplyr::left_join(ylls, inj_ylls, by = c("age_cat", "sex"))
   list(deaths=deaths,ylls=ylls)
