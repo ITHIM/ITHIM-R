@@ -1,38 +1,48 @@
 #' Main script to run ITHIM Global in constant mode
 #' 
-#' Script to run ITHIM Global using constant input parameters. Outputs the health impacts associated with transport in a given city.
+#' Script to run ITHIM Global using constant input parameters. Outputs the health impacts associated with transport in a given city
+#' via an air pollution, physical activity and injury pathway.
 #' 
 #' The ITHIM Global main script works as follows:
 #' 
 #' - the following variables need to be defined before running the script:
-#'    - the names of the cities for which the model is to be run
-#'    - The input parameter file name containing the global and local input parameters needs to be defined
+#'    - the name(s) of the city or cities for which the model is to be run
+#'    - The input parameter file name containing the global and local input parameters
 #'    - author name, output version number and any comments that are to be written to the OutputVersionControl.txt file
 #'      documenting the key aspects of the model run (timestamp, author name, cities
 #'      for which model was run, input parameter file name, output version number,
 #'      number of samples which equals to 1 here as the model is run in constant mode, 
-#'      and any comments) need defining
+#'      and any comments)
 #'    - The scenarios need defining by:
-#'      - updating the character defining which scenario file is to be called
-#'      - giving the reference scenario against which all other scenarios are compared with
-#'      - giving the percentage increase in each mode for the BOGOTA, GLOBAL, LATAM, and AFRICA_INDIA scenarios
-#'      - the number of scenarios (not including the Baseline scenario) needs setting (for plotting)
-#'    - the name of the diseases considered in the output plot need defining. Note that not more than 6 diseases
-#'      can be plotted at the same time and if the script is run for many countries at once (roughly > 10), the plot gets overcrowded
+#'      - updating the character defining which scenario script is to be called
+#'      - giving the reference scenario against which all other scenarios are compared,
+#'        this reference scenario needs to be the scenario name which corresponds to the current input parameter files
+#'      - giving the percentage increase in each mode for the BOGOTA (GLOBAL, LATAM, and AFRICA_INDIA) scenarios
+#'    - the name of the diseases considered in the output plot need defining. Note that no more than 6 diseases
+#'      can be plotted at the same time and if the script is run for many cities at once (roughly > 10), 
+#'      the plot gets overcrowded
 #'      
-#' - the remainder of the code does not need to be changed
+#' - the remainder of the code does not need to be changed:
 #' 
 #' - local and global input parameters from the input parameter spreadsheet are read in and put into the correct format needed
 #'   for the model run
 #'   
-#' - The run_ithim_setup.R script is called which prepares the input data needed for the health impact assessment by
+#' - The run_ithim_setup.R script is called which prepares the input data needed for the health impact assessment
 #' 
 #' - The run_ithim.R script is called which performs the health impact assessment
 #' 
 #' - output results are stored for plotting of the results
 #' 
-#' - an output plot is created    
-#'      
+#' - an output plot is created 
+#'
+#' - the following output files are saved:
+#'   - OutputVersionControl.txt documenting the key aspects of the model run (main folder)
+#'   - the ithim_objects list containing the key input files and the health burden results
+#'     is stored in results/multi_city/io.rds
+#'
+#'
+#'
+#'
 
 
 rm(list=ls())
@@ -90,7 +100,7 @@ scenario_name <- "BOGOTA" # name of scenario to be called
 # other input data for the city 
 reference_scenario <- 'Baseline' 
 scenario_increase <- 0.05 # increase for each mode in each scenario (used in GLOBAL, BOGOTA, LATAM and AFRICA_INDIA scenarios)
-n_scenarios <- 3 # number of scenarios (not including the baseline scenario)
+
 
 # define which output results to plot, more than 6 cannot be plotted
 # potential outputs (in yll for all scenarios):  c('pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
@@ -98,6 +108,9 @@ n_scenarios <- 3 # number of scenarios (not including the baseline scenario)
 #                       'pa_liver_cancer', 'pa_ap_CVD', 'pa_total_dementia', 'pa_myeloma', 'pa_Parkinson',
 #                       'pa_head_neck_cancer', 'pa_stomach_cancer', 'inj')
 outputs_to_plot <- c('pa_ap_all_cause', 'ap_COPD', 'pa_total_dementia', 'pa_myeloma', 'ap_LRI','pa_stomach_cancer' )
+
+
+
 
 
 ############################### No need to change the following ##################################
@@ -227,10 +240,7 @@ ap_dr_quantile <-  F
 
 ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 
-# define dimensions for output plots
-toplot <- matrix(0, n_scenarios, ncol = length(cities)) #3 scenarios, 20 cities
 
-#ithim_objects <- list()
 print(system.time(for(city in cities){
   print(city)
   # run code to prepare the input data for the actual ITHIM Global health impact assessment
@@ -296,7 +306,7 @@ print(system.time(for(city in cities){
   ithim_objects[[city]]$demographic <- DEMOGRAPHIC
   ithim_objects[[city]]$synth_pop <- SYNTHETIC_POPULATION
   
-  # the the ITHIM-Global health impact assessment
+  # run the ITHIM-Global health impact assessment
   ithim_objects[[city]]$outcomes <- run_ithim(ithim_object=ithim_objects[[city]], seed = 1)
   
   # add further information to the ithim_objects list
@@ -316,13 +326,12 @@ print(system.time(for(city in cities){
   max_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
   sub_outcome <- subset(ithim_objects[[city]]$outcome$hb$ylls,
                         min_ages >= min_age & max_ages <= max_age)
-  # result_mat <- colSums(sub_outcome[,3:ncol(sub_outcome)])
+
   
-  # all results without upper and lower limit values
+  # all results without upper and lower confidence interval limit values
   sub_outcome_noLimits <- sub_outcome %>% dplyr::select(-contains(c('lb','ub')))
-  #result_mat_noLimits <- colSums(sub_outcome_noLimits[,3:ncol(sub_outcome_noLimits)])
   
-  # results for plotting without upper and lower limit values
+  # results for plotting without upper and lower confidence interval limit values
   sub_outcomes_plot <- sub_outcome_noLimits %>% dplyr::select(contains(outputs_to_plot))
   # replace column names with 'yll_' with 'ylls_'
   colnames(sub_outcomes_plot) <- sub("yll_", "ylls_", colnames(sub_outcomes_plot))
@@ -333,7 +342,7 @@ print(system.time(for(city in cities){
   nDiseases <- columns/NSCEN
   if (city == cities[1]) {
     disease_list <- list()
-    for (i in 1:nDiseases) disease_list[[i]] <- toplot
+    for (i in 1:nDiseases) disease_list[[i]] <- matrix(0, NSCEN, ncol = length(cities))
   }
   min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
   max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
@@ -363,7 +372,7 @@ print(system.time(for(city in cities){
             main = paste0(last(strsplit(names(result_mat_plot)[i * NSCEN], 'ylls_')[[1]])),
             yaxt='n') # create boxplot
  
-    # add y - axis text
+    # add y-axis label
     axis(2,cex.axis=1.5); 
     if(i%in%c(1,4)) mtext(side=2,'YLL gain per person',line=3)
     
