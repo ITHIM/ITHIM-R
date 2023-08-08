@@ -1,7 +1,13 @@
 #' Assign age groups to individuals
 #' 
-#' Prunes dataset given max and min ages, i.e. removes entries of people with ages outside the scope of the model.
-#' Assigns age group labels given age
+#' Prunes the dataset given max and min ages, i.e. removes entries of people with ages outside the scope of the model and 
+#' assigns age group labels given age
+#' 
+#' The function contains the following steps:
+#' - remove any dataset entries with ages above or below the max and min ages or with missing age information
+#' - add age categories
+#' 
+#' 
 #' 
 #' @param dataset data frame to which age categories are to be added and ages outside model scope are removed
 #' @param age_category vector of strings giving age categories
@@ -16,8 +22,10 @@
 assign_age_groups <- function(dataset,age_category=AGE_CATEGORY,age_lower_bounds=AGE_LOWER_BOUNDS,
                               max_age=MAX_AGE,min_age=AGE_LOWER_BOUNDS[1],age_label='age'){
   
-  # remove any entries with ages above or below the age range considered in the model. Remove any entries with missing age information
+  # remove any entries with ages above or below the age range considered in the model. 
+  # Remove any entries with missing age information
   dataset <- dataset[dataset[[age_label]]<=max_age&!is.na(dataset[[age_label]])&dataset[[age_label]]>=min_age,]
+  
   # initialise the age category
   dataset$age_cat <- 0
   ##!! assuming more than one age category

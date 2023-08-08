@@ -1,13 +1,13 @@
 #' Calculate relative risk given PM exposure level
 #' 
-#' Calculate the relative risk (RR) for each disease related to air pollution and each
-#' scenario based on the individual PM exposure levels
+#' Calculate the relative risk (RR) for each person in the synthetic population for each 
+#' disease related to air pollution and each scenario based on the individual PM exposure levels 
 #' 
 #' This function performs the following steps:
 #' - various checks to ensure the correct PM exposure levels (doses) and disease are read in
 #' - get the lookup table for the required dose response functions which contains for each dose
 #'   the median RR and the upper and lower confidence interval RR values
-#' - for the PM exposure doses in the synthetic population find the need RR by extrapolating the 
+#' - for the PM exposure doses in the synthetic population find the needed RR by extrapolating the 
 #'   dose responses given in the lookup table
 #' - if a confidence interval is required, repeat this interpolation using the upper and lower
 #'   confidence RR values
@@ -22,9 +22,11 @@
 #' @param quantile quantile of the dose response functions to be used as output value
 #' @param confidence_intervals logic: whether or not to return confidence intervals
 #' 
-#' @return data frame of relative risks
+#' @return data frame of relative risks for each person in the synthetic population and each AP related disease in each scenario
 #' 
 #' @export
+ 
+ 
 AP_dose_response <- function(cause, dose, quantile, confidence_intervals = F) {
  
   

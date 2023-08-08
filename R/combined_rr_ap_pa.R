@@ -1,13 +1,15 @@
 #' Combine relative risks from AP and PA
 #' 
-#' Combine relative risks (RR) from AP and PA through multiplication for crossover diseases
+#' Combine relative risks (RR) from AP and PA through multiplication for disease related
+#' to both AP and PA
 #' 
 #' This function performs the following steps:
 #' - join the ap and pa relative risk datasets 
 #' - loop through all disease outcomes that are affected by both PA and AP
 #'   - for each scenario multiply the relative risks for PA and AP and store in a new column
 #'   - if confidence intervals are required, multiply the upper and lower RR for AP
-#'     and PA respectively wherever possible, otherwise use the given RR values instead
+#'     and PA respectively wherever possible, otherwise use the given median RR values instead
+#'     
 #' 
 #' @param ind_pa data frame of individual RRs for diseases affected by PA
 #' @param ind_ap data frame of individual RRs for diseases affected by AP
