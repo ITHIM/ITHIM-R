@@ -3,19 +3,37 @@
 #' Function to create personal motorcycle trips for some Chilean cities
 #' 
 #' This function is used to create personal motorcycle trips for those Chilean cities which do not have any 
-#' motorcycle trips in their travel surveys. It uses as input the existing travel survey data for that city and the proportion of these travel
-#' survey trips that are to be added as additional new motorcycle trips. 
+#' motorcycle trips in their travel surveys. It uses as input the existing travel survey data for that city 
+#' and the proportion of these travel survey trips that are to be added as additional new motorcycle trips. 
 #' 
 #' Based on an analysis of the motorcycle trips in the travel surveys of Santiago, San Antonio, 
 #' Valparaiso and Puerto Montt it makes assumptions about the split between male and female 
-#' motorcyclists, the number of trips per person and the truncated normal distributions of the distances and ages of the motorcycle trips
-#' to be added. It creates new trips by assuming that each such trip only has one stage, i.e. that the trip duration and distance
+#' motorcyclists, the number of trips per person and the truncated normal distributions of the
+#' distances and ages of the drivers of the personal motorcycle trips to be added. It creates 
+#' new trips by assuming that each such trip only has one stage, i.e. that the trip duration and distance
 #' equals the stage duration and distance.
+#' 
+#' This function contains the following steps:
+#' - the characteristics of the motorcycle trips to be added are defined
+#' - set up the parameters of the truncated normal distributions for male and 
+#'   female trip duration
+#' - set up the parameters of the truncated normal distributions for male and 
+#'   female age ranges
+#' - find the number of male and female motorcycle trips to be added
+#' - divide the number of new male and female trips by 2 (= number of trips per person)
+#'   to calculate the number of new participant ids to be added. If the number of male
+#'   or female trips is odd, add an additional trip to get a trip number divisible by 2
+#' - sample from truncated normal distributions to find the duration of new trips (assuming
+#'   that each trip only consists of one stage)
+#' - sample from the known age ranges to find the ages of the new male and female 
+#'   motorcycle trips and create new motorcycle trips  
+#' 
+#' 
 #' 
 #' @param raw_trip_set data frame of trips from travel survey
 #' @param PROPORTION_MOTORCYCLE_TRIPS proportion of trips in travel survey that are to be added as personal motorcycle trips
 #' 
-#' @return original trip data with additional motorcycle trips added
+#' @return original trip data with additional personal motorcycle trips added
 #' 
 #' @export
 
@@ -62,8 +80,9 @@ add_motorcycle_trips_Chile <- function(raw_trip_set,PROPORTION_MOTORCYCLE_TRIPS)
   mbike_trips_male <- round(total_trips * motorbike_proportion * prop_male)
   mbike_trips_female <- round(total_trips * motorbike_proportion * prop_female)
   
-  # divide number of motorbike trips by the number of motorbike trips per person to see how many new person ids need to be added
-  # first add a trip if the number of male or female motorcycle trips is odd to get a number divisible by 2 (= mbiketrips_per_person)
+  # divide number of motorbike trips by the number of motorbike trips per person to see how 
+  # many new person ids need to be added. Add a trip if the number of male or female 
+  # motorcycle trips is odd to get a number divisible by 2 (= mbiketrips_per_person)
   if (mbike_trips_male %% 2 == 1){
     mbike_trips_male <- mbike_trips_male + 1
   }
@@ -72,7 +91,7 @@ add_motorcycle_trips_Chile <- function(raw_trip_set,PROPORTION_MOTORCYCLE_TRIPS)
     mbike_trips_female <- mbike_trips_female + 1
   }
  
-  # define the number of new person ids
+  # calculate the number of new person ids
   new_person_id_male <- mbike_trips_male / mbiketrips_per_person
   new_person_id_female <- mbike_trips_female / mbiketrips_per_person
   

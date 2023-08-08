@@ -1,11 +1,15 @@
 #' Additional trips for trip data set
 #' 
-#' Creates a data frame with given characteristics to be added to an existing trip data set
+#' Creates a data frame with given characteristics to be added to an existing trip data set.
 #' 
 #' This function is used to create new trips with certain characteristics that can be added to an existing trip data set.
 #' The input distance given is the upper limit of trip distances added and the function takes the number of trips per 
 #' person (nTrips) random samples between 1 and the input distance given. Age and sex of each participant are also 
 #' sampled from a range of input age and sex values.
+#' 
+#' The function performs the following steps:
+#' - create nTrips new trips sampling from distances, ages and sexes
+#' 
 #' 
 #' @param trip_ids ids for new trips
 #' @param new_mode mode for new trips
