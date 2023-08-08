@@ -2,10 +2,19 @@
 #' 
 #' Adds a short walk stage to any PT trip if required.
 #'
-#' The function is used to add a walk to PT stage to all public transport trips
-#' without such a walking stage if required. It also combines the list of scenarios 
-#' into one data frame and scales all distances of a certain mode by the 
-#' city specific DISTANCE_SCALAR_xx mode scalars.
+#' 
+#' This function performs the following steps:
+#' 
+#' - create a list containing the dataframes of the synthetic trips for each scenario
+#' - if ADD_WALK_TO_PT_TRIPS == T, i.e if additional 'walk to pt' stages are to be added:
+#'   - filter out all trips with a public transport stage mode
+#'   - filter out public transport trips with and without a 'walk to pt' stage
+#'   - filter out the trips without a public transport stage
+#'   - add a 'walk to pt' stage to those public transport trips without a walking stage
+#'     (add_walk_trips.R)
+#' - combine all trips from all scenarios into one dataframe
+#' - scale the stage distances and durations by calling the scale_trip_distances.R function
+#' 
 #' 
 #' @param trip_set list of data frames, trips from all scenarios
 #' 
@@ -15,6 +24,8 @@
 
 
 walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
+  
+  # create a list containing all the SYNTHETIC_TRIPS dataframes
   rd_list <- list()
   for(i in 1:length(SYNTHETIC_TRIPS)) rd_list[[i]] <- setDT(SYNTHETIC_TRIPS[[i]])
   SYNTHETIC_TRIPS <- NULL
@@ -22,22 +33,23 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
   ## pt = public transport
   pt_modes <- c('bus', 'rail','minibus','subway')
   
-  ##!! this function and add_walk_trips need some attention
   
-  if(ADD_WALK_TO_PT_TRIPS)
+  if(ADD_WALK_TO_PT_TRIPS){
     for(i in 1:length(rd_list)){
       
       
       rd_list[[i]] <- rd_list[[i]] %>% dplyr::mutate(id = row_number())
       
+      # check that all scenario synthetic trips dataframes contain a trip_mode columns
       if (!any(names(rd_list[[i]]) %in% 'trip_mode')){
-        print(CITY)
+        print(paste0(CITY," There are issues with the synthetic trips which do NOT a trip_mode column"))
         break
       }
+      
       # separate out PT trips
       pt_trips <- rd_list[[i]] %>% dplyr::filter(stage_mode %in% pt_modes)
       
-      # further separate out bus trips WITHOUT pedestrian component
+      # further separate out public transport trips WITHOUT pedestrian component
       pt_trips_wo_walk <- rd_list[[i]] %>% dplyr::filter(trip_id %in% pt_trips$trip_id) %>% group_by(trip_id) %>% 
         dplyr::mutate(ped = if(any(stage_mode == 'walk_to_pt')) 1 else 0) %>% 
         ungroup() %>% 
@@ -53,6 +65,7 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
       # separate pt trips WITH pedestrian component
       pt_trips_w_walk <- pt_trips %>% filter(trip_id %in% setdiff(pt_trips$trip_id, pt_trips_wo_walk$trip_id))
       
+      # find the trips without a public transport stage
       not_pt_trips <- subset(rd_list[[i]], !id %in% pt_trips$id)
       
       # add a walking stage component to those pt trips without such a walking stage
@@ -63,6 +76,7 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
       
       rd_list[[i]]$id <- NULL
     }
+  }
   
   trip_df <- do.call('rbind',rd_list)
   rd_list <- NULL
@@ -91,8 +105,8 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
 scale_trip_distances <- function(trips){
   car_taxi_modes <- c('car','taxi','auto_rickshaw','shared_auto')
   pt_modes <- c('bus','minibus','subway','rail','walk_to_pt')
+
   ## omit trip distance as it has already been used to create scenarios and has no other use
-  #column_names <- c('stage_distance','stage_duration')
   match_modes <- rep(1,nrow(trips))
   stage_modes <- trips$stage_mode
   match_modes[stage_modes%in%car_taxi_modes] <- DISTANCE_SCALAR_CAR_TAXI
@@ -103,14 +117,6 @@ scale_trip_distances <- function(trips){
   trips$stage_distance <- trips$stage_distance*match_modes
   trips$stage_duration <- trips$stage_duration*match_modes
   
-  ##!! do not need trip_distance as scaling after creating scenarios
-  #trips$trip_distance <- trips$stage_distance
-  #trip_ids <- trips$trip_id
-  #n_stages <- sapply(trip_ids,function(x)sum(trip_ids==x))
-  #if(any(n_stages>1)){
-  #  stage_dist <- trips$stage_distance
-  #  trips$trip_distance[n_stages>1] <- sapply(trip_ids[n_stages>1],function(x)sum(stage_dist[trip_ids==x]))
-  #}
   
   return(trips)
 }
