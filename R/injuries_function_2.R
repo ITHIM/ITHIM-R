@@ -170,8 +170,10 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
     injuries_lb <- injuries_lb %>% ungroup() %>% mutate(Deaths_lb = rowSums(dplyr::select(., cas_modes %>% as.character()), na.rm = T))
     injuries_ub <- injuries_ub %>% ungroup() %>% mutate(Deaths_ub = rowSums(dplyr::select(., cas_modes %>% as.character()), na.rm = T))
     
-    injuries2 <- dplyr::left_join(injuries2, injuries_lb %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_lb), by = c('age_cat', 'sex', 'dem_index', 'scenario'))
-    injuries2 <- dplyr::left_join(injuries2, injuries_ub %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_ub), by = c('age_cat', 'sex', 'dem_index', 'scenario'))
+    injuries2 <- dplyr::left_join(injuries2, injuries_lb %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_lb), 
+                                  by = c('age_cat', 'sex', 'dem_index', 'scenario'))
+    injuries2 <- dplyr::left_join(injuries2, injuries_ub %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_ub), 
+                                  by = c('age_cat', 'sex', 'dem_index', 'scenario'))
   
   }
 
@@ -180,6 +182,7 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
 
 
 # @title remove_missing_levels
+#
 # @description Accounts for missing factor levels present only in test data
 # but not in train data by setting values to NA, i.e. if the data for which the predictions
 # are made contains factor levels which do not appear in the baseline data used to 
@@ -199,11 +202,14 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
 # @keywords internal
 #
 ##!! temporary fix for missing (age) factors
+#
+# Adapted from  https://stackoverflow.com/a/39495480/4185785
+#
 #' @export
+ 
+
 remove_missing_levels <- function(fit, test_data) {
-  
-  # https://stackoverflow.com/a/39495480/4185785
-  
+
   # drop empty factor levels in test data
   test_data <- as.data.frame(droplevels(test_data))
   
