@@ -1,35 +1,40 @@
-#' Get distances and model for injuries module
+#' Get distances and parameterise Poisson regression model for injuries 
 #' 
-#' Computes exposures (distances) to parameterise the injury regression model, 
-#' which is computed as a Poisson with various offsets and used later in prediction
+#' Computes exposures (distances) by mode to parameterise the injury regression model, 
+#' which is computed as a Poisson model and which is used in the ITHIM-Global model
+#' to predict injury fatalities at a later stage
 #' 
-#' The function uses distance data and the individual injury tables to perform the following steps
+#' The function uses distance data and the individual injury fatality data to perform the following steps
 #' to parameterise the Poisson injury regression model:
 #'
-#'  - stage modes aggregated such that all walk related stages (walk and walk to pt) are of the same mode (walk), 
-#'    similarly for all car related journey
+#'  - stage modes are aggregated such that all walk related stages (walk and walk to pt) are of the same mode (walk), 
+#'    similarly for all car related journeys
 #'
-#'  - bus drivers are added to bus journeys (where relevant)
+#'  - bus drivers are added to bus journeys (where relevant) to accurately represent all people on a bus
 #'
-#'  - Takes Baseline injury tables (whw and nov) and adds distances for each strike and casualty
-#'    mode. Distances are added by age and gender category if there exists such information for 
-#'    the injury counts (injuries_for_model). If there exists a fatality for some casualty and 
-#'    strike mode and age and gender category are aggregated by strike and casualty mode. 
+#'  - Takes Baseline injury tables, split into who-hit whom (whw) and no-other-vehicle (nov) parts,
+#'    and adds total population distances for each strike and casualty mode (add_distance_columns.R). 
+#'    Distances are added by age and gender category if there exists such information for 
+#'    the injury counts (injuries_for_model dataframe). If there exists a fatality for some casualty and 
+#'    strike mode and age and sex category but no mode distance for this age and sex category, 
+#'    then fatalities and distances are aggregated by strike and casualty mode. 
 #'    If, after the aggregation there still exist fatalities for which either casualty 
-#'    or strike mode distance is missing, these fatalities are removed as we cannot
-#'     predict injury counts on zero distances. However, this should not happen
-#'    as we should have total distances for all modes for the entire population (possibly inferred 
+#'    or strike mode distance are missing, then these fatalities are removed as we cannot
+#'    predict injury counts on zero distances. However, this should not happen
+#'    as we should have total distances for all modes (possibly inferred 
 #'    from other modes) that appear in the injury data. - This data is used to parameterise the
 #'    Poisson injury model.
 #'    
 #'  - A new list (injuries_list) is created containing all strike and casualty mode and age and sex combinations 
-#'    together with strike and casualty mode distances for the baseline and all scenarios. For 
+#'    together with strike and casualty mode distances (add_distance_columns.R) for the baseline and all scenarios. For 
 #'    the whw model, any strike mode and casualty pairs where strike mode equals casualty mode
-#'    are removed. Combinations which do not have either a zero strike or casualty mode distance 
-#'    are also removed. - This list will later be used to predict fatality counts using the 
-#'    Poisson injury model.
+#'    are removed as fatalities for these combinations have already been added to the nov matrix.
+#'    Combinations which do not have a non-zero strike or casualty mode distance 
+#'    are also removed. - This list will later be used in the injuries_function_2.R function
+#'    to predict fatality counts using the Poisson injury regression model.
 #'
-#'  - The casualty and strike mode exponents are added to both the injuries_for_model and injuries_list
+#'  - The casualty and strike mode exponents used to account for the safety in number effect
+#'    are added to both the injuries_for_model and injuries_list.
 #'  
 #'  -	The best possible regression model is being built using Baseline injury counts and distances 
 #'    (injuries_for_model) such that the standard errors are small wherever possible. Strike 
@@ -39,13 +44,13 @@
 #'    information where it exists. The standard errors of the newly built regression models 
 #'    are checked and if they are too large and if the data has not been aggregated by age 
 #'    and sex yet, then the data is aggregated and a new Poisson regression model is build. 
-#'    If the standard errors are still large, then a message is printed to the screen warning
-#'    that the standard errors are large. 
+#'    If the standard errors are still large after this aggregation, then a message is 
+#'    printed to the screen warning that the standard errors are large. 
 #' 
 #' 
 #' 
-#' @param journeys data frame with total distance (by total population) for each age and sex category and for each scenarios
-#' @param dist table of (total) distances per mode 
+#' @param journeys data frame with total distance (by total population) for each age and sex category and for each scenario
+#' @param dist table of (total population) distances per mode 
 #' 
 #' @return true_distances (mode distances by age and sex with all walking modes and all car modes combined and bus drivers added where relevant),
 #' @return injuries_list (list of all strike, casualty, age, sex and mode distance combinations for baseline and all scenarios), 
@@ -69,12 +74,12 @@ distances_for_injury_function <- function(journeys, dist){
   true_distances_0 <- distances
   true_distances_0$sex_age <-  paste0(true_distances_0$sex,"_",true_distances_0$age_cat) # add one sex and age column
 
-  # add bus driver distances to total distances covered by people travelling by bus
+  # add bus driver distances to total bus distances to cover all by people travelling by bus
   if(ADD_BUS_DRIVERS) true_distances_0$bus <- true_distances_0$bus + true_distances_0$bus_driver
   
   true_distances <- true_distances_0
   
-  ## find mode names
+  # find mode names
   mode_names <- names(true_distances)[!names(true_distances)%in%c('age_cat','scenario','sex_age','sex')]
   
   
@@ -94,7 +99,8 @@ distances_for_injury_function <- function(journeys, dist){
   zero_dist <- list()
   zero_dist_pos_inj <- list()
   
-  zero_dist_flag <- F # flag to highlight if some age and gender categories have at least one fatality but zero distance for a strike and casualty mode combination
+  # flag to highlight if some age and gender categories have at least one fatality but zero distance for a strike and casualty mode combination
+  zero_dist_flag <- F
   
   # finds cas and strike mode combinations for which there exist zero distances
   for(type in INJURY_TABLE_TYPES){ 
@@ -106,7 +112,7 @@ distances_for_injury_function <- function(journeys, dist){
   }
   
   
-  # if there exists at least one age and sex category where there exists at least one fatality with 
+  # if there exists at least one age and sex category with at least one fatality but with 
   # zero distance for a strike and casualty mode combination, aggregate by age and sex
   if (zero_dist_flag == T ){
     for(type in INJURY_TABLE_TYPES){ 
@@ -267,8 +273,6 @@ distances_for_injury_function <- function(journeys, dist){
     
 
     # try poisson distribution
-    #if (length(test) == 1 | max_std[[type]] > max_std_def | aic > 100000 | aic < 0 | theta > 100000){
-      
     test <- try(glm(as.formula(forms[[type]]),data=injuries_for_model[[1]][[type]],family = 'poisson'))
     
     if (length(test) != 1){
@@ -279,10 +283,9 @@ distances_for_injury_function <- function(journeys, dist){
 
 
     # if either standard errors are high or if no model could be built, try building model without age and gender categories if not already done
-
     if (length(test) == 1 | max_std[[type]] > max_std_def ){
 
-      # first remove age and gender if possible and fit model without age and gender categories
+      # remove age and gender if possible and fit model without age and gender categories
       if ('age_cat'%in%names(injuries_for_model[[1]][[1]])){
 
         injuries_df <- injuries_for_model$baseline[[type]] #%>% dplyr::select(-c(age_cat, cas_gender))
@@ -302,13 +305,14 @@ distances_for_injury_function <- function(journeys, dist){
                                             log(injury_reporting_rate)+log(weight))',
                                 nov='count~cas_mode+offset(log(cas_distance)+(cas_exponent_col-1)*log(cas_distance_sum)+log(injury_reporting_rate)+log(weight))')
   
-        ### re-run regression model
+        # re-run regression model
         test <- try(glm(as.formula(forms_no_agecat[[type]]),data=injuries_for_model[[1]][[type]], family = 'poisson'))
 
       }  
     }
 
-    
+    # test whether standard error of newly built regression model is above cut-off distance and print
+    # warning message if so
     if (length(test) != 1){
       max_std[[type]] <- max(summary(test)$coefficients[,2])
     } else {
