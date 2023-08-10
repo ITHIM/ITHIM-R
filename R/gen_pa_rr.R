@@ -3,6 +3,7 @@
 #' Computes the relative risks (RR) for individuals in the synthetic population for each disease given their mMETs (PA exposure)
 #' 
 #' This function performs the following steps:
+#' 
 #' - loop through all diseases that are related to physical activity levels:
 #'    - set the quantile of the value of the dose response curves to be extracted. If running in 
 #'      constant mode, the quantile is usually set to 0.5, i.e. to the median of the dose response curves. 

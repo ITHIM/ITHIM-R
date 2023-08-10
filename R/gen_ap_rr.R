@@ -1,6 +1,6 @@
 #' Get relative risk for diseases given PM exposure
 #' 
-#' Computes the relative risk (RR) for individuals for each disease given PM exposure
+#' Computes the relative risk (RR) for individuals in the synthetic population for each disease given PM exposure
 #' 
 #' This function performs the following steps:
 #' - minimum ages for each age group corresponding to disease risks are assigned to the individuals in the 
@@ -29,14 +29,17 @@ gen_ap_rr <- function(pm_conc_pp){
   
   pm_rr_pp <- pm_conc_pp 
   
-  ## assigning air pollution age band to the individual_level data
+  ## assigning air pollution age bands to the individual level data
   min_ages <- c(seq(24, 94, by = 5), 200)
   pm_rr_pp$age <- as.numeric(pm_rr_pp$age)
   pm_rr_pp$ap_age <- 0
-  for (i in 1:length(min_ages)) 
+  
+  for (i in 1:length(min_ages)) # loop through the minimum ages
+    
     # assign 'age categories' by assigning the minimum age of that category
     pm_rr_pp$ap_age[pm_rr_pp$age > min_ages[i]] <- min_ages[i] + 1 
   
+  # find column locations of columns containing the scenario specific pm exposure levels
   pm_indices <- sapply(SCEN_SHORT_NAME,
                        function(x)
                          which(colnames(pm_rr_pp) == paste0("pm_conc_",x)))
@@ -49,15 +52,14 @@ gen_ap_rr <- function(pm_conc_pp){
       pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]] <- 1
     
     cause <- as.character(DISEASE_INVENTORY$ap_acronym[j])
-    #dr_ap_disease <- DR_AP[DR_AP$cause_code == cause,]
-    
-    # apply by age groups depending on the cause
+   
+    # apply age groups depending on the disease
     if (cause %in% c("cvd_ihd", "cvd_stroke")){
       ages <- seq(25,95,5)
       }else {ages <- 99}
     
     for (age in ages) { # loop through ages groups
-      #dr_ap_sub <- dr_ap_disease[dr_ap_disease$age_code == age,]
+      
       # Look for index of people in the age category
       if (age == 99) {
         i <- 1:nrow(pm_rr_pp)
@@ -68,12 +70,6 @@ gen_ap_rr <- function(pm_conc_pp){
                           paste(cause, age, sep = "_"),
                           cause)
 
-      # get parameters
-      #agechar <- as.character(age)
-      #alpha <- DR_AP_LIST[[cause]][[age]]$alpha
-      #beta <- DR_AP_LIST[[cause]][[age]]$beta
-      #gamma <- DR_AP_LIST[[cause]][[age]]$gamma
-      #tmrel <- DR_AP_LIST[[cause]][[age]]$tmrel
       
       # get name of disease
       ap_n <- as.character(DISEASE_INVENTORY$acronym[j]) # same as cause
@@ -81,17 +77,13 @@ gen_ap_rr <- function(pm_conc_pp){
       # Set quantile to the default value
       quant <- 0.5
       
-      # Check if quantile for the the specific cause has been declared. 
+      # Check if quantile for the the specific disease has been declared. 
       # If yes, then use it instead
       if (exists(paste0('AP_DOSE_RESPONSE_QUANTILE_',cause)))
         quant <- get(paste0('AP_DOSE_RESPONSE_QUANTILE_',cause))
 
       # calculate AP and apply to all in age group
       for (x in 1:length(SCEN_SHORT_NAME)) { # loop through scenarios
-        #pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]][i] <- ap_dose_response_curve(pm_rr_pp[[pm_indices[x]]][i],alpha,beta,gamma,tmrel)
-        # pm_rr_pp[[paste0("RR_ap_", SCEN_SHORT_NAME[x])]][i] <-
-        # AP_dose_response(cause = cause_age, 
-        #                  dose = pm_rr_pp[[pm_indices[x]]][i])
        
         # call AP_dose_response.R function to calculate the relative risk for that disease, age, dose and quantile
         # only apply to people in synthetic population with assigned index i (based on age)
@@ -107,8 +99,11 @@ gen_ap_rr <- function(pm_conc_pp){
       names(pm_rr_pp)[col]<- paste0("RR_ap_",SCEN_SHORT_NAME[n],"_",DISEASE_INVENTORY$acronym[j])
     }
   } # end disease loop
+  
   pm_rr_pp
 }
+
+
 
 #' Computes RR as a DR relationship - CURRENTLY NOT USED
 #' 
