@@ -4,7 +4,7 @@
 #' 
 #' The function performs the following steps:
 #'  - join the estimated injury deaths with the global burden of disease (GBD) injury data by age and sex
-#'  - multiply the estimated injury deaths by the yll to injury death ratio in the GBD data to get YLL
+#'  - multiply the estimated injury deaths by the yll to injury death ratio in the GBD data to predict YLL
 #'    from the estimated injury deaths
 #'  - extract and create matrices for deaths and ylls with one column for each scenario
 #'  - create dataframe A with ylls and deaths of reference scenario
@@ -21,9 +21,11 @@
 #' 
 #' @param injuries data frame of injury deaths by age and sex category for each scenario incl. baseline 
 #' 
-#' @return list of injury deaths and YLLs (which are differences from reference scenario) plus the values in the reference scenario.
+#' @return list of injury deaths and YLLs (given as differences to reference scenario) plus the values in reference scenario
 #' 
 #' @export
+
+
 injury_death_to_yll <- function(injuries){
   
   
@@ -37,16 +39,18 @@ injury_death_to_yll <- function(injuries){
   
   # extract and create matrices for deaths and ylls with one column for each scenario
   x_deaths <- dplyr::select(death_and_yll, -YLL)
-  x_deaths <- spread(x_deaths,scenario, Deaths) # create one column for age_cat, sex and each scenario (incl baseline) for deaths
+  # create one column for age_cat, sex and each scenario (incl baseline) for deaths
+  x_deaths <- spread(x_deaths,scenario, Deaths) 
   x_yll <- dplyr::select(death_and_yll, -Deaths)
-  x_yll <- spread(x_yll,scenario, YLL) # create one column for age_cat, sex and each scenario (incl baseline) for ylls
+  # create one column for age_cat, sex and each scenario (incl baseline) for ylls
+  x_yll <- spread(x_yll,scenario, YLL) 
   
   # set reference and other scenarios
   ref_scen <- REFERENCE_SCENARIO
   if (REFERENCE_SCENARIO == 'Baseline'){ref_scen = 'baseline'} 
   ref_scen_index <- which(SCEN==ref_scen)
   calc_scen <- SCEN[SCEN!=ref_scen]
-  # find indexes of columns in x_deaths  (and therefore also x_yll) data that belong to the non-reference scenarios
+  # find indexes of columns in x_deaths (and therefore also x_yll) data that belong to the non-reference scenarios
   calc_scen_index <- which(colnames(x_deaths)%in%calc_scen)
   
   # create dataframe with ylls and deaths of reference scenario
@@ -58,8 +62,8 @@ injury_death_to_yll <- function(injuries){
   # calculate the differences in injury ylls between the non-reference and the reference scenario
   ylls <- t(repmat(unlist(ref_injuries$ylls),NSCEN,1)) - x_yll[,calc_scen_index,drop=F]
   
-  # create one dataframe showing the differences in deaths and yll for each non-reference scenario to the 
-  # reference scenario
+  # create one dataframe showing the differences in deaths and yll for each non-reference  
+  # scenario to the reference scenario
   deaths_yll_injuries <- as.data.frame(cbind(as.data.frame(x_deaths[,1:2]),deaths, ylls))
   
   # update columns names of deaths_yll_injuries to state whether the column shows injury deaths or ylls
@@ -71,7 +75,7 @@ injury_death_to_yll <- function(injuries){
       k<-k+1
     }
   
-  # Repeat the above logic for lower and upper interval
+  # Repeat the above logic for lower and upper confidence interval values if they exist
   if (any(colnames(injuries) %in% c('Deaths_lb', 'Deaths_ub'))){
     
     ## lower interval boundary

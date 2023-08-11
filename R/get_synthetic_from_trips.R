@@ -1,35 +1,33 @@
-#' Generate synthetic data from trip set
+#' Generate synthetic population from trip data
 #' 
 #' Sequence of functions to set up the synthetic population, the synthetic trips, and the scenarios.
 #' 
 #' This function performs the following steps:
 #' 
-#' - The columns from the TRIP_SET are put into the correct order
-#' - multiply the trip distances and stage distances and durations by the day_to_week scalar
-#'   and then divide by 7 to get the distances and durations of an 'average' day of the week
-#' - add bus_driver and truck trips if required
-#' - add personal motorcycle trips if needed
-#' - add commercial motorcycle if required
-#' - build the synthetic population by creating a data set that contains the (non-zero) participant 
+#' - The columns from the TRIP_SET are put into the correct order  
+#' - multiply the trip distances, stage distances, and durations by the day_to_week scalar 
+#'   and then divide by 7 to get the distances and durations of an 'average' day of the week  
+#' - add bus_driver and truck trips if required (add_ghost_trips.R)  
+#' - add personal motorcycle trips if needed (call the appropriate function)    
+#' - add commercial motorcycle trips if required (add_ghost_trips.R)  
+#' - build the synthetic population by creating a data set that contains the (non-zero) participant  
 #'   ids and demographic information from the trip data set and adds work and leisure MMET
-#'   values by calling create_synth_pop.R (non travel entries in the trip data set are also removed)
-#' - adds car driver trips if required
-#' - create the required scenarios by calling the appropriate function, first call the
-#'   ithim_setup_baseline_scenario. R function to get the baseline data into the correct format
+#'   values by calling create_synth_pop.R (non travel entries in the trip data set are also removed)  
+#' - adds car driver trips if required (add_ghost_trips.R)  
+#' - call the ithim_setup_baseline_scenario.R function to get the baseline data into the correct format
+#'   for the creation of the different scenarios  
+#' - create the required scenarios by calling the appropriate function  
 #' - add walk to pt trips and combine the scenarios into one dataframe by calling the 
 #'   walk_to_pt_and_combine_scen.R function
 #' 
 #' 
 #' 
-#' 
-#' Also sets global variables for later use.
-#' 
-#' @return data frame of all trips from all scenarios
+#' @return data frame of all synthetic trips from all scenarios
 #' 
 #' @export
 get_synthetic_from_trips <- function(){
   
-  ##!! to get the right order of trip columns; needed if trips are added
+  # to get the right order of trip columns; needed if trips are added
   if (CITY == 'bogota_wb') {
     raw_trip_set <- data.frame(trip_id=TRIP_SET$trip_id,
                                trip_mode=TRIP_SET$trip_mode,
@@ -61,26 +59,31 @@ get_synthetic_from_trips <- function(){
   TRIP_SET <- NULL
   
   
-  # scale distances and durations by the day_to_week_scalar and then divide by 7 to get distances travelled on an "average" day
+  # scale distances and durations by the day_to_week_scalar and then divide by 7
+  # to get distances travelled on an "average" day
   raw_trip_set$trip_distance <- raw_trip_set$trip_distance * DAY_TO_WEEK_TRAVEL_SCALAR / 7
   raw_trip_set$stage_distance <- raw_trip_set$stage_distance * DAY_TO_WEEK_TRAVEL_SCALAR / 7
   raw_trip_set$trip_distance <- raw_trip_set$trip_distance * DAY_TO_WEEK_TRAVEL_SCALAR / 7
   
   
   
-  ## add bus and truck trips
+  ## add bus trips
   if(ADD_BUS_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,prop_male = BUS_DRIVER_PROP_MALE,
                                                       agerange_male = BUS_DRIVER_MALE_AGERANGE,
                                                       agerange_female = BUS_DRIVER_FEMALE_AGERANGE)
-
+  # add truck trips
   if(ADD_TRUCK_DRIVERS){
-    if (ADD_CAR_DRIVERS){ # if know car occupancy ratio, convert km of people travelling by car into car vehicle km to get km travelled by truck
+    # if car occupancy ratio is given, convert km of people travelling by car into car vehicle km
+    # to get km travelled by truck
+    if (ADD_CAR_DRIVERS){ 
       raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',
-                                      distance_ratio=CAR_OCCUPANCY_RATIO*TRUCK_TO_CAR_RATIO*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car',
+                                      distance_ratio=CAR_OCCUPANCY_RATIO*TRUCK_TO_CAR_RATIO*DISTANCE_SCALAR_CAR_TAXI,
+                                      reference_mode='car',
                                       prop_male = TRUCK_DRIVER_PROP_MALE,
                                       agerange_male = TRUCK_DRIVER_MALE_AGERANGE,
                                       agerange_female = TRUCK_DRIVER_FEMALE_AGERANGE)
-    } else {
+    } else { # assume single occupancy of cars such that each km travelled in the travel survey corresponds
+             # to the distance travelled by a vehicle
       raw_trip_set <- add_ghost_trips(raw_trip_set,trip_mode='truck',
                                       distance_ratio=TRUCK_TO_CAR_RATIO*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car',
                                       prop_male = TRUCK_DRIVER_PROP_MALE,
@@ -89,11 +92,9 @@ get_synthetic_from_trips <- function(){
     }
   } 
 
-    
-  ## because we have the fraction of total MC travel that is fleet, we need to adjust the parameter to compute fleet travel from non-fleet motorcycle travel
-  
-  if(ADD_PERSONAL_MOTORCYCLE_TRIPS != 'no'){
-    if(ADD_PERSONAL_MOTORCYCLE_TRIPS == 'Chile')
+  # add personal motorcycle trips if no motorcycle trips exist in travel survey
+   if(ADD_PERSONAL_MOTORCYCLE_TRIPS != 'no'){
+    if(ADD_PERSONAL_MOTORCYCLE_TRIPS == 'Chile') # for Chilean cities call the appropriate function
       raw_trip_set <- add_motorcycle_trips_Chile(raw_trip_set, PROPORTION_MOTORCYCLE_TRIPS)
   }
     
@@ -121,39 +122,52 @@ get_synthetic_from_trips <- function(){
                                     distance_ratio=car_driver_scalar*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car')  }   
  
   raw_trip_set <- NULL
-  SYNTHETIC_POPULATION <<- synth_pop$synthetic_population # extract the population statistics and pa non-travel MMET values
+  
+  # extract the population statistics and pa non-travel MMET values
+  SYNTHETIC_POPULATION <<- synth_pop$synthetic_population 
+  
   trip_set <- synth_pop$trip_set # extract the trip characteristics
   synth_pop <- NULL
   
   # create scenarios by calling the appropriate function
   trip_set <- ithim_setup_baseline_scenario(trip_set)
+  
   if (SCENARIO_NAME == "TEST_WALK_SCENARIO") {
     SYNTHETIC_TRIPS <- create_walk_scenario(trip_set)
+    
   }else if (SCENARIO_NAME == "TEST_CYCLE_SCENARIO") {
     SYNTHETIC_TRIPS <- create_cycle_scenarios(trip_set)
+    
   }else if (SCENARIO_NAME == "MAX_MODE_SHARE_SCENARIO") {
     SYNTHETIC_TRIPS <- create_max_mode_share_scenarios(trip_set)
+    
   }else if (SCENARIO_NAME == "LATAM") {
     SYNTHETIC_TRIPS <- create_latam_scenarios(trip_set)
+    
   }else if (SCENARIO_NAME == "GLOBAL") {
     SYNTHETIC_TRIPS <- create_global_scenarios(trip_set)
+    
   }else if (SCENARIO_NAME == "AFRICA_INDIA") {
     SYNTHETIC_TRIPS <- create_africa_india_scenarios(trip_set)
+    
   }else if (SCENARIO_NAME == "BOGOTA") {
     SYNTHETIC_TRIPS <- create_bogota_scenarios(trip_set)
+    
   }else{
     SYNTHETIC_TRIPS <- create_all_scenarios(trip_set)
   }
   
-  #set_scenario_specific_variables()
+
   # some useful variables.
   NSCEN <<- length(SYNTHETIC_TRIPS) - 1 # define number of scenarios
   SCEN <<- sapply(SYNTHETIC_TRIPS,function(x)x$scenario[1]) 
+  
+  # define the scenario names
   # SCEN_SHORT_NAME <<- c("base",paste0("scen", 1:NSCEN) )
-  SCEN_SHORT_NAME <<- c("base",paste0("sc_", rownames(SCENARIO_PROPORTIONS))) # define the scenario names
+  SCEN_SHORT_NAME <<- c("base",paste0("sc_", rownames(SCENARIO_PROPORTIONS))) 
   
 
-  # add walk-to-bus trips, as appropriate, and combines list of scenarios
+  # add walk to pt trips, as appropriate, and combines list of scenarios
   trip_scen_sets <- walk_to_pt_and_combine_scen(SYNTHETIC_TRIPS)
   
   trip_scen_sets
