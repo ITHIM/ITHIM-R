@@ -16,8 +16,15 @@ data frame, all trips from all scenarios
 Adds a short walk stage to any PT trip if required.
 }
 \details{
-The function is used to add a walk to PT stage to all public transport trips
-without such a walking stage if required. It also combines the list of scenarios 
-into one data frame and scales all distances of a certain mode by the 
-city specific DISTANCE_SCALAR_xx mode scalars.
+This function performs the following steps:
+
+- create a list containing the dataframes of the synthetic trips for each scenario
+- if ADD_WALK_TO_PT_TRIPS == T, i.e if additional 'walk to pt' stages are to be added:
+  - filter out all trips with a public transport stage mode
+  - filter out public transport trips with and without a 'walk to pt' stage
+  - filter out the trips without a public transport stage
+  - add a 'walk to pt' stage to those public transport trips without a walking stage
+    (add_walk_trips.R)
+- combine all trips from all scenarios into one dataframe
+- scale the stage distances and durations by calling the scale_trip_distances.R function
 }

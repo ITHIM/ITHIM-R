@@ -2,18 +2,25 @@
 % Please edit documentation in R/combine_health_and_pif.R
 \name{combine_health_and_pif}
 \alias{combine_health_and_pif}
-\title{Combine health and PIF}
+\title{Combine health and potential impact fraction (PIF)}
 \usage{
 combine_health_and_pif(pif_values, hc = DISEASE_BURDEN)
 }
 \arguments{
-\item{pif_values}{vector of values of PIFs}
+\item{pif_values}{vector of values of PIFs for all age and sex categories}
 
 \item{hc}{data frame of current burden of disease}
 }
 \value{
-estimated scenario burden of disease
+estimated scenario burden of disease for all age and sex categories
 }
 \description{
-Applies PIF calculated from RRs to the current observed health burden from GBD to generate scenario health burden
+Applies PIF calculated from relative risks (RRs) to the current observed health burden from the 
+GBD to generate the scenario health burdens
+}
+\details{
+This function performs the following steps:
+- the current observed health burden for a particular disease is multiplied by the PIF, i.e
+  the change in fraction in disease expected for the current scenario compared with the
+  reference scenario
 }
