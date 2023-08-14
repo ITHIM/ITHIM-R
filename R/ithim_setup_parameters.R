@@ -1,28 +1,28 @@
-#' Set parameters for ITHIM - Global run
+#' Set parameters for ITHIM-Global run
 #' 
 #' Function to set parameters by either using the constant value or sampling from a pre-defined function
 #' 
-#' For each input parameters there are two options: to be set to a constant, and to be sampled from a specified distribution.
-#' Each parameter is given as an argument of length 1 or 2. 
+#' For each input parameters there are two options: to be set to a constant, or to be sampled
+#' from a specified distribution. Each parameter is given as an argument of length 1 or 2. 
 #' If length 1, it's constant, and set to the global environment. 
 #' If length 2, a distribution is defined and sampled from NSAMPLE times.
 #' There are some exceptions, listed below.
 #' 
-#' The function performs the following steps:
-#' - set all input parameters to the global environment (if sampling function is called, they are overwritten)
+#' The function performs the following steps:  
+#' - set all input parameters to the global environment (if sampling function is called, they are overwritten)  
 #' - loop through all potential variables with a lognormal distribution and sample from this distribution
-#'   if required
+#'   if required  
 #' - loop through all potential variables with a beta distribution and sample from this distribution
-#'   if required
-#' - if BACKGROUND_PA_CONFIDENCE<1 then add BACKGROUND_PA_ZEROS parameters
+#'   if required  
+#' - if BACKGROUND_PA_CONFIDENCE<1 then add BACKGROUND_PA_ZEROS parameters  
 #' - if PM_EMISSION_INVENTORY_CONFIDENCE<1, then sample those PM inventory values by 
-#'   using a Dirichlet distribution which is parameterised by gamma random variables
+#'   using a Dirichlet distribution which is parameterised by gamma random variables  
 #' - if CO2_EMISSION_INVENTORY_CONFIDENCE<1, then sample those CO2 inventory values by 
-#'   using a Dirichlet distribution which is parameterised by gamma random variables
+#'   using a Dirichlet distribution which is parameterised by gamma random variables  
 #' - if PA_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to physical activity
-#'   levels and assign a quantile to them by sampling from a uniform distribution between 0 and 1
+#'   levels and assign a quantile to them by sampling from a uniform distribution between 0 and 1  
 #' - if AP_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to air pollution levels
-#'   and assign a quantile to them by sampling from a uniform distribution between 0 and 1
+#'   and assign a quantile to them by sampling from a uniform distribution between 0 and 1  
 #'    
 #' At the bottom of this function, the dirichlet_pointiness() function is defined which 
 #' parameterises the Dirichlet distributions for the PM and CO2 emission inventories. 
@@ -30,51 +30,51 @@
 #' 
 #' 
 #' @param NSAMPLES constant integer: number of samples to take
-#' @param BUS_WALK_TIME lognormal parameter: duration of walk to Bus
-#' @param RAIL_WALK_TIME lognormal parameter: duration of walk to Rail
+#' @param BUS_WALK_TIME lognormal parameter: duration of walk to bus stage
+#' @param RAIL_WALK_TIME lognormal parameter: duration of walk to rail stage
 #' @param MMET_CYCLING lognormal parameter: mMETs when cycling
 #' @param MMET_WALKING lognormal parameter: mMETs when walking
 #' @param PM_CONC_BASE lognormal parameter: background PM2.5 concentration
 #' @param PM_TRANS_SHARE beta parameter: fraction of background PM2.5 attributable to transport
-#' @param PA_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from PA RR DR functions
-#' @param AP_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from AP RR DR functions
-#' @param BACKGROUND_PA_SCALAR lognormal parameter: reporting scalar for PA
-#' @param BACKGROUND_PA_CONFIDENCE beta parameter: confidence in accuracy of PA survey
-#' @param INJURY_REPORTING_RATE lognormal parameter: rate of injury reporting
-#' @param CHRONIC_DISEASE_SCALAR lognormal parameter: scalar for background disease rates
+#' @param PA_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from physical activity relative risk dose response functions
+#' @param AP_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from air pollution relative risk dose response functions
+#' @param BACKGROUND_PA_SCALAR lognormal parameter: reporting scalar for physical activity to correct bias in data
+#' @param BACKGROUND_PA_CONFIDENCE beta parameter: confidence in accuracy of zero non-travel physical activity levels
+#' @param INJURY_REPORTING_RATE lognormal parameter: rate of injury fatality reporting
+#' @param CHRONIC_DISEASE_SCALAR lognormal parameter: scalar for background disease rates to adjust for bias in GBD data
 #' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week - CURRENTLY used as constant only (using as beta parameter would need some further considerations)
-#' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to SIN_EXPONENT_SUM
-#' @param SIN_EXPONENT_SUM_NOV lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param SIN_EXPONENT_SUM_CYCLE lognormal parameter: linearity of injuries with respect to two modes where victim mode = cycle. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param CASUALTY_EXPONENT_FRACTION_CYCLE beta parameter: casualty contribution to SIN_EXPONENT_SUM  where victim mode = cycle.
-#' @param SIN_EXPONENT_SUM_PED lognormal parameter: linearity of injuries with respect to two modes  where victim mode = pedestrian. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param CASUALTY_EXPONENT_FRACTION_PED beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = pedestrian
-#' @param SIN_EXPONENT_SUM_VEH lognormal parameter: linearity of injuries with respect to two modes where victim mode = a vehicle. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param CASUALTY_EXPONENT_FRACTION_VEH beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = a vehicle.
-#' @param CALL_INDIVIDUAL_SIN logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.
+#' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM
+#' @param SIN_EXPONENT_SUM_NOV lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param SIN_EXPONENT_SUM_CYCLE lognormal parameter: linearity of injuries with respect to two modes where victim mode = cycle. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param CASUALTY_EXPONENT_FRACTION_CYCLE beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM_CYCLE  where victim mode = cycle
+#' @param SIN_EXPONENT_SUM_PED lognormal parameter: linearity of injuries with respect to two modes  where victim mode = pedestrian. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param CASUALTY_EXPONENT_FRACTION_PED beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM_PED where victim mode = pedestrian
+#' @param SIN_EXPONENT_SUM_VEH lognormal parameter: linearity of injuries with respect to two modes where victim mode = a vehicle. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param CASUALTY_EXPONENT_FRACTION_VEH beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM_VEH where victim mode = a vehicle
+#' @param CALL_INDIVIDUAL_SIN logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param CAR_OCCUPANCY_RATIO beta parameter: number of people per car (including driver)
-#' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
-#' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: amount of motorcycle that's fleet
-#' @param PM_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
-#' @param PROPORTION_MOTORCYCLE_TRIPS beta parameter: proportion of trips that are to be added as motorcycle trips
-#' @param CO2_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
-#' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar for car distance travelled
-#' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar for walking distance travelled
-#' @param DISTANCE_SCALAR_PT lognormal parameter: scalar for PT distance travelled
-#' @param DISTANCE_SCALAR_CYCLING lognormal parameter: scalar for cycling distance travelled
-#' @param DISTANCE_SCALAR_MOTORCYCLE lognormal parameter: scalar for motorcycle distance travelled
-#' @param BUS_DRIVER_PROP_MALE scalar parameter: proportion of bus drivers that are male
-#' @param BUS_DRIVER_MALE_AGERANGE character parameter: age range of male bus drivers
-#' @param BUS_DRIVER_FEMALE_AGERANGE character parameter: age range of female bus drivers
-#' @param TRUCK_DRIVER_PROP_MALE scalar parameter: proportion of truck drivers that are male
-#' @param TRUCK_DRIVER_MALE_AGERANGE character parameter: age range of male truck drivers
-#' @param TRUCK_DRIVER_FEMALE_AGERANGE character parameter: age range of female truck drivers
-#' @param COMMERCIAL_MBIKE_PROP_MALE scalar parameter: proportion of commercial motorcycle drivers that are male
-#' @param COMMERCIAL_MBIKE_MALE_AGERANGE character parameter: age range of male commercial motorcycle drivers
-#' @param COMMERCIAL_MBIKE_FEMALE_AGERANGE character parameter: age range of female commercial motorcycle drivers
-#' @param MINIMUM_PT_TIME minimum time that person spends on public transport
+#' @param TRUCK_TO_CAR_RATIO beta parameter: proportion of truck to car vehicle km travelled
+#' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: amount of motorcycle trips that are to be added as commercial trips
+#' @param PM_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of PM emission inventory
+#' @param PROPORTION_MOTORCYCLE_TRIPS beta parameter: proportion of trips that are to be added as personal motorcycle trips
+#' @param CO2_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of CO2 emission inventory
+#' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar to adjust for bias in car distance travelled
+#' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar to adjust for bias in walking distance travelled
+#' @param DISTANCE_SCALAR_PT lognormal parameter: scalar to adjust for bias in PT distance travelled
+#' @param DISTANCE_SCALAR_CYCLING lognormal parameter: scalar to adjust for bias in cycling distance travelled
+#' @param DISTANCE_SCALAR_MOTORCYCLE lognormal parameter: scalar to adjust for biase in motorcycle distance travelled
+#' @param BUS_DRIVER_PROP_MALE scalar: proportion of bus drivers that are male
+#' @param BUS_DRIVER_MALE_AGERANGE character: age range of male bus drivers
+#' @param BUS_DRIVER_FEMALE_AGERANGE character: age range of female bus drivers
+#' @param TRUCK_DRIVER_PROP_MALE scalar: proportion of truck drivers that are male
+#' @param TRUCK_DRIVER_MALE_AGERANGE character: age range of male truck drivers
+#' @param TRUCK_DRIVER_FEMALE_AGERANGE character: age range of female truck drivers
+#' @param COMMERCIAL_MBIKE_PROP_MALE scalar: proportion of commercial motorcycle drivers that are male
+#' @param COMMERCIAL_MBIKE_MALE_AGERANGE character: age range of male commercial motorcycle drivers
+#' @param COMMERCIAL_MBIKE_FEMALE_AGERANGE character: age range of female commercial motorcycle drivers
+#' @param MINIMUM_PT_TIME scalar: minimum time that person spends on public transport
 #' 
 #' @return list of samples of uncertain parameters
 #' 
@@ -132,7 +132,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   # error_handling(1, "ithim_setup_parameters", "PM_CONC_BASE, PM_TRANS_SHARE")
   
   ## Set PARAMETERS
-  ## Parameters are assigned to the global environment and so are set for every function. They are over-written when sample_parameters is called.
+  # Parameters are assigned to the global environment and so are set for every function
+  # They are over-written when sample_parameters is called.
   BUS_WALK_TIME <<- BUS_WALK_TIME
   RAIL_WALK_TIME <<- RAIL_WALK_TIME
   MMET_CYCLING <<- MMET_CYCLING
@@ -174,7 +175,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   MINIMUM_PT_TIME <<- MINIMUM_PT_TIME
   parameters <- list()
   
-  ##Variables with lognormal distribution
+  # Variables with lognormal distribution
   # Define those variables and loop through them, sampling
   # from a pre-defined lognormal distribution if needed
   normVariables <- c("BUS_WALK_TIME",
@@ -206,7 +207,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     }
   }
   
-  ##Variables with beta distribution
+  # Variables with beta distribution
   # Define those variables and loop through them, sampling
   # from a pre-defined beta distribution if needed
   betaVariables <- c("PM_TRANS_SHARE",
@@ -271,7 +272,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     }
   }
   
-  ## PA DOSE RESPONSE
+  # PA DOSE RESPONSE
   # if PA_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to 
   # physical activity levels and assign a quantile to them by sampling from a uniform
   # distribution between 0 and 1
@@ -283,7 +284,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   }
   
   
-  ## AP DOSE RESPONSE
+  # AP DOSE RESPONSE
   # if AP_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to 
   # air pollution levels and assign a quantile to them by sampling from a uniform
   # distribution between 0 and 1

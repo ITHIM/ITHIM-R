@@ -1,6 +1,12 @@
 #' Set up baseline scenario data frame
 #' 
-#' Set up baseline scenario by adding distance categories and scenario='baseline' column to trip set data frame
+#' Set up baseline scenario ready for the scenario development
+#' 
+#' This function performs the following steps to the trip set data:
+#' 
+#' - add distance categories  
+#' - add scenario='baseline' column 
+#' 
 #' 
 #' 
 #' @param trip_set data frame of trips 
@@ -8,6 +14,8 @@
 #' @return trip_set as baseline scenario
 #' 
 #' @export
+
+
 ithim_setup_baseline_scenario <- function(trip_set){
 
   # Initialize distance categories as they are used in the scenario generation

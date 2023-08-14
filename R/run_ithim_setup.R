@@ -43,7 +43,8 @@
 #' @param seed random seed
 #' @param CITY name of the city, and name of the directory containing city data files
 #' @param speeds named list of mode speeds
-#' @param PM_emission_inventory named list of mode emissions
+#' @param PM_emission_inventory named list of mode PM emissions
+#' @param CO2_emission_inventory named list of CO2 mode emissions
 #' @param setup_call_summary_filename name to write setup call summary to
 #' @param DIST_CAT vector string of distance categories in the form '0-6'. (The unit is assumed to be the same as in the trip set.)
 #' @param AGE_RANGE vector of minimum and maximum ages to include
@@ -56,55 +57,54 @@
 #' @param REFERENCE_SCENARIO which scenario forms the reference for the health comparison
 #' @param PATH_TO_LOCAL_DATA path to CITY directory, if not using package
 #' @param NSAMPLES constant integer: number of samples to take
-#' @param BUS_WALK_TIME lognormal parameter: duration of walk to Bus
-#' @param RAIL_WALK_TIME lognormal parameter: duration of walk to Rail
+#' @param BUS_WALK_TIME lognormal parameter: duration of walk to bus stage
+#' @param RAIL_WALK_TIME lognormal parameter: duration of walk to rail stage
 #' @param MMET_CYCLING lognormal parameter: mMETs when cycling
 #' @param MMET_WALKING lognormal parameter: mMETs when walking
 #' @param PM_CONC_BASE lognormal parameter: background PM2.5 concentration
 #' @param PM_TRANS_SHARE beta parameter: fraction of background PM2.5 attributable to transport
-#' @param PA_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from PA RR DR functions
-#' @param AP_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from AP RR DR functions
-#' @param BACKGROUND_PA_SCALAR lognormal parameter: reporting scalar for PA
-#' @param BACKGROUND_PA_CONFIDENCE beta parameter: confidence in accuracy of PA survey
-#' @param INJURY_REPORTING_RATE lognormal parameter: rate of injury reporting
-#' @param CHRONIC_DISEASE_SCALAR lognormal parameter: scalar for background disease rates
-#' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week  - CURRENTLY used as constant only (using as beta parameter would need some further considerations)
-#' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to SIN_EXPONENT_SUM
-#' @param SIN_EXPONENT_SUM_NOV lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param SIN_EXPONENT_SUM_CYCLE lognormal parameter: linearity of injuries with respect to two modes where victim mode = cycle. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param CASUALTY_EXPONENT_FRACTION_CYCLE beta parameter: casualty contribution to SIN_EXPONENT_SUM  where victim mode = cycle.
-#' @param SIN_EXPONENT_SUM_PED lognormal parameter: linearity of injuries with respect to two modes  where victim mode = pedestrian. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param CASUALTY_EXPONENT_FRACTION_PED beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = pedestrian
-#' @param SIN_EXPONENT_SUM_VEH lognormal parameter: linearity of injuries with respect to two modes where victim mode = a vehicle. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param CASUALTY_EXPONENT_FRACTION_VEH beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = a vehicle.
-#' @param CALL_INDIVIDUAL_SIN logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.
+#' @param PA_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from physical activity relative risk dose response functions
+#' @param AP_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from air pollution relative risk dose response functions
+#' @param BACKGROUND_PA_SCALAR lognormal parameter: reporting scalar for physical activity to correct bias in data
+#' @param BACKGROUND_PA_CONFIDENCE beta parameter: confidence in accuracy of zero non-travel physical activity levels
+#' @param INJURY_REPORTING_RATE lognormal parameter: rate of injury fatality reporting
+#' @param CHRONIC_DISEASE_SCALAR lognormal parameter: scalar for background disease rates to adjust for bias in GBD data
+#' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week - CURRENTLY used as constant only (using as beta parameter would need some further considerations)
+#' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM
+#' @param SIN_EXPONENT_SUM_NOV lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param SIN_EXPONENT_SUM_CYCLE lognormal parameter: linearity of injuries with respect to two modes where victim mode = cycle. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param CASUALTY_EXPONENT_FRACTION_CYCLE beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM_CYCLE  where victim mode = cycle
+#' @param SIN_EXPONENT_SUM_PED lognormal parameter: linearity of injuries with respect to two modes  where victim mode = pedestrian. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param CASUALTY_EXPONENT_FRACTION_PED beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM_PED where victim mode = pedestrian
+#' @param SIN_EXPONENT_SUM_VEH lognormal parameter: linearity of injuries with respect to two modes where victim mode = a vehicle. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param CASUALTY_EXPONENT_FRACTION_VEH beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM_VEH where victim mode = a vehicle
+#' @param CALL_INDIVIDUAL_SIN logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param CAR_OCCUPANCY_RATIO beta parameter: number of people per car (including driver)
-#' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
-#' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: fraction of total motorcycles that's fleet
-#' @param PROPORTION_MOTORCYCLE_TRIPS beta parameter: proportion of trips that are to be added as motorcycle trips
-#' @param PM_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
-#' @param CO2_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
-#' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar for car distance travelled
-#' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar for walking distance travelled
-#' @param DISTANCE_SCALAR_PT lognormal parameter: scalar for PT distance travelled
-#' @param DISTANCE_SCALAR_CYCLING lognormal parameter: scalar for cycling distance travelled
-#' @param DISTANCE_SCALAR_MOTORCYCLE lognormal parameter: scalar for motorcycle distance travelled
+#' @param TRUCK_TO_CAR_RATIO beta parameter: proportion of truck to car vehicle km travelled
+#' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: amount of motorcycle trips that are to be added as commercial trips
+#' @param PM_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of PM emission inventory
+#' @param PROPORTION_MOTORCYCLE_TRIPS beta parameter: proportion of trips that are to be added as personal motorcycle trips
+#' @param CO2_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of CO2 emission inventory
+#' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar to adjust for bias in car distance travelled
+#' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar to adjust for bias in walking distance travelled
+#' @param DISTANCE_SCALAR_PT lognormal parameter: scalar to adjust for bias in PT distance travelled
+#' @param DISTANCE_SCALAR_CYCLING lognormal parameter: scalar to adjust for bias in cycling distance travelled
+#' @param DISTANCE_SCALAR_MOTORCYCLE lognormal parameter: scalar to adjust for biase in motorcycle distance travelled
+#' @param BUS_DRIVER_PROP_MALE scalar: proportion of bus drivers that are male
+#' @param BUS_DRIVER_MALE_AGERANGE character: age range of male bus drivers
+#' @param BUS_DRIVER_FEMALE_AGERANGE character: age range of female bus drivers
+#' @param TRUCK_DRIVER_PROP_MALE scalar: proportion of truck drivers that are male
+#' @param TRUCK_DRIVER_MALE_AGERANGE character: age range of male truck drivers
+#' @param TRUCK_DRIVER_FEMALE_AGERANGE character: age range of female truck drivers
+#' @param COMMERCIAL_MBIKE_PROP_MALE scalar: proportion of commercial motorcycle drivers that are male
+#' @param COMMERCIAL_MBIKE_MALE_AGERANGE character: age range of male commercial motorcycle drivers
+#' @param COMMERCIAL_MBIKE_FEMALE_AGERANGE character: age range of female commercial motorcycle drivers
+#' @param MINIMUM_PT_TIME scalar: minimum time that person spends on public transport
 #' @param SCENARIO_NAME name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO, 
 #'                                              MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)
 #' @param SCENARIO_INCREASE increase of given mode in each scenario (currently used in GLOBAL, BOGOTA, LATAM and AFRICA_INDIA scenarios)
-#' @param CO2_emission_inventory named list of mode emissions
-#' @param BUS_DRIVER_PROP_MALE scalar parameter: proportion of bus drivers that are male
-#' @param BUS_DRIVER_MALE_AGERANGE character parameter: age range of male bus drivers
-#' @param BUS_DRIVER_FEMALE_AGERANGE character parameter: age range of female bus drivers
-#' @param TRUCK_DRIVER_PROP_MALE scalar parameter: proportion of truck drivers that are male
-#' @param TRUCK_DRIVER_MALE_AGERANGE character parameter: age range of male truck drivers
-#' @param TRUCK_DRIVER_FEMALE_AGERANGE character parameter: age range of female truck drivers
-#' @param COMMERCIAL_MBIKE_PROP_MALE scalar parameter: proportion of commercial motorcycle drivers that are male
-#' @param COMMERCIAL_MBIKE_MALE_AGERANGE character parameter: age range of male commercial motorcycle drivers
-#' @param COMMERCIAL_MBIKE_FEMALE_AGERANGE character parameter: age range of female commercial motorcycle drivers
-#' @param MINIMUM_PT_TIME minimum time that person spends on public transport
 #' 
 #' @return ithim_object list of objects for onward use.
 #' 
