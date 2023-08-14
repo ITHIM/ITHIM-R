@@ -10,8 +10,8 @@ dirichlet_pointiness(confidence)
 \item{confidence}{value between 0 and 1}
 }
 \value{
-parametrisation
+parameterisation
 }
 \description{
-Function to map a confidence value to a parametrisation of a Dirichlet distribution
+Function to map a confidence value to a parameterisation of a Dirichlet distribution
 }

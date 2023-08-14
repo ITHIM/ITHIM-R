@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_ithim_setup.R
 \name{run_ithim_setup}
 \alias{run_ithim_setup}
-\title{Run the set up script for ITHIM}
+\title{Run the set up scripts for ITHIM}
 \usage{
 run_ithim_setup(
   seed = 1,
@@ -18,7 +18,7 @@ run_ithim_setup(
   ADD_TRUCK_DRIVERS = T,
   ADD_MOTORCYCLE_FLEET = F,
   ADD_PERSONAL_MOTORCYCLE_TRIPS = "no",
-  REFERENCE_SCENARIO = "Baseline",
+  REFERENCE_SCENARIO = "baseline",
   PATH_TO_LOCAL_DATA = NULL,
   NSAMPLES = 1,
   BUS_WALK_TIME = 5,
@@ -44,7 +44,6 @@ run_ithim_setup(
   SIN_EXPONENT_SUM_VEH = 2,
   CASUALTY_EXPONENT_FRACTION_VEH = 0.5,
   CALL_INDIVIDUAL_SIN = F,
-  SIN_THRESHOLD = 0,
   BUS_TO_PASSENGER_RATIO = 0.022,
   CAR_OCCUPANCY_RATIO = 0.6,
   TRUCK_TO_CAR_RATIO = 0.21,
@@ -58,7 +57,17 @@ run_ithim_setup(
   DISTANCE_SCALAR_CYCLING = 1,
   DISTANCE_SCALAR_MOTORCYCLE = 1,
   SCENARIO_NAME = "GLOBAL",
-  SCENARIO_INCREASE = 0.05
+  SCENARIO_INCREASE = 0.05,
+  BUS_DRIVER_PROP_MALE = 0.99,
+  BUS_DRIVER_MALE_AGERANGE = "18, 65",
+  BUS_DRIVER_FEMALE_AGERANGE = "18, 65",
+  TRUCK_DRIVER_PROP_MALE = 0.99,
+  TRUCK_DRIVER_MALE_AGERANGE = "18, 65",
+  TRUCK_DRIVER_FEMALE_AGERANGE = "18, 65",
+  COMMERCIAL_MBIKE_PROP_MALE = 0.99,
+  COMMERCIAL_MBIKE_MALE_AGERANGE = "18, 65",
+  COMMERCIAL_MBIKE_FEMALE_AGERANGE = "18, 65",
+  MINIMUM_PT_TIME = 3
 )
 }
 \arguments{
@@ -118,7 +127,7 @@ run_ithim_setup(
 
 \item{CHRONIC_DISEASE_SCALAR}{lognormal parameter: scalar for background disease rates}
 
-\item{DAY_TO_WEEK_TRAVEL_SCALAR}{beta parameter: rate of scaling travel from one day to one week}
+\item{DAY_TO_WEEK_TRAVEL_SCALAR}{beta parameter: rate of scaling travel from one day to one week  - CURRENTLY used as constant only (using as beta parameter would need some further considerations)}
 
 \item{SIN_EXPONENT_SUM}{lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.}
 
@@ -139,8 +148,6 @@ run_ithim_setup(
 \item{CASUALTY_EXPONENT_FRACTION_VEH}{beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = a vehicle.}
 
 \item{CALL_INDIVIDUAL_SIN}{logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.}
-
-\item{SIN_THRESHOLD}{scalar: number below which no safety in number coefficient is applied, i.e. SIN = 1}
 
 \item{BUS_TO_PASSENGER_RATIO}{beta parameter: number of buses per passenger}
 
@@ -169,7 +176,27 @@ run_ithim_setup(
 \item{SCENARIO_NAME}{name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO, 
 MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)}
 
-\item{SCENARIO_INCREASE}{increase of given mode in each scenario (currently used in GLOBAL and BOGOTA scenarios)}
+\item{SCENARIO_INCREASE}{increase of given mode in each scenario (currently used in GLOBAL, BOGOTA, LATAM and AFRICA_INDIA scenarios)}
+
+\item{BUS_DRIVER_PROP_MALE}{scalar parameter: proportion of bus drivers that are male}
+
+\item{BUS_DRIVER_MALE_AGERANGE}{character parameter: age range of male bus drivers}
+
+\item{BUS_DRIVER_FEMALE_AGERANGE}{character parameter: age range of female bus drivers}
+
+\item{TRUCK_DRIVER_PROP_MALE}{scalar parameter: proportion of truck drivers that are male}
+
+\item{TRUCK_DRIVER_MALE_AGERANGE}{character parameter: age range of male truck drivers}
+
+\item{TRUCK_DRIVER_FEMALE_AGERANGE}{character parameter: age range of female truck drivers}
+
+\item{COMMERCIAL_MBIKE_PROP_MALE}{scalar parameter: proportion of commercial motorcycle drivers that are male}
+
+\item{COMMERCIAL_MBIKE_MALE_AGERANGE}{character parameter: age range of male commercial motorcycle drivers}
+
+\item{COMMERCIAL_MBIKE_FEMALE_AGERANGE}{character parameter: age range of female commercial motorcycle drivers}
+
+\item{MINIMUM_PT_TIME}{minimum time that person spends on public transport}
 
 \item{setup_call_summary_filename}{name to write setup call summary to}
 }
@@ -180,9 +207,37 @@ ithim_object list of objects for onward use.
 Sets up the basic ITHIM object for onward calculation. Data loading, processing and harmonisation. Setting global values.
 }
 \details{
-Parameters have two options: to be set to a constant, and to be sampled from a prespecified distribution.
+Parameters have two options: to be set to a constant, and to be sampled from a pre-specified distribution.
 Each parameter is given as an argument of length 1 or 2. 
 If length 1, it's constant, and set to the global environment. 
 If length 2, a distribution is defined and sampled from NSAMPLE times.
-There are some exceptions, listed above
+(There are some exceptions)
+
+This function performs the following steps:
+- check whether valid scenario name is called, get error message if not
+- set various parameters as global parameters
+- find the path to the local data
+- set fixed parameters for air pollution inhalation
+- define the mode speeds:
+   - set default speeds for the various modes
+   - update the default speeds with city specific mode speeds if these were given as input parameters
+   - ensure similar modes have the same speed assigned
+   - define dataframe with modes and speeds
+- define PM emissions inventory
+   - set default emission values
+   - update default values if city specific values were given as input parameters
+- define PM emissions inventory
+   - set default emission values
+   - update default values if city specific values were given as input parameters
+- load and processes data from files by calling ithim_load_data.R
+- call ithim_setup_parameters.R to set the given input parameters to the global environment if running in constant mode or
+   to create nsamples samples from the given distributions for each of the input parameters if running in sample mode
+- set flags which cause certain parts of the model to be called at a later stage (ithim_uncertainty.R) IF certain input 
+  parameters were sampled from a distribution   
+- call complete_trip_distance_duration.R to add any missing stage or distance information to TRIP_SET 
+- if none of the corresponding input parameters were sampled from a distribution, call set_vehicle_inventory.R to create a dataframe with 
+   mode specific speed, distance and emission information    
+- if none of the corresponding input parameters were sampled from a distribution, call get_synthetic_from_trips to set
+   synthetic trips and synthetic population   
+- if none of the corresponding input parameters were sampled from a distribution, call get_all_distances.R to calculate distances
 }

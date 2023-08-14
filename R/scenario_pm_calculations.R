@@ -2,11 +2,32 @@
 #' 
 #' Calculate total AP exposure per person based on population and personal travel
 #' 
-#' @param dist distance data frame of population travel from all scenarios
+#' This function performs the following steps:
+#' - the ventilation rates per mode are defined - these parameters are fixed
+#' - the exposure factor rate by activity is defined - these parameters are fixed
+#' - calculate pm concentration not related to transport
+#' - calculate emission factors for each mode by dividing total emissions by distances travelled
+#' - calculate PM emissions for each mode in each scenario by multiplying the scenario distance times the emission factors
+#' - for modes without any assigned distance, use the PM emissions from the VEHICLE_INVENTORY instead
+#' - calculate the total PM concentrations for each scenario
+#' - add ventilation and exposure factors to trip set by stage mode
+#' - add total scenario PM concentrations to trip set
+#' - add the inhaled air and total pm (in micro grams) to the trip set
+#' - define the amount of time per day spent as leisure sedentary screen time, non-discretionary time and other time - fixed
+#' - add total time spent travelling by each participant to trip set
+#' - calculate the sleep and the rest ventilation rates
+#' - for each participant in the synthetic population (with travel component), calculate the total air inhaled, the total PM inhaled and 
+#'    the total PM concentration inhaled for each scenario
+#' - assign all participants in the synthetic population without travel component, the baseline or scenario PM concentrations
+#' - join all people with and without travel in the synthetic population
+#' 
+#' 
+#' 
+#' @param dist total distance travelled by mode by the population for all scenarios
 #' @param trip_scen_sets trips data frame of all trips from all scenarios
 #' 
-#' @return background AP
-#' @return total AP exposure per person
+#' @return background PM concentration for baseline and all scenarios
+#' @return total AP exposure per person in the synthetic population (for baseline and scenarios)
 #' 
 #' @export
 scenario_pm_calculations <- function(dist, trip_scen_sets){
@@ -26,20 +47,22 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # concentration contributed by non-transport share (remains constant across the scenarios)
   non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
   
-  ## adding in travel not covered in the synthetic trip set, based on distances travelled relative to car, set in VEHICLE_INVENTORY
+  ## total population distances travelled by all modes
   emission_dist <- dist
   
   ## get emission factor by dividing inventory by baseline distance. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
-  ordered_efs <- (VEHICLE_INVENTORY$PM_emission_inventory[match(emission_dist$stage_mode,VEHICLE_INVENTORY$stage_mode)] %>% as.numeric())/(emission_dist$baseline %>% as.numeric())
+  ordered_efs <- (VEHICLE_INVENTORY$PM_emission_inventory[match(emission_dist$stage_mode,VEHICLE_INVENTORY$stage_mode)
+                                                          ] %>% as.numeric())/(emission_dist$baseline %>% as.numeric())
   ## get new emission by multiplying emission factor by scenario distance.
   trans_emissions <- emission_dist[,0:NSCEN+2]*t(repmat(ordered_efs,NSCEN+1,1))
   ## augment with travel emission contributions that aren't included in distance calculation
-  for(mode_type in which(!VEHICLE_INVENTORY$stage_mode%in%emission_dist$stage_mode))
-    trans_emissions[nrow(trans_emissions)+1,] <- VEHICLE_INVENTORY$PM_emission_inventory[mode_type]
+  for(mode_type in which(!VEHICLE_INVENTORY$stage_mode%in%emission_dist$stage_mode)) # loop through modes without an assigned distance
+    trans_emissions[nrow(trans_emissions)+1,] <- VEHICLE_INVENTORY$PM_emission_inventory[mode_type] # add emissions from vehicle inventory
   
   ## scenario travel pm2.5 calculated as relative to the baseline
-  baseline_sum <- sum(trans_emissions[[SCEN[1]]], na.rm = T)
+  baseline_sum <- sum(trans_emissions[[SCEN[1]]], na.rm = T) # sum of all PM baseline emissions
   conc_pm <- c()
+  # calculate the total PM concentrations for all scenarios
   ## in this sum, the non-transport pm is constant; the transport emissions scale the transport contribution (PM_TRANS_SHARE) to the base level (PM_CONC_BASE)
   for(i in 1:length(SCEN_SHORT_NAME)){
     conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN[i]]], na.rm = T)/baseline_sum
@@ -48,24 +71,24 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # Copy trips dataset
   trip_set <- trip_scen_sets
   
-  # Add people without trips to the
-  
   # Rename short walks as pedestrian 
   trip_set$stage_mode[trip_set$stage_mode=='walk_to_pt'] <- 'pedestrian'
   
+  # join trip set and ventilation rates by stage mode
   # trip set is a data.table, vent_rates is a data.frame, returns a data.table
   trip_set <- dplyr::left_join(trip_set, vent_rates, 'stage_mode')
   
-  # Join trip_set and exponent factords df
+  # Join trip_set and exponent factors df
   trip_set <- dplyr::left_join(trip_set, exp_facs, 'stage_mode')
   
-  # Create df with scenarios and concentration
+  # Create df with scenarios and total PM concentrations
   conc_pm_df <- data.frame(scenario = unique(trip_set$scenario),
                            conc_pm = conc_pm)
   # Join trip_set with conc df
   trip_set <- left_join(trip_set, conc_pm_df)
   
-  # litres of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode
+  
+  # liters of air inhaled are the product of the ventilation rate and the time (hours/60) spent travelling by that mode
   trip_set$air_inhaled <- trip_set$stage_duration / 60 * trip_set$v_rate
   
   # PM inhaled (micro grams) = duration * ventilation rate * exposure rates * concentration
@@ -78,6 +101,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # Travel (min/day)	79.2 (93.7)
   # Other (min/day)	162.9 (153.1)
   
+  # define the amount of time spent as leisure sedentary screen time, non-discretionary time and other time in hours
   lt_sed_time_hrs <- 189.5 / 60
   nd_time_hrs <- 482.2 / 60
   other_time_hrs <- 162.9 / 60
@@ -118,7 +142,8 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   #                               (16 - total_travel_time_hrs) * rest_ventilation_rate * conc_pm
   # Calculate conc_pm_inhaled (unit: µg/m3) = total_pm_inhaled / total_air_inhaled 
   
-  
+  #for each participant in the synthetic population, calculate the total air inhaled, the total PM inhaled and 
+  #    the total PM concentration inhaled for each scenario
   synth_pop <- trip_set |> filter(participant_id != 0) |> 
     group_by(participant_id, scenario) |> 
     summarise(total_air_inhaled = sum(air_inhaled, na.rm = T) + 
@@ -127,8 +152,8 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
               total_pm_inhaled = sum(pm_inhaled, na.rm = T) +
                 8 * (sleep_rate) * conc_pm + 
                 ((16 - total_travel_time_hrs) * (rest_rate) * conc_pm)) |> 
-    distinct(participant_id, scenario, .keep_all = T) |> 
-    mutate(conc_pm_inhaled = total_pm_inhaled / total_air_inhaled)
+              distinct(participant_id, scenario, .keep_all = T) |> 
+              mutate(conc_pm_inhaled = total_pm_inhaled / total_air_inhaled)
   
   # Change to wide format
   synth_pop <- synth_pop |> 

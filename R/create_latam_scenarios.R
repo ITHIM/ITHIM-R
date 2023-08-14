@@ -28,7 +28,7 @@ create_latam_scenarios <- function(trip_set){
                                      c(2,2,2, 2))
   colnames(scenario_proportions) <- target_distances <- DIST_CAT
   rownames(scenario_proportions) <- modes <- c("cycle", "car", "bus", 'motorcycle')
-  SCENARIO_PROPORTIONS <<- scenario_proportions
+  SCENARIO_PROPORTIONS <<- SCENARIO_INCREASE # increase of each mode as percentage of total number of trips.
   # baseline scenario
   rd_list[[1]] <- rdr
   modes_not_changeable <- c('bus_driver', 'truck', 'car_driver')

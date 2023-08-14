@@ -14,8 +14,17 @@ combined_rr_ap_pa(ind_pa, ind_ap, conf_int = FALSE)
 \item{conf_int}{logic: whether to include confidence interval from dose response relationships or not}
 }
 \value{
-combined RR for diseases after accounted for AP and PA exposures
+dataframe giving the RR risk for AP, PA and combined AP and PA exposure levels for every person in the synthetic population and for each scenario
 }
 \description{
-Combine relative risks from AP and PA through multiplication for crossover diseases
+Combine relative risks (RR) from AP and PA through multiplication for disease related
+to both AP and PA
+}
+\details{
+This function performs the following steps:
+- join the ap and pa relative risk datasets 
+- loop through all disease outcomes that are affected by both PA and AP
+  - for each scenario multiply the relative risks for PA and AP and store in a new column
+  - if confidence intervals are required, multiply the upper and lower RR for AP
+    and PA respectively wherever possible, otherwise use the given median RR values instead
 }

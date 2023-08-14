@@ -2,7 +2,7 @@
 % Please edit documentation in R/health_burden.R
 \name{join_hb_and_injury}
 \alias{join_hb_and_injury}
-\title{Join disease health burden and injury}
+\title{Join disease health burden and injury data}
 \usage{
 join_hb_and_injury(ind_ap_pa, inj)
 }
@@ -16,4 +16,10 @@ list of data.frames: one for deaths per cause per demographic group, and likewis
 }
 \description{
 Join the two data frames for health burden: that from disease, and that from road-traffic injury
+}
+\details{
+This function performs the following steps:
+ - extract the yll and deaths data from the combined AP and PA pathways
+ - extract the yll and deaths data from the injury data
+ - create one dataframe for yll and one for deaths containing all the AP, PA and injury data
 }

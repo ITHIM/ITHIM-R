@@ -2,14 +2,31 @@
 % Please edit documentation in R/set_injury_contingency.R
 \name{set_injury_contingency}
 \alias{set_injury_contingency}
-\title{Create contingency table from itemised list of injuries}
+\title{Injury summary statistics}
 \usage{
 set_injury_contingency(injuries)
 }
 \arguments{
-\item{injuries}{data frame of injury events}
+\item{injuries}{data frame of individual injury events}
 }
 \description{
-One of the inputs is a list of injury events. This function aggregates injuries by type into a long contingency table with prespecified column names.
-Write tables to global environment.
+Creates summarised injury tables for 'who hit who' and 'no other vehicle' fatality counts 
+for each casualty and strike mode combination (and age and sex combination where this information exists)
+}
+\details{
+The function performs the following steps using the individual fatality injury input file:
+
+- The data is split into a WHW (who hit who) matrix where both casualty and strike mode are given
+ and a NOV (no other vehicle) matrix where strike mode was set to NOV in ithim_load_data.R or 
+ no other vehicle was involved in the accident.
+
+- If no age and gender information is given, then the counts are multiplied by the proportion of injuries 
+relevant for the proportion of the population in considered in the model (e.g. 15 - 65 year olds) based on the GBD data
+
+- Data is aggregated by casualty and strike mode, and age and sex where such information exists
+
+- Complete whw and nov matrices containing all casualty and strike (and age and sex) combinations are created with
+zero counts for those combinations with no fatalities
+
+- a list of aggregated whw and nov matrices is returned
 }

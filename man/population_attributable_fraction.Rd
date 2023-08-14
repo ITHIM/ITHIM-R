@@ -2,7 +2,7 @@
 % Please edit documentation in R/population_attributable_fraction.R
 \name{population_attributable_fraction}
 \alias{population_attributable_fraction}
-\title{Calculate population attributable fraction}
+\title{Calculate population attributable fraction - CURRENTLY NOT BEING USED}
 \usage{
 population_attributable_fraction(pop, cn, mat)
 }
@@ -17,5 +17,5 @@ population_attributable_fraction(pop, cn, mat)
 population attributable fractions by demographic group
 }
 \description{
-Calculate population attributable fraction
+Calculate population attributable fraction - CURRENTLY NOT BEING USED
 }

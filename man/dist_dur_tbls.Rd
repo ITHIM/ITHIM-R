@@ -2,16 +2,18 @@
 % Please edit documentation in R/dist_dur_tbls.R
 \name{dist_dur_tbls}
 \alias{dist_dur_tbls}
-\title{Get distances and durations}
+\title{Get distances and duration summaries by mode}
 \usage{
 dist_dur_tbls(trip_scen_sets)
 }
 \arguments{
-\item{trip_scen_sets}{list of synthetic trip sets for scenarios}
+\item{trip_scen_sets}{list of synthetic trip sets for each scenario including the baseline}
 }
 \value{
 list of table of (total) distances and durations per mode per scenario
 }
 \description{
-Summaries of total distances and durations spent travelling per mode per scenario
+Summaries of total distances and durations spent travelling per mode and per scenario, for the synthetic population
+Adds walk_to_pt to pedestrian distances and duration and bus driver and car driver distances
+are re-calculated for the scenarios
 }

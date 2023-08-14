@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_trips.R
 \name{add_trips}
 \alias{add_trips}
-\title{Add trips to trip set}
+\title{Additional trips for trip data set}
 \usage{
 add_trips(
   trip_ids = 0,
@@ -28,7 +28,7 @@ add_trips(
 
 \item{sex}{sex for participant}
 
-\item{nTrips}{number of trips for participant}
+\item{nTrips}{number of trips for each participant}
 
 \item{speed}{speed for new trips}
 }
@@ -36,5 +36,14 @@ add_trips(
 data frame of trips
 }
 \description{
-Creates a data frame of the same description as a trip set to append
+Creates a data frame with given characteristics to be added to an existing trip data set.
+}
+\details{
+This function is used to create new trips with certain characteristics that can be added to an existing trip data set.
+The input distance given is the upper limit of trip distances added and the function takes the number of trips per 
+person (nTrips) random samples between 1 and the input distance given. Age and sex of each participant are also 
+sampled from a range of input age and sex values.
+
+The function performs the following steps:
+- create nTrips new trips sampling from distances, ages and sexes
 }

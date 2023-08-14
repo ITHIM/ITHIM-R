@@ -28,7 +28,7 @@ create_africa_india_scenarios <- function(trip_set){
                                   c(47.2, 33.8, 25.8, 37.2), # distance category 2-6km
                                   c(16.0, 58.2, 72.7, 53.1))
   
-  percentage_change <- 0.05
+  percentage_change <- SCENARIO_INCREASE # increase of each mode as percentage of total number of trips.
   
   
   rdr_baseline <- rdr %>% dplyr::select(c('trip_id', 'trip_distance_cat','scenario','trip_mode')) %>% filter() 

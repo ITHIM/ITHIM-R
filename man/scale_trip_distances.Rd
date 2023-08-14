@@ -10,8 +10,13 @@ scale_trip_distances(trips)
 \item{trips}{data frame, all trips from all scenarios}
 }
 \value{
-data frame, all trips from all scenarios
+data frame, all trips from all scenarios with scaled distances
 }
 \description{
 Applies mode-specific distance scalars to all trips
+}
+\details{
+The function is used to multiply all trip stages belonging to a certain mode
+by a city specific scalar. Note that walk to pt stages are counted as
+public transport stages and are multiplied by the DISTANCE_SCALAR_PT
 }

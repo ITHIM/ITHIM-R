@@ -2,7 +2,7 @@
 % Please edit documentation in R/scenario_co2_calculations.R
 \name{scenario_co2_calculations}
 \alias{scenario_co2_calculations}
-\title{Calculate total CO2 exposure per mode}
+\title{Calculate total CO2 exposure per mode and scenario}
 \usage{
 scenario_co2_calculations(dist)
 }
@@ -13,5 +13,11 @@ scenario_co2_calculations(dist)
 total CO2 exposure per mode
 }
 \description{
-Calculate total CO2 exposure per person based on population and personal travel
+Calculate total CO2 exposure per person based on population and personal travel for each scenario
+}
+\details{
+This function performs the following steps:
+- calculate emission factors for each mode by dividing total emissions by distances travelled
+- calculate CO2 emissions for each mode in each scenario by multiplying the scenario distance times the emission factors
+- for modes without any assigned distance, use the CO2 emissions from the VEHICLE_INVENTORY instead
 }

@@ -1,4 +1,4 @@
-#' Calculate RR given PA
+#' Calculate RR given PA - CURRENTLY NOT USED
 #' 
 #' Calculate RR for a disease given PA
 #' 

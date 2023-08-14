@@ -51,7 +51,15 @@ cities <- names(io)[!names(io) %in% 'scen_prop']
 
 scen_names <- c("Baseline", "Bicycling", "Driving", "Public Transport", "Motorcycling")
 
-input_parameter_file <- "InputParameters_v28.0.xlsx"
+NUMS <- io$scen_prop |> nrow()
+
+if (NUMS != 4)
+  scen_names <- c("Baseline", "Bicycling", "Driving", "Public Transport")
+
+scen_length <- length(scen_names) - 1
+
+if (!exists("input_parameter_file"))
+  input_parameter_file <<- "InputParameters_v30.1.xlsx"
 # scenario definition
 scenario_name <- "GLOBAL"
 reference_scenario <- 'Baseline'
@@ -182,10 +190,10 @@ for (x in 1:length(cities)) {
   #                                                       "Public Transport")
                                                          
   n_col <- ncol(io[[cities[x]]]$outcomes$pm_conc_pp)
-  names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - 4):n_col] <- scen_names
+  names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - scen_length):n_col] <- scen_names
   
   data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc,
-                      Baseline:`Motorcycling`, factor_key = TRUE)
+                      Baseline:scen_names[length(scen_names)], factor_key = TRUE)
   y <- ggplot(data_long, aes(x = scenario, y = pm_conc, fill = scenario)) +
     geom_boxplot(outlier.shape = 8) + ggtitle(cities[x]) +
     labs(y = "Daily PM2.5 Concentration", x = "Scenarios") #+
@@ -215,9 +223,9 @@ for (x in 1:length(cities)) {
   #names(io[[cities[x]]]$outcomes$pm_conc_pp)[6:11]<-c("Baseline","Walking", "Bicycling", "Driving", "Motorcycling", "Public Transport")
   #
   n_col <- ncol(io[[cities[x]]]$outcomes$pm_conc_pp)
-  names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - 4):n_col] <- scen_names
+  names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - scen_length):n_col] <- scen_names
   data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc,
-                      Baseline:`Motorcycling`, factor_key = TRUE)
+                      Baseline:scen_names[length(scen_names)], factor_key = TRUE)
   summary <- as.data.frame(data_long %>% group_by(scenario) %>%
                              summarise('mean' = mean(pm_conc),
                                        '5th' = quantile(pm_conc, 0.05),
@@ -307,9 +315,9 @@ print(kable(co2_conc))
 limit = 100
 for (x in 1:length(cities)) {
   n_col <- ncol(io[[cities[x]]]$outcomes$mmets)
-  names(io[[cities[x]]]$outcomes$mmets)[(n_col - 4):n_col] <- scen_names
+  names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- scen_names
   
-  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:`Motorcycling`, factor_key = TRUE)
+  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:scen_names[length(scen_names)], factor_key = TRUE)
   y <- ggplot(data_long, aes(x = scenario, y = mmet, fill = scenario)) +
     geom_boxplot(outlier.shape = NA) + ggtitle(cities[x]) + 
     labs(y = "Weekly MMET", x = "Scenarios")+  ylim(0, limit)
@@ -323,9 +331,9 @@ for (x in 1:length(cities)) {
 for (x in 1:length(cities)) {
   #names(io[[cities[x]]]$outcomes$mmets)[5:10] <- c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
   n_col <- ncol(io[[cities[x]]]$outcomes$mmets)
-  names(io[[cities[x]]]$outcomes$mmets)[(n_col - 4):n_col] <- scen_names
+  names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- scen_names
   
-  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:Motorcycling, factor_key = TRUE)
+  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:scen_names[length(scen_names)], factor_key = TRUE)
   summary <- as.data.frame(data_long %>% group_by(scenario) %>% 
                              summarise('mean' = mean(mmet),
                                        '5th' = quantile(mmet, 0.05),
@@ -349,7 +357,7 @@ for (city in cities)
   #  
   n_col <- ncol(io[[cities[x]]]$outcomes$mmets)
 
-  td <- round(colMeans(io[[city]]$outcomes$mmets[,(n_col - 4):n_col], na.rm = T), 1) %>%
+  td <- round(colMeans(io[[city]]$outcomes$mmets[,(n_col - scen_length):n_col], na.rm = T), 1) %>%
     as.data.frame() %>% tibble::rownames_to_column()
   names(td) <- c('Scenario', city)
   
@@ -403,10 +411,10 @@ for (x in 1:length(cities)) {
   # PM 2.5 table and plot
   n_col <- ncol(io[[cities[x]]]$outcomes$mmets)
   
-  names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - 4):n_col] <- scen_names
+  names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - scen_length):n_col] <- scen_names
   
   data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc,
-                      Baseline:`Motorcycling`, factor_key = TRUE)
+                      Baseline:scen_names[length(scen_names)], factor_key = TRUE)
   
   summary2 <- as.data.frame(data_long %>% group_by(scenario) %>%
                              summarise('mean' = mean(pm_conc),
@@ -462,8 +470,8 @@ write_csv(bind_rows(l), "results/multi_city/AP/desc_stats.csv")
 limit = 100
 for (x in 1:length(cities)) {
   n_col <- ncol(io[[cities[x]]]$outcomes$mmets)
-  names(io[[cities[x]]]$outcomes$mmets)[(n_col - 4):n_col] <- scen_names
-  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:`Motorcycling`, factor_key = TRUE)
+  names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- scen_names
+  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:scen_names[length(scen_names)], factor_key = TRUE)
   y <- ggplot(data_long, aes(x = scenario, y = mmet, fill = scenario)) + geom_boxplot(outlier.shape = NA) + ggtitle(cities[x]) + 
     labs(y = "Weekly MMET", x = "Scenarios") + ylim(0, limit)
   print(y)

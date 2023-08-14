@@ -2,10 +2,30 @@
 % Please edit documentation in R/complete_trip_distance_duration.R
 \name{complete_trip_distance_duration}
 \alias{complete_trip_distance_duration}
-\title{Data harmonisation: add columns to trip set if missing}
+\title{Add missing trip information}
 \usage{
 complete_trip_distance_duration()
 }
 \description{
-Creates any columns needed and missing from the trip set, then writes the trip set to the global enviroment
+Adds any missing trip information such as stage duration or stage distance.
+}
+\details{
+This function performs to following steps to calculate stage duration or stage distance. Note that
+we need at least trip duration or stage distance or stage stage duration:
+
+- add speed column
+
+- if there is no stage duration:
+ - calculate the stage duration if the stage distance is given using the mode speeds
+ - if the stage duration sum is 'NA' (i.e. if not all stage distances exist or if there are no stage distances at all):
+     - if trip duration exists and its sum is not NA, then find the trip ids with 'NA' stage duration and replace those
+       stage duration with the trip duration divided by the number of stages of that particular trip
+     - remove any remaining trips with 'NA' stage distance
+     - update the stage speed column
+     
+- if there is no stage distance:
+ - calculate stage distance using the stage duration and mode speeds
+
+- if there is no trip distance:
+ - calculate trip distance by summing over the stage distances
 }

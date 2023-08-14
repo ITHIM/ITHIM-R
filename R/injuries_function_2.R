@@ -1,35 +1,40 @@
 #' Predict injuries
 #' 
-#' Predict injuries for baseline and scenarios based on regression model based on baseline fatality counts and distances
+#' Predict injuries for baseline and scenarios based on Poisson regression model fitted 
+#' on baseline fatality counts and distances
 #' 
 #' This function uses the Poisson regression model built in the distances_for_injury_function.R to predict fatality
 #' counts for the Baseline and all the scenarios. It performs the following steps:
 #' 
 #' - create an injuries data frame containing all the distances travelled by mode, age, sex and scenario
 #' 
-#' - predict the fatalities for each strike and casualty combination, age and sex category and each scenario. If the sample
-#'   mode is set to constant (and not sample), we also predict an upper and lower 95% confidence interval.
+#' - predict the fatalities for each strike and casualty mode combination, age and sex category
+#'   and each scenario (incl Baseline). If the sample mode is set to 'constant' (and not 'sample'), 
+#'   we also predict upper and lower confidence interval boundaries
 #'
-#' - create a whw_temp list containing the total predicted fatality counts for each casualty and strike mode pair for each 
-#'   scenario split into whw and nov matrices and, for the constant mode also giving the upper and lower 95% confidence 
-#'   interval limit predictions.
+#' - create a whw_temp list containing the total predicted fatality counts for each casualty
+#'   and strike mode pair for each scenario split into whw and nov matrices and, for the 
+#'   constant mode also give the upper and lower confidence interval limit predictions
 #' 
-#' - create an injuries2 data frame containing the total predicted fatality counts for each casualty mode by age and sex for each
-#'   scenario. This data frame also contains total death per age and sex category and, for the constant mode the 95% confidence 
-#'   upper and lower total death predictions.
+#' - create an injuries2 data frame containing the total predicted fatality counts 
+#'   for each casualty mode by age and sex for each scenario. This dataframe also
+#'   contains total death per age and sex category and, for the constant mode the 
+#'   upper and lower total death predictions of the confidence interval.
 #' 
 #' 
 #' 
 #' 
-#' @param true_distances data frame to set up results
-#' @param injuries_list list of data frames to supply to regression model for prediction
-#' @param reg_model regression glm object
+#' @param true_distances data frame containing population distances for each scenario
+#' @param injuries_list list of dataframes set up with scenario specific information to supply to regression model for prediction
+#' @param reg_model Poisson injury regression model
 #' @param constant_mode whether or not we are in constant (vs sampling) mode
 #' 
-#' @return injuries2 (data frame containing predicted fatality counts for each casualty mode by age and sex and for each scenario, plus confidence interval limits for constant mode)
-#' @return whw_temp (list containing the fatality predictions for each casualty and strike mode pair split into whw and nov matrices for each scenario. Upper and lower 95% confidence interval predictions are also included in the constant mode)
+#' @return injuries2 - dataframe containing predicted fatality counts for each casualty mode by age and sex and for each scenario, plus confidence interval limits for constant mode
+#' @return whw_temp - list containing the fatality predictions for each casualty and strike mode pair split into whw and nov matrices for each scenario. Upper and lower confidence interval predictions are also included for the constant mode
 #' 
 #' @export
+
+
 injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_mode=F){
   
   # create a list of all cas modes found within the whw and nov matrices
@@ -45,14 +50,14 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
   
   # join demographic with distance information to add demographic index
   injuries <- true_distances
-  # both tibbles, return tibble
   injuries <- dplyr::left_join(injuries,demographic,by=c('age_cat','sex'))
   injuries$bus_driver <- 0
   injuries_lb <- injuries_ub <- injuries
   
   colnames(demographic)[which(colnames(demographic)=='sex')] <- 'cas_gender'
   
-  ############ predict fatality counts using a pre-defined Poisson regression model
+  ############ predict fatality counts using the pre-defined Poisson regression model
+  
   whw_temp <- list()
   for(scen in SCEN){ # loop through scenarios incl baseline
     whw_temp[[scen]] <- list()
@@ -75,14 +80,16 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
                                                                             type='link', se.fit = TRUE)[1:2]),
                                                           c('fit_link','se_link')))
       
-      ## create the 95% confidence interval using 2 times the standard error (se) and back-transform
+      # create the 95% confidence interval using 2 times the standard error (se) and back-transform
       injuries_list[[scen]][[type]] <- mutate(injuries_list[[scen]][[type]],
                                               pred  = ilink(fit_link),
                                               pred_ub = ilink(fit_link + (2 * se_link)),
                                               pred_lb = ilink(fit_link - (2 * se_link)))
       
-      if(constant_mode){ # aggregate by strike mode and cas mode and create table with columns containing the cas mode
-        # and rows for the strike modes for the whw matrices
+      # for constant mode aggregate by strike mode and cas mode and create table with columns 
+      # containing the cas mode and rows for the strike modes for the whw and nov matrices
+      if(constant_mode){ 
+        
         whw_temp[[scen]][[type]] <- sapply(unique(injuries_list[[scen]][[type]]$cas_mode),function(x)
           sapply(unique(injuries_list[[scen]][[type]]$strike_mode),
                  function(y)sum(subset(injuries_list[[scen]][[type]], 
@@ -95,8 +102,9 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
         }
       }
       
-      if(constant_mode){ # add additional tables where the predicted fatalities are aggregated by cas and strike mode for the
-        # upper and lower 95% confidence interval limits
+      # if constant_mode add additional tables where the predicted fatalities are aggregated by cas and strike mode for the
+      # upper and lower 95% confidence interval limits
+      if(constant_mode){ 
         for(conf in c("ub", "lb")){ #loop through upper and lower confidence interval limits
           var_name <- paste0(type, "_", conf)
           whw_temp[[scen]][[var_name]] <- sapply(unique(injuries_list[[scen]][[type]]$cas_mode),function(x)
@@ -112,7 +120,7 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
       }
       
       # add demographic index to predicted fatality counts
-      # data.frame and tibble, returns data.frame
+      # dataframe and tibble, returns dataframe
       suppressWarnings(
         injuries_list[[scen]][[type]] <- dplyr::left_join(injuries_list[[scen]][[type]],demographic,by=c('age_cat','cas_gender'))
       )
@@ -121,9 +129,12 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
     # set all columns values for the respective scenario and casualty mode to 0
     for(injured_mode in cas_modes)
       for(index in unique(injuries$dem_index)){
-        injuries[injuries$scenario == scen & injuries$dem_index == index, match(injured_mode, colnames(injuries))] <- 0
-        injuries_lb[injuries_lb$scenario == scen & injuries_lb$dem_index == index, match(injured_mode, colnames(injuries_lb))] <- 0
-        injuries_ub[injuries_ub$scenario == scen & injuries_ub$dem_index == index, match(injured_mode, colnames(injuries_ub))] <- 0
+        injuries[injuries$scenario == scen & injuries$dem_index == index, 
+                 match(injured_mode, colnames(injuries))] <- 0
+        injuries_lb[injuries_lb$scenario == scen & injuries_lb$dem_index == index, 
+                    match(injured_mode, colnames(injuries_lb))] <- 0
+        injuries_ub[injuries_ub$scenario == scen & injuries_ub$dem_index == index, 
+                    match(injured_mode, colnames(injuries_ub))] <- 0
       }
     
     # update values with new fatality predictions
@@ -131,9 +142,9 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
       for(index in unique(injuries$dem_index))
         for(type in INJURY_TABLE_TYPES)
           injuries[injuries$scenario == scen & injuries$dem_index == index, match(injured_mode, colnames(injuries))] <- 
-            injuries[injuries$scenario == scen & injuries$dem_index == index, match(injured_mode, colnames(injuries))] + 
-            sum(injuries_list[[scen]][[type]][injuries_list[[scen]][[type]]$cas_mode==injured_mode &
-                                                injuries_list[[scen]][[type]]$dem_index==index,]$pred, na.rm = T) |> as.numeric()
+              injuries[injuries$scenario == scen & injuries$dem_index == index, match(injured_mode, colnames(injuries))] + 
+              sum(injuries_list[[scen]][[type]][injuries_list[[scen]][[type]]$cas_mode==injured_mode &
+              injuries_list[[scen]][[type]]$dem_index==index,]$pred, na.rm = T) |> as.numeric()
     
     # repeat for upper and lower confidence interval limits
     if(constant_mode)
@@ -154,8 +165,6 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
   
   
   # Create a total death count by summing across all casualty modes
-  # Assume injuries as tibble and use dplyr instead
-  
   # Also remove NAs
   injuries <- injuries %>% ungroup() %>% mutate(Deaths = rowSums(dplyr::select(., cas_modes %>% as.character()), na.rm = T))
   
@@ -170,8 +179,10 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
     injuries_lb <- injuries_lb %>% ungroup() %>% mutate(Deaths_lb = rowSums(dplyr::select(., cas_modes %>% as.character()), na.rm = T))
     injuries_ub <- injuries_ub %>% ungroup() %>% mutate(Deaths_ub = rowSums(dplyr::select(., cas_modes %>% as.character()), na.rm = T))
     
-    injuries2 <- dplyr::left_join(injuries2, injuries_lb %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_lb), by = c('age_cat', 'sex', 'dem_index', 'scenario'))
-    injuries2 <- dplyr::left_join(injuries2, injuries_ub %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_ub), by = c('age_cat', 'sex', 'dem_index', 'scenario'))
+    injuries2 <- dplyr::left_join(injuries2, injuries_lb %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_lb), 
+                                  by = c('age_cat', 'sex', 'dem_index', 'scenario'))
+    injuries2 <- dplyr::left_join(injuries2, injuries_ub %>% dplyr::select(age_cat, sex, dem_index, scenario, Deaths_ub), 
+                                  by = c('age_cat', 'sex', 'dem_index', 'scenario'))
   
   }
 
@@ -180,10 +191,11 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
 
 
 # @title remove_missing_levels
+#
 # @description Accounts for missing factor levels present only in test data
 # but not in train data by setting values to NA, i.e. if the data for which the predictions
 # are made contains factor levels which do not appear in the baseline data used to 
-# parameterize the model, then we set the predictions for those factors to NA
+# parameterize the model, then we set the predictions for those factors to NA.
 # Without this function, the entire model outputs would be NA if at least one factor level was unknown
 #
 # @import magrittr
@@ -199,11 +211,14 @@ injuries_function_2 <- function(true_distances,injuries_list,reg_model,constant_
 # @keywords internal
 #
 ##!! temporary fix for missing (age) factors
+#
+# Adapted from  https://stackoverflow.com/a/39495480/4185785
+#
 #' @export
+ 
+
 remove_missing_levels <- function(fit, test_data) {
-  
-  # https://stackoverflow.com/a/39495480/4185785
-  
+
   # drop empty factor levels in test data
   test_data <- as.data.frame(droplevels(test_data))
   

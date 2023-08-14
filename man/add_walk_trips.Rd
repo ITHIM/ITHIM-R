@@ -2,16 +2,40 @@
 % Please edit documentation in R/add_walk_trips.R
 \name{add_walk_trips}
 \alias{add_walk_trips}
-\title{Add pedestrian trips to trip set}
+\title{Addition of 'walk to public transport' stages to trip set}
 \usage{
 add_walk_trips(pt_trips)
 }
 \arguments{
-\item{pt_trips}{data frame of PT trips}
+\item{pt_trips}{data frame of PT trips without walking component}
 }
 \value{
 list of data frames of PT trips and walk-to-PT trips
 }
 \description{
-Create data frame of walk-to-PT trips from PT trips and walk-to-bus time
+Add walk to 'public transport stages' to those public transport trips that do not have a walking stage
+}
+\details{
+Function to add additional walking stages to those public transport trips that do not have a walking stage 
+and have a longer trip duration than the MINIMUM_PT_TIME plus the BUS_WALK_TIME / RAIL_WALK_TIME parameters.
+The MINIMUM_PT_TIME is a global input parameter that determines the minimum amount of time  (in minutes) a
+person travelling on public transport spends on the public transport stage. The BUS_WALK_TIME / RAIL_WALK_TIME 
+parameter is a city specific input parameter that determines the duration of the walk to public transport walking stage. 
+
+This function performs the following steps:
+
+- filter out the PT stages of PT trips and only keep the stage with the longest duration as we
+  only add one 'walk to public transport' stage per trip
+- find the trip stages that need changing
+- add new 'walk to pt' stages. If the duration of the public transport stage is shorter than  
+  BUS_WALK_TIME / RAIL_WALK_TIME + MINIMUM_PT_TIME, set the new stage duration to 3. Otherwise, 
+  set the new stage duration to either BUS_WALK_TIME or RAIL_WALK_TIME depending on the trip mode
+- update the original public transport stage duration
+- calculate the 'walk to pt' stage distance using the walking speed
+- update the original public transport stage distance using the respective public transport
+  speed and the updated duration
+- keep record of the number of newly added 'walk to pt' stages
+- update the total trip distances
+- update the trip distance categories
+- remove any 'walk to pt' stages with zero duration and length
 }

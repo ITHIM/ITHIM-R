@@ -1,20 +1,33 @@
-#' Addition of walk to public transport stages to trip set
+#' Addition of 'walk to public transport' stages to trip set
 #' 
-#' Add walk to public transport stages to those public transport trips that do not have a walking stage
+#' Add walk to 'public transport stages' to those public transport trips that do not have a walking stage
 #' 
 #' Function to add additional walking stages to those public transport trips that do not have a walking stage 
-#' and have a longer duration than the MINIMUM_PT_TIME plus the BUS_WALK_TIME / RAIL_WALK_TIME parameters. The MINIMUM_PT_TIME is 
-#' a global input parameter that determines how many minutes a person travelling on public transport spends on 
-#' the public transport stage. The BUS_WALK_TIME / RAIL_WALK_TIME parameter is a city specific input parameter that determines 
-#' the duration of the walk to public transport walking stage. 
+#' and have a longer trip duration than the MINIMUM_PT_TIME plus the BUS_WALK_TIME / RAIL_WALK_TIME parameters.
+#' The MINIMUM_PT_TIME is a global input parameter that determines the minimum amount of time  (in minutes) a
+#' person travelling on public transport spends on the public transport stage. The BUS_WALK_TIME / RAIL_WALK_TIME 
+#' parameter is a city specific input parameter that determines the duration of the walk to public transport walking stage. 
 #' 
-#' For PT trips that are long enough and do not have a walking stage, the BUS_WALK_TIME / RAIL_WALK_TIME duration is subtracted from 
-#' the total trip duration. Using the mode specific speeds, the distance travelled of the public transport stage of the trip is 
-#' re-calculated. Using the newly calculated public transport stage distance and the walk to pt stage distance, the total trip
-#' distance is also re-calculated. A complete set of pt trips stages and walk to put trip stages is returned.
+#' This function performs the following steps:
+#' 
+#' - filter out the PT stages of PT trips and only keep the stage with the longest duration as we
+#'   only add one 'walk to public transport' stage per trip
+#' - find the trip stages that need changing
+#' - add new 'walk to pt' stages. If the duration of the public transport stage is shorter than  
+#'   BUS_WALK_TIME / RAIL_WALK_TIME + MINIMUM_PT_TIME, set the new stage duration to 3. Otherwise, 
+#'   set the new stage duration to either BUS_WALK_TIME or RAIL_WALK_TIME depending on the trip mode
+#' - update the original public transport stage duration
+#' - calculate the 'walk to pt' stage distance using the walking speed
+#' - update the original public transport stage distance using the respective public transport
+#'   speed and the updated duration
+#' - keep record of the number of newly added 'walk to pt' stages
+#' - update the total trip distances
+#' - update the trip distance categories
+#' - remove any 'walk to pt' stages with zero duration and length
 #' 
 #' 
-#' @param pt_trips data frame of PT trips
+#' 
+#' @param pt_trips data frame of PT trips without walking component
 #' 
 #' @return list of data frames of PT trips and walk-to-PT trips
 #' 
@@ -29,7 +42,7 @@ add_walk_trips <- function(pt_trips){
   # only keep one PT stage (the one with the highest stage duration) for each trip id, as only want to add walk to pt once for each trip
   walk_trips <- walk_trips %>% group_by(trip_id) %>% filter(stage_duration == max(stage_duration)) %>% slice(1) %>% ungroup() 
   
-  #double_walk <- anti_join(walk_trips, walk_trips2, by = 'id')
+  
     
   # find trip stages that remain unchanged
   pt_trips_unchanged <- anti_join(pt_trips, walk_trips, by = 'id')

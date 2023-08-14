@@ -1,4 +1,4 @@
-#' Calculate population attributable fraction
+#' Calculate population attributable fraction - CURRENTLY NOT BEING USED
 #' 
 #' 
 #' 

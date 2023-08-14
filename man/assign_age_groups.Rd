@@ -14,7 +14,7 @@ assign_age_groups(
 )
 }
 \arguments{
-\item{dataset}{data frame to be edited}
+\item{dataset}{data frame to which age categories are to be added and ages outside model scope are removed}
 
 \item{age_category}{vector of strings giving age categories}
 
@@ -30,5 +30,11 @@ assign_age_groups(
 edited data frame
 }
 \description{
-Prunes dataset given max and min ages; assigns age group labels given age
+Prunes the dataset given max and min ages, i.e. removes entries of people with ages outside the scope of the model and 
+assigns age group labels given age
+}
+\details{
+The function contains the following steps:
+- remove any dataset entries with ages above or below the max and min ages or with missing age information
+- add age categories
 }

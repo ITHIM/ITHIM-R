@@ -1,14 +1,32 @@
 #' Get distances and duration summaries by mode
 #' 
 #' Summaries of total distances and durations spent travelling per mode and per scenario, for the synthetic population
-#' Adds walk_to_pt to pedestrian distances and duration and bus driver and car driver distances
-#' are re-calculated for the scenarios
+#' 
+#' The function performs the following steps:
+#' 
+#' - loop through the scenarios (incl Baseline):
+#'   - using the trip data, sum across the distances by stage mode to get total
+#'     distance by mode for each scenario for the synthetic population
+#'   - sum across the duration by stage mode to get total duration by mode for each scenario
+#'   - if 'walk_to_pt' stages exist, add them to the pedestrian stages for both 
+#'     duration and distance
+#' - create one dataframe containing the total distances by mode for each scenario
+#' - create one dataframe containing the total duration by mode for each scenario
+#' - remove any 'walk_to_pt' stages as they have been added to the pedestrian stages
+#' - update the bus and car driver distances and duration in the scenarios using 
+#'   the ratio of bus/car to bus_driver/car_driver in the baseline scenario (this
+#'   is redundant for the GLOBAL, BOGOTA, AFRICA_INDIA and LATAM scenario definitions
+#'   as bus and car driver distances are already updated during the scenario creation)
+#' 
 #' 
 #' @param trip_scen_sets list of synthetic trip sets for each scenario including the baseline
 #' 
 #' @return list of table of (total) distances and durations per mode per scenario
 #' 
 #' @export
+
+
+
 dist_dur_tbls <- function(trip_scen_sets){
   
   bs <- trip_scen_sets
@@ -35,7 +53,6 @@ dist_dur_tbls <- function(trip_scen_sets){
         local_dur$sum_dur[local_dur$stage_mode == "pedestrian"] +
         local_dur$sum_dur[local_dur$stage_mode == "walk_to_pt"]
     }
-    
     
     # store results
     colnames(local_dist)[2] <- SCEN[i]
@@ -64,10 +81,13 @@ dist_dur_tbls <- function(trip_scen_sets){
   dur$stage_mode <- as.character(dur$stage_mode)
   
   
-  # Note the following lines are redundant with the newer scenario definitions such 
-  # as e.g. create_global_scenarios.R as the bus driver and car driver distances are already 
+  # Note the following lines for updating bus driver and car driver distances are 
+  # redundant with the newer scenario definitions such as e.g. create_global_scenarios.R
+  # as the bus driver and car driver distances are already 
   # re-defined within the scenario creation. 
   
+  # update the bus_driver distances and duration based on the ratio of 
+  # bus_driver to bus distance in the baseline scenario
   # bus travel is linear in bus passenger travel
   bus_passenger_row <- which(dist$stage_mode=='bus')
   if('bus_driver'%in%dist$stage_mode){
@@ -82,8 +102,9 @@ dist_dur_tbls <- function(trip_scen_sets){
     dur[nrow(dur),1] <- 'bus_driver'
   }
 
-
-  ## car travel is linear with regards to number of people in car
+  # update the car_driver distances and duration based on the ratio of 
+  # car_driver to car distance in the baseline scenario
+  # car travel is linear with regards to number of people in car
   car_passenger_row <- which(dist$stage_mode=='car')
   if('car_driver'%in%dist$stage_mode){
     car_driver_row <- which(dist$stage_mode=='car_driver')

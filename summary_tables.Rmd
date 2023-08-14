@@ -841,20 +841,18 @@ cities <- names(io)[!names(io) %in% 'scen_prop']
 l <- list()
 for (city in cities){
   
-  # city <- "antofagasta"
-  
-  td <- io[[city]]$outcomes$mmets %>% dplyr::select(ends_with("mmet")) %>%
-    rename("Baseline" = base_mmet, "CYC_SC" = sc_cycle_mmet,
-           "CAR_SC" = sc_car_mmet,  "BUS_SC" = sc_bus_mmet,
-           "MOT_SC" = sc_motorcycle_mmet) %>% 
+  td <- io[[city]]$outcomes$mmets %>% dplyr::select(ends_with("mmet")) |> 
+    rename_with(recode, base_mmet = "Baseline", sc_cycle_mmet = "CYC_SC",
+           sc_car_mmet = "CAR_SC",  sc_bus_mmet = "BUS_SC",
+           sc_motorcycle_mmet = "MOT_SC") %>% 
     summarise(across(, ~ quantile(.x, c(0.05,0.10,0.25, 0.375, 0.50,0.75,0.90), na.rm = T)), 
               prob = c(0.05,0.10,0.25, 0.375, 0.50,0.75,0.90)) %>%
     pivot_longer(cols = -c(prob)) %>% mutate(city = city)
   
   td1 <- io[[city]]$outcomes$mmets %>% dplyr::select(ends_with("mmet")) %>%
-     rename("Baseline" = base_mmet, "CYC_SC" = sc_cycle_mmet,
-           "CAR_SC" = sc_car_mmet,  "BUS_SC" = sc_bus_mmet,
-           "MOT_SC" = sc_motorcycle_mmet) %>% 
+     rename_with(recode, base_mmet = "Baseline", sc_cycle_mmet = "CYC_SC",
+           sc_car_mmet = "CAR_SC",  sc_bus_mmet = "BUS_SC",
+           sc_motorcycle_mmet = "MOT_SC") |> 
     summarise(across(, ~ mean(.x))) %>%  t() %>% as.data.frame() %>% 
     tibble::rownames_to_column("name") %>% 
     rename(value = V1) %>% 

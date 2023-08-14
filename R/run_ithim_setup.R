@@ -1,17 +1,50 @@
-#' Run the set up script for ITHIM
+#' Run the set up scripts for ITHIM
 #' 
 #' Sets up the basic ITHIM object for onward calculation. Data loading, processing and harmonisation. Setting global values.
 #' 
-#' Parameters have two options: to be set to a constant, and to be sampled from a prespecified distribution.
+#' Parameters have two options: to be set to a constant, and to be sampled from a pre-specified distribution.
 #' Each parameter is given as an argument of length 1 or 2. 
 #' If length 1, it's constant, and set to the global environment. 
 #' If length 2, a distribution is defined and sampled from NSAMPLE times.
-#' There are some exceptions, listed above
+#' (There are some exceptions)
+#' 
+#' This function performs the following steps:
+#' - check whether valid scenario name is called, get error message if not
+#' - set various parameters as global parameters
+#' - find the path to the local data
+#' - set fixed parameters for air pollution inhalation
+#' - define the mode speeds:
+#'    - set default speeds for the various modes
+#'    - update the default speeds with city specific mode speeds if these were given as input parameters
+#'    - ensure similar modes have the same speed assigned
+#'    - define dataframe with modes and speeds
+#' - define PM emissions inventory
+#'    - set default emission values
+#'    - update default values if city specific values were given as input parameters
+#' - define PM emissions inventory
+#'    - set default emission values
+#'    - update default values if city specific values were given as input parameters
+#' - load and processes data from files by calling ithim_load_data.R
+#' - call ithim_setup_parameters.R to set the given input parameters to the global environment if running in constant mode or
+#'    to create nsamples samples from the given distributions for each of the input parameters if running in sample mode
+#' - set flags which cause certain parts of the model to be called at a later stage (ithim_uncertainty.R) IF certain input 
+#'   parameters were sampled from a distribution   
+#' - call complete_trip_distance_duration.R to add any missing stage or distance information to TRIP_SET 
+#' - if none of the corresponding input parameters were sampled from a distribution, call set_vehicle_inventory.R to create a dataframe with 
+#'    mode specific speed, distance and emission information    
+#' - if none of the corresponding input parameters were sampled from a distribution, call get_synthetic_from_trips to set
+#'    synthetic trips and synthetic population   
+#' - if none of the corresponding input parameters were sampled from a distribution, call get_all_distances.R to calculate distances
+#' 
+#' 
+#' 
+#' 
 #' 
 #' @param seed random seed
 #' @param CITY name of the city, and name of the directory containing city data files
 #' @param speeds named list of mode speeds
-#' @param PM_emission_inventory named list of mode emissions
+#' @param PM_emission_inventory named list of mode PM emissions
+#' @param CO2_emission_inventory named list of CO2 mode emissions
 #' @param setup_call_summary_filename name to write setup call summary to
 #' @param DIST_CAT vector string of distance categories in the form '0-6'. (The unit is assumed to be the same as in the trip set.)
 #' @param AGE_RANGE vector of minimum and maximum ages to include
@@ -24,55 +57,54 @@
 #' @param REFERENCE_SCENARIO which scenario forms the reference for the health comparison
 #' @param PATH_TO_LOCAL_DATA path to CITY directory, if not using package
 #' @param NSAMPLES constant integer: number of samples to take
-#' @param BUS_WALK_TIME lognormal parameter: duration of walk to Bus
-#' @param RAIL_WALK_TIME lognormal parameter: duration of walk to Rail
+#' @param BUS_WALK_TIME lognormal parameter: duration of walk to bus stage
+#' @param RAIL_WALK_TIME lognormal parameter: duration of walk to rail stage
 #' @param MMET_CYCLING lognormal parameter: mMETs when cycling
 #' @param MMET_WALKING lognormal parameter: mMETs when walking
 #' @param PM_CONC_BASE lognormal parameter: background PM2.5 concentration
 #' @param PM_TRANS_SHARE beta parameter: fraction of background PM2.5 attributable to transport
-#' @param PA_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from PA RR DR functions
-#' @param AP_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from AP RR DR functions
-#' @param BACKGROUND_PA_SCALAR lognormal parameter: reporting scalar for PA
-#' @param BACKGROUND_PA_CONFIDENCE beta parameter: confidence in accuracy of PA survey
-#' @param INJURY_REPORTING_RATE lognormal parameter: rate of injury reporting
-#' @param CHRONIC_DISEASE_SCALAR lognormal parameter: scalar for background disease rates
-#' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week  - CURRENTLY used as constant only (using as beta parameter would need some further considerations)
-#' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty contribution to SIN_EXPONENT_SUM
-#' @param SIN_EXPONENT_SUM_NOV lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param SIN_EXPONENT_SUM_CYCLE lognormal parameter: linearity of injuries with respect to two modes where victim mode = cycle. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param CASUALTY_EXPONENT_FRACTION_CYCLE beta parameter: casualty contribution to SIN_EXPONENT_SUM  where victim mode = cycle.
-#' @param SIN_EXPONENT_SUM_PED lognormal parameter: linearity of injuries with respect to two modes  where victim mode = pedestrian. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param CASUALTY_EXPONENT_FRACTION_PED beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = pedestrian
-#' @param SIN_EXPONENT_SUM_VEH lognormal parameter: linearity of injuries with respect to two modes where victim mode = a vehicle. SIN_EXPONENT_SUM=2 means no safety in numbers.
-#' @param CASUALTY_EXPONENT_FRACTION_VEH beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = a vehicle.
-#' @param CALL_INDIVIDUAL_SIN logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.
+#' @param PA_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from physical activity relative risk dose response functions
+#' @param AP_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from air pollution relative risk dose response functions
+#' @param BACKGROUND_PA_SCALAR lognormal parameter: reporting scalar for physical activity to correct bias in data
+#' @param BACKGROUND_PA_CONFIDENCE beta parameter: confidence in accuracy of zero non-travel physical activity levels
+#' @param INJURY_REPORTING_RATE lognormal parameter: rate of injury fatality reporting
+#' @param CHRONIC_DISEASE_SCALAR lognormal parameter: scalar for background disease rates to adjust for bias in GBD data
+#' @param DAY_TO_WEEK_TRAVEL_SCALAR beta parameter: rate of scaling travel from one day to one week - CURRENTLY used as constant only (using as beta parameter would need some further considerations)
+#' @param SIN_EXPONENT_SUM lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param CASUALTY_EXPONENT_FRACTION beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM
+#' @param SIN_EXPONENT_SUM_NOV lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param SIN_EXPONENT_SUM_CYCLE lognormal parameter: linearity of injuries with respect to two modes where victim mode = cycle. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param CASUALTY_EXPONENT_FRACTION_CYCLE beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM_CYCLE  where victim mode = cycle
+#' @param SIN_EXPONENT_SUM_PED lognormal parameter: linearity of injuries with respect to two modes  where victim mode = pedestrian. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param CASUALTY_EXPONENT_FRACTION_PED beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM_PED where victim mode = pedestrian
+#' @param SIN_EXPONENT_SUM_VEH lognormal parameter: linearity of injuries with respect to two modes where victim mode = a vehicle. SIN_EXPONENT_SUM=2 means no safety in numbers
+#' @param CASUALTY_EXPONENT_FRACTION_VEH beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM_VEH where victim mode = a vehicle
+#' @param CALL_INDIVIDUAL_SIN logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes
 #' @param BUS_TO_PASSENGER_RATIO beta parameter: number of buses per passenger
 #' @param CAR_OCCUPANCY_RATIO beta parameter: number of people per car (including driver)
-#' @param TRUCK_TO_CAR_RATIO beta parameter: number of trucks per car
-#' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: fraction of total motorcycles that's fleet
-#' @param PROPORTION_MOTORCYCLE_TRIPS beta parameter: proportion of trips that are to be added as motorcycle trips
-#' @param PM_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
-#' @param CO2_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of emission inventory
-#' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar for car distance travelled
-#' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar for walking distance travelled
-#' @param DISTANCE_SCALAR_PT lognormal parameter: scalar for PT distance travelled
-#' @param DISTANCE_SCALAR_CYCLING lognormal parameter: scalar for cycling distance travelled
-#' @param DISTANCE_SCALAR_MOTORCYCLE lognormal parameter: scalar for motorcycle distance travelled
+#' @param TRUCK_TO_CAR_RATIO beta parameter: proportion of truck to car vehicle km travelled
+#' @param FLEET_TO_MOTORCYCLE_RATIO beta parameter: amount of motorcycle trips that are to be added as commercial trips
+#' @param PM_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of PM emission inventory
+#' @param PROPORTION_MOTORCYCLE_TRIPS beta parameter: proportion of trips that are to be added as personal motorcycle trips
+#' @param CO2_EMISSION_INVENTORY_CONFIDENCE beta parameter: confidence in accuracy of CO2 emission inventory
+#' @param DISTANCE_SCALAR_CAR_TAXI lognormal parameter: scalar to adjust for bias in car distance travelled
+#' @param DISTANCE_SCALAR_WALKING lognormal parameter: scalar to adjust for bias in walking distance travelled
+#' @param DISTANCE_SCALAR_PT lognormal parameter: scalar to adjust for bias in PT distance travelled
+#' @param DISTANCE_SCALAR_CYCLING lognormal parameter: scalar to adjust for bias in cycling distance travelled
+#' @param DISTANCE_SCALAR_MOTORCYCLE lognormal parameter: scalar to adjust for biase in motorcycle distance travelled
+#' @param BUS_DRIVER_PROP_MALE scalar: proportion of bus drivers that are male
+#' @param BUS_DRIVER_MALE_AGERANGE character: age range of male bus drivers
+#' @param BUS_DRIVER_FEMALE_AGERANGE character: age range of female bus drivers
+#' @param TRUCK_DRIVER_PROP_MALE scalar: proportion of truck drivers that are male
+#' @param TRUCK_DRIVER_MALE_AGERANGE character: age range of male truck drivers
+#' @param TRUCK_DRIVER_FEMALE_AGERANGE character: age range of female truck drivers
+#' @param COMMERCIAL_MBIKE_PROP_MALE scalar: proportion of commercial motorcycle drivers that are male
+#' @param COMMERCIAL_MBIKE_MALE_AGERANGE character: age range of male commercial motorcycle drivers
+#' @param COMMERCIAL_MBIKE_FEMALE_AGERANGE character: age range of female commercial motorcycle drivers
+#' @param MINIMUM_PT_TIME scalar: minimum time that person spends on public transport
 #' @param SCENARIO_NAME name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO, 
 #'                                              MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)
-#' @param SCENARIO_INCREASE increase of given mode in each scenario (currently used in GLOBAL and BOGOTA scenarios)
-#' @param CO2_emission_inventory named list of mode emissions
-#' @param BUS_DRIVER_PROP_MALE scalar parameter: proportion of bus drivers that are male
-#' @param BUS_DRIVER_MALE_AGERANGE character parameter: age range of male bus drivers
-#' @param BUS_DRIVER_FEMALE_AGERANGE character parameter: age range of female bus drivers
-#' @param TRUCK_DRIVER_PROP_MALE scalar parameter: proportion of truck drivers that are male
-#' @param TRUCK_DRIVER_MALE_AGERANGE character parameter: age range of male truck drivers
-#' @param TRUCK_DRIVER_FEMALE_AGERANGE character parameter: age range of female truck drivers
-#' @param COMMERCIAL_MBIKE_PROP_MALE scalar parameter: proportion of commercial motorcycle drivers that are male
-#' @param COMMERCIAL_MBIKE_MALE_AGERANGE character parameter: age range of male commercial motorcycle drivers
-#' @param COMMERCIAL_MBIKE_FEMALE_AGERANGE character parameter: age range of female commercial motorcycle drivers
-#' @param MINIMUM_PT_TIME minimum time that person spends on public transport
+#' @param SCENARIO_INCREASE increase of given mode in each scenario (currently used in GLOBAL, BOGOTA, LATAM and AFRICA_INDIA scenarios)
 #' 
 #' @return ithim_object list of objects for onward use.
 #' 
@@ -146,81 +178,13 @@ run_ithim_setup <- function(seed = 1,
                             MINIMUM_PT_TIME = 3
                             ){
   
-  ## SUMMARY OF INPUTS
-  # seed = double. sets seed to allow some reproducibility.
-  # CITY = string. used to identify input files.
-  
-  # speeds = named list of doubles. average mode speeds.
-  # PM_emission_inventory = named list of doubles. vehicle emission factors.
-  # CO2_emission_inventory = named list of doubles. CO2 emission factors
-  # setup_call_summary_filename = string. Where to write input call summary.
-  # DIST_CAT = vector of strings. defines distance categories for scenario generation (5 accra scenarios)
-  
-  # AGE_RANGE = vector of length 2, specifying the minimum and maximum ages to be used in the model. Note that the actual 
-  # maximum and minimum will coincide with boundaries in the population and GBD files.
-  
-  # ADD_WALK_TO_PT_TRIPS = logic. T: adds walk trips to all bus trips whose duration exceeds BUS_WALK_TIME for bus trips and RAIL_WALK_TIME for rail trips. F: no trips added
-  # ADD_BUS_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
-  # ADD_CAR_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
-  # ADD_TRUCK_DRIVERS = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
-  # ADD_MOTORCYCLE_FLEET = logic. T: adds `ghost trips', i.e. trips not taken by any participant. F: no trips added
-  # ADD_PERSONAL_MOTORCYCLE_TRIPS = character: if 'no' does not add motorcycle trips otherwise set to geographic region which defines the set-up of the motorcycle trips to be added 
-  
-  
-  # TEST_WALK_SCENARIO = logic. T: run `scenario 0', one simple scenario where everyone takes one (extra) ten-minute walk trip. F: 5 Accra scenarios.
-  # TEST_CYCLE_SCENARIO = logic. F: 5 Accra scenarios.
-  # MAX_MODE_SHARE_SCENARIO = logic. T: run scenarios where we take the maximum mode share across cities and distance categories. F: 5 Accra scenarios.
-  
-  # REFERENCE_SCENARIO = string: at present, one of 'baseline' or 'sc_' followed by name of the mode (e.g. cycle, car, bus etc)
-  # PATH_TO_LOCAL_DATA = string: path to input files, if not one of the default case studies 
-  
-  # NSAMPLES = integer: number of samples to take for each parameter to be sampled
-  
-  # BUS_WALK_TIME = parameter. double: time taken to walk to bus. vector: samples from distribution.
-  # RAIL_WALK_TIME = parameter. double: time taken to walk to rail. vector: samples from distribution.
-  # MMET_CYCLING = parameter. double: sets cycling (M)METs. vector: samples from distribution.
-  # MMET_WALKING = parameter. double: sets walking (M)METs. vector: samples from distribution.
-  # PM_CONC_BASE = parameter. double: sets background PM. vector: samples from distribution.
-  # PM_TRANS_SHARE = parameter. double: sets PM proportion that comes from transport. vector: samples from distribution.
-  
-  # PA_DOSE_RESPONSE_QUANTILE = logic. T: PA dose--response relationship is sampled. F: relationship is fixed.
-  # AP_DOSE_RESPONSE_QUANTILE = logic. T: AP dose--response relationship is sampled. F: relationship is fixed.
-  # CHRONIC_DISEASE_SCALAR = parameter. double: sets scalar for chronic disease background burden. vector: samples from distribution.
-  
-  # BACKGROUND_PA_SCALAR = parameter. double: sets scalar for background PA. vector: samples from distribution.
-  # BACKGROUND_PA_CONFIDENCE = parameter. double between 0 and 1. 1 = use PA data as they are.
-  # INJURY_REPORTING_RATE = parameter. double: sets scalar for injury counts (inverse). vector: samples from distribution.
-  # SIN_EXPONENT_SUM = parameter. double: sets scalar. vector: samples from distribution.
-  # CASUALTY_EXPONENT_FRACTION = parameter. double: sets scalar. vector: samples from distribution.
-  # SIN_EXPONENT_SUM_NOV = parameter. double: sets scalar. vector: samples from distribution.
-  # SIN_EXPONENT_SUM_CYCLE = parameter. double: sets scalar. vector: samples from distribution.
-  # SIN_EXPONENT_SUM_PED = parameter. double: sets scalar. vector: samples from distribution.
-  # CASUALTY_EXPONENT_FRACTION_PED = parameter. double: sets scalar. vector: samples from distribution.
-  # SIN_EXPONENT_SUM_VEH = parameter. double: sets scalar. vector: samples from distribution.
-  # CASUALTY_EXPONENT_FRACTION_VEH = parameter. double: sets scalar. vector: samples from distribution.
-  
-  
-  # DAY_TO_WEEK_TRAVEL_SCALAR = parameter. double: sets scalar for extrapolation from day to week. vector: samples from distribution.
-  # BUS_TO_PASSENGER_RATIO = parameter. double: sets bus distance relative to bus passenger distance. vector: samples from distribution.
-  # CAR_OCCUPANCY_RATIO = parameter. double: sets car distance relative to people in car distance. vector: samples from distribution.
-  # TRUCK_TO_CAR_RATIO = parameter. double: sets truck distance relative to car. vector: samples from distribution.
-  # FLEET_TO_MOTORCYCLE_RATIO = parameter. double: sets fleet distance relative to motorcycle. vector: samples from distribution.
-  # PROPORTION_MOTORCYCLE_TRIPS = parameter. double: defines proportion of trips to be added as motorcycle trips
-  # PM_EMISSION_INVENTORY_CONFIDENCE = parameter. double between 0 and 1. 1 = use emission data as they are.
-  # CO2_EMISSION_INVENTORY_CONFIDENCE = parameter. double between 0 and 1. 1 = use emission data as they are.
-  # DISTANCE_SCALAR_CAR_TAXI = double: sets scalar. vector: samples from distribution.
-  # DISTANCE_SCALAR_WALKING = double: sets scalar. vector: samples from distribution.
-  # DISTANCE_SCALAR_PT = double: sets scalar. vector: samples from distribution.
-  # DISTANCE_SCALAR_CYCLING = double: sets scalar. vector: samples from distribution.
-  # DISTANCE_SCALAR_MOTORCYCLE = double: sets scalar. vector: samples from distribution.
-  
+
   #################################################
   set.seed(seed)
   
   ithim_object <- list()
   
-  ## SET GLOBAL VALUES
-  
+  # check if valid scenario name
   if (!SCENARIO_NAME %in% c("TEST_WALK_SCENARIO",
                             "TEST_CYCLE_SCENARIO",
                             "MAX_MODE_SHARE_SCENARIO",
@@ -239,16 +203,13 @@ run_ithim_setup <- function(seed = 1,
          )
   }
   
+  ## SET GLOBAL VALUES
   SCENARIO_NAME <<- SCENARIO_NAME
   SCENARIO_INCREASE <<- SCENARIO_INCREASE
   
-  #IF (SCENARIO_NAME == "MAX_MODE_SHARE_SCENARIO")
-  
-  
-  ## PROGRAMMING VARIABLES
   NSAMPLES <<- NSAMPLES
   
-  ## MODEL FLAGS
+  ## MODEL FLAGS, set to global
   ADD_WALK_TO_PT_TRIPS <<- ADD_WALK_TO_PT_TRIPS
   ADD_BUS_DRIVERS <<- ADD_BUS_DRIVERS
   ADD_CAR_DRIVERS <<- ADD_CAR_DRIVERS
@@ -258,22 +219,21 @@ run_ithim_setup <- function(seed = 1,
   CALL_INDIVIDUAL_SIN <<- CALL_INDIVIDUAL_SIN
   
   DAY_TO_WEEK_TRAVEL_SCALAR <<- DAY_TO_WEEK_TRAVEL_SCALAR
-
-  ## MODEL VARIABLES
+  
+  REFERENCE_SCENARIO <<- REFERENCE_SCENARIO
+  AGE_RANGE <<- AGE_RANGE
+  DIST_CAT <<- DIST_CAT
+  DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
+  
   CITY <<- CITY
+
+  # find path where local city specific data is stored
   if(is.null(PATH_TO_LOCAL_DATA)){
     PATH_TO_LOCAL_DATA <<- file.path(find.package('ithimr',lib.loc=.libPaths()), 'extdata/local',CITY) 
   }else{
     PATH_TO_LOCAL_DATA <<- PATH_TO_LOCAL_DATA
   }
-  REFERENCE_SCENARIO <<- REFERENCE_SCENARIO
-  AGE_RANGE <<- AGE_RANGE
   
-  #BUS_TO_PASSENGER_RATIO <<- BUS_TO_PASSENGER_RATIO
-  #CAR_OCCUPANCY_RATIO <<- CAR_OCCUPANCY_RATIO
-  #TRUCK_TO_CAR_RATIO <<- TRUCK_TO_CAR_RATIO
-  DIST_CAT <<- DIST_CAT
-  DIST_LOWER_BOUNDS <<- as.numeric(sapply(strsplit(DIST_CAT, "[^0-9]+"), function(x) x[1]))
   
   ## fixed parameters for AP inhalation
   BASE_LEVEL_INHALATION_RATE <<- 1
@@ -283,7 +243,8 @@ run_ithim_setup <- function(seed = 1,
   ROAD_RATIO_SLOPE <<- 0.379
   SUBWAY_PM_RATIO <<- 0.8
   
-  ## default speeds that can be edited by input. 
+  ## Mode speeds
+  # set default speeds that are overwritten if city specific mode speeds are given as input parameters 
   default_speeds <- list( bus = 10, 
                           bus_driver = 10, 
                           minibus = 10, 
@@ -303,13 +264,13 @@ run_ithim_setup <- function(seed = 1,
                           shared_auto = 14.4, 
                           shared_taxi = 12.6, 
                           cycle_rickshaw = 4,
-                          other = 9.1
-  )
+                          other = 9.1)
   if(!is.null(speeds)){
     for(m in names(speeds))
       default_speeds[[m]] <- speeds[[m]]
   }
   
+  ## ensure similar modes have the same speed assigned
   # ensure bus, bus_driver, minibus and minibus_driver have the same speed values
   default_speeds[['bus_driver']] <- default_speeds[['minibus']] <- default_speeds[['minibus_driver']] <- default_speeds[['bus']]
   
@@ -323,17 +284,12 @@ run_ithim_setup <- function(seed = 1,
   default_speeds[['shared_taxi']] <- default_speeds[['taxi']]
   
 
-  
+  # define dataframe with modes and speeds
   TRAVEL_MODES <<- tolower(names(default_speeds))
   MODE_SPEEDS <<- data.frame(stage_mode = TRAVEL_MODES, speed = unlist(default_speeds), stringsAsFactors = F)
-  # cat('\n  SPEEDS \n\n',file=setup_call_summary_filename,append=F)
-  # #print(MODE_SPEEDS)
-  # for(i in 1:nrow(MODE_SPEEDS)) {
-  #   cat(paste0(MODE_SPEEDS[i,]),file=setup_call_summary_filename,append=T); 
-  #   cat('\n',file=setup_call_summary_filename,append=T)
-  # }
-  
-  ## default PM2.5 emission contributions that can be edited by input. 
+ 
+  ## define PM emission inventory
+  # set default PM2.5 emission contributions that are overwritten if city specific input parameters are given
   default_PM_emission_inventory <- list(
     bus=0,
     bus_driver=0.82,
@@ -346,7 +302,7 @@ run_ithim_setup <- function(seed = 1,
     big_truck=0.711,
     other=0.082
   )
-  if(!is.null(PM_emission_inventory)){
+  if(!is.null(PM_emission_inventory)){ # overwrite default inventory if city specific input values are given 
     for(m in names(PM_emission_inventory))
       if(grepl('bus$',m,ignore.case=T)&&!paste0(m,'_driver')%in%names(PM_emission_inventory)){
         default_PM_emission_inventory[[paste0(m,'_driver')]] <- PM_emission_inventory[[m]]
@@ -357,13 +313,10 @@ run_ithim_setup <- function(seed = 1,
   names(default_PM_emission_inventory) <- tolower(names(default_PM_emission_inventory))
   
   PM_EMISSION_INVENTORY <<- default_PM_emission_inventory
-  # cat('\n  PM 2.5 EMISSION INVENTORY \n\n',file=setup_call_summary_filename,append=T)
-  # for(i in 1:length(default_PM_emission_inventory)) {
-  #   cat(paste(names(PM_EMISSION_INVENTORY)[i],PM_EMISSION_INVENTORY[[i]]),file=setup_call_summary_filename,append=T); 
-  #   cat('\n',file=setup_call_summary_filename,append=T)
-  # }
+
   
-  ## default C02 emission contributions that can be edited by input. 
+  ## define CO2 emission inventory
+  # set default C02 emission contributions that are overwritten if city specific input parameters are given
   default_CO2_emission_inventory <- list(
     bus=0,
     taxi=0,
@@ -376,9 +329,7 @@ run_ithim_setup <- function(seed = 1,
     truck	= 6.19,
     other	= 31.28
   )
-  
-  
-  if(!is.null(CO2_emission_inventory)){
+  if(!is.null(CO2_emission_inventory)){  # overwrite default inventory if city specific input values are given 
     for(m in names(CO2_emission_inventory))
       if(grepl('bus$',m,ignore.case=T)&&!paste0(m,'_driver')%in%names(CO2_emission_inventory)){
         default_CO2_emission_inventory[[paste0(m,'_driver')]] <- CO2_emission_inventory[[m]]
@@ -389,14 +340,9 @@ run_ithim_setup <- function(seed = 1,
   names(default_CO2_emission_inventory) <- tolower(names(default_CO2_emission_inventory))
   
   CO2_EMISSION_INVENTORY <<- default_CO2_emission_inventory
-  # cat('\n  CO2 EMISSION INVENTORY \n\n',file=setup_call_summary_filename,append=T)
-  # for(i in 1:length(default_CO2_emission_inventory)) {
-  #   cat(paste(names(CO2_EMISSION_INVENTORY)[i],CO2_EMISSION_INVENTORY[[i]]),file=setup_call_summary_filename,append=T); 
-  #   cat('\n',file=setup_call_summary_filename,append=T)
-  # }
+
   
   ## LOAD DATA
-  #ithim_load_data(setup_call_summary_filename,speeds=default_speeds)  
   ithim_load_data(speeds=default_speeds)  
   
 
@@ -447,9 +393,14 @@ run_ithim_setup <- function(seed = 1,
                                                     COMMERCIAL_MBIKE_FEMALE_AGERANGE = COMMERCIAL_MBIKE_FEMALE_AGERANGE,
                                                     MINIMUM_PT_TIME =MINIMUM_PT_TIME)
   
+  ## Set flags which cause certain parts of the model to be called again IF certain input parameters were sampled from a distribution
   # programming flags: do we need to recompute elements given uncertain variables?
+  
+  # flag causes set_vehicle_inventory.R function to be called at a later stage (ithim_uncertainty.R)
   RECALCULATE_PM_EMISSION_INVENTORY <<- any(c('PM_EMISSION_INVENTORY')%in%names(ithim_object$parameters))
+  # flag causes set_vehicle_inventory.R function to be called at a later stage (ithim_uncertainty.R)
   RECALCULATE_CO2_EMISSION_INVENTORY <<- any(c('CO2_EMISSION_INVENTORY')%in%names(ithim_object$parameters))
+  # flag causes get_synthetic_from_trips.R which sets synthetic trips and synthetic population to be called at a later stage (ithim_uncertainty.R)
   RECALCULATE_TRIPS <<- any(c('BUS_WALK_TIME','RAIL_WALK_TIME',
                               "DISTANCE_SCALAR_PT",
                               "DISTANCE_SCALAR_CAR_TAXI",
@@ -459,7 +410,8 @@ run_ithim_setup <- function(seed = 1,
                               'BUS_TO_PASSENGER_RATIO',
                               'CAR_OCCUPANCY_RATIO',
                               'TRUCK_TO_CAR_RATIO',
-                              'BACKGROUND_PA_ZEROS')%in%names(ithim_object$parameters))
+                              'BACKGROUND_PA_ZEROS')%in%names(ithim_object$parameters)) 
+  # flag causes get_all_distances.R which uses synthetic trips to calculate distances to be called at a later stage (ithim_uncertainty.R)
   RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('SIN_EXPONENT_SUM',
                                                      'CASUALTY_EXPONENT_FRACTION',
                                                      'SIN_EXPONENT_SUM_NOV',
@@ -472,6 +424,8 @@ run_ithim_setup <- function(seed = 1,
   
   ## complete TRIP_SET to contain distances and durations for trips and stages
   complete_trip_distance_duration() 
+  
+  # call set_vehicle_inventory if none of the PM and CO2 are samples from a distribution 
   if(!RECALCULATE_PM_EMISSION_INVENTORY & !RECALCULATE_CO2_EMISSION_INVENTORY) set_vehicle_inventory() # sets vehicle inventory
   
   ## create inventory and edit trips, if they are not variable dependent
@@ -485,21 +439,10 @@ run_ithim_setup <- function(seed = 1,
   }
   ######################
   
-  casualty_modes <- unique(INJURY_TABLE[[1]]$cas_mode)
-  match_modes <- c(TRIP_SET$stage_mode,'pedestrian')
-  if(ADD_TRUCK_DRIVERS) match_modes <- c(match_modes,'truck')
-  # if(!all(casualty_modes%in%match_modes)){
-  #   cat('\n  The following casualty modes do not have distance data and will not be included in injury module:\n',file=setup_call_summary_filename,append=T)
-  #   cat(casualty_modes[!casualty_modes%in%match_modes],file=setup_call_summary_filename,append=T)
-  #   cat('\n\n',file=setup_call_summary_filename,append=T)
-  # }
-  
-  # cat('\n  Emissions will be calculated for the following modes:\n',file=setup_call_summary_filename,append=T)
-  # cat(names(PM_EMISSION_INVENTORY)[unlist(PM_EMISSION_INVENTORY)>0],file=setup_call_summary_filename,append=T)
-  # cat(names(CO2_EMISSION_INVENTORY)[unlist(CO2_EMISSION_INVENTORY)>0],file=setup_call_summary_filename,append=T)
-  # cat("\n  To edit an emission contribution, supply e.g. 'PM_emission_inventory=list(car=4)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
-  # cat("  To exclude a mode from the emission inventory, supply e.g. 'PM_emission_inventory=list(other=0)' in the call to 'run_ithim_setup'.\n\n",file=setup_call_summary_filename,append=T)
-  # cat('\n\n',file=setup_call_summary_filename,append=T)
+  # casualty_modes <- unique(INJURY_TABLE[[1]]$cas_mode)
+  # match_modes <- c(TRIP_SET$stage_mode,'pedestrian')
+  # if(ADD_TRUCK_DRIVERS) match_modes <- c(match_modes,'truck')
+
   
   return(ithim_object)
 }
