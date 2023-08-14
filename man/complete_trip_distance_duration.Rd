@@ -10,7 +10,7 @@ complete_trip_distance_duration()
 Adds any missing trip information such as stage duration or stage distance.
 }
 \details{
-This function performs to following steps to calculate stage duration or stage distance. Note that at
+This function performs to following steps to calculate stage duration or stage distance. Note that
 we need at least trip duration or stage distance or stage stage duration:
 
 - add speed column
@@ -21,10 +21,11 @@ we need at least trip duration or stage distance or stage stage duration:
      - if trip duration exists and its sum is not NA, then find the trip ids with 'NA' stage duration and replace those
        stage duration with the trip duration divided by the number of stages of that particular trip
      - remove any remaining trips with 'NA' stage distance
-     - update the mode speed column
+     - update the stage speed column
      
 - if there is no stage distance:
  - calculate stage distance using the stage duration and mode speeds
 
-- calculate trip distance by summing over the stage distances
+- if there is no trip distance:
+ - calculate trip distance by summing over the stage distances
 }

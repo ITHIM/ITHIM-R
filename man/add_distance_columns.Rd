@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_distance_columns.R
 \name{add_distance_columns}
 \alias{add_distance_columns}
-\title{Add distance columns to injury tables}
+\title{Add strike and casualty distances to injury tables}
 \usage{
 add_distance_columns(
   injury_table,
@@ -19,23 +19,33 @@ add_distance_columns(
 
 \item{true_distances_0}{distances to add to injury table}
 
-\item{dist}{table used to access bus distance}
+\item{dist}{table used to access bus distance - not currently used}
 
 \item{scenarios}{which scenarios to process}
 }
 \value{
-edited (list of) data frame(s), i.e. injury tables with strike and casualty distance information
+injury tables with strike and casualty distance information for both the whw and nov matrices
 }
 \description{
-Add strike and casualty distance columns to injury tables, matching on information in the injury contingency table
+This function adds strike and casualty distance information for both 
+individual age and sex categories and aggregated by mode to both the who-hit-whom (whw)
+and no-other-vehicle (nov) matrices.
 }
 \details{
-This function adds strike and casualty distance information for both individual age and sex categories and aggregated by mode to
-the injury_tables by:
+The function performs the following steps:
 
-- finding the casualty and strike mode distances for each age and sex category if such info exists in the 
-  injury_table if not then it finds the aggregated distances for each casualty and strike mode.
-
-- for strike modes that do not appear in the distance tables based on the trip data set, such as the ´unknown´ mode e.g.,
-  the average of all strike mode distances is used instead.
+- set up a dataframe containing all the age and sex categories found in the
+  injury table input data
+- add age and sex index to mode distances
+- define a list with two elements for whw and nov with the same indices used in the 
+  true_distances dataframe for all age and sex categories
+- define a list (with two elements for whw and nov) matching the indices of the mode_names
+  with the casualty modes in the injury table
+- for the whw matrix create a strike mode indices vector matching the strike modes
+  in the injury table with the strike_modes vector
+- find the strike and casualty distances for all modes in the injury tables both as sum
+  across all age and sex categories and for each individual age and sex category. For modes
+  that exist in the injury tables for which we have no known distances, the mean mode distances
+  of the known modes is used
+- add the strike and casualty modes to the whw and nov matrices in the injuries_list output list
 }

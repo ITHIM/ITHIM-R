@@ -61,18 +61,33 @@
     <h2>Value</h2>
     
 
-<p>original trip data with additional motorcycle trips added</p>
+<p>original trip data with additional personal motorcycle trips added</p>
     </div>
     <div id="details">
     <h2>Details</h2>
     <p>This function is used to create personal motorcycle trips for those Chilean cities which do not have any 
-motorcycle trips in their travel surveys. It uses as input the existing travel survey data for that city and the proportion of these travel
-survey trips that are to be added as additional new motorcycle trips.</p>
+motorcycle trips in their travel surveys. It uses as input the existing travel survey data for that city 
+and the proportion of these travel survey trips that are to be added as additional new motorcycle trips.</p>
 <p>Based on an analysis of the motorcycle trips in the travel surveys of Santiago, San Antonio, 
 Valparaiso and Puerto Montt it makes assumptions about the split between male and female 
-motorcyclists, the number of trips per person and the truncated normal distributions of the distances and ages of the motorcycle trips
-to be added. It creates new trips by assuming that each such trip only has one stage, i.e. that the trip duration and distance
+motorcyclists, the number of trips per person and the truncated normal distributions of the
+distances and ages of the drivers of the personal motorcycle trips to be added. It creates 
+new trips by assuming that each such trip only has one stage, i.e. that the trip duration and distance
 equals the stage duration and distance.</p>
+<p>This function contains the following steps:
+- the characteristics of the motorcycle trips to be added are defined
+- set up the parameters of the truncated normal distributions for male and 
+  female trip duration
+- set up the parameters of the truncated normal distributions for male and 
+  female age ranges
+- find the number of male and female motorcycle trips to be added
+- divide the number of new male and female trips by 2 (= number of trips per person)
+  to calculate the number of new participant ids to be added. If the number of male
+  or female trips is odd, add an additional trip to get a trip number divisible by 2
+- sample from truncated normal distributions to find the duration of new trips (assuming
+  that each trip only consists of one stage)
+- sample from the known age ranges to find the ages of the new male and female 
+  motorcycle trips and create new motorcycle trips</p>
     </div>
 
   </div>
