@@ -1,14 +1,17 @@
 #' Wrapper for running ITHIM
 #' 
-#' Switch to run the computation by calling ithim_calculation_sequence() directly, or divert to the sampling case
-#' ithim_uncertainty.R which first extract the sampled parameters and then call the ithim_calculation_sequence()
+#' Switch to either calculate the health burden using the constant input parameter values or to sample from distributions first
 #' 
-#' The ithim_calculation_sequence() function is defined directly below this function
+#' This function works by creating a switch to run the computation by calling 
+#' ithim_calculation_sequence() directly, or to divert to the sampling case
+#' ithim_uncertainty.R which first extracts the sampled parameters and then calls
+#' the ithim_calculation_sequence()
 #' 
-#' @param ithim_object list of items making up the ithim set up
+#' 
+#' @param ithim_object list of input data needed to calculate the health burden
 #' @param seed 
 #' 
-#' @return ithim_object list of items making up the ithim result
+#' @return ithim_object list of items giving the input data and output results
 #' 
 #' @export
 run_ithim <- function(ithim_object,seed=1){ 
