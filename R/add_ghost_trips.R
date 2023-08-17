@@ -25,18 +25,28 @@
 #' 
 #' The function performs the following steps:
 #' 
-#' - set up the number of people (with regards to males) and trips per per person to be added
-#' - find the total distance of the reference mode
-#' - find the age ranges for male and female trips
-#' - find the number of male and female participants
-#' - calculate the total distance of the new mode to be added based on the reference distance and
+#' \itemize{
+#' \item set up the number of people (with regards to males) and trips per per person to be added
+#' 
+#' \item find the total distance of the reference mode
+#' 
+#' \item find the age ranges for male and female trips
+#' 
+#' \item find the number of male and female participants
+#' 
+#' \item calculate the total distance of the new mode to be added based on the reference distance and
 #'   find the speed of the new mode
-#' - for male trips:
-#'   - define the distance range for each male trip to be added, assume that each trip is of equal length
-#'   - add new male trips sampling from the given age range (add_trips.R)
-#'   - add age and distance categories plus scenario name
-#' - repeat for female trips (assuming female trips are a 10th of the distance
+#' 
+#' \item  for male trips:
+#'    \itemize{
+#'    \item define the distance range for each male trip to be added, assume that each trip is of equal length
+#'    \item add new male trips sampling from the given age range (add_trips.R)
+#'    \item add age and distance categories plus scenario name
+#'   }
+#' \item repeat for female trips (assuming female trips are a 10th of the distance
 #'   of male trips and adding proportionally 10 times as many female trips)
+#' }  
+#'   
 #'   
 #' 
 #' @param raw_trip_set data frame of trips

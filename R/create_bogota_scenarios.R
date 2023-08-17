@@ -7,17 +7,21 @@
 #' and bus by the same pre-defined percentage. 
 #' We assume that:
 #' 
+#' 
 #' - the total number of trips remains the same but trips from other modes (apart from truck, 
 #'   bus driver, car driver and commercial motorcycle trips which remain unchanged initially) are converted
 #'   to the mode in question; truck and commercial motorcycle trips remain constant across all 
 #'   scenarios whilst bus driver and car driver trips are updated based on the new 
 #'   amount of car and bus trips once the increase in mode share has been conducted for each scenario
+#'   
 #' - the percentage share across the three distance bands of the mode that is increased
 #'   is preserved, i.e. if 10% of all cycling trips are in distance band 0-2km
 #'   then after increasing the cycling mode share by x% of all trips we still
 #'   have 10% of all cycling trips in this distance band
+#'   
 #' - For each scenario we always convert the same % of total trips to the mode
-#'   in question, independently of the original overall mode share of that mode. 
+#'   in question, independently of the original overall mode share of that mode.
+#'    
 #' - we preserve the proportion of trips in each distance band. E.g. if 20% of
 #'   all trips are in distance band 0-2km, then for each scenario 20% of all
 #'   trips are still in distance band 0-2km.
@@ -35,12 +39,13 @@
 #' Then, we need to convert 5% x 80% / 60% = 6.67% of non-cycling trips in distance band A
 #' to cycling trips and 5% x 20% / 40% = 2.5% of non-cycling trips to cycling trips in 
 #' distance band B. 
+#' 
 #' Overall, this leads to an increase of 
 #' (5% x 80% / 60%) x 60% + (5% x 20% / 40%) * 40% = 5% 
 #' of cycling trips, whilst preserving the cycling mode shares of 80% in distance
 #' band A and 20% in distance band B and preserving the total mode shares of 60% in
 #' distance band A and 40% in distance band B. The total number of trips is also
-#' preserved,
+#' preserved.
 #' 
 #'
 #' 

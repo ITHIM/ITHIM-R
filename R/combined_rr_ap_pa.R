@@ -4,12 +4,18 @@
 #' to both AP and PA
 #' 
 #' This function performs the following steps:
-#' - join the ap and pa relative risk datasets 
-#' - loop through all disease outcomes that are affected by both PA and AP
-#'   - for each scenario multiply the relative risks for PA and AP and store in a new column
-#'   - if confidence intervals are required, multiply the upper and lower RR for AP
+#' 
+#' \itemize{
+#' \item join the ap and pa relative risk datasets 
+#' 
+#' \item loop through all disease outcomes that are affected by both PA and AP:
+#'     \itemize{
+#'     \item for each scenario multiply the relative risks for PA and AP and store in a new column
+#'
+#'     \item if confidence intervals are required, multiply the upper and lower RR for AP
 #'     and PA respectively wherever possible, otherwise use the given median RR values instead
-#'     
+#'     }
+#' }    
 #' 
 #' @param ind_pa data frame of individual RRs for diseases affected by PA
 #' @param ind_ap data frame of individual RRs for diseases affected by AP
@@ -18,6 +24,8 @@
 #' @return dataframe giving the RR risk for AP, PA and combined AP and PA exposure levels for every person in the synthetic population and for each scenario
 #' 
 #' @export
+
+
 combined_rr_ap_pa <- function(ind_pa, ind_ap, conf_int = FALSE){
   
   # Replace NaNs with 1

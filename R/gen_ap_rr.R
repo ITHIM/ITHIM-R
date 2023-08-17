@@ -3,20 +3,28 @@
 #' Computes the relative risk (RR) for individuals in the synthetic population for each disease given PM exposure
 #' 
 #' This function performs the following steps:
-#' - minimum ages for each age group corresponding to disease risks are assigned to the individuals in the 
+#' \itemize{
+#' \item minimum ages for each age group corresponding to disease risks are assigned to the individuals in the 
 #'   synthetic population (with added PM exposure levels)
-#' - loop through all diseases that are related to PM pollution:
-#'    - depending on the disease (as some disease have different relative risks depending
+#'   
+#' \item loop through all diseases that are related to PM pollution:
+#'   \itemize{
+#'    \item depending on the disease (as some disease have different relative risks depending
 #'      on the age of the individual) loop through disease specific age groups (or just 
 #'      one age group for most disease)
-#'    - set the quantile of the value of the dose response curves to be extracted. If running in 
+#'      
+#'    \item set the quantile of the value of the dose response curves to be extracted. If running in 
 #'      constant mode, the quantile is usually set to 0.5, i.e. to the median of the dose response curves. 
 #'      If running in sample mode, then the quantile can be set to be sampled from a distribution in the 
 #'      input parameters.
-#'    - loop through the scenarios:
-#'      - assign the relative risk for the given disease, age group, quantile and scenario to the 
+#'      
+#'    \item loop through the scenarios:
+#'      \itemize{
+#'      \item assign the relative risk for the given disease, age group, quantile and scenario to the 
 #'        relevant people in the synthetic population by calling the AP_dose_response.R function
-#' 
+#'      }
+#'    }
+#' }
 #' 
 #' @param pm_conc_pp individual PM exposures for each person in the synthetic population
 #' 
