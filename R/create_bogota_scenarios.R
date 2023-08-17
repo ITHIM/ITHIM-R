@@ -7,21 +7,25 @@
 #' and bus by the same pre-defined percentage of the total mode shares. 
 #' We assume that:
 #' 
+#' 
 #' - the total number of trips remains the same but trips from other modes (apart from truck, 
 #'   bus driver, car driver and commercial motorcycle trips which remain unchanged (at least initially)) are converted
 #'   to the mode in question; truck and commercial motorcycle trips remain constant across all 
 #'   scenarios whilst bus driver and car driver trips are updated based on the new 
 #'   amount of car and bus trips once the increase in mode share has been conducted for each scenario
+#'   
 #' - the percentage share across the three distance bands of the mode that is increased
 #'   is preserved, i.e. if 10% of all cycling trips are in distance band 0-2km
 #'   then after increasing the cycling mode share by x% of all trips we still
 #'   have 10% of all cycling trips in this distance band
+#'   
 #' - For each scenario we always convert the same % of total trips to the mode
 #'   in question, independently of the original overall mode share of that mode. 
 #'   I.e. if e.g. 1% of all trips are cycle trips and 50% car trips and we apply a 
 #'   5% increase, then in the cycle scenario 6% of all trips are cycling trips and
 #'   in the car scenario 55% of all trips are car trips. We always add a 5% increase
 #'   of the total trips. 
+#'
 #' - we preserve the proportion of trips in each distance band. E.g. if 20% of
 #'   all trips are in distance band 0-2km, then in each scenario 20% of all
 #'   trips are still in distance band 0-2km.
@@ -39,6 +43,7 @@
 #' Then, we need to convert 5% x 80% / 60% = 6.67% of non-cycling trips in distance band A
 #' to cycling trips and 5% x 20% / 40% = 2.5% of non-cycling trips in distance band B
 #' to cycling trips. 
+#' 
 #' Overall, this leads to an increase of 
 #' (5% x 80% / 60%) x 60% + (5% x 20% / 40%) * 40% = 5% 
 #' of cycling trips, whilst preserving the cycling mode shares of 80% in distance
@@ -75,7 +80,6 @@
 #'   - add all trips across the distance bands and add the non-changeable trips
 #'   - update the bus_driver and car_driver trips
 #' - create a list containing the trips for each scenario as elements
-#' 
 #' 
 #' 
 #' 
