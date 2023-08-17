@@ -4,9 +4,11 @@
 #' assigns age group labels given age
 #' 
 #' The function contains the following steps:
-#' - remove any dataset entries with ages above or below the max and min ages or with missing age information
-#' - add age categories
+#'\itemize{
+#' \item remove any dataset entries with ages above or below the max and min ages or with missing age information
 #' 
+#' \item add age categories
+#' }
 #' 
 #' 
 #' @param dataset data frame to which age categories are to be added and ages outside model scope are removed

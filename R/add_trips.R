@@ -8,8 +8,9 @@
 #' sampled from a range of input age and sex values.
 #' 
 #' The function performs the following steps:
-#' - create nTrips new trips sampling from distances, ages and sexes
-#' 
+#'\itemize{
+#' \item create nTrips new trips sampling from distances, ages and sexes
+#' }
 #' 
 #' @param trip_ids ids for new trips
 #' @param new_mode mode for new trips

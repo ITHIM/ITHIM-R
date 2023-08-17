@@ -7,12 +7,13 @@
 #' The function uses distance data and the individual injury fatality data to perform the following steps
 #' to parameterise the Poisson injury regression model:
 #'
-#'  - stage modes are aggregated such that all walk related stages (walk and walk to pt) are of the same mode (walk), 
+#'\itemize{
+#'  \item stage modes are aggregated such that all walk related stages (walk and walk to pt) are of the same mode (walk), 
 #'    similarly for all car related journeys
 #'
-#'  - bus drivers are added to bus journeys (where relevant) to accurately represent all people on a bus
+#'  \item bus drivers are added to bus journeys (where relevant) to accurately represent all people on a bus
 #'
-#'  - Takes Baseline injury tables, split into who-hit whom (whw) and no-other-vehicle (nov) parts,
+#'  \item Takes Baseline injury tables, split into who-hit whom (whw) and no-other-vehicle (nov) parts,
 #'    and adds total population distances for each strike and casualty mode (add_distance_columns.R). 
 #'    Distances are added by age and gender category if there exists such information for 
 #'    the injury counts (injuries_for_model dataframe). If there exists a fatality for some casualty and 
@@ -25,7 +26,7 @@
 #'    from other modes) that appear in the injury data. - This data is used to parameterise the
 #'    Poisson injury model.
 #'    
-#'  - A new list (injuries_list) is created containing all strike and casualty mode and age and sex combinations 
+#'  \item A new list (injuries_list) is created containing all strike and casualty mode and age and sex combinations 
 #'    together with strike and casualty mode distances (add_distance_columns.R) for the baseline and all scenarios. For 
 #'    the whw model, any strike mode and casualty pairs where strike mode equals casualty mode
 #'    are removed as fatalities for these combinations have already been added to the nov matrix.
@@ -33,10 +34,10 @@
 #'    are also removed. - This list will later be used in the injuries_function_2.R function
 #'    to predict fatality counts using the Poisson injury regression model.
 #'
-#'  - The casualty and strike mode exponents used to account for the safety in number effect
+#'  \item The casualty and strike mode exponents used to account for the safety in number effect
 #'    are added to both the injuries_for_model and injuries_list.
 #'  
-#'  -	The best possible regression model is being built using Baseline injury counts and distances 
+#'  \item	The best possible regression model is being built using Baseline injury counts and distances 
 #'    (injuries_for_model) such that the standard errors are small wherever possible. Strike 
 #'    and casualty mode pairs where cas mode = strike mode are removed if they still exist
 #'    which they should not as they should have been removed by the ithim_load_data.R function.
@@ -46,7 +47,7 @@
 #'    and sex yet, then the data is aggregated and a new Poisson regression model is build. 
 #'    If the standard errors are still large after this aggregation, then a message is 
 #'    printed to the screen warning that the standard errors are large. 
-#' 
+#'} 
 #' 
 #' 
 #' @param journeys data frame with total distance (by total population) for each age and sex category and for each scenario
