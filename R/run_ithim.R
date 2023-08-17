@@ -14,6 +14,8 @@
 #' @return ithim_object list of items giving the input data and output results
 #' 
 #' @export
+
+
 run_ithim <- function(ithim_object,seed=1){ 
   if(length(ithim_object$parameters)>0){ # if running in sampling modes, call ithim_uncertainty()
     ithim_object <- ithim_uncertainty(ithim_object,seed)
@@ -42,23 +44,23 @@ run_ithim <- function(ithim_object,seed=1){
 #'      and PM2.5 emissions for each mode and scenario (scenario_pm_calculations.R)
 #'    - calculate the CO2 emissions for each mode and scenario (scenario_co2_calculations.R)
 #'    - assign relative risk to each person in the synthetic population for each disease
-#'      related to air pollution and each scenario based on the individual PM exposure 
+#'      related to PM pollution and each scenario based on the individual PM exposure 
 #'      levels (gen_ap_rr.R)
 #'      
 #' - (2) physical activity pathway:
 #'    - calculate total mMETs for each person in the synthetic population (total_mmet.R)
 #'    - assign relative risk to each person in the synthetic population for each disease
-#'      related to physical activity levels and each scenario based on the individual MMET
+#'      related to physical activity levels and each scenario based on the individual mMET
 #'      values (gen_pa_rr.R)
 #'  
 #' - (3) physical activity and air pollution combined:
-#'    - combine the PA and AP datasets by joining the two datasets, for disease affected by 
+#'    - combine the PA and AP datasets by joining the two datasets. For disease affected by 
 #'      both PA and AP calculate the joined relative risk by multiplying the PA and AP
 #'      relative risks (combined_rr_ap_pa.R)  
 #'    - calculate the health burden (Yll and deaths) for each disease and age and sex
-#'      category (health_burden.R)
+#'      category (health_burden.R):
 #'      - calculate the health burden (Yll and deaths) for each disease and age 
-#'        and sex category by combining the AP and PA pathways for disease affected
+#'        and sex category. Combine the AP and PA pathways for diseases affected
 #'        by both AP and PA
 #'      - if running in constant mode also calculate the health burden for both the
 #'        AP and PA pathways separately
@@ -70,7 +72,7 @@ run_ithim <- function(ithim_object,seed=1){
 #'      - if running in constant mode include upper and lower confidence intervals  
 #'    - calculate the years of life lost from the injury deaths (injury_death_to_yll.R)
 #'  
-#'  - (5) combine all pathways using the outputs from (3) and (4):
+#' - (5) combine all pathways using the outputs from (3) and (4):
 #'    - combine the AP, PA and injury health burden data for ylls and deaths (join_hb_and_injury.R)
 #'      for all diseases, injuries and scenarios
 #'  
@@ -79,10 +81,14 @@ run_ithim <- function(ithim_object,seed=1){
 #' @param ithim_object name of disease
 #' @param seed
 #' 
-#' @return list of items making up the ithim result
+#' @return ithim_object - list of items making up the ithim result
 #' 
 #' @export
+
+
 ithim_calculation_sequence <- function(ithim_object,seed=1){ 
+  
+  
   ############################
   ## (0) SET UP
   set.seed(seed)
@@ -93,7 +99,8 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   
   ############################
   ## (1) AP PATHWAY
-  # Calculate PM2.5 emissions for each mode and scenario and calculate PM2.5 exposure for each person in the synthetic population 
+  # Calculate PM2.5 emissions for each mode and scenario and calculate PM2.5 
+  # exposure for each person in the synthetic population 
   pm_conc <- scenario_pm_calculations(dist = (true_dist %>% dplyr::filter(stage_mode != 'unknown')
                                       %>% dplyr::mutate_at(-c(1), as.integer)), 
                                       trip_scen_sets=trip_scen_sets)#3
@@ -116,13 +123,14 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   
   ############################
   ## (2) PA PATHWAY
-  # Calculate total mMETs for each person in the synthetic population
+  # Physical activity calculations
+  
+  # calculate total mMETs for each person in the synthetic population
   mmets_pp <- total_mmet(trip_scen_sets)
   trip_scen_sets <- NULL
 
-  # Physical activity calculation
-  # assign relative risk to each person in the synthetic population for each disease
-  # related to physical activity levels and each scenario based on the individual MMET values
+  # assign a relative risk to each person in the synthetic population for each disease
+  # related to physical activity levels and each scenario based on the individual mMET values
   RR_PA_calculations <- gen_pa_rr(mmets_pp, 
                                   conf_int = ifelse(constant_mode, TRUE, FALSE))
   if(!constant_mode) mmets_pp <- NULL
@@ -132,16 +140,16 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   ## (3) COMBINE (1) AND (2)
   # Physical activity and air pollution combined
   
-  # create one dataframe containing both the PA, the AP and the combined PA and AP relative risks (for those diseases affected by both PA and AP)
-  # for all people in the synthetic population and all scenarios
+  # create one dataframe containing both the PA, the AP and the combined PA and AP relative risks
+  # (for those diseases affected by both PA and AP) for all people in the synthetic population and all scenarios
   RR_PA_AP_calculations <- combined_rr_ap_pa(ind_pa = RR_PA_calculations, ind_ap = RR_AP_calculations, 
                                              conf_int = ifelse(constant_mode, TRUE, FALSE))
   
   RR_PA_calculations <- NULL
   RR_AP_calculations <- NULL
   
-  # calculate the health burden (Yll and deaths) for each disease and age and sex category combining the AP and PA pathways for
-  # diseases affected by both AP and PA
+  # calculate the health burden (Yll and deaths) for each disease and age and sex category
+  # by combining the AP and PA pathways for diseases affected by both AP and PA
   hb_AP_PA <- health_burden(ind_ap_pa=RR_PA_AP_calculations, conf_int = ifelse(constant_mode, TRUE, FALSE))
   
   # if running in constant mode calculate the health burden (Yll and deaths) for each disease and age and sex category
@@ -172,12 +180,12 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
   # (contains upper and lower confidence interval boundaries if running in constant mode)
   injuries <- injuries0[[1]]
   
-  # extract the total injury deaths for the baseline and each scenario split into who-hit-whom and no-other-vehicle
-  # matrices by casualty (and strike) mode
+  # extract the total injury deaths for the baseline and each scenario split into 
+  # who-hit-whom and no-other-vehicle matrices by casualty (and strike) mode
   whw <- injuries0[[2]]
   injuries0 <- NULL
   
-  # calculate the years of life lost from the injury deaths
+  # calculate the years of life lost from the injury deaths.
   # function returns the injury and yll values of the reference scenario and also
   # a dataframe giving the changes in yll and deaths for all non-reference scenarios
   # compared with the reference scenario
