@@ -1,4 +1,4 @@
-#' Graphical processing of input data
+#' Graphical processing of input data - CURRENTLY NOT BEING CALLED
 #' 
 #' Produce graphs summarising some input data, e.g. travel, injury, AP
 #' 

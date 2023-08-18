@@ -19,7 +19,7 @@
 #' - Complete whw and nov matrices containing all casualty and strike (and age and sex)
 #'   combinations are created with zero counts for those combinations with no fatalities
 #' 
-#' - a list of aggregated whw and nov matrices is returned
+#' - a list of aggregated whw and nov matrices is set to the Global environment
 #' 
 #' 
 #' @param injuries data frame of individual injury events
@@ -71,7 +71,7 @@ set_injury_contingency <- function(injuries){
       # proportion of deaths found in the GBD dataset
       injury_summary$count <- injury_summary$count * PROPORTION_INJURIES_AGERANGE
     }
-    
+    # 
     
     ## create matrices for all cas and strike mode combinations (and all age and gender combinations) with 0 counts
     injury_table[[type]] <- expand.grid(lapply(as.data.frame(injury_list[[type]])[,keep_names],unique))

@@ -1,7 +1,7 @@
-#' Set scenario specific variables
+#' Set scenario specific variables - CURRENTLY NOT CALLED
 #' 
 #' Set NSCEN, SCEN and SCEN_SHORT_NAME
-#' Currently not called
+#' 
 #'
 #' @export
 set_scenario_specific_variables <- function(){
