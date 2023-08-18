@@ -4,9 +4,11 @@
 #' 
 #' This function performs the following steps to the trip set data:
 #' 
-#' - add distance categories  
-#' - add scenario='baseline' column 
+#' \itemize{
+#' \item add distance categories  
 #' 
+#' \item add scenario='baseline' column 
+#' }
 #' 
 #' 
 #' @param trip_set data frame of trips 

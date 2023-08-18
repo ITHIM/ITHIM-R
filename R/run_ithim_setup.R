@@ -13,61 +13,62 @@
 #' 
 #' This function performs the following steps:
 #' 
-#' - check whether a valid scenario name is called, get an error message if not
+#' \itemize{
+#' \item check whether a valid scenario name is called, get an error message if not
 #' 
-#' - set various input parameters as global parameters
+#' \item set various input parameters as global parameters
 #' 
-#' - find the path to the local data
+#' \item find the path to the local data
 #' 
-#' - define fixed parameters for air pollution inhalation
+#' \item define fixed parameters for air pollution inhalation
 #' 
 #' 
-#' - define the mode speeds:
-#' 
-#'    - set default speeds for the various modes
+#' \item define the mode speeds:
+#'    \itemize{
+#'    \item set default speeds for the various modes
 #'    
-#'    - update the default speeds with city specific mode speeds if these are 
+#'    \item update the default speeds with city specific mode speeds if these are 
 #'      given as input parameters
 #'    
-#'    - ensure similar modes have the same speed assigned
+#'    \item ensure similar modes have the same speed assigned
 #'    
-#'    - set-up dataframe with modes and speeds
+#'    \item set-up dataframe with modes and speeds
+#'    }
 #'    
+#' \item define PM emissions inventory
+#'    \itemize{
+#'    \item define default emission values
 #'    
-#' - define PM emissions inventory
-#' 
-#'    - define default emission values
-#'    
-#'    - update default values if city specific values are given as input parameters
-#'    
+#'    \item update default values if city specific values are given as input parameters
+#'    }
 #'
-#' - define CO2 emissions inventory 
+#' \item define CO2 emissions inventory 
+#'    \itemize{
+#'    \item set default emission values
+#'    
+#'    \item update default values if city specific values are given as input parameters
+#'    }
+#'    
+#' \item load and processe data from files by calling ithim_load_data.R
 #' 
-#'    - set default emission values
-#'    
-#'    - update default values if city specific values are given as input parameters
-#'    
-#'    
-#' - load and processe data from files by calling ithim_load_data.R
-#' 
-#' - call ithim_setup_parameters.R to set the given input parameters to the global
+#' \item call ithim_setup_parameters.R to set the given input parameters to the global
 #'   environment if running in constant mode or to obtain NSAMPLE samples from the
 #'   given distributions for each of the input parameters if running in sample mode
 #'    
-#' - set flags which cause certain parts of the model to be called at a later stage
+#' \item set flags which cause certain parts of the model to be called at a later stage
 #'  (ithim_uncertainty.R) IF certain input parameters were sampled from a distribution   
 #'
-#' - call complete_trip_distance_duration.R to add any missing stage or distance
+#'\item call complete_trip_distance_duration.R to add any missing stage or distance
 #'   information to the trip data  
 #'
-#' - if none of the corresponding input parameters were sampled from a distribution, 
+#' \item if none of the corresponding input parameters were sampled from a distribution, 
 #'   call set_vehicle_inventory.R to create a dataframe with mode specific speed, 
 #'   distance and emission information    
 #'
-#' - if none of the corresponding input parameters were sampled from a distribution,
+#' \item if none of the corresponding input parameters were sampled from a distribution,
 #'   call get_synthetic_from_trips to set synthetic trips and synthetic population   
 #'
-#' - if none of the corresponding input parameters were sampled from a distribution,
+#' \item if none of the corresponding input parameters were sampled from a distribution,
 #'   call get_all_distances.R to calculate trip distances
 #' 
 #' 

@@ -6,21 +6,22 @@
 #' This function uses the Poisson regression model built in the distances_for_injury_function.R to predict fatality
 #' counts for the Baseline and all the scenarios. It performs the following steps:
 #' 
-#' - create an injuries data frame containing all the distances travelled by mode, age, sex and scenario
+#' \itemize{
+#' \item create an injuries data frame containing all the distances travelled by mode, age, sex and scenario
 #' 
-#' - predict the fatalities for each strike and casualty mode combination, age and sex category
+#' \item predict the fatalities for each strike and casualty mode combination, age and sex category
 #'   and each scenario (incl Baseline). If the sample mode is set to 'constant' (and not 'sample'), 
 #'   we also predict upper and lower confidence interval boundaries
 #'
-#' - create a whw_temp list containing the total predicted fatality counts for each casualty
+#' \item create a whw_temp list containing the total predicted fatality counts for each casualty
 #'   and strike mode pair for each scenario split into whw and nov matrices and, for the 
 #'   constant mode also give the upper and lower confidence interval limit predictions
 #' 
-#' - create an injuries2 data frame containing the total predicted fatality counts 
+#' \item create an injuries2 data frame containing the total predicted fatality counts 
 #'   for each casualty mode by age and sex for each scenario. This dataframe also
 #'   contains total death per age and sex category and, for the constant mode the 
 #'   upper and lower total death predictions of the confidence interval.
-#' 
+#' }
 #' 
 #' 
 #' 
