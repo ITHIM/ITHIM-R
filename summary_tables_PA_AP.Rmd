@@ -12,21 +12,103 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis')
 
+# Script to summarise the PM2.5 exposure and levels, PM2.5 and CO2 concentrations and a physical activity levels
+
+# This script looks at individual level PM2.5 exposure for all scenarios, it summarise the PM2.5 and CO2 concentration levels for all scenarios and summarises the individual physical activity levels for all scenarios.
+
+
+
+#### It produces the following output documents:
+
+
+### - html file containing the following information:
+
+# - boxplots for each city of daily individual PM2.5 exposure levels for each scenario 
+
+# - one table for each city detailing the individual PM2.5 exposure levels incl the mean, 5th, 50th and 95th percentiles, the mean PM2.5 concentration levels for each scenario and the change in PM2.5 compared to the baseline scenario
+
+# - one table detailing the percentage Baseline PM2.5 emissions attributed to each transport mode, the city wide PM2.5 concentration levels and the percentage of these concentrations attributed to transport for all cities
+
+# - one table detailing the CO2 concentration levels for each scenario for all cities
+
+# - boxplots for each city of individual mMET physical activity levels for each scenario  
+
+# - one table for each city giving the mean, 5th, 50th and 95th percentile levels of individual physical activity levels (mMETs) for each scenario
+
+# - one table detailing the average mMETs levels for each scenario for all cities 
+
+# 2nd Option:
+
+# - boxplots for each city of daily individual PM2.5 exposure levels for each scenario 
+
+# - one table detailing the Baseline PM2.5 emissions for each mode, the city wide PM2.5 concentration levels and the percentage of these concentrations attributed to transport for all cities
+
+# - one table for each city detailing the individual PM2.5 exposure levels incl the mean, 5th, 50th and 95th percentiles, the mean PM2.5 concentration levels for each scenario and the change in PM2.5 compared to the baseline scenario. Table also contains CO2 concentrations for each scenario
+
+# - boxplots for each city of individual mMET physical activity levels for each scenario 
+
+
+
+### - output .csv/.xlsx files containing the following information:
+
+# - desc_stats.csv file (results/multi_city/AP/desc_stats.csv) containing the summary statistics of individual PM2.5 exposure levels, the total PM2.5 concentrations levels, the change in PM2.5 concentration levels compared to the baseline scenario and the total transport related CO2 emission concentrations for each scenario and city
+
+
+# - desc_stats.xlsx file (results/multi_city/AP/desc_stats.xlsx) containing the following tabs:
+
+#   - PM_2.5_emission_inventory: table detailing the percentage Baseline PM2.5 emissions attributed to each transport mode, the city wide PM2.5 concentration levels and the percentage of these concentrations attributed to transport for all cities
+
+#   - CO2_conc: table detailing the CO2 concentration levels for each scenario for all cities
+
+#   - summary_stats_PM2.5_CO2: summary statistics of individual PM2.5 exposure levels, the total PM2.5 concentrations levels, the change in PM2.5 concentration levels compared to the baseline scenario and the total transport related CO2 emission concentrations for each scenario and city
+
+
+
+
+
+
+#### The script performs the following steps, assuming that ITHIM-GLOBAL module has been run and the ithim_objects object has been saved in "results/multi_city/io.rds":
+
+# - read in input parameter values and define function that renames the existing scenarios
+
+# - create boxplots of individual PM2.5 levels for each scenario, one for each city, and write to the .html file
+
+# - create one table for each city detailing the individual PM2.5 exposure levels incl. the mean, 5th, 50th and 95th percentiles, the mean PM2.5 concentration levels for each scenario and the change in PM2.5 compared to the baseline scenario
+
+# - create a single table detailing the percentage Baseline PM2.5 emissions attributed to each mode, the city wide PM2.5 concentration levels and the percentage of these concentrations attributed to transport for all cities
+
+# - create a single summary table showing the CO2 concentrations in each scenario for all cities
+
+# - create boxplots for each city showing the individual mMET levels for each scenario
+
+# - create one table for each city giving the mean, 5th, 50th and 95th percentile levels of individual physical activity levels (mMETs) for each scenario
+
+# - create a single table detailing the average mMETs levels for each scenario for all cities 
+
+
+
+# - 2nd option:
+
+# - create boxplots for each city of daily individual PM2.5 exposure levels for each scenario 
+
+# - create one table detailing the Baseline PM2.5 emissions for each mode, the city wide PM2.5 concentration levels and the percentage of these concentrations attributed to transport for all cities
+
+# - create one table for each city detailing the individual PM2.5 exposure levels incl the mean, 5th, 50th and 95th percentiles, the mean PM2.5 concentration levels for each scenario and the change in PM2.5 compared to the baseline scenario. Table also contains CO2 concentrations for each scenario
+
+# - create boxplots for each city of individual mMET physical activity levels for each scenario 
+
+
+
 ```
 
 
 # Introduction
 These are the summary tables of the following items
 
-1) Individual-level PM2.5 concentrations for baseline and scenarios
+1) Individual PM2.5 exposure levels and total PM2.5 concentrations for baseline and scenarios
 2) Overall CO2 emissions for baseline and scenarios
-3) Individual-level physical activity for baseline and scenarios
+3) Individual physical activity levels (mMETs) for baseline and scenarios
 
-
-
-```{r, echo=FALSE}
-#setwd('C:/Users/rg574/Dropbox/spatiotemporal analysis fatalities inida/Rajasthan tourism road deaths') #to create pretty tables
-```
 
 ```{r, message=FALSE, warning=FALSE}
 #library(INLA)     #loading the INLA package
@@ -40,33 +122,51 @@ library(readxl)
 ```
 
 
-# Boxplots of Individual-level PM2.5 Concentrations
-
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, cache=FALSE}
+
+###### Read in input parameters
+
+# Assumes that multi_city_script.R has been run  
+# read in input file
 io <- readRDS("results/multi_city/io.rds")
 
-# Assumes that multi_city_script.R has been run till 
 # Get names of cities from the io object
 cities <- names(io)[!names(io) %in% 'scen_prop']
 
-scen_names <- c("Baseline", "Bicycling", "Driving", "Public Transport", "Motorcycling")
 
-NUMS <- io$scen_prop |> nrow()
+# function to convert scenario names
+get_qualified_scen_name <- function(cs){
+  qualified_scen_name <- ""
+  if (cs == 'base')
+    qualified_scen_name <- 'Baseline'
+  else if(cs == "sc_walk")
+    qualified_scen_name <- 'Walking'
+  else if(cs == "sc_cycle")
+    qualified_scen_name <- 'Bicycling'
+  else if(cs == "sc_car")
+    qualified_scen_name <- 'Car'
+  else if(cs == "sc_motorcycle")
+    qualified_scen_name <- 'Motorcycling'
+  else if(cs == "sc_bus")
+    qualified_scen_name <- 'Public Transport'
+  
+  return(qualified_scen_name)
+}
 
-if (NUMS != 4)
-  scen_names <- c("Baseline", "Bicycling", "Driving", "Public Transport")
+# initialise parameters using first city in list
+city <- cities[1]
+scen_length <- length(io[[city]]$ithim_run$scenario_names) - 1
 
-scen_length <- length(scen_names) - 1
-
-if (!exists("input_parameter_file"))
-  input_parameter_file <<- "InputParameters_v30.1.xlsx"
+# input parameter file name
+input_parameter_file <<- io[[city]]$ithim_run$input_parameter_file
+  
 # scenario definition
-scenario_name <- "GLOBAL"
-reference_scenario <- 'Baseline'
+scenario_name <- io[[city]]$ithim_run$scenarios_used
+reference_scenario <- io[[city]]$ithim_run$reference_scenario
 
-compute_mode <- 'constant' # constant parameters from the given parameters
+compute_mode <- io[[city]]$ithim_run$compute_mode # constant parameters from the given parameters
 
-
+# read in local input parameter inputs
 all_inputs <- read_excel(input_parameter_file, sheet = "all_city_parameter_inputs")
 all_inputs[is.na(all_inputs)] <- ""
 all_inputs <- as.data.frame(all_inputs)
@@ -127,8 +227,8 @@ for(i in 1:length(parameter_names)){
 
 list2env(parameter_list, environment()) 
 
-# read in global parameters
 
+# read in global parameters
 all_global_inputs <- read_excel(input_parameter_file, sheet = "all_global_parameter_inputs")
 all_global_inputs[is.na(all_global_inputs)] <- ""
 all_global_inputs <- as.data.frame(all_global_inputs)
@@ -178,100 +278,135 @@ day_to_week_scalar <- as.numeric(day_to_week_scalar)
 
 ```
 
+# Boxplots of individual daily PM2.5 exposure levels
+
+
 ```{r}
-# high<- c(70, 25, 150,60)
-# low<- c(40,15,100,40)
-# l <- htmltools::tagList()
+
+#### for each city create a boxplot showing the individual daily PM2.5 exposure levels for all scenarios
+
+# loop through cities
 for (x in 1:length(cities)) {
-  # print(cities[x])
-  # names(io[[cities[x]]]$outcomes$pm_conc_pp)[6:11] <- c("Baseline","Walking",
-  #                                                       "Bicycling", "Driving",
-  #                                                       "Motorcycling", 
-  #                                                       "Public Transport")
-                                                         
+
   n_col <- ncol(io[[cities[x]]]$outcomes$pm_conc_pp)
-  names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - scen_length):n_col] <- scen_names
   
+  # extract original scenario names and convert to updated scenario names
+  col_names <- names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - scen_length):n_col]
+  orig_scen_names <- sub("pm_conc_", "", col_names)
+  new_scen_names  <- unlist(lapply(orig_scen_names, FUN=get_qualified_scen_name))
+  
+  # rename columns
+  names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - scen_length):n_col] <- new_scen_names
+  
+  # get PM2.5 individual exposure level data into correct format
   data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc,
-                      Baseline:scen_names[length(scen_names)], factor_key = TRUE)
+                      Baseline:new_scen_names[length(new_scen_names)], factor_key = TRUE)
+  
+  # create boxplot
   y <- ggplot(data_long, aes(x = scenario, y = pm_conc, fill = scenario)) +
     geom_boxplot(outlier.shape = 8) + ggtitle(cities[x]) +
-    labs(y = "Daily PM2.5 Concentration", x = "Scenarios") #+
-  # +ylim(low[x],high[x])
-  # yy <- ggplot() +
-  #   geom_density(data_long, aes(x = scenario, y = pm_conc, fill = scenario)) +
-  #   ggtitle(cities[x]) +
-  #   labs(y = "Daily PM2.5 Concentration", x = "Scenarios")
+    labs(y = "Daily PM2.5 exposure levels", x = "Scenarios") #+
+  
+  # print to html
   print(y)
-  #print(yy)
-  # l[[i]] <- ggplotly(ggplot(data_long, aes(x = scenario, y = pm_conc, fill = scenario)) +
-  #   geom_boxplot(outlier.shape = 8) + ggtitle(cities[x]) +
-  #   labs(y = "Daily PM2.5 Concentration", x = "Scenarios"))
-  # print(ggplotly(yy))
+  
 }
 ```
 
 
 
 
-# Descriptive tables of Individual-level PM2.5 Concentrations
+# Summary statistics of individual PM2.5 exposure levels
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+# for each city create a summary table of individual PM2.5 exposure levels giving the mean and the 5th, 50th and 95th percentile levels. Tables also show the PM2.5 concentration levels in the city for each scenario and the changes compared to the baseline scenario
+
 data_long <- NA
 summary <- NA
 for (x in 1:length(cities)) {
-  #names(io[[cities[x]]]$outcomes$pm_conc_pp)[6:11]<-c("Baseline","Walking", "Bicycling", "Driving", "Motorcycling", "Public Transport")
-  #
+ 
   n_col <- ncol(io[[cities[x]]]$outcomes$pm_conc_pp)
-  names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - scen_length):n_col] <- scen_names
+  # rename columns with updated scenario names
+  names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - scen_length):n_col] <- new_scen_names
+  
+  # get data into correct format
   data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc,
-                      Baseline:scen_names[length(scen_names)], factor_key = TRUE)
+                      Baseline:new_scen_names[length(new_scen_names)], factor_key = TRUE)
+  
+  # create summary stats
   summary <- as.data.frame(data_long %>% group_by(scenario) %>%
                              summarise('mean' = mean(pm_conc),
                                        '5th' = quantile(pm_conc, 0.05),
                                        '50th' = quantile(pm_conc, 0.5),
                                        '95th' = quantile(pm_conc, 0.9)))
   summary <- cbind(summary$scenario ,round(summary[,2:5], digits = 1))
+  
+  # add scenario specific PM2.5 concentration levels and the change in PM2.5 compared to the baseline
   summary$scenario_PM <- round(io[[cities[x]]]$outcomes$scenario_pm, digits=2)
   summary$change_PM <- round(io[[cities[x]]]$outcomes$scenario_pm - io[[cities[x]]]$outcomes$scenario_pm[1], digits=2)
   names(summary)[1] <- "Scenario"
+  
+  # print to html file
   print(kable(summary, caption = cities[x]))
   
 }
 ```
 
 
-# Descriptive tables of PM 2.5 emission inventory
+# Summary table of PM 2.5 emission inventories 
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
-#trans_share<-c(22.5, 40.0, 22.5, 28.1) 
-#pm_conc<- c(50, 18, 122, 47 )
-city <- cities
-#shares<- as.data.frame(cbind(city,as.numeric(io), pm_conc))
-#names(shares)[2]<- "trans_share"
+# Create a single table detailing the Baseline PM2.5 emissions for each mode, the city wide PM2.5 concentration levels and the percentage of these concentrations attributed to transport for all cities
+
+#city <- cities
+
 
 sl <- list()
-for (x in 1:length(cities))
-{
+for (x in 1:length(cities)){ # loop through cities
   print(cities[x])
+  
+  # find the modes given in the PM emission inventory for that city
   modes <- names(unlist(io[[cities[x]]]$PM_emission_inventory))
+  
+  # extract the PM emissions for each mode
   emissions <- as.data.frame(unlist(io[[cities[x]]]$PM_emission_inventory))
+  
+  # combine modes and emissions into one dataframe
   city_emissions <- cbind(as.data.frame(modes),  as.data.frame(emissions$`unlist(io[[cities[x]]]$PM_emission_inventory)`))
   names(city_emissions)[2] <- "emissions"
+  
+  # define modes of interest
   select <- c("car", "motorcycle", "bus_driver", "truck", "big_truck")
   city_emissions$modes <- as.character(city_emissions$modes)
+  
+  # call all other modes not in list of modes of interest 'other'
   city_emissions$modes[!(city_emissions$modes %in% select)] <- "other"
+  
+  # calculate the sum of PM emissions by mode (primarily summing across all newly classified 'other' modes)
   summary <- city_emissions %>% group_by(modes) %>% summarise(sum(emissions))
   names(summary)[2] <- cities[x]
+  
+  # calculate the percentages of PM emissions attributed to each mode
   summary[[cities[x]]] <- round(summary[[cities[x]]]*100/sum(summary[[cities[x]]]), digits = 1)
   summary <- as.data.frame(summary)
-  summary[nrow(summary) + 1,1] <- "Transport share"
+  
+  # rename mode columns including the word percentage
+  summary$modes <- paste0(summary$modes, ' (percentage)')
+  
+  # add transport share 
+  summary[nrow(summary) + 1,1] <- "Transport share (percentage)"
   summary[nrow(summary),2] <- as.character(round(pm_trans_share[[cities[x]]] * 100))
+  
+  # add city wide PM2.5 concentration levels
   summary[nrow(summary) + 1,1] <- "PM2.5 Conc"
   summary[nrow(summary),2] <- as.character(pm_conc_base[[cities[x]]])
+  
+  # add to io list
   io[[cities[x]]]$summary_emission <- summary
   
+  # create one dataframe containing all cities
   if (length(sl) == 0){
     sl <- summary
   }else{
@@ -280,20 +415,27 @@ for (x in 1:length(cities))
   
 }
 
+# print table to html
 print(kable(sl))
 ```
 
-# Descriptive table for CO2 Emissions
+
+# Summary table of CO2 concentrations related to transport in each scenario
+
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
+# create summary table of CO2 concentrations in each scenario
 co2_conc <- list()
 td <- NA
-for (city in cities) {
+
+for (city in cities) { # loop through cities
   
+  # extract Co2 concentrations
   td <- round(colSums(io[[city]]$outcomes$co2_conc, na.rm = T), 1) %>% 
     as.data.frame() %>% tibble::rownames_to_column()
   names(td) <- c('Scenario', city)
   
+  # create one dataframe containing all cities
   if (length(co2_conc) == 0)
     co2_conc <- td
   else
@@ -301,39 +443,55 @@ for (city in cities) {
   
 }
 
-co2_conc$Scenario <- scen_names
+co2_conc$Scenario <- new_scen_names
 
+# print to html
 print(kable(co2_conc))
 
 ```
 
 
 
-# Boxplots of Individual-level Physical activity (MMETs)
+# Boxplots of individual physical activity (MMETs) levels
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
+# create boxplots for each city showing the individual mMET levels for each scenario
+
 limit = 100
-for (x in 1:length(cities)) {
-  n_col <- ncol(io[[cities[x]]]$outcomes$mmets)
-  names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- scen_names
+
+for (x in 1:length(cities)) { # loop through cities
   
-  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:scen_names[length(scen_names)], factor_key = TRUE)
+  n_col <- ncol(io[[cities[x]]]$outcomes$mmets) # define columns of interests
+  names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- new_scen_names
+  
+  # extract data of interest
+  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:new_scen_names[length(new_scen_names)], factor_key = TRUE)
+  
+  # create the boxplots
   y <- ggplot(data_long, aes(x = scenario, y = mmet, fill = scenario)) +
     geom_boxplot(outlier.shape = NA) + ggtitle(cities[x]) + 
-    labs(y = "Weekly MMET", x = "Scenarios")+  ylim(0, limit)
+    labs(y = "Weekly mMET", x = "Scenarios")+  ylim(0, limit)
   print(y)
   
 }
 ```
-# Descriptive tables of Individual-level Physical activity (MMETs)
+
+
+# Summary statistics of individual physical activity levels (MMETs) 
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-for (x in 1:length(cities)) {
-  #names(io[[cities[x]]]$outcomes$mmets)[5:10] <- c("baseline","walk_scen", "bike_scen", "car_scen", "MC_scen", "bus_scen")
-  n_col <- ncol(io[[cities[x]]]$outcomes$mmets)
-  names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- scen_names
+
+# create one table for each city giving the mean, 5th, 50th and 95th percentile levels of individual physical activity levels (mMETs) for each scenario
+
+for (x in 1:length(cities)) { # loop through the cities
   
-  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:scen_names[length(scen_names)], factor_key = TRUE)
+  n_col <- ncol(io[[cities[x]]]$outcomes$mmets) # find the number of columns
+  names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- new_scen_names # assign new column names
+  
+  # create dataframe with individual mMET values
+  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:new_scen_names[length(new_scen_names)], factor_key = TRUE)
+  
+  # create summary stats
   summary <- as.data.frame(data_long %>% group_by(scenario) %>% 
                              summarise('mean' = mean(mmet),
                                        '5th' = quantile(mmet, 0.05),
@@ -341,26 +499,30 @@ for (x in 1:length(cities)) {
                                        '95th' = quantile(mmet, 0.9)))
   summary <- cbind(summary$scenario ,round(summary[,2:5], digits = 1))
   names(summary)[1] <- "Scenario"
+ 
+  # print to html
   print(kable(summary, caption = cities[x]))
 
 }
 ```
 
-# Descriptive table for Physical Activity (MMETs)
+
+# Average physical activity levels (MMETs) in each city
+
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
+# create a single table detailing the average mMETs levels for each scenario for all cities 
 
 cl <- list()
-for (city in cities)
-{
-  #td <- round(colMeans(io[[city]]$outcomes$mmets[,5:10], na.rm = T), 1) %>%
-  #  as.data.frame() %>% tibble::rownames_to_column()
-  #  
-  n_col <- ncol(io[[cities[x]]]$outcomes$mmets)
+for (city in cities){ # loop through cities
 
+  n_col <- ncol(io[[cities[x]]]$outcomes$mmets) # find number of columns of interest
+  
+  # extract the mean mMET values and create dataframe
   td <- round(colMeans(io[[city]]$outcomes$mmets[,(n_col - scen_length):n_col], na.rm = T), 1) %>%
     as.data.frame() %>% tibble::rownames_to_column()
   names(td) <- c('Scenario', city)
   
+  # create one dataframe containing information about all cities
   if (length(cl) == 0)
     cl <- td
   else
@@ -368,8 +530,9 @@ for (city in cities)
   
 }
 
-cl$Scenario <- scen_names
+cl$Scenario <- new_scen_names
 
+# print to html 
 print(kable(cl))
 
 ```
@@ -377,103 +540,164 @@ print(kable(cl))
 
 # **2nd option**
 
-# PM 2.5 summary and CO2
+# PM2.5 and CO2 results
+
+
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
 
+# create PM2.5 and CO2 boxplots and tables:
+
+# - boxplots for each city of daily individual PM2.5 exposure levels for each scenario 
+
+# - one table detailing the Baseline PM2.5 emissions for each mode, the city wide PM2.5 concentration levels and the percentage of these concentrations attributed to transport for all cities
+
+# - one table for each city detailing the individual PM2.5 exposure levels incl the mean, 5th, 50th and 95th percentiles, the mean PM2.5 concentration levels for each scenario and the change in PM2.5 compared to the baseline scenario. Table also contains CO2 concentrations for each scenario
+
+
 l <- list()
-# I have to keep the first chunk of code to run this part
-# high<- c(70, 25, 150,60)
-# low<- c(40,15,100,40)
-# l <- htmltools::tagList()
-for (x in 1:length(cities)) {
+# Have to keep the first chunk of code to run this part
+
+for (x in 1:length(cities)) { # loop through cities
   # print(cities[x])
   cat("\n \n")
   cat( paste0('## **', cities[x], '** \n' )) 
-  # Emission inventory
+  
+  ## Emission inventory
+  
+  # find the mode names in the PM2.5 emissions inventory
   modes <- names(unlist(io[[cities[x]]]$PM_emission_inventory))
+  
+  # extract the mode emissions
   emissions <- as.data.frame(unlist(io[[cities[x]]]$PM_emission_inventory))
-  city_emissions <- cbind(as.data.frame(modes),                           as.data.frame(emissions$`unlist(io[[cities[x]]]$PM_emission_inventory)`))
+  
+  # create one table with modes and corresponding PM2.5 emissions
+  city_emissions <- cbind(as.data.frame(modes),
+                          as.data.frame(emissions$`unlist(io[[cities[x]]]$PM_emission_inventory)`))
+  
   names(city_emissions)[2] <- "emissions"
+  
+  # define list with modes of interest
   select <- c("car", "motorcycle", "bus_driver", "truck", "big_truck")
   city_emissions$modes <- as.character(city_emissions$modes)
+  
+  # define all other modes not in list of interest as 'other'
   city_emissions$modes[!(city_emissions$modes %in% select)] <- "other"
+  
+  # sum the emissions (mainly to find the total emissions for all newly defined 'other' modes)
   summary <- city_emissions %>% group_by(modes) %>% summarise(sum(emissions))
   names(summary)[2] <- cities[x]
+  
+  # calculate the percentage contribution of each mode
   summary[[cities[x]]] <- round(summary[[cities[x]]]*100/sum(summary[[cities[x]]]), digits = 1)
   summary <- as.data.frame(summary)
-  summary[nrow(summary)+1,1] <- "Transport share"
+  
+  # rename mode columns including the word percentage
+  summary$modes <- paste0(summary$modes, ' (percentage)')
+  
+  # add the percentage attributed to transport
+  summary[nrow(summary)+1,1] <- "Transport share (percentage)"
   summary[nrow(summary),2] <- as.character(round(pm_trans_share[[cities[x]]] * 100))
+  
+  # add the total PM2.5 concentration levels
   summary[nrow(summary)+1,1] <- "PM2.5 Conc"
   summary[nrow(summary),2] <- as.character(pm_conc_base[[cities[x]]])
+  
+  # add to io objects
   io[[cities[x]]]$summary_emission <- summary
   
    
-  # PM 2.5 table and plot
-  n_col <- ncol(io[[cities[x]]]$outcomes$mmets)
+  ## PM 2.5 table and plot
   
-  names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - scen_length):n_col] <- scen_names
+  n_col <- ncol(io[[cities[x]]]$outcomes$mmets) # find number of columns
   
+  # assign new scenario names to columns
+  names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - scen_length):n_col] <- new_scen_names
+  
+  # extract data with PM2.5 exposure levels for each scenario
   data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc,
-                      Baseline:scen_names[length(scen_names)], factor_key = TRUE)
+                      Baseline:new_scen_names[length(new_scen_names)], factor_key = TRUE)
   
+  # create summary statistics
   summary2 <- as.data.frame(data_long %>% group_by(scenario) %>%
                              summarise('mean' = mean(pm_conc),
                                        '5th' = quantile(pm_conc, 0.05),
                                        '50th' = quantile(pm_conc, 0.5),
                                        '95th' = quantile(pm_conc, 0.9)))
   summary2 <- cbind(summary2$scenario, round(summary2[,2:5], digits = 1))
+  
+  # add total PM concentration levels for each scenario
   summary2$scenario_PM <- round(io[[cities[x]]]$outcomes$scenario_pm, 2)
+  
+  # calculate difference to baseline scenario
   summary2$change_PM <- round(io[[cities[x]]]$outcomes$scenario_pm - io[[cities[x]]]$outcomes$scenario_pm[1], digits = 2)
   names(summary2)[1] <- "Scenario"
   
-  # Plot
+  # Plot individual level PM2.5 exposure levels by scenario
   y <- ggplot(data_long, aes(x = scenario, y = pm_conc, fill = scenario)) +
     geom_boxplot(outlier.shape = 8) + ggtitle(cities[x]) +
     labs(y = "Daily PM2.5 Concentration", x = "Scenarios")
   
+  
   # CO2
+  # extract CO2 transport emissions for each scenario
   td <- round(colSums(io[[cities[x]]]$outcomes$co2_conc, na.rm = T), 1) %>%
     as.data.frame() %>% tibble::rownames_to_column()
   names(td) <- c('Scenario', 'CO2')
-  td$Scenario <- scen_names
+  td$Scenario <- new_scen_names
   
+  
+  # print various boxplots and tables to html
   cat("\n \n")
-  cat( paste('#### Boxplot of Individual-level PM2.5 concentrations \n' ))
+  cat( paste('#### Boxplots of individual PM2.5 exposure levels \n' ))
   print(y)
   
   cat("\n \n")
-  cat( paste('#### Emission inventory \n' )) 
+  cat( paste('#### PM2.5 emissions inventory \n' )) 
   print(kable(summary))
   
   cat("\n \n")
-  cat( paste('#### Descriptive table of Individual-level PM2.5 concentrations and CO2 emissions\n' ))
+  cat( paste('#### Summary statistics of individual level PM2.5 exposure levels and total transport related CO2 emissions\n' ))
   l[[cities[x]]] <- left_join(summary2, td, by = "Scenario")
   l[[cities[x]]]$city <- cities[x]
   print(kable(cbind(summary2, td), caption = cities[x]))
   
 }
 
+# create output Excel file containing the basic PM2.5 and CO2 exposure / concentration information
 output_file <- "results/multi_city/AP/desc_stats.xlsx"
 writexl::write_xlsx(list(PM_2.5_emission_inventory = sl,
                          CO2_conc = co2_conc,
                          summary_stats_PM2.5_CO2 = bind_rows(l)), path = output_file)
 
-
+# create csv file (summary_stats_Pm2.5_CO2 tab in Excel file above)
 write_csv(bind_rows(l), "results/multi_city/AP/desc_stats.csv")
 
 
 ```
 
-# Boxplots of Individual-level Physical activity (MMETs)
+
+
+# Boxplots of individual physical activity levels (MMETs)
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
+# create boxplots for each city of individual mMET physical activity levels for each scenario 
+
 limit = 100
-for (x in 1:length(cities)) {
-  n_col <- ncol(io[[cities[x]]]$outcomes$mmets)
-  names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- scen_names
-  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:scen_names[length(scen_names)], factor_key = TRUE)
+for (x in 1:length(cities)) { # loop through cities
+  
+  n_col <- ncol(io[[cities[x]]]$outcomes$mmets) # find number of columns
+  
+  # assign new scenario names
+  names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- new_scen_names
+  
+  # extract mMETs data
+  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:new_scen_names[length(new_scen_names)], factor_key = TRUE)
+  
+  # create boxplots
   y <- ggplot(data_long, aes(x = scenario, y = mmet, fill = scenario)) + geom_boxplot(outlier.shape = NA) + ggtitle(cities[x]) + 
     labs(y = "Weekly MMET", x = "Scenarios") + ylim(0, limit)
+  
+  # print to html
   print(y)
   
 }

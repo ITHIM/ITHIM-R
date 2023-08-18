@@ -1,5 +1,5 @@
 ---
-title: "Injrury Outcomes - WHW matrices"
+title: "Injury Outcomes"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
@@ -23,30 +23,122 @@ knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, message = F
 
 smodes <- read_csv('data/global/modes/standardized_modes.csv')
 
-# NOTE: the following scenario order is assumed: 'bi_sc', 'car_sc', 'bus_sc','mc_sc','w_sc' and if there are less than 5 scenarios, the last scenarios can be missing but all of the scenarios in the middle need to exist. e.g. if you want the public transport and the walking scenario, you still need to create a car, motorcycling and bicycling scenario!
+
+# Script to summarise injury outcomes
+
+# WARNING: Script assumes that the Baseline scenario corresponds to the known injury fatality counts in the city, i.e it assumes that the reference scenario is the Baseline scenario
+
+
+
+#### It produces the following output documents:
+
+## - html file containing the following information:
+
+#   - fatality counts by strike and casualty mode for each scenario and city (incl lower and upper confidence interval limits were applicable), one table for each city, scenario and mean, upper or lower confidence interval values
+
+#   - fatality counts giving lower, mean and upper bounds (where they exist) for each casualty mode by strike mode for each scenario and city, one table for each casualty mode, scenario and city
+
+#   - tables showing the fatalities per billion km for each city, scenario and mean, upper and lower confidence interval values (where applicable). 
+
+#   - tables showing the number of deaths per 100,000 people for each city, scenario and mean, upper and lower confidence interval values (where applicable). 
+
+#   - tables showing the fatalities per 100 million hours for each city, scenario and mean, upper and lower confidence interval values (where applicable). 
+
+
+
+
+## - output .csv files containing the following information:
+
+#   - The inj_counts.csv file ('results/multi_city/inj/inj_counts.csv') contains the fatality counts (mean and upper and lower confidence interval boundaries if required) for each city, scenario and casualty and strike mode pair. It also includes the observed baseline fatality counts and the active travel fatality counts (the sum of cycle and walk casualty mode fatalities)
+
+# - The injury_risks_per_billion_kms.csv file ('results/multi_city/inj/injury_risks_per_billion_kms.csv') gives the fatalities per billion km travelled for each city, scenario and casualty mode. It also includes the upper and lower confidence interval boundary values if required and active travel counts
+
+# - The injury_risks_per_100k_pop.csv file ('results/multi_city/inj/injury_risks_per_100k_pop.csv') gives the fatalities per 100k people for each city, scenario and casualty mode. It also includes the upper and lower confidence interval boundary values if required and active travel counts 
+
+# - The distances.csv file ('results/multi_city/inj/distances.csv') contains the population distances travelled per day for each city, scenario and mode
+
+# - The injury_risks_per_100million_h.csv file ('results/multi_city/inj/injury_risks_per_100million_h.csv') gives the fatalities per 100 million hours travelled for each city, scenario and casualty mode. It also includes the upper and lower confidence interval boundary values if required and active travel counts
+
+# - The inj_data.xlsx file (results/multi_city/inj/inj_data.xlsx) contains all injury output csv files
+
+
+
+
+
+## The script performs the following steps, assuming that ITHIM-GLOBAL module has 
+# been run and the ithim_objects object has been saved in "results/multi_city/io.rds":
+
+# - read in ithim_objects and extract relevant information such as city and scenario names 
+# - define various functions to summarise and print data and to re-name scenarios, also
+#   define function to collapse the age categories into two categories (15-49 and 50-69)
+# - calculate the health burden (yll and deaths) and the demographic information for those
+#   two age categories (15-49 and 50-69)
+
+# - loop through cities:
+#   - loop through the mean injury values but also the upper and lower confidence boundary values if given:
+#     - loop through scenarios incl baseline:
+#       - create dataframe with nov and whw injury counts by casualty and strike mode pair (if only one
+#         of nov or whw exists, only create dataframe with existing data), add row and column sums
+#       - delete casualty and strike modes that do not exist in list of standardized modes
+#       - print dataframe to html file
+#       - create one list containing the predicted injury counts for each city, each scenario and for each scenario
+#         both the mean and the upper and lower confidence interval limits are given if they exist
+#       - create a dataframe with the original fatality counts for each casualty and strike mode pair
+#         (adjusted by weight and injury reporting rate)
+#       - create dataframe containing the mode distances for all scenarios including the predicted baseline
+#       - create dataframes containing the population counts, mode speeds and durations travelled
+
+# - create dataframe that contains the fatality counts for each city, scenario and casualty and strike mode pair.
+#   It also includes the observed fatality counts and the active travel fatality counts (the sum of cycle and 
+#   walk casualty mode fatalities) - ('results/multi_city/inj/inj_counts.csv') 
+#   - print individual table for each city, scenario and mean, upper and lower confidence value fatality counts 
+#     (where applicable) by casualty and strike mode to html file
+
+# - For each city, scenario and casualty mode, print a table to the html file giving the fatality counts by strike mode
+#   for the mean (and upper and lower confidence value boundaries) values
+
+# - For each city and scenario give mean (and upper and lower confidence boundaries where required) fatalities per 
+#   billion km travelled for each casualty and strike mode pair. Create html tables. 
+
+# - Create csv file ('injury_risks_per_billion_kms.csv') for fatalities per billion km travelled
+
+# - Calculate the number of fatalities per 100,000 people for each city, scenario and mean, upper and lower confidence
+#   interval values (where applicable). Print tables to .html file and also create a csv file ('injury_risks_per_100k_pop.csv')
+
+# - Create dataframe containing all mode distances for each city and scenario ('distances.csv')
+
+# - Calculate tables showing the fatalities per 100 million hours for each city, scenario and mean, upper
+#   and lower confidence interval values (where applicable). Print tables to .html file
+
+# - Create a csv file with the fatalities per 100 million hours (injury_risks_per_100million_h.csv)
+
+# - Export all injury datasets into a single excel sheet (inj_data.xlsx)
+
+
+
 
 ```
 
 ```{js echo=FALSE}
-window.location.href='#Who_Hit_Whom_matrix_(normalized_to_annual_figures)';
+window.location.href='#Injury_outputs_(normalized_to_annual_figures)';
 ```
 
 
 ```{r loadLibraries, echo = F, message = F}
-
+# set up 
 st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
            plain.ascii       = FALSE,       # One of the essential settings
            style             = "rmarkdown", # Idem.
            dfSummary.silent  = TRUE,        # Suppresses messages about temporary files
            footnote          = NA,          # Keeping the results minimalistic
-           subtitle.emphasis = FALSE)       # For the vignette theme, this gives
-# much better results. Your mileage may vary
+           subtitle.emphasis = FALSE)       # For the vignette theme, this gives much better results. Your mileage may vary
 
 ```
 
 ```{r load_objects = "asis"}
+# Assumes that multi_city_script.R has been run - read in ithim_objects saved as io.rds
 io <- readRDS("results/multi_city/io.rds")
-# Assumes that multi_city_script.R has been run till 
+ 
 # Get names of cities from the io object
 cities <- names(io)[!names(io) %in% 'scen_prop']
 
@@ -66,11 +158,11 @@ for (city in cities){
   io[[city]]$outcomes$mmets <- io[[city]]$outcomes$pm_conc_pp <- NULL
 }
 
+# define which decimal place to round to
 round_to <- 1
 
-# Set plot_mmets to F
-plot_mmets <- F
-
+# function to round and sum the data and then to print it 
+# the html output document
 sum_and_round_and_print <- function(data,text=''){
   data <- lapply(data, function(x)round(x,round_to))
   data <- lapply(data,function(x)rbind(x,Total=colSums(x)))
@@ -79,6 +171,8 @@ sum_and_round_and_print <- function(data,text=''){
     cat("\n")
   }
 }
+
+# function to round and print data
 round_and_print <- function(data,text=''){
   data <- lapply(data, function(x)round(x,round_to))
   for(city in cities) {
@@ -88,10 +182,11 @@ round_and_print <- function(data,text=''){
 }
 
 
+# function to rename scenarios
 get_qualified_scen_name <- function(cs){
   qualified_scen_name <- ""
   if (cs == 'baseline')
-    qualified_scen_name <- 'Baseline'
+    qualified_scen_name <- 'Baseline predicted'
   else if(cs == "sc_walk")
     qualified_scen_name <- 'Walking'
   else if(cs == "sc_cycle")
@@ -102,6 +197,8 @@ get_qualified_scen_name <- function(cs){
     qualified_scen_name <- 'Motorcycling'
   else if(cs == "sc_bus")
     qualified_scen_name <- 'Public Transport'
+  else if(cs == "Baseline predicted")
+    qualified_scen_name <- 'Baseline predicted'
   
   return(qualified_scen_name)
 }
@@ -110,8 +207,10 @@ get_qualified_scen_name <- function(cs){
 
 
 ```{r preprocessing}
+# start the processing
 
-
+# function to collapse the given age categories into only two categories
+# '15-49' and '50-69'
 collapse_ages <- function(data, ages = c('15-49', '50-69'), age_lab = 'age_cat'){
   target_min_age <- as.numeric(sapply(ages,function(x)strsplit(x,'-')[[1]][1]))
   target_max_age <- as.numeric(sapply(ages,function(x)strsplit(x,'-')[[1]][2]))
@@ -120,9 +219,8 @@ collapse_ages <- function(data, ages = c('15-49', '50-69'), age_lab = 'age_cat')
   genders <- unique(data$sex)
   if (ncol(data) > 3) {
     reformatted <- do.call(rbind,lapply(1:length(ages),
-                                        function(x) t(sapply(genders,
-                                                             function(y) 
-                                                               if(ncol(data)>3) colSums(data[min_ages<=target_max_age[x]&max_ages>=target_min_age[x]&data$sex==y,-c(1,2),drop=F])
+                                        function(x) t(sapply(genders, function(y) 
+                                          if(ncol(data)>3)     colSums(data[min_ages<=target_max_age[x]&max_ages>=target_min_age[x]&data$sex==y,-c(1,2),drop=F])
                                                              else sum(data[min_ages<=target_max_age[x]&max_ages>=target_min_age[x]&data$sex==y,-c(1,2),drop=F])
                                         ))
     ))
@@ -138,8 +236,11 @@ collapse_ages <- function(data, ages = c('15-49', '50-69'), age_lab = 'age_cat')
   }
 }
 
+
+
 scen_prop <- io$scen_prop
 io <- io[-2]
+
 # re-format some age and injury names
 for (i in 1:length(io)) {
   io[[i]]$demographic$age[io[[i]]$demographic$age == '5-9'] <- '05-9'
@@ -149,46 +250,44 @@ for (i in 1:length(io)) {
   io[[i]]$outcomes$pathway_hb$ylls$age_cat[io[[i]]$outcomes$pathway_hb$ylls$age_cat=='5-9'] <- '05-9'
   io[[i]]$outcomes$hb$deaths <- io[[i]]$outcomes$hb$deaths[,!sapply(names(io[[i]]$outcomes$hb$deaths),function(x)grepl('ac|neo',as.character(x)))]
   io[[i]]$outcomes$hb$ylls <- io[[i]]$outcomes$hb$ylls[,!sapply(names(io[[i]]$outcomes$hb$ylls),function(x)grepl('ac|neo',as.character(x)))]
-  io[[i]]$outcomes$pathway_hb$deaths <- io[[i]]$outcomes$pathway_hb$deaths[,!sapply(names(io[[i]]$outcomes$pathway_hb$deaths),function(x)grepl('ac|neo',as.character(x)))]
+  io[[i]]$outcomes$pathway_hb$deaths <-      io[[i]]$outcomes$pathway_hb$deaths[,!sapply(names(io[[i]]$outcomes$pathway_hb$deaths),function(x)grepl('ac|neo',as.character(x)))]
   io[[i]]$outcomes$pathway_hb$ylls <- io[[i]]$outcomes$pathway_hb$ylls[,!sapply(names(io[[i]]$outcomes$pathway_hb$ylls),function(x)grepl('ac|neo',as.character(x)))]
 }
-for (city in cities)
-  for (type in c('hb','pathway_hb'))
-    for (out in c('deaths','ylls'))
-      io[[city]]$outcomes[[type]][[out]] <- collapse_ages(io[[city]]$outcomes[[type]][[out]]) # only keep two age categories
 
+
+# calculate the demographics for the two age categories '15-49' and '50-69'
 for(city in cities) io[[city]]$demographic <- collapse_ages(io[[city]]$demographic,age_lab='age')  # only keep two age categories
-
-pop_by_age <- lapply(io,function(x)sapply(unique(x$demographic$age),function(y)sum(subset(x$demographic,age==y)$population))) # find number of people within two age categories
-pop_by_gender <- lapply(io,function(x)sapply(unique(x$demographic$sex),function(y)sum(subset(x$demographic,sex==y)$population)))
-injury_col <- which(colnames(io[[1]]$outcomes$hb$deaths)=='scen1_deaths_inj') # find col number of injury data
-ap_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$deaths),function(x)grepl('ap',as.character(x))))
-pa_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$deaths),function(x)grepl('pa',as.character(x))))
-scen_names <- rownames(scen_prop)
 
 
 
 ```
 
-# Who Hit Whom matrix (normalized to annual figures)
+# Injury outcome (normalized to annual figures)
 
-Who hit whom matrix for all scenarios for each case study
+Injury outcome for all scenarios for each scenario including the predicted and observed baseline figures
 
-## Who hit whom matrix of each case study (by baseline + scenarios) {#whw}
+## Injury outcome for each scenario (incl predicted and observed baseline figures)
+
 
 ```{r whw, results = 'asis', fig.width=7, fig.height=4, echo=FALSE}
+# create dataframe with nov and whw injury counts by casualty and strike mode pair (if only one
+# of nov or whw exists, only create dataframe with existing data), add row and column sums
+# create distance, speed and duration data frames
 
 all_whw <- list()
 
 city_df <- list()
 
-for (city in cities) {
+for (city in cities) { # loop through all cities
   
   cat('\n')
   
   cat('###', stringr::str_to_title(stringr::str_replace(city, '_', ' ')), '\n')
   
-  for (pref in (word(grep("whw",names(io[[city]]$outcomes$whw$baseline), value = T), 2, sep = "_"))){ # if upper and lower bounds are given, this is NA, ub, lb
+  # loop through either mean values only or, if upper and lower confidence intervals are given, loop
+  # through them as well
+  #  if upper and lower bounds are given, 'pref' is set to 'NA', 'ub' and 'lb'
+  for (pref in (word(grep("whw",names(io[[city]]$outcomes$whw$baseline), value = T), 2, sep = "_"))){ 
     # pref <- "ub"
     pref_name <- ""
     if (!is.na(pref))
@@ -199,16 +298,17 @@ for (city in cities) {
     whw_qn <- paste0("whw", pref_name)   # if upper and lower bounds are given, this takes one of whw, whw_ub, whw_lb
     nov_qn <- paste0("nov", pref_name)
     
-    for (cs in names(io[[city]]$outcomes$whw)){ # Baseline, Scenario 1, Scenario 2, etc.
+    # loop through scenarios incl baseline
+    for (cs in names(io[[city]]$outcomes$whw)){ 
       # cs <- 'baseline'
       
-      if (is.null(io[[city]]$outcomes$whw[[cs]][[whw_qn]])){
-        if (!is.null(io[[city]]$outcomes$whw[[cs]][[nov_qn]])){ # if only data for the given name exists for nov but not for whw, only create data frame from nov part
+      # if data only exists for nov but not for whw, only create data frame from nov part
+      if (is.null(io[[city]]$outcomes$whw[[cs]][[whw_qn]])){ # if no 'whw' part exists
+        if (!is.null(io[[city]]$outcomes$whw[[cs]][[nov_qn]])){ # but if 'nov' part exists
+          
           td2 <- t(io[[city]]$outcomes$whw[[cs]][[nov_qn]]) %>% as.data.frame()
           td2$mode <- 'NOV'
-          
           td2 <- td2 %>% dplyr::select(mode, names(.))
-          
           td3 <- td2
         }
         
@@ -230,20 +330,24 @@ for (city in cities) {
       
       cat('\n')
       
-      cat('####', qualified_scen_name, ' ', ifelse(is.na(pref), "mean", pref), ' WHW', '\n')
+      cat('####', qualified_scen_name, ' ', ifelse(is.na(pref), "mean", pref), ' fatalities by cas and str mode', '\n')
       
       cat('\n')
       
-      td3 <- td3[,c(1, na.omit(match(smodes$exhaustive_list, colnames(td3))), ncol(td3))] # remove column modes that do not appear in list of standardized modes
+      # remove column modes that do not appear in list of standardized modes
+      td3 <- td3[,c(1, na.omit(match(smodes$exhaustive_list, colnames(td3))), ncol(td3))] 
       
-      td3 <- td3[c(na.omit(match(smodes$exhaustive_list, td3$mode)), nrow(td3)),] # remove rows with mode names that do not appear in list of standardized modes
+      # remove rows with mode names that do not appear in list of standardized modes
+      td3 <- td3[c(na.omit(match(smodes$exhaustive_list, td3$mode)), nrow(td3)),] 
       
-      temp <- td3 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.))  # convert numbers to characters
+      # convert numbers to characters
+      temp <- td3 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))
+                                ) %>%  mutate_if(is.numeric, ~as.character(.))  
       
       ft <- flextable(temp)   # convert table in correct format for printing to html file
       ft <- add_header_row(ft, values = c('Strike Mode', 'Casualty Mode'), colwidths = c(1, ncol(temp) - 1))
 
-      cat(knit_print(ft))
+      cat(knit_print(ft)) # print table to html file
 
       cat("\n")
       
@@ -256,8 +360,8 @@ for (city in cities) {
       if (length(city_df[[cs]][[city]]) == 3) # if for each fatality sum we have mean, lb and ub
         all_whw[[cs]][[city]] <- data.table::rbindlist(city_df[[cs]][[city]]) # combine mean, lb and ub counts into one table for each scenario
     }
-    
   }
+  
   # create df with location information
   cityname <- city
   if (city == cities[[1]]){
@@ -268,7 +372,6 @@ for (city in cities) {
   }
   
   # create dataframe with original fatality counts adjusted by weight and injury_reporting_rate 
-  
   # Baseline - whw
   injury_data_count <- as.data.frame(io[[city]]$injury_table$whw)
   injury_data_count <- injury_data_count %>% rename(value = count, str_mode = strike_mode) # rename columns
@@ -299,11 +402,13 @@ for (city in cities) {
     city_baseline_count <- injury_data_count2
   }
 
+  # add further city, scenario and location information
   city_baseline_count$city <- city
   city_baseline_count$scenario <- 'Baseline'
   city_baseline_count$country <- io[[city]]$location$country
   city_baseline_count$continent <- io[[city]]$location$continent
   
+  # create one dataframe for all cities
   if (city == cities[[1]]){
     baseline_counts <- city_baseline_count
   } else {
@@ -318,9 +423,12 @@ for (city in cities) {
   
   dummy_distances2 <- pivot_longer(dummy_distances, cols = -c(stage_mode), names_to = 'scenario', values_to = 'mode_distance')
   
-  baseline_pred <- dummy_distances2 %>% filter(scenario == 'Baseline')
-  baseline_pred$scenario <- 'Baseline_predicted'
+  baseline_pred <- dummy_distances2 %>% filter(scenario == 'baseline' | scenario == 'Baseline')
+  baseline_pred$scenario <- 'Baseline'
   
+  # update scenario names
+  dummy_distances2 <- dummy_distances2 |> rowwise() |> mutate(scenario = get_qualified_scen_name(scenario))
+
   dummy_distances3 <- rbind(dummy_distances2, baseline_pred)
   
   dummy_distances3$city <- city
@@ -344,7 +452,7 @@ for (city in cities) {
     all_pop_df <- rbind(all_pop_df, pop_df)
   }
   
-  ####### create duration df based on true distances and speed
+  # create speed dataframe
   speed_city <- io[[city]]$vehicle_inventory %>% dplyr::select(-c( "PM_emission_inventory",  "CO2_emission_inventory"))
   speed_city$city <- cityname
   
@@ -354,26 +462,10 @@ for (city in cities) {
     speed_df <- rbind(speed_df, speed_city)
   }
   
-  
-  # dummy_dur <- io[[city]]$dur
-  # 
-  # dummy_dur2 <- pivot_longer(dummy_dur, cols = -c(stage_mode), names_to = 'scenario', values_to = 'mode_duration')
-  # 
-  # baseline_pred <- dummy_dur2 %>% filter(scenario == 'Baseline')
-  # baseline_pred$scenario <- 'Baseline_predicted'
-  # 
-  # dummy_dur3 <- rbind(dummy_dur2, baseline_pred)
-  # 
-  # dummy_dur3$city <- city
-  # 
-  # if (city == cities[1]){
-  #   duration <- dummy_dur3
-  # } else {
-  #   duration <- rbind(duration,dummy_dur3)
-  # }
+
 }
 
-# calculate duration
+# calculate duration based on distance and speed
 duration <- left_join(true_distances, speed_df, by = c('city','stage_mode' ))
 duration$mode_duration <- duration$mode_distance / duration$speed
 duration <- duration %>% dplyr::select(-c(mode_distance, speed))
@@ -384,20 +476,30 @@ true_distances <- true_distances %>% rename(cas_mode = stage_mode)
 
 
 ```{r whw_for_all_cs, results = 'asis', fig.width=7, fig.height=4, echo=FALSE}
+
+
+# create one dataframe for all cities and scenarios (incl original baseline counts) containing one column with fatality counts (and columns for city, strike mode, cas mode, scenario, distances, location)
+# calculate active_travel fatality counts (where cas mode is either walk or cycle) and add to fatality dataframe
+# write csv file 
+
+
 st <- list()
 file_list <- list()
 td <- NULL
-whw_list <- list()
+inj_counts_list <- list()
 for (cs in names(all_whw)){ # loop through scenarios
   # cs <- names(all_whw)[1]
   
+  # join list elements of strike and cas mode fatilty predictions for all cities for the given scenario
   td <- all_whw[[cs]] %>% purrr::reduce(full_join, by = c("mode", "measure")) %>% as.data.frame() %>% dplyr::select(mode, sort(names(.))) 
   
-  td[is.na(td)] <- 0
+  td[is.na(td)] <- 0 # set na values to 0
   
+  # remove duplicate values
   td <- (td[!duplicated(td), ])
   
-  td <- rbind(td %>% dplyr::filter(!mode %in% c("Total", "NOV")) %>% arrange(mode), td %>% filter(mode == 'NOV'), td %>% filter(mode == 'Total')) # re-arrange order of rows
+  # re-arrange order of rows
+  td <- rbind(td %>% dplyr::filter(!mode %in% c("Total", "NOV")) %>% arrange(mode), td %>% filter(mode == 'NOV'), td %>% filter(mode == 'Total')) 
   
   td[is.na(td)] <- 0
   
@@ -405,116 +507,121 @@ for (cs in names(all_whw)){ # loop through scenarios
   
   backup_td <- td
   
+  # re-name auto_rickshaw as ar
   colnames(td) = gsub("auto_rickshaw", "ar", colnames(td))
   
-  whw_lng <- reshape2::melt(td) # create df with 1 column containing all the fatality counts
+  # create df with 1 column containing all the fatality counts
+  inj_counts <- reshape2::melt(td) 
   
-  col_split <- stringr::str_split(whw_lng$variable, "_", simplify = TRUE, n = 2) # create one city and one strike mode column
+  col_split <- stringr::str_split(inj_counts$variable, "_", simplify = TRUE, n = 2) # create one city and one strike mode column
   
   # tidy and rename some of the columns
-  whw_lng <- cbind(whw_lng, col_split)
-  names(whw_lng)[5] <- 'strike_mode'
-  names(whw_lng)[6] <- 'city'
-  whw_lng <- whw_lng %>% dplyr::select(-variable)
-  whw_lng <- whw_lng %>% dplyr::filter(strike_mode != "rowSum")
-  whw_lng <- whw_lng %>% rename(str_mode = mode, cas_mode = strike_mode)
+  inj_counts <- cbind(inj_counts, col_split)
+  names(inj_counts)[5] <- 'strike_mode'
+  names(inj_counts)[6] <- 'city'
+  inj_counts <- inj_counts %>% dplyr::select(-variable)
+  inj_counts <- inj_counts %>% dplyr::filter(strike_mode != "rowSum")
+  inj_counts <- inj_counts %>% rename(str_mode = mode, cas_mode = strike_mode)
   
-  if (nrow(whw_lng[whw_lng$cas_mode == 'ar',]) > 0){
-    whw_lng[whw_lng$cas_mode == 'ar',]$cas_mode <- "auto_rickshaw"
+  # re-name 'ar' to auto_rickshaw again ('_' in 'auto_rickshaw' would have caused issues when splitting the city and strike mode column)
+  if (nrow(inj_counts[inj_counts$cas_mode == 'ar',]) > 0){
+    inj_counts[inj_counts$cas_mode == 'ar',]$cas_mode <- "auto_rickshaw"
   }
   
-  if (nrow(whw_lng[whw_lng$str_mode == 'ar',]) > 0){
-    whw_lng[whw_lng$str_mode == 'ar',]$str_mode <- "auto_rickshaw"
+  if (nrow(inj_counts[inj_counts$str_mode == 'ar',]) > 0){
+    inj_counts[inj_counts$str_mode == 'ar',]$str_mode <- "auto_rickshaw"
   }
   
-  whw_lng$str_mode <- factor(whw_lng$str_mode, levels = unique(whw_lng$str_mode)) # assign factors
+  inj_counts$str_mode <- factor(inj_counts$str_mode, levels = unique(inj_counts$str_mode)) # assign factors
   
-  qualified_scen_name <- 'Public Transport'
+  #qualified_scen_name <- 'Public Transport'
   scen <- 'Scenario'
   
- qualified_scen_name <- get_qualified_scen_name(cs)
+  qualified_scen_name <- get_qualified_scen_name(cs)
   
-  whw_lng$scenario <- qualified_scen_name
+  inj_counts$scenario <- qualified_scen_name
   
-  if (length(whw_list) == 0)
-    whw_list <- whw_lng
+  if (length(inj_counts_list) == 0)
+    inj_counts_list <- inj_counts
   else
-    whw_list <- rbind(whw_list, whw_lng)
+    inj_counts_list <- rbind(inj_counts_list, inj_counts)
   
-  # f <- ggplot(data = whw_lng) +
-  #   aes(x = str_mode, fill = cas_mode, weight = value) +
-  #   geom_bar(position = "stack") +
-  #   scale_fill_brewer(palette = "Dark2") +
-  #   labs(x = "Strike Mode", y = "# of incidents", title = paste("WHW - ", qualified_scen_name, scen)) +
-  #   coord_flip() +
-  #   facet_wrap(vars(city), scales = "free_y")
-  # 
-  # file_list[[cs]] <- f
-  
-  
-  #ggsave(f, file = paste0("results/multi_city/whw_matrices/plots/whw_", cs,".png"), limitsize = F, dpi = 300, scale = 1.5)
-  
-  d <- paste0("results/multi_city/whw_matrices/interactive_plots/whw_", cs,".html")
-  
-  # htmlwidgets::saveWidget(plotly::ggplotly(f), file.path(normalizePath(dirname(d)), basename(d)))
-  #ggsave(f, file=paste0("results/multi_city/whw_matrices/whw_", cs,".png"), width = 14, height = 10, units = "cm")
-  
+
   qual_name <- paste(qualified_scen_name, scen)
   st[[cs]] <- format(td, scientific = F)
   
 }
 
+
 # add country and continent information
-whw_list <- left_join(whw_list, location, by = 'city')
+inj_counts_list <- left_join(inj_counts_list, location, by = 'city')
 
 # add original counts and rename Baseline to Baseline predicted
-whw_list$scenario <- ifelse(whw_list$scenario == 'Baseline', 'Baseline_predicted',whw_list$scenario)
+#inj_counts_list$scenario <- ifelse(inj_counts_list$scenario == 'Baseline', 'Baseline_predicted',inj_counts_list$scenario)
 
-whw_list <- rbind(whw_list, baseline_counts)
+inj_counts_list <- rbind(inj_counts_list, baseline_counts)
 
 # replace capital with lower letters
-whw_list$str_mode <- tolower(whw_list$str_mode)
+inj_counts_list$str_mode <- tolower(inj_counts_list$str_mode)
 
-# update true distances scenarios
-true_distances <- true_distances |> rowwise() |> mutate(scenario = get_qualified_scen_name(scenario))
 
 # add mode distances
-whw_list <- left_join(whw_list, true_distances, by = c('city', 'cas_mode','scenario'))
+inj_counts_list <- left_join(inj_counts_list, true_distances, by = c('city', 'cas_mode','scenario'))
+
 
 # combine active travel modes
-active_travel <- whw_list %>% filter(cas_mode == 'cycle' | cas_mode == 'pedestrian')
+active_travel <- inj_counts_list %>% filter(cas_mode == 'cycle' | cas_mode == 'pedestrian')
 active_travel <- active_travel %>% group_by(str_mode, measure, city, scenario, country, continent) %>% summarise(
                                   value = sum(value), mode_distance = sum(mode_distance), cas_mode ='active_travel')
 
+# add active travel modes to inj_counts_list
+inj_counts_list <- rbind(inj_counts_list, active_travel)
+
+# add totals for each cas_mode
+inj_counts_list <- inj_counts_list %>% filter(str_mode != 'Total' & str_mode != 'total')
+inj_counts_list_total <- inj_counts_list %>% group_by(measure, cas_mode, city, scenario, country, continent, mode_distance) %>%
+                                        summarise(str_mode = 'Total', value = sum(value))
+inj_counts_list <- rbind(inj_counts_list, inj_counts_list_total)
 
 
 # Remove total from whw long form, and write as csv
-readr::write_csv(whw_list %>% filter(str_mode != 'Total'), paste0('results/multi_city/whw_matrices/whw_lng.csv')) # table containing all the fatality counts
+readr::write_csv(inj_counts_list, paste0('results/multi_city/inj/inj_counts.csv')) # table containing all the fatality counts
 ```
 
 
-## Who hit whom matrix for all case cities {#whw_all} 
+## Casualty mode fatality counts for all case cities 
 
 ```{r whw_print, results = 'asis', fig.width=7, fig.height=4, echo=FALSE}
-### by casualty mode # This does contain NOV fatalities!
+### Tables for each casualty mode, giving fatalities by strike mode -> print to html file
 
 list_temp <- list()
 index <- 1
-scen_names <- unique(whw_list$scenario)
+scen_names <- unique(inj_counts_list$scenario)
+
+# loop through scenarios
 for (i in 1:length(scen_names)){
   sn <- scen_names[i]
   cat('###', sn, ' scenario', '\n')
   
-  temp <- whw_list %>% filter(scenario == sn) %>% dplyr::select(cas_mode)
+  temp <- inj_counts_list %>% filter(scenario == sn) %>% dplyr::select(cas_mode)
   
   cas_mode <- unique(temp$cas_mode)
   
-  for (j in 1:length(cas_mode)){
+  for (j in 1:length(cas_mode)){ # loop through casualty modes
     cm <- cas_mode[j]
-    temp1 <- whw_list %>% filter(scenario == sn & cas_mode == cm) %>% spread(value = value, key = str_mode)
     
-    temp1 <- temp1[,c(1, 2, 3, na.omit(match(smodes$exhaustive_list, colnames(temp1))), ncol(temp1))]
+    # filter by scenario and cas mode, add separate columns for each strike mode
+    temp1 <- inj_counts_list %>% filter(scenario == sn & cas_mode == cm) %>% spread(value = value, key = str_mode)
     
+    # rename nov column to NOV 
+    if ('nov' %in% names(temp1)){
+      temp1 <- temp1 %>% rename(NOV = nov)
+      }
+
+    # keep first three columns and strike modes in given list
+    temp1 <- temp1[,c(1, 2, 3, na.omit(match(smodes$exhaustive_list, colnames(temp1))))]
+    
+    # round fatality counts
     temp1 <- temp1 %>% mutate_if(is.numeric, .funs = funs(case_when( . < 1 ~ round(., 2) ,  . >= 1 ~  as.numeric(round(.))))) %>%  mutate_if(is.numeric, ~as.character(.))
     
     list_temp[[index]] <- temp1
@@ -542,17 +649,22 @@ for (i in 1:length(scen_names)){
 ```
 
 
-### Change in deaths due to injury per billion km
+### Fatalities per billion km travelled
 
 ```{r inj_100k = "asis", echo = F, message = F}
+
+# create html tables for injuries per billion km 
+# calculate fatalities per capita
+
 require(tibble)
 overall_el <- list() # To save all cities results
 overall_dd <- list() # To save all cities results
 
 city_df <- list()
-for (city in cities){
+for (city in cities){ # loop through cities
   
-  for (pref in (word(grep("whw",names(io[[city]]$outcomes$whw$baseline), value = T), 2, sep = "_"))){
+  # loop through mean (and upper and lower confidence interval boundary values where applicable)
+  for (pref in (word(grep("whw",names(io[[city]]$outcomes$whw$baseline), value = T), 2, sep = "_"))){ # NA, 'ub', 'lb'
     
     el <- list() # To save city specific results
     # pref <- "ub"
@@ -565,24 +677,26 @@ for (city in cities){
     whw_qn <- paste0("whw", pref_name)
     nov_qn <- paste0("nov", pref_name)
     
-    for (cs in names(io[[city]]$outcomes$whw)){
+    for (cs in names(io[[city]]$outcomes$whw)){ # loop through scenarios
       # cs <- 'baseline'
-      if (length(word(names(io[[city]]$outcomes$whw$baseline), 1, sep = "_") %>% unique()) == 2){
-        # td1: Number of fatalities in nov
+      if (length(word(names(io[[city]]$outcomes$whw$baseline), 1, sep = "_") %>% unique()) == 2){ # if there are whw and nov matrices
+         # td1: Number of fatalities in nov for each casualty mode
         td1 <- io[[city]]$outcomes$whw[[cs]][[nov_qn]] %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
-        # td2: Number of fatalities in whw
+        # td2: Number of fatalities in whw for each casualty mode
         td2 <- colSums(io[[city]]$outcomes$whw[[cs]][[whw_qn]]) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
-        # td3: Number of fatalities: sum of nov and whw
+        # td3: Number of fatalities: sum of nov and whw for each casualty mode
         td3 <- full_join(td2, td1, by = 'mode') %>% mutate(count = rowSums(.[2:3], na.rm = T)) %>% dplyr::select(-c('count.x', 'count.y'))
-        #td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
+     
         
-      }else if(length(names(io[[city]]$outcomes$whw$baseline)) == 1 && names(io[[city]]$outcomes$whw$baseline) == 'whw'){
+      }else if(length(names(io[[city]]$outcomes$whw$baseline)) == 1 && names(io[[city]]$outcomes$whw$baseline) == 'whw'){ # if there are only whw matrices
+        # sum of fatalities for each casualty mode
         td3 <- colSums(io[[city]]$outcomes$whw[[cs]][[whw_qn]]) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
-        #td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
-      }else if(length(names(io[[city]]$outcomes$whw$baseline)) == 1 && names(io[[city]]$outcomes$whw$baseline) == 'nov'){
-        
+       
+      
+        }else if(length(names(io[[city]]$outcomes$whw$baseline)) == 1 && names(io[[city]]$outcomes$whw$baseline) == 'nov'){ # if there are only nov matrices
+        # sum of fatalities for each casualty mode
         td3 <- io[[city]]$outcomes$whw[[cs]][[nov_qn]] %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
-        #td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
+        
         
       }
       # td4: distance travelled per mode
@@ -613,7 +727,7 @@ for (city in cities){
       td4 <- rbind(td4, active_travel)
 
 
-      td5 <- td4 # save copy for risk per population
+      td5 <- td4 # save copy for later risk per population calculation
       
       # Compute risk per bn km travelled
       td4[, 2] <- round((td4[,3] / ( td4[,2] * 365)) * 
@@ -621,23 +735,27 @@ for (city in cities){
       
       names(td4)[3] <- paste(names(td4)[2], names(td4)[3], sep = "_")
       
-      el <- full_join(el, td4, by = c('stage_mode'))
+      el <- full_join(el, td4, by = c('stage_mode')) # output for fatalities per bn km travelled
       
 
       
-      # City's population
+      # add city's population
       pop <- sum(io[[city]]$demographic$population)
       # Compute distance travelled per capita
       td6 <- td5
       td6[[paste0(var,"_risk")]] <- td4[2]
-      td6[[paste0(var,"_percapita")]] <- td6[[var]] * 365 / pop
+      td6[[paste0(var,"_percapita")]] <- td6[[var]] * 365 / pop # calculate fatalities per capita
       names(td6)[3] <- paste(names(td6)[2], names(td6)[3], sep = "_")
-      dd <- full_join(dd, td6, by = 'stage_mode')
+      dd <- full_join(dd, td6, by = 'stage_mode') 
     }
     
+    # remove count columns
+    el <- el %>% dplyr::select(-contains('count'))
+    
+    # print fatalities per bn km travelled to .html document
     print(kable(el, caption = paste(city, ifelse(is.na(pref), "mean", pref))))
     
-    td <- el %>% dplyr::select(-contains('count'))
+    td <- el #%>% dplyr::select(-contains('count'))
     names(td)[2:ncol(td)] <- paste(names(td)[2:ncol(td)], city, sep = "_")
     td$measure <- ifelse(is.na(pref), "mean", pref)
     dd$measure <- ifelse(is.na(pref), "mean", pref)
@@ -658,47 +776,29 @@ for (city in cities){
 
 
 
-### Change in deaths due to injury per Billion km across cities
+
 
 ```{r inj_100k_all_cities = "asis"}
+
+# create csv file per billion km travelled
+
 require(tibble)
 td <- overall_el %>% purrr::reduce(full_join, by = c("stage_mode", "measure")) %>% as.data.frame()
 td[is.na(td)] <- 0
 td <- td %>% dplyr::select(stage_mode, sort(names(.)))
-#readr::write_csv(td, 'results/multi_city/whw_matrices/injury_risks_per_100k_kms.csv')
-# colnames(td) = gsub("bi_sc", "bisc", colnames(td))
-# colnames(td) = gsub("bus_sc", "bssc", colnames(td))
-# colnames(td) = gsub("car_sc", "csc", colnames(td))
-# colnames(td) = gsub("mc_sc", "mcsc", colnames(td))
-# colnames(td) = gsub("w_sc", "wsc", colnames(td))
+
+
 injury_risks_b <- td
-# # Convert it into Billion by multiping the values by 10000
-# injury_risks_b[, 2:ncol(injury_risks_b)] <- injury_risks_b[, 2:ncol(injury_risks_b)] * 10000
-#readr::write_csv(injury_risks_b, 'results/multi_city/whw_matrices/injury_risks_per_billion_kms.csv')
-# colnames(injury_risks_b) = gsub("bi_sc", "bisc", colnames(injury_risks_b))
-# colnames(injury_risks_b) = gsub("bus_sc", "bssc", colnames(injury_risks_b))
-# colnames(injury_risks_b) = gsub("car_sc", "csc", colnames(injury_risks_b))
-# colnames(injury_risks_b) = gsub("mc_sc", "mcsc", colnames(injury_risks_b))
-# colnames(injury_risks_b) = gsub("w_sc", "wsc", colnames(injury_risks_b))
+
+# change shape and update some column names
 injury_risks_lng <- reshape2::melt(injury_risks_b)
 col_split <- stringr::str_split(injury_risks_lng$variable, "_", simplify = TRUE, n = 2)
 injury_risks_lng <- cbind(injury_risks_lng, col_split)
 names(injury_risks_lng)[5] <- 'scenario'
 names(injury_risks_lng)[6] <- 'city'
 injury_risks_lng <- injury_risks_lng %>% dplyr::select(-variable)
-cols <- c("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02")
 injury_risks_lng$scenario <- as.character(injury_risks_lng$scenario)
-# injury_risks_lng[injury_risks_lng$scenario == 'bl',]$scenario <- 'Baseline_predicted'
-# injury_risks_lng[injury_risks_lng$scenario == 'bisc',]$scenario <- 'Bicycling'
-# injury_risks_lng[injury_risks_lng$scenario == 'bssc',]$scenario <- 'Public Transport'
-# injury_risks_lng[injury_risks_lng$scenario == 'csc',]$scenario <- 'Car'
-# if (NSCEN == 4){
-#   injury_risks_lng[injury_risks_lng$scenario == 'mcsc',]$scenario <- 'Motorcycling'
-# }
-# if (NSCEN == 5){
-#   injury_risks_lng[injury_risks_lng$scenario == 'mcsc',]$scenario <- 'Motorcycling'
-#     injury_risks_lng[injury_risks_lng$scenario == 'wsc',]$scenario <- 'Walking'
-# }
+
 rd <- rename(injury_risks_lng, mode = stage_mode)
 rd <- rd %>% filter(mode != 'Total')
 
@@ -706,18 +806,22 @@ rd <- rd %>% filter(mode != 'Total')
 rd <- left_join(rd, location, by = 'city')
 
 
-# aggregate baseline counts by cas_mode
-baseline_counts_agg <- baseline_counts %>% group_by(city,cas_mode, country, continent, measure, scenario) %>% summarise(value = sum(value)) %>% rename(mode = cas_mode)
-
 # get true_distances into correct format
 true_distances <- true_distances  %>% rename(mode = cas_mode)
 
+# add active travel distances
+true_distances_at <- true_distances %>% filter(mode == 'cycle' | mode == 'pedestrian')
+true_distances_at <- true_distances_at %>% group_by(city,scenario) %>% summarise(
+                                              mode_distance = sum(mode_distance), mode = 'active_travel')
+true_distances <- rbind(true_distances, true_distances_at)
 
-# add distance information
+# add distance information (note true_distances does not contain distance info for active_travel)
 rd <- left_join(rd, true_distances, by = c('mode', 'city','scenario'))
 
 
-# add baseline counts 
+## add baseline counts 
+# aggregate baseline counts by cas_mode
+baseline_counts_agg <- baseline_counts %>% group_by(city,cas_mode, country, continent, measure, scenario) %>% summarise(value = sum(value)) %>% rename(mode = cas_mode)
 
 # merge baseline count with distance
 baseline_counts_km <- left_join(baseline_counts_agg, true_distances, by = c('mode', 'city', 'scenario'))
@@ -736,22 +840,28 @@ baseline_counts_km$value <- round((baseline_counts_km$value /(baseline_counts_km
 rd <- rbind(rd, baseline_counts_km )
 
 
-readr::write_csv(rd, 'results/multi_city/whw_matrices/injury_risks_per_billion_kms_lng.csv')
+# add total counts (excluding active travel)
+
+
+
+# output csv
+readr::write_csv(rd, 'results/multi_city/inj/injury_risks_per_billion_kms.csv')
 ```
 
 
-### # of deaths due to injury per 100,000 people
+### Fatalities per 100,000 people
 
 ```{r inj_100k = "asis"}
 require(tibble)
 overall_el_normalized <- list()
 city_df <- list()
 
-for (city in cities){
+for (city in cities){ # loop through cities
   
   print(city)
   
-  for (pref in (word(grep("whw",names(io[[city]]$outcomes$whw$baseline), value = T), 2, sep = "_"))){
+  # loop through mean and upper and lower confidence interval boundaries if they exist
+  for (pref in (word(grep("whw",names(io[[city]]$outcomes$whw$baseline), value = T), 2, sep = "_"))){ 
     
     el <- list() # To save city specific results
     pref_name <- ""
@@ -763,26 +873,33 @@ for (city in cities){
     whw_qn <- paste0("whw", pref_name)
     nov_qn <- paste0("nov", pref_name)
     
-    for (cs in names(io[[city]]$outcomes$whw)){
-      if (length(word(names(io[[city]]$outcomes$whw$baseline), 1, sep = "_") %>% unique()) == 2){
+    for (cs in names(io[[city]]$outcomes$whw)){ # loop through scenarios
+      
+      if (length(word(names(io[[city]]$outcomes$whw$baseline), 1, sep = "_") %>% unique()) == 2){ # if both whw and nov outputs exist
+        # extract nov part and get into correct format
         td1 <- (io[[city]]$outcomes$whw[[cs]][[nov_qn]]) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+        # extract whw part and get into correct format
         td2 <- colSums((io[[city]]$outcomes$whw[[cs]][[whw_qn]])) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
+        # join nov and whw parts
         td3 <- full_join(td2, td1, by = 'mode') %>% mutate(count = rowSums(.[2:3], na.rm = T)) %>% dplyr::select(-c('count.x', 'count.y'))
         
-      }else if(length(names(io[[city]]$outcomes$whw$baseline)) == 1 && names(io[[city]]$outcomes$whw$baseline) == 'whw'){
+      }else if(length(names(io[[city]]$outcomes$whw$baseline)) == 1 && names(io[[city]]$outcomes$whw$baseline) == 'whw'){ # if only whw outputs exist
+        # extract whw part and get into correct format
         td3 <- colSums((io[[city]]$outcomes$whw[[cs]][[whw_qn]])) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
-      }else if(length(names(io[[city]]$outcomes$whw$baseline)) == 1 && names(io[[city]]$outcomes$whw$baseline) == 'nov'){
-        
+      }else if(length(names(io[[city]]$outcomes$whw$baseline)) == 1 && names(io[[city]]$outcomes$whw$baseline) == 'nov'){ # if only nov outputs exist
+        # extract nov part and get into correct format
         td3 <- (io[[city]]$outcomes$whw[[cs]][[nov_qn]]) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
         
       }
       
+      # extract true distances
       td4 <- io[[city]]$true_dist %>% filter(stage_mode %in% td3$mode) %>% dplyr::select(stage_mode)
       
-      if (length(el) == 0){
+      if (length(el) == 0){ # list which gets intitialised with stage modes only
         el <- td4 %>% dplyr::select(stage_mode)
       }
       
+      # add nov and whw counts to distances
       td4 <- full_join(td4, td3 %>% dplyr::select(mode, count) %>% rename(stage_mode = mode), by = 'stage_mode')
       
       var <- get_qualified_scen_name(cs)
@@ -790,7 +907,7 @@ for (city in cities){
       names(td4)[2] <- var
       
       
-       # add active travel mode
+      ## add active travel mode
       # filter out pedestrian and cycle trips, calculate sum of counts and distances and add to existing data
       active_travel <- td4 %>% filter(stage_mode == 'pedestrian' | stage_mode == 'cycle')
       active_travel <- active_travel %>% group_by() %>% summarise(stage_mode = 'active_travel', 
@@ -802,38 +919,48 @@ for (city in cities){
       
       td5 <- td4
       
+      # calculate fatalities per 100,000 people
       td4[, 2] <- round(td4[, 2] / sum(io[[city]]$demographic$population) * 100000, 2)
       
       el <- full_join(el, td4, by = 'stage_mode')
     }
     
-    el <- el %>% ungroup() %>% janitor::adorn_totals(c('row', 'col'))
+    # calculate total per scenario (not including active travel)
+    #el <- el %>% ungroup() %>% janitor::adorn_totals(c('row', 'col'))
     
+    el_no_at <- el %>% filter(!stage_mode == 'active_travel')
+    el_total <- el_no_at %>% ungroup() %>% janitor::adorn_totals(c('row'))
+   
+    el <- rbind(el, el_total %>% filter(stage_mode == 'Total'))
+    
+    
+    # print fatalities per 100,000 people to html
     print(kable(el, caption = city))
+    
+    # get into correct format and add to city_df list
     td <- el
     names(td)[2:ncol(td)] <- paste(names(td)[2:ncol(td)], city, sep = "_")
     td$measure <- ifelse(is.na(pref), "mean", pref)
 
     city_df[["td"]][[city]][[unique(td$measure)]] <- td
 
+    # create one table containing mean and upper and lower limits where applicable
     if (length(city_df[["td"]][[city]]) == 3){
       overall_el_normalized[[city]] <- data.table::rbindlist(city_df[["td"]][[city]])
     }
     
     cat("\n")
   }
-  
 }
 
+# get fatalities per 100,000 people into correct format
 td <- overall_el_normalized %>% purrr::reduce(full_join, by = c("stage_mode", "measure")) %>% as.data.frame()
 td[is.na(td)] <- 0
 td <- td %>% dplyr::select(stage_mode, sort(names(.)))
 td <- rename(td, mode = stage_mode)
-# colnames(td) = gsub("bi_sc", "bisc", colnames(td))
-# colnames(td) = gsub("bus_sc", "bssc", colnames(td))
-# colnames(td) = gsub("car_sc", "csc", colnames(td))
-# colnames(td) = gsub("mc_sc", "mcsc", colnames(td))
-# colnames(td) = gsub("w_sc", "wsc", colnames(td))
+td <- td %>% filter(!mode == 'Total')
+
+# get fatalities per 100,000 people into correct format where all scenarios are in the same column
 injury_risks_per_100k <- reshape2::melt(td)
 col_split <- stringr::str_split(injury_risks_per_100k$variable, "_", simplify = TRUE, n = 2)
 injury_risks_per_100k <- cbind(injury_risks_per_100k, col_split)
@@ -841,17 +968,6 @@ names(injury_risks_per_100k)[5] <- 'scenario'
 names(injury_risks_per_100k)[6] <- 'city'
 injury_risks_per_100k <- injury_risks_per_100k %>% dplyr::select(-variable)
 injury_risks_per_100k$scenario <- as.character(injury_risks_per_100k$scenario)
-# injury_risks_per_100k[injury_risks_per_100k$scenario == 'bl',]$scenario <- 'Baseline_predicted'
-# injury_risks_per_100k[injury_risks_per_100k$scenario == 'bisc',]$scenario <- 'Bicycling'
-# injury_risks_per_100k[injury_risks_per_100k$scenario == 'bssc',]$scenario <- 'Public Transport'
-# injury_risks_per_100k[injury_risks_per_100k$scenario == 'csc',]$scenario <- 'Car'
-# if (NSCEN == 4){
-#   injury_risks_per_100k[injury_risks_per_100k$scenario == 'mcsc',]$scenario <- 'Motorcycling'
-# }
-# if (NSCEN == 5){
-#   injury_risks_per_100k[injury_risks_per_100k$scenario == 'mcsc',]$scenario <- 'Motorcycling'
-#   injury_risks_per_100k[injury_risks_per_100k$scenario == 'wsc',]$scenario <- 'Walking'
-# }
 
 
 # add distance, population and location information
@@ -882,31 +998,35 @@ injury_risks_per_100k <- rbind(injury_risks_per_100k, baseline_counts_pop)
 # add country and continent information
 # injury_risks_per_100k <- left_join(injury_risks_per_100k, location, by = 'city')
 
-readr::write_csv(injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'), 'results/multi_city/whw_matrices/injury_risks_per_100k_pop.csv')
+readr::write_csv(injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'), 'results/multi_city/inj/injury_risks_per_100k_pop.csv')
 ```
 
-### True distances in a single file
+
 ```{r }
+
+### True distances in a single file
+
+# create dataframe containing all mode distances for each city and scenario
 true_distances_city <- list()
 for (city in cities) { # Loop for each city
   true_distances_city[[city]] <- io[[city]]$true_dist %>% 
     pivot_longer(!stage_mode, names_to = "scenario", values_to = "distance") %>% 
     mutate(city = city)
 }
-true_distances_df <- bind_rows(true_distances_city) # %>% 
-  # mutate(scenario = case_when(
-  #   scenario == "Scenario 1" ~ "Bicycling", 
-  #   scenario == "Scenario 2" ~ "Car",
-  #   scenario == "Scenario 3" ~ "Public Transport",
-  #   scenario == "Scenario 4" ~ "Motorcycling",
-  #   scenario == "Scenario 5" ~ "Walking",
-  #   scenario == "Baseline" ~ "Baseline"))
-readr::write_csv(true_distances_df, 'results/multi_city/whw_matrices/distances.csv')
+true_distances_df <- bind_rows(true_distances_city)
+
+# add active travel distances
+true_distances_df_at <- true_distances_df %>% filter(stage_mode == 'cycle' | stage_mode == 'pedestrian')
+true_distances_df_at <- true_distances_df_at %>% group_by(city, scenario) %>% summarise(stage_mode = 'active_travel', distance = sum(distance))
+true_distances_df <- rbind(true_distances_df, true_distances_df_at) 
+
+# write to csv
+readr::write_csv(true_distances_df, 'results/multi_city/inj/distances.csv')
 ```
 
 
 
-### Change in deaths due to injury per 100 million hours
+### Fatalities per 100 million hours travelled
 
 ```{r inj_100k = "asis"}
 require(tibble)
@@ -914,12 +1034,15 @@ overall_el <- list() # To save all cities results
 overall_dd <- list() # To save all cities results
 
 city_df <- list()
-for (city in cities){
+for (city in cities){ # loop through cities
   
-  for (pref in (word(grep("whw",names(io[[city]]$outcomes$whw$baseline), value = T), 2, sep = "_"))){
+  # loop through mean and upper and lower confidence interval boundary values where required
+  for (pref in (word(grep("whw",names(io[[city]]$outcomes$whw$baseline), value = T), 2, sep = "_"))){ 
     
     el <- list() # To save city specific results
     # pref <- "ub"
+    
+    # set up names
     pref_name <- ""
     if (!is.na(pref))
       pref_name <- paste0("_", pref)
@@ -938,19 +1061,24 @@ for (city in cities){
         td2 <- colSums(io[[city]]$outcomes$whw[[cs]][[whw_qn]]) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
         # td3: Number of fatalities: sum of nov and whw
         td3 <- full_join(td2, td1, by = 'mode') %>% mutate(count = rowSums(.[2:3], na.rm = T)) %>% dplyr::select(-c('count.x', 'count.y'))
-        #td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
+
         
-      }else if(length(names(io[[city]]$outcomes$whw$baseline)) == 1 && names(io[[city]]$outcomes$whw$baseline) == 'whw'){
+      }else if(length(names(io[[city]]$outcomes$whw$baseline)) == 1 && names(io[[city]]$outcomes$whw$baseline) == 'whw'){ # if there exist only whw matrices
+        
+        # td3: number of fatalities for whw only
         td3 <- colSums(io[[city]]$outcomes$whw[[cs]][[whw_qn]]) %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
-        #td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
-      }else if(length(names(io[[city]]$outcomes$whw$baseline)) == 1 && names(io[[city]]$outcomes$whw$baseline) == 'nov'){
         
+        
+      }else if(length(names(io[[city]]$outcomes$whw$baseline)) == 1 && names(io[[city]]$outcomes$whw$baseline) == 'nov'){ # if there exist only nov matrices
+        
+        # td3: number of fatalities for whw only
         td3 <- io[[city]]$outcomes$whw[[cs]][[nov_qn]] %>% as.data.frame() %>% rownames_to_column() %>% rename(mode = rowname) %>% rename_at(2, ~"count")
-        #td3[td3$mode == 'pedestrian', ]$mode <- 'walking'
-        
+
       }
       # td4: duration travelled per mode
-      td4 <- io[[city]]$dur %>% filter(stage_mode %in% td3$mode) %>% dplyr::select(stage_mode, cs) %>% as.data.frame()
+      #td4 <- io[[city]]$dur %>% filter(stage_mode %in% td3$mode) %>% dplyr::select(stage_mode, cs) %>% as.data.frame()
+      td4 <- duration %>% filter(stage_mode %in% td3$mode & scenario == get_qualified_scen_name(cs) & 
+                                   city == city) %>% dplyr::select(stage_mode, mode_duration) 
       
       if (length(el) == 0){
         el <- td4 %>% dplyr::select(stage_mode)
@@ -961,36 +1089,47 @@ for (city in cities){
       
       var <- get_qualified_scen_name(cs)
       
+      # rename mode duration column as scenario column
       names(td4)[2] <- var
-      
-      td4[, 2] <- as.numeric(td4[,2])
+      td4[, 2] <- as.numeric(unlist(td4[,2]))
+      td4[, 3] <- as.numeric(unlist(td4[,3]))
       
       # add active travel mode
       # filter out pedestrian and cycle trips, calculate sum of counts and distances and add to existing data
       active_travel <- td4 %>% filter(stage_mode == 'pedestrian' | stage_mode == 'cycle')
       active_travel <- active_travel %>% group_by() %>% summarise(stage_mode = 'active_travel', 
-                                                                  x = sum(active_travel[,2]),
+                                                                   x = sum(active_travel[,2]),
                                                                   y = sum(active_travel[,3]))
+      
       colnames(active_travel) <- colnames(td4)
-      
       td4 <- rbind(td4, active_travel)
-
+      
+      
       # Compute risk per 100 million hours travelled
-      td4[, 2] <- round((td4[,3] / ( td4[,2] * 365)) * 
+      td4[, 2] <- round((td4[,3] / ( td4[,2] * 365)) *
                           100000000, 4)
-      
+
       names(td4)[3] <- paste(names(td4)[2], names(td4)[3], sep = "_")
+
+
+      # remove count columns
+      td4 <- td4 %>% dplyr::select(-contains('count'))
       
+      # join mean and upper and lower confidence interval limits if given
       el <- full_join(el, td4, by = c('stage_mode'))
     }
     
+    # print fatalities per 100 mil h travelled and total counts to html document
     print(kable(el, caption = paste(city, ifelse(is.na(pref), "mean", pref))))
     
-    td <- el %>% dplyr::select(-contains('count'))
+    
+    td <- el # %>% dplyr::select(-contains('count'))
+    # add city name to column names
     names(td)[2:ncol(td)] <- paste(names(td)[2:ncol(td)], city, sep = "_")
+    # add 'measure' columns
     td$measure <- ifelse(is.na(pref), "mean", pref)
  
-      
+    # add to city_df output list  
     city_df[["td"]][[city]][[unique(td$measure)]] <- td
  
       
@@ -1006,45 +1145,30 @@ for (city in cities){
 
 
 
-### Change in deaths due to injury per 100 million hours across cities
+
 
 ```{r inj_100k_all_cities = "asis"}
+
+# Change in deaths due to injury per 100 million hours across cities - produce csv file
+
 #require(tibble)
+
+# initialise dataframe 
 td <- overall_el %>% purrr::reduce(full_join, by = c("stage_mode", "measure")) %>% as.data.frame()
 td[is.na(td)] <- 0
 td <- td %>% dplyr::select(stage_mode, sort(names(.)))
 
-# colnames(td) = gsub("bi_sc", "bisc", colnames(td))
-# colnames(td) = gsub("bus_sc", "bssc", colnames(td))
-# colnames(td) = gsub("car_sc", "csc", colnames(td))
-# colnames(td) = gsub("mc_sc", "mcsc", colnames(td))
-# colnames(td) = gsub("w_sc", "wsc", colnames(td))
 injury_risks_100mil_hours <- td
 
-# colnames(injury_risks_100mil_hours) = gsub("bi_sc", "bisc", colnames(injury_risks_100mil_hours))
-# colnames(injury_risks_100mil_hours) = gsub("bus_sc", "bssc", colnames(injury_risks_100mil_hours))
-# colnames(injury_risks_100mil_hours) = gsub("car_sc", "csc", colnames(injury_risks_100mil_hours))
-# colnames(injury_risks_100mil_hours) = gsub("mc_sc", "mcsc", colnames(injury_risks_100mil_hours))
-# colnames(injury_risks_100mil_hours) = gsub("w_sc", "wsc", colnames(injury_risks_100mil_hours))
+# get data into correct format
 injury_risks_lng_hours <- reshape2::melt(injury_risks_100mil_hours)
 col_split <- stringr::str_split(injury_risks_lng_hours$variable, "_", simplify = TRUE, n = 2)
 injury_risks_lng_hours <- cbind(injury_risks_lng_hours, col_split)
 names(injury_risks_lng_hours)[5] <- 'scenario'
 names(injury_risks_lng_hours)[6] <- 'city'
 injury_risks_lng_hours <- injury_risks_lng_hours %>% dplyr::select(-variable)
-cols <- c("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02")
 injury_risks_lng_hours$scenario <- as.character(injury_risks_lng_hours$scenario)
-# injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'bl',]$scenario <- 'Baseline_predicted'
-# injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'bisc',]$scenario <- 'Bicycling'
-# injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'bssc',]$scenario <- 'Public Transport'
-# injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'csc',]$scenario <- 'Car'
-# if (NSCEN == 4){
-#   injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'mcsc',]$scenario <- 'Motorcycling'
-# }
-# if (NSCEN == 5){
-#   injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'mcsc',]$scenario <- 'Motorcycling'
-#     injury_risks_lng_hours[injury_risks_lng_hours$scenario == 'wsc',]$scenario <- 'Walking'
-# }
+
 rd_hours <- rename(injury_risks_lng_hours, mode = stage_mode)
 rd_hours <- rd_hours %>% filter(mode != 'Total')
 
@@ -1054,23 +1178,23 @@ rd_hours <- left_join(rd_hours, location, by = 'city')
 # add distance information
 rd_hours <- left_join(rd_hours, true_distances, by = c('city','mode','scenario'))
 
-
-# get true_distances into correct format
+# get duration into correct format
 duration <- duration  %>% rename(mode = stage_mode)
-# duration[duration$scenario == 'Scenario 1',]$scenario <- 'Bicycling'
-# duration[duration$scenario == 'Scenario 3',]$scenario <- 'Public Transport'
-# duration[duration$scenario == 'Scenario 2',]$scenario <- 'Car'
-# duration[duration$scenario == 'Scenario 4',]$scenario <- 'Motorcycling'
-# duration[duration$scenario == 'Scenario 5',]$scenario <- 'Walking'
+
+# add active travel mode duration
+duration_at <- duration %>% filter(mode == 'pedestrian' | mode == 'cycle')
+duration_at <- duration_at %>% group_by(scenario, city) %>% summarise(mode = 'active_travel',
+                                                                      mode_duration = sum(mode_duration))
+duration <- rbind(duration, duration_at)
+
 
 # add duration information
 rd_hours <- left_join(rd_hours, duration, by = c('mode', 'city','scenario'))
 
-
-# add counts but first divide by duration
+# add baseline counts - join with duration information
 baseline_counts_dur <- left_join(baseline_counts_agg, duration, by = c('mode', 'city', 'scenario'))
 
-# add active travel 
+# add active travel to baseline counts
 active_travel <- baseline_counts_dur %>% filter(mode == 'cycle' | mode == 'pedestrian')
 active_travel <- active_travel %>% group_by(city, scenario, country, continent, measure ) %>% summarise(
                                    value = sum(value), mode_duration = sum(mode_duration), 
@@ -1078,24 +1202,25 @@ active_travel <- active_travel %>% group_by(city, scenario, country, continent, 
 
 baseline_counts_dur <- rbind(baseline_counts_dur, active_travel)
 
-
+# calculate fatalities per 100mil h travelled for baseine counts
 baseline_counts_dur$value <- round((baseline_counts_dur$value /(baseline_counts_dur$mode_duration * 365))*100000000,4)
 baseline_counts_dur <- left_join(baseline_counts_dur,true_distances, by = c('city', 'mode','scenario'))
 
+# add baseline rate to predicted rates
 rd_hours <- rbind(rd_hours, baseline_counts_dur )
 
-
-readr::write_csv(rd_hours, 'results/multi_city/whw_matrices/injury_risks_per_100million_h_lng.csv')
+# write as csv
+readr::write_csv(rd_hours, 'results/multi_city/inj/injury_risks_per_100million_h.csv')
 ```
 
-### Write all injury tables in a single excel sheet
+
 ```{r}
-# Export injury datasets in a single excel sheet
+# Export injury datasets in a single excel file
 path_inj_wb <- "results/multi_city/inj/inj_data.xlsx"
- writexl::write_xlsx(list(whw = whw_list %>% filter(str_mode != 'Total'),
-                          injury_risks_per_billion_kms = rd,
-                          injury_risks_per_100k  = injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'),
-                          injury_risks_per_100million_h = rd_hours,
+ writexl::write_xlsx(list(inj_counts = inj_counts_list, #%>% filter(str_mode != 'Total'),
+                          injury_risks_billion_kms = rd,
+                          injury_risks_100k_people  = injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'),
+                          injury_risks_100mil_h = rd_hours,
                           true_distances = true_distances_df),
                      path = path_inj_wb)
 ```
