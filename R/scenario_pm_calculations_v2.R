@@ -49,6 +49,9 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # Copy trips dataset
   trip_set <- trip_scen_sets
   
+  # Merge baseline PA
+  trip_set <- dplyr::left_join(trip_set, SYNTHETIC_POPULATION[,c('participant_id', 'work_ltpa_marg_met')], by='participant_id')
+  
   # Rename short walks as pedestrian 
   trip_set$stage_mode[trip_set$stage_mode=='walk_to_pt'] <- 'pedestrian'
   
@@ -86,11 +89,13 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # have participant_id = 0.
   met_df <- data.frame(
     stage_mode = c("rest", "car", "taxi", "bus", "rail", "cycle", "pedestrian", 
-                   "sleep", "motorcycle", "auto_rickshaw", "other"), 
+                   "sleep", "motorcycle", "auto_rickshaw", "other", 
+                   "moderate", "vigorous", "leisure", "light_activities"), 
     met = c(1.3, 2.5, 1.3, 1.3, 1.3, MMET_CYCLING + 1, MMET_WALKING + 1, 
-            0.95, 2.8, 1.3, 1.3),
+            0.95, 2.8, 1.3, 1.3, 3.5, 7, 1.3, 1.3),
     compendium_code = c('07021', '16010', '16015', '16016', '16016', '01011', 
-                        '16060', '07030', '16030', '16016', '16016')
+                        '16060', '07030', '16030', '16016', '16016', 'pending',
+                        'pending', 'pending', 'pending')
   )
   
   # Dan: Extract people from the synthetic population to calculate their 
@@ -257,10 +262,18 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
     ungroup()
   
   
-  # Extract mets for sleep and rest
+  # Extract mets for sleep, rest, moderate and vigorous
   sleep_met <- met_df %>% filter(stage_mode == 'sleep') %>% 
     dplyr::select(met) %>% as.numeric()
   rest_met <- met_df %>% filter(stage_mode == 'rest') %>% 
+    dplyr::select(met) %>% as.numeric()
+  moderate_met <- met_df %>% filter(stage_mode == 'moderate') %>% 
+    dplyr::select(met) %>% as.numeric()
+  vigorous_met <- met_df %>% filter(stage_mode == 'vigorous') %>% 
+    dplyr::select(met) %>% as.numeric()
+  leisure_met <- met_df %>% filter(stage_mode == 'leisure') %>% 
+    dplyr::select(met) %>% as.numeric()
+  light_met <- met_df %>% filter(stage_mode == 'light_activities') %>% 
     dplyr::select(met) %>% as.numeric()
   
   #----
@@ -272,6 +285,14 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   rest_rate <- filter(vent_rates, stage_mode == "rest") |> dplyr::select(v_rate) |> pull()
   
   #----
+  # Dan: We are saying that time spent for any person is:
+  # Sleep: 8.3 hours
+  # Leisure sedentary screen time: 3.15 hours
+  # Light activities: 10.75 hours
+  # For a total of 22.2 hours
+  # Since it is possible that the unknown time is less than 22.2, I am going
+  # to use proportions for now to get values for these activities
+  
   # Calculate total air and pm inhaled in each person
   synth_pop <- trip_set  %>%  
     filter(participant_id != 0) %>% 
@@ -285,6 +306,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
         8 * (sleep_rate) * conc_pm + ((16 - total_travel_time_hrs) * (rest_rate) * conc_pm),
       travel_air_inhaled_2 = sum(air_inhaled_2, na.rm = T),
       travel_pm_inhaled_2 = sum(pm_inhaled_2, na.rm = T),
+      work_ltpa_marg_met = max(work_ltpa_marg_met, na.rm=T)
     ) %>% 
     distinct(participant_id, scenario, .keep_all = T) %>% 
     # Merge participant information to calculate ventilation rates for sleep and rest
@@ -294,8 +316,18 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
     # Calculate vent_rates and air inhaled in the same way as with travel modes
     rowwise() %>% 
     mutate(
-      # Sleep
-      sleep_duration = 8 * 60, # In minutes
+      # Calculate time spent in moderate and vigorous activities from work_ltpa_marg_met
+      # I subtract 1 because the initial values are MET not Marginal MET
+      time_moderate = (work_ltpa_marg_met * MODERATE_PA_CONTRIBUTION) / (moderate_met - 1),
+      time_vigorous = (work_ltpa_marg_met * (1 - MODERATE_PA_CONTRIBUTION)) / (vigorous_met - 1),
+      # Calculate known time
+      known_time = total_travel_time_hrs + time_moderate + time_vigorous,
+      # Calculate unknown time
+      unknown_time = 24 - known_time,
+      
+      # Calculate ventilation rate for each activity (durations are calculated from the unknown time)
+      ## Sleep
+      sleep_duration = (unknown_time * (8.3/22.2)) * 60, # In minutes
       vo2_sleep = ecf * sleep_met * rmr,
       pct_vo2max_sleep = ifelse(sleep_duration < 5, 100,
                                 ifelse(sleep_duration > 540, 33,
@@ -303,38 +335,59 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
       upper_vo2max_sleep = vo2max * (pct_vo2max_sleep / 100),
       adj_vo2_sleep = ifelse(vo2_sleep > upper_vo2max_sleep, 
                              upper_vo2max_sleep, vo2_sleep),
-      ## Draw sample from normal distribution taking into account the variance 
-      ## between activities
+      ### Draw sample from normal distribution taking into account the variance 
+      ### between activities
       e_ijk_sleep = rnorm(1, 0, sd_test_level),
       log_vent_rate_sleep = intercept_a + (slope_b * log(adj_vo2_sleep/body_mass)) + d_k + e_ijk_sleep,
       vent_rate_sleep = exp(log_vent_rate_sleep) * body_mass,
       v_rate_sleep = vent_rate_sleep * 60 / 1000,
-      # Calculate air and pm inhaled
+      ### Calculate air and pm inhaled
       sleep_air_inhaled = sleep_duration / 60 * v_rate_sleep,
       sleep_pm_inhaled = sleep_duration / 60 * v_rate_sleep * conc_pm,
       
-      # Rest
-      rest_duration = (16 - total_travel_time_hrs) * 60, # In minutes
-      vo2_rest = ecf * rest_met * rmr,
-      pct_vo2max_rest = ifelse(rest_duration < 5, 100,
-                               ifelse(rest_duration > 540, 33,
-                                      121.2 - (14 * log(rest_duration)))),
-      upper_vo2max_rest = vo2max * (pct_vo2max_rest / 100),
-      adj_vo2_rest = ifelse(vo2_rest > upper_vo2max_rest, 
-                            upper_vo2max_rest, vo2_rest),
+      
+      ## Leisure sedentary screen time
+      leisure_duration = (unknown_time * (3.15/22.2)) * 60, # In minutes
+      vo2_leisure = ecf * leisure_met * rmr,
+      pct_vo2max_leisure = ifelse(leisure_duration < 5, 100,
+                               ifelse(leisure_duration > 540, 33,
+                                      121.2 - (14 * log(leisure_duration)))),
+      upper_vo2max_leisure = vo2max * (pct_vo2max_leisure / 100),
+      adj_vo2_leisure = ifelse(vo2_leisure > upper_vo2max_leisure, 
+                            upper_vo2max_leisure, vo2_leisure),
       ## Draw sample from normal distribution taking into account the variance 
       ## between activities
-      e_ijk_rest = rnorm(1, 0, sd_test_level),
-      log_vent_rate_rest = intercept_a + (slope_b * log(adj_vo2_rest/body_mass)) + d_k + e_ijk_rest,
-      vent_rate_rest = exp(log_vent_rate_rest) * body_mass,
-      v_rate_rest = vent_rate_rest * 60 / 1000,
+      e_ijk_leisure = rnorm(1, 0, sd_test_level),
+      log_vent_rate_leisure = intercept_a + (slope_b * log(adj_vo2_leisure/body_mass)) + d_k + e_ijk_leisure,
+      vent_rate_leisure = exp(log_vent_rate_leisure) * body_mass,
+      v_rate_leisure = vent_rate_leisure * 60 / 1000,
       # Calculate air and pm inhaled
-      rest_air_inhaled = rest_duration / 60 * v_rate_rest,
-      rest_pm_inhaled = rest_duration / 60 * v_rate_rest * conc_pm,
+      leisure_air_inhaled = leisure_duration / 60 * v_rate_leisure,
+      leisure_pm_inhaled = leisure_duration / 60 * v_rate_leisure * conc_pm,
+      
+      
+      ## Light activities
+      light_duration = (unknown_time * (10.75/22.2)) * 60, # In minutes
+      vo2_light = ecf * light_met * rmr,
+      pct_vo2max_light = ifelse(light_duration < 5, 100,
+                                  ifelse(light_duration > 540, 33,
+                                         121.2 - (14 * log(light_duration)))),
+      upper_vo2max_light = vo2max * (pct_vo2max_light / 100),
+      adj_vo2_light = ifelse(vo2_light > upper_vo2max_light, 
+                               upper_vo2max_light, vo2_light),
+      ## Draw sample from normal distribution taking into account the variance 
+      ## between activities
+      e_ijk_light = rnorm(1, 0, sd_test_level),
+      log_vent_rate_light = intercept_a + (slope_b * log(adj_vo2_light/body_mass)) + d_k + e_ijk_light,
+      vent_rate_light = exp(log_vent_rate_light) * body_mass,
+      v_rate_light = vent_rate_light * 60 / 1000,
+      # Calculate air and pm inhaled
+      light_air_inhaled = light_duration / 60 * v_rate_light,
+      light_pm_inhaled = light_duration / 60 * v_rate_light * conc_pm,
       
       # Total air and pm inhaled
-      total_air_inhaled_2 = travel_air_inhaled_2 + sleep_air_inhaled + rest_air_inhaled,
-      total_pm_inhaled_2 = travel_pm_inhaled_2 + sleep_pm_inhaled + rest_pm_inhaled,
+      total_air_inhaled_2 = travel_air_inhaled_2 + sleep_air_inhaled + leisure_air_inhaled + light_air_inhaled,
+      total_pm_inhaled_2 = travel_pm_inhaled_2 + sleep_pm_inhaled + leisure_pm_inhaled + light_pm_inhaled,
       
       # Calculate pm / air ratio
       conc_pm_inhaled = total_pm_inhaled / total_air_inhaled,
