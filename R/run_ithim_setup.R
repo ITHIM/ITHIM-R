@@ -133,6 +133,7 @@
 #' @param COMMERCIAL_MBIKE_MALE_AGERANGE character: age range of male commercial motorcycle drivers
 #' @param COMMERCIAL_MBIKE_FEMALE_AGERANGE character: age range of female commercial motorcycle drivers
 #' @param MINIMUM_PT_TIME scalar: minimum time that person spends on public transport
+#' @param MODERATE_PA_CONTRIBUTION scalar: proportion contribution of moderate PA in Leisure MVPA
 #' @param SCENARIO_NAME name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO, 
 #'                                              MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)
 #' @param SCENARIO_INCREASE increase of given mode in each scenario (currently used in GLOBAL, BOGOTA, LATAM and AFRICA_INDIA scenarios)
@@ -207,7 +208,8 @@ run_ithim_setup <- function(seed = 1,
                             COMMERCIAL_MBIKE_MALE_AGERANGE ="18, 65",
                             COMMERCIAL_MBIKE_FEMALE_AGERANGE ="18, 65",
                             
-                            MINIMUM_PT_TIME = 3
+                            MINIMUM_PT_TIME = 3,
+                            MODERATE_PA_CONTRIBUTION = 0.5
                             ){
   
 
@@ -425,7 +427,8 @@ run_ithim_setup <- function(seed = 1,
                                                     COMMERCIAL_MBIKE_PROP_MALE = COMMERCIAL_MBIKE_PROP_MALE,
                                                     COMMERCIAL_MBIKE_MALE_AGERANGE = COMMERCIAL_MBIKE_MALE_AGERANGE,
                                                     COMMERCIAL_MBIKE_FEMALE_AGERANGE = COMMERCIAL_MBIKE_FEMALE_AGERANGE,
-                                                    MINIMUM_PT_TIME =MINIMUM_PT_TIME)
+                                                    MINIMUM_PT_TIME = MINIMUM_PT_TIME,
+                                                    MODERATE_PA_CONTRIBUTION = MODERATE_PA_CONTRIBUTION)
   
   
   ## Set flags which cause certain parts of the model to be called again IF certain 
