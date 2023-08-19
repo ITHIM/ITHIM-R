@@ -30,7 +30,7 @@
 #' @return total AP exposure per person in the synthetic population (for baseline and scenarios)
 #' 
 #' @export
-scenario_pm_calculations <- function(dist, trip_scen_sets){
+scenario_pm_calculations_v2 <- function(dist, trip_scen_sets){
   
   # Ventilation rates by mode unit: m3/hour 
   vent_rates <- data.frame(

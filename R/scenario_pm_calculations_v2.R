@@ -9,7 +9,15 @@
 #' @return total AP exposure per person
 #' 
 #' @export
-scenario_pm_calculations_v2 <- function(dist, trip_scen_sets){
+scenario_pm_calculations <- function(dist, trip_scen_sets){
+  print("Using new implementation of ventilation rates...")
+  
+  # Ventilation rates by mode unit: m3/hour 
+  vent_rates <- data.frame(
+    stage_mode = c("rest", "car", "taxi", "bus", "rail", "cycle", "pedestrian", "sleep", "motorcycle"), 
+    v_rate = c(0.61, 0.61, 0.61, 0.61, 0.61, 2.55, 1.37, 0.27, 0.61)
+  )
+  
   # Exposure factor rate by activity (the ratio between that mode’s PM2.5 and the background’s PM2.5)
   exp_facs <- data.frame(
     stage_mode = c("car", "taxi", "bus", "rail", "cycle", "pedestrian", "motorcycle"), 
