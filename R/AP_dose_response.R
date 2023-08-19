@@ -4,18 +4,24 @@
 #' disease related to air pollution and each scenario based on the individual PM exposure levels 
 #' 
 #' This function performs the following steps:
-#' - various checks to ensure the correct PM exposure levels (doses) and disease are read in
-#' - get the lookup table for the required dose response functions which contains for each dose
+#'
+#'\itemize{
+#' \item various checks to ensure the correct PM exposure levels (doses) and disease are read in
+#' 
+#' \item get the lookup table for the required dose response functions which contains for each dose
 #'   the median RR and the upper and lower confidence interval RR values
-#' - for the PM exposure doses in the synthetic population find the needed RR by extrapolating the 
+#' 
+#' \item for the PM exposure doses in the synthetic population find the needed RR by extrapolating the 
 #'   dose responses given in the lookup table
-#' - if a confidence interval is required, repeat this interpolation using the upper and lower
+#'
+#' \item if a confidence interval is required, repeat this interpolation using the upper and lower
 #'   confidence RR values
-#' - if the required quantile is not 0.5, i.e. the median, then find the required RR value by
+#'
+#' \item if the required quantile is not 0.5, i.e. the median, then find the required RR value by
 #'   defining a normal function with mean the median RR value for that dose and standard deviations
 #'   defined by the upper and lower confidence RR values. Use the correct quantile from this
 #'   normal function as your RR value.  
-#'   
+#' }  
 #' 
 #' @param cause name of disease
 #' @param dose vector of PM exposure levels from individuals for a given age range and scenario

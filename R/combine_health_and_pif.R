@@ -4,10 +4,12 @@
 #' GBD to generate the scenario health burdens
 #' 
 #' This function performs the following steps:
-#' - the current observed health burden for a particular disease is multiplied by the PIF, i.e
+#'
+#'\itemize{
+#' \item the current observed health burden for a particular disease is multiplied by the PIF, i.e
 #'   the change in fraction in disease expected for the current scenario compared with the
 #'   reference scenario
-#' 
+#' }
 #' 
 #' @param pif_values vector of values of PIFs for all age and sex categories
 #' @param hc data frame of current burden of disease

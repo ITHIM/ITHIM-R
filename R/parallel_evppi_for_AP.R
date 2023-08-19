@@ -10,6 +10,8 @@
 #' @return vector of EVPPI values (one per scenario)
 #' 
 #' @export
+
+
 parallel_evppi_for_AP <- function(disease,parameter_samples,outcome,NSCEN){
   AP_DOSE_RESPONSE_QUANTILE <- c()
   x1 <- parameter_samples[,which(colnames(parameter_samples)==paste0('AP_DOSE_RESPONSE_QUANTILE_ALPHA_',disease))];

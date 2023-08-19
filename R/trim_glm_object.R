@@ -1,4 +1,4 @@
-#' Reduce size of glm object
+#' Reduce size of glm object - CURRENTLY NOT BEING CALLED
 #' 
 #' Delete some attributes of glm object in order to save space
 #' 

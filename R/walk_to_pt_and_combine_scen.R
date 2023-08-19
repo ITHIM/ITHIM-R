@@ -1,6 +1,6 @@
-#' Add walk to PT stages 
+#' Add walk to public transport stages 
 #' 
-#' Adds a short walk stage to any PT trip if required.
+#' Adds a short walk stage to any public transport (PT) trip if required.
 #'
 #' 
 #' This function performs the following steps:
@@ -8,8 +8,7 @@
 #' - create a list containing the dataframes of the synthetic trips for each scenario
 #' - if ADD_WALK_TO_PT_TRIPS == T, i.e if additional 'walk to pt' stages are to be added:
 #'   - filter out all trips with a public transport stage mode
-#'   - filter out public transport trips with and without a 'walk to pt' stage
-#'   - filter out the trips without a public transport stage
+#'   - divide public transport trips into those with and without a 'walk to pt' stage
 #'   - add a 'walk to pt' stage to those public transport trips without a walking stage
 #'     (add_walk_trips.R)
 #' - combine all trips from all scenarios into one dataframe
@@ -27,20 +26,21 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
   
   # create a list containing all the SYNTHETIC_TRIPS dataframes
   rd_list <- list()
+  
   for(i in 1:length(SYNTHETIC_TRIPS)) rd_list[[i]] <- setDT(SYNTHETIC_TRIPS[[i]])
   SYNTHETIC_TRIPS <- NULL
   
-  ## pt = public transport
+  # define PT modes
   pt_modes <- c('bus', 'rail','minibus','subway')
   
-  
+  # if walk to pt stages are to be added:
   if(ADD_WALK_TO_PT_TRIPS){
-    for(i in 1:length(rd_list)){
-      
+    
+    for(i in 1:length(rd_list)){ # loop through all scenarios
       
       rd_list[[i]] <- rd_list[[i]] %>% dplyr::mutate(id = row_number())
       
-      # check that all scenario synthetic trips dataframes contain a trip_mode columns
+      # check that all scenario synthetic trips dataframes contain a trip_mode column
       if (!any(names(rd_list[[i]]) %in% 'trip_mode')){
         print(paste0(CITY," There are issues with the synthetic trips which do NOT a trip_mode column"))
         break
@@ -62,7 +62,7 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
       # print(CITY)
       # print(paste(nrpt, " - ", round(nrptwp /  nrpt * 100,1)))
       
-      # separate pt trips WITH pedestrian component
+      # separate out pt trips WITH pedestrian component
       pt_trips_w_walk <- pt_trips %>% filter(trip_id %in% setdiff(pt_trips$trip_id, pt_trips_wo_walk$trip_id))
       
       # find the trips without a public transport stage
@@ -81,7 +81,7 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
   trip_df <- do.call('rbind',rd_list)
   rd_list <- NULL
   
-  ## update all distances and duration
+  # update all distances and duration
   trip_df <- scale_trip_distances(trip_df)
     
   return(trip_df)
@@ -97,6 +97,14 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
 #' by a city specific scalar. Note that walk to pt stages are counted as
 #' public transport stages and are multiplied by the DISTANCE_SCALAR_PT 
 #' 
+#' The function performs the following steps:
+#' 
+#' \itemize{
+#' \item define all car and public transport modes
+#' 
+#' \item multiply all stage distances and stage durations by the corresponding distance scalars
+#' }
+#' 
 #' @param trips data frame, all trips from all scenarios
 #' 
 #' @return data frame, all trips from all scenarios with scaled distances
@@ -106,7 +114,8 @@ scale_trip_distances <- function(trips){
   car_taxi_modes <- c('car','taxi','auto_rickshaw','shared_auto')
   pt_modes <- c('bus','minibus','subway','rail','walk_to_pt')
 
-  ## omit trip distance as it has already been used to create scenarios and has no other use
+  # ignore trip distance as it has already been used to create scenarios and has no other use
+  # set-up the scalars for all stage modes
   match_modes <- rep(1,nrow(trips))
   stage_modes <- trips$stage_mode
   match_modes[stage_modes%in%car_taxi_modes] <- DISTANCE_SCALAR_CAR_TAXI
@@ -114,9 +123,10 @@ scale_trip_distances <- function(trips){
   match_modes[stage_modes%in%pt_modes] <- DISTANCE_SCALAR_PT
   match_modes[stage_modes=='cycle'] <- DISTANCE_SCALAR_CYCLING
   match_modes[stage_modes=='motorcycle'] <- DISTANCE_SCALAR_MOTORCYCLE
+  
+  # scale stage distance and stage duration
   trips$stage_distance <- trips$stage_distance*match_modes
   trips$stage_duration <- trips$stage_duration*match_modes
-  
   
   return(trips)
 }

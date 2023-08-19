@@ -1,59 +1,90 @@
 #' Run the set up scripts for ITHIM
 #' 
-#' Sets up the basic ITHIM object for onward calculation. Data loading, processing and harmonisation. Setting global values.
+#' Sets up the basic ITHIM object for onward calculation. Data loading, processing and harmonisation. Setting of global values.
 #' 
-#' Parameters have two options: to be set to a constant, and to be sampled from a pre-specified distribution.
-#' Each parameter is given as an argument of length 1 or 2. 
-#' If length 1, it's constant, and set to the global environment. 
-#' If length 2, a distribution is defined and sampled from NSAMPLE times.
-#' (There are some exceptions)
+#' This function is used to read in the various input files and parameters and to 
+#' process and harmonise the data ready for the health impact assessment. 
+#' Input Parameters have two options: to be set to a constant or to be sampled 
+#' from a pre-specified distribution. Most of these parameters are given as an 
+#' argument of length 1 or 2. If of length 1, the parameter is usually used as 
+#' a constant. If the parameter is of length 2, a distribution is defined 
+#' and sampled from NSAMPLE times.
+#' 
 #' 
 #' This function performs the following steps:
-#' - check whether valid scenario name is called, get error message if not
-#' - set various parameters as global parameters
-#' - find the path to the local data
-#' - set fixed parameters for air pollution inhalation
-#' - define the mode speeds:
-#'    - set default speeds for the various modes
-#'    - update the default speeds with city specific mode speeds if these were given as input parameters
-#'    - ensure similar modes have the same speed assigned
-#'    - define dataframe with modes and speeds
-#' - define PM emissions inventory
-#'    - set default emission values
-#'    - update default values if city specific values were given as input parameters
-#' - define PM emissions inventory
-#'    - set default emission values
-#'    - update default values if city specific values were given as input parameters
-#' - load and processes data from files by calling ithim_load_data.R
-#' - call ithim_setup_parameters.R to set the given input parameters to the global environment if running in constant mode or
-#'    to create nsamples samples from the given distributions for each of the input parameters if running in sample mode
-#' - set flags which cause certain parts of the model to be called at a later stage (ithim_uncertainty.R) IF certain input 
-#'   parameters were sampled from a distribution   
-#' - call complete_trip_distance_duration.R to add any missing stage or distance information to TRIP_SET 
-#' - if none of the corresponding input parameters were sampled from a distribution, call set_vehicle_inventory.R to create a dataframe with 
-#'    mode specific speed, distance and emission information    
-#' - if none of the corresponding input parameters were sampled from a distribution, call get_synthetic_from_trips to set
-#'    synthetic trips and synthetic population   
-#' - if none of the corresponding input parameters were sampled from a distribution, call get_all_distances.R to calculate distances
+#' 
+#' \itemize{
+#' \item check whether a valid scenario name is called, get an error message if not
+#' 
+#' \item set various input parameters as global parameters
+#' 
+#' \item find the path to the local data
+#' 
+#' \item define fixed parameters for air pollution inhalation
 #' 
 #' 
+#' \item define the mode speeds:
+#'    \itemize{
+#'    \item set default speeds for the various modes
+#'    
+#'    \item update the default speeds with city specific mode speeds if these are 
+#'      given as input parameters
+#'    
+#'    \item ensure similar modes have the same speed assigned
+#'    
+#'    \item set-up dataframe with modes and speeds
+#'    }
+#'    
+#' \item define PM emissions inventory
+#'    \itemize{
+#'    \item define default emission values
+#'    
+#'    \item update default values if city specific values are given as input parameters
+#'    }
+#'
+#' \item define CO2 emissions inventory 
+#'    \itemize{
+#'    \item set default emission values
+#'    
+#'    \item update default values if city specific values are given as input parameters
+#'    }
+#'    
+#' \item load and processe data from files by calling ithim_load_data.R
+#' 
+#' \item call ithim_setup_parameters.R to set the given input parameters to the global
+#'   environment if running in constant mode or to obtain NSAMPLE samples from the
+#'   given distributions for each of the input parameters if running in sample mode
+#'    
+#' \item set flags which cause certain parts of the model to be called at a later stage
+#'  (ithim_uncertainty.R) IF certain input parameters were sampled from a distribution   
+#'
+#'\item call complete_trip_distance_duration.R to add any missing stage or distance
+#'   information to the trip data  
+#'
+#' \item if none of the corresponding input parameters were sampled from a distribution, 
+#'   call set_vehicle_inventory.R to create a dataframe with mode specific speed, 
+#'   distance and emission information    
+#'
+#' \item if none of the corresponding input parameters were sampled from a distribution,
+#'   call get_synthetic_from_trips to set synthetic trips and synthetic population   
+#'
+#' \item if none of the corresponding input parameters were sampled from a distribution,
+#'   call get_all_distances.R to calculate trip distances
 #' 
 #' 
-#' 
-#' @param seed random seed
+#' @param seed set seed to get the same results when sampling from a distribution
 #' @param CITY name of the city, and name of the directory containing city data files
 #' @param speeds named list of mode speeds
 #' @param PM_emission_inventory named list of mode PM emissions
 #' @param CO2_emission_inventory named list of CO2 mode emissions
-#' @param setup_call_summary_filename name to write setup call summary to
-#' @param DIST_CAT vector string of distance categories in the form '0-6'. (The unit is assumed to be the same as in the trip set.)
+#' @param DIST_CAT vector string of distance categories in the form '0-6'. (The unit is assumed to be the same as in the trip set and is related to speed values, usually in km)
 #' @param AGE_RANGE vector of minimum and maximum ages to include
 #' @param ADD_WALK_TO_PT_TRIPS logic: whether or not to add short walks to all PT trips
 #' @param ADD_BUS_DRIVERS logic: whether or not to add bus drivers
 #' @param ADD_CAR_DRIVERS logic: whether or not to find and add distance travelled by individual cars, denoted by car drivers
 #' @param ADD_TRUCK_DRIVERS logic: whether or not to add truck drivers
 #' @param ADD_MOTORCYCLE_FLEET logic: whether or not to add additional commercial motorcycle fleet as ghost trips
-#' @param ADD_PERSONAL_MOTORCYCLE_TRIPS character: if 'no' does not add motorcycle trips otherwise set to geographic region which defines the set-up of the motorcycle trips to be added 
+#' @param ADD_PERSONAL_MOTORCYCLE_TRIPS character: if 'no' does not add any personal motorcycle trips otherwise set to geographic region which defines the set-up of the motorcycle trips to be added 
 #' @param REFERENCE_SCENARIO which scenario forms the reference for the health comparison
 #' @param PATH_TO_LOCAL_DATA path to CITY directory, if not using package
 #' @param NSAMPLES constant integer: number of samples to take
@@ -109,12 +140,13 @@
 #' @return ithim_object list of objects for onward use.
 #' 
 #' @export
+
+
 run_ithim_setup <- function(seed = 1,
                             CITY = 'accra',
                             speeds = NULL,
                             PM_emission_inventory = NULL,
                             CO2_emission_inventory = NULL,
-                            #setup_call_summary_filename = 'setup_call_summary.txt',
                             DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
                             AGE_RANGE = c(0,150),
                             ADD_WALK_TO_PT_TRIPS = T,
@@ -180,7 +212,8 @@ run_ithim_setup <- function(seed = 1,
   
 
   #################################################
-  set.seed(seed)
+  
+  set.seed(seed) # to obtain the same results every time when sampling from a distribution
   
   ithim_object <- list()
   
@@ -203,13 +236,13 @@ run_ithim_setup <- function(seed = 1,
          )
   }
   
-  ## SET GLOBAL VALUES
+  # Set global values
   SCENARIO_NAME <<- SCENARIO_NAME
   SCENARIO_INCREASE <<- SCENARIO_INCREASE
   
   NSAMPLES <<- NSAMPLES
   
-  ## MODEL FLAGS, set to global
+  # MODEL FLAGS, set to global
   ADD_WALK_TO_PT_TRIPS <<- ADD_WALK_TO_PT_TRIPS
   ADD_BUS_DRIVERS <<- ADD_BUS_DRIVERS
   ADD_CAR_DRIVERS <<- ADD_CAR_DRIVERS
@@ -235,7 +268,7 @@ run_ithim_setup <- function(seed = 1,
   }
   
   
-  ## fixed parameters for AP inhalation
+  # fixed parameters for AP inhalation
   BASE_LEVEL_INHALATION_RATE <<- 1
   CLOSED_WINDOW_PM_RATIO <<- 0.5
   CLOSED_WINDOW_RATIO <<- 0.5
@@ -274,13 +307,13 @@ run_ithim_setup <- function(seed = 1,
   # ensure bus, bus_driver, minibus and minibus_driver have the same speed values
   default_speeds[['bus_driver']] <- default_speeds[['minibus']] <- default_speeds[['minibus_driver']] <- default_speeds[['bus']]
   
-  # ensure car and car_driver and shared_auto have the same speed
+  # ensure car, car_driver and shared_auto have the same speed
   default_speeds[['car_driver']] <- default_speeds[['shared_auto']] <- default_speeds[['car']]
   
   # walk to pt has the same speed as pedestrians
   default_speeds[['walk_to_pt']] <- default_speeds[['pedestrian']]
   
-  # shared_taxi as the same speed as taxi
+  # shared_taxi has the same speed as taxi
   default_speeds[['shared_taxi']] <- default_speeds[['taxi']]
   
 
@@ -288,6 +321,7 @@ run_ithim_setup <- function(seed = 1,
   TRAVEL_MODES <<- tolower(names(default_speeds))
   MODE_SPEEDS <<- data.frame(stage_mode = TRAVEL_MODES, speed = unlist(default_speeds), stringsAsFactors = F)
  
+  
   ## define PM emission inventory
   # set default PM2.5 emission contributions that are overwritten if city specific input parameters are given
   default_PM_emission_inventory <- list(
@@ -342,11 +376,11 @@ run_ithim_setup <- function(seed = 1,
   CO2_EMISSION_INVENTORY <<- default_CO2_emission_inventory
 
   
-  ## LOAD DATA
+  # load data
   ithim_load_data(speeds=default_speeds)  
   
 
-  ## SET PARAMETERS - create nsamples samples from the given distributions for each of the input parameters
+  ## set parameters - obtain NSAMPLES samples from the given distributions for each of the input parameters
   ithim_object$parameters <- ithim_setup_parameters(NSAMPLES = NSAMPLES,
                                                     BUS_WALK_TIME = BUS_WALK_TIME,
                                                     RAIL_WALK_TIME = RAIL_WALK_TIME,
@@ -393,14 +427,18 @@ run_ithim_setup <- function(seed = 1,
                                                     COMMERCIAL_MBIKE_FEMALE_AGERANGE = COMMERCIAL_MBIKE_FEMALE_AGERANGE,
                                                     MINIMUM_PT_TIME =MINIMUM_PT_TIME)
   
-  ## Set flags which cause certain parts of the model to be called again IF certain input parameters were sampled from a distribution
-  # programming flags: do we need to recompute elements given uncertain variables?
   
+  ## Set flags which cause certain parts of the model to be called again IF certain 
+  #  input parameters were sampled from a distribution
+
   # flag causes set_vehicle_inventory.R function to be called at a later stage (ithim_uncertainty.R)
   RECALCULATE_PM_EMISSION_INVENTORY <<- any(c('PM_EMISSION_INVENTORY')%in%names(ithim_object$parameters))
+  
   # flag causes set_vehicle_inventory.R function to be called at a later stage (ithim_uncertainty.R)
   RECALCULATE_CO2_EMISSION_INVENTORY <<- any(c('CO2_EMISSION_INVENTORY')%in%names(ithim_object$parameters))
-  # flag causes get_synthetic_from_trips.R which sets synthetic trips and synthetic population to be called at a later stage (ithim_uncertainty.R)
+  
+  # flag causes get_synthetic_from_trips.R which sets synthetic trips and synthetic 
+  # population to be called at a later stage (ithim_uncertainty.R)
   RECALCULATE_TRIPS <<- any(c('BUS_WALK_TIME','RAIL_WALK_TIME',
                               "DISTANCE_SCALAR_PT",
                               "DISTANCE_SCALAR_CAR_TAXI",
@@ -411,7 +449,9 @@ run_ithim_setup <- function(seed = 1,
                               'CAR_OCCUPANCY_RATIO',
                               'TRUCK_TO_CAR_RATIO',
                               'BACKGROUND_PA_ZEROS')%in%names(ithim_object$parameters)) 
-  # flag causes get_all_distances.R which uses synthetic trips to calculate distances to be called at a later stage (ithim_uncertainty.R)
+  
+  # flag causes get_all_distances.R which uses synthetic trips to calculate distances
+  # to be called at a later stage (ithim_uncertainty.R)
   RECALCULATE_DISTANCES <<- RECALCULATE_TRIPS||any(c('SIN_EXPONENT_SUM',
                                                      'CASUALTY_EXPONENT_FRACTION',
                                                      'SIN_EXPONENT_SUM_NOV',
@@ -422,27 +462,22 @@ run_ithim_setup <- function(seed = 1,
                                                      'SIN_EXPONENT_SUM_VEH',
                                                      'CASUALTY_EXPONENT_FRACTION_VEH')%in%names(ithim_object$parameters))
   
-  ## complete TRIP_SET to contain distances and durations for trips and stages
+  # complete TRIP_SET to contain distances and durations for trips and stages
   complete_trip_distance_duration() 
   
-  # call set_vehicle_inventory if none of the PM and CO2 are samples from a distribution 
+  # call set_vehicle_inventory if none of the PM and CO2 input parameters are samples from a distribution 
   if(!RECALCULATE_PM_EMISSION_INVENTORY & !RECALCULATE_CO2_EMISSION_INVENTORY) set_vehicle_inventory() # sets vehicle inventory
   
-  ## create inventory and edit trips, if they are not variable dependent
+  # create inventory and edit trips, if they are not variable dependent
   if(!RECALCULATE_TRIPS){
     ithim_object$trip_scen_sets <- get_synthetic_from_trips() # sets synthetic trips and synthetic population
   }
   
-  ## calculate distances, if distances are not variable dependent
+  # calculate distances, if distances are not variable dependent
   if(!RECALCULATE_DISTANCES){
     ithim_object <- get_all_distances(ithim_object) # uses synthetic trips to calculate distances
   }
-  ######################
-  
-  # casualty_modes <- unique(INJURY_TABLE[[1]]$cas_mode)
-  # match_modes <- c(TRIP_SET$stage_mode,'pedestrian')
-  # if(ADD_TRUCK_DRIVERS) match_modes <- c(match_modes,'truck')
-
+ 
   
   return(ithim_object)
 }
