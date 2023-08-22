@@ -5,7 +5,7 @@
 #' The function performs the following steps:
 #' 
 #' \itemize{
-#' \item adds age category to trip and physical activity datasets
+#' \item adds age category to trip and physical activity datasets by calling assign_age_groups.R
 #' 
 #' \item To match people in trip data with people in the physical activity dataset:
 #'   \itemize{

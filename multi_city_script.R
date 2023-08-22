@@ -321,6 +321,15 @@ print(system.time(for(city in cities){
   ithim_objects[[city]]$new_walk_trips_count$bus <- count_new_walk_trips_bus
   ithim_objects[[city]]$new_walk_trips_count$rail <- count_new_walk_trips_rail
   
+  # add run relevant information to ithim_objects list
+  ithim_objects[[city]]$ithim_run <- list()
+  ithim_objects[[city]]$ithim_run$input_parameter_file <- input_parameter_file
+  ithim_objects[[city]]$ithim_run$scenarios_used <- scenario_name
+  ithim_objects[[city]]$ithim_run$reference_scenario <- reference_scenario
+  ithim_objects[[city]]$ithim_run$scenario_increase <- scenario_increase
+  ithim_objects[[city]]$ithim_run$scenario_names <- SCEN
+  ithim_objects[[city]]$ithim_run$compute_mode <- compute_mode
+  
   # store results to plot
   min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
   max_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))

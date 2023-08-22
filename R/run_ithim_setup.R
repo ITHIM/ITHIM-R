@@ -70,7 +70,7 @@
 #'
 #' \item if none of the corresponding input parameters were sampled from a distribution,
 #'   call get_all_distances.R to calculate trip distances
-#' 
+#' }
 #' 
 #' @param seed set seed to get the same results when sampling from a distribution
 #' @param CITY name of the city, and name of the directory containing city data files

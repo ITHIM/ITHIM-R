@@ -17,6 +17,8 @@ knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='as
 # This script looks at individual level PM2.5 exposure for all scenarios, it summarise the PM2.5 and CO2 concentration levels for all scenarios and summarises the individual physical activity levels for all scenarios.
 
 
+# WARNING: Script assumes makes all comparisons to the Baseline (and not the reference) scenario
+
 
 #### It produces the following output documents:
 
