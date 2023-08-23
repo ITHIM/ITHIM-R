@@ -4,13 +4,21 @@
 #' 
 #' This function performs the following operations:
 #' 
-#' - Based on the city specific (or default) mode speeds, the vehicle inventory is initialised
-#' - PM emissions are added from the city specific (or default) PM inventory
-#' - big_truck mode is added for which there is no distance but it this mode is used in the air pollution modules
-#' - other mode is added if it does not already exist in the travel survey (and hence in the mode speeds)
-#' - CO2 emissions are added from the city specific (or default) CO2 inventory
-#' - if car_driver exists, the car_driver emissions are set to the PM and CO2 car emissions
-#' - VEHICLE_INVENTORY is set as a global variable
+#' \itemize{
+#' \item Based on the city specific (or default) mode speeds, the vehicle inventory is initialised
+#' 
+#' \item PM emissions are added from the city specific (or default) PM inventory
+#' 
+#' \item big_truck mode is added for which there is no distance but it this mode is used in the air pollution modules
+#' 
+#' \item other mode is added if it does not already exist in the travel survey (and hence in the mode speeds)
+#' 
+#' \item CO2 emissions are added from the city specific (or default) CO2 inventory
+#' 
+#' \item if car_driver exists, the car_driver emissions are set to the PM and CO2 car emissions
+#' 
+#' \item VEHICLE_INVENTORY is set as a global variable
+#' }
 
 
 #' @export
