@@ -14,10 +14,8 @@ knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='as
 
 # Script to summarise the PM2.5 exposure and levels, PM2.5 and CO2 concentrations and a physical activity levels
 
-# This script looks at individual level PM2.5 exposure for all scenarios, it summarise the PM2.5 and CO2 concentration levels for all scenarios and summarises the individual physical activity levels for all scenarios.
+# This script looks at individual level PM2.5 exposure for all scenarios, it summarise the PM2.5 and CO2 concentration levels for all scenarios and summarises the individual physical activity levels for all scenarios. 
 
-
-# WARNING: Script assumes makes all comparisons to the Baseline (and not the reference) scenario
 
 
 #### It produces the following output documents:
@@ -136,10 +134,11 @@ io <- readRDS("results/multi_city/io.rds")
 cities <- names(io)[!names(io) %in% 'scen_prop']
 
 
+
 # function to convert scenario names
 get_qualified_scen_name <- function(cs){
   qualified_scen_name <- ""
-  if (cs == 'base')
+  if (cs == 'base' | cs == 'Baseline' | cs == 'baseline')
     qualified_scen_name <- 'Baseline'
   else if(cs == "sc_walk")
     qualified_scen_name <- 'Walking'
@@ -155,6 +154,7 @@ get_qualified_scen_name <- function(cs){
   return(qualified_scen_name)
 }
 
+
 # initialise parameters using first city in list
 city <- cities[1]
 scen_length <- length(io[[city]]$ithim_run$scenario_names) - 1
@@ -164,7 +164,8 @@ input_parameter_file <<- io[[city]]$ithim_run$input_parameter_file
   
 # scenario definition
 scenario_name <- io[[city]]$ithim_run$scenarios_used
-reference_scenario <- io[[city]]$ithim_run$reference_scenario
+ref_scen <- io[[cities[1]]]$ithim_run$reference_scenario
+reference_scenario <- get_qualified_scen_name(ref_scen)
 
 compute_mode <- io[[city]]$ithim_run$compute_mode # constant parameters from the given parameters
 
@@ -297,6 +298,7 @@ for (x in 1:length(cities)) {
   orig_scen_names <- sub("pm_conc_", "", col_names)
   new_scen_names  <- unlist(lapply(orig_scen_names, FUN=get_qualified_scen_name))
   
+  
   # rename columns
   names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - scen_length):n_col] <- new_scen_names
   
@@ -322,6 +324,9 @@ for (x in 1:length(cities)) {
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
+cat(paste0('The change in PM2.5 levels is given as the difference to the reference scenario: ', reference_scenario))
+
+
 # for each city create a summary table of individual PM2.5 exposure levels giving the mean and the 5th, 50th and 95th percentile levels. Tables also show the PM2.5 concentration levels in the city for each scenario and the changes compared to the baseline scenario
 
 data_long <- NA
@@ -346,7 +351,12 @@ for (x in 1:length(cities)) {
   
   # add scenario specific PM2.5 concentration levels and the change in PM2.5 compared to the baseline
   summary$scenario_PM <- round(io[[cities[x]]]$outcomes$scenario_pm, digits=2)
-  summary$change_PM <- round(io[[cities[x]]]$outcomes$scenario_pm - io[[cities[x]]]$outcomes$scenario_pm[1], digits=2)
+  
+  # find location of reference scenario in vector of all scenarios
+  loc_ref <- which(new_scen_names == reference_scenario)
+  
+  # calculate the PM2.5 changes between the reference scenario and the other scenarios
+  summary$change_PM <- round(io[[cities[x]]]$outcomes$scenario_pm - io[[cities[x]]]$outcomes$scenario_pm[loc_ref], digits=2)
   names(summary)[1] <- "Scenario"
   
   # print to html file
@@ -509,7 +519,7 @@ for (x in 1:length(cities)) { # loop through the cities
 ```
 
 
-# Average physical activity levels (MMETs) in each city
+# Average baseline physical activity levels (MMETs) in each city
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 # create a single table detailing the average mMETs levels for each scenario for all cities 
@@ -630,8 +640,8 @@ for (x in 1:length(cities)) { # loop through cities
   # add total PM concentration levels for each scenario
   summary2$scenario_PM <- round(io[[cities[x]]]$outcomes$scenario_pm, 2)
   
-  # calculate difference to baseline scenario
-  summary2$change_PM <- round(io[[cities[x]]]$outcomes$scenario_pm - io[[cities[x]]]$outcomes$scenario_pm[1], digits = 2)
+  # calculate difference to reference scenario
+  summary2$change_PM <- round(io[[cities[x]]]$outcomes$scenario_pm - io[[cities[x]]]$outcomes$scenario_pm[loc_ref], digits = 2)
   names(summary2)[1] <- "Scenario"
   
   # Plot individual level PM2.5 exposure levels by scenario
@@ -659,6 +669,7 @@ for (x in 1:length(cities)) { # loop through cities
   
   cat("\n \n")
   cat( paste('#### Summary statistics of individual level PM2.5 exposure levels and total transport related CO2 emissions\n' ))
+  cat(paste0('The change in PM2.5 levels is given as the difference to the reference scenario: ', reference_scenario))
   l[[cities[x]]] <- left_join(summary2, td, by = "Scenario")
   l[[cities[x]]]$city <- cities[x]
   print(kable(cbind(summary2, td), caption = cities[x]))
