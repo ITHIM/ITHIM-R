@@ -89,17 +89,17 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   trip_set$stage_mode[trip_set$stage_mode=='walk_to_pt'] <- 'pedestrian'
   
   # join trip set and ventilation rates by stage mode
-  trip_set <- dplyr::left_join(trip_set, vent_rates, 'stage_mode')
+  trip_set <- dplyr::left_join(trip_set, vent_rates, by ='stage_mode')
   
   # Join trip_set and exponent factors data
-  trip_set <- dplyr::left_join(trip_set, exp_facs, 'stage_mode')
+  trip_set <- dplyr::left_join(trip_set, exp_facs, by = 'stage_mode')
   
   # Create df with scenarios and total PM concentrations
   conc_pm_df <- data.frame(scenario = unique(trip_set$scenario),
                            conc_pm = conc_pm)
   
   # Join trip_set with PM concentration df
-  trip_set <- left_join(trip_set, conc_pm_df)
+  trip_set <- left_join(trip_set, conc_pm_df, by = 'scenario')
   
   
   # liters of air inhaled are the product of the ventilation rate and the 
@@ -199,7 +199,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
                            filter(participant_id != 0) |> 
                            dplyr::select(participant_id, age, sex, age_cat) |> 
                            distinct(), 
-                         synth_pop)
+                         synth_pop, by = 'participant_id')
   
   # Combine people with and without trips
   synth_pop <- dplyr::bind_rows(synth_pop, id_wo_travel)
