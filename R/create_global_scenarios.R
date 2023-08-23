@@ -3,7 +3,6 @@
 #' Creates four scenarios where, in each one, the mode share is elevated to the
 #' certain values in each distance band. The scenario-modes are cycle, car, and bus and motorcycle.
 #' 
-#' Based on create_latam_scenarios
 #' 
 #' Add 5% of trips overall in such a way that the average mean mode share for each mode across the
 #' three distance bands is preserved.
@@ -92,6 +91,8 @@ create_global_scenarios <- function(trip_set){
   
   ###############################################################
   # Creation of scenarios
+  scen_warning <- c()
+  
   for (i in 1:nrow(SCENARIO_PROPORTIONS)) { # Loop for each scenario
     mode_name <- modes[i] # mode of the scenario
     rdr_copy <- list()
@@ -120,9 +121,22 @@ create_global_scenarios <- function(trip_set){
                                  target_percent / 100) # These trips will be reassigned
       #print(n_trips_to_change)
       if (length(potential_trip_ids) > 0 & n_trips_to_change > 0) {
+        
         # if the number of trips that could be changed equals the number of trips that need to be changed
         if (length(potential_trip_ids) == n_trips_to_change) { 
-        } else {
+          change_trip_ids <- potential_trip_ids
+          
+          # if there are less trips to change than should be changed  
+        } else if (length(potential_trip_ids) < n_trips_to_change){
+          
+          # save name of scenario
+          scen_warning <- c(scen_warning, rownames(SCENARIO_PROPORTIONS)[i])
+          
+          # convert all trips possible
+          change_trip_ids <- potential_trip_ids
+          
+          # if there are more trips that can be changed than need to be changed, sample  
+        } else if (length(potential_trip_ids) > n_trips_to_change) {
           change_trip_ids <- base::sample(potential_trip_ids,
                                           size = n_trips_to_change)
         } 
@@ -179,29 +193,14 @@ create_global_scenarios <- function(trip_set){
   } # End loop for scenarios
   
   
-  # check scenario defn:
-  # bicycle
-  # baseline_all <- rd_list[[1]] %>% dplyr::select(c('trip_id', 'trip_mode',"trip_distance_cat")) %>% distinct() 
-  # base_count_all <- nrow(baseline_all)
-  # baseline_bike <- baseline_all %>% filter(trip_mode == 'cycle')
-  # base_count_bike <- nrow(baseline_bike)
-  # base_prop_bike <- base_count_bike / base_count_all * 100
-  # 
-  # bike_all <- rd_list[[2]] %>% dplyr::select(c('trip_id', 'trip_mode',"trip_distance_cat")) %>% distinct() 
-  # bike_bike <- bike_all %>% filter(trip_mode == 'cycle')
-  # bike_count_bike <- nrow(bike_bike)
-  # bike_prop_bike <- bike_count_bike / base_count_all * 100
   
-  # bus
-  # base_count_all <- nrow(baseline_all)
-  # baseline_bus <- baseline_all %>% filter(trip_mode == 'bus')
-  # base_count_bus <- nrow(baseline_bus)
-  # base_prop_bus <- base_count_bus / base_count_all * 100
-  # 
-  # bus_all <- rd_list[[4]] %>% dplyr::select(c('trip_id', 'trip_mode',"trip_distance_cat")) %>% distinct() 
-  # bus_bus <- bus_all %>% filter(trip_mode == 'bus')
-  # bus_count_bus <- nrow(bus_bus)
-  # bus_prop_bus <- bus_count_bus / base_count_all * 100
+  # print warning message if there weren't enough trips to be converted for a scenario
+  scen_warning <- unique(scen_warning)
+  
+  for (j in 1:length(scen_warning)){
+    print(paste0('WARNING: There are less trips that can be converted in scenario ',scen_warning[j] ,
+                 ' than should be converted for ', city))
+  }
 
   return(rd_list)
 }
