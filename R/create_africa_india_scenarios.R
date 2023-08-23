@@ -198,9 +198,11 @@ create_africa_india_scenarios <- function(trip_set){
   # print warning message if there weren't enough trips to be converted for a scenario
   scen_warning <- unique(scen_warning)
   
-  for (j in 1:length(scen_warning)){
-    print(paste0('WARNING: There are less trips that can be converted in scenario ',scen_warning[j] ,
-                 ' than should be converted for ', city))
+  if (length(scen_warning)>0){
+    for (j in 1:length(scen_warning)){
+      print(paste0('WARNING: There are less trips that can be converted in scenario ',scen_warning[j] ,
+                   ' than should be converted for ', city))
+    }
   }
   
   return(rd_list)
