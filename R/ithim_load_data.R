@@ -220,7 +220,7 @@ ithim_load_data <- function(speeds =
      (!exists('SCENARIO_PROPORTIONS')||
       exists('SCENARIO_PROPORTIONS')&&!isTRUE(base::all.equal(DIST_CAT,colnames(SCENARIO_PROPORTIONS)))
      )){
-    SCENARIO_PROPORTIONS <<- get_scenario_settings(distances=DIST_CAT,speeds=speeds)
+    SCENARIO_PROPORTIONS <<- get_scenario_settings( distances=DIST_CAT,speeds=speeds)
   }
   
   

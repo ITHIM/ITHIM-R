@@ -1,7 +1,7 @@
 #' Addition of ghost trips
 #'
 #' Add trips that do not get assigned any physical activity component, 
-#' often used as proxy for vehicle distances.
+#' can be used as proxy for vehicle distances.
 #' 
 #' This function creates trips based on distance relative to another (reference) mode, 
 #' without altering the synthetic population. I.e. it adds trips that do not get assigned any physical 

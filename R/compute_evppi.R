@@ -1,4 +1,4 @@
-#' Compute evppi, designed to be run in parallel
+#' Compute evppi, designed to be run in parallel - ONLY USED in SAMPLING MODE
 #' 
 #' Creates a list of EVPPI values one parameter (set) at a time across some pre-defined outcomes
 #' Uses Chris Jackson's VoI Github package https://github.com/chjackson/voi

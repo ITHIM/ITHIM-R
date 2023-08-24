@@ -13,7 +13,7 @@ output:
 
 # Script summarises mode splits, distances and durations travelled and looks at health outcomes (YLLs and deaths) for the different air pollution, injury and physical activity pathways but also by disease
 
-# WARNING: This script only works if ITHIM-Global has been run in constant mode!
+# WARNING: This script only works if ITHIM-Global has been run in constant mode using either the BOGOTA, LATAM, AFRICA_INDIA or GLOBAL scenario definitions
 
 
 #### It produces the following output documents:
@@ -309,7 +309,8 @@ orig_scen_names_updated <- unlist(lapply(rownames(scen_prop), FUN=get_qualified_
 
 ```{r message=F, error=F, warning=FALSE}
 # call get_scen_settings function to find the mode split for each distance category for each city
-get_scen_settings <- ithimr::get_scenario_settings(cities)
+
+get_scen_settings <- ithimr::get_scenario_settings(cities = cities)
 
 ```
 

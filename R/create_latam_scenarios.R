@@ -1,6 +1,12 @@
-#' Create scenarios defined for latam paper
+#' Create scenarios for all Latin American cities - NOT CURRENTLY USED
 #' 
+#' Creates three scenarios where in each one, the mode share of a given mode is elevated by a set
+#' percentage of the total trips. The scenario-modes are cycle, car, and bus and motorcycle.
 #' 
+#'  
+#' Add 5% of trips overall in such a way that the average mean mode share for each mode across the
+#' three distance bands is preserved.
+#'  
 #' 
 #' @param trip_set data frame, baseline scenario
 #' 

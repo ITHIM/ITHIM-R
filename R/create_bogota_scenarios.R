@@ -1,6 +1,6 @@
 #' Create scenarios for Bogota
 #' 
-#' Creates three scenarios where, in each one, the mode share of a given mode is elevated by a set
+#' Creates three scenarios where in each one, the mode share of a given mode is elevated by a set
 #' percentage of the total trips. The scenario modes are cycle, car, and bus.
 #' 
 #' This function creates three scenarios increasing the mode shares of cycling, car
@@ -31,6 +31,7 @@
 #'   trips are still in distance band 0-2km.
 #'}   
 #'   
+#'   
 #' Example:
 #' 
 #' Assume that there are only two distance bands A and B and that 80% of all 
@@ -50,6 +51,7 @@
 #' band A and 20% in distance band B and preserving the total mode shares of 60% in
 #' distance band A and 40% in distance band B. The total number of trips is also
 #' preserved.
+#' 
 #' 
 #' The function performs the following steps:
 #' 

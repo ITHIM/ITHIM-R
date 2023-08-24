@@ -1,4 +1,4 @@
-#' Create scenarios defined by maximum mode share
+#' Create scenarios defined by maximum mode share - CURRENTLY NOT USED  
 #' 
 #' Creates five scenarios where, in each one, the mode share is elevated to the maximum observed across the cities.
 #' The scenario-modes are pedestrian, cycle, car, motorcycle and bus

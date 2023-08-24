@@ -1,13 +1,12 @@
-#' Create scenarios based on difference between median and max propensities for all cities
+#' Create scenarios for all cities - NOT CURRENTLY USED
 #' 
-#' Creates four scenarios where, in each one, the mode share is elevated to the
-#' certain values in each distance band. The scenario-modes are cycle, car, and bus and motorcycle.
+#' Creates three scenarios where in each one, the mode share of a given mode is elevated by a set
+#' percentage of the total trips. The scenario-modes are cycle, car, and bus and motorcycle.
 #' 
-#' 
+#'  
 #' Add 5% of trips overall in such a way that the average mean mode share for each mode across the
 #' three distance bands is preserved.
 #' 
-#' https://www.dropbox.com/home/ITHIM%20Global/Methods%20and%20Processes/ScenarioDefn/GlobalScenario
 #' 
 #' @param trip_set data frame, baseline scenario
 #' 

@@ -1,4 +1,4 @@
-#' Create individual scenario
+#' Create individual scenario - CURRENTLY NOT USED
 #' 
 #' Function to create individual scenario for the five prespecified scenarios from the baseline for Accra and Sao Paulo (create_all_scenarios)
 #' 

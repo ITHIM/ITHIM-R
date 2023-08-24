@@ -1,4 +1,4 @@
-#' Creates cycling scenarios
+#' Creates cycling scenarios - NOT CURRENTLY USED
 #' 
 #' Creates five scenarios with 10-50% cycling
 #' 

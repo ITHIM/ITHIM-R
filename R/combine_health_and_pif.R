@@ -1,7 +1,7 @@
 #' Combine health and potential impact fraction (PIF)
 #' 
 #' Applies PIF calculated from relative risks (RRs) to the current observed health burden from the 
-#' GBD to generate the scenario health burdens
+#' Global Burden of Disease data to generate the scenario health burdens
 #' 
 #' This function performs the following steps:
 #'

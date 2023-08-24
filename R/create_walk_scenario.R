@@ -1,4 +1,4 @@
-#' Create basic pedestrian scenario
+#' Create basic pedestrian scenario - NOT CURRENTLY USED
 #' 
 #' Duplicate baseline scenario; give each person one 1km walk in the scenario
 #' 
