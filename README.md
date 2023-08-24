@@ -30,7 +30,11 @@ ITHIM models exposure to physical activity by comparing distributions of weekly 
 Road traffic injuries are modelled using a model based on risk, distance and speed. Differences in risk by sex and age are also taken into account. This approach allows ITHIM to look at how the absolute number of injuries and the risk of injury might change for different modes of transport as travel distances between modes change.
 
 #### Air Pollution
-Fine particulate matter (PM2.5) air pollution risks are calculated for the general population (background rates) as well as mode specific rates for different transport modes. The exposure changes for population are based on comparison of local generated PM2.5 emissions and concentrations in the study area. In ITHIM version 2 also the personal exposure to air pollution while walking and cycling is taken into account.
+Fine particulate matter (PM2.5) air pollution risks are calculated for the general population (background rates) as well as mode specific rates for different transport modes. Exposure changes for the population are based on a comparison of locally generated PM2.5 emissions and concentrations in the study area. In the current ITHIM version (v3), personal exposure to air pollution during walking and cycling is also taken into account.
+
+#### CO2 Emissions
+
+The carbon effects pathway models carbon dioxide (CO2) emissions from motorised vehicles. The CO2 pathway estimates a single metric: the total CO2 emissions for each modelled scenario. The method to calculate CO2 emissions is similar to the one for PM2.5.
 
 #### Health outcomes
 
@@ -91,5 +95,3 @@ In order to setup the model, we need a fixed list of tables/datasets, such as:
 -   **Physical Activity Dose-Response Functions (DRFs)** dose response relationships of physical activity and its impact on health via diseases/causes. Similar to AP, this too comes from published studies. This now sits in an independent R package called [`drpa`](https://github.com/meta-analyses/drpa/).
 
 ## How to run the model?
-
-
