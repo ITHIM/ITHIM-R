@@ -291,7 +291,16 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # Light activities: 10.75 hours
   # For a total of 22.2 hours
   # Since it is possible that the unknown time is less than 22.2, I am going
-  # to use proportions for now to get values for these activities
+  # to use proportions for now to get values for these activities.
+  # There are a couple of rules to consider:
+  # - When sleep time is less than 6 hours, we have to assign it to 6 and split
+  # proportionally the remaining time in leisure and light activities
+  # - When the known time is greater than 18 hours, we assign it to 18 and sleep
+  # to 6 hours. Leisure and light activities will be zero in this case
+  
+  sleep_hours <- 8.3
+  leisure_hours <- 3.15
+  light_hours <- 10.75
   
   # Calculate total air and pm inhaled in each person
   synth_pop <- trip_set  %>%  
@@ -316,18 +325,25 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
     # Calculate vent_rates and air inhaled in the same way as with travel modes
     rowwise() %>% 
     mutate(
+      # Transforming work_ltpa_marg_met to a daily value
+      daily_work_ltpa_marg_met = work_ltpa_marg_met / 7,
       # Calculate time spent in moderate and vigorous activities from work_ltpa_marg_met
       # I subtract 1 because the initial values are MET not Marginal MET
-      time_moderate = (work_ltpa_marg_met * MODERATE_PA_CONTRIBUTION) / (moderate_met - 1),
-      time_vigorous = (work_ltpa_marg_met * (1 - MODERATE_PA_CONTRIBUTION)) / (vigorous_met - 1),
+      time_moderate = (daily_work_ltpa_marg_met * MODERATE_PA_CONTRIBUTION) / (moderate_met - 1),
+      time_vigorous = (daily_work_ltpa_marg_met * (1 - MODERATE_PA_CONTRIBUTION)) / (vigorous_met - 1),
       # Calculate known time
       known_time = total_travel_time_hrs + time_moderate + time_vigorous,
+      known_time = ifelse(known_time > 18, 18, known_time), # Just to avoid outliers
       # Calculate unknown time
       unknown_time = 24 - known_time,
       
       # Calculate ventilation rate for each activity (durations are calculated from the unknown time)
       ## Sleep
-      sleep_duration = (unknown_time * (8.3/22.2)) * 60, # In minutes
+      sleep_duration = (unknown_time * (sleep_hours/(sleep_hours + leisure_hours + light_hours))) * 60, # In minutes
+      ### Conditional to check if sleep duration is less than 6 hours
+      sleep_less_6h = ifelse(sleep_duration < (6 * 60), 1, 0),
+      ### Assign 6 hours when sleep time is less than 6
+      sleep_duration = ifelse(sleep_less_6h == 1, (6 * 60), sleep_duration),
       vo2_sleep = ecf * sleep_met * rmr,
       pct_vo2max_sleep = ifelse(sleep_duration < 5, 100,
                                 ifelse(sleep_duration > 540, 33,
@@ -347,7 +363,11 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
       
       
       ## Leisure sedentary screen time
-      leisure_duration = (unknown_time * (3.15/22.2)) * 60, # In minutes
+      #### Leisure has a correction if sleep time is less than 6 hours
+      leisure_duration = ifelse(sleep_less_6h == 1,
+                                (unknown_time - 6) * (leisure_hours/(leisure_hours + light_hours)) * 60,# In minutes
+                                unknown_time * (leisure_hours/(sleep_hours + leisure_hours + light_hours))) * 60, # In minutes
+      leisure_duration = ifelse(leisure_duration < 0, 0, leisure_duration), # This happened in 35 rows out of the 132k
       vo2_leisure = ecf * leisure_met * rmr,
       pct_vo2max_leisure = ifelse(leisure_duration < 5, 100,
                                ifelse(leisure_duration > 540, 33,
@@ -367,7 +387,11 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
       
       
       ## Light activities
-      light_duration = (unknown_time * (10.75/22.2)) * 60, # In minutes
+      #### Light activities has a correction if sleep time is less than 6 hours
+      light_duration = ifelse(sleep_less_6h == 1,
+                                (unknown_time - 6) * (light_hours/(leisure_hours + light_hours)) * 60,# In minutes
+                                unknown_time * (light_hours/(sleep_hours + leisure_hours + light_hours))) * 60, # In minutes
+      light_duration = ifelse(light_duration < 0, 0, light_duration), # This happened in 35 rows out of the 132k
       vo2_light = ecf * light_met * rmr,
       pct_vo2max_light = ifelse(light_duration < 5, 100,
                                   ifelse(light_duration > 540, 33,
