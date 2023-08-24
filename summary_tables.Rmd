@@ -11,13 +11,12 @@ output:
 
 ```{r setup, include=FALSE} 
 
-# Script summarises mode splits, distances and durations travelled and looks at health outcomes for the different air pollution, injury and physical activity pathways but also by disease
+# Script summarises mode splits, distances and durations travelled and looks at health outcomes (YLLs and deaths) for the different air pollution, injury and physical activity pathways but also by disease
 
 # WARNING: This script only works if ITHIM-Global has been run in constant mode!
 
 
 #### It produces the following output documents:
-
 
 ### - html file containing the following information:
 
@@ -33,29 +32,29 @@ output:
 
 
 ## Distances travelled
-# - city specific distance tables showing average daily distances in km travelled by each person in the travel survey by mode for all scenarios (incl Baseline)
+# - city specific distance tables showing average daily distances in km travelled by each person in the synthetic population by mode for all scenarios (incl Baseline)
 
-# - city specific distance tables showing average daily distances in km travelled by each person in the travel survey WITH a trip by mode for all scenarios (incl Baseline)
+# - city specific distance tables showing average daily distances in km travelled by each person in the synthetic population WITH a trip by mode for all scenarios (incl Baseline)
 
-# - one table giving the city specific baseline average daily distances (km) travelled by each person in the respective travel surveys for all cities
+# - one table giving the city specific baseline average daily distances (km) travelled by each person in the synthetic population for all cities
 
-# - city specific distance tables showing total yearly distances in km travelled by the total  population considered in the model for each mode for all scenarios (incl Baseline)
+# - city specific distance tables showing total yearly distances in km travelled by the total  population with ages considered in the model for each mode for all scenarios (incl Baseline)
 
-# - one table giving the city specific total yearly baseline distances in km travelled by the total population for each mode for all cities
+# - one table giving the city specific total yearly baseline distances in km travelled by the total population with ages considered in the model for each mode for all cities
 
-# - city specific distance tables showing total daily distances in km travelled by the total population for each mode for all scenarios (incl Baseline)
+# - city specific distance tables showing total distances travelled by distance category toegether with the number of trips and proportions of all trips within the distance categories.
 
-# - city specific distance tables showing average daily distances in km travelled by each person in the travel survey WITH a trip by mode for all scenarios (incl Baseline)
+# - city specific distance tables showing total daily distances in km travelled by the total population  with ages considered in the model for each mode for all scenarios (incl Baseline)
 
-# - one table giving the city specific baseline average daily distances (km) travelled by each person in the respective travel surveys for all cities
 
 
 ## Travel duration
-# - city specific duration tables showing average daily duration (h) spent travelling by each person in the travel survey by mode for all scenarios (incl Baseline)
+# - city specific duration tables showing average daily duration (h) spent travelling by each person in the synthetic population by mode for all scenarios (incl Baseline)
 
-# - city specific duration tables showing average daily duration (h) spent travelling by each person in the travel survey WITH a trip by mode for all scenarios (incl Baseline)
+# - city specific duration tables showing average daily duration (h) spent travelling by each person in the synthetic population WITH a trip by mode for all scenarios (incl Baseline)
 
-# - one table giving the city specific baseline average duration (h) spent travelling by each person in the respective travel surveys for all cities
+# - one table giving the city specific baseline average duration (h) spent travelling by each person in the respective synthetic populations for all cities
+
 
 
 ## Health outcomes - injury, air pollution and physical activity
@@ -92,35 +91,78 @@ output:
 
 ### - output .csv/.xlsx files containing the following information:
 
-# - the ylls.csv file (results/multi_city/health_impacts/ylls.csv) gives the changes in YLLs for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people, for each city, disease, scenario, age and sex category. It also shows the disease level, whether the disease is exasperated by changes in AP, PA or both, and, the age and age and sex specific population levels. 
+# - the ylls.csv file (results/multi_city/health_impacts/ylls.csv) gives the changes in YLLs for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario. It also shows the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age and age and sex specific population levels. The results are for either AP and PA only if the diseases are affected by only AP or PA or the results for the combined AP and PA effects if the diseases are affected by both AP and PA. 
 
+# - the ylls_pathway.csv file (results/multi_city/health_impacts/ylls_pathway.csv) gives the changes in YLLs for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario. It also shows the disease level, whether the disease is exasperated by changes in AP or PA, and the age and age and sex specific population levels. The results are given for AP and PA independently even if a disease is affected by both pathways.
 
+# - the deaths.csv file (results/multi_city/health_impacts/deaths.csv) gives the changes in deaths for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario. It also shows the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age and age and sex specific population levels. The results are for either AP and PA only if the diseases are affected by only AP or PA or the results for the combined AP and PA effects if the diseases are affected by both AP and PA. 
 
-# - the ylls_pathway.csv file (results/multi_city/health_impacts/ylls_pathway.csv)
-
-
-
-# - the deaths.csv file (results/multi_city/health_impacts/deaths.csv)
-
-
-
-# - the deaths_pathway.csv file (results/multi_city/health_impacts/deaths_pathway.csv)
+# - the deaths_pathway.csv file (results/multi_city/health_impacts/deaths_pathway.csv) gives the changes in deaths for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario. It also shows the disease level, whether the disease is exasperated by changes in AP or PA, and the age and age and sex specific population levels. The results are given for AP and PA independently even if a disease is affected by both pathways.
 
 
 
 
 #### The script performs the following steps:
 
-# - set up helper function to re-format large numbers and re-name scenarios
+# - set up helper function to re-format large numbers, re-name scenarios and format and print output tables
 
-# ???????????????
+# - read in io object containing the results from an ITHIM-Global run and extract relevant variables. Read in mode_order.csv which sets up a set mode order
 
-# call get_scen_settings.R function to find the Baseline mode splits for each distance category for each city 
+# (extract table displaying highest propensity (%) for each distance category, for a given mode. - CURRENTLY commented out as not relevant for BOGOTA, GLOBAL, LATAM or AFRICA_INDIA scenario definitions)
 
+# - call get_scen_settings.R function to find the Baseline mode splits for each distance category for each city and print tables to html file
 
+# - for each city create a table showing the mode split for each scenario
 
+# - create one table showing the baseline mode split for all cities
 
+# - create city specific distance tables showing average daily distances in km travelled by each person in the synthetic population by mode for all scenarios (incl Baseline)
 
+# - create  city specific distance tables showing average daily distances in km travelled by each person in the synthetic population WITH a trip by mode for all scenarios (incl Baseline)
+
+# - create one table giving the city specific baseline average daily distances (km) travelled by each person in the synthetic population for all cities
+
+# - create city specific distance tables showing total yearly distances in km travelled by the total  population with ages considered in the model for each mode for all scenarios (incl Baseline)
+
+# - create one table giving the city specific total yearly baseline distances in km travelled by the total population with ages considered in the model for each mode for all cities
+
+# - create city specific distance tables showing total distances travelled by distance category together with the number of trips and proportions of all trips within the distance categories
+
+# - create city specific distance tables showing total daily distances in km travelled by the total population  with ages considered in the model for each mode for all scenarios (incl Baseline)
+
+# - create city specific duration tables showing average daily duration (h) spent travelling by each person in the synthetic population by mode for all scenarios (incl Baseline)
+
+# - create city specific duration tables showing average daily duration (h) spent travelling by each person in the synthetic population WITH a trip by mode for all scenarios (incl Baseline)
+
+# - create one table giving the city specific baseline average duration (h) spent travelling by each person in the respective synthetic populations for all cities
+
+# - create one table for each city showing the change in total YLLs in the scenarios compared to the Baseline for each age group
+
+# - create one table for each city showing the change in YLLs per 100,000 people in the scenarios compared to the Baseline for each age group
+
+# - create one table for each city showing the change in YLLs per 100,000 people in the scenarios compared to the Baseline for each age and sex category
+
+# - create one table for each city showing the change in total YLLs due to changes in accident fatalities in the scenarios compared to the Baseline for each age group
+
+# - create one table for each city showing the change in total YLLs due to changes in physical activity levels in in the scenarios compared to the Baseline for each age group
+
+# - create one table for each city showing the change in total YLLs due to changes in air pollution (PM2.5) levels in in the scenarios compared to the Baseline for each age group
+
+# - create one table for each city showing the change in YLLs per 100,000 people due to changes in accident fatalities in the scenarios compared to the Baseline for each age group
+
+# - create one table for each city showing the change in YLLs per 100,000 people due to changes in physical activity levels in in the scenarios compared to the Baseline for each age group
+
+# - create one table for each city showing the change in YLLs per 100,000 people due to changes in air pollution (PM2.5) levels in in the scenarios compared to the Baseline for each age group
+
+# - create one table for each city showing the change in deaths in the scenarios compared to the Baseline for each disease
+
+# - create one table for each city showing the change in deaths per 100,000 people in the scenarios compared to the Baseline for each disease
+
+# - create one table for each city showing the change in YLLs in the scenarios compared to the Baseline for each disease
+
+# - create one table for each city showing the change in YLLs per 100,000 people in the scenarios compared to the Baseline for each disease
+
+# - create 4 individual .csv files in (results/multi_city/health_impacts/) for both death and YLLs considering the effect of AP and PA separately (*_pathway.csv) or together (*.csv). These files give the changes in YLLs / deaths for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario. They also show the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age and age and sex specific population levels. 
 
 
 
@@ -272,7 +314,7 @@ get_scen_settings <- ithimr::get_scenario_settings(cities)
 ```
 
 ## Mode split for each scenario by city
-Case study specific trip proportions by mode, for baseline and scenarios
+City specific trip proportions by mode, for baseline and scenarios
 
 
 ```{r load_tidyverse, echo = F, message = F}
@@ -283,7 +325,7 @@ suppressWarnings({
 
 
 ```{r trip_mode_dist = "asis", echo = F}
-# find the modal share of for all cities and scenarios
+# find the modal share for all cities and scenarios
 
 trip_prop <- list()
 
