@@ -1,8 +1,9 @@
-#' Get values for mode share across distance categories and for max mode share scenario - CURRENTLY only used when calling summary_tables.Rmd 
+#' Get values for mode share across distance categories and for max mode share scenario
+#'  - CURRENTLY only used when calling summary_tables.Rmd 
 #' 
 #' Computes the mode shares for the different distance categories and then the maximum mode
-#' share for specified mode types and specified distance 
-#' categories across specified (stored) cities. Used for max mode share scenario generation.
+#' share for specified mode types and specified distance categories across specified 
+#' (stored) cities. Used for max mode share scenario generation.
 #' 
 #' The function performs the following steps:
 #' 
@@ -41,7 +42,8 @@
 #' @export
 
 
-get_scenario_settings <- function(cities = c('accra', 'bangalore', 'belo_horizonte', 'bogota', 'buenos_aires', 'cape_town',
+get_scenario_settings <- function(cities = c('accra', 'bangalore', 'belo_horizonte', 
+                                             'bogota', 'buenos_aires', 'cape_town',
                                              'delhi', 'mexico_city', 'santiago', 'sao_paulo', 'vizag'),
                                   modes=c("pedestrian","cycle","car","motorcycle","bus"),     
                                   distances=c('0-2 km','2-6 km','6+ km'),
@@ -77,7 +79,8 @@ get_scenario_settings <- function(cities = c('accra', 'bangalore', 'belo_horizon
   for(city in cities){ # loop through cities
     
     # read in trip data
-    tripset_path <- file.path(find.package('ithimr',lib.loc=.libPaths()), paste0('extdata/local/',city,'/trips_',city,'.csv')) 
+    tripset_path <- file.path(find.package('ithimr',lib.loc=.libPaths()), 
+                              paste0('extdata/local/',city,'/trips_',city,'.csv')) 
     trip_set <- read_csv(tripset_path,col_types = cols())
     
     # rename columns if needed
@@ -91,13 +94,14 @@ get_scenario_settings <- function(cities = c('accra', 'bangalore', 'belo_horizon
     mode_cols <- c('trip_mode','stage_mode')
     
     # check mode columns exist
-    if(sum(mode_cols%in%colnames(trip_set))==0) stop(paste0('Please include a column labelled "trip_mode" or "stage_mode" in ', filename))
+    if(sum(mode_cols%in%colnames(trip_set))==0) stop(paste0(
+      'Please include a column labelled "trip_mode" or "stage_mode" in ', filename))
     
-    # set stage mode to trip mode if only stage mode exist
+    # set stage mode to trip mode if only stage mode exists
     if('stage_mode'%in%colnames(trip_set)&&!'trip_mode'%in%colnames(trip_set)) 
       trip_set$trip_mode <- trip_set$stage_mode
     
-    # set stage distance to trip distance if only stage distance exist
+    # set stage distance to trip distance if only stage distance exists
     if('stage_distance'%in%colnames(trip_set)&&!'trip_distance'%in%colnames(trip_set)) 
       trip_set$trip_distance <- trip_set$stage_distance
    
@@ -143,8 +147,9 @@ get_scenario_settings <- function(cities = c('accra', 'bangalore', 'belo_horizon
     if(!"rail" %in% unique(trip_set$trip_mode)){ # Conditional to sum rail propensity to bus
       
       # find proportional modal share in each distance category
-      mode_proportions_by_distance[[city]] <- sapply(distances,function(y) sapply(modes,function(x)sum(trip_set$trip_mode==x&trip_set$trip_distance_cat==y
-                                                                                                       )/sum(trip_set$trip_distance_cat==y)))
+      mode_proportions_by_distance[[city]] <- sapply(distances,function(y) 
+        sapply(modes,function(x)sum(trip_set$trip_mode==x&trip_set$trip_distance_cat==y
+                                        )/sum(trip_set$trip_distance_cat==y)))
       ## get total mode shares
       mode_proportions[[city]] <- sapply(modes,function(x)sum(trip_set$trip_mode==x)/nrow(trip_set))
       

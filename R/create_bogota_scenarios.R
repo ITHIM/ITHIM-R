@@ -8,16 +8,18 @@
 #' We assume that:
 #' 
 #' \itemize{
-#' \item the total number of trips remains the same but trips from other modes (apart from truck, 
-#'   bus driver, car driver and commercial motorcycle trips which remain unchanged (at least initially)) are converted
-#'   to the mode in question; truck and commercial motorcycle trips remain constant across all 
+#' \item the total number of trips remains the same but trips from other modes 
+#'   (apart from truck, bus driver, car driver and commercial motorcycle trips
+#'   which remain unchanged - at least initially) are converted to the mode in 
+#'   question; truck and commercial motorcycle trips remain constant across all 
 #'   scenarios whilst bus driver and car driver trips are updated based on the new 
-#'   amount of car and bus trips once the increase in mode share has been conducted for each scenario
+#'   total distance of car and bus trips once the increase in mode share has been 
+#'   conducted for each scenario
 #'   
-#' \item the percentage share across the three distance bands of the mode that is increased
-#'   is preserved, i.e. if 10% of all cycling trips are in distance band 0-2km
-#'   then after increasing the cycling mode share by x% of all trips we still
-#'   have 10% of all cycling trips in this distance band
+#' \item the percentage share across the three distance bands of the mode that 
+#'   is increased is preserved, i.e. if 10% of all cycling trips are in distance
+#'   band 0-2km then after increasing the cycling mode share by x% of all trips 
+#'   we still have 10% of all cycling trips in this distance band
 #'   
 #' \item For each scenario we always convert the same % of total trips to the mode
 #'   in question, independently of the original overall mode share of that mode. 
@@ -68,7 +70,7 @@
 #'   divide the trip data into a set with the modes that can be changed and another set with the
 #'   trips whose modes cannot be changed
 #' 
-#' \item split the changeable and also all trips by distance band
+#' \item split the changeable trips and also all trips by distance band
 #'
 #' \item to create the scenarios loop through the scenarios:
 #'   \itemize{
@@ -79,21 +81,20 @@
 #'     \item count the number of trips made by the mode to be increased
 #'     
 #'     \item for the bus scenario we aim to increase all public transport trips, 
-#'       \itemize{
-#'       \item i.e. we find the changeable trips not made by bus or rail
-#'      
-#'       \item we count the number of trips made by bus or rail
-#'       }
+#'           i.e. we find the changeable trips not made by bus or rail and we count 
+#'           the number of trips made by bus or rail
+#'             
 #'     \item find the number of total trips that we would like to convert
 #'     
 #'     \item if the number of trips that are changeable equals the number of trips to be
-#'       converted, all changeable trips are converted to the mode in question
+#'           converted, all changeable trips are converted to the mode in question
 #'     
 #'     \item if there are more trips that are changeable than we want to change, 
-#'       sample the number of trips to change from the changeable trip ids
+#'           sample the number of trips to change from the changeable trip ids
 #'     
 #'     \item if there are more trips to be converted than there are changeable trips, then
-#'       convert as many trips as possible and create a warning message
+#'           convert as many trips as possible and create a warning message
+#'           
 #'     \item convert the required trips to the new mode in question
 #'     }
 #'   \item add all trips across the distance bands and add the non-changeable trips
@@ -110,6 +111,8 @@
 #' 
 #' @export
 #' 
+
+
 create_bogota_scenarios <- function(trip_set){
   
   rdr <- trip_set
@@ -165,11 +168,13 @@ create_bogota_scenarios <- function(trip_set){
   # baseline scenario
   rd_list[[1]] <- rdr
   modes_not_changeable <- c('bus_driver', 'truck', 'car_driver') # define the modes that can't be changed
+  
   # create data frame containing all the trips that are not going to be changed in a scenario
   # i.e. bus_driver, truck and car_driver trips but also commercial motorcycle trips which have a participant id of 0
   rdr_not_changeable <-  rdr %>% filter(trip_mode %in% modes_not_changeable | participant_id == 0) 
-  rdr_changeable <-  rdr %>% filter(!trip_mode %in% modes_not_changeable & !participant_id == 0) # Trips that can be reassigned to another mode
   
+  # Trips that can be reassigned to another mode
+  rdr_changeable <-  rdr %>% filter(!trip_mode %in% modes_not_changeable & !participant_id == 0) 
   
   # Split the changeable trips by distance band, save in a new list
   rdr_changeable_by_distance <- list()
@@ -208,7 +213,9 @@ create_bogota_scenarios <- function(trip_set){
         # Count the number of trips that were made by the trip mode
         current_mode_trips <- rdr_copy[[j]] %>% 
           filter(trip_mode == mode_name) %>% distinct(trip_id) %>% nrow()
+        
       } else { # consider bus and rail trips together
+        
         # Identify the trips_id of trips that weren't made by the trip mode
         potential_trip_ids <- unique(rdr_copy[[j]][!rdr_copy[[j]]$trip_mode %in% c(mode_name ,"rail"),]$trip_id)
         
@@ -250,8 +257,10 @@ create_bogota_scenarios <- function(trip_set){
         change_trips <- rdr_copy[[j]][rdr_copy[[j]]$trip_id %in% change_trip_ids,] # extract trips to be changed
         change_trips$trip_mode <- mode_name  # assign a new trip mode name
         change_trips$stage_mode <- mode_name # assign a new stage mode name
+        
+        # update the trip duration based on the new mode speeds 
         change_trips$stage_duration <- change_trips$stage_distance * 60 /
-          MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode == mode_name] # update the trip duration based on the new mode speeds 
+          MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode == mode_name] 
         
         # Replace trips reassigned in the trip dataset and save all trips in a new list
         rdr_copy[[j]] <- 
@@ -275,11 +284,6 @@ create_bogota_scenarios <- function(trip_set){
                                   scenario = paste0('Scenario ',i))
     }
     
-    
-    #print(bus_dr_dist/bus_dist)
-    
-   
-    
     # Remove car_driver from the dataset, to recalculate them
     rdr_scen <-  filter(rdr_scen, !trip_mode %in% 'car_driver')
     if (ADD_CAR_DRIVERS){
@@ -290,7 +294,6 @@ create_bogota_scenarios <- function(trip_set){
                                   scenario = paste0('Scenario ',i))
     }
     
-    #print(car_dr_dist/car_dist)
     rdr_scen$scenario <- paste0("sc_", rownames(SCENARIO_PROPORTIONS)[i]) # add scenario name
     rd_list[[i + 1]] <- rdr_scen # create output list by adding trips for each scenario
   } # End loop for scenarios
