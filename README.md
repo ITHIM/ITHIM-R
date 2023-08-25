@@ -40,7 +40,7 @@ The carbon effects pathway models carbon dioxide (CO2) emissions from motorised 
 
 The health effects of ITHIM are presented as years of life lost (YLLs) and number of attributable deaths. Background burden data for study areas are estimated from [Global Burden of Disease studies](https://www.healthdata.org/research-analysis/gbd).
 
-![Model Layout](images/BigPicture_v3-7.svg)
+![Model Layout](man/figures/BigPicture_v3-7.svg)
 
 ### Data inputs
 
