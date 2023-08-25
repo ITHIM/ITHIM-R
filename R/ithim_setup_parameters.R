@@ -306,17 +306,15 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
       parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_',disease)]] <- runif(NSAMPLES,0,1)
   }  
   
-  
-  
-  
-
   parameters
 }
 
 
 #' Function for Dirichlet parameters
 #' 
-#' Function to map a confidence value to a parameterisation of a Dirichlet distribution
+#' Function to map a confidence value to a parameterisation of a Dirichlet distribution.
+#' 
+#' Note that the parameterisation is somewhat arbitrary but seems to work on visual inspection.
 #' 
 #' @param confidence value between 0 and 1
 #' 

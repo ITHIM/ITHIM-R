@@ -91,7 +91,7 @@ run_ithim <- function(ithim_object,seed=1){
 #'    \item calculate the years of life lost from the injury deaths (injury_death_to_yll.R)
 #'   }
 #'   
-#' \item  combine all pathways using the outputs from (3) and (4):
+#' \item  combine all pathways using the outputs from 3. and 4.:
 #'    \itemize{
 #'    \item combine the AP, PA and injury health burden data for ylls and deaths (join_hb_and_injury.R)
 #'      for all diseases, injuries and scenarios

@@ -11,7 +11,7 @@ output:
 
 ```{r setup, include=FALSE} 
 
-# Script summarises mode splits, distances and durations travelled and looks at health outcomes (YLLs and deaths) for the different air pollution, injury and physical activity pathways but also by disease
+# Script summarises mode splits, distances and durations travelled and looks at health outcomes (YLLs and deaths) for the different air pollution (AP), injury and physical activity (PA) pathways but also by disease
 
 # WARNING: This script only works if ITHIM-Global has been run in constant mode using either the BOGOTA, LATAM, AFRICA_INDIA or GLOBAL scenario definitions
 
@@ -38,7 +38,7 @@ output:
 
 # - one table giving the city specific baseline average daily distances (km) travelled by each person in the synthetic population for all cities
 
-# - city specific distance tables showing total yearly distances in km travelled by the total  population with ages considered in the model for each mode for all scenarios (incl Baseline)
+# - city specific distance tables showing total yearly distances in km travelled by the total population with ages considered in the model for each mode for all scenarios (incl Baseline)
 
 # - one table giving the city specific total yearly baseline distances in km travelled by the total population with ages considered in the model for each mode for all cities
 
@@ -58,53 +58,53 @@ output:
 
 
 ## Health outcomes - injury, air pollution and physical activity
-# - one table for each city showing the change in total YLLs in the scenarios compared to the Baseline for each age group
+# - one table for each city showing the change in total YLLs for each of the scenarios compared to the reference scenario for each age group
 
-# - one table for each city showing the change in YLLs per 100,000 people in the scenarios compared to the Baseline for each age group
+# - one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each age group
 
-# - one table for each city showing the change in YLLs per 100,000 people in the scenarios compared to the Baseline for each age and sex category
+# - one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each age and sex category
 
-# - one table for each city showing the change in total YLLs due to changes in accident fatalities in the scenarios compared to the Baseline for each age group
+# - one table for each city showing the change in total YLLs due to changes in accident fatalities for each of the scenarios compared to the reference scenario for each age group
 
-# - one table for each city showing the change in total YLLs due to changes in physical activity levels in in the scenarios compared to the Baseline for each age group
+# - one table for each city showing the change in total YLLs due to changes in physical activity levels for each of the scenarios compared to the reference scenario for each age group
 
-# - one table for each city showing the change in total YLLs due to changes in air pollution (PM2.5) levels in in the scenarios compared to the Baseline for each age group
+# - one table for each city showing the change in total YLLs due to changes in air pollution (PM2.5) levels for each of the scenarios compared to the reference scenario for each age group
 
-# - one table for each city showing the change in YLLs per 100,000 people due to changes in accident fatalities in the scenarios compared to the Baseline for each age group
+# - one table for each city showing the change in YLLs per 100,000 people due to changes in accident fatalitiesfor each of the scenarios compared to the reference scenario for each age group
 
-# - one table for each city showing the change in YLLs per 100,000 people due to changes in physical activity levels in in the scenarios compared to the Baseline for each age group
+# - one table for each city showing the change in YLLs per 100,000 people due to changes in physical activity levelsfor each of the scenarios compared to the reference scenario for each age group
 
-# - one table for each city showing the change in YLLs per 100,000 people due to changes in air pollution (PM2.5) levels in in the scenarios compared to the Baseline for each age group
+# - one table for each city showing the change in YLLs per 100,000 people due to changes in air pollution (PM2.5) levels for each of the scenarios compared to the reference scenario for each age group
 
 
 ## Health outcomes - disease
-# - one table for each city showing the change in deaths in the scenarios compared to the Baseline for each disease
+# - one table for each city showing the change in deaths for each of the scenarios compared to the reference scenario for each disease
 
-# - one table for each city showing the change in deaths per 100,000 people in the scenarios compared to the Baseline for each disease
+# - one table for each city showing the change in deaths per 100,000 people for each of the scenarios compared to the reference scenario for each disease
 
-# - one table for each city showing the change in YLLs in the scenarios compared to the Baseline for each disease
+# - one table for each city showing the change in YLLs for each of the scenarios compared to the reference scenario for each disease
 
-# - one table for each city showing the change in YLLs per 100,000 people in the scenarios compared to the Baseline for each disease
+# - one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each disease
 
 
 
 
 ### - output .csv/.xlsx files containing the following information:
 
-# - the ylls.csv file (results/multi_city/health_impacts/ylls.csv) gives the changes in YLLs for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario. It also shows the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age and age and sex specific population levels. The results are for either AP and PA only if the diseases are affected by only AP or PA or the results for the combined AP and PA effects if the diseases are affected by both AP and PA. 
+# - the ylls.csv file (results/multi_city/health_impacts/ylls.csv) gives the changes in YLLs for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario compared to the reference scenario. It also shows the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age, and age and sex specific population levels. The results are for either AP and PA only if the diseases are affected by only AP or PA or the results are for the combined AP and PA effects if the diseases are affected by both AP and PA. 
 
-# - the ylls_pathway.csv file (results/multi_city/health_impacts/ylls_pathway.csv) gives the changes in YLLs for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario. It also shows the disease level, whether the disease is exasperated by changes in AP or PA, and the age and age and sex specific population levels. The results are given for AP and PA independently even if a disease is affected by both pathways.
+# - the ylls_pathway.csv file (results/multi_city/health_impacts/ylls_pathway.csv) gives the changes in YLLs for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario compared to the reference scenario. It also shows the disease level, whether the disease is exasperated by changes in AP or PA, and the age, and age and sex specific population levels. The results are given for AP and PA independently even if a disease is affected by both pathways.
 
-# - the deaths.csv file (results/multi_city/health_impacts/deaths.csv) gives the changes in deaths for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario. It also shows the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age and age and sex specific population levels. The results are for either AP and PA only if the diseases are affected by only AP or PA or the results for the combined AP and PA effects if the diseases are affected by both AP and PA. 
+# - the deaths.csv file (results/multi_city/health_impacts/deaths.csv) gives the changes in deaths for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario compared to the reference scenario. It also shows the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age, and age and sex specific population levels. The results are for either AP and PA only if the diseases are affected by only AP or PA or the results are for the combined AP and PA effects if the diseases are affected by both AP and PA. 
 
-# - the deaths_pathway.csv file (results/multi_city/health_impacts/deaths_pathway.csv) gives the changes in deaths for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario. It also shows the disease level, whether the disease is exasperated by changes in AP or PA, and the age and age and sex specific population levels. The results are given for AP and PA independently even if a disease is affected by both pathways.
+# - the deaths_pathway.csv file (results/multi_city/health_impacts/deaths_pathway.csv) gives the changes in deaths for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario compared to the reference scenario. It also shows the disease level, whether the disease is exasperated by changes in AP or PA, and the age, and age and sex specific population levels. The results are given for AP and PA independently even if a disease is affected by both pathways.
 
 
 
 
 #### The script performs the following steps:
 
-# - set up helper function to re-format large numbers, re-name scenarios and format and print output tables
+# - set up helper functions to re-format large numbers, re-name scenarios and format and print output tables
 
 # - read in io object containing the results from an ITHIM-Global run and extract relevant variables. Read in mode_order.csv which sets up a set mode order
 
@@ -136,33 +136,33 @@ output:
 
 # - create one table giving the city specific baseline average duration (h) spent travelling by each person in the respective synthetic populations for all cities
 
-# - create one table for each city showing the change in total YLLs in the scenarios compared to the Baseline for each age group
+# - create one table for each city showing the change in total YLLsfor each of the scenarios compared to the reference scenario  for each age group
 
-# - create one table for each city showing the change in YLLs per 100,000 people in the scenarios compared to the Baseline for each age group
+# - create one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each age group
 
-# - create one table for each city showing the change in YLLs per 100,000 people in the scenarios compared to the Baseline for each age and sex category
+# - create one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each age and sex category
 
-# - create one table for each city showing the change in total YLLs due to changes in accident fatalities in the scenarios compared to the Baseline for each age group
+# - create one table for each city showing the change in total YLLs due to changes in accident fatalities for each of the scenarios compared to the reference scenario for each age group
 
-# - create one table for each city showing the change in total YLLs due to changes in physical activity levels in in the scenarios compared to the Baseline for each age group
+# - create one table for each city showing the change in total YLLs due to changes in physical activity levels for each of the scenarios compared to the reference scenario for each age group
 
-# - create one table for each city showing the change in total YLLs due to changes in air pollution (PM2.5) levels in in the scenarios compared to the Baseline for each age group
+# - create one table for each city showing the change in total YLLs due to changes in air pollution (PM2.5) levels for each of the scenarios compared to the reference scenario for each age group
 
-# - create one table for each city showing the change in YLLs per 100,000 people due to changes in accident fatalities in the scenarios compared to the Baseline for each age group
+# - create one table for each city showing the change in YLLs per 100,000 people due to changes in accident fatalities for each of the scenarios compared to the reference scenario for each age group
 
-# - create one table for each city showing the change in YLLs per 100,000 people due to changes in physical activity levels in in the scenarios compared to the Baseline for each age group
+# - create one table for each city showing the change in YLLs per 100,000 people due to changes in physical activity levels for each of the scenarios compared to the reference scenario for each age group
 
-# - create one table for each city showing the change in YLLs per 100,000 people due to changes in air pollution (PM2.5) levels in in the scenarios compared to the Baseline for each age group
+# - create one table for each city showing the change in YLLs per 100,000 people due to changes in air pollution (PM2.5) levelsfor each of the scenarios compared to the reference scenario for each age group
 
-# - create one table for each city showing the change in deaths in the scenarios compared to the Baseline for each disease
+# - create one table for each city showing the change in deaths for each of the scenarios compared to the reference scenario for each disease
 
-# - create one table for each city showing the change in deaths per 100,000 people in the scenarios compared to the Baseline for each disease
+# - create one table for each city showing the change in deaths per 100,000 people for each of the scenarios compared to the reference scenario for each disease
 
-# - create one table for each city showing the change in YLLs in the scenarios compared to the Baseline for each disease
+# - create one table for each city showing the change in YLLs for each of the scenarios compared to the reference scenario for each disease
 
-# - create one table for each city showing the change in YLLs per 100,000 people in the scenarios compared to the Baseline for each disease
+# - create one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each disease
 
-# - create 4 individual .csv files in (results/multi_city/health_impacts/) for both death and YLLs considering the effect of AP and PA separately (*_pathway.csv) or together (*.csv). These files give the changes in YLLs / deaths for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario. They also show the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age and age and sex specific population levels. 
+# - create 4 individual .csv files in 'results/multi_city/health_impacts/' for both death and YLLs considering the effect of AP and PA separately (*_pathway.csv) or together (*.csv). These files give the changes in YLLs or deaths for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario compared to the reference scenario. They also give the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age and age and sex specific population levels. 
 
 
 
@@ -198,6 +198,8 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 
 
 ```{r helper_functions, echo = F, message = F}
+# set up helper functions
+
 # Function to format numbers with million (M) and billion (B) suffixes
 # Source: https://stackoverflow.com/questions/28159936/formatting-large-currency-or-dollar-values-to-millions-billions
 comprss <- function(tx) { 
@@ -257,6 +259,8 @@ io <- readRDS("results/multi_city/io.rds")
 
 # Get names of cities from the io object
 cities <<- names(io)[!names(io) %in% 'scen_prop']
+
+# extract number of scenarios
 NSCEN <- nrow(io$scen_prop)
 
 # find reference scenario
@@ -271,8 +275,11 @@ round_to <- 1
 
 
 ```
-# **1st option**
-## Scenario definition 
+<!-- # **1st option** -->
+
+## Distance categories
+
+<!-- ## Scenario definition  -->
 <!-- Table displays highest propensity for each distance category, for a given mode. -->
 
 <!-- Table displays highest propensity (%) for each distance category, for a given mode. -->
@@ -289,11 +296,14 @@ Distance categories are defined as:
 
 ```{r scen_prop = "asis"}
 
+# extract and update scenario names
 scen_prop <- round(io$scen_prop, round_to)
 
 rownames(scen_prop) <- paste("sc",rownames(io$scen_prop),  sep = "_")
 
+# rename scenarios
 orig_scen_names_updated <- unlist(lapply(rownames(scen_prop), FUN=get_qualified_scen_name))
+
 
 # # rename scenarios
 # rownames(scen_prop) <- unlist(lapply(rownames(scen_prop), FUN=get_qualified_scen_name))
@@ -315,6 +325,7 @@ get_scen_settings <- ithimr::get_scenario_settings(cities = cities)
 ```
 
 ## Mode split for each scenario by city
+
 City specific trip proportions by mode, for baseline and scenarios
 
 
@@ -411,11 +422,11 @@ suppressWarnings({
 
 
 ## Distance tables
-City specific distance tables showing average distance in km travelled by each person by mode for all scenarios (incl Baseline)
+City specific distance tables showing average distance in km travelled by each person in the synthetic population by mode for all scenarios (incl Baseline)
 
 
 ```{r trip_dist = "asis"}
-# find the average distance a person spends travelling on each mode per day
+# find the average distance a person in the synthetic population spends travelling on each mode per day
 
 trip_dist <- list()
 
@@ -429,7 +440,7 @@ for (city in cities) { # loop through cities
     mutate_if(is.numeric, round, digits = round_to) %>% 
     mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
 
-  # update scenario names - cycle, car, bus
+  # update scenario names 
   colnames(td)[2:ncol(td)] <- c('Baseline', orig_scen_names_updated)
   
   # match with pre-defined mode order
@@ -439,7 +450,7 @@ for (city in cities) { # loop through cities
   row.names(td) <- NULL
   
   # write to .html
-  print(kable(td, caption = paste("Distance table (km) per day for ", city, "( ", count_people, " ) per person")))
+  print(kable(td, caption = paste("Distance table (km) per day for ", city, "( ", count_people, " ) per person in the synthetic population")))
   cat("\n")
   
   td1 <- td
@@ -457,6 +468,7 @@ for (city in cities) { # loop through cities
   # join baseline mode distances for all cities
   trip_dist <- inner_join(trip_dist, td1, by = 'stage_mode')
   
+  
   ## repeat but only for people who are travelling
   # extract number of people travelling from the trip data rather than the synthetic population
   count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
@@ -469,27 +481,27 @@ for (city in cities) { # loop through cities
   td <- td[order(x),]
   row.names(td) <- NULL
   
-  print(kable(td, caption = paste("Distance table (km) for ", city, "( ", count_people, " ) per person (people with trips ONLY)")))
+  print(kable(td, caption = paste("Distance table (km) for ", city, "( ", count_people, " ) per person in the synthetic population (people with trips ONLY)")))
   
 }
 
 ```
 
 
-### Distance table showing average baseline distances in km travelled by each person by mode for all cities
+### Distance table showing average baseline distances in km travelled by each person in the synthetic population by mode for all cities
 
 ```{r}
 # create table showing average baseline distances by mode for all cities
 trip_dist <- trip_dist %>% janitor::adorn_totals('row')
 
-kable(trip_dist, caption = "Avg. baseline distance per person (km) per day across all cities")
+kable(trip_dist, caption = "Avg. baseline distance (km) per person in the synthetic population per day across all cities")
 
 ```
 
 
 ## Distance tables scaled by using total model age population (per year in km)
 
-City specific distance tables for baseline and scenarios for the entire population with age range considered in the model
+City specific distance tables for baseline and scenarios for the entire population with ages considered in the model
 
 
 ```{r trip_tot_dist = "asis", message=F}
@@ -497,9 +509,6 @@ City specific distance tables for baseline and scenarios for the entire populati
 bl_td <- list()
 
 for (city in cities) { # loop through cities
-  
-  # find the total city level population considered in the model only
-  #count_people <- round(sum(io[[city]]$demographic$population))
   
   # extract daily population distances for ages considered in model and multiply by 365 to to get yearly distances
   td <- io[[city]]$true_dist %>% dplyr::filter(stage_mode != 'bus_driver' & stage_mode != 'car_driver') %>%
@@ -555,7 +564,7 @@ Baseline distance travelled by entire population with ages considered in the mod
 
 ```{r trip_dist_all_cities = "asis", message=F}
 
-# create baseline yearly distance table for all cities
+# create baseline yearly distance table for the entire population with ages considered in the model for all cities
 
 backup <- bl_td
 
@@ -604,7 +613,7 @@ for (city in cities){ # loop through distances
   
   names(df)[-1] <- scen_names_updated
   
-  print(kable(df, caption = paste("Model age population distance by mode per day for  ", city)))
+  print(kable(df, caption = paste("Total population distance with ages considered in model by mode per day for  ", city)))
 }
 
 ```
@@ -612,11 +621,12 @@ for (city in cities){ # loop through distances
 
 ## Duration tables
 
-City specific duration tables for baseline and scenarios (per day in minutes)
+City specific duration tables for the synthetic population for baseline and scenarios (per day in minutes)
 
 
 ```{r trip_dur = "asis"}
-# create tables showing the average duration each person spends travelling per mode 
+
+# create tables showing the average duration each person in the synthetic population spends travelling per mode 
 
 trip_dur <- list()
 l <- list()
@@ -655,7 +665,7 @@ for(city in cities){ # loop through cities
   trip_dur <- inner_join(trip_dur, td1, by = 'stage_mode')
   
   # print to html
-  print(kable(td, caption = paste("Duration table (mins) per day for model synthetic population for ", city, "( ", count_people, " ) per person (everyone)")))
+  print(kable(td, caption = paste("Duration table (mins) per day for synthetic population for ", city, "( ", count_people, " ) per person (everyone)")))
   
   # repeat but only counting people who are actually taking a trip
   count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id)) # find unique trip ids rather than rows in synthetic population
@@ -698,17 +708,10 @@ cat(paste0('Reference scenario:  ', reference_scenario))
 
 # Calculate the changes in YLL compared to the reference scenario by age groups
 
-# find injury death column
-#injury_col <- which(colnames(io[[1]]$outcomes$hb$deaths) == paste0(scen_names[2],'_deaths_inj'))
-
-# find ap death columns
-# ap_death_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$deaths |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))),function(x)grepl('ap',as.character(x))))
 
 # find ap ylls columns
 ap_yll_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$ylls  |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))),function(x)grepl('ap',as.character(x))))
 
-# find pa death columns
-# pa_death_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$deaths |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))),function(x)grepl('pa',as.character(x))))
 
 # find pa yll columns
 pa_yll_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))),function(x)grepl('pa',as.character(x))))
@@ -785,8 +788,9 @@ round_and_print(yll_rates,"Change in YLLs per 100,000 in ")
 ### Change in YLLs compared to reference scenario per 100,000 people by age and sex  {#change_YLL_gender_age_100k}
 
 Change in YLLs per 100,000 people by age and sex category for each scenario compared to the reference scenario
+
 ```{r scen_prop = "asis"}
-cat(' ')
+
 cat(paste0('Reference scenario:  ', reference_scenario))
 
 # calculate changes in YLLs for each scenario compared to the Baseline per 100,000 people by age and sex category
@@ -891,7 +895,7 @@ sum_and_round_and_print(ap_totals,"Change in YLLs due to AP in ")
 
 ### Change in YLLs due to injury compared to the reference scenario per 100,000 people {#change_yll_injury_100k}
 
-YLLs per 100,000 people by age group by scenario - injury
+<!-- YLLs per 100,000 people by age group by scenario - injury -->
 
 ```{r scen_prop = "asis"}
 cat(paste0('Reference scenario:  ', reference_scenario))
@@ -949,7 +953,7 @@ round_and_print(ap_rates,"Change in YLLs due to AP per 100,000 people in ")
 
 ## BY DISEASE
 
-Change in total deaths compared to the reference scenario (for the city based on real population size) by scenario
+Change in total deaths compared to the reference scenario (for the city based on real population size but only for ages considered in the model) by scenario
 
 ### Change in deaths by disease compared to the reference scenario {#change_death_disease}
 
@@ -982,9 +986,9 @@ sum_and_round_and_print(disease_totals,"Change in deaths by disease in ")
 
 
 
-### Change in deaths by disease compared to the reference scenario per 100,000 people {#change_death_disease_100k}
+### Change in deaths by disease compared to the reference scenario per 100,000 people  {#change_death_disease_100k}
 
-Change in deaths per 100,000 people by scenario in comparison to the reference scenario
+Change in deaths per 100,000 people (based on real population size but only for ages considered in the model) by scenario in comparison to the reference scenario
 
 ```{r scen_prop = "asis"}
 cat(paste0('Reference scenario:  ', reference_scenario))
@@ -1007,7 +1011,7 @@ round_and_print(disease_rates,"Change in deaths by disease per 100,000 people in
 
 ### Change in total YLLs by disease compared to the reference scenario {#change_yll_disease}
 
-Change in total YLLs by disease compared to the reference scenario (for the city based on real population size, for ages considered within the ITHIM model) 
+Change in total YLLs by disease compared to the reference scenario (based on real population size, for ages considered within the ITHIM model) 
 
 
 ```{r}
@@ -1040,6 +1044,8 @@ sum_and_round_and_print(disease_totals,"Change in YLL by disease in ")
 
 
 ### Change in YLL due to disease compared to the reference scenario per 100,000 people {#change_yll_disease_100k}
+
+Change in total YLLs by disease compared to the reference scenario per 100,000 people (based on real population size, for ages considered within the ITHIM model) 
 
 ```{r scen_prop = "asis"}
 cat(paste0('Reference scenario:  ', reference_scenario))
