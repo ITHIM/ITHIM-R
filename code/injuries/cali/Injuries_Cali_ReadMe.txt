@@ -1,1 +1,0 @@
-According to Daniel (June 2022), the data processing for Cali was done by hand in Excel and it was a matter of translation.

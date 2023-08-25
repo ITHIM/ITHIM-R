@@ -9,7 +9,8 @@ library(ggridges)
 
 options(scipen = 10000)
 
-github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/latam_paper/"
+# github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/latam_paper/"
+github_path <- "../"
 rel_path_health <- paste0(github_path, "results/multi_city/health_impacts/")
 # 
 # rel_path <- "../results/multi_city/health_impacts/"
@@ -23,11 +24,22 @@ deaths_pathway <- read_csv(paste0(rel_path_health, "deaths_pathway.csv"))
 ylls_pathway$measures <- "Years of Life Lost (YLLs)"
 deaths_pathway$measures <- "Deaths"
 
-rel_path_inj <- paste0(github_path, "results/multi_city/whw_matrices/")
+rel_path_inj <- paste0(github_path, "results/multi_city/inj/")
 
-injury_risks_per_billion_kms_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_billion_kms_lng.csv"))
+injury_risks_per_billion_kms_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_billion_kms.csv"))
 injury_risks_per_100k_pop <- read_csv(paste0(rel_path_inj, "injury_risks_per_100k_pop.csv"))
-injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_100million_h_lng.csv"))
+injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_100million_h.csv"))
+
+# Make sure all injury datasets have distinct rows and are in wide format (for mean, lb, and ub values)
+# injury_risks_per_billion_kms_lng <- injury_risks_per_billion_kms_lng |> 
+#   dplyr::group_by(mode, scenario, city, country, continent, mode_distance, measure) |>
+#   dplyr::summarise(n = dplyr::n(), value = sum(value), .groups = "drop") |> 
+#   dplyr::filter(n == 1L) |> 
+#   dplyr::select(-n)
+#   pivot_wider(injury_risks_per_billion_kms_lng, names_from = measure, values_from = value)
+injury_risks_per_billion_kms_lng <- injury_risks_per_billion_kms_lng |> dplyr::select(-mode_distance) |> distinct() |> pivot_wider(names_from = measure, values_from = value)
+injury_risks_per_100k_pop <- injury_risks_per_100k_pop |> distinct()  |> pivot_wider(names_from = measure, values_from = value)
+injury_risks_per_100million_h_lng <- injury_risks_per_100million_h_lng |> distinct()  |> pivot_wider(names_from = measure, values_from = value)
 
 # # Input params  
 # input_parameter_file_path <- paste0(github_path, "InputParameters_v28.0.xlsx")
@@ -40,7 +52,7 @@ ren_scen <- function(df){
   df |> 
     filter(scenario != "Baseline") |> 
     mutate(scenario = case_when(
-      grepl("Baseline_predicted", scenario) ~ "Baseline",
+      grepl("Baseline_predicted|Baseline predicted", scenario) ~ "Baseline",
       grepl("Bicycling|cycle", scenario) ~ "CYC_SC",
       grepl("Public Transport|bus", scenario) ~ "BUS_SC",
       grepl("Motorcycling|motorcycle", scenario) ~ "MOT_SC",
@@ -83,10 +95,10 @@ combined_health_dataset <- rbind(ylls, deaths)
 combined_health_dataset_pathway <- rbind(ylls_pathway, deaths_pathway)
 
 ren_scen_health <- function(df){
-  df[df$scenario == "motorcycle",]$scenario <- "MOT_SC"
-  df[df$scenario == "car",]$scenario <- "CAR_SC"
-  df[df$scenario == "bus",]$scenario <- "BUS_SC"
-  df[df$scenario == "cycle",]$scenario <- "CYC_SC"
+  df[df$scenario == "motorcycle"  | df$scenario == "Motorcycle",]$scenario <- "MOT_SC"
+  df[df$scenario == "car" | df$scenario == "Car",]$scenario <- "CAR_SC"
+  df[df$scenario == "bus" | df$scenario == "Public Transport",]$scenario <- "BUS_SC"
+  df[df$scenario == "cycle" | df$scenario == "Bicycling",]$scenario <- "CYC_SC"
 
   df
   
@@ -107,6 +119,7 @@ level_choices <- c("All-cause mortality" = "level1",
                    "CVD/Respiratory diseases" = "level2",
                    "Individual diseases (cancers, IHD, diabetes)" = "level3")
 
+per_100k <- c("Per 100k")
 
 scens <- c("Cycling Scenario" = "CYC_SC",
            "Car Scenario" = "CAR_SC",
@@ -187,6 +200,9 @@ ui <- grid_page(
       radioButtons(inputId = "in_level", 
                    label = "Disease/cause levels",
                    choices = level_choices),
+      checkboxInput(inputId = "in_per_100k", 
+                    label = "per_100k",
+                    value =  TRUE),
       pickerInput(inputId = "in_pathways", 
                   label = "Pathway/Dose",
                   choices = dose_pathway,
@@ -195,12 +211,7 @@ ui <- grid_page(
                   multiple = TRUE),
       radioButtons(inputId = "in_int_pathway", 
                    label = "Pathways Interaction",
-                   choices = c("No", "Yes")),
-      radioButtons(inputId = "in_CIs", 
-                   label = "Conf. Interval",
-                   choices = c("No", "Yes"),
-                   selected = "No")
-      
+                   choices = c("No", "Yes"))
     ),
     conditionalPanel(
       condition = "input.main_tab == 'Injury Risks'",
@@ -215,6 +226,11 @@ ui <- grid_page(
                    choices = inj_risk_types,
                    selected = inj_risk_types[1])
     ),
+    
+    radioButtons(inputId = "in_CIs", 
+                 label = "Conf. Interval",
+                 choices = c("No", "Yes"),
+                 selected = "No"),
     downloadButton("download_top_data", "Download data", icon = shiny::icon("file-download"))
     
   )
@@ -296,9 +312,9 @@ server <- function(input, output, session) {
     else{
       
       gg <- ggplot(local_df) +
-        aes(x = city, y = value, fill = scenario) +
+        aes(x = city, y = mean, fill = scenario) +
         geom_col(position = "dodge", alpha = global_alpha_val) +
-        {if(length(filtered_scens) == 1) geom_text(aes(label = round(value, 1)), position = position_stack(vjust = 0.9))} +
+        {if(length(filtered_scens) == 1) geom_text(aes(label = round(mean, 1)), position = position_stack(vjust = 0.9))} +
         scale_fill_hue(direction = 1) +
         coord_flip() +
         theme_minimal() +
@@ -375,6 +391,7 @@ server <- function(input, output, session) {
     req(input$in_measure)
     req(input$in_CIs)
     req(input$in_pathways)
+    req(input$in_per_100k)
     
     in_col_lvl <- input$in_level
     in_measure <- input$in_measure
@@ -382,6 +399,7 @@ server <- function(input, output, session) {
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
+    in_per_100 <- input$in_per_100k
     
     m <- list(
       l = 10,
@@ -432,6 +450,7 @@ server <- function(input, output, session) {
     }
   }) |> bindCache(input$in_level,
                   input$in_measure,
+                  input$in_per_100k,
                   input$in_CIs,
                   input$in_cities,
                   input$in_scens,
@@ -457,11 +476,12 @@ server <- function(input, output, session) {
     }
     
     text_colour <- "black"
+    
+    #browser()
       
     local_df <- local_df |>
       as.data.frame() |>
-      filter(measure == "mean" &
-               city %in% filtered_cities &
+      filter(city %in% filtered_cities &
                scenario %in% filtered_scens &
                mode %in% filtered_modes) |>
       mutate(scenario = case_when(
@@ -469,7 +489,8 @@ server <- function(input, output, session) {
         scenario == "CAR_SC" ~ "Car Scenario",
         scenario == "BUS_SC" ~ "Bus Scenario",
         scenario == "MOT_SC" ~ "Motorcycle Scenario",
-        scenario == "Baseline" ~ "Baseline"))
+        scenario == "Baseline" ~ "Baseline")) |> 
+      distinct()
     
     if (is.null(local_df) || nrow(local_df) == 0)
       local_df <- data.frame()
@@ -488,8 +509,11 @@ server <- function(input, output, session) {
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
-    
+    in_per_100 <- input$in_per_100k
     local_dataset <- combined_health_dataset
+    
+    print("in_per_100")
+    print(in_per_100)
     
     if (in_int_pathway == "Yes")
       local_dataset <- combined_health_dataset
@@ -505,8 +529,7 @@ server <- function(input, output, session) {
         filter(scenario %in% filtered_scens) |>
         filter(dose %in% filtered_pathways) |>
         group_by(city, scenario, dose, cause) |>
-        summarise(metric_100k = round(sum(metric_100k), 1))
-                  
+        summarise(metric_100k = round(sum(ifelse(in_per_100, metric_100k, measure), 1)))
       
       if (length(filtered_pathways) > 1){
         
@@ -514,7 +537,7 @@ server <- function(input, output, session) {
           filter(str_detect(cause, "lb")) |>
           ungroup() |>
           group_by(city, scenario) |>
-          summarise(metric_100k = round(sum(metric_100k, 1))) |>
+          summarise(metric_100k = round(sum(measure, 1))) |>
           mutate(dose = "total", cause = "total_lb")
         
         total_dose <- rbind(total_dose,
@@ -548,7 +571,7 @@ server <- function(input, output, session) {
         filter(scenario %in% filtered_scens) |>
         filter(dose %in% filtered_pathways) |>
         group_by(city, scenario, dose) |>
-        summarise(metric_100k = round(sum(metric_100k), 1))
+        summarise(metric_100k = round(sum(ifelse(in_per_100, metric_100k, measure), 1)))
       
       if (length(filtered_pathways) > 1){
         
@@ -570,6 +593,8 @@ server <- function(input, output, session) {
         scenario == "BUS_SC" ~ "Bus Scenario",
         scenario == "MOT_SC" ~ "Motorcycle Scenario"),
         measure = in_measure)
+    
+    # browser()
     
     if (is.null(ld) || nrow(ld) == 0)
       ld <- data.frame()
