@@ -1,2 +1,0 @@
-1) allocated unknown and others to known striking vehicles
-2) after 1, allocated unknown victim type to known victim types
