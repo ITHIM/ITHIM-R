@@ -95,3 +95,5 @@ In order to setup the model, we need a fixed list of tables/datasets, such as:
 -   **Physical Activity Dose-Response Functions (DRFs)** dose response relationships of physical activity and its impact on health via diseases/causes. Similar to AP, this too comes from published studies. This now sits in an independent R package called [`drpa`](https://github.com/meta-analyses/drpa/).
 
 ## How to run the model?
+
+For setup, reading all the required dataset and initialising all variables, we call `run_ithim_setup` and to run the model, we call `run_ithim`
