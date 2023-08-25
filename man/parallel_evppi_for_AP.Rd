@@ -2,7 +2,7 @@
 % Please edit documentation in R/parallel_evppi_for_AP.R
 \name{parallel_evppi_for_AP}
 \alias{parallel_evppi_for_AP}
-\title{Compute AP EVPPI}
+\title{Compute AP EVPPI - NOT USED IN CONSTANT MODE}
 \usage{
 parallel_evppi_for_AP(disease, parameter_samples, outcome, NSCEN)
 }

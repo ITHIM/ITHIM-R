@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarise_ithim_inputs.R
 \name{summarise_ithim_inputs}
 \alias{summarise_ithim_inputs}
-\title{Graphical processing of input data}
+\title{Graphical processing of input data - CURRENTLY NOT BEING CALLED}
 \usage{
 summarise_ithim_inputs(ithim_object)
 }

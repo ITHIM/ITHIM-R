@@ -45,5 +45,7 @@ person (nTrips) random samples between 1 and the input distance given. Age and s
 sampled from a range of input age and sex values.
 
 The function performs the following steps:
-- create nTrips new trips sampling from distances, ages and sexes
+\itemize{
+\item create nTrips new trips sampling from distances, ages and sexes
+}
 }

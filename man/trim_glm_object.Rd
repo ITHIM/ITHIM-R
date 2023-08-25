@@ -2,7 +2,7 @@
 % Please edit documentation in R/trim_glm_object.R
 \name{trim_glm_object}
 \alias{trim_glm_object}
-\title{Reduce size of glm object}
+\title{Reduce size of glm object - CURRENTLY NOT BEING CALLED}
 \usage{
 trim_glm_object(obj)
 }

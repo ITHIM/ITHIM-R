@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_max_mode_share_scenarios.R
 \name{create_max_mode_share_scenarios}
 \alias{create_max_mode_share_scenarios}
-\title{Create scenarios defined by maximum mode share}
+\title{Create scenarios defined by maximum mode share - CURRENTLY NOT USED}
 \usage{
 create_max_mode_share_scenarios(trip_set)
 }

@@ -67,21 +67,22 @@ run_ithim_setup(
   COMMERCIAL_MBIKE_PROP_MALE = 0.99,
   COMMERCIAL_MBIKE_MALE_AGERANGE = "18, 65",
   COMMERCIAL_MBIKE_FEMALE_AGERANGE = "18, 65",
-  MINIMUM_PT_TIME = 3
+  MINIMUM_PT_TIME = 3,
+  MODERATE_PA_CONTRIBUTION = 0.5
 )
 }
 \arguments{
-\item{seed}{random seed}
+\item{seed}{set seed to get the same results when sampling from a distribution}
 
 \item{CITY}{name of the city, and name of the directory containing city data files}
 
 \item{speeds}{named list of mode speeds}
 
-\item{PM_emission_inventory}{named list of mode emissions}
+\item{PM_emission_inventory}{named list of mode PM emissions}
 
-\item{CO2_emission_inventory}{named list of mode emissions}
+\item{CO2_emission_inventory}{named list of CO2 mode emissions}
 
-\item{DIST_CAT}{vector string of distance categories in the form '0-6'. (The unit is assumed to be the same as in the trip set.)}
+\item{DIST_CAT}{vector string of distance categories in the form '0-6'. (The unit is assumed to be the same as in the trip set and is related to speed values, usually in km)}
 
 \item{AGE_RANGE}{vector of minimum and maximum ages to include}
 
@@ -95,7 +96,7 @@ run_ithim_setup(
 
 \item{ADD_MOTORCYCLE_FLEET}{logic: whether or not to add additional commercial motorcycle fleet as ghost trips}
 
-\item{ADD_PERSONAL_MOTORCYCLE_TRIPS}{character: if 'no' does not add motorcycle trips otherwise set to geographic region which defines the set-up of the motorcycle trips to be added}
+\item{ADD_PERSONAL_MOTORCYCLE_TRIPS}{character: if 'no' does not add any personal motorcycle trips otherwise set to geographic region which defines the set-up of the motorcycle trips to be added}
 
 \item{REFERENCE_SCENARIO}{which scenario forms the reference for the health comparison}
 
@@ -103,9 +104,9 @@ run_ithim_setup(
 
 \item{NSAMPLES}{constant integer: number of samples to take}
 
-\item{BUS_WALK_TIME}{lognormal parameter: duration of walk to Bus}
+\item{BUS_WALK_TIME}{lognormal parameter: duration of walk to bus stage}
 
-\item{RAIL_WALK_TIME}{lognormal parameter: duration of walk to Rail}
+\item{RAIL_WALK_TIME}{lognormal parameter: duration of walk to rail stage}
 
 \item{MMET_CYCLING}{lognormal parameter: mMETs when cycling}
 
@@ -115,129 +116,165 @@ run_ithim_setup(
 
 \item{PM_TRANS_SHARE}{beta parameter: fraction of background PM2.5 attributable to transport}
 
-\item{PA_DOSE_RESPONSE_QUANTILE}{logic: whether or not to sample from PA RR DR functions}
+\item{PA_DOSE_RESPONSE_QUANTILE}{logic: whether or not to sample from physical activity relative risk dose response functions}
 
-\item{AP_DOSE_RESPONSE_QUANTILE}{logic: whether or not to sample from AP RR DR functions}
+\item{AP_DOSE_RESPONSE_QUANTILE}{logic: whether or not to sample from air pollution relative risk dose response functions}
 
-\item{BACKGROUND_PA_SCALAR}{lognormal parameter: reporting scalar for PA}
+\item{BACKGROUND_PA_SCALAR}{lognormal parameter: reporting scalar for physical activity to correct bias in data}
 
-\item{BACKGROUND_PA_CONFIDENCE}{beta parameter: confidence in accuracy of PA survey}
+\item{BACKGROUND_PA_CONFIDENCE}{beta parameter: confidence in accuracy of zero non-travel physical activity levels}
 
-\item{INJURY_REPORTING_RATE}{lognormal parameter: rate of injury reporting}
+\item{INJURY_REPORTING_RATE}{lognormal parameter: rate of injury fatality reporting}
 
-\item{CHRONIC_DISEASE_SCALAR}{lognormal parameter: scalar for background disease rates}
+\item{CHRONIC_DISEASE_SCALAR}{lognormal parameter: scalar for background disease rates to adjust for bias in GBD data}
 
-\item{DAY_TO_WEEK_TRAVEL_SCALAR}{beta parameter: rate of scaling travel from one day to one week  - CURRENTLY used as constant only (using as beta parameter would need some further considerations)}
+\item{DAY_TO_WEEK_TRAVEL_SCALAR}{beta parameter: rate of scaling travel from one day to one week - CURRENTLY used as constant only (using as beta parameter would need some further considerations)}
 
-\item{SIN_EXPONENT_SUM}{lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers.}
+\item{SIN_EXPONENT_SUM}{lognormal parameter: linearity of injuries with respect to two modes. SIN_EXPONENT_SUM=2 means no safety in numbers}
 
-\item{CASUALTY_EXPONENT_FRACTION}{beta parameter: casualty contribution to SIN_EXPONENT_SUM}
+\item{CASUALTY_EXPONENT_FRACTION}{beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM}
 
-\item{SIN_EXPONENT_SUM_NOV}{lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers.}
+\item{SIN_EXPONENT_SUM_NOV}{lognormal parameter: linearity of injuries with respect to two modes where strike mode = NOV. SIN_EXPONENT_SUM=2 means no safety in numbers}
 
-\item{SIN_EXPONENT_SUM_CYCLE}{lognormal parameter: linearity of injuries with respect to two modes where victim mode = cycle. SIN_EXPONENT_SUM=2 means no safety in numbers.}
+\item{SIN_EXPONENT_SUM_CYCLE}{lognormal parameter: linearity of injuries with respect to two modes where victim mode = cycle. SIN_EXPONENT_SUM=2 means no safety in numbers}
 
-\item{CASUALTY_EXPONENT_FRACTION_CYCLE}{beta parameter: casualty contribution to SIN_EXPONENT_SUM  where victim mode = cycle.}
+\item{CASUALTY_EXPONENT_FRACTION_CYCLE}{beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM_CYCLE  where victim mode = cycle}
 
-\item{SIN_EXPONENT_SUM_PED}{lognormal parameter: linearity of injuries with respect to two modes  where victim mode = pedestrian. SIN_EXPONENT_SUM=2 means no safety in numbers.}
+\item{SIN_EXPONENT_SUM_PED}{lognormal parameter: linearity of injuries with respect to two modes  where victim mode = pedestrian. SIN_EXPONENT_SUM=2 means no safety in numbers}
 
-\item{CASUALTY_EXPONENT_FRACTION_PED}{beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = pedestrian}
+\item{CASUALTY_EXPONENT_FRACTION_PED}{beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM_PED where victim mode = pedestrian}
 
-\item{SIN_EXPONENT_SUM_VEH}{lognormal parameter: linearity of injuries with respect to two modes where victim mode = a vehicle. SIN_EXPONENT_SUM=2 means no safety in numbers.}
+\item{SIN_EXPONENT_SUM_VEH}{lognormal parameter: linearity of injuries with respect to two modes where victim mode = a vehicle. SIN_EXPONENT_SUM=2 means no safety in numbers}
 
-\item{CASUALTY_EXPONENT_FRACTION_VEH}{beta parameter: casualty contribution to SIN_EXPONENT_SUM where victim mode = a vehicle.}
+\item{CASUALTY_EXPONENT_FRACTION_VEH}{beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM_VEH where victim mode = a vehicle}
 
-\item{CALL_INDIVIDUAL_SIN}{logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes.}
+\item{CALL_INDIVIDUAL_SIN}{logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes}
 
 \item{BUS_TO_PASSENGER_RATIO}{beta parameter: number of buses per passenger}
 
 \item{CAR_OCCUPANCY_RATIO}{beta parameter: number of people per car (including driver)}
 
-\item{TRUCK_TO_CAR_RATIO}{beta parameter: number of trucks per car}
+\item{TRUCK_TO_CAR_RATIO}{beta parameter: proportion of truck to car vehicle km travelled}
 
-\item{FLEET_TO_MOTORCYCLE_RATIO}{beta parameter: fraction of total motorcycles that's fleet}
+\item{FLEET_TO_MOTORCYCLE_RATIO}{beta parameter: amount of motorcycle trips that are to be added as commercial trips}
 
-\item{PROPORTION_MOTORCYCLE_TRIPS}{beta parameter: proportion of trips that are to be added as motorcycle trips}
+\item{PROPORTION_MOTORCYCLE_TRIPS}{beta parameter: proportion of trips that are to be added as personal motorcycle trips}
 
-\item{PM_EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of emission inventory}
+\item{PM_EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of PM emission inventory}
 
-\item{CO2_EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of emission inventory}
+\item{CO2_EMISSION_INVENTORY_CONFIDENCE}{beta parameter: confidence in accuracy of CO2 emission inventory}
 
-\item{DISTANCE_SCALAR_CAR_TAXI}{lognormal parameter: scalar for car distance travelled}
+\item{DISTANCE_SCALAR_CAR_TAXI}{lognormal parameter: scalar to adjust for bias in car distance travelled}
 
-\item{DISTANCE_SCALAR_WALKING}{lognormal parameter: scalar for walking distance travelled}
+\item{DISTANCE_SCALAR_WALKING}{lognormal parameter: scalar to adjust for bias in walking distance travelled}
 
-\item{DISTANCE_SCALAR_PT}{lognormal parameter: scalar for PT distance travelled}
+\item{DISTANCE_SCALAR_PT}{lognormal parameter: scalar to adjust for bias in PT distance travelled}
 
-\item{DISTANCE_SCALAR_CYCLING}{lognormal parameter: scalar for cycling distance travelled}
+\item{DISTANCE_SCALAR_CYCLING}{lognormal parameter: scalar to adjust for bias in cycling distance travelled}
 
-\item{DISTANCE_SCALAR_MOTORCYCLE}{lognormal parameter: scalar for motorcycle distance travelled}
+\item{DISTANCE_SCALAR_MOTORCYCLE}{lognormal parameter: scalar to adjust for biase in motorcycle distance travelled}
 
 \item{SCENARIO_NAME}{name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO, 
 MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)}
 
 \item{SCENARIO_INCREASE}{increase of given mode in each scenario (currently used in GLOBAL, BOGOTA, LATAM and AFRICA_INDIA scenarios)}
 
-\item{BUS_DRIVER_PROP_MALE}{scalar parameter: proportion of bus drivers that are male}
+\item{BUS_DRIVER_PROP_MALE}{scalar: proportion of bus drivers that are male}
 
-\item{BUS_DRIVER_MALE_AGERANGE}{character parameter: age range of male bus drivers}
+\item{BUS_DRIVER_MALE_AGERANGE}{character: age range of male bus drivers}
 
-\item{BUS_DRIVER_FEMALE_AGERANGE}{character parameter: age range of female bus drivers}
+\item{BUS_DRIVER_FEMALE_AGERANGE}{character: age range of female bus drivers}
 
-\item{TRUCK_DRIVER_PROP_MALE}{scalar parameter: proportion of truck drivers that are male}
+\item{TRUCK_DRIVER_PROP_MALE}{scalar: proportion of truck drivers that are male}
 
-\item{TRUCK_DRIVER_MALE_AGERANGE}{character parameter: age range of male truck drivers}
+\item{TRUCK_DRIVER_MALE_AGERANGE}{character: age range of male truck drivers}
 
-\item{TRUCK_DRIVER_FEMALE_AGERANGE}{character parameter: age range of female truck drivers}
+\item{TRUCK_DRIVER_FEMALE_AGERANGE}{character: age range of female truck drivers}
 
-\item{COMMERCIAL_MBIKE_PROP_MALE}{scalar parameter: proportion of commercial motorcycle drivers that are male}
+\item{COMMERCIAL_MBIKE_PROP_MALE}{scalar: proportion of commercial motorcycle drivers that are male}
 
-\item{COMMERCIAL_MBIKE_MALE_AGERANGE}{character parameter: age range of male commercial motorcycle drivers}
+\item{COMMERCIAL_MBIKE_MALE_AGERANGE}{character: age range of male commercial motorcycle drivers}
 
-\item{COMMERCIAL_MBIKE_FEMALE_AGERANGE}{character parameter: age range of female commercial motorcycle drivers}
+\item{COMMERCIAL_MBIKE_FEMALE_AGERANGE}{character: age range of female commercial motorcycle drivers}
 
-\item{MINIMUM_PT_TIME}{minimum time that person spends on public transport}
+\item{MINIMUM_PT_TIME}{scalar: minimum time that person spends on public transport}
 
-\item{setup_call_summary_filename}{name to write setup call summary to}
+\item{MODERATE_PA_CONTRIBUTION}{scalar: proportion contribution of moderate PA in Leisure MVPA}
 }
 \value{
 ithim_object list of objects for onward use.
 }
 \description{
-Sets up the basic ITHIM object for onward calculation. Data loading, processing and harmonisation. Setting global values.
+Sets up the basic ITHIM object for onward calculation. Data loading, processing and harmonisation. Setting of global values.
 }
 \details{
-Parameters have two options: to be set to a constant, and to be sampled from a pre-specified distribution.
-Each parameter is given as an argument of length 1 or 2. 
-If length 1, it's constant, and set to the global environment. 
-If length 2, a distribution is defined and sampled from NSAMPLE times.
-(There are some exceptions)
+This function is used to read in the various input files and parameters and to 
+process and harmonise the data ready for the health impact assessment. 
+Input Parameters have two options: to be set to a constant or to be sampled 
+from a pre-specified distribution. Most of these parameters are given as an 
+argument of length 1 or 2. If of length 1, the parameter is usually used as 
+a constant. If the parameter is of length 2, a distribution is defined 
+and sampled from NSAMPLE times.
+
 
 This function performs the following steps:
-- check whether valid scenario name is called, get error message if not
-- set various parameters as global parameters
-- find the path to the local data
-- set fixed parameters for air pollution inhalation
-- define the mode speeds:
-   - set default speeds for the various modes
-   - update the default speeds with city specific mode speeds if these were given as input parameters
-   - ensure similar modes have the same speed assigned
-   - define dataframe with modes and speeds
-- define PM emissions inventory
-   - set default emission values
-   - update default values if city specific values were given as input parameters
-- define PM emissions inventory
-   - set default emission values
-   - update default values if city specific values were given as input parameters
-- load and processes data from files by calling ithim_load_data.R
-- call ithim_setup_parameters.R to set the given input parameters to the global environment if running in constant mode or
-   to create nsamples samples from the given distributions for each of the input parameters if running in sample mode
-- set flags which cause certain parts of the model to be called at a later stage (ithim_uncertainty.R) IF certain input 
-  parameters were sampled from a distribution   
-- call complete_trip_distance_duration.R to add any missing stage or distance information to TRIP_SET 
-- if none of the corresponding input parameters were sampled from a distribution, call set_vehicle_inventory.R to create a dataframe with 
-   mode specific speed, distance and emission information    
-- if none of the corresponding input parameters were sampled from a distribution, call get_synthetic_from_trips to set
-   synthetic trips and synthetic population   
-- if none of the corresponding input parameters were sampled from a distribution, call get_all_distances.R to calculate distances
+
+\itemize{
+\item check whether a valid scenario name is called, get an error message if not
+
+\item set various input parameters as global parameters
+
+\item find the path to the local data
+
+\item define fixed parameters for air pollution inhalation
+
+
+\item define the mode speeds:
+   \itemize{
+   \item set default speeds for the various modes
+   
+   \item update the default speeds with city specific mode speeds if these are 
+     given as input parameters
+   
+   \item ensure similar modes have the same speed assigned
+   
+   \item set-up dataframe with modes and speeds
+   }
+   
+\item define PM emissions inventory
+   \itemize{
+   \item define default emission values
+   
+   \item update default values if city specific values are given as input parameters
+   }
+
+\item define CO2 emissions inventory 
+   \itemize{
+   \item set default emission values
+   
+   \item update default values if city specific values are given as input parameters
+   }
+   
+\item load and processe data from files by calling ithim_load_data.R
+
+\item call ithim_setup_parameters.R to set the given input parameters to the global
+  environment if running in constant mode or to obtain NSAMPLE samples from the
+  given distributions for each of the input parameters if running in sample mode
+   
+\item set flags which cause certain parts of the model to be called at a later stage
+ (ithim_uncertainty.R) IF certain input parameters were sampled from a distribution   
+
+\item call complete_trip_distance_duration.R to add any missing stage or distance
+  information to the trip data  
+
+\item if none of the corresponding input parameters were sampled from a distribution, 
+  call set_vehicle_inventory.R to create a dataframe with mode specific speed, 
+  distance and emission information    
+
+\item if none of the corresponding input parameters were sampled from a distribution,
+  call get_synthetic_from_trips to set synthetic trips and synthetic population   
+
+\item if none of the corresponding input parameters were sampled from a distribution,
+  call get_all_distances.R to calculate trip distances
+}
 }

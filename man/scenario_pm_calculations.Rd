@@ -21,21 +21,43 @@ Calculate total AP exposure per person based on population and personal travel
 }
 \details{
 This function performs the following steps:
-- the ventilation rates per mode are defined - these parameters are fixed
-- the exposure factor rate by activity is defined - these parameters are fixed
-- calculate pm concentration not related to transport
-- calculate emission factors for each mode by dividing total emissions by distances travelled
-- calculate PM emissions for each mode in each scenario by multiplying the scenario distance times the emission factors
-- for modes without any assigned distance, use the PM emissions from the VEHICLE_INVENTORY instead
-- calculate the total PM concentrations for each scenario
-- add ventilation and exposure factors to trip set by stage mode
-- add total scenario PM concentrations to trip set
-- add the inhaled air and total pm (in micro grams) to the trip set
-- define the amount of time per day spent as leisure sedentary screen time, non-discretionary time and other time - fixed
-- add total time spent travelling by each participant to trip set
-- calculate the sleep and the rest ventilation rates
-- for each participant in the synthetic population (with travel component), calculate the total air inhaled, the total PM inhaled and 
-   the total PM concentration inhaled for each scenario
-- assign all participants in the synthetic population without travel component, the baseline or scenario PM concentrations
-- join all people with and without travel in the synthetic population
+
+\itemize{
+\item the ventilation rates per mode are defined - these parameters are fixed
+
+\item the exposure factor rates by activity are defined - these parameters are fixed
+
+\item calculate pm concentration not related to transport
+
+\item calculate PM emission factors for each mode by dividing total emissions by distances travelled
+
+\item calculate PM emissions for each mode in each scenario by multiplying the scenario distance
+  by the emission factors
+
+\item for modes without any assigned distance, use the PM emissions from the VEHICLE_INVENTORY instead
+
+\item calculate the total PM concentrations for each scenario
+
+\item add ventilation and exposure factors to the trip set by stage mode
+
+\item add total scenario PM concentrations to the trip set
+
+\item add the inhaled air and total PM (in micro grams) to the trip set
+
+\item define the amount of time per day spent as leisure sedentary screen time, 
+  non-discretionary time and other time - fixed
+
+\item add total time spent travelling by each participant to the trip set
+
+\item calculate the sleep and the rest ventilation rates
+
+\item for each participant in the synthetic population (with travel component), 
+  calculate the total air inhaled, the total PM inhaled and 
+  the total PM concentration inhaled for each scenario
+
+\item assign all participants in the synthetic population without travel component,
+  the baseline or scenario PM concentrations
+
+\item join all people with and without travel in the synthetic population
+}
 }

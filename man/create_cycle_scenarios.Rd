@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_cycle_scenarios.R
 \name{create_cycle_scenarios}
 \alias{create_cycle_scenarios}
-\title{Creates cycling scenarios}
+\title{Creates cycling scenarios - NOT CURRENTLY USED}
 \usage{
 create_cycle_scenarios(trip_set)
 }

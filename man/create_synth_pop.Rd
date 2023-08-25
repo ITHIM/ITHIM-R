@@ -13,26 +13,39 @@ create_synth_pop(raw_trip_set)
 the synthetic population and the trip set which has been pruned
 }
 \description{
-Creates a synthetic population by matching individuals in the trip set to individuals in the PA set
+Creates a synthetic population by matching individuals in the trip set
+to individuals in the physical activity (PA) dataset
 }
 \details{
 The function performs the following steps:
 
-- adds age category to trip and physical activity datasets
-- match people in trip data with people in the physical activity dataset
-- create a synthetic population by taking the unique participant ids together with age and gender
-  information from the trip data (not including bus driver, truck, car driver and commercial 
-  motorcycle trips)
-- to assign non - travel (i.e. work and leisure) physical activity MMET values to this 
-  synthetic population, the following steps are performed:
-  - for each sex and age category, find the proportion of people with zero work and leisure MMET values
-    and also find the list of people with non-zero MMET values
-  - if BACKGROUND_PA_CONFIDENCE < 1 when calling the value of information script, i.e. when 
-    input values are sampled from distributions, a beta distribution is built from which the 
-    proportion of people with zero work and leisure MMET values is sample using the  
-    the known proportion as mean of that distribution
-  - sample with replacement from 0 MMET values and the list of people with non-zero MMET values 
-    using the proportion of people with zero work and leisure MMET values and assign those sampled
-    MMET values to the synthetic population
-- remove any non-travel trips from the trip data
+\itemize{
+\item adds age category to trip and physical activity datasets by calling assign_age_groups.R
+
+\item To match people in trip data with people in the physical activity dataset:
+  \itemize{
+  \item create a synthetic population by taking the unique participant ids together with age and gender
+    information from the trip data (not including bus driver, truck, car driver and commercial 
+    motorcycle trips)
+    
+  \item to assign non-occupational physical activity MMET values to this 
+    synthetic population, the following steps are performed:
+    
+   \itemize{
+    \item for each sex and age category, find the proportion of people with zero non-occupational MMET values
+      and also find the list of people with non-zero MMET values
+      
+    \item if BACKGROUND_PA_CONFIDENCE < 1 when calling the value of information script, i.e. when 
+      input values are sampled from distributions, a beta distribution is built from which the 
+      proportion of people with zero work and leisure MMET values is sampled using the  
+      known proportion as mean of this distribution
+      
+    \item sample with replacement from a vector with 0 MMET values and the vector non-zero MMET values (from
+      the people having non-zero work and leisure MMET values) using the proportion of people with
+      zero work and leisure MMET values and assign those sampled MMET values to the synthetic population
+      
+     }
+  }    
+\item remove participants with trip or stage modes that are not in Vehicle inventory
+}
 }

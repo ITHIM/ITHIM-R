@@ -2,7 +2,8 @@
 % Please edit documentation in R/get_scenario_settings.R
 \name{get_scenario_settings}
 \alias{get_scenario_settings}
-\title{Get values for max mode share scenario}
+\title{Get values for mode share across distance categories and for max mode share scenario
+ - CURRENTLY only used when calling summary_tables.Rmd}
 \usage{
 get_scenario_settings(
   cities = c("accra", "bangalore", "belo_horizonte", "bogota", "buenos_aires",
@@ -25,9 +26,34 @@ get_scenario_settings(
 \item{speeds}{named list of mode speeds (to be applied to all cities)}
 }
 \value{
-data frame of proportions by mode and distance category
+data frame of maximum proportions by mode and distance category
 }
 \description{
-Computes the maximum mode share for specified mode types and specified distance categories across specified (stored) cities.
-Used for max mode share scenario generation.
+Computes the mode shares for the different distance categories and then the maximum mode
+share for specified mode types and specified distance categories across specified 
+(stored) cities. Used for max mode share scenario generation.
+}
+\details{
+The function performs the following steps:
+
+\itemize{
+\item define the minimum distances in each distance category
+
+\item loop through the pre-defined cities:
+   \itemize{
+   \item read in trip data and get data into correct format
+   
+   \item assign distance categories
+   
+   \item for each distance category and pre-defined mode find the proportional modal share 
+     (for each distance category, the proportion of the modes adds up to 100%)
+   
+   \item if rail trips exist, they are added to the proportion of the bus trips to get one value 
+     for public transport
+   }
+   
+\item find the maximum mode shares for each mode and distance category
+   
+\item for each city print one table showing the mode shares for each distance category    
+}
 }

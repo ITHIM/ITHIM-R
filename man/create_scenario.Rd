@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_scenario.R
 \name{create_scenario}
 \alias{create_scenario}
-\title{Create individual scenario}
+\title{Create individual scenario - CURRENTLY NOT USED}
 \usage{
 create_scenario(
   rdr,

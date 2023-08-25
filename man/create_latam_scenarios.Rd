@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_latam_scenarios.R
 \name{create_latam_scenarios}
 \alias{create_latam_scenarios}
-\title{Create scenarios defined for latam paper}
+\title{Create scenarios for all Latin American cities - NOT CURRENTLY USED}
 \usage{
 create_latam_scenarios(trip_set)
 }
@@ -13,9 +13,10 @@ create_latam_scenarios(trip_set)
 list of baseline scenario and three mode scenarios
 }
 \description{
-Creates three scenarios where, in each one, the mode share is elevated to the
-certain values in each distance band. The scenario-modes are cycle, car, and bus.
+Creates three scenarios where in each one, the mode share of a given mode is elevated by a set
+percentage of the total trips. The scenario-modes are cycle, car, and bus and motorcycle.
 }
 \details{
-Motorcycle trips were added as well
+Add 5% of trips overall in such a way that the average mean mode share for each mode across the
+three distance bands is preserved.
 }

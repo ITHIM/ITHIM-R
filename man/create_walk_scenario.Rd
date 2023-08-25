@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_walk_scenario.R
 \name{create_walk_scenario}
 \alias{create_walk_scenario}
-\title{Create basic pedestrian scenario}
+\title{Create basic pedestrian scenario - NOT CURRENTLY USED}
 \usage{
 create_walk_scenario(trip_set)
 }

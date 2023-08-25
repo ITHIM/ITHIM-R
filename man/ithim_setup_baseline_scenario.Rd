@@ -13,5 +13,14 @@ ithim_setup_baseline_scenario(trip_set)
 trip_set as baseline scenario
 }
 \description{
-Set up baseline scenario by adding distance categories and scenario='baseline' column to trip set data frame
+Set up baseline scenario ready for the scenario development
+}
+\details{
+This function performs the following steps to the trip set data:
+
+\itemize{
+\item add distance categories  
+
+\item add scenario='baseline' column 
+}
 }

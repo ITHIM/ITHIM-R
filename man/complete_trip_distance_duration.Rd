@@ -13,19 +13,31 @@ Adds any missing trip information such as stage duration or stage distance.
 This function performs to following steps to calculate stage duration or stage distance. Note that
 we need at least trip duration or stage distance or stage stage duration:
 
-- add speed column
+\itemize{
+\item add speed column
 
-- if there is no stage duration:
- - calculate the stage duration if the stage distance is given using the mode speeds
- - if the stage duration sum is 'NA' (i.e. if not all stage distances exist or if there are no stage distances at all):
-     - if trip duration exists and its sum is not NA, then find the trip ids with 'NA' stage duration and replace those
+\item if there is no stage duration:
+ \itemize{  
+ \item calculate the stage duration if the stage distance is given using the mode speeds
+ 
+ \item if the stage duration sum is 'NA' (i.e. if not all stage distances exist or if there are no stage distances at all):
+     \itemize{
+     \item if trip duration exists and its sum is not NA, then find the trip ids with 'NA' stage duration and replace those
        stage duration with the trip duration divided by the number of stages of that particular trip
-     - remove any remaining trips with 'NA' stage distance
-     - update the stage speed column
+       
+     \item remove any remaining trips with 'NA' stage distance
      
-- if there is no stage distance:
- - calculate stage distance using the stage duration and mode speeds
-
-- if there is no trip distance:
- - calculate trip distance by summing over the stage distances
+     \item update the stage speed column
+     }
+   }  
+     
+\item if there is no stage distance:
+  \itemize{
+  \item calculate stage distance using the stage duration and mode speeds
+   }
+\item if there is no trip distance:
+ \itemize{
+ \item calculate trip distance by summing over the stage distances
+}
+}
 }

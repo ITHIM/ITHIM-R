@@ -30,17 +30,26 @@ new trips by assuming that each such trip only has one stage, i.e. that the trip
 equals the stage duration and distance.
 
 This function contains the following steps:
-- the characteristics of the motorcycle trips to be added are defined
-- set up the parameters of the truncated normal distributions for male and 
+
+\itemize{
+\item the characteristics of the motorcycle trips to be added are defined
+
+\item set up the parameters of the truncated normal distributions for male and 
   female trip duration
-- set up the parameters of the truncated normal distributions for male and 
+
+\item set up the parameters of the truncated normal distributions for male and 
   female age ranges
-- find the number of male and female motorcycle trips to be added
-- divide the number of new male and female trips by 2 (= number of trips per person)
+
+\item find the number of male and female motorcycle trips to be added
+
+\item divide the number of new male and female trips by 2 (= number of trips per person)
   to calculate the number of new participant ids to be added. If the number of male
   or female trips is odd, add an additional trip to get a trip number divisible by 2
-- sample from truncated normal distributions to find the duration of new trips (assuming
+
+\item sample from truncated normal distributions to find the duration of new trips (assuming
   that each trip only consists of one stage)
-- sample from the known age ranges to find the ages of the new male and female 
-  motorcycle trips and create new motorcycle trips
+
+\item sample from the known age ranges to find the ages of the new male and female 
+  motorcycle trips and create new motorcycle trips  
+}
 }

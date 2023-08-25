@@ -15,17 +15,24 @@ ithim_uncertainty(ithim_object, seed = 1)
 list of ITHIM outcomes
 }
 \description{
-Sets sampled parameters to the global environment and runs the ITHIM routine (run_ithim)
+Sets sampled parameters to the global environment and calls the ITHIM routine
 }
 \details{
 This function works by performing the following steps:
-- extract the ithim_object list entries
-- extract the the sampled parameters which had been stored in the ithim_object
-- call set_vehicle_inventory() to update emissions if any  
-  emission parameters have been sampled from a distribution 
-- call get_synthetic_from_trips() to to set synthetic trips and synthetic population if any 
-  relevant input parameters have been sampled from a distribution  
-- call get_all_distances() to recalculate the distances if any of the relevant input parameters have
-  been sampled from a distribution
-- run ITHIM-GLOBAL model by calling ithim_calculation_sequence.R
+
+\itemize{
+\item extract the ithim_object list entries  
+
+\item extract the sampled parameters which are stored in the ithim_object  
+\item call set_vehicle_inventory.R to update emissions if any  
+  emission parameters have been sampled from a distribution   
+  
+\item call get_synthetic_from_trips.R to update the synthetic trips and synthetic population if any 
+  relevant input parameters have been sampled from a distribution 
+   
+\item call get_all_distances.R to recalculate the distances if any of the relevant input parameters have
+  been sampled from a distribution  
+  
+\item run ITHIM-Global model by calling ithim_calculation_sequence.R
+}
 }

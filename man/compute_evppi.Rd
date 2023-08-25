@@ -2,7 +2,7 @@
 % Please edit documentation in R/compute_evppi.R
 \name{compute_evppi}
 \alias{compute_evppi}
-\title{Compute evppi, designed to be run in parallel}
+\title{Compute evppi, designed to be run in parallel - ONLY USED in SAMPLING MODE}
 \usage{
 compute_evppi(p, global_para, city_para, city_outcomes, nsamples)
 }

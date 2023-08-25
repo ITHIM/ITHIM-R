@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_all_scenarios.R
 \name{create_all_scenarios}
 \alias{create_all_scenarios}
-\title{Creates specific scenarios for Accra and Sao Paulo}
+\title{Creates specific scenarios for Accra and Sao Paulo - NOT CURRENTLY USED}
 \usage{
 create_all_scenarios(trip_set)
 }

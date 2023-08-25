@@ -16,11 +16,14 @@ estimated scenario burden of disease for all age and sex categories
 }
 \description{
 Applies PIF calculated from relative risks (RRs) to the current observed health burden from the 
-GBD to generate the scenario health burdens
+Global Burden of Disease data to generate the scenario health burdens
 }
 \details{
 This function performs the following steps:
-- the current observed health burden for a particular disease is multiplied by the PIF, i.e
+
+\itemize{
+\item the current observed health burden for a particular disease is multiplied by the PIF, i.e
   the change in fraction in disease expected for the current scenario compared with the
   reference scenario
+}
 }

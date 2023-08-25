@@ -13,5 +13,8 @@ dirichlet_pointiness(confidence)
 parameterisation
 }
 \description{
-Function to map a confidence value to a parameterisation of a Dirichlet distribution
+Function to map a confidence value to a parameterisation of a Dirichlet distribution.
+}
+\details{
+Note that the parameterisation is somewhat arbitrary but seems to work on visual inspection.
 }

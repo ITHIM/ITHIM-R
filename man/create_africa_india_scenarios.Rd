@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_africa_india_scenarios.R
 \name{create_africa_india_scenarios}
 \alias{create_africa_india_scenarios}
-\title{Create scenarios based on difference between median and max propensities for all cities}
+\title{Create scenarios for African and Indian cities - NOT CURRENTLY USED}
 \usage{
 create_africa_india_scenarios(trip_set)
 }
@@ -13,14 +13,10 @@ create_africa_india_scenarios(trip_set)
 list of baseline scenario and four mode scenarios
 }
 \description{
-Creates four scenarios where, in each one, the mode share is elevated to the
-certain values in each distance band. The scenario-modes are cycle, car, and bus and motorcycle.
+Creates three scenarios where in each one, the mode share of a given mode is elevated by a set
+percentage of the total trips. The scenario-modes are cycle, car, and bus and motorcycle.
 }
 \details{
-Based on create_latam_scenarios
-
 Add 5% of trips overall in such a way that the average mean mode share for each mode across the
 three distance bands is preserved.
-
-https://www.dropbox.com/home/ITHIM%20Global/Methods%20and%20Processes/ScenarioDefn/GlobalScenario
 }

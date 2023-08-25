@@ -24,18 +24,29 @@ parameter is a city specific input parameter that determines the duration of the
 
 This function performs the following steps:
 
-- filter out the PT stages of PT trips and only keep the stage with the longest duration as we
+\itemize{
+\item filter out the PT stages of PT trips and only keep the stage with the longest duration as we
   only add one 'walk to public transport' stage per trip
-- find the trip stages that need changing
-- add new 'walk to pt' stages. If the duration of the public transport stage is shorter than  
+
+\item find the trip stages that need changing
+
+\item add new 'walk to pt' stages. If the duration of the public transport stage is shorter than  
   BUS_WALK_TIME / RAIL_WALK_TIME + MINIMUM_PT_TIME, set the new stage duration to 3. Otherwise, 
   set the new stage duration to either BUS_WALK_TIME or RAIL_WALK_TIME depending on the trip mode
-- update the original public transport stage duration
-- calculate the 'walk to pt' stage distance using the walking speed
-- update the original public transport stage distance using the respective public transport
+
+\item update the original public transport stage duration
+
+\item calculate the 'walk to pt' stage distance using the walking speed
+
+\item update the original public transport stage distance using the respective public transport
   speed and the updated duration
-- keep record of the number of newly added 'walk to pt' stages
-- update the total trip distances
-- update the trip distance categories
-- remove any 'walk to pt' stages with zero duration and length
+
+\item keep record of the number of newly added 'walk to pt' stages
+
+\item update the total trip distances
+
+\item update the trip distance categories
+
+\item remove any 'walk to pt' stages with zero duration and length
+}
 }
