@@ -1,7 +1,8 @@
-#' Combine relative risks from AP and PA
+#' Combine relative risks from air pollution and physical activity
 #' 
-#' Combine relative risks (RR) from AP and PA through multiplication for disease related
-#' to both AP and PA
+#' Combine relative risks (RR) from air pollution (AP) and physical activity (PA) 
+#' through multiplication for diseases affected
+#' by both AP and PA
 #' 
 #' This function performs the following steps:
 #' 

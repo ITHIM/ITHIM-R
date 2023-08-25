@@ -76,7 +76,7 @@ complete_trip_distance_duration <- function(){
     }
    
      na_stage_ids <- trip_set$trip_id[is.na(trip_set$stage_duration)&!is.na(trip_set$stage_mode)]
-    # remove any stages with zero stage difference
+    # remove any stages with zero stage duration
     if(length(na_stage_ids)>0){
       cat(paste0("Removing ",length(unique(na_stage_ids))," trips (",length(na_stage_ids)," stages) with NA stage duration from trip set.\n"))
       trip_set <- subset(trip_set,!trip_id%in%na_stage_ids)

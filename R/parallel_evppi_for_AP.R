@@ -1,4 +1,4 @@
-#' Compute AP EVPPI 
+#' Compute AP EVPPI - NOT USED IN CONSTANT MODE
 #' 
 #' For use to compute AP EVPPI in parallel
 #' 

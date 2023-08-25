@@ -1,14 +1,12 @@
-#' Create scenarios based on difference between median and max propensities for all cities
+#' Create scenarios for African and Indian cities - NOT CURRENTLY USED
 #' 
-#' Creates four scenarios where, in each one, the mode share is elevated to the
-#' certain values in each distance band. The scenario-modes are cycle, car, and bus and motorcycle.
+#' Creates three scenarios where in each one, the mode share of a given mode is elevated by a set
+#' percentage of the total trips. The scenario-modes are cycle, car, and bus and motorcycle.
 #' 
-#' Based on create_latam_scenarios
-#' 
+#'  
 #' Add 5% of trips overall in such a way that the average mean mode share for each mode across the
 #' three distance bands is preserved.
 #' 
-#' https://www.dropbox.com/home/ITHIM%20Global/Methods%20and%20Processes/ScenarioDefn/GlobalScenario
 #' 
 #' @param trip_set data frame, baseline scenario
 #' 
@@ -22,13 +20,13 @@ create_africa_india_scenarios <- function(trip_set){
   
   rd_list <- list()
   
-  # global modal split across the three distance categories for each mode
+  # africa india modal split across the three distance categories for each mode
   # cycle, car, bus, motorcycle
-  global_modeshares <- data.frame(c(36.8, 8.0, 1.7, 11.1), # distance category 0-2km
+  africa_india_modeshares <- data.frame(c(36.8, 8.0, 1.7, 11.1), # distance category 0-2km
                                   c(47.2, 33.8, 25.8, 37.2), # distance category 2-6km
                                   c(16.0, 58.2, 72.7, 53.1))
   
-  percentage_change <- SCENARIO_INCREASE # increase of each mode as percentage of total number of trips.
+  percentage_change <- SCENARIO_INCREASE
   
   
   rdr_baseline <- rdr %>% dplyr::select(c('trip_id', 'trip_distance_cat','scenario','trip_mode')) %>% filter() 
@@ -53,7 +51,7 @@ create_africa_india_scenarios <- function(trip_set){
       } else {
         percentage_trips <- prop_6
       }
-      scenario_proportions[c,r] <- percentage_change * global_modeshares[c,r] / percentage_trips
+      scenario_proportions[c,r] <- percentage_change * africa_india_modeshares[c,r] / percentage_trips
     }
   }
   
@@ -92,6 +90,8 @@ create_africa_india_scenarios <- function(trip_set){
   
   ###############################################################
   # Creation of scenarios
+  scen_warning <- c()
+  
   for (i in 1:nrow(SCENARIO_PROPORTIONS)) { # Loop for each scenario
     mode_name <- modes[i] # mode of the scenario
     rdr_copy <- list()
@@ -120,9 +120,22 @@ create_africa_india_scenarios <- function(trip_set){
                                    target_percent / 100) # These trips will be reassigned
       #print(n_trips_to_change)
       if (length(potential_trip_ids) > 0 & n_trips_to_change > 0) {
+        
         # if the number of trips that could be changed equals the number of trips that need to be changed
         if (length(potential_trip_ids) == n_trips_to_change) { 
-        } else {
+          change_trip_ids <- potential_trip_ids
+          
+          # if there are less trips to change than should be changed  
+        } else if (length(potential_trip_ids) < n_trips_to_change){
+          
+          # save name of scenario
+          scen_warning <- c(scen_warning, rownames(SCENARIO_PROPORTIONS)[i])
+          
+          # convert all trips possible
+          change_trip_ids <- potential_trip_ids
+          
+          # if there are more trips that can be changed than need to be changed, sample  
+        } else if (length(potential_trip_ids) > n_trips_to_change) {
           change_trip_ids <- base::sample(potential_trip_ids,
                                           size = n_trips_to_change)
         } 
@@ -151,6 +164,9 @@ create_africa_india_scenarios <- function(trip_set){
                                   agerange_male = BUS_DRIVER_MALE_AGERANGE,
                                   agerange_female = BUS_DRIVER_FEMALE_AGERANGE,
                                   scenario = paste0('Scenario ',i))
+      #print(paste("Scenario name: ", paste0('Scenario ',i)))
+      bus_dr_dist <- sum(rdr_scen[rdr_scen$stage_mode=='bus_driver',]$stage_distance,na.rm=T)
+      bus_dist <- sum(rdr_scen[rdr_scen$stage_mode=='bus',]$stage_distance,na.rm=T)
     }
     
     
@@ -165,13 +181,27 @@ create_africa_india_scenarios <- function(trip_set){
                                   distance_ratio=car_driver_scalar*DISTANCE_SCALAR_CAR_TAXI,
                                   reference_mode='car',
                                   scenario = paste0('Scenario ',i))
-     
-     }
+      #print(paste("Scenario name: ", paste0('Scenario ',i)))
+      car_dr_dist <- sum(rdr_scen[rdr_scen$stage_mode=='car_driver',]$stage_distance,na.rm=T)
+      car_dist <- sum(rdr_scen[rdr_scen$stage_mode=='car',]$stage_distance,na.rm=T)
+    }
     
     #print(car_dr_dist/car_dist)
     rdr_scen$scenario <- paste0("sc_", rownames(SCENARIO_PROPORTIONS)[i])
     rd_list[[i + 1]] <- rdr_scen
   } # End loop for scenarios
+  
+  
+  
+  # print warning message if there weren't enough trips to be converted for a scenario
+  scen_warning <- unique(scen_warning)
+  
+  if (length(scen_warning)>0){
+    for (j in 1:length(scen_warning)){
+      print(paste0('WARNING: There are less trips that can be converted in scenario ',scen_warning[j] ,
+                   ' than should be converted for ', city))
+    }
+  }
   
   return(rd_list)
 }

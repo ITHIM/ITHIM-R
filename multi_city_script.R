@@ -79,7 +79,7 @@ if (!require("drpa",character.only = TRUE)) {
 cities <- 'bogota'
 
 
-input_parameter_file <- "InputParameters_v32.0.xlsx" # file containing the local and global input parameters
+input_parameter_file <- "InputParameters_v33.0.xlsx" # file containing the local and global input parameters
 
 
 # records the main aspects of an ithim run in the OutputVersionControl.txt document
@@ -298,7 +298,8 @@ print(system.time(for(city in cities){
     COMMERCIAL_MBIKE_PROP_MALE = as.numeric(commerical_mbike_prop_male[[city]]),
     COMMERCIAL_MBIKE_MALE_AGERANGE = commerical_mbike_male_agerange[[city]],
     COMMERCIAL_MBIKE_FEMALE_AGERANGE = commerical_mbike_female_agerange[[city]],
-    MINIMUM_PT_TIME = as.numeric(minimum_pt_time)
+    MINIMUM_PT_TIME = as.numeric(minimum_pt_time),
+    MODERATE_PA_CONTRIBUTION = as.numeric(moderate_pa_contribution)
   )
   
   # add additional information to the ithim_objects list storing the key input and output data
@@ -320,6 +321,15 @@ print(system.time(for(city in cities){
   ithim_objects[[city]]$new_walk_trips_count$all <- count_new_walk_trips
   ithim_objects[[city]]$new_walk_trips_count$bus <- count_new_walk_trips_bus
   ithim_objects[[city]]$new_walk_trips_count$rail <- count_new_walk_trips_rail
+  
+  # add run relevant information to ithim_objects list
+  ithim_objects[[city]]$ithim_run <- list()
+  ithim_objects[[city]]$ithim_run$input_parameter_file <- input_parameter_file
+  ithim_objects[[city]]$ithim_run$scenarios_used <- scenario_name
+  ithim_objects[[city]]$ithim_run$reference_scenario <- reference_scenario
+  ithim_objects[[city]]$ithim_run$scenario_increase <- scenario_increase
+  ithim_objects[[city]]$ithim_run$scenario_names <- SCEN
+  ithim_objects[[city]]$ithim_run$compute_mode <- compute_mode
   
   # store results to plot
   min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))

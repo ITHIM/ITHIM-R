@@ -6,21 +6,22 @@
 #' 
 #' The function performs the following steps using the individual fatality injury input file:
 #' 
-#' - The data is split into a WHW (who hit who) matrix where both casualty and strike mode are given
+#' \itemize{ 
+#' \item The data is split into a WHW (who hit who) matrix where both casualty and strike mode are given
 #'   and a NOV (no other vehicle) matrix where strike mode was set to NOV in ithim_load_data.R or 
 #'   no other vehicle was involved in the accident.
 #' 
-#' - If no age and gender information is given, then the counts are multiplied by the 
+#' \item If no age and gender information is given, then the counts are multiplied by the 
 #'   proportion of injuries relevant to the proportion of the population considered 
 #'   in the model (e.g. 15 - 65 year olds) based on the GBD data
 #' 
-#' - Data is aggregated by casualty and strike mode, and age and sex where such information exists
+#' \item Data is aggregated by casualty and strike mode, and age and sex where such information exists
 #' 
-#' - Complete whw and nov matrices containing all casualty and strike (and age and sex)
+#' \item Complete whw and nov matrices containing all casualty and strike (and age and sex)
 #'   combinations are created with zero counts for those combinations with no fatalities
 #' 
-#' - a list of aggregated whw and nov matrices is set to the Global environment
-#' 
+#' \item a list of aggregated whw and nov matrices is set to the Global environment
+#' }
 #' 
 #' @param injuries data frame of individual injury events
 #' 

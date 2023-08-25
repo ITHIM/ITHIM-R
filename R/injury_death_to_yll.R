@@ -167,11 +167,11 @@ injury_death_to_yll <- function(injuries){
       }
     
     # add lower and upper boundary values to the reference and the yll and deaths injury differences datasets
-    deaths_yll_injuries <- left_join(deaths_yll_injuries, deaths_yll_injuries_ub)
-    deaths_yll_injuries <- left_join(deaths_yll_injuries, deaths_yll_injuries_lb)
+    deaths_yll_injuries <- left_join(deaths_yll_injuries, deaths_yll_injuries_ub, by = c('age_cat', 'sex'))
+    deaths_yll_injuries <- left_join(deaths_yll_injuries, deaths_yll_injuries_lb, by = c('age_cat', 'sex'))
     
-    ref_injuries <- left_join(ref_injuries, ref_injuries_ub)
-    ref_injuries <- left_join(ref_injuries, ref_injuries_lb)
+    ref_injuries <- left_join(ref_injuries, ref_injuries_ub, by = c('age_cat', 'sex'))
+    ref_injuries <- left_join(ref_injuries, ref_injuries_lb, by = c('age_cat', 'sex'))
   }
   
   list(deaths_yll_injuries=deaths_yll_injuries,ref_injuries=ref_injuries)

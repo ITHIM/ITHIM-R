@@ -1,4 +1,4 @@
-#' Creates specific scenarios for Accra and Sao Paulo
+#' Creates specific scenarios for Accra and Sao Paulo - NOT CURRENTLY USED
 #' 
 #' Creates five prespecified scenarios from the baseline for Accra and Sao Paulo
 #' 
