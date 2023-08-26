@@ -1,6 +1,8 @@
 ---
 title: "AP/PA Tables ITHIM Global"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
+params:
+  output_version: ''
 output:
   html_document: 
     toc: true
@@ -102,13 +104,6 @@ knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='as
 ```
 
 
-# Introduction
-These are the summary tables of the following items
-
-1) Individual PM2.5 exposure levels and total PM2.5 concentrations for baseline and scenarios
-2) Overall CO2 emissions for baseline and scenarios
-3) Individual physical activity levels (mMETs) for baseline and scenarios
-
 
 ```{r, message=FALSE, warning=FALSE}
 #library(INLA)     #loading the INLA package
@@ -125,13 +120,14 @@ library(readxl)
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, cache=FALSE}
 
 ###### Read in input parameters
+#output_version <- 
 
 # Assumes that multi_city_script.R has been run  
 # read in input file
-io <- readRDS("results/multi_city/io.rds")
+io <- readRDS(paste0("results/multi_city/io_", output_version, ".rds"))
 
 # Get names of cities from the io object
-cities <- names(io)[!names(io) %in% 'scen_prop']
+cities <- names(io)[!names(io) %in% c('scen_prop','ithim_run' )]
 
 # function to convert scenario names
 get_qualified_scen_name <- function(cs){
@@ -155,17 +151,20 @@ get_qualified_scen_name <- function(cs){
 
 # initialise parameters using first city in list
 city <- cities[1]
-scen_length <- length(io[[city]]$ithim_run$scenario_names) - 1
+scen_length <- length(io$ithim_run$scenario_names) - 1
 
 # input parameter file name
-input_parameter_file <<- io[[city]]$ithim_run$input_parameter_file
+input_parameter_file <<- io$ithim_run$input_parameter_file
   
 # scenario and reference scenario definitions
-scenario_name <- io[[city]]$ithim_run$scenarios_used
-ref_scen <- io[[cities[1]]]$ithim_run$reference_scenario
+scenario_name <- io$ithim_run$scenarios_used
+ref_scen <- io$ithim_run$reference_scenario
 reference_scenario <- get_qualified_scen_name(ref_scen)
 
-compute_mode <- io[[city]]$ithim_run$compute_mode 
+# further model run information
+compute_mode <- io$ithim_run$compute_mode 
+timestamp_model <- io$ithim_run$timestamp
+comments_model <- io$ithim_run$comment
 
 # read in local input parameter inputs
 all_inputs <- read_excel(input_parameter_file, sheet = "all_city_parameter_inputs")
@@ -280,7 +279,28 @@ max_age <- as.numeric(max_age)
 
 day_to_week_scalar <- as.numeric(day_to_week_scalar)
 
+
+
+# print model run information to screen:
+cat("  \n")
+cat(paste0('Output version: ', output_version)) 
+cat("  \n")
+cat(paste0('Timestamp of model run: ', timestamp_model))
+cat("  \n")
+cat(paste0('Comments from model run: ', comments_model))
+cat("  \n")
+
 ```
+
+
+# Introduction
+These are the summary tables of the following items
+
+1) Individual PM2.5 exposure levels and total PM2.5 concentrations for baseline and scenarios
+2) Overall CO2 emissions for baseline and scenarios
+3) Individual physical activity levels (mMETs) for baseline and scenarios
+
+
 
 # Boxplots of individual daily PM2.5 exposure levels
 
@@ -679,13 +699,13 @@ for (x in 1:length(cities)) { # loop through cities
 }
 
 # create output Excel file containing the basic PM2.5 and CO2 exposure / concentration information
-output_file <- "results/multi_city/AP/desc_stats.xlsx"
+output_file <- paste0('results/multi_city/AP/desc_stats_', output_version ,".xlsx")
 writexl::write_xlsx(list(PM_2.5_emission_inventory = sl,
                          CO2_conc = co2_conc,
                          summary_stats_PM2.5_CO2 = bind_rows(l)), path = output_file)
 
 # create csv file (summary_stats_Pm2.5_CO2 tab in Excel file above)
-write_csv(bind_rows(l), "results/multi_city/AP/desc_stats.csv")
+write_csv(bind_rows(l), paste0('results/multi_city/AP/desc_stats_', output_version ,".csv"))
 
 
 ```

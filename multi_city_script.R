@@ -79,7 +79,7 @@ if (!require("drpa",character.only = TRUE)) {
 cities <- 'bogota'
 
 
-input_parameter_file <- "InputParameters_v33.0.xlsx" # file containing the local and global input parameters
+input_parameter_file <- "InputParameters_v34.0.xlsx" # file containing the local and global input parameters
 
 
 # records the main aspects of an ithim run in the OutputVersionControl.txt document
@@ -88,9 +88,9 @@ input_parameter_file <- "InputParameters_v33.0.xlsx" # file containing the local
 # the number of samples (which is 1 in constant mode), the path to any other input files,
 # any comments and the runtime of the code
 write_output_control = T # whether you want to save the model run specifics or not
-output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
-author <- "AA"
-comment <- "Added CO2 emission sampling"
+output_version <- "v49f1a71_test_run" # gives the version number of the output documents, independent of the input parameter file name
+author <- "AKS"
+comment <- "Test whether version control working"
 
 
 # scenario definition
@@ -242,6 +242,7 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 
 
 print(system.time(for(city in cities){
+  cat('\n')
   print(city)
   # run code to prepare the input data for the actual ITHIM Global health impact assessment
   ithim_objects[[city]] <- run_ithim_setup(
@@ -321,16 +322,7 @@ print(system.time(for(city in cities){
   ithim_objects[[city]]$new_walk_trips_count$all <- count_new_walk_trips
   ithim_objects[[city]]$new_walk_trips_count$bus <- count_new_walk_trips_bus
   ithim_objects[[city]]$new_walk_trips_count$rail <- count_new_walk_trips_rail
-  
-  # add run relevant information to ithim_objects list
-  ithim_objects[[city]]$ithim_run <- list()
-  ithim_objects[[city]]$ithim_run$input_parameter_file <- input_parameter_file
-  ithim_objects[[city]]$ithim_run$scenarios_used <- scenario_name
-  ithim_objects[[city]]$ithim_run$reference_scenario <- reference_scenario
-  ithim_objects[[city]]$ithim_run$scenario_increase <- scenario_increase
-  ithim_objects[[city]]$ithim_run$scenario_names <- SCEN
-  ithim_objects[[city]]$ithim_run$compute_mode <- compute_mode
-  
+ 
   # store results to plot
   min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
   max_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
@@ -360,6 +352,20 @@ print(system.time(for(city in cities){
     disease_list[[i]][,which(cities == city)] <- result_mat_plot[1:NSCEN + (i - 1) * NSCEN]/sum(subset(DEMOGRAPHIC,min_pop_ages >= min_age & max_pop_ages <= max_age)$population)
 }))
 
+
+# add run relevant information to ithim_objects list
+timestamp <- Sys.time()
+ithim_objects$ithim_run <- list()
+ithim_objects$ithim_run$input_parameter_file <- input_parameter_file
+ithim_objects$ithim_run$scenarios_used <- scenario_name
+ithim_objects$ithim_run$reference_scenario <- reference_scenario
+ithim_objects$ithim_run$scenario_increase <- scenario_increase
+ithim_objects$ithim_run$scenario_names <- SCEN
+ithim_objects$ithim_run$compute_mode <- compute_mode
+ithim_objects$ithim_run$timestamp <- timestamp
+ithim_objects$ithim_run$output_version <- output_version
+ithim_objects$ithim_run$author <- author
+ithim_objects$ithim_run$comment <- comment
 
 # Create the output plots
 {x11(width = 10, height = 8);
@@ -398,14 +404,14 @@ print(system.time(for(city in cities){
 }
 
 
-saveRDS(ithim_objects, "results/multi_city/io.rds", version = 2)
+saveRDS(ithim_objects, paste0("results/multi_city/io_",output_version,".rds"), version = 2)
+
 
 
 # add to output control document
 
 if (write_output_control == TRUE){
 
-  timestamp <- Sys.time()
   input_version <- input_parameter_file
   global_path <- paste0(file.path(find.package('ithimr',lib.loc = .libPaths()),
                                   'extdata/global'), "/")
