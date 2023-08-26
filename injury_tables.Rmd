@@ -1,6 +1,8 @@
 ---
 title: "Injury Outcomes"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
+params:
+  output_version: ''
 output:
   html_document:
     toc: true
@@ -131,17 +133,28 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 ```
 
 ```{r load_objects = "asis"}
+output_version <- "v0.3"
+
 # Assumes that multi_city_script.R has been run - read in ithim_objects saved as io.rds
-io <- readRDS("results/multi_city/io.rds")
- 
+io <- readRDS(paste0("results/multi_city/io_", output_version, ".rds"))
+
 # Get names of cities from the io object
-cities <- names(io)[!names(io) %in% 'scen_prop']
+cities <- names(io)[!names(io) %in% c('scen_prop','ithim_run' )]
 
 # Get number of scenarios
 NSCEN <- length(names(io[[1]]$outcomes$whw)) - 1
 
 # Get scenario names
 scen_names <- names(io[[1]]$outcomes$whw)
+
+# input parameter file name
+input_parameter_file <<- io$ithim_run$input_parameter_file
+  
+
+# further model run information
+compute_mode <- io$ithim_run$compute_mode 
+timestamp_model <- io$ithim_run$timestamp
+comments_model <- io$ithim_run$comment
 
 # Remove extra bits of info - irrelevant outputs for injury related outputs
 # This makes the io object lighter
@@ -196,6 +209,16 @@ get_qualified_scen_name <- function(cs){
   
   return(qualified_scen_name)
 }
+
+
+# print model run information to screen:
+cat("  \n")
+cat(paste0('Output version: ', output_version)) 
+cat("  \n")
+cat(paste0('Timestamp of model run: ', timestamp_model))
+cat("  \n")
+cat(paste0('Comments from model run: ', comments_model))
+cat("  \n")
 
 ```
 
@@ -527,7 +550,7 @@ inj_counts_list <- rbind(inj_counts_list, inj_counts_list_total)
 
 
 # write to csv
-readr::write_csv(inj_counts_list, paste0('results/multi_city/inj/inj_counts.csv')) # table containing all the fatality counts
+readr::write_csv(inj_counts_list, paste0('results/multi_city/inj/inj_counts_',output_version,'.csv')) # table containing all the fatality counts
 ```
 
 
@@ -784,7 +807,7 @@ rd <- rbind(rd, baseline_counts_km )
 
 
 # output csv
-readr::write_csv(rd, 'results/multi_city/inj/injury_risks_per_billion_kms.csv')
+readr::write_csv(rd,paste0( 'results/multi_city/inj/injury_risks_per_billion_kms_',output_version,'.csv'))
 ```
 
 
@@ -931,7 +954,7 @@ baseline_counts_pop <- left_join(baseline_counts_pop, true_distances, by = c('ci
 injury_risks_per_100k <- rbind(injury_risks_per_100k, baseline_counts_pop)
 
 # write to csv
-readr::write_csv(injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'), 'results/multi_city/inj/injury_risks_per_100k_pop.csv')
+readr::write_csv(injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'), paste0('results/multi_city/inj/injury_risks_per_100k_pop_',output_version,'.csv'))
 ```
 
 
@@ -954,7 +977,7 @@ true_distances_df_at <- true_distances_df_at %>% group_by(city, scenario) %>% su
 true_distances_df <- rbind(true_distances_df, true_distances_df_at) 
 
 # write to csv
-readr::write_csv(true_distances_df, 'results/multi_city/inj/distances.csv')
+readr::write_csv(true_distances_df, paste0('results/multi_city/inj/distances_',output_version,'.csv'))
 ```
 
 
@@ -1144,13 +1167,13 @@ baseline_counts_dur <- left_join(baseline_counts_dur,true_distances, by = c('cit
 rd_hours <- rbind(rd_hours, baseline_counts_dur )
 
 # write as csv
-readr::write_csv(rd_hours, 'results/multi_city/inj/injury_risks_per_100million_h.csv')
+readr::write_csv(rd_hours, paste0('results/multi_city/inj/injury_risks_per_100million_h_',output_version,'.csv'))
 ```
 
 
 ```{r}
 # Export injury datasets as a single excel file
-path_inj_wb <- "results/multi_city/inj/inj_data.xlsx"
+path_inj_wb <- paste0('results/multi_city/inj/inj_data_',output_version,'.xlsx')
  writexl::write_xlsx(list(inj_counts = inj_counts_list, #%>% filter(str_mode != 'Total'),
                           injury_risks_billion_kms = rd,
                           injury_risks_100k_people  = injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'),

@@ -1,6 +1,8 @@
 ---
 title: "Summary Tables"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
+params:
+  output_version: ''
 output:
   html_document:
     toc: true
@@ -89,7 +91,7 @@ output:
 
 
 
-### - output .csv/.xlsx files containing the following information:
+### - output .csv files containing the following information:
 
 # - the ylls.csv file (results/multi_city/health_impacts/ylls.csv) gives the changes in YLLs for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario compared to the reference scenario. It also shows the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age, and age and sex specific population levels. The results are for either AP and PA only if the diseases are affected by only AP or PA or the results are for the combined AP and PA effects if the diseases are affected by both AP and PA. 
 
@@ -252,20 +254,30 @@ round_and_print <- function(data,text=''){
 
 
 ```{r load_objects = "asis", echo = F, message = F}
-
+#output_version <- "v0.3"
 # read in io object which is produced at the end of an ITHIM-Global run
 # Assumes that multi_city_script.R has been run 
-io <- readRDS("results/multi_city/io.rds")
+# read in input file
+io <- readRDS(paste0("results/multi_city/io_", output_version, ".rds"))
 
 # Get names of cities from the io object
-cities <<- names(io)[!names(io) %in% 'scen_prop']
+cities <- names(io)[!names(io) %in% c('scen_prop','ithim_run' )]
 
 # extract number of scenarios
 NSCEN <- nrow(io$scen_prop)
 
-# find reference scenario
-ref_scen <- io[[cities[1]]]$ithim_run$reference_scenario
-reference_scenario <- get_qualified_scen_name(ref_scen) # update scen name
+# input parameter file name
+input_parameter_file <<- io$ithim_run$input_parameter_file
+  
+# scenario and reference scenario definitions
+scenario_name <- io$ithim_run$scenarios_used
+ref_scen <- io$ithim_run$reference_scenario
+reference_scenario <- get_qualified_scen_name(ref_scen)
+
+# further model run information
+compute_mode <- io$ithim_run$compute_mode 
+timestamp_model <- io$ithim_run$timestamp
+comments_model <- io$ithim_run$comment
 
 # Read trip_order
 trip_order <- read_csv("data/global/trips/mode_order.csv")
@@ -274,10 +286,20 @@ trip_order <- read_csv("data/global/trips/mode_order.csv")
 round_to <- 1
 
 
+# print model run information to screen:
+cat("  \n")
+cat(paste0('Output version: ', output_version)) 
+cat("  \n")
+cat(paste0('Timestamp of model run: ', timestamp_model))
+cat("  \n")
+cat(paste0('Comments from model run: ', comments_model))
+cat("  \n")
+
+
 ```
 <!-- # **1st option** -->
 
-## Distance categories
+# Distance categories
 
 <!-- ## Scenario definition  -->
 <!-- Table displays highest propensity for each distance category, for a given mode. -->
@@ -734,7 +756,7 @@ hb_scen_names_upd <- all_orig_scen_upd[all_orig_scen_upd!=reference_scenario]
 
 # calculate ylls by age category and scenario
 # i.e. sum over all disease and remove sex 
-yll_totals <- lapply(io[-2],function(x){
+yll_totals <- lapply(io[-c(2,3)],function(x){
   temp <- sapply(1:NSCEN,function(y){# loop through scenarios
     xx <- x$outcomes$hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))
     xxx <- rowSums(xx[,seq(2 + y, ncol(xx), by = NSCEN)]) # sum over all diseases
@@ -762,7 +784,7 @@ cat(paste0('Reference scenario:  ', reference_scenario))
 # calculate change in YLLs compared to the reference scenario per 100,000 people
 
 # extract population statistics
-pop_by_age <- lapply(io[-2], function(x)
+pop_by_age <- lapply(io[-c(2,3)], function(x)
   sapply(unique(x$demographic$age), 
          function(y)
            sum(subset(x$demographic, age == y)$population)
@@ -796,7 +818,7 @@ cat(paste0('Reference scenario:  ', reference_scenario))
 # calculate changes in YLLs for each scenario compared to the Baseline per 100,000 people by age and sex category
 
 # calculate the total ylls for each scenario summing across all diseases
-yll_totals <- lapply(io[-2], function(x) {
+yll_totals <- lapply(io[-c(2,3)], function(x) {
   temp <- sapply(1:NSCEN,function(y){
     xx <- x$outcomes$hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))
     rowSums(xx[,seq(2 + y, ncol(xx), by = NSCEN)])
@@ -834,7 +856,7 @@ cat(paste0('Reference scenario:  ', reference_scenario))
 # calculate change in YLLs due to injury
 
 # calculate change in YLLs due to injury by summing across all age categories for the injury results
-injury_totals <- lapply(io[-2], function(x) {
+injury_totals <- lapply(io[-c(2,3)], function(x) {
   xx <- x$outcomes$hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))
   injury_col <- grep("inj", names(xx))[1] 
   xxx <- sapply(1:NSCEN, function(y)
@@ -857,7 +879,7 @@ cat(paste0('Reference scenario:  ', reference_scenario))
 # calculate the changes in YLLs compared to the reference scenario caused by changes in PA for the unique age categories
 
 # sum the YLLs for each scenario by age category
-pa_totals <- lapply(io[-2],function(x){
+pa_totals <- lapply(io[-c(2,3)],function(x){
   xx <- x$outcomes$pathway_hb$ylls  |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))
   xxx <- sapply(1:NSCEN, function(y){
     xxx <- rowSums(xx[, pa_yll_cols[seq(y, length(pa_yll_cols), by = NSCEN)]])
@@ -878,7 +900,7 @@ cat(paste0('Reference scenario:  ', reference_scenario))
 # calculate the changes in YLLS compared to the reference scenario due to changes in AP
 
 # sum the YLLs by scenario and age category
-ap_totals <- lapply(io[-2],function(x){
+ap_totals <- lapply(io[-c(2,3)],function(x){
   xx <- x$outcomes$pathway_hb$ylls  |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))
   xxx <- sapply(1:NSCEN,function(y) {
     xxx <- rowSums(xx[, ap_yll_cols[seq(y, length(ap_yll_cols), by = NSCEN)]])
@@ -963,7 +985,7 @@ cat(paste0('Reference scenario:  ', reference_scenario))
 # calculate the changes in deaths compared to the reference scenario by disease
 
 # sum the total deaths by scenario
-disease_totals <- lapply(io[-2],function(x){
+disease_totals <- lapply(io[-c(2,3)],function(x){
   # extract disease counts
   xx <- x$outcomes$hb$deaths |> dplyr::select(-c(ends_with("lb") | ends_with("ub"))) 
   xxx <- sapply(1:NSCEN,function(y){ # sum over scenarios
@@ -1018,7 +1040,7 @@ Change in total YLLs by disease compared to the reference scenario (based on rea
 cat(paste0('Reference scenario:  ', reference_scenario))
 
 # sum the total ylls by scenario
-disease_totals <- lapply(io[-2],function(x){
+disease_totals <- lapply(io[-c(2,3)],function(x){
   xx <- x$outcomes$hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))
   xxx <- sapply(1:NSCEN,function(y) {
     colSums(xx[,seq(y + 2, ncol(xx), by = NSCEN)])
@@ -1079,7 +1101,7 @@ pathway <- c("hb", "pathway_hb")
 
 for (k in measure) { # loop for ylls or deaths
   for (j in pathway) { # loop for hb or pathway_hb
-    for (i in names(io[-2])) { # loop for cities
+    for (i in names(io[-c(2,3)])) { # loop for cities
       
       # Temporal dataset for health outcomes
       temp <- io[[i]]$outcomes[[j]][[k]]
@@ -1169,19 +1191,19 @@ deaths_pathway <- rbindlist(health$deaths$pathway_hb, use.names = T) #|> filter(
  
 # Export ylls HB
 write.csv(ylls,
-            "results/multi_city/health_impacts/ylls.csv",
+            paste0('results/multi_city/health_impacts/ylls_',output_version,'.csv'),
             row.names = F)
 # Export ylls PATHWAY_HB
 write.csv(ylls_pathway,
-            "results/multi_city/health_impacts/ylls_pathway.csv",
+            paste0('results/multi_city/health_impacts/ylls_pathway_',output_version,'.csv'),
             row.names = F)
 # Export deaths HB
 write.csv(deaths,
-            "results/multi_city/health_impacts/deaths.csv",
+            paste0('results/multi_city/health_impacts/deaths_',output_version,'.csv'),
             row.names = F)
 # Export deaths PATHWAY_HB
 write.csv(deaths_pathway,
-            "results/multi_city/health_impacts/deaths_pathway.csv",
+            paste0('results/multi_city/health_impacts/deaths_pathway_',output_version,'.csv'),
             row.names = F)
 
 
