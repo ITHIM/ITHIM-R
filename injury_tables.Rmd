@@ -133,7 +133,7 @@ st_options(bootstrap.css     = FALSE,       # Already part of the theme so no ne
 ```
 
 ```{r load_objects = "asis"}
-output_version <- "v0.3"
+#output_version <- "v0.3"
 
 # Assumes that multi_city_script.R has been run - read in ithim_objects saved as io.rds
 io <- readRDS(paste0("results/multi_city/io_", output_version, ".rds"))
