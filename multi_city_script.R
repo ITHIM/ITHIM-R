@@ -79,7 +79,7 @@ if (!require("drpa",character.only = TRUE)) {
 cities <- c('bogota')
 
 
-input_parameter_file <- "InputParameters_v32.0.xlsx" # file containing the local and global input parameters
+input_parameter_file <- "InputParameters_v33.0.xlsx" # file containing the local and global input parameters
 
 
 # records the main aspects of an ithim run in the OutputVersionControl.txt document
@@ -299,7 +299,8 @@ print(system.time(for(city in cities){
     COMMERCIAL_MBIKE_PROP_MALE = as.numeric(commerical_mbike_prop_male[[city]]),
     COMMERCIAL_MBIKE_MALE_AGERANGE = commerical_mbike_male_agerange[[city]],
     COMMERCIAL_MBIKE_FEMALE_AGERANGE = commerical_mbike_female_agerange[[city]],
-    MINIMUM_PT_TIME = as.numeric(minimum_pt_time)
+    MINIMUM_PT_TIME = as.numeric(minimum_pt_time),
+    MODERATE_PA_CONTRIBUTION = as.numeric(moderate_pa_contribution)
   )
   
   # add additional information to the ithim_objects list storing the key input and output data

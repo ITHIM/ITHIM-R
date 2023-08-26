@@ -86,6 +86,7 @@
 #' @param COMMERCIAL_MBIKE_MALE_AGERANGE character: age range of male commercial motorcycle drivers
 #' @param COMMERCIAL_MBIKE_FEMALE_AGERANGE character: age range of female commercial motorcycle drivers
 #' @param MINIMUM_PT_TIME scalar: minimum time that person spends on public transport
+#' @param MODERATE_PA_CONTRIBUTION scalar: proportion contribution of moderate PA in Leisure MVPA
 #' 
 #' @return list of samples of uncertain parameters
 #' 
@@ -134,7 +135,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    COMMERCIAL_MBIKE_PROP_MALE = 0.99,
                                    COMMERCIAL_MBIKE_MALE_AGERANGE ="18, 65",
                                    COMMERCIAL_MBIKE_FEMALE_AGERANGE ="18, 65",
-                                   MINIMUM_PT_TIME = 3){
+                                   MINIMUM_PT_TIME = 3,
+                                   MODERATE_PA_CONTRIBUTION = 0.5){
   
   # Check if default values are set in which case a warning message appears to change the default values
   # for PM_CONC_BASE and PM_TRANS_SHAREs
@@ -184,6 +186,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   COMMERCIAL_MBIKE_MALE_AGERANGE <<- COMMERCIAL_MBIKE_MALE_AGERANGE
   COMMERCIAL_MBIKE_FEMALE_AGERANGE <<- COMMERCIAL_MBIKE_FEMALE_AGERANGE
   MINIMUM_PT_TIME <<- MINIMUM_PT_TIME
+  MODERATE_PA_CONTRIBUTION <<- MODERATE_PA_CONTRIBUTION
   parameters <- list()
   
   # Variables with lognormal distribution
