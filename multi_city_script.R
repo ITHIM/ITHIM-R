@@ -79,7 +79,7 @@ if (!require("drpa",character.only = TRUE)) {
 cities <- 'bogota'
 
 
-input_parameter_file <- "InputParameters_v34.0.xlsx" # file containing the local and global input parameters
+input_parameter_file <- "InputParameters_v35.0.xlsx" # file containing the local and global input parameters
 
 
 # records the main aspects of an ithim run in the OutputVersionControl.txt document
@@ -261,8 +261,15 @@ print(system.time(for(city in cities){
     
     FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
     PROPORTION_MOTORCYCLE_TRIPS = proportion_motorcycle_trips[[city]],
-    MMET_CYCLING = mmet_cycling, 
-    MMET_WALKING = mmet_walking, 
+    CYCLING_MET =	cycling_met,
+    WALKING_MET =	walking_met,
+    PASSENGER_MET =	passenger_met,
+    CAR_DRIVER_MET =	car_driver_met,
+    MOTORCYCLIST_MET =	motorcyclist_met,
+    SEDENTARY_ACTIVITY_MET =	sedentary_activity_met,
+    LIGHT_ACTIVITY_MET =	light_activity_met,
+    MODERATE_PA_MET =	moderate_pa_met,
+    VIGOROUS_PA_MET	= vigorous_pa_met,
     DAY_TO_WEEK_TRAVEL_SCALAR = as.numeric(day_to_week_scalar[[city]]),
     SIN_EXPONENT_SUM = sin_exponent_sum,
     CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,

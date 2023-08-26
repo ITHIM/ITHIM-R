@@ -90,8 +90,15 @@
 #' @param NSAMPLES constant integer: number of samples to take
 #' @param BUS_WALK_TIME lognormal parameter: duration of walk to bus stage
 #' @param RAIL_WALK_TIME lognormal parameter: duration of walk to rail stage
-#' @param MMET_CYCLING lognormal parameter: mMETs when cycling
-#' @param MMET_WALKING lognormal parameter: mMETs when walking
+#' @param CYCLING_MET lognormal parameter: METs when cycling
+#' @param WALKING_MET lognormal parameter: METs when walking
+#' @param PASSENGER_MET lognormal parameter: MET value associated with being a passenger on public transport
+#' @param CAR_DRIVER_MET lognormal parameter: MET value associated with being a car driver 
+#' @param MOTORCYCLIST_MET lognormal parameter: MET value associated with being a motorcyclist
+#' @param SEDENTARY_ACTIVITY_MET lognormal parameter: MET value associated with sedentary activity
+#' @param LIGHT_ACTIVITY_MET lognormal parameter: MET value associated with light activity
+#' @param MODERATE_PA_MET lognormal parameter: MET value associated with moderate activity
+#' @param VIGOROUS_PA_MET lognormal parameter: MET value associated with vigorous activity 
 #' @param PM_CONC_BASE lognormal parameter: background PM2.5 concentration
 #' @param PM_TRANS_SHARE beta parameter: fraction of background PM2.5 attributable to transport
 #' @param PA_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from physical activity relative risk dose response functions
@@ -161,8 +168,15 @@ run_ithim_setup <- function(seed = 1,
                             NSAMPLES = 1,
                             BUS_WALK_TIME= 5,
                             RAIL_WALK_TIME = 15,
-                            MMET_CYCLING = 4.63,
-                            MMET_WALKING = 2.53,
+                            CYCLING_MET =	6.8,
+                            WALKING_MET =	3.5,
+                            PASSENGER_MET	= 1.3,
+                            CAR_DRIVER_MET = 2.5,
+                            MOTORCYCLIST_MET =	2.8,
+                            SEDENTARY_ACTIVITY_MET =	1.3,
+                            LIGHT_ACTIVITY_MET =	1.3,
+                            MODERATE_PA_MET =	4,
+                            VIGOROUS_PA_MET =	8,
                             PM_CONC_BASE = 50,  
                             PM_TRANS_SHARE = 0.225,
                             PA_DOSE_RESPONSE_QUANTILE = F,
@@ -386,8 +400,15 @@ run_ithim_setup <- function(seed = 1,
   ithim_object$parameters <- ithim_setup_parameters(NSAMPLES = NSAMPLES,
                                                     BUS_WALK_TIME = BUS_WALK_TIME,
                                                     RAIL_WALK_TIME = RAIL_WALK_TIME,
-                                                    MMET_CYCLING = MMET_CYCLING,
-                                                    MMET_WALKING = MMET_WALKING,
+                                                    CYCLING_MET = CYCLING_MET,
+                                                    WALKING_MET = WALKING_MET, 
+                                                    PASSENGER_MET = PASSENGER_MET,
+                                                    CAR_DRIVER_MET = CAR_DRIVER_MET,
+                                                    MOTORCYCLIST_MET = MOTORCYCLIST_MET,
+                                                    SEDENTARY_ACTIVITY_MET = SEDENTARY_ACTIVITY_MET,
+                                                    LIGHT_ACTIVITY_MET = LIGHT_ACTIVITY_MET, 
+                                                    MODERATE_PA_MET = MODERATE_PA_MET,
+                                                    VIGOROUS_PA_MET = VIGOROUS_PA_MET,
                                                     PM_CONC_BASE = PM_CONC_BASE, 
                                                     PM_TRANS_SHARE = PM_TRANS_SHARE,
                                                     PA_DOSE_RESPONSE_QUANTILE = PA_DOSE_RESPONSE_QUANTILE,

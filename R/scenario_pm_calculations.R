@@ -123,7 +123,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
     stage_mode = c("rest", "car", "taxi", "bus", "rail", "cycle", "pedestrian", 
                    "sleep", "motorcycle", "auto_rickshaw", "other", 
                    "moderate", "vigorous", "leisure", "light_activities"), 
-    met = c(1.3, 2.5, 1.3, 1.3, 1.3, MMET_CYCLING + 1, MMET_WALKING + 1, 
+    met = c(1.3, 2.5, 1.3, 1.3, 1.3, CYCLING_MET, WALKING_MET, 
             0.95, 2.8, 1.3, 1.3, 4, 8, 1.3, 1.3),
     compendium_code = c('07021', '16010', '16015', '16016', '16016', '01011', 
                         '16060', '07030', '16030', '16016', '16016', 'GPAQ',
