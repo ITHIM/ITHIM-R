@@ -280,7 +280,8 @@ timestamp_model <- io$ithim_run$timestamp
 comments_model <- io$ithim_run$comment
 
 # Read trip_order
-trip_order <- read_csv("data/global/trips/mode_order.csv")
+# trip_order <- read_csv("data/global/trips/mode_order.csv")
+trip_order <- read_csv("results/multi_city/mode_order.csv")
 
 # define which decimal place to round to
 round_to <- 1

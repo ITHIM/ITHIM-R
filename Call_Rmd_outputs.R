@@ -5,7 +5,7 @@
 
 
 
-# output_version <- 
+# output_version <- "c28f173d_test_run"
 
 # create summary tables for AP and PA
 rmarkdown::render('summary_tables_PA_AP.Rmd', params = list(output_version = output_version))

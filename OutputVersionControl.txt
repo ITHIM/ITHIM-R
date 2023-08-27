@@ -42,3 +42,12 @@ Version number of outputs: v0.3
 Number of samples: 2
 Comments: Added CO2 emission sampling
 Path of other input files: C:/Users/aks85/AppData/Local/R/win-library/4.2/ithimr/extdata/global/
+
+2023-08-27 17:35:47.442152 by DGS
+Cities: bogota
+Input parameter file: InputParameters_v35.0.xlsx
+Version number of outputs: c28f173d_test_run
+Number of samples: 1
+Comments: First test under bogota branch
+Path of other input files: /home/danielgils_server/.cache/R/renv/library/ITHIM-R-5df510d6/R-4.3/x86_64-pc-linux-gnu/ithimr/extdata/global/
+Runtime in minutes: 5.4
