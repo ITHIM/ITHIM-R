@@ -120,19 +120,22 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # (bus, car, motorcycle, truck). Right now these are not included because they
   # have participant_id = 0.
   met_df <- data.frame(
-    stage_mode = c("rest", "car", "taxi", "bus", "rail", "cycle", "pedestrian", 
+    stage_mode = c("car", "taxi", "bus", "rail", "cycle", "pedestrian", 
                    "sleep", "motorcycle", "auto_rickshaw", "other", 
                    "moderate", "vigorous", "leisure", "light_activities"), 
-    met = c(1.3, 2.5, 1.3, 1.3, 1.3, CYCLING_MET, WALKING_MET, 
-            0.95, 2.8, 1.3, 1.3, 4, 8, 1.3, 1.3),
-    compendium_code = c('07021', '16010', '16015', '16016', '16016', '01011', 
+    met = c(CAR_DRIVER_MET, PASSENGER_MET, PASSENGER_MET, PASSENGER_MET, 
+            CYCLING_MET, WALKING_MET, 0.95, MOTORCYCLIST_MET, PASSENGER_MET, 
+            PASSENGER_MET, MODERATE_PA_MET, VIGOROUS_PA_MET, 
+            SEDENTARY_ACTIVITY_MET, LIGHT_ACTIVITY_MET),
+    compendium_code = c('16010', '16015', '16016', '16016', '01011', 
                         '16060', '07030', '16030', '16016', '16016', 'GPAQ',
                         'GPAQ', '05080', '05080')
   )
   
   # Dan: Extract people from the synthetic population to calculate their 
   # ventilation rates
-  people_for_vent_rates <- trip_set %>% filter(participant_id != 0) %>% 
+  people_for_vent_rates <- trip_set %>% 
+    filter(participant_id != 0) %>% 
     distinct(participant_id, .keep_all=T) %>% 
     dplyr::select(participant_id, age, sex)
   
@@ -227,6 +230,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   #   - vent_rate = ventilation rate by removing the log in the empirical equation [lt/min]
   #   - v_rate = ventilation rate in different units of measurement [m3/h]
   trip_set <- trip_set %>% 
+    filter(participant_id != 0) %>% 
     rowwise() %>% 
     mutate(
       # Ventilation rate for travel modes
@@ -242,7 +246,8 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
       log_vent_rate = intercept_a + (slope_b * log(adj_vo2/body_mass)) + d_k + e_ijk,
       vent_rate = exp(log_vent_rate) * body_mass,
       v_rate = vent_rate * 60 / 1000
-    )
+    ) %>% 
+    bind_rows(trip_set %>% filter(participant_id == 0))
   #----
   
   # Create df with scenarios and concentration
@@ -263,18 +268,11 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   trip_set <- trip_set %>% 
     group_by(participant_id, scenario) %>% 
     mutate(total_travel_time_hrs = sum(stage_duration) / 60) %>% 
-    # total_typical_time_rem_hrs <- lt_sed_time_hrs + nd_time_hrs + other_time_hrs,
-    # remaining_time_hrs = 24 - total_travel_time_hrs,
-    # lt_sed_time_prop_hrs <- lt_sed_time_hrs / total_typical_time_rem_hrs * remaining_time_hrs,
-    # nd_time_prop_hrs <- nd_time_hrs / total_typical_time_rem_hrs * remaining_time_hrs,
-    # other_time_prop_hrs <- other_time_hrs / total_typical_time_rem_hrs * remaining_time_hrs) |> 
     ungroup()
   
   
   # Extract mets for sleep, rest, moderate and vigorous
   sleep_met <- met_df %>% filter(stage_mode == 'sleep') %>% 
-    dplyr::select(met) %>% as.numeric()
-  rest_met <- met_df %>% filter(stage_mode == 'rest') %>% 
     dplyr::select(met) %>% as.numeric()
   moderate_met <- met_df %>% filter(stage_mode == 'moderate') %>% 
     dplyr::select(met) %>% as.numeric()
