@@ -51,3 +51,12 @@ Number of samples: 1
 Comments: First test under bogota branch
 Path of other input files: /home/danielgils_server/.cache/R/renv/library/ITHIM-R-5df510d6/R-4.3/x86_64-pc-linux-gnu/ithimr/extdata/global/
 Runtime in minutes: 5.4
+
+2023-08-28 23:02:44.383916 by DGS
+Cities: bogota
+Input parameter file: InputParameters_v35.0.xlsx
+Version number of outputs: 66f2f64a_test_run
+Number of samples: 1
+Comments: Testing after fixing disease outcomes file
+Path of other input files: /home/danielgils_server/.cache/R/renv/library/ITHIM-R-5df510d6/R-4.3/x86_64-pc-linux-gnu/ithimr/extdata/global/
+Runtime in minutes: 8.43
