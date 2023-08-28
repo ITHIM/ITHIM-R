@@ -288,7 +288,7 @@ ithim_load_data <- function(speeds =
                           "Interstitial lung disease and pulmonary sarcoidosis",
                           "Other chronic respiratory diseases")
   respiratory <- GBD_DATA %>% filter(cause_name %in% respiratory_causes)
-  GBD_DATA <- GBD_DATA %>% filter(!cause_name %in% respiratory_causes)
+  # GBD_DATA <- GBD_DATA %>% filter(!cause_name %in% respiratory_causes)
   # Add causes by measure, sex and age
   add_causes <- respiratory %>% 
     group_by(measure_name.x, sex_name, age_name) %>% 

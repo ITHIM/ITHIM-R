@@ -13,9 +13,9 @@ Uterine cancer,endo_cancer,0,1,,endometrial-cancer,cases
 Liver cancer,liver_cancer,0,1,,liver-cancer,cases
 Cardiovascular diseases,CVD,1,1,cvd,all-cause-cvd,deaths
 Alzheimer's disease and other dementias,total_dementia,0,1,,alzheimer's-disease,cases
-Myeloma,myeloma,0,1,,myeloma,cases
+Multiple myeloma,myeloma,0,1,,myeloma,cases
 Parkinson's disease,Parkinson,0,1,,parkinson's-disease,cases
 Head and neck cancer,head_neck_cancer,0,1,,head-and-neck-cancer,cases
-Gastric cardia cancer,stomach_cancer,0,1,,gastric-cardia-cancer,cases
+Stomach cancer,stomach_cancer,0,1,,gastric-cardia-cancer,cases
 Myeloid leukemia,myeloid_leukemia,0,1,,myeloid-leukemia,cases
 Respiratory,respiratory,1,0,respiratory,,
