@@ -306,7 +306,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
     filter(participant_id != 0) %>% 
     group_by(participant_id, scenario) %>% 
     # reframe instead of summarise in the latest version
-    reframe(
+    summarise(
       total_travel_time_hrs = max(total_travel_time_hrs, na.rm = T),
       travel_air_inhaled = sum(air_inhaled, na.rm = T),
       travel_pm_inhaled = sum(pm_inhaled, na.rm = T),
