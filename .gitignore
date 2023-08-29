@@ -11,3 +11,4 @@ results/multi_city/whw_matrices/interactive_plots/
 /.quarto/
 docs
 .Renviron
+repo_sha
