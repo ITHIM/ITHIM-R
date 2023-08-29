@@ -9,12 +9,15 @@ library(ggridges)
 
 options(scipen = 10000)
 
-if (!exists("output_version")){
-  repo_sha <-  as.character(readLines(file.path("../repo_sha")))
-  output_version <- paste0(repo_sha, "_test_run")
-}
+# if (!exists("output_version")){
+#   repo_sha <-  as.character(readLines(file.path("../repo_sha")))
+#   output_version <- paste0(repo_sha, "_test_run")
+# }
 
-# github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/latam_paper/"
+# hard coded repo_sha
+repo_sha <- "66f2f64a"
+output_version <- paste0(repo_sha, "_test_run")
+github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
 # github_path <- "../"
 rel_path_health <- paste0(github_path, "results/multi_city/health_impacts/")
 # 
@@ -352,9 +355,16 @@ server <- function(input, output, session) {
     if (!is.null(in_col_lvl)){
       
       text_colour <- "black"
-        y_lab <- "Years of Life Lost (YLLs) per 100k"#<---- harms      #      benefits ---->
-        if (in_measure == "Deaths")
+        
+        if (in_measure == "Deaths"){
           y_lab <- "Deaths per 100k"
+          if (in_per_100)
+            y_lab <- "Deaths"
+        }else{
+          y_lab <- "Years of Life Lost (YLLs) per 100k"#<---- harms      #      benefits ---->  
+          if (in_per_100)
+            y_lab <- "Years of Life Lost (YLLs)"
+        }
         
         ld <- get_health_data()
         
