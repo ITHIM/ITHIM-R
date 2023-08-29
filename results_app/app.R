@@ -9,26 +9,31 @@ library(ggridges)
 
 options(scipen = 10000)
 
+if (!exists("output_version")){
+  repo_sha <-  as.character(readLines(file.path("../repo_sha")))
+  output_version <- paste0(repo_sha, "_test_run")
+}
+
 # github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/latam_paper/"
-github_path <- "../"
+# github_path <- "../"
 rel_path_health <- paste0(github_path, "results/multi_city/health_impacts/")
 # 
 # rel_path <- "../results/multi_city/health_impacts/"
-ylls <- read_csv(paste0(rel_path_health, "ylls.csv"))
-deaths <- read_csv(paste0(rel_path_health, "deaths.csv"))
+ylls <- read_csv(paste0(rel_path_health, "ylls_",output_version,".csv"))
+deaths <- read_csv(paste0(rel_path_health, "deaths_",output_version,".csv"))
 ylls$measures <- "Years of Life Lost (YLLs)"
 deaths$measures <- "Deaths"
 
-ylls_pathway <- read_csv(paste0(rel_path_health, "ylls_pathway.csv"))
-deaths_pathway <- read_csv(paste0(rel_path_health, "deaths_pathway.csv"))
+ylls_pathway <- read_csv(paste0(rel_path_health, "ylls_pathway_",output_version,".csv"))
+deaths_pathway <- read_csv(paste0(rel_path_health, "deaths_pathway_",output_version,".csv"))
 ylls_pathway$measures <- "Years of Life Lost (YLLs)"
 deaths_pathway$measures <- "Deaths"
 
 rel_path_inj <- paste0(github_path, "results/multi_city/inj/")
 
-injury_risks_per_billion_kms_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_billion_kms.csv"))
-injury_risks_per_100k_pop <- read_csv(paste0(rel_path_inj, "injury_risks_per_100k_pop.csv"))
-injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_100million_h.csv"))
+injury_risks_per_billion_kms_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_billion_kms_",output_version,".csv"))
+injury_risks_per_100k_pop <- read_csv(paste0(rel_path_inj, "injury_risks_per_100k_pop_",output_version,".csv"))
+injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_100million_h_",output_version,".csv"))
 
 # Make sure all injury datasets have distinct rows and are in wide format (for mean, lb, and ub values)
 # injury_risks_per_billion_kms_lng <- injury_risks_per_billion_kms_lng |> 
@@ -102,14 +107,6 @@ ren_scen_health <- function(df){
 
   df
   
-  # df |> 
-  #   mutate(scenario = case_when(
-  #       grepl("cycle", scenario) ~ "CYC_SC",
-  #       grepl("bus", scenario) ~ "BUS_SC",
-  #       grepl("motorcycle", scenario) ~ "MOT_SC",
-  #       grepl("car", scenario) ~ "CAR_SC"
-  #     )
-  #   )
 }
 
 combined_health_dataset_pathway <- ren_scen_health(combined_health_dataset_pathway)
@@ -326,63 +323,6 @@ server <- function(input, output, session) {
     }
   })
   
-  # output$in_pivot <- renderPlot({
-  #   
-  #   in_col_lvl <- input$in_level
-  #   in_measure <- input$in_measure
-  #   in_CIs <- input$in_CIs
-  #   filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
-  #   filtered_scens <- input$in_scens
-  #   filtered_pathways <- input$in_pathways
-  #   
-  #   if (!is.null(in_col_lvl)){
-  #     
-  #     text_colour <- "black"
-  #       y_lab <- "Years of Life Lost (YLLs) per 100k"
-  #       if (in_measure == "Deaths")
-  #         y_lab <- "Deaths per 100k"
-  #       
-  #       ld <- get_health_data()
-  #       
-  #       if(nrow(ld) < 1)
-  #         ggplot(data.frame())#plotly::ggplotly(ggplot(data.frame()))
-  #       else{
-  #         
-  #         gg <- ggplot(ld) +
-  #           aes(x = city, y = metric_100k, fill = scenario) +
-  #           {if(in_CIs == "Yes") geom_boxplot(position = position_dodge(width = 1.5), varwidth = TRUE)} + # geom_violin()} +# geom_boxplot(position = position_dodge(width = 1.5))} +
-  #           {if(in_CIs == "No") geom_col(width = 0.5, alpha = 0.7)}+
-  #           # {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), hjust = -5, size = 3, colour = text_colour)}+
-  #           {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), position = position_stack(vjust = 0.9), size = 3, colour = text_colour)} +
-  #           scale_fill_hue(direction = 1) +
-  #           coord_flip() +
-  #           theme_minimal() +
-  #           facet_grid(vars(), vars(dose))  +
-  #           scale_fill_manual(values = scen_colours) +
-  #           labs(y = y_lab)
-  #         
-  #         gg <- ggplot(ld, aes(x = metric_100k, y = city, fill = scenario)) +
-  #           stat_density_ridges(quantile_lines = TRUE, alpha = 0.75,
-  #                               quantiles = c(0.05, 0.5, 0.95)) +
-  #           labs(y = y_lab)
-  #         
-  #         # browser()
-  #         
-  #         gg
-  #         # plotly::ggplotly(gg) #|> style(text = ld$metric_100k, textposition = "auto", textfont = 12)
-  #       }
-  #   }else{
-  #     ggplot(data.frame())#plotly::ggplotly(ggplot(data.frame()))
-  #   }
-  # }) |> bindCache(input$in_level,
-  #                 input$in_measure,
-  #                 input$in_CIs,
-  #                 input$in_cities,
-  #                 input$in_scens,
-  #                 input$in_pathways,
-  #                 input$in_int_pathway)
-  
-  
   output$in_pivot_int <- renderPlotly({
     
     req(input$in_scens)
@@ -391,7 +331,6 @@ server <- function(input, output, session) {
     req(input$in_measure)
     req(input$in_CIs)
     req(input$in_pathways)
-    req(input$in_per_100k)
     
     in_col_lvl <- input$in_level
     in_measure <- input$in_measure
@@ -529,6 +468,7 @@ server <- function(input, output, session) {
         filter(scenario %in% filtered_scens) |>
         filter(dose %in% filtered_pathways) |>
         group_by(city, scenario, dose, cause) |>
+        # summarise(metric_100k = round(sum(measure, 1)))
         summarise(metric_100k = round(sum(ifelse(in_per_100, metric_100k, measure), 1)))
       
       if (length(filtered_pathways) > 1){
@@ -537,7 +477,7 @@ server <- function(input, output, session) {
           filter(str_detect(cause, "lb")) |>
           ungroup() |>
           group_by(city, scenario) |>
-          summarise(metric_100k = round(sum(measure, 1))) |>
+          summarise(metric_100k = round(sum(metric_100k, 1))) |>
           mutate(dose = "total", cause = "total_lb")
         
         total_dose <- rbind(total_dose,
@@ -571,6 +511,7 @@ server <- function(input, output, session) {
         filter(scenario %in% filtered_scens) |>
         filter(dose %in% filtered_pathways) |>
         group_by(city, scenario, dose) |>
+        # summarise(metric_100k = round(sum(measure, 1)))
         summarise(metric_100k = round(sum(ifelse(in_per_100, metric_100k, measure), 1)))
       
       if (length(filtered_pathways) > 1){
@@ -659,14 +600,6 @@ server <- function(input, output, session) {
     plotly::plotlyOutput("in_pivot_int")
   })
   
-  # if (is_interactive_plot()){
-  #     plotly::plotlyOutput("in_pivot_int")
-  #   } else {
-  #     plotOutput("in_pivot")
-  #   }
-  # }, height = function() {
-  #   session$clientData$output_plot_health_width
-  # })
 }
 
 # Run the application 
