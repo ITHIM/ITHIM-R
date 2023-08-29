@@ -82,16 +82,25 @@ cities <- 'bogota'
 input_parameter_file <- "InputParameters_v35.0.xlsx" # file containing the local and global input parameters
 
 
+## Get the current repo sha
+gitArgs <- c("rev-parse", "--short", "HEAD", ">", file.path("repo_sha"))
+# Use shell command for Windows as it's failing with system2 for Windows (giving status 128)
+if (.Platform$OS.type == "windows"){
+  shell(paste(append("git", gitArgs), collapse = " "), wait = T)
+} else {
+  system2("git", gitArgs, wait = T)
+}
+
+repo_sha <-  as.character(readLines(file.path("repo_sha")))
 # records the main aspects of an ithim run in the OutputVersionControl.txt document
 # text file records timestamp of run, author name, cities the script is run for, 
 # the input parameter file version used, the output version, 
 # the number of samples (which is 1 in constant mode), the path to any other input files,
 # any comments and the runtime of the code
 write_output_control = T # whether you want to save the model run specifics or not
-output_version <- "66f2f64a_test_run" # gives the version number of the output documents, independent of the input parameter file name
-author <- "DGS"
-comment <- "Testing after fixing disease outcomes file"
-
+output_version <- paste0(repo_sha, "_test_run") # gives the version number of the output documents, independent of the input parameter file name
+author <- "AA"
+comment <- "Testing after automatically reading the SHA of the repo"
 
 # scenario definition
 scenario_name <- "BOGOTA" # name of scenario to be called
