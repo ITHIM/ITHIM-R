@@ -15,7 +15,7 @@ options(scipen = 10000)
 # }
 
 # hard coded repo_sha
-repo_sha <- "66f2f64a"
+repo_sha <- "39912ff9"
 # repo_sha <- "3d115e17"
 output_version <- paste0(repo_sha, "_test_run")
 github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
