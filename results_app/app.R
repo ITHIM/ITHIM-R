@@ -16,6 +16,7 @@ options(scipen = 10000)
 
 # hard coded repo_sha
 repo_sha <- "66f2f64a"
+# repo_sha <- "3d115e17"
 output_version <- paste0(repo_sha, "_test_run")
 github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
 # github_path <- "../"
@@ -86,6 +87,14 @@ scen_colours <- c("Baseline" = '#ffffbf',
                   "Motorcycle Scenario" = '#fdae61')
 
 global_alpha_val <- 0.7
+
+cities <- data.frame(
+  continent = c('Africa/Asia', 'Latin_America', 'Africa/Asia', 'Africa/Asia', 'Africa/Asia', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Africa/Asia', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Africa/Asia', 'Africa/Asia', 'Africa/Asia'),
+  country = c('Ghana', 'Brazil', 'India', 'India', 'India', 'Brazil', 'Colombia', 'Chile', 'Mexico', 'Argentina', 'South_Africa', 'Colombia', 'Colombia', 'Uruquay', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Chile', 'Kenya', 'Kenya', 'Mauritius'),
+  city = c('accra', 'sao_paulo', 'delhi', 'bangalore', 'vizag', 'belo_horizonte', 'bogota', 'santiago', 'mexico_city', 'buenos_aires', 'cape_town', 'medellin', 'cali', 'montevideo', 'antofagasta', 'arica', 'copiapo', 'coquimbo_laserena', 'iquique_altohospicio', 'osorno', 'puerto_montt', 'san_antonio', 'temuco_padrelascasas', 'valdivia', 'gran_valparaiso', 'nairobi', 'kisumu', 'port_louis'),
+  stringsAsFactors = FALSE
+)
+
 
 cities <- data.frame(
   continent = c('Africa/Asia', 'Latin_America', 'Africa/Asia', 'Africa/Asia', 'Africa/Asia', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Africa/Asia', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Latin_America', 'Africa/Asia', 'Africa/Asia', 'Africa/Asia'),
@@ -196,13 +205,13 @@ ui <- grid_page(
       condition = "input.main_tab == 'Health Outcomes'",
       radioButtons(inputId = "in_measure", 
                    label = "Health Outcome",
-                   choices = c("Years of Life Lost (YLLs)", "Deaths")),
+                   choices = c("Deaths", "Years of Life Lost (YLLs)")),
       radioButtons(inputId = "in_level", 
                    label = "Disease/cause levels",
                    choices = level_choices),
       checkboxInput(inputId = "in_per_100k", 
                     label = "per_100k",
-                    value =  TRUE),
+                    value =  FALSE),
       pickerInput(inputId = "in_pathways", 
                   label = "Pathway/Dose",
                   choices = dose_pathway,
@@ -358,11 +367,11 @@ server <- function(input, output, session) {
         
         if (in_measure == "Deaths"){
           y_lab <- "Deaths per 100k"
-          if (in_per_100)
+          if (!in_per_100)
             y_lab <- "Deaths"
         }else{
           y_lab <- "Years of Life Lost (YLLs) per 100k"#<---- harms      #      benefits ---->  
-          if (in_per_100)
+          if (!in_per_100)
             y_lab <- "Years of Life Lost (YLLs)"
         }
         
@@ -471,15 +480,28 @@ server <- function(input, output, session) {
     
     if (in_CIs == "Yes"){
       
+      
       ld <- local_dataset |>
         filter(measures == in_measure) |>
+        filter(!str_detect(cause, "lb|ub")) |>
         filter((!is.na(!!rlang::sym(in_col_lvl)))) |>
         filter(city %in% filtered_cities) |>
         filter(scenario %in% filtered_scens) |>
         filter(dose %in% filtered_pathways) |>
-        group_by(city, scenario, dose, cause) |>
-        # summarise(metric_100k = round(sum(measure, 1)))
-        summarise(metric_100k = round(sum(ifelse(in_per_100, metric_100k, measure), 1)))
+        group_by(city, scenario, dose) |>
+        summarise(metric_100k = round(sum(measure), 1))
+      
+      if (in_per_100){
+        ld <- local_dataset |>
+          filter(measures == in_measure) |>
+          filter(!str_detect(cause, "lb|ub")) |>
+          filter((!is.na(!!rlang::sym(in_col_lvl)))) |>
+          filter(city %in% filtered_cities) |>
+          filter(scenario %in% filtered_scens) |>
+          filter(dose %in% filtered_pathways) |>
+          group_by(city, scenario, dose) |>
+          summarise(metric_100k = round(sum(metric_100k), 1))
+      }
       
       if (length(filtered_pathways) > 1){
         
@@ -512,7 +534,6 @@ server <- function(input, output, session) {
         ld <- plyr::rbind.fill(ld, total_dose)
       }
     }else{
-      
       ld <- local_dataset |>
         filter(measures == in_measure) |>
         filter(!str_detect(cause, "lb|ub")) |>
@@ -521,8 +542,19 @@ server <- function(input, output, session) {
         filter(scenario %in% filtered_scens) |>
         filter(dose %in% filtered_pathways) |>
         group_by(city, scenario, dose) |>
-        # summarise(metric_100k = round(sum(measure, 1)))
-        summarise(metric_100k = round(sum(ifelse(in_per_100, metric_100k, measure), 1)))
+        summarise(metric_100k = round(sum(measure), 1))
+      
+      if (in_per_100){
+        ld <- local_dataset |>
+          filter(measures == in_measure) |>
+          filter(!str_detect(cause, "lb|ub")) |>
+          filter((!is.na(!!rlang::sym(in_col_lvl)))) |>
+          filter(city %in% filtered_cities) |>
+          filter(scenario %in% filtered_scens) |>
+          filter(dose %in% filtered_pathways) |>
+          group_by(city, scenario, dose) |>
+          summarise(metric_100k = round(sum(metric_100k), 1))
+      }
       
       if (length(filtered_pathways) > 1){
         
