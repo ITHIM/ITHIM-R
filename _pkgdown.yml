@@ -1,4 +1,6 @@
 url: https://ithim.github.io/ITHIM-R/
 template:
   bootstrap: 5
+repo:
+  branch: bogota
 

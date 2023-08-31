@@ -53,4 +53,5 @@ Suggests:
     testthat,
     earth
 RoxygenNote: 7.2.3
-URL: https://ithim.github.io/ITHIM-R/
+URL: https://ithim.github.io/ITHIM-R/, https://github.com/ITHIM/ITHIM-R
+BugReports: https://github.com/ITHIM/ITHIM-R/issues
