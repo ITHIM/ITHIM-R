@@ -60,3 +60,12 @@ Number of samples: 1
 Comments: Testing after fixing disease outcomes file
 Path of other input files: /home/danielgils_server/.cache/R/renv/library/ITHIM-R-5df510d6/R-4.3/x86_64-pc-linux-gnu/ithimr/extdata/global/
 Runtime in minutes: 8.43
+
+2023-08-31 13:32:17.491848 by DGS
+Cities: bogota
+Input parameter file: InputParameters_v35.0.xlsx
+Version number of outputs: 39912ff9_test_run
+Number of samples: 1
+Comments: Testing after changing order in names in injury_death_to_yll function
+Path of other input files: /home/danielgils_server/.cache/R/renv/library/ITHIM-R-5df510d6/R-4.3/x86_64-pc-linux-gnu/ithimr/extdata/global/
+Runtime in minutes: 3.52
