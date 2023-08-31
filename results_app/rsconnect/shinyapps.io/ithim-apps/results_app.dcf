@@ -5,7 +5,7 @@ account: ithim-apps
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9127236
-bundleId: 7228935
+bundleId: 7621973
 url: https://ithim-apps.shinyapps.io/results_app/
-when: 1684325115.81559
-lastSyncTime: 1684325115.81561
+asMultiple: FALSE
+asStatic: FALSE
