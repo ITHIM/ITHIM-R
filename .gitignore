@@ -12,3 +12,4 @@ results/multi_city/whw_matrices/interactive_plots/
 docs
 .Renviron
 repo_sha
+renv/
