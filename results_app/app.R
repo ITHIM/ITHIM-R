@@ -323,7 +323,10 @@ server <- function(input, output, session) {
       gg <- ggplot(local_df) +
         aes(x = city, y = mean, fill = scenario) +
         geom_col(position = "dodge", alpha = global_alpha_val) +
-        {if(length(filtered_scens) == 1) geom_text(aes(label = round(mean, 1)), position = position_stack(vjust = 0.9))} +
+        geom_text(aes(label = round(mean, 1)), position = position_stack(hjust = .5)) + # position = position_dodge(width = 0.9), vjust = -0.5) +
+        # geom_text(aes(label = round(mean, 1)),
+        #           position = position_stack(vjust = .9)) +
+        #{if(length(filtered_scens) == 1) geom_text(aes(label = round(mean, 1)), position = position_stack(vjust = 0.9))} +
         scale_fill_hue(direction = 1) +
         coord_flip() +
         theme_minimal() +
@@ -386,7 +389,8 @@ server <- function(input, output, session) {
             {if(in_CIs == "Yes") geom_boxplot(position=position_dodge2(), aplha = global_alpha_val)} + # geom_violin()} +# geom_boxplot(position = position_dodge(width = 1.5))} +
             {if(in_CIs == "No") geom_col(width = 0.5, alpha = global_alpha_val)}+
             # {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), hjust = -5, size = 3, colour = text_colour)}+
-            {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), position = position_stack(vjust = 0.9), size = 3, colour = text_colour)} +
+            # {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), position = position_stack(vjust = 0.9), size = 3, colour = text_colour)} +
+            {if(in_CIs == "No") geom_text(aes(label = round(metric_100k, 1)), position = position_dodge(width = 0.9), vjust = -0.5) } +
             scale_fill_hue(direction = 1) +
             coord_flip() +
             theme_minimal() +
@@ -483,23 +487,21 @@ server <- function(input, output, session) {
       
       ld <- local_dataset |>
         filter(measures == in_measure) |>
-        filter(!str_detect(cause, "lb|ub")) |>
         filter((!is.na(!!rlang::sym(in_col_lvl)))) |>
         filter(city %in% filtered_cities) |>
         filter(scenario %in% filtered_scens) |>
         filter(dose %in% filtered_pathways) |>
-        group_by(city, scenario, dose) |>
+        group_by(city, scenario, dose, cause) |>
         summarise(metric_100k = round(sum(measure), 1))
       
       if (in_per_100){
         ld <- local_dataset |>
           filter(measures == in_measure) |>
-          filter(!str_detect(cause, "lb|ub")) |>
           filter((!is.na(!!rlang::sym(in_col_lvl)))) |>
           filter(city %in% filtered_cities) |>
           filter(scenario %in% filtered_scens) |>
           filter(dose %in% filtered_pathways) |>
-          group_by(city, scenario, dose) |>
+          group_by(city, scenario, dose, cause) |>
           summarise(metric_100k = round(sum(metric_100k), 1))
       }
       
