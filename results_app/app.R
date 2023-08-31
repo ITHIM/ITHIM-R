@@ -323,10 +323,7 @@ server <- function(input, output, session) {
       gg <- ggplot(local_df) +
         aes(x = city, y = mean, fill = scenario) +
         geom_col(position = "dodge", alpha = global_alpha_val) +
-        geom_text(aes(label = round(mean, 1)), position = position_stack(hjust = .5)) + # position = position_dodge(width = 0.9), vjust = -0.5) +
-        # geom_text(aes(label = round(mean, 1)),
-        #           position = position_stack(vjust = .9)) +
-        #{if(length(filtered_scens) == 1) geom_text(aes(label = round(mean, 1)), position = position_stack(vjust = 0.9))} +
+        geom_text(aes(label = round(mean, 1)), position = position_dodge(width = 0.9), vjust = -0.5) +
         scale_fill_hue(direction = 1) +
         coord_flip() +
         theme_minimal() +
