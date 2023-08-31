@@ -23,8 +23,15 @@ run_ithim_setup(
   NSAMPLES = 1,
   BUS_WALK_TIME = 5,
   RAIL_WALK_TIME = 15,
-  MMET_CYCLING = 4.63,
-  MMET_WALKING = 2.53,
+  CYCLING_MET = 6.8,
+  WALKING_MET = 3.5,
+  PASSENGER_MET = 1.3,
+  CAR_DRIVER_MET = 2.5,
+  MOTORCYCLIST_MET = 2.8,
+  SEDENTARY_ACTIVITY_MET = 1.3,
+  LIGHT_ACTIVITY_MET = 1.3,
+  MODERATE_PA_MET = 4,
+  VIGOROUS_PA_MET = 8,
   PM_CONC_BASE = 50,
   PM_TRANS_SHARE = 0.225,
   PA_DOSE_RESPONSE_QUANTILE = F,
@@ -108,9 +115,23 @@ run_ithim_setup(
 
 \item{RAIL_WALK_TIME}{lognormal parameter: duration of walk to rail stage}
 
-\item{MMET_CYCLING}{lognormal parameter: mMETs when cycling}
+\item{CYCLING_MET}{lognormal parameter: METs when cycling}
 
-\item{MMET_WALKING}{lognormal parameter: mMETs when walking}
+\item{WALKING_MET}{lognormal parameter: METs when walking}
+
+\item{PASSENGER_MET}{lognormal parameter: MET value associated with being a passenger on public transport}
+
+\item{CAR_DRIVER_MET}{lognormal parameter: MET value associated with being a car driver}
+
+\item{MOTORCYCLIST_MET}{lognormal parameter: MET value associated with being a motorcyclist}
+
+\item{SEDENTARY_ACTIVITY_MET}{lognormal parameter: MET value associated with sedentary activity}
+
+\item{LIGHT_ACTIVITY_MET}{lognormal parameter: MET value associated with light activity}
+
+\item{MODERATE_PA_MET}{lognormal parameter: MET value associated with moderate activity}
+
+\item{VIGOROUS_PA_MET}{lognormal parameter: MET value associated with vigorous activity}
 
 \item{PM_CONC_BASE}{lognormal parameter: background PM2.5 concentration}
 
