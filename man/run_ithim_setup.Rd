@@ -6,23 +6,23 @@
 \usage{
 run_ithim_setup(
   seed = 1,
-  CITY = "accra",
+  CITY = "bogota",
   speeds = NULL,
   PM_emission_inventory = NULL,
   CO2_emission_inventory = NULL,
-  DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
-  AGE_RANGE = c(0, 150),
+  DIST_CAT = c("0-2 km", "2-6 km", "6+ km"),
+  AGE_RANGE = c(15, 69),
   ADD_WALK_TO_PT_TRIPS = T,
   ADD_BUS_DRIVERS = T,
   ADD_CAR_DRIVERS = T,
   ADD_TRUCK_DRIVERS = T,
-  ADD_MOTORCYCLE_FLEET = F,
+  ADD_MOTORCYCLE_FLEET = T,
   ADD_PERSONAL_MOTORCYCLE_TRIPS = "no",
   REFERENCE_SCENARIO = "baseline",
   PATH_TO_LOCAL_DATA = NULL,
   NSAMPLES = 1,
-  BUS_WALK_TIME = 5,
-  RAIL_WALK_TIME = 15,
+  BUS_WALK_TIME = 16,
+  RAIL_WALK_TIME = 12.5,
   CYCLING_MET = 6.8,
   WALKING_MET = 3.5,
   PASSENGER_MET = 1.3,
@@ -32,8 +32,8 @@ run_ithim_setup(
   LIGHT_ACTIVITY_MET = 1.3,
   MODERATE_PA_MET = 4,
   VIGOROUS_PA_MET = 8,
-  PM_CONC_BASE = 50,
-  PM_TRANS_SHARE = 0.225,
+  PM_CONC_BASE = 12.69,
+  PM_TRANS_SHARE = 0.42,
   PA_DOSE_RESPONSE_QUANTILE = F,
   AP_DOSE_RESPONSE_QUANTILE = F,
   BACKGROUND_PA_SCALAR = 1,
@@ -50,11 +50,10 @@ run_ithim_setup(
   CASUALTY_EXPONENT_FRACTION_PED = 0.5,
   SIN_EXPONENT_SUM_VEH = 2,
   CASUALTY_EXPONENT_FRACTION_VEH = 0.5,
-  CALL_INDIVIDUAL_SIN = F,
-  BUS_TO_PASSENGER_RATIO = 0.022,
-  CAR_OCCUPANCY_RATIO = 0.6,
-  TRUCK_TO_CAR_RATIO = 0.21,
-  FLEET_TO_MOTORCYCLE_RATIO = 0.01,
+  BUS_TO_PASSENGER_RATIO = 0.0389,
+  CAR_OCCUPANCY_RATIO = 0.625,
+  TRUCK_TO_CAR_RATIO = 0.3,
+  FLEET_TO_MOTORCYCLE_RATIO = 0.441,
   PROPORTION_MOTORCYCLE_TRIPS = 0,
   PM_EMISSION_INVENTORY_CONFIDENCE = 1,
   CO2_EMISSION_INVENTORY_CONFIDENCE = 1,
@@ -63,19 +62,20 @@ run_ithim_setup(
   DISTANCE_SCALAR_PT = 1,
   DISTANCE_SCALAR_CYCLING = 1,
   DISTANCE_SCALAR_MOTORCYCLE = 1,
-  SCENARIO_NAME = "GLOBAL",
-  SCENARIO_INCREASE = 0.05,
-  BUS_DRIVER_PROP_MALE = 0.99,
-  BUS_DRIVER_MALE_AGERANGE = "18, 65",
-  BUS_DRIVER_FEMALE_AGERANGE = "18, 65",
-  TRUCK_DRIVER_PROP_MALE = 0.99,
+  BUS_DRIVER_PROP_MALE = 0.98,
+  BUS_DRIVER_MALE_AGERANGE = "19, 65",
+  BUS_DRIVER_FEMALE_AGERANGE = "19, 65",
+  TRUCK_DRIVER_PROP_MALE = 0.98,
   TRUCK_DRIVER_MALE_AGERANGE = "18, 65",
   TRUCK_DRIVER_FEMALE_AGERANGE = "18, 65",
   COMMERCIAL_MBIKE_PROP_MALE = 0.99,
   COMMERCIAL_MBIKE_MALE_AGERANGE = "18, 65",
   COMMERCIAL_MBIKE_FEMALE_AGERANGE = "18, 65",
   MINIMUM_PT_TIME = 3,
-  MODERATE_PA_CONTRIBUTION = 0.5
+  MODERATE_PA_CONTRIBUTION = 0.5,
+  CALL_INDIVIDUAL_SIN = F,
+  SCENARIO_NAME = "GLOBAL",
+  SCENARIO_INCREASE = 0.05
 )
 }
 \arguments{
@@ -169,8 +169,6 @@ run_ithim_setup(
 
 \item{CASUALTY_EXPONENT_FRACTION_VEH}{beta parameter: casualty exponent contribution to SIN_EXPONENT_SUM_VEH where victim mode = a vehicle}
 
-\item{CALL_INDIVIDUAL_SIN}{logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes}
-
 \item{BUS_TO_PASSENGER_RATIO}{beta parameter: number of buses per passenger}
 
 \item{CAR_OCCUPANCY_RATIO}{beta parameter: number of people per car (including driver)}
@@ -195,11 +193,6 @@ run_ithim_setup(
 
 \item{DISTANCE_SCALAR_MOTORCYCLE}{lognormal parameter: scalar to adjust for biase in motorcycle distance travelled}
 
-\item{SCENARIO_NAME}{name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO, 
-MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)}
-
-\item{SCENARIO_INCREASE}{increase of given mode in each scenario (currently used in GLOBAL, BOGOTA, LATAM and AFRICA_INDIA scenarios)}
-
 \item{BUS_DRIVER_PROP_MALE}{scalar: proportion of bus drivers that are male}
 
 \item{BUS_DRIVER_MALE_AGERANGE}{character: age range of male bus drivers}
@@ -221,6 +214,13 @@ MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)}
 \item{MINIMUM_PT_TIME}{scalar: minimum time that person spends on public transport}
 
 \item{MODERATE_PA_CONTRIBUTION}{scalar: proportion contribution of moderate PA in Leisure MVPA}
+
+\item{CALL_INDIVIDUAL_SIN}{logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes}
+
+\item{SCENARIO_NAME}{name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO, 
+MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)}
+
+\item{SCENARIO_INCREASE}{increase of given mode in each scenario (currently used in GLOBAL, BOGOTA, LATAM and AFRICA_INDIA scenarios)}
 }
 \value{
 ithim_object list of objects for onward use.
