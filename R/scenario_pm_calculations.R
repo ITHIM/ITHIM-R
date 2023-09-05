@@ -63,7 +63,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # concentration contributed by non-transport share (remains constant across the scenarios)
   non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
   
-  ## adding in travel not covered in the synthetic trip set, based on distances travelled relative to car, set in VEHICLE_INVENTORY
+  # adding in travel not covered in the synthetic trip set
   emission_dist <- dist
   
   ## get emission factor by dividing inventory by baseline distance. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
@@ -104,14 +104,23 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # Dan: Read parameter distributions
   ## Dan: Body mass
   body_mass_df <- read.csv(paste0(global_path,"ventilation_rate/BodyMass.csv"))
+  colnames(body_mass_df)[1] <- 'age'
+  
   ## Dan: Energy Conversion Factor (ECF)
   ecf_df <- read.csv(paste0(global_path,"ventilation_rate/ECF.csv"))
+  colnames(ecf_df)[1] <- 'age'
+  
   ## Dan: Resting Metabolic Rate (RMR)
   rmr_df <- read.csv(paste0(global_path,"ventilation_rate/RMR.csv"))
+  colnames(rmr_df)[1] <- 'age'
+  
   ## Dan: Normalized maximum oxygen uptake rate (NVO2max)
   nvo2max_df <- read.csv(paste0(global_path,"ventilation_rate/NVO2max.csv"))
+  colnames(nvo2max_df)[1] <- 'age'
+  
   ## Dan: Ventilation from Oxygen Uptake (vent_from_oxygen)
   vent_from_oxygen_df <- read.csv(paste0(global_path,"ventilation_rate/VentilationFromOxygenUptake.csv"))
+  colnames(vent_from_oxygen_df)[1] <- 'age'
   
   # Dan: MET values for each mode/activity. These values come from the Compendium
   # Dan: Lambed told me that we need v-rates for everyone. I assigned to 
