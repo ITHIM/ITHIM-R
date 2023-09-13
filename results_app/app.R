@@ -281,7 +281,7 @@ server <- function(input, output, session) {
       if (in_int_pathway == "Yes")
         updated_dose <- dose_level2
     }
-    else if (x == "level2"){
+    else if (x == "level3"){
       updated_dose <- dose_pathway_level3
       if (in_int_pathway == "Yes")
         updated_dose <- dose_level3
