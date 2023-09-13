@@ -381,17 +381,27 @@ server <- function(input, output, session) {
           plotly::ggplotly(ggplot(data.frame()))
         else{
           
+          # aes(x = city, y = mean, fill = scenario) +
+          #   geom_col(position = "dodge", alpha = global_alpha_val) +
+          #   geom_text(aes(label = round(mean, 1)), position = position_dodge(width = 0.9), vjust = -0.5) +
+          #   scale_fill_hue(direction = 1) +
+          #   coord_flip() +
+          #   theme_minimal() +
+          #   scale_fill_manual(values = scen_colours) +
+          #   labs(y = ylab) + 
+          #   facet_wrap(vars(mode))
+          # 
           gg <- ggplot(ld) +
             aes(x = city, y = metric_100k, fill = scenario) +
             {if(in_CIs == "Yes") geom_boxplot(position=position_dodge2(), aplha = global_alpha_val)} + # geom_violin()} +# geom_boxplot(position = position_dodge(width = 1.5))} +
-            {if(in_CIs == "No") geom_col(width = 0.5, alpha = global_alpha_val)}+
+            {if(in_CIs == "No") geom_col(width = 0.5, position = "dodge", alpha = global_alpha_val)}+
             # {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), hjust = -5, size = 3, colour = text_colour)}+
             # {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), position = position_stack(vjust = 0.9), size = 3, colour = text_colour)} +
             {if(in_CIs == "No") geom_text(aes(label = round(metric_100k, 1)), position = position_dodge(width = 0.9), vjust = -0.5) } +
             scale_fill_hue(direction = 1) +
             coord_flip() +
             theme_minimal() +
-            facet_grid(vars(), vars(dose))  +
+            facet_wrap(vars(dose)) + #acet_grid(vars(), vars(dose))  +
             scale_fill_manual(values = scen_colours) +
             labs(title = y_lab,
                  x = "", #expression(harmful %<->% benefits), 
