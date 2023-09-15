@@ -549,8 +549,9 @@ inj_counts_list_total <- inj_counts_list %>% group_by(measure, cas_mode, city, s
 inj_counts_list <- rbind(inj_counts_list, inj_counts_list_total)
 
 
-# write to csv
+# write to csv with and without output version number
 readr::write_csv(inj_counts_list, paste0('results/multi_city/inj/inj_counts_',output_version,'.csv')) # table containing all the fatality counts
+readr::write_csv(inj_counts_list, paste0('results/multi_city/inj/inj_counts.csv'))
 ```
 
 
@@ -806,8 +807,9 @@ baseline_counts_km$value <- round((baseline_counts_km$value /(baseline_counts_km
 rd <- rbind(rd, baseline_counts_km )
 
 
-# output csv
+# output csv with and without output version number
 readr::write_csv(rd,paste0( 'results/multi_city/inj/injury_risks_per_billion_kms_',output_version,'.csv'))
+readr::write_csv(rd,paste0( 'results/multi_city/inj/injury_risks_per_billion_kms.csv'))
 ```
 
 
@@ -940,8 +942,9 @@ baseline_counts_pop <- left_join(baseline_counts_agg, pop_df, by = c('city'))
 
 # add active travel 
 active_travel <- baseline_counts_pop %>% filter(mode == 'cycle' | mode == 'pedestrian')
-active_travel <- active_travel %>% group_by(city, scenario, country, continent, measure ) %>% summarise(
-                                   value = sum(value), model_population = sum(model_population), 
+active_travel <- active_travel %>% group_by(city, scenario, country, continent, measure, model_population 
+                                            ) %>% summarise(
+                                   value = sum(value), 
                                    mode ='active_travel')
 
 baseline_counts_pop <- rbind(baseline_counts_pop, active_travel)
@@ -953,9 +956,12 @@ baseline_counts_pop <- left_join(baseline_counts_pop, true_distances, by = c('ci
 
 injury_risks_per_100k <- rbind(injury_risks_per_100k, baseline_counts_pop)
 
-# write to csv
+# write to csv with and without output version number
 readr::write_csv(injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'), paste0('results/multi_city/inj/injury_risks_per_100k_pop_',output_version,'.csv'))
+
+readr::write_csv(injury_risks_per_100k %>% filter(mode != 'Total' & scenario != 'Total'), paste0('results/multi_city/inj/injury_risks_per_100k_pop.csv'))
 ```
+
 
 
 ```{r }
@@ -976,8 +982,9 @@ true_distances_df_at <- true_distances_df %>% filter(stage_mode == 'cycle' | sta
 true_distances_df_at <- true_distances_df_at %>% group_by(city, scenario) %>% summarise(stage_mode = 'active_travel', distance = sum(distance))
 true_distances_df <- rbind(true_distances_df, true_distances_df_at) 
 
-# write to csv
+# write to csv with and without output version number
 readr::write_csv(true_distances_df, paste0('results/multi_city/inj/distances_',output_version,'.csv'))
+readr::write_csv(true_distances_df, paste0('results/multi_city/inj/distances.csv'))
 ```
 
 
@@ -1166,8 +1173,9 @@ baseline_counts_dur <- left_join(baseline_counts_dur,true_distances, by = c('cit
 # add baseline rate to predicted rates
 rd_hours <- rbind(rd_hours, baseline_counts_dur )
 
-# write as csv
+# write as csv with and without output version number
 readr::write_csv(rd_hours, paste0('results/multi_city/inj/injury_risks_per_100million_h_',output_version,'.csv'))
+readr::write_csv(rd_hours, paste0('results/multi_city/inj/injury_risks_per_100million_h.csv'))
 ```
 
 

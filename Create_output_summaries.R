@@ -28,3 +28,4 @@ rmarkdown::render('injury_tables.Rmd', params = list(output_version = output_ver
 
 # rename output .html files
 file.rename('injury_tables.html', paste0('injury_tables_',output_version,'.html'))
+

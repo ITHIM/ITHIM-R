@@ -704,9 +704,9 @@ writexl::write_xlsx(list(PM_2.5_emission_inventory = sl,
                          CO2_conc = co2_conc,
                          summary_stats_PM2.5_CO2 = bind_rows(l)), path = output_file)
 
-# create csv file (summary_stats_Pm2.5_CO2 tab in Excel file above)
+# create csv file (summary_stats_Pm2.5_CO2 tab in Excel file above) with and without output version number
 write_csv(bind_rows(l), paste0('results/multi_city/AP/desc_stats_', output_version ,".csv"))
-
+write_csv(bind_rows(l), paste0('results/multi_city/AP/desc_stats.csv'))
 
 ```
 

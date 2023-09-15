@@ -1191,6 +1191,8 @@ deaths_pathway <- rbindlist(health$deaths$pathway_hb, use.names = T) #|> filter(
 #                     path = output_file)
  
 # Export ylls HB
+
+# write csv with output version number
 write.csv(ylls,
             paste0('results/multi_city/health_impacts/ylls_',output_version,'.csv'),
             row.names = F)
@@ -1205,6 +1207,24 @@ write.csv(deaths,
 # Export deaths PATHWAY_HB
 write.csv(deaths_pathway,
             paste0('results/multi_city/health_impacts/deaths_pathway_',output_version,'.csv'),
+            row.names = F)
+
+
+# write csv without output version number
+write.csv(ylls,
+            paste0('results/multi_city/health_impacts/ylls.csv'),
+            row.names = F)
+# Export ylls PATHWAY_HB
+write.csv(ylls_pathway,
+            paste0('results/multi_city/health_impacts/ylls_pathway.csv'),
+            row.names = F)
+# Export deaths HB
+write.csv(deaths,
+            paste0('results/multi_city/health_impacts/deaths.csv'),
+            row.names = F)
+# Export deaths PATHWAY_HB
+write.csv(deaths_pathway,
+            paste0('results/multi_city/health_impacts/deaths_pathway.csv'),
             row.names = F)
 
 
