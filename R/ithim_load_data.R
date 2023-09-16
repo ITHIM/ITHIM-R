@@ -382,7 +382,11 @@ ithim_load_data <- function(speeds =
   PROPORTION_INJURIES_AGERANGE <<- deaths_injuries_agerange/deaths_injuries
   
   # rename GBD_Data columns
-  names(GBD_DATA)[c(1,3,4,5)] <- c('measure','sex','age','cause')
+  GBD_DATA <- GBD_DATA %>% rename(
+    "measure" = "measure_name.x",
+    "sex" = "sex_name",
+    "age" = "age_name",
+    "cause" = "cause_name")
   GBD_DATA$sex <- tolower(GBD_DATA$sex)
   
   # change layout of GBD_DATA and only keep relevant information
@@ -394,17 +398,14 @@ ithim_load_data <- function(speeds =
   burden_of_disease$max_age <- as.numeric(sapply(burden_of_disease$age,function(x)str_split(x,'-')[[1]][2]))
   # when we sum ages, we assume that all age boundaries used coincide with the GBD age boundaries.
   # the rate calculated is the proportion of the number of people in the country with that disease over the population of the country
-  burden_of_disease$rate <- apply(burden_of_disease,1,
-                                  function(x){
-                                    subtab <- subset(GBD_DATA,measure==as.character(x[1])&sex==as.character(x[2])&cause==as.character(x[4])&
-                                                       min_age>=as.numeric(x[6])&max_age<=as.numeric(x[7])); 
-                                    sum(subtab$val)/sum(subtab$population)
-                                    }
-                                  )
+  GBD_DATA$rate = GBD_DATA$val / GBD_DATA$population
+  burden_of_disease <- burden_of_disease %>% 
+    left_join(GBD_DATA[,c("measure", "sex", "cause", "min_age", "max_age", "rate")], 
+              by=c("measure", "sex", "cause", "min_age", "max_age"))
   
   # scale disease burden of country to the city using population of city and assuming that the disease rate for the
   # city is the same as for the entire country
-  burden_of_disease$burden <- burden_of_disease$population*burden_of_disease$rate
+  burden_of_disease$burden <- burden_of_disease$population * burden_of_disease$rate
   burden_of_disease$burden[is.na(burden_of_disease$burden)] <- 0
   
   DISEASE_BURDEN <<- burden_of_disease

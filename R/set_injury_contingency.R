@@ -55,14 +55,24 @@ set_injury_contingency <- function(injuries){
   }
   
   injury_table <- list()
-  
+
   # define column names to keep
   for(type in c(injury_table_types)){ # loop through 'whw' and 'nov'
-    keep_names <- names(injury_list[[type]])%in%c('cas_mode','strike_mode','age_cat','cas_gender') 
+    # Temporal injuries dataset
+    temp_df = injury_list[[type]]
+    # Columns of interest
+    group_columns <- c('cas_mode','strike_mode','age_cat','cas_gender') 
+    # Filter columns available in injuries dataset
+    keep_names <- group_columns[group_columns %in% names(temp_df)]
     
     # summarise list of injuries by cas_mode, strike_mode, age_cat and cas_gender where this information exists
-    setDT(injury_list[[type]])
-    injury_summary <- as.data.frame(injury_list[[type]][,.(count=.N,weight=mean(weight)),by=c(names(injury_list[[type]])[keep_names])])
+    # setDT(injury_list[[type]])
+    injury_summary <- temp_df %>% 
+      group_by(across(keep_names)) %>% 
+      summarise(
+        count = dplyr::n(),
+        weight = mean(weight)
+      ) %>% as.data.frame()
     
     # Conditional to restrict the number of injuries in dataset that don't have
     # cas_age nor cas_gender
@@ -75,18 +85,17 @@ set_injury_contingency <- function(injuries){
     # 
     
     ## create matrices for all cas and strike mode combinations (and all age and gender combinations) with 0 counts
-    injury_table[[type]] <- expand.grid(lapply(as.data.frame(injury_list[[type]])[,keep_names],unique))
+    temp_table <- expand.grid(lapply(as.data.frame(temp_df)[,keep_names],unique))
     
-    # match summary numbers to table indices
-    injury_summary_index <- apply(injury_summary[,-c(ncol(injury_summary)-0:1)],1,function(x)which(apply(injury_table[[type]], 1, function(y) all(x==y))))
+    # Merge counts and weights to created matrix
+    temp_table <- temp_table %>% 
+      left_join(injury_summary, by=group_columns)
+    # Fill NAs because of no injuries in some cas and strike mode combinations
+    temp_table$count[is.na(temp_table$count)] <- 0
+    temp_table$weight[is.na(temp_table$weight)] <- mean(temp_df$weight)
     
-    # initialise all at 0
-    injury_table[[type]]$count <- 0
-    injury_table[[type]]$weight <- mean(injury_list[[type]]$weight)
-    
-    # slot in non-zero counts where accidents exist
-    injury_table[[type]]$count[injury_summary_index] <- injury_summary[,ncol(injury_summary)-1]
-    injury_table[[type]]$weight[injury_summary_index] <- injury_summary[,ncol(injury_summary)]
+    injury_table[[type]] <- temp_table
+    rm(temp_df, temp_table)
   }
   INJURY_TABLE <<- injury_table
   INJURY_TABLE_TYPES <<- injury_table_types
