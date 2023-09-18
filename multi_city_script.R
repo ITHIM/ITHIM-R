@@ -58,29 +58,13 @@ if (!require("drpa",character.only = TRUE)) {
   print("")
 }
 
-# All cities
-# cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
-#             'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
-#             'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
-#             'osorno', 'puerto_montt', 'san_antonio',
-#             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia',
-#             'accra', 'bangalore', 'cape_town','delhi', 'vizag', 'kisumu', 'nairobi', 'port_louis')
 
-# # latam
-# cities = c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
-#            'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
-#            'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
-#            'osorno', 'puerto_montt', 'san_antonio',
-#            'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
-# 
-# #African & Indian cities
-#cities <- c('accra','cape_town','kisumu', 'nairobi', 'port_louis', 'bangalore', 'delhi', 'vizag')
 
 cities <- 'bogota'
 
 
-input_parameter_file <- "InputParameters_v35.0.xlsx" # file containing the local and global input parameters
-
+input_parameter_file <- "Bogota_InputParameters_v0.1.xlsx" # file containing the local and global input parameters
+# 
 
 ## Get the current repo sha
 gitArgs <- c("rev-parse", "--short", "HEAD", ">", file.path("repo_sha"))
