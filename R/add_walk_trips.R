@@ -50,10 +50,12 @@ add_walk_trips <- function(pt_trips){
   walk_trips <- pt_trips[pt_trips$stage_mode %in% c('bus','minibus','rail','subway'),] 
 
   # only keep one PT stage (the one with the highest stage duration) for each trip id, as only want to add walk to pt once for each trip
-  walk_trips <- walk_trips %>% group_by(trip_id) %>% filter(stage_duration == max(stage_duration)) %>% slice(1) %>% ungroup() 
+  walk_trips <- walk_trips %>% 
+    group_by(trip_id) %>% 
+    filter(stage_duration == max(stage_duration)) %>% 
+    slice(1) %>% 
+    ungroup() 
   
-  
-    
   # find trip stages that remain unchanged
   pt_trips_unchanged <- anti_join(pt_trips, walk_trips, by = 'id')
   
@@ -73,14 +75,18 @@ add_walk_trips <- function(pt_trips){
                               walk_trips$stage_duration_new)
   
   # Remove walk_to_pt duration from trip duration for bus trips
-  pt_trips_to_change$stage_duration <- ifelse(((pt_trips_to_change$stage_duration > BUS_WALK_TIME + min_pt_time) & 
-                                       (pt_trips_to_change$stage_mode == 'bus' | pt_trips_to_change$stage_mode == 'minibus')),
-                                      pt_trips_to_change$stage_duration - BUS_WALK_TIME, pt_trips_to_change$stage_duration)
+  pt_trips_to_change$stage_duration <- ifelse(
+    ((pt_trips_to_change$stage_duration > BUS_WALK_TIME + min_pt_time) & 
+       (pt_trips_to_change$stage_mode == 'bus' | pt_trips_to_change$stage_mode == 'minibus')),
+    pt_trips_to_change$stage_duration - BUS_WALK_TIME, 
+    pt_trips_to_change$stage_duration)
 
   # Remove walk_to_pt duration from trip duration for rail trips
-  pt_trips_to_change$stage_duration <- ifelse(((pt_trips_to_change$stage_duration > RAIL_WALK_TIME + min_pt_time) &
-                              (pt_trips_to_change$stage_mode == 'rail' | pt_trips_to_change$stage_mode == 'subway')), 
-                            pt_trips_to_change$stage_duration - RAIL_WALK_TIME, pt_trips_to_change$stage_duration)
+  pt_trips_to_change$stage_duration <- ifelse(
+    ((pt_trips_to_change$stage_duration > RAIL_WALK_TIME + min_pt_time) &
+       (pt_trips_to_change$stage_mode == 'rail' | pt_trips_to_change$stage_mode == 'subway')), 
+    pt_trips_to_change$stage_duration - RAIL_WALK_TIME, 
+    pt_trips_to_change$stage_duration)
   
   # Correct walk trips distance
   walk_trips$stage_distance_new <- (walk_trips$stage_duration_new / 60) * VEHICLE_INVENTORY$speed[VEHICLE_INVENTORY$stage_mode=='pedestrian']
@@ -105,14 +111,17 @@ add_walk_trips <- function(pt_trips){
   walk_trips$stage_duration <- walk_trips$stage_duration_new
   walk_trips$stage_mode <- walk_trips$stage_mode_new
   
-  walk_trips <- walk_trips %>% dplyr::select(-c(stage_distance_new, stage_duration_new, stage_mode_new))
+  walk_trips <- walk_trips %>% 
+    dplyr::select(-c(stage_distance_new, stage_duration_new, stage_mode_new))
   
 
   
   # merge datasets to calculate total trip distance by summing across the various stage distances
   all_trips <- rbind(pt_trips_to_change, walk_trips, pt_trips_unchanged)
   
-  trip_dist <- all_trips %>% group_by(trip_id) %>% summarise(trip_distance_new = sum(stage_distance))
+  trip_dist <- all_trips %>% 
+    group_by(trip_id) %>% 
+    summarise(trip_distance_new = sum(stage_distance))
   
   all_trips <- full_join(all_trips, trip_dist, by = 'trip_id')
   

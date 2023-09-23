@@ -78,9 +78,11 @@ get_synthetic_from_trips <- function(){
   
   
   ## add bus trips
-  if(ADD_BUS_DRIVERS) raw_trip_set <- add_ghost_trips(raw_trip_set,prop_male = BUS_DRIVER_PROP_MALE,
-                                                      agerange_male = BUS_DRIVER_MALE_AGERANGE,
-                                                      agerange_female = BUS_DRIVER_FEMALE_AGERANGE)
+  if(ADD_BUS_DRIVERS) 
+    raw_trip_set <- add_ghost_trips(raw_trip_set,
+                                    prop_male = BUS_DRIVER_PROP_MALE,
+                                    agerange_male = BUS_DRIVER_MALE_AGERANGE,
+                                    agerange_female = BUS_DRIVER_FEMALE_AGERANGE)
   # add truck trips
   if(ADD_TRUCK_DRIVERS){
     # if car occupancy ratio is given, convert km of people travelling by car into car vehicle km
@@ -128,8 +130,11 @@ get_synthetic_from_trips <- function(){
     car_driver_scalar <<- min(1, CAR_OCCUPANCY_RATIO*1/population_in_model_ratio)
     # age ranges are not needed as car drivers are only used to calculate total vehicle km travelled for the CO2 model but are not
     # needed for the injury model unlike truck, motorcycle and bus drivers 
-    synth_pop$trip_set<- add_ghost_trips(synth_pop$trip_set,trip_mode='car_driver',
-                                    distance_ratio=car_driver_scalar*DISTANCE_SCALAR_CAR_TAXI,reference_mode='car')  }   
+    synth_pop$trip_set<- add_ghost_trips(synth_pop$trip_set,
+                                         trip_mode='car_driver',
+                                         distance_ratio=car_driver_scalar*DISTANCE_SCALAR_CAR_TAXI,
+                                         reference_mode='car')  
+  }   
  
   raw_trip_set <- NULL
   
