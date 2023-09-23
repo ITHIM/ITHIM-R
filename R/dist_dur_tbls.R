@@ -45,13 +45,13 @@ dist_dur_tbls <- function(trip_scen_sets){
   
   ## calculate all distances & durations for each scenario
   l_dist <-  l_dur <- list()
-  for (i in 1:length(SCEN)){ # loop through scenarios
+  for (i in SCEN){ # loop through scenarios
     
     # get scenario trips
-    local <- bs[bs$scenario==SCEN[i],]
+    local <- bs[bs$scenario == i,]
     local_dist <- local[,.(sum_dist=sum(stage_distance)),by='stage_mode'] # sum across distances by stage mode
     local_dur <- local[,.(sum_dur=sum(stage_duration)),by='stage_mode'] # sum across duration by stage mode
-
+    
     
     # add walk_to_pt to pedestrian, if walk_to_pt has been added
     if("walk_to_pt"%in%local_dist$stage_mode){
@@ -64,16 +64,16 @@ dist_dur_tbls <- function(trip_scen_sets){
     }
     
     # store results
-    colnames(local_dist)[2] <- SCEN[i]
+    colnames(local_dist)[2] <- i
     l_dist[[i]] <- local_dist
-    colnames(local_dur)[2] <- SCEN[i]
+    colnames(local_dur)[2] <- i
     l_dur[[i]] <- local_dur
   }
   bs <- NULL
   
   ## join distances & durations
-  for (i in 1:length(l_dist)){
-    if (i == 1){
+  for (i in names(l_dist)){
+    if (i == "baseline"){
       local_dist <- l_dist[[i]]
       local_dur <- l_dur[[i]]
     }else{
