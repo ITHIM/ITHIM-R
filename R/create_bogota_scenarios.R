@@ -125,6 +125,8 @@ create_bogota_scenarios <- function(trip_set){
   bogota_modeshares <- data.frame(c(32.6, 2.7, 0.8), # distance category 0-2km
                                   c(43.8, 24.9, 17.25), # distance category 2-6km
                                   c(23.6, 72.4, 81.95)) # distance category >6km
+  colnames(bogota_modeshares) <- DIST_CAT
+  rownames(bogota_modeshares) <- c("cycle", "car", "bus")
   
   percentage_change <- SCENARIO_INCREASE # increase of each mode as percentage of total number of trips.
   
@@ -135,38 +137,31 @@ create_bogota_scenarios <- function(trip_set){
   no_trips <- nrow(rdr_baseline) # total number of trips
   
   # proportion of total trips in each distance category
-  prop_0_2 <- nrow(rdr_baseline %>% filter(trip_distance_cat == "0-2km")) / no_trips
-  prop_2_6 <- nrow(rdr_baseline %>% filter(trip_distance_cat == "2-6km")) / no_trips
-  prop_6 <- nrow(rdr_baseline %>% filter(trip_distance_cat == "6+km")) / no_trips
-  
+  prop <- list()
+  for (i in DIST_CAT) {
+    prop[[i]] <- nrow(rdr_baseline %>% filter(trip_distance_cat == i)) / no_trips
+  }
   # initialise the proportions to be added in each scenario
   scenario_proportions <- data.frame(c(0, 0, 0), # distance category 0-2km
                                      c(0, 0, 0), # distance category 2-6km
                                      c(0, 0,0))  # distance category >6km
+  colnames(scenario_proportions) <- colnames(bogota_modeshares)
+  rownames(scenario_proportions) <- rownames(bogota_modeshares)
   
   # find the proportion of trips to be converted for each distance category and scenario
-  for (r in 1:3){
-    for (c in 1:3){
-      if (r == 1){
-        percentage_trips <- prop_0_2
-      } else if (r == 2){
-        percentage_trips <- prop_2_6
-      } else {
-        percentage_trips <- prop_6
-      }
-      scenario_proportions[c,r] <- percentage_change * bogota_modeshares[c,r] / percentage_trips
+  for (c in colnames(scenario_proportions)) {
+    for (r in rownames(scenario_proportions)) {
+      scenario_proportions[r,c] <- percentage_change * bogota_modeshares[r,c] / prop[[c]]
     }
   }
   
   # add row and column names
-  colnames(scenario_proportions) <- target_distances <- DIST_CAT
-  rownames(scenario_proportions) <- modes <- c("cycle", "car", "bus")
   SCENARIO_PROPORTIONS <<- scenario_proportions
   
   #print(scenario_proportions)
   
   # baseline scenario
-  rd_list[[1]] <- rdr
+  rd_list[["baseline"]] <- rdr
   modes_not_changeable <- c('bus_driver', 'truck', 'car_driver') # define the modes that can't be changed
   
   # create data frame containing all the trips that are not going to be changed in a scenario
@@ -178,71 +173,65 @@ create_bogota_scenarios <- function(trip_set){
   
   # Split the changeable trips by distance band, save in a new list
   rdr_changeable_by_distance <- list()
-  for (j in 1:ncol(SCENARIO_PROPORTIONS)) {
-    target_distance <- target_distances[j] # distance categories
+  for (j in colnames(SCENARIO_PROPORTIONS)) {
     rdr_changeable_by_distance[[j]] <- rdr_changeable %>% 
-      filter(trip_distance_cat == target_distance)
+      filter(trip_distance_cat == j)
   }
   rdr_changeable <- NULL
   
   # split all trips by distance band
   rdr_all_by_distance <- list()
-  for (j in 1:ncol(SCENARIO_PROPORTIONS)) {
-    target_distance <- target_distances[j]
+  for (j in colnames(SCENARIO_PROPORTIONS)) {
     rdr_all_by_distance[[j]] <- rdr %>% 
-      filter(trip_distance_cat == target_distance)
+      filter(trip_distance_cat == j)
   }
-  
   rdr <- NULL
   
   ###############################################################
   # Creation of scenarios
   scen_warning <- c()
   
-  for (i in 1:nrow(SCENARIO_PROPORTIONS)) { # Loop for each scenario
-    mode_name <- modes[i] # mode of the scenario
+  for (i in rownames(SCENARIO_PROPORTIONS)) { # Loop for each scenario
     rdr_copy <- list()
     
-    for (j in 1:ncol(SCENARIO_PROPORTIONS)) { # Loop for each distance band
+    for (j in colnames(SCENARIO_PROPORTIONS)) { # Loop for each distance band
       rdr_copy[[j]] <- rdr_changeable_by_distance[[j]] # Trips in the distance band
       
-      if (mode_name != "bus") {
+      if (i != "bus") {
         # Identify the trips_id of trips that weren't made by the trip mode
-        potential_trip_ids <- unique(rdr_copy[[j]][!rdr_copy[[j]]$trip_mode %in% c(mode_name),]$trip_id)
+        potential_trip_ids <- unique(rdr_copy[[j]][!rdr_copy[[j]]$trip_mode %in% c(i),]$trip_id)
         
         # Count the number of trips that were made by the trip mode
         current_mode_trips <- rdr_copy[[j]] %>% 
-          filter(trip_mode == mode_name) %>% distinct(trip_id) %>% nrow()
+          filter(trip_mode == i) %>% distinct(trip_id) %>% nrow()
         
       } else { # consider bus and rail trips together
         
         # Identify the trips_id of trips that weren't made by the trip mode
-        potential_trip_ids <- unique(rdr_copy[[j]][!rdr_copy[[j]]$trip_mode %in% c(mode_name ,"rail"),]$trip_id)
+        potential_trip_ids <- unique(rdr_copy[[j]][!rdr_copy[[j]]$trip_mode %in% c(i ,"rail"),]$trip_id)
         
         # Count the number of trips that were made by the trip mode
         current_mode_trips <- rdr_copy[[j]] %>% 
-          filter(trip_mode %in% c(mode_name, "rail")) %>% distinct(trip_id) %>% 
+          filter(trip_mode %in% c(i, "rail")) %>% distinct(trip_id) %>% 
           nrow()
       } # End else
       
-      target_percent <- SCENARIO_PROPORTIONS[i,j]
-      
       # These number of trips will be reassigned
       n_trips_to_change <- round(length(unique(rdr_all_by_distance[[j]]$trip_id)) * 
-                                   target_percent / 100) 
+                                   SCENARIO_PROPORTIONS[i,j] / 100) 
       #print(n_trips_to_change)
       
       if (length(potential_trip_ids) > 0 & n_trips_to_change > 0) {
-       
+        
         # if the number of trips that could be changed equals the number of trips that need to be changed
         if (length(potential_trip_ids) == n_trips_to_change) { 
           change_trip_ids <- potential_trip_ids
-        
-        # if there are less trips to change than should be changed  
+          
+          # if there are less trips to change than should be changed  
         } else if (length(potential_trip_ids) < n_trips_to_change){
           
           # save name of scenario
-          scen_warning <- c(scen_warning, rownames(SCENARIO_PROPORTIONS)[i])
+          scen_warning <- c(scen_warning, i)
           
           # convert all trips possible
           change_trip_ids <- potential_trip_ids
@@ -255,12 +244,12 @@ create_bogota_scenarios <- function(trip_set){
         
         # convert the trips to the new mode
         change_trips <- rdr_copy[[j]][rdr_copy[[j]]$trip_id %in% change_trip_ids,] # extract trips to be changed
-        change_trips$trip_mode <- mode_name  # assign a new trip mode name
-        change_trips$stage_mode <- mode_name # assign a new stage mode name
+        change_trips$trip_mode <- i  # assign a new trip mode name
+        change_trips$stage_mode <- i # assign a new stage mode name
         
         # update the trip duration based on the new mode speeds 
         change_trips$stage_duration <- change_trips$stage_distance * 60 /
-          MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode == mode_name] 
+          MODE_SPEEDS$speed[MODE_SPEEDS$stage_mode == i] 
         
         # Replace trips reassigned in the trip dataset and save all trips in a new list
         rdr_copy[[j]] <- 
@@ -294,8 +283,8 @@ create_bogota_scenarios <- function(trip_set){
                                   scenario = paste0('Scenario ',i))
     }
     
-    rdr_scen$scenario <- paste0("sc_", rownames(SCENARIO_PROPORTIONS)[i]) # add scenario name
-    rd_list[[i + 1]] <- rdr_scen # create output list by adding trips for each scenario
+    rdr_scen$scenario <- paste0("sc_", i) # add scenario name
+    rd_list[[i]] <- rdr_scen # create output list by adding trips for each scenario
   } # End loop for scenarios
   
   
