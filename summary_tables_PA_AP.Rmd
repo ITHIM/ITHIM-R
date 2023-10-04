@@ -372,6 +372,11 @@ for (x in 1:length(cities)) {
   summary <- cbind(summary$scenario ,round(summary[,2:5], digits = 1))
   
   # add scenario specific PM2.5 concentration levels 
+  ## Dan - TODO: This can be problematic because we are assuming that the order from "pm_conc_pp"
+  ## is the same as in "scenario_pm". And maybe it is, but don't know if this will
+  ## apply always.
+  ## To fix it we have to export "scenario_pm" with names and here compare the order of
+  ## both objects.
   summary$scenario_PM <- round(io[[cities[x]]]$outcomes$scenario_pm, digits=2)
   
   # find location of reference scenario in vector of all scenarios
@@ -475,7 +480,9 @@ for (city in cities) { # loop through cities
   
 }
 
-co2_conc$Scenario <- new_scen_names
+# Dan: here the order is different (bus before car)
+# co2_conc$Scenario <- new_scen_names
+co2_conc$Scenario <- sapply(co2_conc$Scenario, FUN = get_qualified_scen_name)
 
 # print to html
 print(kable(co2_conc))
@@ -494,10 +501,13 @@ limit = 100
 for (x in 1:length(cities)) { # loop through cities
   
   n_col <- ncol(io[[cities[x]]]$outcomes$mmets) # define columns of interests
-  names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- new_scen_names
+  # names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- new_scen_names
+  change_names <- which(grepl("_mmet", names(io[[cities[x]]]$outcomes$mmets), fixed = TRUE))
+  names(io[[cities[x]]]$outcomes$mmets)[change_names] <- sapply(gsub("_mmet" , "", names(io[[cities[x]]]$outcomes$mmets)[change_names]), FUN = get_qualified_scen_name)
   
   # extract data of interest
-  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:new_scen_names[length(new_scen_names)], factor_key = TRUE)
+  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, 
+                      Baseline:new_scen_names[length(new_scen_names)], factor_key = TRUE)
   
   # create the boxplots
   y <- ggplot(data_long, aes(x = scenario, y = mmet, fill = scenario)) +
@@ -520,10 +530,13 @@ for (x in 1:length(cities)) { # loop through cities
 for (x in 1:length(cities)) { # loop through the cities
   
   n_col <- ncol(io[[cities[x]]]$outcomes$mmets) # find the number of columns
-  names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- new_scen_names # assign new column names
+  # names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- new_scen_names # assign new column names
+  change_names <- which(grepl("_mmet", names(io[[cities[x]]]$outcomes$mmets), fixed = TRUE))
+  names(io[[cities[x]]]$outcomes$mmets)[change_names] <- sapply(gsub("_mmet" , "", names(io[[cities[x]]]$outcomes$mmets)[change_names]), FUN = get_qualified_scen_name)
   
   # create dataframe with individual mMET values
-  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:new_scen_names[length(new_scen_names)], factor_key = TRUE)
+  data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, 
+                      Baseline:new_scen_names[length(new_scen_names)], factor_key = TRUE)
   
   # create summary stats
   summary <- as.data.frame(data_long %>% group_by(scenario) %>% 
@@ -552,7 +565,10 @@ for (city in cities){ # loop through cities
   n_col <- ncol(io[[cities[x]]]$outcomes$mmets) # find number of columns of interest
   
   # extract the mean mMET values and create dataframe
-  td <- round(colMeans(io[[city]]$outcomes$mmets[,(n_col - scen_length):n_col], na.rm = T), 1) %>%
+  # Dan: we change mmets column names before
+  # td <- round(colMeans(io[[city]]$outcomes$mmets[,(n_col - scen_length):n_col], na.rm = T), 1) %>%
+  #   as.data.frame() %>% tibble::rownames_to_column()
+  td <- round(colMeans(io[[city]]$outcomes$mmets[,new_scen_names], na.rm = T), 1) %>%
     as.data.frame() %>% tibble::rownames_to_column()
   names(td) <- c('Scenario', city)
   
@@ -564,7 +580,8 @@ for (city in cities){ # loop through cities
   
 }
 
-cl$Scenario <- new_scen_names
+# We dont need this anymore
+# cl$Scenario <- new_scen_names
 
 # print to html 
 print(kable(cl))
@@ -645,7 +662,9 @@ for (x in 1:length(cities)) { # loop through cities
   n_col <- ncol(io[[cities[x]]]$outcomes$mmets) # find number of columns
   
   # assign new scenario names to columns
-  names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - scen_length):n_col] <- new_scen_names
+  # names(io[[cities[x]]]$outcomes$pm_conc_pp)[(n_col - scen_length):n_col] <- new_scen_names
+  change_names <- which(grepl("pm_conc_", names(io[[cities[x]]]$outcomes$pm_conc_pp), fixed = TRUE))
+  names(io[[cities[x]]]$outcomes$pm_conc_pp)[change_names] <- sapply(gsub("pm_conc_" , "", names(io[[cities[x]]]$outcomes$pm_conc_pp)[change_names]), FUN = get_qualified_scen_name)
   
   # extract data with PM2.5 exposure levels for each scenario
   data_long <- gather(io[[cities[x]]]$outcomes$pm_conc_pp, scenario, pm_conc,
@@ -660,6 +679,11 @@ for (x in 1:length(cities)) { # loop through cities
   summary2 <- cbind(summary2$scenario, round(summary2[,2:5], digits = 1))
   
   # add total PM concentration levels for each scenario
+  ## Dan - TODO: This can be problematic because we are assuming that the order from "pm_conc_pp"
+  ## is the same as in "scenario_pm". And maybe it is, but don't know if this will
+  ## apply always.
+  ## To fix it we have to export "scenario_pm" with names and here compare the order of
+  ## both objects.
   summary2$scenario_PM <- round(io[[cities[x]]]$outcomes$scenario_pm, 2)
   
   # calculate difference to reference scenario
@@ -677,7 +701,10 @@ for (x in 1:length(cities)) { # loop through cities
   td <- round(colSums(io[[cities[x]]]$outcomes$co2_conc, na.rm = T), 1) %>%
     as.data.frame() %>% tibble::rownames_to_column()
   names(td) <- c('Scenario', 'CO2')
-  td$Scenario <- new_scen_names
+  
+  # Dan: here the order is different (bus before car)
+  # td$Scenario <- new_scen_names
+  td$Scenario <- sapply(td$Scenario, FUN = get_qualified_scen_name)
   
   
   # print various boxplots and tables to html
@@ -723,13 +750,15 @@ for (x in 1:length(cities)) { # loop through cities
   n_col <- ncol(io[[cities[x]]]$outcomes$mmets) # find number of columns
   
   # assign new scenario names
-  names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- new_scen_names
+  # Dan: This is not needed anymore
+  # names(io[[cities[x]]]$outcomes$mmets)[(n_col - scen_length):n_col] <- new_scen_names
   
   # extract mMETs data
   data_long <- gather(io[[cities[x]]]$outcomes$mmets, scenario, mmet, Baseline:new_scen_names[length(new_scen_names)], factor_key = TRUE)
   
   # create boxplots
-  y <- ggplot(data_long, aes(x = scenario, y = mmet, fill = scenario)) + geom_boxplot(outlier.shape = NA) + ggtitle(cities[x]) + 
+  y <- ggplot(data_long, aes(x = scenario, y = mmet, fill = scenario)) + 
+    geom_boxplot(outlier.shape = NA) + ggtitle(cities[x]) + 
     labs(y = "Weekly MMET", x = "Scenarios") + ylim(0, limit)
   
   # print to html
