@@ -59,7 +59,8 @@ gen_pa_rr <- function(mmets_pp, conf_int = F){
     
     #Apply PA DR function to all doses as one long vector
     return_vector <- drpa::dose_response(cause = pa_dn, outcome_type = outcome,
-                                         dose = doses_vector, quantile = quant, confidence_intervals = conf_int)
+                                         dose = doses_vector, quantile = quant, confidence_intervals = conf_int, 
+                                         censor_method = "WHO-DRL")
     
     ##take segments of returned vector corresponding to each scenario
     for (i in 1:length(SCEN_SHORT_NAME)) {
