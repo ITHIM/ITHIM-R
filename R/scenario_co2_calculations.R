@@ -31,7 +31,7 @@ scenario_co2_calculations <- function(dist){
                                                            ] %>% as.numeric())/(emission_dist$baseline %>% as.numeric())
   
   # get new emissions by multiplying emission factor by scenario distance.
-  trans_emissions <- emission_dist[,0:NSCEN+2]*t(repmat(ordered_efs,NSCEN+1,1))
+  trans_emissions <- emission_dist[,SCEN]*t(repmat(ordered_efs,NSCEN+1,1))
   
   # augment with travel emission contributions that aren't included in the distance calculation
   # loop through modes without an assigned distance
