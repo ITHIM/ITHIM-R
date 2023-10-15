@@ -69,7 +69,8 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   ## get emission factor by dividing inventory by baseline distance. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
   ordered_efs <- (VEHICLE_INVENTORY$PM_emission_inventory[match(emission_dist$stage_mode,VEHICLE_INVENTORY$stage_mode)] %>% as.numeric())/(emission_dist$baseline %>% as.numeric())
   ## get new emission by multiplying emission factor by scenario distance.
-  trans_emissions <- emission_dist[,0:NSCEN+2]*t(repmat(ordered_efs,NSCEN+1,1))
+  trans_emissions <- emission_dist[,SCEN]*t(repmat(ordered_efs,NSCEN+1,1))
+  
   ## augment with travel emission contributions that aren't included in distance calculation
   for(mode_type in which(!VEHICLE_INVENTORY$stage_mode%in%emission_dist$stage_mode))
     trans_emissions[nrow(trans_emissions)+1,] <- VEHICLE_INVENTORY$PM_emission_inventory[mode_type]
@@ -78,7 +79,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   baseline_sum <- sum(trans_emissions[[SCEN[1]]], na.rm = T)
   conc_pm <- c()
   ## in this sum, the non-transport pm is constant; the transport emissions scale the transport contribution (PM_TRANS_SHARE) to the base level (PM_CONC_BASE)
-  for(i in 1:length(SCEN_SHORT_NAME)){
+  for(i in 1:length(SCEN)){
     conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN[i]]], na.rm = T)/baseline_sum
   }
   
@@ -263,7 +264,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   #----
   
   # Create df with scenarios and concentration
-  conc_pm_df <- data.frame(scenario = unique(trip_set$scenario),
+  conc_pm_df <- data.frame(scenario = SCEN,
                            conc_pm = conc_pm)
   
   # Join trip_set with PM concentration df
