@@ -15,29 +15,54 @@ options(scipen = 10000)
 # }
 
 # hard coded repo_sha
-repo_sha <- "39912ff9"
+# repo_sha <- "c601003c"
+
+## Get the current repo sha
+gitArgs <- c("rev-parse", "--short", "HEAD", ">", file.path("repo_sha"))
+# Use shell command for Windows as it's failing with system2 for Windows (giving status 128)
+if (.Platform$OS.type == "windows"){
+  shell(paste(append("git", gitArgs), collapse = " "), wait = T)
+} else {
+  system2("git", gitArgs, wait = T)
+}
+
+repo_sha <-  as.character(readLines(file.path("repo_sha")))
+
 # repo_sha <- "3d115e17"
 output_version <- paste0(repo_sha, "_test_run")
 github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
-# github_path <- "../"
+github_path <- "../"
 rel_path_health <- paste0(github_path, "results/multi_city/health_impacts/")
 # 
 # rel_path <- "../results/multi_city/health_impacts/"
-ylls <- read_csv(paste0(rel_path_health, "ylls_",output_version,".csv"))
-deaths <- read_csv(paste0(rel_path_health, "deaths_",output_version,".csv"))
+# ylls <- read_csv(paste0(rel_path_health, "ylls_",output_version,".csv"))
+# deaths <- read_csv(paste0(rel_path_health, "deaths_",output_version,".csv"))
+
+ylls <- read_csv(paste0(rel_path_health, "ylls.csv"))
+deaths <- read_csv(paste0(rel_path_health, "deaths.csv"))
+
 ylls$measures <- "Years of Life Lost (YLLs)"
 deaths$measures <- "Deaths"
 
-ylls_pathway <- read_csv(paste0(rel_path_health, "ylls_pathway_",output_version,".csv"))
-deaths_pathway <- read_csv(paste0(rel_path_health, "deaths_pathway_",output_version,".csv"))
+# ylls_pathway <- read_csv(paste0(rel_path_health, "ylls_pathway_",output_version,".csv"))
+# deaths_pathway <- read_csv(paste0(rel_path_health, "deaths_pathway_",output_version,".csv"))
+
+ylls_pathway <- read_csv(paste0(rel_path_health, "ylls_pathway.csv"))
+deaths_pathway <- read_csv(paste0(rel_path_health, "deaths_pathway.csv"))
+
 ylls_pathway$measures <- "Years of Life Lost (YLLs)"
 deaths_pathway$measures <- "Deaths"
 
 rel_path_inj <- paste0(github_path, "results/multi_city/inj/")
 
-injury_risks_per_billion_kms_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_billion_kms_",output_version,".csv"))
-injury_risks_per_100k_pop <- read_csv(paste0(rel_path_inj, "injury_risks_per_100k_pop_",output_version,".csv"))
-injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_100million_h_",output_version,".csv"))
+# injury_risks_per_billion_kms_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_billion_kms_",output_version,".csv"))
+# injury_risks_per_100k_pop <- read_csv(paste0(rel_path_inj, "injury_risks_per_100k_pop_",output_version,".csv"))
+# injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_100million_h_",output_version,".csv"))
+
+injury_risks_per_billion_kms_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_billion_kms.csv"))
+injury_risks_per_100k_pop <- read_csv(paste0(rel_path_inj, "injury_risks_per_100k_pop.csv"))
+injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_100million_h.csv"))
+
 
 # Make sure all injury datasets have distinct rows and are in wide format (for mean, lb, and ub values)
 # injury_risks_per_billion_kms_lng <- injury_risks_per_billion_kms_lng |> 
@@ -481,16 +506,12 @@ server <- function(input, output, session) {
     in_per_100 <- input$in_per_100k
     local_dataset <- combined_health_dataset
     
-    print("in_per_100")
-    print(in_per_100)
-    
     if (in_int_pathway == "Yes")
       local_dataset <- combined_health_dataset
     else
       local_dataset <- combined_health_dataset_pathway
     
     if (in_CIs == "Yes"){
-      
       
       ld <- local_dataset |>
         filter(measures == in_measure) |>
@@ -543,6 +564,7 @@ server <- function(input, output, session) {
         ld <- plyr::rbind.fill(ld, total_dose)
       }
     }else{
+      
       ld <- local_dataset |>
         filter(measures == in_measure) |>
         filter(!str_detect(cause, "lb|ub")) |>
