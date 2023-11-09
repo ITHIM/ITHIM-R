@@ -7,9 +7,6 @@
     <loc>https://ithim.github.io/ITHIM-R/authors.html</loc>
   </url>
   <url>
-    <loc>https://ithim.github.io/ITHIM-R/How_To_Run_ITHIM.html</loc>
-  </url>
-  <url>
     <loc>https://ithim.github.io/ITHIM-R/index.html</loc>
   </url>
   <url>
@@ -52,37 +49,13 @@
     <loc>https://ithim.github.io/ITHIM-R/reference/complete_trip_distance_duration.html</loc>
   </url>
   <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/compute_evppi.html</loc>
-  </url>
-  <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/create_africa_india_scenarios.html</loc>
-  </url>
-  <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/create_all_scenarios.html</loc>
-  </url>
-  <url>
     <loc>https://ithim.github.io/ITHIM-R/reference/create_bogota_scenarios.html</loc>
-  </url>
-  <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/create_cycle_scenarios.html</loc>
   </url>
   <url>
     <loc>https://ithim.github.io/ITHIM-R/reference/create_global_scenarios.html</loc>
   </url>
   <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/create_latam_scenarios.html</loc>
-  </url>
-  <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/create_max_mode_share_scenarios.html</loc>
-  </url>
-  <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/create_scenario.html</loc>
-  </url>
-  <url>
     <loc>https://ithim.github.io/ITHIM-R/reference/create_synth_pop.html</loc>
-  </url>
-  <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/create_walk_scenario.html</loc>
   </url>
   <url>
     <loc>https://ithim.github.io/ITHIM-R/reference/dirichlet_pointiness.html</loc>
@@ -92,9 +65,6 @@
   </url>
   <url>
     <loc>https://ithim.github.io/ITHIM-R/reference/dist_dur_tbls.html</loc>
-  </url>
-  <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/error_handling.html</loc>
   </url>
   <url>
     <loc>https://ithim.github.io/ITHIM-R/reference/gen_ap_rr.html</loc>
@@ -142,15 +112,6 @@
     <loc>https://ithim.github.io/ITHIM-R/reference/join_hb_and_injury.html</loc>
   </url>
   <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/parallel_evppi_for_AP.html</loc>
-  </url>
-  <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/PA_dose_response.html</loc>
-  </url>
-  <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/population_attributable_fraction.html</loc>
-  </url>
-  <url>
     <loc>https://ithim.github.io/ITHIM-R/reference/run_ithim.html</loc>
   </url>
   <url>
@@ -175,13 +136,7 @@
     <loc>https://ithim.github.io/ITHIM-R/reference/set_vehicle_inventory.html</loc>
   </url>
   <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/summarise_ithim_inputs.html</loc>
-  </url>
-  <url>
     <loc>https://ithim.github.io/ITHIM-R/reference/total_mmet.html</loc>
-  </url>
-  <url>
-    <loc>https://ithim.github.io/ITHIM-R/reference/trim_glm_object.html</loc>
   </url>
   <url>
     <loc>https://ithim.github.io/ITHIM-R/reference/walk_to_pt_and_combine_scen.html</loc>
