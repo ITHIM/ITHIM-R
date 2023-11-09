@@ -27,25 +27,18 @@ if (.Platform$OS.type == "windows"){
 }
 
 repo_sha <-  as.character(readLines(file.path("repo_sha")))
-
-# repo_sha <- "3d115e17"
+# repo_sha <- "f7292509"
 output_version <- paste0(repo_sha, "_test_run")
 github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
-github_path <- "../"
+# github_path <- "../"
 rel_path_health <- paste0(github_path, "results/multi_city/health_impacts/")
-# 
-# rel_path <- "../results/multi_city/health_impacts/"
-# ylls <- read_csv(paste0(rel_path_health, "ylls_",output_version,".csv"))
-# deaths <- read_csv(paste0(rel_path_health, "deaths_",output_version,".csv"))
+ 
 
 ylls <- read_csv(paste0(rel_path_health, "ylls.csv"))
 deaths <- read_csv(paste0(rel_path_health, "deaths.csv"))
 
 ylls$measures <- "Years of Life Lost (YLLs)"
 deaths$measures <- "Deaths"
-
-# ylls_pathway <- read_csv(paste0(rel_path_health, "ylls_pathway_",output_version,".csv"))
-# deaths_pathway <- read_csv(paste0(rel_path_health, "deaths_pathway_",output_version,".csv"))
 
 ylls_pathway <- read_csv(paste0(rel_path_health, "ylls_pathway.csv"))
 deaths_pathway <- read_csv(paste0(rel_path_health, "deaths_pathway.csv"))
@@ -55,14 +48,9 @@ deaths_pathway$measures <- "Deaths"
 
 rel_path_inj <- paste0(github_path, "results/multi_city/inj/")
 
-# injury_risks_per_billion_kms_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_billion_kms_",output_version,".csv"))
-# injury_risks_per_100k_pop <- read_csv(paste0(rel_path_inj, "injury_risks_per_100k_pop_",output_version,".csv"))
-# injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_100million_h_",output_version,".csv"))
-
 injury_risks_per_billion_kms_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_billion_kms.csv"))
 injury_risks_per_100k_pop <- read_csv(paste0(rel_path_inj, "injury_risks_per_100k_pop.csv"))
 injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_100million_h.csv"))
-
 
 # Make sure all injury datasets have distinct rows and are in wide format (for mean, lb, and ub values)
 # injury_risks_per_billion_kms_lng <- injury_risks_per_billion_kms_lng |> 
@@ -71,9 +59,16 @@ injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks
 #   dplyr::filter(n == 1L) |> 
 #   dplyr::select(-n)
 #   pivot_wider(injury_risks_per_billion_kms_lng, names_from = measure, values_from = value)
-injury_risks_per_billion_kms_lng <- injury_risks_per_billion_kms_lng |> dplyr::select(-mode_distance) |> distinct() |> pivot_wider(names_from = measure, values_from = value)
-injury_risks_per_100k_pop <- injury_risks_per_100k_pop |> distinct()  |> pivot_wider(names_from = measure, values_from = value)
-injury_risks_per_100million_h_lng <- injury_risks_per_100million_h_lng |> distinct()  |> pivot_wider(names_from = measure, values_from = value)
+injury_risks_per_billion_kms_lng <- injury_risks_per_billion_kms_lng |> 
+  dplyr::select(-mode_distance) |> 
+  distinct() |> 
+  pivot_wider(names_from = measure, values_from = value)
+injury_risks_per_100k_pop <- injury_risks_per_100k_pop |> 
+  distinct()  |> 
+  pivot_wider(names_from = measure, values_from = value)
+injury_risks_per_100million_h_lng <- injury_risks_per_100million_h_lng |> 
+  distinct()  |> 
+  pivot_wider(names_from = measure, values_from = value)
 
 # # Input params  
 # input_parameter_file_path <- paste0(github_path, "InputParameters_v28.0.xlsx")
@@ -132,9 +127,12 @@ cities[cities$country == 'Chile' & cities$city != 'santiago',]$continent <- "Sma
 cities[cities$continent == 'Africa/Asia',]$continent <- "African/Asian cities"
 cities[cities$continent == 'Latin_America',]$continent <- "Big Latin American cities"
 
-
 combined_health_dataset <- rbind(ylls, deaths)
 combined_health_dataset_pathway <- rbind(ylls_pathway, deaths_pathway)
+
+# Keep it only for those cities on which we have health data
+cities <- cities |> filter(city %in% unique(combined_health_dataset$city))
+
 
 ren_scen_health <- function(df){
   df[df$scenario == "motorcycle"  | df$scenario == "Motorcycle",]$scenario <- "MOT_SC"
@@ -157,14 +155,14 @@ per_100k <- c("Per 100k")
 
 scens <- c("Cycling Scenario" = "CYC_SC",
            "Car Scenario" = "CAR_SC",
-           "Bus Scenario" = "BUS_SC",
-           "Motorcycle Scenario" = "MOT_SC")
+           "Bus Scenario" = "BUS_SC")#,
+           #"Motorcycle Scenario" = "MOT_SC")
 
 inj_scens <- c("Baseline" = "Baseline",
                "Cycling Scenario" = "CYC_SC",
                "Car Scenario" = "CAR_SC",
-               "Bus Scenario" = "BUS_SC",
-               "Motorcycle Scenario" = "MOT_SC")
+               "Bus Scenario" = "BUS_SC")#,
+               #"Motorcycle Scenario" = "MOT_SC")
 
 dose <- ylls |> filter(!is.na(level1)) |> distinct(dose)  |> pull()
 dose_level2 <- ylls |> filter(!is.na(level2)) |> distinct(dose) |> pull()
@@ -406,37 +404,21 @@ server <- function(input, output, session) {
           plotly::ggplotly(ggplot(data.frame()))
         else{
           
-          # aes(x = city, y = mean, fill = scenario) +
-          #   geom_col(position = "dodge", alpha = global_alpha_val) +
-          #   geom_text(aes(label = round(mean, 1)), position = position_dodge(width = 0.9), vjust = -0.5) +
-          #   scale_fill_hue(direction = 1) +
-          #   coord_flip() +
-          #   theme_minimal() +
-          #   scale_fill_manual(values = scen_colours) +
-          #   labs(y = ylab) + 
-          #   facet_wrap(vars(mode))
-          # 
-          gg <- ggplot(ld) +
-            aes(x = city, y = metric_100k, fill = scenario) +
-            {if(in_CIs == "Yes") geom_boxplot(position=position_dodge2(), aplha = global_alpha_val)} + # geom_violin()} +# geom_boxplot(position = position_dodge(width = 1.5))} +
-            {if(in_CIs == "No") geom_col(width = 0.5, position = "dodge", alpha = global_alpha_val)}+
-            # {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), hjust = -5, size = 3, colour = text_colour)}+
-            # {if(in_CIs == "No" && length(filtered_scens) == 1) geom_text(aes(label = round(metric_100k)), position = position_stack(vjust = 0.9), size = 3, colour = text_colour)} +
-            {if(in_CIs == "No") geom_text(aes(label = round(metric_100k, 1)), position = position_dodge(width = 0.9), vjust = -0.5) } +
+          gg <- ggplot(ld, aes(x = metric_100k, y = dose, fill = scenario)) +
+            {if(in_CIs == "No") geom_col(position=position_dodge2(), alpha = global_alpha_val)} +
+            {if(in_CIs == "No") geom_text(aes(label = round(metric_100k, 1)), position = position_dodge(width = 0.9), vjust = -0.5)} +
+            {if(in_CIs == "Yes") geom_boxplot(data = ld, aes(y = metric_100k, x = dose, fill = scenario), 
+                     width = 0.5, position=position_dodge2(), alpha = global_alpha_val)} +
+            {if(in_CIs == "Yes") coord_flip()} +
             scale_fill_hue(direction = 1) +
-            coord_flip() +
             theme_minimal() +
-            facet_wrap(vars(dose)) + #acet_grid(vars(), vars(dose))  +
             scale_fill_manual(values = scen_colours) +
             labs(title = y_lab,
-                 x = "", #expression(harmful %<->% benefits), 
-                 y = y_lab,
-                 subtitle = "subtitle",
-                 caption = "caption")
+                 y = ifelse(in_CIs == "Yes", y_lab, ""),
+                 x = ifelse(in_CIs == "No", y_lab, ""))
           
-          plotly::ggplotly(gg) |> plotly::layout(boxmode = "group",
-                                                 # title = list(text = expression(harmful %<->% benefits)),
-                                                 margin = m#list(l = 10, r = 10, b = 10, t = 50, pad = 20)
+          plotly::ggplotly(gg) |> plotly::layout(boxmode = "group"#,
+                                                 #margin = m
                                                  )
         }
     }else{
