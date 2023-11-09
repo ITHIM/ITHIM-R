@@ -67,8 +67,7 @@ injury_risks_per_100k_pop <- injury_risks_per_100k_pop |>
   distinct()  |> 
   pivot_wider(names_from = measure, values_from = value)
 injury_risks_per_100million_h_lng <- injury_risks_per_100million_h_lng |> 
-  distinct()  |> 
-  pivot_wider(names_from = measure, values_from = value)
+  distinct()  |> pivot_wider(names_from = measure, values_from = value)
 
 # # Input params  
 # input_parameter_file_path <- paste0(github_path, "InputParameters_v28.0.xlsx")
