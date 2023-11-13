@@ -83,10 +83,10 @@ motorcycle,lb,46.794,Public Transport,bogota,Colombia,Latin_America,12522377.227
 pedestrian,lb,12.6112,Public Transport,bogota,Colombia,Latin_America,7280968.798019574,2912387.5192078296
 truck,lb,0.1667,Public Transport,bogota,Colombia,Latin_America,7015283.119971363,866084.3357989338
 active_travel,lb,14.8227,Public Transport,bogota,Colombia,Latin_America,9899996.608436424,3276141.3817657256
-pedestrian,mean,16.2553,Baseline,bogota,Colombia,Latin_America,7036405.397213884,2814562.1588855535
+bus,mean,0.4217,Baseline,bogota,Colombia,Latin_America,38671360.09008505,4774241.986430254
+car,mean,2.7677,Baseline,bogota,Colombia,Latin_America,28286931.08923174,2049777.6151617202
 cycle,mean,40.9107,Baseline,bogota,Colombia,Latin_America,3038269.4221631694,421981.8641893291
 motorcycle,mean,57.8501,Baseline,bogota,Colombia,Latin_America,14056673.359607723,924781.1420794554
-car,mean,2.7677,Baseline,bogota,Colombia,Latin_America,28286931.08923174,2049777.6151617202
+pedestrian,mean,16.2553,Baseline,bogota,Colombia,Latin_America,7036405.397213884,2814562.1588855535
 truck,mean,0.4929,Baseline,bogota,Colombia,Latin_America,7016780.9186329665,866269.2492139465
-bus,mean,0.4217,Baseline,bogota,Colombia,Latin_America,38671360.09008505,4774241.986430254
 active_travel,mean,19.4699,Baseline,bogota,Colombia,Latin_America,10074674.819377054,3236544.0230748826
