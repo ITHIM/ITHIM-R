@@ -145,6 +145,8 @@ create_bogota_scenarios <- function(trip_set){
   scenario_proportions <- data.frame(c(0, 0, 0), # distance category 0-2km
                                      c(0, 0, 0), # distance category 2-6km
                                      c(0, 0,0))  # distance category >6km
+  
+  # add row and column names
   colnames(scenario_proportions) <- colnames(bogota_modeshares)
   rownames(scenario_proportions) <- rownames(bogota_modeshares)
   
@@ -154,8 +156,7 @@ create_bogota_scenarios <- function(trip_set){
       scenario_proportions[r,c] <- percentage_change * bogota_modeshares[r,c] / prop[[c]]
     }
   }
-  
-  # add row and column names
+
   SCENARIO_PROPORTIONS <<- scenario_proportions
   
   #print(scenario_proportions)

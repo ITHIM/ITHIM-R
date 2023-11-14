@@ -7,7 +7,8 @@
 # ITHIM-R
 
 Development of the **Integrated Transport and Health Impact Modelling Tool (ITHIM)** in R, also known as ITHIM version 3.0. Started in January 2018.
-This document aims to be a comprehensive record of the calculations in the ITHIM pipeline, specifically the ITHIM- R package. Some details here (and the default inputs to the functions) are specific to the Accra version of that model, as Accra has been the setting for construction of the prototype.
+This document aims to be a comprehensive record of the calculations in the ITHIM pipeline, specifically the ITHIM- R package. 
+
 
 ### Citation
 
@@ -96,4 +97,4 @@ In order to setup the model, we need a fixed list of tables/datasets, such as:
 
 ## How to run the model?
 
-For setup, reading all the required dataset and initialising all variables, we call `run_ithim_setup` and to run the model, we call `run_ithim`
+For setup, reading all the required datasets and initialising all variables, we call `run_ithim_setup` and to run the model, we call `run_ithim`. The function used to call both `run_ithim_setup` and `run_ithim` is the `multi_city_script` which also reads in the relevant input parameter file. 
