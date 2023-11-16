@@ -21,6 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/how-to-run-ITHIM.html">How to run ITHIM</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -73,21 +79,21 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function performs the following steps:</p>
-<ul><li><p>the ventilation rates per mode are defined - these parameters are fixed</p></li>
-<li><p>the exposure factor rates by activity are defined - these parameters are fixed</p></li>
+<ul><li><p>the exposure factor rates by activity are defined - these parameters are fixed</p></li>
 <li><p>calculate pm concentration not related to transport</p></li>
 <li><p>calculate PM emission factors for each mode by dividing total emissions by distances travelled</p></li>
 <li><p>calculate PM emissions for each mode in each scenario by multiplying the scenario distance
   by the emission factors</p></li>
 <li><p>for modes without any assigned distance, use the PM emissions from the VEHICLE_INVENTORY instead</p></li>
 <li><p>calculate the total PM concentrations for each scenario</p></li>
-<li><p>add ventilation and exposure factors to the trip set by stage mode</p></li>
+<li><p>add exposure factors to the trip set by stage mode</p></li>
 <li><p>add total scenario PM concentrations to the trip set</p></li>
-<li><p>add the inhaled air and total PM (in micro grams) to the trip set</p></li>
-<li><p>define the amount of time per day spent as leisure sedentary screen time, 
-  non-discretionary time and other time - fixed</p></li>
+<li><p>calculate ventilation rate for each stage taking into account demographic characteristics and exposure factors</p></li>
+<li><p>calculate the inhaled air and total PM (in micro grams) in the trip set</p></li>
+<li><p>calculate the amount of time per day spent in sleep, moderate and vigorous
+  activities</p></li>
 <li><p>add total time spent travelling by each participant to the trip set</p></li>
-<li><p>calculate the sleep and the rest ventilation rates</p></li>
+<li><p>calculate ventilation rate for sleep, moderate and vigorous activities</p></li>
 <li><p>for each participant in the synthetic population (with travel component), 
   calculate the total air inhaled, the total PM inhaled and 
   the total PM concentration inhaled for each scenario</p></li>
