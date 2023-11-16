@@ -17,3 +17,4 @@ renv/
 .DS_Store
 .quarto
 docs
+inst/doc
