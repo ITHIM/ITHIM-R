@@ -51,7 +51,10 @@ Imports:
     stringr
 Suggests:
     testthat,
-    earth
+    earth,
+    knitr,
+    rmarkdown
 RoxygenNote: 7.2.3
 URL: https://ithim.github.io/ITHIM-R/, https://github.com/ITHIM/ITHIM-R
 BugReports: https://github.com/ITHIM/ITHIM-R/issues
+VignetteBuilder: knitr
