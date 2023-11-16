@@ -13,3 +13,7 @@ docs
 .Renviron
 repo_sha
 renv/
+.Rdata
+.httr-oauth
+.DS_Store
+.quarto
