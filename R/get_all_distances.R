@@ -64,13 +64,17 @@ get_all_distances <- function(ithim_object){
   total_synth_pop <- nrow(SYNTHETIC_POPULATION) # find the size of the total synthetic population
   
   # Recalculate distance by scaling to the total population (rather than the synthetic population) 
-  dist <- trip_scen_sets %>% group_by(stage_mode, scenario) %>% 
-    summarise(ave_dist = sum(stage_distance) / total_synth_pop * sum(pop$population)) %>% spread(scenario, ave_dist)
+  dist <- trip_scen_sets %>% 
+    group_by(stage_mode, scenario) %>% 
+    summarise(
+      ave_dist = sum(stage_distance) / total_synth_pop * sum(pop$population)
+    ) %>% 
+    spread(scenario, ave_dist)
 
   # add 'walk_to_pt' stage distances to 'pedestrian' stage distances
   if ('pedestrian' %in% dist$stage_mode && 'walk_to_pt' %in% dist$stage_mode){
-    dist[dist$stage_mode == "pedestrian",][2:ncol(dist)] <- dist[dist$stage_mode == "pedestrian",][2:ncol(dist)] +
-      dist[dist$stage_mode == "walk_to_pt",][2:ncol(dist)]
+    dist[dist$stage_mode == "pedestrian",][SCEN] <- dist[dist$stage_mode == "pedestrian",][SCEN] +
+      dist[dist$stage_mode == "walk_to_pt",][SCEN]
 
     dist <- dist %>% filter(stage_mode != 'walk_to_pt')
   }
@@ -82,7 +86,7 @@ get_all_distances <- function(ithim_object){
   
   # find individual age / gender distances in synthetic population:
   trips_age_gender <- trip_scen_sets %>%
-    group_by (age_cat,sex,stage_mode, scenario) %>%
+    group_by (age_cat, sex, stage_mode, scenario) %>%
     summarise(dist_age = sum(stage_distance))
   
   # find total trip distances by mode and scenario in the synthetic population
@@ -93,7 +97,8 @@ get_all_distances <- function(ithim_object){
   # create data frame for each age, sex, mode and scenario combination containing the specific 
   # distance travelled for this combination in the synthetic population and the total
   # distance travelled by the synthetic population for this specific mode and scenario
-  trips_age_gender <- left_join(trips_age_gender, trips_scen_mode, by = c('stage_mode', 'scenario'))
+  trips_age_gender <- left_join(trips_age_gender, trips_scen_mode, 
+                                by = c('stage_mode', 'scenario'))
   
   # find proportion of total trip distance for each age and gender category distance in the synthetic population
   trips_age_gender$prop <- trips_age_gender$dist_age / trips_age_gender$dist_synth
@@ -113,7 +118,8 @@ get_all_distances <- function(ithim_object){
   
   
   # distances for injuries calculation but also parameterisation of Poisson injury regression model
-  ithim_object$inj_distances <- distances_for_injury_function(journeys = journeys, dist = dist)
+  ithim_object$inj_distances <- distances_for_injury_function(journeys = journeys, 
+                                                              dist = dist)
   
   return(ithim_object)
 }

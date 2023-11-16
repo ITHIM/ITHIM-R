@@ -66,7 +66,7 @@ total_mmet <- function(trip_scen_sets){
     part_id <- match(individual_data$participant_id,synth_pop$participant_id)
     synth_pop[[paste0(SCEN_SHORT_NAME[i],'_mmet')]][part_id] <- 
       synth_pop[[paste0(SCEN_SHORT_NAME[i],'_mmet')]][part_id] + individual_data$cycling_mmet_base *
-      MMET_CYCLING + individual_data$walking_mmet_base * MMET_WALKING
+      (CYCLING_MET -1) + individual_data$walking_mmet_base * (WALKING_MET - 1)
   }
   
   # create dataframe containing the total mMET (sum of travel and non_travel mMET) for 

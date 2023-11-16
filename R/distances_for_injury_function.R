@@ -94,7 +94,11 @@ distances_for_injury_function <- function(journeys, dist){
 
     
   ## add distance columns for baseline to injury data
-  injuries_for_model <- add_distance_columns(injury_table,mode_names,true_distances_0,dist,scenarios=SCEN[1])
+  injuries_for_model <- add_distance_columns(injury_table,
+                                             mode_names,
+                                             true_distances_0,
+                                             dist,
+                                             scenarios=SCEN[1])
   
   # determine whether there are any age and sex combinations for which we don't have any distance information
   zero_dist <- list()
@@ -149,7 +153,8 @@ distances_for_injury_function <- function(journeys, dist){
   for (n in 1:(NSCEN+1)){ # loop through baseline and all scenarios
     for(type in INJURY_TABLE_TYPES){ 
       # remove zero distances
-      injuries_list[[n]][[type]] <- subset(injuries_list[[n]][[type]],strike_distance>0&cas_distance>0)
+      injuries_list[[n]][[type]] <- subset(injuries_list[[n]][[type]],
+                                           strike_distance>0&cas_distance>0)
       injuries_list[[n]][[type]]$injury_gen_age <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_gender),
                                                                as.character(injuries_list[[n]][[type]]$age_cat)),1,
                                                                 function(x)paste(x,collapse='_')) # create an age sex column
@@ -157,10 +162,11 @@ distances_for_injury_function <- function(journeys, dist){
       injuries_list[[n]][[type]]$cas_strike_mode <- apply(cbind(as.character(injuries_list[[n]][[type]]$cas_mode),
                                                                 as.character(injuries_list[[n]][[type]]$strike_mode)),1,
                                                           function(x)paste(x,collapse='_'))
-      injuries_list[[n]][[type]] <- injuries_list[[n]][[type]] %>% filter(cas_strike_mode != 'car_car' & cas_strike_mode != 'bus_bus' 
-                                                                          & cas_strike_mode != 'motorcycle_motorcycle'
-                                                                          & cas_strike_mode != 'cycle_cycle'
-                                                                          & cas_strike_mode != 'truck_truck' )
+      injuries_list[[n]][[type]] <- injuries_list[[n]][[type]] %>% 
+        filter(cas_strike_mode != 'car_car' & cas_strike_mode != 'bus_bus'
+               & cas_strike_mode != 'motorcycle_motorcycle'
+               & cas_strike_mode != 'cycle_cycle'
+               & cas_strike_mode != 'truck_truck' )
     }
   }
   
@@ -265,8 +271,12 @@ distances_for_injury_function <- function(journeys, dist){
     # remove strike and cas mode pairs where cas mode = strike mode
     injuries_for_model[[1]][[type]]$cas_strike_mode <- apply(cbind(as.character(injuries_for_model[[1]][[type]]$cas_mode),
                                                                    as.character(injuries_for_model[[1]][[type]]$strike_mode)),1,function(x)paste(x,collapse='_'))
-    injuries_for_model[[1]][[type]] <- injuries_for_model[[1]][[type]] %>% filter(cas_strike_mode != 'car_car' & cas_strike_mode != 'bus_bus' & cas_strike_mode != 'motorcycle_motorcycle'
-                                                                        & cas_strike_mode != 'cycle_cycle'& cas_strike_mode != 'truck_truck' )
+    injuries_for_model[[1]][[type]] <- injuries_for_model[[1]][[type]] %>% 
+      filter(cas_strike_mode != 'car_car' & 
+               cas_strike_mode != 'bus_bus' & 
+               cas_strike_mode != 'motorcycle_motorcycle' & 
+               cas_strike_mode != 'cycle_cycle' & 
+               cas_strike_mode != 'truck_truck' )
     
     
     

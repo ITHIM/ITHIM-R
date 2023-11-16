@@ -9,6 +9,7 @@ library(doRNG)
 library(future.apply) 
 library(voi) #install_github("chjackson/voi")
 library(readxl)
+library(rlist)
 
 if (!require("drpa",character.only = TRUE)) {
   print('Installing "drpa" package...')
@@ -31,7 +32,7 @@ cities <- c('bogota')
 nsamples <- 2
 
 
-voi_analysis <- F # set to T if want to run VoI analysis and to F otherwise
+voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
 
 # list of potential values for the outcome_voi_list
 # 'pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
@@ -45,7 +46,7 @@ voi_analysis <- F # set to T if want to run VoI analysis and to F otherwise
 #                       'pa_liver_cancer', 'pa_ap_CVD', 'pa_total_dementia', 'pa_myeloma', 'pa_Parkinson',
 #                       'pa_head_neck_cancer', 'pa_stomach_cancer', 'inj')
 
-outcome_voi_list <- c('pa_ap_all_cause')
+outcome_voi_list <- c('pa_ap_all_cause', 'inj')
 
 
 # flag whether to run VOI analysis split by age and gender as well
@@ -53,17 +54,36 @@ voi_age_gender <- F   # set to T if want to include split and to F otherwise
 
 # add total across all outputs in VOI list for each scenario - only makes sense if results are independent of each other
 # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
-voi_add_sum <- F
+voi_add_sum <- T
 
 
-input_parameter_file <- "InputParameters_v28.0.xlsx"
-output_version <- "v0.3" # gives the version number of the output documents, independent of the input parameter file name
+input_parameter_file <- "InputParameters_v35.0.xlsx"
 
+
+## Get the current repo sha
+gitArgs <- c("rev-parse", "--short", "HEAD", ">", file.path("repo_sha"))
+# Use shell command for Windows as it's failing with system2 for Windows (giving status 128)
+if (.Platform$OS.type == "windows"){
+  shell(paste(append("git", gitArgs), collapse = " "), wait = T)
+} else {
+  system2("git", gitArgs, wait = T)
+}
+
+
+repo_sha <-  as.character(readLines(file.path("repo_sha")))
+# records the main aspects of an ithim run in the OutputVersionControl.txt document
+# text file records timestamp of run, author name, cities the script is run for, 
+# the input parameter file version used, the output version, 
+# the number of samples (which is 1 in constant mode), the path to any other input files,
+# any comments and the runtime of the code
+write_output_control = T # whether you want to save the model run specifics or not
+#output_version <- paste0(repo_sha, "_test_run") # gives the version number of the output documents, independent of the input parameter file name
+output_version <- 'v0.3'
 author <- "AKS"
 comment <- "Added CO2 emission sampling"
 
 # scenario definition
-scenario_name <- "GLOBAL"
+scenario_name <- "BOGOTA"
 reference_scenario <- 'Baseline'
 scenario_increase <- 0.05 # increase for each mode in each scenario
 
@@ -226,8 +246,15 @@ betaVariables <- c("PM_TRANS_SHARE",
                    "SIN_EXPONENT_SUM_CYCLE",
                    "SIN_EXPONENT_SUM_PED",
                    "SIN_EXPONENT_SUM_VEH")
-normVariables <- c("MMET_CYCLING",
-                   "MMET_WALKING",
+normVariables <- c('CYCLING_MET',
+                  'WALKING_MET', 
+                   'PASSENGER_MET',
+                   'CAR_DRIVER_MET',
+                   'MOTORCYCLIST_MET',
+                   'SEDENTARY_ACTIVITY_MET',
+                   'LIGHT_ACTIVITY_MET',
+                   'MODERATE_PA_MET',
+                   'VIGOROUS_PA_MET',
                    "PM_CONC_BASE",
                    "BACKGROUND_PA_SCALAR",
                    "CASUALTY_EXPONENT_FRACTION",
@@ -242,7 +269,9 @@ normVariables <- c("MMET_CYCLING",
 
 
 save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
-     background_pa_scalar,background_pa_confidence,mmet_cycling,mmet_walking,PM_emission_inventories,CO2_emission_inventories,
+     background_pa_scalar,background_pa_confidence,cycling_met,walking_met,passenger_met,
+     car_driver_met,motorcyclist_met,sedentary_activity_met,light_activity_met,moderate_pa_met,
+     PM_emission_inventories,CO2_emission_inventories,
      sin_exponent_sum,casualty_exponent_fraction, sin_exponent_sum_nov,
      sin_exponent_sum_cycle,casualty_exponent_fraction_cycle, sin_exponent_sum_ped,casualty_exponent_fraction_ped,
      sin_exponent_sum_veh,casualty_exponent_fraction_veh, pa_dr_quantile,ap_dr_quantile,
@@ -262,7 +291,7 @@ print(system.time(
   for(ci in 1:length(cities)){
     city <- cities[ci]
     print(city)
-    multi_city_ithim[[ci]] <- run_ithim_setup(NSAMPLES = nsamples,
+    multi_city_ithim[[city]] <- run_ithim_setup(NSAMPLES = nsamples,
                                               seed=ci,
                                               # from multi city script
                                               DIST_CAT = as.character(dist_cat), 
@@ -280,8 +309,15 @@ print(system.time(
                                               
                                               FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
                                               PROPORTION_MOTORCYCLE_TRIPS = proportion_motorcycle_trips[[city]],
-                                              MMET_CYCLING = mmet_cycling, 
-                                              MMET_WALKING = mmet_walking,
+                                              CYCLING_MET =	cycling_met,
+                                              WALKING_MET =	walking_met,
+                                              PASSENGER_MET =	passenger_met,
+                                              CAR_DRIVER_MET =	car_driver_met,
+                                              MOTORCYCLIST_MET =	motorcyclist_met,
+                                              SEDENTARY_ACTIVITY_MET =	sedentary_activity_met,
+                                              LIGHT_ACTIVITY_MET =	light_activity_met,
+                                              MODERATE_PA_MET =	moderate_pa_met,
+                                              VIGOROUS_PA_MET	= vigorous_pa_met,
                                               DAY_TO_WEEK_TRAVEL_SCALAR = as.numeric(day_to_week_scalar[[city]]),
                                               SIN_EXPONENT_SUM = sin_exponent_sum,
                                               CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
@@ -335,225 +371,148 @@ print(system.time(
                                               )
     
     
+    
+    
     # for first city, store model parameters. For subsequent cities, copy parameters over.
     if(ci==1){
-      model_parameters <- names(multi_city_ithim[[ci]]$parameters)[!names(multi_city_ithim[[ci]]$parameters)%in%setting_parameters]
+      model_parameters <- names(multi_city_ithim[[city]]$parameters)[!names(multi_city_ithim[[city]]$parameters)%in%setting_parameters]
       parameter_names <- model_parameters[model_parameters!="DR_AP_LIST"]
-      parameter_samples <- sapply(parameter_names,function(x)multi_city_ithim[[ci]]$parameters[[x]])
+      parameter_samples <- sapply(parameter_names,function(x)multi_city_ithim[[city]]$parameters[[x]])
     }else{
-      for(param in model_parameters) multi_city_ithim[[ci]]$parameters[[param]] <- multi_city_ithim[[1]]$parameters[[param]]
+      for(param in model_parameters) multi_city_ithim[[city]]$parameters[[param]] <- multi_city_ithim[[1]]$parameters[[param]]
       if (!is.null(multi_city_ithim[[1]]$parameters$PM_CONC_BASE)){
         background_quantile <- plnorm(multi_city_ithim[[1]]$parameters$PM_CONC_BASE,log(pm_conc_base[[1]][1]),log(pm_conc_base[[1]][2]))
-        multi_city_ithim[[ci]]$parameters$PM_CONC_BASE <- qlnorm(background_quantile,log(pm_conc_base[[city]][1]),log(pm_conc_base[[city]][2]))
+        multi_city_ithim[[city]]$parameters$PM_CONC_BASE <- qlnorm(background_quantile,log(pm_conc_base[[city]][1]),log(pm_conc_base[[city]][2]))
       }
       if (!is.null(multi_city_ithim[[1]]$parameters$PM_TRANS_SHARE)){
         proportion_quantile <- pbeta(multi_city_ithim[[1]]$parameters$PM_TRANS_SHARE,pm_trans_share[[1]][1],pm_trans_share[[1]][2])
-        multi_city_ithim[[ci]]$parameters$PM_TRANS_SHARE <- qbeta(proportion_quantile,pm_trans_share[[city]][1],pm_trans_share[[city]][2])
+        multi_city_ithim[[city]]$parameters$PM_TRANS_SHARE <- qbeta(proportion_quantile,pm_trans_share[[city]][1],pm_trans_share[[city]][2])
       }
     }
     
-    # if(!parameters_only){
-    #   if(Sys.info()[['sysname']] == "Windows"){
-    #     # multi_city_ithim[[ci]]$outcomes <- list()
-    #     require(parallelsugar)
-    #     multi_city_ithim[[ci]]$outcomes <- parallelsugar::mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
-    #     
-    #     
-    #     # for(i in 1:nsamples) multi_city_ithim[[ci]]$outcomes[[i]] <- run_ithim(ithim_object = multi_city_ithim[[ci]],seed=i)
-    #   }else{
-    #     multi_city_ithim[[ci]]$outcomes <- mclapply(1:nsamples, FUN = run_ithim, ithim_object = multi_city_ithim[[ci]],mc.cores = numcores)
-    #   }
-    #   multi_city_ithim[[ci]]$DEMOGRAPHIC <- DEMOGRAPHIC
-    # }
-    
-    
-   # if(!parameters_only){
-      
-      multi_city_ithim[[ci]]$outcomes <- list()
-      doFuture::registerDoFuture()
-      run_ithm_fn <- function(nsamples, ithim_object,seed, FUN=run_ithim){
-        foreach(i=1:nsamples, .export = ls(globalenv()) ) %dorng% {   #%dopar%
-          FUN(ithim_object, seed=i)
-        }
+
+    multi_city_ithim[[city]]$outcomes <- list()
+    doFuture::registerDoFuture()
+    run_ithm_fn <- function(nsamples, ithim_object,seed, FUN=run_ithim){
+      foreach(i=1:nsamples, .export = ls(globalenv()) ) %dorng% {   #%dopar%
+        FUN(ithim_object, seed=i)
       }
-      multi_city_ithim[[ci]]$outcomes <- run_ithm_fn(nsamples,ithim_object = multi_city_ithim[[ci]], seed)
-      
-      #multi_city_ithim[[ci]]$outcomes <- run_ithim(ithim_object=multi_city_ithim[[ci]], seed = 1)
-      
-      multi_city_ithim[[ci]]$DEMOGRAPHIC <- DEMOGRAPHIC
-   # }
+    }
+    multi_city_ithim[[city]]$outcomes <- run_ithm_fn(nsamples,ithim_object = multi_city_ithim[[city]], seed)
     
+    #multi_city_ithim[[cities]]$outcomes <- run_ithim(ithim_object=multi_city_ithim[[cities]], seed = 1)
     
+    multi_city_ithim[[city]]$DEMOGRAPHIC <- DEMOGRAPHIC
+      
+   
     ## rename city-specific parameters according to city
-    for(i in 1:length(multi_city_ithim[[ci]]$parameters$PM_EMISSION_INVENTORY[[1]])){
-      extract_vals <- sapply(multi_city_ithim[[ci]]$parameters$PM_EMISSION_INVENTORY,function(x)x[[i]])
+    for(i in 1:length(multi_city_ithim[[city]]$parameters$PM_EMISSION_INVENTORY[[1]])){
+      extract_vals <- sapply(multi_city_ithim[[city]]$parameters$PM_EMISSION_INVENTORY,function(x)x[[i]])
       if(sum(extract_vals)!=0)
-        multi_city_ithim[[ci]]$parameters[[paste0('PM_EMISSION_INVENTORY_',names(multi_city_ithim[[ci]]$parameters$PM_EMISSION_INVENTORY[[1]])[i],'_',city)]] <- extract_vals
+        multi_city_ithim[[city]]$parameters[[paste0('PM_EMISSION_INVENTORY_',names(multi_city_ithim[[city]]$parameters$PM_EMISSION_INVENTORY[[1]])[i],'_',city)]] <- extract_vals
     }
-    for(i in 1:length(multi_city_ithim[[ci]]$parameters$CO2_EMISSION_INVENTORY[[1]])){
-      extract_vals <- sapply(multi_city_ithim[[ci]]$parameters$CO2_EMISSION_INVENTORY,function(x)x[[i]])
+    for(i in 1:length(multi_city_ithim[[city]]$parameters$CO2_EMISSION_INVENTORY[[1]])){
+      extract_vals <- sapply(multi_city_ithim[[city]]$parameters$CO2_EMISSION_INVENTORY,function(x)x[[i]])
       if(sum(extract_vals)!=0)
-        multi_city_ithim[[ci]]$parameters[[paste0('CO2_EMISSION_INVENTORY_',names(multi_city_ithim[[ci]]$parameters$CO2_EMISSION_INVENTORY[[1]])[i],'_',city)]] <- extract_vals
+        multi_city_ithim[[city]]$parameters[[paste0('CO2_EMISSION_INVENTORY_',names(multi_city_ithim[[city]]$parameters$CO2_EMISSION_INVENTORY[[1]])[i],'_',city)]] <- extract_vals
     }
-    for(param in setting_parameters) names(multi_city_ithim[[ci]]$parameters)[which(names(multi_city_ithim[[ci]]$parameters)==param)] <- paste0(param,'_',city)
-    multi_city_ithim[[ci]]$parameters <- multi_city_ithim[[ci]]$parameters[-which(names(multi_city_ithim[[ci]]$parameters)==paste0('PM_EMISSION_INVENTORY_',city))]
-    multi_city_ithim[[ci]]$parameters <- multi_city_ithim[[ci]]$parameters[-which(names(multi_city_ithim[[ci]]$parameters)==paste0('CO2_EMISSION_INVENTORY_',city))]
+    for(param in setting_parameters) names(multi_city_ithim[[city]]$parameters)[which(names(multi_city_ithim[[city]]$parameters)==param)] <- paste0(param,'_',city)
+    multi_city_ithim[[city]]$parameters <- multi_city_ithim[[city]]$parameters[-which(names(multi_city_ithim[[city]]$parameters)==paste0('PM_EMISSION_INVENTORY_',city))]
+    multi_city_ithim[[city]]$parameters <- multi_city_ithim[[city]]$parameters[-which(names(multi_city_ithim[[city]]$parameters)==paste0('CO2_EMISSION_INVENTORY_',city))]
     
-    parameter_names_city <- names(multi_city_ithim[[ci]]$parameters)[sapply(names(multi_city_ithim[[ci]]$parameters),function(x)grepl(x,pattern=city))]
+    parameter_names_city <- names(multi_city_ithim[[city]]$parameters)[sapply(names(multi_city_ithim[[city]]$parameters),function(x)grepl(x,pattern=city))]
     ## add to parameter names
     parameter_names <- c(parameter_names,parameter_names_city)
     ## get parameter samples and add to array of parameter samples
-    parameter_samples <- cbind(parameter_samples,sapply(parameter_names_city,function(x)multi_city_ithim[[ci]]$parameters[[x]]))
-    if(ci>1) multi_city_ithim[[ci]]$parameters <- c()
-    saveRDS(multi_city_ithim[[ci]],paste0('results/multi_city/',city,'.Rds'))
+    parameter_samples <- cbind(parameter_samples,sapply(parameter_names_city,function(x)multi_city_ithim[[city]]$parameters[[x]]))
+    #if(ci>1) multi_city_ithim[[city]]$parameters <- c()
+    
+    # save scenario names
+    scenario_names <- multi_city_ithim[[city]]$outcomes[[1]]$SCEN
+    
+    # remove scenario definitions
+    for (n in 1:nsamples){
+       multi_city_ithim[[city]]$outcomes[[n]]<-list.remove(multi_city_ithim[[city]]$outcomes[[n]],'SCEN')
+    }
+    
+    # add relevant model run information to  multi_city_ithim list
+    timestamp <- Sys.time()
+    multi_city_ithim[[city]]$ithim_run <- list()
+    multi_city_ithim[[city]]$ithim_run$input_parameter_file <- input_parameter_file
+    multi_city_ithim[[city]]$ithim_run$scenarios_used <- scenario_name
+    multi_city_ithim[[city]]$ithim_run$reference_scenario <- reference_scenario
+    multi_city_ithim[[city]]$ithim_run$scenario_increase <- scenario_increase
+    multi_city_ithim[[city]]$ithim_run$scenario_names <- scenario_names
+    multi_city_ithim[[city]]$ithim_run$compute_mode <- compute_mode
+    multi_city_ithim[[city]]$ithim_run$timestamp <- timestamp
+    multi_city_ithim[[city]]$ithim_run$output_version <- output_version
+    multi_city_ithim[[city]]$ithim_run$author <- author
+    multi_city_ithim[[city]]$ithim_run$comment <- comment
+    
+    
+    # save results for city and then delete
+    saveRDS(multi_city_ithim[[city]],paste0('results/multi_city/',city,'.Rds'))
+    
     if(ci>1){
       multi_city_ithim[[ci]] <- 0
     }else{
-      multi_city_ithim[[ci]]$outcome <- 0
+      multi_city_ithim[[ci]]$outcomes <- 0
     }
   }
 )) 
 
 
+# save scenario names and then delete this sublist from the multi_city_ithim outcomes
+# scenario_names <- multi_city_ithim[[city]]$outcomes[[1]]$SCEN
+# 
+# for (city in cities){
+#   for (n in 1:nsamples){
+#     multi_city_ithim[[city]]$outcomes[[n]]<-list.remove(multi_city_ithim[[city]]$outcomes[[n]],'SCEN')
+#   }
+# }
+
+
+
+
+
+
+# save the sampled parameters for all model runs and cities
 saveRDS(parameter_samples,'diagnostic/parameter_samples.Rds',version=2)
 
 print('finished ithim-run')
 
-## re-read and extract results #########################################
-## set age groups to summarise results across all cities
-parameter_samples <- readRDS('diagnostic/parameter_samples.Rds')
+########################################### re-read and extract results #########################################
 
-# create dataframe containing outcome by age and gender
-voi_data_all <- list()
-voi_data_all_df <- data.frame()
+# set parameters
+NSCEN <- length(scenario_names) - 1 # number of scenarios not including baseline scenario
+SCEN_SHORT_NAME <- scenario_names
+NSAMPLES <- nsamples
 
-age_pops <- list()
-age_populations <- rep(0,length(outcome_age_groups))
-city_populations <- matrix(0,nrow=length(cities),ncol=length(outcome_age_groups))
-for(ci in 1:length(cities)){
-  city <- cities[ci]
-  multi_city_ithim[[ci]] <- readRDS(paste0('results/multi_city/',city,'.Rds'))
-  
-  DEMOGRAPHIC <- multi_city_ithim[[ci]]$DEMOGRAPHIC
-  
-  age_pops[[city]] <- list()
-  min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-  max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  age_pops[[city]]$min_pop_ages <- min_pop_ages
-  age_pops[[city]]$max_pop_ages <- max_pop_ages
-  
-  ## get outcomes
-  min_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-  max_ages <- sapply(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  keep_rows <- which(min_ages>=min_age&max_ages<=max_age)
-  #keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('ac|neo|age|sex',as.character(x))))
-  keep_cols <- which(!sapply(names(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls),function(x)grepl('age|sex',as.character(x))))
- 
-  #for(i in 1:length(multi_city_ithim[[ci]]$outcomes)) print(length(multi_city_ithim[[ci]]$outcomes[[i]]))
-  outcome_pp[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
-  outcome_pp[[city]] <- outcome_pp[[city]]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
-  colnames(outcome_pp[[city]]) <- paste0(colnames(outcome_pp[[city]]),'_',city)
-  ## get yll per 100,000 by age
-  yll_per_hundred_thousand[[city]] <- list()
-  for(aa in 1:length(outcome_age_groups)){
-    age <- outcome_age_groups[aa]
-    city_populations[ci,aa] <- sum(subset(DEMOGRAPHIC,min_pop_ages>=outcome_age_min[aa]&max_pop_ages<=outcome_age_max[aa])$population)
-    age_populations[aa] <- age_populations[aa] + city_populations[ci,aa]
-    keep_rows2 <- which(min_ages>=outcome_age_min[aa]&max_ages<=outcome_age_max[aa])
-    tmp <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows2,keep_cols],na.rm=T)))
-    tmp <- tmp/city_populations[ci,aa]*100000
-    yll_per_hundred_thousand[[city]][[age]] <- tmp
-  }
-  ## omit ac (all cause) and neoplasms (neo) and age and gender columns
-  outcome[[city]] <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
-  colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
-  
-  
-  for(row in keep_rows){
-    voi_data_all[[city]]$outcomes <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) rbind(x$hb$ylls[row,])))
-    voi_dummy <- data.frame(voi_data_all[[city]])
-    colnames(voi_dummy)<-colnames(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls)
-    voi_dummy$city <- city
-    voi_data_all_df <- rbind(voi_data_all_df, voi_dummy)
-  }
-  
-  #voi_data_all_df$city <- city
-  
-  #multi_city_ithim[[ci]] <- 0
-}
 
-voi_data_all_df$age_sex <- paste(voi_data_all_df$sex, voi_data_all_df$age_cat, sep = )
+# get outputs from ithim run into correct formats
+ithim_results <- extract_data_for_voi(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_groups,cities,multi_city_ithim)
 
-## gather results ###############################################
-NSCEN <- ncol(outcome[[1]])/sum(sapply(colnames(outcome[[1]]),function(x)grepl('scen1',x)))
-SCEN_SHORT_NAME <- c('baseline',sapply(colnames(outcome[[1]])[1:NSCEN],function(x)strsplit(x,'_')[[1]][1]))
-NSAMPLES <- nrow(outcome[[1]])
-## compute and save yll per hundred thousand by age
-saveRDS(yll_per_hundred_thousand,'results/multi_city/yll_per_hundred_thousand.Rds',version=2)
-yll_per_hundred_thousand_results <- list()
-combined_yll <- list()
-for(aa in 1:length(outcome_age_groups)){
-  age <- outcome_age_groups[aa]
-  combined_yll[[age]] <- matrix(0,ncol=NSCEN,nrow=NSAMPLES)
-}
-for(ci in 1:length(cities)){
-  city <- cities[ci]
-  case <- yll_per_hundred_thousand[[city]]
-  yll_per_hundred_thousand_results[[city]] <- list()
-  for(aa in 1:length(outcome_age_groups)){
-    age <- outcome_age_groups[aa]
-    min_pop_ages <- age_pops[[city]]$min_pop_ages
-    max_pop_ages <- age_pops[[city]]$max_pop_ages
-    population <- city_populations[ci,aa]
-    yll_per_hundred_thousand_results[[city]][[age]] <- matrix(0,nrow=NSCEN,ncol=3)#(median=numeric(),'5%'=numeric(),'95%'=numeric())
-    colnames(yll_per_hundred_thousand_results[[city]][[age]]) <- c('median','5%','95%')
-    rownames(yll_per_hundred_thousand_results[[city]][[age]]) <- SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)]
-    case_age <- case[[age]]
-    for(k in 1:NSCEN){
-      scen_case <- case_age[,seq(k,ncol(case_age),by=NSCEN)]
-      if(nsamples==1){ # if only one sample, then scen_case gives a 1 dimensional vector
-        y <- sum(scen_case)
-      }else{
-        y <- rowSums(scen_case)
-      }
-      yll_per_hundred_thousand_results[[city]][[age]][k,] <- quantile(y,c(0.5,0.05,0.95))
-      combined_yll[[age]][,k] <- combined_yll[[age]][,k] + y*population/100000
-    }
-  }
-}
-yll_per_hundred_thousand_results$combined <- list()
-for(aa in 1:length(outcome_age_groups)){
-  age <- outcome_age_groups[aa]
-  yll_per_hundred_thousand_results$combined[[age]] <- t(apply(combined_yll[[age]]/age_populations[aa]*100000,2,quantile,c(0.5,0.05,0.95)))
-  colnames(yll_per_hundred_thousand_results$combined[[age]]) <- c('median','5%','95%')
-  rownames(yll_per_hundred_thousand_results$combined[[age]]) <- SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)]
-}
+# dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
+voi_data_all_df <- ithim_results$voi_data_all_df
 
-saveRDS(yll_per_hundred_thousand_results,'results/multi_city/yll_per_hundred_thousand_quantiles.Rds',version=2)
-for(i in 1:length(yll_per_hundred_thousand_results))
-  for(j in 1:length(yll_per_hundred_thousand_results[[i]]))
-    write.csv(yll_per_hundred_thousand_results[[i]][[j]],
-              paste0('results/multi_city/yll_per_hundred_thousand/',names(yll_per_hundred_thousand_results)[i],
-                     names(yll_per_hundred_thousand_results[[i]])[j],'_',output_version,'.csv'))
+# total yll outcome for all outcome age categories per city and scenario and disease combination, also combined city result (sum)
+outcome <- ithim_results$outcome
 
-for(i in 1:length(outcome_pp)){
-  outcome_pp_quantile <- matrix(0,nrow=NSCEN,ncol=3)#(median=numeric(),'5%'=numeric(),'95%'=numeric())
-  colnames(outcome_pp_quantile) <- c('median','5%','95%')
-  rownames(outcome_pp_quantile) <- SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)]
-  for(k in 1:NSCEN){
-    scen_case <- outcome_pp[[i]][,seq(k,ncol(outcome_pp[[i]]),by=NSCEN)]
-    if (nsamples==1){
-      y <- sum(scen_case)*100000
-    }else{
-      y <- rowSums(scen_case)*100000
-    }
-    outcome_pp_quantile[k,] <- quantile(y,c(0.5,0.05,0.95))
-  }
-  #write.csv(outcome_pp_quantile,paste0('results/multi_city/yll_per_hundred_thousand/',cities[i],'.csv'))
-}
-outcomes_pp <- do.call(cbind,outcome_pp)
-outcome$combined <- outcomes_pp
+# save yll per 100,000 people for each city, outcome age category, model run and disease and scen combination
+saveRDS(ithim_results$yll_per_hundred_thousand,'results/multi_city/yll_per_hundred_thousand.Rds',version=2)
+
+# save total YLLs
 saveRDS(outcome,'results/multi_city/outcome.Rds',version=2)
+
+# save total ylls per 100,000 (median, 5th and 95th percentiles) as sum across all 
+# disease per outcome age group, scenario and city (plus combined results)
+saveRDS(ithim_results$yll_per_hundred_thousand_stats,'results/multi_city/yll_per_hundred_thousand_quantiles.Rds',version=2)
+
+# save dateframe with total ylls (median, 5th and 95th percentiles) per age group and city (plus combined results)
+write.csv(ithim_results$summary_ylls_df,
+          paste0('results/multi_city/yll_per_hundred_thousand/Summary_ylls_all_cities','_',output_version,'.csv'), row.names = FALSE)
+
+
 
 ######################################################### plot results #######################################################
 print('plot results')
@@ -561,6 +520,7 @@ print('plot results')
 # plots only work if more than one sample was selected
 if(nsamples > 1){
   
+  # plot total YLL sum across all diseases 
   {pdf(paste0('results/multi_city/city_yll_',output_version,'.pdf'),height=6,width=6)
 
     # one plot for all cities - might be difficult to read
@@ -572,7 +532,7 @@ if(nsamples > 1){
     yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
     cols <- rainbow(length(outcome)-1)
 
-    plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL relative to baseline',
+    plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in total YLL relative to baseline',
          col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
     axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
     for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
@@ -581,22 +541,22 @@ if(nsamples > 1){
     legend(col=rev(cols),lty=1,bty='n',x= mean(means),legend=rev(names(outcome)[-length(outcome)]),y=NSCEN-1,lwd=2)
     par(par)
     
-    for(city in cities){ # one plot per city
+    # one plot per city
+    for(city in cities){ 
       sp_index <- which(cities==city)
       scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
       scen_out_city <- scen_out[[city]]
-      means <- colMeans(scen_out_city) #sapply(scen_out_city,function(x)apply(x,2,mean))
+      means <- colMeans(scen_out_city) 
       ninefive <- apply(scen_out_city,2,quantile,probs = c(0.05,0.95))
-      yvals <- rep(1,each=NSCEN)/10 + rep(1:NSCEN) #rep(1:length(scen_out_city),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out_city))
+      yvals <- rep(1,each=NSCEN)/10 + rep(1:NSCEN) 
       cols <- rainbow(length(outcome)-1)
       col_city <- cols[sp_index]
 
       par_city <- par(mar=c(5,5,1,1))
-      xlab <- paste0(city,': Change in YLL relative to baseline')
+      xlab <- paste0(city,': Change in total YLL relative to baseline')
       plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
            yaxt='n',xlim=range(unlist(ninefive)))
       axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
-      #for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
       for(j in 1:NSCEN) lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
       abline(v=0,col='grey',lty=2,lwd=2)
       text(y=(NSCEN-1)+0.2,x=ninefive[1,(NSCEN-1)],'90%',col='navyblue',adj=c(-0,-0.3*sp_index))
@@ -607,12 +567,13 @@ if(nsamples > 1){
   } 
 
     
-  # plotting the output as sums across all cities
+  # plotting the output YLL per person as sums across all cities
   comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
   ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
   means <- apply(comb_out,2,mean)
   {pdf(paste0('results/multi_city/combined_yll_pp','_',output_version,'.pdf'),height=3,width=6); par(mar=c(5,5,1,1))
-    plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in YLL pp relative to baseline',col='navyblue',yaxt='n',xlim=range(ninefive))
+    plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in total YLL per person relative to baseline summed across all cities',
+         col='navyblue',yaxt='n',xlim=range(ninefive))
     axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
     for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
     abline(v=0,col='grey',lty=2,lwd=2)
@@ -626,14 +587,14 @@ if(nsamples > 1){
 
 
 ################################################ calculate EVPPI ################################################
+if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more than one sample
 
-if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if more than one sample was selected
-
-print('start EVPPI analysis')
-
+  print('start EVPPI analysis')
+ 
+  parameter_samples <- readRDS('diagnostic/parameter_samples.Rds')
   
   # first extract input parameters of interest
-  # create list with global parameters
+  # create list with global parameters that are relevant for all cities
   general_inputs <- sapply(colnames(parameter_samples),function(x)!grepl(paste(cities, collapse = "|"),x))
   general_parsampl <- parameter_samples[,general_inputs]
   
@@ -644,9 +605,13 @@ print('start EVPPI analysis')
   
   
   
+  ########### EVPPI for total YLLs (i.e. summed across the entire population considered in the model
+  # by disease and scenario outcome)
+  
   evppi_df <- data.frame()
   
-  for (city in cities){
+  # extract city specific input parameters
+  for (city in cities){ # loop through cities
     
     # extract city specific input parameters
     city_inputs <- sapply(colnames(parameter_samples),function(x)grepl(city,x))
@@ -657,13 +622,13 @@ print('start EVPPI analysis')
     city_parsampl <- city_parsampl[,city_noCO2para]
     
     # extract the required outcomes for each city
-    city_out <- as.data.frame(outcome[[city]])
+    city_out <- as.data.frame(outcome[[city]]) # take total YLLs for each scenario and disease combination
     city_outputs <- sapply(colnames(city_out),function(x)grepl(paste(outcome_voi_list, collapse = "|"),x))
     city_outcomes <- city_out[,city_outputs]
     
     if(voi_add_sum){
       # add total result for each scenario - only makes sense if results are independent of each other
-      # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
+      # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and an invalid VOI analysis for the sum
       for (n in 1:NSCEN){
         scen_outputs <- sapply(colnames(city_outcomes), function(x)grepl(paste0("scen",n),x))
         if (length(outcome_voi_list) == 1){
@@ -678,7 +643,9 @@ print('start EVPPI analysis')
     
     param_no <- ncol(city_parsampl) + ncol(general_noDRpara_parsampl)
     
-    evppi_city <- future_lapply(1:param_no, # calculate the evppi for each city
+
+    # calculate the evppi for each city (still within the city loop)
+    evppi_city <- future_lapply(1:param_no, 
                                 FUN = ithimr::compute_evppi,
                                 global_para = as.data.frame(general_noDRpara_parsampl),
                                 city_para = as.data.frame(city_parsampl),
@@ -692,11 +659,13 @@ print('start EVPPI analysis')
     #                             city_outcomes = city_outcomes,
     #                             nsamples = NSAMPLES)
     # 
-    evppi_city2 <- do.call(rbind,evppi_city)
+    evppi_city2 <- do.call(rbind,evppi_city) # bind list
     
     evppi_city3 <- as.data.frame(evppi_city2) # turn into dataframe
     
-    evppi_outcome_names <- strsplit(colnames(city_outcomes),paste("_",city,sep="")) # add column names without city part
+    # Manipulate evppi_city3 df into correct format
+    # add column names without city part
+    evppi_outcome_names <- strsplit(colnames(city_outcomes),paste("_",city,sep="")) 
     colnames(evppi_city3) <- evppi_outcome_names
     evppi_outcome_names <- colnames(evppi_city3)
     
@@ -705,12 +674,12 @@ print('start EVPPI analysis')
     
     
     
-    # look at dose response input parameters separately, as alpha, beta, gammy and trmel are dependent on each other
+    # look at dose response AP input parameters separately, as alpha, beta, gammy and trmel are dependent on each other
     if(any(ap_dr_quantile)&&NSAMPLES>=300){
       AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
       diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
       sources <- list()
-      for(di in diseases){
+      for(di in diseases){ 
         col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
         sources[[di]] <- parameter_samples[,col_names]
       }
@@ -721,7 +690,7 @@ print('start EVPPI analysis')
                                          city_outcomes = city_outcomes,
                                          nsamples = NSAMPLES)
       
-      evppi_for_AP_city2 <- do.call(rbind,evppi_for_AP_city)
+      evppi_for_AP_city2 <- do.call(rbind,evppi_for_AP_city) # bind list
       evppi_for_AP_city3 <- as.data.frame(evppi_for_AP_city2) # turn into dataframe
       colnames(evppi_for_AP_city3) <- evppi_outcome_names
       
@@ -745,20 +714,6 @@ print('start EVPPI analysis')
   write.csv(evppi_df,evppi_csv,row.names = FALSE) # save as csv file
   
   
-  # add to output control document
-  timestamp <- Sys.time()
-  input_version <- input_parameter_file
-  global_path <- paste0(file.path(find.package('ithimr',lib.loc = .libPaths()),
-                                  'extdata/global'), "/")
-  cat("",
-      paste(timestamp, "by", author, sep = " "),
-      paste("Cities:", cities, sep = " "),
-      paste("Input parameter file:", input_version, sep = " "),
-      paste("Version number of outputs:", output_version, sep = " "),
-      paste("Number of samples:", nsamples, sep = " "),
-      paste("Comments:", comment, sep=" "),
-      paste("Path of other input files:", global_path, sep=" "),
-      file="OutputVersionControl.txt",sep="\n",append=TRUE)
   
   
   # create output plots
@@ -1077,8 +1032,25 @@ print('start EVPPI analysis')
 endtime <- Sys.time()  
 runtime <- round(as.numeric(difftime(endtime, starttime, units = "mins")),2)
 
-cat(paste("Runtime in minutes:", runtime, sep=" "),
-    file="OutputVersionControl.txt",sep="\n",append=TRUE)
+# add to output control document
+if (write_output_control == TRUE){
+  
+  input_version <- input_parameter_file
+  global_path <- paste0(file.path(find.package('ithimr',lib.loc = .libPaths()),
+                                  'extdata/global'), "/")
+
+  cat("",
+      paste(timestamp, "by", author, sep = " "),
+      paste("Cities:", cities, sep = " "),
+      paste("Input parameter file:", input_version, sep = " "),
+      paste("Version number of outputs:", output_version, sep = " "),
+      paste("Number of samples:", '1', sep = " "),
+      paste("Comments:", comment, sep=" "),
+      paste("Path of other input files:", global_path, sep=" "),
+      paste("Runtime in minutes:", runtime, sep=" "),
+      file="OutputVersionControl.txt",sep="\n",append=TRUE)
+  
+}
 
 print(paste0("The code took ", runtime, " minutes to run"))  
 

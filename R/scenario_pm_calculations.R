@@ -5,8 +5,6 @@
 #' This function performs the following steps:
 #' 
 #' \itemize{
-#' \item the ventilation rates per mode are defined - these parameters are fixed
-#' 
 #' \item the exposure factor rates by activity are defined - these parameters are fixed
 #' 
 #' \item calculate pm concentration not related to transport
@@ -19,19 +17,21 @@
 #' \item for modes without any assigned distance, use the PM emissions from the VEHICLE_INVENTORY instead
 #' 
 #' \item calculate the total PM concentrations for each scenario
-#' 
-#' \item add ventilation and exposure factors to the trip set by stage mode
+#'  
+#' \item add exposure factors to the trip set by stage mode
 #' 
 #' \item add total scenario PM concentrations to the trip set
 #' 
-#' \item add the inhaled air and total PM (in micro grams) to the trip set
+#' \item calculate ventilation rate for each stage taking into account demographic characteristics and exposure factors
 #' 
-#' \item define the amount of time per day spent as leisure sedentary screen time, 
-#'   non-discretionary time and other time - fixed
+#' \item calculate the inhaled air and total PM (in micro grams) in the trip set
+#' 
+#' \item calculate the amount of time per day spent in sleep, moderate and vigorous
+#'   activities
 #' 
 #' \item add total time spent travelling by each participant to the trip set
 #'
-#' \item calculate the sleep and the rest ventilation rates
+#' \item calculate ventilation rate for sleep, moderate and vigorous activities
 #' 
 #' \item for each participant in the synthetic population (with travel component), 
 #'   calculate the total air inhaled, the total PM inhaled and 
@@ -52,7 +52,7 @@
 #' 
 #' @export
 scenario_pm_calculations <- function(dist, trip_scen_sets){
-  print("Using new implementation of ventilation rates...")
+  #print("Using new implementation of ventilation rates...")
   
   # Exposure factor rate by activity (the ratio between that mode’s PM2.5 and the background’s PM2.5)
   exp_facs <- data.frame(
@@ -63,13 +63,14 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # concentration contributed by non-transport share (remains constant across the scenarios)
   non_transport_pm_conc <- PM_CONC_BASE*(1 - PM_TRANS_SHARE)  
   
-  ## adding in travel not covered in the synthetic trip set, based on distances travelled relative to car, set in VEHICLE_INVENTORY
+  # adding in travel not covered in the synthetic trip set
   emission_dist <- dist
   
   ## get emission factor by dividing inventory by baseline distance. (We don't need to scale to a whole year, as we are just scaling the background concentration.)
   ordered_efs <- (VEHICLE_INVENTORY$PM_emission_inventory[match(emission_dist$stage_mode,VEHICLE_INVENTORY$stage_mode)] %>% as.numeric())/(emission_dist$baseline %>% as.numeric())
   ## get new emission by multiplying emission factor by scenario distance.
-  trans_emissions <- emission_dist[,0:NSCEN+2]*t(repmat(ordered_efs,NSCEN+1,1))
+  trans_emissions <- emission_dist[,SCEN]*t(repmat(ordered_efs,NSCEN+1,1))
+  
   ## augment with travel emission contributions that aren't included in distance calculation
   for(mode_type in which(!VEHICLE_INVENTORY$stage_mode%in%emission_dist$stage_mode))
     trans_emissions[nrow(trans_emissions)+1,] <- VEHICLE_INVENTORY$PM_emission_inventory[mode_type]
@@ -78,7 +79,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   baseline_sum <- sum(trans_emissions[[SCEN[1]]], na.rm = T)
   conc_pm <- c()
   ## in this sum, the non-transport pm is constant; the transport emissions scale the transport contribution (PM_TRANS_SHARE) to the base level (PM_CONC_BASE)
-  for(i in 1:length(SCEN_SHORT_NAME)){
+  for(i in 1:length(SCEN)){
     conc_pm[i] <- non_transport_pm_conc + PM_TRANS_SHARE*PM_CONC_BASE*sum(trans_emissions[[SCEN[i]]], na.rm = T)/baseline_sum
   }
   
@@ -86,7 +87,10 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   trip_set <- trip_scen_sets
   
   # Merge baseline PA
-  trip_set <- dplyr::left_join(trip_set, SYNTHETIC_POPULATION[,c('participant_id', 'work_ltpa_marg_met')], by='participant_id')
+  trip_set <- dplyr::left_join(trip_set, 
+                               SYNTHETIC_POPULATION[,c('participant_id', 
+                                                       'work_ltpa_marg_met')], 
+                               by='participant_id')
   
   # Rename short walks as pedestrian 
   trip_set$stage_mode[trip_set$stage_mode=='walk_to_pt'] <- 'pedestrian'
@@ -104,14 +108,23 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # Dan: Read parameter distributions
   ## Dan: Body mass
   body_mass_df <- read.csv(paste0(global_path,"ventilation_rate/BodyMass.csv"))
+  colnames(body_mass_df)[1] <- 'age'
+  
   ## Dan: Energy Conversion Factor (ECF)
   ecf_df <- read.csv(paste0(global_path,"ventilation_rate/ECF.csv"))
+  colnames(ecf_df)[1] <- 'age'
+  
   ## Dan: Resting Metabolic Rate (RMR)
   rmr_df <- read.csv(paste0(global_path,"ventilation_rate/RMR.csv"))
+  colnames(rmr_df)[1] <- 'age'
+  
   ## Dan: Normalized maximum oxygen uptake rate (NVO2max)
   nvo2max_df <- read.csv(paste0(global_path,"ventilation_rate/NVO2max.csv"))
+  colnames(nvo2max_df)[1] <- 'age'
+  
   ## Dan: Ventilation from Oxygen Uptake (vent_from_oxygen)
   vent_from_oxygen_df <- read.csv(paste0(global_path,"ventilation_rate/VentilationFromOxygenUptake.csv"))
+  colnames(vent_from_oxygen_df)[1] <- 'age'
   
   # Dan: MET values for each mode/activity. These values come from the Compendium
   # Dan: Lambed told me that we need v-rates for everyone. I assigned to 
@@ -120,19 +133,22 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   # (bus, car, motorcycle, truck). Right now these are not included because they
   # have participant_id = 0.
   met_df <- data.frame(
-    stage_mode = c("rest", "car", "taxi", "bus", "rail", "cycle", "pedestrian", 
+    stage_mode = c("car", "taxi", "bus", "rail", "cycle", "pedestrian", 
                    "sleep", "motorcycle", "auto_rickshaw", "other", 
                    "moderate", "vigorous", "leisure", "light_activities"), 
-    met = c(1.3, 2.5, 1.3, 1.3, 1.3, MMET_CYCLING + 1, MMET_WALKING + 1, 
-            0.95, 2.8, 1.3, 1.3, 4, 8, 1.3, 1.3),
-    compendium_code = c('07021', '16010', '16015', '16016', '16016', '01011', 
+    met = c(CAR_DRIVER_MET, PASSENGER_MET, PASSENGER_MET, PASSENGER_MET, 
+            CYCLING_MET, WALKING_MET, 0.95, MOTORCYCLIST_MET, PASSENGER_MET, 
+            PASSENGER_MET, MODERATE_PA_MET, VIGOROUS_PA_MET, 
+            SEDENTARY_ACTIVITY_MET, LIGHT_ACTIVITY_MET),
+    compendium_code = c('16010', '16015', '16016', '16016', '01011', 
                         '16060', '07030', '16030', '16016', '16016', 'GPAQ',
                         'GPAQ', '05080', '05080')
   )
   
   # Dan: Extract people from the synthetic population to calculate their 
   # ventilation rates
-  people_for_vent_rates <- trip_set %>% filter(participant_id != 0) %>% 
+  people_for_vent_rates <- trip_set %>% 
+    filter(participant_id != 0) %>% 
     distinct(participant_id, .keep_all=T) %>% 
     dplyr::select(participant_id, age, sex)
   
@@ -227,6 +243,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   #   - vent_rate = ventilation rate by removing the log in the empirical equation [lt/min]
   #   - v_rate = ventilation rate in different units of measurement [m3/h]
   trip_set <- trip_set %>% 
+    filter(participant_id != 0) %>% 
     rowwise() %>% 
     mutate(
       # Ventilation rate for travel modes
@@ -242,11 +259,12 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
       log_vent_rate = intercept_a + (slope_b * log(adj_vo2/body_mass)) + d_k + e_ijk,
       vent_rate = exp(log_vent_rate) * body_mass,
       v_rate = vent_rate * 60 / 1000
-    )
+    ) %>% 
+    bind_rows(trip_set %>% filter(participant_id == 0))
   #----
   
   # Create df with scenarios and concentration
-  conc_pm_df <- data.frame(scenario = unique(trip_set$scenario),
+  conc_pm_df <- data.frame(scenario = SCEN,
                            conc_pm = conc_pm)
   
   # Join trip_set with PM concentration df
@@ -263,18 +281,11 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
   trip_set <- trip_set %>% 
     group_by(participant_id, scenario) %>% 
     mutate(total_travel_time_hrs = sum(stage_duration) / 60) %>% 
-    # total_typical_time_rem_hrs <- lt_sed_time_hrs + nd_time_hrs + other_time_hrs,
-    # remaining_time_hrs = 24 - total_travel_time_hrs,
-    # lt_sed_time_prop_hrs <- lt_sed_time_hrs / total_typical_time_rem_hrs * remaining_time_hrs,
-    # nd_time_prop_hrs <- nd_time_hrs / total_typical_time_rem_hrs * remaining_time_hrs,
-    # other_time_prop_hrs <- other_time_hrs / total_typical_time_rem_hrs * remaining_time_hrs) |> 
     ungroup()
   
   
   # Extract mets for sleep, rest, moderate and vigorous
   sleep_met <- met_df %>% filter(stage_mode == 'sleep') %>% 
-    dplyr::select(met) %>% as.numeric()
-  rest_met <- met_df %>% filter(stage_mode == 'rest') %>% 
     dplyr::select(met) %>% as.numeric()
   moderate_met <- met_df %>% filter(stage_mode == 'moderate') %>% 
     dplyr::select(met) %>% as.numeric()
@@ -308,7 +319,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets){
     filter(participant_id != 0) %>% 
     group_by(participant_id, scenario) %>% 
     # reframe instead of summarise in the latest version
-    reframe(
+    summarise(
       total_travel_time_hrs = max(total_travel_time_hrs, na.rm = T),
       travel_air_inhaled = sum(air_inhaled, na.rm = T),
       travel_pm_inhaled = sum(pm_inhaled, na.rm = T),

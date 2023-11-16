@@ -228,7 +228,7 @@ ithim_calculation_sequence <- function(ithim_object,seed=1){
     return(list(mmets=mmets_pp,scenario_pm=scenario_pm,pm_conc_pp=pm_conc_pp, co2_conc = co2_conc,
                 injuries=injuries,ref_injuries=ref_injuries,hb=hb,pathway_hb=pathway_hb,whw=whw))
   }else{
-    return(list(hb=hb,ref_injuries=ref_injuries))
+    return(list(hb=hb,ref_injuries=ref_injuries,SCEN=SCEN))
   }
 }
       

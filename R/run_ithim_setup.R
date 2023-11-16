@@ -90,8 +90,15 @@
 #' @param NSAMPLES constant integer: number of samples to take
 #' @param BUS_WALK_TIME lognormal parameter: duration of walk to bus stage
 #' @param RAIL_WALK_TIME lognormal parameter: duration of walk to rail stage
-#' @param MMET_CYCLING lognormal parameter: mMETs when cycling
-#' @param MMET_WALKING lognormal parameter: mMETs when walking
+#' @param CYCLING_MET lognormal parameter: METs when cycling
+#' @param WALKING_MET lognormal parameter: METs when walking
+#' @param PASSENGER_MET lognormal parameter: MET value associated with being a passenger on public transport
+#' @param CAR_DRIVER_MET lognormal parameter: MET value associated with being a car driver 
+#' @param MOTORCYCLIST_MET lognormal parameter: MET value associated with being a motorcyclist
+#' @param SEDENTARY_ACTIVITY_MET lognormal parameter: MET value associated with sedentary activity
+#' @param LIGHT_ACTIVITY_MET lognormal parameter: MET value associated with light activity
+#' @param MODERATE_PA_MET lognormal parameter: MET value associated with moderate activity
+#' @param VIGOROUS_PA_MET lognormal parameter: MET value associated with vigorous activity 
 #' @param PM_CONC_BASE lognormal parameter: background PM2.5 concentration
 #' @param PM_TRANS_SHARE beta parameter: fraction of background PM2.5 attributable to transport
 #' @param PA_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from physical activity relative risk dose response functions
@@ -144,27 +151,34 @@
 
 
 run_ithim_setup <- function(seed = 1,
-                            CITY = 'accra',
+                            CITY = 'bogota',
                             speeds = NULL,
                             PM_emission_inventory = NULL,
                             CO2_emission_inventory = NULL,
-                            DIST_CAT = c("0-6 km", "7-9 km", "10+ km"),
-                            AGE_RANGE = c(0,150),
+                            DIST_CAT = c("0-2 km", "2-6 km", "6+ km"),
+                            AGE_RANGE = c(15,69),
                             ADD_WALK_TO_PT_TRIPS = T,
                             ADD_BUS_DRIVERS = T,
                             ADD_CAR_DRIVERS = T,
                             ADD_TRUCK_DRIVERS = T,
-                            ADD_MOTORCYCLE_FLEET = F,
+                            ADD_MOTORCYCLE_FLEET = T,
                             ADD_PERSONAL_MOTORCYCLE_TRIPS = 'no',
                             REFERENCE_SCENARIO = 'baseline',
                             PATH_TO_LOCAL_DATA = NULL,
                             NSAMPLES = 1,
-                            BUS_WALK_TIME= 5,
-                            RAIL_WALK_TIME = 15,
-                            MMET_CYCLING = 4.63,
-                            MMET_WALKING = 2.53,
-                            PM_CONC_BASE = 50,  
-                            PM_TRANS_SHARE = 0.225,
+                            BUS_WALK_TIME = 16,
+                            RAIL_WALK_TIME = 12.5,
+                            CYCLING_MET =	6.8,
+                            WALKING_MET =	3.5,
+                            PASSENGER_MET	= 1.3,
+                            CAR_DRIVER_MET = 2.5,
+                            MOTORCYCLIST_MET =	2.8,
+                            SEDENTARY_ACTIVITY_MET =	1.3,
+                            LIGHT_ACTIVITY_MET =	1.3,
+                            MODERATE_PA_MET =	4,
+                            VIGOROUS_PA_MET =	8,
+                            PM_CONC_BASE = 12.69,  
+                            PM_TRANS_SHARE = 0.42,
                             PA_DOSE_RESPONSE_QUANTILE = F,
                             AP_DOSE_RESPONSE_QUANTILE = F,
                             BACKGROUND_PA_SCALAR = 1,
@@ -172,7 +186,7 @@ run_ithim_setup <- function(seed = 1,
                             INJURY_REPORTING_RATE = 1,
                             CHRONIC_DISEASE_SCALAR = 1,
                             DAY_TO_WEEK_TRAVEL_SCALAR = 7,
-                            SIN_EXPONENT_SUM = 2,
+                            SIN_EXPONENT_SUM= 2,
                             CASUALTY_EXPONENT_FRACTION = 0.5,
                             SIN_EXPONENT_SUM_NOV= 1,
                             SIN_EXPONENT_SUM_CYCLE= 2,
@@ -181,13 +195,11 @@ run_ithim_setup <- function(seed = 1,
                             CASUALTY_EXPONENT_FRACTION_PED = 0.5,
                             SIN_EXPONENT_SUM_VEH= 2,
                             CASUALTY_EXPONENT_FRACTION_VEH = 0.5,
-                            CALL_INDIVIDUAL_SIN = F,
-                            BUS_TO_PASSENGER_RATIO = 0.022,
-                            CAR_OCCUPANCY_RATIO = 0.6,
-                            TRUCK_TO_CAR_RATIO = 0.21,
-                            FLEET_TO_MOTORCYCLE_RATIO = 0.01,
+                            BUS_TO_PASSENGER_RATIO = 0.0389,
+                            CAR_OCCUPANCY_RATIO = 0.625,
+                            TRUCK_TO_CAR_RATIO = 0.3,
+                            FLEET_TO_MOTORCYCLE_RATIO = 0.441,
                             PROPORTION_MOTORCYCLE_TRIPS = 0,
-                            
                             PM_EMISSION_INVENTORY_CONFIDENCE = 1,
                             CO2_EMISSION_INVENTORY_CONFIDENCE = 1,
                             DISTANCE_SCALAR_CAR_TAXI = 1,
@@ -195,21 +207,20 @@ run_ithim_setup <- function(seed = 1,
                             DISTANCE_SCALAR_PT = 1,
                             DISTANCE_SCALAR_CYCLING = 1,
                             DISTANCE_SCALAR_MOTORCYCLE = 1,
-                            SCENARIO_NAME = "GLOBAL",
-                            SCENARIO_INCREASE = 0.05,
-                            
-                            BUS_DRIVER_PROP_MALE = 0.99,
-                            BUS_DRIVER_MALE_AGERANGE = "18, 65", 
-                            BUS_DRIVER_FEMALE_AGERANGE = "18, 65",
-                            TRUCK_DRIVER_PROP_MALE = 0.99,
+                            BUS_DRIVER_PROP_MALE = 0.98,
+                            BUS_DRIVER_MALE_AGERANGE = "19, 65", 
+                            BUS_DRIVER_FEMALE_AGERANGE = "19, 65",
+                            TRUCK_DRIVER_PROP_MALE = 0.98,
                             TRUCK_DRIVER_MALE_AGERANGE = "18, 65",
                             TRUCK_DRIVER_FEMALE_AGERANGE = "18, 65",
                             COMMERCIAL_MBIKE_PROP_MALE = 0.99,
                             COMMERCIAL_MBIKE_MALE_AGERANGE ="18, 65",
                             COMMERCIAL_MBIKE_FEMALE_AGERANGE ="18, 65",
-                            
                             MINIMUM_PT_TIME = 3,
-                            MODERATE_PA_CONTRIBUTION = 0.5
+                            MODERATE_PA_CONTRIBUTION = 0.5,
+                            CALL_INDIVIDUAL_SIN = F, 
+                            SCENARIO_NAME = 'GLOBAL', 
+                            SCENARIO_INCREASE = 0.05 
                             ){
   
 
@@ -280,24 +291,24 @@ run_ithim_setup <- function(seed = 1,
   
   ## Mode speeds
   # set default speeds that are overwritten if city specific mode speeds are given as input parameters 
-  default_speeds <- list( bus = 10, 
-                          bus_driver = 10, 
-                          minibus = 10, 
-                          minibus_driver = 10, 
-                          car = 14.4, 
-                          car_driver = 14.4,
-                          taxi = 12.6, 
+  default_speeds <- list( bus = 8.1, 
+                          bus_driver = 8.1, 
+                          minibus = 8.1, 
+                          minibus_driver = 8.1, 
+                          car = 13.8, 
+                          car_driver = 13.8,
+                          taxi = 13.8, 
                           pedestrian = 2.5, 
                           walk_to_pt = 2.5, 
                           cycle = 7.2, 
                           motorcycle = 15.2, 
-                          truck = 10, 
-                          van = 14.4, 
+                          truck = 8.1, 
+                          van = 13.8, 
                           subway = 18.1, 
                           rail = 21.9, 
                           auto_rickshaw = 4, 
-                          shared_auto = 14.4, 
-                          shared_taxi = 12.6, 
+                          shared_auto = 13.8, 
+                          shared_taxi = 13.8, 
                           cycle_rickshaw = 4,
                           other = 9.1)
   if(!is.null(speeds)){
@@ -328,15 +339,15 @@ run_ithim_setup <- function(seed = 1,
   # set default PM2.5 emission contributions that are overwritten if city specific input parameters are given
   default_PM_emission_inventory <- list(
     bus=0,
-    bus_driver=0.82,
-    car=0.228,
-    taxi=0.011,
+    bus_driver=0.122466774,
+    car=0.081980353,
+    taxi=0,
     pedestrian=0,
     cycle=0,
-    motorcycle=0.011,
-    truck=0.859,
-    big_truck=0.711,
-    other=0.082
+    motorcycle=0.002303165,
+    truck=0.33879567,
+    big_truck=0.454454038,
+    other=0
   )
   if(!is.null(PM_emission_inventory)){ # overwrite default inventory if city specific input values are given 
     for(m in names(PM_emission_inventory))
@@ -358,12 +369,14 @@ run_ithim_setup <- function(seed = 1,
     taxi=0,
     pedestrian=0,
     cycle=0,
-    motorcycle = 15.95,
-    car = 33.13,
-    bus_driver = 9.76,
-    big_truck = 3.68,
-    truck	= 6.19,
-    other	= 31.28
+    motorcycle = 30033.57,
+    car = 1033377.34,
+    bus_driver = 100429.72,
+    big_truck = 	259655.32,
+    truck	= 163516.11,
+    van = 0,
+    auto_rickshaw = 0,
+    other	= 1906.89
   )
   if(!is.null(CO2_emission_inventory)){  # overwrite default inventory if city specific input values are given 
     for(m in names(CO2_emission_inventory))
@@ -386,8 +399,15 @@ run_ithim_setup <- function(seed = 1,
   ithim_object$parameters <- ithim_setup_parameters(NSAMPLES = NSAMPLES,
                                                     BUS_WALK_TIME = BUS_WALK_TIME,
                                                     RAIL_WALK_TIME = RAIL_WALK_TIME,
-                                                    MMET_CYCLING = MMET_CYCLING,
-                                                    MMET_WALKING = MMET_WALKING,
+                                                    CYCLING_MET = CYCLING_MET,
+                                                    WALKING_MET = WALKING_MET, 
+                                                    PASSENGER_MET = PASSENGER_MET,
+                                                    CAR_DRIVER_MET = CAR_DRIVER_MET,
+                                                    MOTORCYCLIST_MET = MOTORCYCLIST_MET,
+                                                    SEDENTARY_ACTIVITY_MET = SEDENTARY_ACTIVITY_MET,
+                                                    LIGHT_ACTIVITY_MET = LIGHT_ACTIVITY_MET, 
+                                                    MODERATE_PA_MET = MODERATE_PA_MET,
+                                                    VIGOROUS_PA_MET = VIGOROUS_PA_MET,
                                                     PM_CONC_BASE = PM_CONC_BASE, 
                                                     PM_TRANS_SHARE = PM_TRANS_SHARE,
                                                     PA_DOSE_RESPONSE_QUANTILE = PA_DOSE_RESPONSE_QUANTILE,
@@ -481,6 +501,5 @@ run_ithim_setup <- function(seed = 1,
     ithim_object <- get_all_distances(ithim_object) # uses synthetic trips to calculate distances
   }
  
-  
   return(ithim_object)
 }

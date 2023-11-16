@@ -87,24 +87,24 @@
 #' @export
 
 ithim_load_data <- function(speeds =
-  list( bus = 10, 
-        bus_driver = 10, 
-        minibus = 10, 
-        minibus_driver = 10, 
-        car = 14.4, 
-        car_driver = 14.4,
-        taxi = 12.6, 
+  list( bus = 8.1, 
+        bus_driver = 8.1, 
+        minibus = 8.1, 
+        minibus_driver = 8.1, 
+        car = 13.8, 
+        car_driver = 13.8,
+        taxi = 13.8, 
         pedestrian = 2.5, 
         walk_to_pt = 2.5, 
         cycle = 7.2, 
         motorcycle = 15.2, 
-        truck = 10, 
-        van = 14.4, 
+        truck = 8.1, 
+        van = 13.8, 
         subway = 18.1, 
         rail = 21.9, 
         auto_rickshaw = 4, 
-        shared_auto = 14.4, 
-        shared_taxi = 12.6, 
+        shared_auto = 13.8, 
+        shared_taxi = 13.8, 
         cycle_rickshaw = 4,
         other = 9.1
   )){
@@ -288,7 +288,7 @@ ithim_load_data <- function(speeds =
                           "Interstitial lung disease and pulmonary sarcoidosis",
                           "Other chronic respiratory diseases")
   respiratory <- GBD_DATA %>% filter(cause_name %in% respiratory_causes)
-  GBD_DATA <- GBD_DATA %>% filter(!cause_name %in% respiratory_causes)
+  # GBD_DATA <- GBD_DATA %>% filter(!cause_name %in% respiratory_causes)
   # Add causes by measure, sex and age
   add_causes <- respiratory %>% 
     group_by(measure_name.x, sex_name, age_name) %>% 
@@ -382,7 +382,11 @@ ithim_load_data <- function(speeds =
   PROPORTION_INJURIES_AGERANGE <<- deaths_injuries_agerange/deaths_injuries
   
   # rename GBD_Data columns
-  names(GBD_DATA)[c(1,3,4,5)] <- c('measure','sex','age','cause')
+  GBD_DATA <- GBD_DATA %>% rename(
+    "measure" = "measure_name.x",
+    "sex" = "sex_name",
+    "age" = "age_name",
+    "cause" = "cause_name")
   GBD_DATA$sex <- tolower(GBD_DATA$sex)
   
   # change layout of GBD_DATA and only keep relevant information
@@ -394,17 +398,14 @@ ithim_load_data <- function(speeds =
   burden_of_disease$max_age <- as.numeric(sapply(burden_of_disease$age,function(x)str_split(x,'-')[[1]][2]))
   # when we sum ages, we assume that all age boundaries used coincide with the GBD age boundaries.
   # the rate calculated is the proportion of the number of people in the country with that disease over the population of the country
-  burden_of_disease$rate <- apply(burden_of_disease,1,
-                                  function(x){
-                                    subtab <- subset(GBD_DATA,measure==as.character(x[1])&sex==as.character(x[2])&cause==as.character(x[4])&
-                                                       min_age>=as.numeric(x[6])&max_age<=as.numeric(x[7])); 
-                                    sum(subtab$val)/sum(subtab$population)
-                                    }
-                                  )
+  GBD_DATA$rate = GBD_DATA$val / GBD_DATA$population
+  burden_of_disease <- burden_of_disease %>% 
+    left_join(GBD_DATA[,c("measure", "sex", "cause", "min_age", "max_age", "rate")], 
+              by=c("measure", "sex", "cause", "min_age", "max_age"))
   
   # scale disease burden of country to the city using population of city and assuming that the disease rate for the
   # city is the same as for the entire country
-  burden_of_disease$burden <- burden_of_disease$population*burden_of_disease$rate
+  burden_of_disease$burden <- burden_of_disease$population * burden_of_disease$rate
   burden_of_disease$burden[is.na(burden_of_disease$burden)] <- 0
   
   DISEASE_BURDEN <<- burden_of_disease

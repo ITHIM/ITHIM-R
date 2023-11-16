@@ -36,13 +36,13 @@ set_vehicle_inventory <- function(){
   
   # add big truck mode to vehicle inventory
   vehicle_inventory <- rbind(vehicle_inventory,data.frame(stage_mode='big_truck',
-                                                          speed=21,
+                                                          speed=8.1,
                                                           PM_emission_inventory=PM_EMISSION_INVENTORY[['big_truck']]))
   
   # if other mode does not already exist, add other mode
   if (!'other' %in% vehicle_inventory$stage_mode){
   vehicle_inventory <- rbind(vehicle_inventory,data.frame(stage_mode='other',
-                                                          speed=21,
+                                                          speed=8.1,
                                                           PM_emission_inventory=PM_EMISSION_INVENTORY[['other']]))
   }
   

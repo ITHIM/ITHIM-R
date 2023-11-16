@@ -34,7 +34,7 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
   # create a list containing all the SYNTHETIC_TRIPS dataframes
   rd_list <- list()
   
-  for(i in 1:length(SYNTHETIC_TRIPS)) rd_list[[i]] <- setDT(SYNTHETIC_TRIPS[[i]])
+  for(i in names(SYNTHETIC_TRIPS)) rd_list[[i]] <- setDT(SYNTHETIC_TRIPS[[i]])
   SYNTHETIC_TRIPS <- NULL
   
   # define PT modes
@@ -43,7 +43,7 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
   # if walk to pt stages are to be added:
   if(ADD_WALK_TO_PT_TRIPS){
     
-    for(i in 1:length(rd_list)){ # loop through all scenarios
+    for(i in names(rd_list)){ # loop through all scenarios
       
       rd_list[[i]] <- rd_list[[i]] %>% dplyr::mutate(id = row_number())
       
@@ -57,7 +57,9 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
       pt_trips <- rd_list[[i]] %>% dplyr::filter(stage_mode %in% pt_modes)
       
       # further separate out public transport trips WITHOUT pedestrian component
-      pt_trips_wo_walk <- rd_list[[i]] %>% dplyr::filter(trip_id %in% pt_trips$trip_id) %>% group_by(trip_id) %>% 
+      pt_trips_wo_walk <- rd_list[[i]] %>% 
+        dplyr::filter(trip_id %in% pt_trips$trip_id) %>% 
+        group_by(trip_id) %>% 
         dplyr::mutate(ped = if(any(stage_mode == 'walk_to_pt')) 1 else 0) %>% 
         ungroup() %>% 
         filter(ped == 0) %>% dplyr::select(-ped)
@@ -70,7 +72,8 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS){
       # print(paste(nrpt, " - ", round(nrptwp /  nrpt * 100,1)))
       
       # separate out pt trips WITH pedestrian component
-      pt_trips_w_walk <- pt_trips %>% filter(trip_id %in% setdiff(pt_trips$trip_id, pt_trips_wo_walk$trip_id))
+      pt_trips_w_walk <- pt_trips %>% 
+        filter(trip_id %in% setdiff(pt_trips$trip_id, pt_trips_wo_walk$trip_id))
       
       # find the trips without a public transport stage
       not_pt_trips <- subset(rd_list[[i]], !id %in% pt_trips$id)

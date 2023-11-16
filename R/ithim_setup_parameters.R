@@ -43,8 +43,15 @@
 #' @param NSAMPLES constant integer: number of samples to take
 #' @param BUS_WALK_TIME lognormal parameter: duration of walk to bus stage
 #' @param RAIL_WALK_TIME lognormal parameter: duration of walk to rail stage
-#' @param MMET_CYCLING lognormal parameter: mMETs when cycling
-#' @param MMET_WALKING lognormal parameter: mMETs when walking
+#' @param CYCLING_MET lognormal parameter: METs when cycling
+#' @param WALKING_MET lognormal parameter: METs when walking
+#' @param PASSENGER_MET lognormal parameter: MET value associated with being a passenger on public transport
+#' @param CAR_DRIVER_MET lognormal parameter: MET value associated with being a car driver 
+#' @param MOTORCYCLIST_MET lognormal parameter: MET value associated with being a motorcyclist
+#' @param SEDENTARY_ACTIVITY_MET lognormal parameter: MET value associated with sedentary activity
+#' @param LIGHT_ACTIVITY_MET lognormal parameter: MET value associated with light activity
+#' @param MODERATE_PA_MET lognormal parameter: MET value associated with moderate activity
+#' @param VIGOROUS_PA_MET lognormal parameter: MET value associated with vigorous activity 
 #' @param PM_CONC_BASE lognormal parameter: background PM2.5 concentration
 #' @param PM_TRANS_SHARE beta parameter: fraction of background PM2.5 attributable to transport
 #' @param PA_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from physical activity relative risk dose response functions
@@ -92,12 +99,19 @@
 #' 
 #' @export
 ithim_setup_parameters <- function(NSAMPLES = 1,
-                                   BUS_WALK_TIME = 5,
-                                   RAIL_WALK_TIME = 15,
-                                   MMET_CYCLING = 4.63,
-                                   MMET_WALKING = 2.53,
-                                   PM_CONC_BASE = 50,  
-                                   PM_TRANS_SHARE = 0.225,
+                                   BUS_WALK_TIME = 16,
+                                   RAIL_WALK_TIME = 12.5,
+                                   CYCLING_MET =	6.8,
+                                   WALKING_MET =	3.5,
+                                   PASSENGER_MET	= 1.3,
+                                   CAR_DRIVER_MET = 2.5,
+                                   MOTORCYCLIST_MET =	2.8,
+                                   SEDENTARY_ACTIVITY_MET =	1.3,
+                                   LIGHT_ACTIVITY_MET =	1.3,
+                                   MODERATE_PA_MET =	4,
+                                   VIGOROUS_PA_MET =	8,
+                                   PM_CONC_BASE = 12.69,  
+                                   PM_TRANS_SHARE = 0.42,
                                    PA_DOSE_RESPONSE_QUANTILE = F,
                                    AP_DOSE_RESPONSE_QUANTILE = F,
                                    BACKGROUND_PA_SCALAR = 1,
@@ -114,10 +128,10 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    CASUALTY_EXPONENT_FRACTION_PED = 0.5,
                                    SIN_EXPONENT_SUM_VEH= 2,
                                    CASUALTY_EXPONENT_FRACTION_VEH = 0.5,
-                                   BUS_TO_PASSENGER_RATIO = 0.022,
-                                   CAR_OCCUPANCY_RATIO = 0.6,
-                                   TRUCK_TO_CAR_RATIO = 0.21,
-                                   FLEET_TO_MOTORCYCLE_RATIO = 0,
+                                   BUS_TO_PASSENGER_RATIO = 0.0389,
+                                   CAR_OCCUPANCY_RATIO = 0.625,
+                                   TRUCK_TO_CAR_RATIO = 0.3,
+                                   FLEET_TO_MOTORCYCLE_RATIO = 0.441,
                                    PROPORTION_MOTORCYCLE_TRIPS = 0,
                                    PM_EMISSION_INVENTORY_CONFIDENCE = 1,
                                    CO2_EMISSION_INVENTORY_CONFIDENCE = 1,
@@ -126,17 +140,20 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    DISTANCE_SCALAR_PT = 1,
                                    DISTANCE_SCALAR_CYCLING = 1,
                                    DISTANCE_SCALAR_MOTORCYCLE = 1,
-                                   BUS_DRIVER_PROP_MALE = 0.99,
-                                   BUS_DRIVER_MALE_AGERANGE = "18, 65", 
-                                   BUS_DRIVER_FEMALE_AGERANGE = "18, 65",
-                                   TRUCK_DRIVER_PROP_MALE = 0.99,
+                                   BUS_DRIVER_PROP_MALE = 0.98,
+                                   BUS_DRIVER_MALE_AGERANGE = "19, 65", 
+                                   BUS_DRIVER_FEMALE_AGERANGE = "19, 65",
+                                   TRUCK_DRIVER_PROP_MALE = 0.98,
                                    TRUCK_DRIVER_MALE_AGERANGE = "18, 65",
                                    TRUCK_DRIVER_FEMALE_AGERANGE = "18, 65",
                                    COMMERCIAL_MBIKE_PROP_MALE = 0.99,
                                    COMMERCIAL_MBIKE_MALE_AGERANGE ="18, 65",
                                    COMMERCIAL_MBIKE_FEMALE_AGERANGE ="18, 65",
                                    MINIMUM_PT_TIME = 3,
-                                   MODERATE_PA_CONTRIBUTION = 0.5){
+                                   MODERATE_PA_CONTRIBUTION = 0.5,
+                                   CALL_INDIVIDUAL_SIN = F, 
+                                   SCENARIO_NAME = 'GLOBAL', 
+                                   SCENARIO_INCREASE = 0.05 ){
   
   # Check if default values are set in which case a warning message appears to change the default values
   # for PM_CONC_BASE and PM_TRANS_SHAREs
@@ -149,8 +166,15 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   # They are over-written when sample_parameters is called.
   BUS_WALK_TIME <<- BUS_WALK_TIME
   RAIL_WALK_TIME <<- RAIL_WALK_TIME
-  MMET_CYCLING <<- MMET_CYCLING
-  MMET_WALKING <<- MMET_WALKING
+  CYCLING_MET <<- CYCLING_MET
+  WALKING_MET <<- WALKING_MET 
+  PASSENGER_MET <<- PASSENGER_MET
+  CAR_DRIVER_MET <<- CAR_DRIVER_MET
+  MOTORCYCLIST_MET <<- MOTORCYCLIST_MET
+  SEDENTARY_ACTIVITY_MET <<- SEDENTARY_ACTIVITY_MET
+  LIGHT_ACTIVITY_MET <<- LIGHT_ACTIVITY_MET 
+  MODERATE_PA_MET <<- MODERATE_PA_MET
+  VIGOROUS_PA_MET <<- VIGOROUS_PA_MET
   PM_CONC_BASE <<- PM_CONC_BASE
   PM_TRANS_SHARE <<- PM_TRANS_SHARE
   PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
@@ -194,21 +218,28 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   # from a pre-defined lognormal distribution if needed
   normVariables <- c("BUS_WALK_TIME",
                      "RAIL_WALK_TIME",
-                 "MMET_CYCLING",
-                 "MMET_WALKING",
-                 "PM_CONC_BASE",
-                 "BACKGROUND_PA_SCALAR",
-                 "SIN_EXPONENT_SUM",
-                 "SIN_EXPONENT_SUM_NOV",
-                 "SIN_EXPONENT_SUM_CYCLE",
-                 "SIN_EXPONENT_SUM_PED",
-                 "SIN_EXPONENT_SUM_VEH",
-                 "CHRONIC_DISEASE_SCALAR",
-                 "DISTANCE_SCALAR_CAR_TAXI",
-                 "DISTANCE_SCALAR_WALKING",
-                 "DISTANCE_SCALAR_PT",
-                 "DISTANCE_SCALAR_CYCLING",
-                 "DISTANCE_SCALAR_MOTORCYCLE")
+                     'CYCLING_MET',
+                     'WALKING_MET',
+                     'PASSENGER_MET',
+                     'CAR_DRIVER_MET',
+                     'MOTORCYCLIST_MET',
+                     'SEDENTARY_ACTIVITY_MET',
+                     'LIGHT_ACTIVITY_MET',
+                     'MODERATE_PA_MET',
+                     'VIGOROUS_PA_MET',
+                     "PM_CONC_BASE",
+                     "BACKGROUND_PA_SCALAR",
+                     "SIN_EXPONENT_SUM",
+                     "SIN_EXPONENT_SUM_NOV",
+                     "SIN_EXPONENT_SUM_CYCLE",
+                     "SIN_EXPONENT_SUM_PED",
+                     "SIN_EXPONENT_SUM_VEH",
+                     "CHRONIC_DISEASE_SCALAR",
+                     "DISTANCE_SCALAR_CAR_TAXI",
+                     "DISTANCE_SCALAR_WALKING",
+                     "DISTANCE_SCALAR_PT",
+                     "DISTANCE_SCALAR_CYCLING",
+                     "DISTANCE_SCALAR_MOTORCYCLE")
   for (i in 1:length(normVariables)) {
     name <- normVariables[i]
     val <- get(normVariables[i])
