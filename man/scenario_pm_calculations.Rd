@@ -23,8 +23,6 @@ Calculate total AP exposure per person based on population and personal travel
 This function performs the following steps:
 
 \itemize{
-\item the ventilation rates per mode are defined - these parameters are fixed
-
 \item the exposure factor rates by activity are defined - these parameters are fixed
 
 \item calculate pm concentration not related to transport
@@ -37,19 +35,21 @@ This function performs the following steps:
 \item for modes without any assigned distance, use the PM emissions from the VEHICLE_INVENTORY instead
 
 \item calculate the total PM concentrations for each scenario
-
-\item add ventilation and exposure factors to the trip set by stage mode
+ 
+\item add exposure factors to the trip set by stage mode
 
 \item add total scenario PM concentrations to the trip set
 
-\item add the inhaled air and total PM (in micro grams) to the trip set
+\item calculate ventilation rate for each stage taking into account demographic characteristics and exposure factors
 
-\item define the amount of time per day spent as leisure sedentary screen time, 
-  non-discretionary time and other time - fixed
+\item calculate the inhaled air and total PM (in micro grams) in the trip set
+
+\item calculate the amount of time per day spent in sleep, moderate and vigorous
+  activities
 
 \item add total time spent travelling by each participant to the trip set
 
-\item calculate the sleep and the rest ventilation rates
+\item calculate ventilation rate for sleep, moderate and vigorous activities
 
 \item for each participant in the synthetic population (with travel component), 
   calculate the total air inhaled, the total PM inhaled and 
