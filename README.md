@@ -97,4 +97,4 @@ In order to setup the model, we need a fixed list of tables/datasets, such as:
 
 ## How to run the model?
 
-For setup, reading all the required datasets and initialising all variables, we call `run_ithim_setup` and to run the model, we call `run_ithim`. The function used to call both `run_ithim_setup` and `run_ithim` is the `multi_city_script` which also reads in the relevant input parameter file. 
+For setup, reading all the required datasets and initialising all variables, we call `run_ithim_setup()` and to run the model, we call `run_ithim()`. The function used to call both `run_ithim_setup` and `run_ithim` is the `multi_city_script` which also reads in the relevant input parameter file. 
