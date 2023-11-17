@@ -19,7 +19,7 @@ Switch to either calculate the health burden using the constant input parameter 
 }
 \details{
 This function works by creating a switch to run the computation by calling
-ithim_calculation_sequence() directly, or to divert to the sampling case
+\code{\link{ithim_calculation_sequence()}} directly, or to divert to the sampling case
 ithim_uncertainty.R which first extracts the sampled parameters and then calls
-the ithim_calculation_sequence().
+the.
 }
