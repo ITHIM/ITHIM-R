@@ -45,7 +45,7 @@ The health effects of ITHIM are presented as years of life lost (YLLs) and numbe
 
 ### Data inputs
 
-ITHIM-R requires 5 user defined input files in csv format, saved in a directory of the city's name. See [inst/ext/local/bogota](inst/extdata/local/bogota) for example files. There are also numerous assumptions that you can parameterize in the model.
+ITHIM-R requires 5 user defined input files in csv format, saved in a directory of the city's name. See [inst/ext/local/bogota](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota) for example files. There are also numerous assumptions that you can parameterize in the model.
 
 #### File inputs
 
@@ -59,30 +59,30 @@ This section talks about all the files (datasets) required to setup and run the 
 
 This section covers file inputs (specific to a city) required to run the model.
 
--   **Travel survey** [(example trips dataset)](inst/extdata/local/bogota/trips_bogota.csv%20target=%22_blank). A table of all trips taken by a group of people on a given day. It also includes people who take no trips.
+-   **Travel survey** [(example trips dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/trips_bogota.csv%20target=%22_blank). A table of all trips taken by a group of people on a given day. It also includes people who take no trips.
 
     -   One row per trip (or stage of trip)
     -   Minimal columns: `participant_id`, `age`, `sex`, `trip_mode`, `trip_duration` (or `trip_distance`)
     -   Other columns: `stage_mode`, `stage_duration` (or `stage_distance`)
 
--   **Injury events** [(example injuries dataset)](inst/extdata/local/bogota/injuries_bogota.csv). A table of recorded road-traffic injury (fatality) events in a city in one or more years.
+-   **Injury events** [(example injuries dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/injuries_bogota.csv). A table of recorded road-traffic injury (fatality) events in a city in one or more years.
 
     -   One row per event
     -   Minimal columns: **victim mode** (`cas_mode`) and **strike mode** (`strike_mode`)
     -   Other columns: `year`, `cas_age`, `cas_gender`, `weight` (e.g. multiple years combined)
 
--   **Disease burden data** [(example burden dataset)](inst/extdata/local/bogota/gbd_bogota.csv).
+-   **Disease burden data** [(example burden dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/gbd_bogota.csv).
 
     -   One row per disease/metric/age/gender combination
     -   Minimal rows: `Measure` (death/YLL); `sex_name` (Male/Female); `age_name` ('x to y'); `cause_name` (disease names); `val` (value of burden); `population` (number of people `val` corresponds to, e.g. population of country)
 
--   **Population of city** [(example population dataset)](inst/extdata/local/bogota/population_bogota.csv). This is used in order to scale the burden in Disease burden data to the city's population under study
+-   **Population of city** [(example population dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/population_bogota.csv). This is used in order to scale the burden in Disease burden data to the city's population under study
 
     -   One row per demographic group
     -   Columns: `sex`, `age`, `population`
     -   `age` column should share boundaries with `age_name` in Disease burden data, but can be more aggregated
 
--   **Physical activity survey** [(example physical activity dataset)](inst/extdata/local/bogota/pa_bogota.csv)
+-   **Physical activity survey** [(example physical activity dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/pa_bogota.csv)
 
     -   One row per person
     -   Columns: `sex`, `age`, `ltpa_marg_met` (total non-occupational PA in a week)
@@ -91,7 +91,7 @@ This section covers file inputs (specific to a city) required to run the model.
 
 In order to setup the model, we need a fixed list of tables/datasets, such as:
 
--   [**Disease interaction table**](inst/extdata/global/dose_response/disease_outcomes_lookup.csv) . A table with a list of diseases/causes for a specific module such as `Air Pollution` and `Physical Activity` and also the interaction between them
+-   [**Disease interaction table**](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/global/dose_response/disease_outcomes_lookup.csv) . A table with a list of diseases/causes for a specific module such as `Air Pollution` and `Physical Activity` and also the interaction between them
 -   **Air Pollution Exposure Response Functions (ERFs)** exposure response relationships of air pollution (PM2.5) and its impact on health via diseases/causes. We have collected/cleaned datasets from published studies for this.
 -   **Physical Activity Dose-Response Functions (DRFs)** dose response relationships of physical activity and its impact on health via diseases/causes. Similar to AP, this too comes from published studies. This now sits in an independent R package called [`drpa`](https://github.com/meta-analyses/drpa/).
 
