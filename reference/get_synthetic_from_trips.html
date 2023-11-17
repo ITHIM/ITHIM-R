@@ -67,19 +67,19 @@
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function performs the following steps:</p>
 <ul><li><p>The columns from the TRIP_SET are put into the correct order</p></li>
-<li><p>multiply the trip distances, stage distances, and durations by the day_to_week scalar 
+<li><p>multiply the trip distances, stage distances, and durations by the day_to_week scalar
   and then divide by 7 to get the distances and durations of an 'average' day of the week</p></li>
 <li><p>add bus_driver and truck trips if required (add_ghost_trips.R)</p></li>
 <li><p>add personal motorcycle trips if needed (call the appropriate function)</p></li>
 <li><p>add commercial motorcycle trips if required (add_ghost_trips.R)</p></li>
-<li><p>build the synthetic population by creating a data set that contains the (non-zero) participant  
+<li><p>build the synthetic population by creating a data set that contains the (non-zero) participant
   ids and demographic information from the trip data set and adds work and leisure MMET
   values by calling create_synth_pop.R (non travel entries in the trip data set are also removed)</p></li>
 <li><p>adds car driver trips if required (add_ghost_trips.R)</p></li>
 <li><p>call the ithim_setup_baseline_scenario.R function to get the baseline data into the correct format
   for the creation of the different scenarios</p></li>
 <li><p>create the required scenarios by calling the appropriate function</p></li>
-<li><p>add walk to pt trips and combine the scenarios into one dataframe by calling the 
+<li><p>add walk to pt trips and combine the scenarios into one dataframe by calling the
   walk_to_pt_and_combine_scen.R function</p></li>
 </ul></div>
 
@@ -88,7 +88,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Rob Johnson, Ali Abbas.</p>
+  <p></p><p>Developed by Ali Abbas, Anna Schroeder, Daniel Gil, Lambed Tatah, Rob Johnson.</p>
 </div>
 
 <div class="pkgdown-footer-right">

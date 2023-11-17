@@ -408,7 +408,7 @@
 
 
 <dt>SCENARIO_NAME</dt>
-<dd><p>name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO, 
+<dd><p>name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO,
 MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)</p></dd>
 
 
@@ -424,12 +424,12 @@ MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function is used to read in the various input files and parameters and to 
-process and harmonise the data ready for the health impact assessment. 
-Input Parameters have two options: to be set to a constant or to be sampled 
-from a pre-specified distribution. Most of these parameters are given as an 
-argument of length 1 or 2. If of length 1, the parameter is usually used as 
-a constant. If the parameter is of length 2, a distribution is defined 
+    <p>This function is used to read in the various input files and parameters and to
+process and harmonise the data ready for the health impact assessment.
+Input Parameters have two options: to be set to a constant or to be sampled
+from a pre-specified distribution. Most of these parameters are given as an
+argument of length 1 or 2. If of length 1, the parameter is usually used as
+a constant. If the parameter is of length 2, a distribution is defined
 and sampled from NSAMPLE times.</p>
 
 <p>This function performs the following steps:</p>
@@ -438,7 +438,7 @@ and sampled from NSAMPLE times.</p>
 <li><p>find the path to the local data</p></li>
 <li><p>define fixed parameters for air pollution inhalation</p></li>
 <li><p>define the mode speeds:</p><ul><li><p>set default speeds for the various modes</p></li>
-<li><p>update the default speeds with city specific mode speeds if these are 
+<li><p>update the default speeds with city specific mode speeds if these are
      given as input parameters</p></li>
 <li><p>ensure similar modes have the same speed assigned</p></li>
 <li><p>set-up dataframe with modes and speeds</p></li>
@@ -457,8 +457,8 @@ and sampled from NSAMPLE times.</p>
  (ithim_uncertainty.R) IF certain input parameters were sampled from a distribution</p></li>
 <li><p>call complete_trip_distance_duration.R to add any missing stage or distance
   information to the trip data</p></li>
-<li><p>if none of the corresponding input parameters were sampled from a distribution, 
-  call set_vehicle_inventory.R to create a dataframe with mode specific speed, 
+<li><p>if none of the corresponding input parameters were sampled from a distribution,
+  call set_vehicle_inventory.R to create a dataframe with mode specific speed,
   distance and emission information</p></li>
 <li><p>if none of the corresponding input parameters were sampled from a distribution,
   call get_synthetic_from_trips to set synthetic trips and synthetic population</p></li>
@@ -471,7 +471,7 @@ and sampled from NSAMPLE times.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Rob Johnson, Ali Abbas.</p>
+  <p></p><p>Developed by Ali Abbas, Anna Schroeder, Daniel Gil, Lambed Tatah, Rob Johnson.</p>
 </div>
 
 <div class="pkgdown-footer-right">

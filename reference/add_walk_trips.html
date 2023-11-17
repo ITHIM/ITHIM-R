@@ -71,17 +71,17 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Function to add additional walking stages to those public transport trips that do not have a walking stage 
+    <p>Function to add additional walking stages to those public transport trips that do not have a walking stage
 and have a longer trip duration than the MINIMUM_PT_TIME plus the BUS_WALK_TIME / RAIL_WALK_TIME parameters.
 The MINIMUM_PT_TIME is a global input parameter that determines the minimum amount of time  (in minutes) a
-person travelling on public transport spends on the public transport stage. The BUS_WALK_TIME / RAIL_WALK_TIME 
+person travelling on public transport spends on the public transport stage. The BUS_WALK_TIME / RAIL_WALK_TIME
 parameter is a city specific input parameter that determines the duration of the walk to public transport walking stage.</p>
 <p>This function performs the following steps:</p>
 <ul><li><p>filter out the PT stages of PT trips and only keep the stage with the longest duration as we
   only add one 'walk to public transport' stage per trip</p></li>
 <li><p>find the trip stages that need changing</p></li>
-<li><p>add new 'walk to pt' stages. If the duration of the public transport stage is shorter than  
-  BUS_WALK_TIME / RAIL_WALK_TIME + MINIMUM_PT_TIME, set the new stage duration to 3. Otherwise, 
+<li><p>add new 'walk to pt' stages. If the duration of the public transport stage is shorter than
+  BUS_WALK_TIME / RAIL_WALK_TIME + MINIMUM_PT_TIME, set the new stage duration to 3. Otherwise,
   set the new stage duration to either BUS_WALK_TIME or RAIL_WALK_TIME depending on the trip mode</p></li>
 <li><p>update the original public transport stage duration</p></li>
 <li><p>calculate the 'walk to pt' stage distance using the walking speed</p></li>
@@ -98,7 +98,7 @@ parameter is a city specific input parameter that determines the duration of the
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Rob Johnson, Ali Abbas.</p>
+  <p></p><p>Developed by Ali Abbas, Anna Schroeder, Daniel Gil, Lambed Tatah, Rob Johnson.</p>
 </div>
 
 <div class="pkgdown-footer-right">

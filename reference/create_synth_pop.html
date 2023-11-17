@@ -77,15 +77,15 @@ to individuals in the physical activity (PA) dataset</p>
     <p>The function performs the following steps:</p>
 <ul><li><p>adds age category to trip and physical activity datasets by calling assign_age_groups.R</p></li>
 <li><p>To match people in trip data with people in the physical activity dataset:</p><ul><li><p>create a synthetic population by taking the unique participant ids together with age and gender
-    information from the trip data (not including bus driver, truck, car driver and commercial 
+    information from the trip data (not including bus driver, truck, car driver and commercial
     motorcycle trips)</p></li>
-<li><p>to assign non-occupational physical activity MMET values to this 
-    synthetic population, the following steps are performed:</p>    
+<li><p>to assign non-occupational physical activity MMET values to this
+    synthetic population, the following steps are performed:</p>
 <p></p><ul><li><p>for each sex and age category, find the proportion of people with zero non-occupational MMET values
       and also find the list of people with non-zero MMET values</p></li>
-<li><p>if BACKGROUND_PA_CONFIDENCE &lt; 1 when calling the value of information script, i.e. when 
-      input values are sampled from distributions, a beta distribution is built from which the 
-      proportion of people with zero work and leisure MMET values is sampled using the  
+<li><p>if BACKGROUND_PA_CONFIDENCE &lt; 1 when calling the value of information script, i.e. when
+      input values are sampled from distributions, a beta distribution is built from which the
+      proportion of people with zero work and leisure MMET values is sampled using the
       known proportion as mean of this distribution</p></li>
 <li><p>sample with replacement from a vector with 0 MMET values and the vector non-zero MMET values (from
       the people having non-zero work and leisure MMET values) using the proportion of people with
@@ -100,7 +100,7 @@ to individuals in the physical activity (PA) dataset</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Rob Johnson, Ali Abbas.</p>
+  <p></p><p>Developed by Ali Abbas, Anna Schroeder, Daniel Gil, Lambed Tatah, Rob Johnson.</p>
 </div>
 
 <div class="pkgdown-footer-right">

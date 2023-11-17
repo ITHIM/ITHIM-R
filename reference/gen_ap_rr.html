@@ -71,16 +71,16 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function performs the following steps:</p><ul><li><p>minimum ages for each age group corresponding to disease risks are assigned to the individuals in the 
+    <p>This function performs the following steps:</p><ul><li><p>minimum ages for each age group corresponding to disease risks are assigned to the individuals in the
   synthetic population (with added PM exposure levels)</p></li>
 <li><p>loop through all diseases that are related to PM pollution:</p><ul><li><p>depending on the disease (as some disease have different relative risks depending
-     on the age of the individual) loop through disease specific age groups (or just 
+     on the age of the individual) loop through disease specific age groups (or just
      one age group for most disease)</p></li>
-<li><p>set the quantile of the value of the dose response curves to be extracted. If running in 
-     constant mode, the quantile is usually set to 0.5, i.e. to the median of the dose response curves. 
-     If running in sample mode, then the quantile can be set to be sampled from a distribution in the 
+<li><p>set the quantile of the value of the dose response curves to be extracted. If running in
+     constant mode, the quantile is usually set to 0.5, i.e. to the median of the dose response curves.
+     If running in sample mode, then the quantile can be set to be sampled from a distribution in the
      input parameters.</p></li>
-<li><p>loop through the scenarios:</p><ul><li><p>assign the relative risk for the given disease, age group, quantile and scenario to the 
+<li><p>loop through the scenarios:</p><ul><li><p>assign the relative risk for the given disease, age group, quantile and scenario to the
        relevant people in the synthetic population by calling the AP_dose_response.R function</p></li>
 </ul></li>
 </ul></li>
@@ -91,7 +91,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Rob Johnson, Ali Abbas.</p>
+  <p></p><p>Developed by Ali Abbas, Anna Schroeder, Daniel Gil, Lambed Tatah, Rob Johnson.</p>
 </div>
 
 <div class="pkgdown-footer-right">

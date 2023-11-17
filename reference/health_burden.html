@@ -83,13 +83,13 @@
 <ul><li><p>get the demographic and disease burden (subset of Global Burden of Disease dataset) data
    into the correct formats and join the two datasets</p></li>
 <li><p>scale the burden data by the CHRONIC_DISEASE_SCALAR to account for bias in the data</p></li>
-<li><p>split the above dataframe into two dataframes, one for deaths and one 
+<li><p>split the above dataframe into two dataframes, one for deaths and one
    for years of life lost (YLLs)</p></li>
 <li><p>add a demographic index (by age and sex category) to the dataframe containing the
    individual relative risk for different diseases</p></li>
 <li><p>set the reference and the other scenarios</p></li>
 <li><p>iterate over all disease outcomes:</p><ul><li><p>define column names</p></li>
-<li><p>loop either over 1 or 2 pathways depending on whether both PA and AP are affecting 
+<li><p>loop either over 1 or 2 pathways depending on whether both PA and AP are affecting
      the disease and whether the AP and PA pathways are combined or not:</p><ul><li><p>extract the relevant burden of disease for the specific scenario both for YLLs and deaths</p></li>
 <li><p>find the sum of the relative risks (RR) for the specific disease for each age
        and sex category for the reference scenario</p></li>
@@ -97,7 +97,7 @@
 <li><p>find the sum of the relative risks (RR) for the specific disease for each age
          and sex category for the non-reference scenario</p></li>
 <li><p>calculate the PIF (potential impact fraction), i.e the proportional change
-         in the sum of relative risks between the reference and the non-reference 
+         in the sum of relative risks between the reference and the non-reference
          scenario for each age and sex category</p></li>
 <li><p>calculate the health burden (deaths and ylls) for the non-reference scenario
          compared to the reference scenario by multiplying the current burden of disease
@@ -116,7 +116,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Rob Johnson, Ali Abbas.</p>
+  <p></p><p>Developed by Ali Abbas, Anna Schroeder, Daniel Gil, Lambed Tatah, Rob Johnson.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -79,7 +79,7 @@ input data ready for the ITHIM-Global model run. Writes objects to the global en
 <li><p>check whether drpa package is installed</p></li>
 <li><p>read in Global Burden of Disease data for country</p></li>
 <li><p>read in city specific trip data:</p>
-<p></p><ul><li><p>set missing stage or trip information to known stage or trip information, 
+<p></p><ul><li><p>set missing stage or trip information to known stage or trip information,
      e.g. if stage duration is missing but trip duration is known then set stage duration to trip duration</p></li>
 <li><p>ensure that stage modes and trip modes only consist of set keywords, replace all other mode names by those key
      words, e.g. replace 'train' by 'rail'</p></li>
@@ -91,7 +91,7 @@ input data ready for the ITHIM-Global model run. Writes objects to the global en
 <li><p>read in the local Global Burden of Disease (GBD) data:</p><ul><li><p>combine various head and neck cancers, combine myeloid leukemia diseases, combine respiratory diseases at level 2</p></li>
 <li><p>adjust for rectum cancer in the combined colon and rectum cancer burden</p></li>
 </ul></li>
-<li><p>read in local demographic data:</p><ul><li><p>find / re-define max and min ages based on the max and min ages in the trip data, 
+<li><p>read in local demographic data:</p><ul><li><p>find / re-define max and min ages based on the max and min ages in the trip data,
      the demographic data and the max and min ages considered in the model</p></li>
 <li><p>remove any population data outside these max and min ages</p></li>
 <li><p>find the proportion of the total population that is considered in the model to the total population</p></li>
@@ -102,7 +102,7 @@ input data ready for the ITHIM-Global model run. Writes objects to the global en
   this proportion is applied to those injury datasets without age and sex information</p></li>
 <li><p>remove ages outside age ranges considered in model from GBD_data</p></li>
 <li><p>create burden_of_disease dataframe from the GBD_data by changing the layout of the GBD_data:</p><ul><li><p>add city specific population data</p></li>
-<li><p>add the country specific disease rate from the GBD data, ie. the proportion of the number of people 
+<li><p>add the country specific disease rate from the GBD data, ie. the proportion of the number of people
      in the country with that disease over the population of the country for each age and sex category</p></li>
 <li><p>using the country disease rate calculate the city population affected by the disease</p></li>
 </ul></li>
@@ -119,7 +119,7 @@ input data ready for the ITHIM-Global model run. Writes objects to the global en
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Rob Johnson, Ali Abbas.</p>
+  <p></p><p>Developed by Ali Abbas, Anna Schroeder, Daniel Gil, Lambed Tatah, Rob Johnson.</p>
 </div>
 
 <div class="pkgdown-footer-right">
