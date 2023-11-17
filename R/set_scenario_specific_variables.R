@@ -1,12 +1,12 @@
 #' Set scenario specific variables - CURRENTLY NOT CALLED
-#' 
+#'
 #' Set NSCEN, SCEN and SCEN_SHORT_NAME
-#' 
+#'
 #'
 #' @export
-set_scenario_specific_variables <- function(){
+set_scenario_specific_variables <- function() {
   # some useful variables.
   NSCEN <<- length(SYNTHETIC_TRIPS) - 1
-  SCEN <<- sapply(SYNTHETIC_TRIPS,function(x)x$scenario[1])
-  SCEN_SHORT_NAME <<- c("base",paste0("scen", 1:NSCEN) )
+  SCEN <<- sapply(SYNTHETIC_TRIPS, function(x) x$scenario[1])
+  SCEN_SHORT_NAME <<- c("base", paste0("scen", 1:NSCEN))
 }

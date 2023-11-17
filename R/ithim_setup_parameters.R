@@ -1,57 +1,57 @@
 #' Set parameters for ITHIM-Global run
-#' 
+#'
 #' Function to set parameters by either using the constant value or sampling from a pre-defined function
-#' 
-#' 
+#'
+#'
 #' For each input parameters there are two options: to be set to a constant, or to be sampled
-#' from a specified distribution. Each parameter is given as an argument of length 1 or 2. 
-#' If length 1, it's constant, and set to the global environment. 
+#' from a specified distribution. Each parameter is given as an argument of length 1 or 2.
+#' If length 1, it's constant, and set to the global environment.
 #' If length 2, a distribution is defined and sampled from NSAMPLE times.
 #' There are some exceptions, listed below.
-#' 
-#' The function performs the following steps:
-#' 
-#' \itemize{  
-#' \item set all input parameters to the global environment (if sampling function is called, they are overwritten)  
-#' 
-#' \item loop through all potential variables with a lognormal distribution and sample from this distribution
-#'   if required  
-#' 
-#' \item loop through all potential variables with a beta distribution and sample from this distribution
-#'   if required  
-#' 
-#' \item if BACKGROUND_PA_CONFIDENCE<1 then add BACKGROUND_PA_ZEROS parameters  
 #'
-#' \item if PM_EMISSION_INVENTORY_CONFIDENCE<1, then sample those PM inventory values by 
-#'   using a Dirichlet distribution which is parameterised by gamma random variables  
-#' 
-#' \item if CO2_EMISSION_INVENTORY_CONFIDENCE<1, then sample those CO2 inventory values by 
-#'   using a Dirichlet distribution which is parameterised by gamma random variables  
-#' 
+#' The function performs the following steps:
+#'
+#' \itemize{
+#' \item set all input parameters to the global environment (if sampling function is called, they are overwritten)
+#'
+#' \item loop through all potential variables with a lognormal distribution and sample from this distribution
+#'   if required
+#'
+#' \item loop through all potential variables with a beta distribution and sample from this distribution
+#'   if required
+#'
+#' \item if BACKGROUND_PA_CONFIDENCE<1 then add BACKGROUND_PA_ZEROS parameters
+#'
+#' \item if PM_EMISSION_INVENTORY_CONFIDENCE<1, then sample those PM inventory values by
+#'   using a Dirichlet distribution which is parameterised by gamma random variables
+#'
+#' \item if CO2_EMISSION_INVENTORY_CONFIDENCE<1, then sample those CO2 inventory values by
+#'   using a Dirichlet distribution which is parameterised by gamma random variables
+#'
 #' \item if PA_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to physical activity
-#'   levels and assign a quantile to them by sampling from a uniform distribution between 0 and 1  
-#' 
+#'   levels and assign a quantile to them by sampling from a uniform distribution between 0 and 1
+#'
 #' \item if AP_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to air pollution levels
-#'   and assign a quantile to them by sampling from a uniform distribution between 0 and 1  
+#'   and assign a quantile to them by sampling from a uniform distribution between 0 and 1
 #' }
-#'    
-#' At the bottom of this function, the dirichlet_pointiness() function is defined which 
-#' parameterises the Dirichlet distributions for the PM and CO2 emission inventories. 
-#' 
-#' 
-#' 
+#'
+#' At the bottom of this function, the dirichlet_pointiness() function is defined which
+#' parameterises the Dirichlet distributions for the PM and CO2 emission inventories.
+#'
+#'
+#'
 #' @param NSAMPLES constant integer: number of samples to take
 #' @param BUS_WALK_TIME lognormal parameter: duration of walk to bus stage
 #' @param RAIL_WALK_TIME lognormal parameter: duration of walk to rail stage
 #' @param CYCLING_MET lognormal parameter: METs when cycling
 #' @param WALKING_MET lognormal parameter: METs when walking
 #' @param PASSENGER_MET lognormal parameter: MET value associated with being a passenger on public transport
-#' @param CAR_DRIVER_MET lognormal parameter: MET value associated with being a car driver 
+#' @param CAR_DRIVER_MET lognormal parameter: MET value associated with being a car driver
 #' @param MOTORCYCLIST_MET lognormal parameter: MET value associated with being a motorcyclist
 #' @param SEDENTARY_ACTIVITY_MET lognormal parameter: MET value associated with sedentary activity
 #' @param LIGHT_ACTIVITY_MET lognormal parameter: MET value associated with light activity
 #' @param MODERATE_PA_MET lognormal parameter: MET value associated with moderate activity
-#' @param VIGOROUS_PA_MET lognormal parameter: MET value associated with vigorous activity 
+#' @param VIGOROUS_PA_MET lognormal parameter: MET value associated with vigorous activity
 #' @param PM_CONC_BASE lognormal parameter: background PM2.5 concentration
 #' @param PM_TRANS_SHARE beta parameter: fraction of background PM2.5 attributable to transport
 #' @param PA_DOSE_RESPONSE_QUANTILE logic: whether or not to sample from physical activity relative risk dose response functions
@@ -94,23 +94,23 @@
 #' @param COMMERCIAL_MBIKE_FEMALE_AGERANGE character: age range of female commercial motorcycle drivers
 #' @param MINIMUM_PT_TIME scalar: minimum time that person spends on public transport
 #' @param MODERATE_PA_CONTRIBUTION scalar: proportion contribution of moderate PA in Leisure MVPA
-#' 
+#'
 #' @return list of samples of uncertain parameters
-#' 
+#'
 #' @export
 ithim_setup_parameters <- function(NSAMPLES = 1,
                                    BUS_WALK_TIME = 16,
                                    RAIL_WALK_TIME = 12.5,
-                                   CYCLING_MET =	6.8,
-                                   WALKING_MET =	3.5,
-                                   PASSENGER_MET	= 1.3,
+                                   CYCLING_MET = 6.8,
+                                   WALKING_MET = 3.5,
+                                   PASSENGER_MET = 1.3,
                                    CAR_DRIVER_MET = 2.5,
-                                   MOTORCYCLIST_MET =	2.8,
-                                   SEDENTARY_ACTIVITY_MET =	1.3,
-                                   LIGHT_ACTIVITY_MET =	1.3,
-                                   MODERATE_PA_MET =	4,
-                                   VIGOROUS_PA_MET =	8,
-                                   PM_CONC_BASE = 12.69,  
+                                   MOTORCYCLIST_MET = 2.8,
+                                   SEDENTARY_ACTIVITY_MET = 1.3,
+                                   LIGHT_ACTIVITY_MET = 1.3,
+                                   MODERATE_PA_MET = 4,
+                                   VIGOROUS_PA_MET = 8,
+                                   PM_CONC_BASE = 12.69,
                                    PM_TRANS_SHARE = 0.42,
                                    PA_DOSE_RESPONSE_QUANTILE = F,
                                    AP_DOSE_RESPONSE_QUANTILE = F,
@@ -119,14 +119,14 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    INJURY_REPORTING_RATE = 1,
                                    CHRONIC_DISEASE_SCALAR = 1,
                                    DAY_TO_WEEK_TRAVEL_SCALAR = 7,
-                                   SIN_EXPONENT_SUM= 2,
+                                   SIN_EXPONENT_SUM = 2,
                                    CASUALTY_EXPONENT_FRACTION = 0.5,
-                                   SIN_EXPONENT_SUM_NOV= 1,
-                                   SIN_EXPONENT_SUM_CYCLE= 2,
+                                   SIN_EXPONENT_SUM_NOV = 1,
+                                   SIN_EXPONENT_SUM_CYCLE = 2,
                                    CASUALTY_EXPONENT_FRACTION_CYCLE = 0.5,
-                                   SIN_EXPONENT_SUM_PED= 2,
+                                   SIN_EXPONENT_SUM_PED = 2,
                                    CASUALTY_EXPONENT_FRACTION_PED = 0.5,
-                                   SIN_EXPONENT_SUM_VEH= 2,
+                                   SIN_EXPONENT_SUM_VEH = 2,
                                    CASUALTY_EXPONENT_FRACTION_VEH = 0.5,
                                    BUS_TO_PASSENGER_RATIO = 0.0389,
                                    CAR_OCCUPANCY_RATIO = 0.625,
@@ -141,38 +141,37 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
                                    DISTANCE_SCALAR_CYCLING = 1,
                                    DISTANCE_SCALAR_MOTORCYCLE = 1,
                                    BUS_DRIVER_PROP_MALE = 0.98,
-                                   BUS_DRIVER_MALE_AGERANGE = "19, 65", 
+                                   BUS_DRIVER_MALE_AGERANGE = "19, 65",
                                    BUS_DRIVER_FEMALE_AGERANGE = "19, 65",
                                    TRUCK_DRIVER_PROP_MALE = 0.98,
                                    TRUCK_DRIVER_MALE_AGERANGE = "18, 65",
                                    TRUCK_DRIVER_FEMALE_AGERANGE = "18, 65",
                                    COMMERCIAL_MBIKE_PROP_MALE = 0.99,
-                                   COMMERCIAL_MBIKE_MALE_AGERANGE ="18, 65",
-                                   COMMERCIAL_MBIKE_FEMALE_AGERANGE ="18, 65",
+                                   COMMERCIAL_MBIKE_MALE_AGERANGE = "18, 65",
+                                   COMMERCIAL_MBIKE_FEMALE_AGERANGE = "18, 65",
                                    MINIMUM_PT_TIME = 3,
                                    MODERATE_PA_CONTRIBUTION = 0.5,
-                                   CALL_INDIVIDUAL_SIN = F, 
-                                   SCENARIO_NAME = 'GLOBAL', 
-                                   SCENARIO_INCREASE = 0.05 ){
-  
+                                   CALL_INDIVIDUAL_SIN = F,
+                                   SCENARIO_NAME = "GLOBAL",
+                                   SCENARIO_INCREASE = 0.05) {
   # Check if default values are set in which case a warning message appears to change the default values
   # for PM_CONC_BASE and PM_TRANS_SHAREs
   # if ((length(PM_CONC_BASE==1)&&PM_CONC_BASE == 50) |
   #     (length(PM_TRANS_SHARE==1)&&PM_TRANS_SHARE == 0.225))
   # error_handling(1, "ithim_setup_parameters", "PM_CONC_BASE, PM_TRANS_SHARE")
-  
+
   ## Set PARAMETERS
   # Parameters are assigned to the global environment and so are set for every function
   # They are over-written when sample_parameters is called.
   BUS_WALK_TIME <<- BUS_WALK_TIME
   RAIL_WALK_TIME <<- RAIL_WALK_TIME
   CYCLING_MET <<- CYCLING_MET
-  WALKING_MET <<- WALKING_MET 
+  WALKING_MET <<- WALKING_MET
   PASSENGER_MET <<- PASSENGER_MET
   CAR_DRIVER_MET <<- CAR_DRIVER_MET
   MOTORCYCLIST_MET <<- MOTORCYCLIST_MET
   SEDENTARY_ACTIVITY_MET <<- SEDENTARY_ACTIVITY_MET
-  LIGHT_ACTIVITY_MET <<- LIGHT_ACTIVITY_MET 
+  LIGHT_ACTIVITY_MET <<- LIGHT_ACTIVITY_MET
   MODERATE_PA_MET <<- MODERATE_PA_MET
   VIGOROUS_PA_MET <<- VIGOROUS_PA_MET
   PM_CONC_BASE <<- PM_CONC_BASE
@@ -198,7 +197,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   DISTANCE_SCALAR_CAR_TAXI <<- DISTANCE_SCALAR_CAR_TAXI
   DISTANCE_SCALAR_WALKING <<- DISTANCE_SCALAR_WALKING
   DISTANCE_SCALAR_PT <<- DISTANCE_SCALAR_PT
-  DISTANCE_SCALAR_CYCLING <<-  DISTANCE_SCALAR_CYCLING
+  DISTANCE_SCALAR_CYCLING <<- DISTANCE_SCALAR_CYCLING
   DISTANCE_SCALAR_MOTORCYCLE <<- DISTANCE_SCALAR_MOTORCYCLE
   BUS_DRIVER_PROP_MALE <<- BUS_DRIVER_PROP_MALE
   BUS_DRIVER_MALE_AGERANGE <<- BUS_DRIVER_MALE_AGERANGE
@@ -212,34 +211,36 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   MINIMUM_PT_TIME <<- MINIMUM_PT_TIME
   MODERATE_PA_CONTRIBUTION <<- MODERATE_PA_CONTRIBUTION
   parameters <- list()
-  
+
   # Variables with lognormal distribution
   # Define those variables and loop through them, sampling
   # from a pre-defined lognormal distribution if needed
-  normVariables <- c("BUS_WALK_TIME",
-                     "RAIL_WALK_TIME",
-                     'CYCLING_MET',
-                     'WALKING_MET',
-                     'PASSENGER_MET',
-                     'CAR_DRIVER_MET',
-                     'MOTORCYCLIST_MET',
-                     'SEDENTARY_ACTIVITY_MET',
-                     'LIGHT_ACTIVITY_MET',
-                     'MODERATE_PA_MET',
-                     'VIGOROUS_PA_MET',
-                     "PM_CONC_BASE",
-                     "BACKGROUND_PA_SCALAR",
-                     "SIN_EXPONENT_SUM",
-                     "SIN_EXPONENT_SUM_NOV",
-                     "SIN_EXPONENT_SUM_CYCLE",
-                     "SIN_EXPONENT_SUM_PED",
-                     "SIN_EXPONENT_SUM_VEH",
-                     "CHRONIC_DISEASE_SCALAR",
-                     "DISTANCE_SCALAR_CAR_TAXI",
-                     "DISTANCE_SCALAR_WALKING",
-                     "DISTANCE_SCALAR_PT",
-                     "DISTANCE_SCALAR_CYCLING",
-                     "DISTANCE_SCALAR_MOTORCYCLE")
+  normVariables <- c(
+    "BUS_WALK_TIME",
+    "RAIL_WALK_TIME",
+    "CYCLING_MET",
+    "WALKING_MET",
+    "PASSENGER_MET",
+    "CAR_DRIVER_MET",
+    "MOTORCYCLIST_MET",
+    "SEDENTARY_ACTIVITY_MET",
+    "LIGHT_ACTIVITY_MET",
+    "MODERATE_PA_MET",
+    "VIGOROUS_PA_MET",
+    "PM_CONC_BASE",
+    "BACKGROUND_PA_SCALAR",
+    "SIN_EXPONENT_SUM",
+    "SIN_EXPONENT_SUM_NOV",
+    "SIN_EXPONENT_SUM_CYCLE",
+    "SIN_EXPONENT_SUM_PED",
+    "SIN_EXPONENT_SUM_VEH",
+    "CHRONIC_DISEASE_SCALAR",
+    "DISTANCE_SCALAR_CAR_TAXI",
+    "DISTANCE_SCALAR_WALKING",
+    "DISTANCE_SCALAR_PT",
+    "DISTANCE_SCALAR_CYCLING",
+    "DISTANCE_SCALAR_MOTORCYCLE"
+  )
   for (i in 1:length(normVariables)) {
     name <- normVariables[i]
     val <- get(normVariables[i])
@@ -251,22 +252,24 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
         rlnorm(NSAMPLES, log(val[1]), log(val[2]))
     }
   }
-  
+
   # Variables with beta distribution
   # Define those variables and loop through them, sampling
   # from a pre-defined beta distribution if needed
-  betaVariables <- c("PM_TRANS_SHARE",
-                     "INJURY_REPORTING_RATE",
-                     "CASUALTY_EXPONENT_FRACTION",
-                     "BUS_TO_PASSENGER_RATIO",
-                     "CAR_OCCUPANCY_RATIO",
-                     "TRUCK_TO_CAR_RATIO",
-                     "FLEET_TO_MOTORCYCLE_RATIO",
-                     "PROPORTION_MOTORCYCLE_TRIPS",
-                     "CASUALTY_EXPONENT_FRACTION",
-                     "CASUALTY_EXPONENT_FRACTION_CYCLE",
-                     "CASUALTY_EXPONENT_FRACTION_PED",
-                     "CASUALTY_EXPONENT_FRACTION_VEH")
+  betaVariables <- c(
+    "PM_TRANS_SHARE",
+    "INJURY_REPORTING_RATE",
+    "CASUALTY_EXPONENT_FRACTION",
+    "BUS_TO_PASSENGER_RATIO",
+    "CAR_OCCUPANCY_RATIO",
+    "TRUCK_TO_CAR_RATIO",
+    "FLEET_TO_MOTORCYCLE_RATIO",
+    "PROPORTION_MOTORCYCLE_TRIPS",
+    "CASUALTY_EXPONENT_FRACTION",
+    "CASUALTY_EXPONENT_FRACTION_CYCLE",
+    "CASUALTY_EXPONENT_FRACTION_PED",
+    "CASUALTY_EXPONENT_FRACTION_VEH"
+  )
   for (i in 1:length(betaVariables)) {
     name <- betaVariables[i]
     val <- get(betaVariables[i])
@@ -277,10 +280,10 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
         rbeta(NSAMPLES, val[1], val[2]) # sample from beta distribution
     }
   }
-  
+
   # option to sample from DAY_TO_WEEK_TRAVEL_SCALAR, however input parameter spreadsheet
   # currently only set-up to read in this parameter as a scalar
-  # sampling from a beta distribution also requires further consideration as scalar 
+  # sampling from a beta distribution also requires further consideration as scalar
   # should have the option to be larger than 1
   # if(length(DAY_TO_WEEK_TRAVEL_SCALAR) > 1 ){
   #   parameters$DAY_TO_WEEK_TRAVEL_SCALAR <- 7*rbeta(NSAMPLES,DAY_TO_WEEK_TRAVEL_SCALAR[1],DAY_TO_WEEK_TRAVEL_SCALAR[2])
@@ -289,72 +292,74 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   # }
 
   # if BACKGROUND_PA_CONFIDENCE<1 then add BACKGROUND_PA_ZEROS parameters
-  if(BACKGROUND_PA_CONFIDENCE<1){
-    parameters$BACKGROUND_PA_ZEROS <- runif(NSAMPLES,0,1)
+  if (BACKGROUND_PA_CONFIDENCE < 1) {
+    parameters$BACKGROUND_PA_ZEROS <- runif(NSAMPLES, 0, 1)
   }
-  
-  # if PM_EMISSION_INVENTORY_CONFIDENCE<1, then sample those PM inventory values by 
+
+  # if PM_EMISSION_INVENTORY_CONFIDENCE<1, then sample those PM inventory values by
   # using a Dirichlet distribution which is parameterised by gamma random variables
-  if(PM_EMISSION_INVENTORY_CONFIDENCE<1){
+  if (PM_EMISSION_INVENTORY_CONFIDENCE < 1) {
     total <- sum(unlist(PM_EMISSION_INVENTORY))
     parameters$PM_EMISSION_INVENTORY <- list()
-    for(n in 1:NSAMPLES){
-      samples <- lapply(PM_EMISSION_INVENTORY,function(x) rgamma(1,shape=x/total*dirichlet_pointiness(PM_EMISSION_INVENTORY_CONFIDENCE),scale=1))
+    for (n in 1:NSAMPLES) {
+      samples <- lapply(PM_EMISSION_INVENTORY, function(x) rgamma(1, shape = x / total * dirichlet_pointiness(PM_EMISSION_INVENTORY_CONFIDENCE), scale = 1))
       new_total <- sum(unlist(samples))
-      parameters$PM_EMISSION_INVENTORY[[n]] <- lapply(samples,function(x)x/new_total)
+      parameters$PM_EMISSION_INVENTORY[[n]] <- lapply(samples, function(x) x / new_total)
     }
   }
-  
-  # if CO2_EMISSION_INVENTORY_CONFIDENCE<1, then sample those CO2 inventory values by 
+
+  # if CO2_EMISSION_INVENTORY_CONFIDENCE<1, then sample those CO2 inventory values by
   # using a Dirichlet distribution which is parameterised by gamma random variables
-  if(CO2_EMISSION_INVENTORY_CONFIDENCE<1){
+  if (CO2_EMISSION_INVENTORY_CONFIDENCE < 1) {
     total <- sum(unlist(CO2_EMISSION_INVENTORY))
     parameters$CO2_EMISSION_INVENTORY <- list()
-    for(n in 1:NSAMPLES){
-      samples <- lapply(CO2_EMISSION_INVENTORY,function(x) rgamma(1,shape=x/total*dirichlet_pointiness(CO2_EMISSION_INVENTORY_CONFIDENCE),scale=1))
+    for (n in 1:NSAMPLES) {
+      samples <- lapply(CO2_EMISSION_INVENTORY, function(x) rgamma(1, shape = x / total * dirichlet_pointiness(CO2_EMISSION_INVENTORY_CONFIDENCE), scale = 1))
       new_total <- sum(unlist(samples))
-      parameters$CO2_EMISSION_INVENTORY[[n]] <- lapply(samples,function(x)x/new_total*total) # assuming total CO2 emissions stay the same
+      parameters$CO2_EMISSION_INVENTORY[[n]] <- lapply(samples, function(x) x / new_total * total) # assuming total CO2 emissions stay the same
     }
   }
-  
+
   # PA DOSE RESPONSE
-  # if PA_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to 
+  # if PA_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to
   # physical activity levels and assign a quantile to them by sampling from a uniform
   # distribution between 0 and 1
-  if(PA_DOSE_RESPONSE_QUANTILE == T ) {
-    pa_diseases <- subset(DISEASE_INVENTORY,physical_activity==1)
+  if (PA_DOSE_RESPONSE_QUANTILE == T) {
+    pa_diseases <- subset(DISEASE_INVENTORY, physical_activity == 1)
     dr_pa_list <- list()
-    for(disease in pa_diseases$pa_acronym)
-      parameters[[paste0('PA_DOSE_RESPONSE_QUANTILE_',disease)]] <- runif(NSAMPLES,0,1)
+    for (disease in pa_diseases$pa_acronym) {
+      parameters[[paste0("PA_DOSE_RESPONSE_QUANTILE_", disease)]] <- runif(NSAMPLES, 0, 1)
+    }
   }
-  
-  
+
+
   # AP DOSE RESPONSE
-  # if AP_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to 
+  # if AP_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to
   # air pollution levels and assign a quantile to them by sampling from a uniform
   # distribution between 0 and 1
-  if(AP_DOSE_RESPONSE_QUANTILE == T ) {
-    ap_diseases <- subset(DISEASE_INVENTORY,air_pollution==1)
+  if (AP_DOSE_RESPONSE_QUANTILE == T) {
+    ap_diseases <- subset(DISEASE_INVENTORY, air_pollution == 1)
     dr_ap_list <- list()
-    for(disease in ap_diseases$ap_acronym)
-      parameters[[paste0('AP_DOSE_RESPONSE_QUANTILE_',disease)]] <- runif(NSAMPLES,0,1)
-  }  
-  
+    for (disease in ap_diseases$ap_acronym) {
+      parameters[[paste0("AP_DOSE_RESPONSE_QUANTILE_", disease)]] <- runif(NSAMPLES, 0, 1)
+    }
+  }
+
   parameters
 }
 
 
 #' Function for Dirichlet parameters
-#' 
+#'
 #' Function to map a confidence value to a parameterisation of a Dirichlet distribution.
-#' 
+#'
 #' Note that the parameterisation is somewhat arbitrary but seems to work on visual inspection.
-#' 
+#'
 #' @param confidence value between 0 and 1
-#' 
+#'
 #' @return parameterisation
-#' 
+#'
 #' @export
-dirichlet_pointiness <- function(confidence){
-  exp((2.25*confidence+1)^2)
+dirichlet_pointiness <- function(confidence) {
+  exp((2.25 * confidence + 1)^2)
 }
