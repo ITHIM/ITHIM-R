@@ -1,15 +1,13 @@
 Package: ithimr
 Title: Integrated Transport and Health Impact Model
 Version: 0.1.2
-Authors@R: c(person(given = "Rob",
-             family = "Johnson",
-             role = c("aut", "cre"),
-             email = "rob.johnson@mrc-bsu.cam.ac.uk"),
-      person(given = "Ali",
-             family = "Abbas",
-             role = "aut",
-             email = "aa797@medschl.cam.ac.uk")
-             )
+Authors@R: c(
+    person("Rob", "Johnson", , "rob.johnson@mrc-bsu.cam.ac.uk", role = c("aut", "cre")),
+    person("Ali", "Abbas", , "aa797@cam.ac.uk", role = c("aut", "cre")),
+    person("Anna", "Anna Schroeder", , "aks85@medschl.cam.ac.uk", role = "aut"),
+    person("Daniel", "Daniel Gil", , "danielgils@gmail.com", role = "aut"),
+    person("Lambed", "Lambed Tatah", , "lambed.tatah@mrc-epid.cam.ac.uk", role = "aut")
+  )
 Description: Modelling the impact of transport choices on population health.
 Depends: R (>= 4.1.0),
     dplyr,
@@ -29,7 +27,7 @@ Depends: R (>= 4.1.0),
     distr,
     MASS,
     stringr
-License: What license is it under?
+License: GPL (>= 3)
 LazyData: true
 Imports:
     dplyr,
