@@ -35,7 +35,7 @@ This function performs the following steps:
 \item for modes without any assigned distance, use the PM emissions from the VEHICLE_INVENTORY instead
 
 \item calculate the total PM concentrations for each scenario
- 
+
 \item add exposure factors to the trip set by stage mode
 
 \item add total scenario PM concentrations to the trip set
@@ -51,8 +51,8 @@ This function performs the following steps:
 
 \item calculate ventilation rate for sleep, moderate and vigorous activities
 
-\item for each participant in the synthetic population (with travel component), 
-  calculate the total air inhaled, the total PM inhaled and 
+\item for each participant in the synthetic population (with travel component),
+  calculate the total air inhaled, the total PM inhaled and
   the total PM concentration inhaled for each scenario
 
 \item assign all participants in the synthetic population without travel component,

@@ -26,54 +26,54 @@ This function performs the following steps:
 
 \item  air pollution pathway:
    \itemize{
-   \item calculate the PM2.5 exposure for each person in the synthetic population 
+   \item calculate the PM2.5 exposure for each person in the synthetic population
      and PM2.5 emissions for each mode and scenario (scenario_pm_calculations.R)
-  
+
    \item calculate the CO2 emissions for each mode and scenario (scenario_co2_calculations.R)
-   
+
    \item assign relative risk to each person in the synthetic population for each disease
-     related to PM pollution and each scenario based on the individual PM exposure 
+     related to PM pollution and each scenario based on the individual PM exposure
      levels (gen_ap_rr.R)
      }
-     
+
 \item  physical activity pathway:
    \itemize{
    \item calculate total mMETs for each person in the synthetic population (total_mmet.R)
-   
+
    \item assign relative risk to each person in the synthetic population for each disease
      related to physical activity levels and each scenario based on the individual mMET
      values (gen_pa_rr.R)
    }
- 
+
 \item  physical activity and air pollution combined:
    \itemize{
-   \item combine the PA and AP datasets by joining the two datasets. For disease affected by 
+   \item combine the PA and AP datasets by joining the two datasets. For disease affected by
      both PA and AP calculate the joined relative risk by multiplying the PA and AP
-     relative risks (combined_rr_ap_pa.R)  
-   
+     relative risks (combined_rr_ap_pa.R)
+
    \item calculate the health burden (Yll and deaths) for each disease and age and sex
      category (health_burden.R):
      \itemize{
-     \item calculate the health burden (Yll and deaths) for each disease and age 
+     \item calculate the health burden (Yll and deaths) for each disease and age
        and sex category. Combine the AP and PA pathways for diseases affected
        by both AP and PA
-     
+
      \item if running in constant mode also calculate the health burden for both the
        AP and PA pathways separately
        }
     }
-    
+
 \item  injury pathway:
    \itemize{
-   \item estimate the injury deaths for the baseline and each scenario by age and sex category, 
+   \item estimate the injury deaths for the baseline and each scenario by age and sex category,
       also estimate the total injury deaths counts for the who-hit-whom and no-other-vehicle matrices
       by casualty (and strike) mode again for the baseline and each scenario (injuries_function2.R)
       \itemize{
-     \item if running in constant mode include upper and lower confidence intervals  
+     \item if running in constant mode include upper and lower confidence intervals
      }
    \item calculate the years of life lost from the injury deaths (injury_death_to_yll.R)
   }
-  
+
 \item  combine all pathways using the outputs from 3. and 4.:
    \itemize{
    \item combine the AP, PA and injury health burden data for ylls and deaths (join_hb_and_injury.R)

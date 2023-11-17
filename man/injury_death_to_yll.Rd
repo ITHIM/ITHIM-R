@@ -20,27 +20,27 @@ The function performs the following steps:
 
 \itemize{
  \item join the estimated injury deaths with the global burden of disease (GBD) injury data by age and sex
- 
+
  \item multiply the estimated injury deaths by the yll to injury death ratio in the GBD data to predict YLL
    from the estimated injury deaths
- 
+
  \item extract and create matrices for deaths and ylls with one column for each scenario
- 
+
  \item create dataframe A with ylls and deaths of reference scenario
- 
+
  \item create dataframe B showing the differences in deaths and yll for each non-reference
    scenario to the reference scenario
-   
+
  \item if confidence intervals are required:
- 
+
  \itemize{
-   \item create dataframe with ylls and deaths of reference scenario using both the lower and upper 
+   \item create dataframe with ylls and deaths of reference scenario using both the lower and upper
      relative risk boundary values
-   
+
    \item create dataframe showing the differences in deaths and yll for each non-reference
      scenario to the reference scenario using both the lower and upper relative
      risk boundary values
-     
+
    \item add the confidence upper and lower interval boundary values to the two output dataframes A and B
    }
 }

@@ -217,7 +217,7 @@ run_ithim_setup(
 
 \item{CALL_INDIVIDUAL_SIN}{logic: whether or not to call the safety in number coefficients for individual vehicles or use the same coefficients for all modes}
 
-\item{SCENARIO_NAME}{name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO, 
+\item{SCENARIO_NAME}{name of the scenarios (currently supports: TEST_WALK_SCENARIO, TEST_CYCLE_SCENARIO,
 MAX_MODE_SHARE_SCENARIO, LATAM, GLOBAL, AFRICA_INDIA, BOGOTA)}
 
 \item{SCENARIO_INCREASE}{increase of given mode in each scenario (currently used in GLOBAL, BOGOTA, LATAM and AFRICA_INDIA scenarios)}
@@ -229,12 +229,12 @@ ithim_object list of objects for onward use.
 Sets up the basic ITHIM object for onward calculation. Data loading, processing and harmonisation. Setting of global values.
 }
 \details{
-This function is used to read in the various input files and parameters and to 
-process and harmonise the data ready for the health impact assessment. 
-Input Parameters have two options: to be set to a constant or to be sampled 
-from a pre-specified distribution. Most of these parameters are given as an 
-argument of length 1 or 2. If of length 1, the parameter is usually used as 
-a constant. If the parameter is of length 2, a distribution is defined 
+This function is used to read in the various input files and parameters and to
+process and harmonise the data ready for the health impact assessment.
+Input Parameters have two options: to be set to a constant or to be sampled
+from a pre-specified distribution. Most of these parameters are given as an
+argument of length 1 or 2. If of length 1, the parameter is usually used as
+a constant. If the parameter is of length 2, a distribution is defined
 and sampled from NSAMPLE times.
 
 
@@ -253,47 +253,47 @@ This function performs the following steps:
 \item define the mode speeds:
    \itemize{
    \item set default speeds for the various modes
-   
-   \item update the default speeds with city specific mode speeds if these are 
+
+   \item update the default speeds with city specific mode speeds if these are
      given as input parameters
-   
+
    \item ensure similar modes have the same speed assigned
-   
+
    \item set-up dataframe with modes and speeds
    }
-   
+
 \item define PM emissions inventory
    \itemize{
    \item define default emission values
-   
+
    \item update default values if city specific values are given as input parameters
    }
 
-\item define CO2 emissions inventory 
+\item define CO2 emissions inventory
    \itemize{
    \item set default emission values
-   
+
    \item update default values if city specific values are given as input parameters
    }
-   
+
 \item load and processe data from files by calling ithim_load_data.R
 
 \item call ithim_setup_parameters.R to set the given input parameters to the global
   environment if running in constant mode or to obtain NSAMPLE samples from the
   given distributions for each of the input parameters if running in sample mode
-   
+
 \item set flags which cause certain parts of the model to be called at a later stage
- (ithim_uncertainty.R) IF certain input parameters were sampled from a distribution   
+ (ithim_uncertainty.R) IF certain input parameters were sampled from a distribution
 
 \item call complete_trip_distance_duration.R to add any missing stage or distance
-  information to the trip data  
-
-\item if none of the corresponding input parameters were sampled from a distribution, 
-  call set_vehicle_inventory.R to create a dataframe with mode specific speed, 
-  distance and emission information    
+  information to the trip data
 
 \item if none of the corresponding input parameters were sampled from a distribution,
-  call get_synthetic_from_trips to set synthetic trips and synthetic population   
+  call set_vehicle_inventory.R to create a dataframe with mode specific speed,
+  distance and emission information
+
+\item if none of the corresponding input parameters were sampled from a distribution,
+  call get_synthetic_from_trips to set synthetic trips and synthetic population
 
 \item if none of the corresponding input parameters were sampled from a distribution,
   call get_all_distances.R to calculate trip distances

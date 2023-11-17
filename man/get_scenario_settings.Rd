@@ -31,7 +31,7 @@ data frame of maximum proportions by mode and distance category
 }
 \description{
 Computes the mode shares for the different distance categories and then the maximum mode
-share for specified mode types and specified distance categories across specified 
+share for specified mode types and specified distance categories across specified
 (stored) cities. Used for max mode share scenario generation.
 }
 \details{
@@ -43,18 +43,18 @@ The function performs the following steps:
 \item loop through the pre-defined cities:
    \itemize{
    \item read in trip data and get data into correct format
-   
+
    \item assign distance categories
-   
-   \item for each distance category and pre-defined mode find the proportional modal share 
+
+   \item for each distance category and pre-defined mode find the proportional modal share
      (for each distance category, the proportion of the modes adds up to 100%)
-   
-   \item if rail trips exist, they are added to the proportion of the bus trips to get one value 
+
+   \item if rail trips exist, they are added to the proportion of the bus trips to get one value
      for public transport
    }
-   
+
 \item find the maximum mode shares for each mode and distance category
-   
-\item for each city print one table showing the mode shares for each distance category    
+
+\item for each city print one table showing the mode shares for each distance category
 }
 }

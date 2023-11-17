@@ -13,27 +13,27 @@ total_mmet(trip_scen_sets)
 mmets - total mMETs per week per person in each scenario
 }
 \description{
-Calculate total mMETs per person in the synthetic population based 
+Calculate total mMETs per person in the synthetic population based
 on non-travel PA and active travel for each scenario
 }
 \details{
 This function performs the following steps:
 
 \itemize{
-\item extract all people from the trip set with an active travel (walk or cycle) 
+\item extract all people from the trip set with an active travel (walk or cycle)
   stage mode (non-ghost trips only)
 
 \item calculate the weekly time spent on active travel
 
 \item for each scenario:
    \itemize{
-   \item scale the non-travel mMET value for the people in the synthetic population by the 
+   \item scale the non-travel mMET value for the people in the synthetic population by the
      BACKGROUND_PA_SCALAR to adjust for any biases in the PA data
-  
-   \item calculate the total cycling and walking mMET values for each relevant 
+
+   \item calculate the total cycling and walking mMET values for each relevant
      person in the trip set and scale up to a week
-   
-   \item add the active travel mMET to the non-travel mMET values for each 
+
+   \item add the active travel mMET to the non-travel mMET values for each
      person in the synthetic population
      }
 

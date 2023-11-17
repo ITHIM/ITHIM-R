@@ -40,8 +40,8 @@ Creates a data frame with given characteristics to be added to an existing trip 
 }
 \details{
 This function is used to create new trips with certain characteristics that can be added to an existing trip data set.
-The input distance given is the upper limit of trip distances added and the function takes the number of trips per 
-person (nTrips) random samples between 1 and the input distance given. Age and sex of each participant are also 
+The input distance given is the upper limit of trip distances added and the function takes the number of trips per
+person (nTrips) random samples between 1 and the input distance given. Age and sex of each participant are also
 sampled from a range of input age and sex values.
 
 The function performs the following steps:

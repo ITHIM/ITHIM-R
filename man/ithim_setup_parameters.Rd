@@ -180,37 +180,37 @@ Function to set parameters by either using the constant value or sampling from a
 }
 \details{
 For each input parameters there are two options: to be set to a constant, or to be sampled
-from a specified distribution. Each parameter is given as an argument of length 1 or 2. 
-If length 1, it's constant, and set to the global environment. 
+from a specified distribution. Each parameter is given as an argument of length 1 or 2.
+If length 1, it's constant, and set to the global environment.
 If length 2, a distribution is defined and sampled from NSAMPLE times.
 There are some exceptions, listed below.
 
 The function performs the following steps:
 
-\itemize{  
-\item set all input parameters to the global environment (if sampling function is called, they are overwritten)  
+\itemize{
+\item set all input parameters to the global environment (if sampling function is called, they are overwritten)
 
 \item loop through all potential variables with a lognormal distribution and sample from this distribution
-  if required  
+  if required
 
 \item loop through all potential variables with a beta distribution and sample from this distribution
-  if required  
+  if required
 
-\item if BACKGROUND_PA_CONFIDENCE<1 then add BACKGROUND_PA_ZEROS parameters  
+\item if BACKGROUND_PA_CONFIDENCE<1 then add BACKGROUND_PA_ZEROS parameters
 
-\item if PM_EMISSION_INVENTORY_CONFIDENCE<1, then sample those PM inventory values by 
-  using a Dirichlet distribution which is parameterised by gamma random variables  
+\item if PM_EMISSION_INVENTORY_CONFIDENCE<1, then sample those PM inventory values by
+  using a Dirichlet distribution which is parameterised by gamma random variables
 
-\item if CO2_EMISSION_INVENTORY_CONFIDENCE<1, then sample those CO2 inventory values by 
-  using a Dirichlet distribution which is parameterised by gamma random variables  
+\item if CO2_EMISSION_INVENTORY_CONFIDENCE<1, then sample those CO2 inventory values by
+  using a Dirichlet distribution which is parameterised by gamma random variables
 
 \item if PA_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to physical activity
-  levels and assign a quantile to them by sampling from a uniform distribution between 0 and 1  
+  levels and assign a quantile to them by sampling from a uniform distribution between 0 and 1
 
 \item if AP_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to air pollution levels
-  and assign a quantile to them by sampling from a uniform distribution between 0 and 1  
+  and assign a quantile to them by sampling from a uniform distribution between 0 and 1
 }
-   
-At the bottom of this function, the dirichlet_pointiness() function is defined which 
+
+At the bottom of this function, the dirichlet_pointiness() function is defined which
 parameterises the Dirichlet distributions for the PM and CO2 emission inventories.
 }

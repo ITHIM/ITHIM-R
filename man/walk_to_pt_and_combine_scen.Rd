@@ -24,9 +24,9 @@ This function performs the following steps:
 \item if ADD_WALK_TO_PT_TRIPS == T, i.e if additional 'walk to pt' stages are to be added:
   \itemize{
   \item filter out all trips with a public transport stage mode
-  
+
   \item divide public transport trips into those with and without a 'walk to pt' stage
- 
+
  \item add a 'walk to pt' stage to those public transport trips without a walking stage
     (add_walk_trips.R)
     }

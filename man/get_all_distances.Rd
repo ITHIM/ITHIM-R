@@ -13,7 +13,7 @@ get_all_distances(ithim_object)
 ithim_object again, with additional total population distance for each mode and scenario, distances for injury pathway plus parameterised Poisson injury regression model
 }
 \description{
-Function to find the distances travelled by age, sex, scenario and mode for the entire population 
+Function to find the distances travelled by age, sex, scenario and mode for the entire population
 rather than just the synthetic population.
 }
 \details{
@@ -22,25 +22,25 @@ This function performs the following steps:
 \itemize{
 \item generate distance and duration matrices by age, sex, mode and scenario from the ithim_object$trip_scen_sets
   for the synthetic population by calling the dist_dur_tbls.R function
-  
+
 \item find the total mode distances for each scenario and scale this up to the distance travelled by the entire
   population by using the demographic information for the city
 
-\item in order to scale the distances by age, sex, mode and scenario to the entire population, the proportion of 
-  the distances travelled by each age, sex, mode and scenario combination in the synthetic population to total 
-  distances by mode and scenario in the synthetic population is found. The total population distances by mode 
-  are then multiplied by these proportions to find the total population distances travelled by each mode 
+\item in order to scale the distances by age, sex, mode and scenario to the entire population, the proportion of
+  the distances travelled by each age, sex, mode and scenario combination in the synthetic population to total
+  distances by mode and scenario in the synthetic population is found. The total population distances by mode
+  are then multiplied by these proportions to find the total population distances travelled by each mode
   and age and sex category.
 
 \item the distances_for_injury_function.R function is called which creates a list inj_distances that is added
   to ithim_object containing the following matrices:
   \itemize{
-  \item true_distances (population mode distances by age and sex with all walking modes and all car modes combined and 
+  \item true_distances (population mode distances by age and sex with all walking modes and all car modes combined and
      bus drivers added where relevant)
-  \item injuries_list (list of all strike, casualty, age, sex and mode distance combinations for baseline 
+  \item injuries_list (list of all strike, casualty, age, sex and mode distance combinations for baseline
      and all scenarios, used to predict fatalities later in the model run)
   \item reg_model (parameterised Poisson injury regression model)
-  \item injuries_for_model (baseline data containing injury counts for all casualty and strike mode 
+  \item injuries_for_model (baseline data containing injury counts for all casualty and strike mode
      combinations with associated distance data)
    }
 }

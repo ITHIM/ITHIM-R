@@ -18,14 +18,14 @@ original trip data with additional personal motorcycle trips added
 Function to create personal motorcycle trips for some Chilean cities
 }
 \details{
-This function is used to create personal motorcycle trips for those Chilean cities which do not have any 
-motorcycle trips in their travel surveys. It uses as input the existing travel survey data for that city 
-and the proportion of these travel survey trips that are to be added as additional new motorcycle trips. 
+This function is used to create personal motorcycle trips for those Chilean cities which do not have any
+motorcycle trips in their travel surveys. It uses as input the existing travel survey data for that city
+and the proportion of these travel survey trips that are to be added as additional new motorcycle trips.
 
-Based on an analysis of the motorcycle trips in the travel surveys of Santiago, San Antonio, 
-Valparaiso and Puerto Montt it makes assumptions about the split between male and female 
+Based on an analysis of the motorcycle trips in the travel surveys of Santiago, San Antonio,
+Valparaiso and Puerto Montt it makes assumptions about the split between male and female
 motorcyclists, the number of trips per person and the truncated normal distributions of the
-distances and ages of the drivers of the personal motorcycle trips to be added. It creates 
+distances and ages of the drivers of the personal motorcycle trips to be added. It creates
 new trips by assuming that each such trip only has one stage, i.e. that the trip duration and distance
 equals the stage duration and distance.
 
@@ -34,10 +34,10 @@ This function contains the following steps:
 \itemize{
 \item the characteristics of the motorcycle trips to be added are defined
 
-\item set up the parameters of the truncated normal distributions for male and 
+\item set up the parameters of the truncated normal distributions for male and
   female trip duration
 
-\item set up the parameters of the truncated normal distributions for male and 
+\item set up the parameters of the truncated normal distributions for male and
   female age ranges
 
 \item find the number of male and female motorcycle trips to be added
@@ -49,7 +49,7 @@ This function contains the following steps:
 \item sample from truncated normal distributions to find the duration of new trips (assuming
   that each trip only consists of one stage)
 
-\item sample from the known age ranges to find the ages of the new male and female 
-  motorcycle trips and create new motorcycle trips  
+\item sample from the known age ranges to find the ages of the new male and female
+  motorcycle trips and create new motorcycle trips
 }
 }

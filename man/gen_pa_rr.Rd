@@ -21,13 +21,13 @@ This function performs the following steps:
 \itemize{
 \item loop through all diseases that are related to physical activity levels:
    \itemize{
-   \item set the quantile of the value of the dose response curves to be extracted. If running in 
-     constant mode, the quantile is usually set to 0.5, i.e. to the median of the dose response curves. 
-     If running in sample mode, then the quantile can be set to be sampled from a distribution in the 
+   \item set the quantile of the value of the dose response curves to be extracted. If running in
+     constant mode, the quantile is usually set to 0.5, i.e. to the median of the dose response curves.
+     If running in sample mode, then the quantile can be set to be sampled from a distribution in the
      input parameters.
    \item create one vector containing all the mMET values for all scenarios
-   \item assign the relative risk for the given disease and quantile to the 
-     given mMET values for all people in the synthetic population for all 
+   \item assign the relative risk for the given disease and quantile to the
+     given mMET values for all people in the synthetic population for all
      scenarios by calling the drpa::dose_response function
    \item extract the RR for each scenario from the vector containing all RR for all scenarios
    \item if confidence intervals are required, also extract the RR upper and lower

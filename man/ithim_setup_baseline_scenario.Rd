@@ -19,8 +19,8 @@ Set up baseline scenario ready for the scenario development
 This function performs the following steps to the trip set data:
 
 \itemize{
-\item add distance categories  
+\item add distance categories
 
-\item add scenario='baseline' column 
+\item add scenario='baseline' column
 }
 }

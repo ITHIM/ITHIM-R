@@ -23,75 +23,75 @@ input data ready for the ITHIM-Global model run. Writes objects to the global en
 This function performs the following steps to load and process the input data:
 
 \itemize{
-\item find path of ithimr package where global and local data can be found  
+\item find path of ithimr package where global and local data can be found
 
-\item check whether drpa package is installed  
+\item check whether drpa package is installed
 
-\item read in Global Burden of Disease data for country  
- 
-\item read in city specific trip data:  
+\item read in Global Burden of Disease data for country
+
+\item read in city specific trip data:
 
    \itemize{
-   \item set missing stage or trip information to known stage or trip information, 
-     e.g. if stage duration is missing but trip duration is known then set stage duration to trip duration    
-   
+   \item set missing stage or trip information to known stage or trip information,
+     e.g. if stage duration is missing but trip duration is known then set stage duration to trip duration
+
    \item ensure that stage modes and trip modes only consist of set keywords, replace all other mode names by those key
-     words, e.g. replace 'train' by 'rail'    
-   
-   \item remove trips where age or sex are 'NA'  
-   
-   \item Rename pedestrian stage modes of non-pedestrian trips from 'pedestrian' to 'walk_to_pt'  
-   
-   \item remove any walk_to_pt stages that do not belong to either a rail or a bus trip modes  
- 
-   \item (call get_scenario_settings() if using the max_mode_share_scenario) 
+     words, e.g. replace 'train' by 'rail'
+
+   \item remove trips where age or sex are 'NA'
+
+   \item Rename pedestrian stage modes of non-pedestrian trips from 'pedestrian' to 'walk_to_pt'
+
+   \item remove any walk_to_pt stages that do not belong to either a rail or a bus trip modes
+
+   \item (call get_scenario_settings() if using the max_mode_share_scenario)
   }
-  
-\item read in the local Global Burden of Disease (GBD) data:  
+
+\item read in the local Global Burden of Disease (GBD) data:
    \itemize{
-   \item combine various head and neck cancers, combine myeloid leukemia diseases, combine respiratory diseases at level 2  
-   
-   \item adjust for rectum cancer in the combined colon and rectum cancer burden  
+   \item combine various head and neck cancers, combine myeloid leukemia diseases, combine respiratory diseases at level 2
+
+   \item adjust for rectum cancer in the combined colon and rectum cancer burden
    }
-   
-   
+
+
 \item read in local demographic data:
    \itemize{
-   \item find / re-define max and min ages based on the max and min ages in the trip data, 
-     the demographic data and the max and min ages considered in the model  
-   
-   \item remove any population data outside these max and min ages  
-   
-   \item find the proportion of the total population that is considered in the model to the total population  
-   
-   \item get age-category details from population data, after any ages above and below the max and min ages have been removed  
+   \item find / re-define max and min ages based on the max and min ages in the trip data,
+     the demographic data and the max and min ages considered in the model
+
+   \item remove any population data outside these max and min ages
+
+   \item find the proportion of the total population that is considered in the model to the total population
+
+   \item get age-category details from population data, after any ages above and below the max and min ages have been removed
    }
-   
-   
+
+
 \item extract all diseases plus road injures from GBD data, update format of max and min ages for each entry
 
 \item compute proportion of injuries in the age range considered in the model from the GBD data,
   this proportion is applied to those injury datasets without age and sex information
-  
-\item remove ages outside age ranges considered in model from GBD_data 
 
-\item create burden_of_disease dataframe from the GBD_data by changing the layout of the GBD_data: 
-   \itemize{ 
-   \item add city specific population data  
-   \item add the country specific disease rate from the GBD data, ie. the proportion of the number of people 
-     in the country with that disease over the population of the country for each age and sex category  
-   \item using the country disease rate calculate the city population affected by the disease  
+\item remove ages outside age ranges considered in model from GBD_data
+
+\item create burden_of_disease dataframe from the GBD_data by changing the layout of the GBD_data:
+   \itemize{
+   \item add city specific population data
+   \item add the country specific disease rate from the GBD data, ie. the proportion of the number of people
+     in the country with that disease over the population of the country for each age and sex category
+   \item using the country disease rate calculate the city population affected by the disease
    }
-   
+
 \item using the burden_of_disease data (now called DISEASE_BURDEN), calculate the ratio of
-  YLL to death for each age and sex category for the road_injuries data    
-  
+  YLL to death for each age and sex category for the road_injuries data
+
 \item read in the city specific road injury data:
    \itemize{
    \item Set a 'weight' column to the unique number of years for which injury data exists (if such column does not already exist)
-   
+
    \item where strike mode equals casualty mode, set the strike mode to 'nov' (no other vehicle)
-  
+
    \item call set_injury_contingency.R function to set tables for WHW (who hit whom) and NOV (no other vehicle) fatalities
   }
 

@@ -21,7 +21,7 @@ reg_model (parameterised Poisson regression model),
 injuries_for_model (baseline data containing injury counts for all casualty and strike mode combinations with associated distance data)
 }
 \description{
-Computes exposures (distances) by mode to parameterise the injury regression model, 
+Computes exposures (distances) by mode to parameterise the injury regression model,
 which is computed as a Poisson model and which is used in the ITHIM-Global model
 to predict injury fatalities at a later stage
 }
@@ -30,44 +30,44 @@ The function uses distance data and the individual injury fatality data to perfo
 to parameterise the Poisson injury regression model:
 
 \itemize{
- \item stage modes are aggregated such that all walk related stages (walk and walk to pt) are of the same mode (walk), 
+ \item stage modes are aggregated such that all walk related stages (walk and walk to pt) are of the same mode (walk),
    similarly for all car related journeys
 
  \item bus drivers are added to bus journeys (where relevant) to accurately represent all people on a bus
 
  \item Takes Baseline injury tables, split into who-hit whom (whw) and no-other-vehicle (nov) parts,
-   and adds total population distances for each strike and casualty mode (add_distance_columns.R). 
-   Distances are added by age and gender category if there exists such information for 
-   the injury counts (injuries_for_model dataframe). If there exists a fatality for some casualty and 
-   strike mode and age and sex category but no mode distance for this age and sex category, 
-   then fatalities and distances are aggregated by strike and casualty mode. 
-   If, after the aggregation there still exist fatalities for which either casualty 
+   and adds total population distances for each strike and casualty mode (add_distance_columns.R).
+   Distances are added by age and gender category if there exists such information for
+   the injury counts (injuries_for_model dataframe). If there exists a fatality for some casualty and
+   strike mode and age and sex category but no mode distance for this age and sex category,
+   then fatalities and distances are aggregated by strike and casualty mode.
+   If, after the aggregation there still exist fatalities for which either casualty
    or strike mode distance are missing, then these fatalities are removed as we cannot
    predict injury counts on zero distances. However, this should not happen
-   as we should have total distances for all modes (possibly inferred 
+   as we should have total distances for all modes (possibly inferred
    from other modes) that appear in the injury data. - This data is used to parameterise the
    Poisson injury model.
-   
- \item A new list (injuries_list) is created containing all strike and casualty mode and age and sex combinations 
-   together with strike and casualty mode distances (add_distance_columns.R) for the baseline and all scenarios. For 
+
+ \item A new list (injuries_list) is created containing all strike and casualty mode and age and sex combinations
+   together with strike and casualty mode distances (add_distance_columns.R) for the baseline and all scenarios. For
    the whw model, any strike mode and casualty pairs where strike mode equals casualty mode
    are removed as fatalities for these combinations have already been added to the nov matrix.
-   Combinations which do not have a non-zero strike or casualty mode distance 
+   Combinations which do not have a non-zero strike or casualty mode distance
    are also removed. - This list will later be used in the injuries_function_2.R function
    to predict fatality counts using the Poisson injury regression model.
 
  \item The casualty and strike mode exponents used to account for the safety in number effect
    are added to both the injuries_for_model and injuries_list.
- 
- \item	The best possible regression model is being built using Baseline injury counts and distances 
-   (injuries_for_model) such that the standard errors are small wherever possible. Strike 
+
+ \item	The best possible regression model is being built using Baseline injury counts and distances
+   (injuries_for_model) such that the standard errors are small wherever possible. Strike
    and casualty mode pairs where cas mode = strike mode are removed if they still exist
    which they should not as they should have been removed by the ithim_load_data.R function.
    Two different forms for whw and nov matrices are defined, taking into account age and sex
-   information where it exists. The standard errors of the newly built regression models 
-   are checked and if they are too large and if the data has not been aggregated by age 
-   and sex yet, then the data is aggregated and a new Poisson regression model is build. 
-   If the standard errors are still large after this aggregation, then a message is 
-   printed to the screen warning that the standard errors are large. 
+   information where it exists. The standard errors of the newly built regression models
+   are checked and if they are too large and if the data has not been aggregated by age
+   and sex yet, then the data is aggregated and a new Poisson regression model is build.
+   If the standard errors are still large after this aggregation, then a message is
+   printed to the screen warning that the standard errors are large.
 }
 }

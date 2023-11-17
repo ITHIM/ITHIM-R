@@ -26,7 +26,7 @@ injuries2 - dataframe containing predicted fatality counts for each casualty mod
 whw_temp - list containing the fatality predictions for each casualty and strike mode pair split into whw and nov matrices for each scenario. Upper and lower confidence interval predictions are also included for the constant mode
 }
 \description{
-Predict injuries for baseline and scenarios based on Poisson regression model fitted 
+Predict injuries for baseline and scenarios based on Poisson regression model fitted
 on baseline fatality counts and distances
 }
 \details{
@@ -37,16 +37,16 @@ counts for the Baseline and all the scenarios. It performs the following steps:
 \item create an injuries data frame containing all the distances travelled by mode, age, sex and scenario
 
 \item predict the fatalities for each strike and casualty mode combination, age and sex category
-  and each scenario (incl Baseline). If the sample mode is set to 'constant' (and not 'sample'), 
+  and each scenario (incl Baseline). If the sample mode is set to 'constant' (and not 'sample'),
   we also predict upper and lower confidence interval boundaries
 
 \item create a whw_temp list containing the total predicted fatality counts for each casualty
-  and strike mode pair for each scenario split into whw and nov matrices and, for the 
+  and strike mode pair for each scenario split into whw and nov matrices and, for the
   constant mode also give the upper and lower confidence interval limit predictions
 
-\item create an injuries2 data frame containing the total predicted fatality counts 
+\item create an injuries2 data frame containing the total predicted fatality counts
   for each casualty mode by age and sex for each scenario. This dataframe also
-  contains total death per age and sex category and, for the constant mode the 
+  contains total death per age and sex category and, for the constant mode the
   upper and lower total death predictions of the confidence interval.
 }
 }

@@ -30,7 +30,7 @@ assign_age_groups(
 edited data frame
 }
 \description{
-Prunes the dataset given max and min ages, i.e. removes entries of people with ages outside the scope of the model and 
+Prunes the dataset given max and min ages, i.e. removes entries of people with ages outside the scope of the model and
 assigns age group labels given age
 }
 \details{

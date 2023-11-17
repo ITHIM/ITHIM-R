@@ -15,7 +15,7 @@ combine_health_and_pif(pif_values, hc = DISEASE_BURDEN)
 estimated scenario burden of disease for all age and sex categories
 }
 \description{
-Applies PIF calculated from relative risks (RRs) to the current observed health burden from the 
+Applies PIF calculated from relative risks (RRs) to the current observed health burden from the
 Global Burden of Disease data to generate the scenario health burdens
 }
 \details{

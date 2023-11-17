@@ -21,18 +21,18 @@ Sets sampled parameters to the global environment and calls the ITHIM routine
 This function works by performing the following steps:
 
 \itemize{
-\item extract the ithim_object list entries  
+\item extract the ithim_object list entries
 
-\item extract the sampled parameters which are stored in the ithim_object  
-\item call set_vehicle_inventory.R to update emissions if any  
-  emission parameters have been sampled from a distribution   
-  
-\item call get_synthetic_from_trips.R to update the synthetic trips and synthetic population if any 
-  relevant input parameters have been sampled from a distribution 
-   
+\item extract the sampled parameters which are stored in the ithim_object
+\item call set_vehicle_inventory.R to update emissions if any
+  emission parameters have been sampled from a distribution
+
+\item call get_synthetic_from_trips.R to update the synthetic trips and synthetic population if any
+  relevant input parameters have been sampled from a distribution
+
 \item call get_all_distances.R to recalculate the distances if any of the relevant input parameters have
-  been sampled from a distribution  
-  
+  been sampled from a distribution
+
 \item run ITHIM-Global model by calling ithim_calculation_sequence.R
 }
 }

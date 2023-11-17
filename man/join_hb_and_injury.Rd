@@ -18,11 +18,11 @@ list of dataframes: one for deaths per cause per demographic group, and likewise
 Join the two data frames for health burden: that from disease, and that from road-traffic injury
 }
 \details{
-This function performs the following steps:  
+This function performs the following steps:
 
 \itemize{
- \item extract the yll and deaths data from the AP and PA pathways  
- \item extract the yll and deaths data from the injury data  
- \item create one dataframe for yll and one for deaths containing all the AP, PA and injury data  
+ \item extract the yll and deaths data from the AP and PA pathways
+ \item extract the yll and deaths data from the injury data
+ \item create one dataframe for yll and one for deaths containing all the AP, PA and injury data
 }
 }

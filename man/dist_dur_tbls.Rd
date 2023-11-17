@@ -23,19 +23,19 @@ The function performs the following steps:
  \itemize{
   \item using the trip data, sum across the distances by stage mode to get total
     distance by mode for each scenario for the synthetic population
-    
+
   \item sum across the duration by stage mode to get total duration by mode for each scenario
-  
-  \item if 'walk_to_pt' stages exist, add them to the pedestrian stages for both 
+
+  \item if 'walk_to_pt' stages exist, add them to the pedestrian stages for both
     duration and distance
-  }  
+  }
 \item create one dataframe containing the total distances by mode for each scenario
 
 \item create one dataframe containing the total duration by mode for each scenario
 
 \item remove any 'walk_to_pt' stages as they have been added to the pedestrian stages
 
-\item update the bus and car driver distances and duration in the scenarios using 
+\item update the bus and car driver distances and duration in the scenarios using
   the ratio of bus/car to bus_driver/car_driver in the baseline scenario (this
   is redundant for the GLOBAL, BOGOTA, AFRICA_INDIA and LATAM scenario definitions
   as bus and car driver distances are already updated during the scenario creation)

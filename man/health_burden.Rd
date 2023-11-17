@@ -24,51 +24,51 @@ This function performs the following steps:
 
 \itemize{
  \item get the demographic and disease burden (subset of Global Burden of Disease dataset) data
-   into the correct formats and join the two datasets  
- 
- \item scale the burden data by the CHRONIC_DISEASE_SCALAR to account for bias in the data  
- 
- \item split the above dataframe into two dataframes, one for deaths and one 
-   for years of life lost (YLLs)  
- 
+   into the correct formats and join the two datasets
+
+ \item scale the burden data by the CHRONIC_DISEASE_SCALAR to account for bias in the data
+
+ \item split the above dataframe into two dataframes, one for deaths and one
+   for years of life lost (YLLs)
+
  \item add a demographic index (by age and sex category) to the dataframe containing the
-   individual relative risk for different diseases  
- 
+   individual relative risk for different diseases
+
  \item set the reference and the other scenarios
- 
- \item iterate over all disease outcomes:  
+
+ \item iterate over all disease outcomes:
    \itemize{
-   \item define column names  
-   
-   \item loop either over 1 or 2 pathways depending on whether both PA and AP are affecting 
-     the disease and whether the AP and PA pathways are combined or not:  
+   \item define column names
+
+   \item loop either over 1 or 2 pathways depending on whether both PA and AP are affecting
+     the disease and whether the AP and PA pathways are combined or not:
      \itemize{
-     \item extract the relevant burden of disease for the specific scenario both for YLLs and deaths  
-     
+     \item extract the relevant burden of disease for the specific scenario both for YLLs and deaths
+
      \item find the sum of the relative risks (RR) for the specific disease for each age
-       and sex category for the reference scenario   
-     
-     \item loop through the non-reference scenarios: 
-       \itemize{ 
-       \item define column names  
-       
+       and sex category for the reference scenario
+
+     \item loop through the non-reference scenarios:
+       \itemize{
+       \item define column names
+
        \item find the sum of the relative risks (RR) for the specific disease for each age
-         and sex category for the non-reference scenario   
-       
+         and sex category for the non-reference scenario
+
        \item calculate the PIF (potential impact fraction), i.e the proportional change
-         in the sum of relative risks between the reference and the non-reference 
-         scenario for each age and sex category  
-       
+         in the sum of relative risks between the reference and the non-reference
+         scenario for each age and sex category
+
        \item calculate the health burden (deaths and ylls) for the non-reference scenario
          compared to the reference scenario by multiplying the current burden of disease
          by the PIF (combine_health_and_pif.R)
          }
-         
+
      \item if confidence intervals are required, loop through the upper and lower confidence
        interval limits and calculate the health burden for deaths and YLLs using
        the upper and lower confidence relative risks. If no upper and lower relative risk
        values exist, use the median value instead
        }
-   }    
+   }
 }
 }

@@ -17,7 +17,7 @@ combined_rr_ap_pa(ind_pa, ind_ap, conf_int = FALSE)
 dataframe giving the RR risk for AP, PA and combined AP and PA exposure levels for every person in the synthetic population and for each scenario
 }
 \description{
-Combine relative risks (RR) from air pollution (AP) and physical activity (PA) 
+Combine relative risks (RR) from air pollution (AP) and physical activity (PA)
 through multiplication for diseases affected
 by both AP and PA
 }
@@ -25,7 +25,7 @@ by both AP and PA
 This function performs the following steps:
 
 \itemize{
-\item join the ap and pa relative risk datasets 
+\item join the ap and pa relative risk datasets
 
 \item loop through all disease outcomes that are affected by both PA and AP:
     \itemize{

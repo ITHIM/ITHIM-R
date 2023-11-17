@@ -16,11 +16,11 @@ list of data frames of PT trips and walk-to-PT trips
 Add walk to 'public transport stages' to those public transport trips that do not have a walking stage
 }
 \details{
-Function to add additional walking stages to those public transport trips that do not have a walking stage 
+Function to add additional walking stages to those public transport trips that do not have a walking stage
 and have a longer trip duration than the MINIMUM_PT_TIME plus the BUS_WALK_TIME / RAIL_WALK_TIME parameters.
 The MINIMUM_PT_TIME is a global input parameter that determines the minimum amount of time  (in minutes) a
-person travelling on public transport spends on the public transport stage. The BUS_WALK_TIME / RAIL_WALK_TIME 
-parameter is a city specific input parameter that determines the duration of the walk to public transport walking stage. 
+person travelling on public transport spends on the public transport stage. The BUS_WALK_TIME / RAIL_WALK_TIME
+parameter is a city specific input parameter that determines the duration of the walk to public transport walking stage.
 
 This function performs the following steps:
 
@@ -30,8 +30,8 @@ This function performs the following steps:
 
 \item find the trip stages that need changing
 
-\item add new 'walk to pt' stages. If the duration of the public transport stage is shorter than  
-  BUS_WALK_TIME / RAIL_WALK_TIME + MINIMUM_PT_TIME, set the new stage duration to 3. Otherwise, 
+\item add new 'walk to pt' stages. If the duration of the public transport stage is shorter than
+  BUS_WALK_TIME / RAIL_WALK_TIME + MINIMUM_PT_TIME, set the new stage duration to 3. Otherwise,
   set the new stage duration to either BUS_WALK_TIME or RAIL_WALK_TIME depending on the trip mode
 
 \item update the original public transport stage duration

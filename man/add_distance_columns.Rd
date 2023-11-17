@@ -27,7 +27,7 @@ add_distance_columns(
 injury tables with strike and casualty distance information for both the whw and nov matrices
 }
 \description{
-This function adds strike and casualty distance information for both 
+This function adds strike and casualty distance information for both
 individual age and sex categories and aggregated by mode to both the who-hit-whom (whw)
 and no-other-vehicle (nov) injury fatality matrices.
 }
@@ -36,24 +36,24 @@ The function performs the following steps:
 
 \itemize{
 \item set up a dataframe containing all the age and sex categories found in the
-  injury table input data  
-  
-\item add age and sex index to mode distances  
+  injury table input data
 
-\item define a list with two elements for whw and nov with the same indices used in the 
-  true_distances dataframe for all age and sex categories 
-   
+\item add age and sex index to mode distances
+
+\item define a list with two elements for whw and nov with the same indices used in the
+  true_distances dataframe for all age and sex categories
+
 \item define a list (with two elements for whw and nov) matching the indices of the mode_names
-  with the casualty modes in the injury table  
-  
+  with the casualty modes in the injury table
+
 \item for the whw matrix create a strike mode indices vector matching the strike modes
-  in the injury table with the strike_modes vector 
-   
+  in the injury table with the strike_modes vector
+
 \item find the strike and casualty distances for all modes in the injury tables both as sum
   across all age and sex categories and for each individual age and sex category. For modes
   that exist in the injury tables for which we have no known distances, the mean mode distances
-  of the known modes is used  
-  
-\item add the strike and casualty modes to the whw and nov matrices in the injuries_list output list  
+  of the known modes is used
+
+\item add the strike and casualty modes to the whw and nov matrices in the injuries_list output list
 }
 }

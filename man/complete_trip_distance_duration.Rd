@@ -17,20 +17,20 @@ we need at least trip duration or stage distance or stage stage duration:
 \item add speed column
 
 \item if there is no stage duration:
- \itemize{  
+ \itemize{
  \item calculate the stage duration if the stage distance is given using the mode speeds
- 
+
  \item if the stage duration sum is 'NA' (i.e. if not all stage distances exist or if there are no stage distances at all):
      \itemize{
      \item if trip duration exists and its sum is not NA, then find the trip ids with 'NA' stage duration and replace those
        stage duration with the trip duration divided by the number of stages of that particular trip
-       
+
      \item remove any remaining trips with 'NA' stage distance
-     
+
      \item update the stage speed column
      }
-   }  
-     
+   }
+
 \item if there is no stage distance:
   \itemize{
   \item calculate stage distance using the stage duration and mode speeds

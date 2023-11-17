@@ -36,28 +36,28 @@ add_ghost_trips(
 data frame of trips
 }
 \description{
-Add trips that do not get assigned any physical activity component, 
+Add trips that do not get assigned any physical activity component,
 can be used as proxy for vehicle distances.
 }
 \details{
-This function creates trips based on distance relative to another (reference) mode, 
-without altering the synthetic population. I.e. it adds trips that do not get assigned any physical 
-activity component. This function can be used to add e.g. car_driver and bus_driver trips 
-which are used as proxy for vehicle distances needed for the injury and the CO2 pathways. 
+This function creates trips based on distance relative to another (reference) mode,
+without altering the synthetic population. I.e. it adds trips that do not get assigned any physical
+activity component. This function can be used to add e.g. car_driver and bus_driver trips
+which are used as proxy for vehicle distances needed for the injury and the CO2 pathways.
 It can also used to add truck and commercial motorcycle trips that are not included in any travel surveys.
-As needed for the injury pathway, these newly added trips are assigned as trips made by a males or 
+As needed for the injury pathway, these newly added trips are assigned as trips made by a males or
 females based on the proportion of males given as input parameter. The age ranges of males and females
-taking those newly added trips can also be defined. 
+taking those newly added trips can also be defined.
 
-The new mode distance is equally split by the number of people times the number of trips per people to 
+The new mode distance is equally split by the number of people times the number of trips per people to
 be added. This is used as the distance for new male trips. As the proportion of female trips tends to be
 very low, the distance calculated for male trips is split by 10 and using a 10th of the distance
 for male trips, 10 times as many female trips are added compared with the very low number of female
-trips that would have been added had the same distance been used as for male trips. 
-E.g. if the number of people to be added is 100 with 1 trip per person and 98% of 
-those trips are made by males, then we add 98 male trips but 10 * 2 = 20 female trips 
-with a 10th of the distance of male trips. This is to ensure a better representation of 
-the demographics of female trips whilst keeping the number of newly added trips as 
+trips that would have been added had the same distance been used as for male trips.
+E.g. if the number of people to be added is 100 with 1 trip per person and 98% of
+those trips are made by males, then we add 98 male trips but 10 * 2 = 20 female trips
+with a 10th of the distance of male trips. This is to ensure a better representation of
+the demographics of female trips whilst keeping the number of newly added trips as
 small as possible to reduce the run time of the model.
 
 The function performs the following steps:

@@ -10,19 +10,19 @@ set_injury_contingency(injuries)
 \item{injuries}{data frame of individual injury events}
 }
 \description{
-Creates summarised injury tables for 'who hit who' and 'no other vehicle' fatality counts 
+Creates summarised injury tables for 'who hit who' and 'no other vehicle' fatality counts
 for each casualty and strike mode combination (and age and sex combination where this information exists)
 }
 \details{
 The function performs the following steps using the individual fatality injury input file:
 
-\itemize{ 
+\itemize{
 \item The data is split into a WHW (who hit who) matrix where both casualty and strike mode are given
-  and a NOV (no other vehicle) matrix where strike mode was set to NOV in ithim_load_data.R or 
+  and a NOV (no other vehicle) matrix where strike mode was set to NOV in ithim_load_data.R or
   no other vehicle was involved in the accident.
 
-\item If no age and gender information is given, then the counts are multiplied by the 
-  proportion of injuries relevant to the proportion of the population considered 
+\item If no age and gender information is given, then the counts are multiplied by the
+  proportion of injuries relevant to the proportion of the population considered
   in the model (e.g. 15 - 65 year olds) based on the GBD data
 
 \item Data is aggregated by casualty and strike mode, and age and sex where such information exists
