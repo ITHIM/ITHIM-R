@@ -2,11 +2,11 @@ Package: ithimr
 Title: Integrated Transport and Health Impact Model
 Version: 0.1.2
 Authors@R: c(
-    person("Rob", "Johnson", , "rob.johnson@mrc-bsu.cam.ac.uk", role = c("aut", "cre")),
     person("Ali", "Abbas", , "aa797@cam.ac.uk", role = c("aut", "cre")),
-    person("Anna", "Anna Schroeder", , "aks85@medschl.cam.ac.uk", role = "aut"),
-    person("Daniel", "Daniel Gil", , "danielgils@gmail.com", role = "aut"),
-    person("Lambed", "Lambed Tatah", , "lambed.tatah@mrc-epid.cam.ac.uk", role = "aut")
+    person("Anna", "Schroeder", , "aks85@medschl.cam.ac.uk", role = "aut"),
+    person("Daniel", "Gil", , "danielgils@gmail.com", role = "aut"),
+    person("Lambed", "Tatah", , "lambed.tatah@mrc-epid.cam.ac.uk", role = "aut"),
+    person("Rob", "Johnson", , "rob.johnson@mrc-bsu.cam.ac.uk", role = "aut")
   )
 Description: Modelling the impact of transport choices on population health.
 Depends: R (>= 4.1.0),
