@@ -14,11 +14,17 @@ This document aims to be a comprehensive record of the calculations in the ITHIM
 
 To cite package 'ithimr' in publications use:
 
-> Rob Johnson and Ali Abbas (2021). ithimr: Integrated Transport and Health Impact Model. R package version 0.1.1.
+> Ali Abbas, Anna Schroeder et al. (2023). ithimr: Integrated Transport and Health Impact Model. R package version 0.1.2.
 
 A BibTeX entry for LaTeX users is
 
-> \@Manual{, title = {ithimr: Integrated Transport and Health Impact Model}, author = {Rob Johnson and Ali Abbas}, year = {2021}, note = {R package version 0.1.1}, }
+> \@Manual{,
+  title = {ithimr: Integrated Transport and Health Impact Model},
+  author = {Ali Abbas and Anna Schroeder and Daniel Gil and Lambed Tatah and Rob Johnson},
+  year = {2023},
+  note = {R package version 0.1.2, https://github.com/ITHIM/ITHIM-R},
+  url = {https://ithim.github.io/ITHIM-R/},
+}
 
 ### Outline
 
