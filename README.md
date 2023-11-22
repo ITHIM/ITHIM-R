@@ -9,6 +9,13 @@
 Development of the **Integrated Transport and Health Impact Modelling Tool (ITHIM)** in R, also known as ITHIM version 3.0. Started in January 2018.
 This document aims to be a comprehensive record of the calculations in the ITHIM pipeline, specifically the ITHIM- R package. 
 
+## Website for the package
+
+Using `pkgdown` method, we have published the documentation of the package on a website (github-pages). Please read it here: [documentation + helpful resources](https://ithim.github.io/ITHIM-R)
+
+## How to use the package
+
+We have written a `how-to` guide that explains how to install the ITHIM-R package, how to run the model ITHIM-Global model using this package and how to produce summaries of the key results. Please read it here: [how to run ITHIM?](https://ithim.github.io/ITHIM-R/articles/how-to-run-ITHIM.html)
 
 ### Citation
 
