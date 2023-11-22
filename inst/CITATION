@@ -1,0 +1,10 @@
+bibentry(
+  key = "ithim_methods_paper",
+  bibtype  = "Misc",
+  url = "https://ithim.github.io/ITHIM-R/",
+  author = c(person("Ali", "Abbas"), person("Anna", "Schroeder"), person("Daniel", "Gil"), 
+  person("Lambed", "Tatah"), person("Rob", "Johnson")),
+  title = "ithimr: Integrated Transport and Health Impact Model",
+  publisher = "",
+  year = "2023"
+)
