@@ -1108,7 +1108,11 @@ for (k in measure) { # loop for ylls or deaths
       temp <- io[[i]]$outcomes[[j]][[k]]
       
       # Total population
-      overall_pop <- sum(io[[i]]$demographic$population)
+      #overall_pop <- sum(io[[i]]$demographic$population)
+      
+      # Population by age and sex
+      pop_by_age_sex <- io[[i]]$demographic %>% group_by(age, sex) %>% 
+        summarize(pop_age_sex = sum(population))
       
       # get the health burden into the correct format by creating a long format and adding additional columns
       # create long format
@@ -1160,12 +1164,13 @@ for (k in measure) { # loop for ylls or deaths
                  grepl("_inj", cause) ~ "RTI"
                )
         ) %>% # End mutate 
-        # # join with demographic information
-        # left_join(pop_by_age, by = c("age_cat" = "age")) %>%  
-        # left_join(pop_by_age_sex, by = c("age_cat" = "age", "sex" = "sex")) %>%
+        # join with demographic information
+        left_join(pop_by_age_sex, by = c("age_cat" = "age", "sex" = "sex")) 
+        
+        # %>%
         # create new columns showing burden per 100000 people by age or by age and sex
-        mutate(metric_100k = measure / overall_pop * 100000, 
-               metric_100k_sex = measure / overall_pop * 100000)
+        # mutate(metric_100k = measure / overall_pop * 100000, 
+        #        metric_100k_sex = measure / overall_pop * 100000)
       
     } # Loop for each city
   } # Loop for each pathway
