@@ -15,7 +15,7 @@ Using `pkgdown` method, we have published the documentation of the package on a 
 
 ## How to use the package
 
-We have written a `how-to` guide that explains how to install the ITHIM-R package, how to run the model ITHIM-Global model using this package and how to produce summaries of the key results. Please read it here: [how to run ITHIM?](https://ithim.github.io/ITHIM-R/articles/how-to-run-ITHIM.html)
+We have written a `how-to` guide that explains how to install the ITHIM-R package, how to run the ITHIM-Global model using this package and how to produce summaries of the key results. Please read it here: [how to run ITHIM?](https://ithim.github.io/ITHIM-R/articles/how-to-run-ITHIM.html)
 
 ### Citation
 
