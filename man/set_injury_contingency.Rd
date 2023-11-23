@@ -18,7 +18,7 @@ The function performs the following steps using the individual fatality injury i
 
 \itemize{
 \item The data is split into a WHW (who hit who) matrix where both casualty and strike mode are given
-  and a NOV (no other vehicle) matrix where strike mode was set to NOV in ithim_load_data.R or
+  and a NOV (no other vehicle) matrix where strike mode was set to NOV in \code{\link{ithim_load_data()}} or
   no other vehicle was involved in the accident.
 
 \item If no age and gender information is given, then the counts are multiplied by the

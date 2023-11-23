@@ -38,13 +38,13 @@ To clone (i.e. download) the ITHIM-R Github repository, open a command window, n
 
 'git clone <https://github.com/ITHIM/ITHIM-R.git>'
 
-![](../man/figures/Clone_package.png)
+![](../man/figures/Clone_package.png){width=100%}
 
 To change to the Bogota branch for which this guide was written, navigate to the ITHIM-R folder within the command window, then type:
 
 'git checkout bogota'
 
-![](../man/figures/Update_branch.png)
+![](../man/figures/Update_branch.png){width=100%}
 
 The Github repository has now been downloaded to your computer and the working branch has been set to the Bogota branch which is the branch this documentation refers to.
 
@@ -56,17 +56,17 @@ To install the ITHIM-R package in RStudio, the following steps need to be perfor
 
 1.) If Git has been installed then the there should be a 'Build' tab in the top right hand corner of RStudio. Click on this tab and then on 'Install' in the panel below it.
 
-![](../man/figures/Build_package.png)
+![](../man/figures/Build_package.png){width=100%}
 
 This will install the ITHIM-R package but it will also most likely initially throw an error message 'Exited with status 1' stating that some other R packages that are needed for the ITHIM-R package have not yet been installed. To install these missing packages, click on the 'Packages' tab on the right hand side in the middle pane and then on 'Install'. This will open a pop-up window which lets you type in the packages that still need installing. Click on 'Install'.
 
-![](../man/figures/Install_packages.png)
+![](../man/figures/Install_packages.png){width=100%}
 
 Once all missing R packages have been installed, go back to the 'Build' tab and install the ITHIM-R package again. It should now install smoothly.
 
 To get the newest updates of the Bogota branch, go to the 'Git' tab in RStudio next to the 'Build' tab and click on 'Pull'. This will automatically download the newest changes from Github. To update the ITHIM-R package on your computer, you need to again go to the 'Build' tab and click on 'Install' again. (Alternatively, if only code but none of the input files have been changed, instead of clicking on 'Install', you can also click on 'More' and then 'Load All' if this option exists for you, i.e. if 'devtools' has been installed. This is a faster way to update the package but will only work for minor code changes.) It is recommended to pull and install the newest updates on a regular basis.
 
-![](../man/figures/Git_pull.png)
+![](../man/figures/Git_pull.png){width=100%}
 
 Finally, you will also have to install the 'drpa' package from Github ([drpa](https://github.com/meta-analyses/drpa)) by first installing the 'remotes' package as explained above and then by typing
 
@@ -74,7 +74,7 @@ remotes::install_github("meta-analyses/drpa")
 
 into the RStudio console.
 
-![](../man/figures/install_drpa.png)
+![](../man/figures/install_drpa.png){width=100%}
 
 ## Running ITHIM-Global
 
@@ -84,40 +84,40 @@ To run ITHIM-Global using the ITHIM-R package the various input files and parame
 
 There are several input parameter files that need updating before running ITIHM-Global:
 
--   5 files specific to each city saved in a directory of the city's name. (See [inst/ext/local/bogota](inst/extdata/local/bogota) for example files and also below for further information). These files need to be saved in the inst/extdata/local/'city' folder, where 'city' is replaced by the appropriate city name.
+-   5 files specific to each city saved in a directory of the city's name. (See [inst/ext/local/bogota](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota) for example files and also below for further information). These files need to be saved in the inst/extdata/local/'city' folder, where 'city' is replaced by the appropriate city name.
 
 -   file containing the various input parameters for all cities for which the code is to be run saved in the ITHIM-R folder. In this branch, this file is called Bogota_InputParameters_vxx.xlsx, where vxx refers to the latest version number of this file. Here it only contains the input parameters for Bogota but it can easily be extended to contain the input parameter values for various cities.
 
--   global datasets - such as the dose-response relationships for the air pollution pathway e.g.. These files can be found in the [inst/extdata/global](inst/extdata/global) folder and usually do not need to be changed. (See below for further information.)
+-   global datasets - such as the dose-response relationships for the air pollution pathway e.g.. These files can be found in the [inst/extdata/global](https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/global) folder and usually do not need to be changed. (See below for further information.)
 
 #### City specific files
 
 This section covers the 5 city specific input files required to run the model.
 
--   **Travel survey** [(example trips dataset)](inst/extdata/local/bogota/trips_bogota.csv%20target=%22_blank). A table of all trips taken by a group of people on a given day. It also includes people who take no trips. This data should come from an official travel survey for the city where possible.
+-   **Travel survey** [(example trips dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/trips_bogota.csv%20target=%22_blank). A table of all trips taken by a group of people on a given day. It also includes people who take no trips. This data should come from an official travel survey for the city where possible.
 
     -   One row per trip (or stage of trip)
     -   Minimal columns: `participant_id`, `age`, `sex`, `trip_mode`, `trip_duration` (or `trip_distance`)
     -   Other columns: `stage_mode`, `stage_duration` (or `stage_distance`)
 
--   **Injury events** [(example injuries dataset)](inst/extdata/local/bogota/injuries_bogota.csv). A table of recorded road-traffic injury (fatality) events in a city during one or more years.
+-   **Injury events** [(example injuries dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/injuries_bogota.csv). A table of recorded road-traffic injury (fatality) events in a city during one or more years.
 
     -   One row per event
     -   Minimal columns: **victim mode** (`cas_mode`) and **strike mode** (`strike_mode`)
     -   Other columns: `year`, `cas_age`, `cas_gender`, `weight` (weight column should give number of years for which data exists if no `year` information is given)
 
--   **Disease burden data** [(example burden dataset)](inst/extdata/local/bogota/gbd_bogota.csv). This gives the burden of disease for different diseases. If no city specific information exists, country level information can be used.
+-   **Disease burden data** [(example burden dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/gbd_bogota.csv). This gives the burden of disease for different diseases. If no city specific information exists, country level information can be used.
 
     -   One row per disease/metric/age/gender combination
     -   Minimal rows: `Measure` (death/YLL); `sex_name` (Male/Female); `age_name` ('x to y'); `cause_name` (disease names); `val` (value of burden); `population` (number of people `val` corresponds to, e.g. population of country)
 
--   **Population of city** [(example population dataset)](inst/extdata/local/bogota/population_bogota.csv). This information is used to scale the Burden of Disease data to the city's population in question.
+-   **Population of city** [(example population dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/population_bogota.csv). This information is used to scale the Burden of Disease data to the city's population in question.
 
     -   One row per demographic group
     -   Columns: `sex`, `age`, `population`
     -   `age` column should share boundaries with `age_name` in Disease burden data, but can be more aggregated
 
--   **Physical activity survey** [(example physical activity dataset)](inst/extdata/local/bogota/pa_bogota.csv). This is used to represent the physical activity levels in the city and should be taken from an official physical activity survey of the city where possible.
+-   **Physical activity survey** [(example physical activity dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/pa_bogota.csv). This is used to represent the physical activity levels in the city and should be taken from an official physical activity survey of the city where possible.
 
     -   One row per person
     -   Columns: `sex`, `age`, `ltpa_marg_met` (total non-occupational PA in a week)
@@ -126,13 +126,13 @@ This section covers the 5 city specific input files required to run the model.
 
 In order to setup the model, we need a fixed list of tables/datasets, such as:
 
--   [**Disease interaction table**](inst/extdata/global/dose_response/disease_outcomes_lookup.csv). A table with a list of diseases/causes for a specific pathway such as `Air Pollution` and `Physical Activity` and also the interaction between them.
+-   [**Disease interaction table**](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/global/dose_response/disease_outcomes_lookup.csv). A table with a list of diseases/causes for a specific pathway such as `Air Pollution` and `Physical Activity` and also the interaction between them.
 
 -   **Air Pollution Exposure Response Functions (ERFs)**. These give the exposure response relationships between air pollution (PM2.5) and its impact on health for different diseases/causes. We have collected/cleaned datasets from published studies for this.
 
 -   **Physical Activity Dose-Response Functions (DRFs)**. These are dose response relationships of physical activity and its impact on health for different diseases/causes. Similar to air pollution, this too comes from published studies. This now sits in an independent R package called [`drpa`](https://github.com/meta-analyses/drpa/).
 
--   **Ventilation rate tables**. This data can be found in [inst/extdata/global/ventilation_rate](inst/extdata/global/ventilation_rate) and details how much air is being inhaled by different people in the model population.
+-   **Ventilation rate tables**. This data can be found in [inst/extdata/global/ventilation_rate](https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/global/ventilation_rate) and details how much air is being inhaled by different people in the model population.
 
 ### Call multi_city_script.R
 
@@ -142,7 +142,7 @@ First update the parameter values at the beginning of the script to set-up e.g. 
 
 Once these parameter values have been updated, click on 'Source' and the model should run.
 
-![](../man/figures/Run_model.png)
+![](../man/figures/Run_model.png){width=100%}
 
 It produces pop-up windows showing the plots of the results giving the years of life lost for each scenario and required disease outcome.
 
@@ -150,7 +150,7 @@ It produces pop-up windows showing the plots of the results giving the years of 
 
 Apart from the pop-up windows produced at the end of the `multi_city_script.R` which give the years of life lost for each scenario and disease outcome, the main file containing the model outputs is the `ithim_objects` list, which is saved under *results/multi_city/io\_,'output_version',.rds*, where the output_version is currently set as the SHA number (i.e. the unique identifier) of the latest update on Github but can also be updated manually by the user.
 
-![](../man/figures/Model_output.png)
+![](../man/figures/Model_output.png){width=100%}
 
 The health effects of ITHIM are presented as years of life lost (YLLs) and number of attributable deaths. The background burden data for the study areas are estimated from the [Global Burden of Disease studies](https://www.healthdata.org/research-analysis/gbd).
 

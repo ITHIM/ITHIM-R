@@ -276,26 +276,26 @@ This function performs the following steps:
    \item update default values if city specific values are given as input parameters
    }
 
-\item load and processe data from files by calling ithim_load_data.R
+\item load and process data from files by calling \code{\link{ithim_load_data()}}
 
-\item call ithim_setup_parameters.R to set the given input parameters to the global
+\item call \code{\link{ithim_setup_parameters()}} to set the given input parameters to the global
   environment if running in constant mode or to obtain NSAMPLE samples from the
   given distributions for each of the input parameters if running in sample mode
 
 \item set flags which cause certain parts of the model to be called at a later stage
- (ithim_uncertainty.R) IF certain input parameters were sampled from a distribution
+ (\code{\link{ithim_uncertainty()}}) IF certain input parameters were sampled from a distribution
 
-\item call complete_trip_distance_duration.R to add any missing stage or distance
+\item call \code{\link{complete_trip_distance_duration()}} to add any missing stage or distance
   information to the trip data
 
 \item if none of the corresponding input parameters were sampled from a distribution,
-  call set_vehicle_inventory.R to create a dataframe with mode specific speed,
+  call \code{\link{set_vehicle_inventory()}} to create a dataframe with mode specific speed,
   distance and emission information
 
 \item if none of the corresponding input parameters were sampled from a distribution,
-  call get_synthetic_from_trips to set synthetic trips and synthetic population
+  call \code{\link{get_synthetic_from_trips()}} to set synthetic trips and synthetic population
 
 \item if none of the corresponding input parameters were sampled from a distribution,
-  call get_all_distances.R to calculate trip distances
+  call \code{\link{get_all_distances()}} to calculate trip distances
 }
 }

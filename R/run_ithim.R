@@ -43,32 +43,32 @@ run_ithim <- function(ithim_object, seed = 1) {
 #' \item  air pollution pathway:
 #'    \itemize{
 #'    \item calculate the PM2.5 exposure for each person in the synthetic population
-#'      and PM2.5 emissions for each mode and scenario (scenario_pm_calculations.R)
+#'      and PM2.5 emissions for each mode and scenario (\code{\link{scenario_pm_calculations()}})
 #'
-#'    \item calculate the CO2 emissions for each mode and scenario (scenario_co2_calculations.R)
+#'    \item calculate the CO2 emissions for each mode and scenario (\code{\link{scenario_co2_calculations()}})
 #'
 #'    \item assign relative risk to each person in the synthetic population for each disease
 #'      related to PM pollution and each scenario based on the individual PM exposure
-#'      levels (gen_ap_rr.R)
+#'      levels (\code{\link{gen_ap_rr()}})
 #'      }
 #'
 #' \item  physical activity pathway:
 #'    \itemize{
-#'    \item calculate total mMETs for each person in the synthetic population (total_mmet.R)
+#'    \item calculate total mMETs for each person in the synthetic population (\code{\link{total_mmet()}})
 #'
 #'    \item assign relative risk to each person in the synthetic population for each disease
 #'      related to physical activity levels and each scenario based on the individual mMET
-#'      values (gen_pa_rr.R)
+#'      values (\code{\link{gen_pa_rr()}})
 #'    }
 #'
 #' \item  physical activity and air pollution combined:
 #'    \itemize{
 #'    \item combine the PA and AP datasets by joining the two datasets. For disease affected by
 #'      both PA and AP calculate the joined relative risk by multiplying the PA and AP
-#'      relative risks (combined_rr_ap_pa.R)
+#'      relative risks (\code{\link{combined_rr_ap_pa()}})
 #'
 #'    \item calculate the health burden (Yll and deaths) for each disease and age and sex
-#'      category (health_burden.R):
+#'      category (\code{\link{health_burden()}}):
 #'      \itemize{
 #'      \item calculate the health burden (Yll and deaths) for each disease and age
 #'        and sex category. Combine the AP and PA pathways for diseases affected
@@ -83,16 +83,16 @@ run_ithim <- function(ithim_object, seed = 1) {
 #'    \itemize{
 #'    \item estimate the injury deaths for the baseline and each scenario by age and sex category,
 #'       also estimate the total injury deaths counts for the who-hit-whom and no-other-vehicle matrices
-#'       by casualty (and strike) mode again for the baseline and each scenario (injuries_function2.R)
+#'       by casualty (and strike) mode again for the baseline and each scenario (\code{\link{injuries_function2()}})
 #'       \itemize{
 #'      \item if running in constant mode include upper and lower confidence intervals
 #'      }
-#'    \item calculate the years of life lost from the injury deaths (injury_death_to_yll.R)
+#'    \item calculate the years of life lost from the injury deaths (\code{\link{injury_death_to_yll()}})
 #'   }
 #'
 #' \item  combine all pathways using the outputs from 3. and 4.:
 #'    \itemize{
-#'    \item combine the AP, PA and injury health burden data for ylls and deaths (join_hb_and_injury.R)
+#'    \item combine the AP, PA and injury health burden data for ylls and deaths (\code{\link{join_hb_and_injury()}})
 #'      for all diseases, injuries and scenarios
 #'      }
 #' }

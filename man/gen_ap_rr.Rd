@@ -35,7 +35,7 @@ This function performs the following steps:
    \item loop through the scenarios:
      \itemize{
      \item assign the relative risk for the given disease, age group, quantile and scenario to the
-       relevant people in the synthetic population by calling the AP_dose_response.R function
+       relevant people in the synthetic population by calling the \code{\link{AP_dose_response()}} function
      }
    }
 }

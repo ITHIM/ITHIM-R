@@ -30,7 +30,7 @@ Predict injuries for baseline and scenarios based on Poisson regression model fi
 on baseline fatality counts and distances
 }
 \details{
-This function uses the Poisson regression model built in the distances_for_injury_function.R to predict fatality
+This function uses the Poisson regression model built in the \code{\link{distances_for_injury_function()}} to predict fatality
 counts for the Baseline and all the scenarios. It performs the following steps:
 
 \itemize{

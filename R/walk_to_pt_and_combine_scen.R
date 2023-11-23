@@ -15,7 +15,7 @@
 #'   \item divide public transport trips into those with and without a 'walk to pt' stage
 #'
 #'  \item add a 'walk to pt' stage to those public transport trips without a walking stage
-#'     (add_walk_trips.R)
+#'     (\code{\link{add_walk_trips()}})
 #'     }
 #' \item combine all trips from all scenarios into one dataframe
 #'

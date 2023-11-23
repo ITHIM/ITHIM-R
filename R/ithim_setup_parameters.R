@@ -35,7 +35,7 @@
 #'   and assign a quantile to them by sampling from a uniform distribution between 0 and 1
 #' }
 #'
-#' At the bottom of this function, the dirichlet_pointiness() function is defined which
+#' At the bottom of this function, the \code{\link{dirichlet_pointiness()}} function is defined which
 #' parameterises the Dirichlet distributions for the PM and CO2 emission inventories.
 #'
 #'

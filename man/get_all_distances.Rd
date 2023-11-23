@@ -21,7 +21,7 @@ This function performs the following steps:
 
 \itemize{
 \item generate distance and duration matrices by age, sex, mode and scenario from the ithim_object$trip_scen_sets
-  for the synthetic population by calling the dist_dur_tbls.R function
+  for the synthetic population by calling the \code{\link{dist_dur_tbls()}} function
 
 \item find the total mode distances for each scenario and scale this up to the distance travelled by the entire
   population by using the demographic information for the city
@@ -32,7 +32,7 @@ This function performs the following steps:
   are then multiplied by these proportions to find the total population distances travelled by each mode
   and age and sex category.
 
-\item the distances_for_injury_function.R function is called which creates a list inj_distances that is added
+\item the \code{\link{distances_for_injury_function()}} function is called which creates a list inj_distances that is added
   to ithim_object containing the following matrices:
   \itemize{
   \item true_distances (population mode distances by age and sex with all walking modes and all car modes combined and

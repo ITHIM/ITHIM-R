@@ -44,7 +44,7 @@ This function performs the following steps to load and process the input data:
 
    \item remove any walk_to_pt stages that do not belong to either a rail or a bus trip modes
 
-   \item (call get_scenario_settings() if using the max_mode_share_scenario)
+   \item (call \code{\link{get_scenario_settings()}} if using the max_mode_share_scenario)
   }
 
 \item read in the local Global Burden of Disease (GBD) data:
