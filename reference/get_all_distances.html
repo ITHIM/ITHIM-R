@@ -76,7 +76,7 @@ rather than just the synthetic population.</p>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function performs the following steps:</p>
 <ul><li><p>generate distance and duration matrices by age, sex, mode and scenario from the ithim_object$trip_scen_sets
-  for the synthetic population by calling the dist_dur_tbls.R function</p></li>
+  for the synthetic population by calling the <code><a href="dist_dur_tbls.html">dist_dur_tbls()</a></code> function</p></li>
 <li><p>find the total mode distances for each scenario and scale this up to the distance travelled by the entire
   population by using the demographic information for the city</p></li>
 <li><p>in order to scale the distances by age, sex, mode and scenario to the entire population, the proportion of
@@ -84,7 +84,7 @@ rather than just the synthetic population.</p>
   distances by mode and scenario in the synthetic population is found. The total population distances by mode
   are then multiplied by these proportions to find the total population distances travelled by each mode
   and age and sex category.</p></li>
-<li><p>the distances_for_injury_function.R function is called which creates a list inj_distances that is added
+<li><p>the <code><a href="distances_for_injury_function.html">distances_for_injury_function()</a></code> function is called which creates a list inj_distances that is added
   to ithim_object containing the following matrices:</p><ul><li><p>true_distances (population mode distances by age and sex with all walking modes and all car modes combined and
      bus drivers added where relevant)</p></li>
 <li><p>injuries_list (list of all strike, casualty, age, sex and mode distance combinations for baseline

@@ -107,11 +107,11 @@ Studio</a></p></li>
 command window, navigate to the folder in which you want to install the
 repository in and type:</p>
 <p>‘git clone <a href="https://github.com/ITHIM/ITHIM-R.git" class="external-link uri">https://github.com/ITHIM/ITHIM-R.git</a>’</p>
-<p><img src="../reference/figures/Clone_package.png"></p>
+<p><img src="../reference/figures/Clone_package.png" style="width:100.0%"></p>
 <p>To change to the Bogota branch for which this guide was written,
 navigate to the ITHIM-R folder within the command window, then type:</p>
 <p>‘git checkout bogota’</p>
-<p><img src="../reference/figures/Update_branch.png"></p>
+<p><img src="../reference/figures/Update_branch.png" style="width:100.0%"></p>
 <p>The Github repository has now been downloaded to your computer and
 the working branch has been set to the Bogota branch which is the branch
 this documentation refers to.</p>
@@ -127,7 +127,7 @@ to be performed:</p>
 <p>1.) If Git has been installed then the there should be a ‘Build’ tab
 in the top right hand corner of RStudio. Click on this tab and then on
 ‘Install’ in the panel below it.</p>
-<p><img src="../reference/figures/Build_package.png"></p>
+<p><img src="../reference/figures/Build_package.png" style="width:100.0%"></p>
 <p>This will install the ITHIM-R package but it will also most likely
 initially throw an error message ‘Exited with status 1’ stating that
 some other R packages that are needed for the ITHIM-R package have not
@@ -135,7 +135,7 @@ yet been installed. To install these missing packages, click on the
 ‘Packages’ tab on the right hand side in the middle pane and then on
 ‘Install’. This will open a pop-up window which lets you type in the
 packages that still need installing. Click on ‘Install’.</p>
-<p><img src="../reference/figures/Install_packages.png"></p>
+<p><img src="../reference/figures/Install_packages.png" style="width:100.0%"></p>
 <p>Once all missing R packages have been installed, go back to the
 ‘Build’ tab and install the ITHIM-R package again. It should now install
 smoothly.</p>
@@ -150,14 +150,14 @@ for you, i.e. if ‘devtools’ has been installed. This is a faster way to
 update the package but will only work for minor code changes.) It is
 recommended to pull and install the newest updates on a regular
 basis.</p>
-<p><img src="../reference/figures/Git_pull.png"></p>
+<p><img src="../reference/figures/Git_pull.png" style="width:100.0%"></p>
 <p>Finally, you will also have to install the ‘drpa’ package from Github
 (<a href="https://github.com/meta-analyses/drpa" class="external-link">drpa</a>) by first
 installing the ‘remotes’ package as explained above and then by
 typing</p>
 <p>remotes::install_github(“meta-analyses/drpa”)</p>
 <p>into the RStudio console.</p>
-<p><img src="../reference/figures/install_drpa.png"></p>
+<p><img src="../reference/figures/install_drpa.png" style="width:100.0%"></p>
 </div>
 </div>
 <div class="section level3">
@@ -176,7 +176,7 @@ one.</p>
 running ITIHM-Global:</p>
 <ul>
 <li><p>5 files specific to each city saved in a directory of the city’s
-name. (See <a href="inst/extdata/local/bogota">inst/ext/local/bogota</a>
+name. (See <a href="https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota" class="external-link">inst/ext/local/bogota</a>
 for example files and also below for further information). These files
 need to be saved in the inst/extdata/local/‘city’ folder, where ‘city’
 is replaced by the appropriate city name.</p></li>
@@ -187,8 +187,9 @@ the latest version number of this file. Here it only contains the input
 parameters for Bogota but it can easily be extended to contain the input
 parameter values for various cities.</p></li>
 <li><p>global datasets - such as the dose-response relationships for the
-air pollution pathway e.g.. These files can be found in the <a href="inst/extdata/global">inst/extdata/global</a> folder and usually do
-not need to be changed. (See below for further information.)</p></li>
+air pollution pathway e.g.. These files can be found in the <a href="https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/global" class="external-link">inst/extdata/global</a>
+folder and usually do not need to be changed. (See below for further
+information.)</p></li>
 </ul>
 <div class="section level5">
 <h5 id="city-specific-files">City specific files<a class="anchor" aria-label="anchor" href="#city-specific-files"></a>
@@ -197,7 +198,7 @@ not need to be changed. (See below for further information.)</p></li>
 the model.</p>
 <ul>
 <li>
-<p><strong>Travel survey</strong> <a href="inst/extdata/local/bogota/trips_bogota.csv%20target=%22_blank">(example
+<p><strong>Travel survey</strong> <a href="https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/trips_bogota.csv%20target=%22_blank" class="external-link">(example
 trips dataset)</a>. A table of all trips taken by a group of people on a
 given day. It also includes people who take no trips. This data should
 come from an official travel survey for the city where possible.</p>
@@ -211,9 +212,9 @@ come from an official travel survey for the city where possible.</p>
 </ul>
 </li>
 <li>
-<p><strong>Injury events</strong> <a href="inst/extdata/local/bogota/injuries_bogota.csv">(example injuries
-dataset)</a>. A table of recorded road-traffic injury (fatality) events
-in a city during one or more years.</p>
+<p><strong>Injury events</strong> <a href="https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/injuries_bogota.csv" class="external-link">(example
+injuries dataset)</a>. A table of recorded road-traffic injury
+(fatality) events in a city during one or more years.</p>
 <ul>
 <li>One row per event</li>
 <li>Minimal columns: <strong>victim mode</strong>
@@ -226,10 +227,10 @@ information is given)</li>
 </ul>
 </li>
 <li>
-<p><strong>Disease burden data</strong> <a href="inst/extdata/local/bogota/gbd_bogota.csv">(example burden
-dataset)</a>. This gives the burden of disease for different diseases.
-If no city specific information exists, country level information can be
-used.</p>
+<p><strong>Disease burden data</strong> <a href="https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/gbd_bogota.csv" class="external-link">(example
+burden dataset)</a>. This gives the burden of disease for different
+diseases. If no city specific information exists, country level
+information can be used.</p>
 <ul>
 <li>One row per disease/metric/age/gender combination</li>
 <li>Minimal rows: <code>Measure</code> (death/YLL);
@@ -240,7 +241,7 @@ corresponds to, e.g. population of country)</li>
 </ul>
 </li>
 <li>
-<p><strong>Population of city</strong> <a href="inst/extdata/local/bogota/population_bogota.csv">(example
+<p><strong>Population of city</strong> <a href="https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/population_bogota.csv" class="external-link">(example
 population dataset)</a>. This information is used to scale the Burden of
 Disease data to the city’s population in question.</p>
 <ul>
@@ -255,10 +256,10 @@ aggregated</li>
 </ul>
 </li>
 <li>
-<p><strong>Physical activity survey</strong> <a href="inst/extdata/local/bogota/pa_bogota.csv">(example physical
-activity dataset)</a>. This is used to represent the physical activity
-levels in the city and should be taken from an official physical
-activity survey of the city where possible.</p>
+<p><strong>Physical activity survey</strong> <a href="https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/pa_bogota.csv" class="external-link">(example
+physical activity dataset)</a>. This is used to represent the physical
+activity levels in the city and should be taken from an official
+physical activity survey of the city where possible.</p>
 <ul>
 <li>One row per person</li>
 <li>Columns: <code>sex</code>, <code>age</code>,
@@ -273,7 +274,7 @@ activity survey of the city where possible.</p>
 <p>In order to setup the model, we need a fixed list of tables/datasets,
 such as:</p>
 <ul>
-<li><p><a href="inst/extdata/global/dose_response/disease_outcomes_lookup.csv"><strong>Disease
+<li><p><a href="https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/global/dose_response/disease_outcomes_lookup.csv" class="external-link"><strong>Disease
 interaction table</strong></a>. A table with a list of diseases/causes
 for a specific pathway such as <code>Air Pollution</code> and
 <code>Physical Activity</code> and also the interaction between
@@ -289,7 +290,7 @@ activity and its impact on health for different diseases/causes. Similar
 to air pollution, this too comes from published studies. This now sits
 in an independent R package called <a href="https://github.com/meta-analyses/drpa/" class="external-link"><code>drpa</code></a>.</p></li>
 <li><p><strong>Ventilation rate tables</strong>. This data can be found
-in <a href="inst/extdata/global/ventilation_rate">inst/extdata/global/ventilation_rate</a>
+in <a href="https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/global/ventilation_rate" class="external-link">inst/extdata/global/ventilation_rate</a>
 and details how much air is being inhaled by different people in the
 model population.</p></li>
 </ul>
@@ -313,7 +314,7 @@ city names are given as a vector, the model performs the ITHIM-R
 analysis for one city after another.</p>
 <p>Once these parameter values have been updated, click on ‘Source’ and
 the model should run.</p>
-<p><img src="../reference/figures/Run_model.png"></p>
+<p><img src="../reference/figures/Run_model.png" style="width:100.0%"></p>
 <p>It produces pop-up windows showing the plots of the results giving
 the years of life lost for each scenario and required disease
 outcome.</p>
@@ -330,7 +331,7 @@ outputs is the <code>ithim_objects</code> list, which is saved under
 output_version is currently set as the SHA number (i.e. the unique
 identifier) of the latest update on Github but can also be updated
 manually by the user.</p>
-<p><img src="../reference/figures/Model_output.png"></p>
+<p><img src="../reference/figures/Model_output.png" style="width:100.0%"></p>
 <p>The health effects of ITHIM are presented as years of life lost
 (YLLs) and number of attributable deaths. The background burden data for
 the study areas are estimated from the <a href="https://www.healthdata.org/research-analysis/gbd" class="external-link">Global Burden of

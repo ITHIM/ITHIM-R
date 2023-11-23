@@ -449,21 +449,21 @@ and sampled from NSAMPLE times.</p>
 <li><p>define CO2 emissions inventory</p><ul><li><p>set default emission values</p></li>
 <li><p>update default values if city specific values are given as input parameters</p></li>
 </ul></li>
-<li><p>load and processe data from files by calling ithim_load_data.R</p></li>
-<li><p>call ithim_setup_parameters.R to set the given input parameters to the global
+<li><p>load and process data from files by calling <code><a href="ithim_load_data.html">ithim_load_data()</a></code></p></li>
+<li><p>call <code><a href="ithim_setup_parameters.html">ithim_setup_parameters()</a></code> to set the given input parameters to the global
   environment if running in constant mode or to obtain NSAMPLE samples from the
   given distributions for each of the input parameters if running in sample mode</p></li>
 <li><p>set flags which cause certain parts of the model to be called at a later stage
- (ithim_uncertainty.R) IF certain input parameters were sampled from a distribution</p></li>
-<li><p>call complete_trip_distance_duration.R to add any missing stage or distance
+ (<code><a href="ithim_uncertainty.html">ithim_uncertainty()</a></code>) IF certain input parameters were sampled from a distribution</p></li>
+<li><p>call <code><a href="complete_trip_distance_duration.html">complete_trip_distance_duration()</a></code> to add any missing stage or distance
   information to the trip data</p></li>
 <li><p>if none of the corresponding input parameters were sampled from a distribution,
-  call set_vehicle_inventory.R to create a dataframe with mode specific speed,
+  call <code><a href="set_vehicle_inventory.html">set_vehicle_inventory()</a></code> to create a dataframe with mode specific speed,
   distance and emission information</p></li>
 <li><p>if none of the corresponding input parameters were sampled from a distribution,
-  call get_synthetic_from_trips to set synthetic trips and synthetic population</p></li>
+  call <code><a href="get_synthetic_from_trips.html">get_synthetic_from_trips()</a></code> to set synthetic trips and synthetic population</p></li>
 <li><p>if none of the corresponding input parameters were sampled from a distribution,
-  call get_all_distances.R to calculate trip distances</p></li>
+  call <code><a href="get_all_distances.html">get_all_distances()</a></code> to calculate trip distances</p></li>
 </ul></div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

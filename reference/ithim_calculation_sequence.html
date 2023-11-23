@@ -78,22 +78,22 @@
     <p>This function performs the following steps:</p>
 <ol><li><p>extract all lists and variables from the ithim_object list</p></li>
 <li><p>air pollution pathway:</p><ul><li><p>calculate the PM2.5 exposure for each person in the synthetic population
-     and PM2.5 emissions for each mode and scenario (scenario_pm_calculations.R)</p></li>
-<li><p>calculate the CO2 emissions for each mode and scenario (scenario_co2_calculations.R)</p></li>
+     and PM2.5 emissions for each mode and scenario (<code><a href="scenario_pm_calculations.html">scenario_pm_calculations()</a></code>)</p></li>
+<li><p>calculate the CO2 emissions for each mode and scenario (<code><a href="scenario_co2_calculations.html">scenario_co2_calculations()</a></code>)</p></li>
 <li><p>assign relative risk to each person in the synthetic population for each disease
      related to PM pollution and each scenario based on the individual PM exposure
-     levels (gen_ap_rr.R)</p></li>
+     levels (<code><a href="gen_ap_rr.html">gen_ap_rr()</a></code>)</p></li>
 </ul></li>
-<li><p>physical activity pathway:</p><ul><li><p>calculate total mMETs for each person in the synthetic population (total_mmet.R)</p></li>
+<li><p>physical activity pathway:</p><ul><li><p>calculate total mMETs for each person in the synthetic population (<code><a href="total_mmet.html">total_mmet()</a></code>)</p></li>
 <li><p>assign relative risk to each person in the synthetic population for each disease
      related to physical activity levels and each scenario based on the individual mMET
-     values (gen_pa_rr.R)</p></li>
+     values (<code><a href="gen_pa_rr.html">gen_pa_rr()</a></code>)</p></li>
 </ul></li>
 <li><p>physical activity and air pollution combined:</p><ul><li><p>combine the PA and AP datasets by joining the two datasets. For disease affected by
      both PA and AP calculate the joined relative risk by multiplying the PA and AP
-     relative risks (combined_rr_ap_pa.R)</p></li>
+     relative risks (<code><a href="combined_rr_ap_pa.html">combined_rr_ap_pa()</a></code>)</p></li>
 <li><p>calculate the health burden (Yll and deaths) for each disease and age and sex
-     category (health_burden.R):</p><ul><li><p>calculate the health burden (Yll and deaths) for each disease and age
+     category (<code><a href="health_burden.html">health_burden()</a></code>):</p><ul><li><p>calculate the health burden (Yll and deaths) for each disease and age
        and sex category. Combine the AP and PA pathways for diseases affected
        by both AP and PA</p></li>
 <li><p>if running in constant mode also calculate the health burden for both the
@@ -102,11 +102,11 @@
 </ul></li>
 <li><p>injury pathway:</p><ul><li><p>estimate the injury deaths for the baseline and each scenario by age and sex category,
       also estimate the total injury deaths counts for the who-hit-whom and no-other-vehicle matrices
-      by casualty (and strike) mode again for the baseline and each scenario (injuries_function2.R)</p><ul><li><p>if running in constant mode include upper and lower confidence intervals</p></li>
+      by casualty (and strike) mode again for the baseline and each scenario (<code>injuries_function2()</code>)</p><ul><li><p>if running in constant mode include upper and lower confidence intervals</p></li>
 </ul></li>
-<li><p>calculate the years of life lost from the injury deaths (injury_death_to_yll.R)</p></li>
+<li><p>calculate the years of life lost from the injury deaths (<code><a href="injury_death_to_yll.html">injury_death_to_yll()</a></code>)</p></li>
 </ul></li>
-<li><p>combine all pathways using the outputs from 3. and 4.:</p><ul><li><p>combine the AP, PA and injury health burden data for ylls and deaths (join_hb_and_injury.R)
+<li><p>combine all pathways using the outputs from 3. and 4.:</p><ul><li><p>combine the AP, PA and injury health burden data for ylls and deaths (<code><a href="join_hb_and_injury.html">join_hb_and_injury()</a></code>)
      for all diseases, injuries and scenarios</p></li>
 </ul></li>
 </ol></div>
