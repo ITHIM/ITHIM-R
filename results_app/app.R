@@ -29,7 +29,7 @@ if (.Platform$OS.type == "windows"){
 repo_sha <-  as.character(readLines(file.path("repo_sha")))
 # repo_sha <- "f7292509"
 output_version <- paste0(repo_sha, "_test_run")
-#github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
+github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
 # github_path <- "../"
 rel_path_health <- paste0(github_path, "results/multi_city/health_impacts/")
  
