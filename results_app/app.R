@@ -29,7 +29,7 @@ if (.Platform$OS.type == "windows"){
 repo_sha <-  as.character(readLines(file.path("repo_sha")))
 # repo_sha <- "f7292509"
 output_version <- paste0(repo_sha, "_test_run")
-github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
+#github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
 # github_path <- "../"
 rel_path_health <- paste0(github_path, "results/multi_city/health_impacts/")
  
@@ -511,7 +511,7 @@ server <- function(input, output, session) {
           filter(scenario %in% filtered_scens) |>
           filter(dose %in% filtered_pathways) |>
           group_by(city, scenario, dose, cause) |>
-          summarise(metric_100k = round(sum(metric_100k), 1))
+          summarise(metric_100k = round((sum(measure) / sum (pop_age_sex) * 100000), 1))
       }
       
       if (length(filtered_pathways) > 1){
@@ -520,7 +520,7 @@ server <- function(input, output, session) {
           filter(str_detect(cause, "lb")) |>
           ungroup() |>
           group_by(city, scenario) |>
-          summarise(metric_100k = round(sum(metric_100k, 1))) |>
+          summarise(metric_100k = sum(metric_100k)) |>
           mutate(dose = "total", cause = "total_lb")
         
         total_dose <- rbind(total_dose,
@@ -528,7 +528,7 @@ server <- function(input, output, session) {
                               filter(str_detect(cause, "ub")) |>
                               ungroup() |>
                               group_by(city, scenario) |>
-                              summarise(metric_100k = round(sum(metric_100k, 1))) |>
+                              summarise(metric_100k = sum(metric_100k)) |>
                               mutate(dose = "total", cause = "total_ub")
                             
         )
@@ -538,7 +538,7 @@ server <- function(input, output, session) {
                               filter(!str_detect(cause, "lb|ub")) |>
                               ungroup() |>
                               group_by(city, scenario) |>
-                              summarise(metric_100k = round(sum(metric_100k, 1))) |>
+                              summarise(metric_100k = sum(metric_100k)) |>
                               mutate(dose = "total", cause = "total")
                             
         )
@@ -565,14 +565,14 @@ server <- function(input, output, session) {
           filter(scenario %in% filtered_scens) |>
           filter(dose %in% filtered_pathways) |>
           group_by(city, scenario, dose) |>
-          summarise(metric_100k = round(sum(metric_100k), 1))
+          summarise(metric_100k = round((sum(measure) / sum (pop_age_sex) * 100000), 1))
       }
       
       if (length(filtered_pathways) > 1){
         
         total_dose <- ld |>
           group_by(city, scenario) |>
-          summarise(metric_100k = round(sum(metric_100k), 1)) |>
+          summarise(metric_100k = sum(metric_100k)) |>
           mutate(dose = "total")
         
         ld <- plyr::rbind.fill(ld, total_dose)
