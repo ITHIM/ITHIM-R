@@ -505,18 +505,6 @@ server <- function(input, output, session) {
         group_by(city, scenario, dose, cause) |>
         summarise(metric_100k = round(ifelse(in_per_100,(sum(measure) / overall_pop * 100000), sum(measure)), 1))
       
-      # if (in_per_100){
-      #   ld <- local_dataset |>
-      #     filter(measures == in_measure) |>
-      #     filter((!is.na(!!rlang::sym(in_col_lvl)))) |>
-      #     filter(city %in% filtered_cities) |>
-      #     filter(scenario %in% filtered_scens) |>
-      #     filter(dose %in% filtered_pathways) |>
-      #     group_by(city, scenario, dose, cause) |>
-      #     summarise(metric_100k = round((sum(measure) / sum (pop_age_sex) * 100000), 1))
-      #   
-      # }
-      
       if (length(filtered_pathways) > 1){
         
         total_dose <- ld |>
@@ -559,18 +547,6 @@ server <- function(input, output, session) {
         group_by(city, scenario, dose) |>
         summarise(metric_100k = round(ifelse(in_per_100,(sum(measure) / overall_pop * 100000), sum(measure)), 1))
       
-      # if (in_per_100){
-      #   ld <- local_dataset |>
-      #     filter(measures == in_measure) |>
-      #     filter(!str_detect(cause, "lb|ub")) |>
-      #     filter((!is.na(!!rlang::sym(in_col_lvl)))) |>
-      #     filter(city %in% filtered_cities) |>
-      #     filter(scenario %in% filtered_scens) |>
-      #     filter(dose %in% filtered_pathways) |>
-      #     group_by(city, scenario, dose) |>
-      #     summarise(metric_100k = round((sum(measure) / sum (pop_age_sex) * 100000), 1))
-      # }
-      
       if (length(filtered_pathways) > 1){
         
         total_dose <- ld |>
@@ -591,8 +567,6 @@ server <- function(input, output, session) {
         scenario == "BUS_SC" ~ "Bus Scenario",
         scenario == "MOT_SC" ~ "Motorcycle Scenario"),
         measure = in_measure)
-    
-    # browser()
     
     if (is.null(ld) || nrow(ld) == 0)
       ld <- data.frame()
