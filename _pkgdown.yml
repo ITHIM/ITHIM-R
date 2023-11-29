@@ -4,9 +4,9 @@ template:
   bootswatch: simplex
 reference:
 - title: Main functions
-  desc:  Run the ITHIM model - the setting up the environments (variables and loading files), running the model and generating the outputs.
-- contents:
-  - starts_with("run_")
+  desc: Run the ITHIM model - the setting up the environments (variables and loading
+    files), running the model and generating the outputs.
+- contents: starts_with("run_")
 - title: Others
   desc: Other functions
 - contents:
@@ -50,5 +50,4 @@ reference:
   - set_vehicle_inventory
   - total_mmet
   - walk_to_pt_and_combine_scen
-
 
