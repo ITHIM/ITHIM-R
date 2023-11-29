@@ -300,6 +300,10 @@ cat("  \n")
 ```
 <!-- # **1st option** -->
 
+
+# Summary tables
+List of tables for scenario, distance and duration
+
 ## Distance categories
 
 <!-- ## Scenario definition  -->
@@ -329,9 +333,9 @@ orig_scen_names_updated <- unlist(lapply(rownames(scen_prop), FUN=get_qualified_
 
 
 # # rename scenarios
-# rownames(scen_prop) <- unlist(lapply(rownames(scen_prop), FUN=get_qualified_scen_name))
+rownames(scen_prop) <- unlist(lapply(rownames(scen_prop), FUN=get_qualified_scen_name))
 
-# kable(scen_prop, headings = "Scenario Proportions")
+kable(scen_prop, headings = "Scenario Proportions")
 
 ```
 
