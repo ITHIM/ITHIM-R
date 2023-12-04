@@ -233,6 +233,9 @@ ui <- grid_page(
       radioButtons(inputId = "in_level", 
                    label = "Disease/cause levels",
                    choices = level_choices),
+      checkboxInput(inputId = "in_sex", 
+                    label = "Sex stratification",
+                    value =  TRUE),
       checkboxInput(inputId = "in_per_100k", 
                     label = "per_100k",
                     value =  FALSE),
@@ -367,10 +370,12 @@ server <- function(input, output, session) {
     req(input$in_measure)
     req(input$in_CIs)
     req(input$in_pathways)
+    req(input$in_sex)
     
     in_col_lvl <- input$in_level
     in_measure <- input$in_measure
     in_CIs <- input$in_CIs
+    in_sex <- input$in_sex
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
@@ -390,13 +395,13 @@ server <- function(input, output, session) {
       text_colour <- "black"
         
         if (in_measure == "Deaths"){
-          y_lab <- "Deaths per 100k"
+          y_lab <- "Averted deaths per 100k"
           if (!in_per_100)
-            y_lab <- "Deaths"
+            y_lab <- "Averted Deaths"
         }else{
-          y_lab <- "Years of Life Lost (YLLs) per 100k"#<---- harms      #      benefits ---->  
+          y_lab <- "Saved Years of Life Lost (YLLs) per 100k"#<---- harms      #      benefits ---->  
           if (!in_per_100)
-            y_lab <- "Years of Life Lost (YLLs)"
+            y_lab <- "Saved Years of Life Lost (YLLs)"
         }
         
         ld <- get_health_data()
@@ -410,6 +415,7 @@ server <- function(input, output, session) {
             {if(in_CIs == "No") geom_text(aes(label = round(metric_100k, 1)), position = position_dodge(width = 0.9), vjust = -0.5)} +
             {if(in_CIs == "Yes") geom_boxplot(data = ld, aes(y = metric_100k, x = dose, fill = scenario), 
                      width = 0.5, position=position_dodge2(), alpha = global_alpha_val)} +
+            {if(in_sex) facet_wrap(~sex)} +
             {if(in_CIs == "Yes") coord_flip()} +
             scale_fill_hue(direction = 1) +
             theme_minimal() +
@@ -482,12 +488,14 @@ server <- function(input, output, session) {
     in_col_lvl <- input$in_level
     in_measure <- input$in_measure
     in_int_pathway <- input$in_int_pathway
+    in_sex <- input$in_sex
     in_CIs <- input$in_CIs
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
     in_per_100 <- input$in_per_100k
     local_dataset <- combined_health_dataset
+    
     
     if (in_int_pathway == "Yes")
       local_dataset <- combined_health_dataset
@@ -501,8 +509,8 @@ server <- function(input, output, session) {
         filter((!is.na(!!rlang::sym(in_col_lvl)))) |>
         filter(city %in% filtered_cities) |>
         filter(scenario %in% filtered_scens) |>
-        filter(dose %in% filtered_pathways) |>
-        group_by(city, scenario, dose, cause) |>
+        filter(dose %in% filtered_pathways) %>%
+        {if(input$in_sex) group_by(., sex, city, scenario, dose, cause) else group_by(., city, scenario, dose, cause)} %>% 
         summarise(metric_100k = round(ifelse(in_per_100,(sum(measure) / overall_pop * 100000), sum(measure)), 1))
       
       if (length(filtered_pathways) > 1){
@@ -543,8 +551,8 @@ server <- function(input, output, session) {
         filter((!is.na(!!rlang::sym(in_col_lvl)))) |>
         filter(city %in% filtered_cities) |>
         filter(scenario %in% filtered_scens) |>
-        filter(dose %in% filtered_pathways) |>
-        group_by(city, scenario, dose) |>
+        filter(dose %in% filtered_pathways) %>% 
+        {if(in_sex) group_by(., sex, city, scenario, dose, cause) else group_by(., city, scenario, dose, cause)} %>% 
         summarise(metric_100k = round(ifelse(in_per_100,(sum(measure) / overall_pop * 100000), sum(measure)), 1))
       
       if (length(filtered_pathways) > 1){
