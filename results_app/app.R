@@ -370,7 +370,7 @@ server <- function(input, output, session) {
     req(input$in_measure)
     req(input$in_CIs)
     req(input$in_pathways)
-    req(input$in_sex)
+    req(!is.null(input$in_sex))
     
     in_col_lvl <- input$in_level
     in_measure <- input$in_measure
@@ -434,6 +434,7 @@ server <- function(input, output, session) {
   }) |> bindCache(input$in_level,
                   input$in_measure,
                   input$in_per_100k,
+                  input$in_sex,
                   input$in_CIs,
                   input$in_cities,
                   input$in_scens,
@@ -510,23 +511,24 @@ server <- function(input, output, session) {
         filter(city %in% filtered_cities) |>
         filter(scenario %in% filtered_scens) |>
         filter(dose %in% filtered_pathways) %>%
-        {if(input$in_sex) group_by(., sex, city, scenario, dose, cause) else group_by(., city, scenario, dose, cause)} %>% 
-        summarise(metric_100k = round(ifelse(in_per_100,(sum(measure) / overall_pop * 100000), sum(measure)), 1))
+        {if(input$in_sex) group_by(., sex, city, scenario, dose) else group_by(., city, scenario, dose)} %>% 
+        {if(in_sex) left_join(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> group_by(sex) |> summarise(pop = sum(pop_age_sex)))) else cbind(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> summarise(pop = sum(pop_age_sex))))} |> 
+        summarise(metric_100k = round(ifelse(in_per_100,(sum(measure) / pop * 100000), sum(measure)), 1))
       
       if (length(filtered_pathways) > 1){
         
         total_dose <- ld |>
           filter(str_detect(cause, "lb")) |>
-          ungroup() |>
-          group_by(city, scenario) |>
+          ungroup() %>%
+          {if(input$in_sex) group_by(., sex, city, scenario) else group_by(., city, scenario)} %>%
           summarise(metric_100k = sum(metric_100k)) |>
           mutate(dose = "total", cause = "total_lb")
         
         total_dose <- rbind(total_dose,
                             ld |>
                               filter(str_detect(cause, "ub")) |>
-                              ungroup() |>
-                              group_by(city, scenario) |>
+                              ungroup() %>%
+                              {if(input$in_sex) group_by(., sex, city, scenario) else group_by(., city, scenario)} %>%
                               summarise(metric_100k = sum(metric_100k)) |>
                               mutate(dose = "total", cause = "total_ub")
                             
@@ -535,8 +537,8 @@ server <- function(input, output, session) {
         total_dose <- rbind(total_dose,
                             ld |>
                               filter(!str_detect(cause, "lb|ub")) |>
-                              ungroup() |>
-                              group_by(city, scenario) |>
+                              ungroup() %>%
+                              {if(input$in_sex) group_by(., sex, city, scenario) else group_by(., city, scenario)} %>%
                               summarise(metric_100k = sum(metric_100k)) |>
                               mutate(dose = "total", cause = "total")
                             
@@ -552,13 +554,14 @@ server <- function(input, output, session) {
         filter(city %in% filtered_cities) |>
         filter(scenario %in% filtered_scens) |>
         filter(dose %in% filtered_pathways) %>% 
-        {if(in_sex) group_by(., sex, city, scenario, dose, cause) else group_by(., city, scenario, dose, cause)} %>% 
-        summarise(metric_100k = round(ifelse(in_per_100,(sum(measure) / overall_pop * 100000), sum(measure)), 1))
+        {if(in_sex) group_by(., sex, city, scenario, dose) else group_by(., city, scenario, dose)} %>% 
+        {if(in_sex) left_join(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> group_by(sex) |> summarise(pop = sum(pop_age_sex)))) else cbind(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> summarise(pop = sum(pop_age_sex))))} |> 
+        summarise(metric_100k = round(ifelse(in_per_100,(sum(measure) / pop * 100000), sum(measure)), 1))
       
       if (length(filtered_pathways) > 1){
         
-        total_dose <- ld |>
-          group_by(city, scenario) |>
+        total_dose <- ld %>% 
+          {if(in_sex) group_by(., sex, city, scenario) else group_by(., city, scenario)} %>% 
           summarise(metric_100k = sum(metric_100k)) |>
           mutate(dose = "total")
         
