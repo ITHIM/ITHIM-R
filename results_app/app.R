@@ -235,7 +235,7 @@ ui <- grid_page(
                    choices = level_choices),
       checkboxInput(inputId = "in_sex", 
                     label = "Sex stratification",
-                    value =  TRUE),
+                    value =  FALSE),
       checkboxInput(inputId = "in_per_100k", 
                     label = "per_100k",
                     value =  FALSE),
