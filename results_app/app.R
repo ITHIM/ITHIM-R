@@ -511,7 +511,7 @@ server <- function(input, output, session) {
         filter(city %in% filtered_cities) |>
         filter(scenario %in% filtered_scens) |>
         filter(dose %in% filtered_pathways) %>%
-        {if(input$in_sex) group_by(., sex, city, scenario, dose) else group_by(., city, scenario, dose)} %>% 
+        {if(in_sex) group_by(., sex, city, scenario, dose, cause) else group_by(., city, scenario, dose, cause)} %>% 
         {if(in_sex) left_join(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> group_by(sex) |> summarise(pop = sum(pop_age_sex)))) else cbind(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> summarise(pop = sum(pop_age_sex))))} |> 
         summarise(metric_100k = round(ifelse(in_per_100,(sum(measure) / pop * 100000), sum(measure)), 1))
       
