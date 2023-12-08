@@ -233,6 +233,10 @@ ui <- grid_page(
       radioButtons(inputId = "in_level", 
                    label = "Disease/cause levels",
                    choices = level_choices),
+      radioButtons(inputId = "in_CIs", 
+                   label = "Conf. Interval",
+                   choices = c("No", "Yes"),
+                   selected = "No"),
       checkboxInput(inputId = "in_sex", 
                     label = "Sex stratification",
                     value =  FALSE),
@@ -262,11 +266,6 @@ ui <- grid_page(
                    choices = inj_risk_types,
                    selected = inj_risk_types[1])
     ),
-    
-    radioButtons(inputId = "in_CIs", 
-                 label = "Conf. Interval",
-                 choices = c("No", "Yes"),
-                 selected = "No"),
     downloadButton("download_top_data", "Download data", icon = shiny::icon("file-download"))
     
   )
@@ -461,8 +460,6 @@ server <- function(input, output, session) {
     
     text_colour <- "black"
     
-    #browser()
-      
     local_df <- local_df |>
       as.data.frame() |>
       filter(city %in% filtered_cities &
