@@ -408,6 +408,9 @@ server <- function(input, output, session) {
           if (!in_per_100)
             y_lab <- "Saved Years of Life Lost (YLLs)"
         }
+      
+        if (in_strata == "Sex") y_lab <- paste(y_lab, "(stratified by sex)")
+        else if (in_strata == "Age Group") y_lab <- paste(y_lab, " (stratified by age groups)")
         
         ld <- get_health_data()
         
