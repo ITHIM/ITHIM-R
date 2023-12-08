@@ -237,9 +237,10 @@ ui <- grid_page(
                    label = "Conf. Interval",
                    choices = c("No", "Yes"),
                    selected = "No"),
-      checkboxInput(inputId = "in_sex", 
-                    label = "Sex stratification",
-                    value =  FALSE),
+      radioButtons(inputId = "in_strata", 
+                    label = "Stratification",
+                    choices = c("None", "Sex", "Age Group"),
+                    select = "Age Group"),
       checkboxInput(inputId = "in_per_100k", 
                     label = "per_100k",
                     value =  FALSE),
@@ -349,7 +350,7 @@ server <- function(input, output, session) {
       gg <- ggplot(local_df) +
         aes(x = city, y = mean, fill = scenario) +
         geom_col(position = "dodge", alpha = global_alpha_val) +
-        geom_text(aes(label = round(mean, 1)), position = position_dodge(width = 0.9), vjust = -0.5) +
+        geom_text(aes(label = round(mean, 1)), size = 3, position = position_dodge(width = 0.9), vjust = -0.5) +
         scale_fill_hue(direction = 1) +
         coord_flip() +
         theme_minimal() +
@@ -369,12 +370,12 @@ server <- function(input, output, session) {
     req(input$in_measure)
     req(input$in_CIs)
     req(input$in_pathways)
-    req(!is.null(input$in_sex))
+    req(!is.null(input$in_strata))
     
     in_col_lvl <- input$in_level
     in_measure <- input$in_measure
     in_CIs <- input$in_CIs
-    in_sex <- input$in_sex
+    in_strata <- input$in_strata
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
@@ -411,10 +412,13 @@ server <- function(input, output, session) {
           
           gg <- ggplot(ld, aes(x = metric_100k, y = dose, fill = scenario)) +
             {if(in_CIs == "No") geom_col(position=position_dodge2(), alpha = global_alpha_val)} +
-            {if(in_CIs == "No") geom_text(aes(label = round(metric_100k, 1)), position = position_dodge(width = 0.9), vjust = -0.5)} +
+            {if(in_CIs == "No") geom_text(aes(label = round(metric_100k, 1)), 
+                                          size = 3, 
+                                          position = position_dodge(width = 0.9), 
+                                          vjust = -0.5)} +
             {if(in_CIs == "Yes") geom_boxplot(data = ld, aes(y = metric_100k, x = dose, fill = scenario), 
                      width = 0.5, position=position_dodge2(), alpha = global_alpha_val)} +
-            {if(in_sex) facet_wrap(~sex)} +
+            {if(in_strata == "Sex") facet_wrap(~sex) else if(in_strata == "Age Group") facet_wrap(~age_cat)} +
             {if(in_CIs == "Yes") coord_flip()} +
             scale_fill_hue(direction = 1) +
             theme_minimal() +
@@ -433,7 +437,7 @@ server <- function(input, output, session) {
   }) |> bindCache(input$in_level,
                   input$in_measure,
                   input$in_per_100k,
-                  input$in_sex,
+                  input$in_strata,
                   input$in_CIs,
                   input$in_cities,
                   input$in_scens,
@@ -486,7 +490,7 @@ server <- function(input, output, session) {
     in_col_lvl <- input$in_level
     in_measure <- input$in_measure
     in_int_pathway <- input$in_int_pathway
-    in_sex <- input$in_sex
+    in_strata <- input$in_strata
     in_CIs <- input$in_CIs
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_scens <- input$in_scens
@@ -508,8 +512,12 @@ server <- function(input, output, session) {
         filter(city %in% filtered_cities) |>
         filter(scenario %in% filtered_scens) |>
         filter(dose %in% filtered_pathways) %>%
-        {if(in_sex) group_by(., sex, city, scenario, dose, cause) else group_by(., city, scenario, dose, cause)} %>% 
-        {if(in_sex) left_join(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> group_by(sex) |> summarise(pop = sum(pop_age_sex)))) else cbind(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> summarise(pop = sum(pop_age_sex))))} |> 
+        {if(in_strata == "Sex") group_by(., sex, city, scenario, dose, cause) 
+          else if(in_strata == "Age Group") group_by(., age_cat, city, scenario, dose, cause) 
+          else group_by(., city, scenario, dose, cause)} %>% 
+        {if(in_strata == "Sex") left_join(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> group_by(sex) |> summarise(pop = sum(pop_age_sex)))) 
+          else if (in_strata == "Age Group") left_join(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> group_by(age_cat) |> summarise(pop = sum(pop_age_sex)))) 
+          else cbind(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> summarise(pop = sum(pop_age_sex))))} |> 
         summarise(metric_100k = round(ifelse(in_per_100,(sum(measure) / pop * 100000), sum(measure)), 1))
       
       if (length(filtered_pathways) > 1){
@@ -517,7 +525,9 @@ server <- function(input, output, session) {
         total_dose <- ld |>
           filter(str_detect(cause, "lb")) |>
           ungroup() %>%
-          {if(input$in_sex) group_by(., sex, city, scenario) else group_by(., city, scenario)} %>%
+          {if(in_strata == "Sex") group_by(., sex, city, scenario) 
+            else if(in_strata == "Age Group") group_by(., age_cat, city, scenario) 
+            else group_by(., city, scenario)} %>%
           summarise(metric_100k = sum(metric_100k)) |>
           mutate(dose = "total", cause = "total_lb")
         
@@ -525,7 +535,9 @@ server <- function(input, output, session) {
                             ld |>
                               filter(str_detect(cause, "ub")) |>
                               ungroup() %>%
-                              {if(input$in_sex) group_by(., sex, city, scenario) else group_by(., city, scenario)} %>%
+                              {if(in_strata == "Sex") group_by(., sex, city, scenario) 
+                                else if(in_strata == "Age Group") group_by(., age_cat, city, scenario) 
+                                else group_by(., city, scenario)} %>%
                               summarise(metric_100k = sum(metric_100k)) |>
                               mutate(dose = "total", cause = "total_ub")
                             
@@ -535,7 +547,9 @@ server <- function(input, output, session) {
                             ld |>
                               filter(!str_detect(cause, "lb|ub")) |>
                               ungroup() %>%
-                              {if(input$in_sex) group_by(., sex, city, scenario) else group_by(., city, scenario)} %>%
+                              {if(in_strata == "Sex") group_by(., sex, city, scenario) 
+                                else if(in_strata == "Age Group") group_by(., age_cat, city, scenario) 
+                                else group_by(., city, scenario)} %>%
                               summarise(metric_100k = sum(metric_100k)) |>
                               mutate(dose = "total", cause = "total")
                             
@@ -551,16 +565,21 @@ server <- function(input, output, session) {
         filter(city %in% filtered_cities) |>
         filter(scenario %in% filtered_scens) |>
         filter(dose %in% filtered_pathways) %>% 
-        {if(in_sex) group_by(., sex, city, scenario, dose) else group_by(., city, scenario, dose)} %>% 
-        {if(in_sex) left_join(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> group_by(sex) |> summarise(pop = sum(pop_age_sex)))) else cbind(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> summarise(pop = sum(pop_age_sex))))} |> 
+        {if(in_strata == "Sex") group_by(., sex, city, scenario, dose) 
+          else if(in_strata == "Age Group") group_by(., age_cat, city, scenario, dose) 
+          else group_by(., city, scenario, dose)} %>% 
+        {if(in_strata == "Sex") left_join(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> group_by(sex) |> summarise(pop = sum(pop_age_sex)))) 
+          else if(in_strata == "Age Group") left_join(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> group_by(age_cat) |> summarise(pop = sum(pop_age_sex)))) 
+          else cbind(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> summarise(pop = sum(pop_age_sex))))} |> 
         summarise(metric_100k = round(ifelse(in_per_100,(sum(measure) / pop * 100000), sum(measure)), 1))
       
       if (length(filtered_pathways) > 1){
         
         total_dose <- ld %>% 
-          {if(in_sex) group_by(., sex, city, scenario) else group_by(., city, scenario)} %>% 
-          summarise(metric_100k = sum(metric_100k)) |>
-          mutate(dose = "total")
+          {if(in_strata == "Sex") group_by(., sex, city, scenario) 
+            else if(in_strata == "Age Group") group_by(., age_cat, city, scenario) 
+            else group_by(., city, scenario)} %>% 
+          summarise(metric_100k = sum(metric_100k), dose = "total")
         
         ld <- plyr::rbind.fill(ld, total_dose)
       }
