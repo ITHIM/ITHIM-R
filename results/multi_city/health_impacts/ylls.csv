@@ -3049,7 +3049,7 @@
 "female","15-19","sc_cycle_ylls_pa_Parkinson_lb",0,"bogota","Bicycling",NA,"L2: Other","L3: Parkinson","PA",279280
 "female","20-24","sc_cycle_ylls_pa_Parkinson_lb",0.00535,"bogota","Bicycling",NA,"L2: Other","L3: Parkinson","PA",360197
 "female","25-29","sc_cycle_ylls_pa_Parkinson_lb",0.00646,"bogota","Bicycling",NA,"L2: Other","L3: Parkinson","PA",364423
-"female","30-34","sc_cycle_ylls_pa_Parkinson_lb",9e-04,"bogota","Bicycling",NA,"L2: Other","L3: Parkinson","PA",330341
+"female","30-34","sc_cycle_ylls_pa_Parkinson_lb",0.0009,"bogota","Bicycling",NA,"L2: Other","L3: Parkinson","PA",330341
 "female","35-39","sc_cycle_ylls_pa_Parkinson_lb",0.00386,"bogota","Bicycling",NA,"L2: Other","L3: Parkinson","PA",309304
 "female","40-44","sc_cycle_ylls_pa_Parkinson_lb",0.08249,"bogota","Bicycling",NA,"L2: Other","L3: Parkinson","PA",275440
 "female","45-49","sc_cycle_ylls_pa_Parkinson_lb",0.2234,"bogota","Bicycling",NA,"L2: Other","L3: Parkinson","PA",254843
@@ -3157,9 +3157,9 @@
 "male","60-64","sc_bus_ylls_pa_Parkinson_ub",-0.08287,"bogota","Public Transport",NA,"L2: Other","L3: Parkinson","PA",146500
 "male","65-69","sc_bus_ylls_pa_Parkinson_ub",-0.44827,"bogota","Public Transport",NA,"L2: Other","L3: Parkinson","PA",105412
 "female","15-19","sc_bus_ylls_pa_Parkinson_ub",0,"bogota","Public Transport",NA,"L2: Other","L3: Parkinson","PA",279280
-"female","20-24","sc_bus_ylls_pa_Parkinson_ub",-1e-04,"bogota","Public Transport",NA,"L2: Other","L3: Parkinson","PA",360197
-"female","25-29","sc_bus_ylls_pa_Parkinson_ub",3e-05,"bogota","Public Transport",NA,"L2: Other","L3: Parkinson","PA",364423
-"female","30-34","sc_bus_ylls_pa_Parkinson_ub",-1e-05,"bogota","Public Transport",NA,"L2: Other","L3: Parkinson","PA",330341
+"female","20-24","sc_bus_ylls_pa_Parkinson_ub",-0.0001,"bogota","Public Transport",NA,"L2: Other","L3: Parkinson","PA",360197
+"female","25-29","sc_bus_ylls_pa_Parkinson_ub",0.00003,"bogota","Public Transport",NA,"L2: Other","L3: Parkinson","PA",364423
+"female","30-34","sc_bus_ylls_pa_Parkinson_ub",-0.00001,"bogota","Public Transport",NA,"L2: Other","L3: Parkinson","PA",330341
 "female","35-39","sc_bus_ylls_pa_Parkinson_ub",-0.00011,"bogota","Public Transport",NA,"L2: Other","L3: Parkinson","PA",309304
 "female","40-44","sc_bus_ylls_pa_Parkinson_ub",-0.00225,"bogota","Public Transport",NA,"L2: Other","L3: Parkinson","PA",275440
 "female","45-49","sc_bus_ylls_pa_Parkinson_ub",0.00087,"bogota","Public Transport",NA,"L2: Other","L3: Parkinson","PA",254843
