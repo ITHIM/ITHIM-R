@@ -177,6 +177,8 @@ inj_modes <- injury_risks_per_billion_kms_lng$mode |> unique() |> sort()
 
 inj_risk_types <- c("Billion kms", "Population by 100k", "100 Million hours")
 
+in_cities <- cities$city
+
 # “cerulean”, “cosmo”, “cyborg”, “darkly”, “flatly”, “journal”, “litera”, “lumen”, “lux”, 
 # “materia”, “minty”, “morph”, “pulse”, “quartz”, “sandstone”, “simplex”, “sketchy”, “slate”, 
 # “solar”, “spacelab”, “superhero”, “united”, “vapor”, “yeti”, “zephyr”
@@ -215,15 +217,15 @@ ui <- grid_page(
                 selected = scens[1],
                 options = list(`actions-box` = TRUE), 
                 multiple = TRUE),
-    br(),
-    treeInput(
-      inputId = "in_cities",
-      label = "Select cities:",
-      choices = create_tree(cities),
-      selected = cities$city,
-      returnValue = "text",
-      closeDepth = 0
-    ),
+    # br(),
+    # treeInput(
+    #   inputId = "in_cities",
+    #   label = "Select cities:",
+    #   choices = create_tree(cities),
+    #   selected = cities$city,
+    #   returnValue = "text",
+    #   closeDepth = 0
+    # ),
     br(),
     conditionalPanel(
       condition = "input.main_tab == 'Health Outcomes'",
@@ -332,11 +334,12 @@ server <- function(input, output, session) {
   output$in_inj_pivot <- renderPlotly({
     
     req(input$in_scens)
-    req(input$in_cities)
+    # req(input$in_cities)
     req(input$in_inj_modes)
     
     filtered_scens <- input$in_scens
-    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    # filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    filtered_cities <- in_cities
     filtered_modes <- input$in_inj_modes
     
     local_df <- get_inj_data()
@@ -370,7 +373,7 @@ server <- function(input, output, session) {
   output$in_pivot_int <- renderPlotly({
     
     req(input$in_scens)
-    req(input$in_cities)
+    # req(input$in_cities)
     req(input$in_level)
     req(input$in_measure)
     req(input$in_CIs)
@@ -382,6 +385,7 @@ server <- function(input, output, session) {
     in_CIs <- input$in_CIs
     in_strata <- input$in_strata
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    filtered_cities <- in_cities
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
     in_per_100 <- input$in_per_100k
@@ -447,7 +451,7 @@ server <- function(input, output, session) {
                   input$in_per_100k,
                   input$in_strata,
                   input$in_CIs,
-                  input$in_cities,
+                  # input$in_cities,
                   input$in_scens,
                   input$in_pathways,
                   input$in_int_pathway)
@@ -456,7 +460,8 @@ server <- function(input, output, session) {
   get_inj_data <- reactive({
     
     filtered_scens <- input$in_scens
-    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    # filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    filtered_cities <- in_cities
     filtered_modes <- input$in_inj_modes
     
     local_df <- injury_risks_per_billion_kms_lng
@@ -500,7 +505,8 @@ server <- function(input, output, session) {
     in_int_pathway <- input$in_int_pathway
     in_strata <- input$in_strata
     in_CIs <- input$in_CIs
-    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    # filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    filtered_cities <- in_cities
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
     in_per_100 <- input$in_per_100k
