@@ -363,7 +363,7 @@ server <- function(input, output, session) {
         coord_flip() +
         theme_minimal() +
         scale_fill_manual(values = scen_colours) +
-        labs(y = ylab) + 
+        labs(title = paste(ylab, "(by mode)"), y = ylab) + 
         facet_wrap(vars(mode))
       
       plotly::ggplotly(gg)
