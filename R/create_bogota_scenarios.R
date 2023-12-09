@@ -59,7 +59,7 @@
 #'
 #' \itemize{
 #' \item the overall mode shares for each of the cycle, car and bus modes across the three
-#'   distance categories is defined
+#'   distance categories is extracted from the trip data set
 #'
 #' \item from the trip data extract the trip information, calculate the total number of trips
 #'   and find the proportion of trips in each distance category
@@ -120,12 +120,30 @@ create_bogota_scenarios <- function(trip_set) {
   rd_list <- list()
 
   # bogota modal split across the three distance categories for each mode
+  # use existing mode split from adjusted travel survey, i.e. once all the ITHIM changes to the travel
+  # survey have been made
+  
+  rdr_modeshares <-rdr |> filter(trip_mode %in% c('cycle', 'car', 'bus')) |> count(
+                    trip_mode, trip_distance_cat) |> mutate(freq = prop.table(n), .by = trip_mode
+                    ) |> dplyr::select(-n) |> dplyr::mutate(freq = round(freq * 100, 1)) |> pivot_wider(
+                    names_from = trip_distance_cat, values_from = freq)
+  
+  # get modeshares into correct format
+  cycle02 <-  rdr_modeshares %>% filter(trip_mode=='cycle') %>% pull('0-2km')
+  cycle26 <-  rdr_modeshares %>% filter(trip_mode=='cycle') %>% pull('2-6km')
+  cycle6 <-  rdr_modeshares %>% filter(trip_mode=='cycle') %>% pull('6+km')
+  car02 <-  rdr_modeshares %>% filter(trip_mode=='car') %>% pull('0-2km')
+  car26 <-  rdr_modeshares %>% filter(trip_mode=='car') %>% pull('2-6km')
+  car6 <-  rdr_modeshares %>% filter(trip_mode=='car') %>% pull('6+km')
+  bus02 <-  rdr_modeshares %>% filter(trip_mode=='bus') %>% pull('0-2km')
+  bus26 <-  rdr_modeshares %>% filter(trip_mode=='bus') %>% pull('2-6km')
+  bus6 <-  rdr_modeshares %>% filter(trip_mode=='bus') %>% pull('6+km')
+  
   # cycle, car, bus
   bogota_modeshares <- data.frame(
-    c(32.6, 2.7, 0.8), # distance category 0-2km
-    c(43.8, 24.9, 17.25), # distance category 2-6km
-    c(23.6, 72.4, 81.95)
-  ) # distance category >6km
+    c(cycle02,car02, bus02), # distance category 0-2km
+    c(cycle26, car26, bus26), # distance category 2-6km
+    c(cycle6, car6, bus6)) # distance category >6km
   colnames(bogota_modeshares) <- DIST_CAT
   rownames(bogota_modeshares) <- c("cycle", "car", "bus")
 
