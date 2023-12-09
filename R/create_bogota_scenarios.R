@@ -118,7 +118,9 @@ create_bogota_scenarios <- function(trip_set) {
   trip_set <- NULL
 
   rd_list <- list()
-
+  # define the modes that can't be changed
+  modes_not_changeable <- c("bus_driver", "truck", "car_driver") 
+  
   # bogota modal split across the three distance categories for each mode
   # use existing mode split from adjusted travel survey, i.e. once all the ITHIM changes to the travel
   # survey have been made
@@ -147,6 +149,12 @@ create_bogota_scenarios <- function(trip_set) {
   colnames(bogota_modeshares) <- DIST_CAT
   rownames(bogota_modeshares) <- c("cycle", "car", "bus")
 
+  # trips per distance category
+  # trip_shares <- rdr |> filter(!trip_mode %in% modes_not_changeable)   |> count(trip_distance_cat
+  #                               ) |> mutate(freq = prop.table(n)) |> dplyr::select(-n) |> dplyr::mutate(
+  #                                 freq = round(freq * 100, 1)) |> pivot_wider(
+  #                                 names_from = trip_distance_cat, values_from = freq)
+  
   percentage_change <- SCENARIO_INCREASE # increase of each mode as percentage of total number of trips.
 
   # only keep necessary columns, i.e. remove any stage information
@@ -186,7 +194,6 @@ create_bogota_scenarios <- function(trip_set) {
 
   # baseline scenario
   rd_list[["baseline"]] <- rdr
-  modes_not_changeable <- c("bus_driver", "truck", "car_driver") # define the modes that can't be changed
 
   # create data frame containing all the trips that are not going to be changed in a scenario
   # i.e. bus_driver, truck and car_driver trips but also commercial motorcycle trips which have a participant id of 0
