@@ -447,16 +447,305 @@ run.</li>
 </ul>
 </div>
 <div class="section level4">
-<h4 id="summary-of-key-results---needs-further-work">Summary of key results - NEEDS FURTHER WORK!!!!!<a class="anchor" aria-label="anchor" href="#summary-of-key-results---needs-further-work"></a>
+<h4 id="summaries-of-key-results">Summaries of key results<a class="anchor" aria-label="anchor" href="#summaries-of-key-results"></a>
 </h4>
 <p>There are various scripts which can be used to produce output summary
-tables of the results</p>
+tables of the results:</p>
 <ul>
-<li><p>call markdown documents</p></li>
-<li><p>output .html files</p></li>
-<li><p>csv files (location where stored)</p></li>
-<li><p>results_app - Shiny application</p></li>
+<li>
+<p>three markdown documents (in root folder) producing html and csv
+files:</p>
+<ul>
+<li>summary_tables.Rmd</li>
+<li>summary_tables_PA_AP.Rmd</li>
+<li>injury_tables.Rmd</li>
 </ul>
+</li>
+<li>
+<p>Shiny application creating a Pivot table:</p>
+<ul>
+<li>app.R in results_app folder</li>
+</ul>
+</li>
+</ul>
+<p>The following outputs are produced:</p>
+<div class="section level5">
+<h5 id="summary_tables-rmd">summary_tables.Rmd<a class="anchor" aria-label="anchor" href="#summary_tables-rmd"></a>
+</h5>
+<p>The .Rmd file summarises mode splits, distances and durations
+travelled and looks at health outcomes (YLLs and deaths) for the
+different air pollution (AP), injury and physical activity (PA) pathways
+but also by disease</p>
+<p>It produces the following output documents:</p>
+<ul>
+<li>
+<p>html file (saved in the root folder) containing the following
+information. (Note that the Rmd file was set up to produce a lot more
+distance, duration and health outcomes tables which have all been
+commented out to highlight the main results but could easily be added in
+again):</p>
+<ul>
+<li><p>for each city a table is displayed showing the Baseline mode
+split for each distance category</p></li>
+<li><p>for each city a table is given showing the mode split for each
+scenario</p></li>
+<li><p>city specific distance tables showing average daily distances in
+km travelled by each person in the synthetic population by mode for all
+scenarios (incl Baseline)</p></li>
+<li><p>city specific distance tables showing average daily distances in
+km travelled by each person in the synthetic population WITH a trip by
+mode for all scenarios (incl Baseline)</p></li>
+<li><p>one table giving the city specific baseline average daily
+distances (km) travelled by each person in the synthetic population for
+all cities</p></li>
+<li><p>city specific duration tables showing average daily duration (h)
+spent travelling by each person in the synthetic population by mode for
+all scenarios (incl Baseline)</p></li>
+<li><p>city specific duration tables showing average daily duration (h)
+spent travelling by each person in the synthetic population WITH a trip
+by mode for all scenarios (incl Baseline)</p></li>
+</ul>
+</li>
+<li>
+<p>output .csv files containing the following information. (Note
+that all these files are also saved with their version number in the
+file name):</p>
+<ul>
+<li><p>the ylls.csv file (results/multi_city/health_impacts/ylls.csv)
+gives the changes in YLLs for each age and sex category, for each age
+category per 100,000 people, and for each age and sex category per
+100,000 people for each city, disease and scenario compared to the
+reference scenario. It also shows the disease level, whether the disease
+is exasperated by changes in AP, PA or both, and the age, and age and
+sex specific population levels. The results are for either AP and PA
+only if the diseases are affected by only AP or PA or the results are
+for the combined AP and PA effects if the diseases are affected by both
+AP and PA.</p></li>
+<li><p>the ylls_pathway.csv file
+(results/multi_city/health_impacts/ylls_pathway.csv) gives the changes
+in YLLs for each age and sex category, for each age category per 100,000
+people, and for each age and sex category per 100,000 people for each
+city, disease and scenario compared to the reference scenario. It also
+shows the disease level, whether the disease is exasperated by changes
+in AP or PA, and the age, and age and sex specific population levels.
+The results are given for AP and PA independently even if a disease is
+affected by both pathways.</p></li>
+<li><p>the deaths.csv file
+(results/multi_city/health_impacts/deaths.csv) gives the changes in
+deaths for each age and sex category, for each age category per 100,000
+people, and for each age and sex category per 100,000 people for each
+city, disease and scenario compared to the reference scenario. It also
+shows the disease level, whether the disease is exasperated by changes
+in AP, PA or both, and the age, and age and sex specific population
+levels. The results are for either AP and PA only if the diseases are
+affected by only AP or PA or the results are for the combined AP and PA
+effects if the diseases are affected by both AP and PA.</p></li>
+<li><p>the deaths_pathway.csv file
+(results/multi_city/health_impacts/deaths_pathway.csv) gives the changes
+in deaths for each age and sex category, for each age category per
+100,000 people, and for each age and sex category per 100,000 people for
+each city, disease and scenario compared to the reference scenario. It
+also shows the disease level, whether the disease is exasperated by
+changes in AP or PA, and the age, and age and sex specific population
+levels. The results are given for AP and PA independently even if a
+disease is affected by both pathways.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section level5">
+<h5 id="summary_tables_pa_ap-rmd">summary_tables_PA_AP.Rmd<a class="anchor" aria-label="anchor" href="#summary_tables_pa_ap-rmd"></a>
+</h5>
+<p>This .Rmd file can be used to summarise the PM2.5 personal exposure
+levels, the PM2.5 and CO2 concentrations and physical activity levels
+for all scenarios including the baseline.</p>
+<p>It produces the following output documents:</p>
+<ul>
+<li>
+<p>html file (saved in the root folder) containing the following
+information:</p>
+<ul>
+<li><p>boxplots for each city of daily individual PM2.5 exposure levels
+for each scenario</p></li>
+<li><p>one table for each city detailing the individual PM2.5 exposure
+levels including the mean, 5th, 50th and 95th percentiles, the mean
+PM2.5 concentration levels for each scenario and the change in PM2.5
+compared to the reference scenario</p></li>
+<li><p>one table detailing the percentage Baseline PM2.5 emissions
+attributed to each transport mode, the city wide PM2.5 concentration
+levels and the percentage of these concentrations attributed to
+transport for all cities</p></li>
+<li><p>one table detailing the Baseline CO2 concentration levels for
+each scenario for all cities</p></li>
+<li><p>boxplots for each city of individual mMET physical activity
+levels for each scenario</p></li>
+<li><p>one table for each city giving the mean, 5th, 50th and 95th
+percentile levels of individual physical activity levels (mMETs) for
+each scenario</p></li>
+<li><p>one table detailing the average mMETs levels for each scenario
+for all cities</p></li>
+<li>
+<p>2nd Option:</p>
+<ul>
+<li><p>boxplots for each city of daily individual PM2.5 exposure levels
+for each scenario</p></li>
+<li><p>one table detailing the Baseline PM2.5 emissions for each mode,
+the city wide PM2.5 concentration levels and the percentage of these
+concentrations attributed to transport for all cities</p></li>
+<li><p>one table for each city detailing the individual PM2.5 exposure
+levels including the mean, 5th, 50th and 95th percentiles, the mean
+PM2.5 concentration levels for each scenario and the change in PM2.5
+compared to the reference scenario. Table also contains CO2
+concentrations for each scenario</p></li>
+<li><p>boxplots for each city of individual mMET physical activity
+levels for each scenario</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>output .csv/.xlsx files containing the following information:</p>
+<ul>
+<li><p>desc_stats.csv file (results/multi_city/AP/desc_stats.csv, also
+saved with output version in name) containing the summary statistics of
+individual PM2.5 exposure levels, the total PM2.5 concentrations levels,
+the change in PM2.5 concentration levels compared to the reference
+scenario and the total transport related CO2 emission concentrations for
+each scenario and city</p></li>
+<li>
+<p>desc_stats.xlsx file
+(results/multi_city/AP/desc_stats_<em>output_version</em>.xlsx)
+containing the following tabs:</p>
+<ul>
+<li><p>PM_2.5_emission_inventory: table detailing the percentage
+Baseline PM2.5 emissions attributed to each transport mode, the city
+wide PM2.5 concentration levels and the percentage of these
+concentrations attributed to transport for all cities</p></li>
+<li><p>CO2_conc: table detailing the CO2 concentration levels for each
+scenario for all cities</p></li>
+<li><p>summary_stats_PM2.5_CO2: summary statistics of individual PM2.5
+exposure levels, the total PM2.5 concentrations levels, the change in
+PM2.5 concentration levels compared to the reference scenario and the
+total transport related CO2 emission concentrations for each scenario
+and city</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section level5">
+<h5 id="injury_tables-rmd">injury_tables.Rmd<a class="anchor" aria-label="anchor" href="#injury_tables-rmd"></a>
+</h5>
+<p>This .Rmd file can be used to summarise the injury outcomes. It
+produces the following output documents:</p>
+<ul>
+<li>
+<p>html file (saved in the root folder) containing the following
+information:</p>
+<ul>
+<li><p>fatality counts by strike and casualty mode for each scenario and
+city (incl lower and upper confidence interval limits were applicable);
+one table for each city, scenario and mean, upper or lower confidence
+interval values</p></li>
+<li><p>fatality counts giving lower, mean and upper bounds (where they
+exist) for each casualty mode by strike mode for each scenario and city;
+one table for each casualty mode, scenario and city</p></li>
+<li><p>tables showing the fatalities per billion km travelled for each
+city, scenario and mean, upper and lower confidence interval values
+(where applicable).</p></li>
+<li><p>tables showing the number of deaths per 100,000 people for each
+city, scenario and mean, upper and lower confidence interval values
+(where applicable).</p></li>
+<li><p>tables showing the fatalities per 100 million hours travelled for
+each city, scenario and mean, upper and lower confidence interval values
+(where applicable).</p></li>
+</ul>
+</li>
+<li>
+<p>output .csv files containing the following information.(Note that
+all these files are also saved with their version number in the file
+name):</p>
+<ul>
+<li><p>The inj_counts.csv file (‘results/multi_city/inj/inj_counts.csv’)
+contains the fatality counts (mean and upper and lower confidence
+interval boundaries if required) for each city, scenario and casualty
+and strike mode pair. It also includes the observed baseline fatality
+counts and the active travel fatality counts (the sum of cycle and walk
+casualty mode fatalities)</p></li>
+<li><p>The injury_risks_per_billion_kms.csv file
+(‘results/multi_city/inj/injury_risks_per_billion_kms.csv’) gives the
+fatalities per billion km travelled for each city, scenario and casualty
+mode. It also includes the upper and lower confidence interval boundary
+values if required and active travel counts</p></li>
+<li><p>The injury_risks_per_100k_pop.csv file
+(‘results/multi_city/inj/injury_risks_per_100k_pop.csv’) gives the
+fatalities per 100k people for each city, scenario and casualty mode. It
+also includes the upper and lower confidence interval boundary values if
+required and active travel counts</p></li>
+<li><p>The distances.csv file (‘results/multi_city/inj/distances.csv’)
+contains the population distances travelled per day for each city,
+scenario and mode</p></li>
+<li><p>The injury_risks_per_100million_h.csv file
+(‘results/multi_city/inj/injury_risks_per_100million_h.csv’) gives the
+fatalities per 100 million hours travelled for each city, scenario and
+casualty mode. It also includes the upper and lower confidence interval
+boundary values if required and active travel counts</p></li>
+</ul>
+</li>
+<li><p>The inj_data.xlsx file (results/multi_city/inj/inj_data.xlsx)
+contains all injury output csv files</p></li>
+</ul>
+</div>
+<div class="section level5">
+<h5 id="producing-the--rmd-file-outputs">Producing the .Rmd file outputs<a class="anchor" aria-label="anchor" href="#producing-the--rmd-file-outputs"></a>
+</h5>
+<p>To run the various .Rmd files, you can use the
+<code>Create_output_summaries.R</code> script saved in the root
+folder.</p>
+</div>
+<div class="section level5">
+<h5 id="shiny-app-pivot-table">Shiny App Pivot table<a class="anchor" aria-label="anchor" href="#shiny-app-pivot-table"></a>
+</h5>
+<p>This application allows you to produce Pivot tables for both health
+and injury outcomes. The Pivot tables allow you to filter the outcomes
+as follows.</p>
+<ul>
+<li>for the health outcomes (which includes road traffic injuries
+(RTI)):
+<ul>
+<li>by scenario</li>
+<li>by deaths or years of life lost</li>
+<li>by disease/cause levels</li>
+<li>by age and sex group</li>
+<li>by pathway / dose</li>
+<li>whether you want to include the interaction between the air
+pollution and physical activity pathways or not</li>
+<li>whether to include confidence intervals or not</li>
+</ul>
+</li>
+<li>for the injury risks:
+<ul>
+<li>by scenario</li>
+<li>by mode</li>
+<li>by risk type (total fatalities, per billion km, per 100k people, per
+100 million hours)</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section level5">
+<h5 id="producing-the-shiny-app-pivot-table-output">Producing the Shiny App Pivot table output<a class="anchor" aria-label="anchor" href="#producing-the-shiny-app-pivot-table-output"></a>
+</h5>
+<p>To produce these Shiny App Pivot tables, run the function
+<code>app.R</code> in the <code>results_app</code> folder. Depending on
+whether you want to read in the results from the latest updates on
+Github or from your local drive, set</p>
+<p>github_path &lt;- “<a href="https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/" class="external-link uri">https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/</a>”</p>
+<p>or</p>
+<p>github_path &lt;- “../”</p>
+<p>(Comment out the option you don’t need.)</p>
+</div>
 </div>
 </div>
 <div class="section level3">
@@ -469,8 +758,6 @@ follows:</p>
 documents, automatically created by Github.</p></li>
 <li><p><strong>R</strong>: contains all the R functions written for the
 ITIHM-R package.</p></li>
-<li><p><strong>docs</strong>: documentation of the ITHIM-R package which
-is build automatically.</p></li>
 <li><p><strong>inst/extdata</strong>: folder containing the local city
 specific and the global input files.</p></li>
 <li><p><strong>man</strong>: manual containing the various functions
@@ -480,6 +767,8 @@ documents. It is also build automatically.</p></li>
 runs.</p></li>
 <li><p><strong>results_app</strong>: contains the functions used to
 produce Shiny pivot tables of the results.</p></li>
+<li><p><strong>vignettes</strong>: contains additional documentation
+information</p></li>
 <li><p>.Rbuildignore, .gitignore: metadata created by Github.</p></li>
 <li><p>Bogota_InputParameters_vxx.xlsx - file containing the city
 specific input parameters which needs manual updating.</p></li>
@@ -491,6 +780,8 @@ run the ITHIM-Global model from downloading and installing ITHIM-R to
 preparing the input parameter files and running the code.</p></li>
 <li><p>ITHIM-R.Rproj: contains the metadata for the ITHIM-R
 package.</p></li>
+<li><p>LICENSE: gives information about the licence that has been
+applied to this repository</p></li>
 <li><p>NAMESPACE: automatically created by Github.</p></li>
 <li><p>OutputVersionControl.txt: file storing the main run information
 of the ITHIM-R runs. This is automatically updated, if required, when
@@ -498,14 +789,23 @@ using the multi_city_script.R.</p></li>
 <li><p>README: document giving an overview of the ITHIM-R
 package.</p></li>
 <li><p>_config.yml, _pkgdown.yml: metadata created by Github.</p></li>
-<li><p>injury_tables.Rmd: xxxxxxxxxxxxxxxxxxxx</p></li>
-<li><p>license.md: details the license conditions when using this
-ITHIM-R package.</p></li>
+<li><p>injury_tables.Rmd: R markdown document that can be used to create
+summary statistics of the injury results</p></li>
+<li><p>injury_tables_<em>output_version</em>.html: html files containing
+injury summary statistics of the respective model runs</p></li>
 <li><p>multi_city_script.R: wrapper function to call all the various
 functions needed to perform the ITHIM-Global analysis.</p></li>
-<li><p>summary_tables.Rmd: xxxxxxxx</p></li>
-<li><p>summary_tables_SHAnumber: xxxxxx</p></li>
-<li><p>summary_tables_PA: xxxxxxxxxx</p></li>
+<li><p>summary_tables.Rmd: R markdown document to create summary output
+statistics about distance, duration, mode splits and health
+outcomes</p></li>
+<li><p>summary_tables_<em>output_version</em>.html: html files
+containing output summaries of the respective model runs</p></li>
+<li><p>summary_tables_PA.Rmd: R markdown document to create summary
+output statistics about air pollution and physical activity
+levels</p></li>
+<li><p>summary_tables_PA_<em>output_version</em>.html: html files
+containing air pollution and physical activity output statistics of the
+respective model runs</p></li>
 </ul>
 </div>
 </div>
