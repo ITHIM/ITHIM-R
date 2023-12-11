@@ -31,7 +31,7 @@ output:
 
 # - for each city a table is given showing the mode split for each scenario
 
-# - one table showing the baseline mode split for all cities
+# (- one table showing the baseline mode split for all cities - CURRENTLY COMMENTED OUT)
 
 
 ## Distances travelled
@@ -41,13 +41,12 @@ output:
 
 # - one table giving the city specific baseline average daily distances (km) travelled by each person in the synthetic population for all cities
 
-# - city specific distance tables showing total yearly distances in km travelled by the total population with ages considered in the model for each mode for all scenarios (incl Baseline)
+#( - city specific distance tables showing total yearly distances in km travelled by the total population with ages considered in the model for each mode for all scenarios (incl Baseline)  - CURRENTLY COMMENTED OUT)
 
-# - one table giving the city specific total yearly baseline distances in km travelled by the total population with ages considered in the model for each mode for all cities
+#( - one table giving the city specific total yearly baseline distances in km travelled by the total population with ages considered in the model for each mode for all cities - CURRENTLY COMMENTED OUT)
+#( - city specific distance tables showing total distances travelled by distance category toegether with the number of trips and proportions of all trips within the distance categories - CURRENTLY COMMENTED OUT)
 
-# - city specific distance tables showing total distances travelled by distance category toegether with the number of trips and proportions of all trips within the distance categories.
-
-# - city specific distance tables showing total daily distances in km travelled by the total population  with ages considered in the model for each mode for all scenarios (incl Baseline)
+#( - city specific distance tables showing total daily distances in km travelled by the total population  with ages considered in the model for each mode for all scenarios (incl Baseline)  - CURRENTLY COMMENTED OUT)
 
 
 
@@ -56,38 +55,38 @@ output:
 
 # - city specific duration tables showing average daily duration (h) spent travelling by each person in the synthetic population WITH a trip by mode for all scenarios (incl Baseline)
 
-# - one table giving the city specific baseline average duration (h) spent travelling by each person in the respective synthetic populations for all cities
+#( - one table giving the city specific baseline average duration (h) spent travelling by each person in the respective synthetic populations for all cities  - CURRENTLY COMMENTED OUT)
 
 
 
-## Health outcomes - injury, air pollution and physical activity
-# - one table for each city showing the change in total YLLs for each of the scenarios compared to the reference scenario for each age group
+## (Health outcomes - injury, air pollution and physical activity  - CURRENTLY COMMENTED OUT)
+# (- one table for each city showing the change in total YLLs for each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each age group
+# (- one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each age and sex category
+# (- one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each age and sex category - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in total YLLs due to changes in accident fatalities for each of the scenarios compared to the reference scenario for each age group
+# (- one table for each city showing the change in total YLLs due to changes in accident fatalities for each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in total YLLs due to changes in physical activity levels for each of the scenarios compared to the reference scenario for each age group
+# (- one table for each city showing the change in total YLLs due to changes in physical activity levels for each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in total YLLs due to changes in air pollution (PM2.5) levels for each of the scenarios compared to the reference scenario for each age group
+# (- one table for each city showing the change in total YLLs due to changes in air pollution (PM2.5) levels for each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in YLLs per 100,000 people due to changes in accident fatalitiesfor each of the scenarios compared to the reference scenario for each age group
+# (- one table for each city showing the change in YLLs per 100,000 people due to changes in accident fatalities for each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in YLLs per 100,000 people due to changes in physical activity levelsfor each of the scenarios compared to the reference scenario for each age group
+# - (one table for each city showing the change in YLLs per 100,000 people due to changes in physical activity levelsfor each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in YLLs per 100,000 people due to changes in air pollution (PM2.5) levels for each of the scenarios compared to the reference scenario for each age group
+# (- one table for each city showing the change in YLLs per 100,000 people due to changes in air pollution (PM2.5) levels for each of the scenarios compared to the reference scenario for each age group  - CURRENTLY COMMENTED OUT)
 
 
-## Health outcomes - disease
-# - one table for each city showing the change in deaths for each of the scenarios compared to the reference scenario for each disease
+## (Health outcomes - disease  - CURRENTLY COMMENTED OUT)
+# (- one table for each city showing the change in deaths for each of the scenarios compared to the reference scenario for each disease  - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in deaths per 100,000 people for each of the scenarios compared to the reference scenario for each disease
+# (- one table for each city showing the change in deaths per 100,000 people for each of the scenarios compared to the reference scenario for each disease  - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in YLLs for each of the scenarios compared to the reference scenario for each disease
+# (- one table for each city showing the change in YLLs for each of the scenarios compared to the reference scenario for each disease - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each disease
+# (- one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each disease - CURRENTLY COMMENTED OUT)
 
 
 
@@ -336,7 +335,7 @@ orig_scen_names_updated <- unlist(lapply(rownames(scen_prop), FUN=get_qualified_
 # # rename scenarios
 rownames(scen_prop) <- unlist(lapply(rownames(scen_prop), FUN=get_qualified_scen_name))
 
-kable(scen_prop, headings = "Scenario Proportions")
+#kable(scen_prop, headings = "Scenario Proportions")
 
 ```
 
