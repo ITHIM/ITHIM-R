@@ -73,7 +73,7 @@ The function performs the following steps:
 
 \itemize{
 \item the overall mode shares for each of the cycle, car and bus modes across the three
-  distance categories is defined
+  distance categories is extracted from the trip data set
 
 \item from the trip data extract the trip information, calculate the total number of trips
   and find the proportion of trips in each distance category
