@@ -43,7 +43,7 @@ library(writexl)
 
 
 
-### - output .csv files containing the following information:
+### - output .csv files containing the following information. (Note this files are also saved with their output_version in the file name):
 
 #   - The inj_counts.csv file ('results/multi_city/inj/inj_counts.csv') contains the fatality counts (mean and upper and lower confidence interval boundaries if required) for each city, scenario and casualty and strike mode pair. It also includes the observed baseline fatality counts and the active travel fatality counts (the sum of cycle and walk casualty mode fatalities)
 
@@ -55,7 +55,7 @@ library(writexl)
 
 # - The injury_risks_per_100million_h.csv file ('results/multi_city/inj/injury_risks_per_100million_h.csv') gives the fatalities per 100 million hours travelled for each city, scenario and casualty mode. It also includes the upper and lower confidence interval boundary values if required and active travel counts
 
-# - The inj_data.xlsx file (results/multi_city/inj/inj_data.xlsx) contains all injury output csv files
+# - The inj_data_*output_version*.xlsx file (results/multi_city/inj/inj_data_*output_version*.xlsx) contains all injury output csv files
 
 
 

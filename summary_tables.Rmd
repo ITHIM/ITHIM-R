@@ -91,7 +91,8 @@ output:
 
 
 
-### - output .csv files containing the following information:
+### - output .csv files containing the following information. (Note that all these files are also saved with their version number in the file name):
+ 
 
 # - the ylls.csv file (results/multi_city/health_impacts/ylls.csv) gives the changes in YLLs for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario compared to the reference scenario. It also shows the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age, and age and sex specific population levels. The results are for either AP and PA only if the diseases are affected by only AP or PA or the results are for the combined AP and PA effects if the diseases are affected by both AP and PA. 
 
