@@ -7,7 +7,8 @@ output:
   html_document:
     toc: true
     toc_depth: 5
-    toc_float: true
+    toc_float: 
+      collapsed: false
     number_sections: true
 ---
 
@@ -30,7 +31,7 @@ output:
 
 # - for each city a table is given showing the mode split for each scenario
 
-# - one table showing the baseline mode split for all cities
+# (- one table showing the baseline mode split for all cities - CURRENTLY COMMENTED OUT)
 
 
 ## Distances travelled
@@ -40,13 +41,12 @@ output:
 
 # - one table giving the city specific baseline average daily distances (km) travelled by each person in the synthetic population for all cities
 
-# - city specific distance tables showing total yearly distances in km travelled by the total population with ages considered in the model for each mode for all scenarios (incl Baseline)
+#( - city specific distance tables showing total yearly distances in km travelled by the total population with ages considered in the model for each mode for all scenarios (incl Baseline)  - CURRENTLY COMMENTED OUT)
 
-# - one table giving the city specific total yearly baseline distances in km travelled by the total population with ages considered in the model for each mode for all cities
+#( - one table giving the city specific total yearly baseline distances in km travelled by the total population with ages considered in the model for each mode for all cities - CURRENTLY COMMENTED OUT)
+#( - city specific distance tables showing total distances travelled by distance category toegether with the number of trips and proportions of all trips within the distance categories - CURRENTLY COMMENTED OUT)
 
-# - city specific distance tables showing total distances travelled by distance category toegether with the number of trips and proportions of all trips within the distance categories.
-
-# - city specific distance tables showing total daily distances in km travelled by the total population  with ages considered in the model for each mode for all scenarios (incl Baseline)
+#( - city specific distance tables showing total daily distances in km travelled by the total population  with ages considered in the model for each mode for all scenarios (incl Baseline)  - CURRENTLY COMMENTED OUT)
 
 
 
@@ -55,43 +55,44 @@ output:
 
 # - city specific duration tables showing average daily duration (h) spent travelling by each person in the synthetic population WITH a trip by mode for all scenarios (incl Baseline)
 
-# - one table giving the city specific baseline average duration (h) spent travelling by each person in the respective synthetic populations for all cities
+#( - one table giving the city specific baseline average duration (h) spent travelling by each person in the respective synthetic populations for all cities  - CURRENTLY COMMENTED OUT)
 
 
 
-## Health outcomes - injury, air pollution and physical activity
-# - one table for each city showing the change in total YLLs for each of the scenarios compared to the reference scenario for each age group
+## (Health outcomes - injury, air pollution and physical activity  - CURRENTLY COMMENTED OUT)
+# (- one table for each city showing the change in total YLLs for each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each age group
+# (- one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each age and sex category
+# (- one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each age and sex category - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in total YLLs due to changes in accident fatalities for each of the scenarios compared to the reference scenario for each age group
+# (- one table for each city showing the change in total YLLs due to changes in accident fatalities for each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in total YLLs due to changes in physical activity levels for each of the scenarios compared to the reference scenario for each age group
+# (- one table for each city showing the change in total YLLs due to changes in physical activity levels for each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in total YLLs due to changes in air pollution (PM2.5) levels for each of the scenarios compared to the reference scenario for each age group
+# (- one table for each city showing the change in total YLLs due to changes in air pollution (PM2.5) levels for each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in YLLs per 100,000 people due to changes in accident fatalitiesfor each of the scenarios compared to the reference scenario for each age group
+# (- one table for each city showing the change in YLLs per 100,000 people due to changes in accident fatalities for each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in YLLs per 100,000 people due to changes in physical activity levelsfor each of the scenarios compared to the reference scenario for each age group
+# - (one table for each city showing the change in YLLs per 100,000 people due to changes in physical activity levelsfor each of the scenarios compared to the reference scenario for each age group - CURRENTLY COMMENTED OUT)
 
-# - one table for each city showing the change in YLLs per 100,000 people due to changes in air pollution (PM2.5) levels for each of the scenarios compared to the reference scenario for each age group
-
-
-## Health outcomes - disease
-# - one table for each city showing the change in deaths for each of the scenarios compared to the reference scenario for each disease
-
-# - one table for each city showing the change in deaths per 100,000 people for each of the scenarios compared to the reference scenario for each disease
-
-# - one table for each city showing the change in YLLs for each of the scenarios compared to the reference scenario for each disease
-
-# - one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each disease
+# (- one table for each city showing the change in YLLs per 100,000 people due to changes in air pollution (PM2.5) levels for each of the scenarios compared to the reference scenario for each age group  - CURRENTLY COMMENTED OUT)
 
 
+## (Health outcomes - disease  - CURRENTLY COMMENTED OUT)
+# (- one table for each city showing the change in deaths for each of the scenarios compared to the reference scenario for each disease  - CURRENTLY COMMENTED OUT)
+
+# (- one table for each city showing the change in deaths per 100,000 people for each of the scenarios compared to the reference scenario for each disease  - CURRENTLY COMMENTED OUT)
+
+# (- one table for each city showing the change in YLLs for each of the scenarios compared to the reference scenario for each disease - CURRENTLY COMMENTED OUT)
+
+# (- one table for each city showing the change in YLLs per 100,000 people for each of the scenarios compared to the reference scenario for each disease - CURRENTLY COMMENTED OUT)
 
 
-### - output .csv files containing the following information:
+
+
+### - output .csv files containing the following information. (Note that all these files are also saved with their version number in the file name):
+ 
 
 # - the ylls.csv file (results/multi_city/health_impacts/ylls.csv) gives the changes in YLLs for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario compared to the reference scenario. It also shows the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age, and age and sex specific population levels. The results are for either AP and PA only if the diseases are affected by only AP or PA or the results are for the combined AP and PA effects if the diseases are affected by both AP and PA. 
 
@@ -300,7 +301,11 @@ cat("  \n")
 ```
 <!-- # **1st option** -->
 
-# Distance categories
+
+# Summary tables
+List of tables for scenario, distance and duration
+
+## Distance categories
 
 <!-- ## Scenario definition  -->
 <!-- Table displays highest propensity for each distance category, for a given mode. -->
@@ -329,9 +334,9 @@ orig_scen_names_updated <- unlist(lapply(rownames(scen_prop), FUN=get_qualified_
 
 
 # # rename scenarios
-# rownames(scen_prop) <- unlist(lapply(rownames(scen_prop), FUN=get_qualified_scen_name))
+rownames(scen_prop) <- unlist(lapply(rownames(scen_prop), FUN=get_qualified_scen_name))
 
-# kable(scen_prop, headings = "Scenario Proportions")
+#kable(scen_prop, headings = "Scenario Proportions")
 
 ```
 
@@ -422,26 +427,26 @@ for (city in cities) { # Loop for each city
 ```
 
 
-### Baseline mode split for all cities (%)
-```{r}
-# create baseline mode share table containing information for all cities
+<!-- ### Baseline mode split for all cities (%) -->
+<!-- ```{r} -->
+<!-- # create baseline mode share table containing information for all cities -->
 
-# prep data
-trip_prop <- trip_prop %>% dplyr::filter(stage_mode != "row_sums") %>%
-  mutate_at(2:ncol(trip_prop), ~ as.numeric(as.character(.x))) %>%
-  janitor::adorn_totals('row')
+<!-- # prep data -->
+<!-- trip_prop <- trip_prop %>% dplyr::filter(stage_mode != "row_sums") %>% -->
+<!--   mutate_at(2:ncol(trip_prop), ~ as.numeric(as.character(.x))) %>% -->
+<!--   janitor::adorn_totals('row') -->
 
-# print table to html
-kable(trip_prop, caption = 'Baseline mode share (%) for all cities - only selected modes')
+<!-- # print table to html -->
+<!-- kable(trip_prop, caption = 'Baseline mode share (%) for all cities - only selected modes') -->
 
-```
+<!-- ``` -->
 
-```{r unload_tidyverse, echo = F, message = F}
-suppressWarnings({
-  detach("package:tidyverse", character.only = T)
-})
+<!-- ```{r unload_tidyverse, echo = F, message = F} -->
+<!-- suppressWarnings({ -->
+<!--   detach("package:tidyverse", character.only = T) -->
+<!-- }) -->
 
-```
+<!-- ``` -->
 
 
 ## Distance tables
@@ -511,135 +516,135 @@ for (city in cities) { # loop through cities
 ```
 
 
-### Distance table showing average baseline distances in km travelled by each person in the synthetic population by mode for all cities
+<!-- ### Distance table showing average baseline distances in km travelled by each person in the synthetic population by mode for all cities -->
 
-```{r}
-# create table showing average baseline distances by mode for all cities
-trip_dist <- trip_dist %>% janitor::adorn_totals('row')
+<!-- ```{r} -->
+<!-- # create table showing average baseline distances by mode for all cities -->
+<!-- trip_dist <- trip_dist %>% janitor::adorn_totals('row') -->
 
-kable(trip_dist, caption = "Avg. baseline distance (km) per person in the synthetic population per day across all cities")
+<!-- kable(trip_dist, caption = "Avg. baseline distance (km) per person in the synthetic population per day across all cities") -->
 
-```
-
-
-## Distance tables scaled by using total model age population (per year in km)
-
-City specific distance tables for baseline and scenarios for the entire population with ages considered in the model
+<!-- ``` -->
 
 
-```{r trip_tot_dist = "asis", message=F}
-# create distance tables for the yearly distances travelled by the entire population
-bl_td <- list()
+<!-- ## Distance tables scaled by using total model age population (per year in km) -->
 
-for (city in cities) { # loop through cities
-  
-  # extract daily population distances for ages considered in model and multiply by 365 to to get yearly distances
-  td <- io[[city]]$true_dist %>% dplyr::filter(stage_mode != 'bus_driver' & stage_mode != 'car_driver') %>%
-    mutate_if(is.numeric, list(~round((.) * 365, 3)))
+<!-- City specific distance tables for baseline and scenarios for the entire population with ages considered in the model -->
 
-  # update scenario names
-  colnames(td)[2:ncol(td)] <- scen_names_updated
-  
-  # match with pre-defined mode order
-  x <- match(td$stage_mode, trip_order$mode)
-  x[!is.na(x)]
-  td <- td[order(x),]
-  row.names(td) <- NULL
-  
-  # initialise bl_td with stage_mode
-  if (length(bl_td) == 0){
-    bl_td <- td %>% dplyr::select(stage_mode)
-  }
-  
-  # calculate row and column totals
-  td <- td %>% ungroup() %>% janitor::adorn_totals(c('row', 'col'))
-  
-  # extract baseline distances
-  td1 <- td %>% dplyr::select(stage_mode, Baseline)
-  
-  names(td1)[2] <- city
-  
-  # join baseline distances for all cities
-  bl_td <- inner_join(bl_td, td1, by = 'stage_mode')
-  
-  # format table
-  td1 <- td %>% gt() %>% fmt_number(columns = 2:ncol(td), decimals = T, suffixing = T)
-  
-  # print to html
-  cat(paste("Yearly distance (km) travelled by the entire population with ages considered in the model for ", city))
-  print(td1)
 
- 
+<!-- ```{r trip_tot_dist = "asis", message=F} -->
+<!-- # create distance tables for the yearly distances travelled by the entire population -->
+<!-- bl_td <- list() -->
 
-  cat("\n")
-  
-}
+<!-- for (city in cities) { # loop through cities -->
+
+<!--   # extract daily population distances for ages considered in model and multiply by 365 to to get yearly distances -->
+<!--   td <- io[[city]]$true_dist %>% dplyr::filter(stage_mode != 'bus_driver' & stage_mode != 'car_driver') %>% -->
+<!--     mutate_if(is.numeric, list(~round((.) * 365, 3))) -->
+
+<!--   # update scenario names -->
+<!--   colnames(td)[2:ncol(td)] <- scen_names_updated -->
+
+<!--   # match with pre-defined mode order -->
+<!--   x <- match(td$stage_mode, trip_order$mode) -->
+<!--   x[!is.na(x)] -->
+<!--   td <- td[order(x),] -->
+<!--   row.names(td) <- NULL -->
+
+<!--   # initialise bl_td with stage_mode -->
+<!--   if (length(bl_td) == 0){ -->
+<!--     bl_td <- td %>% dplyr::select(stage_mode) -->
+<!--   } -->
+
+<!--   # calculate row and column totals -->
+<!--   td <- td %>% ungroup() %>% janitor::adorn_totals(c('row', 'col')) -->
+
+<!--   # extract baseline distances -->
+<!--   td1 <- td %>% dplyr::select(stage_mode, Baseline) -->
+
+<!--   names(td1)[2] <- city -->
+
+<!--   # join baseline distances for all cities -->
+<!--   bl_td <- inner_join(bl_td, td1, by = 'stage_mode') -->
+
+<!--   # format table -->
+<!--   td1 <- td %>% gt() %>% fmt_number(columns = 2:ncol(td), decimals = T, suffixing = T) -->
+
+<!--   # print to html -->
+<!--   cat(paste("Yearly distance (km) travelled by the entire population with ages considered in the model for ", city)) -->
+<!--   print(td1) -->
 
 
 
-```
+<!--   cat("\n") -->
+
+<!-- } -->
 
 
 
-### Baseline total distance for all cities (per year in km)
-
-Baseline distance travelled by entire population with ages considered in the model for all cities
-
-```{r trip_dist_all_cities = "asis", message=F}
-
-# create baseline yearly distance table for the entire population with ages considered in the model for all cities
-
-backup <- bl_td
-
-# add row totals
-td <- as.data.frame(bl_td) %>% janitor::adorn_totals('row')
-
-# remove all spaces/blanks
-for (i in 2:ncol(td)){
-  td[, i] <- comprss(td[, i])
-}
-
-print(kable(td, caption = paste("Yearly baseline distance table (km) for population with ages considered in the model")))
+<!-- ``` -->
 
 
-```
+
+<!-- ### Baseline total distance for all cities (per year in km) -->
+
+<!-- Baseline distance travelled by entire population with ages considered in the model for all cities -->
+
+<!-- ```{r trip_dist_all_cities = "asis", message=F} -->
+
+<!-- # create baseline yearly distance table for the entire population with ages considered in the model for all cities -->
+
+<!-- backup <- bl_td -->
+
+<!-- # add row totals -->
+<!-- td <- as.data.frame(bl_td) %>% janitor::adorn_totals('row') -->
+
+<!-- # remove all spaces/blanks -->
+<!-- for (i in 2:ncol(td)){ -->
+<!--   td[, i] <- comprss(td[, i]) -->
+<!-- } -->
+
+<!-- print(kable(td, caption = paste("Yearly baseline distance table (km) for population with ages considered in the model"))) -->
 
 
-## Distance by distance category
-### Tables
-
-```{r trip_dist_mode_figs = "asis"}
-# for each city create a table showing the total distance, the number of trips and the proportion of trips in each distance category
-
-for (city in cities){ # loop through cities
-  
-  # extract trip data for the baseline scenario and calculate the total distance, the number of trips and the proportion of trips in each distance category
-  df <- io[[city]]$trip_scen_sets %>% dplyr::filter(scenario == 'Baseline' | scenario == 'baseline') %>% distinct(trip_id, .keep_all = T) %>% group_by(trip_distance_cat) %>% 
-    summarise(sum_dist = sum(trip_distance), n_vals = dplyr::n(), proportion = round(n_vals / nrow(.) * 100, 1))
-  
- # print to html
-  print(kable(df, caption = paste("Distance in travel survey by mode for the ages considered in the model for  ", city)))
-}
-
-```
+<!-- ``` -->
 
 
-## Daily population distances (per day in km) for ages considered in model
-### Tables
+<!-- ## Distance by distance category -->
+<!-- ### Tables -->
 
-```{r trip_dist_mode_figs = "asis"}
+<!-- ```{r trip_dist_mode_figs = "asis"} -->
+<!-- # for each city create a table showing the total distance, the number of trips and the proportion of trips in each distance category -->
 
-for (city in cities){ # loop through distances
-  
-  # extract total daily distances travelled by the entire population with ages considered in the model
-  df <- io[[city]]$true_dist
-  
-  names(df)[-1] <- scen_names_updated
-  
-  print(kable(df, caption = paste("Total population distance with ages considered in model by mode per day for  ", city)))
-}
+<!-- for (city in cities){ # loop through cities -->
 
-```
+<!--   # extract trip data for the baseline scenario and calculate the total distance, the number of trips and the proportion of trips in each distance category -->
+<!--   df <- io[[city]]$trip_scen_sets %>% dplyr::filter(scenario == 'Baseline' | scenario == 'baseline') %>% distinct(trip_id, .keep_all = T) %>% group_by(trip_distance_cat) %>%  -->
+<!--     summarise(sum_dist = sum(trip_distance), n_vals = dplyr::n(), proportion = round(n_vals / nrow(.) * 100, 1)) -->
+
+<!--  # print to html -->
+<!--   print(kable(df, caption = paste("Distance in travel survey by mode for the ages considered in the model for  ", city))) -->
+<!-- } -->
+
+<!-- ``` -->
+
+
+<!-- ## Daily population distances (per day in km) for ages considered in model -->
+<!-- ### Tables -->
+
+<!-- ```{r trip_dist_mode_figs = "asis"} -->
+
+<!-- for (city in cities){ # loop through distances -->
+
+<!--   # extract total daily distances travelled by the entire population with ages considered in the model -->
+<!--   df <- io[[city]]$true_dist -->
+
+<!--   names(df)[-1] <- scen_names_updated -->
+
+<!--   print(kable(df, caption = paste("Total population distance with ages considered in model by mode per day for  ", city))) -->
+<!-- } -->
+
+<!-- ``` -->
 
 
 ## Duration tables
@@ -707,383 +712,383 @@ for(city in cities){ # loop through cities
 
 
 
-### Baseline average duration (mins) per day for all cities
+<!-- ### Baseline average duration (mins) per day for all cities -->
 
-```{r}
-# Average baseline duration travelled on each mode for all cities for all people in synthetic population
+<!-- ```{r} -->
+<!-- # Average baseline duration travelled on each mode for all cities for all people in synthetic population -->
 
-# calculate the row sum
-trip_dur <- trip_dur %>% janitor::adorn_totals('row')
+<!-- # calculate the row sum -->
+<!-- trip_dur <- trip_dur %>% janitor::adorn_totals('row') -->
 
-kable(trip_dur, caption = "Avg. duration (min) per person in the synthetic population per day across all cities")
+<!-- kable(trip_dur, caption = "Avg. duration (min) per person in the synthetic population per day across all cities") -->
 
-```
+<!-- ``` -->
 
-## Health outcomes
+<!-- ## Health outcomes -->
 
-### Change in YLLs compared to reference scenario {#change_YLL}
+<!-- ### Change in YLLs compared to reference scenario {#change_YLL} -->
 
 
 
-```{r scen_prop = "asis"}
+<!-- ```{r scen_prop = "asis"} -->
 
-cat(paste0('Reference scenario:  ', reference_scenario))
+<!-- cat(paste0('Reference scenario:  ', reference_scenario)) -->
 
-# Calculate the changes in YLL compared to the reference scenario by age groups
+<!-- # Calculate the changes in YLL compared to the reference scenario by age groups -->
 
 
-# find ap ylls columns
-ap_yll_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$ylls  |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))),function(x)grepl('ap',as.character(x))))
+<!-- # find ap ylls columns -->
+<!-- ap_yll_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$ylls  |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))),function(x)grepl('ap',as.character(x)))) -->
 
 
-# find pa yll columns
-pa_yll_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))),function(x)grepl('pa',as.character(x))))
+<!-- # find pa yll columns -->
+<!-- pa_yll_cols <- which(sapply(colnames(io[[1]]$outcomes$pathway_hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))),function(x)grepl('pa',as.character(x)))) -->
 
-# # find scenario names of health burden as the reference scenario is not necessarily the baseline scenario
-# hb_columns <- names(io[[cities[1]]]$outcomes$hb$ylls)[3: length(names(io[[cities[1]]]$outcomes$hb$ylls))]
-# 
-# # find the unique scenario names in the hb columns
-# inj_scen_cols <- grep("inj", hb_columns) # find location of injury columns
-# # extract unique scenario names
-# hb_scen_names <- unique(sapply(stringr::str_split(hb_columns[inj_scen_names], "_yll_inj", n = 3), function(x) x[1]))
-# # update scenario names
-# hb_scen_names_upd <- unlist(lapply(hb_scen_names, FUN=get_qualified_scen_name))
+<!-- # # find scenario names of health burden as the reference scenario is not necessarily the baseline scenario -->
+<!-- # hb_columns <- names(io[[cities[1]]]$outcomes$hb$ylls)[3: length(names(io[[cities[1]]]$outcomes$hb$ylls))] -->
+<!-- #  -->
+<!-- # # find the unique scenario names in the hb columns -->
+<!-- # inj_scen_cols <- grep("inj", hb_columns) # find location of injury columns -->
+<!-- # # extract unique scenario names -->
+<!-- # hb_scen_names <- unique(sapply(stringr::str_split(hb_columns[inj_scen_names], "_yll_inj", n = 3), function(x) x[1])) -->
+<!-- # # update scenario names -->
+<!-- # hb_scen_names_upd <- unlist(lapply(hb_scen_names, FUN=get_qualified_scen_name)) -->
 
-# from the known scenarios, remove the reference scenario
-all_orig_scen_upd <- c('Baseline',orig_scen_names_updated)
-hb_scen_names_upd <- all_orig_scen_upd[all_orig_scen_upd!=reference_scenario]
+<!-- # from the known scenarios, remove the reference scenario -->
+<!-- all_orig_scen_upd <- c('Baseline',orig_scen_names_updated) -->
+<!-- hb_scen_names_upd <- all_orig_scen_upd[all_orig_scen_upd!=reference_scenario] -->
 
 
 
-# calculate ylls by age category and scenario
-# i.e. sum over all disease and remove sex 
-yll_totals <- lapply(io[-c(2,3)],function(x){
-  temp <- sapply(1:NSCEN,function(y){# loop through scenarios
-    xx <- x$outcomes$hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))
-    xxx <- rowSums(xx[,seq(2 + y, ncol(xx), by = NSCEN)]) # sum over all diseases
-    sapply(sort(unique(xx$age_cat)),function(z)
-      sum(xxx[xx$age_cat == z])) # sum age categories ignoring sex
-  })
-  colnames(temp) <- hb_scen_names_upd # update scenario names
-  temp
-})
+<!-- # calculate ylls by age category and scenario -->
+<!-- # i.e. sum over all disease and remove sex  -->
+<!-- yll_totals <- lapply(io[-c(2,3)],function(x){ -->
+<!--   temp <- sapply(1:NSCEN,function(y){# loop through scenarios -->
+<!--     xx <- x$outcomes$hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub"))) -->
+<!--     xxx <- rowSums(xx[,seq(2 + y, ncol(xx), by = NSCEN)]) # sum over all diseases -->
+<!--     sapply(sort(unique(xx$age_cat)),function(z) -->
+<!--       sum(xxx[xx$age_cat == z])) # sum age categories ignoring sex -->
+<!--   }) -->
+<!--   colnames(temp) <- hb_scen_names_upd # update scenario names -->
+<!--   temp -->
+<!-- }) -->
 
-# add the column total, round the results and print to html
-sum_and_round_and_print(yll_totals,"Change total in YLLs compared to the reference scenario in ")
-```
+<!-- # add the column total, round the results and print to html -->
+<!-- sum_and_round_and_print(yll_totals,"Change total in YLLs compared to the reference scenario in ") -->
+<!-- ``` -->
 
 
 
-### Change in YLLs compared to reference scenario per 100,000 people {#change_YLL_age_100k}
+<!-- ### Change in YLLs compared to reference scenario per 100,000 people {#change_YLL_age_100k} -->
 
-YLLs per 100,000 people by age group by scenario
+<!-- YLLs per 100,000 people by age group by scenario -->
 
 
-```{r scen_prop = "asis"}
-cat(paste0('Reference scenario:  ', reference_scenario))
+<!-- ```{r scen_prop = "asis"} -->
+<!-- cat(paste0('Reference scenario:  ', reference_scenario)) -->
 
-# calculate change in YLLs compared to the reference scenario per 100,000 people
+<!-- # calculate change in YLLs compared to the reference scenario per 100,000 people -->
 
-# extract population statistics
-pop_by_age <- lapply(io[-c(2,3)], function(x)
-  sapply(unique(x$demographic$age), 
-         function(y)
-           sum(subset(x$demographic, age == y)$population)
-         )
-  )
+<!-- # extract population statistics -->
+<!-- pop_by_age <- lapply(io[-c(2,3)], function(x) -->
+<!--   sapply(unique(x$demographic$age),  -->
+<!--          function(y) -->
+<!--            sum(subset(x$demographic, age == y)$population) -->
+<!--          ) -->
+<!--   ) -->
 
-# calculate ylls per 100,000 people
-yll_rates <- lapply(cities, function(x)
-  rbind(yll_totals[[x]] / t(repmat(pop_by_age[[x]],NSCEN,1))*100000, # divide by population
-        Total = colSums(yll_totals[[x]])/rep(sum(pop_by_age[[x]]), # calculate rate for total YLLs
-                                             length = NSCEN)*100000
-        )
-  )
+<!-- # calculate ylls per 100,000 people -->
+<!-- yll_rates <- lapply(cities, function(x) -->
+<!--   rbind(yll_totals[[x]] / t(repmat(pop_by_age[[x]],NSCEN,1))*100000, # divide by population -->
+<!--         Total = colSums(yll_totals[[x]])/rep(sum(pop_by_age[[x]]), # calculate rate for total YLLs -->
+<!--                                              length = NSCEN)*100000 -->
+<!--         ) -->
+<!--   ) -->
 
 
-names(yll_rates) <- cities
+<!-- names(yll_rates) <- cities -->
 
-# round results and print to html
-round_and_print(yll_rates,"Change in YLLs per 100,000 in ")
-```
+<!-- # round results and print to html -->
+<!-- round_and_print(yll_rates,"Change in YLLs per 100,000 in ") -->
+<!-- ``` -->
 
 
-### Change in YLLs compared to reference scenario per 100,000 people by age and sex  {#change_YLL_gender_age_100k}
+<!-- ### Change in YLLs compared to reference scenario per 100,000 people by age and sex  {#change_YLL_gender_age_100k} -->
 
-Change in YLLs per 100,000 people by age and sex category for each scenario compared to the reference scenario
+<!-- Change in YLLs per 100,000 people by age and sex category for each scenario compared to the reference scenario -->
 
-```{r scen_prop = "asis"}
+<!-- ```{r scen_prop = "asis"} -->
 
-cat(paste0('Reference scenario:  ', reference_scenario))
+<!-- cat(paste0('Reference scenario:  ', reference_scenario)) -->
 
-# calculate changes in YLLs for each scenario compared to the Baseline per 100,000 people by age and sex category
+<!-- # calculate changes in YLLs for each scenario compared to the Baseline per 100,000 people by age and sex category -->
 
-# calculate the total ylls for each scenario summing across all diseases
-yll_totals <- lapply(io[-c(2,3)], function(x) {
-  temp <- sapply(1:NSCEN,function(y){
-    xx <- x$outcomes$hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))
-    rowSums(xx[,seq(2 + y, ncol(xx), by = NSCEN)])
-  })
-  rownames(temp) <- apply(x$outcomes$hb$deaths[,c('sex','age_cat')], 1,
-                          function(z)paste0(z[2], '_', z[1]))
-  colnames(temp) <- orig_scen_names_updated
-  temp
-})
+<!-- # calculate the total ylls for each scenario summing across all diseases -->
+<!-- yll_totals <- lapply(io[-c(2,3)], function(x) { -->
+<!--   temp <- sapply(1:NSCEN,function(y){ -->
+<!--     xx <- x$outcomes$hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub"))) -->
+<!--     rowSums(xx[,seq(2 + y, ncol(xx), by = NSCEN)]) -->
+<!--   }) -->
+<!--   rownames(temp) <- apply(x$outcomes$hb$deaths[,c('sex','age_cat')], 1, -->
+<!--                           function(z)paste0(z[2], '_', z[1])) -->
+<!--   colnames(temp) <- orig_scen_names_updated -->
+<!--   temp -->
+<!-- }) -->
 
-# calculate the YLLs per 100,000 people
-yll_rates <- lapply(cities, function(x)
-  rbind(yll_totals[[x]][match(apply(io[[x]]$demographic[,c('sex','age')], 1,
-                                    function(z) paste0(z[2],'_',z[1])), 
-                              rownames(yll_totals[[x]])),] /
-          t(repmat(io[[x]]$demographic$population,NSCEN,1)) * 100000,
-        Total = colSums(yll_totals[[x]])/rep(sum(pop_by_age[[x]]),
-                                             length = NSCEN) * 100000))
+<!-- # calculate the YLLs per 100,000 people -->
+<!-- yll_rates <- lapply(cities, function(x) -->
+<!--   rbind(yll_totals[[x]][match(apply(io[[x]]$demographic[,c('sex','age')], 1, -->
+<!--                                     function(z) paste0(z[2],'_',z[1])),  -->
+<!--                               rownames(yll_totals[[x]])),] / -->
+<!--           t(repmat(io[[x]]$demographic$population,NSCEN,1)) * 100000, -->
+<!--         Total = colSums(yll_totals[[x]])/rep(sum(pop_by_age[[x]]), -->
+<!--                                              length = NSCEN) * 100000)) -->
 
-names(yll_rates) <- cities
+<!-- names(yll_rates) <- cities -->
 
-# round and print ylls per 100,000 people to html
-round_and_print(yll_rates,"Change in YLLs per 100,000 in ")
-```
+<!-- # round and print ylls per 100,000 people to html -->
+<!-- round_and_print(yll_rates,"Change in YLLs per 100,000 in ") -->
+<!-- ``` -->
 
 
 
-### Change in YLLs due to injury compared to the reference scenario  {#change_yll_injury}
+<!-- ### Change in YLLs due to injury compared to the reference scenario  {#change_yll_injury} -->
 
 
-```{r}
+<!-- ```{r} -->
 
-cat(paste0('Reference scenario:  ', reference_scenario))
+<!-- cat(paste0('Reference scenario:  ', reference_scenario)) -->
 
-# calculate change in YLLs due to injury
+<!-- # calculate change in YLLs due to injury -->
 
-# calculate change in YLLs due to injury by summing across all age categories for the injury results
-injury_totals <- lapply(io[-c(2,3)], function(x) {
-  xx <- x$outcomes$hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))
-  injury_col <- grep("inj", names(xx))[1] 
-  xxx <- sapply(1:NSCEN, function(y)
-    sapply(sort(unique(xx$age_cat)), function(z)
-      sum(xx[xx$age_cat == z, injury_col - 1 + y])))
-  colnames(xxx) <- hb_scen_names_upd
-  xxx
-})
+<!-- # calculate change in YLLs due to injury by summing across all age categories for the injury results -->
+<!-- injury_totals <- lapply(io[-c(2,3)], function(x) { -->
+<!--   xx <- x$outcomes$hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub"))) -->
+<!--   injury_col <- grep("inj", names(xx))[1]  -->
+<!--   xxx <- sapply(1:NSCEN, function(y) -->
+<!--     sapply(sort(unique(xx$age_cat)), function(z) -->
+<!--       sum(xx[xx$age_cat == z, injury_col - 1 + y]))) -->
+<!--   colnames(xxx) <- hb_scen_names_upd -->
+<!--   xxx -->
+<!-- }) -->
 
-# calculate the total, round the results and print to html
-sum_and_round_and_print(injury_totals, "Change in YLLs due to injury in ")
-```
+<!-- # calculate the total, round the results and print to html -->
+<!-- sum_and_round_and_print(injury_totals, "Change in YLLs due to injury in ") -->
+<!-- ``` -->
 
 
-### Change in YLLs due to PA compared to the reference scenario {#change_yll_PA}
+<!-- ### Change in YLLs due to PA compared to the reference scenario {#change_yll_PA} -->
 
-```{r}
-cat(paste0('Reference scenario:  ', reference_scenario))
+<!-- ```{r} -->
+<!-- cat(paste0('Reference scenario:  ', reference_scenario)) -->
 
-# calculate the changes in YLLs compared to the reference scenario caused by changes in PA for the unique age categories
+<!-- # calculate the changes in YLLs compared to the reference scenario caused by changes in PA for the unique age categories -->
 
-# sum the YLLs for each scenario by age category
-pa_totals <- lapply(io[-c(2,3)],function(x){
-  xx <- x$outcomes$pathway_hb$ylls  |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))
-  xxx <- sapply(1:NSCEN, function(y){
-    xxx <- rowSums(xx[, pa_yll_cols[seq(y, length(pa_yll_cols), by = NSCEN)]])
-    sapply(sort(unique(xx$age_cat)), function(z) sum(xxx[xx$age_cat == z]))
-  })
-  colnames(xxx) <- hb_scen_names_upd
-  xxx
-})
+<!-- # sum the YLLs for each scenario by age category -->
+<!-- pa_totals <- lapply(io[-c(2,3)],function(x){ -->
+<!--   xx <- x$outcomes$pathway_hb$ylls  |> dplyr::select(-c(ends_with("lb") | ends_with("ub"))) -->
+<!--   xxx <- sapply(1:NSCEN, function(y){ -->
+<!--     xxx <- rowSums(xx[, pa_yll_cols[seq(y, length(pa_yll_cols), by = NSCEN)]]) -->
+<!--     sapply(sort(unique(xx$age_cat)), function(z) sum(xxx[xx$age_cat == z])) -->
+<!--   }) -->
+<!--   colnames(xxx) <- hb_scen_names_upd -->
+<!--   xxx -->
+<!-- }) -->
 
-# calculate column sums, round the results and print to html
-sum_and_round_and_print(pa_totals,"Change in YLLs due to PA in ")
-```
+<!-- # calculate column sums, round the results and print to html -->
+<!-- sum_and_round_and_print(pa_totals,"Change in YLLs due to PA in ") -->
+<!-- ``` -->
 
-### Change in YLLs due to AP compared to the reference scenario {#change_yll_AP}
-```{r}
-cat(paste0('Reference scenario:  ', reference_scenario))
+<!-- ### Change in YLLs due to AP compared to the reference scenario {#change_yll_AP} -->
+<!-- ```{r} -->
+<!-- cat(paste0('Reference scenario:  ', reference_scenario)) -->
 
-# calculate the changes in YLLS compared to the reference scenario due to changes in AP
+<!-- # calculate the changes in YLLS compared to the reference scenario due to changes in AP -->
 
-# sum the YLLs by scenario and age category
-ap_totals <- lapply(io[-c(2,3)],function(x){
-  xx <- x$outcomes$pathway_hb$ylls  |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))
-  xxx <- sapply(1:NSCEN,function(y) {
-    xxx <- rowSums(xx[, ap_yll_cols[seq(y, length(ap_yll_cols), by = NSCEN)]])
-    sapply(sort(unique(xx$age_cat)), function(z) sum(xxx[xx$age_cat == z]))
-  })
-  colnames(xxx) <- hb_scen_names_upd
-  xxx
-})
+<!-- # sum the YLLs by scenario and age category -->
+<!-- ap_totals <- lapply(io[-c(2,3)],function(x){ -->
+<!--   xx <- x$outcomes$pathway_hb$ylls  |> dplyr::select(-c(ends_with("lb") | ends_with("ub"))) -->
+<!--   xxx <- sapply(1:NSCEN,function(y) { -->
+<!--     xxx <- rowSums(xx[, ap_yll_cols[seq(y, length(ap_yll_cols), by = NSCEN)]]) -->
+<!--     sapply(sort(unique(xx$age_cat)), function(z) sum(xxx[xx$age_cat == z])) -->
+<!--   }) -->
+<!--   colnames(xxx) <- hb_scen_names_upd -->
+<!--   xxx -->
+<!-- }) -->
 
-# calculate column sums, round the results and print to html
-sum_and_round_and_print(ap_totals,"Change in YLLs due to AP in ")
-```
+<!-- # calculate column sums, round the results and print to html -->
+<!-- sum_and_round_and_print(ap_totals,"Change in YLLs due to AP in ") -->
+<!-- ``` -->
 
 
-### Change in YLLs due to injury compared to the reference scenario per 100,000 people {#change_yll_injury_100k}
+<!-- ### Change in YLLs due to injury compared to the reference scenario per 100,000 people {#change_yll_injury_100k} -->
 
-<!-- YLLs per 100,000 people by age group by scenario - injury -->
+<!-- <!-- YLLs per 100,000 people by age group by scenario - injury --> -->
 
-```{r scen_prop = "asis"}
-cat(paste0('Reference scenario:  ', reference_scenario))
+<!-- ```{r scen_prop = "asis"} -->
+<!-- cat(paste0('Reference scenario:  ', reference_scenario)) -->
 
-# calculate the changes in YLLs compared to the reference scenario per 100,000 people due to injury
-injury_rates <- lapply(cities, function(x)
-  rbind(
-    injury_totals[[x]]/t(repmat(pop_by_age[[x]],NSCEN,1)) * 100000,
-    Total = colSums(injury_totals[[x]])/rep(sum(pop_by_age[[x]]),
-                                            length = NSCEN) * 100000)
-  )
-names(injury_rates) <- cities
+<!-- # calculate the changes in YLLs compared to the reference scenario per 100,000 people due to injury -->
+<!-- injury_rates <- lapply(cities, function(x) -->
+<!--   rbind( -->
+<!--     injury_totals[[x]]/t(repmat(pop_by_age[[x]],NSCEN,1)) * 100000, -->
+<!--     Total = colSums(injury_totals[[x]])/rep(sum(pop_by_age[[x]]), -->
+<!--                                             length = NSCEN) * 100000) -->
+<!--   ) -->
+<!-- names(injury_rates) <- cities -->
 
-# round results and print to html
-round_and_print(injury_rates,"Change in YLLs due to injury per 100,000 people in ")
-```
+<!-- # round results and print to html -->
+<!-- round_and_print(injury_rates,"Change in YLLs due to injury per 100,000 people in ") -->
+<!-- ``` -->
 
 
-### Change in YLLs due to PA compared to the reference scenario per 100,000 people {#change_yll_PA_100k}
+<!-- ### Change in YLLs due to PA compared to the reference scenario per 100,000 people {#change_yll_PA_100k} -->
 
-```{r}
-cat(paste0('Reference scenario:  ', reference_scenario))
+<!-- ```{r} -->
+<!-- cat(paste0('Reference scenario:  ', reference_scenario)) -->
 
-# calculate the changes in YLLs compared to the reference scenario per 100,000 people due to PA
-pa_rates <- lapply(cities, function(x)
-  rbind(
-    pa_totals[[x]] / t(repmat(pop_by_age[[x]], NSCEN, 1)) * 100000,
-    Total = colSums(pa_totals[[x]])/rep(sum(pop_by_age[[x]]),
-                                        length = NSCEN) * 100000))
-names(pa_rates) <- cities
+<!-- # calculate the changes in YLLs compared to the reference scenario per 100,000 people due to PA -->
+<!-- pa_rates <- lapply(cities, function(x) -->
+<!--   rbind( -->
+<!--     pa_totals[[x]] / t(repmat(pop_by_age[[x]], NSCEN, 1)) * 100000, -->
+<!--     Total = colSums(pa_totals[[x]])/rep(sum(pop_by_age[[x]]), -->
+<!--                                         length = NSCEN) * 100000)) -->
+<!-- names(pa_rates) <- cities -->
 
-# round results and print to html
-round_and_print(pa_rates,"Change in YLLs due to PA per 100,000 people in ")
-```
+<!-- # round results and print to html -->
+<!-- round_and_print(pa_rates,"Change in YLLs due to PA per 100,000 people in ") -->
+<!-- ``` -->
 
 
-### Change in YLLs due to AP compared to the reference scenario per 100,000 people {#change_yll_AP_100k}
+<!-- ### Change in YLLs due to AP compared to the reference scenario per 100,000 people {#change_yll_AP_100k} -->
 
-```{r}
-cat(paste0('Reference scenario:  ', reference_scenario))
+<!-- ```{r} -->
+<!-- cat(paste0('Reference scenario:  ', reference_scenario)) -->
 
-# calculate the changes in YLLs compared to the reference scenario per 100,000 people due to AP
-ap_rates <- lapply(cities, function(x)
-  rbind(
-    ap_totals[[x]] / t(repmat(pop_by_age[[x]], NSCEN ,1)) * 100000,
-    Total = colSums(ap_totals[[x]]) / rep(sum(pop_by_age[[x]]),
-                                          length = NSCEN) * 100000))
-names(ap_rates) <- cities
+<!-- # calculate the changes in YLLs compared to the reference scenario per 100,000 people due to AP -->
+<!-- ap_rates <- lapply(cities, function(x) -->
+<!--   rbind( -->
+<!--     ap_totals[[x]] / t(repmat(pop_by_age[[x]], NSCEN ,1)) * 100000, -->
+<!--     Total = colSums(ap_totals[[x]]) / rep(sum(pop_by_age[[x]]), -->
+<!--                                           length = NSCEN) * 100000)) -->
+<!-- names(ap_rates) <- cities -->
 
-# round results and print to html
-round_and_print(ap_rates,"Change in YLLs due to AP per 100,000 people in ")
-```
+<!-- # round results and print to html -->
+<!-- round_and_print(ap_rates,"Change in YLLs due to AP per 100,000 people in ") -->
+<!-- ``` -->
 
 
 
-## BY DISEASE
+<!-- ## BY DISEASE -->
 
-Change in total deaths compared to the reference scenario (for the city based on real population size but only for ages considered in the model) by scenario
+<!-- Change in total deaths compared to the reference scenario (for the city based on real population size but only for ages considered in the model) by scenario -->
 
-### Change in deaths by disease compared to the reference scenario {#change_death_disease}
+<!-- ### Change in deaths by disease compared to the reference scenario {#change_death_disease} -->
 
-```{r}
-cat(paste0('Reference scenario:  ', reference_scenario))
+<!-- ```{r} -->
+<!-- cat(paste0('Reference scenario:  ', reference_scenario)) -->
 
-# calculate the changes in deaths compared to the reference scenario by disease
+<!-- # calculate the changes in deaths compared to the reference scenario by disease -->
 
-# sum the total deaths by scenario
-disease_totals <- lapply(io[-c(2,3)],function(x){
-  # extract disease counts
-  xx <- x$outcomes$hb$deaths |> dplyr::select(-c(ends_with("lb") | ends_with("ub"))) 
-  xxx <- sapply(1:NSCEN,function(y){ # sum over scenarios
-    colSums(xx[, seq(y + 2, ncol(xx), by = NSCEN)])
-  })
-  colnames(xxx) <- hb_scen_names_upd
-  
-  # find scenario name of row names
-  row_scen <- unique(sapply(stringr::str_split(rownames(xxx), "_", n = 3), function(x) x[2]))
-  
-  # update row names
-  rownames(xxx) <- gsub(paste0("sc_",row_scen,"_deaths_"), "", rownames(xxx))
-  
-  xxx
-})
+<!-- # sum the total deaths by scenario -->
+<!-- disease_totals <- lapply(io[-c(2,3)],function(x){ -->
+<!--   # extract disease counts -->
+<!--   xx <- x$outcomes$hb$deaths |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))  -->
+<!--   xxx <- sapply(1:NSCEN,function(y){ # sum over scenarios -->
+<!--     colSums(xx[, seq(y + 2, ncol(xx), by = NSCEN)]) -->
+<!--   }) -->
+<!--   colnames(xxx) <- hb_scen_names_upd -->
 
-# sum, round and print the results 
-sum_and_round_and_print(disease_totals,"Change in deaths by disease in ")
-```
+<!--   # find scenario name of row names -->
+<!--   row_scen <- unique(sapply(stringr::str_split(rownames(xxx), "_", n = 3), function(x) x[2])) -->
 
+<!--   # update row names -->
+<!--   rownames(xxx) <- gsub(paste0("sc_",row_scen,"_deaths_"), "", rownames(xxx)) -->
 
+<!--   xxx -->
+<!-- }) -->
 
-### Change in deaths by disease compared to the reference scenario per 100,000 people  {#change_death_disease_100k}
+<!-- # sum, round and print the results  -->
+<!-- sum_and_round_and_print(disease_totals,"Change in deaths by disease in ") -->
+<!-- ``` -->
 
-Change in deaths per 100,000 people (based on real population size but only for ages considered in the model) by scenario in comparison to the reference scenario
 
-```{r scen_prop = "asis"}
-cat(paste0('Reference scenario:  ', reference_scenario))
 
-# calculate the change in deaths compared to the reference scenario per 100,000 people
+<!-- ### Change in deaths by disease compared to the reference scenario per 100,000 people  {#change_death_disease_100k} -->
 
-# divided total number of deaths by population
-disease_rates <- lapply(cities, function(x)
-  rbind(
-    disease_totals[[x]] / sum(pop_by_age[[x]]) * 100000,
-    Total = colSums(disease_totals[[x]]) / rep(sum(pop_by_age[[x]]), 
-                                               length = NSCEN)*100000))
-names(disease_rates) <- cities
+<!-- Change in deaths per 100,000 people (based on real population size but only for ages considered in the model) by scenario in comparison to the reference scenario -->
 
-# round results and print to html
-round_and_print(disease_rates,"Change in deaths by disease per 100,000 people in ")
-```
+<!-- ```{r scen_prop = "asis"} -->
+<!-- cat(paste0('Reference scenario:  ', reference_scenario)) -->
 
+<!-- # calculate the change in deaths compared to the reference scenario per 100,000 people -->
 
+<!-- # divided total number of deaths by population -->
+<!-- disease_rates <- lapply(cities, function(x) -->
+<!--   rbind( -->
+<!--     disease_totals[[x]] / sum(pop_by_age[[x]]) * 100000, -->
+<!--     Total = colSums(disease_totals[[x]]) / rep(sum(pop_by_age[[x]]),  -->
+<!--                                                length = NSCEN)*100000)) -->
+<!-- names(disease_rates) <- cities -->
 
-### Change in total YLLs by disease compared to the reference scenario {#change_yll_disease}
+<!-- # round results and print to html -->
+<!-- round_and_print(disease_rates,"Change in deaths by disease per 100,000 people in ") -->
+<!-- ``` -->
 
-Change in total YLLs by disease compared to the reference scenario (based on real population size, for ages considered within the ITHIM model) 
 
 
-```{r}
-cat(paste0('Reference scenario:  ', reference_scenario))
+<!-- ### Change in total YLLs by disease compared to the reference scenario {#change_yll_disease} -->
 
-# sum the total ylls by scenario
-disease_totals <- lapply(io[-c(2,3)],function(x){
-  xx <- x$outcomes$hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub")))
-  xxx <- sapply(1:NSCEN,function(y) {
-    colSums(xx[,seq(y + 2, ncol(xx), by = NSCEN)])
-  })
-  colnames(xxx) <- hb_scen_names_upd
-  
-  # find scenario name of row names
-  row_scen <- unique(sapply(stringr::str_split(rownames(xxx), "_", n = 3), function(x) x[2]))
-  
-  # update row names
-  rownames(xxx) <- gsub(paste0("sc_",row_scen,"_ylls_"), "", rownames(xxx))
-  xxx
-})
+<!-- Change in total YLLs by disease compared to the reference scenario (based on real population size, for ages considered within the ITHIM model)  -->
 
 
+<!-- ```{r} -->
+<!-- cat(paste0('Reference scenario:  ', reference_scenario)) -->
 
+<!-- # sum the total ylls by scenario -->
+<!-- disease_totals <- lapply(io[-c(2,3)],function(x){ -->
+<!--   xx <- x$outcomes$hb$ylls |> dplyr::select(-c(ends_with("lb") | ends_with("ub"))) -->
+<!--   xxx <- sapply(1:NSCEN,function(y) { -->
+<!--     colSums(xx[,seq(y + 2, ncol(xx), by = NSCEN)]) -->
+<!--   }) -->
+<!--   colnames(xxx) <- hb_scen_names_upd -->
 
+<!--   # find scenario name of row names -->
+<!--   row_scen <- unique(sapply(stringr::str_split(rownames(xxx), "_", n = 3), function(x) x[2])) -->
 
+<!--   # update row names -->
+<!--   rownames(xxx) <- gsub(paste0("sc_",row_scen,"_ylls_"), "", rownames(xxx)) -->
+<!--   xxx -->
+<!-- }) -->
 
-# sum and round results, print to html
-sum_and_round_and_print(disease_totals,"Change in YLL by disease in ")
-```
 
 
-### Change in YLL due to disease compared to the reference scenario per 100,000 people {#change_yll_disease_100k}
 
-Change in total YLLs by disease compared to the reference scenario per 100,000 people (based on real population size, for ages considered within the ITHIM model) 
 
-```{r scen_prop = "asis"}
-cat(paste0('Reference scenario:  ', reference_scenario))
 
-# calculate the change in YLL by disease by dividing by the population
-disease_rates <- lapply(cities, function(x)
-  rbind(
-    disease_totals[[x]] / sum(pop_by_age[[x]]) * 100000,
-    Total = colSums(disease_totals[[x]]) / rep(sum(pop_by_age[[x]]),
-                                               length = NSCEN) * 100000))
-names(disease_rates) <- cities
+<!-- # sum and round results, print to html -->
+<!-- sum_and_round_and_print(disease_totals,"Change in YLL by disease in ") -->
+<!-- ``` -->
 
-# round and print results to html
-round_and_print(disease_rates,"Change in YLL by disease per 100,000 in ")
-```
+
+<!-- ### Change in YLL due to disease compared to the reference scenario per 100,000 people {#change_yll_disease_100k} -->
+
+<!-- Change in total YLLs by disease compared to the reference scenario per 100,000 people (based on real population size, for ages considered within the ITHIM model)  -->
+
+<!-- ```{r scen_prop = "asis"} -->
+<!-- cat(paste0('Reference scenario:  ', reference_scenario)) -->
+
+<!-- # calculate the change in YLL by disease by dividing by the population -->
+<!-- disease_rates <- lapply(cities, function(x) -->
+<!--   rbind( -->
+<!--     disease_totals[[x]] / sum(pop_by_age[[x]]) * 100000, -->
+<!--     Total = colSums(disease_totals[[x]]) / rep(sum(pop_by_age[[x]]), -->
+<!--                                                length = NSCEN) * 100000)) -->
+<!-- names(disease_rates) <- cities -->
+
+<!-- # round and print results to html -->
+<!-- round_and_print(disease_rates,"Change in YLL by disease per 100,000 in ") -->
+<!-- ``` -->
 
 
 
@@ -1103,21 +1108,21 @@ pathway <- c("hb", "pathway_hb")
 for (k in measure) { # loop for ylls or deaths
   for (j in pathway) { # loop for hb or pathway_hb
     for (i in names(io)[!names(io) %in% c('scen_prop','ithim_run' )]) { # loop for cities
-      
+
       # Temporal dataset for health outcomes
       temp <- io[[i]]$outcomes[[j]][[k]]
-      
+
       # Total population
       #overall_pop <- sum(io[[i]]$demographic$population)
-      
+
       # Population by age and sex
-      pop_by_age_sex <- io[[i]]$demographic %>% group_by(age, sex) %>% 
+      pop_by_age_sex <- io[[i]]$demographic %>% group_by(age, sex) %>%
         summarize(pop_age_sex = sum(population))
-      
+
       # get the health burden into the correct format by creating a long format and adding additional columns
       # create long format
-      health[[k]][[j]][[i]] <- gather(temp, key = "cause", "measure", 
-                                      -sex, -age_cat) %>% 
+      health[[k]][[j]][[i]] <- gather(temp, key = "cause", "measure",
+                                      -sex, -age_cat) %>%
         mutate(city = i, # create city column
                scenario = case_when( # create scenario column
                  grepl("sc_cycle", cause) ~ get_qualified_scen_name('sc_cycle'),
@@ -1163,15 +1168,15 @@ for (k in measure) { # loop for ylls or deaths
                  grepl("_ap_", cause) ~ "AP",
                  grepl("_inj", cause) ~ "RTI"
                )
-        ) %>% # End mutate 
+        ) %>% # End mutate
         # join with demographic information
-        left_join(pop_by_age_sex, by = c("age_cat" = "age", "sex" = "sex")) 
-        
+        left_join(pop_by_age_sex, by = c("age_cat" = "age", "sex" = "sex"))
+
         # %>%
         # create new columns showing burden per 100000 people by age or by age and sex
-        # mutate(metric_100k = measure / overall_pop * 100000, 
+        # mutate(metric_100k = measure / overall_pop * 100000,
         #        metric_100k_sex = measure / overall_pop * 100000)
-      
+
     } # Loop for each city
   } # Loop for each pathway
 } # Loop for each measure
@@ -1189,9 +1194,9 @@ deaths_pathway <- rbindlist(health$deaths$pathway_hb, use.names = T) #|> filter(
 # writexl::write_xlsx(list(ylls = ylls,
 #                          ylls_pathway = ylls_pathway,
 #                          deaths = deaths,
-#                          deaths_pathway = deaths_pathway), 
+#                          deaths_pathway = deaths_pathway),
 #                     path = output_file)
- 
+
 # Export ylls HB
 
 # write csv with output version number

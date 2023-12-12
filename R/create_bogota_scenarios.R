@@ -59,7 +59,7 @@
 #'
 #' \itemize{
 #' \item the overall mode shares for each of the cycle, car and bus modes across the three
-#'   distance categories is defined
+#'   distance categories is extracted from the trip data set
 #'
 #' \item from the trip data extract the trip information, calculate the total number of trips
 #'   and find the proportion of trips in each distance category
@@ -118,17 +118,43 @@ create_bogota_scenarios <- function(trip_set) {
   trip_set <- NULL
 
   rd_list <- list()
-
+  # define the modes that can't be changed
+  modes_not_changeable <- c("bus_driver", "truck", "car_driver") 
+  
   # bogota modal split across the three distance categories for each mode
+  # use existing mode split from adjusted travel survey, i.e. once all the ITHIM changes to the travel
+  # survey have been made
+  
+  rdr_modeshares <-rdr |> filter(trip_mode %in% c('cycle', 'car', 'bus')) |> count(
+                    trip_mode, trip_distance_cat) |> mutate(freq = prop.table(n), .by = trip_mode
+                    ) |> dplyr::select(-n) |> dplyr::mutate(freq = round(freq * 100, 1)) |> pivot_wider(
+                    names_from = trip_distance_cat, values_from = freq)
+  
+  # get modeshares into correct format
+  cycle02 <-  rdr_modeshares %>% filter(trip_mode=='cycle') %>% pull('0-2km')
+  cycle26 <-  rdr_modeshares %>% filter(trip_mode=='cycle') %>% pull('2-6km')
+  cycle6 <-  rdr_modeshares %>% filter(trip_mode=='cycle') %>% pull('6+km')
+  car02 <-  rdr_modeshares %>% filter(trip_mode=='car') %>% pull('0-2km')
+  car26 <-  rdr_modeshares %>% filter(trip_mode=='car') %>% pull('2-6km')
+  car6 <-  rdr_modeshares %>% filter(trip_mode=='car') %>% pull('6+km')
+  bus02 <-  rdr_modeshares %>% filter(trip_mode=='bus') %>% pull('0-2km')
+  bus26 <-  rdr_modeshares %>% filter(trip_mode=='bus') %>% pull('2-6km')
+  bus6 <-  rdr_modeshares %>% filter(trip_mode=='bus') %>% pull('6+km')
+  
   # cycle, car, bus
   bogota_modeshares <- data.frame(
-    c(32.6, 2.7, 0.8), # distance category 0-2km
-    c(43.8, 24.9, 17.25), # distance category 2-6km
-    c(23.6, 72.4, 81.95)
-  ) # distance category >6km
+    c(cycle02,car02, bus02), # distance category 0-2km
+    c(cycle26, car26, bus26), # distance category 2-6km
+    c(cycle6, car6, bus6)) # distance category >6km
   colnames(bogota_modeshares) <- DIST_CAT
   rownames(bogota_modeshares) <- c("cycle", "car", "bus")
 
+  # trips per distance category
+  # trip_shares <- rdr |> filter(!trip_mode %in% modes_not_changeable)   |> count(trip_distance_cat
+  #                               ) |> mutate(freq = prop.table(n)) |> dplyr::select(-n) |> dplyr::mutate(
+  #                                 freq = round(freq * 100, 1)) |> pivot_wider(
+  #                                 names_from = trip_distance_cat, values_from = freq)
+  
   percentage_change <- SCENARIO_INCREASE # increase of each mode as percentage of total number of trips.
 
   # only keep necessary columns, i.e. remove any stage information
@@ -168,7 +194,6 @@ create_bogota_scenarios <- function(trip_set) {
 
   # baseline scenario
   rd_list[["baseline"]] <- rdr
-  modes_not_changeable <- c("bus_driver", "truck", "car_driver") # define the modes that can't be changed
 
   # create data frame containing all the trips that are not going to be changed in a scenario
   # i.e. bus_driver, truck and car_driver trips but also commercial motorcycle trips which have a participant id of 0

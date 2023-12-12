@@ -47,7 +47,7 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS) {
 
       # check that all scenario synthetic trips dataframes contain a trip_mode column
       if (!any(names(rd_list[[i]]) %in% "trip_mode")) {
-        print(paste0(CITY, " There are issues with the synthetic trips which do NOT a trip_mode column"))
+        print(paste0(CITY, " There are issues with the synthetic trips which do NOT have a trip_mode column"))
         break
       }
 
@@ -58,11 +58,16 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS) {
       pt_trips_wo_walk <- rd_list[[i]] %>%
         dplyr::filter(trip_id %in% pt_trips$trip_id) %>%
         group_by(trip_id) %>%
-        dplyr::mutate(ped = if (any(stage_mode == "walk_to_pt")) 1 else 0) %>%
+        dplyr::mutate(ped = if (any(stage_mode == "walk_to_pt" | stage_mode == "pedestrian")) 1 else 0) %>%
         ungroup() %>%
         filter(ped == 0) %>%
         dplyr::select(-ped)
 
+      check <- rd_list[[i]] %>%
+        dplyr::filter(trip_id %in% pt_trips$trip_id) %>%
+        group_by(trip_id) %>%
+        dplyr::mutate(ped = if (any(stage_mode == "walk_to_pt" | stage_mode == "pedestrian")) 1 else 0)
+      
       # check number of pt trips with and without walking stages
       # nrpt <- pt_trips %>% distinct(trip_id) %>% nrow
       # nrptwp <- pt_trips_wo_walk %>% distinct(trip_id) %>% nrow
@@ -71,11 +76,16 @@ walk_to_pt_and_combine_scen <- function(SYNTHETIC_TRIPS) {
       # print(paste(nrpt, " - ", round(nrptwp /  nrpt * 100,1)))
 
       # separate out pt trips WITH pedestrian component
-      pt_trips_w_walk <- pt_trips %>%
-        filter(trip_id %in% setdiff(pt_trips$trip_id, pt_trips_wo_walk$trip_id))
-
+      pt_trips_w_walk <- rd_list[[i]] %>%
+        dplyr::filter(trip_id %in% pt_trips$trip_id) %>%
+        group_by(trip_id) %>%
+        dplyr::mutate(ped = if (any(stage_mode == "walk_to_pt" | stage_mode == "pedestrian")) 1 else 0) %>%
+        ungroup() %>%
+        filter(ped == 1) %>%
+        dplyr::select(-ped)
+    
       # find the trips without a public transport stage
-      not_pt_trips <- subset(rd_list[[i]], !id %in% pt_trips$id)
+      not_pt_trips <- subset(rd_list[[i]], !trip_id %in% pt_trips$trip_id)
 
       # add a walking stage component to those pt trips without such a walking stage
       pt_walk_trips <- add_walk_trips(pt_trips_wo_walk)

@@ -1,0 +1,32 @@
+---
+title: "ITHIM Results"
+author: "Ali Abbas"
+format: revealjs
+editor: visual
+---
+
+## ITHIM Overview
+
+### Structure
+
+#### Figure
+
+#### Pathways
+
+## Outcomes
+
+## Scenario Definition - only 5% change in trips
+
+## Distance and Duration tables
+
+## PA outcomes - average MMETs per peron per week
+
+## AP Outcomes - PM2.5 exposure levels
+
+## Health Outcomes
+
+### YLLs and Deaths by total, sex and gender stratification - with and without interaction for three levels and covering all three paths
+
+### Touch on unexpected results when median values of MMETs per week compared in bus and cycle scenarios
+
+## Injury risks by population, distance and duration - overall and not stratified

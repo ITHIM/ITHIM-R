@@ -11,7 +11,7 @@ This document aims to be a comprehensive record of the calculations in the ITHIM
 
 ## Website for the package
 
-Using `pkgdown` method, we have published the documentation of the package on a website (github-pages). Please read it here: [documentation + helpful resources](https://ithim.github.io/ITHIM-R)
+Using [`pkgdown`](https://pkgdown.r-lib.org/) package, we have published the documentation of the `ITHIMR` package on github-pages. Please read it here: [documentation + helpful resources](https://ithim.github.io/ITHIM-R)
 
 ## How to use the package
 

@@ -113,9 +113,9 @@ add_walk_trips <- function(pt_trips) {
   walk_trips$stage_duration <- walk_trips$stage_duration_new
   walk_trips$stage_mode <- walk_trips$stage_mode_new
 
+  # remove columns
   walk_trips <- walk_trips %>%
     dplyr::select(-c(stage_distance_new, stage_duration_new, stage_mode_new))
-
 
 
   # merge datasets to calculate total trip distance by summing across the various stage distances

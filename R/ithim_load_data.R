@@ -26,7 +26,7 @@
 #'
 #'    \item Rename pedestrian stage modes of non-pedestrian trips from 'pedestrian' to 'walk_to_pt'
 #'
-#'    \item remove any walk_to_pt stages that do not belong to either a rail or a bus trip modes
+#'    
 #'
 #'    \item (call \code{\link{get_scenario_settings()}} if using the max_mode_share_scenario)
 #'   }
@@ -218,14 +218,14 @@ ithim_load_data <- function(speeds =
   if ("stage_mode" %in% colnames(trip_set) && "trip_mode" %in% colnames(trip_set)) {
     trip_set[!is.na(trip_set$trip_mode) & !is.na(trip_set$stage_mode) & trip_set$trip_mode != "pedestrian" & trip_set$stage_mode == "pedestrian", ]$stage_mode <- "walk_to_pt"
 
-    # Remove walking component in trips that are not PT
-    trip_set <- trip_set %>%
-      mutate(
-        cond = ifelse(stage_mode == "walk_to_pt" &
-          !trip_mode %in% c("bus", "rail"), 1, 0)
-      ) %>%
-      filter(cond == 0 | is.na(cond)) %>%
-      dplyr::select(-cond)
+    # # Remove walking component in trips that are not PT
+    # trip_set <- trip_set %>%
+    #   mutate(
+    #     cond = ifelse(stage_mode == "walk_to_pt" &
+    #       !trip_mode %in% c("bus", "rail"), 1, 0)
+    #   ) %>%
+    #   filter(cond == 0 | is.na(cond)) %>%
+    #   dplyr::select(-cond)
   }
 
   # set to global environment

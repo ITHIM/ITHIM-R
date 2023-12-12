@@ -53,10 +53,10 @@ knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='as
 
 ### - output .csv/.xlsx files containing the following information:
 
-# - desc_stats.csv file (results/multi_city/AP/desc_stats.csv) containing the summary statistics of individual PM2.5 exposure levels, the total PM2.5 concentrations levels, the change in PM2.5 concentration levels compared to the reference scenario and the total transport related CO2 emission concentrations for each scenario and city
+# - desc_stats.csv file (results/multi_city/AP/desc_stats.csv, also saved with output_version number in file name) containing the summary statistics of individual PM2.5 exposure levels, the total PM2.5 concentrations levels, the change in PM2.5 concentration levels compared to the reference scenario and the total transport related CO2 emission concentrations for each scenario and city
 
 
-# - desc_stats.xlsx file (results/multi_city/AP/desc_stats.xlsx) containing the following tabs:
+# - desc_stats_*output_version*.xlsx file (results/multi_city/AP/desc_stats_*output_version*.xlsx) containing the following tabs:
 
 #   - PM_2.5_emission_inventory: table detailing the percentage Baseline PM2.5 emissions attributed to each transport mode, the city wide PM2.5 concentration levels and the percentage of these concentrations attributed to transport for all cities
 
