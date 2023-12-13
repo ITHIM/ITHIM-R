@@ -101,7 +101,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets) {
 
   # Join trip_set and exponent factors df
   trip_set <- dplyr::left_join(trip_set, exp_facs, "stage_mode")
-
+  
   #----
   # Dan: These new lines of code are for the ventilation rate
 
@@ -467,17 +467,14 @@ scenario_pm_calculations <- function(dist, trip_scen_sets) {
       # Calculate pm / air ratio
       conc_pm_inhaled = total_pm_inhaled / total_air_inhaled
     )
-
+  
   # Change to wide format
   synth_pop <- synth_pop %>%
     dplyr::select(participant_id, scenario, conc_pm_inhaled) %>%
     pivot_wider(names_from = "scenario", values_from = "conc_pm_inhaled") %>%
-    # Rename columns
-    rename_at(
-      vars(starts_with(c("base", "sc"))),
-      ~ paste0("pm_conc_", SCEN_SHORT_NAME)
-    )
-
+    setNames(gsub("sc_", "pm_conc_sc_", names(.))) %>% 
+    setNames(gsub("baseline", "pm_conc_base", names(.)))
+  
   # Get all participants without any travel (in the travel survey)
   id_wo_travel <- SYNTHETIC_POPULATION |>
     filter(!participant_id %in% trip_set$participant_id)
@@ -487,11 +484,9 @@ scenario_pm_calculations <- function(dist, trip_scen_sets) {
     dplyr::select(-work_ltpa_marg_met), conc_pm_df |>
     pivot_wider(names_from = "scenario", values_from = "conc_pm"))
   # Rename columns
-  id_wo_travel <- id_wo_travel |>
-    rename_at(
-      vars(starts_with(c("base", "sc"))),
-      ~ paste0("pm_conc_", SCEN_SHORT_NAME)
-    )
+  id_wo_travel <- id_wo_travel %>%
+    setNames(gsub("sc_", "pm_conc_sc_", names(.))) %>% 
+    setNames(gsub("baseline", "pm_conc_base", names(.)))
 
   # Join demographics info from trip_set
   synth_pop <- left_join(
