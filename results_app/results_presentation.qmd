@@ -1,9 +1,211 @@
 ---
 title: "ITHIM Results"
 author: "Ali Abbas"
-format: revealjs
-editor: visual
+date: today
+date-format: long
+title-slide-attributes:
+  data-background-image: "images/ithim-accra.png"
+  data-background-size: contain
+  data-background-opacity: "0.2"
+execute:
+    echo: false
+    warning: false
+    message: false
+    cache: false
+format:
+  revealjs:
+    standalone: false
+    embed-resources: true
+    width: 1600
+    height: 900
+    theme: quartomonothemer.scss
+    slide-number: true
+    fig-cap-location: top
+    pdf-separate-fragments: false
+    transition: slide
+    background-transition: fade
+
+output: 
+  revealjs::revealjs_presentation: default
+    
+reveal_options:
+  minScale: 1.0
+  maxScale: 1.0
 ---
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+library(modelsummary)
+library(fixest)
+library(gt)
+library(gtExtras)
+library(gghighlight)
+library(quartomonothemer)
+library(showtext)
+```
+
+
+```{r}
+font_title <- "Josefin Sans"
+font_text <- "Montserrat"
+font_sans <- "Noto Sans" 
+color_base <- "#009F8C"
+color_base_light <- "#95DFD6"
+color_accent <- "#B75C9D"
+color_accent_light <- "#DBA6CC"
+gray <- "#bebebe"
+darkgray <- "#6d6d6d"
+
+font_add_google(font_title)
+font_add_google(font_text)
+showtext_auto()
+
+style_mono_quarto(
+  font_title = font_title,
+  font_text = font_text,
+  font_sans = font_sans,
+  color_base = color_base,
+  color_accent = color_accent,
+  color_link = color_accent,
+  color_code = color_base,
+  size_base = 30,
+  path_scss = here::here("quartomonothemer.scss")
+)
+```
+
+```{r}
+# function to convert scenario names
+get_qualified_scen_name <- function(cs){
+  qualified_scen_name <- ""
+  if (cs == 'base' | cs == 'Baseline' | cs == 'baseline')
+    qualified_scen_name <- 'Baseline'
+  else if(cs == "sc_walk")
+    qualified_scen_name <- 'Walking'
+  else if(cs == "sc_cycle")
+    qualified_scen_name <- 'Bicycling'
+  else if(cs == "sc_car")
+    qualified_scen_name <- 'Car'
+  else if(cs == "sc_motorcycle")
+    qualified_scen_name <- 'Motorcycling'
+  else if(cs == "sc_bus")
+    qualified_scen_name <- 'Public Transport'
+  
+  return(qualified_scen_name)
+}
+
+```
+
+```{r}
+
+library(tidyverse)
+library(plotly)
+
+library(here)
+library(tidyverse)
+library(gghighlight)
+library(gt)
+library(gtExtras)
+
+repo_sha <-  as.character(readLines(file.path("repo_sha")))
+io <- readRDS(paste0("../results/multi_city/io_", repo_sha, "_test_run.rds"))
+
+PIF <- read_csv("data/PIF.csv")
+
+PIF <- PIF |> rename(Scenario = name) |> mutate(Scenario = case_when(
+                 Scenario  == "sc_cycle_PIF" ~ "Bicycling",
+                 Scenario  == "sc_car_PIF" ~ "Car",
+                 Scenario  == "sc_bus_PIF" ~ "Public Transport",
+               )
+)
+
+prop <- io$bogota$trip_scen_sets |> distinct(scenario, trip_id, .keep_all = T) |> count(scenario, trip_mode) |> mutate(freq = round(prop.table(n) * 100, 1), .by = scenario) |> mutate(pd = round(freq - freq[scenario == 'baseline'], 1)) |> filter(pd != 0)
+
+prop[prop$scenario == "baseline",]$scenario <- "Baseline"
+prop[prop$scenario == "sc_bus",]$scenario <- "Public Transport"
+prop[prop$scenario == "sc_car",]$scenario <- "Car"
+prop[prop$scenario == "sc_cycle",]$scenario <- "Bicycling"
+
+scen_colours <- c("Baseline" = '#ffffbf',
+                  "Bicycling" = '#abdda4',
+                  "Car" = '#d7191c',
+                  "Public Transport" = '#2b83ba',
+                  "Motorcycle" = '#fdae61')
+
+
+```
+
+# Scenario Definition - (5% change)
+
+## Scenario Proportions
+
+![](images/trip-prop.png)
+
+## Cycling Scenario
+
+![](images/cycle-scenario.png)
+
+## Bus Scenario
+
+![](images/bus-transport-scenario.png)
+
+## Car Scenario
+
+![](images/car-scenario.png)
+
+## Comparison
+
+```{r}
+
+plotly::ggplotly(ggplot(prop) +
+     aes(x = trip_mode, fill = scenario, weight = pd) +
+     geom_bar() +
+     scale_fill_hue(direction = 1) +
+    scale_x_discrete(guide = guide_axis(angle = 90)) + 
+    geom_text(aes(x = trip_mode, y = round(pd, 1), label = round(pd, 1)), size = 4, 
+                                 position = position_dodge()) + scale_fill_manual(values = scen_colours) +
+     facet_wrap(vars(scenario)) + 
+     labs(title = "Scenario definition (by mode)", y = "Percentage (%)", x = "Trip Mode") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)))
+
+```
+
+# Distance tables - (km)
+
+## Distance table
+
+![](images/distance-table.png)
+
+## Cycling Scenario distance table
+
+![](images/distance-table-cycle-scenario.png)
+
+## Bus Scenario distance table
+
+![](images/distance-table-bus-scenario.png)
+
+## Car Scenario distance table
+
+![](images/distance-table-car-scenario.png)
+
+
+
+# Duration tables - (minutes)
+
+## Duration table
+
+![](images/duration-table.png)
+
+## Cycling Scenario duration table
+
+![](images/duration-table-cycle-scenario.png)
+
+## Bus Scenario duration table
+
+![](images/duration-table-bus-scenario.png)
+
+## Car Scenario duration table
+
+![](images/duration-table-car-scenario.png)
 
 ## ITHIM Overview
 
@@ -15,13 +217,78 @@ editor: visual
 
 ## Outcomes
 
-## Scenario Definition - only 5% change in trips
 
-## Distance and Duration tables
+## Duration table
 
-## PA outcomes - average MMETs per peron per week
+![](images/duration-table.png)
 
-## AP Outcomes - PM2.5 exposure levels
+## PM Emission Inventory
+
+```{r fig.height=5, fig.width=8}
+
+gtb <- io$bogota$vehicle_inventory |> 
+  dplyr::select(-c(speed, CO2_emission_inventory)) |> 
+  filter(PM_emission_inventory !=0) |> 
+  mutate(PM_emission_inventory = round(PM_emission_inventory * 100, 1)) |> 
+  gt() |> 
+  cols_label(stage_mode = "Mode", PM_emission_inventory = "PM Emission Inventory") |>
+  gt_plt_bar_pct(PM_emission_inventory, scaled = TRUE, labels = TRUE)
+
+gtb
+```
+
+## AP Outcomes - PM2.5 exposure levels ($\mu$/$m^3$)
+
+```{r mmets}
+
+mmets <- io$bogota$outcomes$mmets #|> pivot_longer(cols = ends_with("mmet"))
+
+change_names <- which(grepl("_mmet", names(mmets), fixed = TRUE))
+  names(mmets)[change_names] <- sapply(gsub("_mmet" , "", names(mmets)[change_names]), FUN = get_qualified_scen_name)
+  
+mmets <- mmets |> pivot_longer(cols = -c(1:4)) |> rename(Scenario = name)
+
+plotly::ggplotly(ggplot(mmets, aes(x=value, fill=Scenario)) + 
+                   geom_density(alpha=.3) + 
+                   scale_fill_manual(values = scen_colours) +
+                   xlim(0, 120) +
+                   labs(title = "Cumulative Distribution of MMETs per person per week (by scenario)",
+                        x = "MMETs per person per week",
+                        y = "Density")
+                   )
+
+```
+
+## PA outcomes - Marginal METs per person per week
+
+```{r}
+mmets |> 
+    group_by(Scenario) |> 
+    reframe(qs = c(quantile(value, prob = 0.25), median(value), mean(value))) |>
+    mutate(qs = round(qs, 1)) |> group_by(Scenario) |> summarise(ld = list(qs)) |> gt() |> gt_plt_bar_stack(column = ld, labels = c("Minimum", "Median", "Mean"), palette = c("#fee8c8", "#fdbb84", "#e34a33"))
+
+
+```
+
+
+## Potential Impact Fraction using different censor points
+
+
+```{r}
+
+ggplotly(ggplot(PIF) +
+  aes(x = group, y = value, fill = Scenario) +
+  geom_boxplot() +
+  scale_fill_hue(direction = 1) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_fill_manual(values = scen_colours) +
+  facet_wrap(vars(Scenario)) +
+  labs("Potential Impact Fraction using all-cause DRF",
+  subtitle = "We have used three different DRFs where censor point varies. PIF_75p where censor point is at 75th percentile, and PIF_WHO_DRL (censor point is at 35 MMETs per person per week and PIF_none (without any censor point)",
+  x = "", y = "PIF (%) (+ve benefit)"))
+
+```
+
 
 ## Health Outcomes
 
