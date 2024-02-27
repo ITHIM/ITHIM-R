@@ -329,10 +329,11 @@ scenario_pm_calculations <- function(dist, trip_scen_sets) {
     as.numeric()
 
   #----
+  # AA: Changed 3.15 to 3 (leisure_hours) and 10.75 to 10.7 (light_hours)
   # Dan: We are saying that time spent for any person is:
   # Sleep: 8.3 hours
-  # Leisure sedentary screen time: 3.15 hours
-  # Light activities: 10.75 hours
+  # Leisure sedentary screen time: 3.2 hours
+  # Light activities: 10.7 hours
   # For a total of 22.2 hours
   # Since it is possible that the unknown time is less than 22.2, I am going
   # to use proportions for now to get values for these activities.
@@ -343,9 +344,9 @@ scenario_pm_calculations <- function(dist, trip_scen_sets) {
   # to 6 hours. Leisure and light activities will be zero in this case
 
   sleep_hours <- 8.3
-  leisure_hours <- 3.15
-  light_hours <- 10.75
-
+  leisure_hours <- 3.2
+  light_hours <- 10.7
+  
   # Calculate total air and pm inhaled in each person
   synth_pop <- trip_set %>%
     filter(participant_id != 0) %>%
