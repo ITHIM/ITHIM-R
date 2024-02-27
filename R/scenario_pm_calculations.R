@@ -408,9 +408,9 @@ scenario_pm_calculations <- function(dist, trip_scen_sets) {
       ## Leisure sedentary screen time
       #### Leisure has a correction if sleep time is less than 6 hours
       leisure_duration = ifelse(sleep_less_6h == 1,
-        (unknown_time - 6) * (leisure_hours / (leisure_hours + light_hours)) * 60, # In minutes
+        (unknown_time - 6) * (leisure_hours / (leisure_hours + light_hours)), 
         unknown_time * (leisure_hours / (sleep_hours + leisure_hours + light_hours))
-      ) * 60, # In minutes
+      ) * 60, # In minutes for both if and else values
       leisure_duration = ifelse(leisure_duration < 0, 0, leisure_duration), # This happened in 35 rows out of the 132k
       vo2_leisure = ecf * leisure_met * rmr,
       pct_vo2max_leisure = ifelse(leisure_duration < 5, 100,
@@ -436,9 +436,9 @@ scenario_pm_calculations <- function(dist, trip_scen_sets) {
       ## Light activities
       #### Light activities has a correction if sleep time is less than 6 hours
       light_duration = ifelse(sleep_less_6h == 1,
-        (unknown_time - 6) * (light_hours / (leisure_hours + light_hours)) * 60, # In minutes
+        (unknown_time - 6) * (light_hours / (leisure_hours + light_hours)), 
         unknown_time * (light_hours / (sleep_hours + leisure_hours + light_hours))
-      ) * 60, # In minutes
+      ) * 60, # # In minutes for both if and else values
       light_duration = ifelse(light_duration < 0, 0, light_duration), # This happened in 35 rows out of the 132k
       vo2_light = ecf * light_met * rmr,
       pct_vo2max_light = ifelse(light_duration < 5, 100,
