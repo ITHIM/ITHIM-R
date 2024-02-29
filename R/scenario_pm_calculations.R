@@ -335,7 +335,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets) {
   # Leisure sedentary screen time: 3.2 hours
   # Light activities: 10.8 hours
   # For a total of 22.3 hours
-  # Since it is possible that the unknown time is less than 22.2, I am going
+  # Since it is possible that the unknown time is less than 22.3, I am going
   # to use proportions for now to get values for these activities.
   # There are a couple of rules to consider:
   # - When sleep time is less than 6 hours, we have to assign it to 6 and split
