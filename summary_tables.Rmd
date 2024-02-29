@@ -380,6 +380,7 @@ for (city in cities) { # Loop for each city
   
   # find the proportion of trips made by each mode in each scenario
   td <- df %>% distinct(trip_id, scenario, .keep_all = T) %>% 
+    filter(!trip_mode %in% c("bus_driver", "taxi", "rail", "auto_rickshaw", "truck", "other", "car_driver")) |> 
     group_by(trip_mode, scenario) %>% 
     summarise(p = round(dplyr::n() / u_trips * 100, 1)) %>% 
     spread(key = trip_mode, value = p) %>% 
@@ -464,7 +465,9 @@ for (city in cities) { # loop through cities
   count_people <- nrow(io[[city]]$synth_pop) 
   
   # extract distances and divide by number of people
-  td <- io[[city]]$dist %>% dplyr::filter(stage_mode != 'bus_driver' & stage_mode != 'car_driver') %>%
+  td <- io[[city]]$dist %>% 
+    # dplyr::filter(stage_mode != 'bus_driver' & stage_mode != 'car_driver') %>%
+    filter(!stage_mode %in% c("bus_driver", "taxi", "rail", "auto_rickshaw", "truck", "other", "car_driver")) |> 
     mutate_if(is.numeric, round, digits = round_to) %>% 
     mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
 
@@ -478,7 +481,7 @@ for (city in cities) { # loop through cities
   row.names(td) <- NULL
   
   # write to .html
-  print(kable(td, caption = paste("Distance table (km) per day for ", city, "( ", count_people, " ) per person in the synthetic population")))
+  print(kable(td, caption = paste("Distance table (km) per day for ", city, "(", count_people, ") per person in the synthetic population")))
   cat("\n")
   
   td1 <- td
@@ -500,7 +503,9 @@ for (city in cities) { # loop through cities
   ## repeat but only for people who are travelling
   # extract number of people travelling from the trip data rather than the synthetic population
   count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id))
-  td <- io[[city]]$dist %>% dplyr::filter(stage_mode != 'bus_driver') %>%
+  td <- io[[city]]$dist %>% 
+    # dplyr::filter(stage_mode != 'bus_driver') %>%
+    filter(!stage_mode %in% c("bus_driver", "taxi", "rail", "auto_rickshaw", "truck", "other", "car_driver")) |> 
     mutate_if(is.numeric, round, digits = round_to) %>% 
     mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   colnames(td)[2:ncol(td)] <- c('Baseline', orig_scen_names_updated)
@@ -509,7 +514,7 @@ for (city in cities) { # loop through cities
   td <- td[order(x),]
   row.names(td) <- NULL
   
-  print(kable(td, caption = paste("Distance table (km) for ", city, "( ", count_people, " ) per person in the synthetic population (people with trips ONLY)")))
+  print(kable(td, caption = paste("Distance table (km) for ", city, "(", count_people, ") per person in the synthetic population (people with trips ONLY)")))
   
 }
 
@@ -663,7 +668,10 @@ for(city in cities){ # loop through cities
   count_people <- nrow(io[[city]]$synth_pop)
   
   # extract the duration for the synthetic population
-  td <- io[[city]]$dur %>% dplyr::filter(stage_mode != 'bus_driver' & stage_mode != 'car_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  td <- io[[city]]$dur %>% 
+    # dplyr::filter(stage_mode != 'bus_driver' & stage_mode != 'car_driver') %>% 
+    filter(!stage_mode %in% c("bus_driver", "taxi", "rail", "auto_rickshaw", "truck", "other", "car_driver")) |> 
+    mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
 
   # update scenario names
   colnames(td)[2:ncol(td)] <- c('Baseline', orig_scen_names_updated)
@@ -693,18 +701,21 @@ for(city in cities){ # loop through cities
   trip_dur <- inner_join(trip_dur, td1, by = 'stage_mode')
   
   # print to html
-  print(kable(td, caption = paste("Duration table (mins) per day for synthetic population for ", city, "( ", count_people, " ) per person (everyone)")))
+  print(kable(td, caption = paste("Duration table (mins) per day for synthetic population for ", city, "(", count_people, ") per person (everyone)")))
   
   # repeat but only counting people who are actually taking a trip
   count_people <- length(unique(io[[city]]$trip_scen_sets$participant_id)) # find unique trip ids rather than rows in synthetic population
-  td <- io[[city]]$dur %>% dplyr::filter(stage_mode != 'bus_driver' & stage_mode != 'car_driver') %>% mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
+  td <- io[[city]]$dur %>% 
+    # dplyr::filter(stage_mode != 'bus_driver' & stage_mode != 'car_driver') %>% 
+    filter(!stage_mode %in% c("bus_driver", "taxi", "rail", "auto_rickshaw", "truck", "other", "car_driver")) |> 
+    mutate_if(is.numeric, round, digits = round_to) %>% mutate_if(is.numeric, list(~round((.) / count_people, round_to)))
   colnames(td)[2:ncol(td)] <- c('Baseline', orig_scen_names_updated)
   x <- match(td$stage_mode, trip_order$mode)
   x[!is.na(x)]
   td <- td[order(x),]
   row.names(td) <- NULL
   
-  print(kable(td, caption = paste("Duration table (mins) per day based on trips taken in travel survey for ", city, "( ", count_people, " ) per person (people with trips)")))
+  print(kable(td, caption = paste("Duration table (mins) per day based on trips taken in travel survey for ", city, "(", count_people, ") per person (people with trips)")))
   cat("\n")
 }
 
