@@ -72,7 +72,7 @@ This section talks about all the files (datasets) required to setup and run the 
 
 This section covers file inputs (specific to a city) required to run the model.
 
--   **Travel survey** [(example trips dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/trips_bogota.csv%20target=%22_blank). A table of all trips taken by a group of people on a given day. It also includes people who take no trips.
+-   **Travel survey** [(example trips dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/trips_bogota.csv). A table of all trips taken by a group of people on a given day. It also includes people who take no trips.
 
     -   One row per trip (or stage of trip)
     -   Minimal columns: `participant_id`, `age`, `sex`, `trip_mode`, `trip_duration` (or `trip_distance`)
