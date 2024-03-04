@@ -11,11 +11,11 @@ This document aims to be a comprehensive record of the calculations in the ITHIM
 
 ## Website for the package
 
-Using [`pkgdown`](https://pkgdown.r-lib.org/) package, we have published the documentation of the `ITHIMR` package on github-pages. Please read it here: [documentation + helpful resources](https://ithim.github.io/ITHIM-R)
+Using [`pkgdown`](https://pkgdown.r-lib.org/) package, we have published the documentation of the `ITHIMR` package on github-pages. Please read it here: [documentation + helpful resources](https://ithim.github.io/ITHIM-R).
 
 ## How to use the package
 
-We have written a `how-to` guide that explains how to install the ITHIM-R package, how to run the ITHIM-Global model using this package and how to produce summaries of the key results. Please read it here: [how to run ITHIM?](https://ithim.github.io/ITHIM-R/articles/how-to-run-ITHIM.html)
+We have written a `how-to` guide that explains how to install the ITHIM-R package, how to run the ITHIM-Global model using this package and how to produce summaries of the key results. Please read it here: [how to run ITHIM?](https://ithim.github.io/ITHIM-R/articles/how-to-run-ITHIM.html).
 
 ### Citation
 
@@ -64,9 +64,9 @@ ITHIM-R requires 5 user defined input files in csv format, saved in a directory 
 
 This section talks about all the files (datasets) required to setup and run the model. There are two subsections, which are:
 
--   City-specific files (local input parameters/datasets) 
+-   City-specific files (local input parameters/datasets).
 
--   Global files (global input parameters/datasets)
+-   Global files (global input parameters/datasets).
 
 ### City-specific files
 
@@ -74,37 +74,37 @@ This section covers file inputs (specific to a city) required to run the model.
 
 -   **Travel survey** [(example trips dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/trips_bogota.csv). A table of all trips taken by a group of people on a given weekday. It also includes people who take no trips.
 
-    -   One row per trip (or stage of trip)
-    -   Minimal columns: `participant_id`, `age`, `sex`, `trip_mode`, `trip_duration` (or `trip_distance`)
-    -   Other columns: `stage_mode`, `stage_duration` (or `stage_distance`)
+    -   One row per trip (or stage of trip).
+    -   Minimal columns: `participant_id`, `age`, `sex`, `trip_mode`, `trip_duration` (or `trip_distance`).
+    -   Other columns: `stage_mode`, `stage_duration` (or `stage_distance`).
 
 -   **Injury events** [(example injuries dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/injuries_bogota.csv). A table of recorded road-traffic injury (fatality) events in a city in one or more years.
 
-    -   One row per event
-    -   Minimal columns: **victim mode** (`cas_mode`) and **strike mode** (`strike_mode`)
-    -   Other columns: `year`, `cas_age`, `cas_gender`, `weight` (e.g. multiple years combined)
+    -   One row per event.
+    -   Minimal columns: **victim mode** (`cas_mode`) and **strike mode** (`strike_mode`).
+    -   Other columns: `year`, `cas_age`, `cas_gender`, `weight` (e.g. multiple years combined).
 
 -   **Baseline mortality and years of life lost data** [(example burden dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/gbd_bogota.csv).
 
-    -   One row per health outcome/metric/age/gender combination
-    -   Minimal rows: `Measure` (death/YLL); `sex_name` (Male/Female); `age_name` ('x to y'); `cause_name` (cause of mortality or YLL); `val` (value of burden); `population` (number of people `val` corresponds to, e.g. population of country)
+    -   One row per health outcome/metric/age/gender combination.
+    -   Minimal rows: `Measure` (death/YLL); `sex_name` (Male/Female); `age_name` ('x to y'); `cause_name` (cause of mortality or YLL); `val` (value of burden); `population` (number of people `val` corresponds to, e.g. population of country).
 
 -   **Population of city** [(example population dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/population_bogota.csv). This is used in order to scale the baseline mortality and YLL data from the country’s values to the city's population under study.
 
-    -   One row per demographic group
-    -   Columns: `sex`, `age`, `population`
-    -   `age` column should share boundaries with `age_name` in baseline mortality and YLL data, but can be more aggregated
+    -   One row per demographic group.
+    -   Columns: `sex`, `age`, `population`.
+    -   `age` column should share boundaries with `age_name` in baseline mortality and YLL data, but can be more aggregated.
 
 -   **Physical activity survey** [(example physical activity dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/pa_bogota.csv)
 
-    -   One row per person
-    -   Columns: `sex`, `age`, `ltpa_marg_met` (total non-occupational PA in a week)
+    -   One row per person.
+    -   Columns: `sex`, `age`, `ltpa_marg_met` (total non-occupational PA in a week).
 
 ### Global files
 
 In order to setup the model, we need a fixed list of tables/datasets, which do not change across cities/ applied similarly to all cities and are hence referred to as “Global”, such as:
 
--   [**Health outcome interaction table**](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/global/dose_response/disease_outcomes_lookup.csv). A table with a list of health outcomes related to a specific pathway such as `Air Pollution` and `Physical Activity` and also the interaction between them
+-   [**Health outcome interaction table**](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/global/dose_response/disease_outcomes_lookup.csv). A table with a list of health outcomes related to a specific pathway such as `Air Pollution` and `Physical Activity` and also the interaction between them.
 -   **Air Pollution Exposure-Response Functions (ERFs)** exposure-response relationships between air pollution (PM2.5) and its impact on different health outcomes. We have collected/cleaned datasets from published studies for this.
 -   **Physical Activity Dose-Response Functions (DRFs)** dose-response relationships of physical activity and its impact on different health outcomes. Similar to air pollutiom, this too comes from published studies. This now sits in an independent R package called [`drpa`](https://github.com/meta-analyses/drpa/).
 
