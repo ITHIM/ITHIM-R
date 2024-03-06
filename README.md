@@ -40,7 +40,7 @@ ITHIM performs integrated assessments of the health impacts of user-defined tran
 #### Physical Activity
 ITHIM models exposure to physical activity by comparing distributions of weekly physical activity under different scenarios. Walking, cycling and other types of physical activity are combined as marginal MET hours per week of activity. Outcomes affected by physical activity include several cardiovascular diseases, depression, dementia, diabetes, breast cancer and colon cancer. ITHIM also models changes in health through all-cause mortality. A comparative risk assessment method is used to estimate how changes in population physical activity lead to changes in health burden. 
 
-#### Road traffic injuries
+#### Road Traffic Injuries
 Road traffic injuries are modelled using a model based on risk, distance and speed. Differences in risk by sex and age are also taken into account. This approach allows ITHIM to look at how the absolute number of injuries and the risk of injury might change for different modes of transport as travel distances between modes change.
 
 #### Air Pollution
@@ -50,7 +50,7 @@ Fine particulate matter (PM2.5) air pollution risks are calculated for the gener
 
 The carbon dioxide (CO2) pathway models carbon dioxide (CO2) emissions from motorised vehicles. The CO2 pathway estimates a single metric: the total CO2 emissions for each modelled scenario. The method to calculate CO2 emissions is similar to the one for PM2.5.
 
-#### Health outcomes
+#### Health Outcomes
 
 The health impacts in ITHIM are presented as years of life lost (YLL) and number of attributable deaths seperately for each pathway, in addition to accounting for the interaction between physical activity and air pollution. Background mortality and YLL data for the study areas are estimated from [Global Burden of Disease studies](https://www.healthdata.org/research-analysis/gbd).
 
@@ -59,8 +59,6 @@ The health impacts in ITHIM are presented as years of life lost (YLL) and number
 ### Data inputs
 
 ITHIM-R requires 5 user defined input files in csv format, saved in a directory with the city's name. See [inst/ext/local/bogota](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota) for example files. There are also numerous assumptions which the user can parameterize in the model.
-
-#### File inputs
 
 This section talks about all the files (datasets) required to setup and run the model. There are two subsections, which are:
 
@@ -106,7 +104,7 @@ In order to setup the model, we need a fixed list of tables/datasets, which do n
 
 -   [**Health outcome interaction table**](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/global/dose_response/disease_outcomes_lookup.csv). A table with a list of health outcomes related to a specific pathway such as `Air Pollution` and `Physical Activity` and also the interaction between them.
 -   **Air Pollution Exposure-Response Functions (ERFs)** exposure-response relationships between air pollution (PM2.5) and its impact on different health outcomes. We have collected/cleaned datasets from published studies for this.
--   **Physical Activity Dose-Response Functions (DRFs)** dose-response relationships of physical activity and its impact on different health outcomes. Similar to air pollutiom, this too comes from published studies. This now sits in an independent R package called [`drpa`](https://github.com/meta-analyses/drpa/).
+-   **Physical Activity Dose-Response Functions (DRFs)** dose-response relationships of physical activity and its impact on different health outcomes. Similar to air pollution, this too comes from published studies. This now sits in an independent R package called [`drpa`](https://github.com/meta-analyses/drpa/).
 
 ## How to run the model?
 
