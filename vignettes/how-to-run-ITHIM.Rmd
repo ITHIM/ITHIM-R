@@ -122,9 +122,9 @@ In order to setup the model, we need a fixed list of tables/datasets, such as:
 
 -   [**Disease interaction table**](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/global/dose_response/disease_outcomes_lookup.csv). A table with a list of diseases/causes for a specific pathway such as `Air Pollution` and `Physical Activity` and also the interaction between them.
 
--   **Air Pollution Exposure Response Functions (ERFs)**. These give the exposure response relationships between air pollution (PM2.5) and its impact on health for different diseases/causes. We have collected/cleaned datasets from published studies for this.
+-   [**Air Pollution Exposure Response Functions (ERFs)**](https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/global/dose_response/drap/extdata). These give the exposure response relationships between air pollution (PM2.5) and its impact on health for different diseases/causes. We have collected/cleaned datasets from published studies for this.
 
--   **Physical Activity Dose-Response Functions (DRFs)**. These are dose response relationships of physical activity and its impact on health for different diseases/causes. Similar to air pollution, this too comes from published studies. This now sits in an independent R package called [`drpa`](https://github.com/meta-analyses/drpa/).
+-   [**Physical Activity Dose-Response Functions (DRFs)**](https://meta-analyses.github.io/drpa/drpa.html). These are dose response relationships of physical activity and its impact on health for different diseases/causes. Similar to air pollution, this too comes from published studies. This now sits in an independent R package called [`drpa`](https://github.com/meta-analyses/drpa/).
 
 -   **Ventilation rate tables**. This data can be found in [inst/extdata/global/ventilation_rate](https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/global/ventilation_rate) and details how much air is being inhaled by different people in the model population.
 
