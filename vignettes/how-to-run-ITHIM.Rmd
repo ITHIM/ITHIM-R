@@ -152,9 +152,15 @@ The health effects of ITHIM are presented as years of life lost (YLLs) and numbe
 
 The ithim_objects list is saved under *results/multi_city/io\_",output_version,".rds*, where the output_version is currently set as the SHA number (i.e. the unique identifier) of the latest update on Github but can also be updated manually by the user in the `multi_city_script.R`.
 
+You may view it using the command `View(ithim_objects)` and it will then show you its content as such:
+
+![](images/clipboard-3599203388.png)
+
+You may click on individual sub-items such as `scen_prop` for more information.
+
 This list contains a comprehensive set of intermediate and final results from the model run:
 
-For each city it contains the following data:
+For each city - which is in this case is `bogota`, it contains the following data:
 
 -   **trip_scen_sets**: trip data for all scenarios for the synthetic population, i.e. the population sample built by combining the physical activity survey and travel survey data.
 
