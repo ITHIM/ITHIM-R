@@ -62,9 +62,9 @@ To get the newest updates of the Bogota branch, go to the 'Git' tab in RStudio n
 
 ![](../man/figures/Git_pull.png){width="100%"}
 
-Finally, you will also have to install the 'drpa' package from Github ([drpa](https://github.com/meta-analyses/drpa)) by first installing the 'remotes' package as explained above and then by typing
+Finally, you will also have to install the `drpa` package from Github ([drpa](https://github.com/meta-analyses/drpa)) by first installing the `remotes` package as explained above and then by typing
 
-remotes::install_github("meta-analyses/drpa")
+`remotes::install_github("meta-analyses/drpa")`
 
 into the RStudio console.
 
@@ -154,13 +154,13 @@ The ithim_objects list is saved under *results/multi_city/io\_",output_version,"
 
 You may view it using the command `View(ithim_objects)` and it will then show you its content as such:
 
-![](images/clipboard-3599203388.png)
+![](images/clipboard-3599203388.png){width="624"}
 
 You may click on individual sub-items such as `scen_prop` for more information.
 
 This list contains a comprehensive set of intermediate and final results from the model run:
 
-For each city - which is in this case is `bogota`, it contains the following data:
+For each city - which in this case is `bogota`, it contains the following data:
 
 -   **trip_scen_sets**: trip data for all scenarios for the synthetic population, i.e. the population sample built by combining the physical activity survey and travel survey data.
 
