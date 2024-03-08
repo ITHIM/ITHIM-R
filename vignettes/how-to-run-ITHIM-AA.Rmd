@@ -1,0 +1,430 @@
+---
+title: "How to run ITHIM"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to run ITHIM}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# How to run ITHIM-Global
+
+In this guide we explain how to install the ITHIM-R package, how to run the model ITHIM-Global using this package and how to produce summaries of the key results.
+
+Please note that the guide was written for Windows 10 but should work similarly for different operating systems.
+
+## How to install the ITHIM-R package
+
+### Pre-requisites
+
+The following programmes need to have been installed before the ITHIM-R package can be used:
+
+-   [Git](https://github.com/git-guides/install-git)
+
+-   [R](https://cran.r-project.org/)
+
+-   [R Studio](https://posit.co/download/rstudio-desktop/)
+
+### Cloning the Github repository
+
+To clone (i.e. download) the ITHIM-R Github repository, open a command window, navigate to the folder in which you want to install the repository in and type:
+
+'git clone <https://github.com/ITHIM/ITHIM-R.git>'
+
+![](../man/figures/Clone_package.png){width="100%"}
+
+The Github repository has now been downloaded to your computer and the working branch - the default branch, is set to `bogota` which is this documentation refers to.
+
+### Installing the package in RStudio
+
+To open the ITHIM-R package in RStudio double click on the ITHIM-R.Rproj file inside the ITHIM-R folder saved on your computer. This should open the package in RStudio.
+
+To install the ITHIM-R package in RStudio, the following steps need to be performed:
+
+1.) If Git has been installed then the there should be a 'Build' tab in the top right hand corner of RStudio. Click on this tab and then on 'Install' in the panel below it.
+
+![](../man/figures/Build_package.png){width="100%"}
+
+This will install the ITHIM-R package but it will also most likely initially throw an error message 'Exited with status 1' stating that some other R packages that are needed for the ITHIM-R package have not yet been installed. To install these missing packages, click on the 'Packages' tab on the right hand side in the middle pane and then on 'Install'. This will open a pop-up window which lets you type in the packages that still need installing. Click on 'Install'.
+
+![](../man/figures/Install_packages.png){width="100%"}
+
+Once all missing R packages have been installed, go back to the 'Build' tab and install the ITHIM-R package again. It should now install smoothly.
+
+To get the newest updates of the Bogota branch, go to the 'Git' tab in RStudio next to the 'Build' tab and click on 'Pull'. This will automatically download the newest changes from Github. To update the ITHIM-R package on your computer, you need to again go to the 'Build' tab and click on 'Install' again. (Alternatively, if only code but none of the input files have been changed, instead of clicking on 'Install', you can also click on 'More' and then 'Load All' if this option exists for you, i.e. if 'devtools' has been installed. This is a faster way to update the package but will only work for minor code changes.) It is recommended to pull and install the newest updates on a regular basis.
+
+![](../man/figures/Git_pull.png){width="100%"}
+
+Finally, you will also have to install the `drpa` package from Github ([drpa](https://github.com/meta-analyses/drpa)) by first installing the `remotes` package as explained above and then by typing
+
+`remotes::install_github("meta-analyses/drpa")`
+
+into the RStudio console.
+
+![](../man/figures/install_drpa.png){width="100%"}
+
+## Running ITHIM-Global
+
+To run ITHIM-Global using the ITHIM-R package the various input files and parameters need to be updated first. Then the multi_city_script.R can be used to call the core functions required to run ITHIM-R. Note that the multi_city_script.R is set up to run ITHIM-Global for various cities in one go if required by looping through the cities one by one.
+
+### Update input parameters
+
+There are several input parameter files that need updating before running ITIHM-Global:
+
+-   5 files specific to each city saved in a directory of the city's name. (See [inst/ext/local/bogota](https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/local/bogota) for example files and also below for further information). These files need to be saved in the inst/extdata/local/'city' folder, where 'city' is replaced by the appropriate city name.
+
+-   file containing the various input parameters for all cities for which the code is to be run saved in the ITHIM-R folder. In this branch, this file is called Bogota_InputParameters_vxx.xlsx, where vxx refers to the latest version number of this file. Here it only contains the input parameters for Bogota but it can easily be extended to contain the input parameter values for various cities.
+
+-   global datasets - such as the dose-response relationships for the air pollution pathway e.g.. These files can be found in the [inst/extdata/global](https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/global) folder and usually do not need to be changed. (See below for further information.)
+
+#### City specific files
+
+This section covers the 5 city specific input files required to run the model.
+
+-   **Travel survey** [(example trips dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/trips_bogota.csv). A table of all trips taken by a group of people on a given day. It also includes people who take no trips. This data should come from an official travel survey for the city where possible.
+
+    -   One row per trip (or stage of trip)
+    -   Minimal columns: `participant_id`, `age`, `sex`, `trip_mode`, `trip_duration` (or `trip_distance`)
+    -   Other columns: `stage_mode`, `stage_duration` (or `stage_distance`)
+
+-   **Injury events** [(example injuries dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/injuries_bogota.csv). A table of recorded road-traffic injury (fatality) events in a city during one or more years.
+
+    -   One row per event
+    -   Minimal columns: **victim mode** (`cas_mode`) and **strike mode** (`strike_mode`)
+    -   Other columns: `year`, `cas_age`, `cas_gender`, `weight` (weight column should give number of years for which data exists if no `year` information is given)
+
+-   **Disease burden data** [(example burden dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/gbd_bogota.csv). This gives the burden of disease for different diseases. If no city specific information exists, country level information can be used.
+
+    -   One row per disease/metric/age/gender combination
+    -   Minimal rows: `Measure` (death/YLL); `sex_name` (Male/Female); `age_name` ('x to y'); `cause_name` (disease names); `val` (value of burden); `population` (number of people `val` corresponds to, e.g. population of country)
+
+-   **Population of city** [(example population dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/population_bogota.csv). This information is used to scale the Burden of Disease data to the city's population in question.
+
+    -   One row per demographic group
+    -   Columns: `sex`, `age`, `population`
+    -   `age` column should share boundaries with `age_name` in Disease burden data, but can be more aggregated
+
+-   **Physical activity survey** [(example physical activity dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/pa_bogota.csv). This is used to represent the physical activity levels in the city and should be taken from an official physical activity survey of the city where possible.
+
+    -   One row per person
+    -   Columns: `sex`, `age`, `ltpa_marg_met` (total non-occupational PA in a week)
+
+#### Global file inputs
+
+In order to setup the model, we need a fixed list of tables/datasets, such as:
+
+-   [**Disease interaction table**](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/global/dose_response/disease_outcomes_lookup.csv). A table with a list of diseases/causes for a specific pathway such as `Air Pollution` and `Physical Activity` and also the interaction between them.
+
+-   [**Air Pollution Exposure Response Functions (ERFs)**](https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/global/dose_response/drap/extdata). These give the exposure response relationships between air pollution (PM2.5) and its impact on health for different diseases/causes. We have collected/cleaned datasets from published studies for this.
+
+-   [**Physical Activity Dose-Response Functions (DRFs)**](https://meta-analyses.github.io/drpa/drpa.html). These are dose response relationships of physical activity and its impact on health for different diseases/causes. Similar to air pollution, this too comes from published studies. This now sits in an independent R package called [`drpa`](https://github.com/meta-analyses/drpa/).
+
+-   **Ventilation rate tables**. This data can be found in [inst/extdata/global/ventilation_rate](https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/global/ventilation_rate) and details how much air is being inhaled by different people in the model population.
+
+### Call multi_city_script.R
+
+In order to run ITHIM-R once it has been installed and the various input files described above have been updated, open the `multi_city_script.R` file within RStudio. (This file can be found under the 'Files' tab in the middle pane on the right hand side). This is the key script to run ITIHM-Global in constant mode (i.e. without sampling the input parameters from distributions). It reads in all the required datasets and initialises all variables by calling `run_ithim_setup` and then runs the model by calling `run_ithim`.
+
+First update the parameter values at the beginning of the script to set-up e.g. for which city / cities the script is to be run. If several city names are given as a vector, the model performs the ITHIM-R analysis for one city after another.
+
+Once these parameter values have been updated, click on 'Source' and the model should run.
+
+![](../man/figures/Run_model.png){width="100%"}
+
+It produces pop-up windows showing the plots of the results giving the years of life lost for each scenario and required disease outcome.
+
+## Results
+
+Apart from the pop-up windows produced at the end of the `multi_city_script.R` which give the years of life lost for each scenario and disease outcome, the main file containing the model outputs is the `ithim_objects` list, which is saved under *results/multi_city/io\_,'output_version',.rds*, where the output_version is currently set as the SHA number (i.e. the unique identifier) of the latest update on Github but can also be updated manually by the user.
+
+![](../man/figures/Model_output.png){width="100%"}
+
+The health effects of ITHIM are presented as years of life lost (YLLs) and number of attributable deaths. The background burden data for the study areas are estimated from the [Global Burden of Disease studies](https://www.healthdata.org/research-analysis/gbd).
+
+### ithim_objects
+
+The ithim_objects list is saved under *results/multi_city/io\_",output_version,".rds*, where the output_version is currently set as the SHA number (i.e. the unique identifier) of the latest update on Github but can also be updated manually by the user in the `multi_city_script.R`.
+
+You may view it using the command `View(ithim_objects)` and it will then show you its content as such:
+
+![](images/clipboard-3599203388.png){width="624"}
+
+You may click on individual sub-items such as `scen_prop` for more information.
+
+This list contains a comprehensive set of intermediate and final results from the model run:
+
+For each city - which in this case is `bogota`, it contains the following data:
+
+-   **trip_scen_sets**: trip data for all scenarios for the synthetic population, i.e. the population sample built by combining the physical activity survey and travel survey data.
+
+-   **dist**: total stage mode distances for each mode and scenario (incl. baseline) for the synthetic population.
+
+-   **dur**: total stage mode durations for each mode and scenario (incl. baseline) for the synthetic population.
+
+-   **true_dist**: distances from the trip data scaled up to the total distance travelled by the population of the city (for age ranges considered in the model only) for each scenario (incl. baseline) and mode of transport.
+
+-   **inj_distances**:
+
+    -   **true_distances**: city population mode distances by age category and sex considered in the model.
+
+    -   **injuries_list**: For all scenarios (incl. baseline) two lists are given, one for 'whw' (who-hit-whom) accidents where both the strike and the casualty mode are known and one for 'nov' (no other vehicle) accidents where no strike vehicle was involved in the accident. These lists contain all casualty (and strike) mode combinations by age category and sex. Furthermore, they detail casualty (and strike) mode distances travelled by the entire city population considered in the model ('\_sum') or just by the respective age and sex category. They also detail the casualty (and strike) mode exponents used in the injury Poisson model.
+
+    -   **reg_model**: parameterised Poisson injury regression model.
+
+    -   **injuries_for_model**: baseline data containing fatality counts for all casualty and strike mode combinations with associated city population distance data.
+
+-   **demographic**: city population counts for all age category and sex combinations considered in the model.
+
+-   **synth_pop**: population extracted from the physical activity survey giving the marginal met leisure physical activity values for each person.
+
+-   **outcomes**:
+
+    -   **mmets**: Marginal MET values for each person in the synthetic population for each scenario.
+
+    -   **pm_conc_pp**: PM2.5 concentration attributed to each person in the synthetic population for each scenario (incl. baseline).
+
+    -   **co2_conc**: total CO2 concentration levels for each mode of transport and scenario (incl. baseline).
+
+    -   **ref_injuries**: number of injury deaths and years of life lost by age and sex category for the reference scenario including upper and lower boundaries.
+
+    -   **hb**: health burden (deaths and years of life lost (YLLs) in two separate dataframes) for each age and sex category and each disease using the combined result for diseases affected by both air pollution and physical activity levels.
+
+    -   **pathway_hb**: health burden (deaths and years of life lost (YLLs) in two separate dataframes) for each age and sex category and each disease keeping the results for diseases affected by both air pollution and physical activity levels separate.
+
+    -   **whw**: number of fatalities by strike and casualty modes for who-hit-whom and no-other-vehicle injuries for all scenarios (incl. baseline).
+
+-   **disease_burden**: disease burden for all diseases for the baseline scenario (deaths and years of life lost) for all age and sex categories considered in the model (from input data).
+
+-   **PM_emission_inventory**: PM emission inventory by mode of transport for the baseline scenario (from input data).
+
+-   **injury_table**: summarised total injury counts from the injury input data by age and sex category and strike and casualty mode for all years ('weight' column) given in the input data for both 'whw' (who-hit-whom) and 'nov' (no-other-vehicle) accidents.
+
+-   **vehicle_inventory**: gives the speed and CO2 and PM2.5 emissions inventories for all vehicles in the baseline scenario.
+
+-   **location**: country and continent information.
+
+-   **new_walk_trips_count**: number of rail and bus trips to which an additional walking stage was added during the model run.
+
+**Scen_prop**:
+
+-   the proportion of trips by mode to be converted for each distance category and scenario.
+
+**Ithim_run**:
+
+-   information about the ITHIM-R run such as the name of the input parameter file, the name of the scenario definition used, the reference scenario, the scenario names, the computation mode (constant or sample), the timestamp of the model run, the output version number, the author of the model run and any additional comments about this particular model run.
+
+### Summaries of key results
+
+There are various scripts which can be used to produce output summary tables of the results:
+
+-   three markdown documents (in root folder) producing html and csv files:
+
+    -   summary_tables.Rmd
+    -   summary_tables_PA_AP.Rmd
+    -   injury_tables.Rmd
+
+-   Shiny application creating a Pivot table:
+
+    -   app.R in results_app folder
+
+The following outputs are produced:
+
+#### summary_tables.Rmd
+
+The .Rmd file summarises mode splits, distances and durations travelled and looks at health outcomes (YLLs and deaths) for the different air pollution (AP), injury and physical activity (PA) pathways but also by disease
+
+It produces the following output documents:
+
+-   html file (saved in the root folder) containing the following information. (Note that the Rmd file was set up to produce a lot more distance, duration and health outcomes tables which have all been commented out to highlight the main results but could easily be added in again):
+
+    -   for each city a table is displayed showing the Baseline mode split for each distance category
+
+    -   for each city a table is given showing the mode split for each scenario
+
+    -   city specific distance tables showing average daily distances in km travelled by each person in the synthetic population by mode for all scenarios (incl Baseline)
+
+    -   city specific distance tables showing average daily distances in km travelled by each person in the synthetic population WITH a trip by mode for all scenarios (incl Baseline)
+
+    -   one table giving the city specific baseline average daily distances (km) travelled by each person in the synthetic population for all cities
+
+    -   city specific duration tables showing average daily duration (h) spent travelling by each person in the synthetic population by mode for all scenarios (incl Baseline)
+
+    -   city specific duration tables showing average daily duration (h) spent travelling by each person in the synthetic population WITH a trip by mode for all scenarios (incl Baseline)
+
+-   output .csv files containing the following information. (Note that all these files are also saved with their version number in the file name):
+
+    -   the ylls.csv file (results/multi_city/health_impacts/ylls.csv) gives the changes in YLLs for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario compared to the reference scenario. It also shows the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age, and age and sex specific population levels. The results are for either AP and PA only if the diseases are affected by only AP or PA or the results are for the combined AP and PA effects if the diseases are affected by both AP and PA.
+
+    -   the ylls_pathway.csv file (results/multi_city/health_impacts/ylls_pathway.csv) gives the changes in YLLs for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario compared to the reference scenario. It also shows the disease level, whether the disease is exasperated by changes in AP or PA, and the age, and age and sex specific population levels. The results are given for AP and PA independently even if a disease is affected by both pathways.
+
+    -   the deaths.csv file (results/multi_city/health_impacts/deaths.csv) gives the changes in deaths for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario compared to the reference scenario. It also shows the disease level, whether the disease is exasperated by changes in AP, PA or both, and the age, and age and sex specific population levels. The results are for either AP and PA only if the diseases are affected by only AP or PA or the results are for the combined AP and PA effects if the diseases are affected by both AP and PA.
+
+    -   the deaths_pathway.csv file (results/multi_city/health_impacts/deaths_pathway.csv) gives the changes in deaths for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, disease and scenario compared to the reference scenario. It also shows the disease level, whether the disease is exasperated by changes in AP or PA, and the age, and age and sex specific population levels. The results are given for AP and PA independently even if a disease is affected by both pathways.
+
+#### summary_tables_PA_AP.Rmd
+
+This .Rmd file can be used to summarise the PM2.5 personal exposure levels, the PM2.5 and CO2 concentrations and physical activity levels for all scenarios including the baseline.
+
+It produces the following output documents:
+
+-   html file (saved in the root folder) containing the following information:
+
+    -   boxplots for each city of daily individual PM2.5 exposure levels for each scenario
+
+    -   one table for each city detailing the individual PM2.5 exposure levels including the mean, 5th, 50th and 95th percentiles, the mean PM2.5 concentration levels for each scenario and the change in PM2.5 compared to the reference scenario
+
+    -   one table detailing the percentage Baseline PM2.5 emissions attributed to each transport mode, the city wide PM2.5 concentration levels and the percentage of these concentrations attributed to transport for all cities
+
+    -   one table detailing the Baseline CO2 concentration levels for each scenario for all cities
+
+    -   boxplots for each city of individual mMET physical activity levels for each scenario
+
+    -   one table for each city giving the mean, 5th, 50th and 95th percentile levels of individual physical activity levels (mMETs) for each scenario
+
+    -   one table detailing the average mMETs levels for each scenario for all cities
+
+    -   2nd Option:
+
+        -   boxplots for each city of daily individual PM2.5 exposure levels for each scenario
+
+        -   one table detailing the Baseline PM2.5 emissions for each mode, the city wide PM2.5 concentration levels and the percentage of these concentrations attributed to transport for all cities
+
+        -   one table for each city detailing the individual PM2.5 exposure levels including the mean, 5th, 50th and 95th percentiles, the mean PM2.5 concentration levels for each scenario and the change in PM2.5 compared to the reference scenario. Table also contains CO2 concentrations for each scenario
+
+        -   boxplots for each city of individual mMET physical activity levels for each scenario
+
+-   output .csv/.xlsx files containing the following information:
+
+    -   desc_stats.csv file (results/multi_city/AP/desc_stats.csv, also saved with output version in name) containing the summary statistics of individual PM2.5 exposure levels, the total PM2.5 concentrations levels, the change in PM2.5 concentration levels compared to the reference scenario and the total transport related CO2 emission concentrations for each scenario and city
+
+    -   desc_stats.xlsx file (results/multi_city/AP/desc_stats\_*output_version*.xlsx) containing the following tabs:
+
+        -   PM_2.5_emission_inventory: table detailing the percentage Baseline PM2.5 emissions attributed to each transport mode, the city wide PM2.5 concentration levels and the percentage of these concentrations attributed to transport for all cities
+
+        -   CO2_conc: table detailing the CO2 concentration levels for each scenario for all cities
+
+        -   summary_stats_PM2.5_CO2: summary statistics of individual PM2.5 exposure levels, the total PM2.5 concentrations levels, the change in PM2.5 concentration levels compared to the reference scenario and the total transport related CO2 emission concentrations for each scenario and city
+
+#### injury_tables.Rmd
+
+This .Rmd file can be used to summarise the injury outcomes. It produces the following output documents:
+
+-   html file (saved in the root folder) containing the following information:
+
+    -   fatality counts by strike and casualty mode for each scenario and city (incl lower and upper confidence interval limits were applicable); one table for each city, scenario and mean, upper or lower confidence interval values
+
+    -   fatality counts giving lower, mean and upper bounds (where they exist) for each casualty mode by strike mode for each scenario and city; one table for each casualty mode, scenario and city
+
+    -   tables showing the fatalities per billion km travelled for each city, scenario and mean, upper and lower confidence interval values (where applicable).
+
+    -   tables showing the number of deaths per 100,000 people for each city, scenario and mean, upper and lower confidence interval values (where applicable).
+
+    -   tables showing the fatalities per 100 million hours travelled for each city, scenario and mean, upper and lower confidence interval values (where applicable).
+
+-   output .csv files containing the following information.(Note that all these files are also saved with their version number in the file name):
+
+    -   The inj_counts.csv file ('results/multi_city/inj/inj_counts.csv') contains the fatality counts (mean and upper and lower confidence interval boundaries if required) for each city, scenario and casualty and strike mode pair. It also includes the observed baseline fatality counts and the active travel fatality counts (the sum of cycle and walk casualty mode fatalities)
+
+    -   The injury_risks_per_billion_kms.csv file ('results/multi_city/inj/injury_risks_per_billion_kms.csv') gives the fatalities per billion km travelled for each city, scenario and casualty mode. It also includes the upper and lower confidence interval boundary values if required and active travel counts
+
+    -   The injury_risks_per_100k_pop.csv file ('results/multi_city/inj/injury_risks_per_100k_pop.csv') gives the fatalities per 100k people for each city, scenario and casualty mode. It also includes the upper and lower confidence interval boundary values if required and active travel counts
+
+    -   The distances.csv file ('results/multi_city/inj/distances.csv') contains the population distances travelled per day for each city, scenario and mode
+
+    -   The injury_risks_per_100million_h.csv file ('results/multi_city/inj/injury_risks_per_100million_h.csv') gives the fatalities per 100 million hours travelled for each city, scenario and casualty mode. It also includes the upper and lower confidence interval boundary values if required and active travel counts
+
+-   The inj_data.xlsx file (results/multi_city/inj/inj_data.xlsx) contains all injury output csv files
+
+#### Producing the .Rmd file outputs
+
+To run the various .Rmd files, you can use the `Create_output_summaries.R` script saved in the root folder.
+
+#### Shiny App Pivot table
+
+This application allows you to produce Pivot tables for both health and injury outcomes. The Pivot tables allow you to filter the outcomes as follows.
+
+-   for the health outcomes (which includes road traffic injuries (RTI)):
+    -   by scenario
+    -   by deaths or years of life lost
+    -   by disease/cause levels
+    -   by age and sex group
+    -   by pathway / dose
+    -   whether you want to include the interaction between the air pollution and physical activity pathways or not
+    -   whether to include confidence intervals or not
+-   for the injury risks:
+    -   by scenario
+    -   by mode
+    -   by risk type (total fatalities, per billion km, per 100k people, per 100 million hours)
+
+#### Producing the Shiny App Pivot table output
+
+To produce these Shiny App Pivot tables, run the function `app.R` in the `results_app` folder. Depending on whether you want to read in the results from the latest updates on Github or from your local drive, set
+
+github_path \<- "<https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/>"
+
+or
+
+github_path \<- "../"
+
+(Comment out the option you don't need.)
+
+## Structure of ITHIM-Global Github repository - Bogota branch
+
+The Github repository of the Bogota branch is structured as follows:
+
+-   **.github**: specifies the metadata for the various documents, automatically created by Github.
+
+-   **R**: contains all the R functions written for the ITIHM-R package.
+
+-   **inst/extdata**: folder containing the local city specific and the global input files.
+
+-   **man**: manual containing the various functions used within ITHIM-R and the figures used in the various documentation documents. It is also build automatically.
+
+-   **results**: contains the results from the model runs.
+
+-   **results_app**: contains the functions used to produce Shiny pivot tables of the results.
+
+-   **vignettes**: contains additional documentation information
+
+-   .Rbuildignore, .gitignore: metadata created by Github.
+
+-   Bogota_InputParameters_vxx.xlsx - file containing the city specific input parameters which needs manual updating.
+
+-   Create_output_summaries.R - wrapper script to create the various output documents.
+
+-   DESCRIPTION: automatically created by Github.
+
+-   How_To_Run_ITHIM: document describing the various steps needed to run the ITHIM-Global model from downloading and installing ITHIM-R to preparing the input parameter files and running the code.
+
+-   ITHIM-R.Rproj: contains the metadata for the ITHIM-R package.
+
+-   LICENSE: gives information about the licence that has been applied to this repository
+
+-   NAMESPACE: automatically created by Github.
+
+-   OutputVersionControl.txt: file storing the main run information of the ITHIM-R runs. This is automatically updated, if required, when using the multi_city_script.R.
+
+-   README: document giving an overview of the ITHIM-R package.
+
+-   \_config.yml, \_pkgdown.yml: metadata created by Github.
+
+-   injury_tables.Rmd: R markdown document that can be used to create summary statistics of the injury results
+
+-   injury_tables\_*output_version*.html: html files containing injury summary statistics of the respective model runs
+
+-   multi_city_script.R: wrapper function to call all the various functions needed to perform the ITHIM-Global analysis.
+
+-   summary_tables.Rmd: R markdown document to create summary output statistics about distance, duration, mode splits and health outcomes
+
+-   summary_tables\_*output_version*.html: html files containing output summaries of the respective model runs
+
+-   summary_tables_PA.Rmd: R markdown document to create summary output statistics about air pollution and physical activity levels
+
+-   summary_tables_PA\_*output_version*.html: html files containing air pollution and physical activity output statistics of the respective model runs
