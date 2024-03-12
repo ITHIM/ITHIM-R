@@ -36,17 +36,14 @@ The following programmes need to have been installed before the ITHIM-R package 
 
 To clone (i.e. download) the ITHIM-R Github repository, open a command window, navigate to the folder in which you want to install the repository in and type:
 
-'git clone <https://github.com/ITHIM/ITHIM-R.git>'
+```
+git clone <https://github.com/ITHIM/ITHIM-R.git>
+```
+
 
 ![](../man/figures/Clone_package.png){width="100%"}
 
-To change to the Bogota branch for which this guide was written, navigate to the ITHIM-R folder within the command window, then type:
-
-'git checkout bogota'
-
-![](../man/figures/Update_branch.png){width="100%"}
-
-The Github repository has now been downloaded to your computer and the working branch has been set to the Bogota branch which is the branch this documentation refers to.
+The Github repository has now been downloaded to your computer and the working branch - the default branch, is set to `bogota` which is this documentation refers to.
 
 ### Installing the package in RStudio
 
@@ -70,7 +67,9 @@ To get the newest updates of the Bogota branch, go to the 'Git' tab in RStudio n
 
 Finally, you will also have to install the 'drpa' package from Github ([drpa](https://github.com/meta-analyses/drpa)) by first installing the 'remotes' package as explained above and then by typing
 
+```
 remotes::install_github("meta-analyses/drpa")
+```
 
 into the RStudio console.
 
@@ -120,7 +119,7 @@ This section covers the 5 city-specific input files required to run the model.
 -   **Physical activity survey** [(example physical activity dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/pa_bogota.csv). This is used to represent the physical activity levels in the city and should be taken from an official physical activity survey of the city where possible.
 
     -   One row per person
-    -   Columns: `sex`, `age`, `ltpa_marg_met` (total non-occupational PA in a week)
+    -   Columns: `sex`, `age`, `ltpa_marg_met` (background non-transport, non-occupational weekly PA volume in mMETS hours)
 
 #### Global files (global input parameters/datasets)
 
@@ -196,7 +195,7 @@ For each city modelled it contains the following data:
 
     -   **pm_conc_pp**: PM2.5 concentration attributed to each person in the baseline population for each scenario (including baseline).
 
-    -   **co2_conc**: total CO2 emission levels for each mode of transport and scenario (including baseline).
+    -   **co2_emission_inventory**: total CO2 emission levels for each mode of transport and scenario (including baseline).
 
     -   **ref_injuries**: number of injury deaths and years of life lost by age and sex category for the baseline scenario including upper and lower confidence interval values
 
@@ -235,6 +234,12 @@ There are various scripts which can be used to produce output summary tables of 
     -   summary_tables.Rmd
     -   summary_tables_PA_AP.Rmd
     -   injury_tables.Rmd
+    
+Note: please run the command
+```
+source("Create_output_summaries.R")
+```
+to run (or `knit`) all three documents above - this will produce html files and along with the necessary CSV files (stored in the `results` subfolder)
 
 -   Shiny application creating a Pivot table:
 
@@ -320,7 +325,7 @@ It produces the following output documents:
 
         -   PM_2.5_emission_inventory: table detailing the percentage Baseline PM2.5 emissions attributed to each transport mode, the city wide PM2.5 concentration and the percentage of concentrations attributed to transport
 
-        -   CO2_conc: table detailing the CO2 emissions for each scenario
+        -   CO2_emission_inventory: table detailing the CO2 emissions for each scenario
 
         -   summary_stats_PM2.5_CO2: summary statistics of individual PM2.5 exposure levels, the total PM2.5 concentration, the change in PM2.5 concentration as compared to the baseline scenario and the total transport related CO2 emissions for each scenario
 
