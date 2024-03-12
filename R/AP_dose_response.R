@@ -62,19 +62,22 @@ AP_dose_response <- function(cause, dose, quantile, confidence_intervals = F) {
          respiratory \n
          cvd")
   } # End if unsupported causes
-
+  
   # read in dose response functions for disease cause
   # contains relative risk with upper and lower limits for a variety of doses
   lookup_table <- get(cause)
   lookup_df <- setDT(lookup_table)
-
+  
   # interpolate the values in the lookup table to get RR values for all PM exposure doses
   # in the synthetic population
-  rr <- approx(
-    x = lookup_df$dose, y = lookup_df$RR,
-    xout = dose, yleft = 1, yright = min(lookup_df$RR)
-  )$y
-
+  
+  suppressWarnings(
+    rr <- approx(
+      x = lookup_df$dose, y = lookup_df$RR,
+      xout = dose, yleft = 1, yright = min(lookup_df$RR)
+    )$y
+  )
+  
   # if a confidence interval is to be returned or if the quantile is not 0.5,
   # i.e. the median define an upper or lower band
   # interpolate the upper and lower band values in the lookup table to get upper and lower band
@@ -97,7 +100,7 @@ AP_dose_response <- function(cause, dose, quantile, confidence_intervals = F) {
         yright = min(lookup_df$ub)
       )$y
   }
-
+  
   # if the quantile is not 0.5, i.e. the median, then find the RR value by finding the
   # right quantile of a normal function with mean = the median RR value and standard deviation
   # defined by the upper and lower RR confidence interval values
@@ -105,7 +108,7 @@ AP_dose_response <- function(cause, dose, quantile, confidence_intervals = F) {
     rr <- qnorm(quantile, mean = rr, sd = (ub - lb) / 1.96)
     rr[rr < 0] <- 0
   }
-
+  
   # if confidence values are required return the RR and the lower and upper bounds
   # otherwise just return the RR
   if (confidence_intervals) {
@@ -113,6 +116,6 @@ AP_dose_response <- function(cause, dose, quantile, confidence_intervals = F) {
   } else {
     return(data.frame(rr = rr))
   }
-
+  
   # return(rr)
 }
