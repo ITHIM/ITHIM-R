@@ -127,7 +127,7 @@ ithim_calculation_sequence <- function(ithim_object, seed = 1) {
   ) # 3
 
   # Calculate the CO2 emissions for each mode and scenario
-  co2_conc <- scenario_co2_calculations(dist = (true_dist %>% dplyr::filter(stage_mode != "unknown")
+  co2_emission_inventory <- scenario_co2_calculations(dist = (true_dist %>% dplyr::filter(stage_mode != "unknown")
     %>% dplyr::mutate_at(-c(1), as.integer)))
 
 
@@ -232,7 +232,7 @@ ithim_calculation_sequence <- function(ithim_object, seed = 1) {
   if (constant_mode) {
     pathway_hb <- join_hb_and_injury(pathway_hb_AP_PA, deaths_yll_injuries$deaths_yll_injuries)
     return(list(
-      mmets = mmets_pp, scenario_pm = scenario_pm, pm_conc_pp = pm_conc_pp, co2_conc = co2_conc,
+      mmets = mmets_pp, scenario_pm = scenario_pm, pm_conc_pp = pm_conc_pp, co2_emission_inventory = co2_emission_inventory,
       injuries = injuries, ref_injuries = ref_injuries, hb = hb, pathway_hb = pathway_hb, whw = whw
     ))
   } else {
