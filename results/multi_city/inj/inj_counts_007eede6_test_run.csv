@@ -1,0 +1,638 @@
+str_mode,measure,value,cas_mode,city,scenario,country,continent,mode_distance
+bus,mean,0,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+bus,ub,0,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+bus,lb,0,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+car,mean,0.62,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+car,ub,1.34,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+car,lb,0.28,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+cycle,mean,0.02,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+cycle,ub,0.06,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+cycle,lb,0.01,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+motorcycle,mean,0.46,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+motorcycle,ub,1.02,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+motorcycle,lb,0.21,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+truck,mean,0.45,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+truck,ub,0.99,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+truck,lb,0.21,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+nov,mean,5.79,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+nov,ub,9.86,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+nov,lb,3.43,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+bus,mean,2,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+bus,ub,3.07,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+bus,lb,1.3,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+car,mean,0,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+car,ub,0,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+car,lb,0,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+cycle,mean,0.1,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+cycle,ub,0.2,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+cycle,lb,0.06,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+motorcycle,mean,1.98,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+motorcycle,ub,3.07,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+motorcycle,lb,1.28,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+truck,mean,1.93,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+truck,ub,2.98,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+truck,lb,1.25,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+nov,mean,14.7,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+nov,ub,23.47,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+nov,lb,9.34,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+bus,mean,13.52,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+bus,ub,16.79,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+bus,lb,10.89,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+car,mean,17.57,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+car,ub,21.73,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+car,lb,14.22,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+cycle,mean,0,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+cycle,ub,0,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+cycle,lb,0,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+motorcycle,mean,12.25,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+motorcycle,ub,15.43,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+motorcycle,lb,9.72,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+truck,mean,11.22,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+truck,ub,13.98,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+truck,lb,9,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+nov,mean,8.46,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+nov,ub,13.25,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+nov,lb,5.45,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+bus,mean,42.63,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+bus,ub,51.45,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+bus,lb,35.36,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+car,mean,56.2,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+car,ub,67.42,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+car,lb,46.89,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+cycle,mean,2.22,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+cycle,ub,3.65,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+cycle,lb,1.35,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+motorcycle,mean,0,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+motorcycle,ub,0,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+motorcycle,lb,0,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+truck,mean,41.23,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+truck,ub,49.84,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+truck,lb,34.13,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+nov,mean,52.99,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+nov,ub,72.83,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+nov,lb,39.1,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+bus,mean,39.92,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+bus,ub,49.07,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+bus,lb,32.49,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+car,mean,51.9,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+car,ub,63.49,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+car,lb,42.46,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+cycle,mean,1.66,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+cycle,ub,2.75,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+cycle,lb,1,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+motorcycle,mean,36.16,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+motorcycle,ub,45.14,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+motorcycle,lb,28.99,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+truck,mean,33.12,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+truck,ub,40.87,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+truck,lb,26.86,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+nov,mean,4.23,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+nov,ub,7.69,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+nov,lb,2.35,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+bus,mean,0.13,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+bus,ub,0.55,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+bus,lb,0.03,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+car,mean,0.17,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+car,ub,0.73,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+car,lb,0.04,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+cycle,mean,0.01,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+cycle,ub,0.03,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+cycle,lb,0,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+motorcycle,mean,0.13,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+motorcycle,ub,0.55,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+motorcycle,lb,0.03,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+truck,mean,0,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+truck,ub,0,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+truck,lb,0,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+nov,mean,1.11,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+nov,ub,2.89,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+nov,lb,0.43,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+bus,mean,0,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+bus,ub,0,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+bus,lb,0,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+car,mean,0.58,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+car,ub,1.27,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+car,lb,0.27,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+cycle,mean,0.04,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+cycle,ub,0.1,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+cycle,lb,0.02,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+motorcycle,mean,0.45,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+motorcycle,ub,0.97,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+motorcycle,lb,0.2,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+truck,mean,0.44,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+truck,ub,0.96,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+truck,lb,0.2,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+nov,mean,5.64,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+nov,ub,9.59,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+nov,lb,3.35,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+bus,mean,1.89,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+bus,ub,2.91,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+bus,lb,1.22,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+car,mean,0,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+car,ub,0,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+car,lb,0,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+cycle,mean,0.18,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+cycle,ub,0.33,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+cycle,lb,0.09,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+motorcycle,mean,1.9,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+motorcycle,ub,2.95,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+motorcycle,lb,1.23,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+truck,mean,1.88,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+truck,ub,2.9,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+truck,lb,1.22,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+nov,mean,14.24,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+nov,ub,22.74,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+nov,lb,9.05,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+bus,mean,19.28,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+bus,ub,24.1,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+bus,lb,15.43,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+car,mean,25.17,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+car,ub,31.33,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+car,lb,20.24,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+cycle,mean,0,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+cycle,ub,0,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+cycle,lb,0,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+motorcycle,mean,17.78,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+motorcycle,ub,22.54,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+motorcycle,lb,14.03,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+truck,mean,16.54,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+truck,ub,20.75,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+truck,lb,13.2,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+nov,mean,14.29,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+nov,ub,22.87,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+nov,lb,9.04,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+bus,mean,40.85,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+bus,ub,49.3,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+bus,lb,33.88,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+car,mean,54.06,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+car,ub,64.85,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+car,lb,45.1,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+cycle,mean,3.83,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+cycle,ub,6.29,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+cycle,lb,2.33,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+motorcycle,mean,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+motorcycle,ub,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+motorcycle,lb,0,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+truck,mean,40.71,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+truck,ub,49.21,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+truck,lb,33.71,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+nov,mean,52.11,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+nov,ub,71.63,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+nov,lb,38.45,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+bus,mean,37.09,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+bus,ub,45.59,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+bus,lb,30.19,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+car,mean,48.43,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+car,ub,59.24,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+car,lb,39.62,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+cycle,mean,2.96,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+cycle,ub,4.92,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+cycle,lb,1.78,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+motorcycle,mean,34.21,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+motorcycle,ub,42.69,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+motorcycle,lb,27.42,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+truck,mean,31.82,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+truck,ub,39.26,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+truck,lb,25.81,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+nov,mean,4.02,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+nov,ub,7.31,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+nov,lb,2.24,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+bus,mean,0.13,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+bus,ub,0.53,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+bus,lb,0.03,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+car,mean,0.17,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+car,ub,0.71,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+car,lb,0.04,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+cycle,mean,0.01,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+cycle,ub,0.05,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+cycle,lb,0,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+motorcycle,mean,0.13,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+motorcycle,ub,0.54,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+motorcycle,lb,0.03,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+truck,mean,0,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+truck,ub,0,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+truck,lb,0,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+nov,mean,1.11,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+nov,ub,2.89,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+nov,lb,0.43,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+bus,mean,0,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+bus,ub,0,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+bus,lb,0,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+car,mean,0.63,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+car,ub,1.38,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+car,lb,0.29,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+cycle,mean,0.02,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+cycle,ub,0.05,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+cycle,lb,0.01,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+motorcycle,mean,0.41,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+motorcycle,ub,0.89,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+motorcycle,lb,0.19,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+truck,mean,0.42,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+truck,ub,0.91,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+truck,lb,0.19,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+nov,mean,5.27,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+nov,ub,8.96,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+nov,lb,3.13,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+bus,mean,2.06,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+bus,ub,3.17,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+bus,lb,1.34,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+car,mean,0,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+car,ub,0,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+car,lb,0,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+cycle,mean,0.11,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+cycle,ub,0.21,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+cycle,lb,0.06,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+motorcycle,mean,2.13,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+motorcycle,ub,3.3,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+motorcycle,lb,1.38,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+truck,mean,2.17,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+truck,ub,3.34,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+truck,lb,1.41,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+nov,mean,17.34,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+nov,ub,27.5,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+nov,lb,11.1,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+bus,mean,11.62,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+bus,ub,14.44,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+bus,lb,9.36,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+car,mean,18.89,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+car,ub,23.36,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+car,lb,15.29,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+cycle,mean,0,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+cycle,ub,0,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+cycle,lb,0,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+motorcycle,mean,11.04,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+motorcycle,ub,13.91,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+motorcycle,lb,8.76,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+truck,mean,10.61,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+truck,ub,13.23,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+truck,lb,8.51,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+nov,mean,7.9,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+nov,ub,12.37,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+nov,lb,5.09,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+bus,mean,37.59,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+bus,ub,45.38,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+bus,lb,31.17,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+car,mean,60.54,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+car,ub,72.64,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+car,lb,50.49,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+cycle,mean,2.01,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+cycle,ub,3.31,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+cycle,lb,1.22,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+motorcycle,mean,0,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+motorcycle,ub,0,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+motorcycle,lb,0,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+truck,mean,39.6,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+truck,ub,47.88,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+truck,lb,32.78,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+nov,mean,50.09,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+nov,ub,68.92,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+nov,lb,36.93,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+bus,mean,34.53,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+bus,ub,42.45,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+bus,lb,28.11,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+car,mean,56.13,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+car,ub,68.66,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+car,lb,45.92,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+cycle,mean,1.48,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+cycle,ub,2.45,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+cycle,lb,0.89,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+motorcycle,mean,32.8,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+motorcycle,ub,40.94,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+motorcycle,lb,26.29,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+truck,mean,31.52,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+truck,ub,38.89,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+truck,lb,25.57,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+nov,mean,3.98,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+nov,ub,7.24,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+nov,lb,2.21,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+bus,mean,0.12,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+bus,ub,0.51,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+bus,lb,0.03,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+car,mean,0.2,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+car,ub,0.81,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+car,lb,0.05,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+cycle,mean,0.01,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+cycle,ub,0.03,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+cycle,lb,0,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+motorcycle,mean,0.13,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+motorcycle,ub,0.52,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+motorcycle,lb,0.03,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+truck,mean,0,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+truck,ub,0,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+truck,lb,0,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+nov,mean,1.11,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+nov,ub,2.89,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+nov,lb,0.43,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+bus,mean,0,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+bus,ub,0,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+bus,lb,0,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+car,mean,0.61,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+car,ub,1.34,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+car,lb,0.28,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+cycle,mean,0.02,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+cycle,ub,0.06,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+cycle,lb,0.01,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+motorcycle,mean,0.49,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+motorcycle,ub,1.07,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+motorcycle,lb,0.22,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+truck,mean,0.52,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+truck,ub,1.13,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+truck,lb,0.24,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+nov,mean,6.67,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+nov,ub,11.37,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+nov,lb,3.96,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+bus,mean,1.96,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+bus,ub,3.01,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+bus,lb,1.27,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+car,mean,0,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+car,ub,0,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+car,lb,0,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+cycle,mean,0.08,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+cycle,ub,0.15,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+cycle,lb,0.04,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+motorcycle,mean,1.58,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+motorcycle,ub,2.45,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+motorcycle,lb,1.02,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+truck,mean,1.67,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+truck,ub,2.58,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+truck,lb,1.09,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+nov,mean,12.49,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+nov,ub,19.93,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+nov,lb,7.95,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+bus,mean,13.99,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+bus,ub,17.37,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+bus,lb,11.26,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+car,mean,13.57,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+car,ub,16.77,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+car,lb,10.98,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+cycle,mean,0,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+cycle,ub,0,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+cycle,lb,0,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+motorcycle,mean,10.08,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+motorcycle,ub,12.7,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+motorcycle,lb,8,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+truck,mean,10.12,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+truck,ub,12.61,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+truck,lb,8.12,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+nov,mean,7.4,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+nov,ub,11.6,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+nov,lb,4.77,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+bus,mean,44.43,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+bus,ub,53.64,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+bus,lb,36.83,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+car,mean,45.03,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+car,ub,54.05,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+car,lb,37.55,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+cycle,mean,1.83,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+cycle,ub,3.01,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+cycle,lb,1.11,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+motorcycle,mean,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+motorcycle,ub,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+motorcycle,lb,0,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+truck,mean,38,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+truck,ub,45.95,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+truck,lb,31.44,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+nov,mean,47.49,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+nov,ub,65.4,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+nov,lb,34.99,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+bus,mean,46.36,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+bus,ub,56.98,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+bus,lb,37.74,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+car,mean,44.97,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+car,ub,55,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+car,lb,36.8,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+cycle,mean,1.48,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+cycle,ub,2.46,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+cycle,lb,0.89,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+motorcycle,mean,33.41,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+motorcycle,ub,41.69,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+motorcycle,lb,26.78,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+truck,mean,33.54,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+truck,ub,41.37,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+truck,lb,27.21,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+nov,mean,4.29,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+nov,ub,7.8,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+nov,lb,2.39,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+bus,mean,0.15,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+bus,ub,0.62,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+bus,lb,0.04,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+car,mean,0.15,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+car,ub,0.63,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+car,lb,0.04,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+cycle,mean,0.01,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+cycle,ub,0.03,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+cycle,lb,0,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+motorcycle,mean,0.12,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+motorcycle,ub,0.5,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+motorcycle,lb,0.03,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+truck,mean,0,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+truck,ub,0,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+truck,lb,0,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+nov,mean,1.11,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+nov,ub,2.89,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+nov,lb,0.43,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+bus,mean,0,bus,bogota,Baseline,Colombia,Latin_America,38678389.75847018
+car,mean,0.44531433880458354,bus,bogota,Baseline,Colombia,Latin_America,38678389.75847018
+cycle,mean,0.22265716940229177,bus,bogota,Baseline,Colombia,Latin_America,38678389.75847018
+motorcycle,mean,0.22265716940229177,bus,bogota,Baseline,Colombia,Latin_America,38678389.75847018
+truck,mean,0.6679715082068753,bus,bogota,Baseline,Colombia,Latin_America,38678389.75847018
+bus,mean,3.3398575410343767,car,bogota,Baseline,Colombia,Latin_America,28185306.86771144
+car,mean,0,car,bogota,Baseline,Colombia,Latin_America,28185306.86771144
+cycle,mean,0,car,bogota,Baseline,Colombia,Latin_America,28185306.86771144
+motorcycle,mean,0.6679715082068753,car,bogota,Baseline,Colombia,Latin_America,28185306.86771144
+truck,mean,2.003914524620626,car,bogota,Baseline,Colombia,Latin_America,28185306.86771144
+bus,mean,17.144602043976466,cycle,bogota,Baseline,Colombia,Latin_America,3028905.406826921
+car,mean,16.921944874574173,cycle,bogota,Baseline,Colombia,Latin_America,3028905.406826921
+cycle,mean,0,cycle,bogota,Baseline,Colombia,Latin_America,3028905.406826921
+motorcycle,mean,4.453143388045835,cycle,bogota,Baseline,Colombia,Latin_America,3028905.406826921
+truck,mean,16.031316196965008,cycle,bogota,Baseline,Colombia,Latin_America,3028905.406826921
+bus,mean,37.62906162898731,motorcycle,bogota,Baseline,Colombia,Latin_America,14050058.883477107
+car,mean,50.09786311551564,motorcycle,bogota,Baseline,Colombia,Latin_America,14050058.883477107
+cycle,mean,2.2265716940229177,motorcycle,bogota,Baseline,Colombia,Latin_America,14050058.883477107
+motorcycle,mean,0,motorcycle,bogota,Baseline,Colombia,Latin_America,14050058.883477107
+truck,mean,52.32443480953856,motorcycle,bogota,Baseline,Colombia,Latin_America,14050058.883477107
+bus,mean,40.07829049241251,pedestrian,bogota,Baseline,Colombia,Latin_America,7610407.456316143
+car,mean,58.78149272220502,pedestrian,bogota,Baseline,Colombia,Latin_America,7610407.456316143
+cycle,mean,1.5586001858160423,pedestrian,bogota,Baseline,Colombia,Latin_America,7610407.456316143
+motorcycle,mean,45.422062558067516,pedestrian,bogota,Baseline,Colombia,Latin_America,7610407.456316143
+truck,mean,16.921944874574173,pedestrian,bogota,Baseline,Colombia,Latin_America,7610407.456316143
+bus,mean,0,truck,bogota,Baseline,Colombia,Latin_America,7016780.9186329665
+car,mean,0.22265716940229177,truck,bogota,Baseline,Colombia,Latin_America,7016780.9186329665
+cycle,mean,0,truck,bogota,Baseline,Colombia,Latin_America,7016780.9186329665
+motorcycle,mean,0.22265716940229177,truck,bogota,Baseline,Colombia,Latin_America,7016780.9186329665
+truck,mean,0,truck,bogota,Baseline,Colombia,Latin_America,7016780.9186329665
+nov,mean,5.789086404459586,bus,bogota,Baseline,Colombia,Latin_America,38678389.75847018
+nov,mean,14.695373180551258,car,bogota,Baseline,Colombia,Latin_America,28185306.86771144
+nov,mean,8.460972437287086,cycle,bogota,Baseline,Colombia,Latin_America,3028905.406826921
+nov,mean,52.99240631774544,motorcycle,bogota,Baseline,Colombia,Latin_America,14050058.883477107
+nov,mean,4.230486218643543,pedestrian,bogota,Baseline,Colombia,Latin_America,7610407.456316143
+nov,mean,1.1132858470114588,truck,bogota,Baseline,Colombia,Latin_America,7016780.9186329665
+bus,lb,43.38,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+bus,lb,45.620000000000005,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+bus,lb,37.47,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+bus,lb,49,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+bus,mean,57.22289253638898,active_travel,bogota,Baseline,Colombia,Latin_America,10639312.863143064
+bus,mean,53.44,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+bus,mean,56.370000000000005,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+bus,mean,46.15,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+bus,mean,60.35,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+bus,ub,65.86,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+bus,ub,69.69,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+bus,ub,56.89,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+bus,ub,74.35,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+car,lb,56.68,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+car,lb,59.86,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+car,lb,61.21,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+car,lb,47.78,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+car,mean,75.7034375967792,active_travel,bogota,Baseline,Colombia,Latin_America,10639312.863143064
+car,mean,69.47,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+car,mean,73.6,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+car,mean,75.02000000000001,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+car,mean,58.54,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+car,ub,85.22,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+car,ub,90.57,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+car,ub,92.02,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+car,ub,71.77,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+cycle,lb,1,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+cycle,lb,1.78,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+cycle,lb,0.89,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+cycle,lb,0.89,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+cycle,mean,1.5586001858160423,active_travel,bogota,Baseline,Colombia,Latin_America,10639312.863143064
+cycle,mean,1.66,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+cycle,mean,2.96,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+cycle,mean,1.48,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+cycle,mean,1.48,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+cycle,ub,2.75,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+cycle,ub,4.92,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+cycle,ub,2.45,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+cycle,ub,2.46,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+motorcycle,lb,38.71,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+motorcycle,lb,41.45,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+motorcycle,lb,35.05,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+motorcycle,lb,34.78,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+motorcycle,mean,49.875205946113354,active_travel,bogota,Baseline,Colombia,Latin_America,10639312.863143064
+motorcycle,mean,48.41,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+motorcycle,mean,51.99,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+motorcycle,mean,43.839999999999996,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+motorcycle,mean,43.489999999999995,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+motorcycle,ub,60.57,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+motorcycle,ub,65.22999999999999,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+motorcycle,ub,54.849999999999994,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+motorcycle,ub,54.39,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+nov,lb,7.800000000000001,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+nov,lb,11.28,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+nov,lb,7.3,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+nov,lb,7.16,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+nov,mean,12.69145865593063,active_travel,bogota,Baseline,Colombia,Latin_America,10639312.863143064
+nov,mean,12.690000000000001,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+nov,mean,18.31,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+nov,mean,11.88,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+nov,mean,11.690000000000001,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+nov,ub,20.94,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+nov,ub,30.18,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+nov,ub,19.61,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+nov,ub,19.4,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+truck,lb,35.86,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+truck,lb,39.01,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+truck,lb,34.08,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+truck,lb,35.33,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+truck,mean,32.95326107153918,active_travel,bogota,Baseline,Colombia,Latin_America,10639312.863143064
+truck,mean,44.339999999999996,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+truck,mean,48.36,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+truck,mean,42.129999999999995,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+truck,mean,43.66,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+truck,ub,54.849999999999994,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+truck,ub,60.01,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+truck,ub,52.120000000000005,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+truck,ub,53.98,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+Total,lb,183.43,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+Total,lb,199,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+Total,lb,176,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+Total,lb,174.94,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+Total,lb,4.140000000000001,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+Total,lb,4.04,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+Total,lb,3.81,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+Total,lb,4.71,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+Total,lb,13.23,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+Total,lb,12.81,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+Total,lb,15.29,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+Total,lb,11.370000000000001,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+Total,lb,49.28,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+Total,lb,71.94,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+Total,lb,47.01,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+Total,lb,43.129999999999995,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+Total,lb,156.83,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+Total,lb,153.47,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+Total,lb,152.59,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+Total,lb,141.92,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+Total,lb,134.15,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+Total,lb,127.06,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+Total,lb,128.99,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+Total,lb,131.81,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+Total,lb,0.53,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+Total,lb,0.53,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+Total,lb,0.54,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+Total,lb,0.54,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+Total,mean,230.0048559925674,active_travel,bogota,Baseline,Colombia,Latin_America,10639312.863143064
+Total,mean,230.01,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+Total,mean,251.59,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+Total,mean,220.5,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+Total,mean,219.20999999999998,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+Total,mean,7.347686590275629,bus,bogota,Baseline,Colombia,Latin_America,38678389.75847018
+Total,mean,7.34,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+Total,mean,7.1499999999999995,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+Total,mean,6.749999999999999,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+Total,mean,8.31,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+Total,mean,20.707116754413136,car,bogota,Baseline,Colombia,Latin_America,28185306.86771144
+Total,mean,20.71,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+Total,mean,20.09,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+Total,mean,23.81,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+Total,mean,17.78,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+Total,mean,63.01197894084857,cycle,bogota,Baseline,Colombia,Latin_America,3028905.406826921
+Total,mean,63.02,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+Total,mean,93.06,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+Total,mean,60.06,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+Total,mean,55.16,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+Total,mean,195.27033756580988,motorcycle,bogota,Baseline,Colombia,Latin_America,14050058.883477107
+Total,mean,195.27,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+Total,mean,191.56,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+Total,mean,189.83,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+Total,mean,176.78,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+Total,mean,166.9928770517188,pedestrian,bogota,Baseline,Colombia,Latin_America,7610407.456316143
+Total,mean,166.98999999999998,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+Total,mean,158.53,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+Total,mean,160.44,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+Total,mean,164.04999999999998,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+Total,mean,1.5586001858160423,truck,bogota,Baseline,Colombia,Latin_America,7016780.9186329665
+Total,mean,1.55,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+Total,mean,1.55,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+Total,mean,1.57,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+Total,mean,1.54,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
+Total,ub,290.19,active_travel,bogota,Baseline predicted,Colombia,Latin_America,10639312.863143064
+Total,ub,320.59999999999997,active_travel,bogota,Bicycling,Colombia,Latin_America,13485933.247111663
+Total,ub,277.94,active_travel,bogota,Car,Colombia,Latin_America,9932790.098567806
+Total,ub,276.34999999999997,active_travel,bogota,Public Transport,Colombia,Latin_America,10317886.25656778
+Total,ub,13.27,bus,bogota,Baseline predicted,Colombia,Latin_America,38678389.75847018
+Total,ub,12.89,bus,bogota,Bicycling,Colombia,Latin_America,37305397.666675664
+Total,ub,12.190000000000001,bus,bogota,Car,Colombia,Latin_America,34674482.69737472
+Total,ub,14.969999999999999,bus,bogota,Public Transport,Colombia,Latin_America,45485473.354058854
+Total,ub,32.79,car,bogota,Baseline predicted,Colombia,Latin_America,28185306.86771144
+Total,ub,31.83,car,bogota,Bicycling,Colombia,Latin_America,27254377.168588027
+Total,ub,37.52,car,bogota,Car,Colombia,Latin_America,34392385.60857241
+Total,ub,28.12,car,bogota,Public Transport,Colombia,Latin_America,23333951.056196447
+Total,ub,81.18,cycle,bogota,Baseline predicted,Colombia,Latin_America,3028905.406826921
+Total,ub,121.59,cycle,bogota,Bicycling,Colombia,Latin_America,6295667.561046122
+Total,ub,77.31,cycle,bogota,Car,Colombia,Latin_America,2807488.604383264
+Total,ub,71.05,cycle,bogota,Public Transport,Colombia,Latin_America,2618788.1626309934
+Total,ub,245.19,motorcycle,bogota,Baseline predicted,Colombia,Latin_America,14050058.883477107
+Total,ub,241.28,motorcycle,bogota,Bicycling,Colombia,Latin_America,13792750.140628247
+Total,ub,238.13,motorcycle,bogota,Car,Colombia,Latin_America,13271349.537765408
+Total,ub,222.05,motorcycle,bogota,Public Transport,Colombia,Latin_America,12590845.487806031
+Total,ub,209.01,pedestrian,bogota,Baseline predicted,Colombia,Latin_America,7610407.456316143
+Total,ub,199.01,pedestrian,bogota,Bicycling,Colombia,Latin_America,7190265.686065542
+Total,ub,200.63,pedestrian,bogota,Car,Colombia,Latin_America,7125301.494184542
+Total,ub,205.29999999999998,pedestrian,bogota,Public Transport,Colombia,Latin_America,7699098.093936786
+Total,ub,4.75,truck,bogota,Baseline predicted,Colombia,Latin_America,7016780.9186329665
+Total,ub,4.72,truck,bogota,Bicycling,Colombia,Latin_America,7016201.769817147
+Total,ub,4.76,truck,bogota,Car,Colombia,Latin_America,7014224.67558383
+Total,ub,4.67,truck,bogota,Public Transport,Colombia,Latin_America,7005777.091132386
