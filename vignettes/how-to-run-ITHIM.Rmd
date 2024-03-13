@@ -34,12 +34,22 @@ The following programmes need to have been installed before the ITHIM-R package 
 
 ### Cloning the Github repository
 
-To clone (i.e. download) the ITHIM-R Github repository, open a command window, navigate to the folder in which you want to install the repository in and type:
+To clone (i.e. download) the ITHIM-R Github repository, open a command window by pressing the `More` button in the `Git` tab, and then press `New Terminal`
 
-```
+
+![](../man/figures/new_terminal.png){width="100%"}
+
+
+and then this terminal window will appear
+
+![](../man/figures/terminal.png){width="100%"}
+
+
+navigate to the folder in which you want to install the repository in and type:
+
+```         
 git clone <https://github.com/ITHIM/ITHIM-R.git>
 ```
-
 
 ![](../man/figures/Clone_package.png){width="100%"}
 
@@ -53,7 +63,7 @@ To install the ITHIM-R package in RStudio, the following steps need to be perfor
 
 1.) If Git has been installed then there should be a 'Build' tab in the top right hand corner of RStudio. Click on this tab and then on 'Install' in the panel below it.
 
-![](../man/figures/Build_package.png){width="100%"}
+![](../man/figures/build_tabwa.png){width="100%"}
 
 This will install the ITHIM-R package but it will also most likely initially throw an error message 'Exited with status 1' stating that some other R packages that are needed for the ITHIM-R package have not yet been installed. To install these missing packages, click on the 'Packages' tab on the right hand side in the middle pane and then on 'Install'. This will open a pop-up window which lets you type in the packages that still need installing. Click on 'Install'.
 
@@ -67,7 +77,7 @@ To get the newest updates of the Bogota branch, go to the 'Git' tab in RStudio n
 
 Finally, you will also have to install the 'drpa' package from Github ([drpa](https://github.com/meta-analyses/drpa)) by first installing the 'remotes' package as explained above and then by typing
 
-```
+```         
 remotes::install_github("meta-analyses/drpa")
 ```
 
@@ -137,21 +147,19 @@ In order to setup the model, we need a fixed list of tables/datasets, which do n
 
 In order to run ITHIM-R once it has been installed and the various input files described above have been updated, open the `multi_city_script.R` file within RStudio. This file can be found under the 'Files' tab in the middle pane on the right hand side. This is the key script to run ITIHM-Global in constant mode (i.e. keeping the input parameters fixed, without sampling the input parameters from distributions). It reads in all the required datasets and initialises all variables by calling `run_ithim_setup` and then runs the model by calling `run_ithim`.
 
-First, update the parameter values at the beginning of the script to set-up e.g. for which city / cities the script is to be run. This can be found in Line 63 and has been set to ‘bogota’ in this worked example. If several city names are given as a vector, the model performs the ITHIM-R analysis for one city after another.
+First, update the parameter values at the beginning of the script to set-up e.g. for which city / cities the script is to be run. This can be found in Line 63 and has been set to ‘bogota’ in this worked example.
 
-Once these parameter values have been updated, click on 'Source' and the model should run.
+![](images/clipboard-2157191583.png)
 
-![](../man/figures/Run_model.png){width="100%"}
+<https://github.com/ITHIM/ITHIM-R/blob/de2a88548af6c6be5eb36d939e178b146d1ba055/multi_city_script.R#L63>
+
+If several city names are given as a vector, the model performs the ITHIM-R analysis for one city after another.
+
+Once these parameter values have been updated, click on `Source` and the model should run.
+
+![](../man/figures/multi_city_scriptwa.png){width="100%"}
 
 It produces pop-up windows showing the plots of the results giving the years of life lost for each scenario and required health outcomes.
-
-## Results
-
-Apart from the pop-up windows produced at the end of the `multi_city_script.R` which give the years of life lost for each scenario and health outcome, the main file containing the model outputs is the `ithim_objects` list, which is saved under *results/multi_city/io\_,'output_version',.rds*, where the output_version is currently set as the SHA number (i.e. the unique identifier) of the latest update on Github but can also be updated manually by the user.
-
-![](../man/figures/Model_output.png){width="100%"}
-
-The health impacts of ITHIM are presented as years of life lost (YLL) and number of attributable deaths. The baseline mortality and YLL data for the study areas are estimated from the [Global Burden of Disease study](https://www.healthdata.org/research-analysis/gbd).
 
 ### ithim_objects
 
@@ -159,9 +167,11 @@ The ithim_objects list is saved under *results/multi_city/io\_",output_version,"
 
 You may view it using the command `View(ithim_objects)` and it will then show you its content as such:
 
-![](images/clipboard-3599203388.png){width="624"}
+![](../man/figures/view_ithim_objectswa.png){width="100%"}
 
-You may click on individual sub-items such as `scen_prop` for more information.
+You may click on individual sub-items such as `bogota` for more information.
+
+![](../man/figures/ithim_objects_bogotawa.png){width="100%"}
 
 This list contains a comprehensive set of intermediate and final results from the model run:
 
@@ -173,21 +183,21 @@ For each city modelled it contains the following data:
 
 -   **dur**: total stage mode durations for each mode and scenario (including baseline) for the baseline population.
 
--   **true_dist**: distances from the trip data scaled up to the total distance travelled by the population of the city (for age ranges considered in the model only) for each scenario (including baseline) and mode of transport.
+-   **true_dist**: distances from the trip data scaled up to the total distance travelled by the baseline population of the city (for age ranges considered in the model only) for each scenario (including baseline) and mode of transport.
 
 -   **inj_distances**:
 
-    -   **true_distances**: city population mode distances by age category and sex considered in the model.
+    -   **true_distances**: city baseline population mode distances by age category and sex considered in the model.
 
-    -   **injuries_list**: For all scenarios (including baseline) two lists are given, one for 'whw' (who-hit-whom) injuries where both the strike and the casualty mode are known and one for 'nov' (no other vehicle) injuries where no strike vehicle was involved in the crash These lists contain all casualty (and strike) mode combinations by age category and sex. Furthermore, they detail casualty (and strike) mode distances travelled by the entire city population considered in the model ('\_sum') or just by the respective age and sex category. They also detail the casualty (and strike) mode exponents used in the injury Poisson regression model.
+    -   **injuries_list**: For all scenarios (including baseline) two lists are given, one for 'whw' (who-hit-whom) injuries where both the strike and the casualty mode are known and one for 'nov' (no other vehicle) injuries where no strike vehicle was involved in the crash These lists contain all casualty (and strike) mode combinations by age category and sex. Furthermore, they detail casualty (and strike) mode distances travelled by the entire city baseline population considered in the model ('\_sum') or just by the respective age and sex category. They also detail the casualty (and strike) mode exponents used in the injury Poisson regression model.
 
     -   **reg_model**: parameterised Poisson injury regression model for injuries.
 
-    -   **injuries_for_model**: baseline data containing fatality counts for all casualty and strike mode combinations with associated city population distance data.
+    -   **injuries_for_model**: baseline data containing fatality counts for all casualty and strike mode combinations with associated city's baseline population distance data (`true_distances` explained above)    .
 
 -   **demographic**: city population counts for all age categories and sex combinations considered in the model.
 
--   **synth_pop**: population extracted from the physical activity survey assigning the marginal met leisure physical activity values for each person.
+-   **synth_pop**: population extracted from the physical activity survey assigning non-transport, non-occupational PA component of physical activity values in mMETs hours per person per week.
 
 -   **outcomes**:
 
@@ -234,11 +244,13 @@ There are various scripts which can be used to produce output summary tables of 
     -   summary_tables.Rmd
     -   summary_tables_PA_AP.Rmd
     -   injury_tables.Rmd
-    
-Note: please run the command
-```
+
+Note: please execute the command below
+
+```         
 source("Create_output_summaries.R")
 ```
+
 to run (or `knit`) all three documents above - this will produce html files and along with the necessary CSV files (stored in the `results` subfolder)
 
 -   Shiny application creating a Pivot table:
@@ -269,21 +281,21 @@ Note that the Rmd file was set up to produce many more distance, duration and he
 
 -   city-specific distance tables showing average daily distances in km travelled by each person in the baseline population WITH a trip by mode for all scenarios (including Baseline)
 
--   one table giving the city-specific baseline average daily distances (km) travelled by each person in the baseline population
+-   city-specific duration tables showing average daily duration (mins) spent travelling by each person in the baseline population by mode for all scenarios (including Baseline)
 
--   city-specific duration tables showing average daily duration (h) spent travelling by each person in the baseline population by mode for all scenarios (including Baseline)
-
--   city-specific duration tables showing average daily duration (h) spent travelling by each person in the baseline population WITH a trip by mode for all scenarios (including Baseline)
+-   city-specific duration tables showing average daily duration (mins) spent travelling by each person in the baseline population WITH a trip by mode for all scenarios (including Baseline)
 
 -   output .csv files containing the information listed below. Note that all these files are also saved with their version number in the file name:
 
-    -   the ylls.csv file (results/multi_city/health_impacts/ylls.csv) gives the changes in YLL for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, health outcome and scenario as compared to the baseline scenario. It also shows the health outcomes in the three level heirarchy, and whether the health outcome is attributed to changes in AP, PA or both, and the age, and age and sex specific population levels. The results are for either AP and PA only if the health outcomes are only impacted by AP or PA seperately, or the results are combined for AP and PA, if the health outcomes are impacted by both AP and PA.
+sex	age_cat	cause	measure	city	scenario	level1	level2	level3	dose	pop_age_sex
 
-    -   the ylls_pathway.csv file (results/multi_city/health_impacts/ylls_pathway.csv) gives the changes in YLL for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, health outcome and scenario as compared to the baseline scenario. It also shows the health outcome in the three level hierarchy, and whether the health outcome is attributed to changes in AP or PA, and the age, and age and sex specific population levels. The results are given for AP and PA independently even if a health outcome is impacted by both pathways.
+    -   the ylls.csv file (results/multi_city/health_impacts/ylls.csv) gives the changes in YLL for each age and sex category, health outcome and scenario as compared to the baseline scenario. It also shows the health outcomes in the three level heirarchy, and whether the health outcome is attributed to changes in AP, PA or both, and the age, and age and sex specific population levels. The results are for either AP and PA only if the health outcomes are only impacted by AP or PA seperately, or the results are combined for AP and PA, if the health outcomes are impacted by both AP and PA.
 
-    -   the deaths.csv file (results/multi_city/health_impacts/deaths.csv) gives the changes in deaths for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, health outcome and scenario as compared to the baseline scenario. It also shows the the health outcomes in the three level hierarchy, whether the health outcome is attributed to changes in AP, PA or both, and the age, and age and sex specific population levels. The results are for either AP and PA only if the health outcomes are impacted by only AP or PA or the results are combined for AP and PA impacts if the health outcomes are impacted by both AP and PA.
+    -   the ylls_pathway.csv file (results/multi_city/health_impacts/ylls_pathway.csv) gives the changes in YLL for each age and sex category, health outcome and scenario as compared to the baseline scenario. It also shows the health outcome in the three level hierarchy, and whether the health outcome is attributed to changes in AP or PA, and the age, and age and sex specific population levels. The results are given for AP and PA independently even if a health outcome is impacted by both pathways.
 
-    -   the deaths_pathway.csv file (results/multi_city/health_impacts/deaths_pathway.csv) gives the changes in deaths for each age and sex category, for each age category per 100,000 people, and for each age and sex category per 100,000 people for each city, health outcome and scenario as compared to the baseline scenario. It also shows the health outcome in the three level hierarchy, and whether the health outcome is attributed to changes in AP or PA, and the age, and age and sex specific population levels. The results are given for AP and PA independently even if a health outcome is impacted by both pathways.
+    -   the deaths.csv file (results/multi_city/health_impacts/deaths.csv) gives the changes in deaths for each age and sex category, health outcome and scenario as compared to the baseline scenario. It also shows the the health outcomes in the three level hierarchy, whether the health outcome is attributed to changes in AP, PA or both, and the age, and age and sex specific population levels. The results are for either AP and PA only if the health outcomes are impacted by only AP or PA or the results are combined for AP and PA impacts if the health outcomes are impacted by both AP and PA.
+
+    -   the deaths_pathway.csv file (results/multi_city/health_impacts/deaths_pathway.csv) gives the changes in deaths for each age and sex category, health outcome and scenario as compared to the baseline scenario. It also shows the health outcome in the three level hierarchy, and whether the health outcome is attributed to changes in AP or PA, and the age, and age and sex specific population levels. The results are given for AP and PA independently even if a health outcome is impacted by both pathways.
 
 #### summary_tables_PA_AP.Rmd
 
@@ -380,11 +392,16 @@ This application allows you to produce Pivot tables for both health and injury o
 
 To produce these Shiny App Pivot tables, run the function `app.R` in the `results_app` folder. Depending on whether you want to read in the results from the latest updates on Github or from your local drive, set
 
-github_path \<- "<https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/>"
+
+```
+github_path <- "<https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/>"
+```
 
 or
 
-github_path \<- "../"
+```
+github_path <- "../"
+```
 
 (Comment out the option you don't need.)
 
