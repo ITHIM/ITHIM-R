@@ -148,9 +148,9 @@ ren_scen_health <- function(df){
 combined_health_dataset_pathway <- ren_scen_health(combined_health_dataset_pathway)
 combined_health_dataset <- ren_scen_health(combined_health_dataset)
 
-level_choices <- c("All-cause mortality" = "level1",
-                   "CVD/Respiratory diseases" = "level2",
-                   "Individual diseases (cancers, IHD, diabetes)" = "level3")
+level_choices <- c("All-cause mortality: L1" = "level1",
+                   "CVD/Respiratory diseases/Others: L2" = "level2",
+                   "Individual diseases (cancers, IHD, diabetes): L3" = "level3")
 
 per_100k <- c("Per 100k")
 
