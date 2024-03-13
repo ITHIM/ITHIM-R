@@ -287,8 +287,6 @@ Note that the Rmd file was set up to produce many more distance, duration and he
 
 -   output .csv files containing the information listed below. Note that all these files are also saved with their version number in the file name:
 
-sex	age_cat	cause	measure	city	scenario	level1	level2	level3	dose	pop_age_sex
-
     -   the ylls.csv file (results/multi_city/health_impacts/ylls.csv) gives the changes in YLL for each age and sex category, health outcome and scenario as compared to the baseline scenario. It also shows the health outcomes in the three level heirarchy, and whether the health outcome is attributed to changes in AP, PA or both, and the age, and age and sex specific population levels. The results are for either AP and PA only if the health outcomes are only impacted by AP or PA seperately, or the results are combined for AP and PA, if the health outcomes are impacted by both AP and PA.
 
     -   the ylls_pathway.csv file (results/multi_city/health_impacts/ylls_pathway.csv) gives the changes in YLL for each age and sex category, health outcome and scenario as compared to the baseline scenario. It also shows the health outcome in the three level hierarchy, and whether the health outcome is attributed to changes in AP or PA, and the age, and age and sex specific population levels. The results are given for AP and PA independently even if a health outcome is impacted by both pathways.
