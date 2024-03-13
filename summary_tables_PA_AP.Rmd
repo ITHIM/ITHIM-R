@@ -11,6 +11,7 @@ output:
   word_document: default
   pdf_document: default
 ---
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='asis')
 
@@ -60,7 +61,7 @@ knitr::opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=F, results='as
 
 #   - PM_2.5_emission_inventory: table detailing the percentage Baseline PM2.5 emissions attributed to each transport mode, the city wide PM2.5 concentration levels and the percentage of these concentrations attributed to transport for all cities
 
-#   - CO2_conc: table detailing the CO2 concentration levels for each scenario for all cities
+#   - C02_emission_inventory: table detailing the CO2 emission levels for each scenario for all cities
 
 #   - summary_stats_PM2.5_CO2: summary statistics of individual PM2.5 exposure levels, the total PM2.5 concentrations levels, the change in PM2.5 concentration levels compared to the reference scenario and the total transport related CO2 emission concentrations for each scenario and city
 
@@ -462,30 +463,30 @@ print(kable(sl))
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
 # create summary table of CO2 concentrations in each scenario
-co2_conc <- list()
+co2_emission_inventory <- list()
 td <- NA
 
 for (city in cities) { # loop through cities
   
   # extract CO2 concentrations
-  td <- round(colSums(io[[city]]$outcomes$co2_conc, na.rm = T), 1) %>% 
+  td <- round(colSums(io[[city]]$outcomes$co2_emission_inventory, na.rm = T), 1) %>% 
     as.data.frame() %>% tibble::rownames_to_column()
   names(td) <- c('Scenario', city)
   
   # create one dataframe containing all cities
-  if (length(co2_conc) == 0)
-    co2_conc <- td
+  if (length(co2_emission_inventory) == 0)
+    co2_emission_inventory <- td
   else
-    co2_conc <- left_join(co2_conc, td)
+    co2_emission_inventory <- left_join(co2_emission_inventory, td)
   
 }
 
 # Dan: here the order is different (bus before car)
-# co2_conc$Scenario <- new_scen_names
-co2_conc$Scenario <- sapply(co2_conc$Scenario, FUN = get_qualified_scen_name)
+# co2_emission_inventory$Scenario <- new_scen_names
+co2_emission_inventory$Scenario <- sapply(co2_emission_inventory$Scenario, FUN = get_qualified_scen_name)
 
 # print to html
-print(kable(co2_conc))
+print(kable(co2_emission_inventory))
 
 ```
 
@@ -698,7 +699,7 @@ for (x in 1:length(cities)) { # loop through cities
   
   # CO2
   # extract CO2 transport emissions for each scenario
-  td <- round(colSums(io[[cities[x]]]$outcomes$co2_conc, na.rm = T), 1) %>%
+  td <- round(colSums(io[[cities[x]]]$outcomes$co2_emission_inventory, na.rm = T), 1) %>%
     as.data.frame() %>% tibble::rownames_to_column()
   names(td) <- c('Scenario', 'CO2')
   
@@ -728,7 +729,7 @@ for (x in 1:length(cities)) { # loop through cities
 # create output Excel file containing the basic PM2.5 and CO2 exposure / concentration information
 output_file <- paste0('results/multi_city/AP/desc_stats_', output_version ,".xlsx")
 writexl::write_xlsx(list(PM_2.5_emission_inventory = sl,
-                         CO2_conc = co2_conc,
+                         co2_emission_inventory = co2_emission_inventory,
                          summary_stats_PM2.5_CO2 = bind_rows(l)), path = output_file)
 
 # create csv file (summary_stats_Pm2.5_CO2 tab in Excel file above) with and without output version number
