@@ -59,6 +59,17 @@ The Github repository has now been downloaded to your computer and the working b
 
 To open the ITHIM-R package in RStudio double click on the ITHIM-R.Rproj file inside the ITHIM-R folder saved on your computer. This should open the package in RStudio.
 
+```
+renv::status()
+```
+
+and then run:
+
+```
+renv::restore()
+```
+
+
 To install the ITHIM-R package in RStudio, the following steps need to be performed:
 
 1.) If Git has been installed then there should be a 'Build' tab in the top right hand corner of RStudio. Click on this tab and then on 'Install' in the panel below it.
@@ -149,7 +160,7 @@ In order to run ITHIM-R once it has been installed and the various input files d
 
 First, update the parameter values at the beginning of the script to set-up e.g. for which city / cities the script is to be run. This can be found in Line 63 and has been set to ‘bogota’ in this worked example.
 
-![](images/clipboard-2157191583.png)
+![](../man/figures/multi_city_script_specifcy_cities_gh.png){width="100%"}
 
 <https://github.com/ITHIM/ITHIM-R/blob/de2a88548af6c6be5eb36d939e178b146d1ba055/multi_city_script.R#L63>
 
