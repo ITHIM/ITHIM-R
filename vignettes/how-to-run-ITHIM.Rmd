@@ -110,7 +110,7 @@ To get the newest updates of the Bogota branch, go to the `Git` tab in RStudio n
 
 ## Running ITHIM-Global
 
-To run ITHIM-Global using the ITHIM-R package the various input files and parameters need to be updated first. Then the multi_city_script.R can be used to call the core functions required to run ITHIM-R. Note that the multi_city_script.R is set up to run ITHIM-Global for various cities in one go if required by looping through the cities one by one.
+To run ITHIM-Global using the ITHIM-R package the various input files and parameters need to be updated first. Then the `multi_city_script.R` can be used to call the core functions required to run ITHIM-R. Note that the `multi_city_script.R` is set up to run ITHIM-Global for various cities in one go if required by looping through the cities one by one.
 
 ### Update input parameters
 
