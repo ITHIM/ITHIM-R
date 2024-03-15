@@ -70,11 +70,6 @@
 </h1></div>
 <p>Development of the <strong>Integrated Transport and Health Impact Modelling Tool (ITHIM)</strong> in R, also known as ITHIM version 3.0. Started in January 2018. This document aims to be a comprehensive record of the calculations in the ITHIM pipeline, specifically the ITHIM- R package.</p>
 <div class="section level2">
-<h2 id="website-for-the-package">Website for the package<a class="anchor" aria-label="anchor" href="#website-for-the-package"></a>
-</h2>
-<p>Using <a href="https://pkgdown.r-lib.org/" class="external-link"><code>pkgdown</code></a> package, we have published the documentation of the <code>ITHIMR</code> package on github-pages. Please read it here: <a href="https://ithim.github.io/ITHIM-R">documentation + helpful resources</a>.</p>
-</div>
-<div class="section level2">
 <h2 id="how-to-use-the-package">How to use the package<a class="anchor" aria-label="anchor" href="#how-to-use-the-package"></a>
 </h2>
 <p>We have written a <code>how-to</code> guide that explains how to install the ITHIM-R package, how to run the ITHIM-Global model using this package and how to produce summaries of the key results. Please read it here: <a href="https://ithim.github.io/ITHIM-R/articles/how-to-run-ITHIM.html">how to run ITHIM?</a>.</p>
@@ -100,7 +95,7 @@
 <p>ITHIM models exposure to physical activity by comparing distributions of weekly physical activity under different scenarios. Walking, cycling and other types of physical activity are combined as marginal MET hours per week of activity. Outcomes affected by physical activity include several cardiovascular diseases, depression, dementia, diabetes, breast cancer and colon cancer. ITHIM also models changes in health through all-cause mortality. A comparative risk assessment method is used to estimate how changes in population physical activity lead to changes in health burden.</p>
 </div>
 <div class="section level4">
-<h4 id="road-traffic-injuries">Road traffic injuries<a class="anchor" aria-label="anchor" href="#road-traffic-injuries"></a>
+<h4 id="road-traffic-injuries">Road Traffic Injuries<a class="anchor" aria-label="anchor" href="#road-traffic-injuries"></a>
 </h4>
 <p>Road traffic injuries are modelled using a model based on risk, distance and speed. Differences in risk by sex and age are also taken into account. This approach allows ITHIM to look at how the absolute number of injuries and the risk of injury might change for different modes of transport as travel distances between modes change.</p>
 </div>
@@ -115,7 +110,7 @@
 <p>The carbon dioxide (CO2) pathway models carbon dioxide (CO2) emissions from motorised vehicles. The CO2 pathway estimates a single metric: the total CO2 emissions for each modelled scenario. The method to calculate CO2 emissions is similar to the one for PM2.5.</p>
 </div>
 <div class="section level4">
-<h4 id="health-outcomes">Health outcomes<a class="anchor" aria-label="anchor" href="#health-outcomes"></a>
+<h4 id="health-outcomes">Health Outcomes<a class="anchor" aria-label="anchor" href="#health-outcomes"></a>
 </h4>
 <p>The health impacts in ITHIM are presented as years of life lost (YLL) and number of attributable deaths seperately for each pathway, in addition to accounting for the interaction between physical activity and air pollution. Background mortality and YLL data for the study areas are estimated from <a href="https://www.healthdata.org/research-analysis/gbd" class="external-link">Global Burden of Disease studies</a>.</p>
 <div class="float">
@@ -127,15 +122,11 @@
 <h3 id="data-inputs">Data inputs<a class="anchor" aria-label="anchor" href="#data-inputs"></a>
 </h3>
 <p>ITHIM-R requires 5 user defined input files in csv format, saved in a directory with the city’s name. See <a href="https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota" class="external-link">inst/ext/local/bogota</a> for example files. There are also numerous assumptions which the user can parameterize in the model.</p>
-<div class="section level4">
-<h4 id="file-inputs">File inputs<a class="anchor" aria-label="anchor" href="#file-inputs"></a>
-</h4>
 <p>This section talks about all the files (datasets) required to setup and run the model. There are two subsections, which are:</p>
 <ul>
 <li><p>City-specific files (local input parameters/datasets).</p></li>
 <li><p>Global files (global input parameters/datasets).</p></li>
 </ul>
-</div>
 </div>
 <div class="section level3">
 <h3 id="city-specific-files">City-specific files<a class="anchor" aria-label="anchor" href="#city-specific-files"></a>
@@ -188,12 +179,9 @@
 </h3>
 <p>In order to setup the model, we need a fixed list of tables/datasets, which do not change across cities/ applied similarly to all cities and are hence referred to as “Global”, such as:</p>
 <ul>
-<li>
-<a href="https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/global/dose_response/disease_outcomes_lookup.csv" class="external-link"><strong>Health outcome interaction table</strong></a>. A table with a list of health outcomes related to a specific pathway such as <code>Air Pollution</code> and <code>Physical Activity</code> and also the interaction between them.</li>
-<li>
-<strong>Air Pollution Exposure-Response Functions (ERFs)</strong> exposure-response relationships between air pollution (PM2.5) and its impact on different health outcomes. We have collected/cleaned datasets from published studies for this.</li>
-<li>
-<strong>Physical Activity Dose-Response Functions (DRFs)</strong> dose-response relationships of physical activity and its impact on different health outcomes. Similar to air pollutiom, this too comes from published studies. This now sits in an independent R package called <a href="https://github.com/meta-analyses/drpa/" class="external-link"><code>drpa</code></a>.</li>
+<li><p><a href="https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/global/dose_response/disease_outcomes_lookup.csv" class="external-link"><strong>Health outcome interaction table</strong></a>. A table with a list of health outcomes related to a specific pathway such as <code>Air Pollution</code> and <code>Physical Activity</code> and also the interaction between them.</p></li>
+<li><p><a href="https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/global/dose_response/drap/extdata" class="external-link"><strong>Air Pollution Exposure Response Functions (ERFs)</strong></a><strong>.</strong> These give the exposure-response relationships between air pollution (PM2.5) and its impact on health for different health outcomes. We have collected/cleaned datasets from published studies for this.</p></li>
+<li><p><a href="https://meta-analyses.github.io/drpa/drpa.html" class="external-link"><strong>Physical Activity Dose-Response Functions (DRFs)</strong></a>. These are dose-response relationships of physical activity and its impact on health for different health outcomes. Similar to air pollution, this too comes from published studies. This now sits in an independent R package called <a href="https://github.com/meta-analyses/drpa/" class="external-link"><code>drpa</code></a>.</p></li>
 </ul>
 </div>
 </div>
