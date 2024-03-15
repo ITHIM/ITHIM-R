@@ -104,8 +104,6 @@ To install the ITHIM-R package in RStudio, the following steps need to be perfor
 
 ![](../man/figures/build_tabwa.png){width="100%"}
 
-Once all missing/out-of-date R packages have been installed using the `renv` package, go to the `Build` tab and install the ITHIM-R package. It should now install smoothly.
-
 To get the newest updates of the Bogota branch, go to the `Git` tab in RStudio next to the `Build` tab and click on `Pull`. This will automatically download the newest changes from Github. To update the ITHIM-R package on your computer, you need to again go to the `Build` tab and click on `Install` again. (Alternatively, if only code but none of the input files have been changed, instead of clicking on `Install`, you can also click on `More` and then `Load All` if this option exists for you, i.e. if `devtools` has been installed. This is a faster way to update the package but will only work for minor code changes.) It is recommended to pull and install the newest updates on a regular basis.
 
 ![](../man/figures/Git_pull.png){width="100%"}
