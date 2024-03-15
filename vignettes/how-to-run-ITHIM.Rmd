@@ -416,7 +416,7 @@ This application allows you to produce Pivot tables for both health and injury o
 To produce these Shiny App Pivot tables, run the function `app.R` in the `results_app` folder. Depending on whether you want to read in the results from the latest updates on Github or from your local drive, set
 
 ```         
-github_path <- "<https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/>"
+github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
 ```
 
 or
