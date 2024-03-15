@@ -62,11 +62,11 @@ The Github repository has now been downloaded to your computer and the working b
 
 ### Installing the package in RStudio
 
-To open the ITHIM-R package in RStudio double click on the ITHIM-R.Rproj file inside the ITHIM-R folder saved on your computer. This should open the package in RStudio. Please make sure that you already have installed the `renv` package. If it is not installed, please run this command on your console
+To open the ITHIM-R package in RStudio double click on the ITHIM-R.Rproj file inside the ITHIM-R folder saved on your computer. This should open the package in RStudio. 
 
 #### Install all dependent packages
 
-Before we install the `ITHIM` package, we need to make sure that all dependent packages are already installed on your computer. For that process, please make sure that you already have installed the `renv` package. If it is not installed, please run this command on your console
+Before we install the `ITHIM` package, we need to make sure that all the dependent packages are already installed on your computer. For that process to continue, please make sure that you already have installed the `renv` package. If it is not installed, please run this command on your console:
 
 ```         
 install.packages("renv")
@@ -78,7 +78,7 @@ This will install the package and you will see this message
 
 Once that is completed, you may use the package `renv` to verify/check if you already have all the dependent R packages for `ithim` locally installed on your computer.
 
-For that, please run the command
+For that, please run the command:
 
 ```         
 renv::status()
