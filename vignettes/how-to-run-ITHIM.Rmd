@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 In this guide we explain how to install the ITHIM-R package, how to run the model ITHIM-Global using this package and how to produce summaries of the key results.
 
-Please note that the guide was written for Windows 10 but should work similarly for different operating systems.
+Please note that the guide was written for Windows 10 but should work similarly for different operating systems. We are using the latest R version - at the time of writing, which is `R version 4.3.3 (2024-02-29)`.
 
 ## How to install the ITHIM-R package
 
@@ -28,7 +28,7 @@ The following programmes need to have been installed before the ITHIM-R package 
 
 -   [Git](https://github.com/git-guides/install-git)
 
--   [R](https://cran.r-project.org/)
+-   [R](https://cran.r-project.org/) - `version 4.3.3 (2024-02-29)` or above
 
 -   [R Studio](https://posit.co/download/rstudio-desktop/)
 
@@ -36,65 +36,79 @@ The following programmes need to have been installed before the ITHIM-R package 
 
 To clone (i.e. download) the ITHIM-R Github repository, open a command window by pressing the `More` button in the `Git` tab, and then press `New Terminal`
 
-
 ![](../man/figures/new_terminal.png){width="100%"}
-
 
 and then this terminal window will appear
 
 ![](../man/figures/terminal.png){width="100%"}
 
-
 navigate to the folder in which you want to install the repository in and type:
 
 ```         
-git clone <https://github.com/ITHIM/ITHIM-R.git>
+git clone https://github.com/ITHIM/ITHIM-R.git
 ```
 
 ![](../man/figures/Clone_package.png){width="100%"}
+
+[**Note**]{.underline}: If you'd like to install just the latest version and ignoring the history, you may use `--depth 1` parameter, such as:
+
+```         
+git clone https://github.com/ITHIM/ITHIM-R.git --depth 1
+```
+
+This will be much quicker to install.
 
 The Github repository has now been downloaded to your computer and the working branch - the default branch, is set to `bogota` which is this documentation refers to.
 
 ### Installing the package in RStudio
 
-To open the ITHIM-R package in RStudio double click on the ITHIM-R.Rproj file inside the ITHIM-R folder saved on your computer. This should open the package in RStudio.
+To open the ITHIM-R package in RStudio double click on the ITHIM-R.Rproj file inside the ITHIM-R folder saved on your computer. This should open the package in RStudio. Please make sure that you already have installed the `renv` package. If it is not installed, please run this command on your console
 
+#### Install all dependent packages
+
+Before we install the `ITHIM` package, we need to make sure that all dependent packages are already installed on your computer. For that process, please make sure that you already have installed the `renv` package. If it is not installed, please run this command on your console
+
+```         
+install.packages("renv")
 ```
+
+This will install the package and you will see this message
+
+> package `renv` successfully unpacked and MD5 sums checked
+
+Once that is completed, you may use the package `renv` to verify/check if you already have all the dependent R packages for `ithim` locally installed on your computer.
+
+For that, please run the command
+
+```         
 renv::status()
 ```
 
-and then run:
+![](../man/figures/renv_status.png){width="100%"}
 
-```
+In case of missing or out of date packages, this will display a list of them, and then you may run the `restore` function to have them all updated/installed, as:
+
+```         
 renv::restore()
 ```
 
+![](../man/figures/renv_restore.png){width="100%"}
+
+This will update and install all the required packages.
+
+#### Install the ITHIM-R package
 
 To install the ITHIM-R package in RStudio, the following steps need to be performed:
 
-1.) If Git has been installed then there should be a 'Build' tab in the top right hand corner of RStudio. Click on this tab and then on 'Install' in the panel below it.
+1.) If Git has been installed then there should be a `Build` tab in the top right hand corner of RStudio. Click on this tab and then on `Install` in the panel below it.
 
 ![](../man/figures/build_tabwa.png){width="100%"}
 
-This will install the ITHIM-R package but it will also most likely initially throw an error message 'Exited with status 1' stating that some other R packages that are needed for the ITHIM-R package have not yet been installed. To install these missing packages, click on the 'Packages' tab on the right hand side in the middle pane and then on 'Install'. This will open a pop-up window which lets you type in the packages that still need installing. Click on 'Install'.
+Once all missing/out-of-date R packages have been installed using the `renv` package, go to the `Build` tab and install the ITHIM-R package. It should now install smoothly.
 
-![](../man/figures/Install_packages.png){width="100%"}
-
-Once all missing R packages have been installed, go back to the 'Build' tab and install the ITHIM-R package again. It should now install smoothly.
-
-To get the newest updates of the Bogota branch, go to the 'Git' tab in RStudio next to the 'Build' tab and click on 'Pull'. This will automatically download the newest changes from Github. To update the ITHIM-R package on your computer, you need to again go to the 'Build' tab and click on 'Install' again. (Alternatively, if only code but none of the input files have been changed, instead of clicking on 'Install', you can also click on 'More' and then 'Load All' if this option exists for you, i.e. if 'devtools' has been installed. This is a faster way to update the package but will only work for minor code changes.) It is recommended to pull and install the newest updates on a regular basis.
+To get the newest updates of the Bogota branch, go to the `Git` tab in RStudio next to the `Build` tab and click on `Pull`. This will automatically download the newest changes from Github. To update the ITHIM-R package on your computer, you need to again go to the `Build` tab and click on `Install` again. (Alternatively, if only code but none of the input files have been changed, instead of clicking on `Install`, you can also click on `More` and then `Load All` if this option exists for you, i.e. if `devtools` has been installed. This is a faster way to update the package but will only work for minor code changes.) It is recommended to pull and install the newest updates on a regular basis.
 
 ![](../man/figures/Git_pull.png){width="100%"}
-
-Finally, you will also have to install the 'drpa' package from Github ([drpa](https://github.com/meta-analyses/drpa)) by first installing the 'remotes' package as explained above and then by typing
-
-```         
-remotes::install_github("meta-analyses/drpa")
-```
-
-into the RStudio console.
-
-![](../man/figures/install_drpa.png){width="100%"}
 
 ## Running ITHIM-Global
 
@@ -104,7 +118,7 @@ To run ITHIM-Global using the ITHIM-R package the various input files and parame
 
 There are several input parameters files that need updating before running ITIHM-Global:
 
--   5 files specific to each city saved in a directory of the city's name. (See [inst/ext/local/bogota](https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/local/bogota) for example files and also below for further information). These files need to be saved in the inst/extdata/local/'city' folder, where 'city' is replaced by the appropriate city name.
+-   5 files specific to each city saved in a directory of the city's name. (See [inst/ext/local/bogota](https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/local/bogota) for example files and also below for further information). These files need to be saved in the inst/extdata/local/'city' folder, where `city` is replaced by the appropriate city name.
 
 -   file containing the various input parameters for all cities for which the code is to be run saved in the ITHIM-R folder. In this branch, this file is called Bogota_InputParameters_vxx.xlsx, where vxx refers to the latest version number of this file. Here it only contains the input parameters for Bogota but it can easily be extended to contain the input parameter values for various cities, using the same format and structure shown in the sheet.
 
@@ -156,7 +170,7 @@ In order to setup the model, we need a fixed list of tables/datasets, which do n
 
 ### Call multi_city_script.R
 
-In order to run ITHIM-R once it has been installed and the various input files described above have been updated, open the `multi_city_script.R` file within RStudio. This file can be found under the 'Files' tab in the middle pane on the right hand side. This is the key script to run ITIHM-Global in constant mode (i.e. keeping the input parameters fixed, without sampling the input parameters from distributions). It reads in all the required datasets and initialises all variables by calling `run_ithim_setup` and then runs the model by calling `run_ithim`.
+In order to run ITHIM-R once it has been installed and the various input files described above have been updated, open the `multi_city_script.R` file within RStudio. This file can be found under the `Files` tab in the middle pane on the right hand side. This is the key script to run ITIHM-Global in constant mode (i.e. keeping the input parameters fixed, without sampling the input parameters from distributions). It reads in all the required datasets and initialises all variables by calling `run_ithim_setup` and then runs the model by calling `run_ithim`.
 
 First, update the parameter values at the beginning of the script to set-up e.g. for which city / cities the script is to be run. This can be found in Line 63 and has been set to ‘bogota’ in this worked example.
 
@@ -200,11 +214,11 @@ For each city modelled it contains the following data:
 
     -   **true_distances**: city baseline population mode distances by age category and sex considered in the model.
 
-    -   **injuries_list**: For all scenarios (including baseline) two lists are given, one for 'whw' (who-hit-whom) injuries where both the strike and the casualty mode are known and one for 'nov' (no other vehicle) injuries where no strike vehicle was involved in the crash These lists contain all casualty (and strike) mode combinations by age category and sex. Furthermore, they detail casualty (and strike) mode distances travelled by the entire city baseline population considered in the model ('\_sum') or just by the respective age and sex category. They also detail the casualty (and strike) mode exponents used in the injury Poisson regression model.
+    -   **injuries_list**: For all scenarios (including baseline) two lists are given, one for `whw` (who-hit-whom) injuries where both the strike and the casualty mode are known and one for `nov` (no other vehicle) injuries where no strike vehicle was involved in the crash These lists contain all casualty (and strike) mode combinations by age category and sex. Furthermore, they detail casualty (and strike) mode distances travelled by the entire city baseline population considered in the model ('\_sum') or just by the respective age and sex category. They also detail the casualty (and strike) mode exponents used in the injury Poisson regression model.
 
     -   **reg_model**: parameterised Poisson injury regression model for injuries.
 
-    -   **injuries_for_model**: baseline data containing fatality counts for all casualty and strike mode combinations with associated city's baseline population distance data (`true_distances` explained above)    .
+    -   **injuries_for_model**: baseline data containing fatality counts for all casualty and strike mode combinations with associated city's baseline population distance data (`true_distances` explained above) .
 
 -   **demographic**: city population counts for all age categories and sex combinations considered in the model.
 
@@ -230,7 +244,7 @@ For each city modelled it contains the following data:
 
 -   **PM_emission_inventory**: PM emission inventory by mode of transport for the baseline scenario (from input data).
 
--   **injury_table**: summarised total road fatality counts from the injury input data by age and sex category and strike and casualty mode for all years ('weight' column) given in the input data for both 'whw' (who-hit-whom) and 'nov' (no-other-vehicle) injuries.
+-   **injury_table**: summarised total road fatality counts from the injury input data by age and sex category and strike and casualty mode for all years (`weight` column) given in the input data for both `whw` (who-hit-whom) and `nov` (no-other-vehicle) injuries.
 
 -   **vehicle_inventory**: gives the speed and CO2 and PM2.5 emissions inventories for all vehicles in the baseline scenario.
 
@@ -368,15 +382,15 @@ This .Rmd file can be used to summarise the injury outcomes. It produces the fol
 
 -   output .csv files containing the information listed below. Note that all these files are also saved with their version number in the file name:
 
-    -   The inj_counts.csv file ('results/multi_city/inj/inj_counts.csv') contains the fatality counts (mean and upper and lower confidence interval values if required, each in their seperate row) for each scenario and casualty and strike mode pair. It also includes the observed baseline fatality counts and the active travel fatality counts under the casualty mode (the sum of cycle and walk casualty mode fatalities)
+    -   The inj_counts.csv file (`results/multi_city/inj/inj_counts.csv`) contains the fatality counts (mean and upper and lower confidence interval values if required, each in their seperate row) for each scenario and casualty and strike mode pair. It also includes the observed baseline fatality counts and the active travel fatality counts under the casualty mode (the sum of cycle and walk casualty mode fatalities)
 
-    -   The injury_risks_per_billion_kms.csv file ('results/multi_city/inj/injury_risks_per_billion_kms.csv') gives the fatalities per billion km travelled for each scenario and casualty mode. It also includes the upper and lower confidence interval values if required, each in their separate row, and active travel counts which sum walking and cycling
+    -   The injury_risks_per_billion_kms.csv file (`results/multi_city/inj/injury_risks_per_billion_kms.csv`) gives the fatalities per billion km travelled for each scenario and casualty mode. It also includes the upper and lower confidence interval values if required, each in their separate row, and active travel counts which sum walking and cycling
 
-    -   The injury_risks_per_100k_pop.csv file ('results/multi_city/inj/injury_risks_per_100k_pop.csv') gives the fatalities per 100k people for each scenario and casualty mode. It also includes the upper and lower confidence interval values if required, each in their separate row, and active travel counts which sum walking and cycling
+    -   The injury_risks_per_100k_pop.csv file (`results/multi_city/inj/injury_risks_per_100k_pop.csv`) gives the fatalities per 100k people for each scenario and casualty mode. It also includes the upper and lower confidence interval values if required, each in their separate row, and active travel counts which sum walking and cycling
 
-    -   The distances.csv file ('results/multi_city/inj/distances.csv') contains the population distances travelled per day for each scenario and mode
+    -   The distances.csv file (`results/multi_city/inj/distances.csv`) contains the population distances travelled per day for each scenario and mode
 
-    -   The injury_risks_per_100million_h.csv file ('results/multi_city/inj/injury_risks_per_100million_h.csv') gives the fatalities per 100 million hours travelled for each scenario and casualty mode. It also includes the upper and lower confidence interval values if required, each in their seperate row, and active travel counts which sum walking and cycling
+    -   The injury_risks_per_100million_h.csv file (`results/multi_city/inj/injury_risks_per_100million_h.csv`) gives the fatalities per 100 million hours travelled for each scenario and casualty mode. It also includes the upper and lower confidence interval values if required, each in their seperate row, and active travel counts which sum walking and cycling
 
 -   The inj_data.xlsx file (results/multi_city/inj/inj_data.xlsx) contains all injury output csv files
 
@@ -401,14 +415,13 @@ This application allows you to produce Pivot tables for both health and injury o
 
 To produce these Shiny App Pivot tables, run the function `app.R` in the `results_app` folder. Depending on whether you want to read in the results from the latest updates on Github or from your local drive, set
 
-
-```
+```         
 github_path <- "<https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/>"
 ```
 
 or
 
-```
+```         
 github_path <- "../"
 ```
 
