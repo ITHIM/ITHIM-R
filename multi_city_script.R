@@ -58,10 +58,7 @@ if (!require("drpa",character.only = TRUE)) {
   print("")
 }
 
-
-
 cities <- 'bogota'
-
 
 input_parameter_file <- "Bogota_InputParameters_v1.0.xlsx" # file containing the local and global input parameters
 # 
@@ -372,59 +369,59 @@ ithim_objects$ithim_run$comment <- comment
 
 
 
-##### Create the output plots
-# loop through diseases and plot 6 diseases per output plot
-
-# find number of total graphics windows
-no_plots <- floor(length(outputs_to_plot) / 6)
-if (length(outputs_to_plot)/6 > no_plots)
-  no_plots <- no_plots + 1
-
-for (j in 1:no_plots){
-  # extract the disease results for this particular subplot
-  result_mat_plot_sub <- result_mat_plot[(NSCEN*(j-1)*6+1) : (NSCEN*(j-1)*6 + NSCEN*6)]
-  
-  # remove any NA
-  result_mat_plot_sub <- result_mat_plot_sub[!is.na(result_mat_plot_sub)]
-  
-  # find number of diseases considered in respective graphics window
-  nDiseases_sub <- length(result_mat_plot_sub)/NSCEN
-  
-  # open graphic window
-  {x11(width = 10, height = 8);
-    #layout.matrix <- matrix(c(2:6,1,7:12), nrow = 2, ncol = 6,byrow = T)
-    layout.matrix <- matrix(c(1:6), nrow = 2, ncol = 3,byrow = T)
-    graphics::layout(mat = layout.matrix, heights = c(2,2),
-                     #widths = c(2.8,2,2,2,2,2.5))
-                     widths = c(2,2,2))
-    cols <- rainbow(length(cities)) # define colours
-    mar1 <- rep(2.5, 6); # define bottom margin
-    mar2 <- rep(2, 6); mar2[c(1,4)] <- 6 # define margin left of plots
-    
-    for (i in 1:nDiseases_sub) {
-      #ylim <- if (i %in% c(1,4)) range(disease_list[[i]]) else c(-11,4)*1e-4
-      ylim <- range(disease_list[[i + 6*(j  -1)]])
-      par(mar = c(mar1[i], mar2[i], 6, 1)) # define margins
-      barplot(t(disease_list[[i + 6*(j  -1)]]), ylim = ylim, las = 2, beside = T,
-              col = cols,
-              main = paste0(last(strsplit(names(result_mat_plot_sub)[i * NSCEN], 'ylls_')[[1]])),
-              yaxt='n') # create boxplot
-      
-      # add y-axis label
-      axis(2,cex.axis=1.5); 
-      if(i%in%c(1,4)) mtext(side=2,'YLL gain per person',line=3)
-      
-      # add city legend
-      if (i == 1 ) legend(legend = cities, fill = cols, bty = 'n',
-                          y = ylim[2], x = (length(cities)+ 1.5), cex = 0.9)
-      # add scenario names
-      scen_names_only <- c()
-      for (i in 1:NSCEN)
-        scen_names_only <- paste0(scen_names_only,"    ", SCEN_SHORT_NAME[i+1], "    ")
-      mtext(side = 1, scen_names_only, line = 1, cex = 0.8)
-    }
-  }
-}
+# ##### Create the output plots
+# # loop through diseases and plot 6 diseases per output plot
+# 
+# # find number of total graphics windows
+# no_plots <- floor(length(outputs_to_plot) / 6)
+# if (length(outputs_to_plot)/6 > no_plots)
+#   no_plots <- no_plots + 1
+# 
+# for (j in 1:no_plots){
+#   # extract the disease results for this particular subplot
+#   result_mat_plot_sub <- result_mat_plot[(NSCEN*(j-1)*6+1) : (NSCEN*(j-1)*6 + NSCEN*6)]
+#   
+#   # remove any NA
+#   result_mat_plot_sub <- result_mat_plot_sub[!is.na(result_mat_plot_sub)]
+#   
+#   # find number of diseases considered in respective graphics window
+#   nDiseases_sub <- length(result_mat_plot_sub)/NSCEN
+#   
+#   # open graphic window
+#   {x11(width = 10, height = 8);
+#     #layout.matrix <- matrix(c(2:6,1,7:12), nrow = 2, ncol = 6,byrow = T)
+#     layout.matrix <- matrix(c(1:6), nrow = 2, ncol = 3,byrow = T)
+#     graphics::layout(mat = layout.matrix, heights = c(2,2),
+#                      #widths = c(2.8,2,2,2,2,2.5))
+#                      widths = c(2,2,2))
+#     cols <- rainbow(length(cities)) # define colours
+#     mar1 <- rep(2.5, 6); # define bottom margin
+#     mar2 <- rep(2, 6); mar2[c(1,4)] <- 6 # define margin left of plots
+#     
+#     for (i in 1:nDiseases_sub) {
+#       #ylim <- if (i %in% c(1,4)) range(disease_list[[i]]) else c(-11,4)*1e-4
+#       ylim <- range(disease_list[[i + 6*(j  -1)]])
+#       par(mar = c(mar1[i], mar2[i], 6, 1)) # define margins
+#       barplot(t(disease_list[[i + 6*(j  -1)]]), ylim = ylim, las = 2, beside = T,
+#               col = cols,
+#               main = paste0(last(strsplit(names(result_mat_plot_sub)[i * NSCEN], 'ylls_')[[1]])),
+#               yaxt='n') # create boxplot
+#       
+#       # add y-axis label
+#       axis(2,cex.axis=1.5); 
+#       if(i%in%c(1,4)) mtext(side=2,'YLL gain per person',line=3)
+#       
+#       # add city legend
+#       if (i == 1 ) legend(legend = cities, fill = cols, bty = 'n',
+#                           y = ylim[2], x = (length(cities)+ 1.5), cex = 0.9)
+#       # add scenario names
+#       scen_names_only <- c()
+#       for (i in 1:NSCEN)
+#         scen_names_only <- paste0(scen_names_only,"    ", SCEN_SHORT_NAME[i+1], "    ")
+#       mtext(side = 1, scen_names_only, line = 1, cex = 0.8)
+#     }
+#   }
+# }
 
 
 saveRDS(ithim_objects, paste0("results/multi_city/io_",output_version,".rds"), version = 2)
