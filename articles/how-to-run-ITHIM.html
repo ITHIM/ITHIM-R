@@ -130,17 +130,15 @@ which is this documentation refers to.</p>
 </h4>
 <p>To open the ITHIM-R package in RStudio double click on the
 ITHIM-R.Rproj file inside the ITHIM-R folder saved on your computer.
-This should open the package in RStudio. Please make sure that you
-already have installed the <code>renv</code> package. If it is not
-installed, please run this command on your console</p>
+This should open the package in RStudio.</p>
 <div class="section level5">
 <h5 id="install-all-dependent-packages">Install all dependent packages<a class="anchor" aria-label="anchor" href="#install-all-dependent-packages"></a>
 </h5>
 <p>Before we install the <code>ITHIM</code> package, we need to make
-sure that all dependent packages are already installed on your computer.
-For that process, please make sure that you already have installed the
-<code>renv</code> package. If it is not installed, please run this
-command on your console</p>
+sure that all the dependent packages are already installed on your
+computer. For that process to continue, please make sure that you
+already have installed the <code>renv</code> package. If it is not
+installed, please run this command on your console:</p>
 <pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"renv"</span><span class="op">)</span></span></code></pre>
 <p>This will install the package and you will see this message</p>
 <blockquote>
@@ -150,7 +148,7 @@ checked</p>
 <p>Once that is completed, you may use the package <code>renv</code> to
 verify/check if you already have all the dependent R packages for
 <code>ithim</code> locally installed on your computer.</p>
-<p>For that, please run the command</p>
+<p>For that, please run the command:</p>
 <pre><code><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/status.html" class="external-link">status</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 <p><img src="../reference/figures/renv_status.png" style="width:100.0%"></p>
 <p>In case of missing or out of date packages, this will display a list
@@ -169,9 +167,6 @@ to be performed:</p>
 <code>Build</code> tab in the top right hand corner of RStudio. Click on
 this tab and then on <code>Install</code> in the panel below it.</p>
 <p><img src="../reference/figures/build_tabwa.png" style="width:100.0%"></p>
-<p>Once all missing/out-of-date R packages have been installed using the
-<code>renv</code> package, go to the <code>Build</code> tab and install
-the ITHIM-R package. It should now install smoothly.</p>
 <p>To get the newest updates of the Bogota branch, go to the
 <code>Git</code> tab in RStudio next to the <code>Build</code> tab and
 click on <code>Pull</code>. This will automatically download the newest
@@ -193,11 +188,11 @@ basis.</p>
 <h3 id="running-ithim-global">Running ITHIM-Global<a class="anchor" aria-label="anchor" href="#running-ithim-global"></a>
 </h3>
 <p>To run ITHIM-Global using the ITHIM-R package the various input files
-and parameters need to be updated first. Then the multi_city_script.R
-can be used to call the core functions required to run ITHIM-R. Note
-that the multi_city_script.R is set up to run ITHIM-Global for various
-cities in one go if required by looping through the cities one by
-one.</p>
+and parameters need to be updated first. Then the
+<code>multi_city_script.R</code> can be used to call the core functions
+required to run ITHIM-R. Note that the <code>multi_city_script.R</code>
+is set up to run ITHIM-Global for various cities in one go if required
+by looping through the cities one by one.</p>
 <div class="section level4">
 <h4 id="update-input-parameters">Update input parameters<a class="anchor" aria-label="anchor" href="#update-input-parameters"></a>
 </h4>
