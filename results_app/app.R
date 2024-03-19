@@ -254,11 +254,11 @@ ui <- grid_page(
                    label = "Pathways Interaction",
                    inline = TRUE,
                    choices = c("No", "Yes")),
-      radioButtons(inputId = "in_CIs", 
-                   label = "Conf. Interval",
-                   inline = TRUE,
-                   choices = c("No", "Yes"),
-                   selected = "No")
+      # radioButtons(inputId = "in_CIs", 
+      #              label = "Conf. Interval",
+      #              inline = TRUE,
+      #              choices = c("No", "Yes"),
+      #              selected = "No")
       
     ),
     conditionalPanel(
@@ -377,13 +377,13 @@ server <- function(input, output, session) {
     # req(input$in_cities)
     req(input$in_level)
     req(input$in_measure)
-    req(input$in_CIs)
+    # req(input$in_CIs)
     req(input$in_pathways)
     req(!is.null(input$in_strata))
     
     in_col_lvl <- input$in_level
     in_measure <- input$in_measure
-    in_CIs <- input$in_CIs
+    in_CIs <- "No"# input$in_CIs
     in_strata <- input$in_strata
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_cities <- in_cities
@@ -452,7 +452,7 @@ server <- function(input, output, session) {
                   input$in_measure,
                   input$in_per_100k,
                   input$in_strata,
-                  input$in_CIs,
+                  # input$in_CIs,
                   # input$in_cities,
                   input$in_scens,
                   input$in_pathways,
@@ -506,7 +506,7 @@ server <- function(input, output, session) {
     in_measure <- input$in_measure
     in_int_pathway <- input$in_int_pathway
     in_strata <- input$in_strata
-    in_CIs <- input$in_CIs
+    in_CIs <- "No" #input$in_CIs
     # filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_cities <- in_cities
     filtered_scens <- input$in_scens
