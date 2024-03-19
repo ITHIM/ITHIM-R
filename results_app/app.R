@@ -166,8 +166,8 @@ combined_health_dataset <- ren_dose(combined_health_dataset)
 
 
 level_choices <- c("All-cause mortality: L1" = "level1",
-                   "CVD/Respiratory diseases/Others: L2" = "level2",
-                   "Individual diseases (cancers, IHD, diabetes): L3" = "level3")
+                   "Cancer, cardiovascular, respiratory, other mortality: L2" = "level2",
+                   "Individual diseases mortality (e.g., COPD, stroke, type-2 diabetes, lung cancers, etc.): L3" = "level3")
 
 per_100k <- c("Per 100k")
 
