@@ -34,6 +34,15 @@ github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
 rel_path_health <- paste0(github_path, "results/multi_city/health_impacts/")
  
 
+ren_dose <- function(df){
+  df[df$dose == "RTI",]$dose <- "Road Traffic Injuries (RTI)"
+  df[df$dose == "AP",]$dose <- "Air Pollution (AP)"
+  df[df$dose == "PA",]$dose <- "Physical Activity (PA)"
+  df[df$dose == "PA and AP",]$dose <- "Physical Activity (PA) and Air Pollution (AP)"
+  df
+  
+}
+
 ylls <- read_csv(paste0(rel_path_health, "ylls.csv"))
 deaths <- read_csv(paste0(rel_path_health, "deaths.csv"))
 
@@ -45,6 +54,11 @@ deaths_pathway <- read_csv(paste0(rel_path_health, "deaths_pathway.csv"))
 
 ylls_pathway$measures <- "Years of Life Lost (YLLs)"
 deaths_pathway$measures <- "Deaths"
+
+ylls <- ren_dose(ylls)
+deaths <- ren_dose(deaths)
+ylls_pathway <- ren_dose(ylls_pathway)
+deaths_pathway <- ren_dose(deaths_pathway)
 
 overall_pop <- ylls |> distinct(sex, age_cat, .keep_all = T) |> summarise(sum(pop_age_sex)) |> pull()
 
@@ -147,6 +161,10 @@ ren_scen_health <- function(df){
 
 combined_health_dataset_pathway <- ren_scen_health(combined_health_dataset_pathway)
 combined_health_dataset <- ren_scen_health(combined_health_dataset)
+
+combined_health_dataset_pathway <- ren_dose(combined_health_dataset_pathway)
+combined_health_dataset <- ren_dose(combined_health_dataset)
+
 
 level_choices <- c("All-cause mortality: L1" = "level1",
                    "CVD/Respiratory diseases/Others: L2" = "level2",
