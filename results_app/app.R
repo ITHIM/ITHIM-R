@@ -159,7 +159,7 @@ combined_health_dataset <- rbind(ylls, deaths)
 combined_health_dataset_pathway <- rbind(ylls_pathway, deaths_pathway)
 
 # Keep it only for those cities on which we have health data
-cities <- cities |> filter(city %in% unique(combined_health_dataset$city))
+cities <- cities |> filter(city %in% unique(combined_health_dataset$city)) |> mutate(city = str_to_title(city))
 
 
 ren_scen_health <- function(df){
@@ -178,6 +178,28 @@ combined_health_dataset <- ren_scen_health(combined_health_dataset)
 combined_health_dataset_pathway <- ren_dose(combined_health_dataset_pathway)
 combined_health_dataset <- ren_dose(combined_health_dataset)
 
+capitalize_cols <- function(df, colname){
+  df[[colname]] <- str_to_title(df[[colname]])
+  df
+}
+
+injury_risks_per_100k_pop <- capitalize_cols(injury_risks_per_100k_pop, colname = "mode")
+injury_risks_per_100million_h_lng <- capitalize_cols(injury_risks_per_100million_h_lng, colname = "mode")
+injury_risks_per_billion_kms_lng <- capitalize_cols(injury_risks_per_billion_kms_lng, "mode")
+
+injury_risks_per_100k_pop <- capitalize_cols(injury_risks_per_100k_pop, colname = "city")
+injury_risks_per_100million_h_lng <- capitalize_cols(injury_risks_per_100million_h_lng, colname = "city")
+injury_risks_per_billion_kms_lng <- capitalize_cols(injury_risks_per_billion_kms_lng, "city")
+
+
+ren_at <- function(df, colname){
+  df[df[[colname]] == "active_travel",][[colname]] <- "Active Travel"
+  df
+}
+
+injury_risks_per_100k_pop <- ren_at(injury_risks_per_100k_pop, colname = "mode")
+injury_risks_per_100million_h_lng <- ren_at(injury_risks_per_100million_h_lng, colname = "mode")
+injury_risks_per_billion_kms_lng <- ren_at(injury_risks_per_billion_kms_lng, "mode")
 
 level_choices <- c("All-cause mortality: L1" = "level1",
                    "Cancer, cardiovascular, respiratory, other mortality: L2" = "level2",
@@ -370,7 +392,7 @@ server <- function(input, output, session) {
     
     filtered_scens <- input$in_scens
     # filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
-    filtered_cities <- in_cities
+    filtered_cities <- tolower(in_cities)
     filtered_modes <- input$in_inj_modes
     
     local_df <- get_inj_data()
@@ -416,7 +438,7 @@ server <- function(input, output, session) {
     in_measure <- input$in_measure
     in_CIs <- "No"# input$in_CIs
     in_strata <- input$in_strata
-    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    filtered_cities <- cities |> filter(city %in% tolower(input$in_cities)) |> dplyr::select(city) |> pull()
     filtered_cities <- in_cities
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
@@ -457,8 +479,6 @@ server <- function(input, output, session) {
           
           
           var.choice <- ifelse(in_per_100k, "metric_100k", "metric")
-          print(names(ld))
-          print(var.choice)
           gg <- ggplot(data = ld, aes(x = .data[[var.choice]], y = dose, fill = scenario)) +
             {if(in_CIs == "No") geom_col(position=position_dodge2(), alpha = global_alpha_val)} +
             {if(in_CIs == "No") geom_text(aes(label = round(.data[[var.choice]], 1)), 
@@ -517,7 +537,7 @@ server <- function(input, output, session) {
     
     local_df <- local_df |>
       as.data.frame() |>
-      filter(city %in% filtered_cities &
+      filter(city %in% tolower(filtered_cities) &
                scenario %in% filtered_scens &
                mode %in% filtered_modes) |>
       mutate(scenario = case_when(
@@ -614,7 +634,7 @@ server <- function(input, output, session) {
         filter(measures == in_measure) |>
         filter(!str_detect(cause, "lb|ub")) |>
         filter((!is.na(!!rlang::sym(in_col_lvl)))) |>
-        filter(city %in% filtered_cities) |>
+        filter(city %in% tolower(filtered_cities)) |>
         filter(scenario %in% filtered_scens) |>
         filter(dose %in% filtered_pathways) %>% 
         {if(in_strata == "Sex") group_by(., sex, city, scenario, dose) 
