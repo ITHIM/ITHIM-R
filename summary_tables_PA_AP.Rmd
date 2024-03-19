@@ -130,6 +130,7 @@ io <- readRDS(paste0("results/multi_city/io_", output_version, ".rds"))
 # Get names of cities from the io object
 cities <- names(io)[!names(io) %in% c('scen_prop','ithim_run' )]
 
+
 # function to convert scenario names
 get_qualified_scen_name <- function(cs){
   qualified_scen_name <- ""
@@ -137,13 +138,13 @@ get_qualified_scen_name <- function(cs){
     qualified_scen_name <- 'Baseline'
   else if(cs == "sc_walk")
     qualified_scen_name <- 'Walking'
-  else if(cs == "sc_cycle")
+  else if(cs == "sc_cycle" | cs == "Bicycling")
     qualified_scen_name <- 'Bicycling'
-  else if(cs == "sc_car")
+  else if(cs == "sc_car" | cs == "Car")
     qualified_scen_name <- 'Car'
   else if(cs == "sc_motorcycle")
     qualified_scen_name <- 'Motorcycling'
-  else if(cs == "sc_bus")
+  else if(cs == "sc_bus" | cs == "Public Transport")
     qualified_scen_name <- 'Public Transport'
   
   return(qualified_scen_name)
