@@ -42,6 +42,12 @@ ren_dose <- function(df){
   df
 }
 
+ren_sex <- function(df){
+  df[df$sex == "male",]$sex <- "Male"
+  df[df$sex == "female",]$sex <- "Female"
+  df
+}
+
 ylls <- read_csv(paste0(rel_path_health, "ylls.csv"))
 deaths <- read_csv(paste0(rel_path_health, "deaths.csv"))
 
@@ -58,6 +64,14 @@ ylls <- ren_dose(ylls)
 deaths <- ren_dose(deaths)
 ylls_pathway <- ren_dose(ylls_pathway)
 deaths_pathway <- ren_dose(deaths_pathway)
+
+ylls <- ren_sex(ylls)
+deaths <- ren_sex(deaths)
+ylls_pathway <- ren_sex(ylls_pathway)
+deaths_pathway <- ren_sex(deaths_pathway)
+
+
+
 
 overall_pop <- ylls |> distinct(sex, age_cat, .keep_all = T) |> summarise(sum(pop_age_sex)) |> pull()
 
