@@ -363,7 +363,8 @@ server <- function(input, output, session) {
         coord_flip() +
         theme_minimal() +
         scale_fill_manual(values = scen_colours) +
-        labs(title = paste(ylab, "(by mode)"), y = ylab) + 
+        labs(title = paste(ylab, "(by mode)"), y = ylab,
+             fill='Scenario') + 
         facet_wrap(vars(mode))
       
       plotly::ggplotly(gg)
@@ -437,7 +438,8 @@ server <- function(input, output, session) {
             scale_fill_manual(values = scen_colours) +
             labs(title = y_lab,
                  y = ifelse(in_CIs == "Yes", y_lab, ""),
-                 x = ifelse(in_CIs == "No", y_lab, ""))
+                 x = ifelse(in_CIs == "No", y_lab, ""),
+                 fill='Scenario')
           
           plotly::ggplotly(gg) |> plotly::layout(boxmode = "group"#,
                                                  #margin = m
