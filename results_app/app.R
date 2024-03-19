@@ -256,10 +256,9 @@ ui <- grid_page(
     tabsetPanel(
       id = "main_tab",
       tabPanel("Health Outcomes", 
-               plotlyOutput("in_pivot_int", width = "100%", height = "100%")
-              ),
-      tabPanel("Injury Risks", plotlyOutput("in_inj_pivot", width = "100%", height = "100%"))#,
-      # tabPanel("Params", DT::dataTableOutput("input_params"))
+               plotlyOutput("in_pivot_int", width = "100%", height = "650px")),
+      tabPanel("Injury Risks", 
+               plotlyOutput("in_inj_pivot", width = "100%", height = "650px"))
     )
   ),
   grid_card(
@@ -270,15 +269,6 @@ ui <- grid_page(
                 selected = scens[1],
                 options = list(`actions-box` = TRUE), 
                 multiple = TRUE),
-    # br(),
-    # treeInput(
-    #   inputId = "in_cities",
-    #   label = "Select cities:",
-    #   choices = create_tree(cities),
-    #   selected = cities$city,
-    #   returnValue = "text",
-    #   closeDepth = 0
-    # ),
     br(),
     conditionalPanel(
       condition = "input.main_tab == 'Health Outcomes'",
@@ -460,7 +450,7 @@ server <- function(input, output, session) {
         if (in_measure == "Deaths"){
           y_lab <- "Averted deaths per 100k"
           if (!in_per_100k)
-            y_lab <- "Averted Deaths"
+            y_lab <- "Averted deaths"
         }else{
           y_lab <- "Saved Years of Life Lost (YLLs) per 100k"#<---- harms      #      benefits ---->  
           if (!in_per_100k)
