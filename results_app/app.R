@@ -40,7 +40,6 @@ ren_dose <- function(df){
   df[df$dose == "PA",]$dose <- "Physical Activity (PA)"
   df[df$dose == "PA and AP",]$dose <- "Physical Activity (PA) and Air Pollution (AP)"
   df
-  
 }
 
 ylls <- read_csv(paste0(rel_path_health, "ylls.csv"))
@@ -252,7 +251,7 @@ ui <- grid_page(
                    inline = TRUE,
                    choices = c("Deaths", "Years of Life Lost (YLLs)")),
       radioButtons(inputId = "in_level", 
-                   label = "Disease/cause levels",
+                   label = "Outcome levels",
                    choices = level_choices),
       radioButtons(inputId = "in_strata", 
                     label = "Stratification",
