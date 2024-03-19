@@ -543,7 +543,7 @@ server <- function(input, output, session) {
             else if(in_strata == "Age Group") group_by(., age_cat, city, scenario) 
             else group_by(., city, scenario)} %>%
           summarise(metric_100k = sum(metric_100k)) |>
-          mutate(dose = "total", cause = "total_lb")
+          mutate(dose = "Total", cause = "total_lb")
         
         total_dose <- rbind(total_dose,
                             ld |>
@@ -553,7 +553,7 @@ server <- function(input, output, session) {
                                 else if(in_strata == "Age Group") group_by(., age_cat, city, scenario) 
                                 else group_by(., city, scenario)} %>%
                               summarise(metric_100k = sum(metric_100k)) |>
-                              mutate(dose = "total", cause = "total_ub")
+                              mutate(dose = "Total", cause = "total_ub")
                             
         )
         
@@ -565,7 +565,7 @@ server <- function(input, output, session) {
                                 else if(in_strata == "Age Group") group_by(., age_cat, city, scenario) 
                                 else group_by(., city, scenario)} %>%
                               summarise(metric_100k = sum(metric_100k)) |>
-                              mutate(dose = "total", cause = "total")
+                              mutate(dose = "Total", cause = "Total")
                             
         )
         ld <- plyr::rbind.fill(ld, total_dose)
@@ -593,7 +593,7 @@ server <- function(input, output, session) {
           {if(in_strata == "Sex") group_by(., sex, city, scenario) 
             else if(in_strata == "Age Group") group_by(., age_cat, city, scenario) 
             else group_by(., city, scenario)} %>% 
-          summarise(metric_100k = sum(metric_100k), dose = "total")
+          summarise(metric_100k = sum(metric_100k), dose = "Total")
         
         ld <- plyr::rbind.fill(ld, total_dose)
       }
