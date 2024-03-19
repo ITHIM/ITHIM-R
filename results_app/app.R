@@ -167,7 +167,6 @@ ren_scen_health <- function(df){
   df[df$scenario == "car" | df$scenario == "Car",]$scenario <- "CAR_SC"
   df[df$scenario == "bus" | df$scenario == "Public Transport",]$scenario <- "BUS_SC"
   df[df$scenario == "cycle" | df$scenario == "Bicycling",]$scenario <- "CYC_SC"
-
   df
   
 }
@@ -527,7 +526,7 @@ server <- function(input, output, session) {
     
     local_df <- local_df |>
       as.data.frame() |>
-      filter(city %in% tolower(filtered_cities) &
+      filter(city %in% filtered_cities &
                scenario %in% filtered_scens &
                mode %in% filtered_modes) |>
       mutate(scenario = case_when(
