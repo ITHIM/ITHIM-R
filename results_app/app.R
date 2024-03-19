@@ -206,7 +206,7 @@ dose_pathway_level3 <- ylls_pathway |> filter(!is.na(level3)) |> distinct(dose) 
 
 inj_modes <- injury_risks_per_billion_kms_lng$mode |> unique() |> sort()
 
-inj_risk_types <- c("Billion kms", "Population by 100k", "100 Million hours")
+inj_risk_types <- c("Billion kms", "Population by 100k people", "100 million hours")
 
 in_cities <- cities$city
 
@@ -376,18 +376,18 @@ server <- function(input, output, session) {
     local_df <- get_inj_data()
     text_colour <- "black"
       
-    ylab <- "Distance: risk per Billion kilometeres"
-    if (input$in_risk_type == "Population by 100k")
-      ylab <- "Population: risk per 100K"
-    else if (input$in_risk_type == "100 Million hours")
-      ylab <- "Duration: risk per 100 Million hours"
+    ylab <- "Distance: risk per billion kilometeres"
+    if (input$in_risk_type == "Population by 100k people")
+      ylab <- "Population: risk per 100K people"
+    else if (input$in_risk_type == "100 million hours")
+      ylab <- "Duration: risk per 100 million hours"
     
     if(nrow(local_df) < 1)
       plotly::ggplotly(ggplot(data.frame()))
     else{
       
-      gg <- ggplot(local_df) +
-        aes(x = city, y = mean, fill = scenario) +
+      gg <- ggplot(local_df |> rename(City = city)) +
+        aes(x = City, y = mean, fill = scenario) +
         geom_col(position = "dodge", alpha = global_alpha_val) +
         geom_text(aes(label = round(mean, 1)), size = 3, position = position_dodge(width = 0.9), vjust = -0.5) +
         scale_fill_hue(direction = 1) +
@@ -504,13 +504,13 @@ server <- function(input, output, session) {
     
     local_df <- injury_risks_per_billion_kms_lng
     ylab <- "Distance: risk per Billion kilometeres"
-    if (input$in_risk_type == "Population by 100k"){
+    if (input$in_risk_type == "Population by 100k people"){
       local_df <- injury_risks_per_100k_pop
       ylab <- "Population: risk per 100K"
     }
-    else if (input$in_risk_type == "100 Million hours"){
+    else if (input$in_risk_type == "100 million hours"){
       local_df <- injury_risks_per_100million_h_lng
-      ylab <- "Duration: risk per 100 Million hours"
+      ylab <- "Duration: risk per 100 million hours"
     }
     
     text_colour <- "black"
@@ -670,9 +670,9 @@ server <- function(input, output, session) {
       }else if (input$main_tab == "Injury Risks"){
         
         measure <- "distance-risk-per-billion-kms"
-        if (input$in_risk_type == "Population by 100k")
+        if (input$in_risk_type == "Population by 100k people")
           measure <- "population-risk-per-100K"
-        else if (input$in_risk_type == "100 Million hours")
+        else if (input$in_risk_type == "100 million hours")
           measure <- "duration-risk-per-100M-hrs"
         paste(measure, "-", Sys.Date(), ".csv", sep="")
         
