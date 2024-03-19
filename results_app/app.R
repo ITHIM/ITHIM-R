@@ -420,7 +420,7 @@ server <- function(input, output, session) {
     filtered_cities <- in_cities
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
-    in_per_100 <- input$in_per_100k
+    in_per_100k <- input$in_per_100k
     
     m <- list(
       l = 10,
@@ -437,11 +437,11 @@ server <- function(input, output, session) {
         
         if (in_measure == "Deaths"){
           y_lab <- "Averted deaths per 100k"
-          if (!in_per_100)
+          if (!in_per_100k)
             y_lab <- "Averted Deaths"
         }else{
           y_lab <- "Saved Years of Life Lost (YLLs) per 100k"#<---- harms      #      benefits ---->  
-          if (!in_per_100)
+          if (!in_per_100k)
             y_lab <- "Saved Years of Life Lost (YLLs)"
         }
       
@@ -454,13 +454,18 @@ server <- function(input, output, session) {
           plotly::ggplotly(ggplot(data.frame()))
         else{
           
-          gg <- ggplot(ld, aes(x = metric_100k, y = dose, fill = scenario)) +
+          
+          
+          var.choice <- ifelse(in_per_100k, "metric_100k", "metric")
+          print(names(ld))
+          print(var.choice)
+          gg <- ggplot(data = ld, aes(x = .data[[var.choice]], y = dose, fill = scenario)) +
             {if(in_CIs == "No") geom_col(position=position_dodge2(), alpha = global_alpha_val)} +
-            {if(in_CIs == "No") geom_text(aes(label = round(metric_100k, 1)), 
+            {if(in_CIs == "No") geom_text(aes(label = round(.data[[var.choice]], 1)), 
                                           size = 3, 
                                           position = position_dodge(width = 0.9), 
                                           vjust = -0.5)} +
-            {if(in_CIs == "Yes") geom_boxplot(data = ld, aes(y = metric_100k, x = dose, fill = scenario), 
+            {if(in_CIs == "Yes") geom_boxplot(data = ld, aes(y = .data[[var.choice]], x = dose, fill = scenario), 
                      width = 0.5, position=position_dodge2(), alpha = global_alpha_val)} +
             {if(in_strata == "Sex") facet_wrap(~sex) else if(in_strata == "Age Group") facet_wrap(~age_cat)} +
             {if(in_CIs == "Yes") coord_flip()} +
@@ -542,7 +547,7 @@ server <- function(input, output, session) {
     filtered_cities <- in_cities
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
-    in_per_100 <- input$in_per_100k
+    in_per_100k <- input$in_per_100k
     local_dataset <- combined_health_dataset
     
     
@@ -565,7 +570,7 @@ server <- function(input, output, session) {
         {if(in_strata == "Sex") left_join(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> group_by(sex) |> summarise(pop = sum(pop_age_sex)))) 
           else if (in_strata == "Age Group") left_join(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> group_by(age_cat) |> summarise(pop = sum(pop_age_sex)))) 
           else cbind(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> summarise(pop = sum(pop_age_sex))))} |> 
-        summarise(metric_100k = round(ifelse(in_per_100,(sum(measure) / pop * 100000), sum(measure)), 1))
+        summarise(metric_100k = round(ifelse(in_per_100k,(sum(measure) / pop * 100000), sum(measure)), 1)) 
       
       if (length(filtered_pathways) > 1){
         
@@ -585,7 +590,7 @@ server <- function(input, output, session) {
                               {if(in_strata == "Sex") group_by(., sex, city, scenario) 
                                 else if(in_strata == "Age Group") group_by(., age_cat, city, scenario) 
                                 else group_by(., city, scenario)} %>%
-                              summarise(metric_100k = sum(metric_100k)) |>
+                              summarise(metric_100k = sum(metric_100k)) |>  
                               mutate(dose = "Total", cause = "total_ub")
                             
         )
@@ -597,7 +602,7 @@ server <- function(input, output, session) {
                               {if(in_strata == "Sex") group_by(., sex, city, scenario) 
                                 else if(in_strata == "Age Group") group_by(., age_cat, city, scenario) 
                                 else group_by(., city, scenario)} %>%
-                              summarise(metric_100k = sum(metric_100k)) |>
+                              summarise(metric_100k = sum(metric_100k)) |> 
                               mutate(dose = "Total", cause = "Total")
                             
         )
@@ -618,7 +623,7 @@ server <- function(input, output, session) {
         {if(in_strata == "Sex") left_join(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> group_by(sex) |> summarise(pop = sum(pop_age_sex)))) 
           else if(in_strata == "Age Group") left_join(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> group_by(age_cat) |> summarise(pop = sum(pop_age_sex)))) 
           else cbind(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> summarise(pop = sum(pop_age_sex))))} |> 
-        summarise(metric_100k = round(ifelse(in_per_100,(sum(measure) / pop * 100000), sum(measure)), 1))
+        summarise(metric_100k = round(ifelse(in_per_100k,(sum(measure) / pop * 100000), sum(measure)), 1))
       
       if (length(filtered_pathways) > 1){
         
@@ -644,6 +649,9 @@ server <- function(input, output, session) {
     
     if (is.null(ld) || nrow(ld) == 0)
       ld <- data.frame()
+    
+    if (!in_per_100k)
+      names(ld)[names(ld) == "metric_100k"] <- "metric"
     
     ld
     
