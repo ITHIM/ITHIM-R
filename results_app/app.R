@@ -177,6 +177,16 @@ combined_health_dataset <- ren_scen_health(combined_health_dataset)
 combined_health_dataset_pathway <- ren_dose(combined_health_dataset_pathway)
 combined_health_dataset <- ren_dose(combined_health_dataset)
 
+
+ren_at <- function(df, colname){
+  df[df[[colname]] == "active_travel",][[colname]] <- "Active Travel"
+  df
+}
+
+injury_risks_per_100k_pop <- ren_at(injury_risks_per_100k_pop, colname = "mode")
+injury_risks_per_100million_h_lng <- ren_at(injury_risks_per_100million_h_lng, colname = "mode")
+injury_risks_per_billion_kms_lng <- ren_at(injury_risks_per_billion_kms_lng, "mode")
+
 capitalize_cols <- function(df, colname){
   df[[colname]] <- str_to_title(df[[colname]])
   df
@@ -190,15 +200,6 @@ injury_risks_per_100k_pop <- capitalize_cols(injury_risks_per_100k_pop, colname 
 injury_risks_per_100million_h_lng <- capitalize_cols(injury_risks_per_100million_h_lng, colname = "city")
 injury_risks_per_billion_kms_lng <- capitalize_cols(injury_risks_per_billion_kms_lng, "city")
 
-
-ren_at <- function(df, colname){
-  df[df[[colname]] == "active_travel",][[colname]] <- "Active Travel"
-  df
-}
-
-injury_risks_per_100k_pop <- ren_at(injury_risks_per_100k_pop, colname = "mode")
-injury_risks_per_100million_h_lng <- ren_at(injury_risks_per_100million_h_lng, colname = "mode")
-injury_risks_per_billion_kms_lng <- ren_at(injury_risks_per_billion_kms_lng, "mode")
 
 level_choices <- c("All-cause mortality: L1" = "level1",
                    "Cancer, cardiovascular, respiratory, other mortality: L2" = "level2",
@@ -447,11 +448,11 @@ server <- function(input, output, session) {
       text_colour <- "black"
         
         if (in_measure == "Deaths"){
-          y_lab <- "Averted deaths per 100k"
+          y_lab <- "Averted deaths per 100k people"
           if (!in_per_100k)
             y_lab <- "Averted deaths"
         }else{
-          y_lab <- "Saved Years of Life Lost (YLLs) per 100k"#<---- harms      #      benefits ---->  
+          y_lab <- "Saved Years of Life Lost (YLLs) per 100k people"#<---- harms      #      benefits ---->  
           if (!in_per_100k)
             y_lab <- "Saved Years of Life Lost (YLLs)"
         }
