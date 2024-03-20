@@ -255,9 +255,9 @@ ui <- grid_page(
     tabsetPanel(
       id = "main_tab",
       tabPanel("Health Outcomes", 
-               plotlyOutput("in_pivot_int", width = "100%", height = "650px")),
+               plotlyOutput("in_pivot_int", width = "100%", height = "450px")),
       tabPanel("Injury Risks", 
-               plotlyOutput("in_inj_pivot", width = "100%", height = "650px"))
+               plotlyOutput("in_inj_pivot", width = "100%", height = "450px"))
     )
   ),
   grid_card(
