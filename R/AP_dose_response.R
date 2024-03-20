@@ -83,22 +83,26 @@ AP_dose_response <- function(cause, dose, quantile, confidence_intervals = F) {
   # interpolate the upper and lower band values in the lookup table to get upper and lower band
   # RR values for all PM exposure doses in the synthetic population
   if (confidence_intervals || quantile != 0.5) {
-    lb <-
-      approx(
-        x = lookup_df$dose,
-        y = lookup_df$lb,
-        xout = dose,
-        yleft = 1,
-        yright = min(lookup_df$lb)
-      )$y
-    ub <-
-      approx(
-        x = lookup_df$dose,
-        y = lookup_df$ub,
-        xout = dose,
-        yleft = 1,
-        yright = min(lookup_df$ub)
-      )$y
+    suppressWarnings(
+      lb <-
+        approx(
+          x = lookup_df$dose,
+          y = lookup_df$lb,
+          xout = dose,
+          yleft = 1,
+          yright = min(lookup_df$lb)
+        )$y
+    )
+    suppressWarnings(
+      ub <-
+        approx(
+          x = lookup_df$dose,
+          y = lookup_df$ub,
+          xout = dose,
+          yleft = 1,
+          yright = min(lookup_df$ub)
+        )$y
+    )
   }
   
   # if the quantile is not 0.5, i.e. the median, then find the RR value by finding the
