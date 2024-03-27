@@ -28,6 +28,7 @@ reference:
   - dirichlet_pointiness
   - distances_for_injury_function
   - dist_dur_tbls
+  - extract_data_for_voi
   - gen_ap_rr
   - gen_pa_rr
   - get_all_distances
