@@ -99,7 +99,7 @@ This section covers file inputs (specific to a city) required to run the model.
 In order to setup the model, we need a fixed list of tables/datasets, which do not change across cities/ applied similarly to all cities and are hence referred to as “Global”, such as:
 
 -   **Health outcome interaction table**. A table with a list of health outcomes related to a specific pathway such as `Air Pollution` and `Physical Activity` and also the interaction between them.
-![](man/figures/disease_interaction_table.png){width="100%"}
+![](man/figures/disease_interaction_table.png)
 
 -   [**Air Pollution Exposure Response Functions (ERFs)**](https://github.com/ITHIM/ITHIM-R/tree/bogota/inst/extdata/global/dose_response/drap/extdata)**.** These give the exposure-response relationships between air pollution (PM2.5) and its impact on health for different health outcomes. We have collected/cleaned datasets from published studies for this.
 
