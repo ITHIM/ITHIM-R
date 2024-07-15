@@ -108,6 +108,8 @@ input data ready for the ITHIM-Global model run. Writes objects to the global en
 <li><p>using the burden_of_disease data (now called DISEASE_BURDEN), calculate the ratio of
   YLL to death for each age and sex category for the road_injuries data</p></li>
 <li><p>read in the city specific road injury data:</p><ul><li><p>Set a 'weight' column to the unique number of years for which injury data exists (if such column does not already exist)</p></li>
+<li><p>calculate average yearly injury fatalities for each strike and casualty mode pair from original injury data</p></li>
+<li><p>adjusted those yearly counts by the injury reporting rate</p></li>
 <li><p>where strike mode equals casualty mode, set the strike mode to 'nov' (no other vehicle)</p></li>
 <li><p>call set_injury_contingency.R function to set tables for WHW (who hit whom) and NOV (no other vehicle) fatalities</p></li>
 </ul></li>

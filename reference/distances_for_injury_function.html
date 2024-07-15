@@ -92,7 +92,10 @@ to predict injury fatalities at a later stage</p>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function uses distance data and the individual injury fatality data to perform the following steps
 to parameterise the Poisson injury regression model:</p>
-<ul><li><p>stage modes are aggregated such that all walk related stages (walk and walk to pt) are of the same mode (walk),
+<ul><li><p>taxi, shared_taxi and auto_rickshaw distances are multiplied by 2 to add drivers (note if there are multiple passengers in a vehicle apart
+   then this will overestimate these vehicle distances but taxis also spend a significant amount of time driving around without any
+   passenger which is not captured in the travel surveys.)</p></li>
+<li><p>stage modes are aggregated such that all walk related stages (walk and walk to pt) are of the same mode (walk),
    similarly for all car related journeys</p></li>
 <li><p>bus drivers are added to bus journeys (where relevant) to accurately represent all people on a bus</p></li>
 <li><p>Takes Baseline injury tables, split into who-hit whom (whw) and no-other-vehicle (nov) parts,
