@@ -21,6 +21,7 @@ if (!exists("output_version")){
   output_version <- paste0(repo_sha, "_test_run")
 } 
 
+#output_version <- '5054de5a_orig_nomidpt'
 
 # create summary tables for AP and PA
 rmarkdown::render('summary_tables_PA_AP.Rmd', params = list(output_version = output_version))
@@ -30,3 +31,6 @@ rmarkdown::render('summary_tables.Rmd', params = list(output_version = output_ve
 
 # create injury summary tables
 rmarkdown::render('injury_tables.Rmd', params = list(output_version = output_version))
+
+
+

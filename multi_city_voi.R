@@ -21,16 +21,22 @@ if (!require("drpa",character.only = TRUE)) {
 
 rm(list=ls())
 
+# cities <- c('belo_horizonte', 'bogota', 'buenos_aires',
+#             'cali',  'medellin', 'mexico_city', 'montevideo',
+#             'santiago', 'sao_paulo', 'accra', 'bangalore', 'cape_town','delhi', 
+#             'vizag', 'kisumu', 'nairobi', 'port_louis')
+
 # cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 #             'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
 #             'iquique_altohospicio', 'medellin', 'mexico_city', 'montevideo',
 #             'osorno', 'puerto_montt', 'san_antonio',
-#             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia')
+#             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia',
+#             'accra', 'bangalore', 'cape_town','delhi', 'vizag', 'kisumu', 'nairobi', 'port_louis')
 
 cities <- c('bogota')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 2
+nsamples <- 1000
 
 
 voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
@@ -58,7 +64,7 @@ voi_age_gender <- F   # set to T if want to include split and to F otherwise
 voi_add_sum <- T
 
 
-input_parameter_file <- "InputParameters_v39.0.xlsx"
+input_parameter_file <- "InputParameters_v40.0.xlsx"
 
 
 ## Get the current repo sha
@@ -661,30 +667,30 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
     
     
     # look at dose response AP input parameters separately, as alpha, beta, gammy and trmel are dependent on each other
-    if(any(ap_dr_quantile)&&NSAMPLES>=300){
-      AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
-      diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-      sources <- list()
-      for(di in diseases){ 
-        col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
-        sources[[di]] <- parameter_samples[,col_names]
-      }
-      evppi_for_AP_city <- future_lapply(1:length(sources),
-                                         FUN = ithimr:::compute_evppi,
-                                         global_para = sources,
-                                         city_para = data.frame(),
-                                         city_outcomes = city_outcomes,
-                                         nsamples = NSAMPLES)
-      
-      evppi_for_AP_city2 <- do.call(rbind,evppi_for_AP_city) # bind list
-      evppi_for_AP_city3 <- as.data.frame(evppi_for_AP_city2) # turn into dataframe
-      colnames(evppi_for_AP_city3) <- evppi_outcome_names
-      
-      evppi_for_AP_city3$parameters <-  c(paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)) # add parameter name column
-      evppi_for_AP_city3$city <- city # add city name column
-      
-      evppi_city3 <- rbind(evppi_city3, evppi_for_AP_city3)
-    }
+    # if(any(ap_dr_quantile)&&NSAMPLES>=300){
+    #   AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
+    #   diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
+    #   sources <- list()
+    #   for(di in diseases){ 
+    #     col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
+    #     sources[[di]] <- parameter_samples[,col_names]
+    #   }
+    #   evppi_for_AP_city <- future_lapply(1:length(sources),
+    #                                      FUN = ithimr:::compute_evppi,
+    #                                      global_para = sources,
+    #                                      city_para = data.frame(),
+    #                                      city_outcomes = city_outcomes,
+    #                                      nsamples = NSAMPLES)
+    #   
+    #   evppi_for_AP_city2 <- do.call(rbind,evppi_for_AP_city) # bind list
+    #   evppi_for_AP_city3 <- as.data.frame(evppi_for_AP_city2) # turn into dataframe
+    #   colnames(evppi_for_AP_city3) <- evppi_outcome_names
+    #   
+    #   evppi_for_AP_city3$parameters <-  c(paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)) # add parameter name column
+    #   evppi_for_AP_city3$city <- city # add city name column
+    #   
+    #   evppi_city3 <- rbind(evppi_city3, evppi_for_AP_city3)
+    # }
     
     evppi_df <- rbind(evppi_df, evppi_city3) # add to total evppi dataframe
   } # end of city loop
