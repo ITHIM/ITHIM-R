@@ -21,10 +21,10 @@ if (!require("drpa",character.only = TRUE)) {
 
 rm(list=ls())
 
-# cities <- c('belo_horizonte', 'bogota', 'buenos_aires',
-#             'cali',  'medellin', 'mexico_city', 'montevideo',
-#             'santiago', 'sao_paulo', 'accra', 'bangalore', 'cape_town','delhi', 
-#             'vizag', 'kisumu', 'nairobi', 'port_louis')
+cities <- c('belo_horizonte', 'bogota', 'buenos_aires',
+            'cali',  'medellin', 'mexico_city', 'montevideo',
+            'santiago', 'sao_paulo', 'accra', 'bangalore', 'cape_town','delhi',
+            'vizag', 'kisumu', 'nairobi', 'port_louis')
 
 # cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 #             'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
@@ -33,13 +33,13 @@ rm(list=ls())
 #             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia',
 #             'accra', 'bangalore', 'cape_town','delhi', 'vizag', 'kisumu', 'nairobi', 'port_louis')
 
-cities <- c('bogota')
+#cities <- c('bogota')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 1000
+nsamples <- 2
 
 
-voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
+voi_analysis <- F # set to T if want to run VoI analysis and to F otherwise
 
 # list of potential values for the outcome_voi_list
 # 'pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
@@ -64,7 +64,7 @@ voi_age_gender <- F   # set to T if want to include split and to F otherwise
 voi_add_sum <- T
 
 
-input_parameter_file <- "InputParameters_v40.0.xlsx"
+input_parameter_file <- "InputParameters_v40.0-test.xlsx"
 
 
 ## Get the current repo sha
@@ -90,7 +90,7 @@ author <- "AKS"
 comment <- "Added CO2 emission sampling"
 
 # scenario definition
-scenario_name <- "BOGOTA"
+scenario_name <- "GLOBAL"
 reference_scenario <- 'Baseline'
 scenario_increase <- 0.05 # increase for each mode in each scenario
 
@@ -305,7 +305,7 @@ print(system.time(
                                                 ADD_WALK_TO_PT_TRIPS = as.logical(add_walk_to_pt_trips[[city]]),# originally = F,
                                                 CITY=city,
                                                 AGE_RANGE =  c(min_age,max_age),
-                                                TREAT_TAXI_AS_CAR = as.logical(treat_taxi_as_car),
+                                                TREAT_TAXI_AS_CAR = as.logical(treat_taxi_as_car[[city]]),
                                                 ADD_TRUCK_DRIVERS = as.logical(add_truck_drivers),
                                                 ADD_BUS_DRIVERS = as.logical(add_bus_drivers),
                                                 ADD_CAR_DRIVERS = as.logical(add_car_drivers),
@@ -410,7 +410,7 @@ print(system.time(
   
     multi_city_ithim[[city]]$outcomes <- run_ithm_fn(nsamples,ithim_object = multi_city_ithim[[city]], seed)
     
-    #multi_city_ithim[[cities]]$outcomes <- run_ithim(ithim_object=multi_city_ithim[[cities]], seed = 1)
+    #multi_city_ithim[[city]]$outcomes <- run_ithim(ithim_object=multi_city_ithim[[city]], seed = 1)
     
     multi_city_ithim[[city]]$DEMOGRAPHIC <- DEMOGRAPHIC
     

@@ -206,11 +206,14 @@ injuries_function_2 <- function(true_distances, injuries_list, reg_model, consta
       nov_data <- data.frame(as.list(whw_temp[[scen]]$nov))
       cas_data <- data.frame(whw_temp[[scen]]$whw)
       for (c_mode in colnames(nov_data)){ # loop through NOV casualty modes
-        
         if (!c_mode %in% row.names(cas_data)){# if the casualty mode is not a strike mode, then add a row to data
           cas_data[c_mode,] <- NA
           cas_data[c_mode,c_mode] <- nov_data[1,c_mode]
+        } else if (c_mode %in% colnames(cas_data)) {
+          cas_data[c_mode,c_mode] <- cas_data[c_mode,c_mode] + nov_data[1,c_mode]
         } else {
+          cas_data[,c_mode] <- 0 # add new column
+          cas_data[c_mode,] <- 0 # add new row
           cas_data[c_mode,c_mode] <- cas_data[c_mode,c_mode] + nov_data[1,c_mode]
         }
       }

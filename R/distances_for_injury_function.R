@@ -77,11 +77,12 @@ distances_for_injury_function <- function(journeys, dist) {
   # if there are multiple people in the taxi apart from the driver this will increase
   # taxi distances by too much, however taxis are also spending a significant distance
   # driving around without passengers which is not captured in travel surveys
-  distances$taxi <- distances$taxi * 2
+  if ('taxi' %in% colnames(distances)) distances$taxi <- distances$taxi * 2
+  
   if ('shared_taxi' %in% colnames(distances))  distances$shared_taxi <- distances$shared_taxi * 2
   
   # multiply auto_rickshaw by 2 to add driver
-  distances$auto_rickshaw <- distances$auto_rickshaw * 2
+  if ('auto_rickshaw' %in% colnames(distances)) distances$auto_rickshaw <- distances$auto_rickshaw * 2
   
   ## add all car related distances to car distance
   distances$car <- rowSums(distances[, colnames(distances) %in% c("car", "taxi", "shared_auto", "shared_taxi")])

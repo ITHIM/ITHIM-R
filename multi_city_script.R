@@ -62,9 +62,10 @@ if (!require("drpa",character.only = TRUE)) {
   print("")
 }
 
-cities <- 'bogota'
+cities <- c('cape_town','delhi',
+            'vizag', 'kisumu', 'nairobi', 'port_louis')
 
-input_parameter_file <- "Bogota_InputParameters_v4.0.xlsx" # file containing the local and global input parameters
+input_parameter_file <- "InputParameters_v40.0-test.xlsx" # file containing the local and global input parameters
 # 
 
 ## Get the current repo sha
@@ -88,7 +89,7 @@ author <- "AA"
 comment <- "Set auto_rickshaw speed to 4, same as default speed in model"
 
 # scenario definition
-scenario_name <- "BOGOTA" # name of scenario to be called
+scenario_name <- "GLOBAL" # name of scenario to be called
 # scenario the other scenarios are compared to, the reference scenario name should always
 # be the name of the scenario corresponding to the actual baseline burden of disease and 
 # other input data for the city 
@@ -246,7 +247,7 @@ print(system.time(for(city in cities){
     ADD_WALK_TO_PT_TRIPS = as.logical(add_walk_to_pt_trips[[city]]),
     CITY = city,
     AGE_RANGE = c(min_age,max_age),
-    TREAT_TAXI_AS_CAR = as.logical(treat_taxi_as_car),
+    TREAT_TAXI_AS_CAR = as.logical(treat_taxi_as_car[[city]]),
     ADD_TRUCK_DRIVERS = as.logical(add_truck_drivers),
     ADD_BUS_DRIVERS = as.logical(add_bus_drivers),
     ADD_CAR_DRIVERS = as.logical(add_car_drivers),

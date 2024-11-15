@@ -88,7 +88,7 @@ set_injury_contingency <- function(injuries) {
 
     # Merge counts and weights to created matrix
     temp_table <- temp_table %>%
-      left_join(injury_summary, by = group_columns)
+      left_join(injury_summary, by = keep_names)
     # Fill NAs because of no injuries in some cas and strike mode combinations
     temp_table$count[is.na(temp_table$count)] <- 0
     temp_table$weight[is.na(temp_table$weight)] <- mean(temp_df$weight)

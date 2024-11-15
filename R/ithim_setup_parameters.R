@@ -224,10 +224,10 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     "SIN_EXPONENT_SUM_NOV",
     "SIN_EXPONENT_SUM_CYCLE",
     "SIN_EXPONENT_SUM_PED",
-    "CHRONIC_DISEASE_SCALAR",
-    "DISTANCE_SCALAR_CAR_TAXI",
     "DISTANCE_SCALAR_WALKING",
+    "CHRONIC_DISEASE_SCALAR",
     "DISTANCE_SCALAR_PT",
+    "DISTANCE_SCALAR_CAR_TAXI",
     "DISTANCE_SCALAR_CYCLING",
     "DISTANCE_SCALAR_MOTORCYCLE"
   )
@@ -243,6 +243,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     }
   }
 
+  
   
   # MMET values with lognormal distribution
   # Define those variables and loop through them, sampling
@@ -303,15 +304,6 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     parameters[[name]] <-
       (rlnorm(NSAMPLES, log(log_mean_up), log(log_std_up)) + 1)
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
   
