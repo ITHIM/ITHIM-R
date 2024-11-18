@@ -394,17 +394,14 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
         estimate_list[[i+1]] <- c(rep(0, NSAMPLES))
       } else {
         total <- total - estimate #calculate new total by subtracting the newest estimate
-        new_prop <- pm_inv[[i]]
-        print(pm_inv[[i]])
-        print(total)
-        print(new_prop)
+        new_prop <- pm_inv[[i]]/total
         mean <- new_prop  #set mean to the be this new proportion
         sd <- std * mean^0.25  #define standard deviation
         # calculate alpha and beta values of Beta distribution with above mean and std
         alpha <- (mean*(1-mean)/sd^2-1)*mean
         beta <- (mean*(1-mean)/sd^2-1)*(1-mean)
         sample <- rbeta(NSAMPLES,alpha, beta)  #sample from beta distribution
-        estimate <- sample 
+        estimate <- sample * total # re-scale to original proportion
         estimate_list[[i+1]] <- estimate  #save new estimate
         estimate_list[['sum']] <- estimate_list[['sum']] + estimate  #sum across all estimates
       }
@@ -470,21 +467,15 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
         estimate <- 0
         estimate_list[[i+1]] <- c(rep(0, NSAMPLES))
       } else {
-        #total <- total - estimate #calculate new total by subtracting the newest estimate
-        new_prop <- CO2_inv[[i]] #/total
-        #print(CO2_inv[[i]])
-        #print(total)
-        #print(new_prop)
-        # re-calculate proportions of ith value in inventory
+        total <- total - estimate #calculate new total by subtracting the newest estimate
+        new_prop <- CO2_inv[[i]] /total # re-calculate proportions of ith value in inventory
         mean <- new_prop  #set mean to the be this new proportion
         sd <- std * mean^0.25  #define standard deviation
         # calculate alpha and beta values of Beta distribution with above mean and std
         alpha <- (mean*(1-mean)/sd^2-1)*mean
         beta <- (mean*(1-mean)/sd^2-1)*(1-mean)
-        #print(alpha)
-        #print(beta)
         sample <- rbeta(NSAMPLES,alpha, beta)  #sample from beta distribution
-        estimate <- sample #* total # re-calculate the proportion of this sample from 1
+        estimate <- sample * total # re-calculate the proportion of this sample from 1
         estimate_list[[i+1]] <- estimate  #save new estimate
         estimate_list[['sum']] <- estimate_list[['sum']] + estimate  #sum across all estimates
       }
