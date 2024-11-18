@@ -368,33 +368,36 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   # if PM_EMISSION_INVENTORY_CONFIDENCE<1, then sample those PM inventory values by
   # using Beta distributions 
   if (PM_EMISSION_INVENTORY_CONFIDENCE < 1) {
-    pm_inv <- unlist(PM_EMISSION_INVENTORY)
-
+    pm_inv <- sort(unlist(PM_EMISSION_INVENTORY))
+    
     total <- sum(pm_inv)
-
+    
     # ensure working with proportions that add up to 1
     if (total != 1){
       pm_inv <- pm_inv / total
       total <- sum(pm_inv)
     }
-
+    
     # initialise output values
     estimate <- 0
     estimate_list <- list()
     estimate_list[['sum']] <- c(rep(0, NSAMPLES))
-
+    
     conf <- PM_EMISSION_INVENTORY_CONFIDENCE
     # define standard deviation of beta distributions (sd also depends on emission proportion, see below)
     std <- (1-conf)^1.2/16
-
+    
     # loop through proportions in the inventory
-    for (i in 1:(length(pm_inv))){
+    for (i in 1:(length(pm_inv)-1)){
       if (pm_inv[i]==0){
         estimate <- 0
         estimate_list[[i+1]] <- c(rep(0, NSAMPLES))
       } else {
         total <- total - estimate #calculate new total by subtracting the newest estimate
         new_prop <- pm_inv[[i]]
+        print(pm_inv[[i]])
+        print(total)
+        print(new_prop)
         mean <- new_prop  #set mean to the be this new proportion
         sd <- std * mean^0.25  #define standard deviation
         # calculate alpha and beta values of Beta distribution with above mean and std
@@ -406,25 +409,24 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
         estimate_list[['sum']] <- estimate_list[['sum']] + estimate  #sum across all estimates
       }
     }
-
-    # scale back to 1
-    #sum <- c(rep(0, NSAMPLES))  # check
-
-    for (i in 2:length(estimate_list)){
-      estimate_list[[i]] <- estimate_list[[i]]/estimate_list[['sum']]
-      #sum <- sum  + estimate_list[[i]] # check
-    }
-
-    # get into correct format
+    
+    # for final proportion
+    estimate_list[[length(PM_EMISSION_INVENTORY)+1]] <- 1 - estimate_list[['sum']]
+    
+    # get into correct format 
     for (j in 1:NSAMPLES){
-      PM_inventory_updated <- PM_EMISSION_INVENTORY
+      pm_inv_updated <- pm_inv
       for (i in 2:length(estimate_list)){
-        PM_inventory_updated[i-1] <- estimate_list[[i]][[j]]
+        pm_inv_updated[i-1] <- estimate_list[[i]][[j]]  
+      }
+      # get into correct order again
+      PM_inventory_updated <- PM_EMISSION_INVENTORY
+      for (k in names(PM_inventory_updated)){
+        PM_inventory_updated[k] <- pm_inv_updated[k]
       }
       parameters$PM_EMISSION_INVENTORY[[j]] <- PM_inventory_updated
     }
-
-
+    
   }
 
 
@@ -443,62 +445,68 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   # if CO2_EMISSION_INVENTORY_CONFIDENCE<1, then sample those CO2 inventory values by
   # using Beta distributions 
   if (CO2_EMISSION_INVENTORY_CONFIDENCE < 1) {
-    CO2_inv <- unlist(CO2_EMISSION_INVENTORY)
-
+    CO2_inv <- sort(unlist(CO2_EMISSION_INVENTORY))
+    
     total <- sum(CO2_inv)
-
+    
     # ensure working with proportions that add up to 1
     if (total != 1){
       CO2_inv <- CO2_inv / total
       total <- sum(CO2_inv)
     }
-
+    
     # initialise output values
     estimate <- 0
     estimate_list <- list()
     estimate_list[['sum']] <- c(rep(0, NSAMPLES))
-
+    
     conf <- CO2_EMISSION_INVENTORY_CONFIDENCE
     # define standard deviation of beta distributions (sd also depends on emission proportion, see below)
     std <- (1-conf)^1.2/16
-
+    
     # loop through proportions in the inventory
-    for (i in 1:(length(CO2_inv))){
+    for (i in 1:(length(CO2_inv)-1)){
       if (CO2_inv[i]==0){
         estimate <- 0
         estimate_list[[i+1]] <- c(rep(0, NSAMPLES))
       } else {
-        total <- total - estimate #calculate new total by subtracting the newest estimate
-        new_prop <- CO2_inv[[i]]
+        #total <- total - estimate #calculate new total by subtracting the newest estimate
+        new_prop <- CO2_inv[[i]] #/total
+        #print(CO2_inv[[i]])
+        #print(total)
+        #print(new_prop)
+        # re-calculate proportions of ith value in inventory
         mean <- new_prop  #set mean to the be this new proportion
         sd <- std * mean^0.25  #define standard deviation
         # calculate alpha and beta values of Beta distribution with above mean and std
         alpha <- (mean*(1-mean)/sd^2-1)*mean
         beta <- (mean*(1-mean)/sd^2-1)*(1-mean)
+        #print(alpha)
+        #print(beta)
         sample <- rbeta(NSAMPLES,alpha, beta)  #sample from beta distribution
-        estimate <- sample 
+        estimate <- sample #* total # re-calculate the proportion of this sample from 1
         estimate_list[[i+1]] <- estimate  #save new estimate
         estimate_list[['sum']] <- estimate_list[['sum']] + estimate  #sum across all estimates
       }
     }
-
-    # scale back to 1
-    #sum <- c(rep(0, NSAMPLES))  # check
-
-    for (i in 2:length(estimate_list)){
-      estimate_list[[i]] <- estimate_list[[i]]/estimate_list[['sum']]
-      #sum <- sum  + estimate_list[[i]] # check
-    }
-
+    
+    # for final proportion
+    estimate_list[[length(CO2_EMISSION_INVENTORY)+1]] <- 1 - estimate_list[['sum']]
+    
     # get into correct format
     for (j in 1:NSAMPLES){
-      CO2_inventory_updated <- CO2_EMISSION_INVENTORY
+      co2_inv_updated <- CO2_inv
       for (i in 2:length(estimate_list)){
-        CO2_inventory_updated[i-1] <- estimate_list[[i]][[j]]
+        co2_inv_updated[i-1] <- estimate_list[[i]][[j]]  
+      }
+      # get into correct order again
+      CO2_inventory_updated <- CO2_EMISSION_INVENTORY
+      for (k in names(CO2_inventory_updated)){
+        CO2_inventory_updated[k] <- co2_inv_updated[k]
       }
       parameters$CO2_EMISSION_INVENTORY[[j]] <- CO2_inventory_updated
     }
-
+    
 
   }
 
