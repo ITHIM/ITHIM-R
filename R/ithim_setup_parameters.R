@@ -503,15 +503,6 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
 
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
 
   # PA DOSE RESPONSE
   # if PA_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to

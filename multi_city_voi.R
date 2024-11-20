@@ -20,11 +20,11 @@ if (!require("drpa",character.only = TRUE)) {
 }
 
 rm(list=ls())
-
-cities <- c('belo_horizonte', 'bogota', 'buenos_aires',
-            'cali',  'medellin', 'mexico_city', 'montevideo',
-            'santiago', 'sao_paulo', 'accra', 'bangalore', 'cape_town','delhi',
-            'vizag', 'kisumu', 'nairobi', 'port_louis')
+# 
+# cities <- c('belo_horizonte', 'bogota', 'buenos_aires',
+#             'cali',  'medellin', 'mexico_city', 'montevideo',
+#             'santiago', 'sao_paulo', 'accra', 'bangalore', 'cape_town','delhi',
+#             'vizag', 'kisumu', 'nairobi', 'port_louis')
 
 # cities <- c('antofagasta', 'arica', 'belo_horizonte', 'bogota', 'buenos_aires',
 #             'cali', 'copiapo', 'coquimbo_laserena', 'gran_valparaiso',
@@ -33,13 +33,13 @@ cities <- c('belo_horizonte', 'bogota', 'buenos_aires',
 #             'santiago', 'sao_paulo', 'temuco_padrelascasas', 'valdivia',
 #             'accra', 'bangalore', 'cape_town','delhi', 'vizag', 'kisumu', 'nairobi', 'port_louis')
 
-#cities <- c('bogota')
+cities <- c('bogota', 'mexico_city', 'santiago')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 2
+nsamples <- 50
 
 
-voi_analysis <- F # set to T if want to run VoI analysis and to F otherwise
+voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
 
 # list of potential values for the outcome_voi_list
 # 'pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
@@ -587,121 +587,15 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
   
   parameter_samples <- readRDS('diagnostic/parameter_samples.Rds')
   
-  # first extract input parameters of interest
-  # create list with global parameters that are relevant for all cities
-  general_inputs <- sapply(colnames(parameter_samples),function(x)!grepl(paste(cities, collapse = "|"),x))
-  general_parsampl <- parameter_samples[,general_inputs]
+  # calculate the evppi values for all input parameters for all outcomes
+  # defined in the outcome_voi_list for all scenarios
+  evppi_df <- call_evppi(parameter_samples, outcome_voi_list, outcome, cities, voi_add_sum, 
+                         NSCEN, NSAMPLES, ap_dr_quantile, scenario_names)
   
-  # remove alpha, beta, gamma and tmrel dose response parameters as they are not independent of each other
-  general_noDRpara <- sapply(colnames(general_parsampl), function(x)!grepl(paste(c('ALPHA','BETA','GAMMA','TMREL'),
-                                                                                 collapse = "|"),x))
-  general_noDRpara_parsampl <- general_parsampl[,general_noDRpara]
-  
-  scen_names_only <- scenario_names[1:NSCEN+1]
-  
-  ########### EVPPI for total YLLs (i.e. summed across the entire population considered in the model
-  # by disease and scenario outcome)
-  
-  evppi_df <- data.frame()
-  
-  # extract city specific input parameters
-  for (city in cities){ # loop through cities
-    
-    # extract city specific input parameters
-    city_inputs <- sapply(colnames(parameter_samples),function(x)grepl(city,x))
-    city_parsampl <- parameter_samples[,city_inputs]
-    
-    # remove CO2 parameters
-    city_noCO2para <- sapply(colnames(city_parsampl), function(x)!grepl('CO2',x))
-    city_parsampl <- city_parsampl[,city_noCO2para]
-    
-    # extract the required outcomes for each city
-    city_out <- as.data.frame(outcome[[city]]) # take total YLLs for each scenario and disease combination
-    city_outputs <- sapply(colnames(city_out),function(x)grepl(paste(outcome_voi_list, collapse = "|"),x))
-    city_outcomes <- city_out[,city_outputs]
-    
-    if(voi_add_sum){
-      for (n in 1:NSCEN){
-        scen_outputs <- sapply(colnames(city_outcomes), function(x)grepl(scen_names_only[n],x))
-        if (length(outcome_voi_list) == 1){
-          city_outcomes[paste0(scen_names_only[n],"_ylls_sum_",city)] <- city_outcomes[,scen_outputs]
-        } else{
-          city_outcomes[paste0(scen_names_only[n],"_ylls_sum_",city)] <- rowSums(city_outcomes[,scen_outputs])
-        }
-      }
-    }
-    
-    
-    
-    param_no <- ncol(city_parsampl) + ncol(general_noDRpara_parsampl)
-    
-    
-    # calculate the evppi for each city (still within the city loop)
-    evppi_city <- future_lapply(1:param_no, 
-                                FUN = ithimr::compute_evppi,
-                                global_para = as.data.frame(general_noDRpara_parsampl),
-                                city_para = as.data.frame(city_parsampl),
-                                city_outcomes = city_outcomes,
-                                nsamples = NSAMPLES)
-    
-    # evppi_city <- future_lapply(1:param_no, # calculate the evppi for each city
-    #                             FUN = compute_evppi,
-    #                             global_para = as.data.frame(general_noDRpara_parsampl),
-    #                             city_para = as.data.frame(city_parsampl),
-    #                             city_outcomes = city_outcomes,
-    #                             nsamples = NSAMPLES)
-    # 
-    evppi_city2 <- do.call(rbind,evppi_city) # bind list
-    
-    evppi_city3 <- as.data.frame(evppi_city2) # turn into dataframe
-    
-    # Manipulate evppi_city3 df into correct format
-    # add column names without city part
-    evppi_outcome_names <- strsplit(colnames(city_outcomes),paste("_",city,sep="")) 
-    colnames(evppi_city3) <- evppi_outcome_names
-    evppi_outcome_names <- colnames(evppi_city3)
-    
-    evppi_city3$parameters <-  c(colnames(general_noDRpara_parsampl), colnames(city_parsampl)) # add parameter name column
-    evppi_city3$city <- city # add city name column
-    
-    
-    
-    # look at dose response AP input parameters separately, as alpha, beta, gammy and trmel are dependent on each other
-    # if(any(ap_dr_quantile)&&NSAMPLES>=300){
-    #   AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
-    #   diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-    #   sources <- list()
-    #   for(di in diseases){ 
-    #     col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
-    #     sources[[di]] <- parameter_samples[,col_names]
-    #   }
-    #   evppi_for_AP_city <- future_lapply(1:length(sources),
-    #                                      FUN = ithimr:::compute_evppi,
-    #                                      global_para = sources,
-    #                                      city_para = data.frame(),
-    #                                      city_outcomes = city_outcomes,
-    #                                      nsamples = NSAMPLES)
-    #   
-    #   evppi_for_AP_city2 <- do.call(rbind,evppi_for_AP_city) # bind list
-    #   evppi_for_AP_city3 <- as.data.frame(evppi_for_AP_city2) # turn into dataframe
-    #   colnames(evppi_for_AP_city3) <- evppi_outcome_names
-    #   
-    #   evppi_for_AP_city3$parameters <-  c(paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)) # add parameter name column
-    #   evppi_for_AP_city3$city <- city # add city name column
-    #   
-    #   evppi_city3 <- rbind(evppi_city3, evppi_for_AP_city3)
-    # }
-    
-    evppi_df <- rbind(evppi_df, evppi_city3) # add to total evppi dataframe
-  } # end of city loop
-  
-  
-  evppi_df <- evppi_df %>% relocate(city,parameters) # change order of columns
   
   saveRDS(evppi_df,'results/multi_city/evppi.Rds',version=2) # save evppi dataframe
   
   evppi_csv <- paste0('results/multi_city/evppi_',output_version,".csv")
-  #write.csv(evppi_df,'results/multi_city/evppi.csv',row.names = FALSE) # save as csv file
   
   write.csv(evppi_df,evppi_csv,row.names = FALSE) # save as csv file
   
