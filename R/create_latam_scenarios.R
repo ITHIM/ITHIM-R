@@ -1,4 +1,4 @@
-#' Create global scenarios
+#' Create Latam scenarios
 #'
 #' Creates four scenarios where in each one, the mode share of a given mode is elevated by a set
 #' percentage of the total trips. The scenario modes are cycle, car, and bus and motorcycle.
@@ -118,7 +118,7 @@
 #' @return list of baseline scenario and four mode scenarios
 #'
 #' @export
-create_global_scenarios <- function(trip_set) {
+create_latam_scenarios <- function(trip_set) {
   rdr <- trip_set
   trip_set <- NULL
 
@@ -128,7 +128,7 @@ create_global_scenarios <- function(trip_set) {
   modes_not_changeable <- c("bus_driver", "truck", "car_driver", "taxi")
   
   
-  # # to get overall trip shares for the distance bands - needed if want to updated global_modeshares
+  # # to get overall trip shares for the distance bands - needed if want to updated latam_modeshares
   # rdr_modeshares <- rdr |>
   #   filter(participant_id !=0) |>
   #   distinct(trip_id, .keep_all = T) |>
@@ -146,18 +146,18 @@ create_global_scenarios <- function(trip_set) {
   #   total_modeshares <- rdr_modeshares
   # }
   # 
-  # total_modeshares <<- total_modeshares # create global variable
+  # total_modeshares <<- total_modeshares # create latam variable
 
-  # global modal split across the three distance categories for each mode
+  # latam modal split across the three distance categories for each mode
   # cycle, car, bus, motorcycle
-  global_modeshares <- data.frame(
-    c(39.0, 10.4, 4.8, 10.8), # distance category 0-2km
-    c(50.0, 45.5, 39.7, 38.0), # distance category 2-6km
-    c(11.0, 44.1, 55.5, 51.2)
+  latam_modeshares <- data.frame(
+    c(39.5, 11.2, 5.8, 11.2), # distance category 0-2km
+    c(51.1, 49.9, 42.5, 37.5), # distance category 2-6km
+    c(9.4, 38.9, 51.7, 51.3)
   )
   
-  colnames(global_modeshares) <- DIST_CAT
-  rownames(global_modeshares) <- c("cycle", "car", "bus", "motorcycle")
+  colnames(latam_modeshares) <- DIST_CAT
+  rownames(latam_modeshares) <- c("cycle", "car", "bus", "motorcycle")
 
   percentage_change <- SCENARIO_INCREASE # increase of each mode as percentage of total number of trips.
 
@@ -184,13 +184,13 @@ create_global_scenarios <- function(trip_set) {
   )
 
   # add row and column names
-  colnames(scenario_proportions) <- colnames(global_modeshares)
-  rownames(scenario_proportions) <- rownames(global_modeshares)
+  colnames(scenario_proportions) <- colnames(latam_modeshares)
+  rownames(scenario_proportions) <- rownames(latam_modeshares)
   
   # find the proportion of trips to be converted for each distance category and scenario
   for (c in colnames(scenario_proportions)) {
     for (r in rownames(scenario_proportions)) {
-      scenario_proportions[r, c] <- percentage_change * global_modeshares[r, c] / prop[[c]]
+      scenario_proportions[r, c] <- percentage_change * latam_modeshares[r, c] / prop[[c]]
     }
   }
   

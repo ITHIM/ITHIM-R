@@ -1,4 +1,4 @@
-#' Create global scenarios
+#' Create africa-india scenarios
 #'
 #' Creates four scenarios where in each one, the mode share of a given mode is elevated by a set
 #' percentage of the total trips. The scenario modes are cycle, car, and bus and motorcycle.
@@ -118,7 +118,7 @@
 #' @return list of baseline scenario and four mode scenarios
 #'
 #' @export
-create_global_scenarios <- function(trip_set) {
+create_africa_india_scenarios <- function(trip_set) {
   rdr <- trip_set
   trip_set <- NULL
 
@@ -128,7 +128,7 @@ create_global_scenarios <- function(trip_set) {
   modes_not_changeable <- c("bus_driver", "truck", "car_driver", "taxi")
   
   
-  # # to get overall trip shares for the distance bands - needed if want to updated global_modeshares
+  # to get overall trip shares for the distance bands - needed if want to updated africa-india_modeshares
   # rdr_modeshares <- rdr |>
   #   filter(participant_id !=0) |>
   #   distinct(trip_id, .keep_all = T) |>
@@ -146,18 +146,18 @@ create_global_scenarios <- function(trip_set) {
   #   total_modeshares <- rdr_modeshares
   # }
   # 
-  # total_modeshares <<- total_modeshares # create global variable
+  # total_modeshares <<- total_modeshares # create africa-india variable
 
-  # global modal split across the three distance categories for each mode
+  # africa-india modal split across the three distance categories for each mode
   # cycle, car, bus, motorcycle
-  global_modeshares <- data.frame(
-    c(39.0, 10.4, 4.8, 10.8), # distance category 0-2km
-    c(50.0, 45.5, 39.7, 38.0), # distance category 2-6km
-    c(11.0, 44.1, 55.5, 51.2)
+  africa-india_modeshares <- data.frame(
+    c(46.7, 34.3, 32.8, 38.7), # distance category 0-2km
+    c(15.7, 57.2, 64.9, 51), # distance category 2-6km
+    c(37.6, 8.5, 2.3, 10.3)
   )
   
-  colnames(global_modeshares) <- DIST_CAT
-  rownames(global_modeshares) <- c("cycle", "car", "bus", "motorcycle")
+  colnames(africa-india_modeshares) <- DIST_CAT
+  rownames(africa-india_modeshares) <- c("cycle", "car", "bus", "motorcycle")
 
   percentage_change <- SCENARIO_INCREASE # increase of each mode as percentage of total number of trips.
 
@@ -184,13 +184,13 @@ create_global_scenarios <- function(trip_set) {
   )
 
   # add row and column names
-  colnames(scenario_proportions) <- colnames(global_modeshares)
-  rownames(scenario_proportions) <- rownames(global_modeshares)
+  colnames(scenario_proportions) <- colnames(africa-india_modeshares)
+  rownames(scenario_proportions) <- rownames(africa-india_modeshares)
   
   # find the proportion of trips to be converted for each distance category and scenario
   for (c in colnames(scenario_proportions)) {
     for (r in rownames(scenario_proportions)) {
-      scenario_proportions[r, c] <- percentage_change * global_modeshares[r, c] / prop[[c]]
+      scenario_proportions[r, c] <- percentage_change * africa-india_modeshares[r, c] / prop[[c]]
     }
   }
   
