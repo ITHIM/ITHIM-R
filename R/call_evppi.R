@@ -31,7 +31,6 @@
 #' @param voi_add_sum if the sum of YLLs across all disease outcomes is to be considered
 #' @param NSCEN number of scenarios (not incl. baseline)
 #' @param NSAMPLES number of times the model was run for each city
-#' @param ap_dr_quantile if set to true then the AP dose response parameters were sampled from a distribution
 #' @param scenario_names gives the names of the scenarios (incl baseline)
 #' 
 #' @return evppi_df containing the evppi values for all input parameters and scenario and disease outcomes
@@ -40,7 +39,7 @@
 
 
 call_evppi <- function(parameter_samples, outcome_voi_list, outcome, cities, voi_add_sum, NSCEN, NSAMPLES,
-                       ap_dr_quantile, scenario_names){
+                       scenario_names){
   
  
   # first extract input parameters of interest
@@ -58,11 +57,19 @@ call_evppi <- function(parameter_samples, outcome_voi_list, outcome, cities, voi
     # extract city specific input parameters
     city_inputs <- sapply(colnames(parameter_samples),function(x)grepl(city,x))
     city_parsampl <- parameter_samples[,city_inputs]
+    city_parsampl_copy <- city_parsampl
     
     # remove CO2 parameters
     city_noCO2para <- sapply(colnames(city_parsampl), function(x)!grepl('CO2',x))
     city_parsampl <- city_parsampl[,city_noCO2para]
+    city_Co2_parasampl <- city_parsampl_copy[,!city_noCO2para]
     
+    city_noPMemissionpara <- sapply(colnames(city_parsampl), function(x)!grepl('PM_EMI',x))
+    city_parsampl_copy <- city_parsampl
+    city_parsampl <- city_parsampl[,city_noPMemissionpara]
+    city_PM_parasampl <- city_parsampl_copy[,!city_noPMemissionpara]
+    
+
     # extract the required outcomes for each city
     city_out <- as.data.frame(outcome[[city]]) # take total YLLs for each scenario and disease combination
     # extract outcomes required as set up in outcome_voi_list
@@ -83,7 +90,7 @@ call_evppi <- function(parameter_samples, outcome_voi_list, outcome, cities, voi
     }
 
     
-    # calculate the total number of parameters to be considered in the VoI analysis
+    # calculate the total number of independent parameters to be considered in the VoI analysis
     param_no <- ncol(city_parsampl) + ncol(general_parsampl)
     
     
@@ -95,6 +102,13 @@ call_evppi <- function(parameter_samples, outcome_voi_list, outcome, cities, voi
                                 city_outcomes = city_outcomes,
                                 nsamples = NSAMPLES)
     
+    # for (i in 1:param_no){
+    #   print(i)
+    #   out <- compute_evppi(i, global_para,city_para,city_outcomes, nsamples)
+    # }
+    
+    
+    
     evppi_city2 <- do.call(rbind,evppi_city) # bind list
     
     evppi_city3 <- as.data.frame(evppi_city2) # turn into dataframe
@@ -103,12 +117,55 @@ call_evppi <- function(parameter_samples, outcome_voi_list, outcome, cities, voi
     # add column names without city part
     evppi_outcome_names <- strsplit(colnames(city_outcomes),paste("_",city,sep="")) 
     colnames(evppi_city3) <- evppi_outcome_names
-    evppi_outcome_names <- colnames(evppi_city3)
+    #evppi_outcome_names <- colnames(evppi_city3)
     
     evppi_city3$parameters <-  c(colnames(general_parsampl), colnames(city_parsampl)) # add parameter name column
     evppi_city3$city <- city # add city name column
     
     
+    #look at CO2 and PM emission inventories separately
+    if(NSAMPLES>=1000){
+      
+      # first consider CO2 parameters
+      evppi_for_CO2_city <- future_lapply(1,
+                                         FUN = ithimr:::compute_evppi,
+                                         global_para = data.frame(),
+                                         city_para = city_Co2_parasampl,
+                                         city_outcomes = city_outcomes,
+                                         nsamples = NSAMPLES,
+                                         individual_para = FALSE)
+    
+      evppi_for_CO2_city2 <- do.call(rbind,evppi_for_CO2_city) # bind list
+      evppi_for_CO2_city3 <- as.data.frame(evppi_for_CO2_city2) # turn into dataframe
+      colnames(evppi_for_CO2_city3) <- evppi_outcome_names
+    
+      evppi_for_CO2_city3$parameters <-  c(paste0('CO2_emissions_inventory')) # add parameter name column
+      evppi_for_CO2_city3$city <- city # add city name column
+    
+      evppi_city3 <- rbind(evppi_city3,evppi_for_CO2_city3)
+      
+      
+      # consider PM parameters
+      evppi_for_PM_city <- future_lapply(1,
+                                          FUN = ithimr:::compute_evppi,
+                                          global_para = data.frame(),
+                                          city_para = city_PM_parasampl,
+                                          city_outcomes = city_outcomes,
+                                          nsamples = NSAMPLES,
+                                          individual_para = FALSE)
+      
+      evppi_for_PM_city2 <- do.call(rbind,evppi_for_PM_city) # bind list
+      evppi_for_PM_city3 <- as.data.frame(evppi_for_PM_city2) # turn into dataframe
+      colnames(evppi_for_PM_city3) <- evppi_outcome_names
+      
+      evppi_for_PM_city3$parameters <-  c(paste0('PM_emissions_inventory')) # add parameter name column
+      evppi_for_PM_city3$city <- city # add city name column
+      
+      evppi_city3 <- rbind(evppi_city3,evppi_for_PM_city3)
+    }
+    
+    
+        
     
     # look at dose response AP input parameters separately, as alpha, beta, gammy and trmel are dependent on each other
     # if(any(ap_dr_quantile)&&NSAMPLES>=300){
@@ -142,6 +199,6 @@ call_evppi <- function(parameter_samples, outcome_voi_list, outcome, cities, voi
   
   evppi_df <- evppi_df %>% relocate(city,parameters) # change order of columns
   
-  return(evppi_df)
+  return(list(evppi_df, evppi_outcome_names))
   
 }

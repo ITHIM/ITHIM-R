@@ -29,6 +29,7 @@
 #' @param outcome_age_groups outcome age groups as defined as input parameters to the model 
 #' @param cities list of cities for which the model was run
 #' @param multi_city_ithim list containing the ithim model information including results for the various model runs
+#' @param output_version the output version of the model run
 #' 
 #' @return ithim_results list with the following objects:
 #' @return summary_ylls_df: dateframe with total ylls (median, 5th and 95th percentiles) per age group and city (plus combined results)
@@ -40,7 +41,7 @@
 #' @export
 
 
-extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_groups,cities,multi_city_ithim){
+extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_groups,cities,multi_city_ithim, output_version){
   
   
   # initialise dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
@@ -55,7 +56,7 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
   
   for(ci in 1:length(cities)){ # loop through cities
     city <- cities[ci]
-    multi_city_ithim[[city]] <- readRDS(paste0('results/multi_city/',city,'.Rds')) # read in city specific data
+    multi_city_ithim[[city]] <- readRDS(paste0('results/multi_city/',city,'_',output_version,'.Rds')) # read in city specific data
     
     DEMOGRAPHIC <- multi_city_ithim[[city]]$DEMOGRAPHIC
     
@@ -110,9 +111,9 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
     
     # create one dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
     for(row in keep_rows){
-      voi_data_all[[city]]$outcomes <- t(sapply(multi_city_ithim[[ci]]$outcomes, function(x) rbind(x$hb$ylls[row,])))
+      voi_data_all[[city]]$outcomes <- t(sapply(multi_city_ithim[[city]]$outcomes, function(x) rbind(x$hb$ylls[row,])))
       voi_dummy <- data.frame(voi_data_all[[city]])
-      colnames(voi_dummy)<-colnames(multi_city_ithim[[ci]]$outcomes[[1]]$hb$ylls)
+      colnames(voi_dummy)<-colnames(multi_city_ithim[[city]]$outcomes[[1]]$hb$ylls)
       voi_dummy$city <- city
       voi_data_all_df <- rbind(voi_data_all_df, voi_dummy)
     }
