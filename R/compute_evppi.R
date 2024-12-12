@@ -1,7 +1,22 @@
-#' Compute evppi, designed to be run in parallel - ONLY USED in SAMPLING MODE
+#' Function to calculate the EVPPI values for given input parameters and outcome values
 #' 
-#' Creates a list of EVPPI values one parameter (set) at a time across some pre-defined outcomes
-#' Uses Chris Jackson's VoI Github package https://github.com/chjackson/voi
+#' This function calculates the expected value of partially perfect information, i.e. the percentage by which we could
+#' reduce the variance of the final outcome if we knew this one parameter (or several interdependent parameters) perfectly.
+#'
+#' The function performs the following steps:
+#' 
+#'\itemize{
+#'\item extract the parameter / parameters of interest for which the EVPPI value is to be calculated
+#'
+#'\item loop through the various outcomes :
+#'  \itemize{
+#'    \item calculate the EVPPI value for each outcome using the evppivar() function from https://github.com/chjackson/voi
+#'    \item calculate the percentage of variance in the outcome we could reduce were we to know the 
+#'          input parameter / parameters perfectly.
+#'    } 
+#' }  
+#' 
+#' 
 #' @param p input parameter index
 #' @param global_para list of global input parameters that are the same across all cities
 #' @param city_para list of city specific input parameters
@@ -9,7 +24,7 @@
 #' @param nsamples number of samples
 #' @param individual_para whether each parameter is to be considered individually or not
 #
-#' @return list of EVPPI vectors for specific city
+#' @return list of of EVPPI values for specific city
 #' 
 #' @export
 
@@ -48,7 +63,7 @@ compute_evppi <- function(p, global_para,city_para,city_outcomes, nsamples, indi
       if(is.vector(sourcesj)){ # if only one parameter is considered at a time
         evppi_jj <- evppivar(y,sourcesj) # uses Chris Jackson's VoI package
       }
-      else { # if several input parameters are considered together, e.g. dose response alpha, beta, gamma, trml parameters
+      else { # if several input parameters are considered together, e.g. for CO2 and PM emission inventories
         evppi_jj <- evppivar(y,sourcesj, par= c(colnames(sourcesj)), method="earth")
       }
       

@@ -11,7 +11,8 @@
 #'  \itemize{
 #'    \item calculate average outcome (yll) per person in the population considered by the model 
 #'    \item calculate the total ylls per 100 000 for each outcome age category, scenario and disease combination and model run
-#'    \item calculate total yll outcome across all outcome age categories per city and scenario and disease combinations
+#'    \item calculate total yll outcome across all outcome age and sex categories per city and scenario and disease combinations
+#'    \item calculate total yll outcome across all outcome sex categories per city and scenario and disease combinations
 #'    \item create one dataframe for all cities with all outcomes for all model runs, age groups and disease and 
 #'          scenario combinations
 #'  } 
@@ -33,7 +34,8 @@
 #' 
 #' @return ithim_results list with the following objects:
 #' @return summary_ylls_df: dateframe with total ylls (median, 5th and 95th percentiles) per age group and city (plus combined results)
-#' @return voi_data_all_df: dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
+#' @return voi_data_all_df: dataframe for all cities with all outcomes for all model runs, age and sex categories and disease and scenario combinations
+#' @return voi_data_all_sex_df: dataframe for all cities with all outcomes for all model runs, sex categories and disease and scenario combinations
 #' @return yll_per_hundred_thousand: yll per 100,000 people for each city, outcome age category, model run and disease and scen combination
 #' @return yll_per_hundred_thousand_stats: total ylls per 100,000 (median, 5th and 95th percentiles) as sum across all disease per outcome age group, scenario and city (plus combined results)
 #' @return outcome: total yll outcome for all outcome age categories per city and scenario and disease combination, also combined city result (sum)
@@ -46,7 +48,9 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
   
   # initialise dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
   voi_data_all <- list()
+  
   voi_data_all_df <- data.frame()
+  voi_data_all_sex_df <- data.frame()
   
   age_pops <- list()
   age_populations <- rep(0,length(outcome_age_groups))
@@ -86,6 +90,8 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
     colnames(outcome_pp[[city]]) <- paste0(colnames(outcome_pp[[city]]),'_',city)
     
     
+    
+    
     ## get yll per 100,000 by age
     yll_per_hundred_thousand[[city]] <- list()
     for(aa in 1:length(outcome_age_groups)){ # loop through outcome age groups
@@ -109,6 +115,7 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
     outcome[[city]] <- t(sapply(multi_city_ithim[[city]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
     colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
     
+   
     # create one dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
     for(row in keep_rows){
       voi_data_all[[city]]$outcomes <- t(sapply(multi_city_ithim[[city]]$outcomes, function(x) rbind(x$hb$ylls[row,])))
@@ -118,7 +125,34 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
       voi_data_all_df <- rbind(voi_data_all_df, voi_dummy)
     }
     
-  }
+    # create one dataframe for all cities with all outcomes for all model runs, sex and disease and scenario combinations
+    
+    # first for males 
+    list_male <- list()
+    for (i in 1:NSAMPLES){
+      list_male[[i]] <- as.data.frame(multi_city_ithim[[city]]$outcomes[[i]]$hb$ylls) %>% filter(sex == 'male')
+    }
+    
+    voi_city_male <- as.data.frame(t(sapply(list_male, function(x) colSums(x[keep_rows,keep_cols],na.rm=T))))
+    voi_city_male$city <- city
+    voi_city_male$sex <- 'male'
+    
+
+    # females
+    list_female <- list()
+    for (i in 1:NSAMPLES){
+      list_female[[i]] <- as.data.frame(multi_city_ithim[[city]]$outcomes[[i]]$hb$ylls) %>% filter(sex == 'female')
+    }
+    
+    voi_city_female <- as.data.frame(t(sapply(list_female, function(x) colSums(x[keep_rows,keep_cols],na.rm=T))))
+    voi_city_female$city <- city
+    voi_city_female$sex <- 'female'
+
+    # all 
+    voi_data_all_sex_df <- rbind(voi_data_all_sex_df, voi_city_male, voi_city_female)
+    
+    
+  } # end of city loop
   
   # create an age and sex category column
   voi_data_all_df$age_sex <- paste(voi_data_all_df$sex, voi_data_all_df$age_cat, sep = )
@@ -214,6 +248,7 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
   
   ithim_results$summary_ylls_df <- summary_ylls_df
   ithim_results$voi_data_all_df <- voi_data_all_df
+  ithim_results$voi_data_all_sex_df <- voi_data_all_sex_df
   ithim_results$outcome <- outcome
   ithim_results$yll_per_hundred_thousand <- yll_per_hundred_thousand
   ithim_results$yll_per_hundred_thousand_stats <- yll_per_hundred_thousand_stats

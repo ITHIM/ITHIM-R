@@ -1,29 +1,34 @@
-#' EVPPI wrapper function for total population YLLs
+#' EVPPI wrapper function for total population YLLs by sex and age
 #' 
-#' This function gets the ithim results into the correct format and calls the compute_evppi.R script
-#' to calculate the EVPPIs for all input parameters and required outcomes and scenarios for the entire
-#' population considered in the model
+#' This function gets the ithim results into the correct format and calls the \code{\link{compute_evppi()}} script
+#' to calculate the EVPPIs for all input parameters and required outcomes and scenarios split by sex and age.
 #'
 #' The function performs the following steps:
 #' 
 #'\itemize{
-#'\item create a vector containing the global parameters but not including the AP dose response 
+#'\item create a vector containing the global parameters but not including the emission inventory 
 #'      parameters as they are not independent of each other
 #'
 #'\item loop through the cities:
 #'  \itemize{
-#'    \item extract the city specific parameters (excluding the CO2 parameters)
-#'    \item extract the outcomes of interest for each scenario using the outcome_voi_list
-#'    \item if voi_add_sum == TRUE, calculate the total YLLs by summing across all 
+#'    \item extract the city specific parameters (excluding the CO2 and PM emission inventory parameters)
+#'    \item loop through all age and sex categories:
+#'      \itemize{   
+#'        \item extract the outcomes of interest for each scenario using the outcome_voi_list
+#'        \item if voi_add_sum == TRUE, calculate the total YLLs by summing across all 
 #'          diseases in the outcome_voi_list - this only makes sense if the diseases
 #'          in the outcome_voi_list are independent of each other
-#'    \item call the compute_evppi.R function to calculate the expected values of partially perfect information (EVPPI)
+#'        \item call the \code{\link{compute_evppi()}} function to calculate the expected values of partially perfect information (EVPPI)
 #'          for all parameters and diseases of interest
-#'    \item if NSAMPLES >= 300 and the AP dose response paramters have been sampled, then also
-#'          calculate the EVPPI values for the AP dose response parameters 
+#'        }
+#'    \item if NSAMPLES >= 1000 then also calculate the EVPPI values for the emission inventory parameters by looping through 
+#'          all age and sex categories
 #'    } 
 #' }  
 #' 
+#' 
+#' 
+#' @param voi_data_all_df dataframe containing all outcomes by age and sex
 #' @param parameter_samples table containing all the input parameter variables for the different model runs for all cities
 #' @param outcome_voi_list vector detailing the outcomes to be considered in the VoI analysis
 #' @param outcome total yll outcome for all outcome age categories per city and scenario and disease combination, also combined city result (sum)
@@ -32,14 +37,17 @@
 #' @param NSCEN number of scenarios (not incl. baseline)
 #' @param NSAMPLES number of times the model was run for each city
 #' @param scenario_names gives the names of the scenarios (incl baseline)
-#' 
-#' @return evppi_df containing the evppi values for all input parameters and scenario and disease outcomes
+#' @param evppi_df outcome dataframe containing voi analysis for total yll across all age and sex categories
+#'
+#' @return evppi_agesex_df dataframe containing all EVPPI outcomes for all age and sex categories and all cities
+#' @return age_gender_cat vector with all age and sex categories
+#' @return evppi_city_list_all list where each list entry is a dataframe containing all EvPPI outcomes for all age and sex categories for one city
 #' 
 #' @export
 
 
-call_evppi_age_sex <- function(parameter_samples, outcome_voi_list, outcome, cities, voi_add_sum, NSCEN, NSAMPLES,
-                       scenario_names){
+call_evppi_age_sex <- function(voi_data_all_df,parameter_samples, outcome_voi_list, outcome, cities, voi_add_sum, NSCEN, NSAMPLES,
+                       scenario_names , evppi_df){
   
   evppi_agesex_df <- data.frame()
   

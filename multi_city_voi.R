@@ -1,3 +1,71 @@
+#' Main script to run ITHIM Global in sampling mode
+#' 
+#' Script to run ITHIM Global using input parameter distributions. Outputs the health impacts associated with transport in a given city
+#' via an air pollution, physical activity and injury pathway. Also performs a Value of Information analysis to calculate the the 
+#' expected values of partially perfect information, i.e the reduction in variance in the outcome were we to know 
+#' an input parameter or several interdependent input parameters exactly.
+#' 
+#' The ITHIM Global main sampling script works as follows:
+#' 
+#' - the following variables need to be defined before running the script:
+#'    - the name(s) of the city or cities for which the model is to be run
+#'    - the number of samples to be drawn from the input parameters distributions which 
+#'      equals the number of model runs 
+#'    - whether a VoI analysis is to be performed, if yes, also set the following parameters:
+#'      - define the list of outcomes for which the VoI analysis is to be performed
+#'      - define whether you want to run the VoI analysis split by sex 
+#'      - define whether you want to run the VoI analysis split by sex and age
+#'      - define whether you want to calculate the sum of the outcomes of interest and whether
+#'        whether to include this sum in the VoI analysis
+#'    - The input parameter file name containing the global and local input parameters and their distribution parameters  
+#'    - define the output_version
+#'    - define whether to write the key aspect of the model run to the OutputVersionControl.txt file which
+#'      documents the key aspects of the model run (timestamp, author name, cities for which model was run, 
+#'      input parameter file name, output version number, number of samples, and any comments. If yes, also define
+#'      - author name
+#'      - any comments that are to be written to the file
+#'    - The scenarios need defining by:
+#'      - updating the character defining which scenario script is to be called
+#'      - giving the reference scenario against which all other scenarios are compared,
+#'        this reference scenario needs to be the scenario name which corresponds to the current input parameter files
+#'      - giving the percentage increase in each mode for the BOGOTA (GLOBAL, LATAM, and AFRICA_INDIA) scenarios
+#'      
+#' - the remainder of the code does not need to be changed:
+#' 
+#' - local and global input parameters from the input parameter spreadsheet are read in and put into the correct format needed
+#'   for the model run
+#'   
+#' - The\code{\link{run_ithim_setup()}} script is called which prepares the input data needed for the health impact assessment
+#'   and samples for the input parameter distributions
+#' 
+#' - The \code{\link{run_ithim()}} script is called which performs the health impact assessment NSAMPLE times
+#' 
+#' - The \code{\link{extract_data_for_voi()}} function is called which gets the data into the correct
+#'   format for plotting and the VoI analysis
+#' 
+#' - Plots are created for all cities and each city individually showing the total YLL outcomes and their 
+#'   95% confidence intervals for each scenario ('results/multi_city/city_yll_',output_version,'.pdf')
+#' 
+#' - One plot is created showing the change in total YLL per person relative to the baseline summed 
+#'   across all cities ('results/multi_city/combined_yll_pp','_',output_version,'.pdf')
+#'
+#' - if required the VoI analysis is started:
+#'   - EVPPI values for the different input parameters of the total population outcomes are calculated for
+#'     each city ('results/multi_city/evppi_',output_version,".csv")
+#'   - EVPPI values are plotted for each city ('results/multi_city/evppi_',output_version,".pdf")
+#'   - if required the VoI analysis by sex is started:
+#'      - EVPPI values for the different input parameters of the total population outcomes by sex are 
+#'        calculated for each city ('results/multi_city/evppi_sex_',output_version,".csv")
+#'      - EVPPI values are plotted for each city ('results/multi_city/evppi_sex_',output_version,".pdf")
+#'   - if required the VoI analysis by sex and age group is started:
+#'      - EVPPI values for the different input parameters of the total population outcomes by sex and age group are 
+#'        calculated for each city (results/multi_city/evppi_agesex_',output_version,".csv")
+#'      - EVPPI values are plotted for each city and outcome ('results/multi_city/evppi_agesex_',output_version,".pdf")
+#'
+#' - The OutputVersionControl.txt file is updated if needed
+#'
+#'
+#'
 library(ithimr)
 library(earth)
 library(RColorBrewer)
@@ -55,9 +123,11 @@ voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
 
 outcome_voi_list <- c('pa_ap_all_cause', 'inj')
 
+# flag whether to run VOI analysis split gender
+voi_gender <- T # set to T if want to include split and to F otherwise
 
-# flag whether to run VOI analysis split by age and gender as well
-voi_age_gender <- T   # set to T if want to include split and to F otherwise
+# flag whether to run VOI analysis split by age and gender 
+voi_age_gender <- T # set to T if want to include split and to F otherwise
 
 # add total across all outputs in VOI list for each scenario - only makes sense if results are independent of each other
 # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
@@ -75,17 +145,17 @@ if (.Platform$OS.type == "windows"){
 } else {
   system2("git", gitArgs, wait = T)
 }
-
-
 repo_sha <-  as.character(readLines(file.path("repo_sha")))
+
+#output_version <- paste0(repo_sha, "_test_run") # gives the version number of the output documents, independent of the input parameter file name
+output_version <- 'bogota_1000samples'
+
 # records the main aspects of an ithim run in the OutputVersionControl.txt document
 # text file records timestamp of run, author name, cities the script is run for, 
 # the input parameter file version used, the output version, 
 # the number of samples (which is 1 in constant mode), the path to any other input files,
 # any comments and the runtime of the code
 write_output_control = T # whether you want to save the model run specifics or not
-#output_version <- paste0(repo_sha, "_test_run") # gives the version number of the output documents, independent of the input parameter file name
-output_version <- 'bogota_1000samples'
 author <- "AKS"
 comment <- "Added CO2 emission sampling"
 
@@ -489,6 +559,9 @@ ithim_results <- ithimr::extract_data_for_voi(NSCEN, NSAMPLES, SCEN_SHORT_NAME,o
 # dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
 voi_data_all_df <- ithim_results$voi_data_all_df
 
+# dataframe for all cities with all outcomes for all model runs, sexes and disease and scenario combinations
+voi_data_all_sex_df <- ithim_results$voi_data_all_sex_df
+
 # total yll outcome for all outcome age categories per city and scenario and disease combination, also combined city result (sum)
 outcome <- ithim_results$outcome
 
@@ -651,22 +724,102 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
   
   
   
-  ##### run EVPPI for different age groups and gender
+
+  ##### run EVPPI for different sexes
+  
+  if(voi_gender){
+    
+    print('starting EVPPI analysis by sex')
+    
+    evppi_sex_list <- call_evppi_sex(voi_data_all_sex_df,parameter_samples, outcome_voi_list, outcome, cities, voi_add_sum, 
+                                            NSCEN, NSAMPLES, scenario_names, evppi_df)
+    
+    evppi_sex_df <- evppi_sex_list[[1]] 
+    sex_cat <- unlist(evppi_sex_list[[2]])
+    evppi_city_list_all_sex <- evppi_sex_list[[3]]
+    
+    saveRDS(evppi_sex_df,paste0('results/multi_city/evppi_sex_',output_version,".csv"),version=2) 
+    
+    evppi_sex_csv <- paste0('results/multi_city/evppi_sex_',output_version,".csv")
+    #write.csv(evppi_df,'results/multi_city/evppi.csv',row.names = FALSE) # save as csv file
+    
+    write.csv(evppi_sex_df,evppi_sex_csv,row.names = FALSE) # save as csv file
+    
+    
+    
+    # create output plots
+    output_pdf <- paste0('results/multi_city/evppi_sex_',output_version,".pdf")
+    ci <- 1
+    #{pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome_voi_list))
+    {pdf(output_pdf,height=15,width=4+length(outcome_voi_list)+1)
+      for ( city_name in cities){
+        
+        
+        #evppi_agesex_city_df <- get(paste0("evppi_agesex_",city_name,'_df'))
+        evppi_sex_city_df <- evppi_city_list_all_sex[[ci]]
+        
+        if (voi_add_sum){outcome_list <- c(outcome_voi_list, 'sum') 
+        }else{ outcome_list <- outcome_voi_list}
+
+        par_city <- par(mar=c(10,13,4,3.5))
+        
+        labs <- evppi_sex_city_df$parameters # y axis label
+        labs <- str_replace(labs,'DOSE_RESPONSE','DR') # replace DOSE_RESPONSE with DR
+        labs <- str_replace(labs,'EMISSION_INVENTORY','EMISSION_INV') # replace EMISSION_INVENTORY with EMISSION_INV
+        evppi_sex_dummy <- evppi_sex_city_df %>% dplyr::select(!c(city, parameters))    #[,evppi_outcome_names]
+        # for plotting purposes, replace all NaN with 0
+        evppi_sex_dummy[is.na(evppi_sex_dummy)] <- 0
+        get.pal=colorRampPalette(brewer.pal(9,"Reds"))
+        redCol=rev(get.pal(12))
+        bkT <- seq(max(evppi_sex_dummy[!is.na(evppi_sex_dummy)])+1e-10, 0,length=13)
+        cex.lab <- 1.0
+        maxval <- round(bkT[1],digits=1)
+        col.labels<- c(0,maxval/2,maxval)
+        cellcolors <- vector()
+        title <- paste(city_name,  " - No of samples: ", nsamples, 
+                       # ': By how much (%) could we\n reduce uncertainty in the outcome\n if we knew this parameter perfectly?')
+                       '- By how much (%) could we reduce\n uncertainty in the outcome if we knew this parameter perfectly?')
+        for(ii in 1:length(unlist(evppi_sex_dummy))) # determine the cellcolors
+          cellcolors[ii] <- redCol[tail(which(unlist(evppi_sex_dummy)[ii]<bkT),n=1)]
+        color2D.matplot(evppi_sex_dummy,cellcolors=cellcolors,xlab="",ylab="",axes=F,border='white')
+        title(title, adj = 0, cex.main = 0.7 )
+        fullaxis(side=1,at=(ncol(evppi_sex_dummy)-1):0+0.5,labels=rev(colnames(evppi_sex_dummy)),
+                 las = 2, line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.65)  # x-axis labels
+        fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,
+                 line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.6) # y-axis labels
+        color.legend(ncol(evppi_sex_dummy)+0.5,0,ncol(evppi_sex_dummy)+1.2,length(labs),col.labels,rev(redCol),
+                     gradient="y",cex=0.7,align="rb")
+        for(i in seq(0,ncol(evppi_sex_dummy),by=NSCEN)) abline(v=i, lwd=1) # add vertical lines
+        abline(v=(ncol(evppi_sex_dummy))/2, lwd=2) # add vertical line between male and female results
+        for(i in c(0,length(labs))) abline(h=i, lwd = 2) # add horizontal lines at top and bottom
+        par(par_city)
+
+      }
+      dev.off()}
+    
+  } # end of gender VOI analysis
+  
+  
+  
+  
+  
+    
+  
+  ##### run EVPPI for different ages and sexes
   
   if(voi_age_gender){
     
     print('starting EVPPI analysis by age and sex')
 
     
-    
-    evppi_agesex_list <- call_evppi_age_sex(parameter_samples, outcome_voi_list, outcome, cities, voi_add_sum, 
-                                          NSCEN, NSAMPLES, scenario_names)
+    evppi_agesex_list <- call_evppi_age_sex(voi_data_all_df, parameter_samples, outcome_voi_list, outcome, cities, voi_add_sum, 
+                                          NSCEN, NSAMPLES, scenario_names, evppi_df)
     
     evppi_agesex_df <- evppi_agesex_list[[1]] 
     age_gender_cat <- unlist(evppi_agesex_list[[2]])
     evppi_city_list_all <- evppi_agesex_list[[3]]
     
-    saveRDS(evppi_agesex_df,'results/multi_city/evppi_agesex.Rds',version=2) 
+    saveRDS(evppi_agesex_df,paste0('results/multi_city/evppi_agesex_',output_version,".csv"),version=2) 
     
     evppi_agesex_csv <- paste0('results/multi_city/evppi_agesex_',output_version,".csv")
     #write.csv(evppi_df,'results/multi_city/evppi.csv',row.names = FALSE) # save as csv file

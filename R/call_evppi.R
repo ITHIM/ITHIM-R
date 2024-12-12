@@ -1,26 +1,25 @@
 #' EVPPI wrapper function for total population YLLs
 #' 
-#' This function gets the ithim results into the correct format and calls the compute_evppi.R script
+#' This function gets the ithim results into the correct format and calls the \code{\link{compute_evppi()}} script
 #' to calculate the EVPPIs for all input parameters and required outcomes and scenarios for the entire
 #' population considered in the model
 #'
 #' The function performs the following steps:
 #' 
 #'\itemize{
-#'\item create a vector containing the global parameters but not including the AP dose response 
+#'\item create a vector containing the global parameters but not including the emission inventory 
 #'      parameters as they are not independent of each other
 #'
 #'\item loop through the cities:
 #'  \itemize{
-#'    \item extract the city specific parameters (excluding the CO2 parameters)
+#'    \item extract the city specific parameters (excluding the CO2 and PM emission inventory parameters)
 #'    \item extract the outcomes of interest for each scenario using the outcome_voi_list
 #'    \item if voi_add_sum == TRUE, calculate the total YLLs by summing across all 
 #'          diseases in the outcome_voi_list - this only makes sense if the diseases
 #'          in the outcome_voi_list are independent of each other
-#'    \item call the compute_evppi.R function to calculate the expected values of partially perfect information (EVPPI)
+#'    \item call the \code{\link{compute_evppi()}} function to calculate the expected values of partially perfect information (EVPPI)
 #'          for all parameters and diseases of interest
-#'    \item if NSAMPLES >= 300 and the AP dose response paramters have been sampled, then also
-#'          calculate the EVPPI values for the AP dose response parameters 
+#'    \item if NSAMPLES >= 1000 then also calculate the EVPPI values for the emission inventory parameters
 #'    } 
 #' }  
 #' 
@@ -33,7 +32,9 @@
 #' @param NSAMPLES number of times the model was run for each city
 #' @param scenario_names gives the names of the scenarios (incl baseline)
 #' 
+#' @return list containg the following elements:
 #' @return evppi_df containing the evppi values for all input parameters and scenario and disease outcomes
+#' @return evppi_outcome_names, a vector containing all the scenario outcome combinations
 #' 
 #' @export
 
@@ -164,34 +165,7 @@ call_evppi <- function(parameter_samples, outcome_voi_list, outcome, cities, voi
       evppi_city3 <- rbind(evppi_city3,evppi_for_PM_city3)
     }
     
-    
-        
-    
-    # look at dose response AP input parameters separately, as alpha, beta, gammy and trmel are dependent on each other
-    # if(any(ap_dr_quantile)&&NSAMPLES>=300){
-    #   AP_names <- sapply(colnames(parameter_samples),function(x)length(strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA')[[1]])>1)
-    #   diseases <- sapply(colnames(parameter_samples)[AP_names],function(x)strsplit(x,'AP_DOSE_RESPONSE_QUANTILE_ALPHA_')[[1]][2])
-    #   sources <- list()
-    #   for(di in diseases){ 
-    #     col_names <- sapply(colnames(parameter_samples),function(x)grepl('AP_DOSE_RESPONSE_QUANTILE',x)&grepl(di,x))
-    #     sources[[di]] <- parameter_samples[,col_names]
-    #   }
-    #   evppi_for_AP_city <- future_lapply(1:length(sources),
-    #                                      FUN = ithimr:::compute_evppi,
-    #                                      global_para = sources,
-    #                                      city_para = data.frame(),
-    #                                      city_outcomes = city_outcomes,
-    #                                      nsamples = NSAMPLES)
-    #   
-    #   evppi_for_AP_city2 <- do.call(rbind,evppi_for_AP_city) # bind list
-    #   evppi_for_AP_city3 <- as.data.frame(evppi_for_AP_city2) # turn into dataframe
-    #   colnames(evppi_for_AP_city3) <- evppi_outcome_names
-    #   
-    #   evppi_for_AP_city3$parameters <-  c(paste0('AP_DOSE_RESPONSE_QUANTILE_',diseases)) # add parameter name column
-    #   evppi_for_AP_city3$city <- city # add city name column
-    #   
-    #   evppi_city3 <- rbind(evppi_city3, evppi_for_AP_city3)
-    # }
+
     
     evppi_df <- rbind(evppi_df, evppi_city3) # add to total evppi dataframe
   } # end of city loop
