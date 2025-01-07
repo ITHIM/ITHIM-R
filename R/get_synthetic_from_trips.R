@@ -188,7 +188,7 @@ get_synthetic_from_trips <- function() {
   # SCEN_SHORT_NAME <<- c("base",paste0("scen", 1:NSCEN) )
   SCEN_SHORT_NAME <<- c("base", paste0("sc_", rownames(SCENARIO_PROPORTIONS)))
 
-
+  
   # add walk to pt trips, as appropriate, and combines list of scenarios
   trip_scen_sets <- walk_to_pt_and_combine_scen(BASELINE_TRIPS)
 

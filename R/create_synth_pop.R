@@ -93,6 +93,7 @@ create_base_pop <- function(raw_trip_set) {
       if (nrow(matching_people) > 0) { # if there are people with the right sex and age category in the pa dataset
         # find proportion of those people whose non-occupational activity met is equal to 0
         raw_zero <- sum(matching_people$work_ltpa_marg_met == 0) / length(matching_people$work_ltpa_marg_met)
+        #print(raw_zero)
       }
 
       if (BACKGROUND_PA_CONFIDENCE < 1) { # option to sample the raw_zero proportion from a beta distribution
@@ -102,13 +103,13 @@ create_base_pop <- function(raw_trip_set) {
 
         if (raw_zero == 1) mean <- 0.999
 
-        std <- (1 - BACKGROUND_PA_CONFIDENCE) / 5 # define standard deviation of beta distribution
-        # std <- 1/(BACKGROUND_PA_CONFIDENCE^2 + 0.07) / 100
+        std <- (1-BACKGROUND_PA_CONFIDENCE)/2*min(mean, 1-mean) # define standard deviation of beta distribution
+       
 
         # define alpha and beta values and sample from the corresponding distribution
         alpha <- abs((mean * (1 - mean) / std^2 - 1) * mean)
         beta <- abs((mean * (1 - mean) / std^2 - 1) * (1 - mean))
-        raw_zero <- rbeta(1, alpha, beta)
+        raw_zero <- qbeta(BACKGROUND_PA_ZEROS,alpha,beta)
       }
       zeros[[age_group]][[gender]] <- raw_zero # proportion of people with given sex and age_category who have zero non-travel met values
       densities[[age_group]][[gender]] <- matching_people$work_ltpa_marg_met[matching_people$work_ltpa_marg_met > 0] # people with non-zero non-occupational pa
