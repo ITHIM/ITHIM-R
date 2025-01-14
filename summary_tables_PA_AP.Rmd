@@ -146,7 +146,7 @@ if (!exists("output_version")){
   }
   
   repo_sha <-  as.character(readLines(file.path("repo_sha")))
-  output_version <- paste0(repo_sha, "_test_run")
+  output_version <- repo_sha
 } 
 
 # Assumes that multi_city_script.R has been run  
@@ -157,7 +157,7 @@ io <- readRDS(paste0("results/multi_city/io_", output_version, ".rds"))
 round_to <- 2
 
 # Get names of cities from the io object
-cities <- names(io)[!names(io) %in% c('scen_prop','ithim_run' )]
+cities <- names(io)[!names(io) %in% c('scen_prop','ithim_run' )] |> sort()
 
 # Plot colours for each scenario
 scen_colours <- c("Baseline" = '#b15928',
@@ -327,7 +327,7 @@ cat(
    )
 )
 cat("  \n")
-cat(paste0('Scenario: ', SCENARIO_INCREASE * 100, "%")) 
+cat(paste0('Scenario: ', io$ithim_run$scenario_increase * 100, "%")) 
 cat("  \n")
 cat(paste0('Input Parameter version: ', io$ithim_run$input_parameter_file)) 
 cat("  \n")
@@ -379,13 +379,13 @@ for (x in 1:length(cities)) {
   y <- ggplot(data_long, aes(x = scenario, y = pm_conc, fill = scenario)) +
     geom_boxplot(outlier.shape = 8) + ggtitle(cities[x]) + 
     scale_fill_manual("Scenario", values = scen_colours) + 
-    labs(y = "Daily PM2.5 exposure levels", x = "Scenarios", title = "") #+
+    labs(y = "Daily PM2.5 exposure levels", x = "Scenarios", title = cities[x]) #+
   
   # print to html
   print(y)
   
   #save
-  ggsave("figures/ap_pm2.5_dist.svg", plot = y, width=10, height=8)
+  #ggsave("figures/ap_pm2.5_dist.svg", plot = y, width=10, height=8)
   
 }
 ```
@@ -566,7 +566,7 @@ for (x in 1:length(cities)) { # loop through cities
   y <- ggplot(data_long, aes(x = scenario, y = mmet, fill = scenario)) +
     geom_boxplot(outlier.shape = NA) + ggtitle(cities[x]) + 
     scale_fill_manual("Scenario", values = scen_colours) + 
-    labs(y = "mMET-hours/week", x = "Scenarios", title = "")+  ylim(0, limit)
+    labs(y = "mMET-hours/week", x = "Scenarios", title = cities[x])+  ylim(0, limit)
   
   # print to html
   print(y)
@@ -632,7 +632,7 @@ for (x in 1:length(cities)) {
                      scale_color_manual(values = scen_colours) + 
                      xlim(0, 30) +
                      geom_vline(xintercept = 17.5, linetype="dashed", color = "red") +
-                     labs(title = "",
+                     labs(title = cities[x],
                           x = "mMET-hours/week per person",
                           y = "Density") +
                     annotate(x = 17.5, y = +Inf, 
@@ -643,7 +643,7 @@ for (x in 1:length(cities)) {
   print(y)
   
   # ggsave
-  ggsave("figures/pa_vol_base_bus.svg", plot = y, width=10, height=8)
+  #ggsave("figures/pa_vol_base_bus.svg", plot = y, width=10, height=8)
 }
 
 
@@ -673,7 +673,7 @@ for (x in 1:length(cities)) {
                      scale_color_manual(values = scen_colours) + 
                      xlim(0, 30) +
                      geom_vline(xintercept = 17.5, linetype="dashed", color = "red") +
-                     labs(title = "",
+                     labs(title = cities[x],
                           x = "mMET-hours/week per person",
                           y = "Density") +
     annotate(x = 17.5, y = +Inf, label = "17.5 mMET-hours/week", vjust = 2, geom="label")
@@ -681,7 +681,7 @@ for (x in 1:length(cities)) {
   # print to html
   print(y)
   
-  ggsave("figures/pa_vol_base_cyc.svg", plot = y, width=10, height=8)
+  #ggsave("figures/pa_vol_base_cyc.svg", plot = y, width=10, height=8)
 }
 
 
@@ -717,7 +717,7 @@ df_deciles <- mmets  |>
 y <- ggplot(df_deciles, aes(x = decile, y = value, color = Scenario)) +
   geom_line(aes(group = Scenario)) +
   geom_point() +
-  labs(title = "", x = "Deciles", y = "mMET-hours/week") +
+  labs(title = cities[x], x = "Deciles", y = "mMET-hours/week") +
   geom_hline(yintercept = 17.5, linetype="dashed", color = "red") +
   scale_color_manual(values = scen_colours) + 
   annotate(y = 17.5, x = 2, 
@@ -726,7 +726,7 @@ y <- ggplot(df_deciles, aes(x = decile, y = value, color = Scenario)) +
   # print to html
   print(y)
   
-  ggsave("figures/pa_deciles.svg", plot = y, width=10, height=8)
+  #ggsave("figures/pa_deciles.svg", plot = y, width=10, height=8)
   
   # l[[i]] <- as_widget(plotly::ggplotly(y) %>%
   # config(

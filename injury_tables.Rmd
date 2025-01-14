@@ -149,14 +149,14 @@ if (!exists("output_version")){
   }
   
   repo_sha <-  as.character(readLines(file.path("repo_sha")))
-  output_version <- paste0(repo_sha, "_test_run")
+  output_version <- repo_sha
 }
 
 # Assumes that multi_city_script.R has been run - read in ithim_objects saved as io.rds
 io <- readRDS(paste0("results/multi_city/io_", output_version, ".rds"))
 
 # Get names of cities from the io object
-cities <- names(io)[!names(io) %in% c('scen_prop','ithim_run' )]
+cities <- names(io)[!names(io) %in% c('scen_prop','ithim_run' )] |> sort()
 
 # Get number of scenarios
 NSCEN <- length(names(io[[1]]$outcomes$whw)) - 1
@@ -236,7 +236,7 @@ cat(
    )
 )
 cat("  \n")
-cat(paste0('Scenario: ', SCENARIO_INCREASE * 100, "%")) 
+cat(paste0('Scenario: ', io$ithim_run$scenario_increase * 100, "%")) 
 cat("  \n")
 cat(paste0('Input Parameter version: ', io$ithim_run$input_parameter_file)) 
 cat("  \n")
