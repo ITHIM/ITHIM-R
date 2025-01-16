@@ -58,6 +58,9 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
   # create matrix of 0s with the number of cities as rows and the length of outcome age groups as columns
   city_populations <- matrix(0,nrow=length(cities),ncol=length(outcome_age_groups))
   
+  # create empty dataframe to save all the population numbers
+  population_df <- data.frame()
+  
   for(ci in 1:length(cities)){ # loop through cities
     city <- cities[ci]
     multi_city_ithim[[city]] <- readRDS(paste0('results/multi_city/',city,'_',output_version,'.Rds')) # read in city specific data
@@ -89,8 +92,16 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
     outcome_pp[[city]] <- outcome_pp[[city]]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
     colnames(outcome_pp[[city]]) <- paste0(colnames(outcome_pp[[city]]),'_',city)
     
+    ### demographic stats total and by sex
+    total_female <- sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age&sex=='female')$population)
+    total_male <- sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age&sex=='male')$population)
+    total_pop <- sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
     
+    population_df_city <- data.frame(sex = c('all','male','female'), age = c('all','all','all'),population = c(total_pop, total_male,total_female))
+    population_df_city <- rbind(population_df_city, DEMOGRAPHIC)
+    population_df_city$city <- city
     
+    population_df <- rbind(population_df,population_df_city)
     
     ## get yll per 100,000 by age
     yll_per_hundred_thousand[[city]] <- list()
@@ -252,6 +263,7 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
   ithim_results$outcome <- outcome
   ithim_results$yll_per_hundred_thousand <- yll_per_hundred_thousand
   ithim_results$yll_per_hundred_thousand_stats <- yll_per_hundred_thousand_stats
+  ithim_results$population_df <- population_df
   
   
   return(ithim_results)

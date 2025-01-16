@@ -107,10 +107,10 @@ rm(list=ls())
 cities <- c('bogota')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 1000
+nsamples <- 10
 
 
-voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
+voi_analysis <- F # set to T if want to run VoI analysis and to F otherwise
 
 # list of potential values for the outcome_voi_list
 # 'pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
@@ -151,7 +151,7 @@ if (.Platform$OS.type == "windows"){
 repo_sha <-  as.character(readLines(file.path("repo_sha")))
 
 #output_version <- paste0(repo_sha, "_test_run") # gives the version number of the output documents, independent of the input parameter file name
-output_version <- 'bogota_1000samples'
+output_version <- 'bogota_10samples'
 
 # records the main aspects of an ithim run in the OutputVersionControl.txt document
 # text file records timestamp of run, author name, cities the script is run for, 
@@ -163,7 +163,7 @@ author <- "AKS"
 comment <- "Added CO2 emission sampling"
 
 # scenario definition
-scenario_name <- "GLOBAL"
+scenario_name <- "BOGOTA"
 reference_scenario <- 'Baseline'
 scenario_increase <- 0.05 # increase for each mode in each scenario
 
@@ -568,6 +568,9 @@ voi_data_all_sex_df <- ithim_results$voi_data_all_sex_df
 # total yll outcome for all outcome age categories per city and scenario and disease combination, also combined city result (sum)
 outcome <- ithim_results$outcome
 
+# dataframe containing all the population numbers
+population_df <- ithim_results$population_df
+
 # save yll per 100,000 people for each city, outcome age category, model run and disease and scen combination
 saveRDS(ithim_results$yll_per_hundred_thousand,paste0('results/multi_city/yll_per_hundred_thousand_',output_version,'.Rds'),version=2)
 
@@ -584,13 +587,47 @@ write.csv(ithim_results$summary_ylls_df,
 
 
 
+################# create outcome statistics for different scenarios and health outcomes
+
+# number the different runs
+voi_data_all_df$run <- rep(1:nsamples,length(unique(voi_data_all_df$age_sex))*length(cities))
+voi_data_all_sex_df$run <- rep(1:nsamples,length(unique(voi_data_all_sex_df$sex))*length(cities))
+
+# add extra columns
+voi_data_all_sex_df$age_cat <- 'all'
+voi_data_all_sex_df$age_sex <- paste(voi_data_all_sex_df$sex, voi_data_all_sex_df$age_cat, sep = ' ')
+
+# create total for each run for all outcomes
+voi_data_total_df <- voi_data_all_sex_df %>% group_by( age_cat, run, city) %>% summarise(across(where(is.numeric), sum), .groups = 'drop')
+voi_data_total_df$sex <- 'all'
+voi_data_total_df$age_sex <- paste(voi_data_total_df$sex, voi_data_total_df$age_cat, sep = ' ')
+
+
+# create one dataset
+voi_data_all_df$sex <- as.character(voi_data_all_df$sex)
+voi_data_all_df$age_cat <- as.character(voi_data_all_df$age_cat)
+voi_data_all_df <- voi_data_all_df %>% mutate_if(is.list,as.numeric)
+voi_data_complete <- bind_rows(voi_data_all_df, voi_data_all_sex_df , voi_data_total_df)
+
+# add population data
+population_df <- population_df %>% rename(age_cat = age)
+voi_data_complete2 <- merge(voi_data_complete, population_df, by = c('age_cat','sex','city'))
+
+# calculate per 100k
+
+
+
+#df %>%
+#  mutate(across(everything(), ~ round(as.numeric(.x)/1000000, 1)))
+
+
 ######################################################### plot results #######################################################
 print('plot results')
 
 # plots only work if more than one sample was selected
 if(nsamples > 1){
   
-  # plot total YLL sum across all diseases 
+  # plot total YLL sum
   {pdf(paste0('results/multi_city/city_yll_',output_version,'.pdf'),height=6,width=6)
     
     # one plot for all cities - might be difficult to read
@@ -598,7 +635,7 @@ if(nsamples > 1){
     sp_index <- which(cities==city)
     scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
     means <- sapply(scen_out,function(x)apply(x,2,mean))
-    ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.05,0.95)))
+    ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.025,0.975)))
     yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
     cols <- rainbow(length(outcome)-1)
     
@@ -607,7 +644,7 @@ if(nsamples > 1){
     axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
     for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
     abline(v=0,col='grey',lty=2,lwd=2)
-    text(y=(NSCEN-1)+0.2,x=ninefive[[sp_index]][1,(NSCEN-1)],'90%',col='navyblue',adj=c(-0,-0.3*sp_index))
+    text(y=(NSCEN-1)+0.2,x=ninefive[[sp_index]][1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*sp_index))
     legend(col=rev(cols),lty=1,bty='n',x= mean(means),legend=rev(names(outcome)[-length(outcome)]),y=NSCEN-1,lwd=2)
     par(par)
     
@@ -617,7 +654,7 @@ if(nsamples > 1){
       scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
       scen_out_city <- scen_out[[city]]
       means <- colMeans(scen_out_city) 
-      ninefive <- apply(scen_out_city,2,quantile,probs = c(0.05,0.95))
+      ninefive <- apply(scen_out_city,2,quantile,probs = c(0.025,0.975))
       yvals <- rep(1,each=NSCEN)/10 + rep(1:NSCEN) 
       cols <- rainbow(length(outcome)-1)
       col_city <- cols[sp_index]
@@ -629,7 +666,7 @@ if(nsamples > 1){
       axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
       for(j in 1:NSCEN) lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
       abline(v=0,col='grey',lty=2,lwd=2)
-      text(y=(NSCEN-1)+0.2,x=ninefive[1,(NSCEN-1)],'90%',col='navyblue',adj=c(-0,-0.3*sp_index))
+      text(y=(NSCEN-1)+0.2,x=ninefive[1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*sp_index))
       legend(col=col_city, lty=1,bty='n',x= mean(means),legend=city,y=NSCEN-1,lwd=2)
       par(par_city)
     }
@@ -637,73 +674,202 @@ if(nsamples > 1){
   } 
   
 
-  # plot total YLL sum across all diseases plus include split by sex (95% CIs)
+  # plot total YLL sum plus include split by sex (95% CIs)
   {pdf(paste0('results/multi_city/city_yll_sex_',output_version,'.pdf'),height=6,width=6)
   
   # one plot per city
-  for(city in cities){ 
-    sp_index <- which(cities==city)
-    scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
-    scen_out_city <- scen_out[[city]]
-    means <- colMeans(scen_out_city) 
-    ninefive <- apply(scen_out_city,2,quantile,probs = c(0.05,0.95))
-    yvals <- rep(3,each=NSCEN)/10 + rep(1:NSCEN) 
-    cols <- rainbow(length(outcome)-1)
-    col_city <- cols[sp_index]
-    
-    # male
-    scen_city_male <- voi_data_all_sex_df %>% filter(sex == 'male', city == city) %>% dplyr::select(-c(sex,city))
-    scen_out_city_male <- sapply(1:NSCEN,function(y)rowSums(scen_city_male[,seq(y,ncol(scen_city_male),by=NSCEN)]))
-    means_male <- colMeans(scen_out_city_male) 
-    ninefive_male <- apply(scen_out_city_male,2,quantile,probs = c(0.05,0.95))
-    yvals_male <- rep(2,each=NSCEN)/10 + rep(1:NSCEN)
-
-    # female
-    scen_city_female <- voi_data_all_sex_df %>% filter(sex == 'female', city == city) %>% dplyr::select(-c(sex,city))
-    scen_out_city_female <- sapply(1:NSCEN,function(y)rowSums(scen_city_female[,seq(y,ncol(scen_city_female),by=NSCEN)]))
-    means_female <- colMeans(scen_out_city_female) 
-    ninefive_female <- apply(scen_out_city_female,2,quantile,probs = c(0.05,0.95))
-    yvals_female <- rep(1,each=NSCEN)/10 + rep(1:NSCEN)
-    
-    par_city <- par(mar=c(5,7,1,1))
-    xlab <- paste0(city,': Change in total YLL relative to baseline')
-    plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
-         yaxt='n', ylim = range(.9,4.2),xlim=range(unlist(ninefive),unlist(ninefive_male),unlist(ninefive_female)))
-    axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
-    
-    points(as.vector(means_male),yvals_male,pch=16,cex=1,col='black')
-    points(as.vector(means_female),yvals_female,pch=16,cex=1,col='blue')
-    
-    for(j in 1:NSCEN){
-      lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
-      lines(ninefive_male[,j],rep(yvals_male[j],2),lwd=2, col='black')
-      lines(ninefive_female[,j],rep(yvals_female[j],2),lwd=2, col='blue')
-    } 
-    abline(v=0,col='grey',lty=2,lwd=2)
-    text(y=(NSCEN-1)+0.4,x=ninefive[1,(NSCEN-1)],'90%',col='black',adj=c(-0,-0.3*sp_index))
-    legend(col=col_city, lty=1,bty='n',x= mean(means),legend=paste0(city,': all'),y=NSCEN-1,lwd=2)
-    legend(col='black', lty=1,bty='n',x= mean(means),legend=paste0(city,': male'),y=NSCEN-1.2,lwd=2)
-    legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(city,': female'),y=NSCEN-1.4,lwd=2)
-    par(par_city)
-  }
-  dev.off()
-} 
+    for(city in cities){ 
+      sp_index <- which(cities==city)
+      scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+      scen_out_city <- scen_out[[city]]
+      means <- colMeans(scen_out_city) 
+      ninefive <- apply(scen_out_city,2,quantile,probs = c(0.025,0.975))
+      yvals <- rep(3,each=NSCEN)/10 + rep(1:NSCEN) 
+      cols <- rainbow(length(outcome)-1)
+      col_city <- cols[sp_index]
+      
+      # male
+      scen_city_male <- voi_data_all_sex_df %>% filter(sex == 'male', city == city) %>% dplyr::select(-c(sex,city))
+      scen_out_city_male <- sapply(1:NSCEN,function(y)rowSums(scen_city_male[,seq(y,ncol(scen_city_male),by=NSCEN)]))
+      means_male <- colMeans(scen_out_city_male) 
+      ninefive_male <- apply(scen_out_city_male,2,quantile,probs = c(0.025,0.975))
+      yvals_male <- rep(2,each=NSCEN)/10 + rep(1:NSCEN)
+  
+      # female
+      scen_city_female <- voi_data_all_sex_df %>% filter(sex == 'female', city == city) %>% dplyr::select(-c(sex,city))
+      scen_out_city_female <- sapply(1:NSCEN,function(y)rowSums(scen_city_female[,seq(y,ncol(scen_city_female),by=NSCEN)]))
+      means_female <- colMeans(scen_out_city_female) 
+      ninefive_female <- apply(scen_out_city_female,2,quantile,probs = c(0.025,0.975))
+      yvals_female <- rep(1,each=NSCEN)/10 + rep(1:NSCEN)
+      
+      par_city <- par(mar=c(5,7,1,1))
+      xlab <- paste0(city,': Change in total YLL relative to baseline')
+      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
+           yaxt='n', ylim = range(.9,4.2),xlim=range(unlist(ninefive),unlist(ninefive_male),unlist(ninefive_female)))
+      axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+      
+      points(as.vector(means_male),yvals_male,pch=16,cex=1,col='black')
+      points(as.vector(means_female),yvals_female,pch=16,cex=1,col='blue')
+      
+      for(j in 1:NSCEN){
+        lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
+        lines(ninefive_male[,j],rep(yvals_male[j],2),lwd=2, col='black')
+        lines(ninefive_female[,j],rep(yvals_female[j],2),lwd=2, col='blue')
+      } 
+      abline(v=0,col='grey',lty=2,lwd=2)
+      text(y=(NSCEN-1)+0.4,x=ninefive[1,(NSCEN-1)],'95%',col='black',adj=c(-0,-0.3*sp_index))
+      legend(col=col_city, lty=1,bty='n',x= mean(means),legend=paste0(city,': all'),y=NSCEN-1,lwd=2)
+      legend(col='black', lty=1,bty='n',x= mean(means),legend=paste0(city,': male'),y=NSCEN-1.2,lwd=2)
+      legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(city,': female'),y=NSCEN-1.4,lwd=2)
+      par(par_city)
+    }
+    dev.off()
+  } 
   
   
   
   
+  
+################## repeat plots per 100,000  
+  
+  # plot total YLL sum per 100,000
+  {pdf(paste0('results/multi_city/city_yll_100k_',output_version,'.pdf'),height=6,width=6)
+    
+    # one plot for all cities - might be difficult to read
+    # par <- par(mar=c(5,5,1,1))
+    # sp_index <- which(cities==city)
+    # scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+    # scen_out_100k <- lapply(scen_out, function(x) x*100000/subset(population_df, sex=='all' & age == 'all' & city == city)$population)
+    # means <- sapply(scen_out_100k,function(x)apply(x,2,mean))
+    # ninefive <- lapply(scen_out_100k,function(x) apply(x,2,quantile,c(0.025,0.975)))
+    # yvals <- rep(1:length(scen_out_100k),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out_100k))
+    # cols <- rainbow(length(outcome)-1)
+    # 
+    # plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in total YLL per 100k relative to baseline',
+    #      col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
+    # axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+    # for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
+    # abline(v=0,col='grey',lty=2,lwd=2)
+    # text(y=(NSCEN-1)+0.2,x=ninefive[[sp_index]][1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*sp_index))
+    # legend(col=rev(cols),lty=1,bty='n',x= mean(means),legend=rev(names(outcome)[-length(outcome)]),y=NSCEN-1,lwd=2)
+    # par(par)
+    # 
+    # one plot per city
+    par <- par(mar=c(5,5,1,1))
+    for(city in cities){ 
+      sp_index <- which(cities==city)
+      scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+      scen_out_city <- scen_out[[city]]
+      scen_out_city_100k <- scen_out_city*100000/subset(population_df, sex=='all' & age == 'all' & city == city)$population
+      means <- colMeans(scen_out_city_100k) 
+      ninefive <- apply(scen_out_city_100k,2,quantile,probs = c(0.025,0.975))
+      yvals <- rep(1,each=NSCEN)/10 + rep(1:NSCEN) 
+      cols <- rainbow(length(outcome)-1)
+      col_city <- cols[sp_index]
+      
+      par_city <- par(mar=c(5,5,1,1))
+      xlab <- paste0(city,': Change in total YLL per 100k relative to baseline')
+      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
+           yaxt='n',xlim=range(unlist(ninefive)))
+      axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+      for(j in 1:NSCEN) lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
+      abline(v=0,col='grey',lty=2,lwd=2)
+      text(y=(NSCEN-1)+0.2,x=ninefive[1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*sp_index))
+      legend(col=col_city, lty=1,bty='n',x= mean(means),legend=city,y=NSCEN-1,lwd=2)
+      par(par_city)
+    }
+    dev.off()
+  } 
+  
+  
+  # plot total YLL sum plus include split by sex (95% CIs) per 100,000
+  {pdf(paste0('results/multi_city/city_yll_sex_100k_',output_version,'.pdf'),height=6,width=6)
+    
+    # one plot per city
+    for(city in cities){ 
+      sp_index <- which(cities==city)
+      scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+      scen_out_city_100k <- scen_out[[city]]*100000/subset(population_df, sex=='all' & age == 'all' & city == city)$population
+      means <- colMeans(scen_out_city_100k) 
+      ninefive <- apply(scen_out_city_100k,2,quantile,probs = c(0.025,0.975))
+      yvals <- rep(3,each=NSCEN)/10 + rep(1:NSCEN) 
+      cols <- rainbow(length(outcome)-1)
+      col_city <- cols[sp_index]
+      
+      # male
+      scen_city_male <- voi_data_all_sex_df %>% filter(sex == 'male', city == city) %>% dplyr::select(-c(sex,city))
+      scen_out_city_male <- sapply(1:NSCEN,function(y)rowSums(scen_city_male[,seq(y,ncol(scen_city_male),by=NSCEN)]))
+      scen_out_city_male_100k <- scen_out_city_male*100000/subset(population_df, sex=='male' & age == 'all' & city == city)$population
+      means_male <- colMeans(scen_out_city_male_100k) 
+      ninefive_male <- apply(scen_out_city_male_100k,2,quantile,probs = c(0.025,0.975))
+      yvals_male <- rep(2,each=NSCEN)/10 + rep(1:NSCEN)
+      
+      # female
+      scen_city_female <- voi_data_all_sex_df %>% filter(sex == 'female', city == city) %>% dplyr::select(-c(sex,city))
+      scen_out_city_female <- sapply(1:NSCEN,function(y)rowSums(scen_city_female[,seq(y,ncol(scen_city_female),by=NSCEN)]))
+      scen_out_city_female_100k <- scen_out_city_female*100000/subset(population_df, sex=='female' & age == 'all' & city == city)$population
+      means_female <- colMeans(scen_out_city_female_100k) 
+      ninefive_female <- apply(scen_out_city_female_100k,2,quantile,probs = c(0.025,0.975))
+      yvals_female <- rep(1,each=NSCEN)/10 + rep(1:NSCEN)
+      
+      par_city <- par(mar=c(5,7,1,1))
+      xlab <- paste0(city,': Change in total YLL per 100k relative to baseline')
+      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
+           yaxt='n', ylim = range(.9,4.2),xlim=range(unlist(ninefive),unlist(ninefive_male),unlist(ninefive_female)))
+      axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+      
+      points(as.vector(means_male),yvals_male,pch=16,cex=1,col='black')
+      points(as.vector(means_female),yvals_female,pch=16,cex=1,col='blue')
+      
+      for(j in 1:NSCEN){
+        lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
+        lines(ninefive_male[,j],rep(yvals_male[j],2),lwd=2, col='black')
+        lines(ninefive_female[,j],rep(yvals_female[j],2),lwd=2, col='blue')
+      } 
+      abline(v=0,col='grey',lty=2,lwd=2)
+      text(y=(NSCEN-1)+0.4,x=ninefive[1,(NSCEN-1)],'95%',col='black',adj=c(-0,-0.3*sp_index))
+      legend(col=col_city, lty=1,bty='n',x= mean(means),legend=paste0(city,': all'),y=NSCEN-1,lwd=2)
+      legend(col='black', lty=1,bty='n',x= mean(means),legend=paste0(city,': male'),y=NSCEN-1.2,lwd=2)
+      legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(city,': female'),y=NSCEN-1.4,lwd=2)
+      par(par_city)
+    }
+    dev.off()
+  } 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+############## YLL per person  
   
   # plotting the output YLL per person as sums across all cities
   comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
-  ninefive <- apply(comb_out,2,quantile,c(0.05,0.95))
+  ninefive <- apply(comb_out,2,quantile,c(0.025,0.975))
   means <- apply(comb_out,2,mean)
   {pdf(paste0('results/multi_city/combined_yll_pp','_',output_version,'.pdf'),height=3,width=6); par(mar=c(5,5,1,1))
     plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in total YLL per person relative to baseline summed across all cities',
-         col='navyblue',yaxt='n',xlim=range(ninefive))
-    axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+         col='navyblue',yaxt='n',xlim=range(ninefive), cex.lab = 0.8, cex.axis = 0.8)
+    axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)], cex = 0.8)
     for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
     abline(v=0,col='grey',lty=2,lwd=2)
-    text(y=(NSCEN-1),x=ninefive[1,(NSCEN-1)],'90%',col='navyblue',adj=c(-0,-0.7))
+    text(y=(NSCEN-1),x=ninefive[1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.7))
     dev.off()
   }
   
