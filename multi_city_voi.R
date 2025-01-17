@@ -44,26 +44,26 @@
 #'   format for plotting and the VoI analysis
 #' 
 #' - Plots are created for all cities and each city individually showing the total YLL outcomes and their 
-#'   95% confidence intervals for each scenario ('results/multi_city/city_yll_',output_version,'.pdf')
+#'   95% confidence intervals for each scenario ('results/voi/city_yll_',output_version,'.pdf')
 #'   
 #' - Plots are created for each city individually showing the total YLL outcomes for the entire population and 
-#'   both sexes and their 95% confidence intervals for each scenario ('results/multi_city/city_yll_sex',output_version,'.pdf')
+#'   both sexes and their 95% confidence intervals for each scenario ('results/voi/city_yll_sex',output_version,'.pdf')
 #' 
 #' - One plot is created showing the change in total YLL per person relative to the baseline summed 
-#'   across all cities ('results/multi_city/combined_yll_pp','_',output_version,'.pdf')
+#'   across all cities ('results/voi/combined_yll_pp','_',output_version,'.pdf')
 #'
 #' - if required the VoI analysis is started:
 #'   - EVPPI values for the different input parameters of the total population outcomes are calculated for
-#'     each city ('results/multi_city/evppi_',output_version,".csv")
-#'   - EVPPI values are plotted for each city ('results/multi_city/evppi_',output_version,".pdf")
+#'     each city ('results/voi/evppi_',output_version,".csv")
+#'   - EVPPI values are plotted for each city ('results/voi/evppi_',output_version,".pdf")
 #'   - if required the VoI analysis by sex is started:
 #'      - EVPPI values for the different input parameters of the total population outcomes by sex are 
-#'        calculated for each city ('results/multi_city/evppi_sex_',output_version,".csv")
-#'      - EVPPI values are plotted for each city ('results/multi_city/evppi_sex_',output_version,".pdf")
+#'        calculated for each city ('results/voi/evppi_sex_',output_version,".csv")
+#'      - EVPPI values are plotted for each city ('results/voi/evppi_sex_',output_version,".pdf")
 #'   - if required the VoI analysis by sex and age group is started:
 #'      - EVPPI values for the different input parameters of the total population outcomes by sex and age group are 
-#'        calculated for each city (results/multi_city/evppi_agesex_',output_version,".csv")
-#'      - EVPPI values are plotted for each city and outcome ('results/multi_city/evppi_agesex_',output_version,".pdf")
+#'        calculated for each city (results/voi/evppi_agesex_',output_version,".csv")
+#'      - EVPPI values are plotted for each city and outcome ('results/voi/evppi_agesex_',output_version,".pdf")
 #'
 #' - The OutputVersionControl.txt file is updated if needed
 #'
@@ -107,10 +107,10 @@ rm(list=ls())
 cities <- c('bogota')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 10
+nsamples <- 1000
 
 
-voi_analysis <- F # set to T if want to run VoI analysis and to F otherwise
+voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
 
 # list of potential values for the outcome_voi_list
 # 'pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
@@ -137,7 +137,7 @@ voi_age_gender <- T # set to T if want to include split and to F otherwise
 voi_add_sum <- T
 
 
-input_parameter_file <- "InputParameters_v40.0-test.xlsx"
+input_parameter_file <- "InputParameters_v41.0.xlsx"
 
 
 ## Get the current repo sha
@@ -151,7 +151,7 @@ if (.Platform$OS.type == "windows"){
 repo_sha <-  as.character(readLines(file.path("repo_sha")))
 
 #output_version <- paste0(repo_sha, "_test_run") # gives the version number of the output documents, independent of the input parameter file name
-output_version <- 'bogota_10samples'
+output_version <- 'bogota_1000samples'
 
 # records the main aspects of an ithim run in the OutputVersionControl.txt document
 # text file records timestamp of run, author name, cities the script is run for, 
@@ -516,7 +516,7 @@ print(system.time(
   
     
     # save results for city and then delete
-    saveRDS(multi_city_ithim[[city]],paste0('results/multi_city/',city,'_',output_version,'.Rds'))
+    saveRDS(multi_city_ithim[[city]],paste0('results/voi/',city,'_',output_version,'.Rds'))
     
     # if(ci>1){
     #   multi_city_ithim[[ci]] <- 0
@@ -572,18 +572,18 @@ outcome <- ithim_results$outcome
 population_df <- ithim_results$population_df
 
 # save yll per 100,000 people for each city, outcome age category, model run and disease and scen combination
-saveRDS(ithim_results$yll_per_hundred_thousand,paste0('results/multi_city/yll_per_hundred_thousand_',output_version,'.Rds'),version=2)
+saveRDS(ithim_results$yll_per_hundred_thousand,paste0('results/voi/yll_per_hundred_thousand_',output_version,'.Rds'),version=2)
 
 # save total YLLs
-saveRDS(outcome,paste0('results/multi_city/outcome_',output_version,'.Rds'),version=2)
+saveRDS(outcome,paste0('results/voi/outcome_',output_version,'.Rds'),version=2)
 
 # save total ylls per 100,000 (median, 5th and 95th percentiles) as sum across all 
 # disease per outcome age group, scenario and city (plus combined results)
-saveRDS(ithim_results$yll_per_hundred_thousand_stats,paste0('results/multi_city/yll_per_hundred_thousand_quantiles_',output_version,'.Rds'),version=2)
+saveRDS(ithim_results$yll_per_hundred_thousand_stats,paste0('results/voi/yll_per_hundred_thousand_quantiles_',output_version,'.Rds'),version=2)
 
 # save dateframe with total ylls (median, 5th and 95th percentiles) per age group and city (plus combined results)
 write.csv(ithim_results$summary_ylls_df,
-          paste0('results/multi_city/yll_per_hundred_thousand/Summary_ylls_all_cities','_',output_version,'.csv'), row.names = FALSE)
+          paste0('results/voi/Summary_ylls_all_cities','_',output_version,'.csv'), row.names = FALSE)
 
 
 
@@ -628,7 +628,7 @@ print('plot results')
 if(nsamples > 1){
   
   # plot total YLL sum
-  {pdf(paste0('results/multi_city/city_yll_',output_version,'.pdf'),height=6,width=6)
+  {pdf(paste0('results/voi/city_yll_',output_version,'.pdf'),height=6,width=6)
     
     # one plot for all cities - might be difficult to read
     par <- par(mar=c(5,5,1,1))
@@ -675,7 +675,7 @@ if(nsamples > 1){
   
 
   # plot total YLL sum plus include split by sex (95% CIs)
-  {pdf(paste0('results/multi_city/city_yll_sex_',output_version,'.pdf'),height=6,width=6)
+  {pdf(paste0('results/voi/city_yll_sex_',output_version,'.pdf'),height=6,width=6)
   
   # one plot per city
     for(city in cities){ 
@@ -689,14 +689,14 @@ if(nsamples > 1){
       col_city <- cols[sp_index]
       
       # male
-      scen_city_male <- voi_data_all_sex_df %>% filter(sex == 'male', city == city) %>% dplyr::select(-c(sex,city))
+      scen_city_male <- voi_data_all_sex_df %>% filter(sex == 'male', city == city) %>% dplyr::select(-c(sex,city,run, age_cat, age_sex))
       scen_out_city_male <- sapply(1:NSCEN,function(y)rowSums(scen_city_male[,seq(y,ncol(scen_city_male),by=NSCEN)]))
       means_male <- colMeans(scen_out_city_male) 
       ninefive_male <- apply(scen_out_city_male,2,quantile,probs = c(0.025,0.975))
       yvals_male <- rep(2,each=NSCEN)/10 + rep(1:NSCEN)
   
       # female
-      scen_city_female <- voi_data_all_sex_df %>% filter(sex == 'female', city == city) %>% dplyr::select(-c(sex,city))
+      scen_city_female <- voi_data_all_sex_df %>% filter(sex == 'female', city == city) %>% dplyr::select(-c(sex,city,run, age_cat, age_sex))
       scen_out_city_female <- sapply(1:NSCEN,function(y)rowSums(scen_city_female[,seq(y,ncol(scen_city_female),by=NSCEN)]))
       means_female <- colMeans(scen_out_city_female) 
       ninefive_female <- apply(scen_out_city_female,2,quantile,probs = c(0.025,0.975))
@@ -733,13 +733,13 @@ if(nsamples > 1){
 ################## repeat plots per 100,000  
   
   # plot total YLL sum per 100,000
-  {pdf(paste0('results/multi_city/city_yll_100k_',output_version,'.pdf'),height=6,width=6)
+  {pdf(paste0('results/voi/city_yll_100k_',output_version,'.pdf'),height=6,width=6)
     
     # one plot for all cities - might be difficult to read
     # par <- par(mar=c(5,5,1,1))
     # sp_index <- which(cities==city)
     # scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
-    # scen_out_100k <- lapply(scen_out, function(x) x*100000/subset(population_df, sex=='all' & age == 'all' & city == city)$population)
+    # scen_out_100k <- lapply(scen_out, function(x) x*100000/subset(population_df, sex=='all' & age_cat == 'all' & city == city)$population)
     # means <- sapply(scen_out_100k,function(x)apply(x,2,mean))
     # ninefive <- lapply(scen_out_100k,function(x) apply(x,2,quantile,c(0.025,0.975)))
     # yvals <- rep(1:length(scen_out_100k),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out_100k))
@@ -760,7 +760,7 @@ if(nsamples > 1){
       sp_index <- which(cities==city)
       scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
       scen_out_city <- scen_out[[city]]
-      scen_out_city_100k <- scen_out_city*100000/subset(population_df, sex=='all' & age == 'all' & city == city)$population
+      scen_out_city_100k <- scen_out_city*100000/subset(population_df, sex=='all' & age_cat == 'all' & city == city)$population
       means <- colMeans(scen_out_city_100k) 
       ninefive <- apply(scen_out_city_100k,2,quantile,probs = c(0.025,0.975))
       yvals <- rep(1,each=NSCEN)/10 + rep(1:NSCEN) 
@@ -783,13 +783,13 @@ if(nsamples > 1){
   
   
   # plot total YLL sum plus include split by sex (95% CIs) per 100,000
-  {pdf(paste0('results/multi_city/city_yll_sex_100k_',output_version,'.pdf'),height=6,width=6)
+  {pdf(paste0('results/voi/city_yll_sex_100k_',output_version,'.pdf'),height=6,width=6)
     
     # one plot per city
     for(city in cities){ 
       sp_index <- which(cities==city)
       scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
-      scen_out_city_100k <- scen_out[[city]]*100000/subset(population_df, sex=='all' & age == 'all' & city == city)$population
+      scen_out_city_100k <- scen_out[[city]]*100000/subset(population_df, sex=='all' & age_cat == 'all' & city == city)$population
       means <- colMeans(scen_out_city_100k) 
       ninefive <- apply(scen_out_city_100k,2,quantile,probs = c(0.025,0.975))
       yvals <- rep(3,each=NSCEN)/10 + rep(1:NSCEN) 
@@ -797,17 +797,17 @@ if(nsamples > 1){
       col_city <- cols[sp_index]
       
       # male
-      scen_city_male <- voi_data_all_sex_df %>% filter(sex == 'male', city == city) %>% dplyr::select(-c(sex,city))
+      scen_city_male <- voi_data_all_sex_df %>% filter(sex == 'male', city == city) %>% dplyr::select(-c(sex,city,run, age_cat, age_sex))
       scen_out_city_male <- sapply(1:NSCEN,function(y)rowSums(scen_city_male[,seq(y,ncol(scen_city_male),by=NSCEN)]))
-      scen_out_city_male_100k <- scen_out_city_male*100000/subset(population_df, sex=='male' & age == 'all' & city == city)$population
+      scen_out_city_male_100k <- scen_out_city_male*100000/subset(population_df, sex=='male' & age_cat == 'all' & city == city)$population
       means_male <- colMeans(scen_out_city_male_100k) 
       ninefive_male <- apply(scen_out_city_male_100k,2,quantile,probs = c(0.025,0.975))
       yvals_male <- rep(2,each=NSCEN)/10 + rep(1:NSCEN)
       
       # female
-      scen_city_female <- voi_data_all_sex_df %>% filter(sex == 'female', city == city) %>% dplyr::select(-c(sex,city))
+      scen_city_female <- voi_data_all_sex_df %>% filter(sex == 'female', city == city) %>% dplyr::select(-c(sex,city,run, age_cat, age_sex))
       scen_out_city_female <- sapply(1:NSCEN,function(y)rowSums(scen_city_female[,seq(y,ncol(scen_city_female),by=NSCEN)]))
-      scen_out_city_female_100k <- scen_out_city_female*100000/subset(population_df, sex=='female' & age == 'all' & city == city)$population
+      scen_out_city_female_100k <- scen_out_city_female*100000/subset(population_df, sex=='female' & age_cat == 'all' & city == city)$population
       means_female <- colMeans(scen_out_city_female_100k) 
       ninefive_female <- apply(scen_out_city_female_100k,2,quantile,probs = c(0.025,0.975))
       yvals_female <- rep(1,each=NSCEN)/10 + rep(1:NSCEN)
@@ -863,7 +863,7 @@ if(nsamples > 1){
   comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
   ninefive <- apply(comb_out,2,quantile,c(0.025,0.975))
   means <- apply(comb_out,2,mean)
-  {pdf(paste0('results/multi_city/combined_yll_pp','_',output_version,'.pdf'),height=3,width=6); par(mar=c(5,5,1,1))
+  {pdf(paste0('results/voi/combined_yll_pp','_',output_version,'.pdf'),height=3,width=6); par(mar=c(5,5,1,1))
     plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in total YLL per person relative to baseline summed across all cities',
          col='navyblue',yaxt='n',xlim=range(ninefive), cex.lab = 0.8, cex.axis = 0.8)
     axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)], cex = 0.8)
@@ -894,9 +894,9 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
   evppi_df <- evppi_list[[1]]
   evppi_outcome_names <- unlist(evppi_list[[2]])
   
-  saveRDS(evppi_df,'results/multi_city/evppi.Rds',version=2) # save evppi dataframe
+  saveRDS(evppi_df,'results/voi/evppi.Rds',version=2) # save evppi dataframe
   
-  evppi_csv <- paste0('results/multi_city/evppi_',output_version,".csv")
+  evppi_csv <- paste0('results/voi/evppi_',output_version,".csv")
   
   write.csv(evppi_df,evppi_csv,row.names = FALSE) # save as csv file
   
@@ -905,8 +905,8 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
   
   # create output plots
   
-  output_pdf <- paste0('results/multi_city/evppi_',output_version,".pdf")
-  #{pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome_voi_list))
+  output_pdf <- paste0('results/voi/evppi_',output_version,".pdf")
+  #{pdf('results/voi/evppi.pdf',height=15,width=4+length(outcome_voi_list))
   {pdf(output_pdf,height=15,width=4+length(outcome_voi_list)+1)
     for ( city_name in cities){
       
@@ -963,19 +963,19 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
     sex_cat <- unlist(evppi_sex_list[[2]])
     evppi_city_list_all_sex <- evppi_sex_list[[3]]
     
-    saveRDS(evppi_sex_df,paste0('results/multi_city/evppi_sex_',output_version,".csv"),version=2) 
+    saveRDS(evppi_sex_df,paste0('results/voi/evppi_sex_',output_version,".csv"),version=2) 
     
-    evppi_sex_csv <- paste0('results/multi_city/evppi_sex_',output_version,".csv")
-    #write.csv(evppi_df,'results/multi_city/evppi.csv',row.names = FALSE) # save as csv file
+    evppi_sex_csv <- paste0('results/voi/evppi_sex_',output_version,".csv")
+    #write.csv(evppi_df,'results/voi/evppi.csv',row.names = FALSE) # save as csv file
     
     write.csv(evppi_sex_df,evppi_sex_csv,row.names = FALSE) # save as csv file
     
     
     
     # create output plots
-    output_pdf <- paste0('results/multi_city/evppi_sex_',output_version,".pdf")
+    output_pdf <- paste0('results/voi/evppi_sex_',output_version,".pdf")
     ci <- 1
-    #{pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome_voi_list))
+    #{pdf('results/voi/evppi.pdf',height=15,width=4+length(outcome_voi_list))
     {pdf(output_pdf,height=15,width=4+length(outcome_voi_list)+1)
       for ( city_name in cities){
         
@@ -1044,19 +1044,19 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
     age_gender_cat <- unlist(evppi_agesex_list[[2]])
     evppi_city_list_all <- evppi_agesex_list[[3]]
     
-    saveRDS(evppi_agesex_df,paste0('results/multi_city/evppi_agesex_',output_version,".csv"),version=2) 
+    saveRDS(evppi_agesex_df,paste0('results/voi/evppi_agesex_',output_version,".csv"),version=2) 
     
-    evppi_agesex_csv <- paste0('results/multi_city/evppi_agesex_',output_version,".csv")
-    #write.csv(evppi_df,'results/multi_city/evppi.csv',row.names = FALSE) # save as csv file
+    evppi_agesex_csv <- paste0('results/voi/evppi_agesex_',output_version,".csv")
+    #write.csv(evppi_df,'results/voi/evppi.csv',row.names = FALSE) # save as csv file
     
     write.csv(evppi_agesex_df,evppi_agesex_csv,row.names = FALSE) # save as csv file
     
     
     
     # create output plots
-    output_pdf <- paste0('results/multi_city/evppi_agesex_',output_version,".pdf")
+    output_pdf <- paste0('results/voi/evppi_agesex_',output_version,".pdf")
     ci <- 1
-    #{pdf('results/multi_city/evppi.pdf',height=15,width=4+length(outcome_voi_list))
+    #{pdf('results/voi/evppi.pdf',height=15,width=4+length(outcome_voi_list))
     {pdf(output_pdf,height=15,width=4+length(age_gender_cat)+1)
       for ( city_name in cities){
         

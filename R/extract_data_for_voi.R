@@ -63,7 +63,7 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
   
   for(ci in 1:length(cities)){ # loop through cities
     city <- cities[ci]
-    multi_city_ithim[[city]] <- readRDS(paste0('results/multi_city/',city,'_',output_version,'.Rds')) # read in city specific data
+    multi_city_ithim[[city]] <- readRDS(paste0('results/voi/',city,'_',output_version,'.Rds')) # read in city specific data
     
     DEMOGRAPHIC <- multi_city_ithim[[city]]$DEMOGRAPHIC
     
