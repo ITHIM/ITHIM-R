@@ -704,23 +704,24 @@ if(nsamples > 1){
       
       par_city <- par(mar=c(5,7,1,1))
       xlab <- paste0(city,': Change in total YLL relative to baseline')
-      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
+      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col='black',
            yaxt='n', ylim = range(.9,4.2),xlim=range(unlist(ninefive),unlist(ninefive_male),unlist(ninefive_female)))
-      axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+      axis(2,las=2,at= seq(1.2, 1.05*NSCEN + 0.2, by = 1.05) #(1+0.1):(NSCEN+.1)
+           ,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
       
-      points(as.vector(means_male),yvals_male,pch=16,cex=1,col='black')
-      points(as.vector(means_female),yvals_female,pch=16,cex=1,col='blue')
+      points(as.vector(means_male),yvals_male,pch=16,cex=1,col='blue')
+      points(as.vector(means_female),yvals_female,pch=16,cex=1,col='red')
       
       for(j in 1:NSCEN){
-        lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
-        lines(ninefive_male[,j],rep(yvals_male[j],2),lwd=2, col='black')
-        lines(ninefive_female[,j],rep(yvals_female[j],2),lwd=2, col='blue')
+        lines(ninefive[,j],rep(yvals[j],2),lwd=2,col='black')
+        lines(ninefive_male[,j],rep(yvals_male[j],2),lwd=2, col='blue')
+        lines(ninefive_female[,j],rep(yvals_female[j],2),lwd=2, col='red')
       } 
       abline(v=0,col='grey',lty=2,lwd=2)
       text(y=(NSCEN-1)+0.4,x=ninefive[1,(NSCEN-1)],'95%',col='black',adj=c(-0,-0.3*sp_index))
-      legend(col=col_city, lty=1,bty='n',x= mean(means),legend=paste0(city,': all'),y=NSCEN-1,lwd=2)
-      legend(col='black', lty=1,bty='n',x= mean(means),legend=paste0(city,': male'),y=NSCEN-1.2,lwd=2)
-      legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(city,': female'),y=NSCEN-1.4,lwd=2)
+      legend(col='black', lty=1,bty='n',x= mean(means),legend=paste0(city,': all'),y=NSCEN-1,lwd=2, cex = 0.8)
+      legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(city,': male'),y=NSCEN-1.1,lwd=2, cex = 0.8)
+      legend(col='red', lty=1,bty='n',x= mean(means),legend=paste0(city,': female'),y=NSCEN-1.2,lwd=2, cex = 0.8)
       par(par_city)
     }
     dev.off()
@@ -814,23 +815,24 @@ if(nsamples > 1){
       
       par_city <- par(mar=c(5,7,1,1))
       xlab <- paste0(city,': Change in total YLL per 100k relative to baseline')
-      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
+      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col='black',
            yaxt='n', ylim = range(.9,4.2),xlim=range(unlist(ninefive),unlist(ninefive_male),unlist(ninefive_female)))
-      axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+      axis(2,las=2,at= seq(1.2, 1.05*NSCEN + 0.2, by = 1.05) #(1+0.1):(NSCEN+.1)
+           ,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
       
-      points(as.vector(means_male),yvals_male,pch=16,cex=1,col='black')
-      points(as.vector(means_female),yvals_female,pch=16,cex=1,col='blue')
+      points(as.vector(means_male),yvals_male,pch=16,cex=1,col='blue')
+      points(as.vector(means_female),yvals_female,pch=16,cex=1,col='red')
       
       for(j in 1:NSCEN){
-        lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
-        lines(ninefive_male[,j],rep(yvals_male[j],2),lwd=2, col='black')
-        lines(ninefive_female[,j],rep(yvals_female[j],2),lwd=2, col='blue')
+        lines(ninefive[,j],rep(yvals[j],2),lwd=2,col='black')
+        lines(ninefive_male[,j],rep(yvals_male[j],2),lwd=2, col='blue')
+        lines(ninefive_female[,j],rep(yvals_female[j],2),lwd=2, col='red')
       } 
       abline(v=0,col='grey',lty=2,lwd=2)
       text(y=(NSCEN-1)+0.4,x=ninefive[1,(NSCEN-1)],'95%',col='black',adj=c(-0,-0.3*sp_index))
-      legend(col=col_city, lty=1,bty='n',x= mean(means),legend=paste0(city,': all'),y=NSCEN-1,lwd=2)
-      legend(col='black', lty=1,bty='n',x= mean(means),legend=paste0(city,': male'),y=NSCEN-1.2,lwd=2)
-      legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(city,': female'),y=NSCEN-1.4,lwd=2)
+      legend(col='black', lty=1,bty='n',x= mean(means),legend=paste0(city,': all'),y=NSCEN-1,lwd=2, cex = 0.8)
+      legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(city,': male'),y=NSCEN-1.1,lwd=2, cex = 0.8)
+      legend(col='red', lty=1,bty='n',x= mean(means),legend=paste0(city,': female'),y=NSCEN-1.2,lwd=2, cex = 0.8)
       par(par_city)
     }
     dev.off()
