@@ -404,10 +404,6 @@ ithim_load_data <- function(speeds =
   DEMOGRAPHIC <<- demographic[as.numeric(sapply(age_category, function(x) strsplit(x, "-")[[1]][1])) <= max_age &
     as.numeric(sapply(age_category, function(x) strsplit(x, "-")[[1]][2])) >= min_age, ]
 
-  # find the proportion of the total population that is considered in the model to the total population
-  population_in_model_ratio <<- sum(DEMOGRAPHIC$population) / sum(demographic$population)
-  population_in_model <<- sum(DEMOGRAPHIC$population)
-
   # get age-category details from population data, after any ages above and below the max and min ages have been removed
   AGE_CATEGORY <<- unique(DEMOGRAPHIC$age)
   AGE_LOWER_BOUNDS <<- as.numeric(sapply(AGE_CATEGORY, function(x) strsplit(x, "-")[[1]][1]))

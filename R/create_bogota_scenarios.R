@@ -326,7 +326,7 @@ create_bogota_scenarios <- function(trip_set) {
     if (ADD_CAR_DRIVERS) {
       rdr_scen <- add_ghost_trips(rdr_scen,
         trip_mode = "car_driver",
-        distance_ratio = car_driver_scalar * DISTANCE_SCALAR_CAR_TAXI,
+        distance_ratio = CAR_OCCUPANCY_RATIO * DISTANCE_SCALAR_CAR_TAXI,
         reference_mode = "car",
         scenario = paste0("sc_ ", i)
       )
