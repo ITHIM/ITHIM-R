@@ -107,7 +107,7 @@ rm(list=ls())
 cities <- c('bogota')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 1000
+nsamples <- 10
 
 
 voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
@@ -151,7 +151,7 @@ if (.Platform$OS.type == "windows"){
 repo_sha <-  as.character(readLines(file.path("repo_sha")))
 
 #output_version <- paste0(repo_sha, "_test_run") # gives the version number of the output documents, independent of the input parameter file name
-output_version <- 'bogota_1000samples'
+output_version <- 'bogota_10samples'
 
 # records the main aspects of an ithim run in the OutputVersionControl.txt document
 # text file records timestamp of run, author name, cities the script is run for, 
@@ -613,12 +613,58 @@ voi_data_complete <- bind_rows(voi_data_all_df, voi_data_all_sex_df , voi_data_t
 population_df <- population_df %>% rename(age_cat = age)
 voi_data_complete2 <- merge(voi_data_complete, population_df, by = c('age_cat','sex','city'))
 
+# calculate data for various levels
+
+# names of all scenarios excluding base
+scen_only_names <- scenario_names[2:length(scenario_names)]
+
+# different levels
+level1 <-c('pa_ap_all_cause','inj')
+level2 <- c('pa_total_cancer','pa_ap_CVD','ap_respiratory','inj')
+level3 <- c('pa_ap_IHD','pa_ap_lung_cancer','ap_COPD','pa_ap_stroke','pa_ap_T2D','ap_LRI',
+            'pa_breast_cancer','pa_colon_cancer','pa_endo_cancer','pa_liver_cancer','pa_total_dementia',
+            'pa_myeloma','pa_Parkinson','pa_head_neck_cancer', 'pa_stomach_cancer',
+            'pa_myeloid_leukemia','inj')
+
+level_list <- list(level1, level2, level3)
+
+# loop through levels
+all_levels <- data.frame()
+l<-1
+for (level in list(level1, level2, level3)){
+  print(level)
+  dummy_level_df <- voi_data_complete2 %>% dplyr::select(matches(level))
+
+  # loop trough scenarios and calculate sum
+  for (scen in scen_only_names){
+    dummy_level_df <- dummy_level_df %>%
+      mutate(sum = rowSums(pick(matches(scen))))  %>% # calcualte sum
+      rename_with(~paste0(scen, '_ylls_level',l), .cols= sum) # re-name new column
+        
+  }
+  if (l ==1){
+    all_levels <- dummy_level_df %>% dplyr::select(!matches(level))
+  } else{
+    all_levels <- cbind(all_levels, dummy_level_df%>% dplyr::select(!matches(level)))
+  }
+  l <- l +1
+}
+
+# add levels to dataframe
+voi_data_complete3 <- cbind(voi_data_complete2, all_levels)
+
+
 # calculate per 100k
+voi_data_complete3_100k <- voi_data_complete3 %>% mutate(across(where(is.numeric) & !run & !population, ~round(as.numeric(.x)/population*100000,4)))
 
 
+# add summary statistics
+#voi_data_complete3_mean <- voi_data_complete3 %>% group_by(city, age_cat, sex, age_sex, population) %>% summarise(across(where(is.numeric), sum), .groups = 'drop')
 
-#df %>%
-#  mutate(across(everything(), ~ round(as.numeric(.x)/1000000, 1)))
+
+# add summary statistics - 100k
+
+
 
 
 ######################################################### plot results #######################################################
