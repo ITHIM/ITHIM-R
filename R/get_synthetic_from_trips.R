@@ -137,15 +137,13 @@ get_synthetic_from_trips <- function() {
   base_pop <- create_base_pop(raw_trip_set)
 
 
-  # add car drivers by assuming that only a certain percentage of car trips (population_in_model_ratio) are driven
-  # by people in the age range considered by the model.
+  # add car drivers 
   if (ADD_CAR_DRIVERS) {
-    car_driver_scalar <<- min(1, CAR_OCCUPANCY_RATIO * 1 / population_in_model_ratio)
     # age ranges are not needed as car drivers are only used to calculate total vehicle km travelled for the CO2 model but are not
     # needed for the injury model unlike truck, motorcycle and bus drivers
     base_pop$trip_set <- add_ghost_trips(base_pop$trip_set,
       trip_mode = "car_driver",
-      distance_ratio = car_driver_scalar * DISTANCE_SCALAR_CAR_TAXI,
+      distance_ratio = CAR_OCCUPANCY_RATIO * DISTANCE_SCALAR_CAR_TAXI,
       reference_mode = "car"
     )
   }
