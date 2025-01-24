@@ -25,7 +25,7 @@
 #' 
 #' @param parameter_samples table containing all the input parameter variables for the different model runs for all cities
 #' @param outcome_voi_list vector detailing the outcomes to be considered in the VoI analysis
-#' @param outcome total yll outcome for all outcome age categories per city and scenario and disease combination, also combined city result (sum)
+#' @param voi_complete_df total yll outcome for all outcome age categories per city and scenario and disease combination, also combined city result (sum)
 #' @param cities vector of cities
 #' @param voi_add_sum if the sum of YLLs across all disease outcomes is to be considered
 #' @param NSCEN number of scenarios (not incl. baseline)
@@ -39,7 +39,7 @@
 #' @export
 
 
-call_evppi <- function(parameter_samples, outcome_voi_list, outcome, cities, voi_add_sum, NSCEN, NSAMPLES,
+call_evppi <- function(parameter_samples, outcome_voi_list, voi_complete_df, cities, voi_add_sum, NSCEN, NSAMPLES,
                        scenario_names){
   
  
@@ -60,7 +60,7 @@ call_evppi <- function(parameter_samples, outcome_voi_list, outcome, cities, voi
     city_parsampl <- parameter_samples[,city_inputs]
     city_parsampl_copy <- city_parsampl
     
-    # remove CO2 parameters
+    # remove CO2 and PM2.5 emission inventory parameters
     city_noCO2para <- sapply(colnames(city_parsampl), function(x)!grepl('CO2',x))
     city_parsampl <- city_parsampl[,city_noCO2para]
     city_Co2_parasampl <- city_parsampl_copy[,!city_noCO2para]
@@ -72,7 +72,8 @@ call_evppi <- function(parameter_samples, outcome_voi_list, outcome, cities, voi
     
 
     # extract the required outcomes for each city
-    city_out <- as.data.frame(outcome[[city]]) # take total YLLs for each scenario and disease combination
+    city_out <- voi_complete_df %>% filter(city == city & age_sex == 'all all') %>% dplyr::select(!c(age_cat, age_sex, city,sex, population, run))
+    
     # extract outcomes required as set up in outcome_voi_list
     city_outputs <- sapply(colnames(city_out),function(x)grepl(paste(outcome_voi_list, collapse = "|"),x))
     city_outcomes <- city_out[,city_outputs]

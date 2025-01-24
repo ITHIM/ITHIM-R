@@ -122,9 +122,10 @@ voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
 # outcome_voi_list <- c('pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
 #                       'pa_ap_stroke', 'pa_ap_T2D', 'ap_LRI', 'pa_breast_cancer', 'pa_colon_cancer', 'pa_endo_cancer',
 #                       'pa_liver_cancer', 'pa_ap_CVD', 'pa_total_dementia', 'pa_myeloma', 'pa_Parkinson',
-#                       'pa_head_neck_cancer', 'pa_stomach_cancer', 'inj')
+#                       'pa_head_neck_cancer', 'pa_stomach_cancer', 'inj',
+#                       'level1', 'level2', 'level3')
 
-outcome_voi_list <- c('pa_ap_all_cause', 'inj')
+outcome_voi_list <- c('pa_ap_all_cause', 'inj', 'level1')
 
 # flag whether to run VOI analysis split gender
 voi_gender <- T # set to T if want to include split and to F otherwise
@@ -556,114 +557,26 @@ NSCEN <- length(scenario_names) - 1 # number of scenarios not including baseline
 SCEN_SHORT_NAME <- scenario_names
 NSAMPLES <- nsamples
 
-# get outputs from ithim run into correct formats
+# get outputs from ithim run into correct formats and calculate summary statistics
 ithim_results <- ithimr::extract_data_for_voi(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_groups,cities,multi_city_ithim, output_version)
 
-# dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
-voi_data_all_df <- ithim_results$voi_data_all_df
 
-# dataframe for all cities with all outcomes for all model runs, sexes and disease and scenario combinations
-voi_data_all_sex_df <- ithim_results$voi_data_all_sex_df
+voi_complete_df <- ithim_results$voi_complete 
+voi_complete_summary_df <- ithim_results$voi_complete_summary
+voi_complete_100k_df <- ithim_results$voi_complete_100k 
+voi_complete_100k_summary_df <- ithim_results$voi_complete_100k_summary
 
-# total yll outcome for all outcome age categories per city and scenario and disease combination, also combined city result (sum)
-outcome <- ithim_results$outcome
+voi_outputs_all_csv <- paste0('results/voi/All_samples_output_',output_version,".csv")
+write.csv(voi_complete_df ,voi_outputs_all_csv,row.names = FALSE) # save as csv file
 
-# dataframe containing all the population numbers
-population_df <- ithim_results$population_df
+voi_outputs_all_100k_csv <- paste0('results/voi/All_samples_100k_output_',output_version,".csv")
+write.csv(voi_complete_100k_df ,voi_outputs_all_100k_csv,row.names = FALSE) # save as csv file
 
-# save yll per 100,000 people for each city, outcome age category, model run and disease and scen combination
-saveRDS(ithim_results$yll_per_hundred_thousand,paste0('results/voi/yll_per_hundred_thousand_',output_version,'.Rds'),version=2)
+ci_outputstats_csv <- paste0('results/voi/VoI_CI_output_stats_',output_version,".csv")
+write.csv(voi_complete_summary_df,ci_outputstats_csv,row.names = FALSE) # save as csv file
 
-# save total YLLs
-saveRDS(outcome,paste0('results/voi/outcome_',output_version,'.Rds'),version=2)
-
-# save total ylls per 100,000 (median, 5th and 95th percentiles) as sum across all 
-# disease per outcome age group, scenario and city (plus combined results)
-saveRDS(ithim_results$yll_per_hundred_thousand_stats,paste0('results/voi/yll_per_hundred_thousand_quantiles_',output_version,'.Rds'),version=2)
-
-# save dateframe with total ylls (median, 5th and 95th percentiles) per age group and city (plus combined results)
-write.csv(ithim_results$summary_ylls_df,
-          paste0('results/voi/Summary_ylls_all_cities','_',output_version,'.csv'), row.names = FALSE)
-
-
-
-################# create outcome statistics for different scenarios and health outcomes
-
-# number the different runs
-voi_data_all_df$run <- rep(1:nsamples,length(unique(voi_data_all_df$age_sex))*length(cities))
-voi_data_all_sex_df$run <- rep(1:nsamples,length(unique(voi_data_all_sex_df$sex))*length(cities))
-
-# add extra columns
-voi_data_all_sex_df$age_cat <- 'all'
-voi_data_all_sex_df$age_sex <- paste(voi_data_all_sex_df$sex, voi_data_all_sex_df$age_cat, sep = ' ')
-
-# create total for each run for all outcomes
-voi_data_total_df <- voi_data_all_sex_df %>% group_by( age_cat, run, city) %>% summarise(across(where(is.numeric), sum), .groups = 'drop')
-voi_data_total_df$sex <- 'all'
-voi_data_total_df$age_sex <- paste(voi_data_total_df$sex, voi_data_total_df$age_cat, sep = ' ')
-
-
-# create one dataset
-voi_data_all_df$sex <- as.character(voi_data_all_df$sex)
-voi_data_all_df$age_cat <- as.character(voi_data_all_df$age_cat)
-voi_data_all_df <- voi_data_all_df %>% mutate_if(is.list,as.numeric)
-voi_data_complete <- bind_rows(voi_data_all_df, voi_data_all_sex_df , voi_data_total_df)
-
-# add population data
-population_df <- population_df %>% rename(age_cat = age)
-voi_data_complete2 <- merge(voi_data_complete, population_df, by = c('age_cat','sex','city'))
-
-# calculate data for various levels
-
-# names of all scenarios excluding base
-scen_only_names <- scenario_names[2:length(scenario_names)]
-
-# different levels
-level1 <-c('pa_ap_all_cause','inj')
-level2 <- c('pa_total_cancer','pa_ap_CVD','ap_respiratory','inj')
-level3 <- c('pa_ap_IHD','pa_ap_lung_cancer','ap_COPD','pa_ap_stroke','pa_ap_T2D','ap_LRI',
-            'pa_breast_cancer','pa_colon_cancer','pa_endo_cancer','pa_liver_cancer','pa_total_dementia',
-            'pa_myeloma','pa_Parkinson','pa_head_neck_cancer', 'pa_stomach_cancer',
-            'pa_myeloid_leukemia','inj')
-
-level_list <- list(level1, level2, level3)
-
-# loop through levels
-all_levels <- data.frame()
-l<-1
-for (level in list(level1, level2, level3)){
-  print(level)
-  dummy_level_df <- voi_data_complete2 %>% dplyr::select(matches(level))
-
-  # loop trough scenarios and calculate sum
-  for (scen in scen_only_names){
-    dummy_level_df <- dummy_level_df %>%
-      mutate(sum = rowSums(pick(matches(scen))))  %>% # calcualte sum
-      rename_with(~paste0(scen, '_ylls_level',l), .cols= sum) # re-name new column
-        
-  }
-  if (l ==1){
-    all_levels <- dummy_level_df %>% dplyr::select(!matches(level))
-  } else{
-    all_levels <- cbind(all_levels, dummy_level_df%>% dplyr::select(!matches(level)))
-  }
-  l <- l +1
-}
-
-# add levels to dataframe
-voi_data_complete3 <- cbind(voi_data_complete2, all_levels)
-
-
-# calculate per 100k
-voi_data_complete3_100k <- voi_data_complete3 %>% mutate(across(where(is.numeric) & !run & !population, ~round(as.numeric(.x)/population*100000,4)))
-
-
-# add summary statistics
-#voi_data_complete3_mean <- voi_data_complete3 %>% group_by(city, age_cat, sex, age_sex, population) %>% summarise(across(where(is.numeric), sum), .groups = 'drop')
-
-
-# add summary statistics - 100k
-
+ci_100k_outputstats_csv <- paste0('results/voi/VoI_CI_100k_output_stats_',output_version,".csv")
+write.csv(voi_complete_100k_summary_df,ci_100k_outputstats_csv,row.names = FALSE) # save as csv file
 
 
 
@@ -672,41 +585,92 @@ print('plot results')
 
 # plots only work if more than one sample was selected
 if(nsamples > 1){
-  
-  # plot total YLL sum
-  {pdf(paste0('results/voi/city_yll_',output_version,'.pdf'),height=6,width=6)
-    
-    # one plot for all cities - might be difficult to read
+
+  # plot level 1 results - one plot for all cities plus individual plots for each city
+  {pdf(paste0('results/voi/city_yll_level1_',output_version,'.pdf'),height=6,width=6)
+
+    # one plot for all cities - might be difficult to read if too many cities
     par <- par(mar=c(5,5,1,1))
-    sp_index <- which(cities==city)
-    scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
-    means <- sapply(scen_out,function(x)apply(x,2,mean))
-    ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.025,0.975)))
-    yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
-    cols <- rainbow(length(outcome)-1)
+    level1_df <- voi_complete_summary_df %>% filter(age_sex == 'all all') %>% dplyr::select(city, value_type, matches('level1'))
+    means <- as.matrix(transpose(level1_df %>% filter(value_type == 'mean') %>% dplyr::select(matches('level1')) ))
+    ninefive <- list()
+    for (city in cities){
+      ninefive[[city]] <- as.matrix(level1_df %>% filter(city == city & (value_type == '2.5perc' | value_type == '97.5perc')) %>% dplyr::select(matches('level1')))
+    }
+    yvals <- rep(1:length(cities),each=NSCEN)/10 + rep(1:NSCEN,times=length(cities))
+    cols <- rainbow(length(cities))
     
-    plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in total YLL relative to baseline',
+    plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in total YLL relative to baseline - Level 1',
          col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
     axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
-    for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
+    for(i in 1:length(cities)) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
     abline(v=0,col='grey',lty=2,lwd=2)
-    text(y=(NSCEN-1)+0.2,x=ninefive[[sp_index]][1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*sp_index))
-    legend(col=rev(cols),lty=1,bty='n',x= mean(means),legend=rev(names(outcome)[-length(outcome)]),y=NSCEN-1,lwd=2)
+    text(y=(NSCEN-1)+0.2,x=ninefive[[1]][1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*1))
+    legend(col=rev(cols),lty=1,bty='n',x= mean(means),legend=rev(cities),y=NSCEN-1,lwd=2)
+    par(par)
+
+    # one plot per city
+    for(city in cities){
+      sp_index <- which(cities==city)
+      scen_out_city <- level1_df %>% filter(city == city)
+      means <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean') %>% dplyr::select(matches('level1')) ))
+      ninefive <- as.matrix(scen_out_city %>% filter(city == city & (value_type == '2.5perc' | value_type == '97.5perc')
+                                                     ) %>% dplyr::select(matches('level1')))
+      yvals <- rep(1,each=NSCEN)/10 + rep(1:NSCEN)
+      cols <- rainbow(length(cities))
+      col_city <- cols[sp_index]
+
+      par_city <- par(mar=c(5,5,1,1))
+      xlab <- paste0(city,': Change in total YLL relative to baseline per - Level 1')
+      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
+           yaxt='n',xlim=range(unlist(ninefive)))
+      axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+      for(j in 1:NSCEN) lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
+      abline(v=0,col='grey',lty=2,lwd=2)
+      text(y=(NSCEN-1)+0.2,x=ninefive[1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*sp_index))
+      legend(col=col_city, lty=1,bty='n',x= mean(means),legend=city,y=NSCEN-1,lwd=2)
+      par(par_city)
+    }
+    dev.off()
+  }
+
+
+  # plot level 1 results per 100k - one plot for all cities plus individual plots for each city
+  {pdf(paste0('results/voi/city_yll_level1_100k_',output_version,'.pdf'),height=6,width=6)
+    
+    # one plot for all cities - might be difficult to read if too many cities
+    par <- par(mar=c(5,5,1,1))
+    level1_df <- voi_complete_summary_100k_df %>% filter(age_sex == 'all all') %>% dplyr::select(city, value_type, matches('level1'))
+    means <- as.matrix(transpose(level1_df %>% filter(value_type == 'mean') %>% dplyr::select(matches('level1')) ))
+    ninefive <- list()
+    for (city in cities){
+      ninefive[[city]] <- as.matrix(level1_df %>% filter(city == city & (value_type == '2.5perc' | value_type == '97.5perc')) %>% dplyr::select(matches('level1')))
+    }
+    yvals <- rep(1:length(cities),each=NSCEN)/10 + rep(1:NSCEN,times=length(cities))
+    cols <- rainbow(length(cities))
+    
+    plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in total YLL relative to baseline per 100k - Level 1',
+         col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
+    axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+    for(i in 1:length(cities)) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
+    abline(v=0,col='grey',lty=2,lwd=2)
+    text(y=(NSCEN-1)+0.2,x=ninefive[[1]][1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*1))
+    legend(col=rev(cols),lty=1,bty='n',x= mean(means),legend=rev(cities),y=NSCEN-1,lwd=2)
     par(par)
     
     # one plot per city
-    for(city in cities){ 
+    for(city in cities){
       sp_index <- which(cities==city)
-      scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
-      scen_out_city <- scen_out[[city]]
-      means <- colMeans(scen_out_city) 
-      ninefive <- apply(scen_out_city,2,quantile,probs = c(0.025,0.975))
-      yvals <- rep(1,each=NSCEN)/10 + rep(1:NSCEN) 
-      cols <- rainbow(length(outcome)-1)
+      scen_out_city <- level1_df %>% filter(city == city)
+      means <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean') %>% dplyr::select(matches('level1')) ))
+      ninefive <- as.matrix(scen_out_city %>% filter(city == city & (value_type == '2.5perc' | value_type == '97.5perc')
+      ) %>% dplyr::select(matches('level1')))
+      yvals <- rep(1,each=NSCEN)/10 + rep(1:NSCEN)
+      cols <- rainbow(length(cities))
       col_city <- cols[sp_index]
       
       par_city <- par(mar=c(5,5,1,1))
-      xlab <- paste0(city,': Change in total YLL relative to baseline')
+      xlab <- paste0(city,': Change in total YLL relative to baseline per 100k - Level 1')
       plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
            yaxt='n',xlim=range(unlist(ninefive)))
       axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
@@ -717,210 +681,432 @@ if(nsamples > 1){
       par(par_city)
     }
     dev.off()
-  } 
+  }
+ 
   
+  
+ 
+  # plot total YLL per 100k for 3 levels for all scenarios - one plot per city
+  {pdf(paste0('results/voi/city_yll_all_levels_100k_',output_version,'.pdf'),height=6,width=6)
 
-  # plot total YLL sum plus include split by sex (95% CIs)
-  {pdf(paste0('results/voi/city_yll_sex_',output_version,'.pdf'),height=6,width=6)
-  
   # one plot per city
-    for(city in cities){ 
+    for(city in cities){
       sp_index <- which(cities==city)
-      scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
-      scen_out_city <- scen_out[[city]]
-      means <- colMeans(scen_out_city) 
-      ninefive <- apply(scen_out_city,2,quantile,probs = c(0.025,0.975))
-      yvals <- rep(3,each=NSCEN)/10 + rep(1:NSCEN) 
-      cols <- rainbow(length(outcome)-1)
-      col_city <- cols[sp_index]
-      
-      # male
-      scen_city_male <- voi_data_all_sex_df %>% filter(sex == 'male', city == city) %>% dplyr::select(-c(sex,city,run, age_cat, age_sex))
-      scen_out_city_male <- sapply(1:NSCEN,function(y)rowSums(scen_city_male[,seq(y,ncol(scen_city_male),by=NSCEN)]))
-      means_male <- colMeans(scen_out_city_male) 
-      ninefive_male <- apply(scen_out_city_male,2,quantile,probs = c(0.025,0.975))
-      yvals_male <- rep(2,each=NSCEN)/10 + rep(1:NSCEN)
+      # extract information for all 3 levels
+      scen_out_city <- voi_complete_summary_df %>% filter(age_sex == 'all all' & city == city
+                                                          ) %>% dplyr::select(city, value_type, matches('level'))
+      # level 1 means and CI interval values
+      means <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean') %>% dplyr::select(matches('level1')) ))
+      ninefive <- as.matrix(scen_out_city %>% filter(city == city & (value_type == '2.5perc' | value_type == '97.5perc')
+                                                     ) %>% dplyr::select(matches('level1')))
+      yvals <- rep(3,each=NSCEN)/10 + rep(1:NSCEN)
   
-      # female
-      scen_city_female <- voi_data_all_sex_df %>% filter(sex == 'female', city == city) %>% dplyr::select(-c(sex,city,run, age_cat, age_sex))
-      scen_out_city_female <- sapply(1:NSCEN,function(y)rowSums(scen_city_female[,seq(y,ncol(scen_city_female),by=NSCEN)]))
-      means_female <- colMeans(scen_out_city_female) 
-      ninefive_female <- apply(scen_out_city_female,2,quantile,probs = c(0.025,0.975))
-      yvals_female <- rep(1,each=NSCEN)/10 + rep(1:NSCEN)
-      
+      # level 2
+      means_l2 <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean') %>% dplyr::select(matches('level2')) ))
+      ninefive_l2  <- as.matrix(scen_out_city %>% filter(city == city & (value_type == '2.5perc' | value_type == '97.5perc')
+                                                          ) %>% dplyr::select(matches('level2')))
+      yvals_l2<- rep(2,each=NSCEN)/10 + rep(1:NSCEN)
+  
+      # level 3
+      means_l3 <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean') %>% dplyr::select(matches('level3')) ))
+      ninefive_l3  <- as.matrix(scen_out_city %>% filter(city == city & (value_type == '2.5perc' | value_type == '97.5perc')
+                                                         ) %>% dplyr::select(matches('level3')))
+      yvals_l3 <- rep(1,each=NSCEN)/10 + rep(1:NSCEN)
+  
       par_city <- par(mar=c(5,7,1,1))
-      xlab <- paste0(city,': Change in total YLL relative to baseline')
+      xlab <- paste0(city,': Change YLL per 100k relative to baseline for each level')
       plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col='black',
-           yaxt='n', ylim = range(.9,4.2),xlim=range(unlist(ninefive),unlist(ninefive_male),unlist(ninefive_female)))
-      axis(2,las=2,at= seq(1.2, 1.05*NSCEN + 0.2, by = 1.05) #(1+0.1):(NSCEN+.1)
+           yaxt='n', ylim = range(.9,4.2),xlim=range(unlist(ninefive),unlist(ninefive_l2),unlist(ninefive_l3)))
+      axis(2,las=2,at= seq(1.2, 1.05*NSCEN + 0.2, by = 1.05) 
            ,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
-      
-      points(as.vector(means_male),yvals_male,pch=16,cex=1,col='blue')
-      points(as.vector(means_female),yvals_female,pch=16,cex=1,col='red')
-      
+  
+      points(as.vector(means_l2),yvals_l2,pch=16,cex=1,col='blue')
+      points(as.vector(means_l3),yvals_l3,pch=16,cex=1,col='red')
+  
       for(j in 1:NSCEN){
         lines(ninefive[,j],rep(yvals[j],2),lwd=2,col='black')
-        lines(ninefive_male[,j],rep(yvals_male[j],2),lwd=2, col='blue')
-        lines(ninefive_female[,j],rep(yvals_female[j],2),lwd=2, col='red')
-      } 
+        lines(ninefive_l2[,j],rep(yvals_l2[j],2),lwd=2, col='blue')
+        lines(ninefive_l3[,j],rep(yvals_l3[j],2),lwd=2, col='red')
+      }
       abline(v=0,col='grey',lty=2,lwd=2)
       text(y=(NSCEN-1)+0.4,x=ninefive[1,(NSCEN-1)],'95%',col='black',adj=c(-0,-0.3*sp_index))
-      legend(col='black', lty=1,bty='n',x= mean(means),legend=paste0(city,': all'),y=NSCEN-1,lwd=2, cex = 0.8)
-      legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(city,': male'),y=NSCEN-1.1,lwd=2, cex = 0.8)
-      legend(col='red', lty=1,bty='n',x= mean(means),legend=paste0(city,': female'),y=NSCEN-1.2,lwd=2, cex = 0.8)
+      legend(col='black', lty=1,bty='n',x= mean(means),legend=paste0(city,': Level 1'),y=NSCEN-1,lwd=2, cex = 0.8)
+      legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(city,': Level 2'),y=NSCEN-1.1,lwd=2, cex = 0.8)
+      legend(col='red', lty=1,bty='n',x= mean(means),legend=paste0(city,': Level 3'),y=NSCEN-1.2,lwd=2, cex = 0.8)
       par(par_city)
     }
-    dev.off()
-  } 
-  
-  
-  
-  
-  
-################## repeat plots per 100,000  
-  
-  # plot total YLL sum per 100,000
-  {pdf(paste0('results/voi/city_yll_100k_',output_version,'.pdf'),height=6,width=6)
-    
-    # one plot for all cities - might be difficult to read
-    # par <- par(mar=c(5,5,1,1))
-    # sp_index <- which(cities==city)
-    # scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
-    # scen_out_100k <- lapply(scen_out, function(x) x*100000/subset(population_df, sex=='all' & age_cat == 'all' & city == city)$population)
-    # means <- sapply(scen_out_100k,function(x)apply(x,2,mean))
-    # ninefive <- lapply(scen_out_100k,function(x) apply(x,2,quantile,c(0.025,0.975)))
-    # yvals <- rep(1:length(scen_out_100k),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out_100k))
-    # cols <- rainbow(length(outcome)-1)
-    # 
-    # plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in total YLL per 100k relative to baseline',
-    #      col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
-    # axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
-    # for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
-    # abline(v=0,col='grey',lty=2,lwd=2)
-    # text(y=(NSCEN-1)+0.2,x=ninefive[[sp_index]][1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*sp_index))
-    # legend(col=rev(cols),lty=1,bty='n',x= mean(means),legend=rev(names(outcome)[-length(outcome)]),y=NSCEN-1,lwd=2)
-    # par(par)
-    # 
-    # one plot per city
-    par <- par(mar=c(5,5,1,1))
-    for(city in cities){ 
-      sp_index <- which(cities==city)
-      scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
-      scen_out_city <- scen_out[[city]]
-      scen_out_city_100k <- scen_out_city*100000/subset(population_df, sex=='all' & age_cat == 'all' & city == city)$population
-      means <- colMeans(scen_out_city_100k) 
-      ninefive <- apply(scen_out_city_100k,2,quantile,probs = c(0.025,0.975))
-      yvals <- rep(1,each=NSCEN)/10 + rep(1:NSCEN) 
-      cols <- rainbow(length(outcome)-1)
-      col_city <- cols[sp_index]
-      
-      par_city <- par(mar=c(5,5,1,1))
-      xlab <- paste0(city,': Change in total YLL per 100k relative to baseline')
-      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
-           yaxt='n',xlim=range(unlist(ninefive)))
-      axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
-      for(j in 1:NSCEN) lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
-      abline(v=0,col='grey',lty=2,lwd=2)
-      text(y=(NSCEN-1)+0.2,x=ninefive[1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*sp_index))
-      legend(col=col_city, lty=1,bty='n',x= mean(means),legend=city,y=NSCEN-1,lwd=2)
-      par(par_city)
-    }
-    dev.off()
-  } 
-  
-  
-  # plot total YLL sum plus include split by sex (95% CIs) per 100,000
-  {pdf(paste0('results/voi/city_yll_sex_100k_',output_version,'.pdf'),height=6,width=6)
-    
-    # one plot per city
-    for(city in cities){ 
-      sp_index <- which(cities==city)
-      scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
-      scen_out_city_100k <- scen_out[[city]]*100000/subset(population_df, sex=='all' & age_cat == 'all' & city == city)$population
-      means <- colMeans(scen_out_city_100k) 
-      ninefive <- apply(scen_out_city_100k,2,quantile,probs = c(0.025,0.975))
-      yvals <- rep(3,each=NSCEN)/10 + rep(1:NSCEN) 
-      cols <- rainbow(length(outcome)-1)
-      col_city <- cols[sp_index]
-      
-      # male
-      scen_city_male <- voi_data_all_sex_df %>% filter(sex == 'male', city == city) %>% dplyr::select(-c(sex,city,run, age_cat, age_sex))
-      scen_out_city_male <- sapply(1:NSCEN,function(y)rowSums(scen_city_male[,seq(y,ncol(scen_city_male),by=NSCEN)]))
-      scen_out_city_male_100k <- scen_out_city_male*100000/subset(population_df, sex=='male' & age_cat == 'all' & city == city)$population
-      means_male <- colMeans(scen_out_city_male_100k) 
-      ninefive_male <- apply(scen_out_city_male_100k,2,quantile,probs = c(0.025,0.975))
-      yvals_male <- rep(2,each=NSCEN)/10 + rep(1:NSCEN)
-      
-      # female
-      scen_city_female <- voi_data_all_sex_df %>% filter(sex == 'female', city == city) %>% dplyr::select(-c(sex,city,run, age_cat, age_sex))
-      scen_out_city_female <- sapply(1:NSCEN,function(y)rowSums(scen_city_female[,seq(y,ncol(scen_city_female),by=NSCEN)]))
-      scen_out_city_female_100k <- scen_out_city_female*100000/subset(population_df, sex=='female' & age_cat == 'all' & city == city)$population
-      means_female <- colMeans(scen_out_city_female_100k) 
-      ninefive_female <- apply(scen_out_city_female_100k,2,quantile,probs = c(0.025,0.975))
-      yvals_female <- rep(1,each=NSCEN)/10 + rep(1:NSCEN)
-      
-      par_city <- par(mar=c(5,7,1,1))
-      xlab <- paste0(city,': Change in total YLL per 100k relative to baseline')
-      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col='black',
-           yaxt='n', ylim = range(.9,4.2),xlim=range(unlist(ninefive),unlist(ninefive_male),unlist(ninefive_female)))
-      axis(2,las=2,at= seq(1.2, 1.05*NSCEN + 0.2, by = 1.05) #(1+0.1):(NSCEN+.1)
-           ,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
-      
-      points(as.vector(means_male),yvals_male,pch=16,cex=1,col='blue')
-      points(as.vector(means_female),yvals_female,pch=16,cex=1,col='red')
-      
-      for(j in 1:NSCEN){
-        lines(ninefive[,j],rep(yvals[j],2),lwd=2,col='black')
-        lines(ninefive_male[,j],rep(yvals_male[j],2),lwd=2, col='blue')
-        lines(ninefive_female[,j],rep(yvals_female[j],2),lwd=2, col='red')
-      } 
-      abline(v=0,col='grey',lty=2,lwd=2)
-      text(y=(NSCEN-1)+0.4,x=ninefive[1,(NSCEN-1)],'95%',col='black',adj=c(-0,-0.3*sp_index))
-      legend(col='black', lty=1,bty='n',x= mean(means),legend=paste0(city,': all'),y=NSCEN-1,lwd=2, cex = 0.8)
-      legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(city,': male'),y=NSCEN-1.1,lwd=2, cex = 0.8)
-      legend(col='red', lty=1,bty='n',x= mean(means),legend=paste0(city,': female'),y=NSCEN-1.2,lwd=2, cex = 0.8)
-      par(par_city)
-    }
-    dev.off()
-  } 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-############## YLL per person  
-  
-  # plotting the output YLL per person as sums across all cities
-  comb_out <- sapply(1:NSCEN,function(y)rowSums(outcome[[length(outcome)]][,seq(y,ncol(outcome[[length(outcome)]]),by=NSCEN)]))
-  ninefive <- apply(comb_out,2,quantile,c(0.025,0.975))
-  means <- apply(comb_out,2,mean)
-  {pdf(paste0('results/voi/combined_yll_pp','_',output_version,'.pdf'),height=3,width=6); par(mar=c(5,5,1,1))
-    plot(as.vector(means),1:NSCEN,pch=16,cex=1,frame=F,ylab='',xlab='Change in total YLL per person relative to baseline summed across all cities',
-         col='navyblue',yaxt='n',xlim=range(ninefive), cex.lab = 0.8, cex.axis = 0.8)
-    axis(2,las=2,at=1:NSCEN,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)], cex = 0.8)
-    for(j in 1:NSCEN) lines(ninefive[,j],c(j,j),lwd=2,col='navyblue')
-    abline(v=0,col='grey',lty=2,lwd=2)
-    text(y=(NSCEN-1),x=ninefive[1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.7))
     dev.off()
   }
   
+
+
+  
+
+  
+  
+  
+  # plot total YLL per 100k for 3 levels, both sexes and for all scenarios - one plot per city
+  {pdf(paste0('results/voi/city_yll_all_levels_sex_100k_',output_version,'.pdf'),height=6,width=6)
+    
+    # one plot per city
+    for(city in cities){
+      sp_index <- which(cities==city)
+      # extract information for all 3 levels
+      scen_out_city <- voi_complete_summary_df %>% filter(age_cat == 'all' & city == city
+                                                          ) %>% dplyr::select(city, sex, value_type, matches('level'))
+      
+      # level 1 means and CI interval values
+      means <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean' & sex == 'all') %>% dplyr::select(matches('level1')) ))
+      ninefive <- as.matrix(scen_out_city %>% filter(city == city & sex == 'all' &  (value_type == '2.5perc' | value_type == '97.5perc')
+      ) %>% dplyr::select(matches('level1')))
+      yvals <- rep(6,each=NSCEN)/10 + rep(1:NSCEN)
+      
+      # level 1 means and CI interval values - male
+      means_m <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean' & sex == 'male') %>% dplyr::select(matches('level1')) ))
+      ninefive_m <- as.matrix(scen_out_city %>% filter(city == city & sex == 'male' & (value_type == '2.5perc' | value_type == '97.5perc')
+      ) %>% dplyr::select(matches('level1')))
+      yvals_m <- rep(5.5,each=NSCEN)/10 + rep(1:NSCEN)
+      
+      # level 1 means and CI interval values - female
+      means_f <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean' & sex == 'female') %>% dplyr::select(matches('level1')) ))
+      ninefive_f <- as.matrix(scen_out_city %>% filter(city == city & sex == 'female' & (value_type == '2.5perc' | value_type == '97.5perc')
+                                                       ) %>% dplyr::select(matches('level1')))
+      yvals_f <- rep(5,each=NSCEN)/10 + rep(1:NSCEN)
+      
+      
+      # level 2
+      means_l2 <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean' & sex == 'all') %>% dplyr::select(matches('level2')) ))
+      ninefive_l2  <- as.matrix(scen_out_city %>% filter(city == city & sex == 'all' & (value_type == '2.5perc' | value_type == '97.5perc')
+                                                         ) %>% dplyr::select(matches('level2')))
+      yvals_l2<- rep(4,each=NSCEN)/10 + rep(1:NSCEN)
+      
+      # level 2 - male
+      means_l2_m <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean' & sex == 'male') %>% dplyr::select(matches('level2')) ))
+      ninefive_l2_m  <- as.matrix(scen_out_city %>% filter(city == city & sex == 'male' & (value_type == '2.5perc' | value_type == '97.5perc')
+                                                            ) %>% dplyr::select(matches('level2')))
+      yvals_l2_m<- rep(3.5,each=NSCEN)/10 + rep(1:NSCEN)      
+      
+      # level 2 - female
+      means_l2_f <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean' & sex == 'female') %>% dplyr::select(matches('level2')) ))
+      ninefive_l2_f  <- as.matrix(scen_out_city %>% filter(city == city & sex == 'female' & (value_type == '2.5perc' | value_type == '97.5perc')
+                                                           ) %>% dplyr::select(matches('level2')))
+      yvals_l2_f<- rep(3,each=NSCEN)/10 + rep(1:NSCEN)            
+      
+      
+      
+      # level 3
+      means_l3 <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean' & sex == 'all') %>% dplyr::select(matches('level3')) ))
+      ninefive_l3  <- as.matrix(scen_out_city %>% filter(city == city & sex == 'all' & (value_type == '2.5perc' | value_type == '97.5perc')
+                                                         ) %>% dplyr::select(matches('level3')))
+      yvals_l3 <- rep(2,each=NSCEN)/10 + rep(1:NSCEN)
+      
+      # level 3 - male
+      means_l3_m <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean' & sex == 'male') %>% dplyr::select(matches('level3')) ))
+      ninefive_l3_m  <- as.matrix(scen_out_city %>% filter(city == city & sex == 'male' & (value_type == '2.5perc' | value_type == '97.5perc')
+                                                           ) %>% dplyr::select(matches('level3')))
+      yvals_l3_m <- rep(1.5,each=NSCEN)/10 + rep(1:NSCEN)      
+
+      # level 3 - female      
+      means_l3_f <- as.matrix(transpose(scen_out_city %>% filter(value_type == 'mean' & sex == 'female') %>% dplyr::select(matches('level3')) ))
+      ninefive_l3_f  <- as.matrix(scen_out_city %>% filter(city == city & sex == 'female' & (value_type == '2.5perc' | value_type == '97.5perc')
+                                                           ) %>% dplyr::select(matches('level3')))
+      yvals_l3_f <- rep(1,each=NSCEN)/10 + rep(1:NSCEN)       
+      
+     
+      par_city <- par(mar=c(5,7,1,1))
+      xlab <- paste0(city,': Change YLL per 100k relative to baseline for each level and by sex')
+      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col='black',
+           yaxt='n', ylim = range(.9,4.2),xlim=range(unlist(ninefive),unlist(ninefive_m),unlist(ninefive_f)))
+      axis(2,las=2,at= seq(1.2, 1.05*NSCEN + 0.2, by = 1.05) 
+           ,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+      
+      # levels
+      points(as.vector(means_l2),yvals_l2,pch=16,cex=1,col='blue')
+      points(as.vector(means_l3),yvals_l3,pch=16,cex=1,col='red')
+      
+      # male 
+      points(as.vector(means_m),yvals_m,pch=16,cex=1,col='grey39')
+      points(as.vector(means_l2_m),yvals_l2_m,pch=16,cex=1,col='cornflowerblue')
+      points(as.vector(means_l3_m),yvals_l3_m,pch=16,cex=1,col='coral1')
+
+      # female 
+      points(as.vector(means_f),yvals_f,pch=16,cex=1,col='grey')
+      points(as.vector(means_l2_f),yvals_l2_f,pch=16,cex=1,col='dodgerblue')
+      points(as.vector(means_l3_f),yvals_l3_f,pch=16,cex=1,col='orange')
+      
+      for(j in 1:NSCEN){ # levels both sexes
+        lines(ninefive[,j],rep(yvals[j],2),lwd=2,col='black')
+        lines(ninefive_l2[,j],rep(yvals_l2[j],2),lwd=2, col='blue')
+        lines(ninefive_l3[,j],rep(yvals_l3[j],2),lwd=2, col='red')
+      }
+      
+      for(j in 1:NSCEN){ # levels for males
+        lines(ninefive_m[,j],rep(yvals_m[j],2),lwd=2,col='grey39', lty = 1)
+        lines(ninefive_l2_m[,j],rep(yvals_l2_m[j],2),lwd=2, col='cornflowerblue', lty = 1)
+        lines(ninefive_l3_m[,j],rep(yvals_l3_m[j],2),lwd=2, col='coral1', lty = 1)
+      }      
+      
+      for(j in 1:NSCEN){ # levels for females
+        lines(ninefive_f[,j],rep(yvals_f[j],2),lwd=2,col='grey', lty = 1)
+        lines(ninefive_l2_f[,j],rep(yvals_l2_f[j],2),lwd=2, col='dodgerblue', lty = 1)
+        lines(ninefive_l3_f[,j],rep(yvals_l3_f[j],2),lwd=2, col='orange', lty = 1)
+      }           
+      
+      abline(v=0,col='grey',lty=2,lwd=2)
+      
+      text(y=(NSCEN-1)+0.4,x=ninefive[1,(NSCEN-1)],'95%',col='black',adj=c(-0,-0.3*sp_index))
+      
+      starting_y = 3
+      
+      legend(col='black', lty=1,bty='n',x= mean(means),legend=paste0(city,': Level 1'),y=starting_y,lwd=2, cex = 0.8)
+      legend(col='grey39', lty=1,bty='n',x= mean(means),legend=paste0(city,': Level 1 - male'),y=starting_y-0.1,lwd=2, cex = 0.8)
+      legend(col='grey', lty=1,bty='n',x= mean(means),legend=paste0(city,': Level 1 - female'),y=starting_y-0.2,lwd=2, cex = 0.8)
+      
+      legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(city,': Level 2'),y=starting_y-0.4,lwd=2, cex = 0.8)
+      legend(col='cornflowerblue', lty=1,bty='n',x= mean(means),legend=paste0(city,': Level 2 - male'),y=starting_y-0.5,lwd=2, cex = 0.8)
+      legend(col='dodgerblue', lty=1,bty='n',x= mean(means),legend=paste0(city,': Level 2 - female'),y=starting_y-0.6,lwd=2, cex = 0.8)
+      
+      legend(col='red', lty=1,bty='n',x= mean(means),legend=paste0(city,': Level 3'),y=starting_y-0.8,lwd=2, cex = 0.8)
+      legend(col='coral1', lty=1,bty='n',x= mean(means),legend=paste0(city,': Level 3 - male'),y=starting_y-0.9,lwd=2, cex = 0.8)
+      legend(col='orange', lty=1,bty='n',x= mean(means),legend=paste0(city,': Level 3 - female'),y=starting_y-1,lwd=2, cex = 0.8)
+      
+      
+      
+      
+      par(par_city)
+    }
+    dev.off()
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+#   # plot total YLL sum
+#   {pdf(paste0('results/voi/city_yll_',output_version,'.pdf'),height=6,width=6)
+#     
+#     # one plot for all cities - might be difficult to read
+#     par <- par(mar=c(5,5,1,1))
+#     sp_index <- which(cities==city)
+#     scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+#     means <- sapply(scen_out,function(x)apply(x,2,mean))
+#     ninefive <- lapply(scen_out,function(x) apply(x,2,quantile,c(0.025,0.975)))
+#     yvals <- rep(1:length(scen_out),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out))
+#     cols <- rainbow(length(outcome)-1)
+#     
+#     plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in total YLL relative to baseline',
+#          col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
+#     axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+#     for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
+#     abline(v=0,col='grey',lty=2,lwd=2)
+#     text(y=(NSCEN-1)+0.2,x=ninefive[[sp_index]][1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*sp_index))
+#     legend(col=rev(cols),lty=1,bty='n',x= mean(means),legend=rev(names(outcome)[-length(outcome)]),y=NSCEN-1,lwd=2)
+#     par(par)
+#     
+#     # one plot per city
+#     for(city in cities){ 
+#       sp_index <- which(cities==city)
+#       scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+#       scen_out_city <- scen_out[[city]]
+#       means <- colMeans(scen_out_city) 
+#       ninefive <- apply(scen_out_city,2,quantile,probs = c(0.025,0.975))
+#       yvals <- rep(1,each=NSCEN)/10 + rep(1:NSCEN) 
+#       cols <- rainbow(length(outcome)-1)
+#       col_city <- cols[sp_index]
+#       
+#       par_city <- par(mar=c(5,5,1,1))
+#       xlab <- paste0(city,': Change in total YLL relative to baseline')
+#       plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
+#            yaxt='n',xlim=range(unlist(ninefive)))
+#       axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+#       for(j in 1:NSCEN) lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
+#       abline(v=0,col='grey',lty=2,lwd=2)
+#       text(y=(NSCEN-1)+0.2,x=ninefive[1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*sp_index))
+#       legend(col=col_city, lty=1,bty='n',x= mean(means),legend=city,y=NSCEN-1,lwd=2)
+#       par(par_city)
+#     }
+#     dev.off()
+#   } 
+#   
+# 
+#   # plot total YLL sum plus include split by sex (95% CIs)
+#   {pdf(paste0('results/voi/city_yll_sex_',output_version,'.pdf'),height=6,width=6)
+#   
+#   # one plot per city
+#     for(city in cities){ 
+#       sp_index <- which(cities==city)
+#       scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+#       scen_out_city <- scen_out[[city]]
+#       means <- colMeans(scen_out_city) 
+#       ninefive <- apply(scen_out_city,2,quantile,probs = c(0.025,0.975))
+#       yvals <- rep(3,each=NSCEN)/10 + rep(1:NSCEN) 
+#       cols <- rainbow(length(outcome)-1)
+#       col_city <- cols[sp_index]
+#       
+#       # male
+#       scen_city_male <- voi_data_all_sex_df %>% filter(sex == 'male', city == city) %>% dplyr::select(-c(sex,city,run, age_cat, age_sex))
+#       scen_out_city_male <- sapply(1:NSCEN,function(y)rowSums(scen_city_male[,seq(y,ncol(scen_city_male),by=NSCEN)]))
+#       means_male <- colMeans(scen_out_city_male) 
+#       ninefive_male <- apply(scen_out_city_male,2,quantile,probs = c(0.025,0.975))
+#       yvals_male <- rep(2,each=NSCEN)/10 + rep(1:NSCEN)
+#   
+#       # female
+#       scen_city_female <- voi_data_all_sex_df %>% filter(sex == 'female', city == city) %>% dplyr::select(-c(sex,city,run, age_cat, age_sex))
+#       scen_out_city_female <- sapply(1:NSCEN,function(y)rowSums(scen_city_female[,seq(y,ncol(scen_city_female),by=NSCEN)]))
+#       means_female <- colMeans(scen_out_city_female) 
+#       ninefive_female <- apply(scen_out_city_female,2,quantile,probs = c(0.025,0.975))
+#       yvals_female <- rep(1,each=NSCEN)/10 + rep(1:NSCEN)
+#       
+#       par_city <- par(mar=c(5,7,1,1))
+#       xlab <- paste0(city,': Change in total YLL relative to baseline')
+#       plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col='black',
+#            yaxt='n', ylim = range(.9,4.2),xlim=range(unlist(ninefive),unlist(ninefive_male),unlist(ninefive_female)))
+#       axis(2,las=2,at= seq(1.2, 1.05*NSCEN + 0.2, by = 1.05) #(1+0.1):(NSCEN+.1)
+#            ,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+#       
+#       points(as.vector(means_male),yvals_male,pch=16,cex=1,col='blue')
+#       points(as.vector(means_female),yvals_female,pch=16,cex=1,col='red')
+#       
+#       for(j in 1:NSCEN){
+#         lines(ninefive[,j],rep(yvals[j],2),lwd=2,col='black')
+#         lines(ninefive_male[,j],rep(yvals_male[j],2),lwd=2, col='blue')
+#         lines(ninefive_female[,j],rep(yvals_female[j],2),lwd=2, col='red')
+#       } 
+#       abline(v=0,col='grey',lty=2,lwd=2)
+#       text(y=(NSCEN-1)+0.4,x=ninefive[1,(NSCEN-1)],'95%',col='black',adj=c(-0,-0.3*sp_index))
+#       legend(col='black', lty=1,bty='n',x= mean(means),legend=paste0(city,': all'),y=NSCEN-1,lwd=2, cex = 0.8)
+#       legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(city,': male'),y=NSCEN-1.1,lwd=2, cex = 0.8)
+#       legend(col='red', lty=1,bty='n',x= mean(means),legend=paste0(city,': female'),y=NSCEN-1.2,lwd=2, cex = 0.8)
+#       par(par_city)
+#     }
+#     dev.off()
+#   } 
+#   
+#   
+#   
+#   
+#   
+# ################## repeat plots per 100,000  
+#   
+#   # plot total YLL sum per 100,000
+#   {pdf(paste0('results/voi/city_yll_100k_',output_version,'.pdf'),height=6,width=6)
+#     
+#     # one plot for all cities - might be difficult to read
+#     # par <- par(mar=c(5,5,1,1))
+#     # sp_index <- which(cities==city)
+#     # scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+#     # scen_out_100k <- lapply(scen_out, function(x) x*100000/subset(population_df, sex=='all' & age_cat == 'all' & city == city)$population)
+#     # means <- sapply(scen_out_100k,function(x)apply(x,2,mean))
+#     # ninefive <- lapply(scen_out_100k,function(x) apply(x,2,quantile,c(0.025,0.975)))
+#     # yvals <- rep(1:length(scen_out_100k),each=NSCEN)/10 + rep(1:NSCEN,times=length(scen_out_100k))
+#     # cols <- rainbow(length(outcome)-1)
+#     # 
+#     # plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab='Change in total YLL per 100k relative to baseline',
+#     #      col=rep(cols,each=NSCEN),yaxt='n',xlim=range(unlist(ninefive)))
+#     # axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+#     # for(i in 1:length(outcome[-length(outcome)])) for(j in 1:NSCEN) lines(ninefive[[i]][,j],rep(yvals[j+(i-1)*NSCEN],2),lwd=2,col=cols[i])
+#     # abline(v=0,col='grey',lty=2,lwd=2)
+#     # text(y=(NSCEN-1)+0.2,x=ninefive[[sp_index]][1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*sp_index))
+#     # legend(col=rev(cols),lty=1,bty='n',x= mean(means),legend=rev(names(outcome)[-length(outcome)]),y=NSCEN-1,lwd=2)
+#     # par(par)
+#     # 
+#     # one plot per city
+#     par <- par(mar=c(5,5,1,1))
+#     for(city in cities){ 
+#       sp_index <- which(cities==city)
+#       scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+#       scen_out_city <- scen_out[[city]]
+#       scen_out_city_100k <- scen_out_city*100000/subset(population_df, sex=='all' & age_cat == 'all' & city == city)$population
+#       means <- colMeans(scen_out_city_100k) 
+#       ninefive <- apply(scen_out_city_100k,2,quantile,probs = c(0.025,0.975))
+#       yvals <- rep(1,each=NSCEN)/10 + rep(1:NSCEN) 
+#       cols <- rainbow(length(outcome)-1)
+#       col_city <- cols[sp_index]
+#       
+#       par_city <- par(mar=c(5,5,1,1))
+#       xlab <- paste0(city,': Change in total YLL per 100k relative to baseline')
+#       plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
+#            yaxt='n',xlim=range(unlist(ninefive)))
+#       axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+#       for(j in 1:NSCEN) lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
+#       abline(v=0,col='grey',lty=2,lwd=2)
+#       text(y=(NSCEN-1)+0.2,x=ninefive[1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*sp_index))
+#       legend(col=col_city, lty=1,bty='n',x= mean(means),legend=city,y=NSCEN-1,lwd=2)
+#       par(par_city)
+#     }
+#     dev.off()
+#   } 
+#   
+#   
+#   # plot total YLL sum plus include split by sex (95% CIs) per 100,000
+#   {pdf(paste0('results/voi/city_yll_sex_100k_',output_version,'.pdf'),height=6,width=6)
+#     
+#     # one plot per city
+#     for(city in cities){ 
+#       sp_index <- which(cities==city)
+#       scen_out <- lapply(outcome[-length(outcome)],function(x)sapply(1:NSCEN,function(y)rowSums(x[,seq(y,ncol(x),by=NSCEN)])))
+#       scen_out_city_100k <- scen_out[[city]]*100000/subset(population_df, sex=='all' & age_cat == 'all' & city == city)$population
+#       means <- colMeans(scen_out_city_100k) 
+#       ninefive <- apply(scen_out_city_100k,2,quantile,probs = c(0.025,0.975))
+#       yvals <- rep(3,each=NSCEN)/10 + rep(1:NSCEN) 
+#       cols <- rainbow(length(outcome)-1)
+#       col_city <- cols[sp_index]
+#       
+#       # male
+#       scen_city_male <- voi_data_all_sex_df %>% filter(sex == 'male', city == city) %>% dplyr::select(-c(sex,city,run, age_cat, age_sex))
+#       scen_out_city_male <- sapply(1:NSCEN,function(y)rowSums(scen_city_male[,seq(y,ncol(scen_city_male),by=NSCEN)]))
+#       scen_out_city_male_100k <- scen_out_city_male*100000/subset(population_df, sex=='male' & age_cat == 'all' & city == city)$population
+#       means_male <- colMeans(scen_out_city_male_100k) 
+#       ninefive_male <- apply(scen_out_city_male_100k,2,quantile,probs = c(0.025,0.975))
+#       yvals_male <- rep(2,each=NSCEN)/10 + rep(1:NSCEN)
+#       
+#       # female
+#       scen_city_female <- voi_data_all_sex_df %>% filter(sex == 'female', city == city) %>% dplyr::select(-c(sex,city,run, age_cat, age_sex))
+#       scen_out_city_female <- sapply(1:NSCEN,function(y)rowSums(scen_city_female[,seq(y,ncol(scen_city_female),by=NSCEN)]))
+#       scen_out_city_female_100k <- scen_out_city_female*100000/subset(population_df, sex=='female' & age_cat == 'all' & city == city)$population
+#       means_female <- colMeans(scen_out_city_female_100k) 
+#       ninefive_female <- apply(scen_out_city_female_100k,2,quantile,probs = c(0.025,0.975))
+#       yvals_female <- rep(1,each=NSCEN)/10 + rep(1:NSCEN)
+#       
+#       par_city <- par(mar=c(5,7,1,1))
+#       xlab <- paste0(city,': Change in total YLL per 100k relative to baseline')
+#       plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col='black',
+#            yaxt='n', ylim = range(.9,4.2),xlim=range(unlist(ninefive),unlist(ninefive_male),unlist(ninefive_female)))
+#       axis(2,las=2,at= seq(1.2, 1.05*NSCEN + 0.2, by = 1.05) #(1+0.1):(NSCEN+.1)
+#            ,labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
+#       
+#       points(as.vector(means_male),yvals_male,pch=16,cex=1,col='blue')
+#       points(as.vector(means_female),yvals_female,pch=16,cex=1,col='red')
+#       
+#       for(j in 1:NSCEN){
+#         lines(ninefive[,j],rep(yvals[j],2),lwd=2,col='black')
+#         lines(ninefive_male[,j],rep(yvals_male[j],2),lwd=2, col='blue')
+#         lines(ninefive_female[,j],rep(yvals_female[j],2),lwd=2, col='red')
+#       } 
+#       abline(v=0,col='grey',lty=2,lwd=2)
+#       text(y=(NSCEN-1)+0.4,x=ninefive[1,(NSCEN-1)],'95%',col='black',adj=c(-0,-0.3*sp_index))
+#       legend(col='black', lty=1,bty='n',x= mean(means),legend=paste0(city,': all'),y=NSCEN-1,lwd=2, cex = 0.8)
+#       legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(city,': male'),y=NSCEN-1.1,lwd=2, cex = 0.8)
+#       legend(col='red', lty=1,bty='n',x= mean(means),legend=paste0(city,': female'),y=NSCEN-1.2,lwd=2, cex = 0.8)
+#       par(par_city)
+#     }
+#     dev.off()
+#   } 
+#   
+#   
+#   
+ 
 }
 
 
@@ -936,13 +1122,13 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
   
   # calculate the evppi values for all input parameters for all outcomes
   # defined in the outcome_voi_list for all scenarios
-  evppi_list <- call_evppi(parameter_samples, outcome_voi_list, outcome, cities, voi_add_sum, 
+  evppi_list <- call_evppi(parameter_samples, outcome_voi_list, voi_complete_df, cities, voi_add_sum, 
                          NSCEN, NSAMPLES, scenario_names)
   
   evppi_df <- evppi_list[[1]]
   evppi_outcome_names <- unlist(evppi_list[[2]])
   
-  saveRDS(evppi_df,'results/voi/evppi.Rds',version=2) # save evppi dataframe
+  saveRDS(evppi_df,paste0('results/voi/evppi_',output_version,'.Rds'),version=2) # save evppi dataframe
   
   evppi_csv <- paste0('results/voi/evppi_',output_version,".csv")
   
@@ -1004,8 +1190,8 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
     
     print('starting EVPPI analysis by sex')
     
-    evppi_sex_list <- call_evppi_sex(voi_data_all_sex_df,parameter_samples, outcome_voi_list, outcome, cities, voi_add_sum, 
-                                            NSCEN, NSAMPLES, scenario_names, evppi_df)
+    evppi_sex_list <- call_evppi_sex(voi_complete_df,parameter_samples, outcome_voi_list, cities, voi_add_sum, 
+                                            NSCEN, NSAMPLES, scenario_names)
     
     evppi_sex_df <- evppi_sex_list[[1]] 
     sex_cat <- unlist(evppi_sex_list[[2]])
@@ -1085,8 +1271,8 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
     print('starting EVPPI analysis by age and sex')
 
     
-    evppi_agesex_list <- call_evppi_age_sex(voi_data_all_df, parameter_samples, outcome_voi_list, outcome, cities, voi_add_sum, 
-                                          NSCEN, NSAMPLES, scenario_names, evppi_df)
+    evppi_agesex_list <- call_evppi_age_sex(voi_complete_df, parameter_samples, outcome_voi_list, cities, voi_add_sum, 
+                                          NSCEN, NSAMPLES, scenario_names)
     
     evppi_agesex_df <- evppi_agesex_list[[1]] 
     age_gender_cat <- unlist(evppi_agesex_list[[2]])
@@ -1161,6 +1347,38 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
     
   } # end of age / gender VOI analysis
   
+  # combine all evppi datasets
+  
+  
+  evppi_df$gender <- 'all'
+  evppi_df$age <- 'all'
+  evppi_df$age_gender <- 'all all'
+  evppi_df <- evppi_df %>% relocate(city,parameters, age, gender, age_gender)
+  
+  if (voi_gender){
+    evppi_sex_df$age <- 'all'
+    evppi_sex_df$age_gender <- paste0(evppi_sex_df$gender, ' all ')
+    evppi_sex_df <- evppi_sex_df %>% relocate(city,parameters, age, gender, age_gender)
+    
+    evppi_df <- evppi_df %>% relocate(city,parameters, age, gender, age_gender)
+    if (voi_age_gender){
+      evppi_df_all <- rbind(evppi_df, evppi_sex_df, evppi_agesex_df)
+    } else {
+      evppi_df_all <- rbind(evppi_df, evppi_sex_df)
+    }
+  } else if (voi_age_gender & !voi_gender){
+    evppi_df_all <- rbind(evppi_df, evppi_agesex_df)
+  } else {
+    evppi_df_all <- evppi_df
+  }
+  
+  saveRDS(evppi_df_all,paste0('results/voi/evppi_all_',output_version,".csv"),version=2) 
+  
+  evppi_all_csv <- paste0('results/voi/evppi_all_',output_version,".csv")
+  #write.csv(evppi_df,'results/voi/evppi.csv',row.names = FALSE) # save as csv file
+  
+  write.csv(evppi_all_df,evppi_all_csv,row.names = FALSE) # save as csv file
+
   
 } # end of nsamples >1 condition  and end of Voi analysis
 

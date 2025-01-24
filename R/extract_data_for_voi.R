@@ -33,12 +33,8 @@
 #' @param output_version the output version of the model run
 #' 
 #' @return ithim_results list with the following objects:
-#' @return summary_ylls_df: dateframe with total ylls (median, 5th and 95th percentiles) per age group and city (plus combined results)
 #' @return voi_data_all_df: dataframe for all cities with all outcomes for all model runs, age and sex categories and disease and scenario combinations
-#' @return voi_data_all_sex_df: dataframe for all cities with all outcomes for all model runs, sex categories and disease and scenario combinations
-#' @return yll_per_hundred_thousand: yll per 100,000 people for each city, outcome age category, model run and disease and scen combination
-#' @return yll_per_hundred_thousand_stats: total ylls per 100,000 (median, 5th and 95th percentiles) as sum across all disease per outcome age group, scenario and city (plus combined results)
-#' @return outcome: total yll outcome for all outcome age categories per city and scenario and disease combination, also combined city result (sum)
+
 #' 
 #' @export
 
@@ -85,13 +81,7 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
     # define columns to keep which are all columns except those that contain age or sex information
     keep_cols <- which(!sapply(names(multi_city_ithim[[city]]$outcomes[[1]]$hb$ylls),function(x)grepl('age|sex',as.character(x))))
     
-    # calculate average outcome per person in the population considered by the model 
-    # each column contains the information for a scenario and disease combination and each row contains the outputs from one of the 
-    # sampled model runs
-    outcome_pp[[city]] <- t(sapply(multi_city_ithim[[city]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
-    outcome_pp[[city]] <- outcome_pp[[city]]/sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age)$population)
-    colnames(outcome_pp[[city]]) <- paste0(colnames(outcome_pp[[city]]),'_',city)
-    
+
     ### demographic stats total and by sex
     total_female <- sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age&sex=='female')$population)
     total_male <- sum(subset(DEMOGRAPHIC,min_pop_ages>=min_age&max_pop_ages<=max_age&sex=='male')$population)
@@ -103,25 +93,7 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
     
     population_df <- rbind(population_df,population_df_city)
     
-    ## get yll per 100,000 by age
-    yll_per_hundred_thousand[[city]] <- list()
-    for(aa in 1:length(outcome_age_groups)){ # loop through outcome age groups
-      age <- outcome_age_groups[aa]
-      
-      # find total population for age group at the city level
-      city_populations[ci,aa] <- sum(subset(DEMOGRAPHIC,min_pop_ages>=outcome_age_min[aa]&max_pop_ages<=outcome_age_max[aa])$population)
-      # find total population by age group summing across all cities
-      age_populations[aa] <- age_populations[aa] + city_populations[ci,aa] 
-      
-      # define age range to keep based on the age group currently used by the loop
-      keep_rows2 <- which(min_ages>=outcome_age_min[aa]&max_ages<=outcome_age_max[aa])
-      
-      # calculate the total ylls per 100 000 for the given age category
-      tmp <- t(sapply(multi_city_ithim[[city]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows2,keep_cols],na.rm=T)))
-      tmp <- tmp/city_populations[ci,aa]*100000
-      yll_per_hundred_thousand[[city]][[age]] <- tmp # df to contain the YLLs for all cities, outcome age groups and model runs
-    }
-    
+
     # total yll outcome across all outcome age categories per city and scenario and disease combination
     outcome[[city]] <- t(sapply(multi_city_ithim[[city]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
     colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
@@ -169,102 +141,152 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
   voi_data_all_df$age_sex <- paste(voi_data_all_df$sex, voi_data_all_df$age_cat, sep = )
   
   
-  # needed for plotting but outcome$city gives total YLL for each disease and scenario combination, whereas outcome$combined gives
-  # the YLL per person
-  outcomes_pp <- do.call(cbind,outcome_pp) # bind outcome for all cities
-  outcome$combined <- outcomes_pp
   
   
+  ################# create outcome statistics for different scenarios and health outcomes
   
-  ## compute yll per hundred thousand by age by summing across all diseases (double counting!) by city 
-  # and also summing across all cities
-  yll_per_hundred_thousand_stats <- list()
-  combined_yll <- list() # for summing across all cities
+  # number the different runs
+  voi_data_all_df$run <- rep(1:nsamples,length(unique(voi_data_all_df$age_sex))*length(cities))
+  voi_data_all_sex_df$run <- rep(1:nsamples,length(unique(voi_data_all_sex_df$sex))*length(cities))
   
-  # set up matrix for all age groups
-  for(aa in 1:length(outcome_age_groups)){
-    age <- outcome_age_groups[aa]
-    combined_yll[[age]] <- matrix(0,ncol=NSCEN,nrow=NSAMPLES)
-  }
+  # add extra columns
+  voi_data_all_sex_df$age_cat <- 'all'
+  voi_data_all_sex_df$age_sex <- paste(voi_data_all_sex_df$sex, voi_data_all_sex_df$age_cat, sep = ' ')
   
-  for(ci in 1:length(cities)){ # loop through cities
-    city <- cities[ci]
-    case <- yll_per_hundred_thousand[[city]] # ylls across all age groups
-    yll_per_hundred_thousand_stats[[city]] <- list()
+  # create total for each run for all outcomes
+  voi_data_total_df <- voi_data_all_sex_df %>% group_by( age_cat, run, city) %>% summarise(across(where(is.numeric), sum), .groups = 'drop')
+  voi_data_total_df$sex <- 'all'
+  voi_data_total_df$age_sex <- paste(voi_data_total_df$sex, voi_data_total_df$age_cat, sep = ' ')
+  
+  
+  # create one dataset
+  voi_data_all_df$sex <- as.character(voi_data_all_df$sex)
+  voi_data_all_df$age_cat <- as.character(voi_data_all_df$age_cat)
+  voi_data_all_df <- voi_data_all_df %>% mutate_if(is.list,as.numeric)
+  voi_data_complete <- bind_rows(voi_data_all_df, voi_data_all_sex_df , voi_data_total_df)
+  
+  # add population data
+  population_df <- population_df %>% rename(age_cat = age)
+  voi_data_complete2 <- merge(voi_data_complete, population_df, by = c('age_cat','sex','city'))
+  
+  # calculate data for various levels
+  
+  # names of all scenarios excluding base
+  scen_only_names <- scenario_names[2:length(scenario_names)]
+  
+  # different levels
+  level1 <-c('pa_ap_all_cause','inj')
+  level2 <- c('pa_total_cancer','pa_ap_CVD','ap_respiratory','inj')
+  level3 <- c('pa_ap_IHD','pa_ap_lung_cancer','ap_COPD','pa_ap_stroke','pa_ap_T2D','ap_LRI',
+              'pa_breast_cancer','pa_colon_cancer','pa_endo_cancer','pa_liver_cancer','pa_total_dementia',
+              'pa_myeloma','pa_Parkinson','pa_head_neck_cancer', 'pa_stomach_cancer',
+              'pa_myeloid_leukemia','inj')
+  
+  level_list <- list(level1, level2, level3)
+  
+  # loop through levels
+  all_levels <- data.frame()
+  l<-1
+  for (level in list(level1, level2, level3)){
+    dummy_level_df <- voi_data_complete2 %>% dplyr::select(matches(level))
     
-    for(aa in 1:length(outcome_age_groups)){ # loop through age groups
-      # initialise variables
-      age <- outcome_age_groups[aa]
-      min_pop_ages <- age_pops[[city]]$min_pop_ages
-      max_pop_ages <- age_pops[[city]]$max_pop_ages
-      population <- city_populations[ci,aa]
+    # loop trough scenarios and calculate sum
+    for (scen in scen_only_names){
+      dummy_level_df <- dummy_level_df %>%
+        mutate(sum = rowSums(pick(matches(scen))))  %>% # calcualte sum
+        rename_with(~paste0(scen, '_ylls_level',l), .cols= sum) # re-name new column
       
-      # set up matrix to contain median and the 5th and 95th percentiles YLLs for each city and age group
-      yll_per_hundred_thousand_stats[[city]][[age]] <- matrix(0,nrow=NSCEN,ncol=3) 
-      colnames(yll_per_hundred_thousand_stats[[city]][[age]]) <- c('median','5%','95%')
-      rownames(yll_per_hundred_thousand_stats[[city]][[age]]) <- SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)]
-      
-      case_age <- case[[age]]
-      
-      # calculate total ylls by summing across all diseases (includes a lot of double counting!)
-      #### TO DO: Split results by level of disease????
-      for(k in 1:NSCEN){ # loop through scenarios
-        scen_case <- case_age[,seq(k,ncol(case_age),by=NSCEN)] # extract scenario results
-        if(nsamples==1){ # if only one sample, then scen_case gives a 1 dimensional vector
-          y <- sum(scen_case)
-        }else{
-          y <- rowSums(scen_case)
-        }
-        yll_per_hundred_thousand_stats[[city]][[age]][k,] <- quantile(y,c(0.5,0.05,0.95)) # summary stats based on individual run results
-        combined_yll[[age]][,k] <- combined_yll[[age]][,k] + y*population/100000 # calculate total yll for the population age group summing across all cities
-      }
     }
+    if (l ==1){
+      all_levels <- dummy_level_df %>% dplyr::select(!matches(level))
+    } else{
+      all_levels <- cbind(all_levels, dummy_level_df%>% dplyr::select(!matches(level)))
+    }
+    l <- l +1
   }
   
-  # calculate yll per age group summed across all cities (we have already summed across all diseases)
-  yll_per_hundred_thousand_stats$combined <- list()
-  for(aa in 1:length(outcome_age_groups)){
-    age <- outcome_age_groups[aa]
-    yll_per_hundred_thousand_stats$combined[[age]] <- t(apply(combined_yll[[age]]/age_populations[aa]*100000,2,quantile,c(0.5,0.05,0.95)))
-    colnames(yll_per_hundred_thousand_stats$combined[[age]]) <- c('median','5%','95%')
-    rownames(yll_per_hundred_thousand_stats$combined[[age]]) <- SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)]
-  }
+  # add levels to dataframe
+  voi_data_complete3 <- cbind(voi_data_complete2, all_levels)
   
   
-  # create one dateframe with total ylls (median, 5th and 95th percentiles) per age group and city (plus combined results)
-  summary_ylls_df <- data.frame()
-  for(i in 1:length(yll_per_hundred_thousand_stats)){ # loop through cities plus combined
-    for(j in 1:length(yll_per_hundred_thousand_stats[[i]])){ # loop through age groups
-      if(length(summary_ylls_df) == 0){
-        summary_ylls_df <- as.data.frame(yll_per_hundred_thousand_stats[[i]][[j]])
-        summary_ylls_df$age <- names(yll_per_hundred_thousand_stats[[i]])[j]
-        summary_ylls_df$city <- names(yll_per_hundred_thousand_stats)[i]
-        summary_ylls_df$scenario <- rownames(summary_ylls_df)
-      } else {
-        summary_ylls_df_dummy <- as.data.frame(yll_per_hundred_thousand_stats[[i]][[j]])
-        summary_ylls_df_dummy$age <- names(yll_per_hundred_thousand_stats[[i]])[j]
-        summary_ylls_df_dummy$city <- names(yll_per_hundred_thousand_stats)[i]
-        summary_ylls_df_dummy$scenario <- rownames(summary_ylls_df_dummy)
-        summary_ylls_df <- rbind(summary_ylls_df, summary_ylls_df_dummy)
-      }
-    } 
-  }    
-  # re-arrange columns
-  summary_ylls_df <- summary_ylls_df[,c("city","scenario","age", "median", "5%", "95%")]
-  rownames(summary_ylls_df) <- 1:nrow(summary_ylls_df)
+  # add summary statistics
+  voi_data_complete3_mean <- voi_data_complete3 %>% group_by(city, age_cat, sex, age_sex, population) %>% summarise(across(where(is.numeric)& !run, mean
+  ), .groups = 'drop')
+  voi_data_complete3_mean$value_type <- 'mean'
+  
+  # 2.5th percentile
+  voi_data_complete3_2.5perc <- voi_data_complete3 %>% group_by(city, age_cat, sex, age_sex, population) %>% 
+    summarise(across( .cols = where(is.numeric) & !run,  .fns = ~quantile(., 0.025),.names = "{col}"), .groups = 'drop')
+  voi_data_complete3_2.5perc$value_type <- '2.5perc'
+  
+  # 97.5th percentile
+  voi_data_complete3_97.5perc <- voi_data_complete3 %>% group_by(city, age_cat, sex, age_sex, population) %>% 
+    summarise(across( .cols = where(is.numeric)& !run,  .fns = ~quantile(., 0.975),.names = "{col}"), .groups = 'drop')
+  voi_data_complete3_97.5perc$value_type <- '97.5perc'
+  
+  # standard deviation
+  voi_data_complete3_sd <- voi_data_complete3 %>% group_by(city, age_cat, sex, age_sex, population) %>% summarise(across(where(is.numeric)& !run,
+                                                                                                                         sd), .groups = 'drop')
+  voi_data_complete3_sd$value_type <- 'std'
   
   
+  # combine all statistics 
+  voi_data_complete3_summary <- rbind(voi_data_complete3_mean, voi_data_complete3_2.5perc,voi_data_complete3_97.5perc,voi_data_complete3_sd)
+  
+  # re-order columns
+  voi_data_complete3_summary <- voi_data_complete3_summary %>% dplyr::select(city, age_cat, sex, age_sex, population, value_type, 
+                                                                             sc_cycle_ylls_level1, sc_car_ylls_level1, sc_bus_ylls_level1,               
+                                                                             sc_cycle_ylls_level2, sc_car_ylls_level2, sc_bus_ylls_level2,
+                                                                             sc_cycle_ylls_level3, sc_car_ylls_level3, sc_bus_ylls_level3, everything())
+  
+
+  
+  
+  ## repeat for 100k
+  
+  # calculate per 100k
+  voi_data_complete3_100k <- voi_data_complete3 %>% mutate(across(where(is.numeric) & !run & !population, ~round(as.numeric(.x)/population*100000,4)))
+  
+  # add summary statistics
+  voi_data_complete3_100k_mean <- voi_data_complete3_100k %>% group_by(city, age_cat, sex, age_sex, population) %>% 
+    summarise(across(where(is.numeric)& !run, mean), .groups = 'drop')
+  voi_data_complete3_100k_mean$value_type <- 'mean'
+  
+  # 2.5th percentile
+  voi_data_complete3_100k_2.5perc <- voi_data_complete3_100k %>% group_by(city, age_cat, sex, age_sex, population) %>%
+    summarise(across( .cols = where(is.numeric) & !run,  .fns = ~quantile(., 0.025),.names = "{col}"), .groups = 'drop')
+  voi_data_complete3_100k_2.5perc$value_type <- '2.5perc'
+  
+  # 97.5th percentile
+  voi_data_complete3_100k_97.5perc <- voi_data_complete3_100k %>% group_by(city, age_cat, sex, age_sex, population) %>%
+    summarise(across( .cols = where(is.numeric)& !run,  .fns = ~quantile(., 0.975),.names = "{col}"), .groups = 'drop')
+  voi_data_complete3_100k_97.5perc$value_type <- '97.5perc'
+  
+  # standard deviation
+  voi_data_complete3_100k_sd <- voi_data_complete3_100k %>% group_by(city, age_cat, sex, age_sex, population) %>% summarise(across(where(is.numeric)& !run,
+                                                                                                                                   sd), .groups = 'drop')
+  voi_data_complete3_100k_sd$value_type <- 'std'
+  
+  
+  # combine all statistics
+  voi_data_complete3_100k_summary <- rbind(voi_data_complete3_100k_mean, voi_data_complete3_100k_2.5perc,
+                                           voi_data_complete3_100k_97.5perc,voi_data_complete3_100k_sd)
+  
+  # re-order columns
+  voi_data_complete3_100k_summary <- voi_data_complete3_summary %>% dplyr::select(city, age_cat, sex, age_sex, population, value_type,
+                                                                                  sc_cycle_ylls_level1, sc_car_ylls_level1, sc_bus_ylls_level1,
+                                                                                  sc_cycle_ylls_level2, sc_car_ylls_level2, sc_bus_ylls_level2,
+                                                                                  sc_cycle_ylls_level3, sc_car_ylls_level3, sc_bus_ylls_level3, everything())
+  
+
   # set-up output list 
   ithim_results <- list()
   
-  ithim_results$summary_ylls_df <- summary_ylls_df
-  ithim_results$voi_data_all_df <- voi_data_all_df
-  ithim_results$voi_data_all_sex_df <- voi_data_all_sex_df
-  ithim_results$outcome <- outcome
-  ithim_results$yll_per_hundred_thousand <- yll_per_hundred_thousand
-  ithim_results$yll_per_hundred_thousand_stats <- yll_per_hundred_thousand_stats
-  ithim_results$population_df <- population_df
-  
+
+  ithim_results$voi_complete <- voi_data_complete3
+  ithim_results$voi_complete_summary <- voi_data_complete3_summary
+  ithim_results$voi_complete_100k <- voi_data_complete3_100k
+  ithim_results$voi_complete_100k_summary <- voi_data_complete3_100k_summary
   
   return(ithim_results)
   

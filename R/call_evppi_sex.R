@@ -26,16 +26,14 @@
 #' }  
 #' 
 #' 
-#' @param voi_data_all_sex_df dataframe containing all outcomes by sex
+#' @param voi_complete_df dataframe containing all outcomes 
 #' @param parameter_samples table containing all the input parameter variables for the different model runs for all cities
 #' @param outcome_voi_list vector detailing the outcomes to be considered in the VoI analysis
-#' @param outcome total yll outcome for all outcome age categories per city and scenario and disease combination, also combined city result (sum)
 #' @param cities vector of cities
 #' @param voi_add_sum if the sum of YLLs across all disease outcomes is to be considered
 #' @param NSCEN number of scenarios (not incl. baseline)
 #' @param NSAMPLES number of times the model was run for each city
 #' @param scenario_names gives the names of the scenarios (incl baseline)
-#' @param evppi_df outcome dataframe containing voi analysis for total yll across all age and sex categories
 #' 
 #' @return a list containing the following elements:
 #' @return evppi_ex_df dataframe containing all EVPPI outcomes for all sex categories and all cities
@@ -46,8 +44,8 @@
 #' @export
 
 
-call_evppi_sex <- function(voi_data_all_sex_df, parameter_samples, outcome_voi_list, outcome, cities, voi_add_sum, NSCEN, NSAMPLES,
-                       scenario_names, evppi_df){
+call_evppi_sex <- function(voi_complete_df, parameter_samples, outcome_voi_list, cities, voi_add_sum, NSCEN, NSAMPLES,
+                       scenario_names){
   
   evppi_sex_df <- data.frame()
   
@@ -81,7 +79,7 @@ call_evppi_sex <- function(voi_data_all_sex_df, parameter_samples, outcome_voi_l
     
     # extract the required outcomes for each city - loop sex categories
     city_name <- city
-    city_sex_out <- voi_data_all_sex_df %>% filter(city == city_name)
+    city_sex_out <- voi_complete_df %>% filter(city == city_name & age_cat== 'all' & !sex=='all')
     sex_cat <- unique(city_sex_out$sex)
     
     k <- 1
@@ -269,9 +267,7 @@ call_evppi_sex <- function(voi_data_all_sex_df, parameter_samples, outcome_voi_l
       ag_columns_df$parameters <- evppi_sex_city_df$parameters
       ag_columns_df$city <- evppi_sex_city_df$city
       ag_columns_df$gender <- ag
-     # ag_columns_df$age <- strsplit(ag, " ")[[1]][2]
-     # ag_columns_df$age_gender <- ag
-      if (k == 1){
+     if (k == 1){
         evppi_sex_city_df_rearranged <- ag_columns_df
       }else{
         evppi_sex_city_df_rearranged <- rbind(evppi_sex_city_df_rearranged, ag_columns_df)
@@ -286,12 +282,12 @@ call_evppi_sex <- function(voi_data_all_sex_df, parameter_samples, outcome_voi_l
   } # end of city loop
   
   
-  # merge with evppi_df data
-  evppi_df$gender <- 'all'
-  #evppi_df$age <- 'all'
-  #evppi_df$age_gender <- 'all'
-  evppi_sex_df <- rbind(evppi_sex_df,evppi_df)
-  
+  # # merge with evppi_df data
+  # evppi_df$gender <- 'all'
+  # #evppi_df$age <- 'all'
+  # #evppi_df$age_gender <- 'all'
+  # evppi_sex_df <- rbind(evppi_sex_df,evppi_df)
+  # 
   
   # change order of columns such that ordered by scenario and demographic group
   evppi_sex_df <- evppi_sex_df %>% relocate(city,parameters, gender)
