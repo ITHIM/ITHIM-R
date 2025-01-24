@@ -54,7 +54,7 @@ The health impacts in ITHIM are presented as years of life lost (YLL) and number
 
 ### Data inputs
 
-ITHIM-R requires 5 user defined input files in csv format, saved in a directory with the city's name. See [inst/ext/local/bogota](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota) for example files. There are also numerous assumptions which the user can parameterize in the model.
+ITHIM-R requires 3 user defined input files in csv format, saved in a directory with the city's name. See [inst/ext/local/bogota](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota) for example files. There are also numerous assumptions which the user can parameterize in the model.
 
 This section talks about all the files (datasets) required to setup and run the model. There are two subsections, which are:
 
@@ -72,12 +72,6 @@ This section covers file inputs (specific to a city) required to run the model.
     -   Minimal columns: `participant_id`, `age`, `sex`, `trip_mode`, `trip_duration` (or `trip_distance`).
     -   Other columns: `stage_mode`, `stage_duration` (or `stage_distance`).
 
--   **Injury events** [(example injuries dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/injuries_bogota.csv). A table of recorded road-traffic injury (fatality) events in a city in one or more years.
-
-    -   One row per event.
-    -   Minimal columns: **victim mode** (`cas_mode`) and **strike mode** (`strike_mode`).
-    -   Other columns: `year`, `cas_age`, `cas_gender`, `weight` (e.g. multiple years combined).
-
 -   **Baseline mortality and years of life lost data** [(example burden dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/gbd_bogota.csv).
 
     -   One row per health outcome/metric/age/gender combination.
@@ -88,11 +82,6 @@ This section covers file inputs (specific to a city) required to run the model.
     -   One row per demographic group.
     -   Columns: `sex`, `age`, `population`.
     -   `age` column should share boundaries with `age_name` in baseline mortality and YLL data, but can be more aggregated.
-
--   **Physical activity survey** [(example physical activity dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/pa_bogota.csv)
-
-    -   One row per person.
-    -   Columns: `sex`, `age`, `ltpa_marg_met` (total non-occupational PA in a week).
 
 ### Global files
 
