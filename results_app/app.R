@@ -30,8 +30,8 @@ if (.Platform$OS.type == "windows"){
 repo_sha <-  as.character(readLines(file.path("repo_sha")))
 # repo_sha <- "f7292509"
 output_version <- paste0(repo_sha, "_test_run")
-github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
-# github_path <- "../"
+# github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
+github_path <- "../"
 
 
 # results_file
@@ -70,10 +70,10 @@ deaths <- ren_dose(deaths)
 ylls_pathway <- ren_dose(ylls_pathway)
 deaths_pathway <- ren_dose(deaths_pathway)
 
-ylls <- ren_sex(ylls)
-deaths <- ren_sex(deaths)
-ylls_pathway <- ren_sex(ylls_pathway)
-deaths_pathway <- ren_sex(deaths_pathway)
+# ylls <- ren_sex(ylls)
+# deaths <- ren_sex(deaths)
+# ylls_pathway <- ren_sex(ylls_pathway)
+# deaths_pathway <- ren_sex(deaths_pathway)
 
 overall_pop <- ylls |> distinct(sex, age_cat, .keep_all = T) |> summarise(sum(pop_age_sex)) |> pull()
 
@@ -166,7 +166,7 @@ cities <- cities |> filter(city %in% unique(combined_health_dataset$city)) |> mu
 
 
 ren_scen_health <- function(df){
-  df[df$scenario == "Motorcycle" | df$scenario == "motorcycle"  | df$scenario == "Motorcycle",]$scenario <- "MOT_SC"
+  df[df$scenario == "Motorcycle" | df$scenario == "motorcycle"  | df$scenario == "Motorcycle" | df$scenario == "Motorcycling",]$scenario <- "MOT_SC"
   df[df$scenario == "Car" | df$scenario == "car" | df$scenario == "Car",]$scenario <- "CAR_SC"
   df[df$scenario == "Bus" | df$scenario == "bus" | df$scenario == "Public Transport",]$scenario <- "BUS_SC"
   df[df$scenario == "Cycling" | df$scenario == "cycle" | df$scenario == "Bicycling",]$scenario <- "CYC_SC"
@@ -212,14 +212,14 @@ per_100k <- c("Per 100k")
 
 scens <- c("Cycling" = "CYC_SC",
            "Car" = "CAR_SC",
-           "Bus" = "BUS_SC")#,
-           #"Motorcycle Scenario" = "MOT_SC")
+           "Bus" = "BUS_SC",
+           "Motorcycle" = "MOT_SC")
 
 inj_scens <- c("Baseline" = "Baseline",
                "Cycling" = "CYC_SC",
                "Car" = "CAR_SC",
-               "Bus" = "BUS_SC")#,
-               #"Motorcycle Scenario" = "MOT_SC")
+               "Bus" = "BUS_SC",
+               "Motorcycle" = "MOT_SC")
 
 dose <- ylls |> filter(!is.na(level1)) |> distinct(dose)  |> pull()
 dose_level2 <- ylls |> filter(!is.na(level2)) |> distinct(dose) |> pull()
@@ -252,6 +252,16 @@ ui <- page_sidebar(
                 selected = scens,
                 options = list(`actions-box` = TRUE), 
                 multiple = TRUE),
+    br(),
+    
+    treeInput(
+      inputId = "in_cities",
+      label = "Select cities:",
+      choices = create_tree(cities),
+      selected = cities$city,
+      returnValue = "text",
+      closeDepth = 0
+    ),
     br(),
     conditionalPanel(
       condition = "input.main_tab == 'Health Outcomes'",
@@ -367,11 +377,11 @@ server <- function(input, output, session) {
   output$in_inj_pivot <- renderPlotly({
     
     req(input$in_scens)
-    # req(input$in_cities)
+    req(input$in_cities)
     req(input$in_inj_modes)
     
     filtered_scens <- input$in_scens
-    # filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_cities <- tolower(in_cities)
     filtered_modes <- input$in_inj_modes
     
@@ -434,7 +444,7 @@ server <- function(input, output, session) {
   output$in_pivot_int <- renderPlotly({
     
     req(input$in_scens)
-    # req(input$in_cities)
+    req(input$in_cities)
     req(input$in_level)
     req(input$in_measure)
     # req(input$in_CIs)
@@ -446,7 +456,7 @@ server <- function(input, output, session) {
     in_CIs <- "No"# input$in_CIs
     in_strata <- input$in_strata
     filtered_cities <- cities |> filter(city %in% tolower(input$in_cities)) |> dplyr::select(city) |> pull()
-    filtered_cities <- in_cities
+    #filtered_cities <- in_cities
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
     in_per_100k <- input$in_per_100k
@@ -501,6 +511,8 @@ server <- function(input, output, session) {
         
         ld <- get_health_data()
         
+        write_csv(ld, "ldac.csv")
+        
         if(nrow(ld) < 1)
           plotly::ggplotly(ggplot(data.frame()))
         else{
@@ -508,12 +520,13 @@ server <- function(input, output, session) {
           
           
           var.choice <- ifelse(in_per_100k, "metric_100k", "metric")
-          gg <- ggplot(data = ld, aes(x = .data[[var.choice]], y = dose, fill = scenario)) +
+          gg <- ggplot(data = ld, aes(x = .data[[var.choice]], y = dose, fill = scenario, group = city)) +
             {if(in_CIs == "No") geom_col(position=position_dodge2(), alpha = global_alpha_val)} +
-            {if(in_CIs == "No") geom_text(aes(label = round(.data[[var.choice]], 1)), 
-                                          size = 3, 
-                                          position = position_dodge(width = 0.9), 
-                                          vjust = -0.5)} +
+            #{if(in_CIs == "No") geom_text(aes(label = city), size = 3, position = position_dodge(width = 0.9))} + 
+            # {if(in_CIs == "No") geom_text(aes(label = round(.data[[var.choice]], 1)),
+            #                               size = 3,
+            #                               position = position_dodge(width = 0.9),
+            #                               vjust = -0.5)} +
             {if(in_CIs == "Yes") geom_boxplot(data = ld, aes(y = .data[[var.choice]], x = dose, fill = scenario), 
                      width = 0.5, position=position_dodge2(), alpha = global_alpha_val)} +
             {if(in_strata == "Sex") facet_wrap(~sex) else if(in_strata == "Age Group") facet_wrap(~age_cat)} +
@@ -565,7 +578,7 @@ server <- function(input, output, session) {
                   input$in_per_100k,
                   input$in_strata,
                   # input$in_CIs,
-                  # input$in_cities,
+                  input$in_cities,
                   input$in_scens,
                   input$in_pathways,
                   input$in_int_pathway)
@@ -574,8 +587,8 @@ server <- function(input, output, session) {
   get_inj_data <- reactive({
     
     filtered_scens <- input$in_scens
-    # filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
-    filtered_cities <- in_cities
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    #filtered_cities <- in_cities
     filtered_modes <- input$in_inj_modes
     
     local_df <- injury_risks_per_billion_kms_lng
@@ -619,8 +632,8 @@ server <- function(input, output, session) {
     in_int_pathway <- input$in_int_pathway
     in_strata <- input$in_strata
     in_CIs <- "No" #input$in_CIs
-    # filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
-    filtered_cities <- in_cities
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    #filtered_cities <- in_cities
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
     in_per_100k <- input$in_per_100k
@@ -685,7 +698,6 @@ server <- function(input, output, session) {
         ld <- plyr::rbind.fill(ld, total_dose)
       }
     }else{
-      
       ld <- local_dataset |>
         filter(measures == in_measure) |>
         filter(!str_detect(cause, "lb|ub")) |>
