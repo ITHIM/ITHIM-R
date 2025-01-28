@@ -30,6 +30,11 @@ if (.Platform$OS.type == "windows"){
 repo_sha <-  as.character(readLines(file.path("repo_sha")))
 # repo_sha <- "f7292509"
 output_version <- paste0(repo_sha, "_test_run")
+
+# Assumes that multi_city_script.R has been run  
+# read in input file
+io <- readRDS("../results/multi_city/io_dcbf416b.rds")
+
 # github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
 github_path <- "../"
 
@@ -258,7 +263,7 @@ ui <- page_sidebar(
       inputId = "in_cities",
       label = "Select cities:",
       choices = create_tree(cities),
-      selected = cities$city,
+      selected = cities |> filter(city == "Santiago"),
       returnValue = "text",
       closeDepth = 0
     ),
@@ -317,6 +322,8 @@ ui <- page_sidebar(
     full_screen = TRUE,
     nav_panel("Health Outcomes", 
               plotlyOutput("in_pivot_int")),
+    nav_panel("Exposures", 
+              plotlyOutput("in_exp")),
     nav_panel("Injury Risks", 
               plotlyOutput("in_inj_pivot"))
   )
@@ -440,6 +447,83 @@ server <- function(input, output, session) {
       
     }
   })
+  
+  
+  get_city_df <- function(cities, obj){
+    
+    return (cities |>
+              purrr::map(function(city) {
+                io[[city]]$outcomes[[obj]] |>
+                  dplyr::mutate(city_name = city)
+              }) |> list_rbind())
+  }
+  
+  output$in_exp <- renderPlotly({
+    
+    req(input$in_scens)
+    req(input$in_cities)
+    req(input$in_level)
+    req(input$in_measure)
+    # req(input$in_CIs)
+    req(input$in_pathways)
+    req(!is.null(input$in_strata))
+    
+    in_col_lvl <- input$in_level
+    in_measure <- input$in_measure
+    in_CIs <- "No"# input$in_CIs
+    in_strata <- input$in_strata
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    filtered_cities <- tolower(filtered_cities)
+    filtered_pathways <- input$in_pathways
+    in_per_100k <- input$in_per_100k
+    
+    
+    # Desired arguments
+    qymax <- 0.9
+    qymin <- 0.1
+    qmiddle <- 0.5
+    qupper <- 0.8
+    qlower <- 0.2
+    
+    
+    # browser()
+    
+    pm_conc_pp <- get_city_df(filtered_cities, "pm_conc_pp") |> 
+      pivot_longer(cols = -c(participant_id, age, sex, age_cat, city_name)) |> 
+      group_by(city_name, name) |> 
+      summarise(lower = quantile(value, qlower),
+                upper = quantile(value, qupper), 
+                middle = quantile(value, qmiddle), 
+                IQR = diff(c(lower, upper)),
+                ymin = max(quantile(value, qymin), lower - 1.5 * IQR), 
+                ymax = min(quantile(value, qymax), upper + 1.5 * IQR),
+                outliers = list(value[which(value > upper + 1.5 * IQR | 
+                                              value < lower - 1.5 * IQR)]))
+    g <- ggplot(aes(x = city_name), data = pm_conc_pp) + 
+      geom_boxplot(aes(lower = lower, upper = upper,
+                       middle = middle, ymin = ymin, ymax = ymax ),
+                   stat="identity") + facet_wrap(vars(name)) + coord_flip()
+    
+    #browser()
+    #print(g)
+    #g
+    
+    plotly::ggplotly(g)
+    
+    
+    
+  }) 
+  
+  # |> bindCache(input$in_level,
+  #               input$in_measure,
+  #               input$in_per_100k,
+  #               input$in_strata,
+  #               # input$in_CIs,
+  #               input$in_cities,
+  #               input$in_scens,
+  #               input$in_pathways,
+  #               input$in_int_pathway)
+    
   
   output$in_pivot_int <- renderPlotly({
     
