@@ -218,9 +218,6 @@ list2env(global_parameter_list, environment()) # write input parameters to globa
 # update the format of some of the global parameters
 dist_cat <- unlist(strsplit(gsub(" ", "", dist_cat, fixed = TRUE), "\\,"))
 
-outcome_age_min <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_min, fixed = TRUE), "\\,")))
-outcome_age_max <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_max, fixed = TRUE), "\\,")))
-outcome_age_groups <- unlist(strsplit(gsub(" ", "", outcome_age_groups, fixed = TRUE), "\\,"))
 
 min_age <- as.numeric(min_age)
 max_age <- as.numeric(max_age)
