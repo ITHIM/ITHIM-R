@@ -27,7 +27,6 @@
 #' @param NSCEN number of scenarios (not incl. baseline)
 #' @param NSAMPLES number of model runs per city
 #' @param SCEN_SHORT_NAME names of the scenarios (incl. baseline)
-#' @param outcome_age_groups outcome age groups as defined as input parameters to the model 
 #' @param cities list of cities for which the model was run
 #' @param multi_city_ithim list containing the ithim model information including results for the various model runs
 #' @param output_version the output version of the model run
@@ -39,7 +38,7 @@
 #' @export
 
 
-extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_groups,cities,multi_city_ithim, output_version){
+extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_city_ithim, output_version){
   
   
   # initialise dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
@@ -49,10 +48,7 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
   voi_data_all_sex_df <- data.frame()
   
   age_pops <- list()
-  age_populations <- rep(0,length(outcome_age_groups))
-  
-  # create matrix of 0s with the number of cities as rows and the length of outcome age groups as columns
-  city_populations <- matrix(0,nrow=length(cities),ncol=length(outcome_age_groups))
+
   
   # create empty dataframe to save all the population numbers
   population_df <- data.frame()
@@ -273,7 +269,7 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,outcome_age_gr
                                            voi_data_complete3_100k_97.5perc,voi_data_complete3_100k_sd)
   
   # re-order columns
-  voi_data_complete3_100k_summary <- voi_data_complete3_summary %>% dplyr::select(city, age_cat, sex, age_sex, population, value_type,
+  voi_data_complete3_100k_summary <- voi_data_complete3_100k_summary %>% dplyr::select(city, age_cat, sex, age_sex, population, value_type,
                                                                                   sc_cycle_ylls_level1, sc_car_ylls_level1, sc_bus_ylls_level1,
                                                                                   sc_cycle_ylls_level2, sc_car_ylls_level2, sc_bus_ylls_level2,
                                                                                   sc_cycle_ylls_level3, sc_car_ylls_level3, sc_bus_ylls_level3, everything())

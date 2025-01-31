@@ -169,11 +169,28 @@ call_evppi <- function(parameter_samples, outcome_voi_list, voi_complete_df, cit
 
     
     evppi_df <- rbind(evppi_df, evppi_city3) # add to total evppi dataframe
+    
+    # remove city from parameter names
+    evppi_df$parameters <- unlist(strsplit(as.character(evppi_df$parameters),paste("_",city,sep="")))
+    
+    
   } # end of city loop
   
   
-  evppi_df <- evppi_df %>% relocate(city,parameters) # change order of columns
   
-  return(list(evppi_df, evppi_outcome_names))
+  
+  # merge with parameter classification
+  para_classification <- read.csv(paste0(global_path, "voi/parameter_explanations.csv"))
+  #para_classification <- read.csv("inst/extdata/global/voi/parameter_explanations.csv")
+  
+  evppi_df <- merge(x = para_classification, y = evppi_df, by = 'parameters', all.y = TRUE)
+  
+  evppi_df2 <- evppi_df %>% arrange(ordering) %>% dplyr::select(-c(ordering))
+  
+  evppi_df2 <- evppi_df2 %>% relocate(city,classification, parameters, parameters_lowerCase) # change order of columns
+  
+
+  
+  return(list(evppi_df2, evppi_outcome_names))
   
 }

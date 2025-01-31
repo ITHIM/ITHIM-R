@@ -39,7 +39,6 @@
 #'
 #' @return evppi_agesex_df dataframe containing all EVPPI outcomes for all age and sex categories and all cities
 #' @return age_gender_cat vector with all age and sex categories
-#' @return evppi_city_list_all list where each list entry is a dataframe containing all EvPPI outcomes for all age and sex categories for one city
 #' 
 #' @export
 
@@ -250,9 +249,9 @@ call_evppi_age_sex <- function(voi_complete_df,parameter_samples, outcome_voi_li
     
     # change structure of evppi_agesex_city_df to make it more flexible when different age categories are used for different cities
     # create one df for each city
-    assign(paste0("evppi_agesex_",city_name,'_df'), evppi_agesex_city_df) 
-
-    evppi_city_list_all[[ci]] <- get(paste0("evppi_agesex_",city_name,'_df'))
+    # assign(paste0("evppi_agesex_",city_name,'_df'), evppi_agesex_city_df) 
+    # 
+    # evppi_city_list_all[[ci]] <- get(paste0("evppi_agesex_",city_name,'_df'))
     
     evppi_agesex_city_df_rearranged <- data.frame()
     k <- 1
@@ -280,24 +279,30 @@ call_evppi_age_sex <- function(voi_complete_df,parameter_samples, outcome_voi_li
     
     ci <- ci + 1
     
+    # remove city from parameter names
+    evppi_agesex_df$parameters <- unlist(strsplit(as.character(evppi_agesex_df$parameters),paste("_",city,sep="")))
+    
+    
   } # end of city loop
   
   
-  # # merge with evppi_df data
-  # evppi_df$gender <- 'all'
-  # evppi_df$age <- 'all'
-  # evppi_df$age_gender <- 'all'
-  # evppi_agesex_df <- rbind(evppi_agesex_df,evppi_df)
-  # 
+  # merge with parameter classification
+  para_classification <- read.csv(paste0(global_path, "voi/parameter_explanations.csv"))
+  #para_classification <- read.csv("inst/extdata/global/voi/parameter_explanations.csv")
+  
+  evppi_agesex_df <- merge(x = para_classification, y = evppi_agesex_df, by = 'parameters', all.y = TRUE)
+  
+  evppi_agesex_df2 <- evppi_agesex_df %>% arrange(ordering) %>% dplyr::select(-c(ordering))
+  
   
   # change order of columns such that ordered by scenario and demographic group
-  evppi_agesex_df <- evppi_agesex_df %>% relocate(city,parameters, age, gender, age_gender)
+  evppi_agesex_df2 <- evppi_agesex_df2 %>% relocate(city,classification, parameters, parameters_lowerCase, age, gender, age_gender) # change order of columns
   
   # re-order rows
-  evppi_agesex_df <- evppi_agesex_df[order(evppi_agesex_df$city, evppi_agesex_df$age_gender),]
+  evppi_agesex_df2 <- evppi_agesex_df2[order(evppi_agesex_df2$city, evppi_agesex_df2$age_gender),]
   
   
   
-  return(list(evppi_agesex_df, age_gender_cat,evppi_city_list_all))
+  return(list(evppi_agesex_df2, age_gender_cat))
   
 }

@@ -121,6 +121,8 @@ ithim_load_data <- function(speeds =
     find.package("ithimr", lib.loc = .libPaths()),
     "extdata/global"
   ), "/")
+  
+  global_path <<- global_path
 
   ## Check if DRPA package is installed
   if (!require("drpa", character.only = TRUE)) {

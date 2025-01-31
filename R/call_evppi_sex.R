@@ -38,7 +38,6 @@
 #' @return a list containing the following elements:
 #' @return evppi_ex_df dataframe containing all EVPPI outcomes for all sex categories and all cities
 #' @return sex_cat vector with both sexes
-#' @return evppi_city_list_all_sex list where each list entry is a dataframe containing all EvPPI outcomes for all sex categories for one city
 #' 
 #' 
 #' @export
@@ -251,9 +250,9 @@ call_evppi_sex <- function(voi_complete_df, parameter_samples, outcome_voi_list,
     
     # change structure of evppi_sex_city_df to make it more flexible when different sex categories are used for different cities
     # create one df for each city
-    assign(paste0("evppi_sex_",city_name,'_df'), evppi_sex_city_df) 
-
-    evppi_city_list_all_sex[[ci]] <- get(paste0("evppi_sex_",city_name,'_df'))
+    # assign(paste0("evppi_sex_",city_name,'_df'), evppi_sex_city_df) 
+    # 
+    # evppi_city_list_all_sex[[ci]] <- get(paste0("evppi_sex_",city_name,'_df'))
     
     evppi_sex_city_df_rearranged <- data.frame()
     k <- 1
@@ -279,24 +278,28 @@ call_evppi_sex <- function(voi_complete_df, parameter_samples, outcome_voi_list,
     
     ci <- ci + 1
     
+    # remove city from parameter names
+    evppi_sex_df$parameters <- unlist(strsplit(as.character(evppi_sex_df$parameters),paste("_",city,sep="")))
+    
   } # end of city loop
   
   
-  # # merge with evppi_df data
-  # evppi_df$gender <- 'all'
-  # #evppi_df$age <- 'all'
-  # #evppi_df$age_gender <- 'all'
-  # evppi_sex_df <- rbind(evppi_sex_df,evppi_df)
-  # 
+  # merge with parameter classification
+  para_classification <- read.csv(paste0(global_path, "voi/parameter_explanations.csv"))
+  #para_classification <- read.csv("inst/extdata/global/voi/parameter_explanations.csv")
+  
+  evppi_sex_df <- merge(x = para_classification, y = evppi_sex_df, by = 'parameters', all.y = TRUE)
+  
+  evppi_sex_df2 <- evppi_sex_df %>% arrange(ordering) %>% dplyr::select(-c(ordering))
+  
   
   # change order of columns such that ordered by scenario and demographic group
-  evppi_sex_df <- evppi_sex_df %>% relocate(city,parameters, gender)
+  evppi_sex_df2 <- evppi_sex_df2 %>% relocate(city,classification, parameters, parameters_lowerCase,gender) # change order of columns
   
   # re-order rows
-  evppi_sex_df <- evppi_sex_df[order(evppi_sex_df$city, evppi_sex_df$gender),]
+  evppi_sex_df2 <- evppi_sex_df2[order(evppi_sex_df2$city,evppi_sex_df2$gender),]
   
   
-  
-  return(list(evppi_sex_df, sex_cat,evppi_city_list_all_sex))
+  return(list(evppi_sex_df2, sex_cat))
   
 }
