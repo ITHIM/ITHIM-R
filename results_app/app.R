@@ -30,8 +30,13 @@ if (.Platform$OS.type == "windows"){
 repo_sha <-  as.character(readLines(file.path("repo_sha")))
 # repo_sha <- "f7292509"
 output_version <- paste0(repo_sha, "_test_run")
-github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
-# github_path <- "../"
+
+# Assumes that multi_city_script.R has been run  
+# read in input file
+io <- readRDS("../results/multi_city/io_dcbf416b.rds")
+
+# github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
+github_path <- "../"
 
 
 # results_file
@@ -70,10 +75,10 @@ deaths <- ren_dose(deaths)
 ylls_pathway <- ren_dose(ylls_pathway)
 deaths_pathway <- ren_dose(deaths_pathway)
 
-ylls <- ren_sex(ylls)
-deaths <- ren_sex(deaths)
-ylls_pathway <- ren_sex(ylls_pathway)
-deaths_pathway <- ren_sex(deaths_pathway)
+# ylls <- ren_sex(ylls)
+# deaths <- ren_sex(deaths)
+# ylls_pathway <- ren_sex(ylls_pathway)
+# deaths_pathway <- ren_sex(deaths_pathway)
 
 overall_pop <- ylls |> distinct(sex, age_cat, .keep_all = T) |> summarise(sum(pop_age_sex)) |> pull()
 
@@ -116,7 +121,7 @@ ren_scen <- function(df){
       grepl("Public Transport|bus|Bus", scenario) ~ "BUS_SC",
       grepl("Motorcycling|motorcycle", scenario) ~ "MOT_SC",
       grepl("Car|car", scenario) ~ "CAR_SC"
-      )
+    )
     )
 }
 
@@ -129,7 +134,7 @@ injury_risks_per_100million_h_lng <- ren_scen(injury_risks_per_100million_h_lng)
 
 # https://colorbrewer2.org/#type=qualitative&scheme=Set1&n=5
 # ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00']
- 
+
 # Plot colours for each scenario
 scen_colours <- c("Baseline" = '#b15928',
                   "Cycling" = '#abdda4',
@@ -166,7 +171,7 @@ cities <- cities |> filter(city %in% unique(combined_health_dataset$city)) |> mu
 
 
 ren_scen_health <- function(df){
-  df[df$scenario == "Motorcycle" | df$scenario == "motorcycle"  | df$scenario == "Motorcycle",]$scenario <- "MOT_SC"
+  df[df$scenario == "Motorcycle" | df$scenario == "motorcycle"  | df$scenario == "Motorcycle" | df$scenario == "Motorcycling",]$scenario <- "MOT_SC"
   df[df$scenario == "Car" | df$scenario == "car" | df$scenario == "Car",]$scenario <- "CAR_SC"
   df[df$scenario == "Bus" | df$scenario == "bus" | df$scenario == "Public Transport",]$scenario <- "BUS_SC"
   df[df$scenario == "Cycling" | df$scenario == "cycle" | df$scenario == "Bicycling",]$scenario <- "CYC_SC"
@@ -212,14 +217,14 @@ per_100k <- c("Per 100k")
 
 scens <- c("Cycling" = "CYC_SC",
            "Car" = "CAR_SC",
-           "Bus" = "BUS_SC")#,
-           #"Motorcycle Scenario" = "MOT_SC")
+           "Bus" = "BUS_SC",
+           "Motorcycle" = "MOT_SC")
 
 inj_scens <- c("Baseline" = "Baseline",
                "Cycling" = "CYC_SC",
                "Car" = "CAR_SC",
-               "Bus" = "BUS_SC")#,
-               #"Motorcycle Scenario" = "MOT_SC")
+               "Bus" = "BUS_SC",
+               "Motorcycle" = "MOT_SC")
 
 dose <- ylls |> filter(!is.na(level1)) |> distinct(dose)  |> pull()
 dose_level2 <- ylls |> filter(!is.na(level2)) |> distinct(dose) |> pull()
@@ -252,6 +257,16 @@ ui <- page_sidebar(
                 selected = scens,
                 options = list(`actions-box` = TRUE), 
                 multiple = TRUE),
+    br(),
+    
+    treeInput(
+      inputId = "in_cities",
+      label = "Select cities:",
+      choices = create_tree(cities),
+      selected = cities |> filter(city == "Santiago"),
+      returnValue = "text",
+      closeDepth = 0
+    ),
     br(),
     conditionalPanel(
       condition = "input.main_tab == 'Health Outcomes'",
@@ -300,13 +315,18 @@ ui <- page_sidebar(
                    choices = inj_risk_types,
                    selected = inj_risk_types[1])
     ),
-      downloadButton("download_top_data", "Download data", icon = shiny::icon("file-download"))
+    downloadButton("download_top_data", "Download data", icon = shiny::icon("file-download"))
   ),
   navset_card_underline(
     id = "main_tab",
     full_screen = TRUE,
     nav_panel("Health Outcomes", 
               plotlyOutput("in_pivot_int")),
+    nav_panel("PA Exposures", 
+              plotlyOutput("in_pa_exp"),
+              DT::dataTableOutput("plotScenariosPATable")),
+    nav_panel("AP Exposures", 
+              plotlyOutput("in_ap_exp")),
     nav_panel("Injury Risks", 
               plotlyOutput("in_inj_pivot"))
   )
@@ -367,17 +387,17 @@ server <- function(input, output, session) {
   output$in_inj_pivot <- renderPlotly({
     
     req(input$in_scens)
-    # req(input$in_cities)
+    req(input$in_cities)
     req(input$in_inj_modes)
     
     filtered_scens <- input$in_scens
-    # filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_cities <- tolower(in_cities)
     filtered_modes <- input$in_inj_modes
     
     local_df <- get_inj_data()
     text_colour <- "black"
-      
+    
     ylab <- "Distance: risk per billion kilometers"
     if (input$in_risk_type == "Population by 100k people")
       ylab <- "Population: risk per 100K people"
@@ -398,12 +418,12 @@ server <- function(input, output, session) {
         aes(x = City, y = mean, fill = scenario) +
         geom_col(position = "dodge", alpha = global_alpha_val) +
         geom_text(aes(label = round(.data[["mean"]], 1)),
-                             size = 5,
-                             position = position_dodge(width = 0.9),
-                             #vjust = -0.5,
-                             fontface = "bold",
-                             hjust = 1,
-                             halight = 1) +
+                  size = 5,
+                  position = position_dodge(width = 0.9),
+                  #vjust = -0.5,
+                  fontface = "bold",
+                  hjust = 1,
+                  halight = 1) +
         scale_fill_hue(direction = 1) +
         coord_flip() +
         theme_minimal() +
@@ -431,10 +451,146 @@ server <- function(input, output, session) {
     }
   })
   
+  
+  get_city_df <- function(cities, obj){
+    
+    return (cities |>
+              purrr::map(function(city) {
+                io[[city]]$outcomes[[obj]] |>
+                  dplyr::mutate(city_name = city)
+              }) |> list_rbind())
+  }
+  
+  output$in_ap_exp <- renderPlotly({
+    
+    req(input$in_scens)
+    req(input$in_cities)
+    
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    filtered_cities <- tolower(filtered_cities)
+    filtered_scens <- input$in_scens
+    
+    
+    # Desired arguments
+    qymax <- 0.9
+    qymin <- 0.1
+    qmiddle <- 0.5
+    qupper <- 0.8
+    qlower <- 0.2
+    
+    
+    pm_conc_pp <- get_summary_data("pm_conc_pp", filtered_cities, filtered_scens)
+    
+    plotly::ggplotly(
+      ggplot(pm_conc_pp) +
+        aes(
+          x = name,
+          y = middle,
+          fill = name,
+          group = city_name,
+          ymin = ymin,
+          ymax = ymax
+        ) +
+        geom_bar(stat = "summary", fun = "sum") +
+        geom_errorbar(aes(ymin = ymin,ymax = ymax)) +
+        scale_fill_manual(values = scen_colours) +
+        coord_flip() +
+        theme_minimal() +
+        facet_wrap(vars(city_name))
+    )
+      
+    
+    #browser()
+    #print(g)
+    #g
+    
+    
+  })  |> bindCache(input$in_cities,
+                   input$in_scens)
+  
+  
+  output$in_pa_exp <- renderPlotly({
+    
+    req(input$in_scens)
+    req(input$in_cities)
+   
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    filtered_cities <- tolower(filtered_cities)
+    filtered_scens <- input$in_scens
+    
+    df <- get_summary_data("mmets", filtered_cities, filtered_scens)
+    
+    plotly::ggplotly(
+      ggplot(df) +
+        aes(
+          x = name,
+          y = middle,
+          fill = name,
+          group = city_name,
+          ymin = ymin,
+          ymax = ymax
+        ) +
+        geom_bar(stat = "summary", fun = "sum") +
+        geom_errorbar(aes(ymin = ymin,ymax = ymax)) +
+        scale_fill_manual(values = scen_colours) +
+        coord_flip() +
+        theme_minimal() +
+        facet_wrap(vars(city_name))
+    )
+    
+    
+    #browser()
+    #print(g)
+    #g
+    
+    
+  })  |> bindCache(input$in_cities,
+                input$in_scens)
+  
+  get_summary_data <- function(var_name, filtered_cities, filtered_scens){
+    
+    
+    # Desired arguments
+    qymax <- 0.9
+    qymin <- 0.1
+    qmiddle <- 0.5
+    qupper <- 0.8
+    qlower <- 0.2
+    
+    
+    return(get_city_df(filtered_cities, var_name) |> 
+             pivot_longer(cols = -c(participant_id, age, sex, age_cat, city_name)) |> 
+             group_by(city_name, name) |> 
+             mutate(name = case_when(
+               grepl("base", name) ~ "Baseline",
+               grepl("sc_bus", name) ~ "BUS_SC",
+               grepl("sc_cycle", name) ~ "CYC_SC",
+               grepl("sc_motorcycle", name) ~ "MOT_SC",
+               grepl("sc_car", name) ~ "CAR_SC"
+             )) |> 
+             filter(name %in% filtered_scens) |> 
+             mutate(name = case_when(
+               name == "CYC_SC" ~ "Cycling",
+               name == "CAR_SC" ~ "Car",
+               name == "BUS_SC" ~ "Bus",
+               name == "MOT_SC" ~ "Motorcycle",
+               name == "Baseline" ~ "Baseline")) |> 
+             summarise(lower = quantile(value, qlower),
+                       upper = quantile(value, qupper), 
+                       middle = quantile(value, qmiddle), 
+                       IQR = diff(c(lower, upper)),
+                       ymin = max(quantile(value, qymin), lower - 1.5 * IQR), 
+                       ymax = min(quantile(value, qymax), upper + 1.5 * IQR),
+                       outliers = list(value[which(value > upper + 1.5 * IQR | 
+                                                     value < lower - 1.5 * IQR)])))
+    
+  }
+  
+  
   output$in_pivot_int <- renderPlotly({
     
     req(input$in_scens)
-    # req(input$in_cities)
+    req(input$in_cities)
     req(input$in_level)
     req(input$in_measure)
     # req(input$in_CIs)
@@ -446,7 +602,7 @@ server <- function(input, output, session) {
     in_CIs <- "No"# input$in_CIs
     in_strata <- input$in_strata
     filtered_cities <- cities |> filter(city %in% tolower(input$in_cities)) |> dplyr::select(city) |> pull()
-    filtered_cities <- in_cities
+    #filtered_cities <- in_cities
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
     in_per_100k <- input$in_per_100k
@@ -485,78 +641,81 @@ server <- function(input, output, session) {
     if (!is.null(in_col_lvl)){
       
       text_colour <- "black"
-        
-        if (in_measure == "Deaths"){
-          y_lab <- "Averted deaths per 100k people"
-          if (!in_per_100k)
-            y_lab <- "Averted deaths"
-        }else{
-          y_lab <- "Saved Years of Life Lost (YLLs) per 100k people"#<---- harms      #      benefits ---->  
-          if (!in_per_100k)
-            y_lab <- "Saved Years of Life Lost (YLLs)"
-        }
       
-        if (in_strata == "Sex") y_lab <- paste(y_lab, "(stratified by sex)")
-        else if (in_strata == "Age Group") y_lab <- paste(y_lab, " (stratified by age groups)")
+      if (in_measure == "Deaths"){
+        y_lab <- "Averted deaths per 100k people"
+        if (!in_per_100k)
+          y_lab <- "Averted deaths"
+      }else{
+        y_lab <- "Saved Years of Life Lost (YLLs) per 100k people"#<---- harms      #      benefits ---->  
+        if (!in_per_100k)
+          y_lab <- "Saved Years of Life Lost (YLLs)"
+      }
+      
+      if (in_strata == "Sex") y_lab <- paste(y_lab, "(stratified by sex)")
+      else if (in_strata == "Age Group") y_lab <- paste(y_lab, " (stratified by age groups)")
+      
+      ld <- get_health_data()
+      
+      write_csv(ld, "ldac.csv")
+      
+      if(nrow(ld) < 1)
+        plotly::ggplotly(ggplot(data.frame()))
+      else{
         
-        ld <- get_health_data()
         
-        if(nrow(ld) < 1)
-          plotly::ggplotly(ggplot(data.frame()))
-        else{
-          
-          
-          
-          var.choice <- ifelse(in_per_100k, "metric_100k", "metric")
-          gg <- ggplot(data = ld, aes(x = .data[[var.choice]], y = dose, fill = scenario)) +
-            {if(in_CIs == "No") geom_col(position=position_dodge2(), alpha = global_alpha_val)} +
-            {if(in_CIs == "No") geom_text(aes(label = round(.data[[var.choice]], 1)), 
-                                          size = 3, 
-                                          position = position_dodge(width = 0.9), 
-                                          vjust = -0.5)} +
-            {if(in_CIs == "Yes") geom_boxplot(data = ld, aes(y = .data[[var.choice]], x = dose, fill = scenario), 
-                     width = 0.5, position=position_dodge2(), alpha = global_alpha_val)} +
-            {if(in_strata == "Sex") facet_wrap(~sex) else if(in_strata == "Age Group") facet_wrap(~age_cat)} +
-            {if(in_CIs == "Yes") coord_flip()} +
-            scale_fill_hue(direction = 1) +
-            theme_minimal() +
-            scale_fill_manual(values = scen_colours) +
-            labs(title = y_lab,
-                 y = ifelse(in_CIs == "Yes", y_lab, ""),
-                 x = ifelse(in_CIs == "No", y_lab, ""),
-                 fill='Scenario')
-          
-          fname <- do.call(paste, c(as.list(filtered_pathways), 
-                                          as.list(filtered_scens),
-                                          as.list(in_col_lvl),
-                                          "strata", as.list(in_strata),
-                                          as.list(in_measure),
-                                          "path_inter", as.list(input$in_int_pathway),
-                                          "per_100k", as.list(input$in_per_100k),
-                                          sep = "-"))
-          
-          # ggsave(fname,units="in", width=5, height=4, dpi=300)
-          # 
-          if (SAVE_FIGURES)
-            ggsave(paste0("figures/", fname, ifelse(SVG, ".svg", ".png")), plot = gg, width=10, height=8)
-          
-          
-          plotly::ggplotly(gg) |> 
-            # plotly::layout(legend = list(orientation = "h", 
-            #                              xanchor = "center",  
-            #                              x = 0.5,
-            #                              font = t2)) |> 
-            plotly::config(
-              toImageButtonOptions = list(
-                format = "svg",
-                filename = fname,
-                width = NULL,
-                height = NULL
-              )) |> layout(
-                margin = list(b = 50, l = 50) # to fully display the x and y axis labels
-              )
-          
-        }
+        
+        var.choice <- ifelse(in_per_100k, "metric_100k", "metric")
+        gg <- ggplot(data = ld, aes(x = .data[[var.choice]], y = dose, fill = scenario, group = city)) +
+          {if(in_CIs == "No") geom_col(position=position_dodge2(), alpha = global_alpha_val)} +
+          #{if(in_CIs == "No") geom_text(aes(label = city), size = 3, position = position_dodge(width = 0.9))} + 
+          # {if(in_CIs == "No") geom_text(aes(label = round(.data[[var.choice]], 1)),
+          #                               size = 3,
+          #                               position = position_dodge(width = 0.9),
+          #                               vjust = -0.5)} +
+          {if(in_CIs == "Yes") geom_boxplot(data = ld, aes(y = .data[[var.choice]], x = dose, fill = scenario), 
+                                            width = 0.5, position=position_dodge2(), alpha = global_alpha_val)} +
+          {if(in_strata == "Sex") facet_wrap(~sex) else if(in_strata == "Age Group") facet_wrap(~age_cat)} +
+          {if(in_CIs == "Yes") coord_flip()} +
+          scale_fill_hue(direction = 1) +
+          theme_minimal() +
+          scale_fill_manual(values = scen_colours) +
+          labs(title = y_lab,
+               y = ifelse(in_CIs == "Yes", y_lab, ""),
+               x = ifelse(in_CIs == "No", y_lab, ""),
+               fill='Scenario')
+        
+        fname <- do.call(paste, c(as.list(filtered_pathways), 
+                                  as.list(filtered_scens),
+                                  as.list(in_col_lvl),
+                                  "strata", as.list(in_strata),
+                                  as.list(in_measure),
+                                  "path_inter", as.list(input$in_int_pathway),
+                                  "per_100k", as.list(input$in_per_100k),
+                                  sep = "-"))
+        
+        # ggsave(fname,units="in", width=5, height=4, dpi=300)
+        # 
+        if (SAVE_FIGURES)
+          ggsave(paste0("figures/", fname, ifelse(SVG, ".svg", ".png")), plot = gg, width=10, height=8)
+        
+        
+        plotly::ggplotly(gg) |> 
+          # plotly::layout(legend = list(orientation = "h", 
+          #                              xanchor = "center",  
+          #                              x = 0.5,
+          #                              font = t2)) |> 
+          plotly::config(
+            toImageButtonOptions = list(
+              format = "svg",
+              filename = fname,
+              width = NULL,
+              height = NULL
+            )) |> layout(
+              margin = list(b = 50, l = 50) # to fully display the x and y axis labels
+            )
+        
+      }
     }else{
       plotly::ggplotly(ggplot(data.frame()))
     }
@@ -565,7 +724,7 @@ server <- function(input, output, session) {
                   input$in_per_100k,
                   input$in_strata,
                   # input$in_CIs,
-                  # input$in_cities,
+                  input$in_cities,
                   input$in_scens,
                   input$in_pathways,
                   input$in_int_pathway)
@@ -574,8 +733,8 @@ server <- function(input, output, session) {
   get_inj_data <- reactive({
     
     filtered_scens <- input$in_scens
-    # filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
-    filtered_cities <- in_cities
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    #filtered_cities <- in_cities
     filtered_modes <- input$in_inj_modes
     
     local_df <- injury_risks_per_billion_kms_lng
@@ -619,8 +778,8 @@ server <- function(input, output, session) {
     in_int_pathway <- input$in_int_pathway
     in_strata <- input$in_strata
     in_CIs <- "No" #input$in_CIs
-    # filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
-    filtered_cities <- in_cities
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    #filtered_cities <- in_cities
     filtered_scens <- input$in_scens
     filtered_pathways <- input$in_pathways
     in_per_100k <- input$in_per_100k
@@ -685,7 +844,6 @@ server <- function(input, output, session) {
         ld <- plyr::rbind.fill(ld, total_dose)
       }
     }else{
-      
       ld <- local_dataset |>
         filter(measures == in_measure) |>
         filter(!str_detect(cause, "lb|ub")) |>
@@ -737,7 +895,7 @@ server <- function(input, output, session) {
     filename = function() {
       
       fname <- ""
-        
+      
       if(input$main_tab == "Health Outcomes"){
         measure <- 'YLLs'
         if (input$in_measure == "Deaths")
@@ -788,6 +946,32 @@ server <- function(input, output, session) {
   output$plot_health <- renderUI({
     plotly::plotlyOutput("in_pivot_int")
   })
+  
+
+  output$plotScenariosPATable <- DT::renderDataTable({
+    
+   
+    
+  }
+  ,server=F
+  ,rownames = T
+  ,options = list(
+    scrollX = T,
+    dom = 't',
+    bSort = F,          # enable/disable the sorting feature for all columns
+    bInfo = F,          # enable/disable the 'Showing 1 to 10 of 10 entries'
+    bLengthChange = T,
+    pageLength = 7,
+    bFilter = T,        # enable/disable the up-right filter
+    bSort = F,          # enable/disable the sorting feature for all columns
+    bInfo = F          # enable/disable the 'Showing 1 to 10 of 10 entries'
+  )
+  
+  )
+  
+  
+  
+  
   
 }
 
