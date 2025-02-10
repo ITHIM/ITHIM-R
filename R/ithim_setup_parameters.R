@@ -177,6 +177,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   PM_CONC_BASE <<- PM_CONC_BASE
   PM_TRANS_SHARE <<- PM_TRANS_SHARE
   PA_DOSE_RESPONSE_QUANTILE <<- PA_DOSE_RESPONSE_QUANTILE
+  AP_DOSE_RESPONSE_QUANTILE <<- AP_DOSE_RESPONSE_QUANTILE
   BACKGROUND_PA_SCALAR <<- BACKGROUND_PA_SCALAR
   BACKGROUND_PA_CONFIDENCE <<- BACKGROUND_PA_CONFIDENCE
   INJURY_REPORTING_RATE <<- INJURY_REPORTING_RATE
@@ -501,8 +502,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
 
   }
 
-  
-  
+  # define one quantile for each model run and apply to all diseases
+  quantile <- runif(NSAMPLES, 0, 1)
 
   # PA DOSE RESPONSE
   # if PA_DOSE_RESPONSE_QUANTILE == T, find all diseases that are related to
@@ -511,8 +512,8 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
   if (PA_DOSE_RESPONSE_QUANTILE == T) {
     pa_diseases <- subset(DISEASE_INVENTORY, physical_activity == 1)
     dr_pa_list <- list()
-    for (disease in pa_diseases$pa_acronym) {
-      parameters[[paste0("PA_DOSE_RESPONSE_QUANTILE_", disease)]] <- runif(NSAMPLES, 0, 1)
+    for (disease in pa_diseases$pa_acronym) { # assign same quantile to all diseases
+      parameters[[paste0("PA_DOSE_RESPONSE_QUANTILE_", disease)]] <- quantile
     }
   }
 
@@ -525,7 +526,7 @@ ithim_setup_parameters <- function(NSAMPLES = 1,
     ap_diseases <- subset(DISEASE_INVENTORY, air_pollution == 1)
     dr_ap_list <- list()
     for (disease in ap_diseases$ap_acronym) {
-      parameters[[paste0("AP_DOSE_RESPONSE_QUANTILE_", disease)]] <- runif(NSAMPLES, 0, 1)
+      parameters[[paste0("AP_DOSE_RESPONSE_QUANTILE_", disease)]] <- quantile
     }
   }
 
