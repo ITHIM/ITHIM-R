@@ -33,7 +33,7 @@ output_version <- paste0(repo_sha, "_test_run")
 
 # Assumes that multi_city_script.R has been run  
 # read in input file
-io <- readRDS("../results/multi_city/io_dcbf416b.rds")
+io <- readRDS(paste0("../results/multi_city/io_3b3a1723_test_run.rds"))
 
 # github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
 github_path <- "../"
@@ -327,6 +327,9 @@ ui <- page_sidebar(
               DT::dataTableOutput("plotScenariosPATable")),
     nav_panel("AP Exposures", 
               plotlyOutput("in_ap_exp")),
+    nav_panel("Trip behaviour",
+              gt_output("trip_table")
+    ),
     nav_panel("Injury Risks", 
               plotlyOutput("in_inj_pivot"))
   )
@@ -391,8 +394,8 @@ server <- function(input, output, session) {
     req(input$in_inj_modes)
     
     filtered_scens <- input$in_scens
-    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
-    filtered_cities <- tolower(in_cities)
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull() |> tolower()
+    #filtered_cities <- tolower(in_cities)
     filtered_modes <- input$in_inj_modes
     
     local_df <- get_inj_data()
@@ -452,7 +455,7 @@ server <- function(input, output, session) {
   })
   
   
-  get_city_df <- function(cities, obj){
+  get_city_outcoems_df <- function(cities, obj){
     
     return (cities |>
               purrr::map(function(city) {
@@ -558,7 +561,7 @@ server <- function(input, output, session) {
     qlower <- 0.2
     
     
-    return(get_city_df(filtered_cities, var_name) |> 
+    return(get_city_outcoems_df(filtered_cities, var_name) |> 
              pivot_longer(cols = -c(participant_id, age, sex, age_cat, city_name)) |> 
              group_by(city_name, name) |> 
              mutate(name = case_when(
@@ -970,9 +973,51 @@ server <- function(input, output, session) {
   )
   
   
+  get_trip_tbl <- reactive({
+    
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull() |> tolower()
+    
+    
+    return(
+      get_city_df(filtered_cities, "dist") |>  
+        gt(rowname_col = "row", groupname_col = "city_name") |> 
+        data_color(columns = 2:6, method = "numeric", palette = "viridis") 
+      # gt_tbl <-
+      #   gtcars |>
+      #   gt() |>
+      #   fmt_currency(columns = msrp, decimals = 0) |>
+      #   cols_hide(columns = -c(mfr, model, year, mpg_c, msrp)) |>
+      #   cols_label_with(columns = everything(), fn = toupper) |>
+      #   data_color(columns = msrp, method = "numeric", palette = "viridis") |>
+      #   sub_missing() |>
+      #   opt_interactive(use_compact_mode = TRUE)
+    )
+    
+    
+  })
+  
+  get_city_df <- function(cities, obj){
+    
+    return (cities |>
+              purrr::map(function(city) {
+                io[[city]][[obj]] |>
+                  dplyr::mutate(city_name = city) |> 
+                  mutate_if(is.numeric, list(~round((.) / nrow(io[[city]]$base_pop), 2)))
+              }) |> list_rbind())
+  }
   
   
   
+  output$trip_table <- 
+    render_gt( 
+      { 
+        get_trip_tbl() |> tab_header(title = "test")
+      } 
+    )  
+  
+  
+  
+
 }
 
 # Run the application 
