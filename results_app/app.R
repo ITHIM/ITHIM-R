@@ -1004,10 +1004,6 @@ server <- function(input, output, session) {
     }
     
     
-    
-    
-    
-    
     c("Scenario", "Trip", "Distance")
     
     
@@ -1044,18 +1040,21 @@ server <- function(input, output, session) {
                                                              distinct(trip_id, scenario, .keep_all = T) |> nrow()) * 100, 1)) |> 
                     mutate(pd = freq - freq[scenario == 'baseline']) |> 
                     filter(pd != 0) |> 
-                    dplyr::mutate(city_name = city)
+                    dplyr::mutate(city_name = city) |> 
+                    dplyr::select(-freq) |> 
+                    rename(value = pd) |> 
+                    pivot_wider(names_from = scenario)
                 }else if (obj == "trip"){
                   
-                  # find the proportion of trips made by each mode in each scenario
-                  td <- io[[city]]$trip_scen_sets %>% distinct(trip_id, scenario, .keep_all = T) %>% 
+                  io[[city]]$trip_scen_sets %>% distinct(trip_id, scenario, .keep_all = T) %>% 
                     filter(!trip_mode %in% c("bus_driver", "taxi", "rail", "auto_rickshaw", "truck", "other", "car_driver")) |> 
                     group_by(trip_mode, scenario) %>% 
                     summarise(p = round(dplyr::n() / (io[[city]]$trip_scen_sets %>% dplyr::filter(scenario == "baseline") %>% 
                                                         summarise(uid = n_distinct(trip_id)) %>% as.numeric()) * 100, 1)) %>% 
                     spread(key = trip_mode, value = p) %>% 
                     mutate(row_sums = rowSums(.[sapply(., is.numeric)], na.rm = TRUE)) |> 
-                    dplyr::mutate(city_name = city)
+                    dplyr::mutate(city_name = city) |> 
+                    dplyr::select(-row_sums)
                 }
               }) |> list_rbind())
   }
