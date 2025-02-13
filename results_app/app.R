@@ -302,6 +302,14 @@ ui <- page_sidebar(
       #              selected = "No")
       
     ),
+    
+    conditionalPanel(
+      condition = "input.main_tab == 'Trip behaviour'",
+      radioButtons(inputId = "in_trip_measure", 
+                   label = "Trip measure",
+                   inline = TRUE,
+                   choices = c("Scenario", "Trip", "Distance"))
+    ),
     conditionalPanel(
       condition = "input.main_tab == 'Injury Risks'",
       pickerInput(inputId = "in_inj_modes", 
@@ -974,14 +982,35 @@ server <- function(input, output, session) {
   
   
   get_trip_tbl <- reactive({
+    req(input$in_cities)
+    req(input$in_trip_measure)
     
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull() |> tolower()
+    tm <- input$in_trip_measure  
+  
+    df <- NULL
     
-    
-    return(
-      get_city_df(filtered_cities, "dist") |>  
+    if (tm == "Distance"){
+      df <- get_city_df(filtered_cities, "dist") |>  
         gt(rowname_col = "row", groupname_col = "city_name") |> 
         data_color(columns = 2:6, method = "numeric", palette = "viridis") 
+    }else if (tm == "Scenario"){
+      df <- get_city_df(filtered_cities, "scen") |> 
+        gt(rowname_col = "row", groupname_col = "city_name")
+      
+    }else if (tm == "Trip"){
+      df <- get_city_df(filtered_cities, "trip") |> 
+        gt(rowname_col = "row", groupname_col = "city_name")
+    }
+    
+    
+    
+    
+    
+    
+    c("Scenario", "Trip", "Distance")
+    
+    
       # gt_tbl <-
       #   gtcars |>
       #   gt() |>
@@ -991,7 +1020,8 @@ server <- function(input, output, session) {
       #   data_color(columns = msrp, method = "numeric", palette = "viridis") |>
       #   sub_missing() |>
       #   opt_interactive(use_compact_mode = TRUE)
-    )
+    
+    return(df)
     
     
   })
@@ -1000,9 +1030,33 @@ server <- function(input, output, session) {
     
     return (cities |>
               purrr::map(function(city) {
+                
+                if (obj == "dist"){
                 io[[city]][[obj]] |>
                   dplyr::mutate(city_name = city) |> 
                   mutate_if(is.numeric, list(~round((.) / nrow(io[[city]]$base_pop), 2)))
+                }else if (obj == "scen"){
+                  io[[city]]$trip_scen_sets |> 
+                    filter(participant_id !=0) |> 
+                    distinct(trip_id, scenario, .keep_all = T) |> 
+                    group_by(scenario, trip_mode) |> 
+                    reframe(freq = round(sum(dplyr::n())/ (io[[city]]$trip_scen_sets |> filter(scenario == "baseline") |> 
+                                                             distinct(trip_id, scenario, .keep_all = T) |> nrow()) * 100, 1)) |> 
+                    mutate(pd = freq - freq[scenario == 'baseline']) |> 
+                    filter(pd != 0) |> 
+                    dplyr::mutate(city_name = city)
+                }else if (obj == "trip"){
+                  
+                  # find the proportion of trips made by each mode in each scenario
+                  td <- io[[city]]$trip_scen_sets %>% distinct(trip_id, scenario, .keep_all = T) %>% 
+                    filter(!trip_mode %in% c("bus_driver", "taxi", "rail", "auto_rickshaw", "truck", "other", "car_driver")) |> 
+                    group_by(trip_mode, scenario) %>% 
+                    summarise(p = round(dplyr::n() / (io[[city]]$trip_scen_sets %>% dplyr::filter(scenario == "baseline") %>% 
+                                                        summarise(uid = n_distinct(trip_id)) %>% as.numeric()) * 100, 1)) %>% 
+                    spread(key = trip_mode, value = p) %>% 
+                    mutate(row_sums = rowSums(.[sapply(., is.numeric)], na.rm = TRUE)) |> 
+                    dplyr::mutate(city_name = city)
+                }
               }) |> list_rbind())
   }
   
@@ -1023,3 +1077,29 @@ server <- function(input, output, session) {
 # Run the application 
 shinyApp(ui = ui, server = server)
 # run_with_themer(shinyApp(ui = ui, server = server))
+
+
+
+
+  # # Aggregate data by city, scenario, and dose
+  # df_summary <- df %>%
+  #   group_by(city, scenario, dose) %>%
+  #   summarise(mean_metric = mean(metric, na.rm = TRUE), .groups = "drop")
+  # 
+  # # Create the plot with flipped coordinates and separator lines after each city
+  # ggplot(df_summary, aes(x = reorder(city, -mean_metric), y = mean_metric, fill = scenario)) +
+  #   geom_bar(stat = "identity", position = "dodge", color = "black") +  # Add border to bars
+  #   facet_wrap(~ dose, scales = "free_x") +
+  #   labs(title = "Metric by City, Scenario, and Dose",
+  #        x = "City",
+  #        y = "Mean Metric",
+  #        fill = "Scenario") +
+  #   theme_minimal() +
+  #   theme(axis.text.x = element_text(angle = 45, hjust = 1),
+  #         panel.grid.major = element_blank(),  # Remove major grid lines
+  #         panel.grid.minor = element_blank(),  # Remove minor grid lines
+  #         panel.border = element_blank()) +  # Remove outer border
+  #   coord_flip() +
+  #   geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
+  #   geom_vline(xintercept = seq(1.5, length(unique(df_summary$city)) + 0.5, by = 1), 
+  #              linetype = "solid", color = "gray")
