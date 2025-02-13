@@ -996,15 +996,17 @@ server <- function(input, output, session) {
         data_color(columns = 2:6, method = "numeric", palette = "viridis") 
     }else if (tm == "Scenario"){
       df <- get_city_df(filtered_cities, "scen") |> 
-        gt(rowname_col = "row", groupname_col = "city_name")
+        gt(rowname_col = "row", groupname_col = "city_name")|> 
+        data_color(columns = 2:6, method = "numeric", palette = "viridis") 
       
     }else if (tm == "Trip"){
       df <- get_city_df(filtered_cities, "trip") |> 
-        gt(rowname_col = "row", groupname_col = "city_name")
+        gt(rowname_col = "row", groupname_col = "city_name")|> 
+        data_color(columns = 2:6, method = "numeric", palette = "viridis") 
     }
     
     
-    c("Scenario", "Trip", "Distance")
+    #c("Scenario", "Trip", "Distance")
     
     
       # gt_tbl <-
@@ -1064,7 +1066,7 @@ server <- function(input, output, session) {
   output$trip_table <- 
     render_gt( 
       { 
-        get_trip_tbl() |> tab_header(title = "test")
+        get_trip_tbl() |> tab_header(title = paste("Measure: ", input$in_trip_measure))
       } 
     )  
   
