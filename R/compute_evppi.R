@@ -11,7 +11,7 @@
 #'\item loop through the various outcomes :
 #'  \itemize{
 #'    \item calculate the EVPPI value for each outcome using the evppivar() function from https://github.com/chjackson/voi
-#'    \item calculate the percentage of variance in the outcome we could reduce were we to know the 
+#'    \item calculate the percentage of standard deviation in the outcome we could reduce were we to know the 
 #'          input parameter / parameters perfectly.
 #'    } 
 #' }  
@@ -24,7 +24,7 @@
 #' @param nsamples number of samples
 #' @param individual_para whether each parameter is to be considered individually or not
 #
-#' @return list of of EVPPI values for specific city
+#' @return list of of EVPPI standard variation values for specific city
 #' 
 #' @export
 
@@ -67,11 +67,11 @@ compute_evppi <- function(p, global_para,city_para,city_outcomes, nsamples, indi
         evppi_jj <- evppivar(y,sourcesj, par= c(colnames(sourcesj)), method="earth")
       }
       
-      # compute evppi as percentage, i.e. percentage of variance we can reduce if we knew a certain input parameter
-      voi[o] <- evppi_jj$evppi / vary * 100
+      # compute evppi as percentage, i.e. percentage of the standard variation we can reduce if we knew a certain input parameter
+      voi[o] <- sqrt(evppi_jj$evppi / vary * 100)
     } else { # calculate EVPPI directly if sample size too small to use C Jackson's VoI package
       model <- earth(y ~ sourcesj, degree=4)
-      voi[o] <- (vary - mean((y - model$fitted) ^ 2)) / vary * 100 # compute evppi as percentage
+      voi[o] <- sqrt((vary - mean((y - model$fitted) ^ 2)) / vary * 100 ) # compute evppi as percentage of standard deviation
     }
     
   }  

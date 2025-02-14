@@ -72,7 +72,8 @@ call_evppi <- function(parameter_samples, outcome_voi_list, voi_complete_df, cit
     
 
     # extract the required outcomes for each city
-    city_out <- voi_complete_df %>% filter(city == city & age_sex == 'all all') %>% dplyr::select(!c(age_cat, age_sex, city,sex, population, run))
+    cityname <- city
+    city_out <- voi_complete_df %>% filter(city == cityname & age_sex == 'all all') %>% dplyr::select(!c(age_cat, age_sex, city,sex, population, run))
     
     # extract outcomes required as set up in outcome_voi_list
     city_outputs <- sapply(colnames(city_out),function(x)grepl(paste(outcome_voi_list, collapse = "|"),x))
@@ -189,7 +190,9 @@ call_evppi <- function(parameter_samples, outcome_voi_list, voi_complete_df, cit
   
   evppi_df2 <- evppi_df2 %>% relocate(city,classification, parameters, parameters_lowerCase) # change order of columns
   
-
+  # re-order rows
+  evppi_df2 <- evppi_df2[order(evppi_df2$city),]
+  
   
   return(list(evppi_df2, evppi_outcome_names))
   
