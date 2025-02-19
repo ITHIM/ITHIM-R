@@ -67,9 +67,10 @@ ithim_uncertainty <- function(ithim_object, seed = 1) {
   # return(run_results)
   # for now return only hb from uncertain simulations; otherwise the file is too big
   if (compute_mode == 'constant'){
-    return(list(hb = run_results$hb, inj = run_results$ref_injuries))
+    return(list(hb = run_results$hb, inj = run_results$ref_injuries, pathway_hb = run_results$pathway_hb))
   } else {
-    return(list(hb = run_results$hb, inj = run_results$ref_injuries, SCEN = SCEN_SHORT_NAME))
+    return(list(hb = run_results$hb, inj = run_results$ref_injuries, pathway_hb = run_results$pathway_hb,
+                DR_pif = run_results$DR_pif, SCEN = SCEN_SHORT_NAME))
   }
   
     

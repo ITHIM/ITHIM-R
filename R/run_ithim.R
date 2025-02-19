@@ -175,15 +175,22 @@ ithim_calculation_sequence <- function(ithim_object, seed = 1) {
   # calculate the health burden (Yll and deaths) for each disease and age and sex category
   # by combining the AP and PA pathways for diseases affected by both AP and PA
   hb_AP_PA <- health_burden(ind_ap_pa = RR_PA_AP_calculations, conf_int = ifelse(constant_mode, TRUE, FALSE))
+  
+  # extract PIF values for VoI analysis
+  if (compute_mode == 'sample'){
+    hb_AP_PA_pif <- hb_AP_PA[3]
+  }
+  
+  hb_AP_PA<- hb_AP_PA[1:2]
 
-  # if running in constant mode calculate the health burden (Yll and deaths) for each disease and age and sex category
+  # if running in constant and sampling mode calculate the health burden (Yll and deaths) for each disease and age and sex category
   # for each pathway (AP and PA) independently
-  if (constant_mode) {
+  #if (constant_mode) {
     pathway_hb_AP_PA <- health_burden(RR_PA_AP_calculations,
       conf_int =
         ifelse(constant_mode, TRUE, FALSE), combined_AP_PA = FALSE
     )
-  }
+  #}
   RR_PA_AP_calculations <- NULL
 
   ############################
@@ -236,6 +243,9 @@ ithim_calculation_sequence <- function(ithim_object, seed = 1) {
       ref_injuries = ref_injuries, hb = hb, pathway_hb = pathway_hb, whw = whw
     ))
   } else {
-    return(list(hb = hb, ref_injuries = ref_injuries))
+    pathway_hb <- join_hb_and_injury(pathway_hb_AP_PA, deaths_yll_injuries$deaths_yll_injuries)
+    return(list(hb = hb, pathway_hb = pathway_hb, ref_injuries = ref_injuries, DR_pif = hb_AP_PA_pif))
   }
+  
+  
 }

@@ -6,34 +6,35 @@
 #' The function performs the following steps:
 #' 
 #'\itemize{
-#'\item create a vector containing the global parameters but not including the emission inventory 
-#'      parameters as they are not independent of each other
-#'
+#'\item create a vector containing the global parameters but not including the dose response quantiles as they are treated separately
 #'\item loop through the cities:
 #'  \itemize{
+#'	  \item extract the PIF values for each dose response function and outcome, calculate the PIF for the 
+#'          different levels and by sex
 #'    \item extract the city specific parameters (excluding the CO2 and PM emission inventory parameters)
 #'    \item loop through the two sexes:
 #'      \itemize{   
 #'        \item extract the outcomes of interest for each scenario using the outcome_voi_list
-#'        \item if voi_add_sum == TRUE, calculate the total YLLs by summing across all 
-#'          diseases in the outcome_voi_list - this only makes sense if the diseases
-#'          in the outcome_voi_list are independent of each other
 #'        \item call the \code{\link{compute_evppi()}} function to calculate the expected values of partially perfect information (EVPPI)
 #'          for all parameters and diseases of interest
 #'        }
 #'    \item if NSAMPLES >= 1000 then also calculate the EVPPI values for the emission inventory parameters by looping through both sexes
 #'    } 
+#' \item tidy up results data and add parameter classification
 #' }  
 #' 
 #' 
-#' @param voi_complete_df dataframe containing all outcomes 
 #' @param parameter_samples table containing all the input parameter variables for the different model runs for all cities
 #' @param outcome_voi_list vector detailing the outcomes to be considered in the VoI analysis
+#' @param voi_complete_df total yll outcome for all outcome age categories per city and scenario and disease combination, also combined city result (sum)
 #' @param cities vector of cities
-#' @param voi_add_sum if the sum of YLLs across all disease outcomes is to be considered
 #' @param NSCEN number of scenarios (not incl. baseline)
 #' @param NSAMPLES number of times the model was run for each city
 #' @param scenario_names gives the names of the scenarios (incl baseline)
+#' @param output_version output version number
+#' @param level1 list of outcomes included in level 1
+#' @param level2 list of outcomes included in level 2
+#' @param level3 list of outcomes included in level 3
 #' 
 #' @return a list containing the following elements:
 #' @return evppi_ex_df dataframe containing all EVPPI outcomes for all sex categories and all cities
@@ -43,8 +44,8 @@
 #' @export
 
 
-call_evppi_sex <- function(voi_complete_df, parameter_samples, outcome_voi_list, cities, voi_add_sum, NSCEN, NSAMPLES,
-                       scenario_names){
+call_evppi_sex <- function(parameter_samples, outcome_voi_list, voi_complete_df, cities, NSCEN, NSAMPLES,
+                       SCEN_SHORT_NAME, scenario_names, output_version, level1, level2, level3){
   
   evppi_sex_df <- data.frame()
   
@@ -53,6 +54,11 @@ call_evppi_sex <- function(voi_complete_df, parameter_samples, outcome_voi_list,
   general_inputs <- sapply(colnames(parameter_samples),function(x)!grepl(paste(cities, collapse = "|"),x))
   general_parsampl <- parameter_samples[,general_inputs]
   
+  # remove DR quantiles
+  no_quantiles <- sapply(colnames(general_parsampl),function(x)!grepl('DOSE_RESPONSE_QUANTILE',x))
+  general_parsampl <- general_parsampl[,no_quantiles]
+ 
+
   scen_names_only <- scenario_names[1:NSCEN+1]
   
   evppi_city_list_all_sex <- list()
@@ -60,6 +66,76 @@ call_evppi_sex <- function(voi_complete_df, parameter_samples, outcome_voi_list,
   
   for (city in cities){
     #print(city)
+    # read in dose response relative risk PIF values
+    city_multicity <- readRDS(paste0('results/voi/',city,'_',output_version,'.Rds'))
+    city_out_all <- city_multicity$outcomes
+    city_multicity <- 0
+    
+   
+    # extract PIF values from first model run
+    dr_pif_all_age_sex <- city_out_all[[1]]$DR_pif$DR_PIF
+    dr_pif_all_age_sex$run <- 1
+    
+    # find total population by sex
+    dr_pif_male <- dr_pif_all_age_sex %>% filter(sex == 'male') %>% dplyr::select(sex, population)
+    dr_pif_male$total_population <- sum(dr_pif_male$population)
+    dr_pif_female <- dr_pif_all_age_sex %>% filter(sex == 'female') %>% dplyr::select(sex, population)
+    dr_pif_female$total_population <- sum(dr_pif_female$population)
+    
+    dr_pif_pop_sex <- unique(rbind(dr_pif_male, dr_pif_female) %>% dplyr::select(!population))
+
+    # add PIF for all samples
+    for (i in 2:NSAMPLES){
+      pif_dummy <- city_out_all[[i]]$DR_pif$DR_PIF
+      pif_dummy$run <- i
+      dr_pif_all_age_sex <- rbind(dr_pif_all_age_sex, pif_dummy)
+    }
+    
+    city_out_all <- 0
+    
+    # calculate pif for different levels
+    level_list <- list(level1, level2, level3)
+    scen_only_names <- scenario_names[2:length(scenario_names)]
+    
+    # loop through levels
+    all_levels <- data.frame()
+    l<-1
+    for (level in list(level1, level2, level3)){
+      dummy_level_df <- dr_pif_all_age_sex %>% dplyr::select(matches(level))
+      
+      # loop trough scenarios and calculate sum
+      for (scen in scen_only_names){
+        dummy_level_df <- dummy_level_df %>%
+          mutate(sum = rowSums(pick(matches(scen))))  %>% # calculate sum
+          rename_with(~paste0(scen, '_DR_PIF_level',l), .cols= sum) # re-name new column
+        
+      }
+      if (l ==1){
+        all_levels <- dummy_level_df %>% dplyr::select(!matches(level))
+      } else{
+        all_levels <- cbind(all_levels, dummy_level_df%>% dplyr::select(!matches(level)))
+      }
+      l <- l +1
+    }
+    
+    dr_pif_all_age_sex2 <- cbind(dr_pif_all_age_sex, all_levels)
+    
+   
+    # multiply pif values by population
+    dr_pif_all_age_sex_pif <- dr_pif_all_age_sex2 %>% dplyr::select(!c(sex, age_cat, population, dem_index, run))
+    dr_pif_all_age_sex_pif <- dr_pif_all_age_sex_pif * dr_pif_all_age_sex$population
+    dr_pif_all_age_sex3<- cbind(dr_pif_all_age_sex2 %>% dplyr::select(c(sex, age_cat, population, dem_index, run)),dr_pif_all_age_sex_pif)
+    
+    
+    # calculate PIFs for each sex
+    dr_sex <- dr_pif_all_age_sex3 %>% dplyr::select(!c(age_cat, population, dem_index)) %>% group_by(
+                                                  run, sex) %>%summarise(across(where(is.numeric), sum ), .groups = 'drop')
+    dr_sex <- left_join(dr_sex, dr_pif_pop_sex, by ='sex')
+    dr_sex_dummy <- data.frame(dr_sex$sex)
+    colnames(dr_sex_dummy) <- 'sex'
+    dr_sex <- (dr_sex %>% dplyr::select(!sex))/dr_sex$total_population 
+    dr_sex <- dr_sex %>% dplyr::select(!c(run))
+    dr_sex <- cbind(dr_sex_dummy, dr_sex)
     
     # extract city specific input parameters
     city_inputs <- sapply(colnames(parameter_samples),function(x)grepl(city,x))
@@ -89,33 +165,27 @@ call_evppi_sex <- function(voi_complete_df, parameter_samples, outcome_voi_list,
       city_sex_outputs <- sapply(colnames(city_sex_out2),function(x)grepl(paste(outcome_voi_list, collapse = "|"),x))
       city_sex_outcomes <- city_sex_out2[,city_sex_outputs]
       
-      if(voi_add_sum){
-        # add total result for each scenario - only makes sense if results are independent of each other
-        # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
-        for (n in 1:NSCEN){
-          scen_outputs <- sapply(colnames(city_sex_outcomes), function(x)grepl(scen_names_only[n],x))
-          if (length(outcome_voi_list) == 1){
-            city_sex_outcomes[paste0(scen_names_only[n],"_ylls_sum_",city)] <- sapply(city_sex_outcomes[,scen_outputs], unlist)
-          } else{
-            city_sex_outcomes[paste0(scen_names_only[n],"_ylls_sum_",city)] <- rowSums(sapply(city_sex_outcomes[,scen_outputs], unlist))
-          }
-        }
-      }
+      
+      # find DR functions by sex
+      dr_pif_sex <- dr_sex %>% filter(sex == s) %>% dplyr::select(!c(sex, total_population))
       
       # calculate the total number of independent parameters to be considered in the VoI analysis
-      param_no <- ncol(city_parsampl) + ncol(general_parsampl)
+      param_no <- ncol(city_parsampl) + ncol(general_parsampl) + 1
       
       # replace NA with 0s, note that the evppi analysis returns NA for all outcomes that are all 0
       city_sex_outcomes_na_cols <- names(which(colSums(is.na(city_sex_outcomes))>0)) # record colnames
       city_sex_outcomes[is.na(city_sex_outcomes)] <- 0 # replace NAs with 0
       
       # calculate evppi
-      evppi_sex_city <- future_lapply(1:param_no, # calculate the evppi for each city
-                                         FUN = ithimr::compute_evppi,
-                                         global_para = as.data.frame(general_parsampl),
-                                         city_para = as.data.frame(city_parsampl),
-                                         city_outcomes = city_sex_outcomes,
-                                         nsamples = NSAMPLES)
+      evppi_sex_city <- future_lapply(1:param_no,
+                                      FUN = ithimr::compute_evppi,
+                                      global_para = as.data.frame(general_parsampl),
+                                      city_para = as.data.frame(city_parsampl),
+                                      dr_pif = dr_pif_sex,
+                                      outcome_voi_list = outcome_voi_list,
+                                      SCEN_SHORT_NAME = SCEN_SHORT_NAME,
+                                      city_outcomes = city_sex_outcomes,
+                                      nsamples = NSAMPLES)
       
       
       evppi_sex_city2 <- do.call(rbind,evppi_sex_city)
@@ -143,7 +213,7 @@ call_evppi_sex <- function(voi_complete_df, parameter_samples, outcome_voi_list,
     } # end of sex categories
     
     
-    evppi_sex_city_df$parameters <-  c(colnames(general_parsampl), colnames(city_parsampl)) # add parameter name column
+    evppi_sex_city_df$parameters <-  c(colnames(general_parsampl), colnames(city_parsampl), 'AP_PA_DOSE_RESPONSE_QUANTILES') # add parameter name column
     evppi_sex_city_df$city <- city # add city name column
     
     
@@ -158,33 +228,22 @@ call_evppi_sex <- function(voi_complete_df, parameter_samples, outcome_voi_list,
         city_sex_out2 <- city_sex_out %>% filter(sex == s)
         city_sex_outputs <- sapply(colnames(city_sex_out2),function(x)grepl(paste(outcome_voi_list, collapse = "|"),x))
         city_sex_outcomes <- city_sex_out2[,city_sex_outputs]
-        
-        
-        if(voi_add_sum){
-          # add total result for each scenario - only makes sense if results are independent of each other
-          # i.e. combining e.g. "total_cancer" with "lung_cancer" results in double-counting and invalid VOI analysis for the sum
-          for (n in 1:NSCEN){
-            scen_outputs <- sapply(colnames(city_sex_outcomes), function(x)grepl(scen_names_only[n],x))
-            if (length(outcome_voi_list) == 1){
-              city_sex_outcomes[paste0(scen_names_only[n],"_ylls_sum_",city)] <- sapply(city_sex_outcomes[,scen_outputs], unlist)
-            } else{
-              city_sex_outcomes[paste0(scen_names_only[n],"_ylls_sum_",city)] <- rowSums(sapply(city_sex_outcomes[,scen_outputs], unlist))
-            }
-          }
-        }
-        
+
         # replace NA with 0s, note that the evppi analysis returns NA for all outcomes that are all 0
         city_sex_outcomes_na_cols <- names(which(colSums(is.na(city_sex_outcomes))>0)) # record colnames
         city_sex_outcomes[is.na(city_sex_outcomes)] <- 0 # replace NAs with 0
         
         evppi_sex_for_CO2_city <- future_lapply(1,
-                                                   FUN = ithimr:::compute_evppi,
-                                                   global_para = data.frame(),
-                                                   city_para = city_Co2_parasampl,
-                                                   city_outcomes = city_sex_outcomes,
-                                                   nsamples = NSAMPLES,
-                                                   individual_para = FALSE)
-        
+                                               FUN = ithimr:::compute_evppi,
+                                               global_para = data.frame(),
+                                               city_para = city_Co2_parasampl,
+                                               city_outcomes = city_sex_outcomes,
+                                               dr_pif = data.frame(),
+                                               outcome_voi_list = outcome_voi_list,
+                                               SCEN_SHORT_NAME = SCEN_SHORT_NAME,
+                                               nsamples = NSAMPLES,
+                                               individual_para = FALSE)
+    
         evppi_sex_for_CO2_city2 <- do.call(rbind,evppi_sex_for_CO2_city) # bind list
         evppi_sex_for_CO2_city3 <- as.data.frame(evppi_sex_for_CO2_city2) # turn into dataframe
         
@@ -201,12 +260,15 @@ call_evppi_sex <- function(voi_complete_df, parameter_samples, outcome_voi_list,
         
         # repeat for PM
         evppi_sex_for_PM_city <- future_lapply(1,
-                                                  FUN = ithimr:::compute_evppi,
-                                                  global_para = data.frame(),
-                                                  city_para = city_PM_parasampl,
-                                                  city_outcomes = city_sex_outcomes,
-                                                  nsamples = NSAMPLES,
-                                                  individual_para = FALSE)
+                                              FUN = ithimr:::compute_evppi,
+                                              global_para = data.frame(),
+                                              city_para = city_PM_parasampl,
+                                              city_outcomes = city_sex_outcomes,
+                                              dr_pif = data.frame(),
+                                              outcome_voi_list = outcome_voi_list,
+                                              SCEN_SHORT_NAME = SCEN_SHORT_NAME,
+                                              nsamples = NSAMPLES,
+                                              individual_para = FALSE)
         
         evppi_sex_for_PM_city2 <- do.call(rbind,evppi_sex_for_PM_city) # bind list
         evppi_sex_for_PM_city3 <- as.data.frame(evppi_sex_for_PM_city2) # turn into dataframe

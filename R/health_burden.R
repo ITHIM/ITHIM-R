@@ -99,6 +99,11 @@ health_burden <- function(ind_ap_pa, conf_int = F, combined_AP_PA = T) {
   # set up non-reference scenarios
   scen_names <- SCEN_SHORT_NAME[SCEN_SHORT_NAME != reference_scenario]
 
+  # set up data frame to save PIF values for different scenarios needed for VoI analysis
+  pif_for_voi <- gbd_ylls %>% dplyr::select(c(sex, age_cat, population, dem_index))
+  pif_for_voi <- unique(pif_for_voi)
+  
+  
   ### iterate over all disease outcomes
   for (j in 1:nrow(DISEASE_INVENTORY)) {
     # Disease acronym and full name
@@ -162,6 +167,16 @@ health_burden <- function(ind_ap_pa, conf_int = F, combined_AP_PA = T) {
         setorder(pif_temp, dem_index) # sort pif_temp
         # calculate PIF (i.e. change in RR compared to reference scenario) for this scenario and convert to vector
         pif_scen <- ((pif_ref[, 2] - pif_temp[, 2]) / pif_ref[, 2]) %>% pull()
+        
+        # save PIF values for VOI calculation
+        # disease and scenario column name
+        col_name <- paste0(scen, "_DR_PIF_", middle_bit, ac)
+        if (compute_mode == 'sample'){
+          pif_voi_temp <- pif_temp
+          pif_voi_temp$pif <- ((pif_ref[, 2] - pif_temp[, 2]) / pif_ref[, 2])
+          pif_voi_temp <- pif_voi_temp%>% dplyr::select(c(dem_index, pif)) %>% rename(!!paste0(scen, "_DR_PIF_", middle_bit, ac) := pif)
+          pif_for_voi <- inner_join(pif_for_voi, pif_voi_temp, by = 'dem_index')
+        }
 
         # Calculate the difference in ylls between the non-reference and the reference scenario
         # by multiplying the current burden of disease for particular disease by the PIF value,
@@ -234,8 +249,14 @@ health_burden <- function(ind_ap_pa, conf_int = F, combined_AP_PA = T) {
   # remove columns
   deaths <- deaths[, -which(colnames(deaths) == "dem_index")]
   ylls <- ylls[, -which(colnames(ylls) == "dem_index")]
+  
+  
+  if (compute_mode == 'sample'){
+    return(list(deaths = deaths, ylls = ylls, DR_PIF = pif_for_voi))
+  } else { 
+    return(list(deaths = deaths, ylls = ylls))
+  }
 
-  list(deaths = deaths, ylls = ylls)
 }
 
 
