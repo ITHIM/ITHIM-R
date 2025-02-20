@@ -38,17 +38,15 @@
 #' @export
 
 
-extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_city_ithim, output_version){
+extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_city_ithim, output_version, level1, level2, level3){
   
   
-  # initialise dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
+  # initialise list / dataframes for all cities with all outcomes for all model runs, age groups
+  # and disease and scenario combinations - combined AP and PA results
   voi_data_all <- list()
-  
   voi_data_all_df <- data.frame()
   voi_data_all_sex_df <- data.frame()
   
-  age_pops <- list()
-
   
   # create empty dataframe to save all the population numbers
   population_df <- data.frame()
@@ -60,11 +58,9 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_c
     DEMOGRAPHIC <- multi_city_ithim[[city]]$DEMOGRAPHIC
     
     # find the minimum and maximum ages for each age category used in the demographic information for the city
-    age_pops[[city]] <- list()
     min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
     max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-    age_pops[[city]]$min_pop_ages <- min_pop_ages
-    age_pops[[city]]$max_pop_ages <- max_pop_ages
+
     
     ## get outcomes
     # find min and max ages of the different age groups used in the outcome
@@ -94,8 +90,9 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_c
     outcome[[city]] <- t(sapply(multi_city_ithim[[city]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
     colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
     
-   
+    ### combined AP and PA
     # create one dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
+    # combined AP and PA
     for(row in keep_rows){
       voi_data_all[[city]]$outcomes <- t(sapply(multi_city_ithim[[city]]$outcomes, function(x) rbind(x$hb$ylls[row,])))
       voi_dummy <- data.frame(voi_data_all[[city]])
@@ -104,8 +101,7 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_c
       voi_data_all_df <- rbind(voi_data_all_df, voi_dummy)
     }
     
-    # create one dataframe for all cities with all outcomes for all model runs, sex and disease and scenario combinations
-    
+    # add information for males and females
     # first for males 
     list_male <- list()
     for (i in 1:NSAMPLES){
@@ -131,16 +127,70 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_c
     voi_data_all_sex_df <- rbind(voi_data_all_sex_df, voi_city_male, voi_city_female)
     
     
+    
+    
+    
+    
+    
+    
+    # create one dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
+    # separate result columns for AP and PA
+    voi_data_all_ap_pa <- list()
+    voi_data_all_df_ap_pa <- data.frame()
+    voi_data_all_sex_df_ap_pa <- data.frame()
+    
+    for(row in keep_rows){
+      voi_data_all_ap_pa[[city]]$outcomes <- t(sapply(multi_city_ithim[[city]]$outcomes, function(x) rbind(x$pathway_hb$ylls[row,])))
+      voi_dummy <- data.frame(voi_data_all_ap_pa[[city]])
+      colnames(voi_dummy)<-colnames(multi_city_ithim[[city]]$outcomes[[1]]$pathway_hb$ylls)
+      voi_dummy$city <- city
+      voi_data_all_df_ap_pa <- rbind(voi_data_all_df_ap_pa, voi_dummy)
+    }
+    
+    
+    
+    # add information for males and females
+    keep_cols_ap_pa <- which(!sapply(names(multi_city_ithim[[city]]$outcomes[[1]]$pathway_hb$ylls),function(x)grepl('age|sex',as.character(x))))
+    
+    # first for males 
+    list_male <- list()
+    for (i in 1:NSAMPLES){
+      list_male[[i]] <- as.data.frame(multi_city_ithim[[city]]$outcomes[[i]]$pathway_hb$ylls) %>% filter(sex == 'male')
+    }
+    
+    voi_city_male_ap_pa <- as.data.frame(t(sapply(list_male, function(x) colSums(x[keep_rows,keep_cols_ap_pa],na.rm=T))))
+    voi_city_male_ap_pa$city <- city
+    voi_city_male_ap_pa$sex <- 'male'
+    
+    
+    # females
+    list_female <- list()
+    for (i in 1:NSAMPLES){
+      list_female[[i]] <- as.data.frame(multi_city_ithim[[city]]$outcomes[[i]]$pathway_hb$ylls) %>% filter(sex == 'female')
+    }
+    
+    voi_city_female_ap_pa <- as.data.frame(t(sapply(list_female, function(x) colSums(x[keep_rows,keep_cols_ap_pa],na.rm=T))))
+    voi_city_female_ap_pa$city <- city
+    voi_city_female_ap_pa$sex <- 'female'
+    
+    # all 
+    voi_data_all_sex_df_ap_pa <- rbind(voi_data_all_sex_df_ap_pa, voi_city_male_ap_pa, voi_city_female_ap_pa)
+    
+
   } # end of city loop
   
   # create an age and sex category column
   voi_data_all_df$age_sex <- paste(voi_data_all_df$sex, voi_data_all_df$age_cat, sep = )
+  voi_data_all_df_ap_pa$age_sex <- paste(voi_data_all_df_ap_pa$sex, voi_data_all_df_ap_pa$age_cat, sep = )
+  
+  
   
   
   
   
   ################# create outcome statistics for different scenarios and health outcomes
   
+  ### combined AP and PA
   # number the different runs
   voi_data_all_df$run <- rep(1:nsamples,length(unique(voi_data_all_df$age_sex))*length(cities))
   voi_data_all_sex_df$run <- rep(1:nsamples,length(unique(voi_data_all_sex_df$sex))*length(cities))
@@ -169,14 +219,7 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_c
   
   # names of all scenarios excluding base
   scen_only_names <- scenario_names[2:length(scenario_names)]
-  
-  # different levels
-  level1 <-c('pa_ap_all_cause','inj')
-  level2 <- c('pa_total_cancer','pa_ap_CVD','ap_respiratory','inj')
-  level3 <- c('pa_ap_IHD','pa_ap_lung_cancer','ap_COPD','pa_ap_stroke','pa_ap_T2D','ap_LRI',
-              'pa_breast_cancer','pa_colon_cancer','pa_endo_cancer','pa_liver_cancer','pa_total_dementia',
-              'pa_myeloma','pa_Parkinson','pa_head_neck_cancer', 'pa_stomach_cancer',
-              'pa_myeloid_leukemia','inj')
+
   
   level_list <- list(level1, level2, level3)
   
@@ -274,6 +317,114 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_c
                                                                                   sc_cycle_ylls_level2, sc_car_ylls_level2, sc_bus_ylls_level2,
                                                                                   sc_cycle_ylls_level3, sc_car_ylls_level3, sc_bus_ylls_level3, everything())
   
+  
+  
+  
+  ### AP and PA separate
+  # number the different runs
+  voi_data_all_df_ap_pa$run <- rep(1:nsamples,length(unique(voi_data_all_df_ap_pa$age_sex))*length(cities))
+  voi_data_all_sex_df_ap_pa$run <- rep(1:nsamples,length(unique(voi_data_all_sex_df_ap_pa$sex))*length(cities))
+  
+  # add extra columns
+  voi_data_all_sex_df_ap_pa$age_cat <- 'all'
+  voi_data_all_sex_df_ap_pa$age_sex <- paste(voi_data_all_sex_df$sex, voi_data_all_sex_df$age_cat, sep = ' ')
+  
+  # create total for each run for all outcomes
+  voi_data_total_df_ap_pa <- voi_data_all_sex_df_ap_pa %>% group_by( age_cat, run, city) %>% summarise(across(where(is.numeric), sum), .groups = 'drop')
+  voi_data_total_df_ap_pa$sex <- 'all'
+  voi_data_total_df_ap_pa$age_sex <- paste(voi_data_total_df_ap_pa$sex, voi_data_total_df_ap_pa$age_cat, sep = ' ')
+  
+  
+  # create one dataset
+  voi_data_all_df_ap_pa$sex <- as.character(voi_data_all_df_ap_pa$sex)
+  voi_data_all_df_ap_pa$age_cat <- as.character(voi_data_all_df_ap_pa$age_cat)
+  voi_data_all_df_ap_pa <- voi_data_all_df_ap_pa %>% mutate_if(is.list,as.numeric)
+  voi_data_complete_ap_pa <- bind_rows(voi_data_all_df_ap_pa, voi_data_all_sex_df_ap_pa , voi_data_total_df_ap_pa)
+  
+  # add population data
+  voi_data_complete2_ap_pa <- merge(voi_data_complete_ap_pa, population_df, by = c('age_cat','sex','city'))
+  
+ 
+  
+  # add summary statistics
+  voi_data_complete3_mean_ap_pa <- voi_data_complete2_ap_pa %>% group_by(city, age_cat, sex, age_sex, population
+                                                                         ) %>% summarise(across(where(is.numeric)& !run, mean
+                                                                                                ), .groups = 'drop')
+  voi_data_complete3_mean_ap_pa$value_type <- 'mean'
+  
+  # 2.5th percentile
+  voi_data_complete3_2.5perc_ap_pa <- voi_data_complete2_ap_pa %>% group_by(city, age_cat, sex, age_sex, population
+                                                                            ) %>% summarise(
+                                                                              across( .cols = where(is.numeric) & !run,  
+                                                                                      .fns = ~quantile(., 0.025),.names = "{col}"), .groups = 'drop')
+  voi_data_complete3_2.5perc_ap_pa$value_type <- '2.5perc'
+  
+  # 97.5th percentile
+  voi_data_complete3_97.5perc_ap_pa <- voi_data_complete2_ap_pa %>% group_by(city, age_cat, sex, age_sex, population) %>% summarise(
+                                                          across( .cols = where(is.numeric)& !run,  .fns = ~quantile(., 0.975
+                                                                                                                     ),.names = "{col}"), .groups = 'drop')
+  voi_data_complete3_97.5perc_ap_pa$value_type <- '97.5perc'
+  
+  # standard deviation
+  voi_data_complete3_sd_ap_pa <- voi_data_complete2_ap_pa %>% group_by(city, age_cat, sex, age_sex, population) %>% summarise(across(where(is.numeric)& !run,
+                                                                                                                         sd), .groups = 'drop')
+  voi_data_complete3_sd_ap_pa$value_type <- 'std'
+  
+  
+  # combine all statistics 
+  voi_data_complete3_summary_ap_pa <- rbind(voi_data_complete3_mean_ap_pa, voi_data_complete3_2.5perc_ap_pa,
+                                            voi_data_complete3_97.5perc_ap_pa,voi_data_complete3_sd_ap_pa)
+  
+  # re-order columns
+  voi_data_complete3_summary_ap_pa <- voi_data_complete3_summary_ap_pa %>% dplyr::select(city, age_cat, sex, age_sex, population, value_type,everything())
+  
+  
+  
+  
+  ## repeat for 100k
+  
+  # calculate per 100k
+  voi_data_complete3_100k_ap_pa <- voi_data_complete2_ap_pa %>% mutate(across(where(is.numeric) & !run &
+                                                                                !population, ~round(as.numeric(.x)/population*100000,4)))
+  
+  # add summary statistics
+  voi_data_complete3_100k_mean_ap_pa <- voi_data_complete3_100k_ap_pa %>% group_by(city, age_cat, sex, age_sex, population
+                                                                                   ) %>% summarise(across(where(is.numeric)&
+                                                                                                            !run, mean), .groups = 'drop')
+  voi_data_complete3_100k_mean_ap_pa$value_type <- 'mean'
+  
+  # 2.5th percentile
+  voi_data_complete3_100k_2.5perc_ap_pa <- voi_data_complete3_100k_ap_pa %>% group_by(city, age_cat, sex, age_sex, population
+                                                                                      ) %>% summarise(across( .cols = where(is.numeric) &
+                                                                                            !run,  .fns = ~quantile(., 0.025),
+                                                                                            .names = "{col}"), .groups = 'drop')
+  voi_data_complete3_100k_2.5perc_ap_pa$value_type <- '2.5perc'
+  
+  # 97.5th percentile
+  voi_data_complete3_100k_97.5perc_ap_pa <- voi_data_complete3_100k_ap_pa %>% group_by(city, age_cat, sex, age_sex, population
+                                                                                       ) %>% summarise(across( .cols = where(is.numeric)& !run,
+                                                                                      .fns = ~quantile(., 0.975),.names = "{col}"), .groups = 'drop')
+  voi_data_complete3_100k_97.5perc_ap_pa$value_type <- '97.5perc'
+  
+  # standard deviation
+  voi_data_complete3_100k_sd_ap_pa <- voi_data_complete3_100k_ap_pa %>% group_by(city, age_cat, sex, age_sex, population
+                                                                                 ) %>% summarise(across(where(is.numeric)& !run,
+                                                                                    sd), .groups = 'drop')
+  voi_data_complete3_100k_sd_ap_pa$value_type <- 'std'
+  
+  
+  # combine all statistics
+  voi_data_complete3_100k_summary_ap_pa <- rbind(voi_data_complete3_100k_mean_ap_pa, voi_data_complete3_100k_2.5perc_ap_pa,
+                                           voi_data_complete3_100k_97.5perc_ap_pa,voi_data_complete3_100k_sd_ap_pa)
+  
+  # re-order columns
+  voi_data_complete3_100k_summary_ap_pa <- voi_data_complete3_100k_summary_ap_pa %>% dplyr::select(city, age_cat, sex, age_sex, population, value_type,
+                                                                                                   everything())
+  
+  
+  
+
+  
 
   # set-up output list 
   ithim_results <- list()
@@ -283,6 +434,10 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_c
   ithim_results$voi_complete_summary <- voi_data_complete3_summary
   ithim_results$voi_complete_100k <- voi_data_complete3_100k
   ithim_results$voi_complete_100k_summary <- voi_data_complete3_100k_summary
+  ithim_results$voi_complete_pathway <- voi_data_complete2_ap_pa
+  ithim_results$voi_complete_summary_pathway <- voi_data_complete3_summary_ap_pa
+  ithim_results$voi_complete_100k_pathway <- voi_data_complete3_100k_ap_pa
+  ithim_results$voi_complete_100k_summary_pathway <- voi_data_complete3_100k_summary_ap_pa
   
   return(ithim_results)
   

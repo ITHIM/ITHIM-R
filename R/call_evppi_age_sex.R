@@ -225,29 +225,30 @@ call_evppi_age_sex <- function(parameter_samples, outcome_voi_list, voi_complete
         city_agesex_outcomes_na_cols <- names(which(colSums(is.na(city_agesex_outcomes))>0)) # record colnames
         city_agesex_outcomes[is.na(city_agesex_outcomes)] <- 0 # replace NAs with 0
         
-        evppi_agesex_for_CO2_city <- future_lapply(1,
-                                                   FUN = ithimr:::compute_evppi,
-                                                   global_para = data.frame(),
-                                                   city_para = city_Co2_parasampl,
-                                                   city_outcomes = city_agesex_outcomes,
-                                                   dr_pif = data.frame(),
-                                                   outcome_voi_list = outcome_voi_list,
-                                                   SCEN_SHORT_NAME = SCEN_SHORT_NAME,
-                                                   nsamples = NSAMPLES,
-                                                   individual_para = FALSE)
-        
-        evppi_agesex_for_CO2_city2 <- do.call(rbind,evppi_agesex_for_CO2_city) # bind list
-        evppi_agesex_for_CO2_city3 <- as.data.frame(evppi_agesex_for_CO2_city2) # turn into dataframe
+        # Feb 2025: CO2 no impact on health outcomes, therefore not considered
+        # evppi_agesex_for_CO2_city <- future_lapply(1,
+        #                                            FUN = ithimr:::compute_evppi,
+        #                                            global_para = data.frame(),
+        #                                            city_para = city_Co2_parasampl,
+        #                                            city_outcomes = city_agesex_outcomes,
+        #                                            dr_pif = data.frame(),
+        #                                            outcome_voi_list = outcome_voi_list,
+        #                                            SCEN_SHORT_NAME = SCEN_SHORT_NAME,
+        #                                            nsamples = NSAMPLES,
+        #                                            individual_para = FALSE)
+        # 
+        # evppi_agesex_for_CO2_city2 <- do.call(rbind,evppi_agesex_for_CO2_city) # bind list
+        # evppi_agesex_for_CO2_city3 <- as.data.frame(evppi_agesex_for_CO2_city2) # turn into dataframe
         
         evppi_agesex_for_AP_outcome_names <- strsplit(colnames(city_agesex_outcomes),paste("_",city,sep="")) # add column names without city part
-        colnames(evppi_agesex_for_CO2_city3) <- paste(evppi_agesex_for_AP_outcome_names, age_gender, sep = "_")
+        #colnames(evppi_agesex_for_CO2_city3) <- paste(evppi_agesex_for_AP_outcome_names, age_gender, sep = "_")
         
         # replace columns for which the outcomes where originally NA by NA again
-        if (length(city_agesex_outcomes_na_cols)>0){
-          city_agesex_outcomes_na_cols2 <- strsplit(city_agesex_outcomes_na_cols,paste("_",city,sep=""))
-          city_agesex_outcomes_na_cols3 <- paste(city_agesex_outcomes_na_cols2,age_gender, sep = "_")
-          evppi_agesex_for_CO2_city3[,city_agesex_outcomes_na_cols3] <- NaN
-        }
+        # if (length(city_agesex_outcomes_na_cols)>0){
+        #   city_agesex_outcomes_na_cols2 <- strsplit(city_agesex_outcomes_na_cols,paste("_",city,sep=""))
+        #   city_agesex_outcomes_na_cols3 <- paste(city_agesex_outcomes_na_cols2,age_gender, sep = "_")
+        #   evppi_agesex_for_CO2_city3[,city_agesex_outcomes_na_cols3] <- NaN
+        # }
         
         
         # repeat for PM
@@ -277,26 +278,28 @@ call_evppi_age_sex <- function(parameter_samples, outcome_voi_list, voi_complete
 
         
         if(k == 1){
-          evppi_agesex_CO2_city_df <- evppi_agesex_for_CO2_city3
+          #evppi_agesex_CO2_city_df <- evppi_agesex_for_CO2_city3
           evppi_agesex_PM_city_df <- evppi_agesex_for_PM_city3
         } else{
-          evppi_agesex_CO2_city_df <- cbind(evppi_agesex_CO2_city_df, evppi_agesex_for_CO2_city3)
+          #evppi_agesex_CO2_city_df <- cbind(evppi_agesex_CO2_city_df, evppi_agesex_for_CO2_city3)
           evppi_agesex_PM_city_df <- cbind(evppi_agesex_PM_city_df, evppi_agesex_for_PM_city3)
         }
         k <- k + 1
       }
       
       
-      evppi_agesex_CO2_city_df$parameters <-  c(paste0('CO2_emissions_inventory')) # add parameter name column
+      #evppi_agesex_CO2_city_df$parameters <-  c(paste0('CO2_emissions_inventory')) # add parameter name column
       evppi_agesex_PM_city_df$parameters <-  c(paste0('PM_emissions_inventory')) # add parameter name column
 
       
       # combine CO2 and PM data
-      evppi_agesex_AP_city_df <- rbind(evppi_agesex_CO2_city_df,evppi_agesex_PM_city_df)
+      #evppi_agesex_AP_city_df <- rbind(evppi_agesex_CO2_city_df,evppi_agesex_PM_city_df)
       
-      evppi_agesex_AP_city_df$city <- city # add city name column
+      #evppi_agesex_AP_city_df$city <- city # add city name column
+      evppi_agesex_PM_city_df$city <- city # add city name column
       
-      evppi_agesex_city_df <- rbind(evppi_agesex_city_df,evppi_agesex_AP_city_df)
+      #evppi_agesex_city_df <- rbind(evppi_agesex_city_df,evppi_agesex_AP_city_df)
+      evppi_agesex_city_df <- rbind(evppi_agesex_city_df,evppi_agesex_PM_city_df)
       
     } # end of sample >= 1000 loop
     

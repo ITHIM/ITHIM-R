@@ -2,9 +2,19 @@
 % Please edit documentation in R/compute_evppi.R
 \name{compute_evppi}
 \alias{compute_evppi}
-\title{Compute evppi, designed to be run in parallel - ONLY USED in SAMPLING MODE}
+\title{Function to calculate the EVPPI values for given input parameters and outcome values}
 \usage{
-compute_evppi(p, global_para, city_para, city_outcomes, nsamples)
+compute_evppi(
+  p,
+  global_para,
+  city_para,
+  dr_pif,
+  outcome_voi_list,
+  SCEN_SHORT_NAME,
+  city_outcomes,
+  nsamples,
+  individual_para = TRUE
+)
 }
 \arguments{
 \item{p}{input parameter index}
@@ -13,12 +23,45 @@ compute_evppi(p, global_para, city_para, city_outcomes, nsamples)
 
 \item{city_para}{list of city specific input parameters}
 
-\item{city_outcome}{list of outcomes for a specific city}
+\item{dr_pif}{dose response PIF values for each scenario}
+
+\item{outcome_voi_list}{list containing the outcomes of interest}
+
+\item{SCEN_SHORT_NAME}{scenario names including baseline}
+
+\item{city_outcomes}{list of outcomes for a specific city}
+
+\item{nsamples}{number of samples}
+
+\item{individual_para}{whether each parameter is to be considered individually or not}
 }
 \value{
-list of EVPPI vectors for specific city
+list of of EVPPI standard variation values for specific city
 }
 \description{
-Creates a list of EVPPI values one parameter (set) at a time across some pre-defined outcomes
-Uses Chris Jackson's VoI Github package https://github.com/chjackson/voi
+This function calculates the expected value of partially perfect information, i.e. the percentage by which we could
+reduce the variance of the final outcome if we knew this one parameter (or several interdependent parameters) perfectly.
+}
+\details{
+The function performs the following steps:
+
+\itemize{
+\item create empty vector to be filled with EVPPI values
+\item depending on the input parameter considered (depends on value of p), set the paramter(s) for which the evppi value is to be calculated
+     Note that the calculations are slightly different for the dose response input parameters, denoted by the flag call_dr_pif
+\item if the input parameter are not related to any dose response function loop through the various outcomes :
+ \itemize{
+   \item calculate the EVPPI value for each outcome using the evppivar() function from https://github.com/chjackson/voi
+   \item calculate the percentage of standard deviation in the outcome we could reduce were we to know the 
+         input parameter / parameters perfectly.
+   } 
+\item if the input parameter is related to the dose response functions:
+ \itemize{
+   \item loop through the scenarios and different outcomes as the evppi values are calculated by matching the dose response
+         functions to the respective outcomes
+   \item calculate the EVPPI value for each outcome and scenario using the evppivar() function from https://github.com/chjackson/voi
+   \item calculate the percentage of standard deviation in the outcome we could reduce were we to know the 
+         input parameter / parameters perfectly.
+   } 
+}
 }

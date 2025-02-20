@@ -189,27 +189,28 @@ call_evppi <- function(parameter_samples, outcome_voi_list, voi_complete_df, cit
     #look at CO2 and PM emission inventories separately
     if(NSAMPLES>=1000){
       
+      # Feb 2025: CO2 no impact on health outcomes, therefore not considered
       # first consider CO2 parameters
-      evppi_for_CO2_city <- future_lapply(1,
-                                         FUN = ithimr:::compute_evppi,
-                                         global_para = data.frame(),
-                                         city_para = city_Co2_parasampl,
-                                         city_outcomes = city_outcomes,
-                                         dr_pif = data.frame(),
-                                         outcome_voi_list = outcome_voi_list,
-                                         SCEN_SHORT_NAME = SCEN_SHORT_NAME,
-                                         nsamples = NSAMPLES,
-                                         individual_para = FALSE)
-    
-      evppi_for_CO2_city2 <- do.call(rbind,evppi_for_CO2_city) # bind list
-      evppi_for_CO2_city3 <- as.data.frame(evppi_for_CO2_city2) # turn into dataframe
-      colnames(evppi_for_CO2_city3) <- evppi_outcome_names
-    
-      evppi_for_CO2_city3$parameters <-  c(paste0('CO2_emissions_inventory')) # add parameter name column
-      evppi_for_CO2_city3$city <- city # add city name column
-    
-      evppi_city3 <- rbind(evppi_city3,evppi_for_CO2_city3)
-      
+      # evppi_for_CO2_city <- future_lapply(1,
+      #                                    FUN = ithimr:::compute_evppi,
+      #                                    global_para = data.frame(),
+      #                                    city_para = city_Co2_parasampl,
+      #                                    city_outcomes = city_outcomes,
+      #                                    dr_pif = data.frame(),
+      #                                    outcome_voi_list = outcome_voi_list,
+      #                                    SCEN_SHORT_NAME = SCEN_SHORT_NAME,
+      #                                    nsamples = NSAMPLES,
+      #                                    individual_para = FALSE)
+      # 
+      # evppi_for_CO2_city2 <- do.call(rbind,evppi_for_CO2_city) # bind list
+      # evppi_for_CO2_city3 <- as.data.frame(evppi_for_CO2_city2) # turn into dataframe
+      # colnames(evppi_for_CO2_city3) <- evppi_outcome_names
+      # 
+      # evppi_for_CO2_city3$parameters <-  c(paste0('CO2_emissions_inventory')) # add parameter name column
+      # evppi_for_CO2_city3$city <- city # add city name column
+      # 
+      # evppi_city3 <- rbind(evppi_city3,evppi_for_CO2_city3)
+      # 
       
       # consider PM parameters
       evppi_for_PM_city <- future_lapply(1,
