@@ -32,7 +32,8 @@
 #' }
 #'
 #'
-#' @return data frame of all synthetic trips from all scenarios
+#' @return data frame of all synthetic trips from all scenarios and the the proportion of people with non non-occupational
+#' @return mMET values for each age and sex category
 #'
 #' @export
 get_synthetic_from_trips <- function() {
@@ -154,6 +155,8 @@ get_synthetic_from_trips <- function() {
   BASELINE_POPULATION <<- base_pop$baseline_population
 
   trip_set <- base_pop$trip_set # extract the trip characteristics
+  
+  background_pa_zero_prop <- base_pop$background_pa_zero_prop # zero PA proportions needed for VoI analysis
   base_pop <- NULL
 
   # create scenarios by calling the appropriate function
@@ -190,5 +193,5 @@ get_synthetic_from_trips <- function() {
   # add walk to pt trips, as appropriate, and combines list of scenarios
   trip_scen_sets <- walk_to_pt_and_combine_scen(BASELINE_TRIPS)
 
-  trip_scen_sets
+  return(list(trip_scen_sets = trip_scen_sets, background_pa_zero_prop = background_pa_zero_prop))
 }

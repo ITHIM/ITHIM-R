@@ -39,7 +39,8 @@
 #'
 #' @param raw_trip_set data frame of raw trips taken, bus_driver, new motorcycle and truck trips have already been added
 #'
-#' @return the baseline population and the trip set which has been pruned
+#' @return the baseline population and the trip set which has been pruned and also the proportion of people with non non-occupational
+#' @return mMET values for each age and sex category
 #'
 #' @export
 
@@ -79,6 +80,10 @@ create_base_pop <- function(raw_trip_set) {
 
   # initialise zeros and densities
   zeros <- densities <- list()
+  
+  # for VoI analysis initialise dataset to contain all sampled zero proportions
+  background_pa_zero_prop <- unique(trip_set%>% dplyr::select(sex, age_cat))
+  background_pa_zero_prop$zero_prop <- 0
 
   # loop through age categories
   for (age_group in unique_ages) {
@@ -113,9 +118,11 @@ create_base_pop <- function(raw_trip_set) {
       }
       zeros[[age_group]][[gender]] <- raw_zero # proportion of people with given sex and age_category who have zero non-travel met values
       densities[[age_group]][[gender]] <- matching_people$work_ltpa_marg_met[matching_people$work_ltpa_marg_met > 0] # people with non-zero non-occupational pa
+      background_pa_zero_prop[background_pa_zero_prop$sex==gender & background_pa_zero_prop$age_cat == age_group,'zero_prop'] <- raw_zero
     }
   }
 
+  
   # assign all participants 0 non-occupational mmets
   baseline_population$work_ltpa_marg_met <- 0
 
@@ -147,7 +154,7 @@ create_base_pop <- function(raw_trip_set) {
 
   trip_set <- drop_na(trip_set)
 
-  return(list(trip_set = trip_set, baseline_population = baseline_population))
+  return(list(trip_set = trip_set, baseline_population = baseline_population, background_pa_zero_prop = background_pa_zero_prop))
 }
 
 

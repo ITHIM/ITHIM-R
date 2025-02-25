@@ -505,7 +505,9 @@ run_ithim_setup <- function(seed = 1,
 
   # create inventory and edit trips, if they are not variable dependent
   if (!RECALCULATE_TRIPS) {
-    ithim_object$trip_scen_sets <- get_synthetic_from_trips() # sets synthetic trips and baseline population
+    synthetic <- get_synthetic_from_trips()
+    ithim_object$trip_scen_sets <- synthetic$trip_scen_sets  # sets synthetic trips and baseline population
+    synthetic <- NULL
   }
 
   # calculate distances, if distances are not variable dependent

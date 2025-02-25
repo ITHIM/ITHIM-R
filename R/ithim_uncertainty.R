@@ -50,7 +50,10 @@ ithim_uncertainty <- function(ithim_object, seed = 1) {
   # Re-do if any trip related data has been sampled from a distribution
   if (RECALCULATE_TRIPS) {
     # set_vehicle_inventory()
-    ithim_object$trip_scen_sets <- get_synthetic_from_trips() # 5 # update trip data
+    synthetic <- get_synthetic_from_trips()
+    ithim_object$trip_scen_sets <- synthetic$trip_scen_sets # 5 # update trip data
+    background_pa_zero_prop <- synthetic$background_pa_zero_prop
+    synthetic <- NULL
   }
 
   # calculate distances, if any distances have been sampled from a distribution
@@ -70,7 +73,7 @@ ithim_uncertainty <- function(ithim_object, seed = 1) {
     return(list(hb = run_results$hb, inj = run_results$ref_injuries, pathway_hb = run_results$pathway_hb))
   } else {
     return(list(hb = run_results$hb, inj = run_results$ref_injuries, pathway_hb = run_results$pathway_hb,
-                DR_pif = run_results$DR_pif, SCEN = SCEN_SHORT_NAME))
+                DR_pif = run_results$DR_pif, SCEN = SCEN_SHORT_NAME,  background_pa_zero_prop =  background_pa_zero_prop))
   }
   
     
