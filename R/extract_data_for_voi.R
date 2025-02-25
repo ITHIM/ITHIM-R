@@ -9,19 +9,23 @@
 #'\item by looping through the cities:
 #'
 #'  \itemize{
-#'    \item calculate average outcome (yll) per person in the population considered by the model 
-#'    \item calculate the total ylls per 100 000 for each outcome age category, scenario and disease combination and model run
-#'    \item calculate total yll outcome across all outcome age and sex categories per city and scenario and disease combinations
-#'    \item calculate total yll outcome across all outcome sex categories per city and scenario and disease combinations
+#'    \item extract the population statistics
 #'    \item create one dataframe for all cities with all outcomes for all model runs, age groups and disease and 
-#'          scenario combinations
+#'          scenario combinations for the combined AP and PA results
+#'    \item create one dataframe for all cities with all outcomes for all model runs, age groups and disease and 
+#'          scenario combinations for the separate AP and PA results
+#'          
 #'  } 
 #'   
-#'\item compute yll per hundred thousand by outcome age group by summing across all diseases (double counting!) 
-#'      by city and scenario and also summing across all cities
+#'\item compute statistics (mean, 2.5th and 97.5th percentiles, standard deviation) for total YLLs lost 
+#'      for the combined AP and PA results
+#'\item compute statistics (mean, 2.5th and 97.5th percentiles, standard deviation) for YLLs lost per 100k
+#'      for the combined AP and PA results
+#'\item compute statistics (mean, 2.5th and 97.5th percentiles, standard deviation) for total YLLs lost 
+#'      for the separate AP and PA pathways
+#'\item compute statistics (mean, 2.5th and 97.5th percentiles, standard deviation) for YLLs lost per 100k 
+#'      for the separate AP and PA pathways
 #' 
-#'\item create one dateframe with total ylls (median, 5th and 95th percentiles) per age group and city 
-#'      (plus combined results as sum across all cities)
 #' }  
 #' 
 #' @param NSCEN number of scenarios (not incl. baseline)
@@ -30,13 +34,21 @@
 #' @param cities list of cities for which the model was run
 #' @param multi_city_ithim list containing the ithim model information including results for the various model runs
 #' @param output_version the output version of the model run
+#' @param level1 list of diseases considered in level 1
+#' @param level2 list of diseases considered in level 2
+#' @param level3 list of diseases considered in level 3
 #' 
 #' @return ithim_results list with the following objects:
-#' @return voi_data_all_df: dataframe for all cities with all outcomes for all model runs, age and sex categories and disease and scenario combinations
-
+#' @return voi_complete - dataframe for all cities with all total YLL outcomes for all model runs, age and sex categories and disease and scenario combinations - combined AP and PA pathway
+#' @return voi_complete_summary - summary statistics of YLLs for combined AP and PA pathway
+#' @return voi_complete_100k - dataframe for all cities for all YLL outcomes per 100k - combined AP and PA pathway
+#' @return voi_commplete_100k_summary - summary statistics per of YLL per 100k for combined AP and PA pathway 
+#' @return voi_complete_pathway - dataframe for all cities with all total YLL outcomes for all model runs, age and sex categories and disease and scenario combinations - separate AP and PA pathways
+#' @return voi_complete_summary_pathway - summary statistics of YLLs for separate AP and PA pathways
+#' @return voi_complete_100k_pathway - dataframe for all cities for all YLL outcomes per 100k - separate AP and PA pathways
+#' @return voi_commplete_100k_summary_pathway - summary statistics per of YLL per 100k for separate AP and PA pathways
 #' 
 #' @export
-
 
 extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_city_ithim, output_version, level1, level2, level3){
   
@@ -48,6 +60,16 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_c
   voi_data_all_sex_df <- data.frame()
   
   
+  
+  # create one dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
+  # separate result columns for AP and PA
+  voi_data_all_ap_pa <- list()
+  voi_data_all_df_ap_pa <- data.frame()
+  voi_data_all_sex_df_ap_pa <- data.frame()
+  
+  
+  
+  
   # create empty dataframe to save all the population numbers
   population_df <- data.frame()
   
@@ -55,6 +77,9 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_c
     city <- cities[ci]
     multi_city_ithim[[city]] <- readRDS(paste0('results/voi/',city,'_',output_version,'.Rds')) # read in city specific data
     
+    
+    
+    # Extract population data
     DEMOGRAPHIC <- multi_city_ithim[[city]]$DEMOGRAPHIC
     
     # find the minimum and maximum ages for each age category used in the demographic information for the city
@@ -86,9 +111,13 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_c
     population_df <- rbind(population_df,population_df_city)
     
 
-    # total yll outcome across all outcome age categories per city and scenario and disease combination
-    outcome[[city]] <- t(sapply(multi_city_ithim[[city]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
-    colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
+    
+    
+    # # total yll outcome across all outcome age categories per city and scenario and disease combination
+    # outcome[[city]] <- t(sapply(multi_city_ithim[[city]]$outcomes, function(x) colSums(x$hb$ylls[keep_rows,keep_cols],na.rm=T)))
+    # colnames(outcome[[city]]) <- paste0(colnames(outcome[[city]]),'_',city)
+    # 
+    
     
     ### combined AP and PA
     # create one dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
@@ -128,17 +157,8 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_c
     
     
     
-    
-    
-    
-    
-    
-    # create one dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
-    # separate result columns for AP and PA
-    voi_data_all_ap_pa <- list()
-    voi_data_all_df_ap_pa <- data.frame()
-    voi_data_all_sex_df_ap_pa <- data.frame()
-    
+    ###### consider AP and PA pathways separately
+
     for(row in keep_rows){
       voi_data_all_ap_pa[[city]]$outcomes <- t(sapply(multi_city_ithim[[city]]$outcomes, function(x) rbind(x$pathway_hb$ylls[row,])))
       voi_dummy <- data.frame(voi_data_all_ap_pa[[city]])
