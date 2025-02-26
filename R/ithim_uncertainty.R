@@ -73,7 +73,7 @@ ithim_uncertainty <- function(ithim_object, seed = 1) {
     return(list(hb = run_results$hb, inj = run_results$ref_injuries, pathway_hb = run_results$pathway_hb))
   } else {
     return(list(hb = run_results$hb, inj = run_results$ref_injuries, pathway_hb = run_results$pathway_hb,
-                DR_pif = run_results$DR_pif, SCEN = SCEN_SHORT_NAME,  background_pa_zero_prop =  background_pa_zero_prop))
+                DR_rr = run_results$DR_rr, SCEN = SCEN_SHORT_NAME,  background_pa_zero_prop =  background_pa_zero_prop))
   }
   
     

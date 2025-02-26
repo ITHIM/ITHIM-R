@@ -74,8 +74,7 @@ run_ithim <- function(ithim_object, seed = 1) {
 #'        and sex category. Combine the AP and PA pathways for diseases affected
 #'        by both AP and PA
 #'
-#'      \item if running in constant mode also calculate the health burden for both the
-#'        AP and PA pathways separately
+#'      \item calculate the health burden for both the AP and PA pathways separately
 #'        }
 #'     }
 #'
@@ -178,7 +177,7 @@ ithim_calculation_sequence <- function(ithim_object, seed = 1) {
   
   # extract PIF values for VoI analysis
   if (compute_mode == 'sample'){
-    hb_AP_PA_pif <- hb_AP_PA[3]
+    hb_AP_PA_rr <- hb_AP_PA$DR_rr
   }
   
   hb_AP_PA<- hb_AP_PA[1:2]
@@ -244,7 +243,7 @@ ithim_calculation_sequence <- function(ithim_object, seed = 1) {
     ))
   } else {
     pathway_hb <- join_hb_and_injury(pathway_hb_AP_PA, deaths_yll_injuries$deaths_yll_injuries)
-    return(list(hb = hb, pathway_hb = pathway_hb, ref_injuries = ref_injuries, DR_pif = hb_AP_PA_pif))
+    return(list(hb = hb, pathway_hb = pathway_hb, ref_injuries = ref_injuries, DR_rr = hb_AP_PA_rr))
   }
   
   

@@ -8,7 +8,7 @@
 #'\itemize{
 #'\item create empty vector to be filled with EVPPI values
 #'\item depending on the input parameter considered (depends on value of p), set the paramter(s) for which the evppi value is to be calculated
-#'      Note that the calculations are slightly different for the dose response input parameters, denoted by the flag call_dr_pif
+#'      Note that the calculations are slightly different for the dose response input parameters, denoted by the flag call_dr_rr
 #'\item if the input parameter are not related to any dose response function loop through the various outcomes :
 #'  \itemize{
 #'    \item calculate the EVPPI value for each outcome using the evppivar() function from https://github.com/chjackson/voi
@@ -29,7 +29,7 @@
 #' @param p input parameter index
 #' @param global_para list of global input parameters that are the same across all cities
 #' @param city_para list of city specific input parameters
-#' @param dr_pif dose response PIF values for each scenario
+#' @param dr_rr dose response RR values for each scenario
 #' @param outcome_voi_list list containing the outcomes of interest
 #' @param SCEN_SHORT_NAME scenario names including baseline
 #' @param city_outcomes list of outcomes for a specific city
@@ -41,7 +41,7 @@
 #' @export
 
 
-compute_evppi <- function(p, global_para,city_para,dr_pif, outcome_voi_list,
+compute_evppi <- function(p, global_para,city_para,dr_rr, outcome_voi_list,
                           SCEN_SHORT_NAME, city_outcomes,  nsamples, individual_para = TRUE){
 
   
@@ -53,7 +53,7 @@ compute_evppi <- function(p, global_para,city_para,dr_pif, outcome_voi_list,
   voi <- rep(0,length(city_outcomes)) # create empty output list
   
   # set up flag
-  call_dr_pif <- FALSE
+  call_dr_rr <- FALSE
   
   if (individual_para == TRUE){
     if(p <= ncol_gen){# first loop through general parameters
@@ -62,9 +62,9 @@ compute_evppi <- function(p, global_para,city_para,dr_pif, outcome_voi_list,
       p2 <- p - ncol_gen 
       sourcesj <- city_para[[p2]] # then loop through city specific parameters
     } else if (p == ncol_gen + ncol_city + 1){
-      call_dr_pif <- TRUE
+      call_dr_rr <- TRUE
     }
-  } else if (individual_para == FALSE & nrow(dr_pif)==0) { # this assumes that either city_para and dr_pif or global_para and dr_pif is empty
+  } else if (individual_para == FALSE & nrow(dr_rr)==0) { # this assumes that either city_para and dr_rr or global_para and dr_rr is empty
     if (nrow(global_para)==0 ){
       sourcesj <- city_para
     } else if (nrow(city_para)==0 ) {
@@ -72,7 +72,7 @@ compute_evppi <- function(p, global_para,city_para,dr_pif, outcome_voi_list,
     }
   }
   
-  if (call_dr_pif == FALSE){ # for all parameters except the dose response parameters
+  if (call_dr_rr == FALSE){ # for all parameters except the dose response parameters
     for(o in 1:length(city_outcomes)){ # loop through all outcomes (for all parameters except the dose response functions)
       
       y <- as.numeric(city_outcomes[[o]])
@@ -95,7 +95,7 @@ compute_evppi <- function(p, global_para,city_para,dr_pif, outcome_voi_list,
         voi[o] <- sqrt((vary - mean((y - model$fitted) ^ 2)) / vary * 100 ) # compute evppi as percentage of standard deviation
       }
     }  
-  } else { # repeat for Dose response function PIFs, where PIFs respond to specific scenario and outcome
+  } else { # repeat for Dose response function RRs, where RRs respond to specific scenario and outcome
     # need to match DR scenario and outcomes to model outcomes
    
     for (s in SCEN_SHORT_NAME[SCEN_SHORT_NAME != 'base']){ # loop through scenarios
@@ -105,8 +105,8 @@ compute_evppi <- function(p, global_para,city_para,dr_pif, outcome_voi_list,
           voi[voi_loc] <- 0
           
         }else {
-          pif_match <- sapply(colnames(dr_pif),function(x)grepl(paste0(s, '_DR_PIF_',v),x))
-          sourcesj <- dr_pif[,pif_match]
+          rr_match <- sapply(colnames(dr_rr),function(x)grepl(paste0('DR_RR_',v),x))
+          sourcesj <- dr_rr[,rr_match]
           
           # find scenario specific outcomes 
           voi_loc <-  which(colnames(city_outcomes)==paste0(s,'_ylls_',v))
@@ -117,7 +117,7 @@ compute_evppi <- function(p, global_para,city_para,dr_pif, outcome_voi_list,
           # extract one outcome     
           vary <- var(y) #compute outcome variance
           
-          # model outcome as a function of input(s)
+          # model outcome as a function of input()
           if (nsamples >= 8){ # use Chris Jackson's VoI R package if sample size large enough
             if(is.vector(sourcesj)){ # if only one parameter is considered at a time
               evppi_jj <- evppivar(y,sourcesj) # uses Chris Jackson's VoI package

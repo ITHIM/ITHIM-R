@@ -1,4 +1,4 @@
-parameters,parameters_lowerCase,classification,ordering
+parameters,Input_parameters_lowerCase,classification,ordering
 DISTANCE_SCALAR_PT,distance_scalar_pt,Travel distance,1
 DISTANCE_SCALAR_CAR_TAXI,distance_scalar_car_taxi,Travel distance,2
 DISTANCE_SCALAR_CYCLING,distance_scalar_cycling,Travel distance,3
@@ -12,7 +12,7 @@ FLEET_TO_MOTORCYCLE_RATIO,fleet_to_motorcycle_ratio,Travel distance,10
 BUS_WALK_TIME,bus_walk_time,Travel distance,11
 RAIL_WALK_TIME,rail_walk_time,Travel distance,12
 CHRONIC_DISEASE_SCALAR,chronic_disease_scalar,Disease data,13
-AP_PA_DOSE_RESPONSE_QUANTILES,AP_PA_dose_response_quantiles,Disease data,14
+AP_PA_DOSE_RESPONSE_RR,AP_PA_dr_quantile_city1,Disease data,14
 INJURY_REPORTING_RATE,injury_reporting_rate,RTI - Accident underreporting,15
 SIN_EXPONENT_SUM,sin_exponent_sum,RTI - safety in numbers,16
 CASUALTY_EXPONENT_FRACTION,casualty_exponent_fraction,RTI - safety in numbers,17
@@ -33,8 +33,8 @@ LIGHT_ACTIVITY_MET,light_activity_met,PA intensity,31
 MODERATE_PA_MET,moderate_pa_met,PA intensity,32
 VIGOROUS_PA_MET,vigorous_pa_met,PA intensity,33
 BACKGROUND_PA_SCALAR,background_pa_scalar,PA intensity,34
-BACKGROUND_PA_ZERO_PROPORTIONS,background_pa_zero_proportions,PA intensity,35
+BACKGROUND_PA_ZERO_PROPORTIONS,background_pa_confidence,PA intensity,35
 PM_CONC_BASE,pm_conc_base,PM2.5 levels,36
 PM_TRANS_SHARE,pm_trans_share,PM2.5 levels,37
-PM_emissions_inventory,PM_emissions_inventory,PM2.5 levels,38
-CO2_emissions_inventory,CO2_emissions_inventory,CO2 levels,39
+PM_emissions_inventory,PM_emission_confidence,PM2.5 levels,38
+CO2_emissions_inventory,CO2_emissions_confidence,CO2 levels,39

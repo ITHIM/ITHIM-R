@@ -9,7 +9,7 @@
 #'\item create a vector containing the global parameters but not including the dose response quantiles as they are treated separately
 #'\item loop through the cities:
 #'  \itemize{
-#'	  \item extract the PIF values for each dose response function and outcome, calculate the PIF for the 
+#'	  \item extract the RR values for each dose response function and outcome, calculate the RR for the 
 #'          different levels
 #'    \item extract the city specific parameters (excluding the CO2 and PM emission inventory parameters)
 
@@ -69,34 +69,34 @@ call_evppi_age_sex <- function(parameter_samples, outcome_voi_list, voi_complete
     print(city)
 
 
-    # read in dose response relative risk PIF values
+    # read in dose response relative risk RR values
     city_multicity <- readRDS(paste0('results/voi/',city,'_',output_version,'.Rds'))
     city_out_all <- city_multicity$outcomes
     city_multicity <- 0
     
    
-    # extract PIF values from first model run
-    dr_pif_all_age_sex <- city_out_all[[1]]$DR_pif$DR_PIF
-    dr_pif_all_age_sex$run <- 1
+    # extract RR values from first model run
+    dr_rr_all_age_sex <- city_out_all[[1]]$DR_rr
+    dr_rr_all_age_sex$run <- 1
     
     # find total population by sex
-    dr_pif_male <- dr_pif_all_age_sex %>% filter(sex == 'male') %>% dplyr::select(sex, population)
-    dr_pif_male$total_population <- sum(dr_pif_male$population)
-    dr_pif_female <- dr_pif_all_age_sex %>% filter(sex == 'female') %>% dplyr::select(sex, population)
-    dr_pif_female$total_population <- sum(dr_pif_female$population)
+    dr_rr_male <- dr_rr_all_age_sex %>% filter(sex == 'male') %>% dplyr::select(sex, population)
+    dr_rr_male$total_population <- sum(dr_rr_male$population)
+    dr_rr_female <- dr_rr_all_age_sex %>% filter(sex == 'female') %>% dplyr::select(sex, population)
+    dr_rr_female$total_population <- sum(dr_rr_female$population)
     
-    dr_pif_pop_sex <- unique(rbind(dr_pif_male, dr_pif_female) %>% dplyr::select(!population))
+    dr_rr_pop_sex <- unique(rbind(dr_rr_male, dr_rr_female) %>% dplyr::select(!population))
 
-    # add PIF for all samples
+    # add RR for all samples
     for (i in 2:NSAMPLES){
-      pif_dummy <- city_out_all[[i]]$DR_pif$DR_PIF
-      pif_dummy$run <- i
-      dr_pif_all_age_sex <- rbind(dr_pif_all_age_sex, pif_dummy)
+      rr_dummy <- city_out_all[[i]]$DR_rr
+      rr_dummy$run <- i
+      dr_rr_all_age_sex <- rbind(dr_rr_all_age_sex, rr_dummy)
     }
     
     
     
-    # calculate pif for different levels
+    # calculate rr for different levels
     level_list <- list(level1, level2, level3)
     scen_only_names <- scenario_names[2:length(scenario_names)]
     
@@ -104,15 +104,12 @@ call_evppi_age_sex <- function(parameter_samples, outcome_voi_list, voi_complete
     all_levels <- data.frame()
     l<-1
     for (level in list(level1, level2, level3)){
-      dummy_level_df <- dr_pif_all_age_sex %>% dplyr::select(matches(level))
+      dummy_level_df <- dr_rr_all_age_sex %>% dplyr::select(matches(level))
       
-      # loop trough scenarios and calculate sum
-      for (scen in scen_only_names){
-        dummy_level_df <- dummy_level_df %>%
-          mutate(sum = rowSums(pick(matches(scen))))  %>% # calculate sum
-          rename_with(~paste0(scen, '_DR_PIF_level',l), .cols= sum) # re-name new column
-        
-      }
+      # calculate sum
+      dummy_level_df$sum <- rowSums(dummy_level_df)  
+      dummy_level_df <- dummy_level_df %>% rename_with(~paste0('DR_RR_level',l), .cols= sum) # re-name new column
+      
       if (l ==1){
         all_levels <- dummy_level_df %>% dplyr::select(!matches(level))
       } else{
@@ -121,7 +118,7 @@ call_evppi_age_sex <- function(parameter_samples, outcome_voi_list, voi_complete
       l <- l +1
     }
     
-    dr_age_sex <- cbind(dr_pif_all_age_sex, all_levels)
+    dr_age_sex <- cbind(dr_rr_all_age_sex, all_levels)
 
     # create age_gender column
     dr_age_sex$age_sex <- paste0(dr_age_sex$sex, " ", dr_age_sex$age_cat)
@@ -144,7 +141,7 @@ call_evppi_age_sex <- function(parameter_samples, outcome_voi_list, voi_complete
     
     # calculate background_pa_zeros for entire population (weighted by population size)
     # match with demographic information
-    pop <- unique(dr_pif_all_age_sex %>% dplyr::select(c(sex, age_cat, population)))
+    pop <- unique(dr_rr_all_age_sex %>% dplyr::select(c(sex, age_cat, population)))
     background_pa_zeros_age_sex <- left_join(background_pa_zeros_age_sex, pop, by = c('sex', 'age_cat'))
     background_pa_zeros_age_sex$zero_prop_population <- background_pa_zeros_age_sex$zero_prop*background_pa_zeros_age_sex$population
     
@@ -186,7 +183,7 @@ call_evppi_age_sex <- function(parameter_samples, outcome_voi_list, voi_complete
       city_agesex_outcomes <- city_agesex_out2[,city_agesex_outputs]
       
       # find DR functions by sex
-      dr_pif_age_sex <- dr_age_sex %>% filter(age_sex == age_gender ) %>% dplyr::select(!c(age_sex))
+      dr_rr_age_sex <- dr_age_sex %>% filter(age_sex == age_gender ) %>% dplyr::select(!c(age_sex))
       
       # prep parameters
       background_pa_zeros_cat <- background_pa_zeros_age_sex %>% filter(age_sex == age_gender)
@@ -210,7 +207,7 @@ call_evppi_age_sex <- function(parameter_samples, outcome_voi_list, voi_complete
                                          FUN = ithimr::compute_evppi,
                                          global_para = as.data.frame(general_parsampl),
                                          city_para = city_para,
-					                               dr_pif = dr_pif_age_sex,
+					                               dr_rr = dr_rr_age_sex,
                                          outcome_voi_list = outcome_voi_list,
                                          SCEN_SHORT_NAME = SCEN_SHORT_NAME,
                                          city_outcomes = city_agesex_outcomes,
@@ -241,7 +238,7 @@ call_evppi_age_sex <- function(parameter_samples, outcome_voi_list, voi_complete
       k <- k + 1
     }
     
-    evppi_agesex_city_df$parameters <-  c(colnames(general_parsampl), colnames(city_para), 'AP_PA_DOSE_RESPONSE_QUANTILES') # add parameter name column
+    evppi_agesex_city_df$parameters <-  c(colnames(general_parsampl), colnames(city_para), 'AP_PA_DOSE_RESPONSE__RR') # add parameter name column
     evppi_agesex_city_df$city <- city # add city name column
     
     
@@ -268,7 +265,7 @@ call_evppi_age_sex <- function(parameter_samples, outcome_voi_list, voi_complete
         #                                            global_para = data.frame(),
         #                                            city_para = city_Co2_parasampl,
         #                                            city_outcomes = city_agesex_outcomes,
-        #                                            dr_pif = data.frame(),
+        #                                            dr_rr = data.frame(),
         #                                            outcome_voi_list = outcome_voi_list,
         #                                            SCEN_SHORT_NAME = SCEN_SHORT_NAME,
         #                                            nsamples = NSAMPLES,
@@ -294,7 +291,7 @@ call_evppi_age_sex <- function(parameter_samples, outcome_voi_list, voi_complete
                                                   global_para = data.frame(),
                                                   city_para = city_PM_parasampl,
                                                   city_outcomes = city_agesex_outcomes,
-                                                  dr_pif = data.frame(),
+                                                  dr_rr = data.frame(),
                                                   outcome_voi_list = outcome_voi_list,
                                                   SCEN_SHORT_NAME = SCEN_SHORT_NAME,
                                                   nsamples = NSAMPLES,
@@ -391,7 +388,7 @@ call_evppi_age_sex <- function(parameter_samples, outcome_voi_list, voi_complete
   
   
   # change order of columns such that ordered by scenario and demographic group
-  evppi_agesex_df2 <- evppi_agesex_df2 %>% relocate(city,classification, parameters, parameters_lowerCase, age, gender, age_gender) # change order of columns
+  evppi_agesex_df2 <- evppi_agesex_df2 %>% relocate(city,classification, parameters, Input_parameters_lowerCase, age, gender, age_gender) # change order of columns
   
   # re-order rows
   evppi_agesex_df2 <- evppi_agesex_df2[order(evppi_agesex_df2$city, evppi_agesex_df2$age_gender),]

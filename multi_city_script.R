@@ -62,10 +62,12 @@ if (!require("drpa",character.only = TRUE)) {
   print("")
 }
 
-cities <- c('accra', 'antofagasta','arica', 'copiapo','coquimbo_laserena','iquique_altohospicio','osorno',
-            'temuco_padrelascasas', 'valdivia')
+#cities <- c('accra', 'antofagasta','arica', 'copiapo','coquimbo_laserena','iquique_altohospicio','osorno',
+#            'temuco_padrelascasas', 'valdivia')
 
-input_parameter_file <- "InputParameters_v41.0.xlsx" # file containing the local and global input parameters
+cities <- c('bogota')
+
+input_parameter_file <- "InputParameters_v42.0.xlsx" # file containing the local and global input parameters
 
 
 ## Get the current repo sha
