@@ -80,7 +80,6 @@ call_evppi <- function(parameter_samples, outcome_voi_list, voi_complete_df, cit
       dr_pif_all_age_sex <- rbind(dr_pif_all_age_sex, pif_dummy)
     }
     
-    city_out_all <- 0
     
     # calculate pif for different levels
     level_list <- list(level1, level2, level3)
@@ -124,6 +123,32 @@ call_evppi <- function(parameter_samples, outcome_voi_list, voi_complete_df, cit
     
     
     
+    # extract background_pa_zeros from first model run
+    background_pa_zeros_age_sex <- city_out_all[[1]]$background_pa_zero_prop
+    background_pa_zeros_age_sex$run <- 1
+    
+    
+    # add background_pa_zeros for all samples
+    for (i in 2:NSAMPLES){
+      background_pa_zeros_dummy <- city_out_all[[i]]$background_pa_zero_prop
+      background_pa_zeros_dummy$run <- i
+      background_pa_zeros_age_sex <- rbind(background_pa_zeros_age_sex, background_pa_zeros_dummy)
+    }
+    
+    # calculate background_pa_zeros for entire population (weighted by population size)
+    # match with demographic information
+    pop <- unique(dr_pif_all_age_sex %>% dplyr::select(c(sex, age_cat, population)))
+    background_pa_zeros_age_sex <- left_join(background_pa_zeros_age_sex, pop, by = c('sex', 'age_cat'))
+    background_pa_zeros_age_sex$zero_prop_population <- background_pa_zeros_age_sex$zero_prop*background_pa_zeros_age_sex$population
+    
+    background_pa_zeros_all <- background_pa_zeros_age_sex %>% dplyr::select(!c(sex, age_cat, population, zero_prop)) %>% group_by(
+                                                                run) %>% summarise(zero_prop_population = sum(zero_prop_population)/
+                                                                                     total_population)
+    
+    
+    city_out_all <- 0
+    
+    
     # extract city specific input parameters
     city_inputs <- sapply(colnames(parameter_samples),function(x)grepl(city,x))
     city_parsampl <- parameter_samples[,city_inputs]
@@ -150,16 +175,21 @@ call_evppi <- function(parameter_samples, outcome_voi_list, voi_complete_df, cit
     
     scen_names_only <- scenario_names[1:NSCEN+1]
 
+    # prep parameters
+    city_para = cbind(as.data.frame(city_parsampl), background_pa_zeros_all$zero_prop_population)
+    
+    city_para <- city_para %>% rename(!!paste0('BACKGROUND_PA_ZERO_PROPORTIONS_',city) := 'background_pa_zeros_all$zero_prop_population')
+    
     
     # calculate the total number of independent parameters to be considered in the VoI analysis
-    param_no <- ncol(city_parsampl) + ncol(general_parsampl) + 1
+    param_no <- ncol(city_para) + ncol(general_parsampl) + 1
     
     
     # calculate the evppi for each city (still within the city loop), Dr quantiles not included
     evppi_city <- future_lapply(1:param_no,
                                 FUN = ithimr::compute_evppi,
                                 global_para = as.data.frame(general_parsampl),
-                                city_para = as.data.frame(city_parsampl),
+                                city_para = city_para,
                                 dr_pif = dr_pif,
                                 outcome_voi_list = outcome_voi_list,
                                 SCEN_SHORT_NAME = SCEN_SHORT_NAME,
@@ -182,7 +212,7 @@ call_evppi <- function(parameter_samples, outcome_voi_list, voi_complete_df, cit
     colnames(evppi_city3) <- evppi_outcome_names
     #evppi_outcome_names <- colnames(evppi_city3)
     
-    evppi_city3$parameters <-  c(colnames(general_parsampl), colnames(city_parsampl), 'AP_PA_DOSE_RESPONSE_QUANTILES') # add parameter name column
+    evppi_city3$parameters <-  c(colnames(general_parsampl), colnames(city_para), 'AP_PA_DOSE_RESPONSE_QUANTILES') # add parameter name column
     evppi_city3$city <- city # add city name column
     
     

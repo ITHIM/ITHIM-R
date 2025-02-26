@@ -69,9 +69,8 @@ call_evppi_sex <- function(parameter_samples, outcome_voi_list, voi_complete_df,
     # read in dose response relative risk PIF values
     city_multicity <- readRDS(paste0('results/voi/',city,'_',output_version,'.Rds'))
     city_out_all <- city_multicity$outcomes
-    city_multicity <- 0
-    
-   
+    city_multicity <- NULL
+
     # extract PIF values from first model run
     dr_pif_all_age_sex <- city_out_all[[1]]$DR_pif$DR_PIF
     dr_pif_all_age_sex$run <- 1
@@ -91,7 +90,6 @@ call_evppi_sex <- function(parameter_samples, outcome_voi_list, voi_complete_df,
       dr_pif_all_age_sex <- rbind(dr_pif_all_age_sex, pif_dummy)
     }
     
-    city_out_all <- 0
     
     # calculate pif for different levels
     level_list <- list(level1, level2, level3)
@@ -137,6 +135,35 @@ call_evppi_sex <- function(parameter_samples, outcome_voi_list, voi_complete_df,
     dr_sex <- dr_sex %>% dplyr::select(!c(run))
     dr_sex <- cbind(dr_sex_dummy, dr_sex)
     
+    
+    # extract background_pa_zeros from first model run
+    background_pa_zeros_age_sex <- city_out_all[[1]]$background_pa_zero_prop
+    background_pa_zeros_age_sex$run <- 1
+    
+    
+    # add background_pa_zeros for all samples
+    for (i in 2:NSAMPLES){
+      background_pa_zeros_dummy <- city_out_all[[i]]$background_pa_zero_prop
+      background_pa_zeros_dummy$run <- i
+      background_pa_zeros_age_sex <- rbind(background_pa_zeros_age_sex, background_pa_zeros_dummy)
+    }
+    
+    # calculate background_pa_zeros for entire population (weighted by population size)
+    # match with demographic information
+    pop <- unique(dr_pif_all_age_sex %>% dplyr::select(c(sex, age_cat, population)))
+    background_pa_zeros_age_sex <- left_join(background_pa_zeros_age_sex, pop, by = c('sex', 'age_cat'))
+    background_pa_zeros_age_sex$zero_prop_population <- background_pa_zeros_age_sex$zero_prop*background_pa_zeros_age_sex$population
+    
+    background_pa_zeros_sex <- background_pa_zeros_age_sex %>% dplyr::select(!c(age_cat, population, zero_prop)) %>% group_by(
+                                                        run, sex) %>% summarise(zero_prop_population = sum(zero_prop_population))
+    # join with male and female population values and divide by those population values
+    background_pa_zeros_sex <- left_join(background_pa_zeros_sex, dr_pif_pop_sex, by = 'sex')
+    background_pa_zeros_sex$zero_prop_population <- background_pa_zeros_sex$zero_prop_population / background_pa_zeros_sex$total_population
+    
+    
+    city_out_all <- 0
+    
+    
     # extract city specific input parameters
     city_inputs <- sapply(colnames(parameter_samples),function(x)grepl(city,x))
     city_parsampl <- parameter_samples[,city_inputs]
@@ -157,6 +184,8 @@ call_evppi_sex <- function(parameter_samples, outcome_voi_list, voi_complete_df,
     city_sex_out <- voi_complete_df %>% filter(city == city_name & age_cat== 'all' & !sex=='all')
     sex_cat <- unique(city_sex_out$sex)
     
+
+    
     k <- 1
     
     for(s in sex_cat){
@@ -165,12 +194,18 @@ call_evppi_sex <- function(parameter_samples, outcome_voi_list, voi_complete_df,
       city_sex_outputs <- sapply(colnames(city_sex_out2),function(x)grepl(paste(outcome_voi_list, collapse = "|"),x))
       city_sex_outcomes <- city_sex_out2[,city_sex_outputs]
       
+      # prep parameters
+      background_pa_zeros_sex_cat <- background_pa_zeros_sex %>% filter(sex == s)
+      city_para = cbind(as.data.frame(city_parsampl), background_pa_zeros_sex_cat$zero_prop_population)
+      
+      city_para <- city_para %>% rename(!!paste0('BACKGROUND_PA_ZERO_PROPORTIONS_',city) := 'background_pa_zeros_sex_cat$zero_prop_population')
+      
       
       # find DR functions by sex
       dr_pif_sex <- dr_sex %>% filter(sex == s) %>% dplyr::select(!c(sex, total_population))
       
       # calculate the total number of independent parameters to be considered in the VoI analysis
-      param_no <- ncol(city_parsampl) + ncol(general_parsampl) + 1
+      param_no <- ncol(city_para) + ncol(general_parsampl) + 1
       
       # replace NA with 0s, note that the evppi analysis returns NA for all outcomes that are all 0
       city_sex_outcomes_na_cols <- names(which(colSums(is.na(city_sex_outcomes))>0)) # record colnames
@@ -180,7 +215,7 @@ call_evppi_sex <- function(parameter_samples, outcome_voi_list, voi_complete_df,
       evppi_sex_city <- future_lapply(1:param_no,
                                       FUN = ithimr::compute_evppi,
                                       global_para = as.data.frame(general_parsampl),
-                                      city_para = as.data.frame(city_parsampl),
+                                      city_para = city_para,
                                       dr_pif = dr_pif_sex,
                                       outcome_voi_list = outcome_voi_list,
                                       SCEN_SHORT_NAME = SCEN_SHORT_NAME,
@@ -213,7 +248,7 @@ call_evppi_sex <- function(parameter_samples, outcome_voi_list, voi_complete_df,
     } # end of sex categories
     
     
-    evppi_sex_city_df$parameters <-  c(colnames(general_parsampl), colnames(city_parsampl), 'AP_PA_DOSE_RESPONSE_QUANTILES') # add parameter name column
+    evppi_sex_city_df$parameters <-  c(colnames(general_parsampl), colnames(city_para), 'AP_PA_DOSE_RESPONSE_QUANTILES') # add parameter name column
     evppi_sex_city_df$city <- city # add city name column
     
     

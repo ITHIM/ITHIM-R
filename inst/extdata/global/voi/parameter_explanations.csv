@@ -33,9 +33,8 @@ LIGHT_ACTIVITY_MET,light_activity_met,PA intensity,31
 MODERATE_PA_MET,moderate_pa_met,PA intensity,32
 VIGOROUS_PA_MET,vigorous_pa_met,PA intensity,33
 BACKGROUND_PA_SCALAR,background_pa_scalar,PA intensity,34
-BACKGROUND_PA_ZEROS,background_pa_zeros,PA intensity,35
+BACKGROUND_PA_ZERO_PROPORTIONS,background_pa_zero_proportions,PA intensity,35
 PM_CONC_BASE,pm_conc_base,PM2.5 levels,36
 PM_TRANS_SHARE,pm_trans_share,PM2.5 levels,37
 PM_emissions_inventory,PM_emissions_inventory,PM2.5 levels,38
 CO2_emissions_inventory,CO2_emissions_inventory,CO2 levels,39
-,,,

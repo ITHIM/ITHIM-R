@@ -109,8 +109,31 @@ cities <- c('bogota')
 # number of times input values are sampled from each input parameter distribution
 nsamples <- 10
 
+input_parameter_file <- "InputParameters_v42.0.xlsx"
+
+
+## Get the current repo sha
+gitArgs <- c("rev-parse", "--short", "HEAD", ">", file.path("repo_sha"))
+# Use shell command for Windows as it's failing with system2 for Windows (giving status 128)
+if (.Platform$OS.type == "windows"){
+  shell(paste(append("git", gitArgs), collapse = " "), wait = T)
+} else {
+  system2("git", gitArgs, wait = T)
+}
+repo_sha <-  as.character(readLines(file.path("repo_sha")))
+
+#output_version <- paste0(repo_sha, "_test_run") # gives the version number of the output documents, independent of the input parameter file name
+output_version <- 'bogota_10samples3_v42.0'
+
 
 voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
+
+
+# flag whether to run VOI analysis split gender
+voi_gender <- T # set to T if want to include split and to F otherwise
+
+# flag whether to run VOI analysis split by age and gender 
+voi_age_gender <- T # set to T if want to include split and to F otherwise
 
 # list of potential values for the outcome_voi_list
 # 'pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
@@ -127,28 +150,10 @@ voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
 
 outcome_voi_list <- c('pa_ap_all_cause', 'inj', 'level1')
 
-# flag whether to run VOI analysis split gender
-voi_gender <- T # set to T if want to include split and to F otherwise
-
-# flag whether to run VOI analysis split by age and gender 
-voi_age_gender <- T # set to T if want to include split and to F otherwise
 
 
-input_parameter_file <- "InputParameters_v42.0_NOTreadyYet.xlsx"
 
 
-## Get the current repo sha
-gitArgs <- c("rev-parse", "--short", "HEAD", ">", file.path("repo_sha"))
-# Use shell command for Windows as it's failing with system2 for Windows (giving status 128)
-if (.Platform$OS.type == "windows"){
-  shell(paste(append("git", gitArgs), collapse = " "), wait = T)
-} else {
-  system2("git", gitArgs, wait = T)
-}
-repo_sha <-  as.character(readLines(file.path("repo_sha")))
-
-#output_version <- paste0(repo_sha, "_test_run") # gives the version number of the output documents, independent of the input parameter file name
-output_version <- 'bogota_10samples2_v42.0'
 
 # records the main aspects of an ithim run in the OutputVersionControl.txt document
 # text file records timestamp of run, author name, cities the script is run for, 
@@ -302,7 +307,7 @@ max_age <- as.numeric(max_age)
 
 ## with uncertainty
 ## comparison across cities
-setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","PM_EMISSION_INVENTORY","CO2_EMISSION_INVENTORY",
+setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","PM_EMISSION_INVENTORY","CO2_EMISSION_INVENTORY",
                         "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO", "CAR_OCCUPANCY_RATIO",
                         "TRUCK_TO_CAR_RATIO", "FLEET_TO_MOTORCYCLE_RATIO","BUS_WALK_TIME", 'RAIL_WALK_TIME',"PROPORTION_MOTORCYCLE_TRIPS" ,
                         "DISTANCE_SCALAR_CAR_TAXI",
@@ -1362,6 +1367,7 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
   
   
   parameter_samples <- readRDS(paste('diagnostic/parameter_samples_',output_version,'.Rds'))
+  parameter_samples <- subset(parameter_samples, select = -c(BACKGROUND_PA_ZEROS))
   
   # calculate the evppi values for all input parameters for all outcomes
   # defined in the outcome_voi_list for all scenarios
