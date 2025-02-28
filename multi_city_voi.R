@@ -107,7 +107,7 @@ rm(list=ls())
 cities <- c('bogota')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 10
+nsamples <- 2000
 
 input_parameter_file <- "InputParameters_v42.0.xlsx"
 
@@ -120,10 +120,10 @@ if (.Platform$OS.type == "windows"){
 } else {
   system2("git", gitArgs, wait = T)
 }
-repo_sha <-  as.character(readLines(file.path("repo_sha")))
+# repo_sha <-  as.character(readLines(file.path("repo_sha")))
 
 #output_version <- paste0(repo_sha, "_test_run") # gives the version number of the output documents, independent of the input parameter file name
-output_version <- 'bogota_10samples3_v42.0'
+output_version <- 'bogota_2000samples3_v42.0'
 
 
 voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
@@ -302,7 +302,7 @@ max_age <- as.numeric(max_age)
 
 
 
-################################### Start running the the actual analysis
+################################### Start running the actual analysis
 
 
 ## with uncertainty
@@ -1389,15 +1389,21 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
   # create output plots
   
   output_pdf <- paste0('results/voi/evppi_',output_version,".pdf")
+ 
   #{pdf('results/voi/evppi.pdf',height=15,width=4+length(outcome_voi_list))
-  {pdf(output_pdf,height=15,width=4+length(outcome_voi_list)+1)
+ # {pdf(output_pdf,height=15,width=4+length(outcome_voi_list)+1)
     for ( city_name in cities){
       
+      output_jpeg <- paste0('results/voi/evppi_',city,'_',output_version,".jpeg")
+      
+      {jpeg(output_jpeg,height=15,width=4+length(outcome_voi_list),units = 'in', res = 600)
+        #jpeg("Plot3.jpeg", width = 4, height = 4, units = 'in', res = 300)
+        
       evppi_city_df <- evppi_df %>% filter(city == city_name) 
       
-      par_city <- par(mar=c(10,19,4,3.5))
+      par_city <- par(mar=c(12,18,4,3.5))
       
-      labs <- paste0(evppi_city_df$classification," (", evppi_city_df$parameters_lowerCase,")") # y axis label
+      labs <- paste0(evppi_city_df$classification," (", evppi_city_df$Input_parameters_lowerCase,")") # y axis label
       labs <- str_replace(labs,'DOSE_RESPONSE','DR') # replace DOSE_RESPONSE with DR
       labs <- str_replace(labs,'EMISSION_INVENTORY','EMISSION_INV') # replace EMISSION_INVENTORY with EMISSION_INV
       evppi_dummy <- evppi_city_df[,evppi_outcome_names]
@@ -1412,7 +1418,7 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
       cellcolors <- vector()
       title <- paste(city_name,  " - No of samples: ", nsamples, 
                      # ': By how much (%) could we\n reduce uncertainty in the outcome\n if we knew this parameter perfectly?')
-                     '- By how much (%) could we reduce\n the standard deviation in the outcome if we knew this parameter perfectly?')
+                     '- By how much (%)\n could we reduce the standard deviation\n in the outcome if we knew this parameter perfectly?')
       for(ii in 1:length(unlist(evppi_dummy))) # determine the cellcolors
         cellcolors[ii] <- redCol[tail(which(unlist(evppi_dummy)[ii]<bkT),n=1)]
       color2D.matplot(evppi_dummy,cellcolors=cellcolors,xlab="",ylab="",axes=F,border='white')
@@ -1427,8 +1433,8 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
       for(i in c(0,length(labs))) abline(h=i, lwd = 2) # add horizontal lines at top and bottom
       par(par_city)
       
+      dev.off()}
     }
-    dev.off()}
   
   
   
@@ -1457,62 +1463,65 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
     
     # create output plots
     output_pdf <- paste0('results/voi/evppi_sex_',output_version,".pdf")
-    ci <- 1
     #{pdf('results/voi/evppi.pdf',height=15,width=4+length(outcome_voi_list))
-    {pdf(output_pdf,height=15,width=4+length(outcome_voi_list)+1)
-      for ( city_name in cities){
+   # {pdf(output_pdf,height=15,width=4+length(outcome_voi_list)+1)
+      
+    for ( city_name in cities){
         
+        output_jpeg <- paste0('results/voi/evppi_sex_',city,'_',output_version,".jpeg")
         
-        #evppi_agesex_city_df <- get(paste0("evppi_agesex_",city_name,'_df'))
-        evppi_sex_city_df <- evppi_sex_df %>% filter(city == city_name)
+        {jpeg(output_jpeg,height=15,width=4+length(outcome_voi_list),units = 'in', res = 600)
         
-        # create dataframe where both sexes are in the same row
-        evppi_sex_city_df2 <- evppi_sex_df%>% filter(gender == sex_cat[1]) %>% dplyr::select(city, classification, parameters, parameters_lowerCase)
-        for (s in sex_cat){
-          df_sex <- evppi_sex_city_df %>% filter(gender == s) %>% dplyr::select(-gender)
-          # extend scenario names with sex
-          colnames(df_sex)[grepl(paste(c('sc', 'sum'), collapse = "|") ,colnames(df_sex))] <- paste0(
-                                              colnames(df_sex)[grepl(paste(c('sc', 'sum'), collapse = "|") ,colnames(df_sex))], '_',s)
-          # merge with other data
-          evppi_sex_city_df2 <- inner_join(evppi_sex_city_df2, df_sex, by = c('city','classification', 'parameters', 'parameters_lowerCase'))
+          #evppi_agesex_city_df <- get(paste0("evppi_agesex_",city_name,'_df'))
+          evppi_sex_city_df <- evppi_sex_df %>% filter(city == city_name)
           
-        }
-
-        par_city <- par(mar=c(10,19,4,3.5))
-        
-        labs <- paste0(evppi_sex_city_df2$classification," (", evppi_sex_city_df2$parameters_lowerCase,")") # y axis label
-        labs <- str_replace(labs,'DOSE_RESPONSE','DR') # replace DOSE_RESPONSE with DR
-        labs <- str_replace(labs,'EMISSION_INVENTORY','EMISSION_INV') # replace EMISSION_INVENTORY with EMISSION_INV
-        evppi_sex_dummy <- evppi_sex_city_df2 %>% dplyr::select(!c(city, parameters,classification, parameters_lowerCase))    #[,evppi_outcome_names]
-        # for plotting purposes, replace all NaN with 0
-        evppi_sex_dummy[is.na(evppi_sex_dummy)] <- 0
-        get.pal=colorRampPalette(brewer.pal(9,"Reds"))
-        redCol=rev(get.pal(12))
-        bkT <- seq(max(evppi_sex_dummy)+1e-10, 0,length=13)
-        cex.lab <- 1.0
-        maxval <- round(bkT[1],digits=1)
-        col.labels<- c(0,maxval/2,maxval)
-        cellcolors <- vector()
-        title <- paste(city_name,  " - No of samples: ", nsamples, 
-                       # ': By how much (%) could we\n reduce uncertainty in the outcome\n if we knew this parameter perfectly?')
-                       '- By how much (%) could we reduce\n the standard deviation in the outcome if we knew this parameter perfectly?')
-        for(ii in 1:length(unlist(evppi_sex_dummy ))) # determine the cellcolors
-          cellcolors[ii] <- redCol[tail(which(unlist(evppi_sex_dummy)[ii]<bkT),n=1)]
-        color2D.matplot(evppi_sex_dummy,cellcolors=cellcolors,xlab="",ylab="",axes=F,border='white')
-        title(title, adj = 0, cex.main = 0.7 )
-        fullaxis(side=1,at=(ncol(evppi_sex_dummy)-1):0+0.5,labels=rev(colnames(evppi_sex_dummy)),
-                 las = 2, line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.65)  # x-axis labels
-        fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,
-                 line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.6) # y-axis labels
-        color.legend(ncol(evppi_sex_dummy)+0.5,0,ncol(evppi_sex_dummy)+1.2,length(labs),col.labels,rev(redCol),
-                     gradient="y",cex=0.7,align="rb")
-        for(i in seq(0,ncol(evppi_sex_dummy),by=NSCEN)) abline(v=i, lwd=1) # add vertical lines
-        abline(v=(ncol(evppi_sex_dummy))/2, lwd=2) # add vertical line between male and female results
-        for(i in c(0,length(labs))) abline(h=i, lwd = 2) # add horizontal lines at top and bottom
-        par(par_city)
-
+          # create dataframe where both sexes are in the same row
+          evppi_sex_city_df2 <- evppi_sex_df%>% filter(gender == sex_cat[1]) %>% dplyr::select(city, classification, parameters, Input_parameters_lowerCase)
+          for (s in sex_cat){
+            df_sex <- evppi_sex_city_df %>% filter(gender == s) %>% dplyr::select(-gender)
+            # extend scenario names with sex
+            colnames(df_sex)[grepl(paste(c('sc', 'sum'), collapse = "|") ,colnames(df_sex))] <- paste0(
+                                                colnames(df_sex)[grepl(paste(c('sc', 'sum'), collapse = "|") ,colnames(df_sex))], '_',s)
+            # merge with other data
+            evppi_sex_city_df2 <- inner_join(evppi_sex_city_df2, df_sex, by = c('city','classification', 'parameters', 'Input_parameters_lowerCase'))
+            
+          }
+  
+          par_city <- par(mar=c(13,15,4,3.5))
+          
+          labs <- paste0(evppi_sex_city_df2$classification," (", evppi_sex_city_df2$Input_parameters_lowerCase,")") # y axis label
+          labs <- str_replace(labs,'DOSE_RESPONSE','DR') # replace DOSE_RESPONSE with DR
+          labs <- str_replace(labs,'EMISSION_INVENTORY','EMISSION_INV') # replace EMISSION_INVENTORY with EMISSION_INV
+          evppi_sex_dummy <- evppi_sex_city_df2 %>% dplyr::select(!c(city, parameters,classification, Input_parameters_lowerCase))    #[,evppi_outcome_names]
+          # for plotting purposes, replace all NaN with 0
+          evppi_sex_dummy[is.na(evppi_sex_dummy)] <- 0
+          get.pal=colorRampPalette(brewer.pal(9,"Reds"))
+          redCol=rev(get.pal(12))
+          bkT <- seq(max(evppi_sex_dummy)+1e-10, 0,length=13)
+          cex.lab <- 1.0
+          maxval <- round(bkT[1],digits=1)
+          col.labels<- c(0,maxval/2,maxval)
+          cellcolors <- vector()
+          title <- paste(city_name,  " - No of samples: ", nsamples, 
+                         # ': By how much (%) could we\n reduce uncertainty in the outcome\n if we knew this parameter perfectly?')
+                         '- By how much (%)\n could we reduce the standard deviation in the\n outcome if we knew this parameter perfectly?')
+          for(ii in 1:length(unlist(evppi_sex_dummy ))) # determine the cellcolors
+            cellcolors[ii] <- redCol[tail(which(unlist(evppi_sex_dummy)[ii]<bkT),n=1)]
+          color2D.matplot(evppi_sex_dummy,cellcolors=cellcolors,xlab="",ylab="",axes=F,border='white')
+          title(title, adj = 0, cex.main = 0.7 )
+          fullaxis(side=1,at=(ncol(evppi_sex_dummy)-1):0+0.5,labels=rev(colnames(evppi_sex_dummy)),
+                   las = 2, line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.65)  # x-axis labels
+          fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,
+                   line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.6) # y-axis labels
+          color.legend(ncol(evppi_sex_dummy)+0.5,0,ncol(evppi_sex_dummy)+1.2,length(labs),col.labels,rev(redCol),
+                       gradient="y",cex=0.7,align="rb")
+          for(i in seq(0,ncol(evppi_sex_dummy),by=NSCEN)) abline(v=i, lwd=1) # add vertical lines
+          abline(v=(ncol(evppi_sex_dummy))/2, lwd=2) # add vertical line between male and female results
+          for(i in c(0,length(labs))) abline(h=i, lwd = 2) # add horizontal lines at top and bottom
+          par(par_city)
+  
+          dev.off()}
       }
-      dev.off()}
     
   } # end of gender VOI analysis
   
@@ -1556,14 +1565,14 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
         evppi_agesex_city_df <- evppi_agesex_df %>% filter(city == city_name)
   
         # create dataframe where all age and sex categories are in the same row
-        evppi_agesex_city_df2 <- evppi_agesex_df%>% filter(age_gender == age_gender_cat[1]) %>% dplyr::select(city, classification, parameters, parameters_lowerCase)
+        evppi_agesex_city_df2 <- evppi_agesex_df%>% filter(age_gender == age_gender_cat[1]) %>% dplyr::select(city, classification, parameters, Input_parameters_lowerCase)
         for (s in age_gender_cat){
           df_agesex <- evppi_agesex_city_df %>% filter(age_gender == s) %>% dplyr::select(-c(gender, age, age_gender))
           # extend scenario names with age and sex category
           colnames(df_agesex)[grepl(paste(c('sc', 'sum'), collapse = "|") ,colnames(df_agesex))] <- paste0(
                                 colnames(df_agesex)[grepl(paste(c('sc', 'sum'), collapse = "|") ,colnames(df_agesex))], '_',s)
           # merge with other data
-          evppi_agesex_city_df2 <- inner_join(evppi_agesex_city_df2, df_agesex, by = c('city','classification', 'parameters', 'parameters_lowerCase'))
+          evppi_agesex_city_df2 <- inner_join(evppi_agesex_city_df2, df_agesex, by = c('city','classification', 'parameters', 'Input_parameters_lowerCase'))
         }
       
         
@@ -1576,7 +1585,7 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
           par_city <- par(mar=c(14,19,4,3.5))
           
           
-          labs <- unique(paste0(evppi_agesex_city_df2$classification," (", evppi_agesex_city_df$parameters_lowerCase,")") ) # y axis label
+          labs <- unique(paste0(evppi_agesex_city_df2$classification," (", evppi_agesex_city_df$Input_parameters_lowerCase,")") ) # y axis label
           # labs <- str_replace(labs,'DOSE_RESPONSE_QUANTILE','DR_QUANT') # replace DOSE_RESPONSE with DR
           labs <- str_replace(labs,'EMISSION_INVENTORY','EMISSION_INV') # replace EMISSION_INVENTORY with EMISSION_INV
           evppi_dummy <- evppi_agesex_city_outcome_df
