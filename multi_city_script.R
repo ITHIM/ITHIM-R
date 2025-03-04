@@ -62,10 +62,12 @@ if (!require("drpa",character.only = TRUE)) {
   print("")
 }
 
-cities <- c('cape_town','delhi',
-            'vizag', 'kisumu', 'nairobi', 'port_louis')
+# cities <- c('cape_town','delhi',
+#             'vizag', 'kisumu', 'nairobi', 'port_louis')
 
-input_parameter_file <- "InputParameters_v40.0-test.xlsx" # file containing the local and global input parameters
+cities <- 'bogota'
+
+input_parameter_file <- "Bogota_InputParameters_v4.0.xlsx" # file containing the local and global input parameters
 # 
 
 ## Get the current repo sha
@@ -238,7 +240,8 @@ ap_dr_quantile <-  F
 ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 
 
-print(system.time(for(city in cities){
+#print(system.time(for(city in cities){
+  city <- 'bogota'
   cat('\n')
   print(city)
   # run code to prepare the input data for the actual ITHIM Global health impact assessment
@@ -313,16 +316,16 @@ print(system.time(for(city in cities){
   ithim_objects[[city]]$demographic <- DEMOGRAPHIC
   ithim_objects[[city]]$base_pop <- BASELINE_POPULATION
   
-  # run the ITHIM-Global health impact assessment
+  # # run the ITHIM-Global health impact assessment
   ithim_objects[[city]]$outcomes <- run_ithim(ithim_object=ithim_objects[[city]], seed = 1)
-  
-  # add further information to the ithim_objects list
+  # 
+  # # add further information to the ithim_objects list
   ithim_objects[[city]]$disease_burden <- DISEASE_BURDEN
   ithim_objects[[city]]$PM_emission_inventory <- PM_EMISSION_INVENTORY
-  ithim_objects[[city]]$injury_table <- INJURY_TABLE
-  ithim_objects[[city]]$orig_inj <- list()
-  ithim_objects[[city]]$orig_inj$inj_orig_1year <- inj_orig_1year
-  ithim_objects[[city]]$orig_inj$inj_orig_1year_injreprate <- inj_orig_1year_injreprate
+  #ithim_objects[[city]]$injury_table <- INJURY_TABLE
+  #ithim_objects[[city]]$orig_inj <- list()
+  #ithim_objects[[city]]$orig_inj$inj_orig_1year <- inj_orig_1year
+  #ithim_objects[[city]]$orig_inj$inj_orig_1year_injreprate <- inj_orig_1year_injreprate
   ithim_objects[[city]]$vehicle_inventory <- VEHICLE_INVENTORY
   ithim_objects[[city]]$location$country <- country[[CITY]]
   ithim_objects[[city]]$location$continent <- continent[[CITY]]
@@ -330,35 +333,35 @@ print(system.time(for(city in cities){
   ithim_objects[[city]]$new_walk_trips_count$all <- count_new_walk_trips
   ithim_objects[[city]]$new_walk_trips_count$bus <- count_new_walk_trips_bus
   ithim_objects[[city]]$new_walk_trips_count$rail <- count_new_walk_trips_rail
- 
-  # store results to plot
-  min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-  max_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  sub_outcome <- subset(ithim_objects[[city]]$outcome$hb$ylls,
-                        min_ages >= min_age & max_ages <= max_age)
-
-  
-  # all results without upper and lower confidence interval limit values
-  sub_outcome_noLimits <- sub_outcome %>% dplyr::select(-contains(c('lb','ub')))
-  
-  # results for plotting without upper and lower confidence interval limit values
-  sub_outcomes_plot <- sub_outcome_noLimits %>% dplyr::select(contains(outputs_to_plot))
-  # replace column names with 'yll_' with 'ylls_'
-  colnames(sub_outcomes_plot) <- sub("yll_", "ylls_", colnames(sub_outcomes_plot))
-  result_mat_plot <- colSums(sub_outcomes_plot)
-  
-  # find number of disease to plot and create a list with all the different disease outcomes for the different scenarios
-  columns <- length(result_mat_plot)
-  nDiseases <- columns/NSCEN
-  if (city == cities[1]) {
-    disease_list <- list()
-    for (i in 1:nDiseases) disease_list[[i]] <- matrix(0, NSCEN, ncol = length(cities))
-  }
-  min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-  max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  for (i in 1:nDiseases)
-    disease_list[[i]][,which(cities == city)] <- result_mat_plot[1:NSCEN + (i - 1) * NSCEN]/sum(subset(DEMOGRAPHIC,min_pop_ages >= min_age & max_pop_ages <= max_age)$population)
-}))
+  # 
+  # # store results to plot
+  # min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+  # max_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+  # sub_outcome <- subset(ithim_objects[[city]]$outcome$hb$ylls,
+  #                       min_ages >= min_age & max_ages <= max_age)
+  # 
+  # 
+  # # all results without upper and lower confidence interval limit values
+  # sub_outcome_noLimits <- sub_outcome %>% dplyr::select(-contains(c('lb','ub')))
+  # 
+  # # results for plotting without upper and lower confidence interval limit values
+  # sub_outcomes_plot <- sub_outcome_noLimits %>% dplyr::select(contains(outputs_to_plot))
+  # # replace column names with 'yll_' with 'ylls_'
+  # colnames(sub_outcomes_plot) <- sub("yll_", "ylls_", colnames(sub_outcomes_plot))
+  # result_mat_plot <- colSums(sub_outcomes_plot)
+  # 
+  # # find number of disease to plot and create a list with all the different disease outcomes for the different scenarios
+  # columns <- length(result_mat_plot)
+  # nDiseases <- columns/NSCEN
+  # if (city == cities[1]) {
+  #   disease_list <- list()
+  #   for (i in 1:nDiseases) disease_list[[i]] <- matrix(0, NSCEN, ncol = length(cities))
+  # }
+  # min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
+  # max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
+  # for (i in 1:nDiseases)
+  #   disease_list[[i]][,which(cities == city)] <- result_mat_plot[1:NSCEN + (i - 1) * NSCEN]/sum(subset(DEMOGRAPHIC,min_pop_ages >= min_age & max_pop_ages <= max_age)$population)
+# }))
 
 
 # add run relevant information to ithim_objects list

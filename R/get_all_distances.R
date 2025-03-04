@@ -131,11 +131,11 @@ get_all_distances <- function(ithim_object) {
   ithim_object$true_dist <- dist
 
 
-  # distances for injuries calculation but also parameterisation of Poisson injury regression model
-  ithim_object$inj_distances <- distances_for_injury_function(
-    journeys = journeys,
-    dist = dist
-  )
+  # # distances for injuries calculation but also parameterisation of Poisson injury regression model
+  # ithim_object$inj_distances <- distances_for_injury_function(
+  #   journeys = journeys,
+  #   dist = dist
+  # )
 
   return(ithim_object)
 }

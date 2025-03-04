@@ -158,7 +158,7 @@ ithim_load_data <- function(speeds =
   # trips can be composed of multiple stages
   # all trip columns are used for scenario generation alone
   # stage columns are used for downstream calculation
-  filename <- paste0(local_path, "/trips_", CITY, ".csv")
+  filename <- paste0(local_path, "/trips_wl_", CITY, ".csv")
   trip_set <- read_csv(filename, col_types = cols())
 
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
@@ -477,86 +477,86 @@ ithim_load_data <- function(speeds =
   gbd_inj_yll$yll_dth_ratio <- gbd_inj_yll$burden / gbd_inj_dth$burden
   GBD_INJ_YLL <<- gbd_inj_yll
 
-  ## Read in Physical Activity data
-  filename <- paste0(local_path, "/pa_", CITY, ".csv")
-  pa_set <- read_csv(filename, col_types = cols())
-  pa_set$sex <- tolower(pa_set$sex)
-  PA_SET <<- pa_set
+  # ## Read in Physical Activity data
+  # filename <- paste0(local_path, "/pa_", CITY, ".csv")
+  # pa_set <- read_csv(filename, col_types = cols())
+  # pa_set$sex <- tolower(pa_set$sex)
+  # PA_SET <<- pa_set
 
 
-  ## injury data
-  filename <- paste0(local_path, "/injuries_", CITY, ".csv")
-  injuries <- read_csv(filename, col_types = cols())
-
-  # remove injury data outside age range and assign age category, call column age_cat
-  if ("cas_age" %in% colnames(injuries)) injuries <- assign_age_groups(injuries, age_label = "cas_age")
-  injuries$cas_mode <- tolower(injuries$cas_mode)
-  injuries$strike_mode <- tolower(injuries$strike_mode)
-  if ("cas_gender" %in% colnames(injuries)) injuries$cas_gender <- tolower(injuries$cas_gender)
-  # define strike modes that are considered as no other vehicle collisions
-  nov_words <- c("no.other.fixed.or.stationary.object", "no other vehicle", "none")
-  injuries$strike_mode[injuries$strike_mode %in% nov_words] <- "nov" # ensure all nov occurrences are labelled as 'nov'
-
-  # add weight column if missing - weight column represents the number of years for which injury data exists
-  if (!"weight" %in% colnames(injuries)) {
-    injuries$weight <- 1
-  }
-
-  # Set weight as the unique number of years for which injury data exists
-  if ("year" %in% colnames(injuries)) {
-    injuries$weight <- length(unique(injuries$year))
-  }
-
-  # calculate injury counts for one year from raw data
-  inj_orig_1year <- injuries %>% group_by(cas_mode, strike_mode, weight) %>% summarise(total = length(weight))
-  inj_orig_1year$total <- inj_orig_1year$total / inj_orig_1year$weight
-  inj_orig_1year <- inj_orig_1year %>% dplyr::select(-c(weight))
-  
-  inj_orig_1year <- inj_orig_1year %>% tidyr::pivot_wider(names_from = cas_mode,
-                                                          values_from = total)
-  # replace NA with 0
-  inj_orig_1year <- inj_orig_1year %>% replace(is.na(.), 0)
-  
-  # add row and column sums
-  inj_orig_1year <- inj_orig_1year %>% mutate(rowSum = rowSums(across(where(is.numeric)),na.rm=TRUE))
-  inj_orig_1year <- inj_orig_1year %>% adorn_totals("row")
-  
-  # round results
-  inj_orig_1year<- inj_orig_1year%>% mutate_if(is.numeric, round, digits = 1)
-  
-
-  inj_orig_1year <<- inj_orig_1year
-  
-  # calculate the fatality counts adjusted by the injury_reporting_rate
-  if (compute_mode == 'constant'){
-    inj_orig_1year_injreprate <- inj_orig_1year %>% modify_if(is.numeric, ~./injury_reporting_rate[[city]])
-    inj_orig_1year_injreprate <- inj_orig_1year_injreprate %>% mutate_if(is.numeric, round, digits = 1)
-    
-    inj_orig_1year_injreprate <<- inj_orig_1year_injreprate
-  }
-
-  # Get all injuries where casualty and strike mode are identical for car, bus, motorcycle, cycle and truck
-  # Treat bus_driver same as bus for strike mode
-  same_cas_str_modes <- injuries %>% filter((cas_mode == "car" & strike_mode == "car") |
-    (cas_mode == "bus" & (strike_mode %in% c("bus", "bus_driver"))) |
-    (cas_mode == "motorcycle" & strike_mode == "motorcycle") |
-    (cas_mode == "cycle" & strike_mode == "cycle") |
-    (cas_mode == "truck" & strike_mode == "truck"))
-
-  # Filter all injuries where casualty equals strike mode
-  # create dataset where casuality = strike mode fatality counts are removed
-  injuries <- injuries %>% filter(!((cas_mode == "car" & strike_mode == "car") |
-    (cas_mode == "bus" & (strike_mode %in% c("bus", "bus_driver"))) |
-    (cas_mode == "motorcycle" & strike_mode == "motorcycle") |
-    (cas_mode == "cycle" & strike_mode == "cycle") |
-    (cas_mode == "truck" & strike_mode == "truck")))
-
-  # Where strike mode equals casualty mode, set the strike mode to 'nov'
-  same_cas_str_modes <- same_cas_str_modes %>% mutate(strike_mode = "nov")
-
-  # Join all injuries again
-  injuries <- dplyr::bind_rows(injuries, same_cas_str_modes)
-
-  # Call function to set tables for WHW and NOV
-  set_injury_contingency(injuries)
+  # ## injury data
+  # filename <- paste0(local_path, "/injuries_", CITY, ".csv")
+  # injuries <- read_csv(filename, col_types = cols())
+  # 
+  # # remove injury data outside age range and assign age category, call column age_cat
+  # if ("cas_age" %in% colnames(injuries)) injuries <- assign_age_groups(injuries, age_label = "cas_age")
+  # injuries$cas_mode <- tolower(injuries$cas_mode)
+  # injuries$strike_mode <- tolower(injuries$strike_mode)
+  # if ("cas_gender" %in% colnames(injuries)) injuries$cas_gender <- tolower(injuries$cas_gender)
+  # # define strike modes that are considered as no other vehicle collisions
+  # nov_words <- c("no.other.fixed.or.stationary.object", "no other vehicle", "none")
+  # injuries$strike_mode[injuries$strike_mode %in% nov_words] <- "nov" # ensure all nov occurrences are labelled as 'nov'
+  # 
+  # # add weight column if missing - weight column represents the number of years for which injury data exists
+  # if (!"weight" %in% colnames(injuries)) {
+  #   injuries$weight <- 1
+  # }
+  # 
+  # # Set weight as the unique number of years for which injury data exists
+  # if ("year" %in% colnames(injuries)) {
+  #   injuries$weight <- length(unique(injuries$year))
+  # }
+  # 
+  # # calculate injury counts for one year from raw data
+  # inj_orig_1year <- injuries %>% group_by(cas_mode, strike_mode, weight) %>% summarise(total = length(weight))
+  # inj_orig_1year$total <- inj_orig_1year$total / inj_orig_1year$weight
+  # inj_orig_1year <- inj_orig_1year %>% dplyr::select(-c(weight))
+  # 
+  # inj_orig_1year <- inj_orig_1year %>% tidyr::pivot_wider(names_from = cas_mode,
+  #                                                         values_from = total)
+  # # replace NA with 0
+  # inj_orig_1year <- inj_orig_1year %>% replace(is.na(.), 0)
+  # 
+  # # add row and column sums
+  # inj_orig_1year <- inj_orig_1year %>% mutate(rowSum = rowSums(across(where(is.numeric)),na.rm=TRUE))
+  # inj_orig_1year <- inj_orig_1year %>% adorn_totals("row")
+  # 
+  # # round results
+  # inj_orig_1year<- inj_orig_1year%>% mutate_if(is.numeric, round, digits = 1)
+  # 
+  # 
+  # inj_orig_1year <<- inj_orig_1year
+  # 
+  # # calculate the fatality counts adjusted by the injury_reporting_rate
+  # if (compute_mode == 'constant'){
+  #   inj_orig_1year_injreprate <- inj_orig_1year %>% modify_if(is.numeric, ~./injury_reporting_rate[[city]])
+  #   inj_orig_1year_injreprate <- inj_orig_1year_injreprate %>% mutate_if(is.numeric, round, digits = 1)
+  #   
+  #   inj_orig_1year_injreprate <<- inj_orig_1year_injreprate
+  # }
+  # 
+  # # Get all injuries where casualty and strike mode are identical for car, bus, motorcycle, cycle and truck
+  # # Treat bus_driver same as bus for strike mode
+  # same_cas_str_modes <- injuries %>% filter((cas_mode == "car" & strike_mode == "car") |
+  #   (cas_mode == "bus" & (strike_mode %in% c("bus", "bus_driver"))) |
+  #   (cas_mode == "motorcycle" & strike_mode == "motorcycle") |
+  #   (cas_mode == "cycle" & strike_mode == "cycle") |
+  #   (cas_mode == "truck" & strike_mode == "truck"))
+  # 
+  # # Filter all injuries where casualty equals strike mode
+  # # create dataset where casuality = strike mode fatality counts are removed
+  # injuries <- injuries %>% filter(!((cas_mode == "car" & strike_mode == "car") |
+  #   (cas_mode == "bus" & (strike_mode %in% c("bus", "bus_driver"))) |
+  #   (cas_mode == "motorcycle" & strike_mode == "motorcycle") |
+  #   (cas_mode == "cycle" & strike_mode == "cycle") |
+  #   (cas_mode == "truck" & strike_mode == "truck")))
+  # 
+  # # Where strike mode equals casualty mode, set the strike mode to 'nov'
+  # same_cas_str_modes <- same_cas_str_modes %>% mutate(strike_mode = "nov")
+  # 
+  # # Join all injuries again
+  # injuries <- dplyr::bind_rows(injuries, same_cas_str_modes)
+  # 
+  # # Call function to set tables for WHW and NOV
+  # set_injury_contingency(injuries)
 }
