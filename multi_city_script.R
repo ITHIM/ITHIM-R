@@ -88,10 +88,10 @@ repo_sha <-  as.character(readLines(file.path("repo_sha")))
 write_output_control = T # whether you want to save the model run specifics or not
 output_version <- paste0(repo_sha, "_test_run") # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
-comment <- "Set auto_rickshaw speed to 4, same as default speed in model"
+comment <- "Disable injury module"
 
 # scenario definition
-scenario_name <- "GLOBAL" # name of scenario to be called
+scenario_name <- "BOGOTA" # name of scenario to be called
 # scenario the other scenarios are compared to, the reference scenario name should always
 # be the name of the scenario corresponding to the actual baseline burden of disease and 
 # other input data for the city 
