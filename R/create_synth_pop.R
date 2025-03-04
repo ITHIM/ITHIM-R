@@ -52,92 +52,108 @@ create_base_pop <- function(raw_trip_set) {
   # Add age category for trip_set dataset.
   trip_set <- assign_age_groups(raw_trip_set, age_category = AGE_CATEGORY, age_lower_bounds = AGE_LOWER_BOUNDS, max_age = MAX_AGE)
   ## !! assuming more than one age category
-
-  # assign age categories to the physical activity dataset
-  pa <- PA_SET
-  # Make age category for pa dataset.
-  if (CITY == "accra") {
-    age_category <- c("15-55", "56-69", "70+")
-    age_lower_bounds <- c(15, 56, 70)
-  } else {
-    age_category <- AGE_CATEGORY
-    age_lower_bounds <- AGE_LOWER_BOUNDS
-  }
-  pa <- assign_age_groups(pa, age_category = age_category, age_lower_bounds)
-
-
-
-  ###  Match people in the trip_set with people in the physical activity datasets
-
-  column_to_keep <- which(colnames(pa) %in% c("work_ltpa_marg_met")) # define which column to keep from pa data
-  unique_ages <- unique(trip_set$age_cat) # find unqiue age categories in trip set
-  unique_genders <- unique(trip_set$sex) # find unique sexes in trip set
+  
+  ##
+  
+  # # assign age categories to the physical activity dataset
+  # pa <- PA_SET
+  # # Make age category for pa dataset.
+  # if (CITY == "accra") {
+  #   age_category <- c("15-55", "56-69", "70+")
+  #   age_lower_bounds <- c(15, 56, 70)
+  # } else {
+  #   age_category <- AGE_CATEGORY
+  #   age_lower_bounds <- AGE_LOWER_BOUNDS
+  # }
+  # pa <- assign_age_groups(pa, age_category = age_category, age_lower_bounds)
+  # 
+  # 
+  # 
+  # ###  Match people in the trip_set with people in the physical activity datasets
+  # 
+  # column_to_keep <- which(colnames(pa) %in% c("work_ltpa_marg_met")) # define which column to keep from pa data
+  # unique_ages <- unique(trip_set$age_cat) # find unqiue age categories in trip set
+  # unique_genders <- unique(trip_set$sex) # find unique sexes in trip set
 
   # match only for "real" people (i.e. not `ghost drivers', whose participant id is 0)
   # extract unique participant ids including age, sex and age category information from the trip data
   baseline_population <- subset(trip_set, !duplicated(participant_id) & participant_id > 0)[, names(trip_set) %in% c("participant_id", "age", "sex", "age_cat")]
+  
+  n <- nrow(baseline_population)
+  
+  # Example usage
+  n <- nrow(baseline_population) #length(unique(baseline_population$participant_id)) # Total number of samples
+  prob_zero <- 0.1  # Probability of getting a zero
+  mean <- 5  # Mean of the normal distribution
+  sd <- 1  # Standard deviation of the normal distribution
+  
+  baseline_population <- baseline_population |> 
+    mutate(work_ltpa_marg_met = create_bimodal_distribution(n, prob_zero, mean, sd))
+  
+  #background_pa <- data.frame(participant_id = unique(baseline_population$participant_id), work_ltpa_marg_met = create_bimodal_distribution(n, prob_zero, mean, sd))
+  
 
-  # initialise zeros and densities
-  zeros <- densities <- list()
-
-  # loop through age categories
-  for (age_group in unique_ages) {
-    zeros[[age_group]] <- densities[[age_group]] <- list() # initialise lists
-    pa_age_category <- age_category[which(AGE_CATEGORY == age_group)]
-
-    for (gender in unique_genders) { # loop through sexes
-      # find people in pa data with given age category and sex
-      matching_people <- as.data.frame(filter(pa, age_cat == pa_age_category & sex == gender)[, column_to_keep])
-      raw_zero <- 1 # raw_zero is the proportion of people with given sex and age_category who have zero non-travel met values
-
-      if (nrow(matching_people) > 0) { # if there are people with the right sex and age category in the pa dataset
-        # find proportion of those people whose non-occupational activity met is equal to 0
-        raw_zero <- sum(matching_people$work_ltpa_marg_met == 0) / length(matching_people$work_ltpa_marg_met)
-        #print(raw_zero)
-      }
-
-      if (BACKGROUND_PA_CONFIDENCE < 1) { # option to sample the raw_zero proportion from a beta distribution
-        mean <- raw_zero # define mean of beta distribution
-
-        if (raw_zero == 0) mean <- 0.001 # can't build beta distribution with a mean of 0 or 1
-
-        if (raw_zero == 1) mean <- 0.999
-
-        std <- (1-BACKGROUND_PA_CONFIDENCE)/2*min(mean, 1-mean) # define standard deviation of beta distribution
-       
-
-        # define alpha and beta values and sample from the corresponding distribution
-        alpha <- abs((mean * (1 - mean) / std^2 - 1) * mean)
-        beta <- abs((mean * (1 - mean) / std^2 - 1) * (1 - mean))
-        raw_zero <- qbeta(BACKGROUND_PA_ZEROS,alpha,beta)
-      }
-      zeros[[age_group]][[gender]] <- raw_zero # proportion of people with given sex and age_category who have zero non-travel met values
-      densities[[age_group]][[gender]] <- matching_people$work_ltpa_marg_met[matching_people$work_ltpa_marg_met > 0] # people with non-zero non-occupational pa
-    }
-  }
-
-  # assign all participants 0 non-occupational mmets
-  baseline_population$work_ltpa_marg_met <- 0
-
-  # match population to PA dataset via demographic information
-  for (age_group in unique_ages) { # loop through age groups
-    pa_age_category <- age_category[which(AGE_CATEGORY == age_group)]
-
-    for (gender in unique_genders) { # loop through sexes
-
-      i <- which(baseline_population$age_cat == age_group & baseline_population$sex == gender)
-      raw_density <- densities[[age_group]][[gender]] # people with non zero non-occupational met
-      prob_zero <- zeros[[age_group]][[gender]] # proportion of people with zero non-occupational met
-
-      # sample with from 0 and pa of people with non-zero pa with replacement
-      v <- sample(c(0, raw_density), length(i), replace = T, prob = c(prob_zero, (rep(1, length(raw_density)) - prob_zero) / length(raw_density)))
-
-      if (length(v) > 0) {
-        # assign new mmet to baseline population (from trip data) with given age category and sex
-        baseline_population$work_ltpa_marg_met[i] <- c(v)
-      }
-    }
-  }
+  # # initialise zeros and densities
+  # zeros <- densities <- list()
+  # 
+  # # loop through age categories
+  # for (age_group in unique_ages) {
+  #   zeros[[age_group]] <- densities[[age_group]] <- list() # initialise lists
+  #   pa_age_category <- age_category[which(AGE_CATEGORY == age_group)]
+  # 
+  #   for (gender in unique_genders) { # loop through sexes
+  #     # find people in pa data with given age category and sex
+  #     matching_people <- as.data.frame(filter(pa, age_cat == pa_age_category & sex == gender)[, column_to_keep])
+  #     raw_zero <- 1 # raw_zero is the proportion of people with given sex and age_category who have zero non-travel met values
+  # 
+  #     if (nrow(matching_people) > 0) { # if there are people with the right sex and age category in the pa dataset
+  #       # find proportion of those people whose non-occupational activity met is equal to 0
+  #       raw_zero <- sum(matching_people$work_ltpa_marg_met == 0) / length(matching_people$work_ltpa_marg_met)
+  #       #print(raw_zero)
+  #     }
+  # 
+  #     if (BACKGROUND_PA_CONFIDENCE < 1) { # option to sample the raw_zero proportion from a beta distribution
+  #       mean <- raw_zero # define mean of beta distribution
+  # 
+  #       if (raw_zero == 0) mean <- 0.001 # can't build beta distribution with a mean of 0 or 1
+  # 
+  #       if (raw_zero == 1) mean <- 0.999
+  # 
+  #       std <- (1-BACKGROUND_PA_CONFIDENCE)/2*min(mean, 1-mean) # define standard deviation of beta distribution
+  #      
+  # 
+  #       # define alpha and beta values and sample from the corresponding distribution
+  #       alpha <- abs((mean * (1 - mean) / std^2 - 1) * mean)
+  #       beta <- abs((mean * (1 - mean) / std^2 - 1) * (1 - mean))
+  #       raw_zero <- qbeta(BACKGROUND_PA_ZEROS,alpha,beta)
+  #     }
+  #     zeros[[age_group]][[gender]] <- raw_zero # proportion of people with given sex and age_category who have zero non-travel met values
+  #     densities[[age_group]][[gender]] <- matching_people$work_ltpa_marg_met[matching_people$work_ltpa_marg_met > 0] # people with non-zero non-occupational pa
+  #   }
+  # }
+  # 
+  # # assign all participants 0 non-occupational mmets
+  # baseline_population$work_ltpa_marg_met <- 0
+  # 
+  # # match population to PA dataset via demographic information
+  # for (age_group in unique_ages) { # loop through age groups
+  #   pa_age_category <- age_category[which(AGE_CATEGORY == age_group)]
+  # 
+  #   for (gender in unique_genders) { # loop through sexes
+  # 
+  #     i <- which(baseline_population$age_cat == age_group & baseline_population$sex == gender)
+  #     raw_density <- densities[[age_group]][[gender]] # people with non zero non-occupational met
+  #     prob_zero <- zeros[[age_group]][[gender]] # proportion of people with zero non-occupational met
+  # 
+  #     # sample with from 0 and pa of people with non-zero pa with replacement
+  #     v <- sample(c(0, raw_density), length(i), replace = T, prob = c(prob_zero, (rep(1, length(raw_density)) - prob_zero) / length(raw_density)))
+  # 
+  #     if (length(v) > 0) {
+  #       # assign new mmet to baseline population (from trip data) with given age category and sex
+  #       baseline_population$work_ltpa_marg_met[i] <- c(v)
+  #     }
+  #   }
+  # }
 
   # Convert all integer columns to numeric
   baseline_population[, sapply(baseline_population, class) == "integer"] <- lapply(baseline_population[, sapply(baseline_population, class) == "integer"], as.numeric)
@@ -149,6 +165,21 @@ create_base_pop <- function(raw_trip_set) {
 
   return(list(trip_set = trip_set, baseline_population = baseline_population))
 }
+
+
+create_bimodal_distribution <- function(n, prob_zero, mean, sd) {
+  # Generate zeros
+  zeros <- rep(0, rbinom(1, n, prob_zero))
+  
+  # Generate non-zero values from normal distribution
+  non_zeros <- rnorm(n - length(zeros), mean, sd)
+  
+  # Combine and shuffle the results
+  result <- sample(c(zeros, non_zeros))
+  
+  return(result)
+}
+
 
 
 #' Parameterise confidence in PA data - CURRENTLY NOT IN USE
