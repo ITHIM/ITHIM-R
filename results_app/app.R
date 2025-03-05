@@ -29,7 +29,7 @@ if (.Platform$OS.type == "windows"){
 
 repo_sha <-  as.character(readLines(file.path("repo_sha")))
 # repo_sha <- "f7292509"
-output_version <- paste0(repo_sha, "_test_run")
+output_version <- repo_sha
 
 # Assumes that multi_city_script.R has been run  
 # read in input file

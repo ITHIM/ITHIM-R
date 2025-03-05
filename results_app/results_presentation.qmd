@@ -110,7 +110,7 @@ library(gt)
 library(gtExtras)
 
 repo_sha <-  as.character(readLines(file.path("../repo_sha")))
-io <- readRDS(paste0("../results/multi_city/io_", repo_sha, "_test_run.rds"))
+io <- readRDS(paste0("../results/multi_city/io_", repo_sha, ".rds"))
 city <- 'bogota'
 # PIF <- read_csv("data/PIF.csv")
 # 
