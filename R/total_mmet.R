@@ -48,7 +48,7 @@ total_mmet <- function(trip_scen_sets) {
 
   # Convert baseline's trip duration from mins to hours, scale to entire week
   # rd_pa$stage_duration_hrs <- rd_pa$stage_duration / 60 * DAY_TO_WEEK_TRAVEL_SCALAR # day_to_week scalar has already been applied in the get_synthetic_from_trips.R function
-  rd_pa$stage_duration_hrs <- rd_pa$stage_duration / 60 * 7
+  rd_pa$stage_duration_hrs <- rd_pa$stage_duration / 60 # * 7
 
   # Get total individual level pedestrian and cycling and non-travel mmets
   for (i in 1:length(SCEN)) { # loop through all scenarios
