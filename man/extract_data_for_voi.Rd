@@ -10,7 +10,8 @@ extract_data_for_voi(
   SCEN_SHORT_NAME,
   outcome_age_groups,
   cities,
-  multi_city_ithim
+  multi_city_ithim,
+  output_version
 )
 }
 \arguments{
@@ -25,13 +26,17 @@ extract_data_for_voi(
 \item{cities}{list of cities for which the model was run}
 
 \item{multi_city_ithim}{list containing the ithim model information including results for the various model runs}
+
+\item{output_version}{the output version of the model run}
 }
 \value{
 ithim_results list with the following objects:
 
 summary_ylls_df: dateframe with total ylls (median, 5th and 95th percentiles) per age group and city (plus combined results)
 
-voi_data_all_df: dataframe for all cities with all outcomes for all model runs, age groups and disease and scenario combinations
+voi_data_all_df: dataframe for all cities with all outcomes for all model runs, age and sex categories and disease and scenario combinations
+
+voi_data_all_sex_df: dataframe for all cities with all outcomes for all model runs, sex categories and disease and scenario combinations
 
 yll_per_hundred_thousand: yll per 100,000 people for each city, outcome age category, model run and disease and scen combination
 
@@ -52,7 +57,8 @@ The function performs the following steps:
  \itemize{
    \item calculate average outcome (yll) per person in the population considered by the model 
    \item calculate the total ylls per 100 000 for each outcome age category, scenario and disease combination and model run
-   \item calculate total yll outcome across all outcome age categories per city and scenario and disease combinations
+   \item calculate total yll outcome across all outcome age and sex categories per city and scenario and disease combinations
+   \item calculate total yll outcome across all outcome sex categories per city and scenario and disease combinations
    \item create one dataframe for all cities with all outcomes for all model runs, age groups and disease and 
          scenario combinations
  } 
