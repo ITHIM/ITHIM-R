@@ -388,7 +388,6 @@ print(system.time(
                                                 speeds = speeds[[city]],
                                                 
                                                 FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
-                                                PROPORTION_MOTORCYCLE_TRIPS = proportion_motorcycle_trips[[city]],
                                                 CYCLING_MMET =	cycling_mmet,
                                                 WALKING_MMET =	walking_mmet,
                                                 PASSENGER_MMET =	passenger_mmet,
