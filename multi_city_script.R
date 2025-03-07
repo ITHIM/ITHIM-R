@@ -286,7 +286,6 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
     AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile,
     PM_CONC_BASE = pm_conc_base[[city]],  
     PM_TRANS_SHARE = pm_trans_share[[city]],  
-    BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
     BUS_WALK_TIME = 0, #bus_walk_time[[city]],
     RAIL_WALK_TIME = 0, #rail_walk_time[[city]],
     
