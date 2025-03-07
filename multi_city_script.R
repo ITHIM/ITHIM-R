@@ -284,7 +284,6 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
     CALL_INDIVIDUAL_SIN = as.logical(call_individual_sin),
     PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile,  
     AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile,
-    CHRONIC_DISEASE_SCALAR = chronic_disease_scalar[[city]],  
     PM_CONC_BASE = pm_conc_base[[city]],  
     PM_TRANS_SHARE = pm_trans_share[[city]],  
     BACKGROUND_PA_SCALAR = background_pa_scalar[[city]],
