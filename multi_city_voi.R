@@ -107,7 +107,7 @@ rm(list=ls())
 cities <- c('bogota')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 10
+nsamples <- 2
 
 
 voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
@@ -124,7 +124,7 @@ voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
 #                       'pa_liver_cancer', 'pa_ap_CVD', 'pa_total_dementia', 'pa_myeloma', 'pa_Parkinson',
 #                       'pa_head_neck_cancer', 'pa_stomach_cancer', 'inj')
 
-outcome_voi_list <- c('pa_ap_all_cause', 'inj')
+outcome_voi_list <- c('pa_ap_all_cause')
 
 # flag whether to run VOI analysis split gender
 voi_gender <- T # set to T if want to include split and to F otherwise
@@ -619,12 +619,12 @@ voi_data_complete2 <- merge(voi_data_complete, population_df, by = c('age_cat','
 scen_only_names <- scenario_names[2:length(scenario_names)]
 
 # different levels
-level1 <-c('pa_ap_all_cause','inj')
-level2 <- c('pa_total_cancer','pa_ap_CVD','ap_respiratory','inj')
+level1 <-c('pa_ap_all_cause')
+level2 <- c('pa_total_cancer','pa_ap_CVD','ap_respiratory')
 level3 <- c('pa_ap_IHD','pa_ap_lung_cancer','ap_COPD','pa_ap_stroke','pa_ap_T2D','ap_LRI',
             'pa_breast_cancer','pa_colon_cancer','pa_endo_cancer','pa_liver_cancer','pa_total_dementia',
             'pa_myeloma','pa_Parkinson','pa_head_neck_cancer', 'pa_stomach_cancer',
-            'pa_myeloid_leukemia','inj')
+            'pa_myeloid_leukemia')
 
 level_list <- list(level1, level2, level3)
 
