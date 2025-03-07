@@ -427,11 +427,6 @@ print(system.time(
                                                 
                                                 PM_EMISSION_INVENTORY_CONFIDENCE = as.numeric(PM_emission_confidence[[city]]),
                                                 CO2_EMISSION_INVENTORY_CONFIDENCE = as.numeric(CO2_emission_confidence[[city]]),
-                                                DISTANCE_SCALAR_CAR_TAXI = distance_scalar_car_taxi[[city]],
-                                                DISTANCE_SCALAR_WALKING = distance_scalar_walking[[city]],
-                                                DISTANCE_SCALAR_PT = distance_scalar_pt[[city]],
-                                                DISTANCE_SCALAR_CYCLING = distance_scalar_cycling[[city]],
-                                                DISTANCE_SCALAR_MOTORCYCLE = distance_scalar_motorcycle[[city]],
                                                 SCENARIO_NAME = scenario_name,
                                                 SCENARIO_INCREASE = scenario_increase,
                                                 
