@@ -412,7 +412,6 @@ print(system.time(
                                                 CALL_INDIVIDUAL_SIN = as.logical(call_individual_sin),
                                                 PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile[ci],  
                                                 AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile[ci],
-                                                INJURY_REPORTING_RATE = injury_reporting_rate[[city]],  
                                                 CHRONIC_DISEASE_SCALAR = chronic_disease_scalar[[city]],  
                                                 PM_CONC_BASE = pm_conc_base[[city]],  
                                                 PM_TRANS_SHARE = pm_trans_share[[city]],  
