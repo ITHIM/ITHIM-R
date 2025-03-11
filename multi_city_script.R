@@ -64,7 +64,7 @@ if (!require("drpa",character.only = TRUE)) {
 
 cities <- 'bogota'
 
-input_parameter_file <- "Bogota_InputParameters_v4.0.xlsx" # file containing the local and global input parameters
+input_parameter_file <- "Bogota_InputParameters_v5.0.xlsx" # file containing the local and global input parameters
 # 
 
 ## Get the current repo sha
