@@ -252,7 +252,6 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
     TREAT_TAXI_AS_CAR = as.logical(treat_taxi_as_car[[city]]),
     ADD_BUS_DRIVERS = as.logical(add_bus_drivers),
     ADD_CAR_DRIVERS = as.logical(add_car_drivers),
-    ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]),
     PM_emission_inventory = PM_emission_inventories[[city]],
     CO2_emission_inventory = CO2_emission_inventories[[city]],
     speeds = speeds[[city]],
