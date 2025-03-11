@@ -247,7 +247,6 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
   # run code to prepare the input data for the actual ITHIM Global health impact assessment
   ithim_objects[[city]] <- run_ithim_setup(
     DIST_CAT = as.character(dist_cat),
-    ADD_WALK_TO_PT_TRIPS = as.logical(add_walk_to_pt_trips[[city]]),
     CITY = city,
     AGE_RANGE = c(min_age,max_age),
     TREAT_TAXI_AS_CAR = as.logical(treat_taxi_as_car[[city]]),

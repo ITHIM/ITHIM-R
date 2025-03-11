@@ -375,7 +375,6 @@ print(system.time(
                                                 seed=ci,
                                                 # from multi city script
                                                 DIST_CAT = as.character(dist_cat), 
-                                                ADD_WALK_TO_PT_TRIPS = as.logical(add_walk_to_pt_trips[[city]]),# originally = F,
                                                 CITY=city,
                                                 AGE_RANGE =  c(min_age,max_age),
                                                 TREAT_TAXI_AS_CAR = as.logical(treat_taxi_as_car[[city]]),
