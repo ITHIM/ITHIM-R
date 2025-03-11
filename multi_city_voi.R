@@ -422,7 +422,6 @@ print(system.time(
                                                 BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                                 CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]],
                                                 
-                                                CO2_EMISSION_INVENTORY_CONFIDENCE = as.numeric(CO2_emission_confidence[[city]]),
                                                 SCENARIO_NAME = scenario_name,
                                                 SCENARIO_INCREASE = scenario_increase,
                                                 
