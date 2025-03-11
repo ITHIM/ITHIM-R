@@ -429,9 +429,6 @@ print(system.time(
                                                 SCENARIO_NAME = scenario_name,
                                                 SCENARIO_INCREASE = scenario_increase,
                                                 
-                                                BUS_DRIVER_PROP_MALE = as.numeric(bus_driver_prop_male[[city]]),
-                                                BUS_DRIVER_MALE_AGERANGE = bus_driver_male_agerange[[city]],
-                                                BUS_DRIVER_FEMALE_AGERANGE = bus_driver_female_agerange[[city]],
                                                 TRUCK_DRIVER_PROP_MALE = as.numeric(truck_driver_prop_male[[city]]),
                                                 TRUCK_DRIVER_MALE_AGERANGE = truck_driver_male_agerange[[city]],
                                                 TRUCK_DRIVER_FEMALE_AGERANGE = truck_driver_female_agerange[[city]],
