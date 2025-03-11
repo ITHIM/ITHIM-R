@@ -419,7 +419,6 @@ print(system.time(
                                                 #additional in VoI script
                                                 REFERENCE_SCENARIO= reference_scenario,
                                                 
-                                                BACKGROUND_PA_CONFIDENCE = as.numeric(background_pa_confidence[[city]]),
                                                 BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
                                                 CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]],
                                                 TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
