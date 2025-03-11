@@ -241,14 +241,14 @@
 "female","55-59","sc_car_ylls_ap_all_cause",-8.90759,"bogota","Car","L1: All Cause",NA,NA,"AP",235548
 "female","60-64","sc_car_ylls_ap_all_cause",-11.37924,"bogota","Car","L1: All Cause",NA,NA,"AP",189600
 "female","65-69","sc_car_ylls_ap_all_cause",-6.70285,"bogota","Car","L1: All Cause",NA,NA,"AP",141409
-"male","15-19","sc_bus_ylls_ap_all_cause",6.64335,"bogota","Bus","L1: All Cause",NA,NA,"AP",282736
-"male","20-24","sc_bus_ylls_ap_all_cause",18.39784,"bogota","Bus","L1: All Cause",NA,NA,"AP",357934
-"male","25-29","sc_bus_ylls_ap_all_cause",26.84955,"bogota","Bus","L1: All Cause",NA,NA,"AP",360031
+"male","15-19","sc_bus_ylls_ap_all_cause",6.64336,"bogota","Bus","L1: All Cause",NA,NA,"AP",282736
+"male","20-24","sc_bus_ylls_ap_all_cause",18.39785,"bogota","Bus","L1: All Cause",NA,NA,"AP",357934
+"male","25-29","sc_bus_ylls_ap_all_cause",26.84956,"bogota","Bus","L1: All Cause",NA,NA,"AP",360031
 "male","30-34","sc_bus_ylls_ap_all_cause",14.5655,"bogota","Bus","L1: All Cause",NA,NA,"AP",321492
 "male","35-39","sc_bus_ylls_ap_all_cause",20.91988,"bogota","Bus","L1: All Cause",NA,NA,"AP",289808
 "male","40-44","sc_bus_ylls_ap_all_cause",16.68312,"bogota","Bus","L1: All Cause",NA,NA,"AP",244543
 "male","45-49","sc_bus_ylls_ap_all_cause",13.18784,"bogota","Bus","L1: All Cause",NA,NA,"AP",215491
-"male","50-54","sc_bus_ylls_ap_all_cause",13.17641,"bogota","Bus","L1: All Cause",NA,NA,"AP",209137
+"male","50-54","sc_bus_ylls_ap_all_cause",13.17642,"bogota","Bus","L1: All Cause",NA,NA,"AP",209137
 "male","55-59","sc_bus_ylls_ap_all_cause",14.70737,"bogota","Bus","L1: All Cause",NA,NA,"AP",187551
 "male","60-64","sc_bus_ylls_ap_all_cause",13.00786,"bogota","Bus","L1: All Cause",NA,NA,"AP",146500
 "male","65-69","sc_bus_ylls_ap_all_cause",9.91243,"bogota","Bus","L1: All Cause",NA,NA,"AP",105412
@@ -260,7 +260,7 @@
 "female","40-44","sc_bus_ylls_ap_all_cause",2.56293,"bogota","Bus","L1: All Cause",NA,NA,"AP",275440
 "female","45-49","sc_bus_ylls_ap_all_cause",1.59764,"bogota","Bus","L1: All Cause",NA,NA,"AP",254843
 "female","50-54","sc_bus_ylls_ap_all_cause",1.83562,"bogota","Bus","L1: All Cause",NA,NA,"AP",256059
-"female","55-59","sc_bus_ylls_ap_all_cause",4.18914,"bogota","Bus","L1: All Cause",NA,NA,"AP",235548
+"female","55-59","sc_bus_ylls_ap_all_cause",4.18915,"bogota","Bus","L1: All Cause",NA,NA,"AP",235548
 "female","60-64","sc_bus_ylls_ap_all_cause",0.21132,"bogota","Bus","L1: All Cause",NA,NA,"AP",189600
 "female","65-69","sc_bus_ylls_ap_all_cause",1.11666,"bogota","Bus","L1: All Cause",NA,NA,"AP",141409
 "male","15-19","sc_cycle_ylls_ap_all_cause_lb",-10.39148,"bogota","Cycling","L1: All Cause",NA,NA,"AP",282736
@@ -307,14 +307,14 @@
 "female","55-59","sc_car_ylls_ap_all_cause_lb",-8.90759,"bogota","Car","L1: All Cause",NA,NA,"AP",235548
 "female","60-64","sc_car_ylls_ap_all_cause_lb",-11.37924,"bogota","Car","L1: All Cause",NA,NA,"AP",189600
 "female","65-69","sc_car_ylls_ap_all_cause_lb",-6.70285,"bogota","Car","L1: All Cause",NA,NA,"AP",141409
-"male","15-19","sc_bus_ylls_ap_all_cause_lb",6.64335,"bogota","Bus","L1: All Cause",NA,NA,"AP",282736
-"male","20-24","sc_bus_ylls_ap_all_cause_lb",18.39784,"bogota","Bus","L1: All Cause",NA,NA,"AP",357934
-"male","25-29","sc_bus_ylls_ap_all_cause_lb",26.84955,"bogota","Bus","L1: All Cause",NA,NA,"AP",360031
+"male","15-19","sc_bus_ylls_ap_all_cause_lb",6.64336,"bogota","Bus","L1: All Cause",NA,NA,"AP",282736
+"male","20-24","sc_bus_ylls_ap_all_cause_lb",18.39785,"bogota","Bus","L1: All Cause",NA,NA,"AP",357934
+"male","25-29","sc_bus_ylls_ap_all_cause_lb",26.84956,"bogota","Bus","L1: All Cause",NA,NA,"AP",360031
 "male","30-34","sc_bus_ylls_ap_all_cause_lb",14.5655,"bogota","Bus","L1: All Cause",NA,NA,"AP",321492
 "male","35-39","sc_bus_ylls_ap_all_cause_lb",20.91988,"bogota","Bus","L1: All Cause",NA,NA,"AP",289808
 "male","40-44","sc_bus_ylls_ap_all_cause_lb",16.68312,"bogota","Bus","L1: All Cause",NA,NA,"AP",244543
 "male","45-49","sc_bus_ylls_ap_all_cause_lb",13.18784,"bogota","Bus","L1: All Cause",NA,NA,"AP",215491
-"male","50-54","sc_bus_ylls_ap_all_cause_lb",13.17641,"bogota","Bus","L1: All Cause",NA,NA,"AP",209137
+"male","50-54","sc_bus_ylls_ap_all_cause_lb",13.17642,"bogota","Bus","L1: All Cause",NA,NA,"AP",209137
 "male","55-59","sc_bus_ylls_ap_all_cause_lb",14.70737,"bogota","Bus","L1: All Cause",NA,NA,"AP",187551
 "male","60-64","sc_bus_ylls_ap_all_cause_lb",13.00786,"bogota","Bus","L1: All Cause",NA,NA,"AP",146500
 "male","65-69","sc_bus_ylls_ap_all_cause_lb",9.91243,"bogota","Bus","L1: All Cause",NA,NA,"AP",105412
@@ -326,7 +326,7 @@
 "female","40-44","sc_bus_ylls_ap_all_cause_lb",2.56293,"bogota","Bus","L1: All Cause",NA,NA,"AP",275440
 "female","45-49","sc_bus_ylls_ap_all_cause_lb",1.59764,"bogota","Bus","L1: All Cause",NA,NA,"AP",254843
 "female","50-54","sc_bus_ylls_ap_all_cause_lb",1.83562,"bogota","Bus","L1: All Cause",NA,NA,"AP",256059
-"female","55-59","sc_bus_ylls_ap_all_cause_lb",4.18914,"bogota","Bus","L1: All Cause",NA,NA,"AP",235548
+"female","55-59","sc_bus_ylls_ap_all_cause_lb",4.18915,"bogota","Bus","L1: All Cause",NA,NA,"AP",235548
 "female","60-64","sc_bus_ylls_ap_all_cause_lb",0.21132,"bogota","Bus","L1: All Cause",NA,NA,"AP",189600
 "female","65-69","sc_bus_ylls_ap_all_cause_lb",1.11666,"bogota","Bus","L1: All Cause",NA,NA,"AP",141409
 "male","15-19","sc_cycle_ylls_ap_all_cause_ub",-10.39148,"bogota","Cycling","L1: All Cause",NA,NA,"AP",282736
@@ -373,14 +373,14 @@
 "female","55-59","sc_car_ylls_ap_all_cause_ub",-8.90759,"bogota","Car","L1: All Cause",NA,NA,"AP",235548
 "female","60-64","sc_car_ylls_ap_all_cause_ub",-11.37924,"bogota","Car","L1: All Cause",NA,NA,"AP",189600
 "female","65-69","sc_car_ylls_ap_all_cause_ub",-6.70285,"bogota","Car","L1: All Cause",NA,NA,"AP",141409
-"male","15-19","sc_bus_ylls_ap_all_cause_ub",6.64335,"bogota","Bus","L1: All Cause",NA,NA,"AP",282736
-"male","20-24","sc_bus_ylls_ap_all_cause_ub",18.39784,"bogota","Bus","L1: All Cause",NA,NA,"AP",357934
-"male","25-29","sc_bus_ylls_ap_all_cause_ub",26.84955,"bogota","Bus","L1: All Cause",NA,NA,"AP",360031
+"male","15-19","sc_bus_ylls_ap_all_cause_ub",6.64336,"bogota","Bus","L1: All Cause",NA,NA,"AP",282736
+"male","20-24","sc_bus_ylls_ap_all_cause_ub",18.39785,"bogota","Bus","L1: All Cause",NA,NA,"AP",357934
+"male","25-29","sc_bus_ylls_ap_all_cause_ub",26.84956,"bogota","Bus","L1: All Cause",NA,NA,"AP",360031
 "male","30-34","sc_bus_ylls_ap_all_cause_ub",14.5655,"bogota","Bus","L1: All Cause",NA,NA,"AP",321492
 "male","35-39","sc_bus_ylls_ap_all_cause_ub",20.91988,"bogota","Bus","L1: All Cause",NA,NA,"AP",289808
 "male","40-44","sc_bus_ylls_ap_all_cause_ub",16.68312,"bogota","Bus","L1: All Cause",NA,NA,"AP",244543
 "male","45-49","sc_bus_ylls_ap_all_cause_ub",13.18784,"bogota","Bus","L1: All Cause",NA,NA,"AP",215491
-"male","50-54","sc_bus_ylls_ap_all_cause_ub",13.17641,"bogota","Bus","L1: All Cause",NA,NA,"AP",209137
+"male","50-54","sc_bus_ylls_ap_all_cause_ub",13.17642,"bogota","Bus","L1: All Cause",NA,NA,"AP",209137
 "male","55-59","sc_bus_ylls_ap_all_cause_ub",14.70737,"bogota","Bus","L1: All Cause",NA,NA,"AP",187551
 "male","60-64","sc_bus_ylls_ap_all_cause_ub",13.00786,"bogota","Bus","L1: All Cause",NA,NA,"AP",146500
 "male","65-69","sc_bus_ylls_ap_all_cause_ub",9.91243,"bogota","Bus","L1: All Cause",NA,NA,"AP",105412
@@ -392,7 +392,7 @@
 "female","40-44","sc_bus_ylls_ap_all_cause_ub",2.56293,"bogota","Bus","L1: All Cause",NA,NA,"AP",275440
 "female","45-49","sc_bus_ylls_ap_all_cause_ub",1.59764,"bogota","Bus","L1: All Cause",NA,NA,"AP",254843
 "female","50-54","sc_bus_ylls_ap_all_cause_ub",1.83562,"bogota","Bus","L1: All Cause",NA,NA,"AP",256059
-"female","55-59","sc_bus_ylls_ap_all_cause_ub",4.18914,"bogota","Bus","L1: All Cause",NA,NA,"AP",235548
+"female","55-59","sc_bus_ylls_ap_all_cause_ub",4.18915,"bogota","Bus","L1: All Cause",NA,NA,"AP",235548
 "female","60-64","sc_bus_ylls_ap_all_cause_ub",0.21132,"bogota","Bus","L1: All Cause",NA,NA,"AP",189600
 "female","65-69","sc_bus_ylls_ap_all_cause_ub",1.11666,"bogota","Bus","L1: All Cause",NA,NA,"AP",141409
 "male","15-19","sc_cycle_ylls_pa_IHD",0.44746,"bogota","Cycling",NA,NA,"L3: IHD","PA",282736
@@ -646,7 +646,7 @@
 "male","45-49","sc_bus_ylls_ap_IHD",2.58282,"bogota","Bus",NA,NA,"L3: IHD","AP",215491
 "male","50-54","sc_bus_ylls_ap_IHD",3.41011,"bogota","Bus",NA,NA,"L3: IHD","AP",209137
 "male","55-59","sc_bus_ylls_ap_IHD",4.23713,"bogota","Bus",NA,NA,"L3: IHD","AP",187551
-"male","60-64","sc_bus_ylls_ap_IHD",3.51408,"bogota","Bus",NA,NA,"L3: IHD","AP",146500
+"male","60-64","sc_bus_ylls_ap_IHD",3.51409,"bogota","Bus",NA,NA,"L3: IHD","AP",146500
 "male","65-69","sc_bus_ylls_ap_IHD",2.58734,"bogota","Bus",NA,NA,"L3: IHD","AP",105412
 "female","15-19","sc_bus_ylls_ap_IHD",0,"bogota","Bus",NA,NA,"L3: IHD","AP",279280
 "female","20-24","sc_bus_ylls_ap_IHD",0,"bogota","Bus",NA,NA,"L3: IHD","AP",360197
@@ -658,7 +658,7 @@
 "female","50-54","sc_bus_ylls_ap_IHD",0.28438,"bogota","Bus",NA,NA,"L3: IHD","AP",256059
 "female","55-59","sc_bus_ylls_ap_IHD",0.77426,"bogota","Bus",NA,NA,"L3: IHD","AP",235548
 "female","60-64","sc_bus_ylls_ap_IHD",-0.02596,"bogota","Bus",NA,NA,"L3: IHD","AP",189600
-"female","65-69","sc_bus_ylls_ap_IHD",0.15896,"bogota","Bus",NA,NA,"L3: IHD","AP",141409
+"female","65-69","sc_bus_ylls_ap_IHD",0.15897,"bogota","Bus",NA,NA,"L3: IHD","AP",141409
 "male","15-19","sc_cycle_ylls_ap_IHD_lb",0,"bogota","Cycling",NA,NA,"L3: IHD","AP",282736
 "male","20-24","sc_cycle_ylls_ap_IHD_lb",0,"bogota","Cycling",NA,NA,"L3: IHD","AP",357934
 "male","25-29","sc_cycle_ylls_ap_IHD_lb",-0.9432,"bogota","Cycling",NA,NA,"L3: IHD","AP",360031
@@ -712,7 +712,7 @@
 "male","45-49","sc_bus_ylls_ap_IHD_lb",2.58282,"bogota","Bus",NA,NA,"L3: IHD","AP",215491
 "male","50-54","sc_bus_ylls_ap_IHD_lb",3.41011,"bogota","Bus",NA,NA,"L3: IHD","AP",209137
 "male","55-59","sc_bus_ylls_ap_IHD_lb",4.23713,"bogota","Bus",NA,NA,"L3: IHD","AP",187551
-"male","60-64","sc_bus_ylls_ap_IHD_lb",3.51408,"bogota","Bus",NA,NA,"L3: IHD","AP",146500
+"male","60-64","sc_bus_ylls_ap_IHD_lb",3.51409,"bogota","Bus",NA,NA,"L3: IHD","AP",146500
 "male","65-69","sc_bus_ylls_ap_IHD_lb",2.58734,"bogota","Bus",NA,NA,"L3: IHD","AP",105412
 "female","15-19","sc_bus_ylls_ap_IHD_lb",0,"bogota","Bus",NA,NA,"L3: IHD","AP",279280
 "female","20-24","sc_bus_ylls_ap_IHD_lb",0,"bogota","Bus",NA,NA,"L3: IHD","AP",360197
@@ -724,7 +724,7 @@
 "female","50-54","sc_bus_ylls_ap_IHD_lb",0.28438,"bogota","Bus",NA,NA,"L3: IHD","AP",256059
 "female","55-59","sc_bus_ylls_ap_IHD_lb",0.77426,"bogota","Bus",NA,NA,"L3: IHD","AP",235548
 "female","60-64","sc_bus_ylls_ap_IHD_lb",-0.02596,"bogota","Bus",NA,NA,"L3: IHD","AP",189600
-"female","65-69","sc_bus_ylls_ap_IHD_lb",0.15896,"bogota","Bus",NA,NA,"L3: IHD","AP",141409
+"female","65-69","sc_bus_ylls_ap_IHD_lb",0.15897,"bogota","Bus",NA,NA,"L3: IHD","AP",141409
 "male","15-19","sc_cycle_ylls_ap_IHD_ub",0,"bogota","Cycling",NA,NA,"L3: IHD","AP",282736
 "male","20-24","sc_cycle_ylls_ap_IHD_ub",0,"bogota","Cycling",NA,NA,"L3: IHD","AP",357934
 "male","25-29","sc_cycle_ylls_ap_IHD_ub",-0.9432,"bogota","Cycling",NA,NA,"L3: IHD","AP",360031
@@ -778,7 +778,7 @@
 "male","45-49","sc_bus_ylls_ap_IHD_ub",2.58282,"bogota","Bus",NA,NA,"L3: IHD","AP",215491
 "male","50-54","sc_bus_ylls_ap_IHD_ub",3.41011,"bogota","Bus",NA,NA,"L3: IHD","AP",209137
 "male","55-59","sc_bus_ylls_ap_IHD_ub",4.23713,"bogota","Bus",NA,NA,"L3: IHD","AP",187551
-"male","60-64","sc_bus_ylls_ap_IHD_ub",3.51408,"bogota","Bus",NA,NA,"L3: IHD","AP",146500
+"male","60-64","sc_bus_ylls_ap_IHD_ub",3.51409,"bogota","Bus",NA,NA,"L3: IHD","AP",146500
 "male","65-69","sc_bus_ylls_ap_IHD_ub",2.58734,"bogota","Bus",NA,NA,"L3: IHD","AP",105412
 "female","15-19","sc_bus_ylls_ap_IHD_ub",0,"bogota","Bus",NA,NA,"L3: IHD","AP",279280
 "female","20-24","sc_bus_ylls_ap_IHD_ub",0,"bogota","Bus",NA,NA,"L3: IHD","AP",360197
@@ -790,7 +790,7 @@
 "female","50-54","sc_bus_ylls_ap_IHD_ub",0.28438,"bogota","Bus",NA,NA,"L3: IHD","AP",256059
 "female","55-59","sc_bus_ylls_ap_IHD_ub",0.77426,"bogota","Bus",NA,NA,"L3: IHD","AP",235548
 "female","60-64","sc_bus_ylls_ap_IHD_ub",-0.02596,"bogota","Bus",NA,NA,"L3: IHD","AP",189600
-"female","65-69","sc_bus_ylls_ap_IHD_ub",0.15896,"bogota","Bus",NA,NA,"L3: IHD","AP",141409
+"female","65-69","sc_bus_ylls_ap_IHD_ub",0.15897,"bogota","Bus",NA,NA,"L3: IHD","AP",141409
 "male","15-19","sc_cycle_ylls_pa_total_cancer",2.0631,"bogota","Cycling",NA,"L2: Cancer",NA,"PA",282736
 "male","20-24","sc_cycle_ylls_pa_total_cancer",3.2468,"bogota","Cycling",NA,"L2: Cancer",NA,"PA",357934
 "male","25-29","sc_cycle_ylls_pa_total_cancer",9.41528,"bogota","Cycling",NA,"L2: Cancer",NA,"PA",360031
@@ -1249,7 +1249,7 @@
 "female","35-39","sc_bus_ylls_ap_lung_cancer",0.06632,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",309304
 "female","40-44","sc_bus_ylls_ap_lung_cancer",0.05376,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",275440
 "female","45-49","sc_bus_ylls_ap_lung_cancer",0.04946,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",254843
-"female","50-54","sc_bus_ylls_ap_lung_cancer",0.07058,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",256059
+"female","50-54","sc_bus_ylls_ap_lung_cancer",0.07059,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",256059
 "female","55-59","sc_bus_ylls_ap_lung_cancer",0.18631,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",235548
 "female","60-64","sc_bus_ylls_ap_lung_cancer",-0.0054,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",189600
 "female","65-69","sc_bus_ylls_ap_lung_cancer",0.04278,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",141409
@@ -1315,7 +1315,7 @@
 "female","35-39","sc_bus_ylls_ap_lung_cancer_lb",0.06632,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",309304
 "female","40-44","sc_bus_ylls_ap_lung_cancer_lb",0.05376,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",275440
 "female","45-49","sc_bus_ylls_ap_lung_cancer_lb",0.04946,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",254843
-"female","50-54","sc_bus_ylls_ap_lung_cancer_lb",0.07058,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",256059
+"female","50-54","sc_bus_ylls_ap_lung_cancer_lb",0.07059,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",256059
 "female","55-59","sc_bus_ylls_ap_lung_cancer_lb",0.18631,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",235548
 "female","60-64","sc_bus_ylls_ap_lung_cancer_lb",-0.0054,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",189600
 "female","65-69","sc_bus_ylls_ap_lung_cancer_lb",0.04278,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",141409
@@ -1381,7 +1381,7 @@
 "female","35-39","sc_bus_ylls_ap_lung_cancer_ub",0.06632,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",309304
 "female","40-44","sc_bus_ylls_ap_lung_cancer_ub",0.05376,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",275440
 "female","45-49","sc_bus_ylls_ap_lung_cancer_ub",0.04946,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",254843
-"female","50-54","sc_bus_ylls_ap_lung_cancer_ub",0.07058,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",256059
+"female","50-54","sc_bus_ylls_ap_lung_cancer_ub",0.07059,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",256059
 "female","55-59","sc_bus_ylls_ap_lung_cancer_ub",0.18631,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",235548
 "female","60-64","sc_bus_ylls_ap_lung_cancer_ub",-0.0054,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",189600
 "female","65-69","sc_bus_ylls_ap_lung_cancer_ub",0.04278,"bogota","Bus",NA,NA,"L3: lung_cancer","AP",141409
@@ -1809,7 +1809,7 @@
 "male","30-34","sc_car_ylls_ap_stroke",-0.51743,"bogota","Car",NA,NA,"L3: stroke","AP",321492
 "male","35-39","sc_car_ylls_ap_stroke",-0.6233,"bogota","Car",NA,NA,"L3: stroke","AP",289808
 "male","40-44","sc_car_ylls_ap_stroke",-0.51931,"bogota","Car",NA,NA,"L3: stroke","AP",244543
-"male","45-49","sc_car_ylls_ap_stroke",-0.72153,"bogota","Car",NA,NA,"L3: stroke","AP",215491
+"male","45-49","sc_car_ylls_ap_stroke",-0.72152,"bogota","Car",NA,NA,"L3: stroke","AP",215491
 "male","50-54","sc_car_ylls_ap_stroke",-0.74315,"bogota","Car",NA,NA,"L3: stroke","AP",209137
 "male","55-59","sc_car_ylls_ap_stroke",-1.32102,"bogota","Car",NA,NA,"L3: stroke","AP",187551
 "male","60-64","sc_car_ylls_ap_stroke",-0.94416,"bogota","Car",NA,NA,"L3: stroke","AP",146500
@@ -1834,7 +1834,7 @@
 "male","45-49","sc_bus_ylls_ap_stroke",1.10263,"bogota","Bus",NA,NA,"L3: stroke","AP",215491
 "male","50-54","sc_bus_ylls_ap_stroke",1.34735,"bogota","Bus",NA,NA,"L3: stroke","AP",209137
 "male","55-59","sc_bus_ylls_ap_stroke",1.52383,"bogota","Bus",NA,NA,"L3: stroke","AP",187551
-"male","60-64","sc_bus_ylls_ap_stroke",1.34037,"bogota","Bus",NA,NA,"L3: stroke","AP",146500
+"male","60-64","sc_bus_ylls_ap_stroke",1.34038,"bogota","Bus",NA,NA,"L3: stroke","AP",146500
 "male","65-69","sc_bus_ylls_ap_stroke",0.96303,"bogota","Bus",NA,NA,"L3: stroke","AP",105412
 "female","15-19","sc_bus_ylls_ap_stroke",0,"bogota","Bus",NA,NA,"L3: stroke","AP",279280
 "female","20-24","sc_bus_ylls_ap_stroke",0,"bogota","Bus",NA,NA,"L3: stroke","AP",360197
@@ -1875,7 +1875,7 @@
 "male","30-34","sc_car_ylls_ap_stroke_lb",-0.51743,"bogota","Car",NA,NA,"L3: stroke","AP",321492
 "male","35-39","sc_car_ylls_ap_stroke_lb",-0.6233,"bogota","Car",NA,NA,"L3: stroke","AP",289808
 "male","40-44","sc_car_ylls_ap_stroke_lb",-0.51931,"bogota","Car",NA,NA,"L3: stroke","AP",244543
-"male","45-49","sc_car_ylls_ap_stroke_lb",-0.72153,"bogota","Car",NA,NA,"L3: stroke","AP",215491
+"male","45-49","sc_car_ylls_ap_stroke_lb",-0.72152,"bogota","Car",NA,NA,"L3: stroke","AP",215491
 "male","50-54","sc_car_ylls_ap_stroke_lb",-0.74315,"bogota","Car",NA,NA,"L3: stroke","AP",209137
 "male","55-59","sc_car_ylls_ap_stroke_lb",-1.32102,"bogota","Car",NA,NA,"L3: stroke","AP",187551
 "male","60-64","sc_car_ylls_ap_stroke_lb",-0.94416,"bogota","Car",NA,NA,"L3: stroke","AP",146500
@@ -1900,7 +1900,7 @@
 "male","45-49","sc_bus_ylls_ap_stroke_lb",1.10263,"bogota","Bus",NA,NA,"L3: stroke","AP",215491
 "male","50-54","sc_bus_ylls_ap_stroke_lb",1.34735,"bogota","Bus",NA,NA,"L3: stroke","AP",209137
 "male","55-59","sc_bus_ylls_ap_stroke_lb",1.52383,"bogota","Bus",NA,NA,"L3: stroke","AP",187551
-"male","60-64","sc_bus_ylls_ap_stroke_lb",1.34037,"bogota","Bus",NA,NA,"L3: stroke","AP",146500
+"male","60-64","sc_bus_ylls_ap_stroke_lb",1.34038,"bogota","Bus",NA,NA,"L3: stroke","AP",146500
 "male","65-69","sc_bus_ylls_ap_stroke_lb",0.96303,"bogota","Bus",NA,NA,"L3: stroke","AP",105412
 "female","15-19","sc_bus_ylls_ap_stroke_lb",0,"bogota","Bus",NA,NA,"L3: stroke","AP",279280
 "female","20-24","sc_bus_ylls_ap_stroke_lb",0,"bogota","Bus",NA,NA,"L3: stroke","AP",360197
@@ -1941,7 +1941,7 @@
 "male","30-34","sc_car_ylls_ap_stroke_ub",-0.51743,"bogota","Car",NA,NA,"L3: stroke","AP",321492
 "male","35-39","sc_car_ylls_ap_stroke_ub",-0.6233,"bogota","Car",NA,NA,"L3: stroke","AP",289808
 "male","40-44","sc_car_ylls_ap_stroke_ub",-0.51931,"bogota","Car",NA,NA,"L3: stroke","AP",244543
-"male","45-49","sc_car_ylls_ap_stroke_ub",-0.72153,"bogota","Car",NA,NA,"L3: stroke","AP",215491
+"male","45-49","sc_car_ylls_ap_stroke_ub",-0.72152,"bogota","Car",NA,NA,"L3: stroke","AP",215491
 "male","50-54","sc_car_ylls_ap_stroke_ub",-0.74315,"bogota","Car",NA,NA,"L3: stroke","AP",209137
 "male","55-59","sc_car_ylls_ap_stroke_ub",-1.32102,"bogota","Car",NA,NA,"L3: stroke","AP",187551
 "male","60-64","sc_car_ylls_ap_stroke_ub",-0.94416,"bogota","Car",NA,NA,"L3: stroke","AP",146500
@@ -1966,7 +1966,7 @@
 "male","45-49","sc_bus_ylls_ap_stroke_ub",1.10263,"bogota","Bus",NA,NA,"L3: stroke","AP",215491
 "male","50-54","sc_bus_ylls_ap_stroke_ub",1.34735,"bogota","Bus",NA,NA,"L3: stroke","AP",209137
 "male","55-59","sc_bus_ylls_ap_stroke_ub",1.52383,"bogota","Bus",NA,NA,"L3: stroke","AP",187551
-"male","60-64","sc_bus_ylls_ap_stroke_ub",1.34037,"bogota","Bus",NA,NA,"L3: stroke","AP",146500
+"male","60-64","sc_bus_ylls_ap_stroke_ub",1.34038,"bogota","Bus",NA,NA,"L3: stroke","AP",146500
 "male","65-69","sc_bus_ylls_ap_stroke_ub",0.96303,"bogota","Bus",NA,NA,"L3: stroke","AP",105412
 "female","15-19","sc_bus_ylls_ap_stroke_ub",0,"bogota","Bus",NA,NA,"L3: stroke","AP",279280
 "female","20-24","sc_bus_ylls_ap_stroke_ub",0,"bogota","Bus",NA,NA,"L3: stroke","AP",360197
@@ -3625,7 +3625,7 @@
 "female","35-39","sc_bus_ylls_ap_CVD",0.62082,"bogota","Bus",NA,"L2: CVD",NA,"AP",309304
 "female","40-44","sc_bus_ylls_ap_CVD",0.46562,"bogota","Bus",NA,"L2: CVD",NA,"AP",275440
 "female","45-49","sc_bus_ylls_ap_CVD",0.24453,"bogota","Bus",NA,"L2: CVD",NA,"AP",254843
-"female","50-54","sc_bus_ylls_ap_CVD",0.23554,"bogota","Bus",NA,"L2: CVD",NA,"AP",256059
+"female","50-54","sc_bus_ylls_ap_CVD",0.23555,"bogota","Bus",NA,"L2: CVD",NA,"AP",256059
 "female","55-59","sc_bus_ylls_ap_CVD",0.96469,"bogota","Bus",NA,"L2: CVD",NA,"AP",235548
 "female","60-64","sc_bus_ylls_ap_CVD",-0.51162,"bogota","Bus",NA,"L2: CVD",NA,"AP",189600
 "female","65-69","sc_bus_ylls_ap_CVD",-0.12568,"bogota","Bus",NA,"L2: CVD",NA,"AP",141409
@@ -3691,7 +3691,7 @@
 "female","35-39","sc_bus_ylls_ap_CVD_lb",0.62082,"bogota","Bus",NA,"L2: CVD",NA,"AP",309304
 "female","40-44","sc_bus_ylls_ap_CVD_lb",0.46562,"bogota","Bus",NA,"L2: CVD",NA,"AP",275440
 "female","45-49","sc_bus_ylls_ap_CVD_lb",0.24453,"bogota","Bus",NA,"L2: CVD",NA,"AP",254843
-"female","50-54","sc_bus_ylls_ap_CVD_lb",0.23554,"bogota","Bus",NA,"L2: CVD",NA,"AP",256059
+"female","50-54","sc_bus_ylls_ap_CVD_lb",0.23555,"bogota","Bus",NA,"L2: CVD",NA,"AP",256059
 "female","55-59","sc_bus_ylls_ap_CVD_lb",0.96469,"bogota","Bus",NA,"L2: CVD",NA,"AP",235548
 "female","60-64","sc_bus_ylls_ap_CVD_lb",-0.51162,"bogota","Bus",NA,"L2: CVD",NA,"AP",189600
 "female","65-69","sc_bus_ylls_ap_CVD_lb",-0.12568,"bogota","Bus",NA,"L2: CVD",NA,"AP",141409
@@ -3757,7 +3757,7 @@
 "female","35-39","sc_bus_ylls_ap_CVD_ub",0.62082,"bogota","Bus",NA,"L2: CVD",NA,"AP",309304
 "female","40-44","sc_bus_ylls_ap_CVD_ub",0.46562,"bogota","Bus",NA,"L2: CVD",NA,"AP",275440
 "female","45-49","sc_bus_ylls_ap_CVD_ub",0.24453,"bogota","Bus",NA,"L2: CVD",NA,"AP",254843
-"female","50-54","sc_bus_ylls_ap_CVD_ub",0.23554,"bogota","Bus",NA,"L2: CVD",NA,"AP",256059
+"female","50-54","sc_bus_ylls_ap_CVD_ub",0.23555,"bogota","Bus",NA,"L2: CVD",NA,"AP",256059
 "female","55-59","sc_bus_ylls_ap_CVD_ub",0.96469,"bogota","Bus",NA,"L2: CVD",NA,"AP",235548
 "female","60-64","sc_bus_ylls_ap_CVD_ub",-0.51162,"bogota","Bus",NA,"L2: CVD",NA,"AP",189600
 "female","65-69","sc_bus_ylls_ap_CVD_ub",-0.12568,"bogota","Bus",NA,"L2: CVD",NA,"AP",141409
@@ -5148,200 +5148,200 @@
 "female","60-64","sc_bus_ylls_ap_respiratory_ub",0.08773,"bogota","Bus",NA,"L2: Respiratory",NA,"AP",189600
 "female","65-69","sc_bus_ylls_ap_respiratory_ub",0.16564,"bogota","Bus",NA,"L2: Respiratory",NA,"AP",141409
 "male","15-19","sc_cycle_yll_inj",37.9606104599534,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",282736
-"male","20-24","sc_cycle_yll_inj",101.53854462979,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",357934
-"male","25-29","sc_cycle_yll_inj",63.0805485965993,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",360031
-"male","30-34","sc_cycle_yll_inj",34.6686137136981,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",321492
-"male","35-39","sc_cycle_yll_inj",-13.2069368373927,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",289808
-"male","40-44","sc_cycle_yll_inj",-6.5256260573849,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",244543
-"male","45-49","sc_cycle_yll_inj",-13.386679724126,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",215491
+"male","20-24","sc_cycle_yll_inj",101.538544629789,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",357934
+"male","25-29","sc_cycle_yll_inj",63.0805485965998,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",360031
+"male","30-34","sc_cycle_yll_inj",34.6686137136976,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",321492
+"male","35-39","sc_cycle_yll_inj",-13.2069368373925,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",289808
+"male","40-44","sc_cycle_yll_inj",-6.52562605738513,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",244543
+"male","45-49","sc_cycle_yll_inj",-13.3866797241261,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",215491
 "male","50-54","sc_cycle_yll_inj",-4.00656218929942,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",209137
-"male","55-59","sc_cycle_yll_inj",-7.98535245670325,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",187551
+"male","55-59","sc_cycle_yll_inj",-7.98535245670348,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",187551
 "male","60-64","sc_cycle_yll_inj",-14.813698613674,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",146500
 "male","65-69","sc_cycle_yll_inj",-28.6374393297282,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",105412
-"female","15-19","sc_cycle_yll_inj",-42.6236160014234,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",279280
+"female","15-19","sc_cycle_yll_inj",-42.6236160014236,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",279280
 "female","20-24","sc_cycle_yll_inj",-55.7562097233117,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",360197
-"female","25-29","sc_cycle_yll_inj",-44.4755514881858,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",364423
-"female","30-34","sc_cycle_yll_inj",-25.8592436532443,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",330341
+"female","25-29","sc_cycle_yll_inj",-44.4755514881859,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",364423
+"female","30-34","sc_cycle_yll_inj",-25.8592436532442,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",330341
 "female","35-39","sc_cycle_yll_inj",-29.4716683068651,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",309304
-"female","40-44","sc_cycle_yll_inj",-27.5131727660369,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",275440
+"female","40-44","sc_cycle_yll_inj",-27.513172766037,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",275440
 "female","45-49","sc_cycle_yll_inj",-20.236697398939,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",254843
 "female","50-54","sc_cycle_yll_inj",-22.4934390380234,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",256059
 "female","55-59","sc_cycle_yll_inj",-13.5582127844705,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",235548
 "female","60-64","sc_cycle_yll_inj",-13.7372060462596,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",189600
-"female","65-69","sc_cycle_yll_inj",-15.4226232739462,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",141409
+"female","65-69","sc_cycle_yll_inj",-15.4226232739461,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",141409
 "male","15-19","sc_car_yll_inj",50.6396217995498,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",282736
-"male","20-24","sc_car_yll_inj",112.061089481514,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",357934
+"male","20-24","sc_car_yll_inj",112.061089481512,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",357934
 "male","25-29","sc_car_yll_inj",105.617212902229,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",360031
 "male","30-34","sc_car_yll_inj",85.1000119171808,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",321492
-"male","35-39","sc_car_yll_inj",74.4652023553738,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",289808
-"male","40-44","sc_car_yll_inj",14.657683050166,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",244543
-"male","45-49","sc_car_yll_inj",10.8474917652748,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",215491
-"male","50-54","sc_car_yll_inj",23.2709670664069,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",209137
-"male","55-59","sc_car_yll_inj",2.13929052520962,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",187551
-"male","60-64","sc_car_yll_inj",1.93876910128245,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",146500
+"male","35-39","sc_car_yll_inj",74.4652023553735,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",289808
+"male","40-44","sc_car_yll_inj",14.6576830501658,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",244543
+"male","45-49","sc_car_yll_inj",10.8474917652746,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",215491
+"male","50-54","sc_car_yll_inj",23.2709670664068,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",209137
+"male","55-59","sc_car_yll_inj",2.13929052520939,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",187551
+"male","60-64","sc_car_yll_inj",1.93876910128239,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",146500
 "male","65-69","sc_car_yll_inj",13.4185411045227,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",105412
 "female","15-19","sc_car_yll_inj",3.15534157326613,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",279280
-"female","20-24","sc_car_yll_inj",34.2095401707259,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",360197
+"female","20-24","sc_car_yll_inj",34.2095401707256,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",360197
 "female","25-29","sc_car_yll_inj",27.7565588489636,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",364423
-"female","30-34","sc_car_yll_inj",11.3039731864264,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",330341
-"female","35-39","sc_car_yll_inj",2.75749008417966,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",309304
-"female","40-44","sc_car_yll_inj",12.7013156292999,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",275440
-"female","45-49","sc_car_yll_inj",4.45036843333125,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",254843
+"female","30-34","sc_car_yll_inj",11.3039731864265,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",330341
+"female","35-39","sc_car_yll_inj",2.75749008417972,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",309304
+"female","40-44","sc_car_yll_inj",12.7013156292998,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",275440
+"female","45-49","sc_car_yll_inj",4.45036843333122,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",254843
 "female","50-54","sc_car_yll_inj",7.51969263976315,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",256059
 "female","55-59","sc_car_yll_inj",4.71320862527693,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",235548
 "female","60-64","sc_car_yll_inj",4.32617962347683,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",189600
 "female","65-69","sc_car_yll_inj",3.36686817069557,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",141409
 "male","15-19","sc_bus_yll_inj",74.4798468066249,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",282736
-"male","20-24","sc_bus_yll_inj",326.428411969672,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",357934
+"male","20-24","sc_bus_yll_inj",326.42841196967,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",357934
 "male","25-29","sc_bus_yll_inj",232.267578197328,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",360031
 "male","30-34","sc_bus_yll_inj",111.268875125628,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",321492
-"male","35-39","sc_bus_yll_inj",87.5020890733733,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",289808
+"male","35-39","sc_bus_yll_inj",87.5020890733729,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",289808
 "male","40-44","sc_bus_yll_inj",23.657486302669,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",244543
-"male","45-49","sc_bus_yll_inj",11.6566297333619,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",215491
-"male","50-54","sc_bus_yll_inj",19.2960842818746,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",209137
-"male","55-59","sc_bus_yll_inj",28.3142146145259,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",187551
+"male","45-49","sc_bus_yll_inj",11.6566297333618,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",215491
+"male","50-54","sc_bus_yll_inj",19.2960842818745,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",209137
+"male","55-59","sc_bus_yll_inj",28.3142146145258,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",187551
 "male","60-64","sc_bus_yll_inj",1.85585701622546,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",146500
 "male","65-69","sc_bus_yll_inj",15.6532690740016,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",105412
-"female","15-19","sc_bus_yll_inj",22.5262282995031,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",279280
-"female","20-24","sc_bus_yll_inj",63.1194887694701,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",360197
+"female","15-19","sc_bus_yll_inj",22.526228299503,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",279280
+"female","20-24","sc_bus_yll_inj",63.1194887694699,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",360197
 "female","25-29","sc_bus_yll_inj",56.0958395931276,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",364423
 "female","30-34","sc_bus_yll_inj",30.4810475308335,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",330341
 "female","35-39","sc_bus_yll_inj",12.1349123690678,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",309304
-"female","40-44","sc_bus_yll_inj",7.36480460575066,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",275440
+"female","40-44","sc_bus_yll_inj",7.36480460575061,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",275440
 "female","45-49","sc_bus_yll_inj",9.38864199627355,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",254843
 "female","50-54","sc_bus_yll_inj",6.03289410177391,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",256059
 "female","55-59","sc_bus_yll_inj",7.34177564100892,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",235548
 "female","60-64","sc_bus_yll_inj",5.31112004164058,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",189600
-"female","65-69","sc_bus_yll_inj",4.08212366507183,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",141409
+"female","65-69","sc_bus_yll_inj",4.08212366507186,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",141409
 "male","15-19","sc_cycle_yll_inj_ub",38.8783006530093,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",282736
 "male","20-24","sc_cycle_yll_inj_ub",109.016703627384,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",357934
-"male","25-29","sc_cycle_yll_inj_ub",63.0661246943137,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",360031
-"male","30-34","sc_cycle_yll_inj_ub",35.2806847742168,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",321492
-"male","35-39","sc_cycle_yll_inj_ub",-22.9713178816353,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",289808
+"male","25-29","sc_cycle_yll_inj_ub",63.0661246943146,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",360031
+"male","30-34","sc_cycle_yll_inj_ub",35.2806847742163,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",321492
+"male","35-39","sc_cycle_yll_inj_ub",-22.9713178816348,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",289808
 "male","40-44","sc_cycle_yll_inj_ub",-12.3740453967309,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",244543
 "male","45-49","sc_cycle_yll_inj_ub",-21.2963705124821,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",215491
-"male","50-54","sc_cycle_yll_inj_ub",-8.23174302490338,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",209137
-"male","55-59","sc_cycle_yll_inj_ub",-12.569957163208,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",187551
-"male","60-64","sc_cycle_yll_inj_ub",-21.9538741594843,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",146500
+"male","50-54","sc_cycle_yll_inj_ub",-8.23174302490361,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",209137
+"male","55-59","sc_cycle_yll_inj_ub",-12.5699571632078,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",187551
+"male","60-64","sc_cycle_yll_inj_ub",-21.9538741594844,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",146500
 "male","65-69","sc_cycle_yll_inj_ub",-42.0912731123429,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",105412
-"female","15-19","sc_cycle_yll_inj_ub",-63.6199417225746,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",279280
-"female","20-24","sc_cycle_yll_inj_ub",-80.2215744662963,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",360197
-"female","25-29","sc_cycle_yll_inj_ub",-64.3284639843077,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",364423
-"female","30-34","sc_cycle_yll_inj_ub",-37.2358131139571,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",330341
-"female","35-39","sc_cycle_yll_inj_ub",-42.663259976555,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",309304
+"female","15-19","sc_cycle_yll_inj_ub",-63.6199417225747,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",279280
+"female","20-24","sc_cycle_yll_inj_ub",-80.2215744662965,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",360197
+"female","25-29","sc_cycle_yll_inj_ub",-64.328463984308,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",364423
+"female","30-34","sc_cycle_yll_inj_ub",-37.235813113957,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",330341
+"female","35-39","sc_cycle_yll_inj_ub",-42.6632599765549,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",309304
 "female","40-44","sc_cycle_yll_inj_ub",-39.5519277286039,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",275440
-"female","45-49","sc_cycle_yll_inj_ub",-29.8823558139716,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",254843
+"female","45-49","sc_cycle_yll_inj_ub",-29.8823558139715,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",254843
 "female","50-54","sc_cycle_yll_inj_ub",-32.5417521139717,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",256059
 "female","55-59","sc_cycle_yll_inj_ub",-19.8624981358323,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",235548
 "female","60-64","sc_cycle_yll_inj_ub",-20.5179068488207,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",189600
-"female","65-69","sc_cycle_yll_inj_ub",-24.23028361687,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",141409
+"female","65-69","sc_cycle_yll_inj_ub",-24.2302836168701,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",141409
 "male","15-19","sc_car_yll_inj_ub",64.8722368039739,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",282736
 "male","20-24","sc_car_yll_inj_ub",133.54417155322,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",357934
-"male","25-29","sc_car_yll_inj_ub",129.380445429386,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",360031
+"male","25-29","sc_car_yll_inj_ub",129.380445429387,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",360031
 "male","30-34","sc_car_yll_inj_ub",106.513226411451,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",321492
-"male","35-39","sc_car_yll_inj_ub",95.0953789484299,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",289808
+"male","35-39","sc_car_yll_inj_ub",95.0953789484295,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",289808
 "male","40-44","sc_car_yll_inj_ub",19.362251249127,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",244543
-"male","45-49","sc_car_yll_inj_ub",14.5448636409224,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",215491
-"male","50-54","sc_car_yll_inj_ub",30.9453037245059,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",209137
-"male","55-59","sc_car_yll_inj_ub",3.65920964442716,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",187551
-"male","60-64","sc_car_yll_inj_ub",3.02652807393429,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",146500
+"male","45-49","sc_car_yll_inj_ub",14.5448636409226,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",215491
+"male","50-54","sc_car_yll_inj_ub",30.9453037245057,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",209137
+"male","55-59","sc_car_yll_inj_ub",3.65920964442728,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",187551
+"male","60-64","sc_car_yll_inj_ub",3.02652807393417,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",146500
 "male","65-69","sc_car_yll_inj_ub",17.4250709188379,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",105412
 "female","15-19","sc_car_yll_inj_ub",3.55186696577312,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",279280
-"female","20-24","sc_car_yll_inj_ub",42.2203294230162,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",360197
-"female","25-29","sc_car_yll_inj_ub",34.2612094173683,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",364423
-"female","30-34","sc_car_yll_inj_ub",14.1873893425234,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",330341
+"female","20-24","sc_car_yll_inj_ub",42.220329423016,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",360197
+"female","25-29","sc_car_yll_inj_ub",34.261209417368,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",364423
+"female","30-34","sc_car_yll_inj_ub",14.1873893425235,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",330341
 "female","35-39","sc_car_yll_inj_ub",3.44752460520658,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",309304
 "female","40-44","sc_car_yll_inj_ub",16.319762865258,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",275440
-"female","45-49","sc_car_yll_inj_ub",5.36325364976653,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",254843
+"female","45-49","sc_car_yll_inj_ub",5.36325364976659,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",254843
 "female","50-54","sc_car_yll_inj_ub",9.46321235936449,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",256059
 "female","55-59","sc_car_yll_inj_ub",5.88326190128697,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",235548
 "female","60-64","sc_car_yll_inj_ub",5.28311176724389,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",189600
-"female","65-69","sc_car_yll_inj_ub",4.239247261082,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",141409
+"female","65-69","sc_car_yll_inj_ub",4.23924726108197,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",141409
 "male","15-19","sc_bus_yll_inj_ub",99.6178653293064,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",282736
-"male","20-24","sc_bus_yll_inj_ub",395.936927275394,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",357934
-"male","25-29","sc_bus_yll_inj_ub",285.814064422296,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",360031
+"male","20-24","sc_bus_yll_inj_ub",395.936927275393,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",357934
+"male","25-29","sc_bus_yll_inj_ub",285.814064422297,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",360031
 "male","30-34","sc_bus_yll_inj_ub",139.92661922916,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",321492
 "male","35-39","sc_bus_yll_inj_ub",114.101047267603,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",289808
-"male","40-44","sc_bus_yll_inj_ub",33.1090861151395,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",244543
+"male","40-44","sc_bus_yll_inj_ub",33.1090861151392,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",244543
 "male","45-49","sc_bus_yll_inj_ub",17.4843285420106,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",215491
-"male","50-54","sc_bus_yll_inj_ub",27.0616875689259,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",209137
+"male","50-54","sc_bus_yll_inj_ub",27.0616875689257,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",209137
 "male","55-59","sc_bus_yll_inj_ub",38.9241752968886,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",187551
 "male","60-64","sc_bus_yll_inj_ub",3.86240140973155,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",146500
 "male","65-69","sc_bus_yll_inj_ub",22.6303717706099,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",105412
 "female","15-19","sc_bus_yll_inj_ub",31.4335714221992,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",279280
 "female","20-24","sc_bus_yll_inj_ub",82.3603612145614,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",360197
-"female","25-29","sc_bus_yll_inj_ub",73.1501844165198,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",364423
-"female","30-34","sc_bus_yll_inj_ub",40.6124299077138,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",330341
-"female","35-39","sc_bus_yll_inj_ub",17.0737638152916,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",309304
+"female","25-29","sc_bus_yll_inj_ub",73.1501844165196,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",364423
+"female","30-34","sc_bus_yll_inj_ub",40.6124299077139,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",330341
+"female","35-39","sc_bus_yll_inj_ub",17.0737638152914,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",309304
 "female","40-44","sc_bus_yll_inj_ub",10.3675810396705,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",275440
-"female","45-49","sc_bus_yll_inj_ub",12.9053070305727,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",254843
-"female","50-54","sc_bus_yll_inj_ub",8.41733733315368,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",256059
+"female","45-49","sc_bus_yll_inj_ub",12.9053070305728,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",254843
+"female","50-54","sc_bus_yll_inj_ub",8.41733733315363,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",256059
 "female","55-59","sc_bus_yll_inj_ub",9.91577172557987,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",235548
 "female","60-64","sc_bus_yll_inj_ub",7.19213657976442,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",189600
-"female","65-69","sc_bus_yll_inj_ub",6.10514025363662,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",141409
-"male","15-19","sc_cycle_yll_inj_lb",34.6983883375594,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",282736
-"male","20-24","sc_cycle_yll_inj_lb",91.9621596717088,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",357934
-"male","25-29","sc_cycle_yll_inj_lb",59.6076677835854,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",360031
-"male","30-34","sc_cycle_yll_inj_lb",32.0879179127871,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",321492
+"female","65-69","sc_bus_yll_inj_ub",6.10514025363659,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",141409
+"male","15-19","sc_cycle_yll_inj_lb",34.6983883375599,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",282736
+"male","20-24","sc_cycle_yll_inj_lb",91.9621596717093,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",357934
+"male","25-29","sc_cycle_yll_inj_lb",59.6076677835845,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",360031
+"male","30-34","sc_cycle_yll_inj_lb",32.0879179127867,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",321492
 "male","35-39","sc_cycle_yll_inj_lb",-7.30051674369656,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",289808
 "male","40-44","sc_cycle_yll_inj_lb",-3.14099886805855,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",244543
-"male","45-49","sc_cycle_yll_inj_lb",-8.51726958884285,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",215491
-"male","50-54","sc_cycle_yll_inj_lb",-1.6598129217324,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",209137
+"male","45-49","sc_cycle_yll_inj_lb",-8.51726958884262,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",215491
+"male","50-54","sc_cycle_yll_inj_lb",-1.65981292173251,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",209137
 "male","55-59","sc_cycle_yll_inj_lb",-5.25969295483827,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",187551
-"male","60-64","sc_cycle_yll_inj_lb",-10.3008947660926,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",146500
+"male","60-64","sc_cycle_yll_inj_lb",-10.3008947660927,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",146500
 "male","65-69","sc_cycle_yll_inj_lb",-20.260908701031,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",105412
-"female","15-19","sc_cycle_yll_inj_lb",-28.9830992970444,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",279280
+"female","15-19","sc_cycle_yll_inj_lb",-28.9830992970445,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",279280
 "female","20-24","sc_cycle_yll_inj_lb",-39.0240933965398,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",360197
-"female","25-29","sc_cycle_yll_inj_lb",-30.9979371007512,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",364423
-"female","30-34","sc_cycle_yll_inj_lb",-18.2036397112425,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",330341
+"female","25-29","sc_cycle_yll_inj_lb",-30.9979371007513,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",364423
+"female","30-34","sc_cycle_yll_inj_lb",-18.2036397112424,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",330341
 "female","35-39","sc_cycle_yll_inj_lb",-20.6578329557683,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",309304
 "female","40-44","sc_cycle_yll_inj_lb",-19.4816339866161,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",275440
 "female","45-49","sc_cycle_yll_inj_lb",-13.967720208889,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",254843
 "female","50-54","sc_cycle_yll_inj_lb",-15.8654399562874,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",256059
 "female","55-59","sc_cycle_yll_inj_lb",-9.54730321023689,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",235548
 "female","60-64","sc_cycle_yll_inj_lb",-9.50313555048675,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",189600
-"female","65-69","sc_cycle_yll_inj_lb",-10.284342830745,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",141409
+"female","65-69","sc_cycle_yll_inj_lb",-10.2843428307451,"bogota","Cycling","L1: RTI","L2: RTI","L3: RTI","RTI",141409
 "male","15-19","sc_car_yll_inj_lb",39.7899868576765,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",282736
 "male","20-24","sc_car_yll_inj_lb",94.3276012678584,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",357934
 "male","25-29","sc_car_yll_inj_lb",86.5161657656654,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",360031
 "male","30-34","sc_car_yll_inj_lb",68.2213583824912,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",321492
-"male","35-39","sc_car_yll_inj_lb",58.6436058024331,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",289808
-"male","40-44","sc_car_yll_inj_lb",11.1654752883757,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",244543
-"male","45-49","sc_car_yll_inj_lb",8.17048392877905,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",215491
-"male","50-54","sc_car_yll_inj_lb",17.7450677524234,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",209137
-"male","55-59","sc_car_yll_inj_lb",1.26827696141237,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",187551
-"male","60-64","sc_car_yll_inj_lb",1.29005428356697,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",146500
+"male","35-39","sc_car_yll_inj_lb",58.6436058024328,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",289808
+"male","40-44","sc_car_yll_inj_lb",11.1654752883755,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",244543
+"male","45-49","sc_car_yll_inj_lb",8.17048392877916,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",215491
+"male","50-54","sc_car_yll_inj_lb",17.7450677524232,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",209137
+"male","55-59","sc_car_yll_inj_lb",1.26827696141231,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",187551
+"male","60-64","sc_car_yll_inj_lb",1.29005428356703,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",146500
 "male","65-69","sc_car_yll_inj_lb",10.4325107222662,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",105412
 "female","15-19","sc_car_yll_inj_lb",2.74807774238485,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",279280
 "female","20-24","sc_car_yll_inj_lb",27.8876999581478,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",360197
 "female","25-29","sc_car_yll_inj_lb",22.6296414219654,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",364423
 "female","30-34","sc_car_yll_inj_lb",9.08536967339376,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",330341
-"female","35-39","sc_car_yll_inj_lb",2.24312321398457,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",309304
-"female","40-44","sc_car_yll_inj_lb",9.93753888698905,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",275440
-"female","45-49","sc_car_yll_inj_lb",3.66154317608377,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",254843
-"female","50-54","sc_car_yll_inj_lb",5.98741964662915,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",256059
+"female","35-39","sc_car_yll_inj_lb",2.24312321398463,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",309304
+"female","40-44","sc_car_yll_inj_lb",9.93753888698907,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",275440
+"female","45-49","sc_car_yll_inj_lb",3.66154317608374,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",254843
+"female","50-54","sc_car_yll_inj_lb",5.98741964662921,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",256059
 "female","55-59","sc_car_yll_inj_lb",3.74103178880796,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",235548
 "female","60-64","sc_car_yll_inj_lb",3.48660776478374,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",189600
-"female","65-69","sc_car_yll_inj_lb",2.64623434062379,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",141409
+"female","65-69","sc_car_yll_inj_lb",2.64623434062378,"bogota","Car","L1: RTI","L2: RTI","L3: RTI","RTI",141409
 "male","15-19","sc_bus_yll_inj_lb",56.3573806453896,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",282736
 "male","20-24","sc_bus_yll_inj_lb",270.072255423444,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",357934
 "male","25-29","sc_bus_yll_inj_lb",189.324799838606,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",360031
-"male","30-34","sc_bus_yll_inj_lb",88.7676968327944,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",321492
-"male","35-39","sc_bus_yll_inj_lb",67.6262500947362,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",289808
-"male","40-44","sc_bus_yll_inj_lb",17.1804739733777,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",244543
-"male","45-49","sc_bus_yll_inj_lb",7.8351068567398,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",215491
-"male","50-54","sc_bus_yll_inj_lb",14.0558152288062,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",209137
-"male","55-59","sc_bus_yll_inj_lb",21.2139206585393,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",187551
+"male","30-34","sc_bus_yll_inj_lb",88.7676968327939,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",321492
+"male","35-39","sc_bus_yll_inj_lb",67.626250094736,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",289808
+"male","40-44","sc_bus_yll_inj_lb",17.1804739733775,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",244543
+"male","45-49","sc_bus_yll_inj_lb",7.83510685674003,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",215491
+"male","50-54","sc_bus_yll_inj_lb",14.055815228806,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",209137
+"male","55-59","sc_bus_yll_inj_lb",21.2139206585392,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",187551
 "male","60-64","sc_bus_yll_inj_lb",0.84270056856775,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",146500
 "male","65-69","sc_bus_yll_inj_lb",11.2209810841989,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",105412
 "female","15-19","sc_bus_yll_inj_lb",16.3928932123247,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",279280
 "female","20-24","sc_bus_yll_inj_lb",48.7198582058141,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",360197
-"female","25-29","sc_bus_yll_inj_lb",43.2944502801253,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",364423
+"female","25-29","sc_bus_yll_inj_lb",43.2944502801251,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",364423
 "female","30-34","sc_bus_yll_inj_lb",23.0659906273254,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",330341
-"female","35-39","sc_bus_yll_inj_lb",8.71717371600357,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",309304
-"female","40-44","sc_bus_yll_inj_lb",5.32303158302639,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",275440
-"female","45-49","sc_bus_yll_inj_lb",6.94080750834689,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",254843
+"female","35-39","sc_bus_yll_inj_lb",8.71717371600351,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",309304
+"female","40-44","sc_bus_yll_inj_lb",5.32303158302636,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",275440
+"female","45-49","sc_bus_yll_inj_lb",6.94080750834686,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",254843
 "female","50-54","sc_bus_yll_inj_lb",4.40811919511123,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",256059
 "female","55-59","sc_bus_yll_inj_lb",5.55450985720842,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",235548
 "female","60-64","sc_bus_yll_inj_lb",4.00452365823352,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",189600
-"female","65-69","sc_bus_yll_inj_lb",2.85034478625975,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",141409
+"female","65-69","sc_bus_yll_inj_lb",2.85034478625974,"bogota","Bus","L1: RTI","L2: RTI","L3: RTI","RTI",141409
