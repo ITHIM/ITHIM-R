@@ -378,7 +378,6 @@ print(system.time(
                                                 CITY=city,
                                                 AGE_RANGE =  c(min_age,max_age),
                                                 TREAT_TAXI_AS_CAR = as.logical(treat_taxi_as_car[[city]]),
-                                                ADD_TRUCK_DRIVERS = as.logical(add_truck_drivers),
                                                 ADD_BUS_DRIVERS = as.logical(add_bus_drivers),
                                                 ADD_CAR_DRIVERS = as.logical(add_car_drivers),
                                                 ADD_MOTORCYCLE_FLEET = as.logical(add_motorcycle_fleet[[city]]), #ADD_MOTORCYCLE_FLEET = add_motorcycle_fleet[[city]],
