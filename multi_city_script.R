@@ -256,7 +256,6 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
     CO2_emission_inventory = CO2_emission_inventories[[city]],
     speeds = speeds[[city]],
     
-    FLEET_TO_MOTORCYCLE_RATIO = fleet_to_motorcycle_ratio[[city]],
     CYCLING_MMET =	cycling_mmet,
     WALKING_MMET =	walking_mmet,
     PASSENGER_MMET =	passenger_mmet,
