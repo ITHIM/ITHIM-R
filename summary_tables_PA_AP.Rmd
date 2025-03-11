@@ -710,7 +710,15 @@ df_deciles <- mmets  |>
   unnest_wider(q) |> 
   pivot_longer(cols = contains("%"), names_to = "decile", values_to = "value")
 
-# Plot deciles by scenario
+
+df_deciles_n <- mmets  |> 
+  group_by(Scenario) |> 
+  summarise(q = list(quantile(value, probs = c(0.05, 0.20, 0.25, 0.35, 0.5, 0.9) ))) |> 
+  unnest_wider(q) |> 
+  pivot_longer(cols = contains("%"), names_to = "decile", values_to = "value") |> 
+  pivot_wider(names_from = decile, values_from = value)
+
+l# Plot deciles by scenario
 y <- ggplot(df_deciles, aes(x = decile, y = value, color = Scenario)) +
   geom_line(aes(group = Scenario)) +
   geom_point() +
@@ -718,7 +726,8 @@ y <- ggplot(df_deciles, aes(x = decile, y = value, color = Scenario)) +
   geom_hline(yintercept = 17.5, linetype="dashed", color = "red") +
   scale_color_manual(values = scen_colours) + 
   annotate(y = 17.5, x = 2, 
-                             label = "17.5 mMET-hours/week", geom="label")
+                             label = "17.5 mMET-hours/week", geom="label") +
+  scale_x_discrete(labels = paste0("D_", seq(from = 0, to = 9, by = 1)))
 
   # print to html
   print(y)
