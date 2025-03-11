@@ -288,7 +288,6 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
     RAIL_WALK_TIME = 0, #rail_walk_time[[city]],
     
     BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
-    TRUCK_TO_CAR_RATIO = truck_to_car_ratio[[city]],
     CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]],
     SCENARIO_NAME = scenario_name,
     SCENARIO_INCREASE = scenario_increase,
