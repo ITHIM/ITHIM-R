@@ -312,6 +312,12 @@ ui <- page_sidebar(
                    choices = c("Scenario", "Trip", "Distance"))
     ),
     conditionalPanel(
+      condition = "input.main_tab == 'PA Exposures' || input.main_tab == 'AP Exposures'",
+      radioButtons("display_choice", "Choose display:",
+                   choices = c("Figure", "Table")),
+    ),
+    
+    conditionalPanel(
       condition = "input.main_tab == 'Injury Risks'",
       pickerInput(inputId = "in_inj_modes", 
                   label = "Select modes:",
@@ -332,10 +338,11 @@ ui <- page_sidebar(
     nav_panel("Health Outcomes", 
               plotlyOutput("in_pivot_int")),
     nav_panel("PA Exposures", 
-              plotlyOutput("in_pa_exp"),
-              DT::dataTableOutput("plotScenariosPATable")),
+              uiOutput("pa_exp")),
+              #plotlyOutput("in_pa_exp"),
+              #DT::dataTableOutput("plotScenariosPATable")),
     nav_panel("AP Exposures", 
-              plotlyOutput("in_ap_exp")),
+              uiOutput("ap_exp")),
     nav_panel("Trip behaviour",
               gt_output("trip_table")
     ),
@@ -473,7 +480,7 @@ server <- function(input, output, session) {
               }) |> list_rbind())
   }
   
-  output$in_ap_exp <- renderPlotly({
+  output$in_ap_exp_fig <- renderPlotly({
     
     req(input$in_scens)
     req(input$in_cities)
@@ -521,7 +528,7 @@ server <- function(input, output, session) {
                    input$in_scens)
   
   
-  output$in_pa_exp <- renderPlotly({
+  output$in_pa_exp_fig <- renderPlotly({
     
     req(input$in_scens)
     req(input$in_cities)
@@ -922,7 +929,12 @@ server <- function(input, output, session) {
           measure <- "duration-risk-per-100M-hrs"
         paste(measure, "-", Sys.Date(), ".csv", sep="")
         
-      }else{
+      } else if(input$main_tab == "PA Exposures"){
+        paste("pa-exp-", Sys.Date(), ".csv", sep="")
+      } else if(input$main_tab == "AP Exposures"){
+        paste("ap-exp-", Sys.Date(), ".csv", sep="")
+      }
+      else{
         paste("output.csv")
       }
     },
@@ -934,6 +946,20 @@ server <- function(input, output, session) {
         data <- get_health_data()
       }else if (input$main_tab == "Injury Risks"){
         data <- get_inj_data()
+      }else if(input$main_tab == "PA Exposures"){
+        
+        filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+        filtered_cities <- tolower(filtered_cities)
+        filtered_scens <- input$in_scens
+        
+        data <- get_summary_data("mmets", filtered_cities, filtered_scens)
+      }else if(input$main_tab == "AP Exposures"){
+        
+        filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+        filtered_cities <- tolower(filtered_cities)
+        filtered_scens <- input$in_scens
+        
+        data <- get_summary_data("pm_conc_pm", filtered_cities, filtered_scens)
       }
       
       # data$measure <- input$in_measure
@@ -1072,6 +1098,63 @@ server <- function(input, output, session) {
     )  
   
   
+  output$in_pa_exp_tbl <- render_gt({ 
+        req(input$in_scens)
+        req(input$in_cities)
+        
+        filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+        filtered_cities <- tolower(filtered_cities)
+        filtered_scens <- input$in_scens
+        
+        df <- get_summary_data("mmets", filtered_cities, filtered_scens) |> dplyr::select(-outliers)
+        
+        df |> 
+          mutate_if(is.numeric, round, 2) |> 
+          gt(rowname_col = "row", groupname_col = "city_name") |> 
+          data_color(columns = 3:8, method = "numeric", palette = "viridis") |> 
+          tab_header(title = paste("PA exposures by city and scenario"))
+          
+      } 
+    )  
+  
+  output$in_ap_exp_tbl <- render_gt({ 
+    req(input$in_scens)
+    req(input$in_cities)
+    
+    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+    filtered_cities <- tolower(filtered_cities)
+    filtered_scens <- input$in_scens
+    
+    df <- get_summary_data("pm_conc_pp", filtered_cities, filtered_scens) |> 
+      dplyr::select(-outliers) |> 
+      mutate_if(is.numeric, round, 2)
+    
+    df |> 
+      gt(rowname_col = "row", groupname_col = "city_name") |> 
+      data_color(columns = 3:8, method = "numeric", palette = "viridis") |> 
+      tab_header(title = paste("PA exposures by city and scenario"))
+  } 
+  )  
+  
+  
+  output$pa_exp <- renderUI({
+    if (input$display_choice == "Figure") {
+      plotlyOutput("in_pa_exp_fig")
+    } else {
+      tableOutput("in_pa_exp_tbl")
+    }
+  })
+  
+  output$ap_exp <- renderUI({
+    if (input$display_choice == "Figure") {
+      plotlyOutput("in_ap_exp_fig")
+    } else {
+      tableOutput("in_ap_exp_tbl")
+    }
+  })
+  
+  
+  
   
 
 }
@@ -1079,29 +1162,3 @@ server <- function(input, output, session) {
 # Run the application 
 shinyApp(ui = ui, server = server)
 # run_with_themer(shinyApp(ui = ui, server = server))
-
-
-
-
-  # # Aggregate data by city, scenario, and dose
-  # df_summary <- df %>%
-  #   group_by(city, scenario, dose) %>%
-  #   summarise(mean_metric = mean(metric, na.rm = TRUE), .groups = "drop")
-  # 
-  # # Create the plot with flipped coordinates and separator lines after each city
-  # ggplot(df_summary, aes(x = reorder(city, -mean_metric), y = mean_metric, fill = scenario)) +
-  #   geom_bar(stat = "identity", position = "dodge", color = "black") +  # Add border to bars
-  #   facet_wrap(~ dose, scales = "free_x") +
-  #   labs(title = "Metric by City, Scenario, and Dose",
-  #        x = "City",
-  #        y = "Mean Metric",
-  #        fill = "Scenario") +
-  #   theme_minimal() +
-  #   theme(axis.text.x = element_text(angle = 45, hjust = 1),
-  #         panel.grid.major = element_blank(),  # Remove major grid lines
-  #         panel.grid.minor = element_blank(),  # Remove minor grid lines
-  #         panel.border = element_blank()) +  # Remove outer border
-  #   coord_flip() +
-  #   geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
-  #   geom_vline(xintercept = seq(1.5, length(unique(df_summary$city)) + 0.5, by = 1), 
-  #              linetype = "solid", color = "gray")
