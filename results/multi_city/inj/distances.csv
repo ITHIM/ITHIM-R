@@ -15,10 +15,10 @@ car,baseline,28185306.86771144,bogota
 car,sc_bus,23071166.164199784,bogota
 car,sc_car,34244711.29804936,bogota
 car,sc_cycle,27213914.045288097,bogota
-car_driver,baseline,23395622.915778648,bogota
-car_driver,sc_bus,19150556.222016275,bogota
-car_driver,sc_car,28425319.481147118,bogota
-car_driver,sc_cycle,22589304.209256236,bogota
+car_driver,baseline,17615816.792319648,bogota
+car_driver,sc_bus,14419478.852624865,bogota
+car_driver,sc_car,21402944.56128085,bogota
+car_driver,sc_cycle,17008696.27830506,bogota
 cycle,baseline,3028905.406826921,bogota
 cycle,sc_bus,2575065.755478045,bogota
 cycle,sc_car,2749183.1856687455,bogota
@@ -51,7 +51,7 @@ active_travel,baseline,10652492.053149726,bogota
 active_travel,sc_bus,10291855.91599653,bogota
 active_travel,sc_car,9860908.953301098,bogota
 active_travel,sc_cycle,13383359.680118687,bogota
-Total,baseline,130230378.3012547,bogota
-Total,sc_bus,125316843.15600665,bogota
-Total,sc_car,135156546.22463974,bogota
-Total,sc_cycle,129395956.97052501,bogota
+Total,baseline,124450572.17779571,bogota
+Total,sc_bus,120585765.78661524,bogota
+Total,sc_car,128134171.3047735,bogota
+Total,sc_cycle,123815349.03957383,bogota
