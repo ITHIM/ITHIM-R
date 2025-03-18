@@ -5,6 +5,7 @@ library(shinyWidgets)
 library(bslib)
 library(readxl)
 library(ggridges)
+library(gt)
 
 options(scipen = 10000)
 SAVE_FIGURES <- FALSE
