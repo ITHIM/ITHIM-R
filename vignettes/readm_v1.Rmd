@@ -1,43 +1,57 @@
+---
+title: "readme_v1"
+author: "LT"
+date: "2025-04-03"
+output: html_document
+---
+
 <!-- badges: start -->
 
 [![DOI](https://zenodo.org/badge/117988409.svg)](https://zenodo.org/badge/latestdoi/117988409)
 
 <!-- badges: end -->
 
-# ITHIM-R (simple)
+# ITHIM-R
 
-This is a simplified version of the **Integrated Transport and Health Impact Modelling Tool (ITHIM)** for use in the qhia course. The latest full version of ITHIM (V3.0) is under development since January 2018.
-This document provides the calculations in the ITHIM simple pipeline.
+Development of the **Integrated Transport and Health Impact Modelling Tool (ITHIM)** in R, also known as ITHIM version 3.0. Started in January 2018.
+This document aims to be a comprehensive record of the calculations in the ITHIM pipeline, specifically the ITHIM- R package. 
 
 ## How to use the package
 
-There is a `how-to` guide that explains how to install the ITHIM-R package, how to run the ITHIM-Simple model and how to produce summaries of the key results. Please read it here: [how to run ITHIM?](https://ithim.github.io/ITHIM-R/articles/how-to-run-ITHIM.html).
+We have written a `how-to` guide that explains how to install the ITHIM-R package, how to run the ITHIM-Global model using this package and how to produce summaries of the key results. Please read it here: [how to run ITHIM?](https://ithim.github.io/ITHIM-R/articles/how-to-run-ITHIM.html).
 
 ### Citation
 
 To cite package 'ithimr' in publications use:
 
-> Ali Abbas, Anna Schroeder et al. (2025). ithimr: Integrated Transport and Health Impact Model. R package version 0.1.2.
+> Ali Abbas, Anna Schroeder et al. (2023). ithimr: Integrated Transport and Health Impact Model. R package version 0.1.2.
 
 A BibTeX entry for LaTeX users is
 
 > \@Manual{,
   title = {ithimr: Integrated Transport and Health Impact Model},
   author = {Ali Abbas, Anna Schroeder et. al},
-  year = {2025},
+  year = {2023},
   note = {R package version 0.1.2, https://github.com/ITHIM/ITHIM-R},
   url = {https://ithim.github.io/ITHIM-R/},
 }
 
 ### Outline
 
-ITHIM simple performs integrated assessments of the health impacts of user-defined transport scenarios and policies at urban and national levels. The health impacts of transport policies are mainly modelled through changes in physical activity, exposure to fine particulate matter (PM2.5) air pollution. ITHIM is used by researchers and health and transport professionals to estimate the health impacts of scenarios, to compare the impacts of travel patterns in different locations, and to model the impacts of interventions. ITHIM works either as a stand-alone model or can be linked to other models (e.g. transport, health, economic) and is a quasi-microsimulation model where exposure is at the individual person level, while health impacts are estimated for aggregated age groups, constrained by available Global Burden Disease (GBD) data.
+ITHIM performs integrated assessments of the health impacts of user-defined transport scenarios and policies at urban and national levels. The health impacts of transport policies are modelled through changes in physical activity, road traffic injury risk, exposure to fine particulate matter (PM2.5) air pollution. In addition, the model estimates changes in CO2 emissions. ITHIM is used by researchers and health and transport professionals to estimate the health impacts of scenarios, to compare the impacts of travel patterns in different locations, and to model the impacts of interventions. ITHIM works either as a stand-alone model or can be linked to other models (e.g. transport, health, economic) and is a quasi-microsimulation model where exposure is at the individual person level, while health impacts are estimated for aggregated age groups, constrained by available Global Burden Disease (GBD) data.
 
 #### Physical Activity
-ITHIM models physical activity health gains by comparing distributions of weekly physical activity under different scenarios. Walking, cycling and other types of physical activity are combined as marginal MET hours per week of activity. Outcomes affected by physical activity include several cardiovascular diseases, depression, dementia, diabetes, breast cancer and colon cancer. ITHIM also models changes in health through all-cause mortality. A comparative risk assessment method is used to estimate how changes in population physical activity lead to changes in health burden. 
+ITHIM models exposure to physical activity by comparing distributions of weekly physical activity under different scenarios. Walking, cycling and other types of physical activity are combined as marginal MET hours per week of activity. Outcomes affected by physical activity include several cardiovascular diseases, depression, dementia, diabetes, breast cancer and colon cancer. ITHIM also models changes in health through all-cause mortality. A comparative risk assessment method is used to estimate how changes in population physical activity lead to changes in health burden. 
+
+#### Road Traffic Injuries
+Road traffic injuries are modelled using a model based on risk, distance and speed. Differences in risk by sex and age are also taken into account. This approach allows ITHIM to look at how the absolute number of injuries and the risk of injury might change for different modes of transport as travel distances between modes change.
 
 #### Air Pollution
 Fine particulate matter (PM2.5) air pollution risks are calculated for the general population (background rates) as well as travellers using mode specific rates for different transport modes. Inhalation rates and assumptions about time use are used to calculate PM2.5 dose across different travel and non-travel activities. Exposure changes for the population are based on a comparison of locally generated PM2.5 emissions and concentrations in the study area.
+
+#### CO2 Emissions
+
+The carbon dioxide (CO2) pathway models carbon dioxide (CO2) emissions from motorised vehicles. The CO2 pathway estimates a single metric: the total CO2 emissions for each modelled scenario. The method to calculate CO2 emissions is similar to the one for PM2.5.
 
 #### Health Outcomes
 
@@ -47,7 +61,7 @@ The health impacts in ITHIM are presented as years of life lost (YLL) and number
 
 ### Data inputs
 
-ITHIM-Simple requires 3 user defined input files in csv format, saved in a directory with the city's name. See [inst/ext/local/bogota](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota) for example files. There are also numerous assumptions which the user can parameterize in the model.
+ITHIM-R requires 3 user defined input files in csv format, saved in a directory with the city's name. See [inst/ext/local/bogota](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota) for example files. There are also numerous assumptions which the user can parameterize in the model.
 
 This section talks about all the files (datasets) required to setup and run the model. There are two subsections, which are:
 
