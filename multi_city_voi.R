@@ -78,10 +78,13 @@ library(future)
 plan(multisession)
 library(doRNG)
 library(future.apply) 
-library(voi) #install_github("chjackson/voi")
+library(voi) #devtools::install_github("chjackson/voi")
 library(readxl)
 library(rlist)
 library(janitor)
+library(ggplot2)
+library(radiant.data)
+library(forcats)
 
 if (!require("drpa",character.only = TRUE)) {
   print('Installing "drpa" package...')
@@ -107,7 +110,7 @@ rm(list=ls())
 cities <- c('bogota')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 2000
+nsamples <- 1000
 
 input_parameter_file <- "InputParameters_v42.0.xlsx"
 
@@ -123,7 +126,7 @@ if (.Platform$OS.type == "windows"){
 # repo_sha <-  as.character(readLines(file.path("repo_sha")))
 
 #output_version <- paste0(repo_sha, "_test_run") # gives the version number of the output documents, independent of the input parameter file name
-output_version <- 'bogota_2000samples3_v42.0'
+output_version <- 'bogota_1000samples4_v42.0'
 
 
 voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
@@ -1384,10 +1387,94 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
   write.csv(evppi_df,evppi_csv,row.names = FALSE) # save as csv file
   
   
+  ### create output plots
   
+  # output plot showing largest EVPPI values for Level 1
+  evppi_cutoff <- 3
   
-  # create output plots
+  if ('level1' %in% outcome_voi_list){
+    for ( city_name in cities){
+      
+      evppi_city_df <- evppi_df %>% filter(city == city_name) %>% dplyr::select(c(city,classification,
+                                                                                  parameters,Input_parameters_lowerCase,contains("level1")))
+      
+      # initialise dataframe for all scenarios
+      sd_all <- data.frame()
+      
+      # extract rows with largest evppi components
+      largest_evppi <- evppi_city_df %>% filter_at(vars(starts_with('sc')), any_vars(. > evppi_cutoff))
+      largest_evppi$Par <- paste0(largest_evppi$classification," (", largest_evppi$Input_parameters_lowerCase,")")
+      
+      # create dataframe containing all the relevant standard deviations for each scenario
+      for (s in SCEN_SHORT_NAME[SCEN_SHORT_NAME != 'base']){ 
+       # s <- SCEN_SHORT_NAME[[2]]
+        # parameter names
+        sdpar <- c('Overall',paste0(largest_evppi$classification," (", largest_evppi$Input_parameters_lowerCase,")"))
+        
+        # initialise dataframe
+        sd_scen <- as.data.frame(matrix(ncol=3, nrow=length(sdpar)))
+        colnames(sd_scen) <- c("parname","std","scen")
+        sd_scen$parname <- sdpar
+        
+        # extract overall standard deviation value 
+        sd_value <- voi_complete_summary_df %>% filter(age_sex == 'all all', value_type == 'std'
+                                                         )%>% dplyr::select(paste0(s,'_ylls_level1') )
+        sd_value <- unname(sd_value[[1]])
+        
+        sd_scen$std[sd_scen$parname == 'Overall'] <-  sd_value
+      
+    
+        # find updated standard deviations using the EVPPI values
+        
+        for (p in paste0(largest_evppi$classification," (", largest_evppi$Input_parameters_lowerCase,")")){
+          # p <- paste0(largest_evppi$classification," (", largest_evppi$Input_parameters_lowerCase,")")[[1]]
+          
+          
+          evppi_value <- largest_evppi %>% filter(Par == p) %>% dplyr::select(paste0(s,'_ylls_level1') )
+          evppi_value <- unname(evppi_value[[1]])
+          
+          sd_scen$std[sd_scen$parname==p] <- sd_value * (100-evppi_value)/100
+        }
+        
+        # add scenario
+        sd_scen$scen <- s
+        
+        # create one dataframe
+        if (nrow(sd_all)==0){
+          sd_all <- sd_scen
+        } else {
+          sd_all <- rbind(sd_all, sd_scen)
+          
+        }
+    
+      }
+      
+      datplot <- sd_all %>%
+         mutate(parname = factor(parname, 
+                                levels= rev(sdpar)))
+      
   
+      output_jpeg <- paste0('results/voi/largest_evppi_std_',city,'_',output_version,".jpeg")
+      {jpeg(output_jpeg,height=8,width=10+length(outcome_voi_list),units = 'in', res = 600) 
+        
+        ggplot(datplot, aes(x=parname)) +
+          geom_col(aes(y=std), position="dodge", fill = 'blue') +
+          facet_wrap(~scen, ncol=3, scales = 'free_x') +
+          xlab("") +
+          ylab("Standard deviation of YLLs") +
+          coord_flip() +
+          geom_col(aes(y=std), position="dodge", fill = 'green4',
+                   data = datplot %>% filter(parname == "Overall")) 
+       
+      }
+      dev.off()
+      
+    } # end of city loop
+  } # end of level 1 requirement 
+  
+   
+  
+  # output plot showing all EVPPI values
   output_pdf <- paste0('results/voi/evppi_',output_version,".pdf")
  
   #{pdf('results/voi/evppi.pdf',height=15,width=4+length(outcome_voi_list))
