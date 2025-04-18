@@ -110,7 +110,7 @@ rm(list=ls())
 cities <- c('bogota')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 1000
+nsamples <- 1000 
 
 input_parameter_file <- "InputParameters_v42.0.xlsx"
 
@@ -123,10 +123,10 @@ if (.Platform$OS.type == "windows"){
 } else {
   system2("git", gitArgs, wait = T)
 }
-# repo_sha <-  as.character(readLines(file.path("repo_sha")))
+repo_sha <-  as.character(readLines(file.path("repo_sha")))
 
 #output_version <- paste0(repo_sha, "_test_run") # gives the version number of the output documents, independent of the input parameter file name
-output_version <- 'bogota_1000samples4_v42.0'
+output_version <- paste0('bogota_',nsamples, '_', repo_sha,'_2_v42.0')
 
 
 voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
@@ -187,7 +187,8 @@ level3 <- c('pa_ap_IHD','pa_ap_lung_cancer','ap_COPD','pa_ap_stroke','pa_ap_T2D'
             'pa_myeloid_leukemia','inj')
 
 
-
+# for plots showing only the outcomes were at least one EvPPI value for one of the scenarios is greater than the cutoff 
+evppi_cutoff <- 3
 
 ############################### No need to change the following ##################################
 # keep record when code started:
@@ -1389,90 +1390,8 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
   
   ### create output plots
   
-  # output plot showing largest EVPPI values for Level 1
-  evppi_cutoff <- 3
-  
-  if ('level1' %in% outcome_voi_list){
-    for ( city_name in cities){
-      
-      evppi_city_df <- evppi_df %>% filter(city == city_name) %>% dplyr::select(c(city,classification,
-                                                                                  parameters,Input_parameters_lowerCase,contains("level1")))
-      
-      # initialise dataframe for all scenarios
-      sd_all <- data.frame()
-      
-      # extract rows with largest evppi components
-      largest_evppi <- evppi_city_df %>% filter_at(vars(starts_with('sc')), any_vars(. > evppi_cutoff))
-      largest_evppi$Par <- paste0(largest_evppi$classification," (", largest_evppi$Input_parameters_lowerCase,")")
-      
-      # create dataframe containing all the relevant standard deviations for each scenario
-      for (s in SCEN_SHORT_NAME[SCEN_SHORT_NAME != 'base']){ 
-       # s <- SCEN_SHORT_NAME[[2]]
-        # parameter names
-        sdpar <- c('Overall',paste0(largest_evppi$classification," (", largest_evppi$Input_parameters_lowerCase,")"))
-        
-        # initialise dataframe
-        sd_scen <- as.data.frame(matrix(ncol=3, nrow=length(sdpar)))
-        colnames(sd_scen) <- c("parname","std","scen")
-        sd_scen$parname <- sdpar
-        
-        # extract overall standard deviation value 
-        sd_value <- voi_complete_summary_df %>% filter(age_sex == 'all all', value_type == 'std'
-                                                         )%>% dplyr::select(paste0(s,'_ylls_level1') )
-        sd_value <- unname(sd_value[[1]])
-        
-        sd_scen$std[sd_scen$parname == 'Overall'] <-  sd_value
-      
-    
-        # find updated standard deviations using the EVPPI values
-        
-        for (p in paste0(largest_evppi$classification," (", largest_evppi$Input_parameters_lowerCase,")")){
-          # p <- paste0(largest_evppi$classification," (", largest_evppi$Input_parameters_lowerCase,")")[[1]]
-          
-          
-          evppi_value <- largest_evppi %>% filter(Par == p) %>% dplyr::select(paste0(s,'_ylls_level1') )
-          evppi_value <- unname(evppi_value[[1]])
-          
-          sd_scen$std[sd_scen$parname==p] <- sd_value * (100-evppi_value)/100
-        }
-        
-        # add scenario
-        sd_scen$scen <- s
-        
-        # create one dataframe
-        if (nrow(sd_all)==0){
-          sd_all <- sd_scen
-        } else {
-          sd_all <- rbind(sd_all, sd_scen)
-          
-        }
-    
-      }
-      
-      datplot <- sd_all %>%
-         mutate(parname = factor(parname, 
-                                levels= rev(sdpar)))
-      
-  
-      output_jpeg <- paste0('results/voi/largest_evppi_std_',city,'_',output_version,".jpeg")
-      {jpeg(output_jpeg,height=8,width=10+length(outcome_voi_list),units = 'in', res = 600) 
-        
-        ggplot(datplot, aes(x=parname)) +
-          geom_col(aes(y=std), position="dodge", fill = 'blue') +
-          facet_wrap(~scen, ncol=3, scales = 'free_x') +
-          xlab("") +
-          ylab("Standard deviation of YLLs") +
-          coord_flip() +
-          geom_col(aes(y=std), position="dodge", fill = 'green4',
-                   data = datplot %>% filter(parname == "Overall")) 
-       
-      }
-      dev.off()
-      
-    } # end of city loop
-  } # end of level 1 requirement 
-  
-   
+
+
   
   # output plot showing all EVPPI values
   output_pdf <- paste0('results/voi/evppi_',output_version,".pdf")
@@ -1481,7 +1400,7 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
  # {pdf(output_pdf,height=15,width=4+length(outcome_voi_list)+1)
     for ( city_name in cities){
       
-      output_jpeg <- paste0('results/voi/evppi_',city,'_',output_version,".jpeg")
+      output_jpeg <- paste0('results/voi/evppi_',city_name,'_',output_version,".jpeg")
       
       {jpeg(output_jpeg,height=15,width=4+length(outcome_voi_list),units = 'in', res = 600)
         #jpeg("Plot3.jpeg", width = 4, height = 4, units = 'in', res = 300)
@@ -1525,6 +1444,74 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
   
   
   
+  
+  
+  
+  
+  
+  largest_evppi <- evppi_city_df %>% filter_at(vars(starts_with('sc')), any_vars(. > evppi_cutoff))
+  
+  
+  
+  # output plot showing all EVPPI above certain value - heat plot
+  #output_pdf <- paste0('results/voi/Largest_Evppi_Heat_',output_version,".pdf")
+  
+  for ( city_name in cities){
+    
+    output_jpeg <- paste0('results/voi/Largest_Evppi_Heat_',city_name,'_',output_version,".jpeg")
+    
+    {jpeg(output_jpeg,height=6,width=4+length(outcome_voi_list),units = 'in', res = 600)
+      #jpeg("Plot3.jpeg", width = 4, height = 4, units = 'in', res = 300)
+      
+      evppi_city_df <- evppi_df %>% filter(city == city_name) 
+      evppi_city_df <- evppi_city_df %>% filter_at(vars(starts_with('sc')), any_vars(. > evppi_cutoff))
+      
+      par_city <- par(mar=c(12,18,4,3.5))
+      
+      labs <- paste0(evppi_city_df$classification," (", evppi_city_df$Input_parameters_lowerCase,")") # y axis label
+    
+      evppi_dummy <- evppi_city_df[,evppi_outcome_names]
+      # for plotting purposes, replace all NaN with 0
+      evppi_dummy[is.na(evppi_dummy)] <- 0
+      get.pal=colorRampPalette(brewer.pal(9,"Reds"))
+      redCol=rev(get.pal(12))
+      bkT <- seq(max(evppi_dummy[!is.na(evppi_dummy)])+1e-10, 0,length=13)
+      cex.lab <- 1.0
+      maxval <- round(bkT[1],digits=1)
+      col.labels<- c(0,maxval/2,maxval)
+      cellcolors <- vector()
+      title <- paste(city_name,  " - No of samples: ", nsamples, 
+                     # ': By how much (%) could we\n reduce uncertainty in the outcome\n if we knew this parameter perfectly?')
+                     '- By how much (%)\n could we reduce the standard deviation\n in the outcome if we knew this parameter perfectly?')
+      for(ii in 1:length(unlist(evppi_dummy))) # determine the cellcolors
+        cellcolors[ii] <- redCol[tail(which(unlist(evppi_dummy)[ii]<bkT),n=1)]
+      color2D.matplot(evppi_dummy,cellcolors=cellcolors,xlab="",ylab="",axes=F,border='white')
+      title(title, adj = 0, cex.main = 0.7 )
+      fullaxis(side=1,at=(ncol(evppi_dummy)-1):0+0.5,labels=rev(colnames(evppi_dummy)),
+               las = 2, line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.65)  # x-axis labels
+      fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,
+               line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.6) # y-axis labels
+      color.legend(ncol(evppi_dummy)+0.5,0,ncol(evppi_dummy)+1.2,length(labs),col.labels,rev(redCol),
+                   gradient="y",cex=0.7,align="rb")
+      for(i in seq(0,ncol(evppi_dummy),by=NSCEN)) abline(v=i, lwd=2) # add vertical lines
+      for(i in c(0,length(labs))) abline(h=i, lwd = 2) # add horizontal lines at top and bottom
+      par(par_city)
+      
+      dev.off()}
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   ##### run EVPPI for different sexes
   
@@ -1548,19 +1535,20 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
     
     
     
-    # create output plots
+    # create output plots - heat map for all results
     output_pdf <- paste0('results/voi/evppi_sex_',output_version,".pdf")
     #{pdf('results/voi/evppi.pdf',height=15,width=4+length(outcome_voi_list))
    # {pdf(output_pdf,height=15,width=4+length(outcome_voi_list)+1)
       
     for ( city_name in cities){
         
-        output_jpeg <- paste0('results/voi/evppi_sex_',city,'_',output_version,".jpeg")
+        output_jpeg <- paste0('results/voi/evppi_sex_all_heat_',city,'_',output_version,".jpeg")
         
         {jpeg(output_jpeg,height=15,width=4+length(outcome_voi_list),units = 'in', res = 600)
         
           #evppi_agesex_city_df <- get(paste0("evppi_agesex_",city_name,'_df'))
           evppi_sex_city_df <- evppi_sex_df %>% filter(city == city_name)
+          
           
           # create dataframe where both sexes are in the same row
           evppi_sex_city_df2 <- evppi_sex_df%>% filter(gender == sex_cat[1]) %>% dplyr::select(city, classification, parameters, Input_parameters_lowerCase)
@@ -1609,6 +1597,86 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
   
           dev.off()}
       }
+    
+    
+    
+    
+    
+    
+    # create output plots - heat map for largest results
+    #output_pdf <- paste0('results/voi/evppi_sex_',output_version,".pdf")
+    #{pdf('results/voi/evppi.pdf',height=15,width=4+length(outcome_voi_list))
+    # {pdf(output_pdf,height=15,width=4+length(outcome_voi_list)+1)
+    
+    for ( city_name in cities){
+      
+      output_jpeg <- paste0('results/voi/evppi_sex_largestEVPPI_heat_',city,'_',output_version,".jpeg")
+      
+      {jpeg(output_jpeg,height=6,width=4+length(outcome_voi_list),units = 'in', res = 600)
+        
+        #evppi_agesex_city_df <- get(paste0("evppi_agesex_",city_name,'_df'))
+        evppi_sex_city_df <- evppi_sex_df %>% filter(city == city_name)
+        evppi_sex_city_df <- evppi_sex_city_df %>% filter_at(vars(starts_with('sc')), any_vars(. > evppi_cutoff))
+        
+        # create dataframe where both sexes are in the same row
+        evppi_sex_city_df2 <- evppi_sex_df%>% filter(gender == sex_cat[1]) %>% dplyr::select(city, classification, parameters, Input_parameters_lowerCase)
+        for (s in sex_cat){
+          df_sex <- evppi_sex_city_df %>% filter(gender == s) %>% dplyr::select(-gender)
+          # extend scenario names with sex
+          colnames(df_sex)[grepl(paste(c('sc', 'sum'), collapse = "|") ,colnames(df_sex))] <- paste0(
+            colnames(df_sex)[grepl(paste(c('sc', 'sum'), collapse = "|") ,colnames(df_sex))], '_',s)
+          # merge with other data
+          evppi_sex_city_df2 <- inner_join(evppi_sex_city_df2, df_sex, by = c('city','classification', 'parameters', 'Input_parameters_lowerCase'))
+          
+        }
+        
+        par_city <- par(mar=c(13,15,4,3.5))
+        
+        labs <- paste0(evppi_sex_city_df2$classification," (", evppi_sex_city_df2$Input_parameters_lowerCase,")") # y axis label
+       
+        evppi_sex_dummy <- evppi_sex_city_df2 %>% dplyr::select(!c(city, parameters,classification, Input_parameters_lowerCase))    #[,evppi_outcome_names]
+        # for plotting purposes, replace all NaN with 0
+        evppi_sex_dummy[is.na(evppi_sex_dummy)] <- 0
+        get.pal=colorRampPalette(brewer.pal(9,"Reds"))
+        redCol=rev(get.pal(12))
+        bkT <- seq(max(evppi_sex_dummy)+1e-10, 0,length=13)
+        cex.lab <- 1.0
+        maxval <- round(bkT[1],digits=1)
+        col.labels<- c(0,maxval/2,maxval)
+        cellcolors <- vector()
+        title <- paste(city_name,  " - No of samples: ", nsamples, 
+                       # ': By how much (%) could we\n reduce uncertainty in the outcome\n if we knew this parameter perfectly?')
+                       '- By how much (%)\n could we reduce the standard deviation in the\n outcome if we knew this parameter perfectly?')
+        for(ii in 1:length(unlist(evppi_sex_dummy ))) # determine the cellcolors
+          cellcolors[ii] <- redCol[tail(which(unlist(evppi_sex_dummy)[ii]<bkT),n=1)]
+        color2D.matplot(evppi_sex_dummy,cellcolors=cellcolors,xlab="",ylab="",axes=F,border='white')
+        title(title, adj = 0, cex.main = 0.7 )
+        fullaxis(side=1,at=(ncol(evppi_sex_dummy)-1):0+0.5,labels=rev(colnames(evppi_sex_dummy)),
+                 las = 2, line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.65)  # x-axis labels
+        fullaxis(side=2,las=1,at=(length(labs)-1):0+0.5,labels=labs,
+                 line=NA,pos=NA,outer=FALSE,font=NA,lwd=0,cex.axis=0.6) # y-axis labels
+        color.legend(ncol(evppi_sex_dummy)+0.5,0,ncol(evppi_sex_dummy)+1.2,length(labs),col.labels,rev(redCol),
+                     gradient="y",cex=0.7,align="rb")
+        for(i in seq(0,ncol(evppi_sex_dummy),by=NSCEN)) abline(v=i, lwd=1) # add vertical lines
+        abline(v=(ncol(evppi_sex_dummy))/2, lwd=2) # add vertical line between male and female results
+        for(i in c(0,length(labs))) abline(h=i, lwd = 2) # add horizontal lines at top and bottom
+        par(par_city)
+        
+        dev.off()}
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
   } # end of gender VOI analysis
   
