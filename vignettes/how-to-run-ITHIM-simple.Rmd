@@ -18,47 +18,11 @@ knitr::opts_chunk$set(
 
 In this guide we explain how to install the ITHIM-Simple package, how to run the model using this package and how to produce summaries of the key results.
 
-Please note that the guide is written for Windows 10 but should work similarly for different operating systems. We are using the latest R version - at the time of writing, which is `R version 4.3.3 (2024-02-29)`.
+Please note that the guide is written for RStudio cloude but should work similarly for different operating systems. We are using the latest R version - at the time of writing, which is `R version 4.3.3 (2024-02-29)`.
 
 ## How to install the ITHIM-R package
 
-### Pre-requisites
-
-The following programmes need to have been installed before the ITHIM-R package can be used:
-
--   [Git](https://github.com/git-guides/install-git)
-
--   [R](https://cran.r-project.org/) - `version 4.3.3 (2024-02-29)` or above
-
--   [R Studio](https://posit.co/download/rstudio-desktop/)
-
-### Cloning the Github repository
-
-To clone (i.e. download) the ITHIM-R Github repository, open a command window by pressing the `More` button in the `Git` tab, and then press `New Terminal`
-
-![](../man/figures/new_terminal.png){width="100%"}
-
-and then this terminal window will appear
-
-![](../man/figures/terminal.png){width="100%"}
-
-navigate to the folder in which you want to install the repository in and type:
-
-```         
-git clone https://github.com/ITHIM/ITHIM-R.git
-```
-
-![](../man/figures/Clone_package.png){width="100%"}
-
-[**Note**]{.underline}: If you'd like to install just the latest version and ignoring the history, you may use `--depth 1` parameter, such as:
-
-```         
-git clone https://github.com/ITHIM/ITHIM-R.git --depth 1
-```
-
-This will be much quicker to install.
-
-The Github repository has now been downloaded to your computer and the working branch - the default branch, is set to `bogota` which is this documentation refers to.
+We have cloned the Github repository into Rstudio and the working branch - the default branch, is set to `simple`.
 
 ### Installing the package in RStudio
 
@@ -108,9 +72,9 @@ To get the newest updates of the Bogota branch, go to the `Git` tab in RStudio n
 
 ![](../man/figures/Git_pull.png){width="100%"}
 
-## Running ITHIM-Global
+## Running ITHIM-simple
 
-To run ITHIM-Global using the ITHIM-R package the various input files and parameters need to be updated first. Then the `multi_city_script.R` can be used to call the core functions required to run ITHIM-R. Note that the `multi_city_script.R` is set up to run ITHIM-Global for various cities in one go if required by looping through the cities one by one.
+To run ITHIM-simple using the ITHIM-R package the various input files and parameters need to be updated first. Then the `multi_city_script.R` can be used to call the core functions required to run ITHIM-R. Note that the `multi_city_script.R` is set up to run ITHIM-Global for various cities in one go if required by looping through the cities one by one.
 
 ### Update input parameters
 
@@ -131,12 +95,6 @@ This section covers the 5 city-specific input files required to run the model.
     -   One row per trip (or stage of trip)
     -   Minimal columns: `participant_id`, `age`, `sex`, `trip_mode`, `trip_duration` (or `trip_distance`)
     -   Other columns: `stage_mode`, `stage_duration` (or `stage_distance`)
-
--   **Injury events** [(example injuries dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/injuries_bogota.csv). A table of recorded road-traffic injury (fatality) events in a city during one or more years.NOV refers to No Other Vehicle.
-
-    -   One row per event
-    -   Minimal columns: **victim mode** (`cas_mode`) and **strike mode** (`strike_mode`)
-    -   Other columns: `year`, `cas_age`, `cas_gender`, `weight` (weight column should give number of years for which data exists if no `year` information is given)
 
 -   **Baseline mortality and years of life lost** [(example dataset)](https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/inst/extdata/local/bogota/gbd_bogota.csv). This gives the burden of mortality and years of life lost (YLL) for different causes of mortality and YLL. If no city-specific information exists, country level information can be used.
 
@@ -207,16 +165,6 @@ For each city modelled it contains the following data:
 
 -   **true_dist**: distances from the trip data scaled up to the total distance travelled by the baseline population of the city (for age ranges considered in the model only) for each scenario (including baseline) and mode of transport.
 
--   **inj_distances**:
-
-    -   **true_distances**: city baseline population mode distances by age category and sex considered in the model.
-
-    -   **injuries_list**: For all scenarios (including baseline) two lists are given, one for `whw` (who-hit-whom) injuries where both the strike and the casualty mode are known and one for `nov` (no other vehicle) injuries where no strike vehicle was involved in the crash These lists contain all casualty (and strike) mode combinations by age category and sex. Furthermore, they detail casualty (and strike) mode distances travelled by the entire city baseline population considered in the model ('\_sum') or just by the respective age and sex category. They also detail the casualty (and strike) mode exponents used in the injury Poisson regression model.
-
-    -   **reg_model**: parameterised Poisson injury regression model for injuries.
-
-    -   **injuries_for_model**: baseline data containing fatality counts for all casualty and strike mode combinations with associated city's baseline population distance data (`true_distances` explained above) .
-
 -   **demographic**: city population counts for all age categories and sex combinations considered in the model.
 
 -   **synth_pop**: population extracted from the physical activity survey assigning non-transport, non-occupational PA component of physical activity values in mMETs hours per person per week.
@@ -240,10 +188,6 @@ For each city modelled it contains the following data:
 -   **disease_burden**: health outcome burden for all health outcomes for the baseline scenario (deaths and years of life lost) for all age and sex categories considered in the model (from input data).
 
 -   **PM_emission_inventory**: PM emission inventory by mode of transport for the baseline scenario (from input data).
-
--   **injury_table**: summarised total road fatality counts from the injury input data by age and sex category and strike and casualty mode for all years (`weight` column) given in the input data for both `whw` (who-hit-whom) and `nov` (no-other-vehicle) injuries.
-
--   **orig_inj**: gives baseline average yearly injury counts by strike mode and casualty mode before accidents where strike mode = cas mode where converted to NOV accidents. There are two tables, one containing the original numbers from the original injury data and the other one  the original counts scaled by the injury_reporting_rate.
 
 -   **vehicle_inventory**: gives the speed and CO2 and PM2.5 emissions inventories for all vehicles in the baseline scenario.
 
@@ -353,35 +297,6 @@ It produces the following output documents:
 
         -   summary_stats_PM2.5_CO2: summary statistics of individual PM2.5 exposure levels, the total PM2.5 concentration, the change in PM2.5 concentration as compared to the baseline scenario and the total transport related CO2 emissions for each scenario
 
-#### injury_tables.Rmd
-
-This .Rmd file can be used to summarise the injury outcomes. It produces the following output documents:
-
--   html file (saved in the root folder) containing the information listed below:
-
-    -   fatality counts by strike and casualty mode for each scenario (including lower and upper confidence interval values were applicable); one table for each scenario and mean, upper or lower confidence interval values
-
-    -   fatality counts giving lower, mean and upper bounds (where applicable) for each casualty mode by strike mode for each scenario; one table for each casualty mode, scenario
-
-    -   tables showing the fatalities per billion km travelled for each scenario and mean, upper and lower confidence interval values (where applicable).
-
-    -   tables showing the number of deaths per 100,000 people for each scenario and mean, upper and lower confidence interval values (where applicable).
-
-    -   tables showing the fatalities per 100 million hours travelled for each scenario and mean, upper and lower confidence interval values (where applicable).
-
--   output .csv files containing the information listed below. Note that all these files are also saved with their version number in the file name:
-
-    -   The inj_counts.csv file (`results/multi_city/inj/inj_counts.csv`) contains the fatality counts (mean and upper and lower confidence interval values if required, each in their seperate row) for each scenario and casualty and strike mode pair. It also includes the observed baseline fatality counts and the active travel fatality counts under the casualty mode (the sum of cycle and walk casualty mode fatalities)
-
-    -   The injury_risks_per_billion_kms.csv file (`results/multi_city/inj/injury_risks_per_billion_kms.csv`) gives the fatalities per billion km travelled for each scenario and casualty mode. It also includes the upper and lower confidence interval values if required, each in their separate row, and active travel counts which sum walking and cycling
-
-    -   The injury_risks_per_100k_pop.csv file (`results/multi_city/inj/injury_risks_per_100k_pop.csv`) gives the fatalities per 100k people for each scenario and casualty mode. It also includes the upper and lower confidence interval values if required, each in their separate row, and active travel counts which sum walking and cycling
-
-    -   The distances.csv file (`results/multi_city/inj/distances.csv`) contains the population distances travelled per day for each scenario and mode
-
-    -   The injury_risks_per_100million_h.csv file (`results/multi_city/inj/injury_risks_per_100million_h.csv`) gives the fatalities per 100 million hours travelled for each scenario and casualty mode. It also includes the upper and lower confidence interval values if required, each in their seperate row, and active travel counts which sum walking and cycling
-
--   The inj_data.xlsx file (results/multi_city/inj/inj_data.xlsx) contains all injury output csv files
 
 #### Shiny App Pivot table
 
