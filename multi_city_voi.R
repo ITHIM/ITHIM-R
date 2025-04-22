@@ -1,7 +1,7 @@
 #' Main script to run ITHIM Global in sampling mode
 #' 
 #' Script to run ITHIM Global using input parameter distributions. Outputs the health impacts associated with transport in a given city
-#' via an air pollution, physical activity and injury pathway. Also performs a Value of Information analysis to calculate the the 
+#' via an air pollution, physical activity and injury pathway. Also performs a Value of Information analysis to calculate the 
 #' expected values of partially perfect information, i.e the reduction in standard deviation in the outcome were we to know 
 #' an input parameter or several interdependent input parameters exactly.
 #' 
@@ -13,22 +13,27 @@
 #'      equals the number of model runs 
 #'    - whether a VoI analysis is to be performed, if yes, also set the following parameters:
 #'      - define the list of outcomes for which the VoI analysis is to be performed
+#'      - define a cut-off value to create plots only showing input parameters that have a larger
+#'        impact on standard deviation of the results in the outcome_voi_list for any of the 
+#'        defined scenarios than the cut-off value 
 #'      - define whether you want to run the VoI analysis split by sex 
 #'      - define whether you want to run the VoI analysis split by sex and age
-#'      - define whether you want to calculate the sum of the outcomes of interest and whether
-#'        whether to include this sum in the VoI analysis
 #'    - The input parameter file name containing the global and local input parameters and their distribution parameters  
-#'    - define the output_version
+#'    - define the output_version (currently automated to include the latest github version and the sample size)
 #'    - define whether to write the key aspect of the model run to the OutputVersionControl.txt file which
 #'      documents the key aspects of the model run (timestamp, author name, cities for which model was run, 
 #'      input parameter file name, output version number, number of samples, and any comments. If yes, also define
 #'      - author name
 #'      - any comments that are to be written to the file
 #'    - The scenarios need defining by:
-#'      - updating the character defining which scenario script is to be called
+#'      - updating the character defining which scenario script is to be called (currently works for
+#'        the BOGOTA, GLOBAL, LATAM, and AFRICA_INDIA scenarios
 #'      - giving the reference scenario against which all other scenarios are compared,
 #'        this reference scenario needs to be the scenario name which corresponds to the current input parameter files
 #'      - giving the percentage increase in each mode for the BOGOTA (GLOBAL, LATAM, and AFRICA_INDIA) scenarios
+#'   - Define whether model is to be run in 'sample' or 'constant' mode - choose 'sample' for 
+#'     sample from input parameter distributions and to run a VoI analysis
+#'   - The three disease outcome levels are defined
 #'      
 #' - the remainder of the code does not need to be changed:
 #' 
@@ -36,34 +41,30 @@
 #'   for the model run
 #'   
 #' - The\code{\link{run_ithim_setup()}} script is called which prepares the input data needed for the health impact assessment
-#'   and samples for the input parameter distributions
+#'   and samples from the input parameter distributions
 #' 
 #' - The \code{\link{run_ithim()}} script is called which performs the health impact assessment NSAMPLE times
 #' 
 #' - The \code{\link{extract_data_for_voi()}} function is called which gets the data into the correct
 #'   format for plotting and the VoI analysis
-#' 
-#' - Plots are created for all cities and each city individually showing the total YLL outcomes and their 
-#'   95% confidence intervals for each scenario ('results/voi/city_yll_',output_version,'.pdf')
 #'   
-#' - Plots are created for each city individually showing the total YLL outcomes for the entire population and 
-#'   both sexes and their 95% confidence intervals for each scenario ('results/voi/city_yll_sex',output_version,'.pdf')
-#' 
-#' - One plot is created showing the change in total YLL per person relative to the baseline summed 
-#'   across all cities ('results/voi/combined_yll_pp','_',output_version,'.pdf')
+#' - Various plots giving average outcomes and 95% confidence intervals are created 
+#'   and saved in the 'results/voi' folder
 #'
-#' - if required the VoI analysis is started:
+#' - if required the VoI analysis is started. The results are saved in the 'results/voi' folder:
 #'   - EVPPI values for the different input parameters of the total population outcomes are calculated for
-#'     each city ('results/voi/evppi_',output_version,".csv")
-#'   - EVPPI values are plotted for each city ('results/voi/evppi_',output_version,".pdf")
+#'     each city and saved as a csv file but also in two heat plots, one showing all parameters, the other
+#'     only showing the parameters with the largest impact using the evppi_cutoff parameter
 #'   - if required the VoI analysis by sex is started:
 #'      - EVPPI values for the different input parameters of the total population outcomes by sex are 
-#'        calculated for each city ('results/voi/evppi_sex_',output_version,".csv")
-#'      - EVPPI values are plotted for each city ('results/voi/evppi_sex_',output_version,".pdf")
+#'        calculated for each city and saved as a csv file but also in two heat plots, one showing all parameters, the other
+#'        only showing the parameters with the largest impact using the evppi_cutoff parameter
 #'   - if required the VoI analysis by sex and age group is started:
 #'      - EVPPI values for the different input parameters of the total population outcomes by sex and age group are 
-#'        calculated for each city (results/voi/evppi_agesex_',output_version,".csv")
-#'      - EVPPI values are plotted for each city and outcome ('results/voi/evppi_agesex_',output_version,".pdf")
+#'        calculated for each city and saved as a csv file but also in a heat plot showing the effect of all 
+#'        input parameters. 
+#'   - One csv file is created containing the EVPPI values for the entire VoI analysis. This files contains the outcome from 
+#'     VoI analysis split by sex and age, by sex only and without any splits, depending on the analyses that have been run
 #'
 #' - The OutputVersionControl.txt file is updated if needed
 #'
@@ -132,12 +133,6 @@ output_version <- paste0('bogota_',nsamples, '_', repo_sha,'_2_v42.0')
 voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
 
 
-# flag whether to run VOI analysis split gender
-voi_gender <- T # set to T if want to include split and to F otherwise
-
-# flag whether to run VOI analysis split by age and gender 
-voi_age_gender <- T # set to T if want to include split and to F otherwise
-
 # list of potential values for the outcome_voi_list
 # 'pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
 # 'pa_ap_stroke', 'pa_ap_T2D', 'ap_LRI', 'pa_breast_cancer', 'pa_colon_cancer', 'pa_endo_cancer',
@@ -152,6 +147,17 @@ voi_age_gender <- T # set to T if want to include split and to F otherwise
 #                       'level1', 'level2', 'level3')
 
 outcome_voi_list <- c('pa_ap_all_cause', 'inj', 'level1')
+
+# for plots showing only the outcomes were at least one EvPPI value for one of the scenarios is greater than the cutoff 
+evppi_cutoff <- 3
+
+
+# flag whether to run VOI analysis split gender
+voi_gender <- T # set to T if want to include split and to F otherwise
+
+# flag whether to run VOI analysis split by age and gender 
+voi_age_gender <- T # set to T if want to include split and to F otherwise
+
 
 
 
@@ -187,8 +193,7 @@ level3 <- c('pa_ap_IHD','pa_ap_lung_cancer','ap_COPD','pa_ap_stroke','pa_ap_T2D'
             'pa_myeloid_leukemia','inj')
 
 
-# for plots showing only the outcomes were at least one EvPPI value for one of the scenarios is greater than the cutoff 
-evppi_cutoff <- 3
+
 
 ############################### No need to change the following ##################################
 # keep record when code started:
