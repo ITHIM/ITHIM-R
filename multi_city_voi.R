@@ -110,7 +110,7 @@ rm(list=ls())
 cities <- c('bogota')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 1000 
+nsamples <- 5000 
 
 input_parameter_file <- "InputParameters_v42.0.xlsx"
 
@@ -622,7 +622,7 @@ print('plot results')
 if(nsamples > 1){
 
   # plot level 1 results - one plot for all cities plus individual plots for each city
-  {pdf(paste0('results/voi/city_yll_level1_',output_version,'.pdf'),height=6,width=6)
+  {jpeg(paste0('results/voi/city_yll_level1_AllCities',output_version,'.jpeg'),height=6,width=6,units = 'in', res = 600)
 
     # one plot for all cities - might be difficult to read if too many cities
     par <- par(mar=c(5,5,1,1))
@@ -644,9 +644,17 @@ if(nsamples > 1){
     text(y=(NSCEN-1)+0.2,x=ninefive[[1]][1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*1))
     legend(col=rev(cols),lty=1,bty='n',x= mean(means),legend=rev(cities),y=NSCEN-1,lwd=2)
     par(par)
+    dev.off()
+  } 
+  
 
+  
+  
     # one plot per city
     for(cityname in cities){
+      {jpeg(paste0('results/voi/city_yll_level1_',cityname,'_',output_version,'.jpeg'),height=6,width=6,units = 'in', res = 600)
+    
+        
       sp_index <- which(cities==cityname)
       scen_out_city <- level1_df %>% filter(city == cityname)
       means <- as.matrix(unlist(transpose(scen_out_city %>% filter(value_type == 'mean') %>% dplyr::select(matches('level1')) )))
@@ -671,8 +679,8 @@ if(nsamples > 1){
   }
 
 
-  # plot level 1 results per 100k - one plot for all cities plus individual plots for each city
-  {pdf(paste0('results/voi/city_yll_level1_100k_',output_version,'.pdf'),height=6,width=6)
+  # plot level 1 results per 100k - one plot for all cities, then individual plots for each city
+  {jpeg(paste0('results/voi/city_yll_level1_100k_AllCities_',output_version,'.jpeg'),height=6,width=6,units = 'in', res = 600)
     
     # one plot for all cities - might be difficult to read if too many cities
     par <- par(mar=c(5,5,1,1))
@@ -693,9 +701,12 @@ if(nsamples > 1){
     text(y=(NSCEN-1)+0.2,x=ninefive[[1]][1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*1))
     legend(col=rev(cols),lty=1,bty='n',x= mean(means),legend=rev(cities),y=NSCEN-1,lwd=2)
     par(par)
+    dev.off()
+  } 
     
     # one plot per city
     for(cityname in cities){
+      {jpeg(paste0('results/voi/city_yll_level1_100k_',cityname,'_',output_version,'.jpeg'),height=6,width=6,units = 'in', res = 600)
       sp_index <- which(cities==cityname)
       scen_out_city <- level1_df %>% filter(city == cityname)
       means <- as.matrix(unlist(transpose(scen_out_city %>% filter(value_type == 'mean') %>% dplyr::select(matches('level1')) )))
@@ -723,10 +734,11 @@ if(nsamples > 1){
   
  
   # plot total YLL per 100k for 3 levels for all scenarios - one plot per city
-  {pdf(paste0('results/voi/city_yll_all_levels_100k_',output_version,'.pdf'),height=6,width=6)
+ 
 
   # one plot per city
     for(cityname in cities){
+      {jpeg(paste0('results/voi/city_yll_all_levels_100k_',cityname,'_',output_version,'.jpeg'),height=6,width=6,units = 'in', res = 600)
       sp_index <- which(cities==cityname)
       # extract information for all 3 levels
       scen_out_city <- voi_complete_100k_summary_df %>% filter(age_sex == 'all all' & city == cityname
@@ -770,8 +782,9 @@ if(nsamples > 1){
       legend(col='blue', lty=1,bty='n',x= mean(means),legend=paste0(cityname,': Level 2'),y=NSCEN-1.1,lwd=2, cex = 0.8)
       legend(col='red', lty=1,bty='n',x= mean(means),legend=paste0(cityname,': Level 3'),y=NSCEN-1.2,lwd=2, cex = 0.8)
       par(par_city)
+      dev.off()
     }
-    dev.off()
+    
   }
   
 
@@ -782,10 +795,11 @@ if(nsamples > 1){
   
   
   # plot total YLL per 100k for 3 levels, both sexes and for all scenarios - one plot per city
-  {pdf(paste0('results/voi/city_yll_all_levels_sex_100k_',output_version,'.pdf'),height=6,width=6)
     
     # one plot per city
     for(cityname in cities){
+      {jpeg(paste0('results/voi/city_yll_all_levels_sex_100k_',cityname,'_',output_version,'.jpeg'),height=6,width=6,units = 'in', res = 600)
+        
       sp_index <- which(cities==cityname)
       # extract information for all 3 levels
       scen_out_city <- voi_complete_100k_summary_df %>% filter(age_cat == 'all' & city == cityname
@@ -913,8 +927,9 @@ if(nsamples > 1){
       
       
       par(par_city)
+      dev.off()
     }
-    dev.off()
+    
   }
   
 
@@ -926,10 +941,11 @@ if(nsamples > 1){
   
   
   # plot total YLL per 100k for level 1, ap_pa_all_cause and inj, both sexes and for all scenarios - one plot per city
-  {pdf(paste0('results/voi/city_yll_level1_inj_allcause_sex_100k_',output_version,'.pdf'),height=6,width=6)
     
     # one plot per city
     for(cityname in cities){
+      {jpeg(paste0('results/voi/city_yll_level1_inj_allcause_sex_100k_',cityname,'_',output_version,'.jpeg'),height=6,width=6,units = 'in', res = 600)
+
       sp_index <- which(cities==cityname)
       # extract information for all 3 levels
       scen_out_city <- voi_complete_100k_summary_df %>% filter(age_cat == 'all' & city == cityname
@@ -1057,8 +1073,9 @@ if(nsamples > 1){
       
       
       par(par_city)
+      dev.off()
     }
-    dev.off()
+    
   }
   
   
@@ -1067,10 +1084,11 @@ if(nsamples > 1){
   
   
   # plot total YLL per 100k for all cause and cvd, both sexes and for all scenarios - one plot per city
-  {pdf(paste0('results/voi/city_yll_allcause_cvd_sex_100k_',output_version,'.pdf'),height=6,width=6)
     
     # one plot per city
     for(cityname in cities){
+      {jpeg(paste0('results/voi/city_yll_allcause_cvd_sex_100k_',cityname,'_',output_version,'.jpeg'),height=6,width=6,units = 'in', res = 600)
+        
       sp_index <- which(cities==cityname)
       # extract information for all 3 levels
       scen_out_city <- voi_complete_100k_summary_df %>% filter(age_cat == 'all' & city == cityname
@@ -1164,8 +1182,9 @@ if(nsamples > 1){
       legend(col='orange', lty=1,bty='n',x= mean(means),legend=paste0(cityname,': CVD - female'),y=starting_y-1,lwd=2, cex = 0.8)
       
       par(par_city)
+      dev.off()
     }
-    dev.off()
+    
   }
   
 
@@ -1175,10 +1194,10 @@ if(nsamples > 1){
   
   
   # plot total YLL per 100k for level 1, ap_all_cause, pa_all_cause and inj, both sexes and for all scenarios - one plot per city
-  {pdf(paste0('results/voi/city_yll_level1_inj_AP_PA_sex_100k_',output_version,'.pdf'),height=6,width=6)
-    
-    # one plot per city
+     # one plot per city
     for(cityname in cities){
+      {jpeg(paste0('results/voi/city_yll_level1_inj_AP_PA_sex_100k_',cityname,'_',output_version,'.jpeg'),height=6,width=6,units = 'in', res = 600)
+        
       sp_index <- which(cities==cityname)
       # extract information for all 3 levels
       scen_out_city <- voi_complete_100k_summary_df %>% filter(age_cat == 'all' & city == cityname
@@ -1349,8 +1368,9 @@ if(nsamples > 1){
       
       
       par(par_city)
+      dev.off()
     }
-    dev.off()
+    
   }
   
   
