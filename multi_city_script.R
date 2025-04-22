@@ -64,7 +64,7 @@ if (!require("drpa",character.only = TRUE)) {
 
 cities <- 'bogota'
 
-input_parameter_file <- "Bogota_InputParameters_v5.1.xlsx" # file containing the local and global input parameters
+input_parameter_file <- "Bogota_InputParameters_v6.0.xlsx" # file containing the local and global input parameters
 # 
 
 ## Get the current repo sha
@@ -85,7 +85,7 @@ repo_sha <-  as.character(readLines(file.path("repo_sha")))
 write_output_control = T # whether you want to save the model run specifics or not
 output_version <- repo_sha # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
-comment <- "Simplied ithim by stripping off parameters"
+comment <- "Simplified ithim by stripping off parameters"
 
 # scenario definition
 scenario_name <- "BOGOTA" # name of scenario to be called
