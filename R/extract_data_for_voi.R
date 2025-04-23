@@ -32,7 +32,7 @@
 #' @param NSAMPLES number of model runs per city
 #' @param SCEN_SHORT_NAME names of the scenarios (incl. baseline)
 #' @param cities list of cities for which the model was run
-#' @param multi_city_ithim list containing the ithim model information including results for the various model runs
+#####' @param multi_city_ithim list containing the ithim model information including results for the various model runs
 #' @param output_version the output version of the model run
 #' @param level1 list of diseases considered in level 1
 #' @param level2 list of diseases considered in level 2
@@ -51,7 +51,7 @@
 #' @export
 
 
-extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_city_ithim, output_version, level1, level2, level3){
+extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities, output_version, level1, level2, level3){
   
   
   # initialise list / dataframes for all cities with all outcomes for all model runs, age groups
@@ -69,7 +69,7 @@ extract_data_for_voi <- function(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_c
   voi_data_all_sex_df_ap_pa <- data.frame()
   
   
-  
+  multi_city_ithim <- list()
   
   # create empty dataframe to save all the population numbers
   population_df <- data.frame()

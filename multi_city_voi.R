@@ -48,20 +48,20 @@
 #' - The \code{\link{extract_data_for_voi()}} function is called which gets the data into the correct
 #'   format for plotting and the VoI analysis
 #'   
-#' - Various plots giving average outcomes and 95% confidence intervals are created 
+#' - Various plots giving average outcomes and 95% credible intervals are created 
 #'   and saved in the 'results/voi' folder
 #'
 #' - if required the VoI analysis is started. The results are saved in the 'results/voi' folder:
 #'   - EVPPI values for the different input parameters of the total population outcomes are calculated for
-#'     each city and saved as a csv file but also in two heat plots, one showing all parameters, the other
+#'     each city (\code{\link{call_evppi()}}) and saved as a csv file but also in two heat plots, one showing all parameters, the other
 #'     only showing the parameters with the largest impact using the evppi_cutoff parameter
 #'   - if required the VoI analysis by sex is started:
 #'      - EVPPI values for the different input parameters of the total population outcomes by sex are 
-#'        calculated for each city and saved as a csv file but also in two heat plots, one showing all parameters, the other
+#'        calculated for each city (\code{\link{call_evppi_sex()}}) and saved as a csv file but also in two heat plots, one showing all parameters, the other
 #'        only showing the parameters with the largest impact using the evppi_cutoff parameter
 #'   - if required the VoI analysis by sex and age group is started:
 #'      - EVPPI values for the different input parameters of the total population outcomes by sex and age group are 
-#'        calculated for each city and saved as a csv file but also in a heat plot showing the effect of all 
+#'        calculated for each city (\code{\link{call_evppi_age_sex()}}) and saved as a csv file but also in a heat plot showing the effect of all 
 #'        input parameters. 
 #'   - One csv file is created containing the EVPPI values for the entire VoI analysis. This files contains the outcome from 
 #'     VoI analysis split by sex and age, by sex only and without any splits, depending on the analyses that have been run
@@ -570,13 +570,17 @@ print('finished ithim-run')
 
 ########################################### re-read and extract results #########################################
 
+#output_version <- 'bogota_5000_8423d70f_2_v42.0'
+#scenario_names <- c("base", "sc_cycle", "sc_car","sc_bus" )
+
+
 # set parameters
 NSCEN <- length(scenario_names) - 1 # number of scenarios not including baseline scenario
 SCEN_SHORT_NAME <- scenario_names
 NSAMPLES <- nsamples
 
 # get outputs from ithim run into correct formats and calculate summary statistics
-ithim_results <- ithimr::extract_data_for_voi(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities,multi_city_ithim, output_version,
+ithim_results <- ithimr::extract_data_for_voi(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities, output_version,
                                               level1, level2, level3)
 
 # combined AP and PA
@@ -1400,6 +1404,9 @@ if (voi_analysis == T & nsamples > 1){ # only run EVPPI part if there is more th
   
   # calculate the evppi values for all input parameters for all outcomes
   # defined in the outcome_voi_list for all scenarios
+  
+  global_path <- paste0(file.path(find.package("ithimr", lib.loc = .libPaths()),"extdata/global"  ), "/")
+
   evppi_list <- call_evppi(parameter_samples, outcome_voi_list, voi_complete_df, cities, 
                          NSCEN, NSAMPLES, SCEN_SHORT_NAME, scenario_names, output_version, level1, level2, level3)
   
