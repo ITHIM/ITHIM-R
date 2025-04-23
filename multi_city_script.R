@@ -54,6 +54,7 @@ library(janitor)
 
 # Disable scientific notation
 options(scipen = 999)
+options(future.globals.maxSize = +Inf)
 
 if (!require("drpa",character.only = TRUE)) {
   print('Installing "drpa" package...')
@@ -254,7 +255,7 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
     PM_TRANS_SHARE = pm_trans_share[[city]],  
     
     SCENARIO_NAME = scenario_name,
-    SCENARIO_INCREASE = scenario_increase,
+    SCENARIO_INCREASE = scenario_increase
   )
   
   # add additional information to the ithim_objects list storing the key input and output data
