@@ -33,7 +33,7 @@ output_version <- repo_sha
 
 # Assumes that multi_city_script.R has been run  
 # read in input file
-io <- readRDS("../results/multi_city/io_dcbf416b.rds")
+io <- readRDS(paste0("../results/multi_city/io_", output_version, ".rds"))
 
 # github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
 github_path <- "../"
