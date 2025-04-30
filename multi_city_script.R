@@ -254,6 +254,9 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
     PM_CONC_BASE = pm_conc_base[[city]],  
     PM_TRANS_SHARE = pm_trans_share[[city]],  
     
+    
+    ADD_BUS_DRIVERS = F,
+    ADD_CAR_DRIVERS = F,
     SCENARIO_NAME = scenario_name,
     SCENARIO_INCREASE = scenario_increase
   )
