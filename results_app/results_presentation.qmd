@@ -331,15 +331,26 @@ mmets <- mmets |> pivot_longer(cols = -c(1:4)) |> rename(Scenario = name)
   
 mmets_df <- mmets |> filter(Scenario %in% c("Baseline", "Bus"))
 
-plotly::ggplotly(ggplot(mmets_df, aes(x=value, fill=Scenario)) + 
-                   geom_density(alpha=.3) + 
-                   scale_fill_manual(values = scen_colours[1:4]) +
+plotly::ggplotly(ggplot(mmets_df, aes(x=value, colour=Scenario, group = Scenario)) + 
+                   geom_density(alpha=.8) + 
+                   scale_color_manual(values = scen_colours) +
                    xlim(0, 30) +
                    geom_vline(xintercept = 17.5, linetype="dashed", color = "red") +
                    labs(title = "Cumulative Distribution of MMETs per person per week (Baseline versus Bus scenario)",
                         x = "MMETs per person per week",
                         y = "Density")
                    )
+
+# 
+# y <- ggplot(mmets_df, aes(x=value, colour=Scenario)) + 
+#                      geom_density() + 
+#                      scale_color_manual(values = scen_colours) + 
+#                      xlim(0, 30) +
+#                      geom_vline(xintercept = 17.5, linetype="dashed", color = "red") +
+#                      labs(title = cities[x],
+#                           x = "mMET-hours/week per person",
+#                           y = "Density") +
+#     annotate(x = 17.5, y = +Inf, label = "17.5 mMET-hours/week", vjust = 2, geom="label")
 
 ```
 
@@ -350,9 +361,9 @@ plotly::ggplotly(ggplot(mmets_df, aes(x=value, fill=Scenario)) +
 
 mmets_df <- mmets |> filter(Scenario %in% c("Baseline", "Cycling"))
 
-plotly::ggplotly(ggplot(mmets_df, aes(x=value, fill=Scenario)) + 
-                   geom_density(alpha=.3) + 
-                   scale_fill_manual(values = scen_colours[1:2]) +
+plotly::ggplotly(ggplot(mmets_df, aes(x=value, colour=Scenario, group = Scenario)) + 
+                   geom_density(alpha=.8) + 
+                   scale_color_manual(values = scen_colours) +
                    xlim(0, 30) +
                    geom_vline(xintercept = 17.5, linetype="dashed", color = "red") +
                    labs(title = "Cumulative Distribution of MMETs per person per week (Baseline versus Cycling scenario)",
