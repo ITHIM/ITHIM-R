@@ -21,74 +21,25 @@ execute:
   size: "huge"
 ---
 
-# Getting Started with Required Software
+## Agenda
 
-## Install R
+# Agenda
 
-```{r}
-knitr::opts_chunk$set(class.source = "watch-out")
-```
+-   Why global version 2?
 
-Please install R (version: R-4.2.1) from: [https://cran.r-project.org/](The%20Comprehensive%20R%20Archive%20Network)
+-   Structure of the model
 
-![](images/paste-51CD4F9D.png){width="553"}
+-   What are the main ingredients?
 
-## Install RStudio
+    -   Physical Activity
 
-Please install RStudio desktop from: [Latest RStudio Desktop](https://www.rstudio.com/products/rstudio/download/#download)
+    -   Air Pollution
 
-![](images/RStudioWeb-min-01.png){width="528"}
+    -   Parameters
 
-# Getting Started with RStudio
+-   Results
 
-## Clone ITHIM-R repo
-
-Please clone <https://github.com/ITHIM/valencia_training> via RStudio
-
-![](images/Screenshot%202022-10-31%20at%2021-58-58%20GitHub%20-%20ITHIM_valencia_training.png)
-
-## Depended packages
-
-Before we start building and installing the **ithim-r** package, we need to install two packages. One is the **remotes** package. Please install using:
-
-```{r}
-#| eval: false
-install.packages("remotes")
-```
-
-Once that is done, please install and load the Dose-Response for Physical Activity **drpa** package by:
-
-```{r}
-#| eval: false
-remotes::install_github("meta-analyses/drpa")
-library(drpa)
-
-# install other depended libraries
-install.packages(c("plyr", "dplyr", "tidyr", "readr", "haven",
-                   "ggplot2", "plotly", "ReIns", "truncnorm", "distr", "pracma", "data.table", "stringr", "summarytools",
-                   "gt", "flextable"))
-```
-
-## Install the package
-
-Depending on the Operating System, please build and reload the ithim-r package using keyword shortcuts below:
-
-![](images/paste-413B3891.png)
-
-Source: [Keyboard Shortcuts in the RStudio IDE](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts-in-the-RStudio-IDE)
-
-# Getting Started with ITHIM-R package
-
-## Package structure
-
-|  |  |
-|------------------|------------------------------------------------------|
-| **Folder** | **Description** |
-| inst | Installation folder which contains local (trips, PA, population, burden and injury datasets) and global (PA and AP dose response relationships as well as disease/cause relationship table) |
-| man | manual folder - description of functions |
-| R | source files - R scripts for functions (that are both internally used and are exported through package interface) |
-| DESCRIPTION, NAMESPACE, and README.md | Package meta-data information |
-| results | Outputs of the package are stored here. The most important one being *ithim_object* is stored at: `results/multi_city/io.rds` |
+## 
 
 ```{r}
 #| echo: false
