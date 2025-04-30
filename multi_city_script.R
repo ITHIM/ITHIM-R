@@ -54,6 +54,7 @@ library(janitor)
 
 # Disable scientific notation
 options(scipen = 999)
+options(future.globals.maxSize = +Inf)
 
 if (!require("drpa",character.only = TRUE)) {
   print('Installing "drpa" package...')
@@ -62,12 +63,9 @@ if (!require("drpa",character.only = TRUE)) {
   print("")
 }
 
-# cities <- c('cape_town','delhi',
-#             'vizag', 'kisumu', 'nairobi', 'port_louis')
-
 cities <- 'bogota'
 
-input_parameter_file <- "Bogota_InputParameters_v4.0.xlsx" # file containing the local and global input parameters
+input_parameter_file <- "Bogota_InputParameters_v6.0.xlsx" # file containing the local and global input parameters
 # 
 
 ## Get the current repo sha
@@ -88,7 +86,7 @@ repo_sha <-  as.character(readLines(file.path("repo_sha")))
 write_output_control = T # whether you want to save the model run specifics or not
 output_version <- repo_sha # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
-comment <- "Disable injury module"
+comment <- "Simplified ithim by stripping off parameters"
 
 # scenario definition
 scenario_name <- "BOGOTA" # name of scenario to be called
@@ -100,15 +98,10 @@ scenario_increase <- 0.05 # increase for each mode in each scenario (used in GLO
 
 
 # define which output results to plot
-# potential outputs (in yll for all scenarios):  c('pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
-#                       'pa_ap_stroke', 'pa_ap_T2D', 'ap_LRI', 'pa_breast_cancer', 'pa_colon_cancer', 'pa_endo_cancer',
-#                       'pa_liver_cancer', 'pa_ap_CVD', 'pa_total_dementia', 'pa_myeloma', 'pa_Parkinson',
-#                       'pa_head_neck_cancer', 'pa_stomach_cancer', 'inj')
 outputs_to_plot <- c('pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
                      'pa_ap_stroke', 'pa_ap_T2D', 'ap_LRI', 'pa_breast_cancer', 'pa_colon_cancer', 'pa_endo_cancer',
                      'pa_liver_cancer', 'pa_ap_CVD', 'pa_total_dementia', 'pa_myeloma', 'pa_Parkinson',
                      'pa_head_neck_cancer', 'pa_stomach_cancer', 'inj')
-
 
 
 
@@ -221,14 +214,8 @@ list2env(global_parameter_list, environment()) # write input parameters to globa
 # update the format of some of the global parameters
 dist_cat <- unlist(strsplit(gsub(" ", "", dist_cat, fixed = TRUE), "\\,"))
 
-outcome_age_min <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_min, fixed = TRUE), "\\,")))
-outcome_age_max <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_max, fixed = TRUE), "\\,")))
-outcome_age_groups <- unlist(strsplit(gsub(" ", "", outcome_age_groups, fixed = TRUE), "\\,"))
-
 min_age <- as.numeric(min_age)
 max_age <- as.numeric(max_age)
-
-
 
 ################################### Start running the the actual analysis
 
@@ -249,9 +236,6 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
     DIST_CAT = as.character(dist_cat),
     CITY = city,
     AGE_RANGE = c(min_age,max_age),
-    TREAT_TAXI_AS_CAR = as.logical(treat_taxi_as_car[[city]]),
-    ADD_BUS_DRIVERS = as.logical(add_bus_drivers),
-    ADD_CAR_DRIVERS = as.logical(add_car_drivers),
     PM_emission_inventory = PM_emission_inventories[[city]],
     CO2_emission_inventory = CO2_emission_inventories[[city]],
     speeds = speeds[[city]],
@@ -265,37 +249,16 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
     LIGHT_ACTIVITY_MMET =	light_activity_mmet,
     MODERATE_PA_MMET =	moderate_pa_mmet,
     VIGOROUS_PA_MMET	= vigorous_pa_mmet,
-    DAY_TO_WEEK_TRAVEL_SCALAR = as.numeric(day_to_week_scalar[[city]]),
-    SIN_EXPONENT_SUM = sin_exponent_sum,
-    CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
-    SIN_EXPONENT_SUM_NOV = sin_exponent_sum_nov,
-    SIN_EXPONENT_SUM_CYCLE = sin_exponent_sum_cycle,
-    CASUALTY_EXPONENT_FRACTION_CYCLE = casualty_exponent_fraction_cycle,
-    SIN_EXPONENT_SUM_PED = sin_exponent_sum_ped,
-    CASUALTY_EXPONENT_FRACTION_PED = casualty_exponent_fraction_ped,
-    SIN_EXPONENT_SUM_VEH = sin_exponent_sum_veh,
-    CASUALTY_EXPONENT_FRACTION_VEH = casualty_exponent_fraction_veh,
-    CALL_INDIVIDUAL_SIN = as.logical(call_individual_sin),
     PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile,  
     AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile,
     PM_CONC_BASE = pm_conc_base[[city]],  
     PM_TRANS_SHARE = pm_trans_share[[city]],  
-    BUS_WALK_TIME = 0, #bus_walk_time[[city]],
-    RAIL_WALK_TIME = 0, #rail_walk_time[[city]],
     
-    BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
-    CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]],
+    
+    ADD_BUS_DRIVERS = F,
+    ADD_CAR_DRIVERS = F,
     SCENARIO_NAME = scenario_name,
-    SCENARIO_INCREASE = scenario_increase,
-    
-    TRUCK_DRIVER_PROP_MALE = as.numeric(truck_driver_prop_male[[city]]),
-    TRUCK_DRIVER_MALE_AGERANGE = truck_driver_male_agerange[[city]],
-    TRUCK_DRIVER_FEMALE_AGERANGE = truck_driver_female_agerange[[city]],
-    COMMERCIAL_MBIKE_PROP_MALE = as.numeric(commerical_mbike_prop_male[[city]]),
-    COMMERCIAL_MBIKE_MALE_AGERANGE = commerical_mbike_male_agerange[[city]],
-    COMMERCIAL_MBIKE_FEMALE_AGERANGE = commerical_mbike_female_agerange[[city]],
-    MINIMUM_PT_TIME = as.numeric(minimum_pt_time),
-    MODERATE_PA_CONTRIBUTION = as.numeric(moderate_pa_contribution)
+    SCENARIO_INCREASE = scenario_increase
   )
   
   # add additional information to the ithim_objects list storing the key input and output data
@@ -309,18 +272,10 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
   # # add further information to the ithim_objects list
   ithim_objects[[city]]$disease_burden <- DISEASE_BURDEN
   ithim_objects[[city]]$PM_emission_inventory <- PM_EMISSION_INVENTORY
-  #ithim_objects[[city]]$injury_table <- INJURY_TABLE
-  #ithim_objects[[city]]$orig_inj <- list()
-  #ithim_objects[[city]]$orig_inj$inj_orig_1year <- inj_orig_1year
-  #ithim_objects[[city]]$orig_inj$inj_orig_1year_injreprate <- inj_orig_1year_injreprate
   ithim_objects[[city]]$vehicle_inventory <- VEHICLE_INVENTORY
   ithim_objects[[city]]$location$country <- country[[CITY]]
   ithim_objects[[city]]$location$continent <- continent[[CITY]]
-  ithim_objects[[city]]$new_walk_trips_count <- list()
-  ithim_objects[[city]]$new_walk_trips_count$all <- count_new_walk_trips
-  ithim_objects[[city]]$new_walk_trips_count$bus <- count_new_walk_trips_bus
-  ithim_objects[[city]]$new_walk_trips_count$rail <- count_new_walk_trips_rail
-  # 
+  
   # # store results to plot
   # min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
   # max_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
@@ -364,64 +319,6 @@ ithim_objects$ithim_run$timestamp <- timestamp
 ithim_objects$ithim_run$output_version <- output_version
 ithim_objects$ithim_run$author <- author
 ithim_objects$ithim_run$comment <- comment
-
-
-
-
-# ##### Create the output plots
-# # loop through diseases and plot 6 diseases per output plot
-# 
-# # find number of total graphics windows
-# no_plots <- floor(length(outputs_to_plot) / 6)
-# if (length(outputs_to_plot)/6 > no_plots)
-#   no_plots <- no_plots + 1
-# 
-# for (j in 1:no_plots){
-#   # extract the disease results for this particular subplot
-#   result_mat_plot_sub <- result_mat_plot[(NSCEN*(j-1)*6+1) : (NSCEN*(j-1)*6 + NSCEN*6)]
-#   
-#   # remove any NA
-#   result_mat_plot_sub <- result_mat_plot_sub[!is.na(result_mat_plot_sub)]
-#   
-#   # find number of diseases considered in respective graphics window
-#   nDiseases_sub <- length(result_mat_plot_sub)/NSCEN
-#   
-#   # open graphic window
-#   {x11(width = 10, height = 8);
-#     #layout.matrix <- matrix(c(2:6,1,7:12), nrow = 2, ncol = 6,byrow = T)
-#     layout.matrix <- matrix(c(1:6), nrow = 2, ncol = 3,byrow = T)
-#     graphics::layout(mat = layout.matrix, heights = c(2,2),
-#                      #widths = c(2.8,2,2,2,2,2.5))
-#                      widths = c(2,2,2))
-#     cols <- rainbow(length(cities)) # define colours
-#     mar1 <- rep(2.5, 6); # define bottom margin
-#     mar2 <- rep(2, 6); mar2[c(1,4)] <- 6 # define margin left of plots
-#     
-#     for (i in 1:nDiseases_sub) {
-#       #ylim <- if (i %in% c(1,4)) range(disease_list[[i]]) else c(-11,4)*1e-4
-#       ylim <- range(disease_list[[i + 6*(j  -1)]])
-#       par(mar = c(mar1[i], mar2[i], 6, 1)) # define margins
-#       barplot(t(disease_list[[i + 6*(j  -1)]]), ylim = ylim, las = 2, beside = T,
-#               col = cols,
-#               main = paste0(last(strsplit(names(result_mat_plot_sub)[i * NSCEN], 'ylls_')[[1]])),
-#               yaxt='n') # create boxplot
-#       
-#       # add y-axis label
-#       axis(2,cex.axis=1.5); 
-#       if(i%in%c(1,4)) mtext(side=2,'YLL gain per person',line=3)
-#       
-#       # add city legend
-#       if (i == 1 ) legend(legend = cities, fill = cols, bty = 'n',
-#                           y = ylim[2], x = (length(cities)+ 1.5), cex = 0.9)
-#       # add scenario names
-#       scen_names_only <- c()
-#       for (i in 1:NSCEN)
-#         scen_names_only <- paste0(scen_names_only,"    ", SCEN_SHORT_NAME[i+1], "    ")
-#       mtext(side = 1, scen_names_only, line = 1, cex = 0.8)
-#     }
-#   }
-# }
-
 
 saveRDS(ithim_objects, paste0("results/multi_city/io_",output_version,".rds"), version = 2)
 

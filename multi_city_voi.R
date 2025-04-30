@@ -91,6 +91,13 @@ if (!require("drpa",character.only = TRUE)) {
 }
 
 rm(list=ls())
+
+# Disable scientific notation
+options(scipen = 999)
+
+# Make maxSize as infinity
+options(future.globals.maxSize = +Inf)
+
 # 
 # cities <- c('belo_horizonte', 'bogota', 'buenos_aires',
 #             'cali',  'medellin', 'mexico_city', 'montevideo',
@@ -107,7 +114,7 @@ rm(list=ls())
 cities <- c('bogota')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 2
+nsamples <- 10
 
 
 voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
@@ -137,8 +144,7 @@ voi_age_gender <- T # set to T if want to include split and to F otherwise
 voi_add_sum <- T
 
 
-input_parameter_file <- "InputParameters_v41.0.xlsx"
-
+input_parameter_file <- "Bogota_InputParameters_v6.0.xlsx"
 
 ## Get the current repo sha
 gitArgs <- c("rev-parse", "--short", "HEAD", ">", file.path("repo_sha"))
@@ -159,8 +165,8 @@ output_version <- 'bogota_10samples'
 # the number of samples (which is 1 in constant mode), the path to any other input files,
 # any comments and the runtime of the code
 write_output_control = T # whether you want to save the model run specifics or not
-author <- "AKS"
-comment <- "Added CO2 emission sampling"
+author <- "AA"
+comment <- "Simplified ithim by stripping off parameters"
 
 # scenario definition
 scenario_name <- "BOGOTA"
@@ -282,18 +288,16 @@ for(i in 1:length(global_parameter_names)){
 
 list2env(global_parameter_list, environment()) 
 
-dist_cat <- unlist(strsplit(gsub(" ", "", dist_cat, fixed = TRUE), "\\,"))
+#dist_cat <- unlist(strsplit(gsub("\\s*,\\s*", ",", dist_cat), "\\,"))#unlist(strsplit(dist_cat, "\\,"))
 
-outcome_age_min <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_min, fixed = TRUE), "\\,")))
-outcome_age_max <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_max, fixed = TRUE), "\\,")))
-outcome_age_groups <- unlist(strsplit(gsub(" ", "", outcome_age_groups, fixed = TRUE), "\\,"))
+dist_cat <- unlist(strsplit(gsub(" ", "", dist_cat, fixed = TRUE), "\\,"))
 
 min_age <- as.numeric(min_age)
 max_age <- as.numeric(max_age)
 
 
-
-
+RECALCULATE_PM_EMISSION_INVENTORY <<- F
+RECALCULATE_CO2_EMISSION_INVENTORY <<- F
 ################################### Start running the the actual analysis
 
 
@@ -348,18 +352,18 @@ normVariables <- c('CYCLING_MMET',
                    "DISTANCE_SCALAR_MOTORCYCLE")
 
 
-save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
-     background_pa_scalar,background_pa_confidence,cycling_mmet,walking_mmet,passenger_mmet,
-     car_driver_mmet,motorcyclist_mmet,sedentary_activity_mmet,light_activity_mmet,moderate_pa_mmet,
-     PM_emission_inventories,CO2_emission_inventories,
-     sin_exponent_sum,casualty_exponent_fraction, sin_exponent_sum_nov,
-     sin_exponent_sum_cycle,casualty_exponent_fraction_cycle, sin_exponent_sum_ped,casualty_exponent_fraction_ped,
-     sin_exponent_sum_veh,casualty_exponent_fraction_veh, pa_dr_quantile,ap_dr_quantile,
-     bus_to_passenger_ratio,car_occupancy_ratio,truck_to_car_ratio,PM_emission_confidence,CO2_emission_confidence,
-     distance_scalar_car_taxi,distance_scalar_motorcycle,
-     distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,add_motorcycle_fleet,add_personal_motorcycle_trips, 
-     fleet_to_motorcycle_ratio, proportion_motorcycle_trips, 
-     betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
+# save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
+#      background_pa_scalar,background_pa_confidence,cycling_mmet,walking_mmet,passenger_mmet,
+#      car_driver_mmet,motorcyclist_mmet,sedentary_activity_mmet,light_activity_mmet,moderate_pa_mmet,
+#      PM_emission_inventories,CO2_emission_inventories,
+#      sin_exponent_sum,casualty_exponent_fraction, sin_exponent_sum_nov,
+#      sin_exponent_sum_cycle,casualty_exponent_fraction_cycle, sin_exponent_sum_ped,casualty_exponent_fraction_ped,
+#      sin_exponent_sum_veh,casualty_exponent_fraction_veh, pa_dr_quantile,ap_dr_quantile,
+#      bus_to_passenger_ratio,car_occupancy_ratio,truck_to_car_ratio,PM_emission_confidence,CO2_emission_confidence,
+#      distance_scalar_car_taxi,distance_scalar_motorcycle,
+#      distance_scalar_pt,distance_scalar_walking,distance_scalar_cycling,add_motorcycle_fleet,add_personal_motorcycle_trips, 
+#      fleet_to_motorcycle_ratio, proportion_motorcycle_trips, 
+#      betaVariables,normVariables,file='diagnostic/parameter_settings.Rdata')
 
 
 #parameters_only <- F
@@ -373,15 +377,11 @@ print(system.time(
     print(city)
     multi_city_ithim[[city]] <- run_ithim_setup(NSAMPLES = nsamples,
                                                 seed=ci,
-                                                # from multi city script
-                                                DIST_CAT = as.character(dist_cat), 
-                                                CITY=city,
-                                                AGE_RANGE =  c(min_age,max_age),
-                                                TREAT_TAXI_AS_CAR = as.logical(treat_taxi_as_car[[city]]),
-                                                ADD_BUS_DRIVERS = as.logical(add_bus_drivers),
-                                                ADD_CAR_DRIVERS = as.logical(add_car_drivers),
+                                                DIST_CAT = as.character(dist_cat),
+                                                CITY = city,
+                                                AGE_RANGE = c(min_age,max_age),
                                                 PM_emission_inventory = PM_emission_inventories[[city]],
-                                                CO2_emission_inventory = CO2_emission_inventories[[city]], # added
+                                                CO2_emission_inventory = CO2_emission_inventories[[city]],
                                                 speeds = speeds[[city]],
                                                 
                                                 CYCLING_MMET =	cycling_mmet,
@@ -393,41 +393,18 @@ print(system.time(
                                                 LIGHT_ACTIVITY_MMET =	light_activity_mmet,
                                                 MODERATE_PA_MMET =	moderate_pa_mmet,
                                                 VIGOROUS_PA_MMET	= vigorous_pa_mmet,
-                                                DAY_TO_WEEK_TRAVEL_SCALAR = as.numeric(day_to_week_scalar[[city]]),
-                                                SIN_EXPONENT_SUM = sin_exponent_sum,
-                                                CASUALTY_EXPONENT_FRACTION = casualty_exponent_fraction,
-                                                SIN_EXPONENT_SUM_NOV = sin_exponent_sum_nov,
-                                                SIN_EXPONENT_SUM_CYCLE = sin_exponent_sum_cycle,
-                                                CASUALTY_EXPONENT_FRACTION_CYCLE = casualty_exponent_fraction_cycle,
-                                                SIN_EXPONENT_SUM_PED = sin_exponent_sum_ped,
-                                                CASUALTY_EXPONENT_FRACTION_PED = casualty_exponent_fraction_ped,
-                                                SIN_EXPONENT_SUM_VEH = sin_exponent_sum_veh,
-                                                CASUALTY_EXPONENT_FRACTION_VEH = casualty_exponent_fraction_veh,
-                                                CALL_INDIVIDUAL_SIN = as.logical(call_individual_sin),
-                                                PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile[ci],  
-                                                AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile[ci],
+                                                PA_DOSE_RESPONSE_QUANTILE = pa_dr_quantile,  
+                                                AP_DOSE_RESPONSE_QUANTILE = ap_dr_quantile,
                                                 PM_CONC_BASE = pm_conc_base[[city]],  
                                                 PM_TRANS_SHARE = pm_trans_share[[city]],  
-                                                BUS_WALK_TIME = 0, #bus_walk_time[[city]],
-                                                RAIL_WALK_TIME = 0, rail_walk_time[[city]], 
-                                                
-                                                
-                                                #additional in VoI script
-                                                REFERENCE_SCENARIO= reference_scenario,
-                                                
-                                                BUS_TO_PASSENGER_RATIO = bus_to_passenger_ratio[[city]],
-                                                CAR_OCCUPANCY_RATIO = car_occupancy_ratio[[city]],
                                                 
                                                 SCENARIO_NAME = scenario_name,
                                                 SCENARIO_INCREASE = scenario_increase,
                                                 
-                                                TRUCK_DRIVER_PROP_MALE = as.numeric(truck_driver_prop_male[[city]]),
-                                                TRUCK_DRIVER_MALE_AGERANGE = truck_driver_male_agerange[[city]],
-                                                TRUCK_DRIVER_FEMALE_AGERANGE = truck_driver_female_agerange[[city]],
-                                                COMMERCIAL_MBIKE_PROP_MALE = as.numeric(commerical_mbike_prop_male[[city]]),
-                                                COMMERCIAL_MBIKE_MALE_AGERANGE = commerical_mbike_male_agerange[[city]],
-                                                COMMERCIAL_MBIKE_FEMALE_AGERANGE = commerical_mbike_female_agerange[[city]],
-                                                MINIMUM_PT_TIME = as.numeric(minimum_pt_time)
+                                                
+                                                #additional in VoI script
+                                                REFERENCE_SCENARIO= reference_scenario
+                                                
     )
     
     

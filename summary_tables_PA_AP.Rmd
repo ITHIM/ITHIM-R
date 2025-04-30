@@ -152,6 +152,7 @@ if (!exists("output_version")){
 # Assumes that multi_city_script.R has been run  
 # read in input file
 io <- readRDS(paste0("results/multi_city/io_", output_version, ".rds"))
+# io <- readRDS(paste0("results/multi_city/io_d06161f.rds"))
 
 # define which decimal place to round to
 round_to <- 2
@@ -305,18 +306,11 @@ for(i in 1:length(global_parameter_names)){
 
 list2env(global_parameter_list, environment()) 
 
-# get parameters into correct format
+# update the format of some of the global parameters
 dist_cat <- unlist(strsplit(gsub(" ", "", dist_cat, fixed = TRUE), "\\,"))
-
-outcome_age_min <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_min, fixed = TRUE), "\\,")))
-outcome_age_max <- as.numeric(unlist(strsplit(gsub(" ", "", outcome_age_max, fixed = TRUE), "\\,")))
-outcome_age_groups <- unlist(strsplit(gsub(" ", "", outcome_age_groups, fixed = TRUE), "\\,"))
 
 min_age <- as.numeric(min_age)
 max_age <- as.numeric(max_age)
-
-day_to_week_scalar <- as.numeric(day_to_week_scalar)
-
 
 
 # print model run information to screen:
