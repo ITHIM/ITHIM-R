@@ -1,0 +1,207 @@
+---
+title: "ITHIM Global V2"
+author: "Ali Abbas, Lambed Tatah"
+format: 
+  revealjs:
+    slide-number: true
+    incremental: true
+    width: 1920
+    height: 1080
+    logo: "https://www.mrc-epid.cam.ac.uk/wp-content/uploads/2021/10/colour-epi-logo.png"
+    # footer: "[ITHIM](https://ithim.github.io/valencia_training/training_materials//)"
+    css: ["theme/theme.css"]
+    theme: [simple, custom.scss]
+  html:
+    code-copy: false
+editor: visual
+execute: 
+  echo: true
+  warning: false
+  message: false
+  size: "huge"
+---
+
+# Getting Started with Required Software
+
+## Install R
+
+```{r}
+knitr::opts_chunk$set(class.source = "watch-out")
+```
+
+Please install R (version: R-4.2.1) from: [https://cran.r-project.org/](The%20Comprehensive%20R%20Archive%20Network)
+
+![](images/paste-51CD4F9D.png){width="553"}
+
+## Install RStudio
+
+Please install RStudio desktop from: [Latest RStudio Desktop](https://www.rstudio.com/products/rstudio/download/#download)
+
+![](images/RStudioWeb-min-01.png){width="528"}
+
+# Getting Started with RStudio
+
+## Clone ITHIM-R repo
+
+Please clone <https://github.com/ITHIM/valencia_training> via RStudio
+
+![](images/Screenshot%202022-10-31%20at%2021-58-58%20GitHub%20-%20ITHIM_valencia_training.png)
+
+## Depended packages
+
+Before we start building and installing the **ithim-r** package, we need to install two packages. One is the **remotes** package. Please install using:
+
+```{r}
+#| eval: false
+install.packages("remotes")
+```
+
+Once that is done, please install and load the Dose-Response for Physical Activity **drpa** package by:
+
+```{r}
+#| eval: false
+remotes::install_github("meta-analyses/drpa")
+library(drpa)
+
+# install other depended libraries
+install.packages(c("plyr", "dplyr", "tidyr", "readr", "haven",
+                   "ggplot2", "plotly", "ReIns", "truncnorm", "distr", "pracma", "data.table", "stringr", "summarytools",
+                   "gt", "flextable"))
+```
+
+## Install the package
+
+Depending on the Operating System, please build and reload the ithim-r package using keyword shortcuts below:
+
+![](images/paste-413B3891.png)
+
+Source: [Keyboard Shortcuts in the RStudio IDE](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts-in-the-RStudio-IDE)
+
+# Getting Started with ITHIM-R package
+
+## Package structure
+
+|  |  |
+|------------------|------------------------------------------------------|
+| **Folder** | **Description** |
+| inst | Installation folder which contains local (trips, PA, population, burden and injury datasets) and global (PA and AP dose response relationships as well as disease/cause relationship table) |
+| man | manual folder - description of functions |
+| R | source files - R scripts for functions (that are both internally used and are exported through package interface) |
+| DESCRIPTION, NAMESPACE, and README.md | Package meta-data information |
+| results | Outputs of the package are stored here. The most important one being *ithim_object* is stored at: `results/multi_city/io.rds` |
+
+```{r}
+#| echo: false
+# Load the package
+library(ithimr)
+# and other useful ones
+library(tidyverse)
+
+if (!exists("output_version")){
+  ## Get the current repo sha
+  gitArgs <- c("rev-parse", "--short", "HEAD", ">", file.path("repo_sha"))
+  # Use shell command for Windows as it's failing with system2 for Windows (giving status 128)
+  if (.Platform$OS.type == "windows"){
+    shell(paste(append("git", gitArgs), collapse = " "), wait = T)
+  } else {
+    system2("git", gitArgs, wait = T)
+  }
+  
+  repo_sha <-  as.character(readLines(file.path("repo_sha")))
+  output_version <- repo_sha
+}
+
+io <- readRDS(paste0("../results/multi_city/io_", output_version, ".rds"))
+
+city <- 'bogota'
+
+```
+
+## Trip Dataset (1/2)
+
+A single-day travel diary in which each row represents a trip
+
+-   **Individual-level variables**
+
+    -   **participant_id**: unique ID for each individual
+    -   **age**: participant's age as an integer
+    -   **sex**: male or female
+
+-   **Trip-level variables:**
+
+    -   **trip_id**: unique ID for each trip made by each individual
+    -   **trip_mode**: main mode of the trip
+    -   **trip_distance**: total trip distance in kilometers
+
+## Trip dataset (2/2)
+
+-   **Stage-level variables:**
+    -   **stage_mode**: Mode of the trip stage
+    -   **stage_duration**: Duration of each stage in minutes
+
+```{r}
+#| echo: false
+io[[city]]$trip_scen_sets |> filter(scenario == "baseline") |> dplyr::select(-c(scenario, ends_with("cat"))) |> arrange(trip_id) |> head() |> knitr::kable() |> kableExtra::landscape()
+
+```
+
+## Physical Activity (PA) Dataset
+
+This dataset generally comes from a PA travel survey - which is processed. It has information of weekly Leisure Time PA for each of the participant.
+
+-   **PA survey**
+
+    -   **participant_id**: unique person ID (integer)
+    -   **age**: numeric age
+    -   **sex**: male or female
+    -   **ltpa_marg_met:** leisure-time (non-transport) physical activity in marginal metabolic equivalent task hours (mMET-hrs) per week
+
+```{r, results='asis'}
+#| echo: false
+knitr::kable(io[[city]]$synth_pop |> rename(ltpa_marg_met = work_ltpa_marg_met) |> arrange(participant_id) |> head())
+```
+
+## Burden of Disease (BoD) dataset (1/2)
+
+Cause specific disease burden data from Institute for Health Metrics and Evaluation **IHME's** global burden of disease database (<https://ghdx.healthdata.org/gbd-2019>)
+
+-   **Burden data**
+
+    -   **measure**: Deaths or Years of Life Lost (YLLs)
+    -   **age**: age group - usually a five year band as integer
+    -   **cause**: cause/disease (*details later on*)
+    -   **population**: population size by age and gender group
+    -   **mix_age**: minimum age in integer for the current age and gender group
+    -   **max_age**: maximum age in integer for the current age and gender group
+    -   **rate**: rate of risk of measure per person
+    -   **burden**: burden of the measure for the *population*
+
+## Burden of Disease (BoD) dataset (2/2)
+
+```{r, results='asis'}
+#| echo: false
+knitr::kable(io[[city]]$disease_burden |> head())
+```
+
+## Population Dataset
+
+The demographic information is by age and gender. This also comes from **IHME's** global burden of disease database (<https://ghdx.healthdata.org/gbd-2019>)
+
+-   **Population**
+
+    -   **sex**: male or female
+    -   **age**: age group - usually a five year band as integer
+    -   **population**: population size
+
+```{r, results='asis'}
+#| echo: false
+knitr::kable(io[[city]]$demographic |> head())
+```
+
+## Model Structure
+
+![](images/paste-82FCA569.png)
+
+# Why model?
+
+[![Courtesy: Randall Monroe, xkcd: \<https://xkcd.com/1838\>](images/machine_learning_2x.png)](https://xkcd.com/1838/)
