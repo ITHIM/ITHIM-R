@@ -666,6 +666,45 @@ server <- function(input, output, session) {
   # 
   # mmets_df <- mmets |> filter(Scenario %in% c("Baseline", "Bus"))
   
+  get_summary_ap_data <- function(filtered_cities, filtered_scens){
+    
+    filtered_cities <- 
+    
+      pm_exp <- io$bogota$outcomes$pm_conc_pp |> 
+      pivot_longer(cols = starts_with("pm")) |> 
+      rename(scenario = name, pm_exp = value) |> 
+      group_by(scenario)  |> 
+      summarise('mean' = mean(pm_exp),
+                '5th' = quantile(pm_exp, 0.05),
+                '20th' = quantile(pm_exp, 0.20),
+                '25th' = quantile(pm_exp, 0.25),
+                '35th' = quantile(pm_exp, 0.35),
+                '50th' = quantile(pm_exp, 0.5),
+                '95th' = quantile(pm_exp, 0.9)) |> 
+      mutate_if(is.numeric, round, 2) |> 
+      mutate(scenario = str_remove_all(scenario, "pm_conc_")) 
+    
+    
+    
+    # Extract scenario_pm with two columns with scenario names and scenario_pm_concentrations
+    scenario_pm_df <- io$bogota$outcomes$scenario_pm |> 
+      mutate_if(is.numeric, round, 2) |> 
+      mutate(scenario = case_when(
+        grepl("baseline", scenario) ~ "base",
+        TRUE ~ scenario))
+    
+    
+    
+    # Join summary and scenario_pm_df based on scenario names
+    summary <- left_join(pm_exp, scenario_pm_df) |> 
+      mutate(change_PM = round(conc_pm - conc_pm[scenario == "base"], 2))
+    
+    # print to html file
+    print(kable(summary, caption = cities[x]))
+    
+    
+  }
+  
   get_summary_data <- function(var_name, filtered_cities, filtered_scens){
     
     
@@ -1250,7 +1289,15 @@ server <- function(input, output, session) {
     
     df <- get_summary_data("pm_conc_pp", filtered_cities, filtered_scens) |> 
       dplyr::select(-outliers) |> 
-      mutate_if(is.numeric, round, 2)
+      mutate_if(is.numeric, round, 3) |> 
+      rename(scenario = name) |> 
+      left_join(get_city_outcomes_df( filtered_cities, "scenario_pm") |> 
+                  mutate(scenario = case_when(
+           scenario  == "sc_cycle" ~ "Cycling",
+           scenario  == "sc_car" ~ "Car",
+           scenario  == "sc_bus" ~ "Bus", 
+           scenario == "baseline" ~ "Baseline"
+       )))
     
     df |> 
       gt(rowname_col = "row", groupname_col = "city_name") |> 
