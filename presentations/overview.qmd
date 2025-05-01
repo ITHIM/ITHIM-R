@@ -3,6 +3,7 @@ title: "ITHIM Global V2"
 author: "Ali Abbas, Lambed Tatah"
 format: 
   revealjs:
+    self-contained: true
     slide-number: true
     incremental: true
     width: 1920
@@ -140,7 +141,7 @@ A modelled week long synthetic trip dataset in which each row represents a trip 
 #
 # io[[city]]$trip_scen_sets |> filter(scenario == "baseline") |> dplyr::select(-c(scenario, ends_with("cat"))) |> arrange(trip_id) |> head() |> knitr::kable() |> kableExtra::landscape()
 
-io[[city]]$trip_scen_sets |> filter(scenario == "baseline") |> dplyr::select(-c(scenario, ends_with("cat"))) |> arrange(trip_id) |> head() |> gt(caption = "Trip dataset with demographics and trip details") |> gt::as_raw_html()
+io[[city]]$trip_scen_sets |> filter(scenario == "baseline") |> dplyr::select(-c(scenario, ends_with("cat"))) |> arrange(trip_id) |> head() |> gt(caption = "Trip dataset with demographics and trip details") |> tab_options(table.font.size = 10) |> gt::as_raw_html()
 
 ```
 
