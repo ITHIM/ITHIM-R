@@ -272,9 +272,9 @@ ui <- page_sidebar(
     conditionalPanel(
       condition = "input.main_tab == 'Travel behaviour'",
       radioButtons(inputId = "in_trip_measure", 
-                   label = "Trip measure",
+                   label = "Travel measure",
                    inline = TRUE,
-                   choices = c("Scenario", "Trip", "Distance"))
+                   choices = c("Scenario", "Mode by distance", "Trip", "Distance"))
     ),
     conditionalPanel(
       condition = "input.main_tab == 'PA Exposures' || input.main_tab == 'AP Exposures'",
@@ -308,12 +308,12 @@ server <- function(input, output, session) {
       updatePickerInput(session, "in_scens",
                         choices = scens,
                         selected = input$in_scens[input$in_scens != "Baseline"])
-      }else{
-        updatePickerInput(session, "in_scens",
-                          choices = scens_w_base,
-                          selected = input$in_scens)
-        
-      }
+    }else{
+      updatePickerInput(session, "in_scens",
+                        choices = scens_w_base,
+                        selected = input$in_scens)
+      
+    }
   })
   
   observe({
@@ -610,7 +610,7 @@ server <- function(input, output, session) {
   get_summary_ap_data <- function(filtered_cities, filtered_scens){
     
     filtered_cities <- 
-    
+      
       pm_exp <- io$bogota$outcomes$pm_conc_pp |> 
       pivot_longer(cols = starts_with("pm")) |> 
       rename(scenario = name, pm_exp = value) |> 
@@ -1111,6 +1111,33 @@ server <- function(input, output, session) {
       df <- get_city_df(filtered_cities, "trip") |> 
         gt(rowname_col = "row", groupname_col = "city_name")|> 
         data_color(columns = 2:6, method = "numeric", palette = "viridis") 
+    }else if (tm == "Mode by distance"){
+      df <- io$bogota$trip_scen_sets |> filter(participant_id!=0, !trip_mode %in% c("other", "motorcycle") ) |> count(trip_mode, scenario, trip_distance_cat) %>%
+        group_by(trip_mode, scenario) %>%
+        mutate(proportion = round(n / sum(n) * 100, 1)) %>%  # Multiply by 100 for percentage
+        dplyr::select(-n) %>%
+        ungroup() %>%
+        complete(scenario, trip_mode, trip_distance_cat, fill = list(proportion = 0)) |> 
+        mutate(scenario = case_when(
+          scenario  == "sc_cycle" ~ "Cycling",
+          scenario  == "sc_car" ~ "Car",
+          scenario  == "sc_bus" ~ "Bus", 
+          scenario == "baseline" ~ "Baseline"
+        )) |> 
+        pivot_wider(names_from = trip_distance_cat, values_from = proportion) |> 
+        gt(groupname_col = c("trip_mode")) |>
+        data_color(
+          columns = 3:5,
+          method = "numeric",
+          palette = "viridis",
+          direction = "row",    # Key for row-wise scaling
+          apply_to = "fill"     # Color background
+        ) |> 
+        tab_header(
+          title = "Percentage Distribution by  Trip Distance Category",
+          subtitle = "Values represent percentages summing to 100 per row"
+        )
+      
     }
     
     # browser()
@@ -1159,7 +1186,7 @@ server <- function(input, output, session) {
                     group_by(scenario, trip_mode) |> 
                     reframe(freq = round(sum(dplyr::n())/ (io[[city]]$trip_scen_sets |> 
                                                              mutate(scenario = case_when(scenario == "baseline" ~ "Baseline"
-                                                              )) |> 
+                                                             )) |> 
                                                              filter(scenario == "Baseline") |> 
                                                              distinct(trip_id, scenario, .keep_all = T) |> nrow()) * 100, 1)) |> 
                     mutate(pd = freq - freq[scenario == 'Baseline']) |> 
@@ -1237,11 +1264,11 @@ server <- function(input, output, session) {
       rename(scenario = name) |> 
       left_join(get_city_outcomes_df( filtered_cities, "scenario_pm") |> 
                   mutate(scenario = case_when(
-           scenario  == "sc_cycle" ~ "Cycling",
-           scenario  == "sc_car" ~ "Car",
-           scenario  == "sc_bus" ~ "Bus", 
-           scenario == "baseline" ~ "Baseline"
-       )))
+                    scenario  == "sc_cycle" ~ "Cycling",
+                    scenario  == "sc_car" ~ "Car",
+                    scenario  == "sc_bus" ~ "Bus", 
+                    scenario == "baseline" ~ "Baseline"
+                  )))
     
     df |> 
       gt(rowname_col = "row", groupname_col = "city_name") |> 
@@ -1263,11 +1290,11 @@ server <- function(input, output, session) {
   
   output$ap_exp <- renderUI({
     if (input$display_choice == "Figure") {
-        plotlyOutput("in_ap_exp_fig")
+      plotlyOutput("in_ap_exp_fig")
     } else if (input$display_choice == "Table"){
-        tableOutput("in_ap_exp_tbl")
+      tableOutput("in_ap_exp_tbl")
     }else {
-        plotlyOutput("in_ap_dist")
+      plotlyOutput("in_ap_dist")
     }
   })
   
