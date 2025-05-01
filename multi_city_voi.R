@@ -580,7 +580,7 @@ SCEN_SHORT_NAME <- scenario_names
 NSAMPLES <- nsamples
 
 # get outputs from ithim run into correct formats and calculate summary statistics
-ithim_results <- ithimr::extract_data_for_voi(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities, output_version,
+ithim_results <- extract_data_for_voi(NSCEN, NSAMPLES, SCEN_SHORT_NAME,cities, output_version,
                                               level1, level2, level3)
 
 # combined AP and PA
@@ -630,7 +630,7 @@ print('plot results')
 # plots only work if more than one sample was selected
 if(nsamples > 1){
 
-  # plot level 1 results - one plot for all cities plus individual plots for each city
+  # plot level 1 results - one plot for all cities
   {jpeg(paste0('results/voi/city_yll_level1_AllCities',output_version,'.jpeg'),height=6,width=6,units = 'in', res = 600)
 
     # one plot for all cities - might be difficult to read if too many cities
@@ -663,7 +663,7 @@ if(nsamples > 1){
     for(cityname in cities){
       {jpeg(paste0('results/voi/city_yll_level1_',cityname,'_',output_version,'.jpeg'),height=6,width=6,units = 'in', res = 600)
     
-        
+      level1_df <- voi_complete_summary_df %>% filter(age_sex == 'all all') %>% dplyr::select(city, value_type, matches('level1'))  
       sp_index <- which(cities==cityname)
       scen_out_city <- level1_df %>% filter(city == cityname)
       means <- as.matrix(unlist(transpose(scen_out_city %>% filter(value_type == 'mean') %>% dplyr::select(matches('level1')) )))
@@ -675,13 +675,14 @@ if(nsamples > 1){
 
       par_city <- par(mar=c(5,5,1,1))
       xlab <- paste0(cityname,': Change in total YLL relative to baseline per - Level 1')
-      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
+      #plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col=rep(col_city,each=NSCEN),
+      plot(as.vector(means),yvals,pch=16,cex=1,frame=F,ylab='',xlab=xlab,col='navyblue',
            yaxt='n',xlim=range(unlist(ninefive)))
       axis(2,las=2,at=(1+0.1):(NSCEN+0.1),labels=SCEN_SHORT_NAME[2:length(SCEN_SHORT_NAME)])
-      for(j in 1:NSCEN) lines(ninefive[,j],rep(yvals[j],2),lwd=2,col=col_city)
+      for(j in 1:NSCEN) lines(ninefive[,j],rep(yvals[j],2),lwd=2,col='navyblue')
       abline(v=0,col='grey',lty=2,lwd=2)
       text(y=(NSCEN-1)+0.2,x=ninefive[1,(NSCEN-1)],'95%',col='navyblue',adj=c(-0,-0.3*sp_index))
-      legend(col=col_city, lty=1,bty='n',x= mean(means),legend=cityname,y=NSCEN-1,lwd=2)
+      #legend(col=col_city, lty=1,bty='n',x= mean(means),legend=cityname,y=NSCEN-1,lwd=2)
       par(par_city)
     }
     dev.off()
