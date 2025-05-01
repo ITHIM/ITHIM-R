@@ -22,9 +22,9 @@ execute:
   size: "huge"
 ---
 
-## Agenda
-
 # Agenda
+
+## Agenda
 
 -   Why global version 2?
 
@@ -47,6 +47,8 @@ execute:
     -   PA and AP exposures
 
     -   Health Outcomes
+
+-   Summary
 
 # Why ITHIM Global V2?
 
@@ -349,3 +351,22 @@ ap_pif2 <- calculate_ap_pif(base_dose = 10, scen_dose = 15)
 print(round(ap_pif2, 2))
 
 ```
+
+# Shiny interface
+
+# Conclusion
+
+## Summary
+
+-   A global general model using synthetic travel behaviour
+-   Synthetic travel behaviour needs to account for:
+    -   Trips with multi-stages such as public transport with walking stages
+    -   Account for people without any trips
+    -   Better prediction of low mode share, such as cycling, for most cities
+
+-   Include injury risks - similar to HEAT and ITHIM global V1, by:
+    -   Population
+    -   Duration
+    -   Distance
+    
+-   Health modelling using more advanced techniques such as proportional multi–state life table
