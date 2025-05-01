@@ -35,7 +35,7 @@ output_version <- repo_sha
 # read in input file
 #io <- readRDS(paste0("../results/multi_city/io_", output_version, ".rds"))
 
-io <- readRDS(paste0("../results/multi_city/io_d06161f.rds"))
+io <- readRDS(paste0("../results/multi_city/io_48d87be.rds"))
 # io <- readRDS(paste0("../results/multi_city/io_c492320.rds"))
 
 
@@ -274,7 +274,7 @@ ui <- page_sidebar(
       radioButtons(inputId = "in_trip_measure", 
                    label = "Travel measure",
                    inline = TRUE,
-                   choices = c("Scenario", "Mode by distance", "Trip", "Distance"))
+                   choices = c("Scenario", "Trip by distance category", "Trip", "Distance"))
     ),
     conditionalPanel(
       condition = "input.main_tab == 'PA Exposures' || input.main_tab == 'AP Exposures'",
@@ -1108,11 +1108,12 @@ server <- function(input, output, session) {
         data_color(columns = 2:5, method = "numeric", palette = "viridis") 
       
     }else if (tm == "Trip"){
-      df <- get_city_df(filtered_cities, "trip") |> 
+      df <- get_city_df(filtered_cities, "trip_freq") |> 
         gt(rowname_col = "row", groupname_col = "city_name")|> 
         data_color(columns = 2:6, method = "numeric", palette = "viridis") 
-    }else if (tm == "Mode by distance"){
-      df <- io$bogota$trip_scen_sets |> filter(participant_id!=0, !trip_mode %in% c("other", "motorcycle") ) |> count(trip_mode, scenario, trip_distance_cat) %>%
+    }else if (tm == "Trip by distance category"){
+      df <- get_city_df(filtered_cities, "trip") |> 
+        filter(participant_id!=0, !trip_mode %in% c("other", "motorcycle") ) |> count(trip_mode, scenario, trip_distance_cat) %>%
         group_by(trip_mode, scenario) %>%
         mutate(proportion = round(n / sum(n) * 100, 1)) %>%  # Multiply by 100 for percentage
         dplyr::select(-n) %>%
@@ -1165,8 +1166,11 @@ server <- function(input, output, session) {
     
     return (cities |>
               purrr::map(function(city) {
-                
-                if (obj == "dist"){
+                if (obj == "trip"){
+                  
+                  io[[city]]$trip_scen_sets
+                  
+                }else if (obj == "dist"){
                   io[[city]][[obj]] |>
                     dplyr::mutate(city_name = city) |> 
                     mutate_if(is.numeric, list(~round((.) / nrow(io[[city]]$base_pop), 2))) |> 
@@ -1195,7 +1199,7 @@ server <- function(input, output, session) {
                     dplyr::select(-freq) |> 
                     rename(value = pd) |> 
                     pivot_wider(names_from = scenario)
-                }else if (obj == "trip"){
+                }else if (obj == "trip_freq"){
                   io[[city]]$trip_scen_sets %>% distinct(trip_id, scenario, .keep_all = T) %>% 
                     filter(!trip_mode %in% c("bus_driver", "taxi", "rail", "auto_rickshaw", "truck", "other", "car_driver")) |> 
                     mutate(scenario = case_when(
