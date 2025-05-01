@@ -220,11 +220,11 @@ io[[city]]$demographic |> head() |> gt(caption = "Population dataset with sex an
 #| echo: false
 #| results: asis
 
-RRs <- (drpa::dose_response(cause = "all-cause-mortality", outcome_type = "fatal", 
+RR <- (drpa::dose_response(cause = "all-cause-mortality", outcome_type = "fatal", 
                           dose = c(0, 5, 10))$rr)
-Doses <- c(0, 5, 10)
+Dose <- c(0, 5, 10)
 
-df <- data.frame(Doses, RRs) |> mutate_if(is.numeric, round, 2) |> 
+data.frame(Dose, RR) |> mutate_if(is.numeric, round, 2) |> 
   gt(caption = "PA dose-response relationship for all-cause-mortality") |> gt::as_raw_html()
 
 
@@ -299,7 +299,8 @@ Personal exposure of PM2.5 is calculated based on:
 -   time spent during rest of the day in activities (such as sleeping, resting and doing light and vigorous physical activities)
 
 $$
-PM2.5Inhaled = TravelModeDuration * VentilationRate * ModeSpecificExposureRates * PM2.5Concentration
+PM2.5_{inhaled} = TravelMode_{dur} * Vent_{rate} 
+* ExposureRates_{mode} * PM2.5Conc
 $$
 
 ## AP dose-response (exposure response)
@@ -309,13 +310,11 @@ $$
 #| echo: false
 #| results: asis
 
-RRs <-  ithimr::AP_dose_response(cause = "all_cause_ap", dose = c(0, 5, 10), quantile = 0.5)$rr
+RR <-  ithimr::AP_dose_response(cause = "all_cause_ap", dose = c(0, 5, 10), quantile = 0.5)$rr
                           
-Doses <- c(0, 5, 10)
+Dose <- c(0, 5, 10)
 
-df <- data.frame(Doses, RRs) |> mutate_if(is.numeric, round, 2)
-
-df |> gt(caption = "Doses (exposures) and their relative risk for all cause mortality for PM2.5") |> gt::as_raw_html()
+data.frame(Dose, RR) |> mutate_if(is.numeric, round, 2) |> gt(caption = "Doses (exposures) and their relative risk for all cause mortality for PM2.5") |> gt::as_raw_html()
 
 
 ```
@@ -326,7 +325,7 @@ $$
 pif = (RRbase - RRscenario)/RRbase
 $$
 
-PIF with baseline AP (PM 2.5) exposure of (5) and scenario AP exposure of 10
+PIF with baseline AP (PM 2.5) exposure of (5) and scenario AP exposure of (10)
 
 ```{r}
 #| eval: true 
@@ -339,7 +338,7 @@ print(round(ap_pif2, 2))
 
 ```
 
-PIF with baseline AP (PM 2.5) exposure of (10) and scenario AP exposure of 5
+PIF with baseline AP (PM 2.5) exposure of (10) and scenario AP exposure of (15)
 
 ```{r}
 #| eval: true 
