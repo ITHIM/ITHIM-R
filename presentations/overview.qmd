@@ -233,7 +233,7 @@ data.frame(Dose, RR) |> mutate_if(is.numeric, round, 2) |>
 ## Potential Impact Fraction
 
 $$
-pif = (RRbase - RRscenario)/RRbase
+pif = (RR_{base} - RR_{scenario})/RR_{base}
 $$
 
 ```{r}
@@ -314,7 +314,7 @@ RR <-  ithimr::AP_dose_response(cause = "all_cause_ap", dose = c(0, 5, 10), quan
                           
 Dose <- c(0, 5, 10)
 
-data.frame(Dose, RR) |> mutate_if(is.numeric, round, 2) |> gt(caption = "Doses (exposures) and their relative risk for all cause mortality for PM2.5") |> gt::as_raw_html()
+data.frame(Dose, RR) |> mutate_if(is.numeric, round, 2) |> gt(caption = "Doses (exposures) and their relative risk for all cause mortality for PM2.5") |> tab_options(table.font.size = 15) |> gt::as_raw_html()
 
 
 ```
