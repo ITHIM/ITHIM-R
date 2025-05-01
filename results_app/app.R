@@ -634,15 +634,12 @@ server <- function(input, output, session) {
         grepl("baseline", scenario) ~ "base",
         TRUE ~ scenario))
     
-    
-    
     # Join summary and scenario_pm_df based on scenario names
     summary <- left_join(pm_exp, scenario_pm_df) |> 
       mutate(change_PM = round(conc_pm - conc_pm[scenario == "base"], 2))
     
     # print to html file
     print(kable(summary, caption = cities[x]))
-    
     
   }
   
