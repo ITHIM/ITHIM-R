@@ -7,7 +7,6 @@ library(readxl)
 library(ggridges)
 library(gt)
 
-options(scipen = 10000)
 SAVE_FIGURES <- FALSE
 SVG <- FALSE
 
@@ -34,9 +33,9 @@ output_version <- repo_sha
 
 # Assumes that multi_city_script.R has been run  
 # read in input file
-io <- readRDS(paste0("../results/multi_city/io_", output_version, ".rds"))
+#io <- readRDS(paste0("../results/multi_city/io_", output_version, ".rds"))
 
-# io <- readRDS(paste0("../results/multi_city/io_d06161f.rds"))
+io <- readRDS(paste0("../results/multi_city/io_d06161f.rds"))
 # io <- readRDS(paste0("../results/multi_city/io_c492320.rds"))
 
 
@@ -192,6 +191,11 @@ scens <- c("Cycling" = "CYC_SC",
            "Car" = "CAR_SC",
            "Bus" = "BUS_SC")
 
+scens_w_base <- c("Baseline" = "Baseline",
+                  "Cycling" = "CYC_SC",
+                  "Car" = "CAR_SC",
+                  "Bus" = "BUS_SC")
+
 dose <- ylls |> filter(!is.na(level1)) |> distinct(dose)  |> pull()
 dose_level2 <- ylls |> filter(!is.na(level2)) |> distinct(dose) |> pull()
 dose_level3 <- ylls |> filter(!is.na(level3)) |> distinct(dose) |> pull()
@@ -266,7 +270,7 @@ ui <- page_sidebar(
     ),
     
     conditionalPanel(
-      condition = "input.main_tab == 'Trip behaviour'",
+      condition = "input.main_tab == 'Travel behaviour'",
       radioButtons(inputId = "in_trip_measure", 
                    label = "Trip measure",
                    inline = TRUE,
@@ -298,20 +302,18 @@ ui <- page_sidebar(
 server <- function(input, output, session) {
   
   observeEvent(input$main_tab,{
-    selected_scens <- input$in_scens[input$in_scens != "Baseline"]
+    #selected_scens <- input$in_scens[input$in_scens != "Baseline"]
     
     if(input$main_tab == "Health Outcomes"){
       updatePickerInput(session, "in_scens",
                         choices = scens,
-                        selected = selected_scens
-      )
-    }else{
-      updatePickerInput(session, "in_scens",
-                        choices = inj_scens,
-                        selected = selected_scens
-      )
-      
-    }
+                        selected = input$in_scens[input$in_scens != "Baseline"])
+      }else{
+        updatePickerInput(session, "in_scens",
+                          choices = scens_w_base,
+                          selected = input$in_scens)
+        
+      }
   })
   
   observe({
@@ -440,7 +442,6 @@ server <- function(input, output, session) {
     qmiddle <- 0.5
     qupper <- 0.8
     qlower <- 0.2
-    
     
     pm_conc_pp <- get_summary_data("pm_conc_pp", filtered_cities, filtered_scens)
     
