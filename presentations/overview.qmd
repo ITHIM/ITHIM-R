@@ -30,21 +30,23 @@ execute:
 
 -   Structure of the model
 
-    -   Inputs datasets
+    -   Diagram
 
-    -   Parameters
+    -   Input datasets
+
+    -   Input Parameters
 
 -   What are the main ingredients?
 
-    -   Physical Activity
+    -   Physical Activity (PA)
 
-    -   Air Pollution
+    -   Air Pollution (AP)
 
 -   Shiny Interface
 
     -   Travel behaviours
 
-    -   PA and AP exposures
+    -   Physical Acitivity (PA) and Air Pollution (AP) exposures
 
     -   Health Outcomes
 
@@ -83,6 +85,9 @@ all_cause_ap <- read_csv("../inst/extdata/global/dose_response/drap/extdata/all_
 
 city <- 'bogota'
 
+gt_big_font_size <- 40
+gt_small_font_size <- 25
+
 ```
 
 ## Issues with travel surveys
@@ -94,6 +99,8 @@ city <- 'bogota'
     -   Missing trips
 
 -   Under-reporting of short trips, such as walking trips (non-work related trips in general)
+
+-   Doesn't capture variability in travel behaviour within individuals
 
 -   Sample size limitations
 
@@ -130,7 +137,7 @@ A modelled week long synthetic trip dataset in which each row represents a trip 
     -   **trip_mode**: main mode of the trip
     -   **trip_distance**: total trip distance in kilometers
 
-## Trip dataset (2/2)
+## Synthetic Trip dataset (2/2)
 
 -   **Stage-level variables:**
     -   **stage_mode**: Mode of the trip stage
@@ -138,12 +145,13 @@ A modelled week long synthetic trip dataset in which each row represents a trip 
 
 ```{r}
 #| echo: false
-#| results: asis
+
 
 #
 # io[[city]]$trip_scen_sets |> filter(scenario == "baseline") |> dplyr::select(-c(scenario, ends_with("cat"))) |> arrange(trip_id) |> head() |> knitr::kable() |> kableExtra::landscape()
 
-io[[city]]$trip_scen_sets |> filter(scenario == "baseline") |> dplyr::select(-c(scenario, ends_with("cat"))) |> arrange(trip_id) |> head() |> gt(caption = "Trip dataset with demographics and trip details") |> tab_options(table.font.size = 10) |> gt::as_raw_html()
+io[[city]]$trip_scen_sets |> filter(scenario == "baseline") |> dplyr::select(-c(scenario, ends_with("cat"))) |> arrange(trip_id) |> mutate(across(where(is.double), round, 2)) |> head() |> gt(caption = "Trip dataset with demographics and trip details") |> tab_options(table.font.size = gt_big_font_size) |> 
+ gt::as_raw_html()
 
 ```
 
@@ -158,9 +166,11 @@ Based on the individuals in the synthetic trip dataset, we create a dataset that
     -   **sex**: male or female
     -   **ltpa_marg_met:** leisure-time (non-transport) physical activity in marginal metabolic equivalent task hours (mMET-hrs) per week
 
+. . .
+
 ```{r, results='asis'}
 #| echo: false
-io[[city]]$base_pop |> arrange(participant_id) |> rename(ltpa_marg_met = work_ltpa_marg_met) |> arrange(participant_id) |> head() |> gt(caption = "Base population with background PA in mMET-hrs per week") |> gt::as_raw_html()
+io[[city]]$base_pop |> arrange(participant_id) |> rename(ltpa_marg_met = work_ltpa_marg_met) |>   mutate(across(where(is.double), round, 2)) |> head() |> gt(caption = "Base population with background PA in mMET-hrs per week") |> tab_options(table.font.size = gt_small_font_size) |> gt::as_raw_html()
 ```
 
 ## Burden of Disease (BoD) dataset (1/2)
@@ -180,9 +190,11 @@ Cause specific disease burden data from Institute for Health Metrics and Evaluat
 
 ## Burden of Disease (BoD) dataset (2/2)
 
+. . .
+
 ```{r, results='asis'}
 #| echo: false
-io[[city]]$disease_burden |> head() |> gt(caption = "Burden of Disease dataset") |> gt::as_raw_html()
+io[[city]]$disease_burden |> mutate(across(where(is.double), round, 2)) |> head() |> gt(caption = "Burden of Disease dataset") |> tab_options(table.font.size = gt_big_font_size) |> gt::as_raw_html()
 ```
 
 ## Population Dataset
@@ -195,21 +207,23 @@ The demographic information is by age and gender. This also comes from **IHME's*
     -   **age**: age group - usually a five year band as integer
     -   **population**: population size
 
+. . .
+
 ```{r, results='asis'}
 #| echo: false
-io[[city]]$demographic |> head() |> gt(caption = "Population dataset with sex and age groups") |> gt::as_raw_html()
+io[[city]]$demographic |> mutate(across(where(is.double), round, 2)) |> head() |> gt(caption = "Population dataset with sex and age groups") |> tab_options(table.font.size = gt_big_font_size) |>  gt::as_raw_html()
 ```
 
 ## Parameters
 
-![](images/ithim-simple-params.png)
+![City-specific parameters that primarily come from [Emissions Database for Global Atmospheric Research (EDGAR)](https://edgar.jrc.ec.europa.eu/)](images/ithim-simple-params.png){fig-align="center"}
 
 # What are the main ingredients?
 
 ## Physical activity
 
--   Travel related comes from active travel (cycling and walking)
--   Background PA comes from baseline population
+-   Travel related PA volume comes from active travel (cycling and walking)
+-   Background PA volume comes from baseline population (using a distribution)
 
 ## Non-linear dose-response curve
 
@@ -226,13 +240,15 @@ RR <- (drpa::dose_response(cause = "all-cause-mortality", outcome_type = "fatal"
                           dose = c(0, 5, 10))$rr)
 Dose <- c(0, 5, 10)
 
-data.frame(Dose, RR) |> mutate_if(is.numeric, round, 2) |> 
-  gt(caption = "PA dose-response relationship for all-cause-mortality") |> gt::as_raw_html()
+data.frame(Dose, RR) |> mutate(across(where(is.double), round, 2)) |> 
+  gt(caption = "PA dose-response relationship for all-cause-mortality") |>
+  tab_options(table.font.size = gt_big_font_size) |> 
+  gt::as_raw_html()
 
 
 ```
 
-## Potential Impact Fraction
+## PA - Potential Impact Fraction
 
 $$
 pif = (RR_{base} - RR_{scenario})/RR_{base}
@@ -264,7 +280,9 @@ calculate_ap_pif <- function(base_dose, scen_dose){
 
 ```
 
-PIF with baseline PA volume (5) and scenario PA volume 10
+. . .
+
+PIF with baseline PA volume (5) mMET-hours per week and scenario PA volume (10) mMET-hours per week
 
 ```{r}
 #| eval: true 
@@ -276,7 +294,9 @@ print(round(pa_pif, 2))
 
 ```
 
-PIF with baseline PA volume (10) and scenario PA volume (15)
+. . .
+
+PIF with baseline PA volume 10 mMET-hours per week and scenario PA volume 15 mMET-hours per week
 
 ```{r}
 #| eval: true 
@@ -292,13 +312,13 @@ print(round(pa_pif, 2))
 
 Personal exposure of PM2.5 is calculated based on:
 
--   mode specific exposures, such as more exposed while cycling than travelling in a car
+-   Travel mode specific exposures, such as more exposed while cycling than travelling in a car
 
--   ventilation rates (based on BMI)
+-   Ventilation rates (based on BMI)
 
--   time spent in travel mode
+-   Time spent in travel mode
 
--   time spent during rest of the day in activities (such as sleeping, resting and doing light and vigorous physical activities)
+-   Time spent during rest of the day in activities (such as sleeping, resting and doing light and vigorous physical activities)
 
 $$
 PM2.5_{inhaled} = TravelMode_{dur} * Vent_{rate} 
@@ -310,18 +330,18 @@ $$
 ```{r}
 #| eval: true 
 #| echo: false
-#| results: asis
+
 
 RR <-  ithimr::AP_dose_response(cause = "all_cause_ap", dose = c(0, 5, 10), quantile = 0.5)$rr
                           
 Dose <- c(0, 5, 10)
 
-data.frame(Dose, RR) |> mutate_if(is.numeric, round, 2) |> gt(caption = "Doses (exposures) and their relative risk for all cause mortality for PM2.5") |> tab_options(table.font.size = 15) |> gt::as_raw_html()
+data.frame(Dose, RR) |> mutate_if(is.numeric, round, 2) |> gt(caption = "Doses (exposures) and their relative risk for all cause mortality for PM2.5") |> tab_options(table.font.size = gt_big_font_size)
 
 
 ```
 
-## Potential Impact Fraction
+## AP - Potential Impact Fraction
 
 $$
 pif = (RRbase - RRscenario)/RRbase
@@ -339,6 +359,8 @@ ap_pif2 <- calculate_ap_pif(base_dose = 5, scen_dose = 10)
 print(round(ap_pif2, 2))
 
 ```
+
+. . .
 
 PIF with baseline AP (PM 2.5) exposure of (10) and scenario AP exposure of (15)
 
@@ -358,15 +380,14 @@ print(round(ap_pif2, 2))
 
 ## Summary
 
--   A global general model using synthetic travel behaviour
+-   A global generalised model that uses synthetic travel behaviour and easy to get city-specific handful of parameters
 -   Synthetic travel behaviour needs to account for:
     -   Trips with multi-stages such as public transport with walking stages
     -   Account for people without any trips
     -   Better prediction of low mode share, such as cycling, for most cities
-
 -   Include injury risks - similar to HEAT and ITHIM global V1, by:
     -   Population
     -   Duration
     -   Distance
-    
 -   Health modelling using more advanced techniques such as proportional multi–state life table
+-   Include other pollutants such as black carbon, NO2
