@@ -1,0 +1,117 @@
+---
+title: "Exercises"
+author: "Ali Abbas and Lambed Tatah"
+format: html
+editor: visual
+---
+
+## Exercises
+
+This model outlines practical exercises for each HIA training workshop (19th to 23rd May 2025)
+
+## First day - afternoon (duration: 2.5 hours)
+
+### Introduction to ITHIM V2 by Lambed and Ali
+
+Introduction to transport and health model in R for teaching and learning purposes.
+
+-   Registration on posit (20 mins)
+-   Practicse with the ITHIM model (1 hour and 40 mins) with 10 mins break
+    -   Setting up the model
+    -   Running (with multi city script)
+    -   Review of ithim functions (setup and run)
+    -   Generate the results
+
+## Second day - morning (duration: 45 mins)
+
+### PA by Ali and Lambed that covers both simulation (7th) and summary statistics (8th) sessions
+
+On the first day, participants would have run the model and saved the outputs in the `io` object.
+
+Using this `io` object, look at the calculations of PA volume by:
+
+1.  Remind ourselves what the scenarios were - the 5 percent increase in `car`, `cycling` and `bus` modes.
+
+2.  Travel related PA volume
+
+3.  Background PA volume (based on distribution as well as PA survey, if time permits)
+
+4.  Look at distribution across scenarios (including baseline) by:
+
+    1.  Age groups and gender groups
+
+    2.  Identify who is benefiting or losing under each scenario
+
+    3.  Discuss why is that the case
+
+## Third day - morning (2 hours)
+
+### How to create scenarios - by Ali
+
+Using percent change as an example on how to create a scenario and take students through how it is done.
+
+(James would have covered how scenarios can be created using other methods. If not, I will touch on some of those here)
+
+-   Implement percent change - from 5 to 10 percent, and run the model
+
+-   Closer look at baseline travel behaviour by distance bands and modes
+
+-   Examine the travel behaviour in scenarios - heatmap
+
+-   Examine bar chart of source modes to target modes
+
+-   Questions/Discussion on scenarios generated at macro level
+
+## Third day - afternoon (90 minutes)
+
+### Exposures, PIFs and CRA - by Ali
+
+Practical: Use synthetic population exposures for scenarios, calculate different PIFs and CRA to show changes in health outcomes
+
+-   Look at the exposure of PA/AP in the `io` object
+
+-   Calculate relative risk of PA using level1
+
+-   Calculate relative risk of AP using level1
+
+-   Calculate PIF with and without interaction
+
+-   Remind of non-linearity of PA dose-response function
+
+-   Combine PIFs with background health burden to show health impact
+
+## Fifth day - morning (90 minutes)
+
+### Showcase the structure of a Shiny app - by Ali (90 mins)
+
+Presentation on a basic Shiny app with practicals on how to create an app with:
+
+-   Input dataset
+
+-   Adding inputs to filter the dataset
+
+-   Showing plots
+
+## Fifth day - afternoon (1.5 hours)
+
+### Showcase the output of ITHIM in the shiny application - by Ali
+
+Half an hour to spent on the structure of the app. Then delve into practical sessions with Q/As written in Quarto. The idea is that everyone (or in a group of 2-3 participants) run the Shiny app with results and answer questions that have been designed for each section, such as:
+
+1.  Travel behaviour (scenario definition, trip and distance matrices)
+
+2.  PA exposure
+
+3.  AP exposure with background concentration
+
+4.  Health impacts
+
+    1.  YLLs/Deaths
+
+    2.  Levels – focus on level 1
+
+    3.  Interaction of PA/AP
+
+    4.  Normalized by population (by 100k)
+
+For some of the sections, we are going to make use of the `ithim object` that the model has generated and ask them to run R snippets to read and produce summary statistics.
