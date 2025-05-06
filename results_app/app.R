@@ -752,9 +752,6 @@ server <- function(input, output, session) {
       else if (in_strata == "Age Group") y_lab <- paste(y_lab, " (stratified by age groups)")
       
       ld <- get_health_data()
-      
-      write_csv(ld, "ldac.csv")
-      
       if(nrow(ld) < 1)
         plotly::ggplotly(ggplot(data.frame()))
       else{
