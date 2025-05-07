@@ -114,7 +114,7 @@ options(future.globals.maxSize = +Inf)
 cities <- c('bogota')
 
 # number of times input values are sampled from each input parameter distribution
-nsamples <- 10
+nsamples <- 5
 
 
 voi_analysis <- T # set to T if want to run VoI analysis and to F otherwise
@@ -303,11 +303,9 @@ RECALCULATE_CO2_EMISSION_INVENTORY <<- F
 
 ## with uncertainty
 ## comparison across cities
-setting_parameters <- c("PM_CONC_BASE","BACKGROUND_PA_SCALAR","BACKGROUND_PA_ZEROS","PM_EMISSION_INVENTORY","CO2_EMISSION_INVENTORY",
-                        "CHRONIC_DISEASE_SCALAR","PM_TRANS_SHARE","INJURY_REPORTING_RATE","BUS_TO_PASSENGER_RATIO", "CAR_OCCUPANCY_RATIO",
-                        "TRUCK_TO_CAR_RATIO", "FLEET_TO_MOTORCYCLE_RATIO","BUS_WALK_TIME", 'RAIL_WALK_TIME',"PROPORTION_MOTORCYCLE_TRIPS" ,
-                        "DISTANCE_SCALAR_CAR_TAXI",
-                        "DISTANCE_SCALAR_WALKING", "DISTANCE_SCALAR_PT", "DISTANCE_SCALAR_CYCLING", "DISTANCE_SCALAR_MOTORCYCLE")
+setting_parameters <- c("PM_CONC_BASE","PM_EMISSION_INVENTORY","CO2_EMISSION_INVENTORY",
+                        "PM_TRANS_SHARE","BUS_TO_PASSENGER_RATIO", "CAR_OCCUPANCY_RATIO"
+                        )
 
 
 # logical for PA dose response: set T for city 1, and reuse values in 2 and 3; no need to recompute
@@ -316,20 +314,7 @@ pa_dr_quantile <-  c(rep(as.logical(pa_dr_quantile_city1), length(cities)))
 ap_dr_quantile <-  c(rep(as.logical(ap_dr_quantile_city1), length(cities)))
 
 
-betaVariables <- c("PM_TRANS_SHARE",
-                   "INJURY_REPORTING_RATE",
-                   "CASUALTY_EXPONENT_FRACTION",
-                   "BUS_TO_PASSENGER_RATIO",
-                   "CAR_OCCUPANCY_RATIO",
-                   "TRUCK_TO_CAR_RATIO",
-                   "FLEET_TO_MOTORCYCLE_RATIO",
-                   "PROPORTION_MOTORCYCLE_TRIPS",
-                   "CHRONIC_DISEASE_SCALAR",
-                   "SIN_EXPONENT_SUM",
-                   "SIN_EXPONENT_SUM_NOV",
-                   "SIN_EXPONENT_SUM_CYCLE",
-                   "SIN_EXPONENT_SUM_PED",
-                   "SIN_EXPONENT_SUM_VEH")
+betaVariables <- c("PM_TRANS_SHARE")
 normVariables <- c('CYCLING_MMET',
                    'WALKING_MMET', 
                    'PASSENGER_MMET',
@@ -339,17 +324,7 @@ normVariables <- c('CYCLING_MMET',
                    'LIGHT_ACTIVITY_MMET',
                    'MODERATE_PA_MMET',
                    'VIGOROUS_PA_MMET',
-                   "PM_CONC_BASE",
-                   "BACKGROUND_PA_SCALAR",
-                   "CASUALTY_EXPONENT_FRACTION",
-                   "CASUALTY_EXPONENT_FRACTION_CYCLE",
-                   "CASUALTY_EXPONENT_FRACTION_PED",
-                   "CASUALTY_EXPONENT_FRACTION_VEH",
-                   "DISTANCE_SCALAR_CAR_TAXI", 
-                   "DISTANCE_SCALAR_WALKING",
-                   "DISTANCE_SCALAR_PT",
-                   "DISTANCE_SCALAR_CYCLING",
-                   "DISTANCE_SCALAR_MOTORCYCLE")
+                   "PM_CONC_BASE")
 
 
 # save(cities,setting_parameters,injury_reporting_rate,chronic_disease_scalar,pm_conc_base,pm_trans_share,
@@ -406,9 +381,6 @@ print(system.time(
                                                 REFERENCE_SCENARIO= reference_scenario
                                                 
     )
-    
-    
-    
     
     # for first city, store model parameters. For subsequent cities, copy parameters over.
     if(ci==1){
