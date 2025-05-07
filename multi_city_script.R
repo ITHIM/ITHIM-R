@@ -54,7 +54,6 @@ library(janitor)
 
 # Disable scientific notation
 options(scipen = 999)
-options(future.globals.maxSize = +Inf)
 
 if (!require("drpa",character.only = TRUE)) {
   print('Installing "drpa" package...')
