@@ -1,7 +1,9 @@
 ---
 title: "Exercises"
 author: "Ali Abbas and Lambed Tatah"
-format: html
+format:
+  html:
+    embed-resources: true
 editor: visual
 ---
 
