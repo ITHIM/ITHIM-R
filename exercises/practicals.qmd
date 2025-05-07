@@ -64,6 +64,32 @@ Using percent change as an example on how to create a scenario and take students
 
 -   Questions/Discussion on scenarios generated at macro level
 
+### Ecological AP exposure assessment - by Sasha (30 minutes)
+
+Practical: Overly AP maps on census tracks to estimate residential AP exposure
+
+### Individual AP exposure assessment - by Lambed (75 minutes)
+
+Practical: Use synthetic population to assign exposure
+
+-   Explore data sources
+
+-   City-level PM2.5 from WHO databases and other sources
+
+-   Transport emission fraction
+
+-   Vehicle emission inventory (EDGAR)
+
+-   Individuals' ventilation rates by demographic characteristics and body composition
+
+    -   Track one person through the pipeline
+
+    -   Individuals' activity levels
+
+-   Assign/calculate individual baseline and scenario PM2.5 exposure
+
+-   Summary stats
+
 ## Third day - afternoon (90 minutes)
 
 ### Exposures, PIFs and CRA - by Ali
