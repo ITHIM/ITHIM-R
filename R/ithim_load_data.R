@@ -201,7 +201,7 @@ ithim_load_data <- function(speeds =
     # lower case mode names
     trip_set[[mode_cols[i]]] <- tolower(trip_set[[mode_cols[i]]])
     # replaces spaces with _
-    trip_set[[mode_cols[i]]] <- sapply(trip_set[[mode_cols[i]]], function(x) gsub(" ", "_", as.character(x)))
+    trip_set[[mode_cols[i]]] <- str_replace_all(trip_set[[mode_cols[i]]], " ", "_")
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]] == "private_car"] <- "car"
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]] %in% walk_words] <- "pedestrian"
     trip_set[[mode_cols[i]]][trip_set[[mode_cols[i]]] %in% cycle_words] <- "cycle"
@@ -390,7 +390,7 @@ ithim_load_data <- function(speeds =
   filename <- paste0(local_path, "/population_", CITY, ".csv")
   demographic <- read_csv(filename, col_types = cols())
   demographic <- demographic[!apply(demographic, 1, anyNA), ]
-  demographic$age <- gsub("\\s", "", demographic$age)
+  demographic$age <- str_replace_all(demographic$age, "\\s", "") #gsub("\\s", "", demographic$age)
   demographic$sex <- tolower(demographic$sex)
 
   # find the minimum and maximum ages based on the min and max ages given in the demographic data, the trip data and
