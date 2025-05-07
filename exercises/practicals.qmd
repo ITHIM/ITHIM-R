@@ -46,27 +46,19 @@ Using this `io` object, look at the calculations of PA volume by:
 
     3.  Discuss why is that the case
 
-## Third day - morning (2 hours)
-
-### How to create scenarios - by Ali
-
-Using percent change as an example on how to create a scenario and take students through how it is done.
-
-(James would have covered how scenarios can be created using other methods. If not, I will touch on some of those here)
-
--   Implement percent change - from 5 to 10 percent, and run the model
-
--   Closer look at baseline travel behaviour by distance bands and modes
-
--   Examine the travel behaviour in scenarios - heatmap
-
--   Examine bar chart of source modes to target modes
-
--   Questions/Discussion on scenarios generated at macro level
+## Second day - afternoon (duration: 105 mins)
 
 ### Ecological AP exposure assessment - by Sasha (30 minutes)
 
 Practical: Overly AP maps on census tracks to estimate residential AP exposure
+
+-   Extracting censor track files
+
+-   Obtaining AP maps
+
+-   Overlaying files to obtain residential exposure
+
+-   Exposure assignment at baseline / policy scenario
 
 ### Individual AP exposure assessment - by Lambed (75 minutes)
 
@@ -89,6 +81,25 @@ Practical: Use synthetic population to assign exposure
 -   Assign/calculate individual baseline and scenario PM2.5 exposure
 
 -   Summary stats
+
+## Third day - morning (2 hours)
+
+### How to create scenarios - by Ali
+
+Using percent change as an example on how to create a scenario and take students through how it is done.
+
+(James would have covered how scenarios can be created using other methods. If not, I will touch on some of those here)
+
+-   Implement percent change - from 5 to 10 percent, and run the model
+
+-   Closer look at baseline travel behaviour by distance bands and modes
+
+-   Examine the travel behaviour in scenarios - heatmap
+
+-   Examine bar chart of source modes to target modes
+
+-   Questions/Discussion on scenarios generated at macro level
+
 
 ## Third day - afternoon (90 minutes)
 
