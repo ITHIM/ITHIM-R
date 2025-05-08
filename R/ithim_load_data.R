@@ -159,8 +159,8 @@ ithim_load_data <- function(speeds =
   # all trip columns are used for scenario generation alone
   # stage columns are used for downstream calculation
   filename <- paste0(local_path, "/trips_wl_", CITY, ".csv")
-  trip_set <- read_csv(filename, col_types = cols())
-
+  trip_set <- data.table::fread(filename)
+  
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
 
   ## set missing stage or trip information to known stage or trip information
@@ -220,16 +220,9 @@ ithim_load_data <- function(speeds =
 
   # Rename short walk components of non-pedestrian trips from 'pedestrian' to 'walk_to_pt'
   if ("stage_mode" %in% colnames(trip_set) && "trip_mode" %in% colnames(trip_set)) {
-    trip_set[!is.na(trip_set$trip_mode) & !is.na(trip_set$stage_mode) & trip_set$trip_mode != "pedestrian" & trip_set$stage_mode == "pedestrian", ]$stage_mode <- "walk_to_pt"
-
-    # # Remove walking component in trips that are not PT
-    # trip_set <- trip_set %>%
-    #   mutate(
-    #     cond = ifelse(stage_mode == "walk_to_pt" &
-    #       !trip_mode %in% c("bus", "rail"), 1, 0)
-    #   ) %>%
-    #   filter(cond == 0 | is.na(cond)) %>%
-    #   dplyr::select(-cond)
+    if(nrow(trip_set[!is.na(trip_set$trip_mode) & !is.na(trip_set$stage_mode) & trip_set$trip_mode != "pedestrian" & trip_set$stage_mode == "pedestrian", ]) > 0){
+      trip_set[!is.na(trip_set$trip_mode) & !is.na(trip_set$stage_mode) & trip_set$trip_mode != "pedestrian" & trip_set$stage_mode == "pedestrian", ]$stage_mode <- "walk_to_pt"
+    }
   }
   
   # AA - 24/06/2024
@@ -265,7 +258,7 @@ ithim_load_data <- function(speeds =
   # min_age (=number, e.g. 15)
   # max_age (=number, e.g. 49)
   filename <- paste0(local_path, "/gbd_", CITY, ".csv")
-  GBD_DATA <- read_csv(filename, col_types = readr::cols())
+  GBD_DATA <- data.table::fread(filename)
 
 
   # Combine causes related to "Head and neck cancer"
@@ -388,7 +381,7 @@ ithim_load_data <- function(speeds =
 
   ## Read in local demographic data
   filename <- paste0(local_path, "/population_", CITY, ".csv")
-  demographic <- read_csv(filename, col_types = cols())
+  demographic <- data.table::fread(filename)
   demographic <- demographic[!apply(demographic, 1, anyNA), ]
   demographic$age <- str_replace_all(demographic$age, "\\s", "") #gsub("\\s", "", demographic$age)
   demographic$sex <- tolower(demographic$sex)
