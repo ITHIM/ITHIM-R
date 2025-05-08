@@ -55,7 +55,7 @@ create_base_pop <- function(raw_trip_set) {
   
   # match only for "real" people (i.e. not `ghost drivers', whose participant id is 0)
   # extract unique participant ids including age, sex and age category information from the trip data
-  baseline_population <- subset(trip_set, !duplicated(participant_id) & participant_id > 0)[, names(trip_set) %in% c("participant_id", "age", "sex", "age_cat")]
+  baseline_population <- filter(trip_set, !duplicated(participant_id) & participant_id > 0)[, names(trip_set) %in% c("participant_id", "age", "sex", "age_cat")]
   
   n <- nrow(baseline_population)
   
@@ -73,7 +73,7 @@ create_base_pop <- function(raw_trip_set) {
     mutate(across(where(is.integer), as.numeric))
 
   # remove participants with trip or stage modes that are not in Vehicle inventory
-  trip_set <- subset(trip_set, trip_mode %in% VEHICLE_INVENTORY$stage_mode & stage_mode %in% VEHICLE_INVENTORY$stage_mode)
+  trip_set <- filter(trip_set, trip_mode %in% VEHICLE_INVENTORY$stage_mode & stage_mode %in% VEHICLE_INVENTORY$stage_mode)
 
   trip_set <- drop_na(trip_set)
 
