@@ -61,7 +61,7 @@ create_base_pop <- function(raw_trip_set) {
   
   # Example usage
   n <- nrow(baseline_population) #length(unique(baseline_population$participant_id)) # Total number of samples
-  prob_zero <- 0.1 # Probability of getting a zero
+  prob_zero <- 0.5 # Probability of getting a zero
   mean <- 5  # Mean of the normal distribution
   sd <- 1  # Standard deviation of the normal distribution
   
