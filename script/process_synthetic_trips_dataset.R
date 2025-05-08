@@ -12,7 +12,17 @@ trips <- trips |>
     trip_mode  == "pt" ~ "bus", 
     TRUE ~ trip_mode))
 
-trips <- trips %>%
+
+# Proportion to sample
+sample_prop <- 0.2
+
+# Stratified sampling by 'trip_mode'
+sampled_trips <- trips %>%
+  group_by(trip_mode) %>%
+  sample_frac(sample_prop) %>%
+  ungroup()
+
+sampled_trips <- sampled_trips %>%
   rowwise() %>%
   mutate(random_age = ifelse(
     grepl("\\+", age),
@@ -43,7 +53,6 @@ add_random_rows <- function(df) {
   plyr::rbind.fill(df, new_rows)
 }
 
-trips <- add_random_rows(trips)
-
+sampled_trips <- add_random_rows(sampled_trips)
 
 write_csv(trips, "inst/extdata/local/bogota/trips_wl_bogota.csv")
