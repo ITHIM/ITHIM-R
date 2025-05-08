@@ -2,6 +2,9 @@ require(tidyverse)
 
 trips <- read_csv("~/Downloads/bogota_synthetic_trips (2).csv")
 
+# Proportion to sample
+sample_prop <- 0.2
+
 # Rename trips id
 trips$trip_id <- as.integer(as.factor(with(trips, paste(participant_id, trip_id, sep = "_"))))
 
@@ -13,17 +16,14 @@ trips <- trips |>
     TRUE ~ trip_mode))
 
 
-# Proportion to sample
-sample_prop <- 0.2
-
 # Stratified sampling by 'trip_mode'
 sampled_trips <- trips %>%
   group_by(trip_mode) %>%
   sample_frac(sample_prop) %>%
   ungroup()
 
-sampled_trips <- sampled_trips %>%
-  rowwise() %>%
+sampled_trips <- sampled_trips |> 
+  rowwise() |> 
   mutate(random_age = ifelse(
     grepl("\\+", age),
     sample(70:100, 1),
@@ -55,4 +55,4 @@ add_random_rows <- function(df) {
 
 sampled_trips <- add_random_rows(sampled_trips)
 
-write_csv(trips, "inst/extdata/local/bogota/trips_wl_bogota.csv")
+write_csv(sampled_trips, "inst/extdata/local/bogota/trips_wl_bogota.csv")
