@@ -1,0 +1,234 @@
+---
+title: "Practicals 7th and 8th sessions"
+subtitle: "Physical Activity simulation and summary statistics"
+author: "Ali Abbas and Lambed Tatah"
+engine: knitr
+format: live-html
+resources:
+  - ../../results
+webr:
+  packages: ['ggplot2', 'tidyverse', 'plotly']
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Setting up question and answers
+
+Fill in the blank so that the result of the sum is 10.
+
+```{webr}
+#| exercise: ex_0
+
+1 + 2 + 3 + ______
+```
+
+```{webr}
+#| exercise: ex_0
+#| check: true
+if (.result == 10) {
+  list(message = "Great work!", correct = TRUE)
+} else {
+  list(message = "That's incorrect. Try again ", correct = FALSE)
+}
+```
+
+::: {.hint exercise="ex1"}
+You should make the expression sum to 10.
+:::
+
+::: {.solution exercise="ex1"}
+**Solution:**
+
+``` r
+1 + 2 + 3 + 4
+```
+:::
+
+On the first day, you would have run the model and saved the outputs in the `io` object.
+
+```{webr}
+#| setup: true
+#| exercise:
+#|   - ex_1
+#|   - ex_2
+#|   - ex_3
+#|   - ex_4
+
+io <- readRDS("multi_city/io.rds")
+trips <- io$bogota$trip_scen_sets
+```
+
+### A closer look at the `ithim` object
+
+Investigate the structure of the `io` object
+
+```{webr}
+#| exercise: ex_1
+______(io)
+```
+
+```{webr}
+#| exercise: ex_1
+#| check: true
+if (identical(.result, names(io))) {
+  list(correct = TRUE, message = "Nice work!")
+} else {
+  list(correct = FALSE, message = "That's incorrect, sorry.")
+}
+```
+
+
+::: { .hint exercise="ex_1"}
+::: { .callout-note collapse="false"}
+## Hint 1
+
+Consider using the `names()` function
+
+``` r
+io$bogota |> names()
+```
+:::
+:::
+
+### Read the baseline population with background PA volumne (in marginal MET hours per week)
+
+Get the trip dataset from the `io` object
+
+```{webr}
+#| exercise: ex_2
+base_pop_pa <- io$bogota$______
+```
+
+:::: {.hint exercise="ex_2"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+Consider using the `names()` function for the `io$bogota` object.
+
+``` r
+io$bogota |> names()
+```
+:::
+::::
+
+:::: {.hint exercise="ex_2"}
+::: {.callout-note collapse="false"}
+## Hint 2
+
+You should look for the `base_pop` object
+
+``` r
+io$bogota$base_pop
+```
+:::
+::::
+
+:::: {.solution exercise="ex_2"}
+::: {.callout-tip collapse="false"}
+## Fully worked solution:
+
+Identify where the `trip_scen_sets` data frame is stored in the `bogota` list, and then assign it to a variable called `trips`:
+
+``` r
+io$bogota$base_pop           #<1>
+base_pop_pa <- io$bogota$base_pop  #<2>
+```
+
+1.  Identify the name of the object and then,
+2.  Assign it the `trips`
+:::
+::::
+
+### Under the hood for scenario definition
+
+Using this `io` object, look at the calculations of PA volume by:
+
+1.  Remind ourselves what the scenarios were - the 5 percent increase in `car`, `cycling` and `bus` modes.
+
+```{webr}
+#| echo: false
+#| edit: false
+#| output: true
+#| warning: false
+
+io <- readRDS("data/io.rds")
+
+trips <- io$bogota$trip_scen_sets
+
+total_trips <- trips |> filter(scenario == "baseline") |> 
+    distinct(trip_id, scenario, .keep_all = T) |> nrow()
+
+prop <- trips |> 
+    filter(participant_id !=0) |> 
+    distinct(trip_id, scenario, .keep_all = T) |> 
+    group_by(scenario, trip_mode) |> 
+    reframe(freq = round(sum(dplyr::n())/total_trips*100, 1)) |> 
+    mutate(pd = freq - freq[scenario == 'baseline']) |> 
+    filter(pd != 0)
+
+prop[prop$scenario == "baseline",]$scenario <- "Baseline"
+prop[prop$scenario == "sc_bus",]$scenario <- "Bus"
+prop[prop$scenario == "sc_car",]$scenario <- "Car"
+prop[prop$scenario == "sc_cycle",]$scenario <- "Cycling"
+
+scen_colours <- c("Baseline" = '#b15928',
+                  "Cycling" = '#abdda4',
+                  "Car" = '#d7191c',
+                  "Bus" = '#2b83ba',
+                  "Motorcycle" = '#fdae61')
+
+plotly::ggplotly(ggplot(prop) +
+     aes(x = trip_mode, fill = scenario, weight = pd) +
+     geom_bar() +
+    scale_x_discrete(guide = guide_axis(angle = 90)) + 
+    geom_text(aes(x = trip_mode, y = round(pd, 1), label = round(pd, 1)), size = 4, 
+                                 position = position_dodge()) + scale_fill_manual(values = scen_colours) +
+     facet_wrap(vars(scenario)) + 
+     labs(title = "Scenario definition (by mode)", y = "Percentage (%)", x = "Trip Mode") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)))
+```
+
+### Travel related PA volume
+
+#### Read the `trip` dataset from the `io` object
+
+```{webr}
+#| exercise: ex_3
+
+trips <- io$bogota$______
+```
+
+#### Look at the columns of trips dataset
+
+```{webr}
+#| exercise: ex_4
+______(trips)
+```
+
+#### Calculate distnace per person for active travel modes (cycling and walking) 
+
+
+```{webr}
+#| exercise: ex_5
+
+# Using trips dataset, do the following to calculate per person distance in cycling and walking
+# But before that, we need to identify which modes contain active travels. They are: cycling, pedestrian and walk_to_pt (walking component of to and from the bus stops)
+# The unique number of people are stored in the base_pop
+# Use that dataset to identify the number of people and then 
+# sum distance by each active mode and divide it by number of people for mean values
+trips |> 
+  filter(stage_mode %in% c("cycle", "pedestrian", "walk_to_pt"))
+  group_by(stage_mode, scenario) |> 
+  reframe(mean_dist = sum(______) / nrow(io$bogota$base_pop)) |> 
+  pivot_wider(names_from = stage_mode, values_from = mean_dist)
+```
+
+
+3.  Background PA volume (based on distribution as well as PA survey, if time permits)
+
+4.  Look at distribution across scenarios (including baseline) by:
+
+    1.  Age groups and gender groups
+
+    2.  Identify who is benefiting or losing under each scenario
+
+    3.  Discuss why is that the case
