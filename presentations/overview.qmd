@@ -79,7 +79,7 @@ if (!exists("output_version")){
 }
 
 #io <- readRDS(paste0("../results/multi_city/io_", output_version, ".rds"))
-io <- readRDS(paste0("../results/multi_city/io_48d87be.rds"))
+io <- readRDS(paste0("../results/multi_city/io.rds"))
 
 all_cause_ap <- read_csv("../inst/extdata/global/dose_response/drap/extdata/all_cause_ap.csv")
 
