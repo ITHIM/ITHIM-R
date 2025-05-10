@@ -104,6 +104,15 @@ io$bogota |> names()
 :::
 :::
 
+### Now look at Bogota specific list called `bogota`
+
+Investigate the structure of the `bogota` object stored within the `io` object
+
+### Show summary of the object (list all items)
+### Show the head of the base population object
+### Create a summary of background PA by age and sex groups
+### See if males and females have the same background PA
+
 ### Read the baseline population with background PA volumne (in marginal MET hours per week)
 
 Get the trip dataset from the `io` object
