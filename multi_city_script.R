@@ -442,7 +442,8 @@ write.csv(deaths_pathway,
           row.names = F)
 
 
-saveRDS(ithim_objects, results/multi_city/io.rds, version = 2)
+saveRDS(ithim_objects, "results/multi_city/io.rds", version = 2)
+saveRDS(ithim_objects, "exercises/data/io.rds", version = 2)
 
 # add to output control document
 
