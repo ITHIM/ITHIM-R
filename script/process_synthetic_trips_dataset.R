@@ -24,7 +24,8 @@ sampled_trips <- trips %>%
 
 sampled_trips$participant_id <- match(sampled_trips$participant_id, unique(sampled_trips$participant_id))
 
-sampled_trips <- sampled_trips |> 
+u_age <- sampled_trips |>
+  distinct(participant_id, .keep_all = T) |> 
   rowwise() |> 
   mutate(random_age = ifelse(
     grepl("\\+", age),
@@ -33,11 +34,14 @@ sampled_trips <- sampled_trips |>
       as.numeric(strsplit(age, "-")[[1]][1]),
       as.numeric(strsplit(age, "-")[[1]][2])
     ), 1)
-  )) %>%
-  ungroup() |> 
-  dplyr::select(-c(age)) |> 
-  rename(age = random_age)
+  )) |> 
+  ungroup() 
 
+
+sampled_trips <- sampled_trips |> 
+  left_join(u_age |> dplyr::select(participant_id, random_age)) |> 
+  dplyr::select(-age) |> 
+  rename(age = random_age)
 
 # Function to add new rows
 add_random_rows <- function(df) {
@@ -48,7 +52,7 @@ add_random_rows <- function(df) {
   
   # Create new data frame with random values
   new_rows <- data.frame(
-    participant_id = max_id+1:n_new-1,
+    participant_id = max_id+1:n_new,
     age = sample(0:100, n_new, replace = TRUE),
     sex = sample(c("Male", "Female"), n_new, replace = TRUE)
   )
