@@ -3,11 +3,15 @@ title: "Practicals 7th and 8th sessions"
 subtitle: "Physical Activity simulation and summary statistics"
 author: "Ali Abbas and Lambed Tatah"
 engine: knitr
-format: live-html
-resources:
-  - ../../results
+resources: 
+  - "data"
+format: 
+  live-html:
+    embed-resources: true
 webr:
   packages: ['ggplot2', 'tidyverse', 'plotly']
+  resources:
+    - "data/io.rds"
 ---
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
@@ -54,7 +58,17 @@ On the first day, you would have run the model and saved the outputs in the `io`
 #|   - ex_3
 #|   - ex_4
 
-io <- readRDS("multi_city/io.rds")
+# Download RDS file from a URL into the virtual file system
+#url <- "https://github.com/ITHIM/ITHIM-R/raw/refs/heads/simple/results/multi_city/io.rds"
+#url <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/simple/results/multi_city/io.rds"
+#temp_file <- tempfile(fileext = ".rds")
+#httr::GET(url, httr::write_disk(temp_file, overwrite = TRUE))
+
+#download.file(url, "io.rds")
+
+# Read the RDS file
+io <- readRDS("data/io.rds")
+
 trips <- io$bogota$trip_scen_sets
 ```
 
@@ -155,11 +169,11 @@ io <- readRDS("data/io.rds")
 
 trips <- io$bogota$trip_scen_sets
 
-total_trips <- trips |> filter(scenario == "baseline") |> 
+total_trips <- trips |> dplyr::filter(scenario == "baseline") |> 
     distinct(trip_id, scenario, .keep_all = T) |> nrow()
 
 prop <- trips |> 
-    filter(participant_id !=0) |> 
+    dplyr::filter(participant_id !=0) |> 
     distinct(trip_id, scenario, .keep_all = T) |> 
     group_by(scenario, trip_mode) |> 
     reframe(freq = round(sum(dplyr::n())/total_trips*100, 1)) |> 

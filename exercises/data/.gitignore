@@ -1,0 +1,5 @@
+# Ignore all .rds files
+*.rds
+
+# But do NOT ignore io.rds
+!io.rds

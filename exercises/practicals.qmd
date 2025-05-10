@@ -9,13 +9,13 @@ editor: visual
 
 ## Exercises for the HIA training workshop (19th to 23rd May 2025)
 
-This file outlines the practical exercise to be run on ITHIM Global V2 (Other workshop exercises are contained in different project files). 
+This file outlines the practical exercise to be run on ITHIM Global V2 (Other workshop exercises are contained in different project files).
 
 ## First day - afternoon (duration: 2.5 hours)
 
 ### Introduction to ITHIM V2 by Lambed and Ali
 
-This practical session comes after a 30 minutes introduction to the ITHIM Global V2 model. It guides you to onboard on the posit platform and running  
+This practical session comes after a 30 minutes introduction to the ITHIM Global V2 model. It guides you to onboard on the posit platform and running
 
 -   Registration on posit (20 mins)
 -   Practicse with the ITHIM model (1 hour and 40 mins) with 10 mins break
@@ -99,7 +99,6 @@ Using percent change as an example on how to create a scenario and take students
 -   Examine bar chart of source modes to target modes
 
 -   Questions/Discussion on scenarios generated at macro level
-
 
 ## Third day - afternoon (90 minutes)
 
