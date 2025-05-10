@@ -22,6 +22,8 @@ sampled_trips <- trips %>%
   sample_frac(sample_prop) %>%
   ungroup()
 
+sampled_trips$participant_id <- match(sampled_trips$participant_id, unique(sampled_trips$participant_id))
+
 sampled_trips <- sampled_trips |> 
   rowwise() |> 
   mutate(random_age = ifelse(
@@ -42,9 +44,11 @@ add_random_rows <- function(df) {
   # Calculate 10% of existing rows
   n_new <- ceiling(nrow(df) * 0.1)
   
+  max_id <- max(df$participant_id)
+  
   # Create new data frame with random values
   new_rows <- data.frame(
-    participant_id = 0,
+    participant_id = max_id+1:n_new-1,
     age = sample(0:100, n_new, replace = TRUE),
     sex = sample(c("Male", "Female"), n_new, replace = TRUE)
   )
