@@ -1,0 +1,91 @@
+---
+title: "Rstudio cloud onboarding"
+author: "Lambed/Ali"
+format: revealjs
+editor: visual
+date: 2025-05-19
+---
+
+# Overview
+
+**Time:** 5 minutes
+
+-   **Objective:** Introduce RStudio Cloud and its benefits for collaborative R work.
+
+-   **Talking Points:**
+
+    -   What is RStudio Cloud? Cloud-based RStudio IDE accessible via browser.
+
+    -   Key features: no local installation, reproducible environments, easy sharing.
+
+    -   Use cases: teaching labs, workshops, remote collaboration.
+
+# Student account setup {#account-setup}
+
+**Time:** 4 minutes
+
+1.  Navigate to https://rstudio.cloud.
+
+2.  Click **Sign Up** and choose Google, GitHub, or email registration.
+
+3.  Verify your email if prompted.
+
+4.  Briefly explore the dashboard:
+
+    -   **Projects** pane
+
+    -   **Access** and **Settings**
+
+# Creating a project from GitHub {#create-project}
+
+**Time:** 6 minutes
+
+1.  On the dashboard, click **New Project** → **New Project from GitHub**.
+
+2.  In the dialog, enter the repository URL, e.g.:
+
+    ```         
+    https://github.com/your-org/your-course-repo.git
+    ```
+
+3.  (Optional) Specify a subdirectory if the repo has multiple labs.
+
+4.  Click **Create Project**. Wait for the cloud environment to launch.
+
+5.  Tour the new project workspace:
+
+    -   Console, **Files** pane, **Plots**, **Help**.
+
+    -   The cloned repo appears in **Files**.
+
+# Opening and running code {#run-code}
+
+**Time:** 3 minutes
+
+-   In the **Files** pane, locate the starter script, e.g., `lab1.R` or `analysis.R`.
+
+-   Click to open it in the editor.
+
+-   In the console, run:
+
+    ```         
+    source("lab1.R")
+    ```
+
+-   Verify that the code executes and produces output (plots, tables).
+
+# Q&A and next steps {#qna}
+
+**Time:** 10 minutes
+
+-   Recap:
+
+    -   Account setup
+
+    -   Project creation from GitHub (pulling from github)
+
+    -   Running starter scripts
+
+-   Answer any immediate questions.
+
+-   Direct students to lab instructions in the README.
