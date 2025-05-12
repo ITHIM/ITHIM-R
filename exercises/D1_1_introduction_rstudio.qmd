@@ -472,7 +472,7 @@ print(round(ap_pif2, 2))
     -   Population
     -   Duration
     -   Distance
--   Health modelling using more advanced techniques such as proportional multi–state life table
+-   Health modelling using more advanced techniques such as proportional multi-state life table
 -   Include other pollutants such as black carbon, NO2
 
 # 3. Run the multi_city script (10 mins)
