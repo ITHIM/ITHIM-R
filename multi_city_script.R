@@ -50,7 +50,6 @@ library(ithimr)
 library(readxl)
 library(truncnorm)
 library(tidyverse)
-library(janitor)
 
 # Disable scientific notation
 options(scipen = 999)
