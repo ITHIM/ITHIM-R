@@ -57,7 +57,7 @@ options(datatable.fread.datatable=FALSE)
 
 if (!require("drpa",character.only = TRUE)) {
   print('Installing "drpa" package...')
-  remotes::install_github("meta-analyses/drpa")
+  renv::install("meta-analyses/drpa")
   library(drpa)
   print("")
 }
