@@ -1,18 +1,22 @@
 ---
-title: "Rstudio cloud onboarding"
-author: "Lambed/Ali"
+title: "Day 1: setting up and using ITHIM Global V2 in Rstudio cloud"
+author: "Ali and Lambed"
 format: revealjs
 editor: visual
 date: 2025-05-19
 ---
 
-# Overview
+# 1. Setup Rstudio and ITHIM Global V2 (75 mins)
 
-**Time:** 5 minutes
+-   1.2. Setup rstudio cloud (30 min)
 
--   **Objective:** Introduce RStudio Cloud and its benefits for collaborative R work.
+-   1.2. Install the ITHIM-Global V2 package (45 min)
 
--   **Talking Points:**
+## 1.1. Setup rstudio cloud (30 mins)
+
+### Overview (5 mins)
+
+-   Introduce RStudio Cloud and its benefits for collaborative R work.
 
     -   What is RStudio Cloud? Cloud-based RStudio IDE accessible via browser.
 
@@ -20,13 +24,11 @@ date: 2025-05-19
 
     -   Use cases: teaching labs, workshops, remote collaboration.
 
-# Student account setup {#account-setup}
+### Student account setup (3 mins)
 
-**Time:** 4 minutes
+1.  Navigate to https://rstudio.cloud (using the invitation link sent to your email).
 
-1.  Navigate to https://rstudio.cloud.
-
-2.  Click **Sign Up** and choose Google, GitHub, or email registration.
+2.  Click **Sign Up** with your email registration or choose Google, GitHub etc
 
 3.  Verify your email if prompted.
 
@@ -36,13 +38,11 @@ date: 2025-05-19
 
     -   **Access** and **Settings**
 
-# Creating a project from GitHub {#create-project}
-
-**Time:** 6 minutes
+### Creating a project from GitHub (6 mins)
 
 1.  On the dashboard, click **New Project** → **New Project from GitHub**.
 
-2.  In the dialog, enter the repository URL, e.g.:
+2.  In the dialog, enter the repository URL, e.g.: use this toy project (light)
 
     ```         
     https://github.com/your-org/your-course-repo.git
@@ -58,9 +58,7 @@ date: 2025-05-19
 
     -   The cloned repo appears in **Files**.
 
-# Opening and running code {#run-code}
-
-**Time:** 3 minutes
+### Opening and running code (4 mins)
 
 -   In the **Files** pane, locate the starter script, e.g., `lab1.R` or `analysis.R`.
 
@@ -74,18 +72,86 @@ date: 2025-05-19
 
 -   Verify that the code executes and produces output (plots, tables).
 
-# Q&A and next steps {#qna}
-
-**Time:** 10 minutes
+### Q&A and next steps (10 mins)
 
 -   Recap:
 
     -   Account setup
 
-    -   Project creation from GitHub (pulling from github)
+    -   Project creation from GitHub (pulling from GitHub)
 
     -   Running starter scripts
 
 -   Answer any immediate questions.
 
 -   Direct students to lab instructions in the README.
+
+## 1.2. Install the ITHIM-Global V2 package (45 mins)
+
+-   Your landing page for the ithim-global-v2 package will look like the figure below
+
+    ![](images/landing_page2.png)
+
+-   When you click on the project (START), it should create a copy like this (\~5 mins)
+
+    ![](images/clipboard-2289141768.png)
+
+-   Once the ITHIM project is open
+
+-   Run the following lines to install/update the required packages \~25mins
+
+    -   renv::install() #(installs most of the needed packages/dependencies) (\~1min)
+
+    -   renv::install("meta-analyses/drpa") #(adds the drpa package that failed to install) (\~20 mins)
+
+    -   install.packages(c("plotly", "ReIns", "distr", "pracma", "truncnorm" )) #(add other packeges) (\~3 mins)
+
+-   Build a functional package from the downloaded scripts as follows: (\<1min)
+
+    ![](images/build_package.png)
+
+-   We may ask you to pull changes to the exercises from GitHub. In that case, follow the steps below:
+
+    -   Click on the Git–\>pull buttons shown in the figure
+
+        ![](images/git_pull.png)
+
+    -   These changes will pertain to the exercises, so you can follow the instructions in the exercises
+
+    -   If we have made some changes to the model itself, you will need to rebuild the package as detailed above and in the vignette
+
+# Break (10 mins)
+
+# 2. Overview of ITHIM Global V2 (30 mins)
+
+# 3. Run the multi_city script (15 mins)
+
+-   Source the multi_city script as follows (calls the packages and runs the model)
+
+# 4. Explore ITHIM functions and outputs (20 mins)
+
+## 4.1. Locate the ithim_object (io) output
+
+-   Once the multi_city script finishes running, it outputs an ithim_object (io_rds), which contains almost everything that you need
+
+    -   Locate the folders where io.rds sits
+
+    -   Open io.rds and identify the following
+
+        -   travel behaviour data by scenario
+
+        -   Vehicle distances
+
+## 4.2. Explore functions in multi-city script
+
+-   Let's take a deeper look at the functions we can easily modify in the multi_city script
+
+-   Identify the following chunks in the script
+
+    -   City called
+
+    -   parameters called
+
+    -   scenario definition
+
+    -   etc
