@@ -1,0 +1,14 @@
+---
+title: "D1_2"
+author: "Ali and Lambed"
+format: revealjs
+editor: visual
+---
+
+## Install the ITHIM-Global V2 package
+
+## Run multi-city script
+
+## Locate the ithim_object (io) output
+
+## Explore functions in multi-city script
