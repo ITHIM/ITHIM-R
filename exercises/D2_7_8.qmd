@@ -104,18 +104,19 @@ io$bogota |> names()
 :::
 :::
 
-### Now look at Bogota specific list called `bogota`
+## Now look at Bogota specific list called `bogota`
 
 Investigate the structure of the `bogota` object stored within the `io` object
 
-### Show summary of the object (list all items)
-### Show the head of the base population object
-### Create a summary of background PA by age and sex groups
-### See if males and females have the same background PA
+## Show summary of the object (list all items)
+## Show the head of the base population object
+## Create a summary of background PA by age and sex groups
+## See if males and females have the same background PA
+## Read the baseline population with background PA volumne (in marginal MET hours per week)
+## Calculate the total PA volume for each participant
+## Make sure that they match with the io object
 
-### Read the baseline population with background PA volumne (in marginal MET hours per week)
-
-Get the trip dataset from the `io` object
+Get the `base_pop` dataset from the `bogota` object
 
 ```{webr}
 #| exercise: ex_2
@@ -227,11 +228,16 @@ trips <- io$bogota$______
 ______(trips)
 ```
 
-#### Calculate distnace per person for active travel modes (cycling and walking) 
+#### Calculate distance per person for active travel modes (cycling and walking) 
 
 
 ```{webr}
 #| exercise: ex_5
+
+
+
+# io$bogota$trip_scen_sets |> mutate(stage_mode = case_when(grepl("walk", stage_mode) ~ "pedestrian", TRUE ~ stage_mode)) |> filter(stage_mode %in% c("cycle", "pedestrian")) |> group_by(participant_id, stage_mode, scenario) |> reframe(dur_cycle = sum(stage_distance[stage_mode == "cycle"]) / 60, dur_walk = sum(stage_distance[stage_mode == "pedestrian"]) / 60) |> ungroup() |> group_by(participant_id, scenario) |> reframe(total_cyc_dur = sum(dur_cycle, na.rm = T), total_walk_dur = sum(dur_walk, na.rm = T)) |> mutate(mmets_cyc = total_cyc_dur * (CYCLING_MET - 1), mmets_walk = total_walk_dur * (WALKING_MET - 1), total_mmets = mmets_cyc + mmets_walk)
+
 
 # Using trips dataset, do the following to calculate per person distance in cycling and walking
 # But before that, we need to identify which modes contain active travels. They are: cycling, pedestrian and walk_to_pt (walking component of to and from the bus stops)
