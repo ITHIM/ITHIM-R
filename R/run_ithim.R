@@ -120,9 +120,12 @@ ithim_calculation_sequence <- function(ithim_object, seed = 1) {
   ## (1) AP PATHWAY
   # Calculate PM2.5 emissions for each mode and scenario and calculate PM2.5
   # exposure for each person in the baseline population
+  
   pm_conc <- scenario_pm_calculations(
-    dist = (true_dist %>% dplyr::filter(stage_mode != "unknown")
-      %>% dplyr::mutate_at(-c(1), as.integer)),
+    dist = (true_dist |>  
+              dplyr::filter(stage_mode != "unknown") |> 
+              mutate_if(is.numeric, ~ (.x/DAY_TO_WEEK_TRAVEL_SCALAR)) |> 
+              dplyr::mutate_at(-c(1), as.integer)),
     trip_scen_sets = trip_scen_sets
   ) # 3
 
