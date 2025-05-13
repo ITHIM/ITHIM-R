@@ -16,13 +16,18 @@ webr:
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 
-## Setting up question and answers
+## Goal
+- 7th session. Simulation of individual level baseline Physicl Activity (PA) from travel and non-travel
+- 8th session. Derive a synthetic population with reference PA and derive summary statistics.  
 
-Fill in the blank so that the result of the sum is 10.
+Before we get into exercises, let's explore how this works. We will start off with an example Q&A below:
+
+### Setting up question and answers
+
+Fill in the blank so that the result of the *sum* is 10.
 
 ```{webr}
 #| exercise: ex_0
-
 1 + 2 + 3 + ______
 ```
 
@@ -48,7 +53,8 @@ You should make the expression sum to 10.
 ```
 :::
 
-On the first day, you would have run the model and saved the outputs in the `io` object.
+On the first day, you would have run the model and saved the outputs in the `io` object. We have read it in the background and can access it throughout these exercises.
+
 
 ```{webr}
 #| setup: true
@@ -57,6 +63,12 @@ On the first day, you would have run the model and saved the outputs in the `io`
 #|   - ex_2
 #|   - ex_3
 #|   - ex_4
+#|   - ex_5
+#|   - ex_6
+#|   - ex_7
+#|   - ex_8
+#|   - ex_9
+#|   - ex_10
 
 # Download RDS file from a URL into the virtual file system
 #url <- "https://github.com/ITHIM/ITHIM-R/raw/refs/heads/simple/results/multi_city/io.rds"
@@ -68,13 +80,12 @@ On the first day, you would have run the model and saved the outputs in the `io`
 
 # Read the RDS file
 io <- readRDS("data/io.rds")
-
 trips <- io$bogota$trip_scen_sets
 ```
 
 ### A closer look at the `ithim` object
 
-Investigate the structure of the `io` object
+Investigate the structure of the `io` object. If you need help, please explore `hints`. 
 
 ```{webr}
 #| exercise: ex_1
@@ -94,7 +105,7 @@ if (identical(.result, names(io))) {
 
 ::: { .hint exercise="ex_1"}
 ::: { .callout-note collapse="false"}
-## Hint 1
+### Hint 1
 
 Consider using the `names()` function
 
@@ -104,22 +115,65 @@ io$bogota |> names()
 :::
 :::
 
-## Now look at Bogota specific list called `bogota`
+### Now look at Bogota specific list called `bogota`
 
-Investigate the structure of the `bogota` object stored within the `io` object
+Similar to the io object (which is a list), let's investigate the structure of the `bogota` list stored within the `io` object. Use the previously learnt knowledge to explore it.
 
-## Show summary of the object (list all items)
-## Show the head of the base population object
-## Create a summary of background PA by age and sex groups
-## See if males and females have the same background PA
-## Read the baseline population with background PA volumne (in marginal MET hours per week)
-## Calculate the total PA volume for each participant
+```{webr}
+#| exercise: ex_2
+______(io$bogota)
+```
+
+
+### Show the first few rows of the base population object
+
+
+```{webr}
+#| exercise: ex_3
+______(io$bogota$base_pop)
+```
+
+### Create a summary of background PA by age and sex groups
+
+
+```{webr}
+#| exercise: ex_4
+io$bogota$base_pop |> 
+  group_by(______, ______) |> 
+  reframe(mean_background_LTPA = 
+            mean(work_ltpa_marg_met))
+```
+
+### See if males and females have the same background PA
+
+Using `sex` column, we are interested in calculating `mean` value of the column `work_ltpa_marg_met` below.
+
+```{webr}
+#| exercise: ex_5
+io$bogota$base_pop |> 
+  ungroup() |> 
+  group_by(______) |> 
+  reframe(mean_background_LTPA = 
+            mean(work_ltpa_marg_met))
+```
+
+## Read in the total PA volume for each participant
+
+Let's read in the data frame called `mmets` that stores total PA volume (background and travel related) from the `io` object. Once read in, let's look at the structure of it:
+
+
+```{webr}
+#| exercise: ex_6
+mmets <- io$bogota$outcomes$mmets
+head(mmets)
+```
+
 ## Make sure that they match with the io object
 
 Get the `base_pop` dataset from the `bogota` object
 
 ```{webr}
-#| exercise: ex_2
+#| exercise: ex_7
 base_pop_pa <- io$bogota$______
 ```
 
@@ -211,28 +265,28 @@ plotly::ggplotly(ggplot(prop) +
      labs(title = "Scenario definition (by mode)", y = "Percentage (%)", x = "Trip Mode") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)))
 ```
 
-### Travel related PA volume
+## Travel related PA volume
 
-#### Read the `trip` dataset from the `io` object
+### Read the `trip` dataset from the `io` object
 
 ```{webr}
-#| exercise: ex_3
+#| exercise: ex_8
 
 trips <- io$bogota$______
 ```
 
-#### Look at the columns of trips dataset
+### Look at the columns of trips dataset
 
 ```{webr}
-#| exercise: ex_4
-______(trips)
+#| exercise: ex_9
+head(trips)
 ```
 
 #### Calculate distance per person for active travel modes (cycling and walking) 
 
 
 ```{webr}
-#| exercise: ex_5
+#| exercise: ex_10
 
 
 
