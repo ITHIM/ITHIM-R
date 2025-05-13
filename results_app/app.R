@@ -463,12 +463,6 @@ server <- function(input, output, session) {
         facet_wrap(vars(city_name))
     )
     
-    
-    #browser()
-    #print(g)
-    #g
-    
-    
   })  |> bindCache(input$in_cities,
                    input$in_scens)
   
@@ -501,12 +495,6 @@ server <- function(input, output, session) {
         theme_minimal() +
         facet_wrap(vars(city_name))
     )
-    
-    
-    #browser()
-    #print(g)
-    #g
-    
     
   })  |> bindCache(input$in_cities,
                    input$in_scens)
@@ -597,15 +585,6 @@ server <- function(input, output, session) {
     
     
   })
-  
-  # mmets <- io[[cities[x]]]$outcomes$mmets #|> pivot_longer(cols = ends_with("mmet"))
-  # 
-  # change_names <- which(grepl("_mmet", names(mmets), fixed = TRUE))
-  # names(mmets)[change_names] <- sapply(gsub("_mmet" , "", names(mmets)[change_names]), FUN = get_qualified_scen_name)
-  # 
-  #  |> rename(Scenario = name)
-  # 
-  # mmets_df <- mmets |> filter(Scenario %in% c("Baseline", "Bus"))
   
   get_summary_ap_data <- function(filtered_cities, filtered_scens){
     
@@ -1036,7 +1015,6 @@ server <- function(input, output, session) {
         data <- get_summary_data("pm_conc_pm", filtered_cities, filtered_scens)
       }
       
-      # data$measure <- input$in_measure
       write_csv(data, file)
     }
     
