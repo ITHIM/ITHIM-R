@@ -1,76 +1,66 @@
 ---
-title: "Day 1: setting up and using ITHIM Global V2 in Rstudio cloud"
+title: "Setting up and using ITHIM Global V2 in Posit cloud"
 author: "Ali and Lambed"
-format: revealjs
+format: 
+  revealjs:
+    self-contained: true
+    slide-number: true
+    incremental: true
+    number-sections: true
+    number-depth: 3
+    width: 1920
+    height: 1080
+    logo: "https://www.mrc-epid.cam.ac.uk/wp-content/uploads/2021/10/colour-epi-logo.png"
+    # footer: "[ITHIM](https://ithim.github.io/valencia_training/training_materials//)"
+    #css: ["theme/theme.css"]
+    theme: [simple]
+  html:
+    code-copy: false
 editor: visual
-date: 2025-05-19
+execute: 
+  echo: true
+  warning: false
+  message: false
+  size: "huge"
 ---
 
-# 1. Setup Rstudio and ITHIM Global V2 (75 mins)
+# Setup Rstudio and ITHIM Global V2 (65 mins)
 
--   1.2. Setup rstudio cloud (30 min)
+-   Setup Posit cloud (30 min)
 
--   1.2. Install the ITHIM-Global V2 package (45 min)
+-   Install the ITHIM-Global V2 package (45 min)
 
-## 1.1. Setup rstudio cloud (30 mins)
+## Setup posit cloud (20 mins)
 
 ### Overview (5 mins)
 
--   Introduce RStudio Cloud and its benefits for collaborative R work.
+-   Introduce Posit cloud and its benefits for collaborative R work.
 
-    -   What is RStudio Cloud? Cloud-based RStudio IDE accessible via browser.
+    -   What is Posit cloud? Cloud-based RStudio IDE accessible via browser.
 
     -   Key features: no local installation, reproducible environments, easy sharing.
 
     -   Use cases: teaching labs, workshops, remote collaboration.
 
-### Student account setup (3 mins)
+---
 
-1.  Navigate to https://rstudio.cloud (using the invitation link sent to your email).
+### Student account setup (5 mins)
 
-2.  Click **Sign Up** with your email registration or choose Google, GitHub etc
+-   Navigate to [https://posit.cloud](Posit%20Cloud) (using the invitation link sent to your email).
 
-3.  Verify your email if prompted.
+-   Click **Sign Up** with your email registration or choose Google, GitHub etc
 
-4.  Briefly explore the dashboard:
+-   Verify your email if prompted.
+
+-   Briefly explore the dashboard:
 
     -   **Projects** pane
 
     -   **Access** and **Settings**
 
-### Creating a project from GitHub (6 mins)
+    -   Join the space: <https://posit.cloud/spaces/647431/> - if not already
 
-1.  On the dashboard, click **New Project** → **New Project from GitHub**.
-
-2.  In the dialog, enter the repository URL, e.g.: use this toy project (light)
-
-    ```         
-    https://github.com/your-org/your-course-repo.git
-    ```
-
-3.  (Optional) Specify a subdirectory if the repo has multiple labs.
-
-4.  Click **Create Project**. Wait for the cloud environment to launch.
-
-5.  Tour the new project workspace:
-
-    -   Console, **Files** pane, **Plots**, **Help**.
-
-    -   The cloned repo appears in **Files**.
-
-### Opening and running code (4 mins)
-
--   In the **Files** pane, locate the starter script, e.g., `lab1.R` or `analysis.R`.
-
--   Click to open it in the editor.
-
--   In the console, run:
-
-    ```         
-    source("lab1.R")
-    ```
-
--   Verify that the code executes and produces output (plots, tables).
+---
 
 ### Q&A and next steps (10 mins)
 
@@ -84,31 +74,37 @@ date: 2025-05-19
 
 -   Answer any immediate questions.
 
--   Direct students to lab instructions in the README.
+-   Direct participants to lab instructions to [posit cloud guide](https://docs.posit.co/cloud/guide/projects/).
 
-## 1.2. Install the ITHIM-Global V2 package (45 mins)
+## Install the ITHIM-Global V2 package (45 mins) \[1/3\]
 
 -   Your landing page for the ithim-global-v2 package will look like the figure below
 
     ![](images/landing_page2.png)
 
+## Install the ITHIM-Global V2 package (45 mins)
+
 -   When you click on the project (START), it should create a copy like this (\~5 mins)
 
     ![](images/clipboard-2289141768.png)
+
+## Install the ITHIM-Global V2 package (45 mins)
 
 -   Once the ITHIM project is open
 
 -   Run the following lines to install/update the required packages \~25mins
 
-    -   renv::install() #(installs most of the needed packages/dependencies) (\~1min)
+    -   `renv::install()` #(installs most of the needed packages/dependencies) (\~1min)
 
-    -   renv::install("meta-analyses/drpa") #(adds the drpa package that failed to install) (\~20 mins)
+    -   `renv::install("meta-analyses/drpa")` #(adds the drpa package that failed to install) (\~20 mins)
 
-    -   install.packages(c("plotly", "ReIns", "distr", "pracma", "truncnorm" )) #(add other packeges) (\~3 mins)
+    -   `install.packages(c("plotly", "ReIns", "distr", "pracma", "truncnorm" ))` #(add other packages) (\~3 mins)
 
 -   Build a functional package from the downloaded scripts as follows: (\<1min)
 
     ![](images/build_package.png)
+
+## Keeping up to date
 
 -   We may ask you to pull changes to the exercises from GitHub. In that case, follow the steps below:
 
@@ -122,7 +118,7 @@ date: 2025-05-19
 
 # Break (10 mins)
 
-# 2. Overview of ITHIM Global V2 (30 mins)
+# Overview of ITHIM Global V2 (40 mins)
 
 ## Agenda
 
@@ -152,7 +148,7 @@ date: 2025-05-19
 
 -   Summary
 
-# Why ITHIM Global V2?
+## Why ITHIM Global V2?
 
 ```{r}
 #| echo: false
@@ -163,22 +159,6 @@ library(tidyverse)
 # gt
 library(gt)
 
-
-if (!exists("output_version")){
-  ## Get the current repo sha
-  gitArgs <- c("rev-parse", "--short", "HEAD", ">", file.path("repo_sha"))
-  # Use shell command for Windows as it's failing with system2 for Windows (giving status 128)
-  if (.Platform$OS.type == "windows"){
-    shell(paste(append("git", gitArgs), collapse = " "), wait = T)
-  } else {
-    system2("git", gitArgs, wait = T)
-  }
-  
-  repo_sha <-  as.character(readLines(file.path("repo_sha")))
-  output_version <- repo_sha
-}
-
-#io <- readRDS(paste0("../results/multi_city/io_", output_version, ".rds"))
 io <- readRDS(paste0("../results/multi_city/io.rds"))
 
 all_cause_ap <- read_csv("../inst/extdata/global/dose_response/drap/extdata/all_cause_ap.csv")
@@ -220,7 +200,7 @@ gt_small_font_size <- 25
 
 ![](images/clipboard-185571868.png)
 
-## Synethtic Trip Dataset (1/2)
+## Synthetic Trip Dataset (1/2)
 
 A modelled week long synthetic trip dataset in which each row represents a trip with:
 
@@ -241,6 +221,8 @@ A modelled week long synthetic trip dataset in which each row represents a trip 
 -   **Stage-level variables:**
     -   **stage_mode**: Mode of the trip stage
     -   **stage_duration**: Duration of each stage in minutes
+
+. . .
 
 ```{r}
 #| echo: false
@@ -313,9 +295,9 @@ io[[city]]$demographic |> mutate(across(where(is.double), round, 2)) |> head() |
 
 ## Parameters
 
-![City-specific parameters that primarily come from [Emissions Database for Global Atmospheric Research (EDGAR)](https://edgar.jrc.ec.europa.eu/)](images/ithim-simple-params.png){alt="City-specific parameters that primarily come from Emissions Database for Global Atmospheric Research (EDGAR)" fig-align="center"}
+![City-specific parameters that primarily come from Emissions Database for Global Atmospheric Research (EDGAR)](images/ithim-simple-params.png){fig-align="center"}
 
-# What are the main ingredients?
+## What are the main ingredients?
 
 ## Physical activity
 
@@ -413,7 +395,8 @@ $$ PM2.5_{inhaled} = TravelMode_{dur} * Vent_{rate}  * ExposureRates_{mode} * PM
 
 ## AP dose-response (exposure response)
 
-```{#| eval: true}
+```{r}
+#| eval: true
 #| echo: false
 
 
@@ -441,7 +424,7 @@ ap_pif2 <- calculate_ap_pif(base_dose = 5, scen_dose = 10)
 print(round(ap_pif2, 2))
 ```
 
-```{}
+```         
 ```
 
 . . .
@@ -457,17 +440,9 @@ ap_pif2 <- calculate_ap_pif(base_dose = 10, scen_dose = 15)
 print(round(ap_pif2, 2))
 ```
 
-# Shiny interface
-
-# Conclusion
-
 ## Summary
 
 -   A global generalised model that uses synthetic travel behaviour and easy to get city-specific handful of parameters
--   Synthetic travel behaviour needs to account for:
-    -   Trips with multi-stages such as public transport with walking stages
-    -   Account for people without any trips
-    -   Better prediction of low mode share, such as cycling, for most cities
 -   Include injury risks - similar to HEAT and ITHIM global V1, by:
     -   Population
     -   Duration
@@ -475,25 +450,27 @@ print(round(ap_pif2, 2))
 -   Health modelling using more advanced techniques such as proportional multi-state life table
 -   Include other pollutants such as black carbon, NO2
 
-# 3. Run the multi_city script (10 mins)
+# Run the multi_city script (10 mins)
 
 -   Source the multi_city script as follows (calls the packages and runs the model)
 
-# 4. Explore ITHIM functions and outputs (25 mins)
+# Explore ITHIM functions and outputs (25 mins)
 
-## 4.1. Locate the ithim_object (io) output
+## Locate the ithim_object (io) output
 
 -   Once the multi_city script finishes running, it outputs an ithim_object (io_rds), which contains almost everything that you need
 
-    -   Locate the folders where io.rds sits
+    -   Locate the folders where io.rds sits - (ITHIM-R/results/multi_city/io.rds)
 
-    -   Open io.rds and identify the following
+    -   Import it by clicking on it
 
-        -   travel behaviour data by scenario
+    -   Open it by `View(io)` and familiarize yourself with its strucutre
 
-        -   Vehicle distances
+    -   ![](images/clipboard-1706534993.png)
 
-## 4.2. Explore functions in multi-city script
+        -   Further details of each object can be foudn here: <https://ithim.github.io/ITHIM-R/articles/how-to-run-ITHIM.html#ithim_objects>
+
+## Explore functions in multi-city script
 
 -   Let's take a deeper look at the functions we can easily modify in the multi_city script
 
@@ -505,4 +482,8 @@ print(round(ap_pif2, 2))
 
     -   scenario definition
 
-    -   etc
+    -   Two main ithim functions:
+
+        -   `run_ithim_setup` - setting up parameters and scenario for `bogota` . Documentation here: <https://ithim.github.io/ITHIM-R/reference/run_ithim.html>
+
+        -   `run_ithim` - running the model. Documentation here: <https://ithim.github.io/ITHIM-R/reference/run_ithim_setup.html>
