@@ -280,7 +280,7 @@ scenario_pm_calculations <- function(dist, trip_scen_sets) {
       vo2 = ecf * met * rmr,
       pct_vo2max = ifelse(stage_duration < 5, 100,
         ifelse(stage_duration > 540, 33,
-          121.2 - (14 * log(stage_duration))
+          121.2 - (14 * log(stage_duration / DAY_TO_WEEK_TRAVEL_SCALAR))
         )
       ),
       upper_vo2max = vo2max * (pct_vo2max / 100),
@@ -306,15 +306,15 @@ scenario_pm_calculations <- function(dist, trip_scen_sets) {
 
   # cubic meters of air inhaled are the product of the ventilation rate and the
   # time (hours/60) spent travelling by that mode
-  trip_set$air_inhaled <- trip_set$stage_duration / 60 * trip_set$v_rate
+  trip_set$air_inhaled <- trip_set$stage_duration / (60 * DAY_TO_WEEK_TRAVEL_SCALAR) * trip_set$v_rate
 
   # PM inhaled (micro grams) = duration * ventilation rate * exposure rates * concentration
-  trip_set$pm_inhaled <- trip_set$stage_duration / 60 * trip_set$v_rate * trip_set$e_rate * trip_set$conc_pm
+  trip_set$pm_inhaled <- trip_set$stage_duration / (60 * DAY_TO_WEEK_TRAVEL_SCALAR) * trip_set$v_rate * trip_set$e_rate * trip_set$conc_pm
 
   # Calculate total_travel_time_hrs of stage_duration
   trip_set <- trip_set %>%
     group_by(participant_id, scenario) %>%
-    mutate(total_travel_time_hrs = sum(stage_duration) / 60) %>%
+    mutate(total_travel_time_hrs = sum(stage_duration) / (60 * DAY_TO_WEEK_TRAVEL_SCALAR)) %>%
     ungroup()
 
 
