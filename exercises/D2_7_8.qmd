@@ -284,6 +284,13 @@ head(trips)
 
 #### Calculate distance per person for active travel modes (cycling and walking) 
 
+Using trips dataset, do the following to calculate per person distance in cycling and walking:
+1. But before that, we need to identify which modes contain active travels. They are: `cycling`, `pedestrian` and `walk_to_pt` (walking component of to and from the bus stops)
+2. Each person with their demographic information (age and sex) is stored in the `base_pop`
+3. Use that dataset to identify the number of people and then 
+4. Sum distance by each active mode and divide it by number of people for mean values
+
+
 
 ```{webr}
 #| exercise: ex_10
@@ -293,11 +300,6 @@ head(trips)
 # io$bogota$trip_scen_sets |> mutate(stage_mode = case_when(grepl("walk", stage_mode) ~ "pedestrian", TRUE ~ stage_mode)) |> filter(stage_mode %in% c("cycle", "pedestrian")) |> group_by(participant_id, stage_mode, scenario) |> reframe(dur_cycle = sum(stage_distance[stage_mode == "cycle"]) / 60, dur_walk = sum(stage_distance[stage_mode == "pedestrian"]) / 60) |> ungroup() |> group_by(participant_id, scenario) |> reframe(total_cyc_dur = sum(dur_cycle, na.rm = T), total_walk_dur = sum(dur_walk, na.rm = T)) |> mutate(mmets_cyc = total_cyc_dur * (CYCLING_MET - 1), mmets_walk = total_walk_dur * (WALKING_MET - 1), total_mmets = mmets_cyc + mmets_walk)
 
 
-# Using trips dataset, do the following to calculate per person distance in cycling and walking
-# But before that, we need to identify which modes contain active travels. They are: cycling, pedestrian and walk_to_pt (walking component of to and from the bus stops)
-# The unique number of people are stored in the base_pop
-# Use that dataset to identify the number of people and then 
-# sum distance by each active mode and divide it by number of people for mean values
 trips |> 
   filter(stage_mode %in% c("cycle", "pedestrian", "walk_to_pt"))
   group_by(stage_mode, scenario) |> 
