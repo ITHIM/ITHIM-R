@@ -17,8 +17,9 @@ webr:
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 
 ## Goal
-- 7th session. Simulation of individual level baseline Physicl Activity (PA) from travel and non-travel
-- 8th session. Derive a synthetic population with reference PA and derive summary statistics.  
+
+-   7th session. Simulation of individual level baseline Physicl Activity (PA) from travel and non-travel
+-   8th session. Derive a synthetic population with reference PA and derive summary statistics.
 
 Before we get into exercises, let's explore how this works. We will start off with an example Q&A below:
 
@@ -55,7 +56,6 @@ You should make the expression sum to 10.
 
 On the first day, you would have run the model and saved the outputs in the `io` object. We have read it in the background and can access it throughout these exercises.
 
-
 ```{webr}
 #| setup: true
 #| exercise:
@@ -70,22 +70,23 @@ On the first day, you would have run the model and saved the outputs in the `io`
 #|   - ex_9
 #|   - ex_10
 
-# Download RDS file from a URL into the virtual file system
-#url <- "https://github.com/ITHIM/ITHIM-R/raw/refs/heads/simple/results/multi_city/io.rds"
-#url <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/simple/results/multi_city/io.rds"
-#temp_file <- tempfile(fileext = ".rds")
-#httr::GET(url, httr::write_disk(temp_file, overwrite = TRUE))
-
-#download.file(url, "io.rds")
-
-# Read the RDS file
 io <- readRDS("data/io.rds")
 trips <- io$bogota$trip_scen_sets
+active_travel_duration <- io$bogota$trip_scen_sets |> 
+  filter(participant_id > 0) |> 
+  mutate(stage_mode = case_when(grepl("walk", stage_mode) ~ 
+                                  "pedestrian", TRUE ~ stage_mode), 
+         stage_duration = stage_duration / 60) |> 
+  group_by(participant_id, scenario) |> 
+  reframe(dur_cyc_hrs = sum(stage_duration[stage_mode == "cycle"]),
+          dur_ped_hrs = sum(stage_duration[stage_mode == "pedestrian"]))
+
+
 ```
 
 ### A closer look at the `ithim` object
 
-Investigate the structure of the `io` object. If you need help, please explore `hints`. 
+Investigate the structure of the `io` object. If you need help, please explore `hints`.
 
 ```{webr}
 #| exercise: ex_1
@@ -102,9 +103,8 @@ if (identical(.result, names(io))) {
 }
 ```
 
-
-::: { .hint exercise="ex_1"}
-::: { .callout-note collapse="false"}
+:::: {.hint exercise="ex_1"}
+::: {.callout-note collapse="false"}
 ### Hint 1
 
 Consider using the `names()` function
@@ -113,7 +113,7 @@ Consider using the `names()` function
 io$bogota |> names()
 ```
 :::
-:::
+::::
 
 ### Now look at Bogota specific list called `bogota`
 
@@ -124,9 +124,7 @@ Similar to the io object (which is a list), let's investigate the structure of t
 ______(io$bogota)
 ```
 
-
 ### Show the first few rows of the base population object
-
 
 ```{webr}
 #| exercise: ex_3
@@ -134,7 +132,6 @@ ______(io$bogota$base_pop)
 ```
 
 ### Create a summary of background PA by age and sex groups
-
 
 ```{webr}
 #| exercise: ex_4
@@ -160,7 +157,6 @@ io$bogota$base_pop |>
 ## Read in the total PA volume for each participant
 
 Let's read in the data frame called `mmets` that stores total PA volume (background and travel related) from the `io` object. Once read in, let's look at the structure of it:
-
 
 ```{webr}
 #| exercise: ex_6
@@ -282,31 +278,44 @@ trips <- io$bogota$______
 head(trips)
 ```
 
-#### Calculate distance per person for active travel modes (cycling and walking) 
+#### Calculate duration per person for active travel modes (cycling and walking)
 
-Using trips dataset, do the following to calculate per person distance in cycling and walking:
-1. But before that, we need to identify which modes contain active travels. They are: `cycling`, `pedestrian` and `walk_to_pt` (walking component of to and from the bus stops)
-2. Each person with their demographic information (age and sex) is stored in the `base_pop`
-3. Use that dataset to identify the number of people and then 
-4. Sum distance by each active mode and divide it by number of people for mean values
+Using trips dataset, do the following to calculate time spent (duration) per person doing cycling and walking by following these steps:
 
+-   But before that, we need to identify which modes contain active travels. They are: `cycling`, `pedestrian` and `walk_to_pt` (walking component of to and from the bus stops).
 
+-   Each person with their demographic information (age and sex) is stored in the `base_pop`
+
+-   Use that dataset to identify the number of people and then
+
+-   Sum duration by each active mode
 
 ```{webr}
 #| exercise: ex_10
 
+# Initialize MET values for cycling and walking 
+CYCLING_MET <- 6.8
+WALKING_MET <- 3.5
 
+active_travel_duration <- 
 
-# io$bogota$trip_scen_sets |> mutate(stage_mode = case_when(grepl("walk", stage_mode) ~ "pedestrian", TRUE ~ stage_mode)) |> filter(stage_mode %in% c("cycle", "pedestrian")) |> group_by(participant_id, stage_mode, scenario) |> reframe(dur_cycle = sum(stage_distance[stage_mode == "cycle"]) / 60, dur_walk = sum(stage_distance[stage_mode == "pedestrian"]) / 60) |> ungroup() |> group_by(participant_id, scenario) |> reframe(total_cyc_dur = sum(dur_cycle, na.rm = T), total_walk_dur = sum(dur_walk, na.rm = T)) |> mutate(mmets_cyc = total_cyc_dur * (CYCLING_MET - 1), mmets_walk = total_walk_dur * (WALKING_MET - 1), total_mmets = mmets_cyc + mmets_walk)
+mmets_pp <- io$bogota$trip_scen_sets |> 
+  filter(participant_id > 0) |> 
+  mutate(stage_mode = case_when(grepl("walk", stage_mode) ~ 
+                                  "pedestrian", TRUE ~ stage_mode), 
+         stage_duration = stage_duration / 60) |> 
+  group_by(participant_id, scenario) |> 
+  # identify which stage_mode is either cycling or pedestrian and 
+  reframe(total_mmets = sum(stage_duration[stage_mode == "______"]) * (CYCLING_MET - 1) + 
+            sum(stage_duration[stage_mode == "______"]) * (WALKING_MET - 1)) |>  
+  mutate(across(where(is.numeric), ~replace_na(., 0))) |> 
+  left_join(io$bogota$base_pop |> dplyr::select(participant_id, work_ltpa_marg_met)) |> 
+  mutate(overall_mmets = total_mmets + work_ltpa_marg_met) |> 
+  dplyr::select(participant_id, scenario, overall_mmets) |> 
+  pivot_wider(names_from = scenario, values_from = overall_mmets) |> 
+  arrange(participant_id)
 
-
-trips |> 
-  filter(stage_mode %in% c("cycle", "pedestrian", "walk_to_pt"))
-  group_by(stage_mode, scenario) |> 
-  reframe(mean_dist = sum(______) / nrow(io$bogota$base_pop)) |> 
-  pivot_wider(names_from = stage_mode, values_from = mean_dist)
 ```
-
 
 3.  Background PA volume (based on distribution as well as PA survey, if time permits)
 
