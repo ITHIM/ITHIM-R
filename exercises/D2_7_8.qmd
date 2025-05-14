@@ -69,17 +69,42 @@ On the first day, you would have run the model and saved the outputs in the `io`
 #|   - ex_8
 #|   - ex_9
 #|   - ex_10
+#|   - ex_11
+#|   - ex_12
+#|   - ex_13
+#|   - ex_14
+
+# Initialize MET values for cycling and walking 
+CYCLING_MET <- 6.8
+WALKING_MET <- 3.5
 
 io <- readRDS("data/io.rds")
 trips <- io$bogota$trip_scen_sets
 active_travel_duration <- io$bogota$trip_scen_sets |> 
   filter(participant_id > 0) |> 
-  mutate(stage_mode = case_when(grepl("walk", stage_mode) ~ 
+  mutate(stage_mode = case_when(grepl("walk_to_pt", stage_mode) ~ 
                                   "pedestrian", TRUE ~ stage_mode), 
          stage_duration = stage_duration / 60) |> 
   group_by(participant_id, scenario) |> 
   reframe(dur_cyc_hrs = sum(stage_duration[stage_mode == "cycle"]),
           dur_ped_hrs = sum(stage_duration[stage_mode == "pedestrian"]))
+
+travel_mmets <- active_travel_duration |> 
+  group_by(participant_id, scenario) |> 
+  reframe(total_travel_mmets = dur_cyc_hrs * (CYCLING_MET - 1) + 
+            dur_ped_hrs * (WALKING_MET - 1)) 
+
+mmets_pp <- travel_mmets |> 
+  left_join(io$bogota$base_pop |> 
+              dplyr::select(participant_id, 
+                            work_ltpa_marg_met))
+
+mmets_pp_total <- mmets_pp |> 
+  mutate(total_mmets = total_travel_mmets + work_ltpa_marg_met)
+
+mmets_pp_total_wide <- mmets_pp_total |> 
+  dplyr::select(-c(total_travel_mmets, work_ltpa_marg_met)) |> 
+  pivot_wider(names_from = scenario, values_from = total_mmets)
 
 
 ```
@@ -213,54 +238,6 @@ base_pop_pa <- io$bogota$base_pop  #<2>
 :::
 ::::
 
-### Under the hood for scenario definition
-
-Using this `io` object, look at the calculations of PA volume by:
-
-1.  Remind ourselves what the scenarios were - the 5 percent increase in `car`, `cycling` and `bus` modes.
-
-```{webr}
-#| echo: false
-#| edit: false
-#| output: true
-#| warning: false
-
-io <- readRDS("data/io.rds")
-
-trips <- io$bogota$trip_scen_sets
-
-total_trips <- trips |> dplyr::filter(scenario == "baseline") |> 
-    distinct(trip_id, scenario, .keep_all = T) |> nrow()
-
-prop <- trips |> 
-    dplyr::filter(participant_id !=0) |> 
-    distinct(trip_id, scenario, .keep_all = T) |> 
-    group_by(scenario, trip_mode) |> 
-    reframe(freq = round(sum(dplyr::n())/total_trips*100, 1)) |> 
-    mutate(pd = freq - freq[scenario == 'baseline']) |> 
-    filter(pd != 0)
-
-prop[prop$scenario == "baseline",]$scenario <- "Baseline"
-prop[prop$scenario == "sc_bus",]$scenario <- "Bus"
-prop[prop$scenario == "sc_car",]$scenario <- "Car"
-prop[prop$scenario == "sc_cycle",]$scenario <- "Cycling"
-
-scen_colours <- c("Baseline" = '#b15928',
-                  "Cycling" = '#abdda4',
-                  "Car" = '#d7191c',
-                  "Bus" = '#2b83ba',
-                  "Motorcycle" = '#fdae61')
-
-plotly::ggplotly(ggplot(prop) +
-     aes(x = trip_mode, fill = scenario, weight = pd) +
-     geom_bar() +
-    scale_x_discrete(guide = guide_axis(angle = 90)) + 
-    geom_text(aes(x = trip_mode, y = round(pd, 1), label = round(pd, 1)), size = 4, 
-                                 position = position_dodge()) + scale_fill_manual(values = scen_colours) +
-     facet_wrap(vars(scenario)) + 
-     labs(title = "Scenario definition (by mode)", y = "Percentage (%)", x = "Trip Mode") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)))
-```
-
 ## Travel related PA volume
 
 ### Read the `trip` dataset from the `io` object
@@ -278,7 +255,7 @@ trips <- io$bogota$______
 head(trips)
 ```
 
-#### Calculate duration per person for active travel modes (cycling and walking)
+### Calculate duration per person for active travel modes (cycling and walking)
 
 Using trips dataset, do the following to calculate time spent (duration) per person doing cycling and walking by following these steps:
 
@@ -292,37 +269,61 @@ Using trips dataset, do the following to calculate time spent (duration) per per
 
 ```{webr}
 #| exercise: ex_10
-
-# Initialize MET values for cycling and walking 
-CYCLING_MET <- 6.8
-WALKING_MET <- 3.5
-
-active_travel_duration <- 
-
-mmets_pp <- io$bogota$trip_scen_sets |> 
+active_travel_duration <- io$bogota$trip_scen_sets |> 
   filter(participant_id > 0) |> 
-  mutate(stage_mode = case_when(grepl("walk", stage_mode) ~ 
+  mutate(stage_mode = case_when(grepl("walk_to_pt", stage_mode) ~ 
                                   "pedestrian", TRUE ~ stage_mode), 
          stage_duration = stage_duration / 60) |> 
   group_by(participant_id, scenario) |> 
-  # identify which stage_mode is either cycling or pedestrian and 
-  reframe(total_mmets = sum(stage_duration[stage_mode == "______"]) * (CYCLING_MET - 1) + 
-            sum(stage_duration[stage_mode == "______"]) * (WALKING_MET - 1)) |>  
-  mutate(across(where(is.numeric), ~replace_na(., 0))) |> 
-  left_join(io$bogota$base_pop |> dplyr::select(participant_id, work_ltpa_marg_met)) |> 
-  mutate(overall_mmets = total_mmets + work_ltpa_marg_met) |> 
-  dplyr::select(participant_id, scenario, overall_mmets) |> 
-  pivot_wider(names_from = scenario, values_from = overall_mmets) |> 
-  arrange(participant_id)
+  reframe(dur_cyc_hrs = sum(stage_duration[stage_mode == "cycle"]),
+          dur_ped_hrs = sum(stage_duration[stage_mode == "pedestrian"]))
 
+head(active_travel_duration)
 ```
 
-3.  Background PA volume (based on distribution as well as PA survey, if time permits)
+### Calculate mMET hours per week from time spent in active travel
 
-4.  Look at distribution across scenarios (including baseline) by:
+```{webr}
+#| exercise: ex_11
+travel_mmets <- active_travel_duration |> 
+  group_by(participant_id, scenario) |> 
+  reframe(total_travel_mmets = dur_cyc_hrs * (CYCLING_MET - 1) + 
+            dur_ped_hrs * (WALKING_MET - 1)) 
 
-    1.  Age groups and gender groups
+head(travel_mmets)
+```
 
-    2.  Identify who is benefiting or losing under each scenario
+###  active duration  in travel and non travel related PA together
 
-    3.  Discuss why is that the case
+Now that we have calculated travel related PA (in mMET hours per week) for each individual in the previous exercise. In this one, we'd like to bring in  both the travel and the background PA together. Just to remind you that the background PA (again in the same unit as mMET hours per week) is stored in in the `io$bogota$base_pop` object.
+
+```{webr}
+#| exercise: ex_12
+mmets_pp <- travel_mmets |> 
+  left_join(io$bogota$base_pop |> dplyr::select(participant_id, work_ltpa_marg_met))
+
+head(mmets_pp)
+```
+
+
+### Combine travel and non-traval PA together
+
+```{webr}
+#| exercise: ex_13
+mmets_pp_total <- mmets_pp |> 
+  mutate(total_mmets = total_travel_mmets + work_ltpa_marg_met)
+
+head(mmets_pp_total)
+```
+
+### Change the layout of the data frame to wide
+
+```{webr}
+#| exercise: ex_14
+mmets_pp_total_wide <- mmets_pp_total |> 
+  dplyr::select(-c(total_travel_mmets, work_ltpa_marg_met)) |> 
+  pivot_wider(names_from = scenario, values_from = total_mmets)
+
+head(mmets_pp_total_wide)
+
+```
