@@ -9,23 +9,26 @@ format:
   live-html:
     embed-resources: true
 webr:
-  packages: ['ggplot2', 'tidyverse', 'plotly']
+  packages: ['tidyverse']
   resources:
     - "data/io.rds"
+theme:
+  light: cosmo
+  dark: darkly
 ---
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 
-## Goal
+## Learning objectives:
 
--   7th session. Simulation of individual level baseline Physicl Activity (PA) from travel and non-travel
--   8th session. Derive a synthetic population with reference PA and derive summary statistics.
+-   7th session. Simulation of individual level baseline Physical Activity (PA) from travel and non-travel
+-   8th session. Derive a synthetic population with reference PA and show summary statistics.
 
 Before we get into exercises, let's explore how this works. We will start off with an example Q&A below:
 
 ### Setting up question and answers
 
-Fill in the blank so that the result of the *sum* is 10.
+Fill in the blank so that the result of the **sum** is *10*.
 
 ```{webr}
 #| exercise: ex_0
@@ -106,7 +109,6 @@ mmets_pp_total_wide <- mmets_pp_total |>
   dplyr::select(-c(total_travel_mmets, work_ltpa_marg_met)) |> 
   pivot_wider(names_from = scenario, values_from = total_mmets)
 
-
 ```
 
 ### A closer look at the `ithim` object
@@ -186,7 +188,7 @@ Let's read in the data frame called `mmets` that stores total PA volume (backgro
 ```{webr}
 #| exercise: ex_6
 mmets <- io$bogota$outcomes$mmets
-head(mmets)
+______(mmets)
 ```
 
 ## Make sure that they match with the io object
@@ -198,7 +200,7 @@ Get the `base_pop` dataset from the `bogota` object
 base_pop_pa <- io$bogota$______
 ```
 
-:::: {.hint exercise="ex_2"}
+:::: {.hint exercise="ex_7"}
 ::: {.callout-note collapse="false"}
 ## Hint 1
 
@@ -210,7 +212,7 @@ io$bogota |> names()
 :::
 ::::
 
-:::: {.hint exercise="ex_2"}
+:::: {.solution exercise="ex_7"}
 ::: {.callout-note collapse="false"}
 ## Hint 2
 
@@ -222,7 +224,7 @@ io$bogota$base_pop
 :::
 ::::
 
-:::: {.solution exercise="ex_2"}
+:::: {.solution exercise="ex_7"}
 ::: {.callout-tip collapse="false"}
 ## Fully worked solution:
 
@@ -252,7 +254,7 @@ trips <- io$bogota$______
 
 ```{webr}
 #| exercise: ex_9
-head(trips)
+______(trips)
 ```
 
 ### Calculate duration per person for active travel modes (cycling and walking)
@@ -261,41 +263,50 @@ Using trips dataset, do the following to calculate time spent (duration) per per
 
 -   But before that, we need to identify which modes contain active travels. They are: `cycling`, `pedestrian` and `walk_to_pt` (walking component of to and from the bus stops).
 
--   Each person with their demographic information (age and sex) is stored in the `base_pop`
+-   Rename short walks (`walk_to_pt`) to `pedestrian` mode
 
--   Use that dataset to identify the number of people and then
-
--   Sum duration by each active mode
+-   Sum duration by each active mode for each person.
 
 ```{webr}
 #| exercise: ex_10
 active_travel_duration <- io$bogota$trip_scen_sets |> 
+  # Remove ghost trips - (bus and car vehicles)
   filter(participant_id > 0) |> 
-  mutate(stage_mode = case_when(grepl("walk_to_pt", stage_mode) ~ 
+  mutate(
+      # Rename walk_to_pt to pedestrian
+      stage_mode = case_when(grepl("walk_to_pt", stage_mode) ~ 
                                   "pedestrian", TRUE ~ stage_mode), 
-         stage_duration = stage_duration / 60) |> 
+      # Chage stage_duration in minutes to hours            
+      stage_duration = stage_duration / 60) |> 
+  # Group by participant_id for each scenario
   group_by(participant_id, scenario) |> 
-  reframe(dur_cyc_hrs = sum(stage_duration[stage_mode == "cycle"]),
-          dur_ped_hrs = sum(stage_duration[stage_mode == "pedestrian"]))
-
+  # Calculate overall duration per person per week spent in active travel
+  reframe(dur_cyc_hrs = sum(stage_duration[stage_mode == "______"]),
+          dur_ped_hrs = sum(stage_duration[stage_mode == "______"]))
+# Show top rows
 head(active_travel_duration)
 ```
 
 ### Calculate mMET hours per week from time spent in active travel
 
+In order to calculate the total travel related PA for each person, we need to use the following function: weekly in hours \* mMET hours per week. For cycling, mMET hours per week is `5.8` and for walking, it is `2.5`. In order to have a combined travel related mMET hours per week, we sum together PA volume for `cycling` and `walking` together.
+
 ```{webr}
 #| exercise: ex_11
-travel_mmets <- active_travel_duration |> 
+travel_mmets <- 
+  # Use active travel duration per person dataset
+  active_travel_duration |> 
+  # Group by participant_id and scenario
   group_by(participant_id, scenario) |> 
-  reframe(total_travel_mmets = dur_cyc_hrs * (CYCLING_MET - 1) + 
-            dur_ped_hrs * (WALKING_MET - 1)) 
+  reframe(total_travel_mmets = ______ * (CYCLING_MET - 1) + 
+            ______ * (WALKING_MET - 1)) 
 
 head(travel_mmets)
 ```
 
-###  active duration  in travel and non travel related PA together
+### Bring travel and non travel related PA together
 
-Now that we have calculated travel related PA (in mMET hours per week) for each individual in the previous exercise. In this one, we'd like to bring in  both the travel and the background PA together. Just to remind you that the background PA (again in the same unit as mMET hours per week) is stored in in the `io$bogota$base_pop` object.
+Now that we have calculated travel related PA (in mMET hours per week) for each individual in the previous exercise. In this one, we'd like to bring in both the travel and the background PA together. Just to remind you that the background PA (again in the same unit as mMET hours per week) is stored in in the `io$bogota$base_pop` object.
 
 ```{webr}
 #| exercise: ex_12
@@ -305,24 +316,27 @@ mmets_pp <- travel_mmets |>
 head(mmets_pp)
 ```
 
+### Add travel and non-travel PA together
 
-### Combine travel and non-traval PA together
+Sum background PA (which doesn't change throughout) and the travel PA (which does change in scenarios from baseline) to calculate overall PA volume for each person in a week.
 
 ```{webr}
 #| exercise: ex_13
 mmets_pp_total <- mmets_pp |> 
-  mutate(total_mmets = total_travel_mmets + work_ltpa_marg_met)
+  mutate(total_mmets = ______ + ______)
 
 head(mmets_pp_total)
 ```
 
-### Change the layout of the data frame to wide
+### Change the layout `mmets_pp_total` to wide
+
+Change the layout of the PA volume per person per scenario
 
 ```{webr}
 #| exercise: ex_14
 mmets_pp_total_wide <- mmets_pp_total |> 
   dplyr::select(-c(total_travel_mmets, work_ltpa_marg_met)) |> 
-  pivot_wider(names_from = scenario, values_from = total_mmets)
+  pivot_wider(names_from = scenario, values_from = ______)
 
 head(mmets_pp_total_wide)
 
