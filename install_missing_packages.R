@@ -1,0 +1,6 @@
+#(installs most of the needed packages/dependencies) (~1min)
+renv::install()
+#(adds the drpa package that failed to install) (~20 mins)
+renv::install("meta-analyses/drpa")
+#(add other packages) (~3 mins)
+install.packages(c("plotly", "ReIns", "distr", "pracma", "truncnorm" ))
