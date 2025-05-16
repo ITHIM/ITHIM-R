@@ -1,26 +1,262 @@
 ---
-title: "Practical 8th session"
-format: html
-editor: visual
+title: "Practicals: Session 11"
+subtitle: "Air pollution exposure assignment"
+author: "Lambed Tatah and Ali Abbas"
+engine: knitr
+resources: 
+  - "data"
+format: 
+  live-html:
+    embed-resources: true
+webr:
+  packages: ['ggplot2', 'tidyverse', 'plotly']
+  resources:
+    - "data/io.rds"
 ---
 
-## Quarto
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
 
-## Running Code
+# Setup and call the ithim object `io`
+- Yesterday, you ran the ITHIM model and saved the outputs in `io`. It has has now been called here
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+```{webr}
+#| setup: true
+#| exercise:
+#|   - ex_1
+#|   - ex_2
+#|   - ex_3
+#|   - ex_4
+#|   - ex_5
+#|   - ex_6
+#|   - ex_7
+#|   - ex_8
+#|   - ex_9
+#|   - ex_10
 
-```{r}
-1 + 1
+# Read the RDS file
+io <- readRDS("data/io.rds")
+
 ```
 
-You can add options to executable code like this
+# Take a look at some AP relevant outputs in io
 
-```{r}
-#| echo: false
-2 * 2
+- Explore the structure of the `io` object
+  - eg display the objects in:
+    - io (list), 
+    - bogota (list), 
+    - dis (table), 
+    - dur (table), 
+    - outcomes (list)
+
+```{webr}
+#| exercise: ex_1
+______(io)
+
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+
+```{webr}
+#| exercise: ex_1
+#| check: true
+if (identical(.result, names(io))) {
+  list(correct = TRUE, message = "Nice work!")
+} else {
+  list(correct = FALSE, message = "That's incorrect, sorry.")
+}
+```
+
+:::: {.hint exercise="ex_1"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+Consider using the `names()` function
+
+``` r
+io$bogota |> names()
+```
+:::
+::::
+
+
+# Individual AP (PM2.5) exposure depends on:
+- Background PM2.5 concentration
+- Exposure factor (scaling to micro-environment during travels)
+- Inhalation rate (activity dependent)
+
+## Calculate changes in background AP (PM2.5) concentration
+- What do we need to estimate changes in background AP concentration?
+  1. Baseline background PM2.5 concentration
+  2. Transport share of PM2.5
+  3. Vehicle emission inventory
+  4. Relative change in vehicle travel distance
+  5. Combine the above variables
+  
+### 1. Baseline background PM2.5 concentration
+- We get values from  https://www.who.int/data/gho/data/themes/air-pollution/who-air-quality-database
+- We assume an average value (ignoring spatial and temporal variations)
+- Remember that thee is advancement in these estimates
+  - better resolution maps ets
+```{webr}
+#| exercise: ex_2
+conc_base_pm <- 12.69
+
+```
+
+### 2. Transport share of PM2.5
+- Varies by city heydari 2020 (Shahram Heydari)
+```{webr}
+#| exercise: ex_3
+transport_share <- 0.42
+```
+
+### 3. Vehicle emission inventory
+- Focus on the modes relevant for our calculations
+- We use values from EDGAR (link)
+  - Gives emission from different vehicles on a would grip
+  - We average over a city
+```{webr}
+#| exercise: ex_4
+
+io$bogota$vehicle_inventory |>
+  filter(PM_emission_inventory != 0) |>
+  filter(!(grepl("truck", stage_mode)))|>
+  select(-CO2_emission_inventory, -speed)
+
+```
+
+### 4. Relative change in vehicle travel distance
+
+- Read the `trip` dataset from the `io` object
+
+```{webr}
+#| exercise: ex_5
+
+trips <- io$bogota$______
+```
+
+- Calculate distance per person for motorcycle, car, bus
+
+```{webr}
+#| exercise: ex_6
+
+trips |>
+filter(stage_mode %in% c("car_driver", "bus_driver", "motorcycle"))|>
+group_by(stage_mode, scenario) |> 
+reframe(mean_dist = sum(______) / nrow(io$bogota$base_pop)) |> 
+pivot_wider(names_from = stage_mode, values_from = mean_dist)|>
+select(stage_mode, baseline)
+
+```
+
+
+- Calculate the distance travelled by vehicles in the travel dataset at baseline
+```{webr}
+#| exercise: ex_7
+trips |> 
+  filter(stage_mode %in% c("car_driver", "motorcycle", "bus_driver"))|>
+  group_by(stage_mode, scenario) |> 
+  reframe(mean_dist = sum(______)) |> 
+  pivot_wider(names_from = stage_mode, values_from = mean_dist)|>
+  select(stage_mode, baseline)
+    
+```
+
+
+- Calculate the total distance travelled by vehicles in the city at baseline
+```{webr}
+#| exercise: ex_8
+trips |> 
+  filter(stage_mode %in% c("car_driver", "motorcycle", "bus_driver"))|>
+  group_by(stage_mode, scenario) |> 
+  reframe(mean_dist = sum(______) / nrow(io$bogota$base_pop)*sum(io$bogota$demographic$population)) |> 
+  pivot_wider(names_from = stage_mode, values_from = mean_dist)|>
+  select(stage_mode, baseline)
+  
+```
+
+
+- Calculate the total distance travelled by vehicles in the city for different scenarios
+```{webr}
+#| exercise: ex_8
+trips |> 
+  filter(stage_mode %in% c("car_driver", "motorcycle", "bus_driver"))|>
+  group_by(stage_mode, scenario) |> 
+  reframe(mean_dist = sum(______) / nrow(io$bogota$base_pop)*sum(io$bogota$demographic$population)) |> 
+  pivot_wider(names_from = stage_mode, values_from = mean_dist)
+  
+```
+
+
+### 5. Combine varaibles to calculate change in background PM2.5 concentration
+
+- Calculate the total distance travelled by vehicles in the city at baseline
+```{webr}
+#| exercise: ex_9
+
+non_transport_pm_conc <- PM_CONC_BASE * (1 - PM_TRANS_SHARE)
+transport_pm_conc <- PM_TRANS_SHARE *PM_CONC_BASE * sum(trans_emissions[[SCEN[i]]], na.rm = T) / baseline_sum
+
+conc <- non_transport_pm_conc + transport_pm_conc  
+
+```
+
+- Visualise changes in pm.25 by concentration
+```{webr}
+#| exercise: ex_10
+background PM2.5 = io$bogota$outcomes$scenario_pm
+```
+
+
+## Exposure factor (during travel)
+- Calibrates background pm2.5 to micro-environment???
+
+```{webr}
+#| exercise: ex_11
+
+exp_facs <- data.frame(
+    stage_mode = c("car", "bus", "cycle", "pedestrian", "motorcycle"),
+    e_rate = c(2.5, 1.9, 2.0, 1.6, 2.0)
+  )
+  
+```
+
+## Inividual inhalation rate
+
+Calculate individual inhalation by activity type
+```{webr}
+#| exercise: ex_12
+
+#Activities include; travel, sleep, leisure, other light_activities
+#sleep_hours <- 8.3....leisure_hours <- 3.2.....light_hours <- 10.8
+
+
+travel_pm_inhaled <- trip_set$stage_duration / (60 * DAY_TO_WEEK_TRAVEL_SCALAR) * trip_set$v_rate * trip_set$e_rate * trip_set$conc_pm
+
+sleep_pm_inhaled = sleep_duration / 60 * v_rate_sleep * conc_pm,
+
+leisure_pm_inhaled = leisure_duration / 60 * v_rate_leisure * conc_pm,
+
+light_pm_inhaled = light_duration / 60 * v_rate_light * conc_pm,
+
+total_pm_inhaled = travel_pm_inhaled + sleep_pm_inhaled + leisure_pm_inhaled + light_pm_inhaled,
+
+conc_pm_inhaled = total_pm_inhaled / total_air_inhaled
+
+```
+
+
+Individual PM2.5 exposure
+- Distribution
+```{webr}
+#| exercise: ex_12
+
+io$bogota$______
+
+```
+
+
+
+
+
+
