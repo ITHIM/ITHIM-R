@@ -102,7 +102,7 @@ For each city modelled, which is in this case is `bogota`, it contains the follo
 
 Investigate the structure of the `io` object. Use the `names` function. If you need more information about it, please write `?names()` on your console.
 
-```{r setup, echo=FALSE, warning=F, eval=TRUE}
+```{r setup}
 #| echo: false
 #| warning: false
 #| eval: true
@@ -173,7 +173,7 @@ head(mmets)
 
 ## Read the `trip` dataset from the `io` object
 
-Just to remind you the trip dataset is stored as `trip_scens_sets` and it contains travel bahviour of baseline and all the scenarios.
+Just to remind you the trip dataset is stored as `trip_scens_sets` and it contains travel bahaviour of baseline and all the scenarios.
 
 ```{r}
 trips <- io$bogota$_
@@ -221,7 +221,7 @@ head(active_travel_duration)
 
 ## Calculate mMET hours per week from time spent in active travel
 
-In order to calculate the total travel related PA for each person, we need to use the following function: weekly duration in hours \* mMET hours per week. For cycling, mMET hours per week is `5.8` and for walking, it is `2.5`. In order to have a combined travel related mMET hours per week, we sum together PA volume for `cycling` and `walking` together.
+In order to calculate the total travel related PA for each person, we need to use the following function: weekly duration in hours \* mMET hours per week. For cycling, mMET hours per week is `5.8` and for walking, it is `2.5`. In order to have a combined travel related mMET hours per week, we sum PA volume for `cycling` and `walking` together.
 
 ```{r}
 travel_mmets <- 
@@ -284,7 +284,4 @@ In this section we look at statistics that the model generated with the one we g
 mmets <- mmets |> filter(_ %in% mmets_pp_total_wide$participant_id)
 
 head(mmets)
-
-
-
 ```
