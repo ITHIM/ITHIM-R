@@ -126,7 +126,6 @@ Hint: Consider using the `names()` function {.hidden-heading style="color:gray"}
 Similar to the io object (which is a list), let's investigate the structure of the `bogota` list stored within the `io` object. Use the previously learnt knowledge to explore it.
 
 ```{r}
-#| exercise: ex_2
 _(io$bogota)
 ```
 
@@ -135,7 +134,6 @@ _(io$bogota)
 The base population object of the is stored in the `base_pop` object
 
 ```{r}
-#| exercise: ex_3
 names(io$bogota$_)
 ```
 
@@ -144,7 +142,6 @@ names(io$bogota$_)
 Note that the `age` column is a continuous variable, whereas `age_cat` is a 5 year age group.
 
 ```{r}
-#| exercise: ex_4
 io$bogota$base_pop |> 
   group_by(_, _) |> 
   reframe(mean_background_LTPA = 
@@ -156,7 +153,6 @@ io$bogota$base_pop |>
 Using `sex` column, we are interested in calculating `mean` value of the column `work_ltpa_marg_met` below. Broadly speaking men have higher levels of PA than women in all domains.
 
 ```{r}
-#| exercise: ex_5
 io$bogota$base_pop |> 
   ungroup() |> 
   group_by(_) |> 
@@ -169,7 +165,6 @@ io$bogota$base_pop |>
 Let's read in the data frame called `mmets` that stores total PA volume (background and travel related) in mMET hours per week from the `io` object. Once read in, let's look at the structure of it:
 
 ```{r}
-#| exercise: ex_6
 mmets <- io$bogota$outcomes$_
 head(mmets)
 ```
@@ -181,18 +176,15 @@ head(mmets)
 Just to remind you the trip dataset is stored as `trip_scens_sets` and it contains travel bahviour of baseline and all the scenarios.
 
 ```{r}
-#| exercise: ex_8
-
 trips <- io$bogota$_
 head(trips)
 ```
 
 ## Look at the columns of trips dataset
 
-You can either use `names()` or `head()` function for this purpose. 
+You can either use `names()` or `head()` function for this purpose.
 
 ```{r}
-#| exercise: ex_9
 _(trips)
 ```
 
@@ -209,7 +201,6 @@ Using trips dataset, do the following to calculate time spent (duration) per per
 -   Sum duration by each active mode for each person.
 
 ```{r}
-#| exercise: ex_10
 active_travel_duration <- io$bogota$trip_scen_sets |> 
   # Remove ghost trips - (bus and car vehicles)
   filter(participant_id > 0) |> 
@@ -230,11 +221,9 @@ head(active_travel_duration)
 
 ## Calculate mMET hours per week from time spent in active travel
 
-In order to calculate the total travel related PA for each person, we need to use the following function: weekly duration in hours \* mMET hours per week. 
-For cycling, mMET hours per week is `5.8` and for walking, it is `2.5`. In order to have a combined travel related mMET hours per week, we sum together PA volume for `cycling` and `walking` together.
+In order to calculate the total travel related PA for each person, we need to use the following function: weekly duration in hours \* mMET hours per week. For cycling, mMET hours per week is `5.8` and for walking, it is `2.5`. In order to have a combined travel related mMET hours per week, we sum together PA volume for `cycling` and `walking` together.
 
 ```{r}
-#| exercise: ex_11
 travel_mmets <- 
   # Use active travel duration per person dataset
   active_travel_duration |> 
@@ -251,7 +240,6 @@ head(travel_mmets)
 Now that we have calculated travel related PA (in mMET hours per week) for each individual in the previous exercise. In this one, we'd like to bring in both the travel and the background PA together. Just to remind you that the background PA (again in the same unit as mMET hours per week) is stored in in the `io$bogota$base_pop` object.
 
 ```{r}
-#| exercise: ex_12
 mmets_pp <- travel_mmets |> 
   ## join it with participant id and bring the `work_ltpa_marg_met` column
   ## the stores background PA for each individual
