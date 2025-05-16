@@ -1,0 +1,86 @@
+---
+title: "Practicals: session 13th
+"
+subtitle: "Creating scenarios"
+author: "Ali Abbas"
+engine: knitr
+resources: 
+  - "data"
+format: 
+  live-html:
+    embed-resources: true
+webr:
+  packages: ['tidyverse', 'plotly', 'gt']
+  resources:
+    - "data/io.rds"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Learning objectives
+
+In-depth look at the scenario generation with a better understanding of travel behaviour
+
+```{webr}
+#| setup: true
+#| exercise:
+#|   - ex_1
+#|   - ex_2
+#|   - ex_3
+#|   - ex_4
+#|   - ex_5
+#|   - ex_6
+#|   - ex_7
+#|   - ex_8
+#|   - ex_9
+#|   - ex_10
+
+io <- readRDS("data/io.rds")
+trips <- io$bogota$trip_scen_sets
+```
+
+### Baseline travel behaviour
+
+## Trip distribution
+Before we get into scenario creation, let's have a close look at trips distribution in the travel behaviour
+
+```{webr}
+#| exercise: ex_1
+trip_dist <- io[[city]]$trip_scen_sets |>  
+    distinct(trip_id, scenario, .keep_all = T) |> 
+    filter(participant_id > 0, 
+           scenario == "baseline") |> 
+    group_by(trip_mode, scenario) |>  
+    summarise(count = dplyr::n()) |> 
+  filter(trip_mode %in% c("taxi", "rail", "auto_rickshaw", "truck", "other")) |> 
+  ungroup() |> 
+  mutate(freq = round(count / sum(count) * 100, 1)) |> dplyr::select(-count) |> pivot_wider(names_from = trip_mode, values_from = freq) |> 
+  gt(rowname_col = "row") |> 
+  data_color(columns = 2:6, domain = c(10, 35), 
+             palette = c("#009E73", "#CC79A7")) 
+
+```
+
+## Trip distribution by distance categories
+
+We have defined three distance categories, which are:
+1. Short trips within 2 kms
+2. Medium trips between 2 and 6 kms
+3. Long trips with 6+ kms.
+
+They have been drawn from domain knowledge as well as empirical distance distribution captured in many trip diary datasets. In this exercise, let's see how distances for `bus`, `car`, `cycle` and `pedestrian` trips are distributed.
+
+```{webr}
+#| exercise: ex_2
+ plotly::ggplotly(ggplot(trips |> 
+                           filter(participant_id > 0, 
+                                  scenario == "baseline", 
+                                  stage_mode %in% c('bus', 'car', 
+                                                    'cycle', 'pedestrian')), 
+                         aes(x = stage_distance, color = stage_mode)) +
++     stat_ecdf(geom = "step") +
++     geom_vline(xintercept = 2, linetype = "dashed", color = "red") +
++     geom_vline(xintercept = 6, linetype = "dashed", color = "blue") +
++     labs(x = "Distance (km)", y = "Cumulative Distribution Function (CDF)") +
++     theme_minimal())
+```
