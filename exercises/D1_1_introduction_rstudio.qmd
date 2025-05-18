@@ -250,8 +250,8 @@ Based on the individuals in the synthetic trip dataset, we create a dataset that
     -   **age**: numeric age
     -   **sex**: male or female
     -   **ltpa_marg_met:** leisure-time (non-transport) physical activity in marginal metabolic equivalent task hours (mMET-hrs) per week
-
-    . . .
+    
+. . .
 
 ```{r, results='asis'}
 #| echo: false
@@ -292,7 +292,7 @@ The demographic information is by age and gender. This also usually comes from *
     -   **age**: age group - usually a five year band as integer
     -   **population**: population size
 
-    . . .
+. . .
 
 ```{r, results='asis'}
 #| echo: false
@@ -369,7 +369,18 @@ PIF with baseline PA volume (5) mMET-hours per week and scenario PA volume (10) 
 #| echo: false
 
 pa_pif <- calculate_pa_pif(base_dose = 5, scen_dose = 10)
-print(round(pa_pif, 2))
+
+pa_pif |> round(2) |> 
+  as.data.frame() |> 
+  gt() |> 
+    # Rename columns
+  cols_label(
+    pa_pif = "Potential Impact Fraction (PIF)") |> 
+  tab_options(table.font.size = gt_big_font_size) |>  
+  gt::as_raw_html()
+ 
+ 
+#print(round(pa_pif, 2))
 ```
 
 . . .
