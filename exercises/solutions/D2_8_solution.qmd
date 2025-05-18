@@ -271,9 +271,9 @@ head(mmets_pp_total_wide)
 
 ```
 
-## Compare summary statistics of modelled output
+## Compare top rows of modelled output
 
-In this section we look at statistics that the model generated with the one we generated above. In order the compare the two, we need to account for *only* those participants that have travel information, so it means to filter those ids that exist in both travel and background datasets. Fill in the blank to filter participant id column.
+In this section we look at top rows that the model generated with the one we generated above. In order to compare the two, we need to account for *only* those participants that have travel information and ignore those without any trips. It meas to filter those ids that exist in both travel and background PA datasets. Fill in the blank to filter participant id column.
 
 ```{r}
 
@@ -282,3 +282,45 @@ mmets <- mmets |> filter(participant_id %in% mmets_pp_total_wide$participant_id)
 
 head(mmets)
 ```
+
+## Compare summary of `mmets` and `mmets_pp_total_wide`
+
+Using the `summary` function, generate summary statistics of both `mmets` (modelled output from `io`) and `mmets_pp_total_wide` (generated in this exercise) below and see if they match or not. Do note the column names might not be the same but should be close enough.
+
+```{r}
+
+summary(mmets_pp_total_wide)
+
+summary(mmets)
+
+```
+
+## Count people without any changes in PA volume
+
+You might have noticed that for some people (or `participants`), there is no change in their PA volume. In this exercise, we'd like to count all those people. Write the code below for it that counts in each scenario.
+
+```{r}
+
+# The mmets dataset now contains ONLY those participants with travel behaviour
+total_people_with_travel <- nrow(mmets_pp_total_wide)
+
+# Calculate how many people haven't changed their baseline PA in the cycling scenario
+count_unchanged_people_in_sc_cycle <- total_people_with_travel - (mmets_pp_total_wide |> filter(baseline == sc_cycle) |> nrow())
+
+# Calculate the proportion using all people with travel behaviour
+percentage_unchanged_people_in_sc_cycle <- round(count_unchanged_people_in_sc_cycle / total_people_with_travel * 100, 2)
+
+# Print it
+cat("Percentage unchanged people in cycle scenario ", 
+percentage_unchanged_people_in_sc_cycle)
+
+# Do the same for rest of the two scenarios
+cat("Percentage unchanged people in bus scenario ", round((total_people_with_travel - (mmets_pp_total_wide |> filter(baseline == sc_bus) |> nrow())) / total_people_with_travel * 100, 2))
+
+cat("Percentage unchanged people in car scenario ", round((total_people_with_travel - (mmets_pp_total_wide |> filter(baseline == sc_car) |> nrow())) / total_people_with_travel * 100, 2))
+
+```
+
+## Bonus: who has gained and who has lost?
+
+Using the logic above, now calculate how many people (in percentage) have gained or lost PA volume in each scenario.
