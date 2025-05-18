@@ -42,7 +42,7 @@ execute:
 
     -   Use cases: teaching labs, workshops, remote collaboration.
 
----
+------------------------------------------------------------------------
 
 ### Student account setup (5 mins)
 
@@ -60,7 +60,7 @@ execute:
 
     -   Join the space: <https://posit.cloud/spaces/647431/> - if not already
 
----
+------------------------------------------------------------------------
 
 ### Q&A and next steps (10 mins)
 
@@ -138,14 +138,6 @@ execute:
 
     -   Air Pollution (AP)
 
--   Shiny Interface
-
-    -   Travel behaviours
-
-    -   Physical Acitivity (PA) and Air Pollution (AP) exposures
-
-    -   Health Outcomes
-
 -   Summary
 
 ## Why ITHIM Global V2?
@@ -169,7 +161,19 @@ gt_big_font_size <- 40
 gt_small_font_size <- 25
 ```
 
-## Issues with travel surveys
+## Integrated transport and health impact model (ITHIM)
+
+-   Health Impact Assessment (HIA) model of travel behaviours on public health and environment for the **low and middle income settings**
+
+-   Capturing travel behaviours at the individualized level and their impact on exposures - like physical activity and air pollution
+
+-   Open source with no reliance on propriety software or library
+
+-   Reproducible and transparent with clear guidelines to set it up
+
+-   Targeted towards city planners and practitioners to optimize policies that support public health and mitigate environmental harms.
+
+## Issues with traditional travel surveys
 
 -   One day travel surveys are of poor quality with:
 
@@ -246,7 +250,8 @@ Based on the individuals in the synthetic trip dataset, we create a dataset that
     -   **age**: numeric age
     -   **sex**: male or female
     -   **ltpa_marg_met:** leisure-time (non-transport) physical activity in marginal metabolic equivalent task hours (mMET-hrs) per week
-    -   
+
+    . . .
 
 ```{r, results='asis'}
 #| echo: false
@@ -262,7 +267,7 @@ Cause specific disease burden data from Institute for Health Metrics and Evaluat
 
     -   **measure**: Deaths or Years of Life Lost (YLLs)
     -   **age**: age group - usually a five year band as integer
-    -   **cause**: cause/disease (*details later on*)
+    -   **cause**: cause/disease
     -   **population**: population size by age and gender group
     -   **mix_age**: minimum age in integer for the current age and gender group
     -   **max_age**: maximum age in integer for the current age and gender group
@@ -279,14 +284,15 @@ io[[city]]$disease_burden |> mutate(across(where(is.double), round, 2)) |> head(
 
 ## Population Dataset
 
-The demographic information is by age and gender. This also comes from **IHME's** global burden of disease database (<https://ghdx.healthdata.org/gbd-2019>)
+The demographic information is by age and gender. This also usually comes from **IHME's** global burden of disease database (<https://ghdx.healthdata.org/gbd-2019>). The other sources could be localized such as census.
 
 -   **Population**
 
     -   **sex**: male or female
     -   **age**: age group - usually a five year band as integer
     -   **population**: population size
-    -   
+
+    . . .
 
 ```{r, results='asis'}
 #| echo: false
@@ -383,9 +389,9 @@ print(round(pa_pif, 2))
 
 Personal exposure of PM2.5 is calculated based on:
 
--   Travel mode specific exposures, such as more exposed while cycling than travelling in a car
+-   Travel mode specific exposures
 
--   Ventilation rates (based on BMI)
+-   Ventilation rates
 
 -   Time spent in travel mode
 
@@ -442,13 +448,11 @@ print(round(ap_pif2, 2))
 
 ## Summary
 
--   A global generalised model that uses synthetic travel behaviour and easy to get city-specific handful of parameters
--   Include injury risks - similar to HEAT and ITHIM global V1, by:
-    -   Population
-    -   Duration
-    -   Distance
+-   A global generalized model that uses synthetic travel behaviours and easy to get city-specific handful of parameters
+-   Provides quasi-simulation for individual exposures and health impact assessment for aggregated age groups.
+-   Does not include injury risks. We intend to include it with simplifications from [ITHIM V1](https://github.com/ITHIM/ITHIM-R), and [WHO's Health Economic Assessment Tool (HEAT)](https://www.heatwalkingcycling.org)
 -   Health modelling using more advanced techniques such as proportional multi-state life table
--   Include other pollutants such as black carbon, NO2
+-   Include other pollutants such as black carbon and NO2 for Air Pollution.
 
 # Run the multi_city script (10 mins)
 
@@ -464,7 +468,7 @@ print(round(ap_pif2, 2))
 
     -   Import it by clicking on it
 
-    -   Open it by `View(io)` and familiarize yourself with its strucutre
+    -   Open it by `View(io)` and familiarize yourself with its structure
 
     -   ![](images/clipboard-1706534993.png)
 
