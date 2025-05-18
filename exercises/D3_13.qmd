@@ -1,86 +1,283 @@
 ---
-title: "Practicals: session 13th
-"
+title: "Practicals: session 13th"
 subtitle: "Creating scenarios"
 author: "Ali Abbas"
 engine: knitr
-resources: 
-  - "data"
+editor: visual
+toc: true
+lightbox: true
 format: 
-  live-html:
+  html: 
+    theme: cosmos
     embed-resources: true
-webr:
-  packages: ['tidyverse', 'plotly', 'gt']
-  resources:
-    - "data/io.rds"
+    toc: true
+    code-tools: true
+    code-fold: false
+    page-layout: full
+    df-print: paged
+    number-sections: true
 ---
 
-{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
-
-## Learning objectives
+# Learning objectives:
 
 In-depth look at the scenario generation with a better understanding of travel behaviour
 
-```{webr}
-#| setup: true
-#| exercise:
-#|   - ex_1
-#|   - ex_2
-#|   - ex_3
-#|   - ex_4
-#|   - ex_5
-#|   - ex_6
-#|   - ex_7
-#|   - ex_8
-#|   - ex_9
-#|   - ex_10
+```{r setup}
+#| echo: false
+#| warning: false
+#| eval: true
+#| message: false
+library(tidyverse)
+library(here)
+library(gt)
+library(plotly)
+# Read io
+io <- readRDS(here("results/multi_city/io.rds"))
+# Read trips from the io object and remove ghost trips (with participant_id = 0)
+trips <- io$bogota$trip_scen_sets |> filter(participant_id > 0)
+# Set palette for gt table
+global_palette <- "viridis" #c("#fee8c8", "#e34a33")
 
-io <- readRDS("data/io.rds")
-trips <- io$bogota$trip_scen_sets
+
+theme_set(theme_minimal(base_family = "Spline Sans"))
+theme_update(
+  panel.grid.minor = element_blank(),
+  panel.grid.major = element_blank(),
+  axis.line.x = element_line(color = "grey80", linewidth = .4),
+  axis.ticks.x = element_line(color = "grey80", linewidth = .4),
+  axis.title.y = element_blank(),
+  plot.margin = margin(10, 15, 10, 15)
+)
+
+
+scen_colours <- c("Baseline" = '#b15928',
+                  "Cycling" = '#abdda4',
+                  "Car" = '#d7191c',
+                  "Bus" = '#2b83ba',
+                  "Motorcycle" = '#fdae61')
+
+
+mode_colours <- c("pedestrian" = '#99d8c9',
+                  "cycle" = '#abdda4',
+                  "car" = '#d7191c',
+                  "bus" = '#2b83ba',
+                  "motorcycle" = '#fdae61',
+                  "other" = '#fee8c8')
+
+
 ```
 
-### Baseline travel behaviour
+# Baseline travel behaviour
 
-## Trip distribution
+## Trip distribution by mode
+
 Before we get into scenario creation, let's have a close look at trips distribution in the travel behaviour
 
-```{webr}
-#| exercise: ex_1
-trip_dist <- io[[city]]$trip_scen_sets |>  
+```{r}
+#| warning: false
+# Read in the trips dataset
+trip_dist <- trips |>  
+    # Keep unique trips id - ignoring stage level info
     distinct(trip_id, scenario, .keep_all = T) |> 
+    # Remove ghost trips (vehicle trips)
     filter(participant_id > 0, 
+           # Only look at the baseline travel diary
            scenario == "baseline") |> 
-    group_by(trip_mode, scenario) |>  
-    summarise(count = dplyr::n()) |> 
-  filter(trip_mode %in% c("taxi", "rail", "auto_rickshaw", "truck", "other")) |> 
-  ungroup() |> 
-  mutate(freq = round(count / sum(count) * 100, 1)) |> dplyr::select(-count) |> pivot_wider(names_from = trip_mode, values_from = freq) |> 
-  gt(rowname_col = "row") |> 
-  data_color(columns = 2:6, domain = c(10, 35), 
-             palette = c("#009E73", "#CC79A7")) 
+    # Count grouped data by trip mode
+    count(trip_mode) |> 
+    # Calculate frequency as proportion
+    mutate(freq = n/sum(n)) |> 
+    # Remove n
+    dplyr::select(-n) |> 
+    pivot_wider(names_from = trip_mode, values_from = freq)
+
+trip_dist |> 
+    # dplyr::select(-scenario) |> 
+    gt() |> 
+    fmt_percent(
+      columns =  where(is.numeric),
+      decimals = 1
+    ) |> 
+    data_color(columns = where(is.numeric), 
+               domain = c(trip_dist |> as.numeric() |> min(na.rm = T), 
+                          trip_dist |> as.numeric() |> max(na.rm = T)), 
+             palette = global_palette) |> 
+  tab_header(
+          title = "Percentage Distribution by Trip Mode",
+          subtitle = "Values represent percentages summing to 100"
+        )
+
 
 ```
+
+This shows that `bus` share is the highest with `r round(trip_dist$bus * 100, 1)`(%) and `other` with the lowest share `r round(trip_dist$other * 100, 1)`(%).
 
 ## Trip distribution by distance categories
 
+### Distribution using Cumulative Distribution Function (CDF)
+
 We have defined three distance categories, which are:
-1. Short trips within 2 kms
-2. Medium trips between 2 and 6 kms
-3. Long trips with 6+ kms.
 
-They have been drawn from domain knowledge as well as empirical distance distribution captured in many trip diary datasets. In this exercise, let's see how distances for `bus`, `car`, `cycle` and `pedestrian` trips are distributed.
+1.  Short trips within `2 km`
 
-```{webr}
-#| exercise: ex_2
+2.  Medium trips between `2` and `6 km`
+
+3.  Long trips with `6+ km`.
+
+They have been drawn from domain knowledge as well as from empirical distance distribution captured in many trip diary datasets. Do note that they are not fixed and can be user-defined in the parameters sheet. In this exercise, let's see how distances for `bus`, `car`, `cycle` and `pedestrian` trips are distributed.
+
+```{r}
  plotly::ggplotly(ggplot(trips |> 
-                           filter(participant_id > 0, 
-                                  scenario == "baseline", 
+                           filter(scenario == "baseline", 
                                   stage_mode %in% c('bus', 'car', 
                                                     'cycle', 'pedestrian')), 
                          aes(x = stage_distance, color = stage_mode)) +
-+     stat_ecdf(geom = "step") +
-+     geom_vline(xintercept = 2, linetype = "dashed", color = "red") +
-+     geom_vline(xintercept = 6, linetype = "dashed", color = "blue") +
-+     labs(x = "Distance (km)", y = "Cumulative Distribution Function (CDF)") +
-+     theme_minimal())
+     stat_ecdf(geom = "step") +
+     geom_vline(alpha = 0.3, xintercept = 2, linetype = "solid", color = "black") +
+     geom_vline(alpha = 0.3, xintercept = 6, linetype = "solid", color = "black") +
+     scale_colour_manual(values = mode_colours, name = "Travel Mode") +
+     coord_cartesian(ylim = c(0, 1)) +
+     labs(x = "Distance (km)", y = "Cumulative Distribution Function (CDF)",
+          title = "Distribution of distance (km) by mode \n\n") +
+     theme_minimal()) |> 
+  plotly::add_annotations(text="2 km",
+                  x = 1.2, 
+                  y = 0, 
+                  showarrow = TRUE,
+                  textangle = -90, 
+                  font=list(size = 10)) |> 
+  plotly::add_annotations(text="6 km",
+                  x = 5.2, 
+                  y = 0, 
+                  showarrow = TRUE,
+                  textangle = -90, 
+                  font = list(size = 10))
 ```
+
+### Table with distance categories
+
+```{r}
+# Read in the trips dataset
+trips_tbl <- trips |> 
+  # Filter baseline trips
+  filter(scenario == "baseline") |> 
+  # Keep distinct trip - to ignore trips with multiple stages
+  distinct(trip_id, .keep_all = T) |> 
+  # Count trip_mode, scenario and trip_distance_cat
+  count(trip_mode, scenario, trip_distance_cat) |>
+  # Now group by trip_mode and scenario
+  group_by(trip_mode, scenario) |>
+  # Calculate proportion of each trip_distance_cat
+  mutate(proportion = n / sum(n)) |>  
+  # Remove count by trip_distance_cat
+  dplyr::select(-n) |>
+  ungroup() |>
+  # Keep only complete rows
+  complete(scenario, trip_mode, trip_distance_cat, fill = list(proportion = 0)) |> 
+  # Convert from long to wide format
+  pivot_wider(names_from = trip_distance_cat, values_from = proportion) 
+  
+trips_tbl |> 
+  # Remove scenario as we only have baseline
+  dplyr::select(-scenario) |> 
+  # Create a gt table
+  gt() |> 
+  # Convert all numerics into percentages
+  fmt_percent(
+    columns =  where(is.numeric),
+    decimals = 1
+  ) |> 
+  # Rename columns
+  cols_label(
+    trip_mode = "Travel Mode") |> 
+  # Colour all numeric columns
+  data_color(columns = where(is.numeric), 
+             domain = c(0, 1), 
+             palette = global_palette,
+             apply_to = "fill") |> 
+  # Add table headers
+  tab_header(
+    title = "Percentage Distribution by  Trip Distance Category",
+    subtitle = "Values represent percentages summing to 100 per row"
+  )
+  
+```
+
+## How does it work under the hood?
+
+### Example of `5%` increase in cycling mode
+
+Assume that there are only two distance bands `A` and `B` and that `80%` of all `cycling` trips lie in distance band `A` and the remaining `20%` in distance band `B`. In terms of overall trips, assume that `60%` of all trips are in distance band `A` and `40%` in distance band `B`.
+
+Let's assume we want to increase the `cycling` mode share by `5%` of all trips. Then, we need to convert:
+
+-   `5% x 80% / 60% = 6.67%` of non-cycling trips in distance band `A` to cycling trips and
+
+-   `5% x 20% / 40% = 2.5%` of non-cycling trips in distance band B to cycling trips.
+
+-   Overall, this leads to an increase of `(5% x 80% / 60%) x 60%` + `(5% x 20% / 40%) * 40%` = `5%` of cycling trips, whilst preserving the cycling mode shares of `80%` in distance band `A` and `20%` in distance band `B` and preserving the total mode shares of `60%` in distance band `A` and `40%` in distance band `B`. The total number of trips is also preserved.
+
+## Create a pedestrian scenario
+
+In this exercise, let's create a scenario, independent of the `ithimr` package. Now that we have a good understanding of trip modes and their distances, let's modify some of the trips and calculate impact of it on physical activity. We will consider these:
+
+-   the shortest distance category with distances less than `2` km and
+
+-   Convert them to `pedestrian` trips.
+
+-   Do note that since `pedestrian` trips already account for `92.2%`, as we saw in the previous exercise, so we shouldn't expect a substantial change in the PA volume.
+
+```{r}
+# get baseline trips for 15-69 year olds from io
+trips_baseline <- trips |> 
+  filter(scenario == "baseline", 
+         participant_id > 0) 
+
+trips_ped_scen <- trips_baseline
+
+trips_ped_scen[trips_ped_scen$trip_distance_cat  == '0-2km' & trips_ped_scen$trip_mode != "pedestrian"]$trip_mode <- 'pedestrian'
+
+trips_ped_scen[trips_ped_scen$trip_mode == "pedestrian"]$stage_mode <- 'pedestrian'
+
+trips_ped_scen[trips_ped_scen$trip_mode == "pedestrian"]$stage_duration <- trips_ped_scen[trips_ped_scen$trip_mode == "pedestrian"]$stage_distance * 60 / 2.5
+
+trips_ped_scen$scenario <- 'sc_ped'
+
+# Create a trip set and name it `ntrips`
+ntrips <- rbind(trips_baseline, trips_ped_scen)
+
+active_travel_duration <- ntrips |> 
+  mutate(
+      # Rename walk_to_pt to pedestrian
+      stage_mode = case_when(grepl("walk_to_pt", stage_mode) ~ 
+                                  "pedestrian", TRUE ~ stage_mode), 
+      # Chage stage_duration in minutes to hours            
+      stage_duration = stage_duration / 60) |> 
+  # Group by participant_id for each scenario
+  group_by(participant_id, scenario) |> 
+  # Calculate overall duration per person per week spent in active travel
+  reframe(dur_cyc_hrs = sum(stage_duration[stage_mode == "cycle"]),
+          dur_ped_hrs = sum(stage_duration[stage_mode == "pedestrian"]))
+# Show top rows
+head(active_travel_duration)
+
+
+mmets_pp <- travel_mmets |> 
+  ## join it with participant id and bring the `work_ltpa_marg_met` column
+  ## the stores background PA for each individual
+  left_join(io$bogota$base_pop |> dplyr::select(participant_id, work_ltpa_marg_met))
+
+
+mmets_pp_total <- mmets_pp |> 
+  mutate(total_mmets = work_ltpa_marg_met + total_travel_mmets)
+
+mmets_pp_total_wide <- mmets_pp_total |> 
+  # Remove columns that we are not interested in
+  dplyr::select(-c(total_travel_mmets, work_ltpa_marg_met)) |> 
+  # Take values from scenario and the variable that holds total mmets
+  pivot_wider(names_from = scenario, values_from = total_mmets)
+
+head(mmets_pp_total_wide)
+```
+
+### 
