@@ -260,6 +260,16 @@ active_travel_duration <- ntrips |>
           dur_ped_hrs = sum(stage_duration[stage_mode == "pedestrian"]))
 # Show top rows
 head(active_travel_duration)
+WALKING_MMET <- 2.5
+CYCLING_MMET <- 5.8
+
+travel_mmets <- 
+  # Use active travel duration per person dataset
+  active_travel_duration |> 
+  # Group by participant_id and scenario
+  group_by(participant_id, scenario) |> 
+  reframe(total_travel_mmets = dur_cyc_hrs * (CYCLING_MMET) + 
+            dur_ped_hrs * (WALKING_MMET)) 
 
 
 mmets_pp <- travel_mmets |> 
