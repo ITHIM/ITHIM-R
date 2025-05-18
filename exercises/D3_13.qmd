@@ -221,14 +221,14 @@ Let's assume we want to increase the `cycling` mode share by `5%` of all trips. 
 
 In this exercise, let's create a scenario, independent of the `ithimr` package. Now that we have a good understanding of trip modes and their distances, let's modify some of the trips and calculate impact of it on physical activity. We will consider these:
 
--   the shortest distance category with distances less than `2` km and
+-   the shortest distance category with distances less than `2` km
 
--   Convert them to `pedestrian` trips.
+-   Create a new scenario with target mode as `pedestrian` trips
 
--   Do note that since `pedestrian` trips already account for `92.2%`, as we saw in the previous exercise, so we shouldn't expect a substantial change in the PA volume.
+-   Do note that since `pedestrian` trips in the baseline account for the majority of trips already, as we saw in the previous exercise, so we shouldn't expect a substantial change in the PA volume.
 
 ```{r}
-# get baseline trips for 15-69 year olds from io
+# get baseline trips for 15-69 year olds from th io object
 trips_baseline <- trips |> 
   filter(scenario == "baseline", 
          participant_id > 0) 
@@ -288,6 +288,12 @@ mmets_pp_total_wide <- mmets_pp_total |>
   pivot_wider(names_from = scenario, values_from = total_mmets)
 
 head(mmets_pp_total_wide)
+
+plotly::ggplotly(
+  mmets_pp_total |> 
+    ggplot(aes(x = total_mmets, color = scenario)) + 
+    stat_ecdf(geom = "step") +
+    labs(title = "Cumulative Distribution of PA volume in mMET hours per week",
+          x = "mMET hours per week", y = "CDF"))
 ```
 
-### 
