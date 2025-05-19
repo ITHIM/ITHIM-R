@@ -45,7 +45,6 @@ theme_update(
   panel.grid.major = element_blank(),
   axis.line.x = element_line(color = "grey80", linewidth = .4),
   axis.ticks.x = element_line(color = "grey80", linewidth = .4),
-  axis.title.y = element_blank(),
   plot.margin = margin(10, 15, 10, 15)
 )
 
@@ -89,19 +88,25 @@ trip_dist <- trips |>
     mutate(freq = n/sum(n)) |> 
     # Remove n
     dplyr::select(-n) |> 
+    # Change to wide format
     pivot_wider(names_from = trip_mode, values_from = freq)
 
 trip_dist |> 
-    # dplyr::select(-scenario) |> 
+    # Create a gt table
     gt() |> 
+    # Format all numbers as percentage
     fmt_percent(
       columns =  where(is.numeric),
       decimals = 1
     ) |> 
-    data_color(columns = where(is.numeric), 
-               domain = c(trip_dist |> as.numeric() |> min(na.rm = T), 
-                          trip_dist |> as.numeric() |> max(na.rm = T)), 
+  # Colour them according to their values
+  data_color(columns = where(is.numeric), 
+             # Pick range from min to max
+             domain = c(trip_dist |> as.numeric() |> min(na.rm = T), 
+                        trip_dist |> as.numeric() |> max(na.rm = T)), 
+             # Set viridis palette
              palette = global_palette) |> 
+  # Set table header and subtitle
   tab_header(
           title = "Percentage Distribution by Trip Mode",
           subtitle = "Values represent percentages summing to 100"
@@ -118,13 +123,13 @@ This shows that `bus` share is the highest with `r round(trip_dist$bus * 100, 1)
 
 We have defined three distance categories, which are:
 
-1.  Short trips within `2 km`
+1.  Short trips within `2 km` distance
 
-2.  Medium trips between `2` and `6 km`
+2.  Medium trips between `2` and `6 km` distance
 
-3.  Long trips with `6+ km`.
+3.  Long trips with `6+ km` distance
 
-They have been drawn from domain knowledge as well as from empirical distance distribution captured in many trip diary datasets. Do note that they are not fixed and can be user-defined in the parameters sheet. In this exercise, let's see how distances for `bus`, `car`, `cycle` and `pedestrian` trips are distributed.
+They have been drawn from domain knowledge as well as from empirical distance distribution captured in many trip diary datasets. Do note that they are not fixed and can be user-defined in the parameters sheet. In this exercise, let's see how distances for `bus`, `car`, `cycle` and `pedestrian` trips are distributed in these distance categories.
 
 ```{r}
  plotly::ggplotly(ggplot(trips |> 
@@ -217,7 +222,7 @@ Let's assume we want to increase the `cycling` mode share by `5%` of all trips. 
 
 -   Overall, this leads to an increase of `(5% x 80% / 60%) x 60%` + `(5% x 20% / 40%) * 40%` = `5%` of cycling trips, whilst preserving the cycling mode shares of `80%` in distance band `A` and `20%` in distance band `B` and preserving the total mode shares of `60%` in distance band `A` and `40%` in distance band `B`. The total number of trips is also preserved.
 
-## Create a pedestrian scenario
+# Create a pedestrian scenario
 
 In this exercise, let's create a scenario, independent of the `ithimr` package. Now that we have a good understanding of trip modes and their distances, let's modify some of the trips and calculate impact of it on physical activity. We will consider these:
 
@@ -227,25 +232,72 @@ In this exercise, let's create a scenario, independent of the `ithimr` package. 
 
 -   Do note that since `pedestrian` trips in the baseline account for the majority of trips already, as we saw in the previous exercise, so we shouldn't expect a substantial change in the PA volume.
 
+## Create a copy of the `baseline` scenario
+
+Using the `trips` dataset, let's create a copy of the `baseline` scenario. Fill in the scenario name below:
+
 ```{r}
-# get baseline trips for 15-69 year olds from th io object
+# get baseline trips for 15-69 year old from the io object
 trips_baseline <- trips |> 
-  filter(scenario == "baseline", 
+  filter(scenario == "_", 
          participant_id > 0) 
 
+# Assign them to a new variable called trips_ped_scen
 trips_ped_scen <- trips_baseline
+```
 
-trips_ped_scen[trips_ped_scen$trip_distance_cat  == '0-2km' & trips_ped_scen$trip_mode != "pedestrian"]$trip_mode <- 'pedestrian'
+## Now change trips to `pedestrian` mode
 
-trips_ped_scen[trips_ped_scen$trip_mode == "pedestrian"]$stage_mode <- 'pedestrian'
+Change all trips under `2 km` using the `trip_distance_cat` of `0-2km` to `pedestrian` mode.
+Fill in the distance category and the mode of interest.
 
-trips_ped_scen[trips_ped_scen$trip_mode == "pedestrian"]$stage_duration <- trips_ped_scen[trips_ped_scen$trip_mode == "pedestrian"]$stage_distance * 60 / 2.5
+```{r}
 
-trips_ped_scen$scenario <- 'sc_ped'
+# Filter all rows that have trip_distance_cat as `0-2km` and convert their mode to `pedestrian`
+trips_ped_scen[trips_ped_scen$trip_distance_cat  == '_' & 
+                 trips_ped_scen$trip_mode != "_"]$trip_mode <- '_'
 
-# Create a trip set and name it `ntrips`
-ntrips <- rbind(trips_baseline, trips_ped_scen)
+# Do the same for `stage_mode` as well
+trips_ped_scen[trips_ped_scen$trip_mode == "pedestrian"]$stage_mode <- '_'
 
+```
+
+## Recalculate duration
+
+Calculate duration using walking speed and distance (which doesn't change when trips are switched to `pedestrian` mode)
+
+```{r}
+
+WALKING_SPEED <- 2.5
+
+# For all the `pedestrian` trips, calculate duration using
+# duration in mins = distance in kms * 60 / WALKING_SPEED
+trips_ped_scen[trips_ped_scen$trip_mode == "_"]$stage_duration <- trips_ped_scen[trips_ped_scen$trip_mode == "_"]$stage_distance * 60 / 2.5
+
+```
+
+## Assign a new name to the `pedestrian` scenario
+
+Assign a name to the scenario. Use the same nomenclature as previous exercises with `sc_` followed by scenario name.
+
+```{r}
+trips_ped_scen$scenario <- '_'
+```
+
+## Combine the two trip datasets
+
+Create a new trips dataset where we join both `baseline` and `pedestrian` scenarios together. Use `rbind` function.
+
+```{r}
+
+ntrips <- _(trips_baseline, trips_ped_scen)
+```
+
+## Calculate duration of active travel for each participant
+
+Calculate duration of active travel for each participant using the newly created `ntrips` dataset. Active travel modes are: `cycle` and `pedestrian`
+
+```{r}
 active_travel_duration <- ntrips |> 
   mutate(
       # Rename walk_to_pt to pedestrian
@@ -256,10 +308,19 @@ active_travel_duration <- ntrips |>
   # Group by participant_id for each scenario
   group_by(participant_id, scenario) |> 
   # Calculate overall duration per person per week spent in active travel
-  reframe(dur_cyc_hrs = sum(stage_duration[stage_mode == "cycle"]),
-          dur_ped_hrs = sum(stage_duration[stage_mode == "pedestrian"]))
+  reframe(dur_cyc_hrs = sum(stage_duration[stage_mode == "_"]),
+          dur_ped_hrs = sum(stage_duration[stage_mode == "_"]))
 # Show top rows
 head(active_travel_duration)
+
+```
+
+## Convert duration to mMET hours per week
+
+Using duration and marginal MET hours per week per walking and cycling, calculate travel related PA volume
+
+```{r}
+# Initialize walking and cycling MMET hours per week
 WALKING_MMET <- 2.5
 CYCLING_MMET <- 5.8
 
@@ -268,32 +329,64 @@ travel_mmets <-
   active_travel_duration |> 
   # Group by participant_id and scenario
   group_by(participant_id, scenario) |> 
-  reframe(total_travel_mmets = dur_cyc_hrs * (CYCLING_MMET) + 
-            dur_ped_hrs * (WALKING_MMET)) 
+  # calculate total travel MMET hours per week by multiplying duration of cycling and walking
+  # by their mMET hours per week and summing them together.
+  reframe(total_travel_mmets = _ * (CYCLING_MMET) + 
+            _ * (WALKING_MMET)) 
 
+```
 
+## Bring in background PA volume in mMET hours per week from `base_pop`
+
+Bring background PA volume from `base_pop` dataset
+
+```{r}
+# Create mmet per person variable that brings in background PA volume from `base_pop` dataset
 mmets_pp <- travel_mmets |> 
   ## join it with participant id and bring the `work_ltpa_marg_met` column
-  ## the stores background PA for each individual
-  left_join(io$bogota$base_pop |> dplyr::select(participant_id, work_ltpa_marg_met))
+  ## that stores background PA for each individual
+  left_join(io$bogota$base_pop |> dplyr::select(participant_id, _))
 
+```
 
+## Combine travel and background PA volume
+
+Similar to the previous exercises, let's sum travel and background PA volumes together
+
+```{r}
+
+# Join travel and background PA volume together
 mmets_pp_total <- mmets_pp |> 
-  mutate(total_mmets = work_ltpa_marg_met + total_travel_mmets)
+  mutate(total_mmets = _ + _)
+```
 
+## Change the structure to `wide` format
+
+Change the structure of the dataset from `long` to `wide` format. Use `names(mmets_pp_total)` on your console to find out which variable name stores the total mMET hours per week.
+
+```{r}
+# Read in the total mMET hours per week and change its orientation from long to wide format
 mmets_pp_total_wide <- mmets_pp_total |> 
   # Remove columns that we are not interested in
   dplyr::select(-c(total_travel_mmets, work_ltpa_marg_met)) |> 
   # Take values from scenario and the variable that holds total mmets
-  pivot_wider(names_from = scenario, values_from = total_mmets)
+  pivot_wider(names_from = scenario, values_from = _)
 
 head(mmets_pp_total_wide)
-
-plotly::ggplotly(
-  mmets_pp_total |> 
-    ggplot(aes(x = total_mmets, color = scenario)) + 
-    stat_ecdf(geom = "step") +
-    labs(title = "Cumulative Distribution of PA volume in mMET hours per week",
-          x = "mMET hours per week", y = "CDF"))
 ```
 
+## Plot distribution of the two scenarios
+
+Plot the distribution of both scenario and see where the change has happened. 
+
+```{r}
+# Use ggplot create a CDF plot of both baseline and pedestrian scenarios
+# Use plotly to make it an interactive plot 
+plotly::ggplotly(
+  mmets_pp_total |> 
+    # Use total mmet variable as x and scenario as y 
+    ggplot(aes(x = _, color = _)) + 
+    stat_ecdf(geom = "step") +
+    labs(title = "Cumulative Distribution of PA volume in mMET hours per week for baseline and pedestrian scenarios",
+          x = "mMET hours per week", y = "CDF"))
+```
