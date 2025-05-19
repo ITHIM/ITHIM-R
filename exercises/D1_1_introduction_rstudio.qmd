@@ -42,7 +42,7 @@ execute:
 
     -   Use cases: teaching labs, workshops, remote collaboration.
 
----
+------------------------------------------------------------------------
 
 ### Student account setup (5 mins)
 
@@ -60,7 +60,7 @@ execute:
 
     -   Join the space: <https://posit.cloud/spaces/647431/> - if not already
 
----
+------------------------------------------------------------------------
 
 ### Q&A and next steps (10 mins)
 
@@ -138,14 +138,6 @@ execute:
 
     -   Air Pollution (AP)
 
--   Shiny Interface
-
-    -   Travel behaviours
-
-    -   Physical Acitivity (PA) and Air Pollution (AP) exposures
-
-    -   Health Outcomes
-
 -   Summary
 
 ## Why ITHIM Global V2?
@@ -169,7 +161,19 @@ gt_big_font_size <- 40
 gt_small_font_size <- 25
 ```
 
-## Issues with travel surveys
+## Integrated transport and health impact model (ITHIM)
+
+-   Health Impact Assessment (HIA) model of travel behaviours on public health and environment for the **low and middle income settings**
+
+-   Capturing travel behaviours at the individualized level and their impact on exposures - like physical activity and air pollution
+
+-   Open source with no reliance on propriety software or library
+
+-   Reproducible and transparent with clear guidelines to set it up
+
+-   Targeted towards city planners and practitioners to optimize policies that support public health and mitigate environmental harms.
+
+## Issues with traditional travel surveys
 
 -   One day travel surveys are of poor quality with:
 
@@ -185,7 +189,7 @@ gt_small_font_size <- 25
 
 -   Requirement: a week-long representative travel behaviour dataset that tackles such issues
 
-## Synthetic travel behaviour dataset \[By Ismail\]
+## Synthetic travel behaviour dataset
 
 -   **Generate weekly trips per person**\
     Using statistical models and National Travel Survey (NTS) England 7-day data, weekly trip frequency per person is calculated based on age, gender, and occupation status.
@@ -227,11 +231,13 @@ A modelled week long synthetic trip dataset in which each row represents a trip 
 ```{r}
 #| echo: false
 
-
-#
-# io[[city]]$trip_scen_sets |> filter(scenario == "baseline") |> dplyr::select(-c(scenario, ends_with("cat"))) |> arrange(trip_id) |> head() |> knitr::kable() |> kableExtra::landscape()
-
-io[[city]]$trip_scen_sets |> filter(scenario == "baseline") |> dplyr::select(-c(scenario, ends_with("cat"))) |> arrange(trip_id) |> mutate(across(where(is.double), round, 2)) |> head() |> gt(caption = "Trip dataset with demographics and trip details") |> tab_options(table.font.size = gt_big_font_size) |> 
+io[[city]]$trip_scen_sets |> 
+  filter(scenario == "baseline") |> 
+  dplyr::select(-c(scenario, ends_with("cat"))) |> arrange(trip_id) |> 
+  mutate(across(where(is.double), round, 2)) |> 
+  head() |> 
+  gt(caption = "Trip dataset with demographics and trip details") |> 
+  tab_options(table.font.size = gt_big_font_size) |> 
  gt::as_raw_html()
 
 ```
@@ -246,11 +252,17 @@ Based on the individuals in the synthetic trip dataset, we create a dataset that
     -   **age**: numeric age
     -   **sex**: male or female
     -   **ltpa_marg_met:** leisure-time (non-transport) physical activity in marginal metabolic equivalent task hours (mMET-hrs) per week
-    -   
+
+. . .
 
 ```{r, results='asis'}
 #| echo: false
-io[[city]]$base_pop |> arrange(participant_id) |> rename(ltpa_marg_met = work_ltpa_marg_met) |>   mutate(across(where(is.double), round, 2)) |> head() |> gt(caption = "Base population with background PA in mMET-hrs per week") |> tab_options(table.font.size = gt_small_font_size) |> gt::as_raw_html()
+io[[city]]$base_pop |> 
+  arrange(participant_id) |> 
+  rename(ltpa_marg_met = work_ltpa_marg_met) |>   mutate(across(where(is.double), round, 2)) |> 
+  head() |> 
+  gt(caption = "Base population with background PA in mMET-hrs per week") |> 
+  tab_options(table.font.size = gt_small_font_size) |> gt::as_raw_html()
 
 ```
 
@@ -262,7 +274,7 @@ Cause specific disease burden data from Institute for Health Metrics and Evaluat
 
     -   **measure**: Deaths or Years of Life Lost (YLLs)
     -   **age**: age group - usually a five year band as integer
-    -   **cause**: cause/disease (*details later on*)
+    -   **cause**: cause/disease
     -   **population**: population size by age and gender group
     -   **mix_age**: minimum age in integer for the current age and gender group
     -   **max_age**: maximum age in integer for the current age and gender group
@@ -279,14 +291,15 @@ io[[city]]$disease_burden |> mutate(across(where(is.double), round, 2)) |> head(
 
 ## Population Dataset
 
-The demographic information is by age and gender. This also comes from **IHME's** global burden of disease database (<https://ghdx.healthdata.org/gbd-2019>)
+The demographic information is by age and gender. This also usually comes from **IHME's** global burden of disease database (<https://ghdx.healthdata.org/gbd-2019>). The other sources could be localized such as census.
 
 -   **Population**
 
     -   **sex**: male or female
     -   **age**: age group - usually a five year band as integer
     -   **population**: population size
-    -   
+
+. . .
 
 ```{r, results='asis'}
 #| echo: false
@@ -316,12 +329,18 @@ io[[city]]$demographic |> mutate(across(where(is.double), round, 2)) |> head() |
 #| results: asis
 
 RR <- (drpa::dose_response(cause = "all-cause-mortality", outcome_type = "fatal", 
-                          dose = c(0, 5, 10))$rr)
-Dose <- c(0, 5, 10)
+                           dose = c(0, 5, 10, 15))$rr)
+Dose <- c(0, 5, 10, 15)
 
-data.frame(Dose, RR) |> mutate(across(where(is.double), round, 2)) |> 
+data.frame(Dose, RR) |> 
+  mutate(diff_previous_rr = RR - lag(RR)) |> 
+  mutate_if(is.numeric, round, digits = 3) |> 
   gt(caption = "PA dose-response relationship for all-cause-mortality") |>
+  cols_label(
+    RR = "Relative Risk (RR)",
+    diff_previous_rr = "Difference from previous RR") |> 
   tab_options(table.font.size = gt_big_font_size) |> 
+  opt_table_lines() |> 
   gt::as_raw_html()
 ```
 
@@ -339,7 +358,7 @@ calculate_pa_pif <- function(base_dose, scen_dose){
   
   rr_scen <- drpa::dose_response(cause = "all-cause-mortality", outcome_type = "fatal", dose = scen_dose)$rr
   
-  return((rr_base - rr_scen)/rr_base)
+  return(round((rr_base - rr_scen)/rr_base, 2))
 }
 
 calculate_ap_pif <- function(base_dose, scen_dose){
@@ -348,7 +367,7 @@ calculate_ap_pif <- function(base_dose, scen_dose){
   
   rr_scen <- ithimr::AP_dose_response(cause = "all_cause_ap", dose = scen_dose, quantile = 0.5)$rr
   
-  return((rr_base - rr_scen)/rr_base)
+  return(round((rr_base - rr_scen)/rr_base, 2))
 }
 
 ```
@@ -363,7 +382,20 @@ PIF with baseline PA volume (5) mMET-hours per week and scenario PA volume (10) 
 #| echo: false
 
 pa_pif <- calculate_pa_pif(base_dose = 5, scen_dose = 10)
-print(round(pa_pif, 2))
+
+pa_pif |> 
+  as.data.frame() |> 
+  gt() |> 
+    # Rename columns
+  cols_label(
+    pa_pif = "") |> 
+  tab_header(
+    title = md("PIF"),
+    subtitle = md("From 5 to 10 mMET hours per week")
+  ) |>  
+  tab_options(table.font.size = gt_big_font_size) |>  
+  gt::as_raw_html()
+
 ```
 
 . . .
@@ -376,20 +408,34 @@ PIF with baseline PA volume 10 mMET-hours per week and scenario PA volume 15 mME
 #| echo: false
 
 pa_pif <- calculate_pa_pif(base_dose = 10, scen_dose = 15)
-print(round(pa_pif, 2))
+
+pa_pif |> 
+  as.data.frame() |> 
+  gt() |> 
+    # Rename columns
+  cols_label(
+    pa_pif = "") |> 
+  tab_header(
+    title = md("PIF"),
+    subtitle = md("From 10 to 15 mMET hours per week")
+  ) |>  
+  tab_options(table.font.size = gt_big_font_size) |>  
+  gt::as_raw_html()
 ```
 
 ## Air Pollution
 
 Personal exposure of PM2.5 is calculated based on:
 
--   Travel mode specific exposures, such as more exposed while cycling than travelling in a car
+-   Travel mode specific exposures
 
--   Ventilation rates (based on BMI)
+-   Ventilation rates
 
 -   Time spent in travel mode
 
 -   Time spent during rest of the day in activities (such as sleeping, resting and doing light and vigorous physical activities)
+
+. . .
 
 $$ PM2.5_{inhaled} = TravelMode_{dur} * Vent_{rate}  * ExposureRates_{mode} * PM2.5Conc $$
 
@@ -400,19 +446,40 @@ $$ PM2.5_{inhaled} = TravelMode_{dur} * Vent_{rate}  * ExposureRates_{mode} * PM
 #| echo: false
 
 
-RR <-  ithimr::AP_dose_response(cause = "all_cause_ap", dose = c(0, 5, 10), quantile = 0.5)$rr
+RR <-  ithimr::AP_dose_response(cause = "all_cause_ap", dose = c(0, 5, 10, 15), quantile = 0.5)$rr
                           
-Dose <- c(0, 5, 10)
+Dose <- c(0, 5, 10, 15)
 
-data.frame(Dose, RR) |> mutate_if(is.numeric, round, 2) |> gt(caption = "Doses (exposures) and their relative risk for all cause mortality for PM2.5") |> tab_options(table.font.size = gt_big_font_size)
+
+data.frame(Dose, RR) |> 
+  mutate(diff_previous_rr = RR - lag(RR)) |> 
+  mutate_if(is.numeric, round, digits = 2) |> 
+  gt(caption = "Doses (exposures) in µg/m³ and their relative risk for all-cause-mortality") |>
+  cols_label(
+    RR = "Relative Risk (RR)",
+    diff_previous_rr = "Difference from previous RR") |> 
+  tab_options(table.font.size = gt_big_font_size) |> 
+  opt_table_lines() |> 
+  gt::as_raw_html()
+
+#data.frame(Dose, RR) |> 
+#  mutate_if(is.numeric, round, 2) |> 
+#  gt(caption = "Doses (exposures) and their relative risk for all cause mortality for PM2.5") |> 
+#  tab_options(table.font.size = gt_big_font_size)
+
+
+
+#cols_label(
+#    RR = "Relative Risk (RR)",
+#    diff_previous_rr = "Difference from previous RR")
 
 ```
 
-## AP - Potential Impact Fraction
+## AP - Potential Impact Fraction (PIF)
 
-$$ pif = (RRbase - RRscenario)/RRbase $$
+$$ pif = (RR_{base} - RR_{scenario})/RR_{base} $$
 
-PIF with baseline AP (PM 2.5) exposure of (5) and scenario AP exposure of (10)
+PIF with baseline AP (PM 2.5) exposure of (5 µg/m³) and scenario AP exposure of (10 µg/m³)
 
 ```{r}
 #| eval: true 
@@ -421,7 +488,18 @@ PIF with baseline AP (PM 2.5) exposure of (5) and scenario AP exposure of (10)
 
 #-0.03923048
 ap_pif2 <- calculate_ap_pif(base_dose = 5, scen_dose = 10)
-print(round(ap_pif2, 2))
+ap_pif2 |> 
+  as.data.frame() |> 
+  gt() |> 
+    # Rename columns
+  cols_label(
+    ap_pif2 = "") |> 
+  tab_header(
+    title = md("PIF"),
+    subtitle = md("From 5 to 10 µg/m³")
+  ) |>  
+  tab_options(table.font.size = gt_big_font_size) |>  
+  gt::as_raw_html()
 ```
 
 ```         
@@ -429,7 +507,7 @@ print(round(ap_pif2, 2))
 
 . . .
 
-PIF with baseline AP (PM 2.5) exposure of (10) and scenario AP exposure of (15)
+PIF with baseline AP (PM 2.5) exposure of (10 µg/m³) and scenario AP exposure of (15 µg/m³)
 
 ```{r}
 #| eval: true 
@@ -437,18 +515,27 @@ PIF with baseline AP (PM 2.5) exposure of (10) and scenario AP exposure of (15)
 #| echo: false
 
 ap_pif2 <- calculate_ap_pif(base_dose = 10, scen_dose = 15)
-print(round(ap_pif2, 2))
+ap_pif2 |> 
+  as.data.frame() |> 
+  gt() |> 
+    # Rename columns
+  cols_label(
+    ap_pif2 = "") |> 
+  tab_header(
+    title = md("PIF"),
+    subtitle = md("From 10 to 15 µg/m³")
+  ) |>  
+  tab_options(table.font.size = gt_big_font_size) |>  
+  gt::as_raw_html()
 ```
 
 ## Summary
 
--   A global generalised model that uses synthetic travel behaviour and easy to get city-specific handful of parameters
--   Include injury risks - similar to HEAT and ITHIM global V1, by:
-    -   Population
-    -   Duration
-    -   Distance
+-   A global generalized model that uses synthetic travel behaviours and easy to get city-specific handful of parameters
+-   Provides quasi-simulation for individual exposures and health impact assessment for aggregated age groups.
+-   Does not include injury risks. We intend to include it with simplifications from [ITHIM V1](https://github.com/ITHIM/ITHIM-R), and [WHO's Health Economic Assessment Tool (HEAT)](https://www.heatwalkingcycling.org)
 -   Health modelling using more advanced techniques such as proportional multi-state life table
--   Include other pollutants such as black carbon, NO2
+-   Include other pollutants such as black carbon and NO2 for Air Pollution.
 
 # Run the multi_city script (10 mins)
 
@@ -464,7 +551,7 @@ print(round(ap_pif2, 2))
 
     -   Import it by clicking on it
 
-    -   Open it by `View(io)` and familiarize yourself with its strucutre
+    -   Open it by `View(io)` and familiarize yourself with its structure
 
     -   ![](images/clipboard-1706534993.png)
 

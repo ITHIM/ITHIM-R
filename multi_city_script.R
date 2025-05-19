@@ -65,25 +65,13 @@ if (!require("drpa",character.only = TRUE)) {
 cities <- 'bogota'
 
 input_parameter_file <- "Bogota_InputParameters_v6.0.xlsx" # file containing the local and global input parameters
-# 
 
-## Get the current repo sha
-gitArgs <- c("rev-parse", "--short", "HEAD", ">", file.path("repo_sha"))
-# Use shell command for Windows as it's failing with system2 for Windows (giving status 128)
-if (.Platform$OS.type == "windows"){
-  shell(paste(append("git", gitArgs), collapse = " "), wait = T)
-} else {
-  system2("git", gitArgs, wait = T)
-}
-
-repo_sha <-  as.character(readLines(file.path("repo_sha")))
 # records the main aspects of an ithim run in the OutputVersionControl.txt document
 # text file records timestamp of run, author name, cities the script is run for, 
 # the input parameter file version used, the output version, 
 # the number of samples (which is 1 in constant mode), the path to any other input files,
 # any comments and the runtime of the code
 write_output_control = T # whether you want to save the model run specifics or not
-output_version <- repo_sha # gives the version number of the output documents, independent of the input parameter file name
 author <- "AA"
 comment <- "Simplified ithim by stripping off parameters"
 
@@ -94,14 +82,6 @@ scenario_name <- "BOGOTA" # name of scenario to be called
 # other input data for the city 
 reference_scenario <- 'Baseline' 
 scenario_increase <- 0.05 # increase for each mode in each scenario (used in GLOBAL, BOGOTA, LATAM and AFRICA_INDIA scenarios)
-
-
-# define which output results to plot
-outputs_to_plot <- c('pa_ap_all_cause', 'pa_ap_IHD', 'pa_total_cancer', 'pa_ap_lung_cancer', 'ap_COPD', 
-                     'pa_ap_stroke', 'pa_ap_T2D', 'ap_LRI', 'pa_breast_cancer', 'pa_colon_cancer', 'pa_endo_cancer',
-                     'pa_liver_cancer', 'pa_ap_CVD', 'pa_total_dementia', 'pa_myeloma', 'pa_Parkinson',
-                     'pa_head_neck_cancer', 'pa_stomach_cancer', 'inj')
-
 
 
 ############################### No need to change the following ##################################
@@ -313,7 +293,6 @@ ithim_objects$ithim_run$scenario_increase <- scenario_increase
 ithim_objects$ithim_run$scenario_names <- SCEN
 ithim_objects$ithim_run$compute_mode <- compute_mode
 ithim_objects$ithim_run$timestamp <- timestamp
-ithim_objects$ithim_run$output_version <- output_version
 ithim_objects$ithim_run$author <- author
 ithim_objects$ithim_run$comment <- comment
 
@@ -456,7 +435,6 @@ if (write_output_control == TRUE){
       paste("Scenario:", SCENARIO_INCREASE * 100, "%", sep = " "),
       paste("Cities:", cities, sep = " "),
       paste("Input parameter file:", input_version, sep = " "),
-      paste("Version number of outputs:", output_version, sep = " "),
       paste("Number of samples:", '1', sep = " "),
       paste("Comments:", comment, sep=" "),
       paste("Path of other input files:", global_path, sep=" "),

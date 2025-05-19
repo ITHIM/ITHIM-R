@@ -1,5 +1,5 @@
 ---
-title: "Practicals: 8th session"
+title: "Practicals: 8th session with solutions"
 subtitle: "Physical Activity simulation and summary statistics"
 author: "Ali and Lambed"
 engine: knitr
@@ -30,7 +30,7 @@ Before we get into exercises, let's explore how this works. We will start off wi
 Fill in the blank so that the result of the **sum** is *10*. Replace the `_` with the right number.
 
 ```{r}
-1 + 2 + 3 + _
+1 + 2 + 3 + 4
 ```
 
 On the first day, you would have run the model and saved the outputs in the `ithim object` - which we called `io` as short. We have read it in the background and can access it throughout these exercises.
@@ -43,11 +43,11 @@ The ithim_objects list is saved under *results/multi_city/io.rds*, and it is gen
 
 You may view it using the command `View(ithim_objects)` and it will then show you its content as such:
 
-![](../man/figures/view_ithim_objectswa.png){width="100%"}
+![](../../man/figures/view_ithim_objectswa.png){width="100%"}
 
 You may click on individual sub-items such as `bogota` for more information.
 
-![](../man/figures/ithim_objects_bogotawa.png){width="100%"}
+![](../../man/figures/ithim_objects_bogotawa.png){width="100%"}
 
 This list contains a comprehensive set of intermediate and final results from the model run:
 
@@ -113,7 +113,7 @@ io <- readRDS(here("results/multi_city/io.rds"))
 ```
 
 ```{r}
-_(io)
+names(io)
 ```
 
 Hint: Consider using the `names()` function {.hidden-heading style="color:gray"}
@@ -123,7 +123,7 @@ Hint: Consider using the `names()` function {.hidden-heading style="color:gray"}
 Similar to the io object (which is a list), let's investigate the structure of the `bogota` list stored within the `io` object. Use the previously learnt knowledge to explore it.
 
 ```{r}
-_(io$bogota)
+names(io$bogota)
 ```
 
 ## Show the first few rows of the base population object
@@ -131,7 +131,7 @@ _(io$bogota)
 The base population object of the is stored in the `base_pop` object
 
 ```{r}
-names(io$bogota$_)
+names(io$bogota$base_pop)
 ```
 
 ## Create a summary of background PA by age and sex groups
@@ -140,7 +140,7 @@ Note that the `age` column is a continuous variable, whereas `age_cat` is a 5 ye
 
 ```{r}
 io$bogota$base_pop |> 
-  group_by(_, _) |> 
+  group_by(age_cat, sex) |> 
   reframe(mean_background_LTPA = 
             mean(work_ltpa_marg_met))
 ```
@@ -152,7 +152,7 @@ Using `sex` column, we are interested in calculating `mean` value of the column 
 ```{r}
 io$bogota$base_pop |> 
   ungroup() |> 
-  group_by(_) |> 
+  group_by(sex) |> 
   reframe(mean_background_LTPA = 
             mean(work_ltpa_marg_met))
 ```
@@ -162,7 +162,7 @@ io$bogota$base_pop |>
 Let's read in the data frame called `mmets` that stores total PA volume (background and travel related) in mMET hours per week from the `io` object. Once read in, let's look at the structure of it:
 
 ```{r}
-mmets <- io$bogota$outcomes$_
+mmets <- io$bogota$outcomes$mmets
 head(mmets)
 ```
 
@@ -173,7 +173,7 @@ head(mmets)
 Just to remind you the trip dataset is stored as `trip_scens_sets` and it contains travel bahaviour of baseline and all the scenarios.
 
 ```{r}
-trips <- io$bogota$_
+trips <- io$bogota$trip_scen_sets
 head(trips)
 ```
 
@@ -182,7 +182,7 @@ head(trips)
 You can either use `names()` or `head()` function for this purpose.
 
 ```{r}
-_(trips)
+names(trips)
 ```
 
 Trip dataset contains both `trip` related information such as travel mode, distance as well as the person doing that trip with their ID captured in the `participant_id` and other demographics such as `age` and `sex`.
@@ -210,8 +210,8 @@ active_travel_duration <- io$bogota$trip_scen_sets |>
   # Group by participant_id for each scenario
   group_by(participant_id, scenario) |> 
   # Calculate overall duration per person per week spent in active travel
-  reframe(dur_cyc_hrs = sum(stage_duration[stage_mode == "_"]),
-          dur_ped_hrs = sum(stage_duration[stage_mode == "_"]))
+  reframe(dur_cyc_hrs = sum(stage_duration[stage_mode == "cycle"]),
+          dur_ped_hrs = sum(stage_duration[stage_mode == "pedestrian"]))
 # Show top rows
 head(active_travel_duration)
 ```
@@ -226,8 +226,8 @@ travel_mmets <-
   active_travel_duration |> 
   # Group by participant_id and scenario
   group_by(participant_id, scenario) |> 
-  reframe(total_travel_mmets = _ * (CYCLING_MMET) + 
-            _ * (WALKING_MMET)) 
+  reframe(total_travel_mmets = dur_cyc_hrs * (CYCLING_MMET) + 
+            dur_ped_hrs * (WALKING_MMET)) 
 
 head(travel_mmets)
 ```
@@ -240,7 +240,7 @@ Now that we have calculated travel related PA (in mMET hours per week) for each 
 mmets_pp <- travel_mmets |> 
   ## join it with participant id and bring the `work_ltpa_marg_met` column
   ## the stores background PA for each individual
-  left_join(io$bogota$base_pop |> dplyr::select(participant_id, _))
+  left_join(io$bogota$base_pop |> dplyr::select(participant_id, work_ltpa_marg_met))
 
 head(mmets_pp)
 ```
@@ -251,7 +251,7 @@ Sum background PA (which doesn't change throughout) and the travel PA (which doe
 
 ```{r}
 mmets_pp_total <- mmets_pp |> 
-  mutate(total_mmets = _ + _)
+  mutate(total_mmets = work_ltpa_marg_met + total_travel_mmets)
 
 head(mmets_pp_total)
 ```
@@ -265,7 +265,7 @@ mmets_pp_total_wide <- mmets_pp_total |>
   # Remove columns that we are not interested in
   dplyr::select(-c(total_travel_mmets, work_ltpa_marg_met)) |> 
   # Take values from scenario and the variable that holds total mmets
-  pivot_wider(names_from = _, values_from = _)
+  pivot_wider(names_from = scenario, values_from = total_mmets)
 
 head(mmets_pp_total_wide)
 
@@ -278,19 +278,7 @@ In this section we look at top rows that the model generated with the one we gen
 ```{r}
 
 # Keep only those participants that have travel behaviours captured in the `trip_scen_sets`
-mmets <- mmets |> filter(_ %in% mmets_pp_total_wide$participant_id)
-
-head(mmets)
-```
-
-## Compare top rows of modelled output
-
-In this section we look at top rows that the model generated with the one we generated above. In order to compare the two, we need to account for *only* those participants that have travel information and ignore those without any trips. It meas to filter those ids that exist in both travel and background PA datasets. Fill in the blank to filter participant id column.
-
-```{r}
-
-# Keep only those participants that have travel behaviours captured in the `trip_scen_sets`
-mmets <- mmets |> filter(_ %in% mmets_pp_total_wide$participant_id)
+mmets <- mmets |> filter(participant_id %in% mmets_pp_total_wide$participant_id)
 
 head(mmets)
 ```
@@ -301,32 +289,35 @@ Using the `summary` function, generate summary statistics of both `mmets` (model
 
 ```{r}
 
-_(mmets_pp_total_wide)
+summary(mmets_pp_total_wide)
 
-_(mmets)
+summary(mmets)
 
 ```
 
 ## Count people without any changes in PA volume
 
-You might have noticed that for some people (or `participants`), there is no change in their PA volume. In this exercise, we'd like to count all those people. Write the code below for it that counts such cases in each scenario.
+You might have noticed that for some people (or `participants`), there is no change in their PA volume. In this exercise, we'd like to count all those people. Write the code below for it that counts in each scenario.
 
 ```{r}
 
 # The mmets dataset now contains ONLY those participants with travel behaviour
-total_people_with_travel <- _(mmets_pp_total_wide)
+total_people_with_travel <- nrow(mmets_pp_total_wide)
 
 # Calculate how many people haven't changed their baseline PA in the cycling scenario
-count_unchanged_people_in_sc_cycle <- total_people_with_travel - (mmets_pp_total_wide |> filter(baseline == _) |> nrow())
+count_unchanged_people_in_sc_cycle <- total_people_with_travel - (mmets_pp_total_wide |> filter(baseline == sc_cycle) |> nrow())
 
 # Calculate the proportion using all people with travel behaviour
-percentage_unchanged_people_in_sc_cycle <- round(_ / _ * 100, 2)
+percentage_unchanged_people_in_sc_cycle <- round(count_unchanged_people_in_sc_cycle / total_people_with_travel * 100, 2)
 
 # Print it
 cat("Percentage unchanged people in cycle scenario ", 
 percentage_unchanged_people_in_sc_cycle)
 
 # Do the same for rest of the two scenarios
+cat("Percentage unchanged people in bus scenario ", round((total_people_with_travel - (mmets_pp_total_wide |> filter(baseline == sc_bus) |> nrow())) / total_people_with_travel * 100, 2))
+
+cat("Percentage unchanged people in car scenario ", round((total_people_with_travel - (mmets_pp_total_wide |> filter(baseline == sc_car) |> nrow())) / total_people_with_travel * 100, 2))
 
 ```
 
