@@ -63,7 +63,7 @@ For each city modelled, which is in this case is `bogota`, it contains the follo
 
 -   **demographic**: city population counts for all age categories and sex combinations considered in the model.
 
--   **base_pop**: population extracted from the physical activity survey assigning non-transport, non-occupational PA component of physical activity values in mMETs hours per person per week.
+-   **base_pop**: population extracted from the synthetic travel dataset assigning non-transport, non-occupational PA component of physical activity values in mMETs hours per person per week.
 
 -   **outcomes**:
 
@@ -273,19 +273,7 @@ head(mmets_pp_total_wide)
 
 ## Compare top rows of modelled output
 
-In this section we look at top rows that the model generated with the one we generated above. In order to compare the two, we need to account for *only* those participants that have travel information and ignore those without any trips. It meas to filter those ids that exist in both travel and background PA datasets. Fill in the blank to filter participant id column.
-
-```{r}
-
-# Keep only those participants that have travel behaviours captured in the `trip_scen_sets`
-mmets <- mmets |> filter(_ %in% mmets_pp_total_wide$participant_id)
-
-head(mmets)
-```
-
-## Compare top rows of modelled output
-
-In this section we look at top rows that the model generated with the one we generated above. In order to compare the two, we need to account for *only* those participants that have travel information and ignore those without any trips. It meas to filter those ids that exist in both travel and background PA datasets. Fill in the blank to filter participant id column.
+In this section we look at the top rows that the model generated with the one we generated above. In order to compare the two, we need to account for *only* those participants that have travel information and ignore those without any trips. It meas to filter those ids that exist in both travel and background PA datasets. Fill in the blank to filter participant id column.
 
 ```{r}
 
@@ -317,13 +305,14 @@ You might have noticed that for some people (or `participants`), there is no cha
 total_people_with_travel <- _(mmets_pp_total_wide)
 
 # Calculate how many people haven't changed their baseline PA in the cycling scenario
-count_unchanged_people_in_sc_cycle <- total_people_with_travel - (mmets_pp_total_wide |> filter(baseline == _) |> nrow())
+count_unchanged_people_in_sc_cycle <- total_people_with_travel - 
+  (mmets_pp_total_wide |> filter(baseline == _) |> nrow())
 
 # Calculate the proportion using all people with travel behaviour
 percentage_unchanged_people_in_sc_cycle <- round(_ / _ * 100, 2)
 
 # Print it
-cat("Percentage unchanged people in cycle scenario ", 
+cat("Percent unchanged people in cycle scenario ", 
 percentage_unchanged_people_in_sc_cycle)
 
 # Do the same for rest of the two scenarios
