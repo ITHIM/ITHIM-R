@@ -26,7 +26,7 @@ execute:
 
 # Setup Rstudio and ITHIM Global V2 (65 mins)
 
--   Setup Posit cloud (30 min)
+-   Setup Posit cloud (20 min)
 
 -   Install the ITHIM-Global V2 package (45 min)
 
@@ -82,13 +82,13 @@ execute:
 
     ![](images/landing_page2.png)
 
-## Install the ITHIM-Global V2 package (45 mins)
+## Install the ITHIM-Global V2 package 
 
 -   When you click on the project (START), it should create a copy like this (\~5 mins)
 
     ![](images/clipboard-2289141768.png)
 
-## Install the ITHIM-Global V2 package (45 mins)
+## Install the ITHIM-Global V2 package 
 
 -   Once the ITHIM project is open
 
@@ -202,7 +202,7 @@ gt_small_font_size <- 25
 
 ## Model Structure
 
-![](images/clipboard-185571868.png)
+![](images/clipboard-185571868.png){width="743"}
 
 ## Synthetic Trip Dataset (1/2)
 
