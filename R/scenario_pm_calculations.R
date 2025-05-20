@@ -71,6 +71,8 @@ scenario_pm_calculations <- function(dist, trip_scen_sets) {
   ordered_efs <- (vi$PM_emission_inventory[match(emission_dist$stage_mode, vi$stage_mode)] %>% as.numeric()) / (emission_dist$baseline %>% as.numeric())
   ## get new emission by multiplying emission factor by scenario distance.
   trans_emissions <- emission_dist[, SCEN] * t(repmat(ordered_efs, NSCEN + 1, 1))
+  
+  browser()
   # Save stage mode
   trans_emissions$stage_mode <- emission_dist$stage_mode
   # Save last index

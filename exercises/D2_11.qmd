@@ -20,14 +20,15 @@ format:
 
 # Setup and call the ithim object `io`
 
--   Yesterday, you ran the ITHIM model and saved the outputs in `io`. It has has now been called here
+-   Yesterday, you ran the ITHIM model and saved the outputs in `io`. It now has been called here
 
 ```{r read_io, message=FALSE, warning=FALSE}
 # Read the RDS file
+
 io <- readRDS("data/io.rds")
 ```
 
-# Take a look at some AP relevant outputs in io
+# Take a look again at some AP outputs in io
 
 -   Explore the structure of the `io` object
     -   eg display the objects in:
@@ -38,14 +39,14 @@ io <- readRDS("data/io.rds")
         -   outcomes (list)
 
 ```{r explore_io, message=FALSE, warning=FALSE}
-io$bogota$dis|>View()
+io$bogota$___
 ```
 
 # Individual AP (PM2.5) exposure depends on:
 
 -   Background PM2.5 concentration
 -   Exposure factor (scaling to micro-environment during travels)
--   Inhalation rate (activity dependent)
+-   Inhalation rate (activity-dependent)
 
 ## Calculate changes in background AP (PM2.5) concentration
 
@@ -60,37 +61,55 @@ io$bogota$dis|>View()
 
 -   We get values from https://www.who.int/data/gho/data/themes/air-pollution/who-air-quality-database
 -   We assume an average value (ignoring spatial and temporal variations)
--   Remember that thee is advancement in these estimates
-    -   better resolution maps ets
+-   Remember that there is an advancement in these estimates
+    -   better resolution mapetctc
 
 ```{r background_pm, message=FALSE, warning=FALSE}
 conc_base_pm <- 12.69
+
+# what sources do people use
 ```
 
 ### 2. Transport share of PM2.5
 
 -   Varies by city heydari 2020 (Shahram Heydari)
 
-```{r trans_share, message=FALSE, warning=FALSE}
-transport_share <- 0.42
-```
+    ```{r trans_share1, message=FALSE, warning=FALSE}
+    transport_share <- 0.42
+    ```
+
+    ![](images/ap_concentration-01.jpg)
+
+-   \~80% is from trucks so actually what we are changing is \~20%
+
+![](images/ap_concentration2-01.png)
 
 ### 3. Vehicle emission inventory
 
--   Focus on the modes relevant for our calculations
+-   Focus on the modes relevant to our calculations
 
--   We use values from EDGAR (link)
+-   We use values from EDGAR
 
-    -   Gives emission from different vehicles on a would grip
+    ![](images/edgar-01.png)
+
+    <https://data.jrc.ec.europa.eu/collection/edgar>
+
+    <https://edgar.jrc.ec.europa.eu/dataset_ap81>
+
+    -   Gives emissions from different vehicles on a world grid
     -   We average over a city
 
     ```{r emission_inventory, message=FALSE, warning=FALSE}
+    library(dplyr)
 
-    io$bogota$vehicle_inventory |>
-      filter(PM_emission_inventory != 0) |>
-      filter(!(grepl("truck", stage_mode)))|>
+    transport_emission <- 
+      io$bogota$vehicle_inventory|>
+      filter(PM_emission_inventory != 0) |> 
+      filter(!(grepl("truck", stage_mode)))|> 
       select(-CO2_emission_inventory, -speed)
 
+
+    transport_emission
     ```
 
 ### 4. Relative change in vehicle travel distance
@@ -98,18 +117,19 @@ transport_share <- 0.42
 -   Read the `trip` dataset from the `io` object
 
 ```{r read_trip_set, message=FALSE, warning=FALSE}
-trips <- io$bogota
+#trips <- io$bogota$trip_scen_set
 ```
 
--   Calculate distance per person for motorcycle, car, bus
+-   Calculate distance per person by mode
 
 ```{r ind_distance, message=FALSE, warning=FALSE}
+
 trips |>
-filter(stage_mode %in% c("car_driver", "bus_driver", "motorcycle"))|>
+#filter(stage_mode %in% c("car_driver", "bus_driver", "motorcycle"))|>
 group_by(stage_mode, scenario) |> 
-reframe(mean_dist = sum(______) / nrow(io$bogota$base_pop)) |> 
-pivot_wider(names_from = stage_mode, values_from = mean_dist)|>
-select(stage_mode, baseline)
+reframe(mean_dist = sum(_______) / nrow(io$bogota$base_pop)) |> 
+pivot_wider(names_from = stage_mode, values_from = mean_dist)|> 
+filter(scenario=="baseline")
 
 ```
 
@@ -117,11 +137,11 @@ select(stage_mode, baseline)
 
 ```{r data_vehicle_distance_baseline, message=FALSE, warning=FALSE}
 trips |> 
-  filter(stage_mode %in% c("car_driver", "motorcycle", "bus_driver"))|>
+  #filter(stage_mode %in% c("car_driver", "motorcycle", "bus_driver"))|>
   group_by(stage_mode, scenario) |> 
-  reframe(mean_dist = sum(______)) |> 
-  pivot_wider(names_from = stage_mode, values_from = mean_dist)|>
-  select(stage_mode, baseline)
+  reframe(mean_dist = sum(________)) |> 
+  pivot_wider(names_from = stage_mode, values_from = mean_dist)|> 
+  filter(scenario=="baseline")
     
 ```
 
@@ -129,11 +149,11 @@ trips |>
 
 ```{r city_vehicle_distance_baseline, message=FALSE, warning=FALSE}
 trips |> 
-  filter(stage_mode %in% c("car_driver", "motorcycle", "bus_driver"))|>
+  #filter(stage_mode %in% c("car_driver", "motorcycle", "bus_driver"))|>
   group_by(stage_mode, scenario) |> 
-  reframe(mean_dist = sum(______) / nrow(io$bogota$base_pop)*sum(io$bogota$demographic$population)) |> 
+  reframe(mean_dist = sum(_________) / nrow(io$bogota$base_pop)*sum(io$bogota$demographic$population)) |> 
   pivot_wider(names_from = stage_mode, values_from = mean_dist)|>
-  select(stage_mode, baseline)
+  filter(scenario=="baseline")
   
 ```
 
@@ -141,22 +161,41 @@ trips |>
 
 ```{r city_vehicle_distance_scenario, message=FALSE, warning=FALSE}
 trips |> 
-  filter(stage_mode %in% c("car_driver", "motorcycle", "bus_driver"))|>
+  #filter(stage_mode %in% c("car_driver", "motorcycle", "bus_driver"))|>
   group_by(stage_mode, scenario) |> 
-  reframe(mean_dist = sum(______) / nrow(io$bogota$base_pop)*sum(io$bogota$demographic$population)) |> 
+  reframe(mean_dist = sum(_______) / nrow(io$bogota$base_pop)*sum(io$bogota$demographic$population)) |> 
   pivot_wider(names_from = stage_mode, values_from = mean_dist)
   
 ```
 
-### 5. Combine varaibles to calculate change in background PM2.5 concentration
+```{r}
+trips |> 
+  #filter(stage_mode %in% c("car_driver", "motorcycle", "bus_driver"))|>
+  group_by(stage_mode, scenario) |> 
+  reframe(mean_dist = sum(stage_distance) / nrow(io$bogota$base_pop)*sum(io$bogota$demographic$population)) |> 
+  pivot_wider(names_from = stage_mode, values_from = mean_dist)|>
+  select(scenario, bus, car, cycle)
+
+```
+
+### 5. Combine variables to calculate the change in background PM2.5 concentration
 
 -   Calculate the total distance travelled by vehicles in the city at baseline
 
 ```{r vehicle distance_baseline, message=FALSE, warning=FALSE}
-non_transport_pm_conc <- PM_CONC_BASE * (1 - PM_TRANS_SHARE)
-transport_pm_conc <- PM_TRANS_SHARE *PM_CONC_BASE * sum(trans_emissions[[SCEN[i]]], na.rm = T) / baseline_sum
+library(here)
 
-conc <- non_transport_pm_conc + transport_pm_conc  
+trans_emissions <- read_csv("trans_emission.csv")
+
+non_transport_pm_conc <- conc_base_pm * (1 - transport_share)
+#transport_pm_conc_0 <- conc_base_pm*transport_share*(1-sum(transport_emission$PM_emission_inventory))  
+transport_pm_conc_1 <- conc_base_pm * transport_share * sum(trans_emission$sc_bus) / sum(trans_emission$baseline)
+transport_pm_conc_2 <- conc_base_pm * transport_share * sum(trans_emission$sc_car) / sum(trans_emission$baseline)
+transport_pm_conc_3 <- conc_base_pm * transport_share * sum(trans_emission$sc_cycle) / sum(trans_emission$baseline)
+
+conc_bus <- non_transport_pm_conc + transport_pm_conc_1 
+conc_car <- non_transport_pm_conc + transport_pm_conc_2 
+conc_cycle <- non_transport_pm_conc + transport_pm_conc_3 
 
 ```
 
@@ -205,5 +244,7 @@ Individual PM2.5 exposure - Distribution
 
 ```{r summary_stats, message=FALSE, warning=FALSE}
 io$bogota
+# Air pollution exposure by age catgory
+# Air pollution exposure by gender
 
 ```
