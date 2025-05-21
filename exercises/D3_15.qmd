@@ -1,0 +1,348 @@
+---
+title: "Practicals: session 15th"
+subtitle: "Behaviours, exposures, PIF and CRA"
+author: "Ali Abbas"
+engine: knitr
+editor: visual
+toc: true
+lightbox: true
+format: 
+  html: 
+    theme: cosmos
+    embed-resources: true
+    toc: true
+    code-tools: true
+    code-fold: false
+    page-layout: full
+    df-print: paged
+    number-sections: true
+---
+
+# Learning objectives:
+
+-   Starting from behaviours, calculate exposures for baseline and scenarios
+-   Calculate potential impact fraction and
+-   Carry out health impact assessment using Comparative Risk Assessment(CRA)
+
+```{r setup}
+#| echo: false
+#| warning: false
+#| eval: true
+#| message: false
+library(tidyverse)
+library(here)
+library(gt)
+library(plotly)
+library(ithimr)
+library(DT)
+# Read io
+io <- readRDS(here("results/multi_city/io.rds"))
+# Read trips from the io object and remove ghost trips (with participant_id = 0)
+trips <- io$bogota$trip_scen_sets |> filter(participant_id > 0)
+# Set palette for gt table
+global_palette <- "viridis" #c("#fee8c8", "#e34a33")
+
+
+theme_set(theme_minimal(base_family = "Spline Sans"))
+theme_update(
+  panel.grid.minor = element_blank(),
+  panel.grid.major = element_blank(),
+  axis.line.x = element_line(color = "grey80", linewidth = .4),
+  axis.ticks.x = element_line(color = "grey80", linewidth = .4),
+  plot.margin = margin(10, 15, 10, 15)
+)
+
+
+scen_colours <- c("Baseline" = '#b15928',
+                  "Cycling" = '#abdda4',
+                  "Car" = '#d7191c',
+                  "Bus" = '#2b83ba',
+                  "Motorcycle" = '#fdae61')
+
+
+mode_colours <- c("pedestrian" = '#99d8c9',
+                  "cycle" = '#abdda4',
+                  "car" = '#d7191c',
+                  "bus" = '#2b83ba',
+                  "motorcycle" = '#fdae61',
+                  "other" = '#fee8c8')
+
+
+```
+
+# Look at the exposure of PA/AP
+
+In this section, we will develop a better understanding of PA and AP exposures by age and sex groups.
+
+## PA distribution by Scenario, Age Category and Sex
+
+Let's plot PA volume, as outputted from the model, for each scenario, age category and sex group.
+
+```{r}
+
+# Start off with mmets outputted stored in the `io` object
+mmets_long <- io$bogota$outcomes$mmets |> 
+  ## Convert it into long format
+  pivot_longer(
+    cols = ends_with("mmet"),
+    names_to = "scenario",
+    values_to = "mmet_value"
+  ) |> 
+  # Rename columns 
+  mutate(scenario = case_when(
+    scenario  == "sc_cycle_mmet" ~ "Cycling",
+    scenario  == "sc_car_mmet" ~ "Car",
+    scenario  == "sc_bus_mmet" ~ "Bus", 
+    scenario == "base_mmet" ~ "Baseline"
+  )
+  )
+
+# Plot distribution by age_cat and sex distribution under each scenario
+plotly::ggplotly(ggplot(mmets_long, aes(x = age_cat, y = mmet_value, fill = scenario)) +
+                   geom_boxplot(outlier.colour = "black", outlier.shape = 16, outlier.size = 1) +
+                   facet_grid(sex ~ scenario, scales = "free_y") +
+                   labs(
+                     title = "PA Volume Distribution by Scenario, Age Category and Sex",
+                     x = "Age Category",
+                     y = "mMET hours per week"
+                   ) +
+                   scale_fill_manual(values = scen_colours) +
+                   theme_minimal() + coord_flip())
+
+```
+
+## AP distribution by Scenario, Age Category and Sex
+
+Similar to PA plot, let's plot AP exposure (of PM 2.5 in µg/m³ ), as outputted from the model, for each scenario, age category and sex group.
+
+```{r}
+
+
+# Similar to PA, read in PM 2.5 outcome from the `io` object
+pm_2.5_long <- io$bogota$outcomes$pm_conc_pp |> 
+  pivot_longer(
+    cols = starts_with("pm_conc"),
+    names_to = "scenario",
+    values_to = "pm_2.5_value"
+  ) |> 
+  mutate(scenario = case_when(
+    scenario  == "pm_conc_sc_cycle" ~ "Cycling",
+    scenario  == "pm_conc_sc_car" ~ "Car",
+    scenario  == "pm_conc_sc_bus" ~ "Bus", 
+    scenario == "pm_conc_base" ~ "Baseline"
+  )
+  )
+
+
+plotly::ggplotly(ggplot(pm_2.5_long, aes(x = age_cat, y = pm_2.5_value, fill = scenario)) +
+                   geom_boxplot(outlier.colour = "black", outlier.shape = NA) +
+                   scale_fill_manual(values = scen_colours) +
+                   facet_grid(sex ~ scenario, scales = "free_y") +
+                   labs(
+                     title = "PM 2.5 Distribution by Scenario, Age Category and Sex",
+                     x = "Age Category",
+                     y = "µg/m³"
+                   ) +
+                   theme_minimal() + coord_flip())
+
+
+```
+
+### Example of travel behaviour of an individual
+
+We'd now like to look at a random participant whose PA volume has reduced in the `cycling` scenario. This allows us to make sense of which trips were switched to `cycle` mode, and how they might have an effect on the person's PA volume. Spend 10 minutes making sense of the trips.
+
+You may also change the `seed` to another number to pick a different participant.
+
+```{r}
+set.seed(2)
+sample_participant_id <- io$bogota$outcomes$mmets |> 
+  filter(base_mmet < sc_cycle_mmet) |> 
+  dplyr::select(participant_id) |> 
+  sample_n(1) |> 
+  as.numeric()
+
+trip_sample_participant <- io$bogota$trip_scen_sets |> 
+  filter(participant_id == sample_participant_id)
+
+trip_sample_participant
+
+```
+
+## Calculate exposure response/dose response against dose
+
+In this section, we calculate exposure response/dose response against behaviours for each individual for both AP and PA.
+
+### PA dose
+
+We are using `all-cause-mortality` dose-response relationship. 
+
+[![All cause mortality dose-response curve](images/all-cause-dose-response.png){fig-align="center"}](https://shiny.mrc-epid.cam.ac.uk/meta-analyses-physical-activity/)
+
+```{r}
+
+RR_pa <- io$bogota$outcomes$mmets |> 
+  tidyr::pivot_longer(cols = contains("mmet")) |> 
+  mutate(rr_pa = drpa::dose_response(cause = "all-cause-mortality", 
+                                     outcome_type = "fatal", 
+                                     dose = value, 
+                                     censor_method = "WHO-DRL")$rr) |> 
+  rename(scenario = name) |> mutate(scenario = case_when(
+     scenario  == "sc_cycle_mmet" ~ "Cycling",
+     scenario  == "sc_car_mmet" ~ "Car",
+     scenario  == "sc_bus_mmet" ~ "Bus", 
+     scenario == "base_mmet" ~ "Baseline"
+      )) 
+
+RR_pa
+
+```
+
+### AP
+
+Similar to PA, we will use `all-cause-mortality` exposure response function for AP as well.
+
+```{r}
+
+all_cause_ap <- read_csv(here("inst/extdata/global/dose_response/drap/extdata/all_cause_ap.csv"))
+
+
+ggplot(all_cause_ap) +
+    aes(x = dose, y = RR) +
+    geom_point(colour = "#112446") +
+    labs(
+        x = "PM 2.5 in µg/m³ ",
+        y = "Relative Risk",
+        title = "All cause mortality exposure response function for PM 2.5"
+    ) +
+    theme_minimal()
+
+
+```
+
+Using the `ERF` above, we now calculate relative risk against `pm 2.5` exposure for `all-cause-mortality`
+
+```{r}
+
+
+RR_ap <- io$bogota$outcomes$pm_conc_pp |> tidyr::pivot_longer(cols = contains("pm_conc")) |> mutate(rr_ap =  ithimr::AP_dose_response(cause = "all_cause_ap", dose = value, quantile = 0.5)$rr) |> rename(scenario = name) |> mutate(scenario = case_when(
+          scenario  == "pm_conc_sc_cycle" ~ "Cycling",
+          scenario  == "pm_conc_sc_car" ~ "Car",
+          scenario  == "pm_conc_sc_bus" ~ "Bus", 
+          scenario == "pm_conc_base" ~ "Baseline"
+      )
+ )
+
+head(RR_ap)
+```
+
+### Combined AP and PA
+
+Let's combine PA and AP relative risk together in a dataset.
+
+```{r}
+
+combined_RR <- RR_ap |> dplyr::select(-value) |> left_join(RR_pa |> dplyr::select(-value))
+
+combined_RR
+
+```
+
+### Multiply RRs of PA and AP combined
+
+In order to have a joint effect of `PA` and `AP`, we multiply their respective relative risks together. Replace the blank with the multiplier symbol, `*`.
+
+```{r}
+
+combined_RR <- combined_RR |> mutate(rr = rr_ap _ rr_pa )
+
+combined_RR
+```
+
+### Age and sex grouped combined RRs
+
+Similar to previous exercises, we'd now look at the `sum` of relative risk by `age_cat` and `sex`. Replace `_` with `rr`.
+
+```{r}
+
+
+grouped_RR <- combined_RR |> group_by(sex, age_cat, scenario) |> summarise(rr = sum(_))
+
+grouped_RR
+
+```
+
+# PIF
+
+Using the combined relative risk by `age_cat`, and `sex`, we calculate Potential Impact Fraction. Just to remind you
+
+
+$$
+pif = \frac{RR_{base} - RR_{scenario}}{RR_{base}}
+$$
+
+Now please replace the `_` with `rr` for baseline scenario.
+
+```{r}
+
+pif <- grouped_RR |> mutate(pif = (rr[scenario == "Baseline"] - rr) / 
+                              _)
+
+pif
+
+```
+
+## Read in the burden data from io
+
+The city specific burden data - which usually comes from the [Global Burden of Disease (GBD)](https://www.healthdata.org/research-analysis/gbd), is stored at `io$bogota$disease_burden`. 
+
+```{r}
+
+hb <- io$bogota$_
+
+hb
+
+```
+
+### Keep only relevant causes
+
+Filter only `All causes` as the `cause` and keep only `Deaths` as measure.
+
+```{r}
+
+hb <- hb |> filter(measure == "_", cause == "_")
+
+if (nrow(hb) == 0) stop("Error. hb should have 22 rows")
+
+hb
+
+```
+
+# Health Impacts
+
+## Estimate the health impact using PIFs and burden data
+
+Multiply PIF for each `age_cat` (5 year age category) and `sex` with burden data to calculate health burden under each scenario.
+
+```{r}
+
+health_impact <- pif |> 
+  left_join(hb |> 
+              rename(age_cat = age) |> 
+              dplyr::select(-c(min_age, max_age, rate, population))) |> 
+  mutate(health_impact = pif _ burden)
+
+health_impact
+
+
+```
+
+## Total number of averted deaths under each scenario
+
+Sum the health impact of each scenario to calculate total number of averted deaths,  and display it. Positive value means the deaths were averted, while negative value means they were lost. Replace the blank with the `sum` function.
+
+```{r}
+
+health_impact |> group_by(scenario) |> summarise(averted_deaths = _(health_impact))
+
+```
