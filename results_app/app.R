@@ -1063,33 +1063,69 @@ server <- function(input, output, session) {
   get_trip_tbl <- reactive({
     req(input$in_cities)
     req(input$in_trip_measure)
+    req(input$in_scens)
     
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull() |> tolower()
     tm <- input$in_trip_measure  
-    
+    filtered_scens <- input$in_scens
     df <- NULL
     
     if (tm == "Distance"){
-      df <- get_city_df(filtered_cities, "dist") |>  
-        gt(rowname_col = "row", groupname_col = "city_name") |> 
-        data_color(columns = 2:6, method = "numeric", palette = "viridis") 
+      df <- get_city_df(filtered_cities, filtered_scens, "dist") |>  
+        #dplyr::select(-city_name) |> 
+        gt(rowname_col = "row") |> 
+        data_color(columns = where(is.numeric), 
+                   method = "numeric", 
+                   palette = "viridis") |> 
+        tab_header(
+          title = "Distance per person in km",
+          subtitle = "Values represent unit distance in km"
+        ) 
     }else if (tm == "Scenario"){
-      # browser()
-      df <- get_city_df(filtered_cities, "scen") |> 
-        gt(rowname_col = "row", groupname_col = "city_name")|> 
-        data_color(columns = 2:5, method = "numeric", palette = "viridis") 
+      df <- get_city_df(filtered_cities, filtered_scens, "scen") |> 
+        dplyr::select(-city_name) |> 
+        gt(rowname_col = "row")|> 
+        fmt_number(
+          columns =  where(is.numeric),
+          decimals = 1,
+          use_seps = FALSE
+        ) |> 
+        data_color(columns = where(is.numeric), 
+                   method = "numeric", 
+                   palette = "viridis") |> 
+        tab_header(
+          title = "Scenario definition"
+        ) 
+        
       
     }else if (tm == "Trip"){
-      df <- get_city_df(filtered_cities, "trip_freq") |> 
-        gt(rowname_col = "row", groupname_col = "city_name")|> 
-        data_color(columns = 2:6, method = "numeric", palette = "viridis") 
+      df <- get_city_df(filtered_cities, filtered_scens, "trip_freq") |> 
+        dplyr::select(-city_name) |> 
+        gt(rowname_col = "row")|> 
+        fmt_percent(
+          columns =  where(is.numeric),
+          decimals = 1,
+          scale_values = FALSE
+        ) |>
+        data_color(columns = where(is.numeric), 
+                   method = "numeric", 
+                   palette = "viridis",
+                   direction = "row",    # Key for row-wise scaling
+                   apply_to = "fill"     # Color background
+        ) |> 
+        tab_header(
+          title = "Percentage Distribution by  Trip Frequency",
+          subtitle = "Values represent percentages summing to 100 per row"
+        ) 
+      
+      
     }else if (tm == "Trip by distance category"){
-      df <- get_city_df(filtered_cities, "trip") |> 
+      df <- get_city_df(filtered_cities, filtered_scens, "trip") |> 
         filter(participant_id!=0, !trip_mode %in% c("other", "motorcycle") ) |> count(trip_mode, scenario, trip_distance_cat) %>%
-        group_by(trip_mode, scenario) %>%
-        mutate(proportion = round(n / sum(n) * 100, 1)) %>%  # Multiply by 100 for percentage
-        dplyr::select(-n) %>%
-        ungroup() %>%
+        group_by(trip_mode, scenario) |> 
+        mutate(proportion = round(n / sum(n) * 100, 1)) |>   # Multiply by 100 for percentage
+        dplyr::select(-n) |> 
+        ungroup() |> 
         complete(scenario, trip_mode, trip_distance_cat, fill = list(proportion = 0)) |> 
         mutate(scenario = case_when(
           scenario  == "sc_cycle" ~ "Cycling",
@@ -1098,9 +1134,11 @@ server <- function(input, output, session) {
           scenario == "baseline" ~ "Baseline"
         )) |> 
         pivot_wider(names_from = trip_distance_cat, values_from = proportion) |> 
-        gt(groupname_col = c("trip_mode")) |>
+        mutate(trip_mode = paste(trip_mode, " mode")) |> 
+        gt(groupname_col = c("trip_mode"),
+           row_group_as_column = T) |>
         data_color(
-          columns = 3:5,
+          columns = where(is.numeric),
           method = "numeric",
           palette = "viridis",
           direction = "row",    # Key for row-wise scaling
@@ -1109,9 +1147,8 @@ server <- function(input, output, session) {
         tab_header(
           title = "Percentage Distribution by  Trip Distance Category",
           subtitle = "Values represent percentages summing to 100 per row"
-        )
-      
-    }
+        ) 
+      }
     
     # browser()
     
@@ -1134,7 +1171,7 @@ server <- function(input, output, session) {
     
   })
   
-  get_city_df <- function(cities, obj){
+  get_city_df <- function(cities, scens, obj){
     
     return (cities |>
               purrr::map(function(city) {
@@ -1144,21 +1181,44 @@ server <- function(input, output, session) {
                   
                 }else if (obj == "dist"){
                   io[[city]][[obj]] |>
-                    dplyr::mutate(city_name = city) |> 
+                    #dplyr::mutate(city_name = city) |> 
                     mutate_if(is.numeric, list(~round((.) / nrow(io[[city]]$base_pop), 2))) |> 
-                    filter(!stage_mode %in% c("bus_driver", "taxi", "rail", "auto_rickshaw", "truck", "other", "car_driver")) |> 
-                    rename(Baseline = baseline, Cycling = sc_cycle, Driving = sc_car, Bus = sc_bus)
-                  
+                    filter(!stage_mode %in% c("taxi", "rail", "auto_rickshaw", "truck", "other")) |> 
+                    pivot_longer(cols = -stage_mode) |> 
+                    rename(scenario = name) |> 
+                    mutate(scenario = case_when(
+                      grepl("base", scenario) ~ "Baseline",
+                      grepl("sc_bus", scenario) ~ "BUS_SC",
+                      grepl("sc_cycle", scenario) ~ "CYC_SC",
+                      grepl("sc_motorcycle", scenario) ~ "MOT_SC",
+                      grepl("sc_car", scenario) ~ "CAR_SC"
+                    )) |> 
+                    filter(scenario %in% (scens |> append("Baseline"))) |> 
+                    mutate(scenario = case_when(
+                      scenario == "CYC_SC" ~ "Cycling",
+                      scenario == "CAR_SC" ~ "Car",
+                      scenario == "BUS_SC" ~ "Bus",
+                      scenario == "MOT_SC" ~ "Motorcycle",
+                      scenario == "Baseline" ~ "Baseline")) |> 
+                    pivot_wider(names_from = scenario, values_from = value)
                 }else if (obj == "scen"){
                   io[[city]]$trip_scen_sets |> 
                     filter(participant_id !=0) |> 
                     distinct(trip_id, scenario, .keep_all = T) |> 
                     mutate(scenario = case_when(
-                      scenario  == "sc_cycle" ~ "Cycling",
-                      scenario  == "sc_car" ~ "Car",
-                      scenario  == "sc_bus" ~ "Bus", 
-                      scenario == "baseline" ~ "Baseline"
+                      grepl("base", scenario) ~ "Baseline",
+                      grepl("sc_bus", scenario) ~ "BUS_SC",
+                      grepl("sc_cycle", scenario) ~ "CYC_SC",
+                      grepl("sc_motorcycle", scenario) ~ "MOT_SC",
+                      grepl("sc_car", scenario) ~ "CAR_SC"
                     )) |> 
+                    filter(scenario %in% (scens |> append("Baseline"))) |> 
+                    mutate(scenario = case_when(
+                      scenario == "CYC_SC" ~ "Cycling",
+                      scenario == "CAR_SC" ~ "Car",
+                      scenario == "BUS_SC" ~ "Bus",
+                      scenario == "MOT_SC" ~ "Motorcycle",
+                      scenario == "Baseline" ~ "Baseline")) |> 
                     group_by(scenario, trip_mode) |> 
                     reframe(freq = round(sum(dplyr::n())/ (io[[city]]$trip_scen_sets |> 
                                                              mutate(scenario = case_when(scenario == "baseline" ~ "Baseline"
@@ -1175,11 +1235,19 @@ server <- function(input, output, session) {
                   io[[city]]$trip_scen_sets %>% distinct(trip_id, scenario, .keep_all = T) %>% 
                     filter(!trip_mode %in% c("bus_driver", "taxi", "rail", "auto_rickshaw", "truck", "other", "car_driver")) |> 
                     mutate(scenario = case_when(
-                      scenario  == "sc_cycle" ~ "Cycling",
-                      scenario  == "sc_car" ~ "Car",
-                      scenario  == "sc_bus" ~ "Bus", 
-                      scenario == "baseline" ~ "Baseline"
+                      grepl("base", scenario) ~ "Baseline",
+                      grepl("sc_bus", scenario) ~ "BUS_SC",
+                      grepl("sc_cycle", scenario) ~ "CYC_SC",
+                      grepl("sc_motorcycle", scenario) ~ "MOT_SC",
+                      grepl("sc_car", scenario) ~ "CAR_SC"
                     )) |> 
+                    filter(scenario %in% (scens |> append("Baseline"))) |> 
+                    mutate(scenario = case_when(
+                      scenario == "CYC_SC" ~ "Cycling",
+                      scenario == "CAR_SC" ~ "Car",
+                      scenario == "BUS_SC" ~ "Bus",
+                      scenario == "MOT_SC" ~ "Motorcycle",
+                      scenario == "Baseline" ~ "Baseline")) |>  
                     group_by(trip_mode, scenario) %>% 
                     summarise(p = round(dplyr::n() / (io[[city]]$trip_scen_sets |> 
                                                         mutate(scenario = case_when(scenario == "baseline" ~ "Baseline"
