@@ -356,8 +356,9 @@ server <- function(input, output, session) {
     req(input$in_inj_modes)
     
     filtered_scens <- input$in_scens
-    filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull() |> tolower()
-    #filtered_cities <- tolower(in_cities)
+    filtered_cities <- cities |> 
+      filter(city %in% input$in_cities) |> 
+      dplyr::select(city) |> pull() |> tolower()
     filtered_modes <- input$in_inj_modes
     
     local_df <- get_inj_data()
@@ -476,25 +477,48 @@ server <- function(input, output, session) {
     filtered_cities <- tolower(filtered_cities)
     filtered_scens <- input$in_scens
     
-    df <- get_summary_data("mmets", filtered_cities, filtered_scens)
+    df <- get_city_outcomes_df(filtered_cities, "mmets") |> 
+      pivot_longer(cols = contains("mmet")) |> 
+      rename(scenario = name) |> 
+      mutate(scenario = case_when(
+        scenario  == "sc_cycle_mmet" ~ "Cycling",
+        scenario  == "sc_car_mmet" ~ "Car",
+        scenario  == "sc_bus_mmet" ~ "Bus", 
+        scenario == "base_mmet" ~ "Baseline"
+      )
+      )
     
-    plotly::ggplotly(
-      ggplot(df) +
-        aes(
-          x = name,
-          y = middle,
-          fill = name,
-          group = city_name,
-          ymin = ymin,
-          ymax = ymax
-        ) +
-        geom_bar(stat = "summary", fun = "sum") +
-        geom_errorbar(aes(ymin = ymin,ymax = ymax)) +
-        scale_fill_manual(values = scen_colours) +
-        coord_flip() +
-        theme_minimal() +
-        facet_wrap(vars(city_name))
-    )
+    y <- ggplot(df, aes(x=value, y = scenario, fill = scenario)) + 
+      geom_boxplot() + 
+      scale_fill_manual(values = scen_colours) + 
+      labs(title = "Distribution of PA mMET-hours/week per person",
+           x = "mMET-hours/week per person")
+    
+    # print to html
+    # print(y)
+    
+    plotly::ggplotly(y)
+    
+    # df <- get_summary_data("mmets", filtered_cities, filtered_scens)
+    # 
+    # browser()
+    # 
+    # plotly::ggplotly(
+    #   ggplot(df) +
+    #     aes(
+    #       x = name,
+    #       y = mean,
+    #       fill = name,
+    #       ymin = `5th`,
+    #       ymax = `95th`
+    #     ) +
+    #     geom_bar(stat = "summary", fun = "sum") +
+    #     geom_errorbar(aes(ymin = `5th`,ymax = `95th`)) +
+    #     scale_fill_manual(values = scen_colours) +
+    #     coord_flip() +
+    #     theme_minimal() +
+    #     facet_wrap(vars(city_name))
+    # )
     
   })  |> bindCache(input$in_cities,
                    input$in_scens)
@@ -563,22 +587,13 @@ server <- function(input, output, session) {
       )
       )
     
-    # get_summary_data("mmets", filtered_cities, filtered_scens) 
-    
     y <- ggplot(df, aes(x=value, colour=Scenario)) + 
       geom_density() + 
       scale_color_manual(values = scen_colours) + 
       xlim(0, 30) +
-      geom_vline(xintercept = 17.5, linetype="dashed", color = "red") +
       labs(title = "Daily PM2.5 exposure levels",
            x = "PM2.5 exposure levels (microgram/m^3)",
-           y = "Density") +
-      annotate(x = 17.5, y = +Inf, 
-               label = "17.5 mMET-hours/week", 
-               vjust = 2, geom="label")
-    
-    # print to html
-    # print(y)
+           y = "Density")
     
     plotly::ggplotly(y)
     
@@ -650,14 +665,23 @@ server <- function(input, output, session) {
                name == "BUS_SC" ~ "Bus",
                name == "MOT_SC" ~ "Motorcycle",
                name == "Baseline" ~ "Baseline")) |> 
-             summarise(lower = quantile(value, qlower),
-                       upper = quantile(value, qupper), 
-                       middle = quantile(value, qmiddle), 
-                       IQR = diff(c(lower, upper)),
-                       ymin = max(quantile(value, qymin), lower - 1.5 * IQR), 
-                       ymax = min(quantile(value, qymax), upper + 1.5 * IQR),
-                       outliers = list(value[which(value > upper + 1.5 * IQR | 
-                                                     value < lower - 1.5 * IQR)])))
+             summarise('mean' = mean(value),
+                       '5th' = quantile(value, 0.05),
+                       '20th' = quantile(value, 0.20),
+                       '25th' = quantile(value, 0.25),
+                       '35th' = quantile(value, 0.35),
+                       '50th' = quantile(value, 0.5),
+                       '95th' = quantile(value, 0.95)) |> 
+             mutate_if(is.numeric, round, 2) |> 
+             dplyr::select(-city_name))
+               # lower = quantile(value, qlower),
+               #         upper = quantile(value, qupper), 
+               #         middle = quantile(value, qmiddle), 
+               #         IQR = diff(c(lower, upper)),
+               #         ymin = max(quantile(value, qymin), lower - 1.5 * IQR), 
+               #         ymax = min(quantile(value, qymax), upper + 1.5 * IQR),
+               #         outliers = list(value[which(value > upper + 1.5 * IQR | 
+               #                                       value < lower - 1.5 * IQR)])))
     
   }
   
@@ -1073,10 +1097,14 @@ server <- function(input, output, session) {
     if (tm == "Distance"){
       df <- get_city_df(filtered_cities, filtered_scens, "dist") |>  
         #dplyr::select(-city_name) |> 
-        gt(rowname_col = "row") |> 
+        gt(rowname_col = "row",
+           groupname_col = "scenario",
+           row_group_as_column = T) |> 
         data_color(columns = where(is.numeric), 
                    method = "numeric", 
-                   palette = "viridis") |> 
+                   palette = "viridis",
+                   direction = "row",    # Key for row-wise scaling
+                   apply_to = "fill") |> 
         tab_header(
           title = "Distance per person in km",
           subtitle = "Values represent unit distance in km"
@@ -1084,7 +1112,8 @@ server <- function(input, output, session) {
     }else if (tm == "Scenario"){
       df <- get_city_df(filtered_cities, filtered_scens, "scen") |> 
         dplyr::select(-city_name) |> 
-        gt(rowname_col = "row")|> 
+        gt(rowname_col = "row",
+           row_group_as_column = T)|> 
         fmt_number(
           columns =  where(is.numeric),
           decimals = 1,
@@ -1101,7 +1130,8 @@ server <- function(input, output, session) {
     }else if (tm == "Trip"){
       df <- get_city_df(filtered_cities, filtered_scens, "trip_freq") |> 
         dplyr::select(-city_name) |> 
-        gt(rowname_col = "row")|> 
+        gt(rowname_col = "row",
+           row_group_as_column = T)|> 
         fmt_percent(
           columns =  where(is.numeric),
           decimals = 1,
@@ -1150,22 +1180,6 @@ server <- function(input, output, session) {
         ) 
       }
     
-    # browser()
-    
-    
-    #c("Scenario", "Trip", "Distance")
-    
-    
-    # gt_tbl <-
-    #   gtcars |>
-    #   gt() |>
-    #   fmt_currency(columns = msrp, decimals = 0) |>
-    #   cols_hide(columns = -c(mfr, model, year, mpg_c, msrp)) |>
-    #   cols_label_with(columns = everything(), fn = toupper) |>
-    #   data_color(columns = msrp, method = "numeric", palette = "viridis") |>
-    #   sub_missing() |>
-    #   opt_interactive(use_compact_mode = TRUE)
-    
     return(df)
     
     
@@ -1200,7 +1214,16 @@ server <- function(input, output, session) {
                       scenario == "BUS_SC" ~ "Bus",
                       scenario == "MOT_SC" ~ "Motorcycle",
                       scenario == "Baseline" ~ "Baseline")) |> 
-                    pivot_wider(names_from = scenario, values_from = value)
+                    pivot_wider(names_from = scenario, values_from = value) |> 
+                    mutate(stage_mode = case_when(
+                      stage_mode == "car_driver" ~ "car (vehicle)",
+                      stage_mode == "bus_driver" ~ "bus (vehicle)",
+                      TRUE ~ stage_mode)) |> 
+                    arrange(stage_mode) |> 
+                    pivot_longer(cols = -stage_mode) |> 
+                    pivot_wider(values_from = value, names_from = stage_mode) |> 
+                    rename(scenario = name)
+                    
                 }else if (obj == "scen"){
                   io[[city]]$trip_scen_sets |> 
                     filter(participant_id !=0) |> 
@@ -1267,7 +1290,7 @@ server <- function(input, output, session) {
   output$trip_table <- 
     render_gt( 
       { 
-        get_trip_tbl() |> tab_header(title = paste("Measure: ", input$in_trip_measure))
+        get_trip_tbl()# |> tab_header(title = paste("Measure: ", input$in_trip_measure))
       } 
     )  
   
@@ -1285,7 +1308,9 @@ server <- function(input, output, session) {
     df |> 
       mutate_if(is.numeric, round, 2) |> 
       gt(rowname_col = "row", groupname_col = "city_name") |> 
-      data_color(columns = 3:8, method = "numeric", palette = "viridis",
+      data_color(columns = where(is.numeric), 
+                 method = "numeric", 
+                 palette = "viridis",
                  direction = "row",    # Key for row-wise scaling
                  apply_to = "fill"     # Color background
       ) |> 
@@ -1316,7 +1341,9 @@ server <- function(input, output, session) {
     
     df |> 
       gt(rowname_col = "row", groupname_col = "city_name") |> 
-      data_color(columns = 3:8, method = "numeric", palette = "viridis") |> 
+      data_color(columns = where(is.numeric), 
+                 method = "numeric", 
+                 palette = "viridis") |> 
       tab_header(title = paste("AP exposures by city and scenario"))
   } 
   )  
