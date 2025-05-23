@@ -446,6 +446,26 @@ server <- function(input, output, session) {
     
     pm_conc_pp <- get_summary_data("pm_conc_pp", filtered_cities, filtered_scens)
     
+    # browser()
+    
+    # plotly::ggplotly(
+    #   ggplot(pm_conc_pp) +
+    #     aes(
+    #       x = name,
+    #       y = `50th`,
+    #       fill = name,
+    #       group = city_name,
+    #       ymin = `5th`,
+    #       ymax = `95th`
+    #     ) +
+    #     geom_bar(stat = "summary", fun = "sum") +
+    #     geom_errorbar(aes(ymin = `5th`,ymax = `95th`)) +
+    #     scale_fill_manual(values = scen_colours) +
+    #     coord_flip() +
+    #     theme_minimal() +
+    #     facet_wrap(vars(city_name))
+    # )
+    
     plotly::ggplotly(
       ggplot(pm_conc_pp) +
         aes(
@@ -461,17 +481,19 @@ server <- function(input, output, session) {
         scale_fill_manual(values = scen_colours) +
         coord_flip() +
         theme_minimal() +
-        facet_wrap(vars(city_name))
+        labs(main = "PM 2.5 in µg/m³ in each scenario", y = " µg/m³", x = "Median with 5th and 95th as error bars") #+ 
+        #facet_wrap(vars(city_name))
     )
     
   })  |> bindCache(input$in_cities,
                    input$in_scens)
   
   
-  output$in_pa_exp_fig <- renderPlotly({
+  output$in_pa_exp_fig <- renderPlot({
     
     req(input$in_scens)
     req(input$in_cities)
+    req(input$in_scens)
     
     filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
     filtered_cities <- tolower(filtered_cities)
@@ -488,16 +510,22 @@ server <- function(input, output, session) {
       )
       )
     
+    
+    
     y <- ggplot(df, aes(x=value, y = scenario, fill = scenario)) + 
       geom_boxplot() + 
       scale_fill_manual(values = scen_colours) + 
       labs(title = "Distribution of PA mMET-hours/week per person",
            x = "mMET-hours/week per person")
     
+    y
+    
+    #browser()
+    
     # print to html
     # print(y)
     
-    plotly::ggplotly(y)
+    #plotly::ggplotly(y)
     
     # df <- get_summary_data("mmets", filtered_cities, filtered_scens)
     # 
@@ -601,41 +629,41 @@ server <- function(input, output, session) {
     
   })
   
-  get_summary_ap_data <- function(filtered_cities, filtered_scens){
-    
-    filtered_cities <- 
-      
-      pm_exp <- io$bogota$outcomes$pm_conc_pp |> 
-      pivot_longer(cols = starts_with("pm")) |> 
-      rename(scenario = name, pm_exp = value) |> 
-      group_by(scenario)  |> 
-      summarise('mean' = mean(pm_exp),
-                '5th' = quantile(pm_exp, 0.05),
-                '20th' = quantile(pm_exp, 0.20),
-                '25th' = quantile(pm_exp, 0.25),
-                '35th' = quantile(pm_exp, 0.35),
-                '50th' = quantile(pm_exp, 0.5),
-                '95th' = quantile(pm_exp, 0.9)) |> 
-      mutate_if(is.numeric, round, 2) |> 
-      mutate(scenario = str_remove_all(scenario, "pm_conc_")) 
-    
-    
-    
-    # Extract scenario_pm with two columns with scenario names and scenario_pm_concentrations
-    scenario_pm_df <- io$bogota$outcomes$scenario_pm |> 
-      mutate_if(is.numeric, round, 2) |> 
-      mutate(scenario = case_when(
-        grepl("baseline", scenario) ~ "base",
-        TRUE ~ scenario))
-    
-    # Join summary and scenario_pm_df based on scenario names
-    summary <- left_join(pm_exp, scenario_pm_df) |> 
-      mutate(change_PM = round(conc_pm - conc_pm[scenario == "base"], 2))
-    
-    # print to html file
-    print(kable(summary, caption = cities[x]))
-    
-  }
+  # get_summary_ap_data <- function(filtered_cities, filtered_scens){
+  #   
+  #   filtered_cities <- 
+  #     
+  #     pm_exp <- io$bogota$outcomes$pm_conc_pp |> 
+  #     pivot_longer(cols = starts_with("pm")) |> 
+  #     rename(scenario = name, pm_exp = value) |> 
+  #     group_by(scenario)  |> 
+  #     summarise('mean' = mean(pm_exp),
+  #               '5th' = quantile(pm_exp, 0.05),
+  #               '20th' = quantile(pm_exp, 0.20),
+  #               '25th' = quantile(pm_exp, 0.25),
+  #               '35th' = quantile(pm_exp, 0.35),
+  #               '50th' = quantile(pm_exp, 0.5),
+  #               '95th' = quantile(pm_exp, 0.9)) |> 
+  #     mutate_if(is.numeric, round, 2) |> 
+  #     mutate(scenario = str_remove_all(scenario, "pm_conc_")) 
+  #   
+  #   
+  #   
+  #   # Extract scenario_pm with two columns with scenario names and scenario_pm_concentrations
+  #   scenario_pm_df <- io$bogota$outcomes$scenario_pm |> 
+  #     mutate_if(is.numeric, round, 2) |> 
+  #     mutate(scenario = case_when(
+  #       grepl("baseline", scenario) ~ "base",
+  #       TRUE ~ scenario))
+  #   
+  #   # Join summary and scenario_pm_df based on scenario names
+  #   summary <- left_join(pm_exp, scenario_pm_df) |> 
+  #     mutate(change_PM = round(conc_pm - conc_pm[scenario == "base"], 2))
+  #   
+  #   # print to html file
+  #   print(kable(summary, caption = cities[x]))
+  #   
+  # }
   
   get_summary_data <- function(var_name, filtered_cities, filtered_scens){
     
@@ -665,25 +693,64 @@ server <- function(input, output, session) {
                name == "BUS_SC" ~ "Bus",
                name == "MOT_SC" ~ "Motorcycle",
                name == "Baseline" ~ "Baseline")) |> 
-             summarise('mean' = mean(value),
-                       '5th' = quantile(value, 0.05),
-                       '20th' = quantile(value, 0.20),
-                       '25th' = quantile(value, 0.25),
-                       '35th' = quantile(value, 0.35),
-                       '50th' = quantile(value, 0.5),
-                       '95th' = quantile(value, 0.95)) |> 
-             mutate_if(is.numeric, round, 2) |> 
-             dplyr::select(-city_name))
-               # lower = quantile(value, qlower),
-               #         upper = quantile(value, qupper), 
-               #         middle = quantile(value, qmiddle), 
-               #         IQR = diff(c(lower, upper)),
-               #         ymin = max(quantile(value, qymin), lower - 1.5 * IQR), 
-               #         ymax = min(quantile(value, qymax), upper + 1.5 * IQR),
-               #         outliers = list(value[which(value > upper + 1.5 * IQR | 
-               #                                       value < lower - 1.5 * IQR)])))
+             summarise(lower = quantile(value, qlower),
+                       upper = quantile(value, qupper), 
+                       middle = quantile(value, qmiddle), 
+                       IQR = diff(c(lower, upper)),
+                       ymin = max(quantile(value, qymin), lower - 1.5 * IQR), 
+                       ymax = min(quantile(value, qymax), upper + 1.5 * IQR),
+                       outliers = list(value[which(value > upper + 1.5 * IQR | 
+                                                     value < lower - 1.5 * IQR)])))
     
   }
+  
+  # get_summary_data <- function(var_name, filtered_cities, filtered_scens){
+  #   
+  #   
+  #   # Desired arguments
+  #   qymax <- 0.9
+  #   qymin <- 0.1
+  #   qmiddle <- 0.5
+  #   qupper <- 0.8
+  #   qlower <- 0.2
+  #   
+  #   
+  #   return(get_city_outcomes_df(filtered_cities, var_name) |> 
+  #            pivot_longer(cols = -c(participant_id, age, sex, age_cat, city_name)) |> 
+  #            group_by(city_name, name) |> 
+  #            mutate(name = case_when(
+  #              grepl("base", name) ~ "Baseline",
+  #              grepl("sc_bus", name) ~ "BUS_SC",
+  #              grepl("sc_cycle", name) ~ "CYC_SC",
+  #              grepl("sc_motorcycle", name) ~ "MOT_SC",
+  #              grepl("sc_car", name) ~ "CAR_SC"
+  #            )) |> 
+  #            filter(name %in% filtered_scens) |> 
+  #            mutate(name = case_when(
+  #              name == "CYC_SC" ~ "Cycling",
+  #              name == "CAR_SC" ~ "Car",
+  #              name == "BUS_SC" ~ "Bus",
+  #              name == "MOT_SC" ~ "Motorcycle",
+  #              name == "Baseline" ~ "Baseline")) |> 
+  #            summarise('mean' = mean(value),
+  #                      '5th' = quantile(value, 0.05),
+  #                      '20th' = quantile(value, 0.20),
+  #                      '25th' = quantile(value, 0.25),
+  #                      '35th' = quantile(value, 0.35),
+  #                      '50th' = quantile(value, 0.5),
+  #                      '95th' = quantile(value, 0.95)) |> 
+  #            mutate_if(is.numeric, round, 2) |> 
+  #            dplyr::select(-city_name))
+  #              # lower = quantile(value, qlower),
+  #              #         upper = quantile(value, qupper), 
+  #              #         middle = quantile(value, qmiddle), 
+  #              #         IQR = diff(c(lower, upper)),
+  #              #         ymin = max(quantile(value, qymin), lower - 1.5 * IQR), 
+  #              #         ymax = min(quantile(value, qymax), upper + 1.5 * IQR),
+  #              #         outliers = list(value[which(value > upper + 1.5 * IQR | 
+  #              #                                       value < lower - 1.5 * IQR)])))
+  #   
+  # }
   
   
   output$in_pivot_int <- renderPlotly({
@@ -1100,6 +1167,11 @@ server <- function(input, output, session) {
         gt(rowname_col = "row",
            groupname_col = "scenario",
            row_group_as_column = T) |> 
+        fmt_number(
+          columns =  where(is.numeric),
+          decimals = 2,
+          use_seps = FALSE
+        ) |> 
         data_color(columns = where(is.numeric), 
                    method = "numeric", 
                    palette = "viridis",
@@ -1221,6 +1293,7 @@ server <- function(input, output, session) {
                       TRUE ~ stage_mode)) |> 
                     arrange(stage_mode) |> 
                     pivot_longer(cols = -stage_mode) |> 
+                    mutate(value = value * 1) |> 
                     pivot_wider(values_from = value, names_from = stage_mode) |> 
                     rename(scenario = name)
                     
@@ -1303,18 +1376,17 @@ server <- function(input, output, session) {
     filtered_cities <- tolower(filtered_cities)
     filtered_scens <- input$in_scens
     
-    df <- get_summary_data("mmets", filtered_cities, filtered_scens) |> dplyr::select(-outliers)
+    df <- get_summary_data("mmets", filtered_cities, filtered_scens) |> 
+      dplyr::select(-outliers)
     
     df |> 
       mutate_if(is.numeric, round, 2) |> 
-      gt(rowname_col = "row", groupname_col = "city_name") |> 
+      gt(rowname_col = "row") |> 
       data_color(columns = where(is.numeric), 
                  method = "numeric", 
-                 palette = "viridis",
-                 direction = "row",    # Key for row-wise scaling
-                 apply_to = "fill"     # Color background
+                 palette = "viridis"     # Color background
       ) |> 
-      tab_header(title = paste("PA exposures by city and scenario"))
+      tab_header(title = paste("PA exposures (in mMET hours per week) by scenario"))
     
   } 
   )  
@@ -1340,18 +1412,19 @@ server <- function(input, output, session) {
                   )))
     
     df |> 
-      gt(rowname_col = "row", groupname_col = "city_name") |> 
+      mutate_if(is.numeric, round, 2) |> 
+      gt(rowname_col = "row") |> 
       data_color(columns = where(is.numeric), 
                  method = "numeric", 
                  palette = "viridis") |> 
-      tab_header(title = paste("AP exposures by city and scenario"))
+      tab_header(title = paste("AP exposures (µg/m³) and scenario"))
   } 
   )  
   
   
   output$pa_exp <- renderUI({
     if (input$display_choice == "Figure") {
-      plotlyOutput("in_pa_exp_fig")
+      plotOutput("in_pa_exp_fig")
     } else if (input$display_choice == "Table"){
       tableOutput("in_pa_exp_tbl")
     } else {
