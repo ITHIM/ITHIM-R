@@ -34,7 +34,10 @@ output_version <- paste0(repo_sha, "_test_run")
 
 # Assumes that multi_city_script.R has been run  
 # read in input file
-io <- readRDS(paste0("../results/multi_city/io_3b3a1723_test_run.rds"))
+#io <- readRDS(paste0("../results/multi_city/io_3b3a1723_test_run.rds"))
+io <- readRDS(paste0("../results/multi_city/io_ac8aa8a0.rds"))
+
+
 
 # github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
 github_path <- "../"
@@ -250,7 +253,7 @@ in_cities <- cities$city
 
 ui <- page_sidebar(
   theme = bs_theme(bootswatch = "yeti"),
-  title = paste0("ITHIM Results for Bogota"),
+  title = paste0("ITHIM results for multi cities"),
   sidebar = sidebar(
     pickerInput(inputId = "in_scens", 
                 label = "Scenario (5% increase)",
