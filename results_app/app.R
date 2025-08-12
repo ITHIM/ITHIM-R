@@ -35,18 +35,27 @@ output_version <- paste0(repo_sha, "_test_run")
 # Assumes that multi_city_script.R has been run  
 # read in input file
 #io <- readRDS(paste0("../results/multi_city/io_3b3a1723_test_run.rds"))
-io <- readRDS(paste0("../results/multi_city/io_ac8aa8a0.rds"))
+#io <- readRDS(paste0("../results/multi_city/io_ac8aa8a0_test_run.rds"))
 
 
 
-# github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/bogota/"
-github_path <- "../"
+github_path <- "https://raw.githubusercontent.com/ITHIM/ITHIM-R/global/"
+# github_path <- "../"
+
+io_path <- ("https://raw.githubusercontent.com/ITHIM/ITHIM-R/global/results/multi_city/io_ac8aa8a0_test_run.rds")
+#io_path <- readRDS("https://github.com/ITHIM/ITHIM-R/blob/fec8e705bd50590a473ae1708523a02546460b65/results/multi_city/io_ac8aa8a0_test_run.rds")
+#githubURL <- ("https://raw.githubusercontent.com/derek-corcoran-barrios/LastBat/master/best2.My.Lu2.rds")
+download.file(io_path,"io.rds", method="curl")
+io <- readRDS("io.rds")
 
 
 # results_file
 results_file <- 'multi_city'
 
 rel_path_health <- paste0(github_path, "results/",results_file,"/health_impacts/")
+# rel_path_health <- paste0("https://github.com/ITHIM/ITHIM-R/blob/46ef9f826fe94efc0110feeb0311f9759ad5dca3/results/multi_city/health_impacts/")
+
+# https://github.com/ITHIM/ITHIM-R/blob/46ef9f826fe94efc0110feeb0311f9759ad5dca3/results/multi_city/health_impacts/deaths.csv
 
 ren_dose <- function(df){
   df[df$dose == "RTI",]$dose <- "Road Traffic Fatalities"
