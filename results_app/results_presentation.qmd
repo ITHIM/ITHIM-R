@@ -379,6 +379,7 @@ mmets |>
 
 
 print_pif_table <- function(mmets, censor_method = "WHO-QRL", plot_tile = ""){
+  
   rr <- mmets |> mutate(across(ends_with("mmet"), ~ drpa::dose_response(
     cause = "all-cause-mortality", outcome_type = "fatal",
     dose = .x, censor_method = censor_method) |> pull())) |> 
@@ -423,6 +424,7 @@ print_pif_table <- function(mmets, censor_method = "WHO-QRL", plot_tile = ""){
   ggsave(paste0("../figures/", fname, ".svg"), plot = y, width=10, height=8)
   
   
+  return(pif)
   #print(reframe(pif |> ungroup(), sum(value), .by = name))
 }
 
@@ -438,7 +440,7 @@ print_pif_table <- function(mmets, censor_method = "WHO-QRL", plot_tile = ""){
 
 ```{r}
 
-print_pif_table(io$bogota$outcomes$mmets, censor_method = "WHO-DRL", plot_tile = "")
+pif_175 <-print_pif_table(io$bogota$outcomes$mmets, censor_method = "WHO-DRL", plot_tile = "")
 
 ```
 
