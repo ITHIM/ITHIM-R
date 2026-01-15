@@ -1152,7 +1152,7 @@ server <- function(input, output, session) {
     df |> 
       gt(rowname_col = "row", groupname_col = "city_name") |> 
       data_color(columns = 3:8, method = "numeric", palette = "viridis") |> 
-      tab_header(title = paste("PA exposures by city and scenario"))
+      tab_header(title = paste("AP exposures by city and scenario"))
   } 
   )  
   
