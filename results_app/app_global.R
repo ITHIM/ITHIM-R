@@ -35,7 +35,9 @@ output_version <- paste0(repo_sha, "_test_run")
 # Assumes that multi_city_script.R has been run  
 # read in input file
 #io <- readRDS(paste0("../results/multi_city/io_3b3a1723_test_run.rds"))
-io <- readRDS(paste0("../results/multi_city/io_64b71ae5_test_run.rds"))
+# io <- readRDS(paste0("../results/multi_city/io_64b71ae5_test_run.rds"))
+io <- readRDS(paste0("../results/multi_city/io_8c672419.rds"))
+
 
 
 
@@ -688,8 +690,6 @@ server <- function(input, output, session) {
       
       ld <- get_health_data()
       
-      write_csv(ld, "ldac.csv")
-      
       if(nrow(ld) < 1)
         plotly::ggplotly(ggplot(data.frame()))
       else{
@@ -893,7 +893,8 @@ server <- function(input, output, session) {
           else left_join(., local_dataset |> distinct(city, sex, age_cat, .keep_all = T) |> group_by(city) |> summarise(pop = sum(pop_age_sex)))} |>  
           #else cbind(., (local_dataset |> distinct(sex, age_cat, .keep_all = T) |> summarise(pop = sum(pop_age_sex))))} |> 
         summarise(metric_100k = round(ifelse(in_per_100k,(sum(measure) / pop * 100000), sum(measure)), 2), pop = pop) |> 
-        distinct(.keep_all = T) 
+        distinct(.keep_all = T) |> 
+        left_join(cities |> mutate(city = tolower(city)))
       
       # browser()
       
