@@ -99,26 +99,26 @@ overall_pop <- ylls |> distinct(sex, age_cat, .keep_all = T) |> summarise(sum(po
 
 rel_path_inj <- paste0(github_path, "results/",results_file,"/inj/")
 
-# injury_risks_per_billion_kms_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_billion_kms.csv"))
-# injury_risks_per_100k_pop <- read_csv(paste0(rel_path_inj, "injury_risks_per_100k_pop.csv"))
-# injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_100million_h.csv"))
-# 
-# # Make sure all injury datasets have distinct rows and are in wide format (for mean, lb, and ub values)
-# # injury_risks_per_billion_kms_lng <- injury_risks_per_billion_kms_lng |> 
-# #   dplyr::group_by(mode, scenario, city, country, continent, mode_distance, measure) |>
-# #   dplyr::summarise(n = dplyr::n(), value = sum(value), .groups = "drop") |> 
-# #   dplyr::filter(n == 1L) |> 
-# #   dplyr::select(-n)
-# #   pivot_wider(injury_risks_per_billion_kms_lng, names_from = measure, values_from = value)
-# injury_risks_per_billion_kms_lng <- injury_risks_per_billion_kms_lng |> 
-#   dplyr::select(-mode_distance) |> 
-#   distinct() |> 
-#   pivot_wider(names_from = measure, values_from = value)
-# injury_risks_per_100k_pop <- injury_risks_per_100k_pop |> 
-#   distinct()  |> 
-#   pivot_wider(names_from = measure, values_from = value)
-# injury_risks_per_100million_h_lng <- injury_risks_per_100million_h_lng |> 
-#   distinct()  |> pivot_wider(names_from = measure, values_from = value)
+injury_risks_per_billion_kms_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_billion_kms.csv"))
+injury_risks_per_100k_pop <- read_csv(paste0(rel_path_inj, "injury_risks_per_100k_pop.csv"))
+injury_risks_per_100million_h_lng <- read_csv(paste0(rel_path_inj, "injury_risks_per_100million_h.csv"))
+
+# Make sure all injury datasets have distinct rows and are in wide format (for mean, lb, and ub values)
+# injury_risks_per_billion_kms_lng <- injury_risks_per_billion_kms_lng |>
+#   dplyr::group_by(mode, scenario, city, country, continent, mode_distance, measure) |>
+#   dplyr::summarise(n = dplyr::n(), value = sum(value), .groups = "drop") |>
+#   dplyr::filter(n == 1L) |>
+#   dplyr::select(-n)
+#   pivot_wider(injury_risks_per_billion_kms_lng, names_from = measure, values_from = value)
+injury_risks_per_billion_kms_lng <- injury_risks_per_billion_kms_lng |>
+  dplyr::select(-mode_distance) |>
+  distinct() |>
+  pivot_wider(names_from = measure, values_from = value)
+injury_risks_per_100k_pop <- injury_risks_per_100k_pop |>
+  distinct()  |>
+  pivot_wider(names_from = measure, values_from = value)
+injury_risks_per_100million_h_lng <- injury_risks_per_100million_h_lng |>
+  distinct()  |> pivot_wider(names_from = measure, values_from = value)
 
 # # Input params  
 # input_parameter_file_path <- paste0(github_path, "InputParameters_v28.0.xlsx")
@@ -140,9 +140,9 @@ ren_scen <- function(df){
     )
 }
 
-# injury_risks_per_billion_kms_lng <- ren_scen(injury_risks_per_billion_kms_lng)
-# injury_risks_per_100k_pop <- ren_scen(injury_risks_per_100k_pop)
-# injury_risks_per_100million_h_lng <- ren_scen(injury_risks_per_100million_h_lng)
+injury_risks_per_billion_kms_lng <- ren_scen(injury_risks_per_billion_kms_lng)
+injury_risks_per_100k_pop <- ren_scen(injury_risks_per_100k_pop)
+injury_risks_per_100million_h_lng <- ren_scen(injury_risks_per_100million_h_lng)
 
 # Ref: https://colorbrewer2.org/#type=diverging&scheme=Spectral&n=5
 #['#d7191c','#fdae61','#ffffbf','#abdda4','#2b83ba']
@@ -206,22 +206,22 @@ ren_at <- function(df, colname){
   df
 }
 
-# injury_risks_per_100k_pop <- ren_at(injury_risks_per_100k_pop, colname = "mode")
-# injury_risks_per_100million_h_lng <- ren_at(injury_risks_per_100million_h_lng, colname = "mode")
-# injury_risks_per_billion_kms_lng <- ren_at(injury_risks_per_billion_kms_lng, "mode")
+injury_risks_per_100k_pop <- ren_at(injury_risks_per_100k_pop, colname = "mode")
+injury_risks_per_100million_h_lng <- ren_at(injury_risks_per_100million_h_lng, colname = "mode")
+injury_risks_per_billion_kms_lng <- ren_at(injury_risks_per_billion_kms_lng, "mode")
 
 capitalize_cols <- function(df, colname){
   df[[colname]] <- str_to_title(df[[colname]])
   df
 }
 
-# injury_risks_per_100k_pop <- capitalize_cols(injury_risks_per_100k_pop, colname = "mode")
-# injury_risks_per_100million_h_lng <- capitalize_cols(injury_risks_per_100million_h_lng, colname = "mode")
-# injury_risks_per_billion_kms_lng <- capitalize_cols(injury_risks_per_billion_kms_lng, "mode")
-# 
-# injury_risks_per_100k_pop <- capitalize_cols(injury_risks_per_100k_pop, colname = "city")
-# injury_risks_per_100million_h_lng <- capitalize_cols(injury_risks_per_100million_h_lng, colname = "city")
-# injury_risks_per_billion_kms_lng <- capitalize_cols(injury_risks_per_billion_kms_lng, "city")
+injury_risks_per_100k_pop <- capitalize_cols(injury_risks_per_100k_pop, colname = "mode")
+injury_risks_per_100million_h_lng <- capitalize_cols(injury_risks_per_100million_h_lng, colname = "mode")
+injury_risks_per_billion_kms_lng <- capitalize_cols(injury_risks_per_billion_kms_lng, "mode")
+
+injury_risks_per_100k_pop <- capitalize_cols(injury_risks_per_100k_pop, colname = "city")
+injury_risks_per_100million_h_lng <- capitalize_cols(injury_risks_per_100million_h_lng, colname = "city")
+injury_risks_per_billion_kms_lng <- capitalize_cols(injury_risks_per_billion_kms_lng, "city")
 
 
 level_choices <- c("All-cause mortality: L1" = "level1",
@@ -249,11 +249,11 @@ dose_pathway <- ylls_pathway |> filter(!is.na(level1)) |> distinct(dose)  |> pul
 dose_pathway_level2 <- ylls_pathway |> filter(!is.na(level2)) |> distinct(dose) |> pull()
 dose_pathway_level3 <- ylls_pathway |> filter(!is.na(level3)) |> distinct(dose) |> pull()
 
-# <- unique(injury_risks_per_billion_kms_lng$mode)
+um <- unique(injury_risks_per_billion_kms_lng$mode)
 
-#inj_modes <- append(um[!um %in% 'Total'] |> sort(), "Total")
+inj_modes <- append(um[!um %in% 'Total'] |> sort(), "Total")
 
-#inj_risk_types <- c("Billion kms", "Population by 100k people", "100 million hours")
+inj_risk_types <- c("Billion kms", "Population by 100k people", "100 million hours")
 
 in_cities <- "osorno"# cities$city
 
@@ -331,19 +331,19 @@ ui <- page_sidebar(
                    choices = c("Figure", "Table")),
     ),
     
-    # conditionalPanel(
-    #   condition = "input.main_tab == 'Injury Risks'",
-    #   pickerInput(inputId = "in_inj_modes", 
-    #               label = "Select modes:",
-    #               choices = inj_modes,
-    #               selected = inj_modes[!inj_modes %in% 'Truck'],# inj_modes[length(inj_modes)],
-    #               options = list(`actions-box` = TRUE), 
-    #               multiple = TRUE),
-    #   radioButtons(inputId = "in_risk_type", 
-    #                label = "Risk Type: ",
-    #                choices = inj_risk_types,
-    #                selected = inj_risk_types[1])
-    # ),
+    conditionalPanel(
+      condition = "input.main_tab == 'Injury Risks'",
+      pickerInput(inputId = "in_inj_modes",
+                  label = "Select modes:",
+                  choices = inj_modes,
+                  selected = inj_modes[!inj_modes %in% 'Truck'],# inj_modes[length(inj_modes)],
+                  options = list(`actions-box` = TRUE),
+                  multiple = TRUE),
+      radioButtons(inputId = "in_risk_type",
+                   label = "Risk Type: ",
+                   choices = inj_risk_types,
+                   selected = inj_risk_types[1])
+    ),
     downloadButton("download_top_data", "Download data", icon = shiny::icon("file-download"))
   ),
   navset_card_underline(
