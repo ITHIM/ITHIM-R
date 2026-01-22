@@ -18,10 +18,11 @@ if (!exists("output_version")){
   }
   
   repo_sha <-  as.character(readLines(file.path("repo_sha")))
-  output_version <- paste0(repo_sha, "_test_run")
+  output_version <- paste0(repo_sha)
 } 
 
-#output_version <- '5054de5a_orig_nomidpt'
+#output_version <- 'fdc351d1'
+
 
 # create summary tables for AP and PA
 rmarkdown::render('summary_tables_PA_AP.Rmd', params = list(output_version = output_version))
@@ -30,7 +31,7 @@ rmarkdown::render('summary_tables_PA_AP.Rmd', params = list(output_version = out
 rmarkdown::render('summary_tables.Rmd', params = list(output_version = output_version))
 
 # create injury summary tables
-rmarkdown::render('injury_tables.Rmd', params = list(output_version = output_version))
+#rmarkdown::render('injury_tables.Rmd', params = list(output_version = output_version))
 
 
 
