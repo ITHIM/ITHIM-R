@@ -57,13 +57,9 @@ create_base_pop <- function(raw_trip_set) {
   # assign age categories to the physical activity dataset
   pa <- PA_SET
   # Make age category for pa dataset.
-  if (CITY == "accra") {
-    age_category <- c("15-55", "56-69", "70+")
-    age_lower_bounds <- c(15, 56, 70)
-  } else {
-    age_category <- AGE_CATEGORY
-    age_lower_bounds <- AGE_LOWER_BOUNDS
-  }
+  age_category <- AGE_CATEGORY
+  age_lower_bounds <- AGE_LOWER_BOUNDS
+  
   pa <- assign_age_groups(pa, age_category = age_category, age_lower_bounds)
 
 
