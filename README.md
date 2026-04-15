@@ -108,3 +108,13 @@ In order to setup the model, we need a fixed list of tables/datasets, which do n
 ## How to run the model?
 
 For setup, reading all the required datasets and initialising all variables, we call `run_ithim_setup()` and to run the model, we call `run_ithim()`. The function used to call both `run_ithim_setup` and `run_ithim` is the `multi_city_script` which also reads in the relevant input parameter files. 
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=ITHIM%2FITHIM-R&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ITHIM/ITHIM-R&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ITHIM/ITHIM-R&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ITHIM/ITHIM-R&type=date&legend=top-left" />
+ </picture>
+</a>
