@@ -826,27 +826,54 @@ server <- function(input, output, session) {
         plotly::ggplotly(ggplot(data.frame()))
       else{
         
+        in_col_lvl_lbl <- "Level 3: Individual diseases mortality (e.g., COPD, stroke, type-2 diabetes, lung cancers, etc.)"
+        if (in_col_lvl == "level1")
+          in_col_lvl_lbl <- "Level 1: All-cause mortality"
+        else if(in_col_lvl == "level2")
+          in_col_lvl_lbl <- "Level 2: Cancer, cardiovascular, respiratory, other mortality"
+        
         
         
         var.choice <- ifelse(in_per_100k, "metric_100k", "metric")
+        preferred_order <- c("Cycling", "Car", "Bus", "Motorcycle", "Baseline")
+        present_scenarios <- intersect(preferred_order, unique(ld$scenario))
+        ld <- ld |>
+          mutate(
+            scenario = factor(
+              scenario,
+              levels = present_scenarios,
+              ordered = TRUE
+            )
+          )
+        
         gg <- ggplot(data = ld, aes(x = .data[[var.choice]], y = dose, fill = scenario, group = city)) +
-          {if(in_CIs == "No") geom_col(position=position_dodge2(), alpha = global_alpha_val)} +
-          #{if(in_CIs == "No") geom_text(aes(label = city), size = 3, position = position_dodge(width = 0.9))} + 
-          # {if(in_CIs == "No") geom_text(aes(label = round(.data[[var.choice]], 1)),
-          #                               size = 3,
-          #                               position = position_dodge(width = 0.9),
-          #                               vjust = -0.5)} +
+          {if(in_CIs == "No") geom_col(position=position_dodge2(reverse = TRUE), alpha = global_alpha_val)} +          
+          {if(in_CIs == "No") geom_text(aes(label = round(.data[[var.choice]], 1)), 
+                                        size = 3, 
+                                        position = position_dodge2(reverse= TRUE, width = 0.9), 
+                                        vjust = -0.5
+          )} +  
           {if(in_CIs == "Yes") geom_boxplot(data = ld, aes(y = .data[[var.choice]], x = dose, fill = scenario), 
                                             width = 0.5, position=position_dodge2(), alpha = global_alpha_val)} +
           {if(in_strata == "Sex") facet_wrap(~sex) else if(in_strata == "Age Group") facet_wrap(~age_cat)} +
           {if(in_CIs == "Yes") coord_flip()} +
           scale_fill_hue(direction = 1) +
-          theme_minimal() +
+          theme(
+            panel.grid.major.y = element_blank(),
+            panel.grid.minor.y = element_blank(),
+            plot.title = element_text(hjust = 0.5, margin = margin(b = 10)),   # space below title
+            plot.subtitle = element_text(hjust = 0.5, margin = margin(b = 15)), # space below subtitle
+            strip.text = element_text(margin = margin(t = 10, b = 5)),          # space above/below facet labels
+            plot.margin = margin(t = 40, r = 10, b = 10, l = 10)               # add extra top margin
+          ) +
           scale_fill_manual(values = scen_colours) +
           labs(title = y_lab,
                y = ifelse(in_CIs == "Yes", y_lab, ""),
                x = ifelse(in_CIs == "No", y_lab, ""),
-               fill='Scenario')
+               fill='Scenario',
+               subtitle = in_col_lvl_lbl)
+        
+        gg <- gg + geom_hline(yintercept = seq_along(unique(ld$dose)) + 0.5, color = "grey70", linewidth = 0.4)
         
         fname <- do.call(paste, c(as.list(filtered_pathways), 
                                   as.list(filtered_scens),
@@ -863,11 +890,14 @@ server <- function(input, output, session) {
           ggsave(paste0("figures/", fname, ifelse(SVG, ".svg", ".png")), plot = gg, width=10, height=8)
         
         
-        plotly::ggplotly(gg) |> 
-          # plotly::layout(legend = list(orientation = "h", 
-          #                              xanchor = "center",  
-          #                              x = 0.5,
-          #                              font = t2)) |> 
+        plotly::ggplotly(gg) |>
+          layout(
+            title = list(
+              text = paste0(y_lab, '<br>', in_col_lvl_lbl, '<br><br>'),
+              yanchor = "top",
+              y = 0.95   # ensures title doesn’t overlap with top strip
+            )
+          ) |> 
           plotly::config(
             toImageButtonOptions = list(
               format = "svg",
@@ -886,7 +916,6 @@ server <- function(input, output, session) {
                   input$in_measure,
                   input$in_per_100k,
                   input$in_strata,
-                  # input$in_CIs,
                   input$in_cities,
                   input$in_scens,
                   input$in_pathways,
