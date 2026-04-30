@@ -1058,6 +1058,8 @@ server <- function(input, output, session) {
     filename = function() {
       
       fname <- ""
+      tm <- input$in_trip_measure
+      tml <- tolower(gsub("\\s+", "-", tm))
       
       if(input$main_tab == "Health Outcomes"){
         measure <- 'YLLs'
@@ -1071,44 +1073,47 @@ server <- function(input, output, session) {
           measure <- "population-risk-per-100K"
         else if (input$in_risk_type == "100 million hours")
           measure <- "duration-risk-per-100M-hrs"
-        paste(measure, "-", Sys.Date(), ".csv", sep="")
+        paste(measure, "-", Sys.Date(), ".csv")
         
       } else if(input$main_tab == "PA Exposures"){
-        paste("pa-exp-", Sys.Date(), ".csv", sep="")
+        paste0("pa-exp-", Sys.Date(), ".csv")
       } else if(input$main_tab == "AP Exposures"){
-        paste("ap-exp-", Sys.Date(), ".csv", sep="")
+        paste0("ap-exp-", Sys.Date(), ".csv")
+      }else if (input$main_tab == "Travel behaviour"){
+        paste0("travel-behaviour-", tml, "-", Sys.Date(), ".csv")
       }
       else{
         paste("output.csv")
       }
     },
     content = function(file) {
-      
+      filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
+      filtered_cities <- tolower(filtered_cities)
+      filtered_scens <- input$in_scens
+      tm <- input$in_trip_measure
       data <- NA
-      
       if(input$main_tab == "Health Outcomes"){
         data <- get_health_data()
       }else if (input$main_tab == "Injury Risks"){
         data <- get_inj_data()
       }else if(input$main_tab == "PA Exposures"){
-        
-        filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
-        filtered_cities <- tolower(filtered_cities)
-        filtered_scens <- input$in_scens
-        
         data <- get_summary_data("mmets", filtered_cities, filtered_scens)
       }else if(input$main_tab == "AP Exposures"){
-        
-        filtered_cities <- cities |> filter(city %in% input$in_cities) |> dplyr::select(city) |> pull()
-        filtered_cities <- tolower(filtered_cities)
-        filtered_scens <- input$in_scens
-        
         data <- get_summary_data("pm_conc_pm", filtered_cities, filtered_scens)
+      }else if (input$main_tab == "Travel behaviour"){
+        tm <- input$in_trip_measure
+        if (tm == "Distance"){
+          data <- get_city_df(filtered_cities, filtered_scens, "dist")
+        }else if (tm == "Scenario"){
+          data <- get_city_df(filtered_cities, filtered_scens, "scen")
+        }else if (tm == "Trip"){
+          data <- get_city_df(filtered_cities, filtered_scens, "trip_freq")
+        }else if (tm == "Trip by distance category"){
+          data <- get_city_df(filtered_cities, filtered_scens, "trip")
+        }
       }
-      
       write_csv(data, file)
     }
-    
   )
   
   output$input_params <- DT::renderDataTable(DT::datatable({
@@ -1363,7 +1368,7 @@ server <- function(input, output, session) {
   output$trip_table <- 
     render_gt( 
       { 
-        get_trip_tbl()# |> tab_header(title = paste("Measure: ", input$in_trip_measure))
+        get_trip_tbl()
       } 
     )  
   
