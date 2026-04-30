@@ -206,8 +206,7 @@ ap_dr_quantile <-  F
 ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
 
 
-#print(system.time(for(city in cities){
-  city <- 'bogota'
+print(system.time(for(city in cities){
   cat('\n')
   print(city)
   # run code to prepare the input data for the actual ITHIM Global health impact assessment
@@ -253,34 +252,7 @@ ithim_objects <- outcome <- outcome_pp <- yll_per_hundred_thousand <- list()
   ithim_objects[[city]]$location$country <- country[[CITY]]
   ithim_objects[[city]]$location$continent <- continent[[CITY]]
   
-  # # store results to plot
-  # min_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-  # max_ages <- sapply(ithim_objects[[city]]$outcome$hb$ylls$age_cat,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  # sub_outcome <- subset(ithim_objects[[city]]$outcome$hb$ylls,
-  #                       min_ages >= min_age & max_ages <= max_age)
-  # 
-  # 
-  # # all results without upper and lower confidence interval limit values
-  # sub_outcome_noLimits <- sub_outcome %>% dplyr::select(-contains(c('lb','ub')))
-  # 
-  # # results for plotting without upper and lower confidence interval limit values
-  # sub_outcomes_plot <- sub_outcome_noLimits %>% dplyr::select(contains(outputs_to_plot))
-  # # replace column names with 'yll_' with 'ylls_'
-  # colnames(sub_outcomes_plot) <- sub("yll_", "ylls_", colnames(sub_outcomes_plot))
-  # result_mat_plot <- colSums(sub_outcomes_plot)
-  # 
-  # # find number of disease to plot and create a list with all the different disease outcomes for the different scenarios
-  # columns <- length(result_mat_plot)
-  # nDiseases <- columns/NSCEN
-  # if (city == cities[1]) {
-  #   disease_list <- list()
-  #   for (i in 1:nDiseases) disease_list[[i]] <- matrix(0, NSCEN, ncol = length(cities))
-  # }
-  # min_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][1]))
-  # max_pop_ages <- sapply(DEMOGRAPHIC$age,function(x)as.numeric(strsplit(x,'-')[[1]][2]))
-  # for (i in 1:nDiseases)
-  #   disease_list[[i]][,which(cities == city)] <- result_mat_plot[1:NSCEN + (i - 1) * NSCEN]/sum(subset(DEMOGRAPHIC,min_pop_ages >= min_age & max_pop_ages <= max_age)$population)
-# }))
+}))
 
 
 # add run relevant information to ithim_objects list
