@@ -271,7 +271,7 @@ if (!exists("output_version")){
   output_version <- repo_sha
 }
 
-io <- readRDS(paste0("results/multi_city/io_", output_version, ".rds"))
+io <- readRDS(paste0("results/multi_city/io.rds"))
 
 # Get names of cities from the io object
 cities <- names(io)[!names(io) %in% c('scen_prop','ithim_run' )] |> sort()

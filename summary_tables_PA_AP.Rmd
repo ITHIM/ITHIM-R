@@ -151,7 +151,7 @@ if (!exists("output_version")){
 
 # Assumes that multi_city_script.R has been run  
 # read in input file
-io <- readRDS(paste0("results/multi_city/io_", output_version, ".rds"))
+io <- readRDS(paste0("results/multi_city/io.rds"))
 # io <- readRDS(paste0("results/multi_city/io_d06161f.rds"))
 
 # define which decimal place to round to
@@ -418,7 +418,7 @@ for (x in 1:length(cities)) {
                                        '25th' = quantile(pm_conc, 0.25),
                                        '35th' = quantile(pm_conc, 0.35),
                                        '50th' = quantile(pm_conc, 0.5),
-                                       '95th' = quantile(pm_conc, 0.9)) |> mutate_if(is.numeric, round, round_to))
+                                       '95th' = quantile(pm_conc, 0.95)) |> mutate_if(is.numeric, round, round_to))
   
   # Extract scenario_pm with two columns with scenario names and scenario_pm_concentrations
   scenario_pm_df <- io[[cities[x]]]$outcomes$scenario_pm |> mutate_if(is.numeric, round, round_to)
