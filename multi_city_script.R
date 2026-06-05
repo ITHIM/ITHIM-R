@@ -46,14 +46,30 @@
 
 
 rm(list=ls())
+install.packages("dplyr")
+install.packages("plotly")
+install.packages("ReIns")
+install.packages("distr")
+install.packages("pracma")
+
+install.packages("readr")
+install.packages("haven")
+install.packages("truncnorm")
+install.packages("stringr")
 library(ithimr)
+#install.packages("readxl")
 library(readxl)
+
 library(truncnorm)
+#install.packages("tidyverse")
 library(tidyverse)
+install.packages("janitor")
 library(janitor)
 
 # Disable scientific notation
 options(scipen = 999)
+
+install.packages("remotes")
 
 if (!require("drpa",character.only = TRUE)) {
   print('Installing "drpa" package...')

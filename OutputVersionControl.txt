@@ -69,3 +69,13 @@ Number of samples: 1
 Comments: Testing after changing order in names in injury_death_to_yll function
 Path of other input files: /home/danielgils_server/.cache/R/renv/library/ITHIM-R-5df510d6/R-4.3/x86_64-pc-linux-gnu/ithimr/extdata/global/
 Runtime in minutes: 3.52
+
+2024-12-03 18:59:07.755709 by AA
+Scenario: 5 %
+Cities: bogota
+Input parameter file: Bogota_InputParameters_v4.0.xlsx
+Version number of outputs: 52cccd51_test_run
+Number of samples: 1
+Comments: Set auto_rickshaw speed to 4, same as default speed in model
+Path of other input files: /Users/chenxi/Library/Caches/org.R-project.R/R/renv/library/ITHIM-global-39e6ac7b/R-4.4/aarch64-apple-darwin20/ithimr/extdata/global/
+Runtime in minutes: 1.13

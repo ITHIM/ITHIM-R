@@ -1,0 +1,71 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+#
+# 示例数据
+population_data <- data.frame(
+  age_group = c("0-4", "0-4", "5-9", "5-9", "10-14", "10-14"),
+  sex = c("Male", "Female", "Male", "Female", "Male", "Female"),
+  total = c(1000, 950, 1200, 1150, 1100, 1050)
+)
+```
+
+
+```{r}
+# 创建合成人口的空数据框
+synthetic_population <- data.frame(id = integer(0), age_group = character(0), sex = character(0))
+
+# 为每个年龄段和性别生成个体
+for (i in 1:nrow(population_data)) {
+  age_group <- population_data$age_group[i]
+  sex <- population_data$sex[i]
+  total_count <- population_data$total[i]
+  
+  # 生成 total_count 个合成个体
+  ids <- seq(1, total_count)
+  sex_column <- rep(sex, total_count)
+  age_column <- rep(age_group, total_count)
+  
+  # 将这些合成个体的数据合并到synthetic_population数据框中
+  synthetic_population <- rbind(synthetic_population, data.frame(id = ids, age_group = age_column, sex = sex_column))
+}
+
+# 查看结果
+head(synthetic_population)
+
+write.csv(synthetic_population,"synthetic_population.csv")
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+```{r}
+install.packages("synthpop")
+library(synthpop)
+
+# 创建一个简单的示例数据框
+population <- data.frame(
+  age_group = c("0-4", "5-9", "10-14", "15-19"),
+  sex = c("Male", "Female", "Male", "Female"),
+  total = c(1000, 950, 1200, 1150)
+)
+
+# 使用synthpop包生成合成数据
+synthetic_data <- syn(population)
+
+# 查看合成数据
+synthetic_data$syn
+
+```
+
