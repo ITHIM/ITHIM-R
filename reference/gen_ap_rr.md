@@ -45,5 +45,5 @@ This function performs the following steps:
     - assign the relative risk for the given disease, age group,
       quantile and scenario to the relevant people in the baseline
       population by calling the
-      [`AP_dose_response()`](https://ithim.github.io/ITHIM-R/reference/AP_dose_response.md)
+      [`AP_dose_response()`](https://usr110.github.io/ITHIM-R/reference/AP_dose_response.md)
       function

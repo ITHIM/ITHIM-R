@@ -354,6 +354,6 @@ The function performs the following steps:
   a uniform distribution between 0 and 1
 
 At the bottom of this function, the
-[`dirichlet_pointiness()`](https://ithim.github.io/ITHIM-R/reference/dirichlet_pointiness.md)
+[`dirichlet_pointiness()`](https://usr110.github.io/ITHIM-R/reference/dirichlet_pointiness.md)
 function is defined which parameterises the Dirichlet distributions for
 the PM and CO2 emission inventories.

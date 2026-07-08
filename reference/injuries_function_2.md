@@ -47,7 +47,7 @@ the constant mode
 ## Details
 
 This function uses the Poisson regression model built in the
-[`distances_for_injury_function()`](https://ithim.github.io/ITHIM-R/reference/distances_for_injury_function.md)
+[`distances_for_injury_function()`](https://usr110.github.io/ITHIM-R/reference/distances_for_injury_function.md)
 to predict fatality counts for the Baseline and all the scenarios. It
 performs the following steps:
 

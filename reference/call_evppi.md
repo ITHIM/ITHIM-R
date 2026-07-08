@@ -2,7 +2,7 @@
 
 This function gets the ithim results into the correct format and calls
 the
-[`compute_evppi()`](https://ithim.github.io/ITHIM-R/reference/compute_evppi.md)
+[`compute_evppi()`](https://usr110.github.io/ITHIM-R/reference/compute_evppi.md)
 script to calculate the EVPPIs for all input parameters and required
 outcomes and scenarios for the entire population considered in the model
 
@@ -104,7 +104,7 @@ The function performs the following steps:
     outcome_voi_list
 
   - call the
-    [`compute_evppi()`](https://ithim.github.io/ITHIM-R/reference/compute_evppi.md)
+    [`compute_evppi()`](https://usr110.github.io/ITHIM-R/reference/compute_evppi.md)
     function to calculate the expected values of partially perfect
     information (EVPPI) for all parameters and diseases of interest
 

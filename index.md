@@ -11,7 +11,7 @@ We have written a `how-to` guide that explains how to install the
 ITHIM-R package, how to run the ITHIM-Global model using this package
 and how to produce summaries of the key results. Please read it here:
 [how to run
-ITHIM?](https://ithim.github.io/ITHIM-R/articles/how-to-run-ITHIM.html).
+ITHIM?](https://usr110.github.io/ITHIM-R/articles/how-to-run-ITHIM.html).
 
 ### Citation
 
@@ -189,9 +189,9 @@ are hence referred to as “Global”, such as:
 
 For setup, reading all the required datasets and initialising all
 variables, we call
-[`run_ithim_setup()`](https://ithim.github.io/ITHIM-R/reference/run_ithim_setup.md)
+[`run_ithim_setup()`](https://usr110.github.io/ITHIM-R/reference/run_ithim_setup.md)
 and to run the model, we call
-[`run_ithim()`](https://ithim.github.io/ITHIM-R/reference/run_ithim.md).
+[`run_ithim()`](https://usr110.github.io/ITHIM-R/reference/run_ithim.md).
 The function used to call both `run_ithim_setup` and `run_ithim` is the
 `multi_city_script` which also reads in the relevant input parameter
 files.

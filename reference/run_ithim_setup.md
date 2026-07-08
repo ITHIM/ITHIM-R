@@ -459,10 +459,10 @@ This function performs the following steps:
     parameters
 
 - load and process data from files by calling
-  [`ithim_load_data()`](https://ithim.github.io/ITHIM-R/reference/ithim_load_data.md)
+  [`ithim_load_data()`](https://usr110.github.io/ITHIM-R/reference/ithim_load_data.md)
 
 - call
-  [`ithim_setup_parameters()`](https://ithim.github.io/ITHIM-R/reference/ithim_setup_parameters.md)
+  [`ithim_setup_parameters()`](https://usr110.github.io/ITHIM-R/reference/ithim_setup_parameters.md)
   to set the given input parameters to the global environment if running
   in constant mode or to obtain NSAMPLE samples from the given
   distributions for each of the input parameters if running in sample
@@ -470,25 +470,25 @@ This function performs the following steps:
 
 - set flags which cause certain parts of the model to be called at a
   later stage
-  ([`ithim_uncertainty()`](https://ithim.github.io/ITHIM-R/reference/ithim_uncertainty.md))
+  ([`ithim_uncertainty()`](https://usr110.github.io/ITHIM-R/reference/ithim_uncertainty.md))
   IF certain input parameters were sampled from a distribution
 
 - call
-  [`complete_trip_distance_duration()`](https://ithim.github.io/ITHIM-R/reference/complete_trip_distance_duration.md)
+  [`complete_trip_distance_duration()`](https://usr110.github.io/ITHIM-R/reference/complete_trip_distance_duration.md)
   to add any missing stage or distance information to the trip data
 
 - if none of the corresponding input parameters were sampled from a
   distribution, call
-  [`set_vehicle_inventory()`](https://ithim.github.io/ITHIM-R/reference/set_vehicle_inventory.md)
+  [`set_vehicle_inventory()`](https://usr110.github.io/ITHIM-R/reference/set_vehicle_inventory.md)
   to create a dataframe with mode specific speed, distance and emission
   information
 
 - if none of the corresponding input parameters were sampled from a
   distribution, call
-  [`get_synthetic_from_trips()`](https://ithim.github.io/ITHIM-R/reference/get_synthetic_from_trips.md)
+  [`get_synthetic_from_trips()`](https://usr110.github.io/ITHIM-R/reference/get_synthetic_from_trips.md)
   to set synthetic trips and baseline population
 
 - if none of the corresponding input parameters were sampled from a
   distribution, call
-  [`get_all_distances()`](https://ithim.github.io/ITHIM-R/reference/get_all_distances.md)
+  [`get_all_distances()`](https://usr110.github.io/ITHIM-R/reference/get_all_distances.md)
   to calculate trip distances

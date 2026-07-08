@@ -24,7 +24,7 @@ injury input file:
 - The data is split into a WHW (who hit who) matrix where both casualty
   and strike mode are given and a NOV (no other vehicle) matrix where
   strike mode was set to NOV in
-  [`ithim_load_data()`](https://ithim.github.io/ITHIM-R/reference/ithim_load_data.md)
+  [`ithim_load_data()`](https://usr110.github.io/ITHIM-R/reference/ithim_load_data.md)
   or no other vehicle was involved in the accident.
 
 - If no age and gender information is given, then the counts are

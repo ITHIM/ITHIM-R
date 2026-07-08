@@ -49,7 +49,7 @@ data:
     'pedestrian' to 'walk_to_pt'
 
   - (call
-    [`get_scenario_settings()`](https://ithim.github.io/ITHIM-R/reference/get_scenario_settings.md)
+    [`get_scenario_settings()`](https://usr110.github.io/ITHIM-R/reference/get_scenario_settings.md)
     if using the max_mode_share_scenario)
 
 - read in the local Global Burden of Disease (GBD) data:

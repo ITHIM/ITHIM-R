@@ -29,7 +29,7 @@ This function performs the following steps:
 - generate distance and duration matrices by age, sex, mode and scenario
   from the ithim_object\$trip_scen_sets for the baseline population by
   calling the
-  [`dist_dur_tbls()`](https://ithim.github.io/ITHIM-R/reference/dist_dur_tbls.md)
+  [`dist_dur_tbls()`](https://usr110.github.io/ITHIM-R/reference/dist_dur_tbls.md)
   function
 
 - find the total mode distances for each scenario and scale this up to
@@ -45,7 +45,7 @@ This function performs the following steps:
   each mode and age and sex category.
 
 - the
-  [`distances_for_injury_function()`](https://ithim.github.io/ITHIM-R/reference/distances_for_injury_function.md)
+  [`distances_for_injury_function()`](https://usr110.github.io/ITHIM-R/reference/distances_for_injury_function.md)
   function is called which creates a list inj_distances that is added to
   ithim_object containing the following matrices:
 

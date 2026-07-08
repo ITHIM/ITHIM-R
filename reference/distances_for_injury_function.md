@@ -71,14 +71,14 @@ regression model:
 - A new list (injuries_list) is created containing all strike and
   casualty mode and age and sex combinations together with strike and
   casualty mode distances
-  ([`add_distance_columns()`](https://ithim.github.io/ITHIM-R/reference/add_distance_columns.md))
+  ([`add_distance_columns()`](https://usr110.github.io/ITHIM-R/reference/add_distance_columns.md))
   for the baseline and all scenarios. For the whw model, any strike mode
   and casualty pairs where strike mode equals casualty mode are removed
   as fatalities for these combinations have already been added to the
   nov matrix. Combinations which do not have a non-zero strike or
   casualty mode distance are also removed. This list will later be used
   in the
-  [`injuries_function_2()`](https://ithim.github.io/ITHIM-R/reference/injuries_function_2.md)
+  [`injuries_function_2()`](https://usr110.github.io/ITHIM-R/reference/injuries_function_2.md)
   function to predict fatality counts using the Poisson injury
   regression model.
 

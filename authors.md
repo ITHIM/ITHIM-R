@@ -21,10 +21,10 @@ Source:
 
 Abbas A, Schroeder A, Gil D, Tatah L, Johnson R (2023). “ithimr:
 Integrated Transport and Health Impact Model.”
-<https://ithim.github.io/ITHIM-R/>.
+<https://usr110.github.io/ITHIM-R/>.
 
     @Misc{ithim_methods_paper,
-      url = {https://ithim.github.io/ITHIM-R/},
+      url = {https://usr110.github.io/ITHIM-R/},
       author = {Ali Abbas and Anna Schroeder and Daniel Gil and Lambed Tatah and Rob Johnson},
       title = {ithimr: Integrated Transport and Health Impact Model},
       year = {2023},

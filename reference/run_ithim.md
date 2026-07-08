@@ -27,8 +27,8 @@ ithim_object list of items giving the input data and output results
 
 This function works by creating a switch to run the computation by
 calling
-[`ithim_calculation_sequence()`](https://ithim.github.io/ITHIM-R/reference/ithim_calculation_sequence.md)
+[`ithim_calculation_sequence()`](https://usr110.github.io/ITHIM-R/reference/ithim_calculation_sequence.md)
 directly, or to divert to the sampling case
-[`ithim_uncertainty()`](https://ithim.github.io/ITHIM-R/reference/ithim_uncertainty.md)
+[`ithim_uncertainty()`](https://usr110.github.io/ITHIM-R/reference/ithim_uncertainty.md)
 which first extracts the sampled parameters and then calls the
-[`ithim_calculation_sequence()`](https://ithim.github.io/ITHIM-R/reference/ithim_calculation_sequence.md).
+[`ithim_calculation_sequence()`](https://usr110.github.io/ITHIM-R/reference/ithim_calculation_sequence.md).

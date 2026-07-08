@@ -33,36 +33,36 @@ This function performs the following steps:
 
     - calculate the PM2.5 exposure for each person in the baseline
       population and PM2.5 emissions for each mode and scenario
-      ([`scenario_pm_calculations()`](https://ithim.github.io/ITHIM-R/reference/scenario_pm_calculations.md))
+      ([`scenario_pm_calculations()`](https://usr110.github.io/ITHIM-R/reference/scenario_pm_calculations.md))
 
     - calculate the CO2 emissions for each mode and scenario
-      ([`scenario_co2_calculations()`](https://ithim.github.io/ITHIM-R/reference/scenario_co2_calculations.md))
+      ([`scenario_co2_calculations()`](https://usr110.github.io/ITHIM-R/reference/scenario_co2_calculations.md))
 
     - assign relative risk to each person in the baseline population for
       each disease related to PM pollution and each scenario based on
       the individual PM exposure levels
-      ([`gen_ap_rr()`](https://ithim.github.io/ITHIM-R/reference/gen_ap_rr.md))
+      ([`gen_ap_rr()`](https://usr110.github.io/ITHIM-R/reference/gen_ap_rr.md))
 
 3.  physical activity pathway:
 
     - calculate total mMETs for each person in the baseline population
-      ([`total_mmet()`](https://ithim.github.io/ITHIM-R/reference/total_mmet.md))
+      ([`total_mmet()`](https://usr110.github.io/ITHIM-R/reference/total_mmet.md))
 
     - assign relative risk to each person in the baseline population for
       each disease related to physical activity levels and each scenario
       based on the individual mMET values
-      ([`gen_pa_rr()`](https://ithim.github.io/ITHIM-R/reference/gen_pa_rr.md))
+      ([`gen_pa_rr()`](https://usr110.github.io/ITHIM-R/reference/gen_pa_rr.md))
 
 4.  physical activity and air pollution combined:
 
     - combine the PA and AP datasets by joining the two datasets. For
       disease affected by both PA and AP calculate the joined relative
       risk by multiplying the PA and AP relative risks
-      ([`combined_rr_ap_pa()`](https://ithim.github.io/ITHIM-R/reference/combined_rr_ap_pa.md))
+      ([`combined_rr_ap_pa()`](https://usr110.github.io/ITHIM-R/reference/combined_rr_ap_pa.md))
 
     - calculate the health burden (Yll and deaths) for each disease and
       age and sex category
-      ([`health_burden()`](https://ithim.github.io/ITHIM-R/reference/health_burden.md)):
+      ([`health_burden()`](https://usr110.github.io/ITHIM-R/reference/health_burden.md)):
 
       - calculate the health burden (Yll and deaths) for each disease
         and age and sex category. Combine the AP and PA pathways for
@@ -83,11 +83,11 @@ This function performs the following steps:
         intervals
 
     - calculate the years of life lost from the injury deaths
-      ([`injury_death_to_yll()`](https://ithim.github.io/ITHIM-R/reference/injury_death_to_yll.md))
+      ([`injury_death_to_yll()`](https://usr110.github.io/ITHIM-R/reference/injury_death_to_yll.md))
 
 6.  combine all pathways using the outputs from 3. and 4.:
 
     - combine the AP, PA and injury health burden data for ylls and
       deaths
-      ([`join_hb_and_injury()`](https://ithim.github.io/ITHIM-R/reference/join_hb_and_injury.md))
+      ([`join_hb_and_injury()`](https://usr110.github.io/ITHIM-R/reference/join_hb_and_injury.md))
       for all diseases, injuries and scenarios

@@ -35,7 +35,7 @@ This function performs the following steps:
 
   - add a 'walk to pt' stage to those public transport trips without a
     walking stage
-    ([`add_walk_trips()`](https://ithim.github.io/ITHIM-R/reference/add_walk_trips.md))
+    ([`add_walk_trips()`](https://usr110.github.io/ITHIM-R/reference/add_walk_trips.md))
 
 - combine all trips from all scenarios into one dataframe
 
