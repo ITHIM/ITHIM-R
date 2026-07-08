@@ -1,0 +1,65 @@
+# Addition of 'walk to public transport' stages to trip set
+
+Add walk to 'public transport stages' to those public transport trips
+that do not have a walking stage
+
+## Usage
+
+``` r
+add_walk_trips(pt_trips)
+```
+
+## Arguments
+
+- pt_trips:
+
+  data frame of PT trips without walking component
+
+## Value
+
+list of data frames of PT trips and walk-to-PT trips
+
+## Details
+
+Function to add additional walking stages to those public transport
+trips that do not have a walking stage and have a longer trip duration
+than the MINIMUM_PT_TIME plus the BUS_WALK_TIME / RAIL_WALK_TIME
+parameters. The MINIMUM_PT_TIME is a global input parameter that
+determines the minimum amount of time (in minutes) a person travelling
+on public transport spends on the public transport stage. The
+BUS_WALK_TIME / RAIL_WALK_TIME parameter is a city specific input
+parameter that determines the duration of the walk to public transport
+walking stage.
+
+This function performs the following steps:
+
+- filter out the PT stages of PT trips and only keep the stage with the
+  longest duration as we only add one 'walk to public transport' stage
+  per trip
+
+- find the trip stages that need changing
+
+- add new 'walk to pt' stages. If the duration of the public transport
+  stage is shorter than the minimum_pt_time, then do not add any walking
+  stage. If the duration is in between the minimum_pt_time and the
+  BUS_WALK_TIME / RAIL_WALK_TIME + MINIMUM_PT_TIME, then set the pt
+  stage to the minimum_pt_time and the rest of the trip duration is
+  defined as walking to pt. If the duration is larger than BUS_WALK_TIME
+  / RAIL_WALK_TIME + MINIMUM_PT_TIME, set the new walking stage duration
+  to either BUS_WALK_TIME or RAIL_WALK_TIME depending on the trip mode
+  and subtract this BUS_WALK_TIME or RAIL_WALK_TIME from the pt stage.
+
+- update the original public transport stage duration
+
+- calculate the 'walk to pt' stage distance using the walking speed
+
+- update the original public transport stage distance using the
+  respective public transport speed and the updated duration
+
+- keep record of the number of newly added 'walk to pt' stages
+
+- update the total trip distances
+
+- update the trip distance categories
+
+- remove any 'walk to pt' stages with zero duration and length

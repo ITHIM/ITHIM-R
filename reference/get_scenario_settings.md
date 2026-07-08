@@ -1,0 +1,68 @@
+# Get values for mode share across distance categories and for max mode share scenario - CURRENTLY only used when calling summary_tables.Rmd
+
+Computes the mode shares for the different distance categories and then
+the maximum mode share for specified mode types and specified distance
+categories across specified (stored) cities. Used for max mode share
+scenario generation.
+
+## Usage
+
+``` r
+get_scenario_settings(
+  cities = c("accra", "bangalore", "belo_horizonte", "bogota", "buenos_aires",
+    "cape_town", "delhi", "mexico_city", "santiago", "sao_paulo", "vizag"),
+  modes = c("pedestrian", "cycle", "car", "motorcycle", "bus"),
+  distances = c("0-2 km", "2-6 km", "6+ km"),
+  speeds = list(bus = 8.1, bus_driver = 8.1, minibus = 8.1, minibus_driver = 8.1, car =
+    13.8, car_driver = 13.8, taxi = 13.8, pedestrian = 2.5, walk_to_pt = 2.5, cycle =
+    7.2, motorcycle = 15.2, truck = 8.1, van = 13.8, subway = 18.1, rail = 21.9,
+    auto_rickshaw = 4, shared_auto = 13.8, shared_taxi = 13.8, cycle_rickshaw = 4, other
+    = 9.1)
+)
+```
+
+## Arguments
+
+- cities:
+
+  which cities to use
+
+- modes:
+
+  which modes to use
+
+- distances:
+
+  which distance categories to use
+
+- speeds:
+
+  named list of mode speeds (to be applied to all cities)
+
+## Value
+
+data frame of maximum proportions by mode and distance category
+
+## Details
+
+The function performs the following steps:
+
+- define the minimum distances in each distance category
+
+- loop through the pre-defined cities:
+
+  - read in trip data and get data into correct format
+
+  - assign distance categories
+
+  - for each distance category and pre-defined mode find the
+    proportional modal share (for each distance category, the proportion
+    of the modes adds up to 100
+
+  - if rail trips exist, they are added to the proportion of the bus
+    trips to get one value for public transport
+
+- find the maximum mode shares for each mode and distance category
+
+- for each city print one table showing the mode shares for each
+  distance category
