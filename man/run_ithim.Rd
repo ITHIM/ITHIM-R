@@ -8,8 +8,6 @@ run_ithim(ithim_object, seed = 1)
 }
 \arguments{
 \item{ithim_object}{list of input data needed to calculate the health burden}
-
-\item{seed}{}
 }
 \value{
 ithim_object list of items giving the input data and output results
