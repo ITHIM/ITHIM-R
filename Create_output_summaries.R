@@ -28,9 +28,3 @@ rmarkdown::render('summary_tables_PA_AP.Rmd', params = list(output_version = out
 
 # create summary tables
 rmarkdown::render('summary_tables.Rmd', params = list(output_version = output_version))
-
-# create injury summary tables
-# rmarkdown::render('injury_tables.Rmd', params = list(output_version = output_version))
-
-
-
