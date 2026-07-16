@@ -7,7 +7,9 @@
 get_synthetic_from_trips()
 }
 \value{
-data frame of all synthetic trips from all scenarios
+data frame of all synthetic trips from all scenarios and the the proportion of people with non non-occupational
+
+mMET values for each age and sex category
 }
 \description{
 Sequence of functions to set up the baseline population, the synthetic trips, and the scenarios.

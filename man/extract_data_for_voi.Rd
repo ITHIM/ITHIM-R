@@ -9,7 +9,6 @@ extract_data_for_voi(
   NSAMPLES,
   SCEN_SHORT_NAME,
   cities,
-  multi_city_ithim,
   output_version,
   level1,
   level2,
@@ -25,14 +24,34 @@ extract_data_for_voi(
 
 \item{cities}{list of cities for which the model was run}
 
-\item{multi_city_ithim}{list containing the ithim model information including results for the various model runs}
-
 \item{output_version}{the output version of the model run}
+
+\item{level1}{list of diseases considered in level 1}
+
+\item{level2}{list of diseases considered in level 2}
+
+\item{level3}{list of diseases considered in level 3}
+
+\item{multi_city_ithim}{list containing the ithim model information including results for the various model runs}
 }
 \value{
 ithim_results list with the following objects:
 
-voi_data_all_df: dataframe for all cities with all outcomes for all model runs, age and sex categories and disease and scenario combinations
+voi_complete - dataframe for all cities with all total YLL outcomes for all model runs, age and sex categories and disease and scenario combinations - combined AP and PA pathway
+
+voi_complete_summary - summary statistics of YLLs for combined AP and PA pathway
+
+voi_complete_100k - dataframe for all cities for all YLL outcomes per 100k - combined AP and PA pathway
+
+voi_commplete_100k_summary - summary statistics per of YLL per 100k for combined AP and PA pathway
+
+voi_complete_pathway - dataframe for all cities with all total YLL outcomes for all model runs, age and sex categories and disease and scenario combinations - separate AP and PA pathways
+
+voi_complete_summary_pathway - summary statistics of YLLs for separate AP and PA pathways
+
+voi_complete_100k_pathway - dataframe for all cities for all YLL outcomes per 100k - separate AP and PA pathways
+
+voi_commplete_100k_summary_pathway - summary statistics per of YLL per 100k for separate AP and PA pathways
 }
 \description{
 This function extracts the relevant information from the multi_city_ithim object and gets the results into
@@ -45,18 +64,22 @@ The function performs the following steps:
 \item by looping through the cities:
 
  \itemize{
-   \item calculate average outcome (yll) per person in the population considered by the model 
-   \item calculate the total ylls per 100 000 for each outcome age category, scenario and disease combination and model run
-   \item calculate total yll outcome across all outcome age and sex categories per city and scenario and disease combinations
-   \item calculate total yll outcome across all outcome sex categories per city and scenario and disease combinations
-   \item create one dataframe for all cities with all outcomes for all model runs, age groups and disease and 
-         scenario combinations
+   \item extract the population statistics
+   \item create one dataframe for all cities with all outcomes for all model runs, age and sex groups and disease and 
+         scenario combinations for the combined AP and PA results
+   \item create one dataframe for all cities with all outcomes for all model runs, age and sex groups and disease and 
+         scenario combinations for the separate AP and PA results
+         
  } 
   
-\item compute yll per hundred thousand by outcome age group by summing across all diseases (double counting!) 
-     by city and scenario and also summing across all cities
+\item compute statistics (mean, 2.5th and 97.5th percentiles, standard deviation) for total YLLs lost 
+     for the combined AP and PA results
+\item compute statistics (mean, 2.5th and 97.5th percentiles, standard deviation) for YLLs lost per 100k
+     for the combined AP and PA results
+\item compute statistics (mean, 2.5th and 97.5th percentiles, standard deviation) for total YLLs lost 
+     for the separate AP and PA pathways
+\item compute statistics (mean, 2.5th and 97.5th percentiles, standard deviation) for YLLs lost per 100k 
+     for the separate AP and PA pathways
 
-\item create one dateframe with total ylls (median, 5th and 95th percentiles) per age group and city 
-     (plus combined results as sum across all cities)
 }
 }

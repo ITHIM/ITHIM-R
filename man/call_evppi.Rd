@@ -61,7 +61,7 @@ The function performs the following steps:
 \item create a vector containing the global parameters but not including the dose response quantiles as they are treated separately
 \item loop through the cities:
  \itemize{
-   \item extract the PIF values for each dose response function and outcome, calculate the PIF for the 
+   \item extract the RR values for each dose response function and outcome, calculate the RR for the 
          different levels and for the entire population
    \item extract the city specific parameters (excluding the CO2 and PM emission inventory parameters as they are not independent of each other)
    \item extract the outcomes of interest for each scenario using the outcome_voi_list

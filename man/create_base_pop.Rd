@@ -10,7 +10,9 @@ create_base_pop(raw_trip_set)
 \item{raw_trip_set}{data frame of raw trips taken, bus_driver, new motorcycle and truck trips have already been added}
 }
 \value{
-the baseline population and the trip set which has been pruned
+the baseline population and the trip set which has been pruned and also the proportion of people with non non-occupational
+
+mMET values for each age and sex category
 }
 \description{
 Creates a baseline population by matching individuals in the trip set

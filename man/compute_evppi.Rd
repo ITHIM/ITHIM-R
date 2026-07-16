@@ -8,7 +8,7 @@ compute_evppi(
   p,
   global_para,
   city_para,
-  dr_pif,
+  dr_rr,
   outcome_voi_list,
   SCEN_SHORT_NAME,
   city_outcomes,
@@ -23,7 +23,7 @@ compute_evppi(
 
 \item{city_para}{list of city specific input parameters}
 
-\item{dr_pif}{dose response PIF values for each scenario}
+\item{dr_rr}{dose response RR values for each scenario}
 
 \item{outcome_voi_list}{list containing the outcomes of interest}
 
@@ -48,7 +48,7 @@ The function performs the following steps:
 \itemize{
 \item create empty vector to be filled with EVPPI values
 \item depending on the input parameter considered (depends on value of p), set the paramter(s) for which the evppi value is to be calculated
-     Note that the calculations are slightly different for the dose response input parameters, denoted by the flag call_dr_pif
+     Note that the calculations are slightly different for the dose response input parameters, denoted by the flag call_dr_rr
 \item if the input parameter are not related to any dose response function loop through the various outcomes :
  \itemize{
    \item calculate the EVPPI value for each outcome using the evppivar() function from https://github.com/chjackson/voi

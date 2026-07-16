@@ -8,8 +8,6 @@ ithim_calculation_sequence(ithim_object, seed = 1)
 }
 \arguments{
 \item{ithim_object}{name of disease}
-
-\item{seed}{}
 }
 \value{
 ithim_object - list of items making up the ithim result
@@ -58,8 +56,7 @@ This function performs the following steps:
        and sex category. Combine the AP and PA pathways for diseases affected
        by both AP and PA
 
-     \item if running in constant mode also calculate the health burden for both the
-       AP and PA pathways separately
+     \item calculate the health burden for both the AP and PA pathways separately
        }
     }
 
