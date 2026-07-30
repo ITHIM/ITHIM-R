@@ -8,6 +8,8 @@ ithim_calculation_sequence(ithim_object, seed = 1)
 }
 \arguments{
 \item{ithim_object}{name of disease}
+
+\item{seed}{}
 }
 \value{
 ithim_object - list of items making up the ithim result
