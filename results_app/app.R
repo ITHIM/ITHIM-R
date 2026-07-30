@@ -10,6 +10,8 @@ library(gt)
 SAVE_FIGURES <- FALSE
 SVG <- FALSE
 
+theme_set(theme_minimal())
+
 # if (!exists("output_version")){
 #   repo_sha <-  as.character(readLines(file.path("../repo_sha")))
 #   output_version <- paste0(repo_sha, "_test_run")
@@ -858,6 +860,7 @@ server <- function(input, output, session) {
           {if(in_strata == "Sex") facet_wrap(~sex) else if(in_strata == "Age Group") facet_wrap(~age_cat)} +
           {if(in_CIs == "Yes") coord_flip()} +
           scale_fill_hue(direction = 1) +
+          theme_minimal() +
           theme(
             panel.grid.major.y = element_blank(),
             panel.grid.minor.y = element_blank(),
@@ -1198,7 +1201,7 @@ server <- function(input, output, session) {
     if (tm == "Distance"){
       df <- get_city_df(filtered_cities, filtered_scens, "dist") |>  
         #dplyr::select(-city_name) |> 
-        gt(rowname_col = "row",
+        gt(
            groupname_col = "scenario",
            row_group_as_column = T) |> 
         fmt_number(
@@ -1218,7 +1221,7 @@ server <- function(input, output, session) {
     }else if (tm == "Scenario"){
       df <- get_city_df(filtered_cities, filtered_scens, "scen") |> 
         dplyr::select(-city_name) |> 
-        gt(rowname_col = "row",
+        gt(
            row_group_as_column = T)|> 
         fmt_number(
           columns =  where(is.numeric),
@@ -1236,7 +1239,7 @@ server <- function(input, output, session) {
     }else if (tm == "Trip"){
       df <- get_city_df(filtered_cities, filtered_scens, "trip_freq") |> 
         dplyr::select(-city_name) |> 
-        gt(rowname_col = "row",
+        gt(
            row_group_as_column = T)|> 
         fmt_percent(
           columns =  where(is.numeric),
@@ -1415,7 +1418,7 @@ server <- function(input, output, session) {
     
     df |> 
       mutate_if(is.numeric, round, 2) |> 
-      gt(rowname_col = "row") |> 
+      gt() |> 
       data_color(columns = where(is.numeric), 
                  method = "numeric", 
                  palette = "viridis"     # Color background
@@ -1447,7 +1450,7 @@ server <- function(input, output, session) {
     
     df |> 
       mutate_if(is.numeric, round, 2) |> 
-      gt(rowname_col = "row") |> 
+      gt() |> 
       data_color(columns = where(is.numeric), 
                  method = "numeric", 
                  palette = "viridis") |> 
