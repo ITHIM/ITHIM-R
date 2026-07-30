@@ -58,3 +58,4 @@ URL: https://ithim.github.io/ITHIM-R/, https://github.com/ITHIM/ITHIM-R
 BugReports: https://github.com/ITHIM/ITHIM-R/issues
 VignetteBuilder: knitr
 Config/roxygen2/version: 8.0.0
+RoxygenNote: 7.3.3
