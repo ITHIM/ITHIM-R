@@ -9,7 +9,7 @@
 #'
 #'
 #' @param ithim_object list of input data needed to calculate the health burden
-#' @param seed
+#' @param seed random seed
 #'
 #' @return ithim_object list of items giving the input data and output results
 #'
@@ -99,7 +99,7 @@ run_ithim <- function(ithim_object, seed = 1) {
 #'
 #'
 #' @param ithim_object name of disease
-#' @param seed
+#' @param seed random seed
 #'
 #' @return ithim_object - list of items making up the ithim result
 #'
@@ -230,7 +230,7 @@ ithim_calculation_sequence <- function(ithim_object, seed = 1) {
   # ## (5) COMBINE (3) AND (4)
   # # Combine health burden from disease and injury
   # hb <- join_hb_and_injury(hb_AP_PA, deaths_yll_injuries$deaths_yll_injuries)
-
+  
   # return lists
   if (constant_mode) {
     #pathway_hb <- join_hb_and_injury(pathway_hb_AP_PA, deaths_yll_injuries$deaths_yll_injuries)
