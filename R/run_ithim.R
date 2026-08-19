@@ -79,21 +79,11 @@ run_ithim <- function(ithim_object, seed = 1) {
 #'        }
 #'     }
 #'
-#' \item  injury pathway:
-#'    \itemize{
-#'    \item estimate the injury deaths for the baseline and each scenario by age and sex category,
-#'       also estimate the total injury deaths counts for the who-hit-whom and no-other-vehicle matrices
-#'       by casualty (and strike) mode again for the baseline and each scenario (\code{\link{injuries_function2()}})
-#'       \itemize{
-#'      \item if running in constant mode include upper and lower confidence intervals
-#'      }
-#'    \item calculate the years of life lost from the injury deaths (\code{\link{injury_death_to_yll()}})
-#'   }
 #'
 #' \item  combine all pathways using the outputs from 3. and 4.:
 #'    \itemize{
-#'    \item combine the AP, PA and injury health burden data for ylls and deaths (\code{\link{join_hb_and_injury()}})
-#'      for all diseases, injuries and scenarios
+#'    \item combine the AP, PA and health burden data for ylls and deaths
+#'      for all diseases and scenarios
 #'      }
 #' }
 #'
@@ -189,48 +179,6 @@ ithim_calculation_sequence <- function(ithim_object, seed = 1) {
   }
   RR_PA_AP_calculations <- NULL
 
-  # ############################
-  # ## (4) INJURIES
-  # # Injuries calculation
-  # 
-  # # extract the data used to run the injury pathway
-  # for (i in 1:length(inj_distances)) {
-  #   assign(names(inj_distances)[i], inj_distances[[i]])
-  # }
-  # # inj_distances <- NULL
-  # 
-  # # estimate the injury deaths for the baseline and each scenario by age and sex category
-  # # if running in constant mode include upper and lower confidence intervals
-  # injuries0 <- injuries_function_2(true_distances, injuries_list, reg_model, constant_mode)
-  # injuries_list <- NULL
-  # reg_model <- NULL
-  # true_distances <- NULL
-  # 
-  # # extract the injury deaths for the baseline and each scenario by age and sex category
-  # # (contains upper and lower confidence interval boundaries if running in constant mode)
-  # injuries <- injuries0[[1]]
-  # 
-  # # extract the total injury deaths for the baseline and each scenario split into
-  # # who-hit-whom and no-other-vehicle matrices by casualty (and strike) mode
-  # whw <- injuries0[[2]]
-  # injuries0 <- NULL
-  # 
-  # # calculate the years of life lost from the injury deaths.
-  # # function returns the injury and yll values of the reference scenario and also
-  # # a dataframe giving the changes in yll and deaths for all non-reference scenarios
-  # # compared with the reference scenario
-  # deaths_yll_injuries <- injury_death_to_yll(injuries)
-  # injuries <- NULL
-  # 
-  # # extract the reference injury and yll values
-  # ref_injuries <- deaths_yll_injuries$ref_injuries
-  # 
-
-  # ############################
-  # ## (5) COMBINE (3) AND (4)
-  # # Combine health burden from disease and injury
-  # hb <- join_hb_and_injury(hb_AP_PA, deaths_yll_injuries$deaths_yll_injuries)
-  
   # return lists
   if (constant_mode) {
     #pathway_hb <- join_hb_and_injury(pathway_hb_AP_PA, deaths_yll_injuries$deaths_yll_injuries)
