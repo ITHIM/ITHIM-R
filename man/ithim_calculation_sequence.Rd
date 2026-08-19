@@ -9,7 +9,7 @@ ithim_calculation_sequence(ithim_object, seed = 1)
 \arguments{
 \item{ithim_object}{name of disease}
 
-\item{seed}{}
+\item{seed}{random seed}
 }
 \value{
 ithim_object - list of items making up the ithim result
@@ -63,21 +63,11 @@ This function performs the following steps:
        }
     }
 
-\item  injury pathway:
-   \itemize{
-   \item estimate the injury deaths for the baseline and each scenario by age and sex category,
-      also estimate the total injury deaths counts for the who-hit-whom and no-other-vehicle matrices
-      by casualty (and strike) mode again for the baseline and each scenario (\code{\link{injuries_function2()}})
-      \itemize{
-     \item if running in constant mode include upper and lower confidence intervals
-     }
-   \item calculate the years of life lost from the injury deaths (\code{\link{injury_death_to_yll()}})
-  }
 
 \item  combine all pathways using the outputs from 3. and 4.:
    \itemize{
-   \item combine the AP, PA and injury health burden data for ylls and deaths (\code{\link{join_hb_and_injury()}})
-     for all diseases, injuries and scenarios
+   \item combine the AP, PA and health burden data for ylls and deaths
+     for all diseases and scenarios
      }
 }
 }
