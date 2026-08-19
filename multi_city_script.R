@@ -241,7 +241,7 @@ print(system.time(for(city in cities){
   ithim_objects$scen_prop <- SCENARIO_PROPORTIONS
   ithim_objects[[city]]$demographic <- DEMOGRAPHIC
   ithim_objects[[city]]$base_pop <- BASELINE_POPULATION
-  ithim_objects[[city]]$parameters <- global_parameter_list
+  #ithim_objects[[city]]$parameters <- global_parameter_list
   
   # # run the ITHIM-Global health impact assessment
   ithim_objects[[city]]$outcomes <- run_ithim(ithim_object=ithim_objects[[city]], seed = 1)
