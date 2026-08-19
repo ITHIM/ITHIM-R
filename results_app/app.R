@@ -51,7 +51,7 @@ results_file <- 'multi_city'
 rel_path_health <- paste0(github_path, "results/",results_file,"/health_impacts/")
 
 ren_dose <- function(df){
-  df[df$dose == "RTI",]$dose <- "Road Traffic Fatalities"
+  #df[df$dose == "RTI",]$dose <- "Road Traffic Fatalities"
   df[df$dose == "AP",]$dose <- "Air Pollution"
   df[df$dose == "PA",]$dose <- "Physical Activity"
   df[df$dose == "PA and AP",]$dose <- "Physical Activity and Air Pollution"
