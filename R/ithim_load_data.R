@@ -158,7 +158,7 @@ ithim_load_data <- function(speeds =
   # trips can be composed of multiple stages
   # all trip columns are used for scenario generation alone
   # stage columns are used for downstream calculation
-  filename <- paste0(local_path, "/trips_wl_", CITY, ".csv")
+  filename <- paste0(local_path, "/trips_", CITY, ".csv")
   trip_set <- data.table::fread(filename)
   
   trip_set$participant_id <- as.numeric(as.factor(trip_set$participant_id))
