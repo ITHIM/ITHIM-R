@@ -65,10 +65,9 @@
 
 
 health_burden <- function(ind_ap_pa, conf_int = F, combined_AP_PA = T) {
-  # use demographic data and get it into the required format
-  demographic <- DEMOGRAPHIC
+  demographic <- as.data.frame(DEMOGRAPHIC)
   demographic$dem_index <- 1:nrow(demographic)
-  demographic <- demographic[, !names(demographic) %in% "population"]
+  demographic <- demographic[, !names(demographic) %in% "population", drop = FALSE]
   names(demographic)[which(colnames(demographic) == "age")] <- "age_cat"
 
   # use disease burden data (created from Global Burden of Disease dataset)
